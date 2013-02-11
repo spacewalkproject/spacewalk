@@ -1,23 +1,23 @@
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Mike Karas <zoliqe@gmail.com>, 2005.
-# Miroslav Suchý <msuchy@redhat.com>, 2011, 2012.
+# Miroslav Suchý <msuchy@redhat.com>, 2011-2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2012-10-30 11:32+0100\n"
-"PO-Revision-Date: 2012-11-20 17:06+0000\n"
-"Last-Translator: \n"
-"Language-Team: American English <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2013-02-06 09:40+0000\n"
+"Last-Translator: adelton <jpx-tx@adelton.com>\n"
+"Language-Team: Slovak (http://www.transifex.com/projects/p/fedora/language/sk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sk\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 1.5\n"
 
 #: ../src/up2date_client/config.py:154
 #, python-format
@@ -29,9 +29,8 @@ msgid "Error: Server Unavailable. Please try later."
 msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:164
-#, fuzzy
 msgid "ERROR: can not find RHNS CA file"
-msgstr "CHYBA: nemožno nájsť RHNS CA súbor:"
+msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:202
 msgid "Connection aborted by the user"
@@ -42,10 +41,9 @@ msgid "Server has refused connection due to high load"
 msgstr "Server odmietol spojenie pre príliš veľké vyťaženie"
 
 #: ../src/up2date_client/rhnregGui.py:145
-#, fuzzy
 #: ../src/up2date_client/rhnregGui.py:162
 msgid "Notice"
-msgstr "Niue"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:155
 #: ../src/up2date_client/rhnregGui.py:169
@@ -54,9 +52,8 @@ msgid "Warning"
 msgstr "Varovanie"
 
 #: ../src/up2date_client/rhnregGui.py:270
-#, fuzzy
 msgid "There was an error while applying your choice."
-msgstr "Došlo k závažnej chybe pri inštalácii balíčku:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:289
 msgid "You specified an invalid protocol. Only https and http are allowed."
@@ -89,12 +86,12 @@ msgid "Make sure the network connection on this system is operational."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:338
-#, fuzzy
 msgid "There was an error communicating with Red Hat Network."
-msgstr "Nastala chyba pri komunikácii s registračným serverom:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:339
-msgid "The server may be in outage mode. You may have to try connecting later."
+msgid ""
+"The server may be in outage mode. You may have to try connecting later."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:341
@@ -102,65 +99,57 @@ msgid "You may be running a client that is incompatible with the server."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:374
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Red Hat Network "
 "Satellite:"
-msgstr "Registračné informácie pre: "
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:413
-#, fuzzy
 msgid "You must enter a login."
-msgstr "Musíte zadať vaše priezvisko."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:419
-#, fuzzy
 msgid "You must enter a password."
-msgstr "Musíte zadať a overiť heslo."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:432
-#, fuzzy
 msgid "There was an error while logging in."
-msgstr "Vyskytol sa problém pri registrácii systému."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:457
 msgid ""
 "There was an error communicating with the registration server.  The message "
 "was:\n"
-msgstr ""
-"Vyskytla sa chyba pri komunikácii s registračným serverom.  Ohlásená chyba:\n"
+msgstr "Vyskytla sa chyba pri komunikácii s registračným serverom.  Ohlásená chyba:\n"
 
 #: ../src/up2date_client/rhnregGui.py:595
-#, fuzzy
 msgid "There was an error while assembling information for the profile."
-msgstr "Došlo k závažnej chybe pri inštalácii balíčku:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:616
 msgid "Error running hardware profile"
 msgstr "Chyba pri spúšťaní hardvérového profilu"
 
 #: ../src/up2date_client/rhnregGui.py:646
-#, fuzzy
 msgid "There was an error while populating the profile."
-msgstr "Došlo k závažnej chybe pri inštalácii balíčku:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:666
 msgid "You must choose a name for this profile."
 msgstr "Musíte zvoliť meno pre prefil."
 
 #: ../src/up2date_client/rhnregGui.py:680
-#, fuzzy
 msgid "There was an error while creating the profile."
-msgstr "Došlo k závažnej chybe pri inštalácii balíčku:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:691
 msgid "Registering system and sending profile information.  Please wait."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:710
-#, fuzzy
 msgid "Registering System"
-msgstr "Problém s registráciou systému."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:724
 #: ../src/up2date_client/rhnregGui.py:728
@@ -170,11 +159,11 @@ msgid "Problem registering system:\n"
 msgstr "Problém s registráciou systému:\n"
 
 #: ../src/up2date_client/rhnregGui.py:735
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
 "Please go back to the previous screen and fix it."
-msgstr "Zadané prihlasovacie číslo [ %s ] nie je platným prihlasovacím číslom."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:745 ../src/up2date_client/tui.py:875
 msgid "Problem registering system."
@@ -189,14 +178,12 @@ msgid "There was a problem registering this system."
 msgstr "Vyskytol sa problém pri registrácii systému."
 
 #: ../src/up2date_client/rhnregGui.py:774
-#, fuzzy
 msgid "Sending hardware information"
-msgstr "Odoslať informácie o _hardvéri"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:779
-#, fuzzy
 msgid "Problem sending hardware information."
-msgstr "Chyba pri čítaní hardvérových informácii:"
+msgstr ""
 
 #. #            for row in range(self.regPackageArea.n_rows):
 #. #                rowData = self.regPackageArea.get_row_data(row)
@@ -208,14 +195,12 @@ msgstr "Chyba pri čítaní hardvérových informácii:"
 #. #                if pkg[0] in selection:
 #. #                    selectedPackages.append(pkg)
 #: ../src/up2date_client/rhnregGui.py:803
-#, fuzzy
 msgid "Sending package information"
-msgstr "Odoslať informácie o _hardvéri"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:808
-#, fuzzy
 msgid "Problem sending package information."
-msgstr "Problém pri odosielaní zoznamu balíčkov."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:839 ../src/up2date_client/tui.py:926
 msgid ""
@@ -224,14 +209,12 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:893
-#, fuzzy
 msgid "There was an error while installing the certificate."
-msgstr "Došlo k závažnej chybe pri inštalácii balíčku:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:919
-#, fuzzy
 msgid "You must select a certificate."
-msgstr "Musíte zadať meno užívateľa."
+msgstr ""
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
@@ -253,9 +236,8 @@ msgid "unknown"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1114
-#, fuzzy
 msgid "There was an error getting the list of hardware."
-msgstr "Došlo k závažnej chybe pri inštalácii balíčku:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1126 ../src/up2date_client/tui.py:660
 #, python-format
@@ -268,9 +250,8 @@ msgid "%s MB"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1174
-#, fuzzy
 msgid "There was an error building the list of packages."
-msgstr "Došlo k závažnej chybe pri inštalácii balíčku:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1189
 msgid "Package"
@@ -281,26 +262,22 @@ msgid "Arch"
 msgstr "Arch"
 
 #: ../src/up2date_client/rhnregGui.py:1201
-msgid "Building a list of RPM packages installed on your system.  Please wait."
-msgstr ""
-"Vytváram zoznam RPM balíčkov nainštalovaných vo vašom systéme.  Prosím "
-"počkajte."
+msgid ""
+"Building a list of RPM packages installed on your system.  Please wait."
+msgstr "Vytváram zoznam RPM balíčkov nainštalovaných vo vašom systéme.  Prosím počkajte."
 
 #: ../src/up2date_client/rhnregGui.py:1232
 msgid ""
 "There was an error loading your configuration.  Make sure that\n"
 "you have read access to /etc/sysconfig/rhn."
-msgstr ""
-"Vyskytla sa chyba pri načítavaní vášho nastavenia.  Uistite sa,\nže máte "
-"dostatočné práva na čítanie /etc/sysconfig/rhn."
+msgstr "Vyskytla sa chyba pri načítavaní vášho nastavenia.  Uistite sa,\nže máte dostatočné práva na čítanie /etc/sysconfig/rhn."
 
 #: ../src/up2date_client/rhnregGui.py:1274
 #, python-format
 msgid ""
 "There was an error saving your configuration. Make sure that\n"
 "you own %s."
-msgstr ""
-"Vyskytla sa chyba pri ukladaní nastavenia. Uistite sa,\nže ste vlastníkom %s."
+msgstr "Vyskytla sa chyba pri ukladaní nastavenia. Uistite sa,\nže ste vlastníkom %s."
 
 #: ../src/up2date_client/rhnregGui.py:1304
 #, python-format
@@ -316,8 +293,7 @@ msgstr ""
 
 #: ../src/up2date_client/rhnChannel.py:113
 msgid "This system may not be updated until it is associated with a channel."
-msgstr ""
-"Tento systém nemôže byť aktualizovaný, dokiaľ nebude priradený ku kanálu."
+msgstr "Tento systém nemôže byť aktualizovaný, dokiaľ nebude priradený ku kanálu."
 
 #: ../src/up2date_client/debUtils.py:53 ../src/up2date_client/rpmUtils.py:112
 msgid "Getting list of packages installed on the system"
@@ -329,14 +305,13 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:17
-#, fuzzy
 msgid "Attempting to contact the Red Hat Network server."
-msgstr "Zvoľte Red Hat Network server, ktorý sa použije"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:18
-#, fuzzy, python-format
+#, python-format
 msgid "We are attempting to contact the Red Hat Network server at %s."
-msgstr "Zvoľte Red Hat Network server, ktorý sa použije"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:20
 #, python-format
@@ -345,16 +320,12 @@ msgstr ""
 
 #. Start Window
 #: ../src/up2date_client/rhnreg_constants.py:23 ../data/gui.glade.h:1
-#, fuzzy
 msgid "System Registration"
-msgstr "registračnéČíslo"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:24
 msgid ""
-"This assistant will guide you through connecting your system to Red Hat "
-"Network (RHN) to receive software updates, including security updates, to "
-"keep your system supported and compliant.  You will need the following at "
-"this time:\n"
+"This assistant will guide you through connecting your system to Red Hat Network (RHN) to receive software updates, including security updates, to keep your system supported and compliant.  You will need the following at this time:\n"
 "\n"
 " * A network connection\n"
 " * Your Red Hat Login & password\n"
@@ -368,9 +339,8 @@ msgid "Why Should I Connect to RHN? ..."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:38 ../data/rh_register.glade.h:72
-#, fuzzy
 msgid "Why Register"
-msgstr "Už zaregistrovaný"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:39
 msgid ""
@@ -391,9 +361,8 @@ msgid "Support:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:44
-#, fuzzy
 msgid "Compliance:"
-msgstr "Spoločnosť:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:45
 msgid ""
@@ -426,15 +395,13 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:56
-#, fuzzy
 msgid "Take me back to the registration"
-msgstr "Up2date - Zoznam balíčkov (registrácia)"
+msgstr ""
 
 #. Confirm Quit Window
 #: ../src/up2date_client/rhnreg_constants.py:59
-#, fuzzy
 msgid "Software Update Not Set Up"
-msgstr "Reštartujem up2date"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:60
 msgid ""
@@ -459,28 +426,25 @@ msgstr ""
 
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:68 ../data/gui.glade.h:4
-#, fuzzy
 #: ../data/rh_register.glade.h:16
 msgid "Red Hat Account"
-msgstr "Red Hat Login"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:69
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
 "\n"
-msgstr "Registračné informácie pre: "
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:71
-#, fuzzy
 msgid "Red Hat Login:"
-msgstr "Red Hat Login"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:72
-#, fuzzy
 #: ../src/up2date_client/tui.py:128
 msgid "Login:"
-msgstr "_Login:  "
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:73
 msgid "Password:"
@@ -497,9 +461,8 @@ msgid "Please enter a desired login."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:77
-#, fuzzy
 msgid "Please enter and verify a password."
-msgstr "Musíte zadať a overiť heslo."
+msgstr ""
 
 #. OS Release Window
 #: ../src/up2date_client/rhnreg_constants.py:80 ../data/gui.glade.h:5
@@ -512,19 +475,17 @@ msgid "Operating System version:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:82
-#, fuzzy
 msgid " Minor Release: "
-msgstr "Vydanie"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:83
 msgid "Limited Updates Only"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:84
-#, fuzzy
 #: ../data/rh_register.glade.h:157
 msgid "All available updates"
-msgstr "Dostupné aktualizácie balíčkov"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:85
 msgid "Confirm operating system release selection"
@@ -538,27 +499,21 @@ msgstr ""
 
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:91
-#, fuzzy
 msgid "Create Profile - Hardware"
-msgstr "Pripojte Váš systém"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:92
 msgid ""
 "A Profile Name is a descriptive name that you choose to identify this System"
 " Profile on the Red Hat Network web pages. Optionally, include a computer "
 "serial or identification number."
-msgstr ""
-"Meno profilu je popisujúci názov, zvolený pre rozpoznanie tohoto systémového "
-"profilu na Red Hat Network stránkach. Môže obsahovať sériové alebo "
-"identifikačné číslo počítača."
+msgstr "Meno profilu je popisujúci názov, zvolený pre rozpoznanie tohoto systémového profilu na Red Hat Network stránkach. Môže obsahovať sériové alebo identifikačné číslo počítača."
 
 #: ../src/up2date_client/rhnreg_constants.py:96
 msgid ""
 "Additional hardware information including PCI devices, disk sizes and mount "
 "points will be included in the profile."
-msgstr ""
-"Dodatočné hardvérové informácie vrátane PCI zariadení, veľkosti diskov a "
-"prípojných bodov budú vložené do profilu."
+msgstr "Dodatočné hardvérové informácie vrátane PCI zariadení, veľkosti diskov a prípojných bodov budú vložené do profilu."
 
 #: ../src/up2date_client/rhnreg_constants.py:99
 msgid "Include the following information about hardware and network:"
@@ -566,22 +521,18 @@ msgstr "Vložiť následujúce informácie o hardvéri a sieti:"
 
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:103
-#, fuzzy
 msgid "Create Profile - Packages"
-msgstr "Pripojte Váš systém"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:104
 msgid ""
 "RPM information is important to determine what updated software packages are"
 " relevant to this system."
-msgstr ""
-"RPM informácie sú dôležité pre určenie aktualizácii softvérových balíčkov, "
-"ktoré sú významné pre tento systém."
+msgstr "RPM informácie sú dôležité pre určenie aktualizácii softvérových balíčkov, ktoré sú významné pre tento systém."
 
 #: ../src/up2date_client/rhnreg_constants.py:107
 msgid "Include RPM packages installed on this system in my System Profile"
-msgstr ""
-"Vložiť RPM balíčky nainštalované v systéme do môjho systémového profilu"
+msgstr "Vložiť RPM balíčky nainštalované v systéme do môjho systémového profilu"
 
 #: ../src/up2date_client/rhnreg_constants.py:109
 msgid "You may deselect individual packages by unchecking them below."
@@ -593,17 +544,13 @@ msgstr "Vytváram zoznam balíčkov"
 
 #. Product Window
 #: ../src/up2date_client/rhnreg_constants.py:114
-#, fuzzy
 msgid "*Email Address:"
-msgstr "E-mailová adresa:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:116
-#, fuzzy
 #: ../data/rh_register.glade.h:131
 msgid "System Already Registered"
 msgstr ""
-"    --force                    - registrovať systém aj keď už je "
-"zaregistrovaný"
 
 #: ../src/up2date_client/rhnreg_constants.py:117
 #: ../data/rh_register.glade.h:132
@@ -617,15 +564,11 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:120
 msgid ""
-"This system has already been registered with RHN using RHN certficate-based "
-"technology.\n"
+"This system has already been registered with RHN using RHN certficate-based technology.\n"
 "\n"
-"The tool you are using is attempting to re-register using RHN Satellite or "
-"RHN Proxy technology. Red Hat recommends (except in a few cases) that "
-"customers only register with RHN once.\n"
+"The tool you are using is attempting to re-register using RHN Satellite or RHN Proxy technology. Red Hat recommends (except in a few cases) that customers only register with RHN once.\n"
 "\n"
-"To learn more about RHN registration and technologies please consult this "
-"Knowledge Base Article: https://access.redhat.com/kb/docs/DOC-45563"
+"To learn more about RHN registration and technologies please consult this Knowledge Base Article: https://access.redhat.com/kb/docs/DOC-45563"
 msgstr ""
 
 #. Send Window
@@ -634,20 +577,11 @@ msgid "Send Profile Information to Red Hat Network"
 msgstr "Odoslať informácie profilu do Red Hat Network"
 
 #: ../src/up2date_client/rhnreg_constants.py:130
-#, fuzzy
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
-"Press \"Next\" to send this System Profile to Red Hat Network.  Click "
-"\"Cancel\" and no information will be sent.  You can run the registration "
-"program later by typing `rhn_register` at the command line."
+"Press \"Next\" to send this System Profile to Red Hat Network.  Click \"Cancel\" and no information will be sent.  You can run the registration program later by typing `rhn_register` at the command line."
 msgstr ""
-"Dokončili sme získavanie informácii pre systémový profil.\n"
-"\n"
-"Stlačte \"Ďalej\" pre odoslanie tohoto systémového profilu do Red Hat "
-"Network.  Kliknite na \"Zrušiť\" a žiadné informácie nebudú odoslané. "
-"Registračný program môžete spustiť aj neskôr napísaním `up2date --register` "
-"do príkazového riadku."
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:137
@@ -673,9 +607,8 @@ msgstr ""
 
 #. Review Window
 #: ../src/up2date_client/rhnreg_constants.py:152 ../data/gui.glade.h:7
-#, fuzzy
 msgid "Review Subscription"
-msgstr "Popis"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:153
 #: ../data/rh_register.glade.h:56
@@ -683,23 +616,21 @@ msgid "Please review the subscription details below:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:154
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Network."
-msgstr "Pripojiť sa do Red Hat Network"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:156
-#, fuzzy
 msgid ""
 "Subscriptions have been activated for the following Red Hat "
 "products/services:"
-msgstr "Prihlasovacie číslo nie je správne"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:158
-#, fuzzy
 msgid "Software Channel Subscriptions:"
-msgstr "Informácie o kanáli"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:159
 msgid "This system will receive updates from the following software channels:"
@@ -825,13 +756,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Universal default activation key detected\n"
-"A universal default activation key was detected in your account. This means "
-"that a set of properties (software channel subscriptions, package "
-"installations, system group memberships, etc.) for your system's connection "
-"to RHN Satellite or RHN Proxyhave been determined by the activation key "
-"rather than your installation number.  You may also refer to the RHN "
-"Reference Guide, section 6.4.6 for more details about activation keys "
-"(http://access.redhat.com/knowledge/docs/Red_Hat_Network/)\n"
+"A universal default activation key was detected in your account. This means that a set of properties (software channel subscriptions, package installations, system group memberships, etc.) for your system's connection to RHN Satellite or RHN Proxyhave been determined by the activation key rather than your installation number.  You may also refer to the RHN Reference Guide, section 6.4.6 for more details about activation keys (http://access.redhat.com/knowledge/docs/Red_Hat_Network/)\n"
 "Universal Default activation key: %s"
 msgstr ""
 
@@ -850,8 +775,7 @@ msgid ""
 "\n"
 "Make sure that the network connection on this system is operational.\n"
 "\n"
-"This system will not be able to successfully receive software updates from "
-"Red Hat without connecting to a Red Hat Network server"
+"This system will not be able to successfully receive software updates from Red Hat without connecting to a Red Hat Network server"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:246
@@ -870,10 +794,7 @@ msgstr ""
 msgid ""
 "<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
 "\n"
-"The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat "
-"Network server at <b>%s</b>. You may want to double-check that you have "
-"provided a valid certificate file. Are you sure you have provided the correct "
-"certificate, and that the certificate file has not been corrupted?\n"
+"The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat Network server at <b>%s</b>. You may want to double-check that you have provided a valid certificate file. Are you sure you have provided the correct certificate, and that the certificate file has not been corrupted?\n"
 "\n"
 "Please try again with a different certificate file."
 msgstr ""
@@ -882,8 +803,7 @@ msgstr ""
 msgid ""
 "<b><span size=\"12000\">Incompatible Certificate File</span></b>\n"
 "\n"
-" The certificate is expired. Please ensure you have the correct  certificate "
-"and your system time is correct."
+" The certificate is expired. Please ensure you have the correct  certificate and your system time is correct."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:266
@@ -894,12 +814,7 @@ msgstr ""
 msgid ""
 "Problem registering system.\n"
 "\n"
-"A universal default activation key limits the number of systems which can "
-"connect to the RHN organization associated with your login. To allow this "
-"system to connect, please contact your RHN organization administrator to "
-"increase the number of systems allowed to connect or to disable this "
-"universal default activation key. More details can be found in Red Hat "
-"Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
+"A universal default activation key limits the number of systems which can connect to the RHN organization associated with your login. To allow this system to connect, please contact your RHN organization administrator to increase the number of systems allowed to connect or to disable this universal default activation key. More details can be found in Red Hat Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:282
@@ -949,10 +864,9 @@ msgid "Cancel"
 msgstr "Zrušiť"
 
 #: ../src/up2date_client/rhnreg_constants.py:304
-#, fuzzy
 #: ../data/rh_register.glade.h:116
 msgid "No, Cancel"
-msgstr "Zrušiť"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:305
 #: ../data/rh_register.glade.h:118
@@ -992,58 +906,48 @@ msgid "Yes/No dialog:"
 msgstr "Áno/Nie okno:"
 
 #: ../src/up2date_client/tui.py:127
-#, fuzzy
 msgid "Red Hat Network Location:"
-msgstr "Red Hat Network konto"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:129
-#, fuzzy
 msgid "System ID:"
-msgstr "Priezvisko:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:414
 msgid "The server indicated an error:\n"
 msgstr "Server oznámil chybu:\n"
 
 #: ../src/up2date_client/tui.py:418
-#, fuzzy
 msgid "There was an error communicating with the registration server:\n"
 msgstr ""
-"Vyskytla sa chyba pri komunikácii s registračným serverom.  Ohlásená chyba:\n"
 
 #: ../src/up2date_client/tui.py:609
 msgid "Profile name:"
 msgstr "Meno profilu:"
 
 #: ../src/up2date_client/tui.py:631 ../src/up2date_client/tui.py:632
-#, fuzzy
 msgid "Version: "
-msgstr "Verzia:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:638
-#, fuzzy
 msgid "CPU model: "
-msgstr "Model CPU:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:644
-#, fuzzy
 msgid "Hostname: "
-msgstr "Počítač:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:656
-#, fuzzy
 msgid "CPU speed: "
-msgstr "Rýchlosť CPU:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:662
-#, fuzzy
 msgid "IP Address: "
-msgstr "IP adresa:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:671
-#, fuzzy
 msgid "Memory: "
-msgstr "Pamäť:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:675
 #, python-format
@@ -1077,8 +981,7 @@ msgstr ""
 #: ../src/up2date_client/tui.py:1114
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
-msgstr ""
-" <Tab>/<Alt-Tab> pohyb medzi prvkami | <Space> označuje |  <F12> ďalšia obr."
+msgstr " <Tab>/<Alt-Tab> pohyb medzi prvkami | <Space> označuje |  <F12> ďalšia obr."
 
 #: ../src/up2date_client/tui.py:1211
 msgid "You must run the RHN registration program as root."
@@ -1123,9 +1026,8 @@ msgid "Error validating data at server:\n"
 msgstr "Chyba potvrdzovania dát na serveri.\n"
 
 #: ../src/up2date_client/up2dateErrors.py:175
-#, fuzzy
 msgid "The installation number is invalid"
-msgstr "Prihlasovacie číslo nie je správne"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:178
 msgid "Error parsing the oemInfo file at field:\n"
@@ -1138,22 +1040,16 @@ msgstr ""
 #: ../src/up2date_client/up2dateErrors.py:273
 msgid ""
 "\n"
-"    Your organization does not have enough Management entitlements to "
-"register this\n"
-"    system to Red Hat Network. Please notify your organization administrator "
-"of this error. \n"
-"    You should be able to register this system after your organization frees "
-"existing \n"
-"    or purchases additional entitlements. Additional entitlements may be "
-"purchased by your\n"
+"    Your organization does not have enough Management entitlements to register this\n"
+"    system to Red Hat Network. Please notify your organization administrator of this error. \n"
+"    You should be able to register this system after your organization frees existing \n"
+"    or purchases additional entitlements. Additional entitlements may be purchased by your\n"
 "    organization administrator by logging into Red Hat Network and visiting\n"
 "    the 'Subscription Management' page in the 'Your RHN' section of RHN.\n"
 "    \n"
 "    A common cause of this error code is due to having mistakenly setup an\n"
-"    Activation Key which is set as the universal default.  If an activation "
-"key is set\n"
-"    on the account as a universal default, you can disable this key and retry "
-"to avoid\n"
+"    Activation Key which is set as the universal default.  If an activation key is set\n"
+"    on the account as a universal default, you can disable this key and retry to avoid\n"
 "    requiring a Management entitlement."
 msgstr ""
 
@@ -1207,9 +1103,7 @@ msgstr "Vyskytla sa chyba v SSL: %s\n"
 msgid ""
 "A common cause of this error is the system time being incorrect. Verify that"
 " the time on this system is correct.\n"
-msgstr ""
-"Častou príčinou tejto chyby je nesprávny systémový čas. Skontrolujte či je "
-"čas v tomto systéme správny.\n"
+msgstr "Častou príčinou tejto chyby je nesprávny systémový čas. Skontrolujte či je čas v tomto systéme správny.\n"
 
 #: ../src/up2date_client/rhncli.py:120
 #, python-format
@@ -1251,29 +1145,23 @@ msgstr "Pozri /var/log/up2date pre viac informácii"
 msgid ""
 "This client requires the server to support %s, which the current server does"
 " not support"
-msgstr ""
-"Tento klient vyžaduje aby server podporoval %s, čo momentálne server "
-"nepodporuje."
+msgstr "Tento klient vyžaduje aby server podporoval %s, čo momentálne server nepodporuje."
 
 #: ../src/up2date_client/gui.py:313
-#, fuzzy
 msgid "_Finish"
-msgstr "Dokončiť"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:316
-#, fuzzy
 msgid "_Exit"
-msgstr "Upraviť"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:317
-#, fuzzy
 msgid "Software Updates Not Set Up"
-msgstr "Reštartujem up2date"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:327
-#, fuzzy
 msgid "You must run rhn_register as root."
-msgstr "Update Agenta musíte spúšťať ako root."
+msgstr ""
 
 #: ../src/up2date_client/gui.py:351
 #, python-format
@@ -1297,21 +1185,16 @@ msgid "Specify an organizational id for this system"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:54
-#, fuzzy
 msgid "Specify a url to use as a server"
-msgstr "Zadať url servera, ktorý použiť"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:56
-#, fuzzy
 msgid "Specify a file to use as the ssl CA cert"
 msgstr ""
-"    --sslCACert=<cesta>        - určuje súbor, ktorý sa použije ako ssl CA "
-"cert"
 
 #: ../src/bin/rhnreg_ks.py:58
-#, fuzzy
 msgid "Specify an activation key"
-msgstr "Zadať http proxy pre použitie"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:60
 msgid ""
@@ -1319,23 +1202,16 @@ msgid ""
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:62
-#, fuzzy
 msgid "[Deprecated] Read contact info from stdin"
-msgstr "    --contactinfo              - čítať kontaktné informácie z stdin "
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:64
-#, fuzzy
 msgid "Do not probe or upload any hardware info"
 msgstr ""
-"    --nohardware               - nezisťovať a neposielať žiadné info o "
-"hardvéri"
 
 #: ../src/bin/rhnreg_ks.py:66
-#, fuzzy
 msgid "Do not profile or upload any package info"
 msgstr ""
-"    --nopackages               - nevytvárať a neposielať žiadné info o "
-"balíčkoch"
 
 #: ../src/bin/rhnreg_ks.py:68
 msgid "Do not upload any virtualization info"
@@ -1346,18 +1222,12 @@ msgid "Do not start rhnsd after completion"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:72
-#, fuzzy
 msgid "Register the system even if it is already registered"
 msgstr ""
-"    --force                    - registrovať systém aj keď už je "
-"zaregistrovaný"
 
 #: ../src/bin/rhnreg_ks.py:82
-#, fuzzy
 msgid "A username and password are required to register a system."
 msgstr ""
-"Úžívateľské meno, heslo a emailová adresa sú vyžadované pre zaregistrovanie "
-"systému."
 
 #: ../src/bin/rhnreg_ks.py:87
 msgid "This system is already registered. Use --force to override"
@@ -1393,14 +1263,11 @@ msgstr ""
 msgid ""
 "A profilename was not specified, and hostname and IP address could not be "
 "determined to use as a profilename, please specify one."
-msgstr ""
-"Meno profilu nebolo zadané a názov počítača ani IP adresa sa nedajú zistiť "
-"tak, aby mohli byť použité ako meno profilu. Prosím zadajte meno profilu."
+msgstr "Meno profilu nebolo zadané a názov počítača ani IP adresa sa nedajú zistiť tak, aby mohli byť použité ako meno profilu. Prosím zadajte meno profilu."
 
 #: ../src/bin/rhn_register.py:37
-#, fuzzy
 msgid "Do not attempt to use X"
-msgstr "Nepokúšať sa použiť X"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:53
 msgid "ERROR: must be root to execute\n"
@@ -1495,13 +1362,10 @@ msgid "Attempting to run more than one instance of rhn_check. Exiting.\n"
 msgstr ""
 
 #: ../src/bin/rhn-profile-sync.py:35
-#, fuzzy
 msgid ""
 "You need to register this system by running `rhn_register` before using this"
 " option"
 msgstr ""
-"Predtým než použijete túto voľbu, "
-"musíte·zaregistrovať·tento·systém·spustením·\"up2date·--register\""
 
 #: ../src/bin/rhn-profile-sync.py:43
 msgid "Updating package profile..."
@@ -1512,9 +1376,8 @@ msgid "Updating hardware profile..."
 msgstr "Aktualizujem hardvérový profil..."
 
 #: ../src/bin/rhn-profile-sync.py:50
-#, fuzzy
 msgid "Updating virtualization profile..."
-msgstr "Aktualizujem profil balíčka..."
+msgstr ""
 
 #: ../data/gui.glade.h:2
 msgid "Set Up Software Updates"
@@ -1525,29 +1388,24 @@ msgid "Choose Service"
 msgstr ""
 
 #: ../data/gui.glade.h:6
-#, fuzzy
 msgid "Create Profile"
-msgstr "Hardvérový profil"
+msgstr ""
 
 #: ../data/gui.glade.h:8
-#, fuzzy
 msgid "Provide a security certificate"
-msgstr "Musíte zadať meno užívateľa."
+msgstr ""
 
 #: ../data/progress.glade.h:1
-#, fuzzy
 msgid "Sending Information"
-msgstr "Odoslať informácie o _hardvéri"
+msgstr ""
 
 #: ../data/progress.glade.h:2
-#, fuzzy
 msgid "progress bar"
-msgstr "Okno priebehu"
+msgstr ""
 
 #: ../data/progress.glade.h:3
-#, fuzzy
 msgid "progress status"
-msgstr "Okno priebehu"
+msgstr ""
 
 #: ../data/rh_register.glade.h:1
 msgid ""
@@ -1557,17 +1415,12 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:2
 msgid ""
-"This system will <b>not</b> be able to successfully receive software updates, "
-"including security updates, from Red Hat without connecting to a Red Hat "
-"Network server.\n"
+"This system will <b>not</b> be able to successfully receive software updates, including security updates, from Red Hat without connecting to a Red Hat Network server.\n"
 "\n"
-"To keep your system updated, secure, and supported, please register this "
-"system at your earliest convenience.\n"
+"To keep your system updated, secure, and supported, please register this system at your earliest convenience.\n"
 "\n"
-"You may access the RHN registration tool by running <b>RHN Registration</b> "
-"in the <b>System > Administration</b> menu.\n"
-"You may access the software update tool by running <b>Software Update</b> in "
-"the <b>System > Administration</b> menu."
+"You may access the RHN registration tool by running <b>RHN Registration</b> in the <b>System > Administration</b> menu.\n"
+"You may access the software update tool by running <b>Software Update</b> in the <b>System > Administration</b> menu."
 msgstr ""
 
 #: ../data/rh_register.glade.h:10
@@ -1575,14 +1428,12 @@ msgid "I'd like to register with an RHN Satellite or RHN Proxy"
 msgstr ""
 
 #: ../data/rh_register.glade.h:11
-#, fuzzy
 msgid "Location:"
-msgstr "Postavenie:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:12
-#, fuzzy
 msgid "Example: https://satellite.example.com/XMLRPC"
-msgstr "napríklad: XXXX-XXXX-XXXX-XXXX (pomlčky nie sú povinné)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:13
 msgid "satellite server location"
@@ -1597,82 +1448,66 @@ msgid "Proxy Setup Button"
 msgstr ""
 
 #: ../data/rh_register.glade.h:17
-#, fuzzy
 msgid "Please enter your Red Hat account information:"
-msgstr "Informácie o balíčku"
+msgstr ""
 
 #: ../data/rh_register.glade.h:18
-#, fuzzy
 msgid "RHN login field"
-msgstr "Red Hat Login"
+msgstr ""
 
 #: ../data/rh_register.glade.h:19
 msgid "RHN password field"
 msgstr ""
 
 #: ../data/rh_register.glade.h:20
-#, fuzzy
 msgid "_Password:"
-msgstr "Heslo:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:21
-#, fuzzy
 msgid "_Login:"
-msgstr "_Login:  "
+msgstr ""
 
 #: ../data/rh_register.glade.h:22
-#, fuzzy
 msgid ""
 "<small>Tip: Forgot your login or password? Contact your Satellite's "
 "<i>Organization Administrator</i>.</small>"
 msgstr ""
-"Zabudli ste váš Red Hat login alebo heslo? Nájdete ich na\n"
-"http://www.redhat.com/software/rhn/\n"
-" "
 
 #: ../data/rh_register.glade.h:23
 msgid "Hardware Info"
 msgstr "Info o hardvéri"
 
 #: ../data/rh_register.glade.h:24
-#, fuzzy
 msgid "Red Hat Linux Version:"
-msgstr "Verzia Red Hat Linuxu:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:25
-#, fuzzy
 msgid "Hostname:"
-msgstr "Počítač:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:26
-#, fuzzy
 msgid "IP Address:"
-msgstr "IP adresa:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:27
-#, fuzzy
 msgid "ERROR"
-msgstr "CHYBA"
+msgstr ""
 
 #: ../data/rh_register.glade.h:28
-#, fuzzy
 msgid "CPU Model:"
-msgstr "Model CPU:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:29
-#, fuzzy
 msgid "CPU Speed:"
-msgstr "Rýchlosť CPU:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:30
-#, fuzzy
 msgid "Memory:"
-msgstr "Pamäť:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:31
-#, fuzzy
 msgid "Hardware Profile"
-msgstr "Hardvérový profil"
+msgstr ""
 
 #: ../data/rh_register.glade.h:32
 msgid "Package Information"
@@ -1706,14 +1541,12 @@ msgid "• The address of an RHN Satellite or RHN Proxy"
 msgstr ""
 
 #: ../data/rh_register.glade.h:39
-#, fuzzy
 msgid "_Why Should I Register?"
-msgstr "Už zaregistrovaný"
+msgstr ""
 
 #: ../data/rh_register.glade.h:40
-#, fuzzy
 msgid "Why Should I Register?"
-msgstr "Už zaregistrovaný"
+msgstr ""
 
 #: ../data/rh_register.glade.h:41
 msgid ""
@@ -1730,9 +1563,8 @@ msgid "_No, I prefer to register at a later time."
 msgstr ""
 
 #: ../data/rh_register.glade.h:44
-#, fuzzy
 msgid "Link To Subscription"
-msgstr "Popis"
+msgstr ""
 
 #: ../data/rh_register.glade.h:45
 msgid ""
@@ -1769,38 +1601,32 @@ msgid "•"
 msgstr ""
 
 #: ../data/rh_register.glade.h:51
-#, fuzzy
 msgid "installation number field"
-msgstr "Prihlasovacie číslo nie je správne"
+msgstr ""
 
 #: ../data/rh_register.glade.h:52
-#, fuzzy
 msgid "Installation _Number:"
-msgstr "registračnéČíslo"
+msgstr ""
 
 #: ../data/rh_register.glade.h:53
-#, fuzzy
 msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
-msgstr "napríklad: XXXX-XXXX-XXXX-XXXX (pomlčky nie sú povinné)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:54
-#, fuzzy
 msgid "_Activate a subscription now..."
-msgstr "Aktivovať vaše prihlásenie"
+msgstr ""
 
 #: ../data/rh_register.glade.h:55
 msgid "Review system..."
 msgstr ""
 
 #: ../data/rh_register.glade.h:57
-#, fuzzy
 msgid "Create profile"
-msgstr "Hardvérový profil"
+msgstr ""
 
 #: ../data/rh_register.glade.h:58
-#, fuzzy
 msgid "<big><b>System Name</b></big>"
-msgstr "Priezvisko:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:59
 msgid ""
@@ -1809,14 +1635,12 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:60
-#, fuzzy
 msgid "System _Name:"
-msgstr "Priezvisko:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:61
-#, fuzzy
 msgid "system name"
-msgstr "Priezvisko:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:62
 msgid "<big><b>Profile Data</b></big>"
@@ -1829,44 +1653,36 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:64
-#, fuzzy
 msgid "_View Hardware Profile ..."
-msgstr "Hardvérový profil"
+msgstr ""
 
 #: ../data/rh_register.glade.h:65
-#, fuzzy
 msgid "View Hardware Profile"
-msgstr "Hardvérový profil"
+msgstr ""
 
 #: ../data/rh_register.glade.h:66
-#, fuzzy
 msgid "V_iew Package Profile ..."
-msgstr "Aktualizujem profil balíčka..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:67
-#, fuzzy
 msgid "View Package Profile"
-msgstr "Aktualizujem profil balíčka..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:68
-#, fuzzy
 msgid "Send _hardware profile"
-msgstr "Hardvérový profil"
+msgstr ""
 
 #: ../data/rh_register.glade.h:69
-#, fuzzy
 msgid "Send hardware profile checkbox"
-msgstr "Hardvérový profil"
+msgstr ""
 
 #: ../data/rh_register.glade.h:70
-#, fuzzy
 msgid "Send _package profile"
-msgstr "Odoslať zoznam _balíčkov"
+msgstr ""
 
 #: ../data/rh_register.glade.h:71
-#, fuzzy
 msgid "Send package profile checkbox"
-msgstr "Odoslať zoznam _balíčkov"
+msgstr ""
 
 #: ../data/rh_register.glade.h:73
 msgid ""
@@ -1897,14 +1713,12 @@ msgid "<b>Downloads &amp; Upgrades:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:80
-#, fuzzy
 msgid "<b>Support:</b>"
-msgstr "Informácie o registrácii"
+msgstr ""
 
 #: ../data/rh_register.glade.h:82
-#, fuzzy
 msgid "<b>Management:</b>"
-msgstr "Informácie o registrácii"
+msgstr ""
 
 #: ../data/rh_register.glade.h:83
 msgid "Management"
@@ -1930,23 +1744,18 @@ msgstr ""
 #: ../data/rh_register.glade.h:88
 #, no-c-format
 msgid ""
-"A security certificate compatible with <b>%s</b> was not found on this "
-"system.\n"
+"A security certificate compatible with <b>%s</b> was not found on this system.\n"
 "\n"
-"A security certificate, using SSL technology, is necessary to ensure that "
-"data communicated between this system and Red Hat Network (including your "
-"login and password) is secure."
+"A security certificate, using SSL technology, is necessary to ensure that data communicated between this system and Red Hat Network (including your login and password) is secure."
 msgstr ""
 
 #: ../data/rh_register.glade.h:91
-#, fuzzy
 msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
-msgstr "Nastala chyba pri komunikácii s registračným serverom:\n"
+msgstr ""
 
 #: ../data/rh_register.glade.h:92
-#, fuzzy
 msgid "Certificate _Location:"
-msgstr "Red Hat Network konto"
+msgstr ""
 
 #: ../data/rh_register.glade.h:93
 msgid "Select A File"
@@ -1959,31 +1768,24 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:95
-#, fuzzy
 msgid "Your system is not setup for software updates."
-msgstr "Reštartujem up2date"
+msgstr ""
 
 #: ../data/rh_register.glade.h:96
 msgid ""
-"You won't be able to receive software updates, including security updates, "
-"for this system.\n"
+"You won't be able to receive software updates, including security updates, for this system.\n"
 "\n"
-"You may access the RHN registration tool by running <b>RHN Registration</b> "
-"or <b>Red Hat Subscription Manager</b> in the <b>System > Administration</b> "
-"menu.\n"
-"You may access the software update tool by running <b>Software Update</b> in "
-"the <b>System > Administration</b> menu."
+"You may access the RHN registration tool by running <b>RHN Registration</b> or <b>Red Hat Subscription Manager</b> in the <b>System > Administration</b> menu.\n"
+"You may access the software update tool by running <b>Software Update</b> in the <b>System > Administration</b> menu."
 msgstr ""
 
 #: ../data/rh_register.glade.h:100
-#, fuzzy
 msgid "Proxy Configuration"
-msgstr "Nastavenia siete"
+msgstr ""
 
 #: ../data/rh_register.glade.h:101
-#, fuzzy
 msgid "<b>HTTP Proxy</b>"
-msgstr "Povoliť HTTP Proxy:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:102
 msgid "I would like to connect via an _HTTP proxy."
@@ -1994,9 +1796,8 @@ msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
 msgstr ""
 
 #: ../data/rh_register.glade.h:104
-#, fuzzy
 msgid "<small><b>Example:</b> squid.example.com:3128</small>"
-msgstr "napríklad: XXXX-XXXX-XXXX-XXXX (pomlčky nie sú povinné)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:105
 msgid "_Proxy Location:"
@@ -2011,42 +1812,36 @@ msgid "proxy location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:108
-#, fuzzy
 msgid "Use Au_thentication with HTTP Proxy:"
-msgstr "Použitť overenie totožnosti"
+msgstr ""
 
 #: ../data/rh_register.glade.h:109
-#, fuzzy
 msgid "Use Authentication with HTTP Proxy"
-msgstr "Použitť overenie totožnosti"
+msgstr ""
 
 #: ../data/rh_register.glade.h:110
-#, fuzzy
 msgid "Proxy _Username:"
-msgstr "Úžívateľské meno:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:111
-#, fuzzy
 msgid "Proxy P_assword:"
-msgstr "Heslo:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:112
 msgid "proxy user field"
 msgstr ""
 
 #: ../data/rh_register.glade.h:113
-#, fuzzy
 msgid "proxy password field"
-msgstr "Heslo:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:114
 msgid "Confirm operation system release selection"
 msgstr ""
 
 #: ../data/rh_register.glade.h:115
-#, fuzzy
 msgid "_No, Cancel"
-msgstr "Zrušiť"
+msgstr ""
 
 #: ../data/rh_register.glade.h:117
 msgid "_Yes, Continue"
@@ -2082,14 +1877,12 @@ msgid "Go Back and Register"
 msgstr ""
 
 #: ../data/rh_register.glade.h:126
-#, fuzzy
 msgid "Register _Later"
-msgstr "Problém s registráciou systému."
+msgstr ""
 
 #: ../data/rh_register.glade.h:127
-#, fuzzy
 msgid "Register Later"
-msgstr "Problém s registráciou systému."
+msgstr ""
 
 #: ../data/rh_register.glade.h:128
 msgid ""
@@ -2108,28 +1901,24 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:133
-#, fuzzy
 msgid "<b>Red Hat Network Location:</b>"
-msgstr "Red Hat Network konto"
+msgstr ""
 
 #: ../data/rh_register.glade.h:134
-#, fuzzy
 msgid "<b>Login:</b>"
-msgstr "Informácie o registrácii"
+msgstr ""
 
 #: ../data/rh_register.glade.h:135
-#, fuzzy
 msgid "<b>System ID:</b>"
-msgstr "Priezvisko:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:136
 msgid "label"
 msgstr ""
 
 #: ../data/rh_register.glade.h:138
-#, fuzzy
 msgid "<b>Warning</b>"
-msgstr "Varovanie"
+msgstr ""
 
 #: ../data/rh_register.glade.h:139
 msgid ""
@@ -2148,8 +1937,7 @@ msgstr ""
 msgid ""
 "To learn more about RHN registration and technologies please consult this "
 "Knowledge Base Article: <a "
-"href=\"https://access.redhat.com/kb/docs/DOC-45563\">"
-"https://access.redhat.com/kb/docs/DOC-45563</a>\n"
+"href=\"https://access.redhat.com/kb/docs/DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
 
 #: ../data/rh_register.glade.h:143
@@ -2158,13 +1946,9 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:144
 msgid ""
-"Your system is now ready to receive the software updates that will keep it "
-"secure and supported.\n"
+"Your system is now ready to receive the software updates that will keep it secure and supported.\n"
 "\n"
-"You'll know when software updates are available when a package icon appears "
-"in the notification area of your desktop (usually in the upper-right corner, "
-"circled below.) Clicking on this icon, when available, will guide you through "
-"applying any updates that are available:"
+"You'll know when software updates are available when a package icon appears in the notification area of your desktop (usually in the upper-right corner, circled below.) Clicking on this icon, when available, will guide you through applying any updates that are available:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:147
@@ -2176,9 +1960,8 @@ msgid "Select how your system will receive updates:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:150
-#, fuzzy
 msgid "Limited updates"
-msgstr "Spojené Štáty"
+msgstr ""
 
 #: ../data/rh_register.glade.h:151
 msgid ""
@@ -2197,14 +1980,12 @@ msgid "_Minor release:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:154
-#, fuzzy
 msgid "Choose minor release"
-msgstr "Vydanie"
+msgstr ""
 
 #: ../data/rh_register.glade.h:155
-#, fuzzy
 msgid "       "
-msgstr "     "
+msgstr ""
 
 #: ../data/rh_register.glade.h:156
 msgid ""
@@ -2245,13 +2026,9 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:163
 msgid ""
-"Your system is ready to receive the software updates that will keep it secure "
-"and supported.\n"
+"Your system is ready to receive the software updates that will keep it secure and supported.\n"
 "\n"
-"You'll know when software updates are available when a package icon appears "
-"in the notification area of your desktop (usually in the upper-right corner, "
-"circled below.) Clicking on this icon, when available, will guide you through "
-"applying any updates that are available:"
+"You'll know when software updates are available when a package icon appears in the notification area of your desktop (usually in the upper-right corner, circled below.) Clicking on this icon, when available, will guide you through applying any updates that are available:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:166
@@ -2259,16 +2036,13 @@ msgid "icon of aplet"
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:1
-#, fuzzy
 msgid "RHN Registration"
-msgstr "registračnéČíslo"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:3
-#, fuzzy
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
-msgstr "Registrovať cez Red Hat Network"
-
+msgstr ""

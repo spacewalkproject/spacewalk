@@ -1,22 +1,22 @@
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Miroslav Suchý <msuchy@redhat.com>, 2011, 2012.
+# Miroslav Suchý <msuchy@redhat.com>, 2011-2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2012-10-30 11:32+0100\n"
-"PO-Revision-Date: 2012-11-20 16:54+0000\n"
-"Last-Translator: \n"
-"Language-Team: American English <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2013-02-06 09:40+0000\n"
+"Last-Translator: adelton <jpx-tx@adelton.com>\n"
+"Language-Team: Estonian (http://www.transifex.com/projects/p/fedora/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.5\n"
 
 #: ../src/up2date_client/config.py:154
 #, python-format
@@ -28,9 +28,8 @@ msgid "Error: Server Unavailable. Please try later."
 msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:164
-#, fuzzy
 msgid "ERROR: can not find RHNS CA file"
-msgstr "Viga: RHNS CA faili pole võimalik leida:"
+msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:202
 msgid "Connection aborted by the user"
@@ -41,10 +40,9 @@ msgid "Server has refused connection due to high load"
 msgstr "Server keeldus ühendusest suure kasutuse tõttu"
 
 #: ../src/up2date_client/rhnregGui.py:145
-#, fuzzy
 #: ../src/up2date_client/rhnregGui.py:162
 msgid "Notice"
-msgstr "Niue"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:155
 #: ../src/up2date_client/rhnregGui.py:169
@@ -53,9 +51,8 @@ msgid "Warning"
 msgstr "Hoiatud"
 
 #: ../src/up2date_client/rhnregGui.py:270
-#, fuzzy
 msgid "There was an error while applying your choice."
-msgstr "Paketi installeerimisel juhtus saatuslik viga:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:289
 msgid "You specified an invalid protocol. Only https and http are allowed."
@@ -88,12 +85,12 @@ msgid "Make sure the network connection on this system is operational."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:338
-#, fuzzy
 msgid "There was an error communicating with Red Hat Network."
-msgstr "Juhtus viga registreerimise serveriga ühendamisel:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:339
-msgid "The server may be in outage mode. You may have to try connecting later."
+msgid ""
+"The server may be in outage mode. You may have to try connecting later."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:341
@@ -101,26 +98,23 @@ msgid "You may be running a client that is incompatible with the server."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:374
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Red Hat Network "
 "Satellite:"
-msgstr "Registreerimise informatsioon:"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:413
-#, fuzzy
 msgid "You must enter a login."
-msgstr "Vajalik on sisestada oma perekonnanimi."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:419
-#, fuzzy
 msgid "You must enter a password."
-msgstr "Vajalik on sisestada ja kinnitada parool."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:432
-#, fuzzy
 msgid "There was an error while logging in."
-msgstr "Süsteemi registeerimisel esines probleem."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:457
 msgid ""
@@ -129,36 +123,32 @@ msgid ""
 msgstr "Registreerimisserveriga ühendamisel juhtus viga. Teade oli järgmine:\n"
 
 #: ../src/up2date_client/rhnregGui.py:595
-#, fuzzy
 msgid "There was an error while assembling information for the profile."
-msgstr "Paketi installeerimisel juhtus saatuslik viga:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:616
 msgid "Error running hardware profile"
 msgstr "Viga riistvara profiili jooksutamisel"
 
 #: ../src/up2date_client/rhnregGui.py:646
-#, fuzzy
 msgid "There was an error while populating the profile."
-msgstr "Paketi installeerimisel juhtus saatuslik viga:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:666
 msgid "You must choose a name for this profile."
 msgstr "Antud profiilile on vajalik määrata nimi."
 
 #: ../src/up2date_client/rhnregGui.py:680
-#, fuzzy
 msgid "There was an error while creating the profile."
-msgstr "Paketi installeerimisel juhtus saatuslik viga:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:691
 msgid "Registering system and sending profile information.  Please wait."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:710
-#, fuzzy
 msgid "Registering System"
-msgstr "Süsteemi registreerimise probleem."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:724
 #: ../src/up2date_client/rhnregGui.py:728
@@ -168,11 +158,11 @@ msgid "Problem registering system:\n"
 msgstr "Süsteemi registreerimise probleem:\n"
 
 #: ../src/up2date_client/rhnregGui.py:735
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
 "Please go back to the previous screen and fix it."
-msgstr "Tellimuse number [ %s ], mis sisestati, ei ole kehtiv."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:745 ../src/up2date_client/tui.py:875
 msgid "Problem registering system."
@@ -187,14 +177,12 @@ msgid "There was a problem registering this system."
 msgstr "Süsteemi registeerimisel esines probleem."
 
 #: ../src/up2date_client/rhnregGui.py:774
-#, fuzzy
 msgid "Sending hardware information"
-msgstr "_Riistvara informatsioon saatmine"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:779
-#, fuzzy
 msgid "Problem sending hardware information."
-msgstr "Viga riistvara informatsiooni lugemisel:"
+msgstr ""
 
 #. #            for row in range(self.regPackageArea.n_rows):
 #. #                rowData = self.regPackageArea.get_row_data(row)
@@ -206,14 +194,12 @@ msgstr "Viga riistvara informatsiooni lugemisel:"
 #. #                if pkg[0] in selection:
 #. #                    selectedPackages.append(pkg)
 #: ../src/up2date_client/rhnregGui.py:803
-#, fuzzy
 msgid "Sending package information"
-msgstr "_Riistvara informatsioon saatmine"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:808
-#, fuzzy
 msgid "Problem sending package information."
-msgstr "Paketi loendi saatmise probleem."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:839 ../src/up2date_client/tui.py:926
 msgid ""
@@ -222,14 +208,12 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:893
-#, fuzzy
 msgid "There was an error while installing the certificate."
-msgstr "Paketi installeerimisel juhtus saatuslik viga:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:919
-#, fuzzy
 msgid "You must select a certificate."
-msgstr "Vajalik on sisestada kasutajanime."
+msgstr ""
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
@@ -251,9 +235,8 @@ msgid "unknown"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1114
-#, fuzzy
 msgid "There was an error getting the list of hardware."
-msgstr "Paketi installeerimisel juhtus saatuslik viga:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1126 ../src/up2date_client/tui.py:660
 #, python-format
@@ -266,9 +249,8 @@ msgid "%s MB"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1174
-#, fuzzy
 msgid "There was an error building the list of packages."
-msgstr "Paketi installeerimisel juhtus saatuslik viga:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1189
 msgid "Package"
@@ -279,17 +261,15 @@ msgid "Arch"
 msgstr "Arch"
 
 #: ../src/up2date_client/rhnregGui.py:1201
-msgid "Building a list of RPM packages installed on your system.  Please wait."
-msgstr ""
-"Koostatakse loendit RPM-idest, mis on installeeritud süsteemi. Palun oota."
+msgid ""
+"Building a list of RPM packages installed on your system.  Please wait."
+msgstr "Koostatakse loendit RPM-idest, mis on installeeritud süsteemi. Palun oota."
 
 #: ../src/up2date_client/rhnregGui.py:1232
 msgid ""
 "There was an error loading your configuration.  Make sure that\n"
 "you have read access to /etc/sysconfig/rhn."
-msgstr ""
-"Seadistuse laadimisel juhtus viga. Kontrolli kas sul on "
-"õigus\n/etc/sysconfig/rhn lugemiseks. "
+msgstr "Seadistuse laadimisel juhtus viga. Kontrolli kas sul on õigus\n/etc/sysconfig/rhn lugemiseks. "
 
 #: ../src/up2date_client/rhnregGui.py:1274
 #, python-format
@@ -324,14 +304,13 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:17
-#, fuzzy
 msgid "Attempting to contact the Red Hat Network server."
-msgstr "Red Hat Network serveri valimine kasutamiseks "
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:18
-#, fuzzy, python-format
+#, python-format
 msgid "We are attempting to contact the Red Hat Network server at %s."
-msgstr "Red Hat Network serveri valimine kasutamiseks "
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:20
 #, python-format
@@ -340,16 +319,12 @@ msgstr ""
 
 #. Start Window
 #: ../src/up2date_client/rhnreg_constants.py:23 ../data/gui.glade.h:1
-#, fuzzy
 msgid "System Registration"
-msgstr "registrationNumber"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:24
 msgid ""
-"This assistant will guide you through connecting your system to Red Hat "
-"Network (RHN) to receive software updates, including security updates, to "
-"keep your system supported and compliant.  You will need the following at "
-"this time:\n"
+"This assistant will guide you through connecting your system to Red Hat Network (RHN) to receive software updates, including security updates, to keep your system supported and compliant.  You will need the following at this time:\n"
 "\n"
 " * A network connection\n"
 " * Your Red Hat Login & password\n"
@@ -363,9 +338,8 @@ msgid "Why Should I Connect to RHN? ..."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:38 ../data/rh_register.glade.h:72
-#, fuzzy
 msgid "Why Register"
-msgstr "Juba registreeritud"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:39
 msgid ""
@@ -386,9 +360,8 @@ msgid "Support:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:44
-#, fuzzy
 msgid "Compliance:"
-msgstr "Ettevõte:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:45
 msgid ""
@@ -421,15 +394,13 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:56
-#, fuzzy
 msgid "Take me back to the registration"
-msgstr "Up2date - Pakettide loend (registreerimine)"
+msgstr ""
 
 #. Confirm Quit Window
 #: ../src/up2date_client/rhnreg_constants.py:59
-#, fuzzy
 msgid "Software Update Not Set Up"
-msgstr "Up2date taaskäivitamine"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:60
 msgid ""
@@ -454,28 +425,25 @@ msgstr ""
 
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:68 ../data/gui.glade.h:4
-#, fuzzy
 #: ../data/rh_register.glade.h:16
 msgid "Red Hat Account"
-msgstr "Red Hat kasutajanimi"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:69
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
 "\n"
-msgstr "Registreerimise informatsioon:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:71
-#, fuzzy
 msgid "Red Hat Login:"
-msgstr "Red Hat kasutajanimi"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:72
-#, fuzzy
 #: ../src/up2date_client/tui.py:128
 msgid "Login:"
-msgstr "_Kasutajanimi:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:73
 msgid "Password:"
@@ -492,9 +460,8 @@ msgid "Please enter a desired login."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:77
-#, fuzzy
 msgid "Please enter and verify a password."
-msgstr "Vajalik on sisestada ja kinnitada parool."
+msgstr ""
 
 #. OS Release Window
 #: ../src/up2date_client/rhnreg_constants.py:80 ../data/gui.glade.h:5
@@ -507,19 +474,17 @@ msgid "Operating System version:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:82
-#, fuzzy
 msgid " Minor Release: "
-msgstr "Väljalase"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:83
 msgid "Limited Updates Only"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:84
-#, fuzzy
 #: ../data/rh_register.glade.h:157
 msgid "All available updates"
-msgstr "Kättesaadavate pakettide uuendamine"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:85
 msgid "Confirm operating system release selection"
@@ -533,27 +498,21 @@ msgstr ""
 
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:91
-#, fuzzy
 msgid "Create Profile - Hardware"
-msgstr "Oma süsteemi ühendamine "
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:92
 msgid ""
 "A Profile Name is a descriptive name that you choose to identify this System"
 " Profile on the Red Hat Network web pages. Optionally, include a computer "
 "serial or identification number."
-msgstr ""
-"Profiilinimi on kirjeldav nimi eraldamaks seda süsteemi profiili Red Hat "
-"Network veebilehel. Valikuliselt hõlmab arvuti jada või identifitseerimise "
-"numbrit."
+msgstr "Profiilinimi on kirjeldav nimi eraldamaks seda süsteemi profiili Red Hat Network veebilehel. Valikuliselt hõlmab arvuti jada või identifitseerimise numbrit."
 
 #: ../src/up2date_client/rhnreg_constants.py:96
 msgid ""
 "Additional hardware information including PCI devices, disk sizes and mount "
 "points will be included in the profile."
-msgstr ""
-"Täiendav riistvara info, ka PCI seadmed, ketta suurus ning ühendusepunktid, "
-"on kaasaarvatud profiili."
+msgstr "Täiendav riistvara info, ka PCI seadmed, ketta suurus ning ühendusepunktid, on kaasaarvatud profiili."
 
 #: ../src/up2date_client/rhnreg_constants.py:99
 msgid "Include the following information about hardware and network:"
@@ -561,17 +520,14 @@ msgstr "Sisaldab järgnevat infot riistvarast ja võrgust:"
 
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:103
-#, fuzzy
 msgid "Create Profile - Packages"
-msgstr "Oma süsteemi ühendamine "
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:104
 msgid ""
 "RPM information is important to determine what updated software packages are"
 " relevant to this system."
-msgstr ""
-"RPM info in vajalik määramaks millised uuendatud tarkvara paketid on "
-"süsteemile kohased."
+msgstr "RPM info in vajalik määramaks millised uuendatud tarkvara paketid on süsteemile kohased."
 
 #: ../src/up2date_client/rhnreg_constants.py:107
 msgid "Include RPM packages installed on this system in my System Profile"
@@ -587,17 +543,13 @@ msgstr "Paketi loendi koostamine"
 
 #. Product Window
 #: ../src/up2date_client/rhnreg_constants.py:114
-#, fuzzy
 msgid "*Email Address:"
-msgstr "E-posti aadress:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:116
-#, fuzzy
 #: ../data/rh_register.glade.h:131
 msgid "System Already Registered"
 msgstr ""
-"    --force                    - registreeritakse süsteem isegi siis, kui "
-"see on juba registreeritud"
 
 #: ../src/up2date_client/rhnreg_constants.py:117
 #: ../data/rh_register.glade.h:132
@@ -611,15 +563,11 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:120
 msgid ""
-"This system has already been registered with RHN using RHN certficate-based "
-"technology.\n"
+"This system has already been registered with RHN using RHN certficate-based technology.\n"
 "\n"
-"The tool you are using is attempting to re-register using RHN Satellite or "
-"RHN Proxy technology. Red Hat recommends (except in a few cases) that "
-"customers only register with RHN once.\n"
+"The tool you are using is attempting to re-register using RHN Satellite or RHN Proxy technology. Red Hat recommends (except in a few cases) that customers only register with RHN once.\n"
 "\n"
-"To learn more about RHN registration and technologies please consult this "
-"Knowledge Base Article: https://access.redhat.com/kb/docs/DOC-45563"
+"To learn more about RHN registration and technologies please consult this Knowledge Base Article: https://access.redhat.com/kb/docs/DOC-45563"
 msgstr ""
 
 #. Send Window
@@ -628,19 +576,11 @@ msgid "Send Profile Information to Red Hat Network"
 msgstr "Profiili informatsioon saatmine Red Hat Network-i"
 
 #: ../src/up2date_client/rhnreg_constants.py:130
-#, fuzzy
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
-"Press \"Next\" to send this System Profile to Red Hat Network.  Click "
-"\"Cancel\" and no information will be sent.  You can run the registration "
-"program later by typing `rhn_register` at the command line."
+"Press \"Next\" to send this System Profile to Red Hat Network.  Click \"Cancel\" and no information will be sent.  You can run the registration program later by typing `rhn_register` at the command line."
 msgstr ""
-"Süsteemi profiili jaoks info kogumine on lõpetatud.\n"
-"\n"
-"Vajuta \"Edasi\" saatmaks süsteemi infot Red Hat Network-i. Vajuta \"Loobu\" "
-"ning infot ei saadeta. Hilisemaks registeerimiseks tuleb käsurealt käivitada "
-"programm `up2date --register`. "
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:137
@@ -666,9 +606,8 @@ msgstr ""
 
 #. Review Window
 #: ../src/up2date_client/rhnreg_constants.py:152 ../data/gui.glade.h:7
-#, fuzzy
 msgid "Review Subscription"
-msgstr "Kirjeldus"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:153
 #: ../data/rh_register.glade.h:56
@@ -676,23 +615,21 @@ msgid "Please review the subscription details below:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:154
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Network."
-msgstr "Red Hat Network-iga ühendamine"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:156
-#, fuzzy
 msgid ""
 "Subscriptions have been activated for the following Red Hat "
 "products/services:"
-msgstr "Tellimuse number on vigane"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:158
-#, fuzzy
 msgid "Software Channel Subscriptions:"
-msgstr "Ühenduskanali informatsioon"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:159
 msgid "This system will receive updates from the following software channels:"
@@ -818,13 +755,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Universal default activation key detected\n"
-"A universal default activation key was detected in your account. This means "
-"that a set of properties (software channel subscriptions, package "
-"installations, system group memberships, etc.) for your system's connection "
-"to RHN Satellite or RHN Proxyhave been determined by the activation key "
-"rather than your installation number.  You may also refer to the RHN "
-"Reference Guide, section 6.4.6 for more details about activation keys "
-"(http://access.redhat.com/knowledge/docs/Red_Hat_Network/)\n"
+"A universal default activation key was detected in your account. This means that a set of properties (software channel subscriptions, package installations, system group memberships, etc.) for your system's connection to RHN Satellite or RHN Proxyhave been determined by the activation key rather than your installation number.  You may also refer to the RHN Reference Guide, section 6.4.6 for more details about activation keys (http://access.redhat.com/knowledge/docs/Red_Hat_Network/)\n"
 "Universal Default activation key: %s"
 msgstr ""
 
@@ -843,8 +774,7 @@ msgid ""
 "\n"
 "Make sure that the network connection on this system is operational.\n"
 "\n"
-"This system will not be able to successfully receive software updates from "
-"Red Hat without connecting to a Red Hat Network server"
+"This system will not be able to successfully receive software updates from Red Hat without connecting to a Red Hat Network server"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:246
@@ -863,10 +793,7 @@ msgstr ""
 msgid ""
 "<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
 "\n"
-"The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat "
-"Network server at <b>%s</b>. You may want to double-check that you have "
-"provided a valid certificate file. Are you sure you have provided the correct "
-"certificate, and that the certificate file has not been corrupted?\n"
+"The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat Network server at <b>%s</b>. You may want to double-check that you have provided a valid certificate file. Are you sure you have provided the correct certificate, and that the certificate file has not been corrupted?\n"
 "\n"
 "Please try again with a different certificate file."
 msgstr ""
@@ -875,8 +802,7 @@ msgstr ""
 msgid ""
 "<b><span size=\"12000\">Incompatible Certificate File</span></b>\n"
 "\n"
-" The certificate is expired. Please ensure you have the correct  certificate "
-"and your system time is correct."
+" The certificate is expired. Please ensure you have the correct  certificate and your system time is correct."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:266
@@ -887,12 +813,7 @@ msgstr ""
 msgid ""
 "Problem registering system.\n"
 "\n"
-"A universal default activation key limits the number of systems which can "
-"connect to the RHN organization associated with your login. To allow this "
-"system to connect, please contact your RHN organization administrator to "
-"increase the number of systems allowed to connect or to disable this "
-"universal default activation key. More details can be found in Red Hat "
-"Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
+"A universal default activation key limits the number of systems which can connect to the RHN organization associated with your login. To allow this system to connect, please contact your RHN organization administrator to increase the number of systems allowed to connect or to disable this universal default activation key. More details can be found in Red Hat Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:282
@@ -942,10 +863,9 @@ msgid "Cancel"
 msgstr "Loobu"
 
 #: ../src/up2date_client/rhnreg_constants.py:304
-#, fuzzy
 #: ../data/rh_register.glade.h:116
 msgid "No, Cancel"
-msgstr "Loobu"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:305
 #: ../data/rh_register.glade.h:118
@@ -985,57 +905,48 @@ msgid "Yes/No dialog:"
 msgstr "Jah/Ei dialoog:"
 
 #: ../src/up2date_client/tui.py:127
-#, fuzzy
 msgid "Red Hat Network Location:"
-msgstr "Red Hat Network kasutajanimi"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:129
-#, fuzzy
 msgid "System ID:"
-msgstr "Perekonnanimi:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:414
 msgid "The server indicated an error:\n"
 msgstr "Server näitas kätte vea:\n"
 
 #: ../src/up2date_client/tui.py:418
-#, fuzzy
 msgid "There was an error communicating with the registration server:\n"
-msgstr "Registreerimisserveriga ühendamisel juhtus viga. Teade oli järgmine:\n"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:609
 msgid "Profile name:"
 msgstr "Profiili nimi:"
 
 #: ../src/up2date_client/tui.py:631 ../src/up2date_client/tui.py:632
-#, fuzzy
 msgid "Version: "
-msgstr "Versioon:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:638
-#, fuzzy
 msgid "CPU model: "
-msgstr "Protsessori mudel:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:644
-#, fuzzy
 msgid "Hostname: "
-msgstr "Arvuti nimi:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:656
-#, fuzzy
 msgid "CPU speed: "
-msgstr "Protsessori kiirus:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:662
-#, fuzzy
 msgid "IP Address: "
-msgstr "IP aadress:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:671
-#, fuzzy
 msgid "Memory: "
-msgstr "Mälu:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:675
 #, python-format
@@ -1069,8 +980,7 @@ msgstr ""
 #: ../src/up2date_client/tui.py:1114
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> elementide vahel  |  <Tühik> valikud  |  <F12> järgmine kuva"
+msgstr "  <Tab>/<Alt-Tab> elementide vahel  |  <Tühik> valikud  |  <F12> järgmine kuva"
 
 #: ../src/up2date_client/tui.py:1211
 msgid "You must run the RHN registration program as root."
@@ -1115,9 +1025,8 @@ msgid "Error validating data at server:\n"
 msgstr "Viga andmete õigsuse kontrollil serveris:\n"
 
 #: ../src/up2date_client/up2dateErrors.py:175
-#, fuzzy
 msgid "The installation number is invalid"
-msgstr "Tellimuse number on vigane"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:178
 msgid "Error parsing the oemInfo file at field:\n"
@@ -1130,22 +1039,16 @@ msgstr ""
 #: ../src/up2date_client/up2dateErrors.py:273
 msgid ""
 "\n"
-"    Your organization does not have enough Management entitlements to "
-"register this\n"
-"    system to Red Hat Network. Please notify your organization administrator "
-"of this error. \n"
-"    You should be able to register this system after your organization frees "
-"existing \n"
-"    or purchases additional entitlements. Additional entitlements may be "
-"purchased by your\n"
+"    Your organization does not have enough Management entitlements to register this\n"
+"    system to Red Hat Network. Please notify your organization administrator of this error. \n"
+"    You should be able to register this system after your organization frees existing \n"
+"    or purchases additional entitlements. Additional entitlements may be purchased by your\n"
 "    organization administrator by logging into Red Hat Network and visiting\n"
 "    the 'Subscription Management' page in the 'Your RHN' section of RHN.\n"
 "    \n"
 "    A common cause of this error code is due to having mistakenly setup an\n"
-"    Activation Key which is set as the universal default.  If an activation "
-"key is set\n"
-"    on the account as a universal default, you can disable this key and retry "
-"to avoid\n"
+"    Activation Key which is set as the universal default.  If an activation key is set\n"
+"    on the account as a universal default, you can disable this key and retry to avoid\n"
 "    requiring a Management entitlement."
 msgstr ""
 
@@ -1199,8 +1102,7 @@ msgstr "Juhtus SSL probleem: %s\n"
 msgid ""
 "A common cause of this error is the system time being incorrect. Verify that"
 " the time on this system is correct.\n"
-msgstr ""
-"Tavaliselt juhtub see kui süsteemi aeg ei ole õige. Kontrolli süsteemi aega.\n"
+msgstr "Tavaliselt juhtub see kui süsteemi aeg ei ole õige. Kontrolli süsteemi aega.\n"
 
 #: ../src/up2date_client/rhncli.py:120
 #, python-format
@@ -1245,24 +1147,20 @@ msgid ""
 msgstr "Kliendil on vaja, et server toetaks %s, mida antud server ei tee"
 
 #: ../src/up2date_client/gui.py:313
-#, fuzzy
 msgid "_Finish"
-msgstr "Valmis"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:316
-#, fuzzy
 msgid "_Exit"
-msgstr "Redigeerimine"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:317
-#, fuzzy
 msgid "Software Updates Not Set Up"
-msgstr "Up2date taaskäivitamine"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:327
-#, fuzzy
 msgid "You must run rhn_register as root."
-msgstr "Uuendaja tuleb käivitada juurkasutajana."
+msgstr ""
 
 #: ../src/up2date_client/gui.py:351
 #, python-format
@@ -1286,21 +1184,16 @@ msgid "Specify an organizational id for this system"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:54
-#, fuzzy
 msgid "Specify a url to use as a server"
-msgstr "Määra serveri url"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:56
-#, fuzzy
 msgid "Specify a file to use as the ssl CA cert"
 msgstr ""
-"    --sslCACert=<rada>         - määratakse fail, mida kasutatakse kui ssl "
-"CA sertifikaati"
 
 #: ../src/bin/rhnreg_ks.py:58
-#, fuzzy
 msgid "Specify an activation key"
-msgstr "Määrata kasutamiseks http puhver"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:60
 msgid ""
@@ -1308,24 +1201,16 @@ msgid ""
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:62
-#, fuzzy
 msgid "[Deprecated] Read contact info from stdin"
 msgstr ""
-"    --contactinfo              - loetakse kontakt info standard sisendist"
 
 #: ../src/bin/rhnreg_ks.py:64
-#, fuzzy
 msgid "Do not probe or upload any hardware info"
 msgstr ""
-"    --nohardware               - ei uurita või laeta üles mingit infot "
-"riistvarast "
 
 #: ../src/bin/rhnreg_ks.py:66
-#, fuzzy
 msgid "Do not profile or upload any package info"
 msgstr ""
-"    --nopackages               - ei esitata ega laeta üles mingit infot "
-"pakettidest "
 
 #: ../src/bin/rhnreg_ks.py:68
 msgid "Do not upload any virtualization info"
@@ -1336,18 +1221,12 @@ msgid "Do not start rhnsd after completion"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:72
-#, fuzzy
 msgid "Register the system even if it is already registered"
 msgstr ""
-"    --force                    - registreeritakse süsteem isegi siis, kui "
-"see on juba registreeritud"
 
 #: ../src/bin/rhnreg_ks.py:82
-#, fuzzy
 msgid "A username and password are required to register a system."
 msgstr ""
-"Süsteemi registreerimiseks on vajalikud kasutajanimi, parool ja eposti "
-"aadress."
 
 #: ../src/bin/rhnreg_ks.py:87
 msgid "This system is already registered. Use --force to override"
@@ -1383,14 +1262,11 @@ msgstr ""
 msgid ""
 "A profilename was not specified, and hostname and IP address could not be "
 "determined to use as a profilename, please specify one."
-msgstr ""
-"Profiilinimi on määramata ning arvuti nime ja IP aadressi ei ole võimalik "
-"kasutada profiilinimena, palun määra see nimi."
+msgstr "Profiilinimi on määramata ning arvuti nime ja IP aadressi ei ole võimalik kasutada profiilinimena, palun määra see nimi."
 
 #: ../src/bin/rhn_register.py:37
-#, fuzzy
 msgid "Do not attempt to use X"
-msgstr "X-i ei üritata kasutada"
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:53
 msgid "ERROR: must be root to execute\n"
@@ -1485,13 +1361,10 @@ msgid "Attempting to run more than one instance of rhn_check. Exiting.\n"
 msgstr ""
 
 #: ../src/bin/rhn-profile-sync.py:35
-#, fuzzy
 msgid ""
 "You need to register this system by running `rhn_register` before using this"
 " option"
 msgstr ""
-"Süsteem on enne antud valiku kasutamist vajalik registreerida käivitades "
-"`up2date --register`"
 
 #: ../src/bin/rhn-profile-sync.py:43
 msgid "Updating package profile..."
@@ -1502,9 +1375,8 @@ msgid "Updating hardware profile..."
 msgstr "Uuendatakse riistvara kirjeldust..."
 
 #: ../src/bin/rhn-profile-sync.py:50
-#, fuzzy
 msgid "Updating virtualization profile..."
-msgstr "Uuendatakse pakettide kirjeldusi..."
+msgstr ""
 
 #: ../data/gui.glade.h:2
 msgid "Set Up Software Updates"
@@ -1515,29 +1387,24 @@ msgid "Choose Service"
 msgstr ""
 
 #: ../data/gui.glade.h:6
-#, fuzzy
 msgid "Create Profile"
-msgstr "Riistvara profiil"
+msgstr ""
 
 #: ../data/gui.glade.h:8
-#, fuzzy
 msgid "Provide a security certificate"
-msgstr "Vajalik on sisestada kasutajanime."
+msgstr ""
 
 #: ../data/progress.glade.h:1
-#, fuzzy
 msgid "Sending Information"
-msgstr "_Riistvara informatsioon saatmine"
+msgstr ""
 
 #: ../data/progress.glade.h:2
-#, fuzzy
 msgid "progress bar"
-msgstr "Kulgemise dialoog"
+msgstr ""
 
 #: ../data/progress.glade.h:3
-#, fuzzy
 msgid "progress status"
-msgstr "Kulgemise dialoog"
+msgstr ""
 
 #: ../data/rh_register.glade.h:1
 msgid ""
@@ -1547,17 +1414,12 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:2
 msgid ""
-"This system will <b>not</b> be able to successfully receive software updates, "
-"including security updates, from Red Hat without connecting to a Red Hat "
-"Network server.\n"
+"This system will <b>not</b> be able to successfully receive software updates, including security updates, from Red Hat without connecting to a Red Hat Network server.\n"
 "\n"
-"To keep your system updated, secure, and supported, please register this "
-"system at your earliest convenience.\n"
+"To keep your system updated, secure, and supported, please register this system at your earliest convenience.\n"
 "\n"
-"You may access the RHN registration tool by running <b>RHN Registration</b> "
-"in the <b>System > Administration</b> menu.\n"
-"You may access the software update tool by running <b>Software Update</b> in "
-"the <b>System > Administration</b> menu."
+"You may access the RHN registration tool by running <b>RHN Registration</b> in the <b>System > Administration</b> menu.\n"
+"You may access the software update tool by running <b>Software Update</b> in the <b>System > Administration</b> menu."
 msgstr ""
 
 #: ../data/rh_register.glade.h:10
@@ -1565,14 +1427,12 @@ msgid "I'd like to register with an RHN Satellite or RHN Proxy"
 msgstr ""
 
 #: ../data/rh_register.glade.h:11
-#, fuzzy
 msgid "Location:"
-msgstr "Positsioon:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:12
-#, fuzzy
 msgid "Example: https://satellite.example.com/XMLRPC"
-msgstr "näiteks: XXXX-XXXX-XXXX-XXXX (kriipsud valikuliselt)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:13
 msgid "satellite server location"
@@ -1587,82 +1447,66 @@ msgid "Proxy Setup Button"
 msgstr ""
 
 #: ../data/rh_register.glade.h:17
-#, fuzzy
 msgid "Please enter your Red Hat account information:"
-msgstr "Pakettide informatsioon"
+msgstr ""
 
 #: ../data/rh_register.glade.h:18
-#, fuzzy
 msgid "RHN login field"
-msgstr "Red Hat kasutajanimi"
+msgstr ""
 
 #: ../data/rh_register.glade.h:19
 msgid "RHN password field"
 msgstr ""
 
 #: ../data/rh_register.glade.h:20
-#, fuzzy
 msgid "_Password:"
-msgstr "Parool:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:21
-#, fuzzy
 msgid "_Login:"
-msgstr "_Kasutajanimi:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:22
-#, fuzzy
 msgid ""
 "<small>Tip: Forgot your login or password? Contact your Satellite's "
 "<i>Organization Administrator</i>.</small>"
 msgstr ""
-"Oled unustanud Red Hat kasutajanime ja parooli? Võid leida selle\n"
-"http://www.redhat.com/software/rhn/\n"
-" "
 
 #: ../data/rh_register.glade.h:23
 msgid "Hardware Info"
 msgstr "Riistvara info"
 
 #: ../data/rh_register.glade.h:24
-#, fuzzy
 msgid "Red Hat Linux Version:"
-msgstr "Red Hat Linuxi versioon:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:25
-#, fuzzy
 msgid "Hostname:"
-msgstr "Arvuti nimi:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:26
-#, fuzzy
 msgid "IP Address:"
-msgstr "IP aadress:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:27
-#, fuzzy
 msgid "ERROR"
-msgstr "viga"
+msgstr ""
 
 #: ../data/rh_register.glade.h:28
-#, fuzzy
 msgid "CPU Model:"
-msgstr "Protsessori mudel:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:29
-#, fuzzy
 msgid "CPU Speed:"
-msgstr "Protsessori kiirus:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:30
-#, fuzzy
 msgid "Memory:"
-msgstr "Mälu:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:31
-#, fuzzy
 msgid "Hardware Profile"
-msgstr "Riistvara profiil"
+msgstr ""
 
 #: ../data/rh_register.glade.h:32
 msgid "Package Information"
@@ -1696,14 +1540,12 @@ msgid "• The address of an RHN Satellite or RHN Proxy"
 msgstr ""
 
 #: ../data/rh_register.glade.h:39
-#, fuzzy
 msgid "_Why Should I Register?"
-msgstr "Juba registreeritud"
+msgstr ""
 
 #: ../data/rh_register.glade.h:40
-#, fuzzy
 msgid "Why Should I Register?"
-msgstr "Juba registreeritud"
+msgstr ""
 
 #: ../data/rh_register.glade.h:41
 msgid ""
@@ -1720,9 +1562,8 @@ msgid "_No, I prefer to register at a later time."
 msgstr ""
 
 #: ../data/rh_register.glade.h:44
-#, fuzzy
 msgid "Link To Subscription"
-msgstr "Kirjeldus"
+msgstr ""
 
 #: ../data/rh_register.glade.h:45
 msgid ""
@@ -1759,38 +1600,32 @@ msgid "•"
 msgstr ""
 
 #: ../data/rh_register.glade.h:51
-#, fuzzy
 msgid "installation number field"
-msgstr "Tellimuse number on vigane"
+msgstr ""
 
 #: ../data/rh_register.glade.h:52
-#, fuzzy
 msgid "Installation _Number:"
-msgstr "registrationNumber"
+msgstr ""
 
 #: ../data/rh_register.glade.h:53
-#, fuzzy
 msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
-msgstr "näiteks: XXXX-XXXX-XXXX-XXXX (kriipsud valikuliselt)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:54
-#, fuzzy
 msgid "_Activate a subscription now..."
-msgstr "Oma tellimus aktiveerimine"
+msgstr ""
 
 #: ../data/rh_register.glade.h:55
 msgid "Review system..."
 msgstr ""
 
 #: ../data/rh_register.glade.h:57
-#, fuzzy
 msgid "Create profile"
-msgstr "Riistvara profiil"
+msgstr ""
 
 #: ../data/rh_register.glade.h:58
-#, fuzzy
 msgid "<big><b>System Name</b></big>"
-msgstr "Perekonnanimi:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:59
 msgid ""
@@ -1799,14 +1634,12 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:60
-#, fuzzy
 msgid "System _Name:"
-msgstr "Perekonnanimi:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:61
-#, fuzzy
 msgid "system name"
-msgstr "Perekonnanimi:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:62
 msgid "<big><b>Profile Data</b></big>"
@@ -1819,44 +1652,36 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:64
-#, fuzzy
 msgid "_View Hardware Profile ..."
-msgstr "Riistvara profiil"
+msgstr ""
 
 #: ../data/rh_register.glade.h:65
-#, fuzzy
 msgid "View Hardware Profile"
-msgstr "Riistvara profiil"
+msgstr ""
 
 #: ../data/rh_register.glade.h:66
-#, fuzzy
 msgid "V_iew Package Profile ..."
-msgstr "Uuendatakse pakettide kirjeldusi..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:67
-#, fuzzy
 msgid "View Package Profile"
-msgstr "Uuendatakse pakettide kirjeldusi..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:68
-#, fuzzy
 msgid "Send _hardware profile"
-msgstr "Riistvara profiil"
+msgstr ""
 
 #: ../data/rh_register.glade.h:69
-#, fuzzy
 msgid "Send hardware profile checkbox"
-msgstr "Riistvara profiil"
+msgstr ""
 
 #: ../data/rh_register.glade.h:70
-#, fuzzy
 msgid "Send _package profile"
-msgstr "_Pakettide loend saatmine"
+msgstr ""
 
 #: ../data/rh_register.glade.h:71
-#, fuzzy
 msgid "Send package profile checkbox"
-msgstr "_Pakettide loend saatmine"
+msgstr ""
 
 #: ../data/rh_register.glade.h:73
 msgid ""
@@ -1887,14 +1712,12 @@ msgid "<b>Downloads &amp; Upgrades:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:80
-#, fuzzy
 msgid "<b>Support:</b>"
-msgstr "Registreerimise informatsioon"
+msgstr ""
 
 #: ../data/rh_register.glade.h:82
-#, fuzzy
 msgid "<b>Management:</b>"
-msgstr "Registreerimise informatsioon"
+msgstr ""
 
 #: ../data/rh_register.glade.h:83
 msgid "Management"
@@ -1920,23 +1743,18 @@ msgstr ""
 #: ../data/rh_register.glade.h:88
 #, no-c-format
 msgid ""
-"A security certificate compatible with <b>%s</b> was not found on this "
-"system.\n"
+"A security certificate compatible with <b>%s</b> was not found on this system.\n"
 "\n"
-"A security certificate, using SSL technology, is necessary to ensure that "
-"data communicated between this system and Red Hat Network (including your "
-"login and password) is secure."
+"A security certificate, using SSL technology, is necessary to ensure that data communicated between this system and Red Hat Network (including your login and password) is secure."
 msgstr ""
 
 #: ../data/rh_register.glade.h:91
-#, fuzzy
 msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
-msgstr "Juhtus viga registreerimise serveriga ühendamisel:\n"
+msgstr ""
 
 #: ../data/rh_register.glade.h:92
-#, fuzzy
 msgid "Certificate _Location:"
-msgstr "Red Hat Network kasutajanimi"
+msgstr ""
 
 #: ../data/rh_register.glade.h:93
 msgid "Select A File"
@@ -1949,31 +1767,24 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:95
-#, fuzzy
 msgid "Your system is not setup for software updates."
-msgstr "Up2date taaskäivitamine"
+msgstr ""
 
 #: ../data/rh_register.glade.h:96
 msgid ""
-"You won't be able to receive software updates, including security updates, "
-"for this system.\n"
+"You won't be able to receive software updates, including security updates, for this system.\n"
 "\n"
-"You may access the RHN registration tool by running <b>RHN Registration</b> "
-"or <b>Red Hat Subscription Manager</b> in the <b>System > Administration</b> "
-"menu.\n"
-"You may access the software update tool by running <b>Software Update</b> in "
-"the <b>System > Administration</b> menu."
+"You may access the RHN registration tool by running <b>RHN Registration</b> or <b>Red Hat Subscription Manager</b> in the <b>System > Administration</b> menu.\n"
+"You may access the software update tool by running <b>Software Update</b> in the <b>System > Administration</b> menu."
 msgstr ""
 
 #: ../data/rh_register.glade.h:100
-#, fuzzy
 msgid "Proxy Configuration"
-msgstr "Võrgu seadistus"
+msgstr ""
 
 #: ../data/rh_register.glade.h:101
-#, fuzzy
 msgid "<b>HTTP Proxy</b>"
-msgstr "HTTP puhvri lubamine:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:102
 msgid "I would like to connect via an _HTTP proxy."
@@ -1984,9 +1795,8 @@ msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
 msgstr ""
 
 #: ../data/rh_register.glade.h:104
-#, fuzzy
 msgid "<small><b>Example:</b> squid.example.com:3128</small>"
-msgstr "näiteks: XXXX-XXXX-XXXX-XXXX (kriipsud valikuliselt)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:105
 msgid "_Proxy Location:"
@@ -2001,42 +1811,36 @@ msgid "proxy location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:108
-#, fuzzy
 msgid "Use Au_thentication with HTTP Proxy:"
-msgstr "Tuvastamise kasutamine"
+msgstr ""
 
 #: ../data/rh_register.glade.h:109
-#, fuzzy
 msgid "Use Authentication with HTTP Proxy"
-msgstr "Tuvastamise kasutamine"
+msgstr ""
 
 #: ../data/rh_register.glade.h:110
-#, fuzzy
 msgid "Proxy _Username:"
-msgstr "Kasutajanimi:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:111
-#, fuzzy
 msgid "Proxy P_assword:"
-msgstr "Parool:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:112
 msgid "proxy user field"
 msgstr ""
 
 #: ../data/rh_register.glade.h:113
-#, fuzzy
 msgid "proxy password field"
-msgstr "Parool:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:114
 msgid "Confirm operation system release selection"
 msgstr ""
 
 #: ../data/rh_register.glade.h:115
-#, fuzzy
 msgid "_No, Cancel"
-msgstr "Loobu"
+msgstr ""
 
 #: ../data/rh_register.glade.h:117
 msgid "_Yes, Continue"
@@ -2072,14 +1876,12 @@ msgid "Go Back and Register"
 msgstr ""
 
 #: ../data/rh_register.glade.h:126
-#, fuzzy
 msgid "Register _Later"
-msgstr "Süsteemi registreerimise probleem."
+msgstr ""
 
 #: ../data/rh_register.glade.h:127
-#, fuzzy
 msgid "Register Later"
-msgstr "Süsteemi registreerimise probleem."
+msgstr ""
 
 #: ../data/rh_register.glade.h:128
 msgid ""
@@ -2098,28 +1900,24 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:133
-#, fuzzy
 msgid "<b>Red Hat Network Location:</b>"
-msgstr "Red Hat Network kasutajanimi"
+msgstr ""
 
 #: ../data/rh_register.glade.h:134
-#, fuzzy
 msgid "<b>Login:</b>"
-msgstr "Registreerimise informatsioon"
+msgstr ""
 
 #: ../data/rh_register.glade.h:135
-#, fuzzy
 msgid "<b>System ID:</b>"
-msgstr "Perekonnanimi:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:136
 msgid "label"
 msgstr ""
 
 #: ../data/rh_register.glade.h:138
-#, fuzzy
 msgid "<b>Warning</b>"
-msgstr "Hoiatud"
+msgstr ""
 
 #: ../data/rh_register.glade.h:139
 msgid ""
@@ -2138,8 +1936,7 @@ msgstr ""
 msgid ""
 "To learn more about RHN registration and technologies please consult this "
 "Knowledge Base Article: <a "
-"href=\"https://access.redhat.com/kb/docs/DOC-45563\">"
-"https://access.redhat.com/kb/docs/DOC-45563</a>\n"
+"href=\"https://access.redhat.com/kb/docs/DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
 
 #: ../data/rh_register.glade.h:143
@@ -2148,13 +1945,9 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:144
 msgid ""
-"Your system is now ready to receive the software updates that will keep it "
-"secure and supported.\n"
+"Your system is now ready to receive the software updates that will keep it secure and supported.\n"
 "\n"
-"You'll know when software updates are available when a package icon appears "
-"in the notification area of your desktop (usually in the upper-right corner, "
-"circled below.) Clicking on this icon, when available, will guide you through "
-"applying any updates that are available:"
+"You'll know when software updates are available when a package icon appears in the notification area of your desktop (usually in the upper-right corner, circled below.) Clicking on this icon, when available, will guide you through applying any updates that are available:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:147
@@ -2166,9 +1959,8 @@ msgid "Select how your system will receive updates:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:150
-#, fuzzy
 msgid "Limited updates"
-msgstr "Ühendriigid"
+msgstr ""
 
 #: ../data/rh_register.glade.h:151
 msgid ""
@@ -2187,14 +1979,12 @@ msgid "_Minor release:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:154
-#, fuzzy
 msgid "Choose minor release"
-msgstr "Väljalase"
+msgstr ""
 
 #: ../data/rh_register.glade.h:155
-#, fuzzy
 msgid "       "
-msgstr "     "
+msgstr ""
 
 #: ../data/rh_register.glade.h:156
 msgid ""
@@ -2235,13 +2025,9 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:163
 msgid ""
-"Your system is ready to receive the software updates that will keep it secure "
-"and supported.\n"
+"Your system is ready to receive the software updates that will keep it secure and supported.\n"
 "\n"
-"You'll know when software updates are available when a package icon appears "
-"in the notification area of your desktop (usually in the upper-right corner, "
-"circled below.) Clicking on this icon, when available, will guide you through "
-"applying any updates that are available:"
+"You'll know when software updates are available when a package icon appears in the notification area of your desktop (usually in the upper-right corner, circled below.) Clicking on this icon, when available, will guide you through applying any updates that are available:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:166
@@ -2249,16 +2035,13 @@ msgid "icon of aplet"
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:1
-#, fuzzy
 msgid "RHN Registration"
-msgstr "registrationNumber"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:3
-#, fuzzy
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
-msgstr "Red Hat Network-i registreerimine"
-
+msgstr ""

@@ -1,23 +1,23 @@
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
-# Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>, 2004, 2012.
+# Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>, 2004,2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2012-10-30 11:32+0100\n"
-"PO-Revision-Date: 2012-11-20 17:01+0000\n"
-"Last-Translator: \n"
-"Language-Team: American English <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2013-02-06 09:40+0000\n"
+"Last-Translator: adelton <jpx-tx@adelton.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ms\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 1.5\n"
 
 #: ../src/up2date_client/config.py:154
 #, python-format
@@ -33,20 +33,17 @@ msgid "ERROR: can not find RHNS CA file"
 msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:202
-#, fuzzy
 msgid "Connection aborted by the user"
-msgstr "- Ia tidak dimiliki oleh pengguna '%s'."
+msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:247
-#, fuzzy
 msgid "Server has refused connection due to high load"
-msgstr "Pelayan kepada"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:145
-#, fuzzy
 #: ../src/up2date_client/rhnregGui.py:162
 msgid "Notice"
-msgstr "Niue"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:155
 #: ../src/up2date_client/rhnregGui.py:169
@@ -55,12 +52,8 @@ msgid "Warning"
 msgstr "Amaran"
 
 #: ../src/up2date_client/rhnregGui.py:270
-#, fuzzy
 msgid "There was an error while applying your choice."
 msgstr ""
-"Tedapat ralat memasang pakej.\n"
-"\n"
-"Keluar."
 
 #: ../src/up2date_client/rhnregGui.py:289
 msgid "You specified an invalid protocol. Only https and http are allowed."
@@ -93,13 +86,12 @@ msgid "Make sure the network connection on this system is operational."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:338
-#, fuzzy
 msgid "There was an error communicating with Red Hat Network."
 msgstr ""
-"Terdapat ralat maut ketika berkomunikasi dengan pelayan.  Mesejnya ialah:\n"
 
 #: ../src/up2date_client/rhnregGui.py:339
-msgid "The server may be in outage mode. You may have to try connecting later."
+msgid ""
+"The server may be in outage mode. You may have to try connecting later."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:341
@@ -107,75 +99,57 @@ msgid "You may be running a client that is incompatible with the server."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:374
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Red Hat Network "
 "Satellite:"
-msgstr "Up2date - Maklumat Pendaftaran"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:413
-#, fuzzy
 msgid "You must enter a login."
-msgstr "Anda mesti memasukkan Nama Sistem Pengoperasian"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:419
-#, fuzzy
 msgid "You must enter a password."
-msgstr "Anda mesti masukkan dan sahkan katalaluan."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:432
-#, fuzzy
 msgid "There was an error while logging in."
-msgstr "Terdapat ralat mendaftarkan sistem ini."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:457
-#, fuzzy
 msgid ""
 "There was an error communicating with the registration server.  The message "
 "was:\n"
 msgstr ""
-"Terdapat ralat maut ketika berkomunikasi dengan pelayan.  Mesejnya ialah:\n"
 
 #: ../src/up2date_client/rhnregGui.py:595
-#, fuzzy
 msgid "There was an error while assembling information for the profile."
 msgstr ""
-"Tedapat ralat memasang pakej.\n"
-"\n"
-"Keluar."
 
 #: ../src/up2date_client/rhnregGui.py:616
 msgid "Error running hardware profile"
 msgstr "Ralat melaksanakan profil perkakasan"
 
 #: ../src/up2date_client/rhnregGui.py:646
-#, fuzzy
 msgid "There was an error while populating the profile."
 msgstr ""
-"Tedapat ralat memasang pakej.\n"
-"\n"
-"Keluar."
 
 #: ../src/up2date_client/rhnregGui.py:666
 msgid "You must choose a name for this profile."
 msgstr "Anda mesti memilih nama untuk profil ini."
 
 #: ../src/up2date_client/rhnregGui.py:680
-#, fuzzy
 msgid "There was an error while creating the profile."
 msgstr ""
-"Tedapat ralat memasang pakej.\n"
-"\n"
-"Keluar."
 
 #: ../src/up2date_client/rhnregGui.py:691
 msgid "Registering system and sending profile information.  Please wait."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:710
-#, fuzzy
 msgid "Registering System"
-msgstr "Masalah mendaftarkan sistem."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:724
 #: ../src/up2date_client/rhnregGui.py:728
@@ -185,11 +159,11 @@ msgid "Problem registering system:\n"
 msgstr "Masalah mendaftarkan sistem:\n"
 
 #: ../src/up2date_client/rhnregGui.py:735
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
 "Please go back to the previous screen and fix it."
-msgstr "Nilai yang and amasukkan bukan nombor yang sah."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:745 ../src/up2date_client/tui.py:875
 msgid "Problem registering system."
@@ -204,14 +178,12 @@ msgid "There was a problem registering this system."
 msgstr "Terdapat ralat mendaftarkan sistem ini."
 
 #: ../src/up2date_client/rhnregGui.py:774
-#, fuzzy
 msgid "Sending hardware information"
-msgstr "_Hantar maklumat perkakasan"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:779
-#, fuzzy
 msgid "Problem sending hardware information."
-msgstr "Ralat membaca maklumat perkakasan:"
+msgstr ""
 
 #. #            for row in range(self.regPackageArea.n_rows):
 #. #                rowData = self.regPackageArea.get_row_data(row)
@@ -223,14 +195,12 @@ msgstr "Ralat membaca maklumat perkakasan:"
 #. #                if pkg[0] in selection:
 #. #                    selectedPackages.append(pkg)
 #: ../src/up2date_client/rhnregGui.py:803
-#, fuzzy
 msgid "Sending package information"
-msgstr "_Hantar maklumat perkakasan"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:808
-#, fuzzy
 msgid "Problem sending package information."
-msgstr "Up2date - Senarai Pakej (pendaftaran)"
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:839 ../src/up2date_client/tui.py:926
 msgid ""
@@ -239,17 +209,12 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:893
-#, fuzzy
 msgid "There was an error while installing the certificate."
 msgstr ""
-"Tedapat ralat memasang pakej.\n"
-"\n"
-"Keluar."
 
 #: ../src/up2date_client/rhnregGui.py:919
-#, fuzzy
 msgid "You must select a certificate."
-msgstr "Anda mesti masukkan nama pengguna."
+msgstr ""
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
@@ -271,12 +236,8 @@ msgid "unknown"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1114
-#, fuzzy
 msgid "There was an error getting the list of hardware."
 msgstr ""
-"Tedapat ralat memasang pakej.\n"
-"\n"
-"Keluar."
 
 #: ../src/up2date_client/rhnregGui.py:1126 ../src/up2date_client/tui.py:660
 #, python-format
@@ -289,12 +250,8 @@ msgid "%s MB"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1174
-#, fuzzy
 msgid "There was an error building the list of packages."
 msgstr ""
-"Tedapat ralat memasang pakej.\n"
-"\n"
-"Keluar."
 
 #: ../src/up2date_client/rhnregGui.py:1189
 msgid "Package"
@@ -305,26 +262,22 @@ msgid "Arch"
 msgstr "Arch"
 
 #: ../src/up2date_client/rhnregGui.py:1201
-#, fuzzy
-msgid "Building a list of RPM packages installed on your system.  Please wait."
-msgstr "on."
+msgid ""
+"Building a list of RPM packages installed on your system.  Please wait."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1232
 msgid ""
 "There was an error loading your configuration.  Make sure that\n"
 "you have read access to /etc/sysconfig/rhn."
-msgstr ""
-"Terdapat ralat ketika memuatkan tetapan anda. Pastikan yang\nanda mempunyai "
-"akses membaca kepada /etc/sysconfig/rhn."
+msgstr "Terdapat ralat ketika memuatkan tetapan anda. Pastikan yang\nanda mempunyai akses membaca kepada /etc/sysconfig/rhn."
 
 #: ../src/up2date_client/rhnregGui.py:1274
 #, python-format
 msgid ""
 "There was an error saving your configuration. Make sure that\n"
 "you own %s."
-msgstr ""
-"Terdapat ralat ketika meyimpan tetapan anda. Pastikan yang\n%s adalah "
-"kepunyaan anda."
+msgstr "Terdapat ralat ketika meyimpan tetapan anda. Pastikan yang\n%s adalah kepunyaan anda."
 
 #: ../src/up2date_client/rhnregGui.py:1304
 #, python-format
@@ -340,13 +293,11 @@ msgstr ""
 
 #: ../src/up2date_client/rhnChannel.py:113
 msgid "This system may not be updated until it is associated with a channel."
-msgstr ""
-"Sistem ini mungkin tidak dikemaskinikan sehingga ia dipadankan dengan saluran."
+msgstr "Sistem ini mungkin tidak dikemaskinikan sehingga ia dipadankan dengan saluran."
 
 #: ../src/up2date_client/debUtils.py:53 ../src/up2date_client/rpmUtils.py:112
-#, fuzzy
 msgid "Getting list of packages installed on the system"
-msgstr "on"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:14
 msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
@@ -354,14 +305,13 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:17
-#, fuzzy
 msgid "Attempting to contact the Red Hat Network server."
-msgstr "Pilih Merah Rangkaian Pelayan kepada"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:18
-#, fuzzy, python-format
+#, python-format
 msgid "We are attempting to contact the Red Hat Network server at %s."
-msgstr "Pilih Merah Rangkaian Pelayan kepada"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:20
 #, python-format
@@ -370,16 +320,12 @@ msgstr ""
 
 #. Start Window
 #: ../src/up2date_client/rhnreg_constants.py:23 ../data/gui.glade.h:1
-#, fuzzy
 msgid "System Registration"
-msgstr "registrationNumber"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:24
 msgid ""
-"This assistant will guide you through connecting your system to Red Hat "
-"Network (RHN) to receive software updates, including security updates, to "
-"keep your system supported and compliant.  You will need the following at "
-"this time:\n"
+"This assistant will guide you through connecting your system to Red Hat Network (RHN) to receive software updates, including security updates, to keep your system supported and compliant.  You will need the following at this time:\n"
 "\n"
 " * A network connection\n"
 " * Your Red Hat Login & password\n"
@@ -393,9 +339,8 @@ msgid "Why Should I Connect to RHN? ..."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:38 ../data/rh_register.glade.h:72
-#, fuzzy
 msgid "Why Register"
-msgstr "%s telah wujud\n"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:39
 msgid ""
@@ -416,9 +361,8 @@ msgid "Support:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:44
-#, fuzzy
 msgid "Compliance:"
-msgstr "Syarikat:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:45
 msgid ""
@@ -451,15 +395,13 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:56
-#, fuzzy
 msgid "Take me back to the registration"
-msgstr "Up2date - Senarai Pakej (pendaftaran)"
+msgstr ""
 
 #. Confirm Quit Window
 #: ../src/up2date_client/rhnreg_constants.py:59
-#, fuzzy
 msgid "Software Update Not Set Up"
-msgstr "_Laksana up2date..."
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:60
 msgid ""
@@ -484,28 +426,25 @@ msgstr ""
 
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:68 ../data/gui.glade.h:4
-#, fuzzy
 #: ../data/rh_register.glade.h:16
 msgid "Red Hat Account"
-msgstr "Saya mempunyai logmasuk Red Hat sedia ada."
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:69
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
 "\n"
-msgstr "Up2date - Maklumat Pendaftaran"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:71
-#, fuzzy
 msgid "Red Hat Login:"
-msgstr "Saya mempunyai logmasuk Red Hat sedia ada."
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:72
-#, fuzzy
 #: ../src/up2date_client/tui.py:128
 msgid "Login:"
-msgstr "_Logmasuk:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:73
 msgid "Password:"
@@ -522,9 +461,8 @@ msgid "Please enter a desired login."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:77
-#, fuzzy
 msgid "Please enter and verify a password."
-msgstr "Anda mesti masukkan dan sahkan katalaluan."
+msgstr ""
 
 #. OS Release Window
 #: ../src/up2date_client/rhnreg_constants.py:80 ../data/gui.glade.h:5
@@ -537,19 +475,17 @@ msgid "Operating System version:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:82
-#, fuzzy
 msgid " Minor Release: "
-msgstr "Keluaran"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:83
 msgid "Limited Updates Only"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:84
-#, fuzzy
 #: ../data/rh_register.glade.h:157
 msgid "All available updates"
-msgstr "terdapat %d kemaskini (%d diabaikan)"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:85
 msgid "Confirm operating system release selection"
@@ -563,70 +499,58 @@ msgstr ""
 
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:91
-#, fuzzy
 msgid "Create Profile - Hardware"
-msgstr "Mempartisyen Sistem Anda"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:92
-#, fuzzy
 msgid ""
 "A Profile Name is a descriptive name that you choose to identify this System"
 " Profile on the Red Hat Network web pages. Optionally, include a computer "
 "serial or identification number."
-msgstr "A Nama unama kepada Sistem on Merah Rangkaian bersiri atau."
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:96
-#, fuzzy
 msgid ""
 "Additional hardware information including PCI devices, disk sizes and mount "
 "points will be included in the profile."
-msgstr "Tambahan PCI dan point dalam."
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:99
-#, fuzzy
 msgid "Include the following information about hardware and network:"
-msgstr "dan:"
+msgstr ""
 
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:103
-#, fuzzy
 msgid "Create Profile - Packages"
-msgstr "Mempartisyen Sistem Anda"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:104
-#, fuzzy
 msgid ""
 "RPM information is important to determine what updated software packages are"
 " relevant to this system."
-msgstr "kepada kepada."
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:107
-#, fuzzy
 msgid "Include RPM packages installed on this system in my System Profile"
-msgstr "on dalam Sistem"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:109
 msgid "You may deselect individual packages by unchecking them below."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:111
-#, fuzzy
 msgid "Building Package List"
-msgstr "Up2date - Senarai Pakej"
+msgstr ""
 
 #. Product Window
 #: ../src/up2date_client/rhnreg_constants.py:114
-#, fuzzy
 msgid "*Email Address:"
-msgstr "Alamat E-Mel"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:116
-#, fuzzy
 #: ../data/rh_register.glade.h:131
 msgid "System Already Registered"
 msgstr ""
-"    --force                    - daftar sistem walaupun ia telahpun "
-"didaftarkan"
 
 #: ../src/up2date_client/rhnreg_constants.py:117
 #: ../data/rh_register.glade.h:132
@@ -640,40 +564,29 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:120
 msgid ""
-"This system has already been registered with RHN using RHN certficate-based "
-"technology.\n"
+"This system has already been registered with RHN using RHN certficate-based technology.\n"
 "\n"
-"The tool you are using is attempting to re-register using RHN Satellite or "
-"RHN Proxy technology. Red Hat recommends (except in a few cases) that "
-"customers only register with RHN once.\n"
+"The tool you are using is attempting to re-register using RHN Satellite or RHN Proxy technology. Red Hat recommends (except in a few cases) that customers only register with RHN once.\n"
 "\n"
-"To learn more about RHN registration and technologies please consult this "
-"Knowledge Base Article: https://access.redhat.com/kb/docs/DOC-45563"
+"To learn more about RHN registration and technologies please consult this Knowledge Base Article: https://access.redhat.com/kb/docs/DOC-45563"
 msgstr ""
 
 #. Send Window
 #: ../src/up2date_client/rhnreg_constants.py:129
-#, fuzzy
 msgid "Send Profile Information to Red Hat Network"
-msgstr "Kirim Maklumat kepada Merah"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:130
-#, fuzzy
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
-"Press \"Next\" to send this System Profile to Red Hat Network.  Click "
-"\"Cancel\" and no information will be sent.  You can run the registration "
-"program later by typing `rhn_register` at the command line."
+"Press \"Next\" to send this System Profile to Red Hat Network.  Click \"Cancel\" and no information will be sent.  You can run the registration program later by typing `rhn_register` at the command line."
 msgstr ""
-"for Sistem Seterusnya kepada Sistem kepada Merah Rangkaian Batal dan tidak "
-"oleh."
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:137
-#, fuzzy
 msgid "Sending Profile to Red Hat Network"
-msgstr "Kirim Maklumat kepada Merah"
+msgstr ""
 
 #. Finish Window
 #: ../src/up2date_client/rhnreg_constants.py:140
@@ -694,9 +607,8 @@ msgstr ""
 
 #. Review Window
 #: ../src/up2date_client/rhnreg_constants.py:152 ../data/gui.glade.h:7
-#, fuzzy
 msgid "Review Subscription"
-msgstr "Huraian"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:153
 #: ../data/rh_register.glade.h:56
@@ -704,23 +616,21 @@ msgid "Please review the subscription details below:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:154
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Network."
-msgstr "Memulakan Daemon Red Hat Network: "
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:156
-#, fuzzy
 msgid ""
 "Subscriptions have been activated for the following Red Hat "
 "products/services:"
-msgstr "Fail laluan statik %s tidak sah"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:158
-#, fuzzy
 msgid "Software Channel Subscriptions:"
-msgstr "Maklumat tidak sah"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:159
 msgid "This system will receive updates from the following software channels:"
@@ -846,13 +756,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Universal default activation key detected\n"
-"A universal default activation key was detected in your account. This means "
-"that a set of properties (software channel subscriptions, package "
-"installations, system group memberships, etc.) for your system's connection "
-"to RHN Satellite or RHN Proxyhave been determined by the activation key "
-"rather than your installation number.  You may also refer to the RHN "
-"Reference Guide, section 6.4.6 for more details about activation keys "
-"(http://access.redhat.com/knowledge/docs/Red_Hat_Network/)\n"
+"A universal default activation key was detected in your account. This means that a set of properties (software channel subscriptions, package installations, system group memberships, etc.) for your system's connection to RHN Satellite or RHN Proxyhave been determined by the activation key rather than your installation number.  You may also refer to the RHN Reference Guide, section 6.4.6 for more details about activation keys (http://access.redhat.com/knowledge/docs/Red_Hat_Network/)\n"
 "Universal Default activation key: %s"
 msgstr ""
 
@@ -871,8 +775,7 @@ msgid ""
 "\n"
 "Make sure that the network connection on this system is operational.\n"
 "\n"
-"This system will not be able to successfully receive software updates from "
-"Red Hat without connecting to a Red Hat Network server"
+"This system will not be able to successfully receive software updates from Red Hat without connecting to a Red Hat Network server"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:246
@@ -891,10 +794,7 @@ msgstr ""
 msgid ""
 "<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
 "\n"
-"The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat "
-"Network server at <b>%s</b>. You may want to double-check that you have "
-"provided a valid certificate file. Are you sure you have provided the correct "
-"certificate, and that the certificate file has not been corrupted?\n"
+"The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat Network server at <b>%s</b>. You may want to double-check that you have provided a valid certificate file. Are you sure you have provided the correct certificate, and that the certificate file has not been corrupted?\n"
 "\n"
 "Please try again with a different certificate file."
 msgstr ""
@@ -903,8 +803,7 @@ msgstr ""
 msgid ""
 "<b><span size=\"12000\">Incompatible Certificate File</span></b>\n"
 "\n"
-" The certificate is expired. Please ensure you have the correct  certificate "
-"and your system time is correct."
+" The certificate is expired. Please ensure you have the correct  certificate and your system time is correct."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:266
@@ -915,12 +814,7 @@ msgstr ""
 msgid ""
 "Problem registering system.\n"
 "\n"
-"A universal default activation key limits the number of systems which can "
-"connect to the RHN organization associated with your login. To allow this "
-"system to connect, please contact your RHN organization administrator to "
-"increase the number of systems allowed to connect or to disable this "
-"universal default activation key. More details can be found in Red Hat "
-"Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
+"A universal default activation key limits the number of systems which can connect to the RHN organization associated with your login. To allow this system to connect, please contact your RHN organization administrator to increase the number of systems allowed to connect or to disable this universal default activation key. More details can be found in Red Hat Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:282
@@ -970,10 +864,9 @@ msgid "Cancel"
 msgstr "Batal"
 
 #: ../src/up2date_client/rhnreg_constants.py:304
-#, fuzzy
 #: ../data/rh_register.glade.h:116
 msgid "No, Cancel"
-msgstr "Batal"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:305
 #: ../data/rh_register.glade.h:118
@@ -1013,59 +906,48 @@ msgid "Yes/No dialog:"
 msgstr "Dialog Ya/Tidak"
 
 #: ../src/up2date_client/tui.py:127
-#, fuzzy
 msgid "Red Hat Network Location:"
-msgstr "Logmasuk Red Hat Network"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:129
-#, fuzzy
 msgid "System ID:"
-msgstr "Nama Pengguna"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:414
 msgid "The server indicated an error:\n"
 msgstr "Pelayan menandakan ralat:\n"
 
 #: ../src/up2date_client/tui.py:418
-#, fuzzy
 msgid "There was an error communicating with the registration server:\n"
 msgstr ""
-"Terdapat ralat maut ketika berkomunikasi dengan pelayan.  Mesejnya ialah:\n"
 
 #: ../src/up2date_client/tui.py:609
-#, fuzzy
 msgid "Profile name:"
-msgstr "Nama profil telah wujud!"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:631 ../src/up2date_client/tui.py:632
-#, fuzzy
 msgid "Version: "
-msgstr "Versi:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:638
-#, fuzzy
 msgid "CPU model: "
-msgstr "Model CPU:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:644
-#, fuzzy
 msgid "Hostname: "
-msgstr "Namahos:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:656
-#, fuzzy
 msgid "CPU speed: "
-msgstr "Kelajuan Failover"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:662
-#, fuzzy
 msgid "IP Address: "
-msgstr "Alamat IP:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:671
-#, fuzzy
 msgid "Memory: "
-msgstr "Memori:"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:675
 #, python-format
@@ -1081,14 +963,12 @@ msgid "Problem sending hardware profile."
 msgstr "Masalah menghantar profil perkakasan."
 
 #: ../src/up2date_client/tui.py:908
-#, fuzzy
 msgid "Problem sending package list:\n"
-msgstr "Up2date - Senarai Pakej (pendaftaran)"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:911
-#, fuzzy
 msgid "Problem sending package list."
-msgstr "Up2date - Senarai Pakej (pendaftaran)"
+msgstr ""
 
 #: ../src/up2date_client/tui.py:964
 msgid "Finish"
@@ -1099,22 +979,17 @@ msgid "You specified an invalid protocol."
 msgstr ""
 
 #: ../src/up2date_client/tui.py:1114
-#, fuzzy
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
 msgstr ""
-"  <Tab>/<Alt-Tab> Antara unsur   |  <Space> pilih   |  <F12> Skrin "
-"seterusnya "
 
 #: ../src/up2date_client/tui.py:1211
-#, fuzzy
 msgid "You must run the RHN registration program as root."
-msgstr "pengguna unama."
+msgstr ""
 
 #: ../src/up2date_client/rhnreg.py:56
-#, fuzzy
 msgid "Warning: unable to enable rhnsd with chkconfig"
-msgstr "Amaran kepada"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:37
 #: ../src/up2date_client/up2dateErrors.py:72
@@ -1123,51 +998,40 @@ msgid "class %s has no attribute '%s'"
 msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:95
-#, fuzzy
 msgid "RPM error.  The message was:\n"
-msgstr "Terdapat ralat RPM.  Mesejnya ialah:\n"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:102
-#, fuzzy
 msgid "Password error. The message was:\n"
-msgstr "Terdapat ralat RPM.  Mesejnya ialah:\n"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:106
-#, fuzzy
 msgid "RPM dependency error. The message was:\n"
-msgstr "Terdapat ralat RPM.  Mesejnya ialah:\n"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:116
-#, fuzzy
 msgid "Error communicating with server. The message was:\n"
 msgstr ""
-"Terdapat ralat maut ketika berkomunikasi dengan pelayan.  Mesejnya ialah:\n"
 
 #: ../src/up2date_client/up2dateErrors.py:123
-#, fuzzy
 msgid "File Not Found: \n"
-msgstr "Fail tidak dijumpai"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:130
-#, fuzzy
 msgid "Delay error from server.  The message was:\n"
 msgstr ""
-"Terdapat ralat maut ketika berkomunikasi dengan pelayan.  Mesejnya ialah:\n"
 
 #: ../src/up2date_client/up2dateErrors.py:168
-#, fuzzy
 msgid "Error validating data at server:\n"
-msgstr "Data rosak/tidak lengkap atau ralat pelayan (%1)."
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:175
-#, fuzzy
 msgid "The installation number is invalid"
-msgstr "Fail laluan statik %s tidak sah"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:178
-#, fuzzy
 msgid "Error parsing the oemInfo file at field:\n"
-msgstr "Ralat fail"
+msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:205
 msgid "Network error: "
@@ -1176,44 +1040,34 @@ msgstr ""
 #: ../src/up2date_client/up2dateErrors.py:273
 msgid ""
 "\n"
-"    Your organization does not have enough Management entitlements to "
-"register this\n"
-"    system to Red Hat Network. Please notify your organization administrator "
-"of this error. \n"
-"    You should be able to register this system after your organization frees "
-"existing \n"
-"    or purchases additional entitlements. Additional entitlements may be "
-"purchased by your\n"
+"    Your organization does not have enough Management entitlements to register this\n"
+"    system to Red Hat Network. Please notify your organization administrator of this error. \n"
+"    You should be able to register this system after your organization frees existing \n"
+"    or purchases additional entitlements. Additional entitlements may be purchased by your\n"
 "    organization administrator by logging into Red Hat Network and visiting\n"
 "    the 'Subscription Management' page in the 'Your RHN' section of RHN.\n"
 "    \n"
 "    A common cause of this error code is due to having mistakenly setup an\n"
-"    Activation Key which is set as the universal default.  If an activation "
-"key is set\n"
-"    on the account as a universal default, you can disable this key and retry "
-"to avoid\n"
+"    Activation Key which is set as the universal default.  If an activation key is set\n"
+"    on the account as a universal default, you can disable this key and retry to avoid\n"
 "    requiring a Management entitlement."
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:70
-#, fuzzy
 msgid "Show additional output"
-msgstr "Hasilkan keluaran berjela"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:72
-#, fuzzy
 msgid "Specify an http proxy to use"
-msgstr "Katalaluan untuk digunakan bagi proksi berpengesahan"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:74
-#, fuzzy
 msgid "Specify a username to use with an authenticated http proxy"
-msgstr "kepada"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:76
-#, fuzzy
 msgid "Specify a password to use with an authenticated http proxy"
-msgstr "kepada"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:98
 msgid ""
@@ -1222,11 +1076,9 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:101
-#, fuzzy, python-format
+#, python-format
 msgid "An unexpected OS error occurred: %s\n"
 msgstr ""
-"Ralat OS yang tidak dijangka berlaku:\n"
-"%s"
 
 #: ../src/up2date_client/rhncli.py:105
 msgid "A connection was attempted with a malformed URI.\n"
@@ -1238,31 +1090,30 @@ msgid "A connection was attempted with a malformed URI: %s.\n"
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:109
-#, fuzzy, python-format
+#, python-format
 msgid "There was some sort of I/O error: %s\n"
-msgstr "Terdapat seperti ralat I/O: %s"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:112
-#, fuzzy, python-format
+#, python-format
 msgid "There was an SSL error: %s\n"
-msgstr "Terdapat ralat RPM.  Mesejnya ialah:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:113
-#, fuzzy
 msgid ""
 "A common cause of this error is the system time being incorrect. Verify that"
 " the time on this system is correct.\n"
-msgstr "A ralat Tentusah on"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:120
-#, fuzzy, python-format
+#, python-format
 msgid "There was a SSL crypto error: %s\n"
-msgstr "Terdapat ralat RPM.  Mesejnya ialah:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:124
-#, fuzzy, python-format
+#, python-format
 msgid "There was an authentication error: %s\n"
-msgstr "Terdapat ralat RPM.  Mesejnya ialah:\n"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:140
 #, python-format
@@ -1270,9 +1121,8 @@ msgid "You must be root to run %s"
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:170 ../src/up2date_client/rhncli.py:205
-#, fuzzy
 msgid "Unable to open gui. Try `up2date --nox`"
-msgstr "kepada"
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:212
 #, python-format
@@ -1283,43 +1133,35 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:227
-#, fuzzy
 msgid "An error has occurred:"
-msgstr "Ralat telah berlaku didalam modul %s."
+msgstr ""
 
 #: ../src/up2date_client/rhncli.py:235
-#, fuzzy
 msgid "See /var/log/up2date for more information"
-msgstr "Ralat faks: lihat mesej log untuk maklumat lanjut."
+msgstr ""
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
 msgid ""
 "This client requires the server to support %s, which the current server does"
 " not support"
-msgstr ""
-"Klien ini memerlukan pelayan untuk menyokong %s, dimana pelayan semasa tidak "
-"menyokongnya"
+msgstr "Klien ini memerlukan pelayan untuk menyokong %s, dimana pelayan semasa tidak menyokongnya"
 
 #: ../src/up2date_client/gui.py:313
-#, fuzzy
 msgid "_Finish"
-msgstr "Tamat"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:316
-#, fuzzy
 msgid "_Exit"
-msgstr "Sunting"
+msgstr ""
 
 #: ../src/up2date_client/gui.py:317
-#, fuzzy
 msgid "Software Updates Not Set Up"
-msgstr "_Laksana up2date..."
+msgstr ""
 
 #: ../src/up2date_client/gui.py:327
-#, fuzzy
 msgid "You must run rhn_register as root."
-msgstr "Anda mesti laksanakan Update Agent sebagai root."
+msgstr ""
 
 #: ../src/up2date_client/gui.py:351
 #, python-format
@@ -1343,19 +1185,16 @@ msgid "Specify an organizational id for this system"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:54
-#, fuzzy
 msgid "Specify a url to use as a server"
-msgstr "kepada"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:56
-#, fuzzy
 msgid "Specify a file to use as the ssl CA cert"
-msgstr "<path> fail kepada"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:58
-#, fuzzy
 msgid "Specify an activation key"
-msgstr "Katalaluan untuk digunakan bagi proksi berpengesahan"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:60
 msgid ""
@@ -1363,19 +1202,16 @@ msgid ""
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:62
-#, fuzzy
 msgid "[Deprecated] Read contact info from stdin"
-msgstr "daripada "
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:64
-#, fuzzy
 msgid "Do not probe or upload any hardware info"
-msgstr "atau "
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:66
-#, fuzzy
 msgid "Do not profile or upload any package info"
-msgstr "atau "
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:68
 msgid "Do not upload any virtualization info"
@@ -1386,21 +1222,16 @@ msgid "Do not start rhnsd after completion"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:72
-#, fuzzy
 msgid "Register the system even if it is already registered"
 msgstr ""
-"    --force                    - daftar sistem walaupun ia telahpun "
-"didaftarkan"
 
 #: ../src/bin/rhnreg_ks.py:82
-#, fuzzy
 msgid "A username and password are required to register a system."
-msgstr "A dan kepada."
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:87
-#, fuzzy
 msgid "This system is already registered. Use --force to override"
-msgstr "Guna kepada"
+msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:121
 msgid ""
@@ -1429,16 +1260,14 @@ msgid ""
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:202
-#, fuzzy
 msgid ""
 "A profilename was not specified, and hostname and IP address could not be "
 "determined to use as a profilename, please specify one."
-msgstr "A dan dan IP kepada."
+msgstr ""
 
 #: ../src/bin/rhn_register.py:37
-#, fuzzy
 msgid "Do not attempt to use X"
-msgstr "Anda tidak mempunyai keizinan untuk membaca %s."
+msgstr ""
 
 #: ../src/bin/spacewalk-channel.py:53
 msgid "ERROR: must be root to execute\n"
@@ -1533,26 +1362,22 @@ msgid "Attempting to run more than one instance of rhn_check. Exiting.\n"
 msgstr ""
 
 #: ../src/bin/rhn-profile-sync.py:35
-#, fuzzy
 msgid ""
 "You need to register this system by running `rhn_register` before using this"
 " option"
-msgstr "kepada oleh"
+msgstr ""
 
 #: ../src/bin/rhn-profile-sync.py:43
-#, fuzzy
 msgid "Updating package profile..."
-msgstr "Menukar ke profil %s"
+msgstr ""
 
 #: ../src/bin/rhn-profile-sync.py:46
-#, fuzzy
 msgid "Updating hardware profile..."
-msgstr "Up2date - Profil Perkakasan"
+msgstr ""
 
 #: ../src/bin/rhn-profile-sync.py:50
-#, fuzzy
 msgid "Updating virtualization profile..."
-msgstr "Menukar ke profil %s"
+msgstr ""
 
 #: ../data/gui.glade.h:2
 msgid "Set Up Software Updates"
@@ -1563,29 +1388,24 @@ msgid "Choose Service"
 msgstr ""
 
 #: ../data/gui.glade.h:6
-#, fuzzy
 msgid "Create Profile"
-msgstr "Profil Perkakasan"
+msgstr ""
 
 #: ../data/gui.glade.h:8
-#, fuzzy
 msgid "Provide a security certificate"
-msgstr "Anda mesti masukkan nama pengguna."
+msgstr ""
 
 #: ../data/progress.glade.h:1
-#, fuzzy
 msgid "Sending Information"
-msgstr "_Hantar maklumat perkakasan"
+msgstr ""
 
 #: ../data/progress.glade.h:2
-#, fuzzy
 msgid "progress bar"
-msgstr "Dialog Kemajuan"
+msgstr ""
 
 #: ../data/progress.glade.h:3
-#, fuzzy
 msgid "progress status"
-msgstr "Dialog Kemajuan"
+msgstr ""
 
 #: ../data/rh_register.glade.h:1
 msgid ""
@@ -1595,17 +1415,12 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:2
 msgid ""
-"This system will <b>not</b> be able to successfully receive software updates, "
-"including security updates, from Red Hat without connecting to a Red Hat "
-"Network server.\n"
+"This system will <b>not</b> be able to successfully receive software updates, including security updates, from Red Hat without connecting to a Red Hat Network server.\n"
 "\n"
-"To keep your system updated, secure, and supported, please register this "
-"system at your earliest convenience.\n"
+"To keep your system updated, secure, and supported, please register this system at your earliest convenience.\n"
 "\n"
-"You may access the RHN registration tool by running <b>RHN Registration</b> "
-"in the <b>System > Administration</b> menu.\n"
-"You may access the software update tool by running <b>Software Update</b> in "
-"the <b>System > Administration</b> menu."
+"You may access the RHN registration tool by running <b>RHN Registration</b> in the <b>System > Administration</b> menu.\n"
+"You may access the software update tool by running <b>Software Update</b> in the <b>System > Administration</b> menu."
 msgstr ""
 
 #: ../data/rh_register.glade.h:10
@@ -1613,9 +1428,8 @@ msgid "I'd like to register with an RHN Satellite or RHN Proxy"
 msgstr ""
 
 #: ../data/rh_register.glade.h:11
-#, fuzzy
 msgid "Location:"
-msgstr "Posisi:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:12
 msgid "Example: https://satellite.example.com/XMLRPC"
@@ -1634,28 +1448,24 @@ msgid "Proxy Setup Button"
 msgstr ""
 
 #: ../data/rh_register.glade.h:17
-#, fuzzy
 msgid "Please enter your Red Hat account information:"
-msgstr "Maklumat Pakej"
+msgstr ""
 
 #: ../data/rh_register.glade.h:18
-#, fuzzy
 msgid "RHN login field"
-msgstr "Saya mempunyai logmasuk Red Hat sedia ada."
+msgstr ""
 
 #: ../data/rh_register.glade.h:19
 msgid "RHN password field"
 msgstr ""
 
 #: ../data/rh_register.glade.h:20
-#, fuzzy
 msgid "_Password:"
-msgstr "Katalaluan:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:21
-#, fuzzy
 msgid "_Login:"
-msgstr "_Logmasuk:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:22
 msgid ""
@@ -1664,54 +1474,44 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:23
-#, fuzzy
 msgid "Hardware Info"
-msgstr "<i>info_label</i>"
+msgstr ""
 
 #: ../data/rh_register.glade.h:24
-#, fuzzy
 msgid "Red Hat Linux Version:"
-msgstr "Red Hat Linux Versi:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:25
-#, fuzzy
 msgid "Hostname:"
-msgstr "Namahos:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:26
-#, fuzzy
 msgid "IP Address:"
-msgstr "Alamat IP:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:27
-#, fuzzy
 msgid "ERROR"
-msgstr "RALAT"
+msgstr ""
 
 #: ../data/rh_register.glade.h:28
-#, fuzzy
 msgid "CPU Model:"
-msgstr "Model CPU:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:29
-#, fuzzy
 msgid "CPU Speed:"
-msgstr "Kelajuan Failover"
+msgstr ""
 
 #: ../data/rh_register.glade.h:30
-#, fuzzy
 msgid "Memory:"
-msgstr "Memori:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:31
-#, fuzzy
 msgid "Hardware Profile"
-msgstr "Profil Perkakasan"
+msgstr ""
 
 #: ../data/rh_register.glade.h:32
-#, fuzzy
 msgid "Package Information"
-msgstr "Maklumat Pakej"
+msgstr ""
 
 #: ../data/rh_register.glade.h:33
 msgid "Start Window"
@@ -1741,14 +1541,12 @@ msgid "• The address of an RHN Satellite or RHN Proxy"
 msgstr ""
 
 #: ../data/rh_register.glade.h:39
-#, fuzzy
 msgid "_Why Should I Register?"
-msgstr "%s telah wujud\n"
+msgstr ""
 
 #: ../data/rh_register.glade.h:40
-#, fuzzy
 msgid "Why Should I Register?"
-msgstr "%s telah wujud\n"
+msgstr ""
 
 #: ../data/rh_register.glade.h:41
 msgid ""
@@ -1765,9 +1563,8 @@ msgid "_No, I prefer to register at a later time."
 msgstr ""
 
 #: ../data/rh_register.glade.h:44
-#, fuzzy
 msgid "Link To Subscription"
-msgstr "Huraian"
+msgstr ""
 
 #: ../data/rh_register.glade.h:45
 msgid ""
@@ -1804,37 +1601,32 @@ msgid "•"
 msgstr ""
 
 #: ../data/rh_register.glade.h:51
-#, fuzzy
 msgid "installation number field"
-msgstr "Fail laluan statik %s tidak sah"
+msgstr ""
 
 #: ../data/rh_register.glade.h:52
-#, fuzzy
 msgid "Installation _Number:"
-msgstr "registrationNumber"
+msgstr ""
 
 #: ../data/rh_register.glade.h:53
 msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:54
-#, fuzzy
 msgid "_Activate a subscription now..."
-msgstr "Mempartisyen Sistem Anda"
+msgstr ""
 
 #: ../data/rh_register.glade.h:55
 msgid "Review system..."
 msgstr ""
 
 #: ../data/rh_register.glade.h:57
-#, fuzzy
 msgid "Create profile"
-msgstr "Profil Perkakasan"
+msgstr ""
 
 #: ../data/rh_register.glade.h:58
-#, fuzzy
 msgid "<big><b>System Name</b></big>"
-msgstr "Nama Pengguna"
+msgstr ""
 
 #: ../data/rh_register.glade.h:59
 msgid ""
@@ -1843,14 +1635,12 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:60
-#, fuzzy
 msgid "System _Name:"
-msgstr "Nama Pengguna"
+msgstr ""
 
 #: ../data/rh_register.glade.h:61
-#, fuzzy
 msgid "system name"
-msgstr "Nama Pengguna"
+msgstr ""
 
 #: ../data/rh_register.glade.h:62
 msgid "<big><b>Profile Data</b></big>"
@@ -1863,44 +1653,36 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:64
-#, fuzzy
 msgid "_View Hardware Profile ..."
-msgstr "Profil Perkakasan"
+msgstr ""
 
 #: ../data/rh_register.glade.h:65
-#, fuzzy
 msgid "View Hardware Profile"
-msgstr "Profil Perkakasan"
+msgstr ""
 
 #: ../data/rh_register.glade.h:66
-#, fuzzy
 msgid "V_iew Package Profile ..."
-msgstr "Menukar ke profil %s"
+msgstr ""
 
 #: ../data/rh_register.glade.h:67
-#, fuzzy
 msgid "View Package Profile"
-msgstr "Menukar ke profil %s"
+msgstr ""
 
 #: ../data/rh_register.glade.h:68
-#, fuzzy
 msgid "Send _hardware profile"
-msgstr "Profil Perkakasan"
+msgstr ""
 
 #: ../data/rh_register.glade.h:69
-#, fuzzy
 msgid "Send hardware profile checkbox"
-msgstr "Profil Perkakasan"
+msgstr ""
 
 #: ../data/rh_register.glade.h:70
-#, fuzzy
 msgid "Send _package profile"
-msgstr "Hantar senarai _pakej"
+msgstr ""
 
 #: ../data/rh_register.glade.h:71
-#, fuzzy
 msgid "Send package profile checkbox"
-msgstr "Hantar senarai _pakej"
+msgstr ""
 
 #: ../data/rh_register.glade.h:73
 msgid ""
@@ -1931,14 +1713,12 @@ msgid "<b>Downloads &amp; Upgrades:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:80
-#, fuzzy
 msgid "<b>Support:</b>"
-msgstr "Up2date - Maklumat Pendaftaran"
+msgstr ""
 
 #: ../data/rh_register.glade.h:82
-#, fuzzy
 msgid "<b>Management:</b>"
-msgstr "Up2date - Maklumat Pendaftaran"
+msgstr ""
 
 #: ../data/rh_register.glade.h:83
 msgid "Management"
@@ -1964,24 +1744,18 @@ msgstr ""
 #: ../data/rh_register.glade.h:88
 #, no-c-format
 msgid ""
-"A security certificate compatible with <b>%s</b> was not found on this "
-"system.\n"
+"A security certificate compatible with <b>%s</b> was not found on this system.\n"
 "\n"
-"A security certificate, using SSL technology, is necessary to ensure that "
-"data communicated between this system and Red Hat Network (including your "
-"login and password) is secure."
+"A security certificate, using SSL technology, is necessary to ensure that data communicated between this system and Red Hat Network (including your login and password) is secure."
 msgstr ""
 
 #: ../data/rh_register.glade.h:91
-#, fuzzy
 msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 msgstr ""
-"Terdapat ralat maut ketika berkomunikasi dengan pelayan.  Mesejnya ialah:\n"
 
 #: ../data/rh_register.glade.h:92
-#, fuzzy
 msgid "Certificate _Location:"
-msgstr "Logmasuk Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:93
 msgid "Select A File"
@@ -1994,31 +1768,24 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:95
-#, fuzzy
 msgid "Your system is not setup for software updates."
-msgstr "_Laksana up2date..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:96
 msgid ""
-"You won't be able to receive software updates, including security updates, "
-"for this system.\n"
+"You won't be able to receive software updates, including security updates, for this system.\n"
 "\n"
-"You may access the RHN registration tool by running <b>RHN Registration</b> "
-"or <b>Red Hat Subscription Manager</b> in the <b>System > Administration</b> "
-"menu.\n"
-"You may access the software update tool by running <b>Software Update</b> in "
-"the <b>System > Administration</b> menu."
+"You may access the RHN registration tool by running <b>RHN Registration</b> or <b>Red Hat Subscription Manager</b> in the <b>System > Administration</b> menu.\n"
+"You may access the software update tool by running <b>Software Update</b> in the <b>System > Administration</b> menu."
 msgstr ""
 
 #: ../data/rh_register.glade.h:100
-#, fuzzy
 msgid "Proxy Configuration"
-msgstr "Tetapan Rangkaian"
+msgstr ""
 
 #: ../data/rh_register.glade.h:101
-#, fuzzy
 msgid "<b>HTTP Proxy</b>"
-msgstr "Hidupkan Proksi HTTP:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:102
 msgid "I would like to connect via an _HTTP proxy."
@@ -2037,51 +1804,44 @@ msgid "_Proxy Location:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:106
-#, fuzzy
 msgid "Enter in the format hostname(:port)"
-msgstr "Masukkan dalam format namahos(:port)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:107
 msgid "proxy location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:108
-#, fuzzy
 msgid "Use Au_thentication with HTTP Proxy:"
-msgstr "Guna Pengesahan"
+msgstr ""
 
 #: ../data/rh_register.glade.h:109
-#, fuzzy
 msgid "Use Authentication with HTTP Proxy"
-msgstr "Guna Pengesahan"
+msgstr ""
 
 #: ../data/rh_register.glade.h:110
-#, fuzzy
 msgid "Proxy _Username:"
-msgstr "Namapengguna:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:111
-#, fuzzy
 msgid "Proxy P_assword:"
-msgstr "Katalaluan:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:112
 msgid "proxy user field"
 msgstr ""
 
 #: ../data/rh_register.glade.h:113
-#, fuzzy
 msgid "proxy password field"
-msgstr "Katalaluan:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:114
 msgid "Confirm operation system release selection"
 msgstr ""
 
 #: ../data/rh_register.glade.h:115
-#, fuzzy
 msgid "_No, Cancel"
-msgstr "Batal"
+msgstr ""
 
 #: ../data/rh_register.glade.h:117
 msgid "_Yes, Continue"
@@ -2117,14 +1877,12 @@ msgid "Go Back and Register"
 msgstr ""
 
 #: ../data/rh_register.glade.h:126
-#, fuzzy
 msgid "Register _Later"
-msgstr "Masalah mendaftarkan sistem."
+msgstr ""
 
 #: ../data/rh_register.glade.h:127
-#, fuzzy
 msgid "Register Later"
-msgstr "Masalah mendaftarkan sistem."
+msgstr ""
 
 #: ../data/rh_register.glade.h:128
 msgid ""
@@ -2143,28 +1901,24 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:133
-#, fuzzy
 msgid "<b>Red Hat Network Location:</b>"
-msgstr "Logmasuk Red Hat Network"
+msgstr ""
 
 #: ../data/rh_register.glade.h:134
-#, fuzzy
 msgid "<b>Login:</b>"
-msgstr "Up2date - Maklumat Pendaftaran"
+msgstr ""
 
 #: ../data/rh_register.glade.h:135
-#, fuzzy
 msgid "<b>System ID:</b>"
-msgstr "Nama Pengguna"
+msgstr ""
 
 #: ../data/rh_register.glade.h:136
 msgid "label"
 msgstr ""
 
 #: ../data/rh_register.glade.h:138
-#, fuzzy
 msgid "<b>Warning</b>"
-msgstr "Amaran"
+msgstr ""
 
 #: ../data/rh_register.glade.h:139
 msgid ""
@@ -2183,8 +1937,7 @@ msgstr ""
 msgid ""
 "To learn more about RHN registration and technologies please consult this "
 "Knowledge Base Article: <a "
-"href=\"https://access.redhat.com/kb/docs/DOC-45563\">"
-"https://access.redhat.com/kb/docs/DOC-45563</a>\n"
+"href=\"https://access.redhat.com/kb/docs/DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
 
 #: ../data/rh_register.glade.h:143
@@ -2193,13 +1946,9 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:144
 msgid ""
-"Your system is now ready to receive the software updates that will keep it "
-"secure and supported.\n"
+"Your system is now ready to receive the software updates that will keep it secure and supported.\n"
 "\n"
-"You'll know when software updates are available when a package icon appears "
-"in the notification area of your desktop (usually in the upper-right corner, "
-"circled below.) Clicking on this icon, when available, will guide you through "
-"applying any updates that are available:"
+"You'll know when software updates are available when a package icon appears in the notification area of your desktop (usually in the upper-right corner, circled below.) Clicking on this icon, when available, will guide you through applying any updates that are available:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:147
@@ -2211,9 +1960,8 @@ msgid "Select how your system will receive updates:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:150
-#, fuzzy
 msgid "Limited updates"
-msgstr "Amerika Syarikat"
+msgstr ""
 
 #: ../data/rh_register.glade.h:151
 msgid ""
@@ -2232,14 +1980,12 @@ msgid "_Minor release:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:154
-#, fuzzy
 msgid "Choose minor release"
-msgstr "Keluaran"
+msgstr ""
 
 #: ../data/rh_register.glade.h:155
-#, fuzzy
 msgid "       "
-msgstr "     "
+msgstr ""
 
 #: ../data/rh_register.glade.h:156
 msgid ""
@@ -2280,13 +2026,9 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:163
 msgid ""
-"Your system is ready to receive the software updates that will keep it secure "
-"and supported.\n"
+"Your system is ready to receive the software updates that will keep it secure and supported.\n"
 "\n"
-"You'll know when software updates are available when a package icon appears "
-"in the notification area of your desktop (usually in the upper-right corner, "
-"circled below.) Clicking on this icon, when available, will guide you through "
-"applying any updates that are available:"
+"You'll know when software updates are available when a package icon appears in the notification area of your desktop (usually in the upper-right corner, circled below.) Clicking on this icon, when available, will guide you through applying any updates that are available:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:166
@@ -2294,16 +2036,13 @@ msgid "icon of aplet"
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:1
-#, fuzzy
 msgid "RHN Registration"
-msgstr "registrationNumber"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:3
-#, fuzzy
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
-msgstr "Memulakan Daemon Red Hat Network: "
-
+msgstr ""
