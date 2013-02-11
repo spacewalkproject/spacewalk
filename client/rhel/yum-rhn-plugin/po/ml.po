@@ -1,22 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Ani Peter <apeter@redhat.com>, 2006-2007.
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
-"POT-Creation-Date: 2012-10-30 11:31+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-02-11 15:30-0500\n"
 "PO-Revision-Date: 2012-10-30 10:38+0000\n"
 "Last-Translator: adelton <jpx-tx@adelton.com>\n"
 "Language-Team: Malayalam <discuss@lists.smc.org.in>\n"
+"Language: ml\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ml\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../rhnplugin.py:51
@@ -32,7 +32,9 @@ msgstr ""
 msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
-msgstr "*കുറിപ്പു്* Red Hat നെറ്റ്‌വര്‍ക്ക് റിപ്പോസിറ്ററികള്‍ താഴെ ലഭ്യമാക്കിയിട്ടില്ല. RHN റിപ്പോസിറ്ററികള്‍ ലഭ്യമാക്കുന്നതിനായി ഈ കമാന്‍ഡ് നിങ്ങള്‍ റൂട്ടായി പ്രവര്‍ത്തിപ്പിക്കണം."
+msgstr ""
+"*കുറിപ്പു്* Red Hat നെറ്റ്‌വര്‍ക്ക് റിപ്പോസിറ്ററികള്‍ താഴെ ലഭ്യമാക്കിയിട്ടില്ല. RHN "
+"റിപ്പോസിറ്ററികള്‍ ലഭ്യമാക്കുന്നതിനായി ഈ കമാന്‍ഡ് നിങ്ങള്‍ റൂട്ടായി പ്രവര്‍ത്തിപ്പിക്കണം."
 
 #: ../rhnplugin.py:85
 msgid "There was an error parsing the RHN proxy settings."

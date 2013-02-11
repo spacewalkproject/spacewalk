@@ -1,23 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Maxim Dziumanenko <dziumanenko@gmail.com>, 2003.
 # Yuri Chornoivan <yurchor@ukr.net>, 2012-2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
-"POT-Creation-Date: 2012-10-30 11:31+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-02-11 15:30-0500\n"
 "PO-Revision-Date: 2013-01-02 10:31+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: uk\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../rhnplugin.py:51
 msgid "There was an error communicating with RHN."
@@ -32,7 +33,10 @@ msgstr "Підтримку RHN Satellite або RHN Classic буде вимкн�
 msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
-msgstr "*Зауваження* Нижче не показано списку сховищ Red Hat Network. Щоб отримати доступ до сховища RHN, вам слід віддати цю команду від імені адміністратора (root)."
+msgstr ""
+"*Зауваження* Нижче не показано списку сховищ Red Hat Network. Щоб отримати "
+"доступ до сховища RHN, вам слід віддати цю команду від імені адміністратора "
+"(root)."
 
 #: ../rhnplugin.py:85
 msgid "There was an error parsing the RHN proxy settings."
@@ -70,7 +74,9 @@ msgstr "Цю систему не підписано на жоден канал."
 msgid ""
 "This system may not be registered to RHN Classic or RHN Satellite. SystemId "
 "could not be acquired."
-msgstr "Ймовірно, цю систему не зареєстровано у RHN Classic або RHN Satellite. Не вдалося визначити ідентифікатор системи."
+msgstr ""
+"Ймовірно, цю систему не зареєстровано у RHN Classic або RHN Satellite. Не "
+"вдалося визначити ідентифікатор системи."
 
 #: ../rhnplugin.py:156
 msgid "This system is receiving updates from RHN Classic or RHN Satellite."
@@ -86,7 +92,9 @@ msgstr "Повідомлення про помилку:"
 
 #: ../rhnplugin.py:290
 msgid "Please run rhn_register as root on this client"
-msgstr "Будь ласка, запустіть для цієї клієнтської системи rhn_register від імені адміністратора (root)"
+msgstr ""
+"Будь ласка, запустіть для цієї клієнтської системи rhn_register від імені "
+"адміністратора (root)"
 
 #: ../rhnplugin.py:371
 #, python-format
