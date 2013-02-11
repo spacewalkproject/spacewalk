@@ -48,10 +48,14 @@ Requires:       status_log_acceptor
 Requires:       tsdb
 Requires: spacewalk-monitoring-selinux
 
+%if 0%{fedora}
+Requires(preun): systemd
+%else
 Requires(post): chkconfig
 Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
+%endif
 
 Obsoletes: LongLegs < 1.11.0
 Obsoletes: Time-System < 1.7.0
@@ -77,22 +81,41 @@ rm -Rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/%{_sbindir}
 mkdir -p $RPM_BUILD_ROOT/%{_initrddir}
 
+%if 0%{?fedora}
+install Monitoring.service $RPM_BUILD_ROOT%{_unitdir}
+install MonitoringScout.service $RPM_BUILD_ROOT%{_unitdir}
+%else
 ln -s /etc/rc.d/np.d/sysvStep $RPM_BUILD_ROOT/%{_sbindir}/Monitoring
 ln -s /etc/rc.d/np.d/sysvStep $RPM_BUILD_ROOT/%{_sbindir}/MonitoringScout
+%endif
 
 install Monitoring $RPM_BUILD_ROOT%{_initrddir}
 install MonitoringScout $RPM_BUILD_ROOT%{_initrddir}
 
 %post
-/sbin/chkconfig --add Monitoring
-/sbin/chkconfig --add MonitoringScout
+if [ -x /etc/init.d/Monitoring ] ; then
+    /sbin/chkconfig --add Monitoring
+fi
+if [ -x /etc/init.d/MonitoringScout ] ; then
+    /sbin/chkconfig --add MonitoringScout
+fi
 
 %preun
 if [ $1 = 0 ] ; then
-    /sbin/service MonitoringScout stop >/dev/null 2>&1
-    /sbin/chkconfig --del MonitoringScout
-    /sbin/service Monitoring stop >/dev/null 2>&1
-    /sbin/chkconfig --del Monitoring
+    if [ -x /etc/init.d/MonitoringScout ] ; then
+        /sbin/service MonitoringScout stop >/dev/null 2>&1
+        /sbin/chkconfig --del MonitoringScout
+    fi
+    if [ -x /etc/init.d/Monitoring ] ; then
+        /sbin/service Monitoring stop >/dev/null 2>&1
+        /sbin/chkconfig --del Monitoring
+    fi
+    if [ -f %{_unitdir}/MonitoringScout ] ; then
+        /usr/bin/systemctl stop MonitoringScout
+    fi
+    if [ -f %{_unitdir}/Monitoring ] ; then
+        /usr/bin/systemctl stop Monitoring
+    fi
 fi
 
 
