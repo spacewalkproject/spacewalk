@@ -1,0 +1,144 @@
+#!/bin/sh
+#
+# Copyright (c) 2008--2012 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
+
+if [ $EUID -ne 0 ]; then
+   echo -e "This script must be run as root!\n"
+   exit 1
+fi
+
+
+
+spacewalk_target_services() {
+    awk -F= 'BEGIN {split("'"$EXCLUDE"'", keys, / +/);
+                    for (i in keys) {exclude[keys[i]]}
+                   }
+             /Requires=/ {if (!($2 in exclude)) {print $2}}' \
+             /usr/lib/systemd/system/spacewalk.target
+}
+
+turn_on() {
+   echo "Enabling spacewalk services..."
+   spacewalk_target_services | xargs systemctl disable
+   echo "Done"
+   return 0
+}
+
+turn_off() {
+   echo "Disabling spacewalk services..."
+   spacewalk_target_services | xargs systemctl disable
+   echo "Done"
+   return 0
+}
+
+list() {
+   echo "Listing spacewalk services..."
+   systemctl list-unit-files --type=service | grep -F "$(spacewalk_target_services)"
+   echo "Done"
+   return 0
+}
+
+start() {
+    echo "Starting spacewalk services..."
+    DISABLE_FILE=/var/run/spacewalk-wait-for-tomcat-disable
+    if [ "$WAIT_FOR_TOMCAT" == "1" ] ; then
+        touch $DISABLE_FILE
+    fi
+    systemctl start spacewalk.target
+    if [ "$WAIT_FOR_TOMCAT" == "1" ] ; then
+        rm -f $DISABLE_FILE
+    fi
+    echo "Done."
+    return 0
+}
+
+stop() {
+    echo "Shutting down spacewalk services..."
+    spacewalk_target_services | xargs systemctl stop
+    echo "Done."
+    return 0
+}
+
+status() {
+    spacewalk_target_services | xargs systemctl status
+    systemctl status spacewalk.target
+    return $?
+}
+
+OPTS=$(getopt --longoptions=exclude:,level:,no-wait-for-tomcat -n ${0##*/} -- e:l:T "$@")
+
+if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
+
+eval set -- "$OPTS"
+
+WAIT_FOR_TOMCAT=1
+while true ; do
+    case "$1" in
+        -e|--exclude)
+            EXCLUDE=$2
+            shift
+            ;;
+        -l|--level)
+            LEVEL="--level $2"
+            shift
+            ;;
+        -T|--no-wait-for-tomcat)
+            WAIT_FOR_TOMCAT=0
+            ;;
+        --)
+            shift
+            break
+            ;;
+        *)
+            echo "Internal error [$1]!" >&2
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+case "$1" in
+    start)
+	start
+        ;;
+    stop)
+	stop
+        ;;
+    enable)
+        turn_on $LEVEL
+        ;;
+    disable)
+        turn_off $LEVEL
+        ;;
+    list)
+        list
+        ;;
+    status)
+	status
+        ;;
+    restart|reload)
+        stop
+        sleep 4
+
+        /usr/sbin/spacewalk-startup-helper ensure-httpd-down
+
+        start
+        ;;
+    *)
+        echo "Usage: $(basename $0) {start|stop|status|reload|restart|enable|disable}"
+        exit 1
+        ;;
+esac
+exit $?
