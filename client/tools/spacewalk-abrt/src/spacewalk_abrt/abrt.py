@@ -124,4 +124,16 @@ def update_count(problem_dir):
 
 
 def sync(abrt_dir):
+    abrt_dir = os.path.normpath(abrt_dir)
+    if not (os.path.exists(abrt_dir) and os.path.isdir(abrt_dir)):
+        log.log_me("The specified path [%s] is not a valid directory." % abrt_dir)
+        return -1
+
+    for i in os.listdir(abrt_dir):
+        problem_dir = os.path.join(abrt_dir, i)
+        if not os.path.isdir(problem_dir):
+            continue
+
+        report(problem_dir)
+
     return 1
