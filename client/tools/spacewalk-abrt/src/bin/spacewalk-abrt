@@ -28,6 +28,7 @@ _ = t.ugettext
 from optparse import OptionGroup
 from up2date_client import config
 from up2date_client import rhncli
+from up2date_client import up2dateAuth
 import spacewalk_abrt.abrt
 
 class AbrtCli(rhncli.RhnCli):
@@ -68,6 +69,10 @@ class AbrtCli(rhncli.RhnCli):
 
         if commands > 1:
             print _("More than one command specified. Use --help for more information on the usage.")
+
+        if not up2dateAuth.getSystemId():
+            print _("This system does not seem to be registered, use `rhn_register` before using this command.")
+            sys.exit(0)
 
         if self.options.report:
             self.check_problem_dir(self.options.report)
