@@ -28,6 +28,7 @@ _ = t.ugettext
 
 from up2date_client import up2dateAuth
 from up2date_client import rhnserver
+from up2date_client import up2dateLog
 
 def _readline(filepath):
     if os.path.exists(filepath):
@@ -43,8 +44,9 @@ def _readline(filepath):
 def report(problem_dir):
     problem_dir = os.path.normpath(problem_dir)
     basename = os.path.basename(problem_dir)
+    log = up2dateLog.initLog()
     if not (os.path.exists(problem_dir) and  os.path.isdir(problem_dir)):
-        #FIXME: log?
+        log.log_me("The specified path [%s] is not a valid directory." % problem_dir)
         return -1
 
     server = rhnserver.RhnServer()
@@ -74,7 +76,7 @@ def report(problem_dir):
     r = server.abrt.create_crash(systemid, crash_data, pkg_data)
 
     if (r < 0): # Error creating new crash report
-        # FIXME: log?
+        log.log_me("Error creating new crash report.")
         return -1
 
     # Upload every particular file in the problem directory to the server
