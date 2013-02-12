@@ -100,6 +100,26 @@ def report(problem_dir):
 
 
 def update_count(problem_dir):
+    problem_dir = os.path.normpath(problem_dir)
+    basename = os.path.basename(problem_dir)
+    log = up2dateLog.initLog()
+    if not (os.path.exists(problem_dir) and  os.path.isdir(problem_dir)):
+        log.log_me("The specified path [%s] is not a valid directory." % problem_dir)
+        return -1
+
+    server = rhnserver.RhnServer()
+    if not server.capabilities.hasCapability('abrt'):
+        return -1
+
+    systemid = up2dateAuth.getSystemId()
+    crash_count_path = os.path.join(problem_dir, 'count')
+    if not (os.path.exists(crash_count_path) and os.path.isfile(crash_count_path)):
+        log.log_me("The problem directory [%s] does not contain any crash count information." % problem_dir)
+        return 0
+
+    crash_count = _readline(crash_count_path)
+    server.abrt.update_crash_count(systemid, basename, crash_count)
+
     return 1
 
 

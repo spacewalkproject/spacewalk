@@ -58,10 +58,18 @@ update rhnServerCrash
  where id = :crash_id
 """
 
+_query_update_crash_count = """
+update rhnServerCrash
+   set count = :crash_count
+ where server_id = :server_id and
+       crash = :crash
+"""
+
 class Abrt(rhnHandler):
     def __init__(self):
         rhnHandler.__init__(self)
         self.functions.append('create_crash')
+        self.functions.append('update_crash_count')
         self.functions.append('upload_crash_file')
 
         self.watched_items = ['analyzer',
@@ -192,5 +200,33 @@ class Abrt(rhnHandler):
             h = rhnSQL.prepare(st)
             h.execute(filecontent = filecontent, crash_id = crash_id)
             rhnSQL.commit()
+
+        return 1
+
+    def update_crash_count(self, system_id, crash, crash_count):
+        self.auth_system(system_id)
+
+        log_debug(1, self.server_id, "Updating crash count for %s to %s" % (crash, crash_count))
+
+        server_org_id = self.server.server['org_id']
+        server_crash_dir = get_crash_path(str(server_org_id), str(self.server_id), crash)
+        if not server_crash_dir:
+            log_debug(1, self.server_id, "Error composing crash directory path")
+            return -1
+
+        h = rhnSQL.prepare(_query_update_crash_count)
+        r = h.execute(
+            crash_count = crash_count,
+            server_id = self.server_id,
+            crash = crash)
+        rhnSQL.commit()
+
+        absolute_dir = os.path.join(CFG.MOUNT_POINT, server_crash_dir)
+        absolute_file = os.path.join(absolute_dir, 'count')
+
+        log_debug(1, self.server_id, "Updating crash count file: %s" % absolute_file)
+        f = open(absolute_file, 'w+')
+        f.write(crash_count)
+        f.close()
 
         return 1
