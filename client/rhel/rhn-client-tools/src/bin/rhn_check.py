@@ -90,13 +90,6 @@ class CheckCli(rhncli.RhnCli):
         if s.capabilities.hasCapability('staging_content', 1) and cfg['stagingContent'] != 0:
              self.__check_future_actions()
 
-        if s.capabilities.hasCapability('abrt.handle') and \
-            'abrt.check' in clientCaps.caps.keys():
-            log.log_debug("abrt support found")
-            version = s.capabilities.parseCapVersion(
-                s.capabilities.data['abrt.handle']['version'])[0]
-            self.__check_abrt(version)
-
         sys.exit(0)
 
     def __get_action(self, status_report):
@@ -285,38 +278,7 @@ class CheckCli(rhncli.RhnCli):
                             xmlrpclib.Fault(-99, "Can not handle this version"))
             return False
         return True
-
-    def __check_abrt(self, version):
-        ret = CheckCli.__run_action('abrt.check',
-            ('version=%d' % version,))
-        log.log_debug("check_abrt status: %s" % (ret,))
-        (status, message, data) = ret
-
-        self.server = CheckCli.__get_server()
-
-        try:
-            ret = self.server.abrt.handle(up2dateAuth.getSystemId(),
-                version, status, message, data)
-            log.log_debug("abrt.handle successful")
-        except xmlrpclib.Fault, f:
-            print "Could not submit results to server %s" % self.server
-            print "Error code: %d%s" % (f.faultCode, f.faultString)
-            sys.exit(-1)
-        # XXX: what if no SSL in socket?
-        except socket.sslerror:
-            print "ERROR: SSL handshake to %s failed" % self.server
-            print """
-            This could signal that you are *NOT* talking to a server
-            whose certificate was signed by a Certificate Authority
-            listed in the %s file or that the
-            RHNS-CA-CERT file is invalid.""" % self.rhns_ca_cert
-            sys.exit(-1)
-        except socket.error:
-            print "Could not submit to %s.\n"\
-                  "Possible networking problem?" % str(self.server)
-            sys.exit(-1)
-        return ret
-
+ 
     @staticmethod
     def __get_server():
         """ Initialize a server connection and set up capability info. """
