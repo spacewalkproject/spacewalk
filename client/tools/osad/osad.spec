@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.16
+Version: 5.11.17
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -350,6 +350,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Tue Feb 12 2013 Michael Mraka <michael.mraka@redhat.com> 5.11.17-1
+- moved waiting for jabberd to helper
+- Updating copyright for 2012
+
 * Wed Feb 06 2013 Michael Mraka <michael.mraka@redhat.com> 5.11.16-1
 - start jabberd before osa-dispatcher
 
