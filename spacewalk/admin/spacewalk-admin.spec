@@ -27,6 +27,10 @@ Various utility scripts and data files for Spacewalk installations.
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
+%if 0%{?fedora}
+mv -f spacewalk-service.systemd spacewalk-service
+%endif
 make -f Makefile.admin install PREFIX=$RPM_BUILD_ROOT
 
 (cd $RPM_BUILD_ROOT/%{_bindir} && ln -s validate-sat-cert.pl validate-sat-cert)
