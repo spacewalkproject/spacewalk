@@ -48,7 +48,7 @@ Requires:       status_log_acceptor
 Requires:       tsdb
 Requires: spacewalk-monitoring-selinux
 
-%if 0%{fedora}
+%if 0%{?fedora}
 Requires(preun): systemd
 %else
 Requires(post): chkconfig
