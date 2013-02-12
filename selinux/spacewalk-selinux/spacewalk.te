@@ -105,4 +105,14 @@ optional_policy(`
                 type postgresql_t;
         ')
         allow postgresql_t self:unix_stream_socket { connectto };
+        allow httpd_t postgresql_t:unix_stream_socket connectto;
+')
+
+# Fedora 18 has postgresql socket in /var/run/postgresql/
+optional_policy(`
+        gen_require(`
+                type postgresql_var_run_t;
+        ')
+        allow httpd_t postgresql_var_run_t:dir search;
+        allow httpd_t postgresql_var_run_t:sock_file write;
 ')
