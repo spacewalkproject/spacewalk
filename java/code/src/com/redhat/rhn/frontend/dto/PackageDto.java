@@ -14,12 +14,16 @@
  */
 package com.redhat.rhn.frontend.dto;
 
+import com.redhat.rhn.common.RhnRuntimeException;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.util.CompressionUtil;
 import com.redhat.rhn.frontend.xmlrpc.packages.PackageHelper;
 
 import java.sql.Blob;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 /**
  * PackageDto
  * @version $Rev$
@@ -262,11 +266,19 @@ public class PackageDto extends BaseDto {
     }
 
     /**
+     * Package build times are written to the database as GMT (see headerSource.py),
+     * which means we have to parse in here as long as this is not changed!
      *
      * @param buildTimeIn The buildTime to set.
      */
     public void setBuildTime(Date buildTimeIn) {
-        this.buildTime = buildTimeIn;
+        SimpleDateFormat dateFormatGMT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+        dateFormatGMT.setTimeZone(TimeZone.getTimeZone("GMT"));
+        try {
+            this.buildTime = dateFormatGMT.parse(buildTimeIn.toString());
+        } catch (ParseException e) {
+            throw new RhnRuntimeException(e);
+        }
     }
 
     /**

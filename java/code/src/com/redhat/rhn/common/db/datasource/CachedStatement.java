@@ -798,8 +798,7 @@ public class CachedStatement {
                         .getCanonicalName())) ||
                                 ("oracle.sql.TIMESTAMPTZ".equals(columnValue.getClass()
                         .getCanonicalName()))) {
-            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
-            return rs.getTimestamp(columnName, cal);
+            return rs.getTimestamp(columnName);
         }
         else if (columnValue instanceof BigDecimal) {
             return rs.getLong(columnName);
