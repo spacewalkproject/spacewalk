@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.42
+Version: 5.10.43
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -122,6 +122,9 @@ fi
 
 # $Id$
 %changelog
+* Tue Feb 12 2013 Michael Mraka <michael.mraka@redhat.com> 5.10.43-1
+- cleanup old accidentaly commited eclipse project files
+
 * Wed Feb 06 2013 Stephen Herr <sherr@redhat.com> 5.10.42-1
 - 908011 - make rhncfg depend on correct version of rhn-client-tools for RHEL
 - 908011 - make rhncfg depend on newer rhn-client-tools
