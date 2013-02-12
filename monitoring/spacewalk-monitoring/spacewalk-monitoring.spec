@@ -1,7 +1,7 @@
 Summary:      Spacewalk monitoring
 Name:         spacewalk-monitoring
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.9.0
+Version:      1.9.1
 Release:      1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 License:      GPLv2
@@ -128,6 +128,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Feb 12 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.1-1
+- created systemd services for monitoring
+- %%defattr is not needed since rpm 4.4
+
 * Wed Mar 30 2011 Jan Pazdziora 1.4.1-1
 - RHEL 4 is no longer a target version for Spacewalk, fixing .spec to Require
   spacewalk-monitoring-selinux.
