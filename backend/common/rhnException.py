@@ -232,6 +232,14 @@ maximum membership exceeded"),
      4015: _("Full path of file must be specified"),
      4016: _("Invalid revision number"),
      4017: _("Cannot compare files of different file type"),
+
+     # 5000 - 5999: crash reporting errors
+     5000: _("Crash information is invalid or incomplete"),
+     5001: _("Crash file information is invalid or incomplete"),
+     5002: _("Error composing crash directory path"),
+     5003: _("Error composing crash file path"),
+     5004: _("Invalid content encoding"),
+     5005: _("Invalid crash name")
     }
 
 

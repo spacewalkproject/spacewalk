@@ -16,6 +16,7 @@
 import base64
 import os
 
+from spacewalk.common.rhnException import rhnFault
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.server import rhnSQL
@@ -132,7 +133,7 @@ class Abrt(rhnHandler):
         if not (crash_data.has_key('crash') and crash_data.has_key('path')) or \
            not (crash_data['crash'] and crash_data['path']):
             log_debug(1, self.server_id, "The crash information is invalid or incomplete: %s" % str(crash_data))
-            return -1
+            raise rhnFault(5000)
 
         crash_id = self._get_crash_id(self.server_id, crash_data['crash'])
         log_debug(1, "crash_id: %s" % crash_id)
@@ -160,7 +161,7 @@ class Abrt(rhnHandler):
         for k in required_keys:
             if not (crash_file.has_key(k) and crash_file[k]):
                 log_debug(1, self.server_id, "The crash file data is invalid or incomplete: %s" % crash_file)
-                return -1
+                raise rhnFault(5001, "Missing or invalid key: %s" % k)
 
         log_debug(1, self.server_id, crash, crash_file['filename'])
 
@@ -168,24 +169,24 @@ class Abrt(rhnHandler):
         server_crash_dir = get_crash_path(str(server_org_id), str(self.server_id), crash)
         if not server_crash_dir:
             log_debug(1, self.server_id, "Error composing crash directory path")
-            return -1
+            raise rhnFault(5002)
 
         server_filename = get_crashfile_path(str(server_org_id),
                                              str(self.server_id),
                                              crash,
                                              crash_file['filename'])
         if not server_filename:
-            log_debug(1, self.server_id, "Error creating crash file path")
-            return -1
+            log_debug(1, self.server_id, "Error composing crash file path")
+            raise rhnFault(5003)
 
         if not crash_file['content-encoding'] == 'base64':
             log_debug(1, self.server_id, "Invalid content encoding: %s" % crash_file['content-encoding'])
-            return -1
+            raise rhnFault(5004, "Invalid content encodig: %s" % crash_file['content-encoding'])
 
         crash_id = self._get_crash_id(self.server_id, crash)
         if not crash_id:
             log_debug(1, self.server_id, "No record for crash: %s" % crash)
-            return -1
+            raise rhnFault(5005, "Invalid crash name: %s" % crash)
 
         # Create or update the crash file record in DB
         self._create_or_update_crash_file(self.server_id, crash_id, crash_file['filename'], \
@@ -228,7 +229,7 @@ class Abrt(rhnHandler):
         server_crash_dir = get_crash_path(str(server_org_id), str(self.server_id), crash)
         if not server_crash_dir:
             log_debug(1, self.server_id, "Error composing crash directory path")
-            return -1
+            raise rhnFault(5002)
 
         h = rhnSQL.prepare(_query_update_crash_count)
         r = h.execute(
