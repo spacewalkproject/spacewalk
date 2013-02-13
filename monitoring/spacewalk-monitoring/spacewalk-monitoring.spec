@@ -79,18 +79,19 @@ Backend and Scout functionality. And will install SysV init scripts.
 %install
 rm -Rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/%{_sbindir}
-mkdir -p $RPM_BUILD_ROOT/%{_initrddir}
 
 %if 0%{?fedora}
+mkdir -p $RPM_BUILD_ROOT/%{_unitdir}
 install Monitoring.service $RPM_BUILD_ROOT%{_unitdir}
 install MonitoringScout.service $RPM_BUILD_ROOT%{_unitdir}
 %else
-ln -s /etc/rc.d/np.d/sysvStep $RPM_BUILD_ROOT/%{_sbindir}/Monitoring
-ln -s /etc/rc.d/np.d/sysvStep $RPM_BUILD_ROOT/%{_sbindir}/MonitoringScout
-%endif
-
+mkdir -p $RPM_BUILD_ROOT/%{_initrddir}
 install Monitoring $RPM_BUILD_ROOT%{_initrddir}
 install MonitoringScout $RPM_BUILD_ROOT%{_initrddir}
+%endif
+ln -s /etc/rc.d/np.d/sysvStep $RPM_BUILD_ROOT/%{_sbindir}/Monitoring
+ln -s /etc/rc.d/np.d/sysvStep $RPM_BUILD_ROOT/%{_sbindir}/MonitoringScout
+
 
 %post
 if [ -x /etc/init.d/Monitoring ] ; then
