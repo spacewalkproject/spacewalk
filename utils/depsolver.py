@@ -129,7 +129,7 @@ class DepSolver:
 
     def __locateDeps(self, pkgs):
         results = {}
-        regex_filename_match = re.compile('[/*?]|\[[^]]*/[^]]*\]').match
+        regex_filename_match = re.compile(r'[/*?]|\[[^]]*/[^]]*\]').match
                 
         print("Solving Dependencies (%i): " % len(pkgs))
         pb = ProgressBar(prompt='', endTag=' - complete',
