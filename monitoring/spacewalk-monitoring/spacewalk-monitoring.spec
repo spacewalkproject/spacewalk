@@ -124,7 +124,11 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %files
+%if 0%{?fedora}
+%{_unitdir}/*
+%else
 %{_initrddir}/*
+%endif
 %{_sbindir}/*
 %doc LICENSE
 
