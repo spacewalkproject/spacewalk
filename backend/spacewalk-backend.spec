@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.26
+Version: 1.9.27
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -637,6 +637,15 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Feb 13 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.27-1
+- link all packages to channel at once
+- download packages first then link to channel
+- abrt: use exceptions rather than return values for errors
+- abrt: ability to limit crashfile upload size per organization
+- abrt: ability to update crash count
+- abrt: support for client -> server crash upload
+- New translations from Transifex for spacewalk-backend.
+
 * Mon Feb 11 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.26-1
 - allow client to access mod_wsgi pages under apache 2.4
 
