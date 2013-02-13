@@ -1,7 +1,7 @@
 Summary:      Spacewalk monitoring
 Name:         spacewalk-monitoring
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.9.1
+Version:      1.9.2
 Release:      1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 License:      GPLv2
@@ -129,6 +129,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Feb 13 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.2-1
+- fixing rpm build failure
+
 * Tue Feb 12 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.1-1
 - created systemd services for monitoring
 - %%defattr is not needed since rpm 4.4
