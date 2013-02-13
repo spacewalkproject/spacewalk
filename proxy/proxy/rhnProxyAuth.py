@@ -405,6 +405,8 @@ class AuthLocalBackend:
     def _compute_key(self, key):
         return os.path.join(self._cache_prefix, str(key))
 
+    def __len__(self, key):
+        pass
 
 # ==============================================================================
 
