@@ -448,18 +448,17 @@ class RepoSync(object):
                 if self.fail:
                     raise
                 continue
-        for (index, what) in enumerate(to_process):
-            pack, to_download, to_link = what
-            try:
-                if to_link:
-                    self.associate_package(pack)
-            except KeyboardInterrupt:
-                raise
-            except Exception, e:
-                self.error_msg(e)
-                if self.fail:
-                    raise
-                continue
+
+        self.print_msg("Linking packages to channel.")
+        import_batch = [self.associate_package(pack)
+                                for (pack, to_download, to_link) in to_process
+                                        if to_link]
+        backend = SQLBackend()
+        caller = "server.app.yumreposync"
+        importer = ChannelPackageSubscription(import_batch,
+                        backend, caller=caller, repogen=False)
+        importer.run()
+        backend.commit()
 
     def match_package_checksum(self, abspath, checksum_type, checksum):
         if (os.path.exists(abspath) and
@@ -468,8 +467,6 @@ class RepoSync(object):
         return 0
 
     def associate_package(self, pack):
-        caller = "server.app.yumreposync"
-        backend = SQLBackend()
         package = {}
         package['name'] = pack.name
         package['version'] = pack.version
@@ -480,23 +477,11 @@ class RepoSync(object):
         package['channels']  = [{'label':self.channel_label,
                                  'id':self.channel['id']}]
         package['org_id'] = self.channel['org_id']
+        # use epoch from file header because createrepo puts epoch="0" to
+        # primary.xml even for packages with epoch=''
+        package['epoch'] = pack.a_pkg.header.epoch
 
-        imported = False
-        # yum's createrepo puts epoch="0" to primary.xml even for packages
-        # with epoch='' so we have to check empty epoch first because it's
-        # more common situation
-        if pack.epoch == '0':
-            package['epoch'] = ''
-            try:
-                self._importer_run(package, caller, backend)
-                imported = True
-            except:
-                pass
-        if not imported:
-            package['epoch'] = pack.epoch
-            self._importer_run(package, caller, backend)
-
-        backend.commit()
+        return IncompletePackage().populate(package)
 
     def disassociate_package(self, pack):
         h = rhnSQL.prepare("""
@@ -512,12 +497,6 @@ class RepoSync(object):
                 """)
         h.execute(channel_id=self.channel['id'],
                   checksum_type=pack['checksum_type'], checksum=pack['checksum'])
-
-    def _importer_run(self, package, caller, backend):
-        importer = ChannelPackageSubscription(
-            [IncompletePackage().populate(package)],
-            backend, caller=caller, repogen=False)
-        importer.run()
 
     def load_channel(self):
         return rhnChannel.channel_info(self.channel_label)
