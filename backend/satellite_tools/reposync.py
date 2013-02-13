@@ -439,14 +439,24 @@ class RepoSync(object):
                 if to_download:
                     pack.upload_package(self.channel)
                     finally_remove(localpath)
-                if to_link:
-                    self.associate_package(pack)
             except KeyboardInterrupt:
                 finally_remove(localpath)
                 raise
             except Exception, e:
                 self.error_msg(e)
                 finally_remove(localpath)
+                if self.fail:
+                    raise
+                continue
+        for (index, what) in enumerate(to_process):
+            pack, to_download, to_link = what
+            try:
+                if to_link:
+                    self.associate_package(pack)
+            except KeyboardInterrupt:
+                raise
+            except Exception, e:
+                self.error_msg(e)
                 if self.fail:
                     raise
                 continue
