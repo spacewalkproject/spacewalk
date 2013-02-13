@@ -121,7 +121,7 @@ class RedirectHandler(SharedHandler):
                 for headerKey in headers.keys():
                     if headerKey == 'location':
                         location = self._get_header(headerKey)
-                        relogin = re.compile('https?://.*(/rhn/(Re)?Login.do\?.*)')
+                        relogin = re.compile(r'https?://.*(/rhn/(Re)?Login.do\?.*)')
                         m = relogin.match(location[0])
                         if m:
                             # pull server name out of "t:o:k:e:n:hostname1,t:o:k:e:n:hostname2,..."
