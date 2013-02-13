@@ -65,6 +65,12 @@ update rhnServerCrash
        crash = :crash
 """
 
+_query_get_crashfile_sizelimit = """
+select crash_file_sizelimit
+  from web_customer
+ where id = :org_id
+"""
+
 class Abrt(rhnHandler):
     def __init__(self):
         rhnHandler.__init__(self)
@@ -113,6 +119,11 @@ class Abrt(rhnHandler):
         rhnSQL.commit()
 
         return r
+
+    def _get_crashfile_sizelimit(self):
+        h = rhnSQL.prepare(_query_get_crashfile_sizelimit)
+        h.execute(org_id = self.server.server['org_id'])
+        return h.fetchall_dict()[0]['crash_file_sizelimit']
 
     def create_crash(self, system_id, crash_data, pkg_data):
         self.auth_system(system_id)
@@ -181,8 +192,13 @@ class Abrt(rhnHandler):
                                           crash_file['path'], crash_file['filesize'])
 
         # Create the file on filer
-        # FIXME: test the allowed filesize
         filecontent = base64.decodestring(crash_file['filecontent'])
+        filesize = len(filecontent)
+        sizelimit = self._get_crashfile_sizelimit()
+        if filesize > sizelimit and sizelimit != 0:
+            log_debug(1, "The file [%s] size (%s bytes) is more than allowed (%s bytes), skipping." \
+                % (crash_file['path'], filesize, sizelimit))
+            return 0
         absolute_dir = os.path.join(CFG.MOUNT_POINT, server_crash_dir)
         absolute_file = os.path.join(absolute_dir, crash_file['filename'])
 

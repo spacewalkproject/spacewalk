@@ -1,0 +1,5 @@
+-- oracle equivalent source sha1 98e82b03e86d16d0b335f306e17344e97383223c
+
+alter table web_customer
+  add crash_file_sizelimit
+      numeric default(2048) not null;
