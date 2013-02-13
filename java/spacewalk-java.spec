@@ -644,7 +644,7 @@ fi
 %endif
 %endif
 %{realcobsnippetsdir}/spacewalk
-%attr(755, tomcat, root) %{_var}/spacewalk/systemlogs
+%dir %attr(755, tomcat, root) %{_var}/spacewalk/systemlogs
 %ghost %attr(644, tomcat, root) %{_var}/spacewalk/systemlogs/audit-review.log
 
 %files -n spacewalk-taskomatic
