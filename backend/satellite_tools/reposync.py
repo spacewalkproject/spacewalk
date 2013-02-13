@@ -310,9 +310,7 @@ class RepoSync(object):
                     if oldpkg['package_id'] != cs['id']:
                         newpkgs.append(oldpkg)
 
-                package = IncompletePackage()
-                for k in pkg.keys():
-                    package[k] = pkg[k]
+                package = IncompletePackage().populate(pkg)
                 package['epoch'] = cs['epoch']
                 package['org_id'] = self.channel['org_id']
 
@@ -586,9 +584,7 @@ class RepoSync(object):
         h.execute(eid=ret['id'])
         packages = h.fetchall_dict() or []
         for pkg in packages:
-            ipackage = IncompletePackage()
-            for k in pkg.keys():
-                ipackage[k] = pkg[k]
+            ipackage = IncompletePackage().populate(pkg)
             ipackage['epoch'] = pkg.get('epoch', '')
 
             ipackage['checksums'] = {ipackage['checksum_type'] : ipackage['checksum']}
