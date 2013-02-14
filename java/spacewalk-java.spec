@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.61
+Version: 1.9.62
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Feb 14 2013 Tomas Lestach <tlestach@redhat.com> 1.9.62-1
+- 906399 - list also channel packages not associated with already cloned errata
+- 906399 - fix WebUI's errata sync
+- prevent rpmbuild warning: File listed twice: /var/spacewalk/systemlogs/audit-
+  review.log
+
 * Tue Feb 12 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.61-1
 - link channels on /rhn/channels/ChannelDetail.do page
 - cleanup old accidentaly commited eclipse project files
