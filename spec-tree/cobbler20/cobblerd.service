@@ -1,5 +1,5 @@
 [Unit]
-Description=daemon that a provides remote cobbler API and status tracking
+Description=Cobbler daemon
 After=network.target xinetd.service httpd.service
 
 [Service]

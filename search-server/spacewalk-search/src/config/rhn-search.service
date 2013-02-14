@@ -1,5 +1,5 @@
 [Unit]
-Description=This is Spacewalk search engine.
+Description=Spacewalk search engine
 After=local-fs.target network.target httpd.service
 
 [Service]

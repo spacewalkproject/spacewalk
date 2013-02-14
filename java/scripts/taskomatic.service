@@ -1,5 +1,5 @@
 [Unit]
-Description=Taskomatic is schedule task execution system.
+Description=Taskomatic
 After=local-fs.target cobblerd.service sendmail.service
 
 [Service]
