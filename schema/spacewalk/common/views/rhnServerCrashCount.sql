@@ -17,6 +17,7 @@ create or replace view rhnServerCrashCount
 as
 select server_id,
        count(id) as unique_count,
-       sum(count) as total_count
+       sum(count) as total_count,
+       max(modified) as last_report
   from rhnServerCrash
  group by server_id;
