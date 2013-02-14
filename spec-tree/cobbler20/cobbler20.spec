@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 11%{?dist}
+Release: 12%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -446,6 +446,9 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Thu Feb 14 2013 Michael Mraka <michael.mraka@redhat.com> 2.0.11-12
+- fixed systemd services description
+
 * Fri Feb 08 2013 Stephen Herr <sherr@redhat.com> 2.0.11-11
 - Cobbler sometimes wants to share things through /tmp
 
