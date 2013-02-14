@@ -5,6 +5,5 @@ Before=httpd.service
 ConditionPathExists=!/var/run/spacewalk-wait-for-tomcat-disable
 
 [Service]
-ExecStart=/usr/sbin/spacewalk-wait-for-tomcat
+ExecStart=/usr/sbin/spacewalk-startup-helper wait-for-tomcat
 Type=oneshot
-TimeoutSec=120
