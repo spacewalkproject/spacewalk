@@ -177,7 +177,11 @@ public class TaskoRun {
             try {
                 file = new RandomAccessFile(fileName, "r");
                 if (nBytes >= 0) {
-                    file.seek(file.length() - nBytes);
+                    long seekAmount = file.length() - nBytes;
+                    if (seekAmount < 0) {
+                        seekAmount = 0;
+                    }
+                    file.seek(seekAmount);
                 }
                 String tail = "";
                 String line;
