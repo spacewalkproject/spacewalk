@@ -159,7 +159,7 @@ class Abrt(rhnHandler):
 
         required_keys = ['filename', 'path', 'filesize', 'filecontent', 'content-encoding']
         for k in required_keys:
-            if not (crash_file.has_key(k) and crash_file[k]):
+            if not (crash_file.has_key(k)):
                 log_debug(1, self.server_id, "The crash file data is invalid or incomplete: %s" % crash_file)
                 raise rhnFault(5001, "Missing or invalid key: %s" % k)
 
