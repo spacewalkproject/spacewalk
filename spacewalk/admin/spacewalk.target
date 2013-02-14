@@ -1,4 +1,4 @@
-Unit]
+[Unit]
 Description=Spacewalk
 Requires=jabberd.service
 Requires=tomcat.service
