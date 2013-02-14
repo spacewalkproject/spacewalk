@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.62
+Version: 1.9.63
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Feb 14 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.63-1
+- fixed systemd services description
+
 * Thu Feb 14 2013 Tomas Lestach <tlestach@redhat.com> 1.9.62-1
 - 906399 - list also channel packages not associated with already cloned errata
 - 906399 - fix WebUI's errata sync
