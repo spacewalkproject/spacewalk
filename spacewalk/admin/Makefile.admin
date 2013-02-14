@@ -21,6 +21,7 @@ BINDIR	  = /usr/bin
 SBINDIR   = /usr/sbin
 CONFDIR   = /etc/rhn
 GPGKEYDIR = /usr/share/rhn
+SYSTEMDDIR = /usr/lib/systemd/system
 
 VERSION = $(shell echo `awk '{ print $$1 }' version`)
 
@@ -28,6 +29,7 @@ PERL_DEST   = $(PREFIX)/$(BINDIR)
 SBIN_DEST   = $(PREFIX)/$(SBINDIR)
 CONF_DEST   = $(PREFIX)/$(CONFDIR)
 GPGKEY_DEST = $(PREFIX)/$(GPGKEYDIR)
+SYSTEMD_DEST = $(PREFIX)/$(SYSTEMDDIR)
 
 PERL_SCRIPTS = rhn-config-satellite.pl \
                rhn-config-schema.pl \
@@ -42,9 +44,12 @@ CONF_FILES = service-list
 
 GPGKEY_FILES = RHN-GPG-KEY
 
+SYSTEMD_FILES = spacewalk.target spacewalk-wait-for-tomcat.service
+
 BIN_INSTALL    = install -m 755
 CONF_INSTALL   = install -m 644
 GPGKEY_INSTALL = install -m 644
+SYSTEMD_INSTALL = install -m 644
 DIR_INSTALL    = install -d -m 755
 
 # install scripts
@@ -56,6 +61,9 @@ install: $(PERL_SCRIPTS) $(PERL_DEST) $(CONF_FILES) $(CONF_DEST) $(GPGKEY_FILES)
 	$(GPGKEY_INSTALL) $(GPGKEY_FILES) $(GPGKEY_DEST)
 	$(BIN_INSTALL) $(SBIN_SCRIPTS) $(SBIN_DEST)
 
+install_systemd: $(SYSTEMD_DEST) $(SYSTEMD_FILES)
+	$(SYSTEMD_INSTALL) $(SYSTEMD_FILES) $(SYSTEMD_DEST)
+
 $(PERL_DEST):
 	$(DIR_INSTALL) $@
 
@@ -66,6 +74,9 @@ $(GPGKEY_DEST):
 	$(DIR_INSTALL) $@
 
 $(SBIN_DEST):
+	$(DIR_INSTALL) $@
+
+$(SYSTEMD_DEST):
 	$(DIR_INSTALL) $@
 
 clean::

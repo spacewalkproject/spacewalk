@@ -30,6 +30,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %if 0%{?fedora}
 mv -f spacewalk-service.systemd spacewalk-service
+make -f Makefile.admin install_systemd PREFIX=$RPM_BUILD_ROOT
 %endif
 make -f Makefile.admin install PREFIX=$RPM_BUILD_ROOT
 
@@ -78,6 +79,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-deploy-ca-cert.pl.8*
 %{_mandir}/man8/rhn-install-ssl-cert.pl.8*
 %config(noreplace) %{_sysconfdir}/rhn/service-list
+%if 0%{?fedora}
+%{_unitdir}/spacewalk.target
+%{_unitdir}/spacewalk-wait-for-tomcat.service
+%endif
 
 %changelog
 * Tue Feb 12 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.4-1
