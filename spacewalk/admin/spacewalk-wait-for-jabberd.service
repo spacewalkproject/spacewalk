@@ -1,0 +1,8 @@
+[Unit]
+Description=Spacewalk wait for jabberd
+After=jabberd.service
+Before=osa-dispatcher.service
+
+[Service]
+ExecStart=/usr/sbin/spacewalk-startup-helper wait-for-jabberd
+Type=oneshot

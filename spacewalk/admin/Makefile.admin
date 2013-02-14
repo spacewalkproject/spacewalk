@@ -44,7 +44,8 @@ CONF_FILES = service-list
 
 GPGKEY_FILES = RHN-GPG-KEY
 
-SYSTEMD_FILES = spacewalk.target spacewalk-wait-for-tomcat.service
+SYSTEMD_FILES = spacewalk.target spacewalk-wait-for-tomcat.service \
+		spacewalk-wait-for-jabberd.service
 
 BIN_INSTALL    = install -m 755
 CONF_INSTALL   = install -m 644

@@ -82,6 +82,7 @@ rm -rf $RPM_BUILD_ROOT
 %if 0%{?fedora}
 %{_unitdir}/spacewalk.target
 %{_unitdir}/spacewalk-wait-for-tomcat.service
+%{_unitdir}/spacewalk-wait-for-jabberd.service
 %endif
 
 %changelog
