@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.27
+Version: 1.9.28
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -637,6 +637,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Feb 15 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.9.28-1
+- abrt: commit after every call to insert_crash_file
+- abrt: allow uploading zero length files
+
 * Wed Feb 13 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.27-1
 - link all packages to channel at once
 - download packages first then link to channel
