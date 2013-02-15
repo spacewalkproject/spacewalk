@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 5.0.8
+Version: 5.0.9
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -123,6 +123,11 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Feb 15 2013 Milan Zazrivec <mzazrivec@redhat.com> 5.0.9-1
+- Update .po and .pot files for rhnsd.
+- New translations from Transifex for rhnsd.
+- Download translations from Transifex for rhnsd.
+
 * Fri Nov 30 2012 Jan Pazdziora 5.0.8-1
 - Revert "876328 - updating rhel client tools translations"
 
