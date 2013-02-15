@@ -509,6 +509,8 @@ def read_network():
 
     if netdict['hostname'] == "unknown":
         netdict['hostname'] = gethostname()
+        if "." not in netdict['hostname']:
+            netdict['hostname'] = socket.getfqdn()
 
     if netdict['ipaddr'] is None:
         try:
