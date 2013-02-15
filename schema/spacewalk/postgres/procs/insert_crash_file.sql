@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 f7ae3f8420808ec4755224b70854497be656f08a
+-- oracle equivalent source sha1 9208cb8c8e89691b4b9093ada69bd29f9dad2220
 --
 -- Copyright (c) 2013 Red Hat, Inc.
 --
@@ -26,20 +26,23 @@ $$
 declare
     crash_file_id numeric;
 begin
+    crash_file_id := nextval('rhn_server_crash_file_id_seq');
     insert into rhnServerCrashFile (id, crash_id, filename, path, filesize)
-    values (sequence_nextval('rhn_server_crash_file_id_seq'), crash_id_in, filename_in, path_in, filesize_in)
-    returning id into crash_file_id;
-    commit;
+    values (crash_file_id, crash_id_in, filename_in, path_in, filesize_in);
 
     return crash_file_id;
 exception when unique_violation then
+    select id
+      into crash_file_id
+      from rhnServerCrashFile
+     where crash_id = crash_id_in and
+           filename = filename_in;
+
     update rhnServerCrashFile
        set path = path_in,
            filesize = filesize_in
-     where crash_id = crash_id_in and
-           filename = filename_in;
-    commit;
+     where id = crash_file_id;
 
-    return crash_id_in;
+    return crash_file_id;
 end;
 $$ language plpgsql;

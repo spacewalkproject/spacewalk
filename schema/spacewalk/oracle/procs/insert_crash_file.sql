@@ -25,16 +25,19 @@ begin
     insert into rhnServerCrashFile (id, crash_id, filename, path, filesize)
     values (sequence_nextval('rhn_server_crash_file_id_seq'), crash_id_in, filename_in, path_in, filesize_in)
     returning id into crash_file_id;
-    commit;
 
     return crash_file_id;
 exception when dup_val_on_index then
+    select id
+      into crash_file_id
+      from rhnServerCrashFile
+     where crash_id = crash_id_in and
+           filename = filename_in;
+
     update rhnServerCrashFile
        set path = path_in,
            filesize = filesize_in
-     where crash_id = crash_id_in and
-           filename = filename_in;
-    commit;
+     where id = crash_file_id;
 
     return crash_id_in;
 end;
