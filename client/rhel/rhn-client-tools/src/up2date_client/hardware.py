@@ -294,7 +294,7 @@ def read_cpuinfo():
     elif uname in ['s390', 's390x']:
         tmpdict = {}
         for cpu in cpulist.split("\n"):
-            vals = cpu.split(cpu, ": ")
+            vals = cpu.split(": ")
             if len(vals) != 2:
                 continue
             tmpdict[vals[0].strip()] = vals[1].strip()
