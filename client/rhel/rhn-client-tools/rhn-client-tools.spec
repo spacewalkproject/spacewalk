@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.9.7
+Version: 1.9.8
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,14 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Feb 15 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.9.8-1
+- fix reading cpuinfo on s390x
+- try to get the FQDN as hostname
+- Revert "Update rhn_check to send abrt data to the server"
+- Updating copyright for 2012
+- Update .po and .pot files for rhn-client-tools.
+- Download translations from Transifex for rhn-client-tools.
+
 * Mon Dec 10 2012 Jan Pazdziora 1.9.7-1
 - 885170 - provide translations of a new error recieved from Hosted
 - 882174 - read the hostname from /etc/hostname if needed
