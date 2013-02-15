@@ -191,6 +191,7 @@ class Abrt(rhnHandler):
         # Create or update the crash file record in DB
         self._create_or_update_crash_file(self.server_id, crash_id, crash_file['filename'], \
                                           crash_file['path'], crash_file['filesize'])
+        rhnSQL.commit()
 
         # Create the file on filer
         filecontent = base64.decodestring(crash_file['filecontent'])
