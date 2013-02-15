@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.9.22
+Version:        1.9.23
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Feb 15 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.9.23-1
+- abrt: fix semantics of insert_crash_file function
+- deleting "\" from schema upgrade script
+- abrt: last_report date in rhnServerCrashCount view
+- abrt: ability to limit crashfile upload size per organization
+- abrt: view for unique and total crashes per system
+- abrt: support for client -> server crash upload
+
 * Fri Feb 01 2013 Jan Pazdziora 1.9.22-1
 - Adding utility function epoch_seconds_to_timestamp_tz.
 
