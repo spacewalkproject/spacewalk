@@ -1,5 +1,5 @@
 Name:           spacewalk-abrt
-Version:        1.9.1
+Version:        1.9.2
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
@@ -38,6 +38,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/*
 
 %changelog
+* Fri Feb 15 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.9.2-1
+- spacewalk-abrt: implement --sync command
+- abrt: add info about spacewalk libreport events
+- abrt: ability to update crash count
+
 * Thu Jan 17 2013 Jan Pazdziora 1.9.1-1
 - abrt: use DumpLocation from /etc/abrt/abrt.conf if set
 
