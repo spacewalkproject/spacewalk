@@ -524,15 +524,20 @@ sub setup_tomcat {
   my $opts = shift;
   my $answers = shift;
 
+  my ($tomcatvol, $tomcatdir, $tomcatname);
+
+  for my $conf_glob ("/etc/sysconfig/tomcat{5,6,}", "/etc/tomcat*/tomcat*.conf") {
+  my ($conf_vol, $conf_dir, $conf_file) = File::Spec->splitpath($conf_glob);
   my ($tomcatconf_content_orig, $tomcatconf_content);
-  my @tomcat_confs = grep { -f $_ } glob("/etc/tomcat*/tomcat*.conf");
+  my @tomcat_confs = grep { -f $_ } glob($conf_glob);
   if (@tomcat_confs < 1) {
-    die "Couldn't find tomcat config file (/etc/tomcat*/tomcat*.conf).\n";
+    die "Couldn't find tomcat config file ($conf_glob).\n";
   } elsif (@tomcat_confs > 1) {
     die "Multiple tomcat config files found:\n  @tomcat_confs\nNot sure which tomcat to use.\n";
   }
 
   my $tomcatfile = $tomcat_confs[0];
+  ($tomcatvol, $tomcatdir, $tomcatname) = File::Spec->splitpath($tomcatfile);
 
   {
     open FILE, '<', $tomcatfile
@@ -543,7 +548,7 @@ sub setup_tomcat {
     close FILE;
   }
 
-  for my $file (glob Spacewalk::Setup::SHARED_DIR . '/tomcatX.conf.[0-9]') {
+  for my $file (glob Spacewalk::Setup::SHARED_DIR . "/$conf_file.[0-9]") {
     open FILE, '<', $file or die "Error reading [$file]: $!\n";
     my $regexp = <FILE>;
     chomp $regexp;
@@ -554,11 +559,12 @@ sub setup_tomcat {
       $content = <FILE>;
     }
     close FILE;
-    $tomcatconf_content =~ s!$regexp!$content!gm or $tomcatconf_content .= $content;
+    $tomcatconf_content =~ s!$regexp!$content!gm or
+        (defined($content) and $tomcatconf_content .= $content);
   }
 
   if ($tomcatconf_content ne $tomcatconf_content_orig) {
-    Spacewalk::Setup::backup_file($tomcatfile =~ m!^(.+)/(.+)$!);
+    Spacewalk::Setup::backup_file($tomcatdir, $tomcatname);
 
     open FILE, '>', $tomcatfile
       or die "Error opening [$tomcatfile]: $!\n";
@@ -566,8 +572,8 @@ sub setup_tomcat {
     print FILE $tomcatconf_content;
     close FILE;
   }
+}
 
-  my ($tomcatdir) = ($tomcatfile =~ m!^(.+)/!);
   my $serverxmlfile = "$tomcatdir/server.xml";
   {
     local $/ = undef;
