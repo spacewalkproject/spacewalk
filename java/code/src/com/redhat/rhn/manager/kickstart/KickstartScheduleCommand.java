@@ -1122,6 +1122,10 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                 // found yum-rhn-plugin - returning
                 return null;
             }
+            if (pli.getName().equals("zypp-plugin-spacewalk")) {
+                // found zypp-plugin-spacewalk - returning
+                return null;
+            }
 
             if (pli.getName().equals("up2date")) {
                 log.debug("    found up2date ...");
