@@ -112,7 +112,7 @@ ORDER BY KSIPR.min
      AND KSTR.id = KSS.kstree_id
      AND KSS.kickstart_id = KSD.id
      AND KSS.state_id = KSST.id
-     AND KSST.label NOT IN ('failed','completed','created')
+     AND KSST.label NOT IN ('failed','complete','created')
   </query>
 </mode>
 
