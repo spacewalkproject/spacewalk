@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.9.2
+Version:        1.9.3
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -99,6 +99,11 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Feb 15 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.3-1
+- make installation script shorter
+- setup /etc/sysconfig/tomcat*
+- move setting from tomcat.conf to /etc/sysconfig/tomcat
+
 * Mon Feb 11 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.2-1
 - cleanup old CVS files
 
