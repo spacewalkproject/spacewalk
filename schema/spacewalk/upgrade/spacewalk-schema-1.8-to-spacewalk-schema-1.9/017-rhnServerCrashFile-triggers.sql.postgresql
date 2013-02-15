@@ -22,7 +22,7 @@ begin
 end;
 $$ language plpgsql;
 
-create or replace trigger
+create trigger
 rhn_server_crash_file_mod_trig
 before insert or update on rhnServerCrashFile
 for each row
