@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.65
+Version: 1.9.66
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Feb 15 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.9.66-1
+- check for zypp-plugin-spacewalk if testing autoinstall capability
+
 * Fri Feb 15 2013 Tomas Lestach <tlestach@redhat.com> 1.9.65-1
 - fixing checkstyle issues
 - Only package build times should be converted to GMT
