@@ -13,6 +13,7 @@ BuildArch:    noarch
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       nocpulse-common
+BuildRequires: /usr/bin/pod2man
 
 %description
 SatConfig-general sets up directories and other items shared by many packages 

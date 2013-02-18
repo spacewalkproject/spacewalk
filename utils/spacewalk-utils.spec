@@ -15,6 +15,7 @@ BuildArch:      noarch
 BuildRequires:  /usr/bin/docbook2man
 BuildRequires:  docbook-utils
 BuildRequires:  python
+BuildRequires: /usr/bin/pod2man
 %if 0%{?fedora} > 15 || 0%{?rhel} > 5
 # pylint check
 BuildRequires:  spacewalk-pylint

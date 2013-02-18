@@ -18,7 +18,7 @@ License:      GPLv2
 Requires:     nocpulse-common smtpdaemon
 Requires:     SatConfig-general
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-
+BuildRequires: /usr/bin/pod2man
 
 %description
 NOCpulse provides application, network, systems and transaction monitoring,

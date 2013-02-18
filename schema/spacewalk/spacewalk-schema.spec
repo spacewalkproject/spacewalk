@@ -13,6 +13,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  perl(Digest::SHA)
 BuildRequires:  python
+BuildRequires:  /usr/bin/pod2man
 Requires:       /sbin/restorecon
 Obsoletes:      rhn-satellite-schema <= 5.1.0
 
