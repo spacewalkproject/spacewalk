@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.9.0
+Version:     1.9.1
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -60,6 +60,10 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Feb 18 2013 Tomas Lestach <tlestach@redhat.com> 1.9.1-1
+- sort export_kickstart_getdetails right after fetching
+- Bumping package versions for 1.9.
+
 * Sat Sep 29 2012 Aron Parsons <aronparsons@gmail.com> 1.8.15-1
 - spacecmd: add functions to manage repo filters
 
