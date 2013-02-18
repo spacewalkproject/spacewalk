@@ -283,7 +283,7 @@ def read_cpuinfo():
         hwdict['model'] = get_entry(tmpdict, "cpu")
         hwdict['model_ver'] = get_entry(tmpdict, 'revision')
         hwdict['bogomips'] = get_entry(tmpdict, 'bogomips')
-        hwdict['vendor'] = get_entry(tmpdict, 'machine')
+        hwdict['type'] = get_entry(tmpdict, 'machine')
         # strings are postpended with "mhz"
         mhz_speed = get_entry(tmpdict, 'clock')[:-3]
         try:
