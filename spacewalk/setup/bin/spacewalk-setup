@@ -289,8 +289,12 @@ sub setup_cobbler {
   }
 
   if (($answers{'enable-tftp'} and $answers{'enable-tftp'} =~ /^[Yy]/) || $opts{"non-interactive"}) {
-      system("chkconfig tftp on");
-      system("chkconfig xinetd on");
+      if (-e '/usr/lib/systemd/system/tftp.socket') {
+        system("systemctl enable tftp.socket");
+      } else {
+        system("chkconfig tftp on");
+        system("chkconfig xinetd on");
+      }
   }
 
   system("cobbler sync");
