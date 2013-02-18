@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.9.5
+Version: 1.9.6
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -87,6 +87,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Feb 18 2013 Miroslav Suchý <msuchy@redhat.com> 1.9.6-1
+- Buildrequire pod2man
+
 * Thu Feb 14 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.5-1
 - wait-for-tomcat has been moved to helper
 - let's osa-dispatcher wait for jabberd startup
