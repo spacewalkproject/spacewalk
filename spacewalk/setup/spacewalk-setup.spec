@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.9.3
+Version:        1.9.4
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -99,6 +99,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Feb 18 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.4-1
+- update tftp dependency for systemd
+
 * Fri Feb 15 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.3-1
 - make installation script shorter
 - setup /etc/sysconfig/tomcat*
