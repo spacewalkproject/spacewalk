@@ -1926,6 +1926,11 @@ def export_kickstart_getdetails(self, profile, kickstarts):
         logging.debug("Post kernel options %s detected" % post_kopts)
         details['post_kopts'] = post_kopts
 
+    #and now sort all the lists
+    for i in details.keys():
+        if isinstance(details[i],list):
+            details[i].sort()
+
     return details
 
 def do_kickstart_export(self, args):
