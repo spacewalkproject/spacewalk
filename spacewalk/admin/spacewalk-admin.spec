@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.9.6
+Version: 1.9.7
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -87,6 +87,11 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Feb 19 2013 Jan Pazdziora 1.9.7-1
+- The ensure-httpd-down will sleep in the loop, no need to have it in the main
+  script.
+- Fixing the wait-for-tomcat-disable logic.
+
 * Mon Feb 18 2013 Miroslav Suchý <msuchy@redhat.com> 1.9.6-1
 - Buildrequire pod2man
 
