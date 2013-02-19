@@ -130,7 +130,6 @@ case "$1" in
         ;;
     restart|reload)
         stop
-        sleep 4
 
         /usr/sbin/spacewalk-startup-helper ensure-httpd-down
 
