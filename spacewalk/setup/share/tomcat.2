@@ -1,2 +1,2 @@
-^export LD_LIBRARY_PATH=.+\n
-export LD_LIBRARY_PATH=$(cat /etc/ld.so.conf.d/oracle-instantclient-11.2.conf)
+^test -f /etc/ld.so.conf.d/oracle-instantclient-11.2.conf.+LD_LIBRARY_PATH=.+\n
+test -f /etc/ld.so.conf.d/oracle-instantclient-11.2.conf && export LD_LIBRARY_PATH=$(cat /etc/ld.so.conf.d/oracle-instantclient-11.2.conf)
