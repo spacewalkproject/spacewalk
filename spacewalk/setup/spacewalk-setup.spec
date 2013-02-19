@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.9.4
+Version:        1.9.5
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -99,6 +99,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Feb 19 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.5-1
+- export oracle path only if we have oracle
+
 * Mon Feb 18 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.4-1
 - update tftp dependency for systemd
 
