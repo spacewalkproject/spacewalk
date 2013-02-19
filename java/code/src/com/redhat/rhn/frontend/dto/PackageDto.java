@@ -270,8 +270,9 @@ public class PackageDto extends BaseDto {
      * which means we have to parse in here as long as this is not changed!
      *
      * @param buildTimeIn The buildTime to set.
+     * @throws RhnRuntimeException when buildTimeIn can't be parsed
      */
-    public void setBuildTime(Date buildTimeIn) {
+    public void setBuildTime(Date buildTimeIn) throws RhnRuntimeException {
         SimpleDateFormat dateFormatGMT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
         dateFormatGMT.setTimeZone(TimeZone.getTimeZone("GMT"));
         try {
