@@ -54,12 +54,12 @@ start() {
     echo "Starting spacewalk services..."
     DISABLE_FILE=/var/run/spacewalk-wait-for-tomcat-disable
     if [ "$WAIT_FOR_TOMCAT" == "1" ] ; then
+        rm -f $DISABLE_FILE
+    else
         touch $DISABLE_FILE
     fi
     systemctl start spacewalk.target
-    if [ "$WAIT_FOR_TOMCAT" == "1" ] ; then
-        rm -f $DISABLE_FILE
-    fi
+    rm -f $DISABLE_FILE
     echo "Done."
     return 0
 }
