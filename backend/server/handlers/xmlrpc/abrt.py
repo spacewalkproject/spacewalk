@@ -239,6 +239,10 @@ class Abrt(rhnHandler):
             crash = crash)
         rhnSQL.commit()
 
+        if r == 0:
+            log_debug(1, self.server_id, "No record for crash: %s" % crash)
+            raise rhnFault(5005, "Invalid crash name: %s" % crash)
+
         absolute_dir = os.path.join(CFG.MOUNT_POINT, server_crash_dir)
         absolute_file = os.path.join(absolute_dir, 'count')
 
