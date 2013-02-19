@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.67
+Version: 1.9.68
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Feb 19 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.9.68-1
+- abrt: total & unique crash count info in webui
+- fix ChannelSoftwareHandlerTest test
+- add throws clause to setBuildTime
+
 * Tue Feb 19 2013 Tomas Lestach <tlestach@redhat.com> 1.9.67-1
 - 911741 - completed kickstarts still show up on 'currently kickstarting' list
 
