@@ -1,0 +1,13 @@
+diff --git a/src/modules/perl/modperl_config.c b/src/modules/perl/modperl_config.c
+index c4ef81f..4ec135c 100644
+--- a/src/modules/perl/modperl_config.c
++++ b/src/modules/perl/modperl_config.c
+@@ -186,7 +186,7 @@ modperl_config_srv_t *modperl_config_srv_new(apr_pool_t *p, server_rec *s)
+ 
+     /* make sure httpd's argv[0] is the first argument so $0 is
+      * correctly connected to the real thing */
+-    modperl_config_srv_argv_push(s->process->argv[0]);
++    modperl_config_srv_argv_push(s->process->short_name);
+ 
+     MP_TRACE_d(MP_FUNC, "new scfg: 0x%lx", (unsigned long)scfg);
+ 

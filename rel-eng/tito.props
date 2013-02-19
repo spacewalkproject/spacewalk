@@ -10,15 +10,15 @@ autobuild_tags = spacewalk-nightly-rhel5 spacewalk-nightly-rhel6 spacewalk-night
 
 [spacewalk-nightly-rhel5]
 disttag = .el5
-blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm oracle-rhnsat-selinux spacewalk-jpp-workaround apt-spacewalk python-hwdata spacewalk-oro-compat spacewalk-abrt
+blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm oracle-rhnsat-selinux spacewalk-jpp-workaround apt-spacewalk python-hwdata spacewalk-oro-compat spacewalk-abrt mod_perl
 
 [spacewalk-nightly-rhel6]
 disttag = .el6
-blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm oracle-rhnsat-selinux jabberd-selinux apt-spacewalk python-hwdata spacewalk-oro-compat
+blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm oracle-rhnsat-selinux jabberd-selinux apt-spacewalk python-hwdata spacewalk-oro-compat mod_perl
 
 [spacewalk-nightly-fedora17]
 disttag = .fc17
-blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm apt-spacewalk python-hwdata oracle-rhnsat-selinux
+blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm apt-spacewalk python-hwdata oracle-rhnsat-selinux mod_perl
 
 [spacewalk-nightly-fedora18]
 disttag = .fc18

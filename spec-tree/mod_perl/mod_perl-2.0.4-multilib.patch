@@ -1,0 +1,32 @@
+
+Generate the XS typemap files in sorted order; ensures that the
+devel package contents do not differe across multilib platforms.
+
+--- mod_perl-2.0.4/lib/ModPerl/TypeMap.pm.multilib
++++ mod_perl-2.0.4/lib/ModPerl/TypeMap.pm
+@@ -442,12 +442,12 @@ sub typedefs_code {
+         $code .= qq{\#include "$_"\n}
+     }
+ 
+-    for my $t (@{ $self->{struct} }) {
++    for my $t (sort {$a->[1] cmp $b->[1]} @{ $self->{struct} }) {
+         next if $seen{ $t->[1] }++;
+         $code .= "typedef $t->[0] * $t->[1];\n";
+     }
+ 
+-    for my $t (@{ $self->{typedef} }) {
++    for my $t (sort {$a->[1] cmp $b->[1]} @{ $self->{typedef} }) {
+         next if $seen{ $t->[1] }++;
+         $code .= "typedef $t->[0] $t->[1];\n";
+     }
+@@ -470,7 +470,9 @@ sub sv_convert_code {
+     my %seen;
+     my $code = "";
+ 
+-    while (my ($ctype, $ptype) = each %$map) {
++    for my $ctype (sort keys %$map) {
++        my $ptype = $map->{$ctype};
++
+         next if $self->special($ptype);
+         next if $ctype =~ /\s/;
+         my $class = $ptype;

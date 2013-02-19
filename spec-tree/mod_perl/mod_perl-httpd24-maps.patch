@@ -1,0 +1,82 @@
+diff --git a/xs/maps/apache2_structures.map b/xs/maps/apache2_structures.map
+index f86ec93..cca915b 100644
+--- a/xs/maps/apache2_structures.map
++++ b/xs/maps/apache2_structures.map
+@@ -2,6 +2,20 @@
+ 
+ # for mapping see %ModPerl::MapUtil::disabled_map in
+ # lib/ModPerl/MapUtil.pm
++# the mapping happens in lib/ModPerl/StructureMap.pm: sub parse
++#    '<' => 'auto-generated but gives only a read-only access'
++#    '&' => 'RDWR accessor to a char* field, supporting undef arg'
++#    '$' => 'RONLY accessor, with WRITE accessor before child_init'
++#    '%' => like $, but makes sure that for the write accessor the
++#           original perl scalar can change or go away w/o affecting
++#           the object
++# my %disabled_map = (
++#     '!' => 'disabled or not yet implemented',
++#     '~' => 'implemented but not auto-generated',
++#     '-' => 'likely never be available to Perl',
++#     '>' => '"private" to apache',
++#     '?' => 'unclassified',
++# );
+ 
+ IGNORE: ap_LINK_ ap_filter_func ap_bucket_error ap_listen_rec core_net_rec
+ 
+@@ -69,6 +83,8 @@ IGNORE: ap_LINK_ ap_filter_func ap_bucket_error ap_listen_rec core_net_rec
+    proto_output_filters
+    proto_input_filters
+ ?  eos_sent
++<  useragent_addr
++   useragent_ip
+ </request_rec>
+ 
+ <server_rec>
+@@ -78,10 +94,12 @@ IGNORE: ap_LINK_ ap_filter_func ap_bucket_error ap_listen_rec core_net_rec
+ -  defn_line_number
+ %  server_admin
+ %  server_hostname
++%  server_scheme
+ $  port
+ %  error_fname
+ $  error_log
+ $  loglevel
++$  log
+ <  is_virtual
+ <  module_config
+ <  lookup_defaults
+@@ -97,6 +115,7 @@ $  keep_alive
+ $  limit_req_line
+ $  limit_req_fieldsize
+ $  limit_req_fields
++   context
+ </server_rec>
+ 
+ <conn_rec>
+@@ -104,6 +123,8 @@ $  limit_req_fields
+ <  base_server
+ >  vhost_lookup_data
+ <  local_addr
++<  client_addr
++   client_ip
+ <  local_ip
+ <  local_host
+ <  remote_addr
+@@ -121,6 +142,8 @@ $  limit_req_fields
+    output_filters
+ <  sbh
+ <  bucket_alloc
++<  log
++<  log_id
+ </conn_rec>
+ 
+ !<server_addr_rec>
+@@ -268,3 +291,8 @@ $  limit_req_fields
+    p
+    sa
+ </ap_pod_t>
++
++<ap_logconf>
++%  level
++%  module_levels
++</ap_logconf>
