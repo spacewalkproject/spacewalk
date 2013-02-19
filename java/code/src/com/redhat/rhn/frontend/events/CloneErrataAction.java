@@ -49,6 +49,11 @@ public class CloneErrataAction
 
         CloneErrataEvent msg = (CloneErrataEvent) msgIn;
         Channel currChan = msg.getChan();
+        if (currChan == null) {
+            log.error("Failed to clone errata " + msg.getErrata() +
+                    " Didn't find channel with id: " + msg.getChannelId().toString());
+            return;
+        }
         Collection<Long> list = msg.getErrata();
         List<Long> cids = new ArrayList<Long>();
         cids.add(currChan.getId());

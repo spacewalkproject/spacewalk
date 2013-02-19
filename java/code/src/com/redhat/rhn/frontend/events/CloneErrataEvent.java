@@ -69,6 +69,12 @@ public class CloneErrataEvent implements EventDatabaseMessage {
         return txn;
     }
 
+    /**
+     * @return Returns the channel id
+     */
+    public Long getChannelId() {
+        return chanId;
+    }
 
     /**
      * @return Returns the chan.
