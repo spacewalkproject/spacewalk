@@ -358,18 +358,23 @@
       <h2><bean:message key="sdc.details.overview.crashes.application"/></h2>
       <table class="details">
         <c:choose>
-          <c:when test="${system.crashes.created == null}">
+          <c:when test="${system.crashCount == null}">
             <bean:message key="sdc.details.overview.crashes.nodata"/>
           </c:when>
           <c:otherwise>
             <tr>
-              <th><bean:message key="sdc.details.overview.crashes.lastreport"/></th>
-              <td><fmt:formatDate value="${system.crashes.created}" type="both" dateStyle="short" timeStyle="long"/></td>
+              <th><bean:message key="sdc.details.overview.crashes.uniquecrashcount"/></th>
+              <td><c:out value="${system.crashCount.uniqueCrashCount}"/></td>
             </tr>
             <tr>
-              <th><bean:message key="sdc.details.overview.crashes.crashcount"/></th>
-              <td><c:out value="${system.crashes.crashCount}"/></td>
+              <th><bean:message key="sdc.details.overview.crashes.totalcrashcount"/></th>
+              <td><c:out value="${system.crashCount.totalCrashCount}"/></td>
             </tr>
+            <tr>
+              <th><bean:message key="sdc.details.overview.crashes.lastreport"/></th>
+              <td><fmt:formatDate value="${system.crashCount.lastReport}" type="both" dateStyle="short" timeStyle="long"/></td>
+            </tr>
+
           </c:otherwise>
         </c:choose>
       </table>

@@ -113,7 +113,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     private ProxyInfo proxyInfo;
     private Set<? extends ServerGroup> groups;
     private Set<Capability> capabilities;
-    private Crashes crashes;
+    private CrashCount crashCount;
 
     public static final String VALID_CNAMES = "valid_cnames_";
 
@@ -1881,15 +1881,15 @@ public class Server extends BaseDomainHelper implements Identifiable {
     /**
      * @return Return application crashes.
      */
-    public Crashes getCrashes() {
-        return crashes;
+    public CrashCount getCrashCount() {
+        return crashCount;
     }
 
     /**
      * @param crashIn Set application crashes.
      */
-    public void setCrashes(Crashes crashIn) {
-        crashes = crashIn;
+    public void setCrashCount(CrashCount crashIn) {
+        crashCount = crashIn;
     }
 
 }

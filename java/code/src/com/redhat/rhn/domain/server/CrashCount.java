@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2012--2013 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,20 +19,21 @@ import com.redhat.rhn.domain.BaseDomainHelper;
 import java.util.Date;
 
 /**
- * Represents the number of crashes on a particular server.
+ * Represents the number of total and unique crashes on a particular server.
  * @version $Rev$
  */
-public class Crashes extends BaseDomainHelper {
+public class CrashCount extends BaseDomainHelper {
 
     private Long id;
     private Server server;
-    private Date created;
-    private long crashCount;
+    private long uniqueCrashCount;
+    private long totalCrashCount;
+    private Date lastReport;
 
     /**
      * Represents application crash information.
      */
-    public Crashes() {
+    public CrashCount() {
         super();
     }
 
@@ -53,22 +54,6 @@ public class Crashes extends BaseDomainHelper {
     }
 
     /**
-     * Returns the date of the last update.
-     * @return the date of the last update.
-     */
-    public Date getCreated() {
-        return created;
-    }
-
-    /**
-     * Sets the date of the last update.
-     * @param lastmod Last modification date.
-     */
-    public void setCreated(Date lastmod) {
-        created = lastmod;
-    }
-
-    /**
      * The parent server.
      * @return Returns the server.
      */
@@ -85,18 +70,50 @@ public class Crashes extends BaseDomainHelper {
     }
 
     /**
+     * Returns the number of unique application crashes.
+     * @return the number of unique application crashes.
+     */
+    public long getUniqueCrashCount() {
+        return uniqueCrashCount;
+    }
+
+    /**
+     * Sets the number of unique application crashes.
+     * @param count The number of unique crashes.
+     */
+    public void setUniqueCrashCount(long count) {
+        uniqueCrashCount = count;
+    }
+
+    /**
      * Returns the total number of application crashes.
      * @return the total number of application crashes.
      */
-    public long getCrashCount() {
-        return crashCount;
+    public long getTotalCrashCount() {
+        return totalCrashCount;
     }
 
     /**
      * Sets the total number of application crashes.
      * @param count The total number of crashes.
      */
-    public void setCrashCount(long count) {
-        crashCount = count;
+    public void setTotalCrashCount(long count) {
+        totalCrashCount = count;
+    }
+
+    /**
+     * Returns the date last of last crash report.
+     * @return the date last of last crash report.
+     */
+    public Date getLastReport() {
+        return lastReport;
+    }
+
+    /**
+     * Sets the date of last crash report.
+     * @param lastReportIn the date of last crash report.
+     */
+    public void setLastReport(Date lastReportIn) {
+        lastReport = lastReportIn;
     }
 }

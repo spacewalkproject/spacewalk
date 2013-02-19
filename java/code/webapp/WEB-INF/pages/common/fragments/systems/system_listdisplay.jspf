@@ -125,11 +125,11 @@
                                styleclass="center"
                                headerclass="thin-column">
                         <c:choose>
-                            <c:when test="${current.crashCount == null}">
+                            <c:when test="${current.totalCrashCount == null}">
                                 <bean:message key="none.message"/>
                             </c:when>
                             <c:otherwise>
-                                <c:out value="${current.crashCount}" escapeXml="false"/>
+                                <c:out value="${current.totalCrashCount}" escapeXml="false"/>
                             </c:otherwise>
                         </c:choose>
 		    </rl:column>

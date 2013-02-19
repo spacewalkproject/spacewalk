@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.server.CrashCount" table="rhnServerCrashCount" mutable="false">
+        <id name="id" column="server_id">
+            <generator class="foreign">
+                <param name="property">server</param>
+            </generator>
+        </id>
+        <one-to-one name="server"
+                    class="com.redhat.rhn.domain.server.Server"
+                    constrained="true" />
+        <property name="totalCrashCount" column="total_count" type="long"
+                  insert="false" update="false" />
+        <property name="uniqueCrashCount" column="unique_count" type="long"
+                  insert="false" update="false" />
+        <property name="lastReport" type="timestamp" column="last_report"
+                  insert="false" update="false" />
+    </class>
+</hibernate-mapping>

@@ -16267,8 +16267,14 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <context context-type="sourcefile">/systems/details/Overview.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="sdc.details.overview.crashes.crashcount">
-        <source>Crash Count</source>
+      <trans-unit id="sdc.details.overview.crashes.uniquecrashcount">
+        <source>Unique Crash Count</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/details/Overview.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="sdc.details.overview.crashes.totalcrashcount">
+        <source>Total Crash Count</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/details/Overview.do</context>
         </context-group>
