@@ -1,0 +1,1079 @@
+diff --git a/lib/Apache2/ParseSource.pm b/lib/Apache2/ParseSource.pm
+index 0664af1..5076bb5 100644
+--- a/lib/Apache2/ParseSource.pm
++++ b/lib/Apache2/ParseSource.pm
+@@ -247,6 +247,7 @@ my %defines_wanted = (
+         remotehost => [qw{REMOTE_}],
+         satisfy    => [qw{SATISFY_}],
+         types      => [qw{DIR_MAGIC_TYPE}],
++        auth       => [qw{AUTHN_ AUTHZ AP_AUTH_ AUTH_ AUTHZ_}],
+     },
+     'APR::Const' => {
+         common    => [qw{APR_SUCCESS}],
+@@ -279,7 +280,7 @@ while (my ($class, $groups) = each %defines_wanted) {
+ }
+ 
+ my %enums_wanted = (
+-    'Apache2::Const' => { map { $_, 1 } qw(cmd_how input_mode filter_type conn_keepalive) },
++    'Apache2::Const' => { map { $_, 1 } qw(cmd_how input_mode filter_type conn_keepalive authn_status authz_status) },
+     'APR::Const' => { map { $_, 1 } qw(apr_shutdown_how apr_read_type apr_lockmech) },
+ );
+ 
+diff --git a/lib/Apache2/compat.pm b/lib/Apache2/compat.pm
+index 358e646..b99a9ad 100644
+--- a/lib/Apache2/compat.pm
++++ b/lib/Apache2/compat.pm
+@@ -149,7 +149,7 @@ EOI
+     require Apache2::Connection;
+     require APR::SockAddr;
+     require Socket;
+-    my $orig_sub = *Apache2::Connection::remote_addr{CODE};
++    my $orig_sub = *Apache2::Connection::client_addr{CODE};
+     *Apache2::Connection::remote_addr = sub {
+         my $c = shift;
+         if (@_) {
+diff --git a/lib/ModPerl/Code.pm b/lib/ModPerl/Code.pm
+index 98b037d..4434be4 100644
+--- a/lib/ModPerl/Code.pm
++++ b/lib/ModPerl/Code.pm
+@@ -890,6 +890,15 @@ EOF
+             if ($name eq 'DECLINE_CMD' ||
+                 $name eq 'DIR_MAGIC_TYPE' ||
+                 $name eq 'CRLF' ||
++                $name eq 'AUTHN_PROVIDER_GROUP' ||
++                $name eq 'AUTHZ_PROVIDER_GROUP' ||
++                $name eq 'AUTHN_PROVIDER_VERSION' ||
++                $name eq 'AUTHZ_PROVIDER_VERSION' ||
++                $name eq 'AUTHN_DEFAULT_PROVIDER' ||
++                $name eq 'AUTHN_PROVIDER_NAME_NOTE' ||
++                $name eq 'AUTHZ_PROVIDER_NAME_NOTE' ||
++                $name eq 'AUTHN_PREFIX' ||
++                $name eq 'AUTHZ_PREFIX' ||
+                 $name eq 'CRLF_ASCII') {
+                 print $c_fh <<EOF;
+               return newSVpv($alias{$name}, 0);
+diff --git a/src/modules/perl/mod_perl.c b/src/modules/perl/mod_perl.c
+index b18e0fd..cd305b0 100644
+--- a/src/modules/perl/mod_perl.c
++++ b/src/modules/perl/mod_perl.c
+@@ -911,6 +911,8 @@ static const command_rec modperl_cmds[] = {
+     MP_CMD_DIR_ITERATE("PerlRequire", requires, "PerlRequire"),
+     MP_CMD_SRV_ITERATE("PerlConfigRequire", config_requires, "PerlConfigRequire"),
+     MP_CMD_SRV_ITERATE("PerlPostConfigRequire", post_config_requires, "PerlPostConfigRequire"),
++    MP_CMD_SRV_TAKE2("PerlAddAuthzProvider", authz_provider, "PerlAddAuthzProvider"),
++    MP_CMD_SRV_TAKE2("PerlAddAuthnProvider", authn_provider, "PerlAddAuthnProvider"),
+     MP_CMD_DIR_ITERATE("PerlOptions", options, "Perl Options"),
+     MP_CMD_DIR_ITERATE("PerlInitHandler", init_handlers, "Subroutine name"),
+     MP_CMD_DIR_TAKE2("PerlSetVar", set_var, "PerlSetVar"),
+diff --git a/src/modules/perl/modperl_apache_includes.h b/src/modules/perl/modperl_apache_includes.h
+index 6f7bd8b..78288ae 100644
+--- a/src/modules/perl/modperl_apache_includes.h
++++ b/src/modules/perl/modperl_apache_includes.h
+@@ -40,6 +40,8 @@
+ #include "ap_mpm.h"
+ #if !(AP_SERVER_MAJORVERSION_NUMBER >= 2 && AP_SERVER_MINORVERSION_NUMBER >= 4)
+ #include "apu_errno.h"
++#else
++#include "mod_auth.h"
+ #endif
+ 
+ #include "util_filter.h"
+diff --git a/src/modules/perl/modperl_cmd.c b/src/modules/perl/modperl_cmd.c
+index 75fac6f..c3b20e7 100644
+--- a/src/modules/perl/modperl_cmd.c
++++ b/src/modules/perl/modperl_cmd.c
+@@ -417,6 +417,30 @@ MP_CMD_SRV_DECLARE(init_handlers)
+     return modperl_cmd_post_read_request_handlers(parms, mconfig, arg);
+ }
+ 
++MP_CMD_SRV_DECLARE2(authz_provider)
++{
++    apr_pool_t *p = parms->server->process->pool;
++    char *name = apr_pstrdup(p, arg1);
++    char *cb = apr_pstrdup(p, arg2);
++
++    modperl_register_auth_provider_name(p, AUTHZ_PROVIDER_GROUP, name,
++                                        AUTHZ_PROVIDER_VERSION, cb, NULL,
++                                        AP_AUTH_INTERNAL_PER_CONF);
++    return NULL;
++}
++
++MP_CMD_SRV_DECLARE2(authn_provider)
++{
++    apr_pool_t *p = parms->server->process->pool;
++    char *name = apr_pstrdup(p, arg1);
++    char *cb = apr_pstrdup(p, arg2);
++
++    modperl_register_auth_provider_name(p, AUTHN_PROVIDER_GROUP, name,
++                                        AUTHN_PROVIDER_VERSION, cb, NULL,
++                                        AP_AUTH_INTERNAL_PER_CONF);
++    return NULL;
++}
++
+ static const char *modperl_cmd_parse_args(apr_pool_t *p,
+                                           const char *args,
+                                           apr_table_t **t)
+diff --git a/src/modules/perl/modperl_cmd.h b/src/modules/perl/modperl_cmd.h
+index d8629e9..181f19c 100644
+--- a/src/modules/perl/modperl_cmd.h
++++ b/src/modules/perl/modperl_cmd.h
+@@ -42,6 +42,8 @@ MP_CMD_SRV_DECLARE(modules);
+ MP_CMD_SRV_DECLARE(requires);
+ MP_CMD_SRV_DECLARE(config_requires);
+ MP_CMD_SRV_DECLARE(post_config_requires);
++MP_CMD_SRV_DECLARE2(authz_provider);
++MP_CMD_SRV_DECLARE2(authn_provider);
+ MP_CMD_SRV_DECLARE2(set_var);
+ MP_CMD_SRV_DECLARE2(add_var);
+ MP_CMD_SRV_DECLARE2(set_env);
+diff --git a/src/modules/perl/modperl_util.c b/src/modules/perl/modperl_util.c
+index f43631a..3d8cc91 100644
+--- a/src/modules/perl/modperl_util.c
++++ b/src/modules/perl/modperl_util.c
+@@ -910,3 +910,306 @@ U16 *modperl_code_attrs(pTHX_ CV *cv) {
+     mg = mg_find((SV*)cv, PERL_MAGIC_ext);
+     return &(mg->mg_private);
+ }
++
++static apr_hash_t *global_authz_providers = NULL;
++static apr_hash_t *global_authn_providers = NULL;
++
++typedef struct {
++    SV *cb1;
++    SV *cb2;
++    modperl_handler_t *cb1_handler;
++    modperl_handler_t *cb2_handler;
++} auth_callback;
++
++static apr_status_t cleanup_perl_global_providers(void *ctx)
++{
++    global_authz_providers = NULL;
++    global_authn_providers = NULL;
++    return APR_SUCCESS;
++}
++
++static authz_status perl_check_authorization(request_rec *r,
++                                             const char *require_args,
++                                             const void *parsed_require_args)
++{
++    authz_status ret = AUTHZ_DENIED;
++    int count;
++    AV *args = Nullav;
++
++    if (global_authz_providers == NULL) {
++        return ret;
++    }
++
++    const char *key = apr_table_get(r->notes, AUTHZ_PROVIDER_NAME_NOTE);
++    auth_callback *ab = apr_hash_get(global_authz_providers, key,
++                                     APR_HASH_KEY_STRING);
++    if (ab == NULL) {
++        return ret;
++    }
++
++    MP_dTHX;
++
++    if (ab->cb1 == NULL) {
++        if (ab->cb1_handler == NULL) {
++            return ret;
++        }
++
++        modperl_handler_make_args(aTHX_ &args, "Apache2::RequestRec", r,
++                                  "PV", require_args, NULL);
++        ret = modperl_callback(aTHX_ ab->cb1_handler, r->pool, r, r->server,
++                               args);
++        SvREFCNT_dec((SV*)args);
++        return ret;
++    }
++
++    dSP;
++    ENTER;
++    SAVETMPS;
++    PUSHMARK(SP);
++    XPUSHs(sv_2mortal(modperl_ptr2obj(aTHX_ "Apache2::RequestRec", r)));
++    XPUSHs(sv_2mortal(newSVpv(require_args, 0)));
++    PUTBACK;
++    count = call_sv(ab->cb1, G_SCALAR);
++    SPAGAIN;
++
++    if (count == 1) {
++        ret = (authz_status) POPi;
++    }
++
++    PUTBACK;
++    FREETMPS;
++    LEAVE;
++    return ret;
++}
++
++static const char *perl_parse_require_line(cmd_parms *cmd,
++                                           const char *require_line,
++                                           const void **parsed_require_line)
++{
++    SV *ret_sv;
++    char *ret = NULL;
++    int count;
++
++    if (global_authz_providers == NULL) {
++        return ret;
++    }
++
++    void *key;
++    apr_pool_userdata_get(&key, AUTHZ_PROVIDER_NAME_NOTE, cmd->temp_pool);
++    auth_callback *ab = apr_hash_get(global_authz_providers, (char *) key,
++                                     APR_HASH_KEY_STRING);
++    if (ab == NULL || ab->cb2 == NULL) {
++        return ret;
++    }
++
++    modperl_interp_t *interp = modperl_interp_pool_select(cmd->server->process->pool,
++                                                          cmd->server);
++    dTHXa(interp->perl);
++    dSP;
++    ENTER;
++    SAVETMPS;
++    PUSHMARK(SP);
++    XPUSHs(sv_2mortal(modperl_ptr2obj(aTHX_ "Apache2::CmdParms", cmd)));
++    XPUSHs(sv_2mortal(newSVpv(require_line, 0)));
++    PUTBACK;
++    count = call_sv(ab->cb2, G_SCALAR);
++    SPAGAIN;
++
++    if (count == 1) {
++        ret_sv = POPs;
++        if (SvOK(ret_sv)) {
++            char *tmp = SvPV_nolen(ret_sv);
++            if (*tmp != '\0') {
++                ret = apr_pstrdup(cmd->pool, tmp);
++            }
++        }
++    }
++
++    PUTBACK;
++    FREETMPS;
++    LEAVE;
++    return ret;
++}
++
++static authn_status perl_check_password(request_rec *r, const char *user,
++                                        const char *password)
++{
++    authn_status ret = AUTH_DENIED;
++    int count;
++    AV *args = Nullav;
++
++    if (global_authn_providers == NULL) {
++        return ret;
++    }
++
++    const char *key = apr_table_get(r->notes, AUTHN_PROVIDER_NAME_NOTE);
++    auth_callback *ab = apr_hash_get(global_authn_providers, key,
++                                     APR_HASH_KEY_STRING);
++    if (ab == NULL || ab->cb1) {
++        return ret;
++    }
++
++    MP_dTHX;
++
++    if (ab->cb1 == NULL) {
++        if (ab->cb1_handler == NULL) {
++            return ret;
++        }
++
++        modperl_handler_make_args(aTHX_ &args, "Apache2::RequestRec", r,
++                                  "PV", user,
++                                  "PV", password, NULL);
++        ret = modperl_callback(aTHX_ ab->cb1_handler, r->pool, r, r->server,
++                               args);
++        SvREFCNT_dec((SV*)args);
++        return ret;
++    }
++
++    dSP;
++    ENTER;
++    SAVETMPS;
++    PUSHMARK(SP);
++    XPUSHs(sv_2mortal(modperl_ptr2obj(aTHX_ "Apache2::RequestRec", r)));
++    XPUSHs(sv_2mortal(newSVpv(user, 0)));
++    XPUSHs(sv_2mortal(newSVpv(password, 0)));
++    PUTBACK;
++    count = call_sv(ab->cb1, G_SCALAR);
++    SPAGAIN;
++
++    if (count == 1) {
++        ret = (authn_status) POPi;
++    }
++
++    PUTBACK;
++    FREETMPS;
++    LEAVE;
++    return ret;
++}
++
++static authn_status perl_get_realm_hash(request_rec *r, const char *user,
++                                        const char *realm, char **rethash)
++{
++    authn_status ret = AUTH_USER_NOT_FOUND;
++    int count;
++    SV *rh;
++
++    if (global_authn_providers == NULL) {
++        return ret;
++    }
++
++    const char *key = apr_table_get(r->notes, AUTHN_PROVIDER_NAME_NOTE);
++    auth_callback *ab = apr_hash_get(global_authn_providers, key,
++                                     APR_HASH_KEY_STRING);
++    if (ab == NULL || ab->cb2) {
++        return ret;
++    }
++
++    MP_dTHX;
++    rh = sv_2mortal(newSVpv("", 0));
++    dSP;
++    ENTER;
++    SAVETMPS;
++    PUSHMARK(SP);
++    XPUSHs(sv_2mortal(modperl_ptr2obj(aTHX_ "Apache2::RequestRec", r)));
++    XPUSHs(sv_2mortal(newSVpv(user, 0)));
++    XPUSHs(sv_2mortal(newSVpv(realm, 0)));
++    XPUSHs(newRV_noinc(rh));
++    PUTBACK;
++    count = call_sv(ab->cb2, G_SCALAR);
++    SPAGAIN;
++
++    if (count == 1) {
++        ret = (authn_status) POPi;
++        char *tmp = SvPV_nolen(rh);
++        if (*tmp != '\0') {
++            *rethash = apr_pstrdup(r->pool, tmp);
++        }
++    }
++
++    PUTBACK;
++    FREETMPS;
++    LEAVE;
++    return ret;
++}
++
++static const authz_provider authz_perl_provider = { perl_check_authorization,
++                                                    perl_parse_require_line };
++
++static const authn_provider authn_perl_provider = { perl_check_password,
++                                                    perl_get_realm_hash };
++
++static apr_status_t register_auth_provider(apr_pool_t *pool,
++                                           const char *provider_group,
++                                           const char *provider_name,
++                                           const char *provider_version,
++                                           auth_callback *ab, int type)
++{
++    void *provider_ = NULL;
++
++    if (global_authz_providers == NULL) {
++        global_authz_providers = apr_hash_make(pool);
++        global_authn_providers = apr_hash_make(pool);
++        /* We have to use pre_cleanup here, otherwise this cleanup method
++         * would be called after another cleanup method which unloads
++         * mod_perl module.
++         */
++        apr_pool_pre_cleanup_register(pool, NULL,
++                                      cleanup_perl_global_providers);
++    }
++
++    if (strcmp(provider_group, AUTHZ_PROVIDER_GROUP) == 0) {
++        provider_ = (void *) &authz_perl_provider;
++        apr_hash_set(global_authz_providers, provider_name,
++                     APR_HASH_KEY_STRING, ab);
++    }
++    else {
++        provider_ = (void *) &authn_perl_provider;
++        apr_hash_set(global_authn_providers, provider_name,
++                     APR_HASH_KEY_STRING, ab);
++    }
++
++    return ap_register_auth_provider(pool, provider_group, provider_name,
++                                     provider_version, provider_, type);
++
++}
++
++apr_status_t modperl_register_auth_provider(apr_pool_t *pool,
++                                            const char *provider_group,
++                                            const char *provider_name,
++                                            const char *provider_version,
++                                            SV *callback1, SV *callback2,
++                                            int type)
++{
++    char *provider_name_dup;
++    auth_callback *ab = NULL;
++
++    provider_name_dup = apr_pstrdup(pool, provider_name);
++    ab = apr_pcalloc(pool, sizeof(auth_callback));
++    ab->cb1 = callback1;
++    ab->cb2 = callback2;
++
++    return register_auth_provider(pool, provider_group, provider_name_dup,
++                                  provider_version, ab, type);
++}
++
++apr_status_t modperl_register_auth_provider_name(apr_pool_t *pool,
++                                                 const char *provider_group,
++                                                 const char *provider_name,
++                                                 const char *provider_version,
++                                                 const char *callback1,
++                                                 const char *callback2,
++                                                 int type)
++{
++    char *provider_name_dup;
++    auth_callback *ab = NULL;
++
++    provider_name_dup = apr_pstrdup(pool, provider_name);
++    ab = apr_pcalloc(pool, sizeof(auth_callback));
++    ab->cb1_handler = modperl_handler_new(pool, callback1);
++    if (callback2) {
++        ab->cb2_handler = modperl_handler_new(pool, callback2);
++    }
++
++    return register_auth_provider(pool, provider_group, provider_name_dup,
++                                  provider_version, ab, type);
++}
+diff --git a/src/modules/perl/modperl_util.h b/src/modules/perl/modperl_util.h
+index fcb23c3..480583c 100644
+--- a/src/modules/perl/modperl_util.h
++++ b/src/modules/perl/modperl_util.h
+@@ -151,4 +151,18 @@ SV *modperl_pnotes(pTHX_ HV **pnotes, SV *key, SV *val,
+ 
+ U16 *modperl_code_attrs(pTHX_ CV *cv);
+ 
++apr_status_t
++modperl_register_auth_provider(apr_pool_t *pool, const char *provider_group,
++                               const char *provider_name,
++                               const char *provider_version, SV *callback1,
++                               SV *callback2, int type);
++
++apr_status_t
++modperl_register_auth_provider_name(apr_pool_t *pool,
++                                    const char *provider_group,
++                                    const char *provider_name,
++                                    const char *provider_version,
++                                    const char *callback1,
++                                    const char *callback2, int type);
++
+ #endif /* MODPERL_UTIL_H */
+diff --git a/t/hooks/TestHooks/authen_basic.pm b/t/hooks/TestHooks/authen_basic.pm
+index 3ebc689..cca4bec 100644
+--- a/t/hooks/TestHooks/authen_basic.pm
++++ b/t/hooks/TestHooks/authen_basic.pm
+@@ -3,9 +3,13 @@ package TestHooks::authen_basic;
+ use strict;
+ use warnings FATAL => 'all';
+ 
++use Apache::Test;
++use Apache::TestUtil;
++
+ use Apache2::Access ();
+ 
+ use Apache2::Const -compile => qw(OK HTTP_UNAUTHORIZED SERVER_ERROR);
++use constant APACHE24   => have_min_apache_version('2.4.0');
+ 
+ sub handler {
+     my $r = shift;
+@@ -16,9 +20,13 @@ sub handler {
+ 
+     my $user = $r->user;
+ 
+-    my $requirement = $r->requires->[0]->{requirement};
+-
+-    return Apache2::Const::SERVER_ERROR unless $requirement eq 'valid-user';
++    # We don't have to check for valid-user in 2.4.0+. If there is bug
++    # in require valid-user handling, it will result in failed test with
++    # bad username/password.
++    if (!APACHE24) {
++        my $requirement = $r->requires->[0]->{requirement};
++        return Apache2::Const::SERVER_ERROR unless $requirement eq 'valid-user';
++    }
+ 
+     unless ($user eq 'dougm' and $sent_pw eq 'foo') {
+         $r->note_basic_auth_failure;
+diff --git a/t/hooks/TestHooks/authen_digest.pm b/t/hooks/TestHooks/authen_digest.pm
+index 35110d2..b1e998f 100644
+--- a/t/hooks/TestHooks/authen_digest.pm
++++ b/t/hooks/TestHooks/authen_digest.pm
+@@ -21,6 +21,9 @@ sub handler {
+         return Apache2::Const::HTTP_UNAUTHORIZED;
+     }
+ 
++    $r->user("user");
++    $r->ap_auth_type("Digest");
++
+     return Apache2::Const::OK;
+ }
+ 
+diff --git a/t/hooks/TestHooks/authz.pm b/t/hooks/TestHooks/authz.pm
+index cb9abcd..d9c216a 100644
+--- a/t/hooks/TestHooks/authz.pm
++++ b/t/hooks/TestHooks/authz.pm
+@@ -8,6 +8,7 @@ use Apache2::Access ();
+ use Apache2::Const -compile => qw(OK HTTP_UNAUTHORIZED);
+ 
+ sub auth_any {
++    my $self = shift;
+     my $r = shift;
+ 
+     my ($res, $sent_pw) = $r->get_basic_auth_pw;
+@@ -30,9 +31,7 @@ sub handler {
+ 
+     return Apache2::Const::HTTP_UNAUTHORIZED unless $user;
+ 
+-    my ($u, @allowed) = split /\s+/, $r->requires->[0]->{requirement};
+-
+-    return Apache2::Const::HTTP_UNAUTHORIZED unless grep { $_ eq $user } @allowed;
++    return Apache2::Const::HTTP_UNAUTHORIZED unless "dougm" eq $user;
+ 
+     Apache2::Const::OK;
+ }
+@@ -43,6 +42,6 @@ require user dougm
+ AuthType Basic
+ AuthName simple
+ PerlModule          TestHooks::authz
+-PerlAuthenHandler   TestHooks::authz::auth_any
++PerlAuthenHandler   TestHooks::authz->auth_any
+ PerlResponseHandler Apache::TestHandler::ok1
+ SetHandler modperl
+diff --git a/t/hooks/TestHooks/stacked_handlers2.pm b/t/hooks/TestHooks/stacked_handlers2.pm
+index bb0a369..c651f74 100644
+--- a/t/hooks/TestHooks/stacked_handlers2.pm
++++ b/t/hooks/TestHooks/stacked_handlers2.pm
+@@ -24,6 +24,17 @@ sub ok {
+     return Apache2::Const::OK;
+ }
+ 
++sub ok_authen {
++
++    my $r = shift;
++    callback($r);
++
++    $r->user("user");
++    $r->ap_auth_type("Basic");
++
++    return Apache2::Const::OK;
++}
++
+ sub declined {
+ 
+     callback(shift);
+@@ -168,7 +179,7 @@ __DATA__
+         PerlAccessHandler TestHooks::stacked_handlers2::ok TestHooks::stacked_handlers2::ok
+ 
+         # 2 run, 1 left behind
+-        PerlAuthenHandler TestHooks::stacked_handlers2::declined TestHooks::stacked_handlers2::ok
++        PerlAuthenHandler TestHooks::stacked_handlers2::declined TestHooks::stacked_handlers2::ok_authen
+         PerlAuthenHandler TestHooks::stacked_handlers2::auth_required
+ 
+         # 2 run, 1 left behind
+diff --git a/t/preconnection/TestPreConnection/note.pm b/t/preconnection/TestPreConnection/note.pm
+index 4d770b2..db3b534 100644
+--- a/t/preconnection/TestPreConnection/note.pm
++++ b/t/preconnection/TestPreConnection/note.pm
+@@ -6,13 +6,16 @@ use warnings FATAL => 'all';
+ use Apache2::Connection ();
+ 
+ use Apache::TestTrace;
++use Apache::Test;
++use Apache::TestUtil;
+ 
+ use Apache2::Const -compile => qw(OK);
++use constant APACHE24   => have_min_apache_version('2.4.0');
+ 
+ sub handler {
+     my Apache2::Connection $c = shift;
+ 
+-    my $ip = $c->remote_ip;
++    my $ip = APACHE24 ? $c->client_ip : $c->remote_ip;
+ 
+     debug "ip: $ip";
+ 
+diff --git a/t/response/TestAPI/access2.pm b/t/response/TestAPI/access2.pm
+index a31df44..718800e 100644
+--- a/t/response/TestAPI/access2.pm
++++ b/t/response/TestAPI/access2.pm
+@@ -33,16 +33,38 @@ use Apache2::RequestRec ();
+ use Apache::TestTrace;
+ 
+ use Apache2::Const -compile => qw(OK HTTP_UNAUTHORIZED SERVER_ERROR
+-                                 M_POST :satisfy);
++                                  AUTHZ_GRANTED AUTHZ_DENIED M_POST :satisfy
++                                  AUTHZ_DENIED_NO_USER);
+ 
+ my $users  = "goo bar";
+-my $groups = "bar tar";
++my $groups = "xar tar";
+ my %users = (
+     goo => "goopass",
+     bar => "barpass",
+ );
+ 
+-sub handler {
++sub authz_handler {
++    my $self = shift;
++    my $r = shift;
++    my $requires = shift;
++
++    if (!$r->user) {
++        return Apache2::Const::AUTHZ_DENIED_NO_USER;
++    }
++
++    return Apache2::Const::SERVER_ERROR unless
++        $requires eq $users or $requires eq $groups;
++
++    my @require_args = split(/\s+/, $requires);
++    if (grep {$_ eq $r->user} @require_args) {
++        return Apache2::Const::AUTHZ_GRANTED;
++    }
++
++    return Apache2::Const::AUTHZ_DENIED;
++}
++
++sub authn_handler {
++    my $self = shift;
+     my $r = shift;
+ 
+     die '$r->some_auth_required failed' unless $r->some_auth_required;
+@@ -54,29 +76,9 @@ sub handler {
+     my ($rc, $sent_pw) = $r->get_basic_auth_pw;
+     return $rc if $rc != Apache2::Const::OK;
+ 
+-    # extract just the requirement entries
+-    my %require =
+-        map { my ($k, $v) = split /\s+/, $_->{requirement}, 2; ($k, $v||'') }
+-        @{ $r->requires };
+-    debug \%require;
+-
+-    # silly (we don't check user/pass here), just checking when
+-    # the Limit options are getting through
+     if ($r->method_number == Apache2::Const::M_POST) {
+-        if (exists $require{"valid-user"}) {
+-            return Apache2::Const::OK;
+-        }
+-        else {
+-            return Apache2::Const::SERVER_ERROR;
+-        }
++        return Apache2::Const::OK;
+     }
+-    else {
+-        # non-POST requests shouldn't see the Limit enclosed entry
+-        return Apache2::Const::SERVER_ERROR if exists $require{"valid-user"};
+-    }
+-
+-    return Apache2::Const::SERVER_ERROR unless $require{user}  eq $users;
+-    return Apache2::Const::SERVER_ERROR unless $require{group} eq $groups;
+ 
+     my $user = $r->user;
+     my $pass = $users{$user} || '';
+@@ -90,9 +92,12 @@ sub handler {
+ 
+ 1;
+ __DATA__
++
+ <NoAutoConfig>
++PerlAddAuthzProvider my-user TestAPI::access2->authz_handler
++PerlAddAuthzProvider my-group TestAPI::access2->authz_handler
+ <Location /TestAPI__access2>
+-    PerlAuthenHandler TestAPI::access2
++    PerlAuthenHandler TestAPI::access2->authn_handler
+     PerlResponseHandler Apache::TestHandler::ok1
+     SetHandler modperl
+ 
+@@ -102,8 +107,8 @@ __DATA__
+     </IfModule>
+     AuthType Basic
+     AuthName "Access"
+-    Require user goo bar
+-    Require group bar tar
++    Require my-user goo bar
++    Require my-group xar tar
+     <Limit POST>
+        Require valid-user
+     </Limit>
+diff --git a/t/response/TestAPI/add_config.pm b/t/response/TestAPI/add_config.pm
+index c5f2d37..90de9fc 100644
+--- a/t/response/TestAPI/add_config.pm
++++ b/t/response/TestAPI/add_config.pm
+@@ -21,6 +21,7 @@ use Apache2::Const -compile => qw(
+ 
+ use constant KEY        => "TestAddConfig";
+ use constant APACHE22   => have_min_apache_version('2.2.0');
++use constant APACHE24   => have_min_apache_version('2.4.0');
+ 
+ my @directives = (
+     {
+@@ -53,10 +54,13 @@ sub map2storage {
+     };
+     $r->pnotes(add_config2 => "$@");
+ 
+-    eval {
+-        $r->add_config(['AllowOverride Options=FollowSymLinks'], -1);
+-    };
+-    $r->pnotes(followsymlinks => "$@");
++    # We can set AllowOverride only from .htacces in 2.4.0+
++    if (!APACHE24) {
++        eval {
++            $r->add_config(['AllowOverride Options=FollowSymLinks'], -1);
++        };
++        $r->pnotes(followsymlinks => "$@");
++    }
+ 
+     eval {
+         my $path="/a/path/to/somewhere";
+@@ -96,7 +100,12 @@ sub handler : method {
+     ok t_cmp $r->pnotes('add_config2'), (APACHE22 ? qr/.+\n/ : '');
+     ok t_cmp $r->pnotes('add_config3'), '';
+     ok t_cmp $r->pnotes('add_config4'), qr/after server startup/;
+-    ok t_cmp $r->pnotes('followsymlinks'), (APACHE22 ? '': qr/.*\n/);
++    if (!APACHE24) {
++        ok t_cmp $r->pnotes('followsymlinks'), (APACHE22 ? '': qr/.*\n/);
++    }
++    else {
++        ok 1;
++    }
+ 
+     my $expect =  Apache2::Const::OPT_ALL |
+                   Apache2::Const::OPT_UNSET |
+@@ -107,7 +116,12 @@ sub handler : method {
+     ok t_cmp $r->allow_options, Apache2::Const::OPT_EXECCGI;
+ 
+     my $opts = APACHE22 ? Apache2::Const::OPT_SYM_LINKS : $expect;
+-    ok t_cmp $r->allow_override_opts, $opts;
++    if (!APACHE24) {
++        ok t_cmp $r->allow_override_opts, $opts;
++    }
++    else {
++        ok 1;
++    }
+ 
+     ok t_cmp $r->location, '/a/path/to/somewhere';
+ 
+diff --git a/t/response/TestAPI/conn_rec.pm b/t/response/TestAPI/conn_rec.pm
+index 991146a..d092c29 100644
+--- a/t/response/TestAPI/conn_rec.pm
++++ b/t/response/TestAPI/conn_rec.pm
+@@ -32,20 +32,20 @@ sub handler {
+ 
+     ok $c->local_addr->isa('APR::SockAddr');
+ 
+-    ok $c->remote_addr->isa('APR::SockAddr');
++    ok $c->client_addr->isa('APR::SockAddr');
+ 
+-    # remote_ip
++    # client_ip
+     {
+-        my $remote_ip_org = $c->remote_ip;
+-        my $remote_ip_new = "10.10.10.255";
+-        ok $remote_ip_org;
++        my $client_ip_org = $c->client_ip;
++        my $client_ip_new = "10.10.10.255";
++        ok $client_ip_org;
+ 
+-        $c->remote_ip($remote_ip_new);
+-        ok t_cmp $c->remote_ip, $remote_ip_new;
++        $c->client_ip($client_ip_new);
++        ok t_cmp $c->client_ip, $client_ip_new;
+ 
+         # restore
+-        $c->remote_ip($remote_ip_org);
+-        ok t_cmp $c->remote_ip, $remote_ip_org;
++        $c->client_ip($client_ip_org);
++        ok t_cmp $c->client_ip, $client_ip_org;
+     }
+ 
+     ok $c->remote_host || 1;
+diff --git a/t/response/TestAPI/request_util.pm b/t/response/TestAPI/request_util.pm
+index 39ba311..6523074 100644
+--- a/t/response/TestAPI/request_util.pm
++++ b/t/response/TestAPI/request_util.pm
+@@ -12,6 +12,7 @@ use Apache2::Log ();
+ use APR::Pool ();
+ 
+ use Apache2::Const -compile => 'OK';
++use constant APACHE24   => have_min_apache_version('2.4.0');
+ 
+ my %status_lines = (
+    200 => '200 OK',
+@@ -24,7 +25,12 @@ sub handler {
+ 
+     plan $r, tests => (scalar keys %status_lines) + 11;
+ 
+-    ok $r->default_type;
++    if (APACHE24) {
++        ok 1;
++    }
++    else {
++        ok $r->default_type;
++    }
+ 
+     my $document_root = $r->document_root;
+ 
+diff --git a/t/response/TestAPR/ipsubnet.pm b/t/response/TestAPR/ipsubnet.pm
+index 748bc4e..67da0b9 100644
+--- a/t/response/TestAPR/ipsubnet.pm
++++ b/t/response/TestAPR/ipsubnet.pm
+@@ -13,6 +13,7 @@ use APR::IpSubnet ();
+ use APR::SockAddr ();
+ 
+ use Apache2::Const -compile => 'OK';
++use constant APACHE24   => have_min_apache_version('2.4.0');
+ 
+ sub handler {
+     my $r = shift;
+@@ -21,24 +22,30 @@ sub handler {
+ 
+     plan $r, tests => 8;
+ 
+-    my $ip = $c->remote_ip;
++    my $ip = APACHE24 ? $c->client_ip : $c->remote_ip;
+ 
+     ok $ip;
+ 
+-    ok t_cmp($c->remote_addr->ip_get, $ip,
+-             "remote_ip eq remote_addr->ip_get");
++    if (APACHE24) {
++        ok t_cmp($c->client_addr->ip_get, $ip,
++                "client_ip eq client_addr->ip_get");
++    }
++    else {
++        ok t_cmp($c->remote_addr->ip_get, $ip,
++                "remote_ip eq remote_addr->ip_get");
++    }
+ 
+     {
+         my $ipsub = APR::IpSubnet->new($p, $ip);
+ 
+-        ok $ipsub->test($c->remote_addr);
++        ok $ipsub->test(APACHE24 ? $c->client_addr : $c->remote_addr);
+     }
+ 
+     # use IP mask
+     {
+         my $ipsub = APR::IpSubnet->new($p, $ip, "255.0.0.0");
+ 
+-        ok $ipsub->test($c->remote_addr);
++        ok $ipsub->test(APACHE24 ? $c->client_addr : $c->remote_addr);
+     }
+ 
+     # fail match
+@@ -49,7 +56,7 @@ sub handler {
+             (my $mismatch = $ip) =~ s/(?<=\.)(\d+)$/$1 == 255 ? $1-1 : $1+1/e;
+             t_debug($mismatch);
+             my $ipsub = APR::IpSubnet->new($p, $mismatch, $mismatch);
+-            ok ! $ipsub->test($c->remote_addr);
++            ok ! $ipsub->test(APACHE24 ? $c->client_addr : $c->remote_addr);
+         }
+         else {
+             # XXX: similar ipv6 trick?
+@@ -77,7 +84,7 @@ sub handler {
+         my $table = APR::Table::make(APR::Pool->new, 50);
+         $table->set($_ => $_) for 'aa'..'za';
+         # now test that we are still OK
+-        ok $ipsub->test($c->remote_addr);
++        ok $ipsub->test(APACHE24 ? $c->client_addr : $c->remote_addr);
+     }
+ 
+     Apache2::Const::OK;
+diff --git a/t/response/TestAPR/sockaddr.pm b/t/response/TestAPR/sockaddr.pm
+index 65344d6..fe513f0 100644
+--- a/t/response/TestAPR/sockaddr.pm
++++ b/t/response/TestAPR/sockaddr.pm
+@@ -13,6 +13,7 @@ use Apache2::RequestRec ();
+ use APR::SockAddr ();
+ 
+ use Apache2::Const -compile => 'OK';
++use constant APACHE24   => have_min_apache_version('2.4.0');
+ 
+ sub handler {
+     my $r = shift;
+@@ -21,10 +22,15 @@ sub handler {
+     plan $r, tests => 4;
+ 
+     my $local  = $c->local_addr;
+-    my $remote = $c->remote_addr;
++    my $remote = APACHE24 ? $c->client_addr : $c->remote_addr;
+ 
+     ok t_cmp($local->ip_get,  $c->local_ip,  "local ip");
+-    ok t_cmp($remote->ip_get, $c->remote_ip, "remote ip");
++    if (APACHE24) {
++        ok t_cmp($remote->ip_get, $c->client_ip, "client ip");
++    }
++    else {
++        ok t_cmp($remote->ip_get, $c->remote_ip, "remote ip");
++    }
+ 
+     $r->subprocess_env;
+     ok t_cmp($local->port,  $ENV{SERVER_PORT}, "local port");
+diff --git a/t/response/TestModperl/setauth.pm b/t/response/TestModperl/setauth.pm
+index 03498bd..7f0bd2f 100644
+--- a/t/response/TestModperl/setauth.pm
++++ b/t/response/TestModperl/setauth.pm
+@@ -15,7 +15,7 @@ sub handler {
+ 
+     plan $r, tests => 2;
+ 
+-    ok t_cmp($r->auth_type(), undef, 'auth_type');
++     ok t_cmp($r->auth_type(), "none", 'auth_type');
+ 
+     t_server_log_error_is_expected();
+     $r->get_basic_auth_pw();
+diff --git a/xs/Apache2/Access/Apache2__Access.h b/xs/Apache2/Access/Apache2__Access.h
+index 539e201..950daab 100644
+--- a/xs/Apache2/Access/Apache2__Access.h
++++ b/xs/Apache2/Access/Apache2__Access.h
+@@ -95,11 +95,18 @@ static MP_INLINE
+ const char *mpxs_Apache2__RequestRec_auth_type(pTHX_ request_rec *r,
+                                               char *type)
+ {
++    const char *ret = NULL;
++
+     if (type) {
+         mpxs_insert_auth_cfg(aTHX_ r, "AuthType", type);
+     }
+ 
+-    return ap_auth_type(r);
++    ret = ap_auth_type(r);
++    if (!ret) {
++        return "none";
++    }
++
++    return ret;
+ }
+ 
+ static MP_INLINE
+diff --git a/xs/Apache2/RequestUtil/Apache2__RequestUtil.h b/xs/Apache2/RequestUtil/Apache2__RequestUtil.h
+index 931af4a..de21cf7 100644
+--- a/xs/Apache2/RequestUtil/Apache2__RequestUtil.h
++++ b/xs/Apache2/RequestUtil/Apache2__RequestUtil.h
+@@ -349,3 +349,49 @@ void mpxs_Apache2__RequestRec_child_terminate(pTHX_ request_rec *r)
+     apr_pool_cleanup_register(r->pool, r->pool, child_terminate,
+                               apr_pool_cleanup_null);
+ }
++
++
++
++static MP_INLINE
++apr_status_t mpxs_ap_register_auth_provider(pTHX_ I32 items, SV **MARK, SV **SP)
++{
++    if (items != 7)
++       Perl_croak(aTHX_ "pool, provider_group, provider_name, "
++                        "provider_version, callback1, callback2, type");
++
++    apr_pool_t *pool;
++
++    if (SvROK(*MARK) && sv_derived_from(*MARK, "APR::Pool")) {
++        IV tmp = SvIV((SV*)SvRV(*MARK));
++            if (tmp == 0) {
++                Perl_croak(aTHX_ "invalid pool object (already destroyed?)");
++            }
++        pool = INT2PTR(APR__Pool, tmp);
++    }
++    else {
++        Perl_croak(aTHX_ SvROK(*MARK) ?
++                       "pool is not of type APR::Pool" :
++                       "pool is not a blessed reference");
++        }
++
++    MARK++;
++    const char *provider_group = (const char *)SvPV_nolen(*MARK);
++    MARK++;
++    const char *provider_name = (const char *)SvPV_nolen(*MARK);
++    MARK++;
++    const char *provider_version = (const char *)SvPV_nolen(*MARK);
++    MARK++;
++    SV *callback1 = newSVsv(*MARK);
++    MARK++;
++    SV *callback2 = NULL;
++    if (SvROK(*MARK)) {
++        callback2 = newSVsv(*MARK);
++    }
++    MARK++;
++    int type = (int)SvIV(*MARK);
++
++    return modperl_register_auth_provider(pool, provider_group, provider_name,
++                                          provider_version, callback1,
++                                          callback2, type);
++}
++
+diff --git a/xs/Apache2/ServerUtil/Apache2__ServerUtil.h b/xs/Apache2/ServerUtil/Apache2__ServerUtil.h
+index f000502..895d11b 100644
+--- a/xs/Apache2/ServerUtil/Apache2__ServerUtil.h
++++ b/xs/Apache2/ServerUtil/Apache2__ServerUtil.h
+@@ -210,3 +210,14 @@ static void mpxs_Apache2__ServerUtil_BOOT(pTHX)
+     newCONSTSUB(PL_defstash, "Apache2::ServerUtil::get_server_built",
+                 newSVpv(ap_get_server_built(), 0));
+ }
++
++static MP_INLINE
++int mpxs_Apache2__ServerRec_loglevel(pTHX_ server_rec *s, int loglevel)
++{
++    if (loglevel) {
++        s->log.level = loglevel;
++    }
++
++    return s->log.level;
++}
++
+diff --git a/xs/maps/apache2_functions.map b/xs/maps/apache2_functions.map
+index ea5026c..bbc1ba4 100644
+--- a/xs/maps/apache2_functions.map
++++ b/xs/maps/apache2_functions.map
+@@ -37,6 +37,7 @@
+ 
+ MODULE=Apache2::RequestUtil
+  ap_get_status_line
++ ap_register_auth_provider | mpxs_ | ...
+ 
+ MODULE=Apache2::RequestUtil   PACKAGE=guess
+  ap_psignature | | r, prefix
+@@ -161,6 +162,7 @@ MODULE=Apache2::ServerUtil   PACKAGE=Apache2::ServerRec BOOT=1
+  int:DEFINE_method_register | | server_rec *:s, const char *:methname
+ ~add_version_component
+  void:DEFINE_add_version_component | | server_rec *:s, const char *:component
++ mpxs_Apache2__ServerRec_loglevel | | server_rec *:s, loglevel=NULL
+ 
+ MODULE=Apache2::ServerUtil   PACKAGE=Apache2::ServerUtil
+  ap_exists_config_define
+@@ -533,3 +535,6 @@ MODULE=Apache2::MPM   PACKAGE=Apache2::MPM   BOOT=1
+ ?ap_mpm_set_pidfile
+ ?ap_mpm_set_scoreboard
+ ?ap_listen_pre_config
++
++MODULE=Apache2::Provider
++ ap_register_provider
+diff --git a/xs/maps/apache2_structures.map b/xs/maps/apache2_structures.map
+index cca915b..07f426d 100644
+--- a/xs/maps/apache2_structures.map
++++ b/xs/maps/apache2_structures.map
+@@ -98,8 +98,6 @@ IGNORE: ap_LINK_ ap_filter_func ap_bucket_error ap_listen_rec core_net_rec
+ $  port
+ %  error_fname
+ $  error_log
+-$  loglevel
+-$  log
+ <  is_virtual
+ <  module_config
+ <  lookup_defaults
+@@ -293,6 +291,16 @@ $  limit_req_fields
+ </ap_pod_t>
+ 
+ <ap_logconf>
+-%  level
++$  level
+ %  module_levels
+ </ap_logconf>
++
++<authn_provider>
++   check_password
++   get_realm_hash
++</authn_provider>
++
++<authz_provider>
++   check_authorization
++   parse_require_line
++</authz_provider>

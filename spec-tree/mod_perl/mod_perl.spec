@@ -22,6 +22,7 @@ Patch2:         mod_perl-2.0.5-nolfs.patch
 Patch3:         mod_perl-short-name.patch
 Patch4:         mod_perl-httpd24.patch
 Patch5:         mod_perl-httpd24-maps.patch
+Patch6:		provider.patch
 
 BuildRequires:  perl-devel, perl(ExtUtils::Embed)
 BuildRequires:  httpd-devel >= 2.4.0, httpd, gdbm-devel
@@ -77,9 +78,10 @@ modules that use mod_perl.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
+#%patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 
