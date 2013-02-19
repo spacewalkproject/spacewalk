@@ -7,7 +7,7 @@
 
 Name:           mod_perl
 Version:        2.0.7
-Release:        11%{?dist}
+Release:        11.1%{?dist}
 Summary:        An embedded Perl interpreter for the Apache HTTP Server
 
 Group:          System Environment/Daemons
@@ -184,6 +184,9 @@ find "$RPM_BUILD_ROOT" -type f -name *.orig -exec rm -f {} \;
 %{_mandir}/man3/Apache::Test*.3pm*
 
 %changelog
+* Tue Feb 19 2013 Jan Pazdziora 2.0.7-11.1
+- On Fedora 18, build mod_perl with patches for Apache 2.4.
+
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.0.7-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
