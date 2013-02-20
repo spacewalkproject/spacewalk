@@ -1959,15 +1959,4 @@ public class Server extends BaseDomainHelper implements Identifiable {
         }
         return active;
     }
-
-    /**
-     * For API purposes
-     * 
-     * @return Returns true if yes, otherwise no
-     */
-    public Boolean existsActiveInterfaceWithName(String interfaceName) {
-        return (findActiveIfaceWithName(interfaceName, false) != null ?
-                true : false);
-        
-    }
 }
