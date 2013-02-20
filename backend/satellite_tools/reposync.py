@@ -477,7 +477,7 @@ class RepoSync(object):
         package['org_id'] = self.channel['org_id']
         # use epoch from file header because createrepo puts epoch="0" to
         # primary.xml even for packages with epoch=''
-        package['epoch'] = pack.a_pkg.header.epoch
+        package['epoch'] = pack.a_pkg.header['epoch']
 
         return IncompletePackage().populate(package)
 
