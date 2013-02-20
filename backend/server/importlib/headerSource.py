@@ -57,6 +57,11 @@ class rpmPackage(IncompletePackage):
                 if type(val) in (IntType, LongType):
                     # A UNIX timestamp
                     val = gmtime(val)
+	    if f == 'payload_size':
+                # workaround for older rpms where signed
+                # attributes go negative for size > 2G
+                if val < 0:
+                    val = long(val) + 2 ** 32
             elif val:
                 # Convert to strings
                 if isinstance(val, unicode):
