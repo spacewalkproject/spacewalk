@@ -18,7 +18,6 @@ use strict;
 package PXT::Apache24Config;
 
 use Apache2::Util ();
-use Apache2::Provider ();
 use Apache2::RequestUtil ();
 use Apache2::ServerUtil ();
 use Apache2::ServerRec ();
