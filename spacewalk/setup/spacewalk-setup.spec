@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.9.5
+Version:        1.9.6
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -99,6 +99,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Feb 20 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.6-1
+- perevent parseOptions from failure
+
 * Tue Feb 19 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.5-1
 - export oracle path only if we have oracle
 
