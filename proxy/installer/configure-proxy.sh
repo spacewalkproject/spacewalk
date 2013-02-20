@@ -560,8 +560,12 @@ if [ $ENABLE_SCOUT -ne 0 ]; then
   MonitoringScout="MonitoringScout"
 fi
 for service in squid httpd jabberd $MonitoringScout; do
-  /sbin/chkconfig --add $service 
-  /sbin/chkconfig --level 345 $service on 
+  if [ -x /usr/bin/systemctl ] ; then
+      /usr/bin/systemctl enable $service
+  else
+      /sbin/chkconfig --add $service
+      /sbin/chkconfig --level 345 $service on
+  fi
 done
 
 # default is 1
