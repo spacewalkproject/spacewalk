@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.9.28
+Version:        1.9.29
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Feb 20 2013 Tomas Kasparek <tkasparek@redhat.com> 1.9.29-1
+- Renaming conflicting files, fixing glitch in schema upgrade
+- Schema changes for setting primary network interface
+
 * Wed Feb 20 2013 Jan Pazdziora 1.9.28-1
 - The sequence rhn_abrt_info_id_seq is also no longer used.
 
