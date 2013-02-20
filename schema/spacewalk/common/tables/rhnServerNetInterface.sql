@@ -25,6 +25,7 @@ CREATE TABLE rhnServerNetInterface
     name       VARCHAR2(32) NOT NULL,
     hw_addr    VARCHAR2(18),
     module     VARCHAR2(128),
+    is_primary VARCHAR2(1),
     created    timestamp with local time zone
                    DEFAULT (current_timestamp) NOT NULL,
     modified   timestamp with local time zone
@@ -41,3 +42,7 @@ ALTER TABLE rhnServerNetInterface
     ADD CONSTRAINT rhn_srv_net_iface_sid_name_uq UNIQUE (server_id, name);
 
 CREATE SEQUENCE rhn_srv_net_iface_id_seq;
+
+-- functional indexes for this table can be found at:
+-- oracle: oracle/tables/rhnServerNetInterface_index.sql
+-- postgres: postgres/tables/rhnServerNetInterface_index.sql
