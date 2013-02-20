@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.9.6
+Version: 1.9.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -330,6 +330,9 @@ fi
 
 
 %changelog
+* Wed Feb 20 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.7-1
+- fixed permission on /var/log/rhn
+
 * Wed Feb 13 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.6-1
 - fixing pylint warnings
 
