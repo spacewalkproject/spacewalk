@@ -25229,7 +25229,7 @@ given channel.</source>
         <target>Назначить один прогон</target>
       </trans-unit>
       <trans-unit id="bunch.jsp.generaldescription">
-        <source>Bellow is the list of runs of the specific bunch type. Several tasks may be run within a bunch in a predefined order. It's possible to see the schedule the task was scheduled within by following the start time link. A single run of the bunch may be scheduled here.</source>
+        <source>Below is the list of runs of the specific bunch type. Several tasks may be run within a bunch in a predefined order. It's possible to see the schedule the task was scheduled within by following the start time link. A single run of the bunch may be scheduled here.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
         </context-group>
@@ -25355,7 +25355,7 @@ given channel.</source>
         <target>Нет прогонов.</target>
       </trans-unit>
       <trans-unit id="schedules.jsp.introparagraph">
-        <source>Bellow is a list of defined schedules. A schedule defines frequency, how often a predefined bunch shall be triggered.</source>
+        <source>Below is a list of defined schedules. A schedule defines frequency, how often a predefined bunch shall be triggered.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/SatSchedules.do</context>
         </context-group>
