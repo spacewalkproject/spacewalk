@@ -445,6 +445,7 @@ class RepoSync(object):
                 finally_remove(localpath)
                 if self.fail:
                     raise
+                to_process[index] = (pack, False, False)
                 continue
 
         self.print_msg("Linking packages to channel.")
