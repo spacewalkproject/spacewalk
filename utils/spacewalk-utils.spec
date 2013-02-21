@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.9.14
+Version:	1.9.15
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -88,6 +88,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Feb 21 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.15-1
+- fixed koji build
+
 * Mon Feb 18 2013 Miroslav Suchý <msuchy@redhat.com> 1.9.14-1
 - Buildrequire pod2man
 
