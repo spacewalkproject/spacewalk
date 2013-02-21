@@ -20,6 +20,7 @@ BuildRequires: /usr/bin/pod2man
 # pylint check
 BuildRequires:  spacewalk-pylint
 BuildRequires:  yum
+BuildRequires:  spacewalk-config
 BuildRequires:  spacewalk-backend >= 1.7.24
 BuildRequires:  spacewalk-backend-libs >= 1.7.24
 BuildRequires:  spacewalk-backend-tools >= 1.7.24
