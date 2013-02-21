@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 13%{?dist}
+Release: 14%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -448,6 +448,9 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Thu Feb 21 2013 Tomas Lestach <tlestach@redhat.com> 2.0.11-14
+- 768451 - lvm storage koan fix
+
 * Mon Feb 18 2013 Michael Mraka <michael.mraka@redhat.com> 2.0.11-13
 - update tftp dependency for systemd
 
