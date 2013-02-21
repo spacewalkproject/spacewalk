@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.32
+Version: 1.9.33
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -637,6 +637,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Feb 21 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.33-1
+- don't link packages which failed to download
+
 * Wed Feb 20 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.32-1
 - correct size for old rpms > 2 GiB
 
