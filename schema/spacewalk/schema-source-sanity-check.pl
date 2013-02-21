@@ -78,6 +78,9 @@ sub check_file_content {
 	close FILE;
 	# print "[$filename] [$type] [$name]\n";
 	if ($type eq 'tables') {
+		if ($filename =~ '\w*_index.sql') {
+			$name =~ s/_index$//g;
+		}
 		if (not $content =~ /^(--.*\n
 					|\s*\n
 					|(create|alter|comment\s+on)\s+table\s+$name\b[^;]+;
