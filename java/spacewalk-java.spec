@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.70
+Version: 1.9.71
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Feb 22 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.9.71-1
+- abrt: listSystemCrashes api call
+- fixed API doc for system.listLatestUpgradablePackages and
+  system.listLatestInstallablePackages API calls
+- Fix nasty typo throughout translation files
+- abrt: xml-rpc api for crash count information
+
 * Wed Feb 20 2013 Tomas Kasparek <tkasparek@redhat.com> 1.9.70-1
 - Revert "aa"
 - aa
