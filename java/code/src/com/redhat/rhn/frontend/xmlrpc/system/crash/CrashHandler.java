@@ -39,7 +39,7 @@ import java.util.Map;
  */
 public class CrashHandler extends BaseHandler {
 
-    private static Logger log = Logger.getLogger(SystemCrashHandler.class);
+    private static Logger log = Logger.getLogger(CrashHandler.class);
 
     private CrashCount getCrashCount(Server serverIn) {
         CrashCount crashCount = serverIn.getCrashCount();
