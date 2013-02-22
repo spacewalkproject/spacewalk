@@ -115,6 +115,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     private Set<? extends ServerGroup> groups;
     private Set<Capability> capabilities;
     private CrashCount crashCount;
+    private Set<Crash> crashes;
 
     public static final String VALID_CNAMES = "valid_cnames_";
 
@@ -1958,5 +1959,19 @@ public class Server extends BaseDomainHelper implements Identifiable {
             }
         }
         return active;
+    }
+
+    /**
+     * @return Returns the crashes.
+     */
+    public Set<Crash> getCrashes() {
+        return crashes;
+    }
+
+    /**
+     * @param c The crashes to set.
+     */
+    public void setCrashes(Set<Crash> c) {
+        this.crashes = c;
     }
 }

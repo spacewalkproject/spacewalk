@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.server.Crash" table="rhnServerCrash">
+        <id name="id" column="id">
+            <generator class="sequence">
+                <param name="sequence">rhn_server_crash_id_seq</param>
+            </generator>
+        </id>
+        <many-to-one name="server"
+                     column="server_id"
+                     class="com.redhat.rhn.domain.server.Server" />
+        <set name="crashFiles" cascade="all-delete-orphan" lazy="true" inverse="true">
+            <key column="crash_id"/>
+            <one-to-many class="com.redhat.rhn.domain.server.CrashFile"/>
+        </set>
+        <property name="crash" column="crash" type="string"/>
+        <property name="path" column="path" type="string"/>
+        <property name="count" column="count" type="long"/>
+        <property name="analyzer" column="analyzer" type="string"/>
+        <property name="architecture" column="architecture" type="string"/>
+        <property name="cmdline" column="cmdline" type="string"/>
+        <property name="component" column="component" type="string"/>
+        <property name="executable" column="executable" type="string"/>
+        <property name="kernel" column="kernel" type="string"/>
+        <property name="reason" column="reason" type="string"/>
+        <property name="username" column="username" type="string"/>
+        <property name="packageNameId" column="package_name_id" type="long"/>
+        <property name="packageEvrId" column="package_evr_id" type="long"/>
+        <property name="packageArchId" column="package_arch_id" type="long"/>
+        <property name="created" type="timestamp" column="created" />
+        <property name="modified" type="timestamp" column="modified" />
+    </class>
+</hibernate-mapping>

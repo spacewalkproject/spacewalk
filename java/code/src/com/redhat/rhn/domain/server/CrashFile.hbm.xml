@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.server.CrashFile" table="rhnServerCrashFile">
+        <id name="id" column="id">
+            <generator class="sequence">
+                <param name="sequence">rhn_server_crash_file_id_seq</param>
+            </generator>
+        </id>
+        <many-to-one name="crash"
+                     column="crash_id"
+                     class="com.redhat.rhn.domain.server.Crash" />
+        <property name="filename" column="filename" type="string"/>
+        <property name="path" column="path" type="string"/>
+        <property name="filesize" column="filesize" type="long"/>
+        <property name="created" type="timestamp" column="created" />
+        <property name="modified" type="timestamp" column="modified" />
+    </class>
+</hibernate-mapping>

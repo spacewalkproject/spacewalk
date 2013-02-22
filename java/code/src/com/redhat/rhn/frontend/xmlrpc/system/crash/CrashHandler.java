@@ -18,13 +18,18 @@ package com.redhat.rhn.frontend.xmlrpc.system.crash;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.NoCrashesFoundException;
 import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
+import com.redhat.rhn.domain.server.Crash;
 import com.redhat.rhn.domain.server.CrashCount;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * CrashHandler
@@ -103,5 +108,65 @@ public class CrashHandler extends BaseHandler {
 
         CrashCount crashCount = getCrashCount(server);
         return crashCount.getTotalCrashCount();
+    }
+
+    /**
+     * Returns list of software crashes for a system.
+     * @param sessionKey Session key
+     * @param serverId Server ID
+     * @return Returns list of software crashes for given system id.
+     *
+     * @xmlrpc.doc Return list of software crashes for a system.
+     * @xmlrpc.param @param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.returntype
+     *     #array()
+     *         #struct("crash")
+     *             #prop("int", "id")
+     *             #prop("string", "crash")
+     *             #prop("string", "path")
+     *             #prop("int", "count")
+     *             #prop("string", "analyzer")
+     *             #prop("string", "architecture")
+     *             #prop("string", "cmdline")
+     *             #prop("string", "component")
+     *             #prop("string", "executable")
+     *             #prop("string", "kernel")
+     *             #prop("string", "reason")
+     *             #prop("string", "username")
+     *             #prop("date", "created")
+     *             #prop("date", "modified")
+     *         #struct_end()
+     *     #array_end()
+     */
+    public List listSystemCrashes(String sessionKey, Integer serverId) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        XmlRpcSystemHelper sysHelper = XmlRpcSystemHelper.getInstance();
+        Server server = sysHelper.lookupServer(loggedInUser, serverId);
+
+        List returnList = new ArrayList();
+
+        for (Crash crash : server.getCrashes()) {
+            Map crashMap = new HashMap();
+            crashMap.put("id", crash.getId());
+            crashMap.put("crash", crash.getCrash());
+            crashMap.put("path", crash.getPath());
+            crashMap.put("count", crash.getCount());
+            crashMap.put("analyzer", crash.getAnalyzer());
+            crashMap.put("architecture", crash.getArchitecture());
+            crashMap.put("cmdline", crash.getCmdline());
+            crashMap.put("component", crash.getComponent());
+            crashMap.put("executable", crash.getExecutable());
+            crashMap.put("kernel", crash.getKernel());
+            crashMap.put("reason", crash.getReason());
+            crashMap.put("username", crash.getUsername());
+            // FIXME: package info
+            crashMap.put("created", crash.getCreated());
+            crashMap.put("modified", crash.getModified());
+
+            returnList.add(crashMap);
+        }
+
+        return returnList;
     }
 }
