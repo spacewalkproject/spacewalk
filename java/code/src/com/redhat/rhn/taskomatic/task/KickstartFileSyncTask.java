@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.taskomatic.task;
 
-import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
@@ -44,8 +43,8 @@ public class KickstartFileSyncTask extends RhnJavaJob {
      */
     public void execute(JobExecutionContext ctxIn) throws JobExecutionException {
 
-        CobblerConnection cc = CobblerXMLRPCHelper.getConnection(
-                Config.get().getString(ConfigDefaults.COBBLER_AUTOMATED_USER));
+        CobblerConnection cc = CobblerXMLRPCHelper.getConnection(ConfigDefaults
+                .get().getCobblerAutomatedUser());
 
         List<KickstartData> kickstarts = KickstartFactory.listAllKickstartData();
         for (KickstartData ks : kickstarts) {

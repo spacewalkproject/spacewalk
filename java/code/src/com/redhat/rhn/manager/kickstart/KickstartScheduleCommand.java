@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
-import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
@@ -590,8 +589,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             else {
                 // RegistrationType.DELETION && RegistrationType.NONE
                 CobblerConnection connection = CobblerXMLRPCHelper
-                        .getConnection(Config.get().getString(
-                                ConfigDefaults.COBBLER_AUTOMATED_USER));
+                        .getConnection(ConfigDefaults.get()
+                                .getCobblerAutomatedUser());
                 tokenList = org.cobbler.Profile.lookupById(connection,
                         ksdata.getCobblerId()).getRedHatManagementKey();
             }

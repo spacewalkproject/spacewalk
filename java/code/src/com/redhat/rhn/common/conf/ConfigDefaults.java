@@ -42,7 +42,7 @@ public class ConfigDefaults {
     public static final String WEB_L10N_RESOURCEBUNDLES = "web.l10n_resourcebundles";
     public static final String WEB_PAM_AUTH_SERVICE = "web.pam_auth_service";
     public static final String WEB_SESSION_DATABASE_LIFETIME =
-        "web.session_database_lifetime";
+            "web.session_database_lifetime";
 
     public static final String WEB_SESSION_SECRET_1 = "web.session_secret_1";
     public static final String WEB_SESSION_SECRET_2 = "web.session_secret_2";
@@ -56,7 +56,7 @@ public class ConfigDefaults {
 
     public static final String WEB_SMTP_SERVER = "web.smtp_server";
     public static final String ERRATA_CACHE_COMPUTE_THRESHOLD
-                            = "errata_cache_compute_threshold";
+    = "errata_cache_compute_threshold";
 
     public static final String DOWNLOAD_URL_LIFETIME = "download_url_lifetime";
 
@@ -424,7 +424,7 @@ public class ConfigDefaults {
      */
     public String getSearchServerUrl() {
         String searchServerHost =
-            Config.get().getString("search_server.host", "localhost");
+                Config.get().getString("search_server.host", "localhost");
         int searchServerPort = Config.get().getInt("search_server.port", 2828);
         return "http://" + searchServerHost + ":" + searchServerPort + "/RPC2";
     }
@@ -436,7 +436,7 @@ public class ConfigDefaults {
      */
     public String getTaskoServerUrl() {
         String taskoServerHost =
-            Config.get().getString("tasko_server.host", "localhost");
+                Config.get().getString("tasko_server.host", "localhost");
         int taskoServerPort = Config.get().getInt("tasko_server.port", 2829);
         return "http://" + taskoServerHost + ":" + taskoServerPort + "/RPC2";
     }

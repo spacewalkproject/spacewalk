@@ -38,8 +38,8 @@ public class IntegrationService {
     private static Logger log = Logger.getLogger(IntegrationService.class);
     // private instance of the service.
     private static IntegrationService instance = new IntegrationService();
-    private ConcurrentMap<String, String> cobblerAuthTokenStore;
-    private ConcurrentMap<String, String> randomTokenStore;
+    private final ConcurrentMap<String, String> cobblerAuthTokenStore;
+    private final ConcurrentMap<String, String> randomTokenStore;
 
     private IntegrationService() {
         cobblerAuthTokenStore = new ConcurrentHashMap<String, String>();
@@ -92,7 +92,7 @@ public class IntegrationService {
 
         //Handle the taskomatic case (Where we can't rely on the tokenStore since it's
         //  a completely different VM)
-        if (login.equals(Config.get().getString(ConfigDefaults.COBBLER_AUTOMATED_USER))) {
+        if (login.equals(ConfigDefaults.get().getCobblerAutomatedUser())) {
 
             passwd = Config.get().getString(ConfigDefaults.WEB_SESSION_SECRET_1);
         }
@@ -139,7 +139,7 @@ public class IntegrationService {
      */
     public boolean checkRandomToken(String login, String encodedRandom) {
 
-        if (login.equals(Config.get().getString(ConfigDefaults.COBBLER_AUTOMATED_USER))) {
+        if (login.equals(ConfigDefaults.get().getCobblerAutomatedUser())) {
             log.debug("checkRandomToken called with taskomatic user!");
             return encodedRandom.equals(
                     Config.get().getString(ConfigDefaults.WEB_SESSION_SECRET_1));
