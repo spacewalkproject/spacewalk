@@ -15,6 +15,7 @@
 
 package com.redhat.rhn.frontend.xmlrpc.system.crash;
 
+import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
@@ -22,11 +23,15 @@ import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.server.Crash;
 import com.redhat.rhn.domain.server.CrashCount;
+import com.redhat.rhn.domain.server.CrashFactory;
+import com.redhat.rhn.domain.server.CrashFile;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.NoCrashesFoundException;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
 import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
+import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.log4j.Logger;
 
@@ -188,6 +193,58 @@ public class CrashHandler extends BaseHandler {
                 crashMap.put("package_arch", parch.getLabel());
             }
 
+            returnList.add(crashMap);
+        }
+
+        return returnList;
+    }
+
+    /**
+     * Returns list of crash files for a given crash id.
+     * @param sessionKey Session key
+     * @param crashId Crash ID
+     * @return Returns list of crash files.
+     *
+     * @xmlrpc.doc Return list of crash files for given crash id.
+     * @xmlrpc.param @param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "crashId")
+     * @xmlrpc.returntype
+     *     #array()
+     *         #struct("crashFile")
+     *             #prop("int", "id")
+     *             #prop("string", "filename")
+     *             #prop("string", "path")
+     *             #prop("int", "filesize")
+     *             #prop("date", "created")
+     *             #prop("date", "modified")
+     *         #struct_end()
+     *     #array_end()
+     */
+    public List listSystemCrashFiles(String sessionKey, Integer crashId) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+
+        Crash crash = CrashFactory.lookupById(new Long(crashId.longValue()));
+        Long serverId = crash.getServer().getId();
+
+        Server server = null;
+        try {
+            server = SystemManager.lookupByIdAndUser(new Long(serverId.longValue()),
+                     loggedInUser);
+        }
+        catch (LookupException e) {
+            throw new NoSuchSystemException();
+        }
+
+        List returnList = new ArrayList();
+
+        for (CrashFile crashFile : crash.getCrashFiles()) {
+            HashMap crashMap = new HashMap();
+            crashMap.put("id", crashFile.getId());
+            crashMap.put("filename", crashFile.getFilename());
+            crashMap.put("path", crashFile.getPath());
+            crashMap.put("filesize", crashFile.getFilesize());
+            crashMap.put("created", crashFile.getCreated());
+            crashMap.put("modified", crashFile.getModified());
             returnList.add(crashMap);
         }
 

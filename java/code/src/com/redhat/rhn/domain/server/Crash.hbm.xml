@@ -33,4 +33,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="created" type="timestamp" column="created" />
         <property name="modified" type="timestamp" column="modified" />
     </class>
+
+    <query name="Crash.findById">
+        <![CDATA[from com.redhat.rhn.domain.server.Crash as c where c.id = :id]]>
+    </query>
 </hibernate-mapping>
