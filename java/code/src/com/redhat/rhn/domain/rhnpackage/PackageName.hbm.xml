@@ -18,4 +18,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	<query name="PackageName.findByName">
 		<![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageName as p where p.name = :name]]>
 	</query>
+
+    <query name="PackageName.findById">
+        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageName as p where p.id = :id]]>
+    </query>
 </hibernate-mapping>

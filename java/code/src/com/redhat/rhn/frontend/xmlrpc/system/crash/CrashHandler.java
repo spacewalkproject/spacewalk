@@ -15,13 +15,18 @@
 
 package com.redhat.rhn.frontend.xmlrpc.system.crash;
 
-import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
-import com.redhat.rhn.frontend.xmlrpc.NoCrashesFoundException;
-import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
+import com.redhat.rhn.domain.rhnpackage.PackageArch;
+import com.redhat.rhn.domain.rhnpackage.PackageEvr;
+import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
+import com.redhat.rhn.domain.rhnpackage.PackageFactory;
+import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.server.Crash;
 import com.redhat.rhn.domain.server.CrashCount;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.NoCrashesFoundException;
+import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
 
 import org.apache.log4j.Logger;
 
@@ -160,9 +165,28 @@ public class CrashHandler extends BaseHandler {
             crashMap.put("kernel", crash.getKernel());
             crashMap.put("reason", crash.getReason());
             crashMap.put("username", crash.getUsername());
-            // FIXME: package info
             crashMap.put("created", crash.getCreated());
             crashMap.put("modified", crash.getModified());
+
+            if (crash.getPackageNameId() != null) {
+                PackageName pname = PackageFactory.lookupPackageName(
+                    crash.getPackageNameId());
+                crashMap.put("package_name", pname.getName());
+            }
+
+            if (crash.getPackageEvrId() != null) {
+                PackageEvr pevr = PackageEvrFactory.lookupPackageEvrById(
+                    crash.getPackageEvrId());
+                crashMap.put("package_epoch", pevr.getEpoch());
+                crashMap.put("package_version", pevr.getVersion());
+                crashMap.put("package_release", pevr.getRelease());
+            }
+
+            if (crash.getPackageArchId() != null) {
+                PackageArch parch = PackageFactory.lookupPackageArchById(
+                    crash.getPackageArchId());
+                crashMap.put("package_arch", parch.getLabel());
+            }
 
             returnList.add(crashMap);
         }

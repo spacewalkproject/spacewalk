@@ -147,6 +147,18 @@ public class PackageFactory extends HibernateFactory {
     }
 
     /**
+     * Lookup a PackageArch by its id.
+     * @param id package arch label id sought.
+     * @return the PackageArch whose id matches the given id.
+     */
+    public static PackageArch lookupPackageArchById(Long id) {
+        Map params = new HashMap();
+        params.put("id", id);
+        return (PackageArch) singleton.lookupObjectByNamedQuery("PackageArch.findById",
+                params, true);
+    }
+
+    /**
      * Lookup a PackageArch by its label.
      * @param label package arch label sought.
      * @return the PackageArch whose label matches the given label.
@@ -186,6 +198,20 @@ public class PackageFactory extends HibernateFactory {
             singleton.saveObject(newName);
             return newName;
         }
+        return returned;
+    }
+
+    /**
+     * lookup a PackageName object based on it's id, returns null if it does
+     * not exist
+     *
+     * @param id the package name id
+     * @return a PackageName object that has a matching id or null if that
+     * doesn't exist
+     */
+     public static PackageName lookupPackageName(Long id) {
+        PackageName returned = (PackageName) HibernateFactory.getSession().getNamedQuery(
+                "PackageName.findById").setLong("id", id).uniqueResult();
         return returned;
     }
 
