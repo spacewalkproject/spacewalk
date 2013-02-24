@@ -57,6 +57,6 @@ public class CrashFactory extends HibernateFactory {
      * @param crash Crash to delete.
      */
     public static void delete(Crash crash) {
-        // FIXME
+        singleton.removeObject(crash);
     }
 }

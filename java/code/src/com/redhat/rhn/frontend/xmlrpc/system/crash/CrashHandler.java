@@ -15,7 +15,6 @@
 
 package com.redhat.rhn.frontend.xmlrpc.system.crash;
 
-import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
@@ -23,15 +22,13 @@ import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.server.Crash;
 import com.redhat.rhn.domain.server.CrashCount;
-import com.redhat.rhn.domain.server.CrashFactory;
 import com.redhat.rhn.domain.server.CrashFile;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.NoCrashesFoundException;
-import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
 import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
-import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.manager.system.CrashManager;
 
 import org.apache.log4j.Logger;
 
@@ -222,18 +219,8 @@ public class CrashHandler extends BaseHandler {
      */
     public List listSystemCrashFiles(String sessionKey, Integer crashId) {
         User loggedInUser = getLoggedInUser(sessionKey);
-
-        Crash crash = CrashFactory.lookupById(new Long(crashId.longValue()));
-        Long serverId = crash.getServer().getId();
-
-        Server server = null;
-        try {
-            server = SystemManager.lookupByIdAndUser(new Long(serverId.longValue()),
-                     loggedInUser);
-        }
-        catch (LookupException e) {
-            throw new NoSuchSystemException();
-        }
+        Crash crash = CrashManager.lookupCrashByUserAndId(loggedInUser,
+                      new Long(crashId.longValue()));
 
         List returnList = new ArrayList();
 
@@ -249,5 +236,22 @@ public class CrashHandler extends BaseHandler {
         }
 
         return returnList;
+    }
+
+    /**
+     * Delete a crash with given crash id.
+     * @param sessionKey Session key
+     * @param crashId Crash ID
+     * @return 1 In case of success, exception otherwise.
+     *
+     * @xmlrpc.doc Delete a crash with given crash id.
+     * @xmlrpc.param @param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "crashId")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public Integer deleteCrash(String sessionKey, Integer crashId) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        CrashManager.deleteCrash(loggedInUser, new Long(crashId.longValue()));
+        return 1;
     }
 }
