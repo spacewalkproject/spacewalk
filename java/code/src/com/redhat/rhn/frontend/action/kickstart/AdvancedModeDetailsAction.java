@@ -152,13 +152,13 @@ public class AdvancedModeDetailsAction extends RhnAction {
             if (form.get(UPDATE_ALL_PARAM) != null) {
                 updateType = KickstartTreeUpdateType.ALL;
                 tree = KickstartFactory.getNewestTree(updateType,
-                        tree.getChannel().getId(), 
+                        tree.getChannel().getId(),
                         context.getLoggedInUser().getOrg());
             }
             else if (form.get(UPDATE_RED_HAT_PARAM) != null) {
                 updateType = KickstartTreeUpdateType.RED_HAT;
                 tree = KickstartFactory.getNewestTree(updateType,
-                        tree.getChannel().getId(), 
+                        tree.getChannel().getId(),
                         context.getLoggedInUser().getOrg());
             }
             else {
@@ -182,7 +182,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
                 ks.setActive(Boolean.TRUE.equals(form.get(ACTIVE)));
                 ks.setOrgDefault(Boolean.TRUE.equals(form.get(ORG_DEFAULT)));
             }
-            
+
             ks.setRealUpdateType(updateType);
 
             KickstartDetailsEditAction.processCobblerFormValues(ks, form,
