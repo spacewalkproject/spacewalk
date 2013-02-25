@@ -102,10 +102,14 @@ public class SystemHardwareAction extends RhnAction {
     private void setupForm(HttpServletRequest request, CPU cpu, Server server,
             DynaActionForm daForm) {
 
-        daForm.set("primaryInterface", server.findPrimaryNetworkInterface().getName());
-        request.setAttribute("primaryInterface",
-                server.findPrimaryNetworkInterface().getName());
-        request.setAttribute("networkInterfaces", getNetworkInterfaces(server));
+        if (server.findPrimaryNetworkInterface() != null) {
+            daForm.set("primaryInterface", server.findPrimaryNetworkInterface().getName());
+            request.setAttribute("primaryInterface",
+                    server.findPrimaryNetworkInterface().getName());
+        }
+        if (server.getActiveNetworkInterfaces() != null) {
+            request.setAttribute("networkInterfaces", getNetworkInterfaces(server));
+        }
         request.setAttribute("system", server);
         if (cpu != null) {
             request.setAttribute("cpu_model", cpu.getModel());
