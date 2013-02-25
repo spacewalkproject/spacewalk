@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 fe95c7a174fbc86d6979350136a7fd11641e24aa
+-- oracle equivalent source sha1 9514c6e098beb581d49e6cd0bc28d1390690a985
 --
 -- Copyright (c) 2013 Red Hat, Inc.
 --
@@ -42,6 +42,7 @@ create table rhnServerCrash
     package_arch_id NUMERIC
                     constraint rhn_server_crash_arch_id_fk
                         references rhnPackageArch(id),
+    storage_path    VARCHAR(1024),
     created         TIMESTAMPTZ
                         default (current_timestamp) not null,
     modified        TIMESTAMPTZ

@@ -30,6 +30,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="packageNameId" column="package_name_id" type="long"/>
         <property name="packageEvrId" column="package_evr_id" type="long"/>
         <property name="packageArchId" column="package_arch_id" type="long"/>
+        <property name="storagePath" column="storage_path" type="string"/>
         <property name="created" type="timestamp" column="created" />
         <property name="modified" type="timestamp" column="modified" />
     </class>

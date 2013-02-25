@@ -15,14 +15,18 @@
 
 package com.redhat.rhn.manager.system;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.server.Crash;
 import com.redhat.rhn.domain.server.CrashFactory;
+import com.redhat.rhn.domain.server.CrashFile;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchCrashException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
 import com.redhat.rhn.manager.BaseManager;
+
+import java.io.File;
 
 import org.apache.log4j.Logger;
 
@@ -60,12 +64,25 @@ public class CrashManager extends BaseManager {
     }
 
     /**
-     * Delete a crash
+     * Delete a crash from database and filer.
      * @param user User to check the permissions for.
      * @param crashId The id of the crash to delete.
      */
     public static void deleteCrash(User user, Long crashId) {
         Crash crash = lookupCrashByUserAndId(user, crashId);
+
+        // FIXME: async deletion via taskomatic?
+        File storageDir = new File(Config.get().getString("web.mount_point"),
+                                   crash.getStoragePath());
+
+        for (CrashFile cf : crash.getCrashFiles()) {
+            File crashFile = new File(storageDir, cf.getFilename());
+            if (crashFile.exists() && crashFile.isFile()) {
+                crashFile.delete();
+            }
+        }
+        storageDir.delete();
+
         CrashFactory.delete(crash);
     }
 }

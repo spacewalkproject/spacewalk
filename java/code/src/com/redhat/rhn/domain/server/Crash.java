@@ -42,6 +42,7 @@ public class Crash extends BaseDomainHelper {
     private Long packageNameId;
     private Long packageEvrId;
     private Long packageArchId;
+    private String storagePath;
     private Date created;
     private Date modified;
     private Set<CrashFile> crashFiles;
@@ -307,6 +308,22 @@ public class Crash extends BaseDomainHelper {
      */
     public void setPackageArchId(Long packageArchIdIn) {
         packageArchId = packageArchIdIn;
+    }
+
+    /**
+     * Get the crash storage path.
+     * @return Returns the crash storage path.
+     */
+    public String getStoragePath() {
+        return storagePath;
+    }
+
+    /**
+     * Set the crash storage path.
+     * @param storagePathIn The storage path to set.
+     */
+    public void setStoragePath(String storagePathIn) {
+        storagePath = storagePathIn;
     }
 
     /**

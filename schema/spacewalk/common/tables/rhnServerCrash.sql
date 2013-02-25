@@ -41,6 +41,7 @@ create table rhnServerCrash
     package_arch_id number
                     constraint rhn_server_crash_arch_id_fk
                         references rhnPackageArch(id),
+    storage_path    varchar(1024),
     created         timestamp with local time zone
                         default (current_timestamp) not null,
     modified        timestamp with local time zone
