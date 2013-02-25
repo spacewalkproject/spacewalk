@@ -19,7 +19,7 @@ import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.localization.LocalizationService;
 
 /**
- * No Crashes Exception
+ * No Such Network Interface Exception
  *
  * @version $Rev$
  */
