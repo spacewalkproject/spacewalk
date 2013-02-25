@@ -15,6 +15,29 @@ function reloadForm(ctl) {
   var form = document.getElementById("kickstartSoftwareForm");
   form.submit();
 }
+
+function toggleKSTree(what) {
+   var form = document.getElementById("kickstartSoftwareForm");
+   if(what.checked) {
+       form.tree.disabled=1;
+   } else {
+       form.tree.disabled=0;
+   }
+}
+
+function clickNewestRHTree() {
+   var form = document.getElementById("kickstartSoftwareForm");
+   if(form.useNewestRHTree.checked) {
+       form.useNewestTree.checked = false;
+   }
+}
+
+function clickNewestTree() {
+   var form = document.getElementById("kickstartSoftwareForm");
+   if(form.useNewestTree.checked) {
+       form.useNewestRHTree.checked = false;
+   }
+}
 //-->
 </script>
 </head>
@@ -73,11 +96,32 @@ function reloadForm(ctl) {
               <td>
                   <c:choose>
                     <c:when test="${notrees == null}">
-                      <html:select property="tree" onchange="reloadForm(this);" styleId="kstree">
-                      <html:options collection="trees"
-                        property="id"
-                        labelProperty="label" />
-                      </html:select>
+                      <c:if test="${usingNewest == true or usingNewestRH == true}">
+                        <html:select property="tree" onchange="reloadForm(this);" styleId="kstree" disabled="true">
+                          <html:options collection="trees"
+                            property="id"
+                            labelProperty="label" />
+                        </html:select>
+                      </c:if>
+                      <c:if test="${not (usingNewest == true or usingNewestRH == true)}">
+                        <html:select property="tree" onchange="reloadForm(this);" styleId="kstree">
+                          <html:options collection="trees"
+                            property="id"
+                            labelProperty="label" />
+                        </html:select>
+                      </c:if>
+                      <c:if test="${redHatTreesAvailable != null}">
+                          <br />
+                          <input type="checkbox" name="useNewestRHTree" value="0"
+                              onclick="toggleKSTree(this); clickNewestRHTree()"
+                              <c:if test="${usingNewestRH == true}">checked=1</c:if> />
+                          <bean:message key="kickstart.jsp.create.wizard.kstree.always_new_RH"/>
+                      </c:if>
+                      <br />
+                      <input type="checkbox" name="useNewestTree" value="0"
+                          onclick="toggleKSTree(this); clickNewestTree()"
+                          <c:if test="${usingNewest == true}">checked=1</c:if> />
+                      <bean:message key="kickstart.jsp.create.wizard.kstree.always_new"/>
                     </c:when>
                     <c:otherwise>
                       <b><bean:message key="kickstart.edit.software.notrees.jsp" /></b>

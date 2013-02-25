@@ -61,6 +61,11 @@ public class AdvancedModeDetailsAction extends RhnAction {
     private static final String KSTREE_ID_PARAM = "kstreeId";
     private static final String VIRTUALIZATION_TYPES_PARAM = "virtualizationTypes";
     private static final String VIRTUALIZATION_TYPE_LABEL_PARAM = "virtualizationTypeLabel";
+    private static final String UPDATE_ALL_PARAM = "updateAll";
+    private static final String UPDATE_RED_HAT_PARAM = "updateRedHat";
+    private static final String USING_UPDATE_ALL = "usingUpdateAll";
+    private static final String USING_UPDATE_RED_HAT = "usingUpdateRedHat";
+
     private static final String CONTENTS = "contents";
     private static final String FILE_UPLOAD = "fileUpload";
     private static final String ORG_DEFAULT = "org_default";
@@ -71,7 +76,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
     private static final String UPLOAD_KEY = "manage.jsp.uploadbutton";
     private static final String UPLOAD_KEY_LABEL = "uploadKey";
     private static final String VALIDATION_XSD =
-        "/com/redhat/rhn/frontend/action/kickstart/validation/kickstartFileForm.xsd";
+            "/com/redhat/rhn/frontend/action/kickstart/validation/kickstartFileForm.xsd";
     public static final String CSRF_TOKEN = "csrfToken";
     /**
      *
@@ -113,11 +118,11 @@ public class AdvancedModeDetailsAction extends RhnAction {
             KickstartBuilder builder = new KickstartBuilder(user);
             KickstartWizardHelper cmd = new KickstartWizardHelper(user);
             KickstartableTree tree = cmd.getKickstartableTree(
-                                        (Long)form.get(KSTREE_ID_PARAM));
+                    (Long)form.get(KSTREE_ID_PARAM));
             builder.update(data, data.getLabel(), tree,
                     data.getKickstartDefaults().getVirtualizationType().getLabel());
             return getStrutsDelegate().forwardParam(mapping.findForward("success"),
-                                    RequestContext.KICKSTART_ID, data.getId().toString());
+                    RequestContext.KICKSTART_ID, data.getId().toString());
         }
         catch (ValidatorException ve) {
             RhnValidationHelper.setFailedValidation(context.getRequest());
@@ -126,7 +131,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
             if (!isCreateMode(context.getRequest())) {
                 KickstartRawData ks = getKsData(context);
                 return getStrutsDelegate().forwardParam(mapping.
-                                    findForward(RhnHelper.DEFAULT_FORWARD),
+                        findForward(RhnHelper.DEFAULT_FORWARD),
                         RequestContext.KICKSTART_ID,
                         ks.getId().toString());
             }
@@ -135,13 +140,30 @@ public class AdvancedModeDetailsAction extends RhnAction {
     }
 
     private ActionForward submit(RequestContext context,
-                        DynaActionForm form, ActionMapping mapping) {
+            DynaActionForm form, ActionMapping mapping) {
         try {
             validateInput(form, context);
             User user  = context.getLoggedInUser();
+            KickstartTreeUpdateType updateType = null;
             KickstartWizardHelper cmd = new KickstartWizardHelper(user);
             KickstartableTree tree = cmd.getKickstartableTree(
-                                        (Long)form.get(KSTREE_ID_PARAM));
+                    (Long)form.get(KSTREE_ID_PARAM));
+
+            if (form.get(UPDATE_ALL_PARAM) != null) {
+                updateType = KickstartTreeUpdateType.ALL;
+                tree = KickstartFactory.getNewestTree(updateType,
+                        tree.getChannel().getId(), 
+                        context.getLoggedInUser().getOrg());
+            }
+            else if (form.get(UPDATE_RED_HAT_PARAM) != null) {
+                updateType = KickstartTreeUpdateType.RED_HAT;
+                tree = KickstartFactory.getNewestTree(updateType,
+                        tree.getChannel().getId(), 
+                        context.getLoggedInUser().getOrg());
+            }
+            else {
+                updateType = KickstartTreeUpdateType.NONE;
+            }
 
             String virtType = form.getString(VIRTUALIZATION_TYPE_LABEL_PARAM);
             String label = form.getString(KICKSTART_LABEL_PARAM);
@@ -150,7 +172,8 @@ public class AdvancedModeDetailsAction extends RhnAction {
             KickstartRawData ks;
             String fileData = getData(context, form);
             if (isCreateMode(context.getRequest())) {
-                ks = builder.createRawData(label, tree, fileData, virtType);
+                ks = builder.createRawData(label, tree, fileData, virtType,
+                        KickstartTreeUpdateType.NONE);
             }
             else {
                 ks = getKsData(context);
@@ -159,13 +182,15 @@ public class AdvancedModeDetailsAction extends RhnAction {
                 ks.setActive(Boolean.TRUE.equals(form.get(ACTIVE)));
                 ks.setOrgDefault(Boolean.TRUE.equals(form.get(ORG_DEFAULT)));
             }
+            
+            ks.setRealUpdateType(updateType);
 
             KickstartDetailsEditAction.processCobblerFormValues(ks, form,
                     context.getLoggedInUser());
 
             return getStrutsDelegate().forwardParam(mapping.findForward("success"),
-                                                        RequestContext.KICKSTART_ID,
-                                                        ks.getId().toString());
+                    RequestContext.KICKSTART_ID,
+                    ks.getId().toString());
         }
         catch (ValidatorException ve) {
             RhnValidationHelper.setFailedValidation(context.getRequest());
@@ -174,7 +199,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
             if (!isCreateMode(context.getRequest())) {
                 KickstartRawData ks = getKsData(context);
                 return getStrutsDelegate().forwardParam(mapping.
-                                    findForward(RhnHelper.DEFAULT_FORWARD),
+                        findForward(RhnHelper.DEFAULT_FORWARD),
                         RequestContext.KICKSTART_ID,
                         ks.getId().toString());
             }
@@ -191,7 +216,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
             KickstartRawData data = getKsData(context);
             if (!data.isValid()) {
                 context.getRequest().setAttribute(KickstartDetailsEditAction.INVALID,
-                                                                            Boolean.TRUE);
+                        Boolean.TRUE);
                 return;
             }
             form.set(KICKSTART_LABEL_PARAM, data.getLabel());
@@ -208,14 +233,14 @@ public class AdvancedModeDetailsAction extends RhnAction {
             form.set(ORG_DEFAULT, data.isOrgDefault());
             form.set(ACTIVE, data.isActive());
             KickstartDetailsEditAction.checkKickstartFile(context, getStrutsDelegate());
-         }
+        }
     }
 
 
     private void loadVirtualizationTypes(KickstartWizardHelper cmd, DynaActionForm form,
             RequestContext context) {
 
-        List types = cmd.getVirtualizationTypes();
+        List<KickstartVirtualizationType> types = cmd.getVirtualizationTypes();
         form.set(VIRTUALIZATION_TYPES_PARAM, types);
 
         if (isCreateMode(context.getRequest())) {
@@ -225,17 +250,17 @@ public class AdvancedModeDetailsAction extends RhnAction {
         else {
             KickstartRawData data = getKsData(context);
             form.set(VIRTUALIZATION_TYPE_LABEL_PARAM, data.getKickstartDefaults().
-                                                getVirtualizationType().getLabel());
+                    getVirtualizationType().getLabel());
         }
     }
 
     private void loadTrees(KickstartWizardHelper cmd, DynaActionForm form,
-                                                RequestContext context) {
+            RequestContext context) {
 
-        List <KickstartableTree> trees = cmd.getKickstartableTrees();
+        List<KickstartableTree> trees = cmd.getKickstartableTrees();
         if (trees == null || trees.size() == 0) {
             context.getRequest().setAttribute(NOTREES_PARAM, Boolean.TRUE);
-              form.set(KSTREE_ID_PARAM, null);
+            form.set(KSTREE_ID_PARAM, null);
         }
         else {
             form.set(KSTREES_PARAM, trees);
@@ -252,6 +277,13 @@ public class AdvancedModeDetailsAction extends RhnAction {
                 else {
                     form.set(KSTREE_ID_PARAM, tree.getId());
                 }
+                KickstartTreeUpdateType updateType = data.getRealUpdateType();
+                if (updateType.equals(KickstartTreeUpdateType.ALL)) {
+                    context.getRequest().setAttribute(USING_UPDATE_ALL, "true");
+                }
+                else if (updateType.equals(KickstartTreeUpdateType.RED_HAT)) {
+                    context.getRequest().setAttribute(USING_UPDATE_RED_HAT, "true");
+                }
             }
         }
     }
@@ -261,7 +293,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
     }
 
     private void validateInput(DynaActionForm form,
-                                    RequestContext context) {
+            RequestContext context) {
         String label = form.getString(KICKSTART_LABEL_PARAM);
         KickstartBuilder builder = new KickstartBuilder(context.getLoggedInUser());
         if (isCreateMode(context.getRequest())) {
@@ -274,26 +306,26 @@ public class AdvancedModeDetailsAction extends RhnAction {
             }
         }
         ValidatorResult result = RhnValidationHelper.validate(this.getClass(),
-                                            makeValidationMap(form), null,
-                                            VALIDATION_XSD);
-         if (!result.isEmpty()) {
-             throw new ValidatorException(result);
-         }
+                makeValidationMap(form), null,
+                VALIDATION_XSD);
+        if (!result.isEmpty()) {
+            throw new ValidatorException(result);
+        }
 
 
-         KickstartableTree tree =  KickstartFactory.lookupKickstartTreeByIdAndOrg(
-                 (Long) form.get(KSTREE_ID_PARAM),
-                 context.getLoggedInUser().getOrg());
-         KickstartVirtualizationType vType =
-             KickstartFactory.lookupKickstartVirtualizationTypeByLabel(
-                 form.getString(VIRTUALIZATION_TYPE_LABEL_PARAM));
+        KickstartableTree tree =  KickstartFactory.lookupKickstartTreeByIdAndOrg(
+                (Long) form.get(KSTREE_ID_PARAM),
+                context.getLoggedInUser().getOrg());
+        KickstartVirtualizationType vType =
+                KickstartFactory.lookupKickstartVirtualizationTypeByLabel(
+                        form.getString(VIRTUALIZATION_TYPE_LABEL_PARAM));
 
-         Distro distro = CobblerProfileCommand.getCobblerDistroForVirtType(tree, vType,
-                 context.getLoggedInUser());
-         if (distro == null) {
-             ValidatorException.raiseException("kickstart.cobbler.profile.invalidvirt");
-         }
-   }
+        Distro distro = CobblerProfileCommand.getCobblerDistroForVirtType(tree, vType,
+                context.getLoggedInUser());
+        if (distro == null) {
+            ValidatorException.raiseException("kickstart.cobbler.profile.invalidvirt");
+        }
+    }
 
     private String getData(RequestContext context, DynaActionForm form) {
         if (context.wasDispatched(UPLOAD_KEY)) {
@@ -308,8 +340,8 @@ public class AdvancedModeDetailsAction extends RhnAction {
         return (KickstartRawData) context.lookupAndBindKickstartData();
     }
 
-    private Map makeValidationMap(DynaActionForm form) {
-        Map map = new HashMap();
+    private Map<String, Object> makeValidationMap(DynaActionForm form) {
+        Map<String, Object> map = new HashMap<String, Object>();
         map.put(KSTREE_ID_PARAM, form.get(KSTREE_ID_PARAM));
         map.put(KICKSTART_LABEL_PARAM, form.get(KICKSTART_LABEL_PARAM));
         return map;

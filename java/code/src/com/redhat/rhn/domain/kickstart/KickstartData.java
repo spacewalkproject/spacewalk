@@ -26,6 +26,7 @@ import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.kickstart.KickstartTreeUpdateType;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
@@ -84,9 +85,10 @@ public class KickstartData {
     private KickstartDefaults kickstartDefaults;
     private boolean noBase;
     private boolean ignoreMissing;
+    private String updateType;
 
     private static final Pattern URL_REGEX =
-        Pattern.compile("--url\\s*(\\S+)", Pattern.CASE_INSENSITIVE);
+            Pattern.compile("--url\\s*(\\S+)", Pattern.CASE_INSENSITIVE);
     public static final String LEGACY_KICKSTART_PACKAGE_NAME = "auto-kickstart-";
 
     public static final String WIZARD_DIR = "wizard";
@@ -98,7 +100,7 @@ public class KickstartData {
     public static final String TYPE_RAW = "raw";
     private static String[] advancedOptions =
         {"partitions", "raids", "logvols", "volgroups", "include",
-            "repo", "custom", "custom_partition"};
+        "repo", "custom", "custom_partition"};
 
     private static final List ADANCED_OPTIONS = Arrays.asList(advancedOptions);
 
@@ -122,6 +124,7 @@ public class KickstartData {
         kickstartType = TYPE_WIZARD;
         noBase = false;
         ignoreMissing = false;
+        setUpdateType(KickstartTreeUpdateType.NONE.getType());
     }
 
     /**
@@ -133,7 +136,7 @@ public class KickstartData {
     /**
      * Getter for id
      * @return Long to get
-    */
+     */
     public Long getId() {
         return this.id;
     }
@@ -141,7 +144,7 @@ public class KickstartData {
     /**
      * Setter for id
      * @param idIn to set
-    */
+     */
     public void setId(Long idIn) {
         this.id = idIn;
     }
@@ -157,7 +160,7 @@ public class KickstartData {
     /**
      * Getter for org
      * @return org to get
-    */
+     */
     public Org getOrg() {
         return org;
     }
@@ -165,7 +168,7 @@ public class KickstartData {
     /**
      * Getter for label
      * @return String to get
-    */
+     */
     public String getLabel() {
         return this.label;
     }
@@ -173,7 +176,7 @@ public class KickstartData {
     /**
      * Setter for label
      * @param labelIn to set
-    */
+     */
     public void setLabel(String labelIn) {
         this.label = labelIn;
     }
@@ -181,7 +184,7 @@ public class KickstartData {
     /**
      * Getter for comments
      * @return String to get
-    */
+     */
     public String getComments() {
         return this.comments;
     }
@@ -189,7 +192,7 @@ public class KickstartData {
     /**
      * Setter for comments
      * @param commentsIn to set
-    */
+     */
     public void setComments(String commentsIn) {
         this.comments = commentsIn;
     }
@@ -197,7 +200,7 @@ public class KickstartData {
     /**
      * Getter for active
      * @return String to get
-    */
+     */
     public Boolean isActive() {
         return this.active;
     }
@@ -206,14 +209,14 @@ public class KickstartData {
     /**
      * Getter for active
      * @return String to get
-    */
+     */
     public boolean getActive() {
         return isActive();
     }
     /**
      * Setter for active
      * @param activeIn to set
-    */
+     */
     public void setActive(Boolean activeIn) {
         this.active = activeIn;
     }
@@ -221,7 +224,7 @@ public class KickstartData {
     /**
      * Getter for created
      * @return Date to get
-    */
+     */
     public Date getCreated() {
         return this.created;
     }
@@ -229,7 +232,7 @@ public class KickstartData {
     /**
      * Setter for created
      * @param createdIn to set
-    */
+     */
     public void setCreated(Date createdIn) {
         this.created = createdIn;
     }
@@ -237,7 +240,7 @@ public class KickstartData {
     /**
      * Getter for modified
      * @return Date to get
-    */
+     */
     public Date getModified() {
         return this.modified;
     }
@@ -245,7 +248,7 @@ public class KickstartData {
     /**
      * Setter for modified
      * @param modifiedIn to set
-    */
+     */
     public void setModified(Date modifiedIn) {
         this.modified = modifiedIn;
     }
@@ -253,7 +256,7 @@ public class KickstartData {
     /**
      * Getter for isOrgDefault
      * @return String to get
-    */
+     */
     public Boolean isOrgDefault() {
         return getIsOrgDefault();
     }
@@ -261,14 +264,14 @@ public class KickstartData {
     /**
      * Getter for isOrgDefault
      * @return String to get
-    */
+     */
     protected boolean getIsOrgDefault() {
         return this.isOrgDefault;
     }
     /**
      * Setter for isOrgDefault
      * @param isDefault to set
-    */
+     */
     protected void setIsOrgDefault(boolean isDefault) {
         this.isOrgDefault = isDefault;
     }
@@ -276,13 +279,13 @@ public class KickstartData {
     /**
      * Setter for isOrgDefault
      * @param isDefault to set
-    */
+     */
     public void setOrgDefault(boolean isDefault) {
         // We actually want to set the orgdefault
         if (!isOrgDefault() &&
                 isDefault) {
             KickstartData existingDefault = KickstartFactory.
-                lookupOrgDefault(getOrg());
+                    lookupOrgDefault(getOrg());
             if (existingDefault != null) {
                 existingDefault.setIsOrgDefault(Boolean.FALSE);
                 KickstartFactory.saveKickstartData(existingDefault);
@@ -294,7 +297,7 @@ public class KickstartData {
     /**
      * Getter for kernelParams
      * @return String to get
-    */
+     */
     public String getKernelParams() {
         return this.kernelParams;
     }
@@ -302,7 +305,7 @@ public class KickstartData {
     /**
      * Setter for kernelParams
      * @param kernelParamsIn to set
-    */
+     */
     public void setKernelParams(String kernelParamsIn) {
         this.kernelParams = kernelParamsIn;
     }
@@ -333,7 +336,7 @@ public class KickstartData {
     /**
      * Remove a crypto key from the set.
      * @param key to remove.
-    */
+     */
     public void removeCryptoKey(CryptoKey key) {
         this.cryptoKeys.remove(key);
     }
@@ -426,7 +429,7 @@ public class KickstartData {
     /**
      * Remove a file list from the set.
      * @param fileList to remove.
-    */
+     */
     public void removePreserveFileList(FileList fileList) {
         this.preserveFileLists.remove(fileList);
     }
@@ -513,7 +516,7 @@ public class KickstartData {
 
     private KickstartScript lookupScriptByType(String typeIn) {
         if (this.getScripts() != null &&
-            this.getScripts().size() > 0) {
+                this.getScripts().size() > 0) {
             Iterator i = this.getScripts().iterator();
             while (i.hasNext()) {
                 KickstartScript kss = (KickstartScript) i.next();
@@ -958,7 +961,7 @@ public class KickstartData {
      */
     public boolean getEliloRequired() {
         return this.getKickstartDefaults().getKstree().getChannel()
-            .getChannelArch().getLabel().equals("channel-ia64");
+                .getChannelArch().getLabel().equals("channel-ia64");
     }
 
     /**
@@ -1035,7 +1038,7 @@ public class KickstartData {
         }
 
         LinkedList tokens =
-            (LinkedList) StringUtil.stringToList(tzCommand.getArguments());
+                (LinkedList) StringUtil.stringToList(tzCommand.getArguments());
 
         Iterator iter = tokens.iterator();
 
@@ -1063,7 +1066,7 @@ public class KickstartData {
         }
 
         LinkedList tokens =
-            (LinkedList) StringUtil.stringToList(tzCommand.getArguments());
+                (LinkedList) StringUtil.stringToList(tzCommand.getArguments());
 
         Iterator iter = tokens.iterator();
 
@@ -1097,7 +1100,7 @@ public class KickstartData {
     }
 
     protected void updateCloneDetails(KickstartData cloned, User user,
-                                    String newLabel) {
+            String newLabel) {
 
         cloned.setLabel(newLabel);
         cloned.setActive(this.isActive());
@@ -1285,7 +1288,7 @@ public class KickstartData {
      */
     public boolean isConfigManageable() {
         return getKickstartDefaults() != null &&
-            getKickstartDefaults().getCfgManagementFlag();
+                getKickstartDefaults().getCfgManagementFlag();
     }
 
     /**
@@ -1294,7 +1297,7 @@ public class KickstartData {
      */
     public boolean isRemoteCommandable() {
         return getKickstartDefaults() != null &&
-            getKickstartDefaults().getRemoteCommandFlag();
+                getKickstartDefaults().getRemoteCommandFlag();
     }
 
     /**
@@ -1303,9 +1306,9 @@ public class KickstartData {
     public String getCobblerFileName() {
         if (getCobblerId() != null) {
             Profile prof = Profile.lookupById(
-                   CobblerXMLRPCHelper.getConnection(
-                   ConfigDefaults.get().getCobblerAutomatedUser()),
-                       getCobblerId());
+                    CobblerXMLRPCHelper.getConnection(
+                            ConfigDefaults.get().getCobblerAutomatedUser()),
+                            getCobblerId());
             if (prof != null && !StringUtils.isBlank(prof.getKickstart())) {
                 return prof.getKickstart();
             }
@@ -1372,7 +1375,7 @@ public class KickstartData {
      * @return String containing kickstart file
      */
     public String getFileData(String host,
-                    KickstartSession session) {
+            KickstartSession session) {
         KickstartFormatter formatter = new KickstartFormatter(host, this, session);
         return formatter.getFileData();
     }
@@ -1420,7 +1423,7 @@ public class KickstartData {
      * @param noBaseIn the noBase to set
      */
     public void setNoBase(Boolean noBaseIn) {
-       this.noBase = noBaseIn;
+        this.noBase = noBaseIn;
     }
 
     /**
@@ -1434,7 +1437,7 @@ public class KickstartData {
      * @param ignoreMissingIn the ignoreMissing to set
      */
     public void setIgnoreMissing(Boolean ignoreMissingIn) {
-       this.ignoreMissing = ignoreMissingIn;
+        this.ignoreMissing = ignoreMissingIn;
     }
 
     /**
@@ -1486,7 +1489,7 @@ public class KickstartData {
         }
 
         return RegistrationType.find((String)prof.getKsMeta().get(
-                            RegistrationType.COBBLER_VAR));
+                RegistrationType.COBBLER_VAR));
     }
 
     /**
@@ -1542,5 +1545,39 @@ public class KickstartData {
      */
     public void setPartitionData(String data) {
         setPartitionDataBinary(HibernateFactory.stringToByteArray(data));
+    }
+
+    /**
+     * get the update type
+     * @return the update type
+     */
+    public String getUpdateType() {
+        return this.updateType;
+    }
+
+    /**
+     * get the update type
+     * @return the update type
+     */
+    public KickstartTreeUpdateType getRealUpdateType() {
+        return KickstartTreeUpdateType.find(this.updateType);
+    }
+
+    /**
+     * Set the update type
+     * Hibernate wigs out if this is called "setUpdateType", which is should be
+     * @param updateTypeIn the update type to set
+     */
+    public void setUpdateType(String updateTypeIn) {
+        this.updateType = updateTypeIn;
+    }
+
+    /**
+     * Set the update type
+     * Hibernate wigs out if this is called "setUpdateType", which is should be
+     * @param updateTypeIn the update type to set
+     */
+    public void setRealUpdateType(KickstartTreeUpdateType updateTypeIn) {
+        this.updateType = updateTypeIn.getType();
     }
 }

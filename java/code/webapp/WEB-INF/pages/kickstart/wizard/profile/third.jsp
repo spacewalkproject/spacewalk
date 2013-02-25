@@ -45,6 +45,7 @@ function movePrevious() {
     <html:hidden property="kstreeId" />
     <html:hidden property="defaultDownload" />
     <html:hidden property="userDefinedDownload" />
+    <html:hidden property="kstreeUpdateType" />
     <h1><bean:message key="kickstart.jsp.create.wizard.step.three"/></h1>
     <table class="details" width="80%">
         <tr>

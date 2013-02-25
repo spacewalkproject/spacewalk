@@ -6973,6 +6973,15 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="api.kickstart.invalidkickstartlabel">
         <source>Invalid kickstart label: {0}</source>
       </trans-unit>
+      <trans-unit id="api.kickstart.invalidUpdateType">
+        <source>Invalid update type: {0}</source>
+      </trans-unit>
+      <trans-unit id="api.kickstart.invalidUpdateTypeAndTree">
+        <source>If update type is red_hat the kickstartable tree you start with must be provided by Red Hat. This tree is not: {0}</source>
+      </trans-unit>
+      <trans-unit id="api.kickstart.invalidUpdateTypeAndNoBase">
+        <source>The kickstartable tree {0} has no base channel. The only valid update type with a no-base kickstartable tree is 'none'.</source>
+      </trans-unit>
       <trans-unit id="api.package.invalidpackagearch">
         <source>The package arch specified ({0}) is invalid.</source>
       </trans-unit>

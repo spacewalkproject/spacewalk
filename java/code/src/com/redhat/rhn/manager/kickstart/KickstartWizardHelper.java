@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
+import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -32,7 +33,6 @@ import org.apache.log4j.Logger;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -59,7 +59,7 @@ public class KickstartWizardHelper {
      * Retrieve a list of trees based on the user's Org
      * @return list of KickstartableTrees
      */
-    public List getKickstartableTrees() {
+    public List<KickstartableTree> getKickstartableTrees() {
         return KickstartManager.getInstance().
                 removeInvalid(KickstartFactory.
                         lookupAccessibleTreesByOrg(currentUser.getOrg()));
@@ -71,7 +71,7 @@ public class KickstartWizardHelper {
      */
     public List<KickstartVirtualizationType> getVirtualizationTypes() {
         List <KickstartVirtualizationType> types =
-                    new LinkedList<KickstartVirtualizationType>();
+                new LinkedList<KickstartVirtualizationType>();
         types.add(KickstartVirtualizationType.none());
         types.add(KickstartVirtualizationType.kvmGuest());
         types.add(KickstartVirtualizationType.paraHost());
@@ -117,8 +117,8 @@ public class KickstartWizardHelper {
      * Get list of available Channels for Kickstarting.
      * @return Collection of Channels.
      */
-    public List getAvailableChannels() {
-        List returnCollection = ChannelFactory
+    public List<Channel> getAvailableChannels() {
+        List<Channel> returnCollection = ChannelFactory
                 .getKickstartableChannels(currentUser.getOrg());
         return returnCollection;
     }
@@ -130,9 +130,9 @@ public class KickstartWizardHelper {
      */
     public List<KickstartableTree> getTrees(Long channelId) {
         return KickstartManager.getInstance().
-                        removeInvalid(KickstartFactory.
-                                    lookupKickstartableTrees(channelId,
-                                            currentUser.getOrg()));
+                removeInvalid(KickstartFactory.
+                        lookupKickstartableTrees(channelId,
+                                currentUser.getOrg()));
     }
 
     /**
@@ -149,14 +149,13 @@ public class KickstartWizardHelper {
 
         if (ksdata.getCryptoKeys() != null) {
             // Setup the default CryptoKeys
-            List keys = KickstartFactory.lookupCryptoKeys(this.currentUser.getOrg());
+            List<CryptoKey> keys = KickstartFactory
+                    .lookupCryptoKeys(this.currentUser.getOrg());
             if (keys != null && keys.size() > 0) {
                 if (ksdata.getCryptoKeys() == null) {
                     ksdata.setCryptoKeys(new HashSet());
                 }
-                Iterator i = keys.iterator();
-                while (i.hasNext()) {
-                    CryptoKey key = (CryptoKey) i.next();
+                for (CryptoKey key : keys) {
                     if (key.getCryptoKeyType().equals(
                             KickstartFactory.KEY_TYPE_SSL)) {
                         ksdata.getCryptoKeys().add(key);
@@ -183,13 +182,13 @@ public class KickstartWizardHelper {
         kcmd.store();
 
         KickstartSession ksess =
-            KickstartFactory.lookupDefaultKickstartSessionForKickstartData(ksdata);
+                KickstartFactory.lookupDefaultKickstartSessionForKickstartData(ksdata);
         log.debug("Did we create the default session OK? : " +  ksess);
 
         KickstartFactory.saveKickstartData(ksdata);
         log.debug("KSData stored.  Calling cobbler.");
         CobblerProfileCreateCommand cmd =
-            new CobblerProfileCreateCommand(ksdata, currentUser);
+                new CobblerProfileCreateCommand(ksdata, currentUser);
         cmd.store();
         log.debug("store() - done.");
     }

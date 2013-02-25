@@ -4,6 +4,19 @@
 <html:html xhtml="true">
 <head>
 <meta http-equiv="Pragma" content="no-cache" />
+<script language="javascript" type="text/javascript">
+function clickNewestRHTree(obj) {
+   if (obj.checked == true) {
+       document.getElementById("updateAll").checked = false;
+   }
+}
+
+function clickNewestTree(obj) {
+   if (obj.checked == true) {
+       document.getElementById("updateRedHat").checked = false;
+   }
+}
+</script>
 </head>
 
 <body>
@@ -14,6 +27,8 @@
 	<c:param name = "action_key" value="message.Update"/>
 	<c:param name = "url" value="/kickstart/AdvancedModeEdit.do"/>
 	<c:param name = "ksurl" value="${requestScope.ksurl}"/>	
+	<c:param name = "usingUpdateAll" value="${requestScope.usingUpdateAll}"/>	
+	<c:param name = "usingUpdateRedHat" value="${requestScope.usingUpdateRedHat}"/>	
 </c:import>
 </body>
 </html:html>

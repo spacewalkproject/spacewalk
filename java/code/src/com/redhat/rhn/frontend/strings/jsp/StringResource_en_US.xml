@@ -10366,6 +10366,18 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="kickstart.jsp.create.wizard.kstree.always_new_RH">
+        <source>Always use the newest Red Hat Tree for this base channel.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.jsp.create.wizard.kstree.always_new">
+        <source>Always use the newest Tree for this base channel. "Newest" is determined by the date it was last modified.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="wizard.jsp.next.step">
         <source>Next</source>
         <context-group name="ctx">

@@ -36,7 +36,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="ignoreMissing" column="ignore_missing" not-null="false" type="yes_no" />
         <property name="verboseUp2date" column="verboseup2date" not-null="false" type="yes_no" />
 		<property name="partitionDataBinary" column="partition_data"  type="binary" />        
-        <property name="cobblerId" column="cobbler_id"  type="string" length="64" />
+        <property name="cobblerId" column="cobbler_id"  type="string" length="64" />  
+        <property name="updateType" column="update_type" length="7" type="string" not-null="true" />
         <set name="ksPackages" lazy="true" sort="natural" inverse="true" cascade="all-delete-orphan" >
           <key column="kickstart_id"/>
           <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartPackage" />
@@ -95,7 +96,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="KickstartData.findByCobblerIdAndOrg">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartData as t where t.cobblerId = :id and t.org = :org_id]]>
     </query>
-
+    <query name="KickstartData.lookupByUpdateable">
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartData as t where not t.updateType = 'none']]>
+    </query>
     <query name="KickstartData.findByIdAndOrg">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartData as t where t.id = :id and t.org = :org_id]]>
     </query>

@@ -33,6 +33,7 @@ import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.kickstart.KickstartTreeUpdateType;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeException;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartScriptCreateCommand;
@@ -114,7 +115,7 @@ public class KickstartBuilder {
         List<KickstartCommandName> availableOptions = KickstartFactory
                 .lookupAllKickstartCommandNames(ksData);
         Map<String, KickstartCommandName> commandNames =
-            new HashMap<String, KickstartCommandName>();
+                new HashMap<String, KickstartCommandName>();
         for (KickstartCommandName cmdName : availableOptions) {
             commandNames.put(cmdName.getName(), cmdName);
         }
@@ -216,7 +217,7 @@ public class KickstartBuilder {
         // Make sure the first line starts with %packages for sanity:
         if (!(lines.get(0)).startsWith("%packages")) {
             throw new KickstartParsingException("Packages section didn't start with " +
-                "%packages tag.");
+                    "%packages tag.");
         }
 
         Set<KickstartPackage> ksPackagesSet = new TreeSet<KickstartPackage>();
@@ -263,7 +264,7 @@ public class KickstartBuilder {
 
         if (!(lines.get(0)).startsWith(prefix)) {
             throw new KickstartParsingException("Pre section didn't start with " +
-                "%pre tag.");
+                    "%pre tag.");
         }
 
         StringBuffer buf = new StringBuffer();
@@ -295,7 +296,7 @@ public class KickstartBuilder {
             if (tokens[i].equals("--interpreter")) {
                 if (i == tokens.length - 1) {
                     throw new KickstartParsingException("Missing argument to " +
-                        "--interpreter");
+                            "--interpreter");
                 }
                 return tokens[i + 1];
             }
@@ -310,7 +311,7 @@ public class KickstartBuilder {
             if (tokens[i].equals("--nochroot")) {
                 if (prefix.equals("%pre")) {
                     throw new KickstartParsingException("Invalid %pre argument: " +
-                         "--nochroot");
+                            "--nochroot");
                 }
                 return "N";
             }
@@ -321,7 +322,7 @@ public class KickstartBuilder {
     private void storeScript(String prefix, KickstartData ksData, StringBuffer buf,
             String interpreter, String chroot) {
         KickstartScriptCreateCommand scriptCommand =
-            new KickstartScriptCreateCommand(ksData.getId(), user);
+                new KickstartScriptCreateCommand(ksData.getId(), user);
 
         String type = KickstartScript.TYPE_PRE;
         if (prefix.equals("%post")) {
@@ -337,7 +338,7 @@ public class KickstartBuilder {
         if (!user.hasRole(RoleFactory.ORG_ADMIN) &&
                 !user.hasRole(RoleFactory.CONFIG_ADMIN)) {
             throw new PermissionException("Only Org Admins or Configuration Admins can " +
-                "modify kickstarts.");
+                    "modify kickstarts.");
         }
     }
 
@@ -350,14 +351,15 @@ public class KickstartBuilder {
      * @param tree KickstartableTree to associate with the new KickstartData.
      * @param kickstartHost Kickstart host to use when constructing the default URL. Set to
      * null if you wish to use the url/cdrom/nfs/harddrive command values in the kickstart
-     * file instead.
-     * the kickstart file and use the default for the given kickstart tree.
+     * file instead. the kickstart file and use the default for the given kickstart tree.
+     * @param updateType way that the profile should automaticall update the ks tree
      * @return KickstartData
      */
     public KickstartData createFromParser(KickstartParser parser, String label,
-            String virtualizationType, KickstartableTree tree, String kickstartHost) {
+            String virtualizationType, KickstartableTree tree,
+            String kickstartHost, KickstartTreeUpdateType updateType) {
         KickstartData ksdata = new KickstartData();
-        setupBasicInfo(label, ksdata, tree, virtualizationType);
+        setupBasicInfo(label, ksdata, tree, virtualizationType, updateType);
 
         if (ksdata.getKsPackages() == null) {
             ksdata.setKsPackages(new TreeSet<KickstartPackage>());
@@ -404,7 +406,7 @@ public class KickstartBuilder {
     public void validateNewLabel(String label) {
         if (StringUtils.isBlank(label)) {
             ValidatorException.raiseException("kickstart.details.nolabel",
-                                                           MIN_KS_LABEL_LENGTH);
+                    MIN_KS_LABEL_LENGTH);
         }
         KickstartData existing = labelAlreadyExists(label);
         if (existing != null) {
@@ -413,7 +415,7 @@ public class KickstartBuilder {
         }
         if (!isLabelValid(label)) {
             ValidatorException.raiseException("kickstart.error.invalidlabel",
-                                            MIN_KS_LABEL_LENGTH);
+                    MIN_KS_LABEL_LENGTH);
         }
     }
 
@@ -424,16 +426,18 @@ public class KickstartBuilder {
      * @param tree the Ks tree
      * @param virtType and KS virt type.
      * @param fileContents to actually write out to disk.
+     * @param updateType to set for KS profile
      * @return new Kickstart Raw Data object
      */
     public KickstartRawData createRawData(String label,
-                                    KickstartableTree tree,
-                                    String fileContents,
-                                    String virtType) {
+            KickstartableTree tree,
+            String fileContents,
+            String virtType,
+            KickstartTreeUpdateType updateType) {
         checkRoles();
         KickstartRawData ksdata = new KickstartRawData();
         ksdata.setData(fileContents);
-        setupBasicInfo(label, ksdata, tree, virtType);
+        setupBasicInfo(label, ksdata, tree, virtType, updateType);
         KickstartWizardHelper cmd = new KickstartWizardHelper(user);
         cmd.store(ksdata);
         return ksdata;
@@ -443,13 +447,15 @@ public class KickstartBuilder {
     private void setupBasicInfo(String ksLabel,
             KickstartData ksdata,
             KickstartableTree ksTree,
-            String virtType) {
+            String virtType,
+            KickstartTreeUpdateType updateType) {
         checkRoles();
         validateNewLabel(ksLabel);
         ksdata.setLabel(ksLabel);
         ksdata.setOrg(user.getOrg());
         ksdata.setActive(Boolean.TRUE);
         ksdata.setOrgDefault(false);
+        ksdata.setRealUpdateType(updateType);
         KickstartDefaults defaults = new KickstartDefaults();
         defaults.setKstree(ksTree);
         ksdata.setKickstartDefaults(defaults);
@@ -490,9 +496,9 @@ public class KickstartBuilder {
             virtType = KickstartVirtualizationType.XEN_PARAVIRT;
         }
         KickstartVirtualizationType ksVirtType = KickstartFactory.
-        lookupKickstartVirtualizationTypeByLabel(virtType);
+                lookupKickstartVirtualizationTypeByLabel(virtType);
         if (ksVirtType == null) {
-                throw new InvalidVirtualizationTypeException(virtType);
+            throw new InvalidVirtualizationTypeException(virtType);
         }
         data.getKickstartDefaults().setVirtualizationType(ksVirtType);
     }
@@ -506,15 +512,17 @@ public class KickstartBuilder {
      * @param downloadUrl Download location.
      * @param rootPassword Root password.
      * @param kickstartHost the host that is serving up the kickstart configuration file.
+     * @param updateType how this profile will update the kickstart tree when new ones
+     * become available.
      * @return Newly created KickstartData.
      */
     public KickstartData create(String ksLabel, KickstartableTree tree,
             String virtType, String downloadUrl, String rootPassword,
-            String kickstartHost) {
+            String kickstartHost, KickstartTreeUpdateType updateType) {
 
         checkRoles();
         KickstartData ksdata = new KickstartData();
-        setupBasicInfo(ksLabel, ksdata, tree, virtType);
+        setupBasicInfo(ksLabel, ksdata, tree, virtType, updateType);
         KickstartCommandName kcn = null;
         KickstartCommand kscmd = null;
         ksdata.setCommands(new HashSet<KickstartCommand>());
@@ -638,30 +646,30 @@ public class KickstartBuilder {
         }
         else {
             String virtType = ksdata.getKickstartDefaults().
-                getVirtualizationType().getLabel();
+                    getVirtualizationType().getLabel();
             if (virtType.equals(KickstartVirtualizationType.XEN_PARAVIRT)) {
                 String data = "part /boot --fstype ext3 --size=100 --ondisk=xvda\n" +
-                             "part pv.00 --size=0 --grow --ondisk=xvda \n" +
-                              "volgroup VolGroup00 --pesize=32768 pv.00\n" +
-                              "logvol / --fstype ext3 --name=LogVol00 " +
-                                  "--vgname=VolGroup00 --size=1024 --grow\n" +
-                              "logvol swap --fstype swap --name=LogVol01 " +
-                               "--vgname=VolGroup00 --size=272 --grow --maxsize=544";
+                        "part pv.00 --size=0 --grow --ondisk=xvda \n" +
+                        "volgroup VolGroup00 --pesize=32768 pv.00\n" +
+                        "logvol / --fstype ext3 --name=LogVol00 " +
+                        "--vgname=VolGroup00 --size=1024 --grow\n" +
+                        "logvol swap --fstype swap --name=LogVol01 " +
+                        "--vgname=VolGroup00 --size=272 --grow --maxsize=544";
                 ksdata.setPartitionData(data);
 
             }
             else if (!ksdata.isLegacyKickstart()) {
                 String data = "part /boot --fstype=ext3 --size=200 \n" +
-                               "part pv.01 --size=1000 --grow \n" +
-                               "part swap --size=1000   --maxsize=2000 \n" +
-                                "volgroup myvg pv.01 \n" +
-                                "logvol / --vgname=myvg --name=rootvol --size=1000 --grow";
+                        "part pv.01 --size=1000 --grow \n" +
+                        "part swap --size=1000   --maxsize=2000 \n" +
+                        "volgroup myvg pv.01 \n" +
+                        "logvol / --vgname=myvg --name=rootvol --size=1000 --grow";
                 ksdata.setPartitionData(data);
             }
             else {
                 String data = "part /boot --fstype=ext3 --size=200 \n" +
-                "part pv.01 --size=1000 --grow \n" +
-                "part swap --size=1000   --maxsize=2000";
+                        "part pv.01 --size=1000 --grow \n" +
+                        "part swap --size=1000   --maxsize=2000";
                 ksdata.setPartitionData(data);
             }
         }
@@ -671,16 +679,16 @@ public class KickstartBuilder {
             KickstartData ksdata) {
         if (!ksdata.isLegacyKickstart()) {
             String data = "part /boot/efi --fstype=vfat --size=100 \n" +
-                            "part swap --size=1000 --grow --maxsize=2000\n" +
-                            "part pv.01 --fstype=ext3 --size=700 --grow\n" +
-                            "volgroup myvg pv.01\n" +
-                            "logvol --vgname=myvg --name=rootvol --size=1000 --grow";
+                    "part swap --size=1000 --grow --maxsize=2000\n" +
+                    "part pv.01 --fstype=ext3 --size=700 --grow\n" +
+                    "volgroup myvg pv.01\n" +
+                    "logvol --vgname=myvg --name=rootvol --size=1000 --grow";
             ksdata.setPartitionData(data);
         }
         else {
             String data = "part /boot/efi --fstype=vfat --size=100 \n" +
-            "part swap --size=1000 --grow --maxsize=2000\n" +
-            "part pv.01 --fstype=ext3 --size=700 --grow";
+                    "part swap --size=1000 --grow --maxsize=2000\n" +
+                    "part pv.01 --fstype=ext3 --size=700 --grow";
             ksdata.setPartitionData(data);
         }
     }
@@ -690,18 +698,18 @@ public class KickstartBuilder {
         log.debug("Adding PPC specific partition info:");
         if (!ksdata.isLegacyKickstart()) {
             String data = "part /boot --fstype=ext3 --size=200\n" +
-                "part prepboot --fstype \"PPC PReP Boot\" --size=4\n" +
-                "part swap --size=1000   --maxsize=2000 \n" +
-                "part pv.01 --size=1000 --grow \n" +
-                 "volgroup myvg pv.01 \n" +
-                 "logvol / --vgname=myvg --name=rootvol --size=1000 --grow";
+                    "part prepboot --fstype \"PPC PReP Boot\" --size=4\n" +
+                    "part swap --size=1000   --maxsize=2000 \n" +
+                    "part pv.01 --size=1000 --grow \n" +
+                    "volgroup myvg pv.01 \n" +
+                    "logvol / --vgname=myvg --name=rootvol --size=1000 --grow";
             ksdata.setPartitionData(data);
         }
         else {
             String data = "part /boot --fstype=ext3 --size=200\n" +
-            "part prepboot --fstype \"PPC PReP Boot\" --size=4\n" +
-            "part swap --size=1000   --maxsize=2000 \n" +
-            "part / --fstype=ext3 --size=700 --grow";
+                    "part prepboot --fstype \"PPC PReP Boot\" --size=4\n" +
+                    "part swap --size=1000   --maxsize=2000 \n" +
+                    "part / --fstype=ext3 --size=700 --grow";
             ksdata.setPartitionData(data);
         }
 

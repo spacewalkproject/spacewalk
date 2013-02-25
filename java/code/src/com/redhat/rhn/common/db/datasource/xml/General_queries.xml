@@ -4,7 +4,7 @@
   <query params="org_id">
   SELECT KS.id, KS.org_id, KS.label, KS.is_org_default,
          KS.active,  KSD.kstree_id, KT.label as tree_label,KS.cobbler_id,
-         KS.ks_type as kickstart_type
+         KS.ks_type as kickstart_type, KS.update_type
     FROM rhnKickstartDefaults KSD, rhnKSData KS, rhnKickstartableTree KT
    WHERE KS.org_id = :org_id
      AND KSD.kickstart_id = KS.id

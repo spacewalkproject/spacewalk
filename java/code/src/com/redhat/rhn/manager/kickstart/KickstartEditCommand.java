@@ -16,7 +16,9 @@ package com.redhat.rhn.manager.kickstart;
 
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
@@ -37,7 +39,6 @@ import org.apache.log4j.Logger;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -191,21 +192,14 @@ public class KickstartEditCommand extends BaseKickstartCommand {
      * @param url the url of the channel.
      * @return ValidatorError if we couldn't find a KickstartableTree to update to
      */
-    public ValidatorError updateKickstartableTree(Long channelId,
-                                                    Long orgId,
-                                                    Long treeId,
-                                                    String url) {
-
-
-
+    public ValidatorError updateKickstartableTree(Long channelId, Long orgId,
+            Long treeId, String url) {
         if (!KickstartFactory.verifyTreeAssignment(channelId, orgId, treeId)) {
             ValidatorError ve = new ValidatorError("kickstart.software.notree");
             return ve;
         }
 
         KickstartableTree tree = KickstartFactory.findTreeById(treeId, orgId);
-        KickstartWizardHelper helper = new KickstartWizardHelper(getUser());
-
 
         for (Token token : ksdata.getDefaultRegTokens()) {
             ActivationKey key = ActivationKeyFactory.lookupByToken(token);
@@ -271,14 +265,13 @@ public class KickstartEditCommand extends BaseKickstartCommand {
      * @return Set of ChannelArch objects that are available
      * to this Kickstart.
      */
-    public Set getAvailableArches() {
+    public Set<ChannelArch> getAvailableArches() {
         logger.debug("getAvailableArches() - start");
-        List ksc = ChannelFactory.getKickstartableChannels(user.getOrg());
-        Set retval = new HashSet();
-        Iterator i = ksc.iterator();
-        while (i.hasNext()) {
-            Channel ca = (Channel) i.next();
-            retval.add(ca.getChannelArch());
+        List<Channel> ksc = ChannelFactory.getKickstartableChannels(user
+                .getOrg());
+        Set<ChannelArch> retval = new HashSet<ChannelArch>();
+        for (Channel c : ksc) {
+            retval.add(c.getChannelArch());
         }
         logger.debug("getAvailableArches() - end - return value=" + retval);
         return retval;
@@ -288,9 +281,9 @@ public class KickstartEditCommand extends BaseKickstartCommand {
      * Get list of available Channels for Kickstarting.
      * @return Collection of Channels.
      */
-    public Collection getAvailableChannels() {
+    public Collection<Channel> getAvailableChannels() {
         logger.debug("getAvailableChannels() - start");
-        Collection returnCollection = ChannelFactory
+        Collection<Channel> returnCollection = ChannelFactory
                 .getKickstartableChannels(user.getOrg());
         logger.debug("getAvailableChannels() - end - return value=" + returnCollection);
         return returnCollection;
@@ -302,22 +295,20 @@ public class KickstartEditCommand extends BaseKickstartCommand {
      * @param org caller's org
      * @return list of KickstartableTree instances
      */
-    public List getTrees(Long channelId, Org org) {
+    public List<KickstartableTree> getTrees(Long channelId, Org org) {
         return KickstartManager.getInstance().
-            removeInvalid(KickstartFactory.lookupKickstartableTrees(channelId, org));
+                removeInvalid(KickstartFactory.lookupKickstartableTrees(channelId, org));
     }
 
     /**
      * Get the Set of ChannelFamily objects available to be Kickstarted.
      * @return Set of ChannelFamily objects.
      */
-    public Set getAvailableChannelFamilies() {
+    public Set<ChannelFamily> getAvailableChannelFamilies() {
         logger.debug("getAvailableChannelFamilies() - start");
-        Collection channels = getAvailableChannels();
-        Set retval = new HashSet();
-        Iterator i = channels.iterator();
-        while (i.hasNext()) {
-            Channel c = (Channel) i.next();
+        Collection<Channel> channels = getAvailableChannels();
+        Set<ChannelFamily> retval = new HashSet<ChannelFamily>();
+        for (Channel c : channels) {
             retval.add(c.getChannelFamily());
         }
         logger.debug("getAvailableChannelFamilies() - end - return value=" + retval);
@@ -328,11 +319,11 @@ public class KickstartEditCommand extends BaseKickstartCommand {
      * Get the Set of available u1, u2, u3 .. for the current tree.
      * @return Set of String values.
      */
-    public Set getAvailableUpdates() {
+    public Set<String> getAvailableUpdates() {
 
         // TODO: Take out this hard coded list!
         String[] updates = {"", "u1", "u2", "u3", "u4", "u5", "u6", "u7", "u8", "u9"};
-        Set retval = new TreeSet();
+        Set<String> retval = new TreeSet<String>();
         retval.addAll(Arrays.asList(updates));
 
         logger.debug("getAvailableUpdates() - end - return value=" + retval);

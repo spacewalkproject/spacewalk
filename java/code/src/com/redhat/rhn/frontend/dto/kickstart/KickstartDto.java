@@ -40,6 +40,7 @@ public class KickstartDto extends BaseDto {
     private int virtCpus;
     private String virtBridge;
     private String macAddress;
+    private String updateType;
 
 
     /**
@@ -272,5 +273,19 @@ public class KickstartDto extends BaseDto {
      */
     public void setMacAddress(String macAddressIn) {
         this.macAddress = macAddressIn;
+    }
+
+    /**
+     * @return Returns the update type
+     */
+    public String getUpdateType() {
+        return updateType;
+    }
+
+    /**
+     * @param updateTypeIn the updateType to set
+     */
+    public void setUpdateType(String updateTypeIn) {
+        this.updateType = updateTypeIn;
     }
 }

@@ -666,6 +666,8 @@
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="channel" type="java.lang.Long"/>
             <form-property name="tree" type="java.lang.Long" />
+            <form-property name="useNewestTree" type="java.lang.Boolean" />
+            <form-property name="useNewestRHTree" type="java.lang.Boolean" />
             <form-property name="url" type="java.lang.String" />
             <form-property name="submitted"  type="java.lang.Boolean"/>
             <form-property name="fieldChanged" type="java.lang.String" />
@@ -768,20 +770,22 @@
             <form-property name="kstrees" type="java.util.List" />
             <form-property name="kstreeId" type="java.lang.Long" />
             <form-property name="virtualizationTypes" type="java.util.List" />
-	    	<form-property name="virtualizationTypeLabel" type="java.lang.String" />
-			<form-property name="fileUpload"      type="org.apache.struts.upload.FormFile" />
-			<form-property name="contents" type="java.lang.String" />
+            <form-property name="virtualizationTypeLabel" type="java.lang.String" />
+	    <form-property name="updateAll" type="java.lang.Boolean" />
+	    <form-property name="updateRedHat" type="java.lang.Boolean" />
+            <form-property name="fileUpload"      type="org.apache.struts.upload.FormFile" />
+            <form-property name="contents" type="java.lang.String" />
             <form-property name="org_default" type="java.lang.Boolean" />
             <form-property name="comments" type="java.lang.String" />
             <form-property name="active" type="java.lang.Boolean" />
             <form-property name="kernel_options" type="java.lang.String"/>
             <form-property name="post_kernel_options" type="java.lang.String"/>
-			<form-property name="virt_disk_path" type="java.lang.String"/>
- 			<form-property name="virt_mem_mb"  type="java.lang.Integer"/>
- 			<form-property name="virt_cpus"  type="java.lang.Integer"/>
- 			<form-property name="virt_disk_size"  type="java.lang.Integer"/>
-			<form-property name="virt_bridge" type="java.lang.String"/>
-			<form-property name="no_scrub" type="java.lang.String" initial="contents"/>
+            <form-property name="virt_disk_path" type="java.lang.String"/>
+            <form-property name="virt_mem_mb"  type="java.lang.Integer"/>
+            <form-property name="virt_cpus"  type="java.lang.Integer"/>
+            <form-property name="virt_disk_size"  type="java.lang.Integer"/>
+            <form-property name="virt_bridge" type="java.lang.String"/>
+            <form-property name="no_scrub" type="java.lang.String" initial="contents"/>
         </form-bean>
 
         <form-bean name="kickstartCreateWizardForm"
@@ -790,6 +794,9 @@
             <form-property name="prevStep" type="java.lang.String" />
             <form-property name="nextStep" type="java.lang.String" />
             <form-property name="kickstartLabel" type="java.lang.String" />
+            <form-property name="useNewestRHTree" type="java.lang.Boolean" />
+            <form-property name="useNewestTree" type="java.lang.Boolean" />
+            <form-property name="kstreeUpdateType" type="java.lang.String" />
             <form-property name="channels" type="java.util.Collection" />
             <form-property name="currentChannelId" type="java.lang.Long" />
             <form-property name="previousChannelId" type="java.lang.Long" />

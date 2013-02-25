@@ -63,6 +63,11 @@ public class CreateProfileWizardAction extends RhnWizardAction {
     private static final String NEXT_STEP_PARAM = "nextStep";
     private static final String KICKSTART_LABEL_PARAM = "kickstartLabel";
     private static final String KSTREE_ID_PARAM = "kstreeId";
+    private static final String USE_NEWEST_KSTREE_PARAM = "useNewestTree";
+    private static final String USE_NEWEST_RH_KSTREE_PARAM = "useNewestRHTree";
+    private static final String CURRENT_CHANNEL_ID_PARAM = "currentChannelId";
+    private static final String RED_HAT_TREES_AVAILABLE = "redHatTreesAvailable";
+    private static final String KSTREE_UPDATE_TYPE = "kstreeUpdateType";
 
     private static final String DEFAULT_DOWNLOAD_PARAM = "defaultDownload";
     private static final String USER_DOWNLOAD_PARAM = "userDefinedDownload";
@@ -89,13 +94,12 @@ public class CreateProfileWizardAction extends RhnWizardAction {
             HttpServletResponse response) throws Exception {
 
         if (!AclManager.hasAcl("user_role(org_admin) or user_role(config_admin)",
-            request, null)) {
+                request, null)) {
             //Throw an exception with a nice error message so the user
             //knows what went wrong.
             LocalizationService ls = LocalizationService.getInstance();
-            PermissionException pex =
-                new PermissionException(
-                    "Only Org Admins or Configuration Admins can modify kickstarts");
+            PermissionException pex = new PermissionException("Only Org Admins or " +
+                    "Configuration Admins can modify kickstarts");
             pex.setLocalizedTitle(ls.getMessage("permission.jsp.summary.acl.header"));
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.acl.reason5"));
             throw pex;
@@ -160,8 +164,18 @@ public class CreateProfileWizardAction extends RhnWizardAction {
             RequestContext ctx, HttpServletResponse response,
             WizardStep step) throws Exception {
         List<String> fields = new LinkedList<String>();
+        KickstartTreeUpdateType updateType = null;
         fields.add(KICKSTART_LABEL_PARAM);
-        fields.add(KSTREE_ID_PARAM);
+        if (form.get(USE_NEWEST_KSTREE_PARAM) != null) {
+            updateType = KickstartTreeUpdateType.ALL;
+        }
+        else if (form.get(USE_NEWEST_RH_KSTREE_PARAM) != null) {
+            updateType = KickstartTreeUpdateType.RED_HAT;
+        }
+        else {
+            updateType = KickstartTreeUpdateType.NONE;
+            fields.add(KSTREE_ID_PARAM);
+        }
 
         if (!validateInput(form, fields, ctx)) {
             return this.dispatch(step.getPrevious(), mapping, form, ctx, response);
@@ -179,24 +193,36 @@ public class CreateProfileWizardAction extends RhnWizardAction {
                 return this.dispatch(step.getPrevious(), mapping, form, ctx, response);
             }
 
-
+            Long channelId = (Long) form.get(CURRENT_CHANNEL_ID_PARAM);
             KickstartHelper helper = new KickstartHelper(ctx.getRequest());
-
-            Long treeId = (Long) form.get(KSTREE_ID_PARAM);
             KickstartWizardHelper cmd = new KickstartWizardHelper(ctx.getCurrentUser());
             ActionForward retval = null;
+            KickstartableTree tree = null;
+
+            if (updateType == KickstartTreeUpdateType.NONE) {
+                tree = cmd.getKickstartableTree((Long) form
+                        .get(KSTREE_ID_PARAM));
+            }
+            else {
+                tree = KickstartFactory.getNewestTree(updateType, channelId,
+                        ctx.getLoggedInUser().getOrg());
+                form.set(KSTREE_ID_PARAM, tree.getId());
+            }
+
+            form.set(KSTREE_UPDATE_TYPE, updateType.getType());
             form.set(PREV_STEP_PARAM, "first");
             form.set(NEXT_STEP_PARAM, "third");
-            form.set(DEFAULT_DOWNLOAD_LOCN, getDefaultDisplayDownloadLocation(
-                    cmd.getKickstartableTree(treeId), helper.getKickstartHost()));
+            form.set(
+                    DEFAULT_DOWNLOAD_LOCN,
+                    getDefaultDisplayDownloadLocation(tree,
+                            helper.getKickstartHost()));
 
-            KickstartableTree tree = cmd.getKickstartableTree(treeId);
             ctx.getRequest().setAttribute("selectedTree", tree);
 
             //validate we have a distro for the tree + virt type combination
             String typeParam = form.getString(VIRTUALIZATION_TYPE_LABEL_PARAM);
             KickstartVirtualizationType vType =
-                KickstartFactory.lookupKickstartVirtualizationTypeByLabel(typeParam);
+                    KickstartFactory.lookupKickstartVirtualizationTypeByLabel(typeParam);
             Distro distro = CobblerProfileCommand.getCobblerDistroForVirtType(tree,
                     vType, ctx.getLoggedInUser());
             if (distro == null) {
@@ -223,10 +249,10 @@ public class CreateProfileWizardAction extends RhnWizardAction {
         List<String> fields = new LinkedList<String>();
         fields.add(DEFAULT_DOWNLOAD_PARAM);
         if (!validateInput(form, fields, ctx)) {
-           return this.dispatch(step.getPrevious(), mapping, form, ctx, response);
+            return this.dispatch(step.getPrevious(), mapping, form, ctx, response);
         }
         Boolean usingDefaultLocation =
-            (Boolean) form.get(DEFAULT_DOWNLOAD_PARAM);
+                (Boolean) form.get(DEFAULT_DOWNLOAD_PARAM);
         if (usingDefaultLocation != null && usingDefaultLocation.equals(Boolean.FALSE)) {
             fields.clear();
             fields = new LinkedList();
@@ -262,11 +288,13 @@ public class CreateProfileWizardAction extends RhnWizardAction {
         fields.add(ROOT_PASSWORD_CONFIRM_PARAM);
         if (!validateInput(form, fields, ctx) ||
                 !passwdsEqual(form.getString(ROOT_PASSWORD_PARAM),
-                              form.getString(ROOT_PASSWORD_CONFIRM_PARAM), ctx)) {
+                        form.getString(ROOT_PASSWORD_CONFIRM_PARAM), ctx)) {
             return this.dispatch(step.getPrevious(), mapping, form, ctx, response);
         }
-        KickstartableTree tree = cmd.getKickstartableTree(
-                (Long)form.get(KSTREE_ID_PARAM));
+        KickstartableTree tree = cmd.getKickstartableTree((Long) form
+                .get(KSTREE_ID_PARAM));
+        KickstartTreeUpdateType updateType = KickstartTreeUpdateType
+                .find((String) form.get(KSTREE_UPDATE_TYPE));
         Boolean useDefault = (Boolean) form.get(DEFAULT_DOWNLOAD_PARAM);
         String downloadUrl = null;
         if (useDefault != null && Boolean.TRUE.equals(useDefault)) {
@@ -275,16 +303,16 @@ public class CreateProfileWizardAction extends RhnWizardAction {
         else {
             downloadUrl = form.getString(USER_DOWNLOAD_PARAM);
         }
-        log.debug("Using default download location: " + downloadUrl);
+        log.debug("Using download location: " + downloadUrl);
         String ksLabel = form.getString(KICKSTART_LABEL_PARAM);
         String rootPass = form.getString(ROOT_PASSWORD_PARAM);
         String virtType = form.getString(VIRTUALIZATION_TYPE_LABEL_PARAM);
         KickstartBuilder builder = new KickstartBuilder(ctx.getCurrentUser());
-        KickstartData ksdata = builder.create(ksLabel, tree, virtType, downloadUrl,
-                rootPass, helper.getKickstartHost());
+        KickstartData ksdata = builder.create(ksLabel, tree, virtType,
+                downloadUrl, rootPass, helper.getKickstartHost(), updateType);
 
         String url = ctx.getRequest().getContextPath() + "/kickstart/" +
-            "KickstartDetailsEdit.do?ksid=" + ksdata.getId();
+                "KickstartDetailsEdit.do?ksid=" + ksdata.getId();
         response.sendRedirect(url);
         return null;
     }
@@ -294,7 +322,13 @@ public class CreateProfileWizardAction extends RhnWizardAction {
         Long currentChanId = (Long) form.get(CURR_CHAN_ID);
         Long prevChanId = (Long) form.get(PREV_CHAN_ID);
         if (currentChanId != null && prevChanId != null) {
-            List trees = cmd.getTrees(currentChanId);
+            List<KickstartableTree> trees = cmd.getTrees(currentChanId);
+            for (KickstartableTree tree : trees) {
+                if (tree.getOrg() == null) {
+                    request.setAttribute(RED_HAT_TREES_AVAILABLE, "true");
+                    break;
+                }
+            }
             if (trees == null || trees.size() == 0) {
                 request.setAttribute(NOTREES_PARAM, "true");
             }
@@ -302,8 +336,7 @@ public class CreateProfileWizardAction extends RhnWizardAction {
                 form.set(KSTREES_PARAM, trees);
                 if (!currentChanId.equals(prevChanId)) {
                     form.set(PREV_CHAN_ID, currentChanId);
-                    KickstartableTree tree = (KickstartableTree)
-                        trees.get(trees.size() - 1);
+                    KickstartableTree tree = trees.get(trees.size() - 1);
                     form.set(KSTREE_ID_PARAM, tree.getId());
                 }
             }
@@ -318,7 +351,7 @@ public class CreateProfileWizardAction extends RhnWizardAction {
         List types = cmd.getVirtualizationTypes();
         form.set(VIRTUALIZATION_TYPES_PARAM, types);
         form.set(VIRTUALIZATION_TYPE_LABEL_PARAM,
-                                KickstartVirtualizationType.NONE);
+                KickstartVirtualizationType.NONE);
     }
 
     private void setCurrentChannel(DynaActionForm form) {
@@ -340,7 +373,7 @@ public class CreateProfileWizardAction extends RhnWizardAction {
     private boolean validateInput(DynaActionForm form, List fieldNames,
             RequestContext ctx) {
         ActionErrors errs =
-            RhnValidationHelper.validateDynaActionForm(this, form, fieldNames);
+                RhnValidationHelper.validateDynaActionForm(this, form, fieldNames);
         boolean retval = errs.size() == 0;
 
         if (!retval) {

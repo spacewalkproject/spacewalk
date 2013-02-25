@@ -35,6 +35,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeFilter;
+import com.redhat.rhn.frontend.action.kickstart.KickstartTreeUpdateType;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartOptionValue;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
@@ -43,6 +44,9 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidScriptTypeException;
 import com.redhat.rhn.frontend.xmlrpc.IpRangeConflictException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.ValidationException;
+import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidUpdateTypeAndKickstartTreeException;
+import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidUpdateTypeAndNoBaseTreeException;
+import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidUpdateTypeException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.NoSuchKickstartTreeException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.XmlRpcKickstartHelper;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.profile.keys.KeysHandler;
@@ -105,6 +109,32 @@ public class ProfileHandler extends BaseHandler {
         return ksdefault.getKstree().getLabel();
     }
 
+    /**
+     * Get the update type for a kickstart profile.
+     * @param sessionKey User's session key.
+     * @param kslabel label of the kickstart profile to be changed.
+     * @return kickstart tree label
+     *
+     * @xmlrpc.doc Get the update type for a kickstart profile.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "kslabel", "Label of kickstart
+     * profile.")
+     * @xmlrpc.returntype
+     *     #param_desc("string", "update_type", "Update type for this Kickstart Profile.")
+     */
+    public String getUpdateType(String sessionKey, String kslabel) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        KickstartData ksdata = KickstartFactory
+                .lookupKickstartDataByLabelAndOrgId(kslabel, loggedInUser
+                        .getOrg().getId());
+        if (ksdata == null) {
+            throw new FaultException(-3, "kickstartProfileNotFound",
+                    "No Kickstart Profile found with label: " + kslabel);
+        }
+
+        return ksdata.getUpdateType();
+    }
 
     /**
      * Get the option to perserve ks.cfg.
@@ -222,6 +252,61 @@ public class ProfileHandler extends BaseHandler {
 
         KickstartDefaults ksdefault = ksdata.getKickstartDefaults();
         ksdefault.setKstree(tree);
+        return 1;
+    }
+
+    /**
+     * Set the update type for a kickstart profile.
+     * @param sessionKey User's session key.
+     * @param kslabel label of the kickstart profile to be changed.
+     * @param updateType the new update type.
+     * @return 1 if successful, exception otherwise.
+     *
+     * @xmlrpc.doc Set the update typefor a kickstart profile.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "kslabel", "Label of kickstart
+     * profile to be changed.")
+     * @xmlrpc.param #param_desc("string", "updateType", "The new update type
+     * to set. Possible values are 'red_hat', 'all', and 'none'.")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setUpdateType(String sessionKey, String kslabel,
+            String updateType) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        KickstartData ksdata = KickstartFactory
+                .lookupKickstartDataByLabelAndOrgId(kslabel, loggedInUser
+                        .getOrg().getId());
+        if (ksdata == null) {
+            throw new FaultException(-3, "kickstartProfileNotFound",
+                    "No Kickstart Profile found with label: " + kslabel);
+        }
+
+        KickstartableTree tree = ksdata.getTree();
+        KickstartTreeUpdateType realUT = null;
+        if (updateType.equals(KickstartTreeUpdateType.ALL.getType())) {
+            if (tree.getChannel() == null) {
+                throw new InvalidUpdateTypeAndNoBaseTreeException(tree.getLabel());
+            }
+            realUT = KickstartTreeUpdateType.ALL;
+        }
+        else if (updateType.equals(KickstartTreeUpdateType.RED_HAT.getType())) {
+            if (tree.getOrgId() != null) {
+                throw new InvalidUpdateTypeAndKickstartTreeException(tree.getLabel());
+            }
+            if (tree.getChannel() == null) {
+                throw new InvalidUpdateTypeAndNoBaseTreeException(tree.getLabel());
+            }
+            realUT = KickstartTreeUpdateType.RED_HAT;
+        }
+        else if (updateType.equals(KickstartTreeUpdateType.NONE.getType())) {
+            realUT = KickstartTreeUpdateType.NONE;
+        }
+        else {
+            throw new InvalidUpdateTypeException(updateType);
+        }
+
+        ksdata.setRealUpdateType(realUT);
         return 1;
     }
 

@@ -59,6 +59,7 @@ function movePrevious() {
     <html:hidden property="kickstartLabel" />
     <html:hidden property="virtualizationTypeLabel" />
     <html:hidden property="kstreeId" />
+    <html:hidden property="kstreeUpdateType" />
     <h1><bean:message key="kickstart.jsp.create.wizard.step.two"/></h1>
     <table class="details" width="80%">
         <tr>

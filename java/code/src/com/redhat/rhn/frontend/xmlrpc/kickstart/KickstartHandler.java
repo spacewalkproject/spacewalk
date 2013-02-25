@@ -32,6 +32,7 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeFilter;
+import com.redhat.rhn.frontend.action.kickstart.KickstartTreeUpdateType;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
@@ -70,7 +71,7 @@ public class KickstartHandler extends BaseHandler {
     public List listKickstartableTrees(String sessionKey,
             String channelLabel) {
         return new KickstartTreeHandler().
-            list(sessionKey, channelLabel);
+                list(sessionKey, channelLabel);
     }
 
     /**
@@ -161,6 +162,54 @@ public class KickstartHandler extends BaseHandler {
     public int importFile(String sessionKey, String profileLabel,
             String virtualizationType, String kickstartableTreeLabel,
             String kickstartHost, String kickstartFileContents) {
+        return importFile(sessionKey, profileLabel, virtualizationType,
+                kickstartableTreeLabel, kickstartHost, kickstartFileContents,
+                getDefaultUpdateType());
+    }
+
+    /**
+     * Import a kickstart profile into RHN, overriding the
+     * url/nfs/harddrive/cdrom command in the file and replacing it with the
+     * default URL for the kickstartable tree and kickstart host specified.
+     *
+     * @param sessionKey User's session key.
+     * @param profileLabel Label for the new kickstart profile.
+     * @param virtualizationType Virtualization type, or none.
+     * @param kickstartableTreeLabel Label of a kickstartable tree.
+     * @param kickstartHost Kickstart hostname (of a satellite or proxy) used to
+     * construct the default download URL for the new kickstart profile. Using
+     * this option signifies that this default URL will be used instead of any
+     * url/nfs/cdrom/harddrive commands in the kickstart file itself.
+     * @param kickstartFileContents Contents of a kickstart file.
+     * @param updateType Set the automatic ks tree update strategy
+     * for the profile. Valid choices are "red_hat", "none", "all".
+     * @return 1 if successful, exception otherwise.
+     *
+     * @xmlrpc.doc Import a kickstart profile into RHN.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "profileLabel", "Label for the new
+     * kickstart profile.")
+     * @xmlrpc.param #param_desc("string", "virtualizationType", "none, para_host,
+     * qemu, xenfv or xenpv.")
+     * @xmlrpc.param #param_desc("string", "kickstartableTreeLabel", "Label of a
+     * kickstartable tree to associate the new profile with.")
+     * @xmlrpc.param #param_desc("string", "kickstartHost", "Kickstart hostname
+     * (of a satellite or proxy) used to construct the default download URL for
+     * the new kickstart profile. Using this option signifies that this default
+     * URL will be used instead of any url/nfs/cdrom/harddrive commands in the
+     * kickstart file itself.")
+     * @xmlrpc.param #param_desc("string", "kickstartFileContents", "Contents of
+     * the kickstart file to import.")
+     * @xmlrpc.param #param_desc("string", "updateType", "Should the profile update
+     * itself to use the newest tree available? Possible values are: none (default),
+     * red_hat (only use Kickstart Trees synced from Red Hat), or all (includes
+     * custom Kickstart Trees).")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int importFile(String sessionKey, String profileLabel,
+            String virtualizationType, String kickstartableTreeLabel,
+            String kickstartHost, String kickstartFileContents,
+            String updateType) {
 
         User loggedInUser = getLoggedInUser(sessionKey);
 
@@ -173,9 +222,73 @@ public class KickstartHandler extends BaseHandler {
             throw new NoSuchKickstartTreeException(kickstartableTreeLabel);
         }
 
+        KickstartTreeUpdateType updateTree = getUpdateType(updateType, tree);
+
         try {
             builder.createFromParser(parser, profileLabel, virtualizationType,
-                    tree, kickstartHost);
+                    tree, kickstartHost, updateTree);
+        }
+        catch (PermissionException e) {
+            throw new PermissionCheckFailureException(e);
+        }
+        catch (com.redhat.rhn.domain.kickstart.builder.InvalidKickstartLabelException e) {
+            throw new InvalidKickstartLabelException(profileLabel);
+        }
+
+        return 1;
+    }
+
+    /**
+     * Create a new kickstart profile using the default download URL for the
+     * kickstartable tree and kickstart host specified.
+     *
+     * @param sessionKey User's session key.
+     * @param profileLabel Label for the new kickstart profile.
+     * @param virtualizationType Virtualization type, or none.
+     * @param kickstartableTreeLabel Label of a kickstartable tree.
+     * @param kickstartHost Kickstart hostname (of a satellite or proxy) used to
+     * construct the default download URL for the new kickstart profile.
+     * @param rootPassword Root password.
+     * @param updateType Set the automatic ks tree update strategy
+     * for the profile. Valid choices are "red_hat", "none", "all".
+     * @return 1 if successful, exception otherwise.
+     *
+     * @xmlrpc.doc Import a kickstart profile into RHN.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "profileLabel" "Label for the new
+     * kickstart profile.")
+     * @xmlrpc.param #param_desc("string", "virtualizationType", "none, para_host,
+     * qemu, xenfv or xenpv.")
+     * @xmlrpc.param #param_desc("string", "kickstartableTreeLabel", "Label of a
+     * kickstartable tree to associate the new profile with.")
+     * @xmlrpc.param #param_desc("string", "kickstartHost", "Kickstart hostname
+     * (of a satellite or proxy) used to construct the default download URL for
+     * the new kickstart profile.")
+     * @xmlrpc.param #param_desc("string", "rootPassword", "Root password.")
+     * @xmlrpc.param #param_desc("string", "updateType", "Should the profile update
+     * itself to use the newest tree available? Possible values are: none (default),
+     * red_hat (only use Kickstart Trees synced from Red Hat), or all (includes
+     * custom Kickstart Trees).")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int createProfile(String sessionKey, String profileLabel,
+            String virtualizationType, String kickstartableTreeLabel,
+            String kickstartHost, String rootPassword, String updateType) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        KickstartBuilder builder = new KickstartBuilder(loggedInUser);
+
+        KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(
+                kickstartableTreeLabel, loggedInUser.getOrg());
+        if (tree == null) {
+            throw new NoSuchKickstartTreeException(kickstartableTreeLabel);
+        }
+        KickstartTreeUpdateType updateTree = getUpdateType(updateType, tree);
+
+        String downloadUrl = tree.getDefaultDownloadLocation(kickstartHost);
+        try {
+            builder.create(profileLabel, tree, virtualizationType, downloadUrl,
+                    rootPassword, RhnXmlRpcServer.getServerName(), updateTree);
         }
         catch (PermissionException e) {
             throw new PermissionCheckFailureException(e);
@@ -217,29 +330,9 @@ public class KickstartHandler extends BaseHandler {
     public int createProfile(String sessionKey, String profileLabel,
             String virtualizationType, String kickstartableTreeLabel,
             String kickstartHost, String rootPassword) {
-
-        User loggedInUser = getLoggedInUser(sessionKey);
-        KickstartBuilder builder = new KickstartBuilder(loggedInUser);
-
-        KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(
-                kickstartableTreeLabel, loggedInUser.getOrg());
-        if (tree == null) {
-            throw new NoSuchKickstartTreeException(kickstartableTreeLabel);
-        }
-
-        String downloadUrl = tree.getDefaultDownloadLocation(kickstartHost);
-        try {
-            builder.create(profileLabel, tree, virtualizationType, downloadUrl,
-                    rootPassword,  RhnXmlRpcServer.getServerName());
-        }
-        catch (PermissionException e) {
-            throw new PermissionCheckFailureException(e);
-        }
-        catch (com.redhat.rhn.domain.kickstart.builder.InvalidKickstartLabelException e) {
-            throw new InvalidKickstartLabelException(profileLabel);
-        }
-
-        return 1;
+        return createProfile(sessionKey, profileLabel, virtualizationType,
+                kickstartableTreeLabel, kickstartHost, rootPassword,
+                getDefaultUpdateType());
     }
 
     /**
@@ -271,6 +364,46 @@ public class KickstartHandler extends BaseHandler {
             String profileLabel, String virtualizationType,
             String kickstartableTreeLabel, String downloadUrl,
             String rootPassword) {
+        return createProfileWithCustomUrl(sessionKey, profileLabel,
+                virtualizationType, kickstartableTreeLabel, downloadUrl,
+                rootPassword, getDefaultUpdateType());
+    }
+
+    /**
+     * Create a new kickstart profile with a custom download URL.
+     *
+     * @param sessionKey User's session key.
+     * @param profileLabel Label for the new kickstart profile.
+     * @param virtualizationType Virtualization type, or none.
+     * @param kickstartableTreeLabel Label of a kickstartable tree.
+     * @param downloadUrl Download URL, or 'default' to use the kickstart tree's
+     * default URL.
+     * @param rootPassword Root password.
+     * @param updateType Set the automatic ks tree update strategy
+     * for the profile. Valid choices are "red_hat", "none", "all".
+     * @return 1 if successful, exception otherwise.
+     *
+     * @xmlrpc.doc Import a kickstart profile into RHN.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "profileLabel", "Label for the new
+     * kickstart profile.")
+     * @xmlrpc.param #param_desc("string", "virtualizationType", "none, para_host,
+     * qemu, xenfv or xenpv.")
+     * @xmlrpc.param #param_desc("string", "kickstartableTreeLabel", "Label of a
+     * kickstartable tree to associate the new profile with.")
+     * @xmlrpc.param #param_desc("boolean", "downloadUrl", "Download URL, or
+     * 'default' to use the kickstart tree's default URL.")
+     * @xmlrpc.param #param_desc("string", "rootPassword", "Root password.")
+     * @xmlrpc.param #param_desc("string", "updateType", "Should the profile update
+     * itself to use the newest tree available? Possible values are: none (default),
+     * red_hat (only use Kickstart Trees synced from Red Hat), or all (includes
+     * custom Kickstart Trees).")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int createProfileWithCustomUrl(String sessionKey,
+            String profileLabel, String virtualizationType,
+            String kickstartableTreeLabel, String downloadUrl,
+            String rootPassword, String updateType) {
 
         User loggedInUser = getLoggedInUser(sessionKey);
         KickstartBuilder builder = new KickstartBuilder(loggedInUser);
@@ -281,9 +414,10 @@ public class KickstartHandler extends BaseHandler {
             throw new NoSuchKickstartTreeException(kickstartableTreeLabel);
         }
 
+        KickstartTreeUpdateType updateTree = getUpdateType(updateType, tree);
         try {
             builder.create(profileLabel, tree, virtualizationType, downloadUrl,
-                    rootPassword, RhnXmlRpcServer.getServerName());
+                    rootPassword, RhnXmlRpcServer.getServerName(), updateTree);
         }
         catch (PermissionException e) {
             throw new PermissionCheckFailureException(e);
@@ -501,13 +635,13 @@ public class KickstartHandler extends BaseHandler {
 
         User loggedInUser = getLoggedInUser(sessionKey);
         KickstartData toClone = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
-                                        ksLabelToClone, loggedInUser.getOrg().getId());
+                ksLabelToClone, loggedInUser.getOrg().getId());
         if (toClone == null) {
             throw new InvalidKickstartLabelException(ksLabelToClone);
         }
 
         KickstartCloneCommand cmd =
-            new KickstartCloneCommand(toClone.getId(), loggedInUser, newKsLabel);
+                new KickstartCloneCommand(toClone.getId(), loggedInUser, newKsLabel);
 
         KickstartBuilder builder = new KickstartBuilder(loggedInUser);
         builder.validateNewLabel(newKsLabel);
@@ -543,6 +677,44 @@ public class KickstartHandler extends BaseHandler {
     public int importRawFile(String sessionKey, String profileLabel,
             String virtualizationType, String kickstartableTreeLabel,
             String kickstartFileContents) {
+        return importRawFile(sessionKey, profileLabel, virtualizationType,
+                kickstartableTreeLabel, kickstartFileContents,
+                getDefaultUpdateType());
+    }
+
+    /**
+     * Import a kickstart profile into RHN, overriding the
+     * url/nfs/harddrive/cdrom command in the file and replacing it with the
+     * default URL for the kickstartable tree and kickstart host specified.
+     *
+     * @param sessionKey User's session key.
+     * @param profileLabel Label for the new kickstart profile.
+     * @param virtualizationType Virtualization type, or none.
+     * @param kickstartableTreeLabel Label of a kickstartable tree.
+     * @param kickstartFileContents Contents of a kickstart file.
+     * @param updateType Set the automatic ks tree update strategy
+     * for the profile. Valid choices are "red_hat", "none", "all".
+     * @return 1 if successful, exception otherwise.
+     *
+     * @xmlrpc.doc Import a raw kickstart file into satellite.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "profileLabel", "Label for the new
+     * kickstart profile.")
+     * @xmlrpc.param #param_desc("string", "virtualizationType", "none, para_host,
+     * qemu, xenfv or xenpv.")
+     * @xmlrpc.param #param_desc("string", "kickstartableTreeLabel", "Label of a
+     * kickstartable tree to associate the new profile with.")
+     * @xmlrpc.param #param_desc("string", "kickstartFileContents", "Contents of
+     * the kickstart file to import.")
+     * @xmlrpc.param #param_desc("string", "updateType", "Should the profile update
+     * itself to use the newest tree available? Possible values are: none (default),
+     * red_hat (only use Kickstart Trees synced from Red Hat), or all (includes
+     * custom Kickstart Trees).")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int importRawFile(String sessionKey, String profileLabel,
+            String virtualizationType, String kickstartableTreeLabel,
+            String kickstartFileContents, String updateType) {
 
         User loggedInUser = getLoggedInUser(sessionKey);
         KickstartBuilder builder = new KickstartBuilder(loggedInUser);
@@ -553,10 +725,11 @@ public class KickstartHandler extends BaseHandler {
             throw new NoSuchKickstartTreeException(kickstartableTreeLabel);
         }
 
+        KickstartTreeUpdateType updateTree = getUpdateType(updateType, tree);
+
         try {
-            KickstartRawData data = builder.createRawData(profileLabel,
-                                                     tree, kickstartFileContents,
-                                                     virtualizationType);
+            KickstartRawData data = builder.createRawData(profileLabel, tree,
+                    kickstartFileContents, virtualizationType, updateTree);
         }
         catch (PermissionException e) {
             throw new PermissionCheckFailureException(e);
@@ -566,5 +739,43 @@ public class KickstartHandler extends BaseHandler {
         }
 
         return 1;
+    }
+
+    /**
+     * Conver string updatetype to a real KickstartTreeUpdateType
+     * @param typeIn the string to try
+     * @return the KickstartTreeUpdateType
+     */
+    private KickstartTreeUpdateType getUpdateType(String typeIn,
+                KickstartableTree tree) {
+        if (typeIn.equals(KickstartTreeUpdateType.ALL.getType())) {
+            if (tree.getChannel() == null) {
+                throw new InvalidUpdateTypeAndNoBaseTreeException(tree.getLabel());
+            }
+            return KickstartTreeUpdateType.ALL;
+        }
+        else if (typeIn.equals(KickstartTreeUpdateType.RED_HAT.getType())) {
+            if (tree.getOrgId() != null) {
+                throw new InvalidUpdateTypeAndKickstartTreeException(tree.getLabel());
+            }
+            if (tree.getChannel() == null) {
+                throw new InvalidUpdateTypeAndNoBaseTreeException(tree.getLabel());
+            }
+            return KickstartTreeUpdateType.RED_HAT;
+        }
+        else if (typeIn.equals(KickstartTreeUpdateType.NONE.getType())) {
+            return KickstartTreeUpdateType.NONE;
+        }
+        else {
+            throw new InvalidUpdateTypeException(typeIn);
+        }
+    }
+
+    /**
+     * Return the default KickstartTreeUpdateType
+     * @return string for the default KickstartTreeUpdateType
+     */
+    private String getDefaultUpdateType() {
+        return KickstartTreeUpdateType.NONE.getType();
     }
 }

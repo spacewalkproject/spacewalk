@@ -15,6 +15,18 @@
       <minInclusive value="1" />
     </simpleType>
   </attribute>
+  <attribute name="determineNewRH">
+    <simpleType baseType="string">
+      <minLength value="1" />
+      <maxLength value="32" />
+    </simpleType>
+  </attribute>
+  <attribute name="determineNew">
+    <simpleType baseType="string">
+      <minLength value="1" />
+      <maxLength value="32" />
+    </simpleType>
+  </attribute>
   <attribute name="defaultDownload">
     <simpleType baseType="string">
       <minLength value="4" />

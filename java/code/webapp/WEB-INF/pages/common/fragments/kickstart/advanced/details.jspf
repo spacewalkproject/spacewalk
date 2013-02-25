@@ -25,6 +25,17 @@
                       <html:select property="kstreeId">
                        <html:optionsCollection property="kstrees" label="label" value="id" />
                       </html:select>
+                      <br />
+                      <input type="checkbox" name="updateRedHat" id="updateRedHat" value="0"
+                          onclick="clickNewestRHTree(this)"
+                      <c:if test="${param.usingUpdateRedHat == true}">checked=1</c:if> />
+                      <bean:message key="kickstart.jsp.create.wizard.kstree.always_new_RH"/>
+                      <br />
+                      <input type="checkbox" name="updateAll" id="updateAll" value="0"
+                          onclick="clickNewestTree(this)"
+                      <c:if test="${param.usingUpdateAll == true}">checked=1</c:if> />
+                      <bean:message key="kickstart.jsp.create.wizard.kstree.always_new"/>
+
                     </c:when>
                     <c:otherwise>
                       <b><bean:message key="kickstart.edit.software.notrees.jsp" /></b>

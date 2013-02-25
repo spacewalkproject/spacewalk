@@ -37,6 +37,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *          #prop("boolean", "advanced_mode")
  *          #prop("boolean", "org_default")
  *          #prop("boolean", "active")
+ *          #prop("string", "update_type")
  *   #struct_end()
  */
 public class KickstartDtoSerializer implements XmlRpcCustomSerializer {
@@ -50,7 +51,7 @@ public class KickstartDtoSerializer implements XmlRpcCustomSerializer {
 
     /** {@inheritDoc} */
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
-        throws XmlRpcException, IOException {
+            throws XmlRpcException, IOException {
         KickstartDto ks = (KickstartDto)value;
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
 
@@ -65,6 +66,7 @@ public class KickstartDtoSerializer implements XmlRpcCustomSerializer {
         else {
             helper.add("org_default", false);
         }
+        helper.add("update_type", ks.getUpdateType());
 
 
         helper.writeTo(output);

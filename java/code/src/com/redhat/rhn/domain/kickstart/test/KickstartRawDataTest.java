@@ -23,8 +23,8 @@ import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.kickstart.KickstartTreeUpdateType;
 import com.redhat.rhn.manager.kickstart.KickstartCloneCommand;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroCreateCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCreateCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
@@ -42,13 +42,12 @@ public class KickstartRawDataTest extends BaseTestCaseWithUser {
 
     private KickstartableTree tree;
     private KickstartRawData ksdata;
-    private String fileContents = "test kickstart file\n";
+    private final String fileContents = "test kickstart file\n";
 
     public void setUp() throws Exception {
         super.setUp();
         user.addRole(RoleFactory.ORG_ADMIN);
         tree = KickstartableTreeTest.createTestKickstartableTree();
-        CobblerDistroCreateCommand cmd = new CobblerDistroCreateCommand(tree);
         ksdata = createRawData(user, "boring" + TestUtils.randomString(), tree,
                 fileContents,
                 KickstartVirtualizationType.XEN_PARAVIRT);
@@ -69,7 +68,7 @@ public class KickstartRawDataTest extends BaseTestCaseWithUser {
 
         long id = ksdata.getId();
         KickstartRawData checker = (KickstartRawData) KickstartFactory.
-                    lookupKickstartDataByIdAndOrg(user.getOrg(), id);
+                lookupKickstartDataByIdAndOrg(user.getOrg(), id);
 
         assertEquals(fileContents, checker.getData());
         // Setting to null zeros out in memory but
@@ -114,14 +113,14 @@ public class KickstartRawDataTest extends BaseTestCaseWithUser {
             String label,
             KickstartableTree tree,
             String contents,
-                String virtType) {
+            String virtType) {
         KickstartBuilder builder = new KickstartBuilder(user);
         KickstartRawData data = builder.createRawData(label, tree, contents,
-                                   virtType);
+                virtType, KickstartTreeUpdateType.NONE);
         assertNotNull(data);
         assertEquals(label, data.getLabel());
         assertEquals(virtType,
-        data.getKickstartDefaults().getVirtualizationType().getLabel());
+                data.getKickstartDefaults().getVirtualizationType().getLabel());
         assertEquals(tree, data.getKickstartDefaults().getKstree());
         assertEquals(user.getOrg(), data.getOrg());
 

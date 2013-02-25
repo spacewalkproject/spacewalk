@@ -31,6 +31,7 @@ import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartRawDataTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.frontend.action.kickstart.KickstartTreeUpdateType;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeException;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.TestUtils;
@@ -63,9 +64,10 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         tree.setInstallType(KickstartFactory.
                 lookupKickstartInstallTypeByLabel(KickstartInstallType.RHEL_5));
         KickstartData data =
-            builder.create(TestUtils.randomString(), tree,
-                    KickstartVirtualizationType.XEN_PARAVIRT,
-                "http://localhost/ks", "redhat", "localhost");
+                builder.create(TestUtils.randomString(), tree,
+                        KickstartVirtualizationType.XEN_PARAVIRT,
+                        "http://localhost/ks", "redhat", "localhost",
+                KickstartTreeUpdateType.NONE);
         assertNotNull(data);
     }
 
@@ -77,9 +79,10 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         tree.setInstallType(KickstartFactory.
                 lookupKickstartInstallTypeByLabel(KickstartInstallType.RHEL_4));
         KickstartData rhel4data =
-            builder.create(TestUtils.randomString(), tree,
-                    KickstartVirtualizationType.XEN_PARAVIRT,
-                "http://localhost/ks", "redhat", "localhost");
+                builder.create(TestUtils.randomString(),
+                        tree, KickstartVirtualizationType.XEN_PARAVIRT,
+                        "http://localhost/ks", "redhat", "localhost",
+                KickstartTreeUpdateType.NONE);
 
         String contents = FileUtils.readStringFromFile(rhel4data.getCobblerFileName());
         assertTrue(contents.indexOf("langsupport") > 0);
@@ -92,9 +95,10 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         tree.setInstallType(KickstartFactory.
                 lookupKickstartInstallTypeByLabel(KickstartInstallType.RHEL_5));
         KickstartData rhel5data =
-            builder.create(TestUtils.randomString(), tree,
-                    KickstartVirtualizationType.XEN_PARAVIRT,
-                "http://localhost/ks", "redhat", "localhost");
+                builder.create(TestUtils.randomString(),
+                        tree, KickstartVirtualizationType.XEN_PARAVIRT,
+                        "http://localhost/ks", "redhat", "localhost",
+                KickstartTreeUpdateType.NONE);
 
         contents = FileUtils.readStringFromFile(rhel5data.getCobblerFileName());
         System.out.println("Contents: " + contents);
@@ -330,7 +334,8 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
         //String randomLabel = RandomStringUtils.randomAlphabetic(10);
         KickstartData ksData = builder.createFromParser(parser, "mykslabel",
-                KickstartVirtualizationType.XEN_PARAVIRT, tree, null);
+                KickstartVirtualizationType.XEN_PARAVIRT, tree, null,
+                KickstartTreeUpdateType.NONE);
         assertEquals(100, ksData.getKsPackages().size());
         assertEquals(1, ksData.getScripts().size());
 
@@ -344,10 +349,12 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
 
         KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
         builder.createFromParser(parser, "mykslabel",
-                KickstartVirtualizationType.XEN_PARAVIRT, tree, null);
+                KickstartVirtualizationType.XEN_PARAVIRT, tree, null,
+                KickstartTreeUpdateType.NONE);
         try {
             builder.createFromParser(parser, "mykslabel",
-                    KickstartVirtualizationType.XEN_PARAVIRT, tree, null);
+                    KickstartVirtualizationType.XEN_PARAVIRT, tree, null,
+                    KickstartTreeUpdateType.NONE);
             fail();
         }
         catch (ValidatorException e) {
@@ -361,7 +368,8 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
 
         KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
         try {
-            builder.createFromParser(parser, "badvirttype", "whatever", tree, null);
+            builder.createFromParser(parser, "badvirttype", "whatever", tree,
+                    null, KickstartTreeUpdateType.NONE);
             fail();
         }
         catch (InvalidVirtualizationTypeException e) {
@@ -375,7 +383,8 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
 
         KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
         KickstartData data = builder.createFromParser(parser, "upgrade-ks",
-                KickstartVirtualizationType.XEN_PARAVIRT, tree, null);
+                KickstartVirtualizationType.XEN_PARAVIRT, tree, null,
+                KickstartTreeUpdateType.NONE);
 
         assertNotNull(data.getCommand("upgrade"));
         assertNull(data.getCommand("install"));
@@ -385,9 +394,9 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         KickstartParser parser = createKickstartParser("samplekickstart1.ks");
         KickstartBuilder builder = new KickstartBuilder(user);
         KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
-        KickstartData data = builder.createFromParser(parser, "testing-profile",
-                KickstartVirtualizationType.XEN_PARAVIRT,
-                tree, KICKSTART_HOST);
+        KickstartData data = builder.createFromParser(parser,
+                "testing-profile", KickstartVirtualizationType.XEN_PARAVIRT,
+                tree, KICKSTART_HOST, KickstartTreeUpdateType.NONE);
 
         assertNull(data.getCommand("nfs"));
         KickstartCommand urlCmd = data.getCommand("url");

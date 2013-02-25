@@ -5,6 +5,19 @@
 <html:html xhtml="true">
 <head>
 <meta http-equiv="Pragma" content="no-cache" />
+<script language="javascript" type="text/javascript">
+function clickNewestRHTree(obj) {
+   if (obj.checked == true) {
+       document.getElementById("updateAll").checked = false;
+   }
+}
+
+function clickNewestTree(obj) {
+   if (obj.checked == true) {
+       document.getElementById("updateRedHat").checked = false;
+   }
+}
+</script>
 </head>
 <body>
 <rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif"
