@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.74
+Version: 1.9.75
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Feb 25 2013 Tomas Kasparek <tkasparek@redhat.com> 1.9.75-1
+- API for setting primary network interface
+
 * Mon Feb 25 2013 Tomas Kasparek <tkasparek@redhat.com> 1.9.74-1
 - selecting of primary network interface should behave corectly with
   --nohardware
