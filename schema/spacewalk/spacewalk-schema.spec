@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.9.34
+Version:        1.9.35
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Feb 25 2013 Stephen Herr <sherr@redhat.com> 1.9.35-1
+- add sha1 sum
+- abrt: delete crash: remove content from filer
+
 * Mon Feb 25 2013 Stephen Herr <sherr@redhat.com> 1.9.34-1
 - 915158 - need oracle specific schema upgrade script
 
