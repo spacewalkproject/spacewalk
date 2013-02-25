@@ -68,6 +68,10 @@ public class RhnSetDecl {
     public static final RhnSetDecl CHANNELS_FOR_ERRATA = make(
             "channels_for_errata", SetCleanup.UNOWNED_CHANNELS);
 
+    // set of system crashes
+    public static final RhnSetDecl SYSTEM_CRASHES = make(
+            "crashes_for_system", SetCleanup.NOOP);
+
     // set of errata by errata_id
     public static final RhnSetDecl ERRATA = make("errata_list",
             SetCleanup.ILLEGAL_ERRATA);

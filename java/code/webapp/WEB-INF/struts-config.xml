@@ -3600,6 +3600,16 @@
                  redirect="true"/>
     </action>
 
+    <action path="/systems/details/SoftwareCrashes"
+        scope="request"
+        input="/WEB-INF/pages/systems/crashes.jsp"
+        type="com.redhat.rhn.frontend.action.systems.SoftwareCrashesAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/crashes.jsp"/>
+    </action>
+
      <action path="/systems/details/groups/ListRemove"
              scope="request"
              type="com.redhat.rhn.frontend.action.systems.groups.ListRemoveGroupsAction"

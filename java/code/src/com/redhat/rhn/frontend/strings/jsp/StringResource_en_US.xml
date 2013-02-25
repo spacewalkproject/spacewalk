@@ -15782,6 +15782,18 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <trans-unit id="exportcolumn.score">
           <source>Score</source>
         </trans-unit>
+        <trans-unit id="exportcolumn.crash">
+          <source>Scratch</source>
+        </trans-unit>
+        <trans-unit id="exportcolumn.component">
+          <source>Component</source>
+        </trans-unit>
+        <trans-unit id="exportcolumn.modified">
+          <source>Modified</source>
+        </trans-unit>
+        <trans-unit id="exportcolumn.count">
+          <source>Crash Count</source>
+        </trans-unit>
       </group>
       <trans-unit id="virtualization.provision.first.jsp.no.profiles">
         <source>No profiles currently available for kickstarting guests. Please &lt;a href="/rhn/kickstart/CreateProfileWizard.do"&gt;create a new kickstart profile with a Virtualization Type other than none.&lt;/a&gt;</source>
@@ -16313,6 +16325,48 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <source>Total Crash Count</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/details/Overview.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="crashes.jsp.crashcount">
+        <source>Crash Count</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/details/SoftwareCrashes.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="crashes.jsp.crash">
+        <source>Crash</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/details/SoftwareCrashes.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="crashes.jsp.crashes">
+        <source>Software System Crashes</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/details/SoftwareCrashes.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="crashes.jsp.component">
+        <source>Component</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/details/SoftwareCrashes.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="crashes.jsp.delete.button">
+        <source>Delete Crash(es)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/details/SoftwareCrashes.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="crashes.jsp.summary">
+        <source>Software crashes reported for this system.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="crashes.jsp.nocrashes">
+        <source>There are no software crashes reported for this system.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="sdc.details.migrate.header">

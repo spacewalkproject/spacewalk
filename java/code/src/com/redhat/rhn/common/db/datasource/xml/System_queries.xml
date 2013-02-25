@@ -1425,6 +1425,18 @@ ORDER BY PN.name, PE.evr
   </query>
 </mode>
 
+<mode name="list_server_software_crashes">
+  <query params="server_id">
+SELECT id,
+       crash,
+       count,
+       component,
+       modified
+  FROM rhnServerCrash
+ WHERE server_id = :server_id
+  </query>
+</mode>
+
 <callable-mode name="delete_server">
     <query params="server_id">
     { call delete_server(:server_id) }
