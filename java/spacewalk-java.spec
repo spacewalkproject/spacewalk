@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.72
+Version: 1.9.73
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Feb 25 2013 Stephen Herr <sherr@redhat.com> 1.9.73-1
+- 915158 - Allow kickstart profile to update to latest available tree
+- abrt: deleteCrash xml-rpc api call
+- abrt: listSystemCrashFiles api call
+- abrt: listSystemCrashes() api call returns crash package info
+
 * Sat Feb 23 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.9.72-1
 - Fix 'SystemCrashHandler' compile error
 - Fix cobbler login errors
