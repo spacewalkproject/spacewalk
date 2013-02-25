@@ -6895,6 +6895,9 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="api.system.crash.nosuchcrash">
         <source>No such crash found.</source>
       </trans-unit>
+      <trans-unit id="api.system.nosuchnetiface">
+        <source>No such network interface: {0}.</source>
+      </trans-unit>
       <trans-unit id="api.errata.invalidadvisorytype">
         <source>Invalid errata type, "{0}". Please use one of the following: "Security Advisory", "Product Enhancement Advisory", or "Bug Fix Advisory".</source>
       </trans-unit>

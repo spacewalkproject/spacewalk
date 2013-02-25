@@ -99,6 +99,7 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidSystemException;
 import com.redhat.rhn.frontend.xmlrpc.MethodInvalidParamException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchActionException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchCobblerSystemRecordException;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchNetworkInterfaceException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchSnapshotTagException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
@@ -5306,5 +5307,32 @@ public class SystemHandler extends BaseHandler {
         }
 
         return returnList;
+    }
+
+    /**
+     * Sets new primary network interface
+     * @param sessionKey Session key
+     * @param serverId Server ID
+     * @param interfaceName Interface name
+     * @return 1 if success, exception thrown otherwise
+     * @throws Exception If interface does not exist Exception is thrown
+     *
+     * @xmlrpc.doc Sets new primary network interface
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param("string", "interfaceName")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setPrimaryInterface(String sessionKey, Integer serverId,
+            String interfaceName) throws Exception {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = lookupServer(loggedInUser, serverId);
+
+        if (!server.existsActiveInterfaceWithName(interfaceName)) {
+            throw new NoSuchNetworkInterfaceException("No such network interface: " +
+                    interfaceName);
+        }
+        server.setPrimaryInterfaceWithName(interfaceName);
+        return 1;
     }
 }
