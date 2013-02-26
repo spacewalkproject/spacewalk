@@ -5,6 +5,8 @@ After=syslog.target network.target
 [Service]
 ExecStart=/usr/sbin/MonitoringScout start
 ExecStop=/usr/sbin/MonitoringScout stop
+Type=oneshot
+RemainAfterExit=yes
 
 [Install]
 WantedBy=multi-user.target
