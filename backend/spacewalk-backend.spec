@@ -530,6 +530,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}/server/handlers/config
 %{rhnroot}/server/handlers/config/*
 %attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_config-management.conf
+%attr(644,root,apache) %{rhnconfigdefaults}/rhn_sc.conf
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-config-management.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-config-files
 
