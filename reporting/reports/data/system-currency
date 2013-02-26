@@ -1,0 +1,55 @@
+
+synopsis:
+
+	System currency list
+
+description:
+
+	Prints list of number of available erratas for each registered system
+
+columns:
+
+	system_id Server ID
+	org_id	Organization ID which is server registered to
+	name	Name of the server
+	critical	Number of critical security updates available
+	important Number of important security updates available
+	moderate	Number of moderate important security updates available
+	low	Number of low important security updates available
+	bug	Number of bug fixes available
+	enhancement	Number of enhancements available
+	score Total system score
+
+params:
+
+	p_crit	sc.crit
+	p_imp	sc.imp
+	p_mod	sc.mod
+	p_low	sc.low
+	p_bug	sc.bug
+	p_enh	sc.enh
+
+sql:
+
+	select * from (
+	select system_id, org_id, name, critical, important, moderate, low, bug, enhancement,
+		((critical * :p_crit) + (important *  :p_imp) + (moderate * :p_mod) + (low * :p_low) + (bug * :p_bug) + (enhancement * :p_enh)) as score
+	from (
+	select S.id as system_id,
+		S.org_id as org_id,
+		S.name as name,
+		sum(case when (substr(E.synopsis, 1, 1) = 'C' and E.advisory_type = 'Security Advisory') then 1 else 0 end) as critical,
+		sum(case when (substr(E.synopsis, 1, 1) = 'I' and E.advisory_type = 'Security Advisory') then 1 else 0 end) as important,
+		sum(case when (substr(E.synopsis, 1, 1) = 'M' and E.advisory_type = 'Security Advisory') then 1 else 0 end) as moderate,
+		sum(case when (substr(E.synopsis, 1, 1) = 'L' and E.advisory_type = 'Security Advisory') then 1 else 0 end) as low,
+		sum(case when E.advisory_type = 'Bug Fix Advisory' then 1 else 0 end) as bug,
+		sum(case when E.advisory_type = 'Product Enhancement Advisory' then 1 else 0 end) as enhancement
+	from rhnServer S left join
+		(select distinct err.id, snc.server_id, err.synopsis, err.advisory_type from rhnErrata err join
+			rhnServerNeededCache SNC on err.id=SNC.errata_id) E on S.id=E.server_id
+	group by S.id, S.org_id, name
+	)
+	) X
+	-- where placeholder
+	order by org_id, system_id
+
