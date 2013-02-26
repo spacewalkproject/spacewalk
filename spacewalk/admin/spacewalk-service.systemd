@@ -72,8 +72,8 @@ stop() {
 }
 
 status() {
-    spacewalk_target_services | xargs systemctl status
-    systemctl status spacewalk.target
+    spacewalk_target_services | xargs systemctl status -n0
+    systemctl status -n0 spacewalk.target
     return $?
 }
 
