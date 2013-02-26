@@ -50,19 +50,28 @@ log = up2dateLog.initLog()
 def startRhnsd():
     # successful registration.  Try to start rhnsd if it isn't running.
     if os.access("/usr/sbin/rhnsd", os.R_OK|os.X_OK):
-        if os.access("/sbin/chkconfig", os.R_OK|os.X_OK):
-            os.system("/sbin/chkconfig rhnsd on > /dev/null");
+        if os.access("/usr/lib/systemd/system/rhnsd.service", os.R_OK):
+            # systemd
+            if os.access("/usr/bin/systemctl", os.R_OK|os.X_OK):
+                os.system("/usr/bin/systemctl enable rhnsd > /dev/null");
+                os.system("/usr/bin/systemctl start rhnsd > /dev/null");
+            else:
+                print _("Warning: unable to enable rhnsd with systemd")
         else:
-            print _("Warning: unable to enable rhnsd with chkconfig")
+            # SysV init scripts
+            if os.access("/sbin/chkconfig", os.R_OK|os.X_OK):
+                os.system("/sbin/chkconfig rhnsd on > /dev/null");
+            else:
+                print _("Warning: unable to enable rhnsd with chkconfig")
 
-        service_path = "/sbin/service"
-        if not os.access(service_path, os.R_OK|os.X_OK):
-            if os.access("/usr/sbin/service", os.R_OK|os.X_OK):
-                service_path = "/usr/sbin/service"
+            service_path = "/sbin/service"
+            if not os.access(service_path, os.R_OK|os.X_OK):
+                if os.access("/usr/sbin/service", os.R_OK|os.X_OK):
+                    service_path = "/usr/sbin/service"
 
-        rc = os.system("%s rhnsd status > /dev/null" % service_path)
-        if rc:
-            os.system("%s rhnsd start > /dev/null" % service_path)
+            rc = os.system("%s rhnsd status > /dev/null" % service_path)
+            if rc:
+                os.system("%s rhnsd start > /dev/null" % service_path)
 
 def getOemInfo():
     configFile = cfg["oemInfoFile"] or "/etc/sysconfig/rhn/oeminfo"
