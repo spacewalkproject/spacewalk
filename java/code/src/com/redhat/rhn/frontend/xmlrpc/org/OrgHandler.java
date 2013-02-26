@@ -40,6 +40,7 @@ import com.redhat.rhn.frontend.dto.OrgSoftwareEntitlementDto;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidParameterException;
 import com.redhat.rhn.frontend.xmlrpc.MigrationToSameOrgException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchOrgException;
@@ -889,5 +890,52 @@ public class OrgHandler extends BaseHandler {
         List<Long> serversMigrated = MigrationManager.migrateServers(admin,
                 toOrg, servers);
         return serversMigrated.toArray();
+    }
+
+    /**
+     * Get organization wide crash file size limit.
+     *
+     * @param sessionKey User's session key.
+     * @param orgId Organization ID to set the limit for.
+     * @return Returns the organization wide crash file size limit.
+     *
+     * @xmlrpc.doc Get the organization wide crash file size limit. The limit value
+     * must i a non-negative number, zero means no limit.
+     *
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "orgId")
+     * @xmlrpc.returntype int - Crash file size limit.
+     */
+    public int getCrashFileSizeLimit(String sessionKey, Integer orgId) {
+        getSatAdmin(sessionKey);
+        Org org = verifyOrgExists(orgId);
+        return org.getCrashFileSizelimit().intValue();
+    }
+
+    /**
+     * Set organization wide crash file size limit.
+     *
+     * @param sessionKey User's session key.
+     * @param orgId Organization ID to set the limit for.
+     * @param limit The limit to set.
+     * @return 1 on success.
+     *
+     * @xmlrpc.doc Set the organization wide crash file size limit. The limit value
+     * must be non-negative, zero means no limit.
+     *
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "orgId")
+     * @xmlrpc.param #param_desc("int", "limit", "The limit to set (non-negative value)."
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setCrashFileSizeLimit(String sessionKey, Integer orgId, Integer limit) {
+        getSatAdmin(sessionKey);
+        Org org = verifyOrgExists(orgId);
+        if (limit < 0) {
+            throw new InvalidParameterException("Limit value must be non-negative.");
+        }
+        org.setCrashFileSizelimit(new Long(limit.longValue()));
+
+        return 1;
     }
 }

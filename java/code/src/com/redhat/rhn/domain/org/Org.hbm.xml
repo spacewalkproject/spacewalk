@@ -13,6 +13,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         </id>
         <property name="name" type="string" />
         <property name="stagingContentEnabled" column="staging_content_enabled" type="yes_no" not-null="true"/>
+        <property name="crashFileSizelimit" column="crash_file_sizelimit" type="long" not-null="true"/>
         <property name="created" type="timestamp" insert="false" update="false" />
         <property name="modified" type="timestamp" insert="false" update="false" />
 

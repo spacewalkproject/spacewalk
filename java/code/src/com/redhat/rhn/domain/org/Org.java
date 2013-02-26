@@ -74,6 +74,7 @@ public class Org extends BaseDomainHelper {
     private Set<Org> trustedOrgs;
     private Token token;
     private boolean stagingContentEnabled;
+    private Long crashFileSizelimit;
 
     private Set monitoringScouts;
     private Set contactGroups;
@@ -587,6 +588,22 @@ public class Org extends BaseDomainHelper {
      */
     public void setStagingContentEnabled(boolean stageContentEnabledIn) {
         stagingContentEnabled = stageContentEnabledIn;
+    }
+
+    /**
+     * Get the org-wide crash file size limit.
+     * @return Returns the org-wide crash file size limit.
+     */
+    public Long getCrashFileSizelimit() {
+        return crashFileSizelimit;
+    }
+
+    /**
+     * Set the org-wide crash file size limit.
+     * @param sizeLimitIn The org-wide crash file size limit to set.
+     */
+    public void setCrashFileSizelimit(Long sizeLimitIn) {
+        crashFileSizelimit = sizeLimitIn;
     }
 
     /**
