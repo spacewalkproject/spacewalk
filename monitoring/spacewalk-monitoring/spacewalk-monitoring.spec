@@ -1,7 +1,7 @@
 Summary:      Spacewalk monitoring
 Name:         spacewalk-monitoring
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.9.4
+Version:      1.9.5
 Release:      1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 License:      GPLv2
@@ -143,6 +143,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Feb 26 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.5-1
+- old Fedoras don't have systemd_* macros defined
+
 * Tue Feb 26 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.4-1
 - corrected monitoring service type
 - enable monitoring services in systemd by default
