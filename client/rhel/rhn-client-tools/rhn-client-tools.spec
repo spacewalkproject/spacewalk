@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.9.9
+Version: 1.9.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Feb 26 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.10-1
+- let's enable & start rhnsd properly in systemd
+
 * Mon Feb 18 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.9-1
 - fixed cpu type for ppc64
 
