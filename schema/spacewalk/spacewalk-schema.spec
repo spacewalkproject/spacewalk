@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.9.35
+Version:        1.9.36
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Feb 26 2013 Jan Pazdziora 1.9.36-1
+- Adding missing parentheses.
+- abrt: check the allowed filesize limit is >= 0
+
 * Mon Feb 25 2013 Stephen Herr <sherr@redhat.com> 1.9.35-1
 - add sha1 sum
 - abrt: delete crash: remove content from filer
