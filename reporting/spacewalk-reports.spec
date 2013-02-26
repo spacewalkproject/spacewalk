@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.4
+Version: 1.9.5
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Tue Feb 26 2013 Tomas Kasparek <tkasparek@redhat.com> 1.9.5-1
+- 914902 - system currency report
+
 * Fri Feb 15 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.9.4-1
 - Updating copyright info for 2013
 
