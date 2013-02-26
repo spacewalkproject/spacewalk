@@ -73,7 +73,7 @@ CREATE TABLE rhnKSData
                         DEFAULT (current_timestamp) NOT NULL,
     modified        timestamp with local time zone
                         DEFAULT (current_timestamp) NOT NULL,
-    update_type     VARCHAR2(7) NOT NULL DEFAULT 'none'
+    update_type     VARCHAR2(7) DEFAULT ('none') NOT NULL
                         CONSTRAINT rhn_ks_update_type
 			    CHECK (update_type in ('all', 'red_hat', 'none')),
     CONSTRAINT rhn_ks_type_ck
