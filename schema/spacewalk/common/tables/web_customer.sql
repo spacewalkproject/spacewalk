@@ -25,7 +25,9 @@ CREATE TABLE web_customer
                                     CONSTRAINT web_customer_stage_content_chk
                                     CHECK (staging_content_enabled in ( 'Y' , 'N' )),
     crash_file_sizelimit          number
-                                      default(2048) not null,
+                                      default(2048) not null
+                                      constraint web_customer_sizelimit_chk
+                                      check (crash_file_sizelimit >= 0),
     created                       timestamp with local time zone
                                       DEFAULT (current_timestamp) NOT NULL,
     modified                      timestamp with local time zone
