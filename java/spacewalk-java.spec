@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.75
+Version: 1.9.76
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Feb 26 2013 Jan Pazdziora 1.9.76-1
+- 915158 - correcting copyright dates
+- Comment fix
+- abrt: delete crash: remove content from filer
+
 * Mon Feb 25 2013 Tomas Kasparek <tkasparek@redhat.com> 1.9.75-1
 - API for setting primary network interface
 
