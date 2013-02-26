@@ -49,7 +49,7 @@ Requires:       tsdb
 Requires: spacewalk-monitoring-selinux
 
 %if 0%{?fedora}
-Requires(preun): systemd
+%systemd_requires
 %else
 Requires(post): chkconfig
 Requires(preun): chkconfig
@@ -100,6 +100,12 @@ fi
 if [ -x /etc/init.d/MonitoringScout ] ; then
     /sbin/chkconfig --add MonitoringScout
 fi
+if [ -r %{_unitdir}/Monitoring.service ] ; then
+    /usr/bin/systemctl enable Monitoring.service
+fi
+if [ -r %{_unitdir}/MonitoringScout.service ] ; then
+    /usr/bin/systemctl enable MonitoringScout.service
+fi
 
 %preun
 if [ $1 = 0 ] ; then
@@ -111,11 +117,11 @@ if [ $1 = 0 ] ; then
         /sbin/service Monitoring stop >/dev/null 2>&1
         /sbin/chkconfig --del Monitoring
     fi
-    if [ -f %{_unitdir}/MonitoringScout ] ; then
-        /usr/bin/systemctl stop MonitoringScout
+    if [ -f %{_unitdir}/MonitoringScout.service ] ; then
+        %systemd_preun MonitoringScout.service
     fi
-    if [ -f %{_unitdir}/Monitoring ] ; then
-        /usr/bin/systemctl stop Monitoring
+    if [ -f %{_unitdir}/Monitoring.service ] ; then
+        %systemd_preun Monitoring.service
     fi
 fi
 
