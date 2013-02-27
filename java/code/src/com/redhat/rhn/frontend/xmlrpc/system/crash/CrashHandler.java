@@ -36,6 +36,7 @@ import com.redhat.rhn.manager.download.DownloadManager;
 import com.redhat.rhn.manager.system.CrashManager;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang.StringUtils;
 
 import org.apache.log4j.Logger;
 
@@ -171,14 +172,22 @@ public class CrashHandler extends BaseHandler {
             crashMap.put("crash", crash.getCrash());
             crashMap.put("path", crash.getPath());
             crashMap.put("count", crash.getCount());
-            crashMap.put("analyzer", crash.getAnalyzer());
-            crashMap.put("architecture", crash.getArchitecture());
-            crashMap.put("cmdline", crash.getCmdline());
-            crashMap.put("component", crash.getComponent());
-            crashMap.put("executable", crash.getExecutable());
-            crashMap.put("kernel", crash.getKernel());
-            crashMap.put("reason", crash.getReason());
-            crashMap.put("username", crash.getUsername());
+            crashMap.put("analyzer",
+                StringUtils.defaultString(crash.getAnalyzer()));
+            crashMap.put("architecture",
+                StringUtils.defaultString(crash.getArchitecture()));
+            crashMap.put("cmdline",
+                StringUtils.defaultString(crash.getCmdline()));
+            crashMap.put("component",
+                StringUtils.defaultString(crash.getComponent()));
+            crashMap.put("executable",
+                StringUtils.defaultString(crash.getExecutable()));
+            crashMap.put("kernel",
+                StringUtils.defaultString(crash.getKernel()));
+            crashMap.put("reason",
+                StringUtils.defaultString(crash.getReason()));
+            crashMap.put("username",
+                StringUtils.defaultString(crash.getUsername()));
             crashMap.put("created", crash.getCreated());
             crashMap.put("modified", crash.getModified());
 
