@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.76
+Version: 1.9.77
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Feb 27 2013 Tomas Kasparek <tkasparek@redhat.com> 1.9.77-1
+- 915770 - fix in sql query
+- abrt: api to get/set org-wide crash file size limit
+
 * Tue Feb 26 2013 Jan Pazdziora 1.9.76-1
 - 915158 - correcting copyright dates
 - Comment fix
