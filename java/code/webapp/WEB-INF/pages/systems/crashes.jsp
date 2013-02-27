@@ -45,7 +45,9 @@
         <rl:column headerkey="crashes.jsp.crash" bound="false"
             sortattr="crash"
             sortable="true">
-            ${current.crash}
+            <a href="/rhn/systems/details/SoftwareCrashDetail.do?crid=${current.id}">
+                ${current.crash}
+            </a>
         </rl:column>
 
         <rl:column headerkey="crashes.jsp.crashcount" bound="false"
