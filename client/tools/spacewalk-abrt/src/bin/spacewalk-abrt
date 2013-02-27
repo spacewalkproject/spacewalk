@@ -53,8 +53,11 @@ class AbrtCli(rhncli.RhnCli):
 
 
     def get_abrt_dir(self):
+        default_abrt_dir = '/var/spool/abrt'
+        if os.path.exists('/var/tmp/abrt') and os.path.isdir('/var/tmp/abrt'):
+            default_abrt_dir = '/var/tmp/abrt'
         cf = config.ConfigFile('/etc/abrt/abrt.conf')
-        return cf['DumpLocation'] or '/var/spool/abrt'
+        return cf['DumpLocation'] or default_abrt_dir
 
 
     def main(self):
