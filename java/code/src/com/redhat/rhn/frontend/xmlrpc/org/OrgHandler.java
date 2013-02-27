@@ -925,7 +925,7 @@ public class OrgHandler extends BaseHandler {
      *
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "orgId")
-     * @xmlrpc.param #param_desc("int", "limit", "The limit to set (non-negative value)."
+     * @xmlrpc.param #param_desc("int", "limit", "The limit to set (non-negative value).")
      * @xmlrpc.returntype #return_int_success()
      */
     public int setCrashFileSizeLimit(String sessionKey, Integer orgId, Integer limit) {
