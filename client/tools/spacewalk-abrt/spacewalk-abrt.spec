@@ -1,5 +1,5 @@
 Name:           spacewalk-abrt
-Version:        1.9.3
+Version:        1.9.4
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
@@ -37,6 +37,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/*
 
 %changelog
+* Wed Feb 27 2013 Jan Pazdziora 1.9.4-1
+- abrt: use notify rather than post-create
+- abrt: use new abrt dump location
+
 * Mon Feb 18 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.9.3-1
 - update build requires
 
