@@ -29,7 +29,7 @@ public class NoSuchCrashException extends FaultException  {
      * NoSuchCrashException
      */
     public NoSuchCrashException() {
-        super(1071, "No Such Crash Found" , LocalizationService.getInstance().
+        super(1072, "No Such Crash Found" , LocalizationService.getInstance().
                 getMessage("api.system.crash.nosuchcrash", new Object [] {}));
     }
 }
