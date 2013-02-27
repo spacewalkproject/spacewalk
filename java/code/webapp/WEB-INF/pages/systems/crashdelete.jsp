@@ -1,0 +1,35 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+
+<html:html xhtml="true">
+<body>
+  <rhn:toolbar base="h1" img="/img/icon_bug.gif" imgAlt="info.alt.img">
+    ${fn:escapeXml(crash.crash)}
+  </rhn:toolbar>
+  <h2><bean:message key="crashes.jsp.delete"/></h2>
+
+<div class="page-summary">
+  <p><bean:message key="crashes.jsp.delete.summary"/></p>
+</div>
+
+<form method="POST" name="rhn_list" action="/rhn/systems/details/SoftwareCrashDelete.do">
+    <rhn:csrf />
+    <rhn:submitted/>
+
+    <%@ include file="/WEB-INF/pages/common/fragments/systems/crash_details.jspf" %>
+
+    <div align="right">
+        <hr/>
+        <html:hidden property="crid" value="${crid}"/>
+        <html:submit property="delete_button">
+            <bean:message key="crashes.jsp.delete"/>
+        </html:submit>
+    </div>
+</form>
+
+</body>
+</html:html>

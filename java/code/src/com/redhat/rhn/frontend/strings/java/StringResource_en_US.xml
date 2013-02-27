@@ -7520,6 +7520,9 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="message.scheduledisabled">
         <source>Please set frequency for the new schedule.</source>
       </trans-unit>
+      <trans-unit id="message.crashdeleted">
+        <source>Software crash {0} was successfully deleted.</source>
+      </trans-unit>
       <trans-unit id="kickstart.cobbler.profile.invalidvirt">
         <source>Para-Virtualization is unsupported with the selected kickstart tree or distribution.</source>
       </trans-unit>

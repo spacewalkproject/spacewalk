@@ -18,32 +18,7 @@
   <p><bean:message key="crashes.jsp.details.summary"/></p>
 </div>
 
-  <table class="details">
-    <tr>
-      <th>
-        <bean:message key="crashes.jsp.component"/>:
-      </th>
-      <td>
-            <c:out value="${crash.component}"/>
-      </td>
-    </tr>
-    <tr>
-      <th>
-        <bean:message key="crashes.jsp.crashcount"/>:
-      </th>
-      <td>
-            <c:out value="${crash.count}"/>
-      </td>
-    </tr>
-    <tr>
-      <th>
-        <bean:message key="lastModified"/>:
-      </th>
-      <td>
-            <c:out value="${crash.modified}"/>
-      </td>
-    </tr>
-  </table>
+<%@ include file="/WEB-INF/pages/common/fragments/systems/crash_details.jspf" %>
 
 </body>
 </html:html>
