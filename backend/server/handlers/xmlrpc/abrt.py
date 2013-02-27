@@ -227,6 +227,9 @@ class Abrt(rhnHandler):
         f.close()
 
         if crash_file['filename'] in self.watched_items:
+            # 'username' contains an extra '\n' at the end
+            if crash_file['filename'] == 'username':
+                filecontent = filecontent.strip()
             st = rhnSQL.Statement(_query_update_watched_items % crash_file['filename'])
             h = rhnSQL.prepare(st)
             h.execute(filecontent = filecontent, crash_id = crash_id)
