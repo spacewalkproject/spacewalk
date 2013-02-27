@@ -64,6 +64,27 @@ public class CrashManager extends BaseManager {
     }
 
     /**
+     * Lookup CrashFile by its ID and User.
+     * @param user The user to check the permissions for.
+     * @param crashFileId ID of the crash file to search for.
+     * @return The crash file for given ID.
+     */
+    public static CrashFile lookupCrashFileByUserAndId(User user, Long crashFileId) {
+        CrashFile crashFile = CrashFactory.lookupCrashFileById(crashFileId);
+        Long serverId = crashFile.getCrash().getServer().getId();
+
+        Server server = null;
+        try {
+            server = SystemManager.lookupByIdAndUser(new Long(serverId.longValue()), user);
+        }
+        catch (LookupException e) {
+            throw new NoSuchSystemException();
+        }
+
+        return crashFile;
+    }
+
+    /**
      * Delete a crash from database and filer.
      * @param user User to check the permissions for.
      * @param crashId The id of the crash to delete.

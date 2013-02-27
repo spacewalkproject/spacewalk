@@ -24,7 +24,7 @@ import java.util.Map;
 
 /**
  * CrashFactory - the singleton class used to fetch and store
- * com.redhat.rhn.domain.server.Crash objects from the database.
+ * com.redhat.rhn.domain.server.Crash / CrashFile objects from the database.
  * @version $Rev$
  */
 public class CrashFactory extends HibernateFactory {
@@ -58,5 +58,17 @@ public class CrashFactory extends HibernateFactory {
      */
     public static void delete(Crash crash) {
         singleton.removeObject(crash);
+    }
+
+    /**
+     * Lookup a CrashFile by its id
+     * @param id the id to search for
+     * @return the CrashFile found
+     */
+    public static CrashFile lookupCrashFileById(Long id) {
+        Map params = new HashMap();
+        params.put("id", id);
+        return (CrashFile) singleton.lookupObjectByNamedQuery(
+                "CrashFile.findById", params);
     }
 }

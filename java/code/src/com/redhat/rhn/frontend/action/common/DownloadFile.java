@@ -32,6 +32,7 @@ import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageSource;
 import com.redhat.rhn.domain.rhnpackage.Patch;
 import com.redhat.rhn.domain.rhnpackage.PatchSet;
+import com.redhat.rhn.domain.server.CrashFile;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.action.kickstart.KickstartHelper;
@@ -40,6 +41,7 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.download.DownloadManager;
 import com.redhat.rhn.manager.download.UnknownDownloadTypeException;
 import com.redhat.rhn.manager.kickstart.KickstartManager;
+import com.redhat.rhn.manager.system.CrashManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -445,6 +447,16 @@ public class DownloadFile extends DownloadAction {
 
                 setTextContentInfo(response, output.length());
                 return getStreamForText(output.toString().getBytes());
+            }
+            else if (type.equals(DownloadManager.DOWNLOAD_TYPE_CRASHFILE)) {
+                CrashFile crashFile = CrashManager.lookupCrashFileByUserAndId(user,
+                                      fileId);
+                String crashPath = crashFile.getCrash().getStoragePath();
+                setBinaryContentInfo(response, (int) crashFile.getFilesize());
+                path = Config.get().getString(ConfigDefaults.MOUNT_POINT) +
+                    "/" + crashPath + "/" + crashFile.getFilename();
+                return getStreamForBinary(path);
+
             }
         }
 

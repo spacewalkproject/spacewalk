@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageSource;
 import com.redhat.rhn.domain.rhnpackage.Patch;
 import com.redhat.rhn.domain.rhnpackage.PatchSet;
+import com.redhat.rhn.domain.server.CrashFile;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.BaseManager;
 
@@ -45,6 +46,7 @@ public class DownloadManager extends BaseManager {
     public static final String DOWNLOAD_TYPE_PATCH_README = "patchreadme";
     public static final String DOWNLOAD_TYPE_PATCH_SET_README = "patchsetreadme";
     public static final String DOWNLOAD_TYPE_REPO_LOG = "repolog";
+    public static final String DOWNLOAD_TYPE_CRASHFILE = "crashfile";
 
     /**
      * Get a download path (part of the url) that is used to download a package.
@@ -192,7 +194,16 @@ public class DownloadManager extends BaseManager {
         return new File(file).exists();
     }
 
-
-
-
+    /**
+     * Get a download path (part of the url) that is used to download a crash file.
+     *  The url will be in the form of
+     *  /download/SHA1_TOKEN/EXPIRE_TIME/userId/crashId/crashfile
+     * @param crashFile the package
+     * @param user the user
+     * @return the path/url
+     */
+    public static String getCrashFileDownloadPath(CrashFile crashFile, User user) {
+        return getDownloadPath(crashFile.getId(), crashFile.getFilename(), user,
+                DownloadManager.DOWNLOAD_TYPE_CRASHFILE);
+    }
 }
