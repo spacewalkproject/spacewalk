@@ -1391,13 +1391,20 @@ public class PackageManager extends BaseManager {
         }
     }
 
-    public static String buildPackageNevra(Long name_id, Long evr_id, Long arch_id) {
+    /**
+     * build package nevra out of the name, evr, arch identifiers
+     * @param nameId name id
+     * @param evrId evr id
+     * @param archId arch id
+     * @return nevra
+     */
+    public static String buildPackageNevra(Long nameId, Long evrId, Long archId) {
         String nevra = "";
-        if (name_id != null) {
-            PackageName pn = PackageFactory.lookupPackageName(name_id);
+        if (nameId != null) {
+            PackageName pn = PackageFactory.lookupPackageName(nameId);
             nevra += pn.getName();
-            if (evr_id != null) {
-                PackageEvr pevr = PackageEvrFactory.lookupPackageEvrById(evr_id);
+            if (evrId != null) {
+                PackageEvr pevr = PackageEvrFactory.lookupPackageEvrById(evrId);
                 if (pevr != null) {
                     nevra += "-" + pevr.getVersion() + "-" + pevr.getRelease();
                     if (!StringUtils.isEmpty(pevr.getEpoch())) {
@@ -1405,8 +1412,8 @@ public class PackageManager extends BaseManager {
                     }
                 }
             }
-            if (arch_id != null) {
-                PackageArch pa = PackageFactory.lookupPackageArchById(arch_id);
+            if (archId != null) {
+                PackageArch pa = PackageFactory.lookupPackageArchById(archId);
                 if (pa != null) {
                     nevra += "." + pa.getLabel();
                 }
