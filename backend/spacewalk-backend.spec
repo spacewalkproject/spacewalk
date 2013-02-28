@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.38
+Version: 1.9.39
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -638,6 +638,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Feb 28 2013 Jan Pazdziora 1.9.39-1
+- Move to three-parameter cx_Oracle.Connection call.
+- Removing the dsn parameter from initDB, removing support for --db option.
+
 * Wed Feb 27 2013 Jan Pazdziora 1.9.38-1
 - abrt: strip extraneous '\n' from username
 
