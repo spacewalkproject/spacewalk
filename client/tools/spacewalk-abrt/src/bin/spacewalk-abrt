@@ -26,7 +26,6 @@ t = gettext.translation('spacewalk-abrt', fallback=True)
 _ = t.ugettext
 
 from optparse import OptionGroup
-from up2date_client import config
 from up2date_client import rhncli
 from up2date_client import up2dateAuth
 import spacewalk_abrt.abrt
@@ -50,15 +49,6 @@ class AbrtCli(rhncli.RhnCli):
             sys.stderr.write(rhncli.utf8_encode( \
                 _("Error: specified problem directory [%s] does not exist.\n" % path)))
             sys.exit(1)
-
-
-    def get_abrt_dir(self):
-        default_abrt_dir = '/var/spool/abrt'
-        if os.path.exists('/var/tmp/abrt') and os.path.isdir('/var/tmp/abrt'):
-            default_abrt_dir = '/var/tmp/abrt'
-        cf = config.ConfigFile('/etc/abrt/abrt.conf')
-        return cf['DumpLocation'] or default_abrt_dir
-
 
     def main(self):
         if not (self.options.report or self.options.update_count or self.options.sync):
@@ -86,7 +76,7 @@ class AbrtCli(rhncli.RhnCli):
             spacewalk_abrt.abrt.update_count(self.options.update_count)
 
         if self.options.sync:
-            return (spacewalk_abrt.abrt.sync(self.get_abrt_dir()))
+            return (spacewalk_abrt.abrt.sync())
 
         sys.exit(0)
 

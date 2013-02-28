@@ -26,6 +26,7 @@ import gettext
 t = gettext.translation('spacewalk-abrt', fallback=True)
 _ = t.ugettext
 
+from up2date_client import config
 from up2date_client import up2dateAuth
 from up2date_client import rhnserver
 from up2date_client import up2dateLog
@@ -40,6 +41,15 @@ def _readline(filepath):
         return filecontent
     else:
         return None
+
+def _get_abrt_dir():
+    abrt_dir = '/var/tmp/abrt'
+    for directory in ['/var/tmp/abrt', '/var/spool/abrt']:
+        if os.path.exists(directory) and os.path.isdir(directory):
+            abrt_dir = directory
+
+    cf = config.ConfigFile('/etc/abrt/abrt.conf')
+    return cf['DumpLocation'] or abrt_dir
 
 def report(problem_dir):
     problem_dir = os.path.normpath(os.path.abspath(problem_dir))
@@ -123,8 +133,8 @@ def update_count(problem_dir):
     return 1
 
 
-def sync(abrt_dir):
-    abrt_dir = os.path.normpath(abrt_dir)
+def sync():
+    abrt_dir = os.path.normpath(_get_abrt_dir())
     if not (os.path.exists(abrt_dir) and os.path.isdir(abrt_dir)):
         log.log_me("The specified path [%s] is not a valid directory." % abrt_dir)
         return -1
