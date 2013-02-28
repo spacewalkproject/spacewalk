@@ -300,6 +300,7 @@ class Database:
 
     def __init__(self, host=None, port=None, username=None,
         password=None, database=None):
+        pass
 
     def connect(self, reconnect=1):
         """ Opens a connection to the database. """
