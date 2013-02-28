@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.41
+Version: 1.9.42
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -638,6 +638,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Feb 28 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.42-1
+- reverted --db-only removal
+
 * Thu Feb 28 2013 Jan Pazdziora 1.9.41-1
 - Initialize the CFG, in case the caller did not do it for us.
 - Using the correct configuration value for database name.
