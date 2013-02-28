@@ -84,7 +84,7 @@ def initDB(backend=None, host=None, port=None, username=None,
         backend = CFG.DB_BACKEND
         host = CFG.DB_HOST
         port = CFG.DB_PORT
-        database = CFG.DB_DATABASE
+        database = CFG.DB_NAME
         username = CFG.DB_USER
         password = CFG.DB_PASSWORD
 
