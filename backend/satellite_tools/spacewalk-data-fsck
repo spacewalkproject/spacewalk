@@ -283,6 +283,8 @@ if __name__ == '__main__':
             help="Don't check package checksum"),
         Option("-O", "--no-nevrao",     action="store_false", dest="nevrao", default=True,
             help="Don't check package name, epoch, version, release, arch, org"),
+        Option("-d", "--db-only",       action="store_true",
+            help="Check only if packages from database are present on filesystem"),
         Option("-f", "--fs-only",       action="store_true",
             help="Check only if packages from filesystem are in the database"),
         Option("-r", "--remove",        action="store_true",
