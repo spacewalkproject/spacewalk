@@ -12,142 +12,140 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
+package com.redhat.rhn.frontend.dto;
 
-package com.redhat.rhn.domain.server;
+import com.redhat.rhn.common.util.StringUtil;
+import com.redhat.rhn.domain.server.CrashFile;
 
-import com.redhat.rhn.domain.BaseDomainHelper;
 import java.util.Date;
 
+
 /**
- * Represents the particulart file associated with a crash.
+ * SoftwareCrashFileDto
  * @version $Rev$
  */
-public class CrashFile extends BaseDomainHelper {
+public class SoftwareCrashFileDto extends BaseDto {
 
     private Long id;
-    private Crash crash;
     private String filename;
     private String path;
     private long filesize;
-    private Date created;
     private Date modified;
+    private String downloadPath;
 
     /**
-     * Represents application crash information.
+     *
      */
-    public CrashFile() {
-        super();
+    public SoftwareCrashFileDto(CrashFile cFile ) {
+        id = cFile.getId();
+        filename = cFile.getFilename();
+        path = cFile.getPath();
+        filesize = cFile.getFilesize();
+        modified = cFile.getModified();
     }
 
+
     /**
-     * Returns the database id of the crash.
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
 
+
     /**
-     * Sets the database id of the crash.
      * @param idIn The id to set.
      */
     public void setId(Long idIn) {
         id = idIn;
     }
 
-    /**
-     * The parent Crash.
-     * @return Returns the parent crash.
-     */
-    public Crash getCrash() {
-        return crash;
-    }
 
     /**
-     * Sets the parent crash.
-     * @param crashIn The parent crash to set.
-     */
-    public void setCrash(Crash crashIn) {
-        crash = crashIn;
-    }
-
-    /**
-     * Get the filename.
-     * @return Returns the crash filename.
+     * @return Returns the filename.
      */
     public String getFilename() {
         return filename;
     }
 
+
     /**
-     * Sets the filename.
      * @param filenameIn The filename to set.
      */
     public void setFilename(String filenameIn) {
         filename = filenameIn;
     }
 
+
     /**
-     * Get the file path.
-     * @return Returns the file path.
+     * @return Returns the path.
      */
     public String getPath() {
         return path;
     }
 
+
     /**
-     * Set the file path.
-     * @param pathIn The file path to set.
+     * @param pathIn The path to set.
      */
     public void setPath(String pathIn) {
         path = pathIn;
     }
 
+
     /**
-     * Get the file size.
-     * @return Returns the file size.
+     * @return Returns the filesize.
      */
     public long getFilesize() {
         return filesize;
     }
 
+
     /**
-     * Set the file size.
-     * @param filesizeIn The file size to set.
+     * @param filesizeIn The filesize to set.
      */
     public void setFilesize(long filesizeIn) {
         filesize = filesizeIn;
     }
 
-    /**
-     * Returns the created date.
-     * @return the created date.
-     */
-    public Date getCreated() {
-        return created;
-    }
 
     /**
-     * Sets the created date.
-     * @param createdIn The create date to set.
-     */
-    public void setCreated(Date createdIn) {
-        created = createdIn;
-    }
-
-    /**
-     * Returns the modified date.
-     * @return the modified date.
+     * @return Returns the modified.
      */
     public Date getModified() {
         return modified;
     }
 
+
     /**
-     * Sets the modified date.
-     * @param modifiedIn The modified date to set.
+     * @param modifiedIn The modified to set.
      */
     public void setModified(Date modifiedIn) {
         modified = modifiedIn;
+    }
+
+
+    /**
+     * @return Returns the downloadPath.
+     */
+    public String getDownloadPath() {
+        return downloadPath;
+    }
+
+
+    /**
+     * @param downloadPathIn The downloadPath to set.
+     */
+    public void setDownloadPath(String downloadPathIn) {
+        downloadPath = downloadPathIn;
+    }
+
+
+    /**
+     * Get a display friendly version of the file size
+     * @return the size
+     */
+    public String getFilesizeString() {
+        return StringUtil.displayFileSize(getFilesize());
     }
 }

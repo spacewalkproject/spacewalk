@@ -72,7 +72,10 @@
     </rl:list>
 
     <html:hidden property="sid" value="${sid}"/>
-    <rhn:submitted />
+    <rl:csv
+        name="crashesList"
+        exportColumns="crash,count,component,modified"
+        header="${system.name}"/>
 
     <div align="right">
         <hr />
@@ -80,11 +83,6 @@
             <bean:message key="crashes.jsp.delete.button"/>
         </html:submit>
     </div>
-
-    <rl:csv
-        name="crashesList"
-        exportColumns="crash,count,component,modified"
-        header="${system.name}"/>
     <rhn:submitted/>
 </rl:listset>
 

@@ -17,6 +17,70 @@
     </tr>
     <tr>
       <th>
+        <bean:message key="crashes.jsp.path"/>:
+      </th>
+      <td>
+            <c:out value="${crash.path}"/>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <bean:message key="crashes.jsp.analyzer"/>:
+      </th>
+      <td>
+            <c:out value="${crash.analyzer}"/>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <bean:message key="crashes.jsp.cmdline"/>:
+      </th>
+      <td>
+            <c:out value="${crash.cmdline}"/>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <bean:message key="crashes.jsp.executable"/>:
+      </th>
+      <td>
+            <c:out value="${crash.executable}"/>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <bean:message key="crashes.jsp.kernel"/>:
+      </th>
+      <td>
+            <c:out value="${crash.kernel}"/>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <bean:message key="crashes.jsp.reason"/>:
+      </th>
+      <td>
+            <c:out value="${crash.reason}"/>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <bean:message key="crashes.jsp.username"/>:
+      </th>
+      <td>
+            <c:out value="${crash.username}"/>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <bean:message key="crashes.jsp.storagepath"/>:
+      </th>
+      <td>
+            <c:out value="${crash.storagePath}"/>
+      </td>
+    </tr>
+    <tr>
+      <th>
         <bean:message key="lastModified"/>:
       </th>
       <td>
