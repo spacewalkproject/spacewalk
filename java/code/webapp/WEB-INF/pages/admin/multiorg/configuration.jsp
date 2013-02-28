@@ -41,8 +41,9 @@
 <rhn:csrf />
 <rhn:submitted/>
 <input type="hidden" name="oid" value="${param.oid}"/>
- <h2><bean:message key="orgdetails.jsp.header"/></h2>
-
+ <h2><bean:message key="orgconfig.jsp.header"/></h2>
+ <bean:message key="orgconfig.jsp.description"/>
+ <p/>
  <table class="details" align="center">
   <tr>
     <th><label for="staging_content_enabled"><bean:message key="org-config.staging-content.jsp"/></th>
@@ -54,16 +55,28 @@
     	 />
 	</td>
   </tr>
+  <tr>
+    <th>
+        <bean:message key="org-config.crashfile-sizelimit.jsp"/>
+    </th>
+    <td>
+        <input type="number"
+               name="crashfile_sizelimit"
+               value="${org.crashFileSizelimit}"
+               id="crashfile_sizelimit" />
+    <td>
+  </tr>
  </table>
 
  <div align="right">
    <hr/>
+
    <html:submit>
    <bean:message key="orgdetails.jsp.submit"/>
    </html:submit>
+
  </div>
 
 </form>
-
 </body>
 </html:html>

@@ -14,10 +14,14 @@
  */
 package com.redhat.rhn.frontend.action.multiorg;
 
+import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+
+import org.apache.commons.lang.StringUtils;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -45,6 +49,28 @@ public class OrgConfigAction extends RhnAction {
         if (ctx.isSubmitted()) {
             org.setStagingContentEnabled(request.
                     getParameter("staging_content_enabled") != null);
+
+            Long newLimit = null;
+            try {
+                newLimit = Long.parseLong(
+                           request.getParameter("crashfile_sizelimit").trim());
+
+                if (newLimit < 0) {
+                    throw new IllegalArgumentException();
+                }
+            }
+            catch (IllegalArgumentException ex) {
+                ValidatorError error = new ValidatorError("orgsizelimit.invalid");
+                getStrutsDelegate().saveMessages(request,
+                    RhnValidationHelper.validatorErrorToActionErrors(error));
+
+                return getStrutsDelegate().forwardParam(mapping.findForward("error"),
+                           RequestContext.ORG_ID, org.getId().toString());
+            }
+            if (StringUtils.isNotEmpty(request.getParameter("crashfile_sizelimit"))) {
+                org.setCrashFileSizelimit(newLimit);
+            }
+
             ActionMessages msg = new ActionMessages();
             msg.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("message.org_name_updated", org.getName()));
