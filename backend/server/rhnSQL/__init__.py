@@ -18,7 +18,7 @@
 import sys
 
 from spacewalk.common.rhnLog import log_debug
-from spacewalk.common.rhnConfig import CFG
+from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.common.rhnException import rhnException
 from spacewalk.common.rhnTB import add_to_seclist
 
@@ -81,6 +81,7 @@ def initDB(backend=None, host=None, port=None, username=None,
     """
 
     if backend is None:
+        initCFG('server')
         backend = CFG.DB_BACKEND
         host = CFG.DB_HOST
         port = CFG.DB_PORT
