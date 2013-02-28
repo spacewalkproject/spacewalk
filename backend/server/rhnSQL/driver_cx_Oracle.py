@@ -361,7 +361,7 @@ class Database(sql_base.Database):
     def __init__(self, host=None, port=None, username=None,
         password=None, database=None):
 
-        # Oracle requires enough info to assembled a dsn:
+        # Oracle requires enough info to connect
         if not (username and password and database):
             raise AttributeError, "A valid Oracle username, password, and SID are required."
 
@@ -371,10 +371,9 @@ class Database(sql_base.Database):
         self.password = password
         self.database = database
 
-        # dbtxt is the connection string without the password
-        self.dbtxt = self.dsn
-        if '@' in self.dsn:
-            self.dbtxt = string.split(self.dsn, '@')[-1]
+        # dbtxt is the connection string without the password, to be used in exceptions
+        self.dbtxt = self.username + '@' + self.database
+
         self.dbh = None
 
         # self.stderr keeps the sys.stderr handle alive in case it gets
@@ -411,7 +410,7 @@ class Database(sql_base.Database):
         self._cursor_class._cursor_cache[dbh_id] = {}
 
     def _connect(self):
-        dbh = cx_Oracle.Connection(self.dsn)
+        dbh = cx_Oracle.Connection(self.username, self.password, self.database)
         if hasattr(sys, "argv"):
           dbh.cursor().execute(
                   "BEGIN DBMS_APPLICATION_INFO.SET_MODULE('%s',NULL); END;"
@@ -443,7 +442,7 @@ class Database(sql_base.Database):
                 except:
                     pass
             del _cursor_cache[dbh_id]
-        self.dbh = self.dsn = None
+        self.dbh = None
 
     def cursor(self):
         return self._cursor_class(dbh=self.dbh)

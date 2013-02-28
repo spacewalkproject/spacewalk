@@ -300,9 +300,6 @@ class Database:
 
     def __init__(self, host=None, port=None, username=None,
         password=None, database=None):
-        # TODO: For now, keep assuming incoming args are used to assemble a dsn.
-        # (really not sure what might be using this)
-        self.dsn = "%s/%s@%s" % (username, password, database)
 
     def connect(self, reconnect=1):
         """ Opens a connection to the database. """
@@ -357,10 +354,6 @@ class Database:
         "rollback changes, optionally to a previously set transaction point"
         pass
 
-    def check(self):
-        "check the connection"
-        return self.dsn is not None
-    
     def close(self):
         "Close the connection"
         pass
