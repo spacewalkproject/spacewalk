@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.5
+Version: 1.9.6
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Thu Feb 28 2013 Jan Pazdziora 1.9.6-1
+- Removing the dsn parameter from initDB, removing support for --db option.
+
 * Tue Feb 26 2013 Tomas Kasparek <tkasparek@redhat.com> 1.9.5-1
 - 914902 - system currency report
 
