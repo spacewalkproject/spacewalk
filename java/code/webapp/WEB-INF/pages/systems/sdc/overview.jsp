@@ -364,11 +364,11 @@
           <c:otherwise>
             <tr>
               <th><bean:message key="sdc.details.overview.crashes.uniquecrashcount"/></th>
-              <td><c:out value="${system.crashCount.uniqueCrashCount}"/></td>
+              <td><a href="/rhn/systems/details/SoftwareCrashes.do?sid=${system.id}"><c:out value="${system.crashCount.uniqueCrashCount}"/></a></td>
             </tr>
             <tr>
               <th><bean:message key="sdc.details.overview.crashes.totalcrashcount"/></th>
-              <td><c:out value="${system.crashCount.totalCrashCount}"/></td>
+              <td><a href="/rhn/systems/details/SoftwareCrashes.do?sid=${system.id}"><c:out value="${system.crashCount.totalCrashCount}"/></a></td>
             </tr>
             <tr>
               <th><bean:message key="sdc.details.overview.crashes.lastreport"/></th>

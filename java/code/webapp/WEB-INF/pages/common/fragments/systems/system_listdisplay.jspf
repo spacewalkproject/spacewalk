@@ -129,7 +129,9 @@
                                 <bean:message key="none.message"/>
                             </c:when>
                             <c:otherwise>
+                                <a href="/rhn/systems/details/SoftwareCrashes.do?sid=${current.id}">
                                 <c:out value="${current.totalCrashCount}" escapeXml="false"/>
+                                </a>
                             </c:otherwise>
                         </c:choose>
 		    </rl:column>
