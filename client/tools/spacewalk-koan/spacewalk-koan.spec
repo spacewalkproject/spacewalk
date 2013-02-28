@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.9.1
+Version: 1.9.2
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -46,6 +46,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Thu Feb 28 2013 Jan Pazdziora 1.9.2-1
+- Removing the dsn parameter from initDB, removing support for --db option.
+
 * Mon Dec 17 2012 Jan Pazdziora 1.9.1-1
 - properly specify device for 'ip route' command
 - typo fix
