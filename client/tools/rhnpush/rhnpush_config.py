@@ -119,6 +119,15 @@ class rhnpushConfigParser:
     def __getitem__(self, item):
         return self.get_option(item)
 
+    def __delitem__(self, item):
+        pass
+   
+    def __len__(self, item):
+        pass
+   
+    def __setitem__(self, item):
+        pass
+   
     #Takes all of the configuration options read in by the ConfigParser and makes them attributes of the object.
     def _add_config_as_attr(self, ensure_consistency=False):
         for k in self._keys():
