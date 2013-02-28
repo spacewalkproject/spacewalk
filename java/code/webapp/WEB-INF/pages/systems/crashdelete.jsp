@@ -7,6 +7,9 @@
 
 <html:html xhtml="true">
 <body>
+<%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
+
+  <br/>
   <rhn:toolbar base="h1" img="/img/icon_bug.gif" imgAlt="info.alt.img">
     ${fn:escapeXml(crash.crash)}
   </rhn:toolbar>
@@ -25,6 +28,7 @@
     <div align="right">
         <hr/>
         <html:hidden property="crid" value="${crid}"/>
+        <html:hidden property="sid" value="${sid}"/>
         <html:submit property="delete_button">
             <bean:message key="crashes.jsp.delete"/>
         </html:submit>

@@ -8,8 +8,12 @@
 
 <html:html xhtml="true">
 <body>
+
+<%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
+
+  <br/>
   <rhn:toolbar base="h1" img="/img/icon_bug.gif" imgAlt="info.alt.img"
-               deletionUrl="SoftwareCrashDelete.do?crid=${crid}"
+               deletionUrl="SoftwareCrashDelete.do?crid=${crid}&sid=${sid}"
                deletionType="crash">
     ${fn:escapeXml(crash.crash)}
   </rhn:toolbar>
@@ -66,6 +70,7 @@
         exportColumns="filename,path,filesize,modified"
         header="${crash.crash}"/>
     <html:hidden property="crid" value="${crid}"/>
+    <html:hidden property="sid" value="${sid}"/>
 </rl:listset>
 
 </body>

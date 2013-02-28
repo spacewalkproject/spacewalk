@@ -46,6 +46,7 @@ public class SoftwareCrashesDetailsAction extends RhnAction implements Listable{
 
     public static final String CRASH_ID = "crid";
     public static final String CRASH = "crash";
+    public static final String SID = "sid";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -55,6 +56,8 @@ public class SoftwareCrashesDetailsAction extends RhnAction implements Listable{
 
         RequestContext ctx = new RequestContext(request);
         User user = ctx.getCurrentUser();
+        ctx.lookupAndBindServer();
+        ctx.copyParamToAttributes(SID);
 
         Long crashId = ctx.getParamAsLong(CRASH_ID);
         request.setAttribute(CRASH_ID, crashId);
