@@ -9,7 +9,7 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-  <br/>
+  <p/>
   <rhn:toolbar base="h1" img="/img/icon_bug.gif" imgAlt="info.alt.img">
     ${fn:escapeXml(crash.crash)}
   </rhn:toolbar>
