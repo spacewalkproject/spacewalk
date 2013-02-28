@@ -30,7 +30,6 @@
 
     <rl:list
          width="100%"
-         name="crashesList"
          styleclass="list"
          emptykey="crashes.jsp.nocrashes"
          alphabarcolumn="component">
