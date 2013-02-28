@@ -2,7 +2,7 @@ Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.4
+Version: 1.9.5
 Release: 1%{?dist}
 URL:      https://fedorahosted.org/spacewalk 
 Source0:  https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -56,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/www/html/pub/bootstrap/client_config_update.py*
 
 %changelog
+* Thu Feb 28 2013 Jan Pazdziora 1.9.5-1
+- Removing the dsn parameter from initDB, removing support for --db option.
+
 * Fri Feb 15 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.9.4-1
 - Updating copyright for 2012
 
