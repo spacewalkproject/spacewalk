@@ -42,7 +42,7 @@ def _readline(filepath):
         return None
 
 def report(problem_dir):
-    problem_dir = os.path.normpath(problem_dir)
+    problem_dir = os.path.normpath(os.path.abspath(problem_dir))
     basename = os.path.basename(problem_dir)
     log = up2dateLog.initLog()
     if not (os.path.exists(problem_dir) and  os.path.isdir(problem_dir)):
@@ -100,7 +100,7 @@ def report(problem_dir):
 
 
 def update_count(problem_dir):
-    problem_dir = os.path.normpath(problem_dir)
+    problem_dir = os.path.normpath(os.path.abspath(problem_dir))
     basename = os.path.basename(problem_dir)
     log = up2dateLog.initLog()
     if not (os.path.exists(problem_dir) and  os.path.isdir(problem_dir)):
