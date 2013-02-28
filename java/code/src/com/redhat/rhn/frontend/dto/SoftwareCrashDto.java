@@ -24,11 +24,11 @@ import java.util.Date;
  */
 public class SoftwareCrashDto extends BaseDto {
 
-    Long id;
-    String crash;
-    Long count;
-    String component;
-    Date modified;
+    private Long id;
+    private String crash;
+    private Long count;
+    private String component;
+    private Date modified;
 
     /**
      * @return Returns the id.

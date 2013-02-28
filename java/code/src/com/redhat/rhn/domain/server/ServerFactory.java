@@ -862,9 +862,9 @@ public class ServerFactory extends HibernateFactory {
     }
 
     /**
-     * Looks up snapshot tag by tag name
-     * @param tagName name of the tag
-     * @return snapshot tag
+     * Lists software crashes for a server
+     * @param server of interest
+     * @return crash list
      */
     public static List<SoftwareCrashDto> listServerSoftwareCrashes(Server server) {
         SelectMode m = ModeFactory.getMode("System_queries",

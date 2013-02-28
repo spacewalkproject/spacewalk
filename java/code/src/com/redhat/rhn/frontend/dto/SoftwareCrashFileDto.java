@@ -34,9 +34,10 @@ public class SoftwareCrashFileDto extends BaseDto {
     private String downloadPath;
 
     /**
-     *
+     * Constructor
+     * @param cFile construct object according to crash file
      */
-    public SoftwareCrashFileDto(CrashFile cFile ) {
+    public SoftwareCrashFileDto(CrashFile cFile) {
         id = cFile.getId();
         filename = cFile.getFilename();
         path = cFile.getPath();

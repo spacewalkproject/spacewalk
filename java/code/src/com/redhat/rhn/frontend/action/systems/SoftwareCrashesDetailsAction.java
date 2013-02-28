@@ -44,7 +44,7 @@ import javax.servlet.http.HttpServletResponse;
  * SoftwareCrashesDetailsAction
  * @version $Rev$
  */
-public class SoftwareCrashesDetailsAction extends RhnAction implements Listable{
+public class SoftwareCrashesDetailsAction extends RhnAction implements Listable {
 
     public static final String CRASH_ID = "crid";
     public static final String CRASH = "crash";
@@ -87,7 +87,8 @@ public class SoftwareCrashesDetailsAction extends RhnAction implements Listable{
         for (Iterator iter = crash.getCrashFiles().iterator(); iter.hasNext();) {
             CrashFile cf = (CrashFile) iter.next();
             SoftwareCrashFileDto scDto = new SoftwareCrashFileDto(cf);
-            scDto.setDownloadPath(DownloadManager.getCrashFileDownloadPath(cf, contextIn.getCurrentUser()));
+            scDto.setDownloadPath(DownloadManager.getCrashFileDownloadPath(cf,
+                    contextIn.getCurrentUser()));
             dr.add(scDto);
         }
         return dr;
