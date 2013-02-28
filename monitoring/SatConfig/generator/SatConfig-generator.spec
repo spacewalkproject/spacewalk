@@ -66,21 +66,3 @@ rm -rf $RPM_BUILD_ROOT
 - Since the package SatConfig-dbsynch is gone, remove dependencies that were
   requiring it.
 
-* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 2.29.11-1
-- remove dead code (apachereg)
-
-* Tue Jan 13 2009 Miroslav Suchý <msuchy@redhat.com> 2.29.10-1
-- 253506 - fix excessive "my" declaration
-
-* Fri Jan  9 2009 Milan Zazrivec 2.29.9-1
-- fixed /var/lib/nocpulse ownership
-
-* Tue Oct 21 2008 Miroslav Suchý <msuchy@redhat.com> 2.29.8-1
-- 467441 - fix namespace
-
-* Wed Sep 24 2008 Miroslav Suchý <msuchy@redhat.com> 2.29.6-1
-- spec cleanup for Fedora
-
-* Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
-- migrating nocpulse home dir (BZ 202614)
-

@@ -46,14 +46,3 @@ rm -rf $RPM_BUILD_ROOT
 * Wed Feb 15 2012 Milan Zazrivec <mzazrivec@redhat.com> 3.6.4-1
 - time_series revamped: monitoring to use new table names
 
-* Thu Apr 23 2009 jesus m. rodriguez <jesusr@redhat.com> 3.6.3-1
-- change Source0 to point to fedorahosted.org (msuchy@redhat.com)
-
-* Mon Sep 29 2008 Miroslav Suchý <msuchy@redhat.com> 3.6.2-1
-- rename ro nocpulse-db-perl
-
-* Fri Sep 12 2008 Miroslav Suchy <msuchy@redhat.com> 3.6.1-1
-- spec cleanup for Fedora
-
-* Fri Jun  6 2008 Milan Zazrivec <mzazrivec@redhat.com> 3.6.0-6
-- cvs.dist import

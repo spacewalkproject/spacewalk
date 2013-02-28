@@ -83,24 +83,3 @@ rm -rf $RPM_BUILD_ROOT
 * Fri Feb 18 2011 Jan Pazdziora 3.26.5-1
 - Localize the filehandle globs; also use three-parameter opens.
 
-* Mon May 11 2009 Milan Zazrivec <mzazrivec@redhat.com> 3.26.4-1
-- 498257 - migrate existing files into new nocpulse homedir
-
-* Mon Apr 20 2009 jesus m. rodriguez <jesusr@redhat.com> 3.26.3-1
-- change Source0 to point to fedorahosted.org (msuchy@redhat.com)
-
-* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 3.26.2-1
-- 467441 - fix namespace
-
-* Mon Sep 29 2008 Miroslav Suchý <msuchy@redhat.com> 3.26.1-1
-- spec cleanup for Fedora
-
-* Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
-- migrating nocpulse home dir (BZ 202614)
-
-* Wed Jun  4 2008 Milan Zazrivec <mzazrivec@redhat.com> 3.26.0-6
-- fixed file permissions
-
-* Thu May 29 2008 Jan Pazdziora 3.26.0-5
-- rebuild in dist.cvs
-

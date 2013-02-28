@@ -116,6 +116,3 @@ rm -rf %{buildroot}
 * Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
 - bumping spec files to 1.1 packages
 
-* Thu Feb 18 2010 Miroslav Suchy <msuchy@redhat.com> 0.9.1-1
-- Split from package spacewalk-setup.
-

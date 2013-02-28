@@ -49,15 +49,3 @@ rm -rf $RPM_BUILD_ROOT
 - Fixing inserts and updates for RHN_PROBE_STATE and RHN_SATELLITE_STATE.
 - Use RHN::DBI instead of plain DBI with sc_db login parameters.
 
-* Fri Apr 17 2009 Devan Goodwin <dgoodwin@redhat.com> 0.12.8-1
-- Use Apache2::RequestRec. (jpazdziora@redhat.com)
-- Returning undef instead of string "NULL". (jpazdziora@redhat.com)
-
-* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 0.12.7-1
-- remove dead code (apachereg)
-
-* Thu Sep 25 2008 Miroslav Suchý <msuchy@redhat.com> 0.12.6-1
-- spec cleanup for Fedora
-
-* Mon Jun 16 2008 Milan Zazrivec <mzazrivec@redhat.com> 0.12.5-8
-- cvs.dist import

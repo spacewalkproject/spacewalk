@@ -52,16 +52,3 @@ rm -rf $RPM_BUILD_ROOT
 * Fri Feb 18 2011 Jan Pazdziora 1.4.1-1
 - Localize the filehandle globs; also use three-parameter opens.
 
-* Wed Apr 15 2009 Devan Goodwin <dgoodwin@redhat.com> 0.10.4-1
-- Append to STDERR log instead of write to allow the SELinux policy to
-  be more strict. (jpazdziora@redhat.com)
-- Fix various perl -w warnings. (msuchy@redhat.com)
-
-* Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 0.10.3-1
-- BR perl(ExtUtils::MakeMaker)
-
-* Tue Sep  2 2008 Miroslav Suchý <msuchy@redhat.com> 0.10.2-1
-- edit spec to comply with Fedora Guidelines
-
-* Fri Jun  6 2008 Milan Zazrivec <mzazrivec@redhat.com> 0.10.1-6
-- cvs.dist import

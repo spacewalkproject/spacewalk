@@ -156,19 +156,3 @@ rm -rf $RPM_BUILD_ROOT
 * Fri Jul 16 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.1-1
 - bumping spec files to future 1.1 packages
 
-* Thu Apr 15 2010 Jan Pazdziora 0.9.1-1
-- 580924 - Fix number of CPUs in the inventory report.
-
-* Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.2-1
-- updated copyrights
-
-* Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.1-1
-- rebuild for spacewalk 0.8
-
-* Mon Jan 04 2010 Jan Pazdziora 0.7.1-1
-- 549370 - set lineending to be just LF, not CRLF
-- 548751 - handle IOError: [Errno 32] Broken pipe when piping to head
-- Add defattr to spacewalk-reports.spec
-
-* Mon Dec 14 2009 Jan Pazdziora 0.7.0-1
-- moved reports from spacewalk-backend-0.8.10-1 separate package

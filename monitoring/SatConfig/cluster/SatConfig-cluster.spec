@@ -62,25 +62,3 @@ rm -rf $RPM_BUILD_ROOT
 * Fri Feb 18 2011 Jan Pazdziora 1.54.9-1
 - Localize the filehandle globs; also use three-parameter opens.
 
-* Mon Nov 30 2009 Miroslav Suchý <msuchy@redhat.com> 1.54.8-1
-- name space Validator conflicts with older version of perl-IO-Compress-Base
-
-* Mon Jul 27 2009 John Matthews <jmatthew@redhat.com> 1.54.7-1
-- remove warning when run as perl -w (msuchy@redhat.com)
-
-* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 1.54.6-1
-- 490783 - preventing to read a config file, that must not exist
-  (tlestach@redhat.com)
-
-* Thu Apr 23 2009 jesus m. rodriguez <jesusr@redhat.com> 1.54.5-1
-- change Source0 to point to fedorahosted.org (msuchy@redhat.com)
-
-* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 1.54.4-1
-- 467441 - fix namespace
-
-* Wed Sep 24 2008 Miroslav Suchý <msuchy@redhat.com> 1.54.3-1
-- spec cleanup for Fedora
-
-* Thu May 29 2008 Jan Pazdziora 1.54.2-5
-- rebuild in dist.cvs
-

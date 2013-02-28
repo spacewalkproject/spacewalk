@@ -48,14 +48,3 @@ rm -rf $RPM_BUILD_ROOT
 * Thu Feb 02 2012 Jan Pazdziora 1.15.7-1
 - removing non-working debugging scripts (michael.mraka@redhat.com)
 
-* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 1.15.6-1
-- remove dead code (apachereg)
-
-* Mon Sep 29 2008 Miroslav Suchý <msuchy@redhat.com> 1.15.5-1
-- NOCpulse::Oracle is renamed to NOCpulse::Database
-
-* Tue Sep 23 2008 Miroslav Suchý <msuchy@redhat.com> 1.15.4-1
-- spec cleanup for Fedora
-
-* Tue Jun 10 2008 Milan Zazrivec <mzazrivec@redhat.com> 1.15.3-12
-- cvs.dist import

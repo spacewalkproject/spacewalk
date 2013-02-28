@@ -48,14 +48,3 @@ rm -rf $RPM_BUILD_ROOT
 * Sat Nov 20 2010 Miroslav Suchý <msuchy@redhat.com> 0.5.6-1
 - 474591 - move web data to /usr/share/nocpulse (msuchy@redhat.com)
 
-* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.5-1
-- remove dead code (apachereg)
-
-* Sat Jan 10 2009 Milan Zazrivec 0.5.4-1
-- move web data to /var/www
-
-* Thu Dec  4 2008 Miroslav Suchý <msuchy@redhat.com> 0.5.3-1
-- 474591 - move web data to /usr/share/nocpulse
-
-* Tue Sep 23 2008 Miroslav Suchý <msuchy@redhat.com> 0.5.2-1
-- spec cleanup for Fedora

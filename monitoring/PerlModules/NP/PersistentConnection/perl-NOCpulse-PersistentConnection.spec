@@ -46,14 +46,3 @@ rm -rf $RPM_BUILD_ROOT
 * Thu Aug 26 2010 Shannon Hughes <shughes@redhat.com> 1.5.5-1
 - 
 
-* Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 1.5.4-1
-- BR perl(ExtUtils::MakeMaker)
-
-* Tue Nov 25 2008 Miroslav Suchý <msuchy@redhat.com> 1.5.3-1
-- require nocpulse-common since we suppose existence of ~nocpulse
-
-* Wed Sep  3 2008 Miroslav Suchý <msuchy@redhat.com> 1.5.2-1
-- spec cleanup for Fedora
-
-* Fri Jun  6 2008 Milan Zazrivec <mzazrivec@redhat.com> 1.5.1-5
-- cvs.dist import

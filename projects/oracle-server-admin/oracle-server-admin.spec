@@ -50,17 +50,3 @@ rm -rf $RPM_BUILD_ROOT
 * Thu Sep 23 2010 Michael Mraka <michael.mraka@redhat.com> 0.1.13-1
 - switched to default VersionTagger
 
-* Fri Mar 20 2009 Michael Mraka <michael.mraka@redhat.com> 0.1-12
-- rebuilt in new build environment
-
-* Fri May 23 2008 Michael Mraka <michael.mraka@redhat.com> 0.1-11
-- config files moved to independent package
-
-* Thu May 15 2008 Michael Mraka <michael.mraka@redhat.com> 0.1-9
-- fixed user and group creation in %pre script
-
-* Thu Mar 27 2008 Michael Mraka <michael.mraka@redhat.com> 0.1-5
-- modified according to packaging guidelines
-
-* Mon Aug 4 2003 Mihai Ibanescu <misa@redhat.com> 0.1-1
-- Initial build

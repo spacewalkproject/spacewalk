@@ -51,25 +51,3 @@ rm -rf $RPM_BUILD_ROOT
 * Wed Oct 13 2010 Jan Pazdziora 2.20.15-1
 - 484612 - correctly set From using Mail::Send (msuchy@redhat.com)
 
-* Wed Mar 31 2010 Miroslav Suchý <msuchy@redhat.com> 2.20.14-1
-- do not care about sending email, transfer the worries to perl-MailTools
-- 569745 - send email using address set in targetEmail
-
-* Mon May 11 2009 Miroslav Suchý <msuchy@redhat.com> 2.20.13-1
-- 499568 - correctly detect if we are sub-request
-
-* Fri Apr 17 2009 Devan Goodwin <dgoodwin@redhat.com> 2.20.12-1
-- Adding use Apache2::RequestRec for $r->main. (jpazdziora@redhat.com)
-
-* Tue Feb 24 2009 Miroslav Suchý <msuchy@redhat.com> 2.20.11-1
-- add LICENSE
-- add Requires smtpdaemon
-
-* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 2.20.10-1
-- remove dead code (apachereg)
-
-* Fri Sep 12 2008 Miroslav Suchy <msuchy@redhat.com> 2.20.9-1
-- spec cleanup for Fedora
-
-* Fri Jun  6 2008 Milan Zazrivec <mzazrivec@redhat.com> 2.20.8-11
-- cvs.dist import

@@ -47,14 +47,3 @@ rm -rf $RPM_BUILD_ROOT
 * Fri Sep 30 2011 Michael Mraka <michael.mraka@redhat.com> 1.13.4-1
 - 741782 - replaced aliases with table names
 
-* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 1.13.3-1
-- remove dead code (apachereg)
-
-* Wed Jan  7 2009 Milan Zazrivec 1.13.2-1
-- build for Spacewalk 0.4
-
-* Tue Sep 23 2008 Miroslav Suchý <msuchy@redhat.com> 1.13.1-1
-- spec cleanup for Fedora
-
-* Tue Jun 10 2008 Milan Zazrivec <mzazrivec@redhat.com> 1.13.0-10
-- cvs.dist import

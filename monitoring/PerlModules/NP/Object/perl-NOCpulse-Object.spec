@@ -57,23 +57,3 @@ rm -rf $RPM_BUILD_ROOT
 * Thu Aug 26 2010 Shannon Hughes <shughes@redhat.com> 1.26.11-1
 -
 
-* Wed Feb 18 2009 Miroslav Suchý <msuchy@redhat.com> 1.26.10-1
-- 485893 - add GPL headers to modules
-
-* Tue Feb 17 2009 Miroslav Suchý <msuchy@redhat.com> 1.26.9-1
-- add LICENSE
-- own NOCpulse dir
-- remove optimize flags
-
-* Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 1.26.8-1
-- BR perl(ExtUtils::MakeMaker)
-
-* Tue Oct 21 2008 Miroslav Suchý <msuchy@redhat.com> 1.26.7-1
-- 467441 - fix namespace
-
-* Tue Sep  2 2008 Miroslav Suchý <msuchy@redhat.com> 1.26.5-1
-- edit spec to comply with Fedora Guidelines
-
-* Thu May 29 2008 Jan Pazdziora 1.26.4-7
-- rebuild in dist.cvs
-
