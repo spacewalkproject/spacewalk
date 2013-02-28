@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.78
+Version: 1.9.79
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,26 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Feb 28 2013 Tomas Lestach <tlestach@redhat.com> 1.9.79-1
+- fix system crash file CVS export column translation
+- delete multiple software crashes by selecting them on webui
+- fix deleting a system crash
+- fix crash select on the SoftwareCrashes page
+- add PackageManager.buildPackageNevra java doc
+- fix checkstyle issues
+- add package nevra for crash pages
+- abrt: add missing colons
+- abrt: show full storage path for a crash
+- abrt: add links to crash detail page
+- webui: <p/> instead of <br/>
+- adding system headers for the crash pages
+- adding crash files on the crash detail page
+- introducing crash delete page
+- introducing crash details page
+- introducing crash list page
+- abrt: webui to set crashfile upload size
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+
 * Wed Feb 27 2013 Jan Pazdziora 1.9.78-1
 - API doc build fix.
 - abrt: fix exception number
