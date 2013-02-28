@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.CrashManager;
 
 import org.apache.struts.action.ActionForm;
@@ -41,6 +42,7 @@ public class SoftwareCrashesDeleteAction extends RhnAction {
 
     public static final String CRASH_ID = "crid";
     public static final String CRASH = "crash";
+    public static final String CRASH_NEVRA = "crash_nevra";
     public static final String SID = "sid";
 
 
@@ -59,6 +61,9 @@ public class SoftwareCrashesDeleteAction extends RhnAction {
         request.setAttribute(CRASH_ID, crashId);
         Crash crash = CrashManager.lookupCrashByUserAndId(user, crashId);
         request.setAttribute(CRASH, crash);
+        request.setAttribute(CRASH_NEVRA,
+                PackageManager.buildPackageNevra(crash.getPackageNameId(),
+                        crash.getPackageEvrId(), crash.getPackageArchId()));
 
         if (ctx.isSubmitted()) {
             String crashName = crash.getCrash();

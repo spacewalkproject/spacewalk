@@ -25,7 +25,9 @@ import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.download.DownloadManager;
+import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.CrashManager;
+
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -46,6 +48,7 @@ public class SoftwareCrashesDetailsAction extends RhnAction implements Listable{
 
     public static final String CRASH_ID = "crid";
     public static final String CRASH = "crash";
+    public static final String CRASH_NEVRA = "crash_nevra";
     public static final String SID = "sid";
 
     /** {@inheritDoc} */
@@ -64,6 +67,9 @@ public class SoftwareCrashesDetailsAction extends RhnAction implements Listable{
 
         Crash crash = CrashManager.lookupCrashByUserAndId(user, crashId);
         request.setAttribute(CRASH, crash);
+        request.setAttribute(CRASH_NEVRA,
+                PackageManager.buildPackageNevra(crash.getPackageNameId(),
+                        crash.getPackageEvrId(), crash.getPackageArchId()));
 
         ListHelper helper = new ListHelper(this, request);
         helper.execute();

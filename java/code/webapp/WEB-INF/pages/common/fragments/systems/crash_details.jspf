@@ -9,6 +9,14 @@
     </tr>
     <tr>
       <th>
+        <bean:message key="crashes.jsp.nevra"/>:
+      </th>
+      <td>
+            <c:out value="${crash_nevra}"/>
+      </td>
+    </tr>
+    <tr>
+      <th>
         <bean:message key="crashes.jsp.crashcount"/>:
       </th>
       <td>
