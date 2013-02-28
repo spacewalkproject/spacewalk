@@ -93,16 +93,18 @@ public class CrashManager extends BaseManager {
         Crash crash = lookupCrashByUserAndId(user, crashId);
 
         // FIXME: async deletion via taskomatic?
-        File storageDir = new File(Config.get().getString("web.mount_point"),
-                                   crash.getStoragePath());
+        if (crash.getStoragePath() != null) {
+            File storageDir = new File(Config.get().getString("web.mount_point"),
+                    crash.getStoragePath());
 
-        for (CrashFile cf : crash.getCrashFiles()) {
-            File crashFile = new File(storageDir, cf.getFilename());
-            if (crashFile.exists() && crashFile.isFile()) {
-                crashFile.delete();
+            for (CrashFile cf : crash.getCrashFiles()) {
+                File crashFile = new File(storageDir, cf.getFilename());
+                if (crashFile.exists() && crashFile.isFile()) {
+                    crashFile.delete();
+                }
             }
+            storageDir.delete();
         }
-        storageDir.delete();
 
         CrashFactory.delete(crash);
     }

@@ -15,7 +15,6 @@
 package com.redhat.rhn.frontend.action.systems;
 
 import com.redhat.rhn.domain.server.Crash;
-import com.redhat.rhn.domain.server.CrashFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -66,9 +65,8 @@ public class SoftwareCrashesDeleteAction extends RhnAction {
                         crash.getPackageEvrId(), crash.getPackageArchId()));
 
         if (ctx.isSubmitted()) {
-            String crashName = crash.getCrash();
-            CrashFactory.delete(crash);
-            createSuccessMessage(request, "message.crashdeleted", crashName);
+            CrashManager.deleteCrash(user, crashId);
+            createSuccessMessage(request, "message.crashdeleted", crash.getCrash());
             Map params = new HashMap();
             params.put("sid", crash.getServer().getId());
             return getStrutsDelegate().forwardParams(mapping.findForward("delete"),
