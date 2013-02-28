@@ -15,6 +15,8 @@
 
 package com.redhat.rhn.domain.server;
 
+import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.BaseDomainHelper;
 
 import java.util.Date;
@@ -324,6 +326,14 @@ public class Crash extends BaseDomainHelper {
      */
     public void setStoragePath(String storagePathIn) {
         storagePath = storagePathIn;
+    }
+
+    /**
+     * Get the crash absolute storage path.
+     * @return Returns the crash storage path.
+     */
+    public String getAbsStoragePath() {
+        return Config.get().getString(ConfigDefaults.MOUNT_POINT) + "/" + storagePath;
     }
 
     /**

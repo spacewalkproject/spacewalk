@@ -76,7 +76,7 @@
         <bean:message key="crashes.jsp.storagepath"/>:
       </th>
       <td>
-            <c:out value="${crash.storagePath}"/>
+            <c:out value="${crash.absStoragePath}"/>
       </td>
     </tr>
     <tr>
