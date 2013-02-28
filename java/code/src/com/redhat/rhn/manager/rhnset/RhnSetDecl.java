@@ -18,6 +18,7 @@ import com.redhat.rhn.common.util.Asserts;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
+import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
 import com.redhat.rhn.frontend.action.monitoring.ProbeSuiteHelper;
@@ -67,10 +68,6 @@ public class RhnSetDecl {
     // set of channels by channel_id
     public static final RhnSetDecl CHANNELS_FOR_ERRATA = make(
             "channels_for_errata", SetCleanup.UNOWNED_CHANNELS);
-
-    // set of system crashes
-    public static final RhnSetDecl SYSTEM_CRASHES = make(
-            "crashes_for_system", SetCleanup.NOOP);
 
     // set of errata by errata_id
     public static final RhnSetDecl ERRATA = make("errata_list",
@@ -515,6 +512,15 @@ public class RhnSetDecl {
      */
     public static RhnSetDecl setForChannelPackages(Channel chan) {
         return make("package_clone_list" + chan.getId(), SetCleanup.NOOP);
+    }
+
+    /**
+     * get the set for system software crashes
+     * @param serv server passed in
+     * @return the Set descl
+     */
+    public static RhnSetDecl setForSystemCrashes(Server serv) {
+        return make("crashes_for_system" + serv.getId(), SetCleanup.NOOP);
     }
 
     public static final RhnSetDecl SYSTEM_NOTES = make("systems_notes",

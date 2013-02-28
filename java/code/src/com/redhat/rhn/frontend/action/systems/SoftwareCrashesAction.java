@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.systems;
 
+import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
@@ -24,12 +25,16 @@ import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.system.CrashManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,25 +56,33 @@ public class SoftwareCrashesAction extends RhnAction implements Listable {
 
        RequestContext context = new RequestContext(request);
        context.copyParamToAttributes("sid");
-       context.lookupAndBindServer();
+       Server server = context.lookupAndBindServer();
 
-       ListRhnSetHelper helper = new ListRhnSetHelper(this, request, getSetDecl());
+       ListRhnSetHelper helper = new ListRhnSetHelper(this, request,
+               RhnSetDecl.setForSystemCrashes(server));
        helper.execute();
        if (helper.isDispatched()) {
-           return handleSubmit(mapping, formIn, request, response);
+           return handleSubmit(mapping, context, server);
        }
 
        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
    }
 
   protected ActionForward handleSubmit(ActionMapping mapping,
-          ActionForm formIn, HttpServletRequest request,
-          HttpServletResponse response) {
-      return mapping.findForward("default");
-  }
-
-  protected RhnSetDecl getSetDecl() {
-      return RhnSetDecl.SYSTEM_CRASHES;
+          RequestContext ctx, Server server) {
+      User user = ctx.getCurrentUser();
+      RhnSet set = RhnSetDecl.setForSystemCrashes(server).get(user);
+      // until we delete crash files from taskomatic, we have to delete them one by one
+      for (Iterator<Long> iter = RhnSetDecl.setForSystemCrashes(server).
+              get(user).getElementValues().iterator(); iter.hasNext();) {
+          CrashManager.deleteCrash(user, iter.next());
+      }
+      createSuccessMessage(ctx.getRequest(), "message.crashesdeleted",
+              Integer.toString(set.size()));
+      Map params = new HashMap();
+      params.put("sid", server.getId());
+      return getStrutsDelegate().forwardParams(mapping.findForward("delete"),
+              params);
   }
 
    /**
