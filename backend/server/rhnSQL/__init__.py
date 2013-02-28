@@ -81,7 +81,8 @@ def initDB(backend=None, host=None, port=None, username=None,
     """
 
     if backend is None:
-        initCFG('server')
+        if CFG is None or not CFG.is_initialized():
+            initCFG('server')
         backend = CFG.DB_BACKEND
         host = CFG.DB_HOST
         port = CFG.DB_PORT
