@@ -58,7 +58,7 @@ chdir '/';
 
 my ($pid, $wfh, $rfh);
 if ($options{db_backend} eq 'oracle') {
-	my @command = ( 'sqlplus', '-S', "$options{db_user}/$options{db_password}\@$options{db_name}");
+	my @command = ( 'sqlplus', '-S', qq!$options{db_user}/"$options{db_password}"\@$options{db_name}!);
 	if ($verbose) {
 		print STDERR "Running: @command\n";
 	}
