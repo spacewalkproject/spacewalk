@@ -135,8 +135,12 @@ class Database(sql_base.Database):
     def __init__(self, host=None, port=None, username=None,
                  password=None, database=None):
 
-        self.host = host
-        self.port = port
+        if host is None or host == '' or host == 'localhost':
+            self.host = None
+            self.port = None
+        else:
+            self.host = host
+            self.port = port
 
         # pgsql module prefers -1 for an unspecified port:
         if not port:
