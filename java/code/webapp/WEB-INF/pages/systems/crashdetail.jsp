@@ -41,9 +41,13 @@
             sortattr="filename"
             sortable="true"
             filterattr="filename">
-            <a href="${current.downloadPath}">
+            <c:if test="${current.isUploaded}">
+                <a href="${current.downloadPath}">
+            </c:if>
                 ${current.filename}
-            </a>
+            <c:if test="${current.isUploaded}">
+                </a>
+            </c:if>
         </rl:column>
 
         <rl:column headerkey="crashes.jsp.path" bound="false"

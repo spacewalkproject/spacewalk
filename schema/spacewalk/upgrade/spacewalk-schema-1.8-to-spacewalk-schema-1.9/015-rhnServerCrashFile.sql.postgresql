@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 25fffeacf4445a14bfe27e0999ea554d690710e2
+-- oracle equivalent source sha1 8027e800d1820708db136bd6896f562681ad96ef
 --
 -- Copyright (c) 2013 Red Hat, Inc.
 --
@@ -25,6 +25,10 @@ create table rhnServerCrashFile
     filename    VARCHAR(512) not null,
     path        VARCHAR(1024) not null,
     filesize    NUMERIC not null,
+    is_uploaded char(1)
+                default ('N') not null
+                constraint rhn_server_crash_file_upl_ck
+                check (is_uploaded in ('Y', 'N')),
     created     TIMESTAMPTZ
                     default (current_timestamp) not null,
     modified    TIMESTAMPTZ

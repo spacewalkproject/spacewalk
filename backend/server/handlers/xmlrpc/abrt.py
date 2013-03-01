@@ -75,6 +75,22 @@ select crash_file_sizelimit
  where id = :org_id
 """
 
+_query_set_crashfile_upload_flag = """
+update rhnServerCrashFile
+   set is_uploaded = 'Y'
+ where id = (
+       select scf.id as id
+         from rhnServerCrashFile scf,
+              rhnServerCrash sc
+        where scf.crash_id = sc.id and
+              scf.crash_id = :crash_id and
+              sc.server_id = :server_id and
+              scf.filename = :filename and
+              scf.path = :path and
+              scf.filesize = :filesize
+       )
+"""
+
 class Abrt(rhnHandler):
     def __init__(self):
         rhnHandler.__init__(self)
@@ -128,6 +144,18 @@ class Abrt(rhnHandler):
         h = rhnSQL.prepare(_query_get_crashfile_sizelimit)
         h.execute(org_id = self.server.server['org_id'])
         return h.fetchall_dict()[0]['crash_file_sizelimit']
+
+    def _set_crashfile_upload_flag(self, server_id, crash_id, filename, path, filesize):
+        h = rhnSQL.prepare(_query_set_crashfile_upload_flag)
+        r = h.execute(
+            server_id = server_id,
+            crash_id = crash_id,
+            filename = filename,
+            path = path,
+            filesize = filesize)
+        rhnSQL.commit()
+
+        return r
 
     def create_crash(self, system_id, crash_data, pkg_data):
         self.auth_system(system_id)
@@ -225,6 +253,9 @@ class Abrt(rhnHandler):
         f = open(absolute_file, 'w+')
         f.write(filecontent)
         f.close()
+
+        self._set_crashfile_upload_flag(self.server_id, crash_id, crash_file['filename'], \
+                                        crash_file['path'], crash_file['filesize'])
 
         if crash_file['filename'] in self.watched_items:
             # 'username' contains an extra '\n' at the end

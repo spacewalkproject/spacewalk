@@ -24,6 +24,10 @@ create table rhnServerCrashFile
     filename    varchar2(512) not null,
     path        varchar2(1024) not null,
     filesize    number not null,
+    is_uploaded char(1)
+                default ('N') not null
+                constraint rhn_server_crash_file_upl_ck
+                check (is_uploaded in ('Y', 'N')),
     created     timestamp with local time zone
                     default (current_timestamp) not null,
     modified    timestamp with local time zone

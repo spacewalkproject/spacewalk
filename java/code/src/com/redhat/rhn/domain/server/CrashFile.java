@@ -29,6 +29,7 @@ public class CrashFile extends BaseDomainHelper {
     private String filename;
     private String path;
     private long filesize;
+    private boolean isUploaded;
     private Date created;
     private Date modified;
 
@@ -117,6 +118,22 @@ public class CrashFile extends BaseDomainHelper {
      */
     public void setFilesize(long filesizeIn) {
         filesize = filesizeIn;
+    }
+
+    /**
+     * Return isUploaded flag.
+     * @return Returns the isUploaded flag.
+     */
+    public boolean getIsUploaded() {
+        return isUploaded;
+    }
+
+    /**
+     * Set the isUploaded flag.
+     * @param isUploadedIn The boolean flag to set.
+     */
+    public void setIsUploaded(boolean isUploadedIn) {
+        isUploaded = isUploadedIn;
     }
 
     /**

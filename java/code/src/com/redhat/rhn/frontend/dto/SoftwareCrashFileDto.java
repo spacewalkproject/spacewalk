@@ -30,6 +30,7 @@ public class SoftwareCrashFileDto extends BaseDto {
     private String filename;
     private String path;
     private long filesize;
+    private boolean isUploaded;
     private Date modified;
     private String downloadPath;
 
@@ -41,6 +42,7 @@ public class SoftwareCrashFileDto extends BaseDto {
         id = cFile.getId();
         filename = cFile.getFilename();
         path = cFile.getPath();
+        isUploaded = cFile.getIsUploaded();
         filesize = cFile.getFilesize();
         modified = cFile.getModified();
     }
@@ -109,6 +111,19 @@ public class SoftwareCrashFileDto extends BaseDto {
         filesize = filesizeIn;
     }
 
+   /**
+     * @return Returns the isUploaded flag.
+     */
+    public boolean getIsUploaded() {
+        return isUploaded;
+    }
+
+    /**
+     * @param isUploadedIn The isUploaded boolean flag.
+     */
+    public void setIsUploaded(boolean isUploadedIn) {
+        isUploaded = isUploadedIn;
+    }
 
     /**
      * @return Returns the modified.
