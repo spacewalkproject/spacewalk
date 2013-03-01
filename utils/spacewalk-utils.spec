@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.9.16
+Version:	1.9.17
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -88,6 +88,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Mar 01 2013 Stephen Herr <sherr@redhat.com> 1.9.17-1
+- adding Spacewalk 1.9 channels to spacewalk-common-channels.ini
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+
 * Thu Feb 28 2013 Jan Pazdziora 1.9.16-1
 - Removing the dsn parameter from initDB, removing support for --db option.
 
