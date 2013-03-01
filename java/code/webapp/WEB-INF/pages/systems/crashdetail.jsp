@@ -11,8 +11,8 @@
 
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-  <p/>
-  <rhn:toolbar base="h1" img="/img/icon_bug.gif" imgAlt="info.alt.img"
+  <br/>
+  <rhn:toolbar base="h2" img="/img/rhn-icon-bug-ex.gif" imgAlt="info.alt.img"
                deletionUrl="SoftwareCrashDelete.do?crid=${crid}&sid=${sid}"
                deletionType="crash">
     ${fn:escapeXml(crash.crash)}
