@@ -1,5 +1,5 @@
 Name:           spacewalk-abrt
-Version:        1.9.5
+Version:        1.9.6
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
@@ -37,6 +37,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/*
 
 %changelog
+* Fri Mar 01 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.9.6-1
+- typo fix
+
 * Fri Mar 01 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.9.5-1
 - spacewalk-abrt: remodel dump dir location logic
 - spacewalk-abrt: use absolute paths
