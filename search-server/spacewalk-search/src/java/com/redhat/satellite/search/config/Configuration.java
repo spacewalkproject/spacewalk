@@ -291,41 +291,7 @@ public class Configuration {
             return null;
         }
 
-        return stripComments(result);
-    }
-
-    private String stripComments(String string) {
-        // check for null
-        if (string == null) {
-            return null;
-        }
-
-        int breakpos = string.indexOf('#');
-        
-        // check for comment in value
-        if (breakpos < 0) {
-            return string.trim();
-        }
-        
-        while (breakpos > -1) {
-            if (breakpos == 0) {
-                string = "";
-                break;
-            }
-            else if (string.charAt(breakpos - 1) == '\\') {
-                breakpos = string.indexOf('#', breakpos + 1);
-            }
-            else {
-                string = string.substring(0, breakpos);
-                break;
-            }
-        }
-
-        if (string.length() == 0) {
-            return string;
-        }
-        
-        return string.replaceAll("\\\\#", "#").trim();
+        return StringUtils.trim(result);
     }
 
     /**

@@ -226,41 +226,7 @@ public class Config {
             return null;
         }
 
-        return stripComments(result);
-    }
-
-    private String stripComments(String string) {
-        // check for null
-        if (string == null) {
-            return null;
-        }
-
-        int breakpos = string.indexOf('#');
-
-        // check for comment in value
-        if (breakpos < 0) {
-            return StringUtils.trim(string);
-        }
-
-        while (breakpos > -1) {
-            if (breakpos == 0) {
-                string = "";
-                break;
-            }
-            else if (string.charAt(breakpos - 1) == '\\') {
-                breakpos = string.indexOf('#', breakpos + 1);
-            }
-            else {
-                string = string.substring(0, breakpos);
-                break;
-            }
-        }
-
-        if (string.length() == 0) {
-            return string;
-        }
-
-        return StringUtils.trim(string.replaceAll("\\\\#", "#"));
+        return StringUtils.trim(result);
     }
 
     /**
