@@ -85,7 +85,7 @@
   </condition>
 
   <property name="build.jar.dependencies"
-      value="ant ant-junit ${ant-contrib.path} antlr  ${test.build.jar.dependenciess}
+      value="ant ant-junit ${ant-contrib.path} antlr  ${test.build.jar.dependencies}
       ${common.jar.dependencies} tanukiwrapper ${tomcat-jars} ${jasper-jars}
        concurrent xalan-j2" />
 
