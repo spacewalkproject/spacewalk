@@ -43,10 +43,6 @@ class ConfigParserError(Exception):
 # TODO: need to be able to specify "" component and parse all files in
 #       the directory and form a _complete_ mapping structure.
 #       Or, if that is too difficult, take in a list of components...
-# TODO: add a writeConfig(hash) method that will take some dictionary
-#       of config options, compare to the default options and write to
-#       /etc/rhn/rhn.conf if those options differ at all.
-#       XXX: almost done
 class RHNOptions:
     """ Main options class
         The basic idea is to share the important pieces of information - the
@@ -196,120 +192,6 @@ class RHNOptions:
         self.__check()
         self.__configs[self.__component][key] = value
     __setitem__ = set
-
-    def writeConfig(self, userConfigDict, commentDict=None, stream=None):
-        """given dictionaries in these formats:
-             config dictionary:
-               { component.component.key: value, ...}
-                  ***OR***
-               { (comp0, comp1): {key: value}, ...}
-        
-             comment dictionary:
-               { component.component.key: comment string, ...}
-        
-        Compare to defaults. If different, write to file, if not,
-        leave as is. Comments are written to the file as well.
-        
-        NOTE: *DESTRUCTIVE* will overwrite file always.
-        """
-        if stream is None:
-            stream = open(self.filename, 'wb')
-        if commentDict is None:
-            commentDict = {}
-        _dict = {}
-        # convert to a dict of the sort understood by the object if not
-        # already converted
-        for k in userConfigDict.keys():
-            if type(k) == type(()):
-                # already converted!
-                _dict = userConfigDict
-                break
-            if not k:
-                continue
-            line = "%s = %s" % (k, userConfigDict[k])
-            parsed = parse_line(line)
-            component = tuple(parsed[0][:-1])
-            key = parsed[0][-1]
-            value = parsed[1]
-            if not _dict.has_key(component):
-                _dict[component] = {}
-            _dict[component][key] = value
-
-        # diff the dictionary in comparison to the defaults
-        diffDict = self.diffConfig(_dict)
-
-        # return the parsed state back to normal
-        self.parse()
-
-        ### write the file to stream
-        # recombine the parsed lines
-        stream.write("# Automatically generated Red Hat Network Satellite/" + \
-                     "Proxy Server config file.\n\n")
-        for comp, _dict in diffDict.items():
-            for k, v in _dict.items():
-                line = unparse_line(comp, k, v) + '\n'
-                comment = ""
-                if comp:
-                    # just for the comment lookup
-                    k = '.'.join(comp+(k, ))
-                if commentDict.has_key(k):
-                    comment = '# %s\n' % commentDict[k]
-                # write it
-                stream.write(comment)
-                stream.write(line)
-                stream.write('\n')
-        stream.close()
-        return diffDict
-
-    def diffConfig(self, configDict):
-        """given configDict in this format:
-               { (component0, component1) : {key: value}, ...}
-        diff the settings against the defaults and return a dict of those
-        that are truly different (removing the ones that == the defaults).
-        """
-        savedComponent = self.__component
-
-        # prep the diff dictionary
-        diffDict = {}
-        unique = []
-        for comp in configDict.keys():
-            if comp not in unique:
-                unique.append(comp)
-            possible = parse_comps('.'.join(comp))
-            for c in possible:
-                if not diffDict.has_key(c):
-                    diffDict[c] = {}
-
-        # examine all the components and keys
-        for comp in unique:
-            self.__component = '.'.join(comp)
-            self._parseDefaults(allCompsYN=0)
-            if self.__defaults.has_key(comp):
-                for k in configDict[comp].keys():
-                    possible = parse_comps('.'.join(comp))
-                    keyFoundYN = 0
-                    # is the key at least in the component tree?
-                    for c in possible:
-                        if self.__defaults[c].has_key(k):
-                            keyFoundYN = 1
-                    if keyFoundYN:
-                        if not self.__defaults[comp].has_key(k):
-                            # setting in tree but not set at this level
-                            diffDict[comp][k] = configDict[comp][k]
-                        elif configDict[comp][k] != self.__defaults[comp][k]:
-                            # that setting exists and is different
-                            diffDict[comp][k] = configDict[comp][k]
-                    else:
-                        # doesn't have that key setting or settings are
-                        # identical.
-                        continue
-            else:
-                # component is not one of the defaults.
-                continue
-
-        # restore the component and return the result
-        self.__component = savedComponent
-        return diffDict
 
     def show(self):
         self.__check()
@@ -511,31 +393,6 @@ def parse_line(line):
     return (keys, vals)
 
 
-def unparse_line(component, key, value):
-    """ component needs to be in (component1, component2) notation
-     key is a string
-     value can be a string, None, int or float ...or [value,value]
-                                               ...or (value, linenum)
-     return 'comonent1.component2.key = value, value
-    """
-    varSeparator = '.'
-    optSeparator = ','
-
-    k = key
-    if component:
-        k = varSeparator.join(component+(k, ))
-    if type(value) == type(()):
-        # ignore the line number
-        value = value[0]
-    v = value
-    if type(value) == type([]):
-        v = (optSeparator + " ").join(map(str, value))
-    if v is None:
-        v = ''
-    v = str(v)
-    return '%s = %s' % (k, v)
-
-
 def parse_file(filename, single_key = 0):
     """
     parse a config file (read it in, parse its lines)
@@ -694,43 +551,6 @@ def runTest():
     print "=============== dump of all relevant dictionaries ================="
     test_cfg.showall()
     print "==================================================================="
-#    confDict = {
-#        'traceback_mail': 'testing@here.com, test2@here.com',
-#        'proxy.pkg_dir': '/var/up2date/xxx_packages',
-#        'proxy.redirect.http_proxy': 'someproxy:8080',
-#        'proxy.redirect.http_proxy_username': '',
-#        'proxy.redirect.http_proxy_password': '',
-#        'proxy.package_manager.http_proxy': '',
-#        'proxy.package_manager.http_proxy_username': '',
-#        'proxy.package_manager.http_proxy_password': '',
-#        }
-#    commentDict = {
-#        'traceback_mail': "Destination of all tracebacks, etc.",
-#        'proxy.pkg_dir': "Location of locally built, custom packages",
-#        'proxy.redirect.http_proxy': "Corporate gateway http proxy, format: \
-#corp_gateway.your_company.com:8080",
-#        'proxy.redirect.http_proxy_username': "Username for that corporate \
-#gateway http proxy",
-#        'proxy.redirect.http_proxy_password': "Password for that corporate \
-#gateway http proxy",
-#        'proxy.package_manager.http_proxy': "Corp. gateway http proxy -- \
-#should match the setting for proxy.redirect.http_proxy",
-#        'proxy.package_manager.http_proxy_username': "Username for that \
-#corporate gateway http proxy",
-#        'proxy.package_manager.http_proxy_password': "Password for that \
-#corporate gateway http proxy",
-#        }
-    confDict = {
-        'server.traceback_mail': 'testing@here.com, test2@here.com',
-        'server.satellite.rhn_parent': 'rhnapp.webdev-colo.redhat.com',
-#        'server.satellite.rhn_parent': 'xmlrpc.rhn.redhat.com',
-        }
-    commentDict = {
-        'server.traceback_mail': "Destination of all tracebacks, etc.",
-        'server.satellite.rhn_parent': "RHN 'parent' server of this satellite",
-        'server.BLAH': "TESTING... SHOULD NEVER WRITE THIS COMMENT!",
-        }
-    test_cfg.writeConfig(confDict, commentDict, stream=sys.stdout)
 
 
 #------------------------------------------------------------------------------
