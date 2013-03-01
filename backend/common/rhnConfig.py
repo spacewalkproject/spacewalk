@@ -17,6 +17,7 @@ import os
 import sys
 import glob
 import stat
+import re
 
 from rhn.UserDictCase import UserDictCase
 
@@ -361,12 +362,8 @@ def parse_line(line):
             val = None
         return val
 
-    # Strip out any comments.
-    i = line.find('#')
-    if i >= 0:
-        line = line[:i]
-    line = line.strip()
-    if not line:
+    # Skip empty and comment-only lines
+    if re.match(r'[ \t]*(#|$)', line):
         return (None, None)
 
     # now split it into keys and values. We allow for max one
