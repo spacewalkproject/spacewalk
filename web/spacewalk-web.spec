@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.19
+Version: 1.9.20
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -259,6 +259,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Mar 01 2013 Stephen Herr <sherr@redhat.com> 1.9.20-1
+- Updating API versions for release
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+
 * Thu Feb 28 2013 Jan Pazdziora 1.9.19-1
 - Removing the dsn parameter from initDB, removing support for --db option.
 
