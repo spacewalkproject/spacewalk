@@ -72,11 +72,8 @@ sub load_file {
     or die "Can't open config file '$params{-filename}': $!";
 
   while(<FH>) {
-    # keep the escaped comments from being stripped
-    s/\\\\#/@@@@/;
-    # strip comments, leading, and trailing spaces
-    s/#.*$//; s/\s*$//; s/^\s*//;
-    next if /^$/;
+    # Skip empty and comment-only lines
+    next if /^\s*(#|$)/;
 
     my $line = $_;
     my $regex = qr/\\\s*$/;
@@ -87,10 +84,8 @@ sub load_file {
     }
 
     my ($var, $val) = split /\s*=\s*/, $line, 2;
-    $val =~ s/^\s+//;
+    $var =~ s/^\s+//;
     $val =~ s/\s+$//;
-    # ok put back the escaped comment
-    $val =~ s/@@@@/#/;
 
     my $domain;
     my @components = split /\./, $var;
