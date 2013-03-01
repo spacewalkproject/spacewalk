@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.44
+Version: 1.9.45
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -638,6 +638,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Mar 01 2013 Jan Pazdziora 1.9.45-1
+- If the database host is localhost, use Unix sockets in backend.
+
 * Fri Mar 01 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.9.44-1
 - abrt: display download link only for files that are available
 - Removing writeConfig and dependencies, we do not use it anywhere in our code.
