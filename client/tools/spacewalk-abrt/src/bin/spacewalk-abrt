@@ -40,7 +40,7 @@ class AbrtCli(rhncli.RhnCli):
         group.add_option("--update-count", action="store",
             help=_("Update crash count for the specified problem directory")),
         group.add_option("--sync", action="store_true",
-            help=_("Synchronyze missing problem directories")),
+            help=_("Synchronize missing problem directories")),
         self.optparser.add_option_group(group)
 
 
