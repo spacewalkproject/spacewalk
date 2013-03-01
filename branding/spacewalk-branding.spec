@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.9.5
+Version:    1.9.6
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -88,6 +88,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Mar 01 2013 Tomas Lestach <tlestach@redhat.com> 1.9.6-1
+- introducing crash logo
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+
 * Thu Jan 31 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.5-1
 - removed no longer necessary directory definitions
 - pack branding template files outside of document root
