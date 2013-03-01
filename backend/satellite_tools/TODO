@@ -1,9 +1,0 @@
-taw/misa: source package imports/sync
-taw: check the headers to see if the data is gzipped.
-     - make sure chip sends the data with the right transfer-encoding
-taw/misa: need deeper diffs (unsure of where to go with this).
-          - see bugzilla
-taw/misa: fully document the backend code
-          - inheritance tree diagram
-          - comment the inherited methods in the child classes.
-taw/misa: code cleanup once ever-thang stabilizes (ie. very soon).
