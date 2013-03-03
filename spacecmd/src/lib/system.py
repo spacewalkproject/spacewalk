@@ -383,6 +383,10 @@ def do_system_runscript(self, args):
     print 'Script Contents'
     print '---------------'
     print script_contents
+    
+    print 'Systems'
+    print '-------'
+    print '\n'.join(sorted(systems))
 
     # have the user confirm
     if not self.user_confirm(): return
