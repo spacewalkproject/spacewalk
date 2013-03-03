@@ -791,7 +791,7 @@ def expand_systems(self, args):
 
     matches = filter_results(self.get_system_names(), systems)
 
-    return matches + system_ids
+    return list(set(matches + system_ids))
 
 
 def list_base_channels(self):
