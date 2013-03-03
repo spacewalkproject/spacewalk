@@ -533,6 +533,7 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
 
         if options.binary:
             file_info['contents_enc64'] = True
+            file_info['binary'] = True
 
         print 'Path:            %s' % options.path
         print 'Directory:       %s' % options.directory
