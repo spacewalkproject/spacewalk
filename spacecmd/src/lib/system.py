@@ -1251,13 +1251,6 @@ def do_system_addconfigfile(self, args, update_path=''):
             self.client.system.config.createOrUpdateSymlink(self.session,
                 system_id, options.path, file_info, localopt)
         else:
-#            # compatibility for Satellite 5.3
-#            if not self.check_api_version('10.11'):
-#                del file_info['selinux_ctx']
-#
-#                if file_info.has_key('revision'):
-#                    del file_info['revision']
-#
             self.client.system.config.createOrUpdatePath(self.session,
                 system_id, options.path, options.directory, file_info,
                 localopt)
