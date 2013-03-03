@@ -130,6 +130,7 @@ def do_snippet_create(self, args, update_name = ''):
         contents = read_file(options.file)
 
     print
+    print 'Snippet: %s' % options.name
     print 'Contents'
     print '--------'
     print contents
