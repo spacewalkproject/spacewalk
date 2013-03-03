@@ -25,10 +25,10 @@ import logging, os, pickle, re, readline, shlex, sys, time, xmlrpclib
 from collections import deque
 from datetime import datetime, timedelta
 from difflib  import unified_diff
-from optparse import OptionParser
 from tempfile import mkstemp
 from textwrap import wrap
 import rpm
+from spacecmd.optionparser import SpacecmdOptionParser
 
 try:
     import json
@@ -45,7 +45,7 @@ def parse_arguments(args, options = []):
         # allow simple globbing
         parts = [re.sub('\*', '.*', a) for a in parts]
 
-        parser = OptionParser(option_list = options)
+        parser = SpacecmdOptionParser(option_list = options)
         (opts, leftovers) = parser.parse_args(args = parts)
 
         return leftovers, opts
