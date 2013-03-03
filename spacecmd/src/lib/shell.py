@@ -124,7 +124,7 @@ class SpacewalkShell(Cmd):
             return ''
 
         # print the help message for a command if the user passed --help
-        if '--help' in parts:
+        if '--help' in parts or '-h' in parts:
             return 'help %s' % command
 
         # should we look for an item in the history?
