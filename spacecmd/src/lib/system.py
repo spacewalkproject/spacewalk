@@ -168,6 +168,12 @@ def do_system_reboot(self, args):
     else:
         systems = self.expand_systems(args)
 
+    print 
+    
+    print 'Systems'
+    print '-------'
+    print '\n'.join(sorted(systems))
+
     if not self.user_confirm('Reboot these systems [y/N]:'): return
 
     action_time = parse_time_input('now')
