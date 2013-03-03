@@ -20,6 +20,7 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+from optparse import Option
 from spacecmd.utils import *
 
 import shlex
@@ -241,3 +242,36 @@ def do_repo_delete(self, args):
                 self.client.channel.software.removeRepo(self.session, repo)
             except:
                 logging.error('Failed to remove repo %s' % repo)
+
+####################
+
+def help_repo_create(self):
+    print 'repo_create: Create a user repository'
+    print '''usage: repo_create [options]
+
+options:
+  -n NAME
+  -u URL'''
+
+def do_repo_create(self, args):
+    options = [ Option('-n', '--name', action='store'),
+                Option('-u', '--url', action='store') ]
+
+    (args, options) = parse_arguments(args, options)
+
+    if is_interactive(options):
+        options.name = prompt_user('Name:', noblank = True)
+        options.url = prompt_user('URL:', noblank = True)
+    else:
+        if not options.name:
+            logging.error('A name is required')
+            return
+
+        if not options.url:
+            logging.error('A URL is required')
+            return
+
+    self.client.channel.software.createRepo(self.session,
+                                            options.name,
+                                            'yum',
+                                            options.url)
