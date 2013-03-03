@@ -71,6 +71,7 @@ def do_package_details(self, args):
         print 'Arch:    %s' % details.get('arch_label')
         print
         print 'File:    %s' % details.get('file')
+        print 'Path:    %s' % details.get('path')
         print 'Size:    %s' % details.get('size')
         print 'MD5:     %s' % details.get('md5sum')
         print 
