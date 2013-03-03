@@ -46,9 +46,9 @@ def parse_arguments(args, options = []):
         parts = [re.sub('\*', '.*', a) for a in parts]
 
         parser = OptionParser(option_list = options)
-        (options, leftovers) = parser.parse_args(args = parts)
+        (opts, leftovers) = parser.parse_args(args = parts)
 
-        return leftovers, options
+        return leftovers, opts
     except IndexError:
         return []
 
