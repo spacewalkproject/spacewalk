@@ -58,7 +58,7 @@ def do_group_addsystems(self, args):
     system_ids = []
     for system in sorted(systems):
         system_id = self.get_system_id(system)
-        if not system_id: return
+        if not system_id: continue
         system_ids.append(system_id)
 
     self.client.systemgroup.addOrRemoveSystems(self.session,
@@ -101,7 +101,7 @@ def do_group_removesystems(self, args):
     system_ids = []
     for system in sorted(systems):
         system_id = self.get_system_id(system)
-        if not system_id: return
+        if not system_id: continue
         system_ids.append(system_id)
 
     print 'Systems'
