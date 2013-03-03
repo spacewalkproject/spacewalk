@@ -211,3 +211,33 @@ def do_repo_clearfilters(self, args):
 
     if self.user_confirm('Remove these filters [y/N]:'):
         self.client.channel.software.clearRepoFilters(self.session, args[0])
+
+####################
+
+def help_repo_delete(self):
+    print 'repo_delete: Delete a user repo'
+    print 'usage: repo_delete <repo ...>'
+
+def complete_repo_delete(self, text, line, beg, end):
+    return tab_completer(self.do_repo_list('', True), text)
+
+def do_repo_delete(self, args):
+    (args, options) = parse_arguments(args)
+
+    if not len(args):
+        self.help_repo_delete()
+        return
+
+    # allow globbing of repo names
+    repos = filter_results(self.do_repo_list('', True), args)
+
+    print 'Repos'
+    print '-----'
+    print '\n'.join(sorted(repos))
+
+    if self.user_confirm('Delete these repos [y/N]:'):
+        for repo in repos:
+            try:
+                self.client.channel.software.removeRepo(self.session, repo)
+            except:
+                logging.error('Failed to remove repo %s' % repo)
