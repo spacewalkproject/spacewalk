@@ -1502,7 +1502,7 @@ def do_system_delete(self, args):
     logging.info('Deleted %i system(s)', len(system_ids))
 
     # regenerate the system name cache
-    self.generate_system_cache(True)
+    self.generate_system_cache(True, delay = 1)
 
     # remove these systems from the SSM
     for s in systems:

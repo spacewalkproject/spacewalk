@@ -25,6 +25,7 @@ import logging, readline, shlex
 from getpass import getpass
 from ConfigParser import NoOptionError
 from spacecmd.utils import *
+from time import sleep
 
 # list of system selection options for the help output
 HELP_SYSTEM_OPTS = '''<SYSTEMS> can be any of the following:
@@ -591,13 +592,17 @@ def clear_system_cache(self):
     self.save_system_cache()
 
 
-def generate_system_cache(self, force=False):
+def generate_system_cache(self, force = False, delay = 0):
     if not force and datetime.now() < self.system_cache_expire:
         return
 
     if not self.options.quiet:
         # tell the user what's going on
         self.replace_line_buffer('** Generating system cache **')
+
+    # we might need to wait for some systems to delete
+    if delay:
+        sleep(delay)
 
     systems = self.client.system.listSystems(self.session)
 
