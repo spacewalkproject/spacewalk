@@ -1436,5 +1436,54 @@ def do_activationkey_diff(self, args):
 
     return diff( source_data, target_data, source_channel, target_channel )
 
+####################
+
+def help_activationkey_disable(self):
+    print 'activationkey_disable: Disable an activation key'
+    print
+    print 'usage: activationkey_disable KEY [KEY ...]'
+
+def complete_activationkey_disable(self, text, line, beg, end):
+    parts = line.split(' ')
+
+    if len(parts) >= 2:
+        return tab_completer(self.do_activationkey_list('', True), text)
+
+def do_activationkey_disable(self, args):
+    (args, options) = parse_arguments(args)
+
+    if not len(args) >= 1:
+        self.help_activationkey_disable()
+        return
+
+    details = { 'disabled' : True }
+
+    for akey in args:
+        self.client.activationkey.setDetails(self.session, akey, details)
+
+####################
+
+def help_activationkey_enable(self):
+    print 'activationkey_enable: Enable an activation key'
+    print
+    print 'usage: activationkey_enable KEY [KEY ...]'
+
+def complete_activationkey_enable(self, text, line, beg, end):
+    parts = line.split(' ')
+
+    if len(parts) >= 2:
+        return tab_completer(self.do_activationkey_list('', True), text)
+
+def do_activationkey_enable(self, args):
+    (args, options) = parse_arguments(args)
+
+    if not len(args) >= 1:
+        self.help_activationkey_enable()
+        return
+
+    details = { 'disabled' : False }
+
+    for akey in args:
+        self.client.activationkey.setDetails(self.session, akey, details)
 
 # vim:ts=4:expandtab:
