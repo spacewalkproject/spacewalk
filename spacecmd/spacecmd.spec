@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.9.2
+Version:     1.9.3
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -60,6 +60,28 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Sun Mar 03 2013 Aron Parsons <aronparsons@gmail.com> 1.9.3-1
+- update email addresses in copyright notices
+- update copyright years
+- add new function softwarechannel_syncrepos
+- add new function repo_updateurl
+- add new function repo_rename
+- add new function repo_create
+- add new function repo_delete
+- remove some commented out code
+- print the list of systems in system_runscript
+- print the list of systems in system_reboot
+- return a unique set from expand_systems
+- print a clearer error message when duplicate system names are found
+- standardize the behavior for when a system ID is not returned
+- add a delay before regenerating the system cache after a delete
+- handle binary files correctly in configfile_getinfo
+- print the name in the confirmation message of snippet_create
+- don't exit when invalid arguments are passed to a function
+- don't reuse variable names in parse_arguments
+- print the function's help message when -h in the argument list
+- print file path in package_details
+
 * Thu Feb 28 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.2-1
 - fixing broken export of configchannels with symlinks
 
