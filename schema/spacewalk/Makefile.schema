@@ -9,7 +9,11 @@
 PRE_FILES  := $(shell find . -name \*.pre)
 POST_FILES := $(addsuffix .sql,$(basename $(PRE_FILES)))
 
-all : sanity-check $(POST_FILES) oracle postgres
+all : sanity-check $(POST_FILES) oracle postgres upgrade
+
+upgrade:
+	echo Upgrade
+	for i in $@/*/. ; do $(MAKE) -C $$i -f ../Makefile ; done
 
 oracle postgres :
 	$(MAKE) -C $@ -f Makefile
@@ -23,4 +27,4 @@ clean :
 sanity-check :
 	perl schema-source-sanity-check.pl
 
-.PHONY: oracle postgres clean sanity-check
+.PHONY: oracle postgres clean sanity-check upgrade
