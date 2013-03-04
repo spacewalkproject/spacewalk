@@ -28,7 +28,6 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
-import com.redhat.rhn.manager.channel.repo.EditRepoCommand;
 
 /**
  * RepoDeleteAction
@@ -41,10 +40,8 @@ public class RepoDeleteAction extends RhnAction {
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
-        EditRepoCommand cmd = new EditRepoCommand(context.getLoggedInUser(),
-                context.getParamAsLong("id"));
-
-        ContentSource src = cmd.getRepo();
+        ContentSource src = ChannelFactory.lookupContentSource(
+                context.getParamAsLong("id"), context.getLoggedInUser().getOrg());
 
         request.setAttribute(RepoDetailsAction.LABEL, src.getLabel());
         request.setAttribute(RepoDetailsAction.URL, src.getSourceUrl());

@@ -56,7 +56,36 @@
 			<html:text property="url"/>
         </td>
     </tr>
-
+    <tr>
+        <th>
+		<bean:message key = "repos.jsp.ssl.ca"/>
+        </th>
+        <td>
+            <html:select property="sslcacert">
+                <html:options collection="sslcryptokeys" labelProperty="label" property="value" />
+            </html:select>
+        </td>
+    </tr>
+    <tr>
+        <th>
+		<bean:message key = "repos.jsp.ssl.clientcert"/>
+        </th>
+        <td>
+            <html:select property="sslclientcert">
+                <html:options collection="sslcryptokeys" labelProperty="label" property="value" />
+            </html:select>
+        </td>
+    </tr>
+    <tr>
+        <th>
+		<bean:message key = "repos.jsp.ssl.clientkey"/>
+        </th>
+        <td>
+            <html:select property="sslclientkey">
+                <html:options collection="sslcryptokeys" labelProperty="label" property="value" />
+            </html:select>
+        </td>
+    </tr>
     </table>
 
     <hr />

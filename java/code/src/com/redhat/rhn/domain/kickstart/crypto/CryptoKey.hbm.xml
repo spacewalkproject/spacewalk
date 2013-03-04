@@ -38,8 +38,16 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.kickstart.crypto.CryptoKey as c
                 where c.id = :key_id and c.org = :org_id]]>
     </query>
+    <query name="SslCryptoKey.findByIdAndOrg">
+        <![CDATA[from com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey as c
+                where c.id = :key_id and c.org = :org_id]]>
+    </query>
     <query name="CryptoKey.findByOrg">
         <![CDATA[from com.redhat.rhn.domain.kickstart.crypto.CryptoKey as c
+                where c.org = :org_id]]>
+    </query>
+    <query name="SslCryptoKey.findByOrg">
+        <![CDATA[from com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey as c
                 where c.org = :org_id]]>
     </query>
 

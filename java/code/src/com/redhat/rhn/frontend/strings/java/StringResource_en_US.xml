@@ -7562,6 +7562,9 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="edit.channel.repo.repourlinuse">
         <source>There's already a defined repository with given url, please reuse it.</source>
       </trans-unit>
+      <trans-unit id="edit.channel.repo.clientcertmissing">
+        <source>Please set SSL Client Certificate, if you've set SSL Client Key.</source>
+      </trans-unit>
       <trans-unit id="ssm.provision.scheduled">
         <source>Successfully scheduled {0} system(s) for provisioning.</source>
       </trans-unit>

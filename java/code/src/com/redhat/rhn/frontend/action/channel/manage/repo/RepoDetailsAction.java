@@ -14,7 +14,10 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage.repo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,10 +30,17 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
+import org.apache.struts.util.LabelValueBean;
 
+import com.redhat.rhn.common.client.InvalidCertificateException;
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.common.validator.ValidatorResult;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
+import com.redhat.rhn.domain.channel.SslContentSource;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -53,6 +63,9 @@ public class RepoDetailsAction extends RhnAction {
     public static final String REPO = "repo";
     public static final String URL = "url";
     public static final String LABEL = "label";
+    public static final String SSL_CA_CERT = "sslcacert";
+    public static final String SSL_CLIENT_CERT = "sslclientcert";
+    public static final String SSL_CLIENT_KEY = "sslclientkey";
     public static final String SOURCEID = "sourceid";
 
     private static final String VALIDATION_XSD =
@@ -83,9 +96,10 @@ public class RepoDetailsAction extends RhnAction {
                     ContentSource repo = submit(request, errors, form);
                     if (!errors.isEmpty()) {
                         addErrors(request, errors);
-                        return getStrutsDelegate().forwardParams(
-                                mapping.findForward(RhnHelper.DEFAULT_FORWARD),
-                                new HashMap());
+                        setupPopup(ctx);
+                        return getStrutsDelegate().forwardParam(
+                                mapping.findForward(RhnHelper.DEFAULT_FORWARD), "id",
+                                repo.getId().toString());
                     }
                     if (isCreateMode(request)) {
                         createSuccessMessage(request,
@@ -107,8 +121,8 @@ public class RepoDetailsAction extends RhnAction {
                 }
             }
         }
-        else if (!isCreateMode(request)) {
-            setup(request, form);
+        else {
+            setup(request, form, isCreateMode(request));
         }
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
@@ -125,11 +139,26 @@ public class RepoDetailsAction extends RhnAction {
         return Boolean.TRUE.equals(request.getAttribute(CREATE_MODE));
     }
 
-    private void setup(HttpServletRequest request, DynaActionForm form) {
+    private void setup(HttpServletRequest request, DynaActionForm form,
+            boolean createMode) {
         RequestContext context = new RequestContext(request);
-        EditRepoCommand cmd = new EditRepoCommand(context.getLoggedInUser(),
-                context.getParamAsLong("id"));
-        setupRepo(request, form, cmd.getRepo());
+        setupPopup(context);
+        if (!createMode) {
+            setupRepo(request, form, ChannelFactory.lookupContentSource(
+                    context.getParamAsLong("id"), context.getLoggedInUser().getOrg()));
+        }
+    }
+
+    private void setupPopup(RequestContext context) {
+        List<LabelValueBean> sslCrytpoKeyOptions = new ArrayList<LabelValueBean>();
+        sslCrytpoKeyOptions.add(lv(LocalizationService.getInstance().
+                getMessage("generic.jsp.none"), ""));
+        for (Iterator<SslCryptoKey> iter = KickstartFactory.lookupSslCryptoKeys(
+                context.getCurrentUser().getOrg()).iterator(); iter.hasNext();) {
+            SslCryptoKey sck = iter.next();
+            sslCrytpoKeyOptions.add(lv(sck.getDescription(), sck.getId().toString()));
+        }
+        context.getRequest().setAttribute("sslcryptokeys", sslCrytpoKeyOptions);
     }
 
     private void setupRepo(HttpServletRequest request, DynaActionForm form,
@@ -138,6 +167,12 @@ public class RepoDetailsAction extends RhnAction {
         form.set(LABEL, repo.getLabel());
         form.set(URL, repo.getSourceUrl());
         form.set(SOURCEID, repo.getId());
+        if (repo.isSsl()) {
+            SslContentSource sslRepo = (SslContentSource) repo;
+            form.set(SSL_CA_CERT, getStringId(sslRepo.getCaCert()));
+            form.set(SSL_CLIENT_CERT, getStringId(sslRepo.getClientCert()));
+            form.set(SSL_CLIENT_KEY, getStringId(sslRepo.getClientKey()));
+        }
         bindRepo(request, repo);
     }
 
@@ -167,6 +202,9 @@ public class RepoDetailsAction extends RhnAction {
 
         repoCmd.setLabel(label);
         repoCmd.setUrl(url);
+        repoCmd.setSslCaCertId(parseIdFromForm(form, SSL_CA_CERT));
+        repoCmd.setSslClientCertId(parseIdFromForm(form, SSL_CLIENT_CERT));
+        repoCmd.setSslClientKeyId(parseIdFromForm(form, SSL_CLIENT_KEY));
 
         try {
             repoCmd.store();
@@ -179,7 +217,33 @@ public class RepoDetailsAction extends RhnAction {
             errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
                     "edit.channel.repo.repolabelinuse", repoCmd.getLabel()));
         }
+        catch (InvalidCertificateException e) {
+            errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                    "edit.channel.repo.clientcertmissing"));
+        }
 
         return repoCmd.getRepo();
+    }
+
+    private Long parseIdFromForm(DynaActionForm form, String stringName) {
+        Long id = null;
+        try {
+            id = Long.parseLong(form.getString(stringName));
+        }
+        catch (NumberFormatException nfe) {
+            // empty
+        }
+        return id;
+    }
+
+    private String getStringId(SslCryptoKey sck) {
+        String strId = "";
+        if (sck != null) {
+            Long id = sck.getId();
+            if (id != null) {
+                strId = id.toString();
+            }
+        }
+        return strId;
     }
 }

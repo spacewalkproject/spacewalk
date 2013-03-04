@@ -33,6 +33,26 @@ public class ContentSource extends BaseDomainHelper implements Identifiable {
     private String sourceUrl;
     private String label;
     private Set<Channel> channels = new HashSet<Channel>();
+
+    /**
+     * Constructor
+     */
+    public ContentSource() {
+    }
+
+    /**
+     * Copy Constructor
+     * @param cs @param cs content source template
+     */
+    public ContentSource(ContentSource cs) {
+        org = cs.getOrg();
+        type = cs.getType();
+        sourceUrl = cs.getSourceUrl();
+        label = cs.getLabel();
+        channels = new HashSet<Channel>(cs.getChannels());
+    }
+
+
     /**
      * @return Returns the label.
      */
@@ -126,4 +146,10 @@ public class ContentSource extends BaseDomainHelper implements Identifiable {
         return channels;
     }
 
+    /**
+     * @return indicates SSL attribute
+     */
+    public boolean isSsl() {
+        return false;
+    }
 }

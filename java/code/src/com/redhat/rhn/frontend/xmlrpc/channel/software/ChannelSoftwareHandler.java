@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.xmlrpc.channel.software;
 
 import com.redhat.rhn.FaultException;
+import com.redhat.rhn.common.client.InvalidCertificateException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
@@ -2430,7 +2431,12 @@ public class ChannelSoftwareHandler extends BaseHandler {
         repoCmd.setLabel(label);
         repoCmd.setUrl(url);
 
-        repoCmd.store();
+        try {
+            repoCmd.store();
+        }
+        catch (InvalidCertificateException e) {
+            // this kind of exception gets thrown only for SSL content sources
+        }
 
         ContentSource repo = ChannelFactory.lookupContentSourceByOrgAndLabel(
                 user.getOrg(), label);

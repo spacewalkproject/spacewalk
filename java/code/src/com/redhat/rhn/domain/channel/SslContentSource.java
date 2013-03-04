@@ -28,6 +28,20 @@ public class SslContentSource extends ContentSource {
     private  SslCryptoKey clientKey;
 
     /**
+     * Constructor
+     */
+    public SslContentSource() {
+    }
+
+    /**
+     * Copy Constructor
+     * @param cs content source template
+     */
+    public SslContentSource(ContentSource cs) {
+        super(cs);
+    }
+
+    /**
      * @return Returns the caCert.
      */
     public SslCryptoKey getCaCert() {
@@ -69,4 +83,10 @@ public class SslContentSource extends ContentSource {
         clientKey = clientKeyIn;
     }
 
+    /**
+     * @return indicates SSL attribute
+     */
+    public boolean isSsl() {
+        return true;
+    }
 }

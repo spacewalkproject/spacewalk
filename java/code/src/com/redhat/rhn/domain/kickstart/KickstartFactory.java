@@ -19,6 +19,7 @@ import com.redhat.rhn.common.util.FileUtils;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType;
+import com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
@@ -538,6 +539,22 @@ public class KickstartFactory extends HibernateFactory {
     }
 
     /**
+     * Find all ssl crypto keys for a given org
+     * @param org owning org
+     * @return list of ssl crypto keys if some found, else empty list
+     */
+    public static List<SslCryptoKey> lookupSslCryptoKeys(Org org) {
+        Session session = null;
+        List<SslCryptoKey> retval = null;
+        //look for Kickstart data by id
+        session = HibernateFactory.getSession();
+        retval = session.getNamedQuery("SslCryptoKey.findByOrg")
+                .setLong("org_id", org.getId().longValue())
+                .list();
+        return retval;
+    }
+
+    /**
      * Lookup a crypto key by its id.
      * @param keyId to lookup
      * @param org who owns the key
@@ -549,6 +566,24 @@ public class KickstartFactory extends HibernateFactory {
         //look for Kickstart data by id
         session = HibernateFactory.getSession();
         retval = (CryptoKey) session.getNamedQuery("CryptoKey.findByIdAndOrg")
+                .setLong("key_id", keyId.longValue())
+                .setLong("org_id", org.getId().longValue())
+                .uniqueResult();
+        return retval;
+    }
+
+    /**
+     * Lookup a ssl crypto key by its id.
+     * @param keyId to lookup
+     * @param org who owns the key
+     * @return SslCryptoKey if found.  Null if not
+     */
+    public static SslCryptoKey lookupSslCryptoKeyById(Long keyId, Org org) {
+        Session session = null;
+        SslCryptoKey retval = null;
+        //look for Kickstart data by id
+        session = HibernateFactory.getSession();
+        retval = (SslCryptoKey) session.getNamedQuery("SslCryptoKey.findByIdAndOrg")
                 .setLong("key_id", keyId.longValue())
                 .setLong("org_id", org.getId().longValue())
                 .uniqueResult();

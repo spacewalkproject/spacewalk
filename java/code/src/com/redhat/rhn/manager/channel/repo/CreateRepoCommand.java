@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.manager.channel.repo;
 
-import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.org.Org;
 
 /**
@@ -30,6 +29,5 @@ public class CreateRepoCommand extends BaseRepoCommand {
     public CreateRepoCommand(Org orgIn) {
         super();
         this.setOrg(orgIn);
-        this.repo = ChannelFactory.createRepo();
     }
 }
