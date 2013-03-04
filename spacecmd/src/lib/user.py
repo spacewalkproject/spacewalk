@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
-# Copyright 2013 Aron Parsons <aron@redhat.com>
+# Copyright 2013 Aron Parsons <aronparsons@gmail.com>
 # Copyright (c) 2013 Red Hat, Inc.
 #
 
