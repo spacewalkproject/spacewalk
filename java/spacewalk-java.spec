@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.82
+Version: 1.9.83
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Mar 04 2013 Stephen Herr <sherr@redhat.com> 1.9.83-1
+- dwr is required for building now
+- fixing typo in build-props.xml
+
 * Fri Mar 01 2013 Stephen Herr <sherr@redhat.com> 1.9.82-1
 - Updating API versions for release
 
