@@ -1456,9 +1456,11 @@ def do_activationkey_disable(self, args):
         self.help_activationkey_disable()
         return
 
+    keys = filter_results(self.do_activationkey_list('', True), args)
+
     details = { 'disabled' : True }
 
-    for akey in args:
+    for akey in keys:
         self.client.activationkey.setDetails(self.session, akey, details)
 
 ####################
@@ -1481,9 +1483,11 @@ def do_activationkey_enable(self, args):
         self.help_activationkey_enable()
         return
 
+    keys = filter_results(self.do_activationkey_list('', True), args)
+
     details = { 'disabled' : False }
 
-    for akey in args:
+    for akey in keys:
         self.client.activationkey.setDetails(self.session, akey, details)
 
 # vim:ts=4:expandtab:
