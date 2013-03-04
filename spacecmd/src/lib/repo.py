@@ -304,3 +304,26 @@ def do_repo_rename(self, args):
     newname = args[1]
 
     self.client.channel.software.updateRepoLabel(self.session, oldname, newname)
+
+####################
+
+def help_repo_updateurl(self):
+    print 'repo_updateurl: Change the URL of a user repository'
+    print 'usage: repo_updateurl <repo> <url>'
+
+def complete_repo_updateurl(self, text, line, beg, end):
+    if len(line.split(' ')) == 2:
+        return tab_completer(self.do_repo_list('', True),
+                                  text)
+
+def do_repo_updateurl(self, args):
+    (args, options) = parse_arguments(args)
+
+    if len(args) != 2:
+        self.help_repo_updateurl()
+        return
+
+    name = args[0]
+    url = args[1]
+
+    self.client.channel.software.updateRepoUrl(self.session, name, url)
