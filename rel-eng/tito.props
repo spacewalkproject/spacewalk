@@ -6,20 +6,20 @@ changelog_do_not_remove_cherrypick = 0
 lib_dir = rel-eng/lib
 
 [koji]
-autobuild_tags = spacwalk-1.9-rhel5 spacwalk-1.9-rhel6 spacwalk-1.9-fedora17 spacwalk-1.9-fedora18
+autobuild_tags = spacewalk-1.9-rhel5 spacewalk-1.9-rhel6 spacewalk-1.9-fedora17 spacewalk-1.9-fedora18
 
-[spacwalk-1.9-rhel5]
+[spacewalk-1.9-rhel5]
 disttag = .el5
 blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm oracle-rhnsat-selinux spacewalk-jpp-workaround apt-spacewalk python-hwdata spacewalk-oro-compat spacewalk-abrt mod_perl
 
-[spacwalk-1.9-rhel6]
+[spacewalk-1.9-rhel6]
 disttag = .el6
 blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm oracle-rhnsat-selinux jabberd-selinux apt-spacewalk python-hwdata spacewalk-oro-compat mod_perl
 
-[spacwalk-1.9-fedora17]
+[spacewalk-1.9-fedora17]
 disttag = .fc17
 blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm apt-spacewalk python-hwdata oracle-rhnsat-selinux mod_perl
 
-[spacwalk-1.9-fedora18]
+[spacewalk-1.9-fedora18]
 disttag = .fc18
 blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm apt-spacewalk python-hwdata oracle-rhnsat-selinux
