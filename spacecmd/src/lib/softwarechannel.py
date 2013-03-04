@@ -1573,4 +1573,29 @@ def do_softwarechannel_sync(self, args):
                                                 target_channel,
                                                 list(target_only) )
 
+####################
+
+def help_softwarechannel_syncrepos(self):
+    print 'softwarechannel_syncrepos: '
+    print 'Sync users repos for a software channel'
+    print
+    print 'usage: softwarechannel_syncrepos <CHANNEL ...>'
+
+def complete_softwarechannel_syncrepos(self, text, line, beg, end):
+    return tab_completer(self.do_softwarechannel_list('', True), text)
+
+def do_softwarechannel_syncrepos(self, args):
+    (args, options) = parse_arguments(args)
+
+    if not len(args):
+        self.help_softwarechannel_syncrepos()
+        return
+
+    # allow globbing of software channel names
+    channels = filter_results(self.do_softwarechannel_list('', True), args)
+
+    for channel in channels:
+        logging.debug('Syncing repos for %s' % channel)
+        self.client.channel.software.syncRepo(self.session, channel)
+
 # vim:ts=4:expandtab:
