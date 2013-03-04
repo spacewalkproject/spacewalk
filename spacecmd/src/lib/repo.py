@@ -275,3 +275,32 @@ def do_repo_create(self, args):
                                             options.name,
                                             'yum',
                                             options.url)
+
+####################
+
+def help_repo_rename(self):
+    print 'repo_rename: Rename a user repository'
+    print 'usage: repo_rename OLDNAME NEWNAME'
+
+def complete_repo_rename(self, text, line, beg, end):
+    if len(line.split(' ')) <= 2:
+        return tab_completer(self.do_repo_list('', True),
+                                  text)
+
+def do_repo_rename(self, args):
+    (args, options) = parse_arguments(args)
+
+    if len(args) != 2:
+        self.help_repo_rename()
+        return
+
+    try:
+        details = self.client.channel.software.getRepoDetails(self.session, args[0])
+        oldname = details.get('id')
+    except:
+        logging.error('Could not find repo %s' % args[0])
+        return False
+
+    newname = args[1]
+
+    self.client.channel.software.updateRepoLabel(self.session, oldname, newname)
