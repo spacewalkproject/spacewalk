@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.9.3
+Version:     1.9.4
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -60,6 +60,10 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Sun Mar 03 2013 Aron Parsons <aronparsons@gmail.com> 1.9.4-1
+- spacecmd: allow globbing in activationkey_{en,dis}able
+- spacecmd: add functions to disable/enable activation keys
+
 * Sun Mar 03 2013 Aron Parsons <aronparsons@gmail.com> 1.9.3-1
 - update email addresses in copyright notices
 - update copyright years
