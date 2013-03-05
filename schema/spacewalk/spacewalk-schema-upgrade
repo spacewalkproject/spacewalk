@@ -180,7 +180,7 @@ while (@path) {
 		die "Directory [$SCHEMA_UPGRADE_DIR/$dir] was seen but is lost now.\n";
 	}
 
-	my @files = match_overrides("$SCHEMA_UPGRADE_DIR/$dir/*.{sql,ref}", "$SCHEMA_UPGRADE_DIR/$dir/*.{sql,ref}.$options{db_backend}");
+	my @files = match_overrides("$SCHEMA_UPGRADE_DIR/$dir/*.ref", "$SCHEMA_UPGRADE_DIR/$dir/*.{sql,ref}.$options{db_backend}");
 	for (my $i = 0; $i < @files; $i++) {
 		if ($files[$i] =~ /\.ref(\.$options{db_backend})?$/) {
 			my @subfiles;
