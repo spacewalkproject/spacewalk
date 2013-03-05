@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.1
+Version:        1.10.2
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Mar 05 2013 Jan Pazdziora 1.10.2-1
+- Schema upgrade script directory, so that upgrade to nightly passes.
+
 * Tue Mar 05 2013 Jan Pazdziora 1.10.1-1
 - Simplify the schema upgrade sources now that we process them with spacewalk-
   oracle2postgresql.
