@@ -53,20 +53,22 @@ class HandlerBase:
     def usage(self):
         return self._parser.print_help()
 
-    def authenticate(self):
+    def authenticate(self, username=None, password=None):
         # entry point for repository authentication
 
         try:
             self.repository.login()
         except cfg_exceptions.InvalidSession:
-            (username, password) = self.get_auth_info(
-                username=local_config.get('username'))
+            if not username :
+                username=local_config.get('username')
+            if not password :
+               (username, password) = self.get_auth_info(username)
 
             try:
                 self.repository.login(username=username, password=password)
             except cfg_exceptions.InvalidSession, e:
                 rhn_log.die(1, "Session error: %s\n" % e)
-    
+
     def get_auth_info(self, username=None):
         if username is None: 
             username = self._read_username()

@@ -54,27 +54,39 @@ class BaseMain:
         show_help = None
         debug_level = 3
         mode = None
-        server_name = None
-        server_name_opt = "--server-name"
-        needs_server_name = 0
-        for arg in sys.argv[1:]:
-            if needs_server_name:
-                server_name = arg
-                needs_server_name = 0
+
+        dict_name_opt={'--server-name': None,'--password': None,'--username': None,}
+        for index in range(1,len(sys.argv)):
+            arg=sys.argv[index]
+            param = filter(lambda x: x[1] == 0,dict_name_opt.iteritems())
+            if param:
+                if arg.startswith('-') or arg in self.modes:
+                  # not perfect, but at least a little bit better
+                  print "Option %s requires an argument" % dict_name_opt[param[0][0]]
+                  return 1
+                dict_name_opt[param[0][0]] = arg
                 continue
 
             if arg in ('--help', '-h'):
                 show_help = 1
                 continue
 
-            if arg.startswith(server_name_opt):
-                rarg = arg[len(server_name_opt):]
+            param = [s for s in dict_name_opt.keys() if arg.startswith(s)]
+            if param:
+                rarg = arg[len(param[0]):]
                 if not rarg:
-                    needs_server_name = 1
+                    dict_name_opt[param[0]] = 0
+                    if index == len(sys.argv) - 1:
+                       print "Option %s requires an argument" % param[0]
+                       return 1
                     continue
                 if rarg[0] == '=':
-                    server_name = rarg[1:]
-                    continue
+                   if len(rarg) == 1:
+                      print "Option %s requires an argument" % param[0]
+                      return 1
+
+                   dict_name_opt[param[0]] = rarg[1:]
+                   continue
                 print "Unknown option %s" % arg
                 return 1
 
@@ -97,9 +109,9 @@ class BaseMain:
 
             args.append(arg)
 
-        if needs_server_name:
-            print "No argument specified to %s" % server_name_opt
-            return 1
+        server_name = dict_name_opt['--server-name']
+        password = dict_name_opt['--password']
+        username = dict_name_opt['--username']
 
         rhn_log.set_debug_level(debug_level)
 
@@ -191,7 +203,7 @@ class BaseMain:
 
         handler = module.Handler(args, repo, mode=mode, exec_name=execname)
         try:
-            handler.authenticate()
+            handler.authenticate(username,password)
             handler.run()
         except cfg_exceptions.AuthenticationError, e:
             rhn_log.die(1, "Authentication failed: %s" % e)
