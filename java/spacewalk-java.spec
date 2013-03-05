@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.0
+Version: 1.10.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Mar 05 2013 Jan Pazdziora 1.10.1-1
+- Polish a webui message
+- To match backend processing of the config files, do not strip comments from
+  values.
+
 * Mon Mar 04 2013 Stephen Herr <sherr@redhat.com> 1.9.83-1
 - dwr is required for building now
 - fixing typo in build-props.xml
