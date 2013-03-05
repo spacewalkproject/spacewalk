@@ -1,6 +1,0 @@
--- oracle equivalent source sha1 bd2fd82dec1fb797dd7aede1a0f6e8884d68c01d
-
-alter table web_customer
-  add crash_file_sizelimit
-      numeric default(2048) not null
-      constraint web_customer_sizelimit_chk check (crash_file_sizelimit >= 0);

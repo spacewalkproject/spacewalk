@@ -1,5 +1,0 @@
--- oracle equivalent source sha1 14e52cbb32ea06e1f5f88f961fd055a72cddc4fa
-
-alter table rhnServerNetwork add column ip6addr varchar(45);
-alter table rhnservernetwork add constraint
-vn_rhnservernetwork_ip6addr check (ip6addr::text <> ''::text);

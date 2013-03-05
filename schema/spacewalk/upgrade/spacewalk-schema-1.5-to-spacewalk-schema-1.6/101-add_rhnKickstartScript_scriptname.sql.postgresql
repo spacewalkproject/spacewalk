@@ -1,2 +1,0 @@
--- oracle equivalent source sha1 ad2857013352bc8584ecc60a413b6d257f94ccd6
-alter table rhnKickstartScript add column script_name varchar(40);

@@ -1,2 +1,0 @@
--- oracle equivalent source sha1 2f2ccc5724ecc9a3d722b629924bba318841141d
-alter table rhnPackage add column installed_size numeric;

@@ -1,3 +1,0 @@
--- oracle equivalent source sha1 66bf4b1447a6fd90a219f5731196698edf7b3683
-
-alter table rhnPushDispatcher add password varchar(32);
