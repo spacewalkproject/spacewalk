@@ -62,7 +62,7 @@
       <rl:column
          bound="false"
          sortable="true"
-         styleclass="first-column"
+         styleclass="last-column"
          headerkey="org.trust.system"
          sortattr="name">
             <c:choose>
