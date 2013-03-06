@@ -37,10 +37,10 @@
                  dataset="pageList"
                  emptykey="guestlimited.jsp.nosystems"
                  width="100%">
-      	  <rl:column bound="false" sortable="false" headerkey="guestlimited.jsp.hostsystem">
+	  <rl:column bound="false" sortable="false" headerkey="guestlimited.jsp.hostsystem" styleclass="first-column">
 		    <a href="/rhn/systems/details/Overview.do?sid=${current.hostId}">${current.hostName}</a>
 	      </rl:column>
-      	  <rl:column bound="false" sortable="false" headerkey="guestlimited.jsp.guest">
+	  <rl:column bound="false" sortable="false" headerkey="guestlimited.jsp.guest" styleclass="last-column">
 		    <a href="/rhn/systems/details/Overview.do?sid=${current.hostId}">${current.numberOfGuests}</a>
 	      </rl:column>
         </rl:list>
