@@ -26,7 +26,7 @@
              styleclass="list"
              emptykey="profile.list.noprofiles">
 
-        <rl:column headerkey="column.name" bound="false">
+        <rl:column headerkey="column.name" bound="false" styleclass="first-column">
             <a href="/rhn/profiles/Details.do?prid=${current.id}">
 		        ${current.name}</a>
         </rl:column>
@@ -35,7 +35,7 @@
               ${current.channelName}
         </rl:column>
 
-        <rl:column headerkey="column.created">
+        <rl:column headerkey="column.created" styleclass="last-column">
               ${current.created}
         </rl:column>
 
