@@ -53,7 +53,8 @@
         <rl:column bound="false"
             sortable="false"
             attr="packageCount"
-            headerkey="softwareEntitlementDetails.header.packages">
+            headerkey="softwareEntitlementDetails.header.packages"
+            styleclass="last-column">
             <rhn:require	acl="can_access_channel(${current.id});" >
 	               <a href="/rhn/channels/ChannelPackages.do?cid=${current.id}">
 	                	${current.packageCount}
