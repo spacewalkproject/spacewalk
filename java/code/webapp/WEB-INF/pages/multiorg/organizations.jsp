@@ -38,6 +38,7 @@
 	</rl:column>
 	<rl:column bound="false"
 	           sortable="false"
+	           styleclass="last-column"
 	           headerkey="org.nopunc.sharedchannels"
 	           attr="sharedChannels">
 	    <c:choose>
