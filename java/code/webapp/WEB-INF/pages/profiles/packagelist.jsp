@@ -24,7 +24,8 @@
 
         <rl:decorator name="PageSizeDecorator"/>
 
-        <rl:column headerkey="column.package" bound="false" filterattr="nvre">
+        <rl:column headerkey="column.package" bound="false" filterattr="nvre"
+                   styleclass="first-column">
             <c:out value="${current.nvre}" escapeXml="false"/>
         </rl:column>
 
