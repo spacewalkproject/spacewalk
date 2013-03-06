@@ -47,6 +47,7 @@
       <rl:column
          bound="false"
          sortable="false"
+         styleclass="last-column"
          headerkey="org.trust.systems.affected">
             ${fn:length(current.subscribed)}
       </rl:column>
