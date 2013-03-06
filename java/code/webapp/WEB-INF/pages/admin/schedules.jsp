@@ -36,7 +36,7 @@
 
                 <rl:column sortable="true"
                            bound="false"
-                           styleclass="first-column last-column"
+                           styleclass="first-column"
                            headerkey="schedule.edit.jsp.name"
                            sortattr="job_label"
                            defaultsort="asc"  >
@@ -56,6 +56,7 @@
                 </rl:column>
 
                 <rl:column bound="false"
+                           styleclass="last-column"
                            headerkey="schedule.edit.jsp.bunch" >
                          <a href="/rhn/admin/BunchDetail.do?label=${current.bunch}">${current.bunch}</a>
                 </rl:column>
