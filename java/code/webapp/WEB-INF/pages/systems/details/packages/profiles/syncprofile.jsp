@@ -27,7 +27,8 @@
         styleclass="list"
         emptykey="schedulesync.jsp.nopackagesselected">
 
-        <rl:column headerkey="schedulesync.jsp.package" bound="false">
+        <rl:column headerkey="schedulesync.jsp.package" bound="false"
+            styleclass="first-column">
             ${current.name}
         </rl:column>
 
@@ -35,7 +36,8 @@
             ${current.arch}
         </rl:column>
 
-        <rl:column headerkey="schedulesync.jsp.action" bound="false">
+        <rl:column headerkey="schedulesync.jsp.action" bound="false"
+            styleclass="last-column">
             ${current.actionStatus}
         </rl:column>
     </rl:list>
