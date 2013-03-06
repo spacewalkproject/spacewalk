@@ -124,7 +124,8 @@
 				</rl:column>				
 				<rl:column sortable="true"
 				           headerkey="channel.manage.errata.updatedate"
-				           sortattr="updateDateObj" >
+				           sortattr="updateDateObj"
+                           styleclass="last-column">
 		                      <c:out value="${current.updateDate}"/>
 				</rl:column>						
 				
