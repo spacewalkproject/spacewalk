@@ -45,7 +45,7 @@
 			<c:out value="<a href='/rhn/configuration/file/FileDetails.do?cfid=${current.id}'>${current.modifiedDisplay}</a>" escapeXml="false" />
 		</rl:column>
 
-		<rl:column headerkey="deploy.jsp.current-header" sortable="false" styleclass="last-column">
+		<rl:column headerkey="deploy.jsp.current-header" sortable="false">
 			<a href="/rhn/configuration/file/FileDetails.do?cfid=${current.id}&crid=${current.latestConfigRevisionId}">
 			  <bean:message key="config.common.revision" arg0="${current.latestConfigRevision}"/>
 			</a>
@@ -60,7 +60,7 @@
 	<rl:list dataset="selectedSystems" name="systemList"
 		styleclass="list" emptykey="deployconfirm.jsp.noSystems" width="100%"
 		filter="com.redhat.rhn.frontend.action.configuration.ConfigSystemFilter" >
-		<rl:column headerkey="system.common.systemName" sortable="true" sortattr="name" styleclass="first-column">
+		<rl:column headerkey="system.common.systemName" sortable="true" sortattr="name" styleclass="last-column">
 			<img alt='<bean:message key="system.common.systemAlt"/>' src="/img/rhn-listicon-system.gif" />
 			<a href="/rhn/systems/details/configuration/Overview.do?system_detail_navi_node=selected_configfiles&sid=${current.id}">
 			 ${fn:escapeXml(current.name)}
