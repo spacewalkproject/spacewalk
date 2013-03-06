@@ -77,6 +77,7 @@
 			<rl:column sortable="true"
 				bound="false"
 		    	headerkey="affectedsystems.jsp.entitle"
+                styleclass="last-column"
 		    	sortattr="entitlementLevel">
 		    	${current.entitlementLevel}
 			</rl:column>
