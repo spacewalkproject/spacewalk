@@ -31,6 +31,7 @@
 	    <!--  System Name -->
 		<rl:column bound="false"
 			headerkey="system.common.systemName"
+			styleclass="last-column"
 			sortable="true"
 			sortattr="name">
 			<a href="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">
