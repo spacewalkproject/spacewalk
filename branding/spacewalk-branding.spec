@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.10.0
+Version:    1.10.1
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -88,6 +88,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Mar 06 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.1-1
+- using css3 border-radius instead of images to render round edges
+- Bumping package versions for 1.9
+
 * Fri Mar 01 2013 Tomas Lestach <tlestach@redhat.com> 1.9.6-1
 - introducing crash logo
 - Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
