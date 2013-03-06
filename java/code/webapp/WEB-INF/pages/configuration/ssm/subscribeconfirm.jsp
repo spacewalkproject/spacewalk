@@ -57,7 +57,6 @@
   <rl:column bound="false"
              sortable="false"
              headerkey="ssm.config.subscribeconfirm.jsp.currentchannels"
-             styleclass="last-column"
              attr="configChannelCount">
     <c:choose>
       <c:when test="${current.configChannelCount eq 1}">
@@ -83,7 +82,6 @@
   <rl:column bound="false"
              sortable="false"
              headerkey="config.common.configChannel"
-             styleclass="first-column"
              attr="name">
     <cfg:channel id="${current.id}" name="${current.name}" type="central" />
   </rl:column>
@@ -96,6 +94,7 @@
   <rl:column bound="false"
              sortable="false"
              headerkey="ssm.config.subscribeconfirm.jsp.currentsystems"
+             styleclass="last-column"
              attr="systemCount">
     <c:choose>
       <c:when test="${current.systemCount eq 1}">
