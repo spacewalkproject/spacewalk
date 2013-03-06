@@ -25,11 +25,13 @@
         name="compareList"
         styleclass="list">
 
-        <rl:column headerkey="missingpkgs.jsp.package" bound="false">
+        <rl:column headerkey="missingpkgs.jsp.package" bound="false"
+            styleclass="first-column">
             ${current.actionTargetNevra}
         </rl:column>
 
-        <rl:column headerkey="missingpkgs.jsp.channels" bound="false">
+        <rl:column headerkey="missingpkgs.jsp.channels" bound="false"
+            styleclass="last-column">
             <c:choose>
                 <c:when test="${empty current.channels}">
                     <bean:message key="missingpkgs.jsp.none" />
