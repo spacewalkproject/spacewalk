@@ -23,6 +23,7 @@
   <c:out value="${current.identsString}"/>
 </rl:column>
 
-<rl:column headerkey="system.audit.xccdfdetails.jsp.result" sortattr="label" sortable="true" filterattr="label">
+<rl:column headerkey="system.audit.xccdfdetails.jsp.result" sortattr="label" sortable="true" filterattr="label"
+    styleclass="last-column">
   <c:out value="${current.label}"/>
 </rl:column>
