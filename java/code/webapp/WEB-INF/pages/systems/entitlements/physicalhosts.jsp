@@ -36,10 +36,11 @@
             dataset="pageList" emptykey="physicalhosts.jsp.nosystems"  width="100%">
 	  <rl:column bound="false"
 	             sortable="false"
+                 styleclass="first-column"
 	             headerkey="physicalhosts.jsp.guestsystem">
 		  <a href="/rhn/systems/details/Overview.do?sid=${current.guestId}">${current.guestName}</a>
 	  </rl:column>
-        <rl:column bound="false" sortable="false" headerkey="guestslimited.jsp.hostsystem">
+        <rl:column bound="false" sortable="false" headerkey="guestslimited.jsp.hostsystem" styleclass="last-column">
 	      <c:choose>
 	        <c:when test="${empty current.hostId}">unknown</c:when>
 	        <c:otherwise>
