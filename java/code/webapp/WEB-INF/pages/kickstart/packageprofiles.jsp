@@ -27,7 +27,7 @@
 		<rl:decorator name = "PageSizeDecorator"/>
 		<rl:radiocolumn value="${current.id}" styleclass="first-column" useDefault='false'/>
 
-        <rl:column headerkey="kickstart.packageprofiles.jsp.description" filterattr="name">
+        <rl:column headerkey="kickstart.packageprofiles.jsp.description" filterattr="name" styleclass="last-column">
             ${current.name}
         </rl:column>
         </rl:list>
