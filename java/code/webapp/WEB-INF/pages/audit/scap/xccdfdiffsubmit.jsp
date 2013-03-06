@@ -54,7 +54,7 @@ div.differs {
   <h2><bean:message key="system.audit.xccdfdetails.jsp.header"/></h2>
 
   <rl:list emptykey="generic.jsp.none" dataset="metadataList" name="1">
-    <rl:column headerkey="xccdfdiff.fieldnames">
+    <rl:column headerkey="xccdfdiff.fieldnames" styleclass="first-column">
       <c:if test="${not empty current.msg}">
         <strong><bean:message key="${current.msg}"/>:</strong>
       </c:if>
@@ -93,7 +93,7 @@ div.differs {
     <rl:decorator name="PageSizeDecorator"/>
 
     <rl:column headerkey="system.audit.xccdfdetails.jsp.idref" sortattr="documentIdref"
-        sortable="true" styleclass="first-column">
+        sortable="true">
       <c:out value="${current.documentIdref}"/>
     </rl:column>
     <rl:column headerkey="xccdfdiff.firstscan" styleclass="center" headerclass="center">
@@ -111,7 +111,7 @@ div.differs {
       </c:choose>
     </rl:column>
     <c:if test="${current.differs == true}"></div></c:if>
-    <rl:column headerkey="xccdfdiff.secondscan" styleclass="center" headerclass="center">
+    <rl:column headerkey="xccdfdiff.secondscan" styleclass="last-column" headerclass="center">
       <c:if test="${current.differs == true}"><div class="differs"></c:if>
       <c:choose>
         <c:when test="${not empty current.second}">
