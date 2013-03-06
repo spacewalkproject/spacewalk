@@ -49,7 +49,7 @@
 							type = "central" nolink="${not current.canAccess}"/>
 		  </rl:column>
         <rl:column headerkey="sdc.config.subscriptions.jsp.files"
-        attr="filesAndDirsDisplayString" bound="true"/>
+        attr="filesAndDirsDisplayString" bound="true" styleclass="last-column"/>
 	</rl:list>
  			
 <c:if test="${not empty requestScope.all}">
