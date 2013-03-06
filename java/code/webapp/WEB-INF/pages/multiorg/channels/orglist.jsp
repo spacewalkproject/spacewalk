@@ -51,7 +51,7 @@
 		<rl:column bound="true"
 		           headerkey="org.channel.subscribed.systems"
 		           attr="systems"
-					/>
+		           styleclass="last-column"/>
 	</rl:list>
 <hr/>
 <c:if test="${not empty requestScope.dataset}">
