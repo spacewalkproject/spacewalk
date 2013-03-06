@@ -42,7 +42,6 @@
 	<rl:column bound="false"
 	           sortable="true"
 	           headerkey="users.nopunc.displayname"
-	           styleclass="last-column"
 	           attr="users">
 		<c:out value="<a href=\"/rhn/admin/multiorg/OrgUsers.do?oid=${current.id}\">${current.users}</a>" escapeXml="false" />
 	</rl:column>
