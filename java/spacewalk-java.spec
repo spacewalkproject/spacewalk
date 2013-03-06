@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.3
+Version: 1.10.4
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,45 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 06 2013 Tomas Lestach <tlestach@redhat.com> 1.10.4-1
+- fix column styleclass in guestunlimited.jsp
+- fix column styleclass in physicalhosts.jsp
+- fix column styleclass in guestlimited.jsp
+- fix column styleclass in syncsystem.jsp
+- fix column styleclass in syncprofile.jsp
+- fix column styleclass in missingpkgs.jsp
+- fix column styleclass in comparesystems.jsp
+- fix column styleclass in compareprofiles.jsp
+- fix column styleclass in crashdetail.jsp
+- fix column styleclass in packagelist.jsp
+- fix column styleclass in list.jsp
+- fix column styleclass in organizations.jsp
+- fix column styleclass in orglist.jsp
+- fix column styleclass in packageprofiles.jsp
+- fix column styleclass in affectedsystems.jsp
+- fix column styleclass in subscribeconfirm.jsp
+- fix column styleclass in deployconfirm.jsp
+- fix column styleclass in copy2systems.jsp
+- fix column styleclass in confirmnewbasechannels.jsp
+- fix column styleclass in confirmprotected.jsp
+- fix column styleclass in confirmprivate.jsp
+- fix column styleclass in channelrepos.jsp
+- fix column styleclass in adderrataredhat.jsp
+- fix column styleclass in addcustomerrata.jsp
+- fix column styleclass in xccdfdiffsubmit.jsp
+- fix column styleclass in schedules.jsp
+- fix column styleclass in softwareentitlementdetails.jsp
+- fix column styleclass in orgtrustconfirm.jsp
+- fix column styleclass in organizations.jsp
+- fix column styleclass in entitlementorgs.jsp
+- fix column styleclass in affectedsystems.jsp
+- fix column styleclass in bunchDetail.jsp
+- fix column styleclass in subscribe.jsp
+- fix column styleclass in ruledetails.jsp
+- fix column styleclass in scap-list.jspf
+- fix column styleclass in rule-common-columns.jspf
+- fix column styleclass in xccdf-easy-list.jspf
+
 * Wed Mar 06 2013 Tomas Lestach <tlestach@redhat.com> 1.10.3-1
 - checkstyle issues
 
