@@ -44,7 +44,8 @@
         styleclass="first-column">
       <c:out value="${current.system}"/>
     </rl:column>
-    <rl:column headerkey="system.audit.ruledetails.jsp.ident" sortattr="identifier" sortable="true">
+    <rl:column headerkey="system.audit.ruledetails.jsp.ident" sortattr="identifier" sortable="true"
+        styleclass="last-column">
       <c:out value="${current.identifier}"/>
     </rl:column>
   </rl:list>
