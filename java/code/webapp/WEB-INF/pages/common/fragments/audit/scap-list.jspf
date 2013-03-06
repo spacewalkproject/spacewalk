@@ -4,7 +4,7 @@
 	<rl:list emptykey="system.audit.listscap.jsp.noscans">
 		<rl:decorator name="ElaborationDecorator"/>
 
-		<rl:column headerkey="system.audit.listscap.jsp.testresult">
+		<rl:column headerkey="system.audit.listscap.jsp.testresult" styleclass="first-column">
 			<c:choose>
 			<c:when test="${not empty current.comparableId}">
 				<a href="/rhn/audit/scap/DiffSubmit.do?first=${current.comparableId}&second=${current.xid}&view=changed">
@@ -65,7 +65,7 @@
 		<rl:column headerkey="system.audit.listscap.jsp.fixed.abb">
 			${current.fixed}
 		</rl:column>
-		<rl:column headerkey="system.audit.listscap.jsp.total">
+		<rl:column headerkey="system.audit.listscap.jsp.total" styleclass="last-column">
 			${current.sum}
 		</rl:column>
 	</rl:list>
