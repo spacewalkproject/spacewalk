@@ -22,3 +22,14 @@ begin
 end;
 /
 show errors
+
+create or replace trigger
+rhn_csssl_ins_trig
+before insert on rhnContentSourceSsl
+for each row
+when (new.id is null)
+begin
+    select sequence_nextval('rhn_contentsourcessl_seq') into :new.id from dual;
+end;
+/
+show errors
