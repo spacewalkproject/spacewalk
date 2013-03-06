@@ -25,6 +25,6 @@
     <rl:column headerkey="audit.listxccdf.jsp.dissatisfied">
       <c:out value="${current.dissatisfied}"/>
     </rl:column>
-    <rl:column headerkey="audit.listxccdf.jsp.satisfactionunknown">
+    <rl:column headerkey="audit.listxccdf.jsp.satisfactionunknown" styleclass="last-column">
       <c:out value="${current.satisfactionUnknown}"/>
     </rl:column>
