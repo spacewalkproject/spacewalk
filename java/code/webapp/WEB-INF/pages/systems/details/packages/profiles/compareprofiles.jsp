@@ -49,7 +49,8 @@
                 ${current.other.evr}
             </rl:column>
 
-            <rl:column headerkey="compare.jsp.difference" bound="false">
+            <rl:column headerkey="compare.jsp.difference" bound="false"
+                styleclass="last-column">
                 ${current.comparison}
             </rl:column>
         </rl:list>
