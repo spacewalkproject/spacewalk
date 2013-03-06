@@ -147,7 +147,8 @@ public class BaseRepoCommand {
      * in the org
      * @throws InvalidRepoLabelException in case repo witch given label already exists
      * in the org
-     * @throws InvalidCertificateException in case client key is set, but client certificate is missing
+     * @throws InvalidCertificateException in case client key is set,
+     * but client certificate is missing
      */
     public void store() throws InvalidRepoUrlException, InvalidRepoLabelException,
             InvalidCertificateException {
@@ -185,7 +186,7 @@ public class BaseRepoCommand {
                 sslRepo.setCaCert(caCert);
                 sslRepo.setClientCert(clientCert);
                 // in case client cert isn't set, it makes no sense to set the client key
-                if (sslRepo.getClientCert() == null && clientKey != null){
+                if (sslRepo.getClientCert() == null && clientKey != null) {
                     throw new InvalidCertificateException("");
                 }
                 sslRepo.setClientKey(clientKey);
