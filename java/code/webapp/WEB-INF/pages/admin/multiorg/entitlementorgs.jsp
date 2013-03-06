@@ -62,7 +62,8 @@ imgAlt="users.jsp.imgAlt">
         </rl:column>
         <rl:column bound="false"
             sortable="false"
-            headerkey="entitlementorgs.proposed_total">
+            headerkey="entitlementorgs.proposed_total"
+            styleclass="last-column">
            <html:text property="newCount_${current.orgid}" size="5" value="${current.total}"
                       onkeydown="return blockEnter(event)" />
             <html:submit onclick="this.form.orgClicked.value = '${current.orgid}'"> <bean:message key="entitlementorgs.update"/>
