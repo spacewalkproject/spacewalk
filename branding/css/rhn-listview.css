@@ -7,15 +7,12 @@ table.list td {
       vertical-align: middle !important;
 }
 table.list, table.list-doubleheader {
+        border-radius: 10px 10px 0px 0px;
         font-size: 10px;
-        background: #c0c0c0 url(/img/table_corner_tr.gif) top right no-repeat;
+        background: #c0c0c0;
         border-bottom: 1px solid #c0c0c0;
         width: 100%;
 }
-
-table.list thead th:first-child {
-        background: url(/img/table_corner_tl.gif) top left no-repeat;
-        }
 
 table.list-pagination {
         font-size: smaller;
@@ -166,7 +163,8 @@ div.half-table-right {
 }
 
 table.half-table {
-        background: #c0c0c0 url(/img/table_corner_tr.gif) 100% 0 no-repeat;
+        border-radius: 10px 10px 0px 0px;
+        background: #c0c0c0;
         padding: 0px;
         margin: 0px;
         border-bottom: 1px solid #c0c0c0;
@@ -186,12 +184,6 @@ table.your-rhn table.full-table td {
   padding-right: 4px;
   padding-top: 4px;
 }
-
-
-table.half-table thead th:first-child {
-        background: url(/img/table_corner_tl.gif) top left no-repeat;
-        }
-
 
 div.full-width-wrapper {
     clear: both;
@@ -516,6 +508,14 @@ th {
 
 th.ascSort, th.descSort {
    background-color: #9bc5f0 !important;
+}
+
+th.ascSort:first-child, th.descSort:first-child {
+   border-radius: 10px 0 0 0; 
+}
+
+th.ascSort:last-child, th.descSort:last-child {
+   border-radius: 0 10px 0 0; 
 }
 
 /* the following classes add an arrow graphic in the column header */

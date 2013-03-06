@@ -34,7 +34,6 @@ div.login-box div.input-row input {
 
  .clearBox {
         width: 279px;
-        background: url(/img/corner_halflinebox_top.png) top right no-repeat;
         padding-top: 7px;
         margin-bottom: 15px;
         }
@@ -42,10 +41,7 @@ div.login-box div.input-row input {
  .clearBox .label {
 	clear: left;
  }
-
- .clearBoxInner {
-        background: url(/img/corner_halflinebox_bottom.png) bottom left no-repeat;
-        }
+ 
  .clearBoxInner {
         width: 100%;
         padding-bottom: 7px;
@@ -53,8 +49,8 @@ div.login-box div.input-row input {
 
  .clearBoxBody {
         padding: 5px 14px;
-        border-left: 1px solid #b4b4b4;
-        border-right: 1px solid #b4b4b4;
+        border: 1px solid #b4b4b4;
+        border-radius: 10px;
         }
 
  .clearBoxBody h2 {
@@ -435,18 +431,6 @@ div.tc_reject_button {
 
 div.rounded-box { float: right; }
 
-div.rounded-box:before {
-  background: #b4b19a url(/img/table_corner_tr.gif) scroll no-repeat top right;
-  margin-bottom: -11px;
-  height: 5px;
-  display: block;
-  border: none;
-  content: url(/img/table_corner_tl.gif);
-  padding: 0;
-  line-height: 0.1;
-  font-size: 1px;
-}
-
 div.rounded-box {
   background-color: white;
   border-bottom: 1px solid #b4b19a;
@@ -472,6 +456,8 @@ div.rounded-box h2 {
     background-color: #b4b19a;
     color: white;
     text-align: center;
+    padding-top: 2px;
+    border-radius: 10px 10px 0 0;
 }
 
 /** SDC fancy system info box showing system status (towards top of SDC > details page **/

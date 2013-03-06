@@ -52,7 +52,6 @@ ul.content-nav-rowone li a, ul.content-nav-rowthree li a {
 }
 
 ul.content-nav-rowtwo {
-        background: url(/img/contentnav_rowtwo_b.gif) bottom left no-repeat;
         padding-bottom: 6px;
         margin-right: 8px;
         }
@@ -67,29 +66,25 @@ a.content-nav-selected-link {
         font-weight: 900;
         }
 
-ul.content-nav-rowone li.content-nav-selected {
-        background: url(/img/contentnav_tabr.gif) top right no-repeat;
-}
-
 ul.content-nav-rowone a.content-nav-selected-link {
         color: #444;
         font-weight: 900;
-        background: url(/img/contentnav_tabl.gif) top left no-repeat;
-        }
-
-ul.content-nav-rowthree li.content-nav-selected {
-        background: url(/img/contentnav_tabr.gif) bottom right no-repeat;
+        background-color: #e6e6e6;
+        border-radius: 5px 5px 0 0;
         }
 
 ul.content-nav-rowthree a.content-nav-selected-link {
         color: #444;
         font-weight: 900;
-        background: url(/img/contentnav_tabl.gif) bottom left no-repeat;
+        background-color: #e6e6e6;
+        border-radius: 0 0 5px 5px;
         }
 div.contentnav-row2 {
-        background: #e6e6e6 url(/img/contentnav_rowtwo_t.gif) top left no-repeat;
-        padding: 0px;
+        background: #e6e6e6;
+        padding-top: 2px;
         clear: left;
+        border-radius: 5px;
+        margin-right: -5px;
         }
 
 div.contentnav-row2 a.content-nav-selected-link {
@@ -98,13 +93,7 @@ div.contentnav-row2 a.content-nav-selected-link {
 }
 
 div.contentnav-row2 div.top {
-        background: url(/img/contentnav_rowtwo_t.gif) top right no-repeat;
         margin-left: 8px;
 	height: 6px;
 	font-size: 0;
         }
-
-div.contentnav-row2 div.bottom {
-	background: url(/img/contentnav_rowtwo_b.gif) bottom right no-repeat;
-        }
-

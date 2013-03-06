@@ -3,9 +3,7 @@
 #sidenavp, #sidenav {   /* for ie55  */
         width: 150px;
         background-color: #999;
-        background-image: url(/img/corner_sidenav_top.gif);
-        background-position: top right;
-        background-repeat: no-repeat;
+        border-radius: 10px;
         font-family: "Luxi Sans", verdana, arial, sans-serif;
         font-size: xx-small;
     /* false value for WinIE4/5 */
@@ -19,9 +17,6 @@
 }
 
 #sidenavp ul, #sidenav ul {
-        background-image: url(/img/corner_sidenav_bottom.gif);
-        background-position: bottom left;
-        background-repeat: no-repeat;
         list-style: none;
         padding: 10px 0 10px 0;
         margin: 0;
@@ -85,16 +80,16 @@
 
 .sideleg {
         width: 150px;
-        background: url(/img/sidelegend_top.gif) 0 0 no-repeat;
-        padding-top: 9px;
+        padding-top: 3px;
         margin-top: 1em;
+        border: 1px solid #acacac;
+        border-radius: 10px;
 }
 
 .sideleg h2 {
         font-size: x-small;
         color: #666;
-        border: 1px solid #acacac;
-        border-top: none;
+        border-bottom: 1px solid #acacac;
         padding: 0 0 3px 15px;
         margin: 0;
 }
@@ -103,15 +98,12 @@
        padding: 0 0 9px 0 ;
         margin: 0;
         list-style: none;
-        background: url(/img/sidelegend_bottom.gif) 0 100% no-repeat;
 }
 
 .sideleg ul li {
         padding: 12px 0 6px 15px;
         font-size: x-small;
         color: #666;
-        border-left: 1px solid #acacac;
-        border-right: 1px solid #acacac;
         clear: left;
 }
 

@@ -50,18 +50,16 @@ img#rhnLogo {
 #utilityAccount {
 	float: right;
 	text-align: center;
-	background: #eee;
+        border-radius: 0 0 10px 10px;
+        background: #767676;
+        background: linear-gradient(to bottom, #838383 0%, #767676 100%);
+        background: -o-linear-gradient(top, #838383 0%, #767676 100%);
+        background: -webkit-linear-gradient(top. color-stop(0, #838383), color-stop(1, #767676));
 	width: 45%;
-	background-image: url(/img/nav/utilBkgdRight.png);
-	background-position: bottom right;
-	background-repeat: no-repeat;
 }
 
 #utilityAccount p {
 	margin: 0;
-	background-image: url(/img/nav/utilBkgdLeft.png);
-	background-position: bottom left;
-	background-repeat: no-repeat;
 	display: block;
 	padding: 6px 0px 8px 0px;
 }

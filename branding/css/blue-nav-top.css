@@ -31,16 +31,15 @@ div#navWrap {
         clear: both;
         width: 100%;
         font-family: "Lucida Grande", "Luxi Sans", "Trebuchet MS", helvetica, arial, sans-serif;
-        background-image: url(/img/nav/navPrimeRight3.png);
-        background-position: top right;
-        background-repeat: no-repeat;
+        background-color: #cecece;
+        background: linear-gradient(to bottom, #eeeeee 0%, #cecece 100%);
+        background: -o-linear-gradient(top, #eeeeee 0%, #cecece 100%);
+        background: -webkit-linear-gradient(top, #eeeeee 0%, #cecece 100%);
+        border-radius: 10px 10px 0 0;
 }
 
 div#navWrap div#mainNavWrap {
         width: 100%;
-        background-image: url(/img/nav/navPrimeLeft3.png);
-        background-position: top left;
-        background-repeat: no-repeat;
         float: left;
 }
 
@@ -51,7 +50,6 @@ ul#mainNav, div#mainNavWrap ul {
         padding: 0;
         margin: 0px;
         list-style-type: none;
-        background: url(/img/nav/navPrimeBtmBrd-blue.png) repeat-x bottom;
         float: left;
 }
 
@@ -77,12 +75,8 @@ li#mainFirst-active,
 #mainNav li#mainLast-active,
 div#mainNavWrap ul li#main-active,
 div#mainNavWrap ul li#mainLast-active {
-/*
-        background-color: #e6e6e6;
-*/
-        background-image: url(/img/nav/navPrimeTabRight-blue.png);
-        background-position: top right;
-        background-repeat: no-repeat;
+        border-radius: 10px 10px 0 0 ;
+        background-color: #484848;
 }
 
 li#mainFirst-active a,
@@ -90,9 +84,6 @@ li#mainFirst-active a,
 #mainNav li#mainLast-active a,
 div#mainNavWrap ul li#main-active a,
 div#mainNavWrap ul li#mainLast-active a {
-        background-image: url(/img/nav/navPrimeTabLeft-blue.png);
-        background-position: top left;
-        background-repeat: no-repeat;
         color: #fff;
         padding-bottom: 5px;
 }
@@ -100,7 +91,6 @@ div#mainNavWrap ul li#mainLast-active a {
 /* if it's the first tab item in the bar, styled a little differently */
 ul#mainNav li#mainFirst-active a,
 div#mainNavWrap ul li#mainFirst-active a {
-        background-image: url(/img/nav/navPrimeTabLeft-blue.gif);
         color: #fff;
 }
 
