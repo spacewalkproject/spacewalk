@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.0
+Version: 1.10.1
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Thu Mar 07 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.1-1
+- spacewalk-report: added reports for spacewalk-abrt
+- Bumping package versions for 1.9
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+
 * Thu Feb 28 2013 Jan Pazdziora 1.9.6-1
 - Removing the dsn parameter from initDB, removing support for --db option.
 
