@@ -1,0 +1,48 @@
+
+synopsis:
+
+	Crash details for systems
+
+description:
+
+	List of crash details for all systems in Spacewalk
+
+columns:
+
+	system_id	System ID
+	org_id	Organization ID
+	crash	Name of the crash
+	count	Number of crushes
+	arch	Architecture
+	cmdline	Cmdline
+	component Component
+	executable	Executable
+	kernel	Kernel
+	reason	Crush reason
+	username	User which process caused crush
+	package_nevra	Package NEVRA
+
+sql:
+
+	select * from (
+	select S.id as system_id,
+		S.org_id as org_id,
+		SC.crash as crash,
+		SC.count as count,
+		SC.architecture as arch,
+		SC.cmdline as cmdline,
+		SC.component as component,
+		SC.executable as executable,
+		SC.kernel as kernel,
+		SC.reason as reason,
+		SC.username as username,
+		(PN.name + PE.epoch + PE.version + PE.release + PA.label) as package_nevra
+	from rhnServer S join
+		rhnServerCrash SC on S.id=SC.server_id left join
+		rhnPackageName PN on SC.package_name_id=PN.id left join
+		rhnPackageEvr PE on SC.package_evr_id=PE.id left join
+		rhnPackageArch PA on SC.package_arch_id=PA.id
+	) X
+	-- where placeholder
+	order by org_id, system_id
+

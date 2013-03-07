@@ -1,0 +1,31 @@
+
+synopsis:
+
+	Crash count for systems
+
+description:
+
+	List of number of crashes across Spacewalk
+
+columns:
+
+	system_id	System ID
+	org_id	Organization ID
+	unique_count	Count of unique crashes on the system
+	total_count	Count of all crashes on the system
+	last	Date and time of the last crash
+
+sql:
+
+	select * from (
+	select S.id as system_id,
+		S.org_id as org_id,
+		nvl(CC.unique_count, '0') as unique_count,
+		nvl(CC.total_count, '0') as total_count,
+		nvl(to_char(CC.last_report), 'never') as last
+	from rhnServerCrashCount CC right join
+		rhnServer S on CC.server_id=S.id
+	) X
+	-- where placeholder
+	order by org_id, system_id
+
