@@ -24,6 +24,8 @@ Destination directory. Usually /var/www/html/pub.
 
 Display reference to this man page.
 
+=back
+
 =head1 SEE ALSO
 
 B<spacewalk-setup>(1), B<rhn-ssl-tool>(1)

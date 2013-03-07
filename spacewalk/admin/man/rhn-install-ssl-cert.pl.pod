@@ -19,6 +19,8 @@ Specify directory where is you CA certificates. Usually /root/ssl-build/.
 
 Display reference to this man page.
 
+=back
+
 =head1 SEE ALSO
 
 B<spacewalk-setup>(1), B<rhn-ssl-tool>(1)
