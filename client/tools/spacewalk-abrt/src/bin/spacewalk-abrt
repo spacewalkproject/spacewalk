@@ -76,7 +76,7 @@ class AbrtCli(rhncli.RhnCli):
             spacewalk_abrt.abrt.update_count(self.options.update_count)
 
         if self.options.sync:
-            return (spacewalk_abrt.abrt.sync())
+            spacewalk_abrt.abrt.sync()
 
         sys.exit(0)
 
