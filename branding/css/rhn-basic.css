@@ -589,4 +589,5 @@ div.indent {
 	#acc-prefs { display: none; }
 	#acc-prefs-pipe { display: none; }
 	#acc-logout { display: none; }
+	div.filter-input { display: none; }
 }
