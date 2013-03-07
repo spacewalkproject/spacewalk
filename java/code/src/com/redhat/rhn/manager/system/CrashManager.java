@@ -20,6 +20,7 @@ import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.server.Crash;
 import com.redhat.rhn.domain.server.CrashFactory;
 import com.redhat.rhn.domain.server.CrashFile;
+import com.redhat.rhn.domain.server.CrashNote;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchCrashException;
@@ -107,5 +108,15 @@ public class CrashManager extends BaseManager {
         }
 
         CrashFactory.delete(crash);
+    }
+
+    /**
+     * Lookup CrashNote by id and crash
+     * @param crashNoteId crash note id
+     * @param crash crash
+     * @return crash note for given id
+     */
+    public static CrashNote lookupCrashNoteByIdAndCrash(Long crashNoteId, Crash crash) {
+        return CrashFactory.lookupCrashNoteByIdAndCrash(crashNoteId, crash);
     }
 }

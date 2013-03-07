@@ -30,6 +30,21 @@ public class CrashNote extends BaseDomainHelper {
     private User creator;
     private Crash crash;
 
+
+    /**
+     * Default Constructor
+     */
+    public CrashNote() {
+    }
+
+    /**
+     * Constructor
+     * @param crashIn associated crash
+     */
+    public CrashNote(Crash crashIn) {
+        crash = crashIn;
+    }
+
     /**
      * @return Returns the id.
      */

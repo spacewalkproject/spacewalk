@@ -89,6 +89,8 @@
       <rhn-tab-url>/rhn/systems/details/SoftwareCrashes.do</rhn-tab-url>
       <rhn-tab-url>/rhn/systems/details/SoftwareCrashDetail.do</rhn-tab-url>
       <rhn-tab-url>/rhn/systems/details/SoftwareCrashDelete.do</rhn-tab-url>
+      <rhn-tab-url>/rhn/systems/details/EditCrashNote.do</rhn-tab-url>
+      <rhn-tab-url>/rhn/systems/details/DeleteCrashNote.do</rhn-tab-url>
     </rhn-tab>
 </rhn-tab>
 

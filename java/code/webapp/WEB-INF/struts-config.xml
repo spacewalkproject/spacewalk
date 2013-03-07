@@ -3638,6 +3638,21 @@
                 path="/systems/details/SoftwareCrashes.do" redirect="true"/>
     </action>
 
+    <action path="/systems/details/EditCrashNote"
+        name="editNoteForm"
+        scope="request"
+        input="/WEB-INF/pages/systems/crashnote.jsp"
+        parameter="dispatch"
+        validate="false"
+        type="com.redhat.rhn.frontend.action.systems.CrashNoteEditAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/crashnote.jsp"/>
+        <forward name="success"
+                 path="/systems/details/SoftwareCrashDetail.do" redirect="true"/>
+    </action>
+
      <action path="/systems/details/groups/ListRemove"
              scope="request"
              type="com.redhat.rhn.frontend.action.systems.groups.ListRemoveGroupsAction"

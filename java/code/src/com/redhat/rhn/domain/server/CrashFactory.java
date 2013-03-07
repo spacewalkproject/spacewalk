@@ -16,10 +16,10 @@
 package com.redhat.rhn.domain.server;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -70,5 +70,40 @@ public class CrashFactory extends HibernateFactory {
         params.put("id", id);
         return (CrashFile) singleton.lookupObjectByNamedQuery(
                 "CrashFile.findById", params);
+    }
+
+    /**
+     * Lookup CrashNote by id and crash
+     * @param crashNoteIdIn crash note id
+     * @param crashIn crash
+     * @return crash note for given id
+     */
+    public static CrashNote lookupCrashNoteByIdAndCrash(Long crashNoteIdIn,
+            Crash crashIn) {
+        Map params = new HashMap();
+        params.put("id", crashNoteIdIn);
+        params.put("crash", crashIn);
+        return (CrashNote) singleton.lookupObjectByNamedQuery(
+                "CrashNote.findByIdAndCrash", params);
+    }
+
+    /**
+     * Lists crash notes of a specified crash
+     * @param crashIn crash
+     * @return crash notes for given crash
+     */
+    public static List<CrashNote> listCrashNotesByCrash(Crash crashIn) {
+        Map params = new HashMap();
+        params.put("crash", crashIn);
+        return singleton.listObjectsByNamedQuery(
+                "CrashNote.listByCrash", params);
+    }
+
+    /**
+     * Saves CrashNote object
+     * @param crashNoteIn crash note to save
+     */
+    public static void save(CrashNote crashNoteIn) {
+        singleton.saveObject(crashNoteIn);
     }
 }

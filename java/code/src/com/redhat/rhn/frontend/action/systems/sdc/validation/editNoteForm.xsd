@@ -12,6 +12,7 @@
                                   <simpleType baseType="string">
                                     <minLength value="0"/>
                                     <maxLength value="4000"/>
+                                    <optional/>
                                   </simpleType>
                  </attribute>
 </schema>
