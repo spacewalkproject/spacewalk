@@ -938,4 +938,105 @@ public class OrgHandler extends BaseHandler {
 
         return 1;
     }
+
+    /**
+     * Get the status of crash reporting settings for the given organization.
+     *
+     * @param sessionKey User's session key.
+     * @param orgId Organization ID to set the limit for.
+     * @return Returns the status of crash reporting settings.
+     *
+     * @xmlrpc.doc Get the status of crash reporting settings for the given organization.
+     * Returns true if enabled, false otherwise.
+     *
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "orgId")
+     * @xmlrpc.returntype boolean - Get the status of crash reporting settings.
+     */
+    public boolean isCrashReportingEnabled(String sessionKey, Integer orgId) {
+        getSatAdmin(sessionKey);
+        Org org = verifyOrgExists(orgId);
+        return org.getOrgConfig().isCrashReportingEnabled();
+    }
+
+    /**
+     * Set the status of crash reporting settings for the given organization.
+     *
+     * @param sessionKey User's session key.
+     * @param orgId Organization ID to set the limit for.
+     * @param enable Boolean to indicate desired settings.
+     * @return Returns 1 for successfull change, traceback otherwise.
+     *
+     * @xmlrpc.doc Set the status of crash reporting settings for the given organization.
+     * Disabling crash reporting will automatically disable crash file upload.
+     *
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "orgId")
+     * @xmlrpc.param #param_desc("boolean", "enable", "Use true/false to enable/disable")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public Integer setCrashReporting(String sessionKey, Integer orgId,
+                                     Boolean enable) {
+        getSatAdmin(sessionKey);
+        Org org = verifyOrgExists(orgId);
+        if (enable) {
+            org.getOrgConfig().setCrashReportingEnabled(enable);
+        }
+        else {
+            org.getOrgConfig().setCrashReportingEnabled(false);
+            org.getOrgConfig().setCrashfileUploadEnabled(false);
+        }
+
+        return 1;
+    }
+
+    /**
+     * Get the status of crash file upload settings for the given organization.
+     *
+     * @param sessionKey User's session key.
+     * @param orgId Organization ID to set the limit for.
+     * @return Returns the status of crash file upload settings.
+     *
+     * @xmlrpc.doc Get the status of crash file upload settings for the given organization.
+     * Returns true if enabled, false otherwise.
+     *
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "orgId")
+     * @xmlrpc.returntype boolean - Get the status of crash file upload settings.
+     */
+    public boolean isCrashfileUploadEnabled(String sessionKey, Integer orgId) {
+        getSatAdmin(sessionKey);
+        Org org = verifyOrgExists(orgId);
+        return org.getOrgConfig().isCrashfileUploadEnabled();
+    }
+
+    /**
+     * Set the status of crash file upload settings for the given organization.
+     *
+     * @param sessionKey User's session key.
+     * @param orgId Organization ID to set the limit for.
+     * @param enable Boolean to indicate desired settings.
+     * @return Returns 1 for successfull change, 0 if the change failed.
+     *
+     * @xmlrpc.doc Set the status of crash file upload settings for the given organization.
+     * Modifying the settings is possible as long as crash reporting is enabled.
+     *
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "orgId")
+     * @xmlrpc.param #param_desc("boolean", "enable", "Use true/false to enable/disable")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public Integer setCrashfileUpload(String sessionKey, Integer orgId,
+                                      Boolean enable) {
+        getSatAdmin(sessionKey);
+        Org org = verifyOrgExists(orgId);
+        if (org.getOrgConfig().isCrashReportingEnabled()) {
+            org.getOrgConfig().setCrashfileUploadEnabled(enable);
+        }
+        else {
+            return 0;
+        }
+
+        return 1;
+    }
 }
