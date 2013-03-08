@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2013 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,46 +14,6 @@
  */
 
 package com.redhat.rhn.domain.org;
-
-/*
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.SelectMode;
-import com.redhat.rhn.common.db.datasource.WriteMode;
-import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.domain.BaseDomainHelper;
-import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.channel.ChannelFamily;
-import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
-import com.redhat.rhn.domain.entitlement.Entitlement;
-import com.redhat.rhn.domain.org.usergroup.UserGroup;
-import com.redhat.rhn.domain.org.usergroup.UserGroupFactory;
-import com.redhat.rhn.domain.role.Role;
-import com.redhat.rhn.domain.server.EntitlementServerGroup;
-import com.redhat.rhn.domain.server.ManagedServerGroup;
-import com.redhat.rhn.domain.server.ServerGroup;
-import com.redhat.rhn.domain.server.ServerGroupFactory;
-import com.redhat.rhn.domain.server.ServerGroupType;
-import com.redhat.rhn.domain.token.Token;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.user.UserFactory;
-import com.redhat.rhn.manager.channel.ChannelManager;
-import com.redhat.rhn.manager.entitlement.EntitlementManager;
-
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.log4j.Logger;
-import org.hibernate.Session;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-*/
 
 import com.redhat.rhn.domain.BaseDomainHelper;
 import org.apache.log4j.Logger;
@@ -93,15 +53,6 @@ public class OrgConfig extends BaseDomainHelper {
     public boolean isStagingContentEnabled() {
         return stagingContentEnabled;
     }
-
-    /**
-     * @return Returns the stageContentEnabled.
-     */
-/**
-    public boolean getStagingContentEnabled() {
-        return stagingContentEnabled;
-    }
-**/
 
     /**
      * @param stageContentEnabledIn The stageContentEnabled to set.
