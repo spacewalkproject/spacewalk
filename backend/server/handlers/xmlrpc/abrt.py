@@ -91,6 +91,18 @@ update rhnServerCrashFile
        )
 """
 
+_query_get_crash_reporting_settings = """
+select crash_reporting_enabled
+  from rhnOrgConfiguration
+ where org_id = :org_id
+"""
+
+_query_get_crashfile_upload_settings = """
+select crashfile_upload_enabled
+  from rhnOrgConfiguration
+ where org_id = :org_id
+"""
+
 class Abrt(rhnHandler):
     def __init__(self):
         rhnHandler.__init__(self)
@@ -157,9 +169,36 @@ class Abrt(rhnHandler):
 
         return r
 
+    def _is_crash_reporting_enabled(self, org_id):
+        h = rhnSQL.prepare(_query_get_crash_reporting_settings)
+        h.execute(org_id = org_id)
+        r = h.fetchall_dict()
+
+        if (r[0]['crash_reporting_enabled'] == 'Y'):
+            return True
+        else:
+            return False
+
+    def _is_crashfile_uploading_enabled(self, org_id):
+        h = rhnSQL.prepare(_query_get_crashfile_upload_settings)
+        h.execute(org_id = org_id)
+        r = h.fetchall_dict()
+
+        if (r[0]['crashfile_upload_enabled'] == 'Y'):
+            return True
+        else:
+            return False
+
+    def _check_crash_reporting_setting(self):
+        if not self._is_crash_reporting_enabled(self.server.server['org_id']):
+            log_debug(1, "Crash reporting is disabled for this server's organization.")
+            raise rhnFault(5006)
+
     def create_crash(self, system_id, crash_data, pkg_data):
         self.auth_system(system_id)
         log_debug(1, self.server_id, crash_data, pkg_data)
+
+        self._check_crash_reporting_setting()
 
         if not (crash_data.has_key('crash') and crash_data.has_key('path')) or \
            not (crash_data['crash'] and crash_data['path']):
@@ -194,6 +233,7 @@ class Abrt(rhnHandler):
 
     def upload_crash_file(self, system_id, crash, crash_file):
         self.auth_system(system_id)
+        self._check_crash_reporting_setting()
 
         required_keys = ['filename', 'path', 'filesize', 'filecontent', 'content-encoding']
         for k in required_keys:
@@ -232,6 +272,8 @@ class Abrt(rhnHandler):
         rhnSQL.commit()
 
         # Create the file on filer
+        if not self._is_crashfile_uploading_enabled(server_org_id):
+            return 1
         filecontent = base64.decodestring(crash_file['filecontent'])
         filesize = len(filecontent)
         sizelimit = self._get_crashfile_sizelimit()

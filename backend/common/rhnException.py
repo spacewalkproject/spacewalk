@@ -239,7 +239,8 @@ maximum membership exceeded"),
      5002: _("Error composing crash directory path"),
      5003: _("Error composing crash file path"),
      5004: _("Invalid content encoding"),
-     5005: _("Invalid crash name")
+     5005: _("Invalid crash name"),
+     5006: _("Crash reporting is disabled for this organization")
     }
 
 
