@@ -16,7 +16,9 @@ package com.redhat.rhn.frontend.action.systems;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.server.Crash;
+import com.redhat.rhn.domain.server.CrashFactory;
 import com.redhat.rhn.domain.server.CrashFile;
+import com.redhat.rhn.domain.server.CrashNote;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.SoftwareCrashFileDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -70,6 +72,8 @@ public class SoftwareCrashesDetailsAction extends RhnAction implements Listable 
         request.setAttribute(CRASH_NEVRA,
                 PackageManager.buildPackageNevra(crash.getPackageNameId(),
                         crash.getPackageEvrId(), crash.getPackageArchId()));
+        request.setAttribute("crashNotesList",
+                new DataResult<CrashNote>(CrashFactory.listCrashNotesByCrash(crash)));
 
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
