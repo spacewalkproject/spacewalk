@@ -208,7 +208,7 @@ def make_evr(nvre, source=False):
 
 def _is_secure_path(path):
     path = posixpath.normpath(path)
-    return not path.startswith(('/', '../'))
+    return not (path.startswith('/') or path.startswith('../'))
 
 def get_crash_path(org_id, system_id, crash):
     """For a given org_id, system_id and crash, return relative path to a crash directory."""
