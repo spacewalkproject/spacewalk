@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.org.OrgConfig"
+           table="rhnOrgConfiguration">
+        <id name="orgId" type="long" column="org_id">
+            <generator class="foreign">
+                <param name="property">org</param>
+            </generator>
+        </id>
+        <property name="stagingContentEnabled" column="staging_content_enabled" type="yes_no" not-null="true"/>
+        <property name="crashFileSizelimit" column="crash_file_sizelimit" type="long" not-null="true"/>
+    </class>
+</hibernate-mapping>
+

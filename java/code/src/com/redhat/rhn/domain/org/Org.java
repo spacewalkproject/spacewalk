@@ -73,11 +73,11 @@ public class Org extends BaseDomainHelper {
     private Set customDataKeys;
     private Set<Org> trustedOrgs;
     private Token token;
-    private boolean stagingContentEnabled;
-    private Long crashFileSizelimit;
 
     private Set monitoringScouts;
     private Set contactGroups;
+
+    private OrgConfig orgConfig;
 
     /**
      * Construct new Org
@@ -254,6 +254,22 @@ public class Org extends BaseDomainHelper {
      */
     public Set getEntitlements() {
         return entitlements;
+    }
+
+    /**
+     * Set OrgConfig
+     * @param orgConfigIn The new OrgConfig to set.
+     */
+    public void setOrgConfig(OrgConfig orgConfigIn) {
+        orgConfig = orgConfigIn;
+    }
+
+    /**
+     * Get OrgConfig for this Org
+     * @return Get the OrgConfig for this Org
+     */
+    public OrgConfig getOrgConfig() {
+        return orgConfig;
     }
 
     /**
@@ -573,37 +589,6 @@ public class Org extends BaseDomainHelper {
         if (org != null) {
             org.trustedOrgs.remove(this);
         }
-    }
-
-    /**
-     * @return Returns the stageContentEnabled.
-     */
-    public boolean isStagingContentEnabled() {
-        return stagingContentEnabled;
-    }
-
-
-    /**
-     * @param stageContentEnabledIn The stageContentEnabled to set.
-     */
-    public void setStagingContentEnabled(boolean stageContentEnabledIn) {
-        stagingContentEnabled = stageContentEnabledIn;
-    }
-
-    /**
-     * Get the org-wide crash file size limit.
-     * @return Returns the org-wide crash file size limit.
-     */
-    public Long getCrashFileSizelimit() {
-        return crashFileSizelimit;
-    }
-
-    /**
-     * Set the org-wide crash file size limit.
-     * @param sizeLimitIn The org-wide crash file size limit to set.
-     */
-    public void setCrashFileSizelimit(Long sizeLimitIn) {
-        crashFileSizelimit = sizeLimitIn;
     }
 
     /**

@@ -909,7 +909,7 @@ public class OrgHandler extends BaseHandler {
     public int getCrashFileSizeLimit(String sessionKey, Integer orgId) {
         getSatAdmin(sessionKey);
         Org org = verifyOrgExists(orgId);
-        return org.getCrashFileSizelimit().intValue();
+        return org.getOrgConfig().getCrashFileSizelimit().intValue();
     }
 
     /**
@@ -934,7 +934,7 @@ public class OrgHandler extends BaseHandler {
         if (limit < 0) {
             throw new InvalidParameterException("Limit value must be non-negative.");
         }
-        org.setCrashFileSizelimit(new Long(limit.longValue()));
+        org.getOrgConfig().setCrashFileSizelimit(new Long(limit.longValue()));
 
         return 1;
     }

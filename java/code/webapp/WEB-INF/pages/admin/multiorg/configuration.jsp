@@ -49,7 +49,7 @@
     <th><label for="staging_content_enabled"><bean:message key="org-config.staging-content.jsp"/></th>
     <td><input type="checkbox" name="staging_content_enabled" 
 							    value="enabled" id="staging_content_enabled"  
-    		<c:if test = "${org.stagingContentEnabled}">
+    		<c:if test = "${org.orgConfig.stagingContentEnabled}">
     			checked="checked"
     		</c:if>	
     	 />
@@ -62,7 +62,7 @@
     <td>
         <input type="number"
                name="crashfile_sizelimit"
-               value="${org.crashFileSizelimit}"
+               value="${org.orgConfig.crashFileSizelimit}"
                id="crashfile_sizelimit" />
     <td>
   </tr>

@@ -185,9 +185,9 @@ class Queue(rhnHandler):
             self._invalidate_child_actions(action_id)
     _query_future_enabled = rhnSQL.Statement("""
         select staging_content_enabled
-          from web_customer wc,
+          from rhnOrgConfiguration oc
                rhnServer s
-         where s.org_id = wc.id
+         where s.org_id = oc.org_id
            and s.id = :server_id
     """)
 

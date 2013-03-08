@@ -47,7 +47,7 @@ public class OrgConfigAction extends RhnAction {
         RequestContext ctx = new RequestContext(request);
         Org org = ctx.lookupAndBindOrg();
         if (ctx.isSubmitted()) {
-            org.setStagingContentEnabled(request.
+            org.getOrgConfig().setStagingContentEnabled(request.
                     getParameter("staging_content_enabled") != null);
 
             Long newLimit = null;
@@ -68,7 +68,7 @@ public class OrgConfigAction extends RhnAction {
                            RequestContext.ORG_ID, org.getId().toString());
             }
             if (StringUtils.isNotEmpty(request.getParameter("crashfile_sizelimit"))) {
-                org.setCrashFileSizelimit(newLimit);
+                org.getOrgConfig().setCrashFileSizelimit(newLimit);
             }
 
             ActionMessages msg = new ActionMessages();

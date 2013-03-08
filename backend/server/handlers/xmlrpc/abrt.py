@@ -71,8 +71,8 @@ update rhnServerCrash
 
 _query_get_crashfile_sizelimit = """
 select crash_file_sizelimit
-  from web_customer
- where id = :org_id
+  from rhnOrgConfiguration
+ where org_id = :org_id
 """
 
 _query_set_crashfile_upload_flag = """
