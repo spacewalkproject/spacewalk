@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.10.1
+Version:    1.10.2
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -88,6 +88,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Mar 08 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.2-1
+- removing filter input from page when printing
+
 * Wed Mar 06 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.1-1
 - using css3 border-radius instead of images to render round edges
 - Bumping package versions for 1.9
