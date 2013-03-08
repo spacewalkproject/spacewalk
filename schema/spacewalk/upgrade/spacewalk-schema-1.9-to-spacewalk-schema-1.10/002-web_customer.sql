@@ -20,7 +20,7 @@ create table rhnOrgConfiguration
                                    references web_customer(id)
                                    on delete cascade,
     staging_content_enabled    char(1)
-                                   default ('n') not null
+                                   default ('N') not null
                                    constraint rhn_org_conf_stage_content_chk
                                    check (staging_content_enabled in ('Y', 'N')),
     crash_file_sizelimit       number
