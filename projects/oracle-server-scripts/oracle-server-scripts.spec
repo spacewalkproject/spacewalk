@@ -18,8 +18,13 @@ Buildroot: /var/tmp/%{name}-root
 Requires: oracle-server >= %{oracle_base_version}
 Requires: m4
 Requires: oracle-config
+%if 0%{?fedora} > 17
+Requires(post): %{_sbindir}/runuser
+Requires: %{_sbindir}/restorecon
+%else
 Requires(post): /sbin/runuser
 Requires: /sbin/restorecon
+%endif
 
 %description
 Management scripts for Oracle

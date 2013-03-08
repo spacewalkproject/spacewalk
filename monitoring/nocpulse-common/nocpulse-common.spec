@@ -11,7 +11,7 @@ Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires(pre):  httpd, /usr/sbin/useradd
 Requires(post): openssh
 %if 0%{?fedora} > 17
-Requires(post): /usr/sbin/runuser
+Requires(post): %{_sbindir}/runuser
 %else
 Requires(post): /sbin/runuser
 %endif
