@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.3
+Version: 1.10.4
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -638,6 +638,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Mar 08 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.4-1
+- abrt: enable crash reporting settings in backend
+
 * Fri Mar 08 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.3-1
 - Move org configuration to a separate table
 - make startswith work with python versions < 2.5
