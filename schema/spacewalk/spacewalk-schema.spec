@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.4
+Version:        1.10.5
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Sat Mar 09 2013 Tomas Lestach <tlestach@redhat.com> 1.10.5-1
+- rhnServerCrashNote table upgrade scripts
+- introduce rhnServerCrashNote table
+
 * Fri Mar 08 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.4-1
 - abrt: org-wide settings for crash reporting and crash file uploading
 - correct the capitalization
