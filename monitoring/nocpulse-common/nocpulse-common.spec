@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.2.5
+Version:      2.2.6
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -154,6 +154,10 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Mar 08 2013 Milan Zazrivec <mzazrivec@redhat.com> 2.2.6-1
+- Fedora 19 does not provide /sbin/runuser
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+
 * Fri Nov 02 2012 Miroslav Suchý <msuchy@redhat.com> 2.2.5-1
 - Fedora 19 does not provide /sbin/runuser
 - %%defattr is not needed since rpm 4.4
