@@ -50,6 +50,16 @@ public class OrgConfigAction extends RhnAction {
             org.getOrgConfig().setStagingContentEnabled(request.
                     getParameter("staging_content_enabled") != null);
 
+            if (request.getParameter("crash_reporting_enabled") == null) {
+                org.getOrgConfig().setCrashReportingEnabled(false);
+                org.getOrgConfig().setCrashfileUploadEnabled(false);
+            }
+            else {
+                org.getOrgConfig().setCrashReportingEnabled(true);
+                org.getOrgConfig().setCrashfileUploadEnabled(request.
+                    getParameter("crashfile_upload_enabled") != null);
+            }
+
             Long newLimit = null;
             try {
                 newLimit = Long.parseLong(

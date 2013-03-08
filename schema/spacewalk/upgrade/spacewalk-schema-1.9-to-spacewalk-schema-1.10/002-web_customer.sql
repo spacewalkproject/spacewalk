@@ -23,6 +23,14 @@ create table rhnOrgConfiguration
                                    default ('N') not null
                                    constraint rhn_org_conf_stage_content_chk
                                    check (staging_content_enabled in ('Y', 'N')),
+    crash_reporting_enabled    char(1)
+                                   default ('Y') not null
+                                   constraint rhn_org_conf_crash_report_chk
+                                   check (crash_reporting_enabled in ('Y', 'N')),
+    crashfile_upload_enabled   char(1)
+                                   default ('Y') not null
+                                   constraint rhn_org_conf_crash_upload_chk
+                                   check (crashfile_upload_enabled in ('Y', 'N'))
     crash_file_sizelimit       number
                                    default(2048) not null
                                    constraint rhn_org_conf_sizelimit_chk
@@ -38,10 +46,14 @@ create unique index rhn_org_conf_org_id
 insert into rhnOrgConfiguration (
     org_id,
     staging_content_enabled,
+    crash_reporting_enabled,
+    crashfile_upload_enabled,
     crash_file_sizelimit )
 (
     select id,
            staging_content_enabled,
+           'Y',
+           'Y',
            crash_file_sizelimit
       from web_customer
 );

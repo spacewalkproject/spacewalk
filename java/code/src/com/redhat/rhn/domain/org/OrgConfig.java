@@ -29,6 +29,8 @@ public class OrgConfig extends BaseDomainHelper {
     private Long orgId;
     private Org org;
     private boolean stagingContentEnabled;
+    private boolean crashReportingEnabled;
+    private boolean crashfileUploadEnabled;
     private Long crashFileSizelimit;
 
     /**
@@ -59,6 +61,34 @@ public class OrgConfig extends BaseDomainHelper {
      */
     public void setStagingContentEnabled(boolean stageContentEnabledIn) {
         stagingContentEnabled = stageContentEnabledIn;
+    }
+
+    /**
+     * @return Returns the crashReportingEnabled flag.
+     */
+    public boolean isCrashReportingEnabled() {
+        return crashReportingEnabled;
+    }
+
+    /**
+     * @param crashReportingEnabledIn The crashReportingEnabled to set.
+     */
+    public void setCrashReportingEnabled(boolean crashReportingEnabledIn) {
+        crashReportingEnabled = crashReportingEnabledIn;
+    }
+
+    /**
+     * @return Returns the crashfileUploadEnabled flag.
+     */
+    public boolean isCrashfileUploadEnabled() {
+        return crashfileUploadEnabled;
+    }
+
+    /**
+     * @param crashfileUploadEnabledIn The crashfileUploadEnabled to set.
+     */
+    public void setCrashfileUploadEnabled(boolean crashfileUploadEnabledIn) {
+        crashfileUploadEnabled = crashfileUploadEnabledIn;
     }
 
     /**

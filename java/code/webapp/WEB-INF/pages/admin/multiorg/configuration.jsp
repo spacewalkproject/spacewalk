@@ -5,6 +5,15 @@
 
 <html:html xhtml="true">
 <head>
+<script language="javascript" type="text/javascript">
+function modifyUploadCheckbox(checkbox) {
+    if (checkbox.checked == false) {
+        document.getElementById("crashfile_upload_enabled").disabled = true;
+    } else {
+        document.getElementById("crashfile_upload_enabled").disabled = false;
+    }
+}
+</script>
 </head>
 <body>
 <c:choose>
@@ -51,9 +60,45 @@
 							    value="enabled" id="staging_content_enabled"  
     		<c:if test = "${org.orgConfig.stagingContentEnabled}">
     			checked="checked"
-    		</c:if>	
+                </c:if>
     	 />
 	</td>
+  </tr>
+  <tr>
+    <th>
+      <label for="crash_reporting_enabled">
+      <bean:message key="org-config.crash-reporting.jsp"/>
+    </th>
+    <td>
+      <input type="checkbox"
+             name="crash_reporting_enabled"
+             value="enabled"
+             id="crash_reporting_enabled"
+             onChange="modifyUploadCheckbox(this)"
+             <c:if test = "${org.orgConfig.crashReportingEnabled}">
+                 checked="checked"
+             </c:if>
+      />
+    </td>
+  </tr>
+  <tr>
+    <th>
+      <label for="crashfile_upload_enabled">
+      <bean:message key="org-config.crashfile-upload.jsp"/>
+    </th>
+    <td>
+      <input type="checkbox"
+             name="crashfile_upload_enabled"
+             value="enabled"
+             id="crashfile_upload_enabled"
+             <c:if test = "${not org.orgConfig.crashReportingEnabled}">
+                 disabled="true"
+             </c:if>
+             <c:if test = "${org.orgConfig.crashfileUploadEnabled}">
+                 checked="checked"
+             </c:if>
+      />
+    </td>
   </tr>
   <tr>
     <th>
