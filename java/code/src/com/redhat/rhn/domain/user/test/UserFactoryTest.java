@@ -42,6 +42,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 /** JUnit test case for the User
  *  class.
@@ -51,6 +52,7 @@ import java.util.List;
 public class UserFactoryTest extends RhnBaseTestCase {
     private UserFactory factory;
 
+    @Override
     public void setUp() {
         factory = UserFactory.getInstance();
     }
@@ -176,7 +178,7 @@ public class UserFactoryTest extends RhnBaseTestCase {
     public void testGetTimeZoneDefault() {
         RhnTimeZone tz = UserFactory.getDefaultTimeZone();
         assertNotNull(tz);
-        assertTrue(tz.getOlsonName().equals("America/New_York"));
+        assertTrue(tz.getTimeZone().getRawOffset() == TimeZone.getDefault().getRawOffset());
     }
 
     public void testTimeZoneLookupAll() {
