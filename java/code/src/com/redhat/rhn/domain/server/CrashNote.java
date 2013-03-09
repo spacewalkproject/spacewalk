@@ -18,6 +18,8 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.user.User;
 
+import org.apache.commons.lang.StringUtils;
+
 
 /**
  * CrashNote
@@ -85,7 +87,12 @@ public class CrashNote extends BaseDomainHelper {
      * @param noteIn The note to set.
      */
     public void setNote(String noteIn) {
-        note = noteIn;
+        if (StringUtils.isEmpty(noteIn)) {
+            note = null;
+        }
+        else {
+            note = noteIn;
+        }
     }
 
     /**
