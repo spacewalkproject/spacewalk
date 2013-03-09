@@ -12,7 +12,7 @@
     <c:choose>
       <c:when test="${empty param.cnid}">
         <rhn:toolbar base="h2" img="/img/rhn-icon-note.gif">
-          <bean:message key="crashnotes.jsp.header"/>
+          <bean:message key="crashes.jsp.details"/>
         </rhn:toolbar>
         <c:set var="urlParam" scope="request" value="sid=${system.id}&crid=${crid}"/>
       </c:when>
@@ -20,7 +20,7 @@
         <rhn:toolbar base="h2" img="/img/rhn-icon-note.gif"
             deletionUrl="/rhn/systems/details/DeleteCrashNote.do?sid=${system.id}&crid=${crid}&cnid=${cnid}"
             deletionType="note">
-          <bean:message key="crashnotes.jsp.header"/>
+          <bean:message key="crashes.jsp.details"/>
         </rhn:toolbar>
         <c:set var="urlParam" scope="request" value="sid=${system.id}&crid=${crid}&cnid=${cnid}"/>
       </c:otherwise>
@@ -34,6 +34,7 @@
 
 <hr/>
 
+    <h2><bean:message key="crashnotes.jsp.header"/></h2>
     <html:form method="post" action="/systems/details/EditCrashNote.do?${urlParam}">
       <rhn:csrf />
       <html:hidden property="submitted" value="true"/>
