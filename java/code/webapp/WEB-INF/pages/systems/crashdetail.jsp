@@ -90,9 +90,9 @@
 
         <rl:column headerkey="lastModified" bound="false"
             styleclass="last-column"
-            sortattr="modifiedObject"
+            sortattr="modified"
             sortable="true">
-            ${current.modified}
+            ${current.modifiedString}
         </rl:column>
     </rl:list>
     <rl:csv

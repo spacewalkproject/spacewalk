@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.dto;
 
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.server.CrashFile;
 
@@ -132,6 +133,13 @@ public class SoftwareCrashFileDto extends BaseDto {
         return modified;
     }
 
+    /**
+     * @return Returns printable modified date.
+     *
+     */
+    public String getModifiedString() {
+        return LocalizationService.getInstance().formatDate(getModified());
+    }
 
     /**
      * @param modifiedIn The modified to set.
