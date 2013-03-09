@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.6
+Version: 1.10.7
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Sat Mar 09 2013 Tomas Lestach <tlestach@redhat.com> 1.10.7-1
+- set note rather to null than to an empty string
+- display nice crash file modified date on the
+  /rhn/systems/details/SoftwareCrashDetail.do page
+- fix captions on the /rhn/systems/details/SoftwareCrashDetail.do page
+- enable CrashNote sorting according to the modified date
+
 * Sat Mar 09 2013 Tomas Lestach <tlestach@redhat.com> 1.10.6-1
 - crash note related strings
 - list CrashNotes on the /rhn/systems/details/SoftwareCrashDetail.do page
