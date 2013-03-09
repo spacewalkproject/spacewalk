@@ -43,8 +43,8 @@
         ${current.note}
     </rhn:column>
 
-    <rhn:column header="sdc.details.notes.updated" sortProperty="modifiedObject">
-        ${current.modified}
+    <rhn:column header="sdc.details.notes.updated" sortProperty="modified">
+        ${current.modifiedString}
     </rhn:column>
     </rhn:listdisplay>
 </rhn:list>

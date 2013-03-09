@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.server;
 
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.user.User;
 
@@ -115,4 +116,11 @@ public class CrashNote extends BaseDomainHelper {
         crash = crashIn;
     }
 
+    /**
+     * @return Returns printable modified date.
+     *
+     */
+    public String getModifiedString() {
+        return LocalizationService.getInstance().formatDate(getModified());
+    }
 }
