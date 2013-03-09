@@ -30,7 +30,7 @@ create table rhnOrgConfiguration
     crashfile_upload_enabled   char(1)
                                    default ('Y') not null
                                    constraint rhn_org_conf_crash_upload_chk
-                                   check (crashfile_upload_enabled in ('Y', 'N'))
+                                   check (crashfile_upload_enabled in ('Y', 'N')),
     crash_file_sizelimit       number
                                    default(2048) not null
                                    constraint rhn_org_conf_sizelimit_chk
