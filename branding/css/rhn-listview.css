@@ -10,7 +10,7 @@ table.list, table.list-doubleheader {
         border-radius: 10px 10px 0px 0px;
         font-size: 10px;
         background: #c0c0c0;
-        border-bottom: 1px solid #c0c0c0;
+        border: 1px solid #c0c0c0;
         width: 100%;
 }
 
@@ -25,28 +25,13 @@ table.list-doubleheader tr + tr {
 table.list-doubleheader tr + tr th:first-child {
     background: none;
     background-color: #d7d7d7;
-    border-left: 1px solid #c0c0c0;
 }
 
 table.list-doubleheader tr + tr th:last-child {
     background: none;
-    border-right: 1px solid #c0c0c0;
 }
 td.errata-patches img {
     padding-left: 6px;
-}
-
-td.first-column {
-        border-left: 1px solid #c0c0c0;
-}
-
-td.last-column  {
-        border-right: 1px solid #c0c0c0;
-}
-
-td.only-column  {
-        border-right: 1px solid #c0c0c0;
-        border-left: 1px solid #c0c0c0;
 }
 
 th.thin-column, td.thin-column {
@@ -167,7 +152,7 @@ table.half-table {
         background: #c0c0c0;
         padding: 0px;
         margin: 0px;
-        border-bottom: 1px solid #c0c0c0;
+        border: 1px solid #c0c0c0;
         width: 97%;
 }
 
@@ -545,12 +530,6 @@ tr.alphaResult td.sortedCol {
       background-image: url('/img/list-forward.gif');
       background-repeat: no-repeat;
       background-position: left center;
-}
-
-.compare-list .first-column {
-  border-right: 1px solid #C0C0C0;
-  background-color: #e4e4e4;
-  text-align: right;
 }
 
 .list-button-row,
