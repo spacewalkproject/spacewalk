@@ -45,21 +45,8 @@ except KeyboardInterrupt:
     sys.exit(0)
 
 
-def processCommandline():
-
-    try:
-        rhnSQL.initDB()
-    except KeyboardInterrupt:
-        sys.stderr.write("\nUser interrupted process.\n")
-        sys.exit(0)
-    except rhnSQL.sql_base.SQLConnectError, e:
-        sys.stderr.write('\nERROR: mistyped your connection string?\n\n')
-        sys.exit(-1)
-    return options
-
-
 if __name__ == '__main__':
-    options = processCommandline()
+    rhnSQL.initDB()
 
     try:
         h = rhnSQL.prepare("""

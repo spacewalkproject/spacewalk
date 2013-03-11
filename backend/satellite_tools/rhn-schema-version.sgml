@@ -22,29 +22,15 @@ Fetch the database schema version for an &RHNSAT;.
         <command>rhn-schema-version</command> 
         <arg>options <replaceable>...</replaceable></arg>
     </cmdsynopsis>
-    <cmdsynopsis>
-        <arg>-h</arg> <arg>--help</arg>
-    </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
 
 <RefSect1><Title>Description</Title>
     <para>
         <emphasis>rhn-schema-version</emphasis> fetches the database schema
-        version for an &RHNSAT;. By default it uses the database connection
+        version for an &RHNSAT;. It uses the database connection
         string found in /etc/rhn/rhn.conf.
     </para>
-</RefSect1>
-
-<RefSect1><Title>Options</Title>
-<variablelist>
-    <varlistentry>
-        <term>-h, --help</term>
-        <listitem>
-            <para>Display the help screen with a list of options.</para>
-        </listitem>
-    </varlistentry>
-</variablelist>
 </RefSect1>
 
 <RefSect1><Title>Files</Title>
