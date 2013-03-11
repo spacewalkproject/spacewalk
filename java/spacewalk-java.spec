@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.7
+Version: 1.10.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Mar 11 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.8-1
+- removing another bunch of styleclass="(first|last)-column" from *.jsp(f)
+- typo fix
+- fix lengths and names of identifiers
+- removing styleclass="(first|last)-column" from *.jsp(f)
+
 * Sat Mar 09 2013 Tomas Lestach <tlestach@redhat.com> 1.10.7-1
 - set note rather to null than to an empty string
 - display nice crash file modified date on the
