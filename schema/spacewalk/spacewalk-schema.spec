@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.6
+Version:        1.10.7
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Mar 11 2013 Jan Pazdziora 1.10.7-1
+- Fixing typo in rhnOrgConfiguration.
+
 * Sat Mar 09 2013 Tomas Lestach <tlestach@redhat.com> 1.10.6-1
 - fix 002-web_customer.sql upgrade script
 - move upgrade scripts as 002 was pushed already
