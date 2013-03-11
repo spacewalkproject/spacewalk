@@ -521,52 +521,6 @@ EOQ
   $dbh->commit;
 }
 
-sub packages_in_channel {
-  my $class = shift;
-  my $label = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth;
-
-  my $query = <<EOQ;
-SELECT DISTINCT PN.name, PE.epoch, PE.version, PE.release, E.id, E.advisory, E.synopsis
-  FROM rhnPackageName PN,
-       rhnPackageEVR PE,
-       rhnErrata E,
-       rhnPackage P,
-       rhnErrataPackage EP,
-       rhnChannelErrata CE,
-       rhnChannelPackage CP
- WHERE CP.channel_id = (SELECT id FROM rhnChannel WHERE label = ?)
-   AND CP.package_id = P.id
-   AND CP.channel_id = CE.channel_id
-   AND EP.package_id(+) = P.id
-   AND EP.errata_id = CE.errata_id
-   AND EP.errata_id = E.id(+)
-   AND PN.id = P.name_id
-   AND PE.id = P.evr_id
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($label);
-
-  my @ret;
-  while (my @row = $sth->fetchrow) {
-    my $h;
-
-    $h->{nevr} = "$row[0]-$row[2]-$row[3]";
-    $h->{nevr} .= ":$row[1]" if defined $row[1];
-
-    for my $n (qw/name epoch version release errata_id errata_advisory errata_synopsis/) {
-      $h->{$n} = shift @row || '';
-    }
-
-    push @ret, $h;
-  }
-
-  return @ret;
-}
-
 sub distros {
   my $self = shift;
   my $cid;

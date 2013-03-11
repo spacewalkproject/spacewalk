@@ -30,36 +30,6 @@ use RHN::ChannelEditor;
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
 
-sub packages_in_channel {
-  my $class = shift;
-  my $cid = shift;
-
-  die "No channel id!" unless $cid;
-
-  my $dbh = RHN::DB->connect;
-  my $query;
-  my $sth;
-
-  $query = <<EOS;
-  SELECT DISTINCT CP.package_id
-    FROM rhnChannelPackage CP
-   WHERE CP.channel_id = ?
-EOS
-
-  $sth = $dbh->prepare($query);
-
-  $sth->execute($cid);
-
-  my @result;
-
-  while (my ($pid) = $sth->fetchrow) {
-    push @result, $pid;
-  }
-
-  return @result;
-
-}
-
 sub channel_base_arch_map {
   my $self = shift;
 
