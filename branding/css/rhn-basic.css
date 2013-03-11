@@ -309,51 +309,6 @@ table.details {
     border: 1px solid #ddd;
     border:none;
     background-color: #eee;
-    border-radius: 15px 15px 0 0;
-}
-
-.details th.required-form-field {
-  border-right: 4px solid #c77;
-}
-
-.details td {
-        vertical-align: top;
-        padding: 4px;
-        padding-left: 2px;
-        padding: 8px;
-        border-bottom: 0;
-}
-
-.details th + td {
-        border-bottom: 1px solid #ddd;
-}
-
-.details td div {
-        text-align: left;
-        margin-bottom: 10px;
-        white-space: nowrap;
-}
-/** details - these are used for listing details about an object in the rhn webui, eg on a system details page they'll be used to list out the system name, ip address, etc. **/
-
-table.details-2-columns {
-        padding: 4px;
-        border: none;
-}
-
-table.details {
-  margin: 0 2%;
-}
-.details th {
-        padding: 8px;
-    padding-left: 16px;
-        border: none;
-        color: #444;
-        text-align: right;
-        vertical-align: top;
-    border: 1px solid #ddd;
-    border:none;
-    background-color: #eee;
-    border-radius: 15px 15px 0 0;
 }
 
 .details th.required-form-field {
