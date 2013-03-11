@@ -309,8 +309,7 @@ table.details {
     border: 1px solid #ddd;
     border:none;
     background-color: #eee;
-    -moz-border-radius-topleft: 15px;
-    -moz-border-radius-bottomleft: 15px;
+    border-radius: 15px 15px 0 0;
 }
 
 .details th.required-form-field {
@@ -354,8 +353,7 @@ table.details {
     border: 1px solid #ddd;
     border:none;
     background-color: #eee;
-    -moz-border-radius-topleft: 15px;
-    -moz-border-radius-bottomleft: 15px;
+    border-radius: 15px 15px 0 0;
 }
 
 .details th.required-form-field {
@@ -413,7 +411,7 @@ table.details div.csv-download {
 table.details td.csv-download {
   padding: 0px;
   margin: 0px;
-  -moz-border-radius: 0px;
+  border-radius: 0px;
   background-color: white;
 }
 

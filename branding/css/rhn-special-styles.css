@@ -357,27 +357,27 @@ div.tc_reject_button {
 
 .changed {
     background-color: #f5f3c4;
-    -moz-border-radius: 15px;
+    border-radius: 15px;
 }
 
 .oldfile .deleted {
     background-color: #f5c4c4;
-    -moz-border-radius: 15px;
+    border-radius: 15px;
 }
 
 .newfile .deleted {
     background-color: #d4d4d4;
-    -moz-border-radius: 15px;
+    border-radius: 15px;
 }
 
 .oldfile .inserted {
     background-color: #d4d4d4;
-    -moz-border-radius: 15px;
+    border-radius: 15px;
 }
 
 .newfile .inserted {
     background-color: #c5f4c4;
-    -moz-border-radius: 15px;
+    border-radius: 15px;
 }
 
 
@@ -397,27 +397,27 @@ div.tc_reject_button {
 
 .changed {
     background-color: #f5f3c4;
-    -moz-border-radius: 15px;
+    border-radius: 15px;
 }
 
 .oldfile .deleted {
     background-color: #f5c4c4;
-    -moz-border-radius: 15px;
+    border-radius: 15px;
 }
 
 .newfile .deleted {
     background-color: #d4d4d4;
-    -moz-border-radius: 15px;
+    border-radius: 15px;
 }
 
 .oldfile .inserted {
     background-color: #d4d4d4;
-    -moz-border-radius: 15px;
+    border-radius: 15px;
 }
 
 .newfile .inserted {
     background-color: #c5f4c4;
-    -moz-border-radius: 15px;
+    border-radius: 15px;
 }
 
 /* style for overridden config files */
@@ -464,7 +464,7 @@ div.rounded-box h2 {
 
 .systeminfo {
     background: #eeeeee;
-    -moz-border-radius: 15px;
+    border-radius: 15px;
     margin-bottom: 10px;
 }
 

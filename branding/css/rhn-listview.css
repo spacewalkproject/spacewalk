@@ -572,7 +572,7 @@ tr.alphaResult td.sortedCol {
 	width:			20%;
 	padding: 		3px 6px;
 	background-color: 	#EAE8E4;
-        -moz-border-radius:	8px;
+        border-radius:	8px;
 	text-align: center;
 }
 

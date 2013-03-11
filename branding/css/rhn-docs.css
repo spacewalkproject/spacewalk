@@ -3,10 +3,7 @@
 table.WARNING tr th b, table.NOTE tr th b, table.TIP tr th b, table.IMPORTANT tr th b, table.CAUTION tr th b { color: #333; }
 
 table.CALSTABLE {
-  -moz-border-radius-topleft: 10px;
-  -moz-border-radius-topright: 10px;
-  -moz-border-radius-bottomleft: 10px;
-  -moz-border-radius-bottomright: 10px;
+  border-radius: 10px;
   padding: 5px 0px 5px 0px;
   border: none;
   background-color: #f1EBDC;
@@ -125,7 +122,7 @@ dt a{font-weight: normal;}
 
 /*user interface styles*/
 .screen .replaceable {color:#444;}
-.screen{background-color:#ede7c8;color:#333;padding:.5em 1em;margin:0em;-moz-border-radius: 8px;}
+.screen{background-color:#ede7c8;color:#333;padding:.5em 1em;margin:0em;border-radius: 8px;}
 pre,code,.guibutton,.keycap,.guilabel{font-size:0.9em;font-family:"liberation mono", "Bitstream vera mono",monospace;}
 .guibutton,.keycap,.guilabel{font-weight:bold;/*white-space:nowrap;*/color:#444;font-family:"liberation sans", "Bitstream vera sans", "dejavu sans", sans-serif;}
 .guibutton,.guilabel{}
