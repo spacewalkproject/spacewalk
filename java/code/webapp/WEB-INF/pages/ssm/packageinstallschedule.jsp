@@ -32,7 +32,7 @@
              emptykey="systemlist.jsp.nosystems">
 
         <rl:column headerkey="actions.jsp.system" bound="false"
-                   sortattr="name" sortable="true" styleclass="first-column  last-column">
+                   sortattr="name" sortable="true">
             ${current.name}
         </rl:column>
 

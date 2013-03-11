@@ -208,7 +208,7 @@
         <rl:column sortable="false"
                    bound="false"
                    headertext="Serial#"
-                   styleclass="first-column fixedwidth">
+                   styleclass="fixedwidth">
             <c:out value="${current.serial}" escapeXml="true" />
         </rl:column>
 
@@ -229,7 +229,7 @@
         <rl:column sortable="false"
                    bound="false"
                    headertext="Misc."
-                   styleclass="last-column fixedwidth">
+                   styleclass="fixedwidth">
             <span name="audit_kv">
                 <c:forEach var="item" items="${current.kvmap}">
                     <div name="kv_${current.type}_${item.key}">

@@ -31,7 +31,6 @@
 
                 <rl:column sortable="true"
                                    bound="false"
-                           styleclass="first-column last-column"
                            headerkey="packagelist.jsp.name.${type}"
                            sortattr="nvre"
                            defaultsort="asc"  >

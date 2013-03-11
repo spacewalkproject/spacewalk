@@ -6,7 +6,7 @@
         <rl:decorator name="PageSizeDecorator"/>
         <rl:decorator name="ElaborationDecorator"/>
 
-        <rl:column headerkey="erratalist.jsp.type" styleclass="first-column text-align: left;">
+        <rl:column headerkey="erratalist.jsp.type" styleclass="text-align: left;">
             <c:if test="${current.securityAdvisory}">
                 <img src="/img/wrh-security.gif"
                      alt="<bean:message key="erratalist.jsp.securityadvisory"/>"/>
@@ -46,7 +46,7 @@
 	                  <rl:column headerkey="erratalist.jsp.updated"
 		                sortable="true"
 		                sortattr="updateDateObj"
-	               		styleclass="last-column text-align: center;">
+	               		styleclass="text-align: center;">
 			            ${current.updateDate}
 			        </rl:column>	               		
                 </c:if>

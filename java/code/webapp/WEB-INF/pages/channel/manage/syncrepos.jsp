@@ -34,7 +34,6 @@
                            headerkey="repos.jsp.channel.header"
                            sortattr="label"
 					defaultsort="asc"
-					styleclass="first-column last-column"
                            >
 
                         <a href="/rhn/channels/manage/repos/RepoEdit.do?id=${current.id}">${current.label}</a>

@@ -88,7 +88,7 @@
 		<rl:column sortable="false"
 				   bound="false"
 		           headerkey="grouplist.jsp.use"
-		           styleclass="last-column center"
+		           styleclass="center"
 		           headerclass="center">
 
   			

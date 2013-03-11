@@ -27,7 +27,7 @@
              emptykey="channels.overview.nochannels">
 
         <rl:column headerkey="channels.overview.name" bound="false"
-                   sortattr="name" sortable="true" styleclass="first-column last-column">
+                   sortattr="name" sortable="true">
             <c:choose>
                 <c:when test="${current.depth > 1}">
                     <img style="margin-left: 4px;"

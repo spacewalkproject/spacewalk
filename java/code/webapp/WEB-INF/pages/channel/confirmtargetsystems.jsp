@@ -36,7 +36,6 @@
                                    bound="false"
                            headerkey="actions.jsp.system"
                            sortattr="name"
-                           styleclass="first-column last-column"
 							defaultsort="asc"
                            >
                         <a href="/rhn/systems/details/Overview.do?sid=${current.id}">

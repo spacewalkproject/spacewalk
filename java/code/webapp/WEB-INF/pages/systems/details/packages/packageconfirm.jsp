@@ -30,7 +30,7 @@
 
 		  <rl:column headerkey="packagelist.jsp.packagename" bound="false"
 		  	sortattr="nvre"
-		  	sortable="true" filterattr="nvre" styleclass="first-column last-column">
+		  	sortable="true" filterattr="nvre">
 		      <a href="/rhn/software/packages/Details.do?sid=${param.sid}&amp;id_combo=${current.idCombo}">
 		        ${current.nvre}</a>
 		  </rl:column>

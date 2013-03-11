@@ -63,7 +63,7 @@
 			<rl:column sortable="false"
 					   bound="false"
 			           headerkey="systemlist.jsp.entitlement"
-			           styleclass="last-column center"
+			           styleclass="center"
 			           headerclass="thin-column">
 	                      <c:out value="${current.entitlementLevel}" escapeXml="false"/>
 			</rl:column>
