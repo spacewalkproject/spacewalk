@@ -4,14 +4,14 @@
   <h2><bean:message key="ssm.audit.xccdf.targetedsystems"/></h2>
   <rl:list emptykey="nosystems.message">
 
-    <rl:column headerkey="systemlist.jsp.system" styleclass="first-column">
+    <rl:column headerkey="systemlist.jsp.system">
       <c:out escapeXml="false"
           value="<a href=\"/rhn/systems/details/audit/ListScap.do?sid=${current.sid}\">"/>
       <c:out value="${current.name}"/>
       <c:out escapeXml="false" value="</a>"/>
     </rl:column>
 
-    <rl:column headerkey="ssm.audit.xccdf.capability" styleclass="last-column">
+    <rl:column headerkey="ssm.audit.xccdf.capability">
       <c:choose>
         <c:when test="${current.scap == 1}">
           <bean:message key="targetsystems.jsp.yes"/>

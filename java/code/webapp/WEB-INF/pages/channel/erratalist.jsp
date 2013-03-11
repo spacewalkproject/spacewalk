@@ -33,8 +33,7 @@
 
                  <rl:column sortable="false"
                                    bound="false"
-                           headerkey="erratalist.jsp.type"
-                           styleclass="first-column">
+                           headerkey="erratalist.jsp.type">
 
 							<c:if test="${current.securityAdvisory}">
 					            <img src="/img/wrh-security.gif"
@@ -76,7 +75,6 @@
                  <rl:column sortable="true"
                                    bound="false"
                            headerkey="erratalist.jsp.updated"
-                           styleclass="last-column"
                            sortattr="updateDateObj"
                            defaultsort="desc"
                           >

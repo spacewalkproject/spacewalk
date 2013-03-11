@@ -34,12 +34,12 @@
         <rl:decorator name="ElaborationDecorator"/>
 
         <rl:column headerkey="actions.jsp.system" bound="false"
-                   sortattr="name" sortable="true" styleclass="first-column">
+                   sortattr="name" sortable="true">
             ${current.server_name}
         </rl:column>
 
         <rl:column headerkey="ssm.package.upgrade.schedule.packages" bound="false"
-                   sortable="false" styleclass="last-column">
+                   sortable="false">
             <c:forEach begin="0" end="19" items="${current.elaborator0}" var="item" varStatus="status">
                 <c:out value="${item.nvre}"/><br/>
             </c:forEach>

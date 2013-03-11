@@ -71,8 +71,7 @@
 	<c:if test="${not empty requestScope.selectable && not empty requestScope.dataset}">
 		<rl:decorator name="SelectableDecorator"/>
 		<rl:selectablecolumn value="${current.id}"
-								selected="${current.selected}"
-		 						styleclass="first-column"/>
+								selected="${current.selected}"/>
 	</c:if>
 
 
@@ -111,8 +110,7 @@
 
 	</rl:column>	
 	
-	<rl:column headerkey="Registered"
-				styleclass="last-column">
+	<rl:column headerkey="Registered">
 			${current.registeredString}
 	</rl:column>
 

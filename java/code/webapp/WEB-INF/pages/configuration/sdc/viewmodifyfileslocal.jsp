@@ -25,8 +25,7 @@
              emptykey = "channelfiles.jsp.noFiles"
 	         >
 	    <rl:selectablecolumn value="${current.selectionKey}"
-						selected="${current.selected}"
-	    					styleclass="first-column"/>
+						selected="${current.selected}"/>
 
 		<!-- File name column -->
 		<rl:column bound = "false"
@@ -72,7 +71,6 @@
 		<!-- Current Revision -->
 		<rl:column bound="false"
 		           headerkey="sdc.config.file_list.current_revision"
-				   styleclass="last-column"
 					>
 		       		<c:set var = "revisionLook">
 				       		<bean:message key="sdcconfigfiles.jsp.filerev"

@@ -30,8 +30,7 @@
 				<rl:decorator name="PageSizeDecorator"/>
 
 				<rl:selectablecolumn value="${current.selectionKey}"
-					selected="${current.selected}"
-					styleclass="first-column"/>
+					selected="${current.selected}"/>
 
 
 
@@ -77,7 +76,6 @@
                  <rl:column sortable="true"
                                    bound="false"
                            headerkey="erratalist.jsp.updated"
-                           styleclass="last-column"
                            sortattr="updateDateObj"
                            defaultsort="desc"
                           >

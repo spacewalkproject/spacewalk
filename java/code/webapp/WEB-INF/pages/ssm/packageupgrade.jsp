@@ -29,8 +29,7 @@
 
         <rl:selectablecolumn value="${current.selectionKey}"
                              selected="${current.selected}"
-                             disabled="${not current.selectable}"
-                             styleclass="first-column"/>
+                             disabled="${not current.selectable}"/>
 
         <rl:column headerkey="packagelist.jsp.packagename" bound="false"
                    sortattr="nvre" sortable="true" filterattr="name">
@@ -51,8 +50,7 @@
             <c:out value="${current.numSystems}"/>
         </rl:column>
 
-        <rl:column headerkey="ssm.package.upgrade.select.advisory" bound="false"
-                   styleclass="last-column">
+        <rl:column headerkey="ssm.package.upgrade.select.advisory" bound="false">
             <c:if test="${not empty current.advisory}">
               <c:if test="${current.advisoryType == 'Security Advisory'}">
                 <img src="/img/wrh-security.gif"

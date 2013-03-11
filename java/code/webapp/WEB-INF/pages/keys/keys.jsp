@@ -34,7 +34,6 @@
 	<rl:column bound="false"
 	           sortable="true"
 	           headerkey="kickstart.cryptokey.description"
-	           styleclass="first-column"
 	           sortattr="description">
 		<c:out value="<a href=\"/rhn/keys/CryptoKeyEdit.do?key_id=${current.id}\">${current.description}</a>" escapeXml="false" />
 		<rhn:require acl="user_role(satellite_admin)">
@@ -49,7 +48,6 @@
 		<rl:column bound="false"
 	           sortable="true"
 	           headerkey="kickstart.cryptokey.type"
-			   styleclass="last-column"
 	           attr="label"
 	           sortattr="label">
 		<c:out value="${current.label}" escapeXml="false" />

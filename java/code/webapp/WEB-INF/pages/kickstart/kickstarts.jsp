@@ -32,8 +32,7 @@
 			bound="false"
 			headerkey="kickstart.jsp.label"
 			sortattr="label"
-          		defaultsort="asc"
-          		styleclass="first-column">
+          		defaultsort="asc">
           			<c:choose>
           				<c:when test="${current.advancedMode}">
           					<a href="/rhn/kickstart/AdvancedModeEdit.do?ksid=${current.id}"><c:out value="${current.label}" escapeXml="true" /></a>
@@ -63,7 +62,7 @@
                 <rl:column headerkey="kickstart.distro.label.jsp" sortattr="treeLabel">
                     <c:out value="${current.treeLabel}"/>
                 </rl:column>      		
-            <rl:column headerkey="kickstart.distro.sw_managed.jsp" sortattr="cobbler"  styleclass="last-column">
+            <rl:column headerkey="kickstart.distro.sw_managed.jsp" sortattr="cobbler">
             	<c:choose>
                     <c:when test="${current.cobbler}">
                     	<img src="/img/rhn-listicon-error.gif">

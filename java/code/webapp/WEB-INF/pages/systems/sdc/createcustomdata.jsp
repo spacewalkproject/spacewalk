@@ -30,8 +30,7 @@
               bound="false"
               headerkey="system.jsp.customkey.keylabel"
               sortattr="label"
-              defaultsort="asc"
-              styleclass="first-column">
+              defaultsort="asc">
 
             <a href="/rhn/systems/details/UpdateCustomData.do?sid=${system.id}&cikid=${current.id}">
               <c:out value="${current.label}" />
@@ -40,8 +39,7 @@
 
            <rl:column sortable="false"
                bound="false"
-               headerkey="system.jsp.customkey.description"
-              styleclass="last-column">
+               headerkey="system.jsp.customkey.description">
              <c:out value="${current.description}" />
           </rl:column>
 

@@ -34,7 +34,6 @@
 
                  <rl:column sortable="true"
                    bound="false"
-                   styleclass="first-column"
                    headerkey="Operating System"
                    sortattr="os"
                    >
@@ -64,7 +63,6 @@
                 </rl:column>
                  <rl:column
                    bound="false"
-                   styleclass="last-column"
                    headerkey="org.specific"
                    >
                    <c:choose>

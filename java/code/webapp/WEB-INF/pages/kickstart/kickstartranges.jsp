@@ -31,8 +31,7 @@
                  <rl:column sortable="true"
                                    bound="false"
                            headerkey="kickstartranges.jsp.range"
-                           sortattr="iprange.range"
-                           styleclass="first-column">
+                           sortattr="iprange.range">
                         <a href="/rhn/kickstart/KickstartIpRangeEdit.do?ksid=${current.id}">${current.iprange.range}</a>
                 </rl:column>
 
@@ -40,8 +39,7 @@
                  <rl:column sortable="true"
                                    bound="false"
                            headerkey="kickstartranges.jsp.profile"
-                           sortattr="name"
-                           styleclass="last-column">
+                           sortattr="name">
                         <a href="/rhn/kickstart/KickstartDetailsEdit.do?ksid=${current.id}">${current.label}</a>
                 </rl:column>
 

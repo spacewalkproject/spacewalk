@@ -18,8 +18,7 @@
 		
 		<rl:column
 			headerkey="probesuitesystemsedit.jsp.systemname"
-			headerclass="row-2"
-			styleclass="first-column">
+			headerclass="row-2">
 			<a href="/rhn/systems/details/Overview.do?sid=${current.id}">
 			<c:out value="${current.serverName}"/></a>
 		</rl:column>
@@ -42,8 +41,7 @@
     	</rl:column>
 
     	<rl:column headerkey="yourrhn.jsp.criticalsystems.enhancementerrata"
-    			headerclass="row-2 text-align: center;"
-    			styleclass="last-column">
+    			headerclass="row-2 text-align: center;">
    			<img src="/img/rhn-icon-enhancement.gif" alt="<bean:message key="errata-legend.jsp.enhancement"/>" />${current.enhancementErrata}		
     	</rl:column>
 

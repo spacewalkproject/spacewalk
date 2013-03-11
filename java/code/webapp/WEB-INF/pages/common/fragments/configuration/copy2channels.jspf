@@ -20,8 +20,7 @@
 	         filter="com.redhat.rhn.frontend.action.configuration.ConfigChannelFilter"
 	         >
 	    <rl:selectablecolumn value="${current.selectionKey}"
-						selected="${current.selected}"
-	    					styleclass="first-column"/>
+						selected="${current.selected}"/>
 	    					
 		<!-- Channel name column -->
 		<rl:column sortable="true"
@@ -40,7 +39,6 @@
 		<rl:column bound="true"
 		           headerkey="sdc.config.subscriptions.jsp.files"
 		           attr="filesAndDirsDisplayString"
-		           styleclass="last-column"
 		           />
 	</rl:list>
 	<c:if test = "${not empty requestScope.pageList}">

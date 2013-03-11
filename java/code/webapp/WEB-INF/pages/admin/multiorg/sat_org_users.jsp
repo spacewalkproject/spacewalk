@@ -38,7 +38,6 @@
 	<!-- Username column -->		
 	<rl:column bound="false"
 	           sortable="true"
-	           styleclass="first-column"
 	           headerkey="username.nopunc.displayname"
 	           sortattr="login">
 	    <c:choose>
@@ -78,7 +77,6 @@
 		<rl:column bound="false"
 	           sortable="false"
 	           headerkey="satadmin.displayname"
-	           styleclass="last-column"
 	           attr="orgAdmin">
 	    <c:choose>
 	      <c:when test="${current.satAdmin == 1}">

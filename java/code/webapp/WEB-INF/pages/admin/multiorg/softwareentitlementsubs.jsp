@@ -43,8 +43,7 @@
         <rl:column
             filterattr="orgName"
             sortattr="orgName"
-            headerkey="softwareEntitlementSubs.column.orgName"
-            styleclass="first-column">
+            headerkey="softwareEntitlementSubs.column.orgName">
             <a href="/rhn/admin/multiorg/OrgDetails.do?oid=${current.org.id}" tabindex="-1">
                 ${current.orgName}
             </a>
@@ -124,7 +123,6 @@
 
         <rl:column
             headerkey="emptyspace.jsp"
-            styleclass="last-column"
             >
             <c:if test = "${current.maxPossibleAllocation > 0 || current.maxPossibleFlexAllocation > 0}">
             	<html:submit onclick="this.form.orgClicked.value = '${current.org.id}';">

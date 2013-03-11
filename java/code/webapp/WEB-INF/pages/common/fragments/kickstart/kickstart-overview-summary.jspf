@@ -9,15 +9,13 @@
 
 	<rl:column bound="false"
 				sortable="false"
-				headerkey="kickstartoverview.jsp.kickstartsummary"
-				styleclass="first-column">
+				headerkey="kickstartoverview.jsp.kickstartsummary">
 		${current.name}
 	</rl:column>
 	
 	<rl:column bound="false"
 				sortable="false"
 				headerkey="emptyspace.jsp"
-				styleclass="last-column"
 				headerclass="thin-column">
 		${current.numberOfProfiles}
 	</rl:column>

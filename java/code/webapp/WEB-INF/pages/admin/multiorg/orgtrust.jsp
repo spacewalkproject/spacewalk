@@ -36,8 +36,7 @@
       emptykey="org.trust.empty">
       <rl:selectablecolumn
          value="${current.selectionKey}"
-         selected="${current.selected}"
-         styleclass="first-column"/>
+         selected="${current.selected}"/>
       <rl:column
          bound="false"
          sortable="true"
@@ -48,8 +47,7 @@
       <rl:column
 	         bound="false"
 	         sortable="false"
-	         headerkey="org.trust.trusts"
-	         styleclass="last-column">
+	         headerkey="org.trust.trusts">
         ${current.numTrusted}
       </rl:column>
    </rl:list>

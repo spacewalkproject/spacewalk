@@ -77,12 +77,10 @@
 	<rl:decorator name="ExtraButtonDecorator"/>
 	<c:choose>
 		<c:when test = "${rl:expandable(current)}">
-		<rl:selectablecolumn value="${current.key}"
-	 						styleclass="first-column"/>
+		<rl:selectablecolumn value="${current.key}"/>
 		</c:when>
 		<c:otherwise>
-		<rl:selectablecolumn value="${current.id}"
-	 						styleclass="first-column"/>
+		<rl:selectablecolumn value="${current.id}"/>
 		
 		</c:otherwise>
 	</c:choose>
@@ -104,8 +102,7 @@
 			</c:choose>
 	    </rl:non-expandable>
 	</rl:column>
-	<rl:column headerkey="systemlist.jsp.last_checked_in"
-				styleclass="last-column">
+	<rl:column headerkey="systemlist.jsp.last_checked_in">
 		<rl:expandable><a href="/rhn/systems/DuplicateSystemsCompare.do?key=${current.key}&key_type=${key_type}"><bean:message key="Compare Systems"/></a></rl:expandable>
 		<rl:non-expandable>${current.lastCheckinString}</rl:non-expandable>						
 	</rl:column>

@@ -49,8 +49,7 @@
  		<rl:decorator name="SelectableDecorator"/>
 	 		<rl:selectablecolumn value="${current.selectionKey}"
 	 			selected="${current.selected}"
-	 			disabled="${not current.selectable}"
-	 			styleclass="first-column"/>
+	 			disabled="${not current.selectable}"/>
 
 		  <rl:column headerkey="packagelist.jsp.packagename" bound="false"
 		  	sortattr="nvre"
@@ -64,7 +63,7 @@
     		<c:otherwise><bean:message key="packagelist.jsp.notspecified"/></c:otherwise>
     	</c:choose>
     </rl:column>
-    <rl:column headerkey="packagelist.jsp.installtime" bound="false" styleclass="last-column"
+    <rl:column headerkey="packagelist.jsp.installtime" bound="false"
 		sortattr="installTimeObj" sortable="true">
 		<c:choose>
             <c:when test ="${not empty current.installTime}">${current.installTime}</c:when>

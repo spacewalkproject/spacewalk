@@ -35,8 +35,7 @@
 
         <rl:column bound="false"
             sortable="false"
-            headerkey="softwareEntitlementDetails.header.channelName"
-            styleclass="first-column">
+            headerkey="softwareEntitlementDetails.header.channelName">
 
             <rhn:require	acl="can_access_channel(${current.id});" >
 	               <a href="/rhn/channels/ChannelDetail.do?cid=${current.id}">
@@ -53,8 +52,7 @@
         <rl:column bound="false"
             sortable="false"
             attr="packageCount"
-            headerkey="softwareEntitlementDetails.header.packages"
-            styleclass="last-column">
+            headerkey="softwareEntitlementDetails.header.packages">
             <rhn:require	acl="can_access_channel(${current.id});" >
 	               <a href="/rhn/channels/ChannelPackages.do?cid=${current.id}">
 	                	${current.packageCount}

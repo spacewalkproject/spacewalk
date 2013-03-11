@@ -27,7 +27,6 @@
 	<!-- Organization name column -->		
 	<rl:column bound="false"
 	           sortable="true"
-	           styleclass="first-column"
 	           headerkey="org.nopunc.displayname"
 	           sortattr="name">
 		<c:out value="<a href=\"/rhn/admin/multiorg/OrgDetails.do?oid=${current.id}\">${current.name}</a>" escapeXml="false" />
@@ -48,7 +47,6 @@
    <rl:column bound="false"
               sortable="true"
               headerkey="org.trust.trusts"
-              styleclass="last-column"
               attr="users">
       <a href="/rhn/admin/multiorg/OrgTrusts.do?oid=${current.id}">${current.trusts}</a>
    </rl:column>

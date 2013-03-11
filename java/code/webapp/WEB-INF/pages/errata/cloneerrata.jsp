@@ -58,8 +58,7 @@
 
             <rl:selectablecolumn value="${current.selectionKey}"
                                  selected="${current.selected}"
-                                 disabled="${not current.selectable}"
-                                 styleclass="first-column"/>
+                                 disabled="${not current.selectable}"/>
 
             <rl:column headerkey="cloneerrata.jsp.type">
                 ${current.advisoryType}
@@ -78,8 +77,7 @@
                     <a href="/rhn/channels/manage/Edit.do?cid=${map.id}">${map.name}</a><br/>
                 </c:forEach>
             </rl:column>
-            <rl:column headerkey="cloneerrata.jsp.alreadycloned"
-                       styleclass="last-column">
+            <rl:column headerkey="cloneerrata.jsp.alreadycloned">
                 <c:choose>
                     <c:when test="${current.alreadyCloned}">
                         <bean:message key="yes"/>

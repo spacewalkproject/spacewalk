@@ -24,8 +24,7 @@
         <rl:column sortable="true"
                    sortattr="name"
                    bound="false"
-                   headertext="Machine"
-                   styleclass="first-column">
+                   headertext="Machine">
             <span style='font-family: Courier, Monospace;'>
                 <a href="Search.do?machine=${current.name}&amp;startMilli=${current.start.time}&amp;endMilli=${current.end.time}"><c:out value="${current.name}" /></a>
             </span>
@@ -57,8 +56,7 @@
         <rl:column sortable="true"
                    sortattr="reviewedBy"
                    bound="false"
-                   headertext="Reviewed by"
-                   styleclass="last-column">
+                   headertext="Reviewed by">
             <span style='font-family: Courier, Monospace;'>
                 <c:out value="${current.reviewedBy}" escapeXml="true" />
             </span>

@@ -8,7 +8,6 @@
 	<rl:column bound="false"
 				sortable="false"
 				headerkey="kickstart.jsp.system"
-				styleclass="first-column"
 				headerclass="thin-column">
 				
             <c:if test="${not current.isBareMetal}">								
@@ -40,7 +39,6 @@
   	<rl:column bound="false"
 				sortable="false"
 				headerkey="kickstart.jsp.lastchange"
-				styleclass="last-column"
 				>		  	
        		${current.elapsedTimeAfterModify}
     </rl:column>

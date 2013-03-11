@@ -34,8 +34,7 @@
                            headerkey="actions.jsp.action"
                            sortattr="actionName"
                            defaultsort="asc"
-                           filterattr="actionName"
-                           styleclass="first-column">
+                           filterattr="actionName">
 				<a href="/rhn/schedule/CompletedSystems.do?aid=${current.id}"><c:out value="${current.actionName}" /></a>
                 </rl:column>
 
@@ -90,8 +89,7 @@
 
                 <rl:column sortable="false"
                                    bound="false"
-                           headerkey="actions.jsp.total"
-                           styleclass="last-column">
+                           headerkey="actions.jsp.total">
 				${current.tally}
                 </rl:column>
 

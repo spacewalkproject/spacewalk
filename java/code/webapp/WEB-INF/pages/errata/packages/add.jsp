@@ -68,8 +68,7 @@
 
             <rl:selectablecolumn value="${current.selectionKey}"
                                  selected="${current.selected}"
-                                 disabled="${not current.selectable}"
-                                 styleclass="first-column"/>
+                                 disabled="${not current.selectable}"/>
 
             <rl:column headerkey="errata.edit.packages.add.package" bound="false"
                        sortattr="packageNvre" sortable="true" filterattr="packageNvre">
@@ -78,8 +77,7 @@
                 </a>
             </rl:column>
 
-            <rl:column headerkey="errata.edit.packages.add.channels" bound="false"
-                       styleclass="last-column">
+            <rl:column headerkey="errata.edit.packages.add.channels" bound="false">
                 <c:choose>
                   <c:when test="${current.packageChannels != null}">
                     <c:forEach items="${current.packageChannels}" var="channel">

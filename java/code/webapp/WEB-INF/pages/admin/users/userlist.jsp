@@ -35,8 +35,7 @@
 		<rl:column bound="false"
 			sortable="true"
 			headerkey="username.nopunc.displayname"
-			sortattr="userLogin"
-			styleclass="first-column">
+			sortattr="userLogin">
 			<c:out value="<a href=\"UserDetails.do?uid=${current.id}\">${current.userLogin}</a>" escapeXml="false" />
 		</rl:column> 		
  		
@@ -44,8 +43,7 @@
  		<%@ include file="/WEB-INF/pages/common/fragments/user/userlist_columns.jspf" %>
 
 		<rl:column sortable="false"
-	           headerkey="userlist.jsp.status"
-	           styleclass="last-column">
+	           headerkey="userlist.jsp.status">
 	   		<c:if test="${current.status == 'enabled'}">
         		<bean:message key="userlist.jsp.${current.status}"/>
       		</c:if>

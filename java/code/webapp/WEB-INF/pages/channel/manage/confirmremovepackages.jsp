@@ -44,7 +44,6 @@
                            headerkey="download.jsp.package"
                            sortattr="nvrea"
 					defaultsort="asc"
-					styleclass="first-column"
                            >
 
                         <a href="/rhn/software/packages/Details.do?pid=${current.id}">${current.nvrea}</a>
@@ -61,7 +60,6 @@
                  <rl:column sortable="false"
                                    bound="false"
                            headerkey="package.jsp.provider"
-                           styleclass="last-column"
                           >
                         ${current.provider}
                 </rl:column>

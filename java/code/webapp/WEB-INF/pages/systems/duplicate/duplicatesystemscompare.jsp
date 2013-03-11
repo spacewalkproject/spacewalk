@@ -57,8 +57,7 @@
 	>
 	<rl:decorator name="SelectableDecorator"/>
 	<rl:decorator name="PageSizeDecorator"/>
-	<rl:selectablecolumn value="${current.id}"
-	 						styleclass="first-column"/>
+	<rl:selectablecolumn value="${current.id}"/>
 
 	<!-- Name Column -->
 	<rl:column headerkey="systemlist.jsp.system" sortable="true" bound="false" sortattr="name"
@@ -68,7 +67,6 @@
 	<rl:column sortattr="lastCheckinDate"
 					attr="lastCheckin"
 					bound="true"
-					styleclass="last-column"
 				   headerkey="systemlist.jsp.last_checked_in"/>
 
 </rl:list>

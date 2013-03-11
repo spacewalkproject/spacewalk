@@ -35,8 +35,7 @@
 
 		    <rl:selectablecolumn value="${current.id}"
 								selected="${current.selected}"
-								disabled="${not current.selectable}"
-								styleclass="first-column"/>
+								disabled="${not current.selectable}"/>
 
 
 
@@ -61,7 +60,6 @@
                  <rl:column sortable="false"
                                    bound="false"
                            headerkey="package.jsp.provider"
-                           styleclass="last-column"
                           >
                         ${current.provider}
                 </rl:column>

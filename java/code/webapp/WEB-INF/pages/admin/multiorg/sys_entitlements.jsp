@@ -43,8 +43,7 @@ imgAlt="users.jsp.imgAlt">
 
         <rl:column bound="false"
             sortable="false"
-            headerkey="sys_entitlements.ent_name"
-            styleclass="first-column">
+            headerkey="sys_entitlements.ent_name">
             <a href="/rhn/admin/multiorg/EntitlementDetails.do?label=${current.label}">${current.name}</a>
         </rl:column>
         <rl:column bound="false"

@@ -8,8 +8,7 @@
 
         <rl:selectablecolumn value="${current.selectionKey}"
                              selected="${current.selected}"
-                             disabled="${not current.selectable}"
-                             styleclass="first-column"/>
+                             disabled="${not current.selectable}"/>
 
         <rl:column headerkey="erratalist.jsp.type">
             <c:if test="${current.securityAdvisory}">
@@ -35,8 +34,7 @@
                    filterattr="synopsis">
             ${current.synopsis}
         </rl:column>
-        <rl:column headerkey="erratalist.jsp.updated"
-                   styleclass="last-column">
+        <rl:column headerkey="erratalist.jsp.updated">
             ${current.updateDate}
         </rl:column>
 

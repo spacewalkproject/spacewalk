@@ -29,8 +29,7 @@
             <rl:decorator name="SelectableDecorator"/>
             <rl:selectablecolumn value="${current.selectionKey}"
 	 			selected="${current.selected}"
-	 			disabled="${not current.selectable}"
-	 			styleclass="first-column"/>
+	 			disabled="${not current.selectable}"/>
 
             <rl:column headerkey="compare.jsp.package" bound="false" filterattr="name">
                 ${current.name}
@@ -48,8 +47,7 @@
                 ${current.other.evr}
             </rl:column>
 
-            <rl:column headerkey="compare.jsp.difference" bound="false"
-                styleclass="last-column">
+            <rl:column headerkey="compare.jsp.difference" bound="false">
                 ${current.comparison}
             </rl:column>
         </rl:list>

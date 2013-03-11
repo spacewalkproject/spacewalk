@@ -38,7 +38,6 @@
         <rl:column bound="false"
                    sortable="true"
                    headerkey="cobbler.snippet.name"
-                   styleclass="first-column"
                    sortattr= "name"
                    filterattr="name">
               <c:choose>
@@ -51,7 +50,7 @@
 
               </c:choose>
         </rl:column>
-            <rl:column headerkey="cobbler.snippet.macro"  styleclass="last-column">
+            <rl:column headerkey="cobbler.snippet.macro">
 		<c:out value="${current.fragment}"/>
             </rl:column>
       </rl:list>

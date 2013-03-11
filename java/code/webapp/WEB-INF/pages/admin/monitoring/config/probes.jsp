@@ -36,8 +36,7 @@
 		<rl:decorator name="PageSizeDecorator"/>
 
 		<rl:selectablecolumn value="${current.id}"
-							selected="${current.selected}"
-							styleclass="first-column"/>
+							selected="${current.selected}"/>
 
                 <rl:column sortable="true"
                            bound="false"
@@ -56,7 +55,6 @@
                                    bound="true"
                            headerkey="probes.jsp.command_description"
                            sortattr="cmd_description"
-                           styleclass="last-column"
                            attr="cmd_description"  />
 
 

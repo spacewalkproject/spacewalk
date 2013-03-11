@@ -31,7 +31,6 @@
 				   bound="false"
 		           headerkey="systemlist.jsp.system"
 		           sortattr="name"
-		           styleclass="first-column"
 		           defaultsort="asc">
 			<%@ include file="/WEB-INF/pages/common/fragments/systems/system_list_fragment.jspf" %>
 		</rl:column>
@@ -40,7 +39,7 @@
 		<rl:column sortable="false"
 				   bound="false"
 		           headerkey="systemlist.jsp.channel"
-		           styleclass="last-column" >
+ >
            <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_list_fragment.jspf" %>
 		</rl:column>
 	</rl:list>

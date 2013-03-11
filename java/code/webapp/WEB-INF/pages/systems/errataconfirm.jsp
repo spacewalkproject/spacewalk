@@ -53,7 +53,7 @@
       ${current.advisorySynopsis}
     </rl:column>
 
-    <rl:column headerkey="erratalist.jsp.updated" styleclass="last-column">
+    <rl:column headerkey="erratalist.jsp.updated">
       ${current.updateDate}
     </rl:column>
   	</rl:list>

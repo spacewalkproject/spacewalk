@@ -54,7 +54,7 @@ div.differs {
   <h2><bean:message key="system.audit.xccdfdetails.jsp.header"/></h2>
 
   <rl:list emptykey="generic.jsp.none" dataset="metadataList" name="1">
-    <rl:column headerkey="xccdfdiff.fieldnames" styleclass="first-column">
+    <rl:column headerkey="xccdfdiff.fieldnames">
       <c:if test="${not empty current.msg}">
         <strong><bean:message key="${current.msg}"/>:</strong>
       </c:if>
@@ -111,7 +111,7 @@ div.differs {
       </c:choose>
     </rl:column>
     <c:if test="${current.differs == true}"></div></c:if>
-    <rl:column headerkey="xccdfdiff.secondscan" styleclass="last-column" headerclass="center">
+    <rl:column headerkey="xccdfdiff.secondscan" headerclass="center">
       <c:if test="${current.differs == true}"><div class="differs"></c:if>
       <c:choose>
         <c:when test="${not empty current.second}">

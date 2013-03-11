@@ -47,7 +47,6 @@
         <rl:column sortable="false"
                            bound="false"
                    headerkey="probes.index.jsp.type"
-                   styleclass="last-column"
                    >
                 <c:if test="${current.isSuiteProbe}">
                   <a title='<bean:message key="probes.index.jsp.suiteedit"/>' href="/rhn/monitoring/config/ProbeSuiteProbeEdit.do?suite_id=${current.probeSuiteId}&probe_id=${current.id}"><bean:message key="probes.index.jsp.suite"/></a>

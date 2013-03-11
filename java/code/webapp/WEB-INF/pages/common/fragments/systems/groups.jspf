@@ -46,8 +46,7 @@
  		
  		 <rhn:require acl="user_role(org_admin) or user_role(system_group_admin)">
  		 	<rl:decorator name="SelectableDecorator"/>
-	 		<rl:selectablecolumn value="${current.id}"
-	 			styleclass="first-column"/>
+	 		<rl:selectablecolumn value="${current.id}"/>
 		</rhn:require>
   	   <!--Name Column -->
 		<rl:column sortable="true"

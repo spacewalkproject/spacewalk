@@ -40,8 +40,7 @@
 	         >
 
       <rl:selectablecolumn value="${current.selectionKey}"
-						selected="${current.selected}"
-						styleclass="first-column"/>
+						selected="${current.selected}"/>
 		<!-- Organization column -->
 		<rl:column  headerkey="general.jsp.org.tbl.header1" filterattr="name">
 		   ${current.name}
@@ -50,8 +49,7 @@
 		<!-- Subscribed Systems column -->
 		<rl:column bound="true"
 		           headerkey="org.channel.subscribed.systems"
-		           attr="systems"
-		           styleclass="last-column"/>
+		           attr="systems"/>
 	</rl:list>
 <hr/>
 <c:if test="${not empty requestScope.dataset}">

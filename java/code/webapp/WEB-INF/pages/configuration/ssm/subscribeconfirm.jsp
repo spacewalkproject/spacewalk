@@ -45,7 +45,6 @@
   <rl:column bound="false"
              sortable="true"
              headerkey="system.common.systemName"
-             styleclass="first-column"
              attr="name">
     <a href="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">
       <img src="/img/rhn-listicon-system.gif"
@@ -94,7 +93,6 @@
   <rl:column bound="false"
              sortable="false"
              headerkey="ssm.config.subscribeconfirm.jsp.currentsystems"
-             styleclass="last-column"
              attr="systemCount">
     <c:choose>
       <c:when test="${current.systemCount eq 1}">

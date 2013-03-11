@@ -41,7 +41,6 @@
 
                 <rl:column sortable="true"
                            bound="false"
-                           styleclass="first-column"
                            headerkey="task.edit.jsp.name"
                            sortattr="task" >
                         <c:out value="${current.task}" />
@@ -64,7 +63,7 @@
                 <rl:column bound="false"
                            headerkey="kickstart.jsp.status"
                            sortattr="status"
-                           styleclass="last-column" >
+ >
                         <c:out value="${current.status}" />
                 </rl:column>
 

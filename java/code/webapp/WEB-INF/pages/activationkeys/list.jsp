@@ -119,7 +119,6 @@
 
       <rl:selectablecolumn value="${current.selectionKey}"
 						selected="${current.selected}"
-	    					styleclass="first-column"
 						headerkey="activation-keys.jsp.enabled"/>
 		<!-- Description column -->
 		<rl:column  headerkey="kickstart.activationkeys.jsp.description" filterattr="note">
@@ -146,7 +145,6 @@
 		<!-- Usage Limit -->
 		<rl:column bound="false"
 		           headerkey="kickstart.activationkeys.jsp.usagelimit"
-		           styleclass="last-column"
 					>
 			<c:choose>
                <c:when test="${current.usageLimit != null}">

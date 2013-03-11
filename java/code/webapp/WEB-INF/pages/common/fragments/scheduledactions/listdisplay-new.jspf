@@ -8,8 +8,7 @@
 		        <rl:selectablecolumn value="${current.selectionKey}"
 		                             selected="${current.selected}"
 		                             disabled="${not current.selectable}"
-		                             headerclass="first-column"
-		                             styleclass="first-column"/>
+		                             headerclass="first-column"/>
 
 
                 <rl:column sortable="true"

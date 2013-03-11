@@ -14,7 +14,7 @@
                  hidepagenums="true"
                  emptykey="yourrhn.jsp.systemgroups.none">
 
-        	<rl:column headerkey="grouplist.jsp.status" styleclass="first-column">
+        	<rl:column headerkey="grouplist.jsp.status">
             	<a href="/network/systems/groups/errata_list.pxt?sgid=${current.id}">
 		      		<c:choose>
                                         <c:when test="${current.mostSevereErrata == 'Security Advisory'}">
@@ -43,7 +43,7 @@
                 <c:out value="${current.name}"/></a>
             </rl:column>
         	
-        	<rl:column headerkey="grouplist.jsp.systems" styleclass="last-column">
+        	<rl:column headerkey="grouplist.jsp.systems">
                 <a href="/network/systems/groups/details.pxt?sgid=${current.id}">
                 <c:out value="${current.serverCount}"/></a>
         	</rl:column>

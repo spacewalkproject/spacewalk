@@ -29,8 +29,7 @@
 
 
  <rl:selectablecolumn value="${current.id}"
-					selected="${current.selected}"
-	    				styleclass="first-column"/>
+					selected="${current.selected}"/>
 
 		<rl:column sortable="true"
 					headerkey="assignedgroups.jsp.group"
@@ -41,8 +40,7 @@
 
 		<rl:column sortable="true"
 					headerkey="grouplist.jsp.systems"
-					sortattr="serverCount"
-					styleclass="last-column">
+					sortattr="serverCount">
 					
 						<c:out value="<a href=\"/rhn/groups/ListRemoveSystems.do?sgid=${current.id}\">${current.serverCount}</a>" escapeXml="false" />
 	    </rl:column>

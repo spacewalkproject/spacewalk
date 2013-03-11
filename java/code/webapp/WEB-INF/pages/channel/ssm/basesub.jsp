@@ -30,7 +30,6 @@
 	<rl:column bound="false"
 	           sortable="true"
 	           headerkey="basesub.jsp.channelname"
-	           styleclass="first-column"
 	           sortattr="name"
 	           >
 	    <c:if test="${current.id > 0}">
@@ -54,8 +53,7 @@
 
     <rl:column bound="false"
 	           sortable="false"
-	           headerkey="basesub.jsp.options"
-	           styleclass="last-column">
+	           headerkey="basesub.jsp.options">
         <select name="base-for-${current.id}" size="5">
         	<option value="__no_change__" selected><bean:message key="basesub.jsp.no-channel-change"/></option>
         	<c:if test="${not empty current.allowedCustomChannels}">

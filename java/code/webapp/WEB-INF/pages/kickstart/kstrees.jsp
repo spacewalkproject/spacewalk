@@ -32,14 +32,13 @@
 			headerkey="kickstart.jsp.label"
 			sortattr="label"
           		defaultsort="asc"
-          		filterattr="label"
-          		styleclass="first-column">
+          		filterattr="label">
           		            <a href="/rhn/kickstart/TreeEdit.do?kstid=${current.id}">${current.label}</a>
 		</rl:column>
       		<rl:column bound="false" headerkey="softwareedit.jsp.basechannel"  sortattr="channel">
 				${current.channel.name}
       		</rl:column>
-            <rl:column headertext="${rhn:localize('kickstart.distro.is-valid.jsp')}?*" sortattr="valid" styleclass="last-column">
+            <rl:column headertext="${rhn:localize('kickstart.distro.is-valid.jsp')}?*" sortattr="valid">
             	<c:choose>
                     <c:when test="${current.valid}">
                     	<img src="/img/rhn-listicon-checked.gif">

@@ -30,7 +30,6 @@
 	<!-- Organization name column -->		
 	<rl:column bound="false"
 	           sortable="true"
-	           styleclass="first-column"
 	           headerkey="org.nopunc.displayname"
 	           sortattr="name">
 		<c:out value="<a href=\"/rhn/multiorg/OrgTrustDetails.do?oid=${current.id}\">${current.name}</a>" escapeXml="false" />
@@ -38,7 +37,6 @@
 	</rl:column>
 	<rl:column bound="false"
 	           sortable="false"
-	           styleclass="last-column"
 	           headerkey="org.nopunc.sharedchannels"
 	           attr="sharedChannels">
 	    <c:choose>

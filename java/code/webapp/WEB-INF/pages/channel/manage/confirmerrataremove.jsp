@@ -31,8 +31,7 @@
                  <rl:column sortable="true"
                                    bound="false"
                            headerkey="erratalist.jsp.advisory"
-                           sortattr="advisory"
-                           styleclass="first-column">
+                           sortattr="advisory">
 
                         <a href="/rhn/errata/manage/Edit.do?eid=${current.id}">${current.advisory}</a>
                 </rl:column>
@@ -58,7 +57,6 @@
                  <rl:column sortable="true"
                                    bound="false"
                            headerkey="erratalist.jsp.updated"
-                           styleclass="last-column"
                            sortattr="updateDateObj"
                            defaultsort="desc" >
                         ${current.updateDate}

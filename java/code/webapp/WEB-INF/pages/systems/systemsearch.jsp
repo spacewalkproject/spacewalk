@@ -113,8 +113,7 @@
                 <%-- <rhn:set value="${current.id}" disabled="${not current.selectable}"  /> --%>
                 <rl:selectablecolumn value="${current.id}"
                             selected="${current.selected}"
-                            disabled="${not current.selectable}"
-                            styleclass="first-column"/>
+                            disabled="${not current.selectable}"/>
             </rhn:require>
 
             <rl:column bound="false" sortable="true" sortattr="name" headerkey="systemsearch.jsp.systemname">
@@ -180,7 +179,7 @@
                 </c:otherwise>
             </c:choose>
 
-            <rl:column bound="false" headerkey="systemsearch.jsp.entitlement" styleclass="last-column">
+            <rl:column bound="false" headerkey="systemsearch.jsp.entitlement">
                         ${current.entitlementLevel}
             </rl:column>
         </rl:list>

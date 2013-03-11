@@ -36,7 +36,6 @@
         <rl:column bound="false"
                    sortable="true"
                    headerkey="repos.jsp.label"
-                   styleclass="first-column"
                    sortattr= "label"
                    filterattr="label">
 			<c:out value="<a href=\"/rhn/channels/manage/repos/RepoEdit.do?id=${current.id}\">${current.label}</a>" escapeXml="false" />
@@ -44,8 +43,7 @@
         <rl:column bound="false"
 	           sortable="false"
 	           headerkey="repo.jsp.channels"
-	           attr="channels"
-	           styleclass="last-column">
+	           attr="channels">
 		<c:out value="${current.channels}" />
 	    </rl:column>
       </rl:list>

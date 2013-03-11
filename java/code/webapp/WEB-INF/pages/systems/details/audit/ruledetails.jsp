@@ -40,12 +40,10 @@
   <rhn:csrf/>
   <rl:list emptykey="system.audit.ruledetails.jsp.noidents">
 
-    <rl:column headerkey="system.audit.ruledetails.jsp.system" sortattr="system" sortable="true"
-        styleclass="first-column">
+    <rl:column headerkey="system.audit.ruledetails.jsp.system" sortattr="system" sortable="true">
       <c:out value="${current.system}"/>
     </rl:column>
-    <rl:column headerkey="system.audit.ruledetails.jsp.ident" sortattr="identifier" sortable="true"
-        styleclass="last-column">
+    <rl:column headerkey="system.audit.ruledetails.jsp.ident" sortattr="identifier" sortable="true">
       <c:out value="${current.identifier}"/>
     </rl:column>
   </rl:list>

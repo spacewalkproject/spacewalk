@@ -29,8 +29,7 @@
 
         <rl:selectablecolumn value="${current.selectionKey}"
                              selected="${current.selected}"
-                             disabled="${not current.selectable}"
-                             styleclass="first-column"/>
+                             disabled="${not current.selectable}"/>
 
         <rl:column headerkey="packagelist.jsp.packagename" bound="false"
                    sortattr="nvre" sortable="true" filterattr="nvre">

@@ -22,8 +22,7 @@
         <rl:column sortable="true"
                    sortattr="name"
                    bound="false"
-                   headertext="Machine"
-                   styleclass="first-column">
+                   headertext="Machine">
             <span style='font-family: Courier, Monospace;'>
                 <a href="Machine.do?machine=${current.name}"><c:out value="${current.name}" escapeXml="true" /></a>
 
@@ -35,8 +34,7 @@
         <rl:column sortable="true"
                    sortattr="lastReview"
                    bound="false"
-                   headertext="Last checked on"
-                   styleclass="last-column">
+                   headertext="Last checked on">
             <span style='font-family: Courier, Monospace;'>
                 <c:out value="${current.lastReview}" escapeXml="true" />
             </span>

@@ -36,7 +36,7 @@
 		<rl:column sortable="true"
 				   bound="false"
 		           headerkey="systemlist.jsp.system"
-		           sortattr="name" filterattr="name" styleclass="first-column">
+		           sortattr="name" filterattr="name">
 		    <c:choose>
 		    	<c:when test = "${not empty requestScope.accessMap[current.id]}">
 		    		<a href="/rhn/systems/details/Overview.do?sid=${current.id}">${current.name}</a>
@@ -46,8 +46,7 @@
 		    	</c:otherwise>
 		    </c:choose>
 		</rl:column>
-		<rl:column headerkey="lastCheckin"
-		           styleclass="last-column">
+		<rl:column headerkey="lastCheckin">
 		      ${requestScope.dateMap[current.id]}
 		</rl:column>
 		

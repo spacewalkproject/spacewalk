@@ -55,7 +55,7 @@
         <rl:column
                filterattr="name"
                sortattr = "name"
-               headerkey="entitlements.jsp.channel" styleclass="first-column">
+               headerkey="entitlements.jsp.channel">
             <a href="/rhn/admin/multiorg/SoftwareEntitlementDetails.do?cfid=${current.id}" tabindex="-1"><c:out value="${current.name}" /></a>
         </rl:column>
         <rl:column   styleclass="center"
@@ -108,7 +108,7 @@
 
         <rl:column bound="false"
                sortable="false"
-               headerkey="Flex Proposed Total" styleclass="last-column">
+               headerkey="Flex Proposed Total">
 	       	<c:choose>
 	       		<c:when test = "${current.maxAvailableFlex == 0}">
 	       			<bean:message key="No Entitlements Available"/>

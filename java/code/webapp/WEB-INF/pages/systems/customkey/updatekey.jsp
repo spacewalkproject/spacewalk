@@ -81,8 +81,7 @@
               headerkey="systemlist.jsp.system"
               sortattr="name"
               filterattr="name"
-              defaultsort="asc"
-              styleclass="first-column">
+              defaultsort="asc">
             <a href="/rhn/systems/details/Overview.do?sid=${current.id}">${current.name}</a>
           </rl:column>
 
@@ -96,8 +95,7 @@
           <!-- Last Checkin Column -->
           <rl:column sortable="false"
                 bound="false"
-                headerkey="system.jsp.customkey.last_checkin"
-                styleclass="last-column">
+                headerkey="system.jsp.customkey.last_checkin">
               <c:out value="${current.last_checkin}" />
           </rl:column>
         </rl:list>

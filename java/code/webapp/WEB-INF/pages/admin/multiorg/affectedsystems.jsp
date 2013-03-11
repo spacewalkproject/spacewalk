@@ -41,7 +41,6 @@
       <rl:column
          bound="false"
          sortable="true"
-         styleclass="first-column"
          headerkey="org.trust.system"
          sortattr="name">
             <c:choose>
@@ -62,7 +61,6 @@
       <rl:column
          bound="false"
          sortable="true"
-         styleclass="last-column"
          headerkey="org.trust.system"
          sortattr="name">
             <c:choose>

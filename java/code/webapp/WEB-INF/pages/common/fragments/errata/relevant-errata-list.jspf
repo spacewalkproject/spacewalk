@@ -56,7 +56,7 @@
 
         <c:if test="${displayCves}">
 
-            <rl:column headerkey="details.jsp.cves" styleclass="last-column">
+            <rl:column headerkey="details.jsp.cves">
                 <c:forEach items="${current.cves}" var="cve">
                     <a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=${cve}">
                         <c:out value="${cve}"/> <br />

@@ -37,8 +37,7 @@
 
 		    <rl:selectablecolumn value="${current.id}"
 								selected="${current.selected}"
-								disabled="${not current.selectable}"
-								styleclass="first-column"/>
+								disabled="${not current.selectable}"/>
 
 
 

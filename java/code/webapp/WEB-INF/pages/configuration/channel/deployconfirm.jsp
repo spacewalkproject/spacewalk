@@ -31,7 +31,7 @@
 	<rl:list dataset="selectedFiles" name="fileList"
 		styleclass="list" emptykey="deployconfirm.jsp.noFiles" width="100%"
 		filter="com.redhat.rhn.frontend.action.configuration.ConfigFileFilter" >
-		<rl:column headerkey="deploy.jsp.filepath-header" sortable="true" sortattr="path" styleclass="first-column">
+		<rl:column headerkey="deploy.jsp.filepath-header" sortable="true" sortattr="path">
 			<cfg:file id="${current.id}"  path="${current.path}" type="${current.type}" />
 		</rl:column>
 
@@ -60,7 +60,7 @@
 	<rl:list dataset="selectedSystems" name="systemList"
 		styleclass="list" emptykey="deployconfirm.jsp.noSystems" width="100%"
 		filter="com.redhat.rhn.frontend.action.configuration.ConfigSystemFilter" >
-		<rl:column headerkey="system.common.systemName" sortable="true" sortattr="name" styleclass="last-column">
+		<rl:column headerkey="system.common.systemName" sortable="true" sortattr="name">
 			<img alt='<bean:message key="system.common.systemAlt"/>' src="/img/rhn-listicon-system.gif" />
 			<a href="/rhn/systems/details/configuration/Overview.do?system_detail_navi_node=selected_configfiles&sid=${current.id}">
 			 ${fn:escapeXml(current.name)}

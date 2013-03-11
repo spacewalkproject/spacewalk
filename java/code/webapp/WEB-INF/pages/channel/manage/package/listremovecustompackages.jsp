@@ -79,8 +79,7 @@
 				<rl:decorator name="PageSizeDecorator"/>
 
 				<rl:selectablecolumn value="${current.selectionKey}"
-					selected="${current.selected}"
-					styleclass="first-column"/>
+					selected="${current.selected}"/>
 
 
                  <rl:column sortable="true"
@@ -112,7 +111,6 @@
                  <rl:column sortable="false"
                                    bound="false"
                            headerkey="package.jsp.provider"
-                           styleclass="last-column"
                           >
                         ${current.provider}
                 </rl:column>

@@ -1,5 +1,5 @@
 <rl:column headerkey="system.audit.xccdfdetails.jsp.idref" sortattr="documentIdref"
-    sortable="true" styleclass="first-column">
+    sortable="true">
     <c:choose>
       <c:when test="${not empty param.sid}">
         <a href="/rhn/systems/details/audit/RuleDetails.do?sid=${param.sid}&rrid=${current.id}">
@@ -23,7 +23,6 @@
   <c:out value="${current.identsString}"/>
 </rl:column>
 
-<rl:column headerkey="system.audit.xccdfdetails.jsp.result" sortattr="label" sortable="true" filterattr="label"
-    styleclass="last-column">
+<rl:column headerkey="system.audit.xccdfdetails.jsp.result" sortattr="label" sortable="true" filterattr="label">
   <c:out value="${current.label}"/>
 </rl:column>

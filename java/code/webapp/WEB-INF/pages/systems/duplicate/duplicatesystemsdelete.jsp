@@ -31,15 +31,14 @@
         bound="false"
 		headerkey="systemlist.jsp.system"
 		sortattr="name"
-		defaultsort="asc"
-		styleclass="first-column">
+		defaultsort="asc">
 			<c:out value="<a href=\"/rhn/systems/details/Overview.do?sid=${current.id}\">${current.name}</a>" escapeXml="false" />
 	</rl:column>
 	<rl:column sortable="false"
 		attr="lastCheckin"
 		bound="true"
 		headerkey="systemlist.jsp.last_checked_in"
-        styleclass="last-column" />
+ />
 </rl:list>
 
   <div align="right">

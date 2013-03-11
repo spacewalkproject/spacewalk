@@ -36,8 +36,7 @@
  		<rl:decorator name="SelectableDecorator"/>
 	 		<rl:selectablecolumn value="${current.selectionKey}"
 	 			selected="${current.selected}"
-	 			disabled="${not current.selectable}"
-	 			styleclass="first-column"/>
+	 			disabled="${not current.selectable}"/>
 
 		  <rl:column headerkey="upgradable.jsp.latest" bound="false"
 			sortattr="nvrea"
@@ -51,7 +50,7 @@
 		      ${current.installedPackage}
 		  </rl:column>
 
-    <rl:column headerkey="upgradable.jsp.errata" styleclass="last-column">
+    <rl:column headerkey="upgradable.jsp.errata">
       <c:forEach items="${current.errata}" var="errata">
         <c:if test="${not empty errata.advisory}">
           <c:if test="${errata.type == 'Security Advisory'}">

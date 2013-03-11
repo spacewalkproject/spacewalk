@@ -46,8 +46,7 @@
                                    bound="false"
                            headerkey="system.jsp.customkey.keylabel"
                            sortattr="label"
-					defaultsort="asc"
-                           styleclass="first-column">
+					defaultsort="asc">
 
                         <a href="/rhn/systems/customdata/UpdateCustomKey.do?cikid=${current.id}">
                         <c:out value="${current.label}" />
@@ -76,7 +75,6 @@
                                    bound="false"
                            sortattr="lastModified"
                            headerkey="system.jsp.customkey.modified"
-                           styleclass="last-column"
                           >
                         ${current.lastModified}
                 </rl:column>

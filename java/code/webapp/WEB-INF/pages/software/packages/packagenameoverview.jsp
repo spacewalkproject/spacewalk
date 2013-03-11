@@ -26,10 +26,10 @@
              emptykey="packagesearch.jsp.nopackages" width="100%"
              filter="com.redhat.rhn.frontend.action.channel.PackageNVREAFilter">
       <rl:decorator name="PageSizeDecorator"/>
-      <rl:column bound="false" sortable="false" headerkey="packagesearch.jsp.name" styleclass="first-column">
+      <rl:column bound="false" sortable="false" headerkey="packagesearch.jsp.name">
         <a href="/rhn/software/packages/Details.do?pid=${current.package_id}">${current.nvrea}</a>
       </rl:column>
-      <rl:column bound="false" sortable="false" headerkey="ssmchildsubs.jsp.channelname" styleclass="last-column">
+      <rl:column bound="false" sortable="false" headerkey="ssmchildsubs.jsp.channelname">
         ${current.channel_name}
       </rl:column>
     </rl:list>

@@ -32,7 +32,6 @@
 
 
     <rl:column headerkey="entitlements.jsp.channel"
-          styleclass="first-column"
           sortattr="name"
           filterattr="name"
           defaultsort="asc"
@@ -77,7 +76,7 @@
 	    </c:if>
     </rl:column>
 
-    <rl:column headerkey="entitlements.jsp.subscribed" styleclass="last-column" >
+    <rl:column headerkey="entitlements.jsp.subscribed" >
         <c:if test="${current.subscribeCount == 0}">
             ${current.subscribeCount}
         </c:if>

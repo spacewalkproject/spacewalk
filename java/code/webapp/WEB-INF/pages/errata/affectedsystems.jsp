@@ -43,8 +43,7 @@
 
 			<rl:selectablecolumn value="${current.id}"
 	 			selected="${current.selected}"
-	 			disabled="${not current.selectable}"
-	 			styleclass="first-column"/>
+	 			disabled="${not current.selectable}"/>
 	 		<rl:column sortable="true"
 	 			bound="false"
 	 			headerkey="actions.jsp.system"
@@ -77,7 +76,6 @@
 			<rl:column sortable="true"
 				bound="false"
 		    	headerkey="affectedsystems.jsp.entitle"
-                styleclass="last-column"
 		    	sortattr="entitlementLevel">
 		    	${current.entitlementLevel}
 			</rl:column>

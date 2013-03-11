@@ -38,7 +38,6 @@
       <rl:column
          bound="false"
          sortable="true"
-         styleclass="first-column"
          headerkey="org.trust.org"
          sortattr="name">
             <a href="/rhn/multiorg/OrgTrustDetails.do?oid=${current.org.id}"> ${current.org.name}
@@ -47,7 +46,6 @@
       <rl:column
          bound="false"
          sortable="false"
-         styleclass="last-column"
          headerkey="org.trust.systems.affected">
             ${fn:length(current.subscribed)}
       </rl:column>

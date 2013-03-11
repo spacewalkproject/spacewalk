@@ -33,8 +33,7 @@
  		<rl:decorator name="ElaborationDecorator"/>
 	 		<rl:selectablecolumn value="${current.selectionKey}"
 	 			selected="${current.selected}"
-	 			disabled="${not current.selectable}"
-	 			styleclass="first-column"/>
+	 			disabled="${not current.selectable}"/>
 
 		  <rl:column headerkey="sdc.config.subscriptions.jsp.channel"
 		  	sortattr="name"
@@ -47,7 +46,7 @@
         attr="filesAndDirsDisplayString" bound="true"/>
 
 	      <rl:column headerkey="sdc.configlist.jsp.rank"
-	      attr="position" styleclass="last-column" bound="true"/>
+	      attr="position" bound="true"/>
 	</rl:list>
  			
 <c:if test="${not empty requestScope.all}">

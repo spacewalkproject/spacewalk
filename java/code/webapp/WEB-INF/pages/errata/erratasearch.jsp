@@ -150,7 +150,7 @@
       <rl:decorator name="PageSizeDecorator"/>
 
       <rl:column bound="false" sortable="true" sortattr="securityAdvisory"
-        headerkey="erratalist.jsp.type" styleclass="first-column">
+        headerkey="erratalist.jsp.type">
 		<c:if test="${current.securityAdvisory}">
 		  <img src="/img/wrh-security.gif"
 		       title="<bean:message key="erratalist.jsp.securityadvisory"/>" />
@@ -235,7 +235,7 @@
         </c:when>
       </c:choose>
       <rl:column bound="false" sortable="true" headerkey="erratalist.jsp.issueDate"
-        sortattr="issueDateObj" styleclass="last-column">
+        sortattr="issueDateObj">
             ${current.issueDate}
       </rl:column>
 

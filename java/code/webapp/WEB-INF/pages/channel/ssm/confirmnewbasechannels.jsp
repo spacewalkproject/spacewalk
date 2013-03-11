@@ -41,8 +41,7 @@
 
                     <rl:column bound="false"
                         sortable="false"
-                        headerkey="basesub.jsp.confirm.header.oldChannel"
-                        styleclass="first-column">
+                        headerkey="basesub.jsp.confirm.header.oldChannel">
                         <a href="/rhn/channels/ChannelDetail.do?cid=${current.oldChannelId}">
                             ${current.oldChannelName}
                         </a>
@@ -112,7 +111,6 @@
                 <rl:column bound="false"
                     sortable="false"
                     headerkey="basesub.jsp.confirm.header.systemsAffected"
-                    styleclass="last-column"
                     attr="systemsAffectedCount">
 
                     ${current.systemsAffectedCount}

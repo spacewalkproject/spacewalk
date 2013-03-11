@@ -46,7 +46,6 @@
             sortattr="name"
             filterattr="name"
             headerkey="softwareentitlements.header.entitlement.name"
-            styleclass="first-column"
             >
             <a href="/rhn/admin/multiorg/SoftwareEntitlementDetails.do?cfid=${current.id}">
                 ${current.name}

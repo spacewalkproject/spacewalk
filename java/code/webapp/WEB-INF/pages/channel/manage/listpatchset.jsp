@@ -38,8 +38,7 @@
          emptykey="channel.manage.patchset.none"
          decorator="SelectableDecorator">
 	 <rl:selectablecolumn value="${current.selectionKey}"
-						selected="${current.selected}"
-						styleclass="first-column"/>
+						selected="${current.selected}"/>
 
 	<rl:column bound="false"
 	           sortable="false"
@@ -51,8 +50,7 @@
 	<rl:column bound="false"
 	           sortable="false"
 	           headerkey="channel.manage.patchset.releasedate"
-	           attr="name"
-	           styleclass="last-column">
+	           attr="name">
 		<c:out value="${current.setDate}" />
 	</rl:column>
 	

@@ -118,8 +118,7 @@
 	<!-- Timestamp column -->
 	<rl:column bound="true"
 			   attr="entryDate"
-	           headerkey="probedetails.jsp.timestamp"
-	           styleclass="first-column"/>
+	           headerkey="probedetails.jsp.timestamp"/>
 	<!-- state column -->
 	<rl:column bound="true"
 			   attr="state"
@@ -127,8 +126,7 @@
 	<!-- message column -->
 	<rl:column bound="true"
 			   attr="htmlifiedMessage"
-	           headerkey="probedetails.jsp.message"
-	           styleclass="last-column"/>
+	           headerkey="probedetails.jsp.message"/>
 </rl:list>
 <rl:csv	exportColumns="entryDate,state,message"/>
 </rl:listset>

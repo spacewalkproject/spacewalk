@@ -37,8 +37,7 @@
 		<rl:decorator name="ElaborationDecorator"/>
 		<rl:decorator name="PageSizeDecorator"/>
 		<rl:selectablecolumn value="${current.id}"
-							selected="${current.selected}"
-							styleclass="first-column"/>
+							selected="${current.selected}"/>
 
                 <rl:column sortable="true"
                            bound="false"
@@ -65,8 +64,7 @@
                 <rl:column sortable="true"
                                    bound="false"
                            headerkey="probesuites.jsp.system_count"
-                           sortattr="systemCount"
-                           styleclass="last-column">
+                           sortattr="systemCount">
 		            <c:if test="${current.selectable}">
 		              <A HREF="ProbeSuiteSystems.do?suite_id=${current.id}">${current.systemCount}</A>
 		            </c:if>

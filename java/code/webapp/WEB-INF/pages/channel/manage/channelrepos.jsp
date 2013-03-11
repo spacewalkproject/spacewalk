@@ -29,15 +29,13 @@
 
 			<rl:decorator name="PageSizeDecorator"/>
 
-		    <rl:selectablecolumn value="${current.id}"
-								styleclass="first-column"/>
+		    <rl:selectablecolumn value="${current.id}"/>
 
                  <rl:column sortable="true"
                                    bound="false"
                            headerkey="repos.jsp.channel.header"
                            sortattr="label"
-                           defaultsort="asc"
-                           styleclass="last-column">
+                           defaultsort="asc">
                         <a href="/rhn/channels/manage/repos/RepoEdit.do?id=${current.id}">${current.label}</a>
                 </rl:column>
 

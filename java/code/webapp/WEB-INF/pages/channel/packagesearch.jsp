@@ -107,14 +107,14 @@
              emptykey="packagesearch.jsp.nopackages" width="100%"
              filter="com.redhat.rhn.frontend.action.channel.PackageNameFilter">
       <rl:decorator name="PageSizeDecorator"/>
-      <rl:column bound="false" sortable="false" headerkey="packagesearch.jsp.name" styleclass="first-column">
+      <rl:column bound="false" sortable="false" headerkey="packagesearch.jsp.name">
         <a href="/rhn/software/packages/NameOverview.do?package_name=${current.urlEncodedPackageName}${archparams}&search_subscribed_channels=${requestScope.relevant}&channel_filter=${requestScope.channel_filter}">
             <rhn:highlight tag="strong" text="${search_string}">
                 ${current.packageName}
             </rhn:highlight>
         </a>
       </rl:column>
-      <rl:column bound="false" sortable="false" headerkey="packagesearch.jsp.summary" styleclass="last-column">
+      <rl:column bound="false" sortable="false" headerkey="packagesearch.jsp.summary">
         <c:choose>
           <c:when test="${param.view_mode != 'search_name'}">
             <rhn:highlight tag="strong" text="${search_string}">

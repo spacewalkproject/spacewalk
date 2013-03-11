@@ -76,8 +76,7 @@
 			<rl:decorator name="SelectableDecorator"/>
 	 		<rl:selectablecolumn value="${current.id}"
 	 			selected="${current.selected}"
-	 			disabled="${not current.selectable}"
-	 			styleclass="first-column"/>
+	 			disabled="${not current.selectable}"/>
   		</c:if>
   		
 		  <rl:column headerkey="erratalist.jsp.type" styleclass="text-align: center;"
@@ -135,7 +134,7 @@
 		  <rl:column headerkey="erratalist.jsp.updated" bound="false"
 		  	sortattr="updateDateObj"
 		  	sortable="true"
-		  	defaultsort="desc" styleclass="last-column">
+		  	defaultsort="desc">
 		      ${current.updateDate}
 		  </rl:column>  		
   		

@@ -16,13 +16,11 @@
              		 reflink="/rhn/monitoring/ProbeList.do?state=WARNING"
              		 reflinkkey="yourrhn.jsp.allwarningprobes"
              		 reflinkkeyarg0="${requestScope.warningReflinkkeyarg0}">
-				<rl:column headerkey="yourrhn.jsp.warningprobes"
-		           	styleclass="first-column">
+				<rl:column headerkey="yourrhn.jsp.warningprobes">
 		    		<img src="/img/rhn-mon-warning.gif"/>
     				<c:out value="${current.description}"/>
 				</rl:column>
-				<rl:column headerkey="yourrhn.jsp.systems"
-		           	styleclass="last-column">
+				<rl:column headerkey="yourrhn.jsp.systems">
 					<c:out value="${current.probeCount}"/>
 				</rl:column>
   			</rl:list>

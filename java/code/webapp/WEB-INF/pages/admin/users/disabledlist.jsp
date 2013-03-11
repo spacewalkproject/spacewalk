@@ -33,8 +33,7 @@
 
  		<rl:selectablecolumn value="${current.id}"
 	 		selected="${current.selected}"
-	 		disabled="${not current.selectable}"
-	 		styleclass="first-column"/>
+	 		disabled="${not current.selectable}"/>
  		
 		<rl:column bound="false"
 			sortable="true"
@@ -56,8 +55,7 @@
 	    <rl:column headerkey="disabledlist.jsp.disabledOn"
 	    	bound="true"
 	    	attr="changeDateString"
-	    	sortattr="changeDate"
-	    	styleclass="last-column"/>
+	    	sortattr="changeDate"/>
 
  	</rl:list>
  	<rl:csv dataset="pageList"

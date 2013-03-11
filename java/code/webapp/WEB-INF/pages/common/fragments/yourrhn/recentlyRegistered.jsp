@@ -21,7 +21,6 @@
 	 		 >
 		<rl:column bound="true"
 		           headerkey="systemlist.jsp.status"
-		           styleclass="first-column"
 		           attr="statusDisplay"/>
 		<rl:column bound="false"
 		           headerkey="systemlist.jsp.system"
@@ -67,8 +66,7 @@
 	
 		<rl:column bound="true"
 		           headerkey="systemlist.jsp.entitlement"
-		           attr="entitlementLevel"
-		           styleclass="last-column"/>
+		           attr="entitlementLevel"/>
 </rl:list>
   <span class="full-width-note-left">
   	${paginationMessage}

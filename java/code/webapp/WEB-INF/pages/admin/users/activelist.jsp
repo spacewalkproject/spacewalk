@@ -35,7 +35,6 @@
 	<rl:column bound="false"
 	           sortable="true"
 	           headerkey="username.nopunc.displayname"
-	           styleclass="first-column"
 	           attr="userLogin"
 	           filterattr="login">
 		<c:out value="<a href=\"/rhn/users/UserDetails.do?uid=${current.id}\">${current.userLogin}</a>" escapeXml="false" />
@@ -62,7 +61,7 @@
 	           bound="true"
 	           sortable="true"
 	           headerkey="userdetails.jsp.lastsign"
-	           styleclass="last-column" />
+ />
 
 </rl:list>
 <rl:csv dataset="pageList"

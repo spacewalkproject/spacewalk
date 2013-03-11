@@ -39,8 +39,7 @@
 
 		    <rl:selectablecolumn value="${current.id}"
 								selected="${current.selected}"
-								disabled="${not current.selectable}"
-								styleclass="first-column"/>
+								disabled="${not current.selectable}"/>
 
 
 
@@ -59,7 +58,6 @@
 
                  <rl:column sortable="false"
                                    bound="false"
-                                   styleclass="last-column"
                            headerkey="systemlist.jsp.entitlement"
                           >
                         <c:out value="${current.entitlementLevel}" />

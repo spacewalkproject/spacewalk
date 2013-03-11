@@ -26,12 +26,10 @@
 	         width="100%"
 	         >
 	    <rl:selectablecolumn value="${current.id}"
-		selected="${current.selected}"
-	    	styleclass="first-column"/>
+		selected="${current.selected}"/>
 	    <!--  System Name -->
 		<rl:column bound="false"
 			headerkey="system.common.systemName"
-			styleclass="last-column"
 			sortable="true"
 			sortattr="name">
 			<a href="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">

@@ -24,8 +24,7 @@
              emptykey = "channelfiles.jsp.noFiles"
 	         >
 	    <rl:selectablecolumn value="${current.selectionKey}"
-						selected="${current.selected}"
-	    					styleclass="first-column"/>
+						selected="${current.selected}"/>
 		
 		<!-- File name column -->
 		<rl:column bound = "false"
@@ -63,8 +62,7 @@
 		           sortable="true"
 		           headerkey="sdc.config.file_list.last_modified"
 		           attr="lastModifiedDateString"
-		           sortattr="lastModifiedDate"
-    		       styleclass="last-column"/>
+		           sortattr="lastModifiedDate"/>
 	</rl:list>
 	<c:import url="/WEB-INF/pages/common/fragments/configuration/sdc/viewmodifyfileactions.jspf"/>
 </rl:listset>

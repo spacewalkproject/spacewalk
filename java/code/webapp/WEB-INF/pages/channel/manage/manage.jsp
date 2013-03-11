@@ -30,7 +30,7 @@
 
         <rl:decorator name="PageSizeDecorator"/>
 
-        <rl:column styleclass="first-column"
+        <rl:column
                    headerkey="channel.edit.jsp.name"
                    filterattr="name">
             <c:choose>
@@ -62,7 +62,7 @@
             </c:choose>
         </rl:column>
 
-        <rl:column styleclass="last-column"
+        <rl:column
                    headerkey="channels.overview.packages">
             <c:if test="${current.org_id !=  null}">
             <html:link href="/rhn/channels/manage/ChannelPackages.do?cid=${current.id}">

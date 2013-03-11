@@ -38,8 +38,7 @@
         <rl:decorator name="SelectableDecorator"/>
 
         <rl:selectablecolumn value="${current.selectionKey}"
-            selected="${current.selected}"
-            styleclass="first-column"/>
+            selected="${current.selected}"/>
 
         <rl:column headerkey="crashes.jsp.crash" bound="false"
             sortattr="crash"

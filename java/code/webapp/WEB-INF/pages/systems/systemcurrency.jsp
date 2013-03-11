@@ -36,7 +36,6 @@
                 <rl:column sortable="true"
                            bound="false"
                            headerkey="systemlist.jsp.system"
-		           styleclass="first-column"
                            sortattr="name" >
 		    <img src="/img/rhn-listicon-system.gif" alt="<bean:message key="systemlist.jsp.nonvirt"/>" />
                     <c:out value="<a href=\"/rhn/systems/details/Overview.do?sid=${current.id}\">"  escapeXml="false" />
@@ -171,7 +170,6 @@
 				   bound="false"
 		           headerkey="systemcurrency.jsp.score"
 		           sortattr="score"
-                           styleclass="last-column"
 		           defaultsort="desc">
                            <c:out value="${current.score}" />
 		</rl:column>

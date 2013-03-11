@@ -25,9 +25,9 @@
   <rhn:csrf />
   <rl:list emptykey="kickstart.packageprofiles.jsp.noprofiles">
 		<rl:decorator name = "PageSizeDecorator"/>
-		<rl:radiocolumn value="${current.id}" styleclass="first-column" useDefault='false'/>
+		<rl:radiocolumn value="${current.id}" useDefault='false'/>
 
-        <rl:column headerkey="kickstart.packageprofiles.jsp.description" filterattr="name" styleclass="last-column">
+        <rl:column headerkey="kickstart.packageprofiles.jsp.description" filterattr="name">
             ${current.name}
         </rl:column>
         </rl:list>
