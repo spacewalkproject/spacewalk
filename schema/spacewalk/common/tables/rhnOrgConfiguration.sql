@@ -26,7 +26,7 @@ create table rhnOrgConfiguration
     crash_reporting_enabled    char(1)
                                    default ('Y') not null
                                    constraint rhn_org_conf_crash_report_chk
-                                   check (crash_reporting_enabledin ('Y', 'N')),
+                                   check (crash_reporting_enabled in ('Y', 'N')),
     crashfile_upload_enabled   char(1)
                                    default ('Y') not null
                                    constraint rhn_org_conf_crash_upload_chk
