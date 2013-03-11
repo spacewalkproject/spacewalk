@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.10.2
+Version:    1.10.3
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -88,6 +88,11 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Mar 11 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.3-1
+- removing duplicate css
+- removing -moz- in front of border-radius
+- css changes - table borders
+
 * Fri Mar 08 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.2-1
 - removing filter input from page when printing
 
