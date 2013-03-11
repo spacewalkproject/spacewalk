@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 cac2454a75f0d5cc57c7451d11eac307adc0d222
+-- oracle equivalent source sha1 7d4cf775fd438438e65e6eb9e8be419f441fdff8
 
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
@@ -38,3 +38,20 @@ for each row
 execute procedure web_customer_mod_trig_fun();
 
 
+create or replace function web_customer_insert_trig_fun() returns trigger
+as
+$$
+begin
+	insert into rhnOrgConfiguration (org_id) values (new.id);
+
+        return new;
+end;
+$$
+language plpgsql;
+
+
+create trigger
+web_customer_insert_trig
+after insert on web_customer
+for each row
+execute procedure web_customer_insert_trig_fun();

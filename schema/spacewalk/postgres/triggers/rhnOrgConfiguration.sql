@@ -1,5 +1,6 @@
+-- oracle equivalent source sha1 bab17dc54803139b320654d8b0a724725c5ce7e9
 --
--- Copyright (c) 2008--2013 Red Hat, Inc.
+-- Copyright (c) 2013 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,32 +8,22 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
---
---
---
--- update timestamp
 
-create or replace trigger
-web_customer_mod_trig
-before insert or update on web_customer
-for each row
+create or replace function rhn_org_conf_mod_trig_fun() returns trigger as
+$$
 begin
-        :new.modified := current_timestamp;
+        new.modified := current_timestamp;
+        return new;
 end;
-/
-show errors
+$$ language plpgsql;
 
-create or replace trigger
-web_customer_insert_trig
-after insert on web_customer
+create trigger
+rhn_org_conf_mod_trig
+before insert or update on rhnOrgConfiguration
 for each row
-begin
-    insert into rhnOrgConfiguration (org_id) values (:new.id);
-end;
-/
-show errors
+execute procedure rhn_org_conf_mod_trig_fun();

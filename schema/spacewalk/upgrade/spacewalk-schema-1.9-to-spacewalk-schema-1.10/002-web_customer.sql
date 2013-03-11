@@ -34,7 +34,11 @@ create table rhnOrgConfiguration
     crash_file_sizelimit       number
                                    default(2048) not null
                                    constraint rhn_org_conf_sizelimit_chk
-                                   check (crash_file_sizelimit >= 0)
+                                   check (crash_file_sizelimit >= 0),
+    created                    timestamp with local time zone
+                                   default (current_timestamp) not null,
+    modified                   timestamp with local time zone
+                                   default (current_timestamp) not null
 )
 enable row movement
 ;
