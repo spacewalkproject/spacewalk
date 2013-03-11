@@ -900,7 +900,7 @@ public class OrgHandler extends BaseHandler {
      * @return Returns the organization wide crash file size limit.
      *
      * @xmlrpc.doc Get the organization wide crash file size limit. The limit value
-     * must i a non-negative number, zero means no limit.
+     * must be a non-negative number, zero means no limit.
      *
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "orgId")
