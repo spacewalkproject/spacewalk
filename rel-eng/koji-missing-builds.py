@@ -40,10 +40,11 @@ distmap = {'rhel6':'.el6',
 
 distsuffix = ''
 tag = args[0]
-if tag == 'satellite-5.4-rhel-5-candidate':
-    disttag = '.el5'
-elif tag == 'satellite-5.4-rhel-6-candidate':
-    disttag = '.el6'
+if tag.startswith('satellite'):
+    if tag.find('rhel-5'):
+        disttag = '.el5'
+    else:
+        disttag = '.el6'
 else:
     disttag = distmap[tag.split('-')[-1]]
 pkgstoignore = []
