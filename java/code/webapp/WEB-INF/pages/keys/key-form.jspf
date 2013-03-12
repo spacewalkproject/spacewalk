@@ -15,6 +15,7 @@
             <c:choose>
                 <c:when test="${cryptoKey.id != null}">
                     <c:out value="${cryptoKey.cryptoKeyType.label}"/>
+                    <html:hidden property="type" value="${cryptoKey.cryptoKeyType.label}" />
                 </c:when>
                 <c:otherwise>
                     <html:select property="type">
