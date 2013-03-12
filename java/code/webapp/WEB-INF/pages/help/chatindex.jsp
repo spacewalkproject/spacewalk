@@ -12,7 +12,7 @@
 
     <h1><img src="/img/rhn-icon-help-h1.gif" alt="help" /><bean:message key="help.jsp.chat"/></h1>
 
-    <ul id="help-url-list">
+    <ul>
 
         <div><bean:message key="help.jsp.chatinfo"/></div>
         <br/><br/>

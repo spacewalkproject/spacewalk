@@ -65,7 +65,7 @@
 
 <!--  Entitlements Section -->
     <c:if test="${requestScope.showCommands}">
-		  <table class="entitle-bar">
+		  <table class="details">
 			<!--  Base Entitlement Section -->
 			<tr>
 		          <th><bean:message key="systementitlements.jsp.baseentitlement" /></th>

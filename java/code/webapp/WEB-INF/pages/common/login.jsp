@@ -39,7 +39,7 @@
       <p><c:out value="${login_banner}" escapeXml="false"/></p>
     </c:when>
     <c:otherwise>
-      <h1 id="rhn_welcome3"><span><bean:message key="login.jsp.welcomemessage"/></span></h1>
+      <div id="rhn_welcome"></div>
 
       <p><bean:message key="login.jsp.satbody1"/></p>
       <p><bean:message key="login.jsp.satbody2"/></p>

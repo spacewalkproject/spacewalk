@@ -18,9 +18,6 @@
           <bean:message key="sdc.channels.edit.summary"/>
         </p>
       </div>
-      <!--div class="resubscribe-warning-big">
-       <img src="/img/rhn-icon-warning.gif" title="<bean:message key="sdc.channels.edit.resubwarning"/>" /> <bean:message key="sdc.channels.edit.markedwarning"/>
-      </div-->
       <c:choose>
         <c:when test="${system.baseChannel == null}">
           <bean:message key="sdc.channels.edit.nobasechannel"/>
@@ -111,11 +108,6 @@
         <div class="page-summary">
           <p>
             <bean:message key="sdc.channels.edit.summary2"/>
-            <!--div class="resubscribe-warning-big">
-            <p>
-              <img src="/img/rhn-icon-warning.gif" title="<bean:message key="sdc.channels.edit.resubwarning"/>" /> <bean:message key="sdc.channels.edit.subwarning"/>
-            </p>
-            </div-->
           <p/>
           <select name="new_base_channel_id" size="10">
             <option value="-1"

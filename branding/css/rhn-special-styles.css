@@ -1,37 +1,5 @@
 /** This stylesheet is for styles that are created especially for particular pages and are not really used across the entire webui. **/
 
-/** Login box styles **/
-
-div.login-component {
-  text-align: center;
-}
-
-div.login-box {
-  border: 1px solid #999;
-  text-align: right;
-  padding: 12px 10px;
-  margin: 4px;
-  background-color: #eee;
-  width: 210px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-div.login-box form {
-  margin: 0;
-}
-
-div.login-box div.input-row {
-  font-weight: bold;
-  font-size: 10px;
-  white-space: nowrap;
-}
-
-div.login-box div.input-row input {
-  font-weight: normal;
-  vertical-align: middle;
-}
-
  .clearBox {
         width: 279px;
         padding-top: 7px;
@@ -57,10 +25,7 @@ div.login-box div.input-row input {
         font-size: small;
         }
 
-
 /** End login box styles **/
-
-
 
 /** used for system entitlements page for virtual systems **/
 
@@ -75,9 +40,6 @@ div.login-box div.input-row input {
 
 /** used for the help desk page **/
 
-ul#help-url-list ul {
-
-}
 ul#help-url-list li {
   list-style: none;
   padding-top: 10px;
@@ -88,69 +50,13 @@ ul#help-url-list li a {
   font-weight: bold;
 }
 
-/** used for the FAQ pages in the help section **/
-
-ul#faq-list {
-  padding-left: 2px;
-  margin-left: 0;
-}
-
-#faq-list li {
-  list-style: none;
-  margin-left: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-#faq-list a {
-}
-
-#faq-details {
-  margin-left: 1em;
-}
-
-#faq-details a.faq-back-to-top {
-  float: right;
-}
-
-#faq-details p + h3 {
-  padding-top: 2em;
-}
-
 /** used on the login page **/
 
-h1#rhn_welcome {
-        background-image: url(/img/rhn_welcome.gif);
-        background-position: 0 0;
-        background-repeat: no-repeat;
-        padding-bottom: 5px;
-        height: 20px;
-        }
-
-h1#rhn_welcome2 {
-        background-image: url(/img/rhn_welcome2.gif);
-        background-position: 0 0;
-        background-repeat: no-repeat;
-        height: 37px;
-        }
-
-h1#rhn_welcome3 {
+#rhn_welcome {
         background-image: url(/img/rhn_welcome3.gif);
         background-position: 0 0;
         background-repeat: no-repeat;
         height: 40px;
-        }
-
-h1#rhn_welcome span {
-        display: none;
-        }
-
-h1#rhn_welcome2 span {
-        display: none;
-        }
-
-h1#rhn_welcome3 span {
-        display: none;
         }
 
 #contentLeft {
@@ -162,42 +68,8 @@ h1#rhn_welcome3 span {
         margin: 0 15px 0 295px;
 }
 
-p#intro {
-        font-size: 1.3em;
-        line-height: 1.2em;
-        color: #000;
-        }
-
-p.endnote {
-        font-size: smaller;
-        margin-top: 3em;
-        padding-top: 10px;
-        line-height: 1.5em;
-        border-top: 1px solid #333;
-        }
-
-/* iso stuff */
-
-div.sources, h3.sources, h3.dump, div.dump {
-    margin-left: 20px;
-}
-
-.iso-md5 {
-        font-family: monospace;
-        text-align: right;
-}
-
 /**/
 
-.linkchain {
-        text-align: center;
-        font-size: 12px;
-        color: #555;
-        white-space: nowrap;
-}
-.linkchain a {
-        font-weight: bold;
-}
 .preference {
         margin: 0 30px 0 30px;
         text-align: left;
@@ -206,6 +78,9 @@ div.sources, h3.sources, h3.dump, div.dump {
         color: #444;
 }
 
+.schedule-action-interface {
+  color: black;
+}
 
 .schedule-action-interface th {
         background-color: #fff;
@@ -221,40 +96,8 @@ div.sources, h3.sources, h3.dump, div.dump {
         padding: 2px 0 4px 0;
 }
 
-.ok-explanation img {
-        border: none;
-        vertical-align: middle;
-        padding: 2px 0 4px 0;
-}
-
-.resubscribe-warning img {
-        border: none;
-        vertical-align: middle;
-        padding: 2px 0 4px 0;
-}
-
-.resubscribe-warning-big {
-        margin: 0 2%;
-        cursor: text;
-        color:  #c00;
-}
-.resubscribe-warning-big img {
-        border: none;
-        padding: 0 4px 0 0;
-        vertical-align: middle;
-        float: left;
-}
-
 td.comparison {
         padding: 10px;
-}
-
-.summary-row {
-        background-color: #f5f5f5;
-}
-
-.schedule-action-interface {
-  color: black;
 }
 
 /** ssm **/
@@ -266,120 +109,6 @@ td.comparison {
         text-align: right;
         padding: 6px;
 }
-
-.work-with-group-header {
-        text-align:  right;
-}
-.work-with-group-header img {
-        border: none;
-}
-
-/** terms and conditions **/
-
-div.termsandconditions {
-        width: 95%;
-}
-
-div.printerfriendly_text {
-        background-color: white;
-        width: 80%;
-        padding: 4%;
-        text-align: left;
-        margin-right: 6%;
-        margin-left: 6%;
-        font-family: serif;
-}
-
-span.printerfriendlylink {
-        float: right;
-        padding-bottom: 3px;
-        margin-right: -5px;
-}
-
-img.printerfriendlylink {
-        vertical-align: middle;
-}
-
-a.printerfriendlylink:link {
-        font-weight: bold;
-        text-decoration: underline;
-}
-
-a.printerfriendlylink:visited {
-        font-weight: bold;
-        text-decoration: underline;
-}
-
-div.tc_warning {
-        text-align: center;
-}
-
-p.tc_warning {
-        padding-right: 15%;
-        padding-left: 15%;
-}
-
-textarea.termsandconditions {
-        height: 180px;
-        width: 100%;
-        font-family: monospace;
-        padding: 3px;
-        font-size: 10pt;
-        border: 1px solid black;
-        background-color: #fcf9e5;
-}
-
-div.tc_accept_button {
-        text-align: center;
-        width: 50%;
-        float: left;
-}
-
-div.tc_reject_button {
-        text-align: center;
-        width: 50%;
-        float: right;
-}
-
-/** config mgmt feature file diff styles **/
-
-.oldfile {
-    float: left;
-    width: 48%;
-    font-family: 'monospace';
-}
-
-.newfile {
-    float: right;
-    width: 48%;
-    font-family: 'monospace';
-}
-
-.changed {
-    background-color: #f5f3c4;
-    border-radius: 15px;
-}
-
-.oldfile .deleted {
-    background-color: #f5c4c4;
-    border-radius: 15px;
-}
-
-.newfile .deleted {
-    background-color: #d4d4d4;
-    border-radius: 15px;
-}
-
-.oldfile .inserted {
-    background-color: #d4d4d4;
-    border-radius: 15px;
-}
-
-.newfile .inserted {
-    background-color: #c5f4c4;
-    border-radius: 15px;
-}
-
 
 /** config mgmt feature file diff styles **/
 
@@ -429,17 +158,16 @@ div.tc_reject_button {
 
 /** api doc rounded table of contents box **/
 
-div.rounded-box { float: right; }
-
 div.rounded-box {
-  background-color: white;
+  float: right;
   border-bottom: 1px solid #b4b19a;
+  background-color: white;
 }
 
 div.rounded-box ul {
   border-left: 1px solid #b4b19a;
   border-right: 1px solid #b4b19a;
-  margin: 0px 0px 0px 0px;
+  margin: 0px;
   padding-top: 10px;
   padding-bottom: 10px;
   padding-right: 10px;
@@ -470,11 +198,6 @@ div.rounded-box h2 {
 
 .systeminfo-clear {
     clear: both;
-    /** the rest is for older browsers **/
-    height:               1px;
-    line-height:          1px;
-    font-size:            1px;
-    margin-top:           -1px;
 }
 
 .systeminfo-full {
@@ -503,48 +226,6 @@ div.systeminfo-left img {
     margin-top: 8px;
     vertical-align: middle;
     float: right;
-    background-image: url(/img/rhn-bar-background.gif);
-}
-
-/** Fancy bar for complex/multiple submit buttons for a page's form. used on the system entitlements page, will be used on virt guest list **/
-table.entitle-bar {
-    width: 100%;
-    border-collapse: collapse;
-    border-spacing: 0;
-    margin-top: 12px;
-}
-
-table.entitle-bar tr {
-    width: 100%;
-    background-image:       url('/img/entitle-bar.png');
-    height:                 33px;
-    background-repeat:      no-repeat;
-    background-position:    left;
-}
-
-table.entitle-bar td {
-    padding:        12px 0px 12px 0px;
-    background-image: none;
-    background-position: 20% 0%;
-}
-
-/** table styles for language selections on locale preferences page **/
-
-table.langselect td {
-        padding-right:  10px;
-        vertical-align: top;
-        width:          33%;
-}
-
-/** banner adds in lower left corner **/
-
-div.buy-now {
-  text-align: left;
-  padding-top: 16px;
-}
-
-div.buy-now img {
-  border: 0;
 }
 
 /** styles for advanced search forms (eg advanced system search, advanced package search **/
@@ -563,12 +244,6 @@ div.buy-now img {
 
 /** misc **/
 
-
-div.marketing-summary {
-  margin: 0 2%;
-  cursor: text;
-}
-
 div.marketing-summary a {
   text-decoration: underline;
   font-weight: bold;
@@ -581,4 +256,3 @@ div.marketing-summary a {
   margin: 20px 40px;
   padding: 8px;
 }
-
