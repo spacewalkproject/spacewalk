@@ -76,7 +76,7 @@ public class CrashHandler extends BaseHandler {
      * @return Date of the last software crash report.
      *
      * @xmlrpc.doc Return date of last software crashes report for given system
-     * @xmlrpc.param @param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype dateTime.iso8601 - Date of the last software crash report.
      */
@@ -97,7 +97,7 @@ public class CrashHandler extends BaseHandler {
      * @return Number of unique software crashes.
      *
      * @xmlrpc.doc Return number of unique software recorded crashes for given system
-     * @xmlrpc.param @param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype int - Number of unique software crashes
      */
@@ -117,7 +117,7 @@ public class CrashHandler extends BaseHandler {
      * @return Total number of recorded software crashes.
      *
      * @xmlrpc.doc Return total number of software recorded crashes for given system
-     * @xmlrpc.param @param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype int - Total number of recorded software crashes
      */
@@ -137,7 +137,7 @@ public class CrashHandler extends BaseHandler {
      * @return Returns list of software crashes for given system id.
      *
      * @xmlrpc.doc Return list of software crashes for a system.
-     * @xmlrpc.param @param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype
      *     #array()
@@ -224,7 +224,7 @@ public class CrashHandler extends BaseHandler {
      * @return Returns list of crash files.
      *
      * @xmlrpc.doc Return list of crash files for given crash id.
-     * @xmlrpc.param @param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "crashId")
      * @xmlrpc.returntype
      *     #array()
