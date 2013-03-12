@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.10.3
+Version:    1.10.4
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -88,6 +88,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Mar 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.4-1
+- clean up of rhn-special-styles.css and adjacent files
+- removing css hacks for vintage versions of IE
+
 * Mon Mar 11 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.3-1
 - removing duplicate css
 - removing -moz- in front of border-radius
