@@ -1,18 +1,11 @@
 /**** Sidenav *****/
 
-#sidenavp, #sidenav {   /* for ie55  */
+#sidenavp, #sidenav {
         width: 150px;
         background-color: #999;
         border-radius: 10px;
         font-family: "Luxi Sans", verdana, arial, sans-serif;
-        font-size: xx-small;
-    /* false value for WinIE4/5 */
-    voice-family: "\"}\"";
-    /* trick WinIE4/5 into thinking rule is over */
-    voice-family: inherit;
-    /* recover from trick */
-    font-size:  x-small;
-    /* intended value for better browsers */
+        font-size:  x-small;
         font-weight: bold;
 }
 

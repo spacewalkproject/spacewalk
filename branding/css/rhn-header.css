@@ -54,7 +54,7 @@ img#rhnLogo {
         background: #767676;
         background: linear-gradient(to bottom, #838383 0%, #767676 100%);
         background: -o-linear-gradient(top, #838383 0%, #767676 100%);
-        background: -webkit-linear-gradient(top. color-stop(0, #838383), color-stop(1, #767676));
+        background: -webkit-linear-gradient(top, color-stop(0, #838383), color-stop(1, #767676));
 	width: 45%;
 }
 
