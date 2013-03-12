@@ -25,6 +25,6 @@ public class GpgCryptoKey extends CryptoKey {
     * @return if this is a GPG key
     */
    public boolean isGPG() {
-       return false;
+       return true;
    }
 }
