@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.5
+Version: 1.10.6
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -638,6 +638,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Mar 12 2013 Jan Pazdziora 1.10.6-1
+- abrt: support parsing package nevra from older abrt versions
+- The is_connected_to needs to match the adjustments we do in connect.
+- Do not parse the command line options, there are none.
+
 * Mon Mar 11 2013 Jan Pazdziora 1.10.5-1
 - 757302, 843723, 873379 - require python-psycopg2 with patch for the reference
   leaks.
