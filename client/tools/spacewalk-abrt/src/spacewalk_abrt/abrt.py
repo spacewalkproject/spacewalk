@@ -67,7 +67,7 @@ def report(problem_dir):
 
     # Package information
     pkg_data = {}
-    for item in ['pkg_name', 'pkg_epoch', 'pkg_version', 'pkg_release', 'pkg_arch']:
+    for item in ['package', 'pkg_name', 'pkg_epoch', 'pkg_version', 'pkg_release', 'pkg_arch']:
         pkg_item_path = os.path.join(problem_dir, item)
         if os.path.exists(pkg_item_path):
             filecontent = _readline(pkg_item_path)

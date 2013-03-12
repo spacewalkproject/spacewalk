@@ -19,6 +19,7 @@ import stat
 
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.common.rhnConfig import CFG
+from spacewalk.common.rhnLib import parseRPMName
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnHandler import rhnHandler
@@ -48,7 +49,14 @@ values (
        :storage_path)
 """)
 
-_query_update_pkg_data = rhnSQL.Statement("""
+_query_update_pkg_data1 = rhnSQL.Statement("""
+update rhnServerCrash
+   set package_name_id = lookup_package_name(:pkg_name),
+       package_evr_id = lookup_evr(:pkg_epoch, :pkg_version, :pkg_release)
+ where id = :crash_id
+""")
+
+_query_update_pkg_data2 = rhnSQL.Statement("""
 update rhnServerCrash
    set package_name_id = lookup_package_name(:pkg_name),
        package_evr_id = lookup_evr(:pkg_epoch, :pkg_version, :pkg_release),
@@ -135,12 +143,26 @@ class Abrt(rhnHandler):
         return insert_call(crash_id, filename, path, filesize)
 
     def _update_package_data(self, crash_id, pkg_data):
+        log_debug(1, "_update_package_data: %s, %s" % (crash_id, pkg_data))
+        # Older versions of abrt used to store the package info in a single 'package' file
+        if pkg_data and pkg_data.has_key('package'):
+            (n, e, v, r) = parseRPMName(pkg_data['package'])
+            h = rhnSQL.prepare(_query_update_pkg_data1)
+            r = h.execute(
+                crash_id = crash_id,
+                pkg_name = n,
+                pkg_epoch = e,
+                pkg_version = v,
+                pkg_release = r)
+            rhnSQL.commit()
+
+            return r
+
         for item in ['pkg_name', 'pkg_epoch', 'pkg_version', 'pkg_release', 'pkg_arch']:
             if not (pkg_data.has_key(item) and pkg_data[item]):
                 return 0
 
-        log_debug(1, "_update_package_data: %s, %s" % (crash_id, pkg_data))
-        h = rhnSQL.prepare(_query_update_pkg_data)
+        h = rhnSQL.prepare(_query_update_pkg_data2)
         r = h.execute(
             crash_id = crash_id,
             pkg_name = pkg_data['pkg_name'],
