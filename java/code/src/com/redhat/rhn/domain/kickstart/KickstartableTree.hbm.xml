@@ -81,7 +81,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k
 			where k.channel.id = :channel_id and (k.org is null or
         		k.org = :org_id)
-			order by k.label]]>
+			order by k.lastModified]]>
     </query>
 
     <query name="KickstartableTree.findAccessibleToOrg">
