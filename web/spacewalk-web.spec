@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.3
+Version: 1.10.4
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -263,6 +263,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Mar 12 2013 Jan Pazdziora 1.10.4-1
+- Methods packages_in_channel seem no longer used, removing.
+
 * Fri Mar 08 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.3-1
 - Fedora 19 does not provide /sbin/runuser
 
