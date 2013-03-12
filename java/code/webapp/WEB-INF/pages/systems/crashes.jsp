@@ -64,7 +64,8 @@
         <rl:column headerkey="lastModified" bound="false"
 			styleclass="thin-column"
             sortattr="modifiedObject"
-            sortable="true">
+            sortable="true"
+			defaultsort="desc">
             ${current.modified}
         </rl:column>
     </rl:list>

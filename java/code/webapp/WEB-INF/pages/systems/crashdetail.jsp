@@ -65,6 +65,7 @@
         <rl:column headerkey="crashes.jsp.filename" bound="false"
             sortattr="filename"
             sortable="true"
+			defaultsort="asc"
             filterattr="filename">
             <c:if test="${current.isUploaded}">
                 <a href="${current.downloadPath}">
