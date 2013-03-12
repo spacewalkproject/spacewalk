@@ -46,21 +46,3 @@ enable row movement
 create unique index rhn_org_conf_org_id
     on rhnOrgConfiguration (org_id)
     tablespace [[8m_tbs]];
-
-insert into rhnOrgConfiguration (
-    org_id,
-    staging_content_enabled,
-    crash_reporting_enabled,
-    crashfile_upload_enabled,
-    crash_file_sizelimit )
-(
-    select id,
-           staging_content_enabled,
-           'Y',
-           'Y',
-           crash_file_sizelimit
-      from web_customer
-);
-
-alter table web_customer drop staging_content_enabled;
-alter table web_customer drop crash_file_sizelimit;
