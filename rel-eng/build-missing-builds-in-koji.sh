@@ -1,11 +1,10 @@
 #!/bin/bash
 
 
-TAGS="spacewalk-nightly-rhel5 spacewalk-nightly-rhel6 spacewalk-nightly-fedora17 spacewalk-nightly-fedora18"
-FEDORA_UPLOAD=0
-
 pushd . >/dev/null
 pushd `dirname $0`/.. >/dev/null
+
+. rel-eng/build-missing-builds.conf
 
 # say python to be nice to pipe
 export PYTHONUNBUFFERED=1
@@ -22,7 +21,7 @@ done \
       (
       echo Building package in path $package_dir for $tags
       cd $package_dir && \
-          ONLY_TAGS="$tags" ${TITO_PATH}tito release koji
+          ONLY_TAGS="$tags" ${TITO_PATH}tito release $TITO_RELEASER
       )
     if [ "0$FEDORA_UPLOAD" -eq 1 ] ; then
       (
