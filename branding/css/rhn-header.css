@@ -79,15 +79,6 @@ span.navPipe {
 	padding: 0 10px;
 }
 
-a#utilityCart {
-	background-image: url(/img/nav/cart.gif);
-	background-position: top left;
-	background-repeat: no-repeat;
-	padding-left: 26px;
-	padding-bottom: 4px;
-	padding-top: 3px;
-}
-
 #utilityAccount a:link,
 #utilityAccount a:hover,
 #utilityAccount a:active,
