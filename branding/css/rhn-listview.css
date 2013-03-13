@@ -14,10 +14,6 @@ table.list, table.list-doubleheader {
         width: 100%;
 }
 
-table.list-pagination {
-        font-size: smaller;
-}
-
 table.list-doubleheader tr + tr {
   background-color: #d7d7d7;
 }
@@ -29,9 +25,6 @@ table.list-doubleheader tr + tr th:first-child {
 
 table.list-doubleheader tr + tr th:last-child {
     background: none;
-}
-td.errata-patches img {
-    padding-left: 6px;
 }
 
 th.thin-column, td.thin-column {
@@ -60,10 +53,6 @@ th.thin-column, td.thin-column {
     color: #999;
 }
 
-.option-disabled {
-    color: #999;
-}
-
 /* list row classes */
 .list-row-even td {
         background-color: #eae8e4;
@@ -71,48 +60,11 @@ th.thin-column, td.thin-column {
 .list-row-odd td {
         background-color: #ffffff;
 }
-.list-row-even-disabled td {
-    color: #808080;
-    background-color: #eae8e4;
-}
-.list-row-odd-disabled td {
-    color: #808080;
-    background-color: #ffffff;
-}
-.list-row-even-disabled a, .list-row-odd-disabled a {
-    color: #5397C6;
-}
-.list-row-summary {
-        text-align: right;
-        font-weight: bold;
-        border: 1px solid #ccc;
-        background-color: #eee;
-}
 
-.list-row-even td, .list-row-odd td, .list-row-summary td,
-.list-row-even-disabled td, .list-row-odd-disabled td,
+.list-row-even td, .list-row-odd td,
 .list-row-virtual-host-even td, .list-row-virtual-host-odd td,
 .list-row-virtual-even td, .list-row-virtual-odd td
 {
-        padding: 4px 8px;
-}
-
-.list-horiz-separator hr {
-        border: 0;
-        border-bottom: 1px solid #ccc;
-        padding: 0px;
-}
-
-/* default class def for row color toggling */
-.list-row-even-selected {
-        background-color: #dde5ff;
-}
-.list-row-odd-selected {
-        background-color: #dde5ff;
-}
-
-.list-row-odd-selected td, .list-row-even-selected td {
-        border-bottom: 1px solid #ccc;
         padding: 4px 8px;
 }
 
@@ -156,20 +108,6 @@ table.half-table {
         width: 97%;
 }
 
-half-table td {
-        background-color: #fff;
-}
-
-table.your-rhn table.half-table td {
-  padding: 2px 8px;
-}
-
-table.your-rhn table.full-table td {
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-top: 4px;
-}
-
 div.full-width-wrapper {
     clear: both;
     padding-top: 30px;
@@ -189,70 +127,6 @@ th + th {
 }
 a[name]:hover {
         color: inherit;
-}
-
-/* pagination widget styles */
-#pagination_widget {
-    display: inline;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-#pagination_widget img {
-    border:           none;
-    vertical-align:   -25%;
-}
-
-#pagination_widget a.back_button {
-    margin-right: -5px;
-}
-#pagination_widget a.forward_button {
-    margin-left: -4px;
-}
-
-#pagination_widget a, span.current_page {
-    border:     1px solid #777;
-    height:           19px;
-    width:            22px;
-    font-family:      Helvetica, Verdana, sans-serif;
-    font-size:        10pt;
-    font-weight:      bold;
-    color:            #0066cc;
-    padding:          0 2px 0 2px;
-    margin:           0 -5px 0 -3px;
-    text-decoration:  none;
-}
-
-#pagination_widget span.current_page {
-    background-color: #ccc;
-    color:            #777;
-    font-weight:      bold;
-}
-
-#pagination_widget a.first_page { margin-left: -3px;}
-#pagination_widget a.last_page { margin-right: -3px;}
-#pagination_widget a.back_button { border: none;}
-#pagination_widget a.forward_button { border: none;}
-
-.pagination-submit {
-    background-color: #fff;
-    border: 1px solid #777;
-    color: #0066cc;
-    font-weight: bold;
-    display: inline;
-    margin: 0 -1px 0 0;
-}
-.pagination-submit:hover {
-    cursor: pointer; /* so they look like links ;) */
-    background-color: #eef3ff;
-}
-.pagination-arrow-prev input {
-  margin: 0 -4px -4px 0;
-  border: none;
-}
-.pagination-arrow-next input {
-  margin: 0 0 -4px -3px;
-  border: none;
 }
 
 /* --- TABLE TREE VIEW --- */
@@ -292,9 +166,6 @@ table.list-pagination {
 }
 
 /** filterbox styles **/
-.list-filterbox {
-        font-size: 10px;
-}
 
 div.filter-input table {
   width: 100%;
@@ -326,12 +197,6 @@ div.filter-input input {
         padding: 0px 2px;
         color:  #aaa;
         cursor: default;
-}
-.list-box {
-        border: 1px solid #ccc;
-}
-.list-data-number {
-        text-align: right;
 }
 
 .list-navbuttons {
@@ -384,54 +249,6 @@ ul.channel-list li.highlighted {
         background-color: yellow;
 }
 
-.list-system-channels a {
-}
-.list-system-channels ul {
-        padding: 0;
-        margin: 0;
-        margin-left: -18px;
-}
-.list-system-channels li {
-        list-style-image: url("/img/rhn-bullet-parentchannel.gif");
-}
-.list-system-channels li + li {
-        padding-top: 0;
-}
-
-.list-system-channels li + li li {
-        padding-top: 0;
-}
-.list-system-channels li li {
-        list-style-image: url("/img/rhn-bullet-childchannel.gif");
-}
-
-/** iso list styles **/
-
-.list-iso th {
-        border-width: 0 0 1px 0;
-}
-.list-iso th + th {
-        border-left: 1px solid #ccc;
-}
-.list-iso td.seperated {
-        border-top: 1px solid #ccc;
-        font-weight: bold;
-}
-.list-iso {
-        font-size: 10px;
-        border: 1px solid #999;
-        padding: 1px;
-}
-.list-iso-item {
-        margin-left: 1em;
-}
-.list-iso-item {
-        color: #555;
-}
-.list-iso-item + .list-iso-item {
-        margin-top: 0.05em;
-}
-
 table.namespace-control {
   padding:  4px;
 }
@@ -449,38 +266,14 @@ table.namespace-control {
         vertical-align:  middle;
 }
 
-/* existing Spacewalk STYLES - modded - these need to be inserted carefully */
-
-table.iso_dl {
-    border-collapse: collapse;
-}
-
-table.iso_dl td {
-    padding: 4px;
-}
-
-table.iso_dl th {
-    color: #999;
-    background-color: #eee;
-    border:  1px solid #999;
-    padding: 6px 3px;
-    text-align: right;
-}
-
-table.iso_dl th.first {
-    text-align: left;
-}
-
 th {
         padding: 4px 6px;
         color: #fff;
-   /* background-color: #c0c0c0; */
         text-align: left;
         font-size: small;
 }
 
 /* --- Cool list sorting stuffs --- */
-
 
 /* the following classes darken all rows in the currently-sorted column */
 .list-row-even td.sortedCol  {
