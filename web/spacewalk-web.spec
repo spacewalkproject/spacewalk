@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.4
+Version: 1.10.5
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -263,6 +263,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Mar 13 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.5-1
+- removing unused styles and refactoring blue-nav-top.css and adjacent files
+
 * Tue Mar 12 2013 Jan Pazdziora 1.10.4-1
 - Methods packages_in_channel seem no longer used, removing.
 
