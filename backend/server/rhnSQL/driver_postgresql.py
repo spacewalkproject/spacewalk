@@ -154,7 +154,7 @@ class Database(sql_base.Database):
         if not (self.username and self.database):
             raise AttributeError, "PostgreSQL requires at least a user and database name."
 
-        sql_base.Database.__init__(self, host, port, username, password, database)
+        sql_base.Database.__init__(self)
 
     def connect(self, reconnect=1):
         try:

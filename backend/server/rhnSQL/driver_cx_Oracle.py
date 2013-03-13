@@ -365,7 +365,7 @@ class Database(sql_base.Database):
         if not (username and password and database):
             raise AttributeError, "A valid Oracle username, password, and SID are required."
 
-        sql_base.Database.__init__(self, host, port, username, password, database)
+        sql_base.Database.__init__(self)
 
         self.username = username
         self.password = password

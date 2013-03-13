@@ -298,8 +298,7 @@ class Database:
     _procedure_class = Procedure
     TimestampFromTicks = None
 
-    def __init__(self, host=None, port=None, username=None,
-        password=None, database=None):
+    def __init__(self):
         pass
 
     def connect(self, reconnect=1):
