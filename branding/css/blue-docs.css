@@ -1,33 +1,5 @@
 /* Styles that are specific to RHN documentation pages **/
 
-table.WARNING tr th b, table.NOTE tr th b, table.TIP tr th b, table.IMPORTANT tr th b, table.CAUTION tr th b { color: #333; }
-
-table.CALSTABLE {
-  border-radius: 10px;
-  padding: 5px 0px 5px 0px;
-  border: none;
-  background-color: #f1EBDC;
-}
-
-table.CALSTABLE th { color: #333; }
-
-table.CALSTABLE td, table.CALSTABLE th {
-  border: none;
-  padding: 0px 10px 5px 10px;
-  vertical-align: middle;
-}
-
-table.CALSTABLE td {
-  padding-top: 5px;
-  border-top: 1px solid white;
-}
-
-table.CALSTABLE td + td, table.CALSTABLE td + td + td, table.CALSTABLE th + th, table.CALSTABLE th + th + th {
-  padding-left: 12px;
-  border-left: 1px solid white;
-}
-
-
 /*** mizmo new docs style overrides ***/
 
 .variablelist dd { padding-bottom: 3ex; }
@@ -252,8 +224,6 @@ div.important h2{background-image:url(../images/important.png)}
 .section .table table table
 {border:1px solid white !important;font-size:.9em;}
 
-
-td.remarkval{font-size:.9em;color:#444;}
 .defaultval{font-size:.8em}
 td.typeval{font-size:.8em}
 
@@ -262,7 +232,7 @@ td.fieldval{font-weight:bold; font-size:.9em;}
 th.dbkey{font-size:.9em;}
 
 .lbname,.lbtype,.lbdescr,.lbdriver,.lbhost{color:white;font-weight:bold;background-color:#999;font-size:0.9em;width:120px;}
-td.remarkval{width:230px;}
+
 
 td.tname{font-weight:bold;font-size:1.1em;}
 h5{font-size:9pt;}
@@ -288,8 +258,6 @@ span.chapter{display:block;margin-top:0.5em;}
 .alpha2{background: white url(../images/watermark-alpha2.png) top left repeat;}
 .beta1{background: white url(../images/watermark-beta1.png) top left repeat;}
 .beta2{background: white url(../images/watermark-beta2.png) top left repeat;}
-.pre-release-candidate{background: white url(../images/watermark-pre-release-candidate.png) top left repeat;}
-.release-candidate{background: white url(../images/watermark-release-candidate.png) top left repeat;}
 
 /*index*/
 .glossary h3,
@@ -337,8 +305,6 @@ div.warning .keycap
 {color:white;}
 div.abstract{font-size:larger;}
 
-.authorgroup {}
-.authorgroup h4{padding:0em; margin:0em;margin-top:1em;}
 .author, .editor, .translator, .othercredit{display:block;}
 
 ul li p:last-child{margin-bottom:0em; padding-bottom:0em;}
