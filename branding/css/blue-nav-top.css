@@ -76,7 +76,7 @@ li#mainFirst-active,
 div#mainNavWrap ul li#main-active,
 div#mainNavWrap ul li#mainLast-active {
         border-radius: 10px 10px 0 0 ;
-        background-color: #484848;
+        background-color: #383838;
 }
 
 li#mainFirst-active a,
@@ -94,7 +94,7 @@ div#mainNavWrap ul li#mainFirst-active a {
         color: #fff;
 }
 
-.button, div#searchbar div#searchbarinner form input.button {
+.button, div#searchbar form input.button {
   font-size: small;
   background-color: #eee;
   border: 2px outset #bbb;
@@ -121,54 +121,19 @@ div#mainNavWrap ul li#mainFirst-active a {
     visibility: hidden;
     }
 
-    /* Holly Hack Targets IE Win only \*/
-  * html #utility,
-    * html #header,
-    * html #navWrap  {height: 1%;}
-    /* End Holly Hack */
-
 /**** SECONDARY TOP NAV BAR ****/
 /* This CSS is for the second, red-colored nav bar at the top of the screen. */
 #bar {
-/* red
-	background-color: #ab0000;
-*/
-
-	background-color: #696969;
-	background-image: url(/img/nav/navSecondBkgd-blue.png);
-	background-position: top left;
-	background-repeat: repeat-x;
-/* NEED TO REMOVE THIS MARGIN FOR SPACEWALK STYLE
-        margin-bottom: 10px;
-*/
+	background-color: #383838;
 	color: white;
-}
-
-#bar:after {
-    content: ".";
-    display: block;
-    height: 0px;
-    overflow: hidden;
-    clear: both;
-    visibility: hidden;
-}
-
-#systembar {
-	width: 100%;
-}
-
-#systembarinner {
         text-align: right;
         padding-right: 6px;
-	height: 2em;
-}
-
-#systembarinner div {
+        height: 2em;
         font-variant: small-caps;
         padding-top: 4px;
 }
 
-#systembar a, #systembar a:link, #systembar a:hover, #systembar a:active {
+#bar a, #bar a:link, #bar a:hover, #bar a:active {
 	margin-left: 6px;
         color: #444;
         text-decoration: none;
@@ -179,14 +144,4 @@ div#mainNavWrap ul li#mainFirst-active a {
 	margin-right: 10px;
         width: 500px;
 	clear: right;
-}
-
-#searchbarinner {
-	float: right;
-	text-align: right;
-}
-
-#systembarinner form,
-#searchbarinner form {
-        margin: 0;
 }

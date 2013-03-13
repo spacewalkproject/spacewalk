@@ -7,11 +7,7 @@
 
 <div id="bar">
 
-<div id="systembar">
-<div id="systembarinner">
 <pxt-include file="/network/components/status_bar/ssm.pxi" />
-</div>
-</div>
 
 </div>
 <!-- close bar -->

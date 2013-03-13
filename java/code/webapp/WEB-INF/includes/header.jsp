@@ -49,7 +49,6 @@
         </a>
       <rhn:require acl="user_authenticated()">
  <div id="searchbar">
-    <div id="searchbarinner">
       <form name="form1" action="/rhn/Search.do" method="get">
       <select name="search_type">
       <rhn:require acl="org_entitlement(sw_mgr_enterprise)">
@@ -61,7 +60,6 @@
       </select><input type="text" name="search_string" maxlength="40" size="20" accesskey="4" autofocus="autofocus"/>
       <input type="hidden" name="submitted" value="true"/>
       <input type="submit" class="button" name="image-1" value="Search" align="top" /></form>
-    </div>
   </div>
 	</rhn:require>
 
@@ -84,9 +82,6 @@
 </div> <!-- close div navWrap -->
 
 <div id="bar">
-  <div id="systembar">
-    <div id="systembarinner">
-      <div>
       <rhn:require acl="user_authenticated()">
         <span id="header_selcount">
           <rhn:setdisplay user="${requestScope.session.user}"/>
@@ -110,9 +105,6 @@
         <bean:message key="clear"/>
         </a>
       </rhn:require>
-      </div>
-    </div>
-  </div>
 </div> <!-- end div bar -->
 <!-- end header.jsp -->
 
