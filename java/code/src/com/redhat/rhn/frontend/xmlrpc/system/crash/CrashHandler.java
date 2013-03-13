@@ -45,7 +45,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,7 +69,7 @@ public class CrashHandler extends BaseHandler {
     }
 
     /**
-     * Return date of last software crashes report for given system.
+     * Return crash count information
      * @param sessionKey Session key
      * @param serverId Server ID
      * @return Date of the last software crash report.
@@ -78,56 +77,38 @@ public class CrashHandler extends BaseHandler {
      * @xmlrpc.doc Return date of last software crashes report for given system
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
-     * @xmlrpc.returntype dateTime.iso8601 - Date of the last software crash report.
+     * @xmlrpc.returntype
+     *     #struct("Crash Count Information")
+     *         #prop_desc("int", "total_count",
+     *                    "Total number of software crashes for a system")
+     *         #prop_desc("int", "unique_count",
+     *                    "Number of unique software crashes for a system")
+     *         #prop_desc("dateTime.iso8601", "last_report",
+     *                    "Date of the last software crash report")
+     *     #struct_end()
      */
-    public Date getLastReportDate(String sessionKey, Integer serverId) {
+    public Map getCrashCountInfo(String sessionKey, Integer serverId) {
         User loggedInUser = getLoggedInUser(sessionKey);
         XmlRpcSystemHelper sysHelper = XmlRpcSystemHelper.getInstance();
         Server server = sysHelper.lookupServer(loggedInUser, serverId);
 
-        CrashCount crashCount = getCrashCount(server);
-        return crashCount.getLastReport();
-    }
+        Map returnMap = new HashMap();
+        CrashCount crashCount = null;
 
+        try {
+            crashCount = getCrashCount(server);
+        }
+        catch (NoCrashesFoundException e) {
+            returnMap.put("total_count", 0);
+            returnMap.put("unique_count", 0);
+            return returnMap;
+        }
 
-    /**
-     * Return number of unique software crashes for given system.
-     * @param sessionKey Session key
-     * @param serverId Server ID
-     * @return Number of unique software crashes.
-     *
-     * @xmlrpc.doc Return number of unique software recorded crashes for given system
-     * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "serverId")
-     * @xmlrpc.returntype int - Number of unique software crashes
-     */
-    public long getUniqueCrashCount(String sessionKey, Integer serverId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-        XmlRpcSystemHelper sysHelper = XmlRpcSystemHelper.getInstance();
-        Server server = sysHelper.lookupServer(loggedInUser, serverId);
+        returnMap.put("total_count", crashCount.getTotalCrashCount());
+        returnMap.put("unique_count", crashCount.getUniqueCrashCount());
+        returnMap.put("last_report", crashCount.getLastReport());
 
-        CrashCount crashCount = getCrashCount(server);
-        return crashCount.getUniqueCrashCount();
-    }
-
-    /**
-     * Return total number of software recorded crashes for given system.
-     * @param sessionKey Session key
-     * @param serverId Server ID
-     * @return Total number of recorded software crashes.
-     *
-     * @xmlrpc.doc Return total number of software recorded crashes for given system
-     * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "serverId")
-     * @xmlrpc.returntype int - Total number of recorded software crashes
-     */
-    public long getTotalCrashCount(String sessionKey, Integer serverId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-        XmlRpcSystemHelper sysHelper = XmlRpcSystemHelper.getInstance();
-        Server server = sysHelper.lookupServer(loggedInUser, serverId);
-
-        CrashCount crashCount = getCrashCount(server);
-        return crashCount.getTotalCrashCount();
+        return returnMap;
     }
 
     /**
