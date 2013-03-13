@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.11
+Version: 1.10.12
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 13 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.12-1
+- removing unused styles and refactoring blue-nav-top.css and adjacent files
+- abrt: merge 3 original calls into one
+
 * Tue Mar 12 2013 Stephen Herr <sherr@redhat.com> 1.10.11-1
 - 920813 - update to latest tree, not alphabetically last tree
 - apidoc fixes
