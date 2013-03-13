@@ -143,7 +143,7 @@ class Database(sql_base.Database):
             self.port = port
 
         # pgsql module prefers -1 for an unspecified port:
-        if not port:
+        if not self.port:
             self.port = -1
 
         self.username = username
