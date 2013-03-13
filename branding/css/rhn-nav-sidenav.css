@@ -18,26 +18,15 @@
 #sidenavp ul ul, #sidenav ul li.navchild {
         background: none;
         background-color: #ccc;
-        margin: 0;
-        padding: 0;
         border-top: 1px solid #999;
 }
 
 #sidenavp ul li, #sidenav ul li.navparent {
         border-bottom: 1px solid #a7a7a7;
-        margin: 0;
-}
-
-#sidenavp ul li:last-child, #sidenav ul li:last-child {
-        border-bottom: 1px solid #999;
 }
 
 #sidenavp ul ul li.sidenav-selected, #sidenav ul li.sidenav-selected {
         background: #6c6c6c;
-}
-
-#sidenavp ul li.sidenav-selected span, #sidenav ul li.sidenav-selected span {
-        display: none;
 }
 
 #sidenavp ul li a, #sidenav ul li a {
@@ -45,7 +34,6 @@
         color: white;
         text-decoration: none;
         padding: 3px 5px 3px 15px;
-        margin: 0;
 }
 
 #sidenavp ul li.sidenav-selected, #sidenav ul li.sidenav-selected {
@@ -115,38 +103,3 @@
         padding: 10px 0 0 0;    /* changed padding parameters */
         vertical-align: top;
 }
-.sidebar-title {
-        color: #999;
-        font-size: 10px;
-        text-align: center;
-        border-bottom: 1px solid #ccc;
-}
-.sidebar-links {
-        font-size: 10px;
-        margin: 0;
-        padding: 0 0 0 15pt;
-        color: #999;
-}
-.sidebar-title + .sidebar-links {
-        margin-top: -0.5em;
-}
-
-.sidebar-info {
-  padding: 4px 4px;
-}
-
-.sidebar-info h2 {
-  padding-left: 10px;
-  margin: 4px;
-}
-
-.legend-row {
-  padding: 0px 2px;
-  white-space: nowrap;
-}
-.legend-row img {
-  vertical-align: middle;
-  margin: 3px 4px;
-  padding: 0;
-}
-
