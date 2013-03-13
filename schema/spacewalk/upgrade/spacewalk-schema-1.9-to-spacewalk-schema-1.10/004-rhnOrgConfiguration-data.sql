@@ -27,6 +27,3 @@ insert into rhnOrgConfiguration (
            crash_file_sizelimit
       from web_customer
 );
-
-alter table web_customer drop staging_content_enabled;
-alter table web_customer drop crash_file_sizelimit;
