@@ -16420,19 +16420,19 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
       <trans-unit id="crashes.jsp.details.summary">
         <source>Below are the Software Crash details.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
+          <context context-type="sourcefile">/rhn/systems/details/SoftwareCrashDetail.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="crashes.jsp.delete">
         <source>Delete Software Crash</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
+          <context context-type="sourcefile">/rhn/systems/details/SoftwareCrashDetail.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="crashes.jsp.delete.summary">
         <source>Software Crash will be deleted.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
+          <context context-type="sourcefile">/rhn/systems/details/SoftwareCrashDelete.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="crashes.jsp.path">
