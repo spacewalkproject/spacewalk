@@ -1,8 +1,7 @@
-%define third_party_jars servletapi5
 Summary: An xmlrpc library
 Name: redstone-xmlrpc
 Version: 1.1_20071120 
-Release: 9%{?dist}
+Release: 12%{?dist}
 License: LGPL
 Group: Development/Library
 URL: http://xmlrpc.sourceforge.net
@@ -11,11 +10,18 @@ Patch0: build-classpath.patch
 Patch1: fault_serialization.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: jpackage-utils >= 0:1.5
+%if 0%{?rhel} <= 5
 BuildRequires: servletapi5
-BuildRequires: ant
-BuildRequires: java-devel >= 1.6.0
-BuildArch: noarch
 Requires: servletapi5
+%define third_party_jars servletapi5
+%else
+BuildRequires: tomcat6-servlet-2.5-api
+Requires: tomcat6-servlet-2.5-api
+%define third_party_jars tomcat6-servlet-2.5-api
+%endif
+BuildRequires: ant
+BuildRequires: java-devel >= 1:1.6.0
+BuildArch: noarch
 Obsoletes: marquee-xmlrpc
 
 %description 
@@ -48,8 +54,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}
 
 %changelog
-* Fri Jan 18 2013 Michael Mraka <michael.mraka@redhat.com> 1.1_20071120-9
-- rebuild redstone-xmlrpc from git
+* Wed Aug 11 2010 Shannon Hughes <shughes@redhat.com> 1.1_20071120-12
+- fix build jar for rhel6 (shughes@redhat.com)
+
+* Wed Aug 11 2010 Shannon Hughes <shughes@redhat.com> 1.1_20071120-11
+- reference the tomcat6 api rpm for rhel6 (shughes@redhat.com)
+
+* Tue Aug 10 2010 Shannon Hughes <shughes@redhat.com> 1.1_20071120-10
+- updated redstone-xmlrpc for rhel6 (shughes@redhat.com)
+
+* Tue Aug 10 2010 Shannon Hughes <shughes@redhat.com>
+- update java-devel epoch
 
 * Mon May 18 2009 Dennis Gilmore <dgilmore@redhat.com> 1.1_20071120-8
 - rebuild in new git tree
