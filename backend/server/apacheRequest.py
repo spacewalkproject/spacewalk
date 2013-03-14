@@ -264,27 +264,35 @@ class apacheRequest:
 
         # send the headers
         self.req.send_http_header()
-        # and the file
-        read = 0
-        while read < response_size:
-            # We check the size here in case we're not asked for the entire file.
-            if (read + CFG.BUFFER_SIZE > response_size):
-                to_read = read + CFG.BUFFER_SIZE - response_size
-            else:
-                to_read = CFG.BUFFER_SIZE
-            buf = response.read(CFG.BUFFER_SIZE)
-            if not buf:
-                break
-            try:
-                self.req.write(buf)
-                read = read + CFG.BUFFER_SIZE
-            except IOError:
-                if xrepcon:
-                    # We're talking to a proxy, so don't bother to report
-                    # a SIGPIPE
-                    break
-                return apache.HTTP_BAD_REQUEST
-        response.close()
+
+        if self.req.headers_in.has_key("Range"):
+	    # and the file
+	    read = 0
+	    while read < response_size:
+		# We check the size here in case we're not asked for the entire file.
+		if (read + CFG.BUFFER_SIZE > response_size):
+		    to_read = read + CFG.BUFFER_SIZE - response_size
+		else:
+		    to_read = CFG.BUFFER_SIZE
+		buf = response.read(CFG.BUFFER_SIZE)
+		if not buf:
+		    break
+		try:
+		    self.req.write(buf)
+		    read = read + CFG.BUFFER_SIZE
+		except IOError:
+		    if xrepcon:
+			# We're talking to a proxy, so don't bother to report
+			# a SIGPIPE
+			break
+		    return apache.HTTP_BAD_REQUEST
+	    response.close()
+        else:
+            if 'wsgi.file_wrapper' in self.req.headers_in:
+		self.req.output = self.req.headers_in['wsgi.file_wrapper'](response, CFG.BUFFER_SIZE)
+	    else:
+		self.req.output = iter(lambda: response.read(CFG.BUFFER_SIZE), '')
+
         return success_response
 
     # send the response (common code)
