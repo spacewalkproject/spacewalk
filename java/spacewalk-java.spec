@@ -130,7 +130,6 @@ BuildRequires: checkstyle
 %endif
 
 # Sadly I need these to symlink the jars properly.
-BuildRequires: asm
 BuildRequires: bcel
 BuildRequires: c3p0
 BuildRequires: concurrent
