@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.10.5
+Version:    1.10.6
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -88,6 +88,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Mar 14 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.6-1
+- removing unused styles from rhn-basic.css
+- removing unused styles from blue-docs.css
+
 * Wed Mar 13 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.5-1
 - removing unused styles and refactoring blue-nav-top.css and adjacent files
 - removing unused styles from rhn-header.css
