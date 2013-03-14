@@ -870,16 +870,19 @@ def export_configchannel_getdetails(self, channel):
             # i.e binary or non-xml encodable ascii files can be exported as
             # base64 encoded
             if not f.has_key('contents'):
-                if not self.check_api_version('11.1'):
-                    logging.warning("File %s could not be exported " % f['path'] +\
-                                        "with this API version(needs base64 encoding)")
+                if f['type'] == 'directory':
+                    f['contents'] = ''
                 else:
-                    logging.info("File %s could not be exported as" % f['path'] +\
-                                     " text...getting base64 encoded version")
-                    b64f = self.client.configchannel.getEncodedFileRevision(\
-                        self.session, channel, f['path'], f['revision'])
-                    f['contents'] = b64f['contents']
-                    f['contents_enc64'] = b64f['contents_enc64']
+                    if not self.check_api_version('11.1'):
+                        logging.warning("File %s could not be exported " % f['path'] +\
+                                            "with this API version(needs base64 encoding)")
+                    else:
+                        logging.info("File %s could not be exported as" % f['path'] +\
+                                         " text...getting base64 encoded version")
+                        b64f = self.client.configchannel.getEncodedFileRevision(\
+                            self.session, channel, f['path'], f['revision'])
+                        f['contents'] = b64f['contents']
+                        f['contents_enc64'] = b64f['contents_enc64']
 
         for k in [ 'channel', 'revision', 'creation', 'modified', \
                        'permissions_mode', 'binary', 'md5' ]:
