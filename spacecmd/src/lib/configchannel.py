@@ -668,6 +668,10 @@ def do_configchannel_addfile(self, args, update_path=''):
                 if file_info.has_key('revision'):
                     del file_info['revision']
 
+            if options.directory:
+                if 'contents' in file_info:
+                    del file_info['contents']
+
             self.client.configchannel.createOrUpdatePath(self.session,
                                                          options.channel,
                                                          options.path,
