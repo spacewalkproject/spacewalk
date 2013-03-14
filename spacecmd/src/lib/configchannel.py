@@ -412,7 +412,6 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
 
         if not options.owner: options.owner = 'root'
         if not options.group: options.group = 'root'
-        if not options.mode: options.mode = '0644'
 
         # if this is a new file, ask if it's a symlink
         if not options.symlink:
@@ -437,6 +436,12 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
                 options.directory = True
             else:
                 options.directory = False
+
+            if not options.mode:
+                if options.directory:
+                    options.mode = '0755'
+                else:
+                    options.mode = '0644'
 
             owner_input = prompt_user('Owner [%s]:' % options.owner)
             group_input = prompt_user('Group [%s]:' % options.group)
