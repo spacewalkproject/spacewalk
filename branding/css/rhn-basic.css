@@ -206,15 +206,6 @@ div.toolbar {
         text-decoration: none;
 }
 
-div.tooldiv.up-arrow {
-        vertical-align: middle;
-        font-weight: normal;
-        font-size: 12px;
-        color: #999;
-        float: left;
-        margin: 0 2%;
-        white-space: nowrap;
-}
 .up-arrow img {
         border: none;
         padding: 0 2px 4px 2px;
@@ -238,13 +229,6 @@ div.tooldiv.up-arrow {
 select, input, textarea {
         font-family: sans-serif;
         font-size: 100%;
-}
-
-.invisible-buttons input {
-        font-size: 10px;
-}
-.invisible-buttons input:hover {
-        color: #f00;
 }
 
 div.formrow {
@@ -394,30 +378,6 @@ a:link.link-button, a:visited.link-button, a:hover.link-button {
   padding-right: 2%;
 }
 
-/** embedded help links **/
-
-.rhn-embedded-help-NAVHEADER td {
-  padding: 0 2em;
-}
-
-.rhn-embedded-help-TOC {
-  padding: 0 4em;
-}
-
-div.rhn-embedded-help {
-  padding: 6px 20px 6px 20px;
-}
-
-.rhn-embedded-help-NAVHEADER th {
-  margin-top: 0;
-  padding-bottom: 1em;
-  font-size: 20px;
-  border: 0;
-  background-color: #fff;
-  color: black;
-  text-align: left;
-}
-
 /** misc **/
 
 a.link-img:link img, a.link-img:visited img {
@@ -442,21 +402,9 @@ span.no-details {
         margin-left: 1em;
 }
 
-#broken-browser-warning {
-  text-align: center;
-  display: none;
-}
-
 table.twocolumn td {
         vertical-align: top;
         width:          50%;
-}
-code.line-of-code {
-  white-space: nowrap
-}
-
-ul.widespace li{
-        margin-bottom: 12px;
 }
 
 .action-summary-errata, .action-summary-package, .action-summary-config {
