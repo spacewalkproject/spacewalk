@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.5
+Version: 1.10.6
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -263,6 +263,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Mar 14 2013 Jan Pazdziora 1.10.6-1
+- Display package list on page history/event.pxt.
+- rhn-iecompat.css is never used - delete it
+
 * Wed Mar 13 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.5-1
 - removing unused styles and refactoring blue-nav-top.css and adjacent files
 
