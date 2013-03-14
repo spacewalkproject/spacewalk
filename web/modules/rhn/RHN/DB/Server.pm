@@ -599,8 +599,8 @@ sub server_event_package_action {
   my $sth = $dbh->prepare(<<EOS);
 SELECT PN.name ||
        CASE
-         WHEN PE.evr IS NULL THEN ''
-         WHEN PE.evr IS NOT NULL THEN ('-' || evr_t_as_vre_simple(PE.evr)) END
+         WHEN PE.id IS NULL THEN ''
+         ELSE '-' || evr_t_as_vre_simple(PE.evr) END
        AS NVRE,
        AP.id AS ACTION_PACKAGE_ID,
        PN.id || '|' || PE.id AS id_combo,
