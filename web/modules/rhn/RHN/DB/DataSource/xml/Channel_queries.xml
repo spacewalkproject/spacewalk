@@ -211,78 +211,6 @@ ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id), UACh.parent_or_s
   <elaborator name="visible_server_count"/>
 </mode>
 
-<mode name="all_channels_tree">
-  <query params="user_id">
-SELECT  UACh.channel_name NAME,
-        UACh.channel_id ID,
-        UACh.channel_depth AS DEPTH,
-        UACh.channel_arch_id,
-        UACh.current_members,
-        UACh.available_members,
-        (
-SELECT COUNT(DISTINCT CPN.name_id)
-  FROM rhnChannelNewestPackage CPN
- WHERE CPN.channel_id = UACh.channel_id
-        ) AS PACKAGE_COUNT,
-        UACh.parent_or_self_label,
-        UACh.channel_label,
-	1 show_all_results,
-        TO_CHAR(UACh.end_of_life, 'YYYY-MM-DD HH24:MI:SS') AS end_of_life,
-        CA.name AS CHANNEL_ARCH
-  FROM  rhnChannelArch CA, rhnUserAvailableChannels UACh
- WHERE  UACh.user_id = :user_id
-   AND  UACh.channel_arch_id = CA.id
-ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id), UACh.parent_or_self_id, UACh.channel_depth, UPPER(UACh.channel_name)
-  </query>
-  <elaborator name="visible_server_count"/>
-</mode>
-
-<mode name="kickstartable_base_channels">
-  <query params="org_id">
-SELECT ACh.channel_id,
-       ACh.channel_name,
-       ACh.channel_label,
-       C.org_id
-  FROM rhnAvailableChannels ACh,
-       rhnChannel C,
-       rhnChannelArch CA
- WHERE CA.id = ACh.channel_arch_id
-   AND CA.label IN ('channel-ia32', 'channel-x86_64', 'channel-ia64')
-   AND ACh.org_id = :org_id
-   AND ACH.channel_depth = 1
-   AND C.id = ACh.channel_id
-   AND (   C.org_id = :org_id
-        OR EXISTS (SELECT 1
-                     FROM rhnKickstartableTree KST
-                    WHERE KST.channel_id = C.id
-                      AND KST.org_id IS NULL
-		      ))
-ORDER BY rhn_channel.channel_priority(ACh.parent_or_self_id), ACh.parent_or_self_id, ACh.channel_depth, UPPER(ACh.channel_name)
-  </query>
-</mode>
-
-<mode name="token_channels_tree">
-  <query params="org_id">
-SELECT  ACh.channel_name NAME, ACh.channel_id ID, ACh.channel_depth AS DEPTH, 
-        NVL(C.org_id, 0) ORG_ID, C.parent_channel,
-        (SELECT CF.label
-           FROM rhnChannelFamilyMembers CFM, 
-                rhnChannelFamily CF
-          WHERE CF.id = CFM.channel_family_id
-            AND CFM.channel_id = ACh.channel_id) CHANNEL_FAMILY_LABEL,
-        (SELECT COUNT(C2.id)
-           FROM rhnChannel C2
-          WHERE C2.parent_channel = C.id) CHILDREN, ACh.parent_or_self_label, ACh.channel_label,
-        AT.label PACKAGING_TYPE
-  FROM  rhnArchType AT, rhnChannelArch CA, rhnChannel C, rhnAvailableChannels ACh
- WHERE  ACh.org_id = :org_id
-   AND  C.id = ACh.channel_id
-   AND  CA.id = C.channel_arch_id
-   AND  CA.arch_type_id = AT.id
-ORDER BY  rhn_channel.channel_priority(ACh.parent_or_self_id), ACh.parent_or_self_id, ACh.channel_depth, UPPER(ACh.channel_name)
-  </query>
-</mode>
-
 <mode name="owned_channels_tree">
   <query params="user_id">
 SELECT CTV.name, CTV.id, CTV.depth, CTV.channel_arch_id, C.org_id,
@@ -313,15 +241,6 @@ ORDER BY rhn_channel.channel_priority(CTV.parent_or_self_id), CTV.parent_or_self
 GROUP BY SC.channel_id
 </query>
 
-<mode name="base_channels_owned_by_org">
-  <query params="org_id">
-SELECT  C.id, C.label, C.name
-  FROM  rhnChannel C
- WHERE  C.parent_channel IS NULL
-   AND  C.org_id = :org_id
-  </query>
-</mode>
-
 <mode name="subscribable_channels">
   <query params="server_id, user_id, base_channel_id">
 SELECT  DISTINCT C.id,
@@ -339,76 +258,6 @@ SELECT  DISTINCT C.id,
    AND  C.id = CFM.channel_id
    AND  C.parent_channel IS NOT NULL
    AND  NOT EXISTS (SELECT 1 FROM rhnServerChannel WHERE server_id = :server_id AND channel_id = C.id)
-  </query>
-</mode>
-
-<mode name="tri_state_channel_list">
-  <query params="user_id">
-select distinct id, name, label, 1 may_subscribe from (
-select 	c.id,
-		c.name,
-		c.label
-from
-		rhnChannelFamilyMembers cfm,
-		rhnChannelFamily cf,
-		rhnServerChannelArchCompat scac,
-		rhnServer s,
-		rhnChannel c,
-		rhnServerChannel sc,
-		rhnUserServerPerms usp,
-		rhnSet st
-where	1=1
-	and st.user_id = :user_id
-	and st.label = 'system_list'
-	and st.element = s.id
-	and usp.user_id = :user_id
-	and st.element = usp.server_id
-	and st.element = sc.server_id
-	and sc.channel_id = c.parent_channel
-	and s.server_arch_id = scac.server_arch_id
-	and scac.channel_arch_id = c.channel_arch_id
-	and c.id = cfm.channel_id
-	and cfm.channel_family_id = cf.id
-	and cf.label not in ('rhn-satellite','rhn-proxy')
-	and rhn_channel.user_role_check(c.id, :user_id, 'subscribe')=1
-union all
-select	c.id,
-		c.name,
-		c.label
-from
-		rhnUserServerPerms usp,
-		rhnChannelFamily cf,
-		rhnChannelFamilyMembers cfm,
-		rhnChannel c,
-		rhnServerChannel sc,
-		rhnSet st
-where	st.user_id = :user_id
-	and st.label = 'system_list'
-	and st.element = sc.server_id
-	and sc.channel_id = c.id
-	and c.parent_channel is not null
-	and c.id = cfm.channel_id
-	and cfm.channel_family_id = cf.id
-	and cf.label not in ('rhn-satellite','rhn-proxy')
-	and rhn_channel.user_role_check(cfm.channel_id,:user_id,'subscribe')=1
-	and usp.user_id = :user_id
-	and st.element = usp.server_id
-)
-  </query>
-</mode>
-
-<mode name="can_subscribe_to_default_in_set">
-  <query params="user_id">
-SELECT C.id channel_id
-  FROM rhnChannel C,
-       rhnUserServerPerms USP,
-       rhnSet ST
- WHERE ST.user_id = :user_id
-   AND USP.user_id = :user_id
-   AND ST.label = 'system_list'
-   AND USP.server_id = ST.element
-   AND C.id = rhn_channel.guess_server_base(USP.server_id)
-   AND rhn_channel.user_role_check(c.id, :user_id, 'subscribe') = 1
   </query>
 </mode>
 

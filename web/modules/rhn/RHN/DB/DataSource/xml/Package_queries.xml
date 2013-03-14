@@ -1,29 +1,5 @@
 <datasource_modes>
 
-<mode name="name_by_provide">
-  <query params="org_id, cap_name">
-select * from (
-SELECT DISTINCT PN.name
- FROM rhnPackageName PN,
-      rhnPackage P,
-      rhnPackageProvides PP,
-      rhnPackageCapability PC
-WHERE PC.name = :cap_name
-  AND PC.id = PP.capability_id
-  AND PP.package_id = P.id
-  AND (P.org_id = :org_id OR EXISTS (
-          SELECT  1
-            FROM  rhnChannelPackage CP,
-                  rhnAvailableChannels AC
-           WHERE  AC.org_id = :org_id
-             AND  AC.channel_id = CP.channel_id
-             AND  CP.package_id = P.id))
-  AND P.name_id = PN.id
-) X
-ORDER BY UPPER(X.name)
-  </query>
-</mode>
-
 <mode name="snapshot_unservable_package_list">
   <query params="sid, ss_id, org_id">
 SELECT PN.id AS NAME_ID,
@@ -1350,55 +1326,6 @@ ORDER BY  UPPER(pn.name)
   </query>
 </mode>
 
-<mode name="system_all_available_packages">
-  <query params="sid">
-SELECT  pn.name AS NAME,
-        pn.name || '-' || full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS NVRE,
-        full_list.name_id || '|' || full_list.evr_id AS ID,
-        full_list.id AS REAL_ID
-  FROM  (
-         SELECT  p.name_id name_id, p.id, p.evr_id, max(pe.evr) evr
-           FROM  rhnPackageEVR PE, rhnPackage P,
-                 rhnChannelPackage CP, rhnServerChannel SC
-          WHERE  sc.server_id = :sid
-            AND  sc.channel_id = cp.channel_id
-            AND  cp.package_id = p.id
-            AND  p.evr_id = pe.id
-       GROUP BY  p.name_id, p.id, p.evr_id
-       ) full_list,
-       rhnPackageName pn
- WHERE  full_list.name_id = pn.id
-   AND  NOT EXISTS (SELECT 1
-                      FROM rhnServerPackage SP, rhnPackageEVR PE2
-                     WHERE SP.server_id = :sid
-                       AND SP.name_id = full_list.name_id
-                       AND SP.evr_id = PE2.id
-                       AND PE2.evr &gt;= full_list.evr)
-ORDER BY  UPPER(pn.name), full_list.evr
-  </query>
-</mode>
-
-<mode name="system_newest_available_package">
-  <query params="sid, name">
-SELECT  pn.name || '-' || full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS NVRE,
-        full_list.name_id || '|' || full_list.evr_id AS ID,
-        full_list.id AS REAL_ID
-  FROM  (
-         SELECT  p.name_id name_id, p.id, p.evr_id, max(pe.evr) evr
-           FROM  rhnPackageEVR PE, rhnPackage P,
-                 rhnChannelPackage CP, rhnServerChannel SC
-          WHERE  sc.server_id = :sid
-            AND  sc.channel_id = cp.channel_id
-            AND  cp.package_id = p.id
-            AND  p.evr_id = pe.id
-       GROUP BY  p.name_id, p.id, p.evr_id
-       ) full_list,
-       rhnPackageName pn
- WHERE  full_list.name_id = pn.id
-   AND  pn.name = :name
-  </query>
-</mode>
-
 <mode name="ssm_packages_for_upgrade">
   <query params="user_id">
 SELECT  P.id AS ID,
@@ -1505,114 +1432,6 @@ SELECT CP.package_id as ID,
    AND SC.server_id = :sid
    AND SC.channel_id = C.id
   </elaborator>
-</mode>
-
-<mode name="packages_by_name">
-<query params="package_name, org_id, channel_arch_ia32, channel_arch_ia64, channel_arch_x86_64">
-<!-- This uses an inline view to filter away the PE.evr since
-     DBD Oracle can't handle an Oracle object in the return results of a
-     query.
--->
-
-<!-- UGLY HACK, the use of the channel_arch_* params.  ugh.  NEEDS FIXING. -->
-SELECT NVREA, PACKAGE_ID, CHANNEL_NAME, CHANNEL_ID
-  FROM (SELECT DISTINCT
-               PE.evr AS EVR,
-               PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA,
-               C.name AS CHANNEL_NAME,
-               P.ID AS PACKAGE_ID,
-               C.id AS CHANNEL_ID
-          FROM rhnPackageArch PA,
-               rhnChannel C,
-               rhnPackageName PN,
-               rhnPackageEVR PE,
-               rhnPackage P,
-               rhnChannelPackage CP,
-               rhnAvailableChannels AC
-         WHERE AC.org_id = :org_id
-           AND PN.name = :package_name
-           AND PN.id = P.name_id
-           AND PE.id = P.evr_id
-           AND AC.channel_id = CP.channel_id
-           AND AC.channel_arch_id IN (SELECT id FROM rhnChannelArch WHERE label IN (:channel_arch_ia32,
-                                                                                    :channel_arch_ia64,
-                                                                                    :channel_arch_x86_64))
-           AND P.id = CP.package_id
-           AND C.id = AC.channel_id
-           AND PA.id = P.package_arch_id
-        )
-ORDER BY CHANNEL_NAME DESC, EVR DESC
-
-</query>
-</mode>
-
-<mode name="packages_by_name_smart">
-<query params="package_name, org_id">
-<!-- This uses an inline view to filter away the PE.evr since
-     DBD Oracle can't handle an Oracle object in the return results of a
-     query.
--->
-SELECT NVREA, PACKAGE_ID, CHANNEL_NAME, CHANNEL_ID
-  FROM (SELECT DISTINCT
-               PE.evr AS EVR,
-               PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA,
-               C.name AS CHANNEL_NAME,
-               P.ID AS PACKAGE_ID,
-               C.id AS CHANNEL_ID
-          FROM rhnPackageArch PA,
-               rhnChannel C,
-               rhnPackageName PN,
-               rhnPackageEVR PE,
-               rhnPackage P,
-               rhnChannelPackage CP,
-               rhnAvailableChannels AC
-         WHERE AC.org_id = :org_id
-           AND PN.name = :package_name
-           AND PN.id = P.name_id
-           AND PE.id = P.evr_id
-           AND AC.channel_id = CP.channel_id
-           AND AC.current_members > 0
-           AND P.id = CP.package_id
-           AND C.id = AC.channel_id
-           AND PA.id = P.package_arch_id
-        )
-ORDER BY CHANNEL_NAME DESC, EVR DESC
-</query>
-</mode>
-
-<mode name="packages_by_name_clabel">
-<query params="package_name, org_id">
-<!-- This uses an inline view to filter away the PE.evr since
-     DBD Oracle can't handle an Oracle object in the return results of a
-     query.
--->
-
-SELECT NVREA, PACKAGE_ID, CHANNEL_NAME, CHANNEL_ID
-  FROM (SELECT DISTINCT
-               PE.evr AS EVR,
-               PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA,
-               C.name AS CHANNEL_NAME,
-               P.ID AS PACKAGE_ID,
-               C.id AS CHANNEL_ID
-          FROM rhnPackageArch PA,
-               rhnChannel C,
-               rhnPackageName PN,
-               rhnPackageEVR PE,
-               rhnPackage P,
-               rhnChannelPackage CP,
-               rhnAvailableChannels AC
-         WHERE AC.org_id = :org_id
-           AND PN.name = :package_name
-           AND PN.id = P.name_id
-           AND PE.id = P.evr_id
-           AND AC.channel_id = CP.channel_id
-           AND AC.channel_label = 'redhat-linux-i386-8.0'
-           AND P.id = CP.package_id
-           AND C.id = AC.channel_id
-           AND PA.id = P.package_arch_id
-        )
-ORDER BY CHANNEL_NAME DESC, EVR DESC
-</query>
 </mode>
 
 <mode name="packages_associated_with_action">
@@ -1741,42 +1560,6 @@ ORDER BY PN.name, evr_t_as_vre_simple(PE2.evr) || '-' || PA.label
   </query>
 </mode>
 
-<mode name="channel_errata_full_intersection">
-  <query params="eid, cid">
-SELECT P.id,
-       PN.name AS NAME,
-       evr_t_as_vre_simple(PE.evr) || '-' || PA.label AS VERSION
-  FROM rhnPackageName PN,
-       rhnPackageEVR PE,
-       rhnPackageArch PA,
-       rhnChannelPackage CP,
-       rhnPackage P,
-       rhnErrataPackage EP
- WHERE EP.errata_id = :eid
-   AND CP.channel_id = :cid
-   AND EP.package_id = CP.package_id
-   AND P.id = EP.package_id
-   AND PE.id = P.evr_id
-   AND PA.id = P.package_arch_id
-   AND PN.id = P.name_id
-ORDER BY PN.name, evr_t_as_vre_simple(PE.evr) || '-' || PA.label
-  </query>
-</mode>
-
-<mode name="packages_only_in_channel">
-  <query params="cid, org_id">
-SELECT CP.package_id AS ID
-  FROM rhnChannelPackage CP, rhnPackage P
- WHERE CP.channel_id = :cid
-   AND NOT EXISTS(SELECT 1
-                    FROM rhnChannelPackage CP2
-                   WHERE CP2.package_id = CP.package_id
-                     AND CP2.channel_id != CP.channel_id)
-   AND P.id = CP.package_id
-   AND P.org_id = :org_id
-  </query>
-</mode>
-
 <mode name="missing_packages_for_session">
   <query params="">
 -- dummy
@@ -1786,32 +1569,6 @@ SELECT CP.package_id AS ID
 <mode name="missing_packages_for_sync">
   <query params="">
 -- dummy
-  </query>
-</mode>
-
-<mode name="latest_package_in_channel_tree">
-  <query params="user_id, cid, package_name">
-SELECT NEWEST.package_id AS id, NEWEST.channel_id
-  FROM (SELECT CP.package_id, CP.channel_id,
-               RANK() OVER (PARTITION BY P.name_id, P.package_arch_id ORDER BY PE.evr DESC) AS DEPTH
-          FROM rhnPackage P,
-               rhnPackageName PN,
-               rhnPackageEVR PE,
-               rhnChannelPackage CP,
-               rhnChannel C,
-               rhnUserAvailableChannels UAC
-          WHERE UAC.user_id = :user_id
-            AND UAC.channel_id = C.id
-            AND (C.id = :cid OR C.parent_channel = :cid)
-            AND CP.channel_id = C.id
-            AND CP.package_id = P.id
-            AND P.evr_id = PE.id
-            AND P.name_id = PN.id
-            AND PN.name = :package_name
-            AND UPPER(UAC.channel_label) NOT LIKE '%BETA%'
-            AND UPPER(UAC.channel_name) NOT LIKE '%BETA%'
-       ) NEWEST
-  WHERE NEWEST.depth = 1
   </query>
 </mode>
 

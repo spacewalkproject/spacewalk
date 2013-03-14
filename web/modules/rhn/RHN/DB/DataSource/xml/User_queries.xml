@@ -79,12 +79,4 @@ ORDER BY  UPPER(user_login), UIOO.user_id
 </query>
 
 
-<mode name="available_timezones">
-  <query params="">
-  SELECT id, olson_name OLSON, display_name DESCRIPTION
-    FROM rhnTimezone
-ORDER BY display_name
-  </query>
-</mode>
-
 </datasource_modes>

@@ -195,28 +195,6 @@ ORDER BY EARLIEST DESC
 
 
 
-<mode name="actions_for_system_named">
-  <query params="sid, action_name">
-SELECT SA.action_id AS ID,
-       TO_CHAR(A.earliest_action, 'YYYY-MM-DD HH24:MI:SS') AS SCHEDULED_FOR,
-       AType.label AS history_type,
-       AType.name AS history_type_name,
-       A.prerequisite AS prereq_aid,
-       A.name AS action_name,
-       AStat.name AS status
-  FROM rhnActionType AType,
-       rhnActionStatus AStat,
-       rhnAction A,
-       rhnServerAction SA
- WHERE SA.server_id = :sid
-   AND SA.action_id = A.id
-   AND A.name = :action_name
-   AND AType.id = A.action_type
-   AND AStat.id = SA.status
-ORDER BY A.created DESC, ID DESC
-  </query>
-</mode>
-
 <mode name="server_status">
   <query params="aid">
 SELECT SA.SERVER_ID AS ID,

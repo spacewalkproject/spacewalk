@@ -60,19 +60,6 @@ ORDER BY UPPER(COALESCE(X.SERVER_NAME, '(none)')), X.ID
 </mode>
 
 
-<mode name="custom_vals_for_server">
-  <query params="sid">
-SELECT CDK.id,
-       CDK.label AS key,
-       SCDV.value
-  FROM rhnCustomDataKey CDK,
-       rhnServerCustomDataValue SCDV
- WHERE SCDV.server_id = :sid
-   AND SCDV.key_id = CDK.id
-ORDER BY CDK.label
-  </query>
-</mode>
-
 <mode name="taggable_systems_in_set">
   <query params="user_id">
 select *
@@ -948,20 +935,6 @@ SELECT  DISTINCT S.id, S.name, O.id as ORG_ID, O.name ORG_NAME
   FROM  web_customer O, rhnServer S
  WHERE  upper(S.name) LIKE upper(:search_str)
    AND  S.org_id = O.id
-  </query>
-</mode>
-
-<mode name="systems_in_set_with_no_base_channel">
-  <query params="user_id">
-SELECT  DISTINCT ST.element AS ID
-  FROM  rhnSet ST
- WHERE  ST.user_id = :user_id
-   AND  ST.label = 'system_list'
-   AND  NOT EXISTS (SELECT  1
-                      FROM  rhnServerChannel SC, rhnChannel C
-                     WHERE  SC.server_id = ST.element
-                       AND  C.id = SC.channel_id
-                       AND  C.parent_channel IS NULL)
   </query>
 </mode>
 

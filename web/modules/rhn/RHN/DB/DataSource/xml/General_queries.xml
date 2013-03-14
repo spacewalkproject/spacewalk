@@ -173,22 +173,6 @@ ORDER BY KS.label, KS.id
   </query>
 </mode>
 
-<mode name="regtokens_for_kickstart_profile">
-  <query params="ksid">
-SELECT RT.id,
-       RT.org_id,
-       RT.user_id,
-       RT.note,
-       RT.usage_limit,
-       RT.deploy_configs
-  FROM rhnRegToken RT, rhnKickstartDefaultRegToken KDRT
- WHERE KDRT.kickstart_id = :ksid
-   AND RT.id = KDRT.regtoken_id
-   AND RT.disabled = 0
-   AND RT.server_id IS NULL
-  </query>
-</mode>
-
 <mode name="regtokens_for_kickstart_session">
   <query params="kssid">
 SELECT RT.id,
@@ -221,17 +205,6 @@ SELECT KSIPR.kickstart_id, KS.label AS KICKSTART_NAME, KSIPR.min,
   FROM rhnKickstartIPRange KSIPR, rhnKSData KS
  WHERE KSIPR.org_id = :org_id
    AND KS.id = KSIPR.kickstart_id
-ORDER BY KSIPR.min
-  </query>
-</mode>
-
-<mode name="org_ks_ip_ranges_for_ip">
-  <query params="org_id, ip">
-SELECT KSIPR.kickstart_id, KSIPR.org_id, KSIPR.min, KSIPR.max
-  FROM rhnKickstartIPRange KSIPR
- WHERE KSIPR.org_id = :org_id
-   AND KSIPR.min &lt;= :ip
-   AND KSIPR.max &gt;= :ip
 ORDER BY KSIPR.min
   </query>
 </mode>
@@ -283,30 +256,6 @@ SELECT KSH.id, A.name AS action_name, AT.name AS action_type
   </elaborator>
 </mode>
 
-<mode name="kickstart_sessions_for_system">
-  <query params="sid">
-  SELECT KSS.id,
-         KSS.kickstart_id,
-         KSS.org_id,
-         KSS.old_server_id,
-         KSS.new_server_id,
-         KSS.state_id,
-         KSSS.label AS state_label,
-         KSSS.name AS state_name,
-         KSS.action_id,
-         TO_CHAR((SELECT MAX(time)
-                    FROM rhnKickstartSessionHistory KSH
-                   WHERE KSH.kickstart_session_id = KSS.id), 'YYYY-MM-DD HH24:MI:SS') AS last_action,
-         KSS.kstree_id
-    FROM rhnKickstartSession KSS,
-         rhnKickstartSessionState KSSS
-   WHERE (   KSS.old_server_id = :sid
-          OR KSS.new_server_id = :sid)
-     AND KSSS.id = KSS.state_id
-ORDER BY last_action DESC, KSS.id
-  </query>
-</mode>
-
 <mode name="packages_in_token">
   <query params="tid">
 SELECT RTP.name_id, PN.name
@@ -326,14 +275,6 @@ SELECT CK.ID, CK.ORG_ID, CKT.LABEL, CK.DESCRIPTION, CK.KEY
  WHERE CK.org_id = :org_id
    AND CK.crypto_key_type_id = CKT.id
 ORDER BY CK.DESCRIPTION, CK.id
-  </query>
-</mode>
-
-<mode name="crypto_key_types">
-  <query params="">
-SELECT CKT.ID, CKT.LABEL, CKT.DESCRIPTION
-  FROM rhnCryptoKeyType CKT
-ORDER BY CKT.LABEL
   </query>
 </mode>
 

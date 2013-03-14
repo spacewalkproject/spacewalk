@@ -33,100 +33,6 @@ SELECT P.recid AS ID,
   </query>
 </mode>
 
-<mode name="command_groups">
-  <query params="">
-SELECT GROUP_NAME AS COMMAND_GROUP_NAME,
-       DESCRIPTION AS COMMAND_GROUP_LABEL
-  FROM rhn_command_groups
-ORDER BY UPPER(GROUP_NAME)
-  </query>
-</mode>
-
-
-<mode name="parameters_for_command">
-  <query params="command_id">
-SELECT command_id,
-       param_name,
-       param_type,
-       data_type_name,
-       description,
-       mandatory,
-       default_value,
-       min_value,
-       max_value,
-       field_order,
-       field_widget_name,
-       field_visible_length,
-       field_maximum_length,
-       field_visible,
-       default_value_visible
-  FROM rhn_command_parameter
- WHERE command_id = :command_id
-ORDER BY PARAM_TYPE, FIELD_ORDER
-  </query>
-</mode>
-
-
-<mode name="clusters_for_customer">
-  <query params="customer_id">
-SELECT SC.recid AS SAT_CLUSTER_ID,
-       SC.customer_id,
-       SC.description,
-       SC.public_key,
-       SC.vip,
-       SC.pem_public_key,
-       SC.pem_public_key_hash,
-       SN.recid AS SAT_NODE_ID,
-       SN.mac_address,
-       SN.max_concurrent_checks,
-       SN.ip,
-       SN.sched_log_level,
-       SN.sput_log_level,
-       SN.dq_log_level
-  FROM rhn_sat_cluster SC, rhn_sat_node SN
- WHERE SC.customer_id = :customer_id
-  AND  SN.sat_cluster_id = SC.recid
-ORDER BY UPPER(SC.description)
-  </query>
-</mode>
-
-
-<mode name="params_for_probe">
-  <query params="probe_id, command_id">
-SELECT PPV.value,
-       CP.param_name
-  FROM rhn_probe_param_value PPV,
-       rhn_command_parameter CP
- WHERE PPV.probe_id = :probe_id
-   AND CP.command_id = :command_id
-   AND PPV.param_name = CP.param_name
-   AND CP.field_visible = 1
- </query>
-</mode>
-
-<mode name="probe_state_summary">
-  <query params="org_id">
-SELECT CSS.state,
-       CSS.state_count
-  FROM rhn_current_state_summaries CSS
- WHERE CSS.customer_id = :org_id
-   AND CSS.template_id = 'svc_probe'
-ORDER BY UPPER(state)
-  </query>
-</mode>
-
-<mode name="probe_state_count_by_state_and_user">
-  <query params="state, user_id">
-SELECT count(*) as STATE_COUNT
-  FROM rhn_probe_state PS, 
-       rhn_check_probe CP,
-       rhnUserServerPerms USP
-  WHERE PS.state = :state AND
-        PS.probe_id = CP.probe_id AND
-        CP.host_id = USP.server_id AND
-        USP.user_id = :user_id
-  </query>
-</mode>
 
 <mode name="probe_state">
   <query params="probe_id">
@@ -137,34 +43,6 @@ SELECT probe_id,
        TO_CHAR(last_check, 'YYYY-MM-DD HH24:MI:SS') AS LAST_CHECK
   FROM rhn_probe_state
  WHERE probe_id = :probe_id
-  </query>
-</mode>
-
-<mode name="probe_metrics">
-  <query params="probe_id">
-SELECT   m.metric_id, 
-         m.storage_unit_id, 
-         m.description,
-         m.label
-FROM     rhn_probe p, rhn_metrics m, rhn_command c
-WHERE    p.recid = :probe_id
-AND      p.command_id = c.recid
-AND      c.command_class = m.command_class
-ORDER BY m.metric_id
-  </query>
-</mode>
-j
-<mode name="probe_metric">
-  <query params="probe_id,metric_id">
-SELECT   m.metric_id, 
-         m.storage_unit_id, 
-         m.description,
-         m.label
-FROM     rhn_probe p, rhn_metrics m, rhn_command c
-WHERE    m.metric_id = :metric_id
-AND      p.recid = :probe_id
-AND      p.command_id = c.recid
-AND      c.command_class = m.command_class
   </query>
 </mode>
 
@@ -205,20 +83,6 @@ AND      P.contact_group_id = CGM.contact_group_id
 AND      CGM.member_contact_method_id = :method_id
 AND      S.id = CP.host_id
 ORDER BY S.name, S.id, P.description, P.recid
-  </query>
-</mode>
-
-
-<mode name="editable_config_macros">
-  <query >
-SELECT   macro.name, 
-         macro.definition,
-         macro.environment,
-         macro.description,
-         macro.last_update_user, 
-         TO_CHAR(macro.last_update_date, 'YYYY-MM-DD HH24:MI:SS') AS last_update_date
-FROM     config_macro macro
-WHERE    macro.editable = 1
   </query>
 </mode>
 
