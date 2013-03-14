@@ -1,7 +1,7 @@
 Summary: An xmlrpc library
 Name: redstone-xmlrpc
 Version: 1.1_20071120 
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: LGPL
 Group: Development/Library
 URL: http://xmlrpc.sourceforge.net
@@ -54,6 +54,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}
 
 %changelog
+* Thu Mar 14 2013 Michael Mraka <michael.mraka@redhat.com> 1.1_20071120-13
+- merging thirdparty repo changes
+
 * Wed Aug 11 2010 Shannon Hughes <shughes@redhat.com> 1.1_20071120-12
 - fix build jar for rhel6 (shughes@redhat.com)
 
