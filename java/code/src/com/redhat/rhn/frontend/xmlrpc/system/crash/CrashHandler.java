@@ -72,7 +72,7 @@ public class CrashHandler extends BaseHandler {
      * Return crash count information
      * @param sessionKey Session key
      * @param serverId Server ID
-     * @return Date of the last software crash report.
+     * @return Return crash count information
      *
      * @xmlrpc.doc Return date of last software crashes report for given system
      * @xmlrpc.param #param("string", "sessionKey")
