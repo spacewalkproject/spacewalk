@@ -1897,15 +1897,14 @@ sub event_package_results {
 SELECT SAPR.RESULT_CODE,
        SAPR.STDOUT,
        SAPR.STDERR,
-       PN.name || NVL2(PE.evr, ('-' || PE.evr.as_vre_simple()), '') AS NVRE,
+       PN.name || CASE WHEN PE.id IS NULL THEN '' ELSE '-' || evr_t_as_vre_simple(PE.evr) END AS NVRE,
        AP.id AS ACTION_PACKAGE_ID,
        PN.id || '|' || PE.id AS ID_COMBO,
        AP.package_arch_id,
        AT.name AS ACTION_TYPE,
        WC.login
   FROM rhnActionType AT,
-       web_contact WC,
-       rhnAction A,
+       rhnAction A left outer join web_contact WC on A.scheduler = WC.id,
        rhnServerActionPackageResult SAPR,
        rhnPackageEVR PE,
        rhnPackageName PN,
@@ -1917,7 +1916,8 @@ SELECT SAPR.RESULT_CODE,
    AND SAPR.server_id = :sid
    AND A.id = AP.action_id
    AND AT.id = A.action_type
-   AND WC.id(+) = A.scheduler
+   AND AP.evr_id = PE.id
+   AND AP.name_id = PN.id
 EOQ
 
   my ($name_id, $evr_id) = split(/\|/, $params{id_combo});
