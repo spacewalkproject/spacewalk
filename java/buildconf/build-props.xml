@@ -56,12 +56,18 @@
     <available file="/usr/share/java/jfreechart/jfreechart.jar" />
   </condition>
 
+  <condition property="hibernate"
+                value="hibernate3-c3p0 hibernate3-core hibernate3-oscache"
+                 else="hibernate3">
+    <available file="/usr/share/java/hibernate3-c3p0.jar" />
+  </condition>
+
   <property name="boot.jar.dependencies" value="ivy" />
 
   <property name="common.jar.dependencies"
       value="bcel cglib commons-beanutils commons-cli commons-codec
              commons-collections commons-digester commons-discovery
-             commons-el commons-fileupload commons-io commons-lang commons-logging commons-validator hibernate3
+             commons-el commons-fileupload commons-io commons-lang commons-logging commons-validator ${hibernate}
              mailapi smtp jdom jpam  jmock jmock-cglib
              log4j oro redstone-xmlrpc-client redstone-xmlrpc ${struts-jars} ${tomcat-jars}
              bcprov bcpg jcommon stringtree-json postgresql-jdbc
@@ -112,7 +118,7 @@
   <property name="install.common.jar.dependencies"
       value="bcel cglib commons-beanutils commons-cli commons-codec 
              commons-collections commons-digester commons-discovery
-             commons-el commons-fileupload commons-io commons-lang commons-logging commons-validator hibernate3
+             commons-el commons-fileupload commons-io commons-lang commons-logging commons-validator ${hibernate}
              ${tomcat-jars} javamail jdom jpam dwr
              log4j oro redstone-xmlrpc-client redstone-xmlrpc ${struts-jars}
              jcommon stringtree-json postgresql-jdbc
@@ -124,7 +130,7 @@
              commons-collections commons-beanutils commons-cli commons-codec
              commons-digester commons-discovery commons-el commons-fileupload commons-io
              commons-lang commons-logging
-             commons-validator concurrent dom4j hibernate3 jta
+             commons-validator concurrent dom4j ${hibernate} jta
              jaf ${jasper-jars} javamail jcommon jdom ${other-jars}
              ${jfreechart} ${tomcat-jars} jpam log4j redstone-xmlrpc-client redstone-xmlrpc
              oro oscache quartz stringtree-json sitemesh ${struts-jars} taglibs-core
