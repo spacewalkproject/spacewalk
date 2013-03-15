@@ -20,9 +20,9 @@ sql:
 	select * from (
 	select S.id as system_id,
 		S.org_id as org_id,
-		nvl(CC.unique_count, '0') as unique_count,
-		nvl(CC.total_count, '0') as total_count,
-		nvl(to_char(CC.last_report), 'never') as last
+		coalesce(CC.unique_count, 0) as unique_count,
+		coalesce(CC.total_count, 0) as total_count,
+		coalesce(to_char(CC.last_report, 'YYYY-MM-DD HH24:MI:SS'), 'never') as last
 	from rhnServerCrashCount CC right join
 		rhnServer S on CC.server_id=S.id
 	) X
