@@ -19,7 +19,7 @@ ORDER BY CASE SEV.is_base WHEN 'Y' THEN 1 WHEN 'N' THEN 2 END, SEV.label
 <mode name="search_simple">
   <query params="set_label, user_id">
   SELECT  S.id ID, S.name SERVER_NAME, S.description MATCHING_FIELD,
-          NVL((SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = S.id AND SFV.label = 'ftr_system_grouping'), 0) AS SELECTABLE
+          coalesce((SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = S.id AND SFV.label = 'ftr_system_grouping'), 0) AS SELECTABLE
     FROM  rhnServer S, rhnSet RS
    WHERE  S.id = RS.element
      AND  RS.label = :set_label
@@ -101,7 +101,7 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
 
 <query name="default_search_query" params="set_label, user_id">
   SELECT  S.id ID, S.name SERVER_NAME,
-          NVL((SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = S.id AND SFV.label = 'ftr_system_grouping'), 0) AS SELECTABLE
+          coalesce((SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = S.id AND SFV.label = 'ftr_system_grouping'), 0) AS SELECTABLE
     FROM  rhnServer S, rhnSet RS
    WHERE  S.id = RS.element
      AND  RS.label = :set_label
