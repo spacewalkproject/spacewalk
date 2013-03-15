@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.11
+Version:        1.10.12
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Mar 15 2013 Jan Pazdziora 1.10.12-1
+- Add --interactive mode option to spacewalk-sql.
+
 * Wed Mar 13 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.11-1
 - move trigger creation after respective table
 
