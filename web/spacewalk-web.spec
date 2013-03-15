@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.6
+Version: 1.10.7
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -263,6 +263,16 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Mar 15 2013 Jan Pazdziora 1.10.7-1
+- Mode user_permissions not used, removing from web/.
+- Replacing integer nvl with coalesce.
+- The server_overview elaborator not used, removing.
+- The mode namespaces_visible_to_user is not used anywhere, removing.
+- Removing unused system_search_elaborators queries.
+- Search setbuilders are no longer used in web/.
+- Removing unused query definitions.
+- Fixing Oracle-specific outer join syntax, use of PE.evr.*, and missing joins.
+
 * Thu Mar 14 2013 Jan Pazdziora 1.10.6-1
 - Display package list on page history/event.pxt.
 - rhn-iecompat.css is never used - delete it
