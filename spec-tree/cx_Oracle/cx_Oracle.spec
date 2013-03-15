@@ -18,7 +18,7 @@
 Summary: Python interface to Oracle
 Name: cx_Oracle
 Version: 5.1.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: Python Software Foundation License
 Group: Development/Libraries
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE.txt README.txt BUILD.txt HISTORY.txt html samples test
 
 %changelog
+* Fri Mar 15 2013 Michael Mraka <michael.mraka@redhat.com> 5.1.2-3
+- fixed builder definition
+
 * Mon Oct 22 2012 Michael Mraka
 - Use the ReleaseTagger.
 - rebuild with correct vendor
