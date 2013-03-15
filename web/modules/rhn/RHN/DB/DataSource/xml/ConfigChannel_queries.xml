@@ -49,44 +49,6 @@ SELECT CC.id AS ID,
 </mode>
 
 
-<mode name="namespaces_visible_to_user">
-  <query params="org_id, user_id">
-SELECT CC.id,
-       CC.org_id,
-       CC.name,
-       CC.label,
-       CC.description,
-       CC.created,
-       CC.modified,
-       NVL( (
-             SELECT COUNT(CF.id)
-               FROM rhnConfigFile CF
-              WHERE CF.config_channel_id = CC.id
-                AND CF.latest_config_revision_id IS NOT NULL
-	    ), 0) AS file_count
-  FROM rhnConfigChannelType CCT,
-       rhnConfigChannel CC
- WHERE CC.org_id = :org_id
-   AND CC.confchan_type_id = CCT.id
-   AND CCT.label IN ('normal')
-   AND rhn_config_channel.get_user_chan_access(CC.id, :user_id) = 1
-GROUP BY CC.id, CC.org_id, CC.name, CC.label, CC.description, CC.created, CC.modified
-ORDER BY UPPER(CC.name)
-  </query>
-  <elaborator params="user_id">
-SELECT CC.id AS ID,
-       (SELECT count(SCC.server_id)
-          FROM rhnServerConfigChannel SCC,
-               rhnUserServerPerms USP
-         WHERE USP.user_id = :user_id
-           AND USP.server_id = SCC.server_id
-           AND SCC.config_channel_id = CC.id) AS system_count
-  FROM rhnConfigChannel CC
- WHERE CC.id IN (%s)
-  </elaborator>
-</mode>
-
-
 <mode name="rank_namespaces_for_system">
   <query params="sid">
 SELECT

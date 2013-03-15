@@ -47,11 +47,6 @@ sub _register_modes {
 			   -provider => \&namespaces_visible_to_org_provider,
 			   -action_callback => \&namespaces_visible_to_org_cb);
 
-  Sniglets::ListView::List->add_mode(-mode => "namespaces_visible_to_user",
-				     -datasource => RHN::DataSource::ConfigChannel->new,
-				     -provider => \&namespaces_visible_to_user_provider,
-				    );
-
   Sniglets::ListView::List->add_mode(-mode => "namespaces_for_system",
 			   -datasource => RHN::DataSource::ConfigChannel->new);
 
@@ -151,22 +146,6 @@ sub comparison_to_snapshot_provider {
 	  alphabar => $alphabar,
 	  full_data => $delta);
 
-}
-
-
-sub namespaces_visible_to_user_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my %ret = $self->default_provider($pxt, -user_id => $pxt->user->id);
-
-
-  foreach my $row (@{$ret{data}}) {
-    $row->{FILE_COUNT} ||= 0;
-    $row->{SYSTEM_COUNT} ||= 0;
-  }
-
-  return %ret;
 }
 
 
