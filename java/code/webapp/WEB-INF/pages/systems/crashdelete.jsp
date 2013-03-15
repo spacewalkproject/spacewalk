@@ -7,33 +7,37 @@
 
 <html:html xhtml="true">
 <body>
-<%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
+    <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-  <br/>
-  <rhn:toolbar base="h2" img="/img/rhn-icon-bug-ex.gif" imgAlt="info.alt.img">
-    ${fn:escapeXml(crash.crash)}
-  </rhn:toolbar>
-  <h2><bean:message key="crashes.jsp.delete"/></h2>
+    <br/>
 
-<div class="page-summary">
-  <p><bean:message key="crashes.jsp.delete.summary"/></p>
-</div>
+    <rhn:toolbar base="h2" img="/img/rhn-icon-bug-ex.gif" imgAlt="info.alt.img">
+        ${fn:escapeXml(crash.crash)}
+    </rhn:toolbar>
 
-<form method="POST" name="rhn_list" action="/rhn/systems/details/SoftwareCrashDelete.do">
-    <rhn:csrf />
-    <rhn:submitted/>
+    <br />
+    <br />
+    <%@ include file="/WEB-INF/pages/common/fragments/systems/crash-header.jspf" %>
 
-    <%@ include file="/WEB-INF/pages/common/fragments/systems/crash_details.jspf" %>
-
-    <div align="right">
-        <hr/>
-        <html:hidden property="crid" value="${crid}"/>
-        <html:hidden property="sid" value="${sid}"/>
-        <html:submit property="delete_button">
-            <bean:message key="crashes.jsp.delete"/>
-        </html:submit>
+    <div class="page-summary">
+        <p><bean:message key="crashes.jsp.delete.summary"/></p>
     </div>
-</form>
+
+    <form method="POST" name="rhn_list" action="/rhn/systems/details/SoftwareCrashDelete.do">
+        <rhn:csrf />
+        <rhn:submitted/>
+
+        <%@ include file="/WEB-INF/pages/common/fragments/systems/crash_details.jspf" %>
+
+        <div align="right">
+            <hr/>
+            <html:hidden property="crid" value="${crid}"/>
+            <html:hidden property="sid" value="${sid}"/>
+            <html:submit property="delete_button">
+                <bean:message key="crashes.jsp.delete"/>
+            </html:submit>
+        </div>
+    </form>
 
 </body>
 </html:html>

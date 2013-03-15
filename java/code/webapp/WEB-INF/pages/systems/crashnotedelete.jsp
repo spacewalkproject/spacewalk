@@ -12,24 +12,12 @@
     <div class="toolbar-h2">
         <div class="toolbar">
             <span class="toolbar">
-                <c:choose>
-                    <c:when test="${not empty param.cnid}">
-                        <a href="/rhn/systems/details/DeleteCrashNote.do?sid=${sid}&crid=${crid}&cnid=${cnid}">
-                            <img src="/img/action-del.gif"
-                                 alt="<bean:message key="toolbar.delete.note"/>"
-                                 title="<bean:message key="toolbar.delete.note"/>" />
-                            <bean:message key="toolbar.delete.note"/>
-                        </a>
-                        |
-                    </c:when>
-                </c:choose>
                 <a href="/rhn/systems/details/SoftwareCrashDelete.do?crid=${crid}&sid=${sid}">
                     <img src="/img/action-del.gif"
                          alt="<bean:message key="toolbar.delete.crash"/>"
                          title="<bean:message key="toolbar.delete.crash"/>" />
                     <bean:message key="toolbar.delete.crash"/>
                 </a>
-
             </span>
         </div>
         <img src="/img/rhn-icon-bug-ex.gif"
@@ -41,43 +29,32 @@
     <br />
     <br />
     <%@ include file="/WEB-INF/pages/common/fragments/systems/crash-header.jspf" %>
-
-    <c:choose>
-        <c:when test="${empty param.cnid}">
-            <br />
-            <bean:message key="details.crashnotes.createnote"/>
-        </c:when>
-    </c:choose>
-
-    <html:form method="post" action="/systems/details/EditCrashNote.do">
+    <div class="page-summary">
+      <p><bean:message key="details.crashnotes.delete.confirm"/></p>
+    </div>
+    <html:form method="post" action="/systems/details/DeleteCrashNote.do">
         <rhn:csrf />
         <html:hidden property="submitted" value="true"/>
         <html:hidden property="sid" value="${sid}"/>
         <html:hidden property="crid" value="${crid}"/>
+        <html:hidden property="cnid" value="${cnid}"/>
         <table class="details">
             <tr>
                 <th><bean:message key="sdc.details.notes.subject"/></th>
-                <td><html:text property="subject" maxlength="128" size="40" styleId="subject" /></td>
+                <td>${subject}</td>
             </tr>
             <tr>
                 <th><bean:message key="sdc.details.notes.details"/></th>
-                <td><html:textarea property="note" cols="40" rows="6" styleId="note"/></td>
+                <td>${note}</td>
             </tr>
         </table>
 
         <hr/>
         <div align="right">
-            <c:choose>
-                <c:when test='${not empty cnid}'>
-                    <html:submit property="edit_button"><bean:message key="edit_note.jsp.update"/></html:submit>
-                </c:when>
-                <c:otherwise>
-                    <html:submit property="create_button"><bean:message key="edit_note.jsp.create"/></html:submit>
-                </c:otherwise>
-            </c:choose>
+            <html:submit>
+                <bean:message key="sdc.details.notes.delete"/>
+            </html:submit>
         </div>
-        <html:hidden property="crid" value="${crid}"/>
-        <html:hidden property="cnid" value="${cnid}"/>
     </html:form>
 </body>
 </html:html>

@@ -12,9 +12,9 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
+
 package com.redhat.rhn.frontend.action.systems;
 
-import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.domain.server.Crash;
 import com.redhat.rhn.domain.server.CrashFactory;
 import com.redhat.rhn.domain.server.CrashNote;
@@ -23,7 +23,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.system.CrashManager;
 
 import org.apache.commons.lang.StringUtils;
@@ -40,10 +39,10 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * CrashNoteEditAction
+ * CrashNoteDeleteAction
  * @version $Rev$
  */
-public class CrashNoteEditAction extends RhnAction {
+public class CrashNoteDeleteAction extends RhnAction {
 
     public static final String SID = "sid";
     public static final String CRASH = "crash";
@@ -51,8 +50,6 @@ public class CrashNoteEditAction extends RhnAction {
     public static final String CRASH_NOTE_ID = "cnid";
     public static final String SUBJECT = "subject";
     public static final String NOTE  = "note";
-    private static final String VALIDATION_XSD = "/com/redhat/rhn/frontend/action/" +
-            "systems/sdc/validation/editNoteForm.xsd";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -61,7 +58,7 @@ public class CrashNoteEditAction extends RhnAction {
             HttpServletResponse response) {
 
         RequestContext rctx = new RequestContext(request);
-        DynaActionForm daForm = (DynaActionForm)form;
+        DynaActionForm daForm = (DynaActionForm) form;
         User loggedInUser = rctx.getCurrentUser();
         Server server = rctx.lookupAndBindServer();
 
@@ -86,53 +83,17 @@ public class CrashNoteEditAction extends RhnAction {
                 mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
 
         if (isSubmitted(daForm)) {
-            ValidatorResult result = RhnValidationHelper.validate(this.getClass(),
-                    makeValidationMap(daForm), null, VALIDATION_XSD);
-            if (!result.isEmpty()) {
-                getStrutsDelegate().saveMessages(request, result);
-            }
-            else {
-                if (crashNote == null) {
-                    crashNote = new CrashNote(crash);
-                }
-                crashNote.setSubject(daForm.getString("subject"));
-                crashNote.setNote(daForm.getString("note"));
-
-                if (rctx.hasParam("create_button")) {
-                    crashNote.setCreator(loggedInUser);
-                    createSuccessMessage(request, "message.crashnotecreated", "");
-                }
-                else {
-                    createSuccessMessage(request, "message.crashnoteupdated", "");
-                }
-                CrashFactory.save(crashNote);
-                forward = getStrutsDelegate().forwardParams(mapping.findForward("success"),
-                        params);
-            }
+            forward = getStrutsDelegate().forwardParams(mapping.findForward("success"),
+                      params);
+            CrashFactory.delete(crashNote);
         }
-
-        setupPageAndFormValues(rctx.getRequest(), daForm, crash, crashNote);
-        return forward;
-    }
-
-    private Object makeValidationMap(DynaActionForm formIn) {
-        Map<String, String> map = new HashMap<String, String>();
-        map.put(SUBJECT, formIn.getString(SUBJECT));
-        map.put(NOTE, formIn.getString(NOTE));
-        return map;
-    }
-
-    protected void setupPageAndFormValues(HttpServletRequest request,
-            DynaActionForm daForm, Crash crash, CrashNote crNoteIn) {
 
         request.setAttribute(CRASH_ID, crash.getId());
         request.setAttribute(CRASH, crash);
         request.setAttribute(SID, crash.getServer().getId());
-
-        if (crNoteIn != null) {
-            daForm.set("subject", crNoteIn.getSubject());
-            daForm.set("note", crNoteIn.getNote());
-            request.setAttribute(CRASH_NOTE_ID, crNoteIn.getId());
-        }
+        request.setAttribute(SUBJECT, crashNote.getSubject());
+        request.setAttribute(NOTE, crashNote.getNote());
+        request.setAttribute(CRASH_NOTE_ID, crashNote.getId());
+        return forward;
     }
 }

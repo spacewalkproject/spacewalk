@@ -1,0 +1,6 @@
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+
+<rhn:dialogmenu mindepth="0"
+                maxdepth="1"
+                definition="/WEB-INF/nav/crash_header.xml"
+                renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />

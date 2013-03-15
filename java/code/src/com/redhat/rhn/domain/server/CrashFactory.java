@@ -106,4 +106,12 @@ public class CrashFactory extends HibernateFactory {
     public static void save(CrashNote crashNoteIn) {
         singleton.saveObject(crashNoteIn);
     }
+
+    /**
+     * Deletes a CrashNote object
+     * @param crashNoteIn crash note to delete
+     */
+    public static void delete(CrashNote crashNoteIn) {
+        singleton.removeObject(crashNoteIn);
+    }
 }

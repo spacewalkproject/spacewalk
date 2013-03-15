@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<rhn-navi-tree label="crash_header"
+               invisible="1"
+               formvar="sid crid"
+               title-depth="1"
+               acl_mixins="com.redhat.rhn.common.security.acl.SystemAclHandler">
+    <rhn-tab name="Crash Details"
+             url="/rhn/systems/details/SoftwareCrashDetail.do">
+        <rhn-tab-url>/rhn/systems/details/SoftwareCrashDelete.do</rhn-tab-url>
+    </rhn-tab>
+    <rhn-tab name="Crash Files"
+             url="/rhn/systems/details/SoftwareCrashFiles.do" />
+    <rhn-tab name="Crash Notes"
+             url="/rhn/systems/details/SoftwareCrashNotes.do">
+        <rhn-tab-url>/rhn/systems/details/EditCrashNote.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/systems/details/DeleteCrashNote.do</rhn-tab-url>
+    </rhn-tab>
+</rhn-navi-tree>

@@ -16430,7 +16430,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
       </trans-unit>
       <trans-unit id="crashes.jsp.delete.summary">
-        <source>Software Crash will be deleted.</source>
+        <source>The Software Crash will be deleted.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SoftwareCrashDelete.do</context>
         </context-group>
@@ -16501,28 +16501,28 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <context context-type="sourcefile">/rhn/systems/details/SoftwareCrashDetail.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="details.crashnotes.header">
-        <source>Crash Notes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/SoftwareCrashDetail.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="details.crashnotes.nonotes">
         <source>No Crash Notes were entered for this Software Crash.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SoftwareCrashDetail.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="crashfiles.jsp.header">
-        <source>Crash Files</source>
+      <trans-unit id="details.crashnotes.createnote">
+        <source>Create a new note.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SoftwareCrashDetail.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="crashnotes.jsp.header">
-        <source>Crash Note Details</source>
+      <trans-unit id="details.crashnotes.delete.confirm">
+        <source>Are you certain you wish to delete this software crash note?</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/EditCrashNote.do</context>
+          <context context-type="sourcefile">/rhn/systems/details/DeleteCrashNote.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="crashfiles.jsp.header">
+        <source>Crash Files</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/SoftwareCrashDetail.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="sdc.details.migrate.header">
