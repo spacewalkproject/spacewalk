@@ -9,24 +9,34 @@ use Getopt::Long ();
 use Cwd 'abs_path';
 
 sub usage {
-	die "Usage: $0 [ OPTIONS ] sql-file-to-use.sql\n    where possible OPTIONS are\n        --verbose\n        --select-mode or --select-mode-direct\n";
+	die "Usage: $0 [-i | [ OPTIONS ] [sql-file-to-use.sql | - ]]\n    where possible OPTIONS are\n        --verbose\n        --select-mode or --select-mode-direct\n";
 }
 
-my ($verbose, $select_mode, $select_direct);
+my ($verbose, $select_mode, $select_direct, $interactive);
 if (not Getopt::Long::GetOptions(
 	'verbose' => \$verbose,
 	'select-mode' => \$select_mode,
 	'select-mode-direct' => \$select_direct,
+	'interactive' => \$interactive,
 	)) {
 	usage();
 }
 
+if ($interactive and ($select_direct or $select_mode)) {
+	warn "Option --interactive cannot be used with --select-* options.\n";
+	usage();
+}
 if ($select_mode and $select_direct) {
 	warn "Options --select-mode and --select-mode-direct are exclusive.\n";
 	usage();
 }
 
-if (@ARGV != 1) {
+if ($interactive) {
+	if (@ARGV) {
+		warn "In interactive mode, no input file is expected.\n";
+		usage();
+	}
+} elsif (@ARGV != 1) {
 	usage();
 }
 
@@ -50,7 +60,7 @@ if (@missing) {
 }
 
 my $filename = $ARGV[0];
-if ($filename ne '-') {
+if (defined $filename and $filename ne '-') {
 	$filename = abs_path($filename);
 }
 
@@ -58,9 +68,16 @@ chdir '/';
 
 my ($pid, $wfh, $rfh);
 if ($options{db_backend} eq 'oracle') {
-	my @command = ( 'sqlplus', '-S', qq!$options{db_user}/"$options{db_password}"\@$options{db_name}!);
+	my @silent_option = ( $interactive ? () : '-S' );
+	my @command = ( 'sqlplus', @silent_option, qq!$options{db_user}/"$options{db_password}"\@$options{db_name}!);
+	if ($interactive and -x '/usr/bin/rlwrap') {
+		unshift @command, '/usr/bin/rlwrap';
+	}
 	if ($verbose) {
 		print STDERR "Running: @command\n";
+	}
+	if ($interactive) {
+		exec(@command) or die "young\n";
 	}
 	$pid = IPC::Open3::open3($wfh, $rfh, '>&STDERR', @command) or return 2;
 	print $wfh <<'EOF';
@@ -76,18 +93,24 @@ EOF
 	}
 	close $wfh;
 } elsif ($options{db_backend} eq 'postgresql') {
-	my @command = ( 'psql', '-U', $options{db_user}, '-d', $options{db_name}, '-v', 'ON_ERROR_STOP=ON', '-f', $filename );
+	my @command = ( 'psql', '-U', $options{db_user}, '-d', $options{db_name});
 	if (defined $options{db_host}) {
 		push @command, '-h', $options{db_host};
 		if (defined $options{db_port}) {
 			push @command, '-p', $options{db_port};
 		}
 	}
+	if (not $interactive) {
+		push @command, ( '-v', 'ON_ERROR_STOP=ON', '-f', $filename );
+	}
 	$ENV{PGPASSWORD} = $options{db_password};
-	$ENV{PGOPTIONS} = '--client-min-messages=error -c standard_conforming_strings=on';
 	if ($verbose) {
 		print STDERR "Running: @command\n";
 	}
+	if ($interactive) {
+		exec(@command) or die "young\n";
+	}
+	$ENV{PGOPTIONS} = '--client-min-messages=error -c standard_conforming_strings=on';
 	if ($filename eq '-') {
 		$wfh = '<&STDIN';
 	}
@@ -133,11 +156,14 @@ spacewalk-sql - utility for feeding SQL to Spacewalk's database
 
     spacewalk-sql sql-file-to-use.sql
     spacewalk-sql - < sql-file-to-use.sql
+    spacewalk-sql -i
 
     spacewalk-sql --verbose sql-file-to-use.sql
     spacewalk-sql --select-mode - < sql-file-to-use.sql
     spacewalk-sql --verbose --select-mode sql-file-to-use.sql
     spacewalk-sql --select-mode-direct sql-file-to-use.sql
+
+    spacewalk-sql --interactive
 
 =head1 OPTIONS
 
@@ -161,6 +187,13 @@ the command runs, for example with C<tail -f>.
 Note that only one of B<--select-mode> and B<--select-mode-direct>
 can be specified.
 
+=item -i | --interactive
+
+Start the interactive session.
+
+This option cannot be used together with the B<--select-mode*>
+options.
+
 =item --verbose
 
 If this option is used, the command which will be invoked including
@@ -182,7 +215,7 @@ It fetches the database backend type and the connect information from
 Spacewalk config files, selects the correct command line tool, runs it
 and feeds it the SQL from file specified as parameter. If single
 hyphen sign (B<->) is used for the SQL file parameter, standard input
-is used.
+is used. If the B<-i> option is used, interactive session is started.
 
 No output is printed upon successful operation unless B<--select-mode>.
 If any error is reported, the error message and all output generated
