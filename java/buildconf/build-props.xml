@@ -48,7 +48,7 @@
 
   <!-- =================== jar dependencies ======================= -->
 
-  <condition property="asm" value="asm/asm" else="asm">
+  <condition property="asm" value="asm/asm" else="objectweb-asm/asm">
     <available file="/usr/share/java/asm/asm.jar" />
   </condition>
 
