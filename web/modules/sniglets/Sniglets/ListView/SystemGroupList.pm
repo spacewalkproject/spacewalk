@@ -54,11 +54,6 @@ sub _register_modes {
 			   -datasource => RHN::DataSource::SystemGroup->new,
 			   -provider => \&comparison_to_snapshot_provider);
 
-  Sniglets::ListView::List->add_mode(-mode => "user_permissions",
-			   -datasource => RHN::DataSource::SystemGroup->new,
-			   -provider => \&group_permissions_provider,
-			   -action_callback => \&group_permissions_cb);
-
   Sniglets::ListView::List->add_mode(-mode => "ssm_group_membership_select",
 	  	            -datasource => RHN::DataSource::SystemGroup->new,
 			    -provider => \&ssm_group_membership_provider,
@@ -223,85 +218,6 @@ sub visible_groups_summary_provider {
 
   return (%ret);
 }
-
-sub group_permissions_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my %ret = $self->default_provider($pxt);
-
-  my $user = RHN::User->lookup(-id => $pxt->param('uid'));
-
-  foreach my $row (@{$ret{data}}) {
-
-    if ($user->is('org_admin')) {
-      $row->{GROUP_PERMISSION_CHECKBOX} = '[&#160;Admin&#160;Access&#160;]';
-    }
-    else {
-      $row->{GROUP_PERMISSION_CHECKBOX} =
-	PXT::HTML->checkbox(-name => 'group_' . $row->{ID} . '_permission',
-			    -value => 1,
-			    -checked => $row->{HAS_PERMISSION});
-
-      $row->{GROUP_PERMISSION_CHECKBOX} .=
-	PXT::HTML->hidden(-name => "sgid", -value => $row->{ID});
-    }
-  }
-
-  return (%ret);
-}
-
-sub group_permissions_cb {
-  my $self = shift;
-  my $pxt = shift;
-
-  # think big red button
-  my %action = @_;
-
-  PXT::Debug->log(7, "list action:  " . Data::Dumper->Dump([(\%action)]));
-
-  return 1 unless exists $action{label};
-
-
-  if ($action{label} eq 'update_system_group_permissions') {
-
-    PXT::Debug->log(7, "updating system group permissions");
-
-    my $uid = $pxt->param('uid');
-    my $user = RHN::User->lookup(-id => $uid);
-
-    die "no user" unless $pxt->user and $user;
-
-    if ($pxt->user->org_id != $user->org_id) {
-      Carp::cluck "Orgs for admin user edit mistatch (admin: @{[$pxt->user->org_id]} != @{[$user->org_id]}";
-      $pxt->redirect("/errors/permission.pxt");
-    }
-
-    if (not $pxt->user->is('org_admin')) {
-      Carp::cluck "Non-orgadmin attempting to edit sgroup permissions";
-      $pxt->redirect("/errors/permission.pxt");
-    }
-
-    foreach my $sgid ($pxt->param('sgid')) {
-
-      PXT::Debug->log(7, "dealing with group $sgid");
-
-      if ($pxt->dirty_param("group_${sgid}_permission")) {
-	PXT::Debug->log(7, "granting access to group $sgid");
-	$user->grant_servergroup_permission($sgid);
-      }
-      else {
-	PXT::Debug->log(7, "revoking access to group $sgid");
-	$user->revoke_servergroup_permission($sgid);
-      }
-    }
-
-    $pxt->push_message(site_info => "Permissions Updated");
-  }
-
-  return 1;
-}
-
 
 sub ssm_group_membership_provider {
   my $self = shift;
