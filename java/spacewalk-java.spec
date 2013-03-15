@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.13
+Version: 1.10.14
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -677,6 +677,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Mar 15 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.14-1
+- fix configuration for jboss hibernate
+- Update copyright year shown on the WebUI.
+
 * Thu Mar 14 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.13-1
 - let's hibernate pull correct asm dependency itself
 - rhn-iecompat.css is never used - delete it
