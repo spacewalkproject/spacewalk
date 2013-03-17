@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.10.7
+Version:    1.10.8
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -88,6 +88,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Sun Mar 17 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.8-1
+- removing unreferenced images from spacewalk-branding
+
 * Thu Mar 14 2013 Jan Pazdziora 1.10.7-1
 - rhn-iecompat.css is never used - delete it
 
