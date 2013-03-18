@@ -88,6 +88,17 @@ public class CrashFactory extends HibernateFactory {
     }
 
     /**
+     * @param crashNoteId Crash note id
+     * @return Crash note for given id
+     */
+    public static CrashNote lookupCrashNoteById(Long crashNoteId) {
+        Map params = new HashMap();
+        params.put("id", crashNoteId);
+        return (CrashNote) singleton.lookupObjectByNamedQuery(
+                "CrashNote.findById", params);
+    }
+
+    /**
      * Lists crash notes of a specified crash
      * @param crashIn crash
      * @return crash notes for given crash

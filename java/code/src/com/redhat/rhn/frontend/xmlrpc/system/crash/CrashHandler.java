@@ -24,7 +24,9 @@ import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.server.Crash;
 import com.redhat.rhn.domain.server.CrashCount;
+import com.redhat.rhn.domain.server.CrashFactory;
 import com.redhat.rhn.domain.server.CrashFile;
+import com.redhat.rhn.domain.server.CrashNote;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
@@ -312,5 +314,84 @@ public class CrashHandler extends BaseHandler {
         }
 
         return Base64.encodeBase64(plainFile);
+    }
+
+    /**
+     * @param sessionKey Session key
+     * @param crashId Crash ID
+     * @param subject Crash note subject
+     * @param details Crash note details
+     * @return 1 on success
+     *
+     * @xmlrpc.doc Create a crash note
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "crashId")
+     * @xmlrpc.param #param("string", "subject")
+     * @xmlrpc.param #param("string", "details")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int createCrashNote(String sessionKey, Integer crashId,
+            String subject, String details) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        CrashNote cn = new CrashNote();
+        cn.setSubject(subject);
+        cn.setNote(details);
+        cn.setCreator(loggedInUser);
+        cn.setCrash(CrashManager.lookupCrashByUserAndId(loggedInUser,
+                crashId.longValue()));
+        CrashFactory.save(cn);
+        return 1;
+    }
+
+    /**
+     * @param sessionKey Session ID
+     * @param crashNoteId Crash note ID
+     * @return 1 on success
+     *
+     * @xmlrpc.doc Delete a crash note
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "crashNoteId")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int deleteCrashNote(String sessionKey, Integer crashNoteId) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        CrashNote cn = CrashManager.lookupCrashNoteByUserAndId(loggedInUser,
+                crashNoteId.longValue());
+        CrashFactory.delete(cn);
+        return 1;
+    }
+
+    /**
+     * @param sessionKey Session ID
+     * @param crashId Crash ID
+     * @return Crash notes for crash
+     *
+     * @xmlrpc.doc List crash notes for crash
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "crashId")
+     * @xmlrpc.returntype
+     *     #array()
+     *         #struct("crashNote")
+     *             #prop("int", "id")
+     *             #prop("string", "subject")
+     *             #prop("string", "details")
+     *             #prop("string", "updated")
+     *         #struct_end()
+     *     #array_end()
+     */
+    public List getCrashNotesForCrash(String sessionKey, Integer crashId) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Crash c = CrashManager.lookupCrashByUserAndId(loggedInUser,
+                crashId.longValue());
+        List returnList = new ArrayList();
+        for (CrashNote cn : c.getCrashNotes()) {
+            HashMap crashNotesMap = new HashMap();
+            crashNotesMap.put("id", cn.getId());
+            crashNotesMap.put("subject", cn.getSubject());
+            crashNotesMap.put("details", cn.getNote());
+            crashNotesMap.put("updated", cn.getModifiedString());
+            returnList.add(crashNotesMap);
+        }
+        return returnList;
     }
 }

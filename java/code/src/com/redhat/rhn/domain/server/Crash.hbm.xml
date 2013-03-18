@@ -16,6 +16,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <key column="crash_id"/>
             <one-to-many class="com.redhat.rhn.domain.server.CrashFile"/>
         </set>
+        <set name="crashNotes" cascade="all-delete-orphan" lazy="true" inverse="true">
+            <key column="crash_id"/>
+            <one-to-many class="com.redhat.rhn.domain.server.CrashNote"/>
+        </set>
         <property name="crash" column="crash" type="string"/>
         <property name="path" column="path" type="string"/>
         <property name="count" column="count" type="long"/>

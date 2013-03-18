@@ -48,6 +48,7 @@ public class Crash extends BaseDomainHelper {
     private Date created;
     private Date modified;
     private Set<CrashFile> crashFiles;
+    private Set<CrashNote> crashNotes;
 
     /**
      * Represents application crash information.
@@ -380,6 +381,20 @@ public class Crash extends BaseDomainHelper {
      */
     public void setCrashFiles(Set<CrashFile> cf) {
         this.crashFiles = cf;
+    }
+
+    /**
+     * @return crashNotes for crash
+     */
+    public Set<CrashNote> getCrashNotes() {
+        return crashNotes;
+    }
+
+    /**
+     * @param crashNotesIn crash notes to set
+     */
+    public void setCrashNotes(Set<CrashNote> crashNotesIn) {
+        crashNotes = crashNotesIn;
     }
 
 }

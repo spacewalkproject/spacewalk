@@ -119,4 +119,15 @@ public class CrashManager extends BaseManager {
     public static CrashNote lookupCrashNoteByIdAndCrash(Long crashNoteId, Crash crash) {
         return CrashFactory.lookupCrashNoteByIdAndCrash(crashNoteId, crash);
     }
+
+    /**
+     * @param user User to check permissions for
+     * @param crashNoteId Crash note id to lookup for
+     * @return Crash note for given ID
+     */
+    public static CrashNote lookupCrashNoteByUserAndId(User user, Long crashNoteId) {
+        CrashNote cn = CrashFactory.lookupCrashNoteById(crashNoteId);
+        lookupCrashByUserAndId(user, cn.getCrash().getId());
+        return cn;
+    }
 }

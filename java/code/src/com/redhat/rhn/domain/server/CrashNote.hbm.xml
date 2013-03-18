@@ -35,4 +35,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="CrashNote.listByCrash">
         <![CDATA[FROM com.redhat.rhn.domain.server.CrashNote AS cn where cn.crash = :crash]]>
     </query>
+    <query name="CrashNote.findById">
+        <![CDATA[FROM com.redhat.rhn.domain.server.CrashNote AS cn where cn.id = :id]]>
+    </query>
 </hibernate-mapping>
