@@ -41,7 +41,7 @@ distmap = {'rhel6':'.el6',
 distsuffix = ''
 tag = args[0]
 if tag.startswith('satellite'):
-    if tag.find('rhel-5'):
+    if tag.find('rhel-5') > 0:
         disttag = '.el5'
     else:
         disttag = '.el6'
