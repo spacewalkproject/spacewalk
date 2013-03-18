@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-CLAC
-Version:      1.10.0
+Version:      1.9.9
 Release:      1%{?dist}
 Summary:      NOCpulse Command Line Application framework for Perl
 URL:          https://fedorahosted.org/spacewalk
@@ -45,6 +45,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Mar 18 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.9-1
+- %%defattr is not needed since rpm 4.4
+
 * Thu Feb 19 2009 Miroslav Suchý <msuchy@redhat.com> 1.9.8-1
 - remove opt flags
 - add LICENSE
