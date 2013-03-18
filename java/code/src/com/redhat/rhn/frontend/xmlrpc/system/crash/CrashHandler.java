@@ -214,6 +214,7 @@ public class CrashHandler extends BaseHandler {
      *             #prop("string", "filename")
      *             #prop("string", "path")
      *             #prop("int", "filesize")
+     *             #prop("boolean", "is_uploaded")
      *             #prop("date", "created")
      *             #prop("date", "modified")
      *         #struct_end()
@@ -232,6 +233,7 @@ public class CrashHandler extends BaseHandler {
             crashMap.put("filename", crashFile.getFilename());
             crashMap.put("path", crashFile.getPath());
             crashMap.put("filesize", crashFile.getFilesize());
+            crashMap.put("is_uploaded", crashFile.getIsUploaded());
             crashMap.put("created", crashFile.getCreated());
             crashMap.put("modified", crashFile.getModified());
             returnList.add(crashMap);
