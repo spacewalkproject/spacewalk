@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.17
+Version: 1.10.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -677,6 +677,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Mar 18 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.18-1
+- abrt - crash note api
+- add is_uploaded flag to listSystemCrashFiles() return
+- adding link for description of java regular expression
+- removing broken link from apidoc
+- use the server timezone as the default for the first user
+- do not compile test cases within compile-all task
+
 * Mon Mar 18 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.17-1
 - link jmock only when it's installed
 
