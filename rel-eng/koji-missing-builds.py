@@ -40,16 +40,19 @@ distmap = {'rhel6':'.el6',
 
 distsuffix = ''
 tag = args[0]
+pkgstoignore = []
+
+if config.has_section(tag) and config.has_option(tag, 'blacklist'):
+    pkgstoignore = config.get(tag, 'blacklist').split(' ')
+
 if tag.startswith('satellite'):
     if tag.find('rhel-5') > 0:
         disttag = '.el5'
     else:
         disttag = '.el6'
+    tag = tag + '-candidate'
 else:
     disttag = distmap[tag.split('-')[-1]]
-pkgstoignore = []
-if config.has_section(tag) and config.has_option(tag, 'blacklist'):
-    pkgstoignore = config.get(tag, 'blacklist').split(' ')
 
 if opts.brew:
     mysession = koji.ClientSession("http://brewhub.devel.redhat.com/brewhub")
