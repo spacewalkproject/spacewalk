@@ -2695,7 +2695,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.doc Returns a list of system IDs whose name matches
      *  the supplied regular expression.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param_desc("string", "regexp",  "A regular expression.")
+     * @xmlrpc.param #param_desc("string", "regexp",  "A regular expression as defined
+     * at http://java.sun.com/j2se/1.4.2/docs/api/java/util/regex/Pattern.html")
      * @xmlrpc.returntype
      *           #array()
      *              $SystemOverviewSerializer
