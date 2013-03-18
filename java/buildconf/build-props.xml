@@ -62,13 +62,19 @@
     <available file="/usr/share/java/hibernate3-c3p0.jar" />
   </condition>
 
+  <condition property="jmock-jars"
+                value="jmock jmock-cglib"
+                 else="">
+    <available file="/usr/share/java/jmock.jar" />
+  </condition>
+
   <property name="boot.jar.dependencies" value="ivy" />
 
   <property name="common.jar.dependencies"
       value="bcel cglib commons-beanutils commons-cli commons-codec
              commons-collections commons-digester commons-discovery
              commons-el commons-fileupload commons-io commons-lang commons-logging commons-validator ${hibernate}
-             mailapi smtp jdom jpam  jmock jmock-cglib
+             mailapi smtp jdom jpam ${jmock-jars}
              log4j oro redstone-xmlrpc-client redstone-xmlrpc ${struts-jars} ${tomcat-jars}
              bcprov bcpg jcommon stringtree-json postgresql-jdbc
              ${jfreechart} taglibs-core logdriver quartz dwr slf4j-api slf4j-log4j12
@@ -78,12 +84,12 @@
   <property name="test.build.jar.dependencies"
       value="junit
              log4j
-             regexp jmock jmock-cglib postgresql-jdbc" />
+             regexp ${jmock-jars} postgresql-jdbc" />
 
   <property name="test.jar.dependencies"
       value="antlr checkstyle dom4j emma emma_ant jdom jta junit
              log4j 
-             regexp jmock jmock-cglib ${jfreechart}
+             regexp ${jmock-jars} ${jfreechart}
              postgresql-jdbc" />
 
   <condition property="ant-contrib.path" value="ant/ant-contrib" else="ant-contrib">
@@ -104,7 +110,7 @@
   <!-- property name="install.test.jar.dependencies"
       value="antlr checkstyle dom4j emma emma_ant jdom jta junit
              log4j mockobjects mockobjects-core mockobjects-jdk1.4-j2ee1.3
-             regexp jmock jmock-cglib strutstest" / -->
+             regexp ${jmock-jars} strutstest" / -->
 
   <property name="install.build.jar.dependencies"
       value="ant ant/ant-junit ${ant-contrib.path} antlr ${jasper-jars} ${test.build.jar.dependencies}
