@@ -7,7 +7,7 @@
 
 Name:           mod_perl
 Version:        2.0.7
-Release:        11.2%{?dist}
+Release:        11.3%{?dist}
 Summary:        An embedded Perl interpreter for the Apache HTTP Server
 
 Group:          System Environment/Daemons
@@ -186,6 +186,9 @@ find "$RPM_BUILD_ROOT" -type f -name *.orig -exec rm -f {} \;
 %{_mandir}/man3/Apache::Test*.3pm*
 
 %changelog
+* Mon Mar 18 2013 Michael Mraka <michael.mraka@redhat.com> 2.0.7-11.3
+- fixed builder definition
+
 * Tue Feb 19 2013 Jan Pazdziora 2.0.7-11.2
 - Adding patch for Apache2::Provider.
 
