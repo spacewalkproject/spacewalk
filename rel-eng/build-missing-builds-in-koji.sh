@@ -21,7 +21,7 @@ done \
       (
       echo Building package in path $package_dir for $tags
       cd $package_dir && \
-          ONLY_TAGS="$tags" ${TITO_PATH}tito release $TITO_RELEASER
+          ONLY_TAGS="$tags" ${TITO_PATH}tito release $TITO_RELEASER </dev/tty
       )
     if [ "0$FEDORA_UPLOAD" -eq 1 ] ; then
       (
