@@ -30,7 +30,7 @@
 
 %define gcj_support %{?_with_gcj_support:1}%{!?_with_gcj_support:%{?_without_gcj_support:0}%{!?_without_gcj_support:%{?_gcj_support:%{_gcj_support}}%{!?_gcj_support:0}}}
 
-%if 0%{?rhel} >= 6
+%if 0%{?rhel} >= 5
 %define gcj_support 1
 %endif
 
