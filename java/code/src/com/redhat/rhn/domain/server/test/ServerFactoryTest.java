@@ -606,8 +606,11 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         netint.setServer(newS);
         newS.addNetworkInterface(netint);
 
-
-
+        Network net = new Network();
+        net.setHostname("server_"+newS.getId());
+        net.setIpaddr("192.168.1.1");
+        net.setServer(newS);
+        newS.addNetwork(net);
 
         ServerFactory.save(newS);
         TestUtils.saveAndReload(newS);

@@ -1812,17 +1812,18 @@ SELECT 1
 
 <mode name="duplicate_system_ids_hostname" class="com.redhat.rhn.frontend.dto.NetworkDto">
     <query params="uid, inactive_date">
-        SELECT distinct S.id as id, S.name as name, NI.hostname as key, si.checkin as last_checkin,
-			 (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; :inactive_date) as inactive
-        from rhnServer S inner join
-		 rhnUserServerPerms USP on S.id = USP.server_id inner join
-		 rhnServerNetwork NI on NI.server_id = S.id inner join
-          	 rhnServerInfo si on si.server_id = S.id inner join
-		 ( Select NI2.hostname, count(NI2.server_id) as syscount
-			from rhnServerNetwork NI2 inner join
-          	 		rhnUserServerPerms USP2 on NI2.server_id = USP2.server_id
-			where USP2.user_id = :uid
-          	 	group by NI2.hostname having count(NI2.server_id) > 1) SUMM on SUMM.hostname = NI.hostname
+        SELECT distinct S.id as id, S.name as name, lower(NI.hostname) as key, si.checkin as last_checkin,
+               (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; :inactive_date) as inactive
+        from   rhnServer S 
+            inner join rhnUserServerPerms USP on S.id = USP.server_id
+            inner join rhnServerNetwork NI on NI.server_id = S.id
+            inner join rhnServerInfo si on si.server_id = S.id
+            inner join ( 
+                Select lower(NI2.hostname) as hostname, count(NI2.server_id) as syscount
+                from   rhnServerNetwork NI2
+                    inner join rhnUserServerPerms USP2 on NI2.server_id = USP2.server_id
+                where USP2.user_id = :uid
+                group by lower(NI2.hostname) having count(NI2.server_id) > 1) SUMM on SUMM.hostname = lower(NI.hostname)
         where USP.user_id = :uid
     </query>
 </mode>
@@ -1832,12 +1833,11 @@ SELECT 1
     <query params="uid, key">
         SELECT distinct S.id as id, S.name as name, si.checkin as last_checkin, 1 AS selectable
         from rhnServer S
-			inner join rhnUserServerPerms USP on S.id = USP.server_id
-			inner join rhnServerNetwork NI on NI.server_id = S.id
-        	 	inner join rhnServerInfo si on si.server_id = S.id
-        where
-		 USP.user_id = :uid
-        	 and NI.hostname = :key
+            inner join rhnUserServerPerms USP on S.id = USP.server_id
+            inner join rhnServerNetwork NI on NI.server_id = S.id
+            inner join rhnServerInfo si on si.server_id = S.id
+        where USP.user_id = :uid
+        and   lower(NI.hostname) = :key
     </query>
 </mode>
 

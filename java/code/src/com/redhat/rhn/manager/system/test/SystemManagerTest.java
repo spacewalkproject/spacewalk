@@ -47,6 +47,7 @@ import com.redhat.rhn.domain.server.CPU;
 import com.redhat.rhn.domain.server.EntitlementServerGroup;
 import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
+import com.redhat.rhn.domain.server.Network;
 import com.redhat.rhn.domain.server.Note;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
@@ -1141,5 +1142,29 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertEquals(list.get(0).getId(), s.getId());
 
     }
+
+    private void setHostname(Server s, String newHostName) {
+        for (Network n : s.getNetworks()) {
+            n.setHostname(newHostName);
+        }
+    }
+
+    public void testListDuplicatesByHostname() throws Exception {
+        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        Server s1 = ServerFactoryTest.createTestServer(user, true);
+        setHostname(s1, "DUPHOST");
+        s1 = ServerFactoryTest.createTestServer(user, true);
+        setHostname(s1, "notADup");
+        s1 = ServerFactoryTest.createTestServer(user, true);
+        setHostname(s1, "duphost");
+
+        List<SystemOverview> list = SystemManager.listDuplicatesByHostname(user, "duphost");
+        assertTrue(list.size() == 2);
+
+        DataResult dr = SystemManager.systemList(user, null);
+        assertTrue(dr.size() == 3);
+
+    }
+
 
 }
