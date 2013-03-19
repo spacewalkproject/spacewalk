@@ -34,6 +34,7 @@
 %define gcj_support 1
 %endif
 
+%define build_subpackages 0
 %define section	free
 
 Name:		tanukiwrapper
@@ -85,6 +86,7 @@ common to many Java applications:
 - Ease Application installations
 - Logging
 
+%if %{build_subpackages}
 %package javadoc
 Summary:        Javadoc for %{name}
 Group:          Development/Documentation
@@ -101,6 +103,7 @@ Group:          Development/Documentation
 
 %description manual
 %{summary}.
+%endif
 
 %prep
 %setup -q -n wrapper_%{version}_src
@@ -133,8 +136,13 @@ bits=64
 %else
 bits=32
 %endif
+%if %{build_subpackages}
 %ant -Dbuild.sysclasspath=first -Djdk.api=%{_javadocdir}/java -Dbits=$bits \
   main jdoc
+%else
+%ant -Dbuild.sysclasspath=first -Djdk.api=%{_javadocdir}/java -Dbits=$bits \
+  main
+%endif
 
 %install
 %__rm -rf %{buildroot}
@@ -152,10 +160,12 @@ bits=32
 %__install -d -m 755 %{buildroot}%{_sbindir}
 %__install -p -m 755 bin/wrapper %{buildroot}%{_sbindir}/%{name}
 
+%if %{build_subpackages}
 # javadoc
 %__install -d -m 755 %{buildroot}%{_javadocdir}/%{name}-%{version}
 %__cp -a jdoc/* %{buildroot}%{_javadocdir}/%{name}-%{version}
 %__ln_s %{name}-%{version} %{buildroot}%{_javadocdir}/%{name} # ghost symlink
+%endif
 
 %if %{gcj_support}
 %{_bindir}/aot-compile-rpm
@@ -164,6 +174,7 @@ bits=32
 %clean
 %__rm -rf %{buildroot}
 
+%if %{build_subpackages}
 %post javadoc
 %__rm -f %{_javadocdir}/%{name}
 %{__ln_s}f %{name}-%{version} %{_javadocdir}/%{name}
@@ -172,6 +183,7 @@ bits=32
 if [ "$1" = "0" ]; then
   %__rm -f %{_javadocdir}/%{name}
 fi
+%endif
 
 %if %{gcj_support}
 %post
@@ -200,6 +212,7 @@ fi
 %attr(-,root,root) %{_libdir}/gcj/%{name}/tanukiwrapper-%{version}.jar.*
 %endif
 
+%if %{build_subpackages}
 %files javadoc
 %defattr(0644,root,root,0755)
 %{_javadocdir}/%{name}-%{version}
@@ -208,6 +221,7 @@ fi
 %files manual
 %defattr(0644,root,root,0755)
 %doc doc/*
+%endif
 
 %changelog
 * Fri Jan 18 2013 Michael Mraka <michael.mraka@redhat.com> 3.2.3-8
