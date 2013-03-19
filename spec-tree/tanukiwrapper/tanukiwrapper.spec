@@ -107,6 +107,7 @@ Group:          Development/Documentation
 
 %prep
 %setup -q -n wrapper_%{version}_src
+%global _default_patch_fuzz 1
 %patch1
 %patch2
 %patch3
