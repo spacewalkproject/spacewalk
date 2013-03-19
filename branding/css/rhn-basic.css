@@ -1,31 +1,12 @@
 /* this is for basic styles that apply site-wide */
 
 /* This is the container for the content that is centered */
-.wrap {
-        width: 92%;
-        margin: 0 auto;
-        text-align: left;
-	background: #fff;
-	padding: 0 15px 0 15px;
-        min-width: 760px;
-}
-
-#top-wrap {
-	border-bottom:	4px solid #00aad4;
-	background: 	#959595 url('/img/spacewalk-header-background.png');
-}
-
-#bottom-wrap {
-	padding-top:	10px;
-}
-
 
 body {
         margin: 0;
         padding: 0;
         color: #333;
         text-align: center;
-        background: black;
         font-family: "Luxi Sans", "Bitstream Vera Sans", "Lucida Grande", "Trebuchet MS", helvetica, verdana, arial, sans-serif;
         font-size: small;
 }
@@ -129,10 +110,6 @@ a.help-title img {
   padding: 0;
   margin: 0;
   vertical-align: top;
-}
-
-.help-title {
-  display: none;
 }
 
 a[name]:hover {
@@ -417,10 +394,10 @@ table.twocolumn td {
 }
 
 .file-display {
- overflow: auto;
- max-width: 600px;
- max-height: 200px;
- padding: 7px 5px;
+  overflow: auto;
+  max-width: 600px;
+  max-height: 200px;
+  padding: 7px 5px;
 }
 
 div.page-summary {
@@ -432,11 +409,6 @@ div.page-summary a {
   text-decoration: underline;
   cursor: pointer
 }
-
-div.indent {
-  margin-left: 4px;
-}
-
 
 #footer {
 
@@ -456,32 +428,32 @@ div.indent {
 }
 
 @media print {
-	.button { display: none; }
-	.content-nav-rowone, .content-nav-rowtwo, .contentnav-row2 { display: none; }
-	.csv-download { display: none; }
-	.list-sizeselector { display: none; }
-	.list-infotext { display: none; }
-	.list-alphabar-enabled, .list-alphabar-disabled {
-		display: none;
+  .button { display: none; }
+  .content-nav-rowone, .content-nav-rowtwo, .contentnav-row2 { display: none; }
+  .csv-download { display: none; }
+  .list-sizeselector { display: none; }
+  .list-infotext { display: none; }
+  .list-alphabar-enabled, .list-alphabar-disabled {
+  display: none;
 }
-	.list-navbuttons { display: none; }
-	.toolbar { display: none; }
-	.toolbar-h1 img { display: none; }
-	#id { display: none; }
-	#geo { display: none; }
-	#linx { display: none; }
-	#mainNav { display: none; }
-	#utilityLinks { display: none; }
-	#header_selcount { display: none; }
-	#searchbar { display: none; }
-	INPUT[type="submit"] { display: none; }
-	td.sidebar { display: none; }
-	div#searchbarinner { display: none; }
-	body { background: white; }
-	#bar { display: none; }
-	#acc-logged-user-org-pipe { display: none; }
-	#acc-prefs { display: none; }
-	#acc-prefs-pipe { display: none; }
-	#acc-logout { display: none; }
-	div.filter-input { display: none; }
+  .list-navbuttons { display: none; }
+  .toolbar { display: none; }
+  .toolbar-h1 img { display: none; }
+  #id { display: none; }
+  #geo { display: none; }
+  #linx { display: none; }
+  #mainNav { display: none; }
+  #utilityLinks { display: none; }
+  #header_selcount { display: none; }
+  #searchbar { display: none; }
+  INPUT[type="submit"] { display: none; }
+  td.sidebar { display: none; }
+  div#searchbarinner { display: none; }
+  body { background: white; }
+  #bar { display: none; }
+  #acc-logged-user-org-pipe { display: none; }
+  #acc-prefs { display: none; }
+  #acc-prefs-pipe { display: none; }
+  #acc-logout { display: none; }
+  div.filter-input { display: none; }
 }

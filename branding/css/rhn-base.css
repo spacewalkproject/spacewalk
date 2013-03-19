@@ -10,14 +10,14 @@
 @import url("rhn-header.css");
 /**** spacewalk *****/
 @import url("blue-docs.css");
-@import url("blue-nav-top.css");
 /*
 @import url("rhn-docs.css");
-@import url("rhn-nav-top.css");
 */
+@import url("rhn-nav-top.css");
 @import url("rhn-nav-sidenav.css");
 @import url("rhn-nav-content.css");
 @import url("rhn-listview.css");
 @import url("rhn-messaging.css");
 @import url("rhn-status.css");
 @import url("rhn-special-styles.css");
+@import url("spacewalk-specific.css");

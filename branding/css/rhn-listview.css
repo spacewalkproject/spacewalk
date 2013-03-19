@@ -1,26 +1,8 @@
 /* -- General list stuff -- */
-table.list img {
-      vertical-align: middle !important;
-}
-
-table.list td {
-      vertical-align: middle !important;
-}
 table.list, table.list-doubleheader {
         border-radius: 10px 10px 0px 0px;
         font-size: 10px;
-        background: #c0c0c0;
-        border: 1px solid #c0c0c0;
         width: 100%;
-}
-
-table.list-doubleheader tr + tr {
-  background-color: #d7d7d7;
-}
-
-table.list-doubleheader tr + tr th:first-child {
-    background: none;
-    background-color: #d7d7d7;
 }
 
 table.list-doubleheader tr + tr th:last-child {
@@ -34,7 +16,6 @@ th.thin-column, td.thin-column {
 
 .list-checkbox {
         text-align: center;
-        border-left: 1px solid #c0c0c0;
 }
 
 .list-checkbox-header {
@@ -54,9 +35,6 @@ th.thin-column, td.thin-column {
 }
 
 /* list row classes */
-.list-row-even td {
-        background-color: #eae8e4;
-}
 .list-row-odd td {
         background-color: #ffffff;
 }
@@ -69,9 +47,6 @@ th.thin-column, td.thin-column {
 }
 
 /* For virtual system list*/
-.list-row-virtual-host-odd td {
-        background-color: #eae8e4;
-}
 .list-row-virtual-host-even td {
         background-color: #E9E3D6;
 }
@@ -87,7 +62,7 @@ th.thin-column, td.thin-column {
         border-top: 1px solid #B4B19A;
 }
 
-/* Your Spacewalk widget classes */
+/* Your RHN widget classes */
 
 div.half-table-left {
     float: left;
@@ -101,10 +76,8 @@ div.half-table-right {
 
 table.half-table {
         border-radius: 10px 10px 0px 0px;
-        background: #c0c0c0;
         padding: 0px;
         margin: 0px;
-        border: 1px solid #c0c0c0;
         width: 97%;
 }
 
@@ -137,9 +110,7 @@ tr.table-tree-even img,
 tr.table-tree-odd img {
    margin-left: 4px;
 }
-tr.table-tree-odd {
-   background-color: #eae8e4;
-}
+
 tr.table-tree-even {
    background-color: #fff;
 }
@@ -275,27 +246,6 @@ th {
 
 /* --- Cool list sorting stuffs --- */
 
-/* the following classes darken all rows in the currently-sorted column */
-.list-row-even td.sortedCol  {
-  background-color: #d0e2f5;
-}
-
-.list-row-odd td.sortedCol  {
-  background-color: #ebf3fb;
-}
-
-th.ascSort, th.descSort {
-   background-color: #9bc5f0 !important;
-}
-
-th.ascSort:first-child, th.descSort:first-child {
-   border-radius: 10px 0 0 0; 
-}
-
-th.ascSort:last-child, th.descSort:last-child {
-   border-radius: 0 10px 0 0; 
-}
-
 /* the following classes add an arrow graphic in the column header */
 
 th.ascSort a {
@@ -313,12 +263,8 @@ th.descSort a {
 }
 
 /* the following classes highlight the first row of an alphabar jump */
-tr.alphaResult td {
-   background-color: #d7d7d7;
-}
 
 tr.alphaResult td.sortedCol {
-      background-color: #c0c0c0;
       padding-left: 20px;
       background-image: url('/img/list-forward.gif');
       background-repeat: no-repeat;
@@ -364,7 +310,6 @@ tr.alphaResult td.sortedCol {
 .csv-download {
 	width:			20%;
 	padding: 		3px 6px;
-	background-color: 	#EAE8E4;
         border-radius:	8px;
 	text-align: center;
 }
@@ -376,11 +321,6 @@ tr.alphaResult td.sortedCol {
 
 .csv-download a {
 	font-weight:		bold;
-}
-
-
-.list-fat-column-50 {
-	width: 50%;
 }
 
 /** Highlightning of hovered rows **/

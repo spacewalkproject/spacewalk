@@ -50,11 +50,7 @@ img#rhnLogo {
 #utilityAccount {
 	float: right;
 	text-align: center;
-        border-radius: 0 0 10px 10px;
-        background: #767676;
-        background: linear-gradient(to bottom, #838383 0%, #767676 100%);
-        background: -o-linear-gradient(top, #838383 0%, #767676 100%);
-        background: -webkit-linear-gradient(top, color-stop(0, #838383), color-stop(1, #767676));
+    border-radius: 0 0 10px 10px;
 	width: 45%;
 }
 
@@ -78,18 +74,3 @@ span.navPipe {
 	color: #b00000;
 	padding: 0 10px;
 }
-
-#utilityAccount a:link,
-#utilityAccount a:hover,
-#utilityAccount a:active,
-#utilityAccount a {
-	color: 			white;
-}
-
-#utilityLinks a:link,
-#utilityLinks a:hover,
-#utilityLinks a:active,
-#utilityLinks a {
-	color: 			white;
-}
-
