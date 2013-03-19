@@ -118,16 +118,7 @@ Group:          Development/Documentation
 %endif
 %patch7
 find . -name "*.jar" -exec %__rm -f {} \;
-%__perl -p -i -e 's/\r//' doc/AUTHORS
 %__perl -p -i -e 's|-O3|%optflags|' src/c/Makefile*
-%__perl -p -e \
-  's|=\.\./lib/wrapper\.jar$|=%{_javadir}/%{name}.jar| ;
-   s|=\.\./lib$|=%{_libdir}|' \
-  src/conf/wrapper.conf.in > wrapper.conf.sample
-%__perl -p -e \
-  's|"\./wrapper"|"%{_sbindir}/%{name}"| ;
-   s|"\.\./conf/wrapper\.conf"|"/path/to/wrapper.conf"|' \
-  src/bin/sh.script.in > script.sh.sample
 
 %build
 export CLASSPATH=$(build-classpath ant junit xerces-j2 xml-commons-apis)
@@ -203,7 +194,7 @@ fi
 
 %files
 %defattr(-,root,root,-)
-%doc doc/license.txt *.sample
+%doc doc/license.txt
 %{_sbindir}/%{name}
 %{_libdir}/libwrapper.so
 %{_javadir}/%{name}*.jar
