@@ -11,21 +11,21 @@
        		</tr>
 		</thead>
 			<tr class="list-row-odd">
-				<td style="text-align: left;" class="first-column last-column">
+				<td style="text-align: left;">
 					<a href="/rhn/kickstart/Kickstarts.do">
 								<bean:message key="kickstartoverview.jsp.viewprofiles"/>
 					</a>
       			</td>
       		</tr>
 			<tr class="list-row-odd">
-				<td style="text-align: left;" class="first-column last-column">
+				<td style="text-align: left;">
       	    		<a href="/rhn/kickstart/CreateProfileWizard.do">
       	    			<bean:message key="kickstartoverview.jsp.createksprofile"/>
       	    		</a>
    				</td>
    			</tr>
 			<tr class="list-row-odd">
-				<td style="text-align: left;" class="first-column last-column">
+				<td style="text-align: left;">
       	    		<a href="/rhn/kickstart/AdvancedModeCreate.do">
       	    			<bean:message key="kickstartoverview.jsp.uploadksfile"/>
       	    		</a>

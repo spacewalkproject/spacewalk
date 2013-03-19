@@ -88,16 +88,16 @@
 
 
 			    <tr class="list-row-odd">
-			      <td class="first-column"><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.deploy.managed-files"
+			      <td><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.deploy.managed-files"
                            arg0 ="/rhn/systems/details/configuration/DeployFileConfirm.do?selectall=true&sid=${param.sid}" />
                   </td>
 
-				  <td class="last-column"></td>
+				  <td></td>
 			    </tr>
 			    <tr class="list-row-odd">
-			      <td class="first-column"><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.deploy.selected-files"
+			      <td><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.deploy.selected-files"
 							       arg0="/rhn/systems/details/configuration/DeployFile.do?sid=${param.sid}"/></td>
-				  <td class="last-column"></td>
+				  <td></td>
 			    </tr>
 			</table>
 			<br />
@@ -111,14 +111,14 @@
 			    </tr>
 			    </thead>
 			    <tr class="list-row-odd">
-			      <td class="first-column"><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.compare.managed-files"
+			      <td><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.compare.managed-files"
 			      		arg0="/rhn/systems/details/configuration/DiffFileConfirm.do?selectall=true&sid=${param.sid}"/></td>
-				  <td class="last-column"></td>
+				  <td></td>
 			    </tr>
 			    <tr class="list-row-odd">
-			      <td class="first-column"><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.compare.selected-files"
+			      <td><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.compare.selected-files"
 			      			 arg0="/rhn/systems/details/configuration/DiffFile.do?sid=${param.sid}"/></td>
-				  <td class="last-column"></td>
+				  <td></td>
 			    </tr>
 			</table>
 			<br />
@@ -130,27 +130,27 @@
 				    </tr>
 			    </thead>
 			    <tr class="list-row-odd">
-			      <td class="first-column"><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.add-create.new-files"
+			      <td><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.add-create.new-files"
 					      arg0 = "/rhn/systems/details/configuration/addfiles/CreateFile.do?sid=${param.sid}"/></td>
-				  <td class="last-column"></td>
+				  <td></td>
 			    </tr>
 			    <tr class="list-row-odd">
-			      <td class="first-column"><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.add-create.upload-files"
+			      <td><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.add-create.upload-files"
       					arg0 = "/rhn/systems/details/configuration//addfiles/UploadFile.do?sid=${param.sid}"/></td>
-			      <td class="last-column"></td>
+			      <td></td>
 			    </tr>
 				<rhn:require mixins="com.redhat.rhn.common.security.acl.SystemAclHandler"
 													 acl="client_capable(configfiles.upload)">
 			    <tr class="list-row-odd">
-			      <td class="first-column"><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.add-create.import-all-files"
+			      <td><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.add-create.import-all-files"
 					      arg0 = "/rhn/systems/details/configuration/addfiles/ImportFileConfirm.do?selectall=true&sid=${param.sid}"/></td>
-			      <td class="last-column"></td>
+			      <td></td>
 			    </tr>
 
 			    <tr class="list-row-odd">
-			      <td class="first-column"><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.add-create.import-selected-files"
+			      <td><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.add-create.import-selected-files"
 			 	      	arg0="/rhn/systems/details/configuration/addfiles/ImportFile.do?sid=${param.sid}"/></td>
-				  <td class="last-column"></td>
+				  <td></td>
 			    </tr>
 			    </rhn:require>
 			</table>

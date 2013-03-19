@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-		<td class="first-column"><bean:message key="${key}"/></td>
+		<td><bean:message key="${key}"/></td>
 		<c:forEach items="${items_list}" var="item"  varStatus="loop">
 			<c:choose>
 				<c:when test ="${loop.count % 2 == 0}">

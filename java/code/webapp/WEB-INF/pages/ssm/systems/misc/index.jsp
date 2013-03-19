@@ -104,25 +104,25 @@
     </thead>
 
     <tr class="list-row-odd">
-      <td class="first-column"><bean:message key="ssm.misc.index.syspref.notify"/></td>
+      <td><bean:message key="ssm.misc.index.syspref.notify"/></td>
       <td align="center"><input type="radio" name="receive_notifications" value="set" /></td>
       <td align="center"><input type="radio" name="receive_notifications" value="unset" /></td>
 
-      <td class="last-column" align="center"><input type="radio" name="receive_notifications" value="do_nothing" checked="1" /></td>
+      <td align="center"><input type="radio" name="receive_notifications" value="do_nothing" checked="1" /></td>
     </tr>
 
     <tr class="list-row-even">
-      <td class="first-column"><bean:message key="ssm.misc.index.syspref.dailysummary"/></td>
+      <td><bean:message key="ssm.misc.index.syspref.dailysummary"/></td>
       <td align="center"><input type="radio" name="include_in_daily_summary" value="set" /></td>
       <td align="center"><input type="radio" name="include_in_daily_summary" value="unset" /></td>
-      <td class="last-column" align="center"><input type="radio" name="include_in_daily_summary" value="do_nothing" checked="1" /></td>
+      <td align="center"><input type="radio" name="include_in_daily_summary" value="do_nothing" checked="1" /></td>
     </tr>
 
     <tr class="list-row-odd">
-      <td class="first-column"><bean:message key="ssm.misc.index.syspref.update"/></td>
+      <td><bean:message key="ssm.misc.index.syspref.update"/></td>
       <td align="center"><input type="radio" name="auto_update" value="set" /></td>
       <td align="center"><input type="radio" name="auto_update" value="unset" /></td>
-      <td class="last-column" align="center"><input type="radio" name="auto_update" value="do_nothing" checked="1" /></td>
+      <td align="center"><input type="radio" name="auto_update" value="do_nothing" checked="1" /></td>
     </tr>
 
   </table>

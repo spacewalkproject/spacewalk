@@ -128,43 +128,43 @@
   <th colspan="2" style="text-align: left;"><bean:message key="kickstart.session_status.jsp.progress" /></th></tr>
 </thead>
 <tr class="list-row-odd">
-  <td class="first-column">
+  <td>
     <c:if test="${created}">
       <img src="/img/rhn-listicon-ok.gif"/>
     </c:if>
   </td>
-  <td style="text-align: left;" class="last-column">
+  <td style="text-align: left;">
     <bean:message key="kickstart.session_status.jsp.status_initiate" />
   </tr>
 </tr>
 <tr class="list-row-even">
-  <td class="first-column">
+  <td>
     <c:if test="${restarted}">
       <img src="/img/rhn-listicon-ok.gif"/>
     </c:if>
   </td>
-  <td style="text-align: left;" class="last-column">
+  <td style="text-align: left;">
     <bean:message key="kickstart.session_status.jsp.status_reboot" />
   </tr>
 </tr>
 <tr class="list-row-odd">
-  <td class="first-column">
+  <td>
     <c:if test="${registered}">
       <img src="/img/rhn-listicon-ok.gif"/>
     </c:if>
   </td>
-  <td style="text-align: left;" class="last-column">
+  <td style="text-align: left;">
     <bean:message key="kickstart.session_status.jsp.status_register" />
   </tr>
 </tr>
 <c:if test="${ksession.serverProfile != null}">
   <tr class="list-row-even">
-    <td class="first-column">
+    <td>
       <c:if test="${package_synch_scheduled}">
         <img src="/img/rhn-listicon-ok.gif"/>
       </c:if>
     </td>
-    <td style="text-align: left;" class="last-column">
+    <td style="text-align: left;">
       <bean:message key="kickstart.session_status.jsp.status_profile" arg0="${ksession.serverProfile.id}" />
     </tr>
   </tr>
@@ -180,34 +180,34 @@
   </c:otherwise>
 </c:choose>
 <tr class="${nextstyle1}">
-  <td class="first-column">
+  <td>
     <c:if test="${configuration_deploy}">
       <img src="/img/rhn-listicon-ok.gif"/>
     </c:if>
   </td>
-  <td style="text-align: left;" class="last-column">
+  <td style="text-align: left;">
     <bean:message key="kickstart.session_status.jsp.status_config" />
   </tr>
 </tr>
 <c:if test="${not failed}">
   <tr class="${nextstyle2}">
-    <td class="first-column">
+    <td>
       <c:if test="${complete}">
         <img src="/img/rhn-listicon-ok.gif"/>
       </c:if>
     </td>
-    <td style="text-align: left;" class="last-column">
+    <td style="text-align: left;">
       <bean:message key="kickstart.session_status.jsp.status_complete" />
     </tr>
   </tr>
 </c:if>
 <c:if test="${failed}">
   <tr class="${nextstyle1}">
-    <td class="first-column">
+    <td>
         <img src="/img/rhn-listicon-error.gif"/>
 
     </td>
-    <td style="text-align: left;" class="last-column">
+    <td style="text-align: left;">
       <bean:message key="kickstart.session_status.jsp.status_failed" />
     </tr>
   </tr>

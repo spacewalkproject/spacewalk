@@ -58,7 +58,7 @@
         </thead>
         <tbody>
             <tr class="list-row-odd">
-                <td class="first-column">
+                <td>
                 <strong><bean:message key="enterprise_entitled"/> <bean:message key="orgsystemsubs.jsp.base"/></strong>
                 <br>
                 <span class="small-text"><bean:message key="orgsystemsubs.jsp.man_tip"/></span>
@@ -69,7 +69,7 @@
                 <td>
                 ${enterprise_entitled.currentEntitlements}
                 </td>
-                <td class="last-column">
+                <td>
                 <c:choose>
                   <c:when test="${param.oid != 1}">
                     <html:text property="enterprise_entitled"
@@ -83,7 +83,7 @@
                 </td>
             </tr>
             <tr class="list-row-even">
-                <td class="first-column">
+                <td>
                 <strong><bean:message key="monitoring_entitled"/> <bean:message key="orgsystemsubs.jsp.add_on"/></strong>
                 <br>
                 <span class="small-text"><bean:message key="orgsystemsubs.jsp.mon_tip"/></span>
@@ -94,7 +94,7 @@
                 <td>
                 ${monitoring_entitled.currentEntitlements}
                 </td>
-                <td class="last-column">
+                <td>
                   <c:choose>
                   <c:when test="${param.oid != 1}">
                     <html:text property="monitoring_entitled"
@@ -108,7 +108,7 @@
                 </td>
             </tr>
             <tr class="list-row-odd">
-                <td class="first-column">
+                <td>
                 <strong><bean:message key="provisioning_entitled"/> <bean:message key="orgsystemsubs.jsp.add_on"/></strong>
                 <br>
                 <span class="small-text"><bean:message key="orgsystemsubs.jsp.provis_tip"/></span>
@@ -119,7 +119,7 @@
                 <td>
                 ${provisioning_entitled.currentEntitlements}
                 </td>
-                <td class="last-column">
+                <td>
                   <c:choose>
                   <c:when test="${param.oid != 1}">
                     <html:text property="provisioning_entitled"
@@ -133,7 +133,7 @@
                 </td>
             </tr>
             <tr class="list-row-even">
-                <td class="first-column">
+                <td>
                 <strong><bean:message key="virtualization_host"/> <bean:message key="orgsystemsubs.jsp.add_on"/></strong>
                 <br>
                 <span class="small-text"><bean:message key="orgsystemsubs.jsp.virt_tip"/></span>
@@ -144,7 +144,7 @@
                 <td>
                 ${virtualization_host.currentEntitlements}
                 </td>
-                <td class="last-column">
+                <td>
                   <c:choose>
                   <c:when test="${param.oid != 1}">
                     <html:text property="virtualization_host"
@@ -158,7 +158,7 @@
                 </td>
             </tr>
             <tr class="list-row-odd">
-                <td class="first-column">
+                <td>
                 <strong><bean:message key="virtualization_host_platform"/> <bean:message key="orgsystemsubs.jsp.add_on"/></strong>
                 <br>
                 <span class="small-text"><bean:message key="orgsystemsubs.jsp.virt_plat_tip"/></span>
@@ -169,7 +169,7 @@
                 <td>
                 ${virtualization_host_platform.currentEntitlements}
                 </td>
-                <td class="last-column">
+                <td>
                   <c:choose>
                   <c:when test="${param.oid != 1}">
                     <html:text property="virtualization_host_platform"

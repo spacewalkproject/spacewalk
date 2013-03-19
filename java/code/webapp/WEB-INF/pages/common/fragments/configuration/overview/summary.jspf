@@ -3,8 +3,8 @@
 <table cellspacing="0" cellpadding="0" class="half-table">
     <thead><th><bean:message key="configoverview.jsp.configsummary"/></th> <th></th></thead>
     <tr class="list-row-odd">
-      <td class="first-column"><bean:message key="configoverview.jsp.systemsmanaged"/></td>
-      <td class="last-column"><a href="/rhn/configuration/system/ManagedSystems.do">
+      <td><bean:message key="configoverview.jsp.systemsmanaged"/></td>
+      <td><a href="/rhn/configuration/system/ManagedSystems.do">
         <c:if test="${summary.systems == 1}">
           <bean:message key="system.common.onesystem" />
         </c:if>
@@ -14,8 +14,8 @@
       </a></td>
     </tr>
     <tr class="list-row-even">
-      <td class="first-column"><bean:message key="configoverview.jsp.configchannels"/></td>
-      <td class="last-column"><a href="/rhn/configuration/GlobalConfigChannelList.do">
+      <td><bean:message key="configoverview.jsp.configchannels"/></td>
+      <td><a href="/rhn/configuration/GlobalConfigChannelList.do">
         <c:if test="${summary.channels == 1}">
           <bean:message key="configoverview.jsp.onechannel" />
         </c:if>
@@ -25,8 +25,8 @@
       </a></td>
     </tr>
     <tr class="list-row-odd">
-      <td class="first-column"><bean:message key="configoverview.jsp.centralfiles"/></td>
-      <td class="last-column"><a href="/rhn/configuration/file/GlobalConfigFileList.do">
+      <td><bean:message key="configoverview.jsp.centralfiles"/></td>
+      <td><a href="/rhn/configuration/file/GlobalConfigFileList.do">
         <c:if test="${summary.global_files == 1}">
           <bean:message key="config.common.onefile" />
         </c:if>
@@ -36,8 +36,8 @@
       </a></td>
     </tr>
     <tr class="list-row-even">
-      <td class="first-column"><bean:message key="configoverview.jsp.localfiles"/></td>
-      <td class="last-column"><a href="/rhn/configuration/file/LocalConfigFileList.do">
+      <td><bean:message key="configoverview.jsp.localfiles"/></td>
+      <td><a href="/rhn/configuration/file/LocalConfigFileList.do">
         <c:if test="${summary.local_files == 1}">
           <bean:message key="config.common.onefile" />
         </c:if>

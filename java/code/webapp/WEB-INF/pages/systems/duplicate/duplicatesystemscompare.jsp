@@ -91,11 +91,11 @@
 	</tr></thead>
 	<tbody>
 	<tr class="list-button-row" >
-		<td class="first-column"><%-- Empty --%></td>
+		<td><%-- Empty --%></td>
 		<c:forEach items="${requestScope.systems.systemIds}" var="current" varStatus="loop">
 			<c:choose>
 				<c:when test ="${loop.last}">
-				<td class="last-column">
+				<td>
 				</c:when>
 				<c:otherwise><td></c:otherwise>
 			</c:choose>
