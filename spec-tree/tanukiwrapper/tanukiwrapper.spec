@@ -39,7 +39,7 @@
 
 Name:		tanukiwrapper
 Version:	3.2.3
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Java Service Wrapper
 Epoch:		0
 License:	BSD
@@ -216,6 +216,9 @@ fi
 %endif
 
 %changelog
+* Tue Mar 19 2013 Tomas Lestach <tlestach@redhat.com> 3.2.3-10
+- set fuzz=1 for tanukiwrapper patch application
+
 * Tue Mar 19 2013 Tomas Lestach <tlestach@redhat.com> 3.2.3-9
 - remove unused sample files from tanukiwrapper
 - disable building tanukiwrapper subpackages
