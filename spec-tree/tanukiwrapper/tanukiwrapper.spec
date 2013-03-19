@@ -39,7 +39,7 @@
 
 Name:		tanukiwrapper
 Version:	3.2.3
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Java Service Wrapper
 Epoch:		0
 License:	BSD
@@ -215,6 +215,11 @@ fi
 %endif
 
 %changelog
+* Tue Mar 19 2013 Tomas Lestach <tlestach@redhat.com> 3.2.3-9
+- remove unused sample files from tanukiwrapper
+- disable building tanukiwrapper subpackages
+- explicitelly enable gcj_support on RHEL
+
 * Fri Jan 18 2013 Michael Mraka <michael.mraka@redhat.com> 3.2.3-8
 - fixed typo in spec
 
