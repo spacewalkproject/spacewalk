@@ -36,7 +36,7 @@ sql:
 		SC.kernel as kernel,
 		SC.reason as reason,
 		SC.username as username,
-		(PN.name + PE.epoch + PE.version + PE.release + PA.label) as package_nevra
+		(coalesce(PN.name, '') || coalesce(PE.epoch, '') || coalesce(PE.version, '') || coalesce(PE.release, '') || coalesce(PA.label, '')) as package_nevra
 	from rhnServer S join
 		rhnServerCrash SC on S.id=SC.server_id left join
 		rhnPackageName PN on SC.package_name_id=PN.id left join
