@@ -126,7 +126,8 @@ class Abrt(rhnHandler):
                               'executable',
                               'kernel',
                               'reason',
-                              'username']
+                              'username',
+                              'uuid']
 
     def _get_crash_id(self, server_id, crash):
         h = rhnSQL.prepare(_query_get_crash)

@@ -129,6 +129,7 @@ public class CrashHandler extends BaseHandler {
      *             #prop("string", "crash")
      *             #prop("string", "path")
      *             #prop("int", "count")
+     *             #prop("string", "uuid")
      *             #prop("string", "analyzer")
      *             #prop("string", "architecture")
      *             #prop("string", "cmdline")
@@ -155,6 +156,8 @@ public class CrashHandler extends BaseHandler {
             crashMap.put("crash", crash.getCrash());
             crashMap.put("path", crash.getPath());
             crashMap.put("count", crash.getCount());
+            crashMap.put("uuid",
+                StringUtils.defaultString(crash.getUuid()));
             crashMap.put("analyzer",
                 StringUtils.defaultString(crash.getAnalyzer()));
             crashMap.put("architecture",

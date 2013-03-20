@@ -33,6 +33,14 @@
     </tr>
     <tr>
       <th>
+        <bean:message key="crashes.jsp.uuid"/>:
+      </th>
+      <td>
+            <c:out value="${crash.uuid}"/>
+      </td>
+    </tr>
+    <tr>
+      <th>
         <bean:message key="crashes.jsp.analyzer"/>:
       </th>
       <td>

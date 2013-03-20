@@ -23,6 +23,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="crash" column="crash" type="string"/>
         <property name="path" column="path" type="string"/>
         <property name="count" column="count" type="long"/>
+        <property name="uuid" column="uuid" type="string"/>
         <property name="analyzer" column="analyzer" type="string"/>
         <property name="architecture" column="architecture" type="string"/>
         <property name="cmdline" column="cmdline" type="string"/>

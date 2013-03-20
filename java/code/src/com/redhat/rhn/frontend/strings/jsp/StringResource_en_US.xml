@@ -16441,6 +16441,12 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <context context-type="sourcefile">/rhn/systems/details/SoftwareCrashDetail.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="crashes.jsp.uuid">
+        <source>UUID</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/SoftwareCrashDetail.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="crashes.jsp.analyzer">
         <source>Analyzer</source>
         <context-group name="ctx">

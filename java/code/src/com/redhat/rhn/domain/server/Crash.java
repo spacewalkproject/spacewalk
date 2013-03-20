@@ -33,6 +33,7 @@ public class Crash extends BaseDomainHelper {
     private String crash;
     private String path;
     private long count;
+    private String uuid;
     private String analyzer;
     private String architecture;
     private String cmdline;
@@ -135,6 +136,22 @@ public class Crash extends BaseDomainHelper {
      */
     public void setCount(long countIn) {
         count = countIn;
+    }
+
+    /**
+     * Get the crash uuid.
+     * @return Returns the crash uuid.
+     */
+    public String getUuid() {
+        return uuid;
+    }
+
+    /**
+     * Set the crash uuid.
+     * @param uuidIn The crash uuid to set.
+     */
+    public void setUuid(String uuidIn) {
+        uuid = uuidIn;
     }
 
     /**

@@ -24,6 +24,7 @@ create table rhnServerCrash
     crash           varchar2(512) not null,
     path            varchar2(1024) not null,
     count           number not null,
+    uuid            varchar2(256),
     analyzer        varchar2(128),
     architecture    varchar2(16),
     cmdline         varchar2(2048),
