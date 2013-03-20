@@ -31,7 +31,6 @@ params:
 
 sql:
 
-	select * from (
 	select system_id, org_id, name, critical, important, moderate, low, bug, enhancement,
 		((critical * :p_crit) + (important *  :p_imp) + (moderate * :p_mod) + (low * :p_low) + (bug * :p_bug) + (enhancement * :p_enh)) as score
 	from (
@@ -48,7 +47,6 @@ sql:
 		(select distinct err.id, snc.server_id, err.synopsis, err.advisory_type from rhnErrata err join
 			rhnServerNeededCache SNC on err.id=SNC.errata_id) E on S.id=E.server_id
 	group by S.id, S.org_id, name
-	)
 	) X
 	-- where placeholder
 	order by org_id, system_id
