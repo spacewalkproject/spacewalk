@@ -39,7 +39,7 @@
 
 Name:		tanukiwrapper
 Version:	3.2.3
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Java Service Wrapper
 Epoch:		0
 License:	BSD
@@ -215,6 +215,9 @@ fi
 %endif
 
 %changelog
+* Wed Mar 20 2013 Tomas Lestach <tlestach@redhat.com> 3.2.3-11
+- Revert "set fuzz=1 for tanukiwrapper patch application"
+
 * Tue Mar 19 2013 Tomas Lestach <tlestach@redhat.com> 3.2.3-10
 - set fuzz=1 for tanukiwrapper patch application
 
