@@ -22,6 +22,7 @@
     <br />
 
     <%@ include file="/WEB-INF/pages/common/fragments/systems/crash-header.jspf" %>
+    <br />
     <%@ include file="/WEB-INF/pages/common/fragments/systems/crash_details.jspf" %>
 </body>
 </html:html>
