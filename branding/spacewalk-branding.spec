@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.10.8
+Version:    1.10.9
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -88,6 +88,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Mar 20 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.9-1
+- changing structure of css files
+
 * Sun Mar 17 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.8-1
 - removing unreferenced images from spacewalk-branding
 
