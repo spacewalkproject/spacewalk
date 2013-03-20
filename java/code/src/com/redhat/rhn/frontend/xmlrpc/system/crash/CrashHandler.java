@@ -394,7 +394,7 @@ public class CrashHandler extends BaseHandler {
             HashMap crashNotesMap = new HashMap();
             crashNotesMap.put("id", cn.getId());
             crashNotesMap.put("subject", cn.getSubject());
-            crashNotesMap.put("details", cn.getNote());
+            crashNotesMap.put("details", cn.getNote() == null ? "" : cn.getNote());
             crashNotesMap.put("updated", cn.getModifiedString());
             returnList.add(crashNotesMap);
         }
