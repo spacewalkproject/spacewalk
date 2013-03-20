@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.19
+Version: 1.10.20
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -677,6 +677,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 20 2013 Jan Dobes <jdobes@redhat.com> 1.10.20-1
+- abrt: store crash uuid
+- abrt api createCrashNote - subject is required
+- visual fix for crash details
+- checkstyle fix
+- removing class="(fisrt|last)-column" from *.jsp(f)
+
 * Tue Mar 19 2013 Grant Gainey <ggainey@redhat.com> 1.10.19-1
 - 922928: Make duplicate-hostname search case-insensitive
 
