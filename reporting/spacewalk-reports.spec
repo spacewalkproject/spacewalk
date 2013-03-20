@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.2
+Version: 1.10.3
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Wed Mar 20 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.3-1
+- making system-currency work on postgres
+- making system-crash-details work on postgres
+
 * Fri Mar 15 2013 Jan Pazdziora 1.10.2-1
 - Fixing Oracle-specific nvl and single-parameter to_char.
 
