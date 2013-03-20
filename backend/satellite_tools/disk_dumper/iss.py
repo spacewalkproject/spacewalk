@@ -533,7 +533,7 @@ class Dumper(dumper.XML_Dumper):
                            rktf.file_size "file-size",
                            TO_CHAR(rktf.last_modified, 'YYYYMMDDHH24MISS') "last-modified",
                            rkt.base_path "base-path",
-                           rkt.label label,
+                           rkt.label "label",
                            TO_CHAR(rkt.modified, 'YYYYMMDDHH24MISS') "modified"
                       from rhnKSTreeFile rktf, rhnKickstartableTree rkt,
                            rhnChecksumView c
