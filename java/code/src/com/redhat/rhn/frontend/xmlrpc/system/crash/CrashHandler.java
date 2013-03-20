@@ -333,6 +333,9 @@ public class CrashHandler extends BaseHandler {
     public int createCrashNote(String sessionKey, Integer crashId,
             String subject, String details) {
         User loggedInUser = getLoggedInUser(sessionKey);
+        if (StringUtils.isBlank(subject)) {
+            throw new IllegalArgumentException("Crash note subject is required");
+        }
         CrashNote cn = new CrashNote();
         cn.setSubject(subject);
         cn.setNote(details);
