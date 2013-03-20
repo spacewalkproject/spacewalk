@@ -62,12 +62,12 @@ PIDDIR="/var/run"
 
 unlock() {
     IDXDIR=`grep search.index_work_dir /etc/rhn/rhn.conf`
-    if [ -z $IDXDIR ]
+    if [ -z "$IDXDIR" ]
     then
         IDXDIR=`grep search.index_work_dir /usr/share/rhn/config-defaults/rhn_search.conf`
     fi
 
-    if [ ! -z $IDXDIR ]
+    if [ ! -z "$IDXDIR" ]
     then
         IDXDIR=`echo $IDXDIR | sed -e 's/=/ /g' | awk '{print $2}'`
         find $IDXDIR -type f -name write.lock -exec rm -f {} \;
