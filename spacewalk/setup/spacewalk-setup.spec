@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.10.0
+Version:        1.10.1
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -99,6 +99,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Mar 21 2013 Jan Pazdziora 1.10.1-1
+- Silence new LWP which is not happy about SSL verification (fix the
+  redirects).
+
 * Wed Feb 20 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.6-1
 - perevent parseOptions from failure
 
