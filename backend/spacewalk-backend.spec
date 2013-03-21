@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.9
+Version: 1.10.10
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -638,6 +638,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Mar 21 2013 Jan Pazdziora 1.10.10-1
+- abrt: store crash uuid
+
 * Wed Mar 20 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.9-1
 - fixing column name in postgresql
 - The min_new_user_len option is not used anywhere in our code, removing.
