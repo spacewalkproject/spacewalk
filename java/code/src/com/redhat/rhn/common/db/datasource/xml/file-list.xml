@@ -24,6 +24,7 @@
     <template name="ErrataCache_queries" filename="xml/ErrataCache_queries.xml" />
     <template name="CustomInfo_queries" filename="xml/CustomInfo_queries.xml" />
     <template name="scap_queries" filename="xml/scap_queries.xml" />
+    <template name="Crash_queries" filename="xml/Crash_queries.xml" />
 
     <!-- queries used to test the datasource system -->
     <template name="test_queries" filename="xml/test_queries.xml" />

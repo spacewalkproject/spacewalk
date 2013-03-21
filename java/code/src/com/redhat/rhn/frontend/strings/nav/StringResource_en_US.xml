@@ -135,6 +135,24 @@
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="software.crashes">
+        <source>Software Crashes</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="software.crashes.overview">
+        <source>Software Crashes Overview</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="software.crashes.overview.summary">
+        <source>The table below lists software crashes, that occured on your systems. Each type of crash is identified by its UUID.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="ssm.nav.config">
         <source>Configuration</source>
         <context-group name="ctx">

@@ -1,0 +1,22 @@
+<datasource_modes>
+
+<mode name="list_identical_crashes_for_org" class="com.redhat.rhn.frontend.dto.IdenticalCrashesDto">
+    <query params="org_id, user_id">
+select sc.uuid as uuid,
+       count(distinct sc.server_id) as system_count,
+       sum(sc.count) as total_crash_count,
+       max(sc.modified) as last_report
+  from rhnServerCrash sc,
+       rhnServer s,
+       rhnUserServerPerms usp
+ where sc.uuid is not null
+       and s.id = sc.server_id
+       and usp.server_id = s.id
+       and s.org_id = :org_id
+       and usp.user_id = :user_id
+ group by uuid
+ order by total_crash_count desc
+    </query>
+</mode>
+
+</datasource_modes>

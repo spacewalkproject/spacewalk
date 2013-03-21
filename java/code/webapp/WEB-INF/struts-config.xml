@@ -2861,6 +2861,16 @@
                  path="/WEB-INF/pages/systems/systemcurrency.jsp"/>
     </action>
 
+    <action path="/systems/SoftwareCrashesOverview"
+        scope="request"
+        input="/WEB-INF/pages/systems/softwarecrashesoverview.jsp"
+        type="com.redhat.rhn.frontend.action.systems.SoftwareCrashesOverviewAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/softwarecrashesoverview.jsp"/>
+    </action>
+
     <action path="/systems/ProxyList"
         scope="request"
         input="/WEB-INF/pages/systems/proxylist.jsp"
