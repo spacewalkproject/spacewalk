@@ -1,6 +1,6 @@
 Name:         eventReceivers
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      2.20.17
+Version:      2.20.18
 Release:      1%{?dist}
 Summary:      Command Center Event Receivers
 URL:          https://fedorahosted.org/spacewalk
@@ -41,6 +41,11 @@ install -m644 *.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Mar 21 2013 Jan Pazdziora 2.20.18-1
+- 922250 - use $r->useragent_ip on Apache 2.4, $r->connection->remote_ip
+  otherwise.
+- %%defattr is not needed since rpm 4.4
+
 * Fri Mar 02 2012 Jan Pazdziora 2.20.17-1
 - Update the copyright year info.
 
