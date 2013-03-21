@@ -45,7 +45,12 @@ sub handler {
 
   # Check to ensure the remote request is from an allowed monitoring satellite
   # or proxy
-  my $remote_ip = $r->connection->remote_ip;
+  my $remote_ip;
+  if ($r->can('useragent_ip')) {
+    $remote_ip = $r->useragent_ip;
+  } else {
+    $remote_ip = $r->connection->remote_ip;
+  }
   my ($valid_ip) = grep { $_ eq $remote_ip } @valid_ips;
 
   unless ($valid_ip) {

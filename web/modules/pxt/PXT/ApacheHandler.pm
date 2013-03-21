@@ -368,7 +368,11 @@ sub initialize_pxt {
     }
     else {
       # create session, use some data as chaff to "seed" the randomness
-      $session = new RHN::Session $r->hostname, $r->connection->remote_ip;
+      if ($r->can('useragent_ip')) {
+         $session = new RHN::Session $r->hostname, $r->useragent_ip;
+      } else {
+         $session = new RHN::Session $r->hostname, $r->connection->remote_ip;
+      }
     }
   };
   if ($@ and catchable($@)) {
