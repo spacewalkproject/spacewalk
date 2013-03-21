@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+hook=/etc/apt/apt.conf.d/50spacewalk
+if test -f $hook.disabled
+then
+    mv $hook.disabled $hook
+fi
+
+#DEBHELPER#
+
+exit 0

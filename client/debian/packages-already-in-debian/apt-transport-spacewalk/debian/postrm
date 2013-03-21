@@ -1,0 +1,34 @@
+#! /bin/sh
+
+set -e
+
+hook=/etc/apt/apt.conf.d/50spacewalk
+
+case "$1" in
+    purge)
+        rm -f $hook.disabled
+        ;;
+
+    remove)
+        mv $hook $hook.disabled
+        ;;
+
+    abort-install)
+        if test "x$2" != "x" && test -f $hook
+        then
+            mv $hook $hook.disabled
+        fi
+        ;;
+
+    upgrade|failed-upgrade|abort-upgrade|disappear)
+        ;;
+
+    *)
+        echo "postrm called with unknown argument \`$1'" >&2
+        exit 1
+
+esac
+
+#DEBHELPER#
+
+exit 0

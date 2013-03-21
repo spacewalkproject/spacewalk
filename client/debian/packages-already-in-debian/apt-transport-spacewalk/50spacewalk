@@ -6,7 +6,7 @@ APT {
   Update {
         List-Refresh "true";
         Pre-Invoke {
-            "/usr/lib/apt-spacewalk/pre_invoke.py";
+            "if [ -x /usr/lib/apt-spacewalk/post_invoke.py ]; then /usr/lib/apt-spacewalk/post_invoke.py; fi";
         }
   }
 };
