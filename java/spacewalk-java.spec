@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.22
+Version: 1.10.23
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -677,6 +677,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Mar 21 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.23-1
+- abrt: software crash overview, grouped by uuid
+
 * Thu Mar 21 2013 Jan Pazdziora 1.10.22-1
 - if token does not exist in DB better use it instead of new one
 
