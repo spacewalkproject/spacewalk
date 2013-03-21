@@ -866,6 +866,7 @@
 		    <form-property name="storageType" type="java.lang.String" />
 		    <form-property name="localStorageGigabytes" type="java.lang.String" />
 		    <form-property name="guestName" type="java.lang.String" />
+		    <form-property name="destroyDisks" type="java.lang.String" />
 
 
         </form-bean>
@@ -6409,6 +6410,8 @@
                  redirect="true" path="/systems/details/kickstart/SessionStatus.do"/>
         <forward name="cobbler-success"
                  redirect="true" path="/systems/details/kickstart/ScheduleWizard.do"/>
+        <forward name="fifth"
+                path="/WEB-INF/pages/kickstart/wizard/schedule/fifth.jsp" />
     </action>
 
     <action path="/systems/details/virtualization/ProvisionVirtualizationWizard"

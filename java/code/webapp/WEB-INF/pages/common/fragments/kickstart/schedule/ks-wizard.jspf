@@ -28,6 +28,7 @@
         <input type="hidden" name="wizardStep" value="first" id="wizard-step" />
         <input type="hidden" name="cobbler_id" value="${form.cobbler_id}" id="cobbler_id" />
         <input type="hidden" name="sid" value="${form.sid}" />
+        <input type="hidden" name="destroyDisks" value="false" id="destroyDisks" />
 
         <c:if test="${empty regularKS}">
             <!-- Store guest provisioning info  -->

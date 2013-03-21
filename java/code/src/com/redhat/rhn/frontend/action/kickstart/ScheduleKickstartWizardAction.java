@@ -21,6 +21,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.action.ActionFactory;
+import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
@@ -64,6 +65,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -121,6 +123,8 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
     public static final String CREATE_BOND_VALUE = "bonding";
     public static final String STATIC_BOND_VALUE = "true";
     public static final String DONT_CREATE_BOND_VALUE = "none";
+    public static final String DESTROY_DISKS = "destroyDisks";
+    public static final String NEXT_ACTION = "wizardStep";
     /**
      * {@inheritDoc}
      */
@@ -146,6 +150,9 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             }
             else if (stepName.equals("fourth")) {
                 wizStep.setPrevious("first");
+            }
+            else if (stepName.equals("fifth")) {
+		wizStep.setPrevious("first");
             }
             wizardSteps.put(stepName, wizStep);
         }
@@ -561,6 +568,10 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         KickstartScheduleCommand cmd = getScheduleCommand(form, ctx,
                 scheduleTime, helper.getKickstartHost());
 
+        if (showDiskWarning(cmd.getKsdata(), form)) {
+		form.set(NEXT_ACTION, "third");
+		return mapping.findForward("fifth");
+        }
         cmd.setNetworkDevice(form.getString(NETWORK_TYPE),
                 form.getString(NETWORK_INTERFACE));
 
@@ -682,6 +693,11 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
 
         KickstartData data = KickstartFactory.lookupKickstartDataByCobblerIdAndOrg(
                 user.getOrg(), profile.getUid());
+
+        if (showDiskWarning(data, form)) {
+		form.set(NEXT_ACTION, "fourth");
+		return mapping.findForward("fifth");
+        }
 
         CobblerSystemCreateCommand cmd = new CobblerSystemCreateCommand(server,
                 profile.getName(), data);
@@ -832,6 +848,35 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             return true;
         }
         return retval;
+    }
+
+    /*
+     * If the user is going to clear all partitions from all drives we need to ask
+     * him if he's sure first.
+     */
+    protected boolean showDiskWarning(KickstartData data, DynaActionForm form) {
+	Set<KickstartCommand> commands = data.getOptions();
+	boolean containsClearpartCommand = false;
+	for (KickstartCommand command : commands) {
+		if (command.getCommandName() != null &&
+				command.getCommandName().getName() != null &&
+				command.getCommandName().getName().equals("clearpart")) {
+			if (command.getArguments() != null &&
+					command.getArguments().contains("--drives")) {
+				return false;
+			}
+			containsClearpartCommand = true;
+			break;
+		}
+		continue;
+	}
+
+	String diskOption = form.getString(DESTROY_DISKS);
+	if (!containsClearpartCommand || (diskOption != null &&
+			diskOption.equals("true"))) {
+		return false;
+	}
+	return true;
     }
 
     private void checkForKickstart(DynaActionForm form,
