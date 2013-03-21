@@ -175,7 +175,9 @@ class DomainConfig:
             
             # Look for the "method" argument.  This is a good indication that
             # the instance is in the installer.
-            if command_line_dict.has_key("method") or command_line_dict.has_key("ks"):
+            if (command_line_dict.has_key("method") or
+                command_line_dict.has_key("ks") or
+                command_line_dict.has_key("autoyast")):
                 result = 1
 
         return result
