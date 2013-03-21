@@ -145,6 +145,10 @@ def _call_domain_control_routine(uuid, routine_name, *args):
         raise VirtualizationException, \
               "Invalid arguments (%s) to %s: %s" % \
                   (str(args), routine_name, str(te)), sys.exc_info()[2]
+    except libvirt.libvirtError, le:
+        raise VirtualizationException, \
+              "LibVirt Error %s: %s" % \
+                  (routine_name, str(le)), sys.exc_info()[2]
     
     # Handle the return code.  Anything non-zero is an error.
     if result != 0:
