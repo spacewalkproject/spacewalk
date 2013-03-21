@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.7
+Version: 1.10.8
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -263,6 +263,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Mar 21 2013 Jan Pazdziora 1.10.8-1
+- 922250 - use $r->useragent_ip on Apache 2.4, $r->connection->remote_ip
+  otherwise.
+
 * Fri Mar 15 2013 Jan Pazdziora 1.10.7-1
 - Mode user_permissions not used, removing from web/.
 - Replacing integer nvl with coalesce.
