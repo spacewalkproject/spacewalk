@@ -4,7 +4,6 @@ use strict;
 use warnings;
 use English;
 
-use Net::LibIDN;
 use Pod::Usage;
 use Sys::Hostname;
 
@@ -341,7 +340,7 @@ Import values to be used by Satellite [y/n]",
     if ($answers->{'rhn-http-proxy'}) {
       $answers->{'rhn-http-proxy'} =~ /^([^:\/]*)(:\d+)?/;
 
-      my ($host, $port) = (Net::LibIDN::idn_to_ascii($1, "utf8"), $2);
+      my ($host, $port) = ($1, $2);
 
       ask(-question => "HTTP Proxy Port",
 	  -test => qr/\d+/,
