@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.8
+Version: 1.10.9
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -261,6 +261,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.9-1
+- 919468 - fixed path in file based Requires
+
 * Thu Mar 21 2013 Jan Pazdziora 1.10.8-1
 - 922250 - use $r->useragent_ip on Apache 2.4, $r->connection->remote_ip
   otherwise.
