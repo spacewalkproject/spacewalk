@@ -8,7 +8,7 @@
 %define modulename spacewalk-proxy
 
 Name:           spacewalk-proxy-selinux
-Version:        1.10.0
+Version:        1.10.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Proxy
 
@@ -109,6 +109,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.1-1
+- 919468 - fixed path in file based Requires
+- %%defattr is not needed since rpm 4.4
+
 * Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
 - bumping spec files to 1.1 packages
 
