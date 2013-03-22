@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.14
+Version:        1.10.15
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.15-1
+- 919468 - fixed path in file based Requires
+
 * Fri Mar 22 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.14-1
 - use alter table syntax common to both postgresql and oracle
 
