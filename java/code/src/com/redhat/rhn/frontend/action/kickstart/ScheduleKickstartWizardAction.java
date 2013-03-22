@@ -152,7 +152,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                 wizStep.setPrevious("first");
             }
             else if (stepName.equals("fifth")) {
-		wizStep.setPrevious("first");
+                wizStep.setPrevious("first");
             }
             wizardSteps.put(stepName, wizStep);
         }
@@ -569,8 +569,8 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                 scheduleTime, helper.getKickstartHost());
 
         if (showDiskWarning(cmd.getKsdata(), form)) {
-		form.set(NEXT_ACTION, "third");
-		return mapping.findForward("fifth");
+                form.set(NEXT_ACTION, "third");
+                return mapping.findForward("fifth");
         }
         cmd.setNetworkDevice(form.getString(NETWORK_TYPE),
                 form.getString(NETWORK_INTERFACE));
@@ -695,8 +695,8 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                 user.getOrg(), profile.getUid());
 
         if (showDiskWarning(data, form)) {
-		form.set(NEXT_ACTION, "fourth");
-		return mapping.findForward("fifth");
+                form.set(NEXT_ACTION, "fourth");
+                return mapping.findForward("fifth");
         }
 
         CobblerSystemCreateCommand cmd = new CobblerSystemCreateCommand(server,
@@ -855,28 +855,28 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
      * him if he's sure first.
      */
     protected boolean showDiskWarning(KickstartData data, DynaActionForm form) {
-	Set<KickstartCommand> commands = data.getOptions();
-	boolean containsClearpartCommand = false;
-	for (KickstartCommand command : commands) {
-		if (command.getCommandName() != null &&
-				command.getCommandName().getName() != null &&
-				command.getCommandName().getName().equals("clearpart")) {
-			if (command.getArguments() != null &&
-					command.getArguments().contains("--drives")) {
-				return false;
-			}
-			containsClearpartCommand = true;
-			break;
-		}
-		continue;
-	}
+        Set<KickstartCommand> commands = data.getOptions();
+        boolean containsClearpartCommand = false;
+        for (KickstartCommand command : commands) {
+            if (command.getCommandName() != null &&
+                command.getCommandName().getName() != null &&
+                command.getCommandName().getName().equals("clearpart")) {
+                if (command.getArguments() != null &&
+                    command.getArguments().contains("--drives")) {
+                    return false;
+                }
+                    containsClearpartCommand = true;
+                    break;
+                }
+                continue;
+        }
 
-	String diskOption = form.getString(DESTROY_DISKS);
-	if (!containsClearpartCommand || (diskOption != null &&
-			diskOption.equals("true"))) {
-		return false;
-	}
-	return true;
+        String diskOption = form.getString(DESTROY_DISKS);
+        if (!containsClearpartCommand || (diskOption != null &&
+            diskOption.equals("true"))) {
+             return false;
+        }
+        return true;
     }
 
     private void checkForKickstart(DynaActionForm form,
