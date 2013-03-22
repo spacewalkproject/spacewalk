@@ -8,7 +8,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        1.10.0
+Version:        1.10.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -113,6 +113,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.1-1
+- 919468 - fixed path in file based Requires
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+
 * Tue Feb 12 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.1-1
 - allow httpd to access postgresql via socket in /var/run/postgresql/
 
