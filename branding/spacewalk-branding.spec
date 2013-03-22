@@ -1,3 +1,13 @@
+%if  0%{?rhel} && 0%{?rhel} < 6
+%global tomcat tomcat5
+%else
+%if 0%{?fedora}
+%global tomcat tomcat
+%else
+%global tomcat tomcat6
+%endif
+%endif
+
 Name:       spacewalk-branding
 Version:    1.10.9
 Release:    1%{?dist}
@@ -32,15 +42,7 @@ install -d -m 755 %{buildroot}%{_datadir}/spacewalk
 install -d -m 755 %{buildroot}%{_datadir}/spacewalk/web
 install -d -m 755 %{buildroot}%{_datadir}/spacewalk/web/nav
 install -d -m 755 %{buildroot}%{_datadir}/rhn/lib/
-%if  0%{?rhel} && 0%{?rhel} < 6
-install -d -m 755 %{buildroot}%{_var}/lib/tomcat5/webapps/rhn/WEB-INF/lib/
-%else
-%if 0%{?fedora}
-install -d -m 755 %{buildroot}%{_var}/lib/tomcat/webapps/rhn/WEB-INF/lib/
-%else
-install -d -m 755 %{buildroot}%{_var}/lib/tomcat6/webapps/rhn/WEB-INF/lib/
-%endif
-%endif
+install -d -m 755 %{buildroot}%{_var}/lib/%{tomcat}/webapps/rhn/WEB-INF/lib/
 install -d -m 755 %{buildroot}/%{_sysconfdir}/rhn
 install -d -m 755 %{buildroot}/%{_prefix}/share/rhn/config-defaults
 cp -pR css %{buildroot}/%{_var}/www/html/
@@ -52,15 +54,7 @@ cp -pR templates %{buildroot}%{_datadir}/spacewalk/web/
 cp -pR styles %{buildroot}%{_datadir}/spacewalk/web/nav/
 cp -pR setup  %{buildroot}%{_datadir}/spacewalk/
 cp -pR java-branding.jar %{buildroot}%{_datadir}/rhn/lib/
-%if  0%{?rhel} && 0%{?rhel} < 6
-ln -s %{_datadir}/rhn/lib/java-branding.jar %{buildroot}%{_var}/lib/tomcat5/webapps/rhn/WEB-INF/lib/java-branding.jar
-%else
-%if 0%{?fedora}
-ln -s %{_datadir}/rhn/lib/java-branding.jar %{buildroot}%{_var}/lib/tomcat/webapps/rhn/WEB-INF/lib/java-branding.jar
-%else
-ln -s %{_datadir}/rhn/lib/java-branding.jar %{buildroot}%{_var}/lib/tomcat6/webapps/rhn/WEB-INF/lib/java-branding.jar
-%endif
-%endif
+ln -s %{_datadir}/rhn/lib/java-branding.jar %{buildroot}%{_var}/lib/%{tomcat}/webapps/rhn/WEB-INF/lib/java-branding.jar
 cp -p conf/rhn_docs.conf %{buildroot}/%{_prefix}/share/rhn/config-defaults/rhn_docs.conf
 
 %clean
@@ -75,15 +69,7 @@ rm -rf %{buildroot}
 %{_var}/www/html/favicon.ico
 %{_datadir}/spacewalk/
 %{_datadir}/rhn/lib/java-branding.jar
-%if  0%{?rhel} && 0%{?rhel} < 6
-%{_var}/lib/tomcat5/webapps/rhn/WEB-INF/lib/java-branding.jar
-%else
-%if 0%{?fedora}
-%{_var}/lib/tomcat/webapps/rhn/WEB-INF/lib/java-branding.jar
-%else
-%{_var}/lib/tomcat6/webapps/rhn/WEB-INF/lib/java-branding.jar
-%endif
-%endif
+%{_var}/lib/%{tomcat}/webapps/rhn/WEB-INF/lib/java-branding.jar
 %{_prefix}/share/rhn/config-defaults/rhn_docs.conf
 %doc LICENSE
 
