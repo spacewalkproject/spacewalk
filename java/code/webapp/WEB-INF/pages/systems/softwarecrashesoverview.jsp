@@ -31,7 +31,8 @@
                 <rl:column headerkey="crashes.jsp.uuid"
                            bound="false"
                            sortattr="uuid"
-                           sortable="true">
+                           sortable="true"
+                           filterattr="uuid">
                     ${current.uuid}
                 </rl:column>
                 <rl:column headerkey="crashes.jsp.totalcrashcount"
