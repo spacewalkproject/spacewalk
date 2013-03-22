@@ -50,6 +50,13 @@ try:
 except ImportError:
     locale = None
 
+sys.path.append("/usr/share/rhsm")
+try:
+    from subscription_manager.hwprobe import Hardware as SubManHardware
+    subscription_manager_available = True
+except ImportError:
+    subscription_manager_available = False
+
 # this does not change, we can cache it
 _dmi_data           = None
 _dmi_not_available  = 0
@@ -157,6 +164,61 @@ def cpu_count():
     re_cpu = re.compile(r"^cpu[0-9]+$")
     return len([i for i in cpu_dir if re_cpu.match(i)])
 
+# get the number of sockets available on this machine
+def __get_number_sockets():
+    try:
+        if subscription_manager_available:
+            return SubManHardware().getCpuInfo()['cpu.cpu_socket(s)']
+    except:
+        pass # something went wrong, let's figure it out ourselves
+
+    number_sockets = 0
+    # Try lscpu command if available
+    if os.access("/usr/bin/lscpu", os.X_OK):
+        try:
+            lines = os.popen("/usr/bin/lscpu -p").readlines()
+            max_socket_index = -1
+            for line in lines:
+                if line.startswith('#'):
+                    continue
+                # get the socket index from the output
+                socket_index = int(line.split(',')[2])
+                if socket_index > max_socket_index:
+                    max_socket_index = socket_index
+            if max_socket_index > -1:
+                return 1 + max_socket_index
+        except:
+            pass
+
+    # Next try parsing /proc/cpuinfo
+    if os.access("/proc/cpuinfo", os.R_OK):
+        try:
+            lines = open("/proc/cpuinfo", 'r').readlines()
+            max_socket_index = -1
+            for line in lines:
+                if 'physical id' in line:
+                    socket_index = int(line.split(':')[1].strip())
+                    if socket_index > max_socket_index:
+                        max_socket_index = socket_index
+            if max_socket_index > -1:
+                return 1 + max_socket_index
+        except:
+            pass
+
+    # Next try dmidecode
+    if os.access("/usr/sbin/dmidecode", os.X_OK):
+        try:
+            lines = os.popen("/usr/sbin/dmidecode -t processor").readlines()
+            count = 0
+            for line in lines:
+                if 'Processor Information' in line:
+                    count += 1
+            if count > 0:
+                return count
+        except:
+            pass
+
+    return None
 
 # This has got to be one of the ugliest fucntions alive
 def read_cpuinfo():
@@ -337,6 +399,11 @@ def read_cpuinfo():
         else:
             if hwdict["count"] == 0: # we have at least one
                 hwdict["count"] = 1
+
+    # If we know it add in the number of sockets
+    number_sockets = __get_number_sockets()
+    if number_sockets:
+        hwdict['socket_count'] = number_sockets
         
     # This whole things hurts a lot.
     return hwdict

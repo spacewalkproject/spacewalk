@@ -39,6 +39,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *      #prop("string", "arch")
  *      #prop("string", "stepping")
  *      #prop("string", "count")
+ *      #prop("int", "socket_count (if available)")
  *  #struct_end()
  *
  */
