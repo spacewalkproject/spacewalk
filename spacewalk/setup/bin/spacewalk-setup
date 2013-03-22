@@ -273,7 +273,6 @@ sub setup_cobbler {
       print FILE "cobbler.host = " . $answers->{'hostname'} . "\n";
       close(FILE);
     }
-    system("/usr/bin/cobbler sync");
   }
 
   Spacewalk::Setup::ask(
@@ -296,8 +295,6 @@ sub setup_cobbler {
         system("chkconfig xinetd on");
       }
   }
-
-  system("cobbler sync");
 }
 
 sub setup_admin_email {
