@@ -1,1 +1,1 @@
-alter table rhnServerCrash add column uuid varchar2(256);
+alter table rhnServerCrash add uuid varchar2(256);
