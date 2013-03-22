@@ -2,7 +2,7 @@
 
 Name:           perl-Satcon
 Summary:        Framework for configuration files
-Version:        1.19
+Version:        1.20
 Release:        1%{?dist}
 License:        GPLv2
 Group:          Applications/System
@@ -47,6 +47,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
+* Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 1.20-1
+- 919468 - fixed path in file based Requires
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+- %%defattr is not needed since rpm 4.4
+
 * Tue Jul 19 2011 Jan Pazdziora 1.19-1
 - Updating the copyright years.
 
