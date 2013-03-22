@@ -5,7 +5,7 @@
 select sc.uuid as uuid,
        count(distinct sc.server_id) as system_count,
        sum(sc.count) as total_crash_count,
-       max(sc.modified) as last_report
+       max(sc.modified) as last_crash_report
   from rhnServerCrash sc,
        rhnServer s,
        rhnUserServerPerms usp

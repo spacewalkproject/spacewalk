@@ -49,14 +49,14 @@
                 </rl:column>
                 <rl:column headerkey="crashes.jsp.lastoccurence"
                            bound="false"
-                           sortattr="lastReport"
+                           sortattr="lastCrashReport"
                            sortable="true">
-                    ${current.lastReport}
+                    ${current.lastCrashReport}
                 </rl:column>
             </rl:list>
         </div>
         <rl:csv name="identicalCrashes"
-                exportColumns="uuid,totalCrashCount,systemCount,lastReport" />
+                exportColumns="uuid,totalCrashCount,systemCount,lastCrashReport" />
     </rl:listset>
 </body>
 </html>

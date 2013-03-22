@@ -27,7 +27,7 @@ public class IdenticalCrashesDto extends BaseDto {
     private String uuid;
     private long totalCrashCount;
     private long systemCount;
-    private Date lastReport;
+    private Date lastCrashReport;
 
     /**
      * Returns id
@@ -97,15 +97,15 @@ public class IdenticalCrashesDto extends BaseDto {
      * Returns the date last of last crash report.
      * @return the date last of last crash report.
      */
-    public Date getLastReport() {
-        return lastReport;
+    public Date getLastCrashReport() {
+        return lastCrashReport;
     }
 
     /**
      * Sets the date of last crash report.
-     * @param lastReportIn the date of last crash report.
+     * @param lastCrashReportIn the date of last crash report.
      */
-    public void setLastReport(Date lastReportIn) {
-        lastReport = lastReportIn;
+    public void setLastCrashReport(Date lastCrashReportIn) {
+        lastCrashReport = lastCrashReportIn;
     }
 }

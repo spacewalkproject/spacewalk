@@ -15850,6 +15850,15 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <trans-unit id="exportcolumn.path">
           <source>Path</source>
         </trans-unit>
+        <trans-unit id="exportcolumn.uuid">
+          <source>UUID</source>
+        </trans-unit>
+        <trans-unit id="exportcolumn.totalCrashCount">
+          <source>Total Crash Count</source>
+        </trans-unit>
+        <trans-unit id="exportcolumn.lastCrashReport">
+          <source>Last Crash Occurence</source>
+        </trans-unit>
       </group>
       <trans-unit id="virtualization.provision.first.jsp.no.profiles">
         <source>No profiles currently available for kickstarting guests. Please &lt;a href="/rhn/kickstart/CreateProfileWizard.do"&gt;create a new kickstart profile with a Virtualization Type other than none.&lt;/a&gt;</source>
