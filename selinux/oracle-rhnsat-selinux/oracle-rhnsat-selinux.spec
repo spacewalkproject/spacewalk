@@ -1,4 +1,4 @@
-
+%{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 %define selinux_variants mls strict targeted 
 %define selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp 2> /dev/null)
 %define moduletype apps
@@ -21,8 +21,8 @@ Requires:         selinux-policy >= %{selinux_policyver}
 %if 0%{?rhel} == 5
 Requires:        selinux-policy >= 2.4.6-80
 %endif
-Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/selinuxenabled
-Requires(postun): /usr/sbin/semodule, /sbin/restorecon
+Requires(post):   /usr/sbin/semodule, %{sbinpath}/restorecon, /usr/sbin/selinuxenabled
+Requires(postun): /usr/sbin/semodule, %{sbinpath}/restorecon
 Requires:         oracle-server >= 10.2.0.3
 Requires:         oracle-nofcontext-selinux
 
@@ -77,9 +77,9 @@ fi
 #this may be safely removed when BZ 505066 is fixed
 if /usr/sbin/selinuxenabled ; then
   # Fix up oracle-server-arch files
-  rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 /sbin/restorecon -Riv
+  rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 %{sbinpath}/restorecon -Riv
   # Fix up database files
-  /sbin/restorecon -rvi /rhnsat /var/tmp/.oracle || :
+  %{sbinpath}/restorecon -rvi /rhnsat /var/tmp/.oracle || :
 fi
 
 %postun
@@ -93,10 +93,10 @@ if [ $1 -eq 0 ]; then
     done
 
   # Clean up oracle-server-arch files
-  rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 /sbin/restorecon -Riv
+  rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 %{sbinpath}/restorecon -Riv
 
   # Clean up any remaining file contexts (shouldn't be any really)
-  /sbin/restorecon -rvi /rhnsat /var/tmp/.oracle || :
+  %{sbinpath}/restorecon -rvi /rhnsat /var/tmp/.oracle || :
 fi
 
 %files

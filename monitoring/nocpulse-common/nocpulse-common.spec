@@ -1,3 +1,5 @@
+%{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
+
 Name:         nocpulse-common
 Version:      2.2.6
 Release:      1%{?dist}
@@ -10,11 +12,7 @@ Group:        Applications/System
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires(pre):  httpd, /usr/sbin/useradd
 Requires(post): openssh
-%if 0%{?fedora} > 17
-Requires(post): %{_sbindir}/runuser
-%else
-Requires(post): /sbin/runuser
-%endif
+Requires(post): %{sbinpath}/runuser
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # merging this two packages together
 # not backward compatible => no Provides:
@@ -132,7 +130,7 @@ fi
 
 if [ ! -f %{identity} ]
 then
-    /sbin/runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{package_name}
+    %{sbinpath}/runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{package_name}
 fi
 
 %files

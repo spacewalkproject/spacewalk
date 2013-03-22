@@ -2,6 +2,7 @@
 %define selinux_variants mls strict targeted
 %define selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp 2> /dev/null)
 %define POLICYCOREUTILSVER 1.33.12-1
+%{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 %define moduletype apps
 %define modulename spacewalk-proxy
@@ -31,8 +32,8 @@ Requires:       selinux-policy >= %{selinux_policyver}
 %if 0%{?rhel} == 5
 Requires:        selinux-policy >= 2.4.6-80
 %endif
-Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/setsebool, /usr/sbin/selinuxenabled
-Requires(postun): /usr/sbin/semodule, /sbin/restorecon
+Requires(post):   /usr/sbin/semodule, %{sbinpath}/restorecon, /usr/sbin/setsebool, /usr/sbin/selinuxenabled
+Requires(postun): /usr/sbin/semodule, %{sbinpath}/restorecon
 Requires:       spacewalk-proxy-management
 Requires:       spacewalk-proxy-common
 Requires:       spacewalk-proxy-broker
@@ -86,7 +87,7 @@ fi
 
 %posttrans
 if /usr/sbin/selinuxenabled ; then
-  /sbin/restorecon -rvvi /var/log/rhn /var/cache/rhn/proxy-auth /var/spool/rhn-proxy
+  %{sbinpath}/restorecon -rvvi /var/log/rhn /var/cache/rhn/proxy-auth /var/spool/rhn-proxy
 fi
 
 %postun
@@ -99,7 +100,7 @@ if [ $1 -eq 0 ]; then
     done
 fi
 
-/sbin/restorecon -rvvi /var/log/rhn /var/cache/rhn/proxy-auth /var/spool/rhn-proxy
+%{sbinpath}/restorecon -rvvi /var/log/rhn /var/cache/rhn/proxy-auth /var/spool/rhn-proxy
 
 %files
 %doc %{modulename}.fc %{modulename}.if %{modulename}.te

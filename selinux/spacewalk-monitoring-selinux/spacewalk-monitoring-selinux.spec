@@ -2,6 +2,7 @@
 %define selinux_variants mls strict targeted
 %define selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp 2> /dev/null)
 %define POLICYCOREUTILSVER 1.33.12-1
+%{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 %define moduletype apps
 %define modulename spacewalk-monitoring
@@ -31,8 +32,8 @@ Requires:       selinux-policy >= %{selinux_policyver}
 %if 0%{?rhel} == 5
 Requires:        selinux-policy >= 2.4.6-80
 %endif
-Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/selinuxenabled
-Requires(postun): /usr/sbin/semodule, /sbin/restorecon
+Requires(post):   /usr/sbin/semodule, %{sbinpath}/restorecon, /usr/sbin/selinuxenabled
+Requires(postun): /usr/sbin/semodule, %{sbinpath}/restorecon
 Requires:       nocpulse-common
 Requires:       nocpulse-db-perl
 Requires:       eventReceivers
@@ -117,8 +118,8 @@ fi
 %posttrans
 #this may be safely remove when BZ 505066 is fixed
 if /usr/sbin/selinuxenabled ; then
-  /sbin/restorecon -rv /etc/rc.d/np.d /etc/notification /var/lib/nocpulse /var/lib/notification /var/log/nocpulse
-  /sbin/restorecon -rvi /var/log/SysVStep.* /var/run/SysVStep.*
+  %{sbinpath}/restorecon -rv /etc/rc.d/np.d /etc/notification /var/lib/nocpulse /var/lib/notification /var/log/nocpulse
+  %{sbinpath}/restorecon -rvi /var/log/SysVStep.* /var/run/SysVStep.*
 fi
 
 %postun
@@ -131,8 +132,8 @@ if [ $1 -eq 0 ]; then
     done
 fi
 
-/sbin/restorecon -rvi /etc/rc.d/np.d /etc/notification /var/lib/nocpulse /var/lib/notification /var/log/nocpulse
-/sbin/restorecon -rvi /var/log/SysVStep.* /var/run/SysVStep.*
+%{sbinpath}/restorecon -rvi /etc/rc.d/np.d /etc/notification /var/lib/nocpulse /var/lib/notification /var/log/nocpulse
+%{sbinpath}/restorecon -rvi /var/log/SysVStep.* /var/run/SysVStep.*
 
 %files
 %doc %{modulename}.fc %{modulename}.if %{modulename}.te

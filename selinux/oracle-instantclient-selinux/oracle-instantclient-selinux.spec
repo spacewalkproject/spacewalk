@@ -1,3 +1,4 @@
+%{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:		oracle-instantclient-selinux
 Version:	11.2.0.1
@@ -14,8 +15,8 @@ URL:		http://fedorahosted.org/spacewalk
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:	noarch
 
-Requires(post):	/usr/sbin/semanage, /sbin/restorecon, /usr/sbin/selinuxenabled
-Requires(postun):	/usr/sbin/semanage, /sbin/restorecon
+Requires(post):	/usr/sbin/semanage, %{sbinpath}/restorecon, /usr/sbin/selinuxenabled
+Requires(postun):	/usr/sbin/semanage, %{sbinpath}/restorecon
 Requires:	oracle-instantclient11.2-basic
 Requires:	oracle-nofcontext-selinux
 
@@ -27,8 +28,8 @@ Summary:	SELinux support for Oracle Instant Client sqlplus
 Group:		System Environment/Base
 Requires:	oracle-instantclient11.2-sqlplus
 Requires:	oracle-nofcontext-selinux
-Requires(post):	/usr/sbin/semanage, /sbin/restorecon, /usr/sbin/selinuxenabled
-Requires(postun):	/usr/sbin/semanage, /sbin/restorecon
+Requires(post):	/usr/sbin/semanage, %{sbinpath}/restorecon, /usr/sbin/selinuxenabled
+Requires(postun):	/usr/sbin/semanage, %{sbinpath}/restorecon
 
 %description -n oracle-instantclient-sqlplus-selinux
 SELinux support for Oracle Instant Client sqlplus.
@@ -50,7 +51,7 @@ cat <<'EOS' > %{buildroot}%{_sbindir}/%{name}-enable
 for i in %used_libs ; do
 	/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/11\.2/client.*/lib/'${i//./\\.}
 done
-/sbin/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
+%{sbinpath}/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
 
 EOS
 
@@ -60,7 +61,7 @@ cat <<'EOS' > %{buildroot}%{_sbindir}/oracle-instantclient-sqlplus-selinux-enabl
 /usr/sbin/semanage fcontext -a -t oracle_sqlplus_exec_t '/usr/lib/oracle/11\.2/client.*/bin/sqlplus'
 /usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/11\.2/client.*/lib/libsqlplus\.so'
 /usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/11\.2/client.*/lib/libsqlplusic\.so'
-/sbin/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
+%{sbinpath}/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
 
 EOS
 
@@ -75,7 +76,7 @@ fi
 %posttrans
 #this may be safely remove when BZ 505066 is fixed
 if /usr/sbin/selinuxenabled ; then
-	/sbin/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
+	%{sbinpath}/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
 fi
 
 %postun
@@ -83,7 +84,7 @@ if [ $1 -eq 0 ]; then
 	for i in %used_libs ; do
 		/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/11\.2/client.*/lib/'${i//./\\.}
 	done
-	/sbin/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
+	%{sbinpath}/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
 fi
 
 %post -n oracle-instantclient-sqlplus-selinux
@@ -94,7 +95,7 @@ fi
 %posttrans -n oracle-instantclient-sqlplus-selinux
 #this may be safely remove when BZ 505066 is fixed
 if /usr/sbin/selinuxenabled ; then
-	/sbin/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
+	%{sbinpath}/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
 fi
 
 %postun -n oracle-instantclient-sqlplus-selinux
@@ -102,7 +103,7 @@ if [ $1 -eq 0 ]; then
 	/usr/sbin/semanage fcontext -d -t oracle_sqlplus_exec_t '/usr/lib/oracle/11\.2/client.*/bin/sqlplus'
 	/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/11\.2/client.*/lib/libsqlplus\.so'
 	/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/11\.2/client.*/lib/libsqlplusic\.so'
-	/sbin/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
+	%{sbinpath}/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
 fi
 
 %files

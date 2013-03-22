@@ -1,3 +1,5 @@
+%{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
+
 Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
@@ -14,7 +16,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  perl(Digest::SHA)
 BuildRequires:  python
 BuildRequires:  /usr/bin/pod2man
-Requires:       /sbin/restorecon
+Requires:       %{sbinpath}/restorecon
 Obsoletes:      rhn-satellite-schema <= 5.1.0
 
 

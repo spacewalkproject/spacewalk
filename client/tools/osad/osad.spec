@@ -1,6 +1,7 @@
 %global rhnroot /usr/share/rhn
 %global rhnconf /etc/sysconfig/rhn
 %global client_caps_dir /etc/sysconfig/rhn/clientCaps.d
+%{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 %if 0%{?suse_version}
 %global apache_group www
@@ -115,8 +116,8 @@ Requires: selinux-policy >= %{selinux_policyver}
 %if 0%{?rhel} == 5
 Requires:        selinux-policy >= 2.4.6-114
 %endif
-Requires(post): /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/selinuxenabled, /usr/sbin/semanage
-Requires(postun): /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/semanage, spacewalk-selinux
+Requires(post): /usr/sbin/semodule, %{sbinpath}/restorecon, /usr/sbin/selinuxenabled, /usr/sbin/semanage
+Requires(postun): /usr/sbin/semodule, %{sbinpath}/restorecon, /usr/sbin/semanage, spacewalk-selinux
 Requires: osa-dispatcher
 
 %description -n osa-dispatcher-selinux

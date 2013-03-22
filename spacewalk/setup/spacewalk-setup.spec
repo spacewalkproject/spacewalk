@@ -1,3 +1,5 @@
+%{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
+
 Name:           spacewalk-setup
 Version:        1.10.2
 Release:        1%{?dist}
@@ -19,7 +21,7 @@ BuildArch:      noarch
 Requires:       perl
 Requires:       perl-Params-Validate
 Requires:       spacewalk-schema
-Requires:       /sbin/restorecon
+Requires:       %{sbinpath}/restorecon
 Requires:       spacewalk-admin
 Requires:       spacewalk-certs-tools
 Requires:       perl-Satcon

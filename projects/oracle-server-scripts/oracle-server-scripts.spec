@@ -4,7 +4,7 @@
 %define oracle_admin %{oracle_base}/admin/%{oracle_base_version}
 %define oracle_config %{oracle_base}/config/%{oracle_base_version}
 %define oracle_scripts %{oracle_base}/scripts/%{oracle_base_version}
-
+%{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Summary: Oracle 10g Database Server Enterprise Edition scripts
 Name: oracle-server-scripts
@@ -18,13 +18,8 @@ Buildroot: /var/tmp/%{name}-root
 Requires: oracle-server >= %{oracle_base_version}
 Requires: m4
 Requires: oracle-config
-%if 0%{?fedora} > 17
-Requires(post): %{_sbindir}/runuser
-Requires: %{_sbindir}/restorecon
-%else
-Requires(post): /sbin/runuser
-Requires: /sbin/restorecon
-%endif
+Requires(post): %{sbinpath}/runuser
+Requires: %{sbinpath}/restorecon
 
 %description
 Management scripts for Oracle
@@ -73,7 +68,7 @@ fi
 # setup environment for oracle user
 [ -f %{oracle_base}/.bash_profile ] \
     && chown oracle.dba %{oracle_base}/.bash_profile
-/sbin/runuser - oracle -c 'cat - >>.bash_profile' <<EOP
+%{sbinpath}/runuser - oracle -c 'cat - >>.bash_profile' <<EOP
 
 # entries added by the %{name} install script
 # setup environment for embedded db

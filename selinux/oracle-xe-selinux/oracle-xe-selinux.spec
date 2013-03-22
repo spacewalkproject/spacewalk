@@ -3,6 +3,7 @@
 %define selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp 2> /dev/null)
 %define moduletype apps
 %define modulename oracle-xe
+%{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:            oracle-xe-selinux
 Version:         10.2.0.33
@@ -24,8 +25,8 @@ BuildArch:       noarch
 %if "%{selinux_policyver}" != ""
 Requires:         selinux-policy >= %{selinux_policyver}
 %endif
-Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /sbin/ldconfig, /usr/sbin/selinuxenabled
-Requires(postun): /usr/sbin/semodule, /sbin/restorecon
+Requires(post):   /usr/sbin/semodule, %{sbinpath}/restorecon, %{sbinpath}/ldconfig, /usr/sbin/selinuxenabled
+Requires(postun): /usr/sbin/semodule, %{sbinpath}/restorecon
 Requires:         /etc/init.d/oracle-xe
 Requires:         oracle-nofcontext-selinux
 Requires:         oracle-lib-compat
@@ -105,9 +106,9 @@ fi
 #this may be safely remove when BZ 505066 is fixed
 if /usr/sbin/selinuxenabled ; then
   # Relabel oracle-xe-univ/oracle-xe's files
-  rpm -qlf /etc/init.d/oracle-xe | while read i ; do [ -e $i ] && echo $i ; done | xargs -n 100 /sbin/restorecon -Rivv
+  rpm -qlf /etc/init.d/oracle-xe | while read i ; do [ -e $i ] && echo $i ; done | xargs -n 100 %{sbinpath}/restorecon -Rivv
   # Fix up additional directories, not owned by oracle-xe-univ/oracle-xe
-  /sbin/restorecon -Rivv %extra_restorecon
+  %{sbinpath}/restorecon -Rivv %extra_restorecon
 fi
 
 %postun
@@ -124,10 +125,10 @@ if [ $1 -eq 0 ]; then
   /usr/sbin/semanage port -d -t oracle_port_t -p tcp 9055 || :
 
   # Clean up oracle-xe-univ/oracle-xe's files
-  rpm -qlf /etc/init.d/oracle-xe | while read i ; do [ -e $i ] && echo $i ; done | xargs -n 100 /sbin/restorecon -Rivv
+  rpm -qlf /etc/init.d/oracle-xe | while read i ; do [ -e $i ] && echo $i ; done | xargs -n 100 %{sbinpath}/restorecon -Rivv
 
   # Clean up additional directories, not owned by oracle-xe-univ/oracle-xe
-  /sbin/restorecon -Rivv %extra_restorecon
+  %{sbinpath}/restorecon -Rivv %extra_restorecon
 fi
 
 %files

@@ -1,3 +1,5 @@
+%{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
+
 Name:           perl-Satcon
 Summary:        Framework for configuration files
 Version:        1.19
@@ -10,7 +12,7 @@ BuildArch:      noarch
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRequires:  perl(ExtUtils::MakeMaker)
-Requires:       /sbin/restorecon
+Requires:       %{sbinpath}/restorecon
 
 %description
 Framework for generating config files during installation.

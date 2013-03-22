@@ -1,5 +1,6 @@
 %global np_name nocpulse
 %global identity %{_var}/lib/%{np_name}/.ssh/nocpulse-identity
+%{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 %if 0%{!?_initddir:1}
 %global _initddir %{_sysconfdir}/rc.d/init.d
 %endif
@@ -46,7 +47,7 @@ Obsoletes:      rhnmd.x86_64 < 5.3.0-5
 Provides:       rhnmd.i386 = %{version}
 Provides:       rhnmd.x86_64 = %{version}
 
-Requires(post): /usr/sbin/semanage, /sbin/restorecon
+Requires(post): /usr/sbin/semanage, %{sbinpath}/restorecon
 Requires(preun): /usr/sbin/semanage
 
 %description
@@ -123,7 +124,7 @@ fi
 %if !0%{?suse_version}
 if [ ! -f %{identity} ]
 then
-    /sbin/runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{np_name}
+    %{sbinpath}/runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{np_name}
 fi
 %endif
 %if 0%{?suse_version} >= 1210
