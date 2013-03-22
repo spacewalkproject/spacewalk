@@ -20,6 +20,7 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.frontend.dto.CrashSystemsDto;
 import com.redhat.rhn.frontend.dto.IdenticalCrashesDto;
 
 import org.apache.log4j.Logger;
@@ -145,6 +146,44 @@ public class CrashFactory extends HibernateFactory {
         Map params = new HashMap();
         params.put("user_id", userIn.getId());
         params.put("org_id", orgIn.getId());
+        return m.execute(params);
+    }
+
+    /**
+     * List summary for software crashes with a given uuid
+     * @param userIn The org to return the summary for
+     * @param orgIn The org to return the summary for
+     * @param uuidIn Crash uuid to return the summary for
+     * @return software crash list for a user and org group by crash uuid
+     */
+    public static List<IdenticalCrashesDto> listCrashUuidDetails(User userIn,
+                                                           Org orgIn,
+                                                           String uuidIn) {
+        SelectMode m = ModeFactory.getMode("Crash_queries",
+                                           "list_crash_details_for_uuid");
+        Map params = new HashMap();
+        params.put("user_id", userIn.getId());
+        params.put("org_id", orgIn.getId());
+        params.put("uuid", uuidIn);
+        return m.execute(params);
+    }
+
+    /**
+     * List systems and further details showing crash with given uuid
+     * @param userIn The org to return the list for
+     * @param orgIn The org to return the list for
+     * @param uuidIn Crash uuid to return the list for
+     * @return List of systems and further details showing crash with given uuid
+     */
+    public static List<CrashSystemsDto> listCrashSystems(User userIn,
+                                                         Org orgIn,
+                                                         String uuidIn) {
+        SelectMode m = ModeFactory.getMode("Crash_queries",
+                                           "list_systems_for crash_uuid");
+        Map params = new HashMap();
+        params.put("user_id", userIn.getId());
+        params.put("org_id", orgIn.getId());
+        params.put("uuid", uuidIn);
         return m.execute(params);
     }
 }
