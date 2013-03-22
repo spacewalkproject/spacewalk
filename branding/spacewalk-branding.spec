@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    1.10.9
+Version:    1.10.10
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -74,6 +74,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.10-1
+- simplify tomcat version decisison
+
 * Wed Mar 20 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.9-1
 - changing structure of css files
 
