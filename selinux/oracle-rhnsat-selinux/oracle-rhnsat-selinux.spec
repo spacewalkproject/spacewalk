@@ -5,7 +5,7 @@
 %define modulename oracle-rhnsat
 
 Name:            oracle-rhnsat-selinux
-Version:         10.2.0.23
+Version:         10.2.0.24
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
@@ -106,6 +106,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 10.2.0.24-1
+- 919468 - fixed path in file based Requires
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+
 * Wed Sep 12 2012 Jan Pazdziora 10.2.0.23-1
 - 768097 - ignore Postfix smtpd parsing /proc/mounts.
 
