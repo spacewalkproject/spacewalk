@@ -20,7 +20,7 @@
 %endif
 
 Name:            oracle-selinux
-Version:         0.1.23.34
+Version:         0.1.23.35
 Release:         1%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
@@ -210,6 +210,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
+* Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 0.1.23.35-1
+- 919468 - fixed path in file based Requires
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+
 * Thu Jan 17 2013 Jan Pazdziora 0.1.23.34-1
 - The rx_file_perms seems no longer available.
 
