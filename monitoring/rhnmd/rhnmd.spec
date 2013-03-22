@@ -9,7 +9,7 @@ Summary:        Red Hat Network Monitoring Daemon
 Name:           rhnmd
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:        5.3.15
+Version:        5.3.16
 Release:        1%{?dist}
 License:        GPLv2
 BuildArch:      noarch
@@ -188,6 +188,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 5.3.16-1
+- 919468 - fixed path in file based Requires
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+
 * Fri Jan 04 2013 Jan Pazdziora 5.3.15-1
 - We may need to define the port 4545 as ours to use.
 - The daemon does success for us.
