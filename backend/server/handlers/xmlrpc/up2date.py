@@ -18,6 +18,7 @@
 # system module import
 import time
 import string
+import inspect
 
 from rhn import rpclib
 from types import ListType, TupleType, StringType, IntType
@@ -29,8 +30,8 @@ from spacewalk.common.rhnTranslate import _
 from spacewalk.server.rhnLib import computeSignature
 from spacewalk.server.rhnHandler import rhnHandler
 from spacewalk.server import rhnChannel, rhnPackage, rhnDependency,\
-    rhnCapability
-from spacewalk.server.rhnServer import server_route
+    rhnCapability, rhnServer, rhnSQL
+from spacewalk.server.rhnServer import server_route, server_hardware
 
 import re
 NONSUBSCRIBABLE_CHANNELS = re.compile("(rhn-proxy|rhn-satellite)")
@@ -53,6 +54,7 @@ class Up2date(rhnHandler):
         # (getting headers, source and packages done with GETs now).
         self.functions.append('login')
         self.functions.append('listChannels')
+        self.functions.append('reportSockets')
         self.functions.append('subscribeChannels')
         self.functions.append('unsubscribeChannels')
         self.functions.append('history')
@@ -141,6 +143,26 @@ class Up2date(rhnHandler):
         server_route.store_client_route(self.server_id)
 
         return loginDict
+
+
+    def reportSockets(self, system_id, num_sockets):
+        """ Clients v2+ """
+        log_debug(5, system_id)
+        # Authenticate the system certificate
+        self.auth_system('reportSockets', system_id)
+	server = rhnServer.search(self.server_id)
+	server.reload_hardware()
+	# there can only be one CPUDevice per system,
+	# see hash fe46f64d
+	[cpu_device] = server.hardware_by_class(server_hardware.CPUDevice)
+	cpu_device.data["nrsocket"] = num_sockets
+	cpu_device.status = 1 # mark as dirty
+        # log the entry
+        log_debug(1, "about to save %s" % self.server_id)
+	cpu_device.save(self.server_id)
+	rhnSQL.commit()
+        log_debug(1, "saved %s" % self.server_id)
+	return "reported %s sockets" % num_sockets
 
 
     def listChannels(self, system_id):

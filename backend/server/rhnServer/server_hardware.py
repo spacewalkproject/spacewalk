@@ -326,7 +326,7 @@ class CPUDevice(Device):
         fields = ['cpu_arch_id',  'architecture', 'bogomips', 'cache',
                   'family', 'mhz', 'stepping', 'flags', 'model',
                   'version', 'vendor', 'nrcpu', 'acpiVersion',
-                  'apic', 'apmVersion', 'chipset']
+                  'apic', 'apmVersion', 'chipset', 'nrsocket']
         mapping = {
             "bogomips" : "bogomips",
             "cache" : "cache",
@@ -339,6 +339,7 @@ class CPUDevice(Device):
             "model_version" : "version",
             "speed" : "mhz",
             "count" : "nrcpu",
+            "socket_count" : "nrsocket",
             "other" : "flags",
             "desc" : None,
             'class' : None,
@@ -904,7 +905,8 @@ class Hardware:
         _l.append(new_dev)
         self.__changed = 1
         return 0
-    
+
+
     def delete_hardware(self, sysid = None):
         """ This function deletes all hardware. """
         log_debug(4, sysid)

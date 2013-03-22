@@ -34,6 +34,7 @@ public class CPU extends BaseDomainHelper {
     private String version;
     private String vendor;
     private Long nrCPU;
+    private Long nrsocket;
     private String acpiVersion;
     private String apic;
     private String apmVersion;
@@ -221,6 +222,20 @@ public class CPU extends BaseDomainHelper {
      */
     public void setNrCPU(Long nrCPUIn) {
         this.nrCPU = nrCPUIn;
+    }
+
+    /**
+     * @return Returns the nrsocket.
+     */
+    public Long getNrsocket() {
+        return nrsocket;
+    }
+
+    /**
+     * @param nrSocketIn The nrSocket to set.
+     */
+    public void setNrsocket(Long nrsocketIn) {
+        this.nrsocket = nrsocketIn;
     }
 
     /**

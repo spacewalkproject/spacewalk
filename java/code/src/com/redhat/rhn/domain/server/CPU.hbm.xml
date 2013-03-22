@@ -27,6 +27,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		<property name="chipSet" column="chipset" type="string" length="64" />
 
 		<property name="nrCPU" column="nrcpu" type="long"/>
+		<property name="nrsocket" column="nrsocket" type="long"/>
 
         <property name="created" column="created" type="timestamp"
                   insert="false" update="false"/>

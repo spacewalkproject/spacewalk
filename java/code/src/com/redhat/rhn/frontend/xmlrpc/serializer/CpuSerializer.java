@@ -68,6 +68,7 @@ public class CpuSerializer implements XmlRpcCustomSerializer {
         helper.add("arch", cpu.getArchName());
         helper.add("stepping", cpu.getStepping());
         helper.add("count", cpu.getNrCPU());
+        helper.add("socket_count", cpu.getNrsocket());
         helper.writeTo(output);
     }
 
