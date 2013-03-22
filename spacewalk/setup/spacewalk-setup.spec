@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        1.10.2
+Version:        1.10.3
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.3-1
+- 919468 - fixed path in file based Requires
+
 * Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.2-1
 - supress systemd messages during setup
 - Use multiparameter system to better predictability.
