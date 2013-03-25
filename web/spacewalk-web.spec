@@ -40,6 +40,7 @@ Group: Applications/Internet
 Summary: Programs needed to be installed on the RHN Web base classes
 Requires: spacewalk-pxt
 Provides: spacewalk(spacewalk-base) = %{version}-%{release}
+Requires: /usr/bin/sudo 
 Requires: webserver
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Obsoletes: rhn-base < 5.3.0
