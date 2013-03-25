@@ -33,6 +33,7 @@ import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.NoCrashesFoundException;
 import com.redhat.rhn.frontend.xmlrpc.CrashFileDownloadException;
 import com.redhat.rhn.frontend.xmlrpc.RhnXmlRpcServer;
+import com.redhat.rhn.frontend.dto.CrashSystemsDto;
 import com.redhat.rhn.frontend.dto.IdenticalCrashesDto;
 import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
 import com.redhat.rhn.manager.download.DownloadManager;
@@ -428,6 +429,46 @@ public class CrashHandler extends BaseHandler {
             crashMap.put("crash_count", ic.getTotalCrashCount());
             crashMap.put("system_count", ic.getSystemCount());
             crashMap.put("last_report", ic.getLastCrashReport());
+            returnList.add(crashMap);
+        }
+        return returnList;
+    }
+
+    /**
+     * @param sessionKey Session ID
+     * @param uuid Crash UUID to search for
+     * @return List of crashes with given UUID
+     *
+     * @xmlrpc.doc List software crashes with given UUID
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "uuid")
+     * @xmlrpc.returntype
+     *     #array()
+     *         #struct("crash")
+     *             #prop_desc("int", "server_id",
+     *                        "ID of the server the crash occurred on")
+     *             #prop_des("string", "server_name",
+     *                       "Name of the server the crash occured on")
+     *             #prop_desc("int", "crash_id", "ID of the crash with given UUID")
+     *             #prop_desc("int", "crash_count",
+     *                        "Number of times the crash with given UUID occurred")
+     *             #prop_desc("string", "crash_component", "Crash component")
+     *             #prop_desc("dateTime.iso8601", "last_report", "Last crash occurence")
+     *         #struct_end()
+     *     #array_end()
+     */
+    public List getCrashesByUuid(String sessionKey, String uuid) {
+        User user = getLoggedInUser(sessionKey);
+        List returnList = new ArrayList();
+        for (CrashSystemsDto cs : CrashFactory.listCrashSystems(user,
+            user.getOrg(), uuid)) {
+            HashMap crashMap = new HashMap();
+            crashMap.put("server_id", cs.getServerId());
+            crashMap.put("server_name", cs.getServerName());
+            crashMap.put("crash_id", cs.getCrashId());
+            crashMap.put("crash_count", cs.getCrashCount());
+            crashMap.put("crash_component", cs.getCrashComponent());
+            crashMap.put("last_report", cs.getLastReport());
             returnList.add(crashMap);
         }
         return returnList;
