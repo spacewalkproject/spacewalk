@@ -1,0 +1,2 @@
+auth_read_passwd(spacewalk_monitoring_t)
+kernel_read_kernel_sysctls(spacewalk_monitoring_t)
