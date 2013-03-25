@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.26
+Version: 1.10.27
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Mar 25 2013 Jan Dobes <jdobes@redhat.com> 1.10.27-1
+- Adding sudo Requires for spacewalk-java-lib
+
 * Mon Mar 25 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.26-1
 - abrt: new api: getCrashesByUuid
 - abrt: new api: getCrashOverview
