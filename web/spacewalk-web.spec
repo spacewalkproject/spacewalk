@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.10
+Version: 1.10.11
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -262,6 +262,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Mar 25 2013 Jan Dobes 1.10.11-1
+- Adding sudo Requires for spacewalk-base package
+
 * Mon Mar 25 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.10-1
 - 918045 - fixed shring-segments for tables in recyclebin
 
