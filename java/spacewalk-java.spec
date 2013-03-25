@@ -218,6 +218,7 @@ Obsoletes: rhn-java-lib < 5.3.0
 Obsoletes: rhn-java-lib-sat < 5.3.0
 Provides: rhn-java-lib = %{version}-%{release}
 Provides: rhn-java-lib-sat = %{version}-%{release}
+Requires: /usr/bin/sudo
 
 %description lib
 This package contains the jar files for the Spacewalk Java web application
