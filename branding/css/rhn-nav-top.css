@@ -104,6 +104,8 @@ div#mainNavWrap ul li#mainFirst-active a {
 #bar .button {
   border: 1px outset #bbb;
   padding: 1px 3px;
+  position: relative;
+  top: 4px;
 }
 
 
@@ -124,12 +126,18 @@ div#mainNavWrap ul li#mainFirst-active a {
 /* This CSS is for the second, red-colored nav bar at the top of the screen. */
 #bar {
 	color: white;
+  padding-top: 2px;
         text-align: right;
         padding-right: 6px;
         height: 2em;
         font-variant: small-caps;
-        padding-top: 4px;
 }
+
+#header_selcount {
+  position: relative;
+  top: 4px;
+}
+
 
 #bar a, #bar a:link, #bar a:hover, #bar a:active {
 	margin-left: 6px;
