@@ -158,8 +158,6 @@
     <packagelist>
        <packagereq type="optional">jpam-javadoc</packagereq>
        <packagereq type="optional">simple-xml-javadoc</packagereq>
-       <packagereq type="optional">tanukiwrapper-javadoc</packagereq>
-       <packagereq type="optional">tanukiwrapper-manual</packagereq>
     </packagelist>
   </group>
   <group>

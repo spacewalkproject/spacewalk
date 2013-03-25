@@ -188,7 +188,6 @@
        <packagereq type="default">stringtree-json</packagereq>
        <packagereq type="default">susestudio-java-client</packagereq>
        <packagereq type="default">tanukiwrapper</packagereq>
-       <packagereq type="default">tanukiwrapper-manual</packagereq>
        <packagereq type="default">tsdb</packagereq>
        <packagereq type="default">ws-jaxme</packagereq>
        <packagereq type="default">ws-jaxme-manual</packagereq>
@@ -227,7 +226,6 @@
        <packagereq type="optional">relaxngDatatype-javadoc</packagereq>
        <packagereq type="optional">simple-xml-javadoc</packagereq>
        <packagereq type="optional">sitemesh-javadoc</packagereq>
-       <packagereq type="optional">tanukiwrapper-javadoc</packagereq>
        <packagereq type="optional">ws-jaxme-javadoc</packagereq>
        <packagereq type="optional">xom-javadoc</packagereq>
        <packagereq type="optional">xpp2-javadoc</packagereq>

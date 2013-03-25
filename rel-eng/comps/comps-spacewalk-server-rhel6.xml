@@ -149,7 +149,6 @@
        <packagereq type="default">stringtree-json</packagereq>
        <packagereq type="default">susestudio-java-client</packagereq>
        <packagereq type="default">tanukiwrapper</packagereq>
-       <packagereq type="default">tanukiwrapper-manual</packagereq>
        <packagereq type="default">tsdb</packagereq>
     </packagelist>
   </group>
@@ -161,7 +160,6 @@
     <packagelist>
        <packagereq type="optional">jpam-javadoc</packagereq>
        <packagereq type="optional">simple-xml-javadoc</packagereq>
-       <packagereq type="optional">tanukiwrapper-javadoc</packagereq>
     </packagelist>
   </group>
   <group>
