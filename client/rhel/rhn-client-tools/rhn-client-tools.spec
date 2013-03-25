@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.10.1
+Version: 1.10.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Mon Mar 25 2013 Stephen Herr <sherr@redhat.com> 1.10.2-1
+- Client tools able to pass up socket info
+
 * Wed Mar 20 2013 Miroslav Suchý <msuchy@redhat.com> 1.10.1-1
 - rpm macros must not be marked as config file
 - Bumping package versions for 1.9
