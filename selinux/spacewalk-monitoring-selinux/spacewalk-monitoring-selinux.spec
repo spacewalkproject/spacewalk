@@ -8,7 +8,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        1.10.1
+Version:        1.10.2
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -145,6 +145,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon Mar 25 2013 Jan Pazdziora 1.10.2-1
+- Startup of monitoring on Fedoras needs few more allows.
+
 * Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.1-1
 - 919468 - fixed path in file based Requires
 - Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
