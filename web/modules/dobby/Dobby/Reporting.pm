@@ -125,9 +125,13 @@ sub segadv_recomendations {
   my $query = <<EOQ;
 SELECT tbs.segment_space_management, rec.*
   FROM TABLE(DBMS_SPACE.ASA_RECOMMENDATIONS()) rec,
-       dba_tablespaces tbs
+       dba_tablespaces tbs,
+       dba_segments segs
  WHERE rec.tablespace_name = tbs.tablespace_name
- ORDER BY segment_space_management asc, segment_type desc, reclaimable_space desc
+   AND rec.segment_name = segs.segment_name
+   AND rec.segment_owner = segs.owner
+   AND rec.segment_type = segs.segment_type
+ ORDER BY tbs.segment_space_management asc, rec.segment_type desc, rec.reclaimable_space desc
 EOQ
   my $sth = $dbh->prepare($query);
   $sth->execute;
