@@ -45,8 +45,8 @@ values (
           from rhnActionScript ascript
          where ascript.action_id = :action_id),
        :output,
-       TO_DATE(:process_start, 'YYYY-MM-DD HH24:MI:SS'),
-       TO_DATE(:process_end, 'YYYY-MM-DD HH24:MI:SS'),
+       TO_TIMESTAMP(:process_start, 'YYYY-MM-DD HH24:MI:SS'),
+       TO_TIMESTAMP(:process_end, 'YYYY-MM-DD HH24:MI:SS'),
        :return_code)
 """)
 

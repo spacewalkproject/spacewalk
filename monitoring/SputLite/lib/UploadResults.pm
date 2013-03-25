@@ -41,7 +41,7 @@ sub ProcessInput {
     if ($field eq 'date_executed') {
 
       my($sec,$min,$hour,$mday,$mon,$year) = gmtime($value);
-      my $timespec = "TO_DATE(?, ?)";
+      my $timespec = "TO_TIMESTAMP(?, ?)";
       my $timestr  = sprintf("%s/%s/%s %s:%s:%s",
 	                      $mon+1, $mday, $year+1900, $hour, $min, $sec);
       push(@values,   "$field = $timespec");

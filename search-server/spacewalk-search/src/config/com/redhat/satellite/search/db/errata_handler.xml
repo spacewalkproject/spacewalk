@@ -42,8 +42,8 @@
                 ac.org_id = wc.org_id and
                 ps.web_user_id = wc.id and
                 ps.id = #sessionId# and
-                E.issue_date &gt;= TO_DATE(#param0#, 'YYYY-MM-DD HH24:MI:SS')
-                AND E.issue_date &lt;= TO_DATE(#param1#, 'YYYY-MM-DD HH24:MI:SS')
+                E.issue_date &gt;= TO_TIMESTAMP(#param0#, 'YYYY-MM-DD HH24:MI:SS')
+                AND E.issue_date &lt;= TO_TIMESTAMP(#param1#, 'YYYY-MM-DD HH24:MI:SS')
                 ORDER BY E.issue_date ASC
    </select>
 </sqlMap>

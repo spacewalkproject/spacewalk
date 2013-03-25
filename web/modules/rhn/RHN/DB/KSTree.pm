@@ -195,7 +195,7 @@ sub commit_files {
 INSERT INTO rhnKSTreeFile
   (kstree_id, relative_filename, checksum_id, last_modified, file_size)
 VALUES
-  (:tree_id, :relative_filename, lookup_checksum('md5', :md5sum), TO_DATE(:last_modified, 'YYYY-MM-DD HH24:MI:SS'), :file_size)
+  (:tree_id, :relative_filename, lookup_checksum('md5', :md5sum), TO_TIMESTAMP(:last_modified, 'YYYY-MM-DD HH24:MI:SS'), :file_size)
 EOQ
 
     $sth->execute_h(tree_id => $self->id, map { $_ => $file->{+uc $_} } qw/relative_filename md5sum last_modified file_size/)

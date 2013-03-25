@@ -1377,7 +1377,7 @@ sub createCQ_Session {
   my $expdate = sprintf("%-04d-%-02d-%-02d %-02d:%-02d:%-02d",
                          $year+1900, $mon+1, $mday, $hour, $min, $sec);
 
-  my $values   = ['?', '?', "TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS')"];
+  my $values   = ['?', '?', "TO_TIMESTAMP(?, 'YYYY-MM-DD HH24:MI:SS')"];
   push(@$bindvars, $contact, $sid, $expdate);
 
   $self->CQ_Sessions('insert', $values, $bindvars); 
@@ -1403,7 +1403,7 @@ sub updateCQ_Session {
                          $year+1900, $mon+1, $mday, $hour, $min, $sec);
 
   my $values   = ['session_id = ?',
-                  "expiration_date = TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS')"]; 
+                  "expiration_date = TO_TIMESTAMP(?, 'YYYY-MM-DD HH24:MI:SS')"]; 
 
   push(@$bindvars, $sid, $expdate);
 

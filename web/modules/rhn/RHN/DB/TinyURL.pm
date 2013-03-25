@@ -65,7 +65,7 @@ sub create {
 INSERT INTO rhnTinyURL
   (token, url, enabled, expires)
 VALUES
-  (:token, :url, 'Y', TO_DATE(:expires, 'YYYY-MM-DD HH24:MI:SS') + 1/6)
+  (:token, :url, 'Y', TO_TIMESTAMP(:expires, 'YYYY-MM-DD HH24:MI:SS') + 1/6)
 EOS
   $sth->execute_h(token => $token, url => $url, expires => $expires);
   $dbh->commit;

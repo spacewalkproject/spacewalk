@@ -1168,7 +1168,7 @@ SELECT
    AND P.name_id = PN.id
    AND P.evr_id = PE.id
    AND PA.id = P.package_arch_id
-   AND P.last_modified &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
+   AND P.last_modified &gt;= TO_TIMESTAMP(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
 ORDER BY UPPER(PN.name), P.id
   </query>
 </mode>
@@ -1192,8 +1192,8 @@ SELECT
    AND P.name_id = PN.id
    AND P.evr_id = PE.id
    AND PA.id = P.package_arch_id
-   AND P.last_modified &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
-      AND P.last_modified &lt;= TO_DATE(:end_date_str, 'YYYY-MM-DD HH24:MI:SS')
+   AND P.last_modified &gt;= TO_TIMESTAMP(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
+      AND P.last_modified &lt;= TO_TIMESTAMP(:end_date_str, 'YYYY-MM-DD HH24:MI:SS')
 ORDER BY UPPER(PN.name), P.id
   </query>
 </mode>
@@ -1238,7 +1238,7 @@ SELECT
    AND P.name_id = PN.id
    AND P.evr_id = PE.id
    AND PA.id = P.package_arch_id
-   AND P.last_modified &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
+   AND P.last_modified &gt;= TO_TIMESTAMP(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
 ORDER BY last_modified
   </query>
 </mode>
@@ -1262,8 +1262,8 @@ SELECT
    AND P.name_id = PN.id
    AND P.evr_id = PE.id
    AND PA.id = P.package_arch_id
-   AND P.last_modified &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
-      AND P.last_modified &lt;= TO_DATE(:end_date_str, 'YYYY-MM-DD HH24:MI:SS')
+   AND P.last_modified &gt;= TO_TIMESTAMP(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
+      AND P.last_modified &lt;= TO_TIMESTAMP(:end_date_str, 'YYYY-MM-DD HH24:MI:SS')
 ORDER BY last_modified
   </query>
 </mode>

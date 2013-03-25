@@ -13,8 +13,8 @@ SELECT EVENT_ID as ID,
        DETAILS
   FROM (SELECT SH.id EVENT_ID,
                SH.summary SUMMARY,
-               TO_DATE(NULL,NULL) AS created,
-               TO_DATE(NULL,NULL) AS picked_up,
+               TO_TIMESTAMP(NULL,NULL) AS created,
+               TO_TIMESTAMP(NULL,NULL) AS picked_up,
                SH.created as completed,  -- view this as the "completed" date for sorting reasons
                NULL AS history_status,
                NULL AS history_type,

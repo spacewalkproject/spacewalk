@@ -509,7 +509,7 @@ sub execute {
   my $now       = str2time($CF_DB->get_sysdate);
   my $timestamp = $now + $q->param('expiremin') * 60 +  $q->param('expirehours') * 60 * 60 +  $q->param('expiredays') * 60 * 60 * 24;
   my $expstring = strftime($F_DATE_FORMAT,gmtime($timestamp));
-  my $expdate   = "TO_DATE('$expstring', '$DB_DATE_FORMAT')";
+  my $expdate   = "TO_TIMESTAMP('$expstring', '$DB_DATE_FORMAT')";
 
   my $instance_id = $CF_DB->createCQ_Instance(
                               $q->param('command_id'),  # COMMAND_ID
@@ -977,7 +977,7 @@ my $val = $q->param("val_field$_");
           $err .= "Invalid date time format entered for \"$desc\".\n";
           last
         }
-        $val   = sprintf("TO_DATE('%s','DD-MM-YY HH24:MI:SS')",strftime('%d-%m-%Y  %H:%M:%S',gmtime($ts)));
+        $val   = sprintf("TO_TIMESTAMP('%s','DD-MM-YY HH24:MI:SS')",strftime('%d-%m-%Y  %H:%M:%S',gmtime($ts)));
       } elsif ($op =~ /like/) {
         $val=uc($val);
         $val = "'%$val%'"

@@ -528,8 +528,8 @@ _query_insert_cert = rhnSQL.Statement("""
     INSERT into rhnSatelliteCert 
            (label, version, cert, expires, issued)
     VALUES (:label, :version, empty_blob(),
-            TO_DATE(:expires, 'YYYY-MM-DD HH24:MI:SS'), 
-            TO_DATE(:issued, 'YYYY-MM-DD HH24:MI:SS'))
+            TO_TIMESTAMP(:expires, 'YYYY-MM-DD HH24:MI:SS'),
+            TO_TIMESTAMP(:issued, 'YYYY-MM-DD HH24:MI:SS'))
 """)
 
 _query_update_web_customer = rhnSQL.Statement("""

@@ -146,8 +146,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                    from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
                   where :channel in elements(e.channels) and
                         (e.org = :org or e.org is null) and
-                        (e.lastModified > to_date(:start_date, 'YYYY-MM-DD HH24:MI:SS')) and
-                        (e.lastModified < to_date(:end_date, 'YYYY-MM-DD HH24:MI:SS'))
+                        (e.lastModified > to_timestamp(:start_date, 'YYYY-MM-DD HH24:MI:SS')) and
+                        (e.lastModified < to_timestamp(:end_date, 'YYYY-MM-DD HH24:MI:SS'))
                   order by e.issueDate
                 ]]>
     </query>

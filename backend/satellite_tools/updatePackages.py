@@ -433,7 +433,7 @@ insert_packagefile = """
     values (
             :pid, lookup_package_capability(:name, null),
             :device, :inode, :file_mode, :username, :groupname,
-            :rdev, :file_size, to_date(:mtime, 'YYYY-MM-DD HH24:MI:SS'), :linkto,
+            :rdev, :file_size, to_timestamp(:mtime, 'YYYY-MM-DD HH24:MI:SS'), :linkto,
             :flags, :verifyflags, :lang, lookup_checksum(:ctype, :csum)
            )
 """

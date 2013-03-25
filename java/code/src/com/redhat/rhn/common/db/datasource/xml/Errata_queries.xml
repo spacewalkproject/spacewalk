@@ -284,8 +284,8 @@ SELECT DISTINCT
                 E.id, E.issue_date
   FROM rhnErrata E
  WHERE
-   E.issue_date &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD')
-   AND E.issue_date &lt;= TO_DATE(:end_date_str, 'YYYY-MM-DD')
+   E.issue_date &gt;= TO_TIMESTAMP(:start_date_str, 'YYYY-MM-DD')
+   AND E.issue_date &lt;= TO_TIMESTAMP(:end_date_str, 'YYYY-MM-DD')
 ORDER BY E.issue_date DESC
   </query>
 </mode>
@@ -348,8 +348,8 @@ SELECT DISTINCT E.id,
        rhnChannelErrata CE
  WHERE CE.channel_id = :cid
    AND CE.errata_id = E.id
-   AND E.issue_date &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
-   AND E.issue_date &lt;= TO_DATE(:end_date_str, 'YYYY-MM-DD HH24:MI:SS')
+   AND E.issue_date &gt;= TO_TIMESTAMP(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
+   AND E.issue_date &lt;= TO_TIMESTAMP(:end_date_str, 'YYYY-MM-DD HH24:MI:SS')
 ORDER BY issue_date DESC
   </query>
 </mode>
@@ -367,7 +367,7 @@ SELECT DISTINCT
        rhnChannelErrata CE
  WHERE CE.channel_id = :cid
    AND CE.errata_id = E.id
-   AND E.issue_date &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
+   AND E.issue_date &gt;= TO_TIMESTAMP(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
 ORDER BY issue_date DESC
   </query>
 </mode>

@@ -874,7 +874,7 @@ sub _create {
       if ($fields{$col} =~ /sysdate/i) {
         push(@bindvars, $fields{$col});
       } else {
-        push(@bindvars, "TO_DATE(?, '" . DEF_DB_DATE_FMT . "')");
+        push(@bindvars, "TO_TIMESTAMP(?, '" . DEF_DB_DATE_FMT . "')");
         push(@bindvals, $self->timestamp_to_string($fields{$col}));
       }
     } else {
@@ -1069,7 +1069,7 @@ sub _wherephrase {
       if ($val =~ /sysdate/i) {
         push(@wherephrases, "$col = $val");
       } else {
-        push(@wherephrases, "$col = TO_DATE(?, '" . DEF_DB_DATE_FMT . "')");
+        push(@wherephrases, "$col = TO_TIMESTAMP(?, '" . DEF_DB_DATE_FMT . "')");
         push(@bindvals,     $self->timestamp_to_string($val));
       }
     } else {

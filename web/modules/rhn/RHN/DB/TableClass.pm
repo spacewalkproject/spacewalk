@@ -80,10 +80,10 @@ sub type_to_placeholder {
   my $ret;
 
   if ($self->column_flags($type) eq 'longdate') {
-    $ret = "TO_DATE($fieldname, 'YYYY-MM-DD HH24:MI:SS')";
+    $ret = "TO_TIMESTAMP($fieldname, 'YYYY-MM-DD HH24:MI:SS')";
   }
   elsif ($self->column_flags($type) eq 'shortdate') {
-    $ret = "TO_DATE($fieldname, 'YYYY-MM-DD')";
+    $ret = "TO_TIMESTAMP($fieldname, 'YYYY-MM-DD')";
   }
   else {
     $ret = "$fieldname";

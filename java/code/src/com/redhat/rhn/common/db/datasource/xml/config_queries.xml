@@ -823,7 +823,7 @@ ORDER BY SA.completion_time DESC
            WHERE  A.Action_type = ( select id from rhnActionType where label = 'configfiles.deploy' )
              AND  A.org_id = :org_id
              AND  USP.user_id = :user_id
-             AND  A.earliest_action &gt; TO_DATE(:date, 'YYYY-MM-DD HH24:MI:SS')
+             AND  A.earliest_action &gt; TO_TIMESTAMP(:date, 'YYYY-MM-DD HH24:MI:SS')
              ORDER BY A.earliest_action desc ) TC
              where rownum &lt;= :num
   </query>
@@ -847,7 +847,7 @@ ORDER BY SA.completion_time DESC
            WHERE  A.Action_type = ( select id from rhnActionType where label = 'configfiles.deploy' )
              AND  A.org_id = :org_id
              AND  USP.user_id = :user_id
-             AND  A.earliest_action &gt; TO_DATE(:date, 'YYYY-MM-DD HH24:MI:SS')
+             AND  A.earliest_action &gt; TO_TIMESTAMP(:date, 'YYYY-MM-DD HH24:MI:SS')
              ORDER BY A.earliest_action desc
              LIMIT :num
   </query>
