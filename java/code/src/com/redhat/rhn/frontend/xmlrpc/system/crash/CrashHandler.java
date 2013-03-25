@@ -33,6 +33,7 @@ import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.NoCrashesFoundException;
 import com.redhat.rhn.frontend.xmlrpc.CrashFileDownloadException;
 import com.redhat.rhn.frontend.xmlrpc.RhnXmlRpcServer;
+import com.redhat.rhn.frontend.dto.IdenticalCrashesDto;
 import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
 import com.redhat.rhn.manager.download.DownloadManager;
 import com.redhat.rhn.manager.system.CrashManager;
@@ -397,6 +398,37 @@ public class CrashHandler extends BaseHandler {
             crashNotesMap.put("details", cn.getNote() == null ? "" : cn.getNote());
             crashNotesMap.put("updated", cn.getModifiedString());
             returnList.add(crashNotesMap);
+        }
+        return returnList;
+    }
+
+    /**
+     * @param sessionKey Session ID
+     * @return Software Crash Overview
+     *
+     * @xmlrpc.doc Get Software Crash Overview
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.returntype
+     *     #array()
+     *         #struct("crash")
+     *             #prop_desc("string", "uuid", "Crash UUID")
+     *             #prop_desc("int", "crash_count", "Number of crashes occurred")
+     *             #prop_des("int", "system_count", "Number of systems affected")
+     *             #prop_desc("dateTime.iso8601", "last_report", "Last crash occurence")
+     *         #struct_end()
+     *     #array_end()
+     */
+    public List getCrashOverview(String sessionKey) {
+        User user = getLoggedInUser(sessionKey);
+        List returnList = new ArrayList();
+        for (IdenticalCrashesDto ic : CrashFactory.listIdenticalCrashesForOrg(user,
+            user.getOrg())) {
+            HashMap crashMap = new HashMap();
+            crashMap.put("uuid", ic.getUuid());
+            crashMap.put("crash_count", ic.getTotalCrashCount());
+            crashMap.put("system_count", ic.getSystemCount());
+            crashMap.put("last_report", ic.getLastCrashReport());
+            returnList.add(crashMap);
         }
         return returnList;
     }
