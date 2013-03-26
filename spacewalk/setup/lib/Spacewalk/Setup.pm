@@ -1925,16 +1925,10 @@ Do not test the Red Hat Enterprise Linux version before installing.
 
 =item B<--skip-selinux-test>
 
-On RHEL 5 and Fedoras, SELinux should be in Permissive or Enforcing
-mode for the installation and setup to proceed properly. If you are
-certain that you are not in Disabled mode or you want to install in
-Disabled anyway, re-run the installer with the flag
---skip-selinux-test.
-
-On RHEL 4, SELinux is not supported, so it must be Disabled or
-Permissive, not Enforcing. If you are certain that you are not in
-Enforcing mode or you know what you're doing, re-run the installer
-with the flag --skip-selinux-test.
+For the installation and setup to proceed properly, SELinux should
+be in Permissive or Enforcing mode. If you are certain that
+you are not in Disabled mode or you want to install in
+Disabled anyway, re-run the installer with the flag --skip-selinux-test.
 
 =item B<--skip-fqdn-test>
 
