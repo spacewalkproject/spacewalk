@@ -207,7 +207,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/TSDB.pm
 %{perl_vendorlib}/RHN/Tag.pm
 %{perl_vendorlib}/RHN/TemplateString.pm
-%{perl_vendorlib}/RHN/TinyURL.pm
 %{perl_vendorlib}/RHN/Token.pm
 %{perl_vendorlib}/RHN/User.pm
 %{perl_vendorlib}/RHN/Utils.pm
