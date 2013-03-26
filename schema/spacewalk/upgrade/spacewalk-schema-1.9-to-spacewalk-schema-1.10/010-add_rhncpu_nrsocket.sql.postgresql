@@ -1,3 +1,3 @@
--- oracle equivalent source sha1 c9998dc4e416dc187bd61828c345991580dac5dd
+-- oracle equivalent source sha1 542a4a49150b8cecd6c9ef947357a1608b1d9f04
 
-alter table rhnCpu add column nrsocket NUMERIC
+alter table rhnCpu add column nrsocket NUMERIC;
