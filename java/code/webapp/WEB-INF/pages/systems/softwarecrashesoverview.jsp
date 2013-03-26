@@ -37,6 +37,12 @@
                         ${current.uuid}
                     </a>
                 </rl:column>
+                <rl:column headerkey="crashes.jsp.component"
+                           bound="false"
+                           sortattr="component"
+                           sortable="true">
+                    ${current.component}
+                </rl:column>
                 <rl:column headerkey="crashes.jsp.totalcrashcount"
                            bound="false"
                            sortattr="totalCrashCount"

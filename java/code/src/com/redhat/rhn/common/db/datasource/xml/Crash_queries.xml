@@ -3,6 +3,10 @@
 <mode name="list_identical_crashes_for_org" class="com.redhat.rhn.frontend.dto.IdenticalCrashesDto">
     <query params="org_id, user_id">
 select sc.uuid as uuid,
+       case when count(distinct sc.component) = 1
+            then min(sc.component)
+            else NULL
+       end as component,
        count(distinct sc.server_id) as system_count,
        sum(sc.count) as total_crash_count,
        max(sc.modified) as last_crash_report

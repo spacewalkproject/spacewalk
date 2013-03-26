@@ -25,6 +25,7 @@ public class IdenticalCrashesDto extends BaseDto {
 
     private Long id;
     private String uuid;
+    private String component;
     private long totalCrashCount;
     private long systemCount;
     private Date lastCrashReport;
@@ -59,6 +60,22 @@ public class IdenticalCrashesDto extends BaseDto {
      */
     public void setUuid(String uuidIn) {
         uuid = uuidIn;
+    }
+
+    /**
+     * Returns the component.
+     * @return Returns the component.
+     */
+    public String getComponent() {
+        return component;
+    }
+
+    /**
+     * Sets the component.
+     * @param componentIn The id to set.
+     */
+    public void setComponent(String componentIn) {
+        component = componentIn;
     }
 
     /**

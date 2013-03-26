@@ -16402,9 +16402,9 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
       </trans-unit>
       <trans-unit id="crashes.jsp.totalcrashcount">
-        <source>Total Crash Count</source>
+        <source>total crash count</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SoftwareCrashesOverview.do</context>
+          <context context-type="sourcefile">/systems/softwarecrashesoverview.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="crashes.jsp.affectedsystemscount">

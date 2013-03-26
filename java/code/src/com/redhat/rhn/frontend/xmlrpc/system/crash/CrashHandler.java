@@ -413,6 +413,8 @@ public class CrashHandler extends BaseHandler {
      *     #array()
      *         #struct("crash")
      *             #prop_desc("string", "uuid", "Crash UUID")
+     *             #prop_desc("string", "component",
+     *                        "Package component (set if unique and non empty)")
      *             #prop_desc("int", "crash_count", "Number of crashes occurred")
      *             #prop_des("int", "system_count", "Number of systems affected")
      *             #prop_desc("dateTime.iso8601", "last_report", "Last crash occurence")
@@ -426,6 +428,10 @@ public class CrashHandler extends BaseHandler {
             user.getOrg())) {
             HashMap crashMap = new HashMap();
             crashMap.put("uuid", ic.getUuid());
+            String component = ic.getComponent();
+            if (component != null) {
+                crashMap.put("component", component);
+            }
             crashMap.put("crash_count", ic.getTotalCrashCount());
             crashMap.put("system_count", ic.getSystemCount());
             crashMap.put("last_report", ic.getLastCrashReport());
