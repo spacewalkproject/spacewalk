@@ -232,7 +232,7 @@ public class CPU extends BaseDomainHelper {
     }
 
     /**
-     * @param nrSocketIn The nrSocket to set.
+     * @param nrsocketIn The nrsocket to set.
      */
     public void setNrsocket(Long nrsocketIn) {
         this.nrsocket = nrsocketIn;
