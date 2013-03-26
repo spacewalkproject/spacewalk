@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.14
+Version: 1.10.15
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -261,6 +261,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Mar 26 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.15-1
+- changing .spec to reflect changes
+
 * Tue Mar 26 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.14-1
 - removing ty from perl code as packages for kickstart are downloaded via java
 
