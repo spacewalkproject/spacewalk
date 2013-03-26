@@ -1,5 +1,5 @@
 Name:           spacewalk-abrt
-Version:        1.10.2
+Version:        1.10.3
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
@@ -37,6 +37,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/*
 
 %changelog
+* Tue Mar 26 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.3-1
+- abrt: report only valid problem directories
+
 * Thu Mar 14 2013 Jan Pazdziora 1.10.2-1
 - abrt: support parsing package nevra from older abrt versions
 
