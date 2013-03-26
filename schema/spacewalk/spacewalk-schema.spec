@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.15
+Version:        1.10.16
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Mar 26 2013 Jan Pazdziora 1.10.16-1
+- Use to_timestamp instead of to_date which should bring the second precision
+  to PostgreSQL.
+- Fixing schema upgrade of rhnCpu.nrsocket.
+- add nrsocket to rhncpu
+
 * Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.15-1
 - 919468 - fixed path in file based Requires
 
