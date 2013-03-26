@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.12
+Version: 1.10.13
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -638,6 +638,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Mar 26 2013 Jan Pazdziora 1.10.13-1
+- Replacing DECODE with more standard CASE.
+
 * Tue Mar 26 2013 Jan Pazdziora 1.10.12-1
 - Use to_timestamp instead of to_date which should bring the second precision
   to PostgreSQL.
