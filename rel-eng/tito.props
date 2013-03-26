@@ -22,4 +22,4 @@ blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient sm
 
 [spacewalk-nightly-fedora18]
 disttag = .fc18
-blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm apt-spacewalk python-hwdata oracle-rhnsat-selinux
+blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm apt-spacewalk python-hwdata oracle-rhnsat-selinux mod_perl
