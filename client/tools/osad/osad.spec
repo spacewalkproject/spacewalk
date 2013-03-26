@@ -25,7 +25,15 @@ BuildRequires: python-devel
 Requires: python
 Requires: rhnlib >= 1.8-3
 Requires: jabberpy
+%if 0%{?el5}
+Requires: rhn-client-tools >= 0.4.20-48
+%else
+%if 0%{?el6}
+Requires: rhn-client-tools >= 1.0.0-44
+%else
 Requires: rhn-client-tools >= 1.3.7
+%endif
+%endif
 %if 0%{?rhel} && 0%{?rhel} <= 5
 Requires: python-hashlib
 %endif
