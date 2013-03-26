@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-OracleDB
-Version: 	  1.28.26
+Version: 	  1.28.27
 Release:      1%{?dist}
 Summary:      Perl modules for NOCpulse Oracle database access
 URL:          https://fedorahosted.org/spacewalk
@@ -47,6 +47,11 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/*
 
 %changelog
+* Tue Mar 26 2013 Jan Pazdziora 1.28.27-1
+- Use to_timestamp instead of to_date which should bring the second precision
+  to PostgreSQL.
+- %%defattr is not needed since rpm 4.4
+
 * Mon Feb 20 2012 Jan Pazdziora 1.28.26-1
 - Use rhn_command_q_inst_recid_seq instead of the synonym, also drop
   command_queue_instances which is not used at all.
