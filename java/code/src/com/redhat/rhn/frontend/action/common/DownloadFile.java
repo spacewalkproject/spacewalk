@@ -22,6 +22,8 @@ import com.redhat.rhn.common.util.MD5Sum;
 import com.redhat.rhn.common.util.download.ByteArrayStreamInfo;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.common.CommonFactory;
+import com.redhat.rhn.domain.common.TinyUrl;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.KickstartSessionState;
@@ -109,6 +111,14 @@ public class DownloadFile extends DownloadAction {
         String url = RhnHelper.getParameterWithSpecialCharacters(request, "url");
         if (log.isDebugEnabled()) {
             log.debug("url : [" + url + "]");
+        }
+        if (url.startsWith("/ty/")) {
+            url = url.replaceFirst("/ty/", "");
+            String[] splits = url.split("/");
+            log.debug(splits[0]);
+            TinyUrl ty = CommonFactory.lookupTinyUrl(splits[0]);
+            url = url.replaceFirst(splits[0], ty.getUrl());
+            log.debug(url);
         }
         if (url.startsWith("/ks/dist")) {
             log.debug("URL is ks dist..");
