@@ -59,6 +59,12 @@ def report(problem_dir):
         log.log_me("The specified path [%s] is not a valid directory." % problem_dir)
         return -1
 
+    for item in ['analyzer', 'cmdline', 'reason']:
+        item_path = os.path.join(problem_dir, item)
+        if not os.path.exists(item_path):
+            log.log_me("Crash directory [%s] is incomplete or invalid" % problem_dir)
+            return -1
+
     server = rhnserver.RhnServer()
     if not server.capabilities.hasCapability('abrt'):
         return -1
