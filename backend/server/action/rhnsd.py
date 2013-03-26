@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2011 Red Hat, Inc.
+# Copyright (c) 2008--2013 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -24,7 +24,7 @@ from spacewalk.common.rhnException import rhnException
 __rhnexport__ = ['configure']
 
 _query_lookup_interval = rhnSQL.Statement("""
-    select interval, decode(restart, 'Y', 1, 'N', 0) restart
+    select interval, case when restart = 'Y' then 1 else 0 end as restart
       from rhnActionDaemonConfig
      where action_id = :action_id
 """)
