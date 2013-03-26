@@ -17,7 +17,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.19
+Version: 5.11.20
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -359,6 +359,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Tue Mar 26 2013 Stephen Herr <sherr@redhat.com> 5.11.20-1
+- 860937 - update osad requires versions for rhel 5 and 6
+
 * Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 5.11.19-1
 - 919468 - fixed path in file based Requires
 - Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
