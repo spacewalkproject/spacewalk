@@ -1302,30 +1302,6 @@ ORDER BY UPPER(PACKAGE_NVREA)
   <elaborator name="package_channels" />
 </mode>
 
-<mode name="system_available_packages">
-  <query params="sid">
-SELECT  pn.name AS NAME,
-        pn.name || '-' || full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS NVRE,
-        pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) AS ID
-  FROM  (
-         SELECT  p.name_id name_id, max(pe.evr) evr
-           FROM  rhnPackageEVR PE, rhnPackage P,
-                 rhnChannelPackage CP, rhnServerChannel SC
-          WHERE  sc.server_id = :sid
-            AND  sc.channel_id = cp.channel_id
-            AND  cp.package_id = p.id
-            AND  p.evr_id = pe.id
-       GROUP BY  p.name_id
-       ) full_list,
-       rhnPackageName pn
- WHERE  full_list.name_id = pn.id
-   AND  full_list.name_id NOT IN (SELECT SP.name_id
-                                    FROM rhnServerPackage SP
-                                   WHERE SP.server_id = :sid)
-ORDER BY  UPPER(pn.name)
-  </query>
-</mode>
-
 <mode name="ssm_packages_for_upgrade">
   <query params="user_id">
 SELECT  P.id AS ID,

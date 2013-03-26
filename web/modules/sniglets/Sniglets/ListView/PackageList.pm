@@ -177,10 +177,6 @@ sub _register_modes {
 			   -datasource => RHN::DataSource::Package->new,
 			   -action_callback => \&default_callback);
 
-  Sniglets::ListView::List->add_mode(-mode => "system_available_packages",
-			   -datasource => RHN::DataSource::Package->new,
-			   -action_callback => \&default_callback);
-
   Sniglets::ListView::List->add_mode(-mode => "system_profile_comparison",
 			   -datasource => RHN::DataSource::Package->new,
 			   -provider => \&profile_comparison_provider,
