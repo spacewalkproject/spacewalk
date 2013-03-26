@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    1.10.10
+Version:    1.10.11
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -74,6 +74,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Mar 26 2013 Jan Pazdziora 1.10.11-1
+- indentation of ssm buttons from top of bar whoch contains them
+
 * Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.10-1
 - simplify tomcat version decisison
 
