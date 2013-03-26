@@ -47,7 +47,9 @@ my %up2dateOptions = ();
 my %rhnOptions = ();
 my @additionalOptions = ();
 # read existing confgiuration
-Spacewalk::Setup::read_config(DEFAULT_UP2DATE_CONF_LOCATION, \%up2dateOptions);
+if (-e DEFAULT_UP2DATE_CONF_LOCATION) {
+    Spacewalk::Setup::read_config(DEFAULT_UP2DATE_CONF_LOCATION, \%up2dateOptions);
+}
 
 if (-e Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION) {
     Spacewalk::Setup::read_config(Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION, \%rhnOptions);

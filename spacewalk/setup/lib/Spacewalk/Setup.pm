@@ -123,7 +123,8 @@ sub parse_options {
             "run-updater:s",
             "run-cobbler",
             "enable-tftp:s",
-            "external-db",
+            "external-oracle",
+            "external-postgresql",
             "db-only",
             "rhn-http-proxy:s",
             "rhn-http-proxy-username:s",
@@ -133,7 +134,7 @@ sub parse_options {
 
   my $usage = loc("usage: %s %s\n",
 		  $0,
-		  "[ --help ] [ --answer-file=<filename> ] [ --non-interactive ] [ --skip-system-version-test ] [ --skip-selinux-test ] [ --skip-fqdn-test ] [ --skip-db-install ] [ --skip-db-diskspace-check ] [ --skip-db-population ] [ --skip-gpg-key-import ] [ --skip-ssl-cert-generation ] [--skip-ssl-vhost-setup] [ --skip-services-check ] [ --clear-db ] [ --re-register ] [ --disconnected ] [ --upgrade ] [ --run-updater=<yes|no>] [--run-cobbler] [ --enable-tftp=<yes|no>] [--external-db]" );
+		  "[ --help ] [ --answer-file=<filename> ] [ --non-interactive ] [ --skip-system-version-test ] [ --skip-selinux-test ] [ --skip-fqdn-test ] [ --skip-db-install ] [ --skip-db-diskspace-check ] [ --skip-db-population ] [ --skip-gpg-key-import ] [ --skip-ssl-cert-generation ] [--skip-ssl-vhost-setup] [ --skip-services-check ] [ --clear-db ] [ --re-register ] [ --disconnected ] [ --upgrade ] [ --run-updater=<yes|no>] [--run-cobbler] [ --enable-tftp=<yes|no>] [ --external-oracle | --external-postgresql ]" );
 
   # Terminate if any errors were encountered parsing the command line args:
   my %opts;
@@ -222,7 +223,9 @@ sub load_answer_file {
 # Check if we're installing with an embedded database.
 sub is_embedded_db {
   my $opts = shift;
-  return not (defined($opts->{'external-db'}) or defined($opts->{'managed-db'}));
+  return not (defined($opts->{'external-oracle'})
+           or defined($opts->{'external-postgresql'})
+           or defined($opts->{'managed-db'}));
 }
 
 sub contains_embedded_oracle {
@@ -1003,7 +1006,7 @@ sub postgresql_setup_embedded_db {
     if (not -x '/usr/bin/spacewalk-setup-postgresql') {
         print loc(<<EOQ);
 The spacewalk-setup-postgresql does not seem to be available.
-You might want to use --external-db command line option.
+You might want to use --external-oracle or --external-postgresql command line option.
 EOQ
         exit 24;
     }
@@ -2046,9 +2049,13 @@ Only runs the necessary steps to setup cobbler
 
 Set to 'yes' to automatically enable tftp and xinetd services needed for Cobbler PXE provisioning functionality. Set to 'no' if you do not want the installer to enable these services.
 
-=item B<--external-db>
+=item B<--external-oracle>
 
-Assume the Red Hat Satellite installation uses an external database (Red Hat Satellite only).
+Assume the Red Hat Satellite installation uses an external Oracle database (Red Hat Satellite only).
+
+=item B<--external-postgresql>
+
+Assume the Red Hat Satellite installation uses an external PostgreSQL database (Red Hat Satellite only).
 
 =back
 
