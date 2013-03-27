@@ -262,6 +262,14 @@ th.descSort a {
    background-position: 100% 60% !important;
 }
 
+th.ascSort:first-child, th.descSort:first-child {
+  border-radius: 10px 0 0 0;
+}
+
+th.ascSort:last-child, th.descSort:last-child {
+  border-radius: 0 10px 0 0;
+}
+
 /* the following classes highlight the first row of an alphabar jump */
 
 tr.alphaResult td.sortedCol {
