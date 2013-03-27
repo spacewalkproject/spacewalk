@@ -101,6 +101,10 @@ a[name]:hover {
         text-decoration: none !important;
 }
 
+.help-title {
+  display: none;
+}
+
 a.help-title {
   vertical-align: top;
 }
