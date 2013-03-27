@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.32
+Version: 1.10.33
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 27 2013 Tomas Lestach <tlestach@redhat.com> 1.10.33-1
+- we need at least c3p0 v.0.9.1 to support ConnectionCustomizer
+
 * Wed Mar 27 2013 Tomas Lestach <tlestach@redhat.com> 1.10.32-1
 - introduce RhnConnectionCustomizer
 
