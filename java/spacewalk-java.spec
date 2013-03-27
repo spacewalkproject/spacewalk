@@ -51,7 +51,7 @@ Requires: jfreechart >= 1.0.9
 %endif
 
 Requires: bcel
-Requires: c3p0
+Requires: c3p0 >= 0.9.1
 Requires: dwr >= 3
 Requires: hibernate3 = 0:3.2.4
 Requires: java >= 1:1.6.0
@@ -131,7 +131,7 @@ BuildRequires: checkstyle
 
 # Sadly I need these to symlink the jars properly.
 BuildRequires: bcel
-BuildRequires: c3p0
+BuildRequires: c3p0 >= 0.9.1
 BuildRequires: concurrent
 BuildRequires: cglib
 BuildRequires: dom4j
@@ -297,7 +297,7 @@ Requires: jfreechart >= 1.0.9
 %endif
 
 Requires: bcel
-Requires: c3p0
+Requires: c3p0 >= 0.9.1
 Requires: hibernate3 >= 0:3.2.4
 Requires: java >= 0:1.6.0
 Requires: java-devel >= 0:1.6.0
