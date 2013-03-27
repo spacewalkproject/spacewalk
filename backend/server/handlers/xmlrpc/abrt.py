@@ -148,6 +148,9 @@ class Abrt(rhnHandler):
         # Older versions of abrt used to store the package info in a single 'package' file
         if pkg_data and pkg_data.has_key('package'):
             (n, e, v, r) = parseRPMName(pkg_data['package'])
+            if not all((n, e, v, r)):
+                return 0
+
             h = rhnSQL.prepare(_query_update_pkg_data1)
             r = h.execute(
                 crash_id = crash_id,
