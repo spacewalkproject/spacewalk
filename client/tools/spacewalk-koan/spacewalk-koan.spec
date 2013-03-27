@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.10.0
+Version: 1.10.1
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -46,6 +46,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Wed Mar 27 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.1-1
+- do not call not existing function
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+
 * Thu Feb 28 2013 Jan Pazdziora 1.9.2-1
 - Removing the dsn parameter from initDB, removing support for --db option.
 
