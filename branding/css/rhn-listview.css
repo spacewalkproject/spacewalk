@@ -307,6 +307,11 @@ tr.alphaResult td.sortedCol {
   margin-bottom: 5px;
 }
 
+.compare-list td:first-child {
+  background-color: #e4e4e4;
+  border-right: 1px solid #b4b19a;
+}
+
 .compare-list ul {
   list-style: none outside !important;
   padding: 0px;
