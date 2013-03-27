@@ -26,7 +26,7 @@ Requires: python
 Requires: rhnlib >= 1.8-3
 Requires: jabberpy
 %if 0%{?rhel} && 0%{?rhel} < 6
-Requires: rhn-client-tools >= 0.4.20-48
+Requires: rhn-client-tools >= 0.4.20-66
 %else
 %if 0%{?el6}
 Requires: rhn-client-tools >= 1.0.0-44
