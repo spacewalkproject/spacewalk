@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    1.10.13
+Version:    1.10.14
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -74,6 +74,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Mar 27 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.14-1
+- fix css in duplicate system comparsion
+
 * Wed Mar 27 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.13-1
 - adding back accidentaly deleted css style
 
