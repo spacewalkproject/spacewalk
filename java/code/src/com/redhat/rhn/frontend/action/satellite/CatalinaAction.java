@@ -39,10 +39,10 @@ public class CatalinaAction extends RhnAction {
                                 HttpServletRequest request,
                                 HttpServletResponse response) {
 
-       String catalina_base = System.getProperty("catalina.base");
+       String catalinaBase = System.getProperty("catalina.base");
 
        request.setAttribute("contents",
-               FileUtils.readStringFromFile(catalina_base + "/logs/catalina.out"));
+               FileUtils.readStringFromFile(catalinaBase + "/logs/catalina.out"));
 
        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
    }
