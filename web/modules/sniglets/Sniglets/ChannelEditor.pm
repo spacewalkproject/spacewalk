@@ -26,6 +26,7 @@ use Sniglets::Channel;
 use RHN::DataSource::Package;
 use RHN::DataSource::Channel;
 use RHN::Form::Widget::RadiobuttonGroup;
+use RHN::Form::ParsedForm ();
 
 sub register_tags {
   my $class = shift;
