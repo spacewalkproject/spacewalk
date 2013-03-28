@@ -7298,6 +7298,14 @@ Follow this url to see the full list of inactive systems:
         <source>PowerPC Debian</source>
         <target>PowerPC Debian</target>
       </trans-unit>
+      <trans-unit id="ARM soft. FP">
+        <source>ARM soft. FP</source>
+        <target>ARM soft. FP</target>
+      </trans-unit>
+      <trans-unit id="ARM hard. FP">
+        <source>ARM hard. FP</source>
+        <target>ARM hard. FP</target>
+      </trans-unit>
       <trans-unit id="arm Debian">
         <source>arm Debian</source>
         <target>arm Debian</target>
