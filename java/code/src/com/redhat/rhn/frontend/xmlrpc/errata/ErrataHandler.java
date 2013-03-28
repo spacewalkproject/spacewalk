@@ -372,9 +372,15 @@ public class ErrataHandler extends BaseHandler {
         }
 
         if (details.containsKey("synopsis")) {
+            if (StringUtils.isBlank((String)details.get("synopsis"))) {
+                throw new InvalidParameterException("Synopsis is required.");
+            }
             errata.setSynopsis((String)details.get("synopsis"));
         }
         if (details.containsKey("advisory_name")) {
+            if (StringUtils.isBlank((String)details.get("advisory_name"))) {
+                throw new InvalidParameterException("Advisory name is required.");
+            }
             errata.setAdvisoryName((String)details.get("advisory_name"));
         }
         if (details.containsKey("advisory_release")) {
@@ -385,21 +391,39 @@ public class ErrataHandler extends BaseHandler {
             errata.setAdvisoryRel(rel);
         }
         if (details.containsKey("advisory_type")) {
+            String pea = "Product Enhancement Advisory"; // hack for checkstyle
+            if (!((String)details.get("advisory_type")).equals("Security Advisory") &&
+            !((String)details.get("advisory_type")).equals(pea) &&
+            !((String)details.get("advisory_type")).equals("Bug Fix Advisory")) {
+                throw new InvalidParameterException("Invalid advisory type");
+            }
             errata.setAdvisoryType((String)details.get("advisory_type"));
         }
         if (details.containsKey("product")) {
+            if (StringUtils.isBlank((String)details.get("product"))) {
+                throw new InvalidParameterException("Product name is required.");
+            }
             errata.setProduct((String)details.get("product"));
         }
         if (details.containsKey("errataFrom")) {
             errata.setErrataFrom((String)details.get("errataFrom"));
         }
         if (details.containsKey("topic")) {
+            if (StringUtils.isBlank((String)details.get("topic"))) {
+                throw new InvalidParameterException("Topic is required.");
+            }
             errata.setTopic((String)details.get("topic"));
         }
         if (details.containsKey("description")) {
+            if (StringUtils.isBlank((String)details.get("description"))) {
+                throw new InvalidParameterException("Description is required.");
+            }
             errata.setDescription((String)details.get("description"));
         }
         if (details.containsKey("solution")) {
+            if (StringUtils.isBlank((String)details.get("solution"))) {
+                throw new InvalidParameterException("Solution is required.");
+            }
             errata.setSolution((String)details.get("solution"));
         }
         if (details.containsKey("references")) {
