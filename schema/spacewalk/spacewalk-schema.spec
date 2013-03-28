@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.18
+Version:        1.10.19
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Mar 28 2013 Jan Pazdziora 1.10.19-1
+- Fixing type in schema upgrade.
+
 * Wed Mar 27 2013 Jan Pazdziora 1.10.18-1
 - Specify default for nrsocket during upgrade as well.
 
