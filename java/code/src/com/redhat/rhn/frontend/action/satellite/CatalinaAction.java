@@ -24,9 +24,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -44,13 +41,10 @@ public class CatalinaAction extends RhnAction {
                                 HttpServletResponse response) {
        RequestContext ctx = new RequestContext(request);
 
-       String catalina = System.getenv("CATALINA_HOME");
-
-       Matcher m = Pattern.compile("/tomcat[0-9]*$").matcher(catalina);
-       m.find();
+       String catalina_base = System.getProperty("catalina.base");
 
        request.setAttribute("contents",
-               FileUtils.readStringFromFile("/var/log" + m.group(0) + "/catalina.out"));
+               FileUtils.readStringFromFile(catalina_base + "/logs/catalina.out"));
 
        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
    }
