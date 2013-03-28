@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.33
+Version: 1.10.34
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Mar 28 2013 Jan Pazdziora 1.10.34-1
+- Variable ctx not used, removing.
+- The CATALINA_BASE seems to have logs/ symlink to proper place and we do not
+  have to depend on CATALINA_HOME being exported.
+- adding dwr to ivy list
+- 681453 - throw exception instead of ISE if bad paramter is given
+- updating c3p0 version in ivy
+- Making the ARM soft./hard. FP channel archs localizable.
+
 * Wed Mar 27 2013 Tomas Lestach <tlestach@redhat.com> 1.10.33-1
 - we need at least c3p0 v.0.9.1 to support ConnectionCustomizer
 
