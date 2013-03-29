@@ -22,7 +22,6 @@ import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.token.ActivationKeyPackagesCommand;
 
-import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -49,7 +48,6 @@ public class ActivationKeyPackagesAction extends RhnAction {
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
 
-        ActionErrors errors = new ActionErrors();
         DynaActionForm form = (DynaActionForm)formIn;
         Map params = makeParamMap(request);
         RequestContext ctx = new RequestContext(request);

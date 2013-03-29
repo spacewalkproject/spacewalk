@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action;
 
-import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 
@@ -38,8 +37,6 @@ public class GenericIndexAction extends RhnAction {
                                   ActionForm formIn,
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
-
-        RequestContext requestContext = new RequestContext(request);
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }

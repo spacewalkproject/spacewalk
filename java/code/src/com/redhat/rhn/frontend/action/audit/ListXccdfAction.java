@@ -46,8 +46,6 @@ public class ListXccdfAction extends RhnAction implements Listable {
     public ActionForward execute(ActionMapping mapping, ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        RequestContext context = new RequestContext(request);
-
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
 

@@ -192,7 +192,6 @@ public class SystemHardwareAction extends RhnAction {
         }
         request.setAttribute("ipv6_network_interfaces", nicList3);
 
-        List<String> hdd = new ArrayList();
         List miscDevices = new ArrayList();
         List videoDevices = new ArrayList();
         List audioDevices = new ArrayList();

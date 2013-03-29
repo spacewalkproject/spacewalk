@@ -24,8 +24,6 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
  * ChannelListAction,  for configuration in sdc
  * @version $Rev$
@@ -47,14 +45,6 @@ public class ChannelListAction extends BaseSetListAction {
         pc.setFilterColumn("name");
     }
 
-
-
-    /**
-     * {@inheritDoc}
-     */
-    protected void processRequest(HttpServletRequest request) {
-        RequestContext ctx = new RequestContext(request);
-    }
 
     /**
      *

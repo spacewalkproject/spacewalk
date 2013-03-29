@@ -245,7 +245,6 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
 
 
         Executor e = getExecutor();
-        List args = new LinkedList();
 
         // Write the scout shared key to cluster.ini
         Map optionMap = new HashMap();

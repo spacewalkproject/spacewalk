@@ -53,7 +53,6 @@ public abstract class BaseScheduledListAction extends RhnAction implements Lista
             HttpServletRequest request,
             HttpServletResponse response) {
 
-        RequestContext context = new RequestContext(request);
         ListRhnSetHelper helper = new ListRhnSetHelper(this, request, getSetDecl());
         helper.execute();
         if (helper.isDispatched()) {

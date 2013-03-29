@@ -266,7 +266,7 @@ Serializable {
 
     private boolean isIpValid() {
         try {
-            IpAddress ip = new IpAddress(this.getIpaddr());
+            new IpAddress(this.getIpaddr());
             return true;
         }
         catch (Exception e) {

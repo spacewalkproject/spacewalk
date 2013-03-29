@@ -25,7 +25,6 @@ import com.redhat.rhn.taskomatic.task.threaded.QueueWorker;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -50,10 +49,8 @@ public class ErrataQueueDriver implements QueueDriver {
     public List getCandidates() {
         SelectMode select = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_ERRATA_QUEUE_FIND_CANDIDATES);
-        Map params = new HashMap();
-        List retval = new LinkedList();
         try {
-            return select.execute(params);
+            return select.execute((Map) new HashMap());
         }
         finally {
             HibernateFactory.closeSession();

@@ -64,7 +64,6 @@ public class ErrataMailer extends RhnJavaJob {
             if (log.isDebugEnabled()) {
                 log.debug("=== Queued up " + results.size() + " errata");
             }
-            Map erratas = new HashMap();
             for (Iterator iter = results.iterator(); iter.hasNext();) {
                 Map row = (Map) iter.next();
                 Long errataId = (Long) row.get("errata_id");

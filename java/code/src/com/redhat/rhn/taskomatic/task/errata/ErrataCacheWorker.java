@@ -56,7 +56,6 @@ class ErrataCacheWorker implements QueueWorker {
     public void run() {
         try {
             Date d = new Date(System.currentTimeMillis());
-            Date d2 = new Date(System.currentTimeMillis() + System.currentTimeMillis());
             removeTask();
             HibernateFactory.commitTransaction();
             HibernateFactory.closeSession();

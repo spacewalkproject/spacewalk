@@ -114,7 +114,6 @@ public class ApiHandler extends BaseHandler {
      */
     public Map getApiCallList(String sessionKey) {
         Map callHash = new HashMap();
-        HandlerFactory hf = new HandlerFactory();
 
         Iterator i = getNamespaces().iterator();
         while (i.hasNext()) {
