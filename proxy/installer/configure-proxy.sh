@@ -133,7 +133,13 @@ while : ; do
         --monitoring-parent-ip) MONITORING_PARENT_IP="$2"; shift;;
         --populate-config-channel) POPULATE_CONFIG_CHANNEL="$2"; shift;;
         --start-services) START_SERVICES="$2"; shift;;
-        --) shift; break;;
+        --) shift;
+            if [ $# -gt 0 ] ; then
+                echo "Error: Extra arguments found: $@"
+                print_help
+                exit 1
+            fi
+            break;;
         *) echo Error: Invalid option $1; exit 1;;
     esac
     shift
