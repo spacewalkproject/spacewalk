@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 1.10.0
+Version: 1.10.1
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -96,6 +96,12 @@ spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
 %doc LICENSE answers.txt
 
 %changelog
+* Fri Mar 29 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.1-1
+- 896125 - make Y/N values optional
+- 896125 - report extra commandline arguments
+- 896125 - fail if answer file is not readable
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+
 * Thu Feb 21 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.2-1
 - made proxy installer systemd ready
 
