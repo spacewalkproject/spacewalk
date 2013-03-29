@@ -82,6 +82,10 @@ HELP
 parse_answer_file () {
     local FILE="$1"
     local ALIAS
+    if [ ! -r "$FILE" ] ; then
+       echo "Answer file '$FILE' is not readable."
+       exit 1
+    fi
     . "$FILE"
     for ALIAS in ${SSL_CNAME[@]}; do
         SSL_CNAME_PARSED[CNAME_INDEX++]=--set-cname=$ALIAS
