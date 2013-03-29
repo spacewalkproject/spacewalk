@@ -95,7 +95,7 @@ parse_answer_file () {
 INTERACTIVE=1
 CNAME_INDEX=0
 
-OPTS=$(getopt --longoptions=help,answer-file:,non-interactive,version:,rhn-parent:,traceback-email:,use-ssl:,ca-chain:,force-own-ca,http-proxy:,http-username:,http-password:,ssl-build-dir:,ssl-org:,ssl-orgunit:,ssl-common:,ssl-city:,ssl-state:,ssl-country:,ssl-email:,ssl-password:,ssl-cname:,install-monitoring:,enable-scout:,monitoring-parent:,monitoring-parent-ip:,populate-config-channel:,start-services: -n ${0##*/} -- h "$@")
+OPTS=$(getopt --longoptions=help,answer-file:,non-interactive,version:,rhn-parent:,traceback-email:,use-ssl::,ca-chain:,force-own-ca,http-proxy:,http-username:,http-password:,ssl-build-dir:,ssl-org:,ssl-orgunit:,ssl-common:,ssl-city:,ssl-state:,ssl-country:,ssl-email:,ssl-password:,ssl-cname:,install-monitoring::,enable-scout::,monitoring-parent:,monitoring-parent-ip:,populate-config-channel::,start-services:: -n ${0##*/} -- h "$@")
 
 if [ $? != 0 ] ; then
         print_help
@@ -111,7 +111,7 @@ while : ; do
         --version) VERSION=$2; shift;;
         --rhn-parent) RHN_PARENT="$2"; shift;;
         --traceback-email) TRACEBACK_EMAIL="$2"; shift;;
-        --use-ssl) USE_SSL="$2"; shift;;
+        --use-ssl) USE_SSL="${2:-1}"; shift;;
         --ca-chain) CA_CHAIN="$2"; shift;;
         --force-own-ca) FORCE_OWN_CA=1;;
         --http-proxy) HTTP_PROXY="$2"; shift;;
@@ -127,12 +127,12 @@ while : ; do
         --ssl-email) SSL_EMAIL="$2"; shift;;
         --ssl-password) SSL_PASSWORD="$2"; shift;;
         --ssl-cname) SSL_CNAME_PARSED[CNAME_INDEX++]=--set-cname="$2"; shift;;
-        --install-monitoring) INSTALL_MONITORING="$2"; shift;;
-        --enable-scout) ENABLE_SCOUT="$2"; shift;;
+        --install-monitoring) INSTALL_MONITORING="${2:-Y}"; shift;;
+        --enable-scout) ENABLE_SCOUT="${2:-1}"; shift;;
         --monitoring-parent) MONITORING_PARENT_IP="$2"; shift;;
         --monitoring-parent-ip) MONITORING_PARENT_IP="$2"; shift;;
-        --populate-config-channel) POPULATE_CONFIG_CHANNEL="$2"; shift;;
-        --start-services) START_SERVICES="$2"; shift;;
+        --populate-config-channel) POPULATE_CONFIG_CHANNEL="${2:-Y}"; shift;;
+        --start-services) START_SERVICES="${2:-Y}"; shift;;
         --) shift;
             if [ $# -gt 0 ] ; then
                 echo "Error: Extra arguments found: $@"
