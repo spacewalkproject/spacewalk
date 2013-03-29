@@ -42,9 +42,9 @@ options:
             Create config chanel and save configuration files to that channel.
             Configuration channel name is rhn_proxy_config_\${SYSTEM_ID}.
   --rhn-parent=RHN_PARENT
-			Your parent Spacewalk server.
+            Your parent Spacewalk server.
   --ssl-build-dir=SSL_BUILD_DIR
-			The directory where we build SSL certificate. Default is /root/ssl-build
+            The directory where we build SSL certificate. Default is /root/ssl-build
   --ssl-city=SSL_CITY
             City to be used in SSL certificate.
   --ssl-common=SSL_COMMON
@@ -54,18 +54,18 @@ options:
   --ssl-email=SSL_EMAIL
             Email to be used in SSL certificate.
   --ssl-org=SSL_ORG
-			Organization name to be used in SSL certificate.
+            Organization name to be used in SSL certificate.
   --ssl-orgunit=SSL_ORGUNIT
-			Organization unit name to be used in SSL certificate.
+            Organization unit name to be used in SSL certificate.
   --ssl-password=SSL_PASSWORD
             Password to be used for SSL CA certificate.
   --ssl-state=SSL_STATE
-			State to be used in SSL certificate.
+            State to be used in SSL certificate.
   --ssl-cname=CNAME_ALIAS
-			Cname alias of the machine. Can be specified multiple times.
+            Cname alias of the machine. Can be specified multiple times.
   --start-services[=N]
-			1 or Y to start all services after configuration. This is default.
-			0 or N to not start services after configuration.
+            1 or Y to start all services after configuration. This is default.
+            0 or N to not start services after configuration.
   --traceback-email=TRACEBACK_EMAIL
             Email to which tracebacks should be sent.
   --use-ssl
