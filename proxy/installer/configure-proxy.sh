@@ -16,8 +16,8 @@ options:
             for an example and documentation.
   --ca-chain=CA_CHAIN
             The CA cert used to verify the ssl connection to parent.
-  --enable-scout=1
-            1 to enable monitoring scout, 0 otherwise.
+  --enable-scout
+            Enable monitoring scout.
   --force-own-ca
             Do not use parent CA and force to create your own.
   -h, --help            
@@ -28,9 +28,8 @@ options:
             HTTP proxy in host:port format, e.g. squid.redhat.com:3128
   --http-username=HTTP_USERNAME
             The username for an authenticated proxy.
-  --install-monitoring=Y
-            Y if monitoring should be installed. Any other value means that
-            monitoring will not be installed.
+  --install-monitoring
+            Install and enable monitoring.
   --non-interactive
             For use only with --answer-file. If the --answer-file doesn't
             provide a required response, default answer is used.
@@ -39,9 +38,9 @@ options:
             RHN_PARENT.
   --monitoring-parent-ip=MONITORING_PARENT_IP
             IP address of MONITORING_PARENT
-  --populate-config-channel=Y
-            Y if config chanel should be created and configuration files in that channel
-            updated. Configuration channel will be named rhn_proxy_config_\${SYSTEM_ID}. 
+  --populate-config-channel
+            Create config chanel and save configuration files to that channel.
+            Configuration channel name is rhn_proxy_config_\${SYSTEM_ID}.
   --rhn-parent=RHN_PARENT
 			Your parent Spacewalk server.
   --ssl-build-dir=SSL_BUILD_DIR
@@ -64,14 +63,14 @@ options:
 			State to be used in SSL certificate.
   --ssl-cname=CNAME_ALIAS
 			Cname alias of the machine. Can be specified multiple times.
-  --start-services=1
+  --start-services[=N]
 			1 or Y to start all services after configuration. This is default.
 			0 or N to not start services after configuration.
   --traceback-email=TRACEBACK_EMAIL
             Email to which tracebacks should be sent.
-  --use-ssl=USE_SSL
-            1  if  Spacewalk  Proxy Server should communicate with parent over SSL.
-            0 otherwise. Even if disabled, client can still use SSL to connect
+  --use-ssl
+            Let Spacewalk Proxy Server communicate with parent over SSL.
+            Even if it is disabled client can still use SSL to connect
             to Spacewalk Proxy Server.
   --version=VERSION
             Version of Spacewalk Proxy Server you want to activate.
