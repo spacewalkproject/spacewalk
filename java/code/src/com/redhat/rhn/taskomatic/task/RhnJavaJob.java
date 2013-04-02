@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2010 Red Hat, Inc.
+ * Copyright (c) 2010--2013 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,7 +15,7 @@
 package com.redhat.rhn.taskomatic.task;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.manager.satellite.SystemCommandExecutor;
+import com.redhat.rhn.manager.satellite.SystemCommandThreadedExecutor;
 import com.redhat.rhn.taskomatic.TaskoRun;
 
 import org.apache.log4j.FileAppender;
@@ -26,6 +26,8 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import java.io.IOException;
+import java.util.Arrays;
+
 
 
 /**
@@ -96,22 +98,13 @@ public abstract class RhnJavaJob implements RhnJob {
     protected void executeExtCmd(String[] args)
         throws JobExecutionException {
 
-        SystemCommandExecutor ce = new SystemCommandExecutor();
+        SystemCommandThreadedExecutor ce = new SystemCommandThreadedExecutor(getLogger());
         int exitCode = ce.execute(args);
 
-        String cmdOutput = ce.getLastCommandOutput();
-        String cmdError = ce.getLastCommandErrorMessage();
-        if (!"".equals(cmdOutput)) {
-            log.info(cmdOutput);
-        }
-        if (!"".equals(cmdError)) {
-            log.error(cmdError);
-        }
-
         if (exitCode != 0) {
-            // use stderr, unless it is empty, then use stdout
             throw new JobExecutionException(
-                    cmdError.isEmpty() ? cmdOutput : cmdError);
+                    "Command '" + Arrays.asList(args) + "' exited with error code "
+                    + exitCode);
         }
     }
 }
