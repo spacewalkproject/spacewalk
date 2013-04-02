@@ -139,7 +139,7 @@ Spacewalk Proxy components.
 Summary: Custom Channel Package Manager for the Spacewalk Proxy Server
 Group:   Applications/Internet
 Requires: spacewalk-backend >= 1.7.24
-Requires: rhnlib
+Requires: rhnlib >= 2.5.56
 Requires: python
 Requires: rhnpush
 BuildRequires: /usr/bin/docbook2man

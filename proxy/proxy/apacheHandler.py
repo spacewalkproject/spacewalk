@@ -322,6 +322,9 @@ class apacheHandler(rhnApache):
         params = { 'host' : host,
                    'port' : port }
 
+        if CFG.has_key('timeout'):
+            params['timeout'] = CFG.TIMEOUT
+
         if scheme == SCHEME_HTTPS:
             conn_class = connections.HTTPSConnection
         else:

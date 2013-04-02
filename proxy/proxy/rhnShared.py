@@ -148,6 +148,8 @@ class SharedHandler:
             'host'  :   host,
             'port'  :   port,
         }
+        if CFG.has_key('timeout'):
+            params['timeout'] = CFG.TIMEOUT
         if self.httpProxy:
             params['proxy'] = self.httpProxy
             params['username'] = self.httpProxyUsername

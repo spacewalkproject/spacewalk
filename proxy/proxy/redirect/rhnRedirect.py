@@ -291,13 +291,19 @@ class RedirectHandler(SharedHandler):
         # Now create a new connection.  We'll use SSL if configured to do
         # so.
 
+        params = {
+            'host'  :   host,
+            'port'  :   port,
+        }
+        if CFG.has_key('timeout'):
+            params['timeout'] = CFG.TIMEOUT
         if CFG.USE_SSL:
             log_debug(1, "  Redirecting with SSL.  Cert= ", self.caChain)
-            connection = \
-                connections.HTTPSConnection(host, port, [self.caChain])
+            params['trusted_certs'] = [self.caChain]
+            connection = connections.HTTPSConnection(**params)
         else:
             log_debug(1, "  Redirecting withOUT SSL.")
-            connection = connections.HTTPConnection(host, port)
+            connection = connections.HTTPConnection(**params)
 
         # Put the connection into the current response context.
         self.responseContext.setConnection(connection)

@@ -29,9 +29,9 @@ class HTTPResponse(httplib.HTTPResponse):
 class HTTPConnection(httplib.HTTPConnection):
     response_class = HTTPResponse
     
-    def __init__(self, host, port=None):
+    def __init__(self, host, port=None, timeout=SSL.DEFAULT_TIMEOUT):
         if python_version() >= '2.6.1':
-            httplib.HTTPConnection.__init__(self, host, port, timeout=SSL.DEFAULT_TIMEOUT)
+            httplib.HTTPConnection.__init__(self, host, port, timeout=timeout)
         else:
             httplib.HTTPConnection.__init__(self, host, port)
         self._cb_rs = []
@@ -40,6 +40,7 @@ class HTTPConnection(httplib.HTTPConnection):
         self._cb_user_data = None
         self._cb_callback = None
         self._user_agent = "rhn.connections $Revision$ (python)"
+        self.timeout = timeout
 
     def set_callback(self, rs, ws, ex, user_data, callback):
         # XXX check the params
@@ -105,9 +106,10 @@ class HTTPConnection(httplib.HTTPConnection):
 
 
 class HTTPProxyConnection(HTTPConnection):
-    def __init__(self, proxy, host, port=None, username=None, password=None):
+    def __init__(self, proxy, host, port=None, username=None, password=None,
+            timeout=SSL.DEFAULT_TIMEOUT):
         # The connection goes through the proxy
-        HTTPConnection.__init__(self, proxy)
+        HTTPConnection.__init__(self, proxy, timeout=timeout)
         # save the proxy values
         self.__proxy, self.__proxy_port = self.host, self.port
         # self.host and self.port will point to the real host
@@ -148,8 +150,9 @@ class HTTPSConnection(HTTPConnection):
     response_class = HTTPResponse
     default_port = httplib.HTTPSConnection.default_port
 
-    def __init__(self, host, port=None, trusted_certs=None):
-        HTTPConnection.__init__(self, host, port)
+    def __init__(self, host, port=None, trusted_certs=None,
+            timeout=SSL.DEFAULT_TIMEOUT):
+        HTTPConnection.__init__(self, host, port, timeout=timeout)
         trusted_certs = trusted_certs or []
         self.trusted_certs = trusted_certs
 
@@ -166,7 +169,7 @@ class HTTPSConnection(HTTPConnection):
                 sock = None
                 continue
 
-            sock.settimeout(SSL.DEFAULT_TIMEOUT)
+            sock.settimeout(self.timeout)
 
             try:
                 sock.connect((self.host, self.port))
@@ -191,8 +194,9 @@ class HTTPSProxyConnection(HTTPProxyConnection):
     default_port = HTTPSConnection.default_port
 
     def __init__(self, proxy, host, port=None, username=None, password=None, 
-            trusted_certs=None):
-        HTTPProxyConnection.__init__(self, proxy, host, port, username, password)
+            trusted_certs=None, timeout=SSL.DEFAULT_TIMEOUT):
+        HTTPProxyConnection.__init__(self, proxy, host, port, username,
+                password, timeout=timeout)
         trusted_certs = trusted_certs or []
         self.trusted_certs = trusted_certs
 
@@ -221,7 +225,7 @@ class HTTPSProxyConnection(HTTPProxyConnection):
             self.close()
             raise xmlrpclib.ProtocolError(host,
                 response.status, response.reason, response.msg)
-        self.sock.settimeout(SSL.DEFAULT_TIMEOUT)
+        self.sock.settimeout(self.timeout)
         self.sock = SSL.SSLSocket(self.sock, self.trusted_certs)
         self.sock.init_ssl()
 
