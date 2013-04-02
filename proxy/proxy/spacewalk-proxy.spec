@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.10.0
+Version: 1.10.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -330,6 +330,11 @@ fi
 
 
 %changelog
+* Tue Apr 02 2013 Stephen Herr <sherr@redhat.com> 1.10.1-1
+- 947639 - make Proxy timeouts configurable
+- Bumping package versions for 1.9
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+
 * Thu Feb 28 2013 Jan Pazdziora 1.9.8-1
 - Removing the dsn parameter from initDB, removing support for --db option.
 
