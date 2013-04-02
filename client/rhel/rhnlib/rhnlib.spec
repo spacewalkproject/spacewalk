@@ -4,7 +4,7 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.55
+Version: 2.5.56
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -60,6 +60,10 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Tue Apr 02 2013 Stephen Herr <sherr@redhat.com> 2.5.56-1
+- 947639 - make Proxy timeouts configurable
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+
 * Tue Oct 30 2012 Jan Pazdziora 2.5.55-1
 - Update the copyright year.
 
