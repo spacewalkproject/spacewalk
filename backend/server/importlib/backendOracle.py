@@ -251,7 +251,7 @@ class OracleBackend(Backend):
                 'errata_id'     : DBint(),
                 'type'          : DBint(),
                 'checksum_id'   : DBint(),
-                'filename'      : DBstring(1024),
+                'filename'      : DBstring(4000),
             },
             pk          = ['errata_id', 'filename', 'checksum_id'],
             attribute   = 'files',
