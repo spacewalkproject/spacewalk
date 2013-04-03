@@ -154,7 +154,7 @@ public class ProbeDetailsAction extends BaseProbeAction implements Listable {
                     l10nString.append(L10NKEY + selectedMetrics[i]);
                     l10nString.append("=");
                     l10nString.append(StringUtil.urlEncode(
-                    		(String) l10nmetrics.get(selectedMetrics[i])));
+                            (String) l10nmetrics.get(selectedMetrics[i])));
                     l10nString.append("&");
                 }
                 req.setAttribute(SELECTED_METRICS_STRING, ssString.toString());
