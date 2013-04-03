@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.19
+Version:        1.10.20
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Apr 03 2013 Stephen Herr <sherr@redhat.com> 1.10.20-1
+- Display number of sockets in system details and spacewalk-reports
+
 * Thu Mar 28 2013 Jan Pazdziora 1.10.19-1
 - Fixing type in schema upgrade.
 
