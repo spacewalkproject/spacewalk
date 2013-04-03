@@ -169,14 +169,14 @@ def _updateLoginInfo(li):
 
 # allow to pass in a system id for use in rhnreg
 # a bit of a kluge to make caps work correctly
-def login(systemId=None, forceUpdate=False):
+def login(systemId=None, forceUpdate=False, timeout=None):
     log = up2dateLog.initLog()
     log.log_debug("login(forceUpdate=%s) invoked" % (forceUpdate))
     if not forceUpdate and not loginInfo:
         if readCachedLogin():
             return loginInfo
 
-    server = rhnserver.RhnServer()
+    server = rhnserver.RhnServer(timeout=timeout)
 
     # send up the capabality info
     headerlist = clientCaps.caps.headerFormat()
@@ -206,17 +206,17 @@ def login(systemId=None, forceUpdate=False):
     log.log_debug("logininfo:", loginInfo)
     return loginInfo
 
-def updateLoginInfo():
+def updateLoginInfo(timeout=None):
     log = up2dateLog.initLog()
     log.log_me("updateLoginInfo() login info")
     # NOTE: login() updates the loginInfo object
-    login(forceUpdate=True)
+    login(forceUpdate=True, timeout=timeout)
     if not loginInfo:
         raise up2dateErrors.AuthenticationError("Unable to authenticate")
     return loginInfo
 
 
-def getLoginInfo():
+def getLoginInfo(timeout=None):
     global loginInfo
     try:
         loginInfo = loginInfo
@@ -225,6 +225,6 @@ def getLoginInfo():
     if loginInfo:
         return loginInfo
     # NOTE: login() updates the loginInfo object
-    login()
+    login(timeout=timeout)
     return loginInfo
 

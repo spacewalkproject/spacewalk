@@ -65,10 +65,10 @@ class rhnChannelList:
 # for the gui client that needs to show more info
 # maybe we should always make this call? If nothing
 # else, wrapper should have a way to show extended channel info
-def getChannelDetails():
+def getChannelDetails(timeout=None):
 
     channels = []
-    sourceChannels = getChannels()
+    sourceChannels = getChannels(timeout=timeout)
 
     for sourceChannel in sourceChannels.channels():
         if sourceChannel['type'] != 'up2date':
@@ -84,13 +84,13 @@ cmdline_pkgs = []
 
 global selected_channels
 selected_channels = None
-def getChannels(force=None, label_whitelist=None):
+def getChannels(force=None, label_whitelist=None, timeout=None):
     """ return rhnChannelList containing list of channel we are subscribed to """
     cfg = config.initUp2dateConfig()
     global selected_channels
     if not selected_channels and not force:
         selected_channels = rhnChannelList()
-        s = rhnserver.RhnServer()
+        s = rhnserver.RhnServer(timeout=timeout)
 
         if not up2dateAuth.getSystemId():
             raise up2dateErrors.NoSystemIdError(_("Unable to Locate SystemId"))

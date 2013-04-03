@@ -64,6 +64,9 @@ def init_hook(conduit):
     global rhn_enabled
    
     RHN_DISABLED = _("RHN Satellite or RHN Classic support will be disabled.")
+
+    conduit_conf = conduit.getConf()
+    timeout = conduit_conf.timeout
     
     if not os.geteuid()==0:
         # If non-root notify user RHN repo not accessible
@@ -113,7 +116,7 @@ def init_hook(conduit):
             return
 
     try:
-        login_info = up2dateAuth.getLoginInfo()
+        login_info = up2dateAuth.getLoginInfo(timeout=timeout)
     except up2dateErrors.RhnServerException, e:
         if hasattr(conduit._base, 'exit_code') and 'check-update' in sys.argv:
             conduit._base.exit_code = 1
@@ -133,7 +136,7 @@ def init_hook(conduit):
 
     CHANNELS_DISABLED = _("RHN channel support will be disabled.")
     try:
-        svrChannels = rhnChannel.getChannelDetails()
+        svrChannels = rhnChannel.getChannelDetails(timeout=timeout)
     except up2dateErrors.NoChannelsError:
         conduit.error(0, _("This system is not subscribed to any channels.") + 
             "\n" + CHANNELS_DISABLED)
@@ -156,8 +159,6 @@ def init_hook(conduit):
         conduit.info(2, _("This system is receiving updates from RHN Classic or RHN Satellite."))
 
     repos = conduit.getRepos()
-    conduit_conf = conduit.getConf()
-    timeout = conduit_conf.timeout
     cachedir = conduit_conf.cachedir
     sslcacert = get_ssl_ca_cert(up2date_cfg)
     pluginOptions = getRHNRepoOptions(conduit, 'main')
@@ -268,6 +269,7 @@ def posttrans_hook(conduit):
     """ Post rpm transaction hook. We update the RHN profile here. """
     global rhn_enabled
     if rhn_enabled:
+        timeout = conduit.getConf().timeout
         up2date_cfg = config.initUp2dateConfig()
         if up2date_cfg.has_key('writeChangesToLog') and up2date_cfg['writeChangesToLog'] == 1:
             ts_info = conduit.getTsInfo()
@@ -275,7 +277,7 @@ def posttrans_hook(conduit):
             rhnPackageInfo.logDeltaPackages(delta)
         if up2dateAuth.getSystemId(): # are we registred?
             try:
-                rhnPackageInfo.updatePackageProfile()
+                rhnPackageInfo.updatePackageProfile(timeout=timeout)
             except up2dateErrors.RhnServerException, e:
                 conduit.error(0, COMMUNICATION_ERROR + "\n" +
                     _("Package profile information could not be sent.") + "\n" + 
@@ -357,7 +359,7 @@ class RhnRepo(YumRepository):
         """ Set up self.http_headers with needed RHN X-RHN-blah headers """
         
         try:
-            li = up2dateAuth.getLoginInfo()
+            li = up2dateAuth.getLoginInfo(timeout=self.timeout)
         except up2dateErrors.RhnServerException, e:
             raise yum.Errors.RepoError(unicode(e)), None, sys.exc_info()[2]
         except e:
@@ -386,7 +388,7 @@ class RhnRepo(YumRepository):
                     start, end, copy_local, checkfunc, text, reget, cache, size)
             except URLGrabError, e:
                 try:
-                    up2dateAuth.updateLoginInfo()
+                    up2dateAuth.updateLoginInfo(timeout=self.timeout)
                 except up2dateErrors.RhnServerException, e:
                     raise yum.Errors.RepoError(unicode(e)), None, sys.exc_info()[2]
 
@@ -573,7 +575,7 @@ class RhnRepo(YumRepository):
         except yum.Errors.RepoError:
             # Refresh our loginInfo then try again
             # possibly it's out of date
-            up2dateAuth.updateLoginInfo()
+            up2dateAuth.updateLoginInfo(timeout=self.timeout)
             return YumRepository._getRepoXML(self)
 
 def make_package_delta(ts_info):

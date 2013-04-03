@@ -35,7 +35,7 @@ class Transport(xmlrpclib.Transport):
     user_agent = "rhn.rpclib.py/%s" % __version__
 
     def __init__(self, transfer=0, encoding=0, refreshCallback=None,
-            progressCallback=None, use_datetime=None):
+            progressCallback=None, use_datetime=None, timeout=None):
         self._transport_flags = {'transfer' : 0, 'encoding' : 0}
         self.set_transport_flags(transfer=transfer, encoding=encoding)
         self._headers = UserDictCase()
@@ -51,6 +51,7 @@ class Transport(xmlrpclib.Transport):
         self.response_reason = None
         self._redirected = None
         self._use_datetime = use_datetime
+        self.timeout = timeout
 
     # set the progress callback
     def set_progress_callback(self, progressCallback, bufferSize=16384):
@@ -125,7 +126,10 @@ class Transport(xmlrpclib.Transport):
     def get_connection(self, host):
         if self.verbose:
             print "Connecting via http to %s" % (host, )
-        return connections.HTTPConnection(host)
+        if self.timeout:
+            return connections.HTTPConnection(host, timeout=self.timeout)
+        else:
+            return connections.HTTPConnection(host)
         
     def request(self, host, handler, request_body, verbose=0):
         # issue XML-RPC request
@@ -241,9 +245,10 @@ class Transport(xmlrpclib.Transport):
 
 class SafeTransport(Transport):
     def __init__(self, transfer=0, encoding=0, refreshCallback=None,
-                progressCallback=None, trusted_certs=None):
+                progressCallback=None, trusted_certs=None, timeout=None):
         Transport.__init__(self, transfer, encoding, 
-            refreshCallback=refreshCallback, progressCallback=progressCallback)
+            refreshCallback=refreshCallback, progressCallback=progressCallback,
+            timeout=timeout)
         self.trusted_certs = []
         for certfile in (trusted_certs or []):
             self.add_trusted_cert(certfile)
@@ -258,14 +263,21 @@ class SafeTransport(Transport):
         host, extra_headers, x509 = self.get_host_info(host)
         if self.verbose:
             print "Connecting via https to %s" % (host, )
-        return connections.HTTPSConnection(host, trusted_certs=self.trusted_certs)
+        if self.timeout:
+            return connections.HTTPSConnection(host,
+                    trusted_certs=self.trusted_certs, timeout=self.timeout)
+        else:
+            return connections.HTTPSConnection(host,
+                    trusted_certs=self.trusted_certs)
 
 
 class ProxyTransport(Transport):
     def __init__(self, proxy, proxyUsername=None, proxyPassword=None,
-            transfer=0, encoding=0, refreshCallback=None, progressCallback=None):
+            transfer=0, encoding=0, refreshCallback=None, progressCallback=None,
+            timeout=None):
         Transport.__init__(self, transfer, encoding,
-            refreshCallback=refreshCallback, progressCallback=progressCallback)
+            refreshCallback=refreshCallback, progressCallback=progressCallback,
+            timeout=timeout)
         self._proxy = proxy
         self._proxy_username = proxyUsername
         self._proxy_password = proxyPassword
@@ -274,18 +286,24 @@ class ProxyTransport(Transport):
         if self.verbose:
             print "Connecting via http to %s proxy %s, username %s, pass %s" % (
                 host, self._proxy, self._proxy_username, self._proxy_password)
-        return connections.HTTPProxyConnection(self._proxy, host, 
-            username=self._proxy_username, password=self._proxy_password)
+        if self.timeout:
+            return connections.HTTPProxyConnection(self._proxy, host,
+                username=self._proxy_username, password=self._proxy_password,
+                timeout=self.timeout)
+        else:
+            return connections.HTTPProxyConnection(self._proxy, host, 
+                username=self._proxy_username, password=self._proxy_password)
 
 class SafeProxyTransport(ProxyTransport):
     def __init__(self, proxy, proxyUsername=None, proxyPassword=None,
             transfer=0, encoding=0, refreshCallback=None,
-            progressCallback=None, trusted_certs=None):
+            progressCallback=None, trusted_certs=None, timeout=None):
         ProxyTransport.__init__(self, proxy, 
             proxyUsername=proxyUsername, proxyPassword=proxyPassword,
             transfer=transfer, encoding=encoding, 
             refreshCallback=refreshCallback,
-            progressCallback=progressCallback)
+            progressCallback=progressCallback,
+            timeout=timeout)
         self.trusted_certs = []
         for certfile in (trusted_certs or []):
             self.add_trusted_cert(certfile)
@@ -299,9 +317,14 @@ class SafeProxyTransport(ProxyTransport):
         if self.verbose:
             print "Connecting via https to %s proxy %s, username %s, pass %s" % (
                 host, self._proxy, self._proxy_username, self._proxy_password)
-        return connections.HTTPSProxyConnection(self._proxy, host, 
-            username=self._proxy_username, password=self._proxy_password, 
-            trusted_certs=self.trusted_certs)
+        if self.timeout:
+            return connections.HTTPSProxyConnection(self._proxy, host, 
+                username=self._proxy_username, password=self._proxy_password, 
+                trusted_certs=self.trusted_certs, timeout=self.timeout)
+        else:
+            return connections.HTTPSProxyConnection(self._proxy, host, 
+                username=self._proxy_username, password=self._proxy_password, 
+                trusted_certs=self.trusted_certs)
 
 # ============================================================================
 # Extended capabilities for transport

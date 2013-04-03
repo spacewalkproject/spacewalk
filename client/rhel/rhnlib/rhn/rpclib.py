@@ -128,7 +128,7 @@ class Server:
     _transport_class_https_proxy = transports.SafeProxyTransport
     def __init__(self, uri, transport=None, encoding=None, verbose=0, 
         proxy=None, username=None, password=None, refreshCallback=None,
-        progressCallback=None):
+        progressCallback=None, timeout=None):
         # establish a "logical" server connection
 
         #
@@ -167,7 +167,8 @@ class Server:
 
         if transport is None:
             self._allow_redirect = 1
-            transport = self.default_transport(self._type, proxy, username, password)
+            transport = self.default_transport(self._type, proxy, username,
+                    password, timeout)
         else:
             #
             # dont allow redirect on unknow transports, that should be
@@ -193,19 +194,20 @@ class Server:
 
         self._headers = UserDictCase()
 
-    def default_transport(self, type, proxy=None, username=None, password=None):
+    def default_transport(self, type, proxy=None, username=None, password=None,
+            timeout=None):
         if proxy:
             if type == 'https':
                 transport = self._transport_class_https_proxy(proxy, 
-                    proxyUsername=username, proxyPassword=password)
+                    proxyUsername=username, proxyPassword=password, timeout=timeout)
             else:
                 transport = self._transport_class_proxy(proxy, 
-                    proxyUsername=username, proxyPassword=password)
+                    proxyUsername=username, proxyPassword=password, timeout=timeout)
         else:
             if type == 'https':
-                transport = self._transport_class_https()
+                transport = self._transport_class_https(timeout=timeout)
             else:
-                transport = self._transport_class()
+                transport = self._transport_class(timeout=timeout)
         return transport
 
     def allow_redirect(self, allow):
@@ -529,14 +531,15 @@ class Server:
 class GETServer(Server):
     def __init__(self, uri, transport=None, proxy=None, username=None,
             password=None, client_version=2, headers={}, refreshCallback=None,
-            progressCallback=None):
+            progressCallback=None, timeout=None):
         Server.__init__(self, uri, 
             proxy=proxy,
             username=username,
             password=password,
             transport=transport,
             refreshCallback=refreshCallback,
-            progressCallback=progressCallback)
+            progressCallback=progressCallback,
+            timeout=timeout)
         self._client_version = client_version
         self._headers = headers
         # Back up the original handler, since we mangle it
@@ -613,8 +616,9 @@ class GETServer(Server):
         # magic method dispatcher
         return SlicingMethod(self._request, name)
 
-    def default_transport(self, type, proxy=None, username=None, password=None):
-	ret = Server.default_transport(self, type, proxy=proxy, username=username, password=password)
+    def default_transport(self, type, proxy=None, username=None, password=None,
+            timeout=None):
+	ret = Server.default_transport(self, type, proxy=proxy, username=username, password=password, timeout=timeout)
 	ret.set_method("GET")
 	return ret
 

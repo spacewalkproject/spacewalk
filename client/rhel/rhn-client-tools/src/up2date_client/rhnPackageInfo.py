@@ -16,12 +16,12 @@ def logDeltaPackages(pkgs):
     log.log_me("Removing packages from package profile: %s" %
                pprint_pkglist(pkgs['removed']))
 
-def updatePackageProfile():
+def updatePackageProfile(timeout=None):
     """ get a list of installed packages and send it to rhnServer """
     log = up2dateLog.initLog()
     log.log_me("Updating package profile")
     packages = pkgUtils.getInstalledPackageList(getArch=1)
-    s = rhnserver.RhnServer()
+    s = rhnserver.RhnServer(timeout=timeout)
     if not s.capabilities.hasCapability('xmlrpc.packages.extended_profile', 2):
         # for older satellites and hosted - convert to old format
         packages = convertPackagesFromHashToList(packages)
