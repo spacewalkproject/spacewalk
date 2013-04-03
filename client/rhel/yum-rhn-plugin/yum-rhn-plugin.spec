@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.10.0
+Version: 1.10.1
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -70,6 +70,12 @@ fi
 %doc LICENSE
 
 %changelog
+* Wed Apr 03 2013 Stephen Herr <sherr@redhat.com> 1.10.1-1
+- 947639 - Make timeout of yum-rhn-plugin calls through rhn-client-tools
+  configurable
+- Bumping package versions for 1.9
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+
 * Fri Feb 15 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.9.4-1
 - Update .po and .pot files for yum-rhn-plugin.
 - New translations from Transifex for yum-rhn-plugin.
