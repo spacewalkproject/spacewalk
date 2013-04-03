@@ -103,8 +103,8 @@ public abstract class RhnJavaJob implements RhnJob {
 
         if (exitCode != 0) {
             throw new JobExecutionException(
-                    "Command '" + Arrays.asList(args) + "' exited with error code "
-                    + exitCode);
+                    "Command '" + Arrays.asList(args) +
+                    "' exited with error code " + exitCode);
         }
     }
 }
