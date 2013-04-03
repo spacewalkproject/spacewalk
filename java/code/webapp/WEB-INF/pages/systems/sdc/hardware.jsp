@@ -36,6 +36,12 @@
           ${cpu_arch}
         </td>
         <th>
+          <bean:message key="sdc.details.hardware.sockets"/>
+        </th>
+        <td>
+          ${cpu_sockets}
+        </td>
+        <th>
           <bean:message key="sdc.details.hardware.cache"/>
         </th>
         <td>
@@ -49,19 +55,17 @@
         <td>
           ${cpu_vendor}
         </td>
-        <th rowspan="2">
-          <bean:message key="sdc.details.hardware.memory"/>
-        </th>
-        <td rowspan="2">
-          ${system_ram} MB
-        </td>
-      </tr>
-      <tr>
         <th>
-          <bean:message key="sdc.details.hardware.stepping"/>
+          <bean:message key="sdc.details.hardware.cores"/>
         </th>
         <td>
-          ${cpu_stepping}
+          ${cpu_cores}
+        </td>
+        <th>
+          <bean:message key="sdc.details.hardware.memory"/>
+        </th>
+        <td>
+          ${system_ram} MB
         </td>
       </tr>
       <tr>
@@ -71,10 +75,16 @@
         <td>
           ${cpu_family}
         </td>
-        <th rowspan="2">
+        <th>
+          <bean:message key="sdc.details.hardware.stepping"/>
+        </th>
+        <td>
+          ${cpu_stepping}
+        </td>
+        <th>
           <bean:message key="sdc.details.hardware.swap"/>
         </th>
-        <td rowspan="2">
+        <td>
           ${system_swap} MB
         </td>
       </tr>
