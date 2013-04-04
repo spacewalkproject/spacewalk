@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2013 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -113,6 +113,7 @@ public class RequestContext {
     public static final String CONFIRM = "confirm";
     public static final String FILTER_KEY = "Go";
     public static final String NO_SCRIPT = "noscript";
+    public static final String MODE = "mode";
     /** the name of the Red Hat session cookie */
     public static final String WEB_SESSION_COOKIE_NAME = "pxt-session-cookie";
     public static final String POST = "POST";

@@ -16,6 +16,7 @@ package com.redhat.rhn.manager;
 
 import com.redhat.rhn.common.RhnRuntimeException;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerFactory;
 
 /**
  * MissingCapabilityException
@@ -33,16 +34,23 @@ public class MissingCapabilityException extends RhnRuntimeException {
     /**
      * Constructor for exception on missing capability on a bunch of servers.
      * @param missingCapability the missing capability.
-     * @param incapableServer the server missing the capaibility
+     * @param incapableServer the server missing the capability
      */
     public MissingCapabilityException(String missingCapability,
                                     Server incapableServer) {
-
-
         server = incapableServer;
         capability = missingCapability;
     }
 
+    /**
+     * Constructor for exception on missing capability on a bunch of servers.
+     * 
+     * @param missingCapability the missing capability.
+     * @param sid               the ID of the server missing the capability
+     */
+    public MissingCapabilityException(String missingCapability, Long sid) {
+        this(missingCapability, ServerFactory.lookupById(sid));
+    }
 
     /**
      * @return the servers missing the given capability

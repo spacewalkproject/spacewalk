@@ -36,7 +36,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * SSM action for selecting the packages to install. Package list is determined by the
  * first step in the flow where the channel is selected.
- *
+ * 
  * @version $Revision$
  */
 public class SelectInstallationPackagesAction extends RhnAction implements Listable {
@@ -45,33 +45,32 @@ public class SelectInstallationPackagesAction extends RhnAction implements Lista
     public ActionForward execute(ActionMapping actionMapping,
                                  ActionForm actionForm,
                                  HttpServletRequest request,
-                                 HttpServletResponse response)
-        throws Exception {
+                                 HttpServletResponse response) throws Exception {
 
         RequestContext context = new RequestContext(request);
         Map params = new HashMap();
         params.put(RequestContext.CID, context.getRequiredParam(RequestContext.CID));
+        params.put("mode", "install");
         ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
         helper.setDataSetName(RequestContext.PAGE_LIST);
         helper.execute();
 
-        if (helper.isDispatched()) {
-            request.setAttribute("packagesDecl", helper.getDecl());
-            return actionMapping.findForward("confirm");
-        }
-
-        Map forwardParams = new HashMap();
-        forwardParams.put(RequestContext.CID, context.getRequiredParam(RequestContext.CID));
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
+        if (helper.isDispatched()) {
+            request.setAttribute("packagesDecl", helper.getDecl());
+            return strutsDelegate.forwardParams(actionMapping.findForward("confirm"),
+                    params);
+        }
+
         return strutsDelegate.forwardParams(
-            actionMapping.findForward(RhnHelper.DEFAULT_FORWARD), forwardParams);
+                actionMapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
 
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
-       Long cid =  context.getRequiredParam(RequestContext.CID);
-       return ChannelManager.latestPackagesInChannel(cid);
-   }
+        Long cid = context.getRequiredParam(RequestContext.CID);
+        return ChannelManager.latestPackagesInChannel(cid);
+    }
 
 }

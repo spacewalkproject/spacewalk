@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2013 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -69,18 +69,33 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
                                  HttpServletResponse response) throws Exception {
 
         RequestContext requestContext = new RequestContext(request);
+        DynaActionForm f = (DynaActionForm) actionForm;
 
         ListHelper helper = new ListHelper(this, request);
         helper.setDataSetName(RequestContext.PAGE_LIST);
         helper.execute();
 
+        Map params = new HashMap();
+        params.put(RequestContext.MODE,
+                requestContext.getRequiredParamAsString(RequestContext.MODE));
+
         if (request.getParameter("dispatch") != null) {
+            String packagesDecl = request.getParameter("packagesDecl");
             if (requestContext.wasDispatched("installconfirm.jsp.confirm")) {
                 return executePackageAction(actionMapping, actionForm, request, response);
             }
+            else if (requestContext.wasDispatched("upgradeconfirm.jsp.runremotecommand")) {
+                StrutsDelegate strutsDelegate = getStrutsDelegate();
+                params.put("packagesDecl", packagesDecl);
+                DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, f,
+                        "date", DatePicker.YEAR_RANGE_POSITIVE);
+                picker.writeToMap(params);
+                return strutsDelegate.forwardParams(actionMapping.findForward("remote"),
+                        params);
+            }
         }
 
-        // Prepopulate the date picker
+        // Pre-populate the date picker
         DynaActionForm dynaForm = (DynaActionForm) actionForm;
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
             "date", DatePicker.YEAR_RANGE_POSITIVE);

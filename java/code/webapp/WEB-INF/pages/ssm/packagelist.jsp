@@ -54,6 +54,8 @@
     </div>
 
 </rl:listset>
+<html:hidden property="cid" value="${param.cid}" />
+<html:hidden property="mode" value="${param.mode}" />
 
 </body>
 </html>

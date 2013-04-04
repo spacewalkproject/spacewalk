@@ -3434,7 +3434,7 @@ public class SystemHandler extends BaseHandler {
                 new Long(timeout.longValue()), script);
         ScriptAction action = null;
 
-        List<Server> servers = new ArrayList<Server>();
+        List<Long> servers = new ArrayList<Long>();
 
         for (Iterator<Integer> sysIter = systemIds.iterator(); sysIter.hasNext();) {
             Integer sidAsInt = sysIter.next();
@@ -3444,7 +3444,7 @@ public class SystemHandler extends BaseHandler {
             try {
                 server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
                         loggedInUser);
-                servers.add(server);
+                servers.add(sid);
             }
             catch (LookupException e) {
                 throw new NoSuchSystemException();

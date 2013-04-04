@@ -1226,21 +1226,27 @@ public class ActionManager extends BaseManager {
             return (PackageAction) schedulePackageAction(scheduler, pkgs,
                     ActionFactory.TYPE_PACKAGES_REMOVE, earliestAction, srvr);
         }
-        return (PackageAction) schedulePackageAction(scheduler, pkgs,
-                ActionFactory.TYPE_SOLARISPKGS_REMOVE, earliestAction, srvr);
+        else {
+            return (PackageAction) schedulePackageAction(scheduler, pkgs,
+                    ActionFactory.TYPE_SOLARISPKGS_REMOVE, earliestAction, srvr);
+        }
     }
 
     /**
      * Schedules one or more package removal actions on one or more servers.
      *
      * @param scheduler      user scheduling the action.
-     * @param serverIds        servers from which to remove the packages
+     * @param serverIds      servers from which to remove the packages
      * @param pkgs           list of packages to be removed.
      * @param earliestAction date of earliest action to be executed
+     * @return List of actions (can be more than one, if mix of Solaris/Rhel servers)
      */
-    public static void schedulePackageRemoval(User scheduler,
+    public static List<Action> schedulePackageRemoval(User scheduler,
             Collection<Long> serverIds, List<Map<String, Long>> pkgs, Date earliestAction) {
 
+        List<Action> actions = new ArrayList<Action>();
+        Action anAction;
+        
         // Different handling for package removal on solaris v. rhel, so split out
         // the servers first in case the list is mixed.
         Set<Long> rhelServers = new HashSet<Long>();
@@ -1251,33 +1257,38 @@ public class ActionManager extends BaseManager {
         // Since the solaris v. rhel distinction results in a different action type,
         // we'll end up with 2 actions created if the server list is mixed
         if (!rhelServers.isEmpty()) {
-            schedulePackageAction(scheduler, pkgs, ActionFactory.TYPE_PACKAGES_REMOVE,
-                    earliestAction, rhelServers);
+            anAction = schedulePackageAction(scheduler, pkgs,
+                    ActionFactory.TYPE_PACKAGES_REMOVE, earliestAction, rhelServers);
+            actions.add(anAction);
         }
 
         if (!solarisServers.isEmpty()) {
-            schedulePackageAction(scheduler, pkgs, ActionFactory.TYPE_SOLARISPKGS_REMOVE,
-                    earliestAction, solarisServers);
+            anAction = schedulePackageAction(scheduler, pkgs,
+                    ActionFactory.TYPE_SOLARISPKGS_REMOVE, earliestAction, solarisServers);
+            actions.add(anAction);
         }
+        return actions;
     }
 
     /**
      * Schedules one or more package upgrade actions for the given servers.
      * Note: package upgrade = package install
      * @param scheduler User scheduling the action.
-     * @param sysPkgMapping The set of packages to be removed.
+     * @param sysPkgMapping  The set of packages to be upgraded.
      * @param earliestAction Date of earliest action to be executed
+     * @return actions       list of all scheduled upgrades
      */
-    public static void schedulePackageUpgrades(User scheduler,
+    public static List<Action> schedulePackageUpgrades(User scheduler,
             Map<Long, List<Map<String, Long>>> sysPkgMapping, Date earliestAction) {
+        List<Action> actions = new ArrayList<Action>();
 
         for (Long sid : sysPkgMapping.keySet()) {
             List<Long> ids = new ArrayList<Long>();
             ids.add(sid);
-            schedulePackageInstall(scheduler, ids, sysPkgMapping.get(sid), earliestAction);
+            actions.addAll(schedulePackageInstall(scheduler, ids, sysPkgMapping.get(sid),
+                    earliestAction));
         }
-
-
+        return actions;
     }
 
     /**
@@ -1318,9 +1329,13 @@ public class ActionManager extends BaseManager {
      * @param serverIds        server ids for which the packages should be installed
      * @param pkgs           set of packages to be removed.
      * @param earliestAction date of earliest action to be executed
+     * @return TODO
      */
-    public static void schedulePackageInstall(User scheduler,
+    public static List<Action> schedulePackageInstall(User scheduler,
             Collection<Long> serverIds, List pkgs, Date earliestAction) {
+
+        List<Action> actions = new ArrayList<Action>();
+        Action anAction;
 
         // Different handling for package installs on solaris v. rhel, so split out
         // the servers first in case the list is mixed.
@@ -1332,15 +1347,17 @@ public class ActionManager extends BaseManager {
         // Since the solaris v. rhel distinction results in a different action type,
         // we'll end up with 2 actions created if the server list is mixed
         if (!rhelServers.isEmpty()) {
-            schedulePackageAction(scheduler, pkgs, ActionFactory.TYPE_PACKAGES_UPDATE,
-                    earliestAction, rhelServers);
+            anAction = schedulePackageAction(scheduler, pkgs,
+                    ActionFactory.TYPE_PACKAGES_UPDATE, earliestAction, rhelServers);
+            actions.add(anAction);
         }
 
         if (!solarisServers.isEmpty()) {
-            schedulePackageAction(scheduler, pkgs, ActionFactory.TYPE_SOLARISPKGS_INSTALL,
-                    earliestAction, solarisServers);
+            anAction = schedulePackageAction(scheduler, pkgs,
+                    ActionFactory.TYPE_SOLARISPKGS_INSTALL, earliestAction, solarisServers);
+            actions.add(anAction);
         }
-
+        return actions;
     }
 
     /**
@@ -1370,39 +1387,41 @@ public class ActionManager extends BaseManager {
         return (PackageAction) schedulePackageAction(scheduler, pkgs,
                 ActionFactory.TYPE_PACKAGES_VERIFY, earliest, srvr);
     }
+
     /**
      * Schedules a script action for the given servers
+     * 
      * @param scheduler User scheduling the action.
-     * @param servers Servers for which the action affects.
+     * @param sids Servers for which the action affects.
      * @param script The set of packages to be removed.
      * @param name Name of Script action.
      * @param earliest Earliest occurrence of the script.
      * @return Currently scheduled ScriptRunAction
+     * @throws MissingCapabilityException if any server in the list is missing script.run;
+     *             schedule fails
+     * @throws MissingEntitlementException if any server in the list is missing
+     *             Provisioning; schedule fails
      */
-    public static ScriptRunAction scheduleScriptRun(User scheduler,
-            List servers, String name, ScriptActionDetails script, Date earliest) {
+    public static ScriptRunAction scheduleScriptRun(User scheduler, List<Long> sids,
+            String name, ScriptActionDetails script, Date earliest) {
 
-        // server IDs to schedule
-        Set serverIds = new HashSet();
-
-        for (Iterator sysIter = servers.iterator(); sysIter.hasNext();) {
-            Server srvr = (Server) sysIter.next();
-
-            if (!SystemManager.clientCapable(srvr.getId(), "script.run")) {
-                throw new MissingCapabilityException("script.run", srvr);
+        for (Long sid : sids) {
+            if (!SystemManager.clientCapable(sid, "script.run")) {
+                throw new MissingCapabilityException("script.run", sid);
             }
 
-            if (!SystemManager.hasEntitlement(srvr.getId(),
-                    EntitlementManager.PROVISIONING)) {
+            if (!SystemManager.hasEntitlement(sid, EntitlementManager.PROVISIONING)) {
                 throw new MissingEntitlementException(
                         EntitlementManager.PROVISIONING.getHumanReadableLabel());
             }
-
-            serverIds.add(srvr.getId());
         }
 
+        Set<Long> sidSet = new HashSet<Long>();
+        sidSet.addAll(sids);
+
+        // Only execute if all servers have capability script.run and Provisioning
         ScriptRunAction sra = (ScriptRunAction) scheduleAction(scheduler,
-                ActionFactory.TYPE_SCRIPT_RUN, name, earliest, serverIds);
+                ActionFactory.TYPE_SCRIPT_RUN, name, earliest, sidSet);
         sra.setScriptActionDetails(script);
         ActionFactory.save(sra);
         return sra;

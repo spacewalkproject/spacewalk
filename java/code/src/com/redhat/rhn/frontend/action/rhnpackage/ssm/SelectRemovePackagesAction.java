@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2013 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -50,6 +50,7 @@ public class SelectRemovePackagesAction extends RhnAction implements Listable {
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
         Map params = new HashMap();
+        params.put("mode", "remove");
 
         ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
         helper.setDataSetName(RequestContext.PAGE_LIST);

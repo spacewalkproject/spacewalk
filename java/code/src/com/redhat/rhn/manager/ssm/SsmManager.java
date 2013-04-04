@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2013 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -235,4 +235,23 @@ public class SsmManager {
         set.clear();
         RhnSetManager.store(set);
     }
+    
+    /**
+     * Returns a list of server-ids of the servers in the SSM selection, for the specified
+     * user
+     * 
+     * @param user user whose system-set we care about
+     * @return list of server-ids
+     */
+    public static List<Long> listServerIds(User user) {
+        RhnSet ssm = RhnSetDecl.SYSTEMS.lookup(user);
+        List<Long> sids = new ArrayList<Long>();
+        if (ssm != null) {
+            for (RhnSetElement rse : ssm.getElements()) {
+                sids.add(rse.getElement());
+            }
+        }
+        return sids;
+    }
+
 }

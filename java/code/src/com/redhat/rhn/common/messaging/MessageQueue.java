@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2013 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -35,6 +35,7 @@ import com.redhat.rhn.frontend.events.SsmChangeChannelSubscriptionsAction;
 import com.redhat.rhn.frontend.events.SsmChangeChannelSubscriptionsEvent;
 import com.redhat.rhn.frontend.events.SsmDeleteServersAction;
 import com.redhat.rhn.frontend.events.SsmDeleteServersEvent;
+import com.redhat.rhn.frontend.events.SsmPackagesAction;
 import com.redhat.rhn.frontend.events.TraceBackAction;
 import com.redhat.rhn.frontend.events.TraceBackEvent;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheAction;
@@ -272,7 +273,7 @@ public class MessageQueue {
                 SsmDeleteServersEvent.class);
 
         // Used to allow SSM package installs to be run asynchronously
-        SsmInstallPackagesAction ssmPackageInstallAction = new SsmInstallPackagesAction();
+        SsmPackagesAction ssmPackageInstallAction = new SsmInstallPackagesAction();
         MessageQueue.registerAction(ssmPackageInstallAction, SsmInstallPackagesEvent.class);
 
         SsmRemovePackagesAction ssmRpa = new SsmRemovePackagesAction();
@@ -281,7 +282,7 @@ public class MessageQueue {
         SsmVerifyPackagesAction ssmVpa = new SsmVerifyPackagesAction();
         MessageQueue.registerAction(ssmVpa, SsmVerifyPackagesEvent.class);
 
-        SsmUpgradePackagesAction ssmUpa = new SsmUpgradePackagesAction();
+        SsmPackagesAction ssmUpa = new SsmUpgradePackagesAction();
         MessageQueue.registerAction(ssmUpa, SsmUpgradePackagesEvent.class);
 
         //Clone Errata into a channel

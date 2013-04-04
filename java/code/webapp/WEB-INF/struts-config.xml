@@ -7857,6 +7857,21 @@
        <set-property property="postRequiredIfSubmitted" value="true" />
        <forward name="default"
                 path="/WEB-INF/pages/ssm/packageinstallschedule.jsp" />
+       <forward name="remote"
+                path="/ssm/PackageScheduleRemoteCommand.do" redirect="true"/>
+       <forward name="confirm"
+                path="/ssm/ViewLog.do" redirect="true"/>
+    </action>
+
+    <action path="/ssm/PackageScheduleRemoteCommand"
+        scope="request"
+        name="scheduleRemoteCmdForm"
+        input="/WEB-INF/pages/ssm/packagescheduleremote.jsp"
+        type="com.redhat.rhn.frontend.action.rhnpackage.ssm.ScheduleRemoteCommand"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+       <set-property property="postRequiredIfSubmitted" value="true" />
+       <forward name="default"
+                path="/WEB-INF/pages/ssm/packagescheduleremote.jsp" />
        <forward name="confirm"
                 path="/ssm/ViewLog.do" redirect="true"/>
     </action>
@@ -7883,6 +7898,8 @@
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
                  path="/WEB-INF/pages/ssm/packageremoveschedule.jsp" />
+       <forward name="remote"
+                path="/ssm/PackageScheduleRemoteCommand.do" redirect="true"/>
         <forward name="confirm"
                  path="/ssm/ViewLog.do" redirect="true"/>
      </action>
@@ -7909,6 +7926,8 @@
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
                  path="/WEB-INF/pages/ssm/packageupgradeschedule.jsp" />
+        <forward name="remote"
+                 path="/ssm/PackageScheduleRemoteCommand.do" redirect="true"/>
         <forward name="confirm"
                  path="/ssm/ViewLog.do" redirect="true"/>
      </action>

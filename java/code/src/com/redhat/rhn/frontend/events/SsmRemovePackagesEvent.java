@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2013 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,11 +14,11 @@
  */
 package com.redhat.rhn.frontend.events;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
-
-import com.redhat.rhn.common.messaging.EventMessage;
-
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 
 /**
  * Event fired to carry the information necessary to remove packages from servers in the
@@ -27,51 +27,43 @@ import java.util.Date;
  * @see com.redhat.rhn.frontend.events.SsmRemovePackagesAction
  * @version $Revision$
  */
-public class SsmRemovePackagesEvent implements EventMessage {
+public class SsmRemovePackagesEvent extends SsmPackageEvent {
 
-    private Long userId;
-    private Date earliest;
-    private DataResult result;
+    private List<Map> result;
 
     /**
      * Creates a new SSM remove packages event.
      *
-     * @param userIdIn ID of user scheduling this action.
-     * @param earliestIn Earliest data action can be picked up.
-     * @param resultIn Complex map of which packages we're removing from which servers.
+     * @param userIdIn    ID of user scheduling this action.
+     * @param earliestIn  Earliest data action can be picked up.
+     * @param resultIn    Complex map of which packages we're removing from which servers.
+     * @param detailsIn   optional remote-command to execute before or after the install
+     * @param beforeIn    optional boolean - true if details should be executed BEFORE the
+     *                    install, false if AFTER
      */
-    public SsmRemovePackagesEvent(Long userIdIn, Date earliestIn, DataResult resultIn) {
-        userId = userIdIn;
-        earliest = earliestIn;
+    public SsmRemovePackagesEvent(Long userIdIn,
+                                  Date earliestIn,
+                                  List<Map> resultIn,
+                                  ScriptActionDetails detailsIn,
+                                  boolean beforeIn) {
+        super(userIdIn, earliestIn, detailsIn, beforeIn);
         result = resultIn;
     }
 
-    /** {@inheritDoc} */
-    public String toText() {
-        return toString();
+    /**
+     * Creates a new SSM remove packages event.
+     *
+     * @param userIdIn    ID of user scheduling this action.
+     * @param earliestIn  Earliest data action can be picked up.
+     * @param resultIn    Complex map of which packages we're removing from which servers.
+     */
+    public SsmRemovePackagesEvent(Long userIdIn, Date earliestIn, List<Map> resultIn) {
+        this(userIdIn, earliestIn, resultIn, null, false);
     }
 
     /** {@inheritDoc} */
     public String toString() {
-        return "SsmRemovePackagesEvent[User ID: " + userId + "]";
-    }
-
-    /**
-     * Gets the user for this instance.
-     *
-     * @return The user.
-     */
-    public Long getUserId() {
-        return this.userId;
-    }
-
-    /**
-     * Gets the earliest for this instance.
-     *
-     * @return The earliest.
-     */
-    public Date getEarliest() {
-        return this.earliest;
+        return "SsmRemovePackagesEvent[" + super.toString() + "]";
     }
 
     /**
@@ -79,7 +71,7 @@ public class SsmRemovePackagesEvent implements EventMessage {
      *
      * @return The result.
      */
-    public DataResult getResult() {
+    public List<Map> getResult() {
         return this.result;
     }
 

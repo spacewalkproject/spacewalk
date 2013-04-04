@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2013 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -46,7 +46,9 @@ import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -67,18 +69,33 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
                                  HttpServletResponse response) throws Exception {
 
         RequestContext requestContext = new RequestContext(request);
+        DynaActionForm f = (DynaActionForm) actionForm;
 
         ListHelper helper = new ListHelper(this, request);
         helper.setDataSetName(RequestContext.PAGE_LIST);
         helper.execute();
 
+        Map params = new HashMap();
+        params.put(RequestContext.MODE,
+                requestContext.getRequiredParamAsString(RequestContext.MODE));
+        
         if (request.getParameter("dispatch") != null) {
+            String packagesDecl = request.getParameter("packagesDecl");
             if (requestContext.wasDispatched("installconfirm.jsp.confirm")) {
                 return executePackageAction(actionMapping, actionForm, request, response);
             }
+            else if (requestContext.wasDispatched("removeconfirm.jsp.runremotecommand")) {
+                StrutsDelegate strutsDelegate = getStrutsDelegate();
+                params.put("packagesDecl", packagesDecl);
+                DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, f,
+                        "date", DatePicker.YEAR_RANGE_POSITIVE);
+                picker.writeToMap(params);
+                return strutsDelegate.forwardParams(actionMapping.findForward("remote"),
+                        params);
+            }
         }
 
-        // Prepopulate the date picker
+        // Pre-populate the date picker
         DynaActionForm dynaForm = (DynaActionForm) actionForm;
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
             "date", DatePicker.YEAR_RANGE_POSITIVE);
@@ -98,11 +115,11 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
     /**
      * Provide the data result
      * @param context The request context
-     * @param shorten whether to return a DataResult with the full ealborator
+     * @param shorten whether to return a DataResult with the full elaborator
      *          or a shortened much faster ones
      * @return the List
      */
-    public List getResult(RequestContext context, boolean shorten) {
+    public List<Map> getResult(RequestContext context, boolean shorten) {
         HttpServletRequest request = context.getRequest();
         User user = context.getLoggedInUser();
 
@@ -127,7 +144,7 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
 
         TagHelper.bindElaboratorTo("groupList", results.getElaborator(), request);
 
-        return results;
+        return (List<Map>)results;
     }
 
     /**
@@ -153,8 +170,7 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
             "date", DatePicker.YEAR_RANGE_POSITIVE);
 
         // Parse through all of the results
-        DataResult result = (DataResult) getResult(context, true);
-        result.elaborate();
+        List<Map> result = getResult(context, true);
 
         log.debug("Publishing schedule package remove event to message queue.");
         SsmRemovePackagesEvent event = new SsmRemovePackagesEvent(user.getId(), earliest,

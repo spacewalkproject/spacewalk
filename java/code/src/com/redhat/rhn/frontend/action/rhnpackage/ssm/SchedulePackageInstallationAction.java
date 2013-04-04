@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2013 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,18 +15,22 @@
 package com.redhat.rhn.frontend.action.rhnpackage.ssm;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.user.User;
@@ -42,8 +46,8 @@ import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.system.SystemManager;
 
 /**
- * SSM action that handles prompting the user for when to install the package as well
- * as creating the action when the user confirms the creation.
+ * SSM action that handles prompting the user for when to install the package as well as
+ * creating the action when the user confirms the creation.
  */
 public class SchedulePackageInstallationAction extends RhnListAction implements Listable {
 
@@ -53,47 +57,59 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
                                  HttpServletRequest request,
                                  HttpServletResponse response) throws Exception {
 
+        DynaActionForm f = (DynaActionForm) actionForm;
         RequestContext requestContext = new RequestContext(request);
 
-        ListHelper helper = new ListHelper(this, request);
-        helper.setDataSetName(RequestContext.PAGE_LIST);
-        helper.execute();
+        Map params = new HashMap();
+        params.put(RequestContext.CID, requestContext.getRequiredParam(RequestContext.CID));
+        params.put(RequestContext.MODE,
+                requestContext.getRequiredParamAsString(RequestContext.MODE));
 
-        if (request.getParameter("dispatch") != null) {
+        ListHelper lHelp = new ListHelper(this, request);
+        lHelp.setDataSetName(RequestContext.PAGE_LIST);
+        lHelp.execute();
+
+        StrutsDelegate strutsDelegate = getStrutsDelegate();
+
+        if (request.getParameter(RequestContext.DISPATCH) != null) {
+
+            String packagesDecl = request.getParameter("packagesDecl");
+
             if (requestContext.wasDispatched("installconfirm.jsp.confirm")) {
-
-                StrutsDelegate strutsDelegate = getStrutsDelegate();
-
                 // Load data from the web components
                 User user = requestContext.getLoggedInUser();
-                Date earliest = getStrutsDelegate().readDatePicker(
-                    (DynaActionForm) actionForm, "date", DatePicker.YEAR_RANGE_POSITIVE);
+                Date earliest = getStrutsDelegate()
+                        .readDatePicker((DynaActionForm) actionForm, "date",
+                                DatePicker.YEAR_RANGE_POSITIVE);
                 Long cid = requestContext.getRequiredParam(RequestContext.CID);
-
-                String packagesDecl = request.getParameter("packagesDecl");
-
                 Set<String> data = SessionSetHelper.lookupAndBind(request, packagesDecl);
-
-                // Remove the packages from session once we have the above handle on them
+                // Remove the packages from session once we have the above handle on
+                // them
                 SessionSetHelper.obliterate(request, packagesDecl);
 
                 // Fire off the request on the message queue
-                SsmInstallPackagesEvent event =
-                    new SsmInstallPackagesEvent(user.getId(), earliest, data, cid);
+                SsmInstallPackagesEvent event = new SsmInstallPackagesEvent(user.getId(),
+                        earliest, data, cid);
                 MessageQueue.publish(event);
 
                 ActionMessages msgs = new ActionMessages();
 
-                // Check to determine to display single or plural confirmation message
-                int numPackages = data.size();
-                LocalizationService l10n = LocalizationService.getInstance();
-                msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("ssm.package.install.message.packageinstalls"));
+                msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                        "ssm.package.install.message.packageinstalls"));
                 strutsDelegate.saveMessages(request, msgs);
-
                 return actionMapping.findForward("confirm");
             }
+            else if (requestContext.wasDispatched("installconfirm.jsp.runremotecommand")) {
+                // Need to allow the user to specify a remote-cmd, either
+                // before or after the package-install
+                params.put("packagesDecl", packagesDecl);
+                DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, f,
+                        "date", DatePicker.YEAR_RANGE_POSITIVE);
+                picker.writeToMap(params);
 
+                return strutsDelegate.forwardParams(actionMapping.findForward("remote"),
+                        params);
+            }
         }
 
         // Determine number of packages for summary text to user
@@ -104,11 +120,12 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
         // Prepopulate the date picker
         DynaActionForm dynaForm = (DynaActionForm) actionForm;
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
-            "date", DatePicker.YEAR_RANGE_POSITIVE);
+                "date", DatePicker.YEAR_RANGE_POSITIVE);
 
         request.setAttribute("date", picker);
 
-        return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
+        return strutsDelegate.forwardParams(
+                actionMapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
 
     /** {@inheritDoc} */
@@ -116,8 +133,8 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
         Long cid = context.getRequiredParam(RequestContext.CID);
         User user = context.getLoggedInUser();
 
-        DataResult dataResult =
-            SystemManager.systemsSubscribedToChannelInSet(cid, user, SetLabels.SYSTEM_LIST);
+        DataResult dataResult = SystemManager.systemsSubscribedToChannelInSet(cid, user,
+                SetLabels.SYSTEM_LIST);
 
         return dataResult;
     }

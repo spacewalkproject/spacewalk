@@ -80,11 +80,14 @@
         <hr/>
         <input type="submit"
                name="dispatch"
+               value='<bean:message key="removeconfirm.jsp.runremotecommand"/>'/>
+        <input type="submit"
+               name="dispatch"
                value='<bean:message key="installconfirm.jsp.confirm"/>'/>
     </div>
 
     <input type="hidden" name="packagesDecl" value="${requestScope.packagesDecl}" />
-    <input type="hidden" name="cid" value="${param.cid}" />
+    <input type="hidden" name="mode" value="${param.mode}" />
 
 </rl:listset>
 

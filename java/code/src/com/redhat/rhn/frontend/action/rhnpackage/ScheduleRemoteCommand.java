@@ -184,8 +184,8 @@ public class ScheduleRemoteCommand extends RhnAction {
         }
 
         // scheduleScriptRun takes a list of servers
-        List servers = new ArrayList();
-        servers.add(server);
+        List<Long> sids = new ArrayList<Long>();
+        sids.add(server.getId());
 
         ActionMessages msgs = new ActionMessages();
 
@@ -215,7 +215,7 @@ public class ScheduleRemoteCommand extends RhnAction {
         if (BEFORE.equals(runBefore)) {
             ScriptActionDetails sad =
                 ActionManager.createScript(username, group, timeout, script);
-            ScriptRunAction sra = ActionManager.scheduleScriptRun(user, servers,
+            ScriptRunAction sra = ActionManager.scheduleScriptRun(user, sids,
                 null, sad, earliest);
             List<Map<String, Long>> packs = getPackages(user, request, sessionSetLabel);
             int numPackages = packs.size();
@@ -231,7 +231,7 @@ public class ScheduleRemoteCommand extends RhnAction {
             PackageAction pa = schedulePackageAction(user, server, packs, mode, earliest);
             ScriptActionDetails sad =
                 ActionManager.createScript(username, group, timeout, script);
-            ScriptRunAction sra = ActionManager.scheduleScriptRun(user, servers,
+            ScriptRunAction sra = ActionManager.scheduleScriptRun(user, sids,
                 null, sad, earliest);
             sra.setPrerequisite(pa);
             ActionManager.storeAction(sra);
