@@ -29,6 +29,7 @@ except:
         return 0
 
 from config_common import utils
+from config_common.local_config import get as get_config
 
 class FileProcessor:
     file_struct_fields = {
@@ -128,7 +129,8 @@ class FileProcessor:
                 else:
                     raise e
         else:
-            result = ''.join(diff(temp_file, path))
+            result = ''.join(diff(temp_file, path,
+                    display_diff=get_config('display_diff')))
 
         os.unlink(temp_file)
         return sectx_result + result
