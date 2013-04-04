@@ -44,15 +44,15 @@
       </td>
     </tr>
     <tr>
-      <th><label for="desiredpass"><bean:message key="desiredpass" />
-       <span name="password-asterisk" class="required-form-field">*</span>:</th></label>
+      <th><label for="desiredpass"><bean:message key="desiredpass" /><span name="password-asterisk"
+            class="required-form-field">*</span>:</th></label>
       <td>
         <html:password property="desiredpassword" size="15" maxlength="${passwordLength}"/>
       </td>
     </tr>
     <tr>
-      <th><label for="confirmpass"><bean:message key="confirmpass" />
-      <span name="password-asterisk" class="required-form-field">*</span>:</label></th>
+      <th><label for="confirmpass"><bean:message key="confirmpass" /><span name="password-asterisk"
+            class="required-form-field">*</span>:</label></th>
       <td>
         <html:password property="desiredpasswordConfirm" size="15" maxlength="${passwordLength}" styleId="confirmpass"/>
       </td>
