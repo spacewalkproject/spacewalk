@@ -1440,14 +1440,9 @@ public class ChannelManager extends BaseManager {
      * @return List containing Maps of "CP.package_id, CP.name_id, CP.evr_id"
      */
     public static Long getLatestPackageEqual(Long channelId, String packageName) {
-        SelectMode m = ModeFactory.getMode("Channel_queries",
-            "latest_package_equal");
-        Map params = new HashMap();
-        params.put("cid", channelId);
-        params.put("name", packageName);
-        List results = m.execute(params);
-        if (results != null && results.size() > 0) {
-            Map row = (Map) results.get(0);
+        List latestPkgs = listLatestPackagesEqual(channelId, packageName);
+        if (latestPkgs != null && latestPkgs.size() > 0) {
+            Map row = (Map) latestPkgs.get(0);
             return (Long) row.get("package_id");
         }
         return null;
