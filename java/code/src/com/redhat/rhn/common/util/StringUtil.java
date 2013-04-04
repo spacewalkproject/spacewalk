@@ -15,18 +15,7 @@
 
 package com.redhat.rhn.common.util;
 
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.validator.ValidatorException;
-
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.apache.xml.utils.XMLChar;
-import org.stringtree.json.JSONReader;
-import org.stringtree.json.JSONWriter;
-
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -39,6 +28,16 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.apache.xml.utils.XMLChar;
+import org.stringtree.json.JSONReader;
+import org.stringtree.json.JSONWriter;
+
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.validator.ValidatorException;
 
 /**
  * A simple class that assists with String manipulation
@@ -398,7 +397,7 @@ public class StringUtil {
         int line = entireToken.indexOf("<br/>");
         int tag = entireToken.indexOf("&lt;");
         int end = -1;
-        
+
         // end characters
         Set<Character> endChars = new HashSet<Character>();
         endChars.add(new Character('.'));
@@ -414,10 +413,10 @@ public class StringUtil {
         if (end == -1 || (end > tag && tag != -1)) {
             end = tag;
         }
-        
+
         // dot before the end
         if (end > 0 && (endChars.contains(
-                new Character(entireToken.charAt(end-1))))) {
+                new Character(entireToken.charAt(end - 1))))) {
             end--;
         }
         // dot at the end
@@ -425,7 +424,7 @@ public class StringUtil {
                 new Character(entireToken.charAt(entireToken.length() - 1)))) {
             end = entireToken.length() - 1;
         }
-        
+
         return end;
     }
 
