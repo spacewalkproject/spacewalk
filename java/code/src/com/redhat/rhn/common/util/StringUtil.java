@@ -26,13 +26,16 @@ import org.stringtree.json.JSONReader;
 import org.stringtree.json.JSONWriter;
 
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -385,11 +388,21 @@ public class StringUtil {
         return ret.toString();
     }
 
+    /**
+     * Finds end of URL.
+     * @param entireToken input String (URL)
+     * @return position of last char of URL, returns -1 when entire String is URL
+     */
     private static int findEndOfUrl(String entireToken) {
         int space = entireToken.indexOf(" ");
         int line = entireToken.indexOf("<br/>");
         int tag = entireToken.indexOf("&lt;");
         int end = -1;
+        
+        // end characters
+        Set<Character> endChars = new HashSet<Character>();
+        endChars.add(new Character('.'));
+        endChars.add(new Character(','));
 
         if (space == -1 || (space > line && line != -1)) {
             end = line;
@@ -399,8 +412,20 @@ public class StringUtil {
         }
 
         if (end == -1 || (end > tag && tag != -1)) {
-            return tag;
+            end = tag;
         }
+        
+        // dot before the end
+        if (end > 0 && (endChars.contains(
+                new Character(entireToken.charAt(end-1))))) {
+            end--;
+        }
+        // dot at the end
+        else if (endChars.contains(
+                new Character(entireToken.charAt(entireToken.length() - 1)))) {
+            end = entireToken.length() - 1;
+        }
+        
         return end;
     }
 
