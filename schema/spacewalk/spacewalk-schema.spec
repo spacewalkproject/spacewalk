@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.21
+Version:        1.10.22
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Apr 04 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.22-1
+- add port to dblink_connect connect string
+
 * Wed Apr 03 2013 Stephen Herr <sherr@redhat.com> 1.10.21-1
 - renaming file to correct suffix
 
