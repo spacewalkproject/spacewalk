@@ -1246,7 +1246,7 @@ public class ActionManager extends BaseManager {
 
         List<Action> actions = new ArrayList<Action>();
         Action anAction;
-        
+
         // Different handling for package removal on solaris v. rhel, so split out
         // the servers first in case the list is mixed.
         Set<Long> rhelServers = new HashSet<Long>();
@@ -1390,7 +1390,7 @@ public class ActionManager extends BaseManager {
 
     /**
      * Schedules a script action for the given servers
-     * 
+     *
      * @param scheduler User scheduling the action.
      * @param sids Servers for which the action affects.
      * @param script The set of packages to be removed.

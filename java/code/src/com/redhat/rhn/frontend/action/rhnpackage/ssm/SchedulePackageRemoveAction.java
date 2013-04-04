@@ -78,7 +78,7 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
         Map params = new HashMap();
         params.put(RequestContext.MODE,
                 requestContext.getRequiredParamAsString(RequestContext.MODE));
-        
+
         if (request.getParameter("dispatch") != null) {
             String packagesDecl = request.getParameter("packagesDecl");
             if (requestContext.wasDispatched("installconfirm.jsp.confirm")) {

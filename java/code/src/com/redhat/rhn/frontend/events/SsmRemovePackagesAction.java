@@ -30,7 +30,7 @@ import com.redhat.rhn.manager.action.ActionManager;
 
 /**
  * Handles removing packages from servers in the SSM.
- * 
+ *
  * @see com.redhat.rhn.frontend.events.SsmRemovePackagesEvent
  */
 public class SsmRemovePackagesAction extends SsmPackagesAction {
@@ -65,13 +65,13 @@ public class SsmRemovePackagesAction extends SsmPackagesAction {
          * removals into a single action. The schedule package removal page will display a
          * fine grained mapping of server to package removed (taking into account to only
          * show packages that exist on the server).
-         * 
+         *
          * However, there is no issue in requesting a client delete a package it doesn't
          * have. So when we create the action, populate it with all packages and for every
          * server to which any package removal applies. This will let us keep all of the
          * removals coupled under a single scheduled action and won't cause an issue on
          * the client when the scheduled removals are picked up.
-         * 
+         *
          * jdobies, Apr 8, 2009
          */
 

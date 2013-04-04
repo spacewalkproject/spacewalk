@@ -44,7 +44,7 @@ public class MissingCapabilityException extends RhnRuntimeException {
 
     /**
      * Constructor for exception on missing capability on a bunch of servers.
-     * 
+     *
      * @param missingCapability the missing capability.
      * @param sid               the ID of the server missing the capability
      */

@@ -34,7 +34,7 @@ import com.redhat.rhn.manager.ssm.SsmOperationManager;
  * Base functionality for responding to SSM package install/update/remove.
  * Handles ordering if a remote-cmd has been specified.  Subclasses are responsible
  * for describing the affected servers, and the actual work of scheduling action(s)
- * 
+ *
  * @author ggainey
  *
  */
@@ -57,18 +57,18 @@ public abstract class SsmPackagesAction extends AbstractDatabaseAction {
          * The following isn't 100% accurate. All systems in the SSM are associated with
          * the operation, however only systems on which the package already exists (since
          * this is an upgrade) will actually have events scheduled.
-         * 
+         *
          * The problem is that the list of servers to which the package upgrades apply is
          * never stored in an RhnSet, which is used to make the impact of this call
          * minimal. The correct list is showed to the user before selecting confirm, so
          * the only potential issue is in viewing the SSM task log after the user has
          * confirmed the operation. Again, the events themselves are correctly scheduled
          * on only the systems to which they apply.
-         * 
+         *
          * For now, this small potential for logging inaccuracy is acceptable given the
          * proxmity of this fix to the Satellite 5.3 release (as opposed to omitting the
          * server association to the task entirely).
-         * 
+         *
          * jdobies, Aug 12, 2009
          */
 
@@ -88,10 +88,10 @@ public abstract class SsmPackagesAction extends AbstractDatabaseAction {
                 log.debug("Time to schedule all actions: " +
                         (System.currentTimeMillis() - actionStart));
             }
-        } 
+        }
         catch (Exception e) {
             log.error("Error scheduling package installations for event " + event, e);
-        } 
+        }
         finally {
             // This should stay in the finally block so the operation is
             // not perpetually left in an in progress state
@@ -157,7 +157,7 @@ public abstract class SsmPackagesAction extends AbstractDatabaseAction {
     }
 
     protected abstract String getOperationName();
-    
+
     protected abstract List<Long> getAffectedServers(SsmPackageEvent event, User u);
 
     protected abstract List<Action> doSchedule(SsmPackageEvent event,

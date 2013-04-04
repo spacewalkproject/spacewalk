@@ -63,7 +63,7 @@ import com.redhat.rhn.manager.system.SystemManager;
 
 /**
  * ScheduleRemoteCommand
- * 
+ *
  * @version $Rev$
  */
 public class ScheduleRemoteCommand extends RhnAction {
@@ -193,7 +193,7 @@ public class ScheduleRemoteCommand extends RhnAction {
         else if (MODE_UPGRADE.equals(mode)) {
             List<Map> result = getUpgradeResult(ctxt, sessionSetLabel);
 
-            Map<Long, List<Map<String, Long>>> sysPackageSet = 
+            Map<Long, List<Map<String, Long>>> sysPackageSet =
                     new HashMap<Long, List<Map<String, Long>>>();
             for (Map sys : result) {
                 Long sysId = (Long) sys.get("id");
@@ -264,7 +264,7 @@ public class ScheduleRemoteCommand extends RhnAction {
 
             // bz465892 - As the selected packages are parsed, remove duplicates
             // keeping the highest EVR
-            Map<String, PackageListItem> packageNameIdsToItems = 
+            Map<String, PackageListItem> packageNameIdsToItems =
                     new HashMap<String, PackageListItem>(data.size());
 
             for (String idCombo : data) {

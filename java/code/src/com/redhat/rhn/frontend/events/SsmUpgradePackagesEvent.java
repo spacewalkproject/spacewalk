@@ -56,7 +56,7 @@ public class SsmUpgradePackagesEvent extends SsmPackageEvent {
         }
         sysPackageSet = sysPackageSetIn;
     }
-    
+
     /**
      * Creates a new SSM upgrade packages event.
      *

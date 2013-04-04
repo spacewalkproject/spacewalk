@@ -30,7 +30,7 @@ public class SsmInstallPackagesEvent extends SsmPackageEvent {
 
     /**
      * Creates a new event to install a set of packages on systems in the SSM.
-     * 
+     *
      * @param userIdIn user making the changes; cannot be <code>null</code>
      * @param earliestIn earliest time to perform the installation; can be
      *            <code>null</code>
@@ -61,7 +61,7 @@ public class SsmInstallPackagesEvent extends SsmPackageEvent {
 
     /**
      * Creates a new event to install a set of packages on systems in the SSM.
-     * 
+     *
      * @param userIdIn user making the changes; cannot be <code>null</code>
      * @param earliestIn earliest time to perform the installation; can be
      *            <code>null</code>

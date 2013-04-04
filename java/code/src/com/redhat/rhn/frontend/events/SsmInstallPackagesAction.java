@@ -37,7 +37,7 @@ public class SsmInstallPackagesAction extends SsmPackagesAction {
     protected String getOperationName() {
         return "ssm.package.install.operationname";
     }
-    
+
     protected List<Long> getAffectedServers(SsmPackageEvent event, User u) {
         SsmInstallPackagesEvent sipe = (SsmInstallPackagesEvent) event;
         Long channelId = sipe.getChannelId();
@@ -61,7 +61,7 @@ public class SsmInstallPackagesAction extends SsmPackagesAction {
 
         Set<String> data = sipe.getPackages();
         // Convert the package list to domain objects
-        List<PackageListItem> packageListItems = 
+        List<PackageListItem> packageListItems =
                 new ArrayList<PackageListItem>(data.size());
         for (String key : data) {
             packageListItems.add(PackageListItem.parse(key));
@@ -73,7 +73,7 @@ public class SsmInstallPackagesAction extends SsmPackagesAction {
 
         List<Action> pkgActions = ActionManager.schedulePackageInstall(user, sids,
                 packageListData, earliest);
-        
+
         return pkgActions;
     }
 

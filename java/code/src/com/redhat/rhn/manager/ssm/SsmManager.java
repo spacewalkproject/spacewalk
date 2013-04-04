@@ -235,11 +235,11 @@ public class SsmManager {
         set.clear();
         RhnSetManager.store(set);
     }
-    
+
     /**
      * Returns a list of server-ids of the servers in the SSM selection, for the specified
      * user
-     * 
+     *
      * @param user user whose system-set we care about
      * @return list of server-ids
      */

@@ -22,9 +22,9 @@ import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 /**
  * Base for SSM package install/update/remove actions. Holds the data shared between the
  * three paths.
- * 
+ *
  * @author ggainey
- * 
+ *
  */
 public abstract class SsmPackageEvent implements EventMessage {
 
@@ -35,7 +35,7 @@ public abstract class SsmPackageEvent implements EventMessage {
 
     /**
      * Creates a new event to install a set of packages on systems in the SSM.
-     * 
+     *
      * @param userIdIn user making the changes; cannot be <code>null</code>
      * @param earliestIn earliest time to perform the installation; can be
      *            <code>null</code>

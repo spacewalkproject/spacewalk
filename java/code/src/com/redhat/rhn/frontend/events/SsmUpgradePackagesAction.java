@@ -25,7 +25,7 @@ import com.redhat.rhn.manager.action.ActionManager;
 
 /**
  * Handles removing packages from servers in the SSM.
- * 
+ *
  * @see com.redhat.rhn.frontend.events.SsmUpgradePackagesEvent
  */
 public class SsmUpgradePackagesAction extends SsmPackagesAction {
@@ -33,7 +33,7 @@ public class SsmUpgradePackagesAction extends SsmPackagesAction {
     protected String getOperationName() {
         return "ssm.package.upgrade.operationname";
     }
-    
+
     protected List<Long> getAffectedServers(SsmPackageEvent event, User u) {
         SsmUpgradePackagesEvent supe = (SsmUpgradePackagesEvent) event;
         List<Long> sids = new ArrayList<Long>();

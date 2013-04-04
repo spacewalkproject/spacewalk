@@ -36,7 +36,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * SSM action for selecting the packages to install. Package list is determined by the
  * first step in the flow where the channel is selected.
- * 
+ *
  * @version $Revision$
  */
 public class SelectInstallationPackagesAction extends RhnAction implements Listable {
