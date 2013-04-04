@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.40
+Version: 1.10.41
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Apr 04 2013 Jan Dobes 1.10.41-1
+- checkstyle fix
+- 928198 - fixing URL detection to not contain dot or comma at the end.
+
 * Wed Apr 03 2013 Stephen Herr <sherr@redhat.com> 1.10.40-1
 - Display number of sockets in system details and spacewalk-reports
 
