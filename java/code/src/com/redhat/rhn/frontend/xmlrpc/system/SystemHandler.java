@@ -2310,10 +2310,16 @@ public class SystemHandler extends BaseHandler {
                     else {
                         // if there wasn't an error, check to see if there was a difference
                         // detected...
-                        Blob blob = (Blob) file.get("diff");
-                        if (blob != null) {
-                            String diff = HibernateFactory.blobToString(blob);
-                            info.put("result", diff);
+                        String diffString = "";
+                        Object diff = file.get("diff");
+                        if (diff instanceof byte[]) {
+                            diffString = HibernateFactory.getByteArrayContents((byte[]) file.get("diff"));
+                        }
+                        else {
+                            diffString = HibernateFactory.blobToString((Blob) file.get("diff"));
+                        }
+                        if (diffString != null) {
+                            info.put("result", diffString);
                         }
                     }
                     additionalInfo.add(info);
