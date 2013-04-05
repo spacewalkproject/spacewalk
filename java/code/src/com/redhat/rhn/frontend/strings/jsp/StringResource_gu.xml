@@ -19101,6 +19101,12 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
 
 
 
+      <trans-unit id="sys_entitlements.provisioning_entitled">
+        <source> Provisioning (Add-On)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
+        </context-group>
+      <target> બચાવ (ઉમેરો)</target></trans-unit>
 
 
       <trans-unit id="sys_entitlements.virtualization_host">
