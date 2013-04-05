@@ -154,6 +154,7 @@ def parse_args():
             help="Already existing channels that will be used as the "
             + "original parent and destination parent of child "
             + "channels cloned this session.")
+    parser.add_option("--use-update-date", dest="use_update_date", action='store_true', help="While cloning errata by date, use Errata's update date. If omitted will use issue date of errata.")
 
     (options, args) = parser.parse_args()
 

@@ -144,12 +144,13 @@ def main(options):
             tree_cloner = ChannelTreeCloner(channel_list, xmlrpc, db,
                                             options.to_date, options.blacklist,
                                             options.removelist, options.background,
-                                            options.security_only, options.parents)
+                                            options.security_only, options.use_update_date,
+                                            options.parents)
         else:
             tree_cloner = ChannelTreeCloner(channel_list, xmlrpc, db,
                                             options.to_date, options.blacklist,
                                             options.removelist, options.background,
-                                            options.security_only)
+                                            options.security_only,options.use_update_date)
 
         cloners.append(tree_cloner)
         needed_channels += tree_cloner.needing_create().values()
@@ -202,7 +203,7 @@ class ChannelTreeCloner:
     # pylint: disable=R0902
     def __init__(self, channels, remote_api, db_api, to_date, blacklist,
                                             removelist, detached,
-                                            security_only, parents = None):
+                                            security_only, use_update_date, parents = None):
         self.remote_api = remote_api
         self.db_api = db_api
         self.channel_map = channels
@@ -221,13 +222,14 @@ class ChannelTreeCloner:
         self.channel_details = None
         self.detached = detached
         self.security_only = security_only
+        self.use_update_date = use_update_date
 
         self.validate_source_channels()
         for from_label in self.ordered_labels():
             to_label = self.channel_map[from_label]
             cloner = ChannelCloner(from_label, to_label, self.to_date,
                                    self.remote_api, self.db_api, self.detached,
-                                   self.security_only)
+                                   self.security_only,self.use_update_date)
             self.cloners.append(cloner)
 
 
@@ -425,7 +427,7 @@ class ChannelTreeCloner:
 class ChannelCloner:
     # pylint: disable=R0902
     def __init__(self, from_label, to_label, to_date, remote_api, db_api,
-            detached, security_only):
+            detached, security_only, use_update_date):
         self.remote_api = remote_api
         self.db_api = db_api
         self.from_label = from_label
@@ -438,6 +440,7 @@ class ChannelCloner:
         self.old_pkg_hash = {}
         self.detached = detached
         self.security_only = security_only
+        self.use_update_date = use_update_date
 
 
     def dest_label(self):
@@ -548,9 +551,13 @@ class ChannelCloner:
         """ Returns tuple of all available for cloning, and what falls in the date range"""
         available_errata = self.db_api.applicable_errata(self.from_label, self.to_label)
         to_clone = []
-
+        if self.use_update_date:
+            date_to_use='update_date'
+        else:
+            date_to_use='issue_date'
+        print "Using ",date_to_use
         for err in available_errata:
-            if self.to_date and err['issue_date'].date() <= self.to_date.date():
+            if self.to_date and err[date_to_use].date() <= self.to_date.date():
                 if self.security_only:
                     if err['advisory_type'] == 'Security Advisory':
                         to_clone.append(err)
@@ -714,7 +721,7 @@ class DBApi:
         """list of errata that is applicable to be cloned, used db because we
             need to exclude cloned errata too"""
         h = rhnSQL.prepare("""
-                select e.id, e.advisory_name, e.advisory_type, e.issue_date, e.synopsis
+                select e.id, e.advisory_name, e.advisory_type, e.issue_date, e.synopsis, e.update_date
                 from rhnErrata e  inner join
                      rhnChannelErrata ce on e.id = ce.errata_id inner join
                      rhnChannel c on c.id = ce.channel_id
