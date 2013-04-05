@@ -144,7 +144,7 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
 
         TagHelper.bindElaboratorTo("groupList", results.getElaborator(), request);
 
-        return (List<Map>)results;
+        return results;
     }
 
     /**
