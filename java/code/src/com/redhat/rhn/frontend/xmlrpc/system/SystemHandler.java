@@ -2313,10 +2313,12 @@ public class SystemHandler extends BaseHandler {
                         String diffString = "";
                         Object diff = file.get("diff");
                         if (diff instanceof byte[]) {
-                            diffString = HibernateFactory.getByteArrayContents((byte[]) file.get("diff"));
+                            diffString = HibernateFactory.getByteArrayContents(
+                                    (byte[]) file.get("diff"));
                         }
                         else {
-                            diffString = HibernateFactory.blobToString((Blob) file.get("diff"));
+                            diffString = HibernateFactory.blobToString(
+                                    (Blob) file.get("diff"));
                         }
                         if (diffString != null) {
                             info.put("result", diffString);
