@@ -1226,10 +1226,8 @@ public class ActionManager extends BaseManager {
             return (PackageAction) schedulePackageAction(scheduler, pkgs,
                     ActionFactory.TYPE_PACKAGES_REMOVE, earliestAction, srvr);
         }
-        else {
-            return (PackageAction) schedulePackageAction(scheduler, pkgs,
-                    ActionFactory.TYPE_SOLARISPKGS_REMOVE, earliestAction, srvr);
-        }
+        return (PackageAction) schedulePackageAction(scheduler, pkgs,
+                ActionFactory.TYPE_SOLARISPKGS_REMOVE, earliestAction, srvr);
     }
 
     /**
