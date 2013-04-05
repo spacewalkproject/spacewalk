@@ -19095,63 +19095,62 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <target>*&lt;strong&gt;উপদেশ:&lt;/strong&gt; @@PRODUCT_NAME@@-র সার্টিফিকেটের মধ্যে উল্লিখিত, @@PRODUCT_NAME@@-র ক্ষেত্রে সর্বমোট উপলব্ধ এনটাইটেলমেন্ট
 'সর্বমোট' দ্বারা চিহ্নিত হয়েছে।</target>
       </trans-unit>
-
       <trans-unit id="sys_entitlements.not_allocated">
         <source>Not Allocated*</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target>বরাদ্দ করা হয়নি*</target></trans-unit>
-
+        <target>বরাদ্দ করা হয়নি*</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.notinuse">
         <source>Not In Use</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target>ব্যবহার করা হচ্ছে না</target></trans-unit>
-
+        <target>ব্যবহার করা হচ্ছে না</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.enterprise_entitled">
         <source> Management (Base)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target> Management (বেস)</target></trans-unit>
-
+        <target> Management (বেস)</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.provisioning_entitled">
         <source> Provisioning (Add-On)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target> Provisioning (অতিরিক্ত)</target></trans-unit>
-
+        <target> Provisioning (অতিরিক্ত)</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.monitoring_entitled">
         <source> Monitoring (Add-On)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target> Monitoring (অতিরিক্ত)</target></trans-unit>
-
+        <target> Monitoring (অতিরিক্ত)</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.virtualization_host">
         <source> Virtualization (Add-On)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target> Virtualization (অতিরিক্ত)</target></trans-unit>
-
+        <target> Virtualization (অতিরিক্ত)</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.virtualization_host_platform">
         <source> Virtualization Platform (Add-On)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target> Virtualization Platform (অতিরিক্ত)</target></trans-unit>
-
+        <target> Virtualization Platform (অতিরিক্ত)</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.add_on">
         <source>(Add-On)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target>(অতিরিক্ত)</target></trans-unit>
-
+        <target>(অতিরিক্ত)</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.noentitlements">
         <source>No Entitlements Found</source>
         <context-group name="ctx">
@@ -19187,44 +19186,40 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>চিহ্নিত এনটাইটেলমেন্ট দ্বারা উপলব্ধ ব্যবহারাধিকার:</target>
       </trans-unit>
-
       <trans-unit id="system_entitlement_details.access_grant_desc.enterprise_entitled">
         <source>A single Management (Base) entitlement is required for all systems registered to satellite</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
-      <target>Satellite-র মধ্যে নিবন্ধিত সকল সিস্টেমের জন্য একটি Management (বেস) এনটাইটেলমেন্ট আবশ্যক</target></trans-unit>
-
+        <target>Satellite-র মধ্যে নিবন্ধিত সকল সিস্টেমের জন্য একটি Management (বেস) এনটাইটেলমেন্ট আবশ্যক</target>
+      </trans-unit>
       <trans-unit id="system_entitlement_details.access_grant_desc.provisioning_entitled">
         <source>A single Provisioning (Add-On) entitlement allows various advanced functionality such as kickstart and configuration file provisioning. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
-      <target>একটি Provisioning (অতিরিক্ত) এনটাইটেলমেন্টের সাহায্যে kickstart ও কনফিগারেশন ফাইল প্রস্তুতি প্রভৃতি উন্নত বৈশিষ্ট্য উপলব্ধ করা হবে। </target></trans-unit>
-
+        <target>একটি Provisioning (অতিরিক্ত) এনটাইটেলমেন্টের সাহায্যে kickstart ও কনফিগারেশন ফাইল প্রস্তুতি প্রভৃতি উন্নত বৈশিষ্ট্য উপলব্ধ করা হবে। </target>
+      </trans-unit>
       <trans-unit id="system_entitlement_details.access_grant_desc.monitoring_entitled">
         <source>A single Monitoring (Add-On) entitlement enables the tracking of monitoring data for a system. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
-      <target>একটি Monitoring (অতিরিক্ত) এনটাইটেলমেন্টের সাহায্যে সিস্টেমের মধ্যে উপস্থিত নিরীক্ষণযোগ্য তথ্যের অবস্থা পরীক্ষা করা যাবে। </target></trans-unit>
-
+        <target>একটি Monitoring (অতিরিক্ত) এনটাইটেলমেন্টের সাহায্যে সিস্টেমের মধ্যে উপস্থিত নিরীক্ষণযোগ্য তথ্যের অবস্থা পরীক্ষা করা যাবে। </target>
+      </trans-unit>
       <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host">
         <source>A single Virtualization (Add-On) entitlement applied to a host system, enables management for up to 4 guests. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
-      <target>কোনো হোস্ট সিস্টেমে ব্যবহৃত একটি Virtualization (অতিরিক্ত) এনটাইটেলমেন্টের সাহায্যে সর্বাধিক ৪-টি গেস্ট সিস্টেম পরিচালনা করা যাবে। </target></trans-unit>
-
+        <target>কোনো হোস্ট সিস্টেমে ব্যবহৃত একটি Virtualization (অতিরিক্ত) এনটাইটেলমেন্টের সাহায্যে সর্বাধিক ৪-টি গেস্ট সিস্টেম পরিচালনা করা যাবে। </target>
+      </trans-unit>
       <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host_platform">
         <source>A single Virtualization Platform (Add-On) entitlement applied to a host system, enabled management for unlimited guests. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
       </trans-unit>
-
-
-
       <trans-unit id="entitlementorgs.orgname">
         <source>Organization Name</source>
         <context-group name="ctx">

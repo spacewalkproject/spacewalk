@@ -19097,63 +19097,62 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <target>*&lt;strong&gt;துணுக்கு:&lt;/strong&gt;'மொத்தம்' @@PRODUCT_NAME@@ சான்றிதழில் இருக்கும்
 மொத்த @@PRODUCT_NAME@@ காட்டப்படுவதாகும்.</target>
       </trans-unit>
-
       <trans-unit id="sys_entitlements.not_allocated">
         <source>Not Allocated*</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target>ஒதுக்கப்படவில்லை*</target></trans-unit>
-
+        <target>ஒதுக்கப்படவில்லை*</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.notinuse">
         <source>Not In Use</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target>பயனில் இல்லை</target></trans-unit>
-
+        <target>பயனில் இல்லை</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.enterprise_entitled">
         <source> Management (Base)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target>மேலாண்மை (அடிப்படை)</target></trans-unit>
-
+        <target>மேலாண்மை (அடிப்படை)</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.provisioning_entitled">
         <source> Provisioning (Add-On)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target>வாய்ப்பளித்தல் (கூடுதல்)</target></trans-unit>
-
+        <target>வாய்ப்பளித்தல் (கூடுதல்)</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.monitoring_entitled">
         <source> Monitoring (Add-On)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target>கண்காணித்தல் (கூடுதல்)</target></trans-unit>
-
+        <target>கண்காணித்தல் (கூடுதல்)</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.virtualization_host">
         <source> Virtualization (Add-On)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target>மெய்நிகராக்கம் (கூடுதல்)</target></trans-unit>
-
+        <target>மெய்நிகராக்கம் (கூடுதல்)</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.virtualization_host_platform">
         <source> Virtualization Platform (Add-On)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target>மெய்நிகராக்க இயக்கத்தளம் (கூடுதல்)</target></trans-unit>
-
+        <target>மெய்நிகராக்க இயக்கத்தளம் (கூடுதல்)</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.add_on">
         <source>(Add-On)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target>(கூடுதல் இணைப்பு)</target></trans-unit>
-
+        <target>(கூடுதல் இணைப்பு)</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.noentitlements">
         <source>No Entitlements Found</source>
         <context-group name="ctx">
@@ -19189,44 +19188,40 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>இந்த உரிமத்தால் அணுகல் வழங்கப்பட்டது:</target>
       </trans-unit>
-
       <trans-unit id="system_entitlement_details.access_grant_desc.enterprise_entitled">
         <source>A single Management (Base) entitlement is required for all systems registered to satellite</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
-      <target>சேட்டிலைட்டில் பதிவு செய்யப்பட்ட அனைத்து கணினிகளுக்கும் ஒரு ஒற்றை மேலாண்மை (அடிப்படை) உரிமம் தேவைப்படுகிறது</target></trans-unit>
-
+        <target>சேட்டிலைட்டில் பதிவு செய்யப்பட்ட அனைத்து கணினிகளுக்கும் ஒரு ஒற்றை மேலாண்மை (அடிப்படை) உரிமம் தேவைப்படுகிறது</target>
+      </trans-unit>
       <trans-unit id="system_entitlement_details.access_grant_desc.provisioning_entitled">
         <source>A single Provisioning (Add-On) entitlement allows various advanced functionality such as kickstart and configuration file provisioning. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
-      <target>ஒரு ஒற்றை வாய்ப்பளித்தல் (கூடுதல்) உரிமம் கிக்ஸ்டார்ட் மற்றும் கட்டமைப்பு கோப்பு வாய்ப்பளித்தல் போன்ற பல்வேறு கூடுதல் செயல்பாடுகளை அனுமதிக்கிறது.</target></trans-unit>
-
+        <target>ஒரு ஒற்றை வாய்ப்பளித்தல் (கூடுதல்) உரிமம் கிக்ஸ்டார்ட் மற்றும் கட்டமைப்பு கோப்பு வாய்ப்பளித்தல் போன்ற பல்வேறு கூடுதல் செயல்பாடுகளை அனுமதிக்கிறது.</target>
+      </trans-unit>
       <trans-unit id="system_entitlement_details.access_grant_desc.monitoring_entitled">
         <source>A single Monitoring (Add-On) entitlement enables the tracking of monitoring data for a system. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
-      <target>ஒரு கணினிக்கு தரவை கண்காணித்தலை தேட ஒரு ஒற்றை கண்காணித்தல் (கூடுதல்) உரிமத்தை செயல்படுத்தப்பட்டுள்ளது.</target></trans-unit>
-
+        <target>ஒரு கணினிக்கு தரவை கண்காணித்தலை தேட ஒரு ஒற்றை கண்காணித்தல் (கூடுதல்) உரிமத்தை செயல்படுத்தப்பட்டுள்ளது.</target>
+      </trans-unit>
       <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host">
         <source>A single Virtualization (Add-On) entitlement applied to a host system, enables management for up to 4 guests. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
-      <target>ஒரு புரவலன் கணினிக்கு ஒத்த ஒரு ஒற்றை மெய்நிகராக்க இயக்கத்தள (கூடுதல்) உரிமம், 4 விருந்தினர்களை மேலாண்மை செய்ய செயல்படுத்தப்பட்டுள்ளது.</target></trans-unit>
-
+        <target>ஒரு புரவலன் கணினிக்கு ஒத்த ஒரு ஒற்றை மெய்நிகராக்க இயக்கத்தள (கூடுதல்) உரிமம், 4 விருந்தினர்களை மேலாண்மை செய்ய செயல்படுத்தப்பட்டுள்ளது.</target>
+      </trans-unit>
       <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host_platform">
         <source>A single Virtualization Platform (Add-On) entitlement applied to a host system, enabled management for unlimited guests. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
       </trans-unit>
-
-
-
       <trans-unit id="entitlementorgs.orgname">
         <source>Organization Name</source>
         <context-group name="ctx">

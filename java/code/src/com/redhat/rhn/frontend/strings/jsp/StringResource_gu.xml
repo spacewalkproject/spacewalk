@@ -19097,63 +19097,62 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <target>*&lt;strong&gt;મદદ:&lt;/strong&gt;'કુલ' @@PRODUCT_NAME@@ માટે કુલ ઉપલબ્ધનો સંદર્ભ આપે છે
 @@PRODUCT_NAME@@ ના પ્રમાણપત્રમાં બતાવ્યા પ્રમાણે.</target>
       </trans-unit>
-
       <trans-unit id="sys_entitlements.not_allocated">
         <source>Not Allocated*</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target>ફાળવેલ નથી*</target></trans-unit>
-
+        <target>ફાળવેલ નથી*</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.notinuse">
         <source>Not In Use</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target>વપરાશમાં નથી</target></trans-unit>
-
+        <target>વપરાશમાં નથી</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.enterprise_entitled">
         <source> Management (Base)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target> વ્યવસ્થાપન (આધાર)</target></trans-unit>
-
+        <target> વ્યવસ્થાપન (આધાર)</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.provisioning_entitled">
         <source> Provisioning (Add-On)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target> બચાવ (ઉમેરો)</target></trans-unit>
-
+        <target> બચાવ (ઉમેરો)</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.monitoring_entitled">
         <source> Monitoring (Add-On)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target> મોનીટરીંગ (ઉમેરો)</target></trans-unit>
-
+        <target> મોનીટરીંગ (ઉમેરો)</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.virtualization_host">
         <source> Virtualization (Add-On)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target> વર્ચ્યુઅલાઈઝેશન (ઉમેરો)</target></trans-unit>
-
+        <target> વર્ચ્યુઅલાઈઝેશન (ઉમેરો)</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.virtualization_host_platform">
         <source> Virtualization Platform (Add-On)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target> વર્ચ્યુઅલાઈઝેશન પ્લેટફોર્મ (ઉમેરો)</target></trans-unit>
-
+        <target> વર્ચ્યુઅલાઈઝેશન પ્લેટફોર્મ (ઉમેરો)</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.add_on">
         <source>(Add-On)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target>(ઉમેરો)</target></trans-unit>
-
+        <target>(ઉમેરો)</target>
+      </trans-unit>
       <trans-unit id="sys_entitlements.noentitlements">
         <source>No Entitlements Found</source>
         <context-group name="ctx">
@@ -19189,44 +19188,40 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
         <target>આ ઉમેદવારી દ્વારા વપરાશ મંજૂર થયો:</target>
       </trans-unit>
-
       <trans-unit id="system_entitlement_details.access_grant_desc.enterprise_entitled">
         <source>A single Management (Base) entitlement is required for all systems registered to satellite</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
-      <target>એક વ્યવસ્થાપન (આધાર) ઉમેદવારી સેટેલાઈટમાં રજીસ્ટર થયેલ બધી સિસ્ટમો માટે જરૂરી છે</target></trans-unit>
-
+        <target>એક વ્યવસ્થાપન (આધાર) ઉમેદવારી સેટેલાઈટમાં રજીસ્ટર થયેલ બધી સિસ્ટમો માટે જરૂરી છે</target>
+      </trans-unit>
       <trans-unit id="system_entitlement_details.access_grant_desc.provisioning_entitled">
         <source>A single Provisioning (Add-On) entitlement allows various advanced functionality such as kickstart and configuration file provisioning. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
-      <target>એક બચાવ (ઉમેરો) ઉમેદવારી વિવિધ અદ્યતન વિધેયો જેમ કે કિકસ્ટાર્ટ અને રૂપરેખાંકન ફાઈલ બચાવની પરવાનગી આપે છે. </target></trans-unit>
-
+        <target>એક બચાવ (ઉમેરો) ઉમેદવારી વિવિધ અદ્યતન વિધેયો જેમ કે કિકસ્ટાર્ટ અને રૂપરેખાંકન ફાઈલ બચાવની પરવાનગી આપે છે. </target>
+      </trans-unit>
       <trans-unit id="system_entitlement_details.access_grant_desc.monitoring_entitled">
         <source>A single Monitoring (Add-On) entitlement enables the tracking of monitoring data for a system. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
-      <target>એક મોનીટરીંગ (ઉમેરો) ઉમેદવારી સિસ્ટમ માટે માહિતી મોનીટરીંગને ટ્રેક કરવાનું સક્રિય કરે છે. </target></trans-unit>
-
+        <target>એક મોનીટરીંગ (ઉમેરો) ઉમેદવારી સિસ્ટમ માટે માહિતી મોનીટરીંગને ટ્રેક કરવાનું સક્રિય કરે છે. </target>
+      </trans-unit>
       <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host">
         <source>A single Virtualization (Add-On) entitlement applied to a host system, enables management for up to 4 guests. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
-      <target>એક વર્ચ્યુઅલાઈઝેશન (ઉમેરો) ઉમેદવારી યજમાન સિસ્ટમને લાગુ પડેલ છે, ૪ સુધીના મહેમાનોને સક્રિય કરે છે. </target></trans-unit>
-
+        <target>એક વર્ચ્યુઅલાઈઝેશન (ઉમેરો) ઉમેદવારી યજમાન સિસ્ટમને લાગુ પડેલ છે, ૪ સુધીના મહેમાનોને સક્રિય કરે છે. </target>
+      </trans-unit>
       <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host_platform">
         <source>A single Virtualization Platform (Add-On) entitlement applied to a host system, enabled management for unlimited guests. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
       </trans-unit>
-
-
-
       <trans-unit id="entitlementorgs.orgname">
         <source>Organization Name</source>
         <context-group name="ctx">
