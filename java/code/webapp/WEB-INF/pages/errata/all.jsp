@@ -17,6 +17,8 @@
 
 <rhn:dialogmenu mindepth="0" maxdepth="3" definition="/WEB-INF/nav/errata_all_tabs.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
+<p><bean:message key="errata.all.jsp.summary"/></p>
+
 <%@ include file="/WEB-INF/pages/common/fragments/errata/relevant-errata-list.jspf" %>
 
 </body>
