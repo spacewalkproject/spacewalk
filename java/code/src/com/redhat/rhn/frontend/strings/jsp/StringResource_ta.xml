@@ -19099,6 +19099,12 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
       </trans-unit>
 
 
+      <trans-unit id="sys_entitlements.notinuse">
+        <source>Not In Use</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
+        </context-group>
+      <target>பயனில் இல்லை</target></trans-unit>
 
 
       <trans-unit id="sys_entitlements.provisioning_entitled">
