@@ -59,7 +59,9 @@
                    headerkey="channel.edit.jsp.label"
                    sortattr="channel.label"
                    >
+                   <a href="/rhn/channels/ChannelDetail.do?cid=${current.channel.id}">
                     ${current.channel.label}
+                   </a>
                 </rl:column>
                  <rl:column
                    bound="false"
