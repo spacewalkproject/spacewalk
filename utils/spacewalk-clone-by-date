@@ -42,6 +42,7 @@ SAMPLE_CONFIG = """
  "to_date": "2011-10-01",
  "skip_depsolve":false,
  "security_only":false,
+ "use_update_date":false,
  "blacklist": {
                  "ALL":["sendmail"],
                  "my-rhel5-x86_64-clone":["emacs"],
@@ -86,7 +87,7 @@ def merge_config(options):
     #   add it to options
     overwrite = ["username", "password", "blacklist", "removelist", "channels",
                  "server", "assumeyes", "to_date", "skip_depsolve",
-                 "security_only"]
+                 "security_only", "use_update_date"]
     for key in overwrite:
         if config.has_key(key) and not getattr(options, key):
             setattr(options, key, config[key])
@@ -154,7 +155,7 @@ def parse_args():
             help="Already existing channels that will be used as the "
             + "original parent and destination parent of child "
             + "channels cloned this session.")
-    parser.add_option("--use-update-date", dest="use_update_date", action='store_true', help="While cloning errata by date, use Errata's update date. If omitted will use issue date of errata.")
+    parser.add_option("-z", "--use-update-date", dest="use_update_date", action='store_true', help="While cloning errata by date, clone all errata that have last been updated on or before the date provided by to_date. If omitted will use issue date of errata (default).")
 
     (options, args) = parser.parse_args()
 

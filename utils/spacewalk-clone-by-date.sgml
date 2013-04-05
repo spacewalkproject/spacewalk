@@ -67,6 +67,9 @@ Utility for cloning errata by date.
         <arg>-o</arg><arg>--security_only</arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>-z</arg><arg>--use-update-date</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>-g</arg><arg>--background</arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -153,6 +156,12 @@ Utility for cloning errata by date.
         <term>-o  --security_only</term>
         <listitem>
             <para>Clone only security errata (and their dependencies).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-z  --use-update-date</term>
+        <listitem>
+            <para>While cloning errata by date, clone all errata that have last been updated on or before the date provided by to_date. If omitted will use issue date of errata (default).</para>
         </listitem>
     </varlistentry>
     <varlistentry>
