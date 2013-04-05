@@ -164,16 +164,19 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
             // First add an entry for the default base channel:
             if (newBaseChannelId.intValue() == -1) {
                 log.debug("Default system base channel was selected.");
-                DistChannelMap dcm = ChannelFactory.lookupDistChannelMap(oldBase);
-                if (dcm != null && oldBase != null) {
-                    String version = dcm.getRelease();
-                    DistChannelMap defaultDcm =
-                       ChannelManager.lookupDistChannelMapByPnReleaseArch(
-                            ChannelManager.RHEL_PRODUCT_NAME, version,
-                            oldBase.getChannelArch());
-                    newBase = defaultDcm.getChannel();
-                    log.debug("Determined default base channel will be: " +
-                        newBase.getLabel());
+                List<DistChannelMap> dcms = ChannelFactory.listDistChannelMaps(oldBase);
+                if (!dcms.isEmpty() && oldBase != null) {
+                    for (DistChannelMap dcm : dcms) {
+                        String version = dcm.getRelease();
+                        DistChannelMap defaultDcm =
+                           ChannelManager.lookupDistChannelMapByPnReleaseArch(
+                                ChannelManager.RHEL_PRODUCT_NAME, version,
+                                oldBase.getChannelArch());
+                        newBase = defaultDcm.getChannel();
+                        log.debug("Determined default base channel will be: " +
+                            newBase.getLabel());
+                            break;
+                    }
                 }
                 else {
                     // Looks like an EUS or custom channel, need to get a little crazy :(

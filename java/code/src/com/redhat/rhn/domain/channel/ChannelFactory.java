@@ -904,17 +904,17 @@ public class ChannelFactory extends HibernateFactory {
     }
 
     /**
-     * Lookup the dist channel map for the given channel.
-     * Returns null if none is found.
+     * Lookup dist channel mappings for the given channel.
+     * Returns empty list if none is found.
      *
      * @param c Channel to lookup mapping for
-     * @return DistChannelMap, null if none is found
+     * @return list of dist channel mappings, empty list if none is found
      */
-    public static DistChannelMap lookupDistChannelMap(Channel c) {
+    public static List<DistChannelMap> listDistChannelMaps(Channel c) {
 
         Map params = new HashMap();
         params.put("channel", c);
-        return (DistChannelMap)singleton.lookupObjectByNamedQuery(
+        return singleton.listObjectsByNamedQuery(
                 "DistChannelMap.findByChannel", params);
     }
 
