@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 45038e4725945641a777666cdae258c004b36599
+-- oracle equivalent source sha1 bab6fec2544f3c7473cfb642ff48db627ccee062
 
 alter table rhnPackageCapability alter version type varchar(512) ;
 
