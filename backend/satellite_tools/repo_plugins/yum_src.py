@@ -127,9 +127,12 @@ class ContentSource(object):
         # base_persistdir have to be set before pkgdir
         if hasattr(repo, 'base_persistdir'):
             repo.base_persistdir = CACHE_DIR
-        pkgdir = os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, '1', 'stage')
-        if not os.path.isdir(pkgdir):
-            fileutils.makedirs(pkgdir, user='apache', group='apache')
+        if (self.url.find("file://") < 0):
+            pkgdir = os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, '1', 'stage')
+            if not os.path.isdir(pkgdir):
+                fileutils.makedirs(pkgdir, user='apache', group='apache')
+        else:
+            pkgdir = self.url[7:]
         repo.pkgdir = pkgdir
 
         yb_cfg = self.yumbase.conf.cfg
