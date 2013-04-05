@@ -19098,6 +19098,12 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
 மொத்த @@PRODUCT_NAME@@ காட்டப்படுவதாகும்.</target>
       </trans-unit>
 
+      <trans-unit id="sys_entitlements.not_allocated">
+        <source>Not Allocated*</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
+        </context-group>
+      <target>ஒதுக்கப்படவில்லை*</target></trans-unit>
 
       <trans-unit id="sys_entitlements.notinuse">
         <source>Not In Use</source>

@@ -19096,6 +19096,12 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
 'সর্বমোট' দ্বারা চিহ্নিত হয়েছে।</target>
       </trans-unit>
 
+      <trans-unit id="sys_entitlements.not_allocated">
+        <source>Not Allocated*</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
+        </context-group>
+      <target>বরাদ্দ করা হয়নি*</target></trans-unit>
 
       <trans-unit id="sys_entitlements.notinuse">
         <source>Not In Use</source>

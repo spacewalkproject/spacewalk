@@ -19098,6 +19098,12 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
 जैसा कि इस @@PRODUCT_NAME@@ प्रमाणपत्र में प्रतिबिंबित है.</target>
       </trans-unit>
 
+      <trans-unit id="sys_entitlements.not_allocated">
+        <source>Not Allocated*</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
+        </context-group>
+      <target>आबंटित नहीं*</target></trans-unit>
 
       <trans-unit id="sys_entitlements.notinuse">
         <source>Not In Use</source>
