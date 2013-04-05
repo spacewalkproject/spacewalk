@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.10.2
+Version:	1.10.3
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -88,6 +88,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Apr 05 2013 Stephen Herr <sherr@redhat.com> 1.10.3-1
+- 947942 - Updating spacewalk-clone-by-date config file parsing and man page
+- 947942 - add spacewalk-clone-by-date --use-update-date
+
 * Wed Mar 27 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.2-1
 - add openSUSE 12.3 to spacewalk-common-channels config
 
