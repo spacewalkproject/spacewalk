@@ -52,9 +52,6 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public static final String PROTECTED = "protected";
     public static final String PRIVATE = "private";
 
-    private static List<String> releaseToSkipRepodata = new ArrayList<String>(Arrays
-            .asList("2.1AS", "2.1ES", "2.1WS", "3AS", "3ES", "3WS", "3Desktop", "4AS",
-                    "4ES", "4WS", "4Desktop"));
     private static List<String> archesToSkipRepodata = new ArrayList<String>(Arrays
             .asList("channel-sparc-sun-solaris", "channel-i386-sun-solaris",
                     "channel-sparc"));
@@ -804,58 +801,16 @@ public class Channel extends BaseDomainHelper implements Comparable {
     }
 
     /**
-     * does this Channel need repodata generated for it Criteria: 1. All custom
-     * channels need repodata 2. RH channels need it if: They are made by RH The
-     * top-most channel in their hierarchy (yes we currently only have 1 level
-     * deep, but you know what assumptions make...) has a 'minor' version of 5
-     * or higher Note: This makes an assumption that taxonomy will work the way
-     * that it continues to work, or at least that version.compareTo will remain
-     * valid and function only on minor version
-     * @return Returns a boolena if repodata generation Required
+     * Does this channel need repodata generated
+     * @return Returns a boolean if repodata generation Required
      */
     public boolean isChannelRepodataRequired() {
-        boolean repodataRequired = false;
-        // generate repodata for all custom channels except solaris
-        if (this.isCustom() &&
-                !archesToSkipRepodata.contains(this.channelArch.getLabel())) {
-            repodataRequired = true;
-            log.debug("isChannelRepodataRequired for channel(" + this.id +
-                    ") set to true because it is a custom Channel");
+        // generate repodata for all channels having channel checksum set except solaris
+        if (archesToSkipRepodata.contains(this.channelArch.getLabel())) {
+            return true;
         }
 
-        // Walk to the top of the tree
-        Channel toConsider = this;
-        while (toConsider.getParentChannel() != null) {
-            toConsider = toConsider.getParentChannel();
-        }
-
-        String release = null;
-        DistChannelMap channelDist = ChannelFactory.lookupDistChannelMap(toConsider);
-        if (channelDist != null) {
-            release = channelDist.getRelease();
-        }
-        else { // and now again for zstreams
-            ReleaseChannelMap channelRelease =
-                ChannelFactory.lookupDefaultReleaseChannelMapForChannel(toConsider);
-            if (channelRelease != null) {
-                release = channelRelease.getRelease();
-            }
-        }
-        if (release != null) {
-            if (!releaseToSkipRepodata.contains(release)) {
-                repodataRequired = true;
-                log.debug("isChannelRepodataRequired for channel(" + this.id + ") " +
-                        "set to true because top level parent has a release of " + release);
-            }
-            else {
-                log.debug("isChannelRepodataRequired for channel(" + this.id + ") " +
-                        "set to false because we have'nt met the minimum release");
-            }
-        }
-
-        log.debug("isChannelRepodataRequired for channel(" + this.id + ") = " +
-                repodataRequired);
-        return repodataRequired;
+        return checksumType != null;
     }
 
     /**
