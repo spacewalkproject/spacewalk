@@ -19095,6 +19095,21 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <target>*&lt;strong&gt;উপদেশ:&lt;/strong&gt; @@PRODUCT_NAME@@-র সার্টিফিকেটের মধ্যে উল্লিখিত, @@PRODUCT_NAME@@-র ক্ষেত্রে সর্বমোট উপলব্ধ এনটাইটেলমেন্ট
 'সর্বমোট' দ্বারা চিহ্নিত হয়েছে।</target>
       </trans-unit>
+
+
+
+
+
+
+
+      <trans-unit id="sys_entitlements.virtualization_host_platform">
+        <source> Virtualization Platform (Add-On)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
+        </context-group>
+      <target> Virtualization Platform (অতিরিক্ত)</target></trans-unit>
+
+
       <trans-unit id="sys_entitlements.noentitlements">
         <source>No Entitlements Found</source>
         <context-group name="ctx">

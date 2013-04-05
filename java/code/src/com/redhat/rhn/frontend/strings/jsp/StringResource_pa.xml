@@ -19096,6 +19096,21 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <target>*&lt;strong&gt;ਟਿੱਪਣੀ:&lt;/strong&gt;'ਕੁੱਲ' ਦਾ ਮਤਲਬ ਹੈ ਕਿ @@PRODUCT_NAME@@ ਲਈ ਕੁੱਲ ਕਿੰਨੇ ਉਪਲੱਬਧ ਹਨ
 ਜਿਵੇਂ @@PRODUCT_NAME@@ ਸਾਰਟੀਫਿਕੇਟ ਵਿੱਚ ਦਿੱਤਾ ਗਿਆ ਹੈ।</target>
       </trans-unit>
+
+
+
+
+
+
+
+      <trans-unit id="sys_entitlements.virtualization_host_platform">
+        <source> Virtualization Platform (Add-On)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
+        </context-group>
+      <target> ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਪਲੇਟਫਾਰਮ (ਐਡ-ਆਨ)</target></trans-unit>
+
+
       <trans-unit id="sys_entitlements.noentitlements">
         <source>No Entitlements Found</source>
         <context-group name="ctx">

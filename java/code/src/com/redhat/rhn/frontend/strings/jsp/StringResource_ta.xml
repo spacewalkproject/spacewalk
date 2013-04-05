@@ -19097,6 +19097,21 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <target>*&lt;strong&gt;துணுக்கு:&lt;/strong&gt;'மொத்தம்' @@PRODUCT_NAME@@ சான்றிதழில் இருக்கும்
 மொத்த @@PRODUCT_NAME@@ காட்டப்படுவதாகும்.</target>
       </trans-unit>
+
+
+
+
+
+
+
+      <trans-unit id="sys_entitlements.virtualization_host_platform">
+        <source> Virtualization Platform (Add-On)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
+        </context-group>
+      <target>மெய்நிகராக்க இயக்கத்தளம் (கூடுதல்)</target></trans-unit>
+
+
       <trans-unit id="sys_entitlements.noentitlements">
         <source>No Entitlements Found</source>
         <context-group name="ctx">
