@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.43
+Version: 1.10.44
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,18 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Apr 05 2013 Tomas Lestach <tlestach@redhat.com> 1.10.44-1
+- 896566 - a channel may have multiple dcms: lookupDistChannelMap ->
+  listDistChannelMaps
+- 896566 - simplify Channel.isChannelRepodataRequired method
+- link channel labels on /rhn/channels/manage/DistChannelMap.do page
+- 948185 - fixing checkstyle
+- 948185 - fix system.listSystemEvents on PG
+- removing unnecessary cast
+- removing unnecessarily nested else statement
+- enhance /rhn/errata/AllErrata.do
+- enhance /rhn/errata/RelevantErrata.do
+
 * Thu Apr 04 2013 Grant Gainey 1.10.43-1
 - 948605: checkstyle whitespace fixes.  Sigh.
 
