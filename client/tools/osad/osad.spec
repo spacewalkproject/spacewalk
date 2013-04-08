@@ -17,7 +17,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.22
+Version: 5.11.23
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -360,6 +360,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Mon Apr 08 2013 Tomas Lestach <tlestach@redhat.com> 5.11.23-1
+- setting default attributes for osa-dispatcher files
+
 * Wed Mar 27 2013 Stephen Herr <sherr@redhat.com> 5.11.22-1
 - 860937 - somehow I managed to get wrong the version required in rhel 5
 
