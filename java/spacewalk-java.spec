@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.47
+Version: 1.10.48
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Apr 08 2013 Jan Dobes 1.10.48-1
+- Fixed truncating of strings to work with UTF-8 characters properly.
+
 * Mon Apr 08 2013 Tomas Lestach <tlestach@redhat.com> 1.10.47-1
 - set emptykey for errata lists
 
