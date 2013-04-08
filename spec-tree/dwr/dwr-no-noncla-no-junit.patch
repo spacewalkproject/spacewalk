@@ -1,0 +1,27 @@
+--- build.xml.orig	2011-06-11 22:34:35.000000000 +0200
++++ build.xml	2013-04-08 08:47:40.408298882 +0200
+@@ -79,10 +79,12 @@
+ 		<jar destfile="${target.root}/dwr.jar" compress="true">
+ 			<fileset dir="${target.root}/classes/main"/>
+ 		</jar>
++		<!-- No noncla build
+ 		<build target="${target.root}/classes/noncla" include="${target.root}" modules="noncla/various" />
+ 		<jar destfile="${target.root}/dwr-noncla.jar" compress="true">
+ 			<fileset dir="${target.root}/classes/noncla/classes/main" />
+ 		</jar>
++		-->
+ 	</target>
+ 
+ 	<!--=======================================================================-->
+@@ -314,9 +314,11 @@
+ 				<param name="target" value="@{target}" />
+ 				<param name="include" value="@{include}" />
+ 			</foreach>
++			<!--
+ 			<foreach list="@{modules}" param="module" trim="true" target="run-tests-for-module">
+ 				<param name="target" value="@{target}" />
+ 			</foreach>
++			-->
+ 		</sequential>
+ 	</macrodef>
+ 
