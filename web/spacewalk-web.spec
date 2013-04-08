@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.17
+Version: 1.10.18
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -261,6 +261,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Apr 08 2013 Tomas Lestach <tlestach@redhat.com> 1.10.18-1
+- changing config-defaults files' rights to 644
+
 * Fri Apr 05 2013 Tomas Lestach <tlestach@redhat.com> 1.10.17-1
 - add RHN::Form::Widget::Select to ChannelEditor
 
