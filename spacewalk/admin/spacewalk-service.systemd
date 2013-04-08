@@ -31,16 +31,16 @@ spacewalk_target_services() {
 
 turn_on() {
    echo "Enabling spacewalk services..."
-   spacewalk_target_services | xargs systemctl enable
-   systemctl enable spacewalk.target
+   spacewalk_target_services | xargs systemctl enable --quiet
+   systemctl enable --quiet spacewalk.target
    echo "Done"
    return 0
 }
 
 turn_off() {
    echo "Disabling spacewalk services..."
-   spacewalk_target_services | xargs systemctl disable
-   systemctl disable spacewalk.target
+   spacewalk_target_services | xargs systemctl disable --quiet
+   systemctl disable --quiet spacewalk.target
    echo "Done"
    return 0
 }
