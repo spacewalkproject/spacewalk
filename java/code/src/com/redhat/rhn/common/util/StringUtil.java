@@ -15,7 +15,9 @@
 
 package com.redhat.rhn.common.util;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -809,5 +811,27 @@ public class StringUtil {
             }
         }
         return Boolean.FALSE;
+    }
+
+    /**
+     * Tests String byte-length and eventually truncates
+     * @param str input String
+     * @param length target length
+     * @return truncated String
+     */
+    public static String getBytesTruncatedString(String str, int length) {
+        try {
+            byte[] bytes = str.getBytes("UTF-8");
+            if (bytes.length > length) {
+                return new String(Arrays.copyOf(bytes, length), "UTF-8");
+            }
+            else {
+                return str;
+            }
+        }
+        catch (UnsupportedEncodingException e) {
+            logger.warn("Unable to convert to UTF-8 bytes.");
+            return str;
+        }
     }
 }

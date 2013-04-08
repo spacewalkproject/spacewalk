@@ -14,18 +14,19 @@
  */
 package com.redhat.rhn.domain.action;
 
-import com.redhat.rhn.domain.BaseDomainHelper;
-import com.redhat.rhn.domain.action.server.ServerAction;
-import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.user.User;
-
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
+import com.redhat.rhn.common.util.StringUtil;
+import com.redhat.rhn.domain.BaseDomainHelper;
+import com.redhat.rhn.domain.action.server.ServerAction;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.user.User;
 
 /**
  * Action - Class representation of the table rhnAction.
@@ -118,11 +119,8 @@ public class Action extends BaseDomainHelper implements Serializable {
      * @param nameIn to set
     */
     public void setName(String nameIn) {
-        if (nameIn != null && nameIn.length() > NAME_LENGTH_LIMIT) {
-            this.name = nameIn.substring(0, NAME_LENGTH_LIMIT);
-        }
-        else {
-            this.name = nameIn;
+        if (nameIn != null) {
+            this.name = StringUtil.getBytesTruncatedString(nameIn, NAME_LENGTH_LIMIT);
         }
     }
 
@@ -194,6 +192,7 @@ public class Action extends BaseDomainHelper implements Serializable {
      * Getter for created
      * @return Date to get
     */
+    @Override
     public Date getCreated() {
         return this.created;
     }
@@ -202,6 +201,7 @@ public class Action extends BaseDomainHelper implements Serializable {
      * Setter for created
      * @param createdIn to set
     */
+    @Override
     public void setCreated(Date createdIn) {
         this.created = createdIn;
     }
@@ -210,6 +210,7 @@ public class Action extends BaseDomainHelper implements Serializable {
      * Getter for modified
      * @return Date to get
     */
+    @Override
     public Date getModified() {
         return this.modified;
     }
@@ -218,6 +219,7 @@ public class Action extends BaseDomainHelper implements Serializable {
      * Setter for modified
      * @param modifiedIn to set
     */
+    @Override
     public void setModified(Date modifiedIn) {
         this.modified = modifiedIn;
     }
@@ -333,6 +335,7 @@ public class Action extends BaseDomainHelper implements Serializable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean equals(final Object other) {
         if (other == null || !(other instanceof Action)) {
             return false;
@@ -356,6 +359,7 @@ public class Action extends BaseDomainHelper implements Serializable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int hashCode() {
         return new HashCodeBuilder().append(this.getId()).append(this.getOrg())
                                     .append(this.getName())
@@ -371,6 +375,7 @@ public class Action extends BaseDomainHelper implements Serializable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String toString() {
         StringBuffer result = new StringBuffer();
         result.append(id);
