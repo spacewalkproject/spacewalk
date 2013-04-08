@@ -552,10 +552,10 @@ class ChannelCloner:
         available_errata = self.db_api.applicable_errata(self.from_label, self.to_label)
         to_clone = []
         if self.use_update_date:
-            date_to_use='update_date'
+            date_to_use = 'update_date'
         else:
-            date_to_use='issue_date'
-        print "Using ",date_to_use
+            date_to_use = 'issue_date'
+        print "Using ", date_to_use
         for err in available_errata:
             if self.to_date and err[date_to_use].date() <= self.to_date.date():
                 if self.security_only:
