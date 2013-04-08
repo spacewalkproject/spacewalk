@@ -1,7 +1,7 @@
 <rl:listset name="groupSet" legend="errata">
     <rhn:csrf />
 
-    <rl:list>
+    <rl:list emptykey="${emptyListKey}">
 
         <rl:decorator name="PageSizeDecorator"/>
         <rl:decorator name="ElaborationDecorator"/>

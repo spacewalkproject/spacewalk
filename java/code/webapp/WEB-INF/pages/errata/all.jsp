@@ -19,6 +19,7 @@
 
 <p><bean:message key="errata.all.jsp.summary"/></p>
 
+<c:set var="emptyListKey" value="erratalist.jsp.noerrata"/>
 <%@ include file="/WEB-INF/pages/common/fragments/errata/relevant-errata-list.jspf" %>
 
 </body>
