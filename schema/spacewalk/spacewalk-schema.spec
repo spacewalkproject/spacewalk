@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.23
+Version:        1.10.24
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Apr 08 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.24-1
+- fix pl/sql if syntax
+
 * Fri Apr 05 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.23-1
 - Insert new timezones only if they don't exist
 - Don't extend length of rhnPackageCapability.version if already extended
