@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.46
+Version: 1.10.47
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Apr 08 2013 Tomas Lestach <tlestach@redhat.com> 1.10.47-1
+- set emptykey for errata lists
+
 * Mon Apr 08 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.46-1
 - cleaned obsoleted trans-units
 
