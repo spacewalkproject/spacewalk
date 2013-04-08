@@ -289,7 +289,11 @@ sub command_restore {
         my ($file, $rel_dir) = @{$ret};
 	next if exists $seen_files{+$file};
 
-	unlink $file or warn "Error unlinking $file: $!";
+        if (-d $file) {
+          rmdir $file or warn "Error removing $file: $!";
+        } else {
+          unlink $file or warn "Error unlinking $file: $!";
+        }
       }
       print "done.\n";
 
