@@ -128,6 +128,9 @@ BuildRequires: /usr/bin/perl
 %if 0%{?run_checkstyle}
 BuildRequires: checkstyle
 %endif
+%if ! 0%{?omit_tests} > 0
+BuildRequires: translate-toolkit
+%endif
 
 # Sadly I need these to symlink the jars properly.
 BuildRequires: bcel
@@ -354,9 +357,21 @@ if test -d /usr/share/tomcat6; then
 fi
 
 %if ! 0%{?omit_tests} > 0
-#check duplicate message keys in StringResource_*.xml files
 find . -name 'StringResource_*.xml' |      while read i ;
     do echo $i
+    # check for common localizations issues
+    ln -s $(basename $i) $i.xliff
+    CONTENT=$(pofilter --progress=none --nofuzzy --gnome \
+                       --excludefilter=untranslated \
+                       --excludefilter=purepunc \
+                       $i.xliff 2>&1)
+    if [ -n "$CONTENT" ]; then
+        echo ERROR - pofilter errors: "$CONTENT"
+        exit 1
+    fi
+    rm -f $i.xliff
+
+    #check duplicate message keys in StringResource_*.xml files
     CONTENT=$(/usr/bin/xmllint --format "$i" | /usr/bin/perl -lne 'if (/<trans-unit( id=".+?")?/) { print $1 if $X{$1}++ }' )
     if [ -n "$CONTENT" ]; then
         echo ERROR - duplicate message keys: $CONTENT
