@@ -10,6 +10,6 @@ begin
         execute immediate 'drop index rhn_pkg_cap_name_version_uq';
         execute immediate 'alter table rhnPackageCapability modify version varchar2(512)';
         execute immediate 'create unique index rhn_pkg_cap_name_version_uq on rhnPackageCapability (name, version)';
-    end
+    end if;
 end;
 /
