@@ -825,13 +825,10 @@ public class StringUtil {
             if (bytes.length > length) {
                 return new String(Arrays.copyOf(bytes, length), "UTF-8");
             }
-            else {
-                return str;
-            }
         }
         catch (UnsupportedEncodingException e) {
             logger.warn("Unable to convert to UTF-8 bytes.");
-            return str;
         }
+        return str;
     }
 }
