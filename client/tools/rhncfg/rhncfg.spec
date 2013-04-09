@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.44
+Version: 5.10.45
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -122,6 +122,9 @@ fi
 
 # $Id$
 %changelog
+* Tue Apr 09 2013 Stephen Herr <sherr@redhat.com> 5.10.45-1
+- 947639 - make rhncfg less stupid
+
 * Thu Apr 04 2013 Stephen Herr <sherr@redhat.com> 5.10.44-1
 - 948605 - make diffs initiated from Satellite obey display_diff config option
 - Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
