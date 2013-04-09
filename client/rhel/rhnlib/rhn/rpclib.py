@@ -157,6 +157,7 @@ class Server:
         self._proxy = proxy
         self._username = username
         self._password = password
+        self._timeout = timeout
 
         if len(__version__.split()) > 1:
             self.rpc_version = __version__.split()[1]
@@ -433,7 +434,7 @@ class Server:
             # set up the parameters on the new transport
             del self._transport
             self._transport = self.default_transport(typ, self._proxy,
-                                     self._username, self._password)
+                    self._username, self._password, self._timeout)
             self.set_progress_callback(self._progressCallback)
             self.set_refresh_callback(self._refreshCallback)
             self.set_buffer_size(self._bufferSize)
