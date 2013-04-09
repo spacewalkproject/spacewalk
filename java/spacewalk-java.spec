@@ -53,7 +53,14 @@ Requires: jfreechart >= 1.0.9
 Requires: bcel
 Requires: c3p0 >= 0.9.1
 Requires: dwr >= 3
+%if 0%{?fedora} && 0%{?fedora} > 17
+Requires: hibernate3 >= 3.6.10
+Requires: hibernate3-c3p0 >= 3.6.10
+Requires: hibernate3-ehcache >= 3.6.10
+Requires: javassist
+%else
 Requires: hibernate3 = 0:3.2.4
+%endif
 Requires: java >= 1:1.6.0
 Requires: java-devel >= 1:1.6.0
 Requires: jakarta-commons-lang >= 0:2.1
@@ -139,7 +146,13 @@ BuildRequires: concurrent
 BuildRequires: cglib
 BuildRequires: dom4j
 BuildRequires: dwr >= 3
+%if 0%{?fedora} && 0%{?fedora} > 17
+BuildRequires: hibernate3 >= 0:3.6.10
+BuildRequires: ehcache-core
+BuildRequires: javassist
+%else
 BuildRequires: hibernate3 = 0:3.2.4
+%endif
 BuildRequires: jaf
 BuildRequires: jakarta-commons-cli
 BuildRequires: jakarta-commons-codec
@@ -301,7 +314,14 @@ Requires: jfreechart >= 1.0.9
 
 Requires: bcel
 Requires: c3p0 >= 0.9.1
+%if 0%{?fedora} && 0%{?fedora} > 17
+Requires: hibernate3 >= 3.6.10
+Requires: hibernate3-c3p0 >= 3.6.10
+Requires: hibernate3-ehcache >= 3.6.10
+Requires: javassist
+%else
 Requires: hibernate3 >= 0:3.2.4
+%endif
 Requires: java >= 0:1.6.0
 Requires: java-devel >= 0:1.6.0
 Requires: jakarta-commons-lang >= 0:2.1
@@ -450,6 +470,21 @@ install -d -m 755 $RPM_BUILD_ROOT%{cobdirsnippets}
 install -d -m 755 $RPM_BUILD_ROOT%{_var}/spacewalk/systemlogs
 
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
+%if 0%{?fedora} && 0%{?fedora} > 17
+echo "hibernate.cache.region.factory_class=net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory" >> conf/default/rhn_hibernate.conf
+echo "wrapper.java.classpath.49=/usr/share/java/hibernate3/hibernate-core-3.jar
+wrapper.java.classpath.61=/usr/share/java/hibernate3/hibernate-ehcache-3.jar
+wrapper.java.classpath.62=/usr/share/java/hibernate3/hibernate-c3p0-3.jar
+wrapper.java.classpath.63=/usr/share/java/hibernate/hibernate-commons-annotations.jar
+wrapper.java.classpath.64=/usr/share/java/slf4j/api.jar
+wrapper.java.classpath.65=/usr/share/java/jboss-logging.jar
+wrapper.java.classpath.66=/usr/share/java/javassist.jar
+wrapper.java.classpath.67=/usr/share/java/ehcache-core.jar
+wrapper.java.classpath.68=/usr/share/java/hibernate-jpa-2.0-api.jar" >> conf/default/rhn_taskomatic_daemon.conf
+%else
+echo "hibernate.cache.provider_class=org.hibernate.cache.OSCacheProvider" >> conf/default/rhn_hibernate.conf
+echo "wrapper.java.classpath.49=/usr/share/java/hibernate3.jar" >> conf/default/rhn_taskomatic_daemon.conf
+%endif
 install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_hibernate.conf
 install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_taskomatic_daemon.conf
 install -m 644 conf/default/rhn_org_quartz.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_org_quartz.conf
@@ -490,6 +525,12 @@ ln -s -f %{_javadir}/objectweb-asm/asm-all.jar $RPM_BUILD_ROOT%{jardir}/asm_asm.
 ln -s -f %{_javadir}/objectweb-asm/asm-all.jar $RPM_BUILD_ROOT%{_datadir}/rhn/lib/spacewalk-asm.jar
 %else
 ln -s -f %{_javadir}/asm/asm.jar  $RPM_BUILD_ROOT%{_datadir}/rhn/lib/spacewalk-asm.jar
+%endif
+
+# hack for new hibernate, symlinking with usage of ant works weird
+%if 0%{?fedora} && 0%{?fedora} > 17
+ln -s -f %{_javadir}/hibernate3/hibernate-c3p0-3.jar  $RPM_BUILD_ROOT%{jardir}/hibernate3_hibernate-c3p0-3.jar
+ln -s -f %{_javadir}/hibernate3/hibernate-ehcache-3.jar  $RPM_BUILD_ROOT%{jardir}/hibernate3_hibernate-ehcache-3.jar
 %endif
 
 # 732350 - On Fedora 15, mchange's log stuff is no longer in c3p0.
@@ -578,6 +619,15 @@ fi
 %{jardir}/dom4j.jar
 %{jardir}/dwr.jar
 %{jardir}/hibernate3*
+%if 0%{?fedora} && 0%{?fedora} > 17
+%{jardir}/ehcache-core.jar
+%{jardir}/hibernate_hibernate-commons-annotations.jar
+%{jardir}/hibernate-jpa-2.0-api.jar
+%{jardir}/javassist.jar
+%{jardir}/jboss-logging.jar
+%{jardir}/slf4j_api.jar
+%{jardir}/slf4j_log4j12.jar
+%endif
 %{jardir}/jaf.jar
 %{jardir}/javamail.jar
 %{jardir}/jcommon.jar
