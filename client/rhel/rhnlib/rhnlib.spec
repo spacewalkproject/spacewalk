@@ -4,7 +4,7 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.57
+Version: 2.5.58
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Tue Apr 09 2013 Stephen Herr <sherr@redhat.com> 2.5.58-1
+- 947639 - rhnlib update made necessary by error in rhncfg
+
 * Wed Apr 03 2013 Stephen Herr <sherr@redhat.com> 2.5.57-1
 - 947639 - Make timeout of yum-rhn-plugin calls through rhn-client-tools
   configurable
