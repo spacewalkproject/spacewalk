@@ -156,12 +156,12 @@ public class ConfigDefaults {
     /**
      * System Currency defaults
      */
-    public static final String SYSTEM_CURRENCY_CRIT = "sc.crit";
-    public static final String SYSTEM_CURRENCY_IMP  = "sc.imp";
-    public static final String SYSTEM_CURRENCY_MOD  = "sc.mod";
-    public static final String SYSTEM_CURRENCY_LOW  = "sc.low";
-    public static final String SYSTEM_CURRENCY_BUG  = "sc.bug";
-    public static final String SYSTEM_CURRENCY_ENH  = "sc.enh";
+    public static final String SYSTEM_CURRENCY_CRIT = "java.sc_crit";
+    public static final String SYSTEM_CURRENCY_IMP  = "java.sc_imp";
+    public static final String SYSTEM_CURRENCY_MOD  = "java.sc_mod";
+    public static final String SYSTEM_CURRENCY_LOW  = "java.sc_low";
+    public static final String SYSTEM_CURRENCY_BUG  = "java.sc_bug";
+    public static final String SYSTEM_CURRENCY_ENH  = "java.sc_enh";
 
     private ConfigDefaults() {
     }

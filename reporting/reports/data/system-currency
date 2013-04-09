@@ -22,12 +22,12 @@ columns:
 
 params:
 
-	p_crit	sc.crit
-	p_imp	sc.imp
-	p_mod	sc.mod
-	p_low	sc.low
-	p_bug	sc.bug
-	p_enh	sc.enh
+	p_crit	java.sc_crit
+	p_imp	java.sc_imp
+	p_mod	java.sc_mod
+	p_low	java.sc_low
+	p_bug	java.sc_bug
+	p_enh	java.sc_enh
 
 sql:
 
