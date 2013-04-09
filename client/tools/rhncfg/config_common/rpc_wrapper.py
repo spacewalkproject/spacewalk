@@ -178,78 +178,8 @@ class Server(rpclib.Server):
             succeed = 1 #If we get here then the function call eventually succeeded and we don't need to try again.
         return ret
  
-    #In hindsight, I probably didn't need to override every freaking function from rpclib.Server. I probably could have just
-    #overidden the _request() and called it good, but by the time I realized that I already had this stuff working 
-    #and was getting crunched for time. Most of it is a carry-over from when this class didn't subclass rpclib.Server. For information
-    #on what the functions actually do, see rpclib.
-    def default_transport(self, type, proxy=None, username=None, password=None):
-        return self._call_function(rpclib.Server.default_transport, (self, type, proxy, username, password))
- 
-    def allow_redirect(self, allow):
-        return self._call_function(rpclib.Server.allow_redirect, (self, allow,))
-
-    def redirected(self):
-        return self._call_function(rpclib.Server.redirected, (self))
-
-    def set_refresh_callback(self, refreshCallback):
-        return self._call_function(rpclib.Server.set_refresh_callback, (self,refreshCallback,))
-
-    def set_buffer_size(self, bufferSize):
-        return self._call_function(rpclib.Server.set_buffer_size, (self,bufferSize,))        
-
-    def set_progress_callback(self, progressCallback, bufferSize=16384):
-        return self._call_function(rpclib.Server.set_progress_callback, (self, progressCallback, bufferSize,))
-
-    def _req_body(self, params, methodname):
-        return self._call_function(rpclib.Server._req_body, (self, params, methodname))
-
-    def get_response_headers(self):
-        return self._call_function(rpclib.Server.get_response_headers, (self,))
-
-    def get_response_status(self):
-        return self._call_function(rpclib.Server.get_response_status, (self,))        
-
-    def get_response_reason(self):
-        return self._call_function(rpclib.Server.get_response_reason, (self,))
-
-    def get_content_range(self):
-        return self._call_function(rpclib.Server.get_content_range, (self,))
-
-    def accept_ranges(self):
-        return self._call_function(rpclib.Server.accept_ranges, (self,))
-
     def _request(self, methodname, params):
         return self._call_function(rpclib.Server._request, (self, methodname, params))
 
-    def __repr__(self):
-        return self._call_function(rpclib.Server.__repr__, (self,))
-
     def __getattr__(self, name):
         return rpclib.xmlrpclib._Method(self._request, name)
-
-    def set_transport_flags(self, transfer=0, encoding=0, **kwargs):
-        return self._call_function(rpclib.Server.set_transport_flags, (self, transfer, encoding), kwargs=kwargs)
-
-    def get_transport_flags(self):
-        return self._call_function(rpclib.Server.get_transport_flags, (self,))
-
-    def reset_transport_flags(self):
-        return self._call_function(rpclib.Server.reset_transport_flags, (self,))
-
-    def set_header(self, name, arg):
-        return self._call_function(rpclib.Server.set_header, (self, name, arg))        
-
-    def add_header(self, name, arg):
-        return self._call_function(rpclib.Server.add_header, (self, name, arg))
-
-    def setlang(self, lang):
-        return self._call_function(rpclib.Server.setlang, (self, lang,))
-
-    def use_CA_chain(self, ca_chain = None):
-        return self._call_function(rpclib.Server.use_CA_chain, (self, ca_chain,))
-
-    def add_trusted_cert(self, certfile):
-        return self._call_function(rpclib.Server.add_trusted_cert, (self, certfile,))
-
-    def close(self):
-        return self._call_function(rpclib.Server.close, (self,))
