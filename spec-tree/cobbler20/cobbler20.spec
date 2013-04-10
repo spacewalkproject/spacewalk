@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 14%{?dist}
+Release: 15%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -450,6 +450,9 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Wed Apr 10 2013 Tomas Lestach <tlestach@redhat.com> 2.0.11-15
+- 768451 - do not set selinux context for patition locations
+
 * Thu Feb 21 2013 Tomas Lestach <tlestach@redhat.com> 2.0.11-14
 - 768451 - lvm storage koan fix
 
