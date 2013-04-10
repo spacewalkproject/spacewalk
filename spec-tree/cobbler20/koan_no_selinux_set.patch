@@ -1,10 +1,10 @@
 diff -ru cobbler-2.0.11.orig/koan/app.py cobbler-2.0.11/koan/app.py
---- cobbler-2.0.11.orig/koan/app.py	2013-04-10 10:36:10.135106320 +0200
-+++ cobbler-2.0.11/koan/app.py	2013-04-10 10:37:55.303309616 +0200
+--- cobbler-2.0.11.orig/koan/app.py	2013-04-10 17:36:20.564350672 +0200
++++ cobbler-2.0.11/koan/app.py	2013-04-10 17:37:15.891458413 +0200
 @@ -1514,32 +1514,8 @@
                      if lv_create != 0:
                          raise InfoException, "LVM creation failed"
-
+ 
 -                # partition location
 -                partition_location = "/dev/%s/%s" % (location,name)
 -
@@ -25,13 +25,13 @@ diff -ru cobbler-2.0.11.orig/koan/app.py cobbler-2.0.11/koan/app.py
 -                    args = "/usr/sbin/semanage fcontext -a -t %s %s" % (context_type, partition_location)
 -                    print "%s" % args
 -                    change_context |= sub_process.call(args, close_fds=True, shell=True)
--
+-                    
 -                    if change_context != 0:
 -                        raise InfoException, "SELinux security context setting to LVM partition failed"
 -
                  # return partition location
 -                return partition_location
 +                return "/dev/%s/%s" % (location,name)
-
+ 
              else:
                  raise InfoException, "volume group needs %s GB free space." % virt_size
