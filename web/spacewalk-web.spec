@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.18
+Version: 1.10.19
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -261,6 +261,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Apr 10 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.19-1
+- unlink doesn't work on directories
+
 * Mon Apr 08 2013 Tomas Lestach <tlestach@redhat.com> 1.10.18-1
 - changing config-defaults files' rights to 644
 
