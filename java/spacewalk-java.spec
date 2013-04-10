@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.48
+Version: 1.10.49
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -693,6 +693,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Apr 10 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.49-1
+- check xliff files for most common localization errors
+- moving system currency config defaults from separate file to rhn_java.conf
+- Removing unnecessary else.
+
 * Mon Apr 08 2013 Jan Dobes 1.10.48-1
 - Fixed truncating of strings to work with UTF-8 characters properly.
 
