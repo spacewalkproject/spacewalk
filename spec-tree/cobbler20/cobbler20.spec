@@ -12,6 +12,7 @@ Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
 Patch1: lvm_storage.patch
+Patch2: koan_no_selinux_set.patch
 Group: Applications/System
 Requires: python >= 2.3
 
@@ -95,6 +96,7 @@ a XMLRPC API for integration with other applications.
 %setup -q -n cobbler-%{version}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__python} setup.py build 
