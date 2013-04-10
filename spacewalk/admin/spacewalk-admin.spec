@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.10.2
+Version: 1.10.3
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -87,6 +87,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Apr 10 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.3-1
+- supress output to stdout
+
 * Mon Apr 08 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.2-1
 - fixed enable/disable of spacewalk services
 
