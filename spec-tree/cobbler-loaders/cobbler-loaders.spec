@@ -4,8 +4,8 @@ Summary: Bootloaders to make cobbler buildiso work
 Name: cobbler-loaders
 License: GPLv2+
 AutoReq: no
-Version: 1.0.0
-Release: 0%{?dist}
+Version: 1.0.1
+Release: 1%{?dist}
 Url: http://fedorahosted.org/cobbler
 Source0: cobbler-loaders-%{version}.tar.gz
 Group: Applications/System
@@ -47,3 +47,5 @@ rm -rf $RPM_BUILD_ROOT
 %{loaders_root}/*
 
 %changelog
+* Thu Apr 11 2013 Stephen Herr <sherr@redhat.com> 1.0.1-1
+- Bootloaders for 'cobbler buildiso'
