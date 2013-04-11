@@ -3,8 +3,8 @@ diff -rupN cobbler-2.0.11-orig/cobbler/action_buildiso.py cobbler-2.0.11/cobbler
 +++ cobbler-2.0.11/cobbler/action_buildiso.py	2013-04-11 16:28:11.824111313 -0400
 @@ -86,7 +86,7 @@ class BuildIso:
              return str(self.distctr)
-
-
+ 
+   
 -    def generate_netboot_iso(self,imagesdir,isolinuxdir,profiles=None,systems=None,exclude_dns=None):
 +    def generate_netboot_iso(self,imagesdir,isolinuxdir,profiles=None,systems=None,exclude_dns=None,force_server=None):
          self.logger.info("copying kernels and initrds for profiles")
@@ -17,7 +17,7 @@ diff -rupN cobbler-2.0.11-orig/cobbler/action_buildiso.py cobbler-2.0.11/cobbler
 +                if force_server:
 +                    data["server"] = force_server
                  distname = self.make_shorter(dist.name)
-
+ 
                  cfg.write("\n")
 @@ -164,6 +166,12 @@ class BuildIso:
                          data["server"],
@@ -29,7 +29,7 @@ diff -rupN cobbler-2.0.11-orig/cobbler/action_buildiso.py cobbler-2.0.11/cobbler
 +                        data["kickstart"] = re.sub(r'://.*?/',
 +                                '://' + data["server"] + '/',
 +                                data["kickstart"])
-
+ 
                  append_line = "  append initrd=%s.img" % distname
                  append_line = append_line + " ks=%s " % data["kickstart"]
 @@ -199,6 +207,8 @@ class BuildIso:
@@ -39,7 +39,7 @@ diff -rupN cobbler-2.0.11-orig/cobbler/action_buildiso.py cobbler-2.0.11/cobbler
 +                   if force_server:
 +                       data["server"] = force_server
                     distname = self.make_shorter(dist.name)
-
+ 
                     cfg.write("\n")
 @@ -211,6 +221,12 @@ class BuildIso:
                             data["server"],
@@ -51,18 +51,18 @@ diff -rupN cobbler-2.0.11-orig/cobbler/action_buildiso.py cobbler-2.0.11/cobbler
 +                           data["kickstart"] = re.sub(r'://.*?/',
 +                                   '://' + data["server"] + '/',
 +                                   data["kickstart"])
-
+ 
                     append_line = "  append initrd=%s.img" % distname
                     append_line = append_line + " ks=%s" % data["kickstart"]
 @@ -352,7 +368,7 @@ class BuildIso:
          return
-
-
+ 
+ 
 -    def run(self,iso=None,buildisodir=None,profiles=None,systems=None,distro=None,standalone=None,source=None,exclude_dns=None):
 +    def run(self,iso=None,buildisodir=None,profiles=None,systems=None,distro=None,standalone=None,source=None,exclude_dns=None,force_server=None):
-
+ 
          self.settings = self.config.settings()
-
+ 
 @@ -417,14 +433,14 @@ class BuildIso:
          files = [ isolinuxbin, menu, chain ]
          for f in files:
@@ -71,13 +71,13 @@ diff -rupN cobbler-2.0.11-orig/cobbler/action_buildiso.py cobbler-2.0.11/cobbler
 +               utils.die(self.logger,"Required file not found: %s. Try 'yum install cobbler-loaders'." % f)
              else:
                 utils.copyfile(f, os.path.join(isolinuxdir, os.path.basename(f)), self.api)
-
+ 
          if standalone:
              self.generate_standalone_iso(imagesdir,isolinuxdir,distro,source)
          else:
 -            self.generate_netboot_iso(imagesdir,isolinuxdir,profiles,systems,exclude_dns)
 +            self.generate_netboot_iso(imagesdir,isolinuxdir,profiles,systems,exclude_dns,force_server)
-
+ 
          # removed --quiet
          cmd = "mkisofs -o %s -r -b isolinux/isolinux.bin -c isolinux/boot.cat" % iso
 diff -rupN cobbler-2.0.11-orig/cobbler/action_check.py cobbler-2.0.11/cobbler/action_check.py
@@ -85,18 +85,18 @@ diff -rupN cobbler-2.0.11-orig/cobbler/action_check.py cobbler-2.0.11/cobbler/ac
 +++ cobbler-2.0.11/cobbler/action_check.py	2013-04-11 16:27:22.233765804 -0400
 @@ -320,7 +320,7 @@ class BootCheck:
               not_found.append(loader_name)
-
+ 
         if len(not_found) > 0:
 -          status.append("some network boot-loaders are missing from /var/lib/cobbler/loaders, you may run 'cobbler get-loaders' to download them, or, if you only want to handle x86/x86_64 netbooting, you may ensure that you have installed a *recent* version of the syslinux package installed and can ignore this message entirely.  Files in this directory, should you want to support all architectures, should include pxelinux.0, menu.c32, elilo.efi, and yaboot. The 'cobbler get-loaders' command is the easiest way to resolve these requirements.")
 +           status.append("some network boot-loaders are missing from /var/lib/cobbler/loaders, you may run 'yum install cobbler-loaders' to download them, or, if you only want to handle x86/x86_64 netbooting, you may ensure that you have installed a *recent* version of the syslinux package installed and can ignore this message entirely.  Files in this directory, should you want to support all architectures, should include pxelinux.0, menu.c32, elilo.efi, and yaboot. The 'yum install cobbler-loaders' command is the easiest way to resolve these requirements.")
-
+  
     def check_tftpd_bin(self,status):
         """
 diff -rupN cobbler-2.0.11-orig/cobbler/action_dlcontent.py cobbler-2.0.11/cobbler/action_dlcontent.py
 --- cobbler-2.0.11-orig/cobbler/action_dlcontent.py	2011-04-20 08:40:40.000000000 -0400
 +++ cobbler-2.0.11/cobbler/action_dlcontent.py	2013-04-11 16:27:22.234765810 -0400
 @@ -39,45 +39,11 @@ class ContentDownloader:
-
+ 
     def run(self,force=False):
         """
 -       Download bootloader content for all of the latest bootloaders, since the user
@@ -108,7 +108,7 @@ diff -rupN cobbler-2.0.11-orig/cobbler/action_dlcontent.py cobbler-2.0.11/cobble
 +       however these files are now available from yum in the cobbler-loaders
 +       package so you should use that instead.
         """
-
+ 
 -       content_server = "http://dgoodwin.fedorapeople.org/loaders"
 -       dest = "/var/lib/cobbler/loaders"
 -
@@ -145,14 +145,14 @@ diff -rupN cobbler-2.0.11-orig/cobbler/action_dlcontent.py cobbler-2.0.11/cobble
 -       return True
 +       self.logger.info("The 'cobbler get-loaders' command has been obsoleted with 'yum install cobbler-loaders' in this version of cobbler. Please use 'yum install cobbler-loaders' instead.")
 +       return False
-
+ 
 diff -rupN cobbler-2.0.11-orig/cobbler/api.py cobbler-2.0.11/cobbler/api.py
 --- cobbler-2.0.11-orig/cobbler/api.py	2011-04-20 08:40:48.000000000 -0400
 +++ cobbler-2.0.11/cobbler/api.py	2013-04-11 16:27:22.234765810 -0400
 @@ -751,10 +751,10 @@ class BootAPI:
-
+ 
      # ==========================================================================
-
+ 
 -    def build_iso(self,iso=None,profiles=None,systems=None,buildisodir=None,distro=None,standalone=None,source=None, exclude_dns=None, logger=None):
 +    def build_iso(self,iso=None,profiles=None,systems=None,buildisodir=None,distro=None,standalone=None,source=None, exclude_dns=None, logger=None, force_server=None):
          builder = action_buildiso.BuildIso(self._config, logger=logger)
@@ -160,7 +160,7 @@ diff -rupN cobbler-2.0.11-orig/cobbler/api.py cobbler-2.0.11/cobbler/api.py
 -           iso=iso, profiles=profiles, systems=systems, buildisodir=buildisodir, distro=distro, standalone=standalone, source=source, exclude_dns=exclude_dns
 +           iso=iso, profiles=profiles, systems=systems, buildisodir=buildisodir, distro=distro, standalone=standalone, source=source, exclude_dns=exclude_dns, force_server=force_server
          )
-
+ 
      # ==========================================================================
 diff -rupN cobbler-2.0.11-orig/cobbler/cli.py cobbler-2.0.11/cobbler/cli.py
 --- cobbler-2.0.11-orig/cobbler/cli.py	2011-04-20 08:40:48.000000000 -0400
@@ -170,7 +170,7 @@ diff -rupN cobbler-2.0.11-orig/cobbler/cli.py cobbler-2.0.11/cobbler/cli.py
              self.parser.add_option("--source",   dest="source",   help="(OPTIONAL) used with --standalone to specify a source for the distribution files")
              self.parser.add_option("--exclude-dns", dest="exclude_dns", action="store_true", help="(OPTIONAL) prevents addition of name server addresses to the kernel boot options")
 +            self.parser.add_option("--force-server", dest="force_server", help="(OPTIONAL) get required files from the given server instead of the default (may be given as IP Address or FQDN of the server)")
-
+ 
              (options, args) = self.parser.parse_args()
              task_id = self.start_task("buildiso",options)
 diff -rupN cobbler-2.0.11-orig/cobbler/remote.py cobbler-2.0.11/cobbler/remote.py
