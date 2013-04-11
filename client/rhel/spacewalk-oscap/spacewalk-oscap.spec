@@ -1,5 +1,5 @@
 Name:		spacewalk-oscap
-Version:	0.0.13
+Version:	0.0.14
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -12,7 +12,7 @@ BuildArch:	noarch
 BuildRequires:	python-devel
 BuildRequires:	rhnlib
 BuildRequires:  libxslt
-%if %0{?rhel} && 0%{?rhel} < 6
+%if 0%{?rhel} && 0%{?rhel} < 6
 Requires:	openscap-utils >= 0.8.0
 %else
 Requires:	openscap-utils >= 0.9.2
@@ -47,6 +47,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Apr 11 2013 Simon Lukasik <slukasik@redhat.com> 0.0.14-1
+- Drop requires which cannot be fulfilled on rhel5
+
 * Tue Dec 11 2012 Simon Lukasik <slukasik@redhat.com> 0.0.13-1
 - Support for XCCDF 1.2.
 
