@@ -1120,13 +1120,15 @@ my $POSTGRESQL_CLEAR_SCHEMA = <<EOS;
 EOS
 sub postgresql_clear_db {
 	my $dbh = shift;
+        my $do_shutdown = (defined($_[0]) ? shift : 1);
 
-	print loc("** Database: Shutting down spacewalk services that may be using DB.\n");
+        if ($do_shutdown) {
+            print loc("** Database: Shutting down spacewalk services that may be using DB.\n");
 
-	# The --exclude=postgresql is needed for embedded database Satellites.
-	system_debug('/usr/sbin/spacewalk-service', '--exclude=postgresql', 'stop');
-
-	print loc("** Database: Services stopped.  Clearing DB.\n");
+            # The --exclude=postgresql is needed for embedded database Satellites.
+            system_debug('/usr/sbin/spacewalk-service', '--exclude=postgresql', 'stop');
+            print loc("** Database: Services stopped.  Clearing DB.\n");
+        }
 
 	local $dbh->{RaiseError} = 0;
 	local $dbh->{PrintError} = 1;

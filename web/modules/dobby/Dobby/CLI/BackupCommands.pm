@@ -362,7 +362,8 @@ sub command_pg_restore {
   sub Spacewalk::Setup::system_debug {
      system @_;
   }
-  postgresql_clear_db($dbh);
+
+  postgresql_clear_db($dbh, 0);
   system('/usr/bin/droplang', 'plpgsql', PXT::Config->get('db_name'));
 
   print "** Restoring from file $file.\n";
