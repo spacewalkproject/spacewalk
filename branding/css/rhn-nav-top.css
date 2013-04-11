@@ -40,6 +40,7 @@ div#navWrap {
 
 div#navWrap div#mainNavWrap {
         width: 100%;
+        margin-top: -5px;
         float: left;
 }
 
@@ -60,7 +61,7 @@ ul#mainNav li, div#mainNavWrap ul li {
 }
 
 ul#mainNav li a, div#mainNavWrap ul li a {
-        padding: 7px 15px 5px 15px;
+        padding: 9px 15px 2px 15px;
         text-decoration: none;
         color: #000;
         font-size: 85%;
@@ -76,6 +77,7 @@ li#mainFirst-active,
 div#mainNavWrap ul li#main-active,
 div#mainNavWrap ul li#mainLast-active {
         border-radius: 10px 10px 0 0 ;
+        padding-top 5px;
 }
 
 li#mainFirst-active a,
@@ -84,7 +86,6 @@ li#mainFirst-active a,
 div#mainNavWrap ul li#main-active a,
 div#mainNavWrap ul li#mainLast-active a {
         color: #fff;
-        padding-bottom: 5px;
 }
 
 /* if it's the first tab item in the bar, styled a little differently */
