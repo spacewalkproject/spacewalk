@@ -13,6 +13,7 @@ Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
 Patch1: lvm_storage.patch
 Patch2: koan_no_selinux_set.patch
+Patch3: buildiso.patch
 Group: Applications/System
 Requires: python >= 2.3
 
@@ -97,6 +98,7 @@ a XMLRPC API for integration with other applications.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %{__python} setup.py build 
