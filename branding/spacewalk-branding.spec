@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    1.10.14
+Version:    1.10.15
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -74,6 +74,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Apr 11 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.15-1
+- overlap of currently active section on top-nav
+
 * Wed Mar 27 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.14-1
 - fix css in duplicate system comparsion
 
