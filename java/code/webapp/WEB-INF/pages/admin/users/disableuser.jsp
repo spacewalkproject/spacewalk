@@ -1,4 +1,5 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 
@@ -6,7 +7,9 @@
 <html>
 <body>
 
-<%@ include file="/WEB-INF/pages/common/fragments/user/user-header.jspf" %>
+<rhn:toolbar base="h1" img="/img/rhn-icon-users.gif" imgAlt="users.jsp.imgAlt">
+    <c:out escapeXml="true" value="${targetuser.login}" />
+</rhn:toolbar>
 
 <h2><bean:message key="disableuser.jsp.confirm"/></h2>
 

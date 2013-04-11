@@ -7,7 +7,10 @@
 <html>
 <body>
 
-<%@ include file="/WEB-INF/pages/common/fragments/user/user-header.jspf" %>
+<rhn:toolbar base="h1" img="/img/rhn-icon-users.gif" imgAlt="users.jsp.imgAlt">
+    <c:out escapeXml="true" value="${targetuser.login}" />
+</rhn:toolbar>
+
 
 <h2><bean:message key="deleteuser.jsp.confirm"/></h2>
 
