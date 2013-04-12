@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.19
+Version: 1.10.20
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -261,6 +261,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Apr 12 2013 Jan Pazdziora 1.10.20-1
+- 951056 - fix correct menu highlight for
+  /network/systems/details/history/snapshots/add_system_tag.pxt
+
 * Wed Apr 10 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.19-1
 - unlink doesn't work on directories
 
