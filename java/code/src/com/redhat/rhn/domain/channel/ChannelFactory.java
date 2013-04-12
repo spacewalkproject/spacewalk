@@ -919,6 +919,22 @@ public class ChannelFactory extends HibernateFactory {
     }
 
     /**
+     * Lists *common* compatible channels for all SSM systems subscribed to a common base
+     * Returns empty list if none is found.
+     * @param user user
+     * @param channel channel
+     * @return list of compatible channels, empty list if none is found
+     */
+    public static List<Channel> listCompatibleDcmForChannelSSMInNullOrg(User user,
+            Channel channel) {
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("channel_id", channel.getId());
+        return singleton.listObjectsByNamedQuery(
+                "Channel.findCompatibleForChannelSSMInNullOrg", params);
+    }
+
+    /**
      * Lookup dist channel mappings for the given channel.
      * Returns empty list if none is found.
      *

@@ -2034,70 +2034,35 @@ public class ChannelManager extends BaseManager {
 
         List<EssentialChannelDto> eusBaseChans = new LinkedList<EssentialChannelDto>();
 
-        List<DistChannelMap> dcms = ChannelFactory.listDistChannelMaps(inChan);
-        ReleaseChannelMap rcm = lookupDefaultReleaseChannelMapForChannel(inChan);
-        if (!dcms.isEmpty()) {
-            for (DistChannelMap dcm : dcms) {
-                log.debug("Found dist channel map");
-                String version = dcm.getRelease(); // bad naming in rhnDistChannelMap
+        for (Channel c :
+                    ChannelFactory.listCompatibleDcmForChannelSSMInNullOrg(u, inChan)) {
+            if (!c.isCustom()) {
+                retval.add(new EssentialChannelDto(c));
+            }
+        }
 
-                // If the inChan is the default base channel, that channel will not have
-                // compatibility entries in rhnReleaseChannelMap, and we are to assume
-                // that ALL entries in that table for the product/version/channel arch
-                // are valid replacement base channels:
-                if (isDefaultBaseChannel(inChan, version)) {
-                    log.debug("inChan is default base channel");
+        ReleaseChannelMap rcm = lookupDefaultReleaseChannelMapForChannel(inChan);
+        if (rcm != null) {
+                    eusBaseChans.addAll(listBaseEusChannelsByVersionReleaseAndChannelArch(
+                            u, rcm.getVersion(), rcm.getRelease(),
+                            inChan.getChannelArch().getId()));
+        }
+        else {
+            for (DistChannelMap dcm : inChan.getDistChannelMaps()) {
+                String rhelVersion = dcm.getRelease();
+                if (isDefaultBaseChannel(inChan, rhelVersion)) {
                     EssentialChannelDto latestEus = lookupLatestEusChannelForRhelVersion(u,
-                            version, inChan.getChannelArch().getId());
+                            rhelVersion, inChan.getChannelArch().getId());
                     if (latestEus != null) {
-                        log.debug("Including latest EUS channel: " +
-                                latestEus.getLabel());
                         eusBaseChans.add(latestEus);
-                    }
-                    else {
-                        log.warn("Unable to lookup the latest EUS channel!");
                     }
                 }
             }
         }
-        else if (rcm != null) {
-            log.debug("Found release channel map");
-            log.debug("System not subscribed to default base channel");
-            String version = rcm.getVersion();
-            String release = rcm.getRelease();
-            ChannelArch channelArch = inChan.getChannelArch();
-
-            // TODO: is this null check needed or just to get through tests?
-            if (version != null) {
-                // First make sure to add the default base channel, EUS systems should
-                // always be able to upgrade to the mainline RHEL release for their
-                // version:
-                log.debug("Looking up default base channel for:");
-                log.debug("  version = " + version);
-                log.debug("  channelArch = " + channelArch);
-                Channel defaultBaseChan = getDefaultBaseChannel(version, channelArch);
-                log.debug("Adding default base channel: " + defaultBaseChan);
-                retval.add(channelToEssentialChannelDto(defaultBaseChan, false));
-
-                eusBaseChans = listBaseEusChannelsByVersionReleaseAndChannelArch(
-                        u, version, release, channelArch.getId());
-            }
-        }
-        else {
-            log.debug("Unable to find dist or release channel map.");
-        }
-
-        log.debug("found " + eusBaseChans.size() + " EUS channels");
         retval.addAll(eusBaseChans);
 
-        // Final check to remove the current channel if it's found in the list, we
-        // already have a "No Change" option in the list:
-        log.debug("Removing existing channel from list:");
         for (EssentialChannelDto dto : retval) {
-            log.debug("   " + dto);
-            log.debug("   " + dto.getLabel());
             if (dto.getId().longValue() == inChan.getId().longValue()) {
-                log.debug("Removing current channel: " + dto.getLabel());
                 retval.remove(dto); // normally not a good idea, but we do break
                 break;
             }
@@ -2108,10 +2073,7 @@ public class ChannelManager extends BaseManager {
 
     private static EssentialChannelDto channelToEssentialChannelDto(Channel channel,
             boolean isCustom) {
-        EssentialChannelDto dto = new EssentialChannelDto();
-        dto.setId(channel.getId());
-        dto.setName(channel.getName());
-        dto.setLabel(channel.getLabel());
+        EssentialChannelDto dto = new EssentialChannelDto(channel);
         dto.setIsCustom(isCustom);
         return dto;
     }
