@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.45
+Version: 5.10.46
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -122,6 +122,10 @@ fi
 
 # $Id$
 %changelog
+* Fri Apr 12 2013 Grant Gainey 5.10.46-1
+- 951243 - Let remote-cmds log to the local machine in addition to sending
+  results back to SW
+
 * Tue Apr 09 2013 Stephen Herr <sherr@redhat.com> 5.10.45-1
 - 947639 - make rhncfg less stupid
 
