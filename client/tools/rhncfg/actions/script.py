@@ -85,6 +85,10 @@ def run(action_id, params, cache_only=None):
     local_config.init('rhncfg-client', defaults=dict(cfg.items()))
 
     tempfile.tempdir = local_config.get('script_tmp_dir')
+
+    logfile_name = local_config.get('script_log_file')
+    log_output = local_config.get('script_log_file_enable')
+
     if cache_only:
         return (0, "no-ops for caching", {})
 
@@ -250,6 +254,11 @@ def run(action_id, params, cache_only=None):
     out_stream.seek(0, 0)
     extras['output'] = out_stream.read()
     out_stream.close()
+
+    # Log script-output locally, unless we're asked not to
+    if log_output :
+        set_logfile(logfile_name)
+        log_to_file(0, extras['output'])
 
     # since output can contain chars that won't make xmlrpc very happy,
     # base64 encode it...

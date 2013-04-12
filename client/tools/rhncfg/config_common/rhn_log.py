@@ -14,6 +14,7 @@
 #
 
 import os
+import stat
 import sys
 import time
 import string
@@ -47,16 +48,21 @@ class Logger:
     def write_to_logfile(self, logstr):
         if os.access(self.logfile, os.F_OK|os.R_OK|os.W_OK):
             logname = open(self.logfile, "a")
+            logname.write(logstr)
+            logname.close()
         else:
             #pkilambi: bug#179367: check permissions before writing.
             #non-root users will not have permissions to create the file
+
+            # Set to root-RW-only if we have to create the file
+            mode = stat.S_IRUSR | stat.S_IWUSR  # octal 0o600
             try:
-                logname = open(self.logfile, "w")
+                fd = os.fdopen(os.open(self.logfile, os.O_WRONLY | os.O_CREAT, mode), 'w')
+                os.write(fd, logstr)
+                os.close(fd)
             except:
                 print "does not have permissions to create file  %s" % (self.logfile)
                 sys.exit(1)
-        logname.write(logstr)
-        logname.close()
     
     def set_logfile(self, filename):
         Logger.logfile = filename
