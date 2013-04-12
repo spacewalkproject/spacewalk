@@ -1963,14 +1963,11 @@ public class ChannelManager extends BaseManager {
      */
     public static List<EssentialChannelDto> listBaseChannelsForSystem(User usr,
             Server s) {
-        log.debug("listBaseChannelsForSystem()");
 
         List<EssentialChannelDto> channelDtos = new LinkedList<EssentialChannelDto>();
         PackageEvr releaseEvr = PackageManager.lookupReleasePackageEvrFor(s);
         if (releaseEvr != null) {
             String rhelVersion = releaseEvr.getVersion();
-            String rhelRelease = releaseEvr.getRelease();
-            String serverArch = s.getServerArch().getLabel();
 
             // If the system has the default base channel, that channel will not have
             // compatability entries in rhnReleaseChannelMap. Assume that this is a base
@@ -1978,8 +1975,6 @@ public class ChannelManager extends BaseManager {
             // in rhnReleaseChannelMap is a suitable replacement.
             List<EssentialChannelDto> baseEusChans = new LinkedList<EssentialChannelDto>();
             if (isDefaultBaseChannel(s.getBaseChannel(), rhelVersion)) {
-                log.debug("System has default base channel, including most recent EUS " +
-                        "channel.");
                 EssentialChannelDto baseEus = lookupLatestEusChannelForRhelVersion(usr,
                         rhelVersion, s.getBaseChannel().getChannelArch().getId());
                 if (baseEus != null) {
@@ -1987,57 +1982,20 @@ public class ChannelManager extends BaseManager {
                 }
             }
             else {
-                log.debug("System does not have default base channel.");
-                log.debug("Looking up all available EUS channels.");
                 baseEusChans = listBaseEusChannelsByVersionReleaseAndServerArch(usr,
-                    rhelVersion, rhelRelease, serverArch);
+                    rhelVersion, releaseEvr.getRelease(), s.getServerArch().getLabel());
             }
             channelDtos.addAll(baseEusChans);
-
-            log.debug("Base EUS channels:");
-            for (EssentialChannelDto dto : baseEusChans) {
-                log.debug("      " + dto.getLabel());
-            }
         }
 
-        // Get all the possible base-channels owned by this Org (IE, custom)
-        // and add the server's current base-channel to it:
+        // Get all the possible base-channels owned by this Org
         channelDtos.addAll(listBaseChannelsForOrg(usr.getOrg()));
-        Channel guessedBase = ChannelManager.guessServerBase(usr, s);
-        if (guessedBase != null) {
-            if (log.isDebugEnabled()) {
-                log.debug("guessedBase = " + guessedBase.getLabel());
-            }
 
-            EssentialChannelDto guessed = new EssentialChannelDto();
-            guessed.setId(guessedBase.getId());
-            guessed.setLabel(guessedBase.getLabel());
-            guessed.setName(guessedBase.getName());
-            channelDtos.add(0, guessed);
+        for (DistChannelMap dcm : ChannelFactory.listCompatibleDcmByServerInNullOrg(s)) {
+                channelDtos.add(new EssentialChannelDto(dcm.getChannel()));
         }
 
-        // For each channel, ensure user-access and arch-compat with this server:
-        List<EssentialChannelDto> retval = new LinkedList<EssentialChannelDto>();
-        for (EssentialChannelDto ecd : channelDtos) {
-            Channel channel = null;
-            try {
-                channel = lookupByIdAndUser(new Long(ecd.getId().longValue()), usr);
-            }
-            catch (LookupException le) {
-                log.info("User doesnt have access to channel: " + ecd.getId());
-            }
-            if (channel != null &&
-                    channel.getChannelArch().isCompatible(s.getServerArch())) {
-                if (!retval.contains(channel)) {
-                    retval.add(ecd);
-                }
-            }
-        }
-
-        if (log.isDebugEnabled()) {
-            log.debug("retval.size() = " + retval.size());
-        }
-        return retval;
+        return channelDtos;
     }
 
     /**

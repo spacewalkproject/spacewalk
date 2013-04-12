@@ -57,6 +57,18 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <return alias="dcm" class="com.redhat.rhn.domain.channel.DistChannelMap" />
     </sql-query>
 
+    <sql-query name="DistChannelMap.findCompatibleByServerInNullOrg">
+        <![CDATA[
+        SELECT dcm.*
+        FROM rhnServerChannelArchCompat scac
+            JOIN rhnDistChannelMap dcm ON dcm.channel_arch_id = scac.channel_arch_id
+        WHERE scac.server_arch_id = :server_arch_id
+        AND dcm.release = :release
+        AND dcm.org_id IS NULL
+        ]]>
+        <return alias="dcm" class="com.redhat.rhn.domain.channel.DistChannelMap" />
+    </sql-query>
+
     <query name="DistChannelMap.findByProductNameReleaseAndChannelArch">
         <![CDATA[
         select dcm

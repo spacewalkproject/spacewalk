@@ -25,6 +25,7 @@ import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
@@ -901,6 +902,20 @@ public class ChannelFactory extends HibernateFactory {
         params.put("channel_arch_id", channelArch.getId());
         return (DistChannelMap)singleton.lookupObjectByNamedQuery(
                 "DistChannelMap.findByOrgReleaseArch", params);
+    }
+
+    /**
+     * Lists compatible dist channel mappings for a server available within an organization
+     * Returns empty list if none is found.
+     * @param server server
+     * @return list of dist channel mappings, empty list if none is found
+     */
+    public static List<DistChannelMap> listCompatibleDcmByServerInNullOrg(Server server) {
+        Map params = new HashMap();
+        params.put("release", server.getRelease());
+        params.put("server_arch_id", server.getServerArch().getId());
+        return singleton.listObjectsByNamedQuery(
+                "DistChannelMap.findCompatibleByServerInNullOrg", params);
     }
 
     /**
