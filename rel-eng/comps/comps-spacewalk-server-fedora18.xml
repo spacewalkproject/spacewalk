@@ -22,6 +22,7 @@
        <packagereq type="default">cobbler2</packagereq>
        <packagereq type="default">cobbler20</packagereq>
        <packagereq type="default">cobbler-epel</packagereq>
+       <packagereq type="default">cobbler-loaders</packagereq>
        <packagereq type="default">cx_Oracle</packagereq>
        <packagereq type="default">dwr</packagereq>
        <packagereq type="default">eventReceivers</packagereq>
