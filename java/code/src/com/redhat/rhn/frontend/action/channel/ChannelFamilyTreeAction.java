@@ -27,8 +27,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import java.util.Collections;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -55,8 +53,6 @@ public class ChannelFamilyTreeAction extends BaseChannelTreeAction {
         ChannelOverview co = ChannelManager.getEntitlement(user.getOrg().getId(), cfid);
 
         DataResult<ChannelTreeNode> dr = getDataResult(requestContext, null);
-        Collections.sort(dr);
-        dr = handleOrphans(dr);
         dr.setFilter(false);
         request.setAttribute(RequestContext.PAGE_LIST, dr);
         request.setAttribute("cfid", cfid);

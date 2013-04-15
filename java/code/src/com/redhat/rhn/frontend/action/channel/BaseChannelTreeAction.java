@@ -15,7 +15,6 @@
 package com.redhat.rhn.frontend.action.channel;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ChannelTreeNode;
@@ -28,10 +27,6 @@ import com.redhat.rhn.frontend.struts.RhnUnpagedListAction;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -58,8 +53,6 @@ public abstract class BaseChannelTreeAction extends RhnUnpagedListAction {
             lc.setFilterColumn("name");
             lc.setCustomFilter(new TreeFilter());
             DataResult<ChannelTreeNode> dr = getDataResult(requestContext, lc);
-            Collections.sort(dr);
-            dr = handleOrphans(dr);
 
             request.setAttribute(RequestContext.PAGE_LIST, dr);
             request.setAttribute("satAdmin", user.hasRole(RoleFactory.SAT_ADMIN));
@@ -73,65 +66,4 @@ public abstract class BaseChannelTreeAction extends RhnUnpagedListAction {
     /* override in subclasses if needed */
     protected void addAttributes(RequestContext requestContext) {
     }
-
-    /**
-     * Handle the orphan'd child channels by adding a "fake" node
-     *   This is done because a child can be viewable when the parent is not
-     * @param result
-     */
-    protected DataResult<ChannelTreeNode> handleOrphans(
-            DataResult<ChannelTreeNode> result) {
-
-        DataResult<ChannelTreeNode> toReturn =
-                new DataResult<ChannelTreeNode>(new ArrayList());
-        toReturn.setFilter(true);
-        toReturn.setFilterData(result.getFilterData());
-
-        //We want the orphans to be at the end of the list, so lets add them here
-        //   and then add them to the whole list later
-        List<ChannelTreeNode> orphans = new ArrayList<ChannelTreeNode>();
-
-
-        ChannelTreeNode lastParent = null;
-        ChannelTreeNode lastOrphan = null;
-
-        for (ChannelTreeNode node : result) {
-            //if the node is a parent, mark it as last and move on
-            if (node.isParent()) {
-                lastParent = node;
-                toReturn.add(node);
-            } //if the node is a child of previous parent, move on
-            else if (lastParent != null && node.getParentId().equals(lastParent.getId())) {
-                toReturn.add(node);
-            } //else we couldn't find the previous parent (so it's probably not here :{)
-            else {
-                //If this is the first orphan or the parent of the last orphan doesn't
-                //  match this orphan's parent, then we need to add a node for the
-                //  restriciton
-               if (lastOrphan == null ||
-                       !lastOrphan.getParentId().equals(node.getParentId())) {
-                   orphans.add(newRestrictedParent(node));
-                   orphans.add(node);
-               } //else this orphan has the same parent as the last, so no new dummy node
-               else {
-                   orphans.add(node);
-               }
-               lastOrphan = node;
-            }
-        }
-        toReturn.addAll(orphans);
-        return toReturn;
-    }
-
-    private ChannelTreeNode newRestrictedParent(ChannelTreeNode child) {
-        ChannelTreeNode parent;
-        parent = new ChannelTreeNode();
-        parent.setAccessible(false);
-        parent.setName(LocalizationService.getInstance().getMessage(
-                "channel.unavailable"));
-        parent.setId(child.getParentId());
-        parent.setParentId(null);
-        return parent;
-    }
-
 }

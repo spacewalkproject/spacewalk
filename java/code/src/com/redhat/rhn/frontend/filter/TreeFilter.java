@@ -17,7 +17,10 @@ package com.redhat.rhn.frontend.filter;
 import com.redhat.rhn.common.db.datasource.DataResult;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
+import java.lang.reflect.Method;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -30,6 +33,9 @@ import java.util.Set;
  * @version $Rev$
  */
 public class TreeFilter implements ResultsFilter {
+
+    private static Logger log = Logger.getLogger(TreeFilter.class);
+
     private Matcher matcher = Matcher.DEFAULT_MATCHER;
     private Set positions;
     private List filtered;
@@ -82,6 +88,8 @@ public class TreeFilter implements ResultsFilter {
          *  We use a "NodeTracker" to keep track of the parent nodes
          *  and positions of the current node..
          */
+
+        handleOrphans(dr);
 
         //Don't even bother filtering if there is
         // no filterData text or filterColumn specified
@@ -176,4 +184,37 @@ public class TreeFilter implements ResultsFilter {
             return wrapper;
         }
     }
+
+    /**
+     * Handle the unavailable channels/systems by adding
+     *   fake nodes.
+     * @param result list of nodes to solve
+     */
+    protected void handleOrphans(DataResult result) {
+        if (result.size() > 0) {
+            Class clazz = result.get(0).getClass();
+            if (result.get(0) instanceof Comparable) {
+                Collections.sort(result);
+            }
+            Method method = null;
+            try {
+                method = clazz.getMethod("processList", DataResult.class);
+            }
+            catch (Exception e) {
+                log.warn("Can't locate 'processList' method for class: " +
+                        clazz.getName());
+            }
+            if (method != null) {
+                try {
+                    method.invoke(clazz, result);
+                }
+                catch (Exception e) {
+                    log.warn("Can't invoke " + method.getName() + " method of class: " +
+                            clazz.getName());
+                }
+            }
+        }
+    }
+
+
 }

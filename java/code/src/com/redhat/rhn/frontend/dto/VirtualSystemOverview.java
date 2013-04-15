@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.dto;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.frontend.filter.DepthAware;
 
 /**
@@ -23,6 +24,8 @@ import com.redhat.rhn.frontend.filter.DepthAware;
  */
 public class VirtualSystemOverview extends SystemOverview
                                         implements DepthAware {
+
+    private static final String FAKENODE_LABEL = "(Unknown Host)";
 
     private Long systemId;
     private String uuid;
@@ -40,6 +43,26 @@ public class VirtualSystemOverview extends SystemOverview
     private String virtEntitlement;
     private boolean accessible;
     private boolean subscribable;
+
+
+    /**
+     * If we do not know the host for a virtual system,
+     *  insert a 'fake' system into the list before the
+     *  current one.
+     * @param result list of nodes to solve
+     */
+    public static void processList(DataResult result) {
+        for (int i = 0; i < result.size(); i++) {
+            VirtualSystemOverview current = (VirtualSystemOverview) result.get(i);
+            if ((current.getUuid() != null) && (current.getHostSystemId() == null)) {
+                VirtualSystemOverview fakeSystem = new VirtualSystemOverview();
+                fakeSystem.setServerName(FAKENODE_LABEL);
+                fakeSystem.setHostSystemId(new Long(0));
+                result.add(i, fakeSystem);
+                i++;
+            }
+        }
+    }
 
     /**
      * @return Returns the accessible.
@@ -295,5 +318,14 @@ public class VirtualSystemOverview extends SystemOverview
      */
     public void setVirtEntitlement(String virtEntitlementIn) {
         this.virtEntitlement = virtEntitlementIn;
+    }
+
+    /**
+     * Checks if node is fake
+     * @return if node is fake or not
+     */
+    public boolean isFakeNode() {
+        return (FAKENODE_LABEL.equals(this.getServerName()) &&
+                (this.getHostSystemId().equals(new Long(0))));
     }
 }

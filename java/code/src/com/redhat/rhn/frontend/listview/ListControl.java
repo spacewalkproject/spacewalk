@@ -133,11 +133,13 @@ public class ListControl {
             }*/
             // Make sure that the alpha inputs are converted
             // to uppercase
-            char val = value.charAt(0);
-            val = Character.toUpperCase(val);
-            if (!alphaSet.containsKey(val)) {
-                // add the character to the set
-                alphaSet.put(val, i + 1);
+            if (value != null) {
+                char val = value.charAt(0);
+                val = Character.toUpperCase(val);
+                if (!alphaSet.containsKey(val)) {
+                    // add the character to the set
+                    alphaSet.put(val, i + 1);
+                }
             }
             i++;
         }

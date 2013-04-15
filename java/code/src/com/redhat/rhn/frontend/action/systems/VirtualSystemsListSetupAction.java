@@ -60,23 +60,14 @@ public class VirtualSystemsListSetupAction extends BaseSystemListSetupAction {
 
         for (int i = 0; i < dr.size(); i++) {
             VirtualSystemOverview current = (VirtualSystemOverview) dr.get(i);
-            if (current.getUuid() == null) {
+            if (current.isFakeNode()) {
+                i++;
+            }
+            else if (current.getUuid() == null) {
                 current.setSystemId(current.getHostSystemId());
             }
             else {
                 current.setSystemId(current.getVirtualSystemId());
-
-                // If we do not know the host for a virtual system,
-                // insert a 'fake' system into the list before the
-                // current one.
-
-                if (current.getHostSystemId() == null) {
-                    VirtualSystemOverview fakeSystem = new VirtualSystemOverview();
-                    fakeSystem.setServerName("(Unknown Host)");
-                    fakeSystem.setHostSystemId(new Long("0"));
-                    dr.add(i, fakeSystem);
-                    i++;
-                }
             }
         }
 
