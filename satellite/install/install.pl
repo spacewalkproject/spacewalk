@@ -124,9 +124,7 @@ if (@not_installed_rpms) {
 
 # Call spacewalk-setup:
 print loc("* Now running spacewalk-setup.\n");
-system(SPACEWALK_SETUP_SCRIPT, @ARGV_ORIG, '--skip-logfile-init', @additionalOptions);
-
-exit;
+exec(SPACEWALK_SETUP_SCRIPT, @ARGV_ORIG, '--skip-logfile-init', @additionalOptions) or die;
 
 
 
