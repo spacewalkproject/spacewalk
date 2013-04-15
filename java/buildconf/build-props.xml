@@ -61,9 +61,9 @@
   <property name="hibernate3.6deps" value="hibernate3/hibernate-core-3 hibernate/hibernate-commons-annotations slf4j/api jboss-logging javassist slf4j/log4j12 ehcache-core hibernate-jpa-2.0-api"/>
 
   <condition property="hibernate"
-                value="${hibernate3.6deps}"
-                 else="${hibernate3.2deps}">
-    <available file="/usr/share/java/hibernate3/hibernate-core-3.jar" /> 
+                value="${hibernate3.2deps}"
+                 else="${hibernate3.6deps}">
+    <available file="/usr/share/java/hibernate3.jar" /> 
   </condition>
 
   <condition property="jmock-jars"

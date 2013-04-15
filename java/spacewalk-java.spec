@@ -53,7 +53,7 @@ Requires: jfreechart >= 1.0.9
 Requires: bcel
 Requires: c3p0 >= 0.9.1
 Requires: dwr >= 3
-%if 0%{?fedora} && 0%{?fedora} > 17
+%if 0%{?fedora}
 Requires: hibernate3 >= 3.6.10
 Requires: hibernate3-c3p0 >= 3.6.10
 Requires: hibernate3-ehcache >= 3.6.10
@@ -146,7 +146,7 @@ BuildRequires: concurrent
 BuildRequires: cglib
 BuildRequires: dom4j
 BuildRequires: dwr >= 3
-%if 0%{?fedora} && 0%{?fedora} > 17
+%if 0%{?fedora}
 BuildRequires: hibernate3 >= 0:3.6.10
 BuildRequires: ehcache-core
 BuildRequires: javassist
@@ -314,7 +314,7 @@ Requires: jfreechart >= 1.0.9
 
 Requires: bcel
 Requires: c3p0 >= 0.9.1
-%if 0%{?fedora} && 0%{?fedora} > 17
+%if 0%{?fedora}
 Requires: hibernate3 >= 3.6.10
 Requires: hibernate3-c3p0 >= 3.6.10
 Requires: hibernate3-ehcache >= 3.6.10
@@ -431,6 +431,13 @@ find . -type f -name '*.xml' | xargs perl -CSAD -lne 'for (grep { $_ ne "PRODUCT
 
 %install
 rm -rf $RPM_BUILD_ROOT
+%if 0%{?fedora} && 0%{?fedora} < 18
+mkdir -p $RPM_BUILD_ROOT%{_javadir}/hibernate3
+ln -s -f %{_javadir}/hibernate3/hibernate-core.jar $RPM_BUILD_ROOT%{_javadir}/hibernate3/hibernate-core-3.jar
+ln -s -f %{_javadir}/hibernate3/hibernate-c3p0.jar $RPM_BUILD_ROOT%{_javadir}/hibernate3/hibernate-c3p0-3.jar
+ln -s -f %{_javadir}/hibernate3/hibernate-ehcache.jar $RPM_BUILD_ROOT%{_javadir}/hibernate3/hibernate-ehcache-3.jar
+%endif
+
 %if  0%{?rhel} && 0%{?rhel} < 6
 ant -Dprefix=$RPM_BUILD_ROOT install-tomcat5
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/tomcat5/Catalina/localhost/
@@ -470,7 +477,7 @@ install -d -m 755 $RPM_BUILD_ROOT%{cobdirsnippets}
 install -d -m 755 $RPM_BUILD_ROOT%{_var}/spacewalk/systemlogs
 
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
-%if 0%{?fedora} && 0%{?fedora} > 17
+%if 0%{?fedora}
 echo "hibernate.cache.region.factory_class=net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory" >> conf/default/rhn_hibernate.conf
 echo "wrapper.java.classpath.49=/usr/share/java/hibernate3/hibernate-core-3.jar
 wrapper.java.classpath.61=/usr/share/java/hibernate3/hibernate-ehcache-3.jar
@@ -528,7 +535,7 @@ ln -s -f %{_javadir}/asm/asm.jar  $RPM_BUILD_ROOT%{_datadir}/rhn/lib/spacewalk-a
 %endif
 
 # hack for new hibernate, symlinking with usage of ant works weird
-%if 0%{?fedora} && 0%{?fedora} > 17
+%if 0%{?fedora}
 ln -s -f %{_javadir}/hibernate3/hibernate-c3p0-3.jar  $RPM_BUILD_ROOT%{jardir}/hibernate3_hibernate-c3p0-3.jar
 ln -s -f %{_javadir}/hibernate3/hibernate-ehcache-3.jar  $RPM_BUILD_ROOT%{jardir}/hibernate3_hibernate-ehcache-3.jar
 %endif
@@ -619,7 +626,7 @@ fi
 %{jardir}/dom4j.jar
 %{jardir}/dwr.jar
 %{jardir}/hibernate3*
-%if 0%{?fedora} && 0%{?fedora} > 17
+%if 0%{?fedora}
 %{jardir}/ehcache-core.jar
 %{jardir}/hibernate_hibernate-commons-annotations.jar
 %{jardir}/hibernate-jpa-2.0-api.jar
@@ -627,6 +634,11 @@ fi
 %{jardir}/jboss-logging.jar
 %{jardir}/slf4j_api.jar
 %{jardir}/slf4j_log4j12.jar
+%endif
+%if 0%{?fedora} && 0%{?fedora} < 18
+%{_javadir}/hibernate3/hibernate-core-3.jar
+%{_javadir}/hibernate3/hibernate-c3p0-3.jar
+%{_javadir}/hibernate3/hibernate-ehcache-3.jar
 %endif
 %{jardir}/jaf.jar
 %{jardir}/javamail.jar
