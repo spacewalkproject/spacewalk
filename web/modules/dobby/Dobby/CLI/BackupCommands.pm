@@ -49,10 +49,6 @@ sub register_dobby_commands {
   $cli->register_mode(-command => "online-backup",
           -description => "Perform online backup of RHN Satellite database (PostgreSQL only)",
           -handler => \&command_pg_online_backup);
-  $cli->register_mode(-command => "pg-restore",
-          -description => "Restore the PostgreSQL database of RHN Satellite made by pg-online-backup",
-          -handler => \&command_pg_restore);
-
 }
 
 # returns $file cuted of prefix made from $cut_off_dir
@@ -144,9 +140,15 @@ sub command_restore {
 
   my $backend = PXT::Config->get('db_backend');
   my $cfg = new PXT::Config("dobby");
-  $cli->usage("BACKUP_DIR") unless $restore_dir and -d $restore_dir;
+  $cli->usage("BACKUP") unless $restore_dir and -e $restore_dir;
   my $restore_log = File::Spec->catfile($restore_dir, "backup-log.dat");
-  $cli->fatal("Error: restoration failed, unable to locate $restore_log") unless -r $restore_log;
+
+  if ($backend eq 'postgresql' and -f $restore_dir) {
+      # online backup dump
+      return command_pg_restore($cli, $command, $restore_dir);
+  } elsif (not (-r $restore_log)) {
+      $cli->fatal("Error: restoration failed, unable to locate $restore_log");
+  }
 
   my $d = new Dobby::DB;
   print "Parsing backup log.\n";
