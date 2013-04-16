@@ -46,8 +46,8 @@ sub register_dobby_commands {
   $cli->register_mode(-command => "examine",
 		      -description => "Display information about a database instance of RHN Satellite backup",
 		      -handler => \&command_restore);
-  $cli->register_mode(-command => "pg-online-backup",
-          -description => "Perform online backup the PostgreSQL of RHN Satellite database",
+  $cli->register_mode(-command => "online-backup",
+          -description => "Perform online backup of RHN Satellite database (PostgreSQL only)",
           -handler => \&command_pg_online_backup);
   $cli->register_mode(-command => "pg-restore",
           -description => "Restore the PostgreSQL database of RHN Satellite made by pg-online-backup",
