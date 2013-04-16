@@ -7511,6 +7511,12 @@ Follow this url to see the full list of inactive systems:
         </context-group>
         <target>একটি কর্ম নির্ধারিত হয়েছে।</target>
       </trans-unit>
+      <trans-unit id="systems.details.virt.actions.scheduled">
+        <source>Scheduled {0} actions.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>{0}-টি কর্ম নির্ধারিত হয়েছে।</target></trans-unit>
       <trans-unit id="systems.details.virt.no.virt.deleted">
         <source>No virtual systems deleted.</source>
         <context-group name="ctx">
