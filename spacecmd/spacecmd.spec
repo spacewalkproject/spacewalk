@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.10.1
+Version:     1.10.2
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -60,6 +60,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Tue Apr 16 2013 Stephen Herr <sherr@redhat.com> 1.10.2-1
+- Make spacecmd able to specify config channel label
+
 * Wed Mar 13 2013 Aron Parsons <aronparsons@gmail.com> 1.10.1-1
 - fix directory export in configchannel_export
 - use 755 as default permissions for directories in
