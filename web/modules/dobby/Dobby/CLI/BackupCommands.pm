@@ -355,6 +355,10 @@ sub command_pg_restore {
   $EUID = $rec[2];
   $cli->fatal("Error: file $file is not readable by user $rec[0]") unless -r $file;
 
+  my $service_status = system('service postgresql status >/dev/null 2>&1');
+  $cli->fatal("PostgreSQL database is not running.\n"
+             ."Run 'service postgresql start' to start it.") unless $service_status == 0;
+
   my $user = PXT::Config->get("db_user");
   my $password = PXT::Config->get("db_password");
   my $schema = PXT::Config->get("db_name");
