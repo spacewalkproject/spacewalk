@@ -5,7 +5,7 @@ Name: cobbler-loaders
 License: GPLv2+
 AutoReq: no
 Version: 1.0.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Url: http://fedorahosted.org/cobbler
 Source0: cobbler-loaders-%{version}.tar.gz
 Group: Applications/System
