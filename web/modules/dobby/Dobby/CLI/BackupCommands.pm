@@ -355,7 +355,8 @@ sub command_pg_restore {
 
   my $user = PXT::Config->get("db_user");
   my $password = PXT::Config->get("db_password");
-  my $dsn = "dbi:Pg:dbname=".PXT::Config->get("db_name");
+  my $schema = PXT::Config->get("db_name");
+  my $dsn = "dbi:Pg:dbname=$schema";
   my $dbh = RHN::DB->direct_connect($dsn);
 
   no warnings 'redefine';
@@ -363,6 +364,12 @@ sub command_pg_restore {
      system @_;
   }
 
+  my $is_active = (Dobby::Reporting->active_sessions_postgresql($dbh, $schema) > 1);
+  if ($is_active) {
+      $cli->fatal("There are running spacewalk services which are using database.\n"
+                . "Run 'spacewalk-service --exclude=postgresql stop' to stop them.");
+      exit 1;
+  }
   postgresql_clear_db($dbh, 0);
   system('/usr/bin/droplang', 'plpgsql', PXT::Config->get('db_name'));
 

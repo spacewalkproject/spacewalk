@@ -138,4 +138,16 @@ EOQ
   return @{$sth->fetchall_arrayref({ })};
 }
 
+sub active_sessions_postgresql {
+  my $class = shift;
+  my $dbh = shift;
+  my $schema = shift;
+
+  my $query = "SELECT COUNT(*) FROM pg_stat_activity WHERE datname = ?";
+
+  my $sth = $dbh->prepare($query);
+  $sth->execute($schema);
+  return $sth->fetch()->[0];
+}
+
 1;
