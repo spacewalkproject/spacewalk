@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.51
+Version: 1.10.52
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -743,6 +743,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Apr 16 2013 Matej Kollar <mkollar@redhat.com> 1.10.52-1
+- Dead store removal (most of them)
+- Speeding up c3p0 Connection testing.
+
 * Fri Apr 12 2013 Jan Pazdziora 1.10.51-1
 - 950833 - remove confusing 'delete user' and 'deactivate user' links
 
