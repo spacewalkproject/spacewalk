@@ -270,15 +270,17 @@ public class KickstartBuilder {
         StringBuffer buf = new StringBuffer();
         String interpreter = "";
         String chroot = "Y";
+        boolean errorOnFail = false;
         for (String currentLine : lines) {
             if (currentLine.startsWith(prefix)) {
                 if (buf.toString().length() > 0) {
-                    storeScript(prefix, ksData, buf, interpreter, chroot);
+                    storeScript(prefix, ksData, buf, interpreter, chroot, errorOnFail);
                 }
                 buf = new StringBuffer();
 
                 interpreter = getInterpreter(currentLine);
                 chroot = getChroot(prefix, currentLine);
+                errorOnFail = getErrorOnFail(currentLine);
 
                 continue;
             }
@@ -287,7 +289,7 @@ public class KickstartBuilder {
             }
             buf.append(currentLine);
         }
-        storeScript(prefix, ksData, buf, interpreter, chroot);
+        storeScript(prefix, ksData, buf, interpreter, chroot, errorOnFail);
     }
 
     private String getInterpreter(String prefixLine) {
@@ -319,8 +321,18 @@ public class KickstartBuilder {
         return "Y";
     }
 
+    private boolean getErrorOnFail(String prefixLine) {
+        String[] tokens = prefixLine.split(" ");
+        for (String token : tokens) {
+            if (token.equals("--erroronfail")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void storeScript(String prefix, KickstartData ksData, StringBuffer buf,
-            String interpreter, String chroot) {
+            String interpreter, String chroot, boolean errorOnFail) {
         KickstartScriptCreateCommand scriptCommand =
                 new KickstartScriptCreateCommand(ksData.getId(), user);
 
@@ -329,7 +341,8 @@ public class KickstartBuilder {
             type = KickstartScript.TYPE_POST;
         }
 
-        scriptCommand.setScript(interpreter, buf.toString(), type, chroot, false, null);
+        scriptCommand.setScript(interpreter, buf.toString(), type, chroot, false, null,
+                errorOnFail);
         scriptCommand.store();
 
     }

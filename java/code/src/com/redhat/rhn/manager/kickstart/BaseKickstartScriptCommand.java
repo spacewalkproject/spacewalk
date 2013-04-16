@@ -62,10 +62,11 @@ public class BaseKickstartScriptCommand extends BaseKickstartCommand {
      * @param chrootIn value of chroot ("Y" or "N")
      * @param templatize whether to templatize the script or not
      * @param scriptName name of the script
+     * @param errorOnFail boolean, do we throw an error if the script fails?
      */
     public void setScript(String language, String contentsIn,
                                String typeIn, String chrootIn, boolean templatize,
-                               String scriptName) {
+                               String scriptName, boolean errorOnFail) {
         if (!typeIn.equals(KickstartScript.TYPE_POST) &&
                 !typeIn.equals(KickstartScript.TYPE_PRE)) {
             throw new IllegalArgumentException("Unknown script type: " + typeIn);
@@ -98,6 +99,7 @@ public class BaseKickstartScriptCommand extends BaseKickstartCommand {
         this.script.setInterpreter(language);
         this.script.setScriptType(typeIn);
         this.script.setChroot(chrootIn);
+        this.script.setErrorOnFail(errorOnFail);
         this.script.setRaw(!templatize); //template is the ! of raw
         this.script.setScriptName(scriptName);
     }
@@ -158,5 +160,15 @@ public class BaseKickstartScriptCommand extends BaseKickstartCommand {
      */
     public Boolean getNoChrootVal() {
         return Boolean.valueOf(!this.script.getChroot().equals("Y"));
+    }
+
+    /**
+     * @return Boolean value that determines whether
+     * or not the checkbox associated with erroronfail
+     * should be checked.
+     * @return
+     */
+    public Boolean getErrorOnFail() {
+        return this.script.getErrorOnFail();
     }
 }

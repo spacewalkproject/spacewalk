@@ -39,6 +39,8 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *                      shell.")
  *          #prop_desc("boolean", "chroot", "True if the script will be executed within the
  *                  chroot environment.")
+ *          #prop_desc("boolean", "erroronfail", "True if the script will throw an error if
+ *                  it fails.")
  *          #prop_desc("boolean", "template", "True if templating using cobbler is enabled")
  *     #struct_end()
  */
@@ -77,6 +79,8 @@ public class KickstartScriptSerializer implements XmlRpcCustomSerializer {
         else {
             helper.add("chroot", false);
         }
+
+        helper.add("erroronfail", script.getErrorOnFail());
 
         helper.add("template", !script.getRaw());
 

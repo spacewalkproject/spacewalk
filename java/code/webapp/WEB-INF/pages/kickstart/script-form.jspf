@@ -60,6 +60,14 @@
           </tr>
           <tr>
               <th>
+                  <bean:message key="kickstart.script.erroronfail"/>
+              </th>
+              <td>
+                  <html:checkbox  property="erroronfail"  />
+              </td>
+          </tr>
+          <tr>
+              <th>
                   <bean:message key="kickstart.script.template"/>
               </th>
               <td>

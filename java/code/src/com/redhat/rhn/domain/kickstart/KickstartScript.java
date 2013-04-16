@@ -31,6 +31,7 @@ public class KickstartScript implements Comparable<KickstartScript> {
     private Long position;
     private String scriptType;
     private String chroot;
+    private Boolean errorOnFail = false;
     private String interpreter;
     private String scriptName;
     private byte[] data;
@@ -129,6 +130,22 @@ public class KickstartScript implements Comparable<KickstartScript> {
     */
     public void setChroot(String chrootIn) {
         this.chroot = chrootIn;
+    }
+
+    /**
+     * Getter for errorOnFail
+     * @return Boolean to get
+     */
+    public Boolean getErrorOnFail() {
+        return this.errorOnFail;
+    }
+
+    /**
+     * Setter for errorOnFail
+     * @param errorOnFailIn to set
+     */
+    public void setErrorOnFail(Boolean errorOnFailIn) {
+        this.errorOnFail = errorOnFailIn;
     }
 
     /**
@@ -238,6 +255,7 @@ public class KickstartScript implements Comparable<KickstartScript> {
         cloned.setPosition(this.getPosition());
         cloned.setScriptType(this.getScriptType());
         cloned.setRaw(this.getRaw());
+        cloned.setErrorOnFail(this.getErrorOnFail());
         return cloned;
     }
 

@@ -9667,6 +9667,12 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/kickstart/KickstartOverview.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="kickstart.script.erroronfail">
+        <source>erroronfail</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/KickstartOverview.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="kickstart.script.template">
         <source>Template</source>
         <context-group name="ctx">

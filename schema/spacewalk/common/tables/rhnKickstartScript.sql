@@ -30,6 +30,10 @@ CREATE TABLE rhnKickstartScript
                       DEFAULT ('Y') NOT NULL
                       CONSTRAINT rhn_ksscript_chroot_ck
                           CHECK (chroot in ('Y','N')),
+    error_on_fail CHAR(1)
+                      DEFAULT ('N') not NULL
+                      CONSTRAINT rhn_ksscript_erroronfail_ck
+                          CHECK (error_on_fail in ('Y','N')),
     raw_script    CHAR(1)
                       DEFAULT ('Y') NOT NULL
                       CONSTRAINT rhn_ksscript_rawscript_ck

@@ -41,6 +41,7 @@ public abstract class BaseKickstartScriptAction extends BaseKickstartEditAction 
     public static final String TYPE = "type";
     public static final String TYPES = "types";
     public static final String NOCHROOT = "nochroot";
+    public static final String ERRORONFAIL = "erroronfail";
     public static final String TEMPLATE = "template";
 
     /**
@@ -55,6 +56,11 @@ public abstract class BaseKickstartScriptAction extends BaseKickstartEditAction 
         Boolean template = false;
         if (form.get(TEMPLATE) != null) {
             template = (Boolean) form.get(TEMPLATE);
+        }
+
+        Boolean errorOnFail = false;
+        if (form.get(ERRORONFAIL) != null) {
+            errorOnFail = (Boolean) form.get(ERRORONFAIL);
         }
 
         String chroot = "Y";
@@ -73,16 +79,13 @@ public abstract class BaseKickstartScriptAction extends BaseKickstartEditAction 
             request.setAttribute(CONTENTS, scriptValue);
             request.setAttribute(TYPE, form.getString(TYPE));
             request.setAttribute(NOCHROOT, form.get(NOCHROOT));
+            request.setAttribute(ERRORONFAIL, form.get(ERRORONFAIL));
             request.setAttribute(TEMPLATE, form.get(TEMPLATE));
             return result.getErrors().get(0);
         }
 
-        kssc.setScript(form.getString(LANGUAGE),
-                scriptValue,
-                form.getString(TYPE),
-                chroot,
-                template,
-                form.getString(SCRIPTNAME));
+        kssc.setScript(form.getString(LANGUAGE), scriptValue, form.getString(TYPE), chroot,
+                template, form.getString(SCRIPTNAME), errorOnFail);
         return null;
     }
 
@@ -112,6 +115,7 @@ public abstract class BaseKickstartScriptAction extends BaseKickstartEditAction 
             form.set(LANGUAGE, req.getAttribute(LANGUAGE));
             form.set(TYPE, req.getAttribute(TYPE));
             form.set(NOCHROOT, req.getAttribute(NOCHROOT));
+            form.set(ERRORONFAIL, req.getAttribute(ERRORONFAIL));
             form.set(TEMPLATE, req.getAttribute(TEMPLATE));
 
         }
@@ -121,6 +125,7 @@ public abstract class BaseKickstartScriptAction extends BaseKickstartEditAction 
             form.set(LANGUAGE, kssc.getLanguage());
             form.set(TYPE, kssc.getType());
             form.set(NOCHROOT, kssc.getNoChrootVal());
+            form.set(ERRORONFAIL, kssc.getErrorOnFail());
             form.set(TEMPLATE, !kssc.getScript().getRaw());
         }
     }
