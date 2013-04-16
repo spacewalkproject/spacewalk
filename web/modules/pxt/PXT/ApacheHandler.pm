@@ -263,10 +263,6 @@ sub initialize_pxt {
   $SIG{__WARN__} = sub { my $str = shift; chomp $str; Apache2::ServerUtil->server->log_error($str) };
 
   my @hostname_personality;
-  if ($r->dir_config('allow_pxt_personalities')) {
-    push @hostname_personality, (split /\./, $r->headers_in->{'Host'})[0];
-    $r->pnotes('hostname_personality' => $hostname_personality[0]);
-  }
 
   PXT::Config->load_configs(grep { -e $_ } map { "/etc/rhn/rhn-$_.conf" } @hostname_personality);
 

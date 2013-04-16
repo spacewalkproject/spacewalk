@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.servlets.test;
 
-import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.frontend.servlets.PxtCookieManager;
 import com.redhat.rhn.manager.session.SessionManager;
@@ -37,8 +36,6 @@ public class PxtCookieManagerTest extends MockObjectTestCase {
     private Mock mockRequest;
 
     private PxtCookieManager manager;
-
-    private int pxtPersonalities;
 
     private String host;
 
@@ -65,8 +62,6 @@ public class PxtCookieManagerTest extends MockObjectTestCase {
 
         manager = new PxtCookieManager();
 
-        pxtPersonalities = Config.get().getInt(ConfigDefaults.WEB_ALLOW_PXT_PERSONALITIES);
-
         pxtSessionId = new Long(2658447890L);
 
         mockRequest = mock(HttpServletRequest.class);
@@ -79,9 +74,6 @@ public class PxtCookieManagerTest extends MockObjectTestCase {
     }
 
     protected void tearDown() throws Exception {
-        Config.get().setString(ConfigDefaults.WEB_ALLOW_PXT_PERSONALITIES,
-                Integer.toString(pxtPersonalities));
-
         super.tearDown();
     }
 
@@ -102,24 +94,7 @@ public class PxtCookieManagerTest extends MockObjectTestCase {
         assertNull(manager.getPxtCookie(getRequest()));
     }
 
-    public final void testGetPxtCookieWhenPxtCookieIsPresentWithPxtPersonalities() {
-        Config.get().setString(ConfigDefaults.WEB_ALLOW_PXT_PERSONALITIES, "1");
-
-        Cookie[] cookies = new Cookie[] {
-                new Cookie("cookie-1", "one"),
-                new Cookie(host + "-" + PxtCookieManager.PXT_SESSION_COOKIE_NAME,
-                        "we don't care about the value for this test"),
-                new Cookie("cookie-2", "two")
-        };
-
-        mockRequest.stubs().method("getCookies").will(returnValue(cookies));
-
-        assertEquals(cookies[1], manager.getPxtCookie(getRequest()));
-    }
-
     public final void testGetPxtCookieWhenPxtCookieIsPresentWithoutPxtPersonalities() {
-        Config.get().setString(ConfigDefaults.WEB_ALLOW_PXT_PERSONALITIES, "0");
-
         Cookie[] cookies = new Cookie[] {
                 new Cookie("cookie-1", "one"),
                 new Cookie(PxtCookieManager.PXT_SESSION_COOKIE_NAME,
@@ -132,18 +107,7 @@ public class PxtCookieManagerTest extends MockObjectTestCase {
         assertEquals(cookies[1], manager.getPxtCookie(getRequest()));
     }
 
-    public final void testCreatePxtCookieSetNameWithPxtPersonalities() {
-        Config.get().setString(ConfigDefaults.WEB_ALLOW_PXT_PERSONALITIES, "1");
-
-        Cookie pxtCookie = manager.createPxtCookie(pxtSessionId, getRequest(), TIMEOUT);
-
-        assertEquals(host + "-" + PxtCookieManager.PXT_SESSION_COOKIE_NAME,
-                pxtCookie.getName());
-    }
-
     public final void testCreatePxtCookieSetsNameWithoutPxtPersonalities() {
-        Config.get().setString(ConfigDefaults.WEB_ALLOW_PXT_PERSONALITIES, "0");
-
         Cookie pxtCookie = manager.createPxtCookie(pxtSessionId, getRequest(), TIMEOUT);
 
         assertEquals(PxtCookieManager.PXT_SESSION_COOKIE_NAME, pxtCookie.getName());

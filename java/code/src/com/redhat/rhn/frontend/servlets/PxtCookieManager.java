@@ -14,11 +14,9 @@
  */
 package com.redhat.rhn.frontend.servlets;
 
-import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.manager.session.SessionManager;
 
-import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -60,7 +58,7 @@ public class PxtCookieManager {
     public Cookie createPxtCookie(Long pxtSessionId, HttpServletRequest request,
             int timeout) {
 
-        String cookieName = getCookieName(request);
+        String cookieName = PXT_SESSION_COOKIE_NAME;
         String cookieValue = pxtSessionId + "x" +
             SessionManager.generateSessionKey(pxtSessionId.toString());
 
@@ -102,7 +100,7 @@ public class PxtCookieManager {
             return null;
         }
 
-        String pxtCookieName = getCookieName(request);
+        String pxtCookieName = PXT_SESSION_COOKIE_NAME;
 
         for (int i = 0; i < cookies.length; ++i) {
             if (pxtCookieName.equals(cookies[i].getName())) {
@@ -111,26 +109,6 @@ public class PxtCookieManager {
         }
 
         return null;
-    }
-
-    /**
-     * Determines the pxt cookie name. The name will include the server name from the
-     * request if the <code>web.allow_pxt_personalities</code> property in rhn.conf is set.
-     *
-     * @param request The current request.
-     *
-     * @return The pxt cookie name.
-     */
-    protected String getCookieName(HttpServletRequest request) {
-        Config c = Config.get();
-        int personality = c.getInt(ConfigDefaults.WEB_ALLOW_PXT_PERSONALITIES);
-
-        if (personality > 0) {
-            String[] name = StringUtils.split(request.getServerName(), '.');
-            return name[0] + "-" + PXT_SESSION_COOKIE_NAME;
-        }
-
-        return PXT_SESSION_COOKIE_NAME;
     }
 
 }

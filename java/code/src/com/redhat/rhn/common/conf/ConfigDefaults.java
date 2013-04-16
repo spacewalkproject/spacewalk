@@ -36,7 +36,6 @@ public class ConfigDefaults {
     public static final String SSL_AVAILABLE = "ssl_available";
 
     public static final String SYSTEM_CHECKIN_THRESHOLD = "web.system_checkin_threshold";
-    public static final String WEB_ALLOW_PXT_PERSONALITIES = "web.allow_pxt_personalities";
     public static final String WEB_DEFAULT_MAIL_FROM = "web.default_mail_from";
     public static final String WEB_ENCRYPTED_PASSWORDS = "web.encrypted_passwords";
     public static final String WEB_L10N_RESOURCEBUNDLES = "web.l10n_resourcebundles";
