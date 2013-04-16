@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.frontend.struts;
 
-import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.errata.Errata;
@@ -38,7 +36,6 @@ import com.redhat.rhn.frontend.servlets.PxtSessionDelegate;
 import com.redhat.rhn.frontend.servlets.PxtSessionDelegateFactory;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
-import com.redhat.rhn.manager.session.SessionManager;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
@@ -50,7 +47,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -531,53 +527,6 @@ public class RequestContext {
         PxtSessionDelegate pxtDelegate = factory.newPxtSessionDelegate();
 
         return pxtDelegate.getPxtSession(request);
-    }
-
-    /**
-     * Returns the pxt session cookie name, handles allow_pxt_personalities. This
-     * should be removed once completely Java and stick to the HttpSession.
-     *
-     * @return The WebSession (pxt session) name taking into consideration the
-     * allow_pxt_personalities.
-     */
-    // TODO Write unit tests for getWebSessionCookieName()
-    public String getWebSessionCookieName() {
-        Config c = Config.get();
-        int personality = c.getInt(ConfigDefaults.WEB_ALLOW_PXT_PERSONALITIES);
-        if (personality > 0) {
-            String[] name = StringUtils.split(request.getServerName(), '.');
-
-            return name[0] + "-" + WEB_SESSION_COOKIE_NAME;
-        }
-
-        return WEB_SESSION_COOKIE_NAME;
-    }
-
-    /**
-     * Returns the value for the given named cookie, the value is cached in the
-     * Request as an attribute.
-     *
-     * @param name of cookie
-     * @return Value of cookie, or null if cookie is not found.
-     */
-    // TODO Write unit tests for getCookieValue(String)
-    public String getCookieValue(String name) {
-        String value = null;
-        Cookie[] cookies = request.getCookies();
-        if (cookies == null) {
-            return null;
-        }
-
-        for (int i = 0; i < cookies.length; i++) {
-            Cookie c = cookies[i];
-            if (c.getName().equals(name)) {
-                value = c.getValue();
-                break;
-            }
-        }
-
-        LOG.debug("Returning [" + value + "] for cookie named [" + name + "]");
-        return value;
     }
 
     /**
