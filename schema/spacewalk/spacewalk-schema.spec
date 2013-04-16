@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.24
+Version:        1.10.25
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Apr 16 2013 Stephen Herr <sherr@redhat.com> 1.10.25-1
+- 952839 - adding erroronfail option for kickstart scripts
+- add oracle equivalent source (even empty)
+
 * Mon Apr 08 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.24-1
 - fix pl/sql if syntax
 
