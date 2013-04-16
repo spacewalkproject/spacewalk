@@ -322,29 +322,35 @@ def help_configchannel_create(self):
 
 options:
   -n NAME
+  -l LABEL
   -d DESCRIPTION'''
 
 def do_configchannel_create(self, args):
     options = [ Option('-n', '--name', action='store'),
+                Option('-l', '--label', action='store'),
                 Option('-d', '--description', action='store') ]
 
     (args, options) = parse_arguments(args, options)
 
     if is_interactive(options):
         options.name = prompt_user('Name:', noblank = True)
+        options.label = prompt_user('Label:')
         options.description = prompt_user('Description:')
 
+        if options.label == '': options.label = options.name
         if options.description == '': options.description = options.name
     else:
         if not options.name:
             logging.error('A name is required')
             return
 
+        if not options.label:
+            options.label = options.name
         if not options.description:
             options.description = options.name
 
     self.client.configchannel.create(self.session,
-                                     options.name,
+                                     options.label,
                                      options.name,
                                      options.description)
 
