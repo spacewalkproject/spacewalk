@@ -263,6 +263,15 @@ sub shrink_segment {
   }
 }
 
+sub shrink_segments_postgresql {
+  my $self = shift;
+
+  my $dbh = $self->connect;
+  $dbh->{AutoCommit} = 1;
+  $dbh->do("VACUUM");
+  $dbh->{AutoCommit} = 0;
+}
+
 sub listener_startup {
   my $self = shift;
 

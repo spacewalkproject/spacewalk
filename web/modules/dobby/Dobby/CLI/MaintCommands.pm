@@ -34,7 +34,7 @@ sub register_dobby_commands {
 		      -description => "Gather statistics on database instance of RHN Satellite objects",
 		      -handler => \&gather_stats);
   $cli->register_mode(-command => "shrink-segments",
-		      -description => "Shrink Oracle database segments of RHN Satellite (Oracle only)",
+		      -description => "Shrink Oracle database segments of RHN Satellite",
 		      -handler => \&shrink_segments);
 }
 
@@ -144,7 +144,6 @@ sub shrink_segments {
   my $cli = shift;
 
   my $backend = PXT::Config->get('db_backend');
-  $cli->fatal("Error: This command works only with Oracle.") unless ($backend eq 'oracle');
 
   my $d = new Dobby::DB;
 
@@ -153,28 +152,34 @@ sub shrink_segments {
     return 1;
   }
 
-  print "Running segment advisor to find out shrinkable segments...\n";
+  if ($backend eq 'oracle') {
+      print "Running segment advisor to find out shrinkable segments...\n";
+  }
   print "WARNING: this may be a slow process.\n";
-  $d->segadv_runtask();
-  my %msg = (
-        'AUTO'   => "Shrinking recomended segments...\n",
-        'MANUAL' => "Segments in non-shrinkable tablespace...\n",
-        );
-  my %printed = (
-        'AUTO'   => 0,
-        'MANUAL' => 0,
-        );
+  if ($backend eq 'oracle') {
+      $d->segadv_runtask();
+      my %msg = (
+            'AUTO'   => "Shrinking recomended segments...\n",
+            'MANUAL' => "Segments in non-shrinkable tablespace...\n",
+            );
+      my %printed = (
+            'AUTO'   => 0,
+            'MANUAL' => 0,
+            );
 
-  for my $rec (Dobby::Reporting->segadv_recomendations($d)) {
-    if (not $printed{$rec->{SEGMENT_SPACE_MANAGEMENT}}) {
-        print $msg{$rec->{SEGMENT_SPACE_MANAGEMENT}};
-        $printed{$rec->{SEGMENT_SPACE_MANAGEMENT}}++;
-    }
-    printf "%-32s %7s reclaimable\n", $rec->{SEGMENT_NAME},
-           Dobby::CLI::MiscCommands->size_scale($rec->{RECLAIMABLE_SPACE});
-    if ($rec->{SEGMENT_SPACE_MANAGEMENT} eq 'AUTO') {
-        $d->shrink_segment($rec);
-    }
+      for my $rec (Dobby::Reporting->segadv_recomendations($d)) {
+        if (not $printed{$rec->{SEGMENT_SPACE_MANAGEMENT}}) {
+            print $msg{$rec->{SEGMENT_SPACE_MANAGEMENT}};
+            $printed{$rec->{SEGMENT_SPACE_MANAGEMENT}}++;
+        }
+        printf "%-32s %7s reclaimable\n", $rec->{SEGMENT_NAME},
+               Dobby::CLI::MiscCommands->size_scale($rec->{RECLAIMABLE_SPACE});
+        if ($rec->{SEGMENT_SPACE_MANAGEMENT} eq 'AUTO') {
+            $d->shrink_segment($rec);
+        }
+      }
+  } else {
+      $d->shrink_segments_postgresql();
   }
 
   print "done.\n";

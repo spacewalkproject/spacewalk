@@ -138,7 +138,7 @@ Set database optimizer mode to ALL_ROWS (Oracle only).
 
 =item B<shrink-segments>
 
-Determines and shrinks database segments with signifcant amount of free space. (Oracle only)
+Determines and shrinks database segments with signifcant amount of free space.
 
 =item B<start>
 
