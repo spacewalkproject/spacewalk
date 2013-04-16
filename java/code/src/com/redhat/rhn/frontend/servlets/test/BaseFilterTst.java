@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.servlets.test;
 
 import com.redhat.rhn.domain.session.WebSession;
+import com.redhat.rhn.frontend.servlets.PxtCookieManager;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.RhnMockHttpServletRequest;
@@ -39,13 +40,14 @@ public abstract class BaseFilterTst extends RhnBaseTestCase {
         request = new RhnMockHttpServletRequest();
         session = new RhnMockHttpSession();
 
+        PxtCookieManager pcm = new PxtCookieManager();
         RequestContext requestContext = new RequestContext(request);
 
         request.setupServerName("mymachine.rhndev.redhat.com");
         request.setSession(session);
         request.setupGetRequestURI("http://localhost:8080");
         WebSession s = requestContext.getWebSession();
-        request.addCookie(requestContext.createWebSessionCookie(s.getId(), 10));
+        request.addCookie(pcm.createPxtCookie(s.getId(), request, 10));
         response = new RhnMockHttpServletResponse();
         chain = new MockFilterChain();
     }

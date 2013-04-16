@@ -18,6 +18,7 @@ import com.redhat.rhn.domain.session.WebSession;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.LoginAction;
 import com.redhat.rhn.frontend.integration.IntegrationService;
+import com.redhat.rhn.frontend.servlets.PxtCookieManager;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.testing.RhnBaseTestCase;
@@ -46,6 +47,7 @@ public class LoginActionTest extends RhnBaseTestCase {
 
         ActionMapping mapping = new ActionMapping();
         ActionForward failure = new ActionForward("failure", "path", false);
+        PxtCookieManager pcm = new PxtCookieManager();
         RhnMockDynaActionForm form = new RhnMockDynaActionForm("loginForm");
         RhnMockHttpServletRequest request = new RhnMockHttpServletRequest();
         RhnMockHttpServletResponse response = new RhnMockHttpServletResponse();
@@ -55,7 +57,7 @@ public class LoginActionTest extends RhnBaseTestCase {
         request.setSession(new MockHttpSession());
         request.setupServerName("mymachine.rhndev.redhat.com");
         WebSession s = requestContext.getWebSession();
-        request.addCookie(requestContext.createWebSessionCookie(s.getId(), 10));
+        request.addCookie(pcm.createPxtCookie(s.getId(), request, 10));
 
         mapping.addForwardConfig(failure);
         form.set("username", "");
@@ -72,6 +74,7 @@ public class LoginActionTest extends RhnBaseTestCase {
 
         ActionMapping mapping = new ActionMapping();
         ActionForward failure = new ActionForward("failure", "path", false);
+        PxtCookieManager pcm = new PxtCookieManager();
         RhnMockDynaActionForm form = new RhnMockDynaActionForm("loginForm");
         RhnMockHttpServletRequest request = new RhnMockHttpServletRequest();
         RhnMockHttpServletResponse response = new RhnMockHttpServletResponse();
@@ -81,7 +84,7 @@ public class LoginActionTest extends RhnBaseTestCase {
         request.setSession(new MockHttpSession());
         request.setupServerName("mymachine.rhndev.redhat.com");
         WebSession s = requestContext.getWebSession();
-        request.addCookie(requestContext.createWebSessionCookie(s.getId(), 10));
+        request.addCookie(pcm.createPxtCookie(s.getId(), request, 10));
 
         mapping.addForwardConfig(failure);
         form.set("username", "someusername");
@@ -120,6 +123,7 @@ public class LoginActionTest extends RhnBaseTestCase {
         User u = UserTestUtils.findNewUser("testUser", "testOrg");
         ActionMapping mapping = new ActionMapping();
         mapping.addForwardConfig(new ActionForward("loggedin", "path", false));
+        PxtCookieManager pcm = new PxtCookieManager();
         RhnMockDynaActionForm form = new RhnMockDynaActionForm("loginForm");
         RhnMockHttpServletRequest request = new RhnMockHttpServletRequest();
         RhnMockHttpServletResponse response = new RhnMockHttpServletResponse();
@@ -129,7 +133,7 @@ public class LoginActionTest extends RhnBaseTestCase {
         request.setSession(new MockHttpSession());
         request.setupServerName("mymachine.rhndev.redhat.com");
         WebSession s = requestContext.getWebSession();
-        request.addCookie(requestContext.createWebSessionCookie(s.getId(), 10));
+        request.addCookie(pcm.createPxtCookie(s.getId(), request, 10));
 
         form.set("username", u.getLogin());
         /**
@@ -151,6 +155,7 @@ public class LoginActionTest extends RhnBaseTestCase {
         ActionMapping mapping = new ActionMapping();
         ActionForward success = new ActionForward(null, "login_failed", false);
         ActionForward failure = new ActionForward("failure", "path", false);
+        PxtCookieManager pcm = new PxtCookieManager();
         RhnMockDynaActionForm form = new RhnMockDynaActionForm("loginForm");
         RhnMockHttpServletRequest request = new RhnMockHttpServletRequest();
         RhnMockHttpServletResponse response = new RhnMockHttpServletResponse();
@@ -160,7 +165,7 @@ public class LoginActionTest extends RhnBaseTestCase {
         request.setupServerName("mymachine.rhndev.redhat.com");
 
         WebSession s = requestContext.getWebSession();
-        request.addCookie(requestContext.createWebSessionCookie(s.getId(), 10));
+        request.addCookie(pcm.createPxtCookie(s.getId(), request, 10));
 
         mapping.setInput("login_failed");
         mapping.addForwardConfig(success);
@@ -180,6 +185,7 @@ public class LoginActionTest extends RhnBaseTestCase {
 
         ActionMapping mapping = new ActionMapping();
         mapping.addForwardConfig(new ActionForward("failure", "path", false));
+        PxtCookieManager pcm = new PxtCookieManager();
         RhnMockDynaActionForm form = new RhnMockDynaActionForm("loginForm");
         RhnMockHttpServletRequest request = new RhnMockHttpServletRequest();
         RhnMockHttpServletResponse response = new RhnMockHttpServletResponse();
@@ -189,7 +195,7 @@ public class LoginActionTest extends RhnBaseTestCase {
         request.setSession(new MockHttpSession());
         request.setupServerName("mymachine.rhndev.redhat.com");
         WebSession s = requestContext.getWebSession();
-        request.addCookie(requestContext.createWebSessionCookie(s.getId(), 10));
+        request.addCookie(pcm.createPxtCookie(s.getId(), request, 10));
 
         form.set("username", u.getLogin());
         /**

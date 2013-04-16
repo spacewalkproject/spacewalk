@@ -554,33 +554,6 @@ public class RequestContext {
     }
 
     /**
-     * Creates the WebSession (pxt session) cookie with the given id.
-     *
-     * @param sessionId WebSession (pxt session) id.
-     * @param timeout lifespan of cookie in seconds.
-     * @return The WebSession (pxt session) cookie.
-     */
-    // TODO Write unit tests for createWebSessionCookie(Long, int)
-    public Cookie createWebSessionCookie(Long sessionId, int timeout) {
-        Cookie cookie = new Cookie(getWebSessionCookieName(), "");
-        String sId = sessionId.toString();
-        cookie.setValue(sId + "x" + SessionManager.generateSessionKey(sId));
-        // Do NOT set the domain for the cookie. The default is to set
-        // the _Host_ for the cookie from the request.getHost() method.
-        // If we override this with setDomain, then cookie.setDomain will
-        // add a "." to the start of the specified value (if it doesn't
-        // exist), which means the cookie is good for the whole domain,
-        // which isn't what the perl code does, so the LOGout doesn't work
-        // properly.
-        cookie.setDomain(request.getServerName());
-        cookie.setPath("/");
-        cookie.setMaxAge(timeout);
-        cookie.setSecure(ConfigDefaults.get().isSSLAvailable());
-
-        return cookie;
-    }
-
-    /**
      * Returns the value for the given named cookie, the value is cached in the
      * Request as an attribute.
      *
