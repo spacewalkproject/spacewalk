@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.55
+Version: 1.10.56
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -755,6 +755,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Apr 16 2013 Stephen Herr <sherr@redhat.com> 1.10.56-1
+- 952839 - checkstyle fixes
+
 * Tue Apr 16 2013 Stephen Herr <sherr@redhat.com> 1.10.55-1
 - 952839 - adding erroronfail option for kickstart scripts
 
