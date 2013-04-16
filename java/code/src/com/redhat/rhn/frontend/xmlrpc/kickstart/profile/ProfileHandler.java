@@ -483,6 +483,7 @@ public class ProfileHandler extends BaseHandler {
      * @param type "pre" or "post"
      * @param chroot true if you want it to be chrooted
      * @param template enable templating using cobbler
+     * @param erroronfail Whether to throw an error if the script fails or not
      * @return the id of the created script
      *
      * @xmlrpc.doc Add a pre/post script to a kickstart profile.
@@ -499,7 +500,8 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("boolean", "chroot", "Whether to run the script
      * in the chrooted install location (recommended) or not.")
      * @xmlrpc.param #param_desc("boolean", "template", "Enable templating using cobbler.")
-     * @xmlrpc.param #param_desc("boolean", "erroronfail", "Throw an error if the script fails?")
+     * @xmlrpc.param #param_desc("boolean", "erroronfail", "Whether to throw an
+     * error if the script fails or not")
      * @xmlrpc.returntype int id - the id of the added script
      *
      */
