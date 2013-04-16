@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.52
+Version: 1.10.53
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -755,6 +755,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Apr 16 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.53-1
+- using hibernate from fedora repo on f17
+
 * Tue Apr 16 2013 Matej Kollar <mkollar@redhat.com> 1.10.52-1
 - Dead store removal (most of them)
 - Speeding up c3p0 Connection testing.
