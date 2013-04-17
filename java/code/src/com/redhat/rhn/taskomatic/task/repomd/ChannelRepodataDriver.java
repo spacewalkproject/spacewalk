@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.taskomatic.task.repomd;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
@@ -106,7 +106,7 @@ public class ChannelRepodataDriver implements QueueDriver {
      * @return Returns max workers
      */
     public int getMaxWorkers() {
-        return Config.get().getInt("java.taskomatic_channel_repodata_workers", 2);
+        return ConfigDefaults.get().getTaskoChannelRepodataWorkers();
     }
 
     /**

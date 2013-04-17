@@ -162,6 +162,12 @@ public class ConfigDefaults {
     public static final String SYSTEM_CURRENCY_BUG  = "java.sc_bug";
     public static final String SYSTEM_CURRENCY_ENH  = "java.sc_enh";
 
+    /**
+     * Taskomatic defaults
+     */
+    public static final String TASKOMATIC_CHANNEL_REPODATA_WORKERS
+        = "java.taskomatic_channel_repodata_workers";
+
     private ConfigDefaults() {
     }
 
@@ -530,5 +536,13 @@ public class ConfigDefaults {
      */
     public boolean isDocAvailable() {
         return !isSpacewalk();
+    }
+
+    /**
+     * Returns Max taskomatic channel repodata workers
+     * @return Max taskomatic channel repodata workers
+     */
+    public int getTaskoChannelRepodataWorkers() {
+        return Config.get().getInt(TASKOMATIC_CHANNEL_REPODATA_WORKERS, 2);
     }
 }
