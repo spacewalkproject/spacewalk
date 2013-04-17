@@ -144,7 +144,7 @@ public class MD5Crypt {
         //Generate random 8-char salt
         Random r = new Random();
         for (int i = 0; i < 8; i++) {
-            int rand = Math.abs(r.nextInt(b64t.length()));
+            int rand = r.nextInt(b64t.length());
             salt.append(b64t.charAt(rand));
         }
         //Return encoded string: $1$salt$encodedkey
