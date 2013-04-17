@@ -15,6 +15,9 @@
     <p>
         <bean:message key="activation-key.jsp.delete.para" arg0="/rhn/activationkeys/List.do"/>
     </p>
+    <p>
+        <bean:message key="activation-key.jsp.delete.warning" />
+    </p>
 </div>
 
 

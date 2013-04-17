@@ -14,6 +14,17 @@
  */
 package com.redhat.rhn.taskomatic.task;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
+
+import org.apache.commons.lang.StringUtils;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+
+import redstone.xmlrpc.XmlRpcFault;
+
 import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -24,19 +35,7 @@ import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroSyncCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileEditCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileSyncCommand;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemSyncCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
-
-import org.apache.commons.lang.StringUtils;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
-
-import redstone.xmlrpc.XmlRpcFault;
 
 /**
  * CobblerSyncTask
@@ -122,9 +121,6 @@ public class CobblerSyncTask extends RhnJavaJob {
 
             CobblerProfileSyncCommand profSync = new CobblerProfileSyncCommand();
             profSync.store();
-
-            CobblerSystemSyncCommand systemSync = new CobblerSystemSyncCommand();
-            systemSync.store();
 
             LAST_UPDATED.set((new Date()).getTime() / 1000 + 1);
         }
