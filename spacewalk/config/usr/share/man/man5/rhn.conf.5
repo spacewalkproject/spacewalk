@@ -225,6 +225,16 @@ This parameter controls which is the maximum allowed size for configuration file
 .B Default:
 32768
 
+.TP
+.B "taskomatic.channel_repodata_workers" (integer)
+This parameter controls how many repodata workers should generate repodata information concurrently.
+If the number of repodata workers running on the system are bigger than defined on
+.B taskomatic.channel_repodata_workers,
+then the job will be queued.
+.IP
+.B Default:
+2
+
 
 .SS Database Options
 .TP
