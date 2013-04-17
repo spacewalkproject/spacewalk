@@ -48,18 +48,10 @@ public class EnvironmentFilter implements Filter {
                                          "/rhn/rpc/api",
                                          "/rhn/ty/TinyUrl"};
 
-    // It is ok to maintain an instance because PxtSessionDelegate does not maintain client
-    // state.
-    private PxtSessionDelegate pxtDelegate;
-
     /**
      * {@inheritDoc}
      */
     public void init(FilterConfig arg0) throws ServletException {
-        PxtSessionDelegateFactory pxtDelegateFactory =
-            PxtSessionDelegateFactory.getInstance();
-
-        pxtDelegate = pxtDelegateFactory.newPxtSessionDelegate();
     }
 
     /**
