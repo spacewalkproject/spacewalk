@@ -148,6 +148,8 @@ BuildRequires: dom4j
 BuildRequires: dwr >= 3
 %if 0%{?fedora}
 BuildRequires: hibernate3 >= 0:3.6.10
+BuildRequires: hibernate3-c3p0 >= 3.6.10
+BuildRequires: hibernate3-ehcache >= 3.6.10
 BuildRequires: ehcache-core
 BuildRequires: javassist
 %else
@@ -532,12 +534,6 @@ ln -s -f %{_javadir}/objectweb-asm/asm-all.jar $RPM_BUILD_ROOT%{jardir}/asm_asm.
 ln -s -f %{_javadir}/objectweb-asm/asm-all.jar $RPM_BUILD_ROOT%{_datadir}/rhn/lib/spacewalk-asm.jar
 %else
 ln -s -f %{_javadir}/asm/asm.jar  $RPM_BUILD_ROOT%{_datadir}/rhn/lib/spacewalk-asm.jar
-%endif
-
-# hack for new hibernate, symlinking with usage of ant works weird
-%if 0%{?fedora}
-ln -s -f %{_javadir}/hibernate3/hibernate-c3p0-3.jar  $RPM_BUILD_ROOT%{jardir}/hibernate3_hibernate-c3p0-3.jar
-ln -s -f %{_javadir}/hibernate3/hibernate-ehcache-3.jar  $RPM_BUILD_ROOT%{jardir}/hibernate3_hibernate-ehcache-3.jar
 %endif
 
 # 732350 - On Fedora 15, mchange's log stuff is no longer in c3p0.
