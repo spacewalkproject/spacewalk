@@ -106,7 +106,7 @@ public class ChannelRepodataDriver implements QueueDriver {
      * @return Returns max workers
      */
     public int getMaxWorkers() {
-        return Config.get().getInt("taskomatic.channel_repodata_workers", 2);
+        return Config.get().getInt("java.taskomatic_channel_repodata_workers", 2);
     }
 
     /**
