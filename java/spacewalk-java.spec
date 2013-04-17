@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.56
+Version: 1.10.57
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Apr 17 2013 Jan Pazdziora 1.10.57-1
+- symlinking hibernate jars in the right way
+- Redundant Math.abs()
+- Salt generation corner case
+- creating configDefault for java.taskomatic_channel_repodata_workers
+- moving taskomatic.channel_repodata_workers config default from backend to
+  java
+- Switching to TransientScriptSessionManager to avoid POST
+  /rhn/dwr/call/plaincall/__System.pageLoaded.dwr.
+
 * Tue Apr 16 2013 Stephen Herr <sherr@redhat.com> 1.10.56-1
 - 952839 - checkstyle fixes
 
