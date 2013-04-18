@@ -69,6 +69,17 @@ public interface PxtSessionDelegate {
     WebSession getPxtSession(HttpServletRequest request);
 
     /**
+     * Retrieve the pxt session if there is a cookie identifying it or if it was
+     * already bound. The newly found session will be bound to a request attribute
+     * named <code>session</code>.
+     *
+     * @param request The current request
+     *
+     * @return The pxt session to which the request is bound if there is one.
+     */
+    WebSession getPxtSessionIfExists(HttpServletRequest request);
+
+    /**
      * Sets the <code>webUserId</code> property of the pxt session bound to the specified
      * request. Note that this operation triggers a session refresh.
      *

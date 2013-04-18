@@ -31,6 +31,7 @@ import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.token.TokenFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.servlets.PxtSessionDelegate;
 import com.redhat.rhn.frontend.servlets.PxtSessionDelegateFactory;
@@ -164,13 +165,10 @@ public class RequestContext {
             return null;
         }
 
-        WebSession pxtSession = getWebSession();
-
-        if (pxtSession == null) {
-            return null;
-        }
-
-        return pxtSession.getUser();
+        PxtSessionDelegateFactory factory = PxtSessionDelegateFactory.getInstance();
+        PxtSessionDelegate pxtDelegate = factory.newPxtSessionDelegate();
+        Long uid = pxtDelegate.getWebUserId(request);
+        return ((uid == null) ? null : UserFactory.lookupById(uid));
     }
 
     /**

@@ -50,8 +50,26 @@ public class PxtSessionDelegateImpl implements PxtSessionDelegate {
     /**
      * {@inheritDoc}
      */
+    public WebSession getPxtSessionIfExists(HttpServletRequest request) {
+        Object sessionAttribute = request.getAttribute("session");
+        if (!(sessionAttribute instanceof WebSession)) {
+            Long pxtSessionId = getPxtSessionId(request);
+
+            if (pxtSessionId != null) {
+                sessionAttribute = findPxtSessionById(pxtSessionId);
+            }
+
+            request.setAttribute("session", sessionAttribute);
+        }
+        return (WebSession)sessionAttribute;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public Long getWebUserId(HttpServletRequest request) {
-        return getPxtSession(request).getWebUserId();
+        WebSession session = getPxtSessionIfExists(request);
+        return ((session == null) ? null : session.getWebUserId());
     }
 
     /**
