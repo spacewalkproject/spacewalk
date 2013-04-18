@@ -201,7 +201,6 @@ class BrokerHandler(SharedHandler):
                       % repr(_oto['X-RHN-Proxy-Auth']))
 
         log_debug(3, 'Trying to connect to parent')
-        data = self.req.read()
             
         # Loops twice? Here's why:
         #   o If no errors, the loop is broken and we move on.
@@ -214,7 +213,7 @@ class BrokerHandler(SharedHandler):
             # Add the proxy version
             rhnFlags.get('outputTransportOptions')['X-RHN-Proxy-Version'] = str(_PROXY_VERSION)
 
-            status = self._serverCommo(data)       # part 2
+            status = self._serverCommo()       # part 2
 
             # check for proxy authentication blowup.
             respHeaders = self.responseContext.getHeaders()

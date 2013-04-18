@@ -181,11 +181,10 @@ class SharedHandler:
             port = None
         return scheme, host, port, path
 
-    def _serverCommo(self, data):
+    def _serverCommo(self):
         """ Handler part 2
         
             Server (or next proxy) communication.
-            data is the self.req.read()
         """
 
         log_debug(1)
@@ -199,7 +198,7 @@ class SharedHandler:
 
         # Send the headers, the body and expect a response
         try:
-            status, headers, bodyFd = self._proxy2server(data)
+            status, headers, bodyFd = self._proxy2server()
             self.responseContext.setHeaders(headers)
             self.responseContext.setBodyFd(bodyFd)
         except IOError:
@@ -325,13 +324,19 @@ class SharedHandler:
 
         self._forwardHTTPBody(bodyFd, self.req)
 
-    def _proxy2server(self, body):
+    def _proxy2server(self):
         hdrs = rhnFlags.get('outputTransportOptions')
-        log_debug(3, hdrs, "Content length", len(body))
+        log_debug(3, hdrs)
+        size = -1
 
         # Put the headers into the output connection object
         http_connection = self.responseContext.getConnection()
         for (k, vals) in hdrs.items():
+            if k.lower() in ['content_length', 'content-length']:
+                try:
+                    size = int(vals)
+                except ValueError:
+                    pass
             if k.lower() in ['content_length', 'content_type']:
                 # mod_wsgi modifies incoming headers so we have to transform them back
                 k = k.replace('_','-')
@@ -357,8 +362,8 @@ class SharedHandler:
         http_connection.endheaders()
 
         # Send the body too if there is a body
-        if body:
-            http_connection.send(body)
+        if size != 0:
+            http_connection.send(self.req.headers_in['wsgi.input'])
 
         # At this point everything is sent to the server
         # We now wait for the response

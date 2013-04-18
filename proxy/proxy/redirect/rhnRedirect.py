@@ -90,7 +90,7 @@ class RedirectHandler(SharedHandler):
         self._connectToParent()  # part 1
 
         log_debug(4, 'Initiating communication with server...')
-        status = self._serverCommo(self.req.read())       # part 2
+        status = self._serverCommo()       # part 2
         if (status != apache.OK) and (status != apache.HTTP_PARTIAL_CONTENT):
             log_debug(3, "Leaving handler with status code %s" % status)
             return status
@@ -413,7 +413,7 @@ class RedirectHandler(SharedHandler):
         # redirected, so we can safely pass an empty string in as the request
         # body.
 
-        status = self._serverCommo('')
+        status = self._serverCommo()
 
         # This little hack isn't pretty, but lets us normalize our result code.
 
