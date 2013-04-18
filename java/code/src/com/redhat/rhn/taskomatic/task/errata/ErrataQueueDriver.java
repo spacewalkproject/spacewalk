@@ -50,7 +50,7 @@ public class ErrataQueueDriver implements QueueDriver {
         SelectMode select = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_ERRATA_QUEUE_FIND_CANDIDATES);
         try {
-            return select.execute((Map) new HashMap());
+            return select.execute(new HashMap());
         }
         finally {
             HibernateFactory.closeSession();
