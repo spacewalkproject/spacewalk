@@ -1097,7 +1097,7 @@ public class ChannelFactory extends HibernateFactory {
         Criteria criteria = getSession().createCriteria(KickstartableTree.class);
         criteria.setProjection(Projections.rowCount());
         criteria.add(Restrictions.eq("channel", ch));
-        return (Integer)criteria.uniqueResult() > 0;
+        return ((Number)criteria.uniqueResult()).intValue() > 0;
     }
 
     /**
