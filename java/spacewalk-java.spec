@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.59
+Version: 1.10.60
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Apr 18 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.60-1
+- fixing possible errors/exceptions in list of virtual systems
+- removing dead code
+- containsDistributions should no longer cause exception of fedora
+
 * Wed Apr 17 2013 Grant Gainey 1.10.59-1
 - 953276 - Add warning to ActivationKey delete-confirm page.
   Also remove some dead code around CobblerSyncSystem (we have never
