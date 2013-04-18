@@ -397,18 +397,7 @@ sub cookie {
 }
 
 sub session_cookie_name {
-  my $self = shift;
-
   return "pxt-session-cookie";
-
-  my $personality = $self->pnotes('hostname_personality');
-
-  if ($personality) {
-    return "$personality-pxt-session-cookie";
-  }
-  else {
-    return "pxt-session-cookie";
-  }
 }
 
 sub cookie_jar {

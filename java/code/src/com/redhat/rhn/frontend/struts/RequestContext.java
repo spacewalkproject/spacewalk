@@ -110,8 +110,6 @@ public class RequestContext {
     public static final String FILTER_KEY = "Go";
     public static final String NO_SCRIPT = "noscript";
     public static final String MODE = "mode";
-    /** the name of the Red Hat session cookie */
-    public static final String WEB_SESSION_COOKIE_NAME = "pxt-session-cookie";
     public static final String POST = "POST";
 
 

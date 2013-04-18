@@ -180,7 +180,7 @@ public class TestUtils {
 
         pxtDelegate.updateWebUserId(req, resp, userid);
 
-        req.addCookie(resp.getCookie("mymachine-pxt-session-cookie"));
+        req.addCookie(resp.getCookie("pxt-session-cookie"));
         req.setupAddParameter("uid", userid.toString());
 
         return req;
