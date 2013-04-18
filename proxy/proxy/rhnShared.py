@@ -24,6 +24,7 @@ from types import ListType, TupleType
 ## global imports
 from rhn import connections
 from rhn.SSL import TimeoutException
+from rhn.SmartIO import SmartIO
 
 ## common imports
 from rhn.UserDictCase import UserDictCase
@@ -447,11 +448,17 @@ class SharedHandler:
 
         # read content if there is some or the size is unknown
         if (size > 0 or size == -1) and (toRequest.method != 'HEAD'):
+            tfile = SmartIO(max_mem_size=CFG.BUFFER_SIZE)
             buf = fromResponse.read(CFG.BUFFER_SIZE)
             while buf:
                 try:
-                    toRequest.write(buf)
+                    tfile.write(buf)
                     buf = fromResponse.read(CFG.BUFFER_SIZE)
                 except IOError:
                     buf = 0
+            tfile.seek(0)
+            if 'wsgi.file_wrapper' in toRequest.headers_in:
+                toRequest.output = toRequest.headers_in['wsgi.file_wrapper'](tfile, CFG.BUFFER_SIZE)
+            else:
+                toRequest.output = iter(lambda: tfile.read(CFG.BUFFER_SIZE), '')
 
