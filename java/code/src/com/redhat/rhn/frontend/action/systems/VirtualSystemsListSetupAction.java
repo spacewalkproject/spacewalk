@@ -61,7 +61,7 @@ public class VirtualSystemsListSetupAction extends BaseSystemListSetupAction {
         for (int i = 0; i < dr.size(); i++) {
             VirtualSystemOverview current = (VirtualSystemOverview) dr.get(i);
             if (current.isFakeNode()) {
-                i++;
+                continue;
             }
             else if (current.getUuid() == null) {
                 current.setSystemId(current.getHostSystemId());

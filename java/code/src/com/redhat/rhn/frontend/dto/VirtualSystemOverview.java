@@ -326,6 +326,6 @@ public class VirtualSystemOverview extends SystemOverview
      */
     public boolean isFakeNode() {
         return (FAKENODE_LABEL.equals(this.getServerName()) &&
-                (this.getHostSystemId().equals(new Long(0))));
+                ((new Long(0)).equals(this.getHostSystemId())));
     }
 }
