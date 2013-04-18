@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.60
+Version: 1.10.61
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Apr 18 2013 Grant Gainey 1.10.61-1
+- 953526 - Make cobbler/enable-menu match KS-Profile isActive()
+- removing unnecessary cast
+- make the select box for changing base channel as long as needed
+- Revert "do not compile test cases within compile-all task"
+
 * Thu Apr 18 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.60-1
 - fixing possible errors/exceptions in list of virtual systems
 - removing dead code
