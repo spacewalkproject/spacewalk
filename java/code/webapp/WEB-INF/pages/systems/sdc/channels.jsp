@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
@@ -109,7 +110,7 @@
           <p>
             <bean:message key="sdc.channels.edit.summary2"/>
           <p/>
-          <select name="new_base_channel_id" size="10">
+          <select name="new_base_channel_id" size="${fn:length(base_channels)+fn:length(custom_base_channels)+3}">
             <option value="-1"
             	<c:if test="${current_base_channel_id == -1}">
             		selected="selected"
