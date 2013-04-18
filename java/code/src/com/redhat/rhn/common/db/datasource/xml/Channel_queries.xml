@@ -571,6 +571,25 @@ SELECT  C.id, C.name, C.label, 1 AS IS_CUSTOM
   </query>
 </mode>
 
+<mode name="custom_base_channels_for_server"
+     class="com.redhat.rhn.frontend.dto.EssentialChannelDto">
+  <query params="org_id, server_arch_id">
+SELECT C.id, C.name, C.label, 1 AS IS_CUSTOM
+  FROM rhnChannel C
+  JOIN rhnServerChannelArchCompat scac ON scac.channel_arch_id = c.channel_arch_id
+ WHERE scac.server_arch_id = :server_arch_id
+   AND C.parent_channel IS NULL
+   AND (C.org_id = :org_id OR
+       (C.id, C.org_id)
+        IN
+        (SELECT scv.id, scv.org_id
+            FROM rhnSharedChannelView scv
+          WHERE scv.org_trust_id = :org_id
+            AND scv.parent_channel IS NULL))
+ ORDER BY UPPER(C.name)
+  </query>
+</mode>
+
 <mode name="base_eus_channels_by_version_release_server_arch"
      class="com.redhat.rhn.frontend.dto.EssentialChannelDto">
   <query params="product_name_label, version, server_arch, user_id, org_id">

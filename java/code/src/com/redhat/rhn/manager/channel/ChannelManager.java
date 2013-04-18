@@ -1989,7 +1989,7 @@ public class ChannelManager extends BaseManager {
         }
 
         // Get all the possible base-channels owned by this Org
-        channelDtos.addAll(listBaseChannelsForOrg(usr.getOrg()));
+        channelDtos.addAll(listCustomBaseChannelsForServer(s));
 
         for (DistChannelMap dcm : ChannelFactory.listCompatibleDcmByServerInNullOrg(s)) {
                 channelDtos.add(new EssentialChannelDto(dcm.getChannel()));
@@ -2238,6 +2238,21 @@ public class ChannelManager extends BaseManager {
             ModeFactory.getMode("Channel_queries", "base_channels_for_org");
         Map params = new HashMap();
         params.put("org_id", o.getId());
+        DataResult dr  = makeDataResult(params, new HashMap(), null, m);
+        return dr;
+    }
+
+    /**
+     * List base channels offered for the given server
+     * @param server server
+     * @return List of channels.
+     */
+    public static DataResult listCustomBaseChannelsForServer(Server server) {
+        SelectMode m =
+            ModeFactory.getMode("Channel_queries", "custom_base_channels_for_server");
+        Map params = new HashMap();
+        params.put("org_id", server.getOrg().getId());
+        params.put("server_arch_id", server.getServerArch().getId());
         DataResult dr  = makeDataResult(params, new HashMap(), null, m);
         return dr;
     }
