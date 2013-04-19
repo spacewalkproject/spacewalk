@@ -951,6 +951,20 @@ public class ChannelFactory extends HibernateFactory {
     }
 
     /**
+     * Lists *common* custom compatible channels
+     * for all SSM systems without base channel
+     * @param user user
+     * @return List of channels.
+     */
+    public static List<Channel> listCustomBaseChannelsForSSMNoBase(User user) {
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("org_id", user.getOrg().getId());
+        return singleton.listObjectsByNamedQuery(
+                "Channel.findCompatCustomBaseChsSSMNoBase", params);
+    }
+
+    /**
      * Lookup dist channel mappings for the given channel.
      * Returns empty list if none is found.
      *

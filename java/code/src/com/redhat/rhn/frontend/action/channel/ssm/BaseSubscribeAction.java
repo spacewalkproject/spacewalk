@@ -413,22 +413,9 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
             // ...create the "(None)" row
             rslt = createNoneRow(noBase);
 
-            // Create the list of "allowed channels"
-            // The first element should be the "set to system default" entry
-            List<EssentialChannelDto> chanList = new ArrayList();
-
-            // Now find all the custom channels for this org and add them
-            DataResult owned = ChannelManager.listBaseChannelsForOrg(user.getOrg());
-            List<EssentialChannelDto> ecds = new DataList(owned);
-
-            for (EssentialChannelDto ecd : ecds) {
-                Channel ovrChan = ChannelManager.lookupByIdAndUser(ecd.getId().longValue(),
-                        user);
-                // If the user is allowed access and we haven't already seen this
-                // channel, add it to the list of allowed-channels for these systems
-                if (ovrChan != null && !chanList.contains(ecd)) {
-                    chanList.add(ecd);
-                }
+            List<EssentialChannelDto> chanList = new ArrayList<EssentialChannelDto>();
+            for (Channel c : ChannelFactory.listCustomBaseChannelsForSSMNoBase(user)) {
+                chanList.add(new EssentialChannelDto(c));
             }
             rslt.setAllowedBaseChannels(chanList);
         }
