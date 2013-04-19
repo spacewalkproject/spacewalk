@@ -1969,10 +1969,6 @@ public class ChannelManager extends BaseManager {
         if (releaseEvr != null) {
             String rhelVersion = releaseEvr.getVersion();
 
-            // If the system has the default base channel, that channel will not have
-            // compatability entries in rhnReleaseChannelMap. Assume that this is a base
-            // RHEL channel and that only the most recent (i.e. default) EUS channel
-            // in rhnReleaseChannelMap is a suitable replacement.
             List<EssentialChannelDto> baseEusChans = new LinkedList<EssentialChannelDto>();
             if (isDefaultBaseChannel(s.getBaseChannel(), rhelVersion)) {
                 EssentialChannelDto baseEus = lookupLatestEusChannelForRhelVersion(usr,
@@ -1982,8 +1978,16 @@ public class ChannelManager extends BaseManager {
                 }
             }
             else {
-                baseEusChans = listBaseEusChannelsByVersionReleaseAndServerArch(usr,
-                    rhelVersion, releaseEvr.getRelease(), s.getServerArch().getLabel());
+                Channel currBase = s.getBaseChannel();
+                if (currBase != null) {
+                    ReleaseChannelMap rcm =
+                            lookupDefaultReleaseChannelMapForChannel(currBase);
+                    if (rcm != null) {
+                        baseEusChans = listBaseEusChannelsByVersionReleaseAndServerArch(
+                                usr, rhelVersion, releaseEvr.getRelease(),
+                                s.getServerArch().getLabel());
+                    }
+                }
             }
             channelDtos.addAll(baseEusChans);
         }
