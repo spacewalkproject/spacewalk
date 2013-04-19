@@ -54,7 +54,8 @@ sub new
     my $smon_host = $uri->host();
     my $url_path = $uri->path();
 
-    $self->connection(new NOCpulse::PersistentConnection( Host => $smon_host, Debug => $debug) );
+    my $pconnection = new NOCpulse::PersistentConnection( Host => $smon_host, Debug => $debug) or die $@;
+    $self->connection($pconnection);
 
     $self->url_path($url_path);
 
