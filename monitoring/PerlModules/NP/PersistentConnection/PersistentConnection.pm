@@ -24,7 +24,6 @@ $SIG{'PIPE'} = 'IGNORE';
 
 # Accessor methods
 sub host        { shift->_elem('host',        @_); }
-sub ip          { shift->_elem('ip',          @_); }
 sub port        { shift->_elem('port',        @_); }
 sub connected   { shift->_elem('connected',   @_); }
 sub socket      { shift->_elem('socket',      @_); }
@@ -56,16 +55,8 @@ sub new {
      }
     }
 
-    my $dest_ip = gethostbyname($host);
-    if (! defined($dest_ip)) {
-      $@ = "Host name lookup failed for host '$host': $!";
-      return undef;
-    } else {
-      $self->host($host);
-      $self->ip(join('.', unpack("C4", $dest_ip)));
-      $self->port($port);
-    }
-
+    $self->host($host);
+    $self->port($port);
   }
 
   $self->debugobject($debug);
@@ -90,9 +81,8 @@ sub connect {
 
   my $host     = $self->host;
   my $port     = $self->port;
-  my $ip       = $self->ip;
 
-  my $sock = new IO::Socket::INET(PeerAddr => $ip,
+  my $sock = new IO::Socket::INET(PeerAddr => $host,
 				  PeerPort => $port,
 				  Proto    => 'tcp',
 				  Type     => SOCK_STREAM,
