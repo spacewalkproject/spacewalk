@@ -413,11 +413,18 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
             // ...create the "(None)" row
             rslt = createNoneRow(noBase);
 
-            List<EssentialChannelDto> chanList = new ArrayList<EssentialChannelDto>();
+            List<EssentialChannelDto> customChs = new ArrayList<EssentialChannelDto>();
             for (Channel c : ChannelFactory.listCustomBaseChannelsForSSMNoBase(user)) {
-                chanList.add(new EssentialChannelDto(c));
+                customChs.add(new EssentialChannelDto(c));
             }
-            rslt.setAllowedBaseChannels(chanList);
+            rslt.setAllowedCustomChannels(customChs);
+
+            List<EssentialChannelDto> nullOrgChs = new ArrayList<EssentialChannelDto>();
+            for (Channel c :
+                        ChannelFactory.listCompatibleBasesForSSMNoBaseInNullOrg(user)) {
+                nullOrgChs.add(new EssentialChannelDto(c));
+            }
+            rslt.setAllowedBaseChannels(nullOrgChs);
         }
         return rslt;
     }

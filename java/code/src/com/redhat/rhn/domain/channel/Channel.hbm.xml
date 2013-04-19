@@ -227,6 +227,30 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
 
+    <sql-query name="Channel.findCompatibleSSMNoBaseInNullOrg">
+        <![CDATA[
+    SELECT {c.*}
+    FROM
+        (SELECT dcm.channel_id, COUNT(s.id) cnt
+         FROM rhnServer s
+         JOIN rhnSet rset ON rset.element = s.id AND rset.user_id = :user_id AND rset.label = 'system_list'
+         LEFT JOIN rhnServerChannel sc ON sc.server_id = s.id
+         JOIN rhnServerChannelArchCompat scac ON scac.server_arch_id = s.server_arch_id
+         JOIN rhnDistChannelMap dcm ON dcm.channel_arch_id = scac.channel_arch_id AND dcm.release = s.release AND dcm.org_id IS NULL
+         WHERE sc.channel_id IS NULL
+         GROUP BY dcm.channel_id) ch
+    JOIN rhnChannel {c} ON c.id = ch.channel_id
+    LEFT OUTER JOIN rhnChannelCloned c_1_ ON c.id = c_1_.id
+    WHERE ch.cnt =
+        (SELECT COUNT(*)
+         FROM rhnSet rset
+         LEFT JOIN rhnServerChannel sc ON sc.server_id = rset.element
+         WHERE rset.label = 'system_list'
+            AND rset.user_id = :user_id
+            AND sc.channel_id IS NULL)]]>
+        <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
+    </sql-query>
+
     <sql-query name="Channel.findRedHatBaseChannelsByUserId">
         <![CDATA[SELECT {c.*}
                 FROM rhnChannel {c}
