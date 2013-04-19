@@ -831,4 +831,16 @@ public class StringUtil {
         }
         return str;
     }
+
+    /**
+     * Returns null, if string is empty
+     * @param str string
+     * @return null if empty, original string otherwise
+     */
+    public static String nullIfEmpty(String str) {
+        if (StringUtils.isEmpty(str)) {
+            return null;
+        }
+        return str;
+    }
 }

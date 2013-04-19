@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.channel.manage;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
@@ -51,7 +52,6 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -401,16 +401,18 @@ public class EditChannelAction extends RhnAction implements Listable {
         ccc.setLabel((String)form.get("label"));
         ccc.setName((String)form.get("name"));
         ccc.setSummary((String)form.get("summary"));
-        ccc.setDescription((String)form.get("description"));
+        ccc.setDescription(StringUtil.nullIfEmpty((String)form.get("description")));
         ccc.setParentLabel(null);
         ccc.setUser(loggedInUser);
-        ccc.setGpgKeyId((String)form.get("gpg_key_id"));
-        ccc.setGpgKeyUrl((String)form.get("gpg_key_url"));
-        ccc.setGpgKeyFp((String)form.get("gpg_key_fingerprint"));
-        ccc.setMaintainerName((String)form.get("maintainer_name"));
-        ccc.setMaintainerEmail((String)form.get("maintainer_email"));
-        ccc.setMaintainerPhone((String)form.get("maintainer_phone"));
-        ccc.setSupportPolicy((String)form.get("support_policy"));
+        ccc.setGpgKeyId(StringUtil.nullIfEmpty((String)form.get("gpg_key_id")));
+        ccc.setGpgKeyUrl(StringUtil.nullIfEmpty((String)form.get("gpg_key_url")));
+        ccc.setGpgKeyFp(StringUtil.nullIfEmpty((String)form.get("gpg_key_fingerprint")));
+        ccc.setMaintainerName(StringUtil.nullIfEmpty((String)form.get("maintainer_name")));
+        ccc.setMaintainerEmail(StringUtil.nullIfEmpty(
+                (String)form.get("maintainer_email")));
+        ccc.setMaintainerPhone(StringUtil.nullIfEmpty(
+                (String)form.get("maintainer_phone")));
+        ccc.setSupportPolicy(StringUtil.nullIfEmpty((String)form.get("support_policy")));
         ccc.setAccess((String)form.get("org_sharing"));
 
         String parent = (String)form.get("parent");
