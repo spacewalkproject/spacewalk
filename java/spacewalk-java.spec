@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.62
+Version: 1.10.63
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Apr 19 2013 Tomas Lestach <tlestach@redhat.com> 1.10.63-1
+- remove unused method+query
+- offer a null org channels for SSM servers with no base
+- fix list of base channels for SSM where the systems have no base channel
+- do not offer EUS channels for base channel change if a system is subscribed
+  to a custom channel
+- offer only base channels to change for SSM that are arch compatible
+- offer only base channels to change for a system that are arch compatible
+- better set null than empty string when creating a channel
+
 * Thu Apr 18 2013 Jan Pazdziora 1.10.62-1
 - In getLoggedInUser.getLoggedInUser and PxtSessionDelegate.getWebUserId, do
   not create (potentially anonymous) sessions unnecessarily.
