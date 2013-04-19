@@ -97,9 +97,6 @@ print loc("* Checking for uninstalled prerequisites.\n");
 $needed_rpms = check_required_rpms(\%opts, \%answers, $run_updater, \%rpm_qa);
 $needed_rpms = {} if not defined $needed_rpms;
 
-print loc("* Applying updates.\n");
-install_updates_packages();
-
 print loc("* Installing RHN packages.\n");
 import_gpg_key();
 install_rhn_packages(\%opts);
@@ -770,14 +767,6 @@ sub yum_is_available {
     $yum_available = 1;
   }
   return $yum_available;
-}
-
-sub install_updates_packages {
-  system_or_exit(['/bin/sh', 'updates/update.sh'],
-		 24,
-		 'Could not update system.  Most likely your system is not configured with the @Base package group.  See the RHN Satellite Server Installation Guide for more information about Software Requirements.');
-
-  return 1;
 }
 
 sub import_gpg_key {
