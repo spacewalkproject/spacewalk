@@ -45,6 +45,7 @@ public class EssentialChannelDto extends BaseDto {
         setId(c.getId());
         setName(c.getName());
         setLabel(c.getLabel());
+        setIsCustom(c.getOrg() != null);
     }
 
     /**

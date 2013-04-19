@@ -2009,37 +2009,19 @@ public class ChannelManager extends BaseManager {
     public static List<EssentialChannelDto> listCompatibleBaseChannelsForChannel(User u,
             Channel inChan) {
 
-        log.debug("ChannelManager.listCompatibleBaseChannelsForChannel");
-        log.debug("channel = " + inChan.getLabel());
         List<EssentialChannelDto> retval = new ArrayList();
 
         // Get all the custom-channels owned by this org and add them
-        DataResult dr = listBaseChannelsForOrg(u.getOrg());
-        List<EssentialChannelDto> channels = new DataList(dr);
-
-        // Find all of the obvious matches
-        for (EssentialChannelDto ecd : channels) {
-            Channel c = ChannelFactory.lookupByIdAndUser(ecd.getId().longValue(), u);
-            if (log.isDebugEnabled()) {
-                log.debug(c == null ? "<null>" : c.getName());
-            }
-
-            if (c != null &&
-                (c.getOrg() != null ||
-                inChan.getChannelArch().equals(c.getChannelArch())) &&
-                !retval.contains(ecd)) {
-                retval.add(ecd);
-            }
+        for (Channel c : ChannelFactory.listCustomBaseChannelsForSSM(u, inChan)) {
+            retval.add(new EssentialChannelDto(c));
         }
-
-        List<EssentialChannelDto> eusBaseChans = new LinkedList<EssentialChannelDto>();
 
         for (Channel c :
                     ChannelFactory.listCompatibleDcmForChannelSSMInNullOrg(u, inChan)) {
-            if (!c.isCustom()) {
                 retval.add(new EssentialChannelDto(c));
-            }
         }
+
+        List<EssentialChannelDto> eusBaseChans = new LinkedList<EssentialChannelDto>();
 
         ReleaseChannelMap rcm = lookupDefaultReleaseChannelMapForChannel(inChan);
         if (rcm != null) {

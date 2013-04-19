@@ -136,6 +136,38 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     						and parentChannel is null order by c.name]]>
     </query>
 
+    <sql-query name="Channel.findCompatCustomBaseChsSSM">
+        <![CDATA[
+    SELECT {c.*}
+    FROM
+        (SELECT c.id, count(s.id) cnt
+         FROM rhnServer s
+         JOIN rhnSet rset ON rset.element = s.id AND rset.user_id = :user_id AND rset.label = 'system_list'
+         JOIN rhnServerChannel sc ON sc.server_id = s.id AND sc.channel_id = :channel_id
+         JOIN rhnServerChannelArchCompat scac ON scac.server_arch_id = s.server_arch_id
+         JOIN rhnChannel c ON c.channel_arch_id = scac.channel_arch_id
+         WHERE c.parent_channel IS NULL
+         AND (c.org_id = 1 OR
+             (C.id, C.org_id)
+             IN
+             (SELECT scv.id, scv.org_id
+              FROM rhnSharedChannelView scv
+              WHERE scv.ORG_TRUST_ID = :org_id
+                AND scv.parent_channel IS NULL order by UPPER(scv.name)))
+        GROUP BY (c.id)) ch
+    JOIN rhnChannel c ON c.id = ch.id
+    LEFT OUTER JOIN rhnChannelCloned c_1_ ON c.id = c_1_.id
+    WHERE ch.cnt =
+        (SELECT COUNT(*)
+         FROM rhnServerChannel sc
+         JOIN rhnSet rset ON rset.element = sc.server_id
+         WHERE rset.label = 'system_list'
+            AND rset.user_id = :user_id
+            AND sc.channel_id = :channel_id)
+    ORDER BY UPPER(c.name)
+        ]]>
+        <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
+    </sql-query>
 
     <sql-query name="Channel.findCompatibleForChannelSSMInNullOrg">
         <![CDATA[
