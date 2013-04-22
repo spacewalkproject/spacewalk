@@ -1,6 +1,6 @@
 Name:         perl-NOCpulse-PersistentConnection
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.10.0
+Version:      1.10.1
 Release:      1%{?dist}
 Summary:      Persistent HTTP connection over SSL
 URL:          https://fedorahosted.org/spacewalk
@@ -43,6 +43,10 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/*
 
 %changelog
+* Mon Apr 22 2013 Jan Pazdziora 1.10.1-1
+- Do not force specific IP address (family), let IO::Socket::INET resolve.
+- %%defattr is not needed since rpm 4.4
+
 * Thu Aug 26 2010 Shannon Hughes <shughes@redhat.com> 1.5.5-1
 - 
 
