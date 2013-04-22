@@ -1,6 +1,6 @@
 Name:           perl-Net-INET6Glue
 Version:        0.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Make common modules IPv6 ready by hotpatching
 License:        GPL+ or Artistic
 Group:          Development/Libraries
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Mon Apr 22 2013 Jan Pazdziora 0.5-3
+- Fixing build.py.props for the new package.
+
 * Fri Apr 19 2013 Jan Pazdziora 0.5-2
 - Relax the IO::Socket::INET6 version requirement on RHEL 5.
 
