@@ -82,6 +82,7 @@
        <packagereq type="default">perl-DBD-Oracle</packagereq>
        <packagereq type="default">perl-Error</packagereq>
        <packagereq type="default">perl-FreezeThaw</packagereq>
+       <packagereq type="default">perl-Net-INET6Glue</packagereq>
        <packagereq type="default">perl-Mail-RFC822-Address</packagereq>
        <packagereq type="default">perl-NOCpulse-CLAC</packagereq>
        <packagereq type="default">perl-NOCpulse-Debug</packagereq>
