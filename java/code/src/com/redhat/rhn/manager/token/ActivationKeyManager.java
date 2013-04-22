@@ -331,7 +331,6 @@ public class ActivationKeyManager {
         session = HibernateFactory.getSession();
         return session.getNamedQuery("ActivationKey.findByOrg")
            .setEntity("org", requester.getOrg())
-           .setCacheable(true)
            .list();
     }
 
