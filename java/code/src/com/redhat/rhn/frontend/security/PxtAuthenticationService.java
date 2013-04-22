@@ -42,7 +42,7 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
     private static final Set UNPROTECTED_URIS;
     private static final Set POST_UNPROTECTED_URIS;
     private static final Set LOGIN_URIS;
-    private static final Set RESRTICTED_WHITELIST_URIS;
+    private static final Set RESTRICTED_WHITELIST_URIS;
 
     static {
         TreeSet set = new TreeSet();
@@ -122,7 +122,7 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
         // system search
         set.add("/rhn/systems/Search.do");
 
-        RESRTICTED_WHITELIST_URIS = UnmodifiableSet.decorate(set);
+        RESTRICTED_WHITELIST_URIS = UnmodifiableSet.decorate(set);
     }
 
     private PxtSessionDelegate pxtDelegate;
@@ -143,7 +143,7 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
     }
 
     protected Set getRestrictedWhitelistURIs() {
-        return RESRTICTED_WHITELIST_URIS;
+        return RESTRICTED_WHITELIST_URIS;
     }
 
     /**
