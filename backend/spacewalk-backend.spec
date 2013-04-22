@@ -21,7 +21,7 @@ BuildArch: noarch
 Requires: python, rpm-python
 # /etc/rhn is provided by spacewalk-proxy-common or by spacewalk-config
 Requires: /etc/rhn
-Requires: rhnlib >= 2.5.35
+Requires: rhnlib >= 2.5.57
 # for Debian support
 Requires: python-debian
 Requires: %{name}-libs >= 1.1.16-1
@@ -30,7 +30,7 @@ BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils
 %if 0%{?fedora} > 15 || 0%{?rhel} > 5
 BuildRequires: spacewalk-pylint
-BuildRequires: rhnlib >= 2.5.35
+BuildRequires: rhnlib >= 2.5.57
 BuildRequires: rpm-python
 BuildRequires: python-crypto
 BuildRequires: python-debian
@@ -244,7 +244,7 @@ Requires: python-hashlib
 Requires: mod_ssl
 Requires: %{name}-xml-export-libs
 Requires: cobbler >= 2.0.0
-Requires: rhnlib  >= 2.5.35
+Requires: rhnlib  >= 2.5.57
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
 Provides: spacewalk-backend-satellite-tools = %{version}-%{release}

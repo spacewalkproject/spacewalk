@@ -106,7 +106,7 @@ class BaseWireSource:
         
         serverObj = connection.StreamConnection(url, proxy=CFG.HTTP_PROXY, 
             username=CFG.HTTP_PROXY_USERNAME, password=CFG.HTTP_PROXY_PASSWORD,
-            xml_dump_version=self.xml_dump_version)
+            xml_dump_version=self.xml_dump_version, timeout=CFG.timeout)
         BaseWireSource.serverObj = serverObj
         return serverObj
 
@@ -363,7 +363,7 @@ class RPCGetWireSource(BaseWireSource):
         url = self.url + self.handler
         get_server_obj = connection.GETServer(url, proxy=CFG.HTTP_PROXY,
             username=CFG.HTTP_PROXY_USERNAME, password=CFG.HTTP_PROXY_PASSWORD,
-            headers=self.login_token)
+            headers=self.login_token, timeout=CFG.timeout)
         # Add SSL trusted cert
         self._set_ssl_trusted_certs(get_server_obj)
         self._set_rpc_server(get_server_obj)

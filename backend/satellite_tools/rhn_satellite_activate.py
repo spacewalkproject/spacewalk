@@ -89,7 +89,8 @@ def getXmlrpcServer(server, handler, proxy, proxyUser, proxyPass,
         uri = 'http://' + _uri
 
     s = rpclib.Server(uri, refreshCallback=None,
-                         proxy=proxy, username=proxyUser, password=proxyPass)
+                         proxy=proxy, username=proxyUser, password=proxyPass,
+                         timeout=CFG.timeout)
     if sslYN and sslCertPath:
         if not os.access(sslCertPath, os.R_OK):
             sys.stderr.write("SSL CA Cert inaccessible: '%s'\n" % sslCertPath)

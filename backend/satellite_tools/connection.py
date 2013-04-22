@@ -87,9 +87,10 @@ class _Server(rpclib.Server):
 
 class StreamConnection(_Server):
     def __init__(self, uri, proxy=None, username=None, password=None, 
-                refreshCallback=None, xml_dump_version=constants.PROTOCOL_VERSION):
+                refreshCallback=None, xml_dump_version=constants.PROTOCOL_VERSION,
+                timeout=None):
         _Server.__init__(self, uri, proxy=proxy, username=username,
-                password=password, refreshCallback=refreshCallback)
+                password=password, refreshCallback=refreshCallback, timeout=timeout)
         self.add_header("X-RHN-Satellite-XML-Dump-Version", xml_dump_version)
 
 class GETServer(rpclib.GETServer):
@@ -100,7 +101,8 @@ class GETServer(rpclib.GETServer):
     _transport_class_https_proxy = SafeProxyTransport
     def __init__(self, uri, transport=None, proxy=None, username=None,
             password=None, client_version=2, headers={}, refreshCallback=None,
-            progressCallback=None, xml_dump_version=constants.PROTOCOL_VERSION):
+            progressCallback=None, xml_dump_version=constants.PROTOCOL_VERSION,
+            timeout=None):
         rpclib.GETServer.__init__(self, uri,
             transport=transport,
             proxy=proxy,
@@ -108,7 +110,8 @@ class GETServer(rpclib.GETServer):
             password=password,
             client_version=client_version,
             headers=headers,
-            refreshCallback=refreshCallback)
+            refreshCallback=refreshCallback,
+            timeout=timeout)
         self.add_header("X-RHN-Satellite-XML-Dump-Version", xml_dump_version)
 
 class CompressedStream:
