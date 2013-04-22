@@ -28,6 +28,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
+import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.sql.CallableStatement;
@@ -51,8 +52,12 @@ import java.util.StringTokenizer;
  *
  * @version $Rev$
  */
-public class CachedStatement {
+public class CachedStatement implements Serializable {
 
+    /**
+     * Comment for <code>serialVersionUID</code>
+     */
+    private static final long serialVersionUID = -6256397039512492615L;
     /**
      * Logger for this class
      */
