@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.63
+Version: 1.10.64
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Apr 22 2013 Tomas Lestach <tlestach@redhat.com> 1.10.64-1
+- manually deregister drivers to prevent tomcat informing about possible memory
+  leaks
+- fix typo: RESRTICTED -> RESTRICTED
+- let's make CachedStatement serializable
+
 * Fri Apr 19 2013 Tomas Lestach <tlestach@redhat.com> 1.10.63-1
 - remove unused method+query
 - offer a null org channels for SSM servers with no base
