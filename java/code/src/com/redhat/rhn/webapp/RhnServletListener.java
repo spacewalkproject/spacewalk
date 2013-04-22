@@ -21,6 +21,11 @@ import com.redhat.rhn.manager.satellite.UpgradeCommand;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Enumeration;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -130,6 +135,21 @@ public class RhnServletListener implements ServletContextListener {
 
         stopHibernate();
         logStop("Hibernate");
+
+        // This manually deregisters JDBC driver,
+        // which prevents Tomcat from complaining about memory leaks
+        Enumeration<Driver> drivers = DriverManager.getDrivers();
+        while (drivers.hasMoreElements()) {
+            Driver driver = drivers.nextElement();
+            try {
+                DriverManager.deregisterDriver(driver);
+                log.info("deregistering jdbc driver: " + driver);
+            }
+            catch (SQLException e) {
+                log.warn("Error deregistering driver " + driver);
+            }
+        }
+
 
         // shutdown the logger to avoid ThreadDeath exception during
         // webapp reload.
