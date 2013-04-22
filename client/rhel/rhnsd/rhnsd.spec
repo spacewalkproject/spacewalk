@@ -63,6 +63,11 @@ install -m 0644 rhnsd.service $RPM_BUILD_ROOT/%{_unitdir}/
 
 %find_lang %{name}
 
+%{!?systemd_post: %global systemd_post() if [ $1 -eq 1 ] ; then /usr/bin/systemctl enable %%{?*} >/dev/null 2>&1 || : ; fi}
+%{!?systemd_preun: %global systemd_preun() if [ $1 -eq 0 ] ; then /usr/bin/systemctl --no-reload disable %%{?*} > /dev/null 2>&1 || : ; /usr/bin/systemctl stop %%{?*} > /dev/null 2>&1 || : ; fi }
+%{!?systemd_postun_with_restart: %global systemd_postun_with_restart() /usr/bin/systemctl daemon-reload >/dev/null 2>&1 || : ; if [ $1 -ge 1 ] ; then /usr/bin/systemctl try-restart %%{?*} >/dev/null 2>&1 || : ; fi }
+
+
 %if 0%{?suse_version} >= 1210
 %pre
 %service_add_pre rhnsd.service
@@ -75,6 +80,16 @@ install -m 0644 rhnsd.service $RPM_BUILD_ROOT/%{_unitdir}/
 if [ -f /etc/init.d/rhnsd ]; then
     /sbin/chkconfig --add rhnsd
 fi
+if [ -f %{_unitdir}/rhnsd.service ]; then
+    %systemd_post rhnsd.service
+    if [ "$1" = "2" ]; then
+        # upgrade from old init.d
+        if [ -L /etc/rc2.d/S97rhnsd ]; then
+            /usr/bin/systemctl enable rhnsd.service >/dev/null 2>&1
+        fi
+        rm -f /etc/rc?.d/[SK]??rhnsd
+    fi
+fi
 %endif
 
 %preun
@@ -83,7 +98,7 @@ fi
 %else
 if [ $1 = 0 ] ; then
     %if 0%{?fedora}
-    /bin/systemctl stop rhnsd.service >/dev/null 2>&1
+        %systemd_preun rhnsd.service
     %else
     service rhnsd stop >/dev/null 2>&1
     %endif
@@ -99,7 +114,7 @@ fi
 %else
 if [ "$1" -ge "1" ]; then
     %if 0%{?fedora}
-    /bin/systemctl condrestart rhnsd.service >/dev/null 2>&1 || :
+    %systemd_postun_with_restart rhnsd.service
     %else
     service rhnsd condrestart >/dev/null 2>&1 || :
     %endif
