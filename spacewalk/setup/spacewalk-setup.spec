@@ -31,6 +31,7 @@ Requires:       PyYAML
 Requires:       /usr/bin/gpg
 Requires:       spacewalk-setup-jabberd
 Requires:       perl(LWP::Protocol::https)
+Requires:       perl(Net::INET6Glue::INET_is_INET6)
 
 %description
 A collection of post-installation scripts for managing Spacewalk's initial
