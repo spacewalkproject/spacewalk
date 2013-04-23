@@ -28,6 +28,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidProxyVersionException;
 import com.redhat.rhn.frontend.xmlrpc.MethodInvalidParamException;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
 import com.redhat.rhn.frontend.xmlrpc.ProxyAlreadyRegisteredException;
 import com.redhat.rhn.frontend.xmlrpc.ProxyNeedProvisioningException;
 import com.redhat.rhn.frontend.xmlrpc.ProxyNotActivatedException;
@@ -289,8 +290,9 @@ public class ProxyHandler extends BaseHandler {
         catch (SAXException e) {
             log.error("Problem parsing certificate", e);
         }
+
         if (server == null) {
-            return null;
+            throw new NoSuchSystemException();
         }
 
         ChannelFamily proxyFamily = ChannelFamilyFactory
@@ -298,13 +300,14 @@ public class ProxyHandler extends BaseHandler {
                 .PROXY_CHANNEL_FAMILY_LABEL,
                 null);
 
+        List<String> returnList = new ArrayList<String>();
+
         if (proxyFamily == null ||
                 proxyFamily.getChannels() == null ||
                 proxyFamily.getChannels().isEmpty()) {
-            return null;
+            return returnList;
         }
 
-        List<String> returnList = new ArrayList<String>();
         /* We search for a proxy channel whose parent channel is our server's basechannel.
          * This will be the channel we attempt to subscribe the server to.
          */
