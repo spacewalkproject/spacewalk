@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        1.10.6
+Version:        1.10.7
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -102,6 +102,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Apr 23 2013 Jan Pazdziora 1.10.7-1
+- Make HEAD work even against AAAA hostname.
+
 * Tue Apr 16 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.6-1
 - restore should not shutdown services automatically
 
