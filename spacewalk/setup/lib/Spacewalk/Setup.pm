@@ -88,6 +88,9 @@ use constant DB_INSTALL_LOG_SIZE => 11416;
 use constant DB_MIGRATION_LOG_FILE =>
   '/var/log/rhn/rhn_db_migration.log';
 
+use constant ORACLE_RHNCONF_BACKUP =>
+  '/tmp/oracle-rhn.conf';
+
 
 
 my $DEBUG;
@@ -1171,12 +1174,20 @@ sub migrate_embedded_db {
   my $emb_oracle_creds = {
     'db-backend' => 'oracle',
     'db-host' => 'localhost',
+    'db-name' => $answers->{'embedded-oracle-name'} || '//localhost:1521/rhnsat.world',
+    'db-user' => $answers->{'embedded-oracle-user'} || 'rhnsat',
+    'db-password' => $answers->{'embedded-oracle-password'} || 'rhnsat',
     'db-port' => 1521,
   };
 
-  $emb_oracle_creds->{'db-name'} = $answers->{'embedded-oracle-name'} || 'rhnsat';
-  $emb_oracle_creds->{'db-user'} = $answers->{'embedded-oracle-user'} || 'rhnsat';
-  $emb_oracle_creds->{'db-password'} = $answers->{'embedded-oracle-password'} || 'rhnsat';
+  if (-f Spacewalk::Setup::ORACLE_RHNCONF_BACKUP) {
+    my %oldOptions = ();
+    read_config(Spacewalk::Setup::ORACLE_RHNCONF_BACKUP, \%oldOptions);
+
+    for my $option ('db-backend', 'db-name', 'db-user', 'db-password', 'db-host', 'db-port') {
+      $emb_oracle_creds->{$option} = $oldOptions{$option} if (exists $oldOptions{$option});
+    }
+  }
 
   print loc("** Database: Trying to connect to embedded Oracle database: ");
   if (_oracle_check_connect_info($emb_oracle_creds) != 2) {
@@ -1203,6 +1214,7 @@ sub migrate_embedded_db {
   print loc("** Database: Data migration successfully completed.\n");
   print loc("** Database: Stoping embedded Oracle database.\n");
   embedded_oracle_stop();
+  unlink(Spacewalk::Setup::ORACLE_RHNCONF_BACKUP);
 }
 
 

@@ -73,6 +73,7 @@ remove_obsoleted_packages(\%opts);
 remove_jabberd_configs(\%opts);
 remove_rhn_cache_and_kickstarts(\%opts);
 remove_nocpulse_ini(\%opts);
+backup_oracle_rhnconf(\%opts);
 
 my $run_updater;
 if (defined $opts{'run-updater'}) {
@@ -561,6 +562,25 @@ sub remove_nocpulse_ini {
 
   if (-f "/etc/NOCpulse.ini") {
     system("rm -f /etc/NOCpulse.ini > /dev/null 2>&1");
+  }
+}
+
+sub backup_oracle_rhnconf {
+  my $opts = shift;
+  my $schema_version;
+
+  return if ((not $opts->{'upgrade'}) or -f Spacewalk::Setup::ORACLE_RHNCONF_BACKUP);
+
+  foreach my $schema ('satellite-schema', 'rhn-satellite-schema') {
+    system("rpm -q --qf='%{VERSION}' $schema >/dev/nul 2>&1");
+    if ($? >> 8 == 0) {
+      $schema_version = `rpm -q --qf='%{VERSION}' $schema 2>/dev/null`;
+    }
+  }
+
+  if ($schema_version and $schema_version =~ /^5\.[2345]\./ and
+      -f Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION) {
+    system("cp", "-f", Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION, Spacewalk::Setup::ORACLE_RHNCONF_BACKUP);
   }
 }
 
