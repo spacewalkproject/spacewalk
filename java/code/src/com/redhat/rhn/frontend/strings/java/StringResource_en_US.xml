@@ -7180,6 +7180,9 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="satisfactionUnknown">
         <source>Unknown</source>
       </trans-unit>
+      <trans-unit id="filter.clearfilter">
+        <source>The list below is filtered.&lt;br/&gt; &lt;a href="{0}"&gt; &lt;strong&gt;Clear filter to see all items.&lt;/strong&gt; &lt;/a&gt;</source>
+      </trans-unit>
       <trans-unit id="listtag.clearfilter">
         <source>Clear filter </source>
       </trans-unit>

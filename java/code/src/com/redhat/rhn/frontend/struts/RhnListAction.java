@@ -22,6 +22,8 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.listview.PageControl;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -66,7 +68,11 @@ public class RhnListAction extends RhnAction {
 
         pc.setStart(lower);
         pc.setPageSize(viewer.getPageSize());
-        pc.setFilterData(request.getParameter(RequestContext.FILTER_STRING));
+        String filterString = request.getParameter(RequestContext.FILTER_STRING);
+        if (!StringUtils.isBlank(filterString)) {
+            createSuccessMessage(request, "filter.clearfilter", request.getRequestURI());
+        }
+        pc.setFilterData(filterString);
     }
 
     protected List trackSet(RhnSet set, HttpServletRequest request) {

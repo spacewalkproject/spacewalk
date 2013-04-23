@@ -21,6 +21,7 @@ import com.redhat.rhn.frontend.listview.ListControl;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * RhnUnpagedListAction
@@ -47,6 +48,10 @@ public class RhnUnpagedListAction extends RhnAction {
         String filterData = request.getParameter(RequestContext.FILTER_STRING);
         request.setAttribute("isFiltered",
             Boolean.valueOf(!StringUtils.isEmpty(filterData)));
+        if (!StringUtils.isBlank(filterData)) {
+            HttpServletRequest req = (HttpServletRequest) request;
+            createSuccessMessage(req, "filter.clearfilter", req.getRequestURI());
+        }
 
         lc.setFilterData(filterData);
     }
