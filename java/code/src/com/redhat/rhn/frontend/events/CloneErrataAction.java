@@ -16,10 +16,12 @@ package com.redhat.rhn.frontend.events;
 
 import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
 import com.redhat.rhn.frontend.action.channel.manage.PublishErrataHelper;
+import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 
@@ -87,6 +89,14 @@ public class CloneErrataAction
 
 
             }
+        }
+        // Trigger channel repodata re-generation
+        if (list.size() > 0) {
+            Channel current = msg.getChan();
+            current.setLastModified(new Date());
+            ChannelFactory.save(current);
+            ChannelManager.queueChannelChange(currChan.getLabel(),
+                    "java::cloneErrata", "Errata cloned");
         }
     }
 
