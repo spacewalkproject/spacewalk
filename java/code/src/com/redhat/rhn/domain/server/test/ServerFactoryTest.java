@@ -934,6 +934,7 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         Server serverIn = ServerFactoryTest.createTestServer(admin);
 
         server  = ServerFactory.unsubscribeFromAllChannels(admin, serverIn);
+        ServerFactory.commitTransaction();
         assertEquals(0, server.getChannels().size());
     }
 
