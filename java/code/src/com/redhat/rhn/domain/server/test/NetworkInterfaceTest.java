@@ -74,7 +74,7 @@ public class NetworkInterfaceTest extends RhnBaseTestCase {
     public static NetworkInterface createTestNetworkInterface(Server server)
     throws Exception {
         return createTestNetworkInterface(server, TestUtils.randomString(),
-                TEST_MAC, "127.0.0.1");
+                "127.0.0.1", TEST_MAC);
     }
 
     /**
