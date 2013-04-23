@@ -25,6 +25,7 @@ import java.io.OutputStreamWriter;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
 import java.util.Date;
 
 import com.redhat.rhn.common.conf.Config;
@@ -73,14 +74,22 @@ public class RpmRepositoryWriter extends RepositoryWriter {
         File theFile = new File(mountPoint + File.separator + pathPrefix +
                 File.separator + channel.getLabel() + File.separator +
                 "repomd.xml");
-        Date fileModifiedDate = new Date(theFile.lastModified());
+        // Init Date objects without milliseconds
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date(theFile.lastModified()));
+        cal.set(Calendar.MILLISECOND, 0);
+        Date fileModifiedDate = cal.getTime();
+        cal.setTime(channel.getLastModified());
+        cal.set(Calendar.MILLISECOND, 0);
+        Date channelModifiedDate = cal.getTime();
+
         // the file Modified date should be getting set when the file
         // is moved into the correct location.
         log.info("File Modified Date:" + LocalizationService.getInstance().
                 formatCustomDate(fileModifiedDate));
         log.info("Channel Modified Date:" + LocalizationService.getInstance().
-                formatCustomDate(channel.getLastModified()));
-        return !fileModifiedDate.equals(channel.getLastModified());
+                formatCustomDate(channelModifiedDate));
+        return !fileModifiedDate.equals(channelModifiedDate);
     }
 
     /**
