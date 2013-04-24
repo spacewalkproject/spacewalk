@@ -55,6 +55,7 @@ import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
+import com.redhat.rhn.manager.ssm.SsmManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ChannelTestUtils;
@@ -730,6 +731,10 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         // Create a custom base channel
         Channel custom = ChannelTestUtils.createBaseChannel(user);
         custom.setOrg(user.getOrg());
+
+        SsmManager.clearSsm(user);
+        SsmManager.addServersToSsm(user, new String[] {s.getId().toString()});
+        ChannelFactory.commitTransaction();
 
         // Ask for channels compatible with the new server's base
         List<EssentialChannelDto> compatibles =
