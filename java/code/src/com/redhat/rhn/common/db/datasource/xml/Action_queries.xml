@@ -89,26 +89,6 @@ order by id desc
 </mode>
 
 
-
-
-<query name="action_list_elab" params="user_id, org_id" >
-SELECT  DISTINCT UAO.id as ID,
-        A.prerequisite AS PREREQUISITE,
-        UAO.type_name,
-        (CASE UAO.action_name WHEN NULL THEN UAO.type_name ELSE UAO.action_name END) AS ACTION_NAME,
-        UAO.scheduler,
-        WC.login AS SCHEDULER_NAME,
-      	 UAO.action_status,
-	UAO.tally
-  FROM  rhnUserActionOverview UAO, rhnAction A, web_contact WC
- WHERE  UAO.org_id = :org_id
-   AND  UAO.user_id = :user_id
-   AND  UAO.archived = 0
-   AND  UAO.id = A.id
-   AND  WC.id = UAO.scheduler
-   AND  UAO.id IN (%s)
-</query>
-
 <mode name="pending_action_list"
       class="com.redhat.rhn.frontend.dto.ScheduledAction">
   <query params="user_id, org_id">
