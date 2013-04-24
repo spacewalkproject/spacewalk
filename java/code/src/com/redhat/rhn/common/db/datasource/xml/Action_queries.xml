@@ -129,7 +129,7 @@ SELECT  DISTINCT UAO.id AS ID,
    AND  UAO.archived = 0
 ORDER BY EARLIEST DESC
   </query>
-  <elaborator name="action_list_elab" />
+  <elaborator name="action_overview_elab" />
 </mode>
 
 <mode name="pending_actions_in_set"
