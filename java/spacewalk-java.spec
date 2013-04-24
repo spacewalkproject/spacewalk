@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.64
+Version: 1.10.65
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,18 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Apr 24 2013 Tomas Lestach <tlestach@redhat.com> 1.10.65-1
+- 956101 - removing extra semicolon
+- drop useless order by
+- commit channges, otherwise async UpdateErrataCacheActions won't find
+  referenced objects in th DB
+- every test server has one default network interface now
+- switch MAC and IP args to match what's expected
+- 928416 - display information message when filtering using older list tags
+- update proxy.listAvailableProxyChannels API as we cannot transfer null via
+  xmlrpc
+- 955364 - remove caching for activation keys
+
 * Mon Apr 22 2013 Tomas Lestach <tlestach@redhat.com> 1.10.64-1
 - manually deregister drivers to prevent tomcat informing about possible memory
   leaks
