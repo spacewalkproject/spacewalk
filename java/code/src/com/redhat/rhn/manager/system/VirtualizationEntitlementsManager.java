@@ -165,7 +165,7 @@ public class VirtualizationEntitlementsManager {
                     msg.contains("server_cannot_convert_to_flex")) {
                         // PG does not like reusing connections that
                         // already signalled a Connection error
-                        HibernateFactory.closeSession();
+                        HibernateFactory.rollbackTransaction();
                         continue;
                     }
                 }
