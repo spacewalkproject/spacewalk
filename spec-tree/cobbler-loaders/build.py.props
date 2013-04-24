@@ -1,2 +1,2 @@
 [buildconfig]
-tagger = spacewalk.releng.tagger.ReleaseTagger
+tagger = tito.tagger.ReleaseTagger
