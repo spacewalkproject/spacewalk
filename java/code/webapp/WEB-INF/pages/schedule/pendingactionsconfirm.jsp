@@ -28,6 +28,8 @@
         <rhn:csrf />
 		<rl:list emptykey="pendingactions.jsp.nogroups" styleclass="list">
 
+                <rl:decorator name="ElaborationDecorator"/>
+
 
 			<rl:column sortable="true"
                                    bound="false"
