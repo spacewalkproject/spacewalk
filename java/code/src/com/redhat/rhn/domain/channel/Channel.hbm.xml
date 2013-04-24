@@ -187,7 +187,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
              (SELECT scv.id, scv.org_id
               FROM rhnSharedChannelView scv
               WHERE scv.ORG_TRUST_ID = :org_id
-                AND scv.parent_channel IS NULL order by UPPER(scv.name)))
+                AND scv.parent_channel IS NULL))
         GROUP BY (c.id)) ch
     JOIN rhnChannel c ON c.id = ch.id
     LEFT OUTER JOIN rhnChannelCloned c_1_ ON c.id = c_1_.id
