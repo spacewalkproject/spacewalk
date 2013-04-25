@@ -94,10 +94,12 @@ public class SsmRemovePackagesAction extends SsmPackagesAction {
 
             // Get the packages out of the elaborator
             List<Map> elabList = (List<Map>) data.get("elaborator0");
-            for (Map elabMap : elabList) {
-                String idCombo = (String) elabMap.get("id_combo");
-                PackageListItem item = PackageListItem.parse(idCombo);
-                allPackages.add(item);
+            if (elabList != null) {
+                for (Map elabMap : elabList) {
+                    String idCombo = (String) elabMap.get("id_combo");
+                    PackageListItem item = PackageListItem.parse(idCombo);
+                    allPackages.add(item);
+                }
             }
         }
 
