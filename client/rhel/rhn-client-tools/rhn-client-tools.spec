@@ -142,6 +142,10 @@ make -f Makefile.rhn-client-tools install VERSION=%{version}-%{release} PREFIX=$
 mkdir -p $RPM_BUILD_ROOT/var/lib/up2date
 mkdir -pm700 $RPM_BUILD_ROOT%{_localstatedir}/spool/up2date
 touch $RPM_BUILD_ROOT%{_localstatedir}/spool/up2date/loginAuth.pkl
+%if 0%{?fedora} >= 18
+mkdir -p $RPM_BUILD_ROOT/%{_presetdir}
+install 50-spacewalk-client.preset $RPM_BUILD_ROOT/%{_presetdir}
+%endif
 
 %if 0%{?fedora} || 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
 rm $RPM_BUILD_ROOT%{_datadir}/rhn/up2date_client/hardware_hal.*
@@ -240,6 +244,10 @@ make -f Makefile.rhn-client-tools test
 
 #public keys and certificates
 %{_datadir}/rhn/RHNS-CA-CERT
+
+%if 0%{?fedora} >= 18
+%{_presetdir}/50-spacewalk-client.preset
+%endif
 
 %files -n rhn-check
 %dir %{_datadir}/rhn/actions
