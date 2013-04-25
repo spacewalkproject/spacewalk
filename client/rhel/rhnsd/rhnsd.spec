@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 5.0.9
+Version: 5.0.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -138,6 +138,10 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Apr 25 2013 Michael Mraka <michael.mraka@redhat.com> 5.0.10-1
+- let rhnsd.service be enabled after installation
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+
 * Fri Feb 15 2013 Milan Zazrivec <mzazrivec@redhat.com> 5.0.9-1
 - Update .po and .pot files for rhnsd.
 - New translations from Transifex for rhnsd.
