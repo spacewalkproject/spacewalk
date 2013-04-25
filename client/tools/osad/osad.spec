@@ -204,12 +204,27 @@ rm -rf $RPM_BUILD_ROOT
 
 %endif
 
+%{!?systemd_post: %global systemd_post() if [ $1 -eq 1 ] ; then /usr/bin/systemctl enable %%{?*} >/dev/null 2>&1 || : ; fi}
+%{!?systemd_preun: %global systemd_preun() if [ $1 -eq 0 ] ; then /usr/bin/systemctl --no-reload disable %%{?*} > /dev/null 2>&1 || : ; /usr/bin/systemctl stop %%{?*} >/dev/null 2>&1 || : ; fi }
+%{!?systemd_postun_with_restart: %global systemd_postun_with_restart() /usr/bin/systemctl daemon-reload >/dev/null 2>&1 || : ; if [ $1 -ge 1 ] ; then /usr/bin/systemctl try-restart %%{?*} >/dev/null 2>&1 || : ; fi }
+
+
 %post
 %if 0%{?suse_version} >= 1210
 %service_add_post osad.service
 %else
 if [ -f %{_sysconfdir}/init.d/osad ]; then
     /sbin/chkconfig --add osad
+fi
+if [ -f %{_unitdir}/osad.service ]; then
+    %systemd_post osad.service
+    if [ "$1" = "2" ]; then
+        # upgrade from old init.d
+        if [ -L /etc/rc2.d/S97osad ]; then
+            /usr/bin/systemctl enable osad.service >/dev/null 2>&1
+        fi
+        rm -f /etc/rc?.d/[SK]??osad
+    fi
 fi
 
 # Fix the /var/log/osad permission BZ 836984
@@ -223,9 +238,18 @@ fi
 %service_del_preun osad.service
 %else
 if [ $1 = 0 ]; then
+    %if 0%{?fedora}
+    %systemd_preun osad.service
+    %else
     /sbin/service osad stop > /dev/null 2>&1
     /sbin/chkconfig --del osad
+    %endif
 fi
+%endif
+
+%postun
+%if 0%{?fedora}
+%systemd_postun_with_restart osad.service
 %endif
 
 %if 0%{?suse_version} >= 1210
