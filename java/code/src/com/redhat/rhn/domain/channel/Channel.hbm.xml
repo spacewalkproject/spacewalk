@@ -181,7 +181,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
          JOIN rhnServerChannelArchCompat scac ON scac.server_arch_id = s.server_arch_id
          JOIN rhnChannel c ON c.channel_arch_id = scac.channel_arch_id
          WHERE c.parent_channel IS NULL
-         AND (c.org_id = 1 OR
+         AND (c.org_id = :org_id OR
              (C.id, C.org_id)
              IN
              (SELECT scv.id, scv.org_id
