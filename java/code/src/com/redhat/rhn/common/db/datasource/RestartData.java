@@ -15,6 +15,7 @@
 
 package com.redhat.rhn.common.db.datasource;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +24,7 @@ import java.util.Map;
  * restarted if necessary.
  * @author sherr
  */
-public class RestartData {
+public class RestartData implements Serializable {
     private String sql;
     private Map<String, List<Integer>> parameterMap;
     private Map<String, Object> parameters;
