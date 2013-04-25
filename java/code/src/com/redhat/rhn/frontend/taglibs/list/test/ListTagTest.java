@@ -87,8 +87,8 @@ public class ListTagTest extends MockObjectTestCase {
             .withNoArguments().will(returnValue("UTF-8"));
         mreq.expects(atLeastOnce()).method("getAttribute")
             .with(eq("session")).will(returnValue(webSess));
-        mwebSess.expects(atLeastOnce()).method("getUser")
-            .withNoArguments().will(returnValue(null));
+        mwebSess.expects(atLeastOnce()).method("getWebUserId")
+        .withNoArguments().will(returnValue(null));
         mreq.expects(atLeastOnce()).method("getParameter")
             .with(stringContains("list_")).will(returnValue(null));
         mreq.expects(atLeastOnce()).method("setAttribute")
