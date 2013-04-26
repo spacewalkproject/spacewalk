@@ -156,6 +156,7 @@ public class VirtualizationEntitlementsManager {
         for (Long sid : systemIds) {
             try {
                 convertToFlex(sid, channelFamilyId, user);
+                HibernateFactory.commitTransaction();
                 toRet.add(sid);
             }
             catch (WrappedSQLException sq) {
