@@ -1151,12 +1151,17 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
     public void testListDuplicatesByHostname() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
-        Server s1 = ServerFactoryTest.createTestServer(user, true);
-        setHostname(s1, "DUPHOST");
-        s1 = ServerFactoryTest.createTestServer(user, true);
-        setHostname(s1, "notADup");
-        s1 = ServerFactoryTest.createTestServer(user, true);
-        setHostname(s1, "duphost");
+
+        String[] hostnames = {"DUPHOST", "notADup", "duphost"};
+        for (String name : hostnames) {
+            Server s1 = ServerFactoryTest.createTestServer(user, true);
+            Network net = new Network();
+            net.setHostname("server_" + s1.getId());
+            net.setIpaddr("192.168.1.1");
+            net.setServer(s1);
+            s1.addNetwork(net);
+            setHostname(s1, name);
+        }
 
         List<SystemOverview> list = SystemManager.listDuplicatesByHostname(user, "duphost");
         assertTrue(list.size() == 2);

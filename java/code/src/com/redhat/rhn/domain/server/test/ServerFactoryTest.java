@@ -228,7 +228,7 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         assertEquals(server2.getId(), note.getServer().getId());
 
         Set networks = server2.getNetworks();
-        assertTrue(networks.size() == 3);
+        assertTrue(networks.size() == 2);
         Network net = (Network) networks.toArray()[0];
         assertEquals(server2.getId(), net.getServer().getId());
 
@@ -605,12 +605,6 @@ public class ServerFactoryTest extends RhnBaseTestCase {
 
         netint.setServer(newS);
         newS.addNetworkInterface(netint);
-
-        Network net = new Network();
-        net.setHostname("server_" + newS.getId());
-        net.setIpaddr("192.168.1.1");
-        net.setServer(newS);
-        newS.addNetwork(net);
 
         ServerFactory.save(newS);
         TestUtils.saveAndReload(newS);
