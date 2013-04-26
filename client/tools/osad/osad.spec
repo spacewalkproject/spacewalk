@@ -162,6 +162,10 @@ mkdir -p %{buildroot}%{_var}/log/rhn
 touch %{buildroot}%{_var}/log/osad
 touch %{buildroot}%{_var}/log/rhn/osa-dispatcher.log
 
+%if 0%{?fedora}
+sed -i 's/#LOGROTATE-3.8#//' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/osa-dispatcher
+%endif
+
 %if 0%{?fedora} || 0%{?suse_version} >= 1210
 rm $RPM_BUILD_ROOT/%{_initrddir}/osad
 rm $RPM_BUILD_ROOT/%{_initrddir}/osa-dispatcher
