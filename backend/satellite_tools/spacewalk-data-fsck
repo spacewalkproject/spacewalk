@@ -96,6 +96,7 @@ def check_db_vs_disk(options):
 
             if check_disk_exists(abs_path) == 1:
                 report['exists'] += 1
+	        not_on_disk(row, abs_path, options)
             elif options.restore:
                 report['restore'] +=  check_disk_nevrao(abs_path, row.copy(), True)
             else:
@@ -116,11 +117,15 @@ def check_db_vs_disk(options):
     return error_found
 
 def check_disk_exists(abs_path):
-    ret = 0
-    if not os.path.isfile(abs_path):
+    return not os.path.isfile(abs_path)
+
+def not_on_disk(row, abs_path, options):
+    if options.remove:
+        log(0, "Removed package path from db: %s" % row['path'])
+	rhnSQL.execute('update rhnPackage set path = NULL where id = :id', id=row['id'])
+        rhnSQL.commit()
+    else:
         log(0, "File missing: %s" % abs_path)
-        ret = 1
-    return ret
 
 def check_disk_size(abs_path, size):
     file_size = os.stat(abs_path)[stat.ST_SIZE]
