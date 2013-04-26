@@ -449,4 +449,147 @@ def do_user_removedefaultgroup(self, args):
                                                user, 
                                                groups)
 
+####################
+
+def help_user_setfirstname(self):
+    print 'user_setfirstname: Set an user accounts first name field'
+    print 'usage: user_setfirstname USER FIRST_NAME'
+
+def complete_user_setfirstname(self, text, line, beg, end):
+    parts = shlex.split(line)
+    if line[-1] == ' ': parts.append(' ')
+
+    if len(parts) == 2:
+        return tab_completer(self.do_user_list('', True), text)
+    elif len(parts) > 2:
+        return
+
+def do_user_setfirstname(self, args):
+    (args, options) = parse_arguments(args)
+
+    if len(args) != 2:
+        self.help_user_setfirstname()
+        return
+
+    user = args.pop(0)
+    details = { 'first_name' : args.pop(0) }
+
+    self.client.user.setDetails(self.session, user, details)
+
+####################
+
+def help_user_setlastname(self):
+    print 'user_setlastname: Set an user accounts last name field'
+    print 'usage: user_setlastname USER LAST_NAME'
+
+def complete_user_setlastname(self, text, line, beg, end):
+    parts = shlex.split(line)
+    if line[-1] == ' ': parts.append(' ')
+
+    if len(parts) == 2:
+        return tab_completer(self.do_user_list('', True), text)
+    elif len(parts) > 2:
+        return
+
+def do_user_setlastname(self, args):
+    (args, options) = parse_arguments(args)
+
+    if len(args) != 2:
+        self.help_user_setlastname()
+        return
+
+    user = args.pop(0)
+    details = { 'last_name' : args.pop(0) }
+
+    self.client.user.setDetails(self.session, user, details)
+
+####################
+
+def help_user_setemail(self):
+    print 'user_setemail: Set an user accounts email field'
+    print 'usage: user_setemail USER EMAIL'
+
+def complete_user_setemail(self, text, line, beg, end):
+    parts = shlex.split(line)
+    if line[-1] == ' ': parts.append(' ')
+
+    if len(parts) == 2:
+        return tab_completer(self.do_user_list('', True), text)
+    elif len(parts) > 2:
+        return
+
+def do_user_setemail(self, args):
+    (args, options) = parse_arguments(args)
+
+    if len(args) != 2:
+        self.help_user_setemail()
+        return
+
+    user = args.pop(0)
+    details = { 'email' : args.pop(0) }
+
+    self.client.user.setDetails(self.session, user, details)
+
+####################
+
+def help_user_setprefix(self):
+    print 'user_setprefix: Set an user accounts name prefix field'
+    print 'usage: user_setprefix USER PREFIX'
+
+def complete_user_setprefix(self, text, line, beg, end):
+    parts = shlex.split(line)
+    if line[-1] == ' ': parts.append(' ')
+
+    if len(parts) == 2:
+        return tab_completer(self.do_user_list('', True), text)
+    elif len(parts) > 2:
+        return
+
+def do_user_setprefix(self, args):
+    (args, options) = parse_arguments(args)
+
+    if len(args) > 2:
+        self.help_user_setprefix()
+        return
+
+    user = args.pop(0)
+    if len(args) == 0:
+        # clearing prefix with a space currently does not work
+        # spacewalk requires a space to clear the prefix but the
+        # space seems to be stripped when submitted to the API gateway
+        # attempts to use %x20 and \u0020 (among others) also fail
+        details = { 'prefix' : ' ' }
+    else:
+        details = { 'prefix' : args.pop(0) }
+
+    self.client.user.setDetails(self.session, user, details)
+
+####################
+
+def help_user_setpassword(self):
+    print 'user_setpassword: Set an user accounts name prefix field'
+    print 'usage: user_setpassword USER PASSWORD'
+
+def complete_user_setpassword(self, text, line, beg, end):
+    parts = shlex.split(line)
+    if line[-1] == ' ': parts.append(' ')
+
+    if len(parts) == 2:
+        return tab_completer(self.do_user_list('', True), text)
+    elif len(parts) > 2:
+        return
+
+def do_user_setpassword(self, args):
+    (args, options) = parse_arguments(args)
+
+    if len(args) != 2:
+        self.help_user_setpassword()
+        return
+
+    user = args.pop(0)
+    details = { 'password' : args.pop(0) }
+
+    self.client.user.setDetails(self.session, user, details)
+
+
 # vim:ts=4:expandtab:
