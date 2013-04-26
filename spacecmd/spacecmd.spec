@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.10.2
+Version:     1.10.3
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -60,6 +60,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Apr 26 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.3-1
+- provide support for user.setDetails()
+
 * Tue Apr 16 2013 Stephen Herr <sherr@redhat.com> 1.10.2-1
 - Make spacecmd able to specify config channel label
 
