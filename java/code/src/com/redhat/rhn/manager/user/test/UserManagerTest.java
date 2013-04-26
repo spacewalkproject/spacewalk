@@ -378,7 +378,8 @@ public class UserManagerTest extends RhnBaseTestCase {
     public void testGetTimeZoneDefault() {
         RhnTimeZone tz = UserManager.getDefaultTimeZone();
         assertNotNull(tz);
-        assertTrue(tz.getOlsonName().equals("America/New_York"));
+        assertTrue(tz.getTimeZone().getRawOffset() ==
+                UserFactory.getTimeZone("America/New_York").getTimeZone().getRawOffset());
     }
 
     public void testLookupTimeZoneAll() {
