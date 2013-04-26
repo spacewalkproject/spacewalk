@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.67
+Version: 1.10.68
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Apr 26 2013 Grant Gainey 1.10.68-1
+- Fix tests - adding a Network to test-servers has unintended consequences.
+- commit flex conversions as they succeed
+
 * Thu Apr 25 2013 Tomas Lestach <tlestach@redhat.com> 1.10.67-1
 - fix bad bad debug remainder
 - do not pass server list, if Long list is expected in
