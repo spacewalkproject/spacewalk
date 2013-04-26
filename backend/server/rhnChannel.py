@@ -720,11 +720,13 @@ def base_channel_for_rel_arch(release, server_arch, org_id=-1,
           and c.id = rhn_channel.base_channel_for_release_arch(
                 :release, :server_arch, :org_id, :user_id)
     """
+    rhnSQL.transaction("base_channel_for_rel_arch")
     h = rhnSQL.prepare(query)
     try:
         h.execute(release = str(release), server_arch = str(server_arch),
                   org_id=org_id, user_id=user_id)
     except rhnSQL.SQLSchemaError, e:
+        rhnSQL.rollback("base_channel_for_rel_arch")
         if e.errno == 20263:
             # Insufficient permissions for subscription
             log_debug(4,'BaseChannelDeniedError')
