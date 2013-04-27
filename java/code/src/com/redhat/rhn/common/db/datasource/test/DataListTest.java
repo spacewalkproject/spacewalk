@@ -129,21 +129,21 @@ public class DataListTest extends RhnBaseTestCase {
             return elaborated;
         }
 
-        public DataResult execute(Map params) {
+        public DataResult execute(Map parms) {
             if (baseDr == null) {
-                baseDr = buildBase(params);
+                baseDr = buildBase(parms);
             }
             return baseDr;
         }
 
-        public void elaborate(List resultList, Map parameters) {
+        public void elaborate(List resultList, Map parms) {
             if (elaborated <= 0) {
-                buildElab(params);
+                buildElab(parms);
             }
             elaborated++;
         }
 
-        private DataResult buildBase(Map params) {
+        private DataResult buildBase(Map parms) {
             ArrayList<Map<String, String>> rslts = new ArrayList<Map<String, String>>();
             String[] names = {
                     "RHN", "RHNDEBUG", "WEB"
@@ -153,14 +153,14 @@ public class DataListTest extends RhnBaseTestCase {
             for (String name : names) {
                 Map<String, String> rsltRow = new HashMap<String, String>();
                 rsltRow.put("username", name);
-                rsltRow.put("user_id", ""+uid++);
+                rsltRow.put("user_id", "" + uid++);
                 rsltRow.put("created", "01-APR-2013 00:00");
                 rslts.add(rsltRow);
             }
             return new DataResult(rslts);
         }
 
-        private DataResult buildElab(Map params) {
+        private DataResult buildElab(Map parms) {
             ArrayList<Map<String, String>> typedDr = (ArrayList<Map<String, String>>)baseDr;
             for (Map<String, String> oneRow : typedDr) {
                 oneRow.put("table_count", "13");

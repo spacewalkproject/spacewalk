@@ -28,9 +28,9 @@ public class JarFinderTest extends RhnBaseTestCase {
     // At least make it clear what we're looking for...
 
     // As of this writing, java/rhnwebapp/WEB-INF/lib/redstone-xmlrpc-1.1_20071120.jar
-    private static String TESTJAR = "redstone.xmlrpc";
-    private static int NUM_CLASSES_IN_TESTJAR = 46;
-    private static int NUM_SUBDIRS_IN_TESTJAR = 47;
+    private static final String TESTJAR = "redstone.xmlrpc";
+    private static final int NUM_CLASSES_IN_TESTJAR = 46;
+    private static final int NUM_SUBDIRS_IN_TESTJAR = 47;
 
     public void testGetFinder() throws Exception {
         Finder f = FinderFactory.getFinder(TESTJAR);
