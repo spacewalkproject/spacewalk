@@ -22,35 +22,45 @@ import java.util.List;
 
 public class JarFinderTest extends RhnBaseTestCase {
 
+    // NOTE: Test is dependent on knowing things like "How many classes are in jarfile X"
+    // When "X" changes, the test FAILS.
+    // Sigh.
+    // At least make it clear what we're looking for...
+
+    // As of this writing, java/rhnwebapp/WEB-INF/lib/redstone-xmlrpc-1.1_20071120.jar
+    private static String TESTJAR = "redstone.xmlrpc";
+    private static int NUM_CLASSES_IN_TESTJAR = 46;
+    private static int NUM_SUBDIRS_IN_TESTJAR = 47;
+
     public void testGetFinder() throws Exception {
-        Finder f = FinderFactory.getFinder("redstone.xmlrpc");
+        Finder f = FinderFactory.getFinder(TESTJAR);
         assertNotNull(f);
     }
 
     public void testFindFiles() throws Exception {
-        Finder f = FinderFactory.getFinder("redstone.xmlrpc");
+        Finder f = FinderFactory.getFinder(TESTJAR);
         assertNotNull(f);
 
         List<String> result = f.find(".class");
-        assertEquals(28, result.size());
+        assertEquals(NUM_CLASSES_IN_TESTJAR, result.size());
     }
 
     public void testFindFilesSubDir() throws Exception {
-        Finder f = FinderFactory.getFinder("redstone.xmlrpc");
+        Finder f = FinderFactory.getFinder(TESTJAR);
         assertNotNull(f);
 
         List<String> result = f.find("");
-        assertEquals(29, result.size());
+        assertEquals(NUM_SUBDIRS_IN_TESTJAR, result.size());
     }
 
     public void testFindFilesExcluding() throws Exception {
-        Finder f = FinderFactory.getFinder("redstone.xmlrpc");
+        Finder f = FinderFactory.getFinder(TESTJAR);
         assertNotNull(f);
 
         String[] sarr = {"End"};
 
         List<String> result = f.findExcluding(sarr, "class");
-        assertEquals(28, result.size());
+        assertEquals(NUM_CLASSES_IN_TESTJAR, result.size());
     }
 }
 
