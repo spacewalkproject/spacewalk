@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.70
+Version: 1.10.71
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Sat Apr 27 2013 Grant Gainey 1.10.71-1
+- Abstract classes' names can't end in 'Test.java' or JUnit tries to execute
+  them
+- Checkstyle fixes
+- Junit teting for errors that we don't even reach on Postgres
+- Unit-test depends on specific contents of a jar.  It changed.  Sigh.
+- Separate test from DB (and specifically from Oracle)
+- With 07504b3d we stopped special-casing # in cfg-files - drop the tests
+
 * Sat Apr 27 2013 Grant Gainey 1.10.70-1
 - Fixing some minor query-data-type issues
 - ActivationKeys cannot include both a base-channel and children of a
