@@ -55,7 +55,7 @@ public class RoleFactory extends HibernateFactory {
     public static Role lookupById(Long id) {
         Session session = HibernateFactory.getSession();
         return (Role) session.getNamedQuery("Role.findById")
-                                       .setString("id", id.toString())
+                                       .setLong("id", id.longValue())
                                        //Retrieve from cache if there
                                        .setCacheable(true)
                                        .uniqueResult();
