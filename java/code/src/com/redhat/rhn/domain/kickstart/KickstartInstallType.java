@@ -29,6 +29,7 @@ public class KickstartInstallType extends BaseDomainHelper {
     public static final String RHEL_4 = "rhel_4";
     public static final String RHEL_5 = "rhel_5";
     public static final String RHEL_6 = "rhel_6";
+    public static final String RHEL_7 = "rhel_7";
     public static final String FEDORA = "fedora";
     public static final String GENERIC = "generic";
     public static final String SUSE = "suse";
@@ -53,6 +54,13 @@ public class KickstartInstallType extends BaseDomainHelper {
     public boolean isRhel5OrGreater() {
         // we need to reverse logic here
         return (!isRhel2() && !isRhel3() && !isRhel4() && !isFedora() && !isGeneric());
+    }
+
+    /**
+     * @return true if the installer type is rhel 7
+     */
+    public boolean isRhel7() {
+        return RHEL_7.equals(getLabel());
     }
 
     /**
@@ -94,7 +102,7 @@ public class KickstartInstallType extends BaseDomainHelper {
      * @return true if the installer type is rhel
      */
     public boolean isRhel() {
-        return isRhel2() || isRhel3() || isRhel4() || isRhel5() || isRhel6();
+        return isRhel2() || isRhel3() || isRhel4() || isRhel5() || isRhel6() || isRhel7();
     }
 
     /**
