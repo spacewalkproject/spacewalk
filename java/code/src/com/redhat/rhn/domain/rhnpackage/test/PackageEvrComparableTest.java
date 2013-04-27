@@ -14,11 +14,12 @@
  */
 package com.redhat.rhn.domain.rhnpackage.test;
 
+import org.apache.commons.lang.StringUtils;
+
+import com.redhat.rhn.common.db.WrappedSQLException;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.testing.RhnBaseTestCase;
-
-import org.apache.commons.lang.StringUtils;
 
 /**
  * Test the compare() method in PackageEvr
@@ -45,10 +46,15 @@ public class PackageEvrComparableTest extends RhnBaseTestCase {
         compare(1, "1-1-7", "1-1-6");
     }
 
+    // On Postgres, we don't get as far as the specific errors - the DB kicks us out
+    // with WrappedSQLException before we can even get to the specific-failure-code
     private void failure(String evr, Class excClass) {
         try {
             compare(0, evr, evr);
             fail("Comparison of " + evr + " must fail");
+        }
+        catch (WrappedSQLException wse) {
+            assertTrue(true);
         }
         catch (Exception e) {
             assertEquals(excClass, e.getClass());
