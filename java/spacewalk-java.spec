@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.69
+Version: 1.10.70
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Sat Apr 27 2013 Grant Gainey 1.10.70-1
+- Fixing some minor query-data-type issues
+- ActivationKeys cannot include both a base-channel and children of a
+  different base
+- Teach KickstartInstalltype that RHEL7 is coming
+- Fixing a number of JUnit tests
+
 * Fri Apr 26 2013 Tomas Lestach <tlestach@redhat.com> 1.10.69-1
 - fix UserManagerTest.testGetTimeZoneDefault
 
