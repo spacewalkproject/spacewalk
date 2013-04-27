@@ -45,6 +45,7 @@ public class KickstartScriptActionTest extends BaseKickstartEditTestCase {
 
     public void testExecuteLargeValueSubmit() throws Exception {
         String contents = RandomStringUtils.randomAscii(400000);
+        String name = RandomStringUtils.randomAscii(20);
         // Lets zero out the scripts
         ksdata = clearScripts(ksdata);
         String language = "/usr/bin/perl";
@@ -58,9 +59,11 @@ public class KickstartScriptActionTest extends BaseKickstartEditTestCase {
                 Boolean.TRUE.toString());
         addRequestParameter(KickstartScriptCreateAction.TEMPLATE,
                 Boolean.TRUE.toString());
+        addRequestParameter(KickstartScriptCreateAction.SCRIPTNAME,
+                name);
         setRequestPathInfo("/kickstart/KickstartScriptCreate");
         actionPerform();
-        String[] keys = {"kickstart.script.toolarge"};
+        String[] keys = {"errors.maxlength"};
         verifyActionErrors(keys);
 
         contents = RandomStringUtils.randomAscii(50000);

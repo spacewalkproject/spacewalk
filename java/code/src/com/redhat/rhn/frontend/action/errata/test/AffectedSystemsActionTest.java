@@ -64,7 +64,10 @@ public class AffectedSystemsActionTest extends MockObjectTestCase {
 
         ActionForward sameForward = action.applyErrata((ActionMapping)mapping.proxy(),
                 form, request, response);
-        assertEquals("path?eid=12345&lower=10", sameForward.getPath());
+        assertTrue(sameForward.getPath().startsWith("path?"));
+        assertTrue(sameForward.getPath().contains("eid=12345"));
+        assertTrue(sameForward.getPath().contains("lower=10"));
+
         mapping.verify();
 
         //With systems selected

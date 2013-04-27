@@ -14,23 +14,21 @@
  */
 package com.redhat.rhn.frontend.taglibs.test;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.SelectMode;
-import com.redhat.rhn.frontend.taglibs.ListTag;
-import com.redhat.rhn.testing.RhnBaseTestCase;
-import com.redhat.rhn.testing.RhnMockHttpServletRequest;
-import com.redhat.rhn.testing.TagTestUtils;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.Tag;
 
 import com.mockobjects.helpers.TagTestHelper;
 import com.mockobjects.servlet.MockJspWriter;
 import com.mockobjects.servlet.MockPageContext;
-
-import java.net.URL;
-import java.util.HashMap;
-
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.Tag;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.frontend.taglibs.ListTag;
+import com.redhat.rhn.testing.RhnBaseTestCase;
+import com.redhat.rhn.testing.RhnMockHttpServletRequest;
+import com.redhat.rhn.testing.TagTestUtils;
 
 /**
  * ColumnTagTest
@@ -78,10 +76,7 @@ public class ListTagTest extends RhnBaseTestCase {
 
     public void testTagNoOutput() throws Exception {
         ListTag lt = new ListTag();
-        // This is a hack, but I just need an empty list, and this works.
-        SelectMode m = ModeFactory.getMode("test_queries", "user_tables");
-        DataResult dr = m.execute(new HashMap());
-        dr = dr.subList(0, 0);
+        DataResult dr = new DataResult(new ArrayList());
 
         lt.setPageList(dr);
         lt.setNoDataText("cant have spaces");
@@ -103,10 +98,15 @@ public class ListTagTest extends RhnBaseTestCase {
 
     public void testTagOutput() throws Exception {
         ListTag lt = new ListTag();
-        // This is a hack, but I just need an empty list, and this works.
-        SelectMode m = ModeFactory.getMode("test_queries", "user_tables");
-        DataResult dr = m.execute(new HashMap());
-        dr = dr.subList(0, 1);
+
+        // Invent some data so we have a non-empty list
+        String[] vals = {"one", "two", "three"};
+        List<String> results = new ArrayList();
+        for (String s : vals) {
+            results.add(s);
+        }
+
+        DataResult dr = new DataResult(results);
 
         lt.setPageList(dr);
         lt.setNoDataText("No Data.");

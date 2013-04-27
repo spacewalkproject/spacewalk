@@ -111,7 +111,7 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         // Verify
         assertNotNull(operation);
 
-        assertEquals("Test operation 1", operation.getDescription());
+        assertTrue(operation.getDescription().contains("Test operation 1"));
         assertEquals(SsmOperationStatus.IN_PROGRESS.getText(), operation.getStatus());
         assertNotNull(operation.getStarted());
         assertNotNull(operation.getModified());

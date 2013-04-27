@@ -53,8 +53,8 @@ public class MethodUtilTest extends RhnBaseTestCase {
         String teststr = (String)MethodUtil.
                                  invokeStaticMethod(MethodUtilTest.class,
                                                     "staticMethod",
-                                                    new Object[] {new Integer(1)});
-        assertEquals(TEST_STRING + 1, teststr);
+                                                    new Object[] {new Integer(8)});
+        assertEquals(TEST_STRING + 8, teststr);
     }
 
     public void testInvokeNonStatic() throws Exception {
