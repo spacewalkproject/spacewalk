@@ -14,14 +14,16 @@
  */
 package com.redhat.rhn.common.db.datasource.test;
 
-import com.redhat.rhn.common.db.datasource.DataList;
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.SelectMode;
-import com.redhat.rhn.testing.RhnBaseTestCase;
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.redhat.rhn.common.db.datasource.DataList;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.SelectMode;
+import com.redhat.rhn.testing.RhnBaseTestCase;
 
 
 public class DataListTest extends RhnBaseTestCase {
@@ -102,18 +104,21 @@ public class DataListTest extends RhnBaseTestCase {
         return subby;
     }
 
-
+    /**
+     * Lets us divorce the infrastructure testing from requiring an actual DB
+     * Previous incarnation only worked if connected to Oracle
+     * @author ggainey
+     *
+     */
     public class HookedSelectMode extends SelectMode {
+
+        private static final long serialVersionUID = 1L;
         private int elaborated;
+        private DataResult baseDr;
 
         public HookedSelectMode(SelectMode m) {
             super(m);
             elaborated = 0;
-        }
-
-        public void elaborate(List resultList, Map param) {
-            elaborated++;
-            super.elaborate(resultList, param);
         }
 
         public boolean isElaborated() {
@@ -123,6 +128,46 @@ public class DataListTest extends RhnBaseTestCase {
         public int getElaborated() {
             return elaborated;
         }
+
+        public DataResult execute(Map params) {
+            if (baseDr == null) {
+                baseDr = buildBase(params);
+            }
+            return baseDr;
+        }
+
+        public void elaborate(List resultList, Map parameters) {
+            if (elaborated <= 0) {
+                buildElab(params);
+            }
+            elaborated++;
+        }
+
+        private DataResult buildBase(Map params) {
+            ArrayList<Map<String, String>> rslts = new ArrayList<Map<String, String>>();
+            String[] names = {
+                    "RHN", "RHNDEBUG", "WEB"
+            };
+
+            int uid = 101;
+            for (String name : names) {
+                Map<String, String> rsltRow = new HashMap<String, String>();
+                rsltRow.put("username", name);
+                rsltRow.put("user_id", ""+uid++);
+                rsltRow.put("created", "01-APR-2013 00:00");
+                rslts.add(rsltRow);
+            }
+            return new DataResult(rslts);
+        }
+
+        private DataResult buildElab(Map params) {
+            ArrayList<Map<String, String>> typedDr = (ArrayList<Map<String, String>>)baseDr;
+            for (Map<String, String> oneRow : typedDr) {
+                oneRow.put("table_count", "13");
+            }
+            return new DataResult(typedDr);
+        }
+
     }
 
 }
