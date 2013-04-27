@@ -36,15 +36,6 @@ public class ConfigTest extends RhnBaseTestCase {
     }
 
     /**
-     * Test that comments placed after values, such as:
-     *     web.property_with_comment = 42 #This shouldn't be part of the value
-     * are stripped out and only the value is returned.
-     */
-    public void testStripComments() {
-        assertEquals(42, c.getInt("web.property_with_comment"));
-    }
-
-    /**
      * define a value in rhn_web.conf with a prefix, call get using the
      * fully qualified property name.
      * define value in rhn_web.conf without a prefix, call get fully qualified.
@@ -343,18 +334,4 @@ public class ConfigTest extends RhnBaseTestCase {
         assertNull(c.getStringArray(null));
     }
 
-    public void testForEscapedPound() {
-        assertEquals("http://server.com/create/#foobar",
-                c.getString("web.escaped_pound"));
-        assertEquals("http://server.com/create/#foobar",
-                c.getString("web.escaped_pound_with_comment"));
-        assertEquals("I want this # to appear as a # sign but not the following:",
-                c.getString("web.escaped_multi"));
-        assertEquals("",
-                c.getString("web.pound_at_beginning"));
-        assertEquals("this_value_",
-                c.getString("web.pound_at_end"));
-        assertEquals("this_value_#",
-                c.getString("web.escaped_pound_at_end"));
-    }
 }
