@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.10.3
+Version:     1.10.4
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -60,6 +60,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Sun Apr 28 2013 Aron Parsons <aronparsons@gmail.com> 1.10.4-1
+- 947829 - spacecmd errors out when trying to add script to kickstart
+
 * Fri Apr 26 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.3-1
 - provide support for user.setDetails()
 
