@@ -1637,7 +1637,8 @@ options:
   -e EXECUTION_TIME ['pre', 'post']
   -i INTERPRETER
   -f FILE
-  -c execute in a chroot environment'''
+  -c execute in a chroot environment
+  -t ENABLING_TEMPLATING'''
 
 def complete_kickstart_addscript(self, text, line, beg, end):
     parts = line.split(' ')
@@ -1707,6 +1708,10 @@ def do_kickstart_addscript(self, args):
 
         if not options.interpreter:
             options.interpreter = '/bin/bash'
+
+        if not options.template:
+            options.template = False
+
 
     if options.file:
         options.contents = read_file(options.file)
