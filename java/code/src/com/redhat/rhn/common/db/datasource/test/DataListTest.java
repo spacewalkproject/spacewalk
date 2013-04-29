@@ -161,7 +161,7 @@ public class DataListTest extends RhnBaseTestCase {
         }
 
         private DataResult buildElab(Map parms) {
-            ArrayList<Map<String, String>> typedDr = (ArrayList<Map<String, String>>)baseDr;
+            ArrayList<Map<String, String>> typedDr = baseDr;
             for (Map<String, String> oneRow : typedDr) {
                 oneRow.put("table_count", "13");
             }
