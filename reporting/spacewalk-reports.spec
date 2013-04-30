@@ -29,7 +29,7 @@ install -d $RPM_BUILD_ROOT/%{_prefix}/share/spacewalk/reports/data
 install -d $RPM_BUILD_ROOT/%{_mandir}/man8
 install spacewalk-report $RPM_BUILD_ROOT/%{_bindir}
 install reports.py $RPM_BUILD_ROOT/%{_prefix}/share/spacewalk
-install reports/data/* $RPM_BUILD_ROOT/%{_prefix}/share/spacewalk/reports/data
+install -m 644 reports/data/* $RPM_BUILD_ROOT/%{_prefix}/share/spacewalk/reports/data
 install *.8 $RPM_BUILD_ROOT/%{_mandir}/man8
 
 %clean
