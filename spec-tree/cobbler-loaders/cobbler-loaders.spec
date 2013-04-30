@@ -5,7 +5,7 @@ Name: cobbler-loaders
 License: GPLv2+
 AutoReq: no
 Version: 1.0.2
-Release: 0%{?dist}
+Release: 1%{?dist}
 Url: http://fedorahosted.org/cobbler
 Source0: cobbler-loaders-%{version}.tar.gz
 Group: Applications/System
@@ -49,6 +49,10 @@ rm -rf $RPM_BUILD_ROOT
 %{loaders_root}/*
 
 %changelog
+* Tue Apr 30 2013 Stephen Herr <sherr@redhat.com> 1.0.2-1
+- 506485 - Pull cobbler-loader files from Red Hat signed rpms
+- replace legacy name of Tagger with new one
+
 * Fri Apr 12 2013 Stephen Herr <sherr@redhat.com> 1.0.1-2
 - 506485 - settings to make builds happen correctly
 
