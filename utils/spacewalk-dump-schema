@@ -60,6 +60,19 @@ process_scripts($dbh, 'pre');
 
 print <<'EOS';
 \set ON_ERROR_STOP on
+update pg_index
+  set indisvalid = false,
+      indisready = false
+where indexrelid in (
+      select pi.indexrelid
+        from pg_index pi,
+             pg_class pc,
+             pg_namespace pn
+       where pi.indexrelid = pc.oid and
+             pc.relnamespace = pn.oid and
+             pc.relkind = 'i'::"char" and
+             pn.nspname = current_schema()
+      );
 EOS
 
 my %ROWIDS = ();
@@ -80,6 +93,23 @@ if (not $raw) {
 		close FILE;
 	}
 }
+
+print <<'EOS';
+update pg_index
+  set indisvalid = true,
+      indisready = true
+where indexrelid in (
+      select pi.indexrelid
+        from pg_index pi,
+             pg_class pc,
+             pg_namespace pn
+       where pi.indexrelid = pc.oid and
+             pc.relnamespace = pn.oid and
+             pc.relkind = 'i'::"char" and
+             pn.nspname = current_schema()
+      );
+select pg_dblink_exec('reindex database ' || current_database() || ';');
+EOS
 
 exit 0;
 
