@@ -70,7 +70,7 @@ public class PackageSearchHelper {
             Boolean fineGrained)
             throws XmlRpcFault, MalformedURLException, SearchServerIndexException {
 
-        log.warn("Performing pkg search: " + searchString + ", " + mode);
+        log.info("Performing pkg search: " + searchString + ", " + mode);
 
         List<String> pkgArchLabels = null;
         if (selectedArches != null) {

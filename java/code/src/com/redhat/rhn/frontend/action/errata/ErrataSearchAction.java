@@ -267,7 +267,7 @@ public class ErrataSearchAction extends RhnAction {
             String searchString, String mode, DynaActionForm formIn)
         throws XmlRpcFault, MalformedURLException {
 
-        log.warn("Performing errata search");
+        log.info("Performing errata search");
         RequestContext ctx = new RequestContext(request);
         Org org = ctx.getCurrentUser().getOrg();
         // call search server
