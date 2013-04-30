@@ -4,8 +4,8 @@ Summary: Bootloaders to make cobbler buildiso work
 Name: cobbler-loaders
 License: GPLv2+
 AutoReq: no
-Version: 1.0.1
-Release: 3%{?dist}
+Version: 1.0.2
+Release: 0%{?dist}
 Url: http://fedorahosted.org/cobbler
 Source0: cobbler-loaders-%{version}.tar.gz
 Group: Applications/System
@@ -33,6 +33,8 @@ is necessary for 'cobbler buildiso' to work.
 echo "pre-install"
 mkdir -p $RPM_BUILD_ROOT%{loaders_root}
 install -m644 * $RPM_BUILD_ROOT%{loaders_root}/
+ln -s /usr/share/syslinux/menu.c32 $RPM_BUILD_ROOT%{loaders_root}/menu.c32
+ln -s /usr/share/syslinux/pxelinux.0 $RPM_BUILD_ROOT%{loaders_root}/pxelinux.0
 echo "post-install"
 
 %post
