@@ -1,41 +1,4 @@
-
 begin
-	for rec in (
-		select trigger_name
-		from user_triggers
-		where table_name in (
-			select table_name
-			from user_tab_columns
-			where DATA_TYPE = 'DATE'
-			)
-			and trigger_name not like '%$%'
-		) loop
-		execute immediate 'alter trigger ' || rec.trigger_name || ' disable';
-	end loop;
-end;
-/
-
-begin
-	for rec in (
-		select table_name, constraint_name
-		from user_constraints
-		where table_name in (
-			select table_name
-			from user_tab_columns
-			where DATA_TYPE = 'DATE'
-			)
-			and table_name not like '%$%'
-			and constraint_type = 'C'
-		) loop
-		execute immediate 'alter table ' || rec.table_name || ' disable constraint ' || rec.constraint_name;
-	end loop;
-end;
-/
-
-declare
-	prev_table varchar2(30);
-begin
-	prev_table := 'none';
 	for rec in (
 		select table_name, column_name
 		from user_tab_columns
@@ -47,22 +10,9 @@ begin
 			and data_type = 'DATE'
 		order by table_name
 		) loop
-		if prev_table <> rec.table_name then
-			if prev_table <> 'none' then
-				execute immediate 'alter table ' || prev_table || ' drop column orig_date';
-			end if;
-			execute immediate 'alter table ' || rec.table_name || ' add orig_date date';
-		end if;
-		execute immediate 'update ' || rec.table_name || ' set orig_date = ' || rec.column_name;
-		execute immediate 'update ' || rec.table_name || ' set ' || rec.column_name || ' = null';
 		execute immediate 'alter table ' || rec.table_name || ' modify ' || rec.column_name || ' timestamp with local time zone';
-		execute immediate 'update ' || rec.table_name || ' set ' || rec.column_name || ' = orig_date';
-		prev_table := rec.table_name;
 	end loop;
 
-	if prev_table <> 'none' then
-		execute immediate 'alter table ' || prev_table || ' drop column orig_date';
-	end if;
 end;
 /
 
@@ -77,39 +27,6 @@ begin
 		if rec.data_default like '(sysdate)%' or rec.data_default like 'sysdate%' then
 			execute immediate 'alter table ' || rec.table_name || ' modify ' || rec.column_name || ' default (current_timestamp)';
 		end if;
-	end loop;
-end;
-/
-
-begin
-	for rec in (
-		select table_name, constraint_name
-		from user_constraints
-		where table_name in (
-			select table_name
-			from user_tab_columns
-			where DATA_TYPE = 'TIMESTAMP(6) WITH LOCAL TIME ZONE'
-			)
-			and table_name not like '%$%'
-			and constraint_type = 'C'
-		) loop
-		execute immediate 'alter table ' || rec.table_name || ' enable constraint ' || rec.constraint_name;
-	end loop;
-end;
-/
-
-begin
-	for rec in (
-		select trigger_name
-		from user_triggers
-		where table_name in (
-			select table_name
-			from user_tab_columns
-			where DATA_TYPE = 'TIMESTAMP(6) WITH LOCAL TIME ZONE'
-			)
-			and trigger_name not like '%$%'
-		) loop
-		execute immediate 'alter trigger ' || rec.trigger_name || ' enable';
 	end loop;
 end;
 /
