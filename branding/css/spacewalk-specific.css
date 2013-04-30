@@ -41,10 +41,6 @@ table.list-doubleheader tr + tr th:first-child {
     background-color: #d7d7d7;
 }
 
-.list-checkbox {
-    border-left: 1px solid #c0c0c0;
-}
-
 .list-row-even td {
         background-color: #eae8e4;
 }
