@@ -7,6 +7,6 @@
     
         Map params = makeParamMap(request);
     
-        return RhnHelper.forwardParams(mapping.findForward("default"), params);
+        return StrutsDelegate.getInstance().forwardParams(mapping.findForward("default"), params);
     }
 

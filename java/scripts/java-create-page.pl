@@ -73,7 +73,7 @@ append_struts();
 sub generate_action {
 
   my $import = "import com.redhat.rhn.frontend.struts.RhnAction;\n"; 
-  $import = $import . "import com.redhat.rhn.frontend.struts.RhnHelper;\n\n";
+  $import = $import . "import com.redhat.rhn.frontend.struts.StrutsDelegate;\n\n";
   $import = $import . "import org.apache.struts.action.ActionForm;\n";
   $import = $import . "import org.apache.struts.action.ActionForward;\n";
   $import = $import . "import org.apache.struts.action.ActionMapping;\n\n";
