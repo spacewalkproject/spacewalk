@@ -37,6 +37,18 @@ except:
     # be on every system.
     libvirt = None
 
+def utf8_encode(msg):
+    """
+    for RHEL6 just pass the function to rhncli
+    for RHEL5 do the same within this module
+    """
+    if hasattr(rhncli, 'utf8_encode'):
+        return rhncli.utf8_encode(msg)
+    if isinstance(msg, unicode):
+        msg = msg.encode('utf-8')
+    return(msg)
+
+
 def _check_status(daemon):
     """
      Checks to see if daemon is running.
@@ -194,7 +206,7 @@ def _is_host_domain(fail_on_error=False):
     try:
         conn = libvirt.openReadOnly(None)
     except libvirt.libvirtError: # libvirtd is not running
-        sys.stderr.write(rhncli.utf8_encode(_("Warning: Could not retrieve virtualization information!\n\tlibvirtd service needs to be running.\n")))
+        sys.stderr.write(utf8_encode(_("Warning: Could not retrieve virtualization information!\n\tlibvirtd service needs to be running.\n")))
         if fail_on_error:
             exit(1)
         return False
