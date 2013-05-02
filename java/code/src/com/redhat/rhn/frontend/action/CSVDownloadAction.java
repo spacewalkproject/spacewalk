@@ -67,6 +67,7 @@ public class CSVDownloadAction extends DownloadAction {
              * Overridden to redirect for case of errors while processing CSV Export,
              * example: Session timeout.
              */
+            e.printStackTrace();
             return mapping.findForward("error");
         }
         return null;
