@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.24
+Version: 1.10.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -637,6 +637,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu May 02 2013 Stephen Herr <sherr@redhat.com> 1.10.25-1
+- 947639 - make satellite-sync work with new rhnlib
+
 * Mon Apr 29 2013 Stephen Herr <sherr@redhat.com> 1.10.24-1
 - Revert "Run python backend in daemon mode to ease integration with splice"
 - Revert "Additional change for spacewalk-backend daemon mode"
