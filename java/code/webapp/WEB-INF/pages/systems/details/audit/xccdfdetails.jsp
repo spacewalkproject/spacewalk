@@ -86,7 +86,7 @@
 
 <h2><bean:message key="system.audit.xccdfdetails.jsp.xccdfrules"/></h2>
 
-<rl:listset name="groupSet">
+<rl:listset name="xccdfDetails">
   <rhn:csrf/>
   <rl:list>
     <rl:decorator name="PageSizeDecorator"/>
@@ -94,7 +94,7 @@
     <%@ include file="/WEB-INF/pages/common/fragments/audit/rule-common-columns.jspf" %>
 
   </rl:list>
-  <rl:csv name="groupSet"
+  <rl:csv name="xccdfDetails"
     exportColumns="id,documentIdref,identsString,evaluationResult"/>
 </rl:listset>
 
