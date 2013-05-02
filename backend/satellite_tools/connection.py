@@ -25,8 +25,11 @@ __version__ = "0.1"
 
 class Transport(rpclib.transports.Transport):
     user_agent = "satellite-sync/%s" % __version__
-    def __init__(self):
-        rpclib.transports.Transport.__init__(self)
+    def __init__(self, timeout=None):
+        if timeout:
+            rpclib.transports.Transport.__init__(self, timeout=timeout)
+        else:
+            rpclib.transports.Transport.__init__(self)
         self.add_header("Accept-Encoding", "gzip")
 
     def _process_response(self, fd, connection):
