@@ -24,6 +24,7 @@ Conflicts: rhn-custom-info < 5.4.7
 Conflicts: rhnpush < 5.5.10
 Conflicts: rhnclient < 0.10
 Conflicts: spacewalk-proxy < 1.3.6
+Conflicts: spacewalk-backend < 1.10.25
 
 %description
 rhnlib is a collection of python modules used by the 
