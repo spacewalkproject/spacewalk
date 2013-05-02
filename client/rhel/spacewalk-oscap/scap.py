@@ -20,6 +20,7 @@ def xccdf_eval(args, cache_only=None):
     oscap_err += _run_oscap(['xccdf', 'eval'] + params + [args['path']])
 
     if not _assert_xml(results_file.name):
+        del(results_file)
         return (1, 'oscap tool did not produce valid xml.\n' + oscap_err, {})
 
     ret, resume, xslt_err = _xccdf_resume(results_file.name)
