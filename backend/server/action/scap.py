@@ -33,5 +33,7 @@ def xccdf_eval(server_id, action_id, dry_run=0):
             "%s for server %s" % (action_id, server_id))
     return ({
         'path': dict['path'],
+        'id': action_id,
+        'file_size': 2097152,
         'params': rhnSQL.read_lob(dict['parameters']) or ''
         },)
