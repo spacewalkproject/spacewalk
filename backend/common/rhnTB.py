@@ -24,6 +24,7 @@ from rhn.connections import idn_pune_to_unicode
 from rhnConfig import CFG, PRODUCT_NAME
 from rhnLog import log_error
 from rhnTranslate import _
+from stringutils import to_string
 import rhnMail
 import rhnFlags
 
@@ -44,7 +45,7 @@ def print_env(fd = sys.stderr):
     el = dct.keys()
     el.sort()
     for k in el:
-        fd.write("%s = %s\n" % (k, dct[k]))
+        fd.write("%s = %s\n" % (to_string(k), to_string(dct[k])))
 
 
 def print_locals(fd = sys.stderr, tb = None):
@@ -70,13 +71,13 @@ def print_locals(fd = sys.stderr, tb = None):
                                                   frame.f_code.co_filename,
                                                   frame.f_lineno))
         for key, value in frame.f_locals.items():
-            fd.write("\t%20s = " % key)
+            fd.write("\t%20s = " % to_string(key))
             # We have to be careful not to cause a new error in our error
             # printer! Calling str() on an unknown object could cause an
             # error we don't want.
             # pylint: disable=W0702
             try:
-                s = str(value)
+                s = str(to_string(value))
             except:
                 s = "<ERROR WHILE PRINTING VALUE>"
             if len(s) > 100 * 1024:
@@ -98,7 +99,7 @@ def print_req(req, fd = sys.stderr):
     kl = req.headers_in.keys()
     kl.sort()
     for k in kl:
-        fd.write("\t%s: %s\n" % (k, req.headers_in[k]))
+        fd.write("\t%s: %s\n" % (to_string(k), to_string(req.headers_in[k])))
     return 0
 
 
@@ -126,16 +127,16 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
     exc = StringIO()
 
     unicode_hostname = idn_pune_to_unicode(hostname)
-    exc.write("Exception reported from %s\nTime: %s\n" % (unicode_hostname, t))
-    exc.write("Exception type %s\n" % (e_type,))
+    exc.write("Exception reported from %s\nTime: %s\n" % (to_string(unicode_hostname), t))
+    exc.write("Exception type %s\n" % to_string(e_type))
     if method:
-        exc.write("Exception while handling function %s\n" % method)
+        exc.write("Exception while handling function %s\n" % to_string(method))
 
     # print information about the request being served
     if req:
         print_req(req, exc)
     if extra:
-        exc.write("Extra information about this error:\n%s\n" % extra)
+        exc.write("Extra information about this error:\n%s\n" % to_string(extra))
 
     # Print the traceback
     exc.write("\nException Handler Information\n")
@@ -147,11 +148,8 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
 
     # we always log it somewhere
     if ostream:
-        msg = exc.getvalue()
-        if isinstance(msg, unicode):
-            msg = msg.encode('utf-8')
-        ostream.write("%s\n" % msg)
-
+        ostream.write(to_string(exc.getvalue()))
+        ostream.write("\n")
 
     if mail:
         # print the stack frames for the mail we send out
@@ -175,7 +173,7 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
             }
         QUIET_MAIL = QUIET_MAIL - 1     # count it no matter what
 
-        outstring = exc.getvalue()
+        outstring = to_string(exc.getvalue())
 
         #5/18/05 wregglej - 151158 Go through every string in the security list
         # and censor it out of the debug information.
