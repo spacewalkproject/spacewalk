@@ -20,6 +20,7 @@ import smtplib
 
 from rhnConfig import CFG, PRODUCT_NAME
 from rhn.connections import idn_pune_to_unicode
+from stringutils import to_string
 
 # check if the headers have the minimum required fields
 def __check_headers(h):
@@ -53,8 +54,6 @@ def send(headers, body, sender = None):
         joined_headers += u"%s: %s\n" % (h, headers[h])
 
     server = smtplib.SMTP('localhost')
-    if not isinstance(body, unicode):
-        body = body.decode('utf-8')
-    msg = u"%s\n%s\n" % (joined_headers, body)
-    server.sendmail(sender, toaddrs, msg.encode('utf-8'))
+    msg = "%s\n%s\n" % (to_string(joined_headers), to_string(body))
+    server.sendmail(sender, toaddrs, msg)
     server.quit()
