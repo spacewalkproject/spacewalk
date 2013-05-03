@@ -88,6 +88,9 @@ class _DoCallWrapper(object):
             elif fault.faultCode == -2:
                 # Invalid username and password combination.
                 exception = up2dateErrors.AuthenticationOrAccountCreationError(fault.faultString)
+            elif fault.faultCode == -110:
+                # Account is disabled
+                exception = up2dateErrors.AuthenticationOrAccountCreationError(fault.faultString)
             elif fault.faultCode == -1:
                 exception = up2dateErrors.UnknownMethodException(fault.faultString)
             elif fault.faultCode == -13:
