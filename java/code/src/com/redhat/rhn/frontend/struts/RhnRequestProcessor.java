@@ -87,7 +87,10 @@ public class RhnRequestProcessor extends RequestProcessor {
 
                 if (!AclManager.hasAcl(mapping.getAcls(), request, mapping.getMixins())) {
                     //an acl evaluated to false
-                    PermissionException e = new PermissionException("Missing Acl");
+                    PermissionException e = new PermissionException("Missing Acl: " +
+                    mapping.getAcls() + " when accessing " + request.getRequestURI());
+                    log.error(e.getMessage());
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                     request.setAttribute("error", e);
                     //forward to permissions error page
                     doForward("/errors/Permission.do", request, response);

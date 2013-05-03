@@ -475,7 +475,7 @@ public class RequestContext {
             // " is required and must be a Long, but was '" + p +"'");
             // That one day has finally arrived! And the coders rejoiced.
             throw new BadParameterException("The parameter " + paramName +
-            " is required.");
+            " is required, when accessing " + request.getRequestURI());
         }
         return result;
     }

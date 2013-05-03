@@ -21,11 +21,16 @@ import com.redhat.rhn.frontend.events.TraceBackEvent;
 import com.redhat.rhn.frontend.struts.RequestContext;
 
 import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ExceptionHandler;
+import org.apache.struts.config.ExceptionConfig;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * BadParameterExceptionHandler
@@ -38,10 +43,24 @@ public class BadParameterExceptionHandler extends ExceptionHandler {
     /**
      * {@inheritDoc}
      */
+    @Override
+    public ActionForward execute(Exception exIn, ExceptionConfig aeIn,
+            ActionMapping mappingIn, ActionForm formInstanceIn,
+            HttpServletRequest requestIn, HttpServletResponse responseIn)
+        throws ServletException {
+        exception = (BadParameterException) exIn;
+        requestIn.setAttribute("error", exception);
+        responseIn.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        return super.execute(exception, aeIn, mappingIn, formInstanceIn, requestIn,
+                responseIn);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     protected void logException(Exception ex) {
         Logger log = Logger.getLogger(BadParameterExceptionHandler.class);
         log.error("Missing Parameter Error", ex);
-        exception = (BadParameterException) ex;
     }
 
     protected void storeException(HttpServletRequest request, String property,
@@ -52,8 +71,5 @@ public class BadParameterExceptionHandler extends ExceptionHandler {
         evt.setRequest(request);
         evt.setException(exception);
         MessageQueue.publish(evt);
-
-        request.setAttribute("error", exception);
     }
-
 }

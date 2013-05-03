@@ -23,11 +23,16 @@ import com.redhat.rhn.frontend.events.TraceBackEvent;
 import com.redhat.rhn.frontend.struts.RequestContext;
 
 import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ExceptionHandler;
+import org.apache.struts.config.ExceptionConfig;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * LookupExceptionHandler
@@ -40,10 +45,24 @@ public class LookupExceptionHandler extends ExceptionHandler {
     /**
      * {@inheritDoc}
      */
+    @Override
+    public ActionForward execute(Exception exIn, ExceptionConfig aeIn,
+            ActionMapping mappingIn, ActionForm formInstanceIn,
+            HttpServletRequest requestIn, HttpServletResponse responseIn)
+        throws ServletException {
+        exception = (LookupException) exIn;
+        requestIn.setAttribute("error", exception);
+        responseIn.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        return super.execute(exception, aeIn, mappingIn, formInstanceIn, requestIn,
+                responseIn);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     protected void logException(Exception ex) {
         Logger log = Logger.getLogger(LookupExceptionHandler.class);
-        exception = (LookupException) ex;
-        log.warn(exception.getMessage());
+        log.warn(ex.getMessage());
     }
 
     protected void storeException(HttpServletRequest request, String property,
@@ -57,8 +76,5 @@ public class LookupExceptionHandler extends ExceptionHandler {
             evt.setException(exception);
             MessageQueue.publish(evt);
         }
-        request.setAttribute("error", exception);
-
     }
-
 }
