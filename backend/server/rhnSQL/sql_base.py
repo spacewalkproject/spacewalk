@@ -28,13 +28,6 @@ import sys
 import sql_types
 import types
 
-def adjust_type(val):
-    """ Adjust data types prior to calling execute(). """
-    if isinstance(val, types.UnicodeType):
-        # Represent it as UTF8
-        return val.encode("UTF8")
-    return val
-
 def ociDict(names=None, row=None):
     """ Create a dictionary from a row description and its values. """
     data = {}

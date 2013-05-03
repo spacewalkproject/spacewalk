@@ -34,7 +34,7 @@ from spacewalk.server import rhnSQL
 from spacewalk.common import rhnConfig
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnException
-from sql_base import adjust_type
+from spacewalk.common.stringutils import to_string
 from const import ORACLE
 
 ORACLE_TYPE_MAPPING = [
@@ -154,7 +154,7 @@ class Cursor(sql_base.Cursor):
             if not _p.has_key(k):
                 # Raise the fault ourselves
                 raise sql_base.SQLError(1008, 'Not all variables bound', k)
-            params[k] = adjust_type(_p[k])
+            params[k] = to_string(_p[k])
 
         # cx_Oracle expects the first arg to be the statement and no
         # positional args:
@@ -194,7 +194,7 @@ class Cursor(sql_base.Cursor):
             for i in xrange(item_count):
                 pdict = arr[i]
                 for k, v in kwargs.iteritems():
-                    pdict[k] = adjust_type(v[start+i])
+                    pdict[k] = to_string(v[start+i])
 
             # We clear self->bindVariables so that list of all nulls
             # in the previous chunk which caused the type to be set to
@@ -326,7 +326,7 @@ class Procedure(sql_base.Procedure):
         return self._call_proc_ret(args, ret_type=None)
 
     def _call_proc_ret(self, args, ret_type=None):
-        args = map(adjust_type, self._munge_args(args))
+        args = map(to_string, self._munge_args(args))
         if ret_type:
             for sqltype, db_type in self._type_mapping:
                 if isinstance(ret_type, sqltype):

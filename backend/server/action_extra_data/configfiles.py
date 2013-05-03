@@ -15,9 +15,9 @@
 # config file-related error handling functions
 #
 
-from types import UnicodeType
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug, log_error
+from spacewalk.common.stringutils import to_string
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnServer import server_kickstart
 
@@ -269,8 +269,7 @@ def _add_result(action_config_revision_id, diff):
 
     if diff:
         blob_map = {'result': 'result'}
-        if type(diff) == UnicodeType:
-            diff = unicode.encode(diff,'utf-8')
+        diff = to_string(diff)
     else:
         blob_map = None
         diff = None

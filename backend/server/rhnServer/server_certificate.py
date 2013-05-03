@@ -26,6 +26,7 @@ import xmlrpclib
 
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnFault
+from spacewalk.common.stringutils import to_string
 from server_lib import getServerSecret
 
 def gen_secret():
@@ -56,7 +57,7 @@ class Checksum:
         else:
             if type(arg) == type(0):
                 arg = str(arg)
-            self.sum.update(arg.encode("utf-8"))
+            self.sum.update(to_string(arg))
     def __repr__(self):
         t = ""
         for i in self.sum.digest()[:]:
@@ -141,10 +142,7 @@ class Certificate:
             return -1
         # Now decode this certificate
         try:
-            if isinstance(text_id, unicode):
-                sysid, junk = xmlrpclib.loads(text_id.encode('utf-8'))
-            else:
-                sysid, junk = xmlrpclib.loads(text_id)
+            sysid, junk = xmlrpclib.loads(to_string(text_id))
         except:
             return -1
         else:

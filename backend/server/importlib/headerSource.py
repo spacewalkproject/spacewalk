@@ -24,6 +24,7 @@ from importLib import File, Dependency, ChangeLog, Channel, \
 from backendLib import gmtime, localtime
 from types import ListType, TupleType, IntType, LongType, StringType
 from spacewalk.common.rhnLog import log_debug
+from spacewalk.common.stringutils import to_string
 
 class rpmPackage(IncompletePackage):
     # Various mappings
@@ -65,7 +66,7 @@ class rpmPackage(IncompletePackage):
             elif val:
                 # Convert to strings
                 if isinstance(val, unicode):
-                    val = unicode.encode(val, 'utf-8')
+                    val = to_string(val)
                 else:
                     val = str(val)
             elif val == []:

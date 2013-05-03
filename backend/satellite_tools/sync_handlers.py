@@ -18,6 +18,7 @@ import types
 import string
 import sys
 
+from spacewalk.common.stringutils import to_string
 from spacewalk.server import rhnSQL
 from spacewalk.server.importlib import channelImport, packageImport, errataImport, \
     kickstartImport, importLib
@@ -598,7 +599,7 @@ def populate_channel_family_permissions(cert):
             # default the org to 1 for channel families from cert
             org_id = 1
 
-        cf_name = cf_name.encode('utf-8')
+        cf_name = to_string(cf_name)
         try:
             old_max_tuple = cfps[(cf_name, org_id)]
         except KeyError:

@@ -22,7 +22,7 @@ import string
 from importLib import Channel
 from backendLib import gmtime, localtime
 from types import IntType
-
+from spacewalk.common.stringutils import to_string
 
 class debBinaryPackage(headerSource.rpmBinaryPackage):
 
@@ -62,7 +62,7 @@ class debBinaryPackage(headerSource.rpmBinaryPackage):
             elif val:
                 # Convert to strings
                 if isinstance(val, unicode):
-                    val = unicode.encode(val, 'utf-8')
+                    val = to_string(val)
                 else:
                     val = str(val)
             elif val == []:
