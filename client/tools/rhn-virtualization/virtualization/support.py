@@ -208,7 +208,7 @@ def _is_host_domain(fail_on_error=False):
     except libvirt.libvirtError: # libvirtd is not running
         sys.stderr.write(utf8_encode(_("Warning: Could not retrieve virtualization information!\n\tlibvirtd service needs to be running.\n")))
         if fail_on_error:
-            exit(1)
+            sys.exit(1)
         return False
     if conn and conn.getType() in ['Xen', 'QEMU']:
         return True
