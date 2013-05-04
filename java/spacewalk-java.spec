@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.71
+Version: 1.10.72
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Sat May 04 2013 Grant Gainey <ggainey@redhat.com> 1.10.72-1
+- A lot of JUnit cleanup
+- Print stack trace in case of CSV failures.
+- 958654 - Use different listSetName for the XccdfDetail page.
+- Tweak create-page to know about StrutsDelegate
+- logging pkg and errata search as INFO instead of WARN
+- removing unnecessary cast
+
 * Sat Apr 27 2013 Grant Gainey 1.10.71-1
 - Abstract classes' names can't end in 'Test.java' or JUnit tries to execute
   them
