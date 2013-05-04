@@ -14,6 +14,18 @@
  */
 package com.redhat.rhn.testing;
 
+import java.util.Locale;
+import java.util.TimeZone;
+
+import javax.servlet.http.Cookie;
+
+import org.apache.struts.action.DynaActionForm;
+import org.hibernate.HibernateException;
+
+import servletunit.HttpServletRequestSimulator;
+import servletunit.ServletContextSimulator;
+import servletunit.struts.MockStrutsTestCase;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
@@ -27,18 +39,6 @@ import com.redhat.rhn.frontend.servlets.PxtSessionDelegate;
 import com.redhat.rhn.frontend.servlets.PxtSessionDelegateFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
-
-import org.apache.struts.action.DynaActionForm;
-import org.hibernate.HibernateException;
-
-import java.util.Locale;
-import java.util.TimeZone;
-
-import javax.servlet.http.Cookie;
-
-import servletunit.HttpServletRequestSimulator;
-import servletunit.ServletContextSimulator;
-import servletunit.struts.MockStrutsTestCase;
 
 /**
  * RhnMockStrutsTestCase - simple base class that adds a User to the test since all our
@@ -80,7 +80,7 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
         PxtSessionDelegate pxtDelegate = pxtDelegateFactory.newPxtSessionDelegate();
 
         pxtDelegate.updateWebUserId(request, response, user.getId());
-        KickstartDataTest.setupTestConfiguration();
+        KickstartDataTest.setupTestConfiguration(user);
     }
 
     /**

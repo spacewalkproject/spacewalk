@@ -101,7 +101,7 @@ public class ServerGroupTest extends RhnBaseTestCase {
     }
 
     public void testGetServerGroupTypeFeatures() throws Exception {
-        Org org1 = UserTestUtils.findNewOrg("testOrg");
+        Org org1 = UserTestUtils.findNewOrg("testOrg" + this.getClass().getSimpleName());
         assertTrue(org1.getEntitledServerGroups().size() > 0);
         assertNotNull(org1.getEntitledServerGroups().get(0).getGroupType().getFeatures());
         assertTrue(org1.getEntitledServerGroups().get(0).getGroupType().

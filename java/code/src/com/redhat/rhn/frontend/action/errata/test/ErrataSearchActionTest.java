@@ -38,7 +38,8 @@ public class ErrataSearchActionTest extends RhnBaseTestCase {
 
         ErrataSearchAction action = new ErrataSearchAction();
         ActionHelper ah = new ActionHelper();
-        Errata e = ErrataFactoryTest.createTestErrata(UserTestUtils.createOrg("testOrg"));
+        Errata e = ErrataFactoryTest.createTestErrata(UserTestUtils.createOrg("testOrg" +
+                    this.getClass().getSimpleName()));
         String name = e.getAdvisory();
 
         ah.setUpAction(action, "success");

@@ -35,7 +35,7 @@ public class CreateCommandTest extends RhnBaseTestCase {
 
     public void setUp() {
         ccc = new CreateChannelCommand();
-        Long oid = UserTestUtils.createOrg("testOrg");
+        Long oid = UserTestUtils.createOrg("testOrg" + this.getClass().getSimpleName());
         user = UserTestUtils.createUser("testUser", oid);
         ccc.setUser(user); // non-super user
         ccc.setArchLabel("channel-ia32"); // valid arch label

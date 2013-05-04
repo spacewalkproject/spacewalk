@@ -34,7 +34,7 @@ public class UpdateUserCommandTest extends RhnBaseTestCase {
     private UpdateUserCommand command;
 
     public void setUp() {
-        Long oid = UserTestUtils.createOrg("testOrg");
+        Long oid = UserTestUtils.createOrg("testOrg" + this.getClass().getSimpleName());
         User user = UserTestUtils.createUser("testUser", oid);
         command = new UpdateUserCommand(user);
     }

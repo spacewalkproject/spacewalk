@@ -33,7 +33,8 @@ public class ActionAclHandlerTest extends RhnBaseTestCase {
     public void testAclGenericActionType() throws Exception {
         ActionAclHandler access = new ActionAclHandler();
         Action newA = ActionFactoryTest.createAction(UserTestUtils.createUser(
-                "testUser", UserTestUtils.createOrg("testOrg")),
+                "testUser",
+                UserTestUtils.createOrg("testOrg" + this.getClass().getSimpleName())),
                 ActionFactory.TYPE_PACKAGES_REMOVE);
 
         String[] foo = {"remove"};

@@ -95,7 +95,8 @@ public class LoggingInvocationProcessorTest extends RhnBaseTestCase {
     }
 
     public void testPostProcessValidSession() {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         // create a web session indicating a logged in user.
         WebSession s = WebSessionFactory.createSession();
         s.setWebUserId(user.getId());

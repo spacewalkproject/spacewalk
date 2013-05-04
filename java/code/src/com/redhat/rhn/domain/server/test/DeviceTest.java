@@ -84,7 +84,7 @@ public class DeviceTest extends RhnBaseTestCase {
 
     public static Device createTestDevice() throws Exception {
         Device hd = new Device();
-        User u = UserTestUtils.findNewUser("testUser", "testOrg");
+        User u = UserTestUtils.findNewUser("testUser", "testOrgCreateTestDevice");
         Server server = ServerFactoryTest.createTestServer(u);
 
         hd.setServer(server);

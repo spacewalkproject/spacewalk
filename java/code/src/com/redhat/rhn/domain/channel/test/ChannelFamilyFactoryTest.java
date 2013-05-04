@@ -69,7 +69,8 @@ public class ChannelFamilyFactoryTest extends RhnBaseTestCase {
 
 
     public void testVerifyOrgFamily() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Org org = user.getOrg();
         ChannelFamily orgfam = ChannelFamilyFactory.lookupByOrg(org);
 
@@ -93,7 +94,8 @@ public class ChannelFamilyFactoryTest extends RhnBaseTestCase {
     }
 
     public void testPrivateChannelFamily() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         ChannelFamily cfam = createTestChannelFamily(user);
         assertNotNull(cfam.getMaxMembers(user.getOrg()));
         assertNotNull(cfam.getCurrentMembers(user.getOrg()));
@@ -101,7 +103,7 @@ public class ChannelFamilyFactoryTest extends RhnBaseTestCase {
     }
 
     public static ChannelFamily createTestChannelFamily() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser", "testOrgCreateTestChannelFamily");
 
         return createTestChannelFamily(user);
     }

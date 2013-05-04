@@ -44,7 +44,8 @@ public class VirtualInstanceFactoryTest extends RhnBaseTestCase {
         super.setUp();
 
         virtualInstanceDAO = new VirtualInstanceFactory();
-        user = UserTestUtils.findNewUser("testUser", "testOrg");
+        user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         builder = new GuestBuilder(user);
     }
 

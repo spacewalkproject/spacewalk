@@ -35,7 +35,7 @@ public class DailySummaryTest extends RhnBaseTestCase {
         clear.executeUpdate(new HashMap());
 
         DailySummary ds = new DailySummary();
-        Long oid = UserTestUtils.createOrg("testOrg");
+        Long oid = UserTestUtils.createOrg("testOrg" + this.getClass().getSimpleName());
         assertNotNull(oid);
         int rows = ds.dequeueOrg(oid);
         assertEquals(0, rows);

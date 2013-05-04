@@ -114,7 +114,8 @@ public class UserFactoryTest extends RhnBaseTestCase {
     }
 
     public void testLookupById() throws Exception {
-        Long id = UserTestUtils.createUser("testUser", "testOrg");
+        Long id = UserTestUtils.createUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         User usr = UserFactory.lookupById(id);
         assertNotNull(usr);
         assertNotNull(usr.getFirstNames());
@@ -134,7 +135,8 @@ public class UserFactoryTest extends RhnBaseTestCase {
     }
 
     public void testLookupByLogin() throws Exception {
-        Long id = UserTestUtils.createUser("testUser", "testOrg");
+        Long id = UserTestUtils.createUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         User usr = UserFactory.lookupById(id);
         String createdLogin = usr.getLogin();
         assertNotNull(usr);
@@ -151,7 +153,8 @@ public class UserFactoryTest extends RhnBaseTestCase {
     }
 
     public void testEmailA() {
-        Long id = UserTestUtils.createUser("testUser", "testOrg");
+        Long id = UserTestUtils.createUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         User usr = UserFactory.lookupById(id);
         UserFactory.save(usr);
     }
@@ -191,7 +194,8 @@ public class UserFactoryTest extends RhnBaseTestCase {
 
     public void testCommitUser() throws Exception {
 
-        Long id = UserTestUtils.createUser("testUser", "testOrg");
+        Long id = UserTestUtils.createUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         User usr = UserFactory.lookupById(id);
         usr.setFirstNames("UserFactoryTest.testCommitUser.change " +
                     TestUtils.randomString());
@@ -232,7 +236,8 @@ public class UserFactoryTest extends RhnBaseTestCase {
         int len = 3;
         String[] logins = new String[len];
         for (int i = 0; i < len; i++) {
-            Long id = UserTestUtils.createUser("testUser", "testOrg");
+            Long id = UserTestUtils.createUser("testUser",
+                    "testOrg" + this.getClass().getSimpleName());
             User usr = UserFactory.lookupById(id);
             logins[i] = usr.getLogin();
         }
@@ -287,7 +292,7 @@ public class UserFactoryTest extends RhnBaseTestCase {
 
     public void testUserServerPreferenceLookup() throws Exception {
         User user = UserTestUtils.findNewUser(TestStatics.TESTUSER,
-                                              TestStatics.TESTORG);
+                                              TestStatics.TESTORG + "UserFactoryTest");
 
         Server s = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
@@ -313,7 +318,7 @@ public class UserFactoryTest extends RhnBaseTestCase {
 
     public void testSetUserServerPreferenceTrue() throws Exception {
         User user = UserTestUtils.findNewUser(TestStatics.TESTUSER,
-                                              TestStatics.TESTORG);
+                                              TestStatics.TESTORG + "UserFactoryTest");
 
         Server s = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
@@ -347,8 +352,8 @@ public class UserFactoryTest extends RhnBaseTestCase {
     }
 
     public void testFindAllOrgAdmins() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg", true);
-        User user2 = UserTestUtils.findNewUser("testUser2", "testOrg", true);
+        User user = UserTestUtils.findNewUser("testUser", "findAdminsOrg", true);
+        User user2 = UserTestUtils.findNewUser("testUser2", "findAdminsOrg", true);
 
         Org o = user.getOrg();
 

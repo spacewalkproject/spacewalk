@@ -54,7 +54,6 @@ import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ChannelTestUtils;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
-import com.redhat.rhn.testing.UserTestUtils;
 
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
@@ -634,12 +633,11 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
 
     public void testUpgradablePackagesFromServerSet() throws Exception {
         // Setup
-        User admin = UserTestUtils.findNewUser("ssmUpgradeUser1", "ssmUpgradeOrg1");
-        Org org = admin.getOrg();
+        Org org = user.getOrg();
 
         //   Create the server and add to the SSM
-        Server server = ServerTestUtils.createTestSystem(admin);
-        ServerTestUtils.addServersToSsm(admin, server.getId());
+        Server server = ServerTestUtils.createTestSystem(user);
+        ServerTestUtils.addServersToSsm(user, server.getId());
 
         //   Create upgraded package EVR so package will show up from the query
         PackageEvr upgradedPackageEvr =
@@ -653,7 +651,7 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
             upgradedPackageEvr, ErrataFactory.ERRATA_TYPE_BUG);
 
         // Test
-        DataResult result = PackageManager.upgradablePackagesFromServerSet(admin);
+        DataResult result = PackageManager.upgradablePackagesFromServerSet(user);
 
         assertTrue(result != null);
         assertEquals(2, result.size());
@@ -701,6 +699,9 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
 
     public void testRepodata() throws Exception {
 
+        // *Some*body in here is doing a commit :(
+        committed = true;
+
         OutputStream st = new ByteArrayOutputStream();
         SimpleContentHandler tmpHandler = getTemporaryHandler(st);
 
@@ -724,8 +725,8 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
         String test = st.toString();
         System.out.println(test);
 
-        Package p = PackageTest.createTestPackage();
-        Channel c = ChannelFactoryTest.createTestChannel();
+        Package p = PackageTest.createTestPackage(user.getOrg());
+        Channel c = ChannelFactoryTest.createTestChannel(user);
         c.addPackage(p);
         ChannelFactory.save(c);
 
@@ -737,7 +738,6 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
         String prim = dto.getPrimaryXml();
         String other = dto.getOtherXml();
         assertEquals(prim, test);
-
-
+        committed = true;
     }
 }

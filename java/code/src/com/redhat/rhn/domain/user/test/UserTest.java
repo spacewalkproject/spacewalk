@@ -19,7 +19,6 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
@@ -72,7 +71,8 @@ public class UserTest extends RhnBaseTestCase {
     * because the password changed.
     */
     public void testAuthenticateTrue() throws Exception {
-        User usr = UserTestUtils.findNewUser("testUser", "testOrg");
+        User usr = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         // relies on UserTestUtils.createUser setting password to "password"
         assertTrue(usr.authenticate("password"));
     }
@@ -82,7 +82,8 @@ public class UserTest extends RhnBaseTestCase {
     * in that we actually fail the authenticate method
     */
     public void testAuthenticateFail() throws Exception {
-        User usr = UserTestUtils.findNewUser("testUser", "testOrg");
+        User usr = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         assertFalse(usr.authenticate("this should fail"));
     }
 
@@ -92,7 +93,8 @@ public class UserTest extends RhnBaseTestCase {
     * is bad, test that so that it doesn't happen again.
     */
     public void testLookupSameUserTwice() throws Exception {
-        User usr = UserTestUtils.findNewUser("testUser", "testOrg");
+        User usr = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Long userId = usr.getId();
         usr.getOrg();
         usr = null;
@@ -103,7 +105,8 @@ public class UserTest extends RhnBaseTestCase {
     * Check to make sure we can add an Address to a User.
     */
     public void testAddAddress() throws Exception {
-        User usr = UserTestUtils.findNewUser("testUser", "testOrg");
+        User usr = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Address addr = UserTestUtils.createTestAddress(usr);
         UserFactory.save(usr);
         assertTrue(addr.getId().longValue() != 0);
@@ -111,7 +114,8 @@ public class UserTest extends RhnBaseTestCase {
 
 
     public void testBeanMethods() {
-        User usr = UserTestUtils.findNewUser("testUser", "testOrg");
+        User usr = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         String foo = "foo";
         Date now = new Date();
 
@@ -185,7 +189,8 @@ public class UserTest extends RhnBaseTestCase {
     }
 
     public void testSystemGroupMethods() {
-        User usr = UserTestUtils.findNewUser("testUser", "testOrg");
+        User usr = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         assertEquals(0, usr.getDefaultSystemGroupIds().size());
         // We currently don't have a way in the Java code to
         // add SystemGroups, we can only update pre-existing ones
@@ -196,34 +201,10 @@ public class UserTest extends RhnBaseTestCase {
         assertNotNull(usr.getDefaultSystemGroupIds());
     }
 
-    /*
-     * XXX This test will fail on Spacewalk until the schema is fixed.
-     * This method should _ONLY_ be called by UserManager.findMailableAddress
-     * however, which knows to create the address if it doesn't already exist.
-     * The problem on Spacewalk is that the hosted db has a trigger to create
-     * the EmaillAddress row, but satellite doesn't have the trigger, meaning
-     * that the row is never created.
-    public void testEmailAddress() {
-        User usr = UserTestUtils.findNewUser("testUser", "testOrg");
-        Set e = usr.getEmailAddresses();
-        assertNotNull(e);
-        assertEquals(1, e.size());
-        int i = 0;
-        for (Iterator itr = e.iterator(); itr.hasNext();) {
-            i++;
-            EmailAddress addr = (EmailAddress)itr.next();
-            assertEquals("redhatJavaTest@redhat.com", addr.getAddress());
-        }
-        // make sure we didn't loop more than once.
-        assertEquals(1, i);
-    }
-    */
-
     public void testGetRoles() {
-        User user = UserFactory.createUser();
-        Org org = OrgFactory.createOrg();
-
-        user.setOrg(org);
+        User usr = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
+        Org org = usr.getOrg();
 
         for (int i = 0; i < 4; i++) {
             Role role = RoleFactory.createRole();
@@ -231,10 +212,10 @@ public class UserTest extends RhnBaseTestCase {
             role.setName("Role " + i);
 
             org.addRole(role);
-            user.addRole(role);
+            usr.addRole(role);
         }
 
-        Set roles = user.getRoles();
+        Set roles = usr.getRoles();
         assertEquals(4, roles.size());
     }
 
@@ -249,7 +230,8 @@ public class UserTest extends RhnBaseTestCase {
     public void testPamAuthenticationFails() {
         String oldValue = Config.get().setString("web.pam_auth_service", "login");
         try {
-            User usr = UserTestUtils.findNewUser("testUser", "testOrg");
+            User usr = UserTestUtils.findNewUser("testUser",
+                    "testOrg" + this.getClass().getSimpleName());
             usr.setUsePamAuthentication(true);
             // This fails, though it succeeds in testAUthenticateTrue, giving
             // us some confidence that a different auth mechanism was indeed
@@ -262,7 +244,8 @@ public class UserTest extends RhnBaseTestCase {
     }
 
     public void testServerPerms() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Server server = ServerTestUtils.createTestSystem(user);
 
         assertEquals(1, user.getServers().size());

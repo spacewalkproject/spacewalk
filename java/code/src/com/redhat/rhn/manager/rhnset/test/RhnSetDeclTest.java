@@ -44,7 +44,8 @@ public class RhnSetDeclTest extends RhnBaseTestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        user = UserTestUtils.findNewUser("testUser", "testOrg");
+        user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
     }
 
     protected void tearDown() throws Exception {

@@ -47,7 +47,7 @@ public class ChannelTest extends BaseTestCaseWithUser {
 
     public void testRemovePackage() throws Exception {
         Channel c = ChannelFactoryTest.createTestChannel(user);
-        Package p = PackageTest.createTestPackage();
+        Package p = PackageTest.createTestPackage(user.getOrg());
         c.addPackage(p);
         ChannelFactory.save(c);
         c.removePackage(p, user);
@@ -72,7 +72,7 @@ public class ChannelTest extends BaseTestCaseWithUser {
         assertEquals(c.getLabel(), c2.getLabel());
         assertNotNull(c.getChannelArch());
 
-        Channel c3 = ChannelFactoryTest.createTestChannel();
+        Channel c3 = ChannelFactoryTest.createTestChannel(user);
 
         c.setParentChannel(c3);
         assertEquals(c.getParentChannel().getId(), c3.getId());
@@ -108,7 +108,7 @@ public class ChannelTest extends BaseTestCaseWithUser {
     }
 
     public void testIsProxy() throws Exception {
-        Channel c = ChannelFactoryTest.createTestChannel();
+        Channel c = ChannelFactoryTest.createTestChannel(user);
         ChannelFamily cfam = ChannelFamilyFactory
                              .lookupByLabel(ChannelFamilyFactory
                                             .PROXY_CHANNEL_FAMILY_LABEL,

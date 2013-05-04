@@ -32,12 +32,6 @@ public class SolarisPatchSetManagerTest extends RhnBaseTestCase {
         pc.setIndexData(false);
         pc.setStart(1);
 
-        // comment this out for now until we can write better tests
-        //User u = UserTestUtils.findNewUser("testUser", "testOrg");
-        //Server server = ServerFactoryTest.createTestServer(u);
-        //assertNotNull(server);
-        //assertNotNull(server.getId());
-
         DataResult dr = SolarisPatchSetManager.systemAvailablePatchSetList(
                                                    new Long(1000010004), pc);
         assertNotNull(dr);

@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.errata.ChannelSetupAction;
@@ -142,10 +143,10 @@ public class ChannelSetupActionTest extends RhnBaseTestCase {
         sah.setupClampListBounds();
 
         //Create a new errata
-        Errata e = ErrataFactoryTest.createTestPublishedErrata(UserTestUtils
-                                        .createOrg("channelTestOrg"));
+        Org org = UserTestUtils.createNewOrgFull("channelSetupActionTestbrokenTestExec");
+        Errata e = ErrataFactoryTest.createTestPublishedErrata(org.getId());
         //make sure we have a channel for the errata
-        Channel c1 = ChannelFactoryTest.createTestChannel();
+        Channel c1 = ChannelFactoryTest.createTestChannel(org);
         e.addChannel(c1);
         ErrataManager.storeErrata(e);
         //setup the request object

@@ -41,7 +41,8 @@ public class MonitoringAclHandlerTest extends RhnBaseTestCase {
         acl.registerHandler(new MonitoringAclHandler());
 
         Map context = new HashMap();
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         context.put("user", user);
         assertFalse(acl.evalAcl(context, "show_monitoring()"));
 

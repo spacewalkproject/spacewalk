@@ -78,7 +78,7 @@ public class ConfigRevisionActionTest extends RhnBaseTestCase {
      */
     public void testLookupConfigRevision() throws Exception {
         User user = UserTestUtils.createUser("testUser", UserTestUtils
-                .createOrg("testOrg"));
+                .createOrg("testOrg" + this.getClass().getSimpleName()));
         Action a = ActionFactoryTest.createAction(user,
                    ActionFactory.TYPE_CONFIGFILES_DEPLOY);
 

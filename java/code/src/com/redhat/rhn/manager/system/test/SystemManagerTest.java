@@ -102,7 +102,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
     public static final int HOST_SWAP_MB = 1024;
 
     public void testSnapshotServer() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         Server server = ServerFactoryTest.createTestServer(user, true,
                             ServerConstants.getServerGroupTypeProvisioningEntitled());
@@ -131,7 +132,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
     }
 
     public void testDeleteServer() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         Server s = ServerFactoryTest.createTestServer(user, true);
         Long id = s.getId();
@@ -151,7 +153,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
     }
 
     public void testDeleteVirtualServer() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         Server host = ServerTestUtils.createVirtHostWithGuests(user, 1);
         Server guest = (host.getGuests().iterator().next()).
@@ -174,7 +177,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
     }
 
     public void testDeleteVirtualServerHostDeleted() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         Server host = ServerTestUtils.createVirtHostWithGuests(user, 1);
         Server guest = (host.getGuests().iterator().next()).
@@ -202,7 +206,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
     }
 
     public void testSystemsNotInSg() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
 
         // Create a test server so we have one in the list.
@@ -231,7 +236,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
     }
 
     public void testSystemList() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
 
         // Create a test server so we have one in the list.
@@ -244,7 +250,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
     }
 
     public void testSystemWithFeature() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         PageControl pc = new PageControl();
         pc.setStart(1);
         pc.setPageSize(20);
@@ -270,7 +277,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
 
     public void testSystemsInGroup() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
 
         Server server = ServerFactoryTest.createTestServer(user, true,
@@ -300,7 +308,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
 
     public void testCountActions() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Server server = ServerFactoryTest.createTestServer(user);
 
         assertEquals(0, SystemManager.countActions(server.getId()));
@@ -321,7 +330,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
     }
 
     public void testCountPackageActions() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Server server = ServerFactoryTest.createTestServer(user);
 
         assertEquals(0, SystemManager.countActions(server.getId()));
@@ -343,7 +353,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
     }
 
     public void testUnscheduledErrata() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         Server server = ServerFactoryTest.createTestServer(user, true);
         PageControl pc = new PageControl();
@@ -372,7 +383,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
 
     public void testEntitleServer() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         Server server = ServerTestUtils.createTestSystem(user);
         ChannelTestUtils.setupBaseChannelForVirtualization(user,
@@ -449,7 +461,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
     }
 
     public void testEntitleMaxMembers() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         Server server = ServerTestUtils.createTestSystem(user);
 
@@ -490,7 +503,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
     public void testVirtualEntitleServer() throws Exception {
         // User and server
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         Server server = ServerTestUtils.createTestSystem(user);
         Channel[] children = ChannelTestUtils.setupBaseChannelForVirtualization(user,
@@ -564,7 +578,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
     public void testGetServerEntitlement() throws Exception {
         // create a new server
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Server server = ServerFactoryTest.createTestServer(user);
         List entitlements = SystemManager.getServerEntitlements(server.getId());
         assertFalse(entitlements.isEmpty());
@@ -572,7 +587,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
     }
 
     public void testClientCapability() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Server server = ServerFactoryTest.createTestServer(user);
         Long ver = new Long(1);
         giveCapability(server.getId(), SystemManager.CAP_PACKAGES_VERIFY, ver);
@@ -612,7 +628,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
          * We add the test channel to each of the servers.  This allows
          * us to test the compatibleWithServer method.
          */
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         Server srvr = ServerFactoryTest.createTestServer(user, true,
                 ServerFactory.lookupServerGroupTypeByLabel("enterprise_entitled"));
@@ -647,7 +664,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
     }
 
     public void testGetSsmSystemsSubscribedToChannel() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
 
@@ -667,7 +685,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
     }
 
     public void testNoBaseChannelInSet() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
 
@@ -826,7 +845,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
     }
 
     public void testListCustomKeys() throws Exception {
-        User admin = UserTestUtils.findNewUser("testUser", "testOrg");
+        User admin = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         admin.addRole(RoleFactory.ORG_ADMIN);
 
 
@@ -984,7 +1004,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
     public void testDeleteNote() throws Exception {
         // Setup
-        User admin = UserTestUtils.findNewUser("testUser", "testOrg");
+        User admin = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Server server = ServerTestUtils.createTestSystem(admin);
         int sizeBefore = server.getNotes().size();
         server.addNote(admin, "Test Subject", "Test Body");
@@ -1008,7 +1029,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
     public void testDeleteNotes() throws Exception {
         // Setup
-        User admin = UserTestUtils.findNewUser("testUser", "testOrg");
+        User admin = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Server server = ServerTestUtils.createTestSystem(admin);
         int sizeBefore = server.getNotes().size();
         server.addNote(admin, "Test Subject 1", "Test Body");
@@ -1034,7 +1056,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
 
     public void testHasPackageAvailable() throws Exception {
-        User admin = UserTestUtils.findNewUser("testUser", "testOrg");
+        User admin = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Server server = ServerTestUtils.createTestSystem(admin);
 
         Package pack = PackageTest.createTestPackage(admin.getOrg());
@@ -1057,7 +1080,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
     }
     public void testListSystemsWithNeededPackage() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         Server server = ServerFactoryTest.createTestServer(user, true);
         PageControl pc = new PageControl();
@@ -1090,7 +1114,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
     }
 
     public void testListInstalledPackage() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Server s = ServerFactoryTest.createTestServer(user);
 
         List<Map<String, Long>> list = SystemManager.listInstalledPackage("kernel", s);
@@ -1115,7 +1140,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
     }
 
     public void testInSet() throws Exception {
-        User usr = UserTestUtils.findNewUser("testUser", "testOrg");
+        User usr = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         RhnSet newrs = RhnSetManager.createSet(usr.getId(), "test_systems_list",
                 SetCleanup.NOOP);
 
@@ -1135,7 +1161,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
     }
 
     public void testFindByName() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Server s = ServerFactoryTest.createTestServer(user, true);
         List<SystemOverview> list = SystemManager.listSystemsByName(user, s.getName());
         assertTrue(list.size() == 1);
@@ -1150,7 +1177,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
     }
 
     public void testListDuplicatesByHostname() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
 
         String[] hostnames = {"DUPHOST", "notADup", "duphost"};
         for (String name : hostnames) {

@@ -85,7 +85,8 @@ public class ErrataManagerTest extends RhnBaseTestCase {
     }
 
     public void testStore() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
 
         e.setAdvisoryName(TestUtils.randomString());
@@ -107,7 +108,9 @@ public class ErrataManagerTest extends RhnBaseTestCase {
     }
 
     public void testSearchByPackagesIds() throws Exception {
-        Package p = PackageTest.createTestPackage();
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
+        Package p = PackageTest.createTestPackage(user.getOrg());
         // errata search is done by the search-server. The search
         // in ErrataManager is to load ErrataOverview objects from
         // the results of the search-server searches.
@@ -157,8 +160,9 @@ public class ErrataManagerTest extends RhnBaseTestCase {
         // errata search is done by the search-server. The search
         // in ErrataManager is to load ErrataOverview objects from
         // the results of the search-server searches.
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
-        Package p = PackageTest.createTestPackage();
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
+        Package p = PackageTest.createTestPackage(user.getOrg());
         Errata e = ErrataManager.createNewErrata();
         assertTrue(e instanceof UnpublishedErrata);
         e.setAdvisory("ZEUS-2007");
@@ -188,14 +192,16 @@ public class ErrataManagerTest extends RhnBaseTestCase {
     }
 
     public void testAllErrataList() {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         DataResult errata = ErrataManager.allErrata(user);
         assertNotNull(errata);
         assertTrue(errata.size() <= 20);
     }
 
     public void testRelevantErrataList() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         ErrataCacheManagerTest.createServerNeededPackageCache(user,
                 ErrataFactory.ERRATA_TYPE_BUG);
         DataResult errata = ErrataManager.relevantErrata(user);
@@ -204,7 +210,8 @@ public class ErrataManagerTest extends RhnBaseTestCase {
     }
 
     public void testRelevantErrataByTypeList() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         ErrataCacheManagerTest.createServerNeededPackageCache(user,
                 ErrataFactory.ERRATA_TYPE_BUG);
         PageControl pc = new PageControl();
@@ -217,14 +224,16 @@ public class ErrataManagerTest extends RhnBaseTestCase {
     }
 
     public void testUnpublishedErrata() {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         DataResult errata = ErrataManager.unpublishedOwnedErrata(user);
         assertNotNull(errata);
         assertTrue(errata.size() <= 20);
     }
 
     public void testUnpublishedInSet() {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         PageControl pc = new PageControl();
         pc.setStart(1);
         pc.setPageSize(20);
@@ -235,7 +244,8 @@ public class ErrataManagerTest extends RhnBaseTestCase {
     }
 
     public void testLookupErrata() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Errata errata = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
 
         // Check for the case where the errata belongs to the users org
@@ -280,12 +290,14 @@ public class ErrataManagerTest extends RhnBaseTestCase {
     }
 
     public void testSystemsAffected() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         PageControl pc = new PageControl();
         pc.setStart(1);
         pc.setPageSize(5);
 
-        Errata a = ErrataFactoryTest.createTestErrata(UserTestUtils.createOrg("testOrg"));
+        Errata a = ErrataFactoryTest.createTestErrata(UserTestUtils.createOrg("testOrg" +
+                    this.getClass().getSimpleName()));
 
         DataResult systems = ErrataManager.systemsAffected(user, a.getId(), pc);
         assertNotNull(systems);
@@ -297,9 +309,11 @@ public class ErrataManagerTest extends RhnBaseTestCase {
     }
 
     public void testAdvisoryNameUnique() throws Exception {
-        Errata e1 = ErrataFactoryTest.createTestErrata(UserTestUtils.createOrg("testOrg"));
+        Errata e1 = ErrataFactoryTest.createTestErrata(UserTestUtils.createOrg("testOrg" +
+                    this.getClass().getSimpleName()));
         Thread.sleep(100); //sleep for a bit to make sure we get unique advisoryNames
-        Errata e2 = ErrataFactoryTest.createTestErrata(UserTestUtils.createOrg("testOrg"));
+        Errata e2 = ErrataFactoryTest.createTestErrata(UserTestUtils.createOrg("testOrg" +
+                    this.getClass().getSimpleName()));
 
         assertFalse(e1.getId().equals(e2.getId())); //make sure adv names are different
         assertTrue(ErrataManager.advisoryNameIsUnique(e2.getId(), e2.getAdvisoryName()));

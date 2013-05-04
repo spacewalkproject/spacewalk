@@ -71,7 +71,8 @@ public class TranslatorTest extends RhnBaseTestCase {
         long ll = Translator.long2Objlong(bl);
         assertEquals(10, ll);
 
-        Long uid = UserTestUtils.createUser("testUser", "testOrg");
+        Long uid = UserTestUtils.createUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         User user = Translator.long2User(new Integer(uid.intValue()));
         assertNotNull(user);
         assertEquals(uid, user.getId());

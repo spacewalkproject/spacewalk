@@ -71,7 +71,7 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
         //add bugs, keywords, and packages so we have something to work with...
         e.addBug(ErrataManagerTest.createNewUnpublishedBug(new Long(42), "test bug 1"));
         e.addBug(ErrataManagerTest.createNewUnpublishedBug(new Long(43), "test bug 2"));
-        e.addPackage(PackageTest.createTestPackage());
+        e.addPackage(PackageTest.createTestPackage(user.getOrg()));
         e.addKeyword("foo");
         e.addKeyword("bar");
         ErrataManager.storeErrata(e); //save changes
@@ -118,7 +118,7 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
         //add bugs, keywords, and packages so we have something to work with...
         e.addBug(ErrataManagerTest.createNewUnpublishedBug(new Long(42), "test bug 1"));
         e.addBug(ErrataManagerTest.createNewUnpublishedBug(new Long(43), "test bug 2"));
-        e.addPackage(PackageTest.createTestPackage());
+        e.addPackage(PackageTest.createTestPackage(user.getOrg()));
         e.addKeyword("foo");
         e.addKeyword("bar");
         ErrataManager.storeErrata(e); //save changes
@@ -207,7 +207,7 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
         //test unpublished
         Errata e = createTestUnpublishedErrata(user.getOrg().getId());
         Set errataFilePackages = new HashSet();
-        errataFilePackages.add(PackageTest.createTestPackage());
+        errataFilePackages.add(PackageTest.createTestPackage(user.getOrg()));
         ErrataFile ef = ErrataFactory.createUnpublishedErrataFile(ErrataFactory.
                                                               lookupErrataFileType("RPM"),
                                                                   "SOME FAKE CHECKSUM",
@@ -287,8 +287,10 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
 
     private static void fillOutErrata(Errata e, Long orgId) throws Exception {
         String name = "JAVA Test " + TestUtils.randomString();
+        Org org = null;
         if (orgId != null) {
-            e.setOrg(OrgFactory.lookupById(orgId));
+            org = OrgFactory.lookupById(orgId);
+            e.setOrg(org);
         }
         e.setAdvisory(name);
         e.setAdvisoryType(ErrataFactory.ERRATA_TYPE_BUG);
@@ -305,7 +307,7 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
         e.setAdvisoryRel(new Long(2));
         e.setLocallyModified(Boolean.FALSE);
         e.addKeyword("keyword");
-        Package testPackage = PackageTest.createTestPackage();
+        Package testPackage = PackageTest.createTestPackage(org);
 
         ErrataFile ef;
         Set errataFilePackages = new HashSet();
@@ -372,7 +374,7 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
 
     public static void testLookupByOriginal() throws Exception {
 
-        Long orgId = UserTestUtils.createOrg("testOrg");
+        Long orgId = UserTestUtils.createOrg("testOrgLookupByOriginal");
         Org org = OrgFactory.lookupById(orgId);
         Errata published = createTestPublishedErrata(orgId);
         ClonedErrata clone = (ClonedErrata) ErrataFactory.createClone(org, published);
@@ -388,7 +390,7 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
         try {
             Channel chan = ChannelTestUtils.createBaseChannel(user);
             Errata e = ErrataFactoryTest.createTestErrata(user.getId());
-            Package p = PackageTest.createTestPackage();
+            Package p = PackageTest.createTestPackage(user.getOrg());
             chan.getErratas().add(e);
             chan.getPackages().add(p);
             e.getPackages().add(p);

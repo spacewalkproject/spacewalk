@@ -40,7 +40,8 @@ public class PatchSetTest extends PackageTest {
 
     public static PatchSet createTestPatchSet() throws Exception {
         PatchSet patchSet = new PatchSet();
-        Org org = OrgFactory.lookupById(UserTestUtils.createOrg("testOrg"));
+        Org org = OrgFactory.lookupById(
+                UserTestUtils.createOrg("testOrgCreateTestPatchSet"));
         populateTestPackage(patchSet, org);
 
         String query = "PackageArch.findByLabel";

@@ -1078,9 +1078,9 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     public void testListSubscribedChildChannels() throws Exception {
 
         Server server = ServerFactoryTest.createTestServer(admin, true);
-        Channel child = ChannelFactoryTest.createTestChannel();
-        Channel child2 = ChannelFactoryTest.createTestChannel();
-        Channel parent = ChannelFactoryTest.createTestChannel();
+        Channel child = ChannelFactoryTest.createTestChannel(admin);
+        Channel child2 = ChannelFactoryTest.createTestChannel(admin);
+        Channel parent = ChannelFactoryTest.createTestChannel(admin);
         child.setParentChannel(parent);
         child2.setParentChannel(parent);
 
@@ -2042,7 +2042,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
                 ServerConstants.getServerGroupTypeProvisioningEntitled());
 
 
-        Package pack = PackageTest.createTestPackage();
+        Package pack = PackageTest.createTestPackage(admin.getOrg());
         pack.setOrg(admin.getOrg());
         InstalledPackage iPack = new InstalledPackage();
         iPack.setName(pack.getPackageName());

@@ -34,7 +34,8 @@ public class ActionFormatterTest extends RhnBaseTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
-        user = UserTestUtils.findNewUser("testUser", "testOrg");
+        user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
     }
     /**
      * Test formatting an Action

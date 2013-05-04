@@ -101,7 +101,8 @@ public class MigrationManagerTest extends RhnBaseTestCase {
     }
 
     public void testMigrateSystemNotSatAdmin() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         try {
             MigrationManager.removeOrgRelationships(user, server);
             fail();

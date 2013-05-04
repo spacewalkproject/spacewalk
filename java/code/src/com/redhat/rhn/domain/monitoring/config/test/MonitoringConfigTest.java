@@ -38,7 +38,8 @@ public class MonitoringConfigTest extends RhnBaseTestCase {
 
     public void testUpdateConfig() throws Exception {
         List macros = MonitoringConfigFactory.lookupConfigMacros(true);
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         ConfigMacro cr = (ConfigMacro) macros.get(0);
         assertNotNull(cr.getLastUpdateUser());
         cr.setLastUpdateUser(user.getLogin());

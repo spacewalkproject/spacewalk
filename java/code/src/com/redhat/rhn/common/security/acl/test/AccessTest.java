@@ -19,15 +19,12 @@ import com.redhat.rhn.common.security.acl.Access;
 import com.redhat.rhn.common.security.acl.Acl;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
-import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.domain.user.legacy.UserImpl;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ServerTestUtils;
@@ -149,7 +146,8 @@ public class AccessTest extends BaseTestCaseWithUser {
 
     public void testUserCanManageChannelAcl() {
         Map context = new HashMap();
-        User user =  UserTestUtils.findNewUser("testUser", "testOrg");
+        User user =  UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.CHANNEL_ADMIN);
         context.put("user", user);
         boolean rc = acl.evalAcl(context, "user_can_manage_channels()");
@@ -167,7 +165,8 @@ public class AccessTest extends BaseTestCaseWithUser {
 
     public void testSolarisAclFalse() throws Exception {
         Map context = new HashMap();
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Server s =  ServerFactoryTest.createTestServer(user, false);
         context.put("sid", s.getId().toString());
         boolean rc = acl.evalAcl(context, "is_solaris()");
@@ -176,9 +175,8 @@ public class AccessTest extends BaseTestCaseWithUser {
 
     public void testOrgEntitlementAclTrue() {
         Map context = new HashMap();
-        User user = UserFactory.createUser();
-        Org org = OrgFactory.createOrg();
-        user.setOrg(org);
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         context.put("user", user);
         boolean rc = acl.evalAcl(context, "org_entitlement(sw_mgr_personal)");
         assertTrue(rc);
@@ -186,9 +184,8 @@ public class AccessTest extends BaseTestCaseWithUser {
 
     public void testOrgEntitlementAclFalse() {
         Map context = new HashMap();
-        User user = UserFactory.createUser();
-        Org org = OrgFactory.createOrg();
-        user.setOrg(org);
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         context.put("user", user);
         boolean rc = acl.evalAcl(context, "org_entitlement(sw_mgr_enterprise)");
         assertFalse(rc);
@@ -201,7 +198,8 @@ public class AccessTest extends BaseTestCaseWithUser {
 
     public void testSystemFeature() throws Exception {
         Map context = new HashMap();
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         context.put("user", user);
         Server s = ServerFactoryTest.createTestServer(user, false,
                 ServerConstants.getServerGroupTypeMonitoringEntitled());
@@ -215,7 +213,8 @@ public class AccessTest extends BaseTestCaseWithUser {
     public void testAclSystemHasManagementEntitlement() throws Exception {
         Map context = new HashMap();
 
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
 
         Server s = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
@@ -256,7 +255,8 @@ public class AccessTest extends BaseTestCaseWithUser {
     public void testCanAccessChannel() {
         try {
             Map context = new HashMap();
-            User user =  UserTestUtils.findNewUser("testUser", "testOrg");
+            User user =  UserTestUtils.findNewUser("testUser",
+                    "testOrg" + this.getClass().getSimpleName());
             context.put("user", user);
             user.addRole(RoleFactory.CHANNEL_ADMIN);
 

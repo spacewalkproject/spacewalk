@@ -85,37 +85,36 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
 
     private static final String KERNEL_PARAMS = "ide0=ata66";
 
-
-    public static void setupTestConfiguration() throws Exception {
+    public static void setupTestConfiguration(User u) throws Exception {
         Config.get().setString(CobblerXMLRPCHelper.class.getName(),
                 MockXMLRPCInvoker.class.getName());
-        Config.get().setString(ConfigDefaults.KICKSTART_COBBLER_DIR, "/tmp/kickstart/");
+        Config.get().setString(ConfigDefaults.KICKSTART_COBBLER_DIR,
+                "/tmp/kickstart/");
         Config.get().setString(ConfigDefaults.COBBLER_SNIPPETS_DIR,
                 "/tmp/kickstart/snippets");
-        Config.get().setString(ConfigDefaults.MOUNT_POINT, "/tmp/kickstart/mount_point");
+        Config.get().setString(ConfigDefaults.MOUNT_POINT,
+                "/tmp/kickstart/mount_point");
         createDirIfNotExists(new File("/tmp/kickstart/mount_point"));
 
         Config.get().setString(ConfigDefaults.KICKSTART_MOUNT_POINT,
-                                                    "/tmp/kickstart/kickstart_mount_point");
+                "/tmp/kickstart/kickstart_mount_point");
         createDirIfNotExists(new File("/tmp/kickstart/kickstart_mount_point"));
 
         Config.get().setString(CobblerConnection.class.getName(),
                 MockConnection.class.getName());
-        createKickstartDirs();
-        MockConnection.clear();
 
-    }
-
-    public static void createKickstartDirs() throws Exception {
-        createDirIfNotExists(new File(ConfigDefaults.get().getKickstartConfigDir() +
-                                                 "/" + KickstartData.WIZARD_DIR));
-        createDirIfNotExists(new File(ConfigDefaults.get().getKickstartConfigDir() +
-                                        "/" + KickstartData.RAW_DIR));
+        createDirIfNotExists(new File(ConfigDefaults.get()
+                .getKickstartConfigDir() + "/" + KickstartData.WIZARD_DIR));
+        createDirIfNotExists(new File(ConfigDefaults.get()
+                .getKickstartConfigDir() + "/" + KickstartData.RAW_DIR));
         createDirIfNotExists(CobblerSnippet.getSpacewalkSnippetsDir());
-        KickstartableTreeTest.createKickstartTreeItems();
+
+        KickstartableTreeTest.createKickstartTreeItems(u);
+
+        MockConnection.clear();
     }
 
-    public static void createCobblerObjects(KickstartData k) {
+   public static void createCobblerObjects(KickstartData k) {
         Distro d = Distro.lookupById(CobblerXMLRPCHelper.getConnection("test"),
                 k.getKickstartDefaults().getKstree().getCobblerId());
         org.cobbler.Profile p = org.cobbler.Profile.create(

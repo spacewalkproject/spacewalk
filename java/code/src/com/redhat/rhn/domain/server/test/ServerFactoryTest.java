@@ -14,6 +14,18 @@
  */
 package com.redhat.rhn.domain.server.test;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.collections.CollectionUtils;
+
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
@@ -59,32 +71,19 @@ import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
+import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ChannelTestUtils;
 import com.redhat.rhn.testing.ConfigTestUtils;
-import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.ServerGroupTestUtils;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import org.apache.commons.collections.CollectionUtils;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 /**
  * ServerFactoryTest
  * @version $Rev$
  */
-public class ServerFactoryTest extends RhnBaseTestCase {
-    private User usr;
+public class ServerFactoryTest extends BaseTestCaseWithUser {
     private Server server;
     public static final int TYPE_SERVER_SATELLITE = 0;
     public static final int TYPE_SERVER_PROXY = 1;
@@ -93,13 +92,12 @@ public class ServerFactoryTest extends RhnBaseTestCase {
     public static final String RUNNING_KERNEL = "2.6.9-55.EL";
 
     public void setUp() throws Exception {
-        usr = UserTestUtils.findNewUser("testUser", "testOrg");
-        server = createTestServer(usr);
+        super.setUp();
+        server = createTestServer(user);
         assertNotNull(server.getId());
     }
 
     public void testListConfigEnabledSystems() throws Exception {
-        User user = UserTestUtils.findNewUser("testuser", "testorg");
         //Only Config Admins can use this manager function.
         //Making the user a config admin will also automatically
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
@@ -116,7 +114,6 @@ public class ServerFactoryTest extends RhnBaseTestCase {
     }
 
     public void testServerGroupMembers() throws Exception {
-        User user = UserTestUtils.findNewUser("testuser", "testorg");
         Server s = createTestServer(user);
         assertNotNull(s.getEntitledGroups());
         assertTrue(s.getEntitledGroups().size() > 0);
@@ -125,7 +122,6 @@ public class ServerFactoryTest extends RhnBaseTestCase {
     public void aTestChannels() throws Exception {
         System.out.println(
                 "FIXME ASAP: rhnuser NEEDS access to rhnChannelCloned for this to work");
-        User user = UserTestUtils.findNewUser("testuser", "testorg");
         Server testServer = createTestServer(user);
         Channel parent = ChannelFactoryTest.createTestChannel(user);
         parent.setParentChannel(null);
@@ -143,7 +139,6 @@ public class ServerFactoryTest extends RhnBaseTestCase {
     }
 
     public void testCustomDataValues() throws Exception {
-        User user = UserTestUtils.findNewUser("testuser", "testorg");
         Org org = user.getOrg();
         Server testServer = createTestServer(user);
 
@@ -176,9 +171,9 @@ public class ServerFactoryTest extends RhnBaseTestCase {
     }
 
     public void testServerLookup() {
-        assertNull(ServerFactory.lookupByIdAndOrg(new Long(-1234), usr.getOrg()));
+        assertNull(ServerFactory.lookupByIdAndOrg(new Long(-1234), user.getOrg()));
         assertNotNull(ServerFactory.lookupByIdAndOrg(server.getId(),
-                usr.getOrg()));
+                user.getOrg()));
     }
 
     public void testServerArchLookup() {
@@ -195,7 +190,7 @@ public class ServerFactoryTest extends RhnBaseTestCase {
     }
 
     public void testCreateServer() throws Exception {
-        Server newS = createTestServer(usr);
+        Server newS = createTestServer(user);
         newS.setNetworkInterfaces(new HashSet());
         // make sure our many-to-one mappings were set and saved
         assertNotNull(newS.getOrg());
@@ -221,7 +216,7 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         ServerFactory.save(newS);
 
         Server server2 = ServerFactory.lookupByIdAndOrg(newS.getId(),
-                usr.getOrg());
+                user.getOrg());
         Set notes = server2.getNotes();
         assertTrue(notes.size() == 2);
         Note note = (Note) notes.toArray()[0];
@@ -248,9 +243,9 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         Collection servers = new ArrayList();
         servers.add(server);
         ServerGroupManager manager = ServerGroupManager.getInstance();
-        usr.addRole(RoleFactory.SYSTEM_GROUP_ADMIN);
-        ManagedServerGroup sg1 = manager.create(usr, "FooFooFOO", "Foo Description");
-        manager.addServers(sg1, servers, usr);
+        user.addRole(RoleFactory.SYSTEM_GROUP_ADMIN);
+        ManagedServerGroup sg1 = manager.create(user, "FooFooFOO", "Foo Description");
+        manager.addServers(sg1, servers, user);
 
         server = (Server)reload(server);
         assertTrue(server.getEntitledGroups().size() == 1);
@@ -267,7 +262,7 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         //from the db.
         HibernateFactory.getSession().evict(server);
 
-        Server server2 = ServerFactory.lookupByIdAndOrg(id, usr.getOrg());
+        Server server2 = ServerFactory.lookupByIdAndOrg(id, user.getOrg());
         assertTrue(server2.getManagedGroups().size() == 1);
         sg1 = server2.getManagedGroups().iterator().next();
 
@@ -278,7 +273,6 @@ public class ServerFactoryTest extends RhnBaseTestCase {
     public void testAddRemove() throws Exception {
 
         //Test adding/removing server from group
-        User user = UserTestUtils.findNewUser("testuser", "testorg");
         ServerGroupTestUtils.createManaged(user);
         Server testServer = createTestServer(user);
         Org org = user.getOrg();
@@ -310,23 +304,23 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         assertTrue(notes.isEmpty());
 
         Note note = new Note();
-        note.setCreator(usr);
+        note.setCreator(user);
         note.setSubject("Test Note subject");
         note.setNote("Body text");
         Note note2 = new Note();
-        note2.setCreator(usr);
+        note2.setCreator(user);
         note2.setSubject("Test Note 2 subject");
         note2.setNote("Body of note");
 
         server.addNote(note);
         server.addNote(note2);
-        server.addNote(usr, "Test Note 3 subject", "Boddy of note");
+        server.addNote(user, "Test Note 3 subject", "Boddy of note");
         ServerFactory.save(server);
         //Evict from session to make sure that we get a fresh server
         //from the db.
         flushAndEvict(server);
         Server server2 = ServerFactory.lookupByIdAndOrg(server.getId(),
-                usr.getOrg());
+                user.getOrg());
         notes = server2.getNotes();
         assertNotNull(notes);
         assertFalse(notes.isEmpty());
@@ -360,7 +354,7 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         flushAndEvict(server);
 
         Server server2 = ServerFactory.lookupByIdAndOrg(server.getId(),
-                usr.getOrg());
+                user.getOrg());
         devs = server2.getDevices();
         assertNotNull(devs);
         assertFalse(devs.isEmpty());
@@ -380,7 +374,7 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         flushAndEvict(server);
 
         Server server2 = ServerFactory.lookupByIdAndOrg(server.getId(),
-                usr.getOrg());
+                user.getOrg());
         assertEquals(1024, server2.getRam());
         assertEquals(256, server2.getSwap());
     }
@@ -406,7 +400,7 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         flushAndEvict(server);
 
         Server server2 = ServerFactory.lookupByIdAndOrg(server.getId(),
-                usr.getOrg());
+                user.getOrg());
         assertEquals(dmi, server2.getDmi());
     }
 
@@ -415,8 +409,8 @@ public class ServerFactoryTest extends RhnBaseTestCase {
      * @throws Exception
      */
     public void testTwoServers() throws Exception {
-        Server s1 = createTestServer(usr);
-        Server s2 = createTestServer(usr);
+        Server s1 = createTestServer(user);
+        Server s2 = createTestServer(user);
         assertNotNull(s1);
         assertNotNull(s2);
     }
@@ -426,16 +420,16 @@ public class ServerFactoryTest extends RhnBaseTestCase {
      * @throws Exception
      */
     public void testNotSolarisServer() throws Exception {
-        Server s1 = createTestServer(usr);
+        Server s1 = createTestServer(user);
         assertFalse(s1.isSolaris());
     }
 
     public void testGetChildChannels() throws Exception {
-        Server s1 = ServerTestUtils.createTestSystem(usr);
+        Server s1 = ServerTestUtils.createTestSystem(user);
         assertTrue(s1.getChildChannels().isEmpty());
 
-        s1.addChannel(ChannelTestUtils.createChildChannel(usr, s1.getBaseChannel()));
-        s1.addChannel(ChannelTestUtils.createChildChannel(usr, s1.getBaseChannel()));
+        s1.addChannel(ChannelTestUtils.createChildChannel(user, s1.getBaseChannel()));
+        s1.addChannel(ChannelTestUtils.createChildChannel(user, s1.getBaseChannel()));
         assertEquals(2, s1.getChildChannels().size());
     }
 
@@ -445,7 +439,7 @@ public class ServerFactoryTest extends RhnBaseTestCase {
      */
     public void aTestServerHasSpecificEntitlement() throws Exception {
 
-        Server s = createTestServer(usr);
+        Server s = createTestServer(user);
 
         // Add three different entitlements.
 
@@ -467,12 +461,12 @@ public class ServerFactoryTest extends RhnBaseTestCase {
 
         // The default test server should not have a monitoring entitlement.
 
-        Server s = createTestServer(usr);
+        Server s = createTestServer(user);
         assertFalse(s.hasEntitlement(EntitlementManager.MONITORING));
     }
 
     public void testFindVirtHostsExceedingGuestLimitByOrg() throws Exception {
-        HostBuilder builder = new HostBuilder(usr);
+        HostBuilder builder = new HostBuilder(user);
         List expectedViews = new ArrayList();
 
         expectedViews.add(builder.createVirtHost().withGuests(10).build()
@@ -491,13 +485,13 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         builder.createNonVirtHost().withGuests(5).build();
 
         List actualViews = ServerFactory.findVirtHostsExceedingGuestLimitByOrg(
-                usr.getOrg());
+                user.getOrg());
 
         assertTrue(CollectionUtils.isEqualCollection(expectedViews, actualViews));
     }
 
     public void testFindVirtPlatformHostsByOrg() throws Exception {
-        HostBuilder builder = new HostBuilder(usr);
+        HostBuilder builder = new HostBuilder(user);
         List expectedViews = new ArrayList();
 
         expectedViews.add(builder.createVirtPlatformHost().withGuests(1).build()
@@ -515,7 +509,7 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         builder.createNonVirtHost().withGuests(3).build();
         builder.createNonVirtHost().withGuests(5).build();
 
-        List actualViews = ServerFactory.findVirtPlatformHostsByOrg(usr.getOrg());
+        List actualViews = ServerFactory.findVirtPlatformHostsByOrg(user.getOrg());
 
         assertTrue(CollectionUtils.isEqualCollection(expectedViews, actualViews));
     }
@@ -749,7 +743,6 @@ public class ServerFactoryTest extends RhnBaseTestCase {
          * We add the test channel to each of the servers.  This allows
          * us to test the compatibleWithServer method.
          */
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
         UserManager.storeUser(user);
 
@@ -785,7 +778,8 @@ public class ServerFactoryTest extends RhnBaseTestCase {
     public void testListAdministrators() throws Exception {
 
         //The org admin user
-        User admin = UserTestUtils.findNewUser("testUser", "testOrg");
+        User admin = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         admin.addRole(RoleFactory.ORG_ADMIN);
 
         //the non-orgadmin user who is a member of the group
@@ -846,8 +840,7 @@ public class ServerFactoryTest extends RhnBaseTestCase {
 
     public void testGetServerHistory() throws Exception {
 
-        User u = UserTestUtils.findNewUser("testUser", "testOrg");
-        Server serverTest = ServerFactoryTest.createTestServer(u);
+        Server serverTest = ServerFactoryTest.createTestServer(user);
         ServerHistoryEvent event1 = new ServerHistoryEvent();
         event1.setSummary("summary1");
         event1.setDetails("details1");
@@ -922,24 +915,24 @@ public class ServerFactoryTest extends RhnBaseTestCase {
 
 
     public void testUnsubscribeFromAllChannels() throws Exception {
-        User admin = UserTestUtils.findNewUser("testUser", "testOrg", true);
+        user.addRole(RoleFactory.ORG_ADMIN);
+        ChannelFactoryTest.createBaseChannel(user);
+        Server serverIn = ServerFactoryTest.createTestServer(user);
 
-        ChannelFactoryTest.createBaseChannel(admin);
-        Server serverIn = ServerFactoryTest.createTestServer(admin);
-
-        server  = ServerFactory.unsubscribeFromAllChannels(admin, serverIn);
+        server  = ServerFactory.unsubscribeFromAllChannels(user, serverIn);
         ServerFactory.commitTransaction();
+        committed = true;
+
         assertEquals(0, server.getChannels().size());
     }
 
     public void testSet() throws Exception {
-        User admin = UserTestUtils.findNewUser("testUser", "testOrg");
-        Server serverIn = ServerFactoryTest.createTestServer(admin, true,
+        Server serverIn = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
-        RhnSet set = RhnSetDecl.SYSTEMS.get(admin);
+        RhnSet set = RhnSetDecl.SYSTEMS.get(user);
         set.addElement(serverIn.getId(), null);
         RhnSetManager.store(set);
-        List<Server> servers = ServerFactory.listSystemsInSsm(admin);
+        List<Server> servers = ServerFactory.listSystemsInSsm(user);
         assertEquals(1, servers.size());
         assertEquals(serverIn, servers.get(0));
     }
@@ -954,8 +947,7 @@ public class ServerFactoryTest extends RhnBaseTestCase {
 
 
     public void testListSnapshotsForServer() throws Exception {
-        User admin = UserTestUtils.findNewUser("testUser", "testOrg");
-        Server server2 = ServerFactoryTest.createTestServer(admin, true);
+        Server server2 = ServerFactoryTest.createTestServer(user, true);
         ServerSnapshot snap = generateSnapshot(server2);
         ServerGroup grp = ServerGroupTestUtils.createEntitled(server2.getOrg());
         snap.addGroup(grp);
@@ -968,8 +960,7 @@ public class ServerFactoryTest extends RhnBaseTestCase {
     }
 
     public void testLookupSnapshotById() throws Exception {
-        User admin = UserTestUtils.findNewUser("testUser", "testOrg");
-        Server server2 = ServerFactoryTest.createTestServer(admin, true);
+        Server server2 = ServerFactoryTest.createTestServer(user, true);
         ServerSnapshot snap = generateSnapshot(server2);
         TestUtils.saveAndFlush(snap);
 
@@ -979,8 +970,7 @@ public class ServerFactoryTest extends RhnBaseTestCase {
 
 
     public void testDeleteSnapshot() throws Exception {
-        User admin = UserTestUtils.findNewUser("testUser", "testOrg");
-        Server server2 = ServerFactoryTest.createTestServer(admin, true);
+        Server server2 = ServerFactoryTest.createTestServer(user, true);
         ServerSnapshot snap = generateSnapshot(server2);
         TestUtils.saveAndFlush(snap);
         ServerFactory.deleteSnapshot(snap);
@@ -992,8 +982,7 @@ public class ServerFactoryTest extends RhnBaseTestCase {
 
 
     public void testGetSnapshotTags() throws Exception {
-        User admin = UserTestUtils.findNewUser("testUser", "testOrg");
-        Server server2 = ServerFactoryTest.createTestServer(admin, true);
+        Server server2 = ServerFactoryTest.createTestServer(user, true);
         ServerSnapshot snap = generateSnapshot(server2);
 
         SnapshotTag tag = new SnapshotTag();

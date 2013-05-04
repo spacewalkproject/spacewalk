@@ -45,8 +45,8 @@ public class TaskSchedulerTest extends RhnBaseTestCase {
         Errata e = ErrataFactoryTest.createTestErrata(org.getId());
 
         //add some channels
-        Channel c1 = ChannelFactoryTest.createTestChannel();
-        Channel c2 = ChannelFactoryTest.createTestChannel();
+        Channel c1 = ChannelFactoryTest.createTestChannel(org);
+        Channel c2 = ChannelFactoryTest.createTestChannel(org);
         e.addChannel(c1);
         e.addChannel(c2);
 

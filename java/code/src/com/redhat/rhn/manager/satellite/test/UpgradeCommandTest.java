@@ -43,6 +43,7 @@ public class UpgradeCommandTest extends BaseTestCaseWithUser {
 
         // UpgradeCommand its its own transaction so we gotta commit.
         commitAndCloseSession();
+        committed = true;
 
         UpgradeCommand cmd = new UpgradeCommand();
         cmd.store();

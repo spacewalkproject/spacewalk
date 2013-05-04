@@ -34,7 +34,7 @@ public class UserGroupFactoryTest extends RhnBaseTestCase {
     * usage of anything related to a UserGroup
     */
     public void testGetUserGroup() throws Exception {
-        Org org1 = UserTestUtils.findNewOrg("testOrg");
+        Org org1 = UserTestUtils.findNewOrg("testOrg" + this.getClass().getSimpleName());
         UserGroup ugid = org1.getUserGroup(RoleFactory.ORG_ADMIN);
         assertNotNull(ugid);
     }

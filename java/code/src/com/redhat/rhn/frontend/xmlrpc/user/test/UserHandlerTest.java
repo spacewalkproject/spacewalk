@@ -287,7 +287,7 @@ public class UserHandlerTest extends BaseHandlerTestCase {
     public void testCreateDelete() throws Exception {
         // We only need to run this test on satellite
 
-        String login = TestUtils.randomString();
+        String login = "testCreateDelete" + TestUtils.randomString();
         String email = "java-xmlrpc-tests@redhat.com";
         String firstName = "Chuck";
         String lastName = "Norris";
@@ -384,7 +384,7 @@ public class UserHandlerTest extends BaseHandlerTestCase {
     public void testCreateUsingPamAuth() throws FaultException {
         // We only need to run this test on satellite
 
-        String login = TestUtils.randomString();
+        String login = "testCreateDelete" + TestUtils.randomString();
         String email = "java-xmlrpc-tests@redhat.com";
         String firstName = "Chuck";
         String lastName = "Norris";
@@ -394,11 +394,11 @@ public class UserHandlerTest extends BaseHandlerTestCase {
         // test the method without a password
         //handler.create(adminKey, login, firstName, lastName, email, usePamAuth);
 
-        login = TestUtils.randomString();
+        login = "testCreateDelete" + TestUtils.randomString();
         // pass in empty password
         handler.create(adminKey, login, "", firstName, lastName, email, usePamAuth);
 
-        login = TestUtils.randomString();
+        login = "testCreateDelete" + TestUtils.randomString();
         // pass in empty password
         try {
             handler.create(adminKey, login, "", firstName, lastName, email, noPamAuth);

@@ -54,7 +54,8 @@ public class ProfileFactoryTest  extends RhnBaseTestCase {
     }
 
     public void testCompatibleWithServer() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Server server = ServerFactoryTest.createTestServer(user);
         Channel channel = ChannelFactoryTest.createTestChannel(user);
         ProfileTest.createTestProfile(user, channel);
@@ -74,7 +75,8 @@ public class ProfileFactoryTest  extends RhnBaseTestCase {
     }
 
     public void testLookupById() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Channel channel = ChannelFactoryTest.createTestChannel(user);
         Profile p = ProfileTest.createTestProfile(user, channel);
         assertNotNull(p);
@@ -85,7 +87,8 @@ public class ProfileFactoryTest  extends RhnBaseTestCase {
     }
 
     public void testFindByNameAndOrgId() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Channel channel = ChannelFactoryTest.createTestChannel(user);
         Profile p = ProfileTest.createTestProfile(user, channel);
         String name = p.getName();

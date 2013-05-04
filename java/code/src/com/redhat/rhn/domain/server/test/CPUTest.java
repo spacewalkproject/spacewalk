@@ -36,7 +36,8 @@ public class CPUTest extends RhnBaseTestCase {
 
     public void testCreateLookup() throws Exception {
         CPU unit = createTestCpu();
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Server server = ServerFactoryTest.createTestServer(user);
 
         unit.setServer(server);

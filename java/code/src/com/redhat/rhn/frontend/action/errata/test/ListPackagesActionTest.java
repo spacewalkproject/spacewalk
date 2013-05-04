@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.errata.ListPackagesAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
@@ -48,13 +49,14 @@ public class ListPackagesActionTest extends RhnBaseTestCase {
         RhnMockDynaActionForm form = new RhnMockDynaActionForm();
         RhnMockHttpServletRequest request = TestUtils.getRequestWithSessionAndUser();
         RhnMockHttpServletResponse response = new RhnMockHttpServletResponse();
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
 
         RequestContext requestContext = new RequestContext(request);
 
-        Errata errata = ErrataFactoryTest.createTestPublishedErrata(
-                                              UserTestUtils.createOrg("testorg"));
+        Errata errata = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
 
-        Package pkg = PackageTest.createTestPackage();
+        Package pkg = PackageTest.createTestPackage(user.getOrg());
         String[] selected = {pkg.getId().toString()};
 
         RhnSet pre = RhnSetDecl.PACKAGES_TO_REMOVE.get(requestContext.getLoggedInUser());

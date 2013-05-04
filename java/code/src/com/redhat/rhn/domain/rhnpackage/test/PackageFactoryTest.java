@@ -47,7 +47,7 @@ public class PackageFactoryTest extends BaseTestCaseWithUser {
      * @throws Exception
      */
     public void testLookupWithUser() throws Exception {
-        Package pkg = PackageTest.createTestPackage();
+        Package pkg = PackageTest.createTestPackage(user.getOrg());
         assertNotNull(pkg.getOrg().getId());
 
         User usr = UserTestUtils.createUser("testUser", pkg.getOrg().getId());
@@ -103,7 +103,7 @@ public class PackageFactoryTest extends BaseTestCaseWithUser {
     }
 
     public void testPackageDelete() throws Exception {
-        Package pkg = PackageTest.createTestPackage();
+        Package pkg = PackageTest.createTestPackage(user.getOrg());
         Long id = pkg.getId();
         Org org = pkg.getOrg();
         com.redhat.rhn.testing.TestUtils.flushAndEvict(pkg);
@@ -116,7 +116,7 @@ public class PackageFactoryTest extends BaseTestCaseWithUser {
 
 
    public void testPackageSourceLookup() throws Exception {
-       Package pack = PackageTest.createTestPackage();
+       Package pack = PackageTest.createTestPackage(user.getOrg());
 
        List list = PackageFactory.lookupPackageSources(pack);
        assertTrue(list.size() > 0);

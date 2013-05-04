@@ -61,7 +61,8 @@ public class CommandTest extends RhnBaseTestCase {
             }
         }
 
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Probe probe = MonitoringFactoryTest.createTestProbe(user);
 
         assertNotNull(probe.getCommand().getMetrics());
@@ -142,7 +143,8 @@ public class CommandTest extends RhnBaseTestCase {
     }
 
     public void testCommandParameters() throws HibernateException {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Probe probe = MonitoringFactoryTest.createTestProbe(user);
         assertNotNull(probe.getCommand().getCommandParameters());
         assertTrue(probe.getCommand().getCommandParameters().size() > 0);

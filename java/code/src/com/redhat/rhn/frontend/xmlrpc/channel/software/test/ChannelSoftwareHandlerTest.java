@@ -751,7 +751,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
 
     public void testCloneAll() throws Exception {
         Channel original = ChannelFactoryTest.createTestChannel(admin);
-        Package pack = PackageTest.createTestPackage();
+        Package pack = PackageTest.createTestPackage(admin.getOrg());
         Errata errata = ErrataFactoryTest.createTestPublishedErrata(
                 admin.getOrg().getId());
         original.addPackage(pack);
@@ -927,7 +927,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
 
     public void testListLatestPackages() throws Exception {
         Channel chan = ChannelFactoryTest.createTestChannel(admin);
-        Package pack = PackageTest.createTestPackage();
+        Package pack = PackageTest.createTestPackage(admin.getOrg());
         chan.addPackage(pack);
 
         Calendar cal = Calendar.getInstance();

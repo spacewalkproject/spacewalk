@@ -14,7 +14,8 @@
  */
 package com.redhat.rhn.taskomatic.task.test;
 
-import com.redhat.rhn.domain.task.TaskFactory;
+import org.apache.commons.lang.RandomStringUtils;
+
 import com.redhat.rhn.taskomatic.TaskoBunch;
 import com.redhat.rhn.taskomatic.TaskoFactory;
 import com.redhat.rhn.taskomatic.TaskoRun;
@@ -22,8 +23,6 @@ import com.redhat.rhn.taskomatic.TaskoTask;
 import com.redhat.rhn.taskomatic.TaskoTemplate;
 import com.redhat.rhn.taskomatic.task.ErrataQueue;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
-
-import org.apache.commons.lang.RandomStringUtils;
 
 public class ErrataQueueTest extends BaseTestCaseWithUser {
 
@@ -53,7 +52,7 @@ public class ErrataQueueTest extends BaseTestCaseWithUser {
         TaskoFactory.delete(template);
         TaskoFactory.delete(template.getBunch());
         TaskoFactory.delete(template.getTask());
-        TaskoFactory.commitTransaction();
-        TaskFactory.closeSession();
+        commitAndCloseSession();
+        committed = true;
     }
 }

@@ -29,7 +29,8 @@ import com.redhat.rhn.testing.UserTestUtils;
 public class ConfigActionTest extends RhnBaseTestCase {
 
     public void testCreate() throws Exception {
-        User usr = UserTestUtils.findNewUser("testUser", "testOrg");
+        User usr = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
 
         ConfigAction testAction = (ConfigAction)ActionFactoryTest.createAction(usr,
                 ActionFactory.TYPE_CONFIGFILES_DEPLOY);

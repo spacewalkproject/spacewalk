@@ -38,9 +38,9 @@ import java.util.GregorianCalendar;
 public class ScriptRunActionTest extends RhnBaseTestCase {
 
     public void testScriptAction() throws Exception {
-        User usr = UserTestUtils.findNewUser("testUser", "testOrg");
-        Action newA = ActionFactoryTest.createAction(usr,
-                                                     ActionFactory.TYPE_SCRIPT_RUN);
+        User usr = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
+        Action newA = ActionFactoryTest.createAction(usr, ActionFactory.TYPE_SCRIPT_RUN);
         Long id = newA.getId();
         assertTrue(newA instanceof ScriptRunAction);
         ScriptRunAction action = (ScriptRunAction) newA;
@@ -100,9 +100,9 @@ public class ScriptRunActionTest extends RhnBaseTestCase {
     }
 
     public void testScriptActionDetails() throws Exception {
-        User usr = UserTestUtils.findNewUser("testUser", "testOrg");
-        Action newA = ActionFactoryTest.createAction(usr,
-                                                     ActionFactory.TYPE_SCRIPT_RUN);
+        User usr = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
+        Action newA = ActionFactoryTest.createAction(usr, ActionFactory.TYPE_SCRIPT_RUN);
         Long id = newA.getId();
         assertTrue(newA instanceof ScriptRunAction);
         ScriptRunAction action = (ScriptRunAction) newA;

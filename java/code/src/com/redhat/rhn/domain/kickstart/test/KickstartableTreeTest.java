@@ -14,6 +14,15 @@
  */
 package com.redhat.rhn.domain.kickstart.test;
 
+import java.io.File;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+import org.apache.commons.lang.RandomStringUtils;
+import org.cobbler.Distro;
+import org.hibernate.Session;
+
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.util.FileUtils;
 import com.redhat.rhn.domain.channel.Channel;
@@ -32,15 +41,6 @@ import com.redhat.rhn.testing.ChannelTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import org.apache.commons.lang.RandomStringUtils;
-import org.cobbler.Distro;
-import org.hibernate.Session;
-
-import java.io.File;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-
 /**
  * KickstartableTreeTest
  * @version $Rev$
@@ -50,20 +50,19 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
     public static final String TEST_BOOT_PATH = "test-boot-image-i186";
     public static final File KICKSTART_TREE_PATH = new File("/tmp/kickstart/images");
 
-    public static void createKickstartTreeItems() throws Exception {
-        createKickstartTreeItems(KICKSTART_TREE_PATH);
+    public static void createKickstartTreeItems(User u) throws Exception {
+        createKickstartTreeItems(KICKSTART_TREE_PATH, u);
     }
 
-    public static void createKickstartTreeItems(File basePath) throws Exception {
+    public static void createKickstartTreeItems(File basePath, User u) throws Exception {
         //Alright setup things we need for trees
         createDirIfNotExists(basePath);
         KickstartableTree tree = new KickstartableTree();
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
-        tree.setChannel(ChannelTestUtils.createBaseChannel(user));
+        tree.setChannel(ChannelTestUtils.createBaseChannel(u));
         tree.setInstallType(KickstartFactory.
                 lookupKickstartInstallTypeByLabel(KickstartInstallType.RHEL_5));
         tree.setBasePath(basePath.getAbsolutePath());
-        tree.setOrg(user.getOrg());
+        tree.setOrg(u.getOrg());
         createKickstartTreeItems(tree);
     }
 
@@ -161,7 +160,8 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
      * @throws Exception
      */
     public static KickstartableTree createTestKickstartableTree() throws Exception {
-        Channel channel = ChannelFactoryTest.createTestChannel();
+        User u = UserTestUtils.findNewUser("testUser", "testCreateTestKickstartableTree");
+        Channel channel = ChannelFactoryTest.createTestChannel(u);
         ChannelTestUtils.addDistMapToChannel(channel);
         return createTestKickstartableTree(channel);
     }

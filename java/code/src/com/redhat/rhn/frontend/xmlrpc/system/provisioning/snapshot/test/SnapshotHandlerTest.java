@@ -65,7 +65,7 @@ public class SnapshotHandlerTest extends BaseHandlerTestCase {
     public  void testListSnapshotPackages() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
         ServerSnapshot snap = generateSnapshot(server);
-        Package pack = PackageTest.createTestPackage();
+        Package pack = PackageTest.createTestPackage(admin.getOrg());
         PackageNevra packN = new PackageNevra();
         packN.setArch(pack.getPackageArch());
         packN.setEvr(pack.getPackageEvr());

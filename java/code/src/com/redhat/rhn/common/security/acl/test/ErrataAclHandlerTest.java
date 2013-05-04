@@ -33,7 +33,8 @@ import java.util.Map;
 public class ErrataAclHandlerTest extends RhnBaseTestCase {
 
     public void testErrataIsPublished() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Errata published = ErrataFactoryTest
                 .createTestPublishedErrata(user.getOrg().getId());
         Errata unpublished = ErrataFactoryTest

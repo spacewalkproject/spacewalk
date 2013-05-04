@@ -14,6 +14,15 @@
  */
 package com.redhat.rhn.manager.profile.test;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.channel.Channel;
@@ -25,7 +34,6 @@ import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
-import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
@@ -38,32 +46,26 @@ import com.redhat.rhn.frontend.dto.PackageMetadata;
 import com.redhat.rhn.frontend.dto.ProfileDto;
 import com.redhat.rhn.manager.profile.ProfileManager;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ChannelTestUtils;
-import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
-import com.redhat.rhn.testing.UserTestUtils;
-
-import org.apache.commons.lang.StringUtils;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 /**
  * ProfileManagerTest
  * @version $Rev$
  */
-public class ProfileManagerTest extends RhnBaseTestCase {
+public class ProfileManagerTest extends BaseTestCaseWithUser {
+
+    public void setUp() throws Exception {
+        super.setUp();
+
+        // Give our user ORG_ADMIN
+        user.addRole(RoleFactory.ORG_ADMIN);
+        UserFactory.save(user);
+    }
 
     public void testSyncSystems() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
-        UserTestUtils.addManagement(user.getOrg());
-
         Channel testChannel = ChannelFactoryTest.createTestChannel(user);
 
         Package p1 = PackageTest.createTestPackage(user.getOrg());
@@ -98,6 +100,8 @@ public class ProfileManagerTest extends RhnBaseTestCase {
         // lookup_transaction_package(:operation, :n, :e, :v, :r, :a)
         // which can cause deadlocks.  We are forced to call commitAndCloseTransaction()
         commitAndCloseSession();
+        committed = true;
+
         PackageAction action = ProfileManager.syncToSystem(
                 user, s1.getId(), s2.getId(), idCombos,
                 ProfileManager.OPTION_REMOVE, new Date());
@@ -107,10 +111,6 @@ public class ProfileManagerTest extends RhnBaseTestCase {
 
 
     public void testCreateProfileFails() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
-
-        user.addRole(RoleFactory.ORG_ADMIN);
-
         Server server = ServerFactoryTest.createTestServer(user, true);
 
         try {
@@ -126,10 +126,6 @@ public class ProfileManagerTest extends RhnBaseTestCase {
     }
 
     public void testCreateProfile() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
-
-        user.addRole(RoleFactory.ORG_ADMIN);
-
         Server server = ServerFactoryTest.createTestServer(user, true);
         Channel channel = ChannelFactoryTest.createTestChannel(user);
         server.addChannel(channel);
@@ -143,9 +139,6 @@ public class ProfileManagerTest extends RhnBaseTestCase {
     }
 
     public void testCopyFrom() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
-        user.addRole(RoleFactory.ORG_ADMIN);
-
         Server server = ServerFactoryTest.createTestServer(user, true);
         Channel channel = ChannelFactoryTest.createTestChannel(user);
         server.addChannel(channel);
@@ -161,9 +154,6 @@ public class ProfileManagerTest extends RhnBaseTestCase {
     }
 
     public void testCompatibleWithServer() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
-        user.addRole(RoleFactory.ORG_ADMIN);
-
         Server server = ServerFactoryTest.createTestServer(user, true);
         Channel channel = ChannelFactoryTest.createTestChannel(user);
         server.addChannel(channel);
@@ -193,8 +183,6 @@ public class ProfileManagerTest extends RhnBaseTestCase {
     }
 
     public void testCompatibleWithChannel() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
-        user.addRole(RoleFactory.ORG_ADMIN);
         Profile p = createProfileWithServer(user);
         DataResult dr = ProfileManager.compatibleWithChannel(p.getBaseChannel(),
                 user.getOrg(), null);
@@ -638,7 +626,7 @@ public class ProfileManagerTest extends RhnBaseTestCase {
     }
 
     public void testGetChildChannelsNeededForProfile() throws Exception {
-        Server server = ServerTestUtils.createTestSystem();
+        Server server = ServerTestUtils.createTestSystem(user);
         Channel childChannel1 = ChannelTestUtils.createChildChannel(server.getCreator(),
                 server.getBaseChannel());
 
@@ -662,6 +650,8 @@ public class ProfileManagerTest extends RhnBaseTestCase {
                 server.getCreator(),
                 server.getBaseChannel(), p);
         commitAndCloseSession();
+        committed = true;
+
         assertEquals(2, channels.size());
         assertTrue(channels.contains(childChannel1));
         assertTrue(channels.contains(childChannel2));
@@ -674,22 +664,5 @@ public class ProfileManagerTest extends RhnBaseTestCase {
         assertEquals(0, channels.size());
 
 
-    }
-
-    public void aTestPrepareSyncToProfile() {
-        // don't want to break sat tests.
-        User user = UserFactory.lookupById(new Long(3567268));
-        Server srvr = ServerFactory.lookupById(new Long(1005385254));
-        RhnSet set = RhnSetDecl.PACKAGES_FOR_SYSTEM_SYNC.get(user);
-        assertFalse("packages_for_system_sync set is empty", set.isEmpty());
-        DataResult dr = ProfileManager.prepareSyncToProfile(srvr.getId(),
-                new Long(6110), user.getOrg().getId(), null, set.getElementValues());
-        assertEquals("packages_for_system_sync set don't match, packages " +
-                "prepared for sync", set.size(), dr.size());
-        for (Iterator itr = dr.iterator(); itr.hasNext();) {
-            PackageMetadata pm = (PackageMetadata) itr.next();
-            System.out.println(pm.getName() + ", " + pm.getActionStatus() +
-                    ", " + pm.getNameId());
-        }
     }
 }

@@ -120,7 +120,8 @@ public class LoginActionTest extends RhnBaseTestCase {
     */
     public HttpServletRequest loginUserIntoSessionTest() throws Exception {
         LoginAction action = new LoginAction();
-        User u = UserTestUtils.findNewUser("testUser", "testOrg");
+        User u = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         ActionMapping mapping = new ActionMapping();
         mapping.addForwardConfig(new ActionForward("loggedin", "path", false));
         PxtCookieManager pcm = new PxtCookieManager();
@@ -180,7 +181,8 @@ public class LoginActionTest extends RhnBaseTestCase {
 
     public void testDisabledUser() {
         LoginAction action = new LoginAction();
-        User u = UserTestUtils.findNewUser("testUser", "testOrg");
+        User u = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         UserManager.disableUser(u, u);
 
         ActionMapping mapping = new ActionMapping();

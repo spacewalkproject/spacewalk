@@ -75,7 +75,8 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
      * {@inheritDoc}
      */
     public void setUp() throws Exception {
-        user = UserTestUtils.findNewUser("testUser", "testOrg");
+        user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         if (ConfigDefaults.get().isMonitoringBackend()) {
             probe = (ServerProbe) MonitoringFactoryTest.createTestProbe(user);
         }

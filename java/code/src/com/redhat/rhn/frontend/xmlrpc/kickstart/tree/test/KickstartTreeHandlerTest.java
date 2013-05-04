@@ -79,7 +79,7 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);
         String newBase = "/tmp/kickstart/new-base-path";
-        KickstartableTreeTest.createKickstartTreeItems(new File(newBase));
+        KickstartableTreeTest.createKickstartTreeItems(new File(newBase), admin);
         Channel newChan = ChannelFactoryTest.createTestChannel(admin);
         handler.update(adminKey, testTree.getLabel(),
                 newBase, newChan.getLabel(),

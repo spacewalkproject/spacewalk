@@ -85,7 +85,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
     private static Logger log = Logger.getLogger(ActionManagerTest.class);
 
     public void testGetSystemGroups() throws Exception {
-        User user1 = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user1 = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         ActionFactoryTest.createAction(user1, ActionFactory.TYPE_REBOOT);
         ActionFactoryTest.createAction(user1, ActionFactory.TYPE_REBOOT);
 
@@ -106,7 +107,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
     }
 
     public void testLookupAction() throws Exception {
-        User user1 = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user1 = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user1.addRole(RoleFactory.ORG_ADMIN);
         Action a1 = ActionFactoryTest.createAction(user1, ActionFactory.TYPE_REBOOT);
         Long actionId = a1.getId();
@@ -121,7 +123,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
     }
 
     public void testFailedActions() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         Action parent = ActionFactoryTest.createAction(user, ActionFactory.TYPE_ERRATA);
         ServerAction child = ServerActionTest.createServerAction(ServerFactoryTest
@@ -138,7 +141,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
     }
 
     public void testPendingActions() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         Action parent = ActionFactoryTest.createAction(user, ActionFactory.TYPE_ERRATA);
         ServerAction child = ServerActionTest.createServerAction(ServerFactoryTest
@@ -217,7 +221,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
     }
 
     public void testSimpleCancelActions() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
 
@@ -232,7 +237,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
     }
 
     public void testCancelActionWithChildren() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
 
@@ -249,7 +255,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
     }
 
     public void testCancelActionWithMultipleServerActions() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
 
@@ -264,7 +271,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
     }
 
     public void testCancelActionWithParentFails() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
 
@@ -283,7 +291,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
     }
 
     public void testComplexHierarchy() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
 
@@ -313,7 +322,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
 
     public void testCancelKickstartAction() throws Exception {
         Session session = HibernateFactory.getSession();
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
 
@@ -351,7 +361,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
     }
 
     public void testCompletedActions() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         Action parent = ActionFactoryTest.createAction(user, ActionFactory.TYPE_ERRATA);
         ServerAction child = ServerActionTest.createServerAction(ServerFactoryTest
@@ -368,7 +379,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
     }
 
     public void testRecentlyScheduledActions() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         Action parent = ActionFactoryTest.createAction(user, ActionFactory.TYPE_ERRATA);
         ServerAction child = ServerActionTest.createServerAction(ServerFactoryTest
@@ -386,7 +398,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
     }
 
     public void testLookupFailLoookupAction() throws Exception {
-        User user1 = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user1 = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         try {
             ActionManager.lookupAction(user1, new Long(-1));
             fail("Expected to fail");
@@ -397,7 +410,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
     }
 
     public void testRescheduleAction() throws Exception {
-        User user1 = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user1 = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Action a1 = ActionFactoryTest.createAction(user1, ActionFactory.TYPE_REBOOT);
         ServerAction sa = (ServerAction) a1.getServerActions().toArray()[0];
 
@@ -412,7 +426,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
     }
 
     public void testInProgressSystems() throws Exception {
-        User user1 = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user1 = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
 
 
         Action a1 = ActionFactoryTest.createAction(user1, ActionFactory.TYPE_REBOOT);
@@ -435,7 +450,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
     }
 
     public void testFailedSystems() throws Exception {
-        User user1 = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user1 = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
 
 
         Action a1 = ActionFactoryTest.createAction(user1, ActionFactory.TYPE_REBOOT);
@@ -455,7 +471,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
 
     public void testCreateErrataAction() throws Exception {
         User user = UserTestUtils.createUser("testUser",
-                UserTestUtils.createOrg("testOrg"));
+                UserTestUtils.createOrg("testOrg" + this.getClass().getSimpleName()));
         Errata errata = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
         Action a = ActionManager.createErrataAction(user.getOrg(), errata);
         assertNotNull(a);
@@ -468,7 +484,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
 
     public void testAddServerToAction() throws Exception {
         User usr = UserTestUtils.createUser("testUser",
-                UserTestUtils.createOrg("testOrg"));
+                UserTestUtils.createOrg("testOrg" + this.getClass().getSimpleName()));
         Server s = ServerFactoryTest.createTestServer(usr);
         Action a = ActionFactoryTest.createAction(usr, ActionFactory.TYPE_ERRATA);
         ActionManager.addServerToAction(s.getId(), a);
@@ -482,7 +498,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
     }
 
     public void testSchedulePackageRemoval() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         assertNotNull(user);
 
@@ -508,7 +525,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
     }
 
     public void testSchedulePackageVerify() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         assertNotNull(user);
 
@@ -533,7 +551,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
     }
 
     public void testScheduleSriptRun() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         assertNotNull(user);
 
@@ -562,7 +581,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
     }
 
     public void testScheduleKickstart() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         assertNotNull(user);
 
@@ -592,7 +612,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
     }
 
     public void testScheduleGuestKickstart() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         assertNotNull(user);
 
@@ -647,7 +668,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
     }
 
     public void testSchedulePackageDelta() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
 
         Server srvr = ServerFactoryTest.createTestServer(user, true);

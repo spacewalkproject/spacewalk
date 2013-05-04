@@ -22,6 +22,7 @@ import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.domain.monitoring.ServerProbe;
 import com.redhat.rhn.domain.monitoring.test.MonitoringFactoryTest;
+import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
@@ -36,6 +37,8 @@ import java.util.Map;
 public class MessageQueueTest extends RhnBaseTestCase {
 
     private static Logger logger = Logger.getLogger(MessageQueueTest.class);
+    protected User user;
+    protected boolean committed = false;
 
     protected void setUp() {
         logger.debug("setUp - start");
@@ -52,6 +55,16 @@ public class MessageQueueTest extends RhnBaseTestCase {
         TestAction.deRegisterAction();
         TestDBAction.deRegisterAction();
         MessageQueue.stopMessaging();
+
+        // If at some point we created a user and committed the transaction, we need
+        // clean up our mess
+        if (committed) {
+           OrgFactory.deleteOrg(user.getOrg().getId(), user);
+           commitAndCloseSession();
+        }
+
+        committed = false;
+        user = null;
         logger.debug("tearDown - end");
 
     }
@@ -104,7 +117,8 @@ public class MessageQueueTest extends RhnBaseTestCase {
         assertFalse(me.getMessageReceived());
 
         //create probe first
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         ServerProbe probe = (ServerProbe) MonitoringFactoryTest.createTestProbe(user);
 
         WriteMode m = ModeFactory.getWriteMode("test_queries",
@@ -117,6 +131,8 @@ public class MessageQueueTest extends RhnBaseTestCase {
         params.put("org_id", user.getOrg().getId());
         m.executeUpdate(params);
         commitAndCloseSession();
+        committed = true;
+
         // === END TXN ===
         boolean finished = false;
         for (int i = 0; i < 1000; i++) {

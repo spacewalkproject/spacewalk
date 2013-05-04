@@ -106,7 +106,7 @@ public class KickstartCleanupTest extends RhnBaseTestCase {
     }
 
     private static KickstartSession createSession() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser", "ksSessionOrg");
         KickstartData k = KickstartDataTest.createTestKickstartData(user.getOrg());
         Server s = ServerFactoryTest.createTestServer(user);
         KickstartSessionState state = lookupByLabel("injected");

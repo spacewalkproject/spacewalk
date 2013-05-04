@@ -14,10 +14,12 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage.profile.test;
 
-import com.redhat.rhn.common.hibernate.HibernateFactory;
+import java.util.Set;
+
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
+import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.server.Server;
@@ -30,8 +32,6 @@ import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
-
-import java.util.Set;
 
 /**
  * @author mmccune
@@ -76,8 +76,7 @@ public class SyncActionsTest extends RhnMockStrutsTestCase {
         // lookup_transaction_package(:operation, :n, :e, :v, :r, :a)
         // which can cause deadlocks.  We are forced commit the transaction
         // and close the session.
-        HibernateFactory.commitTransaction();
-        HibernateFactory.closeSession();
+        commitAndCloseSession();
 
         SyncSystemsProfilesAction action = new SyncSystemsProfilesAction();
         Set<String> sessionSet = SessionSetHelper.lookupAndBind(getRequest(),
@@ -104,5 +103,12 @@ public class SyncActionsTest extends RhnMockStrutsTestCase {
         // MissingPackages...
         assertTrue(getActualForward().
                 startsWith("/systems/details/packages/profiles/MissingPackages.do"));
+    }
+
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        // We committed stuff - need to remove it all again
+        OrgFactory.deleteOrg(user.getOrg().getId(), user);
+        commitAndCloseSession();
     }
 }

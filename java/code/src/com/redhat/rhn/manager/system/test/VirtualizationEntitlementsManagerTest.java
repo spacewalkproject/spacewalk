@@ -39,10 +39,7 @@ import com.redhat.rhn.manager.org.UpdateOrgSystemEntitlementsCommand;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.system.VirtualizationEntitlementsManager;
-import com.redhat.rhn.testing.RhnBaseTestCase;
-import com.redhat.rhn.testing.UserTestUtils;
-
-import org.apache.commons.lang.RandomStringUtils;
+import com.redhat.rhn.testing.BaseTestCaseWithUser;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -53,25 +50,20 @@ import java.util.List;
  * VirtualizationEntitlementsManagerTest
  * @version $Rev$
  */
-public class VirtualizationEntitlementsManagerTest extends RhnBaseTestCase {
+public class VirtualizationEntitlementsManagerTest extends BaseTestCaseWithUser {
 
-    public void testListFlexGuests() throws Exception {
-        Org org = UserTestUtils.createNewOrgFull(RandomStringUtils.randomAlphabetic(10));
-        User user = UserTestUtils.createUser(RandomStringUtils.randomAlphabetic(10),
-                org.getId());
+    public void setUp() throws Exception {
         user.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
+        super.setUp();
+    }
+
+    public void testListFlexGuests() throws Exception {
         setupFlexGuestTest(user, false);
     }
 
 
     public void testListFlexGuestsOnVirtAddToHost() throws Exception {
-        Org org = UserTestUtils.createNewOrgFull(RandomStringUtils.randomAlphabetic(10));
-        User user = UserTestUtils.createUser(RandomStringUtils.randomAlphabetic(10),
-                org.getId());
-        user.addRole(RoleFactory.ORG_ADMIN);
-        UserFactory.save(user);
-
         setupFlexGuestTest(user, true);
         List<ChannelFamilySystemGroup> l = VirtualizationEntitlementsManager.getInstance().
         listFlexGuests(user);
@@ -149,12 +141,11 @@ public class VirtualizationEntitlementsManagerTest extends RhnBaseTestCase {
     }
 
     public void testConvertToFlex() throws Exception {
-        Org org = UserTestUtils.createNewOrgFull(RandomStringUtils.randomAlphabetic(10));
-        User user = UserTestUtils.createUser(RandomStringUtils.randomAlphabetic(10),
-                org.getId());
-        user.addRole(RoleFactory.ORG_ADMIN);
-        UserFactory.save(user);
-        int guestsToCreate = setupEligibleFlexGuestTests(true, org, user, 5, 5, 1);
+        // *some(body in here does a commit :(
+        committed = true;
+
+        int guestsToCreate = setupEligibleFlexGuestTests(true, user.getOrg(),
+                user, 5, 5, 1);
 
         List<ChannelFamilySystemGroup> l = VirtualizationEntitlementsManager.
                                         getInstance().listEligibleFlexGuests(user);
@@ -186,12 +177,8 @@ public class VirtualizationEntitlementsManagerTest extends RhnBaseTestCase {
 
 
     private void executeEligibleGuestTests(boolean isOrphaned) throws Exception {
-        Org org = UserTestUtils.createNewOrgFull(RandomStringUtils.randomAlphabetic(10));
-        User user = UserTestUtils.createUser(RandomStringUtils.randomAlphabetic(10),
-                org.getId());
-        user.addRole(RoleFactory.ORG_ADMIN);
-        UserFactory.save(user);
-        int guestsToCreate = setupEligibleFlexGuestTests(isOrphaned, org, user, 6, 6, 6);
+        int guestsToCreate = setupEligibleFlexGuestTests(isOrphaned, user.getOrg(),
+                user, 6, 6, 6);
 
         List<ChannelFamilySystemGroup> l = VirtualizationEntitlementsManager.
         getInstance().listEligibleFlexGuests(user);

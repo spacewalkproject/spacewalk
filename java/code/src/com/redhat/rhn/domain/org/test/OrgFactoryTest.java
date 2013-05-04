@@ -78,13 +78,13 @@ public class OrgFactoryTest extends RhnBaseTestCase {
     }
 
     public void testLookupById() throws Exception {
-        Org org1 = UserTestUtils.findNewOrg("testOrg");
+        Org org1 = UserTestUtils.findNewOrg("testOrg" + this.getClass().getSimpleName());
         assertNotNull(org1);
         assertTrue(org1.getId().longValue() > 0);
     }
 
     public void testCommitOrg() throws Exception {
-        Org org1 = UserTestUtils.findNewOrg("testOrg");
+        Org org1 = UserTestUtils.findNewOrg("testOrg" + this.getClass().getSimpleName());
         String changedName = "OrgFactoryTest testCommitOrg " + TestUtils.randomString();
         org1.setName(changedName);
         org1 = OrgFactory.save(org1);
@@ -111,7 +111,7 @@ public class OrgFactoryTest extends RhnBaseTestCase {
         Org org1 = OrgFactory.createOrg();
         org1.setName("org created by OrgFactory test: " + TestUtils.randomString());
         // build the channels set
-        Channel channel1 = ChannelFactoryTest.createTestChannel();
+        Channel channel1 = ChannelFactoryTest.createTestChannel(org1);
         flushAndEvict(channel1);
         org1.addOwnedChannel(channel1);
         org1 = OrgFactory.save(org1);
@@ -131,7 +131,7 @@ public class OrgFactoryTest extends RhnBaseTestCase {
         Org orig = user.getOrg();
         orig.setName("org created by OrgFactory test: " + TestUtils.randomString());
         // build the channels set
-        Channel channel1 = ChannelFactoryTest.createTestChannel();
+        Channel channel1 = ChannelFactoryTest.createTestChannel(orig);
         flushAndEvict(channel1);
         orig.addOwnedChannel(channel1);
         orig = OrgFactory.save(orig);
@@ -157,7 +157,7 @@ public class OrgFactoryTest extends RhnBaseTestCase {
     }
 
     public void testImpliedEntitlement() throws Exception {
-        Org org1 = OrgFactory.createOrg();
+        Org org1 = createTestOrg();
         assertTrue(org1
                 .hasEntitlement(OrgFactory.getEntitlementSwMgrPersonal()));
     }
@@ -170,7 +170,7 @@ public class OrgFactoryTest extends RhnBaseTestCase {
      */
     public void testAddEntitlement() throws Exception {
         // Create a new Org and add an Entitlement
-        Org org1 = UserTestUtils.findNewOrg("testOrg");
+        Org org1 = UserTestUtils.findNewOrg("testOrg" + this.getClass().getSimpleName());
         Set entitlements = org1.getEntitlements();
         OrgEntitlementType oet = OrgFactory
         .lookupEntitlementByLabel("sw_mgr_enterprise");
@@ -185,7 +185,7 @@ public class OrgFactoryTest extends RhnBaseTestCase {
     }
 
     public void testAddVirtualization() throws Exception {
-        Org org1 = UserTestUtils.findNewOrg("testOrg");
+        Org org1 = UserTestUtils.findNewOrg("testOrg" + this.getClass().getSimpleName());
         org1.getEntitlements().add(OrgFactory.getEntitlementVirtualization());
         TestUtils.saveAndFlush(org1);
         org1 = (Org) reload(org1);
@@ -194,7 +194,7 @@ public class OrgFactoryTest extends RhnBaseTestCase {
     }
 
     public void testHasEntitlementFalse() throws Exception {
-        Org org1 = OrgFactory.createOrg();
+        Org org1 = createTestOrg();
         OrgEntitlementType oet = OrgFactory
         .lookupEntitlementByLabel("sw_mgr_enterprise");
         assertFalse(org1.hasEntitlement(oet));
@@ -202,7 +202,8 @@ public class OrgFactoryTest extends RhnBaseTestCase {
 
     public void testIllegalEntitlement() throws Exception {
         try {
-            Org org1 = UserTestUtils.findNewOrg("testOrg");
+            Org org1 = UserTestUtils.findNewOrg("testOrg" +
+                    this.getClass().getSimpleName());
             OrgEntitlementType invalid = new OrgEntitlementType("invalid");
             invalid.setLabel("ILLEGAL ENTITLEMENT");
             invalid.setName("ILLEGAL ENTITLEMENT NAME");
@@ -218,13 +219,13 @@ public class OrgFactoryTest extends RhnBaseTestCase {
      * Test to see if the Org returns list of UserGroup IDs
      */
     public void testGetRoles() throws Exception {
-        Org org1 = UserTestUtils.findNewOrg("testOrg");
+        Org org1 = UserTestUtils.findNewOrg("testOrg" + this.getClass().getSimpleName());
         assertNotNull(org1.getRoles());
         assertTrue(org1.hasRole(RoleFactory.ORG_ADMIN));
     }
 
     public void testAddServerGroup() throws Exception {
-        Org org1 = UserTestUtils.findNewOrg("testOrg");
+        Org org1 = UserTestUtils.findNewOrg("testOrg" + this.getClass().getSimpleName());
         assertTrue(org1.getEntitledServerGroups().size() > 0);
         boolean contains = false;
         for (Iterator itr = org1.getEntitledServerGroups().iterator(); itr

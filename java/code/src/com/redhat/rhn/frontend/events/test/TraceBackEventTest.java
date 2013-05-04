@@ -137,7 +137,8 @@ public class TraceBackEventTest extends RhnBaseTestCase {
         v.add("someparam");
         request.setupAddParameter("someparam", "somevalue");
         request.setupGetParameterNames(v.elements());
-        evt.setUser(UserTestUtils.findNewUser("testUser", "testOrg"));
+        evt.setUser(UserTestUtils.findNewUser("testUser",
+                    "testOrg" + this.getClass().getSimpleName()));
         evt.setRequest(request);
         Throwable e = new RuntimeException(MSG_OUTER_EXC);
         e.initCause(new RuntimeException(MSG_INNER_EXC));
@@ -161,7 +162,8 @@ public class TraceBackEventTest extends RhnBaseTestCase {
         v.add(paramIn);
         request.setupAddParameter(paramIn, valueIn);
         request.setupGetParameterNames(v.elements());
-        evt.setUser(UserTestUtils.findNewUser("testUser", "testOrg"));
+        evt.setUser(UserTestUtils.findNewUser("testUser",
+                    "testOrg" + this.getClass().getSimpleName()));
         evt.setRequest(request);
         Throwable e = new RuntimeException(MSG_OUTER_EXC);
         e.initCause(new RuntimeException(MSG_INNER_EXC));

@@ -34,7 +34,7 @@ public class TaskTest extends RhnBaseTestCase {
 
     public void testTask() throws Exception {
 
-        Org org = UserTestUtils.findNewOrg("testOrg");
+        Org org = UserTestUtils.findNewOrg("testOrg" + this.getClass().getSimpleName());
         String testname = "task_object_unit_test_" + TestUtils.randomString();
         Long testdata = new Long(42);
         Task t = TaskFactory.createTask(org, testname, testdata);
@@ -65,7 +65,7 @@ public class TaskTest extends RhnBaseTestCase {
     }
 
     public void testLookupNameLike() throws Exception {
-        Org org = UserTestUtils.findNewOrg("testOrg");
+        Org org = UserTestUtils.findNewOrg("testOrg" + this.getClass().getSimpleName());
         String testname = "task_object_unit_test_" + TestUtils.randomString();
         Long testdata = new Long(42);
         Task t = TaskFactory.createTask(org, testname, testdata);

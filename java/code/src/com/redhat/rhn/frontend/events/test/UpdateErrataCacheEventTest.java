@@ -40,7 +40,6 @@ import java.util.Set;
 
 public class UpdateErrataCacheEventTest extends BaseTestCaseWithUser {
 
-
     public void testUpdateCache() throws Exception {
         user.addRole(RoleFactory.ORG_ADMIN);
         for (int i = 0; i < 10; i++) {
@@ -56,6 +55,7 @@ public class UpdateErrataCacheEventTest extends BaseTestCaseWithUser {
     }
 
     public void testUpdateCacheForChannel() throws Exception {
+        committed = true;
         Channel c = ChannelTestUtils.createTestChannel(user);
         Channel c2 = ChannelTestUtils.createTestChannel(user);
         Server s2 = ServerFactoryTest.createTestServer(user);

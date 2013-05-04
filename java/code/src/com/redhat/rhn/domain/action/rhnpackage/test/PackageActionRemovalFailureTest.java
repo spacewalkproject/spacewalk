@@ -43,7 +43,7 @@ public class PackageActionRemovalFailureTest extends RhnBaseTestCase {
 
     public void testPackageActionRemovalFailure() throws Exception {
         User usr = UserTestUtils.createUser("testUser",
-                                            UserTestUtils.createOrg("testOrg"));
+            UserTestUtils.createOrg("testOrg" + this.getClass().getSimpleName()));
         PackageAction pkgaction = (PackageAction) ActionFactoryTest.createAction(
                                          usr, ActionFactory.TYPE_PACKAGES_VERIFY);
         Server server = ServerFactoryTest.createTestServer(usr);

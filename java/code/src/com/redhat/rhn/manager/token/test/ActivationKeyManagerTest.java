@@ -125,7 +125,8 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
         // unfortunately satellite is NOT multiorg aware...
         //So we can't check on the org clause
         //so...
-        User newUser = UserTestUtils.findNewUser("testUser2", "testOrg");
+        User newUser = UserTestUtils.findNewUser("testUser2",
+                "testOrg" + this.getClass().getSimpleName());
         try {
             manager.lookupByKey(key.getKey(), newUser);
             String msg = "Permission check failed :(.." +

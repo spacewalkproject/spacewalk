@@ -14,6 +14,11 @@
  */
 package com.redhat.rhn.domain.config.test;
 
+import java.io.ByteArrayInputStream;
+import java.util.Date;
+
+import org.hibernate.Session;
+
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigChannelType;
@@ -25,32 +30,11 @@ import com.redhat.rhn.domain.config.ConfigFileType;
 import com.redhat.rhn.domain.config.ConfigInfo;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.config.ConfigurationFactory;
-import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ConfigTestUtils;
-import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
-import com.redhat.rhn.testing.UserTestUtils;
 
-import org.hibernate.Session;
-
-import java.io.ByteArrayInputStream;
-import java.util.Date;
-
-public class ConfigurationFactoryTest extends RhnBaseTestCase {
-
-    private User user;
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        user = UserTestUtils.findNewUser("testyman", "testyorg");
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        user = null;
-        super.tearDown();
-    }
+public class ConfigurationFactoryTest extends BaseTestCaseWithUser {
 
     public void testLookupConfigChannelType() throws Exception {
         assertNotNull(ConfigChannelType.global());
@@ -130,6 +114,8 @@ public class ConfigurationFactoryTest extends RhnBaseTestCase {
         ConfigContent content = ConfigTestUtils.createConfigContent(new Long(234L), true);
         ConfigInfo info = ConfigTestUtils.createConfigInfo("root", "root", new Long(777));
         commitAndCloseSession();
+        committed = true;
+
         //Create a config revision
         ConfigRevision revision =
             ConfigTestUtils.createConfigRevision(file, content, info, new Long(23));

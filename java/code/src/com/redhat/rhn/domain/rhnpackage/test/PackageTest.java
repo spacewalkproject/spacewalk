@@ -21,7 +21,6 @@ import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.common.ChecksumFactory;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageCapability;
@@ -33,6 +32,7 @@ import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.rhnpackage.PackageSource;
 import com.redhat.rhn.domain.rpm.SourceRpm;
 import com.redhat.rhn.domain.rpm.test.SourceRpmTest;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
@@ -48,8 +48,9 @@ import java.util.Map;
 public class PackageTest extends RhnBaseTestCase {
 
     public void testPackage() throws Exception {
-
-        Package pkg = createTestPackage();
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
+        Package pkg = createTestPackage(user.getOrg());
         assertNotNull(pkg);
         //make sure we got written to the db
         assertNotNull(pkg.getId());
@@ -60,7 +61,9 @@ public class PackageTest extends RhnBaseTestCase {
     }
 
     public void testFile() throws Exception {
-        Package pkg = createTestPackage();
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
+        Package pkg = createTestPackage(user.getOrg());
         assertNotNull(pkg);
 
         String filename = "foo-2.31-4-i386.rpm";
@@ -81,19 +84,6 @@ public class PackageTest extends RhnBaseTestCase {
         pkg.setPath("////foo//b///foo/");
         assertEquals("foo", pkg.getFile());
     }
-
-    //TODO: scrap this in preference of createTestPackage(org)
-    public static Package createTestPackage() throws Exception {
-        Package p = new Package();
-        Org org = OrgFactory.lookupById(UserTestUtils.createOrg("testOrg"));
-
-        p = populateTestPackage(p, org);
-        TestUtils.saveAndFlush(p);
-
-        return p;
-    }
-
-
 
     public static Package createTestPackage(Org org) throws Exception {
         Package p = new Package();

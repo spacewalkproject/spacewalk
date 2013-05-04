@@ -85,7 +85,8 @@ public class UserManagerTest extends RhnBaseTestCase {
     }
 
     public void testLookup() {
-        User admin = UserTestUtils.findNewUser("testUser", "testOrg");
+        User admin = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         admin.addRole(RoleFactory.ORG_ADMIN);
 
         User regular = UserTestUtils.createUser("testUser2", admin.getOrg().getId());
@@ -232,7 +233,8 @@ public class UserManagerTest extends RhnBaseTestCase {
      * @throws Exception
     */
     public void aTestUpdateUserRolesFromRoleLabels() throws Exception {
-        User usr = UserTestUtils.findNewUser("testUser", "testOrg");
+        User usr = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         ServerFactoryTest.createTestServer(usr);
 
         Org o1 = usr.getOrg();
@@ -268,7 +270,8 @@ public class UserManagerTest extends RhnBaseTestCase {
         int numTotal = 1;
         int numDisabled = 0;
         int numActive = 1;
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        User user = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         user.addRole(RoleFactory.ORG_ADMIN);
         PageControl pc = new PageControl();
         pc.setStart(1);
@@ -339,7 +342,8 @@ public class UserManagerTest extends RhnBaseTestCase {
 
     }
     public void testStoreUser() {
-        User usr = UserTestUtils.findNewUser("testUser", "testOrg");
+        User usr = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         Long id = usr.getId();
         usr.setEmail("something@changed.redhat.com");
         UserManager.storeUser(usr);
@@ -348,7 +352,8 @@ public class UserManagerTest extends RhnBaseTestCase {
     }
 
     public void testGetSystemGroups() {
-        User usr = UserTestUtils.findNewUser("testUser", "testOrg");
+        User usr = UserTestUtils.findNewUser("testUser",
+                "testOrg" + this.getClass().getSimpleName());
         PageControl pc = new PageControl();
         pc.setIndexData(false);
         pc.setFilterColumn("name");
@@ -395,7 +400,8 @@ public class UserManagerTest extends RhnBaseTestCase {
     }
 
    public void testUsersInSet() throws Exception {
-       User user = UserTestUtils.findNewUser("testUser", "testOrg");
+       User user = UserTestUtils.findNewUser("testUser",
+               "testOrg" + this.getClass().getSimpleName());
        RhnSet set = RhnSetManager.createSet(user.getId(), "test_user_list",
                SetCleanup.NOOP);
 
