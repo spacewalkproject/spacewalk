@@ -1248,9 +1248,6 @@
     <exception type="com.redhat.rhn.common.security.PermissionException"
       path="/WEB-INF/pages/common/errors/permission.jsp" key="frontend.actions.channels.manager.add.permsfailure"
       handler="com.redhat.rhn.common.errors.PermissionExceptionHandler"/>
-    <exception type="com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException"
-      path="/WEB-INF/pages/common/errors/nosuchpkg.jsp" key="date"
-      handler="com.redhat.rhn.common.errors.NoSuchPackageExceptionHandler"/>
     <exception type="com.redhat.rhn.frontend.xmlrpc.NoSuchKickstartException"
       path="/WEB-INF/pages/common/errors/nosuchkickstart.jsp" key="date"
       handler="com.redhat.rhn.common.errors.NoSuchKickstartExceptionHandler"/>
