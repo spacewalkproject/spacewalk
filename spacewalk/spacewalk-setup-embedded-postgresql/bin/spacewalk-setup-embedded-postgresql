@@ -45,6 +45,8 @@ PG_HBA="$PG_DATA/pg_hba.conf"
 POSTGRESQL="$PG_DATA/postgresql.conf"
 PG_PIDFILE="/var/run/postmaster.5432.pid"
 PG_SOCKET="/tmp/.s.PGSQL.5432"
+SPACEWALK_TARGET="/usr/lib/systemd/system/spacewalk.target"
+SERVICE_LIST="/etc/rhn/service-list"
 
 create() {
     if [ -z "$PGUSER" -o -z "$PGPASSWORD" -o -z "$PGNAME" ] ; then
@@ -108,6 +110,18 @@ EOF
     fi
 
     service postgresql reload
+
+    if [ -e "$SPACEWALK_TARGET" ] ; then
+        if ! grep -q 'Requires=postgresql.service' "$SPACEWALK_TARGET" ; then
+             sed -i 's/\(Description=Spacewalk\)/\1\nRequires=postgresql.service/' "$SPACEWALK_TARGET"
+        fi
+    else
+        if ! grep -q 'SERVICES=.*postgresql' "$SERVICE_LIST" ; then
+             echo '' >>"$SERVICE_LIST"
+             echo '# added by spacewalk-setup-embedded-postgresql' >>"$SERVICE_LIST"
+             echo 'SERVICES="postgresql $SERVICES"' >>"$SERVICE_LIST"
+        fi
+    fi
 }
 
 remove() {
