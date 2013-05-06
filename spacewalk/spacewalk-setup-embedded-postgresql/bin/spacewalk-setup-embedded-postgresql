@@ -53,10 +53,10 @@ create() {
         help
         exit 1
     fi
-    chkconfig postgresql on
+    postgresql_service enable
 
     if [ ! -d "$PG_DATA/base" ] ; then
-        service postgresql initdb
+        postgresql_service initdb
 
 	# see bug 821446, we enable timestamps in logs by default
 	sed -i 's/^\(max_connections.*\|shared_buffers.*\)$/### next line has been commented out by spacewalk-setup-embedded-postgresql: ###\n##\1/ ' $POSTGRESQL
@@ -88,7 +88,7 @@ local postgres postgres  ident
 EOF
     fi
 
-    service postgresql start
+    postgresql_service start
 
     if /usr/sbin/lsof /proc > /dev/null ; then
         while [ -f "$PG_PIDFILE" ] ; do
@@ -109,7 +109,7 @@ EOF
             runuser - postgres -c "yes '$PGPASSWORD' | createuser -P -sDR '$PGUSER'"
     fi
 
-    service postgresql reload
+    postgresql_service reload
 
     if [ -e "$SPACEWALK_TARGET" ] ; then
         if ! grep -q 'Requires=postgresql.service' "$SPACEWALK_TARGET" ; then
@@ -143,7 +143,7 @@ check() {
         exit 1
     fi
 
-    service postgresql status >& /dev/null || service postgresql start
+    postgresql_service status >& /dev/null || postgresql_service start
 
     RET=0
     if [ -n "$PGUSER" ] ; then
@@ -189,6 +189,20 @@ exists_user() {
         return 0
     else
         return 1
+    fi
+}
+
+postgresql_service() {
+    if [ -e "$SPACEWALK_TARGET" ] ; then
+        case $1 in
+            initdb) postgresql-setup initdb ;;
+                 *) systemctl $1 postgresql ;;
+        esac
+    else
+        case $1 in
+            enable) chkconfig postgresql on ;;
+                 *) service postgresql $1 ;;
+        esac
     fi
 }
 
