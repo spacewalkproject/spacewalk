@@ -457,10 +457,10 @@ class Backend:
         return keyid[0]['id']
 
     def lookupSourceRPMs(self, hash):
-        self.__processHash('rhnSourceRPM', 'name', hash) 
+        self.__processHash('lookup_source_name', hash)
 
     def lookupPackageGroups(self, hash):
-        self.__processHash('rhnPackageGroup', 'name', hash)
+        self.__processHash('lookup_package_group', hash)
 
     def lookupPackages(self, packages, checksums, ignore_missing = 0):
         # If nevra is enabled use checksum as primary key
@@ -1283,38 +1283,16 @@ class Backend:
     def rollback(self):
         self.dbmodule.rollback()
 
-    def __processHash(self, table, field, hash):
+    def __processHash(self, lookup, hash):
         if not hash:
             # Nothing to do
             return
 
-        sequence = self.sequences[table]
-        sql = "select id from %s where %s = :p" % (table, field)
-        h = self.dbmodule.prepare(sql)
-        ids = []
-        values = []
+        h = rhnSQL.prepare("select " + lookup + "(:name) from dual")
         for k in hash.keys():
-            h.execute(p=k)
-            row = h.fetchone_dict()
-            if row:
-                hash[k] = row['id']
-                continue
-            # Not here
-            id = sequence.next()
-            hash[k] = id
-            ids.append(id)
-            values.append(k)
-        if ids:
-            sql = "insert into %s (id, %s) values (:id, :value)" % (table,
-                                                                    field)
-            h = self.dbmodule.prepare(sql)
-            try:
-                h.executemany(id=ids, value=values)
-            except rhnSQL.SQLSchemaError, e:
-                if e.errno == 01401:
-                    raise ValueError, e.errmsg, sys.exc_info()[2]
-                else:
-                    raise rhnFault(30, e.errmsg, explain=0), None, sys.exc_info()[2]
+            h.execute(name = k)
+            # saving id
+            hash[k] = h.fetchone_dict().popitem()[1]
 
     def __buildQueries(self, childTables):
         childTableLookups = {}
