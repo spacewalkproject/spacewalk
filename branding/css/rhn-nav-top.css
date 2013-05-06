@@ -76,8 +76,7 @@ li#mainFirst-active,
 #mainNav li#mainLast-active,
 div#mainNavWrap ul li#main-active,
 div#mainNavWrap ul li#mainLast-active {
-        border-radius: 10px 10px 0 0 ;
-        padding-top 5px;
+        border-radius: 10px 10px 0 0;
 }
 
 li#mainFirst-active a,
