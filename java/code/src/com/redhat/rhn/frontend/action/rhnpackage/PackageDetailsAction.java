@@ -26,7 +26,6 @@ import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException;
 import com.redhat.rhn.manager.download.DownloadManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 
@@ -168,7 +167,7 @@ public class PackageDetailsAction extends RhnAction {
 
         // show permission error if pid is invalid like we did before
         if (pkg == null) {
-            throw new NoSuchPackageException();
+            throw new PermissionException("Invalid id_combo and cid/sid");
         }
 
         Map params = new HashMap();
