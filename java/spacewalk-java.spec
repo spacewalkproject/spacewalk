@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.73
+Version: 1.10.74
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue May 07 2013 Tomas Lestach <tlestach@redhat.com> 1.10.74-1
+- remove unused NoSuchPackageExceptionHandler
+- do not throw xmlrpc exception within the WebUI context
+
 * Mon May 06 2013 Tomas Lestach <tlestach@redhat.com> 1.10.73-1
 - 924205 - enhance exception handling
 
