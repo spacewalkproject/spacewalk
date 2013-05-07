@@ -68,6 +68,7 @@ insert_package_name             :: rhnPackageName
 insert_package_nevra            :: rhnPackageNEVRA
 insert_package_capability       :: rhnPackageCapability
 insert_package_delta            :: rhnPackageDelta
+insert_package_group            :: rhnPackageGroup
 insert_source_name              :: rhnSourceRPM
 insert_tag                      :: rhnTag
 insert_tag_name                 :: rhnTagName
@@ -91,7 +92,7 @@ lookup_first_matching_cf        :: rhnConfigFile rhnConfigChannel \
                                    rhnServerConfigChannel lookup_cf_state \
                                    rhnConfigFileName
 lookup_functions                :: lookup_evr lookup_package_name \
-                                   lookup_package_nevra \
+                                   lookup_package_nevra lookup_package_group \
                                    lookup_source_name lookup_channel_arch \
                                    lookup_server_arch lookup_package_arch \
                                    lookup_package_capability \
@@ -107,6 +108,7 @@ lookup_package_name             :: rhnPackageName insert_package_name
 lookup_package_provider         :: rhnPackageProvider
 lookup_package_key_type         :: rhnPackageKeyType
 lookup_package_nevra            :: rhnPackageNEVRA insert_package_nevra
+lookup_package_group            :: rhnPackageGroup insert_package_group
 lookup_server_arch              :: rhn_exception.pks data/rhnException rhnServerArch \
                                    data/rhnServerArch
 lookup_sg_type                  :: rhnServerGroupType
