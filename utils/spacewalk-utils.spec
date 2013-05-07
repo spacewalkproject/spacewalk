@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.10.6
+Version:	1.10.7
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -88,6 +88,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue May 07 2013 Jan Pazdziora 1.10.7-1
+- disable, enable & rebuild indexes for migrations
+
 * Tue Apr 30 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.6-1
 - EL4 is EOL'ed for a long time
 - Fedora 16 is EOL'ed
