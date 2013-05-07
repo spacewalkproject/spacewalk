@@ -22,9 +22,12 @@
 		    <td>
 				<b> <bean:message key="sdc.config.files.total"/>:</b> <br/>
 				${requestScope.centralFiles}
-					 <br/><br/>
-				<b><bean:message key="sdc.config.files.deployable"/>:</b><br/>
+                <rhn:require mixins="com.redhat.rhn.common.security.acl.SystemAclHandler"
+                                             acl="client_capable(configfiles.deploy)">
+                    <br/><br/>
+                    <b><bean:message key="sdc.config.files.deployable"/>:</b><br/>
 					${requestScope.deployableFiles}
+                </rhn:require>
 		    </td>
 		  </tr>
 		  <tr>
