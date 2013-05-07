@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.30
+Version:        1.10.31
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue May 07 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.31-1
+- fixed sha1 on postgresql part
+
 * Tue May 07 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.30-1
 - 958425 - switch deferred segment creation off during installation
 
