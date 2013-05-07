@@ -1062,8 +1062,7 @@ class _ErratumFileEntryDumper(BaseChecksumRowDumper):
 
     def set_attributes(self):
         attributes = {
-            # XXX: band-aid - truncate to 128 chars for olde satellites.
-            'filename'  : self._row['filename'][:128],
+            'filename'  : self._row['filename'][:4000],
             'type'      : self._row['type'],
         }
         if self._row['checksum_type'] == 'md5':
