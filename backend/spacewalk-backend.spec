@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.25
+Version: 1.10.26
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -637,6 +637,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue May 07 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.26-1
+- 918333 - don't truncate filepath when exporting
+
 * Thu May 02 2013 Stephen Herr <sherr@redhat.com> 1.10.25-1
 - 947639 - make satellite-sync work with new rhnlib
 
