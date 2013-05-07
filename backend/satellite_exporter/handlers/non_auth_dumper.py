@@ -71,7 +71,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
             'blacklist_obsoletes',
             'product_names',
             'get_rpm',
-            'get_source_rpm',
             'kickstartable_trees',
             'get_ks_file',
         ]
