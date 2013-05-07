@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    1.10.15
+Version:    1.10.16
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -74,6 +74,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue May 07 2013 Jan Pazdziora 1.10.16-1
+- removing unnecessary css property
+- removing duplicate left border in tables containing checkbox as 1st column
+
 * Thu Apr 11 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.15-1
 - overlap of currently active section on top-nav
 
