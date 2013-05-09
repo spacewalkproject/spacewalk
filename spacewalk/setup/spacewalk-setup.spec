@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        1.10.8
+Version:        1.10.9
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -102,6 +102,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu May 09 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.9-1
+- 958677 - suppress uninitialized value messages
+
 * Mon Apr 29 2013 Jan Pazdziora 1.10.8-1
 - Support migrations from Satellite 5.5
 
