@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.10.7
+Version:	1.10.8
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -88,6 +88,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu May 09 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.8-1
+- correctly quote the database name
+
 * Tue May 07 2013 Jan Pazdziora 1.10.7-1
 - disable, enable & rebuild indexes for migrations
 
