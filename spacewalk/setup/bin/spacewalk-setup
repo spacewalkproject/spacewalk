@@ -560,8 +560,8 @@ sub setup_tomcat {
       $content = <FILE>;
     }
     close FILE;
-    $tomcatconf_content =~ s!$regexp!$content!gm or
-        (defined($content) and $tomcatconf_content .= $content);
+    defined($content) or $content = '';
+    $tomcatconf_content =~ s!$regexp!$content!gm or $tomcatconf_content .= $content;
   }
 
   if ($tomcatconf_content ne $tomcatconf_content_orig) {
