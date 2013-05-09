@@ -108,7 +108,7 @@ where indexrelid in (
              pc.relkind = 'i'::"char" and
              pn.nspname = current_schema()
       );
-select pg_dblink_exec('reindex database ' || current_database() || ';');
+select pg_dblink_exec('reindex database "' || current_database() || '";');
 EOS
 
 exit 0;
