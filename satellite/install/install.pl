@@ -229,7 +229,7 @@ sub correct_system_version {
 
   my ($compose_version) = ($composeinfo->{treeName} =~ /(RHEL\d)/);
 
-  return ($composeinfo->{treeArch} =~ /$version_info{arch}/
+  return ($composeinfo->{treeArch} eq $version_info{arch}
           and (
                 ($version_info{version} eq '5Server' and $compose_version eq 'RHEL5')
              or ($version_info{version} eq '6Server' and $compose_version eq 'RHEL6')
@@ -866,12 +866,21 @@ sub get_composeinfo {
       if ($line =~ /^name\s*=\s*(.+)$/) {
         $treeName = $1;
       }
-      if ($line =~ /^arches\s*=\s*(.+)$/) {
-        $treeArch = $1;
-      }
     }
   }
   close(CINFO);
+
+  my $treeinfo_file = ".treeinfo";
+  open(TINFO, $treeinfoinfo_file);
+
+  foreach my $line (<TINFO>) {
+    chomp $line;
+
+    if ($line =~ /^arch\s*=\s*(.+)$/) {
+        $treeArch = $1;
+    }
+  }
+  close(TINFO);
 
   if (defined $productVersion) { $productName .= " $productVersion"; }
   if (defined $treeName) { $productName .= "\n($treeName)"; }
