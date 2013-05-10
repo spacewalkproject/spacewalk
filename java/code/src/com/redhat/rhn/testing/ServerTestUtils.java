@@ -92,7 +92,7 @@ public class ServerTestUtils {
         throws Exception {
 
         InstalledPackage testInstPack = new InstalledPackage();
-        String epoch = "";
+        String epoch = null;
         PackageEvr evr = PackageEvrFactory.lookupOrCreatePackageEvr(epoch, version,
                 release);
         testInstPack.setEvr(evr);
