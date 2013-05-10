@@ -434,9 +434,13 @@ class Syncer:
                 sync_parent = CFG.ISS_PARENT
                 self.systemid = 'N/A'   # systemid is not used in ISS auth process
                 is_iss = 1
-            else:
+            elif not CFG.DISCONNECTED:
                 sync_parent = CFG.RHN_PARENT
                 is_iss = 0
+            else:
+                log(1, _('Red Hat Network Satellite - live synchronization'))
+                log(-1, _("ERROR: Can't use live synchronization in disconnected mode."), stream=sys.stderr)
+                sys.exit(1)
 
             url = self.xmlDataServer.schemeAndUrl(sync_parent)
             log(1, [_('Red Hat Network Satellite - live synchronization'),
