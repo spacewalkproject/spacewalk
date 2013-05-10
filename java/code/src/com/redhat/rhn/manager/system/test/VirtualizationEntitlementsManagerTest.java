@@ -53,9 +53,9 @@ import java.util.List;
 public class VirtualizationEntitlementsManagerTest extends BaseTestCaseWithUser {
 
     public void setUp() throws Exception {
+        super.setUp();
         user.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
-        super.setUp();
     }
 
     public void testListFlexGuests() throws Exception {
