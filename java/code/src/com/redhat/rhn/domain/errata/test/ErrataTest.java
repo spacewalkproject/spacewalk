@@ -14,6 +14,10 @@
  */
 package com.redhat.rhn.domain.errata.test;
 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+
 import com.redhat.rhn.common.security.errata.PublishedOnlyException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
@@ -27,30 +31,23 @@ import com.redhat.rhn.domain.errata.impl.PublishedErrataFile;
 import com.redhat.rhn.domain.errata.impl.UnpublishedBug;
 import com.redhat.rhn.domain.errata.impl.UnpublishedErrata;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
+import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ChannelTestUtils;
-import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
-
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
 
 /**
  * ErrataTest
  * @version $Rev$
  */
-public class ErrataTest extends RhnBaseTestCase {
+public class ErrataTest extends BaseTestCaseWithUser {
 
     public void testNotificationQueue() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser",
-                "testOrg" + this.getClass().getSimpleName());
         Channel c = ChannelFactoryTest.createBaseChannel(user);
         Errata e = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
         e.addChannel(c);
@@ -84,8 +81,6 @@ public class ErrataTest extends RhnBaseTestCase {
      * @throws Exception
      */
     public void testBugs() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser",
-                "testOrg" + this.getClass().getSimpleName());
         Errata errata = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
 
         Bug bug1 = new PublishedBug();
@@ -118,8 +113,6 @@ public class ErrataTest extends RhnBaseTestCase {
      * @throws Exception
      */
     public void testBugsUnpublished() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser",
-                "testOrg" + this.getClass().getSimpleName());
         Errata errata = ErrataFactoryTest
                 .createTestUnpublishedErrata(user.getOrg().getId());
 
@@ -154,16 +147,12 @@ public class ErrataTest extends RhnBaseTestCase {
      */
     //published
     public void testPublishedKeywords() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser",
-                "testOrg" + this.getClass().getSimpleName());
         Errata errata = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
         assertTrue(errata instanceof PublishedErrata);
         runKeywordsTest(errata, user);
     }
     //unpublished
     public void testUnpublishedKeywords() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser",
-                "testOrg" + this.getClass().getSimpleName());
         Errata errata = ErrataFactoryTest
                 .createTestUnpublishedErrata(user.getOrg().getId());
         assertTrue(errata instanceof UnpublishedErrata);
@@ -193,16 +182,12 @@ public class ErrataTest extends RhnBaseTestCase {
      */
     //published
     public void testPublishedPackage() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser",
-                "testOrg" + this.getClass().getSimpleName());
         Errata errata = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
         assertTrue(errata instanceof PublishedErrata);
         runPackageTest(errata, user);
     }
     //unpublished
     public void testUnpublishedPackage() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser",
-                "testOrg" + this.getClass().getSimpleName());
         Errata errata = ErrataFactoryTest
                 .createTestUnpublishedErrata(user.getOrg().getId());
         assertTrue(errata instanceof UnpublishedErrata);
@@ -210,7 +195,6 @@ public class ErrataTest extends RhnBaseTestCase {
     }
 
     public void testAddChannelsToErrata() throws Exception {
-        User user = UserTestUtils.findNewUser();
         Errata e = ErrataFactoryTest.createTestPublishedErrata(
                 user.getOrg().getId());
         assertTrue(e.getFiles().size() > 0);
@@ -284,35 +268,27 @@ public class ErrataTest extends RhnBaseTestCase {
      */
     //published
     public void testBeanMethodsPublished() throws Exception {
-        Errata err = ErrataFactoryTest.createTestPublishedErrata(
-            UserTestUtils.createOrg("testOrg" + this.getClass().getSimpleName()));
+        Errata err = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
         assertTrue(err instanceof PublishedErrata);
         assertTrue(err.isPublished());
-        runBeanMethodsTest(err);
+        runBeanMethodsTest(err, 1);
     }
     //unpublished
     public void testBeanMethodsUnpublished() throws Exception {
-        Errata err = ErrataFactoryTest.createTestUnpublishedErrata(
-            UserTestUtils.createOrg("testOrg" + this.getClass().getSimpleName()));
+        Errata err = ErrataFactoryTest.createTestUnpublishedErrata(user.getOrg().getId());
         assertTrue(err instanceof UnpublishedErrata);
         assertFalse(err.isPublished());
-        runBeanMethodsTest(err);
+        runBeanMethodsTest(err, 2);
     }
 
-    private void runBeanMethodsTest(Errata err) throws Exception {
-        Long one = new Long(3475);
-        Long two = new Long(5438);
+    private void runBeanMethodsTest(Errata err, int idOffset) throws Exception {
+        Long one = new Long(3475 + idOffset);
+        Long two = new Long(5438 + idOffset);
         String foo = "foo";
         String product = "Product Enhancement Advisory";
         String security = "Security Advisory";
         String bug = "Bug Fix Advisory";
         Date now = new Date();
-
-        err.setId(one);
-        assertTrue(err.getId().equals(one));
-        assertFalse(err.getId().equals(two));
-        err.setId(null);
-        assertNull(err.getId());
 
         err.setAdvisory(foo);
         assertTrue(err.getAdvisory().equals("foo"));
@@ -403,14 +379,14 @@ public class ErrataTest extends RhnBaseTestCase {
         err.setUpdateDate(null);
         assertNull(err.getUpdateDate());
 
-        Org org1 = OrgFactory.lookupById(UserTestUtils.createOrg("TBM1"));
+        Org org1 = user.getOrg();
 
         err.setOrg(org1);
         assertTrue(err.getOrg().equals(org1));
         err.setOrg(null);
         assertNull(err.getOrg());
 
-        Channel c1 = ChannelFactoryTest.createTestChannel(org1);
+        Channel c1 = ChannelFactoryTest.createTestChannel(user.getOrg());
         if (err.isPublished()) {
             err.addChannel(c1);
             assertEquals(1, err.getChannels().size());
