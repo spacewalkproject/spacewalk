@@ -39,6 +39,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.EssentialChannelDto;
@@ -89,19 +90,18 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
     }
 
     public void testAddRemoveSubscribeRole() throws Exception {
-        User admin = UserTestUtils.findNewUser("testuser", "testorg");
-        User regularUser = UserTestUtils.createUser("regularuser", admin.getOrg().getId());
+        User admin = UserTestUtils.createUser("adminUser", user.getOrg().getId());
         Channel channel = ChannelFactoryTest.createTestChannel(admin);
         channel.setGloballySubscribable(false, admin.getOrg());
         assertFalse(channel.isGloballySubscribable(admin.getOrg()));
 
-        assertFalse(ChannelManager.verifyChannelSubscribe(regularUser, channel.getId()));
+        assertFalse(ChannelManager.verifyChannelSubscribe(user, channel.getId()));
 
-        ChannelManager.addSubscribeRole(regularUser, channel);
-        assertTrue(ChannelManager.verifyChannelSubscribe(regularUser, channel.getId()));
+        ChannelManager.addSubscribeRole(user, channel);
+        assertTrue(ChannelManager.verifyChannelSubscribe(user, channel.getId()));
 
-        ChannelManager.removeSubscribeRole(regularUser, channel);
-        assertFalse(ChannelManager.verifyChannelSubscribe(regularUser, channel.getId()));
+        ChannelManager.removeSubscribeRole(user, channel);
+        assertFalse(ChannelManager.verifyChannelSubscribe(user, channel.getId()));
     }
 
     public void testChannelsInOrg() throws Exception {
@@ -739,9 +739,9 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         List<EssentialChannelDto> compatibles =
             ChannelManager.listCompatibleBaseChannelsForChannel(user, c);
 
-        // There should be one for the custom channel
+        // There should be two - we now list ALL custom-channelsl
         assertNotNull(compatibles);
-        assertTrue(compatibles.size() == 1);
+        assertTrue(compatibles.size() == 2);
 
         boolean foundBase = false;
         boolean foundCustom = false;
@@ -857,8 +857,6 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
 
         Channel c = ChannelFactoryTest.createBaseChannel(user);
         Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
-        User user = UserTestUtils.findNewUser("testUser",
-                "testOrg" + this.getClass().getSimpleName());
 
         Package bothP = PackageTest.createTestPackage(user.getOrg());
         Package channelP = PackageTest.createTestPackage(user.getOrg());
@@ -889,6 +887,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
     public void testListErrataNeedingResync() throws Exception {
 
         user.addRole(RoleFactory.CHANNEL_ADMIN);
+        UserFactory.save(user);
 
         Channel ochan = ChannelFactoryTest.createTestChannel(user);
         Channel cchan = ChannelFactoryTest.createTestClonedChannel(ochan, user);
@@ -902,8 +901,6 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
          Errata ce = ErrataManager.createClone(user, oe);
          ce = ErrataManager.publish(ce, list, user);
 
-         User user = UserTestUtils.findNewUser("testUser",
-                 "testOrg" + this.getClass().getSimpleName());
          Package testPackage = PackageTest.createTestPackage(user.getOrg());
          oe.addPackage(testPackage);
          ochan.addPackage(testPackage);
@@ -930,8 +927,6 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
          Errata ce = ErrataManager.createClone(user, oe);
          ce = ErrataManager.publish(ce, list, user);
 
-         User user = UserTestUtils.findNewUser("testUser",
-                 "testOrg" + this.getClass().getSimpleName());
          Package testPackage = PackageTest.createTestPackage(user.getOrg());
          oe.addPackage(testPackage);
          ochan.addPackage(testPackage);
