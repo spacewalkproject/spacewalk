@@ -228,3 +228,16 @@ def get_crashfile_path(org_id, system_id, crash, filename):
         return path
     else:
         return None
+
+def get_action_path(org_id, system_id, action_id):
+    """For a given org_id, system_id, and action_id, return relative path to a store directory."""
+    path = os.path.join('systems', str(org_id), str(system_id), 'actions', str(action_id))
+    if _is_secure_path(path):
+       return path
+
+def get_actionfile_path(org_id, system_id, action_id, filename):
+    """For a given org_id, system_id, action_id, and file, return relative path to a file."""
+    path = os.path.join(get_action_path(org_id, system_id, action_id), str(filename))
+
+    if _is_secure_path(path):
+        return path

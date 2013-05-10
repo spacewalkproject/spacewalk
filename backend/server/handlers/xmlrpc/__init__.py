@@ -25,6 +25,7 @@ import errata
 import proxy
 import get_handler
 import abrt
+import scap
 
 rpcClasses = {
     "registration"      : registration.Registration,
@@ -34,6 +35,7 @@ rpcClasses = {
     "proxy"             : proxy.Proxy,
     "servers"           : up2date.Servers,
     "abrt"              : abrt.Abrt,
+    "scap"              : scap.Scap,
     }
 
 getHandler = get_handler.GetHandler

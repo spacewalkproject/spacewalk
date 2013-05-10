@@ -234,14 +234,20 @@ maximum membership exceeded"),
      4016: _("Invalid revision number"),
      4017: _("Cannot compare files of different file type"),
 
-     # 5000 - 5999: crash reporting errors
+     # 5000 - 5999: client content uploading errors
+     # 5000 - 5099: crash reporting errors
      5000: _("Crash information is invalid or incomplete"),
      5001: _("Crash file information is invalid or incomplete"),
      5002: _("Error composing crash directory path"),
      5003: _("Error composing crash file path"),
      5004: _("Invalid content encoding"),
      5005: _("Invalid crash name"),
-     5006: _("Crash reporting is disabled for this organization")
+     5006: _("Crash reporting is disabled for this organization"),
+     # 5100 - 5199: scap results reporting error
+     5101: _("SCAP results file transfer is invalid or incomplete"),
+     5102: _("Error composing directory path for detailed SCAP results"),
+     5103: _("Error composing file path for detailed SCAP results"),
+     5104: _("Invalid content encoding"),
     }
 
 
