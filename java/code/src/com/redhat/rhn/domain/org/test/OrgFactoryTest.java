@@ -110,11 +110,11 @@ public class OrgFactoryTest extends RhnBaseTestCase {
     private Org createTestOrg() throws Exception {
         Org org1 = OrgFactory.createOrg();
         org1.setName("org created by OrgFactory test: " + TestUtils.randomString());
+        org1 = OrgFactory.save(org1);
         // build the channels set
         Channel channel1 = ChannelFactoryTest.createTestChannel(org1);
         flushAndEvict(channel1);
         org1.addOwnedChannel(channel1);
-        org1 = OrgFactory.save(org1);
         assertTrue(org1.getId().longValue() > 0);
         return org1;
     }
