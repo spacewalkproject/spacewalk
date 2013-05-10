@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.74
+Version: 1.10.75
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri May 10 2013 Grant Gainey <ggainey@redhat.com> 1.10.75-1
+- Save, *then* evict - Order Matters
+- More user/org cleanup
+- Compatible-channel rules chgd, chg the test. Also, cleanup user-creation
+- For epoch, empty-string != null
+- Call super first, not last
+- 955590 - do not offer a symlink, if the user does not have acl for the target
+
 * Tue May 07 2013 Tomas Lestach <tlestach@redhat.com> 1.10.74-1
 - remove unused NoSuchPackageExceptionHandler
 - do not throw xmlrpc exception within the WebUI context
