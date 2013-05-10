@@ -59,6 +59,8 @@ class rhnpushConfigParser:
                                 'no_session_caching'     :   '0', 
                                 'proxy'             :   '',
                                 'tolerant'          :   '0',            
+                                'ca_chain'          :   '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT',
+
                                 }
 
         #Used to parse the config file.

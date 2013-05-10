@@ -100,7 +100,7 @@ class UploadClass:
         self.proxyPassword = None
 
     def setCAchain(self):
-        self.ca_chain = None
+        self.ca_chain = self.options.ca_chain
 
     def setProxy(self):
         if self.options.proxy is None or self.options.proxy is '':

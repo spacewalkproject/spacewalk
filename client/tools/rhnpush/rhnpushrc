@@ -73,3 +73,5 @@ no_session_caching  =   0
 #Have rhnpush be tolerant of errors when pushing a large number of packages.
 tolerant        =   0
 
+#The CA cert used to verify the ssl server
+ca_chain        =   /usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT
