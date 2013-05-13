@@ -1,7 +1,7 @@
 Summary: DBD-Oracle module for perl
 Name: perl-DBD-Oracle
-Version: 1.50
-Release: 2%{?dist}
+Version: 1.62
+Release: 1%{?dist}
 License:  GPL+ or Artistic
 Group: Development/Libraries
 Source0: DBD-Oracle-%{version}.tar.gz
@@ -57,11 +57,12 @@ rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 %defattr(-,root,root)
 %{perl_vendorarch}/auto/DBD/
 %{perl_vendorarch}/DBD/
-%{perl_vendorarch}/Oraperl.pm
-%{perl_vendorarch}/oraperl.ph
 %{_mandir}/man3/*
 
 %changelog
+* Mon May 13 2013 Jan Pazdziora 1.62-1
+- Rebase DBD::Oracle to 1.62.
+
 * Mon Mar 18 2013 Michael Mraka <michael.mraka@redhat.com> 1.50-2
 - fixed builder definition
 
