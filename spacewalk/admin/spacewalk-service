@@ -20,10 +20,6 @@ if [ $EUID -ne 0 ]; then
 fi
 
 
-if [ -x /etc/init.d/oracle ]; then
-   DB_SERVICE="oracle"
-fi
-
 if [ -x /etc/init.d/tomcat5 ]; then
    TOMCAT="tomcat5"
 fi
@@ -37,7 +33,7 @@ if [ -e /lib/systemd/system/tomcat.service ]; then
 fi
 
 
-SERVICES="jabberd $DB_SERVICE $TOMCAT httpd osa-dispatcher Monitoring MonitoringScout rhn-search cobblerd taskomatic"
+SERVICES="jabberd $TOMCAT httpd osa-dispatcher Monitoring MonitoringScout rhn-search cobblerd taskomatic"
 if [ -f /etc/rhn/service-list ] ; then
    . /etc/rhn/service-list
 fi
