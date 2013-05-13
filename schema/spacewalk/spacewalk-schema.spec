@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.32
+Version:        1.10.33
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon May 13 2013 Jan Dobes 1.10.33-1
+- adding lookup_package_group proc and it's upgrade files
+
 * Tue May 07 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.32-1
 - fixed sha1 on postgresql 9.1
 
