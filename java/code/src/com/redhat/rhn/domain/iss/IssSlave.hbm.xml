@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.iss.IssSlave"
+        table="rhnissslave" >
+        <id name="id" type="long" column="ID">
+            <meta attribute="scope-set">protected</meta>
+            <generator class="sequence">
+                <param name="sequence">rhn_issslave_seq</param>
+            </generator>
+        </id>
+        <property name="fqdn" column="SLAVE_FQDN"  type="string" length="256" />
+        <property name="ip" column="SLAVE_IP"  type="string" length="256" />
+        <property name="enabled" column="ENABLED"  type="string" length="1" />
+        <property name="allowAllOrgs" column="ALLOW_ALL_ORGS"  type="string" length="1" />
+        <property name="created" column="CREATED"  type="timestamp" insert="false" update="false"/>
+        <property name="modified" column="MODIFIED"  type="timestamp" insert="false" update="false"/>
+    </class>
+
+    <query name="IssSlave.findById">
+        <![CDATA[from com.redhat.rhn.domain.iss.IssSlave as s where s.id = :id]]>
+    </query>
+
+    <query name="IssSlave.lookupAll">
+        <![CDATA[from com.redhat.rhn.domain.iss.IssSlave]]>
+    </query>
+
+</hibernate-mapping>

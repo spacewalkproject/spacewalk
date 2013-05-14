@@ -67,7 +67,7 @@
             <form-property name="zip" type="java.lang.String"/>
             <form-property name="usepam" type="java.lang.Boolean"/>
             <form-property name="no_scrub" type="java.lang.String"
-            				 initial="desiredpassword, desiredpasswordConfirm"/>
+                             initial="desiredpassword, desiredpasswordConfirm"/>
             <form-property name="preferredLocale" type="java.lang.String" />
             <form-property name="timezone" type="java.lang.Integer"/>
         </form-bean>
@@ -97,8 +97,8 @@
             <form-property name="title" type="java.lang.String"/>
             <form-property name="zip" type="java.lang.String"/>
             <form-property name="usepam" type="java.lang.Boolean"/>
-            <form-property name="no_scrub" type="java.lang.String" 
-            				initial="desiredpassword, desiredpasswordConfirm"/>
+            <form-property name="no_scrub" type="java.lang.String"
+                            initial="desiredpassword, desiredpasswordConfirm"/>
         </form-bean>
         <form-bean name="userDetailsForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
@@ -128,8 +128,8 @@
             <form-property name="lastName" type="java.lang.String"/>
             <form-property name="usepam" type="java.lang.Boolean"/>
             <form-property name="submitted" type="java.lang.Boolean" />
-            <form-property name="no_scrub" type="java.lang.String" 
-            				initial="desiredpassword, desiredpasswordConfirm"/>            
+            <form-property name="no_scrub" type="java.lang.String"
+                            initial="desiredpassword, desiredpasswordConfirm"/>
         </form-bean>
         <form-bean name="orgDetailsForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
@@ -332,7 +332,7 @@
         </form-bean>
 
         <form-bean 	name="systemSearchForm"
-        			type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
         <form-property name="search_string" type="java.lang.String" />
         <form-property name="view_mode" type="java.lang.String" />
         <form-property name="whereToSearch" type="java.lang.String" />
@@ -340,7 +340,7 @@
         <form-property name="fineGrained" type="java.lang.Boolean" />
         <form-property name="submitted" type="java.lang.Boolean" />
         <form-property name="no_scrub" type="java.lang.String"
-						initial="search_string"/>
+                        initial="search_string"/>
         </form-bean>
 
         <form-bean  name="docsSearchForm"
@@ -351,7 +351,7 @@
         </form-bean>
 
         <form-bean name="searchForm"
-        		   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
         <form-property name="search_type" type="java.lang.String" />
         <form-property name="search_string" type="java.lang.String" />
         <form-property name="submitted" type="java.lang.Boolean" />
@@ -446,9 +446,9 @@
             <form-property name="date_hour"  type="java.lang.Integer"/>
             <form-property name="date_minute"  type="java.lang.Integer"/>
             <form-property name="date_am_pm"  type="java.lang.Integer"/>
-			<form-property name="no_scrub" type="java.lang.String"
-            				 initial="run_script, script"/>            
-            
+            <form-property name="no_scrub" type="java.lang.String"
+                             initial="run_script, script"/>
+
         </form-bean>
 
         <form-bean name="errataPublishForm"
@@ -563,17 +563,17 @@
             <form-property name="web|is_monitoring_backend"  type="java.lang.Boolean"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
             <form-property name="no_scrub" type="java.lang.String"
-						initial="server|satellite|http_proxy_password, server|satellite|http_proxy_password_confirm"/>
-            
+                        initial="server|satellite|http_proxy_password, server|satellite|http_proxy_password_confirm"/>
+
         </form-bean>
 
         <form-bean name="certificateConfigForm"
-        		type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+                type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="cert_file"  type="org.apache.struts.upload.FormFile"/>
             <form-property name="cert_text"  type="java.lang.String"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
-			<form-property name="no_scrub" type="java.lang.String"
-						initial="cert_text"/>            
+            <form-property name="no_scrub" type="java.lang.String"
+                        initial="cert_text"/>
         </form-bean>
 
         <form-bean name="bootstrapConfigForm"
@@ -589,7 +589,7 @@
             <form-property name="http-proxy-password"  type="java.lang.String"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
             <form-property name="no_scrub" type="java.lang.String"
-						initial="http-proxy-password"/>
+                        initial="http-proxy-password"/>
         </form-bean>
 
         <form-bean name="restartForm"
@@ -607,7 +607,7 @@
             <form-property name="no_scrub" type="java.lang.String" initial="contents"/>
         </form-bean>
 
-		<form-bean name="cryptoKeyDeleteForm"
+        <form-bean name="cryptoKeyDeleteForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="description"  type="java.lang.String"/>
             <form-property name="type"  type="java.lang.String"/>
@@ -621,7 +621,7 @@
             <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>
 
-		<form-bean name="cloneErrataForm"
+        <form-bean name="cloneErrataForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="channel"  type="java.lang.String"/>
             <form-property name="showalreadycloned"  type="java.lang.Boolean"/>
@@ -630,8 +630,8 @@
 
         <form-bean name="packagePushForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-        	<form-property name="cid" type="java.lang.Long"/>
-        	<form-property name="eid" type="java.lang.Long"/>
+            <form-property name="cid" type="java.lang.Long"/>
+            <form-property name="eid" type="java.lang.Long"/>
         </form-bean>
 
         <!-- Kickstart Form Beans -->
@@ -649,17 +649,17 @@
             <form-property name="virtualizationTypeLabel" type="java.lang.String" />
             <form-property name="kernel_options" type="java.lang.String"/>
             <form-property name="post_kernel_options" type="java.lang.String"/>
- 			<form-property name="virt_disk_path" type="java.lang.String"/>
- 			<form-property name="virt_mem_mb"  type="java.lang.Integer"/>
- 			<form-property name="virt_cpus"  type="java.lang.Integer"/>
- 			<form-property name="virt_disk_size"  type="java.lang.Integer"/>
- 			<form-property name="virt_bridge" type="java.lang.String"/>
+             <form-property name="virt_disk_path" type="java.lang.String"/>
+             <form-property name="virt_mem_mb"  type="java.lang.Integer"/>
+             <form-property name="virt_cpus"  type="java.lang.Integer"/>
+             <form-property name="virt_disk_size"  type="java.lang.Integer"/>
+             <form-property name="virt_bridge" type="java.lang.String"/>
 
         </form-bean>
 
         <form-bean name="kickstartDeleteForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-		<form-property name="submitted"  type="java.lang.Boolean"/>
+        <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>
 
         <form-bean name="kickstartSoftwareForm"
@@ -672,7 +672,7 @@
             <form-property name="submitted"  type="java.lang.Boolean"/>
             <form-property name="fieldChanged" type="java.lang.String" />
             <form-property name="child_channels" type="java.lang.String[]"/>
-			<form-property name="possibleRepos"
+            <form-property name="possibleRepos"
                            type="com.redhat.rhn.frontend.struts.LabelValueEnabledBean[]"/>
             <form-property name="selectedRepos" type="java.lang.String[]"/>
 
@@ -703,8 +703,8 @@
             <form-property name="rootPasswordConfirm" type="java.lang.String" />
             <form-property name="submitted" type="java.lang.Boolean" />
             <form-property name="no_scrub" type="java.lang.String"
-						initial="rootPassword, rootPasswordConfirm"/>
-            
+                        initial="rootPassword, rootPasswordConfirm"/>
+
         </form-bean>
 
         <form-bean name="kickstartScriptForm"
@@ -772,8 +772,8 @@
             <form-property name="kstreeId" type="java.lang.Long" />
             <form-property name="virtualizationTypes" type="java.util.List" />
             <form-property name="virtualizationTypeLabel" type="java.lang.String" />
-	    <form-property name="updateAll" type="java.lang.Boolean" />
-	    <form-property name="updateRedHat" type="java.lang.Boolean" />
+        <form-property name="updateAll" type="java.lang.Boolean" />
+        <form-property name="updateRedHat" type="java.lang.Boolean" />
             <form-property name="fileUpload"      type="org.apache.struts.upload.FormFile" />
             <form-property name="contents" type="java.lang.String" />
             <form-property name="org_default" type="java.lang.Boolean" />
@@ -809,16 +809,16 @@
             <form-property name="rootPassword" type="java.lang.String" />
             <form-property name="rootPasswordConfirm" type="java.lang.String" />
             <form-property name="virtualizationTypes" type="java.util.List" />
-	    	<form-property name="virtualizationTypeLabel" type="java.lang.String" />
-	    	<form-property name="isRaw" type="java.lang.Boolean" />
-	    	<form-property name="rawData" type="java.lang.String" />
-			<form-property name="cffUpload"      type="org.apache.struts.upload.FormFile" />
+            <form-property name="virtualizationTypeLabel" type="java.lang.String" />
+            <form-property name="isRaw" type="java.lang.Boolean" />
+            <form-property name="rawData" type="java.lang.String" />
+            <form-property name="cffUpload"      type="org.apache.struts.upload.FormFile" />
             <form-property name="no_scrub" type="java.lang.String"
-						initial="rootPassword, rootPasswordConfirm"/>
+                        initial="rootPassword, rootPasswordConfirm"/>
         </form-bean>
 
         <form-bean name="kickstartScheduleWizardForm"
-            	   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="sid" type="java.lang.Long" />
             <form-property name="ksid" type="java.lang.Long" />
             <form-property name="cobbler_id" type="java.lang.String" />
@@ -858,16 +858,16 @@
             <form-property name="date_hour" type="java.lang.Integer" />
             <form-property name="date_minute" type="java.lang.Integer" />
             <form-property name="date_am_pm" type="java.lang.Integer" />
-			<!-- Needed for scheduling Virtualization stuff-->
-		    <form-property name="memoryAllocation" type="java.lang.String" />
-		    <form-property name="virtualCpus" type="java.lang.String" />
-		    <form-property name="virtBridge" type="java.lang.String" />
+            <!-- Needed for scheduling Virtualization stuff-->
+            <form-property name="memoryAllocation" type="java.lang.String" />
+            <form-property name="virtualCpus" type="java.lang.String" />
+            <form-property name="virtBridge" type="java.lang.String" />
             <form-property name="macAddress" type="java.lang.String" />
-		    <form-property name="diskPath" type="java.lang.String" />
-		    <form-property name="storageType" type="java.lang.String" />
-		    <form-property name="localStorageGigabytes" type="java.lang.String" />
-		    <form-property name="guestName" type="java.lang.String" />
-		    <form-property name="destroyDisks" type="java.lang.String" />
+            <form-property name="diskPath" type="java.lang.String" />
+            <form-property name="storageType" type="java.lang.String" />
+            <form-property name="localStorageGigabytes" type="java.lang.String" />
+            <form-property name="guestName" type="java.lang.String" />
+            <form-property name="destroyDisks" type="java.lang.String" />
 
 
         </form-bean>
@@ -932,8 +932,8 @@
         </form-bean>
 
         <form-bean name="systemEntitlementsForm"
-		   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-	    <form-property name="addOnEntitlement" type="java.lang.String"/>
+           type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+        <form-property name="addOnEntitlement" type="java.lang.String"/>
         </form-bean>
         <form-bean name="localePreferencesForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
@@ -943,11 +943,11 @@
            <form-property name="uid" type="java.lang.Long" />
         </form-bean>
 
-		<form-bean name="deactivateSelfForm"
-				   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
-			<form-property name="submitted" type="java.lang.Boolean" />
-		</form-bean>
-		
+        <form-bean name="deactivateSelfForm"
+                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
+            <form-property name="submitted" type="java.lang.Boolean" />
+        </form-bean>
+
         <form-bean name="channelEditForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="submitted" type="java.lang.Boolean" />
@@ -983,52 +983,52 @@
            <form-property name="submitted" type="java.lang.Boolean"/>
        </form-bean>
 
-	<!-- Audit forms -->
-	<form-bean name="scheduleXccdfForm"
-		type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-		<form-property name="params" type="java.lang.String"/>
-		<form-property name="path" type="java.lang.String"/>
-		<form-property name="submitted" type="java.lang.Boolean"/>
-		<!-- fields needed by datePicker -->
-		<form-property name="use_date" type="java.lang.Boolean"/>
-		<form-property name="date_year" type="java.lang.Integer"/>
-		<form-property name="date_month" type="java.lang.Integer"/>
-		<form-property name="date_day" type="java.lang.Integer"/>
-		<form-property name="date_hour" type="java.lang.Integer"/>
-		<form-property name="date_minute" type="java.lang.Integer"/>
-		<form-property name="date_am_pm" type="java.lang.Integer"/>
-	</form-bean>
+    <!-- Audit forms -->
+    <form-bean name="scheduleXccdfForm"
+        type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+        <form-property name="params" type="java.lang.String"/>
+        <form-property name="path" type="java.lang.String"/>
+        <form-property name="submitted" type="java.lang.Boolean"/>
+        <!-- fields needed by datePicker -->
+        <form-property name="use_date" type="java.lang.Boolean"/>
+        <form-property name="date_year" type="java.lang.Integer"/>
+        <form-property name="date_month" type="java.lang.Integer"/>
+        <form-property name="date_day" type="java.lang.Integer"/>
+        <form-property name="date_hour" type="java.lang.Integer"/>
+        <form-property name="date_minute" type="java.lang.Integer"/>
+        <form-property name="date_am_pm" type="java.lang.Integer"/>
+    </form-bean>
 
-	<!-- ConfigChannel forms -->
+    <!-- ConfigChannel forms -->
     <form-bean name="channelOverviewForm"
       type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
       <form-property name="cofName"        type="java.lang.String"/>
       <form-property name="cofLabel"       type="java.lang.String"/>
       <form-property name="cofDescription" type="java.lang.String"/>
       <form-property name="editing"        type="java.lang.Boolean"/>
-	  <form-property name="creating"       type="java.lang.Boolean"/>
+      <form-property name="creating"       type="java.lang.Boolean"/>
       <form-property name="submitted"      type="java.lang.Boolean"/>
     </form-bean>
-		
+
     <form-bean name="configFileForm"
       type="com.redhat.rhn.frontend.action.configuration.ConfigFileForm" >
       <form-property name="cffPath"        type="java.lang.String"/>
       <form-property name="cffUid"         type="java.lang.String"/>
       <form-property name="cffGid"         type="java.lang.String"/>
       <form-property name="cffSELinuxCtx"  type="java.lang.String"/>
-	  <form-property name="cffPermissions" type="java.lang.String"/>
-	  <form-property name="cffMacroStart"  type="java.lang.String"/>
-	  <form-property name="cffMacroEnd"    type="java.lang.String"/>
+      <form-property name="cffPermissions" type="java.lang.String"/>
+      <form-property name="cffMacroStart"  type="java.lang.String"/>
+      <form-property name="cffMacroEnd"    type="java.lang.String"/>
       <form-property name="cffUpload"      type="org.apache.struts.upload.FormFile" />
-	  <form-property name="contents"       type="java.lang.String"/>
-	  <form-property name="targetPath"       type="java.lang.String"/>
-	  <form-property name="filetype"       type="java.lang.String" />
-	  <form-property name="revnum"         type="java.lang.String" />
-	  <form-property name="binary"         type="java.lang.Boolean" />
+      <form-property name="contents"       type="java.lang.String"/>
+      <form-property name="targetPath"       type="java.lang.String"/>
+      <form-property name="filetype"       type="java.lang.String" />
+      <form-property name="revnum"         type="java.lang.String" />
+      <form-property name="binary"         type="java.lang.Boolean" />
       <form-property name="submitted"      type="java.lang.Boolean"/>
       <form-property name="no_scrub" type="java.lang.String"
                   initial="contents, cffMacroStart, cffMacroEnd"/>
-      
+
     </form-bean>
 
     <form-bean name="virtualGuestsForm"
@@ -1051,7 +1051,7 @@
 
     </form-bean>
     <!--END ConfigChannel forms -->
-    
+
     <form-bean name="recentlyRegisteredSystemsForm"
                type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
                <form-property name="threshold" type="java.lang.String"/>
@@ -1067,7 +1067,7 @@
                type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
                <form-property name="sid" type="java.lang.Long"/>
                <form-property name="submitted" type="java.lang.Boolean"/>
-							 <form-property name="primaryInterface" type="java.lang.String"/>
+                             <form-property name="primaryInterface" type="java.lang.String"/>
     </form-bean>
 
     <form-bean name="systemDetailsForm"
@@ -1097,7 +1097,7 @@
     <form-bean name="systemChannelsForm"
                type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
       <form-property name="child_channels" type="java.lang.String[]"/>
-	  <form-property name="base_channels" type="org.apache.struts.util.LabelValueBean[]"/>
+      <form-property name="base_channels" type="org.apache.struts.util.LabelValueBean[]"/>
       <form-property name="new_base_channel_id" type="java.lang.Long"/>
       <form-property name="submitted" type="java.lang.Boolean"/>
     </form-bean>
@@ -1163,13 +1163,13 @@
       type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
       <form-property name="submitted"   type="java.lang.Boolean" />
     </form-bean>
-		
-	<form-bean name="scrollForm"
-		type="org.apache.struts.action.DynaActionForm">
+
+    <form-bean name="scrollForm"
+        type="org.apache.struts.action.DynaActionForm">
         <form-property name="xPosition" type="java.lang.Integer"/>
         <form-property name="yPosition" type="java.lang.Integer"/>
-	</form-bean>
-		
+    </form-bean>
+
     <form-bean name="channelDetailForm"
                type="org.apache.struts.action.DynaActionForm">
       <form-property name="global" type="java.lang.String" />
@@ -1236,6 +1236,24 @@
       <form-property name="channel_label" type="java.lang.String" />
     </form-bean>
 
+    <!--  ISS Admin forms -->
+    <form-bean name="editSlaveForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+        <form-property name="id" type="java.lang.Long" />
+        <form-property name="fqdn" type="java.lang.String" />
+        <form-property name="ip" type="java.lang.String" />
+        <form-property name="enabled" type="java.lang.Boolean" />
+        <form-property name="allowAllOrgs" type="java.lang.Boolean" />
+        <form-property name="submitted" type="java.lang.Boolean"/>
+    </form-bean>
+
+    <form-bean name="mapOrgsForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+        <form-property name="id" type="java.lang.Long" />
+        <form-property name="label" type="java.lang.String" />
+        <form-property name="submitted" type="java.lang.Boolean"/>
+    </form-bean>
+
   </form-beans>
 
   <global-exceptions>
@@ -1251,7 +1269,7 @@
     <exception type="com.redhat.rhn.frontend.xmlrpc.NoSuchKickstartException"
       path="/WEB-INF/pages/common/errors/nosuchkickstart.jsp" key="date"
       handler="com.redhat.rhn.common.errors.NoSuchKickstartExceptionHandler"/>
-	<exception type="com.redhat.rhn.manager.MissingCapabilityException"
+    <exception type="com.redhat.rhn.manager.MissingCapabilityException"
       path="/WEB-INF/pages/common/errors/missingcapability.jsp" key="date"
       handler="com.redhat.rhn.common.errors.SatelliteExceptionHandler"/>
   </global-exceptions>
@@ -1484,7 +1502,7 @@
          scope="request"
          type="com.redhat.rhn.frontend.action.user.UserLocalePrefAction">
         <forward name="display" path="/account/LocalePreferences.do"
-         	redirect="true" />
+             redirect="true" />
         <forward name="default" path="/WEB-INF/pages/user/edit/localepreference.jsp" />
     </action>
 
@@ -1667,7 +1685,7 @@
       <set-property property="acls"
                     value="user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/disabledlist.jsp" />
-	  <forward name="enable" path="/users/EnableConfirm.do" redirect="true" />
+      <forward name="enable" path="/users/EnableConfirm.do" redirect="true" />
     </action>
 
     <action path="/users/EnableConfirm"
@@ -1874,7 +1892,7 @@
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
                path="/WEB-INF/pages/schedule/completedactions.jsp" />
-		<forward name="archive" path="/schedule/CompletedActions.do" redirect="true"/>
+        <forward name="archive" path="/schedule/CompletedActions.do" redirect="true"/>
     </action>
 
 
@@ -1886,7 +1904,7 @@
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
                path="/WEB-INF/pages/schedule/archivedactions.jsp" />
-		<forward name="success" path="/schedule/ArchivedActions.do" redirect="true"/>
+        <forward name="success" path="/schedule/ArchivedActions.do" redirect="true"/>
     </action>
 
 
@@ -2125,8 +2143,8 @@
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
                path="/WEB-INF/pages/errata/affectedsystems.jsp" />
-		<forward name="confirm"
-				path="/errata/details/SystemsAffectedSubmit.do" />
+        <forward name="confirm"
+                path="/errata/details/SystemsAffectedSubmit.do" />
     </action>
 
      <action path="/errata/details/SystemsAffectedSubmit"
@@ -2539,35 +2557,35 @@
     <!-- ===== CHANNELS ===== -->
 
     <action path="/software/channels/Vendor"
-    	scope="request"
-	input="/WEB-INF/pages/channel/vendor.jsp"
-	type="com.redhat.rhn.frontend.action.channel.VendorChannelTreeAction">
-    	<forward name="default"
-	         path="/WEB-INF/pages/channel/vendor.jsp" />
+        scope="request"
+    input="/WEB-INF/pages/channel/vendor.jsp"
+    type="com.redhat.rhn.frontend.action.channel.VendorChannelTreeAction">
+        <forward name="default"
+             path="/WEB-INF/pages/channel/vendor.jsp" />
     </action>
 
     <action path="/software/channels/Popular"
-    	scope="request"
-    	input="/WEB-INF/pages/channel/popular.jsp"
-    	type="com.redhat.rhn.frontend.action.channel.PopularChannelTreeAction">
-    	<forward name="default"
-    	         path="/WEB-INF/pages/channel/popular.jsp" />
+        scope="request"
+        input="/WEB-INF/pages/channel/popular.jsp"
+        type="com.redhat.rhn.frontend.action.channel.PopularChannelTreeAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/channel/popular.jsp" />
     </action>
 
     <action path="/software/channels/Custom"
-    	scope="request"
-    	input="/WEB-INF/pages/channel/custom.jsp"
-    	type="com.redhat.rhn.frontend.action.channel.MyChannelTreeAction">
-    	<forward name="default"
-    	         path="/WEB-INF/pages/channel/custom.jsp" />
+        scope="request"
+        input="/WEB-INF/pages/channel/custom.jsp"
+        type="com.redhat.rhn.frontend.action.channel.MyChannelTreeAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/channel/custom.jsp" />
     </action>
 
     <action path="/software/channels/All"
-    	scope="request"
-    	input="/WEB-INF/pages/channel/all.jsp"
-    	type="com.redhat.rhn.frontend.action.channel.AllChannelTreeAction">
-    	<forward name="default"
-    	         path="/WEB-INF/pages/channel/all.jsp" />
+        scope="request"
+        input="/WEB-INF/pages/channel/all.jsp"
+        type="com.redhat.rhn.frontend.action.channel.AllChannelTreeAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/channel/all.jsp" />
     </action>
 
     <action path="/software/channels/Shared"
@@ -2579,35 +2597,35 @@
     </action>
 
         <action path="/software/channels/Retired"
-    	scope="request"
-    	input="/WEB-INF/pages/channel/retired.jsp"
-    	type="com.redhat.rhn.frontend.action.channel.RetiredChannelTreeAction">
-    	<forward name="default"
-    	         path="/WEB-INF/pages/channel/retired.jsp" />
+        scope="request"
+        input="/WEB-INF/pages/channel/retired.jsp"
+        type="com.redhat.rhn.frontend.action.channel.RetiredChannelTreeAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/channel/retired.jsp" />
     </action>
 
     <action path="/software/channels/ChannelFamilyTree"
-    	scope="request"
-    	input="/WEB-INF/pages/channel/channel_family_tree.jsp"
-    	type="com.redhat.rhn.frontend.action.channel.ChannelFamilyTreeAction">
-    	<forward name="default"
-    	         path="/WEB-INF/pages/channel/channel_family_tree.jsp" />
+        scope="request"
+        input="/WEB-INF/pages/channel/channel_family_tree.jsp"
+        type="com.redhat.rhn.frontend.action.channel.ChannelFamilyTreeAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/channel/channel_family_tree.jsp" />
     </action>
 
     <action path="/multiorg/channels/Consumed"
-    	scope="request"
-    	input="/WEB-INF/pages/multiorg/channels/consumed.jsp"
-    	type="com.redhat.rhn.frontend.action.multiorg.ChannelConsumeAction">
-    	<forward name="default"
-    	         path="/WEB-INF/pages/multiorg/channels/consumed.jsp" />
+        scope="request"
+        input="/WEB-INF/pages/multiorg/channels/consumed.jsp"
+        type="com.redhat.rhn.frontend.action.multiorg.ChannelConsumeAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/multiorg/channels/consumed.jsp" />
     </action>
 
     <action path="/multiorg/channels/Provided"
-    	scope="request"
-    	input="/WEB-INF/pages/multiorg/channels/provided.jsp"
-    	type="com.redhat.rhn.frontend.action.multiorg.ChannelProvideAction">
-    	<forward name="default"
-    	         path="/WEB-INF/pages/multiorg/channels/provided.jsp" />
+        scope="request"
+        input="/WEB-INF/pages/multiorg/channels/provided.jsp"
+        type="com.redhat.rhn.frontend.action.multiorg.ChannelProvideAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/multiorg/channels/provided.jsp" />
     </action>
 
     <action path="/channels/software/Entitlements"
@@ -2757,13 +2775,13 @@
          <forward name="hostname"
                   path="/systems/DuplicateHostName"
                   redirect="true"/>
-		<forward name="ip"
+        <forward name="ip"
                   path="/systems/DuplicateIPList"
                   redirect="true"/>
-		<forward name="ipv6"
+        <forward name="ipv6"
                   path="/systems/DuplicateIPv6List"
                   redirect="true"/>
-		<forward name="macaddress"
+        <forward name="macaddress"
                   path="/systems/DuplicateMacAddress"
                   redirect="true"/>
     </action>
@@ -2934,7 +2952,7 @@
     </action>
 
     <action path="/systems/SystemEntitlements"
-	name="systemEntitlementsForm"
+    name="systemEntitlementsForm"
         scope="request"
         input="/WEB-INF/pages/systems/entitlements/entitlements.jsp"
         type="com.redhat.rhn.frontend.action.systems.entitlements.SystemEntitlementsSetupAction"
@@ -2959,7 +2977,7 @@
 
 
     <action path="/systems/Search"
-    	name="systemSearchForm"
+        name="systemSearchForm"
         scope="request"
         input="/WEB-INF/pages/systems/systemsearch.jsp"
         type="com.redhat.rhn.frontend.action.systems.SystemSearchSetupAction"
@@ -3130,7 +3148,7 @@
         <forward name="confirm"
                  path="/systems/details/packages/Packages.do"
                  redirect="true" />
-		<forward name="remotecmd"
+        <forward name="remotecmd"
                  path="/systems/details/packages/ScheduleRemoteCommand.do"
                  redirect="true" />
     </action>
@@ -3371,7 +3389,7 @@
                       value="system_feature(ftr_errata_updates); not is_solaris()"/>
         <forward name="default"
                  path="/WEB-INF/pages/systems/errata.jsp"/>
-		<forward name="confirm"
+        <forward name="confirm"
                   path="/systems/details/ErrataConfirm.do"
                   redirect="true"/>
     </action>
@@ -3379,13 +3397,13 @@
     <action path="/systems/details/ErrataConfirm"
         scope="request"
         input="/WEB-INF/pages/systems/errataconfirm.jsp"
-		name="applyErrataConfirmForm"
+        name="applyErrataConfirmForm"
         type="com.redhat.rhn.frontend.action.systems.ErrataConfirmSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
                  path="/WEB-INF/pages/systems/errataconfirm.jsp"/>
-		<forward name="confirmed"
+        <forward name="confirmed"
                   path="/systems/details/ErrataList.do"
                   redirect="true"/>
     </action>
@@ -3453,7 +3471,7 @@
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
                  path="/WEB-INF/pages/ssm/systems/ssmdeleteconfirm.jsp"/>
-		<forward name="confirm"
+        <forward name="confirm"
                  path="/ssm/ViewAllLog.do" redirect="true"/>
     </action>
 
@@ -3968,7 +3986,7 @@
 
     <action path="/systems/details/configuration/addfiles/CreateFile"
         scope="request"
-		name="configFileForm"
+        name="configFileForm"
         input="/WEB-INF/pages/configuration/sdc/createfile.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.LocalAddFileAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -3983,7 +4001,7 @@
 
     <action path="/systems/details/configuration/addfiles/UploadFile"
         scope="request"
-		name="configFileForm"
+        name="configFileForm"
         input="/WEB-INF/pages/configuration/sdc/uploadfile.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.LocalAddFileAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -3998,7 +4016,7 @@
 
     <action path="/systems/details/configuration/addfiles/ImportFile"
         scope="request"
-		name="configFileForm"
+        name="configFileForm"
         input="/WEB-INF/pages/configuration/sdc/importfile.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.ImportFileAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -4012,7 +4030,7 @@
 
     <action path="/systems/details/configuration/addfiles/ImportFileSubmit"
         scope="request"
-		name="configFileForm"
+        name="configFileForm"
         input="/WEB-INF/pages/configuration/sdc/importfile.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.ImportFileSubmitAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
@@ -4030,7 +4048,7 @@
 
     <action path="/systems/details/configuration/addfiles/ImportFileConfirm"
         scope="request"
-		name="datePickerForm"
+        name="datePickerForm"
         input="/WEB-INF/pages/configuration/sdc/importfileconfirm.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.ImportFileConfirmAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -4044,8 +4062,8 @@
 
     <action path="/systems/details/configuration/addfiles/ImportFileConfirmSubmit"
         scope="request"
-		name="datePickerForm"
-		parameter="dispatch"
+        name="datePickerForm"
+        parameter="dispatch"
         input="/WEB-INF/pages/configuration/sdc/importfileconfirm.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.FileListConfirmSubmitAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -4075,7 +4093,7 @@
 
     <action path="/systems/details/configuration/DeployFileSubmit"
         scope="request"
-		parameter="dispatch"
+        parameter="dispatch"
         input="/WEB-INF/pages/configuration/sdc/deployfile.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.FileListSubmitAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -4092,7 +4110,7 @@
 
     <action path="/systems/details/configuration/DeployFileConfirm"
         scope="request"
-		name="datePickerForm"
+        name="datePickerForm"
         input="/WEB-INF/pages/configuration/sdc/deployfileconfirm.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.FileListConfirmSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -4106,8 +4124,8 @@
 
     <action path="/systems/details/configuration/DeployFileConfirmSubmit"
         scope="request"
-		name="datePickerForm"
-		parameter="dispatch"
+        name="datePickerForm"
+        parameter="dispatch"
         input="/WEB-INF/pages/configuration/sdc/deployfileconfirm.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.FileListConfirmSubmitAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -4131,13 +4149,13 @@
                       value="system_feature(ftr_config);client_capable(configfiles.diff)"/>
         <set-property property="mixins"
                       value="com.redhat.rhn.common.security.acl.SystemAclHandler"/>
-	   <forward name="default"
+       <forward name="default"
                  path="/WEB-INF/pages/configuration/sdc/difffile.jsp"/>
     </action>
 
     <action path="/systems/details/configuration/DiffFileSubmit"
         scope="request"
-		parameter="dispatch"
+        parameter="dispatch"
         input="/WEB-INF/pages/configuration/sdc/difffile.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.FileListSubmitAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -4154,7 +4172,7 @@
 
     <action path="/systems/details/configuration/DiffFileConfirm"
         scope="request"
-		name="datePickerForm"
+        name="datePickerForm"
         input="/WEB-INF/pages/configuration/sdc/difffileconfirm.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.FileListConfirmSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -4168,8 +4186,8 @@
 
     <action path="/systems/details/configuration/DiffFileConfirmSubmit"
         scope="request"
-		name="datePickerForm"
-		parameter="dispatch"
+        name="datePickerForm"
+        parameter="dispatch"
         input="/WEB-INF/pages/configuration/sdc/difffileconfirm.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.FileListConfirmSubmitAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -4200,15 +4218,15 @@
         input="/WEB-INF/pages/systems/details/virtualization/virtualguestslist.jsp"
         type="com.redhat.rhn.frontend.action.systems.virtualization.VirtualGuestsListAction"
         name="virtualGuestsForm"
-	    parameter="dispatch"
+        parameter="dispatch"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequired" value="true" />
         <forward name="default"
                 path="/systems/details/virtualization/VirtualGuestsList.do"
-		        redirect="true"/>
+                redirect="true"/>
         <forward name="confirm"
                 path="/systems/details/virtualization/VirtualGuestsConfirm.do"
-		        redirect="true"/>
+                redirect="true"/>
     </action>
 
     <action path="/systems/details/virtualization/VirtualGuestsConfirm"
@@ -4223,15 +4241,15 @@
         scope="request"
         input="/WEB-INF/pages/systems/details/virtualization/virtualguests_confirm.jsp"
         type="com.redhat.rhn.frontend.action.systems.virtualization.VirtualGuestsConfirmAction"
-	parameter="dispatch"
+    parameter="dispatch"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequired" value="true" />
         <forward name="default"
                  path="/systems/details/virtualization/VirtualGuestsList.do"
-		 redirect="true"/>
+         redirect="true"/>
         <forward name="success"
                  path="/systems/details/virtualization/VirtualGuestsList.do"
-		 redirect="true"/>
+         redirect="true"/>
     </action>
 
     <!-- MONITORING -->
@@ -5184,6 +5202,95 @@
                  path="/WEB-INF/pages/admin/catalina.jsp"/>
     </action>
 
+    <!--  ISS Config Pages  -->
+    <action path="/admin/iss/Master"
+        scope="request"
+        input="/WEB-INF/pages/admin/iss/master.jsp"
+        type="com.redhat.rhn.frontend.action.iss.IssMasterAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="user_role(satellite_admin);"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/admin/iss/master.jsp"/>
+        <forward name="edit"
+                 path="/admin/iss/EditSlave.do" redirect="true"/>
+        <forward name="confirm"
+                 path="/admin/iss/RemoveSlaveConfirm.do"
+                 redirect="true" />
+    </action>
+
+    <action path="/admin/iss/EditSlave"
+        scope="request"
+        name="editSlaveForm"
+        input="/WEB-INF/pages/admin/iss/editslave.jsp"
+        type="com.redhat.rhn.frontend.action.iss.IssEditSlaveAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="user_role(satellite_admin);"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/admin/iss/editslave.jsp"/>
+        <forward name="success"
+                 path="/admin/iss/Master.do" redirect="true"/>
+    </action>
+
+    <action path="/admin/iss/RemoveSlaveConfirm"
+        scope="request"
+        name="editSlaveForm"
+        input="/WEB-INF/pages/admin/iss/confirmslaveremove.jsp"
+        type="com.redhat.rhn.frontend.action.iss.IssRemoveSlavesAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="user_role(satellite_admin);"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/admin/iss/confirmslaveremove.jsp"/>
+        <forward name="confirm"
+                 path="/admin/iss/Master.do" redirect="true"/>
+    </action>
+
+    <action path="/admin/iss/DeleteSlave"
+        scope="request"
+        input="/WEB-INF/pages/admin/iss/editslave.jsp"
+        type="com.redhat.rhn.frontend.action.iss.IssDeleteSlaveAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="user_role(satellite_admin);"/>
+        <forward name="default"
+                 path="/admin/iss/Master.do" redirect="true"/>
+    </action>
+
+    <action path="/admin/iss/Slave"
+        scope="request"
+        input="/WEB-INF/pages/admin/iss/slave.jsp"
+        type="com.redhat.rhn.frontend.action.iss.IssOrgCatalogueAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="user_role(satellite_admin);"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/admin/iss/slave.jsp"/>
+        <forward name="confirm"
+                 path="/admin/iss/RemoveMasterConfirm.do"
+                 redirect="true" />
+    </action>
+
+    <action path="/admin/iss/RemoveMasterConfirm"
+        scope="request"
+        input="/WEB-INF/pages/admin/iss/confirmmasterremove.jsp"
+        type="com.redhat.rhn.frontend.action.iss.IssRemoveMastersAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="user_role(satellite_admin);"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/admin/iss/confirmmastersremove.jsp"/>
+        <forward name="confirm"
+                 path="/admin/iss/Slave.do" redirect="true"/>
+    </action>
+
+    <action path="/admin/iss/MapOrgs"
+        scope="request"
+        name="mapOrgsForm"
+        input="/WEB-INF/pages/admin/iss/maporgs.jsp"
+        type="com.redhat.rhn.frontend.action.iss.IssMapOrgsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="user_role(satellite_admin);"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/admin/iss/maporgs.jsp"/>
+    </action>
+    <!--  /ISS Config Pages -->
+
     <action path="/YourRhnClips"
         scope="request"
         input="/WEB-INF/pages/common/fragments/yourrhn/yourrhnclips.jsp"
@@ -5478,9 +5585,9 @@
                  path="/WEB-INF/pages/admin/multiorg/entitlementorgs.jsp"/>
     </action>
 
- 	<!-- Activation Key  Pages-->
+     <!-- Activation Key  Pages-->
     <action path="/activationkeys/List"
-    	name="activationKeyForm"
+        name="activationKeyForm"
         scope="request"
         input="/WEB-INF/pages/activationkeys/list.jsp"
         type="com.redhat.rhn.frontend.action.token.ActivationKeysListAction"
@@ -5494,9 +5601,9 @@
                  path="/activationkeys/List.do"
                  redirect = "true"/>
     </action>
- 	
+
     <action path="/activationkeys/Create"
-    	name="activationKeyForm"
+        name="activationKeyForm"
         scope="request"
         input="/WEB-INF/pages/activationkeys/create.jsp"
         type="com.redhat.rhn.frontend.action.token.ActivationKeyDetailsAction"
@@ -5513,10 +5620,10 @@
     </action>
 
     <action path="/activationkeys/Edit"
-    	name="activationKeyForm"
+        name="activationKeyForm"
         scope="request"
         input="/WEB-INF/pages/activationkeys/edit.jsp"
-		type="com.redhat.rhn.frontend.action.token.ActivationKeyDetailsAction"
+        type="com.redhat.rhn.frontend.action.token.ActivationKeyDetailsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
         parameter="edit">
         <set-property property="postRequiredIfSubmitted" value="true" />
@@ -5527,10 +5634,10 @@
                  path="/activationkeys/Edit.do"/>
     </action>
 
-	<action path="/activationkeys/Delete"
+    <action path="/activationkeys/Delete"
         scope="request"
         input="/WEB-INF/pages/activationkeys/delete.jsp"
-		type="com.redhat.rhn.frontend.action.token.ActivationKeyDeleteConfirmAction"
+        type="com.redhat.rhn.frontend.action.token.ActivationKeyDeleteConfirmAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
         parameter="dispatch">
         <set-property property="postRequiredIfSubmitted" value="true" />
@@ -5557,10 +5664,10 @@
     </action>
 
     <action path="/activationkeys/packages/Packages"
-	name="activationKeyPackagesForm"
+    name="activationKeyPackagesForm"
         scope="request"
         input="/WEB-INF/pages/activationkeys/packages/listeditpackages.jsp"
-		type="com.redhat.rhn.frontend.action.token.ActivationKeyPackagesAction"
+        type="com.redhat.rhn.frontend.action.token.ActivationKeyPackagesAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
         parameter="dispatch">
         <set-property property="postRequiredIfSubmitted" value="true" />
@@ -5571,10 +5678,10 @@
                  path="/activationkeys/packages/Packages.do"/>
     </action>
 
-	<action path="/activationkeys/configuration/List"
+    <action path="/activationkeys/configuration/List"
         scope="request"
         input="/WEB-INF/pages/activationkeys/configuration/list.jsp"
-		type="com.redhat.rhn.frontend.action.token.configuration.ListRemoveChannelsAction"
+        type="com.redhat.rhn.frontend.action.token.configuration.ListRemoveChannelsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
         parameter="dispatch">
         <set-property property="postRequiredIfSubmitted" value="true" />
@@ -5585,10 +5692,10 @@
                  path="/activationkeys/configuration/List.do"/>
     </action>
 
-	<action path="/activationkeys/configuration/Subscribe"
+    <action path="/activationkeys/configuration/Subscribe"
         scope="request"
         input="/WEB-INF/pages/activationkeys/configuration/subscribe.jsp"
-		type="com.redhat.rhn.frontend.action.token.configuration.SubscribeChannelsAction"
+        type="com.redhat.rhn.frontend.action.token.configuration.SubscribeChannelsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
         parameter="dispatch">
         <set-property property="postRequiredIfSubmitted" value="true" />
@@ -5602,11 +5709,11 @@
 
     </action>
 
-	<action path="/activationkeys/configuration/Rank"
-		name = "channelRanksForm"
+    <action path="/activationkeys/configuration/Rank"
+        name = "channelRanksForm"
         scope="request"
         input="/WEB-INF/pages/activationkeys/configuration/rank.jsp"
-		type="com.redhat.rhn.frontend.action.token.configuration.RankChannelsAction"
+        type="com.redhat.rhn.frontend.action.token.configuration.RankChannelsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
         parameter="dispatch">
         <set-property property="postRequiredIfSubmitted" value="true" />
@@ -5617,10 +5724,10 @@
                  path="/activationkeys/configuration/List.do"/>
     </action>
 
-	<action path="/activationkeys/groups/List"
+    <action path="/activationkeys/groups/List"
         scope="request"
         input="/WEB-INF/pages/activationkeys/groups/list.jsp"
-		type="com.redhat.rhn.frontend.action.token.groups.ListRemoveGroupsAction"
+        type="com.redhat.rhn.frontend.action.token.groups.ListRemoveGroupsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
         parameter="dispatch">
         <set-property property="postRequiredIfSubmitted" value="true" />
@@ -5631,10 +5738,10 @@
                  path="/activationkeys/groups/List.do"/>
     </action>
 
-	<action path="/activationkeys/groups/Add"
+    <action path="/activationkeys/groups/Add"
         scope="request"
         input="/WEB-INF/pages/activationkeys/groups/list.jsp"
-		type="com.redhat.rhn.frontend.action.token.groups.AddGroupsAction"
+        type="com.redhat.rhn.frontend.action.token.groups.AddGroupsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
         parameter="dispatch">
         <set-property property="postRequiredIfSubmitted" value="true" />
@@ -5645,10 +5752,10 @@
                  path="/activationkeys/groups/List.do"/>
     </action>
 
-	<action path="/activationkeys/systems/List"
+    <action path="/activationkeys/systems/List"
         scope="request"
         input="/WEB-INF/pages/activationkeys/systems/list.jsp"
-		type="com.redhat.rhn.frontend.action.token.ActivatedSystemsAction"
+        type="com.redhat.rhn.frontend.action.token.ActivatedSystemsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
         parameter="dispatch">
         <set-property property="postRequiredIfSubmitted" value="true" />
@@ -5700,8 +5807,8 @@
         <forward name="deleted" path="/profiles/List.do" redirect="true" />
     </action>
 
-	<!-- Kickstart Pages  SSM -->
-	<action path="/systems/ssm/kickstart/KickstartableSystems"
+    <!-- Kickstart Pages  SSM -->
+    <action path="/systems/ssm/kickstart/KickstartableSystems"
         scope="request"
         input="/WEB-INF/pages/kickstart/ssm/kickstartablesystems.jsp"
         type="com.redhat.rhn.frontend.action.kickstart.ssm.SsmKickstartableSystemsAction"
@@ -5713,12 +5820,12 @@
         <forward name="scheduleByIp"
                  path="/systems/ssm/kickstart/ScheduleByIp.do"
                  redirect= "true"/>
-		<forward name="scheduleByProfile"
+        <forward name="scheduleByProfile"
                  path="/systems/ssm/kickstart/ScheduleByProfile.do"
                  redirect= "true"/>
     </action>
-	 <action path="/systems/ssm/kickstart/ScheduleByProfile"
-		name ="kickstartScheduleWizardForm"
+     <action path="/systems/ssm/kickstart/ScheduleByProfile"
+        name ="kickstartScheduleWizardForm"
         scope="request"
         input="/WEB-INF/pages/kickstart/ssm/schedule.jsp"
         type="com.redhat.rhn.frontend.action.kickstart.ssm.SsmKSScheduleAction"
@@ -5732,8 +5839,8 @@
                  path="/systems/ssm/kickstart/KickstartableSystems.do"/>
     </action>
 
-	 <action path="/systems/ssm/kickstart/ScheduleByIp"
-		name ="kickstartScheduleWizardForm"
+     <action path="/systems/ssm/kickstart/ScheduleByIp"
+        name ="kickstartScheduleWizardForm"
         scope="request"
         input="/WEB-INF/pages/kickstart/ssm/schedule.jsp"
         type="com.redhat.rhn.frontend.action.kickstart.ssm.SsmKSScheduleAction"
@@ -5747,7 +5854,7 @@
                  path="/systems/ssm/kickstart/KickstartableSystems.do"/>
     </action>
 
- 	<!-- Kickstart Pages  -->
+     <!-- Kickstart Pages  -->
 
     <action path="/kickstart/Kickstarts"
         scope="request"
@@ -5800,7 +5907,7 @@
         type="com.redhat.rhn.frontend.action.kickstart.KickstartDetailsEditAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
-		<set-property property="acls"
+        <set-property property="acls"
                         value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/kickstartdetails.jsp"/>
@@ -5912,7 +6019,7 @@
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="start"
                 path="/kickstart/CreateProfileWizard.do"
-            	redirect="true" />
+                redirect="true" />
         <forward name="first"
                 path="/WEB-INF/pages/kickstart/wizard/profile/first.jsp" />
         <forward name="second"
@@ -5929,7 +6036,7 @@
         parameter="create"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
-		<set-property property="acls"
+        <set-property property="acls"
                         value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                 path="/WEB-INF/pages/kickstart/wizard/profile/advanced/create.jsp"/>
@@ -5945,7 +6052,7 @@
         type="com.redhat.rhn.frontend.action.kickstart.KickstartProfileVariableAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
-		<set-property property="acls"
+        <set-property property="acls"
                         value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                 path="/WEB-INF/pages/kickstart/kickstartvariables.jsp"/>
@@ -5958,7 +6065,7 @@
         type="com.redhat.rhn.frontend.action.kickstart.tree.KickstartTreeVariableAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
-		<set-property property="acls"
+        <set-property property="acls"
                         value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                 path="/WEB-INF/pages/kickstart/kickstarttreevariables.jsp"/>
@@ -5973,7 +6080,7 @@
         parameter="edit"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
-		<set-property property="acls"
+        <set-property property="acls"
                         value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                 path="/WEB-INF/pages/kickstart/wizard/profile/advanced/edit.jsp"/>
@@ -6339,7 +6446,7 @@
         scope="request"
         input="/WEB-INF/pages/kickstart/file_preservation_list.jsp"
         type="com.redhat.rhn.frontend.action.kickstart.KickstartPreservationListSubmitAction"
-	parameter="dispatch"
+    parameter="dispatch"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequired" value="true" />
         <forward name="default"
@@ -6354,7 +6461,7 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
          <set-property property="postRequiredIfSubmitted" value="true" />
          <forward name="default"
-		path="/WEB-INF/pages/kickstart/packageprofiles.jsp" />
+        path="/WEB-INF/pages/kickstart/packageprofiles.jsp" />
          <forward name="success"
                  path="/kickstart/KickstartPackageProfileEdit.do" redirect="true"/>
     </action>
@@ -6439,7 +6546,7 @@
 
     <action path="/systems/details/virtualization/ProvisionVirtualizationWizard"
         scope="request"
-	name="kickstartScheduleWizardForm"
+    name="kickstartScheduleWizardForm"
         type="com.redhat.rhn.frontend.action.systems.virtualization.ProvisionVirtualizationWizardAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
@@ -6520,7 +6627,7 @@
 
     <action path="/systems/details/kickstart/SessionStatus"
         scope="request"
-		name="scrollForm"
+        name="scrollForm"
         input="/WEB-INF/pages/systems/details/kickstart/session_status.jsp"
         type="com.redhat.rhn.frontend.action.systems.provisioning.kickstart.SessionStatusAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -6597,9 +6704,9 @@
 
     <!-- ===== CONFIGURATION ===== -->
 
-	<!--
-	  ** OVERVIEW ACTIONS
-	  -->
+    <!--
+      ** OVERVIEW ACTIONS
+      -->
     <action path="/configuration/Overview"
         scope="request"
         input="/WEB-INF/pages/configuration/overview/overview.jsp"
@@ -6691,38 +6798,38 @@
                  path="/WEB-INF/pages/configuration/overview/summary.jsp"/>
     </action>
 
-	<!--
-	  ** CHANNEL ACTIONS
-	  -->
-	<action path="/configuration/ChannelOverview"
-		name="channelOverviewForm"
-		validate="false"
+    <!--
+      ** CHANNEL ACTIONS
+      -->
+    <action path="/configuration/ChannelOverview"
+        name="channelOverviewForm"
+        validate="false"
         scope="request"
         input="/WEB-INF/pages/configuration/channelOverview.jsp"
         type="com.redhat.rhn.frontend.action.configuration.channel.ChannelOverviewAction"
-		className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
                  path="/WEB-INF/pages/configuration/channel/channelOverview.jsp"/>
         <forward name="sandbox"
-				 path="/systems/details/configuration/ViewModifySandboxPaths.do"
-				 redirect="true"/>
+                 path="/systems/details/configuration/ViewModifySandboxPaths.do"
+                 redirect="true"/>
         <forward name="local"
-				 path="/systems/details/configuration/ViewModifyLocalPaths.do"
-				 redirect="true"/>
+                 path="/systems/details/configuration/ViewModifyLocalPaths.do"
+                 redirect="true"/>
         <forward name="success" redirect="true"
                  path="/configuration/ChannelOverview.do"/>
         <forward name="error"
                  path="/WEB-INF/pages/configuration/channel/channelOverview.jsp"/>
     </action>
 
-	<action path="/configuration/ChannelCreate"
-		name="channelOverviewForm"
-		validate="false"
+    <action path="/configuration/ChannelCreate"
+        name="channelOverviewForm"
+        validate="false"
         scope="request"
         input="/WEB-INF/pages/configuration/channel/channelcreate.jsp"
         type="com.redhat.rhn.frontend.action.configuration.channel.ChannelOverviewAction"
-		className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
         <set-property property="acls" value="user_role(config_admin)"/>
         <forward name="default"
@@ -6733,100 +6840,100 @@
                  path="/WEB-INF/pages/configuration/channel/channelcreate.jsp"/>
     </action>
 
-	<action path="/configuration/DeleteChannel"
-		name="submittedForm"
+    <action path="/configuration/DeleteChannel"
+        name="submittedForm"
         scope="request"
         input="/WEB-INF/pages/configuration/channel/deleteChannel.jsp"
         type="com.redhat.rhn.frontend.action.configuration.channel.DeleteChannelAction"
-		className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
         <set-property property="acls" value="user_role(config_admin);"/>
         <forward name="submit" redirect="true"
-			path="/configuration/GlobalConfigChannelList.do"/>
+            path="/configuration/GlobalConfigChannelList.do"/>
         <forward name="default"
-			path="/WEB-INF/pages/configuration/channel/deleteChannel.jsp"/>
+            path="/WEB-INF/pages/configuration/channel/deleteChannel.jsp"/>
     </action>
 
     <action path="/configuration/ChannelFiles"
         scope="request"
         input="/WEB-INF/pages/configuration/channel/channelfiles.jsp"
         type="com.redhat.rhn.frontend.action.configuration.channel.ChannelFilesListSetup"
-		name="submittedForm"
-		className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        name="submittedForm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default"
-			path="/WEB-INF/pages/configuration/channel/channelfiles.jsp"/>
+            path="/WEB-INF/pages/configuration/channel/channelfiles.jsp"/>
     </action>
 
     <action path="/configuration/ChannelFilesSubmit"
         scope="request"
         input="/WEB-INF/pages/configuration/channel/channelfiles.jsp"
         type="com.redhat.rhn.frontend.action.configuration.channel.ChannelFilesListSubmit"
-		name="submittedForm"
-		className="com.redhat.rhn.frontend.struts.RhnActionMapping"
-		parameter="dispatch">
+        name="submittedForm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
         <set-property property="postRequired" value="true" />
         <forward name="default"
-			path="/configuration/ChannelFiles.do"/>
+            path="/configuration/ChannelFiles.do"/>
         <forward name="copy2systems" redirect="true"
-			path="/configuration/channel/Copy2Systems.do"/>
+            path="/configuration/channel/Copy2Systems.do"/>
         <forward name="copy2channels" redirect="true"
-			path="/configuration/channel/Copy2Channels.do"/>
+            path="/configuration/channel/Copy2Channels.do"/>
     </action>
 
     <action path="/configuration/channel/Copy2Systems"
         scope="request"
         input="/WEB-INF/pages/configuration/channel/copy2systems.jsp"
         type="com.redhat.rhn.frontend.action.configuration.channel.Copy2SystemsAction"
-		name="submittedForm"
-		className="com.redhat.rhn.frontend.struts.RhnActionMapping"
-		parameter="dispatch">
+        name="submittedForm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
-			path="/WEB-INF/pages/configuration/channel/copy2systems.jsp"/>
+            path="/WEB-INF/pages/configuration/channel/copy2systems.jsp"/>
         <forward name="success"
-			path="/configuration/ChannelFiles.do"/>
+            path="/configuration/ChannelFiles.do"/>
     </action>
 
     <action path="/configuration/channel/Copy2Channels"
         scope="request"
         input="/WEB-INF/pages/configuration/channel/copy2channels.jsp"
         type="com.redhat.rhn.frontend.action.configuration.channel.Copy2ChannelsAction"
-		name="submittedForm"
-		className="com.redhat.rhn.frontend.struts.RhnActionMapping"
-		parameter="dispatch">
+        name="submittedForm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
-			path="/WEB-INF/pages/configuration/channel/copy2channels.jsp"/>
+            path="/WEB-INF/pages/configuration/channel/copy2channels.jsp"/>
         <forward name="success"
-			path="/configuration/ChannelFiles.do"/>
+            path="/configuration/ChannelFiles.do"/>
     </action>
 
-	<action path="/configuration/channel/ChannelSystems"
+    <action path="/configuration/channel/ChannelSystems"
         scope="request"
         input="/WEB-INF/pages/configuration/channel/channelsystems.jsp"
         type="com.redhat.rhn.frontend.action.configuration.channel.ChannelSystemsListSetup"
-		name="submittedForm"
-		className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        name="submittedForm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="config_channel_type(normal);"/>
         <set-property property="mixins" value="com.redhat.rhn.common.security.acl.ConfigAclHandler" />
         <forward name="default"
-			path="/WEB-INF/pages/configuration/channel/channelsystems.jsp"/>
+            path="/WEB-INF/pages/configuration/channel/channelsystems.jsp"/>
     </action>
 
     <action path="/configuration/channel/ChannelSystemsSubmit"
         scope="request"
         input="/WEB-INF/pages/configuration/channel/channelfiles.jsp"
         type="com.redhat.rhn.frontend.action.configuration.channel.ChannelSystemsListSubmit"
-		name="submittedForm"
-		className="com.redhat.rhn.frontend.struts.RhnActionMapping"
-		parameter="dispatch">
+        name="submittedForm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
         <set-property property="postRequired" value="true" />
         <set-property property="acls" value="config_channel_type(normal);"/>
         <set-property property="mixins" value="com.redhat.rhn.common.security.acl.ConfigAclHandler" />
         <forward name="default"
-			path="/configuration/channel/ChannelSystems.do"/>
+            path="/configuration/channel/ChannelSystems.do"/>
         <forward name="success" redirect="true"
-			path="/configuration/channel/ChannelSystems.do"/>
+            path="/configuration/channel/ChannelSystems.do"/>
     </action>
 
     <action path="/configuration/channel/TargetSystems"
@@ -6838,7 +6945,7 @@
         <set-property property="acls" value="config_channel_type(normal);user_role(config_admin);"/>
         <set-property property="mixins" value="com.redhat.rhn.common.security.acl.ConfigAclHandler" />
         <forward name="default"
-	  		path="/WEB-INF/pages/configuration/channel/targetsystems.jsp"/>
+              path="/WEB-INF/pages/configuration/channel/targetsystems.jsp"/>
     </action>
 
     <action path="/configuration/channel/TargetSystemsSubmit"
@@ -6847,110 +6954,110 @@
         type="com.redhat.rhn.frontend.action.configuration.channel.TargetSystemsListSubmit"
         name="submittedForm"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
-		parameter="dispatch">
+        parameter="dispatch">
         <set-property property="postRequired" value="true" />
-		<set-property property="acls" value="config_channel_type(normal);user_role(config_admin);"/>
+        <set-property property="acls" value="config_channel_type(normal);user_role(config_admin);"/>
         <set-property property="mixins" value="com.redhat.rhn.common.security.acl.ConfigAclHandler" />
         <forward name="default"
-	  		path="/configuration/channel/TargetSystems.do"/>
+              path="/configuration/channel/TargetSystems.do"/>
         <forward name="success" redirect="true"
-	  		path="/configuration/channel/TargetSystems.do"/>
+              path="/configuration/channel/TargetSystems.do"/>
     </action>
 
-	<!-- router-action - sets up data and forwards to appropriate screens -->
-	<action path="/configuration/channel/ChannelDeployTasks"
-		scope="request"
-		input="/WEB-INF/pages/configuration/channel/deploy.jsp"
-		type="com.redhat.rhn.frontend.action.configuration.channel.ChannelOverviewTasks"
-		name="submittedForm"
-		className="com.redhat.rhn.frontend.struts.RhnActionMapping"
-		parameter="dispatch">
+    <!-- router-action - sets up data and forwards to appropriate screens -->
+    <action path="/configuration/channel/ChannelDeployTasks"
+        scope="request"
+        input="/WEB-INF/pages/configuration/channel/deploy.jsp"
+        type="com.redhat.rhn.frontend.action.configuration.channel.ChannelOverviewTasks"
+        name="submittedForm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
         <forward name="all2all"
-	  		path="/configuration/channel/DeployConfirm.do"/>
+              path="/configuration/channel/DeployConfirm.do"/>
         <forward name="sel2all" redirect="true"
-	  		path="/configuration/channel/ChooseFiles.do"/>
+              path="/configuration/channel/ChooseFiles.do"/>
         <forward name="all2sel" redirect="true"
-	  		path="/configuration/channel/ChooseSystems.do"/>
+              path="/configuration/channel/ChooseSystems.do"/>
         <forward name="sel2sel" redirect="true"
-	  		path="/configuration/channel/ChooseFiles.do"/>
+              path="/configuration/channel/ChooseFiles.do"/>
         <forward name="compare" redirect="true"
-	  		path="/configuration/ChannelOverview.do"/>
+              path="/configuration/ChannelOverview.do"/>
         <forward name="default" redirect="true"
-	  		path="/configuration/ChannelOverview.do"/>
-	</action>
+              path="/configuration/ChannelOverview.do"/>
+    </action>
 
-	<action path="/configuration/channel/ChooseFiles"
-		scope="request"
-		input="/WEB-INF/pages/configuration/channel/deploy.jsp"
-		type="com.redhat.rhn.frontend.action.configuration.channel.ChannelFileDeploySetup"
-		name="submittedForm"
-		className="com.redhat.rhn.frontend.struts.RhnActionMapping"
-		parameter="dispatch">
+    <action path="/configuration/channel/ChooseFiles"
+        scope="request"
+        input="/WEB-INF/pages/configuration/channel/deploy.jsp"
+        type="com.redhat.rhn.frontend.action.configuration.channel.ChannelFileDeploySetup"
+        name="submittedForm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
         <forward name="default"
-	  		path="/WEB-INF/pages/configuration/channel/deploy.jsp"/>
-	</action>
+              path="/WEB-INF/pages/configuration/channel/deploy.jsp"/>
+    </action>
 
-	<action path="/configuration/channel/ChooseFilesSubmit"
-		scope="request"
-		input="/WEB-INF/pages/configuration/channel/deploy.jsp"
-		type="com.redhat.rhn.frontend.action.configuration.channel.ChannelFileDeploySubmit"
-		name="submittedForm"
-		className="com.redhat.rhn.frontend.struts.RhnActionMapping"
-		parameter="dispatch">
+    <action path="/configuration/channel/ChooseFilesSubmit"
+        scope="request"
+        input="/WEB-INF/pages/configuration/channel/deploy.jsp"
+        type="com.redhat.rhn.frontend.action.configuration.channel.ChannelFileDeploySubmit"
+        name="submittedForm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
         <set-property property="postRequired" value="true" />
         <forward name="default"
-	  		path="/configuration/channel/ChooseFiles.do"/>
+              path="/configuration/channel/ChooseFiles.do"/>
         <forward name="success" redirect="true"
-	  		path="/configuration/channel/ChooseSystems.do"/>
-	</action>
+              path="/configuration/channel/ChooseSystems.do"/>
+    </action>
 
-	<action path="/configuration/channel/ChooseSystems"
-		scope="request"
-		input="/WEB-INF/pages/configuration/channel/deploysystems.jsp"
-		type="com.redhat.rhn.frontend.action.configuration.channel.ChannelSystemDeploySetup"
-		name="submittedForm"
-		className="com.redhat.rhn.frontend.struts.RhnActionMapping"
-		parameter="dispatch">
+    <action path="/configuration/channel/ChooseSystems"
+        scope="request"
+        input="/WEB-INF/pages/configuration/channel/deploysystems.jsp"
+        type="com.redhat.rhn.frontend.action.configuration.channel.ChannelSystemDeploySetup"
+        name="submittedForm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
         <forward name="default"
-	  		path="/WEB-INF/pages/configuration/channel/deploysystems.jsp"/>
-	</action>
+              path="/WEB-INF/pages/configuration/channel/deploysystems.jsp"/>
+    </action>
 
-	<action path="/configuration/channel/ChooseSystemsSubmit"
-		scope="request"
-		input="/WEB-INF/pages/configuration/channel/deploysystems.jsp"
-		type="com.redhat.rhn.frontend.action.configuration.channel.ChannelSystemDeploySubmit"
-		name="submittedForm"
-		className="com.redhat.rhn.frontend.struts.RhnActionMapping"
-		parameter="dispatch">
+    <action path="/configuration/channel/ChooseSystemsSubmit"
+        scope="request"
+        input="/WEB-INF/pages/configuration/channel/deploysystems.jsp"
+        type="com.redhat.rhn.frontend.action.configuration.channel.ChannelSystemDeploySubmit"
+        name="submittedForm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
         <set-property property="postRequired" value="true" />
         <forward name="default"
-	  		path="/configuration/channel/ChooseSystems.do"/>
+              path="/configuration/channel/ChooseSystems.do"/>
         <forward name="confirm" redirect="true"
-	  		path="/configuration/channel/DeployConfirm.do"/>
+              path="/configuration/channel/DeployConfirm.do"/>
         <forward name="success" redirect="true"
-	  		path="/configuration/channel/Overview.do"/>
+              path="/configuration/channel/Overview.do"/>
         <forward name="failure" redirect="true"
-	  		path="/configuration/channel/ChooseSystems.do"/>
-	</action>
+              path="/configuration/channel/ChooseSystems.do"/>
+    </action>
 
-	<action path="/configuration/channel/DeployConfirm"
-		scope="request"
-		input="/WEB-INF/pages/configuration/channel/deployconfirm.jsp"
-		type="com.redhat.rhn.frontend.action.configuration.channel.ChannelDeployConfirmAction"
-		name="datePickerForm"
-		className="com.redhat.rhn.frontend.struts.RhnActionMapping"
-		parameter="dispatch">
+    <action path="/configuration/channel/DeployConfirm"
+        scope="request"
+        input="/WEB-INF/pages/configuration/channel/deployconfirm.jsp"
+        type="com.redhat.rhn.frontend.action.configuration.channel.ChannelDeployConfirmAction"
+        name="datePickerForm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
         <forward name="default"
-	  		path="/WEB-INF/pages/configuration/channel/deployconfirm.jsp"/>
+              path="/WEB-INF/pages/configuration/channel/deployconfirm.jsp"/>
         <forward name="success" redirect="true"
-	  		path="/configuration/ChannelOverview.do"/>
+              path="/configuration/ChannelOverview.do"/>
         <forward name="failure" redirect="true"
-	  		path="/configuration/channel/DeployConfirm.do"/>
-	</action>
+              path="/configuration/channel/DeployConfirm.do"/>
+    </action>
 
     <action path="/configuration/ChannelUploadFiles"
         scope="request"
-		name="configFileForm"
+        name="configFileForm"
         input="/WEB-INF/pages/configuration/channel/fileup.jsp"
         type="com.redhat.rhn.frontend.action.configuration.channel.ChannelAddFilesAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -6965,7 +7072,7 @@
 
     <action path="/configuration/ChannelImportFiles"
         scope="request"
-		name="configFileForm"
+        name="configFileForm"
         input="/WEB-INF/pages/configuration/channel/fileimport.jsp"
         type="com.redhat.rhn.frontend.action.configuration.channel.ChannelFilesImportSetup"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -6977,13 +7084,13 @@
 
     <action path="/configuration/ChannelImportFilesSubmit"
         scope="request"
-		name="configFileForm"
+        name="configFileForm"
         input="/WEB-INF/pages/configuration/channel/fileimport.jsp"
         type="com.redhat.rhn.frontend.action.configuration.channel.ChannelFilesImportSubmit"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
-		parameter="dispatch">
+        parameter="dispatch">
         <set-property property="postRequired" value="true" />
-		<set-property property="acls" value="config_channel_editable();"/>
+        <set-property property="acls" value="config_channel_editable();"/>
         <set-property property="mixins" value="com.redhat.rhn.common.security.acl.ConfigAclHandler" />
         <forward name="default" redirect="true"
                  path="/configuration/ChannelImportFiles.do"/>
@@ -6991,7 +7098,7 @@
 
     <action path="/configuration/ChannelCreateFiles"
         scope="request"
-		name="configFileForm"
+        name="configFileForm"
         input="/WEB-INF/pages/configuration/channel/filecreate.jsp"
         type="com.redhat.rhn.frontend.action.configuration.channel.ChannelAddFilesAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -7004,9 +7111,9 @@
                  path="/configuration/file/FileDetails.do"/>
     </action>
 
-	<!--
-	  ** CONFIG FILE ACTIONS
-	  -->
+    <!--
+      ** CONFIG FILE ACTIONS
+      -->
     <action path="/configuration/file/ManageRevision"
         scope="request"
         input="/WEB-INF/pages/configuration/files/manage.jsp"
@@ -7023,7 +7130,7 @@
         name="configFileForm"
         parameter="dispatch"
         type="com.redhat.rhn.frontend.action.configuration.files.ManageRevisionSubmit"
-		className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequired" value="true" />
         <forward name="default"
                  path="/configuration/file/ManageRevision.do"/>
@@ -7134,7 +7241,7 @@
         scope="request"
         input="/WEB-INF/pages/configuration/files/filedetails.jsp"
         type="com.redhat.rhn.frontend.action.configuration.files.FileDetailsAction"
-		name="configFileForm"
+        name="configFileForm"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
@@ -7147,7 +7254,7 @@
         scope="request"
         input="/WEB-INF/pages/configuration/files/filedetails.jsp"
         type="com.redhat.rhn.frontend.action.configuration.files.FileDownloadAction"
-		name="configFileForm"
+        name="configFileForm"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
@@ -7160,7 +7267,7 @@
         scope="request"
         input="/WEB-INF/pages/configuration/files/deleterev.jsp"
         type="com.redhat.rhn.frontend.action.configuration.files.DeleteRevisionAction"
-		name="configFileForm"
+        name="configFileForm"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
         <set-property property="acls" value="config_channel_editable();"/>
@@ -7178,7 +7285,7 @@
     <action path="/configuration/file/DeleteFile"
         scope="request"
         type="com.redhat.rhn.frontend.action.configuration.files.DeleteFileAction"
-		name="configFileForm"
+        name="configFileForm"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
         <set-property property="acls" value="config_channel_editable();"/>
@@ -7191,7 +7298,7 @@
                  path="/configuration/file/FileDetails.do"/>
     </action>
 
-	<action path="/configuration/file/CompareDeployed"
+    <action path="/configuration/file/CompareDeployed"
         scope="request"
         input="/WEB-INF/pages/configuration/files/comparedeployed.jsp"
         type="com.redhat.rhn.frontend.action.configuration.files.CompareDeployedAction"
@@ -7232,39 +7339,39 @@
                  path="/configuration/file/Diff.do"/>
     </action>
 
-	<action path="/configuration/file/RevisionDeploy"
+    <action path="/configuration/file/RevisionDeploy"
         scope="request"
         input="/WEB-INF/pages/configuration/files/deploy.jsp"
         type="com.redhat.rhn.frontend.action.configuration.files.LocalRevisionDeployAction"
-		name="datePickerForm"
+        name="datePickerForm"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
                  path="/WEB-INF/pages/configuration/files/deploy.jsp"/>
         <forward name="global" redirect="true"
                  path="/configuration/file/GlobalRevisionDeploy.do"/>
-		<forward name="success" redirect="true"
-				  path="/configuration/file/FileDetails.do" />
+        <forward name="success" redirect="true"
+                  path="/configuration/file/FileDetails.do" />
     </action>
 
-	<action path="/configuration/file/GlobalRevisionDeploy"
+    <action path="/configuration/file/GlobalRevisionDeploy"
         scope="request"
         input="/WEB-INF/pages/configuration/files/deploy.jsp"
         type="com.redhat.rhn.frontend.action.configuration.files.GlobalRevisionDeploySetup"
-		name="submittedForm"
+        name="submittedForm"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
                  path="/WEB-INF/pages/configuration/files/deploy.jsp"/>
     </action>
 
-	<action path="/configuration/file/GlobalRevisionDeploySubmit"
+    <action path="/configuration/file/GlobalRevisionDeploySubmit"
         scope="request"
         input="/WEB-INF/pages/configuration/files/deploy.jsp"
         type="com.redhat.rhn.frontend.action.configuration.files.GlobalRevisionDeploySubmit"
-		name="submittedForm"
+        name="submittedForm"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
-		parameter="dispatch">
+        parameter="dispatch">
         <set-property property="postRequired" value="true" />
         <forward name="default"
                  path="/configuration/file/GlobalRevisionDeploy.do"/>
@@ -7272,23 +7379,23 @@
                  path="/configuration/file/GlobalRevisionDeployConfirm.do"/>
     </action>
 
-	<action path="/configuration/file/GlobalRevisionDeployConfirm"
+    <action path="/configuration/file/GlobalRevisionDeployConfirm"
         scope="request"
         input="/WEB-INF/pages/configuration/files/deployconfirm.jsp"
         type="com.redhat.rhn.frontend.action.configuration.files.GlobalRevisionDeployConfirmSetup"
-		name="datePickerForm"
+        name="datePickerForm"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default"
                  path="/WEB-INF/pages/configuration/files/deployconfirm.jsp"/>
     </action>
 
-	<action path="/configuration/file/GlobalRevisionDeployConfirmSubmit"
+    <action path="/configuration/file/GlobalRevisionDeployConfirmSubmit"
         scope="request"
         input="/WEB-INF/pages/configuration/files/deployconfirm.jsp"
         type="com.redhat.rhn.frontend.action.configuration.files.GlobalRevisionDeployConfirmSubmit"
-		name="datePickerForm"
+        name="datePickerForm"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
-		parameter="dispatch">
+        parameter="dispatch">
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
                  path="/WEB-INF/pages/configuration/files/deployconfirm.jsp"/>
@@ -7297,8 +7404,8 @@
         <forward name="failure" redirect="true"
                  path="/WEB-INF/pages/configuration/files/deployconfirm.jsp"/>
     </action>
-	<!-- ===== END CONFIGURATION ===== -->
-	
+    <!-- ===== END CONFIGURATION ===== -->
+
      <action path="/systems/entitlements/GuestLimitedHosts"
              scope="request"
              type="com.redhat.rhn.frontend.action.systems.entitlements.VirtualizationEntitlementsAction"
@@ -7571,23 +7678,23 @@
           <forward name="complete" path="/channels/manage/ChannelPackages.do" redirect="true" />
       </action>
 
-	 <action path="/channels/ChannelSubscribers"
-		type="com.redhat.rhn.frontend.action.channel.ChannelSubscribedAction"
-	        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+     <action path="/channels/ChannelSubscribers"
+        type="com.redhat.rhn.frontend.action.channel.ChannelSubscribedAction"
+            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default" path="/WEB-INF/pages/channel/subscribedsystems.jsp" />
       </action>
 
-	 <action path="/channels/TargetSystems"
-		type="com.redhat.rhn.frontend.action.channel.TargetSystemsAction"
-	        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-	    <forward name="confirm" path="/channels/ConfirmTargetSystems.do" redirect="true"/>
+     <action path="/channels/TargetSystems"
+        type="com.redhat.rhn.frontend.action.channel.TargetSystemsAction"
+            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="confirm" path="/channels/ConfirmTargetSystems.do" redirect="true"/>
         <forward name="default" path="/WEB-INF/pages/channel/targetsystems.jsp" />
       </action>
 
-	 <action path="/channels/ConfirmTargetSystems"
-		type="com.redhat.rhn.frontend.action.channel.TargetSystemsConfirmAction"
-	        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+     <action path="/channels/ConfirmTargetSystems"
+        type="com.redhat.rhn.frontend.action.channel.TargetSystemsConfirmAction"
+            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default" path="/WEB-INF/pages/channel/confirmtargetsystems.jsp" />
         <forward name="success" path="/channels/TargetSystems.do" redirect="true" />
@@ -7658,7 +7765,7 @@
         type="com.redhat.rhn.frontend.action.rhnpackage.PackageDetailsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default" path="/WEB-INF/pages/rhnpackage/packagedetail.jsp" />
-		<forward name="package" path="/software/packages/Details.do" redirect="true"/>
+        <forward name="package" path="/software/packages/Details.do" redirect="true"/>
       </action>
 
    <action path="/software/packages/ChangeLog"
@@ -7761,7 +7868,7 @@
         scope="request"
         type="com.redhat.rhn.frontend.action.common.DownloadFile"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-		<forward name="error"
+        <forward name="error"
              path="/WEB-INF/pages/common/errors/baddownloadaction.jsp"/>
     </action>
 
@@ -7772,12 +7879,12 @@
     <action path="/Load"
             forward="/WEB-INF/pages/common/loading/loading.jsp" />
 
-	<!-- Used by CSVTag, data must be stored in session context -->
-	<action path="/CSVDownloadAction"
-			type="com.redhat.rhn.frontend.action.CSVDownloadAction">
-		<forward name="error"
+    <!-- Used by CSVTag, data must be stored in session context -->
+    <action path="/CSVDownloadAction"
+            type="com.redhat.rhn.frontend.action.CSVDownloadAction">
+        <forward name="error"
                  path="/WEB-INF/pages/common/errors/badcsvaction.jsp"/>
-	</action>
+    </action>
 
     <action path="/help/Search"
         scope="request"

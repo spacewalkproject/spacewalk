@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<rhn-navi-tree invisible="1" title-depth="1" >
+    <rhn-tab name="Master Setup" acl="user_role(satellite_admin)">
+        <rhn-tab-url>/rhn/admin/iss/Master.do</rhn-tab-url>
+    </rhn-tab>
+    <rhn-tab name="Slave Setup" acl="user_role(satellite_admin)">
+        <rhn-tab-url>/rhn/admin/iss/Slave.do</rhn-tab-url>
+    </rhn-tab>
+</rhn-navi-tree>
