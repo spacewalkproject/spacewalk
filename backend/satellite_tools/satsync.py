@@ -387,6 +387,7 @@ class Syncer:
         self._batch_size = OPTIONS.batch_size
         self.xml_dump_version = OPTIONS.dump_version or str(constants.PROTOCOL_VERSION)
         self.check_rpms = check_rpms
+        self.keep_rpms = OPTIONS.keep_rpms
 
         # Object to help with channel math
         self._channel_req = None
@@ -1930,7 +1931,7 @@ class ThreadDownload(threading.Thread):
                 self.out_queue.put((rpmManip, package, False))
                 continue
 
-            if self.syncer.mountpoint:
+            if self.syncer.mountpoint and not self.syncer.keep_rpms:
                 # Channel dumps import; try to unlink to preserve disk space
                 # rpmFile is always returned by _get_package_stream for
                 # disk-based imports
@@ -2095,6 +2096,8 @@ def processCommandline():
             help=_("DEBUG ONLY: alternative path to digital system id")),
         Option(     '--traceback-mail',      action='store',
             help=_('alternative email address(es) for sync output (--email option)')),
+        Option(     '--keep-rpms',      action='store_true',
+            help=_('do not remove rpms when importing from local dump')),
 
         # DEFERRED:
         #Option(     '--source-packages',     action='store_true', help='sync source rpms/metadata as well.'),
