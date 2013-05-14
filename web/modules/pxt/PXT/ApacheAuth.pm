@@ -26,6 +26,7 @@ use PXT::ACL;
 use PXT::ApacheHandler ();
 use PXT::Utils ();
 use RHN::User ();
+use RHN::DB ();
 
 sub handler {
   my $r = shift;
@@ -34,6 +35,9 @@ sub handler {
     $r->push_handlers(PerlAuthzHandler => \&authz_handler);
     return OK;
   }
+
+  my $dbh = RHN::DB->connect();
+  $dbh->call_procedure('logging.clear_log_id');
 
   my $status = PXT::ApacheHandler->initialize_pxt($r);
   return $status if $status;
@@ -62,6 +66,7 @@ sub handler {
       }
     }
     $user_id = $session->uid;
+    $dbh->call_procedure('logging.set_log_auth', $user_id);
   }
 
   if (not $username) {

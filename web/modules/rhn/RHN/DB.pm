@@ -54,6 +54,7 @@ sub connection_cleanup {
     # in case someone forgot... wish we could detect if a rollback was pending.
     $dbh->rollback
       if $dbh->{Active};
+    $dbh->call_procedure('logging.clear_log_id') if $dbh->{Active};
   }
 }
 
