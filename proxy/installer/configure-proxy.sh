@@ -413,7 +413,7 @@ else
         #and with cluster.ini
         echo "Configuring monitoring."
         default_or_input "Monitoring parent" MONITORING_PARENT "$RHN_PARENT"
-        RESOLVED_IP=$(/usr/bin/getent hosts $RHN_PARENT | cut -f1 -d' ')
+        RESOLVED_IP=$(/usr/bin/getent hosts $MONITORING_PARENT | cut -f1 -d' ')
         default_or_input "Monitoring parent IP" MONITORING_PARENT_IP "$RESOLVED_IP"
         default_or_input "Enable monitoring scout" ENABLE_SCOUT "Y/n"
         ENABLE_SCOUT=$(yes_no $ENABLE_SCOUT)
