@@ -137,7 +137,7 @@ while : ; do
         --ssl-cname) set_value "$1" "SSL_CNAME_PARSED[CNAME_INDEX++]=--set-cname" "$2"; shift;;
         --install-monitoring) set_value "$1" INSTALL_MONITORING="${2:-Y}"; shift;;
         --enable-scout) ENABLE_SCOUT="${2:-1}"; shift;;
-        --monitoring-parent) set_value "$1" MONITORING_PARENT_IP "$2"; shift;;
+        --monitoring-parent) set_value "$1" MONITORING_PARENT "$2"; shift;;
         --monitoring-parent-ip) set_value "$1" MONITORING_PARENT_IP "$2"; shift;;
         --populate-config-channel) POPULATE_CONFIG_CHANNEL="${2:-Y}"; shift;;
         --start-services) START_SERVICES="${2:-Y}"; shift;;
