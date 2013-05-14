@@ -4,7 +4,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.60
+Version:       5.5.61
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -75,6 +75,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %doc COPYING
 
 %changelog
+* Tue May 14 2013 Michael Mraka <michael.mraka@redhat.com> 5.5.61-1
+- 871745 - let rhnpush care about SSL cert
+
 * Thu Feb 28 2013 Michael Mraka <michael.mraka@redhat.com> 5.5.60-1
 - fixed pylint warnings
 
