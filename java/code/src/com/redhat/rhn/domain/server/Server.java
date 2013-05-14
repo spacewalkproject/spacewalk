@@ -1210,20 +1210,14 @@ public class Server extends BaseDomainHelper implements Identifiable {
         CustomDataValue customValue = getCustomDataValue(key);
 
         // does the server already have this key defined?
-        if (customValue != null) {
-            // update the value
-            customValue.setValue(value);
-            // update last modifier
-            customValue.setLastModifier(user);
-        }
-        // server doesn't have this key defined
-        else {
+        if (customValue == null) {
             // create a new CustomDataValue object
             customValue = new CustomDataValue();
             customValue.setCreator(user);
             customValue.setKey(key);
-            customValue.setValue(value);
         }
+        customValue.setValue(value);
+        customValue.setLastModifier(user);
         // add customValue to customDataValues set
         addCustomDataValue(customValue);
     }
