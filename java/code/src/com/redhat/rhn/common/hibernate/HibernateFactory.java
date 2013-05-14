@@ -15,6 +15,7 @@
 package com.redhat.rhn.common.hibernate;
 
 import com.redhat.rhn.common.db.DatabaseException;
+import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
@@ -39,6 +40,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -565,5 +567,10 @@ public abstract class HibernateFactory {
     protected static DataResult executeSelectMode(String name, String mode, Map params) {
         SelectMode m = ModeFactory.getMode(name, mode);
         return m.execute(params);
+    }
+
+    protected static void executeCallableMode(String name, String mode, Map params) {
+        CallableMode m = ModeFactory.getCallableMode(name, mode);
+        m.execute(params, new HashMap());
     }
 }
