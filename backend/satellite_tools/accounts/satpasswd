@@ -130,6 +130,13 @@ md5password="$( echo "$password" | $MD5 $MD5ARGS )"
 # OK, if we've got this far then we have a valid user and a hashed password string, so lets proceed and change
 # the password for the user.
 
+backend=$(spacewalk-cfg-get db_backend)
+if [ $backend = "postgresql" ] ; then
+	clear_log_id="select logging.clear_log_id();"
+else
+	clear_log_id="begin logging.clear_log_id(); end;
+/"
+fi
 
-echo "update web_contact set password = '"$md5password"' where login = '"$myuser"';"| spacewalk-sql -
+( echo "$clear_log_id" ; echo "update web_contact set password = '"$md5password"' where login = '"$myuser"';" ) | spacewalk-sql -
 exit $?
