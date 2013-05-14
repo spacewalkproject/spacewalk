@@ -63,7 +63,7 @@
   <condition property="hibernate"
                 value="${hibernate3.2deps}"
                  else="${hibernate3.6deps}">
-    <available file="/usr/share/java/hibernate3.jar" /> 
+    <available file="/usr/share/java/hibernate3.jar" />
   </condition>
 
   <condition property="jmock-jars"
