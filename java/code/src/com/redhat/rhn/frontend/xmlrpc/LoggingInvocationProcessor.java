@@ -18,6 +18,7 @@ import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.translation.Translator;
 import com.redhat.rhn.domain.session.InvalidSessionIdException;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.common.LoggingFactory;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.StopWatch;
@@ -182,6 +183,7 @@ public class LoggingInvocationProcessor implements XmlRpcInvocationInterceptor {
         try {
             User user = BaseHandler.getLoggedInUser(key);
             if (user != null) {
+                LoggingFactory.setLogAuth(user.getId());
                 return user.getLogin();
             }
         }
