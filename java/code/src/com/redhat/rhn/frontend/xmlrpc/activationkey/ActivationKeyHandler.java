@@ -308,18 +308,23 @@ public class ActivationKeyHandler extends BaseHandler {
         if (details.containsKey("base_channel_label")) {
             String baseChannelLabel = (String) details
                     .get("base_channel_label");
-            try {
-                baseChannel = ChannelManager.lookupByLabelAndUser(
-                        baseChannelLabel, user);
+            if (StringUtils.isEmpty(baseChannelLabel) || baseChannelLabel.equals("none")) {
+                baseChannel = null;
             }
-            catch (LookupException e) {
-                throw new InvalidChannelException(e);
-            }
+            else {
+                try {
+                    baseChannel = ChannelManager.lookupByLabelAndUser(
+                            baseChannelLabel, user);
+                }
+                catch (LookupException e) {
+                    throw new InvalidChannelException(e);
+                }
 
-            // Verify the channel given is actually a base channel:
-            if (!baseChannel.isBaseChannel()) {
-                throw new InvalidChannelException(baseChannel.getName() +
-                        " is not a base channel.");
+                // Verify the channel given is actually a base channel:
+                if (!baseChannel.isBaseChannel()) {
+                    throw new InvalidChannelException(baseChannel.getName() +
+                            " is not a base channel.");
+                }
             }
         }
 
