@@ -3034,6 +3034,13 @@ user before attempting to deactivate their account.</source>
                 /rhn/errata/CreateSubmit.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="keywords">
+        <source>Keywords</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">
+                /rhn/errata/CreateSubmit.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Upgrade">
         <source>Upgrade</source>
         <context-group name="ctx">

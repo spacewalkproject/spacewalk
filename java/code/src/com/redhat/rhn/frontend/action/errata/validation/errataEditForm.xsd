@@ -50,4 +50,11 @@
             <maxLength value="4000"/>
         </simpleType>
     </attribute>
+    <attribute name="keywords">
+        <simpleType baseType="string">
+            <minLength value="0"/>
+            <maxLength value="64"/>
+            <optional/>
+        </simpleType>
+    </attribute>
 </schema>
