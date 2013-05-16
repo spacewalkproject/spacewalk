@@ -1,33 +1,44 @@
+declare
+        tz_shift interval day to second :=
+                         from_tz(timestamp '2000-01-01 00:00:00', sessiontimezone) -
+                         from_tz(timestamp '2000-01-01 00:00:00', 'UTC');
+        update_stmt varchar2(4000);
 begin
-	for rec in (
-		select table_name, column_name
-		from user_tab_columns
-		where table_name in (
-			select table_name
-			from user_tables
-			where table_name not like '%$%'
-			)
-			and data_type = 'DATE'
-		order by table_name
-		) loop
-		execute immediate 'alter table ' || rec.table_name || ' modify ' || rec.column_name || ' timestamp with local time zone';
-	end loop;
+        for tab in (
+                select distinct table_name
+                  from user_tab_columns
+                 where table_name not like '%$%'
+                   and data_type = 'DATE'
+                order by table_name
+        ) loop
+                update_stmt := 'update ' || tab.table_name || ' set ';
+                for col in (select column_name
+                              from user_tab_columns
+                             where table_name = tab.table_name
+                               and data_type = 'DATE'
+                ) loop
+                        execute immediate 'alter table ' || tab.table_name || ' modify ' || col.column_name || ' timestamp with local time zone';
+                        update_stmt := update_stmt || col.column_name || '=' || col.column_name || '+  interval ''' || tz_shift || ''' day to second, ';
+                end loop;
+                update_stmt := substr(update_stmt, 1, length(update_stmt)-2);
+                execute immediate update_stmt;
+        end loop;
 
 end;
 /
 
 begin
-	for rec in (
-		select table_name, column_name, data_default
-		from user_tab_columns
-		where DATA_TYPE = 'TIMESTAMP(6) WITH LOCAL TIME ZONE'
-			and table_name not like '%$%'
-			and data_default is not null
-		) loop
-		if rec.data_default like '(sysdate)%' or rec.data_default like 'sysdate%' then
-			execute immediate 'alter table ' || rec.table_name || ' modify ' || rec.column_name || ' default (current_timestamp)';
-		end if;
-	end loop;
+        for rec in (
+                select table_name, column_name, data_default
+                from user_tab_columns
+                where DATA_TYPE = 'TIMESTAMP(6) WITH LOCAL TIME ZONE'
+                        and table_name not like '%$%'
+                        and data_default is not null
+                ) loop
+                if rec.data_default like '(sysdate)%' or rec.data_default like 'sysdate%' then
+                        execute immediate 'alter table ' || rec.table_name || ' modify ' || rec.column_name || ' default (current_timestamp)';
+                end if;
+        end loop;
 end;
 /
 
