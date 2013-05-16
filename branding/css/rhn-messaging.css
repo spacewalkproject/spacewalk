@@ -33,6 +33,10 @@
         border-radius: 10px;
 }
 
+.site-alert ul {
+        list-style: none;
+}
+
 .site-alert a:link {
         color:              white;
         font-weight:        bold;
