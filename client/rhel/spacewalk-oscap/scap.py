@@ -33,7 +33,7 @@ def xccdf_eval(args, cache_only=None):
     if results_dir:
         os.chdir(pwd)
 
-    if not _assert_xml(results_file.name):
+    if not _assert_xml(results_file.file):
         del(results_file)
         _cleanup_temp(results_dir)
         return (1, 'oscap tool did not produce valid xml.\n' + oscap_err, {})
@@ -143,14 +143,9 @@ def _cleanup_temp(results_dir):
     if results_dir:
         shutil.rmtree(results_dir)
 
-def _assert_xml(filename):
-    f = open(filename, 'rb')
+def _assert_xml(f):
     try:
-        try:
-            xml.sax.parse(f, xml.sax.ContentHandler())
-            return True
-        except:
-            return False
-    finally:
-        f.close()
-
+        xml.sax.parse(f, xml.sax.ContentHandler())
+        return True
+    except:
+        return False
