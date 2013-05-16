@@ -18,7 +18,7 @@
  <c:choose>
  <c:when test="${requestScope.sid > 0}">
   <rhn:toolbar base="h1" img="/img/rhn-icon-info.gif"
-   deletionUrl="/rhn/admin/iss/DeleteSlave.do?sid=${requestScope.sid}"
+   deletionUrl="/rhn/admin/iss/RemoveSlaveConfirm.do?sid=${requestScope.sid}"
    deletionType="slave" deletionAcl="user_role(satellite_admin)">
    <bean:message key="iss.editslave.jsp.toolbar" />
   </rhn:toolbar>
@@ -51,11 +51,6 @@
     <th><label for="fqdn"><rhn:required-field key="iss.slave.fqdn" />:</label></th>
     <td><html:text property="fqdn" size="45" maxlength="256"
       styleId="fqdn" /></td>
-   </tr>
-   <tr>
-    <th><label for="ip"><rhn:required-field key="iss.slave.ip" />:</label></th>
-    <td><html:text property="ip" size="15" maxlength="15"
-      styleId="ip" /></td>
    </tr>
    <tr>
     <th><label for="enabled"><bean:message key="iss.slave.isEnabled" /></label>

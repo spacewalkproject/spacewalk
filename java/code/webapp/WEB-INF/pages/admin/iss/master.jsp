@@ -45,9 +45,6 @@
      <c:out value="${current.fqdn}" />
     </html:link>
    </rl:column>
-   <rl:column sortable="true" headerkey="iss.slave.ip" sortattr="ip">
-    <c:out value="${current.ip}" />
-   </rl:column>
    <rl:column bound="false" headerkey="iss.slave.isEnabled"
     sortattr="enabled">
     <c:if test="${current.enabled == 'Y'}">

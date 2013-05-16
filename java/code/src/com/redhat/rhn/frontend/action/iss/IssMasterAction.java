@@ -27,11 +27,10 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
-import com.redhat.rhn.domain.iss.IssSlave;
 import com.redhat.rhn.domain.iss.IssFactory;
+import com.redhat.rhn.domain.iss.IssSlave;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -84,16 +83,15 @@ public class IssMasterAction extends RhnAction {
         }
 
         List<IssSlave> slaves = IssFactory.listAllIssSlaves();
-        DataList<IssSlave> result = new DataList<IssSlave>(slaves);
 
         // if its a list action update the set and the selections
         if (ListTagHelper.getListAction(LIST_NAME, request) != null) {
-            helper.execute(sessionSet, LIST_NAME, result);
+            helper.execute(sessionSet, LIST_NAME, slaves);
         }
 
         // if I have a previous set selections populate data using it
         if (!sessionSet.isEmpty()) {
-            helper.syncSelections(sessionSet, result);
+            helper.syncSelections(sessionSet, slaves);
             ListTagHelper.setSelectedAmount(LIST_NAME, sessionSet.size(),
                     request);
         }
@@ -101,7 +99,7 @@ public class IssMasterAction extends RhnAction {
         Map params = makeParamMap(request);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
-        request.setAttribute(DATA_SET, result);
+        request.setAttribute(DATA_SET, slaves);
         ListTagHelper.bindSetDeclTo(LIST_NAME, getSetDecl(), request);
 
         return StrutsDelegate.getInstance().forwardParams(

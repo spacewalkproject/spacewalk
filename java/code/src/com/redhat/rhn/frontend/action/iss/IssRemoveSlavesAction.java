@@ -18,7 +18,6 @@ package com.redhat.rhn.frontend.action.iss;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +29,6 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
-import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.iss.IssFactory;
@@ -66,60 +64,94 @@ public class IssRemoveSlavesAction extends RhnAction {
             throw pex;
         }
 
-        Map params = makeParamMap(request);
+        ActionForward destination = null;
+        Set sessionSet = null;
 
-        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-
-        Set sessionSet = SessionSetHelper.lookupAndBind(request, getSetDecl().getLabel());
-        List<IssSlave> slaves = findSelectedSlaves(sessionSet);
-
-        SessionSetHelper helper = new SessionSetHelper(request);
-
-        if (request.getParameter("dispatch") != null) {
-            if (!sessionSet.isEmpty()) {
-                return handleDispatchAction(mapping, request, sessionSet, slaves);
-            }
-            RhnHelper.handleEmptySelection(request);
+        Long sid = getSid(request);
+        if (sid == null) {
+            sessionSet = SessionSetHelper.lookupAndBind(request, getSetDecl().getLabel());
+            request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
+        }
+        else {
+            request.setAttribute(ListTagHelper.PARENT_URL,
+                            request.getRequestURI() + "?sid=" + sid.toString());
         }
 
-        DataList<IssSlave> result = new DataList<IssSlave>(slaves);
+        List<IssSlave> slaves = findSelectedSlaves(sessionSet, sid);
+
+        if (request.getParameter("dispatch") != null) {
+            if (!slaves.isEmpty()) {
+                destination = handleDispatchAction(mapping, request, slaves);
+                if (sessionSet != null) {
+                    sessionSet.clear();
+                }
+                return destination;
+            }
+            else {
+                RhnHelper.handleEmptySelection(request);
+            }
+        }
 
         // if I have a previous set selections populate data using it
-        if (!sessionSet.isEmpty()) {
-            helper.syncSelections(sessionSet, result);
+        if (sessionSet != null && !sessionSet.isEmpty()) {
+            SessionSetHelper helper = new SessionSetHelper(request);
+            helper.syncSelections(sessionSet, slaves);
             ListTagHelper.setSelectedAmount(LIST_NAME, sessionSet.size(), request);
         }
 
-        request.setAttribute(DATA_SET, result);
+        request.setAttribute(DATA_SET, slaves);
         ListTagHelper.bindSetDeclTo(LIST_NAME, getSetDecl(), request);
 
         return StrutsDelegate.getInstance().forwardParams(mapping.findForward("default"),
-                        params);
+                        makeParamMap(request));
     }
 
-    private List<IssSlave> findSelectedSlaves(Set sessionSet) {
-        Set<String> sids = (Set<String>) sessionSet;
-        List<IssSlave> slaves = new ArrayList<IssSlave>();
-        for (String sid : sids) {
-            IssSlave aSlave = IssFactory.lookupSlaveById(Long.parseLong(sid));
-            slaves.add(aSlave);
+    private Long getSid(HttpServletRequest req) {
+        String sid = req.getParameter("sid");
+
+        if (sid != null) {
+            return Long.parseLong(sid);
         }
+        else {
+            return null;
+        }
+    }
+
+    private List<IssSlave> findSelectedSlaves(Set sessionSet, Object sidIn) {
+        List<IssSlave> slaves = new ArrayList<IssSlave>();
+
+        if (sessionSet != null) {
+            Set<String> sids = (Set<String>) sessionSet;
+            for (String sid : sids) {
+                IssSlave aSlave = IssFactory.lookupSlaveById(Long.parseLong(sid));
+                slaves.add(aSlave);
+            }
+        }
+        else if (sidIn != null) {
+            slaves.add(IssFactory.lookupSlaveById(Long.parseLong(sidIn.toString())));
+        }
+
         return slaves;
     }
 
     private ActionForward handleDispatchAction(ActionMapping mapping,
-                    HttpServletRequest request,
-                    Set sessionSet,
-                    List<IssSlave> slaves) {
+                    HttpServletRequest request, List<IssSlave> slaves) {
         for (IssSlave slave : slaves) {
             IssFactory.remove(slave);
         }
 
         ActionMessages msg = new ActionMessages();
-        msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                "message.iss_slaves_removed"));
+        if (slaves.size() == 1) {
+            IssSlave slave = slaves.get(0);
+            msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                            "message.iss_slave_removed", slave.getFqdn()));
+
+        }
+        else {
+            msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                            "message.iss_slaves_removed"));
+        }
         getStrutsDelegate().saveMessages(request, msg);
-        sessionSet.clear();
         return mapping.findForward("confirm");
     }
 

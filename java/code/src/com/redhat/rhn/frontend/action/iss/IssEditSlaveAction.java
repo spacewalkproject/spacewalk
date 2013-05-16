@@ -87,7 +87,6 @@ public class IssEditSlaveAction extends RhnAction {
 
             daForm.set(IssSlave.ID, sid);
             daForm.set(IssSlave.FQDN, slave.getFqdn());
-            daForm.set(IssSlave.IP, slave.getIp());
             daForm.set(IssSlave.ENABLED, "Y".equals(slave.getEnabled()));
             daForm.set(IssSlave.ALLOWED_ALL_ORGS, "Y".equals(slave.getAllowAllOrgs()));
 
@@ -115,7 +114,6 @@ public class IssEditSlaveAction extends RhnAction {
 
             String fqdn = dynaForm.getString(IssSlave.FQDN);
             slave.setFqdn(fqdn);
-            slave.setIp(dynaForm.getString(IssSlave.IP));
             Boolean enabled = (Boolean) dynaForm.get(IssSlave.ENABLED);
             if (enabled == null) {
                 enabled = Boolean.FALSE;

@@ -27,11 +27,11 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.iss.IssFactory;
 import com.redhat.rhn.domain.iss.IssOrgCatalogue;
+import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -50,6 +50,7 @@ public class IssOrgCatalogueAction extends RhnAction {
 
     private static final String LIST_NAME = "issMasterList";
     public static final String DATA_SET = "all";
+    public static final String NUM_LOCALS = "numLocalOrgs";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -86,16 +87,16 @@ public class IssOrgCatalogueAction extends RhnAction {
         }
 
         List<IssOrgCatalogue> masters = IssFactory.listAllMasters();
-        DataList<IssOrgCatalogue> result = new DataList<IssOrgCatalogue>(masters);
+        request.setAttribute(DATA_SET, masters);
 
         // if its a list action update the set and the selections
         if (ListTagHelper.getListAction(LIST_NAME, request) != null) {
-            helper.execute(sessionSet, LIST_NAME, result);
+            helper.execute(sessionSet, LIST_NAME, masters);
         }
 
         // if I have a previous set selections populate data using it
         if (!sessionSet.isEmpty()) {
-            helper.syncSelections(sessionSet, result);
+            helper.syncSelections(sessionSet, masters);
             ListTagHelper.setSelectedAmount(LIST_NAME, sessionSet.size(),
                     request);
         }
@@ -103,7 +104,8 @@ public class IssOrgCatalogueAction extends RhnAction {
         Map params = makeParamMap(request);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
-        request.setAttribute(DATA_SET, result);
+        request.setAttribute(NUM_LOCALS, OrgFactory.getTotalOrgCount());
+
         ListTagHelper.bindSetDeclTo(LIST_NAME, getSetDecl(), request);
 
         return StrutsDelegate.getInstance().forwardParams(

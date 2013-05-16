@@ -29,7 +29,6 @@ public class IssSlave extends BaseDto {
     public static final long NEW_SLAVE_ID = -1L;
     public static final String ID = "id";
     public static final String FQDN = "fqdn";
-    public static final String IP = "ip";
     public static final String ENABLED = "enabled";
     public static final String ALLOWED_ALL_ORGS = "allowAllOrgs";
     public static final String CREATED = "created";
@@ -40,7 +39,6 @@ public class IssSlave extends BaseDto {
 
     private Long id;
     private String fqdn;
-    private String ip;
     private String enabled;
     private String allowAllOrgs;
     private Date created;
@@ -82,25 +80,6 @@ public class IssSlave extends BaseDto {
      */
     public void setFqdn(String fqdnIn) {
         this.fqdn = fqdnIn;
-    }
-
-    /**
-     * Getter for ip
-     *
-     * @return String to get
-     */
-    public String getIp() {
-        return this.ip;
-    }
-
-    /**
-     * Setter for ip
-     *
-     * @param ipIn
-     *            to set
-     */
-    public void setIp(String ipIn) {
-        this.ip = ipIn;
     }
 
     /**

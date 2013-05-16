@@ -19935,11 +19935,8 @@ given channel.</source>
       <trans-unit id="iss.slave.fqdn">
         <source>Slave Fully-Qualified Domain Name</source>
       </trans-unit>
-      <trans-unit id="iss.master.fqdn">
-        <source>Master Fully-Qualified Domain Name</source>
-      </trans-unit>
-      <trans-unit id="iss.slave.ip">
-        <source>Slave IP Address</source>
+      <trans-unit id="iss.master.name">
+        <source>Master Name</source>
       </trans-unit>
       <trans-unit id="iss.slave.isEnabled">
         <source>Allow Slave to Sync?</source>
@@ -19981,7 +19978,10 @@ given channel.</source>
         <source>Remove Slaves</source>
       </trans-unit>
       <trans-unit id="iss.num.master.orgs">
-        <source>Number of Known Orgs</source>
+        <source>Known Orgs</source>
+      </trans-unit>
+      <trans-unit id="iss.num.unmapped.orgs">
+        <source>Unmapped Orgs</source>
       </trans-unit>
       <trans-unit id="iss.master.org.name">
         <source>Master Org Name</source>
@@ -20044,7 +20044,7 @@ given channel.</source>
         </trans-unit>
         <trans-unit id="iss.confirmslaveremove.jsp.areyousure">
           <source>
-          Removing the slaves below will prevent them from being able to synchronize from this @@PRODUCT_NAME@@ instance.
+          Removing the slave(s) below will remove whatever setup you have done for them, as well as preventing them from being able to synchronize from this @@PRODUCT_NAME@@ instance.
           This operation cannot be undone - make sure you really want to do this!
           </source>
         </trans-unit>

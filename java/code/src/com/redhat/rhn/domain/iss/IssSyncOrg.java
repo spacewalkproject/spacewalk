@@ -21,13 +21,12 @@ import com.redhat.rhn.frontend.dto.BaseDto;
 
 
 /**
- * IssSyncOrgs - Class representation of the table rhnsyncorgs.
+ * IssSyncOrg - Class representation of the table rhnsyncorgs.
  * @version $Rev: 1 $
  */
-public class IssSyncOrgs extends BaseDto {
+public class IssSyncOrg extends BaseDto {
 
-    public static final Long NO_MAP_ID = new Long(-2L);
-    public static final Long CREATE_MATCHING_ID = new Long(-1L);
+    public static final Long NO_MAP_ID = new Long(-1L);
 
     private Long id;
     private Long sourceOrgId;

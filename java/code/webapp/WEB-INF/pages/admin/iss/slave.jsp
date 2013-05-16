@@ -38,13 +38,16 @@
    <rl:decorator name="SelectableDecorator" />
    <rl:selectablecolumn value="${current.selectionKey}"
     selected="${current.selected}" />
-   <rl:column sortable="true" headerkey="iss.master.fqdn" sortattr="label">
+   <rl:column sortable="true" headerkey="iss.master.name" sortattr="label">
     <html:link href="/rhn/admin/iss/MapOrgs.do?mid=${current.id}">
      <c:out value="${current.label}" />
     </html:link>
    </rl:column>
    <rl:column headerkey="iss.num.master.orgs">
-    <c:out value="${current.numOrgs}" />
+    <c:out value="${current.numSourceOrgs}" />
+   </rl:column>
+   <rl:column headerkey="iss.num.unmapped.orgs">
+    <c:out value="${requestScope.numLocalOrgs - current.numMappedLocals}" />
    </rl:column>
   </rl:list>
   <c:if test="${not empty requestScope.all}">

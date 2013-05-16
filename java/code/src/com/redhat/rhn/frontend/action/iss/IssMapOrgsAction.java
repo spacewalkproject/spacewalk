@@ -30,12 +30,11 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
-import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.iss.IssFactory;
 import com.redhat.rhn.domain.iss.IssOrgCatalogue;
-import com.redhat.rhn.domain.iss.IssSyncOrgs;
+import com.redhat.rhn.domain.iss.IssSyncOrg;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.frontend.dto.OrgDto;
@@ -53,7 +52,6 @@ import com.redhat.rhn.manager.acl.AclManager;
  */
 public class IssMapOrgsAction extends RhnAction {
     private static final String DATA_SET = "all";
-    private static final String LIST_NAME = "master_list";
     private static final String SLAVES = "slave_org_list";
 
     /** {@inheritDoc} */
@@ -63,7 +61,7 @@ public class IssMapOrgsAction extends RhnAction {
         if (!AclManager.hasAcl("user_role(satellite_admin)", request, null)) {
             LocalizationService ls = LocalizationService.getInstance();
             PermissionException pex = new PermissionException(
-                            "Only satellite admins can work with prg-mappings");
+                            "Only satellite admins can work with org-mappings");
             pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.iss.master"));
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
             throw pex;
@@ -79,8 +77,8 @@ public class IssMapOrgsAction extends RhnAction {
         }
 
         // Get all the known-orgs from the selected Master
-        DataList<IssSyncOrgs> result = new DataList<IssSyncOrgs>(IssFactory
-                        .lookupMasterById(mid).getOrgs());
+        List<IssSyncOrg> result = new ArrayList<IssSyncOrg>(
+                        IssFactory.lookupMasterById(mid).getSourceOrgs());
         // Get all of our orgs and turn into OrgDtos
         List<OrgDto> infos = fromOrgs(OrgFactory.lookupAllOrgs());
 
@@ -119,11 +117,9 @@ public class IssMapOrgsAction extends RhnAction {
         for (Org o : orgs) {
             outList.add(createOrgDto(o.getId(), o.getName()));
         }
-        OrgDto noMap = createOrgDto(IssSyncOrgs.NO_MAP_ID, "NOT MAPPED");
-        OrgDto autoCreate = createOrgDto(IssSyncOrgs.CREATE_MATCHING_ID, "CREATE MATCHING");
+        OrgDto noMap = createOrgDto(IssSyncOrg.NO_MAP_ID, "NOT MAPPED");
 
         outList.add(noMap);
-        outList.add(autoCreate);
         Collections.sort(outList, new OrgComparator());
 
         return outList;
