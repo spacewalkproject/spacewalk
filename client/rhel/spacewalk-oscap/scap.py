@@ -120,30 +120,32 @@ def _upload_results(results_dir, args):
         for filename in os.listdir(results_dir):
             path = os.path.join(results_dir, filename)
             f = open(path, 'r')
-            if not _assert_xml(f):
-                log.log_debug('Excluding "%s" file from upload. Not an XML.', path)
-                errors += '\nFile "%s" not uploaded. Not an XML file format.', filename
-                f.close()
-                continue
+            errors += _upload_file(server, systemid, args, path, filename, f)
+            f.close()
+    return errors
 
-            stat = os.fstat(f.fileno())
-            if stat.st_size < args['file_size']:
-                try:
-                    ret = server.scap.upload_result(systemid, args['id'],
+def _upload_file(server, systemid, args, path, filename, f):
+    if not _assert_xml(f):
+        log.log_debug('Excluding "%s" file from upload. Not an XML.', path)
+        return '\nFile "%s" not uploaded. Not an XML file format.', filename
+
+    stat = os.fstat(f.fileno())
+    if stat.st_size < args['file_size']:
+        try:
+            ret = server.scap.upload_result(systemid, args['id'],
                          {'filename': filename,
                           'filecontent': encodestring(f.read()),
                           'content-encoding': 'base64',
                          })
-                    if ret and ret['result']:
-                        log.log_debug('The file %s uploaded successfully.' % filename)
-                except up2dateErrors.Error, e:
-                    log.log_exception(*sys.exc_info())
-                    errors += '\nFile "%s" not uploaded. %s' % (filename, e)
-            else:
-                errors += '\nFile "%s" not uploaded. File size (%d B) exceeds the limit.' \
-                       % (filename, stat.st_size)
-            f.close()
-    return errors
+            if ret and ret['result']:
+                log.log_debug('The file %s uploaded successfully.' % filename)
+            return ''
+        except up2dateErrors.Error, e:
+            log.log_exception(*sys.exc_info())
+            return '\nFile "%s" not uploaded. %s' % (filename, e)
+    else:
+        return '\nFile "%s" not uploaded. File size (%d B) exceeds the limit.' \
+            % (filename, stat.st_size)
 
 def _cleanup_temp(results_dir):
     if results_dir:
