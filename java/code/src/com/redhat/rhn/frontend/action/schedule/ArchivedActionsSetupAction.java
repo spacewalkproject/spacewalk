@@ -16,7 +16,6 @@ package com.redhat.rhn.frontend.action.schedule;
 
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
@@ -30,7 +29,6 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -71,14 +69,7 @@ public class ArchivedActionsSetupAction extends BaseScheduledListAction {
        User user = requestContext.getLoggedInUser();
        RhnSet set = getSetDecl().get(user);
 
-
-       List actionIdsToDelete = new LinkedList();
-
-       for (RhnSetElement element : set.getElements()) {
-           actionIdsToDelete.add(element.getElement());
-       }
-
-       ActionManager.deleteActionsById(user, actionIdsToDelete);
+       ActionManager.deleteActions(user, getSetDecl().getLabel());
 
 
        ActionMessages msgs = new ActionMessages();

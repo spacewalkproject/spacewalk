@@ -246,6 +246,15 @@ UPDATE rhnAction
   </query>
 </write-mode>
 
+<write-mode name="delete_actions">
+  <query params="user_id, label, org_id">
+DELETE FROM rhnAction
+ WHERE id IN (SELECT element FROM rhnSet WHERE user_id = :user_id
+                 AND label = :label)
+   AND org_id = :org_id
+  </query>
+</write-mode>
+
 <write-mode name="schedule_action">
   <query params="action_id, name_id, evr_id, arch_id">
 INSERT INTO rhnActionPackage (id, action_id, name_id, evr_id, package_arch_id)

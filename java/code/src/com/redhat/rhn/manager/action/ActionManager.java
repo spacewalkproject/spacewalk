@@ -192,7 +192,20 @@ public class ActionManager extends BaseManager {
         return ActionFactory.lookupLastCompletedAction(user, type, server);
     }
 
-
+    /**
+     * Deletes the action set with the given label.
+     * @param user User associated with the set of actions.
+     * @param label Action label to be updated.
+     */
+    public static void deleteActions(User user, String label) {
+        WriteMode m = ModeFactory.getWriteMode("Action_queries",
+                "delete_actions");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("org_id", user.getOrg().getId());
+        params.put("label", label);
+        m.executeUpdate(params);
+    }
 
     /**
      * Archives the action set with the given label.
