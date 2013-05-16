@@ -120,6 +120,12 @@ def _upload_results(results_dir, args):
         for filename in os.listdir(results_dir):
             path = os.path.join(results_dir, filename)
             f = open(path, 'r')
+            if not _assert_xml(f):
+                log.log_debug('Excluding "%s" file from upload. Not an XML.', path)
+                errors += '\nFile "%s" not uploaded. Not an XML file format.', filename
+                f.close()
+                continue
+
             stat = os.fstat(f.fileno())
             if stat.st_size < args['file_size']:
                 try:
