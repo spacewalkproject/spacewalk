@@ -39,17 +39,18 @@ def xccdf_eval(args, cache_only=None):
         return (1, 'oscap tool did not produce valid xml.\n' + oscap_err, {})
 
     ret, resume, xslt_err = _xccdf_resume(results_file.name)
-    del(results_file)
     if ret != 0 or resume == '':
+        del(results_file)
         _cleanup_temp(results_dir)
         return (1, 'Problems with extracting resume:\n' + xslt_err, {})
 
     try:
-        up_err = _upload_results(results_dir, args)
+        up_err = _upload_results(results_file, results_dir, args)
     except:
         # An error during the upload must not prevent scan completion
         log.log_exception(*sys.exc_info())
         up_err = "Upload of detailed results failed. Fatal error in Python code occurred"
+    del(results_file)
     _cleanup_temp(results_dir)
     return (0, 'openscap scan completed', {
         'resume': encodestring(resume),
@@ -110,7 +111,7 @@ def _process_params(args, filename, results_dir=None):
         errors += '\n'
     return params, errors
 
-def _upload_results(results_dir, args):
+def _upload_results(xccdf_result, results_dir, args):
     errors = ''
     if results_dir:
         server = rhnserver.RhnServer()
@@ -119,9 +120,14 @@ def _upload_results(results_dir, args):
         systemid = up2dateAuth.getSystemId()
         for filename in os.listdir(results_dir):
             path = os.path.join(results_dir, filename)
-            f = open(path, 'r')
+            if path == xccdf_result.name:
+                f = xccdf_result.file
+                filename = "xccdf-results.xml"
+            else:
+                f = open(path, 'r')
             errors += _upload_file(server, systemid, args, path, filename, f)
-            f.close()
+            if path != xccdf_result.name:
+                f.close()
     return errors
 
 def _upload_file(server, systemid, args, path, filename, f):
