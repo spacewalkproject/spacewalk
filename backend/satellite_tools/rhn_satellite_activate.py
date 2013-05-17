@@ -493,6 +493,13 @@ def processCommandline():
     if options.sanity_only:
         options.disconnected = 1
 
+    if CFG.DISCONNECTED and not options.disconnected:
+        sys.stderr.write("""ERROR: Satellite server has been setup to run in disconnected mode.
+       Either correct server configuration in /etc/rhn/rhn.conf
+       or use --disconnected to activate it locally.
+""")
+        sys.exit(1)
+
     options.server = ''
     if not options.disconnected:
         if not CFG.RHN_PARENT:
