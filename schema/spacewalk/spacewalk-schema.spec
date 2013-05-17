@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.33
+Version:        1.10.34
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri May 17 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.34-1
+- shift values according to time zone
+
 * Mon May 13 2013 Jan Dobes 1.10.33-1
 - adding lookup_package_group proc and it's upgrade files
 
