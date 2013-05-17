@@ -159,7 +159,10 @@ def _cleanup_temp(results_dir):
 
 def _assert_xml(f):
     try:
-        xml.sax.parse(f, xml.sax.ContentHandler())
-        return True
-    except:
-        return False
+        try:
+            xml.sax.parse(f, xml.sax.ContentHandler())
+            return True
+        except:
+            return False
+    finally:
+        f.seek(0)
