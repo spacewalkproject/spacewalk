@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    1.10.16
+Version:    1.10.17
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -74,6 +74,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri May 17 2013 Tomas Lestach <tlestach@redhat.com> 1.10.17-1
+- 591988 - render error messages without dot in front of them
+
 * Tue May 07 2013 Jan Pazdziora 1.10.16-1
 - removing unnecessary css property
 - removing duplicate left border in tables containing checkbox as 1st column
