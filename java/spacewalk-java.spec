@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.75
+Version: 1.10.76
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri May 17 2013 Tomas Lestach <tlestach@redhat.com> 1.10.76-1
+- enhance (archived) actions deletion
+- check for keywords length within the errataEditForm
+- 580995 - enable reset of base channel for activation key via api
+- 889633 - always set lastModifiedBy for custom infos
+- removing trailing space
+
 * Fri May 10 2013 Grant Gainey <ggainey@redhat.com> 1.10.75-1
 - Save, *then* evict - Order Matters
 - More user/org cleanup
