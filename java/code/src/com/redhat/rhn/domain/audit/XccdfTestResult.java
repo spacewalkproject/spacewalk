@@ -15,13 +15,15 @@
 package com.redhat.rhn.domain.audit;
 
 import java.util.Date;
+import java.util.List;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.action.scap.ScapActionDetails;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.manager.audit.ScapManager;
 import com.redhat.rhn.manager.audit.scap.RuleResultDiffer;
-
+import com.redhat.rhn.manager.audit.scap.file.ScapFileManager;
+import com.redhat.rhn.manager.audit.scap.file.ScapResultFile;
 
 /**
  * XccdfTestResult - Class representation of the table rhnXccdfTestResult.
@@ -215,5 +217,13 @@ public class XccdfTestResult {
             diffIcon = new RuleResultDiffer(getComparableId(), id).overallComparison();
         }
         return diffIcon;
+    }
+
+    /**
+     * Return a list of detailed SCAP files assigned with this scan run.
+     * @return the result
+     */
+    public List<ScapResultFile> getFiles() {
+        return ScapFileManager.lookupFilesForTestResult(this);
     }
 }

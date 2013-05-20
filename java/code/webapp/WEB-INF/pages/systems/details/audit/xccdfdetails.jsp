@@ -83,6 +83,17 @@
     <th><bean:message key="system.audit.xccdfdetails.jsp.errors"/>:</th>
     <td><pre><c:out value="${testResult.errrosContents}"/></pre></th>
   </tr>
+  <c:if test="${not empty testResult.files}">
+    <tr>
+      <th><bean:message key="system.audit.xccdfdetails.jsp.files"/>:</th>
+      <td>
+        <c:forEach items="${testResult.files}" var="file">
+          <a href="/rhn/systems/details/audit/ScapResultDownload.do?sid=${param.sid}&xid=${param.xid}&name=${file.filename}"><c:out value="${file.filename}"/></a>
+          &nbsp;
+        </c:forEach>
+      </td>
+    </tr>
+  </c:if>
 </table>
 
 <h2><bean:message key="system.audit.xccdfdetails.jsp.xccdfrules"/></h2>

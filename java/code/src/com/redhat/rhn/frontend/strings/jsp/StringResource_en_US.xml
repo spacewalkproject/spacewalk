@@ -11041,6 +11041,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system.audit.xccdfdetails.jsp.errors">
           <source>Scan's Error output</source>
         </trans-unit>
+        <trans-unit id="system.audit.xccdfdetails.jsp.files">
+          <source>Detailed Results</source>
+        </trans-unit>
         <trans-unit id="system.audit.xccdfdetails.jsp.xccdfrules">
           <source>XCCDF Rule Results</source>
         </trans-unit>

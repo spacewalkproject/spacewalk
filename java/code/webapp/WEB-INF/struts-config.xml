@@ -2997,6 +2997,12 @@
             path="/WEB-INF/pages/systems/details/audit/xccdfdetails.jsp"/>
     </action>
 
+    <action path="/systems/details/audit/ScapResultDownload"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.systems.audit.ScapDownloadAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+    </action>
+
     <action path="/systems/details/audit/RuleDetails"
         scope="request"
         input="/WEB-INF/pages/systems/details/audit/ruledetails.jsp"
