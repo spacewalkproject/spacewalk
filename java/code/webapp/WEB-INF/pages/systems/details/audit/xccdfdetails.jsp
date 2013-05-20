@@ -82,6 +82,7 @@
   <tr>
     <th><bean:message key="system.audit.xccdfdetails.jsp.errors"/>:</th>
     <td><pre><c:out value="${testResult.errrosContents}"/></pre></th>
+  </tr>
 </table>
 
 <h2><bean:message key="system.audit.xccdfdetails.jsp.xccdfrules"/></h2>
