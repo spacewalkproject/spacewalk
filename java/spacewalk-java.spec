@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.76
+Version: 1.10.77
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon May 20 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.77-1
+- 959226 - too big value in system custom info should not cause ISE
+
 * Fri May 17 2013 Tomas Lestach <tlestach@redhat.com> 1.10.76-1
 - enhance (archived) actions deletion
 - check for keywords length within the errataEditForm
