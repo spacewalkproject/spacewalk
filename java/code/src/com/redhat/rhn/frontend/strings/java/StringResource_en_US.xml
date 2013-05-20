@@ -7711,6 +7711,9 @@ tree will not be usable for kickstarting.
       <trans-unit id="images.message.success.scheduled">
         <source>Image deployment scheduled: {0}</source>
       </trans-unit>
+      <trans-unit id="custominfo.maxsize">
+        <source>Custom info value cannot be greater than 4000 characters.</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

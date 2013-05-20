@@ -111,6 +111,12 @@ public class UpdateCustomDataAction extends RhnAction {
         }
 
         if (context.isSubmitted()) {
+            if (form.getString(VAL_PARAM).length() > 4000) {
+                request.setAttribute(VAL_PARAM, cdv.getValue());
+                createErrorMessage(request, "custominfo.maxsize", null);
+                return getStrutsDelegate().forwardParams(
+                        mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
+            }
             server.addCustomDataValue(key.getLabel(), (String)form.get(VAL_PARAM), user);
             if (cdv == null) {
                 cdv = new CustomDataValue();
