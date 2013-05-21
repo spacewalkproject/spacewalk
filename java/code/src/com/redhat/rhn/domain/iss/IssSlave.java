@@ -17,6 +17,7 @@
 package com.redhat.rhn.domain.iss;
 
 import java.util.Date;
+import java.util.Set;
 
 import com.redhat.rhn.frontend.dto.BaseDto;
 
@@ -28,7 +29,7 @@ import com.redhat.rhn.frontend.dto.BaseDto;
 public class IssSlave extends BaseDto {
     public static final long NEW_SLAVE_ID = -1L;
     public static final String ID = "id";
-    public static final String FQDN = "fqdn";
+    public static final String SLAVE = "slave";
     public static final String ENABLED = "enabled";
     public static final String ALLOWED_ALL_ORGS = "allowAllOrgs";
     public static final String CREATED = "created";
@@ -38,9 +39,10 @@ public class IssSlave extends BaseDto {
     public static final String SID = "sid";
 
     private Long id;
-    private String fqdn;
+    private String slave;
     private String enabled;
     private String allowAllOrgs;
+    private Set<IssSlaveOrgs> orgMappings;
     private Date created;
     private Date modified;
 
@@ -64,22 +66,22 @@ public class IssSlave extends BaseDto {
     }
 
     /**
-     * Getter for Fqdn
+     * Getter for slave-name
      *
      * @return String to get
      */
-    public String getFqdn() {
-        return this.fqdn;
+    public String getSlave() {
+        return this.slave;
     }
 
     /**
-     * Setter for fqdn
+     * Setter for slave-name
      *
-     * @param fqdnIn
+     * @param slaveIn
      *            to set
      */
-    public void setFqdn(String fqdnIn) {
-        this.fqdn = fqdnIn;
+    public void setSlave(String slaveIn) {
+        this.slave = slaveIn;
     }
 
     /**
@@ -151,11 +153,26 @@ public class IssSlave extends BaseDto {
     /**
      * Setter for modified
      *
-     * @param modifiedIn
-     *            to set
+     * @param modifiedIn to set
      */
     public void setModified(Date modifiedIn) {
         this.modified = modifiedIn;
+    }
+
+    /**
+     * Getter for all orgs allowed to be visible to this slave
+     * @return list of currently-mapped org entries
+     */
+    public Set<IssSlaveOrgs> getOrgMappings() {
+        return orgMappings;
+    }
+
+    /**
+     * Setter for orgMappings
+     * @param orgMappingsIn get current orgMappings
+     */
+    public void setOrgMappings(Set<IssSlaveOrgs> orgMappingsIn) {
+        this.orgMappings = orgMappingsIn;
     }
 
 }

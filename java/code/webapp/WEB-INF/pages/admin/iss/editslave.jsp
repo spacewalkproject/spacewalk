@@ -42,15 +42,15 @@
   <bean:message key="iss.editslave.jsp.header2" />
  </h2>
 
- <html:form action="/admin/iss/EditSlave">
+ <html:form action="/admin/iss/UpdateSlave">
   <rhn:csrf />
   <html:hidden property="submitted" value="true" />
   <html:hidden property="id" />
   <table class="details" align="center">
    <tr>
-    <th><label for="fqdn"><rhn:required-field key="iss.slave.fqdn" />:</label></th>
-    <td><html:text property="fqdn" size="45" maxlength="256"
-      styleId="fqdn" /></td>
+    <th><label for="slave"><rhn:required-field key="iss.slave.name" />:</label></th>
+    <td><html:text property="slave" size="45" maxlength="256"
+      styleId="slave" /></td>
    </tr>
    <tr>
     <th><label for="enabled"><bean:message key="iss.slave.isEnabled" /></label>
@@ -78,5 +78,31 @@
   </div>
 
  </html:form>
+ <c:if test="${requestScope.sid > 0}">
+ <h2>
+  <bean:message key="iss.editslave.jsp.allowed.orgs.header" />
+ </h2>
+ <rl:listset name="localOrgsListSet">
+  <rhn:csrf />
+  <rhn:submitted />
+  <rl:list dataset="localOrgsList" name="localOrgsList"
+   emptykey="editslave.jsp.nolocalorgs">
+   <rl:decorator name="SelectableDecorator" />
+   <rl:selectablecolumn value="${current.selectionKey}"
+    selected="${current.selected}" />
+   <rl:column sortable="true" headerkey="iss.localorg.name" sortattr="name">
+     <c:out value="${current.name}" />
+   </rl:column>
+  </rl:list>
+   <div align="right">
+    <rhn:submitted />
+    <hr />
+    <input type="submit" name="dispatch"
+     value='<bean:message key="iss.slave.associate"/>' />
+   </div>
+ </rl:listset>
+ </c:if>
+
 </body>
 </html>
+

@@ -11,12 +11,15 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">rhn_issslave_seq</param>
             </generator>
         </id>
-        <property name="fqdn" column="SLAVE_FQDN"  type="string" length="256" />
-        <property name="ip" column="SLAVE_IP"  type="string" length="256" />
+        <property name="slave" column="SLAVE"  type="string" length="256" />
         <property name="enabled" column="ENABLED"  type="string" length="1" />
         <property name="allowAllOrgs" column="ALLOW_ALL_ORGS"  type="string" length="1" />
         <property name="created" column="CREATED"  type="timestamp" insert="false" update="false"/>
         <property name="modified" column="MODIFIED"  type="timestamp" insert="false" update="false"/>
+        <set name="orgMappings">
+            <key column="slave_id" />
+            <one-to-many class="com.redhat.rhn.domain.iss.IssSlaveOrgs" />
+        </set>
     </class>
 
     <query name="IssSlave.findById">

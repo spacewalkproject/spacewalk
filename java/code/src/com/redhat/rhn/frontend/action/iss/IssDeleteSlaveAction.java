@@ -79,7 +79,7 @@ public class IssDeleteSlaveAction extends RhnAction {
             IssFactory.remove(slave);
             ActionMessages msg = new ActionMessages();
             msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                    "message.iss_slave_removed", slave.getFqdn()));
+                    "message.iss_slave_removed", slave.getSlave()));
             getStrutsDelegate().saveMessages(request, msg);
         }
         return sid;

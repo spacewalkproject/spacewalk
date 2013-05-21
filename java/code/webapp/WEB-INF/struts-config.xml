@@ -1240,8 +1240,7 @@
     <form-bean name="editSlaveForm"
                type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
         <form-property name="id" type="java.lang.Long" />
-        <form-property name="fqdn" type="java.lang.String" />
-        <form-property name="ip" type="java.lang.String" />
+        <form-property name="slave" type="java.lang.String" />
         <form-property name="enabled" type="java.lang.Boolean" />
         <form-property name="allowAllOrgs" type="java.lang.Boolean" />
         <form-property name="submitted" type="java.lang.Boolean"/>
@@ -5222,11 +5221,37 @@
         scope="request"
         name="editSlaveForm"
         input="/WEB-INF/pages/admin/iss/editslave.jsp"
+        type="com.redhat.rhn.frontend.action.iss.IssEditSlaveSetupAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="user_role(satellite_admin);"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/admin/iss/editslave.jsp"/>
+        <forward name="success"
+                 path="/admin/iss/Master.do" redirect="true"/>
+    </action>
+
+    <action path="/admin/iss/UpdateSlave"
+        scope="request"
+        name="editSlaveForm"
+        input="/WEB-INF/pages/admin/iss/editslave.jsp"
         type="com.redhat.rhn.frontend.action.iss.IssEditSlaveAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(satellite_admin);"/>
         <forward name="default"
                  path="/WEB-INF/pages/admin/iss/editslave.jsp"/>
+        <forward name="success"
+                 path="/admin/iss/Master.do" redirect="true"/>
+    </action>
+
+    <action path="/admin/iss/AllowSlaveOrgs"
+        scope="request"
+        name="editSlaveForm"
+        input="/WEB-INF/pages/admin/iss/editslave.jsp"
+        type="com.redhat.rhn.frontend.action.iss.IssAllowSlaveOrgsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="user_role(satellite_admin);"/>
+        <forward name="default"
+                 path="/admin/iss/EditSlave.do" redirect="true"/>
         <forward name="success"
                  path="/admin/iss/Master.do" redirect="true"/>
     </action>

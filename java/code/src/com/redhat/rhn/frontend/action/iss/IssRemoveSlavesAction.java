@@ -144,7 +144,7 @@ public class IssRemoveSlavesAction extends RhnAction {
         if (slaves.size() == 1) {
             IssSlave slave = slaves.get(0);
             msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                            "message.iss_slave_removed", slave.getFqdn()));
+                            "message.iss_slave_removed", slave.getSlave()));
 
         }
         else {

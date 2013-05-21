@@ -19932,7 +19932,7 @@ given channel.</source>
       <trans-unit id="credentials.jsp.url">
         <source>URL</source>
       </trans-unit>
-      <trans-unit id="iss.slave.fqdn">
+      <trans-unit id="iss.slave.name">
         <source>Slave Fully-Qualified Domain Name</source>
       </trans-unit>
       <trans-unit id="iss.master.name">

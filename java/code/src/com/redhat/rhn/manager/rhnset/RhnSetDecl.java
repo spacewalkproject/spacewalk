@@ -391,6 +391,9 @@ public class RhnSetDecl {
     public static final RhnSetDecl ISS_MASTERS = make(
                     "iss_masters", SetCleanup.NOOP);
 
+    public static final RhnSetDecl ISS_LOCAL_ORGS = make(
+                    "iss_local_orgs", SetCleanup.NOOP);
+
     private SetCleanup cleanup;
     private String label;
 

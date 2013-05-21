@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Query;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 
@@ -65,6 +66,18 @@ public class IssFactory extends HibernateFactory {
         Map params = new HashMap();
         return (List<IssSlave>)singleton.listObjectsByNamedQuery(
                 "IssSlave.lookupAll", params);
+    }
+
+    /**
+     * Remove all entries mapping local-orgs to specified slave
+     * @param sid ID of slave whose entries we're removing
+     */
+    public static void clearMapsForSlave(Long sid) {
+        Map<String, Long> params = new HashMap<String, Long>();
+        params.put("sid", sid);
+        Query q = HibernateFactory.getSession().getNamedQuery("IssSlaveOrgs.removeAll");
+        q.setParameter("sid", sid);
+        q.executeUpdate();
     }
 
     /***

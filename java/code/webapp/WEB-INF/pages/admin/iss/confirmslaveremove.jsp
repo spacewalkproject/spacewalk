@@ -37,9 +37,9 @@
   <rhn:submitted />
   <rl:list dataset="pageList" name="issSlaveList"
    emptykey="master.jsp.nomasters">
-   <rl:column sortable="true" headerkey="iss.slave.fqdn" sortattr="fqdn">
+   <rl:column sortable="true" headerkey="iss.slave.name" sortattr="slave">
     <html:link href="/rhn/admin/iss/EditSlave.do?sid=${current.id}">
-     <c:out value="${current.fqdn}" />
+     <c:out value="${current.slave}" />
     </html:link>
    </rl:column>
    <rl:column bound="false" headerkey="iss.slave.isEnabled"
