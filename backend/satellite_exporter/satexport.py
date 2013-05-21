@@ -183,6 +183,7 @@ class ApacheServer(BaseApacheServer):
         log_debug(4, "Exiting OK")
         return apache.OK
 
+    # pylint: disable=R0201
     def get_function(self, method_name, req):
         self.auth_system(req)
         # Get the module name
