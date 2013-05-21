@@ -84,7 +84,7 @@ def _popen(args):
 def _process_params(args, filename, results_dir=None):
     params = ['--results', filename]
     if results_dir:
-        params += ['--oval-results']
+        params += ['--oval-results', '--report', 'xccdf-report.html']
     errors = ''
     if args:
         allowed_args = {
