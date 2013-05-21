@@ -288,8 +288,8 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
                 !tree.getInstallType().isRhel3() &&
                 !tree.getInstallType().isRhel4()) {
             List <LabelValueEnabledBean> repos = new LinkedList<LabelValueEnabledBean>();
-            for (String name : RepoInfo.getStandardRepos(tree).keySet()) {
-                repos.add(lve(name, name, false));
+            for (RepoInfo repo : RepoInfo.getStandardRepos(tree)) {
+                repos.add(lve(repo.getName(), repo.getName(), !repo.isAvailable()));
             }
             form.set(POSSIBLE_REPOS, repos.toArray(new LabelValueEnabledBean[0]));
             Set<RepoInfo> selected = ksdata.getRepoInfos();

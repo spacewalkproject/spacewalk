@@ -40,7 +40,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -367,14 +366,8 @@ public class KickstartEditCommand extends BaseKickstartCommand {
     public void updateRepos(String[] reposIn) {
         if (ksdata.isRhel5OrGreater()) {
 
-            Map<String, RepoInfo> repos = RepoInfo.getStandardRepos(
-                    ksdata.getKickstartDefaults().getKstree());
-            Set<RepoInfo> selected = new HashSet <RepoInfo>();
-
-            for (int i = 0; i < reposIn.length; i++) {
-                selected.add(repos.get(reposIn[i]));
-            }
-            ksdata.setRepoInfos(selected);
+            ksdata.setRepoInfos(RepoInfo.getStandardRepos(
+                    ksdata.getKickstartDefaults().getKstree()));
             KickstartWizardHelper ksHelper = new KickstartWizardHelper(user);
             ksHelper.processSkipKey(ksdata);
         }

@@ -22,8 +22,8 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import java.io.File;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,6 +35,7 @@ import java.util.regex.Pattern;
 public class RepoInfo {
     private String name;
     private String baseUrl;
+    private boolean available;
 
     private static final Pattern NAME_REGEX =
         Pattern.compile("--name\\s*=\\s*(\\w+)", Pattern.CASE_INSENSITIVE);
@@ -71,6 +72,19 @@ public class RepoInfo {
         RepoInfo info = new RepoInfo();
         info.name  = name;
         info.baseUrl = baseUrl;
+        return info;
+    }
+
+    /**
+     * Create a new repo info object with the given name and base url
+     * @param name the repo name
+     * @param baseUrl the repo URL
+     * @param available is the repo available
+     * @return the Repo info object
+     */
+    public static RepoInfo create(String name, String baseUrl, boolean available) {
+        RepoInfo info = create(name, baseUrl);
+        info.setAvailable(available);
         return info;
     }
 
@@ -131,8 +145,8 @@ public class RepoInfo {
      * @param tree the kickstartable tree
      * @return the standard repos..
      */
-    public static Map<String, RepoInfo> getStandardRepos(KickstartableTree  tree) {
-        Map <String, RepoInfo> map = new LinkedHashMap<String, RepoInfo>();
+    public static List<RepoInfo> getStandardRepos(KickstartableTree  tree) {
+        ArrayList<RepoInfo> repoList = new ArrayList<RepoInfo>();
         String[] repos = {"Cluster", "ClusterStorage", "HighAvailability",
                         "LoadBalancer", "ResilientStorage", "VT", "Workstation",
                         "ScalableFileSystem"};
@@ -140,17 +154,27 @@ public class RepoInfo {
         for (String repo : repos) {
             File file = new File(StringUtil.addPath(tree.getAbsolutePath(), repo));
             if (file.exists()) {
-                addToMap(map, repo);
+                File repodata = new File(file.getPath() +
+                    File.separator + "repodata" +
+                    File.separator + "repomd.xml");
+                repoList.add(create(repo, repo, repodata.exists()));
             }
         }
-        return map;
+        return repoList;
     }
 
-    private static void addToMap(Map <String, RepoInfo> map,  String name) {
-        RepoInfo info = create(name, name);
-        map.put(info.getName(), info);
+    /**
+     * @return the available
+     */
+    public boolean isAvailable() {
+        return available;
     }
-
+    /**
+     * @param availableIn the available to set
+     */
+    public void setAvailable(boolean availableIn) {
+        this.available = availableIn;
+    }
     /**
      * {@inheritDoc}
      */
