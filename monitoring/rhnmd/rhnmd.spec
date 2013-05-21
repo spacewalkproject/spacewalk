@@ -9,7 +9,7 @@ Summary:        Spacewalk Monitoring Daemon
 Name:           rhnmd
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:        5.3.16
+Version:        5.3.17
 Release:        1%{?dist}
 License:        GPLv2
 BuildArch:      noarch
@@ -188,6 +188,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue May 21 2013 Tomas Kasparek <tkasparek@redhat.com> 5.3.17-1
+- misc branding clean up
+
 * Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 5.3.16-1
 - 919468 - fixed path in file based Requires
 - Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
