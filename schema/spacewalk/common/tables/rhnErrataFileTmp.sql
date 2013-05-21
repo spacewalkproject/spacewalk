@@ -27,7 +27,7 @@ CREATE TABLE rhnErrataFileTmp
     checksum_id NUMBER NOT NULL
                    CONSTRAINT rhn_erratafiletmp_chsum_fk
                        REFERENCES rhnChecksum (id),
-    filename   VARCHAR2(128) NOT NULL,
+    filename   VARCHAR2(4000) NOT NULL,
     created    timestamp with local time zone
                    DEFAULT (current_timestamp) NOT NULL,
     modified   timestamp with local time zone
