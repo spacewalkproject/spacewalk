@@ -38,7 +38,7 @@ class RhnChooseServerWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.ChooseServe
     runPriority=106.5
     moduleName = _("Choose Server")
     windowTitle = moduleName
-    shortMessage = _("Choose a Red Hat Network server")
+    shortMessage = _("Choose a Red Hat Satellite server")
     needsparent = 1
     needsnetwork = 1
     noSidebar = True

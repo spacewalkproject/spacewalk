@@ -53,14 +53,14 @@ void (*argp_program_version_hook) (FILE *, struct argp_state *) = print_version;
 static const struct argp_option options[] =
 {
     { "interval", 'i', N_("MINS"), 0,
-      N_("Connect to Red Hat Network every MINS minutes") },
+      N_("Connect to Spacewalk every MINS minutes") },
     { "foreground", 'f', NULL, 0,
       N_("Run in foreground") },
     { NULL, 0, NULL, 0, NULL }
 };
 
 /* Short description of program.  */
-static const char doc[] = N_("Red Hat Network Services Daemon");
+static const char doc[] = N_("Spacewalk Services Daemon");
 #define PROGRAM		"rhnsd"
 #ifndef VERSION
 #define VERSION		"unknown"

@@ -35,7 +35,7 @@ class RhnReviewWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.ReviewSubscriptio
     runPriority=108.9
     moduleName = _("Review Subscription")
     windowTitle = moduleName
-    shortMessage = _("Connect to Red Hat Network")
+    shortMessage = _("Connect to Red Hat Satellite")
     needsparent = 1
     needsnetwork = 1
     noSidebar = True

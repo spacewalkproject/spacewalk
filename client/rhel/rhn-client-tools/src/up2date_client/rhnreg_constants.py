@@ -14,9 +14,9 @@ _ = t.ugettext
 COPYRIGHT_TEXT        = _(u"Copyright © 2006--2010 Red Hat, Inc. All rights reserved.")
 
 # Satellite URL Window
-SATELLITE_URL_WINDOW  = _("Enter your Red Hat Network Satellite URL.")
-SATELLITE_URL_TEXT    = _("Please enter the location of your Red Hat Network "
-                          "Satellite server and of its SSL "
+SATELLITE_URL_WINDOW  = _("Enter your Red Hat Satellite URL.")
+SATELLITE_URL_TEXT    = _("Please enter the location of your Red Hat Satellite "
+                          "server and of its SSL "
                           "certificate. The SSL certificate is only required "
                           "if you will be connecting over https (recommended).")
 SATELLITE_URL_PROMPT  = _("Satellite URL:")
@@ -26,7 +26,7 @@ SSL_REQUIRED          = _("If you are using https you must enter the location "
                           "of a valid SSL certificate.")
 
 # Connect Window
-CONNECT_WINDOW        = _("Attempting to contact the Red Hat Network Satellite server.")
+CONNECT_WINDOW        = _("Attempting to contact the Spacewalk server.")
 CONNECT_WINDOW_TEXT   = _("We are attempting to contact the Red Hat "
                           "Network server at %s.")
 CONNECT_WINDOW_TEXT2  = _("A proxy was specified at %s.")
@@ -35,20 +35,20 @@ CONNECT_WINDOW_TEXT2  = _("A proxy was specified at %s.")
 START_REGISTER_WINDOW = _("System Registration")
 START_REGISTER_TEXT   = _("This assistant will guide you through "
                           "connecting your system to "
-                          "Red Hat Network (RHN) Satellite to receive software "
+                          "Red Hat Satellite to receive software "
                           "updates, including "
                           "security updates, to keep your system supported "
                           "and compliant.  "
                           "You will need the following at this time:\n\n"
                           " * A network connection\n"
                           " * Your Red Hat Login & password\n"
-                          " * The location of a Red Hat Network Satellite "
+                          " * The location of a Red Hat Satellite "
                           "or Proxy\n\n")
 
 # Why Register Window
 WHY_REGISTER          = _("Why Should I Connect to RHN? ...")
 WHY_REGISTER_WINDOW   = _("Why Register")
-WHY_REGISTER_TEXT     = _("Connecting your system to Red Hat Network Satellite allows you to take full "
+WHY_REGISTER_TEXT     = _("Connecting your system to Red Hat Satellite allows you to take full "
                           "advantage of the benefits of a paid subscription, including:")
 WHY_REGISTER_SEC      = _("Security & Updates:")
 WHY_REGISTER_DLD      = _("Downloads & Upgrades:")
@@ -69,10 +69,10 @@ BACK_REGISTER         = _("Take me back to the registration")
 
 # Confirm Quit Window
 CONFIRM_QUIT           = _("Software Update Not Set Up")
-CONFIRM_QUIT_SURE       = _("Are you sure you don't want to connect your system to Red Hat Network Satellite? "
+CONFIRM_QUIT_SURE       = _("Are you sure you don't want to connect your system to Red Hat Satellite? "
                            "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n")
 CONFIRM_QUIT_WILLNOT       = _("You will not be able to take advantage of these subscription privileges without connecting "
-                           "your system to Red Hat Network Satellite.\n")
+                           "your system to Red Hat Satellite.\n")
 CONTINUE_REGISTERING   = _("Take me back to the setup process.")
 REGISTER_LATER2        = _("I'll register later.")
 
@@ -103,7 +103,7 @@ CONFIRM_OS_ALL               = _("Your system will be subscribed to the base"
 HARDWARE_WINDOW = _("Create Profile - Hardware")
 HARDWARE_WINDOW_DESC1 = _("A Profile Name is a descriptive name that"
                           " you choose to identify this System Profile"
-                          " on the Red Hat Network Satellite web pages. Optionally,"
+                          " on the Red Hat Satellite web pages. Optionally,"
                           " include a computer serial or identification number.")
 HARDWARE_WINDOW_DESC2 = _("Additional hardware information including PCI"
                           " devices, disk sizes and mount points will be"
@@ -138,25 +138,25 @@ RHSM_SYSTEM_ALREADY_REGISTERED = _("This system has already been registered with
 				" Knowledge Base Article: https://access.redhat.com/kb/docs/DOC-45563")
 
 # Send Window
-SEND_WINDOW      = _("Send Profile Information to Red Hat Network Satellite")
+SEND_WINDOW      = _("Send Profile Information to Red Hat Satellite")
 SEND_WINDOW_DESC = _("We are finished collecting information for the System Profile.\n\n"
-                     "Press \"Next\" to send this System Profile to Red Hat Network Satellite.  "
+                     "Press \"Next\" to send this System Profile to Red Hat Satellite.  "
                      "Click \"Cancel\" and no information will be sent.  "
                      "You can run the registration program later by "
                      "typing `rhn_register` at the command line.")
 
 # Sending Window
-SENDING_WINDOW = _("Sending Profile to Red Hat Network Satellite")
+SENDING_WINDOW = _("Sending Profile to Red Hat Satellite")
 
 # Finish Window
 FINISH_WINDOW           = _("Updates Configured")
 FINISH_WINDOW_TEXT_TUI  = _("You may now run 'yum update' from this system's "
                             "command line to get the latest "
-                            "software updates from Red Hat Network Satellite. You will need to run this "
+                            "software updates from Red Hat Satellite. You will need to run this "
                             "periodically to "
                             "get the latest updates. Alternatively, you may configure this "
                             "system for automatic software updates (also known as 'auto errata update') "
-                            "via the Red Hat Network Satellite web interface.  (Instructions for this are in chapter 6 "
+                            "via the Red Hat Satellite web interface.  (Instructions for this are in chapter 6 "
                             "of the RHN Reference Guide, available from the 'Help' button in the main Red "
                             "Hat Network Satellite web interface.)")
 
@@ -164,7 +164,7 @@ FINISH_WINDOW_TEXT_TUI  = _("You may now run 'yum update' from this system's "
 REVIEW_WINDOW           = _("Review Subscription")
 REVIEW_WINDOW_PROMPT    = _("Please review the subscription details below:")
 SUB_NUM                 = _("The installation number %s was activated during "
-                            "this system's initial connection to Red Hat Network Satellite.")
+                            "this system's initial connection to Red Hat Satellite.")
 SUB_NUM_RESULT          = _("Subscriptions have been activated for the following "
                             "Red Hat products/services:")
 CHANNELS_TITLE          = _("Software Channel Subscriptions:")
@@ -233,7 +233,7 @@ NO_SYS_ENTITLEMENT         = _("This system was unable to be associated with "
 "about this problem. Once you make the "
 "appropriate active subscriptions available in your account, you may browse "
 "to this system's profile in the RHN web interface, delete the profile, and "
-"re-connect this system to Red Hat Network Satellite.")
+"re-connect this system to Red Hat Satellite.")
 ACTIVATION_KEY          = _("Universal default activation key detected\n"
                             "A universal default activation key was detected in your account. "
                             "This means that a set of properties (software channel subscriptions, "
@@ -248,12 +248,12 @@ ACTIVATION_KEY          = _("Universal default activation key detected\n"
 # Error Messages.
 FATAL_ERROR                = _("Fatal Error")
 WARNING                    = _("Warning")
-HOSTED_CONNECTION_ERROR    = _("We can't contact the Red Hat Network Satellite.\n\n"
+HOSTED_CONNECTION_ERROR    = _("We can't contact the Red Hat Satellite.\n\n"
                                "Double check the location provided - is '%s' correct?\n"
                                "If not, you can correct it and try again.\n\n"
                                "Make sure that the network connection on this system is operational.\n\n"
                                "This system will not be able to successfully receive software updates "
-                               "from Red Hat without connecting to a Red Hat Network Satellite server")
+                               "from Red Hat without connecting to a Red Hat Satellite server")
 
 BASECHANNELERROR           = _("Architecture: %s, OS Release: %s, OS "
                                "Version: %s")
@@ -265,7 +265,7 @@ SERVER_TOO_OLD             = _("This server doesn't support functionality "
 
 SSL_CERT_ERROR_MSG         = _("<b><span size=\"16000\">Incompatible Certificate File</span></b>\n\n"
                                "The certificate you provided, <b>%s</b>, is not compatible with "
-                               " the Red Hat Network Satellite server at <b>%s</b>. You may want to double-check"
+                               " the Red Hat Satellite server at <b>%s</b>. You may want to double-check"
                                " that you have provided a valid certificate file."
                                " Are you sure you have provided the correct certificate, and that"
                                " the certificate file has not been corrupted?\n\n"

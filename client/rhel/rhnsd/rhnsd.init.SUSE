@@ -64,13 +64,13 @@ fi
 rc_reset
 
 start() {
-    echo -n $"Starting Red Hat Network Daemon: "
+    echo -n $"Starting Spacewalk Daemon: "
     startproc -p $RHNSD_PIDFILE $RHNSD
     rc_status -v
 }
 
 stop() {
-    echo -n $"Stopping Red Hat Network Daemon: "
+    echo -n $"Stopping Spacewalk Daemon: "
     killproc -p $RHNSD_PIDFILE $RHNSD
     rc_status -v
 }
@@ -102,7 +102,7 @@ case "$1" in
         rc_status
 	;;
     reload)
-        echo -n $"Reloading Red Hat Network Daemon: "
+        echo -n $"Reloading Spacewalk Daemon: "
         killproc -p $RHNSD_PIDFILE -HUP $RHNSD
         rc_status -v
         echo

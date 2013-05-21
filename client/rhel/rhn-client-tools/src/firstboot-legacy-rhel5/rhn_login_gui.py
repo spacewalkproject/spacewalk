@@ -45,7 +45,7 @@ class RhnLoginWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.LoginPage):
     runPriority = 108
     moduleName = _("Red Hat Login")
     windowTitle = moduleName
-    shortMessage = _("Register with Red Hat Network")
+    shortMessage = _("Register with Red Hat Satellite")
     needsparent = 1
     needsnetwork = 1
     noSidebar = True

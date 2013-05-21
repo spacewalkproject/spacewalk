@@ -209,7 +209,7 @@ class RhnCli(object):
 
     @staticmethod
     def __versionString():
-        versionString = _("%%prog (Red Hat Network Client Tools) %s\n"
+        versionString = _("%%prog (Spacewalk Client Tools) %s\n"
         "Copyright (C) 1999--2012 Red Hat, Inc.\n"
         "Licensed under the terms of the GPLv2.") % up2dateUtils.version()
         return versionString

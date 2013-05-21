@@ -1,4 +1,4 @@
-Summary: RHN support for yum
+Summary: Spacewalk support for yum
 Name: yum-rhn-plugin
 Version: 1.10.1
 Release: 1%{?dist}
@@ -25,7 +25,7 @@ Obsoletes: up2date < 5.0.0
 Provides: up2date = 5.0.0
 
 %description
-This yum plugin provides support for yum to access a Red Hat Network server for
+This yum plugin provides support for yum to access a Spacewalk server for
 software updates.
 
 %prep

@@ -72,8 +72,8 @@ BuildRequires: rpm-python
 %endif
 
 %description
-Red Hat Network Client Tools provides programs and libraries to allow your
-system to receive software updates from Red Hat Network or Spacewalk.
+Red Hat Satellite Client Tools provides programs and libraries to allow your
+system to receive software updates from Red Hat Satellite or Spacewalk.
 
 %package -n rhn-check
 Summary: Check for RHN actions
@@ -86,7 +86,7 @@ Requires: yum-rhn-plugin >= 1.6.4-1
 %endif
 
 %description -n rhn-check
-rhn-check polls a Red Hat Network or Spacewalk server to find and execute 
+rhn-check polls a Red Hat Satelliteor Spacewalk server to find and execute 
 scheduled actions.
 
 %package -n rhn-setup
@@ -104,8 +104,7 @@ Requires: newt-python
 
 %description -n rhn-setup
 rhn-setup contains programs and utilities to configure a system to use
-Red Hat Network or Spacewalk, and to register a system with a Red Hat Network
-or Spacewalk server.
+Red Hat Satellite or Spacewalk, and to register a system with a Red Hat Satellite or Spacewalk server.
 
 %package -n rhn-setup-gnome
 Summary: A GUI interface for RHN/Spacewalk Registration
@@ -126,7 +125,7 @@ Requires: liberation-sans-fonts
 
 %description -n rhn-setup-gnome
 rhn-setup-gnome contains a GTK+ graphical interface for configuring and
-registering a system with a Red Hat Network or Spacewalk server.
+registering a system with a Red Hat Satellite or Spacewalk server.
 
 
 %prep

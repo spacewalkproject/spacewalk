@@ -53,7 +53,7 @@ fi
 RETVAL=0
 
 start() {
-    echo -n $"Starting Red Hat Network Daemon: "
+    echo -n $"Starting Spacewalk Daemon: "
     daemon rhnsd
     RETVAL=$?
     echo
@@ -61,7 +61,7 @@ start() {
 }
 
 stop() {
-    echo -n $"Stopping Red Hat Network Daemon: "
+    echo -n $"Stopping Spacewalk Daemon: "
     killproc rhnsd
     RETVAL=$?
     echo
@@ -93,7 +93,7 @@ case "$1" in
 	fi
 	;;
     reload)
-        echo -n $"Reloading Red Hat Network Daemon: "
+        echo -n $"Reloading Spacewalk Daemon: "
         if [ -n "`pidfileofproc $RHNSD`" ] ; then
             killproc $RHNSD -HUP
             RETVAL=$?

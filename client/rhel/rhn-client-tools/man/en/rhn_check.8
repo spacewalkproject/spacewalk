@@ -26,11 +26,11 @@ rhn_check [\fIoptions\fP]
 
 .PP
 \fBrhn_check\fP is a client program that connects to 
-.B Red Hat Network
-(or a Red Hat Network Satellite) and receives queued actions for this
+.B Red Hat Network Classic
+(or a Spacewalk) and receives queued actions for this
 particular system. 
 After receiving the actions, \fBrhn_check\fP will then process them, and
-return the results to Red Hat Network.
+return the results to Spacewalk.
 
 .SH OPTIONS
 
@@ -58,7 +58,7 @@ Show a help message and exit.
 
 .IP \fI/etc/sysconfig/rhn/systemid\fP
 The digital server ID for this machine if the system has been registered onto
-.B Red Hat Network.
+.B Spacewalk.
 This file does not exist otherwise.
 .br
 .IP \fI/etc/sysconfig/rhn/up2date\fP

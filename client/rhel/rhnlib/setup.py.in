@@ -7,10 +7,10 @@ from distutils.core import setup
 
 setup(name = "@NAME@",
       version = "@VERSION@",
-      description = "Python libraries for the RHN project",
+      description = "Python libraries for the Spacewalk project",
       long_description = """\
 rhnlib is a collection of python modules used by the 
-Red Hat Network (http://rhn.redhat.com) software.""",
+Red Hat Network Classic (http://rhn.redhat.com) software.""",
 
       author = 'Mihai Ibanescu',
       author_email = 'misa@redhat.com',

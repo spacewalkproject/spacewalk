@@ -36,7 +36,7 @@ class RhnFinishWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.FinishPage):
     runPriority=109
     moduleName = _("Finish Updates Setup")
     windowTitle = moduleName
-    shortMessage = _("Connect to Red Hat Network")
+    shortMessage = _("Connect to Red Hat Satellite")
     needsparent = 1
     needsnetwork = 1
     noSidebar = True

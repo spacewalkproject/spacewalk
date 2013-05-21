@@ -131,7 +131,7 @@ class AlreadyRegisteredWindow:
 
         tb = snack.Textbox(size[0]-30, size[1]-20,
                             (SYSTEM_ALREADY_REGISTERED + "\n\n"
-                            + _("Red Hat Network Location:") + " " + convert_url_from_pune(self.tui.serverURL) + "\n"
+                            + _("Spacewalk Location:") + " " + convert_url_from_pune(self.tui.serverURL) + "\n"
                             + _("Login:") + " " + oldUsername + "\n"
                             + _("System ID:") + " " + oldsystemId + "\n\n"
                             + SYSTEM_ALREADY_REGISTERED_CONT + "\n").encode('utf-8'),

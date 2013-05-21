@@ -17,7 +17,7 @@
 .TH RHNSD 8 "2006 November 13" "Linux" "Red Hat, Inc."
 
 .SH NAME
-rhnsd \- A program for querying the Red Hat Network for updates and information.
+rhnsd \- A program for querying the Spacewalk server for updates and information.
 
 .SH SYNOPSIS
 
@@ -27,18 +27,18 @@ rhn_check [\fIoptions\fP]
 
 .PP
 \fBrhnsd\fR is a background daemon process that periodically
-polls the Red Hat Network to see if there are any queued actions
+polls the Spacewalk server to see if there are any queued actions
 available. If any are queued, rhnsd will execute those actions. 
 .PP
 rhnsd is typically started from the initialization (init) scripts in 
 \fI/etc/init.d/rhnsd\fP.
-when it's time to poll the Red Hat Network servers for available
+when it's time to poll the Spacewalk server for available
 updates and actions. The default interval is every 240 minutes. 
 The minimum polling interval is 60 minutes. 
 .PP
 To check for updates, rhnsd runs an external program called 
 \fBrhn_check\fR. This is a small application that actually
-makes the network connection to Red Hat Networks. 
+makes the network connection to Spacewalk. 
 .PP
 The rhnsd daemon does not listen on any network ports, nor
 does it ever talk to the network directly. Any network
@@ -54,7 +54,7 @@ uses.
 .SH OPTIONS
 .IP "\fB-i\fR, \fB--interval\fR"
 Specify the interval that rhnsd should wait between
-checking the Red Hat Network. Default is 240 minutes,
+checking the Spacewalk. Default is 240 minutes,
 the minimum is 60 minutes. This can also be specified
 in \fI/etc/sysconfig/rhn/rhnsd\fP
 .br

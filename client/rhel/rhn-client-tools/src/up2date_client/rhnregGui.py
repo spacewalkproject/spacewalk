@@ -301,7 +301,7 @@ class ChooseServerPage:
         serverType = rhnreg.getServerType()
 
         NEED_SERVER_MESSAGE = _("You will not be able to successfully register "
-                                "this system without contacting a Red Hat Network server.")
+                                "this system without contacting a Spacewalk server.")
 
         # Try to contact the server to see if we have a good cert
         try:
@@ -336,7 +336,7 @@ class ChooseServerPage:
             log.log_exception(*sys.exc_info())
             dialog = messageWindow.BulletedOkDialog()
 
-            dialog.add_text(_("There was an error communicating with Red Hat Network."))
+            dialog.add_text(_("There was an error communicating with Spacewalk server."))
             dialog.add_bullet(_("The server may be in outage mode. You may have to try "
                 "connecting later."))
             dialog.add_bullet(_("You may be running a client that is incompatible with "
@@ -372,7 +372,7 @@ class LoginPage:
         tipIconSatellite = self.loginXml.get_widget('tipIconSatellite')
         server = config.getServerlURL()[0]
         protocol, host, path, parameters, query, fragmentIdentifier = urlparse.urlparse(server)
-        satelliteText = _("Please enter your account information for the <b>%s</b> Red Hat Network Satellite:") % host
+        satelliteText = _("Please enter your account information for the <b>%s</b> Spacewalk server:") % host
         instructionsLabel.set_label(satelliteText)
         #forgotInfoSatellite.show()
         #tipIconSatellite.show()
