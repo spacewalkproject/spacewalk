@@ -3,7 +3,7 @@
 %global client_caps_dir %{rhnconf}/clientCaps.d
 
 Name: rhncfg
-Summary: Red Hat Network Configuration Client Libraries
+Summary: Spacewalk Configuration Client Libraries
 Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
@@ -39,7 +39,7 @@ Requires: libselinux-python
 The base libraries and functions needed by all rhncfg-* packages.
 
 %package client
-Summary: Red Hat Network Configuration Client
+Summary: Spacewalk Configuration Client
 Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
 
@@ -48,7 +48,7 @@ A command line interface to the client features of the RHN Configuration
 Management system. 
 
 %package management
-Summary: Red Hat Network Configuration Management Client
+Summary: Spacewalk Configuration Management Client
 Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
 
@@ -56,7 +56,7 @@ Requires: %{name} = %{version}-%{release}
 A command line interface used to manage RHN configuration.
 
 %package actions
-Summary: Red Hat Network Configuration Client Actions
+Summary: Spacewalk Configuration Client Actions
 Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-client

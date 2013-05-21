@@ -1,5 +1,5 @@
 PKG="RHATrncfg"
-NAME="Red Hat Network configuration client"
+NAME="Spacewalk configuration client"
 VERSION="1.0"
 ARCH="sparc"
 CLASSES="none"

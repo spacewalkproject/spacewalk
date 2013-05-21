@@ -82,7 +82,7 @@ def create_server_obj(server_url):
 
 
 def read_username():
-    print("Red Hat Network username: ")
+    print("Username: ")
     try:
         username = sys.stdin.readline().rstrip('\n')
     except KeyboardInterrupt:

@@ -39,7 +39,7 @@
     <para>
       <emphasis>solaris2mpm</emphasis> creates mpm archives from Solaris package, patch, 
       and patch cluster archives that can be pushed into managed channels on an 
-      &RHNSAT;. Refer to the RHN Satellite documentation for further reference on managed
+      &RHNSAT;. Refer to the Red Hat Satellite documentation for further reference on managed
       channels.
     </para>
 

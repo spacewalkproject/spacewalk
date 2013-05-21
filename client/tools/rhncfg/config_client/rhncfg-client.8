@@ -15,7 +15,7 @@ rhncfg-client \- a tool used for system configuration querying and deployment.
 The RHN Configuration Client (\fBrhncfg-client\fR) is used to query a
 system's configuration makeup and deployment status as managed by RHN.
 .PP
-This tool enables an Red Hat Network client to \fBlist\fR available
+This tool enables an Spacewalk client to \fBlist\fR available
 configuration files, fetch (or \fBget\fR) those
 configuration files, \fBview\fR configuration channels, and
 finally, \fBdiff\fR and \fBverify\fR current
@@ -47,14 +47,14 @@ the system. Used alone.
 .TP
 \fBdiff\fR
 Obtain a difference between the config files deployed on the
-system and those for it stored by Red Hat Network.
+system and those for it stored by Spacewalk server.
 
 May be used with the --topdir \fIROOT_PATH\fR
 option. E.g., rhncfg-client diff --topdir /home/test/foo/
 .TP
 \fBverify\fR
 Quick verification to see if files are different than those
-associated with it on Red Hat Network.
+associated with it on Spacewalk server.
 
 All files are displayed unless called with the -o or --only
 option, in which case only files with differences are displayed.

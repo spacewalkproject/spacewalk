@@ -77,7 +77,7 @@ class HandlerBase:
 
     def _read_username(self):
         tty = open("/dev/tty", "r+")
-        tty.write("Red Hat Network username: ")
+        tty.write("Username: ")
         try:
             username = tty.readline()
         except KeyboardInterrupt:
