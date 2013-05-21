@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.systems.sdc;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.domain.org.CustomDataKey;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.server.CustomDataValue;
@@ -23,6 +24,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -52,6 +54,8 @@ public class UpdateCustomDataAction extends RhnAction {
     private final String MODIFY_PARAM = "modified";
     private final String CREATOR_PARAM = "creator";
     private final String MODIFIER_PARAM = "modifier";
+    private static final String VALIDATION_XSD = "/com/redhat/rhn/frontend/action/" +
+            "systems/sdc/validation/editCustomDataForm.xsd";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -111,8 +115,10 @@ public class UpdateCustomDataAction extends RhnAction {
         }
 
         if (context.isSubmitted()) {
-            if (form.getString(VAL_PARAM).length() > 4000) {
-                request.setAttribute(VAL_PARAM, cdv.getValue());
+            ValidatorResult result = RhnValidationHelper.validate(this.getClass(),
+                    makeValidationMap(form), null, VALIDATION_XSD);
+            if (!result.isEmpty()) {
+                request.setAttribute(VAL_PARAM, form.getString(VAL_PARAM));
                 createErrorMessage(request, "custominfo.maxsize", null);
                 return getStrutsDelegate().forwardParams(
                         mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
@@ -134,6 +140,12 @@ public class UpdateCustomDataAction extends RhnAction {
 
         return getStrutsDelegate().forwardParams(
                 mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
+    }
+
+    private Object makeValidationMap(DynaActionForm formIn) {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put(VAL_PARAM, formIn.getString(VAL_PARAM));
+        return map;
     }
 
 }
