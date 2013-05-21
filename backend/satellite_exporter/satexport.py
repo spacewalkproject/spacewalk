@@ -29,6 +29,8 @@ from spacewalk.server import rhnSQL, rhnImport
 from spacewalk.satellite_tools.disk_dumper.dumper import ClosedConnectionError
 from spacewalk.satellite_tools import constants
 
+from rhn.connections import idn_ascii_to_pune
+
 class BaseApacheServer:
     def __init__(self):
         # Init log to stderr
@@ -182,6 +184,7 @@ class ApacheServer(BaseApacheServer):
         return apache.OK
 
     def get_function(self, method_name, req):
+        self.auth_system(req)
         # Get the module name
         idx = method_name.rfind('.')
         module_name, function_name = method_name[:idx], method_name[idx+1:]
@@ -198,6 +201,26 @@ class ApacheServer(BaseApacheServer):
                 "Module %s: function %s not found" %
                 (module_name, function_name))
         return f
+
+    def auth_system(self, req):
+        if CFG.DISABLE_ISS:
+            raise rhnFault(2005, _('ISS is disabled on this satellite.'))
+
+        if CFG.ALLOWED_ISS_SLAVES:
+            if not isinstance(CFG.ALLOWED_ISS_SLAVES, list):
+                allowed_iss_slaves = [CFG.ALLOWED_ISS_SLAVES]
+            else:
+                allowed_iss_slaves = CFG.ALLOWED_ISS_SLAVES
+            allowed_iss_slaves = [idn_ascii_to_pune(x) for x in allowed_iss_slaves]
+        else:
+            allowed_iss_slaves = []
+
+        remote_hostname = req.get_remote_host(apache.REMOTE_DOUBLE_REV)
+        if remote_hostname not in allowed_iss_slaves:
+            raise rhnFault(2004,
+              _('Server "%s" is not enabled for ISS.')
+                % remote_hostname)
+        return remote_hostname
 
     @staticmethod
     def _validate_version(req):
