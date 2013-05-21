@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.systems.audit;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DownloadAction;
@@ -56,6 +57,7 @@ public class ScapDownloadAction extends DownloadAction {
     @Override
     protected StreamInfo getStreamInfo(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Logger log = Logger.getLogger(ScapDownloadAction.class);
         RequestContext context = new RequestContext(request);
         User user = context.getLoggedInUser();
         Long sid = context.getRequiredParam("sid");
@@ -66,6 +68,7 @@ public class ScapDownloadAction extends DownloadAction {
         String filename = context.getRequiredParamAsString("name");
         ScapResultFile file = new ScapResultFile(testResult, filename);
 
+        log.debug("Serving " + file);
         response.setHeader("Content-Disposition", "attachment; filename=" + filename);
         return file;
     }

@@ -72,4 +72,14 @@ public class ScapResultFile implements StreamInfo {
     public InputStream getInputStream() throws IOException {
         return new FileInputStream(getAbsolutePath());
     }
+
+    /**
+     * Get human readable representation of this class
+     * @return string
+     */
+    public String toString() {
+        return this.getClass().getName() +
+            "[path=" + getAbsolutePath() +
+            "]";
+    }
 }
