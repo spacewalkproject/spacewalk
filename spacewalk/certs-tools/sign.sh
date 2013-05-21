@@ -220,7 +220,9 @@ fi
 # Bump the release
 release=$[$release+1]
 
-PACKAGER="Red Hat Network <rhn-feedback@redhat.com>"
+PROD_NAME=`spacewalk-cfg-get get web product_name`
+EMAIL=`spacewalk-cfg-get traceback_mail`
+PACKAGER=$PROD_NAME$EMAIL
 
 # Generate a postun scriptlet
 cat > postun.scriptlet << EOSCRIPTLET
@@ -252,8 +254,8 @@ EOSCRIPTLET
 # Package the server's cert and private key
 $GENRPM --name $SERVER_RPM_NAME --version $version \
     --release $release --packager "$PACKAGER" \
-    --summary "server private SSL key and certificate for the Red Hat Network" \
-    --description "server private SSL key and certificate for the Red Hat Network" \
+    --summary "server private SSL key and certificate for the $PROD_NAME" \
+    --description "server private SSL key and certificate for the $PROD_NAME" \
     --postun postun.scriptlet \
     /etc/httpd/conf/ssl.crt/server.crt=server.crt \
     /etc/httpd/conf/ssl.key/server.key:0600=${SERVER_KEY} || exit 1
@@ -263,7 +265,7 @@ rm -f postun.scriptlet
 # Now that we have the CA cert generated, let's package it into an rpm
 $GENRPM --name ${CLIENT_RPM_NAME} --version $version \
     --release $release --packager "${PACKAGER}" \
-    --summary "CA SSL certificate for the Red Hat Network (client-side)" \
-    --description "CA SSL certificate for the Red Hat Network (client-side)" \
+    --summary "CA SSL certificate for the $PROD_NAME (client-side)" \
+    --description "CA SSL certificate for the $PROD_NAME (client-side)" \
     /usr/share/rhn/${CA_CRT}=${CA_CRT} || exit 1
 

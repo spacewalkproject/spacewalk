@@ -121,13 +121,13 @@ Manages RPM packages for the RHN proxy
     <varlistentry>
         <term>--username <replaceable>username</replaceable></term>
         <listitem>
-            <para>Use this username to connect to the Red Hat Network.</para>
+            <para>Use this username to connect to the Red Hat Satellite.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
         <term>--password <replaceable>password</replaceable></term>
         <listitem>
-            <para>Use this password to connect to the Red Hat Network.</para>
+            <para>Use this password to connect to the Red Hat Satellite.</para>
         </listitem>
     </varlistentry>
     <varlistentry>

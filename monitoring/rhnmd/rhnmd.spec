@@ -5,7 +5,7 @@
 %global _initddir %{_sysconfdir}/rc.d/init.d
 %endif
 
-Summary:        Red Hat Network Monitoring Daemon
+Summary:        Spacewalk Monitoring Daemon
 Name:           rhnmd
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz

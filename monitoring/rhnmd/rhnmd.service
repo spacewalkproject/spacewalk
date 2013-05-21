@@ -1,5 +1,5 @@
 [Unit]
-Description=Red Hat Network Monitoring daemon
+Description=Spacewalk Monitoring daemon
 After=syslog.target network.target auditd.service
 
 [Service]

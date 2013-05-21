@@ -82,7 +82,7 @@ database.
 
 
 %package -n spacewalk-grail
-Summary: Grail, a component framework for Red Hat Network
+Summary: Grail, a component framework for Spacewalk
 Requires: spacewalk-base
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Group: Applications/Internet

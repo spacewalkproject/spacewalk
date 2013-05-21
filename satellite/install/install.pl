@@ -34,7 +34,7 @@ use Params::Validate;
 use Spacewalk::Setup qw(loc system_debug system_or_exit);
 
 Params::Validate::validation_options(strip_leading => "-");
-print loc("* Starting the Red Hat Network Satellite installer.\n");
+print loc("* Starting the Spacewalk installer.\n");
 
 my $DEBUG;
 $DEBUG = 0;
