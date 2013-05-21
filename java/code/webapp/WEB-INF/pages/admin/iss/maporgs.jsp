@@ -32,13 +32,11 @@
   renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
  <h2>
-  <bean:message key="iss.maporgs.jsp.header2" />
+  <bean:message key="iss.maporgs.jsp.header2" arg0="${requestScope.master}"/>
  </h2>
 
  <html:form action="/admin/iss/MapOrgs.do?mid=${requestScope.mid}">
   <rhn:csrf />
-  <html:hidden property="submitted" value="true" />
-  <html:hidden property="id" />
  <rl:listset name="issMasterListSet">
   <rhn:csrf />
   <rhn:submitted />
@@ -48,15 +46,23 @@
     sortattr="sourceOrgName">
     <c:out value="${current.sourceOrgName}" />
    </rl:column>
-   <rl:column headerkey="iss.slave.orgs">
-    <html:select property="id" value="${current.id}">
-     <html:options
-      collection="slave_org_list"
-      property="id"
-      labelProperty="name" />
-    </html:select>
-   </rl:column>
-  </rl:list>
+    <rl:column headerkey="iss.slave.orgs">
+     <select name="${current.id}">
+      <c:forEach var="localOrg" items="${requestScope.slave_org_list}">
+       <c:choose>
+        <c:when test="${localOrg.id == current.targetOrg.id}">
+         <option value="${localOrg.id}" selected>
+        </c:when>
+        <c:otherwise>
+         <option value="${localOrg.id}">
+        </c:otherwise>
+       </c:choose>
+       <c:out value="${localOrg.name}" />
+       </option>
+      </c:forEach>
+     </select>
+    </rl:column>
+   </rl:list>
 
  <div align="right">
   <rhn:submitted />

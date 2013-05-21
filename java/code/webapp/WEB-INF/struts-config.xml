@@ -5313,6 +5313,8 @@
         <set-property property="acls" value="user_role(satellite_admin);"/>
         <forward name="default"
                  path="/WEB-INF/pages/admin/iss/maporgs.jsp"/>
+        <forward name="success"
+                 path="/admin/iss/Slave.do" redirect="true"/>
     </action>
     <!--  /ISS Config Pages -->
 

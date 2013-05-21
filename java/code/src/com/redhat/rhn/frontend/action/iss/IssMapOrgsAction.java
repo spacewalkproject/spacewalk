@@ -19,6 +19,7 @@ package com.redhat.rhn.frontend.action.iss;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,19 +41,18 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.frontend.dto.OrgDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.acl.AclManager;
 
 /**
- * IssMapOrgsAction extends RhnAction - Class representation of the table
- * ###TABLE###.
+ * IssMapOrgsAction extends RhnAction
  *
  * @version $Rev: 1 $
  */
 public class IssMapOrgsAction extends RhnAction {
     private static final String DATA_SET = "all";
     private static final String SLAVES = "slave_org_list";
+    private static final String MASTER = "master";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping, ActionForm formIn,
@@ -72,31 +72,53 @@ public class IssMapOrgsAction extends RhnAction {
         Long mid = ctxt.getRequiredParam("mid");
         request.setAttribute("mid", mid);
 
+        // Get all the known-orgs from the selected Master
+        IssOrgCatalogue oc = IssFactory.lookupMasterById(mid);
         if (request.getParameter("dispatch") != null) {
-            return handleDispatchAction(mapping, ctxt);
+            return handleDispatchAction(mapping, ctxt, oc);
         }
 
-        // Get all the known-orgs from the selected Master
         List<IssSyncOrg> result = new ArrayList<IssSyncOrg>(
-                        IssFactory.lookupMasterById(mid).getSourceOrgs());
-        // Get all of our orgs and turn into OrgDtos
-        List<OrgDto> infos = fromOrgs(OrgFactory.lookupAllOrgs());
+                        oc.getSourceOrgs());
+        Collections.sort(result, new IssSyncOrgComparator());
 
-        Map params = makeParamMap(request);
+        // Get all of our orgs and turn into OrgDtos
+        List<OrgDto> locals = fromOrgs(OrgFactory.lookupAllOrgs());
+
+
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI() +
                         "?mid=" + mid.toString());
 
         request.setAttribute(DATA_SET, result);
-        request.setAttribute(SLAVES, infos);
+        request.setAttribute(SLAVES, locals);
+        request.setAttribute(MASTER, oc.getLabel());
 
-        return StrutsDelegate.getInstance().forwardParams(mapping.findForward("default"),
-                        params);
+        return mapping.findForward("default");
     }
 
     protected ActionForward handleDispatchAction(
-                    ActionMapping mapping, RequestContext ctxt) {
+                    ActionMapping mapping,
+                    RequestContext ctxt,
+                    IssOrgCatalogue master) {
         //TODO: Figure out what we're doing, and how, and then DO IT
-        return null;
+        List<IssSyncOrg> masterOrgs = new ArrayList<IssSyncOrg>(master.getSourceOrgs());
+        List<Org> locals = OrgFactory.lookupAllOrgs();
+        Map<Long, Org> findLocals = new HashMap<Long, Org>();
+        for (Org o : locals) {
+            findLocals.put(o.getId(), o);
+        }
+
+        for (IssSyncOrg entry : masterOrgs) {
+            Long targetId = ctxt.getParamAsLong(entry.getId().toString());
+            if (targetId == null || targetId.equals(IssSyncOrg.NO_MAP_ID)) {
+                entry.setTargetOrg(null);
+            }
+            else {
+                entry.setTargetOrg(findLocals.get(targetId));
+            }
+            IssFactory.save(entry);
+        }
+        return mapping.findForward("success");
     }
 
     protected void setupForm(ActionForm formIn, IssOrgCatalogue master) {
@@ -117,10 +139,10 @@ public class IssMapOrgsAction extends RhnAction {
         for (Org o : orgs) {
             outList.add(createOrgDto(o.getId(), o.getName()));
         }
-        OrgDto noMap = createOrgDto(IssSyncOrg.NO_MAP_ID, "NOT MAPPED");
-
-        outList.add(noMap);
         Collections.sort(outList, new OrgComparator());
+
+        OrgDto noMap = createOrgDto(IssSyncOrg.NO_MAP_ID, "NOT MAPPED");
+        outList.add(0, noMap);
 
         return outList;
     }
@@ -128,7 +150,7 @@ public class IssMapOrgsAction extends RhnAction {
 }
 
 /**
- * Compares OrgDtos by ID
+ * Compares OrgDtos by name
  * @author ggainey
  *
  */
@@ -139,7 +161,23 @@ class OrgComparator implements Comparator<OrgDto> {
         if (o1 == null || o2 == null) {
             throw new NullPointerException("Can't compare OrgDto with null");
         }
-        return o1.getId().compareTo(o2.getId());
+        return o1.getName().compareTo(o2.getName());
     }
+}
+
+    /**
+     * Compares IssSyncOrg by Catalogue/source-org-name
+     * @author ggainey
+     *
+     */
+    class IssSyncOrgComparator implements Comparator<IssSyncOrg> {
+
+        @Override
+        public int compare(IssSyncOrg so1, IssSyncOrg so2) {
+            if (so1 == null || so2 == null) {
+                throw new NullPointerException("Can't compare IssSyncOrg with null");
+            }
+            return so1.getSourceOrgName().compareTo(so2.getSourceOrgName());
+        }
 
 }

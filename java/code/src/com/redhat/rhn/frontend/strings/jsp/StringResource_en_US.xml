@@ -20100,7 +20100,7 @@ given channel.</source>
           </source>
         </trans-unit>
         <trans-unit id="iss.maporgs.jsp.header2">
-          <source>Configure Master-to-Slave Org Mappings</source>
+          <source>Configure Master-to-Slave Org Mappings for {0}</source>
         </trans-unit>
       </group>
     </body>
