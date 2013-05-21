@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.77
+Version: 1.10.78
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue May 21 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.78-1
+- misc branding clean up
+- branding clean-up of logrotate files
+- 582510 - disable ks repos without available repodata
+- form validation with xsd
+
 * Mon May 20 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.77-1
 - 959226 - too big value in system custom info should not cause ISE
 
