@@ -57,7 +57,7 @@ static int write_pid (const char *file);
 
 
 /* Short description of program.  */
-static const char doc[] = N_("Red Hat Network Services Daemon");
+static const char doc[] = N_("Spacewalk Services Daemon");
 #define PROGRAM		"rhnsd"
 #define VERSION		"1.0.3"
 
@@ -83,10 +83,10 @@ usage()
 {
   char * usagestring;
   usagestring = "Usage: rhnsd [OPTION...] \n\
-Red Hat Network Services Daemon \n\
+Spacewalk Services Daemon \n\
  \n\
   -f, --foreground           Run in foreground \n\
-  -i, --interval=MINS        Connect to Red Hat Network every MINS minutes \n\
+  -i, --interval=MINS        Connect to Spacewalk every MINS minutes \n\
   -v, --verbose              Log all actions to syslog \n\
   -h, --help                 Give this help list \n\
   -u, --usage                Give this help list \n\

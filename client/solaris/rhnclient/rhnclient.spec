@@ -2,7 +2,7 @@
 %define rhnconf /etc/sysconfig/rhn
 
 
-Summary: Red Hat Network Client Utilities and Libraries
+Summary: Spacewalk Client Utilities and Libraries
 Name: rhnclient
 Source0: %{name}-%{version}.tar.gz
 Version: 5.5.1
@@ -18,7 +18,7 @@ BuildRequires: python-devel binutils-devel
 Url: http://rhn.redhat.com
 
 %description
-Red Hat Network Client Utilities
+Spacewalk Client Utilities
 Includes: rhn_check, action handler, and modules to allow
 client packages to communicate with RHN.
 

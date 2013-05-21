@@ -1,10 +1,10 @@
 #!/bin/sh
 #
-# rhnsd:	Starts the Red Hat Network Daemon
+# rhnsd:	Starts the Spacewalk Daemon
 #
 # chkconfig: 345 97 03
 # description:  This is a daemon which handles the task of connecting \
-#		periodically to the Red Hat Network servers to \
+#		periodically to the Spacewalk/Red Hat Satellite servers to \
 #		check for updates, notifications and perform system \
 #		monitoring tasks according to the service level that \
 #		this server is subscribed for		
@@ -13,7 +13,7 @@
 # pidfile: /var/run/rhnsd.pid
 #
 
-# interval in minutes to connect to Red Hat Network. The minimum allowed
+# interval in minutes to connect to Spacewalk/ Red Hat Satellite. The minimum allowed
 # value is currently 1 hour; by default rhnsd will connect every other hour.
 # This should be more than suitable for the vast majority of systems.  You
 # may adjust the interval by editing the file /etc/sysconfig/rhn/rhnsd.
@@ -24,6 +24,7 @@ INTERVAL=240
 
 PREFIX=/opt/redhat/rhn/solaris
 RHNSD_PID=$PREFIX/var/run/rhnsd.pid
+PRODUCT=`spacewalk-cfg-get get web product_name`
 
 # Sanity checks.
 [ -x $PREFIX/usr/sbin/rhnsd ] || exit 0
@@ -37,14 +38,14 @@ fi
 RETVAL=0
 
 start() {
-    /bin/echo "Starting Red Hat Network Daemon: \c"
+    /bin/echo "Starting $PRODUCT  Daemon: \c"
     $PREFIX/usr/sbin/rhnsd --interval $INTERVAL
     RETVAL=$?
     echo
 }
 
 stop() {
-    /bin/echo "Stopping Red Hat Network Daemon: \c"
+    /bin/echo "Stopping $PRODUCT Daemon: \c"
     if [ -f $RHNSD_PID ]; then
 	kill `cat $RHNSD_PID`
 	RETVAL=$?

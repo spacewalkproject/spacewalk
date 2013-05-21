@@ -22,6 +22,7 @@ import sys
 import os
 import string
 from rhn.connections import idn_pune_to_unicode
+from spacewalk.common.rhnConfig import CFG, initCFG
 
 PREFIX="/"
 modulepath="%s/usr/share/rhn/" % PREFIX
@@ -63,7 +64,8 @@ def printUsage():
 
 
 def showVersion():
-        print "Red Hat Network Registration Agent "\
+        initCFG('web')
+        print CFG.PRODUCT_NAME + " Registration Agent "\
               "(Kickstart Version) v%s" % rhnReg.version()
         print "Copyright (c) 1999-2002 Red Hat, Inc."
         print _("Licensed under terms of the GPL.")
