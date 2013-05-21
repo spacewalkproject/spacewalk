@@ -11,7 +11,7 @@ Name: smartpm
 Source0: smartpm-%{version}.tar.gz
 Epoch:   1 
 Version: 5.5.0
-Release: 1
+Release: 2
 License: GPLv2
 Group: Applications/System
 URL: http://www.smartpm.org/
@@ -56,6 +56,10 @@ env %{__python} setup.py build
 %{python_sitearch}/rhn/actions/solarispkgs.py*
 
 %changelog
+* Tue May 21 2013 Tomas Kasparek <tkasparek@redhat.com> 5.5.0-2
+- branding clean-up of solaris client stuff
+- replace legacy name of Tagger with new one
+
 * Mon Nov 26 2012 Michael Mraka <michael.mraka@redhat.com> 5.5.0-1
 - let's reset version above satellite version
 - 838033 - Remove use of ZipFile object to avoid ZipFile 64 extension missing
