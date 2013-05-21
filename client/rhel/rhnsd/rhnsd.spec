@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 5.0.10
+Version: 5.0.11
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -138,6 +138,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue May 21 2013 Tomas Kasparek <tkasparek@redhat.com> 5.0.11-1
+- branding clean-up of rhel client stuff
+
 * Thu Apr 25 2013 Michael Mraka <michael.mraka@redhat.com> 5.0.10-1
 - let rhnsd.service be enabled after installation
 - Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
