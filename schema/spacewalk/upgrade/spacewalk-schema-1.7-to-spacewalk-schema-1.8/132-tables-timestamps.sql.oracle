@@ -5,11 +5,13 @@ declare
         update_stmt varchar2(4000);
 begin
         for tab in (
-                select distinct table_name
-                  from user_tab_columns
-                 where table_name not like '%$%'
-                   and data_type = 'DATE'
-                order by table_name
+                select distinct utc.table_name
+                  from user_tab_columns utc,
+                       user_tables ut
+                 where utc.table_name not like '%$%'
+                   and ut.table_name = utc.table_name
+                   and utc.data_type = 'DATE'
+                order by utc.table_name
         ) loop
                 update_stmt := 'update ' || tab.table_name || ' set ';
                 for col in (select column_name
