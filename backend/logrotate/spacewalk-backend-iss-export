@@ -1,4 +1,4 @@
-# logrotation file for Red Hat Network package uploader
+# logrotation file for Spacewalk package uploader
 #
 
 /var/log/rhn/rhn_sat_export_internal.log {
