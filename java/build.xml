@@ -61,13 +61,18 @@
     </copy>
     </target>
 
-  <!-- Generates Eclipse classpath   -->
-  <target name="gen-eclipse" depends="link-jars"
+  <!-- Generates Eclipse .classpath  -->
+  <target name="gen-eclipse-base" depends="resolve"
           description = "Generates eclipse .classpath file">
       <exec executable="${basedir}/scripts/gen-eclipse.py"
         output="${basedir}/.classpath" >
         <arg value="${eclipse.lib.dirs}:${rhn-home}/buildconf/tempjars:${env.JAVA_HOME}/lib/tools.jar" />
     </exec>
+  </target>
+
+  <!-- Generates Eclipse classpath after setting up dependent jars   -->
+  <target name="gen-eclipse" depends="gen-eclipse-base, link-jars"
+          description = "Generates eclipse .classpath file after linking jars">
   </target>
 
   <target name="missingstrings"
@@ -929,6 +934,11 @@ delete from rhnChannel where label like 'ChannelLabel%';
     </delete>
   </target>
 
+  <!-- 
+     Set up Eclipse project files
+     NOTE: If this fails due to missing-jars, and you want to continue,
+     then execute "ant gen-eclipse-base" and retry
+    -->
   <target name="make-eclipse-project" depends = "gen-eclipse"
           description="Configures this checkout as an eclipse project.">
     <copy toDir="${rhn-home}" overwrite="false">
