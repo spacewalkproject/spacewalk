@@ -202,16 +202,18 @@ def build_channel_labels(source):
         if match:
             current_phase = match.group(1)
             
-            # check if this is a base channel
-            if current_phase == 'rhel':
-                destination = '%s-%s' % (phases[0], source)
-            else:
+            # Check to see if the source channel is in our phase list
+            # if so, select the next label in phase list
+            # otherwise, it's a base channel, use the first in list
+            if current_phase in phases:
                 next_phase = get_next_phase(current_phase)
  
                 # replace the name of the phase in the destination label
                 destination = re.sub('^%s' % current_phase, 
                                      '%s' % next_phase, 
                                      source)
+            else:
+                destination = '%s-%s' % (phases[0], source)
         else:
             logging.error('Invalid channel label: %s' % source)
             sys.exit(1)
