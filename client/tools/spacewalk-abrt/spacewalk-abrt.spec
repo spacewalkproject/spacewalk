@@ -1,5 +1,5 @@
 Name:           spacewalk-abrt
-Version:        1.10.3
+Version:        1.10.4
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
@@ -37,6 +37,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/*
 
 %changelog
+* Tue May 21 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.4-1
+- branding clean-up of client tools
+
 * Tue Mar 26 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.3-1
 - abrt: report only valid problem directories
 
