@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.10.2
+Version: 1.10.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -330,6 +330,9 @@ fi
 
 
 %changelog
+* Tue May 21 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.3-1
+- misc branding clean up
+
 * Fri May 03 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.2-1
 - Do not read response data into memory
 - do not read data into memory which should be send to the server
