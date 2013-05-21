@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.34
+Version: 1.10.35
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -637,6 +637,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue May 21 2013 Grant Gainey <ggainey@redhat.com> 1.10.35-1
+- Turn off a pylint warning
+
 * Tue May 21 2013 Grant Gainey <ggainey@redhat.com> 1.10.34-1
 - 965809 - Fix ISS authentication hole
 
