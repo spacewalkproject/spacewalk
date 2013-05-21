@@ -4,7 +4,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.61
+Version:       5.5.62
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -75,6 +75,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %doc COPYING
 
 %changelog
+* Tue May 21 2013 Tomas Kasparek <tkasparek@redhat.com> 5.5.62-1
+- branding clean-up of client tools
+
 * Tue May 14 2013 Michael Mraka <michael.mraka@redhat.com> 5.5.61-1
 - 871745 - let rhnpush care about SSL cert
 
