@@ -232,7 +232,7 @@ Provides: rhns-package-push-server = 1:%{version}-%{release}
 Listener for rhnpush (non-XMLRPC version)
 
 %package tools
-Summary: Red Hat Network Services Satellite Tools
+Summary: Spacewalk Services Tools
 Group: Applications/Internet
 Requires: %{name}-xmlrpc = %{version}-%{release}
 Requires: %{name}-app = %{version}-%{release}
@@ -251,10 +251,10 @@ Provides: spacewalk-backend-satellite-tools = %{version}-%{release}
 Provides: rhns-satellite-tools = 1:%{version}-%{release}
 
 %description tools
-Various utilities for the Red Hat Network Satellite Server.
+Various utilities for the Spacewalk Server.
 
 %package xml-export-libs
-Summary: Red Hat Network XML data exporter
+Summary: Spacewalk XML data exporter
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-xml-export-libs < 5.3.0

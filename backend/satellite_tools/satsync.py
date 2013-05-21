@@ -51,6 +51,8 @@ from spacewalk.server.rhnServer import satellite_cert, server_packages
 from spacewalk.server.rhnLib import get_package_path
 from spacewalk.common import fileutils
 
+initCFG('web')
+PRODUCT_NAME = CFG.PRODUCT_NAME
 initCFG('server.satellite')
 initLOG(CFG.LOG_FILE, CFG.DEBUG)
 
@@ -424,7 +426,7 @@ class Syncer:
 
         # Sync from filesystem:
         if self.mountpoint:
-            log(1, [_('Red Hat Network Satellite - file-system synchronization'),
+            log(1, [_(PRODUCT_NAME + ' - file-system synchronization'),
                     '   mp:  %s' % self.mountpoint])
             self.xmlDataServer = xmlDiskSource.MetadataDiskSource(self.mountpoint)
         # Sync across the wire:
@@ -439,12 +441,12 @@ class Syncer:
                 sync_parent = CFG.RHN_PARENT
                 is_iss = 0
             else:
-                log(1, _('Red Hat Network Satellite - live synchronization'))
+                log(1, _(PRODUCT_NAME + ' - live synchronization'))
                 log(-1, _("ERROR: Can't use live synchronization in disconnected mode."), stream=sys.stderr)
                 sys.exit(1)
 
             url = self.xmlDataServer.schemeAndUrl(sync_parent)
-            log(1, [_('Red Hat Network Satellite - live synchronization'),
+            log(1, [_(PRODUCT_NAME + ' - live synchronization'),
                     _('   url: %s') % url,
                     _('   debug/output level: %s') % CFG.DEBUG])
             self.xmlDataServer.setServerHandler(isIss=is_iss)

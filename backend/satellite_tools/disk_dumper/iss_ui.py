@@ -14,6 +14,7 @@
 #
 
 from optparse import OptionParser, Option
+from spacewalk.common.rhnConfig import CFG, initCFG
 
 #Not strictly necessary, but makes them easier to type
 option_parser = OptionParser
@@ -21,6 +22,7 @@ option = Option
 
 class UI:
     def __init__(self):
+        initCFG('web')
         self.optiontable =  [ 
             option("-d",    "--dir",                    action="store",     
                 help="This is the directory that the information that you want to sync gets dumped in."),
@@ -39,7 +41,7 @@ class UI:
 	    option(         "--end-date",                action="store",
 	        help="The end date limit that the last modified dates are compared against. Should be in the format 'YYYYMMDDHH24MISS'."),
 	    option(         "--use-rhn-date",            action="store_true",
-	        help="Limit exported packages according to the date when they appeared at Red Hat Network."),
+	        help="Limit exported packages according to the date when they appeared at " + CFG.PRODUCT_NAME + "."),
 	    option(         "--use-sync-date",            action="store_true",
 	        help="Limit exported packages according to the date they where pulled into satellite."),
         option(         "--whole-errata",            action="store_true",

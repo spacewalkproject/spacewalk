@@ -195,9 +195,9 @@ class Certificate:
         if self.attrs.has_key('type') and self.attrs['type'] \
         and string.upper(self.attrs['type']) == "ANONYMOUS":
             raise rhnFault(28, """
-            You need to re-register your system with Red Hat Network.
+            You need to re-register your system with Red Hat Satellite.
             Previously you have chosen to skip the creation of a system profile
-            with Red Hat Network and this trial feature is no longer available now.
+            with Red Hat Satellite and this trial feature is no longer available now.
             """) # we don't support anonymous anymore
         # now we have a real server. Get its secret
         sid = self.attrs["system_id"]

@@ -167,7 +167,7 @@ A tool that exports satellite content into a directory in an XML format. That co
         <term>--use-rhn-date</term>
         <listitem>
             <para>Limit exported packages according to the date when
-                  they appeared at Red Hat Network. This is default.
+                  they appeared at Red Hat Satellite. This is default.
                   </para>
         </listitem>
     </varlistentry>

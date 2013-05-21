@@ -16,7 +16,7 @@
 import sys
 import xmlrpclib
 
-
+from spacewalk.common.rhnConfig import CFG, initCFG
 from cStringIO import StringIO
 
 
@@ -24,6 +24,7 @@ from cStringIO import StringIO
 from rhnTranslate import _
 import rhnFlags
 
+initCFG('web')
 
 # default template values for error messages
 templateValues = {
@@ -72,7 +73,7 @@ FaultArray = {
      29: _("Record not available in the database."),
      30: _("Invalid value for entry."),
      31: _("""
-     This system does not have a valid entitlement for Red Hat Network.
+     This system does not have a valid entitlement for Red Hat Satellite.
      Please visit https://%(hostname)s/rhn/systems/SystemEntitlements.do
      or login at https://%(hostname)s, and from the "Overview" tab,
      select "Subscription Management" to enable RHN service for this system.
@@ -107,8 +108,8 @@ on this system."),
      45: _("""
      Invalid architecture.
 
-     The architecture of the package is not supported by Red Hat Network
-     """),
+     The architecture of the package is not supported by
+     """ + CFG.PRODUCT_NAME),
      47: _("""Invalid RPM header"""),
      # For the uploading tools
      50: _("Invalid information uploaded to the server"),
@@ -135,7 +136,7 @@ on this system."),
      # 70-80: channel subscription errors
      70: _("""
      All available subscriptions for the requested channel have been exhausted.
-     Please contact a Red Hat Network Sales associate.
+     Please contact a Red Hat Satellite Sales associate.
      """),
      71: _("""
      You do not have subscription permission to the designated channel.
