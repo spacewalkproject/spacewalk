@@ -16,8 +16,7 @@
 .TH RHNREG_KS 8 "2011 February 4" "Linux" "Red Hat, Inc."
 
 .SH NAME
-rhnreg_ks \- A program for non interactively registering systems to Spacewalk
-or Red Hat Network Classic.
+rhnreg_ks \- A program for non interactively registering systems to Spacewalk Server, Red Hat Satellite or Red Hat Network Classic.
 
 .SH SYNOPSIS
 
@@ -25,20 +24,18 @@ rhnreg_ks [\fIoptions\fP]
 
 .SH DESCRIPTION
 .PP
-\fVrhnreg_ks\fR is a utility for registering a system with the RHN Satellite or Red Hat
-Network Classic. It is designed to be used in a non-interactive environment 
-(a kickstart style install, for example). All the information can
-be specified on the command line or stdin. 
+\fVrhnreg_ks\fR is a utility for registering a system with the "\fVSpacewalk Server\fP", "\fBRed Hat Satellite\fP" or "\fBRed Hat Network Classic\fP". It is designed to be used in
+a non-interactive environment  (a kickstart style install, for example).
+All the information can be specified on the command line or stdin.
 
 .SH OPTIONS
 
 .IP "\fB--profilename\fP"
 Specify the profile name that should be used as an identifier for
-the system in Spacewalk, Red Hat Network Classic
+the system in Spacewalk Server, Red Hat Satellite or Red Hat Network Classic
 .br
 .IP "\fB--username\fP"
-The username to register the system with under Spacewalk or Red Hat Network Classic. This
-can be an existing Spacewalk or Red Hat Network Classic username, or a new username.
+The username to register the system with under Spacewalk Server, Red Hat Satellite or Red Hat Network Classic. This can be an existing Spacewalk, Red Hat Satellite or Red Hat Network Classic username, or a new username.
 .br
 .IP "\fB--password\fP"
 The password associated with the username specified with the \fB--username\fR
@@ -55,7 +52,7 @@ This option has been deprecated. Please login to the server
 web user interface and update your contactinfo.
 .br
 .IP "\fB--nohardware\fP"
-Do not probe or upload any hardware information. 
+Do not probe or upload any hardware information.
 .br
 .IP "\fB--nopackages\fP"
 Do not profile or upload any package information.
@@ -76,7 +73,7 @@ Show the version of rhnreg_ks.
 Specify a HTTP proxy to use.
 .br
 .IP "\fB--proxyUser\fP"
-Specify a username to use with an authenticated 
+Specify a username to use with an authenticated
 HTTP proxy.
 .br
 .IP "\fB--proxyPassword\fP"
@@ -96,9 +93,7 @@ Show a help message and exit.
 
 .IP \fI/etc/sysconfig/rhn/systemid\fP
 The digital server ID for this machine if the system has been registered onto
-.B RHN Satellite
-or
-.B Red Hat Network Classic.
+"\fBSpacewalk Server\fP", "\fBRed Hat Satellite\fP" or "\fBRed Hat Network Classic\fP".
 This file does not exist otherwise.
 .br
 .IP \fI/etc/sysconfig/rhn/up2date\fP
@@ -154,5 +149,4 @@ Report bugs to <http://bugzilla.redhat.com>.
 Copyright \(co 1999\-2011 Red Hat, Inc.
 
 .PP
-This is free software; see the source for copying conditions.  There is 
-NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+This is free software; see the source for copying conditions.  There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.

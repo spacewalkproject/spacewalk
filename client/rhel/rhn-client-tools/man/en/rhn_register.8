@@ -15,7 +15,7 @@
 .\"
 .TH RHN_REGISTER 8 "2011 February 4" "Linux" "Red Hat, Inc."
 .SH NAME
-rhn_register \- Connect to RHN Satellite or Red Hat Network Classic.
+rhn_register \- Connect to Spacewalk Server, Red Hat Satellite or Red Hat Network Classic.
 
 .SH SYNOPSIS
 rhn_register [\fIoptions\fP]
@@ -23,9 +23,9 @@ rhn_register [\fIoptions\fP]
 .SH DESCRIPTION
 
 .PP
-\fBrhn_register\fP is a client program that registers your system with 
-.B Red Hat Network Classic
-(or a RHN Satellite). After registering, your system can receive
+\fBrhn_register\fP is a client program that registers your system with
+"\fBSpacewalk Server\fP", "\fBRed Hat Satellite\fP" or
+"\fBRed Hat Network Classic\fP". After registering, your system can receive
 software updates, install new software, and remotely manage your system.
 It can run both in graphical and text modes.
 
@@ -58,13 +58,11 @@ Show a help message and exit.
 
 .IP \fI/etc/sysconfig/rhn/systemid\fP
 The digital server ID for this machine if the system has been registered onto
-.B RHN Satellite
-or
-.B Red Hat Network Classic.
+"\fBSpacewalk Server\fP" or "\fBRed Hat Satellite\fP" or "\fBRed Hat Network Classic\fP".
 This file does not exist otherwise.
 .br
 .IP \fI/etc/sysconfig/rhn/up2date\fP
-The common configuration file used by RHN client programs.
+The common configuration file used by Red Hat client programs.
 
 .SH "SEE ALSO"
 
