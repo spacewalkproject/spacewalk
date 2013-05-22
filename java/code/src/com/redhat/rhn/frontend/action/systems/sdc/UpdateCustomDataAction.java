@@ -119,7 +119,7 @@ public class UpdateCustomDataAction extends RhnAction {
                     makeValidationMap(form), null, VALIDATION_XSD);
             if (!result.isEmpty()) {
                 request.setAttribute(VAL_PARAM, form.getString(VAL_PARAM));
-                createErrorMessage(request, "custominfo.maxsize", null);
+                getStrutsDelegate().saveMessages(request, result);
                 return getStrutsDelegate().forwardParams(
                         mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
             }
