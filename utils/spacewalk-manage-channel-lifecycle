@@ -54,7 +54,8 @@ def print_channel_tree():
                 
             tree[channel.get('parent_label')].append(channel.get('label'))
         else:
-            tree[channel.get('label')] = []
+            if not tree.has_key(channel.get('label')):
+                tree[channel.get('label')] = []
 
     # print the channels in a tree format
     for parent in sorted(tree.keys()):
