@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.87
+Version: 1.8.88
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -638,6 +638,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed May 22 2013 Tomas Lestach <tlestach@redhat.com> 1.8.88-1
+- fixing order of disabled messages
+- pylint on RHEL6 does not know about W1401
+
 * Wed May 22 2013 Tomas Lestach <tlestach@redhat.com> 1.8.87-1
 - fixed container implementation
 - fixed container implementation
