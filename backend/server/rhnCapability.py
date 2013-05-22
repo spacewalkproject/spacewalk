@@ -154,6 +154,7 @@ def _set_server_capabilities():
     capabilities = {
         'registration.register_osad'            : {'version' : 1, 'value' : 1},
         'registration.finish_message'           : {'version' : 1, 'value' : 1},
+        'registration.remaining_subscriptions'  : {'version' : 1, 'value' : 1},
         'registration.update_contact_info'      : {'version' : 1, 'value' : 1},
         'registration.delta_packages'           : {'version' : 1, 'value' : 1},
         'registration.extended_update_support'  : {'version' : 1, 'value' : 1},
