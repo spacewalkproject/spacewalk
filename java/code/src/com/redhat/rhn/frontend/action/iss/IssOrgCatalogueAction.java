@@ -50,7 +50,6 @@ public class IssOrgCatalogueAction extends RhnAction {
 
     private static final String LIST_NAME = "issMasterList";
     public static final String DATA_SET = "all";
-    public static final String NUM_LOCALS = "numLocalOrgs";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -103,8 +102,6 @@ public class IssOrgCatalogueAction extends RhnAction {
 
         Map params = makeParamMap(request);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-
-        request.setAttribute(NUM_LOCALS, OrgFactory.getTotalOrgCount());
 
         ListTagHelper.bindSetDeclTo(LIST_NAME, getSetDecl(), request);
 

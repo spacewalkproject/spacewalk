@@ -47,7 +47,7 @@
     <c:out value="${current.numSourceOrgs}" />
    </rl:column>
    <rl:column headerkey="iss.num.unmapped.orgs">
-    <c:out value="${requestScope.numLocalOrgs - current.numMappedLocals}" />
+    <c:out value="${current.numSourceOrgs - current.numMappedSourceOrgs}" />
    </rl:column>
   </rl:list>
   <c:if test="${not empty requestScope.all}">

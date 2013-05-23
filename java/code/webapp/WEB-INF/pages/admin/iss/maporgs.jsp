@@ -17,7 +17,7 @@
 
  <c:if test="${requestScope.mid > 0}">
   <rhn:toolbar base="h1" img="/img/rhn-icon-info.gif"
-   deletionUrl="/rhn/admin/iss/DeleteMaster.do?mid=${requestScope.mid}"
+   deletionUrl="/rhn/admin/iss/RemoveMasterConfirm.do?mid=${requestScope.mid}"
    deletionType="master" deletionAcl="user_role(satellite_admin)">
    <bean:message key="iss.maporgs.jsp.toolbar" />
   </rhn:toolbar>

@@ -92,17 +92,17 @@ public class IssOrgCatalogue extends BaseDto {
     }
 
     /**
-     * How many local-orgs are mapped to source-orgs from this master?
-     * @return number of unique local-orgs that are mapped
+     * How many source-orgs have been mapped?
+     * @return number of unique source-orgs that have non-null targets
      */
-    public int getNumMappedLocals() {
-        Set<Org> targets = new HashSet<Org>();
+    public int getNumMappedSourceOrgs() {
+        int mappedSources = 0;
         for (IssSyncOrg so : getSourceOrgs()) {
             if (so.getTargetOrg() != null) {
-                targets.add(so.getTargetOrg());
+                mappedSources++;
             }
         }
-        return targets.size();
+        return mappedSources;
     }
 
 }

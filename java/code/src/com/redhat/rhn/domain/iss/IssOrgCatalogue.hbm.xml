@@ -14,7 +14,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
         <property name="label" column="LABEL"  type="string" length="256" />
 
-        <set name="sourceOrgs" inverse="true">
+        <set name="sourceOrgs" inverse="true" cascade="delete">
             <key column="catalogue_id"/>
             <one-to-many class="com.redhat.rhn.domain.iss.IssSyncOrg"/>
         </set>
