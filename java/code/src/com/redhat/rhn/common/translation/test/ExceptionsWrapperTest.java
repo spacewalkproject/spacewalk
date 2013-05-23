@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.common.translation.test;
 
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.ConstraintViolationException;
 import com.redhat.rhn.common.db.WrappedSQLException;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
@@ -46,9 +47,6 @@ public class ExceptionsWrapperTest extends TestCase {
         super(name);
     }
 
-    /**
-     * These tests assume that the DB is oracle
-     */
     public void testConstraintViolation() throws Exception {
         Session session = null;
         Statement stmt = null;
@@ -60,6 +58,9 @@ public class ExceptionsWrapperTest extends TestCase {
                     "values ('tooBigAString', 1)");
         }
         catch (SQLException e) {
+            if (!ConfigDefaults.get().isOracle()) {
+                session.connection().rollback();
+            }
             try {
                 throw SqlExceptionTranslator.sqlException(e);
             }
@@ -67,6 +68,10 @@ public class ExceptionsWrapperTest extends TestCase {
                 assertNull(c.getConstraint());
                 assertEquals(c.getConstraintType(),
                         ExceptionConstants.VALUE_TOO_LARGE);
+            }
+            // PostgreSQL
+            catch (WrappedSQLException c) {
+                assertTrue(c.getMessage().toLowerCase().contains("value too long"));
             }
         }
         finally {
@@ -87,6 +92,9 @@ public class ExceptionsWrapperTest extends TestCase {
                     "values ('ano', 1)");
         }
         catch (SQLException e) {
+            if (!ConfigDefaults.get().isOracle()) {
+                session.connection().rollback();
+            }
             try {
                 throw SqlExceptionTranslator.sqlException(e);
             }
@@ -94,6 +102,10 @@ public class ExceptionsWrapperTest extends TestCase {
                 assertTrue(c.getConstraint().indexOf("EXCEPTIONS_TEST_PK") >= 0);
                 assertEquals(c.getConstraintType(),
                         ExceptionConstants.VALUE_TOO_LARGE);
+            }
+            // PostgreSQL
+            catch (WrappedSQLException c) {
+                assertTrue(c.getMessage().toLowerCase().contains("duplicate key"));
             }
         }
         finally {
@@ -114,6 +126,9 @@ public class ExceptionsWrapperTest extends TestCase {
                     "values ('ano', 1)");
         }
         catch (SQLException e) {
+            if (!ConfigDefaults.get().isOracle()) {
+                session.connection().rollback();
+            }
             try {
                 throw SqlExceptionTranslator.sqlException(e);
             }
@@ -141,6 +156,9 @@ public class ExceptionsWrapperTest extends TestCase {
                     "values ('ano', 1)");
         }
         catch (SQLException e) {
+            if (!ConfigDefaults.get().isOracle()) {
+                session.connection().rollback();
+            }
             try {
                 throw SqlExceptionTranslator.sqlException(e);
             }
@@ -185,12 +203,23 @@ public class ExceptionsWrapperTest extends TestCase {
         }
         catch (SQLException e) {
             // Couldn't select 1, so the table didn't exist, create it
-            stmt.execute("create table exceptions_test " +
-                    "( " +
-                    "  small_column VarChar2(5)," +
-                    "  id     number" +
-                    "         constraint exceptions_test_pk primary key" +
-                    ")");
+            if (ConfigDefaults.get().isOracle()) {
+                stmt.execute("create table exceptions_test " +
+                        "( " +
+                        "  small_column VarChar2(5)," +
+                        "  id     number" +
+                        "         constraint exceptions_test_pk primary key" +
+                        ")");
+            }
+            else {
+                session.connection().rollback();
+                stmt.execute("create table exceptions_test " +
+                        "( " +
+                        "  small_column VarChar(5)," +
+                        "  id     numeric" +
+                        "         constraint exceptions_test_pk primary key" +
+                        ")");
+            }
 
             session.connection().commit();
         }

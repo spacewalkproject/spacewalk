@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.common.hibernate.test;
 
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
@@ -140,7 +141,7 @@ public class TestFactoryWrapperTest extends RhnBaseTestCase {
     public void testLotsOfTransactions() throws Exception {
 
         for (int i = 0; i < 20; i++) {
-            SelectMode m = ModeFactory.getMode("test_queries", "date_dto_test");
+            SelectMode m = ModeFactory.getMode("test_queries", "get_debug_log");
             m.execute(new HashMap());
             HibernateFactory.commitTransaction();
             HibernateFactory.closeSession();
@@ -178,29 +179,54 @@ public class TestFactoryWrapperTest extends RhnBaseTestCase {
         catch (SQLException e) {
             // let's clean up anything that MAY have been left
             // over
-            forceQuery(c, "drop sequence persist_sequence");
             forceQuery(c, "drop table persist_test");
-            // Couldn't select 1, so the table didn't exist, create it
-            stmt.execute("create sequence persist_sequence");
-            stmt.execute("create table persist_test " +
-                    "( " +
-                    "  foobar VarChar2(32)," +
-                    "  test_column VarChar2(5)," +
-                    "  pin    number, " +
-                    "  hidden VarChar(32), " +
-                    "  id     number" +
-                    "         constraint persist_test_pk primary key," +
-                    "  created date" +
-                    ")");
+            forceQuery(c, "drop sequence persist_sequence");
 
-            stmt.execute("insert into persist_test (foobar, id) " +
-                    "values ('Blarg', persist_sequence.nextval)");
-            stmt.execute("insert into persist_test (foobar, id) " +
-                    "values ('duplicate', persist_sequence.nextval)");
-            stmt.execute("insert into persist_test (foobar, id) " +
-                    "values ('duplicate', persist_sequence.nextval)");
-            stmt.execute("insert into persist_test (foobar, hidden, id) " +
-                    "values ('duplicate', 'xxxxx', persist_sequence.nextval)");
+            // Couldn't select 1, so the table didn't exist, create it
+            if (ConfigDefaults.get().isOracle()) {
+                stmt.execute("create sequence persist_sequence");
+                stmt.execute("create table persist_test " +
+                        "( " +
+                        "  foobar VarChar2(32)," +
+                        "  test_column VarChar2(5)," +
+                        "  pin    number, " +
+                        "  hidden VarChar(32), " +
+                        "  id     number" +
+                        "         constraint persist_test_pk primary key," +
+                        "  created timestamp with local time zone" +
+                        ")");
+                stmt.execute("insert into persist_test (foobar, id) " +
+                        "values ('Blarg', persist_sequence.nextval");
+                stmt.execute("insert into persist_test (foobar, id) " +
+                        "values ('duplicate', persist_sequence.nextval)");
+                stmt.execute("insert into persist_test (foobar, id) " +
+                        "values ('duplicate', persist_sequence.nextval)");
+                stmt.execute("insert into persist_test (foobar, hidden, id) " +
+                        "values ('duplicate', 'xxxxx', persist_sequence.nextval)");
+
+            }
+            else {
+                c.rollback();
+                stmt.execute("create sequence persist_sequence");
+                stmt.execute("create table persist_test " +
+                        "( " +
+                        "  foobar VarChar(32)," +
+                        "  test_column VarChar(5)," +
+                        "  pin    numeric, " +
+                        "  hidden VarChar(32), " +
+                        "  id     numeric" +
+                        "         constraint persist_test_pk primary key," +
+                        "  created timestamp with time zone" +
+                        ")");
+                stmt.execute("insert into persist_test (foobar, id) " +
+                        "values ('Blarg', nextval('persist_sequence'))");
+                stmt.execute("insert into persist_test (foobar, id) " +
+                        "values ('duplicate', nextval('persist_sequence'))");
+                stmt.execute("insert into persist_test (foobar, id) " +
+                        "values ('duplicate', nextval('persist_sequence'))");
+                stmt.execute("insert into persist_test (foobar, hidden, id) " +
+                        "values ('duplicate', 'xxxxx', nextval('persist_sequence'))");
+            }
 
             c.commit();
         }
