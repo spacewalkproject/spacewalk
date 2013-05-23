@@ -3,6 +3,7 @@
 <decorators defaultdir="/WEB-INF/decorators">
     <excludes>
         <pattern>/img/*</pattern>
+        <pattern>/systems/details/audit/ScapResultDownload.do*</pattern>
     </excludes>
     <decorator name="layout_c" page="layout_c.jsp">
         <pattern>/*</pattern>
