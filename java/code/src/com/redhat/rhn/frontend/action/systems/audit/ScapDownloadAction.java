@@ -69,7 +69,9 @@ public class ScapDownloadAction extends DownloadAction {
         ScapResultFile file = new ScapResultFile(testResult, filename);
 
         log.debug("Serving " + file);
-        response.setHeader("Content-Disposition", "attachment; filename=" + filename);
+        if (!file.isHTML()) {
+            response.setHeader("Content-Disposition", "attachment; filename=" + filename);
+        }
         return file;
     }
 

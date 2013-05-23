@@ -52,13 +52,21 @@ public class ScapResultFile implements StreamInfo {
     }
 
     /**
+     * Query if the format of the given file is HTML.
+     * @return answer
+     */
+    public Boolean isHTML() {
+        return filename.endsWith(".html");
+    }
+
+    /**
      * {@inheritDoc}
      */
     public String getContentType() {
         if (filename.endsWith(".xml")) {
             return "text/xml";
         }
-        else if (filename.endsWith(".html")) {
+        else if (isHTML()) {
             return "text/html";
         }
         else {
