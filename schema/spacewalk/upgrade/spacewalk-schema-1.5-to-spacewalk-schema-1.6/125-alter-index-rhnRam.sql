@@ -16,7 +16,14 @@ exception
 end;
 /
 
-CREATE UNIQUE INDEX rhn_ram_sid_uq
-    ON rhnRam (server_id)
-    TABLESPACE [[4m_tbs]]
-    NOLOGGING;
+declare
+	name_already_used exception;
+	pragma exception_init(name_already_used, -00955);
+begin
+	execute immediate 'create unique index rhn_ram_sid_uq on rhnRam(server_id) tablespace [[4m_tbs]] nologging';
+	dbms_output.put_line('Index rhn_ram_sid_uq successfully created.');
+exception
+	when name_already_used then
+		dbms_output.put_line('Index rhn_ram_sid_uq already exists.');
+end;
+/
