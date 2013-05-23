@@ -22,12 +22,12 @@ else
    exit 0;
 fi
 
-if /usr/sbin/lsof /proc > /dev/null ; then
+if [ -x /usr/sbin/lsof ]; then
     echo "Waiting for tomcat to be ready ..."
     TOMCAT_PID=$(cat /var/run/$TOMCAT.pid 2>/dev/null)
     while [ -n "$TOMCAT_PID" ] ; do
-        /usr/sbin/lsof -t -i TCP:8005 -p $TOMCAT_PID > /dev/null \
-        && /usr/sbin/lsof -t -i TCP:8009 -p $TOMCAT_PID > /dev/null \
+        /usr/sbin/lsof -t -i TCP:8005 | grep "^$TOMCAT_PID$" > /dev/null \
+        && /usr/sbin/lsof -t -i TCP:8009 | grep "^$TOMCAT_PID$" > /dev/null \
         && break
         sleep 1
     done
