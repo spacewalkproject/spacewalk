@@ -55,7 +55,7 @@ public class ScapResultFile implements StreamInfo {
      * Query if the format of the given file is HTML.
      * @return answer
      */
-    public Boolean isHTML() {
+    public Boolean getHTML() {
         return filename.endsWith(".html");
     }
 
@@ -66,7 +66,7 @@ public class ScapResultFile implements StreamInfo {
         if (filename.endsWith(".xml")) {
             return "text/xml";
         }
-        else if (isHTML()) {
+        else if (getHTML()) {
             return "text/html";
         }
         else {
