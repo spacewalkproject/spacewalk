@@ -44,7 +44,7 @@
 			<bean:message key="sdc.details.overview.unknown"/>
                         </c:when>
                         <c:otherwise>
-                            <c:out value="${current.name}</a>" escapeXml="false" />
+                            <c:out value="${current.name}" escapeXml="true" />
                         </c:otherwise>
                     </c:choose>
                 </rl:column>
