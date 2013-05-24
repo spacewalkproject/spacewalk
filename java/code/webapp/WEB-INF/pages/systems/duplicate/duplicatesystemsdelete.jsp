@@ -32,7 +32,9 @@
 		headerkey="systemlist.jsp.system"
 		sortattr="name"
 		defaultsort="asc">
-			<c:out value="<a href=\"/rhn/systems/details/Overview.do?sid=${current.id}\">${current.name}</a>" escapeXml="false" />
+            <a href="/rhn/systems/details/Overview.do?sid=${current.id}">
+                <c:out value="${current.name}" escapeXml="true" />
+            </a>
 	</rl:column>
 	<rl:column sortable="false"
 		attr="lastCheckin"
