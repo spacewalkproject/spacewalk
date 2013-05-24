@@ -1,5 +1,6 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
@@ -18,8 +19,8 @@
     <rhn:csrf />
     <div class="page-summary">
         <bean:message key="schedulesync.jsp.pagesummary"
-                      arg0="${requestScope.system.name}"
-                      arg1="${requestScope.system1.name}" />
+                      arg0="${fn:escapeXml(requestScope.system.name)}"
+                      arg1="${fn:escapeXml(requestScope.system1.name)}" />
     </div>
 
     <rl:list width="100%"
