@@ -1,0 +1,26 @@
+synopsis:
+
+    Host-Guest mapping
+
+description:
+
+    List all systems, along with their guests
+
+columns:
+
+    server_id   System identifier
+    guests    Guests
+
+multival_columns:
+
+    server_id
+    guests : guests
+
+sql:
+
+    select host_system_id as server_id,
+        virtual_system_id as guests
+    from rhnvirtualinstance
+    where host_system_id is not null
+        and virtual_system_id is not null
+    order by server_id;
