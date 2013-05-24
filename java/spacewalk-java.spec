@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.79
+Version: 1.10.80
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,36 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri May 24 2013 Tomas Lestach <tlestach@redhat.com> 1.10.80-1
+- 855845 - escaping system name for
+  /rhn/systems/details/configuration/DiffFileConfirm.do
+- 855845 - escaping system name for
+  /rhn/systems/details/configuration/DiffFile.do
+- 855845 - escaping system name for
+  /rhn/systems/details/configuration/addfiles/ImportFile.do
+- 855845 - escaping system name for
+  /rhn/systems/details/configuration/ViewModifySandboxPaths.do
+- 855845 - escaping system name for
+  /rhn/systems/details/configuration/ViewModifyCentralPaths.do
+- 855845 - escaping system name for
+  /rhn/systems/details/configuration/ConfigChannelList.do
+- 855845 - escaping system name for
+  /rhn/systems/details/packages/profiles/SyncSystems.do
+- 855845 - escaping system name for /rhn/systems/details/packages/*.do pages
+- 855845 - escaping system name for
+  /rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do
+- 855845 - escaping system name for /rhn/monitoring/ProbeList.do
+- 855845 - escaping system name for /rhn/systems/details/packages/Packages.do
+- 855845 - escaping system name for /rhn/activationkeys/systems/List.do
+- Open HTML Reports in a new window.
+- Only non-HTML files shall be marked as an attachement.
+- Exclude HTML file download from sitemesh.
+- Downloaded files shall be logged in debug mode.
+- Download of detailed SCAP result files.
+- Godforsaken closing <tr> node.
+- use xsd default message instead of custom one
+- man pages branding cleanup + misc branding fixes
+
 * Tue May 21 2013 Grant Gainey <ggainey@redhat.com> 1.10.79-1
 - Provide way to build Eclipse .classpath even in the absence of required jars
 
