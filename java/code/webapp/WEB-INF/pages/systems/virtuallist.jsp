@@ -41,7 +41,7 @@
           <img src="/img/channel_parent_node.gif" />
           <bean:message key="virtuallist.jsp.host"/>:
           <a href="/rhn/systems/details/Overview.do?sid=${current.hostSystemId}">
-            ${current.serverName}
+            <c:out value="${current.serverName}" escapeXml="true" />
           </a>
           <bean:message key="virtuallist.jsp.hoststatus" arg0="${current.countActiveInstances}" arg1="${current.countTotalInstances}"/>
           <c:if test="${current.virtEntitlement != null}">
@@ -53,7 +53,9 @@
         <rhn:column header="virtuallist.jsp.name" colspan="4">
           <img src="/img/channel_parent_node.gif" />
           <bean:message key="virtuallist.jsp.host"/>:
-          <span style="color: #808080">${current.serverName}</span>
+          <span style="color: #808080">
+            <c:out value="${current.serverName}" escapeXml="true" />
+          </span>
         </rhn:column>
       </c:when>
       <c:otherwise>
@@ -62,15 +64,15 @@
           <img src="/img/channel_child_node.gif" />
           <c:choose>
             <c:when test="${current.virtualSystemId == null}">
-              ${current.name}
+              <c:out value="${current.name}" escapeXml="true" />
             </c:when>
 	        <c:when test="${current.accessible}">
 	          <a href="/rhn/systems/details/Overview.do?sid=${current.virtualSystemId}">
-	            ${current.serverName}
+                <c:out value="${current.serverName}" escapeXml="true" />
 	          </a>
 	        </c:when>        
 	        <c:otherwise>
-	${current.serverName}
+              <c:out value="${current.serverName}" escapeXml="true" />
 	        </c:otherwise>            
           </c:choose>
         </rhn:column>
@@ -81,7 +83,7 @@
         </rhn:column>
 
         <rhn:column header="virtuallist.jsp.state">
-            ${current.stateName}
+          <c:out value="${current.serverName}" escapeXml="true" />
         </rhn:column>
 
         <rhn:column header="virtuallist.jsp.channel">
