@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage;
 
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
@@ -72,7 +73,7 @@ public class PackageIndexAction extends LookupDispatchAction {
         Object[] args = new Object[3];
         args[0] = pa.getId().toString();
         args[1] = sid.toString();
-        args[2] = server.getName();
+        args[2] = StringUtil.htmlifyText(server.getName());
 
         msg.add(ActionMessages.GLOBAL_MESSAGE,
                 new ActionMessage("message.packagerefresh", args));
