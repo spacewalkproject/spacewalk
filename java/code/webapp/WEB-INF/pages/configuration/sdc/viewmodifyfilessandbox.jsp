@@ -2,6 +2,7 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/config-managment" prefix="cfg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <head>
     <meta name="name" value="sdc.config.jsp.header" />
@@ -11,7 +12,7 @@
 <h2><img class="h2-image" src="${cfg:channelHeaderIcon('sandbox')}"/>
 <bean:message key="sdc.config.header.overview"/></h2>        					
 <p><bean:message key="sdc.config.file_list.sandbox_description"
-				arg0="${requestScope.system.name}"
+				arg0="${fn:escapeXml(requestScope.system.name)}"
 				arg1="${rhn:localize('sdc.config.file_list.copy_to_global')}"/></p>
 
 <rl:listset name="fileSet">
