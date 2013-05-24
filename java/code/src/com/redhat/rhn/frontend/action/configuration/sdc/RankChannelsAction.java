@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.configuration.sdc;
 
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.server.Server;
@@ -114,7 +115,7 @@ public class RankChannelsAction extends BaseRankChannels {
             LocalizationService.getInstance().getMessage("snapshots.configchannel");
         SystemManager.snapshotServer(server, message);
 
-        String[] params = {server.getName()};
+        String[] params = {StringUtil.htmlifyText(server.getName())};
         getStrutsDelegate().saveMessage("sdc.config.rank.jsp.success",
                                                     params, request);
         return getStrutsDelegate().forwardParam(mapping.findForward("success"),
