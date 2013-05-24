@@ -1,0 +1,27 @@
+
+synopsis:
+
+        Cloned Channel report
+
+description:
+
+        List of cloned channels in the server with their original channel.
+
+columns:
+
+        original_channel_label  Original channel label
+        original_channel_name   Original channel name
+        new_channel_label       Channel label
+        new_channel_name        Channel name
+
+sql:
+
+        select oc.label original_channel_label,
+               oc.name original_channel_name,
+               nc.label new_channel_label,
+               nc.name new_channel_name
+        from   rhnchannelcloned cc,
+               rhnchannel oc,
+               rhnchannel nc
+        where  cc.original_id = oc.id
+          and  cc.id = nc.id

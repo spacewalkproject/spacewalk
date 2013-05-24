@@ -1,0 +1,124 @@
+
+synopsis:
+
+    System data needed for splice integration for enhanced reporting.
+
+description:
+
+    List of systems registered to the server, together with
+    various hardware and software information used for enhanced reporting.
+    The structure of this report can change as needed in future releases
+    of spacewalk-reports.
+
+columns:
+
+    server_id:i         System identifier
+    organization        Organization
+    org_id              Organization ID
+    name                System Name
+    hostname            Hostname, as reported by the system
+    ip_address          IPv4 address, as reported by the system
+    ipv6_address        IPv6 address, as reported by the system
+    registered_by       User under which the system is registered
+    registration_time   Registration time
+    last_checkin_time   Last checkin time
+    software_channel    List of channels to which the system is registered
+    entitlements        List of entitlements
+    system_group        List of system group to which the system belongs
+    virtual_host:i      System identifier of host, if system is a guest
+    architecture        Architecture of the system
+    hardware            Hardware information
+    memory              Memory info
+    sockets             Socket count
+
+multival_columns:
+
+    server_id
+    software_channel : software_channel
+    entitlements : entitlements
+    system_group : system_group
+    virtual_host : virtual_host
+
+sql:
+
+    select server_id, organization, org_id, name, hostname, ip_address, ipv6_address, registered_by,
+        registration_time, last_checkin_time,
+        software_channel,
+        entitlements, system_group, virtual_host, architecture, hardware, memory, sockets
+    from (
+    select rhnserver.id as server_id,
+        rhnserver.name as name,
+        rhnserver.org_id as org_id,
+        rhnservernetwork.hostname, trim(rhnservernetwork.ipaddr) as ip_address,
+        trim(rhnservernetwork.ip6addr) as ipv6_address,
+        ( select login from web_contact where rhnserver.creator_id = web_contact.id ) as registered_by,
+        to_char(rhnserver.created, 'YYYY-MM-DD HH24:MI:SS') as registration_time,
+        ( select to_char(checkin, 'YYYY-MM-DD HH24:MI:SS') from rhnserverinfo where rhnserver.id = server_id ) as last_checkin_time,
+        rhnchannel.label as software_channel,
+        rhnchannel.parent_channel as parent_channel,
+        rhnchannel.id as channel_id,
+        entitlement_data.name as entitlements,
+        entitlement_data.server_group_id as entitlements_server_group_id,
+        group_data.name as system_group,
+        group_data.server_group_id as system_group_server_group_id,
+        (
+        select name from web_customer where rhnserver.org_id = web_customer.id
+        ) as organization,
+        virtual_data.host_system_id as virtual_host,
+        (
+        select rhnserverarch.name from rhnserverarch where rhnserver.server_arch_id = rhnserverarch.id
+        ) as architecture,
+        get_hw_info_as_clob(rhnserver.id, '; ') as hardware,
+        (
+        select rhnram.ram from rhnram where rhnram.server_id = rhnserver.id
+        ) as memory,
+        (
+        select rhncpu.nrsocket from rhncpu where rhncpu.server_id = rhnserver.id
+        ) as sockets
+    from rhnserver left outer join
+        (
+        select server_id, hostname, ipaddr, ip6addr
+        from rhnservernetwork
+        where id in (
+            select min(id)
+            from rhnservernetwork
+            group by server_id
+            )
+        ) rhnservernetwork
+        on rhnserver.id = rhnservernetwork.server_id
+        left outer join rhnserverchannel
+        on rhnserver.id = rhnserverchannel.server_id
+        left outer join rhnchannel
+        on rhnserverchannel.channel_id = rhnchannel.id
+        left outer join rhnserverconfigchannel
+        on rhnserver.id = rhnserverconfigchannel.server_id
+        left outer join rhnconfigchannel
+        on rhnserverconfigchannel.config_channel_id = rhnconfigchannel.id
+        left outer join
+        (
+        select rhnservergroupmembers.server_id, rhnservergroupmembers.server_group_id, rhnservergroup.name
+        from rhnservergroupmembers left outer join rhnservergroup
+            on rhnservergroupmembers.server_group_id = rhnservergroup.id
+        where rhnservergroup.group_type is not null
+        ) entitlement_data
+        on rhnserver.id = entitlement_data.server_id
+        left outer join
+        (
+        select rhnservergroupmembers.server_id, rhnservergroupmembers.server_group_id, rhnservergroup.name
+        from rhnservergroupmembers left outer join rhnservergroup
+            on rhnservergroupmembers.server_group_id = rhnservergroup.id
+        where rhnservergroup.group_type is null
+        ) group_data
+        on rhnserver.id = group_data.server_id
+        left outer join
+        (
+        select host_system_id, virtual_system_id
+        from rhnvirtualinstance
+        where host_system_id is not null
+        ) virtual_data
+        on rhnserver.id = virtual_data.virtual_system_id
+    ) X
+    -- where placeholder
+    order by server_id, parent_channel nulls first, channel_id,
+        entitlements_server_group_id, system_group_server_group_id,
+        virtual_host
