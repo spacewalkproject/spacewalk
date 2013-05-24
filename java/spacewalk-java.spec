@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.80
+Version: 1.10.81
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri May 24 2013 Tomas Lestach <tlestach@redhat.com> 1.10.81-1
+- 855845 - escaping system name for /rhn/systems/entitlements/FlexGuests.do
+- 855845 - escaping system name for /rhn/systems/entitlements/PhysicalHosts.do
+- 855845 - escaping system name for /rhn/systems/VirtualSystemsList.do
+- 855845 - escaping system name for
+  /rhn/systems/DuplicateSystemsDeleteConfirm.do
+- 855845 - escaping system name for /rhn/systems/SystemCurrency.do
+- 855845 - escaping system name for /rhn/systems/DuplicateIPList.do
+
 * Fri May 24 2013 Tomas Lestach <tlestach@redhat.com> 1.10.80-1
 - 855845 - escaping system name for
   /rhn/systems/details/configuration/DiffFileConfirm.do
