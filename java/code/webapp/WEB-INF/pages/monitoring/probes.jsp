@@ -34,7 +34,7 @@
         <%@ include file="/WEB-INF/pages/common/fragments/probes/probe-state-column.jspf" %>
         <rhn:column header="systemlist.jsp.system">
           <A HREF="/rhn/systems/details/probes/ProbesList.do?sid=${current.serverId}">
-            ${current.serverName}
+            <c:out value="${current.serverName}" escapeXml="true" />
           </A>
         </rhn:column>
         <rhn:column header="probes.index.jsp.description">
