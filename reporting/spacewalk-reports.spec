@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.5
+Version: 1.10.6
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Fri May 24 2013 Stephen Herr <sherr@redhat.com> 1.10.6-1
+- Report for host-guest mappings for splice integration
+- Reports to support enhanced reporting
+
 * Tue May 07 2013 Jan Pazdziora 1.10.5-1
 - report patterns should have 644 in git
 - deploying /data/* content with 644 instead 755
