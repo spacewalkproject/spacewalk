@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.rhnpackage;
 
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.DatePicker;
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
@@ -219,7 +220,7 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
                                  .formatNumber(numPackages),
                              pa.getId().toString(),
                              sid.toString(),
-                             server.getName()));
+                             StringUtil.htmlifyText(server.getName())));
         }
         else {
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
@@ -228,7 +229,7 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
                              .formatNumber(numPackages),
                          pa.getId().toString(),
                          sid.toString(),
-                         server.getName()));
+                         StringUtil.htmlifyText(server.getName())));
         }
         strutsDelegate.saveMessages(request, msgs);
         Map params = new HashMap();
