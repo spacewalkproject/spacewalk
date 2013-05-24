@@ -39,10 +39,12 @@
 		           sortattr="name" filterattr="name">
 		    <c:choose>
 		    	<c:when test = "${not empty requestScope.accessMap[current.id]}">
-		    		<a href="/rhn/systems/details/Overview.do?sid=${current.id}">${current.name}</a>
+                    <a href="/rhn/systems/details/Overview.do?sid=${current.id}">
+                        <c:out value="${current.name}" escapeXml="true" />
+                    </a>
 		    	</c:when>
 		    	<c:otherwise>
-		    		${current.name}
+                    <c:out value="${current.name}" escapeXml="true" />
 		    	</c:otherwise>
 		    </c:choose>
 		</rl:column>
