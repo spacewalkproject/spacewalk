@@ -314,7 +314,7 @@ class OracleBackend(Backend):
                 'channel_arch_id': DBint(),
                 'label'         : DBstring(128),
                 'basedir'       : DBstring(256),
-                'name'          : DBstring(64),
+                'name'          : DBstring(256),
                 'summary'       : DBstring(500),
                 'description'   : DBstring(4000),
                 'product_name_id' : DBint(),
