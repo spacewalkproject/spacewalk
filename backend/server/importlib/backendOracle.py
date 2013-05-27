@@ -164,7 +164,7 @@ class OracleBackend(Backend):
                 'vendor'        : DBstring(64), 
                 'payload_format': DBstring(32), 
                 'path'          : DBstring(1000), 
-                'copyright'     : DBstring(64),
+                'copyright'     : DBstring(128),
                 'cookie'        : DBstring(128),
                 'header_start'  : DBint(),
                 'header_end'    : DBint(),
