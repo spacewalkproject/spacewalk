@@ -265,3 +265,5 @@ rhnXccdfRuleresult             :: rhnXccdfTestresult rhnXccdfIdent rhnXccdfRuler
 rhnXccdfTestresult             :: rhnServer rhnActionScap rhnXccdfBenchmark rhnXccdfProfile
 rhnXccdfRuleIdentMap           :: rhnXccdfRuleresult
 rhnISSSlaveOrgs                :: rhnISSSlave web_customer
+rhnSyncOrgs                    :: rhnSyncOrgCatalogue
+rhnSyncMap                     :: rhnSyncOrgs web_customer
