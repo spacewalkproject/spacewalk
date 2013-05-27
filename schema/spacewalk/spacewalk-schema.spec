@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.37
+Version:        1.10.38
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon May 27 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.38-1
+- split the upgrade script for oracle and postgresql
+
 * Thu May 23 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.37-1
 - Don't create index if it already exists
 - Don't drop rhn_ram_sid_idx if it does not exist.
