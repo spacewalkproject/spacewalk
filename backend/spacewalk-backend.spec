@@ -409,6 +409,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/server/importlib/backend.py*
 %{pythonrhnroot}/server/importlib/backendLib.py*
 %{pythonrhnroot}/server/importlib/backendOracle.py*
+%{pythonrhnroot}/server/importlib/backend_checker.py*
 %{pythonrhnroot}/server/importlib/channelImport.py*
 %{pythonrhnroot}/server/importlib/debPackage.py*
 %{pythonrhnroot}/server/importlib/errataCache.py*
