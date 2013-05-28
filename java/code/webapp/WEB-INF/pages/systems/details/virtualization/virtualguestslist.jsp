@@ -40,7 +40,7 @@
     </rhn:require>
 
     <rhn:column header="virtualguestslist.jsp.guestname">
-      ${current.name}
+      <c:out value="${current.name}" escapeXml="true" />
     </rhn:column>
 
     <rhn:column header="systemlist.jsp.system">
@@ -50,11 +50,11 @@
         </c:when>
         <c:when test="${current.accessible}">
           <a href="/rhn/systems/details/Overview.do?sid=${current.virtualSystemId}">
-            ${current.serverName}
+            <c:out value="${current.serverName}" escapeXml="true" />
           </a>
         </c:when>        
         <c:otherwise>
-${current.serverName}
+          <c:out value="${current.serverName}" escapeXml="true" />
         </c:otherwise>
       </c:choose>
     </rhn:column>
