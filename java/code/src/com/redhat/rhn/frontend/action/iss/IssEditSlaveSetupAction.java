@@ -34,7 +34,6 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.iss.IssFactory;
 import com.redhat.rhn.domain.iss.IssSlave;
-import com.redhat.rhn.domain.iss.IssSlaveOrgs;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.frontend.dto.OrgDto;
@@ -91,7 +90,7 @@ public class IssEditSlaveSetupAction extends RhnAction {
 
          IssSlave theSlave = IssFactory.lookupSlaveById(sid);
         Set<Long> mappedOrgs = mappedLocalOrgs(
-                        new ArrayList<IssSlaveOrgs>(theSlave.getOrgMappings()));
+                        new ArrayList<Org>(theSlave.getMappedOrgs()));
         List<OrgDto> locals = fromOrgs(OrgFactory.lookupAllOrgs());
 
         Set sessionSet = SessionSetHelper.lookupAndBind(request, getSetDecl()
@@ -155,10 +154,10 @@ public class IssEditSlaveSetupAction extends RhnAction {
         return outList;
     }
 
-    protected Set<Long> mappedLocalOrgs(List<IssSlaveOrgs> orgs) {
+    protected Set<Long> mappedLocalOrgs(List<Org> orgs) {
         Set<Long> outIds = new HashSet<Long>();
-        for (IssSlaveOrgs o : orgs) {
-            outIds.add(o.getOrgId());
+        for (Org o : orgs) {
+            outIds.add(o.getId());
         }
 
         return outIds;

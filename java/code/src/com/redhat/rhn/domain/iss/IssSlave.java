@@ -19,6 +19,7 @@ package com.redhat.rhn.domain.iss;
 import java.util.Date;
 import java.util.Set;
 
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.frontend.dto.BaseDto;
 
 /**
@@ -42,7 +43,7 @@ public class IssSlave extends BaseDto {
     private String slave;
     private String enabled;
     private String allowAllOrgs;
-    private Set<IssSlaveOrgs> orgMappings;
+    private Set<Org> mappedOrgs;
     private Date created;
     private Date modified;
 
@@ -161,18 +162,18 @@ public class IssSlave extends BaseDto {
 
     /**
      * Getter for all orgs allowed to be visible to this slave
-     * @return list of currently-mapped org entries
+     * @return list of currently-mapped orgs
      */
-    public Set<IssSlaveOrgs> getOrgMappings() {
-        return orgMappings;
+    public Set<Org> getMappedOrgs() {
+        return mappedOrgs;
     }
 
     /**
-     * Setter for orgMappings
-     * @param orgMappingsIn get current orgMappings
+     * Setter for mapped orgs
+     * @param mappedOrgsIn get current mappedOrgs
      */
-    public void setOrgMappings(Set<IssSlaveOrgs> orgMappingsIn) {
-        this.orgMappings = orgMappingsIn;
+    public void setMappedOrgs(Set<Org> mappedOrgsIn) {
+        this.mappedOrgs = mappedOrgsIn;
     }
 
 }

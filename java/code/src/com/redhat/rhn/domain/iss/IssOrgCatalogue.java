@@ -16,10 +16,8 @@
  */
 package com.redhat.rhn.domain.iss;
 
-import java.util.HashSet;
 import java.util.Set;
 
-import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.frontend.dto.BaseDto;
 
 /**
