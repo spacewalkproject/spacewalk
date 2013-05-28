@@ -211,7 +211,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/ServerGroup.pm
 %{perl_vendorlib}/RHN/Session.pm
 %{perl_vendorlib}/RHN/Set.pm
-%{perl_vendorlib}/RHN/SimpleStruct.pm
 %{perl_vendorlib}/RHN/StoredMessage.pm
 %{perl_vendorlib}/RHN/SystemSnapshot.pm
 %{perl_vendorlib}/RHN/TSDB.pm
@@ -235,6 +234,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{perl_vendorlib}/RHN
 %dir %{perl_vendorlib}/PXT
 %{perl_vendorlib}/RHN/SessionSwap.pm
+%{perl_vendorlib}/RHN/SimpleStruct.pm
 %{perl_vendorlib}/RHN/Exception.pm
 %{perl_vendorlib}/RHN/DB.pm
 %{perl_vendorlib}/RHN/DBI.pm
