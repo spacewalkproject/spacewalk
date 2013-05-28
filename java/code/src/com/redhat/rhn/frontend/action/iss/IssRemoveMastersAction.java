@@ -18,7 +18,6 @@ package com.redhat.rhn.frontend.action.iss;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,13 +26,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 
-import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.iss.IssFactory;
 import com.redhat.rhn.domain.iss.IssOrgCatalogue;
-import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
@@ -65,55 +64,96 @@ public class IssRemoveMastersAction extends RhnAction {
             throw pex;
         }
 
-        RequestContext requestContext = new RequestContext(request);
-        Map params = makeParamMap(request);
+        ActionForward destination = null;
+        Set sessionSet = null;
 
-        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-
-        Set sessionSet = SessionSetHelper.lookupAndBind(request, getSetDecl().getLabel());
-        List<IssOrgCatalogue> masters = findSelectedMasters(sessionSet);
-
-        SessionSetHelper helper = new SessionSetHelper(request);
-
-        if (request.getParameter("dispatch") != null) {
-            if (!sessionSet.isEmpty()) {
-                return handleDispatchAction(mapping, requestContext, sessionSet, masters);
-            }
-            RhnHelper.handleEmptySelection(request);
+        Long mid = getMid(request);
+        if (mid == null) {
+            sessionSet = SessionSetHelper.lookupAndBind(request, getSetDecl().getLabel());
+            request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
+        }
+        else {
+            request.setAttribute(ListTagHelper.PARENT_URL,
+                            request.getRequestURI() + "?mid=" + mid.toString());
         }
 
-        DataList<IssOrgCatalogue> result = new DataList<IssOrgCatalogue>(masters);
+        List<IssOrgCatalogue> masters = findSelectedMasters(sessionSet, mid);
+
+        if (request.getParameter("dispatch") != null) {
+            if (!masters.isEmpty()) {
+                destination = handleDispatchAction(mapping, request, sessionSet, masters);
+                if (sessionSet != null) {
+                    sessionSet.clear();
+                }
+                return destination;
+            }
+            else {
+                RhnHelper.handleEmptySelection(request);
+            }
+        }
 
         // if I have a previous set selections populate data using it
-        if (!sessionSet.isEmpty()) {
-            helper.syncSelections(sessionSet, result);
+        if (sessionSet != null && !sessionSet.isEmpty()) {
+            SessionSetHelper helper = new SessionSetHelper(request);
+            helper.syncSelections(sessionSet, masters);
             ListTagHelper.setSelectedAmount(LIST_NAME, sessionSet.size(), request);
         }
 
-        request.setAttribute(DATA_SET, result);
+        request.setAttribute(DATA_SET, masters);
         ListTagHelper.bindSetDeclTo(LIST_NAME, getSetDecl(), request);
 
         return StrutsDelegate.getInstance().forwardParams(mapping.findForward("default"),
-                        params);
+                        makeParamMap(request));
     }
 
-    private List<IssOrgCatalogue> findSelectedMasters(Set sessionSet) {
-        Set<String> mids = (Set<String>) sessionSet;
-        List<IssOrgCatalogue> masters = new ArrayList<IssOrgCatalogue>();
-        for (String mid : mids) {
-            IssOrgCatalogue aMaster = IssFactory.lookupMasterById(Long.parseLong(mid));
-            masters.add(aMaster);
+    private Long getMid(HttpServletRequest req) {
+        String mid = req.getParameter("mid");
+
+        if (mid != null) {
+            return Long.parseLong(mid);
         }
+        else {
+            return null;
+        }
+    }
+
+    private List<IssOrgCatalogue> findSelectedMasters(Set sessionSet, Long midIn) {
+        List<IssOrgCatalogue> masters = new ArrayList<IssOrgCatalogue>();
+
+        if (sessionSet != null) {
+            Set<String> mids = (Set<String>) sessionSet;
+            for (String mid : mids) {
+                IssOrgCatalogue aMaster = IssFactory.lookupMasterById(Long.parseLong(mid));
+                masters.add(aMaster);
+            }
+        }
+        else if (midIn != null) {
+            masters.add(IssFactory.lookupMasterById(Long.parseLong(midIn.toString())));
+        }
+
         return masters;
     }
 
     private ActionForward handleDispatchAction(ActionMapping mapping,
-                    RequestContext context, Set sessionSet, List<IssOrgCatalogue> masters) {
+                    HttpServletRequest request,
+                    Set sessionSet,
+                    List<IssOrgCatalogue> masters) {
         for (IssOrgCatalogue master : masters) {
             IssFactory.remove(master);
         }
 
-        sessionSet.clear();
+        ActionMessages msg = new ActionMessages();
+        if (masters.size() == 1) {
+            IssOrgCatalogue master = masters.get(0);
+            msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                            "message.iss_master_removed", master.getLabel()));
+
+        }
+        else {
+            msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                            "message.iss_masters_removed"));
+        }
+        getStrutsDelegate().saveMessages(request, msg);
         return mapping.findForward("confirm");
     }
 

@@ -14,8 +14,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="sourceOrgId" column="SOURCE_ORG_ID"  type="long" />
         <property name="sourceOrgName" column="SOURCE_ORG_NAME"  type="string" length="256" />
 
-        <many-to-one name="catalogue" column="CATALOGUE_ID"  class="com.redhat.rhn.domain.iss.IssOrgCatalogue" />
+        <many-to-one name="catalogue"
+            column="CATALOGUE_ID"  class="com.redhat.rhn.domain.iss.IssOrgCatalogue"
+            />
 
-        <many-to-one name="targetOrg" column="TARGET_ID"  class="com.redhat.rhn.domain.org.Org" />
+        <many-to-one name="targetOrg"
+            column="TARGET_ID"  class="com.redhat.rhn.domain.org.Org"
+            />
     </class>
 </hibernate-mapping>
