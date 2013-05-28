@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.83
+Version: 1.10.84
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,17 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue May 28 2013 Tomas Lestach <tlestach@redhat.com> 1.10.84-1
+- 855845 - escaping system name for
+  /rhn/systems/details/virtualization/VirtualGuestsList.do
+- 855845 - escaping system name for
+  /rhn/systems/entitlements/GuestLimitedHosts.do
+- userlist.jsp isn't used for /users/SystemsAdmined.do page
+- 855845 - escaping system name for /rhn/users/SystemsAdmined.do
+- simplify the column message
+- 855845 - escaping system name for /rhn/systems/details/audit/ScheduleXccdf.do
+- junit tests postgresql fixes
+
 * Tue May 28 2013 Tomas Lestach <tlestach@redhat.com> 1.10.83-1
 - 967526 - on RHEL5 the (P)SQLException is wrapped into a RuntimeException
 
