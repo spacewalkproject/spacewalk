@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.10.6
+Version: 1.10.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -346,6 +346,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue May 28 2013 Stephen Herr <sherr@redhat.com> 1.10.7-1
+- 948337 - Make client tools only pass up cpu_socket if server has capability
+- man pages branding cleanup + misc branding fixes
+
 * Tue May 21 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.6-1
 - branding clean-up of rhel client stuff
 
