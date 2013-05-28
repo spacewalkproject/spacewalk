@@ -38,7 +38,9 @@
                  emptykey="guestlimited.jsp.nosystems"
                  width="100%">
 	  <rl:column bound="false" sortable="false" headerkey="guestlimited.jsp.hostsystem">
-		    <a href="/rhn/systems/details/Overview.do?sid=${current.hostId}">${current.hostName}</a>
+            <a href="/rhn/systems/details/Overview.do?sid=${current.hostId}">
+                <c:out value="${current.hostName}" escapeXml="true" />
+            </a>
 	      </rl:column>
 	  <rl:column bound="false" sortable="false" headerkey="guestlimited.jsp.guest">
 		    <a href="/rhn/systems/details/Overview.do?sid=${current.hostId}">${current.numberOfGuests}</a>
