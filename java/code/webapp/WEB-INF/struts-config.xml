@@ -1719,7 +1719,6 @@
 
     <action path="/users/SystemsAdmined"
         scope="request"
-        input="/WEB-INF/pages/admin/users/userlist.jsp"
         type="com.redhat.rhn.frontend.action.user.VisibleSystemsListSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
