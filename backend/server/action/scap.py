@@ -34,6 +34,20 @@ def xccdf_eval(server_id, action_id, dry_run=0):
     return ({
         'path': dict['path'],
         'id': action_id,
-        'file_size': 2097152,
+        'file_size': _scap_file_limit(server_id),
         'params': rhnSQL.read_lob(dict['parameters']) or ''
         },)
+
+def _scap_file_limit(server_id):
+    statement = """
+        select roc.scap_file_sizelimit as limit, roc.scapfile_upload_enabled as enabled
+        from rhnOrgConfiguration roc,
+             rhnServer rs
+        where rs.id = :server_id
+          and rs.org_id = roc.org_id"""
+    h = rhnSQL.prepare(statement)
+    h.execute(server_id=server_id)
+    d = h.fetchone_dict()
+    if not d or d['enabled'] != 'Y':
+        return 0
+    return d['limit']
