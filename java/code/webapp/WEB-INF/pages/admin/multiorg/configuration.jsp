@@ -111,6 +111,33 @@ function modifyUploadCheckbox(checkbox) {
                id="crashfile_sizelimit" />
     <td>
   </tr>
+  <tr>
+    <th>
+      <label for="scapfile_upload_enabled">
+      <bean:message key="org-config.scapfile-upload.jsp"/>
+    </th>
+    <td>
+      <input type="checkbox"
+             name="scapfile_upload_enabled"
+             value="enabled"
+             id="scapfile_upload_enabled"
+             <c:if test = "${org.orgConfig.scapfileUploadEnabled}">
+                 checked="checked"
+             </c:if>
+      />
+    </td>
+  </tr>
+  <tr>
+    <th>
+        <bean:message key="org-config.scapfile-sizelimit.jsp"/>
+    </th>
+    <td>
+        <input type="number"
+               name="scapfile_sizelimit"
+               value="${org.orgConfig.scapFileSizelimit}"
+               id="scapfile_sizelimit" />
+    <td>
+  </tr>
  </table>
 
  <div align="right">

@@ -32,6 +32,8 @@ public class OrgConfig extends BaseDomainHelper {
     private boolean crashReportingEnabled;
     private boolean crashfileUploadEnabled;
     private Long crashFileSizelimit;
+    private boolean scapfileUploadEnabled;
+    private Long scapFileSizelimit;
 
     /**
      * Gets the current value of org_id
@@ -105,5 +107,35 @@ public class OrgConfig extends BaseDomainHelper {
      */
     public void setCrashFileSizelimit(Long sizeLimitIn) {
         crashFileSizelimit = sizeLimitIn;
+    }
+
+    /**
+     * @return Returns the scapfileUploadEnabled flag.
+     */
+    public boolean isScapfileUploadEnabled() {
+        return scapfileUploadEnabled;
+    }
+
+    /**
+     * @param scapfileUploadEnabledIn The scapfileUploadEnabled to set.
+     */
+    public void setScapfileUploadEnabled(boolean scapfileUploadEnabledIn) {
+        scapfileUploadEnabled = scapfileUploadEnabledIn;
+    }
+
+    /**
+     * Get the org-wide SCAP file size limit.
+     * @return Returns the org-wide scap file size limit.
+     */
+    public Long getScapFileSizelimit() {
+        return scapFileSizelimit;
+    }
+
+    /**
+     * Set the org-wide SCAP file size limit.
+     * @param sizeLimitIn The org-wide SCAP file size limit to set.
+     */
+    public void setScapFileSizelimit(Long sizeLimitIn) {
+        scapFileSizelimit = sizeLimitIn;
     }
 }

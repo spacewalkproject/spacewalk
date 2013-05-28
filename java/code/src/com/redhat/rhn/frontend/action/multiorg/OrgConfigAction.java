@@ -60,12 +60,19 @@ public class OrgConfigAction extends RhnAction {
                     getParameter("crashfile_upload_enabled") != null);
             }
 
+            org.getOrgConfig().setScapfileUploadEnabled(request.
+                    getParameter("scapfile_upload_enabled") != null);
+
             Long newCrashLimit = null;
+            Long newScapLimit = null;
             try {
                 newCrashLimit = Long.parseLong(
                            request.getParameter("crashfile_sizelimit").trim());
 
-                if (newCrashLimit < 0) {
+                newScapLimit = Long.parseLong(
+                           request.getParameter("scapfile_sizelimit").trim());
+
+                if (newCrashLimit < 0 || newScapLimit < 0) {
                     throw new IllegalArgumentException();
                 }
             }
@@ -79,6 +86,9 @@ public class OrgConfigAction extends RhnAction {
             }
             if (StringUtils.isNotEmpty(request.getParameter("crashfile_sizelimit"))) {
                 org.getOrgConfig().setCrashFileSizelimit(newCrashLimit);
+            }
+            if (StringUtils.isNotEmpty(request.getParameter("scapfile_sizelimit"))) {
+                org.getOrgConfig().setScapFileSizelimit(newScapLimit);
             }
 
             ActionMessages msg = new ActionMessages();

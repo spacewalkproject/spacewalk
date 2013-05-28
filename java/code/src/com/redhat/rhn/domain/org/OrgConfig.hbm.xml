@@ -14,6 +14,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="crashReportingEnabled" column="crash_reporting_enabled" type="yes_no" not-null="true"/>
         <property name="crashfileUploadEnabled" column="crashfile_upload_enabled" type="yes_no" not-null="true"/>
         <property name="crashFileSizelimit" column="crash_file_sizelimit" type="long" not-null="true"/>
+        <property name="scapfileUploadEnabled" column="scapfile_upload_enabled" type="yes_no" not-null="true"/>
+        <property name="scapFileSizelimit" column="scap_file_sizelimit" type="long" not-null="true"/>
     </class>
 </hibernate-mapping>
 

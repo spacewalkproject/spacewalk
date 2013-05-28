@@ -3339,6 +3339,18 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="org-config.scapfile-upload.jsp">
+        <source>Enable Upload Of Detailed SCAP Files</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org-config.scapfile-sizelimit.jsp">
+        <source>SCAP File Upload Size Limit</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="org.id.jsp">
         <source>Organization ID</source>
         <context-group name="ctx">
