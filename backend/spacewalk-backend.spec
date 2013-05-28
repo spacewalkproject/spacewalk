@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.38
+Version: 1.10.39
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -638,6 +638,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue May 28 2013 Simon Lukasik <slukasik@redhat.com> 1.10.39-1
+- Add scap into list of packaged modules.
+- Do not use python key-word as a variable name
+- Store SCAP-file-limit to the database
+
 * Mon May 27 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.38-1
 - pack backend_checker into rpm
 
