@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.81
+Version: 1.10.82
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue May 28 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.82-1
+- 960885 - add list elaborator into session for CSV export
+
 * Fri May 24 2013 Tomas Lestach <tlestach@redhat.com> 1.10.81-1
 - 855845 - escaping system name for /rhn/systems/entitlements/FlexGuests.do
 - 855845 - escaping system name for /rhn/systems/entitlements/PhysicalHosts.do
