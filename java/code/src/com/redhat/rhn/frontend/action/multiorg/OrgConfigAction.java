@@ -60,12 +60,12 @@ public class OrgConfigAction extends RhnAction {
                     getParameter("crashfile_upload_enabled") != null);
             }
 
-            Long newLimit = null;
+            Long newCrashLimit = null;
             try {
-                newLimit = Long.parseLong(
+                newCrashLimit = Long.parseLong(
                            request.getParameter("crashfile_sizelimit").trim());
 
-                if (newLimit < 0) {
+                if (newCrashLimit < 0) {
                     throw new IllegalArgumentException();
                 }
             }
@@ -78,7 +78,7 @@ public class OrgConfigAction extends RhnAction {
                            RequestContext.ORG_ID, org.getId().toString());
             }
             if (StringUtils.isNotEmpty(request.getParameter("crashfile_sizelimit"))) {
-                org.getOrgConfig().setCrashFileSizelimit(newLimit);
+                org.getOrgConfig().setCrashFileSizelimit(newCrashLimit);
             }
 
             ActionMessages msg = new ActionMessages();
