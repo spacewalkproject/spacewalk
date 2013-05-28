@@ -28,7 +28,6 @@ use POSIX;
 use Dobby::DB;
 use Dobby::Reporting;
 use Dobby::CLI::MiscCommands;
-use Spacewalk::Setup qw/postgresql_clear_db /;
 
 sub register_dobby_commands {
   my $class = shift;
@@ -376,7 +375,22 @@ sub command_pg_restore {
                 . "Run 'spacewalk-service --exclude=postgresql stop' to stop them.");
       exit 1;
   }
-  postgresql_clear_db($dbh, 0);
+
+  {
+    my @schemas = ('rpm', 'rhn_exception', 'rhn_config', 'rhn_server', 'rhn_entitlements', 'rhn_bel',
+                   'rhn_cache', 'rhn_channel', 'rhn_config_channel', 'rhn_org', 'rhn_user', 'public');
+
+    local $dbh->{RaiseError} = 0;
+    local $dbh->{PrintError} = 1;
+    local $dbh->{PrintWarn} = 0;
+    local $dbh->{AutoCommit} = 1;
+
+    foreach my $schema (@schemas) {
+      $dbh->do("drop schema if exists $schema cascade;");
+    }
+    $dbh->do("create schema public authorization postgres;");
+  }
+
   system('/usr/bin/droplang', 'plpgsql', PXT::Config->get('db_name'));
 
   print "** Restoring from file $file.\n";
