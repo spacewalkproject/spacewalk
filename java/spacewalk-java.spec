@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.85
+Version: 1.10.86
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue May 28 2013 Simon Lukasik <slukasik@redhat.com> 1.10.86-1
+- SCAP file size limit shall be configurable through web interface
+- Refactor: Rename variable: newLimit -> newCrashLimit
+
 * Tue May 28 2013 Jan Dobes 1.10.85-1
 - checkstyle fix
 
