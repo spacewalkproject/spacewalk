@@ -29,6 +29,7 @@ import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
 import com.redhat.rhn.common.util.DatePicker;
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.action.scap.ScapAction;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
@@ -97,7 +98,8 @@ public class ScheduleXccdfAction extends ScapSetupAction {
 
         ActionMessages msgs = new ActionMessages();
         msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage("message.xccdfeval",
-                action.getId().toString(), server.getId().toString(), server.getName()));
+                action.getId().toString(), server.getId().toString(),
+                StringUtil.htmlifyText(server.getName())));
         return msgs;
     }
 
