@@ -36,7 +36,7 @@
   <rhn:csrf />
   <rhn:submitted />
   <rl:list dataset="pageList" name="issMasterList"
-   emptykey="slave.jsp.nomasters">
+   emptykey="iss.slave.jsp.nomasters">
    <rl:column sortable="true" headerkey="iss.master.name" sortattr="label">
     <html:link href="/rhn/admin/iss/MapOrgs.do?mid=${current.id}">
      <c:out value="${current.label}" />

@@ -19956,6 +19956,9 @@ given channel.</source>
       <trans-unit id="iss.slave.notAll">
         <source>Do Not Sync All</source>
       </trans-unit>
+      <trans-unit id="iss.localorg.name">
+        <source>Local Organization</source>
+      </trans-unit>
       <trans-unit id="toolbar.create.slave">
         <source>Add new slave</source>
       </trans-unit>
@@ -19974,8 +19977,14 @@ given channel.</source>
       <trans-unit id="iss.slave.create">
         <source>Create</source>
       </trans-unit>
+      <trans-unit id="iss.slave.associate">
+        <source>Allow Orgs</source>
+      </trans-unit>
       <trans-unit id="iss.confirm.remove.slaves">
         <source>Remove Slaves</source>
+      </trans-unit>
+      <trans-unit id="iss.confirm.remove.masters">
+        <source>Remove Masters</source>
       </trans-unit>
       <trans-unit id="iss.num.master.orgs">
         <source>Known Orgs</source>
@@ -20007,6 +20016,15 @@ given channel.</source>
       <trans-unit id="message.iss_slave_removed">
         <source>Slave {0} removed</source>
       </trans-unit>
+      <trans-unit id="message.iss_masters_removed">
+        <source>Selected slaves have been removed</source>
+      </trans-unit>
+      <trans-unit id="message.iss_master_updated">
+        <source>Slave {0} updated</source>
+      </trans-unit>
+      <trans-unit id="message.iss_master_removed">
+        <source>Slave {0} removed</source>
+      </trans-unit>
       <group>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/iss/Master.do</context>
@@ -20019,6 +20037,9 @@ given channel.</source>
         </trans-unit>
         <trans-unit id="iss.master.jsp.header2">
           <source>Known Slave Instances</source>
+        </trans-unit>
+        <trans-unit id="iss.master.jsp.noslaves">
+          <source>No ISS Slaves are currently defined</source>
         </trans-unit>
       </group>
       <group>
@@ -20033,6 +20054,12 @@ given channel.</source>
         </trans-unit>
         <trans-unit id="iss.editslave.jsp.header2">
           <source>Edit Slave Details</source>
+        </trans-unit>
+        <trans-unit id="iss.editslave.jsp.allowed.orgs.header">
+          <source>Allow Export of the Selected Orgs</source>
+        </trans-unit>
+        <trans-unit id="iss.editslave.jsp.nolocalorgs">
+          <source>No local organizations available</source>
         </trans-unit>
       </group>
       <group>
@@ -20065,6 +20092,9 @@ given channel.</source>
         <trans-unit id="iss.slave.jsp.header2">
           <source>Known Master Instances</source>
         </trans-unit>
+         <trans-unit id="iss.slave.jsp.nomasters">
+          <source>No Masters known to this Slave</source>
+        </trans-unit>
       </group>
       <group>
         <context-group name="ctx">
@@ -20081,6 +20111,9 @@ given channel.</source>
         </trans-unit>
         <trans-unit id="iss.confirmmasterremove.jsp.header2">
           <source>Masters To Be Removed</source>
+        </trans-unit>
+        <trans-unit id="iss.confirmslaveremove.jsp.nomasters">
+          <source>No Masters known to this Slave</source>
         </trans-unit>
       </group>
       <group>
@@ -20101,6 +20134,9 @@ given channel.</source>
         </trans-unit>
         <trans-unit id="iss.maporgs.jsp.header2">
           <source>Configure Master-to-Slave Org Mappings for {0}</source>
+        </trans-unit>
+        <trans-unit id="iss.maporgs.jsp.nomasterorgs">
+          <source>No master organizations are known to this slave</source>
         </trans-unit>
       </group>
     </body>

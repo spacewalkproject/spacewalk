@@ -36,7 +36,7 @@
   <rhn:csrf />
   <rhn:submitted />
   <rl:list dataset="pageList" name="issSlaveList"
-   emptykey="master.jsp.nomasters">
+   emptykey="iss.confirmslaveremove.jsp.nomasters">
    <rl:column sortable="true" headerkey="iss.slave.name" sortattr="slave">
     <html:link href="/rhn/admin/iss/EditSlave.do?sid=${current.id}">
      <c:out value="${current.slave}" />
