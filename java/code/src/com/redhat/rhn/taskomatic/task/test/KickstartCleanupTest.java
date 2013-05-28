@@ -90,7 +90,8 @@ public class KickstartCleanupTest extends RhnBaseTestCase {
             KickstartSession ksession, int days) throws Exception {
         Connection cn = session.connection();
         StringBuffer sql = new StringBuffer();
-        sql.append("update rhnkickstartsession set last_action = current_timestamp - interval '");
+        sql.append("update rhnkickstartsession set last_action" +
+                " = current_timestamp - interval '");
         sql.append(String.valueOf(days));
         sql.append("' day");
         sql.append(" where id = ").append(ksession.getId());
