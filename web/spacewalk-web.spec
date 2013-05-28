@@ -79,7 +79,6 @@ Configuration file for spacewalk-base-minimal package.
 %package -n spacewalk-dobby
 Summary: Perl modules and scripts to administer an Oracle database
 Group: Applications/Internet
-Requires: httpd
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Obsoletes: rhn-dobby < 5.3.0
 Provides: rhn-dobby = 5.3.0
@@ -248,7 +247,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/db-control
 %{_mandir}/man1/db-control.1.gz
 %{perl_vendorlib}/Dobby.pm
-%attr(644,root,apache) %{_prefix}/share/rhn/config-defaults/rhn_dobby.conf
+%attr(644,root,root) %{_prefix}/share/rhn/config-defaults/rhn_dobby.conf
 %attr(0755,root,root) %{_sysconfdir}/cron.daily/check-database-space-usage.sh
 %{perl_vendorlib}/Dobby/
 
