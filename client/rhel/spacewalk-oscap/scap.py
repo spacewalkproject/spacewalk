@@ -133,7 +133,7 @@ def _upload_results(xccdf_result, results_dir, args):
 def _upload_file(server, systemid, args, path, filename, f):
     if not _assert_xml(f):
         log.log_debug('Excluding "%s" file from upload. Not an XML.', path)
-        return '\nFile "%s" not uploaded. Not an XML file format.', filename
+        return '\nxccdf_eval: File "%s" not uploaded. Not an XML file format.', filename
 
     stat = os.fstat(f.fileno())
     if stat.st_size < args['file_size']:
@@ -148,9 +148,9 @@ def _upload_file(server, systemid, args, path, filename, f):
             return ''
         except up2dateErrors.Error, e:
             log.log_exception(*sys.exc_info())
-            return '\nFile "%s" not uploaded. %s' % (filename, e)
+            return '\nxccdf_eval: File "%s" not uploaded. %s' % (filename, e)
     else:
-        return '\nFile "%s" not uploaded. File size (%d B) exceeds the limit.' \
+        return '\nxccdf_eval: File "%s" not uploaded. File size (%d B) exceeds the limit.' \
             % (filename, stat.st_size)
 
 def _cleanup_temp(results_dir):
