@@ -1,5 +1,5 @@
 Name:		spacewalk-oscap
-Version:	0.0.14
+Version:	0.0.15
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -47,6 +47,17 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue May 28 2013 Simon Lukasik <slukasik@redhat.com> 0.0.15-1
+- Precede internal error messages by xccdf_eval: prefix.
+- Submit the OpenSCAP HTML report as well.
+- Rewind, after using SAX to parse XML.
+- Upload also full XCCDF results along the OVAL results.
+- Refactor: Extract function _upload_file().
+- Make sure to only upload XML files
+- Use opened socket when to assessing file type.
+- Client shall upload full results of the scap.xccdf_eval action
+- Delete the temp file even when the content is useless
+
 * Thu Apr 11 2013 Simon Lukasik <slukasik@redhat.com> 0.0.14-1
 - Drop requires which cannot be fulfilled on rhel5
 
