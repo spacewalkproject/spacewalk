@@ -27,15 +27,15 @@ def xccdf_eval(server_id, action_id, dry_run=0):
         where action_id = :action_id"""
     h = rhnSQL.prepare(statement)
     h.execute(action_id=action_id)
-    dict = h.fetchone_dict()
-    if not dict:
+    d = h.fetchone_dict()
+    if not d:
         raise InvalidAction("scap.xccdf_eval: Unknown action id "
             "%s for server %s" % (action_id, server_id))
     return ({
-        'path': dict['path'],
+        'path': d['path'],
         'id': action_id,
         'file_size': _scap_file_limit(server_id),
-        'params': rhnSQL.read_lob(dict['parameters']) or ''
+        'params': rhnSQL.read_lob(d['parameters']) or ''
         },)
 
 def _scap_file_limit(server_id):
