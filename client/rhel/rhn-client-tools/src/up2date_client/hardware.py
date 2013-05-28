@@ -21,6 +21,7 @@ import re
 import os
 import sys
 import config
+import rhnserver
 
 try:
     import ethtool
@@ -400,10 +401,16 @@ def read_cpuinfo():
             if hwdict["count"] == 0: # we have at least one
                 hwdict["count"] = 1
 
-    # If we know it add in the number of sockets
-    number_sockets = __get_number_sockets()
-    if number_sockets:
-        hwdict['socket_count'] = number_sockets
+    # Network communication doesn't really belong in here. Sadly though
+    # this is the only single place we can put this check. If it's not
+    # here then it would need to be in five or six other places, which
+    # is not good from a DRY and quality-assurance perspective.
+    s = rhnserver.RhnServer()
+    if s.capabilities.hasCapability('cpu_sockets'):
+        # If we know it add in the number of sockets
+        number_sockets = __get_number_sockets()
+        if number_sockets:
+            hwdict['socket_count'] = number_sockets
         
     # This whole things hurts a lot.
     return hwdict
