@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.84
+Version: 1.10.85
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue May 28 2013 Jan Dobes 1.10.85-1
+- checkstyle fix
+
 * Tue May 28 2013 Tomas Lestach <tlestach@redhat.com> 1.10.84-1
 - 855845 - escaping system name for
   /rhn/systems/details/virtualization/VirtualGuestsList.do
