@@ -27,7 +27,9 @@
   <rhn:listdisplay set="${requestScope.set}" hiddenvars="${requestScope.newset}">
     <rhn:set value="${current.id}" disabled="${not current.selectable}"/>
     <rhn:column header="systemsadmined.jsp.name">
-      <a href="/rhn/systems/details/Overview.do?sid=${current.id}">${current.serverName}</a>
+      <a href="/rhn/systems/details/Overview.do?sid=${current.id}">
+        <c:out value="${current.serverName}" escapeXml="true" />
+      </a>
     </rhn:column>
     <rhn:column header="systemsadmined.jsp.access">
       <c:forEach items="${current.groupName}" var="group">
