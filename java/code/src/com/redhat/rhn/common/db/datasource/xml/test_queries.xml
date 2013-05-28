@@ -1,11 +1,11 @@
 <datasource_modes>
-<mode name="user_tables_for_user">
+<mode name="user_tables_for_user_or">
   <query params="username">
       SELECT u.username as USERNAME, u.user_id as USER_ID, u.created as CREATED
         FROM all_users u
        WHERE u.username=:username
   </query>
-  <elaborator name="table_elaborator" column="username" params="user_name">
+  <elaborator name="table_elaborator_or" column="username" params="user_name">
       SELECT c.owner as USERNAME, COUNT(c.table_name) as TABLE_COUNT
         FROM all_catalog c
        WHERE owner=:user_name
@@ -14,12 +14,26 @@
   </elaborator>
 </mode>
 
-<mode name="user_tables">
+<mode name="user_tables_for_user_pg">
+  <query params="username">
+      SELECT u.usename as USERNAME, u.usesysid as USER_ID
+        FROM pg_user u
+       WHERE u.usename=:username
+  </query>
+  <elaborator name="table_elaborator_pg" column="username" params="user_name">
+      SELECT c.tableowner as USERNAME, COUNT(c.tablename) as TABLE_COUNT
+        FROM pg_tables c
+       WHERE tableowner=:user_name
+       GROUP BY tableowner
+  </elaborator>
+</mode>
+
+<mode name="user_tables_or">
   <query params="">
       SELECT u.username as USERNAME, u.user_id as USER_ID, u.created as CREATED
         FROM all_users u
   </query>
-  <elaborator name="table_elaborator" column="username" params="user_name">
+  <elaborator name="table_elaborator_or" column="username" params="user_name">
       SELECT c.owner as USERNAME, COUNT(c.table_name) as TABLE_COUNT
         FROM all_catalog c
        WHERE owner=:user_name
@@ -29,7 +43,21 @@
   </elaborator>
 </mode>
 
-<mode name="all_tables">
+<mode name="user_tables_pg">
+  <query params="">
+      SELECT u.usename as USERNAME, u.usesysid as USER_ID
+        FROM pg_user u
+  </query>
+  <elaborator name="table_elaborator_pg" column="username" params="user_name">
+      SELECT c.tableowner as USERNAME, COUNT(c.tablename) as TABLE_COUNT
+        FROM pg_tables c
+       WHERE tableowner=:user_name
+         AND tableowner IN (%s)
+       GROUP BY tableowner
+  </elaborator>
+</mode>
+
+<mode name="all_tables_or">
   <query params="">
       SELECT t.table_name
         FROM all_tables t
@@ -43,9 +71,24 @@
   </elaborator>
 </mode>
 
+<mode name="all_tables_pg">
+  <query params="">
+      SELECT t.tablename as table_name
+        FROM pg_tables t
+       WHERE t.tablename LIKE 'rhn%'
+       ORDER BY t.tablename
+  </query>
+  <elaborator params="" column="table_name" multiple="t">
+      SELECT c.relname as TABLE_NAME, a.attname as COLUMN_NAME, a.atttypid as COLUMN_ID
+        FROM pg_attribute a, pg_class c
+       WHERE c.relname in (%s)
+         AND c.oid = a.attrelid
+  </elaborator>
+</mode>
+
 <!-- This query is broken, because the ID column doesn't exist in the
      driving query, but that is what should be used to map the two results -->
-<mode name="broken_driving">
+<mode name="broken_driving_or">
   <query params="">
       SELECT t.table_name
         FROM all_tables t
@@ -59,9 +102,23 @@
   </elaborator>
 </mode>
 
+<mode name="broken_driving_pg">
+  <query params="">
+      SELECT t.tablename
+        FROM pg_tables t
+       WHERE t.tablename LIKE 'rhn%'
+       ORDER BY tablename
+  </query>
+  <elaborator params="" multiple="t">
+      SELECT attrelid, attrelid ID, attname, atttypid
+        FROM pg_attribute
+       WHERE attname in (%s)
+  </elaborator>
+</mode>
+
 <!-- This query is broken, because the ID column doesn't exist in the
      elaborator, but that is what should be used to map the two results -->
-<mode name="broken_elaborator">
+<mode name="broken_elaborator_or">
   <query params="">
       SELECT t.table_name, t.table_name ID
         FROM all_tables t
@@ -75,23 +132,53 @@
   </elaborator>
 </mode>
 
+<mode name="broken_elaborator_pg">
+  <query params="">
+      SELECT t.tablename, t.tablename ID
+        FROM pg_tables t
+       WHERE t.tablename LIKE 'rhn%'
+       ORDER BY tablename
+  </query>
+  <elaborator params="" multiple="t">
+      SELECT attrelid, attname, atttypid
+        FROM pg_attribute
+       WHERE attname in (%s)
+  </elaborator>
+</mode>
+
+
 <!-- Keep the columns named ID here, because it provides an easy way to test
      that the default column of ID still works.  -->
-<mode name="all_tables_with_alias">
+<mode name="all_tables_with_alias_or">
   <query params="">
       SELECT t.table_name, t.table_name ID
         FROM all_tables t
        WHERE t.table_name LIKE 'RHN%'
        ORDER BY table_name
   </query>
-  <elaborator params="" multiple="t" alias="details">
+  <elaborator params="" multiple="t" alias="details_or">
       SELECT table_name, table_name ID, column_name, column_id
         FROM all_tab_cols
        WHERE table_name in (%s)
   </elaborator>
 </mode>
 
-<mode name="all_tables_with_sort">
+<mode name="all_tables_with_alias_pg">
+  <query params="">
+      SELECT t.tablename as table_name, t.tablename ID
+        FROM pg_tables t
+       WHERE t.tablename LIKE 'rhn%'
+       ORDER BY t.tablename
+  </query>
+  <elaborator params="" multiple="t" alias="details_pg">
+      SELECT c.relname as TABLE_NAME, c.relname ID, a.attname as COLUMN_NAME, a.atttypid as COLUMN_ID
+        FROM pg_attribute a, pg_class c
+       WHERE c.relname in (%s)
+         AND c.oid = a.attrelid
+  </elaborator>
+</mode>
+
+<mode name="all_tables_with_sort_or">
   <query params="" sort="table_name,owner" defaultsort="table_name"
          sortorder="asc">
       SELECT t.table_name, t.owner
@@ -103,6 +190,22 @@
       SELECT table_name, column_name, column_id
         FROM all_tab_cols
        WHERE table_name in (%s)
+  </elaborator>
+</mode>
+
+<mode name="all_tables_with_sort_pg">
+  <query params="" sort="table_name,owner" defaultsort="table_name"
+         sortorder="asc">
+      SELECT t.tablename as table_name, t.tableowner as owner
+        FROM pg_tables t
+       WHERE t.tablename LIKE 'rhn%'
+       ORDER BY %o
+  </query>
+  <elaborator params="" column="table_name" multiple="t">
+      SELECT c.relname as TABLE_NAME, a.attname, a.atttypid
+        FROM pg_attribute a, pg_class c
+       WHERE c.relname in (%s)
+         AND c.oid = a.attrelid
   </elaborator>
 </mode>
 
@@ -185,7 +288,7 @@ SELECT u.created as CREATED
 
 
 <!-- Test to benchmark datasource vs hibernate -->
-<mode name="withClass" class="com.redhat.rhn.common.db.datasource.test.TableData">
+<mode name="withClass_or" class="com.redhat.rhn.common.db.datasource.test.TableData">
   <query params="">
       SELECT t.table_name
         FROM all_tables t
@@ -199,13 +302,29 @@ SELECT u.created as CREATED
   </elaborator>
 </mode>
 
-<mode name="user_class" class="com.redhat.rhn.common.db.datasource.test.UserData">
+<mode name="withClass_pg" class="com.redhat.rhn.common.db.datasource.test.TableData">
+  <query params="">
+      SELECT t.tablename as table_name
+        FROM pg_tables t
+       WHERE t.tablename LIKE 'rhn%'
+       ORDER BY t.tablename
+  </query>
+  <elaborator params="" column="table_name" multiple="t">
+      SELECT c.relname as TABLE_NAME, a.attname as COLUMN_NAME, a.atttypid as COLUMN_ID
+        FROM pg_attribute a, pg_class c
+       WHERE c.relname in (%s)
+         AND c.oid = a.attrelid
+  </elaborator>
+</mode>
+
+
+<mode name="user_class_or" class="com.redhat.rhn.common.db.datasource.test.UserData">
   <query params="username">
       SELECT u.username as USERNAME, u.user_id as USER_ID, u.created as CREATED
         FROM all_users u
        WHERE u.username=:username
   </query>
-  <elaborator name="table_elaborator" column="username" params="username">
+  <elaborator name="table_elaborator_or" column="username" params="username">
       SELECT c.owner as USERNAME, COUNT(c.table_name) as TABLE_COUNT
         FROM all_catalog c
        WHERE owner=:username
@@ -214,21 +333,51 @@ SELECT u.created as CREATED
   </elaborator>
 </mode>
 
-<mode name="user_tables_external_elaborator">
+<mode name="user_class_pg" class="com.redhat.rhn.common.db.datasource.test.UserData">
+  <query params="username">
+      SELECT u.usename as USERNAME, u.usesysid as USER_ID
+        FROM pg_user u
+       WHERE u.usename=:username
+  </query>
+  <elaborator name="table_elaborator_pg" column="username" params="username">
+      SELECT c.tableowner as USERNAME, COUNT(c.tablename) as TABLE_COUNT
+        FROM pg_tables c
+       WHERE tableowner=:username
+       GROUP BY tableowner
+  </elaborator>
+</mode>
+
+<mode name="user_tables_external_elaborator_or">
   <query params="">
       SELECT u.username as USERNAME, u.user_id as USER_ID, u.created as CREATED
         FROM all_users u
   </query>
-  <elaborator name="external_elaborator" params="user_name" />
+  <elaborator name="external_elaborator_or" params="user_name" />
 </mode>
 
-<query name="external_elaborator" column="username" params="user_name">
+<query name="external_elaborator_or" column="username" params="user_name">
           SELECT c.owner as USERNAME, COUNT(c.table_name) as TABLE_COUNT
         FROM all_catalog c
        WHERE owner=:user_name
          AND table_type='TABLE'
        GROUP BY owner
 </query>
+
+<mode name="user_tables_external_elaborator_pg">
+  <query params="">
+      SELECT u.usename as USERNAME, u.usesysid as USER_ID
+        FROM pg_user u
+  </query>
+  <elaborator name="external_elaborator_pg" params="user_name" />
+</mode>
+
+<query name="external_elaborator_pg" column="username" params="user_name">
+          SELECT c.tableowner as USERNAME, COUNT(c.tablename) as TABLE_COUNT
+        FROM pg_tables c
+       WHERE tableowner=:user_name
+       GROUP BY tableowner
+</query>
+
 
 <write-mode name="insert_into_rhnServerPath">
   <query params="server_id, proxy_server_id, proxy_hostname, position">
