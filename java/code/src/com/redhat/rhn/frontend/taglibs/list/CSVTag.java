@@ -243,6 +243,12 @@ public class CSVTag extends BodyTagSupport {
              */
             String paramQuery = "query_" + getUniqueName();
             session.setAttribute(paramQuery, ((DataResult)pageData).getMode().getQuery());
+            /* in some cases session does not contain elabotor for actual tag
+             * so it's better to add it into session so we can elaborate for data
+             * bug: 960885
+             */
+            session.setAttribute("list_" + getUniqueName() + TagHelper.ELAB_TAG,
+                    ((DataResult)pageData).getElaborator());
             return CSVDownloadAction.QUERY_DATA + "=" + paramQuery;
         }
         String paramPageList = "pageList_" + getUniqueName();
