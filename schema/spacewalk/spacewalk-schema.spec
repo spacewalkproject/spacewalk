@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.40
+Version:        1.10.41
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed May 29 2013 Simon Lukasik <slukasik@redhat.com> 1.10.41-1
+- Do not use identifiers of excessive length for constraints.
+
 * Tue May 28 2013 Simon Lukasik <slukasik@redhat.com> 1.10.40-1
 - Store SCAP-file-limit to the database
 
