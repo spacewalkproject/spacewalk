@@ -20017,13 +20017,13 @@ given channel.</source>
         <source>Slave {0} removed</source>
       </trans-unit>
       <trans-unit id="message.iss_masters_removed">
-        <source>Selected slaves have been removed</source>
+        <source>Selected masters have been removed</source>
       </trans-unit>
       <trans-unit id="message.iss_master_updated">
-        <source>Slave {0} updated</source>
+        <source>Master {0} updated</source>
       </trans-unit>
       <trans-unit id="message.iss_master_removed">
-        <source>Slave {0} removed</source>
+        <source>Master {0} removed</source>
       </trans-unit>
       <group>
         <context-group name="ctx">
@@ -20136,7 +20136,7 @@ given channel.</source>
           <source>Configure Master-to-Slave Org Mappings for {0}</source>
         </trans-unit>
         <trans-unit id="iss.maporgs.jsp.nomasterorgs">
-          <source>No master organizations are known to this slave</source>
+          <source>This master did not export any of its organizations to this slave</source>
         </trans-unit>
       </group>
     </body>
