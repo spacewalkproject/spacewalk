@@ -19660,13 +19660,6 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
         <target>이것은 이 시스템의 킥스타트 진행과정에 대한 현재 상태를 나타냅니다. &lt;strong&gt;알림:&lt;/strong&gt; 이 패키지는 매 15초 마다 재생됩니다.</target>
       </trans-unit>
-      <trans-unit id="kickstart.session_status.jsp.warning">
-        <source>Warning:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
-        </context-group>
-        <target>경고: </target>
-      </trans-unit>
       <trans-unit id="kickstart.session_status.jsp.progress">
         <source>Kickstart Progress</source>
         <context-group name="ctx">

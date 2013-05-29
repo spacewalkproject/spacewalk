@@ -6354,13 +6354,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
         <target>उपयोक्ता द्वारा रद्द किया गया किकस्टार्ट: {0}</target>
       </trans-unit>
-      <trans-unit id="kickstart.schedule.requires.older.gpgkey">
-        <source>System {0} is scheduled to be kickstarted to an older version of Red Hat Enterprise Linux, it will require the GPG key for the older release.  &lt;br/&gt; Please install this key, example: &lt;strong&gt; rpm --import  /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-former &lt;/strong&gt; </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-        <target>सिस्टम {0} को Red Hat Enterprise Linux के पुराने संस्करण में किकस्टार्ट किए जाने के लिए नियोजित किया गया है, इसके पुराने रिलीज के लिए GPG कुंजी की जरूरत होगी.  &lt;br/&gt; इस कुंजी को अधिष्ठापित करें, उदाहरण: &lt;strong&gt; rpm --import  /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-former &lt;/strong&gt; </target>
-      </trans-unit>
       <trans-unit id="kickstart.schedule.success">
         <source>System Kickstart scheduled for {0}</source>
         <context-group name="ctx">

@@ -16432,13 +16432,6 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
         <target>ਇਹ ਇਸ ਸਿਸਟਮ ਦੀ ਕਿੱਕਸਟਾਰਟ ਤਰੱਕੀ ਦੀ ਵਰਤਮਾਨ ਸਥਿਤੀ ਹੈ। &lt;strong&gt;ਸੂਚਨਾ:&lt;/strong&gt; ਇਹ ਸਫਾ ਹਰ 15 ਸਕਿੰਟਾਂ ਬਾਅਦ ਮੁੜ ਤਾਜ਼ਾ ਹੁੰਦਾ ਹੈ।</target>
       </trans-unit>
-      <trans-unit id="kickstart.session_status.jsp.warning">
-        <source>Warning:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
-        </context-group>
-        <target>ਚੇਤਾਵਨੀ:</target>
-      </trans-unit>
       <trans-unit id="kickstart.session_status.jsp.progress">
         <source>Kickstart Progress</source>
         <context-group name="ctx">

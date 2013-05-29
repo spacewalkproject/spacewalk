@@ -7017,13 +7017,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
         <target>Kickstart 被用户取消：{0}</target>
       </trans-unit>
-      <trans-unit id="kickstart.schedule.requires.older.gpgkey">
-        <source>System {0} is scheduled to be kickstarted to an older version of Red Hat Enterprise Linux, it will require the GPG key for the older release.  &lt;br/&gt; Please install this key, example: &lt;strong&gt; rpm --import  /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-former &lt;/strong&gt; </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-        <target>预定将系统 {0} kickstart 成一个红帽企业版 Linux 的老版本，它将需要老发行本的 GPG 密钥。&lt;br/&gt;请安装这个密钥，例如：&lt;strong&gt; rpm --import  /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-former &lt;/strong&gt; </target>
-      </trans-unit>
       <trans-unit id="kickstart.schedule.success">
         <source>System Kickstart scheduled for {0}</source>
         <context-group name="ctx">

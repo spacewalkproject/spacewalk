@@ -125,17 +125,6 @@ public class SessionStatusAction extends RhnAction {
             request.setAttribute("scrollX", xPos);
             request.setAttribute("scrollY", yPos);
         }
-        // Check for downgrading base channel, example RHEL5 to RHEL4
-        request.setAttribute("kswarning", null);
-        if (kss.getHostServer() != null) {
-            if ((kss.getHostServer().getBaseChannel().compareTo(
-                kss.getKstree().getChannel()) < 0)) {
-                String warning = LocalizationService.getInstance().getMessage(
-                        "kickstart.schedule.requires.older.gpgkey",
-                        kss.getHostServer().getName());
-                request.setAttribute("kswarning", warning);
-            }
-        }
         SdcHelper.ssmCheck(ctx.getRequest(), s.getId(), currentUser);
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }

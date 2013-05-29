@@ -19673,13 +19673,6 @@ pour abonner des systèmes aux canaux de logiciels durant le kickstart.&lt;/span
         </context-group>
         <target>Ceci est le statut courant du kickstart du système. &lt;strong&gt;REMARQUE&amp;nbsp;:&lt;/strong&gt; Cette page est rafraîchie toutes les 15 secondes</target>
       </trans-unit>
-      <trans-unit id="kickstart.session_status.jsp.warning">
-        <source>Warning:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
-        </context-group>
-        <target>Avertissement :</target>
-      </trans-unit>
       <trans-unit id="kickstart.session_status.jsp.progress">
         <source>Kickstart Progress</source>
         <context-group name="ctx">

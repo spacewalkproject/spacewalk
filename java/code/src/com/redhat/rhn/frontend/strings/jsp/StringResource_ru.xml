@@ -19656,13 +19656,6 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
         <target>Текущий статус прогресса кикстарта.  &lt;strong&gt;Замечание:&lt;/strong&gt; Обновление страницы происходит каждые 15 секунд</target>
       </trans-unit>
-      <trans-unit id="kickstart.session_status.jsp.warning">
-        <source>Warning:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
-        </context-group>
-        <target>Внимание:</target>
-      </trans-unit>
       <trans-unit id="kickstart.session_status.jsp.progress">
         <source>Kickstart Progress</source>
         <context-group name="ctx">

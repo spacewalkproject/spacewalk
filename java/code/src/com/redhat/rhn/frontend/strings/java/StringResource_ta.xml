@@ -6354,13 +6354,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
         <target>கிக்ஸ்டார்ட் பயனரால் ரத்து செய்யப்பட்டது: {0}</target>
       </trans-unit>
-      <trans-unit id="kickstart.schedule.requires.older.gpgkey">
-        <source>System {0} is scheduled to be kickstarted to an older version of Red Hat Enterprise Linux, it will require the GPG key for the older release.  &lt;br/&gt; Please install this key, example: &lt;strong&gt; rpm --import  /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-former &lt;/strong&gt; </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-        <target>கணினி {0} ஒரு பழைய Red Hat Enterprise Linux பதிப்பை கிக்ஸ்டார்ட் செய்ய திட்டமிடப்பட்டுள்ளது, இதற்கு GPG விசை பழைய வெளியீட்டிற்கு தேவைப்படுகிறது.  &lt;br/&gt; இந்த விசையை நிறுவவும் எடுத்துக்காட்டாக: &lt;strong&gt; rpm --import  /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-former &lt;/strong&gt; </target>
-      </trans-unit>
       <trans-unit id="kickstart.schedule.success">
         <source>System Kickstart scheduled for {0}</source>
         <context-group name="ctx">

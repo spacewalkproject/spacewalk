@@ -16431,13 +16431,6 @@ Kickstart করার সময় অনুগ্রহ করে সিস্ট
         </context-group>
         <target>সিস্টেমে চলমান kickstart কর্মের বর্তমান প্রগতি সূচক।  &lt;strong&gt;উল্লেখ্য:&lt;/strong&gt;  প্রতি ১৫ সেকেন্ডে এই পৃষ্ঠাটি নতুন করে প্রদর্শন করা হয়</target>
       </trans-unit>
-      <trans-unit id="kickstart.session_status.jsp.warning">
-        <source>Warning:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
-        </context-group>
-        <target>সতর্কবার্তা:</target>
-      </trans-unit>
       <trans-unit id="kickstart.session_status.jsp.progress">
         <source>Kickstart Progress</source>
         <context-group name="ctx">
