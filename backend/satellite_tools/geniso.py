@@ -19,7 +19,7 @@ import sys
 import time
 from stat import ST_SIZE
 from optparse import Option, OptionParser
-from spacewalk.common.rhnConfig import CFG, initCFG
+from spacewalk.common.rhnConfig import PRODUCT_NAME
 import tempfile
 
 MOUNT_POINT = '/tmp'
@@ -126,10 +126,9 @@ def main(arglist):
         pathfiles_fd, pathfiles = tempfile.mkstemp(dir = '/tmp', prefix = 'geniso-')
 
         # Command-line options; the keys are supposed to start with a dash
-        initCFG('web')
         opts = {
-            'preparer'      : CFG.PRODUCT_NAME,
-            'publisher'     : CFG.PRODUCT_NAME,
+            'preparer'      : PRODUCT_NAME,
+            'publisher'     : PRODUCT_NAME,
             'volid'         : "RHNSAT_%s/%s" % (i+1, cdcount),
             'path-list'     : pathfiles,
         }

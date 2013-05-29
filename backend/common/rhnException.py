@@ -16,7 +16,7 @@
 import sys
 import xmlrpclib
 
-from spacewalk.common.rhnConfig import CFG, initCFG
+from spacewalk.common.rhnConfig import PRODUCT_NAME
 from cStringIO import StringIO
 
 
@@ -24,7 +24,6 @@ from cStringIO import StringIO
 from rhnTranslate import _
 import rhnFlags
 
-initCFG('web')
 
 # default template values for error messages
 templateValues = {
@@ -109,7 +108,7 @@ on this system."),
      Invalid architecture.
 
      The architecture of the package is not supported by
-     """ + CFG.PRODUCT_NAME),
+     """ + PRODUCT_NAME),
      47: _("""Invalid RPM header"""),
      # For the uploading tools
      50: _("Invalid information uploaded to the server"),
