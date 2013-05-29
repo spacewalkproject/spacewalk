@@ -4071,7 +4071,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       </trans-unit>
       <trans-unit id="errata.publish.packagepush.description">
-        <source>The channel &lt;strong&gt;{0}&lt;/strong&gt; has different versions of these packages, or does not have the packages at all. Select the packages you want push into this channel below, and click 'Continue'.</source>
+        <source>The channel &lt;strong&gt;{0}&lt;/strong&gt; has different versions of these packages, or does not have the packages at all. Select the packages you want to push into this channel below, and click 'Continue'.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/manage/PackagePush.do</context>
         </context-group>
