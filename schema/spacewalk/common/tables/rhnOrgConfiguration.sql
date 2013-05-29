@@ -41,7 +41,7 @@ create table rhnOrgConfiguration
                                    check (scapfile_upload_enabled in ('Y', 'N')),
     scap_file_sizelimit        number
                                    default(2097152) not null
-                                   constraint rhn_org_conf_scap_sizelimit_chk
+                                   constraint rhn_org_conf_scap_szlmt_chk
                                    check (scap_file_sizelimit >= 0),
     created                    timestamp with local time zone
                                    default (current_timestamp) not null,
