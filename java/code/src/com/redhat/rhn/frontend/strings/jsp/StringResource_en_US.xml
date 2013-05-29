@@ -20056,7 +20056,7 @@ given channel.</source>
           <source>Edit Slave Details</source>
         </trans-unit>
         <trans-unit id="iss.editslave.jsp.allowed.orgs.header">
-          <source>Allow Export of the Selected Orgs</source>
+          <source>Allow Export of the Selected Organizations</source>
         </trans-unit>
         <trans-unit id="iss.editslave.jsp.nolocalorgs">
           <source>No local organizations available</source>
@@ -20105,7 +20105,7 @@ given channel.</source>
         </trans-unit>
         <trans-unit id="iss.confirmmasterremove.jsp.areyousure">
           <source>
-          Removing the masters below will remove any master-to-slave Org mappings you have created.
+          Removing the masters below will remove any master-to-slave organization mappings you have created.
           This operation cannot be undone - make sure you really want to do this!
           </source>
         </trans-unit>
@@ -20126,10 +20126,9 @@ given channel.</source>
         <trans-unit id="iss.maporgs.jsp.explanation">
           <source>
           In order to synchronize channel access-permissions from Master to Slave,
-          each known Master Org must be mapped to a local Org in this @@PRODUCT_NAME@@ instance.
-          On this page the administrator can map Master orgs to existing local orgs,
-          create new local orgs automatically,
-          or choose not to map specific Master orgs' permissions to this @@PRODUCT_NAME@@ instance.
+          each known Master organization must be mapped to a local organization in this @@PRODUCT_NAME@@ instance.
+          On this page the administrator can accomplish this mapping.  Note that if a Master organization is not mapped,
+          channels that were restricted to that oragnization on the Master will be public in this @@PRODUCT_NAME@@ instance.
           </source>
         </trans-unit>
         <trans-unit id="iss.maporgs.jsp.header2">
