@@ -30,7 +30,7 @@ import org.apache.struts.action.ActionMapping;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.iss.IssFactory;
-import com.redhat.rhn.domain.iss.IssSlave;
+import com.redhat.rhn.domain.iss.IssMaster;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -40,54 +40,61 @@ import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
+
 /**
- * IssMasterAction extends RhnAction
- *
+ * SlaveAction extends RhnAction
  * @version $Rev: 1 $
  */
-public class IssMasterAction extends RhnAction {
+public class SlaveAction extends RhnAction {
 
-    private static final String LIST_NAME = "issSlaveList";
+    private static final String LIST_NAME = "issMasterList";
     public static final String DATA_SET = "all";
 
     /** {@inheritDoc} */
-    public ActionForward execute(ActionMapping mapping, ActionForm formIn,
-            HttpServletRequest request, HttpServletResponse response) {
+    public ActionForward execute(ActionMapping mapping,
+                                  ActionForm formIn,
+                                  HttpServletRequest request,
+                                  HttpServletResponse response) {
 
         if (!AclManager.hasAcl("user_role(satellite_admin)", request, null)) {
             LocalizationService ls = LocalizationService.getInstance();
             PermissionException pex =
-                new PermissionException("Only satellite admins can modify allowed-slaves");
-            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.iss.slave"));
+              new PermissionException("Only satellite admins can work with known masters");
+            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.iss.master"));
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
             throw pex;
         }
 
-        RequestContext ctxt = new RequestContext(request);
+        RequestContext requestContext = new RequestContext(request);
+
+        Set sessionSet = SessionSetHelper.lookupAndBind(request, getSetDecl()
+                .getLabel());
+        if (!requestContext.isSubmitted()) {
+            sessionSet.clear();
+        }
+
         SessionSetHelper helper = new SessionSetHelper(request);
-
-        Set sessionSet = getSessionSet(request);
-
 
         if (request.getParameter("dispatch") != null) {
             // if its one of the Dispatch actions handle it..
             helper.updateSet(sessionSet, LIST_NAME);
             if (!sessionSet.isEmpty()) {
-                return handleDispatchAction(mapping, ctxt);
+                return handleDispatchAction(mapping, requestContext);
             }
             RhnHelper.handleEmptySelection(request);
         }
 
-        List<IssSlave> slaves = IssFactory.listAllIssSlaves();
+        List<IssMaster> masters = IssFactory.listAllMasters();
+        request.setAttribute(DATA_SET, masters);
 
         // if its a list action update the set and the selections
         if (ListTagHelper.getListAction(LIST_NAME, request) != null) {
-            helper.execute(sessionSet, LIST_NAME, slaves);
+            helper.execute(sessionSet, LIST_NAME, masters);
         }
 
         // if I have a previous set selections populate data using it
         if (!sessionSet.isEmpty()) {
-            helper.syncSelections(sessionSet, slaves);
+            helper.syncSelections(sessionSet, masters);
             ListTagHelper.setSelectedAmount(LIST_NAME, sessionSet.size(),
                     request);
         }
@@ -95,7 +102,6 @@ public class IssMasterAction extends RhnAction {
         Map params = makeParamMap(request);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
-        request.setAttribute(DATA_SET, slaves);
         ListTagHelper.bindSetDeclTo(LIST_NAME, getSetDecl(), request);
 
         return StrutsDelegate.getInstance().forwardParams(
@@ -108,24 +114,8 @@ public class IssMasterAction extends RhnAction {
         return mapping.findForward("confirm");
     }
 
-    protected Set getSessionSet(HttpServletRequest request) {
-        RequestContext ctxt = new RequestContext(request);
-        Set slaveSet = SessionSetHelper.lookupAndBind(request, getSetDecl().getLabel());
-        Set localSet = SessionSetHelper.lookupAndBind(request,
-                        getLocalSetDecl().getLabel());
-        if (!ctxt.isSubmitted()) {
-            slaveSet.clear();
-            localSet.clear();
-        }
-        return slaveSet;
-    }
-
     protected RhnSetDecl getSetDecl() {
-        return RhnSetDecl.ISS_SLAVES;
-    }
-
-    protected RhnSetDecl getLocalSetDecl() {
-        return RhnSetDecl.ISS_LOCAL_ORGS;
+        return RhnSetDecl.ISS_MASTERS;
     }
 
 }

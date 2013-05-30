@@ -44,10 +44,10 @@
     </html:link>
    </rl:column>
    <rl:column headerkey="iss.num.master.orgs">
-    <c:out value="${current.numSourceOrgs}" />
+    <c:out value="${current.numMasterOrgs}" />
    </rl:column>
    <rl:column headerkey="iss.num.unmapped.orgs">
-    <c:out value="${current.numSourceOrgs - current.numMappedSourceOrgs}" />
+    <c:out value="${current.numMasterOrgs - current.numMappedMasterOrgs}" />
    </rl:column>
   </rl:list>
   <c:if test="${not empty requestScope.all}">

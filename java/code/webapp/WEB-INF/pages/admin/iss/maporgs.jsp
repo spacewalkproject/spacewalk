@@ -44,13 +44,13 @@
    emptykey="iss.maporgs.jsp.nomasterorgs">
    <rl:column sortable="true" headerkey="iss.master.org.name"
     sortattr="sourceOrgName">
-    <c:out value="${current.sourceOrgName}" />
+    <c:out value="${current.masterOrgName}" />
    </rl:column>
     <rl:column headerkey="iss.slave.orgs">
      <select name="${current.id}">
       <c:forEach var="localOrg" items="${requestScope.slave_org_list}">
        <c:choose>
-        <c:when test="${localOrg.id == current.targetOrg.id}">
+        <c:when test="${localOrg.id == current.localOrg.id}">
          <option value="${localOrg.id}" selected>
         </c:when>
         <c:otherwise>

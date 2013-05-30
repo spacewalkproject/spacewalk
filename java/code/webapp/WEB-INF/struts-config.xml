@@ -5205,7 +5205,7 @@
     <action path="/admin/iss/Master"
         scope="request"
         input="/WEB-INF/pages/admin/iss/master.jsp"
-        type="com.redhat.rhn.frontend.action.iss.IssMasterAction"
+        type="com.redhat.rhn.frontend.action.iss.MasterAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(satellite_admin);"/>
         <forward name="default"
@@ -5221,7 +5221,7 @@
         scope="request"
         name="editSlaveForm"
         input="/WEB-INF/pages/admin/iss/editslave.jsp"
-        type="com.redhat.rhn.frontend.action.iss.IssEditSlaveSetupAction"
+        type="com.redhat.rhn.frontend.action.iss.EditSlaveSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(satellite_admin);"/>
         <forward name="default"
@@ -5234,7 +5234,7 @@
         scope="request"
         name="editSlaveForm"
         input="/WEB-INF/pages/admin/iss/editslave.jsp"
-        type="com.redhat.rhn.frontend.action.iss.IssEditSlaveAction"
+        type="com.redhat.rhn.frontend.action.iss.EditSlaveAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(satellite_admin);"/>
         <forward name="default"
@@ -5247,7 +5247,7 @@
         scope="request"
         name="editSlaveForm"
         input="/WEB-INF/pages/admin/iss/editslave.jsp"
-        type="com.redhat.rhn.frontend.action.iss.IssAllowSlaveOrgsAction"
+        type="com.redhat.rhn.frontend.action.iss.AllowSlaveOrgsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(satellite_admin);"/>
         <forward name="default"
@@ -5260,7 +5260,7 @@
         scope="request"
         name="editSlaveForm"
         input="/WEB-INF/pages/admin/iss/confirmslaveremove.jsp"
-        type="com.redhat.rhn.frontend.action.iss.IssRemoveSlavesAction"
+        type="com.redhat.rhn.frontend.action.iss.RemoveSlavesAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(satellite_admin);"/>
         <forward name="default"
@@ -5272,7 +5272,7 @@
     <action path="/admin/iss/DeleteSlave"
         scope="request"
         input="/WEB-INF/pages/admin/iss/editslave.jsp"
-        type="com.redhat.rhn.frontend.action.iss.IssDeleteSlaveAction"
+        type="com.redhat.rhn.frontend.action.iss.DeleteSlaveAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(satellite_admin);"/>
         <forward name="default"
@@ -5282,7 +5282,7 @@
     <action path="/admin/iss/Slave"
         scope="request"
         input="/WEB-INF/pages/admin/iss/slave.jsp"
-        type="com.redhat.rhn.frontend.action.iss.IssOrgCatalogueAction"
+        type="com.redhat.rhn.frontend.action.iss.SlaveAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(satellite_admin);"/>
         <forward name="default"
@@ -5295,7 +5295,7 @@
     <action path="/admin/iss/RemoveMasterConfirm"
         scope="request"
         input="/WEB-INF/pages/admin/iss/confirmmasterremove.jsp"
-        type="com.redhat.rhn.frontend.action.iss.IssRemoveMastersAction"
+        type="com.redhat.rhn.frontend.action.iss.RemoveMastersAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(satellite_admin);"/>
         <forward name="default"
@@ -5308,7 +5308,7 @@
         scope="request"
         name="mapOrgsForm"
         input="/WEB-INF/pages/admin/iss/maporgs.jsp"
-        type="com.redhat.rhn.frontend.action.iss.IssMapOrgsAction"
+        type="com.redhat.rhn.frontend.action.iss.MapOrgsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(satellite_admin);"/>
         <forward name="default"

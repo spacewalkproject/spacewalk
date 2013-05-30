@@ -21,17 +21,17 @@ import java.util.Set;
 import com.redhat.rhn.frontend.dto.BaseDto;
 
 /**
- * IssOrgCatalogue - Class representation of the table rhnsyncorgcatalogue.
+ * IssMaster - Class representation of the table rhnissmaster.
  * @version $Rev: 1 $
  */
-public class IssOrgCatalogue extends BaseDto {
+public class IssMaster extends BaseDto {
 
     public static final String ID = "id";
     public static final String LABEL = "label";
 
     private Long id;
     private String label;
-    private Set<IssSyncOrg> srcOrgs;
+    private Set<IssMasterOrgs> masterOrgs;
 
     /**
      * Getter for id
@@ -69,34 +69,35 @@ public class IssOrgCatalogue extends BaseDto {
      * Get Orgs this master has let us know about
      * @return list of orgs Master has told us about
      */
-    public Set<IssSyncOrg> getSourceOrgs() {
-        return this.srcOrgs;
+    public Set<IssMasterOrgs> getMasterOrgs() {
+        return this.masterOrgs;
     }
 
     /**
      * Set the orgs for this master
      * @param inOrgs orgs of the master that we know of
      */
-    public void setSourceOrgs(Set<IssSyncOrg> inOrgs) {
-        this.srcOrgs = inOrgs;
+    public void setMasterOrgs(Set<IssMasterOrgs> inOrgs) {
+        this.masterOrgs = inOrgs;
     }
 
     /**
-     * How many orgs did Master tell us about?
+     * How many orgs did Master tell us about? (NOTE: we add this because you can't
+     * do ${current.orgs.size} in the JSPs :( )
      * @return number of orgs from this master we know of
      */
-    public int getNumSourceOrgs() {
-        return getSourceOrgs().size();
+    public int getNumMasterOrgs() {
+        return getMasterOrgs().size();
     }
 
     /**
-     * How many source-orgs have been mapped?
-     * @return number of unique source-orgs that have non-null targets
+     * How many master-orgs have been mapped?
+     * @return number of unique master-orgs that have non-null local orgs
      */
-    public int getNumMappedSourceOrgs() {
+    public int getNumMappedMasterOrgs() {
         int mappedSources = 0;
-        for (IssSyncOrg so : getSourceOrgs()) {
-            if (so.getTargetOrg() != null) {
+        for (IssMasterOrgs so : getMasterOrgs()) {
+            if (so.getLocalOrg() != null) {
                 mappedSources++;
             }
         }

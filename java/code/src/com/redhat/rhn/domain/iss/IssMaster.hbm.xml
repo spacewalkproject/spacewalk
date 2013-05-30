@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.iss.IssMaster"
+        table="rhnissmaster" >
+        <id name="id" type="long" column="ID">
+            <meta attribute="scope-set">protected</meta>
+            <generator class="sequence">
+                <param name="sequence">rhn_issmaster_seq</param>
+            </generator>
+        </id>
+
+        <property name="label" column="LABEL"  type="string" length="256" />
+
+        <set name="masterOrgs" inverse="true" cascade="all">
+            <key column="master_id"/>
+            <one-to-many class="com.redhat.rhn.domain.iss.IssMasterOrgs"/>
+        </set>
+
+    </class>
+
+    <query name="IssMaster.findById">
+        <![CDATA[from com.redhat.rhn.domain.iss.IssMaster as m where m.id = :id]]>
+    </query>
+
+    <query name="IssMaster.lookupAll">
+        <![CDATA[from com.redhat.rhn.domain.iss.IssMaster]]>
+    </query>
+
+</hibernate-mapping>

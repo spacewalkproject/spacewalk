@@ -85,25 +85,25 @@ public class IssFactory extends HibernateFactory {
      ***/
 
     /**
-     * Lookup a IssOrgCatalogue by its id
+     * Lookup a IssMaster by its id
      * @param id the id to search for
-     * @return the IssOrgCatalogue entry found
+     * @return the IssMaster entry found
      */
-    public static IssOrgCatalogue lookupMasterById(Long id) {
+    public static IssMaster lookupMasterById(Long id) {
         Map<String, Long> params = new HashMap<String, Long>();
         params.put("id", id);
-        return (IssOrgCatalogue) singleton.lookupObjectByNamedQuery(
-                "IssOrgCatalogue.findById", params);
+        return (IssMaster) singleton.lookupObjectByNamedQuery(
+                "IssMaster.findById", params);
     }
 
     /**
-     * List all IssOrgCatalogue entries for this Slave
+     * List all IssMaster entries for this Slave
      * @return list of all masters known to this slave
      */
-    public static List<IssOrgCatalogue> listAllMasters() {
+    public static List<IssMaster> listAllMasters() {
         Map params = new HashMap();
-        return (List<IssOrgCatalogue>)singleton.listObjectsByNamedQuery(
-                "IssOrgCatalogue.lookupAll", params);
+        return (List<IssMaster>)singleton.listObjectsByNamedQuery(
+                "IssMaster.lookupAll", params);
     }
 
     /***

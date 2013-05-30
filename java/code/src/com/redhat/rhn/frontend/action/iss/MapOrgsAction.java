@@ -34,8 +34,8 @@ import org.apache.struts.action.DynaActionForm;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.iss.IssFactory;
-import com.redhat.rhn.domain.iss.IssOrgCatalogue;
-import com.redhat.rhn.domain.iss.IssSyncOrg;
+import com.redhat.rhn.domain.iss.IssMaster;
+import com.redhat.rhn.domain.iss.IssMasterOrgs;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.frontend.dto.OrgDto;
@@ -45,11 +45,11 @@ import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.acl.AclManager;
 
 /**
- * IssMapOrgsAction extends RhnAction
+ * MapOrgsAction extends RhnAction
  *
  * @version $Rev: 1 $
  */
-public class IssMapOrgsAction extends RhnAction {
+public class MapOrgsAction extends RhnAction {
     private static final String DATA_SET = "all";
     private static final String SLAVES = "slave_org_list";
     private static final String MASTER = "master";
@@ -73,13 +73,13 @@ public class IssMapOrgsAction extends RhnAction {
         request.setAttribute("mid", mid);
 
         // Get all the known-orgs from the selected Master
-        IssOrgCatalogue oc = IssFactory.lookupMasterById(mid);
+        IssMaster oc = IssFactory.lookupMasterById(mid);
         if (request.getParameter("dispatch") != null) {
             return handleDispatchAction(mapping, ctxt, oc);
         }
 
-        List<IssSyncOrg> result = new ArrayList<IssSyncOrg>(
-                        oc.getSourceOrgs());
+        List<IssMasterOrgs> result = new ArrayList<IssMasterOrgs>(
+                        oc.getMasterOrgs());
         Collections.sort(result, new IssSyncOrgComparator());
 
         // Get all of our orgs and turn into OrgDtos
@@ -99,32 +99,33 @@ public class IssMapOrgsAction extends RhnAction {
     protected ActionForward handleDispatchAction(
                     ActionMapping mapping,
                     RequestContext ctxt,
-                    IssOrgCatalogue master) {
+                    IssMaster master) {
         //TODO: Figure out what we're doing, and how, and then DO IT
-        List<IssSyncOrg> masterOrgs = new ArrayList<IssSyncOrg>(master.getSourceOrgs());
+        List<IssMasterOrgs> masterOrgs =
+                        new ArrayList<IssMasterOrgs>(master.getMasterOrgs());
         List<Org> locals = OrgFactory.lookupAllOrgs();
         Map<Long, Org> findLocals = new HashMap<Long, Org>();
         for (Org o : locals) {
             findLocals.put(o.getId(), o);
         }
 
-        for (IssSyncOrg entry : masterOrgs) {
+        for (IssMasterOrgs entry : masterOrgs) {
             Long targetId = ctxt.getParamAsLong(entry.getId().toString());
-            if (targetId == null || targetId.equals(IssSyncOrg.NO_MAP_ID)) {
-                entry.setTargetOrg(null);
+            if (targetId == null || targetId.equals(IssMasterOrgs.NO_MAP_ID)) {
+                entry.setLocalOrg(null);
             }
             else {
-                entry.setTargetOrg(findLocals.get(targetId));
+                entry.setLocalOrg(findLocals.get(targetId));
             }
             IssFactory.save(entry);
         }
         return mapping.findForward("success");
     }
 
-    protected void setupForm(ActionForm formIn, IssOrgCatalogue master) {
+    protected void setupForm(ActionForm formIn, IssMaster master) {
         DynaActionForm form = (DynaActionForm) formIn;
-        form.set(IssOrgCatalogue.ID, master.getId());
-        form.set(IssOrgCatalogue.LABEL, master.getLabel());
+        form.set(IssMaster.ID, master.getId());
+        form.set(IssMaster.LABEL, master.getLabel());
     }
 
     protected OrgDto createOrgDto(Long id, String name) {
@@ -141,7 +142,7 @@ public class IssMapOrgsAction extends RhnAction {
         }
         Collections.sort(outList, new OrgComparator());
 
-        OrgDto noMap = createOrgDto(IssSyncOrg.NO_MAP_ID, "NOT MAPPED");
+        OrgDto noMap = createOrgDto(IssMasterOrgs.NO_MAP_ID, "NOT MAPPED");
         outList.add(0, noMap);
 
         return outList;
@@ -170,14 +171,14 @@ class OrgComparator implements Comparator<OrgDto> {
      * @author ggainey
      *
      */
-    class IssSyncOrgComparator implements Comparator<IssSyncOrg> {
+    class IssSyncOrgComparator implements Comparator<IssMasterOrgs> {
 
         @Override
-        public int compare(IssSyncOrg so1, IssSyncOrg so2) {
+        public int compare(IssMasterOrgs so1, IssMasterOrgs so2) {
             if (so1 == null || so2 == null) {
                 throw new NullPointerException("Can't compare IssSyncOrg with null");
             }
-            return so1.getSourceOrgName().compareTo(so2.getSourceOrgName());
+            return so1.getMasterOrgName().compareTo(so2.getMasterOrgName());
         }
 
 }

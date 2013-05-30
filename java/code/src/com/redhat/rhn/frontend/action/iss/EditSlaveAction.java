@@ -38,10 +38,10 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
 
 /**
- * IssEditSlaveAction extends RhnAction
+ * EditSlaveAction extends RhnAction
  * @version $Rev: 1 $
  */
-public class IssEditSlaveAction extends RhnAction {
+public class EditSlaveAction extends RhnAction {
 
     private static final String LIST_NAME = "localOrgsList";
 

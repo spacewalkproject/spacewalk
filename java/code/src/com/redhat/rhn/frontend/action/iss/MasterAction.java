@@ -16,8 +16,6 @@
  */
 package com.redhat.rhn.frontend.action.iss;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -33,12 +31,9 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.iss.IssFactory;
 import com.redhat.rhn.domain.iss.IssSlave;
-import com.redhat.rhn.domain.iss.IssSlaveOrgs;
-import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.org.OrgFactory;
-import com.redhat.rhn.frontend.dto.OrgDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
@@ -46,13 +41,14 @@ import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
 /**
- * IssMasterAction extends RhnAction
+ * MasterAction extends RhnAction
  *
  * @version $Rev: 1 $
  */
-public class IssAllowSlaveOrgsAction extends RhnAction {
+public class MasterAction extends RhnAction {
 
-    private static final String LIST_NAME = "localOrgsList";
+    private static final String LIST_NAME = "issSlaveList";
+    public static final String DATA_SET = "all";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping, ActionForm formIn,
@@ -67,92 +63,69 @@ public class IssAllowSlaveOrgsAction extends RhnAction {
             throw pex;
         }
 
-        RequestContext requestContext = new RequestContext(request);
-        Long sid = requestContext.getParamAsLong(IssSlave.SID);
-
-        request.setAttribute(ListTagHelper.PARENT_URL,
-                        "/rhn/admin/iss/EditSlave.do?sid=" + sid);
-        request.setAttribute(IssSlave.SID, sid);
-
-
-        Set sessionSet = SessionSetHelper.lookupAndBind(request, getSetDecl()
-                .getLabel());
-
-        if (!requestContext.isSubmitted()) {
-            sessionSet.clear();
-        }
-
+        RequestContext ctxt = new RequestContext(request);
         SessionSetHelper helper = new SessionSetHelper(request);
 
+        Set sessionSet = getSessionSet(request);
+
+
         if (request.getParameter("dispatch") != null) {
-            // Before creating entries for whatever selection we have,
-            // DELETE THE OLD ONES - less error-prone than trying to do
-            // set-theoretic operations based on set-diffs
-            IssFactory.clearMapsForSlave(sid);
+            // if its one of the Dispatch actions handle it..
             helper.updateSet(sessionSet, LIST_NAME);
-            return handleDispatchAction(mapping, requestContext, sid, sessionSet);
+            if (!sessionSet.isEmpty()) {
+                return handleDispatchAction(mapping, ctxt);
+            }
+            RhnHelper.handleEmptySelection(request);
         }
 
-        List<OrgDto> locals = fromOrgs(OrgFactory.lookupAllOrgs());
-        request.setAttribute(LIST_NAME, locals);
+        List<IssSlave> slaves = IssFactory.listAllIssSlaves();
 
         // if its a list action update the set and the selections
         if (ListTagHelper.getListAction(LIST_NAME, request) != null) {
-            helper.execute(sessionSet, LIST_NAME, locals);
+            helper.execute(sessionSet, LIST_NAME, slaves);
         }
 
         // if I have a previous set selections populate data using it
         if (!sessionSet.isEmpty()) {
-            helper.syncSelections(sessionSet, locals);
+            helper.syncSelections(sessionSet, slaves);
             ListTagHelper.setSelectedAmount(LIST_NAME, sessionSet.size(),
                     request);
         }
 
+        Map params = makeParamMap(request);
+        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
+
+        request.setAttribute(DATA_SET, slaves);
         ListTagHelper.bindSetDeclTo(LIST_NAME, getSetDecl(), request);
 
-        Map params = makeParamMap(request);
-        if (sid != null) {
-            params.put("sid", sid);
-        }
         return StrutsDelegate.getInstance().forwardParams(
                 mapping.findForward("default"), params);
     }
 
     private ActionForward handleDispatchAction(ActionMapping mapping,
-            RequestContext context,
-            Long sid,
-            Set sessionSet) {
-        Set<String> soids = (Set<String>) sessionSet;
-        for (String soid : soids) {
-            // Make IssSlaveOrgs entry for this slave/orgid pair
-            Long oid = Long.parseLong(soid);
-            IssSlaveOrgs iso = new IssSlaveOrgs();
-            iso.setOrgId(oid);
-            iso.setSlaveId(sid);
-            IssFactory.save(iso);
-        }
-        return mapping.findForward("success");
+            RequestContext context) {
+
+        return mapping.findForward("confirm");
     }
 
-    protected OrgDto createOrgDto(Long id, String name) {
-        OrgDto oi = new OrgDto();
-        oi.setId(id);
-        oi.setName(name);
-        return oi;
-    }
-
-    protected List<OrgDto> fromOrgs(List<Org> orgs) {
-        List<OrgDto> outList = new ArrayList<OrgDto>();
-        for (Org o : orgs) {
-            outList.add(createOrgDto(o.getId(), o.getName()));
+    protected Set getSessionSet(HttpServletRequest request) {
+        RequestContext ctxt = new RequestContext(request);
+        Set slaveSet = SessionSetHelper.lookupAndBind(request, getSetDecl().getLabel());
+        Set localSet = SessionSetHelper.lookupAndBind(request,
+                        getLocalSetDecl().getLabel());
+        if (!ctxt.isSubmitted()) {
+            slaveSet.clear();
+            localSet.clear();
         }
-
-        Collections.sort(outList, new OrgComparator());
-
-        return outList;
+        return slaveSet;
     }
 
     protected RhnSetDecl getSetDecl() {
+        return RhnSetDecl.ISS_SLAVES;
+    }
+
+    protected RhnSetDecl getLocalSetDecl() {
         return RhnSetDecl.ISS_LOCAL_ORGS;
     }
+
 }

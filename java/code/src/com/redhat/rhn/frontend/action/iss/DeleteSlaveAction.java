@@ -35,11 +35,11 @@ import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.acl.AclManager;
 
 /**
- * IssEditSlaveAction extends RhnAction
+ * DeleteSlaveAction extends RhnAction
  *
  * @version $Rev: 1 $
  */
-public class IssDeleteSlaveAction extends RhnAction {
+public class DeleteSlaveAction extends RhnAction {
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping, ActionForm formIn,

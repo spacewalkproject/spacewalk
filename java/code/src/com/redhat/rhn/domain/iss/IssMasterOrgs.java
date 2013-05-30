@@ -21,18 +21,18 @@ import com.redhat.rhn.frontend.dto.BaseDto;
 
 
 /**
- * IssSyncOrg - Class representation of the table rhnsyncorgs.
+ * IssMasterOrgs - Class representation of the table rhnissmasterorgs.
  * @version $Rev: 1 $
  */
-public class IssSyncOrg extends BaseDto {
+public class IssMasterOrgs extends BaseDto {
 
     public static final Long NO_MAP_ID = new Long(-1L);
 
     private Long id;
-    private Long sourceOrgId;
-    private String sourceOrgName;
-    private Org targetOrg;
-    private IssOrgCatalogue catalogue;
+    private Long masterOrgId;
+    private String masterOrgName;
+    private Org localOrg;
+    private IssMaster master;
 
     /**
      * Getter for id
@@ -51,67 +51,67 @@ public class IssSyncOrg extends BaseDto {
     }
 
    /**
-     * Getter for sourceOrgId
+     * Getter for masterOrgId
      * @return Long to get
     */
-    public Long getSourceOrgId() {
-        return this.sourceOrgId;
+    public Long getMasterOrgId() {
+        return this.masterOrgId;
     }
 
     /**
-     * Setter for sourceOrgId
-     * @param sourceOrgIdIn to set
+     * Setter for masterOrgId
+     * @param masterOrgIdIn to set
     */
-    public void setSourceOrgId(Long sourceOrgIdIn) {
-        this.sourceOrgId = sourceOrgIdIn;
+    public void setMasterOrgId(Long masterOrgIdIn) {
+        this.masterOrgId = masterOrgIdIn;
     }
 
     /**
-     * Getter for sourceOrgName
+     * Getter for masterOrgName
      * @return String to get
     */
-    public String getSourceOrgName() {
-        return this.sourceOrgName;
+    public String getMasterOrgName() {
+        return this.masterOrgName;
     }
 
     /**
-     * Setter for sourceOrgName
-     * @param sourceOrgNameIn to set
+     * Setter for masterOrgName
+     * @param masterOrgNameIn to set
     */
-    public void setSourceOrgName(String sourceOrgNameIn) {
-        this.sourceOrgName = sourceOrgNameIn;
+    public void setMasterOrgName(String masterOrgNameIn) {
+        this.masterOrgName = masterOrgNameIn;
     }
 
     /**
      *
-     * @return target org associated with this source-org
+     * @return local org associated with this master-org
      */
-    public Org getTargetOrg() {
-        return this.targetOrg;
+    public Org getLocalOrg() {
+        return this.localOrg;
+    }
+
+    /**
+     * Map a local org to a specific master org
+     * @param localOrgIn local org to be associated with this master org
+     */
+    public void setLocalOrg(Org localOrgIn) {
+        this.localOrg = localOrgIn;
     }
 
     /**
      *
-     * @param targetOrgIn target org to be associated with this source org
+     * @return master-node that owns this master-org
      */
-    public void setTargetOrg(Org targetOrgIn) {
-        this.targetOrg = targetOrgIn;
+    public IssMaster getMaster() {
+        return this.master;
     }
 
     /**
      *
-     * @return master-node that owns this source-org
+     * @param masterIn master node that should own this org
      */
-    public IssOrgCatalogue getCatalogue() {
-        return this.catalogue;
-    }
-
-    /**
-     *
-     * @param catalogueIn master node that should own this org
-     */
-    public void setCatalogue(IssOrgCatalogue catalogueIn) {
-        this.catalogue = catalogueIn;
+    public void setMaster(IssMaster masterIn) {
+        this.master = masterIn;
     }
 
 }

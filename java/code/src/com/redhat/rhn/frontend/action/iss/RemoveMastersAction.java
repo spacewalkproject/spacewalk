@@ -32,7 +32,7 @@ import org.apache.struts.action.ActionMessages;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.iss.IssFactory;
-import com.redhat.rhn.domain.iss.IssSlave;
+import com.redhat.rhn.domain.iss.IssMaster;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
@@ -42,13 +42,13 @@ import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
 /**
- * IssMasterAction extends RhnAction
+ * RemoveMastersAction extends RhnAction
  *
  * @version $Rev: 1 $
  */
-public class IssRemoveSlavesAction extends RhnAction {
+public class RemoveMastersAction extends RhnAction {
 
-    private static final String LIST_NAME = "issSlaveList";
+    private static final String LIST_NAME = "issMasterList";
     public static final String DATA_SET = "all";
 
     /** {@inheritDoc} */
@@ -58,7 +58,7 @@ public class IssRemoveSlavesAction extends RhnAction {
         if (!AclManager.hasAcl("user_role(satellite_admin)", request, null)) {
             LocalizationService ls = LocalizationService.getInstance();
             PermissionException pex = new PermissionException(
-                            "Only satellite admins can modify allowed-slaves");
+                            "Only satellite admins can remove known masters");
             pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.iss.slave"));
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
             throw pex;
@@ -67,21 +67,21 @@ public class IssRemoveSlavesAction extends RhnAction {
         ActionForward destination = null;
         Set sessionSet = null;
 
-        Long sid = getSid(request);
-        if (sid == null) {
+        Long mid = getMid(request);
+        if (mid == null) {
             sessionSet = SessionSetHelper.lookupAndBind(request, getSetDecl().getLabel());
             request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         }
         else {
             request.setAttribute(ListTagHelper.PARENT_URL,
-                            request.getRequestURI() + "?sid=" + sid.toString());
+                            request.getRequestURI() + "?mid=" + mid.toString());
         }
 
-        List<IssSlave> slaves = findSelectedSlaves(sessionSet, sid);
+        List<IssMaster> masters = findSelectedMasters(sessionSet, mid);
 
         if (request.getParameter("dispatch") != null) {
-            if (!slaves.isEmpty()) {
-                destination = handleDispatchAction(mapping, request, slaves);
+            if (!masters.isEmpty()) {
+                destination = handleDispatchAction(mapping, request, sessionSet, masters);
                 if (sessionSet != null) {
                     sessionSet.clear();
                 }
@@ -95,68 +95,70 @@ public class IssRemoveSlavesAction extends RhnAction {
         // if I have a previous set selections populate data using it
         if (sessionSet != null && !sessionSet.isEmpty()) {
             SessionSetHelper helper = new SessionSetHelper(request);
-            helper.syncSelections(sessionSet, slaves);
+            helper.syncSelections(sessionSet, masters);
             ListTagHelper.setSelectedAmount(LIST_NAME, sessionSet.size(), request);
         }
 
-        request.setAttribute(DATA_SET, slaves);
+        request.setAttribute(DATA_SET, masters);
         ListTagHelper.bindSetDeclTo(LIST_NAME, getSetDecl(), request);
 
         return StrutsDelegate.getInstance().forwardParams(mapping.findForward("default"),
                         makeParamMap(request));
     }
 
-    private Long getSid(HttpServletRequest req) {
-        String sid = req.getParameter("sid");
+    private Long getMid(HttpServletRequest req) {
+        String mid = req.getParameter("mid");
 
-        if (sid != null) {
-            return Long.parseLong(sid);
+        if (mid != null) {
+            return Long.parseLong(mid);
         }
         else {
             return null;
         }
     }
 
-    private List<IssSlave> findSelectedSlaves(Set sessionSet, Object sidIn) {
-        List<IssSlave> slaves = new ArrayList<IssSlave>();
+    private List<IssMaster> findSelectedMasters(Set sessionSet, Long midIn) {
+        List<IssMaster> masters = new ArrayList<IssMaster>();
 
         if (sessionSet != null) {
-            Set<String> sids = (Set<String>) sessionSet;
-            for (String sid : sids) {
-                IssSlave aSlave = IssFactory.lookupSlaveById(Long.parseLong(sid));
-                slaves.add(aSlave);
+            Set<String> mids = (Set<String>) sessionSet;
+            for (String mid : mids) {
+                IssMaster aMaster = IssFactory.lookupMasterById(Long.parseLong(mid));
+                masters.add(aMaster);
             }
         }
-        else if (sidIn != null) {
-            slaves.add(IssFactory.lookupSlaveById(Long.parseLong(sidIn.toString())));
+        else if (midIn != null) {
+            masters.add(IssFactory.lookupMasterById(Long.parseLong(midIn.toString())));
         }
 
-        return slaves;
+        return masters;
     }
 
     private ActionForward handleDispatchAction(ActionMapping mapping,
-                    HttpServletRequest request, List<IssSlave> slaves) {
-        for (IssSlave slave : slaves) {
-            IssFactory.remove(slave);
+                    HttpServletRequest request,
+                    Set sessionSet,
+                    List<IssMaster> masters) {
+        for (IssMaster master : masters) {
+            IssFactory.remove(master);
         }
 
         ActionMessages msg = new ActionMessages();
-        if (slaves.size() == 1) {
-            IssSlave slave = slaves.get(0);
+        if (masters.size() == 1) {
+            IssMaster master = masters.get(0);
             msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                            "message.iss_slave_removed", slave.getSlave()));
+                            "message.iss_master_removed", master.getLabel()));
 
         }
         else {
             msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                            "message.iss_slaves_removed"));
+                            "message.iss_masters_removed"));
         }
         getStrutsDelegate().saveMessages(request, msg);
         return mapping.findForward("confirm");
     }
 
     protected RhnSetDecl getSetDecl() {
-        return RhnSetDecl.ISS_SLAVES;
+        return RhnSetDecl.ISS_MASTERS;
     }
 
 }

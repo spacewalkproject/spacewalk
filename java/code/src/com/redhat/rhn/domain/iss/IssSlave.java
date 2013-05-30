@@ -36,7 +36,7 @@ public class IssSlave extends BaseDto {
     public static final String CREATED = "created";
     public static final String MODIFIED = "modified";
 
-    /** salve-id parameter name */
+    /** slave-id parameter name */
     public static final String SID = "sid";
 
     private Long id;
