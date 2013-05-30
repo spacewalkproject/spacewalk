@@ -19541,8 +19541,8 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="confirmprotected.jsp.confirmmsg.deux">
         <source>You may choose to grant the organizations below access to this
-        channel, or you may deny them access. You can modify access to this
-        channel at any time using the 'Organizations' tab above.
+        channel, or you may deny them access. Once the channel is protected, you can
+        modify access to this channel at any time using the 'Organizations' tab.
         </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/ConfirmPrivate.do</context>
