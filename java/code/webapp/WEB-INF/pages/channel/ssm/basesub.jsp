@@ -33,10 +33,12 @@
 	           sortattr="name"
 	           >
 	    <c:if test="${current.id > 0}">
-          <c:out value="<a href=\"/rhn/channels/ChannelDetail.do?cid=${current.id}\">${current.name}</a>" escapeXml="false" />
+          <a href="/rhn/channels/ChannelDetail.do?cid=${current.id}">
+            <c:out value="${current.name}" escapeXml="true" />
+          </a>
 	    </c:if>
 	    <c:if test="${current.id <= 0}">
-          <c:out value="${current.name}" escapeXml="false" />
+          <c:out value="${current.name}" escapeXml="true" />
 	    </c:if>
     </rl:column>
 
