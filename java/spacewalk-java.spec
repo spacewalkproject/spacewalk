@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.86
+Version: 1.10.87
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu May 30 2013 Tomas Lestach <tlestach@redhat.com> 1.10.87-1
+- 515003 - changing confirmprotected.jsp.confirmmsg.deux message
+- making DataSourceParserTest work with PostgreSQL
+- 516265 - sort parent channel pop-up menu by channel name
+- 514288 - removing obsolete kickstart warning
+- 512433 - grammatical typo
+
 * Tue May 28 2013 Simon Lukasik <slukasik@redhat.com> 1.10.86-1
 - SCAP file size limit shall be configurable through web interface
 - Refactor: Rename variable: newLimit -> newCrashLimit
