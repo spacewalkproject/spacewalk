@@ -4,9 +4,9 @@
                                   ActionForm formIn,
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
-    
+
         Map params = makeParamMap(request);
-    
+
         return StrutsDelegate.getInstance().forwardParams(mapping.findForward("default"), params);
     }
 

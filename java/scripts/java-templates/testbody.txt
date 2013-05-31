@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008--2012 Red Hat, Inc.
+ * Copyright (c) 2013 Red Hat, Inc.
  * All Rights Reserved.
  *
  * This software is licensed to you under the GNU General Public License,
@@ -24,7 +24,7 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
  * @version $Rev: 1 $
  */
 public class ###CLASSNAME### extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         setRequestPathInfo("###ACTIONPATH###");
         actionPerform();
