@@ -36,8 +36,7 @@ CREATE TABLE rhnCpu
     vendor       VARCHAR2(32),
     nrcpu        NUMBER
                      DEFAULT (1),
-    nrsocket     NUMBER
-                     DEFAULT (1),
+    nrsocket     NUMBER,
     acpiVersion  VARCHAR2(64),
     apic         VARCHAR2(32),
     apmVersion   VARCHAR2(32),
