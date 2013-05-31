@@ -1,12 +1,13 @@
 
     /** {@inheritDoc} */
-    public ActionForward execute (ActionMapping mapping,
+    public ActionForward execute(ActionMapping mapping,
                                   ActionForm formIn,
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
 
         Map params = makeParamMap(request);
 
-        return StrutsDelegate.getInstance().forwardParams(mapping.findForward("default"), params);
+        return StrutsDelegate.getInstance().forwardParams(
+                mapping.findForward("default"), params);
     }
 

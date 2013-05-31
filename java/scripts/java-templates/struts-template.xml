@@ -1,4 +1,4 @@
-    <!-- IMPORTED ACTION - PLEASE MOVE TO PROPER LOCATION 
+    <!-- IMPORTED ACTION - PLEASE MOVE TO PROPER LOCATION
     <action path="###ACTIONPATH###"
         scope="request"
         input="/WEB-INF/pages/###JSPPATH###"
