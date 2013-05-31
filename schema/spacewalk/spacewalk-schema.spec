@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.41
+Version:        1.10.42
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri May 31 2013 Stephen Herr <sherr@redhat.com> 1.10.42-1
+- 948335 - Don't default to 1 cpu socket
+
 * Wed May 29 2013 Simon Lukasik <slukasik@redhat.com> 1.10.41-1
 - Do not use identifiers of excessive length for constraints.
 
