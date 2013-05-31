@@ -2744,4 +2744,13 @@ public class ChannelManager extends BaseManager {
         return toRet;
     }
 
+    /**
+     * returns channel manager ids within the given org for a given channel
+     * @param org given organization
+     * @param channel channel
+     * @return list of channel manager ids
+     */
+    public static List<Long> listChannelManagerIdsForChannel(Org org, Channel channel) {
+        return ChannelFactory.listManagerIdsForChannel(org, channel.getId());
+    }
 }

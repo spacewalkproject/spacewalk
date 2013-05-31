@@ -7,7 +7,7 @@
     <rhn-tab-url>/network/software/channels/subscribers.pxt</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Managers" acl="org_entitlement(sw_mgr_enterprise);user_role(channel_admin);user_can_admin_channel()">
-    <rhn-tab-url>/network/software/channels/managers.pxt</rhn-tab-url>
+    <rhn-tab-url>/rhn/channels/Managers.do</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Errata" acl="channel_type_capable(errata); not channel_packaging_type(sysv-solaris)">
     <rhn-tab-url>/rhn/channels/ChannelErrata.do</rhn-tab-url>

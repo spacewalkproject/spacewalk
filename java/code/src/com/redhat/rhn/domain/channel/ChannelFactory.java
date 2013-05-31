@@ -35,6 +35,7 @@ import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -1157,5 +1158,25 @@ public class ChannelFactory extends HibernateFactory {
         // flush so that if we're creating new filters we don't get constraint
         // violations for rhn_csf_sid_so_uq
         HibernateFactory.getSession().flush();
+    }
+
+    /**
+     * returns channel manager id for given channel
+     * @param org given organization
+     * @param channelId channel id
+     * @return list of channel managers
+     */
+    public static List<Long> listManagerIdsForChannel(Org org, Long channelId) {
+        SelectMode m = ModeFactory.getMode("Channel_queries",
+                "managers_for_channel_in_org");
+        Map params = new HashMap();
+        params.put("org_id", org.getId());
+        params.put("channel_id", channelId);
+        DataResult<Map> dr = m.execute(params);
+        List<Long> ids = new ArrayList<Long>();
+        for (Map row : dr) {
+            ids.add((Long) row.get("id"));
+        }
+        return ids;
     }
 }

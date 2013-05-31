@@ -19671,6 +19671,12 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/manage/errata/ErrataList.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="channel.jsp.managers.message">
+        <source>Selected users may manage this channel. Users with Admin Access (org admins or channel admins) may manage any channel.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Managers.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="unknown.package">
         <source>Unknown Package</source>
         <context-group name="ctx">

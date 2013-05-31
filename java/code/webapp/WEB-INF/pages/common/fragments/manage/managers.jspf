@@ -1,0 +1,62 @@
+<h2>
+    <bean:message key="Managers"/>
+</h2>
+
+<bean:message key="channel.jsp.managers.message"/>
+
+
+<rl:listset name="managerSet">
+    <rhn:csrf />
+    <input type="hidden" name="cid" value="${cid}" />
+
+    <rl:list>
+
+        <rl:decorator name="SelectableDecorator"/>
+        <rl:decorator name="PageSizeDecorator"/>
+
+        <rl:selectablecolumn value="${current.id}"
+            selected="${current.selected}"
+            disabled="${current.disabled}">
+        </rl:selectablecolumn>
+
+         <rl:column sortable="true"
+            bound="false"
+            headerkey="username.nopunc.displayname"
+            sortattr="login"
+            filterattr="name"
+            defaultsort="asc" >
+
+            <a href="/rhn/users/UserDetails.do?uid=${current.id}">
+                ${current.login}
+            </a>
+         </rl:column>
+
+         <rl:column sortable="false"
+            bound="false"
+            headerkey="realname.displayname" >
+            ${current.userLastName}, ${current.userFirstName}
+         </rl:column>
+
+         <rl:column sortable="false"
+            bound="false"
+            headerkey="multiorg.jsp.email" >
+            ${current.email}
+         </rl:column>
+
+         <rl:column sortable="true"
+            sortattr="status"
+            bound="false"
+            headerkey="userlist.jsp.status" >
+            ${current.status}
+         </rl:column>
+
+    </rl:list>
+
+    <div align="right">
+        <hr />
+        <input type="submit" name="confirm"
+                value="<bean:message key="message.Update"/>" />
+    </div>
+    <rhn:submitted/>
+
+</rl:listset>

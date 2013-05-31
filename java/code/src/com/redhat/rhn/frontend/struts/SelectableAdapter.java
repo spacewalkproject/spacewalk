@@ -21,6 +21,7 @@ package com.redhat.rhn.frontend.struts;
  */
 public abstract class SelectableAdapter implements Selectable {
     private boolean selected;
+    private boolean disabled = false;
     /**
      * {@inheritDoc}
      */
@@ -52,4 +53,17 @@ public abstract class SelectableAdapter implements Selectable {
         selected = selectedIn;
     }
 
+    /**
+     * @return Returns the disabled.
+     */
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    /**
+     * @param disabledIn The disabled to set.
+     */
+    public void setDisabled(boolean disabledIn) {
+        disabled = disabledIn;
+    }
 }

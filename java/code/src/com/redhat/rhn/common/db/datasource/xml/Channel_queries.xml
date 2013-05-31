@@ -195,6 +195,15 @@ ORDER BY UPPER(C.name)
   </query>
 </mode>
 
+<mode name="managers_for_channel_in_org">
+  <query params="org_id, channel_id">
+  SELECT u.id
+  FROM web_contact u
+  WHERE u.org_id = :org_id
+    AND rhn_channel.user_role_check(:channel_id, u.id, 'manage')= 1;
+  </query>
+</mode>
+
 <callable-mode name="verify_channel_role">
   <query params="result, cid, user_id, role">
       {:result = call rhn_channel.user_role_check_debug(:cid, :user_id, :role)}

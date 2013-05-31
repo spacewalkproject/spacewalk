@@ -119,7 +119,17 @@ public class UserManager extends BaseManager {
      * @return Returns true if the user has admin access to this channel, false otherwise.
      */
     public static boolean verifyChannelAdmin(User user, Channel channel) {
-       return verifyChannelRole(user, channel, "manage");
+       return verifyChannelRole(user.getId(), channel, "manage");
+    }
+
+    /**
+     * Verifies that the passed in user id has admin over the passed in channel.
+     * @param userId The user id to check.
+     * @param channel The channel to check.
+     * @return Returns true if the user id has admin access to this channel
+     */
+    public static boolean verifyChannelAdmin(Long userId, Channel channel) {
+       return verifyChannelRole(userId, channel, "manage");
     }
 
     /**
@@ -130,16 +140,16 @@ public class UserManager extends BaseManager {
      *     false otherwise.
      */
     public static boolean verifyChannelSubscribable(User user, Channel channel) {
-        return verifyChannelRole(user, channel, "subscribe");
+        return verifyChannelRole(user.getId(), channel, "subscribe");
     }
 
-    private static boolean verifyChannelRole(User user, Channel channel, String role) {
+    private static boolean verifyChannelRole(Long userId, Channel channel, String role) {
         CallableMode m = ModeFactory.getCallableMode(
                 "Channel_queries", "verify_channel_role");
 
         Map inParams = new HashMap();
         inParams.put("cid", channel.getId());
-        inParams.put("user_id", user.getId());
+        inParams.put("user_id", userId);
         inParams.put("role", role);
 
         Map outParams = new HashMap();
@@ -488,21 +498,8 @@ public class UserManager extends BaseManager {
         if (user.getId().equals(uid)) {
             return user;
         }
-        LocalizationService ls = LocalizationService.getInstance();
 
-        if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
-            //Throw an exception with a nice error message so the user
-            //knows what went wrong.
-
-            PermissionException pex =
-                new PermissionException("Lookup user requires Org Admin");
-            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.lookupuser"));
-            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.lookupuser"));
-            throw pex;
-        }
-
-        returnedUser = UserFactory.lookupById(user, uid);
-        return returnedUser;
+        return UserFactory.lookupById(user, uid);
     }
 
     /**
@@ -636,16 +633,6 @@ public class UserManager extends BaseManager {
      * @return A list containing the specified number of users.
      */
     public static DataResult activeInOrg2(User user) {
-        if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
-            //Throw an exception with a nice error message so the user
-            //knows what went wrong.
-            LocalizationService ls = LocalizationService.getInstance();
-            PermissionException pex = new PermissionException("User must be an" +
-                    " Org Admin to access the user list");
-            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.userlist"));
-            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.userlist"));
-            throw pex;
-        }
         SelectMode m = ModeFactory.getMode("User_queries", "active_in_org");
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());

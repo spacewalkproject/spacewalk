@@ -7705,9 +7705,31 @@
           <forward name="complete" path="/channels/manage/ChannelPackages.do" redirect="true" />
       </action>
 
-     <action path="/channels/ChannelSubscribers"
-        type="com.redhat.rhn.frontend.action.channel.ChannelSubscribedAction"
-            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+   <action path="/channels/Managers"
+        scope="request"
+        input="/WEB-INF/pages/channels/manage/managers.jsp"
+        type="com.redhat.rhn.frontend.action.channels.ManagersSetupAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="user_role(channel_admin);"/>
+        <forward name="default" path="/WEB-INF/pages/channels/manage/managers.jsp" />
+        <forward name="submitted"
+                 path="/channels/Managers.do" redirect="true"/>
+   </action>
+
+   <action path="/channels/manage/Managers"
+        scope="request"
+        input="/WEB-INF/pages/channels/manage/managers_edit.jsp"
+        type="com.redhat.rhn.frontend.action.channels.ManagersSetupAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="user_role(channel_admin);"/>
+        <forward name="default" path="/WEB-INF/pages/channels/manage/managers_edit.jsp" />
+        <forward name="submitted"
+                 path="/channels/manage/Managers.do" redirect="true"/>
+   </action>
+
+	 <action path="/channels/ChannelSubscribers"
+		type="com.redhat.rhn.frontend.action.channel.ChannelSubscribedAction"
+	        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default" path="/WEB-INF/pages/channel/subscribedsystems.jsp" />
       </action>

@@ -131,7 +131,7 @@ public class ListRhnSetHelper extends ListSetHelper {
     public Collection getAddedKeys() {
         Set preSelectedValues = getPreSelected();
         Set setValues = set.getElementValues();
-        Collection result = CollectionUtils.subtract(preSelectedValues, setValues);
+        Collection result = CollectionUtils.subtract(setValues, preSelectedValues);
         return result;
     }
 
@@ -139,7 +139,7 @@ public class ListRhnSetHelper extends ListSetHelper {
     public Collection getRemovedKeys() {
         Set setValues = set.getElementValues();
         Set preSelectedValues = getPreSelected();
-        Collection result = CollectionUtils.subtract(setValues, preSelectedValues);
+        Collection result = CollectionUtils.subtract(preSelectedValues, setValues);
         return result;
     }
 

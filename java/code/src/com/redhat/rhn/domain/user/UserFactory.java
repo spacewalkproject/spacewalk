@@ -717,5 +717,4 @@ public  class UserFactory extends HibernateFactory {
         inParams.put("user_id", userId);
         m.execute(inParams, outParams);
     }
-
 }
