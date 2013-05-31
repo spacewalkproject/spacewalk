@@ -29,7 +29,7 @@ from spacewalk.server import rhnSQL, rhnImport
 from spacewalk.satellite_tools.disk_dumper.dumper import ClosedConnectionError
 from spacewalk.satellite_tools import constants
 
-from rhn.connections import idn_ascii_to_pune
+from rhn.connections import idn_pune_to_unicode
 
 class BaseApacheServer:
     def __init__(self):
@@ -185,7 +185,7 @@ class ApacheServer(BaseApacheServer):
 
     # pylint: disable=R0201
     def get_function(self, method_name, req):
-        self.auth_system(req)
+        iss_slave_condition = self.auth_system(req)
         # Get the module name
         idx = method_name.rfind('.')
         module_name, function_name = method_name[:idx], method_name[idx+1:]
@@ -196,6 +196,7 @@ class ApacheServer(BaseApacheServer):
             raise FunctionRetrievalError("Module %s not found" % module_name)
 
         mod = handler_classes[module_name](req)
+        mod.set_iss_slave_condition(iss_slave_condition)
         f = mod.get_function(function_name)
         if f is None:
             raise FunctionRetrievalError(
@@ -207,21 +208,17 @@ class ApacheServer(BaseApacheServer):
         if CFG.DISABLE_ISS:
             raise rhnFault(2005, _('ISS is disabled on this satellite.'))
 
-        if CFG.ALLOWED_ISS_SLAVES:
-            if not isinstance(CFG.ALLOWED_ISS_SLAVES, list):
-                allowed_iss_slaves = [CFG.ALLOWED_ISS_SLAVES]
-            else:
-                allowed_iss_slaves = CFG.ALLOWED_ISS_SLAVES
-            allowed_iss_slaves = [idn_ascii_to_pune(x) for x in allowed_iss_slaves]
-        else:
-            allowed_iss_slaves = []
-
         remote_hostname = req.get_remote_host(apache.REMOTE_DOUBLE_REV)
-        if remote_hostname not in allowed_iss_slaves:
+        row = rhnSQL.fetchone_dict("select id, allow_all_orgs from rhnISSSlave where slave = :hostname and enabled = 'Y'",
+            hostname = idn_pune_to_unicode(remote_hostname))
+        if not row:
             raise rhnFault(2004,
               _('Server "%s" is not enabled for ISS.')
                 % remote_hostname)
-        return remote_hostname
+        iss_slave_condition = "1 = 1"
+        if not(row['allow_all_orgs'] == 'Y'):
+            iss_slave_condition = "rhnChannelFamily.org_id in ( select rhnISSSlaveOrgs.org_id from rhnISSSlaveOrgs where slave_id = %d )" % row['id']
+        return iss_slave_condition
 
     @staticmethod
     def _validate_version(req):

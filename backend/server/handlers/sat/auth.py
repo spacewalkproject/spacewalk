@@ -15,7 +15,7 @@
 # Satellite specific authentication xmlrpc method.
 
 import time
-from rhn.connections import idn_ascii_to_pune
+from rhn.connections import idn_pune_to_unicode
 
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnConfig import CFG
@@ -23,6 +23,7 @@ from spacewalk.common.rhnException import rhnFault
 from spacewalk.common.rhnTranslate import _
 from spacewalk.server.rhnHandler import rhnHandler
 from spacewalk.server import rhnLib
+from spacewalk.server import rhnSQL
 
 class Authentication(rhnHandler):
     """ Simple authentication based on hostname and allowed_iss_slaves
@@ -41,16 +42,8 @@ class Authentication(rhnHandler):
         if CFG.DISABLE_ISS:
             raise rhnFault(2005, _('ISS is disabled on this satellite.'))
 
-        if CFG.ALLOWED_ISS_SLAVES:
-            if not isinstance(CFG.ALLOWED_ISS_SLAVES, list):
-                allowed_iss_slaves = [CFG.ALLOWED_ISS_SLAVES]
-            else:
-                allowed_iss_slaves = CFG.ALLOWED_ISS_SLAVES
-            allowed_iss_slaves = [idn_ascii_to_pune(x) for x in allowed_iss_slaves]
-        else:
-            allowed_iss_slaves = []
-
-        if self.remote_hostname not in allowed_iss_slaves:
+        if not rhnSQL.fetchone_dict("select 1 from rhnISSSlave where slave = :hostname and enabled = 'Y'",
+            hostname = idn_pune_to_unicode(self.remote_hostname)):
             raise rhnFault(2004,
               _('Server "%s" is not enabled for ISS.')
                 % self.remote_hostname)
