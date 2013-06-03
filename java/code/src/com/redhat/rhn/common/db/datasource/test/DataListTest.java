@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
@@ -30,13 +31,24 @@ public class DataListTest extends RhnBaseTestCase {
     private HookedSelectMode hsm;
     private Map params;
     private Map elabParams;
+    private String db_sufix;
+    private String db_user;
 
     public void setUp() {
+        if (ConfigDefaults.get().isOracle()) {
+            db_sufix = "_or";
+            db_user = "SPACEUSER";
+        }
+        else {
+            db_sufix = "_pg";
+            db_user = "spaceuser";
+        }
+
         hsm = new HookedSelectMode(
-                ModeFactory.getMode("test_queries", "user_tables"));
+                ModeFactory.getMode("test_queries", "user_tables" + db_sufix));
         params = new HashMap();
         elabParams = new HashMap();
-        elabParams.put("user_name", "RHN");
+        elabParams.put("user_name", db_user);
     }
 
     public void tearDown() {

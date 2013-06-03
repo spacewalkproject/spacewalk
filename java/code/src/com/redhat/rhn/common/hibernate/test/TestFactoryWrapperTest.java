@@ -196,7 +196,7 @@ public class TestFactoryWrapperTest extends RhnBaseTestCase {
                         "  created timestamp with local time zone" +
                         ")");
                 stmt.execute("insert into persist_test (foobar, id) " +
-                        "values ('Blarg', persist_sequence.nextval");
+                        "values ('Blarg', persist_sequence.nextval)");
                 stmt.execute("insert into persist_test (foobar, id) " +
                         "values ('duplicate', persist_sequence.nextval)");
                 stmt.execute("insert into persist_test (foobar, id) " +
