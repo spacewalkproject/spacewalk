@@ -1,0 +1,1 @@
+ALTER TABLE rhnTaskoRun MODIFY status VARCHAR2(12);

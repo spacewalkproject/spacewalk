@@ -53,4 +53,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoRun WHERE scheduleId = :schedule_id AND endTime > :limit_time]]>
         </query>
 
+        <query name="TaskoRun.listUnfinished">
+            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoRun WHERE endTime IS NULL]]>
+        </query>
+
 </hibernate-mapping>

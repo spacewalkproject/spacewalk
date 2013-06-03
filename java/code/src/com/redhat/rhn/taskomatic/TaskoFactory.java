@@ -507,4 +507,15 @@ public class TaskoFactory extends HibernateFactory {
         }
         return orgId.equals(run.getOrgId());
     }
+
+    /**
+     * Lists taskomatic runs those endTime IS NULL (most probably were interrupted by
+     * taskomatic shutdown)
+     * @return list of unfinished runs
+     */
+    public static List<TaskoRun> listUnfinishedRuns() {
+        Map params = new HashMap();
+        return singleton.listObjectsByNamedQuery(
+                "TaskoRun.listUnfinished", params);
+    }
 }

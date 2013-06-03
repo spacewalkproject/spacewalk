@@ -30,7 +30,7 @@ CREATE TABLE rhnTaskoRun
     end_time        timestamp with local time zone,
     std_output_path VARCHAR2(100),
     std_error_path  VARCHAR2(100),
-    status          VARCHAR2(10),
+    status          VARCHAR2(12),
     created         timestamp with local time zone
                         DEFAULT (current_timestamp) NOT NULL,
     modified        timestamp with local time zone

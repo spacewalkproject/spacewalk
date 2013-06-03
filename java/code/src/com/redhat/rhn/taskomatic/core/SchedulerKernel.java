@@ -249,6 +249,17 @@ public class SchedulerKernel {
                     }
                 }
             }
+            // close unfinished runs
+            int interrupted = 0;
+            for (TaskoRun run : TaskoFactory.listUnfinishedRuns()) {
+                run.setStatus(TaskoRun.STATUS_INTERRUPTED);
+                run.setEndTime(now);
+                TaskoFactory.save(run);
+                interrupted++;
+            }
+            if (interrupted > 0) {
+                log.warn("Number of interrupted runs: " + interrupted);
+            }
             TaskoFactory.closeSession();
         }
         catch (Exception e) {
