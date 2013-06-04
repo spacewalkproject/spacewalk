@@ -15,6 +15,8 @@
 
 import os
 import sys
+import bz2
+import gzip
 import pwd
 import grp
 import types
@@ -448,3 +450,13 @@ class payload:
 
     def __getattr__(self, x):
         return getattr(self.fileobj, x)
+
+def decompress_open(filename, mode='r'):
+    file_obj = None
+    if filename.endswith('.gz'):
+        file_obj = gzip.open(filename, mode)
+    elif filename.endswith('.bz2'):
+        file_obj = bz2.BZ2File(filename, mode)
+    else:
+        file_obj = open(filename, mode)
+    return file_obj

@@ -61,14 +61,14 @@ class YumUpdateMetadata(UpdateMetadata):
         if not obj:
             raise UpdateNoticeException
         if type(obj) in (type(''), type(u'')):
-            infile = obj.endswith('.gz') and gzip.open(obj) or open(obj, 'rt')
+            infile = fileutils.decompress_open(obj)
         elif isinstance(obj, YumRepository):
             if obj.id not in self._repos:
                 self._repos.append(obj.id)
                 md = obj.retrieveMD(mdtype)
                 if not md:
                     raise UpdateNoticeException()
-                infile = gzip.open(md)
+                infile = fileutils.decompress_open(md)
         else:   # obj is a file object
             infile = obj
 
