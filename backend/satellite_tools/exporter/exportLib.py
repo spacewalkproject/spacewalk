@@ -198,6 +198,21 @@ class SatelliteDumper(BaseDumper):
     def set_iterator(self):
         return ArrayIterator(self._dumpers)
 
+class ChannelAccessDumper(BaseDumper):
+    tag_name = 'rhn-channel-access'
+
+    def __init__(self, writer, access_level, data_iterator=None):
+        BaseDumper.__init__(self, writer, data_iterator)
+        self.access_level = access_level
+
+    def dump_subelement(self, data):
+        d = SimpleDumper(self._writer, 'rhn-channel-trusted-org',
+                data['org_trust_id'])
+        d.dump()
+
+    def set_attributes(self):
+        return {'sharing' : self.access_level}
+
 class _ChannelDumper(BaseRowDumper):
     tag_name = 'rhn-channel'
 
@@ -242,6 +257,12 @@ class _ChannelDumper(BaseRowDumper):
            and dcm.org_id is null
     """)
 
+    _query_get_channel_trusts = rhnSQL.Statement("""
+        select org_trust_id
+          from rhnChannelTrust
+         where channel_id = :channel_id
+    """)
+
     def set_iterator(self):
         channel_id = self._row['id']
         arr = []
@@ -273,6 +294,11 @@ class _ChannelDumper(BaseRowDumper):
             arr.append(SimpleDumper(self._writer, 'rhn-channel-comps-last-modified',
                 _dbtime2timestamp(comp_last_modified[0]))
             )
+
+        h = rhnSQL.prepare(self._query_get_channel_trusts)
+        h.execute(channel_id=channel_id)
+        arr.append(ChannelAccessDumper(self._writer,
+            self._row['channel_access'], data_iterator=h))
 
         h = rhnSQL.prepare(self._query_channel_families)
         h.execute(channel_id=channel_id)
