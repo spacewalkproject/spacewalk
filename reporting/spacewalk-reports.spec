@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.7
+Version: 1.10.8
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Wed Jun 05 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.8-1
+- 477631 - fix of system group reports
+
 * Wed Jun 05 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.7-1
 - 745342 - display more meaningful description
 
