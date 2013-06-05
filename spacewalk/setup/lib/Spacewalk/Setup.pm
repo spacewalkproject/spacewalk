@@ -126,6 +126,7 @@ sub parse_options {
             "rhn-http-proxy:s",
             "rhn-http-proxy-username:s",
             "rhn-http-proxy-password:s",
+            "managed-db",
 		   );
 
   my $usage = loc("usage: %s %s\n",
