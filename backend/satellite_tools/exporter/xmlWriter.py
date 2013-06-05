@@ -36,21 +36,11 @@ class XMLWriter:
         '"': '&quot;',
         "'": '&apos;',
     }
-    def __init__(self, charset="iso-8859-1", encoding = "UTF-8", 
-            stream=sys.stdout, skip_xml_decl=0):
+    def __init__(self, stream=sys.stdout, skip_xml_decl=0):
         self.tag_stack = []
-        if charset[:9] != "iso-8859-":
-            raise Exception, "Unsupported charset"
-
-        self.charset = charset
-        self.encoding = encoding
         self.stream = stream
         if not skip_xml_decl:
-            self.stream.write('<?xml version="1.0" encoding="%s"?>' % self.encoding)
-
-    def _convert(self, s):
-        # Converts the string to the desired encoding
-        return unicode(s, self.charset).encode(self.encoding)
+            self.stream.write('<?xml version="1.0" encoding="UTF-8"?>')
 
     def open_tag(self, name, attributes=None, namespace=None):
         "Opens a tag with the specified attributes"
@@ -114,16 +104,7 @@ class XMLWriter:
         else:
             data_string = str(data_string)
 
-        converted = self._convert(data_string)
-        if max_bytes is not None and len(converted) > max_bytes:
-            # we're too large. operate on the unconverted string
-            # so that we remove whole characters, even though it may be
-            # too many.
-            log_error("Truncating field to fit in satellite schema. "
-                    "First 30 bytes are:", converted[:30])
-            extra = max_bytes - len(converted)
-            converted = self._convert(data_string[:extra])
-        data_string = self._re.sub(self._sub_function, converted)
+        data_string = self._re.sub(self._sub_function, data_string)
         self.stream.write(data_string)
 
     # Helper functions
