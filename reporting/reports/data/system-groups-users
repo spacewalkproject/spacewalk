@@ -5,7 +5,7 @@ synopsis:
 
 description:
 
-	List of users which can access specefic server groups
+	List of users which can access specefic system groups
 
 columns:
 
@@ -14,30 +14,28 @@ columns:
 	user_id	Internal user id
 	login	User login
 	last_name Last name
-	first_name	Firts name(s)
+	first_name	First name(s)
 	email	User email
 
 sql:
 
-	select * from (
-	select sysgroup.id as group_id,
-		sysgroup.name as group_name,
-		web_contact.id as user_id,
-		web_contact.login as login,
-		wupi.last_name as last_name,
-		wupi.first_names as first_name,
-		wupi.email as email
-	from rhnServerGroup sysgroup,
-		web_contact,
-		web_user_personal_info wupi,
-		rhnUserServerGroupPerms perms
-	where sysgroup.org_id=web_contact.org_id
-		and web_contact.id=wupi.web_user_id
-		and sysgroup.group_type is null
-		and ((perms.user_id=web_contact.id
-			and perms.server_group_id=sysgroup.id)
-			or (web_contact.id in (select UGM.user_id from rhnUserGroupMembers UGM join rhnUserGroup UG on UGM.USER_GROUP_ID=UG.ID where (UG.NAME='Organization Administrators'))))
-	) X
-	-- where placeholder
-	order by group_id, user_id
+  select * from (
+  select sysgroup.id as group_id,
+    sysgroup.name as group_name,
+    web_contact.id as user_id,
+    web_contact.login as login,
+    wupi.last_name as last_name,
+    wupi.first_names as first_name,
+    wupi.email as email
+  from web_contact join
+    web_user_personal_info wupi on web_contact.id=wupi.web_user_id join
+    rhnServerGroup sysgroup on sysgroup.org_id=web_contact.org_id
+  where sysgroup.group_type is null
+    and ((web_contact.id in (select UGM.user_id from rhnUserGroupMembers UGM join rhnUserGroup UG on UGM.USER_GROUP_ID=UG.ID where (UG.NAME='Organization Administrators')))
+    or exists(select * from rhnUserServerGroupPerms perms where
+      perms.user_id=web_contact.id
+      and perms.server_group_id=sysgroup.id))
+  ) X
+  -- where placeholder
+  order by group_id, user_id
 

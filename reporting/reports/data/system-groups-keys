@@ -1,7 +1,7 @@
 
 synopsis:
 
-  Activeations keys for system groups
+  Activation keys for system groups
 
 description:
 
@@ -22,12 +22,11 @@ sql:
 		sysgroup.org_id as org_id,
 		AK.token as activation_key
 	from rhnactivationkey AK
-		join rhnregtoken RT on AK.REG_TOKEN_ID=RT.ID,
-		rhnservergroup sysgroup
+		join rhnregtoken RT on AK.REG_TOKEN_ID=RT.ID
+    join rhnRegTokenGroups RTG on AK.reg_token_id=RTG.token_id
+    join rhnservergroup sysgroup on RTG.server_group_id=sysgroup.id
 	where RT.disabled=0
-		and sysgroup.org_id=RT.org_id
-		and sysgroup.group_type is null
   ) X
   -- where placeholder
-  order by org_id, group_id
+  order by org_id, activation_key
 
