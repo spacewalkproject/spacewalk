@@ -175,7 +175,7 @@
        <packagereq type="default">spacewalk-search</packagereq>
        <packagereq type="default">spacewalk-selinux</packagereq>
        <packagereq type="default">spacewalk-setup</packagereq>
-       <packagereq type="default">spacewalk-setup-embedded-postgresql</packagereq>
+       <packagereq type="default">spacewalk-setup-postgresql</packagereq>
        <packagereq type="default">spacewalk-setup-jabberd</packagereq>
        <packagereq type="default">spacewalk-slf4j</packagereq>
        <packagereq type="default">spacewalk-sniglets</packagereq>
