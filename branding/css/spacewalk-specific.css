@@ -109,3 +109,10 @@ div#mainNavWrap ul li#mainLast-active {
 #bar {
 	background-color: #383838;
 }
+
+#rhn_welcome {
+        background-image: url(/img/rhn_welcome3.gif);
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        height: 40px;
+        }
