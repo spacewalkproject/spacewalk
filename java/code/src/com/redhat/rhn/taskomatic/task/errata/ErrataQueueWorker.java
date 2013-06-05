@@ -88,18 +88,6 @@ class ErrataQueueWorker implements QueueWorker {
                         errataId.longValue());
             }
 
-            WriteMode deqNotif = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
-                    TaskConstants.TASK_QUERY_ERRATA_QUEUE_DEQUEUE_ERRATA_NOTIFICATION);
-            Map deqNotifParams = new HashMap();
-            deqNotifParams.put("errata_id", errataId);
-            deqNotifParams.put("channel_id", channelId);
-            deqNotifParams.put("org_id", orgId);
-            int notifDeleted = deqNotif.executeUpdate(deqNotifParams);
-            if (logger.isDebugEnabled()) {
-                logger.debug("deleted " + notifDeleted +
-                        " rows from the rhnErrataNotificationQueue table");
-            }
-
             WriteMode marker = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_ERRATA_QUEUE_ENQUEUE_SAT_ERRATA);
             Map params = new HashMap();
