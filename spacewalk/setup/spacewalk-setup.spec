@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        1.10.9
+Version:        1.10.10
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -102,6 +102,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Jun 05 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.10-1
+- spacewalk-setup: correctly recognize --managed-db switch
+- modify spacewalk-setup to use spacewalk-setup-postgresql
+
 * Thu May 09 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.9-1
 - 958677 - suppress uninitialized value messages
 
