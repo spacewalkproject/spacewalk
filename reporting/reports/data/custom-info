@@ -5,7 +5,7 @@ synopsis:
 
 description:
 
-	Display custom for all systems in spacewalk with any custom info associated
+  Display custom info for all systems in Spacewalk with any custom info associated
 
 columns:
 
