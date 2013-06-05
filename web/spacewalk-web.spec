@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.24
+Version: 1.10.25
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -272,6 +272,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Jun 05 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.25-1
+- spacewalk-dobby: remove dependency on apache, spacewalk-base, spacewalk-setup
+- Move RHN::SimpleStruct from spacewalk-base to spacewalk-base-minimal
+- Split rhn_web.conf into a separate package
+
 * Wed May 22 2013 Tomas Lestach <tlestach@redhat.com> 1.10.24-1
 - removing outdated/unused web.ep_* configuration options
 
