@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-postgresql
-Version:        1.10.1
+Version:        1.10.2
 Release:        1%{?dist}
 Summary:        Tools to setup embedded PostgreSQL database for Spacewalk
 Group:          Applications/System
@@ -44,6 +44,9 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/*
 
 %changelog
+* Wed Jun 05 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.2-1
+- initial build
+
 * Mon May 06 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.1-1
 - make spacewalk-setup-embedded-postgresql systemctl-aware
 - manage embedded PostgreSQL by spacewalk-service
