@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    1.10.17
+Version:    1.10.18
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -74,6 +74,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Jun 05 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.18-1
+- moving #rhn_welcome to spacewalk specific styles
+
 * Fri May 17 2013 Tomas Lestach <tlestach@redhat.com> 1.10.17-1
 - 591988 - render error messages without dot in front of them
 
