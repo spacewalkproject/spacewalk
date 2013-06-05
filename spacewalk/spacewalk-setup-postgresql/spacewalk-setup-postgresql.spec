@@ -1,4 +1,4 @@
-Name:           spacewalk-setup-embedded-postgresql
+Name:           spacewalk-setup-postgresql
 Version:        1.10.1
 Release:        1%{?dist}
 Summary:        Tools to setup embedded PostgreSQL database for Spacewalk
@@ -9,10 +9,10 @@ Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{versio
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 Requires:       postgresql-server > 8.4
+Obsoletes:	spacewalk-setup-embedded-postgresql
 
 %description
-Script, which setup embedded PostgreSQL database for Spacewalk. Used during
-installation of Spacewalk server.
+Script, which will setup PostgreSQL database for Spacewalk.
 
 %prep
 %setup -q
@@ -38,7 +38,7 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root,-)
 %doc LICENSE
-%attr(755,root,root) %{_bindir}/spacewalk-setup-embedded-postgresql
+%attr(755,root,root) %{_bindir}/spacewalk-setup-postgresql
 #%{_mandir}/man1/*
 %{_datadir}/spacewalk/setup/defaults.d/*
 
@@ -65,4 +65,3 @@ rm -rf %{buildroot}
 
 * Mon Oct 22 2012 Michael Mraka
 - spacewalk-setup-embedded-postgresql 1.8
-

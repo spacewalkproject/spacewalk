@@ -2,11 +2,19 @@
 
 set -e
 
-OPTS=$(getopt --longoptions=db:,user:,password: -n ${0##*/} -- d:u:p "$@")
+OPTS=$(getopt --longoptions=db:,user:,password:,standalone,address:,port:,remote: -n ${0##*/} -- d:u:p:sa:t:r: "$@")
 
 if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
 
 eval set -- "$OPTS"
+
+PGNAME=""
+PGUSER=""
+PGPASSWORD=""
+STANDALONE=false
+ADDRESS=""
+PORT=""
+REMOTE=""
 
 while true ; do
     case "$1" in
@@ -22,6 +30,21 @@ while true ; do
             PGPASSWORD=$2
             shift
             ;;
+        -s|--standalone)
+            STANDALONE=true
+            ;;
+        -a|--address)
+            ADDRESS=$2
+            shift
+            ;;
+        -t|--port)
+            PORT=$2
+            shift
+            ;;
+        -r|--remote)
+            REMOTE=$2
+            shift
+            ;;
         --)
             shift
             break
@@ -34,35 +57,75 @@ while true ; do
     shift
 done
 
+if [ -z $PORT ] || ! $STANDALONE; then
+    PORT=5432
+fi
+
 help() {
-    echo "usage: $(basename $0) create --db <database_name> --user <username> --password <password>" >&2
-    echo "       $(basename $0) remove [ --db <database_name> | --user <username> ]" >&2
-    echo "       $(basename $0) check  [ --db <database_name> | --user <username> ]" >&2
+    echo "Usage: $(basename $0) create [options]" >&2
+    echo "       $(basename $0) remove [options]" >&2
+    echo "       $(basename $0) check  [options]" >&2
+    echo ""
+    echo "Options for the 'create' command:"
+    echo "    --db <database-name>         Name of the database to create"
+    echo "    --user <username>            Database user to create"
+    echo "    --password <password>        Password for the database user"
+    echo "    --standalone                 Configure the database server to be remotely accessible"
+    echo "    --address <local-addresses>  Comma-separated list of local addresses to listen on"
+    echo "                                 Use '*' for all addresses"
+    echo "    --port <local-port>          Local port to listen on."
+    echo "    --remote <remote-addresses>  Comma-separated list of remote addresses to allow connections from"
+    echo ""
+    echo "Options for the 'remove' command:"
+    echo "    --db <database-name>         Name of the database to remove"
+    echo "    --user <username>            Name of the user to remove"
+    echo ""
+    echo "Options for the 'check' command:"
+    echo "    --db <database-name>         Name of the database to check for"
+    echo "    --user <username>            Name of the user to check for"
+}
+
+ask() {
+    if $1; then
+        read -p "$2" $3
+    else
+        read -s -p "$2" $3
+    fi
 }
 
 PG_DATA=/var/lib/pgsql/data
 PG_HBA="$PG_DATA/pg_hba.conf"
 POSTGRESQL="$PG_DATA/postgresql.conf"
-PG_PIDFILE="/var/run/postmaster.5432.pid"
-PG_SOCKET="/tmp/.s.PGSQL.5432"
+PG_PIDFILE="/var/run/postmaster.$PORT.pid"
+PG_SOCKET="/tmp/.s.PGSQL.$PORT"
 SPACEWALK_TARGET="/usr/lib/systemd/system/spacewalk.target"
 SERVICE_LIST="/etc/rhn/service-list"
 
 create() {
-    if [ -z "$PGUSER" -o -z "$PGPASSWORD" -o -z "$PGNAME" ] ; then
-        help
-        exit 1
+    [ -z "$PGNAME" ] && ask true "Database name: " PGNAME
+    [ -z "$PGUSER" ] && ask true "Database user: " PGUSER
+    [ -z "$PGPASSWORD" ] && ask false "Database password: " PGPASSWORD && echo
+
+    if $STANDALONE; then
+        [ -z "$ADDRESS" ] && ask true "Local addresses to listen on (comma-separated, RETURN for all): " ADDRESS
+        [ -z "$ADDRESS" ] && ADDRESS="'*'"
+        [ -z "$REMOTE" ] && ask true "Remote addresses to allow connection from (CIDR format, comma-separated): " REMOTE
     fi
+
     postgresql_service enable
 
     if [ ! -d "$PG_DATA/base" ] ; then
         postgresql_service initdb
 
+        if $STANDALONE; then
+            sed -i 's/^\(\s*listen_addresses.*|\s*port.*\)$/### next line has been commented out by spacewalk-setup-postgresql ###\n##\1/' $POSTGRESQL
+        fi
+
 	# see bug 821446, we enable timestamps in logs by default
-	sed -i 's/^\(max_connections.*\|shared_buffers.*\)$/### next line has been commented out by spacewalk-setup-embedded-postgresql: ###\n##\1/ ' $POSTGRESQL
+	sed -i 's/^\(\s*max_connections.*\|\s*shared_buffers.*\)$/### next line has been commented out by spacewalk-setup-postgresql ###\n##\1/' $POSTGRESQL
         cat >> $POSTGRESQL <<EOF
 
-### spacewalk-setup-embedded-postgresql modified values
+### spacewalk-setup-postgresql modified values
 checkpoint_completion_target = 0.7
 checkpoint_segments = 8
 effective_cache_size = 1152MB
@@ -72,20 +135,37 @@ max_connections = 600
 shared_buffers = 384MB
 wal_buffers = 4MB
 work_mem = 2560kB
+$STANDALONE_SETUP
 EOF
+
+        if $STANDALONE; then
+            cat >> $POSTGRESQL <<EOF
+### spacewalk-setup-postgresql modified values for a standalone PostgreSQL database
+listen_addresses=$ADDRESS
+port=$PORT
+EOF
+        fi
 
         sysctl kernel.shmmax | ( read v v v ; LIMIT=500000000 ; if [ "0$v" -lt $LIMIT ] ; then sysctl "kernel.shmmax=$LIMIT" >> /etc/sysctl.conf ; fi )
 
-        sed -i 's/^\([^#].*\)$/### next line has been commented out by spacewalk-setup-embedded-postgresql: ###\n##\1/ ' $PG_HBA
+        sed -i 's/^\([^#].*\)$/### next line has been commented out by spacewalk-setup-postgresql: ###\n##\1/ ' $PG_HBA
         cat >> $PG_HBA <<EOF
 
 local $PGNAME $PGUSER md5
 host  $PGNAME $PGUSER 127.0.0.1/8 md5
 host  $PGNAME $PGUSER ::1/128 md5
-local $PGNAME postgres  ident
-local postgres postgres  ident
+local $PGNAME postgres ident
+local postgres postgres ident
 
 EOF
+
+        if $STANDALONE; then
+            for ADDR in $(echo $REMOTE|sed 's/,/ /g' ); do
+                cat >> $PG_HBA <<EOF
+host $PGNAME $PGUSER $ADDR md5
+EOF
+            done
+        fi
     fi
 
     postgresql_service start
@@ -93,7 +173,7 @@ EOF
     if /usr/sbin/lsof /proc > /dev/null ; then
         while [ -f "$PG_PIDFILE" ] ; do
             # wait for postmaster to be ready
-            /usr/sbin/lsof -t -p $(cat "$PG_PIDFILE" 2>/dev/null) -a "$PG_SOCKET" \
+            /usr/sbin/lsof -t -p $(cat "$PG_PIDFILE" 2>/dev/null) -a "$PG_SOCKET" > /dev/null  \
                 && break
             sleep 1
         done
@@ -115,10 +195,10 @@ EOF
         if ! grep -q 'Requires=postgresql.service' "$SPACEWALK_TARGET" ; then
              sed -i 's/\(Description=Spacewalk\)/\1\nRequires=postgresql.service/' "$SPACEWALK_TARGET"
         fi
-    else
+    elif [ -e "$SERVICE_LIST" ]; then
         if ! grep -q 'SERVICES=.*postgresql' "$SERVICE_LIST" ; then
              echo '' >>"$SERVICE_LIST"
-             echo '# added by spacewalk-setup-embedded-postgresql' >>"$SERVICE_LIST"
+             echo '# added by spacewalk-setup-postgresql' >>"$SERVICE_LIST"
              echo 'SERVICES="postgresql $SERVICES"' >>"$SERVICE_LIST"
         fi
     fi
@@ -216,4 +296,3 @@ case $1 in
         *)      help
             ;;
 esac
-
