@@ -102,6 +102,16 @@ class ChannelFamilyDiskSource(DiskSource):
         return "%s/channel_families.xml" % dirname
 
 
+class OrgDiskSource(DiskSource):
+    subdir = 'orgs'
+
+    def _getFile(self, create=0):
+        dirname = self._getDir(create)
+        if create and not os.path.isdir(dirname):
+            createPath(dirname)
+        return "%s/orgs.xml" % dirname
+
+
 class ChannelDiskSource(DiskSource):
     subdir = 'channels'
 

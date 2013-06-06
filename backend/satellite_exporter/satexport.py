@@ -196,7 +196,7 @@ class ApacheServer(BaseApacheServer):
             raise FunctionRetrievalError("Module %s not found" % module_name)
 
         mod = handler_classes[module_name](req)
-        mod.set_iss_slave_condition(iss_slave_condition)
+        mod.set_exportable_orgs(iss_slave_condition)
         f = mod.get_function(function_name)
         if f is None:
             raise FunctionRetrievalError(
@@ -215,9 +215,9 @@ class ApacheServer(BaseApacheServer):
             raise rhnFault(2004,
               _('Server "%s" is not enabled for ISS.')
                 % remote_hostname)
-        iss_slave_condition = "1 = 1"
+        iss_slave_condition = "select id from web_contact"
         if not(row['allow_all_orgs'] == 'Y'):
-            iss_slave_condition = "rhnChannelFamily.org_id in ( select rhnISSSlaveOrgs.org_id from rhnISSSlaveOrgs where slave_id = %d )" % row['id']
+            iss_slave_condition = "select rhnISSSlaveOrgs.org_id from rhnISSSlaveOrgs where slave_id = %d" % row['id']
         return iss_slave_condition
 
     @staticmethod

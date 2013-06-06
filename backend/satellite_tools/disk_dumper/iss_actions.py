@@ -19,6 +19,7 @@ class ActionDeps:
     def __init__(self, options):
         #self.step_precedence contains the dependencies among the export steps. 
         self.step_precedence = {
+            'orgs'                      : [''],
             'packages'                  : [''],
             'source-packages'           : [''],
             'errata'                    : [''],
@@ -35,6 +36,7 @@ class ActionDeps:
         
         #self.step_hierarchy lists the export steps in the order they need to be run.
         self.step_hierarchy = [
+            'orgs',
             'channel-families',
             'arches',
             'arches-extra',
@@ -94,6 +96,9 @@ class ActionDeps:
 
         if self.options.no_kickstarts:
             self.action_dict['kickstarts'] = 0
+
+        if not self.options.all_orgs and not self.options.org:
+            self.action_dict['orgs'] = 0
 
         if self.options.list_channels:
             self.action_dict['channels'] = 1

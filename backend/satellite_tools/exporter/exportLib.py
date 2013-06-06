@@ -198,6 +198,43 @@ class SatelliteDumper(BaseDumper):
     def set_iterator(self):
         return ArrayIterator(self._dumpers)
 
+class _OrgDumper(BaseDumper):
+    tag_name = 'rhn-org'
+
+    def __init__(self, writer, org):
+        self.org = org
+        h = rhnSQL.prepare(self._query_org_trusts)
+        h.execute(org_id=org['id'])
+        BaseDumper.__init__(self, writer, h)
+
+    _query_org_trusts = """
+        select rto.org_trust_id
+          from rhnTrustedOrgs rto
+         where rto.org_id = :org_id
+    """
+
+    def dump_subelement(self, data):
+        d = SimpleDumper(self._writer, 'rhn-org-trust',
+            data['org_trust_id'])
+        d.dump()
+
+    def set_attributes(self):
+        attributes = {
+            'id'            : self.org['id'],
+            'name'          : self.org['name'],
+        }
+        return attributes
+
+class OrgsDumper(BaseDumper):
+    tag_name = 'rhn-orgs'
+
+    def __init__(self, writer, data_iterator=None):
+        BaseDumper.__init__(self, writer, data_iterator)
+
+    def dump_subelement(self, data):
+        org = _OrgDumper(self._writer, data)
+        org.dump()
+
 class ChannelAccessDumper(BaseDumper):
     tag_name = 'rhn-channel-access'
 

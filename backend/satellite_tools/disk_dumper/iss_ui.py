@@ -69,6 +69,12 @@ class UI:
                 help="Email a report of what was exported."),
             option(         "--traceback-mail",        action="store",
                 help="Alternative email address for --email."),
+            option(         "--all-orgs",        action="store_true",
+                help="Export all orgs."),
+            option("-o",         "--org",        action="append",
+                help="Include the org with this id in the export."),
+            option(         "--list-orgs",        action="store_true",
+                help="List all orgs that can be exported"),
                             ]
         self.optionparser = option_parser(option_list=self.optiontable)
         self.options, self.args = self.optionparser.parse_args()

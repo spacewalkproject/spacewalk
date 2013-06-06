@@ -41,6 +41,7 @@ class XML_Dumper:
         """
         self.channel_ids = []
         self.channel_ids_for_families = []
+        self.exportable_orgs = 'null'
 
     def send(self, data):
         # to be overwritten in subclass
@@ -58,6 +59,14 @@ class XML_Dumper:
                    ) scf
              where scf.channel_family_id = cf.id
         """ % self._channel_family_query
+        return rhnSQL.prepare(query)
+
+    def get_orgs_statement(self, org_ids):
+        query = """
+            select wc.id, wc.name
+              from web_customer wc
+             where wc.id in (%s)
+        """ % org_ids
         return rhnSQL.prepare(query)
 
     def get_channel_families_statement_new(self, cids):
@@ -193,6 +202,23 @@ class XML_Dumper:
 
         self._write_dump(exportLib.ChannelFamiliesDumper,
                 data_iterator=h, null_max_members=0)
+        return 0
+
+    def set_exportable_orgs(self, org_list):
+        if not org_list or len(org_list) == 0:
+            self.exportable_orgs = 'null'
+        elif type(org_list) == type(''):
+            self.exportable_orgs = org_list
+        else:
+            self.exportable_orgs = ', '.join([str(x) for x in org_list])
+
+    def dump_orgs(self):
+        log_debug(2)
+
+        h = self.get_orgs_statement(self.exportable_orgs)
+        h.execute()
+
+        self._write_dump(exportLib.OrgsDumper, data_iterator=h)
         return 0
 
     def dump_channels(self, channel_labels=None, start_date=None, end_date=None, use_rhn_date=True, whole_errata=False):

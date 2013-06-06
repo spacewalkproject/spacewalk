@@ -215,6 +215,11 @@ class MetadataWireSource(BaseWireSource):
         self._prepare()
         return self._openSocketStream("dump.channel_families", (self.systemid,))
 
+    def getOrgXmlStream(self):
+        """retrieve xml stream for org data."""
+        self._prepare()
+        return self._openSocketStream("dump.orgs", (self.systemid,))
+
     def getChannelXmlStream(self, channels):
         """retrieve xml stream for channel data given a
         list of channel labels."""

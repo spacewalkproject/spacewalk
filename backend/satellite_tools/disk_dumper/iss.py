@@ -71,6 +71,7 @@ class FileMapper:
                             'arches-extra'      :   xmlDiskSource.ArchesExtraDiskSource(self.mp),
                             'blacklists'        :   xmlDiskSource.BlacklistsDiskSource(self.mp),
                             'channelfamilies'   :   xmlDiskSource.ChannelFamilyDiskSource(self.mp),
+                            'orgs'              :   xmlDiskSource.OrgDiskSource(self.mp),
                             'channels'          :   xmlDiskSource.ChannelDiskSource(self.mp),
                             'channel-pkg-short' :   ISSChannelPackageShortDiskSource(self.mp),
                             'packages-short'    :   xmlDiskSource.ShortPackageDiskSource(self.mp),
@@ -104,6 +105,9 @@ class FileMapper:
     
     def getBlacklistsFile(self):
         return self.setup_file(self.filemap['blacklists']._getFile())
+
+    def getOrgsFile(self):
+        return self.setup_file(self.filemap['orgs']._getFile())
 
     def getChannelFamiliesFile(self):
         return self.setup_file(self.filemap['channelfamilies']._getFile())
@@ -153,8 +157,8 @@ class Dumper(dumper.XML_Dumper):
      the _get_xml_writer method and adds a set_stream method,
      which will let it write to a file instead of over the wire.
     """
-    def __init__(self, outputdir, channel_labels, hardlinks, start_date, \
-                  end_date, use_rhn_date, whole_errata):
+    def __init__(self, outputdir, channel_labels, org_ids, hardlinks,
+                  start_date, end_date, use_rhn_date, whole_errata):
         dumper.XML_Dumper.__init__(self)
         self.fm = FileMapper(outputdir)
         self.mp = outputdir
@@ -202,6 +206,8 @@ class Dumper(dumper.XML_Dumper):
             #self.channel_ids contains the list of dictionaries that hold the channel information
             #The keys are 'channel_id', 'label', and 'last_modified'.
             self.channel_comps = {}
+
+            self.set_exportable_orgs(org_ids)
 
             #Channel_labels should be the list of channels passed into rhn-satellite-exporter by the user.
             log2stdout(1, "Gathering channel info...")
@@ -645,6 +651,13 @@ class Dumper(dumper.XML_Dumper):
                           "Channel Families exported to %s",
                           "%s caught in dump_channel_families.")
 
+    def dump_orgs(self):
+        self._dump_simple(self.fm.getOrgsFile(),
+                          dumper.XML_Dumper.dump_orgs,
+                          "Exporting orgs...",
+                          "Orgs exported to %s",
+                          "%s caught in dump_orgs.")
+
     def dump_channels(self):
         try:
             print "\n"
@@ -1045,6 +1058,10 @@ class ExporterMain:
             self.print_list_channels(self.list_channels())
             sys.exit(0)
 
+        if self.options.list_orgs:
+            self.print_orgs(self.list_orgs())
+            sys.exit(0)
+
         #From this point on everything should assume a list of channels, so it needs to be a list
         #even if there's only one entry. 
         if self.options.all_channels:
@@ -1059,6 +1076,33 @@ class ExporterMain:
         else:
             sys.stdout.write("--channel not included!\n")
             sys.exit(0)
+
+        #Same as above but for orgs
+        if self.options.all_orgs:
+            orgs = self.list_orgs()
+            self.options.org = []
+            for org in orgs:
+                self.options.org.append(org['id'])
+        elif self.options.org:
+            if type(self.options.org) != type([]):
+                self.options.org = [self.options.org]
+            orgs = {}
+            for org in self.list_orgs():
+                orgs[org['name']] = str(org['id'])
+            using_orgs = []
+            for org in self.options.org:
+                #User might have specified org name or org id, try both
+                if org in orgs.values(): #ids
+                    using_orgs.append(org)
+                elif org in orgs.keys(): #names
+                    using_orgs.append(orgs[org])
+                else:
+                    sys.stdout.write("Org not found: %s\n" % org)
+                    exit(0)
+            self.options.org = using_orgs
+        else:
+            self.options.org = []
+        self.options.org = [str(x) for x in self.options.org]
 
         #Since everything gets dumped to a directory it wouldn't make
         #much sense if it wasn't required.
@@ -1110,6 +1154,7 @@ class ExporterMain:
             if os.path.isdir(self.outputdir):
                 self.dumper = Dumper(self.outputdir,
                                      self.options.channel,
+                                     self.options.org,
                                      self.options.hard_links,
                                      start_date=self.start_date,
                                      end_date=self.end_date,
@@ -1129,6 +1174,7 @@ class ExporterMain:
                                     'kickstarts'       :   {'dump' : [self.dumper.dump_kickstart_data,
                                                                            self.dumper.dump_kickstart_files]},
                                     'rpms'             :   {'dump' : self.dumper.dump_rpms},
+                                    'orgs'             :   {'dump' : self.dumper.dump_orgs},
                                  }
             else:
                 print "The output directory is not a directory"
@@ -1214,7 +1260,25 @@ class ExporterMain:
         else:
             print "No Channels available for listing."
             
-        
+    def list_orgs(self):
+        """
+        Return a list of all orgs.
+        """
+        org_query = rhnSQL.Statement("""
+            select  id, name
+            from    web_customer
+        """)
+        org_data = rhnSQL.prepare(org_query)
+        org_data.execute()
+        return org_data.fetchall_dict()
+
+    def print_orgs(self, orgs):
+        if orgs and len(orgs) > 0:
+            print "Orgs available for export:"
+            for org in orgs:
+                print "Id: %s, Name: \'%s\'" % (org['id'], org['name'])
+        else:
+            print "No Orgs available for listing."
 
     def main(self):
         try:
