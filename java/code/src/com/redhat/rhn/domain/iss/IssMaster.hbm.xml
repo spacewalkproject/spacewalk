@@ -25,6 +25,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.iss.IssMaster as m where m.id = :id]]>
     </query>
 
+    <query name="IssMaster.findByLabel">
+        <![CDATA[from com.redhat.rhn.domain.iss.IssMaster as m where m.label = :label]]>
+    </query>
+
     <query name="IssMaster.lookupAll">
         <![CDATA[from com.redhat.rhn.domain.iss.IssMaster]]>
     </query>

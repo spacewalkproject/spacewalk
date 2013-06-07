@@ -81,7 +81,7 @@ public class IssFactory extends HibernateFactory {
     }
 
     /***
-     *  IssOrgCatalogue helpers
+     *  IssMaster helpers
      ***/
 
     /**
@@ -94,6 +94,18 @@ public class IssFactory extends HibernateFactory {
         params.put("id", id);
         return (IssMaster) singleton.lookupObjectByNamedQuery(
                 "IssMaster.findById", params);
+    }
+
+    /**
+     * Lookup a IssMaster by its name
+     * @param label the label of the desired master
+     * @return the IssMaster entry found
+     */
+    public static IssMaster lookupMasterByLabel(String label) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("label", label);
+        return (IssMaster) singleton.lookupObjectByNamedQuery(
+                "IssMaster.findByLabel", params);
     }
 
     /**
