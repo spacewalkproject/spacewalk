@@ -836,4 +836,11 @@ public class Channel extends BaseDomainHelper implements Comparable {
         }
         return checksumType.getLabel();
     }
+
+    /**
+     * @return the original Channel the channel was cloned from
+     */
+    public Channel getOriginal() {
+        throw new UnsupportedOperationException();
+    }
 }

@@ -27,6 +27,7 @@ public class ClonedChannel extends Channel {
     /**
      * @return the original Channel the channel was cloned from
      */
+    @Override
     public Channel getOriginal() {
         return original;
     }

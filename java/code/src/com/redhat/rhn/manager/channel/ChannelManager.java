@@ -34,7 +34,6 @@ import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.channel.ChannelVersion;
-import com.redhat.rhn.domain.channel.ClonedChannel;
 import com.redhat.rhn.domain.channel.DistChannelMap;
 import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
 import com.redhat.rhn.domain.channel.ProductName;
@@ -2570,8 +2569,7 @@ public class ChannelManager extends BaseManager {
         if (c.isCloned()) {
             Map params = new HashMap();
             params.put("cid", c.getId());
-            ClonedChannel cc = (ClonedChannel) c;
-            params.put("ocid", cc.getOriginal().getId());
+            params.put("ocid", c.getOriginal().getId());
             SelectMode m = ModeFactory.getMode("Errata_queries",
                                         "list_errata_needing_sync");
             return m.execute(params);
@@ -2595,8 +2593,7 @@ public class ChannelManager extends BaseManager {
             Map params = new HashMap();
             params.put("cid", c.getId());
             params.put("set_label", setLabel);
-            ClonedChannel cc = (ClonedChannel) c;
-            params.put("ocid", cc.getOriginal().getId());
+            params.put("ocid", c.getOriginal().getId());
             SelectMode m = ModeFactory.getMode("Errata_queries",
                     "list_packages_needing_sync_from_set");
             return m.execute(params);

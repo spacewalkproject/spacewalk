@@ -31,7 +31,6 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.common.validator.ValidatorWarning;
 import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.channel.ClonedChannel;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
@@ -1704,8 +1703,7 @@ public class SystemManager extends BaseManager {
             Channel base = server.getBaseChannel();
 
             if (base != null && base.isCloned()) {
-                ClonedChannel clonedBase = (ClonedChannel) base;
-                base = clonedBase.getOriginal();
+                base = base.getOriginal();
             }
 
             if ((base != null) &&
