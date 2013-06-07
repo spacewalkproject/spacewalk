@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        1.10.10
+Version:        1.10.11
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -102,6 +102,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Jun 07 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.11-1
+- is_embedded_db: support for manage-db switch
+
 * Wed Jun 05 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.10-1
 - spacewalk-setup: correctly recognize --managed-db switch
 - modify spacewalk-setup to use spacewalk-setup-postgresql
