@@ -100,6 +100,7 @@ PG_PIDFILE="/var/run/postmaster.$PORT.pid"
 PG_SOCKET="/tmp/.s.PGSQL.$PORT"
 SPACEWALK_TARGET="/usr/lib/systemd/system/spacewalk.target"
 SERVICE_LIST="/etc/rhn/service-list"
+RHN_CONF="/etc/rhn/rhn.conf"
 
 create() {
     [ -z "$PGNAME" ] && ask true "Database name: " PGNAME
@@ -108,7 +109,7 @@ create() {
 
     if $STANDALONE; then
         [ -z "$ADDRESS" ] && ask true "Local addresses to listen on (comma-separated, RETURN for all): " ADDRESS
-        [ -z "$ADDRESS" ] && ADDRESS="'*'"
+        [ -z "$ADDRESS" ] && ADDRESS="*"
         [ -z "$REMOTE" ] && ask true "Remote addresses to allow connection from (CIDR format, comma-separated): " REMOTE
     fi
 
@@ -135,13 +136,13 @@ max_connections = 600
 shared_buffers = 384MB
 wal_buffers = 4MB
 work_mem = 2560kB
-$STANDALONE_SETUP
 EOF
 
         if $STANDALONE; then
+            echo "$ADDRESS"|grep -q '127.0.0.1\|*' || ADDRESS="$ADDRESS, 127.0.0.1"
             cat >> $POSTGRESQL <<EOF
 ### spacewalk-setup-postgresql modified values for a standalone PostgreSQL database
-listen_addresses=$ADDRESS
+listen_addresses='$ADDRESS'
 port=$PORT
 EOF
         fi
@@ -165,6 +166,25 @@ EOF
 host $PGNAME $PGUSER $ADDR md5
 EOF
             done
+
+            # Create & configure /etc/rhn/rhn.conf
+            RHN_CONF_DIR=$(dirname $RHN_CONF)
+            if [ -d $RHN_CONF_DIR ]; then
+                chmod 0710 $RHN_CONF_DIR
+            else
+                mkdir -m 0710 $RHN_CONF_DIR
+            fi
+
+            cat > $RHN_CONF <<EOF
+db_backend = postgresql
+db_user = $PGUSER
+db_password = $PGPASSWORD
+db_name = $PGNAME
+db_host = localhost
+db_port = $PORT
+EOF
+            chmod 640 $RHN_CONF
+
         fi
     fi
 
