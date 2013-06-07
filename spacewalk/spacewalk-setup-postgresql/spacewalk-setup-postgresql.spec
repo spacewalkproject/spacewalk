@@ -9,7 +9,11 @@ Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{versio
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 Requires:       postgresql-server > 8.4
-Requires:	postgresql-contrib > 8.4
+%if 0%{?rhel} == 5
+Requires:	postgresql84-contrib
+%else
+Requires:	postgresql-contrib >= 8.4
+%endif
 Obsoletes:	spacewalk-setup-embedded-postgresql
 
 %description
