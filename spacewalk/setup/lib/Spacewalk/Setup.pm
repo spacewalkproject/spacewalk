@@ -216,7 +216,7 @@ sub load_answer_file {
 # Check if we're installing with an embedded database.
 sub is_embedded_db {
   my $opts = shift;
-  return not defined($opts->{'external-db'});
+  return not (defined($opts->{'external-db'}) or defined($opts->{'managed-db'}));
 }
 
 # Return 1 in case setup should also migrate from embedded oracle -> embedded postgresql
