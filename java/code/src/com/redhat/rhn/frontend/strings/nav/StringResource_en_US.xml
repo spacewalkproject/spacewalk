@@ -87,6 +87,12 @@
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Physical Systems">
+        <source>Physical Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Duplicate Systems">
         <source>Duplicate Systems</source>
         <context-group name="ctx">

@@ -427,6 +427,21 @@ public class SystemManager extends BaseManager {
     }
 
     /**
+     * Returns list of all physical systems visible to user.
+     * @param user Currently logged in user.
+     * @param pc PageControl
+     * @return list of SystemOverviews.
+     */
+    public static DataResult physicalList(User user, PageControl pc) {
+        SelectMode m = ModeFactory.getMode("System_queries",
+                "visible_to_user_physical_list");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        Map elabParams = new HashMap();
+        return makeDataResult(params, elabParams, pc, m);
+    }
+
+    /**
      * Returns list of all systems and their errata type counts
      * @param user Currently logged in user.
      * @param pc PageControl

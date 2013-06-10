@@ -4576,6 +4576,12 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="systemlist.jsp.physicalheader">
+        <source>Physical Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/SystemList</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="systemlist.jsp.status">
         <source>Updates</source>
         <context-group name="ctx">

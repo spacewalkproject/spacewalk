@@ -481,6 +481,16 @@ ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
   <elaborator name="is_virtual_host" />
 </mode>
 
+<mode name="visible_to_user_physical_list" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query name="available_to_user_physical_list" />
+  <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
+  <elaborator name="system_monitoring" />
+  <elaborator name="entitlements"/>
+  <elaborator name="is_virtual_guest" />
+  <elaborator name="is_virtual_host" />
+</mode>
+
 <mode name="system_currency" class="com.redhat.rhn.frontend.dto.SystemCurrency">
     <query params="uid">
         SELECT s1.id,
@@ -1193,6 +1203,17 @@ SELECT  DISTINCT ST.element AS ID
    WHERE  USP.user_id = :user_id
 </query>
 
+<query name="available_to_user_physical_list" params="user_id">
+  SELECT  DISTINCT S.id,
+                   S.name,
+                  (SELECT 1
+                     FROM rhnServerFeaturesView SFV
+                    WHERE SFV.server_id = S.id
+                      AND SFV.label = 'ftr_system_grouping') AS selectable
+    FROM  rhnServer S inner join  rhnUserServerPerms USP on S.id = USP.server_id
+   WHERE  USP.user_id = :user_id
+     AND  NOT EXISTS (SELECT DISTINCT virtual_system_id as vid FROM rhnVirtualInstance where S.id=virtual_system_id)
+</query>
 
 <query name="available_to_user_with_errata" params="user_id">
   SELECT  DISTINCT S.id,
