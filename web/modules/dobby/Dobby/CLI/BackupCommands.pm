@@ -349,6 +349,17 @@ sub command_pg_restore {
 
   my $backend = PXT::Config->get('db_backend');
   $cli->fatal("Error: This backup method works only with PostgreSQL.") unless ($backend eq 'postgresql');
+
+  if ($command eq 'examine') {
+      my @info = qx{/usr/bin/pg_restore -l $file};
+      @info = grep {m/^;  /} @info;
+      print @info;
+      return $?;
+  } elsif ($command eq 'verify') {
+      $cli->fatal("Error: Backup verification is available only for cold backups.");
+      return 1;
+  }
+
   my $cfg = new PXT::Config("dobby");
   my @rec = getpwnam($cfg->get("postgresql_user"));
   $EUID = $rec[2];
