@@ -116,7 +116,7 @@
         <rhn-tab-url>/rhn/kickstart/cobbler/DefaultSnippetView.do</rhn-tab-url>
       </rhn-tab>
     </rhn-tab>
-    <rhn-tab name="software.crashes" url="/rhn/systems/SoftwareCrashesOverview.do">
+    <rhn-tab name="software.crashes" acl="org_entitlement(sw_mgr_enterprise)" url="/rhn/systems/SoftwareCrashesOverview.do">
       <rhn-tab-url>/rhn/systems/SoftwareCrashesOverview.do</rhn-tab-url>
       <rhn-tab-url>/rhn/systems/SoftwareCrashUuidDetails.do</rhn-tab-url>
     </rhn-tab>
