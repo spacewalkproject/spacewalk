@@ -50,7 +50,7 @@ public class IssMasterOrgs extends BaseDto {
         this.id = idIn;
     }
 
-   /**
+    /**
      * Getter for masterOrgId
      * @return Long to get
     */
@@ -99,19 +99,66 @@ public class IssMasterOrgs extends BaseDto {
     }
 
     /**
-     *
-     * @return master-node that owns this master-org
+     * What Master do we belong to?
+     * @return the master
      */
     public IssMaster getMaster() {
         return this.master;
     }
 
     /**
-     *
-     * @param masterIn master node that should own this org
+     * Assign us to a Master
+     * @param inMaster the master we should belong to
      */
-    public void setMaster(IssMaster masterIn) {
-        this.master = masterIn;
+    public void setMaster(IssMaster inMaster) {
+        this.master = inMaster;
+    }
+
+    /**
+     * @return hashCode based on master-org-id and master-org-name
+     */
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((masterOrgId == null) ? 0 : masterOrgId.hashCode());
+        result = prime * result + ((masterOrgName == null) ? 0 : masterOrgName.hashCode());
+        return result;
+    }
+
+    /**
+     * Equality based on master-org-id and master-org-name - everything else is subject
+     * to change
+     * @param obj The Thing we're comparing against
+     * @return true if obj.masterOrg{Id,name} equal our.masterorg{Id,Name}, false else
+     */
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        IssMasterOrgs other = (IssMasterOrgs) obj;
+        if (masterOrgId == null) {
+            if (other.masterOrgId != null) {
+                return false;
+            }
+        }
+        else if (!masterOrgId.equals(other.masterOrgId)) {
+            return false;
+        }
+        if (masterOrgName == null) {
+            if (other.masterOrgName != null) {
+                return false;
+            }
+        }
+        else if (!masterOrgName.equals(other.masterOrgName)) {
+            return false;
+        }
+        return true;
     }
 
 }

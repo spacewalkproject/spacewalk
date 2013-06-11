@@ -43,8 +43,6 @@ public class IssMasterSerializerTest extends MockObjectTestCase {
         os.serialize(org, output, new XmlRpcSerializer());
         String result = output.toString();
         assertEquals(os.getSupportedClass(), IssMasterOrgs.class);
-        assertTrue(result.contains("<name>masterId</name>"));
-        assertTrue(result.contains(">" + master.getId() + "<"));
         assertTrue(result.contains("name>masterOrgId</name"));
         assertTrue(result.contains(">" + org.getMasterOrgId() + "<"));
         assertTrue(result.contains("name>masterOrgName</name"));
@@ -60,7 +58,6 @@ public class IssMasterSerializerTest extends MockObjectTestCase {
         Set<IssMasterOrgs> orgs = new HashSet<IssMasterOrgs>();
         for (String orgName : masterOrgNames) {
             IssMasterOrgs anOrg = new IssMasterOrgs();
-            anOrg.setMaster(master);
             anOrg.setMasterOrgId(baseId++);
             anOrg.setMasterOrgName(orgName);
             anOrg.setLocalOrg(null);

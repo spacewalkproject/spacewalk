@@ -15,10 +15,13 @@
 package com.redhat.rhn.frontend.xmlrpc.sync.master;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.iss.IssFactory;
@@ -34,11 +37,28 @@ import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
  *
  * @version $Rev$
  *
- * @xmlrpc.namespace iss.master
+ * @xmlrpc.namespace sync.master
  * @xmlrpc.doc Contains methods to set up information about known-"masters", for use
  * on the "slave" side of ISS
  */
 public class MasterHandler extends BaseHandler {
+
+    public static final String[] VALID_MASTER_ORG_ATTRS = {
+        "masterId", "masterOrgId", "masterOrgName", "localOrgId"
+    };
+    private static final Set<String> VALIDMASTERORGATTR;
+    static {
+        VALIDMASTERORGATTR = new HashSet<String>(Arrays.asList(VALID_MASTER_ORG_ATTRS));
+    }
+
+    public static final String[] REQUIRED_MASTER_ORG_ATTRS = {
+        "masterOrgId", "masterOrgName"
+    };
+    private static final Set<String> REQUIREDMASTERORGATTRS;
+    static {
+        REQUIREDMASTERORGATTRS =
+                new HashSet<String>(Arrays.asList(REQUIRED_MASTER_ORG_ATTRS));
+    }
 
     /**
      * Create a new Master, known to this Slave.
@@ -74,7 +94,7 @@ public class MasterHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "label", "Desired new label")
      * @xmlrpc.returntype $IssMasterSerializer
      */
-    public IssMaster update(String sessionKey, Long masterId, String newLabel) {
+    public IssMaster update(String sessionKey, Integer masterId, String newLabel) {
         IssMaster master = getMaster(sessionKey, masterId);
         master.setLabel(newLabel);
         IssFactory.save(master);
@@ -93,7 +113,7 @@ public class MasterHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "id", "Id of the Master to remove")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int delete(String sessionKey, Long masterId) {
+    public int delete(String sessionKey, Integer masterId) {
         IssMaster master = getMaster(sessionKey, masterId);
         IssFactory.delete(master);
         return 1;
@@ -110,10 +130,10 @@ public class MasterHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "id", "Id of the desired Master")
      * @xmlrpc.returntype $IssMasterSerializer
      */
-    public IssMaster getMaster(String sessionKey, Long masterId) {
+    public IssMaster getMaster(String sessionKey, Integer masterId) {
         User u = getLoggedInUser(sessionKey);
         ensureSatAdmin(u);
-        IssMaster master = IssFactory.lookupMasterById(masterId);
+        IssMaster master = IssFactory.lookupMasterById(masterId.longValue());
         validateExists(master, masterId.toString());
         return master;
     }
@@ -152,9 +172,11 @@ public class MasterHandler extends BaseHandler {
      *     $IssMasterOrgsSerializer
      *   #array_end()
      */
-    public List<IssMasterOrgs> getMasterOrgs(String sessionKey, Long masterId) {
+    public List<IssMasterOrgs> getMasterOrgs(String sessionKey, Integer masterId) {
         IssMaster master = getMaster(sessionKey, masterId);
-        return new ArrayList<IssMasterOrgs>(master.getMasterOrgs());
+        ArrayList<IssMasterOrgs> orgs = new ArrayList<IssMasterOrgs>();
+        orgs.addAll(master.getMasterOrgs());
+        return orgs;
     }
 
     /**
@@ -162,7 +184,7 @@ public class MasterHandler extends BaseHandler {
      *
      * @param sessionKey User's session key.
      * @param masterId Id of the Master to look for
-     * @param orgs List of MasterOrgs we know about
+     * @param orgMaps List of MasterOrgs we know about
      * @return 1 if successful, exception otherwise
      *
      * @xmlrpc.doc List all organizations the specified Master has exported to this Slave
@@ -170,17 +192,24 @@ public class MasterHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "id", "Id of the desired Master")
      * @xmlrpc.param
      *   #array()
-     *     $IssMasterOrgsSerializer
+     *      #struct("master-org details")
+     *          #prop("int", "masterOrgId")
+     *          #prop("string", "masterOrgName")
+     *          #prop("int", "localOrgId")
+     *     #struct_end()
      *   #array_end()
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setMasterOrgs(String sessionKey, Long masterId, List<IssMasterOrgs> orgs) {
+    public int setMasterOrgs(String sessionKey,
+                             Integer masterId,
+                             List<Map<String, Object>> orgMaps) {
         IssMaster master = getMaster(sessionKey, masterId);
-        for (IssMasterOrgs o : orgs) {
-            o.setMaster(master);
+        Set<IssMasterOrgs> orgs = new HashSet<IssMasterOrgs>();
+        for (Map<String, Object> anOrgMap : orgMaps) {
+            IssMasterOrgs o = validateOrg(anOrgMap);
+            orgs.add(o);
         }
-        master.setMasterOrgs(new HashSet<IssMasterOrgs>(orgs));
-        IssFactory.save(master);
+        master.resetMasterOrgs(orgs);
         return 1;
     }
 
@@ -196,18 +225,22 @@ public class MasterHandler extends BaseHandler {
      * @xmlrpc.doc Add a single organizations to the list of those the specified Master has
      * exported to this Slave
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param_desc("int", "id", "Id of the desired Master")
-     * @xmlrpc.param #param("newOrg", $IssMasterOrgsSerializer)
+     * @xmlrpc.param #param_desc("long", "id", "Id of the desired Master")
+     * @xmlrpc.param #param("newOrg",
+     *      #struct("master-org details")
+     *          #prop("int", "masterOrgId")
+     *          #prop("string", "masterOrgName")
+     *          #prop("int", "localOrgId")
+     *     #struct_end()
      * @xmlrpc.returntype #return_int_success()
      *
      */
-    public int addToMaster(String sessionKey, Long masterId, IssMasterOrgs newOrg) {
+    public int addToMaster(String sessionKey,
+                           Integer masterId,
+                           Map<String, Object> newOrg) {
         IssMaster master = getMaster(sessionKey, masterId);
-        newOrg.setMaster(master);
-        Set<IssMasterOrgs> orgs = master.getMasterOrgs();
-        orgs.add(newOrg);
-        master.setMasterOrgs(orgs);
-        IssFactory.save(master);
+        IssMasterOrgs org = validateOrg(newOrg);
+        master.addToMaster(org);
         return 1;
     }
 
@@ -230,22 +263,22 @@ public class MasterHandler extends BaseHandler {
      *
      */
     public int mapToLocal(String sessionKey,
-                          Long masterId,
-                          Long masterOrgId,
-                          Long localOrgId) {
+                          Integer masterId,
+                          Integer masterOrgId,
+                          Integer localOrgId) {
         boolean found = false;
 
         IssMaster master = getMaster(sessionKey, masterId);
         Set<IssMasterOrgs> orgs = master.getMasterOrgs();
 
-        Org localOrg = OrgFactory.lookupById(localOrgId);
+        Org localOrg = OrgFactory.lookupById(localOrgId.longValue());
         if (localOrg == null) {
             fail("Unable to locate or access Local Organization :" + localOrgId,
                     "lookup.issmaster.local.title", "lookup.issmaster.local.reason1");
         }
 
         for (IssMasterOrgs o : orgs) {
-            if (o.getMasterOrgId().equals(masterOrgId)) {
+            if (o.getMasterOrgId().equals(masterOrgId.longValue())) {
                 o.setLocalOrg(localOrg);
                 found = true;
                 break;
@@ -259,6 +292,43 @@ public class MasterHandler extends BaseHandler {
 
         IssFactory.save(master);
         return 1;
+    }
+
+    private static Set<String> getValidMasterOrgsAttrs() {
+        return VALIDMASTERORGATTR;
+    }
+
+    private static Set<String> getRequiredMasterOrgsAttrs() {
+        return REQUIREDMASTERORGATTRS;
+    }
+
+    private IssMasterOrgs validateOrg(Map<String, Object> anOrg) {
+        validateMap(getValidMasterOrgsAttrs(), anOrg);
+        Set<String> attrs = anOrg.keySet();
+
+        if (!attrs.containsAll(getRequiredMasterOrgsAttrs())) {
+            throw new FaultException(-6, "requiredOptionMissing",
+                    "Required option missing. List of required options: " +
+                            REQUIREDMASTERORGATTRS);
+        }
+
+        IssMasterOrgs o = new IssMasterOrgs();
+        for (String attr : attrs) {
+            if ("localOrgId".equals(attr)) {
+                Integer localId = (Integer)anOrg.get(attr);
+                Org local = OrgFactory.lookupById(localId.longValue());
+                o.setLocalOrg(local);
+            }
+            else if ("masterOrgId".equals(attr)) {
+                Integer moId = (Integer)anOrg.get(attr);
+                o.setMasterOrgId(moId.longValue());
+            }
+            else {
+                setEntityAttribute(attr, o, anOrg.get(attr));
+            }
+        }
+
+        return o;
     }
 
     private void validateExists(IssMaster master, String srchString) {

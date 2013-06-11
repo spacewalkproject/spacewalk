@@ -15,9 +15,24 @@
 
 package com.redhat.rhn.frontend.xmlrpc;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.log4j.Logger;
+
+import redstone.xmlrpc.XmlRpcFault;
+import redstone.xmlrpc.XmlRpcInvocationHandler;
+
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.translation.Translator;
+import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.org.OrgFactory;
@@ -28,20 +43,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.satellite.CertificateManager;
 import com.redhat.rhn.manager.session.SessionManager;
-
-import org.apache.log4j.Logger;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import redstone.xmlrpc.XmlRpcFault;
-import redstone.xmlrpc.XmlRpcInvocationHandler;
 
 /**
  * A basic xmlrpc handler class.  Uses reflection + an arbitrary algorithm
@@ -401,4 +402,20 @@ public class BaseHandler implements XmlRpcInvocationHandler {
             throw new InvalidArgsException(errors);
         }
     }
+
+    /**
+     * Take an attributeName and value, and apply them to an Object.
+     * Takes advantage of introspection and bean-stds to decide what call to make
+     * @param attrName Attribute to set - assumes entity.set<Attrname>(value) exists
+     * @param entity The Object we are updating
+     * @param value The new value to pass to set<AttrName>
+     */
+    protected void setEntityAttribute(String attrName, Object entity, Object value) {
+        String methodName = StringUtil.beanify("set_" + attrName);
+        Object[] params = {
+            value
+        };
+        MethodUtil.callMethod(entity, methodName, params);
+    }
+
 }

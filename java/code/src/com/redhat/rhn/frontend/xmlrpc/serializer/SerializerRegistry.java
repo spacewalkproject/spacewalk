@@ -120,6 +120,8 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(XccdfTestResultDtoSerializer.class);
         SERIALIZER_CLASSES.add(XccdfTestResultSerializer.class);
         SERIALIZER_CLASSES.add(XccdfRuleResultDtoSerializer.class);
+        SERIALIZER_CLASSES.add(IssMasterSerializer.class);
+        SERIALIZER_CLASSES.add(IssMasterOrgsSerializer.class);
     }
 
     /**

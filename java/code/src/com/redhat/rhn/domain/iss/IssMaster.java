@@ -16,6 +16,9 @@
  */
 package com.redhat.rhn.domain.iss;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import com.redhat.rhn.frontend.dto.BaseDto;
@@ -31,7 +34,7 @@ public class IssMaster extends BaseDto {
 
     private Long id;
     private String label;
-    private Set<IssMasterOrgs> masterOrgs;
+    private Set<IssMasterOrgs> masterOrgs = new HashSet<IssMasterOrgs>();
 
     /**
      * Getter for id
@@ -74,11 +77,64 @@ public class IssMaster extends BaseDto {
     }
 
     /**
-     * Set the orgs for this master
+     * Set the orgs for this master - protected, we want callers to either add-to the list,
+     * or to give us a chance to do the Right Thing in terms of connecting the incoming
+     * orgs and this master.  This API is used by Hibernate
      * @param inOrgs orgs of the master that we know of
      */
-    public void setMasterOrgs(Set<IssMasterOrgs> inOrgs) {
+    protected void setMasterOrgs(Set<IssMasterOrgs> inOrgs) {
         this.masterOrgs = inOrgs;
+    }
+
+    /**
+     * Reset the orgs for this master to a new map
+     * @param inOrgs orgs of the master that we know of
+     */
+    public void resetMasterOrgs(Set<IssMasterOrgs> inOrgs) {
+        setMasterOrgsInternal(inOrgs, true);
+    }
+
+    /**
+     * Add a single new master-org, to this Master
+     * @param org org to be added
+     */
+    public void addToMaster(IssMasterOrgs org) {
+        Set<IssMasterOrgs> orgs = new HashSet<IssMasterOrgs>();
+        orgs.add(org);
+        setMasterOrgsInternal(orgs, false);
+    }
+
+    private void setMasterOrgsInternal(Set<IssMasterOrgs> inOrgs, boolean replace) {
+        // Make sure everything incoming points to "us"
+        Map<String, IssMasterOrgs> findIncoming = new HashMap<String, IssMasterOrgs>();
+        for (IssMasterOrgs org : inOrgs) {
+            findIncoming.put(org.getMasterOrgName(), org);
+            org.setMaster(this);
+        }
+
+        // If we're replacing, get rid of anything not in the incoming set
+        if (replace) {
+            this.masterOrgs.retainAll(inOrgs);
+        }
+
+        // Add to the Collection, letting Set "do the right thing" when master-orgs
+        // are the same
+        this.masterOrgs.addAll(inOrgs);
+
+        // Fix up local-orgs
+        setLocals(findIncoming);
+    }
+
+    // Make sure localOrgId is set correctly - we need this because having/not-having
+    // a local-org-id doesn't make a MasterOrg different in the equals/hash sense, so
+    // we can't rely on Set "doing the right thing" for it
+    private void setLocals(Map<String, IssMasterOrgs> findIncoming) {
+        for (IssMasterOrgs o : this.getMasterOrgs()) {
+            if (findIncoming.containsKey(o.getMasterOrgName())) {
+                IssMasterOrgs fromIncoming = findIncoming.get(o.getMasterOrgName());
+                o.setLocalOrg(fromIncoming.getLocalOrg());
+            }
+        }
     }
 
     /**
@@ -102,6 +158,43 @@ public class IssMaster extends BaseDto {
             }
         }
         return mappedSources;
+    }
+
+    /**
+     * @return hashCode based on id
+     */
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+
+    /**
+     * Equality based on id
+     * @param obj The Thing we're comparing against
+     * @return true if obj.Id equal our.Id, false else
+     */
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        IssMaster other = (IssMaster) obj;
+        if (id == null) {
+            if (other.id != null) {
+                return false;
+            }
+        }
+        else if (!id.equals(other.id)) {
+            return false;
+        }
+        return true;
     }
 
 }

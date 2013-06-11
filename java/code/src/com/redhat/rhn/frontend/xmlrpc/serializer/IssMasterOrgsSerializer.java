@@ -30,7 +30,6 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  *
  * @xmlrpc.doc
  * #struct("IssMasterOrgs info")
- *   #prop("int", "masterId")
  *   #prop("int", "masterOrgId")
  *   #prop("string", "masterOrgName")
  *   #prop("int", "localOrgId")
@@ -53,7 +52,6 @@ public class IssMasterOrgsSerializer implements XmlRpcCustomSerializer {
         SerializerHelper helper = new SerializerHelper(serializer);
 
         IssMasterOrgs anOrg = (IssMasterOrgs) obj;
-        helper.add("masterId", anOrg.getMaster().getId());
         helper.add("masterOrgId", anOrg.getMasterOrgId());
         helper.add("masterOrgName", anOrg.getMasterOrgName());
         if (anOrg.getLocalOrg() != null) {

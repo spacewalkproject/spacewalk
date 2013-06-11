@@ -40,4 +40,5 @@
   <template name="distchannel" classname="com.redhat.rhn.frontend.xmlrpc.distchannel.DistChannelHandler" />
   <template name="taskomatic" classname="com.redhat.rhn.frontend.xmlrpc.taskomatic.TaskomaticHandler" />
   <template name="taskomatic.org" classname="com.redhat.rhn.frontend.xmlrpc.taskomatic.TaskomaticOrgHandler" />
+  <template name="sync.master" classname="com.redhat.rhn.frontend.xmlrpc.sync.master.MasterHandler" />
 </factory>

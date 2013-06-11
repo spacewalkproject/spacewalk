@@ -14,8 +14,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
         <property name="label" column="LABEL"  type="string" length="256" />
 
-        <set name="masterOrgs" inverse="true" cascade="all">
-            <key column="master_id"/>
+        <set name="masterOrgs"
+            inverse="true"
+            cascade="all-delete-orphan">
+            <key column="master_id" not-null="true"/>
             <one-to-many class="com.redhat.rhn.domain.iss.IssMasterOrgs"/>
         </set>
 

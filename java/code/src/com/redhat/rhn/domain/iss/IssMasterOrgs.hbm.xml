@@ -16,7 +16,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
         <many-to-one name="master"
             column="MASTER_ID"  class="com.redhat.rhn.domain.iss.IssMaster"
-            />
+            not-null="true"/>
 
         <many-to-one name="localOrg"
             column="LOCAL_ORG_ID"  class="com.redhat.rhn.domain.org.Org"
