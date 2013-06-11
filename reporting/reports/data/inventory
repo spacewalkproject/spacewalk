@@ -59,7 +59,7 @@ sql:
 		( select count(distinct rhnpackage.name_id) from rhnpackage, rhnserverneededpackagecache
 			where rhnserver.id = rhnserverneededpackagecache.server_id
 				and rhnserverneededpackagecache.package_id = rhnpackage.id ) as packages_out_of_date,
-		( select count(*) from rhnServerNeededErrataCache where rhnserver.id = server_id ) as errata_out_of_date,
+		( select count(*) from rhnServerNeededErrataCache where rhnserver.id = server_id and errata_id is not null) as errata_out_of_date,
 		rhnchannel.name as software_channel,
 		rhnchannel.parent_channel as parent_channel,
 		rhnchannel.id as channel_id,
