@@ -112,6 +112,17 @@ public class DistChannelMapEditAction extends RhnAction {
             if (dcmId == null || dcm == null || dcm.getOrg() == null) {
                 ChannelArch cha = ChannelFactory.lookupArchByLabel(
                         (String) form.get(CHANNEL_ARCH));
+
+                // Combination org, release, architecture has to be unique.
+                dcm = ChannelFactory.lookupDistChannelMapByOrgReleaseArch(
+                        user.getOrg(), (String) form.get(RELEASE), cha);
+                if (dcm != null) {
+                    createErrorMessage(request,
+                            "distchannelmap.jsp.create.default.message",
+                            (String) form.get(OS));
+                    return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+                }
+
                 DistChannelMap newDcm = new DistChannelMap(
                         user.getOrg(), (String) form.get(OS), (String) form.get(RELEASE),
                         cha, channel);

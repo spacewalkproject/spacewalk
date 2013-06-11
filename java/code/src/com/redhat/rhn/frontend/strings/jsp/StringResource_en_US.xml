@@ -8116,6 +8116,9 @@ Please note that some manual configuration of these scripts may still be require
       <trans-unit id="distchannelmap.jsp.create.message">
         <source>New Distribution Channel Mapping '{0}' created successfully.</source>
       </trans-unit>
+      <trans-unit id="distchannelmap.jsp.create.default.message">
+        <source>New Distribution Channel Mapping '{0}' cannot be created. Release - Architecture combination already exists.</source>
+      </trans-unit>
       <trans-unit id="distchannelmap.jsp.update.message">
         <source>Distribution Channel Mapping '{0}' updated successfully.</source>
       </trans-unit>
