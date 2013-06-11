@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.90
+Version: 1.10.91
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jun 11 2013 Jan Dobes 1.10.91-1
+- 913032 - we now remember sent errata email notifications to prevent multiple
+  messages
+
 * Mon Jun 10 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.90-1
 - software crashes menu should be visible only for management entitled orgs
 - 871276 - page for physical systems
