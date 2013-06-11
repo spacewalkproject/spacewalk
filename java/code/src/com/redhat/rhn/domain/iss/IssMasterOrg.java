@@ -21,10 +21,10 @@ import com.redhat.rhn.frontend.dto.BaseDto;
 
 
 /**
- * IssMasterOrgs - Class representation of the table rhnissmasterorgs.
+ * IssMasterOrg - Class representation of the table rhnissmasterorgs.
  * @version $Rev: 1 $
  */
-public class IssMasterOrgs extends BaseDto {
+public class IssMasterOrg extends BaseDto {
 
     public static final Long NO_MAP_ID = new Long(-1L);
 
@@ -141,7 +141,7 @@ public class IssMasterOrgs extends BaseDto {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        IssMasterOrgs other = (IssMasterOrgs) obj;
+        IssMasterOrg other = (IssMasterOrg) obj;
         if (masterOrgId == null) {
             if (other.masterOrgId != null) {
                 return false;

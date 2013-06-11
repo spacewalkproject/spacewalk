@@ -26,7 +26,7 @@ import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.iss.IssFactory;
 import com.redhat.rhn.domain.iss.IssMaster;
-import com.redhat.rhn.domain.iss.IssMasterOrgs;
+import com.redhat.rhn.domain.iss.IssMasterOrg;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
@@ -169,12 +169,12 @@ public class MasterHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "id", "Id of the desired Master")
      * @xmlrpc.returntype
      *   #array()
-     *     $IssMasterOrgsSerializer
+     *     $IssMasterOrgSerializer
      *   #array_end()
      */
-    public List<IssMasterOrgs> getMasterOrgs(String sessionKey, Integer masterId) {
+    public List<IssMasterOrg> getMasterOrgs(String sessionKey, Integer masterId) {
         IssMaster master = getMaster(sessionKey, masterId);
-        ArrayList<IssMasterOrgs> orgs = new ArrayList<IssMasterOrgs>();
+        ArrayList<IssMasterOrg> orgs = new ArrayList<IssMasterOrg>();
         orgs.addAll(master.getMasterOrgs());
         return orgs;
     }
@@ -204,9 +204,9 @@ public class MasterHandler extends BaseHandler {
                              Integer masterId,
                              List<Map<String, Object>> orgMaps) {
         IssMaster master = getMaster(sessionKey, masterId);
-        Set<IssMasterOrgs> orgs = new HashSet<IssMasterOrgs>();
+        Set<IssMasterOrg> orgs = new HashSet<IssMasterOrg>();
         for (Map<String, Object> anOrgMap : orgMaps) {
-            IssMasterOrgs o = validateOrg(anOrgMap);
+            IssMasterOrg o = validateOrg(anOrgMap);
             orgs.add(o);
         }
         master.resetMasterOrgs(orgs);
@@ -239,7 +239,7 @@ public class MasterHandler extends BaseHandler {
                            Integer masterId,
                            Map<String, Object> newOrg) {
         IssMaster master = getMaster(sessionKey, masterId);
-        IssMasterOrgs org = validateOrg(newOrg);
+        IssMasterOrg org = validateOrg(newOrg);
         master.addToMaster(org);
         return 1;
     }
@@ -269,7 +269,7 @@ public class MasterHandler extends BaseHandler {
         boolean found = false;
 
         IssMaster master = getMaster(sessionKey, masterId);
-        Set<IssMasterOrgs> orgs = master.getMasterOrgs();
+        Set<IssMasterOrg> orgs = master.getMasterOrgs();
 
         Org localOrg = OrgFactory.lookupById(localOrgId.longValue());
         if (localOrg == null) {
@@ -277,7 +277,7 @@ public class MasterHandler extends BaseHandler {
                     "lookup.issmaster.local.title", "lookup.issmaster.local.reason1");
         }
 
-        for (IssMasterOrgs o : orgs) {
+        for (IssMasterOrg o : orgs) {
             if (o.getMasterOrgId().equals(masterOrgId.longValue())) {
                 o.setLocalOrg(localOrg);
                 found = true;
@@ -302,7 +302,7 @@ public class MasterHandler extends BaseHandler {
         return REQUIREDMASTERORGATTRS;
     }
 
-    private IssMasterOrgs validateOrg(Map<String, Object> anOrg) {
+    private IssMasterOrg validateOrg(Map<String, Object> anOrg) {
         validateMap(getValidMasterOrgsAttrs(), anOrg);
         Set<String> attrs = anOrg.keySet();
 
@@ -312,7 +312,7 @@ public class MasterHandler extends BaseHandler {
                             REQUIREDMASTERORGATTRS);
         }
 
-        IssMasterOrgs o = new IssMasterOrgs();
+        IssMasterOrg o = new IssMasterOrg();
         for (String attr : attrs) {
             if ("localOrgId".equals(attr)) {
                 Integer localId = (Integer)anOrg.get(attr);

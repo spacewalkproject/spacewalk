@@ -34,7 +34,7 @@ public class IssMaster extends BaseDto {
 
     private Long id;
     private String label;
-    private Set<IssMasterOrgs> masterOrgs = new HashSet<IssMasterOrgs>();
+    private Set<IssMasterOrg> masterOrgs = new HashSet<IssMasterOrg>();
 
     /**
      * Getter for id
@@ -72,7 +72,7 @@ public class IssMaster extends BaseDto {
      * Get Orgs this master has let us know about
      * @return list of orgs Master has told us about
      */
-    public Set<IssMasterOrgs> getMasterOrgs() {
+    public Set<IssMasterOrg> getMasterOrgs() {
         return this.masterOrgs;
     }
 
@@ -82,7 +82,7 @@ public class IssMaster extends BaseDto {
      * orgs and this master.  This API is used by Hibernate
      * @param inOrgs orgs of the master that we know of
      */
-    protected void setMasterOrgs(Set<IssMasterOrgs> inOrgs) {
+    protected void setMasterOrgs(Set<IssMasterOrg> inOrgs) {
         this.masterOrgs = inOrgs;
     }
 
@@ -90,7 +90,7 @@ public class IssMaster extends BaseDto {
      * Reset the orgs for this master to a new map
      * @param inOrgs orgs of the master that we know of
      */
-    public void resetMasterOrgs(Set<IssMasterOrgs> inOrgs) {
+    public void resetMasterOrgs(Set<IssMasterOrg> inOrgs) {
         setMasterOrgsInternal(inOrgs, true);
     }
 
@@ -98,16 +98,16 @@ public class IssMaster extends BaseDto {
      * Add a single new master-org, to this Master
      * @param org org to be added
      */
-    public void addToMaster(IssMasterOrgs org) {
-        Set<IssMasterOrgs> orgs = new HashSet<IssMasterOrgs>();
+    public void addToMaster(IssMasterOrg org) {
+        Set<IssMasterOrg> orgs = new HashSet<IssMasterOrg>();
         orgs.add(org);
         setMasterOrgsInternal(orgs, false);
     }
 
-    private void setMasterOrgsInternal(Set<IssMasterOrgs> inOrgs, boolean replace) {
+    private void setMasterOrgsInternal(Set<IssMasterOrg> inOrgs, boolean replace) {
         // Make sure everything incoming points to "us"
-        Map<String, IssMasterOrgs> findIncoming = new HashMap<String, IssMasterOrgs>();
-        for (IssMasterOrgs org : inOrgs) {
+        Map<String, IssMasterOrg> findIncoming = new HashMap<String, IssMasterOrg>();
+        for (IssMasterOrg org : inOrgs) {
             findIncoming.put(org.getMasterOrgName(), org);
             org.setMaster(this);
         }
@@ -128,10 +128,10 @@ public class IssMaster extends BaseDto {
     // Make sure localOrgId is set correctly - we need this because having/not-having
     // a local-org-id doesn't make a MasterOrg different in the equals/hash sense, so
     // we can't rely on Set "doing the right thing" for it
-    private void setLocals(Map<String, IssMasterOrgs> findIncoming) {
-        for (IssMasterOrgs o : this.getMasterOrgs()) {
+    private void setLocals(Map<String, IssMasterOrg> findIncoming) {
+        for (IssMasterOrg o : this.getMasterOrgs()) {
             if (findIncoming.containsKey(o.getMasterOrgName())) {
-                IssMasterOrgs fromIncoming = findIncoming.get(o.getMasterOrgName());
+                IssMasterOrg fromIncoming = findIncoming.get(o.getMasterOrgName());
                 o.setLocalOrg(fromIncoming.getLocalOrg());
             }
         }
@@ -152,7 +152,7 @@ public class IssMaster extends BaseDto {
      */
     public int getNumMappedMasterOrgs() {
         int mappedSources = 0;
-        for (IssMasterOrgs so : getMasterOrgs()) {
+        for (IssMasterOrg so : getMasterOrgs()) {
             if (so.getLocalOrg() != null) {
                 mappedSources++;
             }

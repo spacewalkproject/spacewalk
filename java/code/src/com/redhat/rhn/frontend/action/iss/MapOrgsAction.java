@@ -35,7 +35,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.iss.IssFactory;
 import com.redhat.rhn.domain.iss.IssMaster;
-import com.redhat.rhn.domain.iss.IssMasterOrgs;
+import com.redhat.rhn.domain.iss.IssMasterOrg;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.frontend.dto.OrgDto;
@@ -78,7 +78,7 @@ public class MapOrgsAction extends RhnAction {
             return handleDispatchAction(mapping, ctxt, oc);
         }
 
-        List<IssMasterOrgs> result = new ArrayList<IssMasterOrgs>(
+        List<IssMasterOrg> result = new ArrayList<IssMasterOrg>(
                         oc.getMasterOrgs());
         Collections.sort(result, new IssSyncOrgComparator());
 
@@ -101,17 +101,17 @@ public class MapOrgsAction extends RhnAction {
                     RequestContext ctxt,
                     IssMaster master) {
         //TODO: Figure out what we're doing, and how, and then DO IT
-        List<IssMasterOrgs> masterOrgs =
-                        new ArrayList<IssMasterOrgs>(master.getMasterOrgs());
+        List<IssMasterOrg> masterOrgs =
+                        new ArrayList<IssMasterOrg>(master.getMasterOrgs());
         List<Org> locals = OrgFactory.lookupAllOrgs();
         Map<Long, Org> findLocals = new HashMap<Long, Org>();
         for (Org o : locals) {
             findLocals.put(o.getId(), o);
         }
 
-        for (IssMasterOrgs entry : masterOrgs) {
+        for (IssMasterOrg entry : masterOrgs) {
             Long targetId = ctxt.getParamAsLong(entry.getId().toString());
-            if (targetId == null || targetId.equals(IssMasterOrgs.NO_MAP_ID)) {
+            if (targetId == null || targetId.equals(IssMasterOrg.NO_MAP_ID)) {
                 entry.setLocalOrg(null);
             }
             else {
@@ -142,7 +142,7 @@ public class MapOrgsAction extends RhnAction {
         }
         Collections.sort(outList, new OrgComparator());
 
-        OrgDto noMap = createOrgDto(IssMasterOrgs.NO_MAP_ID, "NOT MAPPED");
+        OrgDto noMap = createOrgDto(IssMasterOrg.NO_MAP_ID, "NOT MAPPED");
         outList.add(0, noMap);
 
         return outList;
@@ -171,10 +171,10 @@ class OrgComparator implements Comparator<OrgDto> {
      * @author ggainey
      *
      */
-    class IssSyncOrgComparator implements Comparator<IssMasterOrgs> {
+    class IssSyncOrgComparator implements Comparator<IssMasterOrg> {
 
         @Override
-        public int compare(IssMasterOrgs so1, IssMasterOrgs so2) {
+        public int compare(IssMasterOrg so1, IssMasterOrg so2) {
             if (so1 == null || so2 == null) {
                 throw new NullPointerException("Can't compare IssSyncOrg with null");
             }

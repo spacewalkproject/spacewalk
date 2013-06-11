@@ -13,8 +13,8 @@ import redstone.xmlrpc.XmlRpcSerializer;
 
 import com.redhat.rhn.domain.iss.IssFactory;
 import com.redhat.rhn.domain.iss.IssMaster;
-import com.redhat.rhn.domain.iss.IssMasterOrgs;
-import com.redhat.rhn.frontend.xmlrpc.serializer.IssMasterOrgsSerializer;
+import com.redhat.rhn.domain.iss.IssMasterOrg;
+import com.redhat.rhn.frontend.xmlrpc.serializer.IssMasterOrgSerializer;
 import com.redhat.rhn.frontend.xmlrpc.serializer.IssMasterSerializer;
 
 public class IssMasterSerializerTest extends MockObjectTestCase {
@@ -34,15 +34,15 @@ public class IssMasterSerializerTest extends MockObjectTestCase {
         assertTrue(result.contains(">" + master.getLabel() + "<"));
     }
 
-    public void testMasterOrgsSerialize() throws XmlRpcException, IOException {
-        IssMasterOrgsSerializer os = new IssMasterOrgsSerializer();
+    public void testMasterOrgSerialize() throws XmlRpcException, IOException {
+        IssMasterOrgSerializer os = new IssMasterOrgSerializer();
         IssMaster master = setUpMaster();
-        IssMasterOrgs org = master.getMasterOrgs().toArray(new IssMasterOrgs[0])[0];
+        IssMasterOrg org = master.getMasterOrgs().toArray(new IssMasterOrg[0])[0];
 
         Writer output = new StringWriter();
         os.serialize(org, output, new XmlRpcSerializer());
         String result = output.toString();
-        assertEquals(os.getSupportedClass(), IssMasterOrgs.class);
+        assertEquals(os.getSupportedClass(), IssMasterOrg.class);
         assertTrue(result.contains("name>masterOrgId</name"));
         assertTrue(result.contains(">" + org.getMasterOrgId() + "<"));
         assertTrue(result.contains("name>masterOrgName</name"));
@@ -55,15 +55,15 @@ public class IssMasterSerializerTest extends MockObjectTestCase {
 
         IssMaster master = new IssMaster();
         master.setLabel("testMaster");
-        Set<IssMasterOrgs> orgs = new HashSet<IssMasterOrgs>();
+        Set<IssMasterOrg> orgs = new HashSet<IssMasterOrg>();
         for (String orgName : masterOrgNames) {
-            IssMasterOrgs anOrg = new IssMasterOrgs();
+            IssMasterOrg anOrg = new IssMasterOrg();
             anOrg.setMasterOrgId(baseId++);
             anOrg.setMasterOrgName(orgName);
             anOrg.setLocalOrg(null);
             orgs.add(anOrg);
         }
-        master.setMasterOrgs(orgs);
+        master.resetMasterOrgs(orgs);
         IssFactory.save(master);
         return master;
     }

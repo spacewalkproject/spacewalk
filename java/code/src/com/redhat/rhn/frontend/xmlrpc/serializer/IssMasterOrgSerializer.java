@@ -21,27 +21,27 @@ import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
-import com.redhat.rhn.domain.iss.IssMasterOrgs;
+import com.redhat.rhn.domain.iss.IssMasterOrg;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 /**
- * IssMasterOrgsSerializer
+ * IssMasterOrgSerializer
  * @version $Rev$
  *
  * @xmlrpc.doc
- * #struct("IssMasterOrgs info")
+ * #struct("IssMasterOrg info")
  *   #prop("int", "masterOrgId")
  *   #prop("string", "masterOrgName")
  *   #prop("int", "localOrgId")
  * #struct_end()
  */
-public class IssMasterOrgsSerializer implements XmlRpcCustomSerializer {
+public class IssMasterOrgSerializer implements XmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
      */
     public Class getSupportedClass() {
-        return IssMasterOrgs.class;
+        return IssMasterOrg.class;
     }
 
     /**
@@ -51,7 +51,7 @@ public class IssMasterOrgsSerializer implements XmlRpcCustomSerializer {
             throws XmlRpcException, IOException {
         SerializerHelper helper = new SerializerHelper(serializer);
 
-        IssMasterOrgs anOrg = (IssMasterOrgs) obj;
+        IssMasterOrg anOrg = (IssMasterOrg) obj;
         helper.add("masterOrgId", anOrg.getMasterOrgId());
         helper.add("masterOrgName", anOrg.getMasterOrgName());
         if (anOrg.getLocalOrg() != null) {

@@ -22,7 +22,7 @@ import java.util.Map;
 
 import com.redhat.rhn.domain.iss.IssFactory;
 import com.redhat.rhn.domain.iss.IssMaster;
-import com.redhat.rhn.domain.iss.IssMasterOrgs;
+import com.redhat.rhn.domain.iss.IssMasterOrg;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.sync.master.MasterHandler;
@@ -162,7 +162,7 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
 
         // Make sure that non-sat-admin users cannot access
         try {
-            List<IssMasterOrgs> orgs = handler.getMasterOrgs(regularKey,
+            List<IssMasterOrg> orgs = handler.getMasterOrgs(regularKey,
                     master.getId().intValue());
             fail();
         }
@@ -172,7 +172,7 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
 
         // Make sure satellite-admin can
         try {
-            List<IssMasterOrgs> orgs = handler.getMasterOrgs(adminKey,
+            List<IssMasterOrg> orgs = handler.getMasterOrgs(adminKey,
                     master.getId().intValue());
             assertNotNull(orgs);
             assertEquals(0, orgs.size());
@@ -191,7 +191,7 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
 
         // Make sure that non-sat-admin users cannot access
         try {
-            List<IssMasterOrgs> orgs = handler.getMasterOrgs(regularKey,
+            List<IssMasterOrg> orgs = handler.getMasterOrgs(regularKey,
                     master.getId().intValue());
             fail();
         }
@@ -200,7 +200,7 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
         }
 
         // Make sure satellite-admin can
-        List<IssMasterOrgs> orgs = null;
+        List<IssMasterOrg> orgs = null;
         try {
             orgs = handler.getMasterOrgs(adminKey, master.getId().intValue());
             assertNotNull(orgs);
@@ -211,19 +211,19 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
         }
 
         // OK, we got access - none of these IssMasterOrgs should be mapped
-        for (IssMasterOrgs o : orgs) {
+        for (IssMasterOrg o : orgs) {
             assertNull(o.getLocalOrg());
         }
 
         // OK, they're not mapped.  Map them, and try again
-        for (IssMasterOrgs o : orgs) {
+        for (IssMasterOrg o : orgs) {
             o.setLocalOrg(admin.getOrg());
         }
 
-        master.resetMasterOrgs(new HashSet<IssMasterOrgs>(orgs));
+        master.resetMasterOrgs(new HashSet<IssMasterOrg>(orgs));
 
         orgs = handler.getMasterOrgs(adminKey, master.getId().intValue());
-        for (IssMasterOrgs o : orgs) {
+        for (IssMasterOrg o : orgs) {
             assertEquals(o.getLocalOrg().getId(), admin.getOrg().getId());
         }
 
@@ -232,13 +232,13 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
     public void testSetMasterOrgs() {
         IssMaster master = handler.create(adminKey, "testCreate");
 
-        List<IssMasterOrgs> someOrgs = getBareOrgs(true);
+        List<IssMasterOrg> someOrgs = getBareOrgs(true);
 
         // Make sure that non-sat-admin users cannot access
         try {
             IssMaster m = handler.getMaster(adminKey, master.getId().intValue());
             assertNotNull(m);
-            List<IssMasterOrgs> orgs = handler.getMasterOrgs(regularKey,
+            List<IssMasterOrg> orgs = handler.getMasterOrgs(regularKey,
                     master.getId().intValue());
             fail();
         }
@@ -262,7 +262,7 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
         }
 
         // Make sure setting to one-new-one, really sets to one
-        IssMasterOrgs org = new IssMasterOrgs();
+        IssMasterOrg org = new IssMasterOrg();
         org.setMasterOrgName("newMasterOrg");
         org.setMasterOrgId(1013L);
         List<Map<String, Object>> mapOrgs = new ArrayList();
@@ -272,7 +272,7 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
                 m3.getId().intValue(),
                 mapOrgs);
         assertEquals(1, rc);
-        List<IssMasterOrgs> orgSet = handler.getMasterOrgs(adminKey,
+        List<IssMasterOrg> orgSet = handler.getMasterOrgs(adminKey,
                 master.getId().intValue());
         assertNotNull(orgSet);
         assertEquals(1, orgSet.size());
@@ -291,7 +291,7 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
 
     public void testAddOrg() {
         IssMaster master = handler.create(adminKey, "testCreate");
-        IssMasterOrgs org = new IssMasterOrgs();
+        IssMasterOrg org = new IssMasterOrg();
         org.setMasterOrgName("newMasterOrg");
         org.setMasterOrgId(1001L);
 
@@ -309,10 +309,10 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
             int rc = handler.addToMaster(adminKey, master.getId().intValue(),
                     orgToMap(org));
             assertEquals(1, rc);
-            List<IssMasterOrgs> orgs = handler.getMasterOrgs(adminKey,
+            List<IssMasterOrg> orgs = handler.getMasterOrgs(adminKey,
                     master.getId().intValue());
             boolean found = false;
-            for (IssMasterOrgs o : orgs) {
+            for (IssMasterOrg o : orgs) {
                 found |= (1001L == o.getMasterOrgId() &&
                     "newMasterOrg".equals(o.getMasterOrgName()));
             }
@@ -329,9 +329,9 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
         IssFactory.save(master);
         addOrgsTo(master, false);
 
-        IssMasterOrgs masterOrg = null;
+        IssMasterOrg masterOrg = null;
 
-        for (IssMasterOrgs o : master.getMasterOrgs()) {
+        for (IssMasterOrg o : master.getMasterOrgs()) {
             if (masterOrgNames[1].equals(o.getMasterOrgName())) {
                 masterOrg = o;
             }
@@ -353,7 +353,7 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
                     masterOrg.getMasterOrgId().intValue(),
                     admin.getOrg().getId().intValue());
             assertEquals(1, rc);
-            for (IssMasterOrgs o : master.getMasterOrgs()) {
+            for (IssMasterOrg o : master.getMasterOrgs()) {
                 if (masterOrgNames[1].equals(o.getMasterOrgName())) {
                     assertEquals(o.getLocalOrg(), admin.getOrg());
                 }
@@ -365,16 +365,16 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
     }
 
     private void addOrgsTo(IssMaster master, boolean map) {
-        List<IssMasterOrgs> orgs = getBareOrgs(map);
-        master.resetMasterOrgs(new HashSet<IssMasterOrgs>(orgs));
+        List<IssMasterOrg> orgs = getBareOrgs(map);
+        master.resetMasterOrgs(new HashSet<IssMasterOrg>(orgs));
         IssFactory.save(master);
     }
 
-    private List<IssMasterOrgs> getBareOrgs(boolean map) {
+    private List<IssMasterOrg> getBareOrgs(boolean map) {
         long id = 1001L;
-        List<IssMasterOrgs> orgs = new ArrayList();
+        List<IssMasterOrg> orgs = new ArrayList();
         for (String name : masterOrgNames) {
-            IssMasterOrgs org = new IssMasterOrgs();
+            IssMasterOrg org = new IssMasterOrg();
             org.setMasterOrgName(name);
             org.setMasterOrgId(id++);
             if (map) {
@@ -386,16 +386,16 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
     }
 
     // "masterId", "masterOrgId", "masterOrgName", "localOrgId"
-    private List<Map<String, Object>> orgsToMaps(List<IssMasterOrgs> orgs) {
+    private List<Map<String, Object>> orgsToMaps(List<IssMasterOrg> orgs) {
         List<Map<String, Object>> maps = new ArrayList<Map<String, Object>>();
-        for (IssMasterOrgs org : orgs) {
+        for (IssMasterOrg org : orgs) {
             Map<String, Object> orgMap =  orgToMap(org);
             maps.add(orgMap);
         }
         return maps;
     }
 
-    private Map<String, Object> orgToMap(IssMasterOrgs org) {
+    private Map<String, Object> orgToMap(IssMasterOrg org) {
         Map<String, Object> orgMap = new HashMap<String, Object>();
 
         orgMap.put("masterOrgId", org.getMasterOrgId().intValue());

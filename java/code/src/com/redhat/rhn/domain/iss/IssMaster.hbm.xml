@@ -18,7 +18,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             inverse="true"
             cascade="all-delete-orphan">
             <key column="master_id" not-null="true"/>
-            <one-to-many class="com.redhat.rhn.domain.iss.IssMasterOrgs"/>
+            <one-to-many class="com.redhat.rhn.domain.iss.IssMasterOrg"/>
         </set>
 
     </class>
