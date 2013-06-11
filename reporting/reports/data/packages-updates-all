@@ -23,31 +23,24 @@ columns:
 sql:
 
 	select * from (
-	select RS.id as system_id,
-    RS.org_id as org_id,
-    RPN.name as package_name,
-    RPE.epoch as package_epoch,
-    RPE.version as package_version,
-    RPE.release as package_release,
-    RPA.label as package_arch,
-		RPE1.epoch as newer_epoch,
-    RPE1.version as newer_version,
-    RPE1.release as newer_release
-  from rhnServer RS
-    join rhnServerPackage RSP on RS.id=RSP.server_id
-    join rhnPackageName RPN on RSP.name_id=RPN.id
-    join rhnPackageEvr RPE on RSP.evr_id=RPE.id
-    join rhnPackageArch RPA on RSP.package_arch_id=RPA.id,
-		rhnServer RS1
-		join rhnServerChannel RSC on RS1.id=RSC.server_id
-		join rhnChannelPackage RCP on RSC.channel_id=RCP.channel_id
-		join rhnPackage RP on RCP.package_id=RP.id
-		join rhnPackageName RPN1 on RP.name_id=RPN1.id
-    join rhnPackageEvr RPE1 on RP.evr_id=RPE1.id
-    join rhnPackageArch RPA1 on RP.package_arch_id=RPA1.id
-	where RS.id=RS1.id
-		and RPN.name=RPN1.name
-		and RPE.evr < RPE1.evr
+  select S.id as system_id,
+    S.org_id as org_id,
+    PN.name as package_name,
+    OPE.epoch as package_epoch,
+    OPE.version as package_version,
+    OPE.release as package_release,
+    PA.label as package_arch,
+    NPE.epoch as newer_epoch,
+    NPE.version as newer_version,
+    NPE.release as newer_release
+  from rhnServer S
+    join rhnServerNeededPackageCache SPC on S.id=SPC.server_id
+    join rhnPackage P on SPC.package_id=P.id
+    join rhnPackageName PN on P.name_id=PN.id
+    join rhnServerPackage SP on SP.server_id=S.id and SP.name_id=P.name_id
+    join rhnPackageArch PA on SP.package_arch_id=PA.id
+    join rhnPackageEvr OPE on OPE.id=SP.evr_id
+    join rhnPackageEvr NPE on NPE.id=P.evr_id
 	) X
 	-- where placeholder
 	order by org_id, system_id
