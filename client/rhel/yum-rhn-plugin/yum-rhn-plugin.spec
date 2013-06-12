@@ -1,6 +1,6 @@
 Summary: Spacewalk support for yum
 Name: yum-rhn-plugin
-Version: 1.10.2
+Version: 1.10.3
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -70,6 +70,10 @@ fi
 %doc LICENSE
 
 %changelog
+* Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.3-1
+- rebranding RHN Proxy to Red Hat Proxy in client stuff
+- rebranding RHN Satellite to Red Hat Satellite in client stuff
+
 * Tue May 21 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.2-1
 - branding clean-up of rhel client stuff
 
