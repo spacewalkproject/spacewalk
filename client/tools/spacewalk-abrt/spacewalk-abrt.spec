@@ -1,5 +1,5 @@
 Name:           spacewalk-abrt
-Version:        1.10.4
+Version:        1.10.5
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
@@ -37,6 +37,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/*
 
 %changelog
+* Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.5-1
+- rebranding RHN Satellite to Red Hat Satellite in client stuff
+
 * Tue May 21 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.4-1
 - branding clean-up of client tools
 
