@@ -68,6 +68,7 @@ sessions and exceptions.
 %package -n spacewalk-base-minimal-config
 Summary: Configuration for %{name} package
 Group: Applications/Internet
+Provides: spacewalk(spacewalk-base-minimal-config) = %{version}-%{release}
 Requires: httpd
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires: spacewalk-base-minimal = %{version}-%{release}
@@ -104,7 +105,7 @@ A component framework for Spacewalk.
 %package -n spacewalk-pxt
 Summary: The PXT library for web page templating
 Group: Applications/Internet
-Requires: spacewalk(spacewalk-base-minimal)
+Requires: spacewalk(spacewalk-base-minimal-config)
 Requires: httpd
 Obsoletes: rhn-pxt < 5.3.0
 Provides:  rhn-pxt = 5.3.0
@@ -237,7 +238,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/DB.pm
 %{perl_vendorlib}/RHN/DBI.pm
 %{perl_vendorlib}/PXT/Config.pm
-%attr(644,root,apache) %{_prefix}/share/rhn/config-defaults/rhn_web.conf
 %doc LICENSE
 
 %files -n spacewalk-base-minimal-config
