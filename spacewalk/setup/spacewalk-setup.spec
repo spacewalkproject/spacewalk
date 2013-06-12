@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        1.10.11
+Version:        1.10.12
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -102,6 +102,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.12-1
+- rebrading RHN Satellite to Red Hat Satellite
+
 * Fri Jun 07 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.11-1
 - is_embedded_db: support for manage-db switch
 
