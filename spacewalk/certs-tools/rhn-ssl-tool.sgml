@@ -63,10 +63,10 @@ Generate and maintain SSL keys, certificates and deployment RPMs.
     scope of using <command>openssl</command> to how we use it in RHN: securing
     web applications.</para>
 
-    <para>The RHN context of this document is in support of RHN Satellite, but
-    all holds true for RHN Proxy as well, so keep that in mind. The most
-    current RHN Satellite Servers use <emphasis>/root/ssl-build</emphasis> as
-    the default build directory. Older RHN Satellites and Proxies used the
+    <para>The RHN context of this document is in support of Red Hat Satellite, but
+    all holds true for Red Hat Proxy as well, so keep that in mind. The most
+    current Red Hat Satellite Servers use <emphasis>/root/ssl-build</emphasis> as
+    the default build directory. Older Red Hat Satellites and Proxies used the
     <emphasis>/etc/sysconfig/rhn/ssl</emphasis> directory, and *very* old
     installations used <emphasis>/etc/sysconfig/rhn</emphasis>.</para>    
 
@@ -98,9 +98,9 @@ Generate and maintain SSL keys, certificates and deployment RPMs.
             CA password is lost or forgotten (DON'T DO THAT!). The default
             validity window for the CA is from now until 2038. The CA public
             certificate is what get's distributed to clients of the web-app
-            (RHN Satellite/Proxy).</para>
+            (Red Hat Satellite/Proxy).</para>
 
-            <para>In the RHN Satellite/Proxy context, the organization acts as
+            <para>In the Red Hat Satellite/Proxy context, the organization acts as
             their own Certificate Authority, but these steps can be skipped if
             intending to use of an outside authority (This is not officially
             supported by Red Hat).</para>
@@ -152,7 +152,7 @@ Generate and maintain SSL keys, certificates and deployment RPMs.
                 <para>The <command>--gen-ca</command> process generates an RPM
                 that contains the public CA certificate. It needs to be
                 deployed to any clients making SSL connections to an RHN server
-                (RHN Satellite or Proxy). This is generally done by making the
+                (Red Hat Satellite or Proxy). This is generally done by making the
                 RPM available in the <emphasis>/var/www/html/pub</emphasis>
                 directory. It is also a good idea to copy the CA certificate
                 itself in that directory: RHN-ORG-TRUSTED-CA-CERT.</para>
@@ -160,7 +160,7 @@ Generate and maintain SSL keys, certificates and deployment RPMs.
                 <para>The <command>--gen-server</command> process generates an
                 RPM that contains the <emphasis>server.key</emphasis> and
                 <emphasis>server.crt</emphasis> files needed to secure your RHN
-                server (RHN Satellite or RHN Proxy). It needs to be installed
+                server (Red Hat Satellite or RHN Proxy). It needs to be installed
                 on the appropriate server. That server then needs to have it's
                 <emphasis>httpd</emphasis> processes restarted
                 <command>/sbin/service httpd restart</command>.</para>
@@ -500,7 +500,7 @@ Generate and maintain SSL keys, certificates and deployment RPMs.
                 <term>--set-hostname=<replaceable>HOSTNAME</replaceable></term>
                 <listitem>
                     <para>set the hostname (FQDN: fully qualified domain name)
-                    of the RHN Satellite or RHN Proxy (default: build machine's
+                    of the Red Hat Satellite or Red Hat Proxy (default: build machine's
                     hostname).</para>
                 </listitem>
                 </varlistentry>
@@ -508,7 +508,7 @@ Generate and maintain SSL keys, certificates and deployment RPMs.
                 <term>--set-cname=<replaceable>HOSTNAME</replaceable></term>
                 <listitem>
                     <para>set the cname alias (FQDN: fully qualified domain name)
-                    of the RHN Satellite or RHN Proxy. This will generate certificate
+                    of the Red Hat Satellite or Red Hat Proxy. This will generate certificate
                     with multiple hostnames. Can be specified multiple times.
                     </para>
                 </listitem>

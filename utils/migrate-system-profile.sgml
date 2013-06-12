@@ -1,6 +1,6 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
 <!ENTITY RHNSAT "RHN Management Satellite Server" >
-<!ENTITY RHNSAT "RHN Satellite system Migration Tool" >
+<!ENTITY RHNSAT "Red Hat Satellite system Migration Tool" >
 ]>
 <refentry>
 
@@ -12,14 +12,14 @@
 <RefNameDiv>
 <RefName><command>migrate-system-profile</command></RefName>
 <RefPurpose>
-Migrate a system between organizations on the RHN Satellite server .
+Migrate a system between organizations on the Red Hat Satellite server .
 </RefPurpose>
 </RefNameDiv>
 
 <RefSynopsisDiv>
 <Synopsis>
     <cmdsynopsis>
-        <command>migrate-system-profile</command> 
+        <command>migrate-system-profile</command>
         <arg>options <replaceable>...</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -44,7 +44,7 @@ Migrate a system between organizations on the RHN Satellite server .
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>-v</arg><arg> --verbose </arg>
-    </cmdsynopsis>   
+    </cmdsynopsis>
     <cmdsynopsis>
         <arg>-h</arg><arg>--help</arg>
     </cmdsynopsis>

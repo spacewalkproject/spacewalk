@@ -1,9 +1,9 @@
 Notification Subsystem Test Plan
-                                                                                
-PURPOSE
-The goal of this test plan is to ensure the monitoring notification subsystem isworking properly.  
 
-Important Note: This plan is geared toward the RHN satellite MOC, and may not be completely accurate for the Command Center hosted model.
+PURPOSE
+The goal of this test plan is to ensure the monitoring notification subsystem isworking properly.
+
+Important Note: This plan is geared toward the Red Hat Satellite MOC, and may not be completely accurate for the Command Center hosted model.
 
 PROCEDURES
 1. Probe types:
@@ -20,7 +20,7 @@ Note: Redirects are created in the system every 5 minutes.
   a. Eastern
   b. Pacific
   c. GMT
-  d. Asia 
+  d. Asia
 Note: Config generation occurs on the hour and 1/2 hour.  Changes to contact methods, schedules, timezones all take effect during config generation.
 5.  Contact Methods
   a. email (longer message)

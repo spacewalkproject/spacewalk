@@ -1187,7 +1187,7 @@ VALUES (sequence_nextval('rhn_template_str_id_seq'),
         (SELECT TC.id FROM rhnTemplateCategory TC WHERE TC.label = 'org_strings'),
         'hostname',
         ?,
-        'Host name for the RHN Satellite')
+        'Host name for the Red Hat Satellite')
 EOQ
 
     $sth->execute($answers->{hostname});

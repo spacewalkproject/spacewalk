@@ -1,6 +1,6 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
 <!ENTITY RHNSAT "RHN Management Satellite Server" >
-<!ENTITY RHNSAT "RHN Satellite system Migration Tool" >
+<!ENTITY RHNSAT "Red Hat Satellite system Migration Tool" >
 ]>
 <refentry>
 

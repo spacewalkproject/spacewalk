@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -34,19 +34,19 @@ sub register_dobby_commands {
   my $cli = shift;
 
   $cli->register_mode(-command => "backup",
-		      -description => "Backup the database instance of RHN Satellite",
+		      -description => "Backup the database instance of Red Hat Satellite",
 		      -handler => \&command_backup);
   $cli->register_mode(-command => "restore",
-		      -description => "Restore the database instance of RHN Satellite from backup",
+		      -description => "Restore the database instance of Red Hat Satellite from backup",
 		      -handler => \&command_restore);
   $cli->register_mode(-command => "verify",
-		      -description => "Verify an database instance of RHN Satellite backup",
+		      -description => "Verify an database instance of Red Hat Satellite backup",
 		      -handler => \&command_restore);
   $cli->register_mode(-command => "examine",
-		      -description => "Display information about a database instance of RHN Satellite backup",
+		      -description => "Display information about a database instance of Red Hat Satellite backup",
 		      -handler => \&command_restore);
   $cli->register_mode(-command => "online-backup",
-          -description => "Perform online backup of RHN Satellite database (PostgreSQL only)",
+          -description => "Perform online backup of Red Hat Satellite database (PostgreSQL only)",
           -handler => \&command_pg_online_backup);
 }
 

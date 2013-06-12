@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -28,13 +28,13 @@ sub register_dobby_commands {
   my $cli = shift;
 
   $cli->register_mode(-command => "extend",
-		      -description => "Increase the Oracle Instance tablespace of RHN Satellite (Oracle only)",
+		      -description => "Increase the Oracle Instance tablespace of Red Hat Satellite (Oracle only)",
 		      -handler => \&command_extend);
   $cli->register_mode(-command => "gather-stats",
-		      -description => "Gather statistics on database instance of RHN Satellite objects",
+		      -description => "Gather statistics on database instance of Red Hat Satellite objects",
 		      -handler => \&gather_stats);
   $cli->register_mode(-command => "shrink-segments",
-		      -description => "Shrink Oracle database segments of RHN Satellite",
+		      -description => "Shrink Oracle database segments of Red Hat Satellite",
 		      -handler => \&shrink_segments);
 }
 
@@ -55,7 +55,7 @@ sub command_extend {
     print "Error: The database must be running to extend a tablespace.\n";
     return 1;
   }
-    
+
   my @files = $d->tablespace_datafiles($ts);
   my $f = pop(@files);
 

@@ -154,7 +154,7 @@ sub do_precondition_checks {
   if (not $opts->{"skip-system-version-test"}
       and not correct_system_version(%version_info)) {
     print loc(<<EOQ);
-This version of RHN Satellite runs only on:
+This version of Red Hat Satellite runs only on:
    Red Hat Enterprise Linux 5 Server
    Red Hat Enterprise Linux 6 Server
 
@@ -168,7 +168,7 @@ EOQ
       if (getenforce() eq 'Disabled') {		# we should use SELinux
         print loc(<<EOH);
 Red Hat recommends SELinux be configured in either Permissive or Enforcing
-mode for your RHN Satellite installation.  Run /usr/sbin/getenforce to see your
+mode for your Red Hat Satellite installation.  Run /usr/sbin/getenforce to see your
 current mode.  If you wish to run in Disabled mode, re-run the installer with
 the flag --skip-selinux-test.  When you install while SELinux is disabled and
 want to enable SELinux later, run /usr/sbin/spacewalk-selinux-enable once
@@ -812,13 +812,13 @@ sub install_rhn_packages {
   }
   system_or_exit(['yum', 'localinstall', '-y', @rpms],
 		 26,
-		 'Could not install RHN packages.  Most likely your system is not configured with the @Base package group.  See the RHN Satellite Server Installation Guide for more information about Software Requirements.');
+		 'Could not install RHN packages.  Most likely your system is not configured with the @Base package group.  See the Red Hat Satellite Server Installation Guide for more information about Software Requirements.');
   return 1;
 }
 
 sub get_product_name {
   my $composeinfo_file = ".composeinfo";
-  my $productName = "RHN Satellite", my $treeName;
+  my $productName = "Red Hat Satellite", my $treeName;
   my $productVersion;
   my $productSection, my $treeSection;
 

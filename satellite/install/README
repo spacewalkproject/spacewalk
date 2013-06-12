@@ -1,4 +1,4 @@
-README - Spacewalk Installation 
+README - Spacewalk Installation
 ======================================================
 
 INSTALLATION: PRE-REQUISITES
@@ -6,14 +6,14 @@ INSTALLATION: PRE-REQUISITES
 
 Before beginning installation, make sure you have met the hardware, software,
 and database requirements necessary for Satellite installation as outlined
-in the RHN Satellite Installation Guide:
+in the Red Hat Satellite Installation Guide:
 
 http://docs.redhat.com/docs/en-US/Red_Hat_Network_Satellite/5.4/html/Installation_Guide/ch-requirements.html
 
 INSTALLATION METHODS - BASIC USAGE
 ----------------------------------
 
-There are two methods of installing Satellite. 
+There are two methods of installing Satellite.
 
 1) You may run the 'install.pl' script, which will prompt you for answers to 
 several questions necessary for configuring Satellite. You can do this by simply 

@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# API Script used to communicate with RHN Satellite 
+# API Script used to communicate with Red Hat Satellite
 # Copyright (C) 2007  Red Hat
 #
 # Author: Lars Jonsson (ljonsson@redhat.com)
@@ -27,7 +27,7 @@ import os
 import re
 
 class RHNServer:
-    def __init__(self,servername,user,passwd): 
+    def __init__(self,servername,user,passwd):
         try:
             self.systemid = self.getSysId()
         except IOError:
@@ -39,7 +39,7 @@ class RHNServer:
         self.server = xmlrpclib.Server(self.rhnUrl)
         self.rhnSession=self.rhnLogin(self.login,self.password)
 
-    def rhnLogin(self, login, password): 
+    def rhnLogin(self, login, password):
         try:
             rhnSession=self.server.auth.login(login,password)
         except  xmlrpclib.Fault, f:
@@ -127,7 +127,7 @@ class RHNServer:
             else:
                 raise
         return out
-        
+
     def setCustomValues(self,label,value):
         out=[]
         vdict = { label:value[0] }
@@ -177,21 +177,21 @@ class RHNServer:
                     self.setGroupMembership(int(sgid),join)
                     print "System has left "+groupname
 
-    def delSystem(self, servername): 
+    def delSystem(self, servername):
         found = False
         for c in self.listUserSystems():
             if c['name'] == servername:
-                found = True     
+                found = True
                 self.deleteSystems(int(c['id']))
                 print "System has been deleted"
         if found is False:
             print "No systems named "+servername+" found!"
 
-    def provisionGuest(self,servername,gname,pname,mem,vcpus,storage): 
+    def provisionGuest(self,servername,gname,pname,mem,vcpus,storage):
         found = False
         for c in self.listUserSystems():
             if c['name'] == servername:
-                found = True     
+                found = True
                 r = self.provisionVirtualGuest(int(c['id']),gname,pname,int(mem),int(vcpus),int(storage))
                 if int(r) is 1:
                     print "Provision of guest scheduled"
@@ -203,32 +203,32 @@ class RHNServer:
 def parse_args():
     parser = OptionParser()
     parser.add_option("-s", "--server", type="string", dest="servername",
-                help="RHN Satellite server hostname") 
+                help="Red Hat Satellite server hostname")
     parser.add_option("-l", "--login", type="string", dest="login",
-                help="RHN Login") 
+                help="Red Hat Satellite Login")
     parser.add_option("-p", "--password", type="string", dest="passwd",
-                help="RHN password (in hex format)") 
+                help="Red Hat Satellite password (in hex format)")
     parser.add_option("-g", "--set-group", type="string", dest="groupname",
-                help="Join system groups, syntax: Group1,Group2,etc") 
+                help="Join system groups, syntax: Group1,Group2,etc")
     parser.add_option("-n", "--add-note", type="string", dest="note",
-                help="Add a note, syntax: \"<Subject>:<Your message>\"") 
+                help="Add a note, syntax: \"<Subject>:<Your message>\"")
     parser.add_option("-c", "--set-custominfo", type="string", dest="custval",
-                help="Set custom info, syntax: \"<CustomKey>:<Value>\"") 
+                help="Set custom info, syntax: \"<CustomKey>:<Value>\"")
     parser.add_option("-d", "--delete-system", type="string", dest="delsystem",
-                help="Delete the specified system") 
+                help="Delete the specified system")
     parser.add_option("", "--list-groups", action="store_true", dest="listgrp",
-                default=False, help="List system groups") 
+                default=False, help="List system groups")
     parser.add_option("", "--list-systems", action="store_true", dest="listsrv",
-                default=False, help="List systems") 
+                default=False, help="List systems")
     parser.add_option("", "--list-actkeys", action="store_true",
-                dest="list_act_keys", default=False, help="List activation keys") 
+                dest="list_act_keys", default=False, help="List activation keys")
     parser.add_option("", "--provision-guest", type="string", dest="provguest",
-                help="Provision a virtual guest, syntax: \"<dom0-server>:<guestname>:<ks-profile>:<memoryMB>:<vcpus>:<storageMB>\"") 
+                help="Provision a virtual guest, syntax: \"<dom0-server>:<guestname>:<ks-profile>:<memoryMB>:<vcpus>:<storageMB>\"")
     parser.add_option("", "--set-profilename", type="string", dest="profilename",
-                help="Set a new profile name, syntax: \"<name>\"") 
-        
+                help="Set a new profile name, syntax: \"<name>\"")
+
     (options,args) = parser.parse_args()
-    return options 
+    return options
 
 def main():
     if os.getuid() is not 0:

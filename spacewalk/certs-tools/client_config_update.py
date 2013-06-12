@@ -35,7 +35,7 @@ noSSLServerURL=http://test-satellite.example.redhat.com/XMLRPC
 enableProxy=0
 sslCACert=/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT
 
- (NOTE - older RHN Satellite's and Proxy's used:
+ (NOTE - older Red Hat Satellite's and Proxy's used:
   sslCACert=/usr/share/rhn/RHNS-CORP-CA-CERT)
 
 And maps that to the client's configuration files.

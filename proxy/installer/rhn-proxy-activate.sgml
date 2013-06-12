@@ -1,6 +1,6 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHNPROXY "RHN Proxy Server" >
-<!ENTITY SCRIPTNAME "RHN Proxy Activate script" >
+<!ENTITY RHNPROXY "Red Hat Proxy Server" >
+<!ENTITY SCRIPTNAME "Red Hat Proxy Activate script" >
 <!ENTITY SCRIPTCOMMAND "rhn-proxy-activate" >
 
 ]>
@@ -24,7 +24,7 @@
 <RefSynopsisDiv>
 <Synopsis>
     <cmdsynopsis>
-        <command>&SCRIPTCOMMAND;</command> 
+        <command>&SCRIPTCOMMAND;</command>
         <arg><replaceable>command</replaceable></arg>
         <arg>options <replaceable>...</replaceable></arg>
         <arg>-s<replaceable>HOSTNAME</replaceable></arg>
@@ -98,7 +98,7 @@
             --server=<replaceable>HOSTNAME</replaceable></term>
         <listitem>
             <para>parent to this &RHNPROXY;. Either RHN hosted, an
-            RHN Satellite, or another RHN Proxy.</para>
+            Red Hat Satellite, or another Red Hat Proxy.</para>
         </listitem>
     </varlistentry>
     <varlistentry>

@@ -3,15 +3,15 @@
 .\"
 .TH rhn.conf 5 "1 March 2011" Linux "File Formats and Conventions"
 .SH NAME
-rhn.conf \- Configuration file for Spacewalk/RHN Satellite Server
+rhn.conf \- Configuration file for Spacewalk/Red Hat Satellite Server
 .SH SYNOPSIS
 .B /etc/rhn/rhn.conf
 .SH DESCRIPTION
 .B rhn.conf
-is a configuration file used for several services in Spacewalk/RHN Satellite server.
+is a configuration file used for several services in Spacewalk/Red Hat Satellite server.
 The file contents are read by the
 .B rhn-satellite (8)
-command to start the Spacewalk/RHN Satellite service.
+command to start the Spacewalk/Red Hat Satellite service.
 .SH FORMAT
 .P
 Format of /etc/rhn/rhn.conf is very simple. Each line is either a comment or a directive.  Comment lines start with a # and are ignored. A directive line has the format below:
@@ -19,7 +19,7 @@ Format of /etc/rhn/rhn.conf is very simple. Each line is either a comment or a d
 parameter = value
 .SH OPTIONS
 .P
-Spacewalk/RHN Satellite includes dozens other options in \fB/usr/share/rhn/config-defaults/*.conf\fR which administrator can override in /etc/rhn/rhn.conf,
+Spacewalk/Red Hat Satellite includes dozens other options in \fB/usr/share/rhn/config-defaults/*.conf\fR which administrator can override in /etc/rhn/rhn.conf,
 but \fB*** JUST CHANGE THOSE PARAMETERS IF YOU REALLY KNOW WHAT ARE YOU DOING! *** \fR
 
 .P
@@ -52,12 +52,12 @@ Define the directory used to store the kickstart trees.
 .TP
 .B "repomd_cache_mount_point"
 Define the directory used to store the packages, errata, channels, kickstart trees and also store the repositories metadata
-cache information. It is generated when using Spacewalk/RHN Satellite on demand when the client asks for thoses files.
+cache information. It is generated when using Spacewalk/Red Hat Satellite on demand when the client asks for thoses files.
 These cache files are stored in
 .B /var/cache/rhn
 and the storage needs of this directory will vary greatly. We suggest at least 10GB of space in
 .B /var/cache/rhn
-on Spacewalk/RHN Satellite server. Very large environments will need to increase the amount of space in
+on Spacewalk/Red Hat Satellite server. Very large environments will need to increase the amount of space in
 .B /var/cache/rhn
 that directory.
 
@@ -67,7 +67,7 @@ that directory.
 
 .TP
 .B "server.satellite.rhn_parent"
-This parameter determines the parent RHN/RHN Satellite whose packages will be downloaded or synced. This parameter usually points to RHN Hosted,
+This parameter determines the parent RHN Classic/Red Hat Satellite whose packages will be downloaded or synced. This parameter usually points to RHN Hosted,
 .B rhn.redhat.com
 .IP
 .B Default:
@@ -107,7 +107,7 @@ The default SSL CA certificate points to RHN Hosted.
 .B "debug"
 .P
 .RS
-This parameter determines debug level used by Spacewalk/RHN Satellite processes.
+This parameter determines debug level used by Spacewalk/Red Hat Satellite processes.
 Please, keep in mind that raising up this value will generate a very verbose logs, which is only useful for debugging
 purposes.
 .B Use it carefully!
@@ -145,9 +145,9 @@ This parameter controls whether server is allowed to perform system snapshots.
 
 .TP
 .B "pam_auth_service"
-Spacewalk/RHN Satellite supports network-based authentication systems via Pluggable Authentication Modules (PAM).
-Spacewalk/RHN Satellite supports LDAP, Kerberos, Directory Server and other network-based authentication
-systems. To enable Spacewalk/RHN Satellite to use PAM and your organization's authentication infrastructure, follow the
+Spacewalk/Red Hat Satellite supports network-based authentication systems via Pluggable Authentication Modules (PAM).
+Spacewalk/Red Hat Satellite supports LDAP, Kerberos, Directory Server and other network-based authentication
+systems. To enable Spacewalk/Red Hat Satellite to use PAM and your organization's authentication infrastructure, follow the
 steps below:
 .RS
 .IP \(bu 3
@@ -176,7 +176,7 @@ account   required      /lib64/security/pam_ldap.so no_user_check
 .fi
 
 .IP \(bu 3
-restart Spacewalk/RHN Satellite service
+restart Spacewalk/Red Hat Satellite service
 .RE
 .IP
 .B Default:
@@ -194,7 +194,7 @@ Spacewalk Server
 \fBDefault:\fR 1
 .RE
 .IP \(bu 3
-RHN Satellite Server
+Red Hat Satellite Server
 .RS
 .IP \(bu 3
 \fBDefault:\fR 0
@@ -270,13 +270,13 @@ Determine the database host.
 Determine the database port.
 .IP
 
-.SH Inter-RHN Satellite Sync (ISS)
-The ability of synchronize two Spacewalk/RHN Satellites servers
-is called Inter-RHN Satellite Sync (ISS)  which allows to synchronize channels
-from the master RHN Satellite to slave servers, simplifying the
-process of coordinating contents from one Spacewalk/RHN Satellite source to another or several others.
+.SH Inter-Red Hat Satellite Sync (ISS)
+The ability of synchronize two Spacewalk/Red Hat Satellites servers
+is called Inter-Red Hat Satellite Sync (ISS)  which allows to synchronize channels
+from the master Red Hat Satellite to slave servers, simplifying the
+process of coordinating contents from one Spacewalk/Red Hat Satellite source to another or several others.
 
-.SS Master Spacewalk/RHN Satellite Servers
+.SS Master Spacewalk/Red Hat Satellite Servers
 
 .TP
 .B "allowed_iss_slaves"
@@ -295,11 +295,11 @@ another spacewalk (or hosted).
 .B Default:
 0
 
-.SS Slave Spacewalk/RHN Satellite Servers
+.SS Slave Spacewalk/Red Hat Satellite Servers
 
 .TP
 .B "iss_parent"
-This parameter determines the Spacewalk/RHN Satellite parent server. If left blank,
+This parameter determines the Spacewalk/Red Hat Satellite parent server. If left blank,
 .B server.satellite.rhn_parent
 is taken by default.
 Only use this option if this server is intended to be a slave server.
@@ -323,7 +323,7 @@ server.
 .SH FILES
 .I /etc/rhn/rhn.conf
 .RS
-Configuration file for Spacewalk/RHN Satellite server. See
+Configuration file for Spacewalk/Red Hat Satellite server. See
 .BR rhn.conf (5)
 for further details.
 

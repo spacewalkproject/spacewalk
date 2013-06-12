@@ -1947,7 +1947,7 @@ Disabled anyway, re-run the installer with the flag --skip-selinux-test.
 
 =item B<--skip-fqdn-test>
 
-Do not verify that the system has a valid hostname.  RHN Satellite
+Do not verify that the system has a valid hostname.  Red Hat Satellite
 requires that the hostname be properly set during installation.
 Using this option may result in a Satellite server that is not fully
 functional.
@@ -2008,7 +2008,7 @@ Set to 'yes' to automatically enable tftp and xinetd services needed for Cobbler
 
 =item B<--external-db>
 
-Assume the RHN Satellite installation uses an external database (RHN Satellite only).
+Assume the Red Hat Satellite installation uses an external database (Red Hat Satellite only).
 
 =back
 

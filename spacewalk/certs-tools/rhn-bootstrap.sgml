@@ -1,7 +1,7 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY SATANDORPROX "RHN Satellite and/or Proxy Server" >
-<!ENTITY SATANDPROX "RHN Satellite and Proxy Server" >
-<!ENTITY SATORPROX "RHN Satellite or Proxy Server" >
+<!ENTITY SATANDORPROX "Red Hat Satellite and/or Proxy Server" >
+<!ENTITY SATANDPROX "Red Hat Satellite and Proxy Server" >
+<!ENTITY SATORPROX "Red Hat Satellite or Proxy Server" >
 <!ENTITY EXECUTABLE "rhn-bootstrap" >
 
 ]>

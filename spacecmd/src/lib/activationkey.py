@@ -33,7 +33,7 @@ def complete_activationkey_addpackages(self, text, line, beg, end):
     parts = line.split(' ')
 
     if len(parts) == 2:
-        return tab_completer(self.do_activationkey_list('', True), 
+        return tab_completer(self.do_activationkey_list('', True),
                                   text)
     elif len(parts) > 2:
         return tab_completer(self.get_package_names(), text)
@@ -61,10 +61,10 @@ def complete_activationkey_removepackages(self, text, line, beg, end):
     parts = line.split(' ')
 
     if len(parts) == 2:
-        return tab_completer(self.do_activationkey_list('', True), 
+        return tab_completer(self.do_activationkey_list('', True),
                                   text)
     elif len(parts) > 2:
-        details = self.client.activationkey.getDetails(self.session, 
+        details = self.client.activationkey.getDetails(self.session,
                                                        parts[1])
         packages = [ p['name'] for p in details.get('packages') ]
         return tab_completer(packages, text)
@@ -1145,7 +1145,7 @@ def import_activationkey_fromdetails(self, keydetails):
         logging.debug("Found key %s, importing as %s" % \
             (keydetails['key'], keyname))
 
-        # Channel label must be an empty-string for "RHN Satellite Default"
+        # Channel label must be an empty-string for "Red Hat Satellite Default"
         # The export to json maps this to a unicode string "none"
         # To avoid changing the json format now, just fix it up here...
         if keydetails['base_channel_label'] == "none":

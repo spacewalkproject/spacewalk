@@ -53,12 +53,12 @@ exit $status || 0;
 
 =head1 NAME
 
-db-control - utility for managing the RHN Satellite database
+db-control - utility for managing the Red Hat Satellite database
 
 =head1 SYNOPSIS
 
-B<db-control> 
-[B<backup DIRNAME>] 
+B<db-control>
+[B<backup DIRNAME>]
 [B<examine DIRNAME>]
 [B<extend TABLESPACE>]
 [B<gather-stats PCT>]
@@ -116,7 +116,7 @@ Restores the database from backup file FILE, which was made by command "pg-onlin
 
 =item B<report>
 
-Reports on current usage of database space.  
+Reports on current usage of database space.
 
 =item B<report-stats DAYS>
 
@@ -150,7 +150,7 @@ Shows the current status of the database, either "running" or "offline".
 
 =item B<stop>
 
-Stops the RHN Satellite database instance.  This is required to perform B<backup> or B<restore> actions.
+Stops the Red Hat Satellite database instance.  This is required to perform B<backup> or B<restore> actions.
 
 =item B<tablesizes>
 

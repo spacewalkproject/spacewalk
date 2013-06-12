@@ -55,7 +55,7 @@ echo "%s Client bootstrap script v4.0"
 # PROVISIONING/KICKSTART NOTE:
 #   If provisioning a client, ensure the proper CA SSL public certificate is
 #   configured properly in the post section of your kickstart profiles (the
-#   RHN Satellite or hosted web user interface).
+#   Red Hat Satellite or hosted web user interface).
 
 # UP2DATE/RHN_REGISTER VERSIONING NOTE:
 #   This script will not work with very old versions of up2date and
@@ -67,7 +67,7 @@ echo
 echo "MINOR MANUAL EDITING OF THIS FILE MAY BE REQUIRED!"
 echo
 echo "If this bootstrap script was created during the initial installation"
-echo "of an RHN Satellite, the ACTIVATION_KEYS, and ORG_GPG_KEY values will"
+echo "of an Red Hat Satellite, the ACTIVATION_KEYS, and ORG_GPG_KEY values will"
 echo "probably *not* be set (see below). If this is the case, please do the"
 echo "following:"
 echo "  - copy this file to a name specific to its use."
@@ -438,7 +438,7 @@ if [ "$INSTALLER" == zypper ] ; then
     if [ -x /usr/sbin/rhn-profile-sync ] ; then
         /usr/sbin/rhn-profile-sync
     else
-        echo "Error updating system info in RHN Satellite."
+        echo "Error updating system info in Red Hat Satellite."
         echo "    Please ensure that rhn-profile-sync in installed and rerun it."
     fi
     if [ $FULLY_UPDATE_THIS_BOX -eq 1 ] ; then
@@ -449,7 +449,7 @@ elif [ "$INSTALLER" == yum ] ; then
     if [ -x /usr/sbin/rhn-profile-sync ] ; then
         /usr/sbin/rhn-profile-sync
     else
-        echo "Error updating system info in RHN Satellite."
+        echo "Error updating system info in Red Hat Satellite."
         echo "    Please ensure that rhn-profile-sync in installed and rerun it."
     fi
     if [ $FULLY_UPDATE_THIS_BOX -eq 1 ] ; then

@@ -15,18 +15,18 @@
 #
 #
 # RHN SSL Maintenance Tool (main module)
-#     
+#
 # *NOTE*
 # This module is intended to be imported and not run directly though it can
 # be. At the time of this note, the excutable wrapping this module was
 # /usr/bin/rhn-ssl-tool.
-# 
+#
 # Generate and maintain SSL keys & certificates. One can also build RPMs in
 # the RHN product context.
-# 
+#
 # NOTE: this tool is geared for RHN product usage, but can be used outside of
 # that context to some degree.
-# 
+#
 # Author: Todd Warner <taw@redhat.com>
 #
 # $Id$
@@ -93,7 +93,7 @@ def pathJoin(path, filename):
 
 def legacyTreeFixup(d):
     """ move old server.* files to and "unknown" machinename directory
-        Most of this is RHN Satellite 2.* and 3.* changes. Near the end
+        Most of this is Red Hat Satellite 2.* and 3.* changes. Near the end
         we get to 3.6 changes.
     """
 
@@ -773,9 +773,9 @@ Generating CA public certificate RPM:
     if verbosity >= 0:
         print """
 Make the public CA certficate publically available:
-    (NOTE: the RHN Satellite or Proxy installers may do this step for you.)
+    (NOTE: the Red Hat Satellite or Proxy installers may do this step for you.)
     The "noarch" RPM and raw CA certificate can be made publically accessible
-    by copying it to the /var/www/html/pub directory of your RHN Satellite or
+    by copying it to the /var/www/html/pub directory of your Red Hat Satellite or
     Proxy server."""
 
 
@@ -1105,9 +1105,9 @@ Generating web server's SSL key pair/set RPM:
     if verbosity >= 0:
         print """
 Deploy the server's SSL key pair/set RPM:
-    (NOTE: the RHN Satellite or Proxy installers may do this step for you.)
+    (NOTE: the Red Hat Satellite or Proxy installers may do this step for you.)
     The "noarch" RPM needs to be deployed to the machine working as a
-    web server, or RHN Satellite, or RHN Proxy.
+    web server, or Red Hat Satellite, or Red Hat Proxy.
     Presumably %s.""" % repr(d['--set-hostname'])
 
     return "%s.noarch.rpm" % serverRpmName

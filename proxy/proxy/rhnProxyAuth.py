@@ -185,8 +185,8 @@ problems, isn't running, or the token is somehow corrupt.
         
             DESIGN NOTES:  what is the proxy auth token?
             -------------------------------------------
-            An RHN Proxy auth token is a token fetched upon login from
-            RHN Satellite or hosted.
+            An Red Hat Proxy auth token is a token fetched upon login from
+            Red Hat Satellite or hosted.
         
             It has this format:
                'S:U:ST:EO:SIG'

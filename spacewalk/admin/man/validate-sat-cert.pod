@@ -1,7 +1,7 @@
 =head1 NAME
 
 validate-sat-cert - utility that checks XML parse sanity and GPG validates an
-RHN Satellite certificate.
+Red Hat Satellite certificate.
 
 =head2 SYNOPSIS
 

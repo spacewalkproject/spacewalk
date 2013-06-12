@@ -32,7 +32,7 @@ $smon->addQueue( NOCpulse::CommandOutputQueue->new( Debug => $debug, Config => $
 $smon->addQueue( NOCpulse::StateChangeQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher ) );
 $smon->addQueue( NOCpulse::TimeSeriesQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher ) );
 
-# Disabling fetching of SNMP alerts in the RHN Satellite context, as that
+# Disabling fetching of SNMP alerts in the Red Hat Satellite context, as that
 # notif method is not supported. Uncomment to reenable.
 #$smon->addQueue( NOCpulse::SNMPQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher));
 

@@ -1,6 +1,6 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
 <!ENTITY SCRIPTCOMMAND "spacewalk-hostname-rename" >
-<!ENTITY PRODUCT "RHN Satellite or Spacewalk server" >
+<!ENTITY PRODUCT "Red Hat Satellite or Spacewalk server" >
 
 ]>
 <RefEntry>
