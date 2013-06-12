@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.10.3
+Version: 1.10.4
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -330,6 +330,10 @@ fi
 
 
 %changelog
+* Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.4-1
+- rebranding RHN Proxy to Red Hat Proxy
+- rebrading RHN Satellite to Red Hat Satellite
+
 * Tue May 21 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.3-1
 - misc branding clean up
 
