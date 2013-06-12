@@ -1,5 +1,5 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHNSAT "RHN Satellite Server" >
+<!ENTITY RHNSAT "Red Hat Satellite Server" >
 <!ENTITY RHNCHANRM "Spacewalk channel creation tool" >
 
 ]>

@@ -1,4 +1,4 @@
-# logrotation file for RHN Satellite's osa-dispatcher
+# logrotation file for Red Hat  Satellite's osa-dispatcher
 
 /var/log/rhn/osa-dispatcher.log {
     weekly

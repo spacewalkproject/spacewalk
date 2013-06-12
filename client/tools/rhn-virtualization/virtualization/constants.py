@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import sys
@@ -49,11 +49,12 @@ class PropertyType:
     MESSAGE     = 'message'
 
 ##
-# This structure maps the libvirt state enumeration to labels that RHN 
-# understands.
+# This structure maps the libvirt state enumeration to labels that
+# Red Hat Satellite understands.
 # Reasons we don't care about differences between NOSTATE, RUNNING and BLOCKED:
 # 1. technically, the domain is still "running"
-# 2. RHN / RHN Satellite / Spacewalk are not able to display 'blocked' & 'nostate'
+# 2. RHN Classic / Red Hat Satellite / Spacewalk are not able to
+# display 'blocked' & 'nostate'
 #    as valid states
 # 3. to avoid 'Abuse of Service' messages: bugs #230106 and #546676
 

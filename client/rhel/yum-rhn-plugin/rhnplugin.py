@@ -62,8 +62,8 @@ def init_hook(conduit):
     """
 
     global rhn_enabled
-   
-    RHN_DISABLED = _("RHN Satellite or RHN Classic support will be disabled.")
+
+    RHN_DISABLED = _("Red Hat Satellite or RHN Classic support will be disabled.")
 
     conduit_conf = conduit.getConf()
     timeout = conduit_conf.timeout
@@ -127,12 +127,12 @@ def init_hook(conduit):
         return
 
     if not login_info:
-        conduit.error(0, _("This system is not registered with RHN Classic or RHN Satellite.") +
+        conduit.error(0, _("This system is not registered with RHN Classic or Red Hat Satellite.") +
                 "\n" + _("You can use rhn_register to register.") +
                 "\n" + RHN_DISABLED)
         rhn_enabled = False
         truncateRHNReposCache(conduit)
-        return 
+        return
 
     CHANNELS_DISABLED = _("RHN channel support will be disabled.")
     try:
@@ -143,7 +143,7 @@ def init_hook(conduit):
         truncateRHNReposCache(conduit)
         return
     except up2dateErrors.NoSystemIdError:
-        conduit.error(0, _("This system may not be registered to RHN Classic or RHN Satellite. SystemId could not be acquired.") +
+        conduit.error(0, _("This system may not be registered to RHN Classic or Red Hat Satellite. SystemId could not be acquired.") +
                 "\n" + _("You can use rhn_register to register.") +
                 "\n" + RHN_DISABLED)
         rhn_enabled = False
@@ -156,7 +156,7 @@ def init_hook(conduit):
         return
 
     if rhn_enabled:
-        conduit.info(2, _("This system is receiving updates from RHN Classic or RHN Satellite."))
+        conduit.info(2, _("This system is receiving updates from RHN Classic or Red Hat Satellite."))
 
     repos = conduit.getRepos()
     cachedir = conduit_conf.cachedir

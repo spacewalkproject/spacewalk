@@ -22,7 +22,7 @@ Requires:       rhnlib
 Requires:       rhn-check
 %description
 spacewalk-oscap is a plug-in for rhn-check. With this plugin, user is able
-to run OpenSCAP scan from Spacewalk or RHN Satellite server.
+to run OpenSCAP scan from Spacewalk or Red Hat Satellite server.
 
 %prep
 %setup -q

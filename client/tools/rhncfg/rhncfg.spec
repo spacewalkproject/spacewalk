@@ -21,7 +21,7 @@ Requires: rhn-client-tools >= 0.4.20-86
 %else
 %if 0%{?el6}
 Requires: rhn-client-tools >= 1.0.0-51
-%else 
+%else
 # who knows what version we need? Let's just hope it's up to date enough.
 Requires: rhn-client-tools
 %endif
@@ -35,7 +35,7 @@ BuildRequires: rhn-client-tools
 Requires: libselinux-python
 %endif
 
-%description 
+%description
 The base libraries and functions needed by all rhncfg-* packages.
 
 %package client
@@ -45,7 +45,7 @@ Requires: %{name} = %{version}-%{release}
 
 %description client
 A command line interface to the client features of the RHN Configuration
-Management system. 
+Management system.
 
 %package management
 Summary: Spacewalk Configuration Management Client
@@ -62,8 +62,7 @@ Requires: %{name} = %{version}-%{release}
 Requires: %{name}-client
 
 %description actions
-The code required to run configuration actions scheduled via the RHN website or
-RHN Satellite or Spacewalk.
+The code required to run configuration actions scheduled via the RHN Classic website or Red Hat Satellite or Spacewalk.
 
 %prep
 %setup -q

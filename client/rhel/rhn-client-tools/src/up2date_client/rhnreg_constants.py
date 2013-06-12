@@ -129,12 +129,12 @@ SYSTEM_ALREADY_SETUP = _("System Already Registered")
 SYSTEM_ALREADY_REGISTERED = _("It appears this system has already been set up for software updates:")
 SYSTEM_ALREADY_REGISTERED_CONT = _("Are you sure you would like to continue?")
 
-RHSM_SYSTEM_ALREADY_REGISTERED = _("This system has already been registered with RHN"
-				" using RHN certficate-based technology.\n\n"
+RHSM_SYSTEM_ALREADY_REGISTERED = _("This system has already been registered with RHN Classic/Red Hat Satellite"
+				" using Red Hat certficate-based technology.\n\n"
 				"The tool you are using is attempting to re-register "
-				"using RHN Satellite or RHN Proxy technology. Red Hat recommends "
-				"(except in a few cases) that customers only register with RHN once.\n\n"
-				"To learn more about RHN registration and technologies please consult this"
+				"using Red Hat Satellite or Red Hat Proxy technology. Red Hat recommends "
+				"(except in a few cases) that customers only register with Red Hat Satellie once.\n\n"
+				"To learn more about RHN Classic/Red Hat Satellite registration and technologies please consult this"
 				" Knowledge Base Article: https://access.redhat.com/kb/docs/DOC-45563")
 
 # Send Window
@@ -195,9 +195,9 @@ NO_BASE_CHANNEL            = _(
 "to this system's profile in the RHN web interface and subscribe this system "
 "to software channels via the software > software channels tab.")
 SLOTS_TITLE             = _("Service Level:")
-OK_SLOTS                = _("Depending on what RHN Satellite modules are associated with a system, you'll "
+OK_SLOTS                = _("Depending on what Red Hat Satellite modules are associated with a system, you'll "
                             "enjoy different benefits. The following are the "
-                            "RHN Satellite modules associated with this system:")
+                            "Red Hat Satellite modules associated with this system:")
 SLOTS                   =  SLOTS_TITLE + "\n" + OK_SLOTS + "\n%s"
 FAILED_SLOTS            = _("This system was unable to be associated with the "
                             "following RHN module(s) because there were "
@@ -238,7 +238,7 @@ ACTIVATION_KEY          = _("Universal default activation key detected\n"
                             "A universal default activation key was detected in your account. "
                             "This means that a set of properties (software channel subscriptions, "
                             "package installations, system group memberships, etc.) "
-                            "for your system's connection to RHN Satellite or RHN Proxy"
+                            "for your system's connection to Red Hat Satellite or RHN Proxy"
                             "have been determined by the activation key rather than your "
                             "installation number.  "
                             "You may also refer to the RHN Reference Guide, section 6.4.6 for more details "

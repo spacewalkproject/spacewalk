@@ -1,5 +1,5 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHNSAT "RHN Satellite Server" >
+<!ENTITY RHNSAT "Red Hat Satellite Server" >
 ]>
 <refentry>
 
@@ -18,17 +18,17 @@
   <RefSynopsisDiv>
     <Synopsis>
       <cmdsynopsis>
-        <command>solaris2mpm</command> 
+        <command>solaris2mpm</command>
         <arg>--tempdir=TEMPDIR</arg>
         <arg>--select-arch=SELECTARCH</arg>
         <arg rep='repeat' choice='plain'><replaceable>archive</replaceable></arg>
       </cmdsynopsis>
       <cmdsynopsis>
-        <command>solaris2mpm</command> 
+        <command>solaris2mpm</command>
         <group><arg>-h</arg> <arg>--help</arg></group>
       </cmdsynopsis>
       <cmdsynopsis>
-        <command>solaris2mpm</command> 
+        <command>solaris2mpm</command>
         <group><arg>-?</arg> <arg>--usage</arg></group>
       </cmdsynopsis>
     </Synopsis>

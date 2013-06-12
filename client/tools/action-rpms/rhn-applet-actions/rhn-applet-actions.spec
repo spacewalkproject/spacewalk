@@ -1,4 +1,4 @@
-Summary: Scheduled actions concerning the RHN Applet
+Summary: Scheduled actions concerning the Red Hat Satellite Applet
 License: GPLv2
 Group: System Environment/Base
 Source0: %{name}-%{version}.tar.gz
@@ -14,10 +14,10 @@ Requires: rhn-applet
 
 
 %description
-Scheduled actions concerning the RHN Applet, including redirection to an RHN Satellite
+Scheduled actions concerning the Red Hat Satellite Applet, including redirection to an Red Hat Satellite
 
 %prep
-%setup -q 
+%setup -q
 
 %build
 make

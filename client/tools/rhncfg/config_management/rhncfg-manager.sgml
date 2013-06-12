@@ -1,5 +1,5 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHN "Red Hat Network" >
+<!ENTITY RHN "Red Hat Network Classic" >
 <!ENTITY RHNCFGM "rhncfg-manager" >
 
 ]>
@@ -36,7 +36,7 @@
 </para>
 <para>
     This tool offers a command line alternative to the configuration management
-    features found within the RHN website (hosted or RHN Satellite), as well
+    features found within the RHN website (hosted or Red Hat Satellite), as well
     as the ability to script some or all of the related maintenance.
 </para>
 <para>
