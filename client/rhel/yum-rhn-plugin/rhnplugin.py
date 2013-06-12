@@ -67,7 +67,7 @@ def init_hook(conduit):
 
     conduit_conf = conduit.getConf()
     timeout = conduit_conf.timeout
-    
+
     if not os.geteuid()==0:
         # If non-root notify user RHN repo not accessible
         conduit.error(0, _("*Note* Red Hat Network repositories are not listed below. You must run this command as root to access RHN repositories."))
@@ -85,7 +85,7 @@ def init_hook(conduit):
                 proxy_dict = {'HTTPS' : proxy_url}
     except BadProxyConfig:
         rhn_enabled = False
-        PROXY_ERROR =  _("There was an error parsing the RHN proxy settings.") 
+        PROXY_ERROR =  _("There was an error parsing the Red Hat Proxy settings.")
         conduit.error(0, PROXY_ERROR + "\n" + RHN_DISABLED)
         return 
 
