@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.46
+Version:        5.4.47
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -151,6 +151,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 5.4.47-1
+- rebranding RHN Satellite to Red Hat Satellite in client stuff
+
 * Fri May 03 2013 Tomas Lestach <tlestach@redhat.com> 5.4.46-1
 - 915287 - python 2.4 does not know 'exit'
 - 915287 - define a utf8_encode wrapper
