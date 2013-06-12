@@ -137,7 +137,7 @@ Generate and maintain SSL keys, certificates and deployment RPMs.
             generated.</para>
 
             <para>The web server SSL key and certificate are used solely by the
-            web application server (apache on an RHN Proxy or Satellite Server
+            web application server (apache on an Red Hat Proxy or Satellite Server
             for example).</para>
 
             </listitem>
@@ -160,7 +160,7 @@ Generate and maintain SSL keys, certificates and deployment RPMs.
                 <para>The <command>--gen-server</command> process generates an
                 RPM that contains the <emphasis>server.key</emphasis> and
                 <emphasis>server.crt</emphasis> files needed to secure your RHN
-                server (Red Hat Satellite or RHN Proxy). It needs to be installed
+                server (Red Hat Satellite or Red Hat Proxy). It needs to be installed
                 on the appropriate server. That server then needs to have it's
                 <emphasis>httpd</emphasis> processes restarted
                 <command>/sbin/service httpd restart</command>.</para>
@@ -193,7 +193,7 @@ Generate and maintain SSL keys, certificates and deployment RPMs.
             <para>generate a web server's SSL private key: <command>--gen-server --key-only <replaceable>...</replaceable></command></para>
             <para>generate a web server's SSL certificate request: <command>--gen-server --cert-req-only <replaceable>...</replaceable></command></para>
             <para>generate/sign a web server's SSL certificate: <command>--gen-server --cert-only <replaceable>...</replaceable></command></para>
-            <para>generate a web server's private RPM (and tar archive used for RHN Proxy installations): <command>--gen-server --rpm-only <replaceable>...</replaceable></command></para>
+            <para>generate a web server's private RPM (and tar archive used for Red Hat Proxy installations): <command>--gen-server --rpm-only <replaceable>...</replaceable></command></para>
 
             </listitem>
         </varlistentry></variablelist>
@@ -563,7 +563,7 @@ Generate and maintain SSL keys, certificates and deployment RPMs.
                 <listitem>
                     <para>(rarely changed) name of archive (tarball) of the web
                     server's SSL key set and CA SSL public certificate that is
-                    used solely by the hosted RHN Proxy installation
+                    used solely by the hosted Red Hat Proxy installation
                     routines (the base filename, not filename-version-release.tar).</para>
                 </listitem>
                 </varlistentry>

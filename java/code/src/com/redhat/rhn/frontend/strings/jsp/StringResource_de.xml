@@ -24335,8 +24335,8 @@ für einen angegebenen Channel aufgelistet wird.</target>
         <target>@@PRODUCT_NAME@@ Installationshandbuch</target>
       </trans-unit>
       <trans-unit id="help.jsp.proxy">
-        <source>Detailed information regarding RHN Proxy server.</source>
-        <target>Detaillierte Informationen über den RHN Proxy Server.</target>
+        <source>Detailed information regarding Red Hat Proxy server.</source>
+        <target>Detaillierte Informationen über den Red Hat Proxy Server.</target>
       </trans-unit>
       <trans-unit id="help.jsp.proxy.title">
         <source>Proxy Guide</source>

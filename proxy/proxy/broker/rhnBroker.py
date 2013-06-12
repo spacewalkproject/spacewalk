@@ -44,7 +44,7 @@ _PROXY_VERSION = '5.5.0' # HISTORY: '0.9.7', '3.2.0', '3.5.0', '3.6.0', '4.1.0',
 
 
 class BrokerHandler(SharedHandler):
-    """ RHN Proxy broker specific handler code called by rhnApache. 
+    """ Red Hat Proxy broker specific handler code called by rhnApache. 
 
         Workflow is:
         Client -> Apache:Broker -> Squid -> Apache:Redirect -> Satellite
@@ -235,18 +235,18 @@ class BrokerHandler(SharedHandler):
 
             # Expired/invalid auth token; go through the loop once again
             if error == '1003': # invalid token
-                msg = "RHN Proxy Session Token INVALID -- bad!"
+                msg = "Red Hat Proxy Session Token INVALID -- bad!"
                 log_error(msg)
                 log_debug(0, msg)
             elif error == '1004':
                 log_debug(1,
-                    "RHN Proxy Session Token expired, acquiring new one.")
+                    "Red Hat Proxy Session Token expired, acquiring new one.")
             else: # this should never happen.
-                msg = "RHN Proxy login failed, error code is %s" % error
+                msg = "Red Hat Proxy login failed, error code is %s" % error
                 log_error(msg)
                 log_debug(0, msg)
                 raise rhnFault(1000,
-                  _("RHN Proxy error (issues with proxy login). "
+                  _("Red Hat Proxy error (issues with proxy login). "
                     "Please contact your system administrator."))
 
             # Forced refresh of the proxy token
@@ -255,7 +255,7 @@ class BrokerHandler(SharedHandler):
             # The token could not be aquired
             log_debug(0, "Unable to acquire proxy authentication token")
             raise rhnFault(1000,
-              _("RHN Proxy error (unable to acquire proxy auth token). "
+              _("Red Hat Proxy error (unable to acquire proxy auth token). "
                 "Please contact your system administrator."))
 
         # Support for yum byte-range
@@ -443,7 +443,7 @@ class BrokerHandler(SharedHandler):
         f = rep.get_function(funct)
         if not f:
             raise rhnFault(1000,
-                _("RHN Proxy configuration error: invalid function %s") % funct)
+                _("Red Hat Proxy configuration error: invalid function %s") % funct)
 
         log_debug(3, "Calling %s(%s)" % (funct, params))
         if params is None:

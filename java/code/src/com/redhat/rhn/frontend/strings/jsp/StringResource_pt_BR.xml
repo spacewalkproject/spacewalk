@@ -24331,8 +24331,8 @@ given channel.</source>
         <target>Guia de Instalação do @@PRODUCT_NAME@@</target>
       </trans-unit>
       <trans-unit id="help.jsp.proxy">
-        <source>Detailed information regarding RHN Proxy server.</source>
-        <target>Informações detalhadas a respeito do RHN Proxy server</target>
+        <source>Detailed information regarding Red Hat Proxy server.</source>
+        <target>Informações detalhadas a respeito do Red Hat Proxy server</target>
       </trans-unit>
       <trans-unit id="help.jsp.proxy.title">
         <source>Proxy Guide</source>

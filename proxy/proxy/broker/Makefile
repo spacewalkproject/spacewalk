@@ -1,4 +1,4 @@
-# Makefile for the apacheServer.py for RHN Proxy Server.
+# Makefile for the apacheServer.py for Red Hat Proxy Server.
 #
 # $Id: Makefile,v 1.18 2004/04/07 18:43:34 taw Exp $
 

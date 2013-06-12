@@ -20,8 +20,8 @@
 
     <div class="page-summary">
       <p>
-        Below is a list of the RHN Proxy servers this system connects
-        through to reach the primary RHN server.  The RHN Proxy the
+        Below is a list of the Red Hat Proxy servers this system connects
+        through to reach the primary Red Hat Satellite server.  The Red Hat Proxy the
         system connects directly to, if any, is listed first on this
         list.
       </p>
@@ -37,13 +37,13 @@
 	<var name="cfam_id" />
       </formvars>
 
-      <column name="RHN Proxy Order" label="position" width="10%" />
+      <column name="Red Hat Proxy Order" label="position" width="10%" />
       <column name="Hostname" label="hostname" align="left">
 	<url>/rhn/systems/details/Overview.do?sid={column:id}</url>
       </column>
       <column name="Entitlement" label="entitlement_level" width="5%"/>
 
-      <empty_list_message>This system connects directly and not through an RHN Proxy.</empty_list_message>
+      <empty_list_message>This system connects directly and not through an Red Hat Proxy.</empty_list_message>
     </rhn-listview>
 
   </grail-canvas-template>

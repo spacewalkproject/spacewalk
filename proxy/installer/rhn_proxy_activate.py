@@ -12,8 +12,8 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 #
-""" Activate an RHN Proxy 3.x ...not the executable
-    (original script can activate an RHN Proxy version 1.1 to 3.x)
+""" Activate an Red Hat Proxy 3.x ...not the executable
+    (original script can activate an Red Hat Proxy version 1.1 to 3.x)
     USAGE: ./rhn-proxy-activate
 
     Author: Todd Warner <taw@redhat.com>
@@ -139,17 +139,17 @@ def _getActivationError(e):
                        "available in your RHN account.")
         errorCode = 5
     elif e.faultString.find('proxy_no_channel_entitlements') != -1:
-        errorString = ("no RHN Proxy entitlements available. There must be "
-                       "at least one free RHN Proxy entitlement "
-                       "available in your RHN account.")
+        errorString = ("no Red Hat Proxy entitlements available. There must be "
+                       "at least one free Red Hat Proxy entitlement "
+                       "available in your Red Hat Satellite account.")
         errorCode = 6
     elif e.faultString.find('proxy_no_proxy_child_channel') != -1:
-        errorString = ("no RHN Proxy entitlements available for this "
+        errorString = ("no Red Hat Proxy entitlements available for this "
                        "server's version (or requested version) of Red Hat "
                        "Enterprise Linux.")
         errorCode = 7
     elif e.faultString.find('proxy_not_activated') != -1:
-        errorString = "this server not an activated RHN Proxy yet."
+        errorString = "this server not an activated Red Hat Proxy yet."
         errorCode = 8
     else:
         errorString = "unknown error - %s" % str(e)
@@ -290,7 +290,7 @@ def _deactivateProxy_api_v3_x(options):
     else:
         errorCode = 0
         if not options.quiet:
-            sys.stdout.write("RHN Proxy successfully deactivated.\n")
+            sys.stdout.write("Red Hat Proxy successfully deactivated.\n")
     return (errorCode, errorString)
 
 def _activateProxy_api_v3_x(options):
@@ -327,7 +327,7 @@ def _activateProxy_api_v3_x(options):
     else:
         errorCode = 0
         if not options.quiet:
-            sys.stdout.write("RHN Proxy successfully activated.\n")
+            sys.stdout.write("Red Hat Proxy successfully activated.\n")
     return (errorCode, errorString)
 
 def createMonitoringScout(options):
@@ -376,7 +376,7 @@ def activateProxy(options):
     if errorCode != 0:
         if not errorString:
             errorString = ("An unknown error occured. Consult with your Red Hat representative.\n")
-        sys.stderr.write("\nThere was a problem activating the RHN Proxy entitlement:\n%s\n" % errorString)
+        sys.stderr.write("\nThere was a problem activating the Red Hat Proxy entitlement:\n%s\n" % errorString)
         sys.exit(abs(errorCode))
         
 def listAvailableProxyChannels(options):
@@ -430,7 +430,7 @@ def processCommandline():
         Option('--no-ssl',          action='store_true',
                 help='turn off SSL (not advisable), default is on.'),
         Option('--version',         action='store',     default=defaultVersion,
-                help='which X.Y version of the RHN Proxy are you upgrading to?' +
+                help='which X.Y version of the Red Hat Proxy are you upgrading to?' +
                      ' Default is your current proxy version ('+defaultVersion+')'),
         Option('-m', '--enable-monitoring', action='store_true',
                 help='enable MonitoringScout on this proxy.'),

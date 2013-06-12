@@ -44,7 +44,7 @@ def getComponentType(req):
     """ 
         Are we a 'proxy.broker' or a 'proxy.redirect'.
     
-        Checks to see if the last visited RHN Proxy was itself. If so, we
+        Checks to see if the last visited Red Hat Proxy was itself. If so, we
         are a 'proxy.redirect'. If not, then we must be a 'proxy.broker'.
     """
 

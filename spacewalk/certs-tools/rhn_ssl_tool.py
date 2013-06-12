@@ -783,7 +783,7 @@ Make the public CA certficate publically available:
 
 
 def genProxyServerTarball_dependencies(d):
-    """ dependency check for the step that generates the RHN Proxy Server's
+    """ dependency check for the step that generates the Red Hat Proxy Server's
         tar archive containing its SSL key set + CA certificate.
     """
 
@@ -841,7 +841,7 @@ def getTarballFilename(d, version='1.0', release='1'):
 
 
 def genProxyServerTarball(d, version='1.0', release='1', verbosity=0):
-    """ generates the RHN Proxy Server's tar archive containing its
+    """ generates the Red Hat Proxy Server's tar archive containing its
         SSL key set + CA certificate
     """
 
@@ -868,7 +868,7 @@ def genProxyServerTarball(d, version='1.0', release='1', verbosity=0):
 
     if verbosity >= 0:
         print """
-The most current RHN Proxy Server installation process against RHN hosted
+The most current Red Hat Proxy Server installation process against RHN hosted
 requires the upload of an SSL tar archive that contains the CA SSL public
 certificate and the web server's key set.
 
@@ -1089,7 +1089,7 @@ Generating web server's SSL key pair/set RPM:
 
     os.chmod('%s.noarch.rpm' % serverRpmName, 0600)
 
-    # generic the tarball necessary for RHN Proxy against hosted installations
+    # generic the tarball necessary for Red Hat Proxy against hosted installations
     tarballFilepath = genProxyServerTarball(d, version=ver, release=rel,
                                             verbosity=verbosity)
 

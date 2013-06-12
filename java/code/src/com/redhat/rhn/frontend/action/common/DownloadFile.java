@@ -400,7 +400,7 @@ public class DownloadFile extends DownloadAction {
             KickstartHelper helper = new KickstartHelper(request);
             if (helper.isProxyRequest()) {
                 // Search/replacing all instances of cobbler host with host
-                // we pass in, for use with rhn proxy.
+                // we pass in, for use with Red Hat Proxy.
                 output = output.replaceAll(ConfigDefaults.get().getCobblerHost(),
                     helper.getForwardedHost());
             }

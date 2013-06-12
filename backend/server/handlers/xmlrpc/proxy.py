@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 # system module import
@@ -40,7 +40,7 @@ class rhnProxyHandler(rhnHandler):
             we need to check additionally if this system_id is entitled for
             proxy functionality.
         """
-        log_debug(3)        
+        log_debug(3)
         server = rhnHandler.auth_system(self, system_id)
         # if it did not blow up, we have a valid server. Check proxy
         # entitlement.
@@ -57,7 +57,7 @@ class rhnProxyHandler(rhnHandler):
             # we require entitlement for this functionality
             log_error("Server not entitled for Proxy", self.server_id)
             raise rhnFault(1002, _(
-                'RHN Proxy service not enabled for server profile: "%s"')
+                'Red Hat Proxy service not enabled for server profile: "%s"')
                            % server.server["name"])
         # we're fine...
         return server
@@ -82,11 +82,11 @@ class rhnProxyHandler(rhnHandler):
         log_debug(4, "Client auth OK")
         # We checked it already, so we're sure it's there
         client_id = dict['X-RHN-Server-Id']
-        
+
         server = rhnServer.search(client_id)
         if not server:
             raise rhnFault(8, _("This server ID no longer exists"))
-        # XXX: should we check if the username still has access to it? 
+        # XXX: should we check if the username still has access to it?
         # probably not, because there is no known good way we can
         # update the server system_id on the client side when
         # permissions change... Damn it. --gafton
@@ -95,7 +95,7 @@ class rhnProxyHandler(rhnHandler):
         self.user = dict['X-RHN-Auth-User-Id']
         return server
 
-    
+
 class Proxy(rhnProxyHandler):
     """ this is the XML-RPC receiver for proxy calls """
     def __init__(self):
@@ -108,14 +108,14 @@ class Proxy(rhnProxyHandler):
         """ Validates the client request for a source package download """
         log_debug(3, package, channel)
         server = self.auth_client(auth_token)
-        return rhnPackage.package_source_in_channel(self.server_id, 
+        return rhnPackage.package_source_in_channel(self.server_id,
             package, channel)
 
     def login(self, system_id):
         """ Login routine for the proxy
 
             Return a formatted string of session token information as regards
-            an RHN Proxy.  Also sets this information in the headers.
+            an Red Hat Proxy.  Also sets this information in the headers.
 
             NOTE: design description for the auth token format and how it is
                is used is well documented in the proxy/broker/rhnProxyAuth.py
@@ -124,7 +124,7 @@ class Proxy(rhnProxyHandler):
         log_debug(5, system_id)
         # Authenticate. We need the user record to be able to generate
         # auth tokens
-        self.load_user = 1        
+        self.load_user = 1
         self.auth_system(system_id)
         # log the entry
         log_debug(1, self.server_id)
@@ -132,7 +132,7 @@ class Proxy(rhnProxyHandler):
         expireOffset = str(CFG.PROXY_AUTH_TIMEOUT)
         signature = computeSignature(CFG.SECRET_KEY, self.server_id, self.user,
                                      rhnServerTime, expireOffset)
-        
+
         token = '%s:%s:%s:%s:%s' % (self.server_id, self.user, rhnServerTime,
                                     expireOffset, signature)
 

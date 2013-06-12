@@ -174,17 +174,17 @@ maximum membership exceeded"),
 
      800: _("System Name cannot be less than 3 characters"),
 
-     # 1000-1999: RHN Proxy specific errors:
-     # issued by an RHN Proxy to the client
-     1000: _("RHN Proxy error."),
-     1001: _("RHN Proxy unable to login."),
+     # 1000-1999: Red Hat Proxy specific errors:
+     # issued by an Red Hat Proxy to the client
+     1000: _("Red Hat Proxy error."),
+     1001: _("Red Hat Proxy unable to login."),
      # issued by an RHN Server/Satellite to the proxy
      1002: _("""
-     RHN Proxy system ID does not match an RHN Proxy Server
+     Red Hat Proxy system ID does not match an Red Hat Proxy Server
      in the database.
      """),
-     1003: _("RHN Proxy session token is invalid."),
-     1004: _("RHN Proxy session token has expired."),
+     1003: _("Red Hat Proxy session token is invalid."),
+     1004: _("Red Hat Proxy session token has expired."),
 
 
      # 2000-2999: Red Hat Satellite specific errors:

@@ -18,9 +18,9 @@
 #
 # $Id: rhn_package_manager.py,v 1.83 2005/06/15 18:58:11 taw Exp $
 """\
-Management tool for the RHN proxy.
+Management tool for the Red Hat proxy.
 
-This script performs various management operations on the RHN proxy:
+This script performs various management operations on the Red Hat proxy:
 - Creates the local directory structure needed to store local packages
 - Uploads packages from a given directory to the RHN servers
 - Optionally, once the packages are uploaded, they can be linked to (one or

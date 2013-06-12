@@ -1,6 +1,6 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHNPROXY "RHN Proxy Server" >
-<!ENTITY NAME "RHN Proxy initialization script" >
+<!ENTITY RHNPROXY "Red Hat Proxy Server" >
+<!ENTITY NAME "Red Hat Proxy initialization script" >
 <!ENTITY COMMAND "rhn-proxy" >
 
 ]>

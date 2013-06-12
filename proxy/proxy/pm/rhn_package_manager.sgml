@@ -1,6 +1,6 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY PROXY "RHN Proxy Server" -- use this to be consistent -->
-<!ENTITY RHNPM "RHN Package Manager" -- use this to be consistent -->
+<!ENTITY PROXY "Red Hat Proxy Server" -- use this to be consistent -->
+<!ENTITY RHNPM "Red Hat Package Manager" -- use this to be consistent -->
 
 ]>
 <refentry>
@@ -13,7 +13,7 @@
 <RefNameDiv>
 <RefName><command>rhn_package_manager</command></RefName>
 <RefPurpose>
-Manages RPM packages for the RHN proxy
+Manages RPM packages for the Red Hat Proxy
 </RefPurpose>
 </RefNameDiv>
 

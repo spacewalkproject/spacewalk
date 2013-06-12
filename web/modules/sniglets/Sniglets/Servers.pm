@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 use strict;
@@ -162,9 +162,9 @@ sub proxy_entitlement_form {
 
     $subs{version} = $version;
 
-  	$subs{proxy_message} = "This machine is currently a licensed RHN Proxy (v$version).";
+  	$subs{proxy_message} = "This machine is currently a licensed Red Hat Proxy (v$version).";
   } else {
-    $subs{proxy_message} = "<div class=\"site-alert\">WebUI RHN Proxy installer is obsoleted since version 5.3. Please use command line installer from package spacewalk-proxy-installer.</div>";
+    $subs{proxy_message} = "<div class=\"site-alert\">WebUI Red Hat Proxy installer is obsoleted since version 5.3. Please use command line installer from package spacewalk-proxy-installer.</div>";
   }
 
   $block = PXT::Utils->perform_substitutions($block, \%subs);

@@ -255,7 +255,7 @@ JABBERD_DIR=/etc/jabberd
 SQUID_DIR=/etc/squid
 
 if [ ! -r $SYSCONFIG_DIR/systemid ]; then
-	echo ERROR: RHN Proxy does not appear to be registered
+	echo ERROR: Red Hat Proxy does not appear to be registered
 	exit 2
 fi
 

@@ -1,4 +1,4 @@
-# RHN Proxy Server authentication manager.
+# Red Hat Proxy Server authentication manager.
 #
 # Copyright (c) 2008--2012 Red Hat, Inc.
 #
@@ -74,7 +74,7 @@ class ProxyAuth:
         if not os.access(ProxyAuth.__systemid_filename, os.R_OK):
             log_error("unable to access %s" % ProxyAuth.__systemid_filename)
             raise rhnFault(1000,
-                      _("RHN Proxy error (RHN Proxy systemid has wrong permissions?). "
+                      _("Red Hat Proxy error (Red Hat Proxy systemid has wrong permissions?). "
                         "Please contact your system administrator."))
 
         mtime = None
@@ -83,7 +83,7 @@ class ProxyAuth:
         except IOError, e:
             log_error("unable to stat %s: %s" % (ProxyAuth.__systemid_filename, repr(e)))
             raise rhnFault(1000,
-                      _("RHN Proxy error (RHN Proxy systemid has wrong permissions?). "
+                      _("Red Hat Proxy error (Red Hat Proxy systemid has wrong permissions?). "
                         "Please contact your system administrator.")), None, sys.exc_info()[2]
 
         if not self.__systemid_mtime:
@@ -100,7 +100,7 @@ class ProxyAuth:
         except IOError, e:
             log_error("unable to read %s" % ProxyAuth.__systemid_filename)
             raise rhnFault(1000,
-                      _("RHN Proxy error (RHN Proxy systemid has wrong permissions?). "
+                      _("Red Hat Proxy error (Red Hat Proxy systemid has wrong permissions?). "
                         "Please contact your system administrator.")), None, sys.exc_info()[2]
 
         # get serverid
@@ -155,7 +155,7 @@ problems, isn't running, or the token is somehow corrupt.
 """) % self.__serverid
             Traceback("ProxyAuth.set_cached_token", extra=text)
             raise rhnFault(1000,
-                      _("RHN Proxy error (auth caching issue). "
+                      _("Red Hat Proxy error (auth caching issue). "
                         "Please contact your system administrator.")), None, sys.exc_info()[2]
         log_debug(4, "successfully returning")
         return token
@@ -198,16 +198,16 @@ problems, isn't running, or the token is somehow corrupt.
                SIG = signature
                H   = hostname (important later)
         
-            Within this function within the RHN Proxy Broker we also tag on
+            Within this function within the Red Hat Proxy Broker we also tag on
             the hostname to the end of the token. The token as described above
             is enough for authentication purposes, but we need a to identify
-            the exact hostname (as the RHN Proxy sees it). So now the token
+            the exact hostname (as the Red Hat Proxy sees it). So now the token
             becomes (token:hostname):
                'S:U:ST:EO:SIG:H'
         
             DESIGN NOTES:  what is X-RHN-Proxy-Auth?
             -------------------------------------------
-            This is where we use the auth token beyond RHN Proxy login
+            This is where we use the auth token beyond Red Hat Proxy login
             purposes. This a header used to track request routes through
             a hierarchy of RHN Proxies.
         
@@ -292,12 +292,12 @@ problems, isn't running, or the token is somehow corrupt.
                     # coming through")
                     raise rhnFault(e.faultCode, e.faultString), None, sys.exc_info()[2]
                 # ok... it's some other fault
-                Traceback("ProxyAuth.login (Fault) - RHN Proxy not "
+                Traceback("ProxyAuth.login (Fault) - Red hat Proxy not "
                           "able to log in.")
                 # And raise a Proxy Error - the server made its point loud and
                 # clear
                 raise rhnFault(1000,
-                          _("RHN Proxy error (during proxy login). "
+                          _("Red Hat Proxy error (during proxy login). "
                             "Please contact your system administrator.")), None, sys.exc_info()[2]
             except Exception, e:
                 token = None
@@ -312,11 +312,11 @@ problems, isn't running, or the token is somehow corrupt.
             if error:
                 if error[0] in ('xmlrpclib.ProtocolError', 'socket.error', 'socket'):
                     raise rhnFault(1000,
-                                _("RHN Proxy error (error: %s). "
+                                _("Red Hat Proxy error (error: %s). "
                                   "Please contact your system administrator.") % error[0])
                 if error[0] in ('rhn.SSL.SSL.Error', 'socket.sslerror'):
                     raise rhnFault(1000,
-                                _("RHN Proxy error (SSL issues? Error: %s). "
+                                _("Red Hat Proxy error (SSL issues? Error: %s). "
                                   "Please contact your system administrator.") % error[0])
                 else:
                     raise rhnFault(1002, err_text='%s' % e)
@@ -358,9 +358,9 @@ problems, isn't running, or the token is somehow corrupt.
             if not os.access(CFG.CA_CHAIN, os.R_OK):
                 log_error('ERROR: missing or cannot access (for ca_chain): %s' % CFG.CA_CHAIN)
                 raise rhnFault(1000,
-                          _("RHN Proxy error (file access issues). "
+                          _("Red Hat Proxy error (file access issues). "
                             "Please contact your system administrator. "
-                            "Please refer to RHN Proxy logs."))
+                            "Please refer to Red Hat Proxy logs."))
             serverObj.add_trusted_cert(CFG.CA_CHAIN)
         serverObj.add_header('X-RHN-Client-Version', 2)
         return serverObj

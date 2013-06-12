@@ -16,7 +16,7 @@
 <RefPurpose>
     Use the WebUI to activate your &RHNPROXY; product. This command
     should only be used under the direction of Red Hat personnel.
-    This script allows an admin to activate an RHN Proxy via the
+    This script allows an admin to activate an Red Hat Proxy via the
     commandline.
 </RefPurpose>
 </RefNameDiv>
@@ -60,7 +60,7 @@
     should only be used under the direction of Red Hat personnel.
     The &SCRIPTNAME; (<emphasis>&SCRIPTCOMMAND;</emphasis>) is a
     utility that will activate an &RHNPROXY; from the commandline of
-    the RHN Proxy itself.
+    the Red Hat Proxy itself.
 </para>
 <para>
     Without any command specified, this script will activate Spacewalk Proxy.
@@ -79,7 +79,7 @@
     <varlistentry>
         <term>-l, --list-available-versions</term>
         <listitem>
-            <para>List available versions of RHN Proxy on parent.</para>
+            <para>List available versions of Red Hat Proxy on parent.</para>
         </listitem>
     </varlistentry>
 </variablelist>

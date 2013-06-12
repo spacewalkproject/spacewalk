@@ -18580,7 +18580,7 @@ given channel.</source>
         <source>@@PRODUCT_NAME@@ Installation Guide</source>
       </trans-unit>
       <trans-unit id="help.jsp.proxy">
-        <source>Detailed information regarding RHN Proxy server.</source>
+        <source>Detailed information regarding Red Hat Proxy server.</source>
       </trans-unit>
       <trans-unit id="help.jsp.proxy.title">
         <source>Proxy Guide</source>

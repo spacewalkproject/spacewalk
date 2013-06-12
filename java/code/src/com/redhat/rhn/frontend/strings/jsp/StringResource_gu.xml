@@ -20113,8 +20113,8 @@ given channel.</source>
         <target>@@PRODUCT_NAME@@ સ્થાપન માર્ગદર્શિકા</target>
       </trans-unit>
       <trans-unit id="help.jsp.proxy">
-        <source>Detailed information regarding RHN Proxy server.</source>
-        <target>RHN પ્રોક્સી સર્વરને સંબંધિત વિગતવાર જાણકારી.</target>
+        <source>Detailed information regarding Red Hat Proxy server.</source>
+        <target>Red Hat પ્રોક્સી સર્વરને સંબંધિત વિગતવાર જાણકારી.</target>
       </trans-unit>
       <trans-unit id="help.jsp.proxy.title">
         <source>Proxy Guide</source>

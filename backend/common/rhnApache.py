@@ -13,7 +13,7 @@
 # in this software or its documentation.
 #
 # Code for the shared apache handler class inherited by the
-# RHN proxy and server.
+# Red Hat Proxy and server.
 #
 
 # system module imports
@@ -124,7 +124,7 @@ class rhnApache:
         return apache.OK
 
     def _set_proxy_info(self, req):
-        """ RHN Proxy stuff. """
+        """ Red Hat Proxy stuff. """
         proxyVersion = 'X-RHN-Proxy-Version'
         if req.headers_in.has_key(proxyVersion):
             self.proxyVersion = req.headers_in[proxyVersion]

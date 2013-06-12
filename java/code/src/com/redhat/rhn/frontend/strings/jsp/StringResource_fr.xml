@@ -24331,7 +24331,7 @@ fois pour un canal donné.</target>
         <target>Guide d'installation de @@PRODUCT_NAME@@</target>
       </trans-unit>
       <trans-unit id="help.jsp.proxy">
-        <source>Detailed information regarding RHN Proxy server.</source>
+        <source>Detailed information regarding Red Hat Proxy server.</source>
         <target>Informations détaillées sur le serveur proxy @@PRODUCT_NAME@@</target>
       </trans-unit>
       <trans-unit id="help.jsp.proxy.title">

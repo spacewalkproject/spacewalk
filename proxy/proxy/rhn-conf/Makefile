@@ -1,4 +1,4 @@
-# Makefile for installation of the RHN proxy configuration files
+# Makefile for installation of the Red Hat Proxy configuration files
 #
 # $Id: Makefile,v 1.2 2002/08/20 22:40:05 misa Exp $
 

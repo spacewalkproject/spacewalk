@@ -741,7 +741,7 @@ public class KickstartFormatter {
         }
 
         String up2datehost = REDHAT_MGMT_SERVER;
-        //check if server going through RHN Proxy, if so, register through proxy instead
+        //check if server going through Red Hat Proxy, if so, register through proxy instead
         if (this.session != null &&
                 this.session.getSystemRhnHost() != null &&
                 !this.session.getSystemRhnHost().equals("unknown")) {

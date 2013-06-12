@@ -48,7 +48,7 @@ from spacewalk.common.checksum  import getFileChecksum
 PRODUCT_NAME = 'RHN Server'
 if os.path.exists('/usr/share/rhn/proxy') \
   or os.path.exists('/var/www/rhns/proxy'):
-    PRODUCT_NAME = 'RHN Proxy Server'
+    PRODUCT_NAME = 'Red Hat Proxy Server'
 elif os.path.exists('/usr/share/rhn/server') \
   or os.path.exists('/var/www/rhns/server'):
     PRODUCT_NAME = 'RHN Satellite Server'

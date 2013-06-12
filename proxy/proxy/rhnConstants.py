@@ -13,12 +13,12 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 ##
-# rhnDefines.py - Constants used throughout the RHN Proxy.
+# rhnDefines.py - Constants used throughout the Red Hat Proxy.
 #-----------------------------------------------------------------------------
 # $Id: rhnConstants.py,v 1.4 2006/04/03 15:58:17 pvetere Exp $
 #
 
-"""Constants used by the RHN Proxy"""
+"""Constants used by the Red Hat Proxy"""
 
 # HTTP Headers
 

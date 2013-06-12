@@ -1,5 +1,5 @@
 #!/usr/bin/python -u
-""" activate an RHN Proxy Server v3.6+
+""" activate an Red Hat Proxy Server v3.6+
 
     Copyright (c) 2004 Red Hat, Inc.
     All rights reserved.

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Module for storing client route through proxies
@@ -55,7 +55,7 @@ def store_client_route(server_id):
         for token in tokens:
             token, hostname = apacheAuth.splitProxyAuthToken(token)
             if hostname is None:
-                log_debug(3, "NOTE: RHN Proxy v1.1 detected - route tracking is unsupported")
+                log_debug(3, "NOTE: Red Hat Proxy v1.1 detected - route tracking is unsupported")
                 newRoute = []
                 break
             newRoute.append((token[0], hostname))

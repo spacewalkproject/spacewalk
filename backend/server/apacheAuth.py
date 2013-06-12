@@ -36,7 +36,7 @@ def splitProxyAuthToken(token):
         hostname = token[-1]
         token = token[:-1]
     else:
-        # RHN Proxy v1.1 (route tracking unsupported)
+        # Red Hat Proxy v1.1 (route tracking unsupported)
         hostname = None
     return token, hostname
 

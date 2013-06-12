@@ -251,7 +251,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>RHN Satellite とは</target>
+        <target>@@PRODUCT_NAME@@ とは</target>
       </trans-unit>
       <trans-unit id="Account">
         <source>Account</source>

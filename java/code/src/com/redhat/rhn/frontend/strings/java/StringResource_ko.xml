@@ -2643,7 +2643,7 @@ rhn-tools 채널의 satellite 동기화를 요청하고 다시 시도해야
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
-        <target>@@PRODUCT_NAME@@과 함께 rhn-applet 사용 허용 RHN Satellite에서 rhn-applet 사용 허용</target>
+        <target>@@PRODUCT_NAME@@과 함께 rhn-applet 사용 허용 @@PRODUCT_NAME@@ 에서 rhn-applet 사용 허용</target>
       </trans-unit>
       <trans-unit id="rollback.rollback">
         <source>Rollback a transaction</source>
