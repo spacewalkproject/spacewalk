@@ -1,5 +1,5 @@
 Name:		spacewalk-oscap
-Version:	0.0.15
+Version:	0.0.16
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -47,6 +47,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 0.0.16-1
+- rebranding RHN Satellite to Red Hat Satellite in client stuff
+
 * Tue May 28 2013 Simon Lukasik <slukasik@redhat.com> 0.0.15-1
 - Precede internal error messages by xccdf_eval: prefix.
 - Submit the OpenSCAP HTML report as well.
