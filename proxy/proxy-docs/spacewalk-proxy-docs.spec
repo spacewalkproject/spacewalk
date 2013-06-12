@@ -4,7 +4,7 @@ Group: Applications/Internet
 License: Open Publication
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.10.0
+Version: 1.10.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -37,6 +37,18 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id: proxy.spec,v 1.290 2007/08/08 07:03:05 msuchy Exp $
 %changelog
+* Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.1-1
+- rebranding RHN Proxy to Red Hat Proxy
+- Bumping package versions for 1.9
+- Bumping package versions for 1.9.
+- %%defattr is not needed since rpm 4.4
+- Bumping package versions for 1.8.
+- Bumping package versions for 1.7.
+- Bumping package versions for 1.6.
+- Bumping package versions for 1.5
+- Bumping package versions for 1.4
+- Bumping package versions for 1.3.
+
 * Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
 - bumping spec files to 1.1 packages
 
