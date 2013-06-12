@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.10.4
+Version:     1.10.5
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -60,6 +60,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.5-1
+- rebrading RHN Satellite to Red Hat Satellite
+
 * Sun Apr 28 2013 Aron Parsons <aronparsons@gmail.com> 1.10.4-1
 - 947829 - spacecmd errors out when trying to add script to kickstart
 
