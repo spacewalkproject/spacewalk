@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.27
+Version: 1.10.28
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -272,6 +272,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Jun 12 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.28-1
+- rhn_web.conf is no longer part of spacewalk-base-minimal
+
 * Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.27-1
 - rebranding RHN Proxy to Red Hat Proxy
 - rebrading RHN Satellite to Red Hat Satellite
