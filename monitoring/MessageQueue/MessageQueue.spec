@@ -7,7 +7,7 @@
 %define snmp_qdir      %queue_dir/snmp
 
 Name:         MessageQueue
-Version:      3.26.8
+Version:      3.26.9
 Release:      1%{?dist}
 Summary:      Message buffer/relay system
 URL:          https://fedorahosted.org/spacewalk
@@ -74,6 +74,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 3.26.9-1
+- rebrading RHN Satellite to Red Hat Satellite
+
 * Mon Apr 22 2013 Jan Pazdziora 3.26.8-1
 - If the host lookup fails, do not hide the error.
 
