@@ -9,7 +9,7 @@ Name:         NPalert
 Summary:      NOCpulse notification system
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.127.11
+Version:      1.127.12
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -137,6 +137,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.127.12-1
+- rebrading RHN Satellite to Red Hat Satellite
+
 * Tue Mar 26 2013 Jan Pazdziora 1.127.11-1
 - Use to_timestamp instead of to_date which should bring the second precision
   to PostgreSQL.
