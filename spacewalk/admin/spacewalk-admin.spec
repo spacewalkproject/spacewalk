@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for Red Hat Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.10.5
+Version: 1.10.6
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -87,6 +87,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.6-1
+- rebrading RHN Satellite to Red Hat Satellite
+
 * Thu May 23 2013 Tomas Lestach <tlestach@redhat.com> 1.10.5-1
 - 961463 - lsof workaround for mounted NFS shares
 
