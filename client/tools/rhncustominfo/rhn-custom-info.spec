@@ -4,7 +4,7 @@ Group: Applications/System
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
-Version: 5.4.15
+Version: 5.4.16
 Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 5.4.16-1
+- rebranding RHN Satellite to Red Hat Satellite in client stuff
+
 * Tue May 21 2013 Tomas Kasparek <tkasparek@redhat.com> 5.4.15-1
 - branding clean-up of client tools
 - Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
