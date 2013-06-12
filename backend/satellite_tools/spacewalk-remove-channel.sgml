@@ -1,5 +1,5 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHNSAT "RHN Satellite Server" >
+<!ENTITY RHNSAT "Red Hat Satellite Server" >
 <!ENTITY RHNCHANRM "Spacewalk Channel Removal tool" >
 
 ]>
@@ -13,7 +13,7 @@
 <RefNameDiv>
 <RefName><command>spacewalk-remove-channel</command></RefName>
 <RefPurpose>
-Removes a channel from an RHN Satellite or Spacewalk server.
+Removes a channel from an Red Hat Satellite or Spacewalk server.
 </RefPurpose>
 </RefNameDiv>
 
@@ -47,7 +47,7 @@ Removes a channel from an RHN Satellite or Spacewalk server.
 <RefSect1><Title>Description</Title>
 <para>
     The <emphasis>spacewalk-channel-remove</emphasis> completely removes
-    channels (even Red Hat supplied ones) from a RHN Satellite or Spacewalk server.
+    channels (even Red Hat supplied ones) from a Red Hat Satellite or Spacewalk server.
 </para>
 <para>
     By default systems are not unsubscribed from the specified channel(s).  If systems

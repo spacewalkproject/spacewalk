@@ -1,5 +1,5 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHNSAT "RHN Satellite Server" >
+<!ENTITY RHNSAT "Red Hat Satellite Server" >
 <!ENTITY RHNSATACT "rhn-satellite-activate" >
 
 ]>
@@ -36,7 +36,7 @@
 </para>
 
 <para>
-    NOTE: activation generally occurs upon RHN Satellite installation. This
+    NOTE: activation generally occurs upon Red Hat Satellite installation. This
           is useful for pushing a new RHN Certificate and fixing issues related
           to account certificate issues.
 </para>
@@ -67,7 +67,7 @@
     <varlistentry>
         <term>--sanity-only</term>
         <listitem>
-            <para>confirm certificate sanity. Does not activate the RHN Satellite locally or remotely.</para>
+            <para>confirm certificate sanity. Does not activate the Red Hat Satellite locally or remotely.</para>
         </listitem>
     </varlistentry>
     <varlistentry>

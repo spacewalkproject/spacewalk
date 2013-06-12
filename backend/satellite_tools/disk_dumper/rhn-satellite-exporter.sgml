@@ -1,6 +1,6 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHNSAT "RHN Satellite Server" >
-<!ENTITY RHNSATEXPORTER "RHN Satellite Exporter" >
+<!ENTITY RHNSAT "Red Hat Satellite Server" >
+<!ENTITY RHNSATEXPORTER "Red Hat Satellite Exporter" >
 
 ]>
 <refentry>
@@ -20,7 +20,7 @@ A tool that exports satellite content into a directory in an XML format. That co
 <RefSynopsisDiv>
 <Synopsis>
     <cmdsynopsis>
-        <command>rhn-satellite-exporter</command> 
+        <command>rhn-satellite-exporter</command>
         <arg>options <replaceable>...</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>

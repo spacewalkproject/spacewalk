@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 ## language imports
@@ -182,7 +182,7 @@ class RHNCertLocalActivationException(Exception):
     "general local activate failure exception"
 
 def activateSatellite_local(options):
-    """ o validate (i.e., verify) an RHN Satellite
+    """ o validate (i.e., verify) an Red Hat Satellite
         o pushes that cert into the local database
 
         Assumptions:
@@ -460,7 +460,7 @@ def processCommandline():
         Option('--systemid',     action='store',      help='(FOR TESTING ONLY) alternative systemid path/filename. The system default is used if not specified.'),
         Option('--rhn-cert',     action='store',      help='new RHN certificate path/filename (default is %s - the saved RHN cert).' % DEFAULT_RHN_CERT_LOCATION),
         Option('--no-ssl',       action='store_true', help='(FOR TESTING ONLY) disables SSL'),
-        Option('--sanity-only',  action='store_true', help="confirm certificate sanity. Does not activate the RHN Satellite locally or remotely."),
+        Option('--sanity-only',  action='store_true', help="confirm certificate sanity. Does not activate the Red Hat Satellite locally or remotely."),
         Option('--disconnected', action='store_true', help="activate locally, but not on remote RHN servers,"),
         Option('--ignore-expiration', action='store_true', help='execute regardless of the expiration of the RHN Certificate (not recommended).'),
         Option('--ignore-version-mismatch', action='store_true', help='execute regardless of version mismatch of existing and new certificate.'),

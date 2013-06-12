@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 """ delete's certificate from database
     inserts new certificate into database
@@ -29,7 +29,7 @@ from spacewalk.server import rhnSQL
 from spacewalk.satellite_tools.satCerts import store_rhnCryptoKey
 from spacewalk.satellite_tools.satCerts import _querySelectCryptoCertInfo
 
-print "NOTE: has to be performed on an RHN Satellite or server"
+print "NOTE: has to be performed on an Red Hat Satellite or server"
 
 description = 'RHN-ORG-TRUSTED-SSL-CERT'
 

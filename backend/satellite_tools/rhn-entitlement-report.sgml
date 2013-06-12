@@ -11,7 +11,7 @@
 <RefNameDiv>
 <RefName><command>rhn-entitlement-report</command></RefName>
 <RefPurpose>
-Helper utility that report entitlement usage. 
+Helper utility that report entitlement usage.
 </RefPurpose>
 </RefNameDiv>
 
@@ -29,7 +29,7 @@ Helper utility that report entitlement usage.
     The <emphasis>rhn-entitlement-report</emphasis> is
     helper utility, that report entitlement usage. Output of this script
     can be requested by your support to quickly determine your usage of
-    RHN Satellite.
+    Red Hat Satellite.
 </para>
 <para>
     This script probably has no usage in pure Spacewalk.

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # Red Hat Network Management Satellite Incremental Synchronization Tool
 #    main function.
@@ -519,7 +519,7 @@ class Syncer:
         self._process_simple("getArchesExtraXmlStream", "additional arches")
 
     def syncCert(self):
-        "sync the RHN satellite cert if applicable (to local DB & filesystem)"
+        "sync the Red Hat Satellite cert if applicable (to local DB & filesystem)"
 
         store_cert = True
         if self.mountpoint:

@@ -34,9 +34,9 @@ templateValues = {
 # This array translates exception codes into meaningful messages
 # for the eye of the beholder
 # DOMAINS:
-#   0-999:     RHN client/client-like interaction errors
-#   1000-1999: RHN Proxy specific interaction errors
-#   2000-2999: RHN Satellite specific interation errors
+#   0-999:     Red Hat client/client-like interaction errors
+#   1000-1999: Red Hat Proxy specific interaction errors
+#   2000-2999: Red Hat Satellite specific interation errors
 
 FaultArray = {
      # 0-999: RHN client/client-like interaction errors:
@@ -187,9 +187,9 @@ maximum membership exceeded"),
      1004: _("RHN Proxy session token has expired."),
 
 
-     # 2000-2999: RHN Satellite specific errors:
-     2001: _("""
-     RHN Satellite user creation is not allowed via rhn_register;
+     # 2000-2999: Red Hat Satellite specific errors:
+     2001: _(PRODUCT_NAME + """
+      user creation is not allowed via rhn_register;
      please contact your sysadmin to have your account created.
      """),
      2004: _("""

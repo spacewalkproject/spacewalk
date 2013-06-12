@@ -1,6 +1,6 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHNSAT "RHN Satellite Server" >
-<!ENTITY RHNSYNC "RHN Satellite Incremental Synchronization Tool" >
+<!ENTITY RHNSAT "Red Hat Satellite Server" >
+<!ENTITY RHNSYNC "Red Hat Satellite Incremental Synchronization Tool" >
 
 ]>
 <refentry>
@@ -13,7 +13,7 @@
 <RefNameDiv>
 <RefName><command>satellite-sync</command></RefName>
 <RefPurpose>
-Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red Hat's RHN DB and RPM repository.
+Incrementally synchronize an Red Hat Satellite's DB data and RPM repository with Red Hat's RHN DB and RPM repository.
 </RefPurpose>
 </RefNameDiv>
 

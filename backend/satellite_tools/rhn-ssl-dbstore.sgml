@@ -1,5 +1,5 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHNSAT "RHN Satellite Server" >
+<!ENTITY RHNSAT "Red Hat Satellite Server" >
 <!ENTITY THECOMMAND "rhn-ssl-dbstore" >
 
 ]>
@@ -21,7 +21,7 @@ database so that it can be used for things such as provisioning.
 <RefSynopsisDiv>
 <Synopsis>
     <cmdsynopsis>
-        <command>&THECOMMAND;</command> 
+        <command>&THECOMMAND;</command>
         <arg>--ca-cert=<replaceable>CA_CERTIFICATE</replaceable></arg>
         <arg>--label=<replaceable>INTERNAL_LABEL</replaceable></arg>
         <arg>-v | --verbose</arg>
