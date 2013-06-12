@@ -270,6 +270,19 @@ class Backend:
             raise ValueError, "No user is created"
         return rows[0]['id']
 
+    def lookupOrgMap(self, master_label):
+        sql = "select imo.master_org_id, imo.master_org_name, imo.local_org_id
+                 from rhnISSMasterOrgs imo,
+                      rhnISSMaster im,
+                where im.id = imo.master_id
+                  and im.label = :master_label"
+        h = self.dbmodule.prepare(sql)
+        h.execute(master_label=master_label)
+        rows = h.fetchall_dict()
+        if not rows:
+            return []
+        return rows
+
     def lookupChannels(self, hash):
         if not hash:
             return
@@ -582,6 +595,13 @@ class Backend:
         self.__processObjectCollection(arches, 'rhnCPUArch',
             uploadForce=4, ignoreUploaded=1, severityLimit=4)
 
+    def processMasterOrgs(self, orgs):
+        self.__processObjectCollection(orgs, 'rhnISSMasterOrgs',
+            uploadForce=4, ignoreUploaded=1, severityLimit=4)
+
+    def processOrgs(self, orgs):
+        self.__processObjectCollection(orgs, 'web_customer',
+            uploadForce=4, ignoreUploaded=1, severityLimit=4)
 
     def processServerPackageArchCompatMap(self, entries):
         self.__populateTable('rhnServerPackageArchCompat', entries,

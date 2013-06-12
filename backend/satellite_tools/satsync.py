@@ -103,6 +103,7 @@ class Runner:
         'download-source-packages'  : [''],
         'download-kickstarts'       : [''],
         'arches'                    : [''], #5/26/05 wregglej 156079 Added arches to precedence list.
+        'orgs'                      : [''],
     }
 
     # The step hierarchy. We need access to it both for command line
@@ -110,6 +111,7 @@ class Runner:
     step_hierarchy = [
         'channel-families',
         'arches',
+        'orgs',
         'channels',
         'short',
         'download-packages',
@@ -349,6 +351,9 @@ class Runner:
     def _step_kickstarts(self):
         self.syncer.import_kickstarts()
 
+    def _step_orgs(self):
+        self.syncer.import_orgs()
+
 def sendMail(forceEmail=0):
     """ Send email summary """
     if forceEmail or (OPTIONS is not None and OPTIONS.email):
@@ -517,6 +522,9 @@ class Syncer:
     def processArches(self):
         self._process_simple("getArchesXmlStream", "arches")
         self._process_simple("getArchesExtraXmlStream", "additional arches")
+
+    def import_orgs(self):
+        self._process_simple("getOrgsXmlStream", "orgs")
 
     def syncCert(self):
         "sync the Red Hat Satellite cert if applicable (to local DB & filesystem)"
@@ -2098,6 +2106,8 @@ def processCommandline():
             help=_('alternative email address(es) for sync output (--email option)')),
         Option(     '--keep-rpms',      action='store_true',
             help=_('do not remove rpms when importing from local dump')),
+        Option(     '--create-missing-orgs',      action='store_true',
+            help=_('create orgs on this Satellite to match orgs exported by the master Satellite (use with --mount-point or --iss-parent only)')),
 
         # DEFERRED:
         #Option(     '--source-packages',     action='store_true', help='sync source rpms/metadata as well.'),
@@ -2242,6 +2252,7 @@ def processCommandline():
                     "force_all_packages" : 'force-all-packages',
                     "force_all_errata"   : 'force-all-errata',
                     'no_ssl'             : 'no-ssl',
+                    "create_missing_orgs": 'create-missing-orgs',
                     }
 
     for oa in otherActions.keys():
@@ -2249,6 +2260,12 @@ def processCommandline():
             actionDict[otherActions[oa]] = 1
         else:
             actionDict[otherActions[oa]] = 0
+
+    if actionDict['create-missing-orgs'] and not (CFG.ISS_PARENT
+            or OPTIONS.mount_point):
+        msg = _("ERROR: Org syncing is only available during an Inter Satellite Sync or import of a channel dump created by another Satellite.")
+        log2stderr(-1, msg, cleanYN=1)
+        sys.exit(28)
 
     if actionDict['no-kickstarts']:
         actionDict['kickstarts'] = 0
@@ -2333,7 +2350,8 @@ def processCommandline():
               _("  24 - no such file"),
               _("  25 - no such directory"),
               _("  26 - mount_point does not exist"),
-              _("  27 - No such org"),]
+              _("  27 - No such org"),
+              _("  28 - error: --create-missing-orgs requires --iss-parent"),]
         log(-1, msg, 1, 1, sys.stderr)
         sys.exit(0) 
 

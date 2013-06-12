@@ -198,14 +198,21 @@ class SatelliteDumper(BaseDumper):
     def set_iterator(self):
         return ArrayIterator(self._dumpers)
 
+class _OrgTrustDumper(BaseDumper):
+    tag_name = 'rhn-org-trusts'
+
+    def dump_subelement(self, data):
+        c = EmptyDumper(self._writer, 'rhn-org-trust', attributes={
+                'org-id' : data['org_trust_id'],
+        })
+        c.dump()
+
 class _OrgDumper(BaseDumper):
     tag_name = 'rhn-org'
 
     def __init__(self, writer, org):
         self.org = org
-        h = rhnSQL.prepare(self._query_org_trusts)
-        h.execute(org_id=org['id'])
-        BaseDumper.__init__(self, writer, h)
+        BaseDumper.__init__(self, writer)
 
     _query_org_trusts = """
         select rto.org_trust_id
@@ -213,10 +220,11 @@ class _OrgDumper(BaseDumper):
          where rto.org_id = :org_id
     """
 
-    def dump_subelement(self, data):
-        d = SimpleDumper(self._writer, 'rhn-org-trust',
-            data['org_trust_id'])
-        d.dump()
+    def set_iterator(self):
+        # trusts
+        h = rhnSQL.prepare(self._query_org_trusts)
+        h.execute(org_id=self.org['id'])
+        return ArrayIterator([_OrgTrustDumper(self._writer, data_iterator=h)])
 
     def set_attributes(self):
         attributes = {
@@ -235,20 +243,14 @@ class OrgsDumper(BaseDumper):
         org = _OrgDumper(self._writer, data)
         org.dump()
 
-class ChannelAccessDumper(BaseDumper):
-    tag_name = 'rhn-channel-access'
-
-    def __init__(self, writer, access_level, data_iterator=None):
-        BaseDumper.__init__(self, writer, data_iterator)
-        self.access_level = access_level
+class ChannelTrustedOrgsDumper(BaseDumper):
+    tag_name = 'rhn-channel-trusted-orgs'
 
     def dump_subelement(self, data):
-        d = SimpleDumper(self._writer, 'rhn-channel-trusted-org',
-                data['org_trust_id'])
+        d = EmptyDumper(self._writer, 'rhn-channel-trusted-org',
+                attributes={'org-id' : data['org_trust_id'],
+        })
         d.dump()
-
-    def set_attributes(self):
-        return {'sharing' : self.access_level}
 
 class _ChannelDumper(BaseRowDumper):
     tag_name = 'rhn-channel'
@@ -278,6 +280,7 @@ class _ChannelDumper(BaseRowDumper):
             'packages'      : ' '.join(packages),
             'channel-errata' : ' '.join(errata),
             'kickstartable-trees'   : ' '.join(ks_trees),
+            'sharing'       : self._row['channel_access'],
         }
 
     _query_channel_families = rhnSQL.Statement("""
@@ -334,8 +337,7 @@ class _ChannelDumper(BaseRowDumper):
 
         h = rhnSQL.prepare(self._query_get_channel_trusts)
         h.execute(channel_id=channel_id)
-        arr.append(ChannelAccessDumper(self._writer,
-            self._row['channel_access'], data_iterator=h))
+        arr.append(ChannelTrustedOrgsDumper(self._writer, data_iterator=h))
 
         h = rhnSQL.prepare(self._query_channel_families)
         h.execute(channel_id=channel_id)

@@ -459,6 +459,8 @@ class ChannelItem(BaseItem):
         'rhn-channel-receiving-updates' : 'receiving_updates',
         'rhn-channel-checksum-type' : 'checksum_type',
         'rhn-channel-comps-last-modified' : 'comps_last_modified',
+        'sharing'                   : 'sharing',
+        'rhn-channel-trusted-orgs'  : 'trust_list',
     }
     def populateFromElements(self, obj, elements):
         # bz 808516, to retain compatibility with Satellite <= 5.3 we
@@ -488,6 +490,32 @@ class ChannelItem(BaseItem):
             obj['checksum_type'] = None
 
 addItem(ChannelItem)
+
+class ChannelTrustItem(BaseItem):
+    item_name = 'rhn-channel-trusted-org'
+    item_class = importLib.ChannelTrust
+    tagMap = {
+        'org-id'        : 'org_id',
+    }
+addItem(ChannelTrustItem)
+
+class OrgTrustItem(BaseItem):
+    item_name = 'rhn-org-trust'
+    item_class = importLib.OrgTrust
+    tagMap = {
+        'org-id'        : 'org_id',
+    }
+addItem(OrgTrustItem)
+
+class OrgItem(BaseItem):
+    item_name = 'rhn-org'
+    item_class = importLib.Org
+    tagMap = {
+            'id'            : 'id',
+            'name'          : 'name',
+            'rhn-org-trusts': 'org_trust_ids',
+    }
+addItem(OrgItem)
 
 class BaseChecksummedItem(BaseItem):
     def populate(self, attributes, elements):
@@ -1090,3 +1118,5 @@ class ProductNamesContainer(ContainerHandler):
 class KickstartableTreesContainer(ContainerHandler):
     container_name = 'rhn-kickstartable-trees'
 
+class OrgContainer(ContainerHandler):
+    container_name = 'rhn-orgs'

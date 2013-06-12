@@ -428,6 +428,7 @@ class ContainerHandler:
         # all other containers
         self.setChannelFamilyContainer()
         self.setProductNamesContainer()
+        self.setOrgContainer()
 
     def __del__(self):
         self.handler.close() # kill the circular reference.
@@ -470,6 +471,8 @@ class ContainerHandler:
         self.handler.set_container(ChannelFamilyContainer())
     def setProductNamesContainer(self):
         self.handler.set_container(diskImportLib.ProductNamesContainer())
+    def setOrgContainer(self):
+        self.handler.set_container(diskImportLib.OrgContainer())
 
 #
 # more containers

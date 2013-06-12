@@ -27,6 +27,7 @@ from spacewalk.server.importlib.channelImport import ChannelImport, ChannelFamil
 from spacewalk.server.importlib.packageImport import PackageImport, SourcePackageImport
 from spacewalk.server.importlib import archImport
 from spacewalk.server.importlib import productNamesImport
+from spacewalk.server.importlib import orgImport
 
 class Backend:
     __backend = None
@@ -60,6 +61,9 @@ class diskImportLibContainer:
         importer = self.importer_class(self.batch, get_backend())
         importer.run()
         self.batch = []
+
+class OrgContainer(diskImportLibContainer, xmlSource.OrgContainer):
+    importer_class = orgImport.OrgImport
 
 class ProductNamesContainer(diskImportLibContainer, xmlSource.ProductNamesContainer):
     importer_class = productNamesImport.ProductNamesImport

@@ -71,7 +71,7 @@ class FileMapper:
                             'arches-extra'      :   xmlDiskSource.ArchesExtraDiskSource(self.mp),
                             'blacklists'        :   xmlDiskSource.BlacklistsDiskSource(self.mp),
                             'channelfamilies'   :   xmlDiskSource.ChannelFamilyDiskSource(self.mp),
-                            'orgs'              :   xmlDiskSource.OrgDiskSource(self.mp),
+                            'orgs'              :   xmlDiskSource.OrgsDiskSource(self.mp),
                             'channels'          :   xmlDiskSource.ChannelDiskSource(self.mp),
                             'channel-pkg-short' :   ISSChannelPackageShortDiskSource(self.mp),
                             'packages-short'    :   xmlDiskSource.ShortPackageDiskSource(self.mp),
