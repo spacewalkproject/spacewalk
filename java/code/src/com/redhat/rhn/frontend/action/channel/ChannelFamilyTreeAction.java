@@ -52,8 +52,10 @@ public class ChannelFamilyTreeAction extends BaseChannelTreeAction {
         User user = requestContext.getLoggedInUser();
         ChannelOverview co = ChannelManager.getEntitlement(user.getOrg().getId(), cfid);
 
-        DataResult<ChannelTreeNode> dr = getDataResult(requestContext, null);
-        dr.setFilter(false);
+        ListControl lc = new ListControl();
+        lc.setFilter(false);
+
+        DataResult<ChannelTreeNode> dr = getDataResult(requestContext, lc);
         request.setAttribute(RequestContext.PAGE_LIST, dr);
         request.setAttribute("cfid", cfid);
         request.setAttribute("familyName", co.getName());
