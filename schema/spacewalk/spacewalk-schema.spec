@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.42
+Version:        1.10.43
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.43-1
+- Resolve upgrade-script naming collision
+
 * Fri May 31 2013 Stephen Herr <sherr@redhat.com> 1.10.42-1
 - 948335 - Don't default to 1 cpu socket
 
