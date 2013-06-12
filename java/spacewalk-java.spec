@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.92
+Version: 1.10.93
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.93-1
+- rebranding RHN Proxy to Red Hat Proxy
+- rebrading RHN Satellite to Red Hat Satellite
+
 * Tue Jun 11 2013 Jan Dobes 1.10.92-1
 - 970125 - adding unique value check
 - 971828 - fixing wrong escaping of utf-8 strings
