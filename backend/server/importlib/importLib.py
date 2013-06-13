@@ -189,6 +189,11 @@ class IncompleteSourcePackage(Information):
         'last_modified'     : DateType,
     }
 
+class ChannelTrust(Information):
+    attributeTypes = {
+        'org_id'            : IntType,
+    }
+
 class Channel(Information):
     attributeTypes = {
         'label'             : StringType,
@@ -227,11 +232,6 @@ class Channel(Information):
         'export-start-date'  : StringType,
     }
 
-class ChannelTrust(Information):
-    attributeTypes = {
-        'org_id'            : IntType,
-    }
-
 class OrgTrust(Information):
     attributeTypes = {
         'org_id'            : IntType,
@@ -243,15 +243,6 @@ class Org(Information):
         'name'              : StringType,
         'org_trust_ids'     : [OrgTrust],
     }
-
-class MasterOrg(Information):
-    attributeTypes = {
-        'master_id'         : IntType,
-        'master_org_id'     : IntType,
-        'master_org_name'   : StringType,
-        'local_org_id'      : IntType,
-    }
-
 
 class File(Item):
     attributeTypes = {

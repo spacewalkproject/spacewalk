@@ -270,12 +270,104 @@ class Backend:
             raise ValueError, "No user is created"
         return rows[0]['id']
 
+    def lookupMaster(self, master_label):
+        # Returns the master record (if it exists)
+        sql = "select * from rhnISSMaster where label = :label"
+        h = self.dbmodule.prepare(sql)
+        h.execute(label=master_label)
+        return h.fetchone_dict()
+
+    def createMaster(self, master_label):
+        # Creates a master record with label master_label
+        sql = """
+            insert into rhnISSMaster (id, label)
+            values (sequence_nextval('rhn_issmaster_seq'), :label)
+        """
+        h = self.dbmodule.prepare(sql)
+        h.execute(label=master_label)
+
+    def createMasterOrgs(self, master, orgs):
+        # Create master org records
+        insert = [[],[],[]]
+        for org in orgs:
+            insert[0].append(master)
+            insert[1].append(org['id'])
+            insert[2].append(org['name'])
+        sql = """
+            insert into rhnISSMasterOrgs
+                   (id, master_id, master_org_id, master_org_name)
+            values (sequence_nextval('rhn_issmasterorgs_seq'),
+                   (select id from rhnISSMaster where label = :label),
+                   :id, :name)
+        """
+        h = self.dbmodule.prepare(sql)
+        h.executemany(label=insert[0], id=insert[1], name=insert[2])
+
+    def createOrgs(self, orgs):
+        # Create local org records
+        sql = """
+            insert into web_customer (id, name)
+            values (sequence_nextval('web_customer_id_seq'), :name)
+        """
+        h = self.dbmodule.prepare(sql)
+        h.executemany(name=orgs)
+        sql = "select id, name from web_customer"
+        h = self.dbmodule.prepare(sql)
+        h.execute()
+        rows = h.fetchall_dict()
+        ret = {}
+        for row in rows:
+            ret[row['name']] = row['id']
+        return ret
+
+    def updateMasterOrgs(self, master_orgs):
+        # Update the master org to local org mapping
+        insert = [[],[]]
+        for org in master_orgs:
+            insert[0] = org['master_id']
+            insert[1] = org['local_id']
+        sql = """
+            update rhnISSMasterOrgs
+               set local_org_id=:local
+             where master_id=:master
+        """
+        h = self.dbmodule.prepare(sql)
+        h.executemany(local=insert[0], master=insert[1])
+
+    def lookupOrgTrusts(self):
+        # Return a hash of org trusts
+        sql = "select org_id, org_trust_id from rhnTrustedOrgs"
+        h = self.dbmodule.prepare(sql)
+        h.execute()
+        rows = h.fetchall_dict()
+        ret = {}
+        for row in rows:
+            if row['org_id'] not in ret.keys():
+                ret[row['org_id']] = []
+            ret[row['org_id']].append(row['org_trust_id'])
+        return ret
+
+    def createOrgTrusts(self, trusts):
+        # Create org trusts
+        insert = [[],[]]
+        for trust in trusts:
+            insert[0].append(trust['org_id'])
+            insert[1].append(trust['trust'])
+        sql = """
+            insert into rhnTrustedOrgs (org_id, org_trust_id)
+            values (:id, :trust)
+        """
+        h = self.dbmodule.prepare(sql)
+        h.executemany(id=insert[0], trust=insert[1])
+
     def lookupOrgMap(self, master_label):
-        sql = "select imo.master_org_id, imo.master_org_name, imo.local_org_id
-                 from rhnISSMasterOrgs imo,
-                      rhnISSMaster im,
-                where im.id = imo.master_id
-                  and im.label = :master_label"
+        sql = """
+            select imo.master_org_id, imo.master_org_name, imo.local_org_id
+              from rhnISSMasterOrgs imo,
+                   rhnISSMaster im
+             where im.id = imo.master_id
+               and im.label = :master_label
+        """
         h = self.dbmodule.prepare(sql)
         h.execute(master_label=master_label)
         rows = h.fetchall_dict()

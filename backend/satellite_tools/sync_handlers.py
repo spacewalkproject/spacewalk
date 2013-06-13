@@ -414,7 +414,7 @@ class ContainerHandler:
 
     """generate and set container XML handlers"""
 
-    def __init__(self):
+    def __init__(self, master_label, create_orgs=False):
         self.handler = xmlSource.SatelliteDispatchHandler()
         # arch containers
         self.setServerArchContainer()
@@ -428,7 +428,7 @@ class ContainerHandler:
         # all other containers
         self.setChannelFamilyContainer()
         self.setProductNamesContainer()
-        self.setOrgContainer()
+        self.setOrgContainer(master_label, create_orgs)
 
     def __del__(self):
         self.handler.close() # kill the circular reference.
@@ -471,8 +471,10 @@ class ContainerHandler:
         self.handler.set_container(ChannelFamilyContainer())
     def setProductNamesContainer(self):
         self.handler.set_container(diskImportLib.ProductNamesContainer())
-    def setOrgContainer(self):
+    def setOrgContainer(self, master_label, create_orgs):
         self.handler.set_container(diskImportLib.OrgContainer())
+        self.handler.get_container('rhn-orgs').set_master_and_create_org_args(
+                master_label, create_orgs)
 
 #
 # more containers
