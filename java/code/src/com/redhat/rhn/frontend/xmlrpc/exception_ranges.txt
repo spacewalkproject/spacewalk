@@ -23,4 +23,5 @@ Kickstart Exceptions        2750-2799
 Misc Exceptions             2800-2850
 Org Exceptions              2850-2900
 SearchServer Exceptions     2901-2949
-Authentication Exceptions   2950-2959
+Authentication Exceptions   2950-2999
+ISS Exceptions              3000-3049

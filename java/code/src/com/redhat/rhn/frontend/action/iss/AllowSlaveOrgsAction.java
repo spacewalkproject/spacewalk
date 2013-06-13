@@ -18,6 +18,7 @@ package com.redhat.rhn.frontend.action.iss;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -33,7 +34,6 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.iss.IssFactory;
 import com.redhat.rhn.domain.iss.IssSlave;
-import com.redhat.rhn.domain.iss.IssSlaveOrgs;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.frontend.dto.OrgDto;
@@ -73,7 +73,7 @@ public class AllowSlaveOrgsAction extends RhnAction {
         request.setAttribute(ListTagHelper.PARENT_URL,
                         "/rhn/admin/iss/EditSlave.do?sid=" + sid);
         request.setAttribute(IssSlave.SID, sid);
-
+        IssSlave theSlave = IssFactory.lookupSlaveById(sid);
 
         Set sessionSet = SessionSetHelper.lookupAndBind(request, getSetDecl()
                 .getLabel());
@@ -88,7 +88,8 @@ public class AllowSlaveOrgsAction extends RhnAction {
             // Before creating entries for whatever selection we have,
             // DELETE THE OLD ONES - less error-prone than trying to do
             // set-theoretic operations based on set-diffs
-            IssFactory.clearMapsForSlave(sid);
+            //IssFactory.clearMapsForSlave(sid);
+            theSlave.setAllowedOrgs(new HashSet<Org>());
             helper.updateSet(sessionSet, LIST_NAME);
             return handleDispatchAction(mapping, requestContext, sid, sessionSet);
         }
@@ -123,14 +124,14 @@ public class AllowSlaveOrgsAction extends RhnAction {
             Long sid,
             Set sessionSet) {
         Set<String> soids = (Set<String>) sessionSet;
+        Set<Org> allowedOrgs = new HashSet<Org>();
+        IssSlave s = IssFactory.lookupSlaveById(sid);
         for (String soid : soids) {
-            // Make IssSlaveOrgs entry for this slave/orgid pair
             Long oid = Long.parseLong(soid);
-            IssSlaveOrgs iso = new IssSlaveOrgs();
-            iso.setOrgId(oid);
-            iso.setSlaveId(sid);
-            IssFactory.save(iso);
+            Org anOrg = OrgFactory.lookupById(oid);
+            allowedOrgs.add(anOrg);
         }
+        s.setAllowedOrgs(allowedOrgs);
         return mapping.findForward("success");
     }
 

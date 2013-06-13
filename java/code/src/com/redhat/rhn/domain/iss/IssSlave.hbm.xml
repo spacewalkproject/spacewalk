@@ -17,14 +17,23 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="created" column="CREATED"  type="timestamp" insert="false" update="false"/>
         <property name="modified" column="MODIFIED"  type="timestamp" insert="false" update="false"/>
 
-        <set name="mappedOrgs" table="rhnissslaveorgs">
-            <key column="slave_id" />
-            <many-to-many class="com.redhat.rhn.domain.org.Org" column="org_id"/>
+        <set name="allowedOrgs"
+            table="rhnissslaveorgs"
+            inverse="false"
+            lazy="true"
+            fetch="select"
+            cascade="all">
+            <key column="slave_id" not-null="true"/>
+            <many-to-many column="org_id" class="com.redhat.rhn.domain.org.Org" />
         </set>
     </class>
 
     <query name="IssSlave.findById">
         <![CDATA[from com.redhat.rhn.domain.iss.IssSlave as s where s.id = :id]]>
+    </query>
+
+    <query name="IssSlave.findByName">
+        <![CDATA[from com.redhat.rhn.domain.iss.IssSlave as s where s.slave = :slave]]>
     </query>
 
     <query name="IssSlave.lookupAll">

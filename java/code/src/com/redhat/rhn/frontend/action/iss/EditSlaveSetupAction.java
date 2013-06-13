@@ -90,7 +90,7 @@ public class EditSlaveSetupAction extends RhnAction {
 
          IssSlave theSlave = IssFactory.lookupSlaveById(sid);
         Set<Long> mappedOrgs = mappedLocalOrgs(
-                        new ArrayList<Org>(theSlave.getMappedOrgs()));
+                        new ArrayList<Org>(theSlave.getAllowedOrgs()));
         List<OrgDto> locals = fromOrgs(OrgFactory.lookupAllOrgs());
 
         Set sessionSet = SessionSetHelper.lookupAndBind(request, getSetDecl()

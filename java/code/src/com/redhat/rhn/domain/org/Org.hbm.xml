@@ -55,9 +55,18 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
           <many-to-many column="org_trust_id" outer-join="true" class="com.redhat.rhn.domain.org.Org" />
         </set>
 
+        <set name="allowedToSlaves"
+            table="rhnissslaveorgs"
+            inverse="true"
+            lazy="true"
+            fetch="select">
+            <key column="org_id" />
+            <many-to-many column="slave_id" class="com.redhat.rhn.domain.iss.IssSlave" />
+        </set>
+
         <join table="rhnRegTokenOrgDefault" optional="true">
-        	<key column="org_id"/>
-        	<many-to-one name="token" column="reg_token_id" not-null="true" unique="true"/>
+            <key column="org_id"/>
+            <many-to-one name="token" column="reg_token_id" not-null="true" unique="true"/>
         </join>
 
     </class>
@@ -80,7 +89,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                   WHERE cfp.org_id = :org_id]]>
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
-	<sql-query name="Org.numOfOrgAdmins">
+    <sql-query name="Org.numOfOrgAdmins">
         <return-scalar type="long" column="user_id"/>
     SELECT ugm.user_id
      FROM rhnUserGroupMembers ugm
@@ -92,7 +101,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
       AND exists (select wc.id
                     from rhnwebcontactenabled wc
                    where wc.id = ugm.user_id)
- 	ORDER BY ugm.user_id
+     ORDER BY ugm.user_id
     </sql-query>
     <sql-query name="Org.numOfActiveUsers">
         <return-scalar type="long" column="users"/>

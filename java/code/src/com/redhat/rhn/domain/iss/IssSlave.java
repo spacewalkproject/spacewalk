@@ -43,7 +43,7 @@ public class IssSlave extends BaseDto {
     private String slave;
     private String enabled;
     private String allowAllOrgs;
-    private Set<Org> mappedOrgs;
+    private Set<Org> allowedOrgs;
     private Date created;
     private Date modified;
 
@@ -164,16 +164,53 @@ public class IssSlave extends BaseDto {
      * Getter for all orgs allowed to be visible to this slave
      * @return list of currently-mapped orgs
      */
-    public Set<Org> getMappedOrgs() {
-        return mappedOrgs;
+    public Set<Org> getAllowedOrgs() {
+        return allowedOrgs;
     }
 
     /**
-     * Setter for mapped orgs
-     * @param mappedOrgsIn get current mappedOrgs
+     * Setter for allowed orgs
+     * @param allowedOrgsIn get current orgs we can export to this slave
      */
-    public void setMappedOrgs(Set<Org> mappedOrgsIn) {
-        this.mappedOrgs = mappedOrgsIn;
+    public void setAllowedOrgs(Set<Org> allowedOrgsIn) {
+        this.allowedOrgs = allowedOrgsIn;
+    }
+
+    /**
+     * @return hashCode based on id
+     */
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+
+    /**
+     * Equality based on id
+     * @param obj The Thing we're comparing against
+     * @return true if obj.Id equal our.Id, false else
+     */
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        IssSlave other = (IssSlave) obj;
+        if (id == null) {
+            if (other.id != null) {
+                return false;
+            }
+        }
+        else if (!id.equals(other.id)) {
+            return false;
+        }
+        return true;
     }
 
 }

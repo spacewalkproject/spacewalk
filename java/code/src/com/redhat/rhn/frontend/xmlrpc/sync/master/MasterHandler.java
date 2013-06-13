@@ -31,6 +31,7 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.IssDuplicateMasterException;
 
 /**
  * MasterHandler
@@ -74,6 +75,9 @@ public class MasterHandler extends BaseHandler {
     public IssMaster create(String sessionKey, String label) {
         User u = getLoggedInUser(sessionKey);
         ensureSatAdmin(u);
+        if (IssFactory.lookupMasterByLabel(label) != null) {
+            throw new IssDuplicateMasterException(label);
+        }
         IssMaster master = new IssMaster();
         master.setLabel(label);
         IssFactory.save(master);
@@ -155,6 +159,24 @@ public class MasterHandler extends BaseHandler {
         IssMaster master = IssFactory.lookupMasterByLabel(masterLabel);
         validateExists(master, masterLabel);
         return master;
+    }
+
+    /**
+     * Get all the masters this slave knows about
+     * @param sessionKey User's session key.
+     * @return list of all the IssMasters we know about
+     *
+     * @xmlrpc.doc Get all the masters this slave knows about
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.returntype
+     *      #array()
+     *          $IssMasterSerializer
+     *      #array_end()
+     */
+    public List<IssMaster> getMasters(String sessionKey) {
+        User u = getLoggedInUser(sessionKey);
+        ensureSatAdmin(u);
+        return IssFactory.listAllMasters();
     }
 
     /**

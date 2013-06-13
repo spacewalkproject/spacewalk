@@ -25,6 +25,7 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.entitlement.Entitlement;
+import com.redhat.rhn.domain.iss.IssSlave;
 import com.redhat.rhn.domain.org.usergroup.UserGroup;
 import com.redhat.rhn.domain.org.usergroup.UserGroupFactory;
 import com.redhat.rhn.domain.role.Role;
@@ -72,6 +73,7 @@ public class Org extends BaseDomainHelper {
     private Set ownedChannels;
     private Set customDataKeys;
     private Set<Org> trustedOrgs;
+    private Set<IssSlave> allowedToSlaves;
     private Token token;
 
     private Set monitoringScouts;
@@ -589,6 +591,22 @@ public class Org extends BaseDomainHelper {
         if (org != null) {
             org.trustedOrgs.remove(this);
         }
+    }
+
+    /**
+     * Gets the list of Slaves we're specifically allowed to be exported to
+     * @return A set of IssSlaves
+     */
+    public Set<IssSlave> getAllowedToSlaves() {
+        return allowedToSlaves;
+    }
+
+    /**
+     * Set up slaves we can be exported to
+     * @param inSlaves allowed slaves
+     */
+    protected void setAllowedToSlaves(Set<IssSlave> inSlaves) {
+        allowedToSlaves = inSlaves;
     }
 
     /**
