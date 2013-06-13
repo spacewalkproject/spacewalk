@@ -505,7 +505,6 @@ public class ChannelManager extends BaseManager {
         params.put("user_id", user.getId());
 
         DataResult dr = makeDataResult(params, params, lc, m);
-        Collections.sort(dr);
         return dr;
     }
 
