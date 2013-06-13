@@ -23,6 +23,7 @@
       <rhn-tab-directory>/rhn/systems/details</rhn-tab-directory>
       <rhn-tab-directory>/network/systems/details</rhn-tab-directory>
       <rhn-tab name="All" url="/rhn/systems/SystemList.do"/>
+      <rhn-tab name="Physical Systems" url="/rhn/systems/PhysicalList.do"/>
       <rhn-tab name="Virtual Systems" url="/rhn/systems/VirtualSystemsList.do"/>
       <rhn-tab name="Out of Date" url="/rhn/systems/OutOfDate.do"/>
       <rhn-tab name="Unentitled" url="/rhn/systems/Unentitled.do"/>
@@ -78,6 +79,10 @@
       </rhn-tab>
       <rhn-tab name="File Preservation" url="/rhn/systems/provisioning/preservation/PreservationList.do" />
     </rhn-tab>
+    <rhn-tab name="Software Crashes" acl="org_entitlement(sw_mgr_enterprise)" url="/rhn/systems/SoftwareCrashesOverview.do">
+      <rhn-tab-url>/rhn/systems/SoftwareCrashesOverview.do</rhn-tab-url>
+      <rhn-tab-url>/rhn/systems/SoftwareCrashUuidDetails.do</rhn-tab-url>
+    </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Errata" url="/rhn/errata/RelevantErrata.do" active-image="tab-errata-selected.gif" inactive-image="tab-errata.gif">
     <rhn-tab name="Errata" url="/rhn/errata/RelevantErrata.do" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_list">
@@ -117,6 +122,16 @@
         <rhn-tab-directory>/rhn/software/manage/packages</rhn-tab-directory>
         <rhn-tab-url>/rhn/software/manage/packages/PackageList.do</rhn-tab-url>
       </rhn-tab>
+      <rhn-tab name="Manage Repositories" acl="user_role(channel_admin)"  node-id="manage_repos">
+        <rhn-tab-directory>/rhn/channels/manage/repos</rhn-tab-directory>
+        <rhn-tab-url>/rhn/channels/manage/repos/RepoList.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/channels/manage/repos/RepoEdit.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/channels/manage/repos/RepoCreate.do</rhn-tab-url>
+      </rhn-tab>
+    </rhn-tab>
+    <rhn-tab name="Distribution Channel Mapping" acl="user_role(org_admin)" url="/rhn/channels/manage/DistChannelMap.do">
+      <rhn-tab-url>/rhn/channels/manage/DistChannelMapEdit.do</rhn-tab-url>
+      <rhn-tab-url>/rhn/channels/manage/DistChannelMapDelete.do</rhn-tab-url>
     </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Audit" url="/rhn/audit/ListXccdf.do">
