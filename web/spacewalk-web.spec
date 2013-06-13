@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.28
+Version: 1.10.29
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -272,6 +272,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Jun 13 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.29-1
+- 970579 - new features should be visible also from perl pages
+
 * Wed Jun 12 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.28-1
 - rhn_web.conf is no longer part of spacewalk-base-minimal
 
