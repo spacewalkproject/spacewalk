@@ -138,6 +138,7 @@
        <packagereq type="default">spacewalk-backend-xmlrpc</packagereq>
        <packagereq type="default">spacewalk-base</packagereq>
        <packagereq type="default">spacewalk-base-minimal</packagereq>
+       <packagereq type="default">spacewalk-base-minimal-config</packagereq>
        <packagereq type="default">spacewalk-branding</packagereq>
        <packagereq type="default">spacewalk-certs-tools</packagereq>
        <packagereq type="default">spacewalk-client-repo</packagereq>
