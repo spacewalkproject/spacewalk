@@ -260,7 +260,7 @@ class Backend:
         # Finally, update the hash
         arch_types_hash.update(results)
 
-    def lookupOrg(self): 
+    def _lookupOrg(self):
         # Returns the org id
         sql = "select min(id) as id from web_customer"
         h = self.dbmodule.prepare(sql)
@@ -269,6 +269,18 @@ class Backend:
         if not rows:
             raise ValueError, "No user is created"
         return rows[0]['id']
+
+    def lookupOrg(self, org_name=None):
+        if not org_name:
+            return self._lookupOrg()
+        # Returns id of the org if found, None otherwise
+        sql = "select id from web_customer where name = :name"
+        h = self.dbmodule.prepare(sql)
+        h.execute(name=org_name)
+        row = h.fetchone_dict()
+        if not row:
+            return None
+        return row['id']
 
     def lookupMaster(self, master_label):
         # Returns the master record (if it exists)
@@ -324,15 +336,15 @@ class Backend:
         # Update the master org to local org mapping
         insert = [[],[]]
         for org in master_orgs:
-            insert[0] = org['master_id']
-            insert[1] = org['local_id']
+            insert[0].append(org['master_id'])
+            insert[1].append(org['local_id'])
         sql = """
             update rhnISSMasterOrgs
                set local_org_id=:local
-             where master_id=:master
+             where master_org_id=:master
         """
         h = self.dbmodule.prepare(sql)
-        h.executemany(local=insert[0], master=insert[1])
+        h.executemany(master=insert[0], local=insert[1])
 
     def lookupOrgTrusts(self):
         # Return a hash of org trusts
@@ -341,10 +353,11 @@ class Backend:
         h.execute()
         rows = h.fetchall_dict()
         ret = {}
-        for row in rows:
-            if row['org_id'] not in ret.keys():
-                ret[row['org_id']] = []
-            ret[row['org_id']].append(row['org_trust_id'])
+        if rows:
+            for row in rows:
+                if row['org_id'] not in ret.keys():
+                    ret[row['org_id']] = []
+                ret[row['org_id']].append(row['org_trust_id'])
         return ret
 
     def createOrgTrusts(self, trusts):
@@ -371,9 +384,26 @@ class Backend:
         h = self.dbmodule.prepare(sql)
         h.execute(master_label=master_label)
         rows = h.fetchall_dict()
+        maps = {'master-name-to-master-id':{},
+                'master-id-to-local-id':{}}
         if not rows:
-            return []
-        return rows
+            return maps
+        mn_to_mi = {} # master org name to master org id map
+        mi_to_li = {} # master org id to local org id map
+        for org in rows:
+            if ('master_org_id' in org.keys()
+                    and 'master_org_name' in org.keys()
+                    and org['master_org_id']
+                    and org['master_org_name']):
+                mn_to_mi[org['master_org_name']] = org['master_org_id']
+            if ('master_org_id' in org.keys()
+                    and 'local_org_id' in org.keys()
+                    and org['master_org_id']
+                    and org['local_org_id']):
+                mi_to_li[org['master_org_id']] = org['local_org_id']
+        maps['master-name-to-master-id'] = mn_to_mi
+        maps['master-id-to-local-id'] = mi_to_li
+        return maps
 
     def lookupChannels(self, hash):
         if not hash:
@@ -895,6 +925,20 @@ class Backend:
             childTables.append('rhnDistChannelMap')
         self.__processObjectCollection(channels, 'rhnChannel', childTables,
             'channel_id', uploadForce=4, ignoreUploaded=1, forceVerify=1)
+
+    def processChannelTrusts(self, channel_trusts):
+        # Create channel trusts
+        insert = [[],[]]
+        for trust in channel_trusts:
+            insert[0].append(trust['channel-label'])
+            insert[1].append(trust['org-id'])
+        sql = """
+            insert into rhnChannelTrust (channel_id, org_trust_id)
+            values ((select id from rhnChannel where label = :label),
+                    :org_id)
+        """
+        h = self.dbmodule.prepare(sql)
+        h.executemany(label=insert[0], org_id=insert[1])
 
     def processChannelFamilies(self, channels):
         childTables = []

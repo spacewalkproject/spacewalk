@@ -459,7 +459,7 @@ class ChannelItem(BaseItem):
         'rhn-channel-receiving-updates' : 'receiving_updates',
         'rhn-channel-checksum-type' : 'checksum_type',
         'rhn-channel-comps-last-modified' : 'comps_last_modified',
-        'sharing'                   : 'sharing',
+        'sharing'                   : 'channel_access',
         'rhn-channel-trusted-orgs'  : 'trust_list',
     }
     def populateFromElements(self, obj, elements):
@@ -495,7 +495,7 @@ class ChannelTrustItem(BaseItem):
     item_name = 'rhn-channel-trusted-org'
     item_class = importLib.ChannelTrust
     tagMap = {
-        'org-id'        : 'org_id',
+        'org-id'        : 'org_trust_id',
     }
 addItem(ChannelTrustItem)
 

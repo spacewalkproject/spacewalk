@@ -326,6 +326,7 @@ class OracleBackend(Backend):
                 'last_modified' : DBdateTime(),
                 'channel_product_id' : DBint(),
                 'checksum_type_id' : DBint(),
+                'channel_access': DBstring(10),
             },
             pk          = ['label'],
             severityHash = {
@@ -364,6 +365,15 @@ class OracleBackend(Backend):
             },
             pk          = ['product', 'version', 'release', 'channel_arch_id', 'channel_id'],
             attribute   = 'release',
+            defaultSeverity = 4,
+        ),
+        Table('rhnChannelTrust',
+            fields      = {
+                'channel_id'        : DBint(),
+                'org_trust_id'      : DBint(),
+            },
+            pk          = ['channel_id', 'org_trust_id'],
+            attribute   = 'trust_list',
             defaultSeverity = 4,
         ),
         Table('rhnChannelFamilyMembers',

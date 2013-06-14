@@ -129,9 +129,14 @@ class ChannelImport(Import):
         # Split the batch into null and non-null parent channels
         nullParentBatch = []
         nonNullParentBatch = []
+        channel_trusts = []
         for channel in self.batch:
             if channel.ignored:
                 continue
+            if channel.has_key('trust_list'):
+                for trust in channel['trust_list']:
+                    channel_trusts.append({'channel-label': channel['label'],
+                        'org-id': trust['org_trust_id']})
             parent = channel['parent_channel']
             if not parent:
                 nullParentBatch.append(channel)
@@ -192,6 +197,10 @@ class ChannelImport(Import):
         except:
             self.backend.rollback()
             raise
+
+        # Process the channel trusts
+        if len(channel_trusts) > 0:
+            self.backend.processChannelTrusts(channel_trusts)
 
         # Finally go back and add the products, if any
         for channel in self.batch:

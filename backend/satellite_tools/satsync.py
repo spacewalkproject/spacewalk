@@ -391,7 +391,7 @@ class Syncer:
         self._systemidPath = OPTIONS.systemid or _DEFAULT_SYSTEMID_PATH
         self._batch_size = OPTIONS.batch_size
         self.master_label = OPTIONS.master
-        self.create_orgs = OPTIONS.create_missing_orgs
+        #self.create_orgs = OPTIONS.create_missing_orgs
         self.xml_dump_version = OPTIONS.dump_version or str(constants.PROTOCOL_VERSION)
         self.check_rpms = check_rpms
         self.keep_rpms = OPTIONS.keep_rpms
@@ -401,7 +401,7 @@ class Syncer:
         self._channel_collection = sync_handlers.ChannelCollection()
 
         self.containerHandler = sync_handlers.ContainerHandler(
-                self.master_label, self.create_orgs)
+                self.master_label)
 
         # instantiated in self.initialize()
         self.xmlDataServer = None
@@ -668,8 +668,9 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         requested_channels = self._channel_req.get_requested_channels()
         try:
-            importer = sync_handlers.import_channels(requested_channels, \
-                                          orgid=OPTIONS.orgid or None)
+            importer = sync_handlers.import_channels(requested_channels,
+                                          orgid=OPTIONS.orgid or None,
+                                          master=OPTIONS.master or None)
             for label in requested_channels:
                 timestamp = self._channel_collection.get_channel_timestamp(label)
                 ch = self._channel_collection.get_channel(label, timestamp)
@@ -2111,8 +2112,9 @@ def processCommandline():
             help=_('do not remove rpms when importing from local dump')),
         Option(     '--master',      action='store',
             help=_('the fully qualified doman name of the master Satellite. Valid with --mount-point only. Required if you want to import org data and channel permissions.')),
-        Option(     '--create-missing-orgs',      action='store_true',
-            help=_('create orgs on this Satellite to match orgs exported by the master Satellite if local orgs have not already been mapped to the master orgs (use with --mount-point or --iss-parent only)')),
+        # We can't have this option because then the new org won't have a user:
+        #Option(     '--create-missing-orgs',      action='store_true',
+        #    help=_('create orgs on this Satellite to match orgs exported by the master Satellite if local orgs have not already been mapped to the master orgs (use with --mount-point or --iss-parent only)')),
 
         # DEFERRED:
         #Option(     '--source-packages',     action='store_true', help='sync source rpms/metadata as well.'),
@@ -2186,14 +2188,14 @@ def processCommandline():
         if not OPTIONS.mount_point:
             mst = _("ERROR: The --master option is only valid with the --mount-point option")
             log2stderr(-1, msg, cleanYN=1)
-            sys.exit(29)
+            sys.exit(28)
     elif CFG.ISS_PARENT:
         OPTIONS.master = CFG.ISS_PARENT
 
-    if OPTIONS.create_missing_orgs and not OPTIONS.master:
-        msg = _("ERROR: Org syncing is only available during an Inter Satellite Sync or import of a channel dump created by another Satellite with --master specified.")
-        log2stderr(-1, msg, cleanYN=1)
-        sys.exit(28)
+    #if OPTIONS.create_missing_orgs and not OPTIONS.master:
+    #    msg = _("ERROR: Org syncing is only available during an Inter Satellite Sync or import of a channel dump created by another Satellite with --master specified.")
+    #    log2stderr(-1, msg, cleanYN=1)
+    #    sys.exit(29)
 
     if OPTIONS.orgid:
         # verify if its a valid org
@@ -2364,8 +2366,7 @@ def processCommandline():
               _("  25 - no such directory"),
               _("  26 - mount_point does not exist"),
               _("  27 - No such org"),
-              _("  28 - error: --create-missing-orgs requires --iss-parent or --mount-point"),
-              _("  29 - error: --master is only valid with --mount-point"),]
+              _("  28 - error: --master is only valid with --mount-point"),]
         log(-1, msg, 1, 1, sys.stderr)
         sys.exit(0) 
 

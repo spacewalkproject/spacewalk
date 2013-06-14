@@ -191,7 +191,7 @@ class IncompleteSourcePackage(Information):
 
 class ChannelTrust(Information):
     attributeTypes = {
-        'org_id'            : IntType,
+        'org_trust_id'      : IntType,
     }
 
 class Channel(Information):
@@ -210,7 +210,7 @@ class Channel(Information):
         'channel_product_id': IntType,
         'receiving_updates' : StringType,
         'checksum_type'     : StringType,       # xml dumps >= 3.5
-        'sharing'           : StringType,
+        'channel_access'    : StringType,
         # XXX Not really useful stuff
         'basedir'           : StringType,
         'product_name'      : StringType,

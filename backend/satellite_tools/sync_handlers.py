@@ -187,11 +187,15 @@ class ChannelContainer(SyncHandlerContainer, xmlSource.ChannelContainer):
 def get_channel_handler():
     return get_sync_handler(ChannelContainer())
 
-def import_channels(channels, orgid=None):
+def import_channels(channels, orgid=None, master=None):
     collection = ChannelCollection()
     batch = []
     import satCerts
     orgs = map(lambda a: a['id'], satCerts.get_all_orgs())
+    org_map = None
+    my_backend = diskImportLib.get_backend()
+    if master:
+        org_map = my_backend.lookupOrgMap(master)['master-id-to-local-id']
     for c in channels:
         try:
             timestamp = collection.get_channel_timestamp(c)
@@ -211,17 +215,32 @@ def import_channels(channels, orgid=None):
             orgid = DEFAULT_ORG
         if orgid is not None and c_obj['org_id'] is not None and \
             c_obj['org_id'] != orgid:
-            #Only set the channel family if its a custom channel
-            c_obj['org_id'] = orgid
+            #If we know the master this is coming from and the master org
+            #has been mapped to a local org, transform org_id to the local
+            #org_id. Otherwise just put it in the default org.
+            if (org_map and c_obj['org_id'] in org_map.keys()
+                    and org_map[c_obj['org_id']]):
+                c_obj['org_id'] = org_map[c_obj['org_id']]
+            else:
+                c_obj['org_id'] = orgid
             for family in c_obj['families']:
                 family['label'] = 'private-channel-family-' + \
                                            str(c_obj['org_id'])
+        # If there's a trust list on the channel, transform the org ids to
+        # the local ones
+        if c_obj.has_key('trust_list'):
+            trusts = []
+            for trust in c_obj['trust_list']:
+                if org_map.has_key(trust['org_trust_id']):
+                    trust['org_trust_id'] = org_map[trust['org_trust_id']]
+                    trusts.append(trust)
+            c_obj['trust_list'] = trusts
 
         syncLib.log(6, "Syncing Channel %s to Org %s " % \
                        (c_obj['label'], c_obj['org_id']))
         batch.append(c_obj)
 
-    importer = channelImport.ChannelImport(batch, diskImportLib.get_backend())
+    importer = channelImport.ChannelImport(batch, my_backend)
     # Don't commit just yet
     importer.will_commit = 0
     importer.run()
