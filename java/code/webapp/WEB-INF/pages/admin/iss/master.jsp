@@ -71,6 +71,18 @@
       title="<bean:message key="iss.slave.notAll"/>" />
     </c:if>
    </rl:column>
+   <rl:column bound="false" headerkey="iss.slave.num-orgs-allowed">
+    <c:if test="${current.enabled != 'Y'}">
+      <bean:message key="iss.slave.disabled"/>
+    </c:if>
+    <c:if test="${current.enabled == 'Y' && current.allowAllOrgs == 'Y'}">
+      <bean:message key="iss.slave.all-allowed"/>
+    </c:if>
+    <c:if test="${current.enabled == 'Y' && current.allowAllOrgs != 'Y'}">
+        <c:out value="${current.numAllowedOrgs}" />
+    </c:if>
+   </rl:column>
+
   </rl:list>
   <c:if test="${not empty requestScope.all}">
    <div align="right">

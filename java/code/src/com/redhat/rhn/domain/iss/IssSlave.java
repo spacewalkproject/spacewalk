@@ -177,6 +177,14 @@ public class IssSlave extends BaseDto {
     }
 
     /**
+     * How many of our orgs are allowed to be exported to this slave?
+     * @return num allowed orgs
+     */
+    public int getNumAllowedOrgs() {
+        return getAllowedOrgs().size();
+    }
+
+    /**
      * @return hashCode based on id
      */
     public int hashCode() {
