@@ -85,7 +85,6 @@ public class MapOrgsAction extends RhnAction {
         // Get all of our orgs and turn into OrgDtos
         List<OrgDto> locals = fromOrgs(OrgFactory.lookupAllOrgs());
 
-
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI() +
                         "?mid=" + mid.toString());
 

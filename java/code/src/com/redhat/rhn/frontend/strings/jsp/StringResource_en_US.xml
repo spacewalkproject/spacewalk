@@ -362,6 +362,30 @@
         <trans-unit id="lookup.jsp.reason3">
           <source>You've found an error in our site.</source>
         </trans-unit>
+        <trans-unit id="lookup.issslave.title">
+          <source>We're sorry, but the requested slave could not be found</source>
+        </trans-unit>
+        <trans-unit id="lookup.issslave.reason1">
+          <source>No slave with the name {0} is identified on this master.</source>
+        </trans-unit>
+        <trans-unit id="lookup.issmaster.title">
+          <source>We're sorry, but the requested master could not be found</source>
+        </trans-unit>
+        <trans-unit id="lookup.issmaster.reason1">
+          <source>No master with the label {0} is identified to this slave.</source>
+        </trans-unit>
+        <trans-unit id="lookup.issmaster.local.title">
+          <source>We're sorry, but the requested organization could not be found</source>
+        </trans-unit>
+        <trans-unit id="lookup.issmaster.local.reason1">
+          <source>No local organization with the ID  {0} exists on this slave.</source>
+        </trans-unit>
+        <trans-unit id="lookup.issmasterorg.title">
+          <source>We're sorry, but the requested organization could not be found</source>
+        </trans-unit>
+        <trans-unit id="lookup.issmasterorg.reason1">
+          <source>No master organization with the ID {0} is identified to this slave.</source>
+        </trans-unit>
       </group>
       <trans-unit id="emptyspace.jsp">
         <source> </source>
@@ -19956,6 +19980,12 @@ given channel.</source>
       <trans-unit id="iss.slave.notAll">
         <source>Do Not Sync All</source>
       </trans-unit>
+      <trans-unit id="iss.slave.num-orgs-allowed">
+        <source>Number of Orgs Exported</source>
+      </trans-unit>
+      <trans-unit id="iss.slave.all-allowed">
+        <source>All Organizations Exported</source>
+      </trans-unit>
       <trans-unit id="iss.localorg.name">
         <source>Local Organization</source>
       </trans-unit>
@@ -20024,6 +20054,9 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="message.iss_master_removed">
         <source>Master {0} removed</source>
+      </trans-unit>
+      <trans-unit id="message.iss_slave_allowed_orgs_updated">
+        <source>List of organizations exported to {0} updated</source>
       </trans-unit>
       <group>
         <context-group name="ctx">

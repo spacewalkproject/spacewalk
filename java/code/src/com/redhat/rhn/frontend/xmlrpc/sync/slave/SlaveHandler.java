@@ -207,15 +207,15 @@ public class SlaveHandler extends BaseHandler {
     private void validateExists(IssSlave slave, String srchString) {
         if (slave == null) {
             fail("Unable to locate or access ISS Slave : " + srchString,
-                    "lookup.issslave.title", "lookup.issslave.reason1");
+                    "lookup.issslave.title", "lookup.issslave.reason1", srchString);
         }
     }
 
-    private void fail(String msg, String titleKey, String reasonKey) {
+    private void fail(String msg, String titleKey, String reasonKey, String arg) {
         LocalizationService ls = LocalizationService.getInstance();
         LookupException e = new LookupException(msg);
         e.setLocalizedTitle(ls.getMessage(titleKey));
-        e.setLocalizedReason1(ls.getMessage(reasonKey));
+        e.setLocalizedReason1(ls.getMessage(reasonKey, arg));
         throw e;
     }
 

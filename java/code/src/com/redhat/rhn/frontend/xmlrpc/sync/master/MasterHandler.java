@@ -296,7 +296,8 @@ public class MasterHandler extends BaseHandler {
         Org localOrg = OrgFactory.lookupById(localOrgId.longValue());
         if (localOrg == null) {
             fail("Unable to locate or access Local Organization :" + localOrgId,
-                    "lookup.issmaster.local.title", "lookup.issmaster.local.reason1");
+                    "lookup.issmaster.local.title", "lookup.issmaster.local.reason1",
+                    localOrgId.toString());
         }
 
         for (IssMasterOrg o : orgs) {
@@ -309,7 +310,8 @@ public class MasterHandler extends BaseHandler {
 
         if (!found) {
             fail("Unable to locate or access ISS Master Organization : " + masterOrgId,
-                    "lookup.issmasterorg.title", "lookup.issmasterorg.reason1");
+                    "lookup.issmasterorg.title", "lookup.issmasterorg.reason1",
+                    masterOrgId.toString());
         }
 
         IssFactory.save(master);
@@ -356,15 +358,15 @@ public class MasterHandler extends BaseHandler {
     private void validateExists(IssMaster master, String srchString) {
         if (master == null) {
             fail("Unable to locate or access ISS Master : " + srchString,
-                    "lookup.issmaster.title", "lookup.issmaster.reason1");
+                    "lookup.issmaster.title", "lookup.issmaster.reason1", srchString);
         }
     }
 
-    private void fail(String msg, String titleKey, String reasonKey) {
+    private void fail(String msg, String titleKey, String reasonKey, String arg) {
         LocalizationService ls = LocalizationService.getInstance();
         LookupException e = new LookupException(msg);
         e.setLocalizedTitle(ls.getMessage(titleKey));
-        e.setLocalizedReason1(ls.getMessage(reasonKey));
+        e.setLocalizedReason1(ls.getMessage(reasonKey, arg));
         throw e;
 
     }

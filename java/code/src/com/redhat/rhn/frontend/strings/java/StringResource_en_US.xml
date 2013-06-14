@@ -7052,6 +7052,12 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="org.entitlements.software.proposedwarning">
         <source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
       </trans-unit>
+      <trans-unit id="api.iss.duplicatemaster">
+        <source>A record for Master satellite {0} already exists</source>
+      </trans-unit>
+      <trans-unit id="api.iss.duplicateslave">
+        <source>A record for Slave satellite {0} already exists</source>
+      </trans-unit>
       <trans-unit id="securityErrata">
         <source>Security Errata</source>
       </trans-unit>
@@ -7355,8 +7361,8 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
       <trans-unit id="package.remove.cant.rollback">
         <source>One or more of the packages you have selected for removal below are not contained in
-			a software channel that this system is subscribed to.  If you choose to continue with the removal
-			you will not be able to rollback this system to this snapshot or any prior snapshot.</source>
+            a software channel that this system is subscribed to.  If you choose to continue with the removal
+            you will not be able to rollback this system to this snapshot or any prior snapshot.</source>
       </trans-unit>
       <trans-unit id="list.filter.iprange">
         <source>Single Ip Address</source>

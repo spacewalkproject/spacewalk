@@ -29,6 +29,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
@@ -113,7 +115,7 @@ public class AllowSlaveOrgsAction extends RhnAction {
 
         Map params = makeParamMap(request);
         if (sid != null) {
-            params.put("sid", sid);
+            params.put(IssSlave.SID, sid);
         }
         return StrutsDelegate.getInstance().forwardParams(
                 mapping.findForward("default"), params);
@@ -132,7 +134,18 @@ public class AllowSlaveOrgsAction extends RhnAction {
             allowedOrgs.add(anOrg);
         }
         s.setAllowedOrgs(allowedOrgs);
-        return mapping.findForward("success");
+
+        ActionMessages msg = new ActionMessages();
+        msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                "message.iss_slave_allowed_orgs_updated", s.getSlave()));
+        getStrutsDelegate().saveMessages(context.getRequest(), msg);
+
+        Map params = makeParamMap(context.getRequest());
+        if (sid != null) {
+            params.put("sid", sid);
+        }
+        return StrutsDelegate.getInstance().forwardParams(
+                mapping.findForward("success"), params);
     }
 
     protected OrgDto createOrgDto(Long id, String name) {
