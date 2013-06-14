@@ -37,7 +37,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
 
     <query name="IssSlave.lookupAll">
-        <![CDATA[from com.redhat.rhn.domain.iss.IssSlave]]>
+        <![CDATA[from com.redhat.rhn.domain.iss.IssSlave as s order by s.slave]]>
     </query>
 
 </hibernate-mapping>

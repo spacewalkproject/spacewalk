@@ -32,7 +32,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
 
     <query name="IssMaster.lookupAll">
-        <![CDATA[from com.redhat.rhn.domain.iss.IssMaster]]>
+        <![CDATA[from com.redhat.rhn.domain.iss.IssMaster as m order by m.label]]>
     </query>
 
 </hibernate-mapping>
