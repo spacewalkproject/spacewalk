@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.49
+Version: 5.10.50
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -121,6 +121,10 @@ fi
 
 # $Id$
 %changelog
+* Mon Jun 17 2013 Michael Mraka <michael.mraka@redhat.com> 5.10.50-1
+- branding fixes in man pages
+- more branding cleanup
+
 * Mon Jun 17 2013 Tomas Kasparek <tkasparek@redhat.com> 5.10.49-1
 - rebranding few more strings in client stuff
 
