@@ -14,7 +14,7 @@
 #
 #
 # $Id$
-""" Red Hat Network Management Satellite Synchronization Tool Messages
+""" Spacewalk Synchronization Tool Messages
 
     Copyright (c) 2002-2005 Red Hat, Inc.
     All rights reserved.

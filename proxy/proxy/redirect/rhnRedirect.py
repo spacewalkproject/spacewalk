@@ -1,4 +1,4 @@
-# Red Hat Network Proxy Server SSL Redirect handler code.
+# Spacewalk Proxy Server SSL Redirect handler code.
 #
 # Copyright (c) 2008--2012 Red Hat, Inc.
 #

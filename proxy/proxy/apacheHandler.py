@@ -1,4 +1,4 @@
-# Main entry point for apacheServer.py for the Red Hat Network Proxy
+# Main entry point for apacheServer.py for the Spacewalk Proxy
 # and/or SSL Redirect Server.
 #
 # Copyright (c) 2008--2012 Red Hat, Inc.

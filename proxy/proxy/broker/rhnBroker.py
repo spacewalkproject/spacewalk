@@ -1,4 +1,4 @@
-# Red Hat Network Proxy Server Broker handler code.
+# Spacewalk Proxy Server Broker handler code.
 #
 # Copyright (c) 2008--2012 Red Hat, Inc.
 #

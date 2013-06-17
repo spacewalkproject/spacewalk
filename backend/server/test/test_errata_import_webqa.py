@@ -424,7 +424,7 @@ class ErrataImportTests(unittest.TestCase):
                         'reference': 'http://www.redhat.com/security/updates/classification/#moderate',
                         'revision': 3,
                         'security_impact': 'Moderate',
-                        'solution': 'Before applying this update, make sure all previously released errata\r\nrelevant to your system have been applied.\r\n\r\nThis update is available via Red Hat Network.  To use Red Hat Network,\r\nlaunch the Red Hat Update Agent with the following command:\r\n\r\nup2date\r\n\r\nThis will start an interactive process that will result in the appropriate\r\nRPMs being upgraded on your system.',
+                        'solution': 'Before applying this update, make sure all previously released errata\r\nrelevant to your system have been applied.\r\n\r\nThis update is available via Red Hat Satellite.  To use Red Hat Satellite,\r\nlaunch the Red Hat Update Agent with the following command:\r\n\r\nup2date\r\n\r\nThis will start an interactive process that will result in the appropriate\r\nRPMs being upgraded on your system.',
                         'synopsis': 'Moderate: dbus security update',
                         'topic': 'Updated dbus packages that fix a security issue are now available for Red\r\nHat Enterprise Linux 4.\r\n\r\nThis update has been rated as having moderate security impact by the Red\r\nHat Security Response Team.',
                         'update_date': '2007-02-07'}
