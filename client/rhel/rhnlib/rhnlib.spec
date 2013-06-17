@@ -4,7 +4,7 @@ Summary: Python libraries for the Spacewalk project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.62
+Version: 2.5.63
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -59,6 +59,10 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Mon Jun 17 2013 Michael Mraka <michael.mraka@redhat.com> 2.5.63-1
+- removed old CVS/SVN version ids
+- more branding cleanup
+
 * Mon Jun 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.5.62-1
 - rebranding few more strings in client stuff
 
