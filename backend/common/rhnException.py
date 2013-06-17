@@ -39,7 +39,7 @@ templateValues = {
 #   2000-2999: Red Hat Satellite specific interation errors
 
 FaultArray = {
-     # 0-999: RHN client/client-like interaction errors:
+     # 0-999: Red Hat client/client-like interaction errors:
      1: _("This does not appear to be a valid username."),
      2: _("Invalid username and password combination."),
      3: _("This login is already taken, or the password is incorrect."),
@@ -67,7 +67,7 @@ FaultArray = {
      as root.
      Please visit https://%(hostname)s/rhn/systems/SystemEntitlements.do
      or login at https://%(hostname)s, and from the "Overview" tab,
-     select "Subscription Management" to enable RHN service for this system.
+     select "Subscription Management" to enable the service for this system.
      """),
      29: _("Record not available in the database."),
      30: _("Invalid value for entry."),
@@ -75,7 +75,7 @@ FaultArray = {
      This system does not have a valid entitlement for Red Hat Satellite.
      Please visit https://%(hostname)s/rhn/systems/SystemEntitlements.do
      or login at https://%(hostname)s, and from the "Overview" tab,
-     select "Subscription Management" to enable RHN service for this system.
+     select "Subscription Management" to enable the service for this system.
      """),
      32: _("Channel error"),
      33: _("Client session token is invalid."),
@@ -93,7 +93,7 @@ on this system."),
 
      The current settings for your account do not allow you to add another
      user account. Please check with the organization administrator for your
-     account if the maximum number of users allowed to subscribe to RHN needs
+     account if the maximum number of users allowed to subscribe to server needs
      to be changed.
      """),
      44: _("""
@@ -102,7 +102,7 @@ on this system."),
      The current settings for your account do not allow you to add another
      system profile. Please check with the organization administrator for your
      account for modifying the maximum number of system profiles that can be
-     subscribed to your RHN account.
+     subscribed to your account.
      """),
      45: _("""
      Invalid architecture.
@@ -175,12 +175,12 @@ maximum membership exceeded"),
      800: _("System Name cannot be less than 3 characters"),
 
      # 1000-1999: Red Hat Proxy specific errors:
-     # issued by an Red Hat Proxy to the client
+     # issued by a Red Hat Proxy to the client
      1000: _("Red Hat Proxy error."),
      1001: _("Red Hat Proxy unable to login."),
-     # issued by an RHN Server/Satellite to the proxy
+     # issued by a Red Hat Server/Satellite to the proxy
      1002: _("""
-     Red Hat Proxy system ID does not match an Red Hat Proxy Server
+     Red Hat Proxy system ID does not match a Red Hat Proxy Server
      in the database.
      """),
      1003: _("Red Hat Proxy session token is invalid."),
@@ -266,7 +266,7 @@ class rhnException(Exception):
         String representation of this object.
         """
         s = StringIO()
-        s.write("\nInternal RHN code error. Information available:\n")
+        s.write("\nInternal code error. Information available:\n")
         for a in self.args:
             s.write("  %s\n" % (a, ))
 

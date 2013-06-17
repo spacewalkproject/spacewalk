@@ -1,4 +1,4 @@
-# Makefile for registration server for RHNS
+# Makefile for spacewalk backend
 #
 # $Id: Makefile 34065 2003-01-20 17:52:20Z misa $
 #

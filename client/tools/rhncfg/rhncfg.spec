@@ -53,7 +53,7 @@ Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
 
 %description management
-A command line interface used to manage RHN configuration.
+A command line interface used to manage Spacewalk configuration.
 
 %package actions
 Summary: Spacewalk Configuration Client Actions

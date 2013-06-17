@@ -1,7 +1,7 @@
-# rhnLog.py                                            - RHN Logging functions.
+# rhnLog.py                                            - Logging functions.
 #------------------------------------------------------------------------------
 # This module contains the necessary functions for producing log messages to
-# stderr, stdout or a specified filename. Used by all RHN server-side code.
+# stderr, stdout or a specified filename. Used by all server-side code.
 #
 # USAGE: For general purposes, simply import the log_debug function and use it
 #        as log_debug(min_level, *args)
@@ -119,7 +119,7 @@ def log_debug(level, *args):
 def log_stderr(*args):
     pid = os.getpid()
     for arg in args:
-        sys.stderr.write("RHN %s %s: %s\n" % (
+        sys.stderr.write("Spacewalk %s %s: %s\n" % (
             pid, log_time(), arg))
     sys.stderr.flush()
 

@@ -65,7 +65,7 @@ public class Configuration {
     public static final String DEFAULT_DEFAULT_CONF_DIR = "/usr/share/rhn/config-defaults";
 
     /**
-     * The system property containing the RHN configuration directory.
+     * The system property containing the Spacewalk configuration directory.
      * If the property is not set, config files are read
      * from {@link #DEFAULT_CONF_DIR}
      */

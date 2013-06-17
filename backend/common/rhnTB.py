@@ -21,7 +21,7 @@ import traceback
 from StringIO import StringIO
 from rhn.connections import idn_pune_to_unicode
 
-from rhnConfig import CFG
+from rhnConfig import CFG, PRODUCT_NAME
 from rhnLog import log_error
 from rhnTranslate import _
 import rhnMail
@@ -162,7 +162,7 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
             fr = to[0].strip()
             to = ', '.join(map(lambda x: x.strip(), to))
         headers = {
-            "Subject" : "RHN TRACEBACK from %s" % unicode_hostname,
+            "Subject" : "%s TRACEBACK from %s" % (PRODUCT_NAME, unicode_hostname),
             "From"    : "%s <%s>" % (hostname, fr),
             "To"      : to,
             "X-RHN-Traceback-Severity"  : severity,

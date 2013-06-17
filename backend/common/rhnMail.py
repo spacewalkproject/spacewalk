@@ -18,7 +18,7 @@
 import os
 import smtplib
 
-from rhnConfig import CFG
+from rhnConfig import CFG, PRODUCT_NAME
 from rhn.connections import idn_pune_to_unicode
 
 # check if the headers have the minimum required fields
@@ -27,7 +27,8 @@ def __check_headers(h):
         # does not look like a dictionary
         h = {}
     if not h.has_key("Subject"):
-        h["Subject"] = "RHN System Mail From %s" % idn_pune_to_unicode(os.uname()[1])
+        h["Subject"] = "%s System Mail From %s" % (PRODUCT_NAME,
+                                                   idn_pune_to_unicode(os.uname()[1]))
     if not h.has_key("To"):
         to = CFG.TRACEBACK_MAIL
     else:

@@ -1,4 +1,4 @@
-# Makefile for registration server for RHNS
+# Makefile for spacewalk backend
 #
 # $Id$
 

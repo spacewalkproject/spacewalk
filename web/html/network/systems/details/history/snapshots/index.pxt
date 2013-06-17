@@ -23,7 +23,7 @@
 
 <div class="page-summary">
 <p>
-System Snapshot Rollback functionality allows you to restore a system's package profile, configuration files, and RHN configuration to previously recorded values.
+System Snapshot Rollback functionality allows you to restore a system's package profile, configuration files, and Spacewalk configuration to previously recorded values.
 </p>
 
 
