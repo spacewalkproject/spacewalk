@@ -21,7 +21,6 @@
     NOTE: this file is compatible with RHN Proxies 4.0. It is not guaranteed to
     work with older RHN Proxies.
 """
-# $Id: rhn_proxy_activate.py,v 1.17 2005/07/22 22:08:05 misa Exp $
 
 ## core lang imports
 import os

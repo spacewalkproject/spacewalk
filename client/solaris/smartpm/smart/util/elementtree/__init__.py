@@ -1,4 +1,3 @@
-# $Id: //modules/elementtree/elementtree/__init__.py#2 $
 # elementtree package
 
 # --------------------------------------------------------------------

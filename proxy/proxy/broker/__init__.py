@@ -12,4 +12,3 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 #
-# $Id: __init__.py,v 1.2 2001/12/01 00:47:11 taw Exp $

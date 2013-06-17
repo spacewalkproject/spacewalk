@@ -7,7 +7,6 @@
     Author: Todd Warner <taw@redhat.com>
 """
 #-------------------------------------------------------------------------------
-# $Id: rhn-proxy-activate,v 1.2 2004/10/18 03:53:02 taw Exp $
 
 ## language imports
 import sys

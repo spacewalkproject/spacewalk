@@ -1,6 +1,5 @@
 #
 # ElementTree
-# $Id: //modules/elementtree/elementtree/HTMLTreeBuilder.py#3 $
 #
 # a simple tree builder, for HTML input
 #

@@ -15,7 +15,6 @@
 ##
 # rhnDefines.py - Constants used throughout the Red Hat Proxy.
 #-----------------------------------------------------------------------------
-# $Id: rhnConstants.py,v 1.4 2006/04/03 15:58:17 pvetere Exp $
 #
 
 """Constants used by the Red Hat Proxy"""

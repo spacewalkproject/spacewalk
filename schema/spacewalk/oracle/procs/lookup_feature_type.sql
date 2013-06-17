@@ -13,7 +13,6 @@
 -- in this software or its documentation. 
 --
 --
--- $Id: $
 --
 
 create or replace function

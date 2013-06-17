@@ -13,7 +13,6 @@
 -- in this software or its documentation. 
 --
 --
--- $Id: rhnServerEntitlementView.sql 57324 2005-06-01 15:23:37Z jslagle $
 --
 
 create or replace view

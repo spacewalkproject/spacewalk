@@ -7,7 +7,6 @@
 
     Author: Todd Warner <taw@redhat.com>
 """
-# $Id: embedded_diskspace_check.py,v 1.4 2005-07-12 19:01:14 misa Exp $
 
 import os
 import sys

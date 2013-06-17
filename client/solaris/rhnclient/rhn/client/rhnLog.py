@@ -1,6 +1,5 @@
 #!/usr/bin/python
 #
-# $Id: rhnLog.py,v 1.2 2004/02/04 21:20:49 alikins Exp $
 
 import time
 import string

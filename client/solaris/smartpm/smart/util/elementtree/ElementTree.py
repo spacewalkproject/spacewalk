@@ -1,6 +1,5 @@
 #
 # (Simple)ElementTree
-# $Id: //modules/elementtree/elementtree/ElementTree.py#15 $
 #
 # a simple version of the effDOM ElementTree interface.  compared to
 # effDOM, this implementation has:

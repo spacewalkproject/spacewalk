@@ -35,7 +35,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 %doc squid.conf.sample
 
-# $Id: proxy.spec,v 1.290 2007/08/08 07:03:05 msuchy Exp $
 %changelog
 * Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.1-1
 - rebranding RHN Proxy to Red Hat Proxy

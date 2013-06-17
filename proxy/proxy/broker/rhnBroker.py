@@ -13,7 +13,6 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 #
-# $Id: rhnBroker.py,v 1.208 2007/07/31 11:04:01 msuchy Exp $
 
 # system module imports
 import time

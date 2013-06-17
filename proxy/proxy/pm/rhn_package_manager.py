@@ -16,7 +16,6 @@
 # Authors: Mihai Ibanescu <misa@redhat.com>
 #          Todd Warner <taw@redhat.com>
 #
-# $Id: rhn_package_manager.py,v 1.83 2005/06/15 18:58:11 taw Exp $
 """\
 Management tool for the Red Hat proxy.
 

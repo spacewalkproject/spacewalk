@@ -14,7 +14,6 @@
 # in this software or its documentation.
 #
 # -----------------------------------------------------------------------------
-# $Id: rhnProxyAuth.py,v 1.64 2006/04/05 15:35:43 taw Exp $
 
 ## system imports
 import os

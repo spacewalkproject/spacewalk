@@ -1,6 +1,5 @@
 #
 # (Simple)ElementTree
-# $Id: //modules/elementtree/elementtree/ElementPath.py#9 $
 #
 # limited xpath support for element trees
 #

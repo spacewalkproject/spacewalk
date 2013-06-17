@@ -1,6 +1,5 @@
 # Makefile for the PackageManager modules
 #
-# $Id: Makefile,v 1.15 2004/01/08 01:40:24 taw Exp $
 
 TOP	= ..
 SUBDIR  = PackageManager

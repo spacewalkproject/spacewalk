@@ -1,6 +1,5 @@
 #
 # SimpleXMLWriter
-# $Id: //modules/elementtree/elementtree/SimpleXMLWriter.py#1 $
 #
 # a simple XML writer
 #

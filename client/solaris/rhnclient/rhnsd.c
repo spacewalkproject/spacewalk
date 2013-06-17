@@ -5,7 +5,6 @@
  *	Cristian Gafton <gafton@redhat.com>
  *
  * Distributed under GPL
- * $Id: rhnsd.c,v 1.8 2005/02/09 20:40:29 jmartin Exp $
  */
 
 #ifdef linux

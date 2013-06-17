@@ -15,7 +15,6 @@
 #
 # Useful kickstart functions
 #
-# $Id: kickstart.py 111499 2007-02-21 19:19:01Z jbowes $
 
 import os
 import stat

@@ -13,7 +13,6 @@
 -- in this software or its documentation. 
 --
 --
--- $Id: create_new_org.sql 118829 2007-08-03 00:04:50Z mmccune $
 --
 --
 

@@ -13,7 +13,6 @@
 -- in this software or its documentation. 
 --
 --
--- $Id: lookup_sg_type.sql 45110 2004-02-19 22:19:29Z pjones $
 --
 
 create or replace function

@@ -25,7 +25,6 @@ Author: Todd Warner <taw@redhat.com>
 Copyright (c) 2002-2010, Red Hat, Inc.
 Released under Python license and GPLv2 license
 """
-# $Id: gzipstream.py,v 1.53 2004/07/08 17:49:26 taw Exp $
 
 #WARNING: gzipstream will wrap a file-object. The responsibility of properly
 #WARNING: destroying/closing that file-object resides outside of these

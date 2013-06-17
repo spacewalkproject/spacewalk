@@ -1,6 +1,5 @@
 #
 # ElementTree
-# $Id: //modules/elementtree/elementtree/TidyHTMLTreeBuilder.py#1 $
 #
 # tree builder based on the _elementtidy tidylib wrapper
 #

@@ -16,7 +16,6 @@
 # in this software or its documentation.
 #
 #-------------------------------------------------------------------------------
-# $Id: rhnRepository.py,v 1.92 2007/01/25 21:44:29 pvetere Exp $
 
 ## language imports
 import os

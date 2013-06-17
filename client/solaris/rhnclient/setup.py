@@ -1,7 +1,6 @@
 #!/usr/bin/python
 #
 #
-# $Id: setup.py.in,v 1.3 2003/11/16 06:12:48 taw Exp $
 
 from distutils.core import setup
 from spacewalk.common.rhnConfig import CFG, initCFG

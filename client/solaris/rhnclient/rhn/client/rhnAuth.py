@@ -1,6 +1,5 @@
 #!/usr/bin/python
 #
-# $Id: rhnAuth.py,v 1.2 2004/01/27 21:30:23 alikins Exp $
 
 import rpcServer
 import config

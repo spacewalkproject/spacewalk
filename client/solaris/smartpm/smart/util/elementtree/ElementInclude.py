@@ -1,6 +1,5 @@
 #
 # ElementTree
-# $Id: //modules/elementtree/elementtree/ElementInclude.py#2 $
 #
 # limited xinclude support for element trees
 #

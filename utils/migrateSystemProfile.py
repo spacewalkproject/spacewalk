@@ -8,7 +8,6 @@ server and its history from source org to the destination org.
 Copyright (c) 2008--2012 Red Hat, Inc.  Distributed under GPL.
 Author: Pradeep Kilambi <pkilambi@redhat.com>
 
-# $Id: migrateSystemProfile.py 
 """
 
 import os

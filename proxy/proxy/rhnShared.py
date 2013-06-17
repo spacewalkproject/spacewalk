@@ -13,7 +13,6 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 #
-# $Id: rhnShared.py,v 1.65.2.1 2007/07/30 12:27:56 msuchy Exp $
 
 ## language imports
 import urllib

@@ -1,6 +1,5 @@
 #!/usr/bin/python
 #
-# $Id: rpcServer.py,v 1.5 2004/02/27 22:11:06 alikins Exp $
 
 import os
 import sys

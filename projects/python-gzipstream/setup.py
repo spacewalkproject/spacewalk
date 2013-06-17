@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 #
 #
-# $Id: setup.py,v 1.3 2004/10/15 01:53:29 taw Exp $
 
 from distutils.core import setup
 

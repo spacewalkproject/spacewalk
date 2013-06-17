@@ -8,7 +8,6 @@ list or delete system snapshots based on the parameters given by the user.
 Copyright (c) 2009--2012 Red Hat, Inc.  Distributed under GPL.
 Author: Brad Buckingham <bbuckingham@redhat.com>
 
-# $Id: systemSnapshot.py
 """
 
 import os

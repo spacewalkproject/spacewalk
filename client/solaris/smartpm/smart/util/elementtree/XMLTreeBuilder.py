@@ -1,6 +1,5 @@
 #
 # ElementTree
-# $Id: //modules/elementtree/elementtree/XMLTreeBuilder.py#1 $
 #
 # an XML tree builder
 #

@@ -1,6 +1,5 @@
 # Makefile for the rhn modules
 #
-# $Id: Makefile 102335 2006-09-14 18:51:19Z dbenamy $
 
 PYTHON      = /usr/bin/python
 

@@ -1,6 +1,5 @@
 #!/bin/sh
 #
-# $Id: make-ks-tree.sh 172425 2008-05-13 01:34:54Z bperkins $
 
 usage() {
     echo "Usage:"

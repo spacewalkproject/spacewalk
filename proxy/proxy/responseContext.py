@@ -12,7 +12,6 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 #
-# $Id: responseContext.py,v 1.1 2006/04/10 16:06:41 pvetere Exp $
 #
 # This module provides a response context for use by the proxy broker
 # and redirect components.  This context provides a stackable set of 

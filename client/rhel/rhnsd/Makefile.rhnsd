@@ -1,6 +1,5 @@
 # Makefile for Update Agent
 #
-# $Id: Makefile 104396 2006-10-17 15:14:10Z jbowes $
 
 PREFIX		?=
 MANPATH		?= /usr/share/man

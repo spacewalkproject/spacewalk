@@ -13,7 +13,6 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 #
-# $Id: rhnRedirect.py,v 1.59.2.2 2007/08/01 15:07:26 msuchy Exp $
 
 # language imports
 import socket

@@ -17,7 +17,6 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 #-------------------------------------------------------------------------------
-# $Id: rhnAuthCacheClient.py,v 1.42 2004/09/20 15:21:25 misa Exp $
 
 ## language imports
 import socket

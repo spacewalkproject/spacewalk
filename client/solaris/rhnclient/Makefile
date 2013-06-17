@@ -1,6 +1,5 @@
 # Makefile for Update Agent
 #
-# $Id: Makefile,v 1.23 2004/10/11 20:08:15 alikins Exp $
 
 # This is bogus - this directory should depend on the OS.  But,
 # libiberty includes getopt_long for each platform, so we'll just use

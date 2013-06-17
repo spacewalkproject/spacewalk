@@ -1,6 +1,5 @@
 # /etc/logrotate.d/rhn-proxy-redirect
 #
-# $Id: rhn_proxy_redirect,v 1.4 2002/03/21 02:38:48 taw Exp $
 
 /var/log/rhn/rhn_proxy_redirect.log {
     weekly

@@ -8,7 +8,6 @@
 #         Erik Troan <ewt@redhat.com
 #
 # Shamlessly copied from the anaconda tree.
-# $Id: translate.py,v 1.2 2004/02/09 18:26:40 streeter Exp $
 
 import os, string
 

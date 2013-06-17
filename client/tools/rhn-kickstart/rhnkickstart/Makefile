@@ -1,6 +1,5 @@
 # Makefile for the backend directory
 #
-# $Id: Makefile 111377 2007-02-20 17:12:07Z jbowes $
 
 TOP         = ..
 ROOT        = /usr/share/rhn

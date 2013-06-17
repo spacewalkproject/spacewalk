@@ -2,7 +2,6 @@
 #
 # Wrapper for rhn_package_manager.py
 #
-# $Id: rhn_package_manager,v 1.11 2004/06/27 00:51:12 taw Exp $
 
 LIBPATH = "/usr/share/rhn"
 

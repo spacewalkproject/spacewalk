@@ -1,6 +1,5 @@
 #
 # TidyXHTMLTreeBuilder
-# $Id: //modules/elementtree/elementtree/TidyTools.py#1 $
 #
 # tools to run the "tidy" command on an HTML or XHTML file, and return
 # the contents as an XHTML element tree.

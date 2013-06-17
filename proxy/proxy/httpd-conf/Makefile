@@ -1,6 +1,5 @@
 # Makefile for installation of the httpd configuration files
 #
-# $Id: Makefile,v 1.1 2002/08/20 20:58:17 misa Exp $
 
 TOP	= ..
 

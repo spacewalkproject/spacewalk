@@ -7,7 +7,6 @@
 #       Cristian Gafton <gafton@redhat.com>
 #       Adrian Likins   <alikins@redhat.com>
 #
-# $Id: config.py,v 1.6 2004/12/07 17:09:10 misa Exp $
 """
 This module includes the Config and Up2date Config classes use by the
 up2date agent to hold config info.

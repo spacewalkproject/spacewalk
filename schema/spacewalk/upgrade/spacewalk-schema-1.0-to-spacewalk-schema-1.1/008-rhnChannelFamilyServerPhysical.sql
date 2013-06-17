@@ -13,7 +13,6 @@
 -- in this software or its documentation. 
 --
 --
--- $Id: rhnChannelFamilyServers.sql 43207 2003-04-11 20:46:21Z cturner $
 --
 
 create or replace view rhnChannelFamilyServerPhysical as

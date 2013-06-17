@@ -1,6 +1,5 @@
 # /etc/logrotate.d/rhn-proxy-broker
 #
-# $Id: rhn_proxy_broker,v 1.4 2002/03/21 02:38:29 taw Exp $
 
 /var/log/rhn/rhn_proxy_broker.log {
     weekly

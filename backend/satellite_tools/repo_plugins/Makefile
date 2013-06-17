@@ -1,6 +1,5 @@
 # Makefile for repo sync plugins
 #
-# $Id: Makefile $
 #
 # Copyright (c) 2009--2010 Red Hat, Inc.
 #
