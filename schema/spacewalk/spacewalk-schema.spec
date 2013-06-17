@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.43
+Version:        1.10.44
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Jun 17 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.44-1
+- removed old CVS/SVN version ids
+
 * Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.43-1
 - Resolve upgrade-script naming collision
 
