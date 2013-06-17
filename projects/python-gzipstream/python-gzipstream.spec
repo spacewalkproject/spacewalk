@@ -4,7 +4,7 @@
 
 Summary: Streaming zlib (gzip) support for python
 Name: python-gzipstream
-Version: 1.10.0
+Version: 1.10.1
 Release: 1%{?dist}
 URL:        https://fedorahosted.org/spacewalk/wiki/Projects/python-gzipstream
 Source0:    https://fedorahosted.org/releases/s/p/spacewalk/python-gzipstream-%{version}.tar.gz
@@ -40,6 +40,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Jun 17 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.1-1
+- removed old CVS/SVN version ids
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+- %%defattr is not needed since rpm 4.4
+
 * Thu Feb 23 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.1-1
 - we are now just GPL
 
