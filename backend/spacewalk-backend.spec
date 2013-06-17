@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.45
+Version: 1.10.46
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -638,6 +638,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Jun 17 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.46-1
+- rebranding few more strings
+
 * Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.45-1
 - rebranding RHN Proxy to Red Hat Proxy
 - rebrading RHN Satellite to Red Hat Satellite in backend
