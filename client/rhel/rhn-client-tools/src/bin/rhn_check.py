@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #
 # Python client for checking periodically for posted actions
-# on the Red Hat Network servers.
+# on the Spacewalk servers.
 #
 # Copyright (c) 2000--2012 Red Hat, Inc.
 #

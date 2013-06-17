@@ -1,4 +1,4 @@
-Summary: Support programs and libraries for Red Hat Network or Spacewalk
+Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 License: GPLv2
 Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz

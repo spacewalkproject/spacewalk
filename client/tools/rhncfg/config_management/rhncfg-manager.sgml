@@ -1,5 +1,5 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHN "Red Hat Network Classic" >
+<!ENTITY RHN "Spacewalk" >
 <!ENTITY RHNCFGM "rhncfg-manager" >
 
 ]>
@@ -13,7 +13,7 @@
 <RefNameDiv>
 <RefName><command>&RHNCFGM;</command></RefName>
 <RefPurpose>
-  a tool used managing RHN's central repository of configuration files
+  a tool used managing Spacewalk's central repository of configuration files
   and channels.
 </RefPurpose>
 </RefNameDiv>
@@ -31,17 +31,17 @@
 
 <RefSect1><Title>Description</Title>
 <para>
-    The RHN Configuration Manager (<emphasis>&RHNCFGM;</emphasis>) is used to
-    manage RHN configuration files and channels.
+    The Spacewalk Configuration Manager (<emphasis>&RHNCFGM;</emphasis>) is used to
+    manage Spacewalk configuration files and channels.
 </para>
 <para>
     This tool offers a command line alternative to the configuration management
-    features found within the RHN website (hosted or Red Hat Satellite), as well
+    features found within the Spacewalk website (or Red Hat Satellite), as well
     as the ability to script some or all of the related maintenance.
 </para>
 <para>
     This tool is intended for use by the Config Administrator and therefore
-    requires an RHN username and password that has the appropriate permission
+    requires an Spacewalk username and password that has the appropriate permission
     set. (The username may be specified in
     <filename>/etc/sysconfig/rhn/rhncfg-manager.conf</filename> or in the [rhncfg-manager] section
     of <filename>~/.rhncfgrc</filename>).

@@ -85,7 +85,7 @@
       <child>
 	<widget class="GtkLabel" id="label129">
 	  <property name="visible">True</property>
-	  <property name="label" translatable="yes">This system will &lt;b&gt;not&lt;/b&gt; be able to successfully receive software updates, including security updates, from Red Hat without connecting to a Red Hat Network server.
+	  <property name="label" translatable="yes">This system will &lt;b&gt;not&lt;/b&gt; be able to successfully receive software updates, including security updates, from Red Hat without connecting to a Red Hat Satellite or Red Hat Network Classic.
 
 To keep your system updated, secure, and supported, please register this system at your earliest convenience.
 

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Red Hat Network registration tool
+# Spacewalk registration tool
 # Adapted from wrapper.py
 # Copyright (c) 1999--2012 Red Hat, Inc.  Distributed under GPLv2.
 #

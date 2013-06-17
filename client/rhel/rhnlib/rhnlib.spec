@@ -26,8 +26,7 @@ Conflicts: rhnclient < 0.10
 Conflicts: spacewalk-proxy < 1.3.6
 
 %description
-rhnlib is a collection of python modules used by the 
-Red Hat Network (http://rhn.redhat.com) software.
+rhnlib is a collection of python modules used by the Spacewalk (http://spacewalk.redhat.com) software.
 
 
 %prep

@@ -1,7 +1,7 @@
 """
 Yum plugin for RHN access.
 
-This plugin provides access to Red Hat Network to yum via up2date modules
+This plugin provides access to Spacewalk to yum via up2date modules
 and XMLRPC calls.
 """
 
@@ -54,9 +54,9 @@ from M2Crypto.SSL import SSLError
 
 def init_hook(conduit):
     """
-    Plugin initialization hook. We setup the RHN channels here.
+    Plugin initialization hook. We setup the Spacewlk channels here.
 
-    We get a list of RHN channels from the server, then make a repo object for
+    We get a list of Spacewalk channels from the server, then make a repo object for
     each one. This list of repos is then added to yum's list of repos via the 
     conduit.
     """
@@ -69,8 +69,8 @@ def init_hook(conduit):
     timeout = conduit_conf.timeout
 
     if not os.geteuid()==0:
-        # If non-root notify user RHN repo not accessible
-        conduit.error(0, _("*Note* Red Hat Network repositories are not listed below. You must run this command as root to access RHN repositories."))
+        # If non-root notify user Spacewalk repo not accessible
+        conduit.error(0, _("*Note* Spacewalk repositories are not listed below. You must run this command as root to access Spacewalk repositories."))
         rhn_enabled = False
         return
 
@@ -306,7 +306,7 @@ def rewordError(e):
 class RhnRepo(YumRepository):
 
     """
-    Repository object for Red Hat Network.
+    Repository object for Spacewalk.
 
     This, along with the RhnPackageSack, adapts up2date for use with
     yum.

@@ -1,5 +1,5 @@
-rhnlib - A collection of python modules used by the Red Hat Network Classic
-(http://rhn.redhat.com) software.
+rhnlib - A collection of python modules used by the Spacewalk
+(http://spacewalk.redhat.com) software.
 
 Copyright (C) 2002 Red Hat, Inc.
 

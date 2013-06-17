@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Registration client for the Red Hat Network for useage with kickstart 
+# Registration client for the Spacewalk for useage with kickstart 
 # Copyright (c) 1999--2012 Red Hat, Inc.  Distributed under GPL.
 #
 # Author: Adrian Likins <alikins@redhat.com>

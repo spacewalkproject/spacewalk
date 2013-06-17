@@ -86,7 +86,7 @@
       <member>
         mpm archives are format-neutral archives that attach the original archive as a 
         payload onto a header that describes the contents of the original archive in a 
-        manner that is meaningful to Red Hat Network.
+        manner that is meaningful to Spacewalk.
       </member>
       <member>
         solaris2mpm can convert the following types of archives into mpm:
