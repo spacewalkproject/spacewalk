@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.10.11
+Version:	1.10.12
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -88,6 +88,11 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Jun 17 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.12-1
+- removed old CVS/SVN version ids
+- branding fixes in man pages
+- more branding cleanup
+
 * Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.11-1
 - rebrading RHN Satellite to Red Hat Satellite
 
