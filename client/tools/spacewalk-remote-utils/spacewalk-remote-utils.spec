@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacewalk-remote-utils
-Version:     1.10.1
+Version:     1.10.2
 Release:     1%{?dist}
 Summary:     Utilities to interact with a Red Hat Satellite or Spacewalk server remotely.
 
@@ -62,6 +62,9 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %doc %{_mandir}/man1/spacewalk-create-channel.1.gz
 
 %changelog
+* Mon Jun 17 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.2-1
+- branding fixes in man pages
+
 * Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.1-1
 - rebranding RHN Satellite to Red Hat Satellite in client stuff
 - Bumping package versions for 1.9
