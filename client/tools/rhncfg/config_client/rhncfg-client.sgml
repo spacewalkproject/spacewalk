@@ -1,5 +1,5 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHN "Súacewalk" >
+<!ENTITY RHN "Spacewalk" >
 <!ENTITY RHNCFGC "rhncfg-client" >
 
 ]>
@@ -30,16 +30,16 @@
 
 <RefSect1><Title>Description</Title>
 <para>
-    The RHN Configuration Client (<emphasis>&RHNCFGC;</emphasis>) is used to query a
-    system's configuration makeup and deployment status as managed by RHN.
+    The &RHN; Configuration Client (<emphasis>&RHNCFGC;</emphasis>) is used to query a
+    system's configuration makeup and deployment status as managed by &RHN;.
 </para>
 <para>
-    This tool enables an &RHN; client to <emphasis>list</emphasis> available
+    This tool enables a &RHN; client to <emphasis>list</emphasis> available
     configuration files, fetch (or <emphasis>get</emphasis>) those
     configuration files, <emphasis>view</emphasis> configuration channels, and
     finally, <emphasis>diff</emphasis> and <emphasis>verify</emphasis> current
     configuration of the system in comparison to the system's status according
-    to RHN.
+    to &RHN;.
 </para>
 <para>
   <simplelist>

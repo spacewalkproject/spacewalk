@@ -1,5 +1,5 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHNSSLTOOL "RHN SSL Maintenance Tool" >
+<!ENTITY RHNSSLTOOL "Spacewalk SSL Maintenance Tool" >
 
 ]>
 <refentry>

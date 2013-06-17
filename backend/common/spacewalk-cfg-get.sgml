@@ -1,6 +1,5 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
 <!ENTITY SERVER "Spacewalk Server" >
-<!ENTITY SCRIPTNAME "Spacewalk Configuration Reader" >
 <!ENTITY SCRIPTCOMMAND "spacewalk-cfg-get" >
 
 ]>

@@ -1,6 +1,5 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
 <!ENTITY RHNPROXY "Spacewalk Proxy Server" >
-<!ENTITY SCRIPTNAME "Spacewalk Proxy Configure script" >
 <!ENTITY SCRIPTCOMMAND "configure-proxy.sh" >
 
 ]>

@@ -1,5 +1,5 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHNSAT "Red Hat Satellite Server" >
+<!ENTITY RHNSAT "Spacewalk Server" >
 ]>
 <refentry>
 
@@ -38,7 +38,7 @@
 
     <para>
       <emphasis>solaris2mpm</emphasis> creates mpm archives from Solaris package, patch, 
-      and patch cluster archives that can be pushed into managed channels on an 
+      and patch cluster archives that can be pushed into managed channels on a 
       &RHNSAT;. Refer to the Red Hat Satellite documentation for further reference on managed
       channels.
     </para>

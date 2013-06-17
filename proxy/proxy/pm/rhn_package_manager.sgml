@@ -1,6 +1,6 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY PROXY "Red Hat Proxy Server" -- use this to be consistent -->
-<!ENTITY RHNPM "Red Hat Package Manager" -- use this to be consistent -->
+<!ENTITY PROXY "Spacewalk Proxy Server" -- use this to be consistent -->
+<!ENTITY RHNPM "Spacewalk Package Manager" -- use this to be consistent -->
 
 ]>
 <refentry>
@@ -35,7 +35,7 @@ Manages RPM packages for the Red Hat Proxy
 </para>
 
 <para>
-    An &PROXY; may manage <emphasis>local/custom channels</emphasis>. A
+    A &PROXY; may manage <emphasis>local/custom channels</emphasis>. A
     <emphasis>channel</emphasis> is a logical grouping of packages that can be
     installed using <command>rpm</command>. The &RHNPM; is used to populate
     those custom channels with RPMs and SRPMs.

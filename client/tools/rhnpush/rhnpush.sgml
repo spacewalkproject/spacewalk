@@ -1,6 +1,6 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHNSAT "Red Hat Satellite Server" >
-<!ENTITY RHNPUSH "Red Hat Satellite Package Pusher" >
+<!ENTITY RHNSAT "Spacewalk Server" >
+<!ENTITY RHNPUSH "Spacewalk Package Pusher" >
 
 ]>
 <refentry>
@@ -114,7 +114,7 @@ Utility to push binary and source RPMs into an RHN channel.
 
 <para>
     The &RHNPUSH; (<emphasis>rhnpush</emphasis>) pushes RPMs into locally
-    managed channels on an &RHNSAT;. Refer to the Red Hat Satellite documentation
+    managed channels on a &RHNSAT;. Refer to the Red Hat Satellite documentation
     for further reference.
 </para>
 

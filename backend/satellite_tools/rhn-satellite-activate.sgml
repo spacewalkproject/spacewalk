@@ -13,7 +13,7 @@
 <RefNameDiv>
 <RefName><command>&RHNSATACT;</command></RefName>
 <RefPurpose>
-    activates (using an RHN Certificate) an &RHNSAT;.
+    activates (using an RHN Certificate) a &RHNSAT;.
 </RefPurpose>
 </RefNameDiv>
 
@@ -30,7 +30,7 @@
 <RefSect1><Title>Description</Title>
 
 <para>
-    <emphasis>&RHNSATACT;</emphasis> activates (using an RHN Certificate) an
+    <emphasis>&RHNSATACT;</emphasis> activates (using an RHN Certificate) a
     &RHNSAT;. The RHN Cert is (a) checked for sanity, (b) inserted into the
     local database, and (c) inserted into the remote database.
 </para>

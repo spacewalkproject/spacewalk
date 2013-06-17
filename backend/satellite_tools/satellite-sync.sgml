@@ -125,10 +125,10 @@ Incrementally synchronize an Red Hat Satellite's DB data and RPM repository with
 <RefSect1><Title>Description</Title>
 <para>
     The &RHNSYNC; (<emphasis>satellite-sync</emphasis>) synchronizes
-    an &RHNSAT; with Red Hat's RHN servers.
+    a &RHNSAT; with Red Hat's RHN servers.
 </para>
 <para>
-    This tool enables an &RHNSAT; to update its database metadata and
+    This tool enables a &RHNSAT; to update its database metadata and
     RPM packages with that of Red Hat. This action can be performed via
     the internet (ie. directly) or via the local file-system (an update/channel
     CD dumped to the appropriate mount point).

@@ -1,5 +1,5 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHNSAT "RHN Management Satellite Server" >
+<!ENTITY RHNSAT "Spacewalk Server" >
 
 ]>
 <refentry>
@@ -12,7 +12,7 @@
 <RefNameDiv>
 <RefName><command>rhn-schema-version</command></RefName>
 <RefPurpose>
-Fetch the database schema version for an &RHNSAT;.
+Fetch the database schema version for a &RHNSAT;.
 </RefPurpose>
 </RefNameDiv>
 

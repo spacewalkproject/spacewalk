@@ -1,6 +1,6 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHNPROXY "Red Hat Proxy Server" >
-<!ENTITY SCRIPTNAME "Red Hat Proxy Activate script" >
+<!ENTITY RHNPROXY "Spacewalk Proxy Server" >
+<!ENTITY SCRIPTNAME "Spacewalk Proxy Activate script" >
 <!ENTITY SCRIPTCOMMAND "rhn-proxy-activate" >
 
 ]>

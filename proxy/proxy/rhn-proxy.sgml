@@ -1,6 +1,6 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHNPROXY "Red Hat Proxy Server" >
-<!ENTITY NAME "Red Hat Proxy initialization script" >
+<!ENTITY RHNPROXY "Spacewalk Proxy Server" >
+<!ENTITY NAME "Spacewalk Proxy initialization script" >
 <!ENTITY COMMAND "rhn-proxy" >
 
 ]>
@@ -31,7 +31,7 @@
 
 <para>
     The &NAME; (<emphasis>&COMMAND;</emphasis>) is a single initialization
-    mechanism used to bring up and down all services used by an &RHNPROXY;.
+    mechanism used to bring up and down all services used by a &RHNPROXY;.
     Those services include squid, httpd, jabberd, and MonitoringScout.
 </para>
 

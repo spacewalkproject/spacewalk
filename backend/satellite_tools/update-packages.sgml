@@ -1,7 +1,5 @@
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHNSAT "Spacewalk Server" >
-
-]>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN"
+>
 <refentry>
 
 <RefMeta>

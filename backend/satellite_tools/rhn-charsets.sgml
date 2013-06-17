@@ -1,5 +1,5 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHNSAT "RHN Management Satellite Server" >
+<!ENTITY RHNSAT "Spacewalk Server" >
 <!ENTITY COMMAND "rhn-charsets" >
 
 ]>
@@ -13,7 +13,7 @@
 <RefNameDiv>
 <RefName><command>&COMMAND;</command></RefName>
 <RefPurpose>
-Fetch the database characterset types for an &RHNSAT;.
+Fetch the database characterset types for a &RHNSAT;.
 </RefPurpose>
 </RefNameDiv>
 
@@ -29,7 +29,7 @@ Fetch the database characterset types for an &RHNSAT;.
 
     <para> <emphasis>&COMMAND;</emphasis> fetches the database characterset
     ('NLS_CHARACTERSET', 'NLS_NCHAR_CHARACTERSET', 'server_encoding', 'client_encoding')
-    values for an &RHNSAT;.  It uses the database connection string found in /etc/rhn/rhn.conf.
+    values for a &RHNSAT;.  It uses the database connection string found in /etc/rhn/rhn.conf.
     </para>
 
 </RefSect1>

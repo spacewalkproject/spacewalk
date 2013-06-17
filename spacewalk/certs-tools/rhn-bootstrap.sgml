@@ -1,7 +1,5 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY SATANDORPROX "Red Hat Satellite and/or Proxy Server" >
-<!ENTITY SATANDPROX "Red Hat Satellite and Proxy Server" >
-<!ENTITY SATORPROX "Red Hat Satellite or Proxy Server" >
+<!ENTITY SATANDORPROX "Spacewalk and/or Proxy Server" >
 <!ENTITY EXECUTABLE "rhn-bootstrap" >
 
 ]>
@@ -32,7 +30,7 @@
 <para>
     <emphasis>&EXECUTABLE;</emphasis> generates bootstrap scripts to be used by
     RHN client systems for the purpose of simplifying their initial
-    configuration and bootstrapping them to an &SATANDORPROX;. This is a script
+    configuration and bootstrapping them to a &SATANDORPROX;. This is a script
     generator. You then use those scripts to configure & register RHN clients.
 </para>
 

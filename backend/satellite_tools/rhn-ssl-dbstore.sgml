@@ -1,5 +1,4 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!ENTITY RHNSAT "Red Hat Satellite Server" >
 <!ENTITY THECOMMAND "rhn-ssl-dbstore" >
 
 ]>
@@ -33,7 +32,7 @@ database so that it can be used for things such as provisioning.
 
 <para>This is a simple utility that pushes your CA SSL certificate into the
 local database so that it can be used for things such as provisioning. It
-should only be used if the CA certificate used for your RHN products has
+should only be used if the CA certificate used for your servers has
 changed. Database connection settings are read from /etc/rhn/rhn.conf. (see
 the "db-*" settings)</para>
 
