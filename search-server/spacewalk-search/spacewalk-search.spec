@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.3
+Version: 1.10.4
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -179,6 +179,9 @@ fi
 %attr(755, root, root) %{_var}/lib/rhn/search/indexes/docs
 
 %changelog
+* Mon Jun 17 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.4-1
+- more branding cleanup
+
 * Tue Mar 26 2013 Jan Pazdziora 1.10.3-1
 - Use to_timestamp instead of to_date which should bring the second precision
   to PostgreSQL.
