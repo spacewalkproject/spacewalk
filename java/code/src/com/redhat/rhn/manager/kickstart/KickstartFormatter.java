@@ -255,6 +255,7 @@ public class KickstartFormatter {
         }
         else {
             buf.append("$kickstart_start");
+            buf.append(NEWLINE);
         }
 
         buf.append(NEWLINE);
