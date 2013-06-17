@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        1.10.13
+Version:        1.10.14
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -102,6 +102,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Jun 17 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.14-1
+- removed old CVS/SVN version ids
+
 * Wed Jun 12 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.13-1
 - The Satellite ISO no longer contains PostgreSQL directory
 
