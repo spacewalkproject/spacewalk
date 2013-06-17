@@ -5,7 +5,7 @@
 Summary: Spacewalk Client Utilities and Libraries
 Name: rhnclient
 Source0: %{name}-%{version}.tar.gz
-Version: 5.5.3
+Version: 5.5.4
 Release: 1
 License: GPLv2
 Group: Development/Libraries
@@ -64,6 +64,10 @@ rm -rf $RPM_BUILD_ROOT
 #%doc ChangeLog COPYING README TODO
 
 %changelog
+* Mon Jun 17 2013 Michael Mraka <michael.mraka@redhat.com> 5.5.4-1
+- removed old CVS/SVN version ids
+- more branding cleanup
+
 * Mon Jun 17 2013 Tomas Kasparek <tkasparek@redhat.com> 5.5.3-1
 - rebranding few more strings in client stuff
 
