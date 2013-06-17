@@ -4,7 +4,7 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.61
+Version: 2.5.62
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Mon Jun 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.5.62-1
+- rebranding few more strings in client stuff
+
 * Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 2.5.61-1
 - Revert "947639 - new rhnlib conflicts with old spacewalk-backend"
 
