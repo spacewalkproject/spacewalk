@@ -31,7 +31,7 @@ except ImportError:
 
 ## common, server imports
 from spacewalk.common import rhnTB, rhnLib, fileutils
-from spacewalk.common.rhnConfig import CFG, initCFG
+from spacewalk.common.rhnConfig import CFG, initCFG, PRODUCT_NAME
 from spacewalk.common.rhnTranslate import _
 from spacewalk.server import rhnSQL
 from spacewalk.server.rhnServer import satellite_cert
@@ -43,7 +43,6 @@ import sync_handlers
 import satCerts
 
 
-PRODUCT_NAME = 'RHN Management Satellite'
 DEFAULT_SYSTEMID_LOCATION = '/etc/sysconfig/rhn/systemid'
 DEFAULT_RHN_CERT_LOCATION = '/etc/sysconfig/rhn/rhn-entitlement-cert.xml'
 DEFAULT_WEB_HANDLER = '/rpc/api'

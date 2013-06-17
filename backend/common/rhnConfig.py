@@ -518,9 +518,9 @@ def initCFG(component=None, root=None, filename=None):
     CFG.init(component, root, filename)
     CFG.parse()
 
-WEB_CFG = RHNOptions('web')
-WEB_CFG.parse()
-PRODUCT_NAME = WEB_CFG.PRODUCT_NAME
+ALL_CFG = RHNOptions('')
+ALL_CFG.parse()
+PRODUCT_NAME = ALL_CFG.PRODUCT_NAME
 
 def runTest():
     print "Test script:"
