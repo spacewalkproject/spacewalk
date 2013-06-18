@@ -94,9 +94,9 @@ EOF
 	close $wfh;
 } elsif ($options{db_backend} eq 'postgresql') {
 	my @command = ( 'psql', '-U', $options{db_user}, '-d', $options{db_name});
-	if (defined $options{db_host}) {
+	if (defined $options{db_host} and $options{db_host}) {
 		push @command, '-h', $options{db_host};
-		if (defined $options{db_port}) {
+		if (defined $options{db_port} and $options{db_port}) {
 			push @command, '-p', $options{db_port};
 		}
 	}
