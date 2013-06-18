@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.98
+Version: 1.10.99
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jun 18 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.99-1
+- patch to allow channel_admin to sync repos
+- 968372 - changing virtualization compatibility check to work with api
+
 * Tue Jun 18 2013 Dimitar Yordanov <dyordano@redhat.com> 1.10.98-1
 - bz695638-Remove the proxy channels from the KS child channel
 
