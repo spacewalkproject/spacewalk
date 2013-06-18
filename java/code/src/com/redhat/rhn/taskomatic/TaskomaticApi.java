@@ -109,7 +109,7 @@ public class TaskomaticApi {
 
         Map task = findScheduleByBunchAndLabel("repo-sync-bunch", jobLabel, user);
         if (task != null) {
-            unscheduleTask(jobLabel, user);
+            unscheduleRepoTask(jobLabel, user);
         }
         Map scheduleParams = new HashMap();
         scheduleParams.put("channel_id", chan.getId().toString());
@@ -131,6 +131,11 @@ public class TaskomaticApi {
         return (Date) invoke("tasko.scheduleSingleSatBunchRun", bunchName, new HashMap());
     }
 
+    /**
+     * Validates user has sat admin role
+     * @param user shall be sat admin
+     * @throws PermissionException if there was an error
+     */
     private void ensureSatAdminRole(User user) {
         if (!user.hasRole(RoleFactory.SAT_ADMIN)) {
             ValidatorException.raiseException("satadmin.jsp.error.notsatadmin",
@@ -138,9 +143,25 @@ public class TaskomaticApi {
         }
     }
 
+    /**
+     * Validates user has org admin role
+     * @param user shall be org admin
+     * @throws PermissionException if there was an error
+     */
     private void ensureOrgAdminRole(User user) {
         if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
             throw new PermissionException(RoleFactory.ORG_ADMIN);
+        }
+    }
+
+    /**
+     * Validates user has channel admin role
+     * @param user shall be channel admin
+     * @throws PermissionException if there was an error
+     */
+    private void ensureChannelAdminRole(User user) {
+        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+            throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
         }
     }
 
@@ -170,11 +191,11 @@ public class TaskomaticApi {
      * @param user the user
      */
     public void unscheduleRepoSync(Channel chan, User user) {
-        unscheduleTask(createRepoSyncScheduleName(chan, user), user);
+        unscheduleRepoTask(createRepoSyncScheduleName(chan, user), user);
     }
 
-    private void unscheduleTask(String jobLabel, User user) {
-        ensureOrgAdminRole(user);
+    private void unscheduleRepoTask(String jobLabel, User user) {
+        ensureChannelAdminRole(user);
         invoke("tasko.unscheduleBunch", user.getOrg().getId(), jobLabel);
     }
 
