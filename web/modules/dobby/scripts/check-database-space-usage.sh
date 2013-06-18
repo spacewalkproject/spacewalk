@@ -1,15 +1,18 @@
 #!/bin/bash
 
-#  Example shell script which can be added to roots cron job to check the
-# Embedded Satellite disk space usage. If any table is over 90% usage, send
-# a notice to the default email address configured within the Satellite.
-
+# Copyright (c) 2008--2013 Red Hat, Inc.
 #
-# This script is supplied as a working example and is not supported by Red Hat
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
 #
-
-# Example cron entry:
-# 1 */6 * * * /root/check-oracle-space-usage.sh
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
 
 PATH=/usr/bin:/bin
 export PATH
