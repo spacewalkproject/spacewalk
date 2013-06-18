@@ -46,7 +46,7 @@
     </html:link>
    </rl:column>
    <rl:column bound="false" headerkey="iss.slave.isEnabled"
-    sortattr="enabled">
+    sortattr="enabled" styleclass="center" headerclass="center">
     <c:if test="${current.enabled == 'Y'}">
      <img src="/img/rhn-listicon-checked.gif"
       alt="<bean:message key="iss.slave.enabled"/>"
@@ -59,7 +59,7 @@
     </c:if>
    </rl:column>
    <rl:column bound="false" headerkey="iss.slave.toAll"
-    sortattr="allOrgs">
+    sortattr="allOrgs" styleclass="center" headerclass="center">
     <c:if test="${current.allowAllOrgs == 'Y'}">
      <img src="/img/rhn-listicon-checked.gif"
       alt="<bean:message key="iss.slave.all"/>"
@@ -71,7 +71,8 @@
       title="<bean:message key="iss.slave.notAll"/>" />
     </c:if>
    </rl:column>
-   <rl:column bound="false" headerkey="iss.slave.num-orgs-allowed">
+   <rl:column bound="false" headerkey="iss.slave.num-orgs-allowed"
+    styleclass="center" headerclass="center">
     <c:if test="${current.enabled != 'Y'}">
       <bean:message key="iss.slave.disabled"/>
     </c:if>

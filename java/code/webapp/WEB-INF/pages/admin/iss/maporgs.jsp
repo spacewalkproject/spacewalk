@@ -46,7 +46,7 @@
     sortattr="sourceOrgName">
     <c:out value="${current.masterOrgName}" />
    </rl:column>
-    <rl:column headerkey="iss.slave.orgs">
+    <rl:column headerkey="iss.slave.orgs" styleclass="center" headerclass="center">
      <select name="${current.id}">
       <c:forEach var="localOrg" items="${requestScope.slave_org_list}">
        <c:choose>
