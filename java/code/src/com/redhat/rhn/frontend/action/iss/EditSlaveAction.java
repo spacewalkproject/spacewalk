@@ -43,8 +43,6 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
  */
 public class EditSlaveAction extends RhnAction {
 
-    private static final String LIST_NAME = "localOrgsList";
-
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                   ActionForm formIn,

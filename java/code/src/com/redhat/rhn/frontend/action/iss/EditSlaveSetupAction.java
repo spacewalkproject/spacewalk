@@ -98,15 +98,13 @@ public class EditSlaveSetupAction extends RhnAction {
         SessionSetHelper helper = new SessionSetHelper(request);
 
         // if I have a previous set selections populate data using it
-        boolean isSubmitted = ctxt.isSubmitted();
         if (!sessionSet.isEmpty()) {
             helper.syncSelections(sessionSet, locals);
             ListTagHelper.setSelectedAmount(LIST_NAME, sessionSet.size(), request);
         }
         else {
             for (OrgDto o : locals) {
-                o.setSelected("Y".equals(theSlave.getAllowAllOrgs()) ||
-                                mappedOrgs.contains(o.getId()));
+                o.setSelected(mappedOrgs.contains(o.getId()));
             }
         }
         request.setAttribute(LIST_NAME, locals);
