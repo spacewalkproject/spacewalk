@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.96
+Version: 1.10.97
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jun 18 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.97-1
+- 975232 - patch to add newline after writing kickstart_start var
+- 974201 - marking label not required
+
 * Mon Jun 17 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.96-1
 - more branding cleanup
 - rebranding few more strings
