@@ -8211,7 +8211,7 @@ Please note that some manual configuration of these scripts may still be require
       <trans-unit id="kickstarts.jsp.diskwarning">
         <source>&lt;strong&gt;Warning:&lt;/strong&gt; The Kickstart Profile selected is set to destroy all
         partitions on all disks, including logical disks on attached SANs.
-        If you do not want to loose data on one or
+        If you do not want to lose data on one or
         more disks you should remove the disk from the server before
         kickstarting or edit the "clearpart" option for this Kickstart Profile.</source>
         <context-group name="ctx">
@@ -8221,7 +8221,7 @@ Please note that some manual configuration of these scripts may still be require
       <trans-unit id="kickstarts.jsp.diskwarningssm">
         <source>&lt;strong&gt;Warning:&lt;/strong&gt; The Kickstart Profile(s) used may destroy all
         partitions on all disks of the kickstarted machines, including logical disks on attached SANs.
-        If you do not want to loose data on one or more disks you should remove the disks from the
+        If you do not want to lose data on one or more disks you should remove the disks from the
         servers before kickstarting or ensure that the Kickstart Profile(s) used will not destroy the
         partitions by editing the "clearpart" option.</source>
         <context-group name="ctx">
