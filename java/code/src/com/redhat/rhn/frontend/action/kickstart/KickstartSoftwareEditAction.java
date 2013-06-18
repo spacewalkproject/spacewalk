@@ -179,12 +179,12 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
         if (childchannels == null || childchannels.size() == 0) {
             ctx.getRequest().setAttribute("nochildchannels", "true");
         }
-	// Remove the Proxy channels from the child channel list
-	for(int i=0;i<childchannels.size();i++) {
-	    if ( childchannels.get(i).isProxy() ) {
-		childchannels.remove(i);
-	    }
-	}
+        // Remove the Proxy channels from the child channel list
+        for (int i = 0; i < childchannels.size(); i++) {
+            if (childchannels.get(i).isProxy()) {
+                childchannels.remove(i);
+            }
+        }
         log.debug("AVAIL_CHILD_CHANNELS: " + childchannels);
         ctx.getRequest().setAttribute(AVAIL_CHILD_CHANNELS, childchannels);
 
