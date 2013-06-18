@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.50
+Version: 5.10.51
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -121,6 +121,9 @@ fi
 
 # $Id$
 %changelog
+* Tue Jun 18 2013 Dimitar Yordanov <dyordano@redhat.com> 5.10.51-1
+- 918036 - RFE - rhncfg-manager supports --username and --password from CLI
+
 * Mon Jun 17 2013 Michael Mraka <michael.mraka@redhat.com> 5.10.50-1
 - branding fixes in man pages
 - more branding cleanup
