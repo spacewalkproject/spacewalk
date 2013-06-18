@@ -38,9 +38,11 @@ import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeExcepti
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartScriptCreateCommand;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCommand;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.cobbler.Distro;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -728,5 +730,21 @@ public class KickstartBuilder {
 
     }
 
+    /**
+     * Check if there is a suitable distro for tree + virt. type combination.
+     * @param tree suitable kickstartable tree
+     * @param virtualizationType string with virtualization type
+     */
+    public void validateTreeVirt(KickstartableTree tree, String virtualizationType) {
+        KickstartVirtualizationType vType =
+                KickstartFactory.lookupKickstartVirtualizationTypeByLabel(
+                        virtualizationType);
+        Distro distro = CobblerProfileCommand.getCobblerDistroForVirtType(tree,
+                vType, user);
+        if (distro == null) {
+            ValidatorException.raiseException(
+                    "kickstart.cobbler.profile.nodistribution");
+        }
+    }
 
 }

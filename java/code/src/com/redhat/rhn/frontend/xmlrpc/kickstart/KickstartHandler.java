@@ -283,6 +283,9 @@ public class KickstartHandler extends BaseHandler {
         if (tree == null) {
             throw new NoSuchKickstartTreeException(kickstartableTreeLabel);
         }
+
+        builder.validateTreeVirt(tree, virtualizationType);
+
         KickstartTreeUpdateType updateTree = getUpdateType(updateType, tree);
 
         String downloadUrl = tree.getDefaultDownloadLocation(kickstartHost);
