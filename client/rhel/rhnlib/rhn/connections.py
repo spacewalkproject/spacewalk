@@ -104,6 +104,10 @@ class HTTPConnection(httplib.HTTPConnection):
 
         return response
 
+    def connect(self):
+        httplib.HTTPConnection.connect(self)
+        self.sock.settimeout(self.timeout)
+
 
 class HTTPProxyConnection(HTTPConnection):
     def __init__(self, proxy, host, port=None, username=None, password=None,
@@ -169,10 +173,9 @@ class HTTPSConnection(HTTPConnection):
                 sock = None
                 continue
 
-            sock.settimeout(self.timeout)
-
             try:
                 sock.connect((self.host, self.port))
+                sock.settimeout(self.timeout)
             except socket.error, e:
                 sock.close()
                 sock = None
@@ -225,7 +228,6 @@ class HTTPSProxyConnection(HTTPProxyConnection):
             self.close()
             raise xmlrpclib.ProtocolError(host,
                 response.status, response.reason, response.msg)
-        self.sock.settimeout(self.timeout)
         self.sock = SSL.SSLSocket(self.sock, self.trusted_certs)
         self.sock.init_ssl()
 
