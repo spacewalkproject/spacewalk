@@ -2818,13 +2818,13 @@ public class ChannelSoftwareHandler extends BaseHandler {
     }
 
     /**
-     * removes a filter for a given repo.
+     * Removes a filter for a given repo.
      * @param sessionKey the sessionkey needed for authentication
      * @param label of the repo to use
      * @param filterIn list of filters
      * @return 1 on success
      *
-     * @xmlrpc.doc removes a filter for a given repo.
+     * @xmlrpc.doc Removes a filter for a given repo.
      * @xmlrpc.param #param("string", "sessionKey ")
      * @xmlrpc.param #param_desc("string", "label", "repository label")
      * @xmlrpc.param
