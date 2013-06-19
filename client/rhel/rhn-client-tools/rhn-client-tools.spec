@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.10.9
+Version: 1.10.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -346,6 +346,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Jun 19 2013 Jan Dobes 1.10.10-1
+- 957506 - unicode support for Remote Command scripts
+
 * Mon Jun 17 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.9-1
 - rebranding few more strings in client stuff
 
