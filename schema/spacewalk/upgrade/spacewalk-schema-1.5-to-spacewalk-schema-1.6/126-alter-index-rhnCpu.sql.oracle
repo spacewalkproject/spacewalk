@@ -1,0 +1,30 @@
+delete from rhncpu X
+	where server_id in (select server_id from rhncpu group by server_id having count(server_id)>1)
+	 and id<(select max(id) from rhncpu Y where X.server_id=Y.server_id group by server_id having count(server_id)>1);
+
+set serverout on;
+
+declare
+        non_existent_index exception;
+        pragma exception_init(non_existent_index, -01418);
+begin
+        execute immediate 'drop index rhn_cpu_server_id_idx';
+        dbms_output.put_line('Index rhn_cpu_server_id_idx successfully dropped.');
+exception
+        when non_existent_index then
+                null;
+end;
+/
+
+
+declare
+        name_already_used exception;
+        pragma exception_init(name_already_used, -00955);
+begin
+        execute immediate 'create unique index rhn_cpu_server_id_uq on rhnCpu(server_id) tablespace [[4m_tbs]] nologging';
+        dbms_output.put_line('Index rhn_cpu_server_id_uq successfully created.');
+exception
+        when name_already_used then
+                dbms_output.put_line('Index rhn_cpu_server_id_uq already exists.');
+end;
+/
