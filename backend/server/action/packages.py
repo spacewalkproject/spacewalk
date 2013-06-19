@@ -213,6 +213,7 @@ left join rhnPackageArch pa
         and ap.evr_id = p.evr_id
         and ap.evr_id = pe.id
         and ap.name_id = p.name_id
+        and (ap.package_arch_id = p.package_arch_id or ap.package_arch_id is null)
         and ap.name_id = pn.id
         and p.id = cp.package_id
         and cp.channel_id = sc.channel_id
@@ -235,6 +236,7 @@ left join rhnPackageArch pa
         and ap.evr_id is null
         and ap.name_id = p.name_id
         and p.name_id = pn.id
+        and (ap.package_arch_id = p.package_arch_id or ap.package_arch_id is null)
         and p.id = cp.package_id
         and cp.channel_id = sc.channel_id
         and sc.server_id = :serverid"""
