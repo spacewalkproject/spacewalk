@@ -70,7 +70,7 @@ def _create_script_file(script, uid=None, gid=None):
         # Tried a couple of times, failed; bail out raising the latest error
         raise
     sf = os.fdopen(fd, 'w')
-    sf.write(script)
+    sf.write(script.encode("utf-8"))
     sf.close()
 
     if uid and gid:
