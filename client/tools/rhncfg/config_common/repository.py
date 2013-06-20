@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import re
@@ -41,15 +41,11 @@ except:
 import rpc_wrapper
 rpclib = rpc_wrapper
 
+
 def deci_to_octal(number):
     """convert a normal decimal int to another int representing the octal value"""
-    temp = number
-    oct_str = ""
-    while temp > 0:
-        digit = temp % 8
-        oct_str = string.octdigits[digit] + oct_str
-        temp = temp / 8
-    return int(oct_str)
+    return int(oct(number))
+
 
 class Repository:
     _uid_cache = {}
@@ -180,7 +176,7 @@ class Repository:
         file_contents = None
         if os.path.islink(local_path):
             params['config_file_type_id'] = 3
-            params['symlink'] = os.readlink(local_path) 
+            params['symlink'] = os.readlink(local_path)
             load_contents = 0
         elif os.path.isdir(local_path):
             params['config_file_type_id'] = 2
@@ -211,7 +207,6 @@ class Repository:
 
 
 class RPC_Repository(Repository):
-
 
     def __init__(self, setup_network=1):
         Repository.__init__(self)
