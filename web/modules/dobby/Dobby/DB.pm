@@ -28,6 +28,8 @@ use Carp qw/carp croak/;
 use File::Spec::Functions;
 use IO::Handle;
 
+$PXT::Config::default_config = new PXT::Config('dobby');
+
 sub new {
   my $class = shift;
 

@@ -10,6 +10,8 @@ use Dobby::CLI::MaintCommands;
 use Dobby::CLI::BackupCommands;
 use Dobby::Log;
 
+$PXT::Config::default_config = new PXT::Config('dobby');
+
 my $exec_name = basename $0;
 my $cli = new Dobby::CLI $exec_name;
 
