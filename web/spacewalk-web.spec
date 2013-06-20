@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.31
+Version: 1.10.32
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -272,6 +272,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Jun 20 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.32-1
+- spacewalk-dobby: use the rhn_dobby.conf config file by default
+- 815236 - add GNU General Public License
+
 * Mon Jun 17 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.31-1
 - more branding cleanup
 
