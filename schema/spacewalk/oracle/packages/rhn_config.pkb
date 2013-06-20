@@ -56,7 +56,6 @@ is
 	) is
 		cfid number;
 		ccid number;
-		oid number;
 		latest_crid number;
 		others number := 0;
 		cursor snapshots is
@@ -78,21 +77,10 @@ is
 				where	s.id = snapshot.id;
 		end loop;
 
-		if org_id_in < 0 then
-			select	cr.config_content_id, cc.org_id
-			into	ccid, oid
-			from	rhnConfigChannel cc,
-					rhnConfigFile cf,
-					rhnConfigRevision cr
-			where	cr.id = config_revision_id_in
-				and cr.config_file_id = cf.id
-				and cf.config_channel_id = cc.id;
-		else
-			select	cr.config_content_id, org_id_in
-			into	ccid, oid
-			from	rhnConfigRevision cr
-			where	cr.id = config_revision_id_in;
-		end if;
+		select	cr.config_content_id
+		into	ccid
+		from	rhnConfigRevision cr
+		where	cr.id = config_revision_id_in;
 
 		-- right now this will set rhnActionConfigFileName.config_revision_id
 		-- to null, and will remove an entry from rhnActionConfigRevision.
@@ -186,11 +174,9 @@ is
 			where	cf.id = config_file_id_in
 				and cf.config_channel_id = cc.id
 				and cr.config_file_id = cf.id;
-		org_id number;
 	begin
 		for revision in revisions loop
 			rhn_config.delete_revision(revision.id, revision.org_id);
-			org_id := revision.org_id;
 		end loop;
 		delete from rhnConfigFile where id = config_file_id_in;
 	end delete_file;

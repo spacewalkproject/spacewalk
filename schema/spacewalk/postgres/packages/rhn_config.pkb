@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 e757b7ad78599342abae51421c490f364bc8187f
+-- oracle equivalent source sha1 7d1fc2f28241349883a386404ec51659f428c61c
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -63,7 +63,6 @@ $$ LANGUAGE 'plpgsql';
 	declare
 		cfid numeric;
 		ccid numeric;
-		oid numeric;
 		latest_crid numeric;
 		others numeric := 0;
 		snapshots cursor is
@@ -84,21 +83,10 @@ $$ LANGUAGE 'plpgsql';
                         where id = snapshot.id;
                 end loop;
 
-		if org_id_in < 0 then
-			select cr.config_content_id, cc.org_id
-			into ccid, oid
-			from rhnConfigChannel cc,
-					rhnConfigFile cf,
-					rhnConfigRevision cr
-			where cr.id = config_revision_id_in
-				and cr.config_file_id = cf.id
-				and cf.config_channel_id = cc.id;
-		else
-			select	cr.config_content_id, org_id_in
-			into	ccid, oid
-			from	rhnConfigRevision cr
-			where	cr.id = config_revision_id_in;
-		end if;
+		select	cr.config_content_id
+		into	ccid
+		from	rhnConfigRevision cr
+		where	cr.id = config_revision_id_in;
 
 		-- right now this will set rhnActionConfigFileName.config_revision_id
 		-- to null, and will remove an entry from rhnActionConfigRevision.
@@ -192,7 +180,6 @@ $$ LANGUAGE 'plpgsql';
 		config_file_id_in in numeric
 	) returns void as $$
 declare
-org_id numeric;
 revision record;
 			
 	begin
@@ -207,7 +194,6 @@ revision record;
 		
                 loop
 			perform rhn_config.delete_revision(revision.id, revision.org_id);
-			org_id := revision.org_id;
 		end loop;
 		delete from rhnConfigFile where id = config_file_id_in;
 	end;
