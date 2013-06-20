@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.100
+Version: 1.10.101
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jun 20 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.101-1
+- Fix syntax. Sentences start with capital letter.
+- 975083 - typo fix
+
 * Tue Jun 18 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.100-1
 - checkstyle fix
 
