@@ -1,0 +1,308 @@
+#!/usr/bin/python
+
+""" iss_setup - a tool for easing the pain of setting up organization-mappings for ISS """
+
+import logging, os, re, sys, xmlrpclib
+from ConfigParser import SafeConfigParser, NoOptionError
+from optparse import OptionParser, OptionGroup
+from os import path, access, R_OK
+from os.path import expanduser
+
+home = expanduser("~")
+DEFAULT_MASTER_SETUP_FILENAME = home + '/.spacewalk/master.txt'
+DEFAULT_SLAVE_SETUP_FILENAME = home + '/.spacewalk/slave.txt'
+
+DEFAULT_CONFIG = """
+# Default defines the slave and/or master we should connec tto by default
+[Default]
+# Default slave FQDN
+slave.default=
+# Default master FQDN
+master.default=
+
+# Any spacewalk Fully-Qualified-Domain-Name (FQDN) can have a stanza,
+# defining logins and setup files to use
+[a.spacewalk.fqdn.com]
+# Login (and optionally pwd) of a sat-admin login for this instance
+# NOTE: Putting passwords in cfg-files is suboptimal.  The tool will ask
+# But if you really want to, go ahead
+login = login[@pwd]
+# Where's the slave-side setup file for this spacewalk instance?
+slave.setup =
+# Where's the master-side setup file for this spacewalk instance?
+master.setup =
+"""
+
+def setupOptions():
+    usage = 'usage: %prog [options]'
+    parser = OptionParser(usage=usage)
+
+    cnxGrp = OptionGroup(parser, "Connections", "Identify the spacewalk instances we're going to connect to");
+    cnxGrp.add_option('--slave', action='store', dest='slave',
+        help="name of a slave to connect to. Optionally can be login/password@name")
+    cnxGrp.add_option('--master', action='store', dest='master',
+        help="name of a master to connect to. Optionally can be login/password@name")
+    parser.add_option_group(cnxGrp)
+
+    tmplGrp = OptionGroup(parser, "Templates", "Options for creating initial versions of setup files")
+    tmplGrp.add_option('--create-slave-template', action='store_true', dest='slave_template', default=False,
+        help="Create a setup file for the slave we're pointed at, "
+             "based on information from the master we're pointed at")
+    tmplGrp.add_option('--create-master-template', action='store_true', dest='master_template', default=False,
+        help="Create a setup file for the master we're pointed at, "
+             "based on information from the slave we're pointed at")
+    tmplGrp.add_option('--create-templates', action='store_true', dest='both_template', default=False,
+        help="Create both a master and a slave setup file, for the master/slave pair we're pointed at")
+    parser.add_option_group(tmplGrp)
+
+    setupGrp = OptionGroup(parser, "Setup",
+                           "Specify the setup files we're actually going to apply to a slave/master")
+    setupGrp.add_option('--master-setup-file', action='store', dest='master_file', metavar='FILE',
+        help='Specify the master-setup-file we should use')
+    setupGrp.add_option('--slave-setup-file', action='store', dest='slave_file', metavar='FILE',
+        help='Specify the slave-setup-file we should use')
+    parser.add_option_group(setupGrp)
+
+    actionGrp = OptionGroup(parser, "Action", "Should we actually affect the specified spacewalk instances?")
+    actionGrp.add_option('--dry-run', action='store_true', dest='dry_run', default=True,
+        help="Don't actually change anything, but tell us what you would have done")
+    actionGrp.add_option('--apply', action='store_true', dest='apply', default=False,
+        help="make the changes specified by the setup files to the specified spacewalk instances")
+    actionGrp.add_option('--default-ok', action='store_true', dest='default_ok', default=False,
+        help="Even if I don't explicitly tell you about a master or slave on the command-line, it's ok to try to apply changes to them!")
+    parser.add_option_group(actionGrp)
+
+    utilGrp = OptionGroup(parser, "Utility")
+    utilGrp.add_option('-d', '--debug', action='store_true', default=False, dest='debug',
+            help='Log debugging output')
+    utilGrp.add_option('-q', '--quiet', action='store_true', default=False, dest='quiet',
+            help='Log only errors')
+    parser.add_option_group(utilGrp)
+
+    return parser
+
+
+def setupLogging(opt):
+    # determine the logging level
+    if options.debug:
+        level = logging.DEBUG
+    elif options.quiet:
+        level = logging.ERROR
+    else:
+        level = logging.INFO
+
+    # configure logging
+    logging.basicConfig(level=level, format='%(levelname)s: %(message)s')
+    return
+
+
+def setupConfig(opt):
+    "The cfg-values we recognize include: \n"
+    "  * default master \n"
+    "  * default slave \n"
+    "  * For specific FQDNs: \n"
+    "    * login/pwd \n"
+    "    * master-setup-file \n"
+    "    * slave-setup-file \n"
+
+    # files are loaded from ~/.spacewalk/
+    conf_dir = os.path.expanduser('~/.spacewalk')
+    user_conf_file = os.path.join(conf_dir, 'config')
+
+    # server-specifics will be loaded from the configuration file later
+    config = SafeConfigParser()
+
+    # create an empty configuration file if one's not present
+    if not os.path.isfile(user_conf_file):
+        try:
+            # create ~/.spacewalk
+            if not os.path.isdir(conf_dir):
+                logging.debug('Creating %s' % conf_dir)
+                os.mkdir(conf_dir, 0700)
+
+            # create a template configuration file
+            logging.debug('Creating configuration file: %s' % user_conf_file)
+            handle = open(user_conf_file, 'w')
+
+            handle.write(DEFAULT_CONFIG)
+
+            handle.close()
+        except IOError:
+            logging.error('Could not create %s' % user_conf_file)
+
+    # load options from configuration files
+    files_read = config.read( [ user_conf_file ] )
+
+    for item in files_read:
+        logging.debug('Read configuration from %s' % item)
+
+    return config;
+
+
+def getMasterConnectionInfo(opt, cfg):
+    # Make sure we have login, password, and fqdn for MASTER, based on options and config-files
+    # Anything we're missing - ask for
+    info = {'fqdn': 'ggainey-beast.usersys.redhat.com', 'login':'ggainey', 'password':'redhat'}
+    return info
+
+
+def getSlaveConnectionInfo(opt, cfg):
+    # Make sure we have login, password, and fqdn for SLAVE, based on options and config-files
+    # Anything we're missing - ask for
+    info = {'fqdn': 'localhost', 'login':'ggainey', 'password':'redhat'}
+    return info
+
+
+def connectTo(info):
+    logging.debug("Connect-to info = %s" % info)
+    url = "https://{0}/rpc/api".format(info['fqdn'])
+    client = xmlrpclib.Server(url, verbose=0)
+    key = client.auth.login(info['login'], info['password'])
+    return { "client" : client, "key" : key }
+
+
+def orgByName(orgs):
+    org_map = {}
+    for org in orgs:
+        org_map[org['name']] = org['id']
+    return org_map
+
+
+def determineTemplateFilename(kind, fqdn, opt, cfg):
+    logging.debug("detTmplFilename kind = %s, fqdn = %s, opt = %s, cfg = %s" % (kind, fqdn, opt, cfg))
+
+    if kind == 'master':
+        if opt.master_file:
+            return opt.master_file
+        elif cfg.has_option(fqdn, 'master.setup'):
+            return cfg.get(fqdn, 'master.setup')
+        else:
+            return DEFAULT_MASTER_SETUP_FILENAME
+    elif kind == 'slave':
+        if opt.slave_file:
+            return opt.slave_file
+        elif cfg.has_option(fqdn, 'slave.setup') and len(cfg.get(fqdn, 'slave.setup')) != 0:
+            return cfg.get(fqdn, 'slave.setup')
+        else:
+            return DEFAULT_SLAVE_SETUP_FILENAME
+    else:
+        return None
+
+
+def gen_slave_template(slave_session, master_session, master, filename):
+    "Generates a default setup applying to the specified master, for the connected-slave"
+    master_orgs = master_session['client'].org.listOrgs(master_session['key'])
+    master_map = orgByName(master_orgs)
+    logging.debug("MASTER ORG MAP %s" % master_map)
+
+    slave_orgs = slave_session['client'].org.listOrgs(slave_session['key'])
+    slave_map = orgByName(slave_orgs)
+    logging.debug("SLAVE ORG MAP %s" % slave_map)
+
+    slave_setup = SafeConfigParser()
+    slave_setup.optionxform = str
+
+    if path.isfile(filename) and access(filename, R_OK):
+        slave_setup.readfp(open(filename))
+
+    if not slave_setup.has_section(master):
+        slave_setup.add_section(master)
+
+    for org in master_orgs:
+        if org['name'] in slave_map:
+            master_org = {'masterOrgId':org['id'], 'masterOrgName':org['name'], 'localOrgId':slave_map[org['name']]}
+            slave_setup.set(master, str(org['id']), str(master_org))
+        else:
+            master_org = {'masterOrgId':org['id'], 'masterOrgName':org['name'], 'localOrgId':1}
+            slave_setup.set(master, str(org['id']), str(master_org))
+
+    with open(filename, 'w+') as configfile:
+        slave_setup.write(configfile)
+        configfile.close()
+
+    return
+
+
+def gen_master_template(master_session, slave, setupfile):
+    "Generates a default setup applying to the specified slave, for the connected-master"
+
+    master_setup = SafeConfigParser()
+    master_setup.optionxform = str
+
+    if path.isfile(filename) and access(filename, R_OK):
+        master_setup.readfp(open(filename, 'r'))
+
+    if not master_setup.has_section(slave):
+        master_setup.add_section(slave)
+
+    if not master_setup.has_option(slave, "isEnabled"):
+        master_setup.set(slave, 'isEnabled', str(1))
+
+    if not master_setup.has_option(slave, "allowAllOrgs"):
+        master_setup.set(slave, 'allowAllOrgs', str(1))
+
+    if not master_setup.has_option(slave, "allowedOrgs"):
+        idlist = []
+        for org in master_session['client'].org.listOrgs(master_session['key']):
+            idlist.append(org['id'])
+        logging.debug("idlist %s" % idlist)
+        master_setup.set(slave, 'allowedOrgs', ",".join(str(i) for i in idlist))
+
+    with open(filename, 'w+') as mfile:
+        master_setup.write(mfile)
+        mfile.close()
+
+    return
+
+
+def apply_slave_template(slave_session, slave_setup_filename):
+    "Updates the connected slave with information for the master(s) contained in the specified slave-setup-file"
+
+    slave_setup = SafeConfigParser()
+    if path.isfile(filename) and access(filename, R_OK):
+        slave_setup.readfp(open(filename))
+
+    return
+
+
+def apply_master_template(master_session, master_setup_filename):
+    "Updates the connected master with information for the slave(s) contained in the specified master-setup-file"
+    return
+
+
+if __name__ == '__main__':
+    parser = setupOptions()
+    (options, args) = parser.parse_args()
+    print("OPTIONS = %s" % options)
+    setupLogging(options)
+
+    config = setupConfig(options)
+    logging.debug("CONFIG = %s" % config)
+
+    master_info = getMasterConnectionInfo(options, config)
+    master_cnx = connectTo(master_info)
+    logging.debug("Master cnx = %s" % master_cnx)
+
+    slave_info = getSlaveConnectionInfo(options, config)
+    slave_cnx = connectTo(slave_info)
+    logging.debug("Slave cnx = %s" % slave_cnx)
+
+    if options.master_template or options.both_template:
+        filename = determineTemplateFilename('master', slave_info['fqdn'], options, config)
+        gen_master_template(master_cnx, slave_info['fqdn'], filename)
+
+    if options.slave_template or options.both_template:
+        filename = determineTemplateFilename('slave', master_info['fqdn'], options, config)
+        gen_slave_template(slave_cnx, master_cnx, master_info['fqdn'], filename)
+
+    if options.master_file:
+        filename = determineTemplateFilename('master', slave_info['fqdn'], options, config)
+        if options.apply and (options.master or options.default_ok):
+            apply_master_template(master_cnx, filename)
+
+    if options.slave_file:
+        filename = determineTemplateFilename('slave', master_info['fqdn'], options, config)
+        if options.apply and (options.slave or options.default_ok):
+            apply_slave_template(slave_cnx, filename)
+
+# vim:ts=4:expandtab:
