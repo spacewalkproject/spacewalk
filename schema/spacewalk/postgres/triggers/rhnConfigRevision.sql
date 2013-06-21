@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 f5d6eab1e44d06ab27c8169b7fdd2070e3465ad1
+-- oracle equivalent source sha1 54ce1d758b270102418b62da8393d992d5ff3552
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -37,22 +37,18 @@ create or replace function rhn_confrevision_del_trig_fun() returns trigger
 as
 $$
 declare
-         snapshot_curs_id	numeric;
+        cr_removed numeric := lookup_snapshot_invalid_reason('cr_removed');
 begin
-        for snapshot_curs_id in
-                select  snapshot_id
-                from    rhnSnapshotConfigRevision
-                where   config_revision_id = old.id
-	loop
-		update rhnSnapshot
-                        set invalid = lookup_snapshot_invalid_reason('cr_removed')
-                        where id = snapshot_curs_id;
-                delete from rhnSnapshotConfigRevision
-                        where snapshot_id = snapshot_curs_id
-                                and config_revision_id = old.id;
-                               
-	end loop;
-	
+        update rhnSnapshot
+           set invalid = cr_removed
+         where id in (select snapshot_id
+                        from rhnSnapshotConfigRevision
+                       where config_revision_id = :old.id);
+        delete from rhnSnapshotConfigRevision
+         where config_revision_id = old.id;
+           and snapshot_id in (select snapshot_id
+                                 from rhnSnapshotConfigRevision
+                                where config_revision_id = :old.id);
         return old;
 end;
 $$ language plpgsql;

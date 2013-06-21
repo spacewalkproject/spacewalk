@@ -31,18 +31,18 @@ rhn_confrevision_del_trig
 before delete on rhnConfigRevision
 for each row
 declare
-	cursor snapshots is
-		select	snapshot_id id
-		from	rhnSnapshotConfigRevision
-		where	config_revision_id = :old.id;
+        cr_removed number := lookup_snapshot_invalid_reason('cr_removed');
 begin
-	for snapshot in snapshots loop
-		update rhnSnapshot
-			set invalid = lookup_snapshot_invalid_reason('cr_removed')
-			where id = snapshot.id;
-		delete from rhnSnapshotConfigRevision
-			where snapshot_id = snapshot.id
-				and config_revision_id = :old.id;
+        update rhnSnapshot
+           set invalid = cr_removed
+         where id in (select snapshot_id
+                        from rhnSnapshotConfigRevision
+                       where config_revision_id = :old.id);
+        delete from rhnSnapshotConfigRevision
+         where config_revision_id = :old.id
+           and snapshot_id in (select snapshot_id
+                                 from rhnSnapshotConfigRevision
+                                where config_revision_id = :old.id);
 	end loop;
 end;
 /
