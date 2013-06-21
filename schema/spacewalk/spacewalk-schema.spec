@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.47
+Version:        1.10.48
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,7 +71,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
-* Fri Jun 21 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.47-1
+* Fri Jun 21 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.48-1
 - 906157 - upgrade scripts for rhn_config.delete_file() and
   rhn_confrevision_ccid_idx index
 - 906157 - index columns by which we select
