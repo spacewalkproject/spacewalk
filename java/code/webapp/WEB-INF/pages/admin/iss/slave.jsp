@@ -43,10 +43,10 @@
      <c:out value="${current.label}" />
     </html:link>
    </rl:column>
-   <rl:column headerkey="iss.num.master.orgs">
+   <rl:column headerkey="iss.num.master.orgs" styleclass="center" headerclass="center">
     <c:out value="${current.numMasterOrgs}" />
    </rl:column>
-   <rl:column headerkey="iss.num.unmapped.orgs">
+   <rl:column headerkey="iss.num.unmapped.orgs" styleclass="center" headerclass="center">
     <c:out value="${current.numMasterOrgs - current.numMappedMasterOrgs}" />
    </rl:column>
   </rl:list>
