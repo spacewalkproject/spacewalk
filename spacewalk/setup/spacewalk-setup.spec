@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        1.10.14
+Version:        1.10.15
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -102,6 +102,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Jun 21 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.15-1
+- Don't use embedded db default settings for a managed db setup
+
 * Mon Jun 17 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.14-1
 - removed old CVS/SVN version ids
 
