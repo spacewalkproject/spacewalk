@@ -58,10 +58,6 @@ is
 		ccid number;
 		latest_crid number;
 		others number := 0;
-		cursor other_revisions(config_content_id_in in number) is
-			select	1
-			from	rhnConfigRevision
-			where	config_content_id = config_content_id_in;
 	begin
 		select	cr.config_content_id
 		into	ccid
@@ -79,10 +75,10 @@ is
 
 		-- now prune away content if there aren't any other revisions pointing
 		-- at it
-		for other_revision in other_revisions(ccid) loop
-			others := 1;
-			exit;
-		end loop;
+                select count(*)
+                  into others
+                  from rhnConfigRevision
+                 where config_content_id = ccid;
 		if others = 0 then
 			delete from rhnConfigContent where id = ccid;
 		end if;

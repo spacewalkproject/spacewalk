@@ -49,5 +49,9 @@ CREATE UNIQUE INDEX rhn_confrevision_cfid_rev_uq
     ON rhnConfigRevision (config_file_id, revision)
     TABLESPACE [[2m_tbs]];
 
+CREATE INDEX rhn_confrevision_ccid_idx
+    ON rhnConfigRevision (config_content_id)
+    TABLESPACE [[2m_tbs]];
+
 CREATE SEQUENCE rhn_confrevision_id_seq;
 

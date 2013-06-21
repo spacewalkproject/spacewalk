@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 448ad1d6ea4d0eec5d067961b584d6f4e0be22b3
+-- oracle equivalent source sha1 c6a5bd3288aa8dc1d2836b4d123be2c3f77413f3
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -65,10 +65,6 @@ $$ LANGUAGE 'plpgsql';
 		ccid numeric;
 		latest_crid numeric;
 		others numeric := 0;
-		 other_revisions cursor (config_content_id_in numeric) is
-			select 1
-			from rhnConfigRevision
-			where config_content_id = config_content_id_in;
 	begin
 		select	cr.config_content_id
 		into	ccid
@@ -86,10 +82,10 @@ $$ LANGUAGE 'plpgsql';
 
 		-- now prune away content if there aren't any other revisions pointing
 		-- at it
-		for other_revision in other_revisions(ccid) loop
-			others := 1;
-			exit;
-		end loop;
+		select count(*)
+                  into others
+                  from rhnConfigRevision
+                 where config_content_id = ccid;
 		if others = 0 then
 			delete from rhnConfigContent where id = ccid;
 		end if;
