@@ -206,7 +206,7 @@ EOF
             runuser - postgres -c "createlang plpgsql '$PGNAME'"
     fi
     if ! exists_user ; then
-            runuser - postgres -c "yes '$PGPASSWORD' | createuser -P -sDR '$PGUSER'"
+            runuser - postgres -c "yes '$PGPASSWORD' | createuser -P -sDR '$PGUSER'" 2>/dev/null
     fi
 
     postgresql_service reload
