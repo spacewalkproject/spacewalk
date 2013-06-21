@@ -58,25 +58,11 @@ is
 		ccid number;
 		latest_crid number;
 		others number := 0;
-		cursor snapshots is
-			select	scr.snapshot_id id
-			from	rhnSnapshot s,
-					rhnSnapshotConfigRevision scr
-			where	scr.config_revision_id = config_revision_id_in
-					and scr.snapshot_id = s.id
-					and s.invalid is null;
 		cursor other_revisions(config_content_id_in in number) is
 			select	1
 			from	rhnConfigRevision
 			where	config_content_id = config_content_id_in;
 	begin
-		for snapshot in snapshots loop
-			update		rhnSnapshot s
-				set		s.invalid =
-							lookup_snapshot_invalid_reason('cr_removed')
-				where	s.id = snapshot.id;
-		end loop;
-
 		select	cr.config_content_id
 		into	ccid
 		from	rhnConfigRevision cr
@@ -86,6 +72,9 @@ is
 		-- to null, and will remove an entry from rhnActionConfigRevision.
 		-- might we want to prune and/or kill the action in some way?  maybe
 		-- mark it failed or something?
+                -- this delete also triggers rhn_confrevision_del_trig() which
+                -- a) updates rhnSnapshot.invalid to 'cr_removed'
+                -- and b) deletes snapshots from rhnSnapshotConfigRevision
 		delete from rhnConfigRevision where id = config_revision_id_in;
 
 		-- now prune away content if there aren't any other revisions pointing

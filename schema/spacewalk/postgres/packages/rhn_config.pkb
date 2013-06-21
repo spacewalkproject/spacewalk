@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 7d1fc2f28241349883a386404ec51659f428c61c
+-- oracle equivalent source sha1 448ad1d6ea4d0eec5d067961b584d6f4e0be22b3
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -65,24 +65,11 @@ $$ LANGUAGE 'plpgsql';
 		ccid numeric;
 		latest_crid numeric;
 		others numeric := 0;
-		snapshots cursor is
-			select scr.snapshot_id as id
-			from rhnSnapshot s,
-					rhnSnapshotConfigRevision scr
-			where scr.config_revision_id = config_revision_id_in
-					and scr.snapshot_id = s.id
-					and s.invalid is null;
 		 other_revisions cursor (config_content_id_in numeric) is
 			select 1
 			from rhnConfigRevision
 			where config_content_id = config_content_id_in;
 	begin
-                for snapshot in snapshots loop
-                    update rhnSnapshot
-                        set invalid = lookup_snapshot_invalid_reason('cr_removed')
-                        where id = snapshot.id;
-                end loop;
-
 		select	cr.config_content_id
 		into	ccid
 		from	rhnConfigRevision cr
@@ -92,6 +79,9 @@ $$ LANGUAGE 'plpgsql';
 		-- to null, and will remove an entry from rhnActionConfigRevision.
 		-- might we want to prune and/or kill the action in some way?  maybe
 		-- mark it failed or something?
+                -- this delete also triggers rhn_confrevision_del_trig() which
+                -- a) updates rhnSnapshot.invalid to 'cr_removed'
+                -- and b) deletes snapshots from rhnSnapshotConfigRevision
 		delete from rhnConfigRevision where id = config_revision_id_in;
 
 		-- now prune away content if there aren't any other revisions pointing
