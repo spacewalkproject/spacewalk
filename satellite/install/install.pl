@@ -54,7 +54,9 @@ if (-e Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION) {
 }
 
 my %answers = ();
-Spacewalk::Setup::load_answer_file(\%opts, \%answers);
+my @skip = ();
+push @skip, Spacewalk::Setup::EMBEDDED_DB_ANSWERS if (defined $opts{'managed-db'});
+Spacewalk::Setup::load_answer_file(\%opts, \%answers, \@skip);
 
 $answers{hostname} ||= Sys::Hostname::hostname;
 
