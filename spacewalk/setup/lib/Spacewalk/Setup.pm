@@ -185,7 +185,10 @@ sub load_answer_file {
   my $answers = shift;
   my (@skip) = @{(shift)};
 
-  my @files = map {$_ if (not grep($_, @skip))} glob(DEFAULT_ANSWER_FILE_GLOB);
+  my @files = ();
+  foreach my $afile (glob(DEFAULT_ANSWER_FILE_GLOB)) {
+      push @files, $afile if not grep $afile, @skip;
+  }
   push @files, $options->{'answer-file'} if $options->{'answer-file'};
 
   for my $file (@files) {
