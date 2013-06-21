@@ -1,0 +1,11 @@
+declare
+        name_already_used exception;
+        pragma exception_init(name_already_used, -00955);
+begin
+        execute immediate 'create index rhn_confrevision_ccid_idx on rhnConfigRevision (config_content_id) tablespace [[2m_tbs]]';
+        dbms_output.put_line('Index rhn_confrevision_ccid_idx successfully created.');
+exception
+        when name_already_used then
+                dbms_output.put_line('Index rhn_confrevision_ccid_idx already exists.');
+end;
+/
