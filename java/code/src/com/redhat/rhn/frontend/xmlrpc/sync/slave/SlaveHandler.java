@@ -133,7 +133,7 @@ public class SlaveHandler extends BaseHandler {
      * @param slaveId Id of the Slave to look for
      * @return the specified Slave if found, exception otherwise
      *
-     * @xmlrpc.doc Remove the specified Slave
+     * @xmlrpc.doc Find a Slave by specifying its ID
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("int", "id", "Id of the desired Slave")
      * @xmlrpc.returntype $IssSlaveSerializer
@@ -143,6 +143,25 @@ public class SlaveHandler extends BaseHandler {
         ensureSatAdmin(u);
         IssSlave slave = IssFactory.lookupSlaveById(slaveId.longValue());
         validateExists(slave, slaveId.toString());
+        return slave;
+    }
+
+    /**
+     * Find a Slave by specifying its Fully-Qualified Domain Name
+     * @param sessionKey User's session key.
+     * @param slaveFqdn Domain name of the Slave to look for
+     * @return the specified Slave if found, exception otherwise
+     *
+     * @xmlrpc.doc Find a Slave by specifying its Fully-Qualified Domain Name
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("string", "fqdn", "Domain-name of the desired Slave")
+     * @xmlrpc.returntype $IssSlaveSerializer
+     */
+    public IssSlave getSlaveByName(String sessionKey, String slaveFqdn) {
+        User u = getLoggedInUser(sessionKey);
+        ensureSatAdmin(u);
+        IssSlave slave = IssFactory.lookupSlaveByName(slaveFqdn);
+        validateExists(slave, slaveFqdn);
         return slave;
     }
 
