@@ -2,7 +2,7 @@
 
 """ iss_setup - a tool for easing the pain of setting up organization-mappings for ISS """
 
-import logging, os, re, sys, xmlrpclib
+import logging, os, re, sys, xmlrpclib, string
 from ConfigParser import SafeConfigParser, NoOptionError
 from optparse import OptionParser, OptionGroup
 from os import path, access, R_OK
@@ -13,24 +13,27 @@ DEFAULT_MASTER_SETUP_FILENAME = home + '/.spacewalk/master.txt'
 DEFAULT_SLAVE_SETUP_FILENAME = home + '/.spacewalk/slave.txt'
 
 DEFAULT_CONFIG = """
-# Default defines the slave and/or master we should connec tto by default
+# Default defines the slave and/or master we should connect to by default
 [Default]
 # Default slave FQDN
-slave.default=
+slave.default=SLAVE
 # Default master FQDN
-master.default=
+master.default=MASTER
+"""
 
-# Any spacewalk Fully-Qualified-Domain-Name (FQDN) can have a stanza,
+DEFAULT_CONFIG_FQDN_STANZA = """
+# Any spacewalk Fully-Qualified-Domain-Name (fqdn) can have a stanza,
 # defining logins and setup files to use
-[a.spacewalk.fqdn.com]
-# Login (and optionally pwd) of a sat-admin login for this instance
+[FQDN]
+# Login of a sat-admin login for this instance
+login = LOGIN
 # NOTE: Putting passwords in cfg-files is suboptimal.  The tool will ask
 # But if you really want to, go ahead
-login = login[@pwd]
+password = PASSWORD
 # Where's the slave-side setup file for this spacewalk instance?
-slave.setup =
+slave.setup = SLAVE_FILE
 # Where's the master-side setup file for this spacewalk instance?
-master.setup =
+master.setup = MASTER_FILE
 """
 
 def setupOptions():
@@ -38,28 +41,36 @@ def setupOptions():
     parser = OptionParser(usage=usage)
 
     cnxGrp = OptionGroup(parser, "Connections", "Identify the spacewalk instances we're going to connect to");
-    cnxGrp.add_option('--slave', action='store', dest='slave',
-        help="name of a slave to connect to. Optionally can be login/password@name")
-    cnxGrp.add_option('--master', action='store', dest='master',
-        help="name of a master to connect to. Optionally can be login/password@name")
+    cnxGrp.add_option('--ss', '--slave-server', action='store', dest='slave',
+        help="name of a slave to connect to.")
+    cnxGrp.add_option('--sl', '--slave-login', action='store', dest='slave_login', default="",
+        help="A sat-admin login for slave-server")
+    cnxGrp.add_option('--sp', '--slave-password', action='store', dest='slave_password', default="",
+        help="Password for login slave-login on slave-server")
+    cnxGrp.add_option('--ms', '--master-server', action='store', dest='master',
+        help="name of a master to connect to.")
+    cnxGrp.add_option('--ml', '--master-login', action='store', dest='master_login', default="",
+        help="A sat-admin login for master-server")
+    cnxGrp.add_option('--mp', '--master-password', action='store', dest='master_password', default="",
+        help="Password for login master-login on master-server")
     parser.add_option_group(cnxGrp)
 
     tmplGrp = OptionGroup(parser, "Templates", "Options for creating initial versions of setup files")
-    tmplGrp.add_option('--create-slave-template', action='store_true', dest='slave_template', default=False,
+    tmplGrp.add_option('--cst', '--create-slave-template', action='store_true', dest='slave_template', default=False,
         help="Create a setup file for the slave we're pointed at, "
              "based on information from the master we're pointed at")
-    tmplGrp.add_option('--create-master-template', action='store_true', dest='master_template', default=False,
+    tmplGrp.add_option('--cmt', '--create-master-template', action='store_true', dest='master_template', default=False,
         help="Create a setup file for the master we're pointed at, "
              "based on information from the slave we're pointed at")
-    tmplGrp.add_option('--create-templates', action='store_true', dest='both_template', default=False,
+    tmplGrp.add_option('--ct', '--create-templates', action='store_true', dest='both_template', default=False,
         help="Create both a master and a slave setup file, for the master/slave pair we're pointed at")
     parser.add_option_group(tmplGrp)
 
     setupGrp = OptionGroup(parser, "Setup",
                            "Specify the setup files we're actually going to apply to a slave/master")
-    setupGrp.add_option('--master-setup-file', action='store', dest='master_file', metavar='FILE',
+    setupGrp.add_option('--msf', '--master-setup-file', action='store', dest='master_file', metavar='FILE',
         help='Specify the master-setup-file we should use')
-    setupGrp.add_option('--slave-setup-file', action='store', dest='slave_file', metavar='FILE',
+    setupGrp.add_option('--ssf', '--slave-setup-file', action='store', dest='slave_file', metavar='FILE',
         help='Specify the slave-setup-file we should use')
     parser.add_option_group(setupGrp)
 
@@ -84,9 +95,9 @@ def setupOptions():
 
 def setupLogging(opt):
     # determine the logging level
-    if options.debug:
+    if opt.debug:
         level = logging.DEBUG
-    elif options.quiet:
+    elif opt.quiet:
         level = logging.ERROR
     else:
         level = logging.INFO
@@ -96,12 +107,57 @@ def setupLogging(opt):
     return
 
 
+def initializeConfig(opt, handle):
+    "We don't have any defaults - create some, using CLI if we have them"
+    hdr = DEFAULT_CONFIG
+
+    slave_stanza = DEFAULT_CONFIG_FQDN_STANZA
+    master_stanza = DEFAULT_CONFIG_FQDN_STANZA
+
+    if 'slave' in opt.__dict__:
+        hdr = hdr.replace('SLAVE', opt.slave)
+        slave_stanza = slave_stanza.replace('FQDN', opt.slave)
+
+    if 'slave_login' in opt.__dict__:
+        slave_stanza = slave_stanza.replace('LOGIN', opt.slave_login)
+
+    if 'slave_password' in opt.__dict__:
+        slave_stanza = slave_stanza.replace('PASSWORD', opt.slave_password)
+
+    if 'slave_file' in opt.__dict__:
+        slave_stanza = slave_stanza.replace('SLAVE_FILE', opt.slave_file)
+
+    if 'master' in opt.__dict__:
+        hdr = hdr.replace('MASTER', opt.master)
+        master_stanza = master_stanza.replace('FQDN', opt.master)
+
+    if 'master_login' in opt.__dict__:
+        master_stanza = master_stanza.replace('LOGIN', opt.master_login)
+
+    if 'master_password' in opt.__dict__:
+        master_stanza = master_stanza.replace('PASSWORD', opt.master_password)
+
+    if 'master_file' in opt.__dict__:
+        master_stanza = master_stanza.replace('MASTER_FILE', opt.master_file)
+
+    logging.debug("Header is now " + hdr)
+    logging.debug("Slave-stanza is now " + slave_stanza)
+    logging.debug("Master-stanza is now " + master_stanza)
+
+    handle.write(hdr)
+    handle.write(slave_stanza)
+    handle.write(master_stanza)
+
+    return
+
+
 def setupConfig(opt):
     "The cfg-values we recognize include: \n"
     "  * default master \n"
     "  * default slave \n"
     "  * For specific FQDNs: \n"
-    "    * login/pwd \n"
+    "    * login \n"
+    "    * password \n"
     "    * master-setup-file \n"
     "    * slave-setup-file \n"
 
@@ -123,38 +179,100 @@ def setupConfig(opt):
             # create a template configuration file
             logging.debug('Creating configuration file: %s' % user_conf_file)
             handle = open(user_conf_file, 'w')
-
-            handle.write(DEFAULT_CONFIG)
-
+            initializeConfig(opt, handle)
             handle.close()
         except IOError:
             logging.error('Could not create %s' % user_conf_file)
 
-    # load options from configuration files
-    files_read = config.read( [ user_conf_file ] )
-
-    for item in files_read:
-        logging.debug('Read configuration from %s' % item)
+    # load options from configuration file
+    config.read( [ user_conf_file ] )
 
     return config;
 
 
 def getMasterConnectionInfo(opt, cfg):
-    # Make sure we have login, password, and fqdn for MASTER, based on options and config-files
-    # Anything we're missing - ask for
-    info = {'fqdn': 'ggainey-beast.usersys.redhat.com', 'login':'ggainey', 'password':'redhat'}
+    "Make sure we have login, password, and fqdn for MASTER, based on options and config-files"
+    info = {}
+
+    if 'master' in opt.__dict__:
+        info['fqdn'] = opt.master
+    elif cfg.has_option('Default', 'master.default'):
+        info['fqdn'] = cfg.get('Default', 'master.default')
+    else: # No master - skip
+        return info
+
+    # Now that we have a master fqdn, we can get login info
+    if 'master_login' in opt.__dict__:
+        info['login'] = opt.master_login
+    elif cfg.has_option(info['fqdn'], 'login'):
+        info['login'] = cfg.has_option(info['fqdn'], 'login')
+    else:
+        return info
+
+    # And finally pwd
+    if 'master_password' in opt.__dict__:
+        info['password'] = opt.master_password
+    elif cfg.has_option(info['fqdn'], 'password'):
+        info['password'] = cfg.has_option(info['fqdn'], 'password')
+    else:
+        return info;
+
     return info
 
 
 def getSlaveConnectionInfo(opt, cfg):
-    # Make sure we have login, password, and fqdn for SLAVE, based on options and config-files
-    # Anything we're missing - ask for
-    info = {'fqdn': 'localhost', 'login':'ggainey', 'password':'redhat'}
+    "Make sure we have login, password, and fqdn for SLAVE, based on options and config-files"
+    info = {}
+
+    if 'slave' in opt.__dict__:
+        info['fqdn'] = opt.slave
+    elif cfg.has_option('Default', 'slave.default'):
+        info['fqdn'] = cfg.get('Default', 'slave.default')
+    else: # No slave - skip
+        return info
+
+    # Now that we have a slave fqdn, we can get login info
+    if 'slave_login' in opt.__dict__:
+        info['login'] = opt.slave_login
+    elif cfg.has_option(info['fqdn'], 'login'):
+        info['login'] = cfg.has_option(info['fqdn'], 'login')
+    else:
+        return info
+
+    # And finally pwd
+    if 'slave_password' in opt.__dict__:
+        info['password'] = opt.slave_password
+    elif cfg.has_option(info['fqdn'], 'password'):
+        info['password'] = cfg.has_option(info['fqdn'], 'password')
+    else:
+        return info;
+
+    return info
+
+
+def validateConnectInfo(info):
+    "Something needs to connect - make sure we have fqdn/login/pwd, and ask for "
+    " anything missing"
+
+    if not 'fqdn' in info or len(info['fqdn']) == 0:
+        fail("Can't connect, I don't know what machine you want to go to!")
+
+    if not 'login' in info or len(info['login']) == 0:
+        info['login'] = ask("Satellite-Admin login for " + info['fqdn'])
+        if not 'login' in info:
+            fail("Can't connect, I don't have a login to use!")
+
+    if not 'password' in info or len(info['password']) == 0:
+        info['password'] = ask("Password for " + info['login'] + " on machine " + info['fqdn'])
+        # I would love to check for empty-pwd here - but some people use empty passwords :(
+
     return info
 
 
 def connectTo(info):
     logging.debug("Connect-to info = %s" % info)
+    logging.info("Connecting to " + info['login'] + "@" + info['fqdn'])
+    info = validateConnectInfo(info)
     url = "https://{0}/rpc/api".format(info['fqdn'])
     client = xmlrpclib.Server(url, verbose=0)
     key = client.auth.login(info['login'], info['password'])
@@ -191,6 +309,8 @@ def determineTemplateFilename(kind, fqdn, opt, cfg):
 
 def gen_slave_template(slave_session, master_session, master, filename):
     "Generates a default setup applying to the specified master, for the connected-slave"
+    logging.info("Generating slave-setup file " + filename)
+
     master_orgs = master_session['client'].org.listOrgs(master_session['key'])
     master_map = orgByName(master_orgs)
     logging.debug("MASTER ORG MAP %s" % master_map)
@@ -210,11 +330,11 @@ def gen_slave_template(slave_session, master_session, master, filename):
 
     for org in master_orgs:
         if org['name'] in slave_map:
-            master_org = {'masterOrgId':org['id'], 'masterOrgName':org['name'], 'localOrgId':slave_map[org['name']]}
+            master_org = "%s|%s|%s" % (org['id'], org['name'], slave_map[org['name']])
             slave_setup.set(master, str(org['id']), str(master_org))
         else:
-            master_org = {'masterOrgId':org['id'], 'masterOrgName':org['name'], 'localOrgId':1}
-            slave_setup.set(master, str(org['id']), str(master_org))
+            master_org = "%s|%s|%s" % (org['id'], org['name'], 1)
+            slave_setup.set(master, str(org['id']), master_org)
 
     with open(filename, 'w+') as configfile:
         slave_setup.write(configfile)
@@ -223,8 +343,9 @@ def gen_slave_template(slave_session, master_session, master, filename):
     return
 
 
-def gen_master_template(master_session, slave, setupfile):
+def gen_master_template(master_session, slave, filename):
     "Generates a default setup applying to the specified slave, for the connected-master"
+    logging.info("Generating master-setup file " + filename)
 
     master_setup = SafeConfigParser()
     master_setup.optionxform = str
@@ -257,35 +378,97 @@ def gen_master_template(master_session, slave, setupfile):
 
 def apply_slave_template(slave_session, slave_setup_filename):
     "Updates the connected slave with information for the master(s) contained in the specified slave-setup-file"
+    logging.info("Applying slave-setup " + slave_setup_filename)
+    client = slave_session['client']
+    key = slave_session['key']
 
     slave_setup = SafeConfigParser()
-    if path.isfile(filename) and access(filename, R_OK):
+    if path.isfile(slave_setup_filename) and access(slave_setup_filename, R_OK):
         slave_setup.readfp(open(filename))
+    else:
+        fail("Can't find slave-setup file [" + slave_setup_filename + "]")
+
+    fqdns = slave_setup.sections()
+
+    for fqdn in fqdns:
+        try:
+            master = client.sync.master.getMasterByLabel(key, fqdn)
+        except Exception, e:
+            master = client.sync.master.create(key, fqdn)
+
+        master_orgs = []
+        moids = slave_setup.options(fqdn)
+        for moid in moids: # moid|moname|local_oid
+            minfo = slave_setup.get(fqdn, moid)
+            elts = string.split(minfo, '|')
+            orginfo = {}
+            orginfo['masterOrgId'] = int(elts[0])
+            orginfo['masterOrgName'] = elts[1]
+            if len(elts[2]) > 0:
+                orginfo['localOrgId'] = int(elts[2])
+            master_orgs.append(orginfo)
+
+        client.sync.master.setMasterOrgs(key, master['id'], master_orgs)
 
     return
 
 
 def apply_master_template(master_session, master_setup_filename):
     "Updates the connected master with information for the slave(s) contained in the specified master-setup-file"
+    logging.info("Applying master-setup " + master_setup_filename)
+    client = master_session['client']
+    key = master_session['key']
+
+    master_setup = SafeConfigParser()
+    if path.isfile(master_setup_filename) and access(master_setup_filename, R_OK):
+        master_setup.readfp(open(filename))
+    else:
+        fail("Can't find master-setup file [" + master_setup_filename + "]")
+
+    fqdns = master_setup.sections()
+
+    for fqdn in fqdns:
+        try:
+            slave = client.sync.slave.getSlaveByName(key, fqdn)
+        except Exception, e:
+            slave = client.sync.slave.create(key, fqdn, True, True)
+
+        client.sync.slave.update(key, slave['id'], fqdn,
+                master_setup.getboolean(fqdn, 'isEnabled'),
+                master_setup.getboolean(fqdn, 'allowAllOrgs'))
+        master_orgs = [int(x) for x in master_setup.get(fqdn, 'allowedOrgs').split(',')]
+        client.sync.slave.setAllowedOrgs(key, slave['id'], master_orgs)
     return
+
+
+def ask(msg):
+    val = raw_input(msg + " : ")
+    return val
+
+
+def fail(msg):
+    logging.error(msg)
+    sys.exit(msg)
 
 
 if __name__ == '__main__':
     parser = setupOptions()
     (options, args) = parser.parse_args()
-    print("OPTIONS = %s" % options)
     setupLogging(options)
+    logging.debug("OPTIONS = %s" % options)
 
     config = setupConfig(options)
     logging.debug("CONFIG = %s" % config)
 
     master_info = getMasterConnectionInfo(options, config)
-    master_cnx = connectTo(master_info)
-    logging.debug("Master cnx = %s" % master_cnx)
+    if options.master_template or options.slave_template or options.both_template or options.master_file:
+        master_cnx = connectTo(master_info)
+        logging.debug("Master cnx = %s" % master_cnx)
 
     slave_info = getSlaveConnectionInfo(options, config)
-    slave_cnx = connectTo(slave_info)
-    logging.debug("Slave cnx = %s" % slave_cnx)
+    if options.master_template or options.slave_template or options.both_template or options.slave_file:
+        slave_cnx = connectTo(slave_info)
+        logging.debug("Slave cnx = %s" % slave_cnx)
 
     if options.master_template or options.both_template:
         filename = determineTemplateFilename('master', slave_info['fqdn'], options, config)
