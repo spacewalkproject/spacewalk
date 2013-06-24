@@ -117,14 +117,15 @@ create() {
 
     if [ ! -d "$PG_DATA/base" ] ; then
         postgresql_service initdb
+    fi
 
-        if $STANDALONE; then
-            sed -i 's/^\(\s*listen_addresses.*|\s*port.*\)$/### next line has been commented out by spacewalk-setup-postgresql ###\n##\1/' $POSTGRESQL
-        fi
+    if $STANDALONE; then
+        sed -i 's/^\(\s*listen_addresses.*\|\s*port.*\)$/### next line has been commented out by spacewalk-setup-postgresql ###\n##\1/' $POSTGRESQL
+    fi
 
-	# see bug 821446, we enable timestamps in logs by default
-	sed -i 's/^\(\s*max_connections.*\|\s*shared_buffers.*\)$/### next line has been commented out by spacewalk-setup-postgresql ###\n##\1/' $POSTGRESQL
-        cat >> $POSTGRESQL <<EOF
+    # see bug 821446, we enable timestamps in logs by default
+    sed -i 's/^\(\s*max_connections.*\|\s*shared_buffers.*\)$/### next line has been commented out by spacewalk-setup-postgresql ###\n##\1/' $POSTGRESQL
+    cat >> $POSTGRESQL <<EOF
 
 ### spacewalk-setup-postgresql modified values
 checkpoint_completion_target = 0.7
@@ -138,19 +139,19 @@ wal_buffers = 4MB
 work_mem = 2560kB
 EOF
 
-        if $STANDALONE; then
-            echo "$ADDRESS"|grep -q '127.0.0.1\|*' || ADDRESS="$ADDRESS, 127.0.0.1"
-            cat >> $POSTGRESQL <<EOF
+    if $STANDALONE; then
+        echo "$ADDRESS"|grep -q '127.0.0.1\|*' || ADDRESS="$ADDRESS, 127.0.0.1"
+        cat >> $POSTGRESQL <<EOF
 ### spacewalk-setup-postgresql modified values for a standalone PostgreSQL database
 listen_addresses='$ADDRESS'
 port=$PORT
 EOF
-        fi
+    fi
 
-        sysctl kernel.shmmax | ( read v v v ; LIMIT=500000000 ; if [ "0$v" -lt $LIMIT ] ; then sysctl "kernel.shmmax=$LIMIT" >> /etc/sysctl.conf ; fi )
+    sysctl kernel.shmmax | ( read v v v ; LIMIT=500000000 ; if [ "0$v" -lt $LIMIT ] ; then sysctl "kernel.shmmax=$LIMIT" >> /etc/sysctl.conf ; fi )
 
-        sed -i 's/^\([^#].*\)$/### next line has been commented out by spacewalk-setup-postgresql: ###\n##\1/ ' $PG_HBA
-        cat >> $PG_HBA <<EOF
+    sed -i 's/^\([^#].*\)$/### next line has been commented out by spacewalk-setup-postgresql: ###\n##\1/ ' $PG_HBA
+    cat >> $PG_HBA <<EOF
 
 local $PGNAME $PGUSER md5
 host  $PGNAME $PGUSER 127.0.0.1/8 md5
@@ -160,22 +161,22 @@ local postgres postgres ident
 
 EOF
 
-        if $STANDALONE; then
-            for ADDR in $(echo $REMOTE|sed 's/,/ /g' ); do
-                cat >> $PG_HBA <<EOF
+    if $STANDALONE; then
+        for ADDR in $(echo $REMOTE|sed 's/,/ /g' ); do
+            cat >> $PG_HBA <<EOF
 host $PGNAME $PGUSER $ADDR md5
 EOF
-            done
+        done
 
-            # Create & configure /etc/rhn/rhn.conf
-            RHN_CONF_DIR=$(dirname $RHN_CONF)
-            if [ -d $RHN_CONF_DIR ]; then
-                chmod 0710 $RHN_CONF_DIR
-            else
-                mkdir -m 0710 $RHN_CONF_DIR
-            fi
+        # Create & configure /etc/rhn/rhn.conf
+        RHN_CONF_DIR=$(dirname $RHN_CONF)
+        if [ -d $RHN_CONF_DIR ]; then
+            chmod 0710 $RHN_CONF_DIR
+        else
+            mkdir -m 0710 $RHN_CONF_DIR
+        fi
 
-            cat > $RHN_CONF <<EOF
+        cat > $RHN_CONF <<EOF
 db_backend = postgresql
 db_user = $PGUSER
 db_password = $PGPASSWORD
@@ -183,11 +184,11 @@ db_name = $PGNAME
 db_host = localhost
 db_port = $PORT
 EOF
-            chmod 640 $RHN_CONF
+        chmod 640 $RHN_CONF
 
-        fi
     fi
 
+    postgresql_service status >& /dev/null && postgresql_service stop
     postgresql_service start
 
     if /usr/sbin/lsof /proc > /dev/null ; then
