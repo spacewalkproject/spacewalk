@@ -155,8 +155,8 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
 
     public void testListScript() throws Exception {
         KickstartData ks  = KickstartDataTest.createKickstartWithChannel(admin.getOrg());
-        int id = handler.addScript(adminKey, ks.getLabel(), "This is a script", "",
-                "post", true);
+        int id = handler.addScript(adminKey, ks.getLabel(), "sample",
+                "This is a script", "", "post", true);
         ks = (KickstartData) HibernateFactory.reload(ks);
         boolean found = false;
 
@@ -171,8 +171,8 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
 
     public void testAddScript() throws Exception {
         KickstartData ks  = KickstartDataTest.createKickstartWithChannel(admin.getOrg());
-        int id = handler.addScript(adminKey, ks.getLabel(), "This is a script", "",
-                "post", true);
+        int id = handler.addScript(adminKey, ks.getLabel(), "sample",
+                "This is a script", "", "post", true);
         ks = (KickstartData) HibernateFactory.reload(ks);
         boolean found = false;
         for (KickstartScript script : ks.getScripts()) {
