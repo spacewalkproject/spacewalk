@@ -34,7 +34,8 @@
 	 	<rhn:set value="${current.id}"/>
 		<rhn:column header="system.common.systemName"
 			url="/rhn/systems/details/Overview.do?sid=${current.id}">
-			<img alt="" src="/img/rhn-listicon-system.gif" /> ${current.name}
+			<img alt="" src="/img/rhn-listicon-system.gif" />
+			<c:out value="${current.name}" escapeXml="true" />
       	</rhn:column>
 	</rhn:listdisplay>
 </rhn:list>
