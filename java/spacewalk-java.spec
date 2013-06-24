@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.101
+Version: 1.10.102
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jun 24 2013 Tomas Lestach <tlestach@redhat.com> 1.10.102-1
+- 855845 - escaping system name for message.syncpackages message
+- 855845 - escaping system name for
+  /rhn/systems/details/packages/profiles/CompareSystems.do
+- 855845 - escaping system name for
+  /rhn/systems/details/configuration/DeployFileConfirm.do
+- 855845 - escaping system name for /rhn/configuration/channel/TargetSystems.do
+- 855845 - escaping system name on inactive-systems yourrhn pane
+- fix (virt) system icons on system group pages
+
 * Thu Jun 20 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.101-1
 - Fix syntax. Sentences start with capital letter.
 - 975083 - typo fix
