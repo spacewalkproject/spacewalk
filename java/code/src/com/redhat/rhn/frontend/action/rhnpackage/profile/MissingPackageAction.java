@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.rhnpackage.profile;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -77,9 +78,10 @@ public class MissingPackageAction extends BaseProfilesAction {
             List args = new ArrayList();
             args.add(sid.toString());
             args.add(pa.getId().toString());
-            args.add(requestContext.lookupAndBindServer().getName());
-            args.add(ProfileManager.lookupByIdAndOrg(prid,
-                    requestContext.getCurrentUser().getOrg()).getName());
+            args.add(StringUtil.htmlifyText(
+                    requestContext.lookupAndBindServer().getName()));
+            args.add(StringUtil.htmlifyText(ProfileManager.lookupByIdAndOrg(prid,
+                    requestContext.getCurrentUser().getOrg()).getName()));
 
             createMessage(requestContext.getRequest(), "message.syncpackages", args);
         }
@@ -96,9 +98,10 @@ public class MissingPackageAction extends BaseProfilesAction {
             List args = new ArrayList();
             args.add(sid.toString());
             args.add(pa.getId().toString());
-            args.add(requestContext.lookupAndBindServer().getName());
-            args.add(SystemManager.lookupByIdAndUser(sid1,
-                    requestContext.getCurrentUser()).getName());
+            args.add(StringUtil.htmlifyText(
+                    requestContext.lookupAndBindServer().getName()));
+            args.add(StringUtil.htmlifyText(SystemManager.lookupByIdAndUser(sid1,
+                    requestContext.getCurrentUser()).getName()));
 
             createMessage(requestContext.getRequest(), "message.syncpackages", args);
         }

@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage.profile;
 
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.rhnpackage.MissingPackagesException;
 import com.redhat.rhn.domain.user.User;
@@ -85,8 +86,10 @@ public class SyncProfilesAction extends BaseProfilesAction {
                 List args = new ArrayList();
                 args.add(sid.toString());
                 args.add(pa.getId().toString());
-                args.add(requestContext.lookupAndBindServer().getName());
-                args.add(ProfileManager.lookupByIdAndOrg(prid, user.getOrg()).getName());
+                args.add(StringUtil.htmlifyText(
+                        requestContext.lookupAndBindServer().getName()));
+                args.add(StringUtil.htmlifyText(
+                        ProfileManager.lookupByIdAndOrg(prid, user.getOrg()).getName()));
 
                 createMessage(request, "message.syncpackages", args);
             }
