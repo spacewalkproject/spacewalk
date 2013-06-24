@@ -352,7 +352,12 @@ class Runner:
         self.syncer.import_kickstarts()
 
     def _step_orgs(self):
-        self.syncer.import_orgs()
+        try:
+            self.syncer.import_orgs()
+        except RhnSyncException, e:
+            # the orgs() method doesn't exist; that's fine we just
+            # won't sync the orgs
+            log(1, [_("The upstream Satellite does not support syncing orgs data."), _("Skipping...")])
 
 def sendMail(forceEmail=0):
     """ Send email summary """
