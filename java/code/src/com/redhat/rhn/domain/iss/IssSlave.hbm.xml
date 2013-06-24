@@ -21,8 +21,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             table="rhnissslaveorgs"
             inverse="false"
             lazy="true"
-            fetch="select"
-            cascade="all">
+            fetch="select">
             <key column="slave_id" not-null="true"/>
             <many-to-many column="org_id" class="com.redhat.rhn.domain.org.Org" />
         </set>
