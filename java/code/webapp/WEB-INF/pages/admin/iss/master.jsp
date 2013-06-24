@@ -36,7 +36,7 @@
   <rhn:csrf />
   <rhn:submitted />
   <rl:list dataset="pageList" name="issSlaveList"
-   emptykey="master.jsp.noslaves">
+   emptykey="iss.master.jsp.noslaves">
    <rl:decorator name="SelectableDecorator" />
    <rl:selectablecolumn value="${current.selectionKey}"
     selected="${current.selected}" />
