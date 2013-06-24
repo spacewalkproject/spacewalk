@@ -40,6 +40,7 @@ import com.redhat.rhn.frontend.dto.kickstart.KickstartOptionValue;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidKickstartScriptException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidScriptNameException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidScriptTypeException;
 import com.redhat.rhn.frontend.xmlrpc.IpRangeConflictException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
@@ -58,6 +59,7 @@ import com.redhat.rhn.manager.kickstart.KickstartManager;
 import com.redhat.rhn.manager.kickstart.KickstartOptionsCommand;
 
 import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.cobbler.Profile;
 
 import java.util.ArrayList;
@@ -412,6 +414,7 @@ public class ProfileHandler extends BaseHandler {
      * Add a script to a kickstart profile
      * @param sessionKey key
      * @param ksLabel the kickstart label
+     * @param name name of the script
      * @param contents the contents
      * @param interpreter the script interpreter to use
      * @param type "pre" or "post"
@@ -422,6 +425,7 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel", "The kickstart label to
      * add the script to.")
+     * @xmlrpc.param #param_desc("string", "name", "The kickstart script name.")
      * @xmlrpc.param #param_desc("string", "contents", "The full script to
      * add.")
      * @xmlrpc.param #param_desc("string", "interpreter", "The path to the
@@ -434,9 +438,9 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.returntype int id - the id of the added script
      *
      */
-    public int addScript(String sessionKey, String ksLabel, String contents,
+    public int addScript(String sessionKey, String ksLabel, String name, String contents,
             String interpreter, String type, boolean chroot) {
-        return addScript(sessionKey, ksLabel, contents, interpreter, type,
+        return addScript(sessionKey, ksLabel, name, contents, interpreter, type,
                 chroot, false);
     }
 
@@ -444,6 +448,7 @@ public class ProfileHandler extends BaseHandler {
      * Add a script to a kickstart profile
      * @param sessionKey key
      * @param ksLabel the kickstart label
+     * @param name name of the script
      * @param contents the contents
      * @param interpreter the script interpreter to use
      * @param type "pre" or "post"
@@ -455,6 +460,7 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel", "The kickstart label to
      * add the script to.")
+     * @xmlrpc.param #param_desc("string", "name", "The kickstart script name.")
      * @xmlrpc.param #param_desc("string", "contents", "The full script to
      * add.")
      * @xmlrpc.param #param_desc("string", "interpreter", "The path to the
@@ -468,9 +474,9 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.returntype int id - the id of the added script
      *
      */
-    public int addScript(String sessionKey, String ksLabel, String contents,
+    public int addScript(String sessionKey, String ksLabel, String name, String contents,
             String interpreter, String type, boolean chroot, boolean template) {
-        return addScript(sessionKey, ksLabel, contents, interpreter, type, chroot,
+        return addScript(sessionKey, ksLabel, name, contents, interpreter, type, chroot,
                 template, false);
     }
 
@@ -478,6 +484,7 @@ public class ProfileHandler extends BaseHandler {
      * Add a script to a kickstart profile
      * @param sessionKey key
      * @param ksLabel the kickstart label
+     * @param name name of the script
      * @param contents the contents
      * @param interpreter the script interpreter to use
      * @param type "pre" or "post"
@@ -490,6 +497,7 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel", "The kickstart label to
      * add the script to.")
+     * @xmlrpc.param #param_desc("string", "name", "The kickstart script name.")
      * @xmlrpc.param #param_desc("string", "contents", "The full script to
      * add.")
      * @xmlrpc.param #param_desc("string", "interpreter", "The path to the
@@ -505,7 +513,7 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.returntype int id - the id of the added script
      *
      */
-    public int addScript(String sessionKey, String ksLabel, String contents,
+    public int addScript(String sessionKey, String ksLabel, String name, String contents,
             String interpreter, String type, boolean chroot, boolean template,
             boolean erroronfail) {
         User loggedInUser = getLoggedInUser(sessionKey);
@@ -516,7 +524,12 @@ public class ProfileHandler extends BaseHandler {
             throw new InvalidScriptTypeException();
         }
 
+        if (StringUtils.isBlank(name)) {
+            throw new InvalidScriptNameException();
+        }
+
         KickstartScript script = new KickstartScript();
+        script.setScriptName(name);
         script.setData(contents.getBytes());
         script.setInterpreter(interpreter.equals("") ? null : interpreter);
         script.setScriptType(type);
