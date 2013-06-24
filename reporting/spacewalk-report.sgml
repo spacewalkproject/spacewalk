@@ -107,6 +107,19 @@ Generate reports from Spacewalk server in csv format
 	    have to meet the condition.</para>
         </listitem>
     </varlistentry>
+    <varlistentry>
+        <term>--like-<replaceable>column-id</replaceable>=<replaceable>VALUE</replaceable></term>
+        <listitem>
+            <para>Limit the output to records where column-id has value
+      like VALUE. This applies for string values only. It can be used
+      multiple times -- for the same column it will select records
+      where the column has any of the VALUEs. When different columns
+      are specified, all of them have to meet the condition. Regular
+      expressions for like clause are described by SQL standard. Most
+      common wildcards are _ for any single character and % for multiple
+      occurances of any character.</para>
+        </listitem>
+    </varlistentry>
 </variablelist>
 </RefSect1>
 
