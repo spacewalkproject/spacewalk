@@ -133,7 +133,8 @@ class ChannelImport(Import):
         for channel in self.batch:
             if channel.ignored:
                 continue
-            if channel.has_key('trust_list'):
+            if (channel.has_key('trust_list')
+                    and channel['trust_list']):
                 for trust in channel['trust_list']:
                     channel_trusts.append({'channel-label': channel['label'],
                         'org-id': trust['org_trust_id']})
