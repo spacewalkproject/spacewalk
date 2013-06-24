@@ -2,7 +2,7 @@
 
 set -e
 
-OPTS=$(getopt --longoptions=db:,user:,password:,standalone,address:,port:,remote: -n ${0##*/} -- d:u:p:sa:t:r: "$@")
+OPTS=$(getopt --longoptions=db:,user:,password:,standalone,address:,remote: -n ${0##*/} -- d:u:p:sa:r: "$@")
 
 if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
 
@@ -13,7 +13,6 @@ PGUSER=""
 PGPASSWORD=""
 STANDALONE=false
 ADDRESS=""
-PORT=""
 REMOTE=""
 
 while true ; do
@@ -37,10 +36,6 @@ while true ; do
             ADDRESS=$2
             shift
             ;;
-        -t|--port)
-            PORT=$2
-            shift
-            ;;
         -r|--remote)
             REMOTE=$2
             shift
@@ -57,10 +52,6 @@ while true ; do
     shift
 done
 
-if [ -z $PORT ] || ! $STANDALONE; then
-    PORT=5432
-fi
-
 help() {
     echo "Usage: $(basename $0) create [options]" >&2
     echo "       $(basename $0) remove [options]" >&2
@@ -73,7 +64,6 @@ help() {
     echo "    --standalone                 Configure the database server to be remotely accessible"
     echo "    --address <local-addresses>  Comma-separated list of local addresses to listen on"
     echo "                                 Use '*' for all addresses"
-    echo "    --port <local-port>          Local port to listen on."
     echo "    --remote <remote-addresses>  Comma-separated list of remote addresses to allow connections from"
     echo ""
     echo "Options for the 'remove' command:"
@@ -96,6 +86,7 @@ ask() {
 PG_DATA=/var/lib/pgsql/data
 PG_HBA="$PG_DATA/pg_hba.conf"
 POSTGRESQL="$PG_DATA/postgresql.conf"
+PORT=5432
 PG_PIDFILE="/var/run/postmaster.$PORT.pid"
 PG_SOCKET="/tmp/.s.PGSQL.$PORT"
 SPACEWALK_TARGET="/usr/lib/systemd/system/spacewalk.target"
@@ -120,7 +111,7 @@ create() {
     fi
 
     if $STANDALONE; then
-        sed -i 's/^\(\s*listen_addresses.*\|\s*port.*\)$/### next line has been commented out by spacewalk-setup-postgresql ###\n##\1/' $POSTGRESQL
+        sed -i 's/^\(\s*listen_addresses.*\)$/### next line has been commented out by spacewalk-setup-postgresql ###\n##\1/' $POSTGRESQL
     fi
 
     # see bug 821446, we enable timestamps in logs by default
@@ -144,7 +135,6 @@ EOF
         cat >> $POSTGRESQL <<EOF
 ### spacewalk-setup-postgresql modified values for a standalone PostgreSQL database
 listen_addresses='$ADDRESS'
-port=$PORT
 EOF
     fi
 
@@ -182,7 +172,7 @@ db_user = $PGUSER
 db_password = $PGPASSWORD
 db_name = $PGNAME
 db_host = localhost
-db_port = $PORT
+db_port =
 EOF
         chmod 640 $RHN_CONF
 
