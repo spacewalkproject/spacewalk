@@ -18,7 +18,7 @@
 	    <rhn:column header="inactivelist.jsp.header"
 	    			url="/rhn/systems/details/Overview.do?sid=${current.id}">
 	    	<img src="/img/icon_checkin.gif" alt="<bean:message key="system-legend.jsp.notcheckingin"/>" />
-	    	${current.name}
+		<c:out value="${current.name}" escapeXml="true" />
 	    </rhn:column>
 
 	    <rhn:column header="emptyspace.jsp">
