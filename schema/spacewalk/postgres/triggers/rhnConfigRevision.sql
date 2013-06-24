@@ -43,12 +43,12 @@ begin
            set invalid = cr_removed
          where id in (select snapshot_id
                         from rhnSnapshotConfigRevision
-                       where config_revision_id = :old.id);
+                       where config_revision_id = old.id);
         delete from rhnSnapshotConfigRevision
-         where config_revision_id = old.id;
+         where config_revision_id = old.id
            and snapshot_id in (select snapshot_id
                                  from rhnSnapshotConfigRevision
-                                where config_revision_id = :old.id);
+                                where config_revision_id = old.id);
         return old;
 end;
 $$ language plpgsql;
