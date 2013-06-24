@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.102
+Version: 1.10.103
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jun 24 2013 Jan Dobes 1.10.103-1
+- correcting ProfileHandlerTest to changed API
+- 976722 - kickstart script name is required
+- 976722 - creating exception for script name
+- 976722 - adding eng resources
+
 * Mon Jun 24 2013 Tomas Lestach <tlestach@redhat.com> 1.10.102-1
 - 855845 - escaping system name for message.syncpackages message
 - 855845 - escaping system name for
