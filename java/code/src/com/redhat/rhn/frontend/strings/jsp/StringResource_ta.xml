@@ -4959,7 +4959,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <target>கணினி உரிமப்படுத்தப்படவில்லை</target>
       </trans-unit>
       <trans-unit id="systemlist.jsp.notcheckingin">
-        <source>System not checking in with R H N</source>
+        <source>System not checking in with @@PRODUCT_NAME@@</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
           <context context-type="sourcefile">/systems/SystemEntitlements</context>

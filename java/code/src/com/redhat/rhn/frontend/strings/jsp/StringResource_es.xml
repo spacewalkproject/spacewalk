@@ -6386,7 +6386,7 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
         <target>Sistema sin derechos</target>
       </trans-unit>
       <trans-unit id="systemlist.jsp.notcheckingin">
-        <source>System not checking in with R H N</source>
+        <source>System not checking in with @@PRODUCT_NAME@@</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
           <context context-type="sourcefile">/systems/SystemEntitlements</context>
