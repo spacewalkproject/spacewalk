@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    1.10.19
+Version:    1.10.20
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -74,6 +74,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Jun 25 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.20-1
+- fix of some css errors
+
 * Mon Jun 17 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.19-1
 - rebranding few more strings
 
