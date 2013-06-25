@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.49
+Version: 1.10.50
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -638,6 +638,17 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Jun 25 2013 Grant Gainey 1.10.50-1
+- ISS: checking a couple of potentially None values
+- ISS: make sure new satellites can sync to old ones
+- ISS: Channel trust syncing now works
+- ISS: Implemented sat-sync options and db work for org / org trusts
+- ISS: Bunch of changes for ISS, not working yet
+- ISS: export org and org-trust data
+- ISS: export channel access permissions
+- ISS: First pieces of backend code for using the iss-cfg tables
+- support numerals only for db-name, db-user and db-password
+
 * Thu Jun 20 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.49-1
 - 852250 - filter out bad package/architecture combinations
 
