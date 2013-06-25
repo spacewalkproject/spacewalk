@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.105
+Version: 1.10.106
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jun 25 2013 Grant Gainey 1.10.106-1
+- Fix checkstyle issues
+
 * Tue Jun 25 2013 Grant Gainey 1.10.105-1
 Feature: Support channel-permissions on ISS
 - ISS: Fix inappropriate cascade when deleting a Slave
