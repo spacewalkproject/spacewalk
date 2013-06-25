@@ -209,8 +209,12 @@ class ApacheServer(BaseApacheServer):
             raise rhnFault(2005, _('ISS is disabled on this satellite.'))
 
         remote_hostname = req.get_remote_host(apache.REMOTE_DOUBLE_REV)
-        row = rhnSQL.fetchone_dict("select id, allow_all_orgs from rhnISSSlave where slave = :hostname and enabled = 'Y'",
-            hostname = idn_pune_to_unicode(remote_hostname))
+        row = rhnSQL.fetchone_dict("""
+        select id, allow_all_orgs
+          from rhnISSSlave
+         where slave = :hostname
+           and enabled = 'Y'
+        """, hostname = idn_pune_to_unicode(remote_hostname))
         if not row:
             raise rhnFault(2004,
               _('Server "%s" is not enabled for ISS.')
