@@ -1028,7 +1028,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "name", "Package name.")
      * @xmlrpc.param #param_desc("string", "version","Package version.")
      * @xmlrpc.param #param_desc("string", "release", "Package release.")
-     * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.returntype 1 if package exists, 0 if not, exception is thrown
+     * if an error occurs
      */
     public int isNvreInstalled(String sessionKey, Integer sid, String name,
             String version, String release) throws FaultException {
@@ -1055,7 +1056,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "version", "Package version.")
      * @xmlrpc.param #param_desc("string", "release", "Package release.")
      * @xmlrpc.param #param_desc("string", "epoch",  "Package epoch.")
-     * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.returntype 1 if package exists, 0 if not, exception is thrown
+     * if an error occurs
      */
     public int isNvreInstalled(String sessionKey, Integer sid, String name,
             String version, String release, String epoch) throws FaultException {
