@@ -43,15 +43,23 @@ from rhn_bootstrap_strings import \
 from sslToolConfig import CA_CRT_NAME, CA_CRT_RPM_NAME
 from spacewalk.common.fileutils import rotateFile, cleanupAbsPath
 from spacewalk.common.checksum  import getFileChecksum
+from spacewalk.common.rhnConfig import CFG, initCFG
 
 ## GLOBALS
-PRODUCT_NAME = 'RHN Server'
+initCFG('web')
+PRODUCT_NAME = CFG.PRODUCT_NAME
 if os.path.exists('/usr/share/rhn/proxy') \
   or os.path.exists('/var/www/rhns/proxy'):
-    PRODUCT_NAME = 'Red Hat Proxy Server'
+    if PRODUCT_NAME == 'Spacewalk':
+      PRODUCT_NAME = 'Spacewalk Proxy Server'
+    else:
+      PRODUCT_NAME = 'Red Hat Proxy Server'
 elif os.path.exists('/usr/share/rhn/server') \
   or os.path.exists('/var/www/rhns/server'):
-    PRODUCT_NAME = 'RHN Satellite Server'
+    if PRODUCT_NAME == 'Spacewalk':
+      PRODUCT_NAME = 'Spacewalk Server'
+    else:
+      PRODUCT_NAME = 'Red Hat Satellite Server'
 
 DEFAULT_CA_CERT_PATH = '/usr/share/rhn/'+CA_CRT_NAME
 

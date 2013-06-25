@@ -10386,7 +10386,7 @@ administrator privileges.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
-        <target>Вы должны предоставить сертификат @@PRODUCT_NAME@@. Этот сертификат дает возможность доступа к службам RHN Satellite.</target>
+        <target>Вы должны предоставить сертификат @@PRODUCT_NAME@@. Этот сертификат дает возможность доступа к службам @@PRODUCT_NAME@@.</target>
       </trans-unit>
       <trans-unit id="certificate.jsp.header2">
         <source>@@PRODUCT_NAME@@ Certificate</source>

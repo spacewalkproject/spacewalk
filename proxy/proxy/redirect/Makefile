@@ -1,4 +1,4 @@
-# Makefile for the apacheServer.py for RHN Proxy SSL Redirect Server.
+# Makefile for the apacheServer.py for Spacewalk Proxy SSL Redirect Server.
 #
 
 TOP	= ..
