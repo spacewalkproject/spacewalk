@@ -15,6 +15,7 @@ help() {
     echo "    --address <local-addresses>  Comma-separated list of local addresses to listen on"
     echo "                                 Use '*' for all addresses"
     echo "    --remote <remote-addresses>  Comma-separated list of remote addresses to allow connections from"
+    echo "                                 Use address/netmask format"
     echo ""
     echo "Options for the 'remove' command:"
     echo "    --db <database-name>         Name of the database to remove"
@@ -51,7 +52,7 @@ create() {
     if $STANDALONE; then
         [ -z "$ADDRESS" ] && ask true "Local addresses to listen on (comma-separated, RETURN for all): " ADDRESS
         [ -z "$ADDRESS" ] && ADDRESS="*"
-        [ -z "$REMOTE" ] && ask true "Remote addresses to allow connection from (CIDR format, comma-separated): " REMOTE
+        [ -z "$REMOTE" ] && ask true "Remote addresses to allow connection from (address/netmask format, comma-separated): " REMOTE
     fi
 
     postgresql_service enable
