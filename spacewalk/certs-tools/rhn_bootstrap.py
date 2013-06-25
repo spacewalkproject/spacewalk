@@ -43,23 +43,15 @@ from rhn_bootstrap_strings import \
 from sslToolConfig import CA_CRT_NAME, CA_CRT_RPM_NAME
 from spacewalk.common.fileutils import rotateFile, cleanupAbsPath
 from spacewalk.common.checksum  import getFileChecksum
-from spacewalk.common.rhnConfig import CFG, initCFG
+from spacewalk.common.rhnConfig import PRODUCT_NAME
 
 ## GLOBALS
-initCFG('web')
-PRODUCT_NAME = CFG.PRODUCT_NAME
 if os.path.exists('/usr/share/rhn/proxy') \
   or os.path.exists('/var/www/rhns/proxy'):
-    if PRODUCT_NAME == 'Spacewalk':
-      PRODUCT_NAME = 'Spacewalk Proxy Server'
-    else:
-      PRODUCT_NAME = 'Red Hat Proxy Server'
+    MY_PRODUCT_NAME = PRODUCT_NAME + ' Server'
 elif os.path.exists('/usr/share/rhn/server') \
   or os.path.exists('/var/www/rhns/server'):
-    if PRODUCT_NAME == 'Spacewalk':
-      PRODUCT_NAME = 'Spacewalk Server'
-    else:
-      PRODUCT_NAME = 'Red Hat Satellite Server'
+    MY_PRODUCT_NAME = PRODUCT_NAME + ' Server'
 
 DEFAULT_CA_CERT_PATH = '/usr/share/rhn/'+CA_CRT_NAME
 
@@ -572,7 +564,7 @@ def generateBootstrapScript(options):
     # this means that we can negate those booleans with 1 - their current
     # value (instead of doing not value which can yield True/False, which
     # would print as such)
-    newScript = getHeader(PRODUCT_NAME, options.activation_keys,
+    newScript = getHeader(MY_PRODUCT_NAME, options.activation_keys,
                   options.gpg_key, options.overrides, options.hostname,
                   orgCACert, isRpmYN, 1 - options.no_ssl, 1 - options.no_gpg,
                   options.allow_config_actions, options.allow_remote_commands,
@@ -585,7 +577,7 @@ def generateBootstrapScript(options):
 
     
     newScript = newScript + getGPGKeyImportSh() + getCorpCACertSh() + \
-                getRegistrationSh(PRODUCT_NAME) 
+                getRegistrationSh(MY_PRODUCT_NAME)
 
     #5/16/05 wregglej 159437 - moving stuff that messes with the allowed-action dir to after registration
     if options.allow_config_actions:
