@@ -2,56 +2,6 @@
 
 set -e
 
-OPTS=$(getopt --longoptions=db:,user:,password:,standalone,address:,remote: -n ${0##*/} -- d:u:p:sa:r: "$@")
-
-if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
-
-eval set -- "$OPTS"
-
-PGNAME=""
-PGUSER=""
-PGPASSWORD=""
-STANDALONE=false
-ADDRESS=""
-REMOTE=""
-
-while true ; do
-    case "$1" in
-        -d|--db)
-            PGNAME=$2
-            shift
-            ;;
-        -u|--user)
-            PGUSER=$2
-            shift
-            ;;
-        -p|--password)
-            PGPASSWORD=$2
-            shift
-            ;;
-        -s|--standalone)
-            STANDALONE=true
-            ;;
-        -a|--address)
-            ADDRESS=$2
-            shift
-            ;;
-        -r|--remote)
-            REMOTE=$2
-            shift
-            ;;
-        --)
-            shift
-            break
-            ;;
-        *)
-            echo "Internal error [$1]!" >&2
-            exit 1
-            ;;
-    esac
-    shift
-done
-
 help() {
     echo "Usage: $(basename $0) create [options]" >&2
     echo "       $(basename $0) remove [options]" >&2
@@ -296,6 +246,60 @@ postgresql_service() {
         esac
     fi
 }
+
+OPTS=$(getopt --longoptions=db:,user:,password:,standalone,help,address:,remote: -n ${0##*/} -- d:u:p:sha:r: "$@")
+
+if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
+
+eval set -- "$OPTS"
+
+PGNAME=""
+PGUSER=""
+PGPASSWORD=""
+STANDALONE=false
+ADDRESS=""
+REMOTE=""
+
+while true ; do
+    case "$1" in
+        -d|--db)
+            PGNAME=$2
+            shift
+            ;;
+        -u|--user)
+            PGUSER=$2
+            shift
+            ;;
+        -p|--password)
+            PGPASSWORD=$2
+            shift
+            ;;
+        -s|--standalone)
+            STANDALONE=true
+            ;;
+        -a|--address)
+            ADDRESS=$2
+            shift
+            ;;
+        -r|--remote)
+            REMOTE=$2
+            shift
+            ;;
+        -h|--help)
+            help;
+            exit 0;
+            ;;
+        --)
+            shift
+            break
+            ;;
+        *)
+            echo "Internal error [$1]!" >&2
+            exit 1
+            ;;
+    esac
+    shift
+done
 
 case $1 in
         create) create
