@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.104
+Version: 1.10.105
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,36 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jun 25 2013 Grant Gainey 1.10.105-1
+Feature: Support channel-permissions on ISS
+- ISS: Fix inappropriate cascade when deleting a Slave
+- ISS: fix bad I18N key
+- ISS: Add sync.slave.getSlaveByName API
+- ISS: Missed slave.jsp centering
+- ISS: Correctly center columns
+- ISS: Correctly separate allow-all from allowed-org-list
+- ISS: Fix navigation weirdness, add messaging and L10N
+- ISS: Fix minor UI ordering weirdness
+- ISS: Add num-orgs-allowed-to per slave on master.jsp
+- ISS: Add IssSlave API calls      Fix slave-to-allowed-orgs mapping
+- ISS: Naming nitpick: It's one IssMasterOrg, not several
+- ISS: XMLRPC doesn't recognize Long      XMLRPC wants Map input, not Objects
+  Set up serializers and register them      Fix Hibernate collection-mapping
+  smeantics so they, like, work
+- ISS: Add XMLRPC API for Master side of ISS
+- ISS: Naming is important - clean ours up so it makes more sense
+- ISS: Remove test-class that should never have been committed
+- ISS: Tweaks to L10N strings
+- ISS: Fix incorrect L10N strings
+- ISS: I18N updates
+- ISS: Fix rmv-master and cascades
+- ISS: Map join-tables correctly so that delete works
+- ISS master-to-slave org-mapping
+- ISS: DRAFT #2: adelton's DB changes, affects on Java, slave-to-org-mapping
+- ISS: DRAFT #2: adelton's DB changes, affects on Java, slave-to-org-mapping
+- ISS: Fixes from review comments
+- ISS: FIRST DRAFT: ISS Org-Sync UI work
+
 * Tue Jun 25 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.104-1
 - use real product name in strings instead of RHN
 - 695638 - rewrite C style to java
