@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.49
+Version:        1.10.50
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Jun 25 2013 Grant Gainey 1.10.50-1
+- ISS: mv sql-updates in prep for last(?) merge from master
+- ISS: Mapping tables shouldn't have ID columns
+- ISS: Resolve upgrade-script name conflicts
+- ISS: Fixing whitespace
+- ISS: Naming is important - clean ours up so it makes more sense
+- ISS: A master-org might not be mapped
+- ISS: Make master-to-slave-org mapping be many-to-one instead of many-to-many
+- ISS: Schema chgs for ISS Slave-side setup
+- ISS: DRAFT #2: adelton's DB changes, affects on Java, slave-to-org-mapping
+
 * Mon Jun 24 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.49-1
 - fixed syntax error in rhn_confrevision_del_trig_fun
 
