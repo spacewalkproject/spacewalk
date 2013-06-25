@@ -51,11 +51,11 @@ pre code em, pre code span, pre code code { display: inline; }
 .tip .guibutton, .tip .keycap, .tip .guilabel,
 .important .guibutton, .important .keycap,
 .caution .guibutton, .caution .keycap, .caution .guilabel,
-.warning .guibutton, .warning .keycap,{
+.warning .guibutton, .warning .keycap {
 color: white;
 }
 
-div.note .guilabel, div.important .guilabel, div.warning .guilabel {
+div.note .guilabel, div.important .guilabel, div.warning, .guilabel {
 	color:#e3dcc0;
 }
 
@@ -125,7 +125,6 @@ dt a{font-weight: normal;}
 .screen{background-color:#ede7c8;color:#333;padding:.5em 1em;margin:0em;border-radius: 8px;}
 pre,code,.guibutton,.keycap,.guilabel{font-size:0.9em;font-family:"liberation mono", "Bitstream vera mono",monospace;}
 .guibutton,.keycap,.guilabel{font-weight:bold;/*white-space:nowrap;*/color:#444;font-family:"liberation sans", "Bitstream vera sans", "dejavu sans", sans-serif;}
-.guibutton,.guilabel{}
 .keycap{padding: .1em .4em;}
 .example {background-color:#c8c5ac; padding:5px; margin-bottom:10px;}
 
@@ -303,11 +302,11 @@ span.book{margin-top:4em;display:block;}
 span.chapter{display:block;margin-top:0.5em;}
 
 /*Breadcrumbs*/
-#breadcrumbs ul li.first:before{content:" ";}
+#breadcrumbs ul li.first:before {content: " ";}
 #breadcrumbs{color:#900;padding:3px;margin-bottom:25px;}
 #breadcrumbs ul{margin-left:0;padding-left:0;display:inline;border:none;}
 #breadcrumbs ul li{margin-left:0;padding-left:2px;border:none;list-style:none;display:inline;}
-#breadcrumbs ul li:before{content:"\0020 \0020 \0020 \00BB \0020";color:#333;}
+#breadcrumbs ul li:before{content: "\0020 \0020 \0020 \00BB \0020";color:#333;}
 
 /*status*/
 .alpha1{background: white url(../images/watermark-alpha1.png) top left repeat;}
@@ -324,7 +323,7 @@ span.chapter{display:block;margin-top:0.5em;}
 .glossary dt,.index dt{font-size:.9em;color:#444;padding-top:.5em;}
 .glossary dl dl dt,
 .index dl dl dt{font-size:.85em;color:#777;line-height:1.2em;font-weight:normal;padding-top:0em;}
-.index dl dl dt:before{content:"- ";color:#ccc;}
+.index dl dl dt:before{content: "- ";color:#ccc;}
 
 /*changes*/
 .footnotes{}
@@ -361,7 +360,7 @@ div.note .keycap,
 div.tip  .keycap,
 div.important .keycap,
 div.caution  .keycap,
-div.warning .keycap,
+div.warning .keycap
 {color:white;}
 div.abstract{font-size:larger;}
 
