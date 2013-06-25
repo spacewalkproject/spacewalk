@@ -248,7 +248,7 @@ public class MasterHandler extends BaseHandler {
      * exported to this Slave
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("long", "id", "Id of the desired Master")
-     * @xmlrpc.param #param("newOrg",
+     * @xmlrpc.param
      *      #struct("master-org details")
      *          #prop("int", "masterOrgId")
      *          #prop("string", "masterOrgName")

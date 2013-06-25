@@ -1,6 +1,5 @@
 /**
- * Copyright (c) 2008--2012 Red Hat, Inc.
- * All Rights Reserved.
+ * Copyright (c) 2013 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -12,7 +11,6 @@
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
- *
  */
 package com.redhat.rhn.frontend.action.iss.test;
 
