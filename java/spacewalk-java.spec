@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.103
+Version: 1.10.104
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jun 25 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.104-1
+- use real product name in strings instead of RHN
+- 695638 - rewrite C style to java
+- 973310 - adding last checkin field to Inactive systems
+- minor branding cleanup
+- 977301 - removing incorrect tag
+- 687903 - fix of api doc
+- 976371 - don't offer channels which system can't subscribe to
+
 * Mon Jun 24 2013 Jan Dobes 1.10.103-1
 - correcting ProfileHandlerTest to changed API
 - 976722 - kickstart script name is required
