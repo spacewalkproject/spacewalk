@@ -28,7 +28,7 @@
           <bean:message key="channel.jsp.package.menu.add"/>
         </a>
       </li>
-<rhn-require acl_mixins="RHN::Access::Channel" acl="not channel_packaging_type(sysv-solaris)">
+
       <li>
         <a href="/network/software/channels/manage/packages/compare/index.pxt?cid=${channel.id}">
 	  <bean:message key="channel.jsp.package.menu.compare"/>
