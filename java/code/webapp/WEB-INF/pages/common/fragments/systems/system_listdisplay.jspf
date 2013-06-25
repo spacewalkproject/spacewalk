@@ -141,6 +141,15 @@
 				   headerkey="systemlist.jsp.last_checked_in"/>
 				
 		</c:if>
+
+    <c:if test = "${not empty showLastCheckinSort}">
+      <rl:column sortable="true"
+          attr="lastCheckin"
+          bound="true"
+           headerkey="systemlist.jsp.last_checked_in"/>
+
+    </c:if>
+
 		<!-- Base Channel Column -->
 		<rl:column sortable="false"
 				   bound="false"

@@ -14,7 +14,7 @@
  helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-list-inact">
   <bean:message key="inactivelist.jsp.header"/>
 </rhn:toolbar>
-
+<c:set var="showLastCheckinSort" value="true"/>
 	
 <rl:listset name="systemListSet" legend="system">
     <rhn:csrf />
