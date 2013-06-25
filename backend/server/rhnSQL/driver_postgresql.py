@@ -159,11 +159,11 @@ class Database(sql_base.Database):
     def connect(self, reconnect=1):
         try:
             if self.host is None:
-                self.dbh = psycopg2.connect(database=self.database, user=self.username,
-                                            password=self.password)
+                self.dbh = psycopg2.connect(database=str(self.database), user=str(self.username),
+                                            password=str(self.password))
             else:
-                self.dbh = psycopg2.connect(database=self.database, user=self.username,
-                                            password=self.password, host=self.host, port=self.port)
+                self.dbh = psycopg2.connect(database=str(self.database), user=str(self.username),
+                                            password=str(self.password), host=self.host, port=self.port)
             # convert all DECIMAL types to float (let Python to choose one)
             DEC2INTFLOAT = psycopg2.extensions.new_type(psycopg2._psycopg.DECIMAL.values,
                                                             'DEC2INTFLOAT', decimal2intfloat)
