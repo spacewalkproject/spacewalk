@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.10.6
+Version: 1.10.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -330,6 +330,9 @@ fi
 
 
 %changelog
+* Tue Jun 25 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.7-1
+- minor branding cleanup
+
 * Mon Jun 17 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.6-1
 - removed old CVS/SVN version ids
 - branding fixes in man pages
