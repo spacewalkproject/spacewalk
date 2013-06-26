@@ -85,9 +85,7 @@ public class RemoveMastersAction extends RhnAction {
                 }
                 return destination;
             }
-            else {
-                RhnHelper.handleEmptySelection(request);
-            }
+            RhnHelper.handleEmptySelection(request);
         }
 
         // if I have a previous set selections populate data using it
@@ -110,9 +108,7 @@ public class RemoveMastersAction extends RhnAction {
         if (mid != null) {
             return Long.parseLong(mid);
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     private List<IssMaster> findSelectedMasters(Set sessionSet, Long midIn) {
