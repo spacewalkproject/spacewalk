@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.53
+Version: 5.10.54
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -121,6 +121,9 @@ fi
 
 # $Id$
 %changelog
+* Wed Jun 26 2013 Dimitar Yordanov <dyordano@redhat.com> 5.10.54-1
+- 918034 - rhncfg-* --server-name now overwrites rhncfg-*.conf
+
 * Thu Jun 20 2013 Matej Kollar <mkollar@redhat.com> 5.10.53-1
 - Fix and simplyfy deci_to_octal conversion
 
