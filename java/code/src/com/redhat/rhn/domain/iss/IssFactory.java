@@ -75,7 +75,7 @@ public class IssFactory extends HibernateFactory {
      */
     public static List<IssSlave> listAllIssSlaves() {
         Map params = new HashMap();
-        return (List<IssSlave>)singleton.listObjectsByNamedQuery(
+        return singleton.listObjectsByNamedQuery(
                 "IssSlave.lookupAll", params);
     }
 
@@ -113,7 +113,7 @@ public class IssFactory extends HibernateFactory {
      */
     public static List<IssMaster> listAllMasters() {
         Map params = new HashMap();
-        return (List<IssMaster>)singleton.listObjectsByNamedQuery(
+        return singleton.listObjectsByNamedQuery(
                 "IssMaster.lookupAll", params);
     }
 
