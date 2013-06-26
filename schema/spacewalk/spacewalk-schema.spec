@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.50
+Version:        1.10.51
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Jun 26 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.51-1
+- schema upgrades for rhnConfigRevision triggers
+
 * Tue Jun 25 2013 Grant Gainey 1.10.50-1
 - ISS: mv sql-updates in prep for last(?) merge from master
 - ISS: Mapping tables shouldn't have ID columns
