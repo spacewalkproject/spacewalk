@@ -85,9 +85,7 @@ public class RemoveSlavesAction extends RhnAction {
                 }
                 return destination;
             }
-            else {
-                RhnHelper.handleEmptySelection(request);
-            }
+            RhnHelper.handleEmptySelection(request);
         }
 
         // if I have a previous set selections populate data using it
@@ -110,9 +108,7 @@ public class RemoveSlavesAction extends RhnAction {
         if (sid != null) {
             return Long.parseLong(sid);
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     private List<IssSlave> findSelectedSlaves(Set sessionSet, Object sidIn) {
