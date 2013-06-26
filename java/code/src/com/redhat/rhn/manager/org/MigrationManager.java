@@ -135,9 +135,6 @@ public class MigrationManager extends BaseManager {
         // Remove custom data values (aka System->CustomInfo)
         ServerFactory.removeCustomDataValues(server);
 
-        // Remove existing channels
-        server.getChannels().clear();
-
         // Remove existing config channels
         if (server.getConfigChannelCount() > 0) {
             server.getConfigChannels().clear();
@@ -177,6 +174,9 @@ public class MigrationManager extends BaseManager {
         }
 
         SystemManager.removeAllServerEntitlements(server.getId());
+
+        // Remove existing channels
+        server.getChannels().clear();
     }
 
     /**
