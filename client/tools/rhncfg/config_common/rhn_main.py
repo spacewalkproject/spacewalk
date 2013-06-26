@@ -144,7 +144,7 @@ class BaseMain:
         up2date_cfg = dict(cfg.items())
 
         if server_name:
-            local_config.init(self.config_section, defaults=up2date_cfg, server_name=server_name)
+            local_config.init(self.config_section, defaults=up2date_cfg, server_url="https://" + server_name)
         else:
             local_config.init(self.config_section, defaults=up2date_cfg)
 
