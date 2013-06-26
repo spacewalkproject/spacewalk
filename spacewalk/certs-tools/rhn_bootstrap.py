@@ -48,7 +48,7 @@ from spacewalk.common.rhnConfig import PRODUCT_NAME
 ## GLOBALS
 if os.path.exists('/usr/share/rhn/proxy') \
   or os.path.exists('/var/www/rhns/proxy'):
-    MY_PRODUCT_NAME = PRODUCT_NAME + ' Server'
+    MY_PRODUCT_NAME = PRODUCT_NAME + ' Proxy'
 elif os.path.exists('/usr/share/rhn/server') \
   or os.path.exists('/var/www/rhns/server'):
     MY_PRODUCT_NAME = PRODUCT_NAME + ' Server'
