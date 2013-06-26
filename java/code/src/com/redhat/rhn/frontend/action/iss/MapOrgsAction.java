@@ -154,7 +154,6 @@ public class MapOrgsAction extends RhnAction {
  */
 class OrgComparator implements Comparator<OrgDto> {
 
-    @Override
     public int compare(OrgDto o1, OrgDto o2) {
         if (o1 == null || o2 == null) {
             throw new NullPointerException("Can't compare OrgDto with null");
@@ -170,7 +169,6 @@ class OrgComparator implements Comparator<OrgDto> {
      */
     class IssSyncOrgComparator implements Comparator<IssMasterOrg> {
 
-        @Override
         public int compare(IssMasterOrg so1, IssMasterOrg so2) {
             if (so1 == null || so2 == null) {
                 throw new NullPointerException("Can't compare IssSyncOrg with null");
