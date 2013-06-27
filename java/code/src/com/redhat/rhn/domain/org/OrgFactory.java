@@ -21,6 +21,7 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.ChannelFamily;
+import com.redhat.rhn.domain.iss.IssFactory;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -94,6 +95,8 @@ public class OrgFactory extends HibernateFactory {
                 kdc.store();
             }
         }
+
+        IssFactory.unmapLocalOrg(org);
 
         Map<String, Object> in = new HashMap<String, Object>();
         in.put("org_id", oid);

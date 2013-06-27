@@ -22,4 +22,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             column="LOCAL_ORG_ID"  class="com.redhat.rhn.domain.org.Org"
             />
     </class>
+
+    <query name="IssMasterOrg.unmapLocalOrg">
+        <![CDATA[update com.redhat.rhn.domain.iss.IssMasterOrg mo
+                 set mo.localOrg = null where mo.localOrg = :inOrg]]>
+    </query>
+
 </hibernate-mapping>

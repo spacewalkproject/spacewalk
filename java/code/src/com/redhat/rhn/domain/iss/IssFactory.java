@@ -22,6 +22,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.domain.org.Org;
 
 /**
  * IssSlaveFactory - the singleton class used to fetch and store
@@ -115,6 +116,21 @@ public class IssFactory extends HibernateFactory {
         Map params = new HashMap();
         return singleton.listObjectsByNamedQuery(
                 "IssMaster.lookupAll", params);
+    }
+
+    /**
+     * IssMasterOrg helpers
+     */
+
+    /**
+     * Remove a given local-org from being mapped to any master-orgs
+     * @param inOrg the local-org we want to unmap
+     */
+    public static void unmapLocalOrg(Org inOrg) {
+        HibernateFactory.getSession().
+            getNamedQuery("IssMasterOrg.unmapLocalOrg").
+            setEntity("inOrg", inOrg).
+            executeUpdate();
     }
 
     /***
