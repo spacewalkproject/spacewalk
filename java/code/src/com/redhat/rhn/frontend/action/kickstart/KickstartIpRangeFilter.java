@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.kickstart;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartIpRangeDto;
 import com.redhat.rhn.frontend.taglibs.list.BaseListFilter;
+import com.redhat.rhn.frontend.xmlrpc.InvalidIpAddressException;
 import com.redhat.rhn.manager.kickstart.IpAddress;
 import com.redhat.rhn.manager.kickstart.IpAddressRange;
 
@@ -51,7 +52,15 @@ public class KickstartIpRangeFilter extends BaseListFilter {
         IpAddress min = new IpAddress(range.getMin());
         IpAddress max = new IpAddress(range.getMax());
 
-        return filterOnRange(criteria, min.toString(), max.toString());
+        boolean contained;
+        try {
+            contained = filterOnRange(criteria, min.toString(), max.toString());
+        }
+        catch (InvalidIpAddressException e) {
+            contained = false;
+        }
+
+        return contained;
 
     }
 
