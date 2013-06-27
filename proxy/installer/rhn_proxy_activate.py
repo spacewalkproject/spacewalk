@@ -33,6 +33,9 @@ import xmlrpclib
 from rhn import rpclib, SSL
 from optparse import Option, OptionParser
 
+sys.path.append('/usr/share/rhn')
+from up2date_client import config
+
 DEFAULT_WEBRPC_HANDLER_v3_x = '/rpc/api'
 
 def getSystemId():
@@ -402,11 +405,19 @@ def listAvailableProxyChannels(options):
             sys.stdout.write("\n".join(channel_list)+"\n")
 
 def processCommandline():
-    # FIXME: we should populate this keys from /etc/sysconfig/rhn/up2date
-    rhn_parent = ''
-    httpProxy = ''
-    httpProxyUsername = ''
-    httpProxyPassword = ''
+
+    cfg = config.initUp2dateConfig()
+    up2date_cfg = dict(cfg.items())
+
+    if type(up2date_cfg['serverURL']) is type([]):
+        rhn_parent = urlparse.urlparse(up2date_cfg['serverURL'][0])[1]
+    else:
+        rhn_parent = urlparse.urlparse(up2date_cfg['serverURL'])[1]
+
+    httpProxy = urlparse.urlparse(up2date_cfg['httpProxy'])[1]
+    httpProxyUsername = up2date_cfg['proxyUser']
+    httpProxyPassword = up2date_cfg['proxyPassword']
+
     if not httpProxy:
         httpProxyUsername, httpProxyPassword = '', ''
     if not httpProxyUsername:
@@ -423,7 +434,7 @@ def processCommandline():
         Option('--http-proxy-username', action='store', default=httpProxyUsername,
                 help="alternative HTTP proxy usename, default is %s" % repr(httpProxyUsername)),
         Option('--http-proxy-password', action='store', default=httpProxyPassword,
-                help="alternative HTTP proxy password, default is %s" % repr(httpProxyUsername)),
+                help="alternative HTTP proxy password, default is %s" % repr(httpProxyPassword)),
         Option('--ca-cert',         action='store',     default=ca_cert,
                 help="alternative SSL certificate to use, default is %s" % repr(ca_cert)),
         Option('--no-ssl',          action='store_true',
