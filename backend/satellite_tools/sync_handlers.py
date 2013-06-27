@@ -223,6 +223,8 @@ def import_channels(channels, orgid=None, master=None):
                 c_obj['org_id'] = org_map[c_obj['org_id']]
             else:
                 c_obj['org_id'] = orgid
+                if c_obj.has_key('trust_list'):
+                    del(c_obj['trust_list'])
             for family in c_obj['families']:
                 family['label'] = 'private-channel-family-' + \
                                            str(c_obj['org_id'])

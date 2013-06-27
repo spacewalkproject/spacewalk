@@ -360,6 +360,17 @@ class Backend:
                 ret[row['org_id']].append(row['org_trust_id'])
         return ret
 
+    def clearOrgTrusts(self, org_id):
+        # Delete all trusts involving this org; trusts are always
+        # bi-directional
+        sql = """
+        delete from rhnTrustedOrgs
+              where org_id = :org_id
+                 or org_trust_id = :org_id
+        """
+        h = self.dbmodule.prepare(sql)
+        h.execute(org_id=org_id)
+
     def createOrgTrusts(self, trusts):
         # Create org trusts
         insert = [[],[]]
@@ -925,6 +936,28 @@ class Backend:
             childTables.append('rhnDistChannelMap')
         self.__processObjectCollection(channels, 'rhnChannel', childTables,
             'channel_id', uploadForce=4, ignoreUploaded=1, forceVerify=1)
+
+    def orgTrustExists(self, org_id, trust_id):
+        sql = """
+        select *
+          from rhnTrustedOrgs
+         where org_id = :org_id
+           and org_trust_id = :trust_id
+        """
+        h = self.dbmodule.prepare(sql)
+        h.execute(org_id=org_id, trust_id=trust_id)
+        row = h.fetchone_dict()
+        if row:
+            return True
+        return False
+
+    def clearChannelTrusts(self, label):
+        sql = """
+        delete from rhnChannelTrust where channel_id =
+        (select id from rhnChannel where label = :label)
+        """
+        h = self.dbmodule.prepare(sql)
+        h.execute(label=label)
 
     def processChannelTrusts(self, channel_trusts):
         # Create channel trusts

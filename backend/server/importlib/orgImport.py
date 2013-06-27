@@ -18,9 +18,15 @@
 
 from importLib import Import
 
-# Here is how this is supposed to work:
-# 1) Satellite sync creates a bunch of importLib.Org objects.
-#       All ids are master ids.
+# Thanks for this class goes to Alex Martelli:
+# http://stackoverflow.com/questions/1151658/python-hashable-dicts
+class hashabledict(dict):
+  def __key(self):
+    return tuple((k,self[k]) for k in sorted(self))
+  def __hash__(self):
+    return hash(self.__key())
+  def __eq__(self, other):
+    return self.__key() == other.__key()
 
 class OrgImport(Import):
     def __init__(self, batch, backend, master_label, create_orgs=False):
@@ -83,26 +89,25 @@ class OrgImport(Import):
 
             # Iff we have a master org mapped to local org, create org
             # trust records
-            existing_trusts = self.backend.lookupOrgTrusts()
-            trusts_to_create = []
             # we need to uniquify in case user has mapped multiple orgs
             # together
-            hashes = set([])
+            trusts_to_create = set([])
             for org in self.batch:
                 for trust in org['org_trust_ids']:
                     if (org['id'] in self.mi_to_li.keys()
                             and trust['org_id'] in self.mi_to_li.keys()):
                         my_org_id = self.mi_to_li[org['id']]
+                        self.backend.clearOrgTrusts(my_org_id)
                         my_trust_id = self.mi_to_li[trust['org_id']]
-                        _hash = (str(self.mi_to_li[org['id']]) +
-                            str(self.mi_to_li[trust['org_id']]))
-                        if (_hash not in hashes
-                                and not (my_org_id in existing_trusts.keys()
-                                and my_trust_id in existing_trusts[my_org_id])):
-                            trusts_to_create.append({
+                        trusts_to_create.add(hashabledict({
                                 'org_id': my_org_id,
-                                'trust': my_trust_id})
-                            hashes.add(_hash)
+                                'trust': my_trust_id}))
+                        # org trusts are always bi-directional
+                        # (even if we are not syncing the other org)
+                        trusts_to_create.add(hashabledict({
+                                'org_id': my_trust_id,
+                                'trust': my_org_id}))
+
             if len(trusts_to_create) > 0:
                 self.backend.createOrgTrusts(trusts_to_create)
         except:

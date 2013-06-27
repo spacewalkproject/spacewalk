@@ -135,9 +135,14 @@ class ChannelImport(Import):
                 continue
             if (channel.has_key('trust_list')
                     and channel['trust_list']):
+                self.backend.clearChannelTrusts(channel['label'])
                 for trust in channel['trust_list']:
-                    channel_trusts.append({'channel-label': channel['label'],
-                        'org-id': trust['org_trust_id']})
+                    if (channel.has_key('org_id') and channel['org_id']
+                            and self.backend.orgTrustExists(
+                            channel['org_id'], trust['org_trust_id'])):
+                        channel_trusts.append(
+                                {'channel-label': channel['label'],
+                                'org-id': trust['org_trust_id']})
             parent = channel['parent_channel']
             if not parent:
                 nullParentBatch.append(channel)
