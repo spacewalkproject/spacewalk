@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.51
+Version: 1.10.52
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -639,6 +639,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Jun 27 2013 Stephen Herr <sherr@redhat.com> 1.10.52-1
+- 977878 - trust syncing should remove trusts that no longer exist
+
 * Tue Jun 25 2013 Stephen Herr <sherr@redhat.com> 1.10.51-1
 - 977878 - fixing checkstyle errors
 
