@@ -125,7 +125,7 @@ class ConfigFile:
                 else:
                     # there could be whitespace between the values on
                     # one line, let's strip it out
-                    value = [val.strip() for val in values[:-1]]
+                    value = [val.strip() for val in values if val.strip() ]
 
             # now insert the (comment, value) in the dictionary
             newval = (comment, value)
