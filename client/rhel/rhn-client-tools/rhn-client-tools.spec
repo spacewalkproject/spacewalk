@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.10.10
+Version: 1.10.11
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -346,6 +346,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Thu Jun 27 2013 Dimitar Yordanov <dyordano@redhat.com> 1.10.11-1
+- 873784 - Multiple serverURL values could  not end with semicolon
+
 * Wed Jun 19 2013 Jan Dobes 1.10.10-1
 - 957506 - unicode support for Remote Command scripts
 
