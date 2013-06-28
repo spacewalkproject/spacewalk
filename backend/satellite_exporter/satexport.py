@@ -219,7 +219,7 @@ class ApacheServer(BaseApacheServer):
             raise rhnFault(2004,
               _('Server "%s" is not enabled for ISS.')
                 % remote_hostname)
-        iss_slave_condition = "select id from web_contact"
+        iss_slave_condition = "select id from web_customer"
         if not(row['allow_all_orgs'] == 'Y'):
             iss_slave_condition = "select rhnISSSlaveOrgs.org_id from rhnISSSlaveOrgs where slave_id = %d" % row['id']
         return iss_slave_condition
