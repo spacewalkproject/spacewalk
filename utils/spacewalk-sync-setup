@@ -1,4 +1,21 @@
 #!/usr/bin/python
+#
+# Utility for setting up ISS master/slave org-mappings
+#
+# Copyright (c) 2013 Red Hat, Inc.
+#
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
 
 """ iss_setup - a tool for easing the pain of setting up organization-mappings for ISS """
 
@@ -9,8 +26,8 @@ from os import path, access, R_OK
 from os.path import expanduser
 
 home = expanduser("~")
-DEFAULT_MASTER_SETUP_FILENAME = home + '/.spacewalk/master.txt'
-DEFAULT_SLAVE_SETUP_FILENAME = home + '/.spacewalk/slave.txt'
+DEFAULT_MASTER_SETUP_FILENAME = home + '/.spacewalk-sync-setup/master.txt'
+DEFAULT_SLAVE_SETUP_FILENAME = home + '/.spacewalk-sync-setup/slave.txt'
 
 DEFAULT_CONFIG = """
 # Default defines the slave and/or master we should connect to by default
@@ -161,8 +178,8 @@ def setupConfig(opt):
     "    * master-setup-file \n"
     "    * slave-setup-file \n"
 
-    # files are loaded from ~/.spacewalk/
-    conf_dir = os.path.expanduser('~/.spacewalk')
+    # files are loaded from ~/.spacewalk-sync-setup/
+    conf_dir = os.path.expanduser('~/.spacewalk-sync-setup')
     user_conf_file = os.path.join(conf_dir, 'config')
 
     # server-specifics will be loaded from the configuration file later
@@ -171,7 +188,7 @@ def setupConfig(opt):
     # create an empty configuration file if one's not present
     if not os.path.isfile(user_conf_file):
         try:
-            # create ~/.spacewalk
+            # create ~/.spacewalk-sync-setup
             if not os.path.isdir(conf_dir):
                 logging.debug('Creating %s' % conf_dir)
                 os.mkdir(conf_dir, 0700)
