@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.33
+Version: 1.10.34
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -272,6 +272,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Jul 01 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.34-1
+- 978288 - lookup for defaults also in /usr/share/rhn/config-defaults/rhn.conf
+
 * Mon Jul 01 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.33-1
 - 979924 - fixing duplicate SSM, System List page
 
