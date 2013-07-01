@@ -72,12 +72,14 @@ def setupOptions():
         help="Password for login master-login on master-server")
     parser.add_option_group(cnxGrp)
 
-    tmplGrp = OptionGroup(parser, "Templates", "Options for creating initial versions of setup files")
+    tmplGrp = OptionGroup(parser, "Templates", 
+            "Options for creating initial versions of setup files\n"
+            "NOTE: This will replace existing machine-specific stanzas with new content")
     tmplGrp.add_option('--cst', '--create-slave-template', action='store_true', dest='slave_template', default=False,
-        help="Create a setup file for the slave we're pointed at, "
+        help="Create/update a setup file containing a stanza for the slave we're pointed at, "
              "based on information from the master we're pointed at")
     tmplGrp.add_option('--cmt', '--create-master-template', action='store_true', dest='master_template', default=False,
-        help="Create a setup file for the master we're pointed at, "
+        help="Create/update a setup file stanza for the master we're pointed at, "
              "based on information from the slave we're pointed at")
     tmplGrp.add_option('--ct', '--create-templates', action='store_true', dest='both_template', default=False,
         help="Create both a master and a slave setup file, for the master/slave pair we're pointed at")
@@ -342,8 +344,11 @@ def gen_slave_template(slave_session, master_session, master, filename):
     if path.isfile(filename) and access(filename, R_OK):
         slave_setup.readfp(open(filename))
 
-    if not slave_setup.has_section(master):
-        slave_setup.add_section(master)
+    # Overwrite anything existing for this master - we're starting over
+    if slave_setup.has_section(master):
+        slave_setup.remove_section(master)
+
+    slave_setup.add_section(master)
 
     for org in master_orgs:
         if org['name'] in slave_map:
@@ -370,8 +375,11 @@ def gen_master_template(master_session, slave, filename):
     if path.isfile(filename) and access(filename, R_OK):
         master_setup.readfp(open(filename, 'r'))
 
-    if not master_setup.has_section(slave):
-        master_setup.add_section(slave)
+    # Overwrite anything we have for this slave - we're starting over
+    if master_setup.has_section(slave):
+        master_setup.remove_section(slave)
+
+    master_setup.add_section(slave)
 
     if not master_setup.has_option(slave, "isEnabled"):
         master_setup.set(slave, 'isEnabled', str(1))
@@ -429,6 +437,31 @@ def apply_slave_template(slave_session, slave_setup_filename):
 
     return
 
+def describe_slave_template(slave_setup_filename):
+    "Tells us what it _would have_ done to a connected slave with information for "
+    "the master(s) contained in the specified slave-setup-file"
+
+    logging.info("Applying contents of file [" + slave_setup_filename + "] to SLAVE")
+
+    slave_setup = SafeConfigParser()
+    if path.isfile(slave_setup_filename) and access(slave_setup_filename, R_OK):
+        slave_setup.readfp(open(filename))
+    else:
+        fail("Can't find slave-setup file [" + slave_setup_filename + "]")
+
+    fqdns = slave_setup.sections()
+
+    for fqdn in fqdns:
+        logging.info("Updating info for master [" + fqdn + "]")
+        moids = slave_setup.options(fqdn)
+        for moid in moids: # moid|moname|local_oid
+            minfo = slave_setup.get(fqdn, moid)
+            elts = string.split(minfo, '|')
+            logging.info("  Mapping master OrgId [%s], named [%s], to local OrgId [%s]" % 
+                    (elts[0], elts[1], elts[2]))
+        logging.info("")
+
+    return
 
 def apply_master_template(master_session, master_setup_filename):
     "Updates the connected master with information for the slave(s) contained in the specified master-setup-file"
@@ -450,13 +483,59 @@ def apply_master_template(master_session, master_setup_filename):
         except Exception, e:
             slave = client.sync.slave.create(key, fqdn, True, True)
 
-        client.sync.slave.update(key, slave['id'], fqdn,
-                master_setup.getboolean(fqdn, 'isEnabled'),
-                master_setup.getboolean(fqdn, 'allowAllOrgs'))
-        master_orgs = [int(x) for x in master_setup.get(fqdn, 'allowedOrgs').split(',')]
+        isEnabled = True
+        allowAll = True
+
+        if master_setup.has_option(fqdn, 'isEnabled'):
+            isEnabled = master_setup.getboolean(fqdn, 'isEnabled')
+
+        if master_setup.has_option(fqdn, 'allowAllOrgs'):
+            allowAll = master_setup.getboolean(fqdn, 'allowAllOrgs')
+
+        client.sync.slave.update(key, slave['id'], fqdn, isEnabled, allowAll)
+
+        master_orgs = []
+        if master_setup.has_option(fqdn, 'allowedOrgs'):
+            master_orgs = [int(x) for x in master_setup.get(fqdn, 'allowedOrgs').split(',')]
+
         client.sync.slave.setAllowedOrgs(key, slave['id'], master_orgs)
     return
 
+def describe_master_template(master_setup_filename):
+    "Tells us what it _would have_ done to a connected master with information for "
+    "the slave(s) contained in the specified master-setup-file"
+
+    logging.info("Applying contents of file [" + master_setup_filename + "] to MASTER")
+
+    master_setup = SafeConfigParser()
+    if path.isfile(master_setup_filename) and access(master_setup_filename, R_OK):
+        master_setup.readfp(open(filename))
+    else:
+        fail("Can't find master-setup file [" + master_setup_filename + "]")
+
+    fqdns = master_setup.sections()
+
+    for fqdn in fqdns:
+        logging.info("Updating info for slave [" + fqdn + "]")
+
+        if master_setup.has_option(fqdn, 'isEnabled'):
+            logging.info("  isEnabled = %s" % master_setup.getboolean(fqdn, 'isEnabled'))
+        else:
+            logging.info("  isEnabled = 1")
+
+        if master_setup.has_option(fqdn, 'allowAllOrgs'):
+            logging.info("  allowAllOrgs = %s" % master_setup.getboolean(fqdn, 'allowAllOrgs'))
+        else:
+            logging.info("  allowAllOrgs = 1")
+
+        master_orgs = []
+        if master_setup.has_option(fqdn, 'allowedOrgs'):
+            master_orgs = [int(x) for x in master_setup.get(fqdn, 'allowedOrgs').split(',')]     
+        logging.info("  allowedOrgs = %s" % master_orgs)
+
+        logging.info("")
+
+    return
 
 def ask(msg):
     val = raw_input(msg + " : ")
@@ -495,14 +574,18 @@ if __name__ == '__main__':
         filename = determineTemplateFilename('slave', master_info['fqdn'], options, config)
         gen_slave_template(slave_cnx, master_cnx, master_info['fqdn'], filename)
 
-    if options.master_file:
+    if (options.master or options.default_ok):
         filename = determineTemplateFilename('master', slave_info['fqdn'], options, config)
-        if options.apply and (options.master or options.default_ok):
+        if options.apply:
             apply_master_template(master_cnx, filename)
+        elif options.dry_run:
+            describe_master_template(filename)
 
-    if options.slave_file:
+    if (options.slave or options.default_ok):
         filename = determineTemplateFilename('slave', master_info['fqdn'], options, config)
-        if options.apply and (options.slave or options.default_ok):
+        if options.apply:
             apply_slave_template(slave_cnx, filename)
+        elif options.dry_run: 
+            describe_slave_template(filename)
 
 # vim:ts=4:expandtab:
