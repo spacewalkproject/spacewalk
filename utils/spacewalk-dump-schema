@@ -291,7 +291,7 @@ sub process_tables {
 	my $tables = $dbh->selectall_hashref(q!
 		select lower(table_name) table_name
 		from user_tables
-		where table_name <> 'PLAN_TABLE' -- plan_table is not part of our schema
+		where table_name not in ('PLAN_TABLE', 'PLAN_TABLE_9I') -- plan_table is not part of our schema
 		order by table_name
 	!, 'table_name');
 	if (not $raw and -d "$DATA_DIR/tables") {
