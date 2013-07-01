@@ -394,7 +394,7 @@ sub work_with_group_cb {
 
   RHN::Set->copy_from_group($pxt->user->id, "system_list", $pxt->param('sgid'));
 
-  $pxt->redirect("/network/systems/ssm/system_list.pxt");
+  $pxt->redirect("/rhn/systems/ssm/ListSystems.do");
 }
 
 1;
