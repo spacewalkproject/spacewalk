@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.55
+Version:        1.10.56
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Jul 01 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.56-1
+- PostgreSQL schema upgrade fixes
+
 * Mon Jul 01 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.55-1
 - fixed forgotten end loop
 
