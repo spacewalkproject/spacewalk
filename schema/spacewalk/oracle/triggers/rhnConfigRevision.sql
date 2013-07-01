@@ -43,7 +43,6 @@ begin
            and snapshot_id in (select snapshot_id
                                  from rhnSnapshotConfigRevision
                                 where config_revision_id = :old.id);
-	end loop;
 end;
 /
 show errors
