@@ -22020,7 +22020,7 @@ on the email outage list as soon as possible.</source>
             <context context-type="sourcefile">outage-policy.jsp</context>
           </context-group>
           <target>В критических случаях (сбой оборудования и пр.), приводящих
-к вынужденному перерыву в работе Red Hat Network, будет создан
+к вынужденному перерыву в работе @@PRODUCT_NAME@@, будет создан
 специальный отчет в списке профилактики.</target>
         </trans-unit>
         <trans-unit id="outage-policy.jsp.notification-header">
@@ -25682,11 +25682,11 @@ given channel.</source>
         <target>Неизвестный пакет</target>
       </trans-unit>
       <trans-unit id="unknown.package.msg">
-        <source>Unfortunately, you have requested information about a package we do not have in our database. Most likely, this is a custom package you have installed by hand, or is from a distribution not supported by Red Hat Network.</source>
+        <source>Unfortunately, you have requested information about a package we do not have in our database. Most likely, this is a custom package you have installed by hand, or is from a distribution not supported by @@PRODUCT_NAME@@.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/errata/ErrataList.do</context>
         </context-group>
-        <target>К сожалению, запрошенная информация о пакете на найдена в базе данных. Возможно, что этот пакет был установлен вручную и не поддерживается Red Hat Network.</target>
+        <target>К сожалению, запрошенная информация о пакете на найдена в базе данных. Возможно, что этот пакет был установлен вручную и не поддерживается @@PRODUCT_NAME@@.</target>
       </trans-unit>
       <trans-unit id="system.errata.show">
         <source>Show</source>

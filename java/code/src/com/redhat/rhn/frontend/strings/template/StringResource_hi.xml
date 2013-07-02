@@ -55,7 +55,7 @@ Red Hat लॉगिन, सक्रिय Red Hat सदस्यता के
 
 महत्वपूर्ण: लॉगिन पर अपना शब्दकूट बदलें.
 
-Red Hat Network के प्रयोग के लिये आपको धन्यवाद.
+@@PRODUCT_NAME@@ के प्रयोग के लिये आपको धन्यवाद.
 {6}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.body">
@@ -102,7 +102,7 @@ Red Hat लॉगिन, सक्रिय Red Hat सदस्यता के
 
 महत्वपूर्ण: लॉगिन पर अपना शब्दकूट बदलें.
 
-Red Hat Network के प्रयोग के लिये आपको धन्यवाद.
+@@PRODUCT_NAME@@ के प्रयोग के लिये आपको धन्यवाद.
 {4}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.pam.body">
@@ -143,7 +143,7 @@ Red Hat लॉगिन, सक्रिय Red Hat सदस्यता के
 
   {5}
 
-Red Hat Network के प्रयोग के लिये आपको धन्यवाद.
+@@PRODUCT_NAME@@ के प्रयोग के लिये आपको धन्यवाद.
 {6} </target>
       </trans-unit>
       <!-- New User Email -->

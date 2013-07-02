@@ -22015,7 +22015,7 @@ unscheduled maintenance.</source>
           <context-group name="ctx">
             <context context-type="sourcefile">outage-policy.jsp</context>
           </context-group>
-          <target>您可能會遇到未排程的維護時段；但這很罕見。Red Hat Network 會儘可能提前十二小時，以電子郵件通知您這些未排程的維護時段。</target>
+          <target>您可能會遇到未排程的維護時段；但這很罕見。@@PRODUCT_NAME@@ 會儘可能提前十二小時，以電子郵件通知您這些未排程的維護時段。</target>
         </trans-unit>
         <trans-unit id="outage-policy.jsp.emergency-header">
           <source>Emergency Maintenance</source>
@@ -25717,11 +25717,11 @@ given channel.</source>
         <target>不明套件</target>
       </trans-unit>
       <trans-unit id="unknown.package.msg">
-        <source>Unfortunately, you have requested information about a package we do not have in our database. Most likely, this is a custom package you have installed by hand, or is from a distribution not supported by Red Hat Network.</source>
+        <source>Unfortunately, you have requested information about a package we do not have in our database. Most likely, this is a custom package you have installed by hand, or is from a distribution not supported by @@PRODUCT_NAME@@.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/errata/ErrataList.do</context>
         </context-group>
-        <target>很不幸地，您請求了一項我們資料庫中所沒有的套件相關資訊。這很可能是因為此套件為您手動式安裝的自訂套件，或是它來自於一個 Red Hat Network 不支援的發行套件。</target>
+        <target>很不幸地，您請求了一項我們資料庫中所沒有的套件相關資訊。這很可能是因為此套件為您手動式安裝的自訂套件，或是它來自於一個 @@PRODUCT_NAME@@ 不支援的發行套件。</target>
       </trans-unit>
       <trans-unit id="system.errata.show">
         <source>Show</source>

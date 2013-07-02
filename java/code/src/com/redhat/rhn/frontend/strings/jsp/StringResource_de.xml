@@ -22020,7 +22020,7 @@ unscheduled maintenance.</source>
           <context-group name="ctx">
             <context context-type="sourcefile">outage-policy.jsp</context>
           </context-group>
-          <target>Ungeplante Wartungsfenster sind möglich, aber selten. Red Hat Network
+          <target>Ungeplante Wartungsfenster sind möglich, aber selten. @@PRODUCT_NAME@@
 wird dann versuchen, Benutzer ebenfalls via E-Mail-Outage-Liste (siehe unten)
 mindestens 12 Stunden, bzw. so bald wie möglich im Voraus zu informieren.</target>
         </trans-unit>
@@ -25728,11 +25728,11 @@ für einen angegebenen Channel aufgelistet wird.</target>
         <target>Unbekanntes Paket</target>
       </trans-unit>
       <trans-unit id="unknown.package.msg">
-        <source>Unfortunately, you have requested information about a package we do not have in our database. Most likely, this is a custom package you have installed by hand, or is from a distribution not supported by Red Hat Network.</source>
+        <source>Unfortunately, you have requested information about a package we do not have in our database. Most likely, this is a custom package you have installed by hand, or is from a distribution not supported by @@PRODUCT_NAME@@.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/errata/ErrataList.do</context>
         </context-group>
-        <target>Sie haben Informationen über ein Paket angefordert, das wir leider nicht in unserer Datenbank haben. Wahrscheinlich handelt es sich hierbei um ein angepasstes Paket, dass Sie manuell installiert haben, oder es stammt von einer Distribution, die nicht von Red Hat Network unterstützt wird.</target>
+        <target>Sie haben Informationen über ein Paket angefordert, das wir leider nicht in unserer Datenbank haben. Wahrscheinlich handelt es sich hierbei um ein angepasstes Paket, dass Sie manuell installiert haben, oder es stammt von einer Distribution, die nicht von @@PRODUCT_NAME@@ unterstützt wird.</target>
       </trans-unit>
       <trans-unit id="system.errata.show">
         <source>Show</source>

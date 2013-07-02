@@ -25724,11 +25724,11 @@ given channel.</source>
         <target>Paquetes desconocidos</target>
       </trans-unit>
       <trans-unit id="unknown.package.msg">
-        <source>Unfortunately, you have requested information about a package we do not have in our database. Most likely, this is a custom package you have installed by hand, or is from a distribution not supported by Red Hat Network.</source>
+        <source>Unfortunately, you have requested information about a package we do not have in our database. Most likely, this is a custom package you have installed by hand, or is from a distribution not supported by @@PRODUCT_NAME@@.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/errata/ErrataList.do</context>
         </context-group>
-        <target>Infortunadamente, se ha solicitado información sobre un paquete que no tenemos en la base de datos. Es muy probable que este sea un paquete personalizado que usted ha instalado manualmente o una distribución no soportada por Red Hat Network.</target>
+        <target>Infortunadamente, se ha solicitado información sobre un paquete que no tenemos en la base de datos. Es muy probable que este sea un paquete personalizado que usted ha instalado manualmente o una distribución no soportada por @@PRODUCT_NAME@@.</target>
       </trans-unit>
       <trans-unit id="system.errata.show">
         <source>Show</source>

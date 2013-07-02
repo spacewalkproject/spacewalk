@@ -100,7 +100,7 @@ Thank you for using @@PRODUCT_NAME@@.
 
 Um login da Red Hat foi criado para você. O seu
 login, combinado a uma assinatura ativa da Red Hat, possibilitam o acesso à
-administração de sistemas no Red Hat Network.
+administração de sistemas no @@PRODUCT_NAME@@.
 
   Login da Red Hat: {0}
        Senha: {1}
@@ -144,7 +144,7 @@ Thank you for using @@PRODUCT_NAME@@.
 
 Um login da Red Hat foi criado para você por {0} {1}.  Seu
 login da Red Hat, combinado com uma subscrição ativa da Red Hat,
-proporciona acesso ao gerenciamento de sistemas através do Red Hat Network.
+proporciona acesso ao gerenciamento de sistemas através do @@PRODUCT_NAME@@.
 
   login da Red Hat: {2}
          e-mail: {4}

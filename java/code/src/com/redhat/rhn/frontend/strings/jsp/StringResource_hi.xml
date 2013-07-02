@@ -21052,11 +21052,11 @@ given channel.</source>
         <target>अज्ञात संकुल</target>
       </trans-unit>
       <trans-unit id="unknown.package.msg">
-        <source>Unfortunately, you have requested information about a package we do not have in our database. Most likely, this is a custom package you have installed by hand, or is from a distribution not supported by Red Hat Network.</source>
+        <source>Unfortunately, you have requested information about a package we do not have in our database. Most likely, this is a custom package you have installed by hand, or is from a distribution not supported by @@PRODUCT_NAME@@.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/errata/ErrataList.do</context>
         </context-group>
-        <target>दुर्भाग्य से, आपने सूचना के लिए आग्रह किया है संकुल के बारे में जो कि हम अपने डेटाबेस में नहीं रखते हैं. अधिक संभव है, यह एक पसंदीदा संकुल है जिसे आपने दस्ती रूप से अधिष्ठापित किया है, या किसी वितरण से है जो कि Red Hat Network से समर्थित नहीं है.</target>
+        <target>दुर्भाग्य से, आपने सूचना के लिए आग्रह किया है संकुल के बारे में जो कि हम अपने डेटाबेस में नहीं रखते हैं. अधिक संभव है, यह एक पसंदीदा संकुल है जिसे आपने दस्ती रूप से अधिष्ठापित किया है, या किसी वितरण से है जो कि @@PRODUCT_NAME@@ से समर्थित नहीं है.</target>
       </trans-unit>
       <trans-unit id="system.errata.show">
         <source>Show</source>

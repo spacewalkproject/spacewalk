@@ -25722,11 +25722,11 @@ given channel.</source>
         <target>Baixar Desconhecidos</target>
       </trans-unit>
       <trans-unit id="unknown.package.msg">
-        <source>Unfortunately, you have requested information about a package we do not have in our database. Most likely, this is a custom package you have installed by hand, or is from a distribution not supported by Red Hat Network.</source>
+        <source>Unfortunately, you have requested information about a package we do not have in our database. Most likely, this is a custom package you have installed by hand, or is from a distribution not supported by @@PRODUCT_NAME@@.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/errata/ErrataList.do</context>
         </context-group>
-        <target>Infelizmente você solicitou informações sobre um pacote que não possuimos em nossos bancos de dados. É possível que seja um pacote padronizado que você instalou manualmente, ou que seja uma distribuição não suportada pela Red Hat Network.</target>
+        <target>Infelizmente você solicitou informações sobre um pacote que não possuimos em nossos bancos de dados. É possível que seja um pacote padronizado que você instalou manualmente, ou que seja uma distribuição não suportada pela @@PRODUCT_NAME@@.</target>
       </trans-unit>
       <trans-unit id="system.errata.show">
         <source>Show</source>

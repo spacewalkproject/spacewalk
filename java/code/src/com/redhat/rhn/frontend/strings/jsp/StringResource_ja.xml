@@ -22228,7 +22228,7 @@ The software channels listed below have ISO images available for products which 
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
           </context-group>
-          <target>@@PRODUCT_NAME@@ イメージのダウンロードは Red Hat Network の有料エンタイトルメントをご購入頂いたお客様のみご利用頂けます。</target>
+          <target>@@PRODUCT_NAME@@ イメージのダウンロードは @@PRODUCT_NAME@@ の有料エンタイトルメントをご購入頂いたお客様のみご利用頂けます。</target>
         </trans-unit>
         <trans-unit id="isodownload.not-paying.purchase">
           <source>If you are interested in buying @@PRODUCT_NAME@@ entitlements, go to our &lt;a href="/rhn/account/SubscriptionManagement.do"&gt;purchase info&lt;/a&gt; page for more information.</source>
@@ -25698,11 +25698,11 @@ given channel.</source>
         <target>不明のパッケージ</target>
       </trans-unit>
       <trans-unit id="unknown.package.msg">
-        <source>Unfortunately, you have requested information about a package we do not have in our database. Most likely, this is a custom package you have installed by hand, or is from a distribution not supported by Red Hat Network.</source>
+        <source>Unfortunately, you have requested information about a package we do not have in our database. Most likely, this is a custom package you have installed by hand, or is from a distribution not supported by @@PRODUCT_NAME@@.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/errata/ErrataList.do</context>
         </context-group>
-        <target>データベースに存在しないパッケージの情報がリクエストされました。手作業でインストールしたカスタムパッケージか、Red Hat Network ではサポートされないディストリビューションからのパッケージであることが考えられます。</target>
+        <target>データベースに存在しないパッケージの情報がリクエストされました。手作業でインストールしたカスタムパッケージか、@@PRODUCT_NAME@@ ではサポートされないディストリビューションからのパッケージであることが考えられます。</target>
       </trans-unit>
       <trans-unit id="system.errata.show">
         <source>Show</source>

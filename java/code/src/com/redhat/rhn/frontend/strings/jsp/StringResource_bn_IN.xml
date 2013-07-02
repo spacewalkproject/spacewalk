@@ -21050,11 +21050,11 @@ given channel.</source>
         <target>অজানা প্যাকেজ</target>
       </trans-unit>
       <trans-unit id="unknown.package.msg">
-        <source>Unfortunately, you have requested information about a package we do not have in our database. Most likely, this is a custom package you have installed by hand, or is from a distribution not supported by Red Hat Network.</source>
+        <source>Unfortunately, you have requested information about a package we do not have in our database. Most likely, this is a custom package you have installed by hand, or is from a distribution not supported by @@PRODUCT_NAME@@.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/errata/ErrataList.do</context>
         </context-group>
-        <target>দুঃখিত, আপনার অনুরোধ করা প্যাকেজ সম্পর্কে কোনো তথ্য আমাদের ডাটাবেসের মধ্যে উপস্থিত নেই। সম্ভবত, আপনার ইনস্টল করা এটি কোনো স্বনির্ধারিত প্যাকেজ অথবা Red Hat Network দ্বারা সমর্থন না করা কোনো ডিস্ট্রিবিউশন থেকে প্রাপ্ত হয়েছে।</target>
+        <target>দুঃখিত, আপনার অনুরোধ করা প্যাকেজ সম্পর্কে কোনো তথ্য আমাদের ডাটাবেসের মধ্যে উপস্থিত নেই। সম্ভবত, আপনার ইনস্টল করা এটি কোনো স্বনির্ধারিত প্যাকেজ অথবা @@PRODUCT_NAME@@ দ্বারা সমর্থন না করা কোনো ডিস্ট্রিবিউশন থেকে প্রাপ্ত হয়েছে।</target>
       </trans-unit>
       <trans-unit id="system.errata.show">
         <source>Show</source>
