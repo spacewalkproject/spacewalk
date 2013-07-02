@@ -38,7 +38,11 @@ CREATE TABLE web_contact
     ignore_flag        CHAR(1)
                            DEFAULT ('N') NOT NULL
                            CONSTRAINT web_contact_ignore_ck
-                               CHECK (ignore_flag in ('N','Y'))
+                               CHECK (ignore_flag in ('N','Y')),
+    read_only          char(1)
+                           default ('N') not null
+                           constraint web_contact_ro_ck
+                               check (read_only in ('Y', 'N'))
 )
 TABLESPACE [[web_tablespace_2]]
 ENABLE ROW MOVEMENT
