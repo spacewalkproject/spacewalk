@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.10.4
+Version: 1.10.5
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -104,6 +104,9 @@ chgrp apache /etc/rhn /etc/rhn/rhn.conf /etc/rhn/cluster.ini 2> /dev/null || :
 chmod o-rwx /etc/rhn/rhn.conf* /etc/rhn/cluster.ini* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
 
 %changelog
+* Tue Jul 02 2013 Stephen Herr <sherr@redhat.com> 1.10.5-1
+- 977878 - move iss parent / ca_cert configs into database
+
 * Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.4-1
 - rebrading RHN Satellite to Red Hat Satellite
 
