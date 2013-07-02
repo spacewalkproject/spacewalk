@@ -31,6 +31,7 @@ import com.redhat.rhn.domain.iss.IssMaster;
 import com.redhat.rhn.domain.iss.IssMasterOrg;
 import com.redhat.rhn.frontend.xmlrpc.serializer.IssMasterOrgSerializer;
 import com.redhat.rhn.frontend.xmlrpc.serializer.IssMasterSerializer;
+import com.redhat.rhn.testing.TestUtils;
 
 public class IssMasterSerializerTest extends MockObjectTestCase {
     private String[] masterOrgNames = {"masterOrg1", "masterOrg2", "masterOrg3"};
@@ -69,7 +70,7 @@ public class IssMasterSerializerTest extends MockObjectTestCase {
         long baseId = 1001L;
 
         IssMaster master = new IssMaster();
-        master.setLabel("testMaster");
+        master.setLabel("testMaster" + TestUtils.randomString());
         Set<IssMasterOrg> orgs = new HashSet<IssMasterOrg>();
         for (String orgName : masterOrgNames) {
             IssMasterOrg anOrg = new IssMasterOrg();

@@ -25,20 +25,23 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.sync.slave.SlaveHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
+import com.redhat.rhn.testing.TestUtils;
 
 public class SlaveHandlerTest extends BaseHandlerTestCase {
 
     private SlaveHandler handler = new SlaveHandler();
+    private String slaveName;
 
     public void setUp() throws Exception {
         super.setUp();
         admin.addRole(RoleFactory.SAT_ADMIN);
+        slaveName = "testSlave" + TestUtils.randomString();
     }
 
     public void testCreate() {
         // Make sure that non-sat-admin users cannot access
         try {
-            IssSlave slave = handler.create(regularKey, "testCreate", true, true);
+            IssSlave slave = handler.create(regularKey, slaveName, true, true);
             fail();
         }
         catch (PermissionCheckFailureException e) {
@@ -47,8 +50,8 @@ public class SlaveHandlerTest extends BaseHandlerTestCase {
 
         // Make sure satellite-admin can
         try {
-            IssSlave slave = handler.create(adminKey, "testCreate", true, true);
-            assertEquals("testCreate", slave.getSlave());
+            IssSlave slave = handler.create(adminKey, slaveName, true, true);
+            assertEquals(slaveName, slave.getSlave());
             assertTrue("Y".equals(slave.getEnabled()));
             assertTrue("Y".equals(slave.getAllowAllOrgs()));
         }
@@ -58,13 +61,13 @@ public class SlaveHandlerTest extends BaseHandlerTestCase {
    }
 
     public void testUpdate() {
-        IssSlave slave = handler.create(adminKey, "testCreate", true, true);
+        IssSlave slave = handler.create(adminKey, slaveName, true, true);
 
         // Make sure that non-sat-admin users cannot access
         try {
             IssSlave updSlave = handler.update(regularKey,
                     slave.getId().intValue(),
-                    "testCreateNew",
+                    "new_" + slaveName,
                     false,
                     false);
             fail();
@@ -76,8 +79,8 @@ public class SlaveHandlerTest extends BaseHandlerTestCase {
         // Make sure satellite-admin can
         try {
             IssSlave updSlave = handler.update(adminKey, slave.getId().intValue(),
-                    "testCreateNew", false, false);
-            assertEquals("testCreateNew", updSlave.getSlave());
+                    "new_" + slaveName, false, false);
+            assertEquals("new_" + slaveName, updSlave.getSlave());
             assertEquals(slave.getId(), updSlave.getId());
             assertTrue("N".equals(slave.getEnabled()));
             assertTrue("N".equals(slave.getAllowAllOrgs()));
@@ -88,7 +91,7 @@ public class SlaveHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testDelete() {
-        IssSlave slave = handler.create(adminKey, "testCreate", true, true);
+        IssSlave slave = handler.create(adminKey, slaveName, true, true);
         Long slaveId = slave.getId();
 
         // Make sure that non-sat-admin users cannot access
@@ -115,7 +118,7 @@ public class SlaveHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testGetSlave() {
-        IssSlave slave = handler.create(adminKey, "testCreate", true, true);
+        IssSlave slave = handler.create(adminKey, slaveName, true, true);
         Integer slaveId = slave.getId().intValue();
 
         // Make sure that non-sat-admin users cannot access
@@ -138,7 +141,7 @@ public class SlaveHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testGetAllowedOrgs() {
-        IssSlave slave = handler.create(adminKey, "testCreate", true, false);
+        IssSlave slave = handler.create(adminKey, slaveName, true, false);
 
         // Make sure that non-sat-admin users cannot access
         try {
@@ -163,7 +166,7 @@ public class SlaveHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testSetAllowedOrgs() {
-        IssSlave slave = handler.create(adminKey, "testCreate", true, false);
+        IssSlave slave = handler.create(adminKey, slaveName, true, false);
 
         List<Integer> orgs = getBareOrgs();
 
