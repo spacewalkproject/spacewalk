@@ -137,7 +137,8 @@ public class VirtualGuestsListAction extends BaseSystemListAction {
         params = makeParamMap(formIn, request);
         ActionErrors errors = RhnValidationHelper.validateDynaActionForm(this,
                 (DynaActionForm)formIn);
-        if (!errors.isEmpty()) {
+        if (!errors.isEmpty() && (dispatchAction.equals("setVcpu")
+                || dispatchAction.equals("setMemory"))) {
             strutsDelegate.saveMessages(request, errors);
             return strutsDelegate.forwardParams(
                     mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
