@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.56
+Version:        1.10.57
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Jul 02 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.57-1
+- Spacewalk user: add read_only flag
+
 * Mon Jul 01 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.56-1
 - PostgreSQL schema upgrade fixes
 
