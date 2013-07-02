@@ -408,7 +408,9 @@ sub process_table {
 			} elsif (defined $row->[$i]) {
 				if (ref $row->[$i] and ref $row->[$i] eq 'ARRAY') {	# user types
 					no warnings 'uninitialized';
-					$row->[$i] = "(@{[ join ',', @{$row->[$i]} ]})";
+					my @r = @{$row->[$i]};
+					map { s/,/\\\\,/g; } @r;
+					$row->[$i] = "(@{[ join ',', @r ]})";
 				} elsif ($types[$i] eq 'unknown' or $types[$i] eq 'BLOB') {	# blobs
 					$row->[$i] =~ s!(.)! sprintf "\\\\%03o", ord($1) !seg;
 				} else {
