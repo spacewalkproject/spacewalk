@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.110
+Version: 1.10.111
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -751,6 +751,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jul 02 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.111-1
+- checkstyle fix
+
 * Tue Jul 02 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.110-1
 - updating strings to use @@PRODUCT_NAME@@ macro
 - 834214 - do not validate input when it's not needed
