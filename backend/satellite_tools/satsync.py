@@ -2048,6 +2048,23 @@ def _getImportedChannels():
         exitWithTraceback(e, 'SQL ERROR during xml processing', 17)
     return []
 
+def getDbIssParent():
+    sql = "select label from rhnISSMaster where is_current_master = 'Y'"
+    h = rhnSQL.prepare(sql)
+    h.execute()
+    row = h.fetchone_dict()
+    if not row:
+        return None
+    return row['label']
+
+def getDbCaChain(master):
+    sql = "select ca_cert from rhnISSMaster where label = :label"
+    h = rhnSQL.prepare(sql)
+    h.execute(label=master)
+    row = h.fetchone_dict()
+    if not row:
+        return None
+    return row['ca_cert']
 
 def processCommandline():
     "process the commandline, setting the OPTIONS object"
@@ -2139,6 +2156,15 @@ def processCommandline():
     #
     # process anything CFG related (db, debug, server, and print)
     #
+    try:
+        rhnSQL.initDB()
+    except (SQLError, SQLSchemaError, SQLConnectError), e:
+        # An SQL error is fatal... crash and burn
+        log(-1, _("ERROR: Can't connect to the database: %s") % e, stream=sys.stderr)
+        log(-1, _("ERROR: Check if your database is running."), stream=sys.stderr)
+        sys.exit(20)
+
+    CFG.set("ISS_Parent", getDbIssParent())
     CFG.set("TRACEBACK_MAIL", OPTIONS.traceback_mail or CFG.TRACEBACK_MAIL)
     CFG.set("RHN_PARENT", idn_ascii_to_pune(OPTIONS.iss_parent or OPTIONS.server or \
              CFG.ISS_PARENT or CFG.RHN_PARENT))
@@ -2147,20 +2173,13 @@ def processCommandline():
         CFG.set("ISS_PARENT", None)
     else:
         CFG.set("ISS_PARENT", idn_ascii_to_pune(OPTIONS.iss_parent or CFG.ISS_PARENT))
-        CFG.set("ISS_CA_CHAIN", OPTIONS.ca_cert or CFG.ISS_CA_CHAIN or CFG.CA_CHAIN)
+        CFG.set("ISS_CA_CHAIN", OPTIONS.ca_cert or getDbCaChain(CFG.RHN_PARENT)
+                or CFG.CA_CHAIN)
 
     CFG.set("HTTP_PROXY", idn_ascii_to_pune(OPTIONS.http_proxy or CFG.HTTP_PROXY))
     CFG.set("HTTP_PROXY_USERNAME", OPTIONS.http_proxy_username or CFG.HTTP_PROXY_USERNAME)
     CFG.set("HTTP_PROXY_PASSWORD", OPTIONS.http_proxy_password or CFG.HTTP_PROXY_PASSWORD)
     CFG.set("CA_CHAIN", OPTIONS.ca_cert or CFG.CA_CHAIN)
- 
-    try:
-        rhnSQL.initDB()
-    except (SQLError, SQLSchemaError, SQLConnectError), e:
-        # An SQL error is fatal... crash and burn
-        log(-1, _("ERROR: Can't connect to the database: %s") % e, stream=sys.stderr)
-        log(-1, _("ERROR: Check if your database is running."), stream=sys.stderr)
-        sys.exit(20)
 
     # check the validity of the debug level
     if OPTIONS.debug_level:
