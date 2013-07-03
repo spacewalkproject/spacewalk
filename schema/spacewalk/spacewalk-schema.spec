@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.61
+Version:        1.10.62
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Jul 03 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.62-1
+- fixing oracle equivalent source sha1
+
 * Wed Jul 03 2013 Stephen Herr <sherr@redhat.com> 1.10.61-1
 - 977878 - ca cert path field was not long enough
 
