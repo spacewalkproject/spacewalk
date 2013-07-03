@@ -8,4 +8,6 @@ create table rhnIssMaster (
 
 create sequence rhn_issmaster_seq;
 
-create unique index rhn_issm_only_one_default on rhnISSMaster (is_current_master);
+-- functional indexes for this table can be found at:
+-- oracle: oracle/tables/rhnISSMaster_index.sql
+-- postgres: postgres/tables/rhnISSMaster_index.sql
