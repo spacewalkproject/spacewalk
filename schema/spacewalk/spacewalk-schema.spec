@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.58
+Version:        1.10.59
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Jul 03 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.59-1
+- Drop where from unique index creation
+
 * Tue Jul 02 2013 Stephen Herr <sherr@redhat.com> 1.10.58-1
 - 977878 - move iss parent / ca_cert configs into database
 
