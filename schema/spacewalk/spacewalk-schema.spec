@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.59
+Version:        1.10.60
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Jul 03 2013 Stephen Herr <sherr@redhat.com> 1.10.60-1
+- 977878 - rhnISSMaster index needs to be different for oracle
+
 * Wed Jul 03 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.59-1
 - Drop where from unique index creation
 
