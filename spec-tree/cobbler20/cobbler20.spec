@@ -61,8 +61,12 @@ Requires: yum-utils
 %endif
 
 %if 0%{?fedora}
+%if 0%{?fedora} > 18
+BuildRequires: systemd
+%else
 Requires(post):  /bin/systemctl
 Requires(preun): /bin/systemctl
+%endif
 %else
 Requires(post):  /sbin/chkconfig
 Requires(preun): /sbin/chkconfig
