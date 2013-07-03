@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 b8d3930bdb51fd318202152dd72ff98bf3066818
+
 alter table rhnISSMaster add is_current_master char(1) default 'N' not null
     constraint rhn_issm_master_yn check (is_current_master in ('Y', 'N'));
 
