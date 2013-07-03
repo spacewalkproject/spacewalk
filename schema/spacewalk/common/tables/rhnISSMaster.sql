@@ -8,4 +8,4 @@ create table rhnIssMaster (
 
 create sequence rhn_issmaster_seq;
 
-create unique index rhn_issm_only_one_default on rhnISSMaster (is_current_master) where is_current_master = 'Y';
+create unique index rhn_issm_only_one_default on rhnISSMaster (is_current_master);
