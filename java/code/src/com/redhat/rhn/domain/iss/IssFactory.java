@@ -119,6 +119,27 @@ public class IssFactory extends HibernateFactory {
     }
 
     /**
+     * Return current default master for this slave
+     * @return master where master.isDefaultMaster() == true, null else
+     */
+    public static IssMaster getCurrentMaster() {
+        Map params = new HashMap();
+        return (IssMaster) singleton.lookupObjectByNamedQuery(
+                "IssMaster.lookupDefaultMaster", params);
+    }
+
+    /**
+     * Unset whatever the 'current' master is, no matter who holds it currently
+     */
+    public static void unsetCurrentMaster() {
+        IssMaster m = getCurrentMaster();
+        if (m != null) {
+            m.unsetAsDefault();
+            save(m);
+        }
+    }
+
+    /**
      * IssMasterOrg helpers
      */
 

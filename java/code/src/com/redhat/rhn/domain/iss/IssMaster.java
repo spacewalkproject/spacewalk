@@ -32,6 +32,8 @@ public class IssMaster extends BaseDto {
 
     private Long id;
     private String label;
+    private String isCurrentMaster = "N";
+    private String caCert;
     private Set<IssMasterOrg> masterOrgs = new HashSet<IssMasterOrg>();
 
     /**
@@ -64,6 +66,65 @@ public class IssMaster extends BaseDto {
     */
     public void setLabel(String labelIn) {
         this.label = labelIn;
+    }
+
+    /**
+     * Get filename of CA Certificate for this master
+     * @return filename
+     */
+    public String getCaCert() {
+        return caCert;
+    }
+
+    /**
+     * Set filename of the CA Cert for this master
+     * @param caCertIn path to the CA cert for this master
+     */
+    public void setCaCert(String caCertIn) {
+        this.caCert = caCertIn;
+    }
+
+    /**
+     * Is this master the current-default for the Slave we're on?
+     * @return 'Y' is we're the default, 'N' else
+     */
+    protected String getIsCurrentMaster() {
+        return isCurrentMaster;
+    }
+
+    /**
+     * Set this master as default, or not
+     * NOTE: FOR HIBERNATE ONLY, use #makeDefaultMaster() instead
+     * @param isCurrentIn - 'Y' if this is the default, 'N' else
+     */
+    protected void setIsCurrentMaster(String isCurrentIn) {
+        this.isCurrentMaster = isCurrentIn;
+    }
+
+    /**
+     * Make this master the default for this slave's satellite-sync operations
+     */
+    public void makeDefaultMaster() {
+        IssFactory.unsetCurrentMaster();
+        this.setIsCurrentMaster("Y");
+    }
+
+    /**
+     * Make sure this master is NOT the default for satellite-sync
+     * NOTE: Preferred is to make someone else the default -but sometimes, you
+     * just don't want a default...
+     */
+    public void unsetAsDefault() {
+        this.setIsCurrentMaster("N");
+    }
+
+    /**
+     * Is this master the default for this slave's satellite-sync?
+     * @return true if this is the master satellite-sync will use in the absence of
+     * other info
+     */
+    public boolean isDefaultMaster() {
+        return "Y".equals(this.getIsCurrentMaster());
     }
 
     /**

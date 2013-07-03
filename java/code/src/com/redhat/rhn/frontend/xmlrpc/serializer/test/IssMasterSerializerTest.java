@@ -48,6 +48,10 @@ public class IssMasterSerializerTest extends MockObjectTestCase {
         assertTrue(result.contains(">" + master.getId() + "<"));
         assertTrue(result.contains("name>label</name"));
         assertTrue(result.contains(">" + master.getLabel() + "<"));
+        assertTrue(result.contains("name>isCurrentMaster</name"));
+        assertTrue(result.contains(">" + (master.isDefaultMaster() ? "1" : "0") + "<"));
+        assertTrue(result.contains("name>caCert</name"));
+        assertTrue(result.contains(">" + (master.getCaCert()) + "<"));
     }
 
     public void testMasterOrgSerialize() throws XmlRpcException, IOException {
@@ -71,6 +75,8 @@ public class IssMasterSerializerTest extends MockObjectTestCase {
 
         IssMaster master = new IssMaster();
         master.setLabel("testMaster" + TestUtils.randomString());
+        master.makeDefaultMaster();
+        master.setCaCert("/tmp/FOO-CA-CERT");
         Set<IssMasterOrg> orgs = new HashSet<IssMasterOrg>();
         for (String orgName : masterOrgNames) {
             IssMasterOrg anOrg = new IssMasterOrg();

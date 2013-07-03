@@ -13,6 +13,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         </id>
 
         <property name="label" column="LABEL"  type="string" length="256" />
+        <property name="isCurrentMaster" column="IS_CURRENT_MASTER"  type="string" length="1" />
+        <property name="caCert" column="CA_CERT"  type="string" length="1024" />
 
         <set name="masterOrgs"
             inverse="true"
@@ -33,6 +35,14 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     <query name="IssMaster.lookupAll">
         <![CDATA[from com.redhat.rhn.domain.iss.IssMaster as m order by m.label]]>
+    </query>
+
+     <query name="IssMaster.lookupDefaultMaster">
+        <![CDATA[from com.redhat.rhn.domain.iss.IssMaster where isCurrentMaster = 'Y']]>
+    </query>
+
+    <query name="IssMaster.unsetCurrent">
+        <![CDATA[update com.redhat.rhn.domain.iss.IssMaster set isCurrentMaster = 'N' where isCurrentMaster = 'Y']]>
     </query>
 
 </hibernate-mapping>

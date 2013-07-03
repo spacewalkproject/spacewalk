@@ -32,6 +32,8 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  * #struct("IssMaster info")
  *   #prop("int", "id")
  *   #prop("string", "label")
+ *   #prop("string", "caCert")
+ *   #prop("boolean", "isCurrentMaster")
  * #struct_end()
  */
 public class IssMasterSerializer implements XmlRpcCustomSerializer {
@@ -53,6 +55,8 @@ public class IssMasterSerializer implements XmlRpcCustomSerializer {
         IssMaster master = (IssMaster) obj;
         helper.add("id", master.getId());
         helper.add("label", master.getLabel());
+        helper.add("caCert", master.getCaCert());
+        helper.add("isCurrentMaster", master.isDefaultMaster());
         helper.writeTo(writer);
     }
 

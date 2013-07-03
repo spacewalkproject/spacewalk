@@ -87,6 +87,99 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
         }
     }
 
+    public void testCaCert() {
+        IssMaster master = handler.create(adminKey, masterName);
+        Integer mstrId = master.getId().intValue();
+
+        // Make sure that non-sat-admin users cannot access
+        try {
+            int rc = handler.setCaCert(regularKey, mstrId, "/tmp/foo");
+            fail();
+        }
+        catch (PermissionCheckFailureException e) {
+            //success
+        }
+
+        // Make sure satellite-admin can
+        try {
+            int rc = handler.setCaCert(adminKey, mstrId, "/tmp/foo");
+            IssMaster gotMaster = handler.getMaster(adminKey, mstrId);
+            assertEquals("/tmp/foo", gotMaster.getCaCert());
+        }
+        catch (PermissionCheckFailureException e) {
+            fail();
+        }
+    }
+
+    public void testMasterDefault() {
+        String masterName1 = "testMaster" + TestUtils.randomString();
+        String masterName2 = "testMaster" + TestUtils.randomString();
+        String masterName3 = "testMaster" + TestUtils.randomString();
+
+        IssMaster master1 = handler.create(adminKey, masterName1);
+        IssMaster master2 = handler.create(adminKey, masterName2);
+        IssMaster master3 = handler.create(adminKey, masterName3);
+
+        // Make sure that non-sat-admin users cannot do any of the
+        // master-default APIs
+        try {
+            IssMaster retMaster = handler.getDefaultMaster(regularKey);
+            fail();
+        }
+        catch (PermissionCheckFailureException e) {
+            // success
+        }
+        try {
+            int rc = handler.makeDefault(regularKey, master1.getId().intValue());
+            fail();
+        }
+        catch (PermissionCheckFailureException e) {
+            // success
+        }
+
+        try {
+            int rc = handler.unsetDefaultMaster(regularKey);
+            fail();
+        }
+        catch (PermissionCheckFailureException e) {
+            // success
+        }
+
+        // Make sure satellite-admin can
+        try {
+            IssMaster retMaster = handler.getDefaultMaster(adminKey);
+            assertNull(retMaster);
+
+            int rc = handler.makeDefault(adminKey, master1.getId().intValue());
+            assertEquals(1, rc);
+            retMaster = handler.getDefaultMaster(adminKey);
+            assertNotNull(retMaster);
+            assertTrue(retMaster.getId().equals(master1.getId()));
+
+            rc = handler.makeDefault(adminKey, master3.getId().intValue());
+            assertEquals(1, rc);
+            retMaster = handler.getDefaultMaster(adminKey);
+            assertNotNull(retMaster);
+            assertTrue(retMaster.getId().equals(master3.getId()));
+
+            retMaster = handler.getMaster(adminKey, master1.getId().intValue());
+            assertNotNull(retMaster);
+            assertFalse(retMaster.isDefaultMaster());
+
+            rc = handler.unsetDefaultMaster(adminKey);
+            assertEquals(1, rc);
+            retMaster = handler.getMaster(adminKey, master3.getId().intValue());
+            assertNotNull(retMaster);
+            assertFalse(retMaster.isDefaultMaster());
+
+            retMaster = handler.getDefaultMaster(adminKey);
+            assertNull(retMaster);
+        }
+        catch (PermissionCheckFailureException e) {
+            fail();
+        }
+    }
+
     public void testDelete() {
         IssMaster master = handler.create(adminKey, masterName);
         Long mstrId = master.getId();

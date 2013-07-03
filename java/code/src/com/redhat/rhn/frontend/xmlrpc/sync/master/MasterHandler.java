@@ -124,6 +124,72 @@ public class MasterHandler extends BaseHandler {
     }
 
     /**
+     * Make the specified Master the default for this Slave's satellite-sync
+     * @param sessionKey User's session key.
+     * @param masterId Id of the Master to be the default
+     * @return 1 on success, exception otherwise
+     *
+     * @xmlrpc.doc Make the specified Master the default for this Slave's satellite-sync
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("int", "id", "Id of the Master to make the default")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int makeDefault(String sessionKey, Integer masterId) {
+        IssMaster master = getMaster(sessionKey, masterId);
+        master.makeDefaultMaster();
+        return 1;
+    }
+
+    /**
+     * Return the current default-master for this slave
+     * @param sessionKey User's session key
+     * @return current default master, null if there isn't one
+     *
+     * @xmlrpc.doc Return the current default-master for this slave
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.returntype $IssMasterSerializer
+     */
+    public IssMaster getDefaultMaster(String sessionKey) {
+        ensureSatAdmin(getLoggedInUser(sessionKey));
+        return IssFactory.getCurrentMaster();
+    }
+
+    /**
+     * Make this slave have no default Master for satellite-sync
+     * @param sessionKey User's session key.
+     * @return 1 on success, exception otherwise
+     *
+     * @xmlrpc.doc Make this slave have no default Master for satellite-sync
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int unsetDefaultMaster(String sessionKey) {
+        ensureSatAdmin(getLoggedInUser(sessionKey));
+        IssFactory.unsetCurrentMaster();
+        return 1;
+    }
+
+    /**
+     * Set the CA-CERT filename for specified Master on this Slave
+     * @param sessionKey User's session key.
+     * @param masterId Id of the Master we're affecting
+     * @param caCertFilename path to this Master's CA Cert on this Slave
+     * @return 1 on success, exception otherwise
+     *
+     * @xmlrpc.doc Make the specified Master the default for this Slave's satellite-sync
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("int", "id", "Id of the Master to affect")
+     * @xmlrpc.param #param_desc("string", "caCertFilename",
+     *  "path to specified Master's CA cert")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setCaCert(String sessionKey, Integer masterId, String caCertFilename) {
+        IssMaster master = getMaster(sessionKey, masterId);
+        master.setCaCert(caCertFilename);
+        return 1;
+    }
+
+    /**
      * Find a Master by specifying its ID
      * @param sessionKey User's session key.
      * @param masterId Id of the Master to look for
