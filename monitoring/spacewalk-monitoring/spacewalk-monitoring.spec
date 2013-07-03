@@ -1,7 +1,7 @@
 Summary:      Spacewalk monitoring
 Name:         spacewalk-monitoring
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.10.0
+Version:      1.10.1
 Release:      1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 License:      GPLv2
@@ -147,6 +147,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Jul 03 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.1-1
+- make monitoring build-able on F19
+- Bumping package versions for 1.9
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+
 * Tue Feb 26 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.5-1
 - old Fedoras don't have systemd_* macros defined
 
