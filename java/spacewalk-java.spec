@@ -378,7 +378,13 @@ if test -d /usr/share/tomcat6; then
     fi
 fi
 
-%if ! 0%{?omit_tests} > 0
+%if 0%{?fedora} && 0%{?fedora} >= 19
+# checkstyle is broken on Fedoras - we skip for now
+# RHEL5 checkstyle4 is incompatible with checkstyle5
+%define skip_xliff  1
+%endif
+
+%if ! 0%{?omit_tests} > 0 && ! 0%{?skip_xliff}
 find . -name 'StringResource_*.xml' |      while read i ;
     do echo $i
     # check for common localizations issues
@@ -628,7 +634,7 @@ fi
 %{jardir}/hibernate-jpa-2.0-api.jar
 %{jardir}/javassist.jar
 %if 0%{?fedora} && 0%{?fedora} > 18
-%{jardir}/jboss-logging/jboss-logging.jar
+%{jardir}/jboss-logging_jboss-logging.jar
 %else
 %{jardir}/jboss-logging.jar
 %endif
