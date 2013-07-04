@@ -442,6 +442,7 @@ ln -s -f %{_javadir}/hibernate3/hibernate-ehcache.jar $RPM_BUILD_ROOT%{_javadir}
 
 #jboss-logging has moved its jars on fedora19
 %if 0%{?fedora} && 0%{?fedora} > 18
+mkdir -p $RPM_BUILD_ROOT%{_javadir}
 ln -s -f %{_javadir}/jboss-logging/jboss-logging.jar $RPM_BUILD_ROOT%{_javadir}/jboss-logging.jar
 %endif
 
