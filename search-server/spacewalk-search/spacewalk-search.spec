@@ -72,6 +72,9 @@ Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
 %endif
+%if 0%{?fedora} > 18
+BuildRequires: systemd
+%endif
 
 %description
 This package contains the code for the Full Text Search Server for
