@@ -11,7 +11,7 @@
     <rhn-tab-url>/rhn/multiorg/channels/OrgList.do</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Managers" acl="channel_exists();org_entitlement(sw_mgr_enterprise);user_role(channel_admin)">
-    <rhn-tab-url>/network/software/channels/manage/managers.pxt</rhn-tab-url>
+    <rhn-tab-url>/rhn/channels/manage/Managers.do</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Errata" acl="channel_exists();user_can_admin_channel();channel_type_capable(errata); not channel_packaging_type(sysv-solaris)">
     <rhn-tab-url>/rhn/channels/manage/errata/Errata.do</rhn-tab-url>

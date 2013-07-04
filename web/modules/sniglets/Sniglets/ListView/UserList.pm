@@ -57,11 +57,6 @@ sub _register_modes {
 				     -datasource => RHN::DataSource::User->new,
 				     -provider => \&channel_subscribers_provider,
 				     -action_callback => \&channel_subscribers_cb);
-
-  Sniglets::ListView::List->add_mode(-mode => "channel_managers",
-				     -datasource => RHN::DataSource::User->new,
-				     -provider => \&channel_managers_provider,
-				     -action_callback => \&channel_managers_cb);
 }
 
 sub row_callback {
@@ -199,21 +194,6 @@ sub channel_subscribers_provider {
   return %ret;
 }
 
-sub channel_managers_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my $cid = $pxt->param('cid');
-
-  populate_users_with_channel_role(-user => $pxt->user, -cid => $cid, -set_label => 'channel_management_perms', -role => 'manage');
-
-  $self->datasource->mode('user_details');
-
-  my %ret = $self->default_provider($pxt);
-
-  return %ret;
-}
-
 # for channel_subscribers and channel_managers modes - populate the selected items set with users of that role
 sub populate_users_with_channel_role {
   my %attr = validate(@_, { user => 1, cid => 1, set_label => 1, role => 1 });
@@ -243,21 +223,6 @@ sub channel_subscribers_cb {
 
   if ($changed) {
     $pxt->push_message(site_info => 'Channel subscription permissions updated.');
-  }
-
-  return 1;
-}
-
-sub channel_managers_cb {
-  my $self = shift;
-  my $pxt = shift;
-
-  my $cid = $pxt->param('cid');
-
-  my $changed = update_channel_roles(-user => $pxt->user, -cid => $cid, -set_label => 'channel_management_perms', -role => 'manage');
-
-  if ($changed) {
-    $pxt->push_message(site_info => 'Channel management permissions updated.');
   }
 
   return 1;
