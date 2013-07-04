@@ -440,12 +440,6 @@ ln -s -f %{_javadir}/hibernate3/hibernate-c3p0.jar $RPM_BUILD_ROOT%{_javadir}/hi
 ln -s -f %{_javadir}/hibernate3/hibernate-ehcache.jar $RPM_BUILD_ROOT%{_javadir}/hibernate3/hibernate-ehcache-3.jar
 %endif
 
-#jboss-logging has moved its jars on fedora19
-%if 0%{?fedora} && 0%{?fedora} > 18
-mkdir -p $RPM_BUILD_ROOT%{_javadir}
-ln -s -f %{_javadir}/jboss-logging/jboss-logging.jar $RPM_BUILD_ROOT%{_javadir}/jboss-logging.jar
-%endif
-
 %if  0%{?rhel} && 0%{?rhel} < 6
 ant -Dprefix=$RPM_BUILD_ROOT install-tomcat5
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/tomcat5/Catalina/localhost/
@@ -633,7 +627,11 @@ fi
 %{jardir}/hibernate_hibernate-commons-annotations.jar
 %{jardir}/hibernate-jpa-2.0-api.jar
 %{jardir}/javassist.jar
+%if 0%{?fedora} && 0%{?fedora} > 18
+%{jardir}/jboss-logging/jboss-logging.jar
+%else
 %{jardir}/jboss-logging.jar
+%endif
 %{jardir}/slf4j_api.jar
 %{jardir}/slf4j_log4j12.jar
 %endif

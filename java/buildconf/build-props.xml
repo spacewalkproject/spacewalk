@@ -58,7 +58,13 @@
 
   <property name="hibernate3.2deps" value="hibernate3"/>
 
-  <property name="hibernate3.6deps" value="hibernate3/hibernate-ehcache-3 hibernate3/hibernate-c3p0-3 hibernate3/hibernate-core-3 hibernate/hibernate-commons-annotations slf4j/api jboss-logging javassist slf4j/log4j12 ehcache-core hibernate-jpa-2.0-api"/>
+  <condition property="jboss-logging-jars"
+                value="jboss-logging/jboss-logging"
+                 else="jboss-logging">
+    <available file="/usr/share/java/jboss-logging/jboss-logging.jar" />
+  </condition>
+
+  <property name="hibernate3.6deps" value="hibernate3/hibernate-ehcache-3 hibernate3/hibernate-c3p0-3 hibernate3/hibernate-core-3 hibernate/hibernate-commons-annotations slf4j/api ${jboss-logging-jars} javassist slf4j/log4j12 ehcache-core hibernate-jpa-2.0-api"/>
 
   <condition property="hibernate"
                 value="${hibernate3.2deps}"
