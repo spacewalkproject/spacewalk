@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.114
+Version: 1.10.115
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -757,6 +757,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jul 04 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.115-1
+- make dirs if they don't exist yet
+
 * Thu Jul 04 2013 Tomas Lestach <tlestach@redhat.com> 1.10.114-1
 - rewrite /network/software/channels/managers.pxt page to java
 
