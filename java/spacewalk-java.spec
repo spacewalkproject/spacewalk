@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.116
+Version: 1.10.117
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -755,6 +755,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jul 04 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.117-1
+- build spacewalk-java on fedora19
+
 * Thu Jul 04 2013 Tomas Lestach <tlestach@redhat.com> 1.10.116-1
 - Avoid relying on types returned by Hibernate
 
