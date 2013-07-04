@@ -7,19 +7,9 @@
 <html>
 <body>
 
-<rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif"
-    deletionUrl="/rhn/channels/manage/Delete.do?cid=${param.cid}"
-    deletionAcl="user_role(channel_admin); formvar_exists(cid)"
-    deletionType="software.channel">
-  <bean:message key="channel.edit.jsp.toolbar" arg0="${channel_name}"/>
-</rhn:toolbar>
+<%@ include file="/WEB-INF/pages/common/fragments/channel/manage/manage_channel_header.jspf" %>
 
-
-<rhn:dialogmenu mindepth="0" maxdepth="1"
-    definition="/WEB-INF/nav/manage_channel.xml"
-    renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
-
-    <%@ include file="/WEB-INF/pages/common/fragments/manage/managers.jspf" %>
+<%@ include file="/WEB-INF/pages/common/fragments/manage/managers.jspf" %>
 
 </body>
 </html>

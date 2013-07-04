@@ -7,16 +7,9 @@
 <html>
 <body>
 
-<rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif">
-  <bean:message key="channel.edit.jsp.toolbar" arg0="${channel_name}"/>
-</rhn:toolbar>
+<%@ include file="/WEB-INF/pages/common/fragments/channel/channel_header.jspf" %>
 
-
-<rhn:dialogmenu mindepth="0" maxdepth="1"
-    definition="/WEB-INF/nav/channel_detail.xml"
-    renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
-
-    <%@ include file="/WEB-INF/pages/common/fragments/manage/managers.jspf" %>
+<%@ include file="/WEB-INF/pages/common/fragments/manage/managers.jspf" %>
 
 </body>
 </html>
