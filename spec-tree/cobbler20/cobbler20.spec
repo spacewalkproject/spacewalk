@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 19%{?dist}
+Release: 20%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -460,6 +460,9 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Fri Jul 05 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.11-20
+- polishing cobbler20 dependencies for fedora19
+
 * Wed Jul 03 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.11-19
 - make cobbler20 build-able on F19
 - replace legacy name of Tagger with new one
