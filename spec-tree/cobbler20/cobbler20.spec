@@ -32,8 +32,12 @@ Requires: tftp-server
 Requires: mod_wsgi
 
 Requires: createrepo
-%if 0%{?fedora} >= 11
+%if 0%{?fedora}
+%if 0%{?fedora} >= 19
+Requires: fence-agents-all
+%else
 Requires: fence-agents
+%endif
 %endif
 %if 0%{?fedora} >= 11 || 0%{?rhel} >= 6
 Requires: genisoimage
