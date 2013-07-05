@@ -303,6 +303,10 @@ public class PrimaryXmlWriter extends RepomdWriter {
                 attr.addAttribute("rel", evrMap.get("release"));
             }
 
+            if (hasPreFlag(capability.getSense())) {
+                attr.addAttribute("pre", "1");
+            }
+
             localHandler.startElement("rpm:entry", attr);
             localHandler.endElement("rpm:entry");
         }
@@ -403,4 +407,11 @@ public class PrimaryXmlWriter extends RepomdWriter {
         }
     }
 
+    /**
+     * @param senseIn package sense
+     * @return true in case the pre flag is set, otherwise false
+     */
+    private boolean hasPreFlag(long senseIn) {
+        return ((senseIn & (1 << 6)) > 0) ? true : false;
+    }
 }
