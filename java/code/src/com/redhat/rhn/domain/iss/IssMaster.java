@@ -29,6 +29,8 @@ public class IssMaster extends BaseDto {
 
     public static final String ID = "id";
     public static final String LABEL = "label";
+    public static final String DEFAULT_MASTER  = "defaultMaster";
+    public static final String CA_CERT = "caCert";
 
     private Long id;
     private String label;

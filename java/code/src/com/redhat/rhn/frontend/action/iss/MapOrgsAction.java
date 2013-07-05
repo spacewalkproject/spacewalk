@@ -75,6 +75,9 @@ public class MapOrgsAction extends RhnAction {
         if (request.getParameter("dispatch") != null) {
             return handleDispatchAction(mapping, ctxt, oc);
         }
+        else {
+            setupForm(formIn, oc);
+        }
 
         List<IssMasterOrg> result = new ArrayList<IssMasterOrg>(
                         oc.getMasterOrgs());
@@ -123,6 +126,8 @@ public class MapOrgsAction extends RhnAction {
         DynaActionForm form = (DynaActionForm) formIn;
         form.set(IssMaster.ID, master.getId());
         form.set(IssMaster.LABEL, master.getLabel());
+        form.set(IssMaster.DEFAULT_MASTER, master.isDefaultMaster());
+        form.set(IssMaster.CA_CERT, master.getCaCert());
     }
 
     protected OrgDto createOrgDto(Long id, String name) {

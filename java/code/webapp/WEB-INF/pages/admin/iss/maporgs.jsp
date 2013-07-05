@@ -31,15 +31,26 @@
   definition="/WEB-INF/nav/iss_config.xml"
   renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
+ <html:form action="/admin/iss/MapOrgs.do?mid=${requestScope.mid}">
+  <rhn:csrf />
+  <html:hidden property="id" />
  <h2>
   <bean:message key="iss.maporgs.jsp.header2" arg0="${requestScope.master}"/>
  </h2>
 
- <html:form action="/admin/iss/MapOrgs.do?mid=${requestScope.mid}">
-  <rhn:csrf />
+  <table class="details" align="center">
+   <tr>
+    <th><label for="defaultMaster"><bean:message key="iss.master.isDefault" /></label>
+    </th>
+    <td><html:checkbox property="defaultMaster" styleId="defaultMaster" /></td>
+   </tr>
+   <tr>
+    <th><label for="caCert"><bean:message key="iss.master.cacert" /></label></th>
+    <td><html:text property="caCert"
+      styleId="caCert" maxlength="1024" size="100"/> </td>
+   </tr>
+  </table>
  <rl:listset name="issMasterListSet">
-  <rhn:csrf />
-  <rhn:submitted />
   <rl:list dataset="all" name="issMasterList"
    emptykey="iss.maporgs.jsp.nomasterorgs">
    <rl:column sortable="true" headerkey="iss.master.org.name"

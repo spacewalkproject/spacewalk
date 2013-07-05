@@ -1250,6 +1250,8 @@
                type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
         <form-property name="id" type="java.lang.Long" />
         <form-property name="label" type="java.lang.String" />
+        <form-property name="defaultMaster" type="java.lang.Boolean" />
+        <form-property name="caCert" type="java.lang.String" />
         <form-property name="submitted" type="java.lang.Boolean"/>
     </form-bean>
 
