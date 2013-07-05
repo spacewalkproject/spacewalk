@@ -38,7 +38,7 @@
   <rl:list dataset="pageList" name="issMasterList"
    emptykey="iss.slave.jsp.nomasters">
    <rl:column sortable="true" headerkey="iss.master.name" sortattr="label">
-    <html:link href="/rhn/admin/iss/MapOrgs.do?mid=${current.id}">
+    <html:link href="/rhn/admin/iss/EditMaster.do?mid=${current.id}">
      <c:out value="${current.label}" />
     </html:link>
    </rl:column>

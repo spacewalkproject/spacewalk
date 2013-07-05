@@ -39,7 +39,7 @@
    <rl:selectablecolumn value="${current.selectionKey}"
     selected="${current.selected}" />
    <rl:column sortable="true" headerkey="iss.master.name" sortattr="label">
-    <html:link href="/rhn/admin/iss/MapOrgs.do?mid=${current.id}">
+    <html:link href="/rhn/admin/iss/EditMaster.do?id=${current.id}">
      <c:out value="${current.label}" />
     </html:link>
    </rl:column>

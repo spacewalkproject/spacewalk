@@ -136,6 +136,7 @@ public class IssFactory extends HibernateFactory {
         if (m != null) {
             m.unsetAsDefault();
             save(m);
+            HibernateFactory.getSession().flush();
         }
     }
 

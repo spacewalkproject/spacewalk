@@ -137,6 +137,7 @@ public class MasterHandler extends BaseHandler {
     public int makeDefault(String sessionKey, Integer masterId) {
         IssMaster master = getMaster(sessionKey, masterId);
         master.makeDefaultMaster();
+        IssFactory.save(master);
         return 1;
     }
 

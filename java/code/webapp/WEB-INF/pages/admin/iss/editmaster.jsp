@@ -19,23 +19,23 @@
   <rhn:toolbar base="h1" img="/img/rhn-icon-info.gif"
    deletionUrl="/rhn/admin/iss/RemoveMasterConfirm.do?mid=${requestScope.mid}"
    deletionType="master" deletionAcl="user_role(satellite_admin)">
-   <bean:message key="iss.maporgs.jsp.toolbar" />
+   <bean:message key="iss.editmaster.jsp.toolbar" />
   </rhn:toolbar>
  </c:if>
 
   <p>
-   <bean:message key="iss.maporgs.jsp.explanation" />
+   <bean:message key="iss.editmaster.jsp.explanation" />
   </p>
 
  <rhn:dialogmenu mindepth="0" maxdepth="1"
   definition="/WEB-INF/nav/iss_config.xml"
   renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
- <html:form action="/admin/iss/MapOrgs.do?mid=${requestScope.mid}">
+ <html:form action="/admin/iss/UpdateMaster.do">
   <rhn:csrf />
   <html:hidden property="id" />
  <h2>
-  <bean:message key="iss.maporgs.jsp.header2" arg0="${requestScope.master}"/>
+  <bean:message key="iss.editmaster.jsp.header2" arg0="${requestScope.master}"/>
  </h2>
 
   <table class="details" align="center">
@@ -52,7 +52,7 @@
   </table>
  <rl:listset name="issMasterListSet">
   <rl:list dataset="all" name="issMasterList"
-   emptykey="iss.maporgs.jsp.nomasterorgs">
+   emptykey="iss.editmaster.jsp.nomasterorgs">
    <rl:column sortable="true" headerkey="iss.master.org.name"
     sortattr="sourceOrgName">
     <c:out value="${current.masterOrgName}" />

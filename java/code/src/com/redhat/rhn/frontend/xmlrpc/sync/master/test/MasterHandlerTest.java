@@ -147,12 +147,11 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
 
         // Make sure satellite-admin can
         try {
-            IssMaster retMaster = handler.getDefaultMaster(adminKey);
-            assertNull(retMaster);
+            IssMaster defaultMaster = handler.getDefaultMaster(adminKey);
 
             int rc = handler.makeDefault(adminKey, master1.getId().intValue());
             assertEquals(1, rc);
-            retMaster = handler.getDefaultMaster(adminKey);
+            IssMaster retMaster = handler.getDefaultMaster(adminKey);
             assertNotNull(retMaster);
             assertTrue(retMaster.getId().equals(master1.getId()));
 
@@ -174,6 +173,10 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
 
             retMaster = handler.getDefaultMaster(adminKey);
             assertNull(retMaster);
+
+            if (defaultMaster != null) {
+                handler.makeDefault(adminKey, defaultMaster.getId().intValue());
+            }
         }
         catch (PermissionCheckFailureException e) {
             fail();

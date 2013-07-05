@@ -1246,7 +1246,7 @@
         <form-property name="submitted" type="java.lang.Boolean"/>
     </form-bean>
 
-    <form-bean name="mapOrgsForm"
+    <form-bean name="editMasterForm"
                type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
         <form-property name="id" type="java.lang.Long" />
         <form-property name="label" type="java.lang.String" />
@@ -5306,18 +5306,32 @@
                  path="/admin/iss/Slave.do" redirect="true"/>
     </action>
 
-    <action path="/admin/iss/MapOrgs"
+    <action path="/admin/iss/EditMaster"
         scope="request"
-        name="mapOrgsForm"
-        input="/WEB-INF/pages/admin/iss/maporgs.jsp"
-        type="com.redhat.rhn.frontend.action.iss.MapOrgsAction"
+        name="editMasterForm"
+        input="/WEB-INF/pages/admin/iss/editmaster.jsp"
+        type="com.redhat.rhn.frontend.action.iss.EditMasterSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(satellite_admin);"/>
         <forward name="default"
-                 path="/WEB-INF/pages/admin/iss/maporgs.jsp"/>
+                 path="/WEB-INF/pages/admin/iss/editmaster.jsp"/>
         <forward name="success"
-                 path="/admin/iss/Slave.do" redirect="true"/>
+                 path="/admin/iss/EditMaster.do" redirect="true"/>
     </action>
+
+    <action path="/admin/iss/UpdateMaster"
+        scope="request"
+        name="editMasterForm"
+        input="/WEB-INF/pages/admin/iss/editmaster.jsp"
+        type="com.redhat.rhn.frontend.action.iss.EditMasterAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="user_role(satellite_admin);"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/admin/iss/editmaster.jsp"/>
+        <forward name="success"
+                 path="/admin/iss/EditMaster.do" redirect="true"/>
+    </action>
+
     <!--  /ISS Config Pages -->
 
     <action path="/YourRhnClips"
@@ -7729,9 +7743,9 @@
                  path="/channels/manage/Managers.do" redirect="true"/>
    </action>
 
-	 <action path="/channels/ChannelSubscribers"
-		type="com.redhat.rhn.frontend.action.channel.ChannelSubscribedAction"
-	        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+     <action path="/channels/ChannelSubscribers"
+        type="com.redhat.rhn.frontend.action.channel.ChannelSubscribedAction"
+            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default" path="/WEB-INF/pages/channel/subscribedsystems.jsp" />
       </action>

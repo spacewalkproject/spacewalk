@@ -17,9 +17,7 @@ package com.redhat.rhn.frontend.action.iss;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,11 +41,11 @@ import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.acl.AclManager;
 
 /**
- * MapOrgsAction extends RhnAction
+ * EditMasterSetupAction extends RhnAction
  *
  * @version $Rev: 1 $
  */
-public class MapOrgsAction extends RhnAction {
+public class EditMasterSetupAction extends RhnAction {
     private static final String DATA_SET = "all";
     private static final String SLAVES = "slave_org_list";
     private static final String MASTER = "master";
@@ -66,60 +64,31 @@ public class MapOrgsAction extends RhnAction {
         }
 
         RequestContext ctxt = new RequestContext(request);
-
-        Long mid = ctxt.getRequiredParam("mid");
-        request.setAttribute("mid", mid);
-
-        // Get all the known-orgs from the selected Master
+        Long mid = ctxt.getRequiredParam(IssMaster.ID);
         IssMaster oc = IssFactory.lookupMasterById(mid);
-        if (request.getParameter("dispatch") != null) {
-            return handleDispatchAction(mapping, ctxt, oc);
-        }
-        else {
-            setupForm(formIn, oc);
-        }
+        setupForm(formIn, oc);
 
+        setupOrgList(request, mid, oc);
+
+        return mapping.findForward("default");
+    }
+
+    private void setupOrgList(HttpServletRequest request, Long mid, IssMaster master) {
+        // Get all the known-orgs from the selected Master
         List<IssMasterOrg> result = new ArrayList<IssMasterOrg>(
-                        oc.getMasterOrgs());
+                        master.getMasterOrgs());
         Collections.sort(result, new IssSyncOrgComparator());
 
         // Get all of our orgs and turn into OrgDtos
         List<OrgDto> locals = fromOrgs(OrgFactory.lookupAllOrgs());
 
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI() +
-                        "?mid=" + mid.toString());
+                        "?id=" + mid.toString());
 
         request.setAttribute(DATA_SET, result);
         request.setAttribute(SLAVES, locals);
-        request.setAttribute(MASTER, oc.getLabel());
-
-        return mapping.findForward("default");
-    }
-
-    protected ActionForward handleDispatchAction(
-                    ActionMapping mapping,
-                    RequestContext ctxt,
-                    IssMaster master) {
-        //TODO: Figure out what we're doing, and how, and then DO IT
-        List<IssMasterOrg> masterOrgs =
-                        new ArrayList<IssMasterOrg>(master.getMasterOrgs());
-        List<Org> locals = OrgFactory.lookupAllOrgs();
-        Map<Long, Org> findLocals = new HashMap<Long, Org>();
-        for (Org o : locals) {
-            findLocals.put(o.getId(), o);
-        }
-
-        for (IssMasterOrg entry : masterOrgs) {
-            Long targetId = ctxt.getParamAsLong(entry.getId().toString());
-            if (targetId == null || targetId.equals(IssMasterOrg.NO_MAP_ID)) {
-                entry.setLocalOrg(null);
-            }
-            else {
-                entry.setLocalOrg(findLocals.get(targetId));
-            }
-            IssFactory.save(entry);
-        }
-        return mapping.findForward("success");
+        request.setAttribute(MASTER, master.getLabel());
+        request.setAttribute(IssMaster.ID, mid);
     }
 
     protected void setupForm(ActionForm formIn, IssMaster master) {
