@@ -652,7 +652,8 @@ fi
 %{_javadir}/mchange-commons.jar
 %{_javadir}/jboss-logging.jar
 %{jardir}/jboss-loggingjboss-logging.jar
-%else
+%endif
+%if 0%{?fedora} && 0%{?fedora} < 19
 %{jardir}/jboss-logging.jar
 %endif
 %{jardir}/jaf.jar
