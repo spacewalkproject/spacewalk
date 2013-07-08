@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.118
+Version: 1.10.119
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -770,6 +770,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jul 08 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.119-1
+- creating symlinks for tomcat on Fedora 19
+
 * Thu Jul 04 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.118-1
 - skip xliff checks for fedora 19
 
