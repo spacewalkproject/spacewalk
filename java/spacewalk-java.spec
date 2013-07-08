@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.119
+Version: 1.10.120
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -770,6 +770,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jul 08 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.120-1
+- stop spamming taskomatic log with ehcache using defaults message
+- stop spamming catalina.out with ehcache using defaults message
+- making ActionType seriazible to prevent ehcache exceptions
+- crating symlinks for taskomatic to work on fedora 19
+
 * Mon Jul 08 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.119-1
 - creating symlinks for tomcat on Fedora 19
 
