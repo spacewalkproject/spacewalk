@@ -21,7 +21,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * ActionType
  * @version $Rev$
  */
-public class ActionType {
+public class ActionType implements Serializable {
 
     private Integer id;
     private String label;
