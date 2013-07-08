@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    1.10.20
+Version:    1.10.21
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -74,6 +74,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Jul 08 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.21-1
+- making display-none of class help-title spacewalk-spcecific only
+
 * Tue Jun 25 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.20-1
 - fix of some css errors
 
