@@ -32,5 +32,8 @@ log4j.logger.com.redhat.rhn.taskomatic.task=INFO
 #log4j.logger.net.rkbloom.logdriver.LogCallableStatement=DEBUG
 #log4j.logger.net.rkbloom.logdriver.LogConnection=DEBUG,HibernateAppender
 
+# this silences ehcache on Fedoras complaining about using default values
+log4j.logger.net.sf.ehcache.hibernate.AbstractEhcacheRegionFactory=ERROR
+
 # General debug for everything.  Very noisy
 #log4j.logger.com.redhat.rhn=DEBUG
