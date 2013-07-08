@@ -19965,9 +19965,6 @@ given channel.</source>
       <trans-unit id="iss.slave.name">
         <source>Slave Fully-Qualified Domain Name</source>
       </trans-unit>
-      <trans-unit id="iss.master.name">
-        <source>Master Name</source>
-      </trans-unit>
       <trans-unit id="iss.slave.isEnabled">
         <source>Allow Slave to Sync?</source>
       </trans-unit>
@@ -20001,6 +19998,9 @@ given channel.</source>
       <trans-unit id="iss.slave.remove">
         <source>Remove selected slaves</source>
       </trans-unit>
+      <trans-unit id="toolbar.create.master">
+        <source>Add new master</source>
+      </trans-unit>
       <trans-unit id="iss.master.remove">
         <source>Remove selected masters</source>
       </trans-unit>
@@ -20028,14 +20028,26 @@ given channel.</source>
       <trans-unit id="iss.num.unmapped.orgs">
         <source>Unmapped Orgs</source>
       </trans-unit>
+      <trans-unit id="iss.master.label">
+        <source>Master Fully-Qualified Domain Name</source>
+      </trans-unit>
+      <trans-unit id="iss.master.isDefault">
+        <source>Default Master?</source>
+      </trans-unit>
+      <trans-unit id="iss.master.cacert">
+        <source>Filename of this Master's CA Certificate</source>
+      </trans-unit>
       <trans-unit id="iss.master.org.name">
         <source>Master Org Name</source>
       </trans-unit>
       <trans-unit id="iss.slave.orgs">
         <source>Matching Local Org</source>
       </trans-unit>
-      <trans-unit id="iss.update.org.mapping">
-        <source>Update Mapping</source>
+      <trans-unit id="iss.master.update">
+        <source>Update</source>
+      </trans-unit>
+      <trans-unit id="iss.master.create">
+        <source>Add new master</source>
       </trans-unit>
       <trans-unit id="toolbar.delete.master">
         <source>Delete master</source>
@@ -20054,6 +20066,9 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="message.iss_masters_removed">
         <source>Selected masters have been removed</source>
+      </trans-unit>
+      <trans-unit id="message.iss_master_created">
+        <source>Master {0} created</source>
       </trans-unit>
       <trans-unit id="message.iss_master_updated">
         <source>Master {0} updated</source>
@@ -20160,18 +20175,29 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/admin/iss/EditMaster.do</context>
         </context-group>
         <trans-unit id="iss.editmaster.jsp.toolbar">
-          <source>ISS Configuration - Map Master to Slave Orgs</source>
+          <source>ISS Configuration - Update Master</source>
         </trans-unit>
         <trans-unit id="iss.editmaster.jsp.explanation">
+          <source>
+            Update the details of the master selected below
+          </source>
+        </trans-unit>
+        <trans-unit id="iss.editmaster.jsp.details.header">
+          <source>Details for {0}</source>
+        </trans-unit>
+        <trans-unit id="iss.editmaster.jsp.newmaster.details.header">
+          <source>Details for new Master</source>
+        </trans-unit>
+        <trans-unit id="iss.editmaster.jsp.maporgs.header">
+          <source>Configure Master-to-Slave Org Mappings for {0}</source>
+        </trans-unit>
+        <trans-unit id="iss.editmaster.jsp.maporgs.explanation">
           <source>
           In order to synchronize channel access-permissions from Master to Slave,
           each known Master organization must be mapped to a local organization in this @@PRODUCT_NAME@@ instance.
           On this page the administrator can accomplish this mapping.  Note that if a Master organization is not mapped,
           channels that were restricted to that oragnization on the Master will be public in this @@PRODUCT_NAME@@ instance.
           </source>
-        </trans-unit>
-        <trans-unit id="iss.editmaster.jsp.header2">
-          <source>Configure Master-to-Slave Org Mappings for {0}</source>
         </trans-unit>
         <trans-unit id="iss.editmaster.jsp.nomasterorgs">
           <source>This master did not export any of its organizations to this slave</source>

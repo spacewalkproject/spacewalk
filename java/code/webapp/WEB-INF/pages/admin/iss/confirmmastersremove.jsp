@@ -3,17 +3,8 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<html:xhtml />
-
-<html>
+<html:html xhtml="true">
 <body>
-
- <html:errors />
- <html:messages id="message" message="true">
-  <rhn:messages>
-   <c:out escapeXml="false" value="${message}" />
-  </rhn:messages>
- </html:messages>
 
  <rhn:toolbar base="h1" img="/img/rhn-icon-info.gif">
   <bean:message key="iss.confirmmasterremove.jsp.toolbar" />
@@ -37,7 +28,7 @@
   <rhn:submitted />
   <rl:list dataset="pageList" name="issMasterList"
    emptykey="iss.slave.jsp.nomasters">
-   <rl:column sortable="true" headerkey="iss.master.name" sortattr="label">
+   <rl:column sortable="true" headerkey="iss.master.label" sortattr="label">
     <html:link href="/rhn/admin/iss/EditMaster.do?mid=${current.id}">
      <c:out value="${current.label}" />
     </html:link>
@@ -55,4 +46,4 @@
  </rl:listset>
 
 </body>
-</html>
+</html:html>

@@ -66,7 +66,6 @@ public class MasterAction extends RhnAction {
 
         Set sessionSet = getSessionSet(request);
 
-
         if (request.getParameter("dispatch") != null) {
             // if its one of the Dispatch actions handle it..
             helper.updateSet(sessionSet, LIST_NAME);

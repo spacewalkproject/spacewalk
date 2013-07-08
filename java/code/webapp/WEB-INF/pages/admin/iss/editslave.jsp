@@ -3,17 +3,8 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<html:xhtml />
-
-<html>
+<html:html xhtml="true">
 <body>
-
- <html:errors />
- <html:messages id="message" message="true">
-  <rhn:messages>
-   <c:out escapeXml="false" value="${message}" />
-  </rhn:messages>
- </html:messages>
 
  <c:choose>
  <c:when test="${requestScope.sid > 0}">
@@ -48,7 +39,7 @@
   <html:hidden property="id" />
   <table class="details" align="center">
    <tr>
-    <th><label for="slave"><rhn:required-field key="iss.slave.name" />:</label></th>
+    <th><label for="slave"><rhn:required-field key="iss.slave.name" /></label></th>
     <td><html:text property="slave" size="45" maxlength="256"
       styleId="slave" /></td>
    </tr>
@@ -104,5 +95,5 @@
  </c:if>
 
 </body>
-</html>
+</html:html>
 

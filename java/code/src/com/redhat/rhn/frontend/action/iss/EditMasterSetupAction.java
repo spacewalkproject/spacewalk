@@ -64,11 +64,17 @@ public class EditMasterSetupAction extends RhnAction {
         }
 
         RequestContext ctxt = new RequestContext(request);
-        Long mid = ctxt.getRequiredParam(IssMaster.ID);
-        IssMaster oc = IssFactory.lookupMasterById(mid);
-        setupForm(formIn, oc);
+        DynaActionForm form = (DynaActionForm) formIn;
 
-        setupOrgList(request, mid, oc);
+        Long mid = ctxt.getParamAsLong(IssMaster.ID);
+        if (mid == null) { // Creating a new master
+            form.set(IssMaster.ID, IssMaster.NEW_MASTER_ID);
+        }
+        else {
+            IssMaster oc = IssFactory.lookupMasterById(mid);
+            setupForm(formIn, oc);
+            setupOrgList(request, mid, oc);
+        }
 
         return mapping.findForward("default");
     }

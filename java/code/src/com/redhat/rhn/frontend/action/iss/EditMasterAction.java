@@ -22,6 +22,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -67,9 +68,13 @@ public class EditMasterAction extends RhnAction {
 
         DynaActionForm dynaForm = (DynaActionForm) formIn;
         if (isSubmitted(dynaForm)) {
-            Long mid = updateMasterDetails(mapping, dynaForm, request, response);
-            retval = mapping.findForward("success");
-            retval = getStrutsDelegate().forwardParam(retval, IssMaster.ID, mid.toString());
+
+            if (validateForm(request, dynaForm)) {
+                Long mid = updateMasterDetails(mapping, dynaForm, request, response);
+                retval = mapping.findForward("success");
+                retval = getStrutsDelegate().forwardParam(retval, IssMaster.ID,
+                                mid.toString());
+            }
         }
         else {
             setupFormValues(request, dynaForm);
@@ -94,43 +99,72 @@ public class EditMasterAction extends RhnAction {
                         "?id=" + mid.toString());
     }
 
-    private Long updateMasterDetails(ActionMapping mapping,
-            DynaActionForm dynaForm,
-            HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
+    private Long updateMasterDetails(ActionMapping mapping, DynaActionForm dynaForm,
+                    HttpServletRequest request, HttpServletResponse response)
+                    throws Exception {
 
         RequestContext ctxt = new RequestContext(request);
-        Long mid = ctxt.getRequiredParam("id");
-        IssMaster master = IssFactory.lookupMasterById(mid);
-
-        applyFormValues(dynaForm, master);
-
-        List<IssMasterOrg> masterOrgs =
-                        new ArrayList<IssMasterOrg>(master.getMasterOrgs());
-        List<Org> locals = OrgFactory.lookupAllOrgs();
-        Map<Long, Org> findLocals = new HashMap<Long, Org>();
-        for (Org o : locals) {
-            findLocals.put(o.getId(), o);
-        }
-
-        for (IssMasterOrg entry : masterOrgs) {
-            Long targetId = ctxt.getParamAsLong(entry.getId().toString());
-            if (targetId == null || targetId.equals(IssMasterOrg.NO_MAP_ID)) {
-                entry.setLocalOrg(null);
-            }
-            else {
-                entry.setLocalOrg(findLocals.get(targetId));
-            }
-            IssFactory.save(entry);
-        }
         ActionMessages msg = new ActionMessages();
-        msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "message.iss_master_updated", master.getLabel()));
-    getStrutsDelegate().saveMessages(request, msg);
+        Long mid = ctxt.getRequiredParam("id");
+
+        if (IssMaster.NEW_MASTER_ID == mid) {
+            IssMaster newMaster = new IssMaster();
+            applyFormValues(dynaForm, newMaster);
+            IssFactory.save(newMaster);
+            newMaster = (IssMaster)IssFactory.reload(newMaster);
+            mid = newMaster.getId();
+
+            msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                            "message.iss_master_created", newMaster.getLabel()));
+        }
+        else {
+            IssMaster master = IssFactory.lookupMasterById(mid);
+
+            applyFormValues(dynaForm, master);
+
+            List<IssMasterOrg> masterOrgs = new ArrayList<IssMasterOrg>(
+                            master.getMasterOrgs());
+            List<Org> locals = OrgFactory.lookupAllOrgs();
+            Map<Long, Org> findLocals = new HashMap<Long, Org>();
+            for (Org o : locals) {
+                findLocals.put(o.getId(), o);
+            }
+
+            for (IssMasterOrg entry : masterOrgs) {
+                Long targetId = ctxt.getParamAsLong(entry.getId().toString());
+                if (targetId == null || targetId.equals(IssMasterOrg.NO_MAP_ID)) {
+                    entry.setLocalOrg(null);
+                }
+                else {
+                    entry.setLocalOrg(findLocals.get(targetId));
+                }
+                IssFactory.save(entry);
+            }
+            msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                            "message.iss_master_updated", master.getLabel()));
+        }
+        getStrutsDelegate().saveMessages(request, msg);
         return mid;
     }
 
+    private boolean validateForm(HttpServletRequest request, DynaActionForm form) {
+        boolean retval = true;
+        String label = form.getString(IssMaster.LABEL);
+        if (label == null || label.isEmpty()) {
+            LocalizationService l = LocalizationService.getInstance();
+            retval = false;
+            ActionErrors errs = new ActionErrors();
+            errs.add(ActionErrors.GLOBAL_MESSAGE, new ActionMessage(
+                            "errors.required",
+                            l.getMessage("iss.master.label")));
+            getStrutsDelegate().saveMessages(request, errs);
+        }
+        return retval;
+    }
+
     private void applyFormValues(DynaActionForm daForm, IssMaster master) {
+        master.setLabel(daForm.getString(IssMaster.LABEL));
+
         Boolean isDefault = (Boolean) daForm.get(IssMaster.DEFAULT_MASTER);
         if (isDefault == null) {
             isDefault = Boolean.FALSE;
