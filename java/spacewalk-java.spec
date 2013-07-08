@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.121
+Version: 1.10.122
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jul 08 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.122-1
+- don't require jboss-logging.jar on rhel(s)
+
 * Mon Jul 08 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.121-1
 - import forgotten java.io.Serializable
 
