@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.122
+Version: 1.10.123
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jul 08 2013 Grant Gainey <ggainey@redhat.com> 1.10.123-1
+- 977878 - Need to be able to create masters in order to set cert and default
+         - Fixed some broken JSPs (esp in the presence of errors)
+         - Added error checking
+         - Added/fixed I18N keys
+- 977878 - Rename MapOrgs to EditMaster, and related changes
+- 977878 - UI for master cfg-options
+
 * Mon Jul 08 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.122-1
 - don't require jboss-logging.jar on rhel(s)
 
