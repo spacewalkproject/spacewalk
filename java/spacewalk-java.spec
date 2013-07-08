@@ -379,8 +379,6 @@ if test -d /usr/share/tomcat6; then
 fi
 
 %if 0%{?fedora} && 0%{?fedora} >= 19
-# checkstyle is broken on Fedoras - we skip for now
-# RHEL5 checkstyle4 is incompatible with checkstyle5
 %define skip_xliff  1
 %endif
 
@@ -444,6 +442,13 @@ mkdir -p $RPM_BUILD_ROOT%{_javadir}/hibernate3
 ln -s -f %{_javadir}/hibernate3/hibernate-core.jar $RPM_BUILD_ROOT%{_javadir}/hibernate3/hibernate-core-3.jar
 ln -s -f %{_javadir}/hibernate3/hibernate-c3p0.jar $RPM_BUILD_ROOT%{_javadir}/hibernate3/hibernate-c3p0-3.jar
 ln -s -f %{_javadir}/hibernate3/hibernate-ehcache.jar $RPM_BUILD_ROOT%{_javadir}/hibernate3/hibernate-ehcache-3.jar
+%endif
+
+# on Fedora 19 some jars are named differently
+%if 0%{?fedora} && 0%{?fedora} > 18
+mkdir -p $RPM_BUILD_ROOT%{_javadir}
+ln -s -f %{_javadir}/apache-commons-validator.jar $RPM_BUILD_ROOT%{_javadir}/commons-validator.jar
+ln -s -f %{_javadir}/mchange-commons-java.jar $RPM_BUILD_ROOT%{_javadir}/mchange-commons.jar
 %endif
 
 %if  0%{?rhel} && 0%{?rhel} < 6
@@ -645,6 +650,10 @@ fi
 %{_javadir}/hibernate3/hibernate-core-3.jar
 %{_javadir}/hibernate3/hibernate-c3p0-3.jar
 %{_javadir}/hibernate3/hibernate-ehcache-3.jar
+%endif
+%if 0%{?fedora} && 0%{?fedora} > 18
+%{_javadir}/commons-validator.jar
+%{_javadir}/mchange-commons.jar
 %endif
 %{jardir}/jaf.jar
 %{jardir}/javamail.jar
