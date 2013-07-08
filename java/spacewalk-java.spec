@@ -449,6 +449,7 @@ ln -s -f %{_javadir}/hibernate3/hibernate-ehcache.jar $RPM_BUILD_ROOT%{_javadir}
 mkdir -p $RPM_BUILD_ROOT%{_javadir}
 ln -s -f %{_javadir}/apache-commons-validator.jar $RPM_BUILD_ROOT%{_javadir}/commons-validator.jar
 ln -s -f %{_javadir}/mchange-commons-java.jar $RPM_BUILD_ROOT%{_javadir}/mchange-commons.jar
+ln -s -f %{_javadir}/jboss-logging/jboss-logging.jar $RPM_BUILD_ROOT%{_javadir}/jboss-logging.jar
 %endif
 
 %if  0%{?rhel} && 0%{?rhel} < 6
@@ -638,11 +639,6 @@ fi
 %{jardir}/hibernate_hibernate-commons-annotations.jar
 %{jardir}/hibernate-jpa-2.0-api.jar
 %{jardir}/javassist.jar
-%if 0%{?fedora} && 0%{?fedora} > 18
-%{jardir}/jboss-logging_jboss-logging.jar
-%else
-%{jardir}/jboss-logging.jar
-%endif
 %{jardir}/slf4j_api.jar
 %{jardir}/slf4j_log4j12.jar
 %endif
@@ -654,6 +650,10 @@ fi
 %if 0%{?fedora} && 0%{?fedora} > 18
 %{_javadir}/commons-validator.jar
 %{_javadir}/mchange-commons.jar
+%{_javadir}/jboss-logging.jar
+%{jardir}/jboss-loggingjboss-logging.jar
+%else
+%{jardir}/jboss-logging.jar
 %endif
 %{jardir}/jaf.jar
 %{jardir}/javamail.jar
