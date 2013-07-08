@@ -116,3 +116,8 @@ div#mainNavWrap ul li#mainLast-active {
         background-repeat: no-repeat;
         height: 40px;
         }
+
+.help-title {
+  display: none;
+}
+
