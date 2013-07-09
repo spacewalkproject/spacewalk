@@ -147,6 +147,9 @@ EOF
     if ! exists_plpgsql ; then
             runuser - postgres -c "createlang plpgsql '$PGNAME'"
     fi
+    if ! exists_pltclu ; then
+            runuser - postgres -c "createlang pltclu '$PGNAME'"
+    fi
     if ! exists_user ; then
             runuser - postgres -c "yes '$PGPASSWORD' | createuser -P -sDR '$PGUSER'" 2>/dev/null
     fi
@@ -219,6 +222,15 @@ exists_db() {
 exists_plpgsql() {
     EXISTS=$(runuser - postgres -c 'psql -At -c "select lanname from pg_catalog.pg_language where lanname='"'plpgsql'"';"'" $PGNAME")
     if [ "x$EXISTS" == "xplpgsql" ] ; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+exists_pltclu() {
+    EXISTS=$(runuser - postgres -c 'psql -At -c "select lanname from pg_catalog.pg_language where lanname='"'pltclu'"';"'" $PGNAME")
+    if [ "x$EXISTS" == "xpltclu" ] ; then
         return 0
     else
         return 1
