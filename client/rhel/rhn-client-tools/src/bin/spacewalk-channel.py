@@ -82,7 +82,9 @@ def processCommandline():
     if args:
         systemExit(1, _("ERROR: these arguments make no sense in this context (try --help)"))
     if not OPTIONS.user and not OPTIONS.list and not OPTIONS.base:
-        print _("Username: "),
+        tty = open("/dev/tty", "r+")
+        tty.write('Username: ')
+        tty.close()
         OPTIONS.user = sys.stdin.readline().rstrip('\n')
     if not OPTIONS.password and not OPTIONS.list and not OPTIONS.base:
         OPTIONS.password = getpass.getpass()
