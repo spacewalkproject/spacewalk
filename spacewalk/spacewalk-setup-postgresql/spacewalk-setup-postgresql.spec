@@ -11,8 +11,10 @@ BuildArch:      noarch
 Requires:       postgresql-server > 8.4
 %if 0%{?rhel} == 5
 Requires:	postgresql84-contrib
+Requires:	postgresql84-pltc
 %else
 Requires:	postgresql-contrib >= 8.4
+Requires:	postgresql-pltcl
 %endif
 Obsoletes:	spacewalk-setup-embedded-postgresql
 
