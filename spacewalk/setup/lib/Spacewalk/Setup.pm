@@ -225,8 +225,7 @@ sub is_embedded_db {
   return not (defined($opts->{'external-db'}) or defined($opts->{'managed-db'}));
 }
 
-# Return 1 in case setup should also migrate from embedded oracle -> embedded postgresql
-sub is_db_migration {
+sub contains_embedded_oracle {
   foreach my $rpm ('oracle-server-i386', 'oracle-server-x86_64', 'oracle-server-s390x') {
     system("rpm -q $rpm >& /dev/null");
     if ($? >> 8 == 0) {
@@ -235,6 +234,33 @@ sub is_db_migration {
   }
 
   return 0;
+}
+
+# Return 1 in case setup should also *migrate* from oracle -> postgresql
+sub is_db_migration {
+	my $opts = shift;
+
+	# We cannot migrate in non-upgrade mode
+	return 0 if (not defined $opts->{'upgrade'});
+	# We're not migrating, if we're using external oracle db
+	return 0 if (defined $opts->{'external-oracle'});
+
+	my %config = ();
+
+	if (-f ORACLE_RHNCONF_BACKUP) {
+		read_config(ORACLE_RHNCONF_BACKUP, \%config);
+	} else {
+		read_config(DEFAULT_RHN_CONF_LOCATION, \%config);
+	}
+
+	# Satellite 5.3 and older used default_db -> we know we are on Oracle
+	# -> we know we want to migrate to PostgreSQL (no --external-oracle specified)
+	return 1 if (exists $config{'default_db'});
+
+	# Satellite 5.4 and beyond used db_backend
+	return 1 if (exists $config{'db_backend'} and $config{'db_backend'} eq 'oracle');
+
+	return 0;
 }
 
 sub system_debug {
@@ -947,9 +973,9 @@ sub postgresql_setup_db {
     write_rhn_conf($answers, 'db-backend', 'db-host', 'db-port', 'db-name', 'db-user', 'db-password');
     postgresql_populate_db($opts, $answers);
 
-    if (is_db_migration() and $opts->{"upgrade"}) {
-        print loc("* Database: Starting embedded database migration.\n");
-        migrate_embedded_db($opts, $answers);
+    if (is_db_migration($opts)) {
+        print loc("* Database: Starting Oracle to PostgreSQL database migration.\n");
+        migrate_ora2pg($opts, $answers);
     }
 
     return 1;
@@ -969,7 +995,7 @@ sub postgresql_setup_embedded_db {
         return 0;
     }
 
-    if ($opts->{"skip-db-install"} or $opts->{"upgrade"} and not is_db_migration()) {
+    if ($opts->{"skip-db-install"} or not is_db_migration($opts)) {
         print loc("** Database: Embedded database installation SKIPPED.\n");
         return 0;
     }
@@ -1036,7 +1062,7 @@ sub postgresql_populate_db {
 
     print Spacewalk::Setup::loc("** Database: Populating database.\n");
 
-    if ($opts->{"skip-db-population"} or ($opts->{"upgrade"} and not is_db_migration())) {
+    if ($opts->{"skip-db-population"} or (not is_db_migration($opts))) {
         print Spacewalk::Setup::loc("** Database: Skipping database population.\n");
         return 1;
     }
@@ -1169,15 +1195,18 @@ sub embedded_oracle_stop {
   }
 }
 
-sub migrate_embedded_db {
+sub migrate_ora2pg {
   my $opts = shift;
   my $answers = shift;
 
   # FIXME: Test sufficient disk space for migration
-  print loc("** Database: Starting embedded Oracle database.\n");
-  embedded_oracle_start();
 
-  my $emb_oracle_creds = {
+  if (contains_embedded_oracle()) {
+    print loc("** Database: Starting embedded Oracle database.\n");
+    embedded_oracle_start();
+  }
+
+  my $oracle_creds = {
     'db-backend' => 'oracle',
     'db-host' => 'localhost',
     'db-name' => $answers->{'embedded-oracle-name'} || '//localhost:1521/rhnsat.world',
@@ -1190,13 +1219,14 @@ sub migrate_embedded_db {
     my %oldOptions = ();
     read_config(Spacewalk::Setup::ORACLE_RHNCONF_BACKUP, \%oldOptions);
 
-    for my $option ('db-backend', 'db-name', 'db-user', 'db-password', 'db-host', 'db-port') {
-      $emb_oracle_creds->{$option} = $oldOptions{$option} if (exists $oldOptions{$option});
+    for my $option ('db_backend', 'db_name', 'db_user', 'db_password', 'db_host', 'db_port') {
+      (my $db_option = $option) =~ s!_!-!;
+      $oracle_creds->{$db_option} = $oldOptions{$option} if (exists $oldOptions{$option});
     }
   }
 
-  print loc("** Database: Trying to connect to embedded Oracle database: ");
-  if (_oracle_check_connect_info($emb_oracle_creds) != 2) {
+  print loc("** Database: Trying to connect to Oracle database: ");
+  if (_oracle_check_connect_info($oracle_creds) != 2) {
     print loc("failed.\n*** Please make sure you are using correct Oracle database login credentials.\n");
     exit 1;
   } else {
@@ -1208,9 +1238,9 @@ sub migrate_embedded_db {
   log_rotate(DB_MIGRATION_LOG_FILE);
   system_or_exit(["/bin/bash", "-c",
 	"(set -o pipefail; /usr/bin/spacewalk-dump-schema" .
-	" --db=" . $emb_oracle_creds->{'db-name'} .
-	" --user=" . $emb_oracle_creds->{'db-user'} .
-	" --password=" . $emb_oracle_creds->{'db-password'} . " | spacewalk-sql" .
+	" --db=" . $oracle_creds->{'db-name'} .
+	" --user=" . $oracle_creds->{'db-user'} .
+	" --password=" . $oracle_creds->{'db-password'} . " | spacewalk-sql" .
 	" --verbose" .
 	" --select-mode-direct" .
 	" - ) > " . DB_MIGRATION_LOG_FILE . ' 2>&1'],
@@ -1218,8 +1248,12 @@ sub migrate_embedded_db {
 	"*** Data migration failed.");
 
   print loc("** Database: Data migration successfully completed.\n");
-  print loc("** Database: Stoping embedded Oracle database.\n");
-  embedded_oracle_stop();
+
+  if (contains_embedded_oracle()) {
+    print loc("** Database: Stoping embedded Oracle database.\n");
+    embedded_oracle_stop();
+  }
+
   unlink(Spacewalk::Setup::ORACLE_RHNCONF_BACKUP);
 }
 

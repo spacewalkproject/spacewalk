@@ -150,9 +150,7 @@ print Spacewalk::Setup::loc("* Setting up Cobbler..\n");
 setup_cobbler(\%opts, \%answers);
 
 if ($opts{'upgrade'}) {
-  if (Spacewalk::Setup::is_embedded_db() and Spacewalk::Setup::is_db_migration()) {
-    Spacewalk::Setup::postgresql_start();
-  }
+  Spacewalk::Setup::postgresql_start() if (Spacewalk::Setup::is_embedded_db(\%opts));
 
   print Spacewalk::Setup::loc("This portion of the $product_name upgrade process has successfully completed.\n");
   if ($product_name =~ /Satellite/) {
