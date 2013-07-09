@@ -91,8 +91,10 @@ def setupOptions():
     setupGrp = OptionGroup(parser, "Setup",
                            "Specify the setup files we're actually going to apply to a slave/master")
     setupGrp.add_option('--msf', '--master-setup-file', action='store', dest='master_file', metavar='FILE',
+        default=DEFAULT_MASTER_SETUP_FILENAME,
         help='Specify the master-setup-file we should use')
     setupGrp.add_option('--ssf', '--slave-setup-file', action='store', dest='slave_file', metavar='FILE',
+        default=DEFAULT_SLAVE_SETUP_FILENAME,
         help='Specify the slave-setup-file we should use')
     parser.add_option_group(setupGrp)
 
@@ -147,6 +149,7 @@ def initializeConfig(opt, handle):
         slave_stanza = slave_stanza.replace('PASSWORD', opt.slave_password)
 
     if 'slave_file' in opt.__dict__:
+        logging.error(opt.slave_file)
         slave_stanza = slave_stanza.replace('SLAVE_FILE', opt.slave_file)
 
     if 'master' in opt.__dict__:
