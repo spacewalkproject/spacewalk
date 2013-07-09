@@ -256,6 +256,7 @@ suseCredentials                :: suseCredentialsType web_contact
 time_series_data               :: time_series_purge
 time_series_purge              :: rhn_probe
 web_contact                    :: web_customer
+web_contact_all                :: web_contact
 web_user_contact_permission    :: web_contact
 web_user_site_info             :: web_contact web_user_site_type
 web_user_personal_info         :: web_contact web_user_prefix
