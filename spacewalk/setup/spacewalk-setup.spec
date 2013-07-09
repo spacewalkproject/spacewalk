@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        1.10.15
+Version:        1.10.16
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -102,6 +102,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Jul 09 2013 Jan Dobes 1.10.16-1
+- 980355 - delete pg_log before installation starts
+- use for cycle instead of map
+
 * Fri Jun 21 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.15-1
 - Don't use embedded db default settings for a managed db setup
 
