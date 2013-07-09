@@ -33,4 +33,4 @@ rhnServerGroup             :: rhnUserGroup rhnUserGroupType rhn_exception \
 rhnSnapshotConfigChannel   :: rhnSnapshot rhnConfigChannel
 rhnUserInfo                :: rhnTimezone rhn_contact_methods
 time_series_purge          :: time_series_purge
-web_contact                :: web_contact
+web_contact                :: web_contact web_contact_all

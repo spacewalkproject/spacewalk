@@ -32,4 +32,4 @@ rhnServerGroup             :: rhnUserGroup rhnUserGroupType rhn_exception \
                               rhnSnapshotServerGroup
 rhnSnapshotConfigChannel   :: rhnSnapshot rhnConfigChannel
 rhnUserInfo                :: rhnTimezone rhn_contact_methods
-web_contact                :: web_contact
+web_contact                :: web_contact web_contact_all

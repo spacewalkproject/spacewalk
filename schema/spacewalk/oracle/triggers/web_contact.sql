@@ -25,6 +25,11 @@ begin
         IF :new.password <> :old.password THEN
                 :new.old_password := :old.password;
         END IF;
+        IF inserting THEN
+        INSERT INTO web_contact_all (id, org_id, login)
+            VALUES (:new.id, :new.org_id, :new.login);
+        END IF;
+
 end;
 /
 show errors

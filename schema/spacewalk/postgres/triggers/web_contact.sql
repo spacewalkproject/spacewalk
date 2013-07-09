@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 0eeee0299f008bdd2a1d57e9499276e63a68220d
+-- oracle equivalent source sha1 e6351a4c6c9ccd19f4333728231ccf71f6bde2f2
 
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
@@ -23,6 +23,8 @@ $$
 begin
         new.modified := current_timestamp;
         new.login_uc := UPPER(new.login);
+        insert into web_contact_all (id, org_id, login)
+            values (new.id, new.org_id, new.login);
 
         return new;
 end;
