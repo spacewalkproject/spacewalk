@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.10.14
+Version:	1.10.15
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -88,6 +88,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Jul 09 2013 Grant Gainey <ggainey@redhat.com> 1.10.15-1
+- 977878 - Teach sync-setup about default-master and cacert
+
 * Tue Jul 02 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.14-1
 - oracle -> postgresql: properly quote commas in evr_t constructor
 - oracle -> pg migrations: filter plan_table_9i out
