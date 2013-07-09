@@ -965,10 +965,6 @@ sub postgresql_setup_embedded_db {
     my $opts = shift;
     my $answers = shift;
 
-    if (-e "/var/lib/pgsql/data/pg_log") {
-        system("rm -rf /var/lib/pgsql/data/pg_log > /dev/null 2>&1");
-    }
-
     if (not is_embedded_db($opts)) {
         return 0;
     }
