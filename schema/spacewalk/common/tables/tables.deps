@@ -15,6 +15,7 @@
 
 path = . class
 
+log                            :: web_contact_all
 PXTSessions                    :: web_contact
 rhnAction                      :: rhnActionType web_customer web_contact
 rhnActionScript                :: rhnAction
