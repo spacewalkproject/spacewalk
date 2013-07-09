@@ -24,6 +24,7 @@ BuildRequires: /usr/bin/docbook2man
 # pylint check
 BuildRequires: spacewalk-pylint
 BuildRequires: rhnlib
+BuildRequires: rhn-client-tools
 %endif
 
 Obsoletes: proxy-installer < 5.3.0
