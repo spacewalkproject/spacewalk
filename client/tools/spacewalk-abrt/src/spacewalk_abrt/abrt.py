@@ -59,7 +59,11 @@ def report(problem_dir):
         log.log_me("The specified path [%s] is not a valid directory." % problem_dir)
         return -1
 
-    for item in ['analyzer', 'cmdline', 'reason']:
+    crash_items = ['analyzer', 'cmdline', 'reason']
+    if os.path.exists(os.path.join(problem_dir, 'vmcore')):
+        crash_items = ['analyzer', 'vmcore-dmesg.txt']
+
+    for item in crash_items:
         item_path = os.path.join(problem_dir, item)
         if not os.path.exists(item_path):
             log.log_me("Crash directory [%s] is incomplete or invalid" % problem_dir)
