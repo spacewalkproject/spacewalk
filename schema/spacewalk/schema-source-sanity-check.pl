@@ -103,6 +103,8 @@ sub check_file_content {
 		if (not $content =~ /^(--.*\n
 					|\s*\n
 					|insert\s+into\s+$name\b[^;]+(values|select)('[^;]+(;[^;]*)*'|[^';])+;
+					|select\s+[^;()]+\(('[^;]+')*\);
+					|begin\s+[^;()]+\(('[^;]+')*\);\s+end;\n\/
 					|commit;
 					)+$/ix) {
 			print "Bad $type content [$filename]\n";
