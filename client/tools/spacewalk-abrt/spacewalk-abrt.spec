@@ -1,5 +1,5 @@
 Name:           spacewalk-abrt
-Version:        1.10.5
+Version:        1.10.6
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
@@ -37,6 +37,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/*
 
 %changelog
+* Wed Jul 10 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.6-1
+- 982642 - spacewalk-abrt: correctly report kdump crashes
+
 * Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.5-1
 - rebranding RHN Satellite to Red Hat Satellite in client stuff
 
