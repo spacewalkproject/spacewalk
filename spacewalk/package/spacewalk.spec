@@ -134,8 +134,10 @@ Requires: spacewalk-backend-sql-postgresql
 Requires: /usr/bin/psql
 %if 0%{?rhel} == 5
 Requires: postgresql84-contrib
+Requires: postgresql84-pltc
 %else
 Requires: postgresql-contrib >= 8.4
+Requires: postgresql-pltcl
 %endif
 Requires: postgresql >= 8.4
 
