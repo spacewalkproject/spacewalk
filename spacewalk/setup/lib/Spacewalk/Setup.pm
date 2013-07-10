@@ -1150,6 +1150,7 @@ my $POSTGRESQL_CLEAR_SCHEMA = <<EOS;
 	drop schema if exists rhn_config_channel cascade ;
 	drop schema if exists rhn_org cascade ;
 	drop schema if exists rhn_user cascade ;
+	drop schema if exists logging cascade ;
 	drop schema if exists public cascade ;
 	create schema public authorization postgres ;
 EOS

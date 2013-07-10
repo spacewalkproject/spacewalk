@@ -389,7 +389,7 @@ sub command_pg_restore {
 
   {
     my @schemas = ('rpm', 'rhn_exception', 'rhn_config', 'rhn_server', 'rhn_entitlements', 'rhn_bel',
-                   'rhn_cache', 'rhn_channel', 'rhn_config_channel', 'rhn_org', 'rhn_user', 'public');
+                   'rhn_cache', 'rhn_channel', 'rhn_config_channel', 'rhn_org', 'rhn_user', 'logging', 'public');
 
     local $dbh->{RaiseError} = 0;
     local $dbh->{PrintError} = 1;
