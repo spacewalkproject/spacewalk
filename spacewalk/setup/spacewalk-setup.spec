@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        1.10.17
+Version:        1.10.18
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -102,6 +102,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Jul 11 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.18-1
+- support for new db migration paths
+
 * Tue Jul 09 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.17-1
 - Revert "980355 - delete pg_log before installation starts"
 
