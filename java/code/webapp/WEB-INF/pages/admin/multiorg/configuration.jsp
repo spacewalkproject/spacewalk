@@ -136,7 +136,7 @@ function modifyUploadCheckbox(checkbox) {
                name="scapfile_sizelimit"
                value="${org.orgConfig.scapFileSizelimit}"
                id="scapfile_sizelimit" />
-    <td>
+    </td>
   </tr>
  </table>
 
