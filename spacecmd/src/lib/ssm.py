@@ -110,11 +110,11 @@ def do_ssm_intersect(self, args):
 
     # tmp_ssm placeholder to gather systems that are both in original ssm
     # selection and newly selected group
-    tmp_ssm = []
+    tmp_ssm = {}
     for system in systems:
         if system in self.ssm:
             logging.debug('%s is in both groups: leaving in SSM' % system)
-            tmp_ssm.append(system)
+            tmp_ssm[system] = self.ssm[system]
 
     # set self.ssm to tmp_ssm, which now holds the intersection
     self.ssm = tmp_ssm
