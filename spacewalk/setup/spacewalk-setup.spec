@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        1.10.18
+Version:        1.10.19
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -102,6 +102,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Jul 11 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.19-1
+- 983561 - clean tomcat cache during upgrades
+
 * Thu Jul 11 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.18-1
 - support for new db migration paths
 
