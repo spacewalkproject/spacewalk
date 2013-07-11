@@ -28,6 +28,9 @@ is
     procedure set_log_auth(user_id in integer)
     is
     begin
+        if the_stamp is null then
+        raise_application_error(-20299, 'Call set_log_auth need to follow clear_log_id.');
+        end if;
         the_user_id := user_id;
         the_stamp := current_timestamp;
     end set_log_auth;
