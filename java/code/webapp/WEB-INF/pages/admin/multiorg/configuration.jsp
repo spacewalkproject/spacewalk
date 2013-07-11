@@ -138,6 +138,33 @@ function modifyUploadCheckbox(checkbox) {
                id="scapfile_sizelimit" />
     </td>
   </tr>
+  <tr>
+     <th>
+        <bean:message key="org-config.scap-retention"/>
+    </th>
+    <td>
+      <input type="checkbox"
+             name="scap_retention_set"
+             value="on"
+             id="scap_retention_set"
+             onChange="modifyTrVisibility('tr_scap_retention')"
+             <c:if test = "${org.orgConfig.scapRetentionPeriodDays != null}">
+                 checked="checked"
+             </c:if>
+      />
+    </td>
+  </tr>
+  <tr id="tr_scap_retention">
+    <th>
+        <bean:message key="org-config.scap-retention-period"/>
+    </th>
+    <td>
+        <input type="number"
+               name="scap_retention_period"
+               value="${org.orgConfig.scapRetentionPeriodDays == null ? 90 : org.orgConfig.scapRetentionPeriodDays}"
+               id="scap_retention_period" />
+    </td>
+  </tr>
  </table>
 
  <div align="right">

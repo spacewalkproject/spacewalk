@@ -34,6 +34,7 @@ public class OrgConfig extends BaseDomainHelper {
     private Long crashFileSizelimit;
     private boolean scapfileUploadEnabled;
     private Long scapFileSizelimit;
+    private Long scapRetentionPeriodDays;
 
     /**
      * Gets the current value of org_id
@@ -137,5 +138,22 @@ public class OrgConfig extends BaseDomainHelper {
      */
     public void setScapFileSizelimit(Long sizeLimitIn) {
         scapFileSizelimit = sizeLimitIn;
+    }
+
+    /**
+     * Get the org-wide period (in days) after which it is possible to remove SCAP scan.
+     * @return Returns the org-wide SCAP retention period.
+     */
+    public Long getScapRetentionPeriodDays() {
+        return scapRetentionPeriodDays;
+    }
+
+    /**
+     * Set the org-wide SCAP period (in days) after which it is possible to remove SCAP
+     * scan.
+     * @param scapRetentionPeriodDaysIn The org-wide SCAP retention period.
+     */
+    public void setScapRetentionPeriodDays(Long scapRetentionPeriodDaysIn) {
+        scapRetentionPeriodDays = scapRetentionPeriodDaysIn;
     }
 }

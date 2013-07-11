@@ -38,6 +38,9 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 1 $
  */
 public class OrgConfigAction extends RhnAction {
+    private static final String SCAP_RETENTION_PERIOD = "scap_retention_period";
+    private static final String SCAP_RETENTION_SET = "scap_retention_set";
+
 
     /** {@inheritDoc} */
     @Override
@@ -65,14 +68,17 @@ public class OrgConfigAction extends RhnAction {
 
             Long newCrashLimit = null;
             Long newScapLimit = null;
+            Long newScapRetentionPeriod = null;
             try {
                 newCrashLimit = Long.parseLong(
                            request.getParameter("crashfile_sizelimit").trim());
 
                 newScapLimit = Long.parseLong(
                            request.getParameter("scapfile_sizelimit").trim());
+                newScapRetentionPeriod = Long.parseLong(
+                           request.getParameter(SCAP_RETENTION_PERIOD).trim());
 
-                if (newCrashLimit < 0 || newScapLimit < 0) {
+                if (newCrashLimit < 0 || newScapLimit < 0 || newScapRetentionPeriod < 0) {
                     throw new IllegalArgumentException();
                 }
             }
@@ -90,6 +96,12 @@ public class OrgConfigAction extends RhnAction {
             if (StringUtils.isNotEmpty(request.getParameter("scapfile_sizelimit"))) {
                 org.getOrgConfig().setScapFileSizelimit(newScapLimit);
             }
+            if (StringUtils.isNotEmpty(request.getParameter(SCAP_RETENTION_PERIOD))) {
+                org.getOrgConfig().setScapRetentionPeriodDays(newScapRetentionPeriod);
+            }
+            if (!getOptionScapRetentionPeriodSet(request)) {
+                org.getOrgConfig().setScapRetentionPeriodDays(null);
+            }
 
             ActionMessages msg = new ActionMessages();
             msg.add(ActionMessages.GLOBAL_MESSAGE,
@@ -100,5 +112,10 @@ public class OrgConfigAction extends RhnAction {
                     org.getId().toString());
         }
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    }
+
+    private Boolean getOptionScapRetentionPeriodSet(HttpServletRequest request) {
+        String strRetentionSet = request.getParameter(SCAP_RETENTION_SET);
+        return "on".equals(strRetentionSet);
     }
 }
