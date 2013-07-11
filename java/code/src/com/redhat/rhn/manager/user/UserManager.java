@@ -499,6 +499,18 @@ public class UserManager extends BaseManager {
             return user;
         }
 
+        LocalizationService ls = LocalizationService.getInstance();
+
+        if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
+            //Throw an exception with a nice error message so the user
+            //knows what went wrong.
+            PermissionException pex =
+                new PermissionException("Lookup user requires Org Admin");
+            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.lookupuser"));
+            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.lookupuser"));
+            throw pex;
+        }
+
         return UserFactory.lookupById(user, uid);
     }
 
