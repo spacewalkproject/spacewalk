@@ -50,7 +50,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
         }
         else {
             db_sufix = "_pg";
-            db_user = "rhnuser";
+            db_user = "spaceuser";
         }
     }
 
