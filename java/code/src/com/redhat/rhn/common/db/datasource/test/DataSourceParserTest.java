@@ -50,7 +50,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
         }
         else {
             db_sufix = "_pg";
-            db_user = "spaceuser";
+            db_user = "rhnuser";
         }
     }
 
@@ -93,7 +93,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
             HashMap hm = (HashMap)i.next();
             String name = (String)hm.get("username");
 
-            if (name.toLowerCase().equals("spaceuser")) {
+            if (name.toLowerCase().equals(db_user)) {
                 dr = dr.subList(pos, pos + 1);
             }
             pos++;
@@ -125,7 +125,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
             HashMap hm = (HashMap)i.next();
             String name = (String)hm.get("username");
 
-            if (name.toLowerCase().equals("spaceuser")) {
+            if (name.toLowerCase().equals(db_user)) {
                 dr = dr.subList(pos, pos + 1);
             }
             pos++;
