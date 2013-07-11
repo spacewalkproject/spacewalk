@@ -115,9 +115,8 @@ class apacheRequest:
 
         # Now we have the reference, call away
         force_rollback = 1
-        clear_log_id = rhnSQL.Procedure("logging.clear_log_id")
         try:
-            clear_log_id()
+            rhnSQL.clear_log_id()
             # now get the function reference and call it
             func = self.method_ref(method)
             if len(params):
@@ -180,7 +179,7 @@ class apacheRequest:
             force_rollback = 0
         if force_rollback:
             rhnSQL.rollback()
-        clear_log_id()
+        rhnSQL.clear_log_id()
         # and now send everything back
         ret = self.response(response)
         log_debug(4, "Leave with return value", ret)

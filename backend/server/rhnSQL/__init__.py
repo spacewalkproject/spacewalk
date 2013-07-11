@@ -197,6 +197,24 @@ def Date(*args, **kwargs):
     db = __test_DB()
     return apply(db.Date, args, kwargs)
 
+def clear_log_id():
+    clear_log_id = Procedure("logging.clear_log_id")
+    clear_log_id()
+
+def set_log_auth(user_id):
+    set_log_auth = Procedure("logging.set_log_auth")
+    set_log_auth(user_id)
+
+def set_log_auth_login(login):
+    h = prepare("select id from web_contact_all where login = :login")
+    h.execute(login=login)
+    row = h.fetchone_dict()
+    if row:
+        user_id = row['id']
+        set_log_auth(user_id)
+    else:
+        raise rhnException("No such log user", login)
+
 def read_lob(lob):
     if not lob:
         return None
