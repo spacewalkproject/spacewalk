@@ -543,6 +543,6 @@ public class ConfigDefaults {
      * @return Max taskomatic channel repodata workers
      */
     public int getTaskoChannelRepodataWorkers() {
-        return Config.get().getInt(TASKOMATIC_CHANNEL_REPODATA_WORKERS, 2);
+        return Config.get().getInt(TASKOMATIC_CHANNEL_REPODATA_WORKERS, 1);
     }
 }
