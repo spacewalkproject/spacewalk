@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.10.5
+Version:     1.10.6
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -60,6 +60,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Jul 11 2013 Stephen Herr <sherr@redhat.com> 1.10.6-1
+- 983400 - fixing spacecmd ssm 'list' has no attribute 'keys' error
+
 * Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.5-1
 - rebrading RHN Satellite to Red Hat Satellite
 
