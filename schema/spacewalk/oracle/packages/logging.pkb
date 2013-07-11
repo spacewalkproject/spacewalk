@@ -104,7 +104,7 @@ begin
                 if :old.' || pk_column || ' <> :new.' || pk_column || ' then raise_application_error(-20298, ''Cannot update column ' || table_name_in || '.' || pk_column || '.''); end if;
                 tg_op := ''U'';
             end if;
-            if tg_op = ''DELETE'' then
+            if deleting then
                     tg_op := ''D'';
                 ' || the_insert || '
             else
