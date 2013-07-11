@@ -43,6 +43,10 @@ create table rhnOrgConfiguration
                                    default(2097152) not null
                                    constraint rhn_org_conf_scap_szlmt_chk
                                    check (scap_file_sizelimit >= 0),
+    scap_retention_period_days number
+                                   default(90)
+                                   constraint rhn_org_conf_scap_reten_chk
+                                   check (scap_retention_period_days >= 0),
     created                    timestamp with local time zone
                                    default (current_timestamp) not null,
     modified                   timestamp with local time zone
