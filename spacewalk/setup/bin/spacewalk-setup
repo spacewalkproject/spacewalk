@@ -104,6 +104,7 @@ if ($opts{'db-only'}) {
 }
 
 remove_old_jvm(\%opts, \%answers);
+remove_tomcat_cache(\%opts);
 
 print Spacewalk::Setup::loc("* Setting up users and groups.\n");
 setup_users_and_groups();
@@ -239,6 +240,17 @@ sub remove_old_jvm {
 	if ($? >> 8) {
 		print Spacewalk::Setup::loc("** Error occured while removing the packages:\n");
 		print Spacewalk::Setup::loc($result);
+	}
+}
+
+sub remove_tomcat_cache {
+	my $opts = shift;
+
+	return unless ($opts->{'upgrade'});
+
+	my @dirs = glob "/var/cache/tomcat?/work";
+	if (scalar @dirs > 0) {
+		system("rm -rf /var/cache/tomcat?/work/* > /dev/null 2>&1");
 	}
 }
 
