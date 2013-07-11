@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.126
+Version: 1.10.127
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jul 11 2013 Grant Gainey <ggainey@redhat.com> 1.10.127-1
+- 977878 - Fix struts-junit, add note to master-ca-cert field
+- Generate pre flag into the metadata
+- satysfying checkstyle
+
 * Thu Jul 11 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.126-1
 - adding missing bracelet
 
