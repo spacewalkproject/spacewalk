@@ -834,7 +834,7 @@ REDO_CONNECT:
 		}
 	}
 
-	print $@;
+	print loc("*** Database connection error: " . DBI->errstr() . "\n") if ($@ and DBI->err());
 	if (is_embedded_db($opts) or $opts->{"non-interactive"}) {
 		exit 19;
 	}
@@ -872,7 +872,7 @@ sub oracle_get_database_answers {
 			if ($ret > 1) {
 				return;
 			}
-			print $@;
+			print loc("*** Database connection error: " . DBI->errstr() . "\n") if ($@ and DBI->err());
 			if (is_embedded_db($opts) or $opts->{"non-interactive"}) {
 				exit 19;
 			}
