@@ -20031,11 +20031,17 @@ given channel.</source>
       <trans-unit id="iss.master.label">
         <source>Master Fully-Qualified Domain Name</source>
       </trans-unit>
+      <trans-unit id="iss.master.notDefault">
+        <source>Not Default Master</source>
+      </trans-unit>
       <trans-unit id="iss.master.isDefault">
         <source>Default Master?</source>
       </trans-unit>
       <trans-unit id="iss.master.cacert">
         <source>Filename of this Master's CA Certificate</source>
+      </trans-unit>
+      <trans-unit id="iss.master.cacert.note">
+        <source>Note that this is the absolute path on the file system of this @@PRODUCT_NAME@@</source>
       </trans-unit>
       <trans-unit id="iss.master.org.name">
         <source>Master Org Name</source>

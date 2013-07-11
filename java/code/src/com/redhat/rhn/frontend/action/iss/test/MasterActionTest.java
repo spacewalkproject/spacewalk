@@ -14,18 +14,25 @@
  */
 package com.redhat.rhn.frontend.action.iss.test;
 
-import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.domain.iss.IssSlave;
+import com.redhat.rhn.frontend.action.iss.MasterAction;
+
 
 /**
- * IssSlaveActionTest
+ * IssMasterActionTest
  * @version $Rev: 1 $
  */
-public class IssSlaveActionTest extends RhnMockStrutsTestCase {
+public class MasterActionTest extends BaseIssActionTest {
 
-    public void testExecute() throws Exception {
-        setRequestPathInfo("/asmin/iss/IssSlave");
-        actionPerform();
-        assertNotNull(request.getAttribute(RhnHelper.TARGET_USER));
+    protected String getUrl() {
+        return "/admin/iss/Master";
+    }
+
+    protected String getListName() {
+        return MasterAction.DATA_SET;
+    }
+
+    protected Class getListClass() {
+        return IssSlave.class;
     }
 }

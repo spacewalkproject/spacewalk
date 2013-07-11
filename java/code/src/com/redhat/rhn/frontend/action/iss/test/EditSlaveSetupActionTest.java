@@ -14,18 +14,42 @@
  */
 package com.redhat.rhn.frontend.action.iss.test;
 
-import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 
 /**
  * IssEditSlaveActionTest
+ *
  * @version $Rev: 1 $
  */
-public class IssEditSlaveActionTest extends RhnMockStrutsTestCase {
+public class EditSlaveSetupActionTest extends BaseIssActionTest {
 
     public void testExecute() throws Exception {
-        setRequestPathInfo("/asmin/iss/IssEditSlave");
-        actionPerform();
-        assertNotNull(request.getAttribute(RhnHelper.TARGET_USER));
+    }
+
+    public void setUp() throws Exception {
+        super.setUp();
+        addRequestParameter("sid", slaveDto.getId().toString());
+    }
+
+    public void testEditSlave() {
+        doPerform(true);
+        verifyFormValue("id", slaveDto.getId());
+        verifyFormValue("slave", slaveDto.getSlave());
+        verifyFormValue("enabled", ("Y".equals(slaveDto.getEnabled())));
+        verifyFormValue("allowAllOrgs", ("Y".equals(slaveDto.getAllowAllOrgs())));
+    }
+
+    @Override
+    protected String getUrl() {
+        return "/admin/iss/EditSlave";
+    }
+
+    @Override
+    protected String getListName() {
+        return null;
+    }
+
+    @Override
+    protected Class getListClass() {
+        return null;
     }
 }

@@ -65,8 +65,14 @@
    <tr>
     <th><label for="caCert"><bean:message
        key="iss.master.cacert" /></label></th>
-    <td><html:text property="caCert" styleId="caCert"
-      maxlength="1024" size="100" /></td>
+    <td><html:text property="caCert" styleId="caCert" maxlength="1024" size="50" />
+    <div>
+    </div>
+    <span class="small-text">
+      <bean:message key="iss.master.cacert.note"/>
+    </span>
+    </div>
+    </td>
    </tr>
   </table>
 

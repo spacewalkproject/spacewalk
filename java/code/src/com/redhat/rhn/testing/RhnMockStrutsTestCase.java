@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.testing;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -26,7 +27,6 @@ import servletunit.HttpServletRequestSimulator;
 import servletunit.ServletContextSimulator;
 import servletunit.struts.MockStrutsTestCase;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
@@ -140,7 +140,7 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
      * @param classIn to check first item against.
      */
     protected void verifyList(String attribName, Class classIn) {
-        DataResult dr = (DataResult) request.getAttribute(attribName);
+        List dr = (List) request.getAttribute(attribName);
         assertNotNull("Your list: " + attribName + " is null", dr);
         assertTrue("Your list: " + attribName + " is empty", dr.size() > 0);
         assertEquals("Your list: " + attribName + " is the wrong class",
@@ -171,7 +171,7 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
      */
     protected void verifyFormList(String attribName, Class classIn) {
         DynaActionForm form = (DynaActionForm) getActionForm();
-        DataResult dr = (DataResult) form.get(attribName);
+        List dr = (List) form.get(attribName);
         assertNotNull(dr);
         assertTrue(dr.size() > 0);
         assertEquals(classIn, dr.iterator().next().getClass());

@@ -45,7 +45,7 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
  */
 public class MasterAction extends RhnAction {
 
-    private static final String LIST_NAME = "issSlaveList";
+    public static final String LIST_NAME = "issSlaveList";
     public static final String DATA_SET = "all";
 
     /** {@inheritDoc} */
@@ -108,21 +108,14 @@ public class MasterAction extends RhnAction {
     protected Set getSessionSet(HttpServletRequest request) {
         RequestContext ctxt = new RequestContext(request);
         Set slaveSet = SessionSetHelper.lookupAndBind(request, getSetDecl().getLabel());
-        Set localSet = SessionSetHelper.lookupAndBind(request,
-                        getLocalSetDecl().getLabel());
         if (!ctxt.isSubmitted()) {
             slaveSet.clear();
-            localSet.clear();
         }
         return slaveSet;
     }
 
     protected RhnSetDecl getSetDecl() {
         return RhnSetDecl.ISS_SLAVES;
-    }
-
-    protected RhnSetDecl getLocalSetDecl() {
-        return RhnSetDecl.ISS_LOCAL_ORGS;
     }
 
 }
