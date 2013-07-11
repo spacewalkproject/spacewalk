@@ -14,11 +14,15 @@
  */
 package com.redhat.rhn.domain.common;
 
+import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchUserException;
 
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 
@@ -31,6 +35,7 @@ public class LoggingFactory extends HibernateFactory {
 
     private static LoggingFactory singleton = new LoggingFactory();
     private static Logger log = Logger.getLogger(LoggingFactory.class);
+    public static final String SETUP_LOG_USER = "SETUP";
 
     @Override
     protected Logger getLogger() {
@@ -52,5 +57,25 @@ public class LoggingFactory extends HibernateFactory {
         Map params = new HashMap();
         params.put("user_id", userId.intValue());
         executeCallableMode("Logging_queries", "set_log_auth", params);
+    }
+
+    /**
+     * Sets the log_id record according to the login
+     * used for 1st user creation
+     * @param login user login
+     */
+    public static void setLogAuthLogin(String login) {
+        Long userId = null;
+        SelectMode m = ModeFactory.getMode("Logging_queries",
+                "get_log_user_id");
+        Map params = new HashMap();
+        params.put("login", login);
+        for (Iterator<Map> iter = m.execute(params).iterator(); iter.hasNext();) {
+            userId = (Long) iter.next().get("id");
+        }
+        if (userId == null) {
+            throw new NoSuchUserException();
+        }
+        LoggingFactory.setLogAuth(userId);
     }
 }

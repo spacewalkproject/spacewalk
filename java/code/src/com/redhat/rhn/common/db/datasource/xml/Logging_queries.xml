@@ -12,4 +12,12 @@
   </query>
 </callable-mode>
 
+<mode name="get_log_user_id">
+  <query params="login">
+    SELECT id
+    FROM web_contact_all
+    WHERE login = :login
+  </query>
+</mode>
+
 </datasource_modes>

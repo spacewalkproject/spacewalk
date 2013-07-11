@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.user;
 
 import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.domain.common.LoggingFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.Address;
@@ -257,6 +258,7 @@ public class CreateUserAction extends RhnAction {
         command.setOrg(OrgFactory.getSatelliteOrg());
         command.setMakeOrgAdmin(true);
         command.setMakeSatAdmin(true);
+        LoggingFactory.setLogAuthLogin(LoggingFactory.SETUP_LOG_USER);
         command.storeNewUser();
 
         User newUser = command.getUser();
