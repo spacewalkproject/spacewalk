@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.63
+Version:        1.10.64
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Jul 12 2013 Tomas Lestach <tlestach@redhat.com> 1.10.64-1
+- fix create logging triggers
+- web_contact_all may not reference web_customer
+- add extra check
+- remove not null constraint from web_contact_all org_id
+- populate web_contact_all log users
+- enable basic logging
+- create logging package
+- create log table
+- update web_contact triggers
+- create web_contact_all
+
 * Fri Jul 12 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.63-1
 - 870451 - check for free space for oracle schema upgrades
 
