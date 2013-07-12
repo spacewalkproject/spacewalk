@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.62
+Version:        1.10.63
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Jul 12 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.63-1
+- 870451 - check for free space for oracle schema upgrades
+
 * Wed Jul 03 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.62-1
 - fixing oracle equivalent source sha1
 
