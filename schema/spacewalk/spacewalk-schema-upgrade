@@ -79,6 +79,54 @@ if (-f $schema_banner and -s $schema_banner) {
 	}
 }
 
+if ($options{db_backend} eq 'oracle') {
+	my $default_tablespace = get_default_oracle_tablespace();
+	my $used_space = run_query(<<EOF);
+		select sum(bytes)
+		from user_segments
+		where tablespace_name = '$default_tablespace';
+EOF
+	my $free_space = run_query(<<EOF);
+		select sum(bytes)
+		from user_free_space
+		where tablespace_name = '$default_tablespace';
+EOF
+
+	if ($used_space / ($used_space + $free_space) > 0.9) {
+		my $usage = sprintf("%+15s    %+15s    %+15s    %+15s\n",
+			'Tablespace', 'Used Space (MB)', 'Free Space (MB)', 'Usage (%)');
+		for (1 .. 72) { $usage .= '-'; } $usage .= "\n";
+		$usage .= sprintf("%+15s    %15.2f    %15.2f    %15.2f",
+				$default_tablespace,
+				$used_space/1024/1024,
+				$free_space/1024/1024,
+				$used_space * 100 / ($used_space + $free_space));
+
+		print <<EOF;
+
+Your database schema occupies more than 90% of currently allocated database
+space.
+
+$usage
+
+Unless your Oracle data files are set to extend automatically, it is advisable
+to extend the data tablespace allocation before commencing with the schema
+upgrade.
+
+EOF
+		if (not @ARGV or $ARGV[0] ne '-y') {
+			local $| = 1;
+			READ_ENTER:
+			print "Hit Enter to continue or Ctrl+C to interrupt: ";
+			my $in = <STDIN>;
+			chomp $in;
+			if ($in ne '') {
+				goto READ_ENTER;
+			}
+		}
+	}
+}
+
 print "Schema upgrade: [$start_schema] -> [$target_schema]\n";
 
 my $retried = 0;
@@ -142,16 +190,7 @@ my @path = get_shortest_path($upgrade_path{$start_schema_norm}, $target_schema_n
 print "The path: ", (join " -> ", map "[$_]", $start_schema_norm, @path), "\n";
 
 my $default_tablespace;
-if ($options{db_backend} eq 'oracle') {
-	$default_tablespace = run_query(<<EOF);
-		select default_tablespace
-		from user_users
-		where username = sys_context('userenv', 'session_user');
-EOF
-	if (not defined $default_tablespace) {
-		die "Failed to retrieve default_tablespace from database.\n";
-	}
-}
+$default_tablespace = get_default_oracle_tablespace() if ($options{db_backend} eq 'oracle');
 
 mkdir "/var/log/spacewalk", 0755;
 mkdir $SCHEMA_UPGRADE_LOGDIR, 0755;
@@ -345,6 +384,18 @@ sub get_shortest_path {
 
 sub match_overrides {
 	return sort map {-e "$_.override" ? "$_.override" : $_} grep { -e $_ } map { glob } @_;
+}
+
+sub get_default_oracle_tablespace {
+	my $def_ts = run_query(<<EOF);
+		select default_tablespace
+		from user_users
+		where username = sys_context('userenv', 'session_user');
+EOF
+	if (not defined $def_ts) {
+		die "Failed to retrieve default_tablespace from database.\n";
+	}
+	return $def_ts;
 }
 
 1;
