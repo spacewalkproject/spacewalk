@@ -995,7 +995,7 @@ sub postgresql_setup_embedded_db {
         return 0;
     }
 
-    if ($opts->{"skip-db-install"} or not is_db_migration($opts)) {
+    if ($opts->{"skip-db-install"} or $opts->{"upgrade"} and not is_db_migration($opts)) {
         print loc("** Database: Embedded database installation SKIPPED.\n");
         return 0;
     }
