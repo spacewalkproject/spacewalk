@@ -256,8 +256,10 @@ class Registration(rhnHandler):
             # Look the token up; if the token does not exist or is invalid,
             # stop right here (search_token raises the appropriate rhnFault)
             tokens_obj = rhnServer.search_token(token_string)
+            log_user_id = tokens_obj.get_user_id()
         else:
             # user should not be null here
+            log_user_id = user.getid()
             tokens_obj = rhnServer.search_org_token(user.contact["org_id"])
             log_debug(3,"universal_registration_token set as %s" %
                         str(tokens_obj.get_tokens()))
@@ -298,6 +300,7 @@ class Registration(rhnHandler):
             
         if newserv is None:
             # Not a re-registration token, we need a fresh server object
+            rhnSQL.set_log_auth(log_user_id)
             newserv = rhnServer.Server(user, architecture)
 
 

@@ -112,6 +112,7 @@ class Queue(rhnHandler):
             track of the actual time.
         """
         
+        rhnSQL.set_log_auth_login('CLIENT')
         if status.has_key('uname'):
             kernelver = status['uname'][2]
             if kernelver != self.server.server["running_kernel"]:
