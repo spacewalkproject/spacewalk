@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.127
+Version: 1.10.128
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jul 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.128-1
+- fixing checkstyle
+- Fix indentation on user preferences page
+- Don't commit chgs that only work with local configurations
+- Tweaks to fix JUnits
+- Fix hole identified by JUnit failure
+
 * Thu Jul 11 2013 Grant Gainey <ggainey@redhat.com> 1.10.127-1
 - 977878 - Fix struts-junit, add note to master-ca-cert field
 - Generate pre flag into the metadata
