@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.36
+Version: 1.10.37
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -272,6 +272,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Jul 12 2013 Tomas Lestach <tlestach@redhat.com> 1.10.37-1
+- Adding the logging to the web (Perl) stack.
+- drop and backup logging schema
+
 * Tue Jul 09 2013 Jan Dobes 1.10.36-1
 - 858655 - user postgres shouldn't be mentioned here
 
