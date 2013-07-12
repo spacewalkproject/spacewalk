@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.11
+Version: 1.10.12
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Fri Jul 12 2013 Tomas Lestach <tlestach@redhat.com> 1.10.12-1
+- Example audit report for the user (web_contact) table.
+
 * Mon Jun 24 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.11-1
 - 972759 - add support for sql like predicates into spacewalk-report
 
