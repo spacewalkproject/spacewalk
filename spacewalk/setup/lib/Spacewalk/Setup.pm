@@ -1062,7 +1062,7 @@ sub postgresql_populate_db {
 
     print Spacewalk::Setup::loc("** Database: Populating database.\n");
 
-    if ($opts->{"skip-db-population"} or (not is_db_migration($opts))) {
+    if ($opts->{"skip-db-population"} or ($opts->{'upgrade'} and not is_db_migration($opts))) {
         print Spacewalk::Setup::loc("** Database: Skipping database population.\n");
         return 1;
     }
