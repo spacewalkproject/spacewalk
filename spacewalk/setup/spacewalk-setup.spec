@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        1.10.21
+Version:        1.10.22
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -102,6 +102,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Jul 12 2013 Tomas Lestach <tlestach@redhat.com> 1.10.22-1
+- skip db schema population only for non-migration upgrade scenarios
+
 * Fri Jul 12 2013 Tomas Lestach <tlestach@redhat.com> 1.10.21-1
 - drop and backup logging schema
 
