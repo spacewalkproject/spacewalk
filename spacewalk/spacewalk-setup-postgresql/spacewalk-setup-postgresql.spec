@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-postgresql
-Version:        1.10.6
+Version:        1.10.7
 Release:        1%{?dist}
 Summary:        Tools to setup embedded PostgreSQL database for Spacewalk
 Group:          Applications/System
@@ -50,6 +50,10 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/*
 
 %changelog
+* Fri Jul 12 2013 Tomas Lestach <tlestach@redhat.com> 1.10.7-1
+- create pltclu for PostgreSQL
+- let spacewalk-setup-postgresql require postgresql-pltcl
+
 * Tue Jul 09 2013 Tomas Lestach <tlestach@redhat.com> 1.10.6-1
 - spacewalk-setup-postgresql: state the requirement for address/netmask format
   explicitly
