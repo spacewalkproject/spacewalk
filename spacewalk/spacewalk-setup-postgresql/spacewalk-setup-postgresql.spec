@@ -11,7 +11,7 @@ BuildArch:      noarch
 Requires:       postgresql-server > 8.4
 %if 0%{?rhel} == 5
 Requires:	postgresql84-contrib
-Requires:	postgresql84-pltc
+Requires:	postgresql84-pltcl
 %else
 Requires:	postgresql-contrib >= 8.4
 Requires:	postgresql-pltcl
