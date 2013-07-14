@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.55
+Version: 1.10.56
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -639,6 +639,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Sun Jul 14 2013 Tomas Lestach <tlestach@redhat.com> 1.10.56-1
+- enable satellite-sync with enabled audit
+
 * Fri Jul 12 2013 Tomas Lestach <tlestach@redhat.com> 1.10.55-1
 - handle registration time in backend
 - implement logging functions for python stack
