@@ -14,8 +14,3 @@ end;
 $$
 language plpgsql;
 
-create trigger
-web_contact_ins_trig
-before insert on web_contact
-for each row
-execute procedure web_contact_ins_trig_fun();
