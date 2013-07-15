@@ -3360,15 +3360,15 @@ public class SystemHandler extends BaseHandler {
      * @param sessionKey User's session key.
      * @param sid ID of the server.
      * @param earliestOccurrence Earliest occurrence of the hardware refresh.
-     * @return 1 if successful, exception thrown otherwise
+     * @return action id, exception thrown otherwise
      *
      * @xmlrpc.doc Schedule a hardware refresh for a system.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #param("dateTime.iso8601",  "earliestOccurrence")
-     * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
-    public int scheduleHardwareRefresh(String sessionKey, Integer sid,
+    public Long scheduleHardwareRefresh(String sessionKey, Integer sid,
             Date earliestOccurrence) {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
@@ -3376,9 +3376,9 @@ public class SystemHandler extends BaseHandler {
 
         Action a = ActionManager.scheduleHardwareRefreshAction(loggedInUser, server,
                 earliestOccurrence);
-        ActionFactory.save(a);
+        Action action = ActionFactory.save(a);
 
-        return 1;
+        return action.getId();
     }
 
     /**
