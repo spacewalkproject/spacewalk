@@ -19,6 +19,8 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.Elaborator;
 import com.redhat.rhn.common.util.CSVWriter;
 import com.redhat.rhn.common.util.download.ByteArrayStreamInfo;
+import com.redhat.rhn.frontend.dto.SystemSearchPartialResult;
+import com.redhat.rhn.frontend.dto.SystemSearchResult;
 import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 
 import org.apache.struts.action.ActionForm;
@@ -28,7 +30,9 @@ import org.apache.struts.actions.DownloadAction;
 
 import java.io.StringWriter;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -116,6 +120,9 @@ public class CSVDownloadAction extends DownloadAction {
             if (query == null) {
                 throw new Exception("Missing request parameter, " + QUERY_DATA);
             }
+            /*if (session.getAttribute("ssr_" + paramQuery) != null) {
+                return (DataResult) session.getAttribute("ssr_" + paramQuery);
+            }*/
             return (DataResult) query.restartQuery();
         }
 
@@ -196,6 +203,12 @@ public class CSVDownloadAction extends DownloadAction {
                 getUniqueName(request), request);
         if (elab != null) {
             elab.elaborate(pageData);
+            if (pageData.iterator().next().getClass().equals(new SystemSearchResult()
+                .getClass())) {
+                pageData = mergeWithPartialResult(pageData,
+                        (Map)session.getAttribute("ssr_" + request
+                                .getParameter(QUERY_DATA)));
+            }
         }
 
         String contentType = expW.getMimeType() + ";charset=" +
@@ -207,4 +220,14 @@ public class CSVDownloadAction extends DownloadAction {
         return new ByteArrayStreamInfo(contentType, expW.getContents().getBytes());
     }
 
+    private List mergeWithPartialResult(List full, Map partial) {
+        for (Iterator iter = full.iterator(); iter.hasNext();) {
+            SystemSearchResult r = (SystemSearchResult) iter.next();
+            SystemSearchPartialResult p =
+                    (SystemSearchPartialResult) partial.get(r.getId());
+            r.setMatchingField(p.getMatchingField());
+            r.setMatchingFieldValue(p.getMatchingFieldValue());
+        }
+        return full;
+    }
 }

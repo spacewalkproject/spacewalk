@@ -17,9 +17,14 @@ package com.redhat.rhn.frontend.taglibs.list;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.frontend.action.CSVDownloadAction;
+import com.redhat.rhn.frontend.dto.SystemSearchPartialResult;
+import com.redhat.rhn.frontend.dto.SystemSearchResult;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -249,10 +254,24 @@ public class CSVTag extends BodyTagSupport {
              */
             session.setAttribute("list_" + getUniqueName() + TagHelper.ELAB_TAG,
                     ((DataResult)pageData).getElaborator());
+            if (pageData.iterator().next().getClass().equals(new SystemSearchResult()
+                .getClass())) {
+                session.setAttribute("ssr_" + paramQuery, makePartialResult(pageData));
+            }
             return CSVDownloadAction.QUERY_DATA + "=" + paramQuery;
         }
         String paramPageList = "pageList_" + getUniqueName();
         session.setAttribute(paramPageList, pageData);
         return CSVDownloadAction.PAGE_LIST_DATA + "=" + paramPageList;
+    }
+
+    private Map makePartialResult(List result) {
+        Map output = new HashMap();
+        for (Iterator iter = result.iterator(); iter.hasNext();) {
+            SystemSearchResult r = (SystemSearchResult) iter.next();
+            SystemSearchPartialResult partial = new SystemSearchPartialResult(r);
+            output.put(r.getId(), partial);
+        }
+        return output;
     }
 }
