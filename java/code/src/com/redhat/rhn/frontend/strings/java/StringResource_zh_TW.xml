@@ -8501,7 +8501,7 @@ Follow this url to see the full list of inactive systems:
         <target>當您增加了虛擬化權利至您的系統的同時，我們也實施了一些額外的步驟來確保您的系統能夠更有效地管理虛擬客座。欲取得更多資訊請參閱 &lt;a href="{0}"&gt;這裡&lt;/a&gt;。</target>
       </trans-unit>
       <trans-unit id="system.virtualization.help">
-        <source>NOTE: To enable and use virtualization capabilities within Satellite for this system, install the rhn-virtualization-host package from the associated RHN Tools child channel. Review Red Hat documentation for any other considerations and requirements that Red Hat Enterprise Linux has with enabling Virtualization of a Host system.</source>
+        <source>NOTE: To enable and use virtualization capabilities within @@PRODUCT_NAME@@ for this system, install the rhn-virtualization-host package from the associated RHN Tools child channel. Review Red Hat documentation for any other considerations and requirements that Red Hat Enterprise Linux has with enabling Virtualization of a Host system.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsList.do</context>
         </context-group>

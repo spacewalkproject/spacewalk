@@ -8500,7 +8500,7 @@ Follow this url to see the full list of inactive systems:
         <target>システムに仮想化エンタイトルメントが追加されたため、ご使用のシステムが仮想ゲストをより良く管理できるよう一部の手順が追加されました。詳細については &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;ここ&lt;/a&gt; をご覧ください。</target>
       </trans-unit>
       <trans-unit id="system.virtualization.help">
-        <source>NOTE: To enable and use virtualization capabilities within Satellite for this system, install the rhn-virtualization-host package from the associated RHN Tools child channel. Review Red Hat documentation for any other considerations and requirements that Red Hat Enterprise Linux has with enabling Virtualization of a Host system.</source>
+        <source>NOTE: To enable and use virtualization capabilities within @@PRODUCT_NAME@@ for this system, install the rhn-virtualization-host package from the associated RHN Tools child channel. Review Red Hat documentation for any other considerations and requirements that Red Hat Enterprise Linux has with enabling Virtualization of a Host system.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsList.do</context>
         </context-group>

@@ -8501,7 +8501,7 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         <target>Poichè è stato aggiunto un entitlement di Virtualizzazione al sistema, abbiamo eseguito alcune fasi aggiuntive in modo da assicurare una gestione migliore dei guest virtuali. Per maggiori informazioni consultate &lt;a href="{0}"&gt;qui&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="system.virtualization.help">
-        <source>NOTE: To enable and use virtualization capabilities within Satellite for this system, install the rhn-virtualization-host package from the associated RHN Tools child channel. Review Red Hat documentation for any other considerations and requirements that Red Hat Enterprise Linux has with enabling Virtualization of a Host system.</source>
+        <source>NOTE: To enable and use virtualization capabilities within @@PRODUCT_NAME@@ for this system, install the rhn-virtualization-host package from the associated RHN Tools child channel. Review Red Hat documentation for any other considerations and requirements that Red Hat Enterprise Linux has with enabling Virtualization of a Host system.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsList.do</context>
         </context-group>
