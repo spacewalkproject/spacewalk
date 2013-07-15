@@ -43,6 +43,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	                ]]>
 	</query>
 
+        <query name="ServerAction.findByServerAndAction">
+           <![CDATA[from com.redhat.rhn.domain.action.server.ServerAction as sa
+                    where sa.server = :server
+                      and sa.parentAction = :action]]>
+        </query>
+
     <query name="ServerAction.deleteByParentActions"><![CDATA[
    		delete ServerAction sa where sa.parentAction in (:actions)
     ]]></query>

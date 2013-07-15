@@ -655,6 +655,21 @@ public class ActionFactory extends HibernateFactory {
     }
 
     /**
+     * Lookup ServerAction object for given Server/Action pair.
+     * @param serverIn the server who's ServerAction you are searching for
+     * @param actionIn the action who's ServerAction you are searching for
+     * @return matching ServerAction object
+     */
+    public static ServerAction getServerActionForServerAndAction(Server serverIn,
+            Action actionIn) {
+        Map params = new HashMap();
+        params.put("server", serverIn);
+        params.put("action", actionIn);
+        return (ServerAction) singleton.lookupObjectByNamedQuery(
+                "ServerAction.findByServerAndAction", params);
+    }
+
+    /**
      * Reschedule All Failed Server Actions associated with an action
      * @param action the action who's server actions you are rescheduling
      * @param tries the number of tries to set (should be set to 5)

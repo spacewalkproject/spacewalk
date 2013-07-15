@@ -14,12 +14,16 @@
  */
 package com.redhat.rhn.domain.audit;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.scap.ScapActionDetails;
+import com.redhat.rhn.domain.action.server.ServerAction;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.org.OrgConfig;
 import com.redhat.rhn.manager.audit.ScapManager;
 import com.redhat.rhn.manager.audit.scap.RuleResultDiffer;
 import com.redhat.rhn.manager.audit.scap.file.ScapFileManager;
@@ -225,5 +229,27 @@ public class XccdfTestResult {
      */
     public List<ScapResultFile> getFiles() {
         return ScapFileManager.lookupFilesForTestResult(this);
+    }
+
+    /**
+     * Return true if this XccdfTestResult can be deleted (based on the organization's
+     * SCAP retention policy.
+     * @return the result
+     */
+    public Boolean getDeletable() {
+        OrgConfig cfg = getServer().getOrg().getOrgConfig();
+        Long retentionDays = cfg.getScapRetentionPeriodDays();
+        if (retentionDays == null) {
+            return false;
+        }
+        ServerAction serverAction = ActionFactory.getServerActionForServerAndAction(
+                getServer(), getScapActionDetails().getParentAction());
+        Date completionTime = serverAction.getCompletionTime();
+
+        Calendar periodStart = Calendar.getInstance();
+        periodStart.setTime(new Date());
+        periodStart.add(Calendar.DATE, -1 * retentionDays.intValue());
+
+        return completionTime.before(periodStart.getTime());
     }
 }
