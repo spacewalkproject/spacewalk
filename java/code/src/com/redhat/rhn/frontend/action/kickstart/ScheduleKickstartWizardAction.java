@@ -570,6 +570,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
 
         if (showDiskWarning(cmd.getKsdata(), form)) {
                 form.set(NEXT_ACTION, "third");
+            addRequestAttributes(ctx, cmd, form);
                 return mapping.findForward("fifth");
         }
         cmd.setNetworkDevice(form.getString(NETWORK_TYPE),

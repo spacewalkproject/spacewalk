@@ -86,6 +86,7 @@ function enableBondStaticIpAddress() {
           <input type="button" value="<bean:message key="kickstart.schedule.button2.jsp" />" onclick="setStep('third');moveNext();" />
 	    </td>
 	  </tr>
+	</table>
 </html:form>
 </div>
 </body>
