@@ -93,6 +93,10 @@ td.comparison {
         padding: 10px;
 }
 
+th.hidden {
+        visibility: hidden;
+}
+
 /** ssm **/
 
 .ssm-overview th {

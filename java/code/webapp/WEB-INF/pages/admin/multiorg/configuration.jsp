@@ -55,7 +55,9 @@ function modifyUploadCheckbox(checkbox) {
  <p/>
  <table class="details" align="center">
   <tr>
-    <th><label for="staging_content_enabled"><bean:message key="org-config.staging-content.jsp"/></th>
+    <th colspan="2">
+        <label for="staging_content_enabled"><bean:message key="org-config.staging-content.jsp"/>
+    </th>
     <td><input type="checkbox" name="staging_content_enabled" 
 							    value="enabled" id="staging_content_enabled"  
     		<c:if test = "${org.orgConfig.stagingContentEnabled}">
@@ -65,7 +67,7 @@ function modifyUploadCheckbox(checkbox) {
 	</td>
   </tr>
   <tr>
-    <th>
+    <th colspan="2">
       <label for="crash_reporting_enabled">
       <bean:message key="org-config.crash-reporting.jsp"/>
     </th>
@@ -82,6 +84,7 @@ function modifyUploadCheckbox(checkbox) {
     </td>
   </tr>
   <tr>
+    <th class="hidden">&nbsp;</th>
     <th>
       <label for="crashfile_upload_enabled">
       <bean:message key="org-config.crashfile-upload.jsp"/>
@@ -101,6 +104,7 @@ function modifyUploadCheckbox(checkbox) {
     </td>
   </tr>
   <tr>
+    <th class="hidden">&nbsp;</th>
     <th>
         <bean:message key="org-config.crashfile-sizelimit.jsp"/>
     </th>
@@ -112,7 +116,7 @@ function modifyUploadCheckbox(checkbox) {
     <td>
   </tr>
   <tr>
-    <th>
+    <th colspan="2">
       <label for="scapfile_upload_enabled">
       <bean:message key="org-config.scapfile-upload.jsp"/>
     </th>
@@ -128,6 +132,7 @@ function modifyUploadCheckbox(checkbox) {
     </td>
   </tr>
   <tr>
+    <th class="hidden">&nbsp;</th>
     <th>
         <bean:message key="org-config.scapfile-sizelimit.jsp"/>
     </th>
@@ -139,7 +144,7 @@ function modifyUploadCheckbox(checkbox) {
     </td>
   </tr>
   <tr>
-     <th>
+    <th colspan="2">
         <bean:message key="org-config.scap-retention"/>
     </th>
     <td>
@@ -155,6 +160,7 @@ function modifyUploadCheckbox(checkbox) {
     </td>
   </tr>
   <tr id="tr_scap_retention">
+    <th class="hidden">&nbsp;</th>
     <th>
         <bean:message key="org-config.scap-retention-period"/>
     </th>
