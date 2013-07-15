@@ -729,6 +729,7 @@ public class ActionManager extends BaseManager {
     /**
      * Stores the action in the database through hibernate
      * @param actionIn The action to be stored
+     * @return action
      */
     public static Action storeAction(Action actionIn) {
         return ActionFactory.save(actionIn);

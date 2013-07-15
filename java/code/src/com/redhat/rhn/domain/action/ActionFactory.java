@@ -520,6 +520,7 @@ public class ActionFactory extends HibernateFactory {
     /**
      * Insert or Update a Action.
      * @param actionIn Action to be stored in database.
+     * @return action
      */
     public static Action save(Action actionIn) {
         /**

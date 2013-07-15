@@ -3005,8 +3005,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param dateTime.iso8601 earliestOccurrence
      * @xmlrpc.returntype #array_single("int", "actionId")
      */
-    public List<Long> scheduleApplyErrata(String sessionKey, Integer sid, List<Integer> errataIds,
-            Date earliestOccurrence) {
+    public List<Long> scheduleApplyErrata(String sessionKey, Integer sid,
+            List<Integer> errataIds, Date earliestOccurrence) {
         List<Integer> serverIds = new ArrayList<Integer>();
         serverIds.add(sid);
 
@@ -3171,7 +3171,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #array_single("int", "packageId")
      * @xmlrpc.param dateTime.iso8601 earliestOccurrence
-     * @xmlrpc.returntype #array_single("int", "actionId")
+     * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
     public Long schedulePackageInstall(String sessionKey, Integer sid,
             List<Integer> packageIds, Date earliestOccurrence) {
@@ -3204,7 +3204,7 @@ public class SystemHandler extends BaseHandler {
             packageMaps.add(pkgMap);
         }
 
-        Action action =null;
+        Action action = null;
         try {
             action = ActionManager.schedulePackageInstall(loggedInUser, server,
                     packageMaps, earliestOccurrence);
