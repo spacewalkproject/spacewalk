@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.65
+Version:        1.10.66
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Jul 15 2013 Tomas Lestach <tlestach@redhat.com> 1.10.66-1
+- trigger "web_contact_ins_trig" for relation "web_contact" already exists
+
 * Fri Jul 12 2013 Tomas Lestach <tlestach@redhat.com> 1.10.65-1
 - fix schema sha1s
 
