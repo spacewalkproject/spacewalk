@@ -3165,16 +3165,16 @@ public class SystemHandler extends BaseHandler {
      * @param sid ID of the server
      * @param packageIds List of package IDs to install (as Integers)
      * @param earliestOccurrence Earliest occurrence of the package install
-     * @return 1 if successful, exception thrown otherwise
+     * @return package action id
      *
      * @xmlrpc.doc Schedule package installation for a system.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #array_single("int", "packageId")
      * @xmlrpc.param dateTime.iso8601 earliestOccurrence
-     * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.returntype #array_single("int", "actionId")
      */
-    public int schedulePackageInstall(String sessionKey, Integer sid,
+    public Long schedulePackageInstall(String sessionKey, Integer sid,
             List<Integer> packageIds, Date earliestOccurrence) {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
@@ -3205,15 +3205,16 @@ public class SystemHandler extends BaseHandler {
             packageMaps.add(pkgMap);
         }
 
+        Action action =null;
         try {
-            ActionManager.schedulePackageInstall(loggedInUser, server, packageMaps,
-                    earliestOccurrence);
+            action = ActionManager.schedulePackageInstall(loggedInUser, server,
+                    packageMaps, earliestOccurrence);
         }
         catch (MissingEntitlementException e) {
             throw new com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException();
         }
 
-        return 1;
+        return action.getId();
     }
 
     /**
