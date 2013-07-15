@@ -1385,8 +1385,9 @@ public class ErrataManager extends BaseManager {
      * @param systemIds list of system IDs
      * @param errataIds List of errata IDs to apply (as Integers)
      * @param earliestOccurrence Earliest occurrence of the errata update
+     * @return list of action ids
      */
-    public static void applyErrataHelper(User loggedInUser, List<Long> systemIds,
+    public static List<Long> applyErrataHelper(User loggedInUser, List<Long> systemIds,
             List<Integer> errataIds, Date earliestOccurrence) {
         // first check, whether the errata list is applicable to the whole system list
         // if not, exception is thrown
@@ -1395,7 +1396,7 @@ public class ErrataManager extends BaseManager {
         }
 
         // at this point all errata is applicable to all systems, so let's apply
-        applyErrata(loggedInUser, errataIds, earliestOccurrence, systemIds);
+        return applyErrata(loggedInUser, errataIds, earliestOccurrence, systemIds);
     }
 
     private static void checkApplicableErrata(User loggedInUser, List<Integer> errataIds,
@@ -1425,8 +1426,9 @@ public class ErrataManager extends BaseManager {
      * @param errataIds errata ids
      * @param earliest schedule time
      * @param serverIds server ids
+     * @return list of action ids
      */
-    public static void applyErrata(User user, List errataIds, Date earliest,
+    public static List<Long> applyErrata(User user, List errataIds, Date earliest,
             List<Long> serverIds) {
         // Schedule updates to the software update stack first
         ErrataAction swStackUpdate = null;
@@ -1456,10 +1458,15 @@ public class ErrataManager extends BaseManager {
             ActionManager.storeAction(swStackUpdate);
         }
 
+        List<Long> actionIds = new ArrayList<Long>();
         // Schedule remaining errata actions
         for (Errata e : errata) {
-            ActionManager.storeAction(createErrataAction(user, e, earliest, serverIds));
+            Action action = ActionManager.storeAction(createErrataAction(user, e, earliest,
+                    serverIds));
+            actionIds.add(action.getId());
         }
+
+        return actionIds;
     }
 
     /**

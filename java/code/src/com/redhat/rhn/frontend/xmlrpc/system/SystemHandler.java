@@ -2903,15 +2903,15 @@ public class SystemHandler extends BaseHandler {
      * @param sessionKey The user's session key.
      * @param serverIds List of server IDs to apply the errata to (as Integers)
      * @param errataIds List of errata IDs to apply (as Integers)
-     * @return 1 if successful, exception thrown otherwise
+     * @return list of action ids, exception thrown otherwise
      *
      * @xmlrpc.doc Schedules an action to apply errata updates to multiple systems.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #array_single("int", "serverId")
      * @xmlrpc.param #array_single("int", "errataId")
-     * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.returntype #array_single("int", "actionId")
      */
-    public int scheduleApplyErrata(String sessionKey, List<Integer> serverIds,
+    public List<Long> scheduleApplyErrata(String sessionKey, List<Integer> serverIds,
             List<Integer> errataIds) {
         return scheduleApplyErrata(sessionKey, serverIds, errataIds, null);
     }
@@ -2922,7 +2922,7 @@ public class SystemHandler extends BaseHandler {
      * @param serverIds List of server IDs to apply the errata to (as Integers)
      * @param errataIds List of errata IDs to apply (as Integers)
      * @param earliestOccurrence Earliest occurrence of the errata update
-     * @return 1 if successful, exception thrown otherwise
+     * @return list of action ids, exception thrown otherwise
      *
      * @xmlrpc.doc Schedules an action to apply errata updates to multiple systems at a
      * given date/time.
@@ -2930,9 +2930,9 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #array_single("int", "serverId")
      * @xmlrpc.param #array_single("int", "errataId")
      * @xmlrpc.param dateTime.iso8601 earliestOccurrence
-     * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.returntype #array_single("int", "actionId")
      */
-    public int scheduleApplyErrata(String sessionKey, List<Integer> serverIds,
+    public List<Long> scheduleApplyErrata(String sessionKey, List<Integer> serverIds,
             List<Integer> errataIds, Date earliestOccurrence) {
 
         // we need long values to pass to ErrataManager.applyErrataHelper
@@ -2941,9 +2941,8 @@ public class SystemHandler extends BaseHandler {
             longServerIds.add(new Long(it.next()));
         }
 
-        ErrataManager.applyErrataHelper(getLoggedInUser(sessionKey),
+        return ErrataManager.applyErrataHelper(getLoggedInUser(sessionKey),
                 longServerIds, errataIds, earliestOccurrence);
-        return 1;
     }
 
     /**
@@ -2973,16 +2972,16 @@ public class SystemHandler extends BaseHandler {
      * @param sessionKey The user's session key.
      * @param sid ID of the server
      * @param errataIds List of errata IDs to apply (as Integers)
-     * @return 1 if successful, exception thrown otherwise
+     * @return list of action ids, exception thrown otherwise
      * @since 10.6
      *
      * @xmlrpc.doc Schedules an action to apply errata updates to a system.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param  #array_single("int", "errataId")
-     * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.returntype #array_single("int", "actionId")
      */
-    public int scheduleApplyErrata(String sessionKey, Integer sid,
+    public List<Long> scheduleApplyErrata(String sessionKey, Integer sid,
             List<Integer> errataIds) {
         List<Integer> serverIds = new ArrayList<Integer>();
         serverIds.add(sid);
@@ -2996,7 +2995,7 @@ public class SystemHandler extends BaseHandler {
      * @param sid ID of the server
      * @param errataIds List of errata IDs to apply (as Integers)
      * @param earliestOccurrence Earliest occurrence of the errata update
-     * @return 1 if successful, exception thrown otherwise
+     * @return list of action ids, exception thrown otherwise
      *
      * @xmlrpc.doc Schedules an action to apply errata updates to a system at a
      * given date/time.
@@ -3004,9 +3003,9 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #array_single("int", "errataId")
      * @xmlrpc.param dateTime.iso8601 earliestOccurrence
-     * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.returntype #array_single("int", "actionId")
      */
-    public int scheduleApplyErrata(String sessionKey, Integer sid, List<Integer> errataIds,
+    public List<Long> scheduleApplyErrata(String sessionKey, Integer sid, List<Integer> errataIds,
             Date earliestOccurrence) {
         List<Integer> serverIds = new ArrayList<Integer>();
         serverIds.add(sid);
