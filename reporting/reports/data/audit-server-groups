@@ -1,0 +1,50 @@
+
+synopsis:
+
+	Audit of user changes
+
+description:
+
+	Audit of all user changes for all organizations.
+
+columns:
+
+	group_id:i		Internal server group id
+	audit_stamp		Time stamp of the audit action
+	audit_action		Audit action
+	audit_user_id		Internal user id of user who did the audited action
+	audit_username		User name / login of user who did the audited action
+	organization_id:i	Organization identifier
+	group_name		Server group name
+	group_description 	Server group description
+	max_members 		Number of server group max members
+	current_members 	Number of server group current members
+
+sql:
+
+	select group_id, audit_stamp, audit_action, audit_user_id, audit_username, organization_id, group_name, group_description, max_members, current_members
+	from (
+	select log.id as log_id,
+		rhnServerGroup_log.id as group_id,
+		to_char(log.stamp, 'YYYY-MM-DD HH24:MI:SS') as audit_stamp,
+		case when rhnServerGroup_log.action = 'A' then 'AUDIT START'
+      when rhnServerGroup_log.action = 'I' then 'INSERT'
+      when rhnServerGroup_log.action = 'U' then 'UPDATE'
+      when rhnServerGroup_log.action = 'D' then 'DELETE' else 'UNKNOWN' end as audit_action,
+    case when web_contact.id is not null then web_contact.id else web_contact_all.id end as audit_user_id,
+		case when web_contact.id is not null then web_contact.login else web_contact_all.login end as audit_username,
+		rhnServerGroup_log.org_id as organization_id,
+		rhnServerGroup_log.name as group_name,
+		rhnServerGroup_log.description as group_description,
+		rhnServerGroup_log.max_members as max_members,
+		rhnServerGroup_log.current_members as current_members
+	from rhnServerGroup_log left outer join log
+			on log.id=rhnServerGroup_log.log_id
+		left outer join web_contact_all
+      on log.user_id = web_contact_all.id
+		left outer join web_contact
+      on log.user_id = web_contact.id
+	where rhnServerGroup_log.group_type is null
+	) X
+	-- where placeholder
+	order by X.group_id, X.log_id
