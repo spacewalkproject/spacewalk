@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.10.16
+Version:	1.10.17
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -88,6 +88,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Jul 16 2013 Grant Gainey <ggainey@redhat.com> 1.10.17-1
+- 985136 - Clarify spacewalk-clone-by-date man page
+
 * Tue Jul 09 2013 Grant Gainey <ggainey@redhat.com> 1.10.16-1
 - 977878 - Set default-template-filenames for sync-setup
 
