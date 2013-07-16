@@ -469,6 +469,8 @@ public class SystemHandler extends BaseHandler {
         Server server = lookupServer(loggedInUser, sid);
 
         UpdateBaseChannelCommand cmd = null;
+        SystemManager.snapshotServer(server, LocalizationService
+                .getInstance().getMessage("snapshots.basechannel"));
         if (StringUtils.isEmpty(channelLabel)) {
             // if user provides an empty string for the channel label, they are requesting
             // to remove the base channel
