@@ -534,12 +534,31 @@ sub render {
   my $details_url = "/rhn/systems/details/audit/XccdfDetails.do";
 
   my $ret = $self->SUPER::render(@_);
-  $ret->{server_event_details} .=
-    sprintf(<<EOQ, PXT::Utils->escapeHTML($self->{DATA}->{PATH}), PXT::Utils->escapeHTML($self->{DATA}->{PARAMETERS}));
+  if (defined $self->{DATA}->{PATH}) {
+    $ret->{server_event_details} .=
+      sprintf(<<EOQ, PXT::Utils->escapeHTML($self->{DATA}->{PATH}));
 <br/><br/>
 <strong>Path to XCCDF document:</strong> %s<br/>
+EOQ
+  }
+  else {
+    $ret->{server_event_details} .= <<EOQ;
+<br/><br/>
+<strong>Path to XCCDF document:</strong><br/>
+EOQ
+  }
+
+  if (defined $self->{DATA}->{PARAMETERS}) {
+    $ret->{server_event_details} .=
+      sprintf(<<EOQ, PXT::Utils->escapeHTML($self->{DATA}->{PARAMETERS}));
 <strong>Parameters:</strong> %s<br/><br/>
 EOQ
+  }
+  else {
+    $ret->{server_event_details} .= <<EOQ;
+<strong>Parameters:</strong><br/><br/>
+EOQ
+  }
 
   if (defined $self->{DATA}->{TEST_RESULT}) {
     $ret->{server_event_details} .=
