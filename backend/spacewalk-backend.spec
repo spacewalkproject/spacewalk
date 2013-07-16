@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.57
+Version: 1.10.58
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -639,6 +639,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Jul 16 2013 Tomas Lestach <tlestach@redhat.com> 1.10.58-1
+- allow spacewalk-remove-channel to unsubscribe systems with enabled logging
+
 * Tue Jul 16 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.57-1
 - removing some dead code
 
