@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.131
+Version: 1.10.132
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jul 16 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.132-1
+- better to check if iterator hasNext() before we request next()
+
 * Mon Jul 15 2013 Stephen Herr <sherr@redhat.com> 1.10.131-1
 - 979402 - Fixing traceback in logs on warning page
 - 910739 - let system.scheduleHardwareRefresh API return action id
