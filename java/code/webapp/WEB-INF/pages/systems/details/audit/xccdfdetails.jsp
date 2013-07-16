@@ -28,6 +28,16 @@
   </c:choose>
   |
 
+  <c:if test="${testResult.deletable}">
+    <a href="/rhn/systems/details/audit/XccdfDeleteConfirm.do?sid=${param.sid}&xid=${testResult.id}">
+      <img src="/img/action-del.gif"
+          alt="<bean:message key="system.audit.xccdfdelete"/>"
+          title="<bean:message key="system.audit.xccdfdelete"/>"/>
+      <bean:message key="system.audit.xccdfdelete"/>
+    </a>
+  |
+  </c:if>
+
   <a href="/rhn/systems/details/audit/ScheduleXccdf.do?sid=${param.sid}&path=${testResult.scapActionDetails.path}&params=${testResult.scapActionDetails.parametersContents}">
     <img src="/img/restart.png" alt="<bean:message key="system.audit.xccdfdetails.jsp.reschedule"/>"/>
     <bean:message key="system.audit.xccdfdetails.jsp.reschedule"/>

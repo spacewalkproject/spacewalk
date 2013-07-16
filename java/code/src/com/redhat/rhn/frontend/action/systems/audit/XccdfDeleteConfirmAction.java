@@ -29,6 +29,7 @@ import org.apache.struts.action.ActionMessages;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.rhnset.RhnSetFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.XccdfTestResultDto;
@@ -59,6 +60,16 @@ public class XccdfDeleteConfirmAction extends RhnAction {
         User user = context.getCurrentUser();
 
         RhnSet set = getSetDecl(sid).get(user);
+        if (request.getParameter("xid") != null) {
+            Long xid = Long.parseLong(request.getParameter("xid"));
+            if (xid != null && xid > 0) {
+                // Being redirected from XccdfDetails.do, asked to delete a single scan
+                set.clear();
+                set.addElement(xid);
+                RhnSetFactory.save(set);
+            }
+        }
+
         DataResult<XccdfTestResultDto> result = ScapManager.scansInSet(user,
                 set.getLabel());
 
