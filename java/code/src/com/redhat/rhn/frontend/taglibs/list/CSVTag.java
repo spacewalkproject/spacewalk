@@ -254,8 +254,8 @@ public class CSVTag extends BodyTagSupport {
              */
             session.setAttribute("list_" + getUniqueName() + TagHelper.ELAB_TAG,
                     ((DataResult)pageData).getElaborator());
-            if (pageData.iterator().next().getClass().equals(new SystemSearchResult()
-                .getClass())) {
+            if (pageData.iterator().hasNext() && pageData.iterator().next().getClass().
+                    equals(new SystemSearchResult().getClass())) {
                 session.setAttribute("ssr_" + paramQuery, makePartialResult(pageData));
             }
             return CSVDownloadAction.QUERY_DATA + "=" + paramQuery;
