@@ -1,0 +1,75 @@
+
+synopsis:
+
+	Audit of server changes
+
+description:
+
+	Audit of all server changes for all organizations.
+
+columns:
+
+	server_id:i		Internal server id
+	audit_stamp		Time stamp of the audit action
+	audit_action		Audit action
+	audit_user_id		Internal user id of user who did the audited action
+	audit_username		User name / login of user who did the audited action
+	organization_id:i	Organization identifier
+	architecture 	 	Server architecture
+	os 			Server OS
+	release 		Server OS release
+	name 			Server name
+	description 		Server description
+	info 			Server info
+	creator_id 		ID of user which has registered the server
+	creator_login 		Login of user which has registered the server
+	auto_update 		Auto errata update
+	running_kernel 		Running kernel
+	last_boot 		Last boot as unix timestamp
+	provision_state 	Provisioning state
+	channels_last_changed 	Date of last channel changes
+	cobbler_id 		Cobbler database ID for current server
+
+sql:
+
+	select server_id, audit_stamp, audit_action, audit_user_id, audit_username, organization_id, architecture, os, release, name, description, info, creator_id, creator_login, auto_update, running_kernel, last_boot, provision_state, channels_last_changed, cobbler_id
+	from (
+	select log.id as log_id,
+	  to_char(log.stamp, 'YYYY-MM-DD HH24:MI:SS') as audit_stamp,
+	  case when rhnServer_log.action = 'A' then 'AUDIT START'
+			when rhnServer_log.action = 'I' then 'INSERT'
+			when rhnServer_log.action = 'U' then 'UPDATE'
+			when rhnServer_log.action = 'D' then 'DELETE' else 'UNKNOWN' end as audit_action,
+	  case when web_contact.id is not null then web_contact.id else web_contact_all.id end as audit_user_id,
+    case when web_contact.id is not null then web_contact.login else web_contact_all.login end as audit_username,
+	  rhnServer_log.id as server_id,
+	  rhnServer_log.org_id as organization_id,
+	  rhnServerArch.label as architecture,
+	  rhnServer_log.os as os,
+	  rhnServer_log.release as release,
+	  rhnServer_log.name as name,
+	  rhnServer_log.description as description,
+	  rhnServer_log.info as info,
+	  rhnServer_log.creator_id as creator_id,
+	  registered.login as creator_login,
+	  rhnServer_log.auto_update as auto_update,
+	  rhnServer_log.running_kernel as running_kernel,
+	  rhnServer_log.last_boot as last_boot,
+	  rhnProvisionState.label as provision_state,
+	  to_char(rhnServer_log.channels_changed, 'YYYY-MM-DD HH24:MI:SS') as channels_last_changed,
+	  rhnServer_log.cobbler_id as cobbler_id
+	from rhnServer_log left outer join log
+			on rhnServer_log.log_id=log.id
+		left outer join web_contact_all
+			on log.user_id = web_contact_all.id
+		left outer join web_contact
+    	on log.user_id = web_contact.id
+		left outer join rhnServerArch
+			on rhnServer_log.server_arch_id=rhnServerArch.id
+		left outer join web_contact_all registered
+			on rhnServer_log.creator_id=registered.id
+		left outer join rhnProvisionState
+			on rhnServer_log.provision_state_id=rhnProvisionState.id
+	) X
+	-- where placeholder
+	order by X.server_id, X.log_id
