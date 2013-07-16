@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.133
+Version: 1.10.134
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jul 16 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.134-1
+- fixing unit test to reflect dead code removal
+
 * Tue Jul 16 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.133-1
 - removing some dead code
 
