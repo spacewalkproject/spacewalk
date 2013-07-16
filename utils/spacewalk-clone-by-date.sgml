@@ -81,28 +81,26 @@ Utility for cloning errata by date.
 </RefSynopsisDiv>
 
 <RefSect1><Title>Description</Title>
+
     <para>
-        <emphasis>spacewalk-clone-by-date</emphasis> clones a channel with errata to a specific date.
+        <emphasis>spacewalk-clone-by-date</emphasis> clones all the errata belonging to a specified channel, as of a specific date. 
     </para>
-  <para>
-    Script to clone software channels and errata up to specific dates ensuring any added packages have their
-    dependencies satisfied.  Any destination channels that do not exist will be created.
-  </para>
-  <para>
-     By specifying channels on the command line, only a single channel tree (a base channel and its children)
-     can be cloned with a single command.  If you would like to specify multiple trees within a single command,
-     simply use a configuration file.  See --sample-config for a sample.
-  </para>
-  <para>
-    All options can either be specified in the configuration file or via command line.  Any option specified via
-    command line will override a configuration file value with the exception of channels.  If a configuration file is
-    specified, --channels is not a valid command line argument.
-  </para>
-  <para>
-    Please keep in mind that not all packages are associated with an erratum. This means that since
-    spacewalk-clone-by-date will grab only packages associated with an erratum, not all packages at a certain date
-    will get cloned.
-  </para>
+
+    <para>
+        Script to clone all errata belonging to software channels as of a specific date, ensuring any added packages have their dependencies satisfied. Any destination channels that do not exist will be created.
+    </para>
+    <para>
+        By specifying channels on the command line, only a single channel tree (a base channel and its children) can be cloned with a single command. If you would like to specify multiple trees within a single command, simply use a configuration file.  See --sample-config for a sample.
+    </para>
+    <para>
+        All options can either be specified in the configuration file or via command line.  Any option specified via command line will override a configuration file value with the exception of channels. If a configuration file is specified, --channels is not a valid command line argument.
+    </para>
+    <para>
+        Please keep in mind that not all packages are associated with an erratum. This means that since spacewalk-clone-by-date will grab only packages associated with an erratum, not all packages available as of the specified date will get cloned.
+    </para>
+    <para>
+        Also note that spacewalk-clone-by-date will pull in any packages needed to resolve dependencies for any errata being cloned. Since dependency-resolution selects the "best" package to resolve dependencies, it is possible for the cloned channel(s) to end up with packages that are not directly associated with any errata, and which are newer than the specified date. This is expected behavior.   </para>
+
 </RefSect1>
 
 <RefSect1><Title>Options</Title>
@@ -184,7 +182,7 @@ Utility for cloning errata by date.
     <varlistentry>
         <term>-b <replaceable>PKG1,PKG2,PKG3</replaceable>, --blacklist=<replaceable>PKG1,PKG2,PKG3</replaceable></term>
         <listitem>
-            <para>Comma separated list of package names to be removed after cloning. Perl-style regular expressions also supported.  Only newly added packages will removed if they are on the blacklist.  Dependency resolution is not ensured on resulting repository.
+            <para>Comma separated list of package names to be removed after cloning. Perl-style regular expressions also supported.  Only newly added packages will removed if they are on the blacklist.  <emphasis>Dependency resolution is not ensured on resulting repository.</emphasis>
             </para>
             <para>
                 Note:  This option is global across all destination channels.  To specify per channel blacklists, you must use a configuration file.  See --sample-config for an example.
@@ -194,7 +192,7 @@ Utility for cloning errata by date.
     <varlistentry>
         <term>-r <replaceable>PKG1,PKG2,PKG3</replaceable>, --removelist=<replaceable>PKG1,PKG2,PKG3</replaceable></term>
         <listitem>
-            <para>Comma separated list of package names to be removed after cloning.  Perl-style regular expressions are also supported.  All packages are considered for removal, even those not added by errata/channel cloning.  Dependency resolution is not ensured on resulting repository.
+            <para>Comma separated list of package names to be removed after cloning.  Perl-style regular expressions are also supported.  All packages are considered for removal, even those not added by errata/channel cloning.  <emphasis>Dependency resolution is not ensured on resulting repository.</emphasis>
             </para>
             <para>
                 Note:  This option is global across all destination channels. To specify per channel removelists, you must use a configuration file.  See --sample-config for an example.
