@@ -91,7 +91,8 @@ sub command_backup {
 
   my $d = new Dobby::DB;
 
-  $cli->fatal("Error: $backup_dir is not a writable directory.") unless -d $backup_dir and -w $backup_dir;
+  my $logged_user = getpwuid($>);
+  $cli->fatal("Error: $backup_dir is not a writable directory by $logged_user.") unless -d $backup_dir and -w $backup_dir;
   $cli->fatal("Database is running; please stop before running a cold backup.") if $d->instance_state ne 'OFFLINE';
 
   my $source_dir = $d->data_dir;
