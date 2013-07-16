@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.12
+Version: 1.10.13
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Tue Jul 16 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.13-1
+- adding audit-servers report for logging feature
+- adding audit-server-groups report for logging feature
+- reports should not have 0755 permissions
+
 * Fri Jul 12 2013 Tomas Lestach <tlestach@redhat.com> 1.10.12-1
 - Example audit report for the user (web_contact) table.
 
