@@ -127,7 +127,7 @@ sub backup_file {
     $file_entry->original_size(-s $file);
     $file_entry->compressed_size(-s $dest);
     $file_entry->from($file);
-    $file_entry->to($dest);
+    $file_entry->to(File::Spec->abs2rel($dest, $backup_dir));
     $file_entry->finish(time);
     $file_entry->digest($hexdigest);
     return $file_entry;
