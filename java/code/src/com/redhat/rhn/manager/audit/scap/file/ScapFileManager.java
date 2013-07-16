@@ -38,6 +38,12 @@ public class ScapFileManager {
             XccdfTestResult testResult) {
         List<ScapResultFile> result = new ArrayList<ScapResultFile>();
         File folder = new File(getStoragePath(testResult));
+
+        // Some results may not have any files - let's not blow up
+        if (!folder.exists() || !folder.isDirectory()) {
+            return result;
+        }
+
         for (File file : folder.listFiles()) {
             if (file.isFile()) {
                 result.add(new ScapResultFile(testResult, file.getName()));
