@@ -56,7 +56,7 @@ use RHN::Exception qw/throw/;
 
 # fields in the rhnServer table
 my @s_fields = (qw/ID DIGITAL_SERVER_ID SERVER_ARCH_ID OS RELEASE/,
-                qw/NAME DESCRIPTION SECRET INFO ORG_ID CREATED:longdate creator_id auto_update auto_deliver last_boot running_kernel/);
+                qw/NAME DESCRIPTION SECRET INFO ORG_ID CREATED:longdate creator_id auto_update last_boot running_kernel/);
 
 
 my @si_fields = qw/server_id checkin:longdate checkin_counter/;
@@ -91,7 +91,7 @@ my @l_fields = (qw/ID SERVER_ID RACK ROOM MACHINE BUILDING ADDRESS1 ADDRESS2 CIT
 
 # the read only fields from the arrays above
 # Note:  these should right now only come from @s_fields
-my @rw_fields = qw/name description location_rack location_room location_machine location_building location_address1 location_address2 location_city location_state location_country auto_update auto_deliver/;
+my @rw_fields = qw/name description location_rack location_room location_machine location_building location_address1 location_address2 location_city location_state location_country auto_update/;
 
 my %rw_fields = map {$_ => 1} @rw_fields;
 
@@ -1494,7 +1494,7 @@ sub change_pref_bulk {
   my $pref = shift;
   my $new_val = shift;
 
-  my %column_map = map { $_ => $_ } qw/auto_update auto_deliver/;
+  my %column_map = map { $_ => $_ } qw/auto_update/;
   die "invalid pref $pref" unless exists $column_map{$pref};
 
   my $dbh = RHN::DB->connect;

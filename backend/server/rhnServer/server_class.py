@@ -505,7 +505,6 @@ class Server(ServerWrapper):
                 user_id = None
             
             # some more default values
-            self.server["auto_deliver"] = "N"
             self.server["auto_update"] = "N"
             if self.user and not self.server.has_key("creator_id"):
                 # save the link to the user that created it if we have

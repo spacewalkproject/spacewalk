@@ -26,8 +26,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp"
             insert="false" update="false"/>
-        <property name="autoDeliver" column="auto_deliver" type="string"
-            length="1"/>
         <property name="autoUpdate" column="auto_update" type="string" length="1"/>
         <property name="runningKernel" column="running_kernel" type="string"
             length="64"/>

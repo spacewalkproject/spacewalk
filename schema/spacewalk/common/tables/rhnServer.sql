@@ -37,10 +37,6 @@ CREATE TABLE rhnServer
                             CONSTRAINT rhn_server_creator_fk
                                 REFERENCES web_contact (id)
                                 ON DELETE SET NULL,
-    auto_deliver        CHAR(1)
-                            DEFAULT ('N') NOT NULL
-                            CONSTRAINT rhn_server_deliver_ck
-                                CHECK (auto_deliver in ('Y', 'N')),
     auto_update         CHAR(1)
                             DEFAULT ('N') NOT NULL
                             CONSTRAINT rhn_server_update_ck
