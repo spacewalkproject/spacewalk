@@ -91,6 +91,8 @@ def main():
     initLOG("stdout", options.verbose or 0)
 
     rhnSQL.initDB()
+    rhnSQL.clear_log_id()
+    rhnSQL.set_log_auth_login('SETUP')
 
     dict_label, dict_parents = __listChannels()
     if options.list:
