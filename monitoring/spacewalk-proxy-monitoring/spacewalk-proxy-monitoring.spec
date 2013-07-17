@@ -2,7 +2,7 @@
 Summary:      Meta-package that pulls in all of the Spacewalk monitoring packages
 Name:         spacewalk-proxy-monitoring
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      2.0.0
+Version:      2.0.1
 Release:      1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 License:      GPLv2
@@ -98,6 +98,15 @@ rm -rf $RPM_BUILD_ROOT
 %doc README
 
 %changelog
+* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.1-1
+- Bumping package versions for 2.0.
+- Bumping package versions for 1.9
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+- Bumping package versions for 1.9.
+- %%defattr is not needed since rpm 4.4
+- Bumping package versions for 1.8.
+- Bumping package versions for 1.7.
+
 * Fri Jul 22 2011 Jan Pazdziora 1.6.1-1
 - We only support version 5 and newer of RHEL, removing conditions for old
   versions.
