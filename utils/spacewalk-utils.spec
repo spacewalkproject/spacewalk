@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.0.0
+Version:	2.0.1
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -88,6 +88,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.1-1
+- Bumping package versions for 2.0.
+
 * Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.19-1
 - removing spacewalk18-client-fedora16 from spacewalk-common-channels
 - removing spacewalk18-server-fedora16 from spacewalk-common-channels
