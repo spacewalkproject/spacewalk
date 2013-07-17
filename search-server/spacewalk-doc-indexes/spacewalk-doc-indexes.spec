@@ -1,5 +1,5 @@
 Name: spacewalk-doc-indexes
-Version: 2.0.0
+Version: 2.0.1
 Release: 1%{?dist}
 Summary: Lucene indexes of help documentation for spacewalk
 
@@ -44,6 +44,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.1-1
+- Bumping package versions for 2.0.
+
 * Mon Mar 18 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.1-1
 - %%defattr is not needed since rpm 4.4
 
