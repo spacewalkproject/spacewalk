@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.10.13
+Version: 1.10.14
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -346,6 +346,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.14-1
+- Update .po and .pot files for rhn-client-tools.
+
 * Wed Jul 10 2013 Dimitar Yordanov <dyordano@redhat.com> 1.10.13-1
 - 983066 - fix rhnreg_ks man page example section
 
