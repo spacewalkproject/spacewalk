@@ -7,7 +7,7 @@
 %global modulename jabber
 
 Name:           jabberd-selinux
-Version:        2.0.0
+Version:        2.0.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting jabberd
 
@@ -105,6 +105,9 @@ rpm -ql jabberd | xargs -n 1 %{sbinpath}/restorecon -ri {} || :
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.1-1
+- Bumping package versions for 2.0.
+
 * Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.1-1
 - 919468 - fixed path in file based Requires
 - %%defattr is not needed since rpm 4.4
