@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.54
+Version: 5.10.55
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -121,6 +121,9 @@ fi
 
 # $Id$
 %changelog
+* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 5.10.55-1
+- updating copyright years
+
 * Wed Jun 26 2013 Dimitar Yordanov <dyordano@redhat.com> 5.10.54-1
 - 918034 - rhncfg-* --server-name now overwrites rhncfg-*.conf
 
