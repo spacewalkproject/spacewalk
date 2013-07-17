@@ -3614,15 +3614,15 @@ public class SystemHandler extends BaseHandler {
      * @param sessionKey User's session key.
      * @param sid ID of the server.
      * @param earliestOccurrence Earliest occurrence of the reboot.
-     * @return 1 if successful, exception thrown otherwise
+     * @return action id, exception thrown otherwise
      *
      * @xmlrpc.doc Schedule a reboot for a system.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #param("dateTime.iso860", "earliestOccurrence")
-     * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
-    public int scheduleReboot(String sessionKey, Integer sid,
+    public Long scheduleReboot(String sessionKey, Integer sid,
             Date earliestOccurrence) {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
@@ -3630,8 +3630,8 @@ public class SystemHandler extends BaseHandler {
 
         Action a = ActionManager.scheduleRebootAction(loggedInUser, server,
                 earliestOccurrence);
-        ActionFactory.save(a);
-        return 1;
+        a = ActionFactory.save(a);
+        return a.getId();
     }
 
     /**
