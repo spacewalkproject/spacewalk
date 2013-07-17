@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.10.69
+Version:        1.10.70
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.70-1
+- alter table rhnServer before enabling logging to prevent possible issues
+
 * Tue Jul 16 2013 Tomas Lestach <tlestach@redhat.com> 1.10.69-1
 - restore search path, that dblink.sql destroys
 
