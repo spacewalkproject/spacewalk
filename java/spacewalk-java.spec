@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.10.137
+Version: 1.10.138
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jul 17 2013 Tomas Lestach <tlestach@redhat.com> 1.10.138-1
+- bump API version
+- 910739 - let systemgroup.scheduleApplyErrataToActive API return action id
+- 910739 - let system.scheduleSyncPackagesWithSystem API return action id
+- 910739 - let system.scheduleReboot API return action id
+- 857635 - API call setChildChannels should produce snapshot
+- 857635 - take snapshot after change og base channel and not before
+
 * Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.137-1
 - updating copyright years
 
