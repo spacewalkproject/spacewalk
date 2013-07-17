@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.0.0
+Version: 2.0.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.1-1
+- Bumping package versions for 2.0.
+
 * Wed Jul 17 2013 Tomas Lestach <tlestach@redhat.com> 1.10.138-1
 - bump API version
 - 910739 - let systemgroup.scheduleApplyErrataToActive API return action id
