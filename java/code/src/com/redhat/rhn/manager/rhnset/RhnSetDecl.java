@@ -393,6 +393,8 @@ public class RhnSetDecl {
 
     public static final RhnSetDecl ISS_LOCAL_ORGS = make(
                     "iss_local_orgs", SetCleanup.NOOP);
+    public static final RhnSetDecl XCCDF_TESTRESULTS = make(
+                    "xccdf_testresults", SetCleanup.INACCESSIBLE_XCCDF_RESULTS);
 
     private SetCleanup cleanup;
     private String label;

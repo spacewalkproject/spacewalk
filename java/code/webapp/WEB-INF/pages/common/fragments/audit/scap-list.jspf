@@ -1,8 +1,11 @@
-<rl:listset name="groupSet" legend="xccdf">
+<rl:listset name="xccdfScans" legend="xccdf">
 	<rhn:csrf />
+	<input type="hidden" name="sid" value="${param.sid}">
 
-	<rl:list emptykey="system.audit.listscap.jsp.noscans">
+	<rl:list emptykey="system.audit.listscap.jsp.noscans" dataset="pageList" name="xccdfScans">
 		<rl:decorator name="ElaborationDecorator"/>
+		<rl:decorator name="SelectableDecorator"/>
+		<rl:selectablecolumn value="${current.xid}" selected="${current.selected}" disabled="${not current.selectable}"/>
 
 		<rl:column headerkey="system.audit.listscap.jsp.testresult">
 			<c:choose>
@@ -69,8 +72,9 @@
 			${current.sum}
 		</rl:column>
 	</rl:list>
-	<rl:csv name="groupSet"
+	<rl:csv name="xccdfScans" dataset="pageList"
 	exportColumns="xid,testResult,completed,pass,fail,error,unknown,notapplicable,notchecked,notselected,informational,fixed,sum"/>
+
 </rl:listset>
 
 <rhn:tooltip><bean:message key="system.audit.listscap.jsp.tooltip"/></rhn:tooltip>

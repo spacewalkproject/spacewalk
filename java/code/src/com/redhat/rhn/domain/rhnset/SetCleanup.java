@@ -80,6 +80,8 @@ public class SetCleanup {
         new SetCleanup("remove_inaccessible_config_files");
     public static final SetCleanup INACCESSIBLE_CONFIG_CHANNELS =
         new SetCleanup("remove_inaccessible_config_channels");
+    public static final SetCleanup INACCESSIBLE_XCCDF_RESULTS =
+        new SetCleanup("remove_inaccessible_xccdf_results");
 
     private String catalogName;
     private String modeName;

@@ -395,4 +395,20 @@ DELETE
   </query>
 </write-mode>
 
+<write-mode name="remove_inaccessible_xccdf_results">
+  <query params="user_id, label">
+    DELETE FROM rhnSet st
+     WHERE st.user_id = :user_id
+       AND st.label = :label
+       AND NOT EXISTS (SELECT 1 FROM rhnUserServerPerms usp,
+                                     rhnServerAction sa,
+                                     rhnActionScap ras,
+                                     rhnXccdfTestresult tr
+                               WHERE usp.user_id = st.user_id
+                                 AND usp.server_id = sa.server_id
+                                 AND sa.action_id = ras.action_id
+                                 AND ras.id = tr.action_scap_id
+                                 AND tr.id = st.element)
+  </query>
+</write-mode>
 </datasource_modes>

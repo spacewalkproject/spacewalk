@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.systems.audit;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,21 +22,24 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.struts.RhnListSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.TagHelper;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
-import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.audit.ScapManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
 /**
  * ListScapAction
  * @version $Rev$
  */
 
-public class ListScapAction extends ScapSetupAction implements Listable {
+public class ListScapAction extends ScapSetupAction {
+    private static final String LIST_NAME = "xccdfScans";
 
     /**
      * {@inheritDoc}
@@ -48,25 +49,38 @@ public class ListScapAction extends ScapSetupAction implements Listable {
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
         Long sid = context.getRequiredParam("sid");
+        Server server = context.lookupAndBindServer();
+        User user = context.getCurrentUser();
         setupScapEnablementInfo(context);
 
-        ListHelper helper = new ListHelper(this, request);
-        helper.execute();
+        DataResult result = ScapManager.allScans(server);
+        RhnListSetHelper helper = new RhnListSetHelper(request);
 
+        RhnSet set = getSetDecl(sid).get(user);
+        if (!context.isSubmitted()) {
+            RhnSetManager.store(set);
+        }
+        if (ListTagHelper.getListAction(LIST_NAME, request) != null) {
+            helper.execute(set, LIST_NAME, result);
+        }
+
+        if (!set.isEmpty()) {
+            helper.syncSelections(set, result);
+            ListTagHelper.setSelectedAmount(LIST_NAME, set.size(), request);
+        }
+
+        ListTagHelper.bindSetDeclTo(LIST_NAME, getSetDecl(sid), request);
+        TagHelper.bindElaboratorTo(LIST_NAME, result.getElaborator(), request);
+
+        request.setAttribute("sid", sid);
         request.setAttribute(ListTagHelper.PARENT_URL,
             request.getRequestURI() + "?sid=" + sid);
+        request.setAttribute(RequestContext.PAGE_LIST, result);
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public List getResult(RequestContext context) {
-        Server server = context.lookupAndBindServer();
-        DataResult results = ScapManager.allScans(server);
-        TagHelper.bindElaboratorTo("groupSet", results.getElaborator(),
-                context.getRequest());
-        return results;
+    protected RhnSetDecl getSetDecl(Long sid) {
+        return RhnSetDecl.XCCDF_TESTRESULTS.createCustom(sid);
     }
 }
