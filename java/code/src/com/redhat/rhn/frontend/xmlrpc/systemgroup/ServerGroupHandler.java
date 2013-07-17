@@ -468,7 +468,7 @@ public class ServerGroupHandler extends BaseHandler {
      * @param sessionKey The user's session key.
      * @param systemGroupName the system group
      * @param errataIds List of errata IDs to apply (as Integers)
-     * @return 1 if successful, exception thrown otherwise
+     * @return list of action ids, exception thrown otherwise
      *
      * @xmlrpc.doc Schedules an action to apply errata updates to active systems
      * from a group.
@@ -476,8 +476,9 @@ public class ServerGroupHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "systemGroupName")
      * @xmlrpc.param  #array_single("int", "errataId")
      * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.returntype #array_single("int", "actionId")
      */
-    public int scheduleApplyErrataToActive(String sessionKey, String systemGroupName,
+    public List<Long> scheduleApplyErrataToActive(String sessionKey, String systemGroupName,
                                                                     List errataIds) {
         return scheduleApplyErrataToActive(sessionKey, systemGroupName, errataIds, null);
     }
@@ -489,7 +490,7 @@ public class ServerGroupHandler extends BaseHandler {
      * @param systemGroupName the system group
      * @param errataIds List of errata IDs to apply (as Integers)
      * @param earliestOccurrence Earliest occurrence of the errata update
-     * @return 1 if successful, exception thrown otherwise
+     * @return list of action ids, exception thrown otherwise
      *
      * @xmlrpc.doc Schedules an action to apply errata updates to active systems
      * from a group at a given date/time.
@@ -497,14 +498,13 @@ public class ServerGroupHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "systemGroupName")
      * @xmlrpc.param #array_single("int", "errataId")
      * @xmlrpc.param dateTime.iso8601 earliestOccurrence
-     * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.returntype #array_single("int", "actionId")
      */
-    public int scheduleApplyErrataToActive(String sessionKey, String systemGroupName,
+    public List<Long> scheduleApplyErrataToActive(String sessionKey, String systemGroupName,
                                 List<Integer> errataIds, Date earliestOccurrence) {
         User loggedInUser = getLoggedInUser(sessionKey);
         List<Long> systemIds = activeSystemsInGroup(loggedInUser, systemGroupName);
-        ErrataManager.applyErrataHelper(loggedInUser, systemIds, errataIds,
+        return ErrataManager.applyErrataHelper(loggedInUser, systemIds, errataIds,
                 earliestOccurrence);
-        return 1;
     }
 }
