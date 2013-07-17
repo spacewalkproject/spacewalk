@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacewalk-remote-utils
-Version:     1.10.2
+Version:     2.0.0
 Release:     1%{?dist}
 Summary:     Utilities to interact with a Red Hat Satellite or Spacewalk server remotely.
 

@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        1.10.2
+Version:        2.0.0
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk

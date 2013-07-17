@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for Red Hat Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.10.7
+Version: 2.0.0
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
