@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-11 15:30-0500\n"
+"POT-Creation-Date: 2013-07-17 10:24+0200\n"
 "PO-Revision-Date: 2012-11-20 10:43+0000\n"
 "Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/"
@@ -29,75 +29,81 @@ msgid "There was an error communicating with RHN."
 msgstr "Er was een fout bij het communiceren met RHN."
 
 #: ../rhnplugin.py:66
-msgid "RHN Satellite or RHN Classic support will be disabled."
+#, fuzzy
+msgid "Red Hat Satellite or RHN Classic support will be disabled."
 msgstr "RHN Satellite of RHN Classic support zal worden uitgeschakeld."
 
-#. If non-root notify user RHN repo not accessible
-#: ../rhnplugin.py:70
+#. If non-root notify user Spacewalk repo not accessible
+#: ../rhnplugin.py:73
+#, fuzzy
 msgid ""
-"*Note* Red Hat Network repositories are not listed below. You must run this "
-"command as root to access RHN repositories."
+"*Note* Spacewalk repositories are not listed below. You must run this "
+"command as root to access Spacewalk repositories."
 msgstr ""
 "*Let op* Red Hat Network repositories worden hieronder niet genoemd. U moet "
 "dit commando als root geven om toegang te krijgen tot RHN repositories."
 
-#: ../rhnplugin.py:85
-msgid "There was an error parsing the RHN proxy settings."
+#: ../rhnplugin.py:88
+#, fuzzy
+msgid "There was an error parsing the Red Hat Proxy settings."
 msgstr "Er was een fout bij het verwerken van de RHN proxy-instellingen."
 
-#: ../rhnplugin.py:97
+#: ../rhnplugin.py:100
 msgid "Either --version, --help or no commands entered"
 msgstr "Of --versie, of --help, of geen commando ingevoerd"
 
-#: ../rhnplugin.py:102
+#: ../rhnplugin.py:105
 msgid "Cleaning"
 msgstr "Opruimen"
 
-#: ../rhnplugin.py:111
+#: ../rhnplugin.py:114
 msgid "Using list of RHN repos from cache"
 msgstr "Lijst van RHN repos van cache wordt gebruikt"
 
-#: ../rhnplugin.py:127
-msgid "This system is not registered with RHN Classic or RHN Satellite."
+#: ../rhnplugin.py:130
+#, fuzzy
+msgid "This system is not registered with RHN Classic or Red Hat Satellite."
 msgstr "Dit systeem is niet bij RHN Classic of RHN Satellite geregistreerd."
 
-#: ../rhnplugin.py:128 ../rhnplugin.py:144
+#: ../rhnplugin.py:131 ../rhnplugin.py:147
 msgid "You can use rhn_register to register."
 msgstr "Je kunt rhn_register gebruiken om te registreren."
 
-#: ../rhnplugin.py:134
+#: ../rhnplugin.py:137
 msgid "RHN channel support will be disabled."
 msgstr "RHN kanaalondersteuning zal worden uitgeschakeld."
 
-#: ../rhnplugin.py:138
+#: ../rhnplugin.py:141
 msgid "This system is not subscribed to any channels."
 msgstr "Dit systeem is op geen enkel kanaal ingeschreven."
 
-#: ../rhnplugin.py:143
+#: ../rhnplugin.py:146
+#, fuzzy
 msgid ""
-"This system may not be registered to RHN Classic or RHN Satellite. SystemId "
-"could not be acquired."
+"This system may not be registered to RHN Classic or Red Hat Satellite. "
+"SystemId could not be acquired."
 msgstr ""
 "Dit systeem is waarschijnlijk niet bij RHN Classic of RHN Satellite "
 "geregistreerd. SystemId kon niet verkregen worden."
 
-#: ../rhnplugin.py:156
-msgid "This system is receiving updates from RHN Classic or RHN Satellite."
+#: ../rhnplugin.py:159
+#, fuzzy
+msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr "Dit systeem ontvangt vernieuwingen van RHN Classic of RHN Satellite."
 
-#: ../rhnplugin.py:281
+#: ../rhnplugin.py:283
 msgid "Package profile information could not be sent."
 msgstr "Informatie over het pakketprofiel kon niet worden verzonden."
 
-#: ../rhnplugin.py:289
+#: ../rhnplugin.py:291
 msgid "Error Message:"
 msgstr "Foutbericht:"
 
-#: ../rhnplugin.py:290
+#: ../rhnplugin.py:292
 msgid "Please run rhn_register as root on this client"
 msgstr "Geef commando rhn_register als root op deze client"
 
-#: ../rhnplugin.py:371
+#: ../rhnplugin.py:373
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "Vereiste aanmeldinformatie voor RHN ontbreekt: %s"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-11 15:30-0500\n"
+"POT-Creation-Date: 2013-07-17 10:24+0200\n"
 "PO-Revision-Date: 2012-12-04 13:33+0000\n"
 "Last-Translator: Zoltan Hoppár <hopparz@gmail.com>\n"
 "Language-Team: Hungarian <trans-hu@lists.fedoraproject.org>\n"
@@ -25,79 +25,85 @@ msgid "There was an error communicating with RHN."
 msgstr "Kommunikációs hiba lépett fel az RHN és gépe közt."
 
 #: ../rhnplugin.py:66
-msgid "RHN Satellite or RHN Classic support will be disabled."
+#, fuzzy
+msgid "Red Hat Satellite or RHN Classic support will be disabled."
 msgstr "RHN Satellite vagy RHN Classic támogatás kikapcsolásra kerül."
 
-#. If non-root notify user RHN repo not accessible
-#: ../rhnplugin.py:70
+#. If non-root notify user Spacewalk repo not accessible
+#: ../rhnplugin.py:73
+#, fuzzy
 msgid ""
-"*Note* Red Hat Network repositories are not listed below. You must run this "
-"command as root to access RHN repositories."
+"*Note* Spacewalk repositories are not listed below. You must run this "
+"command as root to access Spacewalk repositories."
 msgstr ""
 "*Megjegyzés* Red Hat Network tárolói nem szerepelnek az alábbi listában. "
 "Futtatnia kell ezt a parancsot, hogy root hozzáférése legyen az RHN "
 "tárolókhoz."
 
-#: ../rhnplugin.py:85
-msgid "There was an error parsing the RHN proxy settings."
+#: ../rhnplugin.py:88
+#, fuzzy
+msgid "There was an error parsing the Red Hat Proxy settings."
 msgstr "Hiba történt az RHN proxy beállítások értelmezésekor."
 
-#: ../rhnplugin.py:97
+#: ../rhnplugin.py:100
 msgid "Either --version, --help or no commands entered"
 msgstr "Vagy --version, --help vagy semmilyen parancs sem került megadásra"
 
-#: ../rhnplugin.py:102
+#: ../rhnplugin.py:105
 msgid "Cleaning"
 msgstr "Tisztítás"
 
-#: ../rhnplugin.py:111
+#: ../rhnplugin.py:114
 msgid "Using list of RHN repos from cache"
 msgstr "Listázott RHN tárolók használata a gyorstárból"
 
-#: ../rhnplugin.py:127
-msgid "This system is not registered with RHN Classic or RHN Satellite."
+#: ../rhnplugin.py:130
+#, fuzzy
+msgid "This system is not registered with RHN Classic or Red Hat Satellite."
 msgstr ""
 "Ez a rendszer nincs regisztrálva az RHN Classic-al, vagy az RHN Satellite-al."
 
-#: ../rhnplugin.py:128 ../rhnplugin.py:144
+#: ../rhnplugin.py:131 ../rhnplugin.py:147
 msgid "You can use rhn_register to register."
 msgstr "Használja az rhn_register parancsot a regisztráláshoz."
 
-#: ../rhnplugin.py:134
+#: ../rhnplugin.py:137
 msgid "RHN channel support will be disabled."
 msgstr "RHN csatorna támogatása kikapcsolásra kerül."
 
-#: ../rhnplugin.py:138
+#: ../rhnplugin.py:141
 msgid "This system is not subscribed to any channels."
 msgstr "Ez a rendszer nincs felíratkozva semmilyen csatornára sem."
 
-#: ../rhnplugin.py:143
+#: ../rhnplugin.py:146
+#, fuzzy
 msgid ""
-"This system may not be registered to RHN Classic or RHN Satellite. SystemId "
-"could not be acquired."
+"This system may not be registered to RHN Classic or Red Hat Satellite. "
+"SystemId could not be acquired."
 msgstr ""
 "Ez a rendszer nem regisztrálható az RHN Classic-al, vagy az RHN Satellite-"
 "al. SystemID nem elérhető."
 
-#: ../rhnplugin.py:156
-msgid "This system is receiving updates from RHN Classic or RHN Satellite."
+#: ../rhnplugin.py:159
+#, fuzzy
+msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr ""
 "Ez a rendszer frissítéseket kap az RHN Classic vagy az RHN Satellite "
 "szolgáltatástól."
 
-#: ../rhnplugin.py:281
+#: ../rhnplugin.py:283
 msgid "Package profile information could not be sent."
 msgstr "Csomag profil információja nem küldhető el."
 
-#: ../rhnplugin.py:289
+#: ../rhnplugin.py:291
 msgid "Error Message:"
 msgstr "Hibaüzenet:"
 
-#: ../rhnplugin.py:290
+#: ../rhnplugin.py:292
 msgid "Please run rhn_register as root on this client"
 msgstr "Kérem futtassa az rhn_register parancsot root-ként ezen a kliensen"
 
-#: ../rhnplugin.py:371
+#: ../rhnplugin.py:373
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "Hiányzó szükséges login információ az RHN eléréséhez: %s"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-11 15:30-0500\n"
+"POT-Creation-Date: 2013-07-17 10:24+0200\n"
 "PO-Revision-Date: 2012-10-30 10:38+0000\n"
 "Last-Translator: adelton <jpx-tx@adelton.com>\n"
 "Language-Team: Gujarati <trans-gu@lists.fedoraproject.org>\n"
@@ -25,73 +25,76 @@ msgid "There was an error communicating with RHN."
 msgstr "RHN સાથે સંપર્કવ્યવહાર કરવામાં ભૂલ હતી."
 
 #: ../rhnplugin.py:66
-msgid "RHN Satellite or RHN Classic support will be disabled."
-msgstr ""
+#, fuzzy
+msgid "Red Hat Satellite or RHN Classic support will be disabled."
+msgstr "RHN ચેનલ આધાર નિષ્ક્રિય કરવામાં આવશે."
 
-#. If non-root notify user RHN repo not accessible
-#: ../rhnplugin.py:70
+#. If non-root notify user Spacewalk repo not accessible
+#: ../rhnplugin.py:73
+#, fuzzy
 msgid ""
-"*Note* Red Hat Network repositories are not listed below. You must run this "
-"command as root to access RHN repositories."
+"*Note* Spacewalk repositories are not listed below. You must run this "
+"command as root to access Spacewalk repositories."
 msgstr ""
 "*નોંધ* Red Hat Network રિપોઝીટરીઓ નીચે યાદી થયેલ નથી. તમારે RHN રિપોઝીટરીઓને "
 "વાપરવા માટે રુટ તરીકે આ આદેશને ચલાવવો જ પડશે."
 
-#: ../rhnplugin.py:85
-msgid "There was an error parsing the RHN proxy settings."
+#: ../rhnplugin.py:88
+#, fuzzy
+msgid "There was an error parsing the Red Hat Proxy settings."
 msgstr "RHN પ્રોક્સી સુયોજનોનું પદચ્છેદન કરવામાં ભૂલ હતી."
 
-#: ../rhnplugin.py:97
+#: ../rhnplugin.py:100
 msgid "Either --version, --help or no commands entered"
 msgstr ""
 
-#: ../rhnplugin.py:102
+#: ../rhnplugin.py:105
 msgid "Cleaning"
 msgstr ""
 
-#: ../rhnplugin.py:111
+#: ../rhnplugin.py:114
 msgid "Using list of RHN repos from cache"
 msgstr ""
 
-#: ../rhnplugin.py:127
-msgid "This system is not registered with RHN Classic or RHN Satellite."
+#: ../rhnplugin.py:130
+msgid "This system is not registered with RHN Classic or Red Hat Satellite."
 msgstr ""
 
-#: ../rhnplugin.py:128 ../rhnplugin.py:144
+#: ../rhnplugin.py:131 ../rhnplugin.py:147
 msgid "You can use rhn_register to register."
 msgstr ""
 
-#: ../rhnplugin.py:134
+#: ../rhnplugin.py:137
 msgid "RHN channel support will be disabled."
 msgstr "RHN ચેનલ આધાર નિષ્ક્રિય કરવામાં આવશે."
 
-#: ../rhnplugin.py:138
+#: ../rhnplugin.py:141
 msgid "This system is not subscribed to any channels."
 msgstr "આ સિસ્ટમની કોઈ ચેનલોમાં ઉમેદવારી નોંધાયેલ નથી."
 
-#: ../rhnplugin.py:143
+#: ../rhnplugin.py:146
 msgid ""
-"This system may not be registered to RHN Classic or RHN Satellite. SystemId "
-"could not be acquired."
+"This system may not be registered to RHN Classic or Red Hat Satellite. "
+"SystemId could not be acquired."
 msgstr ""
 
-#: ../rhnplugin.py:156
-msgid "This system is receiving updates from RHN Classic or RHN Satellite."
+#: ../rhnplugin.py:159
+msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr ""
 
-#: ../rhnplugin.py:281
+#: ../rhnplugin.py:283
 msgid "Package profile information could not be sent."
 msgstr "પેકેજ રૂપરેખા જાણકારી મોકલી શક્યા નહિં."
 
-#: ../rhnplugin.py:289
+#: ../rhnplugin.py:291
 msgid "Error Message:"
 msgstr "ભૂલ સંદેશો:"
 
-#: ../rhnplugin.py:290
+#: ../rhnplugin.py:292
 msgid "Please run rhn_register as root on this client"
 msgstr "મહેરબાની કરીને આ ક્લાયન્ટ પર રુટ તરીકે rhn_register ને ચલાવો"
 
-#: ../rhnplugin.py:371
+#: ../rhnplugin.py:373
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "RHN માટેની ગુમ થયેલ પ્રવેશ જાણકારી: %s"

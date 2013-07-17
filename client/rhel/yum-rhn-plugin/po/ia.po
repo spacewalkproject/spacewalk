@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-11 15:30-0500\n"
+"POT-Creation-Date: 2013-07-17 10:24+0200\n"
 "PO-Revision-Date: 2012-11-22 13:57+0000\n"
 "Last-Translator: Nik Kalach <nik.kalach@inbox.ru>\n"
 "Language-Team: Interlingua <trans-ia@lists.fedoraproject.org>\n"
@@ -23,77 +23,83 @@ msgid "There was an error communicating with RHN."
 msgstr "Il habeva un error de communication con RHN."
 
 #: ../rhnplugin.py:66
-msgid "RHN Satellite or RHN Classic support will be disabled."
+#, fuzzy
+msgid "Red Hat Satellite or RHN Classic support will be disabled."
 msgstr "Le supporto de RHN Satellite o RHN Classic essera disactivate."
 
-#. If non-root notify user RHN repo not accessible
-#: ../rhnplugin.py:70
+#. If non-root notify user Spacewalk repo not accessible
+#: ../rhnplugin.py:73
+#, fuzzy
 msgid ""
-"*Note* Red Hat Network repositories are not listed below. You must run this "
-"command as root to access RHN repositories."
+"*Note* Spacewalk repositories are not listed below. You must run this "
+"command as root to access Spacewalk repositories."
 msgstr ""
 "* Nota * Repositorios de Red Hat Network non es listate in basso. Tu debe "
 "exequer iste commando como 'root' pro acceder al repositorios RHN."
 
-#: ../rhnplugin.py:85
-msgid "There was an error parsing the RHN proxy settings."
+#: ../rhnplugin.py:88
+#, fuzzy
+msgid "There was an error parsing the Red Hat Proxy settings."
 msgstr "Il habeva un error de analysar le parametros de proxy RHN."
 
-#: ../rhnplugin.py:97
+#: ../rhnplugin.py:100
 msgid "Either --version, --help or no commands entered"
 msgstr "O --version, --help, o nulle commandos introducite"
 
-#: ../rhnplugin.py:102
+#: ../rhnplugin.py:105
 msgid "Cleaning"
 msgstr "Nettamento"
 
-#: ../rhnplugin.py:111
+#: ../rhnplugin.py:114
 msgid "Using list of RHN repos from cache"
 msgstr "Usage del lista de repositorios RHN desde cache"
 
-#: ../rhnplugin.py:127
-msgid "This system is not registered with RHN Classic or RHN Satellite."
+#: ../rhnplugin.py:130
+#, fuzzy
+msgid "This system is not registered with RHN Classic or Red Hat Satellite."
 msgstr "Iste systema non es registrate in RHN Classic o RHN Satellite."
 
-#: ../rhnplugin.py:128 ../rhnplugin.py:144
+#: ../rhnplugin.py:131 ../rhnplugin.py:147
 msgid "You can use rhn_register to register."
 msgstr "Il pote usar rhn_register pro registrar le systema."
 
-#: ../rhnplugin.py:134
+#: ../rhnplugin.py:137
 msgid "RHN channel support will be disabled."
 msgstr "Le supporto del canal RHN essera disactivate."
 
-#: ../rhnplugin.py:138
+#: ../rhnplugin.py:141
 msgid "This system is not subscribed to any channels."
 msgstr "Iste systema non es subscribite a necun canales."
 
-#: ../rhnplugin.py:143
+#: ../rhnplugin.py:146
+#, fuzzy
 msgid ""
-"This system may not be registered to RHN Classic or RHN Satellite. SystemId "
-"could not be acquired."
+"This system may not be registered to RHN Classic or Red Hat Satellite. "
+"SystemId could not be acquired."
 msgstr ""
 "Iste systema non pote registrar se in RHN Classic o RHN Satellite. SystemID "
 "non poteva ser acquirite."
 
-#: ../rhnplugin.py:156
-msgid "This system is receiving updates from RHN Classic or RHN Satellite."
+#: ../rhnplugin.py:159
+#, fuzzy
+msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr ""
 "Iste systema es configurate a obtener le actualisationes del RHN Classic o "
 "RHN Satellite."
 
-#: ../rhnplugin.py:281
+#: ../rhnplugin.py:283
 msgid "Package profile information could not be sent."
 msgstr "Information re le profilo de pacchettos non poteva ser inviate."
 
-#: ../rhnplugin.py:289
+#: ../rhnplugin.py:291
 msgid "Error Message:"
 msgstr "Message de error:"
 
-#: ../rhnplugin.py:290
+#: ../rhnplugin.py:292
 msgid "Please run rhn_register as root on this client"
 msgstr "Exeque rhn_register como 'root' sur iste cliente"
 
-#: ../rhnplugin.py:371
+#: ../rhnplugin.py:373
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "Le information requirite a aperir un session con RHN se manca: %s"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-11 15:30-0500\n"
+"POT-Creation-Date: 2013-07-17 10:24+0200\n"
 "PO-Revision-Date: 2013-01-02 10:31+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -25,78 +25,84 @@ msgid "There was an error communicating with RHN."
 msgstr "Під час спроби обміну даними з RHN сталася помилка."
 
 #: ../rhnplugin.py:66
-msgid "RHN Satellite or RHN Classic support will be disabled."
+#, fuzzy
+msgid "Red Hat Satellite or RHN Classic support will be disabled."
 msgstr "Підтримку RHN Satellite або RHN Classic буде вимкнено."
 
-#. If non-root notify user RHN repo not accessible
-#: ../rhnplugin.py:70
+#. If non-root notify user Spacewalk repo not accessible
+#: ../rhnplugin.py:73
+#, fuzzy
 msgid ""
-"*Note* Red Hat Network repositories are not listed below. You must run this "
-"command as root to access RHN repositories."
+"*Note* Spacewalk repositories are not listed below. You must run this "
+"command as root to access Spacewalk repositories."
 msgstr ""
 "*Зауваження* Нижче не показано списку сховищ Red Hat Network. Щоб отримати "
 "доступ до сховища RHN, вам слід віддати цю команду від імені адміністратора "
 "(root)."
 
-#: ../rhnplugin.py:85
-msgid "There was an error parsing the RHN proxy settings."
+#: ../rhnplugin.py:88
+#, fuzzy
+msgid "There was an error parsing the Red Hat Proxy settings."
 msgstr "Під час спроби обробки параметрів проксі-сервера RHN сталася помилка."
 
-#: ../rhnplugin.py:97
+#: ../rhnplugin.py:100
 msgid "Either --version, --help or no commands entered"
 msgstr "--version, --help або не вказано жодної команди"
 
-#: ../rhnplugin.py:102
+#: ../rhnplugin.py:105
 msgid "Cleaning"
 msgstr "Спорожнення"
 
-#: ../rhnplugin.py:111
+#: ../rhnplugin.py:114
 msgid "Using list of RHN repos from cache"
 msgstr "Використовуємо список сховищ RHN з кешу"
 
-#: ../rhnplugin.py:127
-msgid "This system is not registered with RHN Classic or RHN Satellite."
+#: ../rhnplugin.py:130
+#, fuzzy
+msgid "This system is not registered with RHN Classic or Red Hat Satellite."
 msgstr "Цю систему не зареєстровано у програмах RHN Classic або RHN Satellite."
 
-#: ../rhnplugin.py:128 ../rhnplugin.py:144
+#: ../rhnplugin.py:131 ../rhnplugin.py:147
 msgid "You can use rhn_register to register."
 msgstr "Для реєстрації ви можете скористатися rhn_register."
 
-#: ../rhnplugin.py:134
+#: ../rhnplugin.py:137
 msgid "RHN channel support will be disabled."
 msgstr "Підтримку каналу RHN буде вимкнено."
 
-#: ../rhnplugin.py:138
+#: ../rhnplugin.py:141
 msgid "This system is not subscribed to any channels."
 msgstr "Цю систему не підписано на жоден канал."
 
-#: ../rhnplugin.py:143
+#: ../rhnplugin.py:146
+#, fuzzy
 msgid ""
-"This system may not be registered to RHN Classic or RHN Satellite. SystemId "
-"could not be acquired."
+"This system may not be registered to RHN Classic or Red Hat Satellite. "
+"SystemId could not be acquired."
 msgstr ""
 "Ймовірно, цю систему не зареєстровано у RHN Classic або RHN Satellite. Не "
 "вдалося визначити ідентифікатор системи."
 
-#: ../rhnplugin.py:156
-msgid "This system is receiving updates from RHN Classic or RHN Satellite."
+#: ../rhnplugin.py:159
+#, fuzzy
+msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr "Ця система оновлюється за програмою RHN Classic або RHN Satellite."
 
-#: ../rhnplugin.py:281
+#: ../rhnplugin.py:283
 msgid "Package profile information could not be sent."
 msgstr "Не вдалося надіслати дані щодо профілю пакунків."
 
-#: ../rhnplugin.py:289
+#: ../rhnplugin.py:291
 msgid "Error Message:"
 msgstr "Повідомлення про помилку:"
 
-#: ../rhnplugin.py:290
+#: ../rhnplugin.py:292
 msgid "Please run rhn_register as root on this client"
 msgstr ""
 "Будь ласка, запустіть для цієї клієнтської системи rhn_register від імені "
 "адміністратора (root)"
 
-#: ../rhnplugin.py:371
+#: ../rhnplugin.py:373
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "Не вказано потрібних даних для входу до системи RHN: %s"

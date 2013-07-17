@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-11 15:30-0500\n"
+"POT-Creation-Date: 2013-07-17 10:24+0200\n"
 "PO-Revision-Date: 2013-01-10 22:59+0000\n"
 "Last-Translator: Jérôme Fenal <jfenal@gmail.com>\n"
 "Language-Team: French <trans-fr@lists.fedoraproject.org>\n"
@@ -33,81 +33,87 @@ msgid "There was an error communicating with RHN."
 msgstr "Il y a eu une erreur de communication avec RHN."
 
 #: ../rhnplugin.py:66
-msgid "RHN Satellite or RHN Classic support will be disabled."
+#, fuzzy
+msgid "Red Hat Satellite or RHN Classic support will be disabled."
 msgstr "Le support de RHN Satellite et de RHN Classic sera désactivé."
 
-#. If non-root notify user RHN repo not accessible
-#: ../rhnplugin.py:70
+#. If non-root notify user Spacewalk repo not accessible
+#: ../rhnplugin.py:73
+#, fuzzy
 msgid ""
-"*Note* Red Hat Network repositories are not listed below. You must run this "
-"command as root to access RHN repositories."
+"*Note* Spacewalk repositories are not listed below. You must run this "
+"command as root to access Spacewalk repositories."
 msgstr ""
 "*Remarque* Les référentiels de Red Hat Network ne sont pas répertoriés ci-"
 "dessous. Vous devez saisir cette commande en tant que super-utilisateur "
 "(root) pour accéder aux référentiels RHN."
 
-#: ../rhnplugin.py:85
-msgid "There was an error parsing the RHN proxy settings."
+#: ../rhnplugin.py:88
+#, fuzzy
+msgid "There was an error parsing the Red Hat Proxy settings."
 msgstr "Il y a eu une erreur lors de l'analyse des paramètres du proxy RHN."
 
-#: ../rhnplugin.py:97
+#: ../rhnplugin.py:100
 msgid "Either --version, --help or no commands entered"
 msgstr ""
 "Soit --version, --help ont été spécifiés, voire aucune commande précisée."
 
-#: ../rhnplugin.py:102
+#: ../rhnplugin.py:105
 msgid "Cleaning"
 msgstr "Nettoyage"
 
-#: ../rhnplugin.py:111
+#: ../rhnplugin.py:114
 msgid "Using list of RHN repos from cache"
 msgstr "Utilisation de la listes des dépôts RHN du cache"
 
-#: ../rhnplugin.py:127
-msgid "This system is not registered with RHN Classic or RHN Satellite."
+#: ../rhnplugin.py:130
+#, fuzzy
+msgid "This system is not registered with RHN Classic or Red Hat Satellite."
 msgstr ""
 "Ce système n'est pas enregistré auprès de RHN Classic ou d'un Satellite RHN."
 
-#: ../rhnplugin.py:128 ../rhnplugin.py:144
+#: ../rhnplugin.py:131 ../rhnplugin.py:147
 msgid "You can use rhn_register to register."
 msgstr "Vous pouvez utiliser rhn_registrer pour l'enregistrer."
 
-#: ../rhnplugin.py:134
+#: ../rhnplugin.py:137
 msgid "RHN channel support will be disabled."
 msgstr "Le support des canaux RHN sera désactivé."
 
-#: ../rhnplugin.py:138
+#: ../rhnplugin.py:141
 msgid "This system is not subscribed to any channels."
 msgstr "Ce système n'est abonné à aucun canal."
 
-#: ../rhnplugin.py:143
+#: ../rhnplugin.py:146
+#, fuzzy
 msgid ""
-"This system may not be registered to RHN Classic or RHN Satellite. SystemId "
-"could not be acquired."
+"This system may not be registered to RHN Classic or Red Hat Satellite. "
+"SystemId could not be acquired."
 msgstr ""
 "Ce système a pu ne pas être enregistré auprès de RHN Classic ou du Satellite "
 "RHN. L'identifiant du système n'a pu être récupéré."
 
-#: ../rhnplugin.py:156
-msgid "This system is receiving updates from RHN Classic or RHN Satellite."
+#: ../rhnplugin.py:159
+#, fuzzy
+msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr ""
 "Ce système reçoit des mises à jour depuis RHN Classic ou par un Satellite "
 "RHN."
 
-#: ../rhnplugin.py:281
+#: ../rhnplugin.py:283
 msgid "Package profile information could not be sent."
 msgstr ""
 "Les informations sur le profil de paquetage n'ont pas pu être envoyées."
 
-#: ../rhnplugin.py:289
+#: ../rhnplugin.py:291
 msgid "Error Message:"
 msgstr "Message d'erreur :"
 
-#: ../rhnplugin.py:290
+#: ../rhnplugin.py:292
 msgid "Please run rhn_register as root on this client"
 msgstr "Veuillez exécuter rhn_register en tant que root sur ce client"
 
-#: ../rhnplugin.py:371
+#: ../rhnplugin.py:373
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "Absence d'informations de connexion requises par RHN : %s"
