@@ -400,6 +400,9 @@ public class SystemHandler extends BaseHandler {
                 server, channelIds);
         cmd.store();
 
+        SystemManager.snapshotServer(server, LocalizationService
+                .getInstance().getMessage("snapshots.childchannel"));
+
         return 1;
     }
 
