@@ -11,7 +11,7 @@ Name: smartpm
 Source0: smartpm-%{version}.tar.gz
 Epoch:   1 
 Version: 5.5.0
-Release: 3
+Release: 4
 License: GPLv2
 Group: Applications/System
 URL: http://www.smartpm.org/
@@ -56,6 +56,9 @@ env %{__python} setup.py build
 %{python_sitearch}/rhn/actions/solarispkgs.py*
 
 %changelog
+* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 5.5.0-4
+- updating copyright years
+
 * Mon Jun 17 2013 Michael Mraka <michael.mraka@redhat.com> 5.5.0-3
 - removed old CVS/SVN version ids
 
