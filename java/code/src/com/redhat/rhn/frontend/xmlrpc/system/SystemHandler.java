@@ -2910,6 +2910,7 @@ public class SystemHandler extends BaseHandler {
      * @param serverIds List of server IDs to apply the errata to (as Integers)
      * @param errataIds List of errata IDs to apply (as Integers)
      * @return list of action ids, exception thrown otherwise
+     * @since 13.0
      *
      * @xmlrpc.doc Schedules an action to apply errata updates to multiple systems.
      * @xmlrpc.param #param("string", "sessionKey")
@@ -2929,6 +2930,7 @@ public class SystemHandler extends BaseHandler {
      * @param errataIds List of errata IDs to apply (as Integers)
      * @param earliestOccurrence Earliest occurrence of the errata update
      * @return list of action ids, exception thrown otherwise
+     * @since 13.0
      *
      * @xmlrpc.doc Schedules an action to apply errata updates to multiple systems at a
      * given date/time.
@@ -2979,7 +2981,7 @@ public class SystemHandler extends BaseHandler {
      * @param sid ID of the server
      * @param errataIds List of errata IDs to apply (as Integers)
      * @return list of action ids, exception thrown otherwise
-     * @since 10.6
+     * @since 13.0
      *
      * @xmlrpc.doc Schedules an action to apply errata updates to a system.
      * @xmlrpc.param #param("string", "sessionKey")
@@ -3002,6 +3004,7 @@ public class SystemHandler extends BaseHandler {
      * @param errataIds List of errata IDs to apply (as Integers)
      * @param earliestOccurrence Earliest occurrence of the errata update
      * @return list of action ids, exception thrown otherwise
+     * @since 13.0
      *
      * @xmlrpc.doc Schedules an action to apply errata updates to a system at a
      * given date/time.
@@ -3171,6 +3174,7 @@ public class SystemHandler extends BaseHandler {
      * @param packageIds List of package IDs to install (as Integers)
      * @param earliestOccurrence Earliest occurrence of the package install
      * @return package action id
+     * @since 13.0
      *
      * @xmlrpc.doc Schedule package installation for a system.
      * @xmlrpc.param #param("string", "sessionKey")
@@ -3367,6 +3371,7 @@ public class SystemHandler extends BaseHandler {
      * @param sid ID of the server.
      * @param earliestOccurrence Earliest occurrence of the hardware refresh.
      * @return action id, exception thrown otherwise
+     * @since 13.0
      *
      * @xmlrpc.doc Schedule a hardware refresh for a system.
      * @xmlrpc.param #param("string", "sessionKey")
@@ -3616,6 +3621,7 @@ public class SystemHandler extends BaseHandler {
      * @param sid ID of the server.
      * @param earliestOccurrence Earliest occurrence of the reboot.
      * @return action id, exception thrown otherwise
+     * @since 13.0
      *
      * @xmlrpc.doc Schedule a reboot for a system.
      * @xmlrpc.param #param("string", "sessionKey")
@@ -4158,6 +4164,7 @@ public class SystemHandler extends BaseHandler {
      * @param packageIds List of package IDs to be synced.
      * @param earliest Earliest occurrence of action.
      * @return action id, exception thrown otherwise
+     * @since 13.0
      *
      * @xmlrpc.doc Sync packages from a source system to a target.
      * @xmlrpc.param #param("string", "sessionKey")

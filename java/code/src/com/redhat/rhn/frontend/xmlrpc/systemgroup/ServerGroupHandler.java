@@ -469,6 +469,7 @@ public class ServerGroupHandler extends BaseHandler {
      * @param systemGroupName the system group
      * @param errataIds List of errata IDs to apply (as Integers)
      * @return list of action ids, exception thrown otherwise
+     * @since 13.0
      *
      * @xmlrpc.doc Schedules an action to apply errata updates to active systems
      * from a group.
@@ -491,6 +492,7 @@ public class ServerGroupHandler extends BaseHandler {
      * @param errataIds List of errata IDs to apply (as Integers)
      * @param earliestOccurrence Earliest occurrence of the errata update
      * @return list of action ids, exception thrown otherwise
+     * @since 13.0
      *
      * @xmlrpc.doc Schedules an action to apply errata updates to active systems
      * from a group at a given date/time.
