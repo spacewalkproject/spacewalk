@@ -94,6 +94,7 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidChannelListException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidParameterException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidProfileLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidSystemException;
 import com.redhat.rhn.frontend.xmlrpc.MethodInvalidParamException;
@@ -4156,7 +4157,7 @@ public class SystemHandler extends BaseHandler {
      * @param sourceServerId Source system to retrieve package state from.
      * @param packageIds List of package IDs to be synced.
      * @param earliest Earliest occurrence of action.
-     * @return 1 on success, exception thrown otherwise.
+     * @return action id, exception thrown otherwise
      *
      * @xmlrpc.doc Sync packages from a source system to a target.
      * @xmlrpc.param #param("string", "sessionKey")
@@ -4166,9 +4167,9 @@ public class SystemHandler extends BaseHandler {
      *                  package state from.")
      * @xmlrpc.param  #array_single("int", "packageId - Package IDs to be synced.")
      * @xmlrpc.param #param_desc("dateTime.iso8601", "date", "Date to schedule action for")
-     * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
-    public int scheduleSyncPackagesWithSystem(String sessionKey, Integer targetServerId,
+    public Long scheduleSyncPackagesWithSystem(String sessionKey, Integer targetServerId,
             Integer sourceServerId,
             List<Integer> packageIds, Date earliest) {
 
@@ -4210,15 +4211,20 @@ public class SystemHandler extends BaseHandler {
             }
         }
 
+        Action action = null;
         try {
-            ProfileManager.syncToSystem(loggedInUser, new Long(targetServerId.longValue()),
-                    new Long(sourceServerId.longValue()), pkgIdCombos, null,
+           action = ProfileManager.syncToSystem(loggedInUser,
+                   new Long(targetServerId.longValue()),
+                   new Long(sourceServerId.longValue()), pkgIdCombos, null,
                     earliest);
         }
         catch (MissingEntitlementException e) {
             throw new com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException();
         }
-        return 1;
+        if (action == null) {
+            throw new InvalidParameterException("No packages to sync");
+        }
+        return action.getId();
     }
 
     /**
