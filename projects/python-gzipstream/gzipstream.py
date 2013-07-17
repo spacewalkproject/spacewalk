@@ -22,7 +22,7 @@ XXX: Eventually, I wish to merge this with the gzip.GzipFile somehow and
      submit to the python folks.
 
 Author: Todd Warner <taw@redhat.com>
-Copyright (c) 2002-2010, Red Hat, Inc.
+Copyright (c) 2002--2013 Red Hat, Inc.
 Released under Python license and GPLv2 license
 """
 

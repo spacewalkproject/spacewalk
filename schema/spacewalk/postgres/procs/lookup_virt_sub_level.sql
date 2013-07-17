@@ -1,7 +1,7 @@
--- oracle equivalent source sha1 82d29f86ed141d1349d4197f9b632647504469be
+-- oracle equivalent source sha1 04a67d2813394f199101fb14920090fdac54a024
 -- retrieved from ./1239053651/49a123cbe214299834e6ce97b10046d8d9c7642a/schema/spacewalk/oracle/procs/lookup_virt_sub_level.sql
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2013 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or

@@ -2,7 +2,7 @@
 #
 #
 # Client code for Update Agent
-# Copyright (c) 1999-2002 Red Hat, Inc.  Distributed under GPL.
+# Copyright (c) 1999--2013 Red Hat, Inc.  Distributed under GPL.
 #
 # Author: Matt Wilson <msw@redhat.com>
 #         Erik Troan <ewt@redhat.com

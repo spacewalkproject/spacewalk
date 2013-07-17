@@ -1,7 +1,7 @@
 #!/opt/redhat/rhn/solaris/bin/python
 #
 # Copyright (c) 2004 Conectiva, Inc.
-# Copyright (c) 2005 Red Hat, Inc.
+# Copyright (c) 2005--2013 Red Hat, Inc.
 #
 # From code written by Gustavo Niemeyer <niemeyer@conectiva.com>
 # Modified by Joel Martin <jmartin@redhat.com>
