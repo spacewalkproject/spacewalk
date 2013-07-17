@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-jabberd
-Version:        2.0.0
+Version:        2.0.1
 Release:        1%{?dist}
 Summary:        Tools to setup jabberd for Spacewalk
 Group:          Applications/System
@@ -57,6 +57,11 @@ rm -rf %{buildroot}
 %{_sysconfdir}/pki/spacewalk
 
 %changelog
+* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.1-1
+- Bumping package versions for 2.0.
+- Bumping package versions for 1.9
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+
 * Fri Jan 04 2013 Jan Pazdziora 1.9.1-1
 - 858689 - simplify the code
 - 858689 - correct check for /proc/net/if_inet6 size
