@@ -4,7 +4,7 @@ Summary: Python libraries for the Spacewalk project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.64
+Version: 2.5.65
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.5.65-1
+- updating copyright years
+
 * Wed Jun 19 2013 Stephen Herr <sherr@redhat.com> 2.5.64-1
 - 947639 - rhnlib timeout fixes
 
