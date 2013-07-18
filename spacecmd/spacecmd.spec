@@ -16,6 +16,10 @@ BuildRoot:   %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:   noarch
 
 BuildRequires: python-devel
+%if 0%{?rhel} == 5
+Requires:    python-simplejson
+%endif
+Requires:    python
 
 %description
 spacecmd is a command-line interface to Spacewalk and Satellite servers
