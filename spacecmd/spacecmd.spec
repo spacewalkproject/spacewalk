@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.0.1
+Version:     2.0.2
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -64,6 +64,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Jul 18 2013 Miroslav Suchý <msuchy@redhat.com> 2.0.2-1
+- 985530 - require python and python-simplejson
+
 * Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.1-1
 - Bumping package versions for 2.0.
 
