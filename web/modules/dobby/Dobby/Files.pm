@@ -21,6 +21,18 @@ use File::Basename qw/basename dirname/;
 use File::Spec;
 use File::Path;
 
+# returns md5 checksum of file given by filename
+sub md5_checksum {
+  my $filename = shift;
+
+  open my $file, '<', $filename or die "open $filename: $!\n";
+  my $ctx = new Digest::MD5;
+  $ctx->addfile($file);
+  close $file;
+
+  return $ctx->hexdigest;
+}
+
 # given source and dst, gzip a file into dst, returning the checksum
 # of the original file
 sub gzip_copy {
@@ -31,18 +43,16 @@ sub gzip_copy {
   local * IN;
   open IN, '<', $src or die "open $src: $!\n";
   my $gz = gzopen("$dst", "wb") or die "gzopen: $!\n";
-  my $ctx = new Digest::MD5;
 
   local $/ = \4096;
   while (<IN>) {
-    $ctx->add($_);
     $gz->gzwrite($_) or die "gzwrite: $!\n";
   }
 
   $gz->gzclose;
   close IN;
 
-  return $ctx->hexdigest;
+  return md5_checksum($dst);
 }
 
 # gunzip's a file from src to dst.  if dst is undef, then it the
@@ -72,7 +82,6 @@ sub gunzip_copy {
   }
 
   my $gz = gzopen("$src", "rb") or die "gzopen $src: $!\n";
-  my $ctx = new Digest::MD5;
 
   local $/ = \4096;
   while (1) {
@@ -82,7 +91,6 @@ sub gunzip_copy {
     last if $count == 0;
     die "read error: $!\n" if $count < 0;
 
-    $ctx->add($block);
     if ($write) {
       print OUT $block
 	or die "write to $dst: $!\n";
@@ -99,7 +107,7 @@ sub gunzip_copy {
     chmod 0640, $dst;
   }
 
-  return $ctx->hexdigest;
+  return md5_checksum($src);
 }
 
 sub backup_file {
