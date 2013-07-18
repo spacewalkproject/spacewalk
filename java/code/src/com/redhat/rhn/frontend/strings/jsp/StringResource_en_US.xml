@@ -18749,7 +18749,7 @@ given channel.</source>
         <source>No Custom Info Keys Found</source>
       </trans-unit>
       <trans-unit id="system.jsp.customkey.message">
-        <source>Custom system info keys allow your adminstrators to store relevant custom key/value pairs with your system profiles. Custom system info is fully {0}searchable{1}.</source>
+        <source>Custom system info keys allow your adminstrators to store relevant custom key/value pairs with your system profiles. Custom system info values are fully {0}searchable{1}.</source>
       </trans-unit>
       <trans-unit id="system.jsp.customkey.message2">
         <source>The following custom system info keys have been defined for your organization.</source>
