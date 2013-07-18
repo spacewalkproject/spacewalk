@@ -82,7 +82,9 @@
               sortattr="name"
               filterattr="name"
               defaultsort="asc">
-            <a href="/rhn/systems/details/Overview.do?sid=${current.id}">${current.name}</a>
+            <a href="/rhn/systems/details/Overview.do?sid=${current.id}">
+                <c:out value="${current.name}" escapeXml="true" />
+            </a>
           </rl:column>
 
           <!-- Values Column -->
