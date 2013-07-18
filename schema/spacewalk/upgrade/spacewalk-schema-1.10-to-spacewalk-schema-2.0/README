@@ -1,0 +1,2 @@
+-- Schema upgrade scripts.
+-- leave this directory empty, all upgrades from 1.9 to 2.0 are covered by 1.9 to 1.10 upgrade
