@@ -47,7 +47,8 @@ public class LocalizationServiceTest extends RhnBaseTestCase {
     /**
      * sets up the test
      */
-    public void setUp() {
+    public void setUp() throws Exception {
+        super.setUp();
         ls = LocalizationService.getInstance();
         TestUtils.disableLocalizationLogging();
     }

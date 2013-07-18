@@ -29,6 +29,7 @@ import servletunit.struts.MockStrutsTestCase;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.common.LoggingFactory;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.session.WebSession;
@@ -54,6 +55,7 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
      */
     public void setUp() throws Exception {
         super.setUp();
+        LoggingFactory.clearLogId();
 
         RequestContext requestContext = new RequestContext(request);
         Context ctx = Context.getCurrentContext();

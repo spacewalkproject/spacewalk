@@ -21,7 +21,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
-public abstract class BaseIssActionTest extends RhnMockStrutsTestCase {
+public abstract class BaseIssTestAction extends RhnMockStrutsTestCase {
 
     protected IssMaster masterDto;
     protected IssSlave slaveDto;

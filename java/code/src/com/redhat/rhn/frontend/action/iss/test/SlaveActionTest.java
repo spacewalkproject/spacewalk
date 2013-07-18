@@ -22,7 +22,7 @@ import com.redhat.rhn.frontend.action.iss.SlaveAction;
  * IssSlaveActionTest
  * @version $Rev: 1 $
  */
-public class SlaveActionTest extends BaseIssActionTest {
+public class SlaveActionTest extends BaseIssTestAction {
 
     protected String getUrl() {
         return "/admin/iss/Slave";

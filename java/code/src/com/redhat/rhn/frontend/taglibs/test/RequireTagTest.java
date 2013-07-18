@@ -33,7 +33,8 @@ public class RequireTagTest extends RhnBaseTestCase {
     private RequireTag rt;
     private TagTestHelper tth;
 
-    public void setUp() {
+    public void setUp() throws Exception {
+        super.setUp();
         rt = new RequireTag();
         tth = TagTestUtils.setupTagTest(rt, null);
     }

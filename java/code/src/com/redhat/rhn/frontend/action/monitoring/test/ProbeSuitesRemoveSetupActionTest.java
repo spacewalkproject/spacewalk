@@ -37,7 +37,8 @@ import org.apache.struts.action.Action;
 public class ProbeSuitesRemoveSetupActionTest extends RhnBaseTestCase {
     private Action action = null;
 
-    public void setUp() {
+    public void setUp() throws Exception {
+        super.setUp();
         action = new ProbeSuitesRemoveSetupAction();
     }
 

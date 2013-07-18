@@ -25,7 +25,8 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 public class HandlerFactoryTest extends RhnBaseTestCase {
     private HandlerFactory factory = null;
 
-    public void setUp() {
+    public void setUp() throws Exception {
+        super.setUp();
         factory = new HandlerFactory();
     }
 

@@ -31,7 +31,8 @@ import redstone.xmlrpc.XmlRpcSerializer;
 public class PackageMetadataSerializerTest extends TestCase {
     private XmlRpcSerializer builtin;
 
-    public void setUp() {
+    public void setUp() throws Exception {
+        super.setUp();
         builtin = new XmlRpcSerializer();
         builtin.addCustomSerializer(new BigDecimalSerializer());
     }

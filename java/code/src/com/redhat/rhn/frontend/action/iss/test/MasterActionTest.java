@@ -22,7 +22,7 @@ import com.redhat.rhn.frontend.action.iss.MasterAction;
  * IssMasterActionTest
  * @version $Rev: 1 $
  */
-public class MasterActionTest extends BaseIssActionTest {
+public class MasterActionTest extends BaseIssTestAction {
 
     protected String getUrl() {
         return "/admin/iss/Master";

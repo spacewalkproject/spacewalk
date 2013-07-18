@@ -20,7 +20,7 @@ package com.redhat.rhn.frontend.action.iss.test;
  *
  * @version $Rev: 1 $
  */
-public class EditSlaveSetupActionTest extends BaseIssActionTest {
+public class EditSlaveSetupActionTest extends BaseIssTestAction {
 
     public void testExecute() throws Exception {
     }

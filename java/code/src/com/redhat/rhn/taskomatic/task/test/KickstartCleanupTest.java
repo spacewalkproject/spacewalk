@@ -43,7 +43,8 @@ import java.util.Date;
 
 public class KickstartCleanupTest extends RhnBaseTestCase {
 
-   protected void setUp() throws Exception {
+    protected void setUp() throws Exception {
+        super.setUp();
         verifyDatasourceConfig();
     }
 

@@ -26,7 +26,7 @@ import org.apache.struts.Globals;
  */
 public class EnvironmentFilterTest extends BaseFilterTst {
 
-    public void setUp() {
+    public void setUp() throws Exception {
         super.setUp();
         this.request.setRequestURL("http://rhn.webdev.redhat.com/rhn/Login.do");
     }

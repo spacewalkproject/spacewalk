@@ -15,6 +15,12 @@
 
 package com.redhat.rhn.common.messaging.test;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
+import org.hibernate.Transaction;
+
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.WriteMode;
@@ -28,19 +34,14 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import org.apache.log4j.Logger;
-import org.hibernate.Transaction;
-
-import java.util.HashMap;
-import java.util.Map;
-
 public class MessageQueueTest extends RhnBaseTestCase {
 
     private static Logger logger = Logger.getLogger(MessageQueueTest.class);
     protected User user;
     protected boolean committed = false;
 
-    protected void setUp() {
+    protected void setUp() throws Exception {
+        super.setUp();
         logger.debug("setUp - start");
         Config.get().setString("web.mailer_class",
                 MockMail.class.getName());
@@ -106,7 +107,9 @@ public class MessageQueueTest extends RhnBaseTestCase {
      *
      * @throws Exception
      */
-    public void testDatabaseTransactionHandling() throws Exception {
+    public void xXXtestDatabaseTransactionHandling() throws Exception {
+        // XXX: Committing transactions that involve users has far-reaching effects!
+        // XXX: DON'T DO IT!!
         logger.debug("testDatabaseTransactionHandling - start");
         // === START TXN ===
         Transaction t = HibernateFactory.getSession().getTransaction();

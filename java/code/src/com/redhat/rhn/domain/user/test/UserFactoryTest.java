@@ -53,9 +53,11 @@ public class UserFactoryTest extends RhnBaseTestCase {
     private UserFactory factory;
 
     @Override
-    public void setUp() {
+    public void setUp() throws Exception {
+        super.setUp();
         factory = UserFactory.getInstance();
     }
+
     public void testStateChanges() throws Exception {
 
         User orgAdmin = UserTestUtils.createUser("UFTOrgAdmin",

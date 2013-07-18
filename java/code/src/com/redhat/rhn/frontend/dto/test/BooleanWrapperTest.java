@@ -25,7 +25,8 @@ public class BooleanWrapperTest extends RhnBaseTestCase {
 
     private BooleanWrapper bw;
 
-    public void setUp() {
+    public void setUp() throws Exception {
+        super.setUp();
         bw = new BooleanWrapper();
     }
 

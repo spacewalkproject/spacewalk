@@ -31,7 +31,8 @@ public class ManagedServerGroupSerializerTest extends MockObjectTestCase {
 
     private XmlRpcSerializer serializer;
 
-    public void setUp() {
+    public void setUp() throws Exception {
+        super.setUp();
         serializer = new XmlRpcSerializer();
     }
 

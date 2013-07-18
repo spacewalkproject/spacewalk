@@ -26,7 +26,8 @@ public class SerializerFactoryTest extends TestCase {
 
     private SerializerFactory factory = null;
 
-    public void setUp() {
+    public void setUp() throws Exception {
+        super.setUp();
         factory = new SerializerFactory();
     }
 

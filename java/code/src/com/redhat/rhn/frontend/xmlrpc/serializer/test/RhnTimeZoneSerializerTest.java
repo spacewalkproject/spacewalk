@@ -33,7 +33,8 @@ public class RhnTimeZoneSerializerTest extends TestCase {
 
     private RhnTimeZoneSerializer serializer;
 
-    public void setUp() {
+    public void setUp() throws Exception {
+        super.setUp();
         serializer = new RhnTimeZoneSerializer();
     }
 

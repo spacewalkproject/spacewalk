@@ -36,7 +36,7 @@ public abstract class BaseFilterTst extends RhnBaseTestCase {
     protected RhnMockHttpServletResponse response;
     protected MockFilterChain chain;
 
-    public void setUp() {
+    public void setUp() throws Exception {
         request = new RhnMockHttpServletRequest();
         session = new RhnMockHttpSession();
 

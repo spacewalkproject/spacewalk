@@ -43,7 +43,8 @@ public class LookupExceptionHandlerTest extends MockObjectTestCase {
 
     private TraceBackAction tba;
 
-    public void setUp() {
+    public void setUp() throws Exception {
+        super.setUp();
         tba = new TraceBackAction();
         MessageQueue.registerAction(tba, TraceBackEvent.class);
         MessageQueue.startMessaging();

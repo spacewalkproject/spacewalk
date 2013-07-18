@@ -33,7 +33,8 @@ public class CreateCommandTest extends RhnBaseTestCase {
     private int label_count = 0;
     private User user = null;
 
-    public void setUp() {
+    public void setUp() throws Exception {
+        super.setUp();
         ccc = new CreateChannelCommand();
         Long oid = UserTestUtils.createOrg("testOrg" + this.getClass().getSimpleName());
         user = UserTestUtils.createUser("testUser", oid);

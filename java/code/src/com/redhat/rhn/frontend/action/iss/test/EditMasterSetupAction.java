@@ -19,7 +19,7 @@ package com.redhat.rhn.frontend.action.iss.test;
  * IssMapOrgsActionTest
  * @version $Rev: 1 $
  */
-public class EditMasterSetupAction extends BaseIssActionTest {
+public class EditMasterSetupAction extends BaseIssTestAction {
 
     public void setUp() throws Exception {
         super.setUp();

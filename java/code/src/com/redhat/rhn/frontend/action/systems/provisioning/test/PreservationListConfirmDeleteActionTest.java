@@ -42,7 +42,8 @@ import java.util.Iterator;
 public class PreservationListConfirmDeleteActionTest extends RhnBaseTestCase {
     private Action action = null;
 
-    public void setUp() {
+    public void setUp() throws Exception {
+        super.setUp();
         action = new PreservationListConfirmDeleteAction();
     }
 
