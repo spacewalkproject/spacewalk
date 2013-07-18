@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.0
+Version: 2.1.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jul 18 2013 Grant Gainey 2.1.1-1
+- JUnit fixes
+- Bumping package versions for 2.1.
+
 * Thu Jul 18 2013 Tomas Lestach <tlestach@redhat.com> 2.0.2-1
 - 855845 - escaping system name on /rhn/systems/customdata/UpdateCustomKey.do
 - 865595 - specify custom info searchability more precisely
