@@ -9,7 +9,7 @@ exitval = 0
 
 rhnSQL.initDB()
 q = rhnSQL.prepare("""select data_length
-                        from all_tab_columns
+                        from user_tab_columns
                        where upper(table_name) = upper(:tname)
                          and upper(column_name) = upper(:cname)""")
 
