@@ -59,12 +59,7 @@ class RepoSync(object):
         rhnSQL.initDB()
 
         # setup logging
-        log_filename = 'reposync.log'
-        date = time.localtime()
-        datestr = '%d.%02d.%02d-%02d:%02d:%02d' % (
-            date.tm_year, date.tm_mon, date.tm_mday, date.tm_hour,
-            date.tm_min, date.tm_sec)
-        log_filename = channel_label + '-' +  datestr + '.log'
+        log_filename = channel_label + '.log'
         rhnLog.initLOG(default_log_location + log_filename)
         #os.fchown isn't in 2.4 :/
         os.system("chgrp apache " + default_log_location + log_filename)
