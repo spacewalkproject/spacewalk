@@ -63,7 +63,7 @@ public class VirtualSystemsListSetupAction extends BaseSystemListSetupAction {
             if (current.isFakeNode()) {
                 continue;
             }
-            else if (current.getUuid() == null) {
+            else if (current.getUuid() == null && current.getHostSystemId() != null) {
                 current.setSystemId(current.getHostSystemId());
             }
             else {
