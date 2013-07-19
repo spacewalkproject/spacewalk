@@ -560,7 +560,7 @@ sub channel_edit_form {
   }
 
   if (exists $editable{channel_parent}) {
-    my @channel_list = grep { $_->{DEPTH} == 1 } RHN::ChannelEditor->channels_visible_to_org($pxt->user->org_id);
+    my @channel_list = RHN::ChannelEditor->base_channels_visible_to_org($pxt->user->org_id);
 
     if ($subs{channel_parent} eq '(none)') {
       $subs{channel_parent} = 0;

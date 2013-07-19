@@ -144,34 +144,6 @@ EOQ
   return @channels;
 }
 
-sub channels_visible_to_org {
-  my $self = shift;
-  my $org_id = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT  ACh.channel_name as NAME, ACh.channel_id as ID, ACh.channel_depth as DEPTH, C.org_id as CHANNEL_ORG_ID
-  FROM  rhnAvailableChannels ACh, rhnChannel C
- WHERE  ACh.org_id = :org_id
-   AND  C.id = ACh.channel_id
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute_h(org_id => $org_id);
-
-  my @channels;
-
-  while (my $row = $sth->fetchrow_hashref) {
-    push @channels, $row;
-  }
-
-  return @channels;
-}
-
 sub add_channel_packages {
   my $class = shift;
   my $cid = shift;
