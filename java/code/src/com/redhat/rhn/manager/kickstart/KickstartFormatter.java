@@ -100,7 +100,7 @@ public class KickstartFormatter {
         "# --End " + Config.get().getString("web.product_name") + " command section--" +
         NEWLINE;
     public static final String[] UPDATE_PKG_NAMES =
-    {"pyOpenSSL", "rhnlib", "libxml2-python"};
+    {"pyOpenSSL", "rhnlib", "libxml2-python", "libxml2"};
     public static final String[] FRESH_PKG_NAMES_RHEL34 =
     {"up2date",  "up2date-gnome"};
     public static final String[] FRESH_PKG_NAMES_RHEL2 =
