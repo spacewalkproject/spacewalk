@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.1
+Version: 2.1.2
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -272,6 +272,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Jul 19 2013 Tomas Lestach <tlestach@redhat.com> 2.1.2-1
+- 726815 - parent channel cannot be a shared channel from different org when
+  cloning
+
 * Thu Jul 18 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.1-1
 - bumping Spacewalk version to 2.1 nightly
 - Bumping package versions for 2.1.
