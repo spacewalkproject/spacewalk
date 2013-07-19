@@ -152,7 +152,9 @@ public class MasterHandler extends BaseHandler {
      */
     public IssMaster getDefaultMaster(String sessionKey) {
         ensureSatAdmin(getLoggedInUser(sessionKey));
-        return IssFactory.getCurrentMaster();
+        IssMaster dflt = IssFactory.getCurrentMaster();
+        validateExists(dflt, "Default Master");
+        return dflt;
     }
 
     /**
