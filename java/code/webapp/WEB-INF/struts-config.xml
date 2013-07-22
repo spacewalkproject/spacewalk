@@ -3000,6 +3000,20 @@
         <set-property property="postRequiredIfSubmitted" value="true"/>
         <forward name="default"
             path="/WEB-INF/pages/systems/details/audit/listscap.jsp"/>
+        <forward name="submitDelete"
+            path="/systems/details/audit/XccdfDeleteConfirm.do" redirect="true"/>
+    </action>
+
+    <action path="/systems/details/audit/XccdfDeleteConfirm"
+        scope="request"
+        input="/WEB-INF/pages/systems/details/audit/xccdfdeleteconfirm.jsp"
+        type="com.redhat.rhn.frontend.action.systems.audit.XccdfDeleteConfirmAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true"/>
+        <forward name="default"
+            path="/WEB-INF/pages/systems/details/audit/xccdfdeleteconfirm.jsp"/>
+        <forward name="submit"
+            path="/systems/details/audit/ListScap.do" redirect="true"/>
     </action>
 
     <action path="/systems/details/audit/ScheduleXccdf"

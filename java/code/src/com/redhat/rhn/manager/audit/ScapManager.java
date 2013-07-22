@@ -26,6 +26,8 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.action.scap.ScapAction;
+import com.redhat.rhn.domain.audit.ScapFactory;
+import com.redhat.rhn.domain.audit.XccdfTestResult;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.XccdfIdentDto;
@@ -33,6 +35,7 @@ import com.redhat.rhn.frontend.dto.XccdfRuleResultDto;
 import com.redhat.rhn.frontend.dto.XccdfTestResultDto;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.audit.scap.file.ScapFileManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
 /**
@@ -102,6 +105,21 @@ public class ScapManager extends BaseManager {
         HashMap params = new HashMap();
         params.put("sid", server.getId());
         return makeDataResult(params, new HashMap(), null, m);
+    }
+
+    /**
+     * Show brief results of scans in given set
+     * @param user The user owning the set
+     * @param setLabel The label of the set
+     * @return The list of scan results in brief
+     */
+    public static DataResult<XccdfTestResultDto> scansInSet(User user, String setLabel) {
+        SelectMode m = ModeFactory.getMode("scap_queries",
+                "scans_in_set");
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("user_id", user.getId());
+        params.put("set_label", setLabel);
+        return makeDataResult(params, new HashMap<String, Object>(), null, m);
     }
 
     /**
@@ -264,6 +282,36 @@ public class ScapManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("xid", testResultId);
         return m.execute(params).size() >= 1;
+    }
+
+    /**
+     * Delete XccdfTestResults specified by set.
+     * @param set Set of TestResults to delete
+     * @return a number of successfully removed testResult
+     */
+    public static Long deleteScansInSet(Iterable<XccdfTestResultDto> set) {
+        Long deleted = new Long(0);
+        for (XccdfTestResultDto dto : set) {
+            if (deleteScan(dto.getXid())) {
+                deleted++;
+            }
+        }
+        return deleted;
+    }
+
+    /**
+     * Delete given XccdfTestResult together with stored files
+     * @param xid ID of TestResult to delete
+     * @return true if the deletion was successfull
+     */
+    public static Boolean deleteScan(Long xid) {
+        XccdfTestResult tr = ScapFactory.lookupTestResultById(xid);
+        if (tr.getDeletable()) {
+            ScapFileManager.deleteFilesForTestResult(tr);
+            ScapFactory.delete(tr);
+            return true;
+        }
+        return false;
     }
 
     private static HashSet<Long> idsInDataResultToSet(DataResult dataIn) {

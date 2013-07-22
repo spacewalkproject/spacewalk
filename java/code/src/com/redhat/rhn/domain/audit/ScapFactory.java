@@ -63,6 +63,15 @@ public class ScapFactory extends HibernateFactory {
         }
         return result;
     }
+
+    /**
+     * Delete XCCDF TestResult
+     * @param tr XCCDF TestResult to delete
+     */
+    public static void delete(XccdfTestResult tr) {
+        singleton.removeObject(tr);
+    }
+
     /**
      * Get the Logger for the derived class so log messages
      * show up on the correct class.

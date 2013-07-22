@@ -53,6 +53,20 @@ public class ScapFileManager {
     }
 
     /**
+     * Remove any files assigned with the given testResult
+     * @param tr XccdfTestResult
+     */
+    public static void deleteFilesForTestResult(XccdfTestResult tr) {
+        File folder = new File(getStoragePath(tr));
+        if (folder.exists() && folder.isDirectory()) {
+            for (File file : folder.listFiles()) {
+               file.delete();
+            }
+            folder.delete();
+        }
+    }
+
+    /**
      * Get file path to the storage directory assigned with a given testResult
      * @param tr TestResult
      * @return the path

@@ -12,6 +12,25 @@
   </query>
 </mode>
 
+<mode name="scans_in_set" class="com.redhat.rhn.frontend.dto.XccdfTestResultDto">
+  <elaborator name="testresult_counts"/>
+  <query params="user_id, set_label">
+  SELECT tr.id as xid,
+      tr.identifier as test_result,
+      sa.completion_time as completed
+      FROM rhnXccdfTestresult tr,
+          rhnActionScap ras,
+          rhnServerAction sa,
+          rhnSet st
+      WHERE tr.id = st.element
+          AND st.user_id = :user_id
+          AND st.label = :set_label
+          AND tr.action_Scap_id = ras.id
+          AND sa.server_id = tr.server_id
+          AND sa.action_id = ras.action_id
+      ORDER BY tr.id DESC
+  </query>
+</mode>
 <mode name="show_system_scans" class="com.redhat.rhn.frontend.dto.XccdfTestResultDto">
   <elaborator name="testresult_counts"/>
   <query params="sid">

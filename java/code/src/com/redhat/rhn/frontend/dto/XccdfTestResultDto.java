@@ -16,11 +16,13 @@ package com.redhat.rhn.frontend.dto;
 
 import java.util.Date;
 
+import com.redhat.rhn.domain.audit.ScapFactory;
+import com.redhat.rhn.domain.audit.XccdfTestResult;
 import com.redhat.rhn.manager.audit.ScapManager;
 import com.redhat.rhn.manager.audit.scap.RuleResultDiffer;
 
 /**
- * Simple DTO for transfering data from the DB to the UI through datasource.
+ * Simple DTO for transferring data from the DB to the UI through datasource.
  * @version $Rev$
  */
 public class XccdfTestResultDto extends XccdfTestResultCounts {
@@ -179,5 +181,15 @@ public class XccdfTestResultDto extends XccdfTestResultCounts {
             diffIcon = new RuleResultDiffer(getComparableId(), xid).overallComparison();
         }
         return diffIcon;
+    }
+
+    /**
+     * Return true if this TestResult can be deleted (based on the organization's
+     * SCAP retention policy.
+     * @return the result
+     */
+    public Boolean getDeletable() {
+        XccdfTestResult tr = ScapFactory.lookupTestResultById(xid);
+        return tr.getDeletable();
     }
 }

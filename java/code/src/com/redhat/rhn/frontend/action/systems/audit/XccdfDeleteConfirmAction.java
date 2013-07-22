@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2012 Red Hat, Inc.
+ * Copyright (c) 2013 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,28 +23,28 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.XccdfTestResultDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.struts.RhnListSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 import com.redhat.rhn.manager.audit.ScapManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
 /**
- * ListScapAction
- * @version $Rev$
+ * XccdfDeleteConfirmAction
  */
-
-public class ListScapAction extends ScapSetupAction {
+public class XccdfDeleteConfirmAction extends RhnAction {
+    private static final String CONFIRM_BUT = "confirm.jsp.confirm";
     private static final String LIST_NAME = "xccdfScans";
-    private static final String DELET_BUT = "system.audit.listscap.jsp.removebut";
 
     /**
      * {@inheritDoc}
@@ -53,41 +53,35 @@ public class ListScapAction extends ScapSetupAction {
             HttpServletRequest request,
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
-        Long sid = context.getRequiredParam("sid");
+        Long sid = context.getRequiredParam(RequestContext.SID);
         Server server = context.lookupAndBindServer();
         User user = context.getCurrentUser();
-        setupScapEnablementInfo(context);
-
-        DataResult result = ScapManager.allScans(server);
-        RhnListSetHelper helper = new RhnListSetHelper(request);
 
         RhnSet set = getSetDecl(sid).get(user);
-        if (!context.isSubmitted()) {
-            RhnSetManager.store(set);
-        }
-        if (ListTagHelper.getListAction(LIST_NAME, request) != null) {
-            helper.execute(set, LIST_NAME, result);
-        }
+        DataResult<XccdfTestResultDto> result = ScapManager.scansInSet(user,
+                set.getLabel());
 
-        if (!set.isEmpty()) {
-            helper.syncSelections(set, result);
-            ListTagHelper.setSelectedAmount(LIST_NAME, set.size(), request);
-        }
-
-        ListTagHelper.bindSetDeclTo(LIST_NAME, getSetDecl(sid), request);
         TagHelper.bindElaboratorTo(LIST_NAME, result.getElaborator(), request);
 
-        request.setAttribute("sid", sid);
+        request.setAttribute(RequestContext.SID, sid);
         request.setAttribute(ListTagHelper.PARENT_URL,
-            request.getRequestURI() + "?sid=" + sid);
+            request.getRequestURI() + "?" + RequestContext.SID + "=" + sid);
         request.setAttribute(RequestContext.PAGE_LIST, result);
 
-        if (context.wasDispatched(DELET_BUT) && getSetDecl(sid).get(user).size() > 0) {
-            Map<String, Long> params = new HashMap<String, Long>();
-            params.put("sid", sid);
-            return getStrutsDelegate().forwardParams(mapping.findForward("submitDelete"),
-                    params);
+        if (context.wasDispatched(CONFIRM_BUT)) {
+           Long removedCount = ScapManager.deleteScansInSet(result);
+           Long retainedCount = result.size() - removedCount;
+           ActionMessages msg = new ActionMessages();
+           String[] messageParams = {removedCount.toString(), retainedCount.toString()};
+           msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+               "system.audit.xccdfdeleteconfirm.jsp.message", messageParams));
+           getStrutsDelegate().saveMessages(request, msg);
+           Map<String, Long> params = new HashMap<String, Long>();
+           params.put(RequestContext.SID, sid);
+           return getStrutsDelegate().forwardParams(mapping.findForward("submit"),
+                   params);
         }
+
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
