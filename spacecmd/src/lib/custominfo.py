@@ -139,4 +139,32 @@ def do_custominfo_details(self, args):
         print 'Modified:     %s' % details.get('last_modified')
         print 'System Count: %i' % details.get('system_count')
 
+####################
+
+def help_custominfo_updatekey(self):
+    print 'custominfo_updatekey: Update a custom key'
+    print 'usage: custominfo_updatekey [NAME] [DESCRIPTION]'
+
+def do_custominfo_updatekey(self, args):
+    (args, options) = parse_arguments(args)
+
+    if len(args) > 0:
+        key = args[0]
+    else:
+        key = ''
+
+    while key == '':
+        key = prompt_user('Name:')
+
+    if len(args) > 1:
+        description = ' '.join(args[1:])
+    else:
+        description = prompt_user('Description:')
+        if description == '':
+            description = key
+
+    self.client.system.custominfo.updateKey(self.session,
+                                            key,
+                                            description)
+
 # vim:ts=4:expandtab:
