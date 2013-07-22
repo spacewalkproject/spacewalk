@@ -200,7 +200,7 @@ ORDER BY UPPER(C.name)
   SELECT u.id
   FROM web_contact u
   WHERE u.org_id = :org_id
-    AND rhn_channel.user_role_check(:channel_id, u.id, 'manage')= 1;
+    AND rhn_channel.user_role_check(:channel_id, u.id, 'manage') = 1
   </query>
 </mode>
 
