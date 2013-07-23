@@ -16,9 +16,9 @@
 
 CREATE TABLE log
 (
-    id INTEGER NOT NULL PRIMARY KEY,
+    id NUMBER NOT NULL PRIMARY KEY,
     stamp TIMESTAMP WITH TIME ZONE,
-    user_id INTEGER REFERENCES web_contact_all(id)
+    user_id NUMBER REFERENCES web_contact_all(id)
 )
 ENABLE ROW MOVEMENT
 ;

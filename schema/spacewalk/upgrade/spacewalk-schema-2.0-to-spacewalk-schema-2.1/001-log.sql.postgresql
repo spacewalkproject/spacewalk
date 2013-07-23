@@ -1,0 +1,4 @@
+-- oracle equivalent source sha1 db59999d5662a6f91b00e119e676577fc054e02e
+
+ALTER TABLE log ALTER id TYPE numeric;
+ALTER TABLE log ALTER user_id TYPE numeric;

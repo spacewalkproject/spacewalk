@@ -1,0 +1,4 @@
+ALTER TABLE log MODIFY (
+    id number,
+    user_id number
+);
