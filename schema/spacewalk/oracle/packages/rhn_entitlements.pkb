@@ -1600,6 +1600,7 @@ is
         for sc in serverchannels loop
             rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id, 1, 1,
                                                        update_family_countsYN => 0);
+        end loop;
 
         tmp_quantity := flex_in;
         is_fve_in := 'Y';
@@ -1608,9 +1609,6 @@ is
                                                         update_family_countsYN => 0);
         end loop;
 
-
-
-        end loop;
                 rhn_channel.update_family_counts(channel_family_id_in, customer_id_in);
     end prune_family;
 
