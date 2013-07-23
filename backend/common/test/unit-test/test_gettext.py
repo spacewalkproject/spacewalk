@@ -24,8 +24,8 @@ import unittest
 if sys.argv[0] == "/":
     topdir = sys.argv[0]
 else:
-    topdir = "%s/%s" % (os.getcwd(), sys.argv[0])
-topdir = os.path.abspath(os.path.dirname(topdir + "/../../../../.."))
+    topdir = os.path.dirname(os.path.abspath(__file__))
+topdir = os.path.abspath(os.path.dirname(topdir + "/../../../.."))
 
 if topdir not in sys.path:
     sys.path.append(topdir)
