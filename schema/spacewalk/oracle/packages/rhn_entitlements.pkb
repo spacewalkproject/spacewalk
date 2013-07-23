@@ -1609,7 +1609,7 @@ is
                                                         update_family_countsYN => 0);
         end loop;
 
-                rhn_channel.update_family_counts(channel_family_id_in, customer_id_in);
+        rhn_channel.update_family_counts(channel_family_id_in, customer_id_in);
     end prune_family;
 
     procedure set_family_count (

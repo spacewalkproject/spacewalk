@@ -1601,16 +1601,18 @@ as $$
         is_fve_in := 'N';
 
         for sc in serverchannels loop
-            perform rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id, 1, 1, 0, 0);
+            perform rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id,
+                                                   1, 1, 0, 0);
         end loop;
 
         tmp_quantity := flex_in;
         is_fve_in := 'Y';
         for sc in serverchannels loop
-            perform rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id, 1, 1, 0, 0);
+            perform rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id,
+                                                   1, 1, 0, 0);
         end loop;
 
-                perform rhn_channel.update_family_counts(channel_family_id_in, customer_id_in);
+        perform rhn_channel.update_family_counts(channel_family_id_in, customer_id_in);
     end$$
 language plpgsql;
         
