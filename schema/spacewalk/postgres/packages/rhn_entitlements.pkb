@@ -1556,10 +1556,7 @@ language plpgsql;
     ) returns void
 as $$
     declare
-       is_fve_in char;
-       tmp_quantity numeric;
-
-        serverchannels cursor for
+        serverchannels cursor(tmp_quantity numeric, is_fve_in char) for
             select  sc.server_id,
                     sc.channel_id
             from    rhnServerChannel sc,
@@ -1597,17 +1594,12 @@ as $$
             return;
         end if;
 
-        tmp_quantity := quantity_in;
-        is_fve_in := 'N';
-
-        for sc in serverchannels loop
+        for sc in serverchannels(quantity_in, 'N') loop
             perform rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id,
                                                    1, 1, 0, 0);
         end loop;
 
-        tmp_quantity := flex_in;
-        is_fve_in := 'Y';
-        for sc in serverchannels loop
+        for sc in serverchannels(flex_in, 'Y') loop
             perform rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id,
                                                    1, 1, 0, 0);
         end loop;
