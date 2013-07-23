@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.4
+Version: 2.1.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jul 23 2013 Dimitar Yordanov <dyordano@redhat.com> 2.1.5-1
+- new api call updateRepoLabel(key, label, new_label
+
 * Mon Jul 22 2013 Tomas Lestach <tlestach@redhat.com> 2.1.4-1
 - 986527 - removing extra semicolon
 
