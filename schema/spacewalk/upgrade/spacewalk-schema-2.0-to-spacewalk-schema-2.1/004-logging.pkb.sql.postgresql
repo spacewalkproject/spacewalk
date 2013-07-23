@@ -18,6 +18,16 @@
 
 update pg_settings set setting = 'logging,' || setting where name = 'search_path';
 
+drop function clear_log_id();
+drop function _set_log_auth(user_id in numeric, stamp in varchar);
+drop function set_log_auth(user_id in numeric);
+drop function _get_log_auth();
+drop function _get_log_stamp();
+drop function _get_log_id();
+drop function _set_log_id(log_id in numeric);
+drop function get_log_id();
+drop function enable_logging(table_name_in in varchar);
+
 create or replace function clear_log_id()
 returns void
 as
