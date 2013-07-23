@@ -30,6 +30,7 @@ columns:
     hardware            Hardware information
     memory              Memory info
     sockets             Socket count
+    is_virtualized      Virtualization status (irrespective of host/guest mapping)
 
 multival_columns:
 
@@ -44,7 +45,7 @@ sql:
     select server_id, organization, org_id, name, hostname, ip_address, ipv6_address, registered_by,
         registration_time, last_checkin_time,
         software_channel,
-        entitlements, system_group, virtual_host, architecture, hardware, memory, sockets
+        entitlements, system_group, virtual_host, architecture, hardware, memory, sockets, is_virtualized
     from (
     select rhnserver.id as server_id,
         rhnserver.name as name,
@@ -74,7 +75,9 @@ sql:
         ) as memory,
         (
         select rhncpu.nrsocket from rhncpu where rhncpu.server_id = rhnserver.id
-        ) as sockets
+        ) as sockets,
+        (case when (select rhnVirtualInstance.virtual_system_id from rhnVirtualInstance where rhnVirtualInstance.virtual_system_id=rhnserver.id) is null then 'No' else 'Yes' end
+        ) as is_virtualized
     from rhnserver left outer join
         (
         select server_id, hostname, ipaddr, ip6addr
