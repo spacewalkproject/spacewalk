@@ -2543,7 +2543,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * @xmlrpc.doc Updates repository source URL
     * @xmlrpc.param #session_key()
     * @xmlrpc.param #param_desc("int", "id", "repository id")
-    * @xmlrpc.param #param_desc("string", "url", "repository url")
+    * @xmlrpc.param #param_desc("string", "url", "new repository url")
     * @xmlrpc.returntype $ContentSourceSerializer
    **/
     public ContentSource updateRepoUrl(String sessionKey, Integer id, String url) {
@@ -2564,7 +2564,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * @xmlrpc.doc Updates repository source URL
     * @xmlrpc.param #session_key()
     * @xmlrpc.param #param_desc("string", "label", "repository label")
-    * @xmlrpc.param #param_desc("string", "url", "repository url")
+    * @xmlrpc.param #param_desc("string", "url", "new repository url")
     * @xmlrpc.returntype $ContentSourceSerializer
    **/
     public ContentSource updateRepoUrl(String sessionKey, String label, String url) {
@@ -2595,6 +2595,27 @@ public class ChannelSoftwareHandler extends BaseHandler {
         ChannelFactory.save(repo);
         return repo;
     }
+
+    /**
+     * Updates repository label
+     * @param sessionKey Session containing user information.
+     * @param id ID of the repo
+     * @param label new label
+     * @return the updated repo
+     *
+     * @xmlrpc.doc Updates repository label
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "label", "repository label")
+     * @xmlrpc.param #param_desc("string", "label", "new repository label")
+     * @xmlrpc.returntype $ContentSourceSerializer
+    **/
+     public ContentSource updateRepoLabel(String sessionKey, String label, String new_label) {
+         User user = getLoggedInUser(sessionKey);
+         ContentSource repo = lookupContentSourceByLabel(label, user.getOrg());
+         setRepoLabel(repo, new_label);
+         ChannelFactory.save(repo);
+         return repo;
+     }
 
    /**
     * Updates a repository
