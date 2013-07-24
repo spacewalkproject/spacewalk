@@ -162,7 +162,8 @@ def _assert_xml(f):
         try:
             xml.sax.parse(f, xml.sax.ContentHandler())
             return True
-        except:
+        except Exception, e:
+            log.log_exception(*sys.exc_info())
             return False
     finally:
         f.seek(0)
