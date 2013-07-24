@@ -56,7 +56,8 @@ if (not $opts{"skip-logfile-init"}) {
 }
 
 if (Spacewalk::Setup::have_selinux()) {
-    Spacewalk::Setup::system_or_exit(['/usr/sbin/spacewalk-selinux-enable'], 42,
+    print Spacewalk::Setup::loc("* Setting up Selinux..\n");
+    Spacewalk::Setup::system_or_exit(['/usr/sbin/spacewalk-selinux-enable', ''], 42,
 	       'Could not enable selinux policy.');
 }
 
