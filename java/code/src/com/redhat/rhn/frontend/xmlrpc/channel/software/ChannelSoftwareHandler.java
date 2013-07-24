@@ -2599,20 +2599,21 @@ public class ChannelSoftwareHandler extends BaseHandler {
     /**
      * Updates repository label
      * @param sessionKey Session containing user information.
-     * @param id ID of the repo
-     * @param label new label
+     * @param label of the repo
+     * @param newLabel new label
      * @return the updated repo
      *
      * @xmlrpc.doc Updates repository label
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "label", "repository label")
-     * @xmlrpc.param #param_desc("string", "label", "new repository label")
+     * @xmlrpc.param #param_desc("string", "newLabel", "new repository label")
      * @xmlrpc.returntype $ContentSourceSerializer
     **/
-     public ContentSource updateRepoLabel(String sessionKey, String label, String new_label) {
+     public ContentSource updateRepoLabel(String sessionKey, String label,
+                     String newLabel) {
          User user = getLoggedInUser(sessionKey);
          ContentSource repo = lookupContentSourceByLabel(label, user.getOrg());
-         setRepoLabel(repo, new_label);
+         setRepoLabel(repo, newLabel);
          ChannelFactory.save(repo);
          return repo;
      }
