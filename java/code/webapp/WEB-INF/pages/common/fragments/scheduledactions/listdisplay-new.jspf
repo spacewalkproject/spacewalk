@@ -1,15 +1,15 @@
                 <rl:decorator name="PageSizeDecorator"/>
-        		<rl:decorator name="SelectableDecorator"/>
+                <rl:decorator name="SelectableDecorator"/>
                 <rl:decorator name="ElaborationDecorator"/>
 
 
-		
 
-		        <rl:selectablecolumn value="${current.selectionKey}"
-		                             selected="${current.selected}"
-		                             disabled="${not current.selectable}"
-		                             headerclass="first-column"/>
 
+                <rl:selectablecolumn value="${current.selectionKey}"
+                                     selected="${current.selected}"
+                                     disabled="${not current.selectable}"
+                                     hideDisabled="true"
+                                     headerclass="first-column"/>
 
                 <rl:column sortable="true"
                                    bound="false"
@@ -20,7 +20,6 @@
                            <a href="/rhn/schedule/CompletedSystems.do?aid=${current.id}"><c:out value="${current.actionName}" /></a>
                 </rl:column>
 
-
                 <rl:column sortable="true"
                                    bound="false"
                            headerkey="actions.jsp.earliest"
@@ -30,17 +29,16 @@
                         <c:out value="${current.earliest}" />
                 </rl:column>
 
-
                 <rl:column sortable="false"
                                    bound="false"
                            headerkey="actions.jsp.succeeded"
                            styleclass="thin-column"
                             >
                         <c:if test="${current.completed != 0}">
-                        	<a href="/rhn/schedule/CompletedSystems.do?aid=${current.id}">${current.completed}</a>
+                            <a href="/rhn/schedule/CompletedSystems.do?aid=${current.id}">${current.completed}</a>
                         </c:if>
                         <c:if test="${current.completed == 0}">
-                        	${current.completed}
+                            ${current.completed}
                         </c:if>
                 </rl:column>
 
@@ -51,10 +49,10 @@
                            styleclass="thin-column"
                            >
                         <c:if test="${current.failed != 0}">
-                        	<a href="/rhn/schedule/FailedSystems.do?aid=${current.id}">${current.failed}</a>
+                            <a href="/rhn/schedule/FailedSystems.do?aid=${current.id}">${current.failed}</a>
                         </c:if>
                         <c:if test="${current.failed == 0}">
-                        	${current.failed}
+                            ${current.failed}
                         </c:if>
                 </rl:column>
 
@@ -66,10 +64,10 @@
                            styleclass="thin-column"
                            >
                         <c:if test="${current.inProgress != 0}">
-                        	<a href="/rhn/schedule/InProgressSystems.do?aid=${current.id}">${current.inProgress}</a>
+                            <a href="/rhn/schedule/InProgressSystems.do?aid=${current.id}">${current.inProgress}</a>
                         </c:if>
                         <c:if test="${current.inProgress == 0}">
-                        	${current.inProgress}
+                            ${current.inProgress}
                         </c:if>
                 </rl:column>
 
@@ -78,6 +76,6 @@
                                    bound="false"
                            headerkey="actions.jsp.total"
                            styleclass="thin-column">
-                        	${current.tally}
+                            ${current.tally}
                 </rl:column>
 

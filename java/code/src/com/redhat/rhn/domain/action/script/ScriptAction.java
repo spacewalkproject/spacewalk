@@ -35,7 +35,9 @@ public class ScriptAction extends Action {
      * @param scriptActionDetailsIn The scriptActionDetails to set.
      */
     public void setScriptActionDetails(ScriptActionDetails scriptActionDetailsIn) {
-        scriptActionDetailsIn.setParentAction(this);
+        if (scriptActionDetailsIn != null) {
+            scriptActionDetailsIn.setParentAction(this);
+        }
         scriptActionDetails = scriptActionDetailsIn;
     }
 
