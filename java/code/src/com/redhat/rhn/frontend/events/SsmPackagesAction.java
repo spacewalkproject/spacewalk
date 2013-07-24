@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.events;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +25,8 @@ import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 import com.redhat.rhn.domain.action.script.ScriptRunAction;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.action.ActionManager;
@@ -107,46 +110,47 @@ public abstract class SsmPackagesAction extends AbstractDatabaseAction {
         List<Long> serverIds = getAffectedServers(event, user);
 
         log.debug("Scheduling actions.");
+
         // If we have a remote-cmd, have to correctly order it and the package action(s)
         if (event.getScriptDetails() != null) {
-            ScriptActionDetails sad = event.getScriptDetails();
-            if (event.isBefore()) {
-                log.debug("Scheduling remote-action BEFORE.");
+            for (Long sid : serverIds) {
+                Server s = ServerFactory.lookupById(sid);
+                List<Long> sidList = new ArrayList<Long>();
+                sidList.add(sid);
+                ScriptActionDetails sad = event.getScriptDetails();
+                if (event.isBefore()) {
+                    log.debug("Scheduling remote-action BEFORE.");
 
-                ScriptRunAction sra = ActionManager.scheduleScriptRun(user, serverIds,
-                        null, sad, earliest);
-                ActionManager.storeAction(sra);
+                    ScriptRunAction sra = ActionManager.scheduleScriptRun(user, sidList,
+                                    null, sad, earliest);
+                    ActionManager.storeAction(sra);
 
-                List<Action> pkgActions = doSchedule(event, user, serverIds, earliest);
+                    Action pkgAction = doSchedule(event, user, s, earliest);
 
-                // Might be more than one action from schedPkgActions
-                Action prevAction = sra;
-                for (Action a : pkgActions) {
-                    a.setPrerequisite(prevAction);
-                    ActionManager.storeAction(a);
-                    prevAction = a;
+                    Action prevAction = sra;
+                        pkgAction.setPrerequisite(prevAction);
+                        ActionManager.storeAction(pkgAction);
+                        prevAction = pkgAction;
+
                 }
+                else {
+                    log.debug("Scheduling remote-action AFTER.");
 
-            }
-            else {
-                log.debug("Scheduling remote-action AFTER.");
+                    Action pkgAction = doSchedule(event, user, s, earliest);
+                    ScriptRunAction sra = ActionManager.scheduleScriptRun(user, sidList,
+                                    null, sad, earliest);
 
-                List<Action> pkgActions = doSchedule(event, user, serverIds, earliest);
-                ScriptRunAction sra = ActionManager.scheduleScriptRun(user, serverIds,
-                        null, sad, earliest);
+                    // Might be more than one action from schedPkgActions
+                    Action prevAction = null;
+                        if (prevAction != null) {
+                            pkgAction.setPrerequisite(prevAction);
+                        }
+                        ActionManager.storeAction(pkgAction);
+                        prevAction = pkgAction;
 
-                // Might be more than one action from schedPkgActions
-                Action prevAction = null;
-                for (Action a : pkgActions) {
-                    if (prevAction != null) {
-                        a.setPrerequisite(prevAction);
-                    }
-                    ActionManager.storeAction(a);
-                    prevAction = a;
+                    sra.setPrerequisite(prevAction);
+                    ActionManager.storeAction(sra);
                 }
-
-                sra.setPrerequisite(prevAction);
-                ActionManager.storeAction(sra);
             }
         }
         else { // No remote-script to schedule
@@ -160,9 +164,14 @@ public abstract class SsmPackagesAction extends AbstractDatabaseAction {
 
     protected abstract List<Long> getAffectedServers(SsmPackageEvent event, User u);
 
-    protected abstract List<Action> doSchedule(SsmPackageEvent event,
+    protected abstract Action doSchedule(SsmPackageEvent event,
                                                User user,
-                                               List<Long> sids,
+                                               Server s,
                                                Date earliest);
+
+    protected abstract List<Action> doSchedule(SsmPackageEvent event,
+                    User user,
+                    List<Long> sid,
+                    Date earliest);
 
 }

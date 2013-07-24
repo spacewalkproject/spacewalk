@@ -14,7 +14,21 @@
  */
 package com.redhat.rhn.frontend.action.schedule;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.user.User;
@@ -27,18 +41,6 @@ import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * PendingActionsConfirmAction
@@ -65,9 +67,6 @@ public class PendingActionsDeleteConfirmAction extends RhnAction implements List
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
-
-
-
     /**
      * {@inheritDoc}
      */
@@ -84,7 +83,6 @@ public class PendingActionsDeleteConfirmAction extends RhnAction implements List
                 getSetDecl().getLabel());
     }
 
-
     private ActionForward cancelActions(ActionMapping mapping, HttpServletRequest request) {
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
@@ -93,14 +91,12 @@ public class PendingActionsDeleteConfirmAction extends RhnAction implements List
         RhnSet set = getSetDecl().get(user);
 
 
-        List actionsToCancel = new LinkedList();
+        List<Action> actionsToCancel = new LinkedList();
 
         for (RhnSetElement element : set.getElements()) {
-            actionsToCancel.add(element.getElement());
+            actionsToCancel.add(ActionFactory.lookupById(element.getElement()));
         }
-
-        ActionManager.removeActions(actionsToCancel);
-
+        ActionManager.cancelActions(user, actionsToCancel);
 
         ActionMessages msgs = new ActionMessages();
         // If there was only one action cancelled, display the "action" cancelled
@@ -122,8 +118,6 @@ public class PendingActionsDeleteConfirmAction extends RhnAction implements List
         set.clear();
         RhnSetManager.store(set);
 
-
         return  mapping.findForward("success");
-
     }
 }

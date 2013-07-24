@@ -19,7 +19,7 @@ SELECT EVENT_ID as ID,
                NULL AS history_status,
                NULL AS history_type,
                NULL AS history_type_name,
-	       SH.details
+           SH.details
           FROM rhnServerHistory SH
          WHERE SH.server_id = :sid
          UNION
@@ -31,7 +31,7 @@ SELECT EVENT_ID as ID,
                AStat.name AS history_status,
                AType.label AS history_type,
                AType.name AS history_type_name,
-	       NULL AS details
+           NULL AS details
           FROM rhnActionType AType,
                rhnActionStatus AStat,
                rhnAction A
@@ -94,6 +94,7 @@ order by id desc
   <query params="user_id, org_id">
 SELECT  DISTINCT UAO.id AS ID,
         UAO.earliest_action AS EARLIEST,
+        A.prerequisite AS PREREQUISITE,
         UAO.type_name,
         (CASE UAO.action_name WHEN NULL THEN UAO.type_name ELSE UAO.action_name END) AS ACTION_NAME,
         UAO.scheduler,
@@ -102,11 +103,13 @@ SELECT  DISTINCT UAO.id AS ID,
         (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status = 2) AS "COMPLETED_SYSTEMS",
         (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status = 3) AS "FAILED_SYSTEMS"
   FROM  rhnUserActionOverview UAO left join
-        web_contact WC on UAO.scheduler = WC.id
+        web_contact WC on UAO.scheduler = WC.id,
+        rhnAction A
  WHERE  UAO.org_id = :org_id
    AND  UAO.user_id = :user_id
    AND  UAO.action_status_id IN (0,1)
    AND  UAO.archived = 0
+   AND  UAO.id = A.id
 ORDER BY EARLIEST DESC
   </query>
   <elaborator name="action_overview_elab" />
@@ -297,9 +300,9 @@ SELECT  1
   <query params="parent_id, status_id, tries">
 INSERT INTO rhnServerAction (server_id, action_id, status, REMAINING_TRIES)
  select  s.id as server_id, :parent_id as action_id,
- 		:status_id as status, :tries as REMAINING_TRIES
- 	from rhnServer s
- 	where s.id in (%s)
+         :status_id as status, :tries as REMAINING_TRIES
+     from rhnServer s
+     where s.id in (%s)
   </query>
 </write-mode>
 <write-mode name="add_config_rev_to_action">

@@ -16,7 +16,7 @@
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
-	<attribute>
+    <attribute>
       <name>legend</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
@@ -82,40 +82,40 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-    	<name>hidepagenums</name>
-    	<required>false</required>
-    	<rtexprvalue>true</rtexprvalue>
-   	</attribute>
-   	<attribute>
+        <name>hidepagenums</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+       </attribute>
+       <attribute>
       <name>parentiselement</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
-   	<attribute>
+       <attribute>
       <name>searchparent</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
-   	<attribute>
+       <attribute>
       <name>searchchild</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-    </attribute>       	
-	<attribute>
-		<name>reflink</name>
-		<required>false</required>
-		<rtexprvalue>true</rtexprvalue>
-	</attribute>
-	<attribute>
-		<name>reflinkkey</name>
-		<required>false</required>
-		<rtexprvalue>true</rtexprvalue>
-	</attribute>
-	<attribute>
-		<name>reflinkkeyarg0</name>
-		<required>false</required>
-		<rtexprvalue>true</rtexprvalue>
-	</attribute>
+    </attribute>
+    <attribute>
+        <name>reflink</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <name>reflinkkey</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <name>reflinkkeyarg0</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
   </tag>
   <tag>
     <name>decorator</name>
@@ -221,12 +221,12 @@
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
-	<attribute>
+    <attribute>
       <name>filterattr</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
-	<attribute>
+    <attribute>
       <name>filtermessage</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
@@ -251,7 +251,7 @@
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
-	<attribute>
+    <attribute>
       <name>headerkey</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
@@ -268,6 +268,11 @@
     </attribute>
     <attribute>
       <name>disabled</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>hideDisabled</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
@@ -291,7 +296,7 @@
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
-	<attribute>
+    <attribute>
       <name>headerkey</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
@@ -307,37 +312,37 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
   </tag>
-	<tag>
-		<name>csv</name>
-		<tag-class>com.redhat.rhn.frontend.taglibs.list.CSVTag</tag-class>
-		<body-content>JSP</body-content>
-		<attribute>
-			<name>name</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<name>dataset</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<name>exportColumns</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<name>header</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-	</tag>
+    <tag>
+        <name>csv</name>
+        <tag-class>com.redhat.rhn.frontend.taglibs.list.CSVTag</tag-class>
+        <body-content>JSP</body-content>
+        <attribute>
+            <name>name</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>dataset</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>exportColumns</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>header</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
     <function>
         <name>expandable</name>
         <function-class>com.redhat.rhn.frontend.taglibs.RhnListTagFunctions</function-class>
         <function-signature>boolean isExpandable(java.lang.Object)</function-signature>
     </function>
-	<function>
+    <function>
         <name>countChildren</name>
         <function-class>com.redhat.rhn.frontend.taglibs.RhnListTagFunctions</function-class>
         <function-signature>int getChildrenCount(java.lang.Object)</function-signature>
