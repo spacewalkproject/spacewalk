@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.1.1
+Version:        2.1.2
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Jul 24 2013 Tomas Lestach <tlestach@redhat.com> 2.1.2-1
+- fix oracle equivalent source sha1
+- fix_f624b843
+- extract logging.recreate_trigger from logging.enable_logging
+- replace integer with number/ric in logging package
+- change log_id type on logged tables
+- change log table integer -> number
+
 * Tue Jul 23 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.1-1
 - 876019 - schema upgrade scripts
 - made serverchannels cursor properly parametrized
