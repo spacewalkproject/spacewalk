@@ -18,6 +18,7 @@ is
     procedure clear_log_id;
     procedure set_log_auth(user_id in number);
     function get_log_id return number;
+    procedure recreate_trigger(table_name_in in varchar);
     procedure enable_logging(table_name_in in varchar);
 end logging;
 /
