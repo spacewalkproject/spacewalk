@@ -51,7 +51,7 @@ public class BaseSetHelper {
 
     /**
      * Default struts action one might want to execute
-     * when selectAll, unselectAll, udate set actions are clicked
+     * when selectAll, unselectAll, update set actions are clicked
      * on a table with an Set.
      * @param set the set to update
      * @param listName the name of the list to grab the data from
