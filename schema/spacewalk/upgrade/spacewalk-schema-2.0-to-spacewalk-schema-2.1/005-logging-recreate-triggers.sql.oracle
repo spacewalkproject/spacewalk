@@ -1,0 +1,6 @@
+begin logging.recreate_trigger('web_contact'); end;
+/
+begin logging.recreate_trigger('rhnserver'); end;
+/
+begin logging.recreate_trigger('rhnservergroup'); end;
+/
