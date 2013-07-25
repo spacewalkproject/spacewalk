@@ -1,5 +1,5 @@
 Name:		spacewalk-oscap
-Version:	0.0.18
+Version:	0.0.19
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -47,6 +47,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jul 25 2013 Simon Lukasik <slukasik@redhat.com> 0.0.19-1
+- Do not try to parse xccdf-report.html with SAX parser
+
 * Wed Jul 24 2013 Simon Lukasik <slukasik@redhat.com> 0.0.18-1
 - Log exception in the file, when non XML encountered.
 
