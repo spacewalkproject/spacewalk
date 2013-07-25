@@ -159,6 +159,14 @@ class ContentSource(object):
         self.sack.populate(self.repo, 'metadata', None, 0)
         pkglist = self.sack.returnPackages()
         self.num_packages = len(pkglist)
+
+        if not filters:
+            # if there's no include/exclude filter on command line or in database
+            for p in self.repo.includepkgs:
+                filters.append(('+',[filter_conf]))
+            for p in self.repo.exclude:
+                filters.append(('-',[filter_conf]))
+
         if filters:
             pkglist = self._filter_packages(pkglist, filters)
             pkglist = self._get_package_dependencies(self.sack, pkglist)
