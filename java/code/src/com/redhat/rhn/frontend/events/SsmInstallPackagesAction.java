@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.Set;
 
 import com.redhat.rhn.domain.action.Action;
-import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
 import com.redhat.rhn.frontend.dto.EssentialServerDto;
@@ -73,26 +72,6 @@ public class SsmInstallPackagesAction extends SsmPackagesAction {
                         packageListData, earliest);
 
         return pkgActions;
-    }
-
-    protected Action doSchedule(SsmPackageEvent event, User user, Server s, Date earliest) {
-        SsmInstallPackagesEvent sipe = (SsmInstallPackagesEvent) event;
-
-        Set<String> data = sipe.getPackages();
-        // Convert the package list to domain objects
-        List<PackageListItem> pkgListItems = new ArrayList<PackageListItem>(data.size());
-        for (String key : data) {
-            pkgListItems.add(PackageListItem.parse(key));
-        }
-
-        // Convert to list of maps
-        List<Map<String, Long>> packageListData = PackageListItem
-                        .toKeyMaps(pkgListItems);
-
-        Action pkgAction = ActionManager.schedulePackageInstall(user, s,
-                        packageListData, earliest);
-
-        return pkgAction;
     }
 
 }
