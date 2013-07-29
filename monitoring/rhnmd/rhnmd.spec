@@ -9,7 +9,7 @@ Summary:        Spacewalk Monitoring Daemon
 Name:           rhnmd
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:        5.3.17
+Version:        5.3.18
 Release:        1%{?dist}
 License:        GPLv2
 BuildArch:      noarch
@@ -188,6 +188,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Jul 29 2013 Michael Mraka <michael.mraka@redhat.com> 5.3.18-1
+- 893096 - bind rhnmd to port on new RHEL
+
 * Tue May 21 2013 Tomas Kasparek <tkasparek@redhat.com> 5.3.17-1
 - misc branding clean up
 
