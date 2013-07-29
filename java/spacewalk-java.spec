@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.7
+Version: 2.1.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jul 29 2013 Stephen Herr <sherr@redhat.com> 2.1.8-1
+- 989630 - Allow user to hackisly add their own keys during the kickstart
+
 * Thu Jul 25 2013 Grant Gainey <ggainey@redhat.com> 2.1.7-1
 - 987977 - Fix there-can-be-solaris issue and make Upgrade behave like
   everything else
