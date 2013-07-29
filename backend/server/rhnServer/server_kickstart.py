@@ -304,6 +304,28 @@ def schedule_virt_pkg_install(server_id, kickstart_session_id):
 
     return action_id
         
+_query_ak_deploy_config = rhnSQL.Statement("""
+select rt.deploy_configs
+  from rhnKickstartSession ks,
+       rhnKickstartDefaultRegToken kdrt,
+       rhnRegToken rt
+ where ks.kickstart_id = kdrt.kickstart_id
+   and kdrt.regtoken_id = rt.id
+   and ks.id = :session_id
+""")
+# Make sure the activation keys associated with this kickstart profile
+# have enabled deploying config files. Only deploy configs if at least one
+# of them has. This is replacing code that didn't work because the
+# rhnFlags('registration_token') could not be set during the rhn_check call.
+def ks_activation_key_deploy_config(kickstart_session_id):
+    h = rhnSQL.prepare(_query_ak_deploy_config)
+    h.execute(session_id=kickstart_session_id)
+    rows = h.fetchall_dict()
+    for row in rows:
+        if row['deploy_configs'] and row['deploy_configs'] == 'Y':
+            return True
+    return False
+
 _query_schedule_config_files = rhnSQL.Statement("""
     insert into rhnActionConfigRevision 
            (id, action_id, server_id, config_revision_id)
@@ -334,7 +356,8 @@ def schedule_config_deploy(server_id, action_id, kickstart_session_id,
     row = get_kickstart_session_info(kickstart_session_id, server_id)
     org_id = row['org_id']
     scheduler = row['scheduler']
-    deploy_configs = (row['deploy_configs'] == 'Y')
+    deploy_configs = (row['deploy_configs'] == 'Y'
+            and ks_activation_key_deploy_config(kickstart_session_id))
 
     if not deploy_configs:
         # Nothing more to do here
@@ -348,20 +371,6 @@ def schedule_config_deploy(server_id, action_id, kickstart_session_id,
             server_profile)
     else:
         aid = action_id
-
-    tokens_obj = rhnFlags.get("registration_token")
-    if not tokens_obj:
-        log_debug(3, "Failed to get the registration_token")
-        return aid
-    else:
-        tokens_obj = rhnFlags.get("registration_token")
-        deployment = False
-        for token in tokens_obj.tokens:
-            if token['deploy_configs'] == 'Y':
-                deployment = True
-                break
-        if not deployment:
-            return aid
 
     next_action_id = rhnAction.schedule_server_action(
         server_id,
