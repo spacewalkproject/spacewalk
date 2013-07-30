@@ -20,6 +20,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -71,7 +72,8 @@ public class XccdfDeleteConfirmAction extends RhnAction {
         if (context.wasDispatched(CONFIRM_BUT)) {
            Long removedCount = ScapManager.deleteScansInSet(result);
            Long retainedCount = result.size() - removedCount;
-           ActionMessages msg = new ActionMessages();
+           ActionMessages msg = (removedCount == 0) ?
+               new ActionErrors() : new ActionMessages();
            String[] messageParams = {removedCount.toString(), retainedCount.toString()};
            msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
                "system.audit.xccdfdeleteconfirm.jsp.message", messageParams));
