@@ -61,8 +61,11 @@ public class ScapFileManager {
     public static void deleteFilesForTestResult(XccdfTestResult tr) {
         File folder = new File(getStoragePath(tr));
         if (folder.exists() && folder.isDirectory()) {
-            for (File file : folder.listFiles()) {
-               file.delete();
+            File[] files = folder.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    file.delete();
+                }
             }
             folder.delete();
         }
