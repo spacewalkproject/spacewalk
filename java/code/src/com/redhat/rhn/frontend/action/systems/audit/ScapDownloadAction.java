@@ -34,26 +34,6 @@ import com.redhat.rhn.manager.system.SystemManager;
  * ScapDownloadAction
  */
 public class ScapDownloadAction extends DownloadAction {
-/*
-    public ActionForward execute(ActionMapping mapping, ActionForm formIn,
-            HttpServletRequest request,
-            HttpServletResponse response) {
-
-        response.setHeader("Content-
-
-        try {
-            OutputStream
-
-        request.setAttribute("testResult", testResult);
-        request.setAttribute("system", server);
-
-        request.setAttribute(ListTagHelper.PARENT_URL,
-                request.getRequestURI() + "?sid=" + sid + "&xid=" + xid);
-        SdcHelper.ssmCheck(request, sid, user);
-
-        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
-    }
-*/
     @Override
     protected StreamInfo getStreamInfo(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
