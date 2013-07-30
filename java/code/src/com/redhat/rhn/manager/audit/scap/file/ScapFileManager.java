@@ -43,10 +43,12 @@ public class ScapFileManager {
         if (!folder.exists() || !folder.isDirectory()) {
             return result;
         }
-
-        for (File file : folder.listFiles()) {
-            if (file.isFile()) {
-                result.add(new ScapResultFile(testResult, file.getName()));
+        File[] files = folder.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    result.add(new ScapResultFile(testResult, file.getName()));
+                }
             }
         }
         return result;
