@@ -6,7 +6,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	<class name="com.redhat.rhn.domain.audit.XccdfTestResult"
 		table="rhnXccdfTestresult"
 		mutable="false">
-		<cache usage="read-only"/>
+		<cache usage="read-write"/>
 		<id name="id" type="long" column="id">
 			<meta attribute="scope-set">protected</meta>
 			<generator class="assigned"/>
