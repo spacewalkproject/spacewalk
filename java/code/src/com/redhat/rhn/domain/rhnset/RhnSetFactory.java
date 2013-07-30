@@ -150,6 +150,16 @@ public class RhnSetFactory extends HibernateFactory {
         simpl.sync();
     }
 
+    /**
+     * Cleanup the set. That is useful, when some of the items included in the set were
+     * removed from database. That might have invalidated part of the set.
+     * @param set RhnSet to cleanup.
+     */
+    public static void cleanup(RhnSet set) {
+        RhnSetImpl simpl = (RhnSetImpl) set;
+        simpl.getCleanup().cleanup(simpl); // Even palindrom can save the day.
+    }
+
     private static WriteMode writeMode(String modeName) {
         return ModeFactory.getWriteMode(CATALOG, modeName);
     }

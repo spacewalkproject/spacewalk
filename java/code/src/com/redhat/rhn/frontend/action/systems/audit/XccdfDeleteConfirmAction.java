@@ -81,7 +81,13 @@ public class XccdfDeleteConfirmAction extends RhnAction {
         request.setAttribute(RequestContext.PAGE_LIST, result);
 
         if (context.wasDispatched(CONFIRM_BUT)) {
-           Long removedCount = ScapManager.deleteScansInSet(result);
+           Long removedCount = null;
+           try {
+               removedCount = ScapManager.deleteScansInSet(result);
+           }
+           finally {
+               RhnSetFactory.cleanup(set);
+           }
            Long retainedCount = result.size() - removedCount;
            ActionMessages msg = (removedCount == 0) ?
                new ActionErrors() : new ActionMessages();
