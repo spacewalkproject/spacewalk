@@ -48,6 +48,7 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  *   #prop_desc($date, "start_time", "Client machine time of scan start.")
  *   #prop_desc($date, "end_time", "Client machine time of scan completion.")
  *   #prop_desc("string", "errors", "Stderr output of scan.")
+ *   #prop_desc("bool", "deletable", "Indicates whether the scan can be deleted.")
  * #struct_end()
  */
 public class XccdfTestResultSerializer implements XmlRpcCustomSerializer {
@@ -84,6 +85,7 @@ public class XccdfTestResultSerializer implements XmlRpcCustomSerializer {
         addToHelper(helper, "end_time", testResult.getEndTime());
         addToHelper(helper, "errors", testResult.getErrrosContents());
         addToHelper(helper, "action_id", parentAction.getId());
+        addToHelper(helper, "deletable", testResult.getDeletable());
         helper.writeTo(output);
     }
 
