@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.8
+Version: 2.1.9
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,24 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jul 31 2013 Simon Lukasik <slukasik@redhat.com> 2.1.9-1
+- Refactor common columns to a fragment file.
+- Handle non-existent files properly.
+- Remove commented-out code, commited by accident.
+- Do not delete content of the directory which you cannot list
+- Make sure to not iterate through null.
+- Reconcile the set of scans with existing scans after deletion
+- Allow deletion of a single scan from its details page
+- Use the red tint if none has been deleted.
+- Allow XccdfTestResult objects to be deleted.
+- Deletion of multiple XCCDF Scans.
+- Allow for scans at the System's scans listing page to be selected
+- Prepare model for deletion of a SCAP Result
+- Indent organization configuration dialog to clarify semantics of checkboxes.
+- Allow for scap_retention_period to be set through webui.
+- Close table cell more properly.
+- Correct typo in documentation.
+
 * Mon Jul 29 2013 Stephen Herr <sherr@redhat.com> 2.1.8-1
 - 989630 - Allow user to hackisly add their own keys during the kickstart
 
