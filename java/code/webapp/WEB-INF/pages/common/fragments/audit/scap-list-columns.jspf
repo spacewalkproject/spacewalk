@@ -1,0 +1,34 @@
+<rl:column headerkey="system.audit.listscap.jsp.testresult">
+	<c:choose>
+		<c:when test="${not empty current.comparableId}">
+			<a href="/rhn/audit/scap/DiffSubmit.do?first=${current.comparableId}&second=${current.xid}&view=changed">
+				<img src="/img/rhn-listicon-${current.diffIcon}.gif"
+				alt="<bean:message key="scapdiff.jsp.i.${current.diffIcon}"/>"
+				title="<bean:message key="scapdiff.jsp.i.${current.diffIcon}"/>"/></a>
+		</c:when>
+		<c:otherwise>
+			<img src="/img/icon_checkin.gif"
+				alt="<bean:message key="system.audit.xccdfdetails.jsp.nodiff"/>"
+				title="<bean:message key="system.audit.xccdfdetails.jsp.nodiff"/>"/>
+		</c:otherwise>
+	</c:choose>&nbsp;
+
+	<a href="/rhn/systems/details/audit/XccdfDetails.do?sid=${param.sid}&xid=${current.xid}">
+		${current.testResult}
+	</a>
+</rl:column>
+<rl:column headerkey="system.audit.listscap.jsp.completed">
+	${current.completed}
+</rl:column>
+<rl:column headerkey="system.audit.listscap.jsp.percentage">
+	<c:choose>
+		<c:when test="${current.sum - current.notselected - current.informational == 0}">
+			<bean:message key="system.audit.listscap.jsp.na"/>
+		</c:when>
+		<c:otherwise>
+			<fmt:formatNumber maxFractionDigits="0"
+				value="${current.pass * 100 / (current.sum - current.notselected - current.informational)}"/>
+			%
+		</c:otherwise>
+	</c:choose>
+</rl:column>
