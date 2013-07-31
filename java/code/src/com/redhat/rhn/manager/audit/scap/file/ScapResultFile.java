@@ -20,6 +20,8 @@ import java.io.InputStream;
 
 import org.apache.struts.actions.DownloadAction.StreamInfo;
 
+import com.redhat.rhn.common.hibernate.LookupException;
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.audit.XccdfTestResult;
 
 /**
@@ -77,8 +79,18 @@ public class ScapResultFile implements StreamInfo {
     /**
      * {@inheritDoc}
      */
-    public InputStream getInputStream() throws IOException {
-        return new FileInputStream(getAbsolutePath());
+    public InputStream getInputStream() {
+        try {
+            return new FileInputStream(getAbsolutePath());
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            LocalizationService ls = LocalizationService.getInstance();
+            LookupException le = new LookupException("Could not server file '" +
+                filename + "' for XCCDF Scan " + testResult.getId());
+            le.setLocalizedTitle(ls.getMessage("lookup.scapfile.title"));
+            throw le;
+        }
     }
 
     /**

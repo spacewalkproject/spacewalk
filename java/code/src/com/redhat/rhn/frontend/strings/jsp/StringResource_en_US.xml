@@ -275,6 +275,9 @@
         <trans-unit id="lookup.xccdfscan.title">
           <source>We're sorry, but the XCCDF scan could not be found.</source>
         </trans-unit>
+        <trans-unit id="lookup.scapfile.title">
+          <source>We're sorry, but the requested SCAP results file could not be found.</source>
+        </trans-unit>
         <trans-unit id="missing_capabilities.jsp.header">
           <source>Missing Capabilities</source>
         </trans-unit>
