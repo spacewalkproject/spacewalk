@@ -1039,4 +1039,35 @@ public class OrgHandler extends BaseHandler {
 
         return 1;
     }
+
+    /**
+     * Get the status of SCAP detailed result file upload settings for the given
+     * organization.
+     *
+     * @param sessionKey User's session key.
+     * @param orgId ID of organization to query.
+     * @return Returns the status of SCAP detailed result file upload settings.
+     *
+     * @xmlrpc.doc Get the status of SCAP detailed result file upload settings
+     * for the given organization.
+     *
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("int", "orgId")
+     * @xmlrpc.returntype
+     *     #struct("scap_upload_info")
+     *         #prop_desc("boolean", "enabled",
+     *             "Aggregation of detailed SCAP results is enabled.")
+     *         #prop_desc("int", "size_limit",
+     *             "Limit (in Bytes) for a single SCAP file upload.")
+     *     #struct_end()
+     */
+    public Map<String, Object> getPolicyForScapFileUpload(String sessionKey,
+            Integer orgId) {
+        getSatAdmin(sessionKey);
+        Org org = verifyOrgExists(orgId);
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("enabled", org.getOrgConfig().isScapfileUploadEnabled());
+        result.put("size_limit", org.getOrgConfig().getScapFileSizelimit());
+        return result;
+    }
 }
