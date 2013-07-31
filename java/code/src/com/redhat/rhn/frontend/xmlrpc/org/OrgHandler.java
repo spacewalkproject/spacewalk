@@ -1070,4 +1070,35 @@ public class OrgHandler extends BaseHandler {
         result.put("size_limit", org.getOrgConfig().getScapFileSizelimit());
         return result;
     }
+
+    /**
+     * Get the status of SCAP result deletion settings for the given organization.
+     *
+     * @param sessionKey User's session key.
+     * @param orgId ID of organization to query.
+     * @return Returns the status of SCAP result deletion settings.
+     *
+     * @xmlrpc.doc Get the status of SCAP result deletion settings for the given
+     * organization.
+     *
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("int", "orgId")
+     * @xmlrpc.returntype
+     *     #struct("scap_deletion_info")
+     *         #prop_desc("boolean", "enabled", "Deletion of SCAP results is enabled")
+     *         #prop_desc("int", "retention_period",
+     *             "Period (in days) after which a scan can be deleted (if enabled).")
+     *     #struct_end()
+     */
+    public Map<String, Object> getPolicyForScapResultDeletion(String sessionKey,
+            Integer orgId) {
+        getSatAdmin(sessionKey);
+        Org org = verifyOrgExists(orgId);
+        Long retentionPeriod = org.getOrgConfig().getScapRetentionPeriodDays();
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("enabled", retentionPeriod != null);
+        result.put("retention_period",
+                (retentionPeriod != null) ? retentionPeriod : new Long(0));
+        return result;
+    }
 }
