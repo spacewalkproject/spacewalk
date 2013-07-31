@@ -104,6 +104,24 @@ public class SystemScapHandler extends BaseHandler {
     }
 
     /**
+     * Delete OpenSCAP XCCDF Scan from the Spacewalk database.
+     * @param sessionKey The session key.
+     * @param xid The id of XCCDF scan.
+     * @return a boolean indicating success of the operation.
+     *
+     * @xmlrpc.doc Delete OpenSCAP XCCDF Scan from Spacewalk database. Note that
+     * only those SCAP Scans can be deleted which have passed their retention period.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("int", "Id of XCCDF scan (xid).")
+     * @xmlrpc.returntype boolean - indicates success of the operation.
+     */
+    public Boolean deleteXccdfScan(String sessionKey, Integer xid) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        ScapManager.ensureAvailableToUser(loggedInUser, new Long(xid));
+        return ScapManager.deleteScan(new Long(xid));
+    }
+
+    /**
      * Run OpenSCAP XCCDF Evaluation on a given list of servers
      * @param sessionKey The session key.
      * @param serverIds The list of server ids,
