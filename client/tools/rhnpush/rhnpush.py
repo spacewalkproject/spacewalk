@@ -79,7 +79,8 @@ def main():
         Option(     '--no-session-caching',  action='store_true', 
             help='Disables session-token authentication.'),
         Option(     '--tolerant',   action='store_true', 
-            help='If rhnpush errors while uploading a package, continue uploading the rest of the packages.')
+            help='If rhnpush errors while uploading a package, continue uploading the rest of the packages.'),
+        Option(     '--ca-chain',     action='store',      help='alternative SSL CA Cert')
     ]
     # pylint: enable=C0301
 
