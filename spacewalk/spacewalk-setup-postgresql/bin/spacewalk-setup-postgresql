@@ -28,11 +28,54 @@ help() {
 
 ask() {
     if $1; then
-        read -p "$2" $3
+        read -e -p "$2" $3
     else
-        read -s -p "$2" $3
+        read -e -s -p "$2" $3 && echo
     fi
 }
+
+ask_check() {
+    while true; do
+        ask "$1" "$2" $3 || echo
+        [[ "${!3}" =~ $4 ]] && break
+    done
+}
+
+def_regexes() {
+    local digit seqence n
+    local IPv4_addr IPv4_mask IPv6_addr IPv6_mask
+    digit='([0-9]|[1-9][0-9]|1[0-9][0-9]|2([0-4][0-9]|5[0-5]))'
+    IPv4_addr="($digit\\.){3}$digit"
+    IPv4_mask='([0-9]|[12][0-9]|3[012])'
+
+    seqence='[[:digit:]abcdefABCDEF]{1,4}'
+    IPv6_addr="$seqence(:$seqence){7}|::"
+
+    # shortened
+    IPv6_addr+="|:(:$seqence){1,7}"
+    for n in 1 2 3 4 5 6; do
+        IPv6_addr+="|($seqence:){$n}(:|(:$seqence){1,$((7-n))})"
+    done
+    IPv6_addr+="|($seqence:){7}:"
+
+    # with IPv4 mixed
+
+    IPv6_addr+="|($seqence:){6}$IPv4_addr|::$IPv4_addr"
+    for n in 1 2 3 4 5; do
+        IPv6_addr+="|($seqence:){$n}(:$seqence){0,$((5-n))}:$IPv4_addr"
+    done
+
+    # final wrap
+    IPv6_addr="($IPv6_addr)"
+    IPv6_mask="([0-9]|[1-9][0-9]|1[01][0-9]|12[0-8])"
+
+    local addr="[[:space:]]*($IPv4_addr|$IPv6_addr)[[:space:]]*"
+    Local_RE="([[:space:]]*|($addr,)*$addr)"
+    local masked="[[:space:]]*($IPv4_addr/$IPv4_mask|$IPv6_addr/$IPv6_mask)[[:space:]]*"
+    Remote_RE="([[:space:]]*|($masked,)*$masked)"
+}
+def_regexes
+unset -f def_regexes
 
 PG_DATA=/var/lib/pgsql/data
 PG_HBA="$PG_DATA/pg_hba.conf"
@@ -47,12 +90,12 @@ RHN_CONF="/etc/rhn/rhn.conf"
 create() {
     [ -z "$PGNAME" ] && ask true "Database name: " PGNAME
     [ -z "$PGUSER" ] && ask true "Database user: " PGUSER
-    [ -z "$PGPASSWORD" ] && ask false "Database password: " PGPASSWORD && echo
+    [ -z "$PGPASSWORD" ] && ask false "Database password: " PGPASSWORD
 
     if $STANDALONE; then
-        [ -z "$ADDRESS" ] && ask true "Local addresses to listen on (comma-separated, RETURN for all): " ADDRESS
+        [ -z "$ADDRESS" ] && ask_check true "Local addresses to listen on (comma-separated, RETURN for all): " ADDRESS "^|$Local_RE\$"
         [ -z "$ADDRESS" ] && ADDRESS="*"
-        [ -z "$REMOTE" ] && ask true "Remote addresses to allow connection from (address/netmask format, comma-separated): " REMOTE
+        [ -z "$REMOTE" ] && ask_check true "Remote addresses to allow connection from (address/netmask format, comma-separated): " REMOTE "^$Remote_RE\$"
     fi
 
     postgresql_service enable
@@ -103,7 +146,7 @@ local postgres postgres ident
 EOF
 
     if $STANDALONE; then
-        for ADDR in $(echo $REMOTE|sed 's/,/ /g' ); do
+        for ADDR in $(echo $REMOTE|sed 's/,/ /g'); do
             cat >> $PG_HBA <<EOF
 host $PGNAME $PGUSER $ADDR md5
 EOF
