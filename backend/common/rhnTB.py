@@ -147,7 +147,11 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
 
     # we always log it somewhere
     if ostream:
-        ostream.write("%s\n" % exc.getvalue().encode('utf-8'))
+        msg = exc.getvalue()
+        if isinstance(msg, unicode):
+            msg = the_value.encode('utf-8')
+        ostream.write("%s\n" % msg)
+
 
     if mail:
         # print the stack frames for the mail we send out
