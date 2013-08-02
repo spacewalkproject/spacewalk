@@ -149,7 +149,7 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
     if ostream:
         msg = exc.getvalue()
         if isinstance(msg, unicode):
-            msg = the_value.encode('utf-8')
+            msg = msg.encode('utf-8')
         ostream.write("%s\n" % msg)
 
 
