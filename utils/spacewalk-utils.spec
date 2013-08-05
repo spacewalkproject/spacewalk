@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.1.2
+Version:	2.1.3
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -88,6 +88,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Aug 05 2013 Grant Gainey <ggainey@redhat.com> 2.1.3-1
+- 993254 - Script to enable us to purge audit-log tables
+
 * Wed Jul 31 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.2-1
 - adding 2.0 repositories to spacewalk-common-channels
 
