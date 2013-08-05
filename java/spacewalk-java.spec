@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.10
+Version: 2.1.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Aug 05 2013 Simon Lukasik <slukasik@redhat.com> 2.1.11-1
+- Trim line longer than 92 characters.
+
 * Mon Aug 05 2013 Simon Lukasik <slukasik@redhat.com> 2.1.10-1
 - Introduce API: org.setPolicyForScapResultDeletion()
 - Introduce API: org.setPolicyForScapFileUpload()
