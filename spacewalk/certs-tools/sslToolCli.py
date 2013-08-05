@@ -66,7 +66,7 @@ def _getOptionsTree(defs):
 
     _optCaCertRpm = make_option('--ca-cert-rpm', action='store', type="string", help='(rarely changed) RPM name that houses the CA SSL public certificate (the base filename, not filename-version-release.noarch.rpm).')
     _optServerRpm = make_option('--server-rpm',  action='store', type="string", help="(rarely changed) RPM name that houses the web server's SSL key set (the base filename, not filename-version-release.noarch.rpm).")
-    _optServerTar = make_option('--server-tar',  action='store', type="string", help="(rarely changed) name of tar archive of the web server's SSL key set and CA SSL public certificate that is used solely by the hosted Red Hat Proxy installation routines (the base filename, not filename-version-release.tar).")
+    _optServerTar = make_option('--server-tar',  action='store', type="string", help="(rarely changed) name of tar archive of the web server's SSL key set and CA SSL public certificate that is used solely by the hosted Spacewalk Proxy installation routines (the base filename, not filename-version-release.tar).")
 
     _optRpmPackager = make_option('--rpm-packager', action='store', type="string", help='(rarely used) packager of the generated RPM, such as "RHN Admin <rhn-admin@example.com>".')
     _optRpmVender = make_option('--rpm-vendor',     action='store', type="string", help='(rarely used) vendor of the generated RPM, such as "IS/IT Example Corp.".')
