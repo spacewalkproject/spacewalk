@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.1.5
+Version:        2.1.6
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Aug 05 2013 Tomas Lestach <tlestach@redhat.com> 2.1.6-1
+- changing stamp type on log table
+
 * Wed Jul 31 2013 Simon Lukasik <slukasik@redhat.com> 2.1.5-1
 - New OrgConfig attribute: period during which it is not possible to delete
   scan
