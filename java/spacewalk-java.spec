@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.0.4
+Version: 2.0.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,11 +771,6 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
-* Fri Jul 26 2013 Grant Gainey <ggainey@redhat.com> 2.0.4-1
-- 987977 - Fix there-can-be-solaris issue and make Upgrade behave like
-  everything else
-- 987977 - Fix chaining of pkg-scheduling in SSM
-
 * Fri Jul 26 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.3-1
 - ISS: Return LookupException to getDefaultMaster() if there isn't one
 - 986527 - removing extra semicolon
