@@ -1,0 +1,5 @@
+ALTER TABLE log ADD stamp_ltz TIMESTAMP WITH LOCAL TIME ZONE;
+UPDATE log SET stamp_ltz = stamp;
+ALTER TABLE log DROP COLUMN stamp;
+ALTER TABLE log RENAME COLUMN stamp_ltz TO stamp;
+
