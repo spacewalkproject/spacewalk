@@ -57,7 +57,7 @@ class rhnProxyHandler(rhnHandler):
             # we require entitlement for this functionality
             log_error("Server not entitled for Proxy", self.server_id)
             raise rhnFault(1002, _(
-                'Red Hat Proxy service not enabled for server profile: "%s"')
+                'Spacewalk Proxy service not enabled for server profile: "%s"')
                            % server.server["name"])
         # we're fine...
         return server
@@ -115,7 +115,7 @@ class Proxy(rhnProxyHandler):
         """ Login routine for the proxy
 
             Return a formatted string of session token information as regards
-            an Red Hat Proxy.  Also sets this information in the headers.
+            an Spacewalk Proxy.  Also sets this information in the headers.
 
             NOTE: design description for the auth token format and how it is
                is used is well documented in the proxy/broker/rhnProxyAuth.py

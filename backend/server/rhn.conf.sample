@@ -20,7 +20,7 @@
 # proxy.traceback_mail = yyy@redhat.com # All proxy (broker & redirect) emails
 #                                       # go to yyy@redhat.com now (overriding
 #                                       # xxx@redhat.com).
-# proxy.broker.debug = 4  # Red Hat Proxy broker now runs at debug level 4, but
+# proxy.broker.debug = 4  # Spacewalk Proxy broker now runs at debug level 4, but
 #                         # redirect and auth_cache still run at debug level 3
 
 
@@ -117,7 +117,7 @@ web.rhnproc_port =   #FIXME
 #                     traceback_mail = user0@company.com, user1@company.com
 #                     NOTE: any options with a comma indicates a list of items.
 #
-#   quiet_mail      - The two main components of the Red Hat Proxy Solution (broker
+#   quiet_mail      - The two main components of the Spacewalk Proxy Solution (broker
 #                     and redirect) use Apache extensively. As Apache reuses
 #                     processes, sometimes an error may occurs that generates
 #                     multiple copies of the same "traceback". The quiet_mail

@@ -55,7 +55,7 @@ def store_client_route(server_id):
         for token in tokens:
             token, hostname = apacheAuth.splitProxyAuthToken(token)
             if hostname is None:
-                log_debug(3, "NOTE: Red Hat Proxy v1.1 detected - route tracking is unsupported")
+                log_debug(3, "NOTE: Spacewalk Proxy v1.1 detected - route tracking is unsupported")
                 newRoute = []
                 break
             newRoute.append((token[0], hostname))

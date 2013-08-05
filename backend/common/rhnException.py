@@ -35,7 +35,7 @@ templateValues = {
 # for the eye of the beholder
 # DOMAINS:
 #   0-999:     Red Hat client/client-like interaction errors
-#   1000-1999: Red Hat Proxy specific interaction errors
+#   1000-1999: Proxy specific interaction errors
 #   2000-2999: Red Hat Satellite specific interation errors
 
 FaultArray = {
@@ -174,17 +174,17 @@ maximum membership exceeded"),
 
      800: _("System Name cannot be less than 3 characters"),
 
-     # 1000-1999: Red Hat Proxy specific errors:
-     # issued by a Red Hat Proxy to the client
-     1000: _("Red Hat Proxy error."),
-     1001: _("Red Hat Proxy unable to login."),
+     # 1000-1999: Proxy specific errors:
+     # issued by a Proxy to the client
+     1000: _("Spacewalk Proxy error."),
+     1001: _("Spacewalk Proxy unable to login."),
      # issued by a Red Hat Server/Satellite to the proxy
      1002: _("""
-     Red Hat Proxy system ID does not match a Red Hat Proxy Server
+     Spacewalk Proxy system ID does not match a Spacewalk Proxy Server
      in the database.
      """),
-     1003: _("Red Hat Proxy session token is invalid."),
-     1004: _("Red Hat Proxy session token has expired."),
+     1003: _("Spacewalk Proxy session token is invalid."),
+     1004: _("Spacewalk Proxy session token has expired."),
 
 
      # 2000-2999: Red Hat Satellite specific errors:
