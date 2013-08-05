@@ -742,7 +742,8 @@ public class KickstartFormatter {
         }
 
         String up2datehost = REDHAT_MGMT_SERVER;
-        //check if server going through Spacewalk Proxy, if so, register through proxy instead
+        //check if server going through Spacewalk Proxy,
+        //if so, register through proxy instead
         if (this.session != null &&
                 this.session.getSystemRhnHost() != null &&
                 !this.session.getSystemRhnHost().equals("unknown")) {
