@@ -137,6 +137,27 @@ def do_get_certificateexpiration(self, args):
 
 ####################
 
+def help_is_monitoringenabled(self):
+    print 'is_monitoringenabled: Indicates if monitoring is enabled '
+    print "                      on the satellite                   "
+    print 'usage: is_monitoringenabled'
+
+def do_is_monitoringenabled(self, args):
+    monitoring = self.client.satellite.isMonitoringEnabled(self.session)
+    print monitoring
+
+####################
+
+def help_list_proxies(self):
+    print 'list_proxies: List the proxies wihtin the user\'s organization '
+    print 'usage: list_proxies'
+
+def do_list_proxies(self, args):
+    proxies = self.client.satellite.listProxies(self.session)
+    print proxies
+
+####################
+
 def help_get_session(self):
     print 'get_session: Show the current session string'
     print 'usage: get_session'
