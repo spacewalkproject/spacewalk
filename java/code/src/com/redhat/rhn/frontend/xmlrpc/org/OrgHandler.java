@@ -26,6 +26,7 @@ import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.org.OrgConfig;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
@@ -62,9 +63,11 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * OrgHandler
@@ -1069,6 +1072,50 @@ public class OrgHandler extends BaseHandler {
         result.put("enabled", org.getOrgConfig().isScapfileUploadEnabled());
         result.put("size_limit", org.getOrgConfig().getScapFileSizelimit());
         return result;
+    }
+
+    /**
+     * Set the status of SCAP detailed result file upload settings for the given
+     * organization.
+     *
+     * @param sessionKey User's session key.
+     * @param orgId ID of organization to work with.
+     * @param newSettings New settings of the SCAP detailed result file upload.
+     * @return Returns 1 for successfull change.
+     *
+     * @xmlrpc.doc Set the status of SCAP detailed result file upload settings
+     * for the given organization.
+     *
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("int", "orgId")
+     * @xmlrpc.param
+     *     #struct("scap_upload_info")
+     *         #prop_desc("boolean", "enabled",
+     *             "Aggregation of detailed SCAP results is enabled.")
+     *         #prop_desc("int", "size_limit",
+     *             "Limit (in Bytes) for a single SCAP file upload.")
+     *     #struct_end()
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setPolicyForScapFileUpload(String sessionKey, Integer orgId,
+            Map<String, Object> newSettings) {
+        Set<String> validKeys = new HashSet<String>();
+        validKeys.add("enabled");
+        validKeys.add("size_limit");
+        validateMap(validKeys, newSettings);
+
+        getSatAdmin(sessionKey);
+        OrgConfig orgConfig = verifyOrgExists(orgId).getOrgConfig();
+        if (newSettings.containsKey("enabled")) {
+            Boolean enabled = (Boolean) newSettings.get("enabled");
+            orgConfig.setScapfileUploadEnabled(enabled);
+        }
+        if (newSettings.containsKey("size_limit")) {
+            Long sizeLimit = new Long(((Integer)
+                newSettings.get("size_limit")).longValue());
+            orgConfig.setScapFileSizelimit(sizeLimit);
+        }
+        return 1;
     }
 
     /**
