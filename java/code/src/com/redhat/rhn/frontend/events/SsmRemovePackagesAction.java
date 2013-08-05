@@ -24,7 +24,6 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import com.redhat.rhn.domain.action.Action;
-import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.manager.action.ActionManager;
@@ -116,37 +115,5 @@ public class SsmRemovePackagesAction extends SsmPackagesAction {
         log.debug("Done.");
         return actions;
     }
-
-    protected Action doSchedule(SsmPackageEvent event, User user, Server s, Date earliest) {
-
-        SsmRemovePackagesEvent srpe = (SsmRemovePackagesEvent) event;
-
-        List<Map> result = srpe.getResult();
-
-        Set<PackageListItem> allPackages = new HashSet<PackageListItem>();
-
-        for (Map data : result) {
-
-            // Get the packages out of the elaborator
-            List<Map> elabList = (List<Map>) data.get("elaborator0");
-            if (elabList != null) {
-                for (Map elabMap : elabList) {
-                    String idCombo = (String) elabMap.get("id_combo");
-                    PackageListItem item = PackageListItem.parse(idCombo);
-                    allPackages.add(item);
-                }
-            }
-        }
-
-        List<PackageListItem> allPackagesList = new ArrayList<PackageListItem>(allPackages);
-        List<Map<String, Long>> packageListData = PackageListItem
-                        .toKeyMaps(allPackagesList);
-
-        Action action = ActionManager.schedulePackageRemoval(user, s,
-                        packageListData, earliest);
-
-        return action;
-    }
-
 
 }

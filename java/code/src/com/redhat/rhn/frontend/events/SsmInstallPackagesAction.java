@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.Set;
 
 import com.redhat.rhn.domain.action.Action;
-import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
 import com.redhat.rhn.frontend.dto.EssentialServerDto;
@@ -44,7 +43,7 @@ public class SsmInstallPackagesAction extends SsmPackagesAction {
         Long channelId = sipe.getChannelId();
 
         List<EssentialServerDto> servers = SystemManager.systemsSubscribedToChannelInSet(
-                        channelId, u, SetLabels.SYSTEM_LIST);
+                channelId, u, SetLabels.SYSTEM_LIST);
 
         // Create one action for all servers to which the packages are installed
         List<Long> serverIds = new LinkedList<Long>();
@@ -54,45 +53,28 @@ public class SsmInstallPackagesAction extends SsmPackagesAction {
         return serverIds;
     }
 
-    protected List<Action> doSchedule(SsmPackageEvent event, User user, List<Long> sids,
-                    Date earliest) {
+    protected List<Action> doSchedule(SsmPackageEvent event,
+                                      User user,
+                                      List<Long> sids,
+                                      Date earliest) {
         SsmInstallPackagesEvent sipe = (SsmInstallPackagesEvent) event;
 
         Set<String> data = sipe.getPackages();
         // Convert the package list to domain objects
-        List<PackageListItem> pkgListItems = new ArrayList<PackageListItem>(data.size());
+        List<PackageListItem> packageListItems =
+                new ArrayList<PackageListItem>(data.size());
         for (String key : data) {
-            pkgListItems.add(PackageListItem.parse(key));
+            packageListItems.add(PackageListItem.parse(key));
         }
 
         // Convert to list of maps
         List<Map<String, Long>> packageListData = PackageListItem
-                        .toKeyMaps(pkgListItems);
+                .toKeyMaps(packageListItems);
 
         List<Action> pkgActions = ActionManager.schedulePackageInstall(user, sids,
-                        packageListData, earliest);
+                packageListData, earliest);
 
         return pkgActions;
-    }
-
-    protected Action doSchedule(SsmPackageEvent event, User user, Server s, Date earliest) {
-        SsmInstallPackagesEvent sipe = (SsmInstallPackagesEvent) event;
-
-        Set<String> data = sipe.getPackages();
-        // Convert the package list to domain objects
-        List<PackageListItem> pkgListItems = new ArrayList<PackageListItem>(data.size());
-        for (String key : data) {
-            pkgListItems.add(PackageListItem.parse(key));
-        }
-
-        // Convert to list of maps
-        List<Map<String, Long>> packageListData = PackageListItem
-                        .toKeyMaps(pkgListItems);
-
-        Action pkgAction = ActionManager.schedulePackageInstall(user, s,
-                        packageListData, earliest);
-
-        return pkgAction;
     }
 
 }
