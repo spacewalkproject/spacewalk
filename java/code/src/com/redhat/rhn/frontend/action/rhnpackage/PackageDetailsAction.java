@@ -29,6 +29,7 @@ import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.download.DownloadManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -124,8 +125,8 @@ public class PackageDetailsAction extends RhnAction {
             request.setAttribute("pack", pkg);
             // description can be null.
             if (pkg.getDescription() != null) {
-                request.setAttribute("description",
-                        pkg.getDescription().replace("\n", "<BR>\n"));
+                String description = StringEscapeUtils.escapeHtml(pkg.getDescription());
+                request.setAttribute("description", description.replace("\n", "<BR>\n"));
             }
             else {
                 request.setAttribute("description",
