@@ -24309,8 +24309,8 @@ given channel.</source>
         <target>Руководство по установке @@PRODUCT_NAME@@</target>
       </trans-unit>
       <trans-unit id="help.jsp.proxy">
-        <source>Detailed information regarding Red Hat Proxy server.</source>
-        <target>Подробная информация о сервере Red Hat Proxy.</target>
+        <source>Detailed information regarding @@PRODUCT_NAME@@ Proxy server.</source>
+        <target>Подробная информация о сервере @@PRODUCT_NAME@@ Proxy.</target>
       </trans-unit>
       <trans-unit id="help.jsp.proxy.title">
         <source>Proxy Guide</source>
