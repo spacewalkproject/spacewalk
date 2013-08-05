@@ -46,11 +46,11 @@ import com.redhat.rhn.manager.audit.scap.TestResultDiffer;
  * Static action page.
  */
 public class XccdfDiffSubmitAction extends RhnAction implements Listable {
-    private static final String FIRST = "first";
-    private static final String SECOND = "second";
-    private static final String VIEW = "view";
+    public static final String FIRST = "first";
+    public static final String SECOND = "second";
+    public static final String VIEW = "view";
+    public static final String CHANGED = "changed";
     private static final String FULL = "full";
-    private static final String CHANGED = "changed";
     private static final String MISSING_MSG = "message.xccdfdiff.missing";
 
     /** {@inheritDoc} */

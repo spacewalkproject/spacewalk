@@ -32,6 +32,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.audit.scap.XccdfDiffSubmitAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListSetHelper;
@@ -97,14 +98,14 @@ public class ListScapAction extends ScapSetupAction {
         else if (context.wasDispatched(DIFF_BUT)) {
             if (selectionSize == 2) {
                 Map<String, Object> params = new HashMap<String, Object>();
-                params.put("view", "changed");
+                params.put(XccdfDiffSubmitAction.VIEW, XccdfDiffSubmitAction.CHANGED);
                 Set<Long> scanIds = (Set<Long>) set.getElementValues();
                 Iterator<Long> it = scanIds.iterator();
                 if (it.hasNext()) {
-                    params.put("first", it.next());
+                    params.put(XccdfDiffSubmitAction.FIRST, it.next());
                 }
                 if (it.hasNext()) {
-                    params.put("second", it.next());
+                    params.put(XccdfDiffSubmitAction.SECOND, it.next());
                 }
                 return getStrutsDelegate().forwardParams(mapping.findForward("submitDiff"),
                         params);
