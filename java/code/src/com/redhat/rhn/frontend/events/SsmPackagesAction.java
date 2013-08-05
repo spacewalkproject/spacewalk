@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.events;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +25,7 @@ import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 import com.redhat.rhn.domain.action.script.ScriptRunAction;
+import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
@@ -105,65 +107,54 @@ public abstract class SsmPackagesAction extends AbstractDatabaseAction {
         log.debug("Scheduling package actions.");
         Date earliest = event.getEarliest();
 
-        List<Long> sids = getAffectedServers(event, user);
-
+        List<Long> serverIds = getAffectedServers(event, user);
 
         log.debug("Scheduling actions.");
 
-        // If we have a remote-cmd, have to correctly order it and the package
-        // action(s)
+        // If we have a remote-cmd, have to correctly order it and the package action(s)
         if (event.getScriptDetails() != null) {
-            // It's possible to have non-linux servers in the list, and different Actions
-            // are created for them.  Get the separate lists
-            List<Long> rhelIds = ServerFactory.listLinuxSystems(sids);
-            List<Long> solarisIds = ServerFactory.listSolarisSystems(sids);
-
-            ScriptActionDetails sad = event.getScriptDetails();
-            List<Action> pkgActions = doSchedule(event, user, sids, earliest);
-            for (Action a : pkgActions) {
-
+            for (Long sid : serverIds) {
+                Server s = ServerFactory.lookupById(sid);
+                List<Long> sidList = new ArrayList<Long>();
+                sidList.add(sid);
+                ScriptActionDetails sad = event.getScriptDetails();
                 if (event.isBefore()) {
                     log.debug("Scheduling remote-action BEFORE.");
 
-                    if (!rhelIds.isEmpty()) {
-                        ScriptRunAction sra = ActionManager.scheduleScriptRun(user,
-                                        rhelIds, null, sad, earliest);
-                        ActionManager.storeAction(sra);
-                        a.setPrerequisite(sra);
-                        ActionManager.storeAction(a);
-                    }
+                    ScriptRunAction sra = ActionManager.scheduleScriptRun(user, sidList,
+                                    null, sad, earliest);
+                    ActionManager.storeAction(sra);
 
-                    if (!solarisIds.isEmpty()) {
-                        ScriptRunAction sra = ActionManager.scheduleScriptRun(user,
-                                        solarisIds, null, sad, earliest);
-                        ActionManager.storeAction(sra);
-                        a.setPrerequisite(sra);
-                        ActionManager.storeAction(a);
-                    }
+                    Action pkgAction = doSchedule(event, user, s, earliest);
+
+                    Action prevAction = sra;
+                        pkgAction.setPrerequisite(prevAction);
+                        ActionManager.storeAction(pkgAction);
+                        prevAction = pkgAction;
+
                 }
                 else {
                     log.debug("Scheduling remote-action AFTER.");
 
-                    if (!rhelIds.isEmpty()) {
-                        ScriptRunAction sra = ActionManager.scheduleScriptRun(user,
-                                        rhelIds, null, sad, earliest);
-                        ActionManager.storeAction(a);
-                        sra.setPrerequisite(a);
-                        ActionManager.storeAction(sra);
-                    }
+                    Action pkgAction = doSchedule(event, user, s, earliest);
+                    ScriptRunAction sra = ActionManager.scheduleScriptRun(user, sidList,
+                                    null, sad, earliest);
 
-                    if (!solarisIds.isEmpty()) {
-                        ScriptRunAction sra = ActionManager.scheduleScriptRun(user,
-                                        solarisIds, null, sad, earliest);
-                        ActionManager.storeAction(a);
-                        sra.setPrerequisite(a);
-                        ActionManager.storeAction(sra);
-                    }
+                    // Might be more than one action from schedPkgActions
+                    Action prevAction = null;
+                        if (prevAction != null) {
+                            pkgAction.setPrerequisite(prevAction);
+                        }
+                        ActionManager.storeAction(pkgAction);
+                        prevAction = pkgAction;
+
+                    sra.setPrerequisite(prevAction);
+                    ActionManager.storeAction(sra);
                 }
             }
         }
         else { // No remote-script to schedule
-            doSchedule(event, user, sids, earliest);
+            doSchedule(event, user, serverIds, earliest);
         }
         log.debug("Done scheduling package actions.");
 
@@ -173,6 +164,10 @@ public abstract class SsmPackagesAction extends AbstractDatabaseAction {
 
     protected abstract List<Long> getAffectedServers(SsmPackageEvent event, User u);
 
+    protected abstract Action doSchedule(SsmPackageEvent event,
+                                               User user,
+                                               Server s,
+                                               Date earliest);
 
     protected abstract List<Action> doSchedule(SsmPackageEvent event,
                     User user,
