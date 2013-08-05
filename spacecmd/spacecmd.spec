@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.1.1
+Version:     2.1.2
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -64,6 +64,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Aug 05 2013 Gregor Gruener <ggruner@redhat.com>
+- spacecmd - add new function is_monitoringenabled and list_proxies
+
 * Mon Jul 22 2013 Gregor Gruener <ggruner@redhat.com> 2.1.1-1
 - add new function custominfo_updatekey
 
