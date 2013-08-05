@@ -85,7 +85,7 @@ def init_hook(conduit):
                 proxy_dict = {'HTTPS' : proxy_url}
     except BadProxyConfig:
         rhn_enabled = False
-        PROXY_ERROR =  _("There was an error parsing the Red Hat Proxy settings.")
+        PROXY_ERROR =  _("There was an error parsing the Red Hat Satellite Proxy settings.")
         conduit.error(0, PROXY_ERROR + "\n" + RHN_DISABLED)
         return 
 
