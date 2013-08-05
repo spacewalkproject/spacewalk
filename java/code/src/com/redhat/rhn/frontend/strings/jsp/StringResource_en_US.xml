@@ -4499,6 +4499,22 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/ssm/misc/Index.do</context>
         </context-group>
+        <trans-unit id="ssm.misc.index.tabs.lock">
+          <source>Lock</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.index.tabs.unlock">
+          <source>Unlock</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.index.tabs.lockunlock">
+          <source>Lock/Unlock</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.index.tabs.reboot">
+          <source>Reboot</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.index.tabs.delete">
+          <source>Delete</source>
+        </trans-unit>
+
         <trans-unit id="ssm.misc.index.profileupdates.header">
           <source>System Profile Updates</source>
         </trans-unit>
@@ -4583,8 +4599,52 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="ssm.misc.index.syspref.no">
           <source>No</source>
         </trans-unit>
-      </group>
-      <!-- == Systems == -->
+
+       <trans-unit id="ssm.misc.lockunlock.tabtitle">
+         <source>Lock/Unlock</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.lockunlock.header">
+         <source>Lock or Unlock the Systems</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.lockunlock.summary">
+         <source>Select system to lock or unlock their profiles. No updates will occur to locked systems until they are unlocked.</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.lockunlock.dispatch.lock">
+         <source>Lock</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.lockunlock.dispatch.unlock">
+         <source>Unlock</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.lockunlock.message.locked.success">
+         <source>Out of {0} selected systems, {1} has been locked.</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.lockunlock.message.locked.skipped">
+         <source>No systems has been locked.</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.lockunlock.message.locked.all.success">
+         <source>All selected systems has been locked.</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.lockunlock.message.locked.all.skipped">
+         <source>None of selected systems has been locked.</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.lockunlock.message.unlocked.success">
+         <source>Out of {0} selected systems, {1} has been unlocked.</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.lockunlock.message.unlocked.skipped">
+         <source>No systems has been unlocked.</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.lockunlock.message.unlocked.all.success">
+         <source>All selected systems has been unlocked.</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.lockunlock.message.unlocked.all.skipped">
+         <source>None of selected systems has been unlocked.</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.lockunlock.message.locked.missingreason">
+         <source>In order to lock a system, please specify the reason.</source>
+       </trans-unit>
+     </group>
+
+<!-- == Systems == -->
       <trans-unit id="overview.jsp.header">
         <source>System Overview</source>
         <context-group name="ctx">

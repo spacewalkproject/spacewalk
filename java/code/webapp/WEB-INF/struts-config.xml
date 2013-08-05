@@ -1255,6 +1255,11 @@
         <form-property name="submitted" type="java.lang.Boolean"/>
     </form-bean>
 
+    <form-bean name="SSMLockUnlockForm" type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+      <form-property name="lock_reason" type="java.lang.String" />
+      <form-property name="submitted" type="java.lang.Boolean" />
+    </form-bean>
+
   </form-beans>
 
   <global-exceptions>
@@ -5060,6 +5065,18 @@
         <set-property property="acls" value="org_entitlement(rhn_provisioning)"/>
         <forward name="default"
                  path="/WEB-INF/pages/configuration/ssm/enablesummary.jsp"/>
+    </action>
+
+    <action path="/systems/ssm/misc/LockUnlockSystem"
+                scope="request"
+                name="SSMLockUnlockForm"
+                input="/WEB-INF/pages/ssm/systems/misc/lock-unlock-system.jsp"
+                type="com.redhat.rhn.frontend.action.ssm.LockUnlockSystemAction"
+                className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="confirm"
+                 path="/ssm/index.do" />
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/systems/misc/lock-unlock-system.jsp" />
     </action>
 
         <action path="/systems/ssm/misc/Index"

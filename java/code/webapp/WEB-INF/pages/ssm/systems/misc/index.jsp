@@ -56,18 +56,6 @@
 <br />
 
 <a id="delete">&#160;</a>
-<h2><bean:message key="ssm.misc.index.lock.header"/></h2>
-
-<div class="page-summary">
-<p><bean:message key="ssm.misc.index.lock.summary"/></p>
-</div>
-<ul>
-  <li><a href="/network/systems/ssm/misc/lock_systems_conf.pxt"><bean:message key="ssm.misc.index.lock.lock"/></a></li>
-  <li><a href="/network/systems/ssm/misc/unlock_systems_conf.pxt"><bean:message key="ssm.misc.index.lock.unlock"/></a></li>
-</ul>
-<br />
-
-<a id="delete">&#160;</a>
 <h2><bean:message key="ssm.misc.index.delete.header"/></h2>
 <div class="page-summary">
 <p><bean:message key="ssm.misc.index.delete.summary"/></p>

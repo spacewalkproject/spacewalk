@@ -396,6 +396,9 @@ public class RhnSetDecl {
     public static final RhnSetDecl XCCDF_TESTRESULTS = make(
                     "xccdf_testresults", SetCleanup.INACCESSIBLE_XCCDF_RESULTS);
 
+    public static final RhnSetDecl SSM_SYSTEMS_SET_LOCK = make(
+            "ssm_systems_set_lock", SetCleanup.NOOP);
+
     private SetCleanup cleanup;
     private String label;
 
