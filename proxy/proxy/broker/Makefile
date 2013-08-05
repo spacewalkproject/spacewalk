@@ -1,4 +1,4 @@
-# Makefile for the apacheServer.py for Red Hat Proxy Server.
+# Makefile for the apacheServer.py for Spacewalk Proxy Server.
 #
 
 TOP	= ..

@@ -17,9 +17,9 @@
 #          Todd Warner <taw@redhat.com>
 #
 """\
-Management tool for the Red Hat proxy.
+Management tool for the Spacewalk Proxy.
 
-This script performs various management operations on the Red Hat proxy:
+This script performs various management operations on the Spacewalk Proxy:
 - Creates the local directory structure needed to store local packages
 - Uploads packages from a given directory to the RHN servers
 - Optionally, once the packages are uploaded, they can be linked to (one or

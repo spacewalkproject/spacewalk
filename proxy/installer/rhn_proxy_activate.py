@@ -12,14 +12,14 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 #
-""" Activate an Red Hat Proxy 3.x ...not the executable
-    (original script can activate an Red Hat Proxy version 1.1 to 3.x)
+""" Activate a Spacewalk Proxy 3.x ...not the executable
+    (original script can activate a Spacewalk Proxy version 1.1 to 3.x)
     USAGE: ./rhn-proxy-activate
 
     Author: Todd Warner <taw@redhat.com>
 
-    NOTE: this file is compatible with RHN Proxies 4.0. It is not guaranteed to
-    work with older RHN Proxies.
+    NOTE: this file is compatible with Spacewalk Proxies 4.0. It is not guaranteed to
+    work with older Spacewalk Proxies.
 """
 
 ## core lang imports
@@ -141,17 +141,17 @@ def _getActivationError(e):
                        "available in your RHN account.")
         errorCode = 5
     elif e.faultString.find('proxy_no_channel_entitlements') != -1:
-        errorString = ("no Red Hat Proxy entitlements available. There must be "
-                       "at least one free Red Hat Proxy entitlement "
+        errorString = ("no Spacewalk Proxy entitlements available. There must "
+                       "be at least one free Spacewalk Proxy entitlement "
                        "available in your Red Hat Satellite account.")
         errorCode = 6
     elif e.faultString.find('proxy_no_proxy_child_channel') != -1:
-        errorString = ("no Red Hat Proxy entitlements available for this "
+        errorString = ("no Spacewalk Proxy entitlements available for this "
                        "server's version (or requested version) of Red Hat "
-                       "Enterprise Linux.")
+                       "Enterprise nux.")
         errorCode = 7
     elif e.faultString.find('proxy_not_activated') != -1:
-        errorString = "this server not an activated Red Hat Proxy yet."
+        errorString = "this server not an activated Spacewalk Proxy yet."
         errorCode = 8
     else:
         errorString = "unknown error - %s" % str(e)
@@ -292,7 +292,7 @@ def _deactivateProxy_api_v3_x(options):
     else:
         errorCode = 0
         if not options.quiet:
-            sys.stdout.write("Red Hat Proxy successfully deactivated.\n")
+            sys.stdout.write("Spacewalk Proxy successfully deactivated.\n")
     return (errorCode, errorString)
 
 def _activateProxy_api_v3_x(options):
@@ -329,7 +329,7 @@ def _activateProxy_api_v3_x(options):
     else:
         errorCode = 0
         if not options.quiet:
-            sys.stdout.write("Red Hat Proxy successfully activated.\n")
+            sys.stdout.write("Spacewalk Proxy successfully activated.\n")
     return (errorCode, errorString)
 
 def createMonitoringScout(options):
@@ -378,7 +378,7 @@ def activateProxy(options):
     if errorCode != 0:
         if not errorString:
             errorString = ("An unknown error occured. Consult with your Red Hat representative.\n")
-        sys.stderr.write("\nThere was a problem activating the Red Hat Proxy entitlement:\n%s\n" % errorString)
+        sys.stderr.write("\nThere was a problem activating the Spacewalk Proxy entitlement:\n%s\n" % errorString)
         sys.exit(abs(errorCode))
         
 def listAvailableProxyChannels(options):
@@ -440,7 +440,7 @@ def processCommandline():
         Option('--no-ssl',          action='store_true',
                 help='turn off SSL (not advisable), default is on.'),
         Option('--version',         action='store',     default=defaultVersion,
-                help='which X.Y version of the Red Hat Proxy are you upgrading to?' +
+                help='which X.Y version of the Spacewalk Proxy are you upgrading to?' +
                      ' Default is your current proxy version ('+defaultVersion+')'),
         Option('-m', '--enable-monitoring', action='store_true',
                 help='enable MonitoringScout on this proxy.'),

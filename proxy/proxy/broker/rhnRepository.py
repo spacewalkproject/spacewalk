@@ -241,7 +241,7 @@ def listPackages(function, channel, version):
         return function(channel, version)
     except xmlrpclib.ProtocolError, e:
         errcode, errmsg = rpclib.reportError(e.headers)
-        raise rhnFault(1000, "Red Hat Proxy error (xmlrpclib.ProtocolError): "
+        raise rhnFault(1000, "SpacewalkProxy error (xmlrpclib.ProtocolError): "
                              "errode=%s; errmsg=%s" % (errcode, errmsg)), None, sys.exc_info()[2]
 
 

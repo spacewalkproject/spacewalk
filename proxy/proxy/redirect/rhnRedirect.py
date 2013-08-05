@@ -34,7 +34,7 @@ from rhn import connections
 
 # Main apache entry point for the proxy.
 class RedirectHandler(SharedHandler):
-    """ Red Hat Proxy SSL Redirect specific handler code called by rhnApache. 
+    """ Spacewalk Proxy SSL Redirect specific handler code called by rhnApache. 
 
         Workflow is:
         Client -> Apache:Broker -> Squid -> Apache:Redirect -> Satellite

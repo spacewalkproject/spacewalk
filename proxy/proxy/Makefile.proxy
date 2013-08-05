@@ -1,4 +1,4 @@
-# Makefile for building Red Hat Proxy snapshots
+# Makefile for building Spacewalk Proxy snapshots
 #
 
 TOP	= .

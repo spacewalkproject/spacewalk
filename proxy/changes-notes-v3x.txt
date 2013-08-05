@@ -1,8 +1,8 @@
-This document outlines some of the big changes occuring for Red Hat Proxy 3.*
+This document outlines some of the big changes occuring for Spacewalk Proxy 3.*
 -------------------------------------------------------------------------
 $Id$
 
-Changes in the Red Hat Proxy architexture required dramatic changes in the
+Changes in the Spacewalk Proxy architexture required dramatic changes in the
 config files. Most everything was simplified.
 
 Simplified the SSL config variable

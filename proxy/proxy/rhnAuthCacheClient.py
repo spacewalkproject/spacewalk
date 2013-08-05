@@ -92,7 +92,7 @@ class Shelf:
               Make sure it is started on %s""" % str(self.serverAddr))
             # FIXME: PROBLEM: this rhnFault will never reach the client
             raise rhnFault(1000,
-              _("Red Hat Proxy error (issues connecting to auth cache). "
+              _("Spacewalk Proxy error (issues connecting to auth cache). "
                 "Please contact your system administrator")), None, sys.exc_info()[2]
 
         wfile = sock.makefile("w")
@@ -114,7 +114,7 @@ class Shelf:
                      Make sure the authentication cache daemon is started""")
             # FIXME: PROBLEM: this rhnFault will never reach the client
             raise rhnFault(1000,
-              _("Red Hat Proxy error (issues connecting to auth cache). "
+              _("Spacewalk Proxy error (issues connecting to auth cache). "
                 "Please contact your system administrator")), None, sys.exc_info()[2]
 
         wfile.close()
@@ -132,7 +132,7 @@ class Shelf:
                       Make sure the authentication cache daemon is started""")
             # FIXME: PROBLEM: this rhnFault will never reach the client
             raise rhnFault(1000,
-              _("Red Hat Proxy error (issues communicating to auth cache). "
+              _("Spacewalk Proxy error (issues communicating to auth cache). "
                 "Please contact your system administrator")), None, sys.exc_info()[2]
         except Fault, e:
             rfile.close()

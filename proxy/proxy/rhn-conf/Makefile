@@ -1,4 +1,4 @@
-# Makefile for installation of the Red Hat Proxy configuration files
+# Makefile for installation of the Spacewalk Proxy configuration files
 #
 
 # what is the backend top dir

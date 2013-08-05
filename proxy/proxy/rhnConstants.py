@@ -13,11 +13,11 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 ##
-# rhnDefines.py - Constants used throughout the Red Hat Proxy.
+# rhnDefines.py - Constants used throughout the Spacewalk Proxy.
 #-----------------------------------------------------------------------------
 #
 
-"""Constants used by the Red Hat Proxy"""
+"""Constants used by the Spacewalk Proxy"""
 
 # HTTP Headers
 
