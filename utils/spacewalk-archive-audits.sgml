@@ -1,0 +1,98 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN"
+>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>spacewalk-archive-audits</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 1.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>spacewalk-archive-audits</command></RefName>
+<RefPurpose>
+Archive and purge the audit-logging tables introduced with Spacewalk 2.0
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>spacewalk-archive-audits</command>
+        <arg>options <replaceable>...</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-l</arg>
+        <arg> --list</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-a</arg>
+        <arg>--archive</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-p</arg>
+        <arg>--purge</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-t<replaceable> YYYY-MM-DD hh24:mi:ss</replaceable></arg>
+        <arg>-timestamp=<replaceable>YYYY-MM-DD hh24:mi:ss</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-h</arg><arg>--help</arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+    <para>
+        <emphasis>spacewalk-archive-audits</emphasis> archives and purges the audit-logging tables enabled in the spacewalk instance on which the command is executed
+    </para>
+    <para>
+        Since audit-entries grow over time, this command is provided to give the spacewalk administrator a tool to cull old table-entries while preserving them for historical reporting.
+    </para>
+    <para>
+        When --archive or --purge are chosen, an entry is made to /var/log/rhn/archive-audit-tables.log with the action, timestamp, and results.
+    </para>
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-l, --list </term>
+        <listitem>
+            <para> List the current sizes of all *_log tables found in the Spacewalk database</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-a, --archive</term>
+        <listitem>
+            <para>Archives all entries occurring before --timestamp-specified time, into files named TABLENAME.CURRENT-TIMESTAMP.csv
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-p, --purge</term>
+        <listitem>
+            <para>Deletes all audit-entries occurring before --timestamp-specified time
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-l=<replaceable> YYYY-MM-DD hh24:mi:ss</replaceable>, --timestamp=<replaceable>YYYY-MM-DD hh24:mi:ss</replaceable></term>
+        <listitem>
+            <para>Specifies the most-recent timestamp to --archive or --purge.  Any/all entries made <emphasis>before</emphasis> this mark will be recorded and/or deleted.  Required for --archive and --purge.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Grant Gainey <email>ggainey@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>
+
