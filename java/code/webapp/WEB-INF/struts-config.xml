@@ -3002,6 +3002,8 @@
             path="/WEB-INF/pages/systems/details/audit/listscap.jsp"/>
         <forward name="submitDelete"
             path="/systems/details/audit/XccdfDeleteConfirm.do" redirect="true"/>
+        <forward name="submitDiff"
+            path="/audit/scap/DiffSubmit.do" redirect="true"/>
     </action>
 
     <action path="/systems/details/audit/XccdfDeleteConfirm"
