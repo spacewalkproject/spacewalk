@@ -1148,4 +1148,53 @@ public class OrgHandler extends BaseHandler {
                 (retentionPeriod != null) ? retentionPeriod : new Long(0));
         return result;
     }
+
+    /**
+     * Set the status of SCAP result deletion settings for the given organization.
+     *
+     * @param sessionKey User's session key.
+     * @param orgId ID of organization to work with.
+     * @param newSettings New settings of the SCAP result deletion settings.
+     * @return Returns 1 for successfull change.
+     *
+     * @xmlrpc.doc Set the status of SCAP result deletion settins for the given
+     * organization.
+     *
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("int", "orgId")
+     * @xmlrpc.param
+     *     #struct("scap_deletion_info")
+     *         #prop_desc("boolean", "enabled",
+     *             "Deletion of SCAP results is enabled")
+     *         #prop_desc("int", "retention_period",
+     *             "Period (in days) after which a scan can be deleted (if enabled).")
+     *     #struct_end()
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setPolicyForScapResultDeletion(String sessionKey, Integer orgId,
+            Map<String, Object> newSettings) {
+        Set<String> validKeys = new HashSet<String>();
+        validKeys.add("enabled");
+        validKeys.add("retention_period");
+        validateMap(validKeys, newSettings);
+
+        getSatAdmin(sessionKey);
+        OrgConfig orgConfig = verifyOrgExists(orgId).getOrgConfig();
+        if (newSettings.containsKey("enabled")) {
+            if ((Boolean) newSettings.get("enabled")) {
+                orgConfig.setScapRetentionPeriodDays(new Long(90));
+            }
+            else {
+                orgConfig.setScapRetentionPeriodDays(null);
+            }
+        }
+        if (newSettings.containsKey("retention_period")) {
+            Long retentionPeriod = new Long(((Integer)
+                newSettings.get("retention_period")).longValue());
+            if (orgConfig.getScapRetentionPeriodDays() != null) {
+                orgConfig.setScapRetentionPeriodDays(retentionPeriod);
+            }
+        }
+        return 1;
+    }
 }
