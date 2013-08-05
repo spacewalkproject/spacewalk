@@ -12017,8 +12017,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <target>ਮਨਜੂਰੀ ਇੰਟਾਈਟਲਮੈਂਟ ਜੋੜੋ</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
-          <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
-          <target>@@PRODUCT_NAME@@ ਜੰਤਰ ਚੈਨਲ ਤੇ ਮੈਂਬਰ ਬਣੋ</target>
+          <source>Subscribe to RHN Tools channel</source>
+          <target>RHN ਜੰਤਰ ਚੈਨਲ ਤੇ ਮੈਂਬਰ ਬਣੋ</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.installcfg">
           <source>Schedule rhncfg package install</source>
@@ -12095,8 +12095,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <target>ਮਨਜੂਰੀ ਇੰਟਾਈਟਲਮੈਂਟ ਗਰਾਂਟ ਨਹੀਂ ਕਰ ਸਕਦਾ।</target>
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
-          <source>Could not subscribe to the @@PRODUCT_NAME@@ Tools channel.</source>
-          <target>@@PRODUCT_NAME@@ ਜੰਤਰ ਚੈਨਲ ਤੇ ਮੈਂਬਰ ਨਹੀਂ ਬਣ ਸਕਦਾ।</target>
+          <source>Could not subscribe to the RHN Tools channel.</source>
+          <target>RHN ਜੰਤਰ ਚੈਨਲ ਤੇ ਮੈਂਬਰ ਨਹੀਂ ਬਣ ਸਕਦਾ।</target>
         </trans-unit>
         <trans-unit id="summary.jsp.packages">
           <source>Could not schedule rhncfg* package installations.</source>

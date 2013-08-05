@@ -14864,8 +14864,8 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
           <target>Aggiungi entitlement di provisioning</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
-          <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
-          <target>Sottoscrivi al canale di @@PRODUCT_NAME@@ Tools</target>
+          <source>Subscribe to RHN Tools channel</source>
+          <target>Sottoscrivi al canale di RHN Tools</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.installcfg">
           <source>Schedule rhncfg package install</source>
@@ -14950,8 +14950,8 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
           <target>Impossibile conferire l'entitlement di provisioning.</target>
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
-          <source>Could not subscribe to the @@PRODUCT_NAME@@ Tools channel.</source>
-          <target>Impossibile sottoscriversi al canale @@PRODUCT_NAME@@ Tools.</target>
+          <source>Could not subscribe to the RHN Tools channel.</source>
+          <target>Impossibile sottoscriversi al canale RHN Tools.</target>
         </trans-unit>
         <trans-unit id="summary.jsp.packages">
           <source>Could not schedule rhncfg* package installations.</source>

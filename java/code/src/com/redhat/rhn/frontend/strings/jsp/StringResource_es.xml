@@ -14879,8 +14879,8 @@ la &lt;strong&gt;Guía de administración del sistema Red Hat Enterprise Linux.&
           <target>Añadir derechos de aprovisionamiento</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
-          <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
-          <target>Suscribirse al canal de herramientas de @@PRODUCT_NAME@@</target>
+          <source>Subscribe to RHN Tools channel</source>
+          <target>Suscribirse al canal de herramientas de RHN</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.installcfg">
           <source>Schedule rhncfg package install</source>
@@ -14965,8 +14965,8 @@ la &lt;strong&gt;Guía de administración del sistema Red Hat Enterprise Linux.&
           <target>No se pudieron otorgar los derechos de aprovisionamiento</target>
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
-          <source>Could not subscribe to the @@PRODUCT_NAME@@ Tools channel.</source>
-          <target>No se pudo suscribir al canal de herramientas de @@PRODUCT_NAME@@.</target>
+          <source>Could not subscribe to the RHN Tools channel.</source>
+          <target>No se pudo suscribir al canal de herramientas de RHN.</target>
         </trans-unit>
         <trans-unit id="summary.jsp.packages">
           <source>Could not schedule rhncfg* package installations.</source>

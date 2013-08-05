@@ -14877,8 +14877,8 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
           <target>添加 provisioning 权利</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
-          <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
-          <target>订阅 @@PRODUCT_NAME@@ 工具频道</target>
+          <source>Subscribe to RHN Tools channel</source>
+          <target>订阅 RHN 工具频道</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.installcfg">
           <source>Schedule rhncfg package install</source>
@@ -14963,8 +14963,8 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
           <target>不能赋予 provisioning 权利。</target>
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
-          <source>Could not subscribe to the @@PRODUCT_NAME@@ Tools channel.</source>
-          <target>无法订阅 @@PRODUCT_NAME@@ 工具频道。</target>
+          <source>Could not subscribe to the RHN Tools channel.</source>
+          <target>无法订阅 RHN 工具频道。</target>
         </trans-unit>
         <trans-unit id="summary.jsp.packages">
           <source>Could not schedule rhncfg* package installations.</source>

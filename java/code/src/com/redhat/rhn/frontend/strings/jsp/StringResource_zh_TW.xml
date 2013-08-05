@@ -14879,8 +14879,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <target>附加 provisioning 權利</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
-          <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
-          <target>訂閱 @@PRODUCT_NAME@@ 工具的頻道</target>
+          <source>Subscribe to RHN Tools channel</source>
+          <target>訂閱 RHN 工具的頻道</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.installcfg">
           <source>Schedule rhncfg package install</source>
@@ -14965,8 +14965,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <target>無法賦予 provisioning 權利。</target>
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
-          <source>Could not subscribe to the @@PRODUCT_NAME@@ Tools channel.</source>
-          <target>無法訂閱 @@PRODUCT_NAME@@ 工具頻道。</target>
+          <source>Could not subscribe to the RHN Tools channel.</source>
+          <target>無法訂閱 RHN 工具頻道。</target>
         </trans-unit>
         <trans-unit id="summary.jsp.packages">
           <source>Could not schedule rhncfg* package installations.</source>

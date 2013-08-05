@@ -14884,8 +14884,8 @@ Anschließend wird das nicht-chroot Post-Skript ausgeführt, und zuletzt das Pos
           <target>Provisioning-Berechtigung hinzufügen</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
-          <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
-          <target>@@PRODUCT_NAME@@ Tools-Channel abonnieren</target>
+          <source>Subscribe to RHN Tools channel</source>
+          <target>RHN Tools-Channel abonnieren</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.installcfg">
           <source>Schedule rhncfg package install</source>
@@ -14970,8 +14970,8 @@ Anschließend wird das nicht-chroot Post-Skript ausgeführt, und zuletzt das Pos
           <target>Provisioning-Berechtigung konnte nicht erteilt werden.</target>
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
-          <source>Could not subscribe to the @@PRODUCT_NAME@@ Tools channel.</source>
-          <target>@@PRODUCT_NAME@@ Tools Channel konnte nicht abonniert werden.</target>
+          <source>Could not subscribe to the RHN Tools channel.</source>
+          <target>RHN Tools Channel konnte nicht abonniert werden.</target>
         </trans-unit>
         <trans-unit id="summary.jsp.packages">
           <source>Could not schedule rhncfg* package installations.</source>

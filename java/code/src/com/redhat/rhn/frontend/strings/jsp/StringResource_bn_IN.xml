@@ -12017,8 +12017,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <target>provisioning এনটাইটেলমেন্ট যোগ করুন</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
-          <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
-          <target>@@PRODUCT_NAME@@ Tools চ্যানেলে সাবস্ক্রাইব করুন</target>
+          <source>Subscribe to RHN Tools channel</source>
+          <target>RHN Tools চ্যানেলে সাবস্ক্রাইব করুন</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.installcfg">
           <source>Schedule rhncfg package install</source>
@@ -12095,8 +12095,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <target>provisioning এনটাইটেলমেন্ট জ্ঞাপন করা সম্ভব হয়নি।</target>
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
-          <source>Could not subscribe to the @@PRODUCT_NAME@@ Tools channel.</source>
-          <target>@@PRODUCT_NAME@@ Tools চ্যানেলে সাবস্ক্রাইব করতে ব্যর্থ।</target>
+          <source>Could not subscribe to the RHN Tools channel.</source>
+          <target>RHN Tools চ্যানেলে সাবস্ক্রাইব করতে ব্যর্থ।</target>
         </trans-unit>
         <trans-unit id="summary.jsp.packages">
           <source>Could not schedule rhncfg* package installations.</source>

@@ -14866,8 +14866,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <target>Добавить полномочие обеспечения</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
-          <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
-          <target>Подписаться к каналу утилит @@PRODUCT_NAME@@</target>
+          <source>Subscribe to RHN Tools channel</source>
+          <target>Подписаться к каналу утилит RHN</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.installcfg">
           <source>Schedule rhncfg package install</source>
@@ -14952,8 +14952,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <target>Невозможно предоставить полномочие обеспечения.</target>
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
-          <source>Could not subscribe to the @@PRODUCT_NAME@@ Tools channel.</source>
-          <target>Невозможно подписаться к каналу утилит @@PRODUCT_NAME@@.</target>
+          <source>Could not subscribe to the RHN Tools channel.</source>
+          <target>Невозможно подписаться к каналу утилит RHN.</target>
         </trans-unit>
         <trans-unit id="summary.jsp.packages">
           <source>Could not schedule rhncfg* package installations.</source>

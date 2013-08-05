@@ -12018,8 +12018,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <target>બચાવ ઉમેદવારી ઉમેરો</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
-          <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
-          <target>@@PRODUCT_NAME@@ સાધનો ચેનલમાં ઉમેદવારી નોંધાવો</target>
+          <source>Subscribe to RHN Tools channel</source>
+          <target>RHN સાધનો ચેનલમાં ઉમેદવારી નોંધાવો</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.installcfg">
           <source>Schedule rhncfg package install</source>
@@ -12096,8 +12096,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <target>બચાવ ઉમેદવારીની મંજૂરી આપી શક્યા નહિં.</target>
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
-          <source>Could not subscribe to the @@PRODUCT_NAME@@ Tools channel.</source>
-          <target>@@PRODUCT_NAME@@ સાધનો ચેનલમાં ઉમેદવારી કરી શક્યા નહિં.</target>
+          <source>Could not subscribe to the RHN Tools channel.</source>
+          <target>RHN સાધનો ચેનલમાં ઉમેદવારી કરી શક્યા નહિં.</target>
         </trans-unit>
         <trans-unit id="summary.jsp.packages">
           <source>Could not schedule rhncfg* package installations.</source>

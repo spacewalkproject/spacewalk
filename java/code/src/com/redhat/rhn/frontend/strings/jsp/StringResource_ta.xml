@@ -12018,8 +12018,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <target>வாய்ப்பளித்தல் உரிமத்தை சேர்த்தல்</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
-          <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
-          <target>@@PRODUCT_NAME@@ கருவிகள் தடத்துடன் சந்தாப்படுத்தவும்</target>
+          <source>Subscribe to RHN Tools channel</source>
+          <target>RHN கருவிகள் தடத்துடன் சந்தாப்படுத்தவும்</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.installcfg">
           <source>Schedule rhncfg package install</source>
@@ -12096,8 +12096,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <target>வாய்ப்பளித்தல் உரிமத்தைக் கொடுக்க முடியாது.</target>
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
-          <source>Could not subscribe to the @@PRODUCT_NAME@@ Tools channel.</source>
-          <target>@@PRODUCT_NAME@@ கருவிகள் தடத்திற்கு சந்தாப்படுத்த முடியாது.</target>
+          <source>Could not subscribe to the RHN Tools channel.</source>
+          <target>RHN கருவிகள் தடத்திற்கு சந்தாப்படுத்த முடியாது.</target>
         </trans-unit>
         <trans-unit id="summary.jsp.packages">
           <source>Could not schedule rhncfg* package installations.</source>

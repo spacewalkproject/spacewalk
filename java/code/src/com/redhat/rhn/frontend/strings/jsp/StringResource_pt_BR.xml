@@ -14877,8 +14877,8 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
           <target>Adicionar Serviços de provisão</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
-          <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
-          <target>Registrar-se nos canais de Ferramenta do @@PRODUCT_NAME@@</target>
+          <source>Subscribe to RHN Tools channel</source>
+          <target>Registrar-se nos canais de Ferramenta do RHN</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.installcfg">
           <source>Schedule rhncfg package install</source>
@@ -14963,8 +14963,8 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
           <target>Não foi possível obter serviço de provisão.</target>
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
-          <source>Could not subscribe to the @@PRODUCT_NAME@@ Tools channel.</source>
-          <target>Não foi possível inscrever o canal de Ferramenta @@PRODUCT_NAME@@. </target>
+          <source>Could not subscribe to the RHN Tools channel.</source>
+          <target>Não foi possível inscrever o canal de Ferramenta RHN. </target>
         </trans-unit>
         <trans-unit id="summary.jsp.packages">
           <source>Could not schedule rhncfg* package installations.</source>

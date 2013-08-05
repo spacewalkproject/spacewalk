@@ -14882,8 +14882,8 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
           <target>Ajouter un droit d'accès au module Provisioning</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
-          <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
-          <target>S'abonner au canal @@PRODUCT_NAME@@ Tools (outils @@PRODUCT_NAME@@)</target>
+          <source>Subscribe to RHN Tools channel</source>
+          <target>S'abonner au canal RHN Tools (outils @@PRODUCT_NAME@@)</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.installcfg">
           <source>Schedule rhncfg package install</source>
@@ -14968,8 +14968,8 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
           <target>Impossible d'accorder le droit d'accès Provisioning.</target>
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
-          <source>Could not subscribe to the @@PRODUCT_NAME@@ Tools channel.</source>
-          <target>Impossible de s'abonner au canal @@PRODUCT_NAME@@ Tools.</target>
+          <source>Could not subscribe to the RHN Tools channel.</source>
+          <target>Impossible de s'abonner au canal RHN Tools.</target>
         </trans-unit>
         <trans-unit id="summary.jsp.packages">
           <source>Could not schedule rhncfg* package installations.</source>
