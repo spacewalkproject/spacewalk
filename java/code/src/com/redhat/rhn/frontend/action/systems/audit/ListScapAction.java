@@ -110,12 +110,10 @@ public class ListScapAction extends ScapSetupAction {
                 return getStrutsDelegate().forwardParams(mapping.findForward("submitDiff"),
                         params);
             }
-            else {
-                ActionMessages msg = new ActionMessages();
-                msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "system.audit.listscap.jsp.diffmessage"));
-                getStrutsDelegate().saveMessages(request, msg);
-            }
+            ActionMessages msg = new ActionMessages();
+            msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                    "system.audit.listscap.jsp.diffmessage"));
+            getStrutsDelegate().saveMessages(request, msg);
         }
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
