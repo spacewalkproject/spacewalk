@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.1.0
+Version:    2.1.1
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -74,6 +74,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Aug 06 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.1-1
+- Indent organization configuration dialog to clarify semantics of checkboxes.
+- Bumping package versions for 2.1.
+
 * Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.1-1
 - Bumping package versions for 2.0.
 
