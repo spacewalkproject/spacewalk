@@ -207,7 +207,7 @@ class SharedHandler:
             # XXX: why are we not mailing this out???
             Traceback("SharedHandler._serverCommo", self.req, mail=0)
             raise rhnFault(1000, _(
-                "Súacewalk Proxy error: connection with the Spacewalk server failed")), None, sys.exc_info()[2]
+                "Spacewalk Proxy error: connection with the Spacewalk server failed")), None, sys.exc_info()[2]
         except socket.error:
             # maybe self.req.read() failed?
             Traceback("SharedHandler._serverCommo", self.req)
