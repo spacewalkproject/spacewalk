@@ -99,7 +99,7 @@ public class ListScapAction extends ScapSetupAction {
             if (selectionSize == 2) {
                 Map<String, Object> params = new HashMap<String, Object>();
                 params.put(XccdfDiffSubmitAction.VIEW, XccdfDiffSubmitAction.CHANGED);
-                Set<Long> scanIds = (Set<Long>) set.getElementValues();
+                Set<Long> scanIds = set.getElementValues();
                 Iterator<Long> it = scanIds.iterator();
                 if (it.hasNext()) {
                     params.put(XccdfDiffSubmitAction.FIRST, it.next());
