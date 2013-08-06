@@ -439,14 +439,25 @@ then
     fi
 fi
 
-SQL_RET=$(
-echo "$DBSHELL_QUIET
-select 0 from dual;
-$DBSHELL_QUIT
-"  | spacewalk-sql --select-mode -
-)
-# SQL_RET="${SQL_RET#"${SQL_RET%%[![:space:]]*}"}"
-print_status "${SQL_RET}" "Your database isn't running."
+DB_MAX_TRIES=3;
+
+for (( i=1;;i++ )) do
+    SQL_RET=$(
+    echo "$DBSHELL_QUIET
+    select 0 from dual;
+    $DBSHELL_QUIT
+    "  | spacewalk-sql --select-mode -
+    )
+    SQL_RET="${SQL_RET#"${SQL_RET%%[![:space:]]*}"}" # remove spaces
+    if [ "$SQL_RET" != "0" ] && [ $i -lt $DB_MAX_TRIES ]
+    then
+        echo_err "Your database isn't running. Trying again..."
+        sleep 3
+    else
+        print_status "${SQL_RET}" "Your database isn't running."
+        break # if success
+    fi
+done
 
 echo -n "Updating /etc/rhn/rhn.conf ... " | tee -a $LOG
 update_rhn_conf
