@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.12
+Version: 2.1.13
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Aug 06 2013 Tomas Lestach <tlestach@redhat.com> 2.1.13-1
+- Fix HTML not being escaped in package information
+- 982354 - Show Scan's ID (xid) on scan's details page.
+- Refactor: Use static-final instead of magic constant.
+- 982354 - enable easy comparison between various SCAP scans.
+
 * Mon Aug 05 2013 Grant Gainey <ggainey@redhat.com> 2.1.12-1
 - 993419 - L10N fix, 'RHN Tools' isn't a product-name
 
