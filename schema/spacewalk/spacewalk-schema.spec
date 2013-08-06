@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.1.6
+Version:        2.1.7
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Aug 06 2013 Tomas Lestach <tlestach@redhat.com> 2.1.7-1
+- name constraints on the log table
+
 * Mon Aug 05 2013 Tomas Lestach <tlestach@redhat.com> 2.1.6-1
 - changing stamp type on log table
 
