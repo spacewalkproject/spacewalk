@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.1.4
+Version:	2.1.5
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -88,6 +88,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Aug 06 2013 Jan Dobes 2.1.5-1
+- 972626 - simplier and more readable solution
+
 * Tue Aug 06 2013 Jan Dobes 2.1.4-1
 - 972626 - multiple tries if db will not start quick enough
 
