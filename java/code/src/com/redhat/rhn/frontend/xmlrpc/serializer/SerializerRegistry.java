@@ -79,7 +79,7 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(MultiOrgUserOverviewSerializer.class);
         SERIALIZER_CLASSES.add(VirtualSystemOverviewSerializer.class);
         SERIALIZER_CLASSES.add(MultiOrgEntitlementsDtoSerializer.class);
-        SERIALIZER_CLASSES.add(MultiOrgSystemEntitlementsDtoSerializer.class);
+        SERIALIZER_CLASSES.add(SystemEntitlementsDtoSerializer.class);
         SERIALIZER_CLASSES.add(OrgEntitlementDtoSerializer.class);
         SERIALIZER_CLASSES.add(EntitlementSerializer.class);
         SERIALIZER_CLASSES.add(OrgChannelFamilySerializer.class);

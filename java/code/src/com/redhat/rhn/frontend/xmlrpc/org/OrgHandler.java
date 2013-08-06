@@ -33,11 +33,11 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.MultiOrgEntitlementsDto;
-import com.redhat.rhn.frontend.dto.MultiOrgSystemEntitlementsDto;
 import com.redhat.rhn.frontend.dto.OrgChannelFamily;
 import com.redhat.rhn.frontend.dto.OrgDto;
 import com.redhat.rhn.frontend.dto.OrgEntitlementDto;
 import com.redhat.rhn.frontend.dto.OrgSoftwareEntitlementDto;
+import com.redhat.rhn.frontend.dto.SystemEntitlementsDto;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
@@ -593,7 +593,7 @@ public class OrgHandler extends BaseHandler {
      *  across all organizations.
      * User needs to be a satellite administrator to get this information
      * @param sessionKey User's session key.
-     * @return Array of MultiOrgSystemEntitlementsDto.
+     * @return Array of SystemEntitlementsDtoSerializer.
      *
      * @xmlrpc.doc Lists system entitlement allocation information
      * across all organizations.
@@ -602,10 +602,10 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype
      *   #array()
-     *     $MultiOrgEntitlementsDtoSerializer
+     *     $SystemEntitlementsDtoSerializer
      *   #array_end()
      */
-    public List<MultiOrgSystemEntitlementsDto> listSystemEntitlements(String sessionKey) {
+    public List<SystemEntitlementsDto> listSystemEntitlements(String sessionKey) {
         getSatAdmin(sessionKey);
         return OrgManager.allOrgsEntitlements();
     }

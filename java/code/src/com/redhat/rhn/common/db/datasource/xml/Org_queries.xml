@@ -75,7 +75,7 @@ WHERE  org.id != :org_id
  </query>
 </mode>
 
-<mode name="get_total_entitlement_counts" class="com.redhat.rhn.frontend.dto.MultiOrgSystemEntitlementsDto">
+<mode name="get_total_entitlement_counts" class="com.redhat.rhn.frontend.dto.SystemEntitlementsDto">
   <query> SELECT   sgt.id as id,
 		sgt.label as label,
             SUM(sg.max_members) as total,

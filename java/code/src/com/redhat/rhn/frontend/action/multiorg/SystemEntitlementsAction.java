@@ -15,7 +15,7 @@
 package com.redhat.rhn.frontend.action.multiorg;
 
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.dto.MultiOrgSystemEntitlementsDto;
+import com.redhat.rhn.frontend.dto.SystemEntitlementsDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -46,7 +46,7 @@ public class SystemEntitlementsAction extends RhnAction {
         RequestContext requestContext = new RequestContext(request);
         User u = requestContext.getLoggedInUser();
 
-        List<MultiOrgSystemEntitlementsDto>result = OrgManager.allOrgsEntitlements();
+        List<SystemEntitlementsDto>result = OrgManager.allOrgsEntitlements();
 
         Long orgCount = OrgManager.getTotalOrgCount(u);
 

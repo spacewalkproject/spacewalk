@@ -21,145 +21,24 @@ import java.math.BigDecimal;
  * MultiOrgEntitlementsDto
  * @version $Rev$
  */
-public class MultiOrgEntitlementsDto extends BaseDto {
-    private Long id;
-    private Long total, used, available;
-    private Long totalFlex, usedFlex, availableFlex;
-    private String label;
+public class MultiOrgEntitlementsDto extends SystemEntitlementsDto {
+
     private String name;
+    private Long totalFlex, usedFlex, availableFlex;
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * @param val the id to set
-     */
-    public void setId(Long val) {
-        this.id = val;
-    }
-
-    /**
-     * @return the total
-     */
-    public Long getTotal() {
-        return total;
-    }
-
-
-    /**
-     * @param totalIn the total to set
-     */
-    public void setTotal(Long totalIn) {
-        this.total = totalIn;
-    }
-
-
-    /**
-     * @return the current
-     */
-    public Long getUsed() {
-        return used;
-    }
-
-
-    /**
-     * @param currentMem the current to set
-     */
-    public void setUsed(Long currentMem) {
-        this.used = currentMem;
-    }
-
-
-    /**
-     * @return the available
-     */
-    public Long getAvailable() {
-        return available;
-    }
-
-
-    /**
-     * @param availableIn the available to set
-     */
-    public void setAvailable(Long availableIn) {
-        this.available = availableIn;
-    }
-
-
-
-    /**
-     * @return the free
-     */
-    public Long getFree() {
-        if (getUsed() == null) {
-            getAllocated();
-        }
-
-        return getAllocated() - getUsed();
-    }
-
-    /**
-     * @return the ratio of current: allocated
-     */
-    public BigDecimal getRatio() {
-        BigDecimal allocated = BigDecimal.valueOf(getAllocated());
-        if (!allocated.equals(BigDecimal.ZERO)) {
-            BigDecimal hundred = BigDecimal.TEN.multiply(BigDecimal.TEN);
-            BigDecimal dividend = BigDecimal.valueOf(getUsed()).multiply(hundred);
-            return dividend.divide(allocated, BigDecimal.ROUND_UP);
-        }
-        return BigDecimal.ZERO;
-    }
-
-    /**
-     * @return the number of used slots.
-     */
-    public Long getAllocated() {
-        if (getTotal() == null || getAvailable() == null) {
-            return 0L;
-        }
-        return getTotal() - getAvailable();
-    }
-
-
-
-    /**
-     * @return the label
-     */
-    public String getLabel() {
-        return label;
-    }
-
-
-
-    /**
-     * @param labelIn the label to set
-     */
-    public void setLabel(String labelIn) {
-        this.label = labelIn;
-    }
-
-
-
-    /**
-     * @return the name
+     * @return Returns the name.
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @param nameIn the name to set
+     * @param nameIn The name to set.
      */
     public void setName(String nameIn) {
-        this.name = nameIn;
+        name = nameIn;
     }
-
 
     /**
      * @return Returns the totalFlex.
@@ -168,14 +47,12 @@ public class MultiOrgEntitlementsDto extends BaseDto {
         return totalFlex;
     }
 
-
     /**
      * @param totalFlexIn The totalFlex to set.
      */
     public void setTotalFlex(Long totalFlexIn) {
         totalFlex = totalFlexIn;
     }
-
 
     /**
      * @return Returns the usedFlex.
@@ -184,7 +61,6 @@ public class MultiOrgEntitlementsDto extends BaseDto {
         return usedFlex;
     }
 
-
     /**
      * @param usedFlexIn The usedFlex to set.
      */
@@ -192,14 +68,12 @@ public class MultiOrgEntitlementsDto extends BaseDto {
         usedFlex = usedFlexIn;
     }
 
-
     /**
      * @return Returns the availableFlex.
      */
     public Long getAvailableFlex() {
         return availableFlex;
     }
-
 
     /**
      * @param availableFlexIn The availableFlex to set.
@@ -241,5 +115,4 @@ public class MultiOrgEntitlementsDto extends BaseDto {
 
         return getAllocatedFlex() - getUsedFlex();
     }
-
 }

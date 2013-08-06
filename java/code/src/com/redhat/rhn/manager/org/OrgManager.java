@@ -26,12 +26,12 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.dto.MultiOrgSystemEntitlementsDto;
 import com.redhat.rhn.frontend.dto.MultiOrgUserOverview;
 import com.redhat.rhn.frontend.dto.OrgChannelDto;
 import com.redhat.rhn.frontend.dto.OrgDto;
 import com.redhat.rhn.frontend.dto.OrgEntitlementDto;
 import com.redhat.rhn.frontend.dto.OrgTrustOverview;
+import com.redhat.rhn.frontend.dto.SystemEntitlementsDto;
 import com.redhat.rhn.frontend.dto.TrustedOrgDto;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
@@ -190,7 +190,7 @@ public class OrgManager extends BaseManager {
      *
      * @return all entitlements across all orgs on sat
      */
-    public static DataList <MultiOrgSystemEntitlementsDto> allOrgsEntitlements() {
+    public static DataList <SystemEntitlementsDto> allOrgsEntitlements() {
         SelectMode m = ModeFactory.getMode("Org_queries",
                 "get_total_entitlement_counts");
         return DataList.getDataList(m, Collections.EMPTY_MAP,
