@@ -30,7 +30,7 @@ class SpacewalkShell(Cmd):
                       'filepreservation', 'group', 'kickstart',
                       'misc', 'org', 'package', 'repo', 'report', 'schedule',
                       'snippet', 'softwarechannel', 'ssm', 'api',
-                      'system', 'user', 'utils' ]
+                      'system', 'user', 'utils', 'scap' ]
 
     # a SyntaxError is thrown if we don't wrap this in an 'exec'
     for module in __module_list:
