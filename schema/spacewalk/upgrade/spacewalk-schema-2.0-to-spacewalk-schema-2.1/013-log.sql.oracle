@@ -1,0 +1,20 @@
+declare
+    pk_constraint_name varchar2(30);
+    fk_constraint_name varchar2(30);
+begin
+    SELECT CONSTRAINT_NAME INTO pk_constraint_name
+    FROM user_constraints
+    WHERE TABLE_NAME = 'LOG'
+    AND CONSTRAINT_TYPE = 'P';
+
+    SELECT CONSTRAINT_NAME INTO fk_constraint_name
+    FROM user_constraints
+    WHERE TABLE_NAME = 'LOG'
+    AND CONSTRAINT_TYPE = 'R';
+
+    EXECUTE IMMEDIATE 'ALTER TABLE log RENAME CONSTRAINT ' || pk_constraint_name || ' TO log_id_pk';
+    EXECUTE IMMEDIATE 'ALTER INDEX ' || pk_constraint_name || ' RENAME TO log_id_pk';
+    EXECUTE IMMEDIATE 'ALTER TABLE log RENAME CONSTRAINT ' || fk_constraint_name || ' TO log_user_id_fk';
+
+end;
+/
