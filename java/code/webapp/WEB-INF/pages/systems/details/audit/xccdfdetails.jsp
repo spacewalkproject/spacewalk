@@ -49,6 +49,10 @@
 
 <table class="details">
   <tr>
+    <th><bean:message key="system.audit.xccdfdetails.jsp.id"/>:</th>
+    <td><c:out value="${testResult.id}"/></td>
+  </tr>
+  <tr>
     <th><bean:message key="system.audit.xccdfdetails.jsp.path"/>:</th>
     <td><c:out value="${testResult.scapActionDetails.path}"/></td>
   </tr>
