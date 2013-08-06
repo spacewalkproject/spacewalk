@@ -26,7 +26,7 @@ import org.apache.commons.lang.builder.CompareToBuilder;
 public class EntitlementDto implements Comparable {
 
     private Entitlement entitlement;
-    private Long availbleEntitlements;
+    private Long availableEntitlements;
 
     /**
      * Constructor
@@ -35,21 +35,21 @@ public class EntitlementDto implements Comparable {
      */
     public EntitlementDto(Entitlement entIn, Long availEnts) {
         this.entitlement = entIn;
-        this.availbleEntitlements = availEnts;
+        this.availableEntitlements = availEnts;
     }
 
     /**
      * @return Returns the availbleEntitlements.
      */
     public Long getAvailbleEntitlements() {
-        return availbleEntitlements;
+        return availableEntitlements;
     }
 
     /**
      * @param availbleEntitlementsIn The availbleEntitlements to set.
      */
     public void setAvailbleEntitlements(Long availbleEntitlementsIn) {
-        this.availbleEntitlements = availbleEntitlementsIn;
+        this.availableEntitlements = availbleEntitlementsIn;
     }
 
     /**
