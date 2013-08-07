@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.1
+Version: 2.1.2
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Wed Aug 07 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.2-1
+- sort multival columns to make reports consistent
+
 * Tue Jul 23 2013 Stephen Herr <sherr@redhat.com> 2.1.1-1
 - 987640 - Add new field to splice-export report
 - Bumping package versions for 2.1.
