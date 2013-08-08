@@ -1,5 +1,21 @@
 #!/bin/bash
 
+wait_for_database() {
+    RETRIES=10;
+    while [ $RETRIES -gt 0 ]; do
+
+        echo "select 0 from dual;" | spacewalk-sql --select-mode - &> /dev/null
+
+        if [ $? -eq 0 ]; then
+            exit 0 # db is running
+        fi
+
+        ((RETRIES--))
+        sleep 1
+    done
+    exit 1
+}
+
 wait_for_jabberd() {
     RETRIES=10
     while [ $RETRIES -gt 0 ]
@@ -58,4 +74,5 @@ case $1 in
         ensure-httpd-down) ensure_httpd_down;;
         wait-for-jabberd) wait_for_jabberd;;
         wait-for-tomcat) wait_for_tomcat;;
+        wait-for-database) wait_for_database;;
 esac
