@@ -439,23 +439,8 @@ then
     fi
 fi
 
-DB_MAX_TRIES=3;
-
-for (( i=1; i<=DB_MAX_TRIES; i++ )) do
-    SQL_RET=$(
-    echo "$DBSHELL_QUIET
-    select 0 from dual;
-    $DBSHELL_QUIT
-    "  | spacewalk-sql --select-mode -
-    )
-    SQL_RET="${SQL_RET#"${SQL_RET%%[![:space:]]*}"}" # remove spaces
-    if [ "$SQL_RET" == "0" ]; then
-        break # db is running
-    fi
-    sleep 3
-done
-
-print_status "${SQL_RET}" "Your database isn't running."
+/usr/sbin/spacewalk-startup-helper wait-for-database
+print_status "${?}" "Your database isn't running."
 
 echo -n "Updating /etc/rhn/rhn.conf ... " | tee -a $LOG
 update_rhn_conf
