@@ -9,7 +9,7 @@ SUBDIR  = utils
 FILES	= __init__ systemSnapshot migrateSystemProfile depsolver cloneByDate
 SCRIPTS = spacewalk-custom-repository sw-system-snapshot migrate-system-profile spacewalk-api apply_errata \
 	  scr.cgi spacewalk-common-channels delete-old-systems-interactive spacewalk-hostname-rename \
-	  spacewalk-dump-schema spacewalk-clone-by-date
+	  spacewalk-dump-schema spacewalk-clone-by-date spacewalk-sync-setup spacewalk-archive-audits
 CONFIGS = spacewalk-common-channels.ini
 
 DOCBOOK = $(wildcard /usr/bin/docbook2man)
