@@ -19,6 +19,7 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.math.NumberUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -30,7 +31,7 @@ import java.util.Set;
  * Command - Class representation of the table rhn_command.
  * @version $Rev: 1 $
  */
-public class Command {
+public class Command implements Serializable {
 
     private Long id;
     private String name;
