@@ -24,8 +24,8 @@ import re
 from spacewalk.common.cli import getUsernamePassword, xmlrpc_login, xmlrpc_logout
 
 DEFAULT_SERVER = "localhost"
-DEFAULT_USER = "admin"
-DEFAULT_PASSWORD = "nimda"
+DEFAULT_USER = "spacewalk"
+DEFAULT_PASSWORD = "spacewalk"
 
 exit_code=0
 
