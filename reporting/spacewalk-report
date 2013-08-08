@@ -244,7 +244,8 @@ if __name__ == '__main__':
 
 			if outrow != None:
 				for m in report.multival_columns_reverted.keys():
-					outrow[m] = options.multivalseparator.join(sorted(outrow[m].split(options.multivalseparator)))
+					if outrow[m]:
+						outrow[m] = options.multivalseparator.join(sorted(outrow[m].split(options.multivalseparator)))
 				writer.writerow(outrow)
 		else:
 			for report_name in sorted(reports.available_reports()):
