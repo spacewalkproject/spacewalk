@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.1.5
+Version:	2.1.6
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -88,6 +88,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Aug 08 2013 Jan Dobes 2.1.6-1
+- 972626 - just call waiting function
+- Change detault username and password.
+
 * Tue Aug 06 2013 Jan Dobes 2.1.5-1
 - 972626 - simplier and more readable solution
 
