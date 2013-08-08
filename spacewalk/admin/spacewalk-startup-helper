@@ -21,7 +21,7 @@ wait_for_jabberd() {
     while [ $RETRIES -gt 0 ]
     do
         /usr/sbin/lsof -t -i :5222 > /dev/null && break
-        ((RETRIES-1))
+        ((RETRIES--))
         sleep 0.5
     done
 }
