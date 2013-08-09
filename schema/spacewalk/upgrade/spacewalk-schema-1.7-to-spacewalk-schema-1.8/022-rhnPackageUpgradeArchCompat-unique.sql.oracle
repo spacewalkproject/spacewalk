@@ -1,0 +1,16 @@
+
+drop index rhn_puac_pa_pua;
+
+-- remove duplicate pairs
+delete
+  from rhnPackageUpgradeArchCompat a
+ where a.rowid > any (
+       select b.rowid
+         from rhnPackageUpgradeArchCompat b
+        where a.package_arch_id = b.package_arch_id
+          and a.package_upgrade_arch_id = b.package_upgrade_arch_id
+       );
+
+create unique index rhn_puac_pa_pua_uq
+     on rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id);
+
