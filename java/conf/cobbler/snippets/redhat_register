@@ -14,16 +14,12 @@ fi
       #set $mycert = "/usr/share/rhn/RHNS-CA-CERT"
    #end if 
    #set $endpoint = "https://%s/XMLRPC" % $redhat_management_server
-key=""
+key=$redhat_management_key
 if [ -f /tmp/key ]; then
-    key=`cat /tmp/key`
+    key=`cat /tmp/key`,\$key
 fi
 
-if [ \$key ]; then 
-    rhnreg_ks --serverUrl=$endpoint --sslCACert=$mycert --activationkey=\$key,$redhat_management_key
-else
-     rhnreg_ks --serverUrl=$endpoint --sslCACert=$mycert --activationkey=$redhat_management_key
-fi
+rhnreg_ks --serverUrl=$endpoint --sslCACert=$mycert --activationkey=\$key
 #else
 # not configured to register to any Red Hat management server (ok)
 #end if
