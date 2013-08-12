@@ -14,13 +14,16 @@
  */
 package com.redhat.rhn.domain.monitoring.command;
 
+import java.io.Serializable;
 import java.util.Set;
 
 /**
  * CommandClass - Class representation of the table rhn_command_class.
  * @version $Rev: 1 $
  */
-public class CommandClass {
+public class CommandClass implements Serializable {
+
+    private static final long serialVersionUID = -5340026871695071193L;
 
     private String className;
     private Set metrics;

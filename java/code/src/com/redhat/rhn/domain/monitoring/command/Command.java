@@ -33,6 +33,8 @@ import java.util.Set;
  */
 public class Command implements Serializable {
 
+    private static final long serialVersionUID = 991056614702468845L;
+
     private Long id;
     private String name;
     private String description;

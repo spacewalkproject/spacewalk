@@ -16,13 +16,16 @@ package com.redhat.rhn.domain.monitoring.command;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import java.io.Serializable;
 import java.util.Set;
 
 /**
  * CommandGroup - Class representation of the table rhn_command_groups.
  * @version $Rev: 1 $
  */
-public class CommandGroup {
+public class CommandGroup implements Serializable {
+
+    private static final long serialVersionUID = -4721805999350530898L;
 
     /**
      * The name of the <tt>all</tt> pseudo-group. A group with this
