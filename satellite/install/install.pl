@@ -493,7 +493,7 @@ sub remove_obsoleted_packages {
     my @pkgs = ('rhn-apache', 'rhn-modpython', 'rhn-modssl', 'rhn-modperl',
                 'perl-libapreq', 'bouncycastle-jdk1.4',
                 'quartz-oracle', 'jaf', 'jta',
-                'python-sgmlop', 'geronimo-specs-compat', 'spacewalk-backend-upload-server');
+                'python-sgmlop', 'spacewalk-backend-upload-server');
 
     # Remove xml-commons on RHEL-5 only
     if (`rpm -q --qf='%{VERSION}' redhat-release 2>/dev/null` =~ /^5.+$/) {
