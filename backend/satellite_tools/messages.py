@@ -42,12 +42,21 @@ ERROR: there was a problem synchronizing the information.
        Error message: %s
 """)
 
-iss_not_available = _("""
-ERROR: The Server listed within iss-parent is not configured for ISS 
-       capability.
-       Please review your configuration before trying again.
+sw_iss_not_available = _("""
+ERROR: There was a problem communicating with the ISS Master.
+       Depending on the specific error details, please review your configuration,
+       basic network connectivity, and/or name resolution, and try again.
+       Error message: %s
 """)
-            
+
+sat_iss_not_available = _("""
+ERROR: There was a problem communicating with the ISS Master.
+       If the master satellite is older than v5.3, it does not have ISS capability.
+       Otherwise, depending on the specific error details, please review your
+       configuration, basic network connectivity, and/or name resolution, and try again.
+       Error message: %s
+""")
+
 parent_channel_error = _("""
 ERROR: a child-channel cannot be synced without its parent being synced as
        well. A parent needs to be either (a) previously synced or (b) synced
