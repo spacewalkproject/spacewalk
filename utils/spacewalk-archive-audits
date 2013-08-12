@@ -1,47 +1,47 @@
-#!/usr/bin/python                                                                            
-#                                                                                            
+#!/usr/bin/python
+#
 # Utility for archiving/purging audit-log tables
-#                                                                                            
-# Copyright (c) 2013 Red Hat, Inc.                                                           
-#                                                                                            
-#                                                                                            
-# This software is licensed to you under the GNU General Public License,                     
-# version 2 (GPLv2). There is NO WARRANTY for this software, express or                      
-# implied, including the implied warranties of MERCHANTABILITY or FITNESS                    
-# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2                         
-# along with this software; if not, see                                                      
-# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.                                      
-#                                                                                            
-# Red Hat trademarks are not licensed under GPLv2. No permission is                          
-# granted to use or replicate Red Hat trademarks that are incorporated                       
-# in this software or its documentation.                                                     
-#                                                                                            
-                                                                                             
+#
+# Copyright (c) 2013 Red Hat, Inc.
+#
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
+
 """spacewalk-archive-audits - a tool for extracting and purging the _log tables in the SW database"""
 
 import csv
-import os 
+import os
 import sys
 
 from os import getenv
-from optparse import OptionParser, OptionGroup                                               
+from optparse import OptionParser, OptionGroup
 from csv import writer
 from datetime import datetime
 
-try:                                                                                         
-    from spacewalk.common import rhnLog                                                      
-    from spacewalk.common.rhnConfig import CFG, initCFG                                      
-    from spacewalk.common.rhnLog import LOG, log_clean                                 
-    from spacewalk.server import rhnSQL                                                      
-except ImportError:                                                                          
-    # pylint: disable=F0401                                                                  
-    _LIBPATH = '/usr/share/rhn'                                                              
-    if _LIBPATH not in sys.path:                                                             
-        sys.path.append(_LIBPATH)                                                            
-    from server import rhnSQL                                                                
-    from common import rhnLog                                                                
-    from common.rhnLog import LOG, log_clean                                           
-    from common.rhnConfig import CFG, initCFG                                                
+try:
+    from spacewalk.common import rhnLog
+    from spacewalk.common.rhnConfig import CFG, initCFG
+    from spacewalk.common.rhnLog import LOG, log_clean
+    from spacewalk.server import rhnSQL
+except ImportError:
+    # pylint: disable=F0401
+    _LIBPATH = '/usr/share/rhn'
+    if _LIBPATH not in sys.path:
+        sys.path.append(_LIBPATH)
+    from server import rhnSQL
+    from common import rhnLog
+    from common.rhnLog import LOG, log_clean
+    from common.rhnConfig import CFG, initCFG
 
 LOG_LOCATION = '/var/log/rhn/archive-audit-tables.log'
 LOG_COLS = ['id', 'stamp', 'user_id']
@@ -52,7 +52,7 @@ SQL_PIECES = {'oracle': {
                   'FIND_TABLE' : "select table_name from user_tables where table_name like '%!_LOG' escape '!';",
                   'GET_DATA' : "select {0}, {1} from {2} t inner join log l on l.id = t.log_id where l.stamp <= to_date(:tstamp, 'YYYY-MM-DD hh24:mi:ss') order by l.id;",
                   'PURGE_DATA' : """
-                    delete {0} 
+                    delete {0}
                      where exists (
                        select *
                          from log l
@@ -62,7 +62,7 @@ SQL_PIECES = {'oracle': {
                   """,
                   'PURGE_LOG_DATA' : "delete from log l where l.stamp <= to_date(:tstamp, 'YYYY-MM-DD hh24:mi:ss');"
                 },
-              'postgresql' : { 
+              'postgresql' : {
                   'COUNT' : 'select count(*) from {0};',
                   'FIND_COLS' : 'select column_name from information_schema.columns where table_name = :table;',
                   'FIND_TABLE' : "select table_name from information_schema.tables where table_name like '%\_log';",
@@ -72,15 +72,15 @@ SQL_PIECES = {'oracle': {
                 }
               }
 
-def setup_options():                                                                          
+def setup_options():
     usage = 'usage: %prog --list --archive --purge --timestamp'
     parser = OptionParser(usage=usage)
 
-    parser.add_option('-l', '--list', action='store_true', dest='list', 
+    parser.add_option('-l', '--list', action='store_true', dest='list',
             help='list number of log entries before --timestamp (or current size if --timestamp not specified), of all *_log tables')
     parser.add_option('-a', '--archive', action='store_true', default=False, dest='archive',
             help='archive as CSV the contents of all *_log tables')
-    parser.add_option('-p', '--purge', action='store_true', dest='purge', 
+    parser.add_option('-p', '--purge', action='store_true', dest='purge',
             help='purge all entries made on or before --timestamp')
     parser.add_option('-t', '--timestamp', action='store', dest='purge_date', metavar='YYYY-MM-DD hh24:mi:ss',
             help='all entries made at or before this time will be purged')
@@ -88,8 +88,8 @@ def setup_options():
     return parser
 
 def validate_options():
-    parser = setup_options()                                                                  
-    (options, args) = parser.parse_args()                                                    
+    parser = setup_options()
+    (options, args) = parser.parse_args()
     if not (options.list or options.archive or options.purge):
         parser.error("At least one of --list, --archive, --purge is required")
 
@@ -112,15 +112,15 @@ def _get_allcols(name):
 
 def _get_data_statement(name):
     data_stmt = _get_sql('GET_DATA').format(
-        ', '.join(['l.'+x+' l'+x for x in LOG_COLS]), 
-        ', '.join(['t.'+x        for x in columns(name)]), 
+        ', '.join(['l.'+x+' l'+x for x in LOG_COLS]),
+        ', '.join(['t.'+x        for x in columns(name)]),
         name)
     return data_stmt
 
 def tables():
     """What are the tables whose names fit the pattern *_log?"""
     stmt = rhnSQL.execute(_get_sql('FIND_TABLE'))
-    table_names = stmt.fetchall() or [] 
+    table_names = stmt.fetchall() or []
     rc = []
     for name in table_names:
         rc.append(name[0])
@@ -129,12 +129,12 @@ def tables():
 def columns(tbl):
     """What are the columns of table <tbl>?"""
     stmt = rhnSQL.execute(_get_sql('FIND_COLS'), table=tbl)
-    col_names = stmt.fetchall() or [] 
+    col_names = stmt.fetchall() or []
     rc = []
     for name in col_names:
         rc.append(name[0])
     return rc
-    
+
 def count(tbl):
     """How many rows are in table <tbl>?"""
     tbl_str = _get_sql('COUNT').format(tbl)
@@ -147,7 +147,7 @@ def list(opt):
     names = tables()
     for name in names:
         print '%32s : %d' % (name, count(name))
-            
+
 def archive(opt):
     """Grab the requested data and store it in a .csv file 'here'"""
     _log('Archiving everything before ' + opt.purge_date)
@@ -183,16 +183,16 @@ def purge(opt):
     rhnSQL.execute(_get_sql('PURGE_LOG_DATA'), tstamp=opt.purge_date)
     return
 
-if __name__ == '__main__':                                                                   
+if __name__ == '__main__':
     (options, args) = validate_options()
-    initCFG('server')                                                                        
+    initCFG('server')
     rhnSQL.initDB()
 
     if options.list:
         list(options)
         sys.exit(0)
 
-    rhnLog.initLOG(LOG_LOCATION)                                                             
+    rhnLog.initLOG(LOG_LOCATION)
     if rhnLog.LOG.real == 0:
         print "Failed to access logfile " + LOG_LOCATION + " - exiting..."
         print "(Try running as sudo)"
