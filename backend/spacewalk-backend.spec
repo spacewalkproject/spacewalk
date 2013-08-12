@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.7
+Version: 2.1.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -639,6 +639,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Aug 12 2013 Grant Gainey <ggainey@redhat.com> 2.1.8-1
+- 996155 - Fix messaging when ISS failures happen
+
 * Wed Aug 07 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.7-1
 - Backend: fix broken gettext test
 
