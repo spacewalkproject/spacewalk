@@ -4421,6 +4421,28 @@ public class SystemHandler extends BaseHandler {
     }
 
     /**
+     * Gets a list of all Physical systems visible to user
+     * @param sessionKey The sessionKey containing the logged in user
+     * @return Returns an array of maps representing all systems visible to user
+     *
+     * @throws FaultException A FaultException is thrown if a valid user can not be found
+     * from the passed in session key
+     *
+     * @xmlrpc.doc Returns a list of all Physical servers visible to the user.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.returntype
+     *      #array()
+     *          $SystemOverviewSerializer
+     *      #array_end()
+     */
+    public Object[] listPhysicalSystems(String sessionKey) throws FaultException {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        DataResult<SystemOverview> dr = SystemManager.physicalList(loggedInUser, null);
+        dr.elaborate();
+        return dr.toArray();
+    }
+
+    /**
      * Gets a list of virtual hosts for the current user
      * @param sessionKey session
      * @return list of SystemOverview objects
