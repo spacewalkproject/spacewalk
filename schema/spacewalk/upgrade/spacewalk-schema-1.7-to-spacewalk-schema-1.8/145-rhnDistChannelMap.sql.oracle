@@ -2,6 +2,16 @@ ALTER TABLE rhnDistChannelMap ADD org_id NUMBER;
 ALTER TABLE rhnDistChannelMap ADD CONSTRAINT rhn_dcm_oid_fk FOREIGN KEY (org_id) REFERENCES web_customer (id) ON DELETE CASCADE;
 ALTER TABLE rhnDistChannelMap DROP CONSTRAINT rhn_dcm_os_release_caid_uq;
 DROP INDEX rhn_dcm_os_release_caid_idx;
+
+delete
+  from rhnDistChannelMap a
+ where a.rowid > any (
+       select b.rowid
+         from rhnDistChannelMap b
+        where a.release = b.release
+          and a.channel_arch_id = b.channel_arch_id
+       );
+
 ALTER TABLE rhnDistChannelMap ADD CONSTRAINT rhn_dcm_release_caid_oid_uq UNIQUE (release, channel_arch_id, org_id);
 
 ALTER TABLE rhnDistChannelMap ADD id NUMBER;
