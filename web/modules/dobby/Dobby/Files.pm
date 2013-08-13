@@ -121,7 +121,7 @@ sub backup_file {
   } else {
     my $file_entry = new Dobby::BackupLog::FileEntry;
     my $real_dest_dir = File::Spec->catdir($backup_dir, $rel_dir);
-    File::Path::mkpath($real_dest_dir) or (-d $real_dest_dir) or die ("Error: could not create directory $real_dest_dir\n");
+    eval { File::Path::mkpath($real_dest_dir) } or (-d $real_dest_dir) or die ("Error: could not create directory $real_dest_dir\n");
     my $dest = sprintf("%s/%s.gz", $real_dest_dir, basename($file));
     $dest =~ s(//+)(/)g;
     my $then = time;
