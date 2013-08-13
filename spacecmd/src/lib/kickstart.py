@@ -41,6 +41,8 @@ KICKSTART_OPTIONS = ['autostep', 'interactive', 'install', 'upgrade',
 
 VIRT_TYPES = ['none', 'para_host', 'qemu', 'xenfv', 'xenpv']
 
+UPDATE_TYPES = ['red_hat', 'all', 'none']
+
 def help_kickstart_list(self):
     print 'kickstart_list: List the available Kickstart profiles'
     print 'usage: kickstart_list'
@@ -2227,5 +2229,92 @@ def do_kickstart_diff(self, args):
     target_data = self.dump_kickstart( target_channel, target_replacedict )
 
     return diff( source_data, target_data, source_channel, target_channel )
+
+####################
+
+def help_kickstart_getupdatetype(self):
+    print 'kickstart_getupdatetype: Get the update type for a kickstart profile(s)'
+    print 'usage: kickstart_getupdatetype PROFILE'
+    print 'usage: kickstart_getupdatetype PROFILE1 PROFILE2'
+    print 'usage: kickstart_getupdatetype \"PROF*\"'
+
+def complete_kickstart_getupdatetype(self, text, line, beg, end):
+    if len(line.split(' ')) <= 2:
+        return tab_completer(self.do_kickstart_list('', True), text)
+
+def do_kickstart_getupdatetype(self, args):
+    (args, options) = parse_arguments(args)
+
+    if len(args) < 1:
+        self.help_kickstart_getupdatetype()
+        return
+
+    # allow globbing of kickstart labels
+    all_labels = self.do_kickstart_list('', True)
+    labels = filter_results(all_labels, args)
+    logging.debug("Got labels to list the update type %s" % labels)
+
+    if len(labels) == 0:
+        logging.error("No valid kickstart labels passed as arguments!")
+        self.help_kickstart_getupdatetype()
+        return
+
+    for label in labels:
+        if not label in all_labels:
+            logging.error("kickstart label %s doesn't exist!" % label)
+            continue
+
+        updatetype = self.client.kickstart.profile.getUpdateType(self.session, label)
+
+        if len(labels) == 1:
+            print updatetype
+        elif len(labels) > 1:
+            print label,":",updatetype
+
+####################
+
+def help_kickstart_setupdatetype(self):
+    print 'kickstart_setupdatetype: Set the update type for a kickstart profile(s)'
+    print '''usage: kickstart_setupdatetype [options] KS_LABEL
+
+options:
+    -u UPDATE_TYPE ['red_hat', 'all', 'none']'''
+
+def do_kickstart_setupdatetype(self, args):
+    options = [ Option('-u', '--update-type', action='store') ]
+
+    (args, options) = parse_arguments(args, options)
+
+    if is_interactive(options):
+
+        print 'Update Types'
+        print '--------------------'
+        print '\n'.join(sorted(self.UPDATE_TYPES))
+        print
+
+        options.update_type = prompt_user('Update Type [none]:')
+        if options.update_type == '' or options.update_type not in self.UPDATE_TYPES:
+            options.update_type = 'none'
+
+    else:
+        if not options.update_type:
+            options.update_type = 'none'
+
+    # allow globbing of kickstart labels
+    all_labels = self.do_kickstart_list('', True)
+    labels = filter_results(all_labels, args)
+    logging.debug("Got labels to set the update type %s" % labels)
+
+    if len(labels) == 0:
+        logging.error("No valid kickstart labels passed as arguments!")
+        self.help_kickstart_setupdatetype()
+        return
+
+    for label in labels:
+        if not label in all_labels:
+            logging.error("kickstart label %s doesn't exist!" % label)
+            continue
+
+        self.client.kickstart.profile.setUpdateType(self.session, label, options.update_type)
 
 # vim:ts=4:expandtab:
