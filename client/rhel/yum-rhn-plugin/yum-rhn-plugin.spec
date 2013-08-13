@@ -1,6 +1,6 @@
 Summary: Spacewalk support for yum
 Name: yum-rhn-plugin
-Version: 2.1.1
+Version: 2.1.2
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -70,6 +70,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Tue Aug 13 2013 Stephen Herr <sherr@redhat.com> 2.1.2-1
+- 996761 - package profile sync actions should not fail with empty transaction
+
 * Tue Aug 06 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.1-1
 - Branding clean-up of proxy stuff in client dir
 - Bumping package versions for 2.1.
