@@ -409,6 +409,41 @@ def runTransaction(transaction_data, cache_only=None):
     """
     if cache_only:
         return (0, "no-ops for caching", {})
+    for package_object in transaction_data['packages'][:]:
+        [package, action] = package_object
+        pkgkeys = {
+                'name' : package[0],
+                'version' : package[1],
+                'release' : package[2],
+                'epoch' : package[3],
+        }
+
+        if len(package) > 4:
+            pkgkeys['arch'] = package[4]
+        else:
+            pkgkeys['arch'] = None
+        if pkgkeys['arch'] == '':
+            pkgkeys['arch'] = None
+
+        if pkgkeys['epoch'] == '':
+            pkgkeys['epoch'] = '0'
+
+        package_exists = yum_base.rpmdb.searchNevra(name=pkgkeys['name'],
+                    epoch=pkgkeys['epoch'], arch=pkgkeys['arch'],
+                    ver=pkgkeys['version'], rel=pkgkeys['release'])
+
+        # if we're deleting a package that no longer exists, noop
+        if action == 'e' and not package_exists:
+            transaction_data['packages'].remove(package_object)
+        # if we're installing a package that is already installed, noop
+        elif action == 'i' and  package_exists:
+            transaction_data['packages'].remove(package_object)
+
+    # Don't proceed further with empty package list,
+    # since this would result in an empty yum transaction
+    if not transaction_data['packages']:
+        return (0, "Requested package actions have already been performed.", {})
+
     for index, data in enumerate(transaction_data['packages']):
         if data[1] == 'i':
             transaction_data['packages'][index][1] = 'r'
