@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.1.3
+Version:     2.1.4
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -64,6 +64,10 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Tue Aug 13 2013 Gregor Gruener <ggruner@redhat.com> 2.1.4-1
+- add new function kickstart_getupdatetype
+- add new function kickstart_setupdatetype
+
 * Tue Aug 06 2013 Gregor Gruener <ggruner@redhat.com> 2.1.3-1
 - add new function scap_listxccdfscans
 - add new function scap_getxccdfscandetails
