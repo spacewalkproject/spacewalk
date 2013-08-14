@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.16
+Version: 2.1.17
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Aug 14 2013 Dimitar Yordanov <dyordano@redhat.com> 2.1.17-1
+- Add API call listPhysicalSystems
+
 * Mon Aug 12 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.16-1
 - serializable classes should contain serializable fields
 
