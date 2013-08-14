@@ -28,6 +28,8 @@ import OpenSSL
 import config
 from pkgplatform import getPlatform
 from platform import dist
+import sys
+sys.path = sys.path[1:] + sys.path[:1]
 
 if getPlatform() == 'deb' or dist()[0] == 'SuSE':
     class YumBaseError(Exception):
