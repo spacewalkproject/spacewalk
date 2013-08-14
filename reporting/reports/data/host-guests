@@ -23,4 +23,4 @@ sql:
     from rhnvirtualinstance
     where host_system_id is not null
         and virtual_system_id is not null
-    order by server_id;
+    order by server_id
