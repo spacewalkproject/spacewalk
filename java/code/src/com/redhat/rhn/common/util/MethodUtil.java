@@ -26,6 +26,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * A simple class that assists with method invocation.  We should just use
@@ -76,7 +78,7 @@ public class MethodUtil {
                                             Object[] args)
         throws NoSuchMethodException, IllegalAccessException,
                InvocationTargetException {
-        Method[] meths = clazz.getMethods();
+        Method[] meths = getSortedMethods(clazz);
 
         for (int i = 0; i < meths.length; i++) {
             if (!meths[i].getName().equals(method)) {
@@ -111,7 +113,7 @@ public class MethodUtil {
         Class myClass = o.getClass();
         Method[] methods;
         try {
-            methods = myClass.getMethods();
+            methods = getSortedMethods(myClass);
         }
         catch (SecurityException e) {
             // This should _never_ happen, because the Handler classes must
@@ -208,8 +210,25 @@ public class MethodUtil {
         }
     }
 
+    /**
+     * Returned methods in a class, sorted by signature.
+     *
+     * @see java.lang.reflect.Method#toGenericString
+     * @param clazz the class
+     * @return clazz methods, sorted by signature
+     */
+    public static Method[] getSortedMethods(Class<?> clazz) {
+        Method[] methods = clazz.getMethods();
 
+        Arrays.sort(methods, new Comparator<Method>() {
+            @Override
+            public int compare(Method m1, Method m2) {
+                return m2.toGenericString().compareTo(m1.toGenericString());
+            }
+        });
 
+        return methods;
+    }
 
     /**
      * Get an instance of a class that can have its classname overridden in our config
