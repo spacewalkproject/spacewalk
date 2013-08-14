@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.3
+Version: 2.1.4
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Wed Aug 14 2013 Stephen Herr <sherr@redhat.com> 2.1.4-1
+- 997027 - spacewalk-reports host-guests shouldn't fail on oracle databases
+
 * Thu Aug 08 2013 Jiri Mikulka <jmikulka@redhat.com> 2.1.3-1
 - sort multival columns iff there's any content
 
