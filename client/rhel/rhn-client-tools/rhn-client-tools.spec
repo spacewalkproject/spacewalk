@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.1.1
+Version: 2.1.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -346,6 +346,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Aug 14 2013 Tomas Lestach <tlestach@redhat.com> 2.1.2-1
+- 983999 - put the 1st element of the python search path to the end
+
 * Tue Aug 06 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.1-1
 - Branding clean-up of proxy stuff in client dir
 - Bumping package versions for 2.1.
