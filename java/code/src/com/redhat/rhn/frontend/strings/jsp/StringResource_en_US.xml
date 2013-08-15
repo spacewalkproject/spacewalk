@@ -14657,6 +14657,85 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>Note: only child channel subscription changes and package install/remove/upgrade/verify tasks are listed.</source>
         </trans-unit>
       </group>
+      
+      <!-- /rhn/systems/ssm/kickstart/KickstartableSystems.do -->
+      <group>
+          <context-group name="ctx">
+              <context context-type="sourcefile">/rhn/systems/ssm/kickstart/KickstartableSystems.do</context>
+          </context-group>
+          <trans-unit id="ssm.operations.provisioning.remotecommand.form.script_label.title">
+              <source>Label</source>
+          </trans-unit>
+          <trans-unit id="ssm.operations.provisioning.remotecommand.form.schedule.succeed">
+              <source>Task &quot;{0}&quot; has been scheduled successfully at {1}.</source>
+          </trans-unit>
+          <trans-unit id="ssm.operations.provisioning.remotecommand.form.script_label.title.default.body">
+              <source>Run {0} Script on {1} {2} ({3}).</source>
+          </trans-unit>
+          <trans-unit id="ssm.operations.provisioning.remotecommand.form.script_label.title.default.client_single">
+              <source>client</source>
+          </trans-unit>
+          <trans-unit id="ssm.operations.provisioning.remotecommand.form.script_label.title.default.client_plural">
+              <source>clients</source>
+          </trans-unit>
+          <trans-unit id="ssm.operations.provisioning.remotecommand.form.uid.missing">
+              <source>Username on the target system cannot be missing.</source>
+          </trans-unit>
+          <trans-unit id="ssm.operations.provisioning.remotecommand.form.gid.missing">
+              <source>Group name on the target system is not specified.</source>
+          </trans-unit>
+          <trans-unit id="ssm.operations.provisioning.remotecommand.form.script_body.missing">
+              <source>No script has been specified.</source>
+          </trans-unit>
+
+          <!-- SSM Remote Command Form Labels -->
+          <trans-unit id="ssm.operations.provisioning.remotecommand.header">
+              <source>Schedule Remote Command</source>
+          </trans-unit>
+          <trans-unit id="ssm.operations.provisioning.remotecommand.summary">
+              <source>The following script will be scheduled to run on the systems listed below.</source>
+          </trans-unit>
+          <trans-unit id="ssm.operations.provisioning.remotecommand.tip.header">
+              <source>Tip</source>
+          </trans-unit>
+          <trans-unit id="ssm.operations.provisioning.remotecommand.tip.text">
+              <source>Type new label of the queue or select from the existing. Please note, that the schedule date above will be ignored in this case.</source>
+          </trans-unit>
+          <trans-unit id="ssm.operations.provisioning.remotecommand.form.uid.label">
+              <source>Run as user (UID)</source>
+          </trans-unit>
+          <trans-unit id="ssm.operations.provisioning.remotecommand.form.gid.label">
+              <source>Run as group (GID)</source>
+          </trans-unit>
+          <trans-unit id="ssm.operations.provisioning.remotecommand.form.timeout.label">
+              <source>Timeout (seconds)</source>
+          </trans-unit>
+          <trans-unit id="ssm.operations.provisioning.remotecommand.form.lbl.label">
+              <source>Command label</source>
+          </trans-unit>
+          <trans-unit id="ssm.operations.provisioning.remotecommand.form.script_body.label">
+              <source>Script</source>
+          </trans-unit>
+          <trans-unit id="ssm.operations.provisioning.remotecommand.form.date.label">
+              <source>Schedule no sooner than</source>
+          </trans-unit>
+          <trans-unit id="ssm.operations.provisioning.remotecommand.form.chain_id.new">
+              <source>New...</source>
+          </trans-unit>
+          <trans-unit id="ssm.operations.provisioning.remotecommand.form.submit">
+              <source>Schedule</source>
+          </trans-unit>
+          <trans-unit id="ssm.operations.provisioning.remotecommand.nosystems">
+              <source>No systems within this set are available to run remote commands.</source>
+          </trans-unit>
+          <trans-unit id="stringutil.scriptcheck.error.noshelldefined">
+              <source>Script does not contain shell definition.</source>
+          </trans-unit>
+          <trans-unit id="stringutil.scriptcheck.error.noscript">
+              <source>Script is does not seems like doing anything.</source>
+          </trans-unit>          
+      </group>
+
       <!-- ssm/packages.jsp -->
       <group>
         <context-group name="ctx">

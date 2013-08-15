@@ -98,8 +98,8 @@
           <rhn-tab name="Rollback" url="/network/systems/ssm/provisioning/rollback.pxt">
             <rhn-tab-url>/network/systems/ssm/provisioning/rollback_by_tag_conf.pxt</rhn-tab-url>
           </rhn-tab>
-          <rhn-tab name="Remote Command" url="/network/systems/ssm/provisioning/remote_command.pxt">
-            <rhn-tab-url>/network/systems/ssm/provisioning/remote_command_conf.pxt</rhn-tab-url>
+          <rhn-tab name="Remote Command" url="/rhn/systems/ssm/provisioning/RemoteCommand.do">
+            <rhn-tab-url>/rhn/systems/ssm/provisioning/RemoteCommand.do</rhn-tab-url>
           </rhn-tab>
         </rhn-tab>
 

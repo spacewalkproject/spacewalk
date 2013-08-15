@@ -1259,6 +1259,23 @@
       <form-property name="lock_reason" type="java.lang.String" />
       <form-property name="submitted" type="java.lang.Boolean" />
     </form-bean>
+    
+    <form-bean name="remoteCommandForm" type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+        <form-property name="uid" type="java.lang.String" />
+        <form-property name="gid" type="java.lang.String" />
+        <form-property name="script_body" type="java.lang.String" />
+        <form-property name="lbl" type="java.lang.String" />
+        <form-property name="timeout" type="java.lang.Long" />
+        <form-property name="submitted" type="java.lang.Boolean" />
+        <form-property name="use_date"  type="java.lang.Boolean"/>
+        <form-property name="date_year"  type="java.lang.Integer"/>
+        <form-property name="date_month"  type="java.lang.Integer"/>
+        <form-property name="date_day"  type="java.lang.Integer"/>
+        <form-property name="date_hour"  type="java.lang.Integer"/>
+        <form-property name="date_minute"  type="java.lang.Integer"/>
+        <form-property name="date_am_pm"  type="java.lang.Integer"/>
+    </form-bean>
+
 
   </form-beans>
 
@@ -8038,6 +8055,16 @@
        <set-property property="postRequiredIfSubmitted" value="true" />
        <forward name="default"
                 path="/WEB-INF/pages/ssm/view-log-details.jsp"/>
+    </action>
+
+    <!-- Provisioning group -->
+    <action path="/systems/ssm/provisioning/RemoteCommand"
+            name="remoteCommandForm"
+            type="com.redhat.rhn.frontend.action.ssm.ProvisioningRemoteCommand"
+            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/provisioning-remote-command.jsp"/>
     </action>
 
     <!-- SSM Package tab home page -->

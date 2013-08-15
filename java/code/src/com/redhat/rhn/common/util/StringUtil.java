@@ -47,6 +47,38 @@ import com.redhat.rhn.common.validator.ValidatorException;
  */
 public class StringUtil {
 
+    /**
+     * Script check errors.
+     */
+    public static enum ScriptCheckResult {
+        NO_SHELL_DEFINED(1, "stringutil.scriptcheck.error.noshelldefined"),
+        NO_SCRIPT_DEFINED(2, "stringutil.scriptcheck.error.noscript");
+
+        private final int id;
+        private final String messageKey;
+
+        ScriptCheckResult(int msgId,
+                          String message) {
+            this.id = msgId;
+            this.messageKey = message;
+        }
+
+
+        /**
+         * Get error ID.
+         * @return int Return check restult ID.
+         */
+        public int getId() { return id; }
+
+
+        /**
+         * Get message key.
+         * @return string Returns message key for the translation.
+         */
+        public String getMessageKey() { return messageKey; }
+    }
+
+
     /** time-interval formatting selectors */
     public static final int SECONDS_UNITS = 0;
     public static final int MINUTES_UNITS = 1;
@@ -832,15 +864,66 @@ public class StringUtil {
         return str;
     }
 
+
+    /**
+     * Returns null, if string is empty, is already null or contains tabs, whitespace,
+     * line breaks or other non-valuable content. It also matches Unicode characters.
+     * @param str string
+     * @return null if empty (see description), original string otherwise.
+     */
+    public static String nullOrValue(String str) {
+        return (str == null ? "" : str)
+                   .trim()
+                   .replaceAll("[^\\p{L}\\p{Nd}]", "")
+                   .isEmpty() ? null : str;
+    }
+
     /**
      * Returns null, if string is empty
      * @param str string
      * @return null if empty, original string otherwise
      */
     public static String nullIfEmpty(String str) {
-        if (StringUtils.isEmpty(str)) {
-            return null;
+        return StringUtils.isBlank(str) ? null : str;
+    }
+
+
+    /**
+     * Check if the script seems to be valid.
+     * @param script Script body
+     * @return null if no errors, otherwise result enum with the error code.
+     */
+    public static ScriptCheckResult scriptPrematureCheck(String script) {
+        ScriptCheckResult result = null; // Assume the script is valid.
+        if (StringUtil.nullOrValue(script) == null) {
+            result = ScriptCheckResult.NO_SCRIPT_DEFINED;
         }
-        return str;
+        else {
+            boolean hasShellDeclaration = false;
+            int codeLines = 0;
+
+            String[] lines = script.split(System.getProperty("line.separator"));
+            for (int i = 0; i < lines.length; i++) {
+                String line = StringUtil.nullOrValue(lines[i]);
+                if (line != null) {
+                    line = line.trim();
+                    if (line.startsWith("#!/") && !hasShellDeclaration) {
+                        hasShellDeclaration = true;
+                    }
+                    else if (!line.startsWith("#")) {
+                        codeLines++;
+                    }
+                }
+            }
+
+            if (codeLines == 0) {
+                result = ScriptCheckResult.NO_SCRIPT_DEFINED;
+            }
+            else if (!hasShellDeclaration) {
+                result = ScriptCheckResult.NO_SHELL_DEFINED;
+            }
+        }
+
+        return result;
     }
 }
