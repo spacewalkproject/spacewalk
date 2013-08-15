@@ -685,6 +685,16 @@
           <function-signature>java.lang.String localizedValue(java.lang.String, java.lang.String)</function-signature>
     </function>
     <function>
+          <name>localizeMsgAndParams</name>
+          <function-class>com.redhat.rhn.frontend.taglibs.RhnTagFunctions</function-class>
+          <function-signature>java.lang.String localizedValueAndParams(java.lang.String, java.lang.String)</function-signature>
+    </function>
+    <function>
+          <name>localizeMsgAnd2ndParam</name>
+          <function-class>com.redhat.rhn.frontend.taglibs.RhnTagFunctions</function-class>
+          <function-signature>java.lang.String localizedValueAnd2ndParam(java.lang.String, java.lang.String, java.lang.String)</function-signature>
+    </function>
+    <function>
         <name>arrayToString</name>
         <function-class>com.redhat.rhn.frontend.taglibs.RhnTagFunctions</function-class>
         <function-signature>java.lang.String arrayToString(java.lang.String[])</function-signature>

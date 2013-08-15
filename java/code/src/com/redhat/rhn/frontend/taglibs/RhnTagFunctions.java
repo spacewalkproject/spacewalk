@@ -113,13 +113,49 @@ public class RhnTagFunctions {
         LocalizationService service = LocalizationService.getInstance();
 
         if (params != null && params.trim().length() > 0) {
-            Object [] args = params.split("|");
+            Object [] args = params.split("\\|");
             for (int i = 0; i < args.length; i++) {
                 args[i] = ((String)args[i]).trim();
             }
             return service.getMessage(messageId, args);
         }
         return service.getMessage(messageId);
+    }
+
+    /**
+     * This method is translates the message together with all the parameters
+     *
+     * @param messageId the message id to localize on
+     * @param params a list of values separated by '|', or null...
+     * @return the i18ned string
+     */
+    public static String localizedValueAndParams(String messageId, String params) {
+        LocalizationService service = LocalizationService.getInstance();
+
+        if (params != null && params.trim().length() > 0) {
+            Object [] args = params.split("\\|");
+            for (int i = 0; i < args.length; i++) {
+                args[i] = service.getMessage(((String)args[i]).trim());
+            }
+            return service.getMessage(messageId, args);
+        }
+        return service.getMessage(messageId);
+    }
+
+    /**
+     * This method translates the message together with the 2nd parameter
+     * @param messageId massage id
+     * @param param1 regular param
+     * @param param2 param to localize
+     * @return the i18ned string
+     */
+    public static String localizedValueAnd2ndParam(String messageId, String param1,
+            String param2) {
+        LocalizationService service = LocalizationService.getInstance();
+        Object [] args = new String[2];
+        args[0] = param1.trim();
+        args[1] = StringUtils.isEmpty(param2) ? null : service.getMessage(param2.trim());
+        return service.getMessage(messageId, args);
     }
 
     /**

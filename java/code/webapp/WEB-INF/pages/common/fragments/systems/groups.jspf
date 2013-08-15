@@ -21,7 +21,7 @@
 	<bean:message key="${param.title_key}"/>
 	</h2>
     <p>
-    <bean:message key="${param.summary_key}" arg0="${param.summary_arg0}"/>
+    <c:out value="${rhn:localizeMsgAndParams(param.summary_key,param.summary_arg0)}"/>
     </p>
 
  <rhn:require acl="user_role(org_admin) or user_role(system_group_admin)">
@@ -70,7 +70,7 @@
 </c:when>
 <c:otherwise>
   <p><strong>
-<bean:message key="${param.empty_message_key}" arg0="${param.empty_message_arg0}" arg1="${param.empty_message_arg1}" arg2="${param.empty_message_arg2}" />
+<c:out value="${rhn:localizeMsgAnd2ndParam(param.empty_message_key,param.empty_message_arg0, param.empty_message_arg1)}" escapeXml="false"/>
   </strong> </p>
 </div>
 </c:otherwise>

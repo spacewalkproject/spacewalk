@@ -3,7 +3,7 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
  <rhn:require acl="user_role(org_admin) or user_role(system_group_admin)">
 <c:set var="summary_key" value="systemgroup.systems.summary" />
-<c:set var="summary_arg0" value="${rhn:localize('systemgroup.systems.remove')}" />
+<c:set var="summary_arg0" value="systemgroup.systems.remove" />
  </rhn:require>
 <rhn:require acl="not user_role(org_admin);not user_role(system_group_admin)">
  <c:set var="summary_key" value="systemgroup.systems.summary.nonadmin"/>
