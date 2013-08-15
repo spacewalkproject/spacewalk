@@ -22,7 +22,7 @@
         <h2><bean:message key="ssm.misc.lockunlock.header" /></h2>
         <p><bean:message key="ssm.misc.lockunlock.summary" /></p>
 
-        <rl:listset name="systemsListSet" legend="errata">
+        <rl:listset name="systemsListSet" legend="system">
             <table class="details">
                 <tbody>
                     <tr>
@@ -49,10 +49,10 @@
                 <rl:column headerkey="systemlist.jsp.system" bound="false" sortattr="name" sortable="true">
                     <c:choose>
                         <c:when test="${current.locked > 0}">
-                            <img src="/img/icon_locked.gif" title="<bean:message key="erratalist.jsp.securityadvisory"/>" />
+                            <img src="/img/icon_locked.gif"/>
                         </c:when>
                         <c:otherwise>
-                            <img src="/img/rhn-listicon-system.gif" title="<bean:message key="erratalist.jsp.securityadvisory"/>" />
+                            <%@ include file="/WEB-INF/pages/common/fragments/systems/system_list_fragment.jspf" %>
                         </c:otherwise>
                     </c:choose>
                     <a href="/rhn/systems/details/Overview.do?sid=${current.id}">${current.name}</a>
