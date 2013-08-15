@@ -7357,7 +7357,7 @@ Follow this url to see the full list of inactive systems:
         <source>Only script types of "pre" and "post" are allowed for kickstarts.</source>
       </trans-unit>
       <trans-unit id="api.kickstart.invalidscriptname">
-        <source>Script Name is required.</source>
+        <source>Script Name must be larger than 0 and fewer than 40 characters.</source>
       </trans-unit>
       <trans-unit id="api.kickstart.invalidscript">
         <source>You have specified an invalid kickstart script.</source>

@@ -524,7 +524,7 @@ public class ProfileHandler extends BaseHandler {
             throw new InvalidScriptTypeException();
         }
 
-        if (StringUtils.isBlank(name)) {
+        if (StringUtils.isBlank(name) || name.length() > 40) {
             throw new InvalidScriptNameException();
         }
 
