@@ -80,8 +80,6 @@ sub register_callbacks {
 
   $pxt->register_callback('rhn:system-activation-key-cb' => \&system_activation_key_cb);
 
-  $pxt->register_callback('rhn:server_set_lock_cb' => \&server_set_lock_cb);
-
   $pxt->register_callback('rhn:remote-command-cb' => \&remote_command_cb);
   $pxt->register_callback('rhn:package-action-command-cb' => \&package_action_command_cb);
 }
@@ -583,26 +581,6 @@ sub system_activation_key_cb {
 
   my $url = $pxt->uri;
   $pxt->redirect($url . "?sid=" . $sid);
-}
-
-sub server_set_lock_cb {
-  my $pxt = shift;
-  my $lock = $pxt->dirty_param('lock');
-
-  my $set = new RHN::Set("system_list", $pxt->user->id);
-
-  my $msg;
-  if ($lock) {
-    RHN::Server->lock_server_set($set, $pxt->user, "Manually locked");
-    $msg = "The selected systems have been locked."
-  }
-  else {
-    RHN::Server->unlock_server_set($set);
-    $msg = "The selected systems have been unlocked."
-  }
-
-  $pxt->push_message(site_info => $msg);
-  $pxt->redirect("landing.pxt");
 }
 
 sub remote_command_form {

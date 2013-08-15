@@ -1712,44 +1712,6 @@ EOS
   return @ret;
 }
 
-sub unlock_server_set {
-  my $class = shift;
-  my $set = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query = <<EOQ;
-DELETE FROM rhnServerLock SL
- WHERE SL.server_id IN (SELECT element FROM rhnSet S WHERE S.user_id = :user_id AND S.label = :label)
-EOQ
-
-  $dbh->do_h($query, user_id => $set->uid, label => $set->label);
-
-  $dbh->commit;
-}
-
-sub lock_server_set {
-  my $class = shift;
-  my $set = shift;
-  my $locker = shift;
-  my $reason = shift;
-
-  $class->unlock_server_set($set);
-
-  my $dbh = RHN::DB->connect;
-  my $query = <<EOQ;
-INSERT INTO rhnServerLock (server_id, locker_id, reason)
-SELECT S.element, :lid, :reason
-  FROM rhnSet S
- WHERE S.user_id = :user_id
-   AND S.label = :label
-EOQ
-
-  $dbh->do_h($query, lid => ($locker ? $locker->id : undef),
-	     reason => $reason, user_id => $set->uid, label => $set->label);
-
-  $dbh->commit;
-}
-
 sub check_lock {
   my $self = shift;
 
