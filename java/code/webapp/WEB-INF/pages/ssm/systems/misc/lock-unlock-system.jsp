@@ -50,12 +50,12 @@
                     <c:choose>
                         <c:when test="${current.locked > 0}">
                             <img src="/img/icon_locked.gif"/>
+                            <a href="/rhn/systems/details/Overview.do?sid=${current.id}">${current.name}</a>
                         </c:when>
                         <c:otherwise>
                             <%@ include file="/WEB-INF/pages/common/fragments/systems/system_list_fragment.jspf" %>
                         </c:otherwise>
                     </c:choose>
-                    <a href="/rhn/systems/details/Overview.do?sid=${current.id}">${current.name}</a>
                 </rl:column>
                 <rl:column headerkey="systemlist.jsp.channel" bound="false" sortattr="name" sortable="true" styleclass="last-column">
                     <a href="/rhn/channels/ChannelDetail.do?cid=${current.channelId}">${current.channelLabels}</a>
