@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.18
+Version: 2.1.19
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Aug 15 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.19-1
+- fix legend and image title on new ssm lock/unlock page
+- Ported from Perl to JPS locking and unlocking page, combining to one.
+- Accept SUSE copyright.
+- LocalizationServiceTest: run on JDKs without fix for bug 6609737
+
 * Wed Aug 14 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.18-1
 - Make callMethod() and invokeStaticMethod() deterministic when multiple
   methods qualify for calling
