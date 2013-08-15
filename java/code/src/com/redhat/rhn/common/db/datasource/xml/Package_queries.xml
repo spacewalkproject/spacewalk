@@ -368,10 +368,8 @@ SELECT P.id AS ID,
        rhnChannelPackage CP on P.id = CP.package_id left join
        rhnPackageKeyAssociation assoc on assoc.package_id = P.id left join
        rhnPackageKey KEY on KEY.id = assoc.key_id left join
-       rhnPackageProvider PP on key.provider_id = PP.id  left join
-       rhnPackageKeyType KEYT on KEY.key_type_id = KEYT.id
- WHERE CP.channel_id = :cid and
-		( KEYT.label = 'gpg' or KEYT.label is NULL)
+       rhnPackageProvider PP on KEY.provider_id = PP.id
+ WHERE CP.channel_id = :cid
   </query>
 </mode>
 
@@ -695,10 +693,8 @@ SELECT P.id, P.summary, PP.name as provider
   FROM rhnPackage P left join
        rhnPackageKeyAssociation assoc on assoc.package_id = P.id left join
        rhnPackageKey KEY on KEY.id = assoc.key_id left join
-       rhnPackageProvider PP on key.provider_id = PP.id  left join
-       rhnPackageKeyType KEYT on KEY.key_type_id = KEYT.id
- WHERE ( KEYT.label = 'gpg' or KEYT.label is NULL)   and
-		 P.id IN(%s)
+       rhnPackageProvider PP on KEY.provider_id = PP.id
+ WHERE P.id IN(%s)
 </query>
 
 
