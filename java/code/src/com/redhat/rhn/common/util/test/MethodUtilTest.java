@@ -45,7 +45,7 @@ public class MethodUtilTest extends RhnBaseTestCase {
     // This test assumes that we have a translation to go from String to
     // boolean.  The translator should convert 'Y' to true, and everything else
     // to false.
-    public String nonStaticMethod(boolean b) {
+    public String nonStaticMethodWithTranslatedParameter(boolean b) {
         return TEST_STRING + b;
     }
 
@@ -98,7 +98,7 @@ public class MethodUtilTest extends RhnBaseTestCase {
     }
 
     public void testCallMethodWithTranslate() throws Exception {
-        String teststr = (String)MethodUtil.callMethod(this, "nonStaticMethod",
+        String teststr = (String)MethodUtil.callMethod(this, "nonStaticMethodWithTranslatedParameter",
                 new Object[] {"Y"});
         assertEquals(TEST_STRING + true, teststr);
     }

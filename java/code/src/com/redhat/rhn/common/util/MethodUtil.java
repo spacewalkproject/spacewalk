@@ -63,7 +63,9 @@ public class MethodUtil {
 
 
     /**
-     * Invoke a static method from a class.
+     * Invoke a static method from a class. Note that if more than one method
+     * qualifies for calling, eg. more than one method is found with compatible
+     * parameters, the actual invocation target is undefined.
      * @param clazz The Class to search for the specified method
      * @param method The method to execute.
      * @param args the Arguments to the method.
@@ -93,8 +95,10 @@ public class MethodUtil {
     }
 
     /**
-     * Call the specified method with the specified arguments, converting
-     * the argument type if necessary.
+     * Call the specified method with the specified arguments, converting the
+     * argument type if necessary. Note that if more than one method qualifies
+     * for calling, eg. more than one method is found with compatible
+     * parameters, the actual invocation target is undefined.
      * @param o The object from which to call the method
      * @param methodCalled The method to call
      * @param params a Collection of the parameters to methodCalled
