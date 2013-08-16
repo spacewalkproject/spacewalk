@@ -54,8 +54,15 @@
 		  <rl:column headerkey="packagelist.jsp.packagename" bound="false"
 		  	sortattr="nvre"
 		  	sortable="true" filterattr="nvre">
-		      <a href="/rhn/software/packages/Details.do?sid=${param.sid}&amp;id_combo=${current.idCombo}">
-		        ${current.nvre}</a>
+            <c:choose>
+                <c:when test="${not empty current.packageId}">
+                    <a href="/rhn/software/packages/Details.do?sid=${param.sid}&amp;id_combo=${current.idCombo}">
+		            ${current.nvre}</a>
+                </c:when>
+                <c:otherwise>
+                    <c:out value="${current.nvre}"/>
+                </c:otherwise>
+            </c:choose>
 		  </rl:column>
     <rl:column headerkey="packagelist.jsp.packagearch" bound="false">
     	<c:choose>
