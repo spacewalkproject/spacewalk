@@ -2057,6 +2057,10 @@ Assume the Red Hat Satellite installation uses an external Oracle database (Red 
 
 Assume the Red Hat Satellite installation uses an external PostgreSQL database (Red Hat Satellite only).
 
+=item B<--managed-db>
+
+Setup PostgreSQL database for multi-server installation (database and Spacewalk / Red Hat Satellite on different machines).
+
 =back
 
 =head1 SEE ALSO
