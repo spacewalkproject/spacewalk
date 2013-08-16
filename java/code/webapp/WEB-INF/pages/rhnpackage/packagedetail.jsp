@@ -227,9 +227,12 @@
 					</c:if>
 				</c:if>
 				<c:if test="${debugUrl == null}">
-						<div style="font-weight: bold;">
-						<bean:message key="package.jsp.unavailable" />
-					</div>
+                    <div style="font-weight: bold;">
+                        <bean:message key="package.jsp.unavailable" />
+                    </div>
+                    <span class="small-text">
+                        <bean:message key="debuginfo.unavailable" />
+                    </span>
 				</c:if>
 		  </td>
 		</tr>
