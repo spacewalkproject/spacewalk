@@ -63,7 +63,11 @@ CREATE TABLE rhnUserInfo
                                 DEFAULT (current_timestamp) NOT NULL,
     modified                timestamp with local time zone
                                 DEFAULT (current_timestamp) NOT NULL,
-    preferred_locale        VARCHAR2(8)
+    preferred_locale        VARCHAR2(8),
+    csv_separator           CHAR(1)
+                                DEFAULT (',') NOT NULL
+                                CONSTRAINT rhn_user_info_csv_ck
+                                    CHECK (csv_separator in (',',';'))
 )
 ENABLE ROW MOVEMENT
 ;
