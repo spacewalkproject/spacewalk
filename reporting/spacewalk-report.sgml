@@ -120,12 +120,23 @@ Generate reports from Spacewalk server in csv format
       occurances of any character.</para>
         </listitem>
     </varlistentry>
+    <varlistentry>
+        <term>--timezone=<replaceable>VALUE</replaceable></term>
+        <listitem>
+            <para>As all dates are reported as in UTC timezone, this
+      option sets the timezone to the custom one. List of applicable
+      timezones may differ depending on your database backend. Common
+      examples: CET, Europe/Prague; +7 for Postgresql database backend,
+      +07:00 for Oracle one.</para>
+        </listitem>
+    </varlistentry>
 </variablelist>
 </RefSect1>
 
 <RefSect1><Title>Authors</Title>
 <simplelist>
     <member>Jan Pazdziora</member>
+    <member>Tomas Kasparek</member>
 </simplelist>
 </RefSect1>
 </RefEntry>
