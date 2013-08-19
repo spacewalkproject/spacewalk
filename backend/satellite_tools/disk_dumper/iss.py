@@ -1313,8 +1313,6 @@ class ExporterMain:
                             if os.path.exists(os_data_dir):
                                 for fpath, dirs, files in \
                                     os.walk(os_data_dir):
-                                    if not files:
-                                        continue
                                     for file in files:
                                         if file.endswith(".xml"):
                                             filepath = os.path.join(fpath, file)
