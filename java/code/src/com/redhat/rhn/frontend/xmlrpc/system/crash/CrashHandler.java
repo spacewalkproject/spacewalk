@@ -416,7 +416,7 @@ public class CrashHandler extends BaseHandler {
      *             #prop_desc("string", "component",
      *                        "Package component (set if unique and non empty)")
      *             #prop_desc("int", "crash_count", "Number of crashes occurred")
-     *             #prop_des("int", "system_count", "Number of systems affected")
+     *             #prop_desc("int", "system_count", "Number of systems affected")
      *             #prop_desc("dateTime.iso8601", "last_report", "Last crash occurence")
      *         #struct_end()
      *     #array_end()
@@ -453,7 +453,7 @@ public class CrashHandler extends BaseHandler {
      *         #struct("crash")
      *             #prop_desc("int", "server_id",
      *                        "ID of the server the crash occurred on")
-     *             #prop_des("string", "server_name",
+     *             #prop_desc("string", "server_name",
      *                       "Name of the server the crash occured on")
      *             #prop_desc("int", "crash_id", "ID of the crash with given UUID")
      *             #prop_desc("int", "crash_count",
