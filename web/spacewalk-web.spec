@@ -151,7 +151,6 @@ mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily
 
 install -m 644 conf/rhn_web.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults
 install -m 644 conf/rhn_dobby.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults
-install -m 755 modules/dobby/scripts/check-database-space-usage.sh $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily/check-database-space-usage.sh
 %if 0%{?fedora} < 18
 rm -f $RPM_BUILD_ROOT%{perl_vendorlib}/PXT/Apache24Config.pm
 %endif
@@ -248,7 +247,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/db-control.1.gz
 %{perl_vendorlib}/Dobby.pm
 %attr(644,root,root) %{_prefix}/share/rhn/config-defaults/rhn_dobby.conf
-%attr(0755,root,root) %{_sysconfdir}/cron.daily/check-database-space-usage.sh
 %{perl_vendorlib}/Dobby/
 
 %files -n spacewalk-grail
