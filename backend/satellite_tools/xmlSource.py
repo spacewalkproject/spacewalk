@@ -482,6 +482,11 @@ class ChannelItem(BaseItem):
         if not obj['checksum_type'] and not checksum_type_really_null:
             obj['checksum_type'] = 'sha1'
 
+        # if importing from an old export that does not know about
+        # channel_access, use the default
+        if not obj['channel_access']:
+            obj['channel_access'] = 'private'
+
         # if using versions of rhel that doesn't use yum, set
         # checksum_type to None
         if (RHEL234_REGEX.match(obj['label'])
