@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.8
+Version: 2.1.9
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -639,6 +639,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Aug 19 2013 Stephen Herr <sherr@redhat.com> 2.1.9-1
+- 997571 - channel visibility settings broke backwards compatibility
+- https://engineering.redhat.com/trac/satellite/wiki/TooCleverForPython
+- whitespace cleanup
+
 * Mon Aug 12 2013 Grant Gainey <ggainey@redhat.com> 2.1.8-1
 - 996155 - Fix messaging when ISS failures happen
 
