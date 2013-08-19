@@ -34,6 +34,7 @@ public class UserInfo extends AbstractUserChild {
     private Date lastLoggedIn;
     private RhnTimeZone timeZone;
     private User user;
+    private char csvSeparator;
 
     /**
      * Create a new empty user
@@ -160,5 +161,21 @@ public class UserInfo extends AbstractUserChild {
      */
     public void setEmailNotify(int emailNotifyIn) {
         this.emailNotify = emailNotifyIn;
+    }
+
+    /**
+     * Getter for csvSeparator
+     * @return the csvSeparator
+     */
+    public char getCsvSeparator() {
+        return csvSeparator;
+    }
+
+    /**
+     * Setter for csvSeparator
+     * @param csvSeparatorIn the csvSeparator to set
+     */
+    public void setCsvSeparator(char csvSeparatorIn) {
+        this.csvSeparator = csvSeparatorIn;
     }
 }

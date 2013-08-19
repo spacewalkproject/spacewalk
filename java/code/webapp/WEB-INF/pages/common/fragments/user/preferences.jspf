@@ -29,6 +29,15 @@
 </c:forEach>
 </div>
 
+<h2><bean:message key="preferences.jsp.csvtitle" /></h2>
+<p><bean:message key="preferences.jsp.csvdesc" /></p>
+<div class="preference">
+  <html:radio property="csvSeparator" value="," styleId="radio-comma" />
+  <label for="radio-comma"><bean:message key="preferences.jsp.csvcomma" /></label><br />
+  <html:radio property="csvSeparator" value=";" styleId="radio-semicolon" />
+  <label for="radio-semicolon"><bean:message key="preferences.jsp.csvsemicolon" /></label>
+</div>
+
     <input type="hidden" name="pxt:trap" value="rhn:user_prefs_edit_cb" />
     <html:hidden property="uid" />
 

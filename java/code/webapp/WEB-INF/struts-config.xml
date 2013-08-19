@@ -175,6 +175,7 @@
             <form-property name="possiblePanes"
                            type="org.apache.struts.util.LabelValueBean[]"/>
             <form-property name="selectedPanes" type="java.lang.String[]"/>
+            <form-property name="csvSeparator" type="java.lang.Character"/>
         </form-bean>
         <form-bean name="assignedDefSysGrpForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">

@@ -84,7 +84,7 @@ public class ProbeGraphAction extends BaseProbeAction {
                 startts, endts);
 
         if (rctx.isRequestedExport()) {
-            writeExport(tsdList, resp, metrics);
+            writeExport(tsdList, resp, metrics, rctx.getCurrentUser().getCsvSeparator());
         }
         else {
             writeGraph(tsdList, resp, req, metrics, startts, endts);
@@ -128,7 +128,7 @@ public class ProbeGraphAction extends BaseProbeAction {
     }
 
     private void writeExport(List tsdList, HttpServletResponse resp,
-            String[] metrics) throws IOException {
+            String[] metrics, char separator) throws IOException {
         Iterator i = tsdList.iterator();
         while (i.hasNext()) {
             TimeSeriesData[] tsdarr = (TimeSeriesData[]) i.next();
@@ -138,7 +138,7 @@ public class ProbeGraphAction extends BaseProbeAction {
             columns.add("data");
             columns.add("time");
             columns.add("metric");
-            ExportWriter ew = new CSVWriter(new StringWriter());
+            ExportWriter ew = new CSVWriter(new StringWriter(), separator);
             ew.setColumns(columns);
             ServletExportHandler seh = new ServletExportHandler(ew);
             seh.writeExporterToOutput(resp, dtoList);

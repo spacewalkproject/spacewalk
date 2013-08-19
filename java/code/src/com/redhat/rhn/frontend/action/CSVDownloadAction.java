@@ -19,8 +19,10 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.Elaborator;
 import com.redhat.rhn.common.util.CSVWriter;
 import com.redhat.rhn.common.util.download.ByteArrayStreamInfo;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.SystemSearchPartialResult;
 import com.redhat.rhn.frontend.dto.SystemSearchResult;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 
 import org.apache.struts.action.ActionForm;
@@ -191,7 +193,9 @@ public class CSVDownloadAction extends DownloadAction {
         String exportColumns = getExportColumns(request, session);
         List pageData = getPageData(request, session);
 
-        CSVWriter expW = new CSVWriter(new StringWriter());
+        // Read the CSV separator from user preferences
+        User user = new RequestContext(request).getCurrentUser();
+        CSVWriter expW = new CSVWriter(new StringWriter(), user.getCsvSeparator());
         String[] columns  = exportColumns.split("\\s*,\\s*");
         expW.setColumns(Arrays.asList(columns));
 

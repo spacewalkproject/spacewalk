@@ -74,6 +74,7 @@ public class UserPrefSetupAction extends RhnAction {
                 .getEmailNotify()));
 
         form.set("pagesize", new Integer(user.getPageSize()));
+        form.set("csvSeparator", user.getCsvSeparator());
 
         setupTasks(form, user);
         request.setAttribute("pagesizes", getPageSizes());

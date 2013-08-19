@@ -438,6 +438,16 @@ public class UserImpl extends BaseDomainHelper implements User {
         return this.userInfo.getPreferredLocale();
     }
 
+    /** {@inheritDoc} */
+    public void setCsvSeparator(char csvSeparator) {
+        this.userInfo.setCsvSeparator(csvSeparator);
+    }
+
+    /** {@inheritDoc} */
+    public char getCsvSeparator() {
+        return this.userInfo.getCsvSeparator();
+    }
+
     /********* PersonalInfo Methods **********/
 
     /**

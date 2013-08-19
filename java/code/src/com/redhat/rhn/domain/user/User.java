@@ -506,6 +506,18 @@ public interface User {
     int getEmailNotify();
 
     /**
+     * Sets the current value of csvSeparator
+     * @param csvSeparatorIn New value for csvSeparator
+     */
+    void setCsvSeparator(char csvSeparatorIn);
+
+    /**
+     * Gets the current value of csvSeparator
+     * @return char the current value
+     */
+    char getCsvSeparator();
+
+    /**
      * Retrieves the set of server groups associated
      * to this user.
      * Note: this is NOT getAllServerGroups

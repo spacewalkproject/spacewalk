@@ -37,6 +37,7 @@ public class CSVWriter extends BufferedWriter implements ExportWriter {
     private List <String> columns;
     private Writer contents;
     private String headerText;
+    private char separatorChar = ',';
 
     /**
      * Constructor
@@ -46,6 +47,16 @@ public class CSVWriter extends BufferedWriter implements ExportWriter {
         super(out);
         this.contents = out;
         this.headerText = null;
+    }
+
+    /**
+     * Constructor
+     * @param out Writer to send CSV to
+     * @param separator Separator character to use
+     */
+    public CSVWriter(Writer out, char separator) {
+        this(out);
+        this.separatorChar = separator;
     }
 
     /**
@@ -78,7 +89,7 @@ public class CSVWriter extends BufferedWriter implements ExportWriter {
         String hdrStr = headerText;
         if (hdrStr != null) {
             for (int i = 0; i < columns.size() - 1; i++) {
-                hdrStr += ",";
+                hdrStr += separatorChar;
             }
         }
         return hdrStr;
@@ -210,7 +221,7 @@ public class CSVWriter extends BufferedWriter implements ExportWriter {
      */
     public void write(String s) throws IOException {
         // If the string does not contain a comma, just write it out
-        if (s.indexOf(",") == -1 && s.indexOf("\"") == -1) {
+        if (s.indexOf(separatorChar) == -1 && s.indexOf("\"") == -1) {
             super.write(s);
             return;
         }
@@ -240,7 +251,7 @@ public class CSVWriter extends BufferedWriter implements ExportWriter {
      * @throws IOException if there is a Writer error
      */
     public void writeSeparator() throws IOException {
-        super.write(",");
+        super.write(separatorChar);
     }
 
     /**

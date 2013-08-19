@@ -63,6 +63,7 @@ public class UserPrefAction extends RhnAction {
         user.setEmailNotify(BooleanUtils.toInteger((Boolean) form
                 .get("emailNotif"), 1, 0, 0));
         user.setPageSize(getAsInt(form, "pagesize", 5));
+        user.setCsvSeparator((Character) form.get("csvSeparator"));
 
         handlePanes(form, user);
 
