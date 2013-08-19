@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.19
+Version: 2.1.20
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Aug 19 2013 Tomas Lestach <tlestach@redhat.com> 2.1.20-1
+- 711373 - navigate to missing debuginfo package
+- 997809 - make unavailable packages non-clickable
+- 713684 - fix localization of jsp parameters
+- 996924 - Throw an appropriate error if kickstart script name is too long
+- Revert "Make callMethod() and invokeStaticMethod() deterministic when
+  multiple methods qualify for calling"
+- do not limit channel packages by signature in WebUI
+- do not print name twice for unlocked systems
+
 * Thu Aug 15 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.19-1
 - fix legend and image title on new ssm lock/unlock page
 - Ported from Perl to JPS locking and unlocking page, combining to one.
