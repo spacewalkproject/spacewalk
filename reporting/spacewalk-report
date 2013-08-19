@@ -14,6 +14,8 @@
 #
 
 import sys
+from spacewalk.common.rhnConfig import CFG, initCFG
+
 def systemExit(code, msgs=None):
 	""" exit with message and code """
 	if msgs:
@@ -65,6 +67,9 @@ def processCommandline():
 		Option('--like<column-id>', action='store', metavar='VALUE',
       dest='_like_trap',
       help='limit the output to records where column-id has value like VALUE (string only)'),
+		Option('--timezone', action='store', type='str',
+			dest='timezone',
+			help='set timezone for all dates reported to custom one instead of UTC'),
 	]
 
 	optionParser = OptionParser( \
@@ -115,10 +120,14 @@ def processCommandline():
 
 	sys.argv[1:] = args
 
+	if not options.timezone:
+		options.timezone = 'UTC'
+
 	return options, where, where_like
 
 if __name__ == '__main__':
 	(options, where, where_like) = processCommandline()
+	initCFG('server.satellite')
 
 	try:
 		if len(sys.argv) > 2:
@@ -193,6 +202,11 @@ if __name__ == '__main__':
 
 			if the_sql_where:
 				the_sql = the_sql.replace('-- where placeholder', 'where %s' % ' and '.join(the_sql_where))
+
+			if CFG.DB_BACKEND == 'oracle':
+				rhnSQL.execute('alter session set time_zone = \'%s\'' % options.timezone)
+			else:
+				rhnSQL.execute('set session timezone to \'%s\'' % options.timezone)
 
 			h = rhnSQL.prepare(the_sql)
 			h.execute(**dict(report.params.items() + the_dict_where.items()))
