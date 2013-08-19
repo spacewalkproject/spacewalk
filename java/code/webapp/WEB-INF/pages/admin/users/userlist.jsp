@@ -43,7 +43,12 @@
  		<%@ include file="/WEB-INF/pages/common/fragments/user/userlist_columns.jspf" %>
 
         <rl:column sortable="false" headerkey="userlist.jsp.status">
-            <bean:message key="userlist.jsp.${current.status}"/>
+            <c:if test="${current.status == 'enabled'}">
+                <bean:message key="userlist.jsp.enabled"/>
+            </c:if>
+            <c:if test="${current.status == 'disabled'}">
+                <bean:message key="userlist.jsp.disabled"/>
+            </c:if>
         </rl:column>
 
  	</rl:list>
