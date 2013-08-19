@@ -316,7 +316,7 @@ public class MasterHandler extends BaseHandler {
      * @xmlrpc.doc Add a single organizations to the list of those the specified Master has
      * exported to this Slave
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param_desc("long", "id", "Id of the desired Master")
+     * @xmlrpc.param #param_desc("int", "id", "Id of the desired Master")
      * @xmlrpc.param
      *      #struct("master-org details")
      *          #prop("int", "masterOrgId")
