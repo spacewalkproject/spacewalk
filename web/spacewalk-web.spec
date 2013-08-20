@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.6
+Version: 2.1.7
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -270,6 +270,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Aug 20 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.7-1
+- Perl to JSP port: SSM/Provisioning/RemoteCommand
+
 * Mon Aug 19 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.6-1
 - 993978 - remove check-database-space-usage.sh from cron.daily
 
