@@ -5993,8 +5993,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>&lt;a href="/network/systems/ssm/provisioning/tag_systems.pxt"&gt;Marcar&lt;/a&gt; sistemas para &lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;snapshot rollback&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.remotecommands">
-          <source>Run &lt;a href="/network/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>
-          <target>Run &lt;a href="/network/systems/ssm/provisioning/RemoteCommand.do"&gt;comandos remotos&lt;/a&gt;</target>
+          <source>Run &lt;a href="/rhn/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>
+          <target>Run &lt;a href="/rhn/systems/ssm/provisioning/RemoteCommand.do"&gt;comandos remotos&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc">
           <source>Misc</source>

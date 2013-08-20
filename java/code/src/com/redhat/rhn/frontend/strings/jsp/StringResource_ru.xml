@@ -5992,8 +5992,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>&lt;a href="/network/systems/ssm/provisioning/tag_systems.pxt"&gt;Создание тегов&lt;/a&gt; для &lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;восстановления из снимка&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.remotecommands">
-          <source>Run &lt;a href="/network/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>
-          <target>Запуск &lt;a href="/network/systems/ssm/provisioning/RemoteCommand.do"&gt;удаленных команд&lt;/a&gt;</target>
+          <source>Run &lt;a href="/rhn/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>
+          <target>Запуск &lt;a href="/rhn/systems/ssm/provisioning/RemoteCommand.do"&gt;удаленных команд&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc">
           <source>Misc</source>

@@ -5994,8 +5994,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>&lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;스냅샷 롤백&lt;/a&gt; 용 시스템을 &lt;a href="/network/systems/ssm/provisioning/tag_systems.pxt"&gt;태그&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.remotecommands">
-          <source>Run &lt;a href="/network/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>
-          <target>&lt;a href="/network/systems/ssm/provisioning/RemoteCommand.do"&gt;원격 명령&lt;/a&gt; 실행</target>
+          <source>Run &lt;a href="/rhn/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>
+          <target>&lt;a href="/rhn/systems/ssm/provisioning/RemoteCommand.do"&gt;원격 명령&lt;/a&gt; 실행</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc">
           <source>Misc</source>

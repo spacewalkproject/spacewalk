@@ -5994,8 +5994,8 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
           <target>&lt;a href="/network/systems/ssm/provisioning/tag_systems.pxt"&gt;Tag&lt;/a&gt; systems for &lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;restauración de instantánea&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.remotecommands">
-          <source>Run &lt;a href="/network/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>
-          <target>Ejecutar &lt;a href="/network/systems/ssm/provisioning/RemoteCommand.do"&gt;comandos remotos&lt;/a&gt;</target>
+          <source>Run &lt;a href="/rhn/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>
+          <target>Ejecutar &lt;a href="/rhn/systems/ssm/provisioning/RemoteCommand.do"&gt;comandos remotos&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc">
           <source>Misc</source>

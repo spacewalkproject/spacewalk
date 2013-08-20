@@ -5996,8 +5996,8 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
           <target>&lt;a href="/network/systems/ssm/provisioning/tag_systems.pxt"&gt;Étiqueter&lt;/a&gt; des systèmes pour une &lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;restauration d'instantanés&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.remotecommands">
-          <source>Run &lt;a href="/network/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>
-          <target>Exécuter des &lt;a href="/network/systems/ssm/provisioning/RemoteCommand.do"&gt;commandes à distance&lt;/a&gt;</target>
+          <source>Run &lt;a href="/rhn/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>
+          <target>Exécuter des &lt;a href="/rhn/systems/ssm/provisioning/RemoteCommand.do"&gt;commandes à distance&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc">
           <source>Misc</source>
