@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.1.10
+Version:        2.1.11
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Aug 20 2013 Stephen Herr <sherr@redhat.com> 2.1.11-1
+- 998424 - rpm version comparison function was broken for alphanumeric versions
+
 * Tue Aug 20 2013 Tomas Lestach <tlestach@redhat.com> 2.1.10-1
 - fix sha1 of 014-add-column-csv-separator.sql.postgresql
 - Add a hack to allow the ';' literal in table definitions
