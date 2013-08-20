@@ -58,10 +58,6 @@ sub _register_modes {
   Sniglets::ListView::List->add_mode(-mode => "taggable_systems_in_set",
 			   -datasource => RHN::DataSource::System->new);
 
-  Sniglets::ListView::List->add_mode(-mode => "ssm_remote_commandable",
-			   -datasource => RHN::DataSource::System->new,
-                           -action_callback => \&ssm_remote_command_action_cb);
-
   Sniglets::ListView::List->add_mode(-mode => "provisioning_systems_in_set_with_tag",
 			   -datasource => RHN::DataSource::System->new,
 			   -action_callback => \&ssm_rollback_by_tag_action_cb);
@@ -339,58 +335,6 @@ sub add_systems_to_namespace_cb {
    
   }
 
-
-  return 1;
-}
-
-sub ssm_remote_command_action_cb {
-  my $self = shift;
-  my $pxt = shift;
-
-  my %action = @_;
-
-  my $label = '';
-
-  if (exists $action{label} and $action{label} eq 'schedule_command') {
-    my $ds = new RHN::DataSource::System (-mode => 'ssm_remote_commandable');
-    my $data = $ds->execute_query(-user_id => $pxt->user->id);
-
-    my $transaction = RHN::DB->connect();
-    $transaction->nest_transactions();
-
-    eval {
-      my $username = $pxt->dirty_param('username');
-      my $group = $pxt->dirty_param('group');
-      my $script = $pxt->dirty_param('script');
-      my $timeout = $pxt->dirty_param('timeout');
-
-      my $earliest_date = Sniglets::ServerActions->parse_date_pickbox($pxt);
-
-      my $system_set = RHN::Set->lookup(-label => 'system_list', -uid => $pxt->user->id);
-
-      my $action_id = RHN::Scheduler->schedule_remote_command(-org_id => $pxt->user->org_id,
-							      -user_id => $pxt->user->id,
-							      -earliest => $earliest_date,
-							      -server_set => $system_set,
-							      -action_name => undef,
-							      -script => $script,
-							      -username => $username,
-							      -group => $group,
-							      -timeout => $timeout,
-							     );
-    };
-
-    if ($@) {
-      my $E = $@;
-      $transaction->nested_rollback();
-      die $E;
-    }
-    else {
-      $transaction->nested_commit();
-      $pxt->push_message(site_info => "Remote commands scheduled.");
-      $pxt->redirect("/network/systems/ssm/provisioning/remote_command.pxt");
-    }
-  }
 
   return 1;
 }
