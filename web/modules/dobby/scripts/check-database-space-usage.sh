@@ -17,9 +17,25 @@
 PATH=/usr/bin:/bin
 export PATH
 
+get_db_backend() {
+   if [ ! -e /usr/bin/spacewalk-cfg-get ]; then
+      if [ x$(grep db_backend /etc/rhn/rhn.conf | awk '{print $3}') = x"postgresql" ]; then
+         echo "postgresql"
+      else
+         echo "oracle"
+      fi
+   else
+      if [ x$(spacewalk-cfg-get db_backend) = x"postgresql" ]; then
+         echo "postgresql"
+      else
+         echo "oracle"
+      fi
+   fi
+}
+
 reportusage() {
    # both command produce percent as 5th field and first row is header, which is ignored
-   if [ 0$(spacewalk-cfg-get db_backend) = "0postgresql" ]; then
+   if [ x"$(get_db_backend)" = x"postgresql" ]; then
       df -hP /var/lib/pgsql/data/
    else
       # don't report UNDO usage
@@ -31,9 +47,12 @@ mailitout() {
    local reportusage=$1
 
    #get Satellite email address
-   MAILADDRESS=$(spacewalk-cfg-get traceback_mail)
+   MAILADDRESS="root@localhost"
+   if [ -e /usr/bin/spacewalk-cfg-get ]; then
+      MAILADDRESS=$(spacewalk-cfg-get traceback_mail)
+   fi
 
-   if [ 0$(spacewalk-cfg-get db_backend) = "0postgresql" ]; then
+   if [ x$(get_db_backend) = x"postgresql" ]; then
       SUBJECT="Warning - PostgreSQL database mount point is running out of space"
       BODY="This is a notice to let you know that you have gone over 90% usage of
 the mount point where the PostgreSQL database resides. We recommend to be
