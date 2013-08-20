@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-postgresql
-Version:        2.1.1
+Version:        2.1.2
 Release:        1%{?dist}
 Summary:        Tools to setup embedded PostgreSQL database for Spacewalk
 Group:          Applications/System
@@ -50,6 +50,9 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/*
 
 %changelog
+* Tue Aug 20 2013 Jan Dobes 2.1.2-1
+- 998862 - allow root connect to db same way as user postgres can
+
 * Thu Aug 01 2013 Matej Kollar <mkollar@redhat.com> 2.1.1-1
 - 982560 - Checking validity of user-provided addresses
 - Bumping package versions for 2.1.
