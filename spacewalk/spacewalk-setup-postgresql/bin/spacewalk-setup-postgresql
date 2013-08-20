@@ -79,6 +79,7 @@ unset -f def_regexes
 
 PG_DATA=/var/lib/pgsql/data
 PG_HBA="$PG_DATA/pg_hba.conf"
+PG_IDENT="$PG_DATA/pg_ident.conf"
 POSTGRESQL="$PG_DATA/postgresql.conf"
 PORT=5432
 PG_PIDFILE="/var/run/postmaster.$PORT.pid"
@@ -134,14 +135,21 @@ EOF
 
     sysctl kernel.shmmax | ( read v v v ; LIMIT=500000000 ; if [ "0$v" -lt $LIMIT ] ; then sysctl "kernel.shmmax=$LIMIT" >> /etc/sysctl.conf ; fi )
 
+    cat >> $PG_IDENT <<EOF
+
+usermap root postgres
+usermap postgres postgres
+
+EOF
+
     sed -i 's/^\([^#].*\)$/### next line has been commented out by spacewalk-setup-postgresql: ###\n##\1/ ' $PG_HBA
     cat >> $PG_HBA <<EOF
 
 local $PGNAME $PGUSER md5
 host  $PGNAME $PGUSER 127.0.0.1/8 md5
 host  $PGNAME $PGUSER ::1/128 md5
-local $PGNAME postgres ident
-local postgres postgres ident
+local $PGNAME postgres ident map=usermap
+local postgres postgres ident map=usermap
 
 EOF
 
