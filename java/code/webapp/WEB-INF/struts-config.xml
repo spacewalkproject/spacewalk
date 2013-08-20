@@ -5096,6 +5096,18 @@
         <forward name="default"
                  path="/WEB-INF/pages/ssm/systems/misc/lock-unlock-system.jsp" />
     </action>
+    
+    <action path="/systems/ssm/misc/RebootSystem"
+            scope="request"
+            input="/WEB-INF/pages/ssm/systems/misc/reboot-system.jsp"
+            type="com.redhat.rhn.frontend.action.ssm.RebootSystemAction"
+            name="ssmPreferencesForm"
+            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="confirm"
+                 path="/WEB-INF/pages/ssm/systems/misc/index.jsp" />
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/systems/misc/reboot-system.jsp" />
+    </action>
 
         <action path="/systems/ssm/misc/Index"
         scope="request"

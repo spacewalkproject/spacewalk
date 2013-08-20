@@ -1905,4 +1905,27 @@ public class ActionManager extends BaseManager {
         return action;
     }
 
+
+    /**
+     * Schedule machine reboot.
+     *
+     * @param scheduler Logged in user
+     * @param server Server, which is going to be rebooted
+     * @param earliestAction Earliest date. If null, then date is current.
+     * @return
+     */
+    public static Action scheduleReboot(User scheduler,
+                                        Server server,
+                                        Date earliestAction) {
+        Action action = ActionManager.scheduleAction(scheduler,
+                                                     server,
+                                                     ActionFactory.TYPE_REBOOT,
+                                                     ActionFactory.TYPE_REBOOT.getName(),
+                                                     (earliestAction == null ?
+                                                      new Date() :
+                                                      earliestAction));
+        ActionFactory.save(action);
+        return action;
+    }
+    
 }

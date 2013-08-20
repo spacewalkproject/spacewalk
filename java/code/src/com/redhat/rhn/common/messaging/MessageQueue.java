@@ -35,13 +35,14 @@ import com.redhat.rhn.frontend.events.SsmChangeChannelSubscriptionsAction;
 import com.redhat.rhn.frontend.events.SsmChangeChannelSubscriptionsEvent;
 import com.redhat.rhn.frontend.events.SsmDeleteServersAction;
 import com.redhat.rhn.frontend.events.SsmDeleteServersEvent;
-import com.redhat.rhn.frontend.events.SsmPackagesAction;
 import com.redhat.rhn.frontend.events.TraceBackAction;
 import com.redhat.rhn.frontend.events.TraceBackEvent;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheAction;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
 import com.redhat.rhn.frontend.events.SsmInstallPackagesAction;
 import com.redhat.rhn.frontend.events.SsmInstallPackagesEvent;
+import com.redhat.rhn.frontend.events.SsmSystemRebootAction;
+import com.redhat.rhn.frontend.events.SsmSystemRebootEvent;
 import com.redhat.rhn.frontend.events.SsmVerifyPackagesAction;
 import com.redhat.rhn.frontend.events.SsmVerifyPackagesEvent;
 
@@ -250,47 +251,44 @@ public class MessageQueue {
         // If we develop a large set of MessageEvents we may want to
         // refactor this block out into a class or method that
         // reads in some configuration from an XML file somewhere
-        TraceBackAction tbe = new TraceBackAction();
-        MessageQueue.registerAction(tbe, TraceBackEvent.class);
-        NewUserAction nua = new NewUserAction();
-        MessageQueue.registerAction(nua, NewUserEvent.class);
+        MessageQueue.registerAction(new TraceBackAction(), TraceBackEvent.class);
+        MessageQueue.registerAction(new NewUserAction(), NewUserEvent.class);
 
         // this is to update the errata cache without blocking the login
         // for 40 seconds.
-        UpdateErrataCacheAction ueca = new UpdateErrataCacheAction();
-        MessageQueue.registerAction(ueca, UpdateErrataCacheEvent.class);
+        MessageQueue.registerAction(new UpdateErrataCacheAction(),
+                                    UpdateErrataCacheEvent.class);
 
         // Used for asynchronusly restarting the satellite
-        RestartSatelliteAction ra = new RestartSatelliteAction();
-        MessageQueue.registerAction(ra, RestartSatelliteEvent.class);
+        MessageQueue.registerAction(new RestartSatelliteAction(),
+                                    RestartSatelliteEvent.class);
 
         // Used to allow SSM child channel changes to be run asynchronously
-        SsmChangeChannelSubscriptionsAction sccsa =
-                new SsmChangeChannelSubscriptionsAction();
-        MessageQueue.registerAction(sccsa, SsmChangeChannelSubscriptionsEvent.class);
+        MessageQueue.registerAction(new SsmChangeChannelSubscriptionsAction(),
+                                    SsmChangeChannelSubscriptionsEvent.class);
 
         MessageQueue.registerAction(new SsmDeleteServersAction(),
-                SsmDeleteServersEvent.class);
+                                    SsmDeleteServersEvent.class);
 
         // Used to allow SSM package installs to be run asynchronously
-        SsmPackagesAction ssmPackageInstallAction = new SsmInstallPackagesAction();
-        MessageQueue.registerAction(ssmPackageInstallAction, SsmInstallPackagesEvent.class);
-
-        SsmRemovePackagesAction ssmRpa = new SsmRemovePackagesAction();
-        MessageQueue.registerAction(ssmRpa, SsmRemovePackagesEvent.class);
-
-        SsmVerifyPackagesAction ssmVpa = new SsmVerifyPackagesAction();
-        MessageQueue.registerAction(ssmVpa, SsmVerifyPackagesEvent.class);
-
-        SsmPackagesAction ssmUpa = new SsmUpgradePackagesAction();
-        MessageQueue.registerAction(ssmUpa, SsmUpgradePackagesEvent.class);
+        MessageQueue.registerAction(new SsmInstallPackagesAction(),
+                                    SsmInstallPackagesEvent.class);
+        MessageQueue.registerAction(new SsmRemovePackagesAction(),
+                                    SsmRemovePackagesEvent.class);
+        MessageQueue.registerAction(new SsmVerifyPackagesAction(),
+                                    SsmVerifyPackagesEvent.class);
+        MessageQueue.registerAction(new SsmUpgradePackagesAction(),
+                                    SsmUpgradePackagesEvent.class);
 
         //Clone Errata into a channel
-        CloneErrataAction cea = new CloneErrataAction();
-        MessageQueue.registerAction(cea, CloneErrataEvent.class);
-        NewCloneErrataAction ncea = new NewCloneErrataAction();
-        MessageQueue.registerAction(ncea, NewCloneErrataEvent.class);
+        MessageQueue.registerAction(new CloneErrataAction(),
+                                    CloneErrataEvent.class);
+        MessageQueue.registerAction(new NewCloneErrataAction(),
+                                    NewCloneErrataEvent.class);
 
+        // Misc
+        MessageQueue.registerAction(new SsmSystemRebootAction(),
+                                    SsmSystemRebootEvent.class);
     }
 }
 

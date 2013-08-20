@@ -399,6 +399,9 @@ public class RhnSetDecl {
     public static final RhnSetDecl SSM_SYSTEMS_SET_LOCK = make(
             "ssm_systems_set_lock", SetCleanup.NOOP);
 
+    public static final RhnSetDecl SSM_SYSTEMS_REBOOT = make(
+            "ssm_systems_reboot", SetCleanup.NOOP);
+
     private SetCleanup cleanup;
     private String label;
 

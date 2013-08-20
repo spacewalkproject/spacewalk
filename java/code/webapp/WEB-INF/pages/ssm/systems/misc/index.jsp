@@ -10,31 +10,6 @@
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
 
 <a id="profiles">&#160;</a>
-<h2><bean:message key="ssm.misc.index.profileupdates.header"/></h2>
-<div class="page-summary">
-<p><bean:message key="ssm.misc.index.profileupdates.summary"/></p>
-</div>
-<ul>
-  <li><a href="/rhn/systems/ssm/misc/HardwareRefresh.do"><bean:message key="ssm.misc.index.profileupdates.hardware"/></a></li>
-  <li><a href="/rhn/systems/ssm/misc/SoftwareRefresh.do"><bean:message key="ssm.misc.index.profileupdates.software"/></a></li>
-</ul>
-<br />
-
-<a id="migrate">&#160;</a>
-<h2><bean:message key="ssm.misc.index.migrate.header"/></h2>
-
-<div class="page-summary">
-<p><bean:message key="ssm.misc.index.migrate.summary"/></p>
-
-</div>
-
-<ul>
-  <li><a href="/rhn/systems/ssm/MigrateSystems.do"><bean:message key="ssm.misc.index.migrate.migrate"/></a></li>
-</ul>
-
-<br />
-
-<a id="profiles">&#160;</a>
 <h2><bean:message key="ssm.misc.index.csi.header"/></h2>
 <div class="page-summary">
 <p><bean:message key="ssm.misc.index.csi.summary"/></p>
@@ -42,26 +17,6 @@
 <ul>
   <li><a href="/network/systems/ssm/misc/choose_value_to_set.pxt"><bean:message key="ssm.misc.index.csi.set"/></a></li>
   <li><a href="/network/systems/ssm/misc/choose_value_to_remove.pxt"><bean:message key="ssm.misc.index.csi.remove"/></a></li>
-</ul>
-<br />
-
-<a id="reboot">&#160;</a>
-<h2><bean:message key="ssm.misc.index.reboot.header"/></h2>
-<div class="page-summary">
-<p><bean:message key="ssm.misc.index.reboot.summary"/></p>
-</div>
-<ul>
-  <li><a href="/network/systems/ssm/misc/reboot_systems.pxt?pxt:trap=rhn:empty_set&amp;set_label=target_systems"><bean:message key="ssm.misc.index.reboot.header"/></a></li>
-</ul>
-<br />
-
-<a id="delete">&#160;</a>
-<h2><bean:message key="ssm.misc.index.delete.header"/></h2>
-<div class="page-summary">
-<p><bean:message key="ssm.misc.index.delete.summary"/></p>
-</div>
-<ul>
-  <li><a href="/rhn/systems/ssm/DeleteConfirm.do"><bean:message key="ssm.misc.index.delete.delete"/></a></li>
 </ul>
 <br />
 

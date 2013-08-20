@@ -4511,6 +4511,15 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/ssm/misc/Index.do</context>
         </context-group>
+        <trans-unit id="ssm.misc.index.tabs.hardware">
+          <source>Hardware</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.index.tabs.software">
+          <source>Software</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.index.tabs.migrate">
+          <source>Migrate</source>
+        </trans-unit>
         <trans-unit id="ssm.misc.index.tabs.lock">
           <source>Lock</source>
         </trans-unit>
@@ -4526,7 +4535,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="ssm.misc.index.tabs.delete">
           <source>Delete</source>
         </trans-unit>
-
         <trans-unit id="ssm.misc.index.profileupdates.header">
           <source>System Profile Updates</source>
         </trans-unit>
@@ -4611,6 +4619,22 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="ssm.misc.index.syspref.no">
           <source>No</source>
         </trans-unit>
+        
+        <trans-unit id="ssm.misc.reboot.header">
+            <source>Reboot of the Systems</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.reboot.summary">
+            <source>Choose the systems you need to reboot and run action immediately or schedule it for later.</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.reboot.operationname">
+            <source>Schedule Systems Reboot</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.reboot.message.success.default">
+            <source>Systems reboot has been scheduled.</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.reboot.message.error.noselect">
+            <source>Please select at least one system for reboot.</source>
+        </trans-unit>
 
        <trans-unit id="ssm.misc.lockunlock.tabtitle">
          <source>Lock/Unlock</source>
@@ -4655,7 +4679,6 @@ value for this entitlement, excluding the default organization's consumption.</s
          <source>In order to lock a system, please specify the reason.</source>
        </trans-unit>
      </group>
-
 <!-- == Systems == -->
       <trans-unit id="overview.jsp.header">
         <source>System Overview</source>
