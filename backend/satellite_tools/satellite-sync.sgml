@@ -74,6 +74,9 @@ Incrementally synchronize an Red Hat Satellite's DB data and RPM repository with
         <arg>--no-kickstarts</arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>--keep-rpms</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>--debug-level=<replaceable>DEBUG_LEVEL</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -298,6 +301,12 @@ Incrementally synchronize an Red Hat Satellite's DB data and RPM repository with
         <term>--no-kickstarts</term>
         <listitem>
             <para>do not process kickstart data (provisioning feature).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--keep-rpms</term>
+        <listitem>
+            <para>do not remove rpms when importing from local dump.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
