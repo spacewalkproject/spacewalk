@@ -15,11 +15,11 @@ create or replace function isdigit(ch CHAR)
     END ;
 $$ language 'plpgsql';
 
-    
+
     create or replace FUNCTION isalpha(ch CHAR)
     RETURNS BOOLEAN as $$
     BEGIN
-        if ascii(ch) between ascii('a') and ascii('z') or 
+        if ascii(ch) between ascii('a') and ascii('z') or
             ascii(ch) between ascii('A') and ascii('Z')
         then
             return TRUE;
@@ -30,9 +30,9 @@ $$ language 'plpgsql';
 
 
     create or replace FUNCTION isalphanum(ch CHAR)
-    RETURNS BOOLEAN as $$ 
+    RETURNS BOOLEAN as $$
     BEGIN
-        if ascii(ch) between ascii('a') and ascii('z') or 
+        if ascii(ch) between ascii('a') and ascii('z') or
             ascii(ch) between ascii('A') and ascii('Z') or
             ascii(ch) between ascii('0') and ascii('9')
         then
@@ -60,7 +60,7 @@ $$ language 'plpgsql';
         then
             RAISE EXCEPTION 'VALUE_ERROR.';
         end if;
-      
+
         if str1 = str2
         then
             return 0;
@@ -102,7 +102,7 @@ $$ language 'plpgsql';
                 then segm1 := substr(one, 1, length(one) - length(str1));
                 else segm1 := one;
                 end if;
-                    
+
                 if str2 <> ''
                 then segm2 := substr(two, 1, length(two) - length(str2));
                 else segm2 := two;
@@ -117,7 +117,7 @@ $$ language 'plpgsql';
                                 end if;
                 if isnum
                 then
-                   
+
                     segm1 := ltrim(segm1, '0');
                     segm2 := ltrim(segm2, '0');
 
@@ -138,7 +138,7 @@ $$ language 'plpgsql';
                 two := str2;
             end;
         end loop segment_loop;
-     
+
         if one = '' then return -1; end if;
         return 1;
     END ;
@@ -147,7 +147,7 @@ $$ language 'plpgsql';
 
 
    create or replace FUNCTION vercmp(
-        e1 VARCHAR, v1 VARCHAR, r1 VARCHAR, 
+        e1 VARCHAR, v1 VARCHAR, r1 VARCHAR,
         e2 VARCHAR, v2 VARCHAR, r2 VARCHAR)
     RETURNS INTEGER as $$
     declare
@@ -176,4 +176,3 @@ $$ language 'plpgsql';
 
 -- restore the original setting
 update pg_settings set setting = overlay( setting placing '' from 1 for (length('rpm')+1) ) where name = 'search_path';
-
