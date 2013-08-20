@@ -65,7 +65,7 @@
                         <hidden name="use_date" value="true" />
                     </div>
                 </html:form>
-                    
+
                 <div id="system-list">
                     <rl:listset name="groupSet">
                         <rhn:csrf />
@@ -74,13 +74,13 @@
                             dataset="pageList"
                             name="systemList"
                             emptykey="nosystems.message"
-                            alphabarcolumn="name"   
+                            alphabarcolumn="name"
                             filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemOverviewFilter">
-                                
+
                             <rl:decorator name="ElaborationDecorator"/>
                             <rl:decorator name="SystemIconDecorator"/>
                             <rl:decorator name="PageSizeDecorator"/>
-                                
+
                             <!-- Name Column -->
                             <rl:column sortable="true"
                                        bound="false"
@@ -90,14 +90,14 @@
                                        styleclass="${namestyle}">
                                 <%@ include file="/WEB-INF/pages/common/fragments/systems/system_list_fragment.jspf" %>
                             </rl:column>
-                                
+
                             <!-- Base Channel Column -->
                             <rl:column sortable="false"
                                        bound="false"
                                        headerkey="systemlist.jsp.channel"  >
                                 <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_list_fragment.jspf" %>
                             </rl:column>
-                                
+
                             <!-- Entitlement Column -->
                             <rl:column sortable="false"
                                        bound="false"

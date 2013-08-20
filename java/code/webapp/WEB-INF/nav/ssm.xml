@@ -58,7 +58,7 @@
              </rhn-tab>
 
 	</rhn-tab>
-	
+
 	<rhn-tab name="Groups" acl="user_role(org_admin)">
 		<rhn-tab-url>/network/systems/ssm/groups/index.pxt</rhn-tab-url>
 		<rhn-tab-url>/network/systems/ssm/groups/alter_membership_conf.pxt</rhn-tab-url>
@@ -75,7 +75,7 @@
                 <rhn-tab-url>/rhn/channel/ssm/ChildSubscriptionsConfirm.do</rhn-tab-url>
             </rhn-tab>
 	</rhn-tab>
-	
+
 	<rhn-tab name="ssm.nav.config" url="/rhn/systems/ssm/config/Deploy.do"
 	         acl="org_entitlement(rhn_provisioning)">
 	  <rhn-tab-directory>/rhn/systems/ssm/config</rhn-tab-directory>

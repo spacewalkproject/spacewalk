@@ -14657,7 +14657,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>Note: only child channel subscription changes and package install/remove/upgrade/verify tasks are listed.</source>
         </trans-unit>
       </group>
-      
+
       <!-- /rhn/systems/ssm/kickstart/KickstartableSystems.do -->
       <group>
           <context-group name="ctx">
@@ -14733,7 +14733,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           </trans-unit>
           <trans-unit id="stringutil.scriptcheck.error.noscript">
               <source>Script is does not seems like doing anything.</source>
-          </trans-unit>          
+          </trans-unit>
       </group>
 
       <!-- ssm/packages.jsp -->

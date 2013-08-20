@@ -271,22 +271,6 @@ public class ProvisioningRemoteCommand extends RhnAction implements Listable {
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
-
-    /**
-     * See if user is trying to schedule something that looks like a script.
-     *
-     * @param script
-     * @return
-     */
-    private Boolean prematureScriptCheck(String script) {
-        if (StringUtil.nullOrValue(script) == null) {
-            return Boolean.FALSE;
-        }
-
-        String[] lines = script.split(System.getProperty("line.separator"));
-        return Boolean.FALSE;
-    }
-
     /**
      * Generate label for the task.
      *
