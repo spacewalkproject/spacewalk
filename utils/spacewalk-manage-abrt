@@ -1,0 +1,395 @@
+#!/usr/bin/python
+#
+# Copyright (c) 2010--2013 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
+# dyordano@redhat.com
+
+import sys,os
+from optparse import OptionParser
+import xmlrpclib
+import pprint
+import subprocess
+import signal
+
+DEFAULT_SERVER = "localhost"
+DEFAULT_USER = "spacewalk"
+DEFAULT_PASSWORD = "spacewalk"
+
+exit_code=0
+
+#mmraka
+class ExtOptionParser(OptionParser):
+
+    """extend OptionParser to print examples"""
+    def __init__(self, examples=None, **kwargs):
+        self.examples = examples
+        OptionParser.__init__(self, **kwargs)
+    def print_help(self):
+        OptionParser.print_help(self)
+        print "\n\n" + self.examples
+
+class ConfigDispatcher:
+
+    def __init__(self, username, password, server):
+        '''
+        @summary: Create XMLRPC client and sign in the user.
+        @param username: username
+        @param password: password
+        @param server: FQDN
+        '''
+        rhn_server = "https://%s/rpc/api" % server
+        self.client = xmlrpclib.Server(rhn_server, verbose=0)
+        self.key = self.client.auth.login(username, password)
+        self.pp = pprint.PrettyPrinter(indent=4, width=1)
+
+    # DISPATCHED METHODS -----------------------------------------------------------------------------------------------
+
+
+    def do_CreateTestCrash(self, kwargs):
+        """
+        @summary: 'CreateTestCrash' Create a crash note.
+        @param sessionKey
+        """
+        import subprocess
+        import signal
+        cmd_sleep="sleep 100"
+        process = subprocess.Popen(cmd_sleep.split())
+        process.send_signal(signal.SIGSEGV)
+
+
+    def do_listCrashedSystems(self, kwargs):
+        """
+        @summary: 'createCrashNote' Create a crash note.
+        @param sessionKey
+        @param crashId
+        @param subject
+        @param details
+        """
+        res=self.client.system.listUserSystems(self.key)
+        for sys in res:
+            res_crash=self.client.system.crash.listSystemCrashes(self.key,sys['id'])
+            if len(res_crash) != 0:
+                print "%d:%s:%s" % (len(res_crash),sys['id'],sys['name'])
+
+    def do_createCrashNote(self, kwargs):
+        """
+        @summary: 'createCrashNote' Create a crash note.
+        @param sessionKey
+        @param crashId
+        @param subject
+        @param details
+        """
+        print self.client.system.crash.createCrashNote(self.key, int(kwargs.crashId),kwargs.note_subject,kwargs.note_details)
+
+    def do_deleteCrashNote(self, kwargs):
+        """
+        @summary: 'deleteCrashNote' Delete a crash note.
+        @param sessionKey
+        @param crashNoteId
+
+        """
+        print self.client.system.crash.deleteCrashNote(self.key, int(kwargs.noteId))
+
+    def do_getCrashNotesForCrash(self, kwargs):
+        """
+        @summary: 'getCrashNotesForCrash' List crash notes for crash.
+        @param sessionKey
+        @param crashNoteId
+        """
+
+        res=self.client.system.crash.getCrashNotesForCrash(self.key, int(kwargs.crashId))
+        self.pritty_print(res,kwargs)
+
+
+    def do_isCrashfileUploadEnabled(self, kwargs):
+        """
+        @summary: 'isCrashfileUploadEnabled' Get the status of crash file upload settings for the given organization. Returns true if enabled, false otherwise.
+        @param sessionKey
+        @param orgId
+        """
+        print self.client.org.isCrashfileUploadEnabled(self.key, int(kwargs.orgId))
+
+    def do_isCrashReportingEnabled(self, kwargs):
+        """
+        @summary: 'isCrashReportingEnabled' Get the status of crash reporting settings for the given organization. Returns true if enabled, false otherwise.
+        @param sessionKey
+        @param orgId
+        """
+        print self.client.org.isCrashReportingEnabled(self.key, int(kwargs.orgId))
+
+
+    def do_setCrashfileUpload(self, kwargs):
+        """
+        @summary: 'setCrashfileUpload' Set the status of crash file upload settings for the given organization. Modifying the settings is possible as long as crash reporting is enabled.
+        @param sessionKey
+        @param orgId
+        @boolean enable - Use true/false to enable/disable
+        """
+        print self.client.org.setCrashfileUpload(self.key, int(kwargs.orgId),eval(kwargs.bool))
+
+    def do_setCrashReporting(self, kwargs):
+        """
+        @summary: 'setCrashReporting' Set the status of crash reporting settings for the given organization. Disabling crash reporting will automatically disable crash file upload.
+        @param sessionKey
+        @param orgId
+        @boolean enable - Use true/false to enable/disable
+        """
+        print self.client.org.setCrashReporting(self.key, int(kwargs.orgId),eval(kwargs.bool))
+
+    def do_getCrashFileSizeLimit(self, kwargs):
+        """
+        @summary: 'getCrashFileSizeLimit' action method. Get the organization wide crash file size limit. The limit value must i a non-negative number, zero means no limit.
+        @param sessionKey
+        @param orgId
+        """
+        print self.client.org.getCrashFileSizeLimit(self.key, int(kwargs.orgId))
+
+    def do_setCrashFileSizeLimit(self, kwargs):
+        """
+        @summary: 'setCrashFileSizeLimit' action method. Set the organization wide crash file size limit. The limit value must be non-negative, zero means no limit.
+        @param sessionKey
+        @param orgId
+        @param limit
+        """
+        self.client.org.setCrashFileSizeLimit(self.key, int(kwargs.orgId), int(kwargs.limit))
+
+    def do_deleteCrash(self, kwargs):
+        """
+        @summary: 'deleteCrash' action method. Delete a crash with given crash id.
+        @param sessionKey
+        @param crashId
+        """
+        self.client.system.crash.deleteCrash(self.key, int(kwargs.crashId))
+
+    def do_getCrashFile (self, kwargs):
+        """
+        @summary: 'getCrashFile' action method. Download a crash file.
+        @param sessionKey
+        @param crashFileId
+        """
+        print self.client.system.crash.getCrashFile(self.key, int(kwargs.crashFileId))
+
+    def do_getCrashAllFiles(self, kwargs):
+
+        s_dest_folder=''
+        if kwargs.dest_folder:
+            if not os.path.isdir(kwargs.dest_folder):
+                print "FAIL: %s  is not a folder!" % kwargs.dest_folder
+                return 1
+            else:
+                s_dest_folder="--directory-prefix " + kwargs.dest_folder + " "
+
+        l_res=self.client.system.crash.listSystemCrashFiles(self.key, int(kwargs.crashId))
+        for d_file in l_res:
+          s_utl=self.client.system.crash.getCrashFileUrl(self.key, d_file['id'])
+          bashCommand = "wget " + s_dest_folder + s_utl + " --tries=1 --no-check-certificate"
+          os.system(bashCommand)
+
+    def do_getCrashFileUrl(self, kwargs):
+        """
+        @summary: 'getCrashFileUrl' action method. Get a crash file download url.
+        @param sessionKey
+        @param crashFileId
+        """
+        print self.client.system.crash.getCrashFileUrl(self.key, int(kwargs.crashFileId))
+
+
+    def do_getCrashCountInfo(self, kwargs):
+        """
+        @summary: 'getCrashCountInfo' action method. Return crash count information.
+        @param sessionKey
+        @param serverId
+        """
+        res=self.client.system.crash.getCrashCountInfo(self.key, int(kwargs.serverId))
+        if kwargs.param_key:
+             print res[kwargs.param_key]
+        else:
+             print res
+
+    def do_listSystemCrashFiles(self, kwargs):
+        """
+        @summary: 'listSystemCrashFiles' action method. Return list of crash files for given crash id.
+        @param sessionKey
+        @param crashId
+        """
+        res=self.client.system.crash.listSystemCrashFiles(self.key, int(kwargs.crashId))
+        self.pritty_print(res,kwargs)
+
+
+    def do_listSystemCrashes(self,kwargs):
+        """
+        @summary: 'listSystemCrashes' action method. Return list of software crashes for a system.
+        @param sessionKey
+        @param serverId
+        """
+        res=self.client.system.crash.listSystemCrashes(self.key, int(kwargs.serverId))
+        self.pritty_print(res,kwargs)
+
+    def do_getCrashOverview(self,kwargs):
+        res=self.client.system.crash.getCrashOverview(self.key)
+        self.pritty_print(res,kwargs)
+
+    def do_getCrashesByUuid(self,kwargs):
+        if kwargs.uuid:
+          res=self.client.system.crash.getCrashesByUuid(self.key,kwargs.uuid)
+          self.pritty_print(res,kwargs)
+        else:
+          res=self.client.system.crash.getCrashOverview(self.key)
+          for crash in res:
+            res=self.client.system.crash.getCrashesByUuid(self.key,crash['uuid'])
+            self.pritty_print(res,kwargs)
+
+#-----
+    def pritty_print(self,res,kwargs):
+        if kwargs.param_key:
+            l_params=kwargs.param_key.split()
+            for i in range(len(res)):
+                l_str=[]
+                for param in l_params:
+                    l_str.append(str(res[i][param]))
+                self.pp.pprint(l_str)
+        else:
+            self.pp.pprint(res)
+
+    def clean(self):
+        """ Cleaning actions like sign out the user. """
+        self.client.auth.logout(self.key)
+
+    def error(self, message):
+        """ Print given message and exit with error code. """
+        print(message)
+        sys.exit(1)
+
+    def dispatch(self, options):
+        """ Command dispatching method. """
+        method_name = 'do_' + options.action
+        try:
+            method = getattr(self, method_name)
+            method(options)
+        except AttributeError:
+            self.error("Error: unknown action `%s`" % options.action)
+
+
+if __name__ == '__main__':
+    usage = "Usage: %prog -a action  param1=value1 [param2=value2 ...]"
+    examples = """Examples:
+
+    List all the systems that have experienced a crash in format ( Number of crashes, SystemID, Profile Name).
+
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a listCrashedSystems
+
+    List craches details
+
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a listSystemCrashes -i ${serverId}
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a listSystemCrashes -i ${serverId} -v 'id'
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a listSystemCrashes -i ${serverId} -v 'id crash'
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a listSystemCrashes -i ${serverId} -v 'id crash executable reason ...'
+
+
+    List files from single crash
+
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a listSystemCrashFiles -c ${crashId}
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a listSystemCrashFiles -c ${crashId} -v 'id'
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a listSystemCrashFiles -c ${crashId} -v 'id path filesize ...'
+
+    Get crash file
+
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a getCrashFile -f ${crashFileId}
+
+    Get all crash files for a single crash
+
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a getCrashAllFiles -c ${crashId}
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a getCrashAllFiles -c ${crashId} -w "dest_folder"
+
+    Get crash file Url
+
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a getCrashFileUrl -f ${crashFileId}
+
+
+    Get crash info
+
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a getCrashCountInfo -i ${serverId} -v 'total_count'
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a getCrashCountInfo -i ${serverId} -v 'unique_count'
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a getCrashCountInfo -i ${serverId} -v 'last_report'
+
+    Delete single crash
+
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a deleteCrash -c ${crashId}
+
+
+    Manage crash notes
+
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a createCrashNote -c ${crashId} -j ${note_sunject} -d ${note_details}
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a deleteCrashNote  -n ${noteId}
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a getCrashNotesForCrash -c ${crashId} -v 'id subject details'
+
+    Get crash file size limit for certain organization
+
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a getCrashFileSizeLimit -o ${orgId}
+
+    Set crash file size limit for certain organization
+
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a setCrashFileSizeLimit -o ${orgId} -l 1
+
+    Get satellite abrt flags configuration
+
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a isCrashfileUploadEnabled -o ${orgId}
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a isCrashReportingEnabled  -o ${orgId}
+
+    Set satellite abrt flags configuration
+
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a setCrashfileUpload -o ${orgId} -b [True|False]
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a setCrashReporting  -o ${orgId} -b [True|False]
+
+    Get ABRT Overview
+
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a getCrashOverview
+
+    Get Crash by UUID
+
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a getCrashesByUuid  -o ${UUID}
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a getCrashesByUuid
+
+    Create test crash
+
+        %(prog)s -u ${sat_user} -p ${sat_pass} -s ${sat_server} -a CreateTestCrash
+
+    \n""" % {'prog': sys.argv[0]}
+
+    parser = ExtOptionParser(usage=usage, examples=examples)
+    parser.add_option("-u", "--username", dest="username", metavar="USER", default=DEFAULT_USER)
+    parser.add_option("-p", "--password", dest="password", metavar="PASS", default=DEFAULT_PASSWORD)
+    parser.add_option("-s", "--server", dest="server", metavar="SERVER", help="server's FQDN", default=DEFAULT_SERVER)
+    parser.add_option("-a", "--action", dest="action", metavar="ACTION",
+                      help="Actions: listCrashedSystems, listSystemCrashes, listSystemCrashFiles, getCrashFile, getCrashFileUrl, \
+                      getCrashCountInfo, deleteCrash, createCrashNote, deleteCrashNote, getCrashNotesForCrash, getCrashFileSizeLimit,\
+                      setCrashFileSizeLimit, isCrashfileUploadEnabled, isCrashReportingEnabled, setCrashfileUpload, setCrashReporting, CreateTestCrash, getCrashOverview, getCrashesByUuid")
+    parser.add_option("-i", "--serverId", dest="serverId", metavar="SERVERID", help="Profile ID on Satellite" )
+    parser.add_option("-c", "--crashId", dest="crashId", metavar="CRASHID")
+    parser.add_option("-o", "--orgId", dest="orgId", metavar="ORGID")
+    parser.add_option("-l", "--limit", dest="limit", metavar="LIMIT", help="Set to 2048 by default.")
+    parser.add_option("-f", "--crashFileId", dest="crashFileId", metavar="CRASHFILEID")
+    parser.add_option("-v", "--param_key", dest="param_key", metavar="PARAM_KEY", help="Space separeted list of params")
+    parser.add_option("-b", "--bool", dest="bool", metavar="BOOL", help="Posible values: True, False")
+    parser.add_option("-j", "--note_subject", dest="note_subject", metavar="NOTE_SUBJECT")
+    parser.add_option("-d", "--note_details", dest="note_details", metavar="NOTE_DETAILS")
+    parser.add_option("-n", "--noteId", dest="noteId", metavar="NOTEID")
+    parser.add_option("-w", "--dest_folder", dest="dest_folder", metavar="DESTINATION_FOLDER", help="Distination folder")
+    parser.add_option("-m", "--uuid", dest="uuid", metavar="UUID", help="UUID")
+    (options, args) = parser.parse_args()
+    assert options.action, "Action must be provided"
+
+    dispr = ConfigDispatcher(username=options.username, password=options.password, server=options.server)
+    dispr.dispatch(options)
+    dispr.clean()
