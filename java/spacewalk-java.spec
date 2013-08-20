@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.20
+Version: 2.1.21
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Aug 20 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.21-1
+- link to java page instead of perl one
+- removing obsolete method and some trailing whitespaces
+- Perl to JSP port: SSM/Provisioning/RemoteCommand
+- Consintency {less,more}\ than semantics.
+- Fix ABRT API documentation
+- 998052 - evaluation of localizing strings in jsp works in an another way
+- 997868 - fix sync.master.addToMaster APIdoc inconsistency
+
 * Mon Aug 19 2013 Tomas Lestach <tlestach@redhat.com> 2.1.20-1
 - 711373 - navigate to missing debuginfo package
 - 997809 - make unavailable packages non-clickable
