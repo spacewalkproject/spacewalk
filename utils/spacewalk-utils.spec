@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.1.8
+Version:	2.1.9
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -88,6 +88,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Aug 20 2013 Dimitar Yordanov <dyordano@redhat.com> 2.1.9-1
+- sw abrt manage tool
+
 * Mon Aug 19 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.8-1
 - removing a LOT of trailing whitespaces
 
