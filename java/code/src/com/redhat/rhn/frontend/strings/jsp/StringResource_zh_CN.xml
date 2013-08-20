@@ -5995,8 +5995,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>&lt;a href="/network/systems/ssm/provisioning/tag_systems.pxt"&gt;标签&lt;/a&gt; systems for &lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;快照&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.remotecommands">
-          <source>Run &lt;a href="/network/systems/ssm/provisioning/remote_command.pxt"&gt;remote commands&lt;/a&gt;</source>
-          <target>运行 &lt;a href="/network/systems/ssm/provisioning/remote_command.pxt"&gt;远程命令&lt;/a&gt;</target>
+          <source>Run &lt;a href="/network/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>
+          <target>运行 &lt;a href="/network/systems/ssm/provisioning/RemoteCommand.do"&gt;远程命令&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc">
           <source>Misc</source>

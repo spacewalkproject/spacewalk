@@ -5997,8 +5997,8 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
           <target>&lt;a href="/network/systems/ssm/provisioning/tag_systems.pxt"&gt;Taggen&lt;/a&gt; von Systemen zum &lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;Zurücksetzen auf Snapshot&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.remotecommands">
-          <source>Run &lt;a href="/network/systems/ssm/provisioning/remote_command.pxt"&gt;remote commands&lt;/a&gt;</source>
-          <target>Ausführen von &lt;a href="/network/systems/ssm/provisioning/remote_command.pxt"&gt;Remote-Befehlen&lt;/a&gt;</target>
+          <source>Run &lt;a href="/network/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>
+          <target>Ausführen von &lt;a href="/network/systems/ssm/provisioning/RemoteCommand.do"&gt;Remote-Befehlen&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc">
           <source>Misc</source>

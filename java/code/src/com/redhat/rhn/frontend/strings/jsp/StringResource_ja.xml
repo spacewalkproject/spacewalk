@@ -5990,8 +5990,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>&lt;a href="/network/systems/ssm/provisioning/rollback.pxt"&gt;スナップショットのロールバック&lt;/a&gt; 用にシステムに &lt;a href="/network/systems/ssm/provisioning/tag_systems.pxt"&gt;タグ&lt;/a&gt; を付けます </target>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.remotecommands">
-          <source>Run &lt;a href="/network/systems/ssm/provisioning/remote_command.pxt"&gt;remote commands&lt;/a&gt;</source>
-          <target>&lt;a href="/network/systems/ssm/provisioning/remote_command.pxt"&gt;リモートコマンド&lt;/a&gt; を実行します</target>
+          <source>Run &lt;a href="/network/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>
+          <target>&lt;a href="/network/systems/ssm/provisioning/RemoteCommand.do"&gt;リモートコマンド&lt;/a&gt; を実行します</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc">
           <source>Misc</source>
