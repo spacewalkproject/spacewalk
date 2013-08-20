@@ -494,10 +494,10 @@ public class Package extends BaseDomainHelper {
     public boolean equals(Object other) {
         if (other instanceof Package) {
             Package otherPack = (Package) other;
-            return new EqualsBuilder().append(this.getPackageName(),
-                    otherPack.getPackageName()).append(this.getPackageArch(),
-                    otherPack.getPackageArch()).append(this.getPackageEvr(),
-                    this.getPackageEvr()).isEquals();
+            return new EqualsBuilder().append(this.getId(), otherPack.getId())
+                    .append(this.getPackageName(), otherPack.getPackageName())
+                    .append(this.getPackageArch(), otherPack.getPackageArch())
+                    .append(this.getPackageEvr(), this.getPackageEvr()).isEquals();
         }
         return false;
     }
@@ -508,8 +508,8 @@ public class Package extends BaseDomainHelper {
      */
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(this.getPackageName()).append(
-                this.getPackageArch()).append(this.getPackageEvr()).toHashCode();
+        return new HashCodeBuilder().append(this.getId()).append(this.getPackageName())
+                .append(this.getPackageArch()).append(this.getPackageEvr()).toHashCode();
     }
 
     /**
