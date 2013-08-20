@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.21
+Version: 2.1.22
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Aug 20 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.22-1
+- simplify activation key management
+- provide a link to real run remote command page in ssm
+
 * Tue Aug 20 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.21-1
 - link to java page instead of perl one
 - removing obsolete method and some trailing whitespaces
