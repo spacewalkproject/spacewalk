@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.1.9
+Version:        2.1.10
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Aug 20 2013 Tomas Lestach <tlestach@redhat.com> 2.1.10-1
+- fix sha1 of 014-add-column-csv-separator.sql.postgresql
+- Add a hack to allow the ';' literal in table definitions
+- Allow users to change the CSV separator (schema changes)
+- delete duplicates from rhnDistchannelMap
+- don't insert existing values twice
+
 * Fri Aug 09 2013 Milan Zazrivec <mzazrivec@redhat.com> 2.1.9-1
 - remove duplicate pairs before creating unique index
 
