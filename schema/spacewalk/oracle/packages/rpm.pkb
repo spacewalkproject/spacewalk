@@ -115,7 +115,6 @@ CREATE OR REPLACE PACKAGE BODY rpm AS
                 /* segment and walk str1 and str2 to end of segment */
                 
                 if str1 is not null and isdigit(str1)
-			and str2 is not null and isdigit(str2)
                 then
                     str1 := ltrim(str1, digits);
                     str2 := ltrim(str2, digits);

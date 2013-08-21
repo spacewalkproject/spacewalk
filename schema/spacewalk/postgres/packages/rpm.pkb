@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 16cdee02a50a403e0a8ca17217f37f1291ae79a1
+-- oracle equivalent source sha1 625d2c9b448240a736f369e7b53a386ce9c1f28a
 -- create schema rpm;
 
 --update pg_setting
@@ -88,7 +88,6 @@ $$ language 'plpgsql';
                 str1 := one;
                 str2 := two;
                 if str1 <> '' and rpm.isdigit(str1)
-			and str2 <> '' and rpm.isdigit(str2)
                 then
                     str1 := ltrim(str1, digits);
                     str2 := ltrim(str2, digits);
