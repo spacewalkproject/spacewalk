@@ -140,12 +140,7 @@ public class RebootSystemAction
         List<SystemOverview> systems = SystemManager.inSet(context.getCurrentUser(),
                                                            RhnSetDecl.SYSTEMS.getLabel());
         for (Iterator<SystemOverview> itr = systems.iterator(); itr.hasNext();) {
-            SystemOverview systemOverview = itr.next();
-            systemOverview.setSelectable(1);
-            systemOverview.setChannelLabels(SystemManager.lookupByIdAndUser(systemOverview
-                    .getId(), context.getCurrentUser()).getBaseChannel() == null ? null :
-                    SystemManager.lookupByIdAndUser(systemOverview.getId(),
-                    context.getCurrentUser()).getBaseChannel().getName());
+            itr.next().setSelectable(1);
         }
 
         return systems;
