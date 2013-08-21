@@ -649,14 +649,15 @@ ORDER BY UPPER(X.PACKAGE_NVRE)
 <mode name="packages_available_to_errata_in_channel" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="source_cid, target_eid">
 SELECT P.id AS ID,
-       PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS PACKAGE_NVRE,
+       PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS PACKAGE_NVRE,
        P.summary
   FROM rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
-       rhnChannelPackage CP
+       rhnChannelPackage CP, rhnPackageArch PA
  WHERE CP.channel_id = :source_cid
    AND CP.package_id = P.id
    AND P.name_id = PN.id
    AND P.evr_id = PE.id
+   AND PA.id = P.package_arch_id
    AND NOT EXISTS (SELECT 1
               FROM rhnErrataPackage EP
              WHERE EP.errata_id = :target_eid
@@ -669,14 +670,15 @@ ORDER BY UPPER(PN.name || '-' || evr_t_as_vre_simple(PE.evr))
 <mode name="packages_available_to_tmp_errata_in_channel" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="source_cid, target_eid">
 SELECT P.id AS ID,
-       PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS PACKAGE_NVRE,
+       PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS PACKAGE_NVRE,
        P.summary
   FROM rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
-       rhnChannelPackage CP
+       rhnChannelPackage CP, rhnPackageArch PA
  WHERE CP.channel_id = :source_cid
    AND CP.package_id = P.id
    AND P.name_id = PN.id
    AND P.evr_id = PE.id
+   AND PA.id = P.package_arch_id
    AND NOT EXISTS (SELECT 1
               FROM rhnErrataPackagetmp EP
              WHERE EP.errata_id = :target_eid
