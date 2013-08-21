@@ -2,7 +2,6 @@ declare
         tz_shift interval day to second :=
                          from_tz(timestamp '2000-01-01 00:00:00', sessiontimezone) -
                          from_tz(timestamp '2000-01-01 00:00:00', 'UTC');
-        update_stmt varchar2(4000);
 begin
         for tab in (
                 select distinct utc.table_name
@@ -13,17 +12,13 @@ begin
                    and utc.data_type = 'DATE'
                 order by utc.table_name
         ) loop
-                update_stmt := 'update ' || tab.table_name || ' set ';
                 for col in (select column_name
                               from user_tab_columns
                              where table_name = tab.table_name
                                and data_type = 'DATE'
                 ) loop
                         execute immediate 'alter table ' || tab.table_name || ' modify ' || col.column_name || ' timestamp with local time zone';
-                        update_stmt := update_stmt || col.column_name || '=' || col.column_name || '+  interval ''' || tz_shift || ''' day to second, ';
                 end loop;
-                update_stmt := substr(update_stmt, 1, length(update_stmt)-2);
-                execute immediate update_stmt;
         end loop;
 
 end;
