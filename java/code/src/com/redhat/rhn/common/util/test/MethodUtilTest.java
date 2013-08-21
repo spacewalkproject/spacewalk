@@ -98,7 +98,8 @@ public class MethodUtilTest extends RhnBaseTestCase {
     }
 
     public void testCallMethodWithTranslate() throws Exception {
-        String teststr = (String)MethodUtil.callMethod(this, "nonStaticMethodWithTranslatedParameter",
+        String teststr = (String)MethodUtil.callMethod(this,
+                "nonStaticMethodWithTranslatedParameter",
                 new Object[] {"Y"});
         assertEquals(TEST_STRING + true, teststr);
     }
