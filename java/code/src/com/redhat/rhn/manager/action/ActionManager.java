@@ -1912,7 +1912,7 @@ public class ActionManager extends BaseManager {
      * @param scheduler Logged in user
      * @param server Server, which is going to be rebooted
      * @param earliestAction Earliest date. If null, then date is current.
-     * @return
+     * @return scheduled reboot action
      */
     public static Action scheduleReboot(User scheduler,
                                         Server server,
@@ -1927,5 +1927,5 @@ public class ActionManager extends BaseManager {
         ActionFactory.save(action);
         return action;
     }
-    
+
 }
