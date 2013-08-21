@@ -326,7 +326,6 @@ public class ProvisioningRemoteCommand extends RhnAction implements Listable {
     /**
      * {@inheritDoc}
      */
-    @Override
     public List<SystemOverview> getResult(RequestContext context) {
         List<SystemOverview> dataset = new ArrayList<SystemOverview>();
         List<SystemOverview> sysOvr = SystemManager.inSet(context.getLoggedInUser(),
