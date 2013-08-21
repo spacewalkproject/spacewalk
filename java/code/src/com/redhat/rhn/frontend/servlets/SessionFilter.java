@@ -91,10 +91,12 @@ private static final String ROLLBACK_MSG = "Error during transaction. Rolling ba
                         LOG.warn(msg, e);
                     }
                 }
+                else {
+                    LoggingFactory.clearLogId();
+                }
             }
             finally {
                 // cleanup the session
-                LoggingFactory.clearLogId();
                 HibernateFactory.closeSession();
             }
         }
