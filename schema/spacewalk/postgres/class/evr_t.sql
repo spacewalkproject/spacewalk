@@ -163,6 +163,5 @@ $$ language plpgsql immutable strict;
 create aggregate max (
   sfunc=evr_t_larger,
   basetype=evr_t,
-  stype=evr_t,
-  initcond='(0,0,0)'
+  stype=evr_t
 );
