@@ -6015,8 +6015,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>&lt;a href="/rhn/systems/ssm/misc/Index.do#entitle"&gt;Aaggiungere o Rimuovere&lt;/a&gt; gli Entitlement aggiuntivi</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.deletereboot">
-          <source>&lt;a href="/rhn/systems/ssm/DeleteConfirm.do"&gt;Delete&lt;/a&gt; / &lt;a href="/network/systems/ssm/misc/reboot_systems.pxt?pxt:trap=rhn:empty_set&amp;set_label=target_systems"&gt;Reboot&lt;/a&gt; systems</source>
-          <target>&lt;a href="/rhn/systems/ssm/DeleteConfirm.do"&gt;Cancellare&lt;/a&gt; / &lt;a href="/network/systems/ssm/misc/reboot_systems.pxt?pxt:trap=rhn:empty_set&amp;set_label=target_systems"&gt;Riavviare&lt;/a&gt; i sistemi</target>
+          <source>&lt;a href="/rhn/systems/ssm/DeleteConfirm.do"&gt;Delete&lt;/a&gt; / &lt;a href="/rhn/systems/ssm/misc/RebootSystem.do"&gt;Reboot&lt;/a&gt; systems</source>
+          <target>&lt;a href="/rhn/systems/ssm/DeleteConfirm.do"&gt;Cancellare&lt;/a&gt; / &lt;a href="/rhn/systems/ssm/misc/RebootSystem.do"&gt;Riavviare&lt;/a&gt; i sistemi</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.migrate">
           <source>&lt;a href="/rhn/systems/ssm/misc/Index.do#migrate"&gt;Migrate&lt;/a&gt; systems to another organization</source>
