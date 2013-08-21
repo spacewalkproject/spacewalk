@@ -168,8 +168,8 @@ def do_system_reboot(self, args):
     else:
         systems = self.expand_systems(args)
 
-    print 
-    
+    print
+
     print 'Systems'
     print '-------'
     print '\n'.join(sorted(systems))
@@ -383,7 +383,7 @@ def do_system_runscript(self, args):
     print 'Script Contents'
     print '---------------'
     print script_contents
-    
+
     print 'Systems'
     print '-------'
     print '\n'.join(sorted(systems))
@@ -2066,6 +2066,24 @@ def complete_system_addchildchannels(self, text, line, beg, end):
 
 def do_system_addchildchannels(self, args):
     self.manipulate_child_channels(args)
+
+####################
+
+def help_system_listcrashedsystems(self):
+    print "system_listcrashedsystems: List all systems that have experienced a crash and reported by spacewalk-abrt"
+    print 'usage: system_listcrashedsystems'
+    print
+
+
+def do_system_listcrashedsystems(self, args):
+    print
+    print 'Count | System ID | Profile Name'
+    print '--------------------------------'
+    res=self.client.system.listUserSystems(self.session)
+    for sys in res:
+        res_crash=self.client.system.crash.listSystemCrashes(self.session,sys['id'])
+        if len(res_crash) != 0:
+                print "%d : %s : %s" % (len(res_crash),sys['id'],sys['name'])
 
 ####################
 
