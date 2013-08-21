@@ -321,9 +321,10 @@ def ks_activation_key_deploy_config(kickstart_session_id):
     h = rhnSQL.prepare(_query_ak_deploy_config)
     h.execute(session_id=kickstart_session_id)
     rows = h.fetchall_dict()
-    for row in rows:
-        if row['deploy_configs'] and row['deploy_configs'] == 'Y':
-            return True
+    if rows:
+        for row in rows:
+            if row['deploy_configs'] and row['deploy_configs'] == 'Y':
+                return True
     return False
 
 _query_schedule_config_files = rhnSQL.Statement("""
