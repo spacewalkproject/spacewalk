@@ -23,8 +23,6 @@ import re
 from spacewalk.common.cli import getUsernamePassword, xmlrpc_login, xmlrpc_logout
 
 DEFAULT_SERVER = "localhost"
-DEFAULT_USER = "spacewalk"
-DEFAULT_PASSWORD = "spacewalk"
 
 DEFAULT_CONFIG = '/etc/rhn/spacewalk-common-channels.ini'
 
