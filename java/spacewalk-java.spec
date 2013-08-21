@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.23
+Version: 2.1.24
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Aug 21 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.24-1
+- updating links to new java page
+- removing @Override annotation from method that isn't overriden
+- fix checkstyle, C style for loop and ISE with no base channel
+- Perl to JSP port: SSM/Misc/Reboot
+- add arch to package listings on /rhn/errata/manage/AddPackages.do page
+- fix checkstyle
+- Avoid testing callMethod on multiple qualifying methods
+
 * Tue Aug 20 2013 Tomas Lestach <tlestach@redhat.com> 2.1.23-1
 - Allow users to change the CSV separator
 
