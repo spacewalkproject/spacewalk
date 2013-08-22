@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.1.9
+Version:	2.1.10
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -88,6 +88,13 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Aug 22 2013 Grant Gainey <ggainey@redhat.com> 2.1.10-1
+- 999583 - Fixes to allow scripts to work on older versions of Python and
+  Postgres
+- adding i386 nightly channels
+- adding nightly repositories for fedora19
+- removing unused DEFAULT_USER and DEFAULT_PASSWORD
+
 * Tue Aug 20 2013 Dimitar Yordanov <dyordano@redhat.com> 2.1.9-1
 - sw abrt manage tool
 
