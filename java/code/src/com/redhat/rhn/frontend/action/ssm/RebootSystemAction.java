@@ -135,7 +135,6 @@ public class RebootSystemAction
      * @param context Request context.
      * @return List of SystemOverview objects.
      */
-    @Override
     public List getResult(RequestContext context) {
         List<SystemOverview> systems = SystemManager.inSet(context.getCurrentUser(),
                                                            RhnSetDecl.SYSTEMS.getLabel());
