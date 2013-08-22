@@ -497,7 +497,7 @@ public class Package extends BaseDomainHelper {
             return new EqualsBuilder().append(this.getId(), otherPack.getId())
                     .append(this.getPackageName(), otherPack.getPackageName())
                     .append(this.getPackageArch(), otherPack.getPackageArch())
-                    .append(this.getPackageEvr(), this.getPackageEvr()).isEquals();
+                    .append(this.getPackageEvr(), otherPack.getPackageEvr()).isEquals();
         }
         return false;
     }
