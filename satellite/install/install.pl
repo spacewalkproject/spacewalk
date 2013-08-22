@@ -500,6 +500,8 @@ sub remove_obsoleted_packages {
         push @pkgs, 'xml-commons';
         push @pkgs, 'rhn-java-sat';
         push @pkgs, 'spacewalk-slf4j-1.6.1-4.el5sat';
+        push @pkgs, 'geronimo-specs';
+        push @pkgs, 'geronimo-specs-compat';
     }
 
     if (Spacewalk::Setup::is_db_migration()) {
