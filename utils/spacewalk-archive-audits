@@ -47,27 +47,27 @@ LOG_LOCATION = '/var/log/rhn/archive-audit-tables.log'
 LOG_COLS = ['id', 'stamp', 'user_id']
 
 SQL_PIECES = {'oracle': {
-                  'COUNT' : 'select count(*) from {0};',
+                  'COUNT' : 'select count(*) from %(table)s;',
                   'FIND_COLS' : "select column_name from user_tab_columns where table_name = :table;",
                   'FIND_TABLE' : "select table_name from user_tables where table_name like '%!_LOG' escape '!';",
-                  'GET_DATA' : "select {0}, {1} from {2} t inner join log l on l.id = t.log_id where l.stamp <= to_date(:tstamp, 'YYYY-MM-DD hh24:mi:ss') order by l.id;",
+                  'GET_DATA' : "select %(cols)s, %(tcols)s from %(tname)s t inner join log l on l.id = t.log_id where l.stamp <= to_date(:tstamp, 'YYYY-MM-DD hh24:mi:ss') order by l.id;",
                   'PURGE_DATA' : """
-                    delete {0}
+                    delete %(ptable)s
                      where exists (
                        select *
                          from log l
-                        where l.id = {0}.log_id
+                        where l.id = %(ptable)s.log_id
                           and l.stamp <= to_date(:tstamp, 'YYYY-MM-DD hh24:mi:ss')
                        );
                   """,
                   'PURGE_LOG_DATA' : "delete from log l where l.stamp <= to_date(:tstamp, 'YYYY-MM-DD hh24:mi:ss');"
                 },
               'postgresql' : {
-                  'COUNT' : 'select count(*) from {0};',
+                  'COUNT' : 'select count(*) from %(table)s;',
                   'FIND_COLS' : 'select column_name from information_schema.columns where table_name = :table;',
-                  'FIND_TABLE' : "select table_name from information_schema.tables where table_name like '%\_log';",
-                  'GET_DATA' : 'select {0}, {1} from {2} t inner join log l on l.id = t.log_id where l.stamp <= (timestamp :tstamp) order by l.id;',
-                  'PURGE_DATA' : 'delete from {0} t using log l where l.id = t.log_id and l.stamp <= (timestamp :tstamp);',
+                  'FIND_TABLE' : "select table_name from information_schema.tables where table_name like '%!_log' escape '!';",
+                  'GET_DATA' : 'select %(cols)s, %(tcols)s from %(tname)s t inner join log l on l.id = t.log_id where l.stamp <= (timestamp :tstamp) order by l.id;',
+                  'PURGE_DATA' : 'delete from %(ptable)s t using log l where l.id = t.log_id and l.stamp <= (timestamp :tstamp);',
                   'PURGE_LOG_DATA' : 'delete from log l where l.stamp <= (timestamp :tstamp);'
                 }
               }
@@ -111,10 +111,9 @@ def _get_allcols(name):
     return all_cols
 
 def _get_data_statement(name):
-    data_stmt = _get_sql('GET_DATA').format(
-        ', '.join(['l.'+x+' l'+x for x in LOG_COLS]),
-        ', '.join(['t.'+x        for x in columns(name)]),
-        name)
+    cols = ', '.join(['l.'+x+' l'+x for x in LOG_COLS])
+    tcols = ', '.join(['t.'+x for x in columns(name)])
+    data_stmt = _get_sql('GET_DATA') % {"cols":cols, "tcols":tcols, "tname":name}
     return data_stmt
 
 def tables():
@@ -137,7 +136,7 @@ def columns(tbl):
 
 def count(tbl):
     """How many rows are in table <tbl>?"""
-    tbl_str = _get_sql('COUNT').format(tbl)
+    tbl_str = _get_sql('COUNT') % {"table":tbl}
     stmt = rhnSQL.execute(tbl_str)
     num_rows = stmt.fetchone()
     return num_rows[0]
@@ -154,29 +153,38 @@ def archive(opt):
     names = tables()
     for name in names:
         rows = 0
-        with open(name+'.'+datetime.now().isoformat()+'.csv', 'wb') as f:
-            writer = csv.writer(f)
-            hdr_names = _get_allcols(name)
-            writer.writerow(hdr_names)
-            stmt = rhnSQL.execute(_get_data_statement(name), tstamp=opt.purge_date)
-            rslts = None
-            while 1:
-                rslts = stmt.fetchone_dict()
-                if not rslts:
-                    break
-                row = []
-                for col in hdr_names:
-                    row.append(rslts.get(col))
-                writer.writerow(row)
-                rows += 1
+        outfilename = name+'.'+datetime.now().isoformat()+'.csv'
+
+        try:
+            f = open(outfilename, 'wb')
+        except IOError, e:
+            print 'FAILED to open output file ['+outfilename+']'
+            sys.exit(1)
+
+        writer = csv.writer(f)
+        hdr_names = _get_allcols(name)
+        writer.writerow(hdr_names)
+        print _get_data_statement(name)
+        stmt = rhnSQL.execute(_get_data_statement(name), tstamp=opt.purge_date)
+        rslts = None
+        while 1:
+            rslts = stmt.fetchone_dict()
+            if not rslts:
+                break
+            row = []
+            for col in hdr_names:
+                row.append(rslts.get(col))
+            writer.writerow(row)
+            rows += 1
         print '%32s : %d rows archived' % (name, rows)
+        f.close()
 
 def purge(opt):
     """Remove from the _log tables anything that happened before <timestamp>"""
     _log('Purging everything before ' + opt.purge_date)
     names = tables()
     for name in names:
-        del_str = _get_sql('PURGE_DATA').format(name)
+        del_str = _get_sql('PURGE_DATA') % {"pname":name}
         stmt = rhnSQL.execute(del_str, tstamp=opt.purge_date)
         print '%32s : %s rows remain' % (name, count(name))
         _log('%32s : %s rows remain' % (name, count(name)))

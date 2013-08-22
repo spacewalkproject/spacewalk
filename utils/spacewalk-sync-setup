@@ -75,7 +75,7 @@ def setupOptions():
         help="Should the specified master be made the default-master in a specified template-file")
     parser.add_option_group(cnxGrp)
 
-    tmplGrp = OptionGroup(parser, "Templates", 
+    tmplGrp = OptionGroup(parser, "Templates",
             "Options for creating initial versions of setup files\n"
             "NOTE: This will replace existing machine-specific stanzas with new content")
     tmplGrp.add_option('--cst', '--create-slave-template', action='store_true', dest='slave_template', default=False,
@@ -298,7 +298,7 @@ def connectTo(info):
     logging.debug("Connect-to info = %s" % info)
     logging.info("Connecting to " + info['login'] + "@" + info['fqdn'])
     info = validateConnectInfo(info)
-    url = "https://{0}/rpc/api".format(info['fqdn'])
+    url = "https://%(fqdn)s/rpc/api" % {"fqdn" : info['fqdn']}
     client = xmlrpclib.Server(url, verbose=0)
     key = client.auth.login(info['login'], info['password'])
     return { "client" : client, "key" : key }
@@ -356,7 +356,7 @@ def gen_slave_template(slave_session, master_session, master, filename, dflt_mas
 
     slave_setup.add_section(master)
 
-    if (dflt_master): 
+    if (dflt_master):
         slave_setup.set(master, 'isDefault', '1');
     else:
         slave_setup.set(master, 'isDefault', '0');
@@ -382,9 +382,13 @@ def gen_slave_template(slave_session, master_session, master, filename, dflt_mas
             master_org = "%s|%s|%s" % (org['id'], org['name'], 1)
             slave_setup.set(master, str(org['id']), master_org)
 
-    with open(filename, 'w+') as configfile:
+    try:
+        configfile = open(filename, 'w+')
         slave_setup.write(configfile)
         configfile.close()
+    except IOError, e:
+        logging.error("FAILED to write to slave template ["+filename+"]")
+        sys.exit(1)
 
     return
 
@@ -418,9 +422,13 @@ def gen_master_template(master_session, slave, filename):
         logging.debug("idlist %s" % idlist)
         master_setup.set(slave, 'allowedOrgs', ",".join(str(i) for i in idlist))
 
-    with open(filename, 'w+') as mfile:
+    try:
+        mfile = open(filename, 'w+')
         master_setup.write(mfile)
         mfile.close()
+    except IOError, e:
+        logging.error("FAILED to write to master template ["+mfile+"]")
+        sys.exit(1)
 
     return
 
@@ -498,7 +506,7 @@ def describe_slave_template(slave_setup_filename):
                 continue
             minfo = slave_setup.get(fqdn, moid)
             elts = string.split(minfo, '|')
-            logging.info("  Mapping master OrgId [%s], named [%s], to local OrgId [%s]" % 
+            logging.info("  Mapping master OrgId [%s], named [%s], to local OrgId [%s]" %
                     (elts[0], elts[1], elts[2]))
         logging.info("")
 
@@ -571,7 +579,7 @@ def describe_master_template(master_setup_filename):
 
         master_orgs = []
         if master_setup.has_option(fqdn, 'allowedOrgs'):
-            master_orgs = [int(x) for x in master_setup.get(fqdn, 'allowedOrgs').split(',')]     
+            master_orgs = [int(x) for x in master_setup.get(fqdn, 'allowedOrgs').split(',')]
         logging.info("  allowedOrgs = %s" % master_orgs)
 
         logging.info("")
@@ -626,7 +634,7 @@ if __name__ == '__main__':
         filename = determineTemplateFilename('slave', master_info['fqdn'], options, config)
         if options.apply:
             apply_slave_template(slave_cnx, filename)
-        elif options.dry_run: 
+        elif options.dry_run:
             describe_slave_template(filename)
 
 # vim:ts=4:expandtab:
