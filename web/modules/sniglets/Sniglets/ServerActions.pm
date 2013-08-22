@@ -55,7 +55,6 @@ sub register_callbacks {
   # currently used for mass deletes, mass pkg/hw prof updates, etc...
   $pxt->register_callback('rhn:reschedule_action_cb' => \&reschedule_action_cb);
 
-  $pxt->register_callback('rhn:sscd_reboot_servers_cb' => \&sscd_reboot_servers_cb);
 }
 
 sub raw_script_output {
@@ -74,30 +73,6 @@ sub raw_script_output {
   $pxt->send_http_header;
 
   $pxt->print($output);
-}
-
-sub sscd_reboot_servers_cb {
-  my $pxt = shift;
-
-  my $earliest_date = Sniglets::ServerActions->parse_date_pickbox($pxt);
-
-  my $action_id;
-
-  my $set_label = $pxt->dirty_param('set_label') || 'system_list';
-  my $system_set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-
-  $action_id = RHN::Scheduler->sscd_schedule_reboot(-org_id => $pxt->user->org_id,
-						    -user_id => $pxt->user->id,
-						    -earliest => $earliest_date,
-						    -server_set => $system_set);
-
-  my $system_count = $system_set->contents;
-  my $message = sprintf(<<EOM, $system_count, $system_count == 1 ? '' : 's', $action_id);
-Reboot scheduled for <strong>%d</strong> system%s.  To cancel the reboot, remove the desired systems from the <a href="/rhn/schedule/InProgressSystems.do?aid=%d"><strong>list of systems</strong></a> to be rebooted.
-EOM
-  $pxt->push_message(site_info => $message);
-
-  $pxt->redirect('/rhn/systems/ssm/misc/Index.do');
 }
 
 sub schedule_action_interface {
