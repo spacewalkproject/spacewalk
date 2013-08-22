@@ -941,6 +941,58 @@ SELECT  E.id, E.advisory, E.advisory_name, E.advisory_type, E.update_date, E.syn
 ORDER BY  E.update_date DESC
 </query>
 
+<mode name="in_set_and_affected_by_errata" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="eid, user_id">
+  SELECT S.ID, S.name,
+      (SELECT count(errata_id)
+         FROM rhnservererratatypeview
+        WHERE server_id = S.id AND errata_type = 'Security Advisory') AS security_errata,
+      (SELECT count(errata_id)
+         FROM rhnservererratatypeview
+        WHERE server_id = S.id AND errata_type = 'Product Enhancement Advisory') AS enhancement_errata,
+      (SELECT count(errata_id)
+         FROM rhnservererratatypeview
+        WHERE server_id = S.id AND errata_type = 'Bug Fix Advisory') AS bug_errata,
+      (SELECT  COUNT(pn.id) AS COUNT
+        FROM  rhnPackageName PN,
+        (SELECT  SOP.package_name_id AS name_id, MAX(PE.evr) evr
+           FROM  rhnPackageEVR PE, rhnServerOutdatedPackages SOP
+          WHERE  SOP.server_id = S.id
+            AND  SOP.package_evr_id = PE.id
+       GROUP BY  SOP.package_name_id) full_list
+       WHERE  full_list.name_id = PN.id) AS pending_updates
+    FROM rhnServer S, rhnSet ST
+   WHERE EXISTS (SELECT 1
+                   FROM rhnServerNeededErrataCache SNEC, rhnUserServerPerms USP
+                  WHERE SNEC.errata_id = :eid
+                    AND USP.user_id = :user_id
+                    AND SNEC.server_id = USP.server_id
+                    AND USP.server_id = S.id)
+    AND ST.user_id = :user_id
+    AND ST.label = 'system_list'
+    AND ST.element = S.id
+ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+  <elaborator name="entitlements"/>
+</mode>
+
+
+<mode name="relevant_to_system_set" class="com.redhat.rhn.frontend.dto.ErrataOverview">
+  <query params="user_id">
+SELECT E.id, E.advisory, E.advisory_name, E.advisory_type, E.update_date, E.synopsis as advisory_synopsis
+  FROM rhnErrata E,
+       (SELECT SNEC.errata_id, COUNT(SNEC.server_id) C
+          FROM rhnServerNeededErrataCache SNEC
+         WHERE SNEC.server_id IN (SELECT element FROM rhnSet WHERE user_id = :user_id AND label = 'system_list')
+           AND errata_id IS NOT NULL
+        GROUP BY SNEC.errata_id) X
+ WHERE E.id = X.errata_id
+ORDER BY  E.update_date DESC, E.id
+  </query>
+  <elaborator name="relevant_to_system_set_elab" />
+</mode>
+
 <query name="relevant_to_system_set_elab" params="user_id">
 SELECT  E.id, E.advisory, E.advisory_name, E.advisory_type,
         E.synopsis AS advisory_synopsis,

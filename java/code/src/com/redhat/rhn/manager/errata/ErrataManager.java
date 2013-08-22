@@ -45,6 +45,7 @@ import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.OwnedErrata;
 import com.redhat.rhn.frontend.dto.PackageOverview;
+import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.events.CloneErrataEvent;
 import com.redhat.rhn.frontend.events.NewCloneErrataEvent;
 import com.redhat.rhn.frontend.listview.PageControl;
@@ -345,7 +346,24 @@ public class ErrataManager extends BaseManager {
      * @return relevant errata.
      */
     public static DataResult relevantErrata(User user) {
-        SelectMode m = ModeFactory.getMode("Errata_queries", "relevant_errata");
+        return ErrataManager.getRelevantErrata(user, false);
+    }
+
+    /**
+     * Returns the relevant errata to the system set (used in SSM).
+     *
+     * @param user Currently logged in user.
+     * @return relevant errata.
+     */
+    public static DataResult relevantErrataToSystemSet(User user) {
+        return ErrataManager.getRelevantErrata(user, true);
+    }
+
+    private static DataResult getRelevantErrata(User user, boolean ssm) {
+        SelectMode m = ModeFactory.getMode("Errata_queries",
+                                           ssm ?
+                                               "relevant_to_system_set" :
+                                               "relevant_errata");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         Map elabParams = new HashMap();
@@ -725,6 +743,21 @@ public class ErrataManager extends BaseManager {
         Map elabParams = new HashMap();
         elabParams.put("eid", eid);
         return makeDataResult(params, elabParams, pc, m);
+    }
+
+    /**
+     * Returns the systems affected by a given errata
+     *
+     * @param user Logged-in user.
+     * @param eid Errata ID.
+     * @return systems Affected by current errata, that are in the set of SSM.
+     */
+    public static List<SystemOverview> systemsAffectedInSet(User user, Long eid) {
+        Map params = new HashMap();
+        params.put("eid", eid);
+        params.put("user_id", user.getId());
+        return ModeFactory.getMode("Errata_queries",
+                                   "in_set_and_affected_by_errata").execute(params);
     }
 
     /**

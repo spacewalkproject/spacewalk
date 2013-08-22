@@ -2769,6 +2769,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/systems/details/ErrataList</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="errata.jsp.affected">
+        <source>Affected</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/ErrataList</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="errataconfirm.jsp.header">
         <source>Confirm Errata Updates</source>
         <context-group name="ctx">
@@ -3252,7 +3258,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="affectedsystems.jsp.none">
-        <source>None</source>
+        <source>N/A</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/details/SystemsAffected</context>
         </context-group>
@@ -4339,7 +4345,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>Errata</source>
         </trans-unit>
         <trans-unit id="ssm.overview.errata.schedule">
-          <source>&lt;a href="/network/systems/ssm/errata/index.pxt?pxt:trap=rhn:empty_set&amp;set_label=errata_list"&gt;Schedule errata updates&lt;/a&gt; relevant to selected systems</source>
+          <source>&lt;a href="/rhn/systems/ssm/ListPatches.do"&gt;Schedule errata updates&lt;/a&gt; relevant to selected systems</source>
         </trans-unit>
         <trans-unit id="ssm.overview.packages">
           <source>Packages</source>
@@ -4415,6 +4421,12 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
         <trans-unit id="ssm.overview.misc.scap">
           <source>&lt;a href="/rhn/systems/ssm/audit/ScheduleXccdf.do"&gt;Audit&lt;/a&gt; systems with OpenSCAP</source>
+        </trans-unit>
+        <trans-unit id="ssm.errata.serverlist.return">
+          <source>Back to errata</source>
+        </trans-unit>
+        <trans-unit id="ssm.errata.message.scheduled">
+          <source>Errata updates &lt;a href="/rhn/schedule/PendingActions.do"&gt;scheduled&lt;/a&gt; at {0}.</source>
         </trans-unit>
       </group>
       <!-- SSM System List -->
@@ -4619,7 +4631,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="ssm.misc.index.syspref.no">
           <source>No</source>
         </trans-unit>
-        
+
         <trans-unit id="ssm.misc.reboot.header">
             <source>Reboot of the Systems</source>
         </trans-unit>
@@ -14768,6 +14780,14 @@ any of these revisions.  Are you sure you want to do this?</source>
           </trans-unit>
           <trans-unit id="stringutil.scriptcheck.error.noscript">
               <source>Script is does not seems like doing anything.</source>
+          </trans-unit>
+
+          <!-- Errata -->
+          <trans-unit id="ssm.patches.list.header">
+              <source>Relevant Errata List</source>
+          </trans-unit>
+          <trans-unit id="ssm.patches.list.summary">
+              <source>The errata below apply to one or more of your selected systems.</source>
           </trans-unit>
       </group>
 

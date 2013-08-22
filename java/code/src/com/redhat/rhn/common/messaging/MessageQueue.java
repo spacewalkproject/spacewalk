@@ -35,6 +35,8 @@ import com.redhat.rhn.frontend.events.SsmChangeChannelSubscriptionsAction;
 import com.redhat.rhn.frontend.events.SsmChangeChannelSubscriptionsEvent;
 import com.redhat.rhn.frontend.events.SsmDeleteServersAction;
 import com.redhat.rhn.frontend.events.SsmDeleteServersEvent;
+import com.redhat.rhn.frontend.events.SsmErrataAction;
+import com.redhat.rhn.frontend.events.SsmErrataEvent;
 import com.redhat.rhn.frontend.events.TraceBackAction;
 import com.redhat.rhn.frontend.events.TraceBackEvent;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheAction;
@@ -285,6 +287,8 @@ public class MessageQueue {
                                     CloneErrataEvent.class);
         MessageQueue.registerAction(new NewCloneErrataAction(),
                                     NewCloneErrataEvent.class);
+        MessageQueue.registerAction(new SsmErrataAction(),
+                                    SsmErrataEvent.class);
 
         // Misc
         MessageQueue.registerAction(new SsmSystemRebootAction(),
