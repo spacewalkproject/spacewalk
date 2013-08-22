@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.24
+Version: 2.1.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Aug 22 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.25-1
+- removing @Override annotation from method that isn't overriden
+- SSM/Misc/Reboot: Standard system list, optimized action
+- Allow Hibernate to distinguish packages with identical name,
+- 998961 - do not touch the DB after a hibernate exception but correctly close
+  the session
+
 * Wed Aug 21 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.24-1
 - updating links to new java page
 - removing @Override annotation from method that isn't overriden
