@@ -22635,7 +22635,7 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
-        <target>기본 소프트웨어 채널 수정 </target>
+        <target>기본 소프트웨어 채널 수정</target>
       </trans-unit>
       <trans-unit id="guestlimited.jsp.title">
         <source>@@PRODUCT_NAME@@ - Virtualization Entitlements - Virtualization Hosts</source>
