@@ -16,6 +16,11 @@
 package com.redhat.rhn;
 
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.common.validator.ValidatorResult;
+import com.redhat.rhn.common.validator.ValidatorWarning;
+
+import java.util.Iterator;
 
 /**
  * Generic XML RPC fault
@@ -69,6 +74,28 @@ public class FaultException extends RuntimeException  {
         // begin member variable initialization
         this.errorCode =  error;
         this.label =  lbl;
+    }
+
+    /**
+     * create an exception from a ValidatorResult
+     * @param errorIn error number
+     * @param labelIn label
+     * @param resultIn validator result
+     * @return new FaultException
+     */
+    public static FaultException create(int errorIn, String labelIn,
+            ValidatorResult resultIn) {
+        for (Iterator <ValidatorError> iter = resultIn.getErrors().iterator();
+                iter.hasNext();) {
+            ValidatorError ve = iter.next();
+            return new FaultException(errorIn, labelIn, ve.getKey(), ve.getValues());
+        }
+        for (Iterator <ValidatorWarning> iter = resultIn.getWarnings().iterator();
+                iter.hasNext();) {
+            ValidatorWarning vw = iter.next();
+            return new FaultException(errorIn, labelIn, vw.getKey(), vw.getValues());
+        }
+        return new FaultException(errorIn, labelIn, "");
     }
 
     /**

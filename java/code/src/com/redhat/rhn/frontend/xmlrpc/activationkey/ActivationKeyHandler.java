@@ -35,7 +35,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
-import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidServerGroupException;
 import com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException;
@@ -186,7 +185,7 @@ public class ActivationKeyHandler extends BaseHandler {
             return newKey.getKey();
         }
         catch (ValidatorException ve) {
-            throw new InvalidEntitlementException(ve);
+            throw FaultException.create(1091, "activationkey", ve.getResult());
         }
         catch (NonUniqueObjectException e) {
             throw new ActivationKeyAlreadyExistsException();
