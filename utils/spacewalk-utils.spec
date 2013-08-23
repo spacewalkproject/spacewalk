@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.1.10
+Version:	2.1.11
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -88,6 +88,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Aug 23 2013 Tomas Lestach <tlestach@redhat.com> 2.1.11-1
+- 993047 - ignore, if activation key already exists
+
 * Thu Aug 22 2013 Grant Gainey <ggainey@redhat.com> 2.1.10-1
 - 999583 - Fixes to allow scripts to work on older versions of Python and
   Postgres
