@@ -8545,7 +8545,7 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <target>Une organisation doit être spécifiée</target>
       </trans-unit>
       <trans-unit id="system.entitle.invalid_addon_entitlement">
-        <source>Invalid add-on entitlement [{0}] provided.No such entitlement exists.</source>
+        <source>Invalid add-on entitlement [{0}] provided. No such entitlement exists.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
