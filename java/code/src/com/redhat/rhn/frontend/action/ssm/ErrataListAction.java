@@ -191,7 +191,6 @@ public class ErrataListAction extends RhnAction implements Listable {
                     }
 
                     systemOverview.setEntitlement(entitlement);
-                    systemOverview.getEntitlementLevel();
                 }
             }
         }
