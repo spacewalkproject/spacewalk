@@ -66,8 +66,27 @@ class BrokerHandler(SharedHandler):
         self.clientServerId = None
         self.rhnParentXMLRPC = None
         hostname = ''
+        # should *always* exist and be my ip address
+        my_ip_addr = req.headers_in['SERVER_ADDR']
         if req.headers_in.has_key('Host'):
-            hostname = req.headers_in['Host'] or ''
+            # the client has provided a host header
+            try:
+                if socket.gethostbyname(req.headers_in['Host']) == my_ip_addr:
+                    # if host header is valid (i.e. not just an /etc/hosts
+                    # entry on the client or the hostname of some other
+                    # machine (say a load balancer)) then use it
+                    hostname = req.headers_in['Host']
+            except:
+                # hostname probably didn't exist, fine
+                pass
+        if not hostname:
+            # okay, that didn't work, let's do a reverse dns lookup on my
+            # ip address
+            try:
+                hostname = socket.gethostbyaddr(my_ip_addr)[0]
+            except:
+                # unknown host, we don't have a hostname?
+                pass
         if not hostname:
             # this shouldn't happen
             # socket.gethostname is a punt. Shouldn't need to do it.
