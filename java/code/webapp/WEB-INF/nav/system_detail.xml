@@ -4,9 +4,7 @@
   <rhn-tab name="Details" url="/rhn/systems/details/Overview.do">
     <rhn-tab name="Overview" url="/rhn/systems/details/Overview.do" />
     <rhn-tab name="Properties" url="/rhn/systems/details/Edit.do" />
-    <rhn-tab name="Remote Command" acl="system_feature(ftr_remote_command)">
-      <rhn-tab-url>/network/systems/details/remote_commands.pxt</rhn-tab-url>
-    </rhn-tab>
+    <rhn-tab name="Remote Command" url="/rhn/systems/details/SystemRemoteCommand.do" />
     <rhn-tab name="Connection" url="/network/systems/details/connection.pxt" acl="org_has_proxies()"/>
     <rhn-tab name="Proxy" url="/network/systems/details/proxy.pxt" acl="user_role(org_admin); system_feature(ftr_proxy_capable) or system_is_proxy(); org_channel_family(rhn-proxy) or system_is_proxy(); child_channel_candidate(rhn-proxy) or system_is_proxy(); not system_is_satellite(); not is_solaris();system_feature(ftr_kickstart) or system_feature(ftr_snapshotting)">
       <rhn-tab name="Activation" url="/network/systems/details/proxy.pxt" />
@@ -14,7 +12,7 @@
     </rhn-tab>
     <rhn-tab name="Reactivation" url="/network/systems/details/activation.pxt" acl="system_feature(ftr_agent_smith)"/>
     <rhn-tab name="Hardware">
-      <rhn-tab-url>/rhn/systems/details/SystemHardware.do</rhn-tab-url> 
+      <rhn-tab-url>/rhn/systems/details/SystemHardware.do</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="Migrate" acl="user_role(org_admin)" url="/rhn/systems/details/SystemMigrate.do" />
     <rhn-tab name="Notes">

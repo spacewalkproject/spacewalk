@@ -14735,6 +14735,23 @@ any of these revisions.  Are you sure you want to do this?</source>
               <source>No script has been specified.</source>
           </trans-unit>
 
+          <!-- Single System Remote Command Form Labels -->
+          <trans-unit id="ssm.overview.provisioning.remotecommand.staticname">
+              <source>Remote Command on {0}.</source>
+          </trans-unit>
+          <trans-unit id="ssm.overview.provisioning.remotecommand.succeed">
+              <source>Remote Command has been &lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled successfully&lt;/a&gt; at &lt;strong&gt;{2}&lt;/strong&gt;.</source>
+          </trans-unit>
+          <trans-unit id="ssm.overview.provisioning.remotecommand.header">
+              <source>Remote Command on {0}</source>
+          </trans-unit>
+          <trans-unit id="">
+              <source></source>
+          </trans-unit>
+          <trans-unit id="">
+              <source></source>
+          </trans-unit>
+
           <!-- SSM Remote Command Form Labels -->
           <trans-unit id="ssm.operations.provisioning.remotecommand.header">
               <source>Schedule Remote Command</source>

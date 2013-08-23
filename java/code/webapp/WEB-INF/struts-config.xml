@@ -3805,6 +3805,16 @@
                  path="/systems/details/SoftwareCrashNotes.do" redirect="true"/>
     </action>
 
+    <action path="/systems/details/SystemRemoteCommand"
+            scope="request"
+            name="remoteCommandForm"
+            type="com.redhat.rhn.frontend.action.systems.SystemRemoteCommandAction"
+            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls"
+                      value="system_feature(ftr_system_grouping)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/system-remote-command.jsp" />
+     </action>
 
      <action path="/systems/details/groups/ListRemove"
              scope="request"
