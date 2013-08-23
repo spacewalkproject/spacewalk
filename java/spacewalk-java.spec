@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.26
+Version: 2.1.27
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Aug 23 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.27-1
+- Perl to JSP port: Single system Remote Command
+
 * Fri Aug 23 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.26-1
 - removing redundant call
 - Perl to JSP port: SSM/Errata
