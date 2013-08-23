@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.1.4
+Version: 2.1.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -330,6 +330,9 @@ fi
 
 
 %changelog
+* Fri Aug 23 2013 Stephen Herr <sherr@redhat.com> 2.1.5-1
+- 1000586 - pylint errors
+
 * Fri Aug 23 2013 Stephen Herr <sherr@redhat.com> 2.1.4-1
 - 1000586 - fix checkstyle errors
 
