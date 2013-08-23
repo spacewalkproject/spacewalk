@@ -76,7 +76,8 @@ class BrokerHandler(SharedHandler):
                     # entry on the client or the hostname of some other
                     # machine (say a load balancer)) then use it
                     hostname = req.headers_in['Host']
-            except (socket.gaierror, socket.error, socket.herror, socket.timeout):
+            except (socket.gaierror, socket.error,
+                    socket.herror, socket.timeout):
                 # hostname probably didn't exist, fine
                 pass
         if not hostname:
@@ -84,7 +85,8 @@ class BrokerHandler(SharedHandler):
             # ip address
             try:
                 hostname = socket.gethostbyaddr(my_ip_addr)[0]
-            except (socket.gaierror, socket.error, socket.herror, socket.timeout):
+            except (socket.gaierror, socket.error,
+                    socket.herror, socket.timeout):
                 # unknown host, we don't have a hostname?
                 pass
         if not hostname:
