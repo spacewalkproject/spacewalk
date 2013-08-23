@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.1.3
+Version:        2.1.4
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -102,6 +102,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Aug 23 2013 Tomas Lestach <tlestach@redhat.com> 2.1.4-1
+- 997749 - help text for --managed-db
+
 * Tue Jul 30 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.3-1
 - recognize external/embedded variant
 
