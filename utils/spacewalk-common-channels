@@ -273,7 +273,8 @@ Create everything as well as unlimited activation key for every channel:
                     try:
                         client.activationkey.create(*ak_args)
                     except xmlrpclib.Fault, e:
-                        sys.stderr.write("ERROR: %s: %s\n" % (
+                        if e.faultCode != 1091: # ignore if ak exists
+                            sys.stderr.write("ERROR: %s: %s\n" % (
                                           base_info['label'], e.faultString))
         else:
             # check whether channel exists
