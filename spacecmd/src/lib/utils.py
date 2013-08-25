@@ -301,11 +301,12 @@ def parse_time_input(userinput = ''):
 
 # Compares 2 package objects (dicts) and returns the newest one.
 # If the objects are the same, we return None
-def latest_pkg(pkg1, pkg2):
+def latest_pkg(pkg1, pkg2, version_key = 'version',
+               release_key = 'release', epoch_key = 'epoch'):
     # Sometimes empty epoch is a space, sometimes its an empty string, which
     # breaks the comparison, strip it here to fix
-    t1 = (pkg1['epoch'].strip(), pkg1['version'], pkg1['release'])
-    t2 = (pkg2['epoch'].strip(), pkg2['version'], pkg2['release'])
+    t1 = (pkg1[epoch_key].strip(), pkg1[version_key], pkg1[release_key])
+    t2 = (pkg2[epoch_key].strip(), pkg2[version_key], pkg2[release_key])
 
     result = rpm.labelCompare(t1, t2)
     if result == 1:
