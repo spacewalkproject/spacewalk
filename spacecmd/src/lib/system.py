@@ -918,7 +918,9 @@ def do_system_listupgrades(self, args):
             print system
             print '-' * len(system)
 
-        for package in sorted(packages, key=itemgetter('name')):
+        latest_packages = filter_latest_packages(packages, 'to_version', 'to_release', 'to_epoch')
+
+        for package in sorted(latest_packages.values(), key=itemgetter('name')):
             # listLatestUpgradablePackages doesn't give us the arch,
             # so use the package ID to get that information
             print self.get_package_name(package.get('to_package_id'))
@@ -2721,7 +2723,8 @@ def do_system_syncpackages(self, args):
                                                       start_time)
 ####################
 
-def filter_latest_packages(pkglist):
+def filter_latest_packages(pkglist, version_key = 'version',
+                           release_key = 'release', epoch_key = 'epoch'):
     # Returns a dict, indexed by a compound (tuple) key based on
     # arch and name, so we can store the latest version of each package
     # for each arch.  This approach avoids nested loops :)
@@ -2741,7 +2744,7 @@ def filter_latest_packages(pkglist):
             latest[tuplekey] = p
         else:
             # Already have this package, is p newer?
-            if p == latest_pkg(p, latest[tuplekey]):
+            if p == latest_pkg(p, latest[tuplekey], version_key, release_key, epoch_key):
                 latest[tuplekey] = p
 
     return latest
