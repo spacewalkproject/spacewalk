@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.1.5
+Version:     2.1.6
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -64,6 +64,10 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Sun Aug 25 2013 Aron Parsons <aronparsons@gmail.com> 2.1.6-1
+- spacecmd: remove duplicate packages in system_listupgrades output
+- spacecmd: make the keys used in latest_pkg() configurable
+
 * Wed Aug 21 2013 Dimitar Yordanov <dyordano@redhat.com> 2.1.5-1
 - Add new function system_listcrashedsystems
 
