@@ -160,7 +160,6 @@ public class ErrataListAction extends RhnAction implements Listable {
     }
 
     /** {@inheritDoc} */
-    @Override
     public List getResult(RequestContext context) {
         List<SystemOverview> systems = null;
         if (context.getRequest().getAttribute(ErrataListAction.MULTIBIND)
