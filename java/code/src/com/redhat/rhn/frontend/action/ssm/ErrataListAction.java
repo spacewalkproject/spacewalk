@@ -123,7 +123,7 @@ public class ErrataListAction extends RhnAction implements Listable {
         this.getStrutsDelegate().saveMessages(request, actionMessages);
 
         request.setAttribute("date", this.getStrutsDelegate().prepopulateDatePicker(
-                request, (DynaActionForm) form, "date", DatePicker.YEAR_RANGE_POSITIVE));
+                request, form, "date", DatePicker.YEAR_RANGE_POSITIVE));
         request.setAttribute("parentUrl", request.getRequestURI());
         request.setAttribute(SELECTOR, request.getParameter(SELECTOR));
 
