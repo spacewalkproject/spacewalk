@@ -105,7 +105,6 @@ public class SsmErrataEvent implements EventMessage {
     }
 
     /** {@inheritDoc} */
-    @Override
     public String toText() {
         return this.toString();
     }

@@ -102,7 +102,6 @@ public class SsmSystemRebootEvent implements EventMessage {
      * Represent the object in ASCII text.
      * @return String representation
      */
-    @Override
     public String toText() {
         return this.toString();
     }
