@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.domain.rhnset;
 
+import com.redhat.rhn.common.db.ConstraintViolationException;
+import com.redhat.rhn.common.db.WrappedSQLException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
@@ -142,7 +144,20 @@ public class RhnSetFactory extends HibernateFactory {
         WriteMode insertEl1 = writeMode("add_to_set_el1");
         for (Iterator i = added.iterator(); i.hasNext();) {
             RhnSetElement current = (RhnSetElement) i.next();
-            executeMode(current, insertEl3, insertEl2, insertEl1);
+            try {
+                executeMode(current, insertEl3, insertEl2, insertEl1);
+            }
+            catch (ConstraintViolationException e) {
+                // a concurrent transaction has already inserted this row
+                // and COMMITted. This is tolerable and can happen because
+                // the default transaction isolation level is READ
+                // COMMITTED, thus this exception can be safely ignored
+            }
+            catch (WrappedSQLException e) {
+                if (e.getMessage().contains("violates unique constraint")) {
+                    // see ConstraintViolationException
+                }
+            }
         }
         if (!added.isEmpty()) {
             simpl.getCleanup().cleanup(simpl);
