@@ -119,7 +119,7 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
      *          or a shortened much faster ones
      * @return the List
      */
-    public List<Map> getResult(RequestContext context, boolean shorten) {
+    public DataResult<Map> getResult(RequestContext context, boolean shorten) {
         HttpServletRequest request = context.getRequest();
         User user = context.getLoggedInUser();
 
@@ -170,7 +170,8 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
             "date", DatePicker.YEAR_RANGE_POSITIVE);
 
         // Parse through all of the results
-        List<Map> result = getResult(context, true);
+        DataResult result = getResult(context, true);
+        result.elaborate();
 
         log.debug("Publishing schedule package remove event to message queue.");
         SsmRemovePackagesEvent event = new SsmRemovePackagesEvent(user.getId(), earliest,
