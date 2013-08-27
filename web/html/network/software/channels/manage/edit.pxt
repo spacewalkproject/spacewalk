@@ -25,12 +25,16 @@
         channel. Otherwise, the channel is a child of the specified channel.
       </p>
       <p>
-        Channel name and label are required.  They each must be at least 6 
-        characters in length.  Labels must begin with a letter, contain only lowercase letters, 
-        hyphens ('-'), periods ('.'), underscores ('_'), and numerals.  Channel name may also contain spaces and forward slashes ('/').
+        Channel name and label are required.
+        They each must be at least 6 characters in length.<br>
+        Channel name must no be longer than 256 characters and channel label must no be longer than 128 characters.<br>
+        Channel label may begin with a letter or digit whether channel name must begin with a letter and for both is not allowed to <br>
+        begin with rhn, redhat or red hat.<br>
+        Further both must contain only lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and numerals.<br>
+        Channel name may also contain spaces, parentheses () and forward slashes ('/').
       </p>
       <p>
-        Channel summary is also required.
+        Channel summary is also required and must not exceed 500 characters.
       </p>
     </div>
 
