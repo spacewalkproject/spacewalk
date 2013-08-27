@@ -38,8 +38,11 @@ import org.apache.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -365,9 +368,18 @@ public class KickstartEditCommand extends BaseKickstartCommand {
      */
     public void updateRepos(String[] reposIn) {
         if (ksdata.isRhel5OrGreater()) {
-
-            ksdata.setRepoInfos(RepoInfo.getStandardRepos(
-                    ksdata.getKickstartDefaults().getKstree()));
+            List<RepoInfo> repoList = RepoInfo.getStandardRepos(
+                    ksdata.getKickstartDefaults().getKstree());
+            Map<String, RepoInfo> repoSet = new HashMap<String, RepoInfo>();
+            for (Iterator<RepoInfo> ri = repoList.iterator(); ri.hasNext();) {
+                RepoInfo rInfo = ri.next();
+                repoSet.put(rInfo.getName(), rInfo);
+            }
+            Set<RepoInfo> selected = new HashSet <RepoInfo>();
+            for (int i = 0; i < reposIn.length; i++) {
+                selected.add(repoSet.get(reposIn[i]));
+            }
+            ksdata.setRepoInfos(selected);
             KickstartWizardHelper ksHelper = new KickstartWizardHelper(user);
             ksHelper.processSkipKey(ksdata);
         }
