@@ -161,13 +161,9 @@ sub do_precondition_checks {
   if (not $opts->{"skip-system-version-test"}
       and not correct_system_version($composeinfo, %version_info)) {
     print loc(<<EOQ);
-This version of Red Hat Satellite runs only on:
-   Red Hat Enterprise Linux 5 Server
-   Red Hat Enterprise Linux 6 Server
 
 Installation interrupted.
 EOQ
-
     exit 2;
   }
 
@@ -229,12 +225,19 @@ sub correct_system_version {
 
   my ($compose_version) = ($composeinfo->{treeName} =~ /(RHEL\d)/);
 
-  return ($composeinfo->{treeArch} eq $version_info{arch}
-          and (
-                ($version_info{version} eq '5Server' and $compose_version eq 'RHEL5')
-             or ($version_info{version} eq '6Server' and $compose_version eq 'RHEL6')
-             )
-         );
+  $version_info{version} =~ s/(\d)Server/Red Hat Enterprise Linux $1/;
+  $compose_version       =~ s/RHEL/Red Hat Enterprise Linux /;
+
+  if ($composeinfo->{treeArch} eq $version_info{arch}
+      and $version_info{version} eq $compose_version
+     ) {
+     return 1;
+  }
+  print loc(<<EOH);
+ERROR: The installation media does not match your operating system:
+       $compose_version ($composeinfo->{treeArch}) vs. $version_info{version} ($version_info{arch})
+EOH
+  return 0;
 }
 
 sub getenforce {
@@ -871,7 +874,7 @@ sub get_composeinfo {
   close(CINFO);
 
   my $treeinfo_file = ".treeinfo";
-  open(TINFO, $treeinfoinfo_file);
+  open(TINFO, $treeinfo_file);
 
   foreach my $line (<TINFO>) {
     chomp $line;
