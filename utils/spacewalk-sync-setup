@@ -149,7 +149,6 @@ def initializeConfig(opt, handle):
         slave_stanza = slave_stanza.replace('PASSWORD', opt.slave_password)
 
     if 'slave_file' in opt.__dict__:
-        logging.error(opt.slave_file)
         slave_stanza = slave_stanza.replace('SLAVE_FILE', opt.slave_file)
 
     if 'master' in opt.__dict__:
