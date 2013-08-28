@@ -152,9 +152,18 @@ rm $RPM_BUILD_ROOT%{_datadir}/rhn/up2date_client/hardware_hal.*
 rm $RPM_BUILD_ROOT%{_datadir}/rhn/up2date_client/hardware_gudev.*
 %endif
 
-%if 0%{?rhel} > 0 && 0%{?rhel} < 6
+%if 0%{?rhel} > 0
+%if 0%{?rhel} < 6
 rm -rf $RPM_BUILD_ROOT%{_datadir}/rhn/up2date_client/firstboot
 rm -f $RPM_BUILD_ROOT%{_datadir}/firstboot/modules/rhn_register.*
+%endif
+%if 0%{?rhel} == 6
+rm -rf $RPM_BUILD_ROOT%{_datadir}/firstboot/modules/rhn_*_*.*
+%endif
+%if 0%{?rhel} > 6
+rm -rf $RPM_BUILD_ROOT%{_datadir}/rhn/up2date_client/firstboot
+rm -rf $RPM_BUILD_ROOT%{_datadir}/firstboot/
+%endif
 %else
 rm -rf $RPM_BUILD_ROOT%{_datadir}/firstboot/modules/rhn_*_*.*
 %endif
@@ -317,6 +326,7 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/firstboot/modules/rhn_review_gui.*
 %{_datadir}/firstboot/modules/rhn_finish_gui.*
 %else
+%if 0%{?rhel} < 7
 %{_datadir}/firstboot/modules/rhn_register.*
 %{_datadir}/rhn/up2date_client/firstboot/rhn_login_gui.*
 %{_datadir}/rhn/up2date_client/firstboot/rhn_start_gui.*
@@ -326,6 +336,7 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/rhn/up2date_client/firstboot/rhn_create_profile_gui.*
 %{_datadir}/rhn/up2date_client/firstboot/rhn_review_gui.*
 %{_datadir}/rhn/up2date_client/firstboot/rhn_finish_gui.*
+%endif
 %endif
 
 %if 0%{?suse_version}
