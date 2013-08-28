@@ -189,7 +189,7 @@ public class NewChannelHelper {
             return false;
         }
 
-        pattern = Pattern.compile("^[a-z][a-z\\d\\-\\.\\_]*$", Pattern.CASE_INSENSITIVE);
+        pattern = Pattern.compile("^[a-z\\d][a-z\\d\\-\\.\\_]*$", Pattern.CASE_INSENSITIVE);
         match = pattern.matcher(label);
         if (!match.matches()) {
             return false;
