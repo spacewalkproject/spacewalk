@@ -19480,13 +19480,15 @@ given channel.</source>
         If the parent channel is set to 'none', the channel is a base channel.
         Otherwise, the channel is a child of the specified channel.
         &lt;p/&gt;
-        Channel name and label are required. They each must be at least 6
-        characters in length. Labels must begin with a letter, contain only
-        lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
-        numerals. Channel name may also contain spaces and forward slashes
-        ('/').
+        Channel name and label are required.&lt;br&gt;
+        They each must be at least 6 characters in length.&lt;br&gt;
+        Channel name must not be longer than 256 characters and channel label must not be longer than 128 characters.&lt;br&gt;
+        Channel name must begin with a letter and channel label may begin with a letter or digit.&lt;br&gt;
+        They each must not begin with rhn, redhat or red hat.&lt;br&gt;
+        They each must contain only lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and numerals.&lt;br&gt;
+        Channel name may also contain spaces, parentheses () and forward slashes ('/').
         &lt;p/&gt;
-        Channel summary is also required.
+        Channel summary is also required and must not exceed 500 characters.
         </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
