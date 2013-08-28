@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.28
+Version: 2.1.29
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Aug 28 2013 Tomas Lestach <tlestach@redhat.com> 2.1.29-1
+- add additional check for cases, when pam is disabled
+- Fix javascript "Uncaught TypeError"
+- 1001826 - fixing the java code as well
+- 1001551 - fix kickstart repositories selection
+- 998944 - fix package removal via ssm
+- removing @Override annotation from methods that aren't overriden
+- removing @Override annotation from method that isn't overriden
+- remove unnecessary cast
+
 * Fri Aug 23 2013 Tomas Lestach <tlestach@redhat.com> 2.1.28-1
 - 989275 - fix ISE when changing base channel with korean locale prefs
 - 993047 - adding missing space after dot in translation strings
