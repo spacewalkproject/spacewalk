@@ -77,6 +77,9 @@ Incrementally synchronize an Red Hat Satellite's DB data and RPM repository with
         <arg>--keep-rpms</arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>--master</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>--debug-level=<replaceable>DEBUG_LEVEL</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -307,6 +310,14 @@ Incrementally synchronize an Red Hat Satellite's DB data and RPM repository with
         <term>--keep-rpms</term>
         <listitem>
             <para>do not remove rpms when importing from local dump.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--master</term>
+        <listitem>
+            <para>the fully qualified doman name of the master Satellite. Valid with
+            --mount-point only. Required if you want to import org data and channel
+            permissions.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
