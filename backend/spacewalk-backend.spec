@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.11
+Version: 2.1.12
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -639,6 +639,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Aug 28 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.12-1
+- 1001979 - fixed man page
+- 1001978 - fixed typo
+
 * Wed Aug 21 2013 Stephen Herr <sherr@redhat.com> 2.1.11-1
 - 960550 - completed checkbox was not checked on kickstarts that had no
   activation keys
