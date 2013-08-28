@@ -912,7 +912,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         }
 
         // Get the channel.
-        Channel channel = lookupChannelByLabel(user.getOrg(), label);
+        Channel channel = lookupChannelByLabel(user, label);
 
         DataResult<Map> dr = SystemManager.systemsSubscribedToChannel(channel, user);
         for (Map sys : dr) {
