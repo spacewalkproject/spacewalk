@@ -57,6 +57,7 @@ Summary: Core of Perl modules for %{name} package
 Group: Applications/Internet 
 Provides: spacewalk(spacewalk-base-minimal) = %{version}-%{release}
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+Requires: spacewalk-base-minimal-config
 Obsoletes: rhn-base-minimal < 5.3.0
 Provides: rhn-base-minimal = 5.3.0
 
