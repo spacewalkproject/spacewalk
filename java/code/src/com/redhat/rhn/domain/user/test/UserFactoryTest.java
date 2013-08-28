@@ -350,6 +350,7 @@ public class UserFactoryTest extends RhnBaseTestCase {
     }
 
     public void testSatelliteHasUsers() {
+        UserTestUtils.findNewUser("testUser", "testUserOrg", true);
         assertTrue(UserFactory.satelliteHasUsers());
     }
 
