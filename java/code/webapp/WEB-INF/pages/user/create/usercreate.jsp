@@ -183,7 +183,8 @@
 --%>
 <script language="javascript">
   var items = document.getElementsByName('password-asterisk');
-  if (document.getElementById('pam').checked == true) {
+  if (document.getElementById('pam')
+         && document.getElementById('pam').checked == true) {
     for (var i = 0; i < items.length; i++) {
       items[i].style.display = "none";
     }
