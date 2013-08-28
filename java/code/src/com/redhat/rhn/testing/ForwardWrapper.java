@@ -19,6 +19,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.config.ForwardConfig;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A decorator for a {@link org.apache.struts.action.ActionForward}. In
@@ -30,7 +31,7 @@ import java.util.HashMap;
 public class ForwardWrapper extends ActionForward {
 
     private ForwardConfig fc;
-    private HashMap       params;
+    private Map       params;
 
     /**
      * Create a new forward that decorates <code>fc0</code>

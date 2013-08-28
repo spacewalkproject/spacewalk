@@ -37,6 +37,7 @@ import org.hibernate.HibernateException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * CommandTest
@@ -135,7 +136,7 @@ public class CommandTest extends RhnBaseTestCase {
     }
 
     private static class MapTransformer implements Transformer {
-        private HashMap map = new HashMap();
+        private Map map = new HashMap();
 
         public Object transform(Object input) {
             return map.get(((ThresholdParameter) input).getThresholdType());

@@ -132,7 +132,7 @@ public class MockConnection extends CobblerConnection {
         return true;
     }
     else if ("new_profile".equals(name)) {
-        HashMap profile = new HashMap();
+        Map profile = new HashMap();
         String uid = random();
         String key = random();
         profile.put("uid", uid);
@@ -187,7 +187,7 @@ public class MockConnection extends CobblerConnection {
     else if ("new_distro".equals(name)) {
         String uid = random();
 
-        HashMap distro = new HashMap();
+        Map distro = new HashMap();
         String key = random();
         distro.put("uid", uid);
 
@@ -235,7 +235,7 @@ public class MockConnection extends CobblerConnection {
         systems.remove(findByName((String)args[0], systems));
     }
     else if ("new_system".equals(name)) {
-        HashMap profile = new HashMap();
+        Map profile = new HashMap();
         String key = random();
         profile.put("uid", random());
         Map interfaces = new HashMap();

@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.dto;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * ClonableErrataDto
@@ -62,7 +63,7 @@ public class ClonableErrataDto extends BaseDto {
     public List<Object> getChannelMap() {
       List<Object> l = new ArrayList<Object>();
         for (int i = 0; i < channelId.size(); i++) {
-          HashMap<String, Object> m = new HashMap<String, Object>();
+          Map<String, Object> m = new HashMap<String, Object>();
           m.put("id", channelId.get(i));
           m.put("name", channelName.get(i));
           l.add(m);

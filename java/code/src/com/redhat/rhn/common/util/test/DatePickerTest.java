@@ -22,6 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.TimeZone;
 
 import junit.framework.TestCase;
@@ -70,7 +71,7 @@ public class DatePickerTest extends TestCase {
 
 
     public void testReadWriteFromMap() throws ParseException {
-        HashMap form = new HashMap();
+        Map form = new HashMap();
         DatePicker p = makePicker(Locale.ENGLISH);
         Date d = parseDate("1996-08-03T15:33");
         p.setDate(d);

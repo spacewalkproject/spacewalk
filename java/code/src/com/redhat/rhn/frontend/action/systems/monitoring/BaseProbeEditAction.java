@@ -26,6 +26,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,7 +52,7 @@ public abstract class BaseProbeEditAction extends BaseProbeAction {
             ModifyProbeCommand cmd = new ModifyProbeCommand(user, probe);
             if (editProbe(cmd, form, req)) {
                 createSuccessMessage(req, "probeedit.probesaved", probe.getDescription());
-                HashMap params = new HashMap();
+                Map params = new HashMap();
                 addSuccessParams(rctx, params, cmd.getProbe());
                 return getStrutsDelegate().forwardParams(mapping.findForward("success"),
                         params);
@@ -75,7 +76,7 @@ public abstract class BaseProbeEditAction extends BaseProbeAction {
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
-    protected abstract void addSuccessParams(RequestContext rctx, HashMap params,
+    protected abstract void addSuccessParams(RequestContext rctx, Map params,
             Probe probe);
 
     /**

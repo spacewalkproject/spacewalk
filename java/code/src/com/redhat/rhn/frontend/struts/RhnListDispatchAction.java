@@ -43,7 +43,7 @@ public abstract class RhnListDispatchAction extends RhnLookupDispatchAction {
      * {@inheritDoc}
      */
     protected Map getKeyMethodMap() {
-        HashMap map = new HashMap();
+        Map map = new HashMap();
         map.put(RequestContext.FILTER_KEY, "filter");
         processMethodKeys(map);
         return map;

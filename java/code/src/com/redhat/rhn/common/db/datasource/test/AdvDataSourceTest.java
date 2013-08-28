@@ -70,7 +70,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
 
     private void lookup(String foobar, int id, int size) {
         SelectMode m = ModeFactory.getMode("test_queries", "find_in_table");
-        HashMap params = new HashMap();
+        Map params = new HashMap();
         params.put("foobar", foobar);
         params.put("id", new Integer(id));
         DataResult<AdvDataSourceDto> dr = m.execute(params);
@@ -83,7 +83,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
 
     private void insert(String foobar, int id) throws Exception {
         WriteMode m = ModeFactory.getWriteMode("test_queries", "insert_into_table");
-        HashMap params = new HashMap();
+        Map params = new HashMap();
         params.put("foobar", foobar);
         params.put("id", Integer.valueOf(id));
         params.put("test_column", "test-" + TestUtils.randomString());
@@ -187,7 +187,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
         // Take nothing for granted, make sure the data is there.
         lookup("Blarg", 1, 1);
         WriteMode m = ModeFactory.getWriteMode("test_queries", "delete_from_table");
-        HashMap params = new HashMap();
+        Map params = new HashMap();
         params.put("foobar", "Blarg");
         assertEquals(1, m.executeUpdate(params));
         // Close our Session so we test to make sure it
@@ -200,7 +200,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
         insert("update_test", 4);
 
         WriteMode m = ModeFactory.getWriteMode("test_queries", "update_in_table");
-        HashMap params = new HashMap();
+        Map params = new HashMap();
         params.put("foobar", "after_update");
         params.put("id", new Integer(4));
         int res = m.executeUpdate(params);
@@ -218,7 +218,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
         insert("update_multi_test", 5);
 
         WriteMode m = ModeFactory.getWriteMode("test_queries", "update_in_table");
-        HashMap params = new HashMap();
+        Map params = new HashMap();
         params.put("foobar", "after_update_multi");
         params.put("id", new Integer(5));
         int res = m.executeUpdate(params);

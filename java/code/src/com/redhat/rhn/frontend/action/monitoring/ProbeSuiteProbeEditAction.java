@@ -19,7 +19,7 @@ import com.redhat.rhn.domain.monitoring.suite.ProbeSuite;
 import com.redhat.rhn.frontend.action.systems.monitoring.BaseProbeEditAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Edit a probe that is part of a probe suite
@@ -35,7 +35,7 @@ public class ProbeSuiteProbeEditAction extends BaseProbeEditAction {
         rctx.getRequest().setAttribute("probeSuite", suite);
     }
 
-    protected void addSuccessParams(RequestContext rctx, HashMap params, Probe probe) {
+    protected void addSuccessParams(RequestContext rctx, Map params, Probe probe) {
         params.put(RequestContext.SUITE_ID, rctx.lookupProbeSuite().getId());
     }
 

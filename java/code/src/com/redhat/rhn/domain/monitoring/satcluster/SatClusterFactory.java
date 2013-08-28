@@ -31,6 +31,7 @@ import java.net.SocketException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * SatClusterFactory - the singleton class used to fetch and store
@@ -73,7 +74,7 @@ public class SatClusterFactory extends HibernateFactory {
      * @return the <code>SatCluster</code> with ID <code>satClusterID</code>
      */
     public static SatCluster findSatClusterById(Long satClusterID) {
-        HashMap params = new HashMap();
+        Map params = new HashMap();
         params.put("satClusterID", satClusterID);
         return (SatCluster)
             singleton.lookupObjectByNamedQuery("SatCluster.findByID", params);
@@ -223,7 +224,7 @@ public class SatClusterFactory extends HibernateFactory {
      * @return list of sat clusters
      */
     public static List<SatCluster> findSatClusters() {
-        HashMap params = new HashMap();
+        Map params = new HashMap();
         return singleton.listObjectsByNamedQuery("SatCluster.findAll", params);
     }
 

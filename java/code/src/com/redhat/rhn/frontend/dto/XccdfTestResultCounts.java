@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.dto;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Simple DTO for transfering data from the DB to the UI through datasource.
@@ -33,7 +34,7 @@ public abstract class XccdfTestResultCounts extends BaseDto {
     private static final String INFORMATIONAL_LABEL = "informational";
     private static final String FIXED_LABEL = "fixed";
 
-    private HashMap<String, Long> countMap;
+    private Map<String, Long> countMap;
 
     /* Following properties are set by testresult_counts elaborator. */
     private List label;
@@ -186,7 +187,7 @@ public abstract class XccdfTestResultCounts extends BaseDto {
         return (result != null) ? result : 0;
     }
 
-    private HashMap<String, Long> getCountMap() {
+    private Map<String, Long> getCountMap() {
         if (this.countMap == null) {
             this.countMap = new HashMap<String, Long>();
             if (this.label != null && this.count != null) {

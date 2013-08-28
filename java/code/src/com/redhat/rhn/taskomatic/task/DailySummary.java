@@ -305,8 +305,8 @@ public class DailySummary extends RhnJavaJob {
         StringBuffer legend = new StringBuffer();
         StringBuffer msg = new StringBuffer();
         LinkedHashSet<String> statusSet = new LinkedHashSet();
-        TreeMap<String, HashMap<String, Integer>> nonErrataActions = new TreeMap();
-        TreeMap<String, HashMap<String, Integer>> errataActions = new TreeMap();
+        TreeMap<String, Map<String, Integer>> nonErrataActions = new TreeMap();
+        TreeMap<String, Map<String, Integer>> errataActions = new TreeMap();
         TreeMap<String, String> errataSynopsis = new TreeMap();
 
         legend.append(LocalizationService
@@ -331,7 +331,7 @@ public class DailySummary extends RhnJavaJob {
                         longestActionLength = advisoryKey.length() + HEADER_SPACER;
                     }
                 }
-                HashMap<String, Integer> counts = errataActions.get(advisoryKey);
+                Map<String, Integer> counts = errataActions.get(advisoryKey);
                 counts.put(am.getStatus(), am.getCount());
 
                 if (am.getAdvisory() != null &&
@@ -346,7 +346,7 @@ public class DailySummary extends RhnJavaJob {
                         longestActionLength = am.getType().length() + HEADER_SPACER;
                     }
                 }
-                HashMap<String, Integer> counts = nonErrataActions.get(am.getType());
+                Map<String, Integer> counts = nonErrataActions.get(am.getType());
                 counts.put(am.getStatus(), am.getCount());
             }
 
@@ -387,13 +387,13 @@ public class DailySummary extends RhnJavaJob {
 
     private StringBuffer renderActionTree(int longestActionLength,
             int longestStatusLength, LinkedHashSet<String> statusSet,
-            TreeMap<String, HashMap<String, Integer>> actionTree) {
+            TreeMap<String, Map<String, Integer>> actionTree) {
         StringBuffer formattedActions = new StringBuffer();
         for (String actionName : actionTree.keySet()) {
             formattedActions.append(actionName +
                    StringUtils.repeat(" ", (longestActionLength - (actionName.length()))));
             for (String status : statusSet) {
-                HashMap<String, Integer> counts = actionTree.get(actionName);
+                Map<String, Integer> counts = actionTree.get(actionName);
                 Integer theCount = counts.get(status);
                 if (counts.containsKey(status)) {
                     theCount = counts.get(status);

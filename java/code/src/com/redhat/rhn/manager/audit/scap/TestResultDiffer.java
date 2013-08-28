@@ -17,6 +17,7 @@ package com.redhat.rhn.manager.audit.scap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import com.redhat.rhn.domain.audit.XccdfTestResult;
 
 /**
@@ -35,9 +36,9 @@ public class TestResultDiffer {
      * @param second the second TestResult to compare
      * @return the diff
      */
-    public static List<HashMap<String, Object>> diff(XccdfTestResult first,
+    public static List<Map<String, Object>> diff(XccdfTestResult first,
             XccdfTestResult second) {
-        List<HashMap<String, Object>> result = new ArrayList<HashMap<String, Object>>();
+        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         result.add(buildItem("id", linkToScan(first), linkToScan(second)));
         result.add(buildItem("system.audit.xccdfdetails.jsp.benchmarkid",
                 first.getBenchmark().getIdentifier(),
@@ -79,13 +80,13 @@ public class TestResultDiffer {
      * False - filters out items which differs
      * @return the result
      */
-    public static List<HashMap<String, Object>> diff(XccdfTestResult first,
+    public static List<Map<String, Object>> diff(XccdfTestResult first,
             XccdfTestResult second, Boolean differs) {
        if (differs == null) {
            return diff(first, second);
        }
-       List<HashMap<String, Object>> result = new ArrayList<HashMap<String, Object>>();
-       for (HashMap<String, Object> item : diff(first, second)) {
+       List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+       for (Map<String, Object> item : diff(first, second)) {
            if (differs.equals(item.get(DIFFERS))) {
                result.add(item);
            }
@@ -93,9 +94,9 @@ public class TestResultDiffer {
        return result;
     }
 
-    private static HashMap<String, Object> buildItem(String localizationString,
+    private static Map<String, Object> buildItem(String localizationString,
             Object first, Object second) {
-        HashMap<String, Object> item = new HashMap<String, Object>();
+        Map<String, Object> item = new HashMap<String, Object>();
         item.put("msg", localizationString);
         item.put(FIRST, first == null ? "" : first);
         item.put(SECOND, second == null ? "" : second);

@@ -18,6 +18,7 @@ import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.ActionType;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A map between virtualization states and actions
@@ -27,7 +28,7 @@ import java.util.HashMap;
 public class VirtualizationActionMap {
     private static VirtualizationActionMap singleton = new VirtualizationActionMap();
 
-    private HashMap actionMap;
+    private Map actionMap;
                                 // Essentially a state machine to answer:
                                 // "Given a desired action (start,
                                 // suspend, resume, restart, shutdown) and a
@@ -35,14 +36,14 @@ public class VirtualizationActionMap {
                                 // crashed, paused), what RHN action
                                 // should be used?"
 
-    private HashMap startMap;
-    private HashMap suspendMap;
-    private HashMap resumeMap;
-    private HashMap restartMap;
-    private HashMap shutdownMap;
-    private HashMap deleteMap;
-    private HashMap setVcpusMap;
-    private HashMap setMemoryMap;
+    private Map startMap;
+    private Map suspendMap;
+    private Map resumeMap;
+    private Map restartMap;
+    private Map shutdownMap;
+    private Map deleteMap;
+    private Map setVcpusMap;
+    private Map setMemoryMap;
 
     private VirtualizationActionMap() {
         setup();
@@ -114,7 +115,7 @@ public class VirtualizationActionMap {
      */
     public static ActionType lookupActionType(String currentState, String actionName) {
         if (singleton.actionMap.get(actionName) != null) {
-            HashMap aMap = (HashMap) singleton.actionMap.get(actionName);
+            Map aMap = (Map) singleton.actionMap.get(actionName);
             return (ActionType) aMap.get(currentState);
         }
 

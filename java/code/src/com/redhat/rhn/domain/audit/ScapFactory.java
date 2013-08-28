@@ -15,6 +15,7 @@
 package com.redhat.rhn.domain.audit;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -39,7 +40,7 @@ public class ScapFactory extends HibernateFactory {
      * @return the XccdfTestResult found
      */
     public static XccdfTestResult lookupTestResultById(Long xid) {
-        HashMap params = new HashMap();
+        Map params = new HashMap();
         params.put("xid", xid);
         return (XccdfTestResult)singleton.lookupObjectByNamedQuery(
                 "XccdfTestResult.findById", params);

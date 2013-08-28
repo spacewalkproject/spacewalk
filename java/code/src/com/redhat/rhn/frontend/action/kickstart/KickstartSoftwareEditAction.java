@@ -39,6 +39,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -192,7 +193,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
         ctx.getRequest().setAttribute(AVAIL_CHILD_CHANNELS, childchannels);
 
         // Setup the list of selected child channels
-        HashMap<Long, Long> selectedChannels = new HashMap<Long, Long>();
+        Map<Long, Long> selectedChannels = new HashMap<Long, Long>();
         if (cmd.getKickstartData().getChildChannels() != null) {
             Set<Channel> channelSet = cmd.getKickstartData().getChildChannels();
             for (Channel c : channelSet) {

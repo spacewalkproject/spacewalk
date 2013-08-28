@@ -22,8 +22,8 @@ import com.redhat.rhn.manager.kickstart.KickstartLocaleCommand;
 import org.apache.struts.action.DynaActionForm;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -121,7 +121,7 @@ public class KickstartLocaleEditAction extends BaseKickstartEditAction {
         Iterator iter = validTimezones.iterator();
 
         while (iter.hasNext()) {
-            HashMap possible = (HashMap) iter.next();
+            Map possible = (Map) iter.next();
             if (timezone.equals(possible.get("value"))) {
                 return Boolean.TRUE;
             }

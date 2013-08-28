@@ -90,7 +90,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
         Iterator i = dr.iterator();
         int pos = 0;
         while (i.hasNext()) {
-            HashMap hm = (HashMap)i.next();
+            Map hm = (Map)i.next();
             String name = (String)hm.get("username");
 
             if (name.toLowerCase().equals(db_user)) {
@@ -99,7 +99,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
             pos++;
         }
 
-        HashMap parameters = new HashMap();
+        Map parameters = new HashMap();
         parameters.put("user_name", db_user);
         dr.elaborate(parameters);
         assertNotNull(dr);
@@ -122,7 +122,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
         Iterator i = dr.iterator();
         int pos = 0;
         while (i.hasNext()) {
-            HashMap hm = (HashMap)i.next();
+            Map hm = (Map)i.next();
             String name = (String)hm.get("username");
 
             if (name.toLowerCase().equals(db_user)) {
@@ -131,7 +131,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
             pos++;
         }
 
-        HashMap parameters = new HashMap();
+        Map parameters = new HashMap();
         parameters.put("user_name", db_user);
         dr.elaborate(parameters);
         assertNotNull(dr);
@@ -262,7 +262,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
         SelectMode m = ModeFactory.getMode("test_queries", "all_tables" + db_sufix);
         assertNotNull(m);
 
-        HashMap params = new HashMap();
+        Map params = new HashMap();
         params.put("foo", "bar");
         DataResult dr = m.execute(params);
         assertNotNull(dr);
@@ -273,7 +273,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
                 db_sufix);
         assertNotNull(m);
 
-        HashMap hm = new HashMap();
+        Map hm = new HashMap();
         hm.put("username", db_user);
         DataResult dr = m.execute(hm);
         assertNotNull(dr);
@@ -371,7 +371,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
 
     public void testExternalQuery() throws Exception {
         SelectMode m = ModeFactory.getMode("System_queries", "visible_to_uid");
-        HashMap params = new HashMap();
+        Map params = new HashMap();
         params.put("formvar_uid", new Long(12345));
         DataResult dr = m.execute(params);
         assertEquals(m, dr.getMode());
@@ -416,7 +416,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
         SelectMode m = ModeFactory.getMode("test_queries", "user_class" + db_sufix);
         String clazz = m.getClassString();
         assertEquals("com.redhat.rhn.common.db.datasource.test.UserData", clazz);
-        HashMap hm = new HashMap();
+        Map hm = new HashMap();
         hm.put("username", db_user);
         DataResult dr = m.execute(hm);
         assertNotNull(dr);

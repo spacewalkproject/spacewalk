@@ -541,7 +541,7 @@ public class DatePicker {
     }
 
     private static Map makeFieldCalendarMap(boolean isLatin) {
-        HashMap result = new HashMap();
+        Map result = new HashMap();
         result.put(YEAR, new Integer(Calendar.YEAR));
         result.put(MONTH, new Integer(Calendar.MONTH));
         result.put(DAY, new Integer(Calendar.DAY_OF_MONTH));

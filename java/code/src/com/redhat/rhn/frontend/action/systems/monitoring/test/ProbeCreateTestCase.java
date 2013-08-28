@@ -35,7 +35,7 @@ import com.redhat.rhn.testing.RhnMockHttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.HibernateException;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 import java.util.Set;
 
@@ -75,7 +75,7 @@ public abstract class ProbeCreateTestCase extends RhnBaseTestCase {
         setupCommand(ah, orig);
         setupProbeFields(ah, orig);
 
-        HashMap params = MonitoringTestUtils.makeParamDefaults(orig.getCommand(), true);
+        Map params = MonitoringTestUtils.makeParamDefaults(orig.getCommand(), true);
         // Remove required param
         params.put("r_port_0", "");
         MonitoringTestUtils.setupParamValues(ah, params, 3);
@@ -141,7 +141,7 @@ public abstract class ProbeCreateTestCase extends RhnBaseTestCase {
         setupCommand(ah, orig);
         setupProbeFields(ah, orig);
 
-        HashMap params = MonitoringTestUtils.makeParamDefaults(orig.getCommand(), true);
+        Map params = MonitoringTestUtils.makeParamDefaults(orig.getCommand(), true);
         // Make sure that the values are not in ascending order
         params.put("warning", "7");
         params.put("critical", "7");

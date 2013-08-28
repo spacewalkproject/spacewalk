@@ -22,7 +22,7 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 
 import org.apache.commons.lang.StringUtils;
 
-import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -56,7 +56,7 @@ public class KickstartAclHandler extends BaseHandler {
      * @return true if a raw format, false else
      */
     public boolean aclIsKsRaw(Object ctx, String[] params) {
-        HashMap ctxMap = (HashMap)ctx;
+        Map ctxMap = (Map)ctx;
         User usr = (User)ctxMap.get(USER);
         KickstartData ks =  getKickstart(usr, params);
         if (ks != null) {
@@ -72,7 +72,7 @@ public class KickstartAclHandler extends BaseHandler {
      * @return true if a wizard format, false else
      */
     public boolean aclIsKsNotRaw(Object ctx, String[] params) {
-        HashMap ctxMap = (HashMap)ctx;
+        Map ctxMap = (Map)ctx;
         User usr = (User)ctxMap.get(USER);
         KickstartData ks =  getKickstart(usr, params);
         if (ks == null) {
@@ -90,7 +90,7 @@ public class KickstartAclHandler extends BaseHandler {
      * to cobbler
      */
     public boolean aclTreeIsSynced(Object ctx, String[] params) {
-        HashMap ctxMap = (HashMap)ctx;
+        Map ctxMap = (Map)ctx;
         User usr = (User)ctxMap.get(USER);
         Long id = getAsLong(ctxMap.get(RequestContext.KSTREE_ID));
         if (id == null) {
@@ -111,7 +111,7 @@ public class KickstartAclHandler extends BaseHandler {
      * to cobbler
      */
     public boolean aclProfileIsValid(Object ctx, String[] params) {
-        HashMap ctxMap = (HashMap)ctx;
+        Map ctxMap = (Map)ctx;
         User usr = (User)ctxMap.get(USER);
         Long id = getAsLong(ctxMap.get(RequestContext.KICKSTART_ID));
         if (id == null) {

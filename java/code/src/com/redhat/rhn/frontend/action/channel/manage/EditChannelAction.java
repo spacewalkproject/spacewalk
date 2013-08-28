@@ -635,13 +635,13 @@ public class EditChannelAction extends RhnAction implements Listable {
         }
         ctx.getRequest().setAttribute("parentChannels", baseChannels);
 
-        HashMap parentChannelArches = new HashMap();
+        Map parentChannelArches = new HashMap();
         for (Channel c : bases) {
             parentChannelArches.put(c.getId(), c.getChannelArch().getLabel());
         }
         ctx.getRequest().setAttribute("parentChannelArches", parentChannelArches);
 
-        HashMap parentChannelChecksums = new HashMap();
+        Map parentChannelChecksums = new HashMap();
         for (Channel c : bases) {
             parentChannelChecksums.put(c.getId(), c.getChecksumTypeLabel());
         }

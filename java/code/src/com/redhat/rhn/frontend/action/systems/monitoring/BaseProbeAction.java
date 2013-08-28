@@ -182,7 +182,7 @@ public class BaseProbeAction extends RhnAction {
 
     private static Map getCommandParameterMap(CommandParameter cp, String paramName,
             String value, boolean isThreshold, String lastLabel) {
-        HashMap map = new HashMap();
+        Map map = new HashMap();
         map.put("value", value);
         map.put("mandatory", Boolean.valueOf(cp.isMandatory()));
         String label = cp.getDescription();

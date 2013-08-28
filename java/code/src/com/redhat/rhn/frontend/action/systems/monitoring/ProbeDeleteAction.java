@@ -29,6 +29,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,7 +61,7 @@ public class ProbeDeleteAction extends BaseProbeAction {
         req.setAttribute("probe", probe);
 
         if (submitted) {
-            HashMap params = new HashMap();
+            Map params = new HashMap();
             params.put(RequestContext.SID, server.getId());
             log.debug("Deleted probe: " + probe.getId());
             return getStrutsDelegate().forwardParams(mapping.findForward("deleted"),

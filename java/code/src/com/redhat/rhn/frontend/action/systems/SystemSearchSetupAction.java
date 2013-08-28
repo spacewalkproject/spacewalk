@@ -298,7 +298,7 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
     protected void setupForm(HttpServletRequest request,
                              DynaActionForm form,
                              String viewMode) {
-        HashMap optGroupsMap = new HashMap();
+        Map optGroupsMap = new HashMap();
         boolean matchingViewModeFound = false;
 
         /* Here we set up a hashmap using the string resources key for the various options

@@ -17,6 +17,7 @@ package com.redhat.rhn.manager.audit.scap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.redhat.rhn.frontend.dto.XccdfRuleResultDto;
 import com.redhat.rhn.manager.audit.ScapManager;
@@ -26,7 +27,7 @@ import com.redhat.rhn.manager.audit.ScapManager;
  * assigned with given xccdf:TestResult-s
  */
 public class RuleResultDiffer {
-    private HashMap<String, RuleResultComparator> dataMap;
+    private Map<String, RuleResultComparator> dataMap;
 
     /**
      * Constructor

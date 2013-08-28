@@ -24,6 +24,7 @@ import java.io.InvalidObjectException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -44,7 +45,7 @@ public class EnforcementDoclet {
     }
 
 
-    private static HashMap<String, List<String>> exceptions =
+    private static Map<String, List<String>> exceptions =
         new HashMap<String, List<String>>();
 
 

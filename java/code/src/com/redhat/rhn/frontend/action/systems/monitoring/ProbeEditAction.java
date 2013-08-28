@@ -17,7 +17,7 @@ package com.redhat.rhn.frontend.action.systems.monitoring;
 import com.redhat.rhn.domain.monitoring.Probe;
 import com.redhat.rhn.frontend.struts.RequestContext;
 
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Edit a probe attached to one system
@@ -35,7 +35,7 @@ public class ProbeEditAction extends BaseProbeEditAction {
 
 
     protected void addSuccessParams(RequestContext rctx,
-            HashMap params, Probe probe) {
+            Map params, Probe probe) {
         params.put(SID, rctx.lookupAndBindServer().getId());
         params.put(PROBEID, rctx.lookupProbe().getId());
     }

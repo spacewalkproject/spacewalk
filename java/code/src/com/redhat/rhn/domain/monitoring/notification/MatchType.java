@@ -18,6 +18,7 @@ import com.redhat.rhn.common.util.Asserts;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -31,8 +32,8 @@ public class MatchType {
     public static final String CAT_REGEX = "regex";
     public static final String CAT_CONTACT = "contact";
 
-    private static final HashMap TYPES = new HashMap();
-    private static final HashMap CATEGORIES = new HashMap();
+    private static final Map TYPES = new HashMap();
+    private static final Map CATEGORIES = new HashMap();
 
     public static final MatchType PROBE = create("PROBE_ID", "probe", CAT_SCOPE);
     public static final MatchType SCOUT = create("NETSAINT_ID", "scout", CAT_SCOPE);

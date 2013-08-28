@@ -44,7 +44,7 @@ public final class MonitoringTestUtils {
      */
     public static Map parameterValueMap(Probe probe) {
         Set ppvSet = probe.getProbeParameterValues();
-        HashMap result = new HashMap();
+        Map result = new HashMap();
         for (Iterator i = ppvSet.iterator(); i.hasNext();) {
             ProbeParameterValue ppv = (ProbeParameterValue) i.next();
             result.put(ppv.getParamName(), ppv.getValue());
@@ -100,11 +100,11 @@ public final class MonitoringTestUtils {
      */
     public static void setupParamValues(ActionHelper ah, Command command,
             int multiplicity) {
-        HashMap defaults = makeParamDefaults(command, true);
+        Map defaults = makeParamDefaults(command, true);
         setupParamValues(ah, defaults, multiplicity);
     }
 
-    public static void setupParamValues(ActionHelper ah, HashMap params,
+    public static void setupParamValues(ActionHelper ah, Map params,
             int multiplicity) {
         for (Iterator i = params.keySet().iterator(); i.hasNext();) {
             String name = (String) i.next();
@@ -120,10 +120,10 @@ public final class MonitoringTestUtils {
      * of {@link com.redhat.rhn.domain.monitoring.MonitoringConstants#COMMAND_CHECK_TCP}
      * @param includeInvisible TODO
      */
-    public static HashMap makeParamDefaults(Command command, boolean includeInvisible) {
+    public static Map makeParamDefaults(Command command, boolean includeInvisible) {
         Assert.assertEquals("Only CHECK_TCP is supported",
                 MonitoringConstants.getCommandCheckTCP().getName(), command.getName());
-        HashMap result = new HashMap();
+        Map result = new HashMap();
         result.put("send", "send it");
         result.put("expect", "expect it");
         result.put("r_port_0", "666");

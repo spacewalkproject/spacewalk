@@ -87,7 +87,7 @@ public abstract class BaseSetOperateOnDiffAction extends RhnSetAction {
         RhnSetManager.store(currentset);
 
         Map params = makeParamMap(formIn, request);
-        HashMap diffmap = new HashMap();
+        Map diffmap = new HashMap();
 
         Iterator originalItems = getCurrentItemsIterator(new RequestContext(request));
 

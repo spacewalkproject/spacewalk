@@ -69,7 +69,7 @@ public class SearchAction extends RhnAction {
                             OrgFactory.getEntitlementSwMgrPersonal()) ||
                     user.getOrg().getEntitlements().contains(
                             OrgFactory.getEntitlementEnterprise()))) {
-                HashMap attributes = new HashMap();
+                Map attributes = new HashMap();
                 attributes.put(RhnAction.SUBMITTED, "true");
                 attributes.put(SystemSearchSetupAction.WHERE_TO_SEARCH, "all");
                 attributes.put(SystemSearchSetupAction.VIEW_MODE,
@@ -84,7 +84,7 @@ public class SearchAction extends RhnAction {
                 return null;
             }
             else if (searchType.equals("errata")) {
-                HashMap attributes = new HashMap();
+                Map attributes = new HashMap();
                 attributes.put("view_mode", "errata_search_by_all_fields");
                 attributes.put(SystemSearchSetupAction.SEARCH_STRING, searchString);
                 attributes.put("optionIssueDateSearch", Boolean.FALSE);
@@ -100,7 +100,7 @@ public class SearchAction extends RhnAction {
                 return null;
             }
             else if (searchType.equals("packages")) {
-                HashMap attributes = new HashMap();
+                Map attributes = new HashMap();
                 attributes.put("view_mode", "search_name_and_summary");
                 attributes.put(SystemSearchSetupAction.SEARCH_STRING, searchString);
                 attributes.put(PackageSearchAction.WHERE_CRITERIA, "architecture");
@@ -126,7 +126,7 @@ public class SearchAction extends RhnAction {
                 return null;
             }
             else if (searchType.equals("docs")) {
-                HashMap attributes = new HashMap();
+                Map attributes = new HashMap();
                 attributes.put("view_mode", "search_content_title");
                 attributes.put(SystemSearchSetupAction.SEARCH_STRING, searchString);
                 performRedirect("/help/Search.do",

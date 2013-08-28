@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.user.UserFactory;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Encapsulate the query/method that needs to be run after
@@ -116,7 +117,7 @@ public class SetCleanup {
 
     protected int cleanup(RhnSet set) {
         WriteMode m = ModeFactory.getWriteMode(catalogName, modeName);
-        HashMap p = new HashMap();
+        Map p = new HashMap();
         p.put("user_id", set.getUserId());
         p.put("label", set.getLabel());
         return m.executeUpdate(p);
@@ -155,7 +156,7 @@ public class SetCleanup {
 
         protected int cleanup(RhnSet set) {
             WriteMode m = ModeFactory.getWriteMode("Set_queries", getMode());
-            HashMap p = new HashMap();
+            Map p = new HashMap();
             p.put("org_id", UserFactory.lookupById(set.getUserId()).getOrg().getId());
             p.put("user_id", set.getUserId());
             p.put("label", set.getLabel());

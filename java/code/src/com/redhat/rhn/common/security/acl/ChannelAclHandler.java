@@ -21,7 +21,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.user.UserManager;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -75,7 +74,7 @@ public class ChannelAclHandler extends BaseHandler {
      * @return true if allowed, false else
      */
     public boolean aclUserCanAdminChannel(Object ctx, String[] params) {
-        HashMap ctxMap = (HashMap)ctx;
+        Map ctxMap = (Map)ctx;
         User usr = (User)ctxMap.get(USER);
         Channel chan = getChannel(usr, ctxMap);
         if (chan != null) {
@@ -91,7 +90,7 @@ public class ChannelAclHandler extends BaseHandler {
      * @return true if allowed, false else
      */
     public boolean aclOrgChannelSetting(Object ctx, String[] params) {
-        HashMap ctxMap = (HashMap)ctx;
+        Map ctxMap = (Map)ctx;
         User usr = (User)ctxMap.get(USER);
         Channel chan = getChannel(usr, ctxMap);
         if (chan != null) {
@@ -124,7 +123,7 @@ public class ChannelAclHandler extends BaseHandler {
             return false;
         }
 
-        HashMap ctxMap = (HashMap)ctx;
+        Map ctxMap = (Map)ctx;
         User usr = (User)ctxMap.get(USER);
         Channel chan = getChannel(usr, ctxMap);
         String archType = chan.getChannelArch().getArchType().getLabel();
@@ -138,7 +137,7 @@ public class ChannelAclHandler extends BaseHandler {
      * @return true if allowed, false else
      */
     public boolean aclChannelPackagingType(Object ctx, String[] params) {
-        HashMap ctxMap = (HashMap)ctx;
+        Map ctxMap = (Map)ctx;
         User usr = (User)ctxMap.get(USER);
         Channel chan = getChannel(usr, ctxMap);
         String archType = chan.getChannelArch().getArchType().getLabel();
@@ -152,7 +151,7 @@ public class ChannelAclHandler extends BaseHandler {
      * @return true if allowed, false else
      */
     public boolean aclChannelSubscribable(Object ctx, String[] params) {
-        HashMap ctxMap = (HashMap)ctx;
+        Map ctxMap = (Map)ctx;
         User usr = (User)ctxMap.get(USER);
         Channel chan = getChannel(usr, ctxMap);
 
@@ -179,7 +178,7 @@ public class ChannelAclHandler extends BaseHandler {
      * @return true if channel-vers is RHEL5, false else
      */
     public boolean aclIsRhel5(Object ctx, String[] params) {
-        HashMap ctxMap = (HashMap)ctx;
+        Map ctxMap = (Map)ctx;
         User usr = (User)ctxMap.get(USER);
         Channel chan = getChannel(usr, ctxMap);
         if (chan != null) {

@@ -425,7 +425,7 @@ public class CachedStatement implements Serializable {
                     " but value map is null");
         }
         // Only pass the parameters from the original query.
-        HashMap<String, Object> intersection = new HashMap<String, Object>();
+        Map<String, Object> intersection = new HashMap<String, Object>();
         Iterator<String> i = params.iterator();
         while (i.hasNext()) {
             String curr = i.next();

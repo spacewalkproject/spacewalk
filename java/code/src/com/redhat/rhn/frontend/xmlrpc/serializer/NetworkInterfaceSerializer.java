@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
@@ -72,7 +73,7 @@ public class NetworkInterfaceSerializer implements XmlRpcCustomSerializer {
 
         for (ServerNetAddress6 addr : device.getIPv6Addresses()) {
 //            SerializerHelper m = new SerializerHelper(builtInSerializer);
-            HashMap m = new HashMap();
+            Map m = new HashMap();
             m.put("address", StringUtils.defaultString(addr.getAddress()));
             m.put("netmask", StringUtils.defaultString(addr.getNetmask()));
             m.put("scope", StringUtils.defaultString(addr.getScope()));

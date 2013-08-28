@@ -276,7 +276,7 @@ public class DownloadFile extends DownloadAction {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
                 return mapping.findForward("error");
             }
-            HashMap params = new HashMap();
+            Map params = new HashMap();
             params.put(TYPE, DownloadManager.DOWNLOAD_TYPE_KICKSTART);
             params.put(TREE, tree);
             params.put(CHILD, child);
@@ -292,7 +292,7 @@ public class DownloadFile extends DownloadAction {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return mapping.findForward("error");
         }
-        HashMap params = new HashMap();
+        Map params = new HashMap();
         params.put(TYPE, DownloadManager.DOWNLOAD_TYPE_KICKSTART);
         params.put(TREE, tree);
         params.put(FILENAME, path);

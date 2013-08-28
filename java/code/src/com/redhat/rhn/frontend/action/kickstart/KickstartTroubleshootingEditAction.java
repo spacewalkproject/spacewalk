@@ -24,6 +24,7 @@ import org.apache.struts.action.DynaActionForm;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -118,7 +119,7 @@ public class KickstartTroubleshootingEditAction extends BaseKickstartEditAction 
                   ];
         */
 
-        HashMap grub = new HashMap();
+        Map grub = new HashMap();
         grub.put("display", "GRUB");
         grub.put("value", "grub");
 
@@ -126,7 +127,7 @@ public class KickstartTroubleshootingEditAction extends BaseKickstartEditAction 
 
         displayList.add(grub);
         if (!cmd.getKickstartData().isRhel5OrGreater()) {
-            HashMap lilo = new HashMap();
+            Map lilo = new HashMap();
             lilo.put("display", "LILO");
             lilo.put("value", "lilo");
 

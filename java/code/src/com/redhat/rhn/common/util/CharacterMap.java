@@ -19,6 +19,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * An wrapper around HashMap that ONLY acccepts
@@ -31,7 +32,7 @@ import java.util.HashMap;
  */
 public class CharacterMap implements Serializable {
 
-    private HashMap innerMap;
+    private Map innerMap;
 
     // increase this number on any data change
     private static final long serialVersionUID = 1L;

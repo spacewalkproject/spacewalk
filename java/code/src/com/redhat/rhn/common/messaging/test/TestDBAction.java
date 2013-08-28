@@ -22,6 +22,7 @@ import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.testing.TestUtils;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class TestDBAction implements MessageAction {
 
@@ -44,7 +45,7 @@ public class TestDBAction implements MessageAction {
     public void execute(EventMessage msg) {
         TestDBEventMessage tm = (TestDBEventMessage) msg;
         System.out.println("Execute ..");
-        HashMap params = new HashMap();
+        Map params = new HashMap();
         params.put("data", tm.getTestString());
         DataResult dr =
             TestUtils.runTestQuery("select_test_time_series", params);

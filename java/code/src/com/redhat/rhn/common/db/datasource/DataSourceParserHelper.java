@@ -22,6 +22,7 @@ import org.xml.sax.SAXException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.ListIterator;
+import java.util.Map;
 
 /**
  * A contentHandler that knows how to parse the DataSource XML files.
@@ -37,8 +38,8 @@ class DataSourceParserHelper implements ContentHandler {
     private static final int MODE_AFTER_QUERY = 4;
     private static final int IN_ELABORATOR = 5;
 
-    private HashMap internal_queries;
-    private HashMap modes;
+    private Map internal_queries;
+    private Map modes;
     private Mode m;
     private CachedStatement q;
     private int state;
@@ -57,7 +58,7 @@ class DataSourceParserHelper implements ContentHandler {
      * Get the modes Map
      * @return the modes map.
      */
-    public HashMap getModes() {
+    public Map getModes() {
         return modes;
     }
 

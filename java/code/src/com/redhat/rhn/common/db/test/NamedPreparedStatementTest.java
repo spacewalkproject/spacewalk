@@ -24,6 +24,7 @@ import org.hibernate.Session;
 import java.sql.PreparedStatement;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class NamedPreparedStatementTest extends RhnBaseTestCase {
 
@@ -87,7 +88,7 @@ public class NamedPreparedStatementTest extends RhnBaseTestCase {
 
     public void testColonInQuotes() throws Exception {
         String jdbcQuery;
-        HashMap pMap = new HashMap();
+        Map pMap = new HashMap();
 
         jdbcQuery = NamedPreparedStatement.replaceBindParams(COLON_IN_QUOTES,
                                                              pMap);
@@ -99,7 +100,7 @@ public class NamedPreparedStatementTest extends RhnBaseTestCase {
 
     public void testCreateSQL() throws Exception {
         String jdbcQuery;
-        HashMap pMap = new HashMap();
+        Map pMap = new HashMap();
 
         jdbcQuery = NamedPreparedStatement.replaceBindParams(SIMPLE_QUERY,
                                                              pMap);
@@ -113,7 +114,7 @@ public class NamedPreparedStatementTest extends RhnBaseTestCase {
 
     public void testPrepare() throws Exception {
         String jdbcQuery;
-        HashMap pMap = new HashMap();
+        Map pMap = new HashMap();
 
         jdbcQuery = NamedPreparedStatement.replaceBindParams(SIMPLE_QUERY,
                                                              pMap);
@@ -130,7 +131,7 @@ public class NamedPreparedStatementTest extends RhnBaseTestCase {
     public void testTwoBindPrepare() throws Exception {
         List lst;
         String jdbcQuery;
-        HashMap pMap = new HashMap();
+        Map pMap = new HashMap();
 
         jdbcQuery = NamedPreparedStatement.replaceBindParams(TWO_VAR_QUERY,
                                                              pMap);
@@ -153,7 +154,7 @@ public class NamedPreparedStatementTest extends RhnBaseTestCase {
     public void testNotFoundBindParam() throws Exception {
         List lst;
         String jdbcQuery;
-        HashMap pMap = new HashMap();
+        Map pMap = new HashMap();
 
         jdbcQuery = NamedPreparedStatement.replaceBindParams(TWO_VAR_QUERY,
                                                              pMap);
@@ -172,7 +173,7 @@ public class NamedPreparedStatementTest extends RhnBaseTestCase {
 
         PreparedStatement ps = session.connection().prepareStatement(jdbcQuery);
 
-        HashMap parameters = new HashMap();
+        Map parameters = new HashMap();
         parameters.put("BAD_DATA", "GARBAGE");
         try {
             NamedPreparedStatement.execute(ps, pMap, parameters);

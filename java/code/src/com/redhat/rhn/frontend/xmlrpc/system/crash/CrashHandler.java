@@ -235,7 +235,7 @@ public class CrashHandler extends BaseHandler {
         List returnList = new ArrayList();
 
         for (CrashFile crashFile : crash.getCrashFiles()) {
-            HashMap crashMap = new HashMap();
+            Map crashMap = new HashMap();
             crashMap.put("id", crashFile.getId());
             crashMap.put("filename", crashFile.getFilename());
             crashMap.put("path", crashFile.getPath());
@@ -393,7 +393,7 @@ public class CrashHandler extends BaseHandler {
                 crashId.longValue());
         List returnList = new ArrayList();
         for (CrashNote cn : c.getCrashNotes()) {
-            HashMap crashNotesMap = new HashMap();
+            Map crashNotesMap = new HashMap();
             crashNotesMap.put("id", cn.getId());
             crashNotesMap.put("subject", cn.getSubject());
             crashNotesMap.put("details", cn.getNote() == null ? "" : cn.getNote());
@@ -426,7 +426,7 @@ public class CrashHandler extends BaseHandler {
         List returnList = new ArrayList();
         for (IdenticalCrashesDto ic : CrashFactory.listIdenticalCrashesForOrg(user,
             user.getOrg())) {
-            HashMap crashMap = new HashMap();
+            Map crashMap = new HashMap();
             crashMap.put("uuid", ic.getUuid());
             String component = ic.getComponent();
             if (component != null) {
@@ -468,7 +468,7 @@ public class CrashHandler extends BaseHandler {
         List returnList = new ArrayList();
         for (CrashSystemsDto cs : CrashFactory.listCrashSystems(user,
             user.getOrg(), uuid)) {
-            HashMap crashMap = new HashMap();
+            Map crashMap = new HashMap();
             crashMap.put("server_id", cs.getServerId());
             crashMap.put("server_name", cs.getServerName());
             crashMap.put("crash_id", cs.getCrashId());

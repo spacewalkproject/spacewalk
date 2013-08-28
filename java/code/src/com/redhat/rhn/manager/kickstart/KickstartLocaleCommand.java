@@ -30,6 +30,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * KickstartLocaleCommand - for editing locale-related options
@@ -130,7 +131,7 @@ public class KickstartLocaleCommand extends BaseKickstartCommand {
 
         while (iter.hasNext()) {
             TimezoneDto old = (TimezoneDto) iter.next();
-            HashMap row = new HashMap();
+            Map row = new HashMap();
             row.put("display", old.getName());
             row.put("value", old.getLabel());
 
