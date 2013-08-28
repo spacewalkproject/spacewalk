@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.1.6
+Version: 2.1.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -331,6 +331,10 @@ fi
 
 
 %changelog
+* Wed Aug 28 2013 Tomas Lestach <tlestach@redhat.com> 2.1.7-1
+- 1001997 - let spacewalk-proxy-management require spacewalk-base-minimal-
+  config
+
 * Fri Aug 23 2013 Stephen Herr <sherr@redhat.com> 2.1.6-1
 - 1000586 - fixing line lenth error
 
