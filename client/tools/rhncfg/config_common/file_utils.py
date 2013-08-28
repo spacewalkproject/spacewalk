@@ -210,3 +210,54 @@ def maketemp(prefix=None, directory=None, symlink=None):
         open_file = os.fdopen(fd, "w+")
 
     return filename, dirs_created, open_file
+
+# Duplicated from backend/common/fileutils.py to remove dependency requirement.
+# If making changes make them there too.
+FILETYPE2CHAR = {
+    'file'      : '-',
+    'directory' : 'd',
+    'symlink'   : 'l',
+    'chardev'   : 'c',
+    'blockdev'  : 'b',
+}
+
+# Duplicated from backend/common/fileutils.py to remove dependency requirement.
+# If making changes make them there too.
+def _ifelse(cond, thenval, elseval):
+    if cond:
+        return thenval
+    else:
+        return elseval
+
+# Duplicated from backend/common/fileutils.py to remove dependency requirement.
+# If making changes make them there too.
+def ostr_to_sym(octstr, ftype):
+    """ Convert filemode in octets (like '644') to string like "ls -l" ("-rwxrw-rw-")
+        ftype is one of: file, directory, symlink, chardev, blockdev.
+    """
+    mode = int(str(octstr), 8)
+
+    symstr = FILETYPE2CHAR.get(ftype, '?')
+
+    symstr += _ifelse(mode & stat.S_IRUSR, 'r', '-')
+    symstr += _ifelse(mode & stat.S_IWUSR, 'w', '-')
+    symstr += _ifelse(mode & stat.S_IXUSR,
+                      _ifelse(mode & stat.S_ISUID, 's', 'x'),
+                      _ifelse(mode & stat.S_ISUID, 'S', '-'))
+    symstr += _ifelse(mode & stat.S_IRGRP, 'r', '-')
+    symstr += _ifelse(mode & stat.S_IWGRP, 'w', '-')
+    symstr += _ifelse(mode & stat.S_IXGRP,
+                      _ifelse(mode & stat.S_ISGID, 's', 'x'),
+                      _ifelse(mode & stat.S_ISGID, 'S', '-'))
+    symstr += _ifelse(mode & stat.S_IROTH, 'r', '-')
+    symstr += _ifelse(mode & stat.S_IWOTH, 'w', '-')
+    symstr += _ifelse(mode & stat.S_IXOTH,
+                      _ifelse(mode & stat.S_ISVTX, 't', 'x'),
+                      _ifelse(mode & stat.S_ISVTX, 'T', '-'))
+    return symstr
+
+# Duplicated from backend/common/fileutils.py to remove dependency requirement.
+# If making changes make them there too.
+def f_date(dbiDate):
+    return "%04d-%02d-%02d %02d:%02d:%02d" % (dbiDate.year, dbiDate.month,
+        dbiDate.day, dbiDate.hour, dbiDate.minute, dbiDate.second)

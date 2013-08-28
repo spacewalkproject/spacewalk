@@ -21,7 +21,7 @@ import sys
 
 from config_common import handler_base, utils, cfg_exceptions
 from config_common.rhn_log import log_debug, die
-from spacewalk.common.fileutils import f_date, ostr_to_sym
+from config_common.file_utils import f_date, ostr_to_sym
 
 
 class Handler(handler_base.HandlerBase):

@@ -27,7 +27,6 @@ Requires: rhn-client-tools
 %endif
 %endif
 
-Requires: spacewalk-backend-libs >= 1.3.32-1
 %if 0%{?suse_version}
 # provide rhn directories and no selinux on suse
 BuildRequires: rhn-client-tools
