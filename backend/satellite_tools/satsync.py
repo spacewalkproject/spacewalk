@@ -2215,7 +2215,7 @@ def processCommandline():
 
     if OPTIONS.master:
         if not OPTIONS.mount_point:
-            mst = _("ERROR: The --master option is only valid with the --mount-point option")
+            msg = _("ERROR: The --master option is only valid with the --mount-point option")
             log2stderr(-1, msg, cleanYN=1)
             sys.exit(28)
     elif CFG.ISS_PARENT:
