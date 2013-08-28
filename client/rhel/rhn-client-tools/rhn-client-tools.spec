@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.1.3
+Version: 2.1.4
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -357,6 +357,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Aug 28 2013 Milan Zazrivec <mzazrivec@redhat.com> 2.1.4-1
+- No firstboot modules on RHEL 7 and later
+
 * Thu Aug 15 2013 Stephen Herr <sherr@redhat.com> 2.1.3-1
 - 919432 - rhn-client-tools should correctly conflict with old virt-host
   versions
