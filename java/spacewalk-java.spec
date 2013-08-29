@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.30
+Version: 2.1.31
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Aug 29 2013 Tomas Lestach <tlestach@redhat.com> 2.1.31-1
+- 855845 - escaping server name for ssm package verify
+- 855845 - escaping server name for ssm package upgrade
+- 855845 - escaping server name for ssm package removal
+- 855845 - escaping server name for ssm package list
+- 855845 - escaping server name for
+  /rhn/systems/details/packages/profiles/ShowProfiles.do
+- 1001826 - fix the API error msg
+- Using Map instead of HashMap where possible
+
 * Thu Aug 29 2013 Tomas Lestach <tlestach@redhat.com> 2.1.30-1
 - 1002183 - allow trusted orgs to list out subscribed systems to shared
   channels
