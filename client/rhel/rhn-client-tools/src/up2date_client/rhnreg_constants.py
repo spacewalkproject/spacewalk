@@ -175,7 +175,7 @@ CHANNELS_SAT_WARNING    = _("Warning: Only installed product listed above will r
                             "to receive updates for additional products, please "
                             "login to your satellite web interface "
                             "and subscribe this system to the appropriate "
-                            "software channels. See Kbase article"
+                            "software channels. See Kbase article "
                             "for more details. "
                             "(http://kbase.redhat.com/faq/docs/DOC-11313)")
 YUM_PLUGIN_WARNING		= _("Warning: yum-rhn-plugin is not present, could not enable it.\n"
