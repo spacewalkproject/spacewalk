@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.1.13
+Version:        2.1.14
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Aug 29 2013 Stephen Herr <sherr@redhat.com> 2.1.14-1
+- 999453 - update rhnServerNeededView to make it easier to optimize for fast
+  execution
+
 * Wed Aug 21 2013 Stephen Herr <sherr@redhat.com> 2.1.13-1
 - 998424 - removing bad initial condition from max(evr_t)
 - Revert "998424 - rpm version comparison function was broken for alphanumeric
