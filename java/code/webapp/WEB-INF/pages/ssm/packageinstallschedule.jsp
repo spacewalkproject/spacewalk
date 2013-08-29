@@ -33,7 +33,7 @@
 
         <rl:column headerkey="actions.jsp.system" bound="false"
                    sortattr="name" sortable="true">
-            ${current.name}
+            <c:out value="${current.name}" escapeXml="true" />
         </rl:column>
 
     </rl:list>
