@@ -20,6 +20,7 @@ import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelNameException;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -72,6 +73,10 @@ public class NewChannelHelper {
             throw new InvalidChannelLabelException(label,
                     InvalidChannelLabelException.Reason.REGEX_FAILS,
                     "edit.channel.invalidchannellabel.supportedregex", "");
+        }
+
+        if (summary == null || StringUtils.isEmpty(summary)) {
+            throw new InvalidChannelParameter("Summary","Summary must be provided.");
         }
 
         if (gpgFingerprint != null && !verifyGpgFingerprint(gpgFingerprint)) {
