@@ -18,6 +18,8 @@ import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.user.UserManager;
+import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidChannelNameException;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -61,17 +63,15 @@ public class NewChannelHelper {
     public Channel clone(boolean originalState, Channel toClone) {
 
         if (!verifyName(name)) {
-            throw new InvalidChannelParameter(name, "It must be at least 6 characters " +
-                    "long, begin with a letter, and contain only lowercase letters, " +
-                    "digits, '-', ' / ', '_' and '.'.  Also, it cannot begin with " +
-                    "'rhn', 'redhat', or 'red hat'.");
+            throw new InvalidChannelNameException(name,
+                    InvalidChannelNameException.Reason.REGEX_FAILS,
+                    "edit.channel.invalidchannelname.supportedregex", "");
         }
 
         if (!verifyLabel(label)) {
-            throw new InvalidChannelParameter(label, "It Must  be at least 6 characters " +
-                    "long, begin with a letter, and contain only lowercase letters, " +
-                    "digits, '-', '_', and '.'.  Also, it cannot begin with 'rhn', " +
-                    "'redhat', or 'red hat'.");
+            throw new InvalidChannelLabelException(label,
+                    InvalidChannelLabelException.Reason.REGEX_FAILS,
+                    "edit.channel.invalidchannellabel.supportedregex", "");
         }
 
         if (gpgFingerprint != null && !verifyGpgFingerprint(gpgFingerprint)) {

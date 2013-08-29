@@ -7449,7 +7449,7 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       </trans-unit>
       <trans-unit id="edit.channel.invalidchannelname.supportedregex">
-        <source>Channel name must begin with a letter and may contain only lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), numerals, spaces and forward slashes ('/').</source>
+        <source>Channel name must be at least 6 characters long, begin with a letter and may contain only lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), numerals, spaces, parentheses and forward slashes ('/').</source>
       </trans-unit>
       <trans-unit id="edit.channel.invalidchannelname.redhat">
         <source>Channels names must not start with '{0}'</source>
@@ -7494,7 +7494,7 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       </trans-unit>
       <trans-unit id="edit.channel.invalidchannellabel.supportedregex">
-        <source>Channel label must begin with a letter and may contain only lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and numerals.</source>
+        <source>Channel label must be at least 6 characters long, begin with a letter or digit and may contain only lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and numerals.</source>
       </trans-unit>
       <trans-unit id="edit.channel.invalidchannellabel.redhat">
         <source>Channel labels must not start with '{0}'</source>
