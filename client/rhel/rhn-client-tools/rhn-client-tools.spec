@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.1.4
+Version: 2.1.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -357,6 +357,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Thu Aug 29 2013 Tomas Lestach <tlestach@redhat.com> 2.1.5-1
+- fix source string typo
+
 * Wed Aug 28 2013 Milan Zazrivec <mzazrivec@redhat.com> 2.1.4-1
 - No firstboot modules on RHEL 7 and later
 
