@@ -4,7 +4,7 @@
 
 SPACEWALK_FILES = __init__
 CODE_DIRS = common server upload_server satellite_tools satellite_exporter po wsgi
-CONF_DIRS = apache-conf httpd-conf rhn-conf logrotate
+CONF_DIRS = apache-conf rhn-conf logrotate
 
 # We look for config files in "well known" locations (rhn-conf,
 # httpd-conf, logrotate)
