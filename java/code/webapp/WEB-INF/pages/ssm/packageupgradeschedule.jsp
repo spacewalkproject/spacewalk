@@ -35,7 +35,7 @@
 
         <rl:column headerkey="actions.jsp.system" bound="false"
                    sortattr="name" sortable="true">
-            ${current.server_name}
+            <c:out value="${current.server_name}" escapeXml="true" />
         </rl:column>
 
         <rl:column headerkey="ssm.package.upgrade.schedule.packages" bound="false"
