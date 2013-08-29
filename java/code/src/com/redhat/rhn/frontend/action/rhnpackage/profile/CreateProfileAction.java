@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.rhnpackage.profile;
 
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.channel.NoBaseChannelFoundException;
 import com.redhat.rhn.domain.rhnpackage.profile.DuplicateProfileNameException;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
@@ -130,7 +131,7 @@ public class CreateProfileAction extends RhnAction {
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("create.jsp.successmessage",
                             name,
-                            server.getName()));
+                            StringUtil.htmlifyText(server.getName())));
         }
         catch (DuplicateProfileNameException dbe) {
             ActionMessages errors = new ActionMessages();
