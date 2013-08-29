@@ -30,7 +30,7 @@
 
         <rl:column headerkey="actions.jsp.system" bound="false"
                    sortattr="name" sortable="true">
-            ${current.system_name}
+            <c:out value="${current.system_name}" escapeXml="true" />
         </rl:column>
 
         <rl:column headerkey="ssm.package.verify.schedule.packages" bound="false"
