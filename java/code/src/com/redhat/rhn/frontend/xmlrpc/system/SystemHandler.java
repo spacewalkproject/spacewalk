@@ -2709,10 +2709,13 @@ public class SystemHandler extends BaseHandler {
      * @return an array of Integers containing the system Ids
      *
      * @xmlrpc.doc Returns a list of system IDs whose name matches
-     *  the supplied regular expression.
+     *  the supplied regular expression(defined by
+     *  <a href="http://docs.oracle.com/javase/1.4.2/docs/api/java/util/regex/Pattern.html">
+     * Java representation of regular expressions</a>)
+     *
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param_desc("string", "regexp",  "A regular expression as defined
-     * at http://java.sun.com/j2se/1.4.2/docs/api/java/util/regex/Pattern.html")
+     * @xmlrpc.param #param_desc("string", "regexp",  "A regular expression")
+     *
      * @xmlrpc.returntype
      *           #array()
      *              $SystemOverviewSerializer
