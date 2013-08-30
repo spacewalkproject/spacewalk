@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.15
+Version: 2.1.16
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -272,6 +272,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Aug 30 2013 Tomas Lestach <tlestach@redhat.com> 2.1.16-1
+- 1002905 - fix ISE on /network/systems/system_list/flex_in_channel_family.pxt
+
 * Fri Aug 30 2013 Tomas Lestach <tlestach@redhat.com> 2.1.15-1
 - 1001826 - restrictions to channel name (update)
 
