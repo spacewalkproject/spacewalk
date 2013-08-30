@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.31
+Version: 2.1.32
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Aug 30 2013 Tomas Lestach <tlestach@redhat.com> 2.1.32-1
+- 1002316 - Cloning API generates ISE if no summary
+
 * Thu Aug 29 2013 Tomas Lestach <tlestach@redhat.com> 2.1.31-1
 - 855845 - escaping server name for ssm package verify
 - 855845 - escaping server name for ssm package upgrade
