@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.1.11
+Version:	2.1.12
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -88,6 +88,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Aug 30 2013 Tomas Lestach <tlestach@redhat.com> 2.1.12-1
+- removing, to be implemented in spacecmd
+- 1002232 - remove extraneous error-log invoke
+
 * Fri Aug 23 2013 Tomas Lestach <tlestach@redhat.com> 2.1.11-1
 - 993047 - ignore, if activation key already exists
 
