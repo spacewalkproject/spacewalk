@@ -216,7 +216,7 @@ ORDER BY UPPER(C.name)
   <query params="org_id">
 SELECT CFO.id, CFO.name, CFO.label, CFO.current_members, CFO.max_members, CFO.has_subscription, CFO.url,
 		CFO.fve_current_members as current_flex, CFO.fve_max_members as max_flex,
-		(select count(*)
+		(select count(distinct s.id)
 		    from rhnServerChannel sc
 		         inner join rhnChannelFamilyMembers CFM on CFM.channel_id = sc.channel_id
 		         inner join rhnServer s on s.id = sc.server_id
