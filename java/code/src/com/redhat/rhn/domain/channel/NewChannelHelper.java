@@ -76,7 +76,7 @@ public class NewChannelHelper {
         }
 
         if (summary == null || StringUtils.isEmpty(summary)) {
-            throw new InvalidChannelParameter("Summary","Summary must be provided.");
+            throw new InvalidChannelParameter("Summary", "Summary must be provided.");
         }
 
         if (gpgFingerprint != null && !verifyGpgFingerprint(gpgFingerprint)) {
