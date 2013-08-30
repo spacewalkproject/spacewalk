@@ -362,7 +362,7 @@ class SharedHandler:
         http_connection.endheaders()
 
         # Send the body too if there is a body
-        if size != 0:
+        if size > 0:
             if sys.version_info < (2,6):
                 data = self.req.headers_in['wsgi.input'].read(size)
             else:
