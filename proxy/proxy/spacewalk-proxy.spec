@@ -72,11 +72,7 @@ Requires: spacewalk-proxy-package-manager
 Requires: spacewalk-ssl-cert-check
 Requires: httpd
 Requires: mod_ssl
-%if  0%{?rhel} && 0%{?rhel} < 6
-Requires: mod_python
-%else
 Requires: mod_wsgi
-%endif
 Requires(post): %{name}-common
 Conflicts: %{name}-redirect < %{version}-%{release}
 Conflicts: %{name}-redirect > %{version}-%{release}
@@ -116,11 +112,7 @@ between an Spacewalk Proxy Server and parent Spacewalk server.
 Group:   Applications/Internet
 Summary: Modules shared by Spacewalk Proxy components
 Requires: mod_ssl
-%if  0%{?rhel} && 0%{?rhel} < 6
-Requires: mod_python
-%else
 Requires: mod_wsgi
-%endif
 Requires: %{name}-broker >= %{version}
 Requires: spacewalk-backend >= 1.7.24
 Requires: policycoreutils
@@ -171,13 +163,6 @@ install -d -m 750 $RPM_BUILD_ROOT/%{_datadir}/spacewalk
 mkdir -p $RPM_BUILD_ROOT/%{_var}/spool/rhn-proxy/list
 
 touch $RPM_BUILD_ROOT/%{httpdconf}/cobbler-proxy.conf
-
-%if  0%{?rhel} && 0%{?rhel} < 6
-rm -fv $RPM_BUILD_ROOT%{httpdconf}/spacewalk-proxy-wsgi.conf
-rm -rfv $RPM_BUILD_ROOT%{rhnroot}/wsgi/
-%else
-rm -fv $RPM_BUILD_ROOT%{httpdconf}/spacewalk-proxy-python.conf
-%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -301,13 +286,9 @@ fi
 %attr(644,root,apache) %config %{httpdconf}/spacewalk-proxy.conf
 # this file is created by either cli or webui installer
 %ghost %config %{httpdconf}/cobbler-proxy.conf
-%if  0%{?rhel} && 0%{?rhel} < 6
-%attr(644,root,apache) %config %{httpdconf}/spacewalk-proxy-python.conf
-%else
 %attr(644,root,apache) %config %{httpdconf}/spacewalk-proxy-wsgi.conf
 %{rhnroot}/wsgi/xmlrpc.py*
 %{rhnroot}/wsgi/xmlrpc_redirect.py*
-%endif
 # the cache
 %attr(750,apache,root) %dir %{_var}/cache/rhn
 %attr(750,apache,root) %dir %{_var}/cache/rhn/proxy-auth
