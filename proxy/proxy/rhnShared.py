@@ -363,7 +363,11 @@ class SharedHandler:
 
         # Send the body too if there is a body
         if size != 0:
-            http_connection.send(self.req.headers_in['wsgi.input'])
+            if sys.version_info < (2,6):
+                data = self.req.headers_in['wsgi.input'].read(size)
+            else:
+                data = self.req.headers_in['wsgi.input']
+            http_connection.send(data)
 
         # At this point everything is sent to the server
         # We now wait for the response
