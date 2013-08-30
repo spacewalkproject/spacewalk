@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.1.7
+Version: 2.1.8
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -312,6 +312,9 @@ fi
 
 
 %changelog
+* Fri Aug 30 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.8-1
+- 1002007 - use mod_wsgi even on RHEL5
+
 * Wed Aug 28 2013 Tomas Lestach <tlestach@redhat.com> 2.1.7-1
 - 1001997 - let spacewalk-proxy-management require spacewalk-base-minimal-
   config
