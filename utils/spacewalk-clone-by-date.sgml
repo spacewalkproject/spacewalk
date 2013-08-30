@@ -83,7 +83,7 @@ Utility for cloning errata by date.
 <RefSect1><Title>Description</Title>
 
     <para>
-        <emphasis>spacewalk-clone-by-date</emphasis> clones all the errata belonging to a specified channel, as of a specific date. 
+        <emphasis>spacewalk-clone-by-date</emphasis> tool, clones all the errata belonging to a specified channel, as of a specific date.
     </para>
 
     <para>
