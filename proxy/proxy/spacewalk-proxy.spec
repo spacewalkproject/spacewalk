@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.1.9
+Version: 2.1.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -312,6 +312,9 @@ fi
 
 
 %changelog
+* Fri Aug 30 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.10-1
+- fixed pylint error
+
 * Fri Aug 30 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.9-1
 - 1002007 - don't send empty data
 - 1002007 - python 2.4 HTTPConnection can't read directly from object
