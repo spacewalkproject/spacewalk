@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.33
+Version: 2.1.34
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Sep 02 2013 Tomas Lestach <tlestach@redhat.com> 2.1.34-1
+- 822289 - do not offer compatible child channel if not unique (when changing
+  base channel)
+
 * Mon Sep 02 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.33-1
 - common.db.datasource tests: get database username from configuration file
 - 906315 - Links in API documentation
