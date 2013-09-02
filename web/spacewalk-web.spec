@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.16
+Version: 2.1.17
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -272,6 +272,12 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Sep 02 2013 Tomas Lestach <tlestach@redhat.com> 2.1.17-1
+- 1001922 - set correct menu for reboot_confirm.pxt
+- update Provisioning - Schedule url
+- update remote command menu url
+- 993978 - removing oracle specific code
+
 * Fri Aug 30 2013 Tomas Lestach <tlestach@redhat.com> 2.1.16-1
 - 1002905 - fix ISE on /network/systems/system_list/flex_in_channel_family.pxt
 
