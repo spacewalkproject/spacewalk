@@ -489,7 +489,7 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
     public static void addKickstartPackageToChannel(String packageName, Channel channel)
     throws Exception {
         PackageCapability kickstartCapability =  findOrCreateKickstartCapability();
-        com.redhat.rhn.domain.rhnpackage.Package kickstartPkg =
+        Package kickstartPkg =
             PackageManagerTest.addPackageToChannel(packageName, channel);
 
         WriteMode m = ModeFactory.getWriteMode("test_queries",

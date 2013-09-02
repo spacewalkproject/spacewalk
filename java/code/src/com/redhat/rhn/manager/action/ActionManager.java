@@ -228,7 +228,7 @@ public class ActionManager extends BaseManager {
      * @param actionsToCancel List of actions to be cancelled.
      */
     public static void cancelActions(User user, List actionsToCancel) {
-        java.util.Iterator it = actionsToCancel.iterator();
+        Iterator it = actionsToCancel.iterator();
         while (it.hasNext()) {
             Action a = (Action)it.next();
             cancelAction(user, a);

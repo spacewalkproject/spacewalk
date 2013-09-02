@@ -346,7 +346,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
             String cobblerId = (String) context.getRequest().getAttribute(
                     RequestContext.COBBLER_ID);
             User user = context.getLoggedInUser();
-            Profile cobblerProfile = org.cobbler.Profile.lookupById(
+            Profile cobblerProfile = Profile.lookupById(
                     CobblerXMLRPCHelper.getConnection(user), cobblerId);
             context.getRequest().setAttribute(PROFILE, cobblerProfile);
         }

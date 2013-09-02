@@ -28,7 +28,7 @@ public class TranslationsTest extends RhnBaseTestCase {
         try {
             // Try a translation that should be impossible.  This should make
             // sure that nobody ever writes a translator to do this.
-            TestTranslations.convert("hmmm", java.util.List.class);
+            TestTranslations.convert("hmmm", List.class);
             fail("Shouldn't be able to translate from String to list");
         }
         catch (TranslationException e) {
@@ -41,7 +41,7 @@ public class TranslationsTest extends RhnBaseTestCase {
 
         long current = System.currentTimeMillis();
         Date translated = (Date)TestTranslations.convert(new Long(current),
-                                                   java.util.Date.class);
+                                                   Date.class);
         assertEquals(new Date(current), translated);
     }
 

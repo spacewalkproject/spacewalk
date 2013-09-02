@@ -103,7 +103,7 @@ public class MessagesTest extends RhnBaseTestCase {
     public void testXmlGetGermanString() {
 
         String gmessage = XmlMessages.getInstance().getMessage(
-            clazz, new java.util.Locale("de", "DE"), "getMessage");
+            clazz, new Locale("de", "DE"), "getMessage");
         assertEquals(germanMessage, gmessage);
     }
 
