@@ -102,6 +102,23 @@ create() {
     postgresql_service enable
 
     if [ ! -d "$PG_DATA/base" ] ; then
+        if /usr/sbin/selinuxenabled; then
+            SEMODE=$(/usr/sbin/getenforce)
+            if [ "$SEMODE" = 'Permissive' -o "$SEMODE" = 'Enforcing' ]; then
+                PGHOME=$(getent passwd postgres | awk -F: '{print $6}')
+                RCONOUT=$(/sbin/restorecon -Rnv $PGHOME)
+                if [ -n "$RCONOUT" ]; then
+                    echo
+                    echo "The directory \"$PGHOME\" does not seem to have correct SELinux context."
+                    echo
+                    echo "Please fix the SELinux context by running:"
+                    echo
+                    echo "    restorecon -Rv $PGHOME"
+                    echo
+                    exit 1
+                fi
+            fi
+        fi
         postgresql_service initdb
     fi
 
