@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.db.datasource.DataResult;
@@ -37,12 +38,11 @@ public class DataListTest extends RhnBaseTestCase {
     public void setUp() {
         if (ConfigDefaults.get().isOracle()) {
             db_sufix = "_or";
-            db_user = "SPACEUSER";
         }
         else {
             db_sufix = "_pg";
-            db_user = "spaceuser";
         }
+        db_user = Config.get().getString(ConfigDefaults.DB_USER);
 
         hsm = new HookedSelectMode(
                 ModeFactory.getMode("test_queries", "user_tables" + db_sufix));

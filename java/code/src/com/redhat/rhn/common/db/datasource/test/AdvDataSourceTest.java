@@ -15,6 +15,7 @@
 package com.redhat.rhn.common.db.datasource.test;
 
 import com.redhat.rhn.common.ObjectCreateWrapperException;
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataResult;
@@ -60,12 +61,11 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
         super(name);
         if (ConfigDefaults.get().isOracle()) {
             db_sufix = "_or";
-            db_user = "SPACEUSER";
         }
         else {
             db_sufix = "_pg";
-            db_user = "spaceuser";
         }
+        db_user = Config.get().getString(ConfigDefaults.DB_USER);
     }
 
     private void lookup(String foobar, int id, int size) {
