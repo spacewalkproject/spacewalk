@@ -1488,4 +1488,31 @@ def do_activationkey_enable(self, args):
     for akey in keys:
         self.client.activationkey.setDetails(self.session, akey, details)
 
+####################
+
+def help_activationkey_setdescription(self):
+    print 'activationkey_setdescription: Set the activation key description'
+    print
+    print 'usage: activationkey_setdescription KEY DESCRIPTION'
+
+def complete_activationkey_setdescription(self, text, line, beg, end):
+    parts = line.split(' ')
+
+    if len(parts) <= 2:
+        return tab_completer(self.do_activationkey_list('', True), text)
+
+def do_activationkey_setdescription(self, args):
+    (args, options) = parse_arguments(args)
+
+    if not len(args) >= 2:
+        self.help_activationkey_setdescription()
+        return
+
+    akey = args.pop(0)
+    description = ' '.join(args)
+
+    details = { 'description' : description }
+
+    self.client.activationkey.setDetails(self.session, akey, details)
+
 # vim:ts=4:expandtab:
