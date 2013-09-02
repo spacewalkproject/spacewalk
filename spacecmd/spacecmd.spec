@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.1.6
+Version:     2.1.7
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -64,6 +64,13 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Sep 02 2013 Aron Parsons <aronparsons@gmail.com> 2.1.7-1
+- spacecmd: try to use a cached session even if the username is passed on the
+  command line
+- spacecmd: added function activationkey_setdescription
+- spacecmd: fix invalid call to user_confirm in
+  activationkey_setconfigchannelorder
+
 * Sun Aug 25 2013 Aron Parsons <aronparsons@gmail.com> 2.1.6-1
 - spacecmd: remove duplicate packages in system_listupgrades output
 - spacecmd: make the keys used in latest_pkg() configurable
