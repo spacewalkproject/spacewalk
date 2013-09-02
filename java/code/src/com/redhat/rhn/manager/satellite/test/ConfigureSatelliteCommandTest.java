@@ -111,7 +111,7 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
                 Boolean.FALSE.toString());
 
         // Delete the Scout so we can have the script re-set it up.
-        if (user.getOrg().getMonitoringScouts() != null ||
+        if (user.getOrg().getMonitoringScouts() != null &&
                 user.getOrg().getMonitoringScouts().size() != 0) {
             SatCluster cluster = (SatCluster)
                 user.getOrg().getMonitoringScouts().iterator().next();
