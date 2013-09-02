@@ -233,6 +233,9 @@ def do_login(self, args):
     elif self.config.has_key('username'):
         # use the username from before
         username = self.config['username']
+    elif self.options.username:
+        # use the username from before
+        username = self.options.username
     else:
         username = ''
 
@@ -277,10 +280,7 @@ def do_login(self, args):
     session_file = os.path.join(self.conf_dir, server, 'session')
 
     # retrieve a cached session
-    # (skip this if username and password are provided on the command line)
-    if os.path.isfile(session_file) \
-       and not self.options.username \
-       and not self.options.password:
+    if os.path.isfile(session_file) and not self.options.password:
         try:
             sessionfile = open(session_file, 'r')
 
