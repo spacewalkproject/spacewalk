@@ -1,6 +1,6 @@
 Name:         perl-NOCpulse-SetID
 Version:      1.7.1
-Release:      1%{?dist}
+Release:      3%{?dist}
 Summary:      Provides api for correctly changing user identity
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -48,6 +48,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Sep 02 2013 Tomas Lestach <tlestach@redhat.com> 1.7.1-3
+- no changes, rebuild due to release number issues
+
 * Mon Mar 18 2013 Michael Mraka <michael.mraka@redhat.com> 1.7.1-1
 - %%defattr is not needed since rpm 4.4
 
