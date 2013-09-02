@@ -562,8 +562,6 @@ def do_activationkey_setconfigchannelorder(self, args):
     for i in range(len(new_channels)):
         print '[%i] %s' % (i + 1, new_channels[i])
 
-    if not user_confirm(self): return        
-
     self.client.activationkey.setConfigChannels(self.session, 
                                                 [key], 
                                                 new_channels)
