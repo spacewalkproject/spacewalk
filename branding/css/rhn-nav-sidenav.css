@@ -53,6 +53,14 @@
         color: white;
 }
 
+.sidenav-selected ul li.navchild:first-child {
+        margin-top: -10px;
+}
+
+.sidenav-selected ul li.navchild:last-child {
+        margin-bottom: -10px;
+}
+
 #content {
         clear: both;
 }
