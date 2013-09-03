@@ -108,12 +108,16 @@ def report(problem_dir):
         filecontent = None
         with open(path, 'r') as f:
             filecontent = f.read()
+        filesize = os.stat(path)[6]
 
         crash_file_data = {'filename': os.path.basename(i),
                            'path': path,
-                           'filesize': os.stat(path)[6],
-                           'filecontent': base64.encodestring(filecontent),
+                           'filesize': filesize,
+                           'filecontent': base64.encodestring(""),
                            'content-encoding': 'base64'}
+        if server.abrt.is_crashfile_upload_enabled(systemid) and filesize <= server.abrt.get_crashfile_uploadlimit(systemid):
+            crash_file_data['filecontent'] = base64.encodestring(filecontent)
+
         server.abrt.upload_crash_file(systemid, basename, crash_file_data)
 
     return 1

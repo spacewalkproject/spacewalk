@@ -117,6 +117,8 @@ class Abrt(rhnHandler):
         self.functions.append('create_crash')
         self.functions.append('update_crash_count')
         self.functions.append('upload_crash_file')
+        self.functions.append('is_crashfile_upload_enabled')
+        self.functions.append('get_crashfile_uploadlimit')
 
         self.watched_items = ['analyzer',
                               'architecture',
@@ -301,9 +303,12 @@ class Abrt(rhnHandler):
         if not self._is_crashfile_uploading_enabled(server_org_id):
             return 1
         filecontent = base64.decodestring(crash_file['filecontent'])
+        claimed_filesize = crash_file['filesize']
         filesize = len(filecontent)
         sizelimit = self._get_crashfile_sizelimit()
-        if filesize > sizelimit and sizelimit != 0:
+        if (claimed_filesize > sizelimit or filesize > sizelimit) and sizelimit != 0:
+            if filesize == 0:
+                filesize = claimed_filesize
             log_debug(1, "The file [%s] size (%s bytes) is more than allowed (%s bytes), skipping." \
                 % (crash_file['path'], filesize, sizelimit))
             return 0
@@ -367,3 +372,11 @@ class Abrt(rhnHandler):
         f.close()
 
         return 1
+
+    def is_crashfile_upload_enabled(self, system_id):
+        self.auth_system(system_id)
+        return self._is_crashfile_uploading_enabled(self.server.server['org_id'])
+
+    def get_crashfile_uploadlimit(self, system_id):
+        self.auth_system(system_id)
+        return self._get_crashfile_sizelimit()
