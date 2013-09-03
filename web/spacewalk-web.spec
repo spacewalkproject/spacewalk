@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.17
+Version: 2.1.18
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -272,6 +272,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Sep 03 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.18-1
+- new features should be visible also from Perl pages
+
 * Mon Sep 02 2013 Tomas Lestach <tlestach@redhat.com> 2.1.17-1
 - 1001922 - set correct menu for reboot_confirm.pxt
 - update Provisioning - Schedule url
