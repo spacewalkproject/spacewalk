@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.1.1
+Version:    2.1.2
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -74,6 +74,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Sep 03 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.2-1
+- fix redundant margin in perl sidenav
+
 * Tue Aug 06 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.1-1
 - Indent organization configuration dialog to clarify semantics of checkboxes.
 - Bumping package versions for 2.1.
