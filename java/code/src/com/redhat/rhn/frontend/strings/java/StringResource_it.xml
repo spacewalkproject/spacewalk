@@ -251,7 +251,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>Su</target>
+        <target>Documentazione</target>
       </trans-unit>
       <trans-unit id="Account">
         <source>Account</source>

@@ -416,7 +416,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
         </context-group>
-        <target>Полностью квалифицированное имя узла @@PRODUCT_NAME@@</target>
+        <target>Доменное имя @@PRODUCT_NAME@@</target>
       </trans-unit>
       <trans-unit id="RHN_SAT_WEB_PORT">
         <source>@@PRODUCT_NAME@@ webserver port (80 for http, 443 for https)</source>
@@ -445,14 +445,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: если процентная часть доступного места превышает</target>
+        <target>Критично: занято больше чем</target>
       </trans-unit>
       <trans-unit id="Available Space Percent Used Warn if Above">
         <source>Available Space Percent Used Warn if Above</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: если процентная часть доступного места превышает</target>
+        <target>Предупреждение: занято больше чем</target>
       </trans-unit>
       <trans-unit id="BEA Domain Admin Server">
         <source>BEA Domain Admin Server</source>
@@ -900,7 +900,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: запросы повторного выделения места для журнала</target>
+        <target>Критично: запросы места для журнала повтора</target>
       </trans-unit>
       <trans-unit id="Critical Request Rate">
         <source>Critical Request Rate</source>
@@ -1236,7 +1236,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Файл журнала</target>
+        <target>Журнал</target>
       </trans-unit>
       <trans-unit id="MySQL Port">
         <source>MySQL Port</source>
@@ -1376,7 +1376,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Имя очереди</target>
+        <target>Очередь</target>
       </trans-unit>
       <trans-unit id="RHNMD Port">
         <source>RHNMD Port</source>
@@ -1516,7 +1516,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Имя области таблицы</target>
+        <target>Пространство таблиц</target>
       </trans-unit>
       <trans-unit id="Time Blocking (seconds)">
         <source>Time Blocking (seconds)</source>
@@ -1964,7 +1964,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: запросы повторного выделения места для журнала</target>
+        <target>Предупреждение: запросы места для журнала повтора</target>
       </trans-unit>
       <trans-unit id="Warning Request Rate">
         <source>Warning Request Rate</source>
@@ -2154,7 +2154,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Заблокированные процессы</target>
+        <target>Заблокированные</target>
       </trans-unit>
       <trans-unit id="metrics.Blocking sessions">
         <source>Blocking sessions</source>
@@ -2280,7 +2280,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Скорость получения блока DB</target>
+        <target>Скорость получения блоков</target>
       </trans-unit>
       <trans-unit id="metrics.Data dict hit ratio">
         <source>Data dict hit ratio</source>
@@ -2462,7 +2462,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Открыть объекты</target>
+        <target>Открытые объекты</target>
       </trans-unit>
       <trans-unit id="metrics.Opened objects">
         <source>Opened objects</source>
@@ -2588,7 +2588,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Скорость запросов повторного выделения места для журнала</target>
+        <target>Скорость запросов места для журнала повтора</target>
       </trans-unit>
       <trans-unit id="metrics.Reload rate">
         <source>Reload rate</source>
@@ -2851,7 +2851,7 @@
         </trans-unit>
         <trans-unit id="Blocked Processes">
           <source>Blocked Processes</source>
-          <target>Заблокированные процессы</target>
+          <target>Заблокированные</target>
         </trans-unit>
         <trans-unit id="Buffer Cache Hit Ratio">
           <source>Buffer Cache Hit Ratio</source>
@@ -2903,7 +2903,7 @@
         </trans-unit>
         <trans-unit id="DB Block Get Rate">
           <source>DB Block Get Rate</source>
-          <target>Скорость получения блоков DB</target>
+          <target>Скорость получения блоков</target>
         </trans-unit>
         <trans-unit id="Data Dictionary Hit Ratio">
           <source>Data Dictionary Hit Ratio</source>
@@ -2995,7 +2995,7 @@
         </trans-unit>
         <trans-unit id="Open Objects">
           <source>Open Objects</source>
-          <target>Открыть объекты</target>
+          <target>Открытые объекты</target>
         </trans-unit>
         <trans-unit id="Opened Objects">
           <source>Opened Objects</source>
@@ -3047,11 +3047,11 @@
         </trans-unit>
         <trans-unit id="Redo Buffer Allocation Retry Rate">
           <source>Redo Buffer Allocation Retry Rate</source>
-          <target>Скорость повторных попыток выделения буфера возврата</target>
+          <target>Скорость повторных попыток выделения буфера</target>
         </trans-unit>
         <trans-unit id="Redo Log Space Request Rate">
           <source>Redo Log Space Request Rate</source>
-          <target>Скорость запросов возврата места журнала</target>
+          <target>Скорость запросов места для журнала повтора</target>
         </trans-unit>
         <trans-unit id="Regular Expression Match Rate">
           <source>Regular Expression Match Rate</source>
@@ -3302,7 +3302,7 @@
           rhn_command_requirements.name -&gt; rhn_command_requirements.description</note>
         <trans-unit id="npunix">
           <source>RHNMD must be running on the monitored host to perform this check.</source>
-          <target>Для осуществления этой проверки необходимо, чтобы выполнялся RHNMD на контролируемом узле.</target>
+          <target>Для осуществления этой проверки необходимо, чтобы в проверяемой системе работал RHNMD.</target>
         </trans-unit>
         <trans-unit id="oracle">
           <source>Oracle checks require the configuration of the database and public associations made by running $ORACLE_HOME/rdbms/admin/catalog.sql. In addition, in any instance of Oracle, the Oracle user configured in the check must have minimum privileges of CONNECT and SELECT_CATALOG_ROLE.</source>
@@ -3353,7 +3353,7 @@
         </trans-unit>
         <trans-unit id="Log Agent">
           <source>Log Agent</source>
-          <target>Агент журналирования</target>
+          <target>Журналы</target>
         </trans-unit>
         <trans-unit id="MySQL">
           <source>MySQL</source>
@@ -3420,11 +3420,11 @@
         </trans-unit>
         <trans-unit id="Database Accessibility">
           <source>Database Accessibility</source>
-          <target>Доступность базы данных</target>
+          <target>Доступ к базе данных</target>
         </trans-unit>
         <trans-unit id="Disk I/O Throughput">
           <source>Disk I/O Throughput</source>
-          <target>Пропускная способность ввода/ вывода диска</target>
+          <target>Пропускная способность диска</target>
         </trans-unit>
         <trans-unit id="Disk Sort Ratio">
           <source>Disk Sort Ratio</source>
@@ -3440,7 +3440,7 @@
         </trans-unit>
         <trans-unit id="Execute Queue">
           <source>Execute Queue</source>
-          <target>Выполнить очередь</target>
+          <target>Состояние очереди</target>
         </trans-unit>
         <trans-unit id="Execution Time">
           <source>Execution Time</source>
@@ -3484,7 +3484,7 @@
         </trans-unit>
         <trans-unit id="JDBC Connection Pool">
           <source>JDBC Connection Pool</source>
-          <target>Пул соединения JDBC</target>
+          <target>Пул JDBC</target>
         </trans-unit>
         <trans-unit id="Latency">
           <source>Latency</source>
@@ -3504,11 +3504,11 @@
         </trans-unit>
         <trans-unit id="Log Pattern Match">
           <source>Log Pattern Match</source>
-          <target>Соответствие шаблона журналирования</target>
+          <target>Совпадение с шаблоном</target>
         </trans-unit>
         <trans-unit id="Log Size Growth">
           <source>Log Size Growth</source>
-          <target>Рост размера журнала</target>
+          <target>Изменение размера</target>
         </trans-unit>
         <trans-unit id="LongLegs">
           <source>LongLegs</source>
@@ -3516,7 +3516,7 @@
         </trans-unit>
         <trans-unit id="Mail Transfer (SMTP)">
           <source>Mail Transfer (SMTP)</source>
-          <target>Передача почты (SMTP)</target>
+          <target>SMTP</target>
         </trans-unit>
         <trans-unit id="Memory Usage">
           <source>Memory Usage</source>
@@ -3528,7 +3528,7 @@
         </trans-unit>
         <trans-unit id="Opened Tables">
           <source>Opened Tables</source>
-          <target>Открытые таблицы</target>
+          <target>Открытые таблицы (всего)</target>
         </trans-unit>
         <trans-unit id="POP Mail">
           <source>POP Mail</source>
@@ -3576,7 +3576,7 @@
         </trans-unit>
         <trans-unit id="Redo Log">
           <source>Redo Log</source>
-          <target>Протокол повторений (redo)</target>
+          <target>Журнал повтора</target>
         </trans-unit>
         <trans-unit id="Remote Ping">
           <source>Remote Ping</source>
@@ -3636,11 +3636,11 @@
         </trans-unit>
         <trans-unit id="Table Extents">
           <source>Table Extents</source>
-          <target>Диапазоны таблиц</target>
+          <target>Экстенты таблиц</target>
         </trans-unit>
         <trans-unit id="Tablespace Usage">
           <source>Tablespace Usage</source>
-          <target>Использование области таблиц</target>
+          <target>Область таблиц</target>
         </trans-unit>
         <trans-unit id="Threads Running">
           <source>Threads Running</source>

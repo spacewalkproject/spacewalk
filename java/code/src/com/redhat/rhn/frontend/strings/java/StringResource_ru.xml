@@ -235,7 +235,7 @@
         </trans-unit>
         <trans-unit id="Warning">
           <source>Warning</source>
-          <target>Внимание</target>
+          <target>Предупреждение</target>
         </trans-unit>
         <trans-unit id="Custom">
           <source>Custom</source>
@@ -715,7 +715,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>Уведомление</target>
+        <target>Уведомления</target>
       </trans-unit>
       <trans-unit id="Out of Date">
         <source>Out of Date</source>
@@ -883,7 +883,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>Сохранить на сервере</target>
+        <target>Отправить настройки</target>
       </trans-unit>
       <trans-unit id="Search">
         <source>Search</source>
@@ -2795,14 +2795,14 @@ available for this kickstart profile to function properly.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
         </context-group>
-        <target>создать комплект обработчиков</target>
+        <target>создать комплект</target>
       </trans-unit>
       <trans-unit id="toolbar.create.probesuitesystem">
         <source>add systems to probe suite</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
         </context-group>
-        <target>добавить системы к набору обработчиков</target>
+        <target>добавить системы в набор обработчиков</target>
       </trans-unit>
       <trans-unit id="toolbar.delete.profile">
         <source>delete profile</source>
@@ -3900,7 +3900,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</context>
         </context-group>
-        <target>Добавить системы в комплект обработчиков</target>
+        <target>Добавить системы в набор обработчиков</target>
       </trans-unit>
       <trans-unit id="probesuitesystemsedit.jsp.search">
         <source>Search for Systems</source>
@@ -4210,7 +4210,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
         </context-group>
-        <target>Не произведено изменений.</target>
+        <target>Нет изменений.</target>
       </trans-unit>
       <trans-unit id="AD">
         <source>Andorra</source>
@@ -6330,7 +6330,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
-        <target>Система поиска @@PRODUCT_NAME@@</target>
+        <target>Система проверки @@PRODUCT_NAME@@</target>
       </trans-unit>
       <trans-unit id="Panic Destination">
         <source>Panic Destination</source>

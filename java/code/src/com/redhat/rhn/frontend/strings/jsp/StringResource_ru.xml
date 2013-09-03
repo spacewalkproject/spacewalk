@@ -6643,14 +6643,14 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
         </context-group>
-        <target>После обновления опций конфигурации, будет необходим перезапуск служб контроля этого Satellite-сервера и всех ваших серверов @@PRODUCT_NAME@@ Proxy с включенным режимом Мониторинга. Все действия будут назначены автоматически при обновлении этой страницы.</target>
+        <target>После обновления опций конфигурации, будет необходим перезапуск служб контроля этого Satellite-сервера и всех серверов @@PRODUCT_NAME@@ Proxy с включенным режимом мониторинга. Действия будут назначены автоматически при обновлении этой страницы.</target>
       </trans-unit>
       <trans-unit id="generalconfig.jsp.update_config">
         <source>Update Config</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
         </context-group>
-        <target>Обновить конфигурацию</target>
+        <target>Обновить</target>
       </trans-unit>
       <trans-unit id="removeconfirm.jsp.confirmpackageremoval">
         <source>Confirm Package Removal</source>
@@ -6891,14 +6891,14 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Система поиска</target>
+        <target>Система проверки</target>
       </trans-unit>
       <trans-unit id="probeedit.jsp.commandrequirements">
         <source>Probe Requirements</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Требования обработчика</target>
+        <target>Требования</target>
       </trans-unit>
       <trans-unit id="probeedit.jsp.versionsupport">
         <source>Supported Versions</source>
@@ -7011,7 +7011,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/ScheduleRemoteCommand.do</context>
         </context-group>
-        <target>Назначить исполнение команды</target>
+        <target>Назначить</target>
       </trans-unit>
       <trans-unit id="scheduleremote.jsp.summary">
         <source>You can schedule a remote script to execute on this system below.  The script will run as the user you specify.&lt;/p&gt; &lt;p&gt;You must enable Remote Command execution on the target system, by adding a file to the local rhn configuration directory: &lt;code&gt;allowed-actions/script/run/&lt;/code&gt;.</source>
@@ -7376,7 +7376,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteProbeCreate.do</context>
         </context-group>
-        <target>Создать новый обработчик для этого комплекта</target>
+        <target>Создание обработчика в комплекте</target>
       </trans-unit>
       <trans-unit id="probe-edit.jsp.header1">
         <source>Edit probe {0} for suite {1}</source>
@@ -7398,7 +7398,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteProbeCreate.do</context>
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeCreate.do</context>
         </context-group>
-        <target>Командная группа</target>
+        <target>Группа</target>
       </trans-unit>
       <trans-unit id="probecreate.jsp.createprobe">
         <source>Create probe</source>
@@ -7421,21 +7421,21 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
         </context-group>
-        <target>Добавить системы к комплекту обработчиков: {0}</target>
+        <target>Добавить системы в набор обработчиков: {0}</target>
       </trans-unit>
       <trans-unit id="probesuitesystemsedit.jsp.summary">
         <source>This list displays Monitoring entitled systems that have not yet been added to the Suite.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
         </context-group>
-        <target>Данный список отображает системы с полномочиями Мониторинга, которые еще не были добавлены к вашему комплекту.</target>
+        <target>Список отображает системы с полномочиями мониторинга, которые еще не были добавлены в комплект.</target>
       </trans-unit>
       <trans-unit id="probesuitesystemsedit.jsp.monscouttouse">
         <source>Monitoring Scout for Systems added to this Suite:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
         </context-group>
-        <target>Система поиска для систем, добавленных в этот комплект:</target>
+        <target>Система проверки для систем в составе комплекта:</target>
       </trans-unit>
       <trans-unit id="probesuitesystemsedit.jsp.systemname">
         <source>System Name</source>
@@ -8851,7 +8851,7 @@ organization management tools if you choose to remove this role from your login.
         </trans-unit>
         <trans-unit id="methods.jsp.summary">
           <source>Notification Methods are email addresses where Monitoring related alerts generated by Probes will be sent to.</source>
-          <target>Методы уведомлений представляют собой эл.адреса, на которые будут отправлены генерируемые обработчиками сообщения, имеющие отношение к полномочию Мониторинга.</target>
+          <target>Методы уведомлений содержат адреса, на которые будут отправлены сообщения проверок, имеющих отношение к мониторингу.</target>
         </trans-unit>
         <trans-unit id="methods.jsp.methodname">
           <source>Name</source>
@@ -8871,7 +8871,7 @@ organization management tools if you choose to remove this role from your login.
         </trans-unit>
         <trans-unit id="methods.jsp.logintitle">
           <source>Click here to view or create Methods for this User</source>
-          <target>Нажмите здесь для просмотра или создания методов данного пользователя</target>
+          <target>Нажмите здесь для просмотра или создания методов</target>
         </trans-unit>
       </group>
       <group>
@@ -8885,7 +8885,7 @@ organization management tools if you choose to remove this role from your login.
         </trans-unit>
         <trans-unit id="method-create.jsp.summary">
           <source>Fill out this form to create a new Notification Method.  Changes to Probes that use this new Method will require a Scout Config Push.</source>
-          <target>Заполните  форму для создания нового метода уведомлений. Изменения обработчиков, использующих новый метод, потребуют обновить конфигурацию в поисковой системе.</target>
+          <target>Заполните  форму для создания нового метода уведомлений. Изменения обработчиков, использующих новый метод, потребуют обновить конфигурацию.</target>
         </trans-unit>
         <trans-unit id="method-form.jspf.name">
           <source>Name</source>
@@ -8905,11 +8905,11 @@ organization management tools if you choose to remove this role from your login.
         </trans-unit>
         <trans-unit id="method-form.jspf.pager">
           <source>Pager</source>
-          <target>Пэйджер</target>
+          <target>Сводка</target>
         </trans-unit>
         <trans-unit id="method-form.jspf.savemethod">
           <source>Save Method</source>
-          <target>Сохранить метод</target>
+          <target>Сохранить</target>
         </trans-unit>
       </group>
       <trans-unit id="id">
@@ -9001,7 +9001,7 @@ organization management tools if you choose to remove this role from your login.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-        <target>Ниже вы можете настроить @@PRODUCT_NAME@@. Используйте установки HTTP proxy для взаимодействия сервера @@PRODUCT_NAME@@ с родительским сервером @@PRODUCT_NAME@@. Значение HTTP proxy должно быть представлено в форме «узел:порт». Если номер порта опущен, по умолчанию используется порт 8080. Установки HTTP proxy для подключающихся  к @@PRODUCT_NAME@@ клиентов могут отличаться и будут настроены позже. Если вы включили базу данных мониторинга, необходимо также включить систему поиска мониторинга или настроить ее на отдельном сервере. </target>
+        <target>Ниже вы можете настроить @@PRODUCT_NAME@@. Используйте установки HTTP proxy для взаимодействия @@PRODUCT_NAME@@ с родительским сервером @@PRODUCT_NAME@@. HTTP proxy должен быть представлен в форме «узел:порт». Если номер порта опущен, по умолчанию используется  8080. Установки HTTP proxy для клиентов @@PRODUCT_NAME@@ могут отличаться и будут настроены позже. Если вы включили базу данных мониторинга, необходимо также включить систему проверки или настроить ее на отдельном сервере. </target>
       </trans-unit>
       <trans-unit id="general.jsp.org.header">
         <source>@@PRODUCT_NAME@@ Organizations</source>
@@ -9215,7 +9215,7 @@ administrator privileges.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-        <target>Включить систему поиска</target>
+        <target>Включить систему проверки</target>
       </trans-unit>
       <trans-unit id="config.update">
         <source>Update</source>
@@ -18313,7 +18313,7 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/ProbeList.do</context>
         </context-group>
-        <target>Список статусов обработчика</target>
+        <target>Состояние обработчиков</target>
       </trans-unit>
       <trans-unit id="monitoring.probes.jsp.header2">
         <source>Probes</source>
@@ -23835,7 +23835,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="iss.slave.toAll">
         <source>Sync All Orgs to Slave?</source>
-        <target>Синхронизировать организации на подчиненном?</target>
+        <target>Синхронизировать организации?</target>
       </trans-unit>
       <trans-unit id="iss.slave.all">
         <source>Sync All</source>
@@ -23919,7 +23919,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="iss.master.cacert">
         <source>Filename of this Master's CA Certificate</source>
-        <target>Файл CA-сертификата</target>
+        <target>Сертификат CA</target>
       </trans-unit>
       <trans-unit id="iss.master.cacert.note">
         <source>Note that this is the absolute path on the file system of this @@PRODUCT_NAME@@</source>

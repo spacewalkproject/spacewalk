@@ -671,7 +671,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>Конфигурация @@PRODUCT_NAME@@</target>
+        <target>@@PRODUCT_NAME@@</target>
       </trans-unit>
       <trans-unit id="ISS Configuration">
         <source>ISS Configuration</source>

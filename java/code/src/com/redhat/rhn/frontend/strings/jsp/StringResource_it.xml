@@ -23206,7 +23206,7 @@ Sono necessari sia l'etichetta che il nome del canale. Essi devono avere almeno 
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
         </context-group>
-        <target>Qqui è possibile impostare una programmazione del gruppo selezionato.</target>
+        <target>Qui è possibile impostare una programmazione del gruppo selezionato.</target>
       </trans-unit>
       <trans-unit id="schedule.delete.jsp.introparagraph">
         <source>Are you sure you want to delete the schedule? Associated bunch won't get scheduled any more. This can have a huge impact on satellite functionality. Proceed only if you know what you're doing.</source>
