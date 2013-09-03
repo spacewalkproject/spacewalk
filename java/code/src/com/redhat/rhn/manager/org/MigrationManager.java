@@ -38,6 +38,7 @@ import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.manager.system.UpdateChildChannelsCommand;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -173,10 +174,13 @@ public class MigrationManager extends BaseManager {
             }
         }
 
-        SystemManager.removeAllServerEntitlements(server.getId());
+        // Unsubscribe from all channels to change channel entitlements
+        UpdateChildChannelsCommand cmd = new UpdateChildChannelsCommand(user, server,
+                new ArrayList());
+        cmd.store();
+        SystemManager.unsubscribeServerFromChannel(server, server.getBaseChannel());
 
-        // Remove existing channels
-        server.getChannels().clear();
+        SystemManager.removeAllServerEntitlements(server.getId());
     }
 
     /**
