@@ -16,13 +16,19 @@ package com.redhat.rhn.frontend.dto;
 
 import com.redhat.rhn.domain.org.OrgFactory;
 
+import java.io.Serializable;
+
 
 /**
  * OrgChannelFamily
  * @version $Rev$
  */
-public class OrgChannelFamily extends ChannelOverview {
+public class OrgChannelFamily extends ChannelOverview implements Serializable {
 
+    /**
+     * Comment for <code>serialVersionUID</code>
+     */
+    private static final long serialVersionUID = 221028177826475515L;
     private Long satelliteMaxMembers;
     private Long satelliteCurrentMembers;
     private Long satelliteMaxFlexMembers;
