@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Package import process
@@ -33,7 +33,7 @@ class ChannelPackageSubscription(GenericPackageImport):
         # one in the channels - everything else will be unlinked
         GenericPackageImport.__init__(self, batch, backend)
         self.affected_channels = []
-        # A hash keyed on the channel id, and with tuples 
+        # A hash keyed on the channel id, and with tuples
         # (added_packages, removed_packages) as values (packages are package
         # ids)
         self.affected_channel_packages = {}
@@ -122,7 +122,7 @@ class ChannelPackageSubscription(GenericPackageImport):
     def submit(self):
         self.backend.lookupPackages(self.batch, self.checksums)
         try:
-            affected_channels = self.backend.subscribeToChannels(self.batch, 
+            affected_channels = self.backend.subscribeToChannels(self.batch,
                 strict=self._strict_subscription)
         except:
             self.backend.rollback()
@@ -177,7 +177,7 @@ class ChannelPackageSubscription(GenericPackageImport):
             if not channel:
                 # Unknown channel
                 sourcePackage.ignored = 1
-                raise InvalidChannelError(channel, 
+                raise InvalidChannelError(channel,
                     "Unsupported channel %s" % schannelName)
             # Check channel-package compatibility
             charch = channel['channel_arch_id']
@@ -185,14 +185,14 @@ class ChannelPackageSubscription(GenericPackageImport):
             if not archCompat:
                 # Invalid architecture
                 sourcePackage.ignored = 1
-                raise InvalidArchError(charch, 
+                raise InvalidArchError(charch,
                     "Invalid channel architecture %s" % charch)
 
             # Now check if the source package's arch is compatible with the
             # current channel
             if not archCompat.has_key(sourcePackage['package_arch_id']):
                 sourcePackage.ignored = 1
-                raise IncompatibleArchError(sourcePackage.arch, charch, 
+                raise IncompatibleArchError(sourcePackage.arch, charch,
                     "Package arch %s incompatible with channel %s" %
                         (sourcePackage.arch, schannelName))
 
@@ -214,7 +214,7 @@ class PackageImport(ChannelPackageSubscription):
 
     def _processPackage(self, package):
         ChannelPackageSubscription._processPackage(self, package)
-        
+
         # Process package groups
         group = package['package_group']
         if not self.groups.has_key(group):
@@ -265,13 +265,13 @@ class PackageImport(ChannelPackageSubscription):
         unique_package_changelog_hash = {}
         unique_package_changelog = []
         for changelog in package['changelog']:
-            key = (changelog['name'], changelog['time'], changelog['text']) 
+            key = (changelog['name'], changelog['time'], changelog['text'])
             if not unique_package_changelog_hash.has_key(key):
                 self.changelog_data[key] = None
                 unique_package_changelog.append(changelog)
                 unique_package_changelog_hash[key] = 1
         package['changelog'] = unique_package_changelog
-        
+
         if 'solaris_patch_set' in package:
             if package.arch.startswith("sparc"):
                 self.package_arches['sparc-solaris-patch'] = None
@@ -309,9 +309,9 @@ class PackageImport(ChannelPackageSubscription):
             # # Force it just a little bit - kind of hacky
             upload_force = 0.5
         try:
-            self.backend.processPackages(self.batch, 
+            self.backend.processPackages(self.batch,
                 uploadForce=upload_force,
-                forceVerify=self.forceVerify, 
+                forceVerify=self.forceVerify,
                 ignoreUploaded=self.ignoreUploaded,
                 transactional=self.transactional)
             self._import_signatures()
@@ -340,7 +340,7 @@ class PackageImport(ChannelPackageSubscription):
         taskomatic.add_to_repodata_queue_for_channel_package_subscription(
                 self.affected_channels, self.batch, self.caller)
         self.backend.commit()
-    
+
     def __postprocess(self):
         # Gather the IDs we've found
 
@@ -396,7 +396,7 @@ class PackageImport(ChannelPackageSubscription):
         checksums = {}
 
         for pkgDict, pkgInfoObj in package['solaris_patch_packages']:
-                
+
             evr = []
             for field in ('epoch', 'version', 'release'):
                 evr.append(pkgDict[field])
@@ -417,7 +417,7 @@ class PackageImport(ChannelPackageSubscription):
         for pkgDict, pkgInfoObj in package['solaris_patch_packages']:
 
             nevra = []
-            
+
             nevra.append(names[pkgDict['name']])
             nevra.append(evrs[pkgDict['evr']])
             nevra.append(archs[pkgDict['arch']])
@@ -458,11 +458,11 @@ class PackageImport(ChannelPackageSubscription):
         self.backend.lookupPackageNames(names)
 
         nevras = {}
-        
+
         for patchDict, patchInfoObj in package['solaris_patch_set_members']:
 
             nevra = []
-            
+
             nevra.append(names[patchDict['name']])
             nevra.append(evrs[patchDict['evr']])
 
@@ -557,9 +557,9 @@ class SourcePackageImport(Import):
             # # Force it just a little bit - kind of hacky
             upload_force = 0.5
         try:
-            self.backend.processSourcePackages(self.batch, 
+            self.backend.processSourcePackages(self.batch,
                 uploadForce=upload_force,
-                forceVerify=self.forceVerify, 
+                forceVerify=self.forceVerify,
                 ignoreUploaded=self.ignoreUploaded,
                 transactional=self.transactional)
         except:

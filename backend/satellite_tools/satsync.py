@@ -554,7 +554,7 @@ class Syncer:
                 # Try to retrieve the certificate from the database
                 row = satCerts.retrieve_db_cert()
                 if row is None:
-                    raise RhnSyncException(_("No certificate found. " 
+                    raise RhnSyncException(_("No certificate found. "
                     "Please use --rhn-cert"))
                 cert = row['cert']
                 store_cert = False
@@ -664,9 +664,9 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         self._compute_channel_request()
 
         # print out the relevant channel tree
-        #3/6/06 wregglej 183213 Don't print out the end-of-service message if 
+        #3/6/06 wregglej 183213 Don't print out the end-of-service message if
         #satellite-sync is running with the --mount-point (-m) option. If it
-        #did, it would incorrectly list channels as end-of-service if they had been 
+        #did, it would incorrectly list channels as end-of-service if they had been
         #synced already but aren't in the channel dump.
         self._printChannelTree(doEOSYN=doEOSYN)
 
@@ -1738,7 +1738,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         out_queue = Queue.Queue()
         lock = threading.Lock()
 
-        
+
         #count size of missing packages
         for package_id, path in missing_fs_packages:
             timestamp = short_package_collection.get_package_timestamp(package_id)
@@ -2322,11 +2322,11 @@ def processCommandline():
         actionDict['short'] = 0
         actionDict['download-packages'] = 0
         actionDict['rpms'] = 0
-        
+
 
     if actionDict['no-rpms']:
         actionDict['rpms'] = 0
-        
+
 
     #if actionDict['no-srpms']:
     actionDict['srpms'] = 0
@@ -2397,7 +2397,7 @@ def processCommandline():
               _("  27 - No such org"),
               _("  28 - error: --master is only valid with --mount-point"),]
         log(-1, msg, 1, 1, sys.stderr)
-        sys.exit(0) 
+        sys.exit(0)
 
     if OPTIONS.dump_version:
         OPTIONS.dump_version = str(OPTIONS.dump_version)

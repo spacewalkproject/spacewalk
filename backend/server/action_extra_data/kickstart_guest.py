@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug
@@ -20,7 +20,7 @@ __rhnexport__ = ['initiate', 'add_tools_channel', 'schedule_virt_guest_pkg_insta
 
 def _action(action_name, server_id, action_id, success_state, success_type):
     log_debug(3, action_name, server_id, action_id)
-    
+
     action_status = rhnFlags.get('action_status')
 
     if action_status == 3:
@@ -34,7 +34,7 @@ def _action(action_name, server_id, action_id, success_state, success_type):
         action_status, kickstart_state=ks_state,
         next_action_type=next_action_type)
 
-    
+
 def schedule_virt_guest_pkg_install(server_id, action_id, data={}):
     _action('schedule_virt_guest_pkg_install', server_id, action_id,
             'complete', None)

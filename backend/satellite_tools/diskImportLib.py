@@ -9,10 +9,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 
@@ -38,7 +38,7 @@ class Backend:
 
         Backend.__backend = SQLBackend()
         return Backend.__backend
-        
+
 # get_backend() returns a shared instance of an Oracle backend
 def get_backend():
     return Backend().get_backend()

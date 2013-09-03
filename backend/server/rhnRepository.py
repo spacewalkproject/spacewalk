@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 
@@ -40,16 +40,16 @@ class Repository(rhnRepository.Repository):
     All the functions that are performed upon GET requests are here (and
     since proxies perform these functions as well, a good chunk of code is
     in common/rhnRepository.py)
-    
+
     The listall code is here too, because it performs a lot of disk caching
     and here's the appropriate location for it
-    
+
     The dependency solving code is not handled in this repository -
     all the code we need is already in xmlrpc/up2date
     """
     def __init__(self, channelName = None, server_id = None, username = None):
         """Initialize the class, setting channel name and server
-        
+
         ID, that serial number (w/o ID-), if necessary.
         NOTE: server_id is a string.
         """
@@ -78,7 +78,7 @@ class Repository(rhnRepository.Repository):
         could subscribe to.
         """
         return rhnChannel.channels_for_server(self.server_id)
-           
+
     def listPackages(self, version):
         """ Clients v2+.
         Creates and/or serves up a cached copy of the package list for
@@ -86,11 +86,11 @@ class Repository(rhnRepository.Repository):
         """
         log_debug(3, self.channelName, version)
         # Check to see if the version they are requesting is the latest
-        
+
         # check the validity of what the client thinks about this channel
         # or blow up
-        self.__check_channel(version)        
-        
+        self.__check_channel(version)
+
         packages = rhnChannel.list_packages(self.channelName)
 
         # transport options...
@@ -103,11 +103,11 @@ class Repository(rhnRepository.Repository):
         """ Returns a list of packages that obsolete other packages """
         log_debug(3, self.channelName, version)
         # Check to see if the version they are requesting is the latest
-        
+
         # check the validity of what the client thinks about this channel
         # or blow up
-        self.__check_channel(version)        
-        
+        self.__check_channel(version)
+
         obsoletes = rhnChannel.list_obsoletes(self.channelName)
 
         # Set the transport options
@@ -122,11 +122,11 @@ class Repository(rhnRepository.Repository):
         """
         log_debug(3, self.channelName, version)
         # Check to see if the version they are requesting is the latest
-        
+
         # check the validity of what the client thinks about this channel
         # or blow up
-        self.__check_channel(version)        
-        
+        self.__check_channel(version)
+
         # Set the transport options
         transportOptions = rhnFlags.get('outputTransportOptions')
         transportOptions['Last-Modified'] = rfc822time(timestamp(version))
@@ -140,11 +140,11 @@ class Repository(rhnRepository.Repository):
         """
         log_debug(3, self.channelName, version)
         # Check to see if the version they are requesting is the latest
-        
+
         # check the validity of what the client thinks about this channel
         # or blow up
-        self.__check_channel(version)        
-        
+        self.__check_channel(version)
+
         packages = rhnChannel.list_all_packages(self.channelName)
 
         # transport options...
@@ -159,11 +159,11 @@ class Repository(rhnRepository.Repository):
         """
         log_debug(3, self.channelName, version)
         # Check to see if the version they are requesting is the latest
-        
+
         # check the validity of what the client thinks about this channel
         # or blow up
-        self.__check_channel(version)        
-        
+        self.__check_channel(version)
+
         packages = rhnChannel.list_all_packages_complete(self.channelName)
 
         # transport options...
@@ -186,7 +186,7 @@ class Repository(rhnRepository.Repository):
         elif file_name == "primary.xml.gz":
             output = repo.get_primary_xml_file()
         elif file_name == "other.xml.gz":
-            output = repo.get_other_xml_file() 
+            output = repo.get_other_xml_file()
         elif file_name == "filelists.xml.gz":
             output = repo.get_filelists_xml_file()
         elif file_name == "updateinfo.xml.gz":
@@ -284,8 +284,8 @@ class Repository(rhnRepository.Repository):
             return None
             # Package cannot be served from the edge, we serve it ourselves
         return localpath
-    
-    
+
+
     def _getFile(self, path):
         """
         overwrites the common/rhnRepository._getFile to check for redirect
@@ -310,7 +310,7 @@ class Repository(rhnRepository.Repository):
         return rhnPackage.get_source_package_path(self.server_id, pkgFilename,
             self.channelName)
 
-    
+
     ### Private methods
 
     def __check_channel(self, version):
@@ -330,7 +330,7 @@ class Repository(rhnRepository.Repository):
             # Not subscribed
             raise rhnFault(39, "No subscription to the specified channel")
         return 1
-    
+
     def set_qos(self):
         server_lib.set_qos(self.server_id)
 

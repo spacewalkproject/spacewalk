@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 import unittest
 from TestServer import TestServer
@@ -23,8 +23,8 @@ class ListMissingTestCase( unittest.TestCase ):
         self.directory = '/home/devel/wregglej/downloads/srcrpms'
         self.myserver = TestServer()
         self.myserver.upload_packages( self.directory, source = 1 )
-        self.packageobj = xp.packages.Packages() 
-    
+        self.packageobj = xp.packages.Packages()
+
     def tearDown( self ):
         rhnSQL.rollback()
 
@@ -42,8 +42,8 @@ class ListMissingTestCase( unittest.TestCase ):
         if type( package_list ) == type( [] ):
             assert 1
         else:
-            assert 0      
+            assert 0
 
 if __name__ == "__main__":
     unittest.main()
-         
+

@@ -36,12 +36,12 @@ from spacewalk.common.rhnException import rhnException
 from const import POSTGRESQL
 
 def convert_named_query_params(query):
-    """ 
+    """
     Convert a query with named parameters (i.e. :id, :name, etc) into one
     that uses %(id)s, %(name)s parameters instead.
 
     python-psycopg2 requires parameters to be in this form, so to keep our
-    existing queries intact we'll convert them when provided to the 
+    existing queries intact we'll convert them when provided to the
     postgresql driver.
 
     RETURNS: tuple with:
@@ -312,9 +312,9 @@ class Cursor(sql_base.Cursor):
         rowcount = self._real_cursor.rowcount
         return rowcount
 
-    def update_blob(self, table_name, column_name, where_clause, data, 
+    def update_blob(self, table_name, column_name, where_clause, data,
                     **kwargs):
-        """ 
+        """
         PostgreSQL uses bytea columns instead of blobs. Nothing special
         needs to be done to insert text into one.
         """

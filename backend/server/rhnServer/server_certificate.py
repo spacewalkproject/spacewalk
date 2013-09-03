@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Classes and functions needed for handling certificates
@@ -21,7 +21,7 @@
 import hashlib
 import time
 import random
-import socket    
+import socket
 import string
 import xmlrpclib
 
@@ -49,9 +49,9 @@ class Checksum:
         self.sum = hashlib.new('md5', secret)
         if len(args) > 0:
             apply(self.feed, args)
-    def feed(self, arg):        
+    def feed(self, arg):
         #sys.stderr.write("arg = %s, type = %s\n" % (arg, type(arg)))
-        if type(arg) == type(()) or type(arg) == type([]):            
+        if type(arg) == type(()) or type(arg) == type([]):
             for s in arg:
                 self.sum.update(s)
         else:
@@ -61,7 +61,7 @@ class Checksum:
     def __repr__(self):
         t = ""
         for i in self.sum.digest()[:]:
-            t = t + "%02x" % ord(i)   
+            t = t + "%02x" % ord(i)
         return t
     __str__ = __repr__
 
@@ -69,7 +69,7 @@ class Certificate:
     """ Main certificate class """
     CheckSumFields = [ "username", "os_release", "operating_system",
                        "architecture", "system_id", "type" ]
-    
+
     def __init__(self):
         """ init data
             normally we include in the attrs:
@@ -81,7 +81,7 @@ class Certificate:
         self.__fields = []
         self.__secret = None
         self.__checksum = None
-        
+
     def __getitem__(self, key):
         """ function that make it look like a dictionary for easy access """
         return self.attrs.get(key)
@@ -92,19 +92,19 @@ class Certificate:
         """
         self.attrs[name] = value
         if name in Certificate.CheckSumFields:
-            if name not in self.__fields:           
+            if name not in self.__fields:
                 self.__fields.append(name)
         else: # non essential, take None values as ""
             if value is None:
                 self.attrs[name] = ""
-        return 0        
+        return 0
 
     def __repr__(self):
         """ string format """
         return "<Certificate instance>: Attrs: %s, Fields: %s, Secret: %s, Checksum: %s" % (
             self.attrs, self.__fields, self.__secret, self.__checksum)
     __str__ = __repr__
-    
+
     def certificate(self):
         """ convert to XML """
         dump = self.attrs
@@ -117,7 +117,7 @@ class Certificate:
             e.args = e.args + (dump,) # Carry on the information for the exception reporting
             raise
         return '<?xml version="1.0"?>\n%s' % x
-    
+
     def compute_checksum(self, secret):
         """ Update the checksum """
         log_debug(4, secret, self.attrs)
@@ -127,13 +127,13 @@ class Certificate:
         # feed the fields list last
         csum.feed(self.__fields)
         return str(csum)
-        
+
     def set_secret(self, secret):
         """ set the secret of the entry and recompute the checksum """
         log_debug(4, "secret", secret)
         self.__secret = secret
         self.__checksum = self.compute_checksum(secret)
-        
+
     def reload(self, text):
         """ load data from a text certificate passed on by a client """
         log_debug(4)
@@ -160,7 +160,7 @@ class Certificate:
                 log_error("Certificate lists unknown %s as a checksum field" % k,
                           "cert data: %s" % s)
                 return -1
-            
+
         # clear out the state
         self.__init__()
 
@@ -188,8 +188,8 @@ class Certificate:
                       "fields = %s" % str(self.__fields), "attrs = %s" % str(self.attrs))
             return 0
         return 1
-        
-    def valid(self):    
+
+    def valid(self):
         log_debug(4)
         # check for anonymous
         if self.attrs.has_key('type') and self.attrs['type'] \
@@ -204,6 +204,6 @@ class Certificate:
         secret = getServerSecret(sid)
         if secret is None:
             # no secret, can't validate
-            log_debug(1, "Server id %s not found in database" % sid)           
+            log_debug(1, "Server id %s not found in database" % sid)
             return 0
         return self.__validate_checksum(secret)

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -80,7 +80,7 @@ def parseRPMFilename(pkgFilename):
 # places
 def normalize_server_arch(arch):
     log_debug(4, 'server arch', arch)
-    
+
     if arch is None:
         return ''
     arch = str(arch)
@@ -131,7 +131,7 @@ def transpose_to_hash(arr, column_names):
 
     return rh
 
-def get_package_path(nevra, org_id, source=0, prepend="", omit_epoch=None, 
+def get_package_path(nevra, org_id, source=0, prepend="", omit_epoch=None,
         package_type='rpm', checksum_type=None, checksum=None):
     """ Computes a package path, optionally prepending a prefix
         The path will look like
@@ -161,10 +161,10 @@ def get_package_path(nevra, org_id, source=0, prepend="", omit_epoch=None,
 
 
 # bug #161989
-# It seems that our software was written specifically for rpms in far too many 
-# ways. Here's a little bit of a hack function that will return the package path 
+# It seems that our software was written specifically for rpms in far too many
+# ways. Here's a little bit of a hack function that will return the package path
 # (as in from get_package_path) but without the filename appended.
-# This enables us to append an arbitrary file name that is not restricted to the 
+# This enables us to append an arbitrary file name that is not restricted to the
 # form: name-version-release.arch.type
 def get_package_path_without_package_name(nevra, org_id, prepend="",
         checksum_type=None, checksum=None):

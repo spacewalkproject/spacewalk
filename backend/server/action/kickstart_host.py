@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import sys
@@ -38,7 +38,7 @@ def schedule_virt_host_pkg_install(server_id, action_id, dry_run=0):
         rhn-virtualization-host and osad packages.
     """
     log_debug(3)
-    
+
     virt_host_package_name = "rhn-virtualization-host"
     messaging_package_name = "osad"
 

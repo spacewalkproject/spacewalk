@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Database driver for cx_Oracle
@@ -195,7 +195,7 @@ class Cursor(sql_base.Cursor):
                 pdict = arr[i]
                 for k, v in kwargs.iteritems():
                     pdict[k] = adjust_type(v[start+i])
-                
+
             # We clear self->bindVariables so that list of all nulls
             # in the previous chunk which caused the type to be set to
             # string does not affect our chunk which may have number
@@ -207,7 +207,7 @@ class Cursor(sql_base.Cursor):
             # name and the value self explanatory.
             self._real_cursor.executemany(None, arr)
             self.description = self._real_cursor.description
-                
+
             rowcount = rowcount + self._real_cursor.rowcount
             start = start + chunk_size
 
@@ -263,7 +263,7 @@ class Cursor(sql_base.Cursor):
             kw_dict[k] = vv
         return modified
 
-    def update_blob(self, table_name, column_name, where_clause, data, 
+    def update_blob(self, table_name, column_name, where_clause, data,
             **kwargs):
         sql = "SELECT %s FROM %s %s FOR update of %s" % \
             (column_name, table_name, where_clause, column_name)
@@ -294,7 +294,7 @@ class Procedure(sql_base.Procedure):
             if not hasattr(e, "args"):
                 raise sql_base.SQLError(self.name, args), None, sys.exc_info()[2]
             elif 20000 <= e[0].code <= 20999: # error codes we know we raise as schema errors
-                
+
                raise sql_base.SQLSchemaError(e[0].code, str(e[0])), None, sys.exc_info()[2]
             raise sql_base.SQLError(e[0].code, str(e[0])), None, sys.exc_info()[2]
         except cx_Oracle.NotSupportedError, error:

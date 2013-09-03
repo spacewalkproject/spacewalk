@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 # Script to test channel package snapshot invalidation
@@ -21,7 +21,7 @@
 # otherwise change the org_id
 # - subscribe a system to it
 # - use rhnpush to upload a bunch of packages, including useless-1.0.0-2 and 3
-# - snapshot the system 
+# - snapshot the system
 #     exec rhn_server.snapshot_server(1004505404, 'some_reason')
 # - select snapshot_id from rhnSnapshotChannel where channel_id = XXX
 # - select server_id, reason, invalid from rhnsnapshot where id = 236527
@@ -46,14 +46,14 @@ def main():
         'arch'      : 'noarch',
         'org_id'    : orgid,
     }
-        
+
     batch = []
     p = importLib.IncompletePackage()
     p.populate(package_template)
     p['release'] = '2'
     p['channels'] = [channel]
     batch.append(p)
-    
+
     p = importLib.IncompletePackage()
     p.populate(package_template)
     p['release'] = '3'

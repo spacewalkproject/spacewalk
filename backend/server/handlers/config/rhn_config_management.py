@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Config file handler (client side)
@@ -25,7 +25,7 @@ from spacewalk.server.rhnHandler import rhnHandler
 class ConfigManagement(configFilesHandler.ConfigFilesHandler):
     def __init__(self):
         log_debug(3)
-	configFilesHandler.ConfigFilesHandler.__init__(self)        
+	configFilesHandler.ConfigFilesHandler.__init__(self)
         self.functions.update({
             'client.list_config_channels'   : 'client_list_channels',
             # XXX1
@@ -43,7 +43,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
     def auth_system(self, systemid):
         rhnHandler.auth_system(self, systemid)
         self.org_id = self.server.server['org_id']
-        
+
     def client_get_maximum_file_size(self, systemid):
         log_debug(1)
         self.auth_system(systemid)
@@ -55,7 +55,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         self.auth_system(systemid)
 
         return self._get_delimiters()
-                
+
     def client_list_channels(self, systemid):
         self.auth_system(systemid)
         return self._get_client_config_channels(self.server_id)
@@ -91,7 +91,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
         rhnSQL.commit()
         return 0
-            
+
     _query_client_list_files = rhnSQL.Statement("""
         select cfn.path, cr.config_file_type_id
           from rhnConfigChannelType cct,
@@ -129,14 +129,14 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
             return []
 
         h = rhnSQL.prepare(self._query_client_list_files)
-        
+
         result_hash = {}
         # We're storing the config files in a dictionary, keyed by path; this
         # way, the most important channel (with the lowest preference) will
         # override the less important oness
         for config_channel in config_channels:
             log_debug(4, "Checking config channel", config_channel)
-        
+
             h.execute(org_id=self.org_id, config_channel=config_channel)
             while 1:
                 row = h.fetchone_dict()
@@ -155,7 +155,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         # Sort by path first since that's what the web site does
         result.sort(lambda x, y: cmp(x[1], y[1]))
         return result
-        
+
     def client_get_file(self, systemid, filename):
         """ Returns requested config file.
             If file do not exist or system is not subscribed to, then we return.
@@ -173,7 +173,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
     _query_client_get_file = rhnSQL.Statement("""
         select :path path,
-               cc.label config_channel, 
+               cc.label config_channel,
                c.contents file_contents,
                c.is_binary is_binary,
                c.checksum_type,
@@ -187,7 +187,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 	       cft.label,
 	       cct.priority,
 	       ci.selinux_ctx,
-           case 
+           case
                 when cft.label='symlink' then (select path from rhnConfigFileName where id = ci.SYMLINK_TARGET_FILENAME_ID)
                 else ''
             end as symlink
@@ -215,7 +215,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
            and cf.latest_config_revision_id = cr.id
 	   and cr.config_file_type_id = cft.id
 	   and cct.id = cc.confchan_type_id
-         order by cct.priority, scc.position 
+         order by cct.priority, scc.position
     """)
 
     def _client_get_file(self, server_id, filename):
@@ -233,7 +233,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         select cc.label,
                cc.name
           from rhnConfigChannelType cct,
-               rhnConfigChannel cc, 
+               rhnConfigChannel cc,
                rhnServerConfigChannel scc
          where scc.server_id = :server_id
            and scc.config_channel_id = cc.id
@@ -241,7 +241,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
            and cct.label in ('normal', 'local_override')
          order by scc.position nulls last, cc.name desc
     """)
-    
+
     def _get_client_config_channels(self, server_id):
         h = rhnSQL.prepare(self._query_client_config_channels)
         h.execute(server_id=server_id)
@@ -286,7 +286,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
            and cc.confchan_type_id = cct.id
            and cct.label = 'server_import'
     """)
-        
+
     # Almost identical to client_upload_files
     def client_upload_to_server_import(self, systemid, file):
         self.auth_system(systemid)
@@ -299,7 +299,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
             config_channel_id = self._create_server_import_channel(self.server_id)
         else:
             config_channel_id = row['id']
-        
+
         return self.push_file(config_channel_id, file)
 
     _query_create_server_import_channel = rhnSQL.Statement("""
@@ -308,7 +308,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         values (:server_id, :config_channel_id, :position)
     """)
 
-    def _create_server_import_channel(self, server_id):        
+    def _create_server_import_channel(self, server_id):
         name = "server_import Config Channel for system %d" % server_id
         description = "XXX"
 
@@ -316,8 +316,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         # get created need to conform to this label formula:
         # {rhnConfigChannelType.label}-{sid}
         label = "server_import-%d" % server_id
-        
-        insert_call = rhnSQL.Function('rhn_config.insert_channel', 
+
+        insert_call = rhnSQL.Function('rhn_config.insert_channel',
             rhnSQL.types.NUMBER())
         config_channel_id = insert_call(self.org_id,
                                         'server_import',

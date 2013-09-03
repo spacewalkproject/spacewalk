@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # This file contains classes and functions that save and retrieve package
@@ -39,7 +39,7 @@ class dbPackage:
         entry in the database for it.
     """
     def __init__(self, pdict, real = 0, name_id=None, evr_id=None,
-            package_arch_id=None): 
+            package_arch_id=None):
         if type(pdict) != DictType:
             return None
         if not pdict.has_key('arch') or pdict['arch'] is None:
@@ -108,7 +108,7 @@ class Packages:
         # Have we loaded the packages or not?
         self.__loaded = 0
         self.__changed = 0
-        
+
     def add_package(self, sysid, entry):
         log_debug(4, sysid, entry)
         p = dbPackage(entry)
@@ -116,7 +116,7 @@ class Packages:
             # Not a valid package spec
             return -1
         if not self.__loaded:
-            self.reload_packages_byid(sysid)        
+            self.reload_packages_byid(sysid)
         if self.__p.has_key(p.nvrea):
             if self.__p[p.nvrea].installtime != p.installtime:
                self.__p[p.nvrea].installtime = p.installtime
@@ -137,7 +137,7 @@ class Packages:
             # Not a valid package spec
             return -1
         if not self.__loaded:
-            self.reload_packages_byid(sysid)        
+            self.reload_packages_byid(sysid)
         if self.__p.has_key(p.nvrea):
             log_debug(4, "  Package deleted")
             self.__p[p.nvrea].delete()
@@ -149,7 +149,7 @@ class Packages:
         """ delete all packages and get an empty package list """
         log_debug(4, sysid)
         if not self.__loaded:
-            self.reload_packages_byid(sysid)        
+            self.reload_packages_byid(sysid)
         for k in self.__p.keys():
             self.__p[k].delete()
             self.__changed = 1
@@ -168,21 +168,21 @@ class Packages:
 
     def save_packages_byid(self, sysid, schedule=1):
         """ save the package list """
-        log_debug(3, sysid, "Errata cache to run:", schedule, 
+        log_debug(3, sysid, "Errata cache to run:", schedule,
             "Changed:", self.__changed, "%d total packages" % len(self.__p))
 
         if not self.__changed:
             return 0
-        
+
         commits = 0
-        
+
         # get rid of the deleted packages
         dlist = filter(lambda a: a.real and a.status in (DELETED, UPDATED), self.__p.values())
         if dlist:
             log_debug(4, sysid, len(dlist), "deleted packages")
             h = rhnSQL.prepare("""
             delete from rhnServerPackage
-            where server_id = :sysid 
+            where server_id = :sysid
             and name_id = :name_id
             and evr_id = :evr_id
             and ((:package_arch_id is null and package_arch_id is null)
@@ -196,7 +196,7 @@ class Packages:
             })
             commits = commits + len(dlist)
             del dlist
-        
+
         # And now add packages
         alist = filter(lambda a: a.status in (ADDED, UPDATED), self.__p.values())
         if alist:
@@ -231,7 +231,7 @@ class Packages:
                 if e.errno == 20243:
                     log_debug(2, "Unknown package arch found", e)
                     raise rhnFault(45, "Unknown package arch found"), None, sys.exc_info()[2]
-                
+
             commits = commits + len(alist)
             del alist
 
@@ -248,7 +248,7 @@ class Packages:
         self.__loaded = 0
         self.__changed = 0
         return 0
-    
+
     _query_get_package_arches = rhnSQL.Statement("""
         select id, label
           from rhnPackageArch
@@ -285,7 +285,7 @@ class Packages:
             TO_CHAR(sp.installtime, 'YYYY-MM-DD HH24:MI:SS') installtime
         from
             rhnServerPackage sp,
-            rhnPackageName rpn, 
+            rhnPackageName rpn,
             rhnPackageEVR rpe
         where sp.server_id = :sysid
         and sp.name_id = rpn.id
@@ -377,7 +377,7 @@ def processPackageKeyAssociations(header, checksum_type, checksum):
     if not key_id:
         # package is not signed, skip gpg key insertion
         return
-     
+
     lookup_keyid_sql.execute(key_id = key_id)
     keyid = lookup_keyid_sql.fetchall_dict()
 
@@ -427,7 +427,7 @@ def package_delta(list1, list2):
                 del ph2[p]
         # Everything else left in ph2 has to be installed
         installs.extend(ph2.keys())
-            
+
     # Whatever else is left in hash2 should be installed
     for ph2 in hash2.values():
         installs.extend(ph2.keys())
@@ -435,9 +435,9 @@ def package_delta(list1, list2):
     installs.sort()
     removes.sort()
     return installs, removes
-        
 
-def _package_list_to_hash(package_list, package_registry):        
+
+def _package_list_to_hash(package_list, package_registry):
     """ Converts package_list into a hash keyed by name
         package_registry contains the canonical version of the package
         for instance, version 51 and 0051 are indentical, but that would break the
@@ -469,7 +469,7 @@ def _package_list_to_hash(package_list, package_registry):
 
         # Add it to the hash too
         _add_to_hash(hash, pn, e)
-            
+
     return hash
 
 def _add_to_hash(hash, key, value):

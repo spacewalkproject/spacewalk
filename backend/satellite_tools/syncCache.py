@@ -7,13 +7,13 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #Mechanism to persistently cache sync info (mostly post-parsed(XML)
-#    package objects). 
+#    package objects).
 #
 
 # system imports:
@@ -33,7 +33,7 @@ class BaseCache:
         # Kind of kludgy - this may have weird side-effects if called from
         # within the server code
         rhnCache.CACHEDIR = CFG.SYNC_CACHE_DIR
-    
+
     def cache_get(self, object_id, timestamp=None):
         # Get the key
         key = self._get_key(object_id)
@@ -83,7 +83,7 @@ class ErratumCache(BaseCache):
 class KickstartableTreesCache(BaseCache):
     _subdir = "kickstartable-trees"
     def _get_key(self, object_id):
-        return os.path.normpath(os.path.join("satsync", self._subdir, 
+        return os.path.normpath(os.path.join("satsync", self._subdir,
             object_id))
 
 if __name__ == '__main__':

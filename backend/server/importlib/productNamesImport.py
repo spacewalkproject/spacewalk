@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Product Names Import
@@ -20,7 +20,7 @@ from importLib import Import
 class ProductNamesImport(Import):
     def __init__(self, batch, backend):
         Import.__init__(self, batch, backend)
-    
+
     def preprocess(self):
         pass
 
@@ -31,7 +31,7 @@ class ProductNamesImport(Import):
         try:
             self.backend.processProductNames(self.batch)
 	except:
-	    self.backend.rollback() 
+	    self.backend.rollback()
 	    raise
         self.backend.commit()
 

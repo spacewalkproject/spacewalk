@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # This module implements requests handlers for GET and POST methods.
 #
@@ -76,7 +76,7 @@ class apacheRequest:
         # XXX: some day we're going to trust the timestamp stuff...
         self.servers = None
         self._setup_servers()
-        
+
     def _setup_servers(self):
         self.servers = rhnImport.load("server/handlers",
             interface_signature='rpcClasses')
@@ -92,13 +92,13 @@ class apacheRequest:
         if CFG.SEND_MESSAGE_TO_ALL:
             # Make sure the applet doesn't see the message
             if method == 'applet.poll_status':
-                return self.response({ 
-                    'checkin_interval' : 3600, 
+                return self.response({
+                    'checkin_interval' : 3600,
                     'server_status' : 'normal'
                 })
             if method == 'applet.poll_packages':
                 return self.response({ 'use_cached_copy' : 1 })
-                
+
             # Fetch global message being sent to clients if applicable.
             msg = open(CFG.MESSAGE_TO_ALL).read()
             log_debug(3, "Sending message to all clients: %s" % msg)
@@ -236,7 +236,7 @@ class apacheRequest:
                 self.req.status = apache.HTTP_PARTIAL_CONTENT
                 success_response = apache.HTTP_PARTIAL_CONTENT
 
-            # For now we will just return the file file on the following exceptions 
+            # For now we will just return the file file on the following exceptions
             except byterange.InvalidByteRangeException:
                 pass
             except byterange.UnsatisfyableByteRangeException:
@@ -314,12 +314,12 @@ class apacheRequest:
             else:
                 # Just treat is as a file
                 return self.response_file(response)
-        
+
         output = transports.Output()
 
         # First, use the same encoding/transfer that the client used
         output.set_transport_flags(
-            transfer=transports.lookupTransfer(self.input.transfer), 
+            transfer=transports.lookupTransfer(self.input.transfer),
             encoding=transports.lookupEncoding(self.input.encoding))
 
         if isinstance(response, xmlrpclib.Fault):
@@ -492,7 +492,7 @@ class apacheGET:
         req_config = req.get_options()
         self.server = req_config["SERVER"]
         # XXX: some day we're going to trust the timestamp stuff...
-        self.handler_classes = rhnImport.load("server/handlers", 
+        self.handler_classes = rhnImport.load("server/handlers",
             interface_signature='getHandler')
         log_debug(3, "Handler classes", self.handler_classes)
 
@@ -583,7 +583,7 @@ class GetHandler(apacheRequest):
         # GET requests resulting in a Fault receive special treatment
         # since we have to stick the error message in the HTTP header,
         # and to return an Apache error code
-                
+
         if isinstance(response, xmlrpclib.Fault):
             log_debug(4, "Return FAULT",
                       response.faultCode, response.faultString)
@@ -617,7 +617,7 @@ class GetHandler(apacheRequest):
         log_debug(3,"url input to redirect is ",url)
         if req.sent_bodyct:
             raise IOError, "Cannot redirect after headers have already been sent."
-        
+
         #akamize the url with the new tokengen before sending the redirect response
         import tokengen.Generator
         arl = tokengen.Generator.generate_auth_url(url)

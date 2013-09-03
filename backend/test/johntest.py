@@ -8,10 +8,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 from rhn import rpclib
@@ -25,7 +25,7 @@ class Test:
 		self._channel_data = None
 		self._package_data = None
 		self._server = None
-		self._getserver = None	
+		self._getserver = None
 		self._login = None
 		self._header_data = None
 		self._package = None
@@ -45,14 +45,14 @@ class Test:
 			s = self._connect()
 			sysid = self._get_sysid()
 			self._login = LoginInfo( s.up2date.login(sysid) )
-		return self._login		
+		return self._login
 
 	def list_channels(self):
 		if self._channel_data is None:
 			s = self._connect()
 			sysid = self._get_sysid()
 			self._channel_data = ChannelList( s.up2date.listChannels(sysid) )
-		return self._channel_data	
+		return self._channel_data
 
 	def list_packages(self):
 		if self._package_data is None:
@@ -66,7 +66,7 @@ class Test:
 			s = self._connect()
 			sysid = self._get_sysid()
 			self._package_data = s.up2date.listall_size(sysid)
-		return self._package_data	
+		return self._package_data
 
 	def header(self, pkglist):
 		if pkglist is None:
@@ -135,15 +135,15 @@ class PackagesList:
 		return self._get_field(pack_index, self._release)
 
 	def get_epoch(self, pack_index):
-		return self._get_field(pack_index, self._epoch)		
- 
+		return self._get_field(pack_index, self._epoch)
+
 class ChannelList:
 	def __init__(self, channeldata=None):
 		if channeldata is None:
 			self.channel_list = None
 		else:
 			self.channel_list = channeldata
-		
+
 		self._last_modified = 'last_modified'
 		self._description = 'description'
 		self._name = 'name'
@@ -182,12 +182,12 @@ class ChannelList:
 			return self.channel_list[ch_index][self._name]
 		return None
 
-	def get_local_channel(self, ch_index):	
+	def get_local_channel(self, ch_index):
 		if self.channel_list[ch_index].has_key( self._local_channel ):
 			return self.channel_list[ch_index][self._local_channel]
 		return None
 
-	def get_arch(self, ch_index): 
+	def get_arch(self, ch_index):
 		if self.channel_list[ch_index].has_key( self._arch ):
 			return self.channel_list[ch_index][self._arch]
 		return None
@@ -223,7 +223,7 @@ class LoginInfo:
 			self.login_dict = None
 		else:
 			self.login_dict = logininfo
-	
+
 		self._server_key = 'X-RHN-Server-Id'
 		self._user_key = 'X-RHN-Auth-User-Id'
 		self._sig_key = 'X-RHN-Auth'
@@ -248,7 +248,7 @@ class LoginInfo:
 		if self.login_dict.has_key(self._sig_key):
 			return self.login_dict[self._sig_key]
 		return None
-	
+
 	def get_server_time(self):
 		if self.login_dict.has_key(self._time_key):
 			return self.login_dict[self._time_key]
@@ -272,10 +272,10 @@ if __name__ == "__main__":
 	print "Server Time: " + lg.get_server_time()
 	print "Auth: " + lg.get_signature()
 	print "Expire Offset: " + lg.get_expire_offset()
-	
-	
+
+
 	list = t.list_channels()
-	print "\n"	
+	print "\n"
 	for i in range( list.get_num_channels() ):
 		print "Channel Name: " + list.get_name( i )
 		print "Channel Last Modified: " + list.get_last_modified( i )
@@ -287,7 +287,7 @@ if __name__ == "__main__":
 		print "Channel org_id: " + list.get_org_id( i )
 		print "Channel id: " + list.get_id( i )
 		print "Channel label: " + list.get_label( i )
-	
+
 	print ""
 	plist = t.list_packages()
 	for j in range( plist.get_num_packages() ):
@@ -304,7 +304,7 @@ if __name__ == "__main__":
 	email = raw_input("email:")
 	org_id = raw_input("ord_id:")
 	org_password = raw_input("org_password:")
-	
+
 	print t.reserve_user(uname, password)
 	print t.new_user(uname, password, email, org_id, org_password)
 

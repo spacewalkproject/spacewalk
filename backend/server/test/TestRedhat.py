@@ -7,17 +7,17 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # A class that makes testing stuff in backend/server/redhat_xmlrpc a little easier.
 # It requires the rhn_server_redhat-xmlrpc.conf file in /etc/rhn/default.
 
 # By default it uses the test-file-upload account in webdev.
 
-# Change the value of the download_files_prefix option in rhn_server_redhat-xmlrpc.conf 
+# Change the value of the download_files_prefix option in rhn_server_redhat-xmlrpc.conf
 # to some directory on your local machine.
 #   Mine is set to wregglej, for instance.
 
@@ -42,7 +42,7 @@ class TestRedhat( TestServer.TestServer ):
 
     def _init_xmlrpc(self):
         self.rpc = server.redhat_xmlrpc
-    
+
     def getXmlRpc(self):
         return self.rpc
 
@@ -56,7 +56,7 @@ if __name__ == "__main__":
     server = TestRedhat()
     rpc = server.getXmlRpc()
     rpc_downloads = rpc.downloads.Downloads()
-    
+
 
     category = "RHN Test Download"
     channel = 'rhn-test-download'
@@ -91,12 +91,12 @@ if __name__ == "__main__":
 
     ### DELETE THE DOWNLOADS
     #print rpc_downloads.delete_category_files(info)
-    
+
     ### ADD THE DOWNLOADS
 #    print rpc_downloads.add_downloadable_files(info)
     server = SimpleXMLRPCServer.SimpleXMLRPCServer(addr=('', 8000))
     for func in rpc_downloads.functions:
         print func
         server.register_function( getattr( rpc_downloads, func), name="downloads.%s" % (func) )
-    server.serve_forever() 
+    server.serve_forever()
 

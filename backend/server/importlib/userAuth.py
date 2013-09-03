@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Authentication
@@ -79,32 +79,32 @@ class UserAuth:
         # This function is a lot more complicated than it should be; the
         # corner case is pushes without a channel; we have to deny regular
         # users the ability to push to their org.
-        
+
         # If the org id is not specified, default to the user's org id
         if not info.has_key('orgId'):
             info['orgId'] = self.org_id
         log_debug(4, "info[orgId]", info['orgId'], "org id", self.org_id)
-            
+
         org_id = info['orgId']
 
         if org_id == '':
             # Satellites are not allowwd to push in the null org
-            raise rhnFault(4, 
+            raise rhnFault(4,
                 _("You are not authorized to manage packages in the null org"))
 
         if org_id and self.org_id != org_id:
             # Not so fast...
-            raise rhnFault(32, 
+            raise rhnFault(32,
                 _("You are not allowed to manage packages in the %s org") %
                     org_id)
-            
+
         # Org admins and channel admins have full privileges; we could use
         # user_manages_channes, except for the case where there are no chanels
-        
+
         if self.isOrgAdmin() or self.isChannelAdmin():
             log_debug(4, "Org authorized (org_admin or channel_admin)")
             return
-            
+
         # regular user at this point... check if the user manages any channels
         if user_manages_channels(self.user_id):
             log_debug(4, "Org authorized (user manages a channel)")
@@ -112,7 +112,7 @@ class UserAuth:
 
         # ok, you're a regular user who doesn't manage any channels.
         # take a hike.
-        raise rhnFault(32, 
+        raise rhnFault(32,
             _("You are not allowed to perform administrative tasks"))
 
 
@@ -157,7 +157,7 @@ def getUserGroupsFromUserInstance(user_instance):
         raise rhnFault(2)
 
     #Don't need to check the password, the session should have already been checked.
-    
+
     # Get the org id
     org_id = user.contact['org_id']
     user_id = user.getid()
@@ -177,8 +177,8 @@ def getUserGroupsFromUserInstance(user_instance):
         if not row:
             break
         groups.append(row['label'])
-    return groups, org_id, user_id 
-    
+    return groups, org_id, user_id
+
 
 def getUserGroups(login, password):
     # Authenticates a user and returns the list of groups it belongs
@@ -201,7 +201,7 @@ def getUserGroups(login, password):
 
 def user_manages_channels(user_id):
     h = rhnSQL.prepare("""
-        select distinct 1 
+        select distinct 1
           from rhnChannel
          where rhn_channel.user_role_check(id, :user_id, 'manage') = 1
     """)

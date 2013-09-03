@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # This module exposes the SatelliteCert class, used for parsing a satellite
@@ -44,13 +44,13 @@ class Item:
     def __repr__(self):
         return "<%s; %s>" % (self.pretty_name,
             string.join(
-                map(lambda x, s=self: '%s="%s"' % (x, getattr(s, x)), 
+                map(lambda x, s=self: '%s="%s"' % (x, getattr(s, x)),
                     self.attributes.values()),
                 ', '
             )
         )
-        
-        
+
+
 class ChannelFamily(Item):
     pretty_name = "channel family"
     attribute_name = 'channel_families'
@@ -101,7 +101,7 @@ class MonitoringSlots(Slots):
 class SatelliteCert:
 
     """Satellite certificate class
-    Usage: 
+    Usage:
     c = SatelliteCert()
     c.load('<rhn-cert><rhn-cert-field name="owner">John Doe</rhn-cert-field></rhn-cert>')
     print c.owner
@@ -109,7 +109,7 @@ class SatelliteCert:
 
     fields_scalar = ['product', 'owner', 'issued', 'expires', 'slots',
                      'provisioning-slots', 'nonlinux-slots',
-                     'monitoring-slots', 'virtualization_host', 
+                     'monitoring-slots', 'virtualization_host',
                      'virtualization_host_platform', 'satellite-version',
                      'generation', ]
     fields_list = { 'channel-families' : ChannelFamily }
@@ -136,7 +136,7 @@ class SatelliteCert:
         for slot_name, (slot_attr, factory) in self._slot_maps.items():
             quantity = getattr(self, slot_attr)
             self._slots[slot_name] = factory(quantity)
-            
+
         return self
 
     def _load(self, s):
@@ -199,7 +199,7 @@ class SatelliteCert:
 
 def get_text(node):
     return string.join(
-        map(lambda x: x.data, 
+        map(lambda x: x.data,
             filter(lambda x: x.nodeType == x.TEXT_NODE, node.childNodes)
         ), "")
 

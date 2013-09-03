@@ -8,10 +8,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # $Id$
@@ -34,7 +34,7 @@ from spacewalk.common import rhnTranslate
 
 class Tests(unittest.TestCase):
     # pylint: disable=R0904
-    
+
     @staticmethod
     def _setup(lang):
         domain = "unit-test"
@@ -53,14 +53,14 @@ class Tests(unittest.TestCase):
         self._setup(lang)
         langs = rhnTranslate.cat.getlangs()
         self.failUnless(langs[0] == lang)
-        
+
     def test_setlangs_ro(self):
         "Tests setting the language to ro"
         lang = "ro"
         self._setup(lang)
         langs = rhnTranslate.cat.getlangs()
         self.failUnless(langs[0] == lang)
-        
+
     def test_setlangs_go(self):
         """Tests setting the language to go (does not exist)"""
         lang = "go"
@@ -128,7 +128,7 @@ class Tests(unittest.TestCase):
         s = "This string doesn't exist in the translation"
         target = s
         self._test(lang, s, target)
-    
+
     def test_go_1(self):
         "Tests plain English messages translated in the mythical go language"
         lang = 'en'

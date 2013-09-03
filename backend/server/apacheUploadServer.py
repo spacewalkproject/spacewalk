@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 
@@ -52,7 +52,7 @@ class UploadHandler:
             return apache.HTTP_INTERNAL_SERVER_ERROR
         server_name = options['SERVER']
         if not self.servers.has_key(server_name):
-            log_error("Unable to load server %s from available servers %s" % 
+            log_error("Unable to load server %s from available servers %s" %
                 (server_name, self.servers))
             return apache.HTTP_INTERNAL_SERVER_ERROR
         server_class = self.servers[server_name]
@@ -91,7 +91,7 @@ class UploadHandler:
     def _wrapper(self, req, function_name):
         #log_debug(1, "_wrapper", req, function_name)
         if not hasattr(self.server, function_name):
-            log_error("%s doesn't have a %s function" % 
+            log_error("%s doesn't have a %s function" %
                 (self.server, function_name))
             return apache.HTTP_NOT_FOUND
         function = getattr(self.server, function_name)
@@ -107,7 +107,7 @@ class UploadHandler:
             if not ret:
                 ret = apache.HTTP_INTERNAL_SERVER_ERROR
             req.status = ret
-            log_debug(4, "_wrapper %s exited with apache code %s" % 
+            log_debug(4, "_wrapper %s exited with apache code %s" %
                 (function_name, ret))
         except rhnSession.ExpiredSessionError, e:
             #if session expires we catch here and return a forbidden
@@ -135,12 +135,12 @@ Error Message:
     %s
 Error Class Code: %s
 Error Class Info: %s
-""" % (string.strip(exception.text), exception.code, 
+""" % (string.strip(exception.text), exception.code,
         string.rstrip(exception.arrayText))
 
 ### Instantiate external entry points:
 apache_server = UploadHandler()
- 
+
 HeaderParserHandler = apache_server.headerParserHandler
 Handler             = apache_server.handler
 CleanupHandler      = apache_server.cleanupHandler

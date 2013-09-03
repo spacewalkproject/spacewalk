@@ -580,7 +580,7 @@ def main():
             rhnSQL.clear_log_id()
             rhnSQL.set_log_auth_login('SETUP')
             if options.verbose:
-                print ("Database connectioned initialized: refer to %s" % 
+                print ("Database connectioned initialized: refer to %s" %
                        CFG.filename)
             activateSatellite_local(options)
         except RHNCertLocalActivationException, e:

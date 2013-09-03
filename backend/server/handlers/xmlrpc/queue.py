@@ -8,10 +8,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import sys
@@ -94,12 +94,12 @@ class Queue(rhnHandler):
 
         xmlblob = xmlrpclib.dumps(result, methodname=action['method'])
         log_debug(5, "returning xmlblob for action", xmlblob)
-        return { 
+        return {
             'id'        : action['id'],
             'action'    : xmlblob,
             'version'   : action['version'],
         }
-    
+
     def __update_status(self, status):
         """ Update the runnng kernel and the last boot values for this
             server from the status dictionary passed on queue checkin.
@@ -111,7 +111,7 @@ class Queue(rhnHandler):
              since it rebooted, and use our own clocks to keep proper
             track of the actual time.
         """
-        
+
         rhnSQL.set_log_auth_login('CLIENT')
         if status.has_key('uname'):
             kernelver = status['uname'][2]
@@ -135,7 +135,7 @@ class Queue(rhnHandler):
                     last_boot = time.time() - uptime
                     if abs(last_boot-self.server.server["last_boot"]) > 60*5:
                         self.server.server["last_boot"] = last_boot
-        
+
         # this is smart enough to do a NOOP if nothing changed.
         self.server.server.save()
 
@@ -153,8 +153,8 @@ class Queue(rhnHandler):
         f_action_ids = rhnAction.invalidate_action(self.server_id, action_id)
         for f_action_id in f_action_ids:
             # Invalidate any kickstart session that depends on this action
-            server_kickstart.update_kickstart_session(self.server_id, 
-                f_action_id, action_status=3, kickstart_state='failed', 
+            server_kickstart.update_kickstart_session(self.server_id,
+                f_action_id, action_status=3, kickstart_state='failed',
                 next_action_type=None)
         return f_action_ids
 
@@ -234,12 +234,12 @@ class Queue(rhnHandler):
         return result
 
     _query_queue_get = rhnSQL.Statement("""
-                    select sa.action_id id, a.version, 
+                    select sa.action_id id, a.version,
                            sa.remaining_tries, at.label method,
                            at.unlocked_only,
                            a.prerequisite
-                      from rhnServerAction sa, 
-                           rhnAction a, 
+                      from rhnServerAction sa,
+                           rhnAction a,
                            rhnActionType at
                      where sa.server_id = :server_id
                        and sa.action_id = a.id
@@ -265,7 +265,7 @@ class Queue(rhnHandler):
             self.update_checkin = 1
         self.auth_system(system_id)
         log_debug(1, self.server_id, version,
-                  "checkins %s" % ["disabled", "enabled"][self.update_checkin]) 
+                  "checkins %s" % ["disabled", "enabled"][self.update_checkin])
         if status:
             self.__update_status(status)
 
@@ -277,12 +277,12 @@ class Queue(rhnHandler):
 
         server_locked = self.server.server_locked()
         log_debug(3, "Server locked", server_locked)
-            
+
         ret = {}
         # get the action. Status codes are currently:
-        # 0 Queued # 1 Picked Up # 2 Completed # 3 Failed       
+        # 0 Queued # 1 Picked Up # 2 Completed # 3 Failed
         # XXX: we should really be using labels from rhnActionType instead of
-        #      hard coded type id numbers.        
+        #      hard coded type id numbers.
         # We fetch actions whose prerequisites have completed, and actions
         # that don't have prerequisites at all
         h = rhnSQL.prepare(self._query_queue_get)
@@ -298,7 +298,7 @@ class Queue(rhnHandler):
 
             # Okay, got an action
             action = h.fetchone_dict()
-            if not action: # No actions available; bail out           
+            if not action: # No actions available; bail out
                 # Don't forget the commit at the end...
                 ret = ""
                 break
@@ -308,7 +308,7 @@ class Queue(rhnHandler):
             if action['remaining_tries'] < 1:
                 log_debug(4, "Action %s picked up too many times" % action_id)
                 # We've run out of pickup attempts for this action...
-                self.__update_action(action_id, status=3, 
+                self.__update_action(action_id, status=3,
                     message="This action has been picked up multiple times "
                     "without a successful transaction; "
                     "this action is now failed for this system.")
@@ -361,7 +361,7 @@ class Queue(rhnHandler):
                 """)
                 h.execute(action_id = action["id"], server_id = self.server_id,
                           tries = action["remaining_tries"])
-                break                        
+                break
 
         # commit all changes
         rhnSQL.commit()
@@ -385,7 +385,7 @@ class Queue(rhnHandler):
             We try to make a smarter status selection (i.e. failed||completed).
 
             For reference:
-            New DB status codes:      Old DB status codes: 
+            New DB status codes:      Old DB status codes:
                   0: Queued               0: queued
                   1: Picked Up            1: picked up
                   2: Completed            2: executed
@@ -397,7 +397,7 @@ class Queue(rhnHandler):
                 action_id = int(action_id)
             except ValueError:
                 log_error("Invalid action_id", action_id)
-                raise rhnFault(30, _("Invalid action value type %s (%s)") % 
+                raise rhnFault(30, _("Invalid action value type %s (%s)") %
                     (action_id, type(action_id))), None, sys.exc_info()[2]
         # Authenticate the system certificate
         self.auth_system(system_id)
@@ -411,8 +411,8 @@ class Queue(rhnHandler):
               from rhnServerAction sa,
                    rhnAction a,
                    rhnActionType at
-             where sa.server_id = :server_id 
-               and sa.action_id = :action_id 
+             where sa.server_id = :server_id
+               and sa.action_id = :action_id
                and sa.status = 1
                and a.id = :action_id
                and a.action_type = at.id
@@ -424,11 +424,11 @@ class Queue(rhnHandler):
                 self.server_id, action_id))
             raise rhnFault(22, _("Action %s does not belong to server %s") % (
                 action_id, self.server_id))
-        
+
         action_type = row['action_type']
         trigger_snapshot = (row['trigger_snapshot'] == 'Y')
 
-        if data.has_key('missing_packages'): 
+        if data.has_key('missing_packages'):
             missing_packages = "Missing-Packages: %s" % str( \
                                 data['missing_packages'])
             rmsg = "%s %s" % (message, missing_packages)
@@ -448,8 +448,8 @@ class Queue(rhnHandler):
                 rmsg = result["faultString"] + str(data)
         if type(rcode) in [type({}), type(()), type([])] \
                or type(rcode) is not IntType:
-            rmsg = "%s [%s]" % (str(message), str(rcode))         
-            rcode = -1            
+            rmsg = "%s [%s]" % (str(message), str(rcode))
+            rcode = -1
         # map to db codes.
         status = self.status_for_action_type_code(action_type, rcode)
 
@@ -459,7 +459,7 @@ class Queue(rhnHandler):
         elif status == 2 and trigger_snapshot and self.__should_snapshot():
             # if action status is 'Completed', snapshot if allowed and if needed
             self.server.take_snapshot("Scheduled action completion:  %s" % row['name'])
-        
+
         self.__update_action(action_id, status, rcode, rmsg)
 
         # Store the status in a flag - easier than to complicate the action
@@ -484,16 +484,16 @@ class Queue(rhnHandler):
         if rcode == 0:
             # Completed
             return 2
-        
+
         if not self.action_type_completed_codes.has_key(action_type):
             # Failed
             return 3
-        
+
         hash = self.action_type_completed_codes[action_type]
         if not hash.has_key(rcode):
             # Failed
             return 3
-            
+
         # Completed
         return 2
 
@@ -510,7 +510,7 @@ class Queue(rhnHandler):
                                          'server.action_extra_data')
         except getMethod.GetMethodException:
             Traceback("queue.get V2")
-            raise EmptyAction("Could not get a valid method for %s" % 
+            raise EmptyAction("Could not get a valid method for %s" %
                 action_type), None, sys.exc_info()[2]
         # Call the method
         result = method(self.server_id, action_id, data=data)
@@ -533,7 +533,7 @@ class Queue(rhnHandler):
         h.execute(server_id = self.server_id)
         data = h.fetchone_dict()
         if data is None:
-            return 0        
+            return 0
         return data["id"]
 
     ### PRIVATE methods
@@ -543,10 +543,10 @@ class Queue(rhnHandler):
         """ Update the status of an action. """
         log_debug(4, action_id, status, resultCode, message)
         rhnAction.update_server_action(server_id=self.server_id,
-            action_id=action_id, status=status, 
+            action_id=action_id, status=status,
             result_code=resultCode, result_message=message)
         return 0
-    
+
     def __errataUpdate(self, actionId):
         """ Old client errata retrieval. """
         log_debug(3, self.server_id, actionId)
@@ -590,7 +590,7 @@ class Queue(rhnHandler):
             rhnPackageName pn
         where
             pn.id = pl.name_id
-        """ 
+        """
         h = rhnSQL.prepare(sql)
         h.execute(action_id = actionId, server_id = self.server_id)
 
@@ -619,7 +619,7 @@ class Queue(rhnHandler):
             -- decode the evr object selected earlier
             pkglist.evr.version version,
             pkglist.evr.release release
-        from (        
+        from (
             -- get the max of the two possible cases
             select
                 pl.name name,
@@ -629,7 +629,7 @@ class Queue(rhnHandler):
                 select
                     pn.name name,
                     pe.evr evr
-                from    
+                from
                     rhnActionPackage ap,
                     rhnPackage p,
                     rhnPackageName pn,
@@ -685,7 +685,7 @@ class Queue(rhnHandler):
         xml = xmlrpclib.dumps((packages,), methodname='client.update_packages')
         return xml
 
-            
+
 #-----------------------------------------------------------------------------
 if __name__ == "__main__":
     print "You can not run this module by itself"

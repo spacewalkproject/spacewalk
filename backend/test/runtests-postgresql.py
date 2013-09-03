@@ -15,7 +15,7 @@
 # in this software or its documentation.
 #
 
-""" 
+"""
 Non-pure tests requiring connectivity to a PostgreSQL server configured below.
 """
 

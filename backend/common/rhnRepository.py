@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 
@@ -106,7 +106,7 @@ class Repository(RPC_Base):
         else:
             #older clients just return the hosted url and download the package
             filePath = self.getPackagePath(pkg_spec)
-        
+
         return self._getFile(filePath)
 
     @staticmethod
@@ -129,7 +129,7 @@ class Repository(RPC_Base):
         pkgFilename = '.'.join(l)
         filePath = self.getSourcePackagePath(pkgFilename)
         return self._getFile(filePath)
-    
+
     def getPackageHeader(self, pkgFilename):
         """ Get rpm header.
             XXX: stock 8.0 clients could not compress headers, we need to either
@@ -141,7 +141,7 @@ class Repository(RPC_Base):
         if pkg[-1] not in ["hdr", 'rpm']:
             raise rhnFault(21, "'%s' not a valid RPM header name"
                                % pkgFilename)
-        
+
         pkgFilename = ".".join(pkg[:-1]) + '.rpm'
         filePath = self.getPackagePath(pkgFilename)
         data = self._getHeaderFromFile(filePath)
@@ -183,10 +183,10 @@ class Repository(RPC_Base):
             except:
                 raise rhnFault(17, "Unable to read package %s"
                                    % os.path.basename(filePath)), None, sys.exc_info()[2]
-            
+
         lastModified = s[stat.ST_MTIME]
         del s # XXX: not neccessary?
-        
+
         # Get the package header from the file
         # since we stat()ed the file, we know it's there already
         fd = os.open(filePath, os.O_RDONLY)

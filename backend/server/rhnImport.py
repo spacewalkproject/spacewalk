@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 
@@ -39,7 +39,7 @@ class Loader:
 
         fromcomps = dir.split('/')
         _imports = {}
-        
+
         # Keep track of the modules we've already tried to load, to avoid loading
         # them twice
         modules = []
@@ -79,9 +79,9 @@ class Loader:
                 log_error("Module %s doesn't support our API" % (module, ))
                 continue
             log_debug(5, "Module %s loaded" % (module, ))
-            
+
             _imports[module] = getattr(m, interface_signature)
-        
+
         self._imports[key] = _imports
         return _imports
 

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 
@@ -24,7 +24,7 @@ __rhnexport__ = ['initiate', 'schedule_sync']
 
 _query_initiate = rhnSQL.Statement("""
     select ak.append_string, ak.static_device, ak.kickstart_host, ak.cobbler_system_name
-      from rhnActionKickstart ak, rhnKickstartableTree kst 
+      from rhnActionKickstart ak, rhnKickstartableTree kst
      where ak.action_id = :action_id
 """)
 
@@ -57,11 +57,11 @@ def initiate(server_id, action_id, dry_run=0):
         raise InvalidAction("Boot image missing")
     if not kickstart_host:
         raise InvalidAction("Kickstart_host missing")
-        
+
     h = rhnSQL.prepare(_query_file_list_initiate)
     h.execute(action_id=action_id)
     files = map(lambda x: x['path'], h.fetchall_dict() or [])
-    
+
     return (kickstart_host, boot_image, append_string, static_device, system_record, files)
 
 def schedule_sync(server_id, action_id, dry_run=0):
@@ -69,15 +69,15 @@ def schedule_sync(server_id, action_id, dry_run=0):
     if dry_run:
         raise ShadowAction("dry run requested - skipping")
 
-    kickstart_session_id = server_kickstart.get_kickstart_session_id(server_id, 
+    kickstart_session_id = server_kickstart.get_kickstart_session_id(server_id,
         action_id)
-    
+
     if kickstart_session_id is None:
         raise InvalidAction("Could not find kickstart session ID")
 
     row = server_kickstart.get_kickstart_session_info(kickstart_session_id, server_id)
     deploy_configs = (row['deploy_configs'] == 'Y')
-    
+
     ks_package_profile = server_kickstart.get_kisckstart_session_package_profile(kickstart_session_id)
     #if the session doesn't have a pkg profile, try from the ks profile itself
     if not ks_package_profile:
@@ -107,13 +107,13 @@ def schedule_sync(server_id, action_id, dry_run=0):
         log_debug(4, "No packages to be installed/removed")
         if not deploy_configs:
             server_profile = None
-        
+
         server_kickstart.schedule_config_deploy(server_id,
             action_id, kickstart_session_id, server_profile=None)
         raise ShadowAction("Package sync not scheduled, nothing to do")
 
     log_debug(4, "Scheduling kickstart delta")
-    server_kickstart.schedule_kickstart_delta(server_id, 
+    server_kickstart.schedule_kickstart_delta(server_id,
         kickstart_session_id, installs, removes)
 
     raise ShadowAction("Package sync scheduled")

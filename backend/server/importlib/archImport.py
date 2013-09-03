@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Arch import process
@@ -84,7 +84,7 @@ class BaseArchCompatImport(Import):
             if not val:
                 raise ValueError("Unsupported arch %s" % arch1_name)
             entry[self.arches1_field_name] = val
-            
+
             arch2_name = entry[self.arches2_name]
             val = self.arches2.get(arch2_name)
             if not val:
@@ -133,5 +133,5 @@ class ServerGroupServerArchCompatImport(BaseArchCompatImport):
     arches1_field_name = 'server_arch_id'
     arches2_field_name = 'server_group_type'
     submit_method_name = 'processServerGroupServerArchCompatMap'
-    virt_sub_level     = 'virt_sub_level' 
-    
+    virt_sub_level     = 'virt_sub_level'
+

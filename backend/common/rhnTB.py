@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 
@@ -46,7 +46,7 @@ def print_env(fd = sys.stderr):
     for k in el:
         fd.write("%s = %s\n" % (k, dct[k]))
 
- 
+
 def print_locals(fd = sys.stderr, tb = None):
     """ Dump a listing of all local variables and their value for better debugging
         chance.
@@ -120,7 +120,7 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
             QUIET_MAIL = 0
         if QUIET_MAIL == 0: # make sure we don't mail
             mail = 0
-        
+
     e_type = sys.exc_info()[:2][0]
     t = time.ctime(time.time())
     exc = StringIO()
@@ -136,7 +136,7 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
         print_req(req, exc)
     if extra:
         exc.write("Extra information about this error:\n%s\n" % extra)
-        
+
     # Print the traceback
     exc.write("\nException Handler Information\n")
     traceback.print_exc(None, exc)
@@ -174,16 +174,16 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
 
             }
         QUIET_MAIL = QUIET_MAIL - 1     # count it no matter what
-        
+
         outstring = exc.getvalue()
-        
+
         #5/18/05 wregglej - 151158 Go through every string in the security list
         # and censor it out of the debug information.
         outstring = censor_string(outstring)
- 
+
         rhnMail.send(headers, outstring)
 
-    exc.close()   
+    exc.close()
     return
 
 
@@ -215,7 +215,7 @@ class SecurityList:
         else:
             self.sec = []
             rhnFlags.set(self._flag_string, self.sec)
-    
+
     def add(self, obj):
         self.sec.append(obj)
 

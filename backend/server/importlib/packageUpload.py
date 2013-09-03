@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Package import code on the app side
@@ -93,7 +93,7 @@ def __processPackage(package, org_id, channels, source):
         raise rhnFault(50)
     packageSize = package['packageSize']
     relpath = package.get('relativePath')
-    
+
     if package.has_key('header_start'):
         header_start = package['header_start']
     else:
@@ -130,7 +130,7 @@ def _formatStatus(status):
         hash['diff'] = _dump(pkg.diff)
         objlist.append([name, version, release, epoch, arch, hash])
     return objlist
-        
+
 
 def _dump(object):
     if object is None:
@@ -151,9 +151,9 @@ def _dump(object):
             dict[_dump(h)] = _dump(v)
         return dict
     return str(object)
-           
 
- 
+
+
 def listChannelsSource(channelList):
     return _listChannels(channelList, True)
 

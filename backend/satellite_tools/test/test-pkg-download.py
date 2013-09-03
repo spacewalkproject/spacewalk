@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 import xmlrpclib
 
@@ -21,8 +21,8 @@ systemid = open("systemid-satellite-live").read()
 #server = xmlrpclib.Server("https://rhn.redhat.com/cgi-bin/satellite.pl")
 #server = xmlrpclib.Server("http://roadrunner.devel.redhat.com/SAT-DUMP")
 server = xmlrpclib.Server("http://roadrunner.devel.redhat.com/SAT")
-print server.package.get(systemid, 'redhat-advanced-server-i386', 
+print server.package.get(systemid, 'redhat-advanced-server-i386',
     ['tar', '1.13.25', '4.AS21.0', '', 'i386'])
 
-print server.package.get(systemid, 'redhat-rhn-satellite-i386-7.2', 
+print server.package.get(systemid, 'redhat-rhn-satellite-i386-7.2',
     ['tkinter', '1.5.2', '36.rhn.2.7x', '', 'i386'])

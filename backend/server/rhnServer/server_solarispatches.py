@@ -7,13 +7,13 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # server_solarispatches module
-# 
+#
 # Extra functionality for solaris patches
 
 from spacewalk.common.rhnLog import log_debug
@@ -49,7 +49,7 @@ class DBPatch(object):
     Patch object for manipulating patches in the database"""
 
     def __init__(self, patch):
-        """[constructor] This method looks up the patch in the databse, the 
+        """[constructor] This method looks up the patch in the databse, the
         'id' field is the rhnPackage id. The 'id' field will be None if the
         patch does not exist in the database"""
         if patch['epoch'] == '':
@@ -95,7 +95,7 @@ class SolarisPatches(object):
 
         log_debug(4, sysid, "saving patched packages")
 
-        select = """SELECT SP.name_id nid, SP.evr_id eid, 
+        select = """SELECT SP.name_id nid, SP.evr_id eid,
                     SP.package_arch_id aid
                     FROM rhnPackageNEVRA PN,
                     rhnServerPackage SP,
@@ -109,8 +109,8 @@ class SolarisPatches(object):
 
         insert = """INSERT INTO rhnSolarisPatchedPackage
                     (server_id, patch_id, package_nevra_id)
-                    VALUES(:sysid, :pid, 
-                    LOOKUP_PACKAGE_NEVRA(:nid, :eid, :aid))""" 
+                    VALUES(:sysid, :pid,
+                    LOOKUP_PACKAGE_NEVRA(:nid, :eid, :aid))"""
 
         for patch in self._patches.get(sysid, []):
             if patch.id is None:
@@ -118,11 +118,11 @@ class SolarisPatches(object):
 
             s_handle = rhnSQL.prepare(select)
             s_handle.execute(pid=patch.id, sysid=sysid)
-            
+
             rows = s_handle.fetchall_dict() or []
             for row in rows:
                 i_handle = rhnSQL.prepare(insert)
-                i_handle.execute(sysid=sysid, pid=patch.id, nid=row['nid'], 
+                i_handle.execute(sysid=sysid, pid=patch.id, nid=row['nid'],
                                  eid=row['eid'], aid=row['aid'])
                 # XXX return code from the execute call?
 

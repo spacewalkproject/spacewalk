@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 from spacewalk.server import rhnSQL, rhnAction
 from spacewalk.server.rhnDependency import find_package_with_arch
@@ -28,13 +28,13 @@ class SubscribedChannel:
     """
     def __init__(self, server_id, channel_lookup_string):
         """
-            Constructor. 
+            Constructor.
 
-            server_id is a string containing the unique number that the 
+            server_id is a string containing the unique number that the
             database has assigned to the server.
 
             channel_lookup_string is a string that the _get_channel_info function
-            uses to look up the correct channel by channel label. It does NOT have 
+            uses to look up the correct channel by channel label. It does NOT have
             to be the entire channel label, but it does have to occur at the beginning
             of the channel label. For instance "rhn-tools" would match any of the
             rhn-tools channels because they all begin with "rhn-tools". It can also be
@@ -67,7 +67,7 @@ class SubscribedChannel:
 
     def is_subscribed_to_channel(self):
         """
-            Returns True if server_id is subscribed to the 
+            Returns True if server_id is subscribed to the
             channel, False otherwise
         """
         if not self.found_channel:
@@ -106,7 +106,7 @@ class ChannelPackage:
         """
         self.server_id = server_id
         self.package_name = package_name
-        
+
         self.package_info = None
         self.id = None
         self.version = None
@@ -157,7 +157,7 @@ class ChannelPackage:
 
         if not package_id:
             raise PackageNotFound("ID for package %s was not found." % self.get_name())
-        
+
         _package_info_query = rhnSQL.Statement("""
             select
                     p.name_id name_id,
@@ -181,7 +181,7 @@ class ChannelPackage:
 
     def exists(self):
         """
-            Returns True if the package is available for the server according to the db, 
+            Returns True if the package is available for the server according to the db,
             False otherwise.
         """
         if not self.package_info:
@@ -215,7 +215,7 @@ class ChannelPackage:
         if not self.arch_id:
             self._get_package_field_ids()
         return self.arch_id
-    
+
     def get_id(self):
         """
             Returns the id of the package.
@@ -312,21 +312,21 @@ class PackageInstallScheduler:
                         )
 
         self._add_package_to_install_action(self.new_action_id)
-    
+
     def _add_package_to_install_action(self, action_id):
         """
             Private function that adds self.package to the rhnActionPackage table.
         """
-        name_id = self.package.get_name_id() 
+        name_id = self.package.get_name_id()
         package_arch_id = self.package.get_arch_id()
         evr_id = self.package.get_evr_id()
 
         insert_package_query = rhnSQL.Statement("""
-            insert into rhnActionPackage(id, 
-                                         action_id, 
-                                         parameter, 
-                                         name_id, 
-                                         evr_id, 
+            insert into rhnActionPackage(id,
+                                         action_id,
+                                         parameter,
+                                         name_id,
+                                         evr_id,
                                          package_arch_id)
             values (sequence_nextval('rhn_act_p_id_seq'),
                     :action_id,

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 import unittest
 import TestServer
@@ -25,7 +25,7 @@ class TestLoginTestCase( unittest.TestCase ):
         pass
 
     def testReturnType( self ):
-        assert type( self.packages.test_login( self.myserver.getUsername(), self.myserver.getPassword() ) ) == type(1) 
+        assert type( self.packages.test_login( self.myserver.getUsername(), self.myserver.getPassword() ) ) == type(1)
 
     def testReturnValue( self ):
         assert self.packages.test_login( self.myserver.getUsername(), self.myserver.getPassword() ) == 1

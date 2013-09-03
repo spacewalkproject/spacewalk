@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Generic DB backend
@@ -87,7 +87,7 @@ class Backend:
 	templ = """
             select /*+index(rhnPackageCapability rhn_pkg_cap_name_version_uq)*/ id
               from rhnPackageCapability
-             where name = :name 
+             where name = :name
                and version %s"""
         sqlNonNull = templ % "= :version"
         sqlNull = templ % "is null"
@@ -120,7 +120,7 @@ class Backend:
             # Nothing to do
             return
         sql = """
-            insert into rhnPackageCapability 
+            insert into rhnPackageCapability
                 (id, name, version) values
                 (:id, :name, :version)
         """
@@ -161,7 +161,7 @@ class Backend:
 	sql = "select id from rhnCVE where name = :name"
         h = self.dbmodule.prepare(sql)
         toinsert = [[], []]
-        
+
         for cve_name in cveHash.keys():
             h.execute(name=cve_name)
             row = h.fetchone_dict()
@@ -212,10 +212,10 @@ class Backend:
 
     def lookupChannelArches(self, archHash):
         return self.__lookupArches(archHash, 'rhnChannelArch')
-    
+
     def lookupPackageArches(self, archHash):
         return self.__lookupArches(archHash, 'rhnPackageArch')
-    
+
     def lookupServerArches(self, archHash):
         return self.__lookupArches(archHash, 'rhnServerArch')
 
@@ -238,7 +238,7 @@ class Backend:
                 continue
             aid = row['id']
             results[label] = aid
-            if name == row['name']: 
+            if name == row['name']:
                 # Nothing to do
                 continue
             updates[0].append(aid)
@@ -251,7 +251,7 @@ class Backend:
             h.executemany(id=inserts[0], label=inserts[1], name=inserts[2])
         if updates[0]:
             h = self.dbmodule.prepare("""
-                    update rhnArchType 
+                    update rhnArchType
                        set name = :name
                      where id = :id
             """)
@@ -431,7 +431,7 @@ class Backend:
     def lookupChannelPackageArchCompat(self, channelArchHash):
         # Return all the arches compatible with each key of archHash
         sql = """
-            select package_arch_id 
+            select package_arch_id
             from rhnChannelPackageArchCompat
             where channel_arch_id = :channel_arch_id
         """
@@ -460,7 +460,7 @@ class Backend:
                 # server group not found
                 continue
             entries_hash[sgt] = row['id']
-    
+
     def lookupPackageNames(self, nameHash):
         if not nameHash:
             return
@@ -475,8 +475,8 @@ class Backend:
             return None
 
         sql = """
-            select advisory 
-              from rhnErrata 
+            select advisory
+              from rhnErrata
              where advisory_name = :advisory_name
         """
         h = self.dbmodule.prepare(sql)
@@ -490,13 +490,13 @@ class Backend:
         """
         if not erratum:
             return None
-        
+
         sql = """
-            select id 
-              from rhnErrataSeverity 
+            select id
+              from rhnErrataSeverity
              where label = :severity
         """
-        
+
         h = self.dbmodule.prepare(sql)
 
 	if erratum['security_impact'] == '':
@@ -506,7 +506,7 @@ class Backend:
 	#bz-204374: rhnErrataSeverity tbl has lower case severity values,
 	#so we convert severity in errata hash to lower case to lookup.
         severity_label = 'errata.sev.label.' + erratum['security_impact'].lower()
-        
+
         h.execute(severity= severity_label)
         row = h.fetchone_dict()
 
@@ -567,8 +567,8 @@ class Backend:
 
     def lookupPackagesByNEVRA(self, nevraHash):
         sql = """
-              select id from rhnPackage 
-              where name_id = :name and 
+              select id from rhnPackage
+              where name_id = :name and
                     evr_id = :evr and
                     package_arch_id = :arch
               """
@@ -653,7 +653,7 @@ class Backend:
     def lookup_kstree_types(self, hash):
         return self._lookup_in_table('rhnKSTreeType', 'rhn_kstree_type_seq',
             hash)
-    
+
     def lookup_ks_install_types(self, hash):
         return self._lookup_in_table('rhnKSInstallType',
             'rhn_ksinstalltype_id_seq', hash)
@@ -687,7 +687,7 @@ class Backend:
                 row_ids.append(row_id)
                 labels.append(label)
                 names.append(name)
-                
+
             sql = """
                 insert into %s (id, label, name) values (:id, :label, :name)
             """
@@ -706,12 +706,12 @@ class Backend:
             """
             h = self.dbmodule.prepare(sql % table_name)
             h.executemany(label=labels, name=names)
-            
+
         # Update the returning value
         hash.clear()
         hash.update(result)
         return hash
-    
+
     def processChannelArches(self, arches):
         self.__processObjectCollection(arches, 'rhnChannelArch',
             uploadForce=4, ignoreUploaded=1, severityLimit=4)
@@ -760,10 +760,10 @@ class Backend:
         self.validate_pks()
 
         childTables = {
-            'rhnPackageProvides':   'package_id', 
+            'rhnPackageProvides':   'package_id',
             'rhnPackageRequires':   'package_id',
             'rhnPackageConflicts':  'package_id',
-            'rhnPackageObsoletes':  'package_id', 
+            'rhnPackageObsoletes':  'package_id',
             'rhnPackageRecommends': 'package_id',
             'rhnPackageSuggests':   'package_id',
             'rhnPackageSupplements':'package_id',
@@ -810,7 +810,7 @@ class Backend:
                 uploadForce=uploadForce, forceVerify=forceVerify,
                 ignoreUploaded=ignoreUploaded, severityLimit=1,
                 transactional=transactional)
-                
+
     def processErrata(self, errata):
         # Insert/update the packages
 
@@ -827,7 +827,7 @@ class Backend:
             if not isinstance(erratum, Erratum):
                 raise TypeError("Expected an Erratum instance")
 
-        return self.__processObjectCollection(errata, 'rhnErrata', childTables, 
+        return self.__processObjectCollection(errata, 'rhnErrata', childTables,
             'errata_id', uploadForce=4, ignoreUploaded=1, forceVerify=1,
             transactional=1)
 
@@ -850,8 +850,8 @@ class Backend:
         # Get affected channels
         affected_channel_ids = {}
         h = self.dbmodule.prepare("""
-            select channel_id 
-              from rhnChannelErrata 
+            select channel_id
+              from rhnChannelErrata
              where errata_id = :errata_id
         """)
         for errata_id in affected_errata_ids.keys():
@@ -861,7 +861,7 @@ class Backend:
             channel_ids = map(lambda x: x['channel_id'], channel_ids)
             for channel_id in channel_ids:
                 affected_channel_ids[channel_id] = errata_id
-                    
+
         # Now update the channels
         update_channel = self.dbmodule.Procedure('rhn_channel.update_channel')
         invalidate_ss = 0
@@ -902,7 +902,7 @@ class Backend:
             if erratum.diff_result is not None:
                 if erratum.diff_result.level != 0:
                     # New or modified in some way, queue it
-                    # XXX we may not want to do this for trivial changes, 
+                    # XXX we may not want to do this for trivial changes,
                     # but not sure what trivial is
                     for cid in erratum['channels']:
                         errata_channel_ids.append(\
@@ -917,17 +917,17 @@ class Backend:
         """)
 
         h = self.dbmodule.prepare("""
-            insert into rhnErrataQueue (errata_id, channel_id, next_action) 
+            insert into rhnErrataQueue (errata_id, channel_id, next_action)
             values (:errata_id, :channel_id, current_timestamp + numtodsinterval(:timeout, 'second'))
         """)
         errata_ids = map(lambda x:x[0], errata_channel_ids)
         channel_ids = map(lambda x:x[1], errata_channel_ids)
-        timeouts = [timeout] * len(errata_ids) 
+        timeouts = [timeout] * len(errata_ids)
         hdel.executemany(errata_id=errata_ids)
         return h.executemany(errata_id=errata_ids, channel_id=channel_ids,\
                              timeout=timeouts)
 
-    
+
     def processChannels(self, channels, base_channels):
         childTables = [
             'rhnChannelFamilyMembers', 'rhnReleaseChannelMap',
@@ -976,7 +976,7 @@ class Backend:
     def processChannelFamilies(self, channels):
         childTables = []
         self.__processObjectCollection(channels, 'rhnChannelFamily',
-            childTables, 'channel_family_id', uploadForce=4, ignoreUploaded=1, 
+            childTables, 'channel_family_id', uploadForce=4, ignoreUploaded=1,
             forceVerify=1)
 
     def processChannelFamilyMembers(self, channel_families):
@@ -1027,7 +1027,7 @@ class Backend:
                    rhnVirtSubLevel vsl
              where cfvsl.channel_family_id = :channel_family_id
                and vsl.id = cfvsl.virt_sub_level_id
-                   
+
         """)
 
         lookup_vsl = self.dbmodule.prepare("""
@@ -1043,9 +1043,9 @@ class Backend:
             vsl_labels = cf['virt_sub_level_label'].split()
             h_lookup_virtid.execute(channel_family_id = cf.id)
             row = h_lookup_virtid.fetchall_dict()
-            
+
             if row:
-                labels_existing = map(lambda x: x['label'], row) 
+                labels_existing = map(lambda x: x['label'], row)
             for vsl_label in vsl_labels:
                 if row and vsl_label in labels_existing:
                     continue
@@ -1063,7 +1063,7 @@ class Backend:
              where channel_family_id = :channel_family_id
         """)
         hins = self.dbmodule.prepare("""
-            insert into rhnChannelFamilyVirtSubLevel 
+            insert into rhnChannelFamilyVirtSubLevel
               (virt_sub_level_id, channel_family_id)
             values (:vsl_id, :channel_family_id)
         """)
@@ -1073,9 +1073,9 @@ class Backend:
 
     def processVirtSubLevel(self, entries):
         h_lookup_virt = self.dbmodule.prepare("""
-            select label 
+            select label
               from rhnVirtSubLevel
-             where label = :virt_label 
+             where label = :virt_label
         """)
         virt_labels = []
         virt_text = []
@@ -1097,7 +1097,7 @@ class Backend:
             where label = :vsl_label
         """)
         hins = self.dbmodule.prepare("""
-            insert into rhnVirtSubLevel 
+            insert into rhnVirtSubLevel
               (label, name)
             values (:vsl_label, :vsl_text)
         """)
@@ -1112,7 +1112,7 @@ class Backend:
                    rhnVirtSubLevel vsl
              where sgtvsl.server_group_type_id = :sgt_id
                and vsl.id = sgtvsl.virt_sub_level_id
-                   
+
         """)
         lookup_vsl = self.dbmodule.prepare("""
             select id
@@ -1148,7 +1148,7 @@ class Backend:
              where server_group_type_id = :sgt_id
         """)
         hins = self.dbmodule.prepare("""
-            insert into rhnSGTypeVirtSubLevel 
+            insert into rhnSGTypeVirtSubLevel
               (virt_sub_level_id, server_group_type_id)
             values (:vsl_id, :sgt_id)
         """)
@@ -1159,25 +1159,25 @@ class Backend:
     def processChannelFamilyPermissions(self, cfps):
         # Process channelFamilyPermissions
 	activate_channel_entitlements = self.dbmodule.Procedure(
-	                      'rhn_entitlements.activate_channel_entitlement')         
+	                      'rhn_entitlements.activate_channel_entitlement')
         for cfp in cfps:
 	    if "private-channel-family" in cfp['channel_family']:
 	        # As this is a generic list of channel families
-                # skip private channel families from channel family 
+                # skip private channel families from channel family
                 # perm checks, as they are specific to ui and should
-                # not be handed over for org checks through satellite-sync 
-                # or activate to pl/sql. As there is no unique way to 
-                # identify these, filter based on name which is a 
-                # standard for private channel families. Hopefully we'll 
+                # not be handed over for org checks through satellite-sync
+                # or activate to pl/sql. As there is no unique way to
+                # identify these, filter based on name which is a
+                # standard for private channel families. Hopefully we'll
                 # have a better param to filter this in future.
                 continue
 	    try:
-	        activate_channel_entitlements(cfp['org_id'], 
+	        activate_channel_entitlements(cfp['org_id'],
 		               cfp['channel_family'], cfp['max_members'], cfp['max_flex'])
             except rhnSQL.SQLError, e:
                 raise rhnFault(23, str(e[1]) + ": org_id [%s] family [%s] max [%s]" % \
                     (cfp['org_id'], cfp['channel_family'], cfp['max_members']), explain=0), None, sys.exc_info()[2]
-            
+
         # The way we constructed the list of channel family permissions, we
         # should have (at least) all of the permissions from the database in
         # the cfps list, so no need to prune channel entitlements outside of
@@ -1225,7 +1225,7 @@ class Backend:
             UPDATE rhnChannel
                SET channel_product_id = :channel_product_id
              WHERE id = :id
-               AND (channel_product_id is NULL 
+               AND (channel_product_id is NULL
                 OR channel_product_id <> :channel_product_id)
         """)
 
@@ -1233,21 +1233,21 @@ class Backend:
                           channel_product_id = channel['channel_product_id'])
 
     def processProductNames(self, batch):
-        """ Check if ProductName for channel in batch is already in DB. 
-            If not add it there. 
+        """ Check if ProductName for channel in batch is already in DB.
+            If not add it there.
         """
         statement = self.dbmodule.prepare("""
-            insert into rhnProductName 
+            insert into rhnProductName
                  (id, label, name)
-              values (sequence_nextval('rhn_productname_id_seq'), 
+              values (sequence_nextval('rhn_productname_id_seq'),
                       :product_label, :product_name)
 	""")
 
         for channel in batch:
             if not self.lookupProductNames(channel['label']):
-                statement.execute(product_label = channel['label'], 
+                statement.execute(product_label = channel['label'],
 	                          product_name = channel['name'])
-        
+
 
     def lookupProductNames(self, label):
         """ For given label of product return its id.
@@ -1266,7 +1266,7 @@ class Backend:
         if product:
             return product['id']
 
-        return 
+        return
 
     # bug #528227
     def lookupChannelOrg(self, label):
@@ -1323,18 +1323,18 @@ class Backend:
                           beta = channel['channel_product_beta'])
 
         return id
-                                          
+
     def subscribeToChannels(self, packages, strict=0):
         hash = {
-            'package_id' : [], 
+            'package_id' : [],
             'channel_id' : [],
         }
         # Keep a list of packages for a channel too, so we can easily compare
         # what's extra, if strict is 1
         channel_packages = {}
         sql = """
-            select channel_id 
-            from rhnChannelPackage 
+            select channel_id
+            from rhnChannelPackage
             where package_id = :package_id"""
         affected_channels = {}
         statement = self.dbmodule.prepare(sql)
@@ -1457,7 +1457,7 @@ class Backend:
         for package in packages:
             if not isinstance(package, SourcePackage):
                 raise TypeError("Expected a Package instance")
-                
+
         # Process the packages
 
         self.__processObjectCollection(packages, 'rhnPackageSource', childTables,
@@ -1485,21 +1485,21 @@ class Backend:
 
     def __buildQueries(self, childTables):
         childTableLookups = {}
-        queryTempl = "select * from %s where %s = :id" 
+        queryTempl = "select * from %s where %s = :id"
         for childTableName in childTables:
             childTableLookups[childTableName] = self.dbmodule.prepare(
                 queryTempl % (childTableName, childTables[childTableName]))
         return childTableLookups
 
-    def __processObjectCollection(self, objColl, parentTable, childTables=[], 
+    def __processObjectCollection(self, objColl, parentTable, childTables=[],
             colname=None, **kwargs):
         # Returns the DML object that was processed
         # This helps identify what the changes were
 
-        # XXX this is a total hack keeping tranlating the old interface into the 
-        # new interface to keep me from having to change all the places in the 
+        # XXX this is a total hack keeping tranlating the old interface into the
+        # new interface to keep me from having to change all the places in the
         # code that call this method, as there are 10 of them...
-        
+
         childDict = {}
 
         for tbl in childTables:
@@ -1507,12 +1507,12 @@ class Backend:
 
         return self.__processObjectCollection__(objColl, parentTable, childDict, **kwargs)
 
-    def __processObjectCollection__(self, objColl, parentTable, childTables={}, 
+    def __processObjectCollection__(self, objColl, parentTable, childTables={},
             **kwargs):
         # Returns the DML object that was processed
         # This helps identify what the changes were
 
-        # FIXME I need to break this method apart into smaller method calls that 
+        # FIXME I need to break this method apart into smaller method calls that
         # will allow *different* colname fields for different childTables
         # NOTE objColl == packages
         # Process the object collection, starting with parentTable, having
@@ -1546,10 +1546,10 @@ class Backend:
         severityLimit = kwparams['severityLimit']
         transactional = kwparams['transactional']
         forceVerify = kwparams['forceVerify']
-        
+
         # All the tables affected
         tables = [parentTable] + childTables.keys()
-        
+
         # Build the hash for the operations on the tables
         dml = DML(tables, self.tables)
         # Reverse hash: object id to object for already-uploaded objects
@@ -1642,14 +1642,14 @@ class Backend:
             object.diff = object.diff_result = Diff()
             diffval = computeDiff(extObject, row, severityHash, object.diff)
             if not forceVerify:
-                # If there is enough karma, force the full object check 
+                # If there is enough karma, force the full object check
                 # maybe they want the object overwritten
-                if uploadForce < object.diff.level and diffval <= severityLimit: 
+                if uploadForce < object.diff.level and diffval <= severityLimit:
                     # Same object, or not different enough
                     # not enough karma either
                     continue
 
-            localDML = self.__processUploaded(objid, object, childTables, 
+            localDML = self.__processUploaded(objid, object, childTables,
                 childTableLookups)
 
             if uploadForce < object.diff.level:
@@ -1684,9 +1684,9 @@ class Backend:
             'update'    : {},
             'delete'    : {},
         }
-            
+
         # Grab the rest of the information
-        childTablesInfo = self.__getChildTablesInfo(objid, childTables.keys(), 
+        childTablesInfo = self.__getChildTablesInfo(objid, childTables.keys(),
             childTableLookups)
 
         # Start computing deltas
@@ -1728,7 +1728,7 @@ class Backend:
                     ent[childTableObj.sequenceColumn] = None
                 _buildExternalValue(val, ent, childTableObj)
 
-                # Look this value up 
+                # Look this value up
                 if not dbside.has_key(key):
                     if childTableObj.sequenceColumn:
                         # Initialize the sequence column too
@@ -1745,26 +1745,26 @@ class Backend:
 
                 # Already exists in the DB
                 dbval = _buildDatabaseValue(dbside[key], fields)
-                
+
                 if childTableObj.sequenceColumn:
                     # Copy the sequenced value - we dpn't want it updated
                     sc = childTableObj.sequenceColumn
                     val[sc] = ent[sc] = dbval[sc]
                 # check for updates
-                diffval = computeDiff(val, dbval, childSeverityHash, 
+                diffval = computeDiff(val, dbval, childSeverityHash,
                         object.diff, parentattr)
                 if not diffval:
                     # Same value
                     del dbside[key]
                     continue
-                
+
                 # Different value; have to update the entry
                 localDML['update'][childTableName].append(val)
                 del dbside[key]
 
             if childTableName == 'rhnErrataPackage':
                 continue;
-                
+
             # Anything else should be deleted
             for key, val in dbside.items():
                 # Send only the PKs
@@ -1981,15 +1981,15 @@ class Backend:
                     continue
                 # Need to update
                 updates.append(entry)
-                        
+
         inserts = []
         map(inserts.extend, map(lambda x: x.values(), uq_col_values.values()))
-            
+
         if deletes:
             params = transpose(deletes, uq_fields)
             query = "delete from %s where %s" % (
                 table_name,
-                string.join(map(lambda x: "%s = :%s" % (x, x), uq_fields), 
+                string.join(map(lambda x: "%s = :%s" % (x, x), uq_fields),
                             ' and '),
             )
             h = self.dbmodule.prepare(query)
@@ -2007,9 +2007,9 @@ class Backend:
             params = transpose(updates, all_fields)
             query = "update % set %s where %s" % (
                 table_name,
-                string.join(map(lambda x: "%s = :s" + (x, x), fields), 
+                string.join(map(lambda x: "%s = :s" + (x, x), fields),
                             ', '),
-                string.join(map(lambda x: "%s = :%s" % (x, x), uq_fields), 
+                string.join(map(lambda x: "%s = :%s" % (x, x), uq_fields),
                             ' and '),
             )
             h = self.dbmodule.prepare(query)
@@ -2022,7 +2022,7 @@ class Backend:
             # remove checksum from a primary key if nevra is disabled.
             if 'checksum_id' in tbs.pk:
                 tbs.pk.remove('checksum_id')
-            
+
 # Returns a tuple for the hash's values
 def build_key(hash, fields):
     return tuple(map(lambda x, h=hash: h[x], fields))

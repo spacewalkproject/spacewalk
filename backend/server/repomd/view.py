@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 import re
 
@@ -52,7 +52,7 @@ class RepoView:
             output.append("    <location href=\"repodata/comps.xml\"/>")
             output.append("    <checksum type=\"%s\">%s</checksum>"
                 % (self.checksum_type, self.groups['open_checksum']))
-            output.append("    <timestamp>%d</timestamp>" 
+            output.append("    <timestamp>%d</timestamp>"
                 % (self.groups['timestamp']))
             output.append("  </data>")
 
@@ -158,7 +158,7 @@ class PrimaryView(object):
         output.append("      <rpm:supplements>")
         output.extend(self._get_deps(package.supplements))
         output.append("      </rpm:supplements>")
-  
+
         output.append("      <rpm:conflicts>")
         output.extend(self._get_deps(package.conflicts))
         output.append("      </rpm:conflicts>")
@@ -181,7 +181,7 @@ class PrimaryView(object):
         "packages=\"%d\">" % self.channel.num_packages
 
         self.fileobj.write(output)
-       
+
     def write_package(self, package):
         self.fileobj.write('\n'.join(self._get_package(package)))
 
@@ -213,7 +213,7 @@ class FilelistsView(object):
         "packages=\"%d\">" % self.channel.num_packages
 
         self.fileobj.write(output)
-       
+
     def write_package(self, package):
         self.fileobj.write('\n'.join(self._get_package(package)))
 
@@ -247,7 +247,7 @@ class OtherView(object):
         output = XML_ENCODING + "\n" + \
         "<otherdata xmlns=\"http://linux.duke.edu/metadata/other\" " + \
         "packages=\"%d\">" % self.channel.num_packages
-      
+
         self.fileobj.write(output)
 
     def write_package(self, package):
@@ -266,7 +266,7 @@ class UpdateinfoView(object):
     def _get_references(self, erratum):
         output = []
         output.append("    <references>")
-       
+
         ref_string = "       <reference href=\"%s%s\" id=\"%s\" type=\"%s\">"
         for cve_ref in erratum.cve_references:
             output.append(ref_string
@@ -311,7 +311,7 @@ class UpdateinfoView(object):
     def _get_erratum(self, erratum):
         output = []
 
-        output.append("  <update from=\"security@redhat.com\" " + 
+        output.append("  <update from=\"security@redhat.com\" " +
             "status=\"final\" type=\"%s\" version=\"%s\">"
             % (erratum.advisory_type, erratum.version))
         output.append("    <id>%s</id>" % erratum.readable_id)
@@ -322,7 +322,7 @@ class UpdateinfoView(object):
             % text_filter("%s\n\n\%s" % (erratum.synopsis,  erratum.description)))
 
         output.extend(self._get_references(erratum))
-        output.extend(self._get_packages(erratum))       
+        output.extend(self._get_packages(erratum))
 
         output.append("  </update>")
 
@@ -351,7 +351,7 @@ class CompsView(object):
 
 def text_filter(text):
     # do & first
-    s = text.replace('&', '&amp;') 
+    s = text.replace('&', '&amp;')
     s = s.replace('<', '&lt;')
     s = s.replace('>', '&gt;')
     return s

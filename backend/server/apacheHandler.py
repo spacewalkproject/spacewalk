@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -84,21 +84,21 @@ class apacheHandler(apacheSession):
         else:
             # If in outage mode, close the DB connections
             rhnSQL.closeDB()
-        
+
         # Store client capabilities
         client_cap_header = 'X-RHN-Client-Capability'
         if req.headers_in.has_key(client_cap_header):
             client_caps =  req.headers_in[client_cap_header]
-            client_caps = filter(None, 
+            client_caps = filter(None,
                 map(string.strip, string.split(client_caps, ","))
             )
 	    rhnCapability.set_client_capabilities(client_caps)
-            
+
         #Enabling the input header flags associated with the redirects/newer clients
 	redirect_support_flags = ['X-RHN-Redirect', 'X-RHN-Transport-Capability']
 	for flag in redirect_support_flags:
             if req.headers_in.has_key( flag ):
-                rhnFlags.set(flag, str(req.headers_in[flag]) )    
+                rhnFlags.set(flag, str(req.headers_in[flag]) )
 
         return apache.OK
 
@@ -123,7 +123,7 @@ class apacheHandler(apacheSession):
 
         log_error("Method not allowed", req.method)
         return apache.HTTP_METHOD_NOT_ALLOWED
-    
+
     def _cleanup_request_processor(self):
         """ Clean up the request processor """
         self._req_processor = None
@@ -138,12 +138,12 @@ class apacheHandler(apacheSession):
 
         if not CFG.SEND_MESSAGE_TO_ALL:
             # Need to get any string template overrides here, before any app
-            # code gets executed, as the rhnFault error messages use the 
+            # code gets executed, as the rhnFault error messages use the
             # templates
             # If send_message_to_all, we don't have DB connectivity though
             h = rhnSQL.prepare("select label, value from rhnTemplateString")
             h.execute()
-            
+
             templateStrings = {}
             while 1:
                 row = h.fetchone_dict()
@@ -151,7 +151,7 @@ class apacheHandler(apacheSession):
                     break
 
                 templateStrings[row['label']] = row['value']
-                
+
             if templateStrings:
                 rhnFlags.set('templateOverrides', templateStrings)
 
@@ -167,7 +167,7 @@ class apacheHandler(apacheSession):
                 req.send_http_header()
                 return apache.OK
 
-        
+
         # Try to authenticate the proxy if it this request passed
         # through a proxy.
         if self.proxyVersion:
@@ -190,7 +190,7 @@ class apacheHandler(apacheSession):
                 log_error("Got a GET call, but auth_client declined",
                           req.path_info)
                 return apache.HTTP_METHOD_NOT_ALLOWED
- 
+
         # Avoid leaving Oracle deadlocks
         try:
             ret = self._req_processor.process()
@@ -198,7 +198,7 @@ class apacheHandler(apacheSession):
         except:
             if not CFG.SEND_MESSAGE_TO_ALL:
                 rhnSQL.rollback()
-            raise        
+            raise
         log_debug(4, "Leave with return value", ret)
         return ret
 

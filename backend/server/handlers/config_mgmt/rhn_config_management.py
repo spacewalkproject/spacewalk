@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Config file handler (management tool)
@@ -27,7 +27,7 @@ from spacewalk.common.fileutils import f_date, ostr_to_sym
 class ConfigManagement(configFilesHandler.ConfigFilesHandler):
     def __init__(self):
         log_debug(3)
-	configFilesHandler.ConfigFilesHandler.__init__(self)        
+	configFilesHandler.ConfigFilesHandler.__init__(self)
         self.functions.update({
             'management.get_file'       : 'management_get_file',
             'management.list_config_channels'   : 'management_list_channels',
@@ -88,18 +88,18 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         row = rhnSQL.fetchone_dict(self._query_lookup_config_channel,
                   org_id=self.org_id, config_channel=config_channel)
         if row:
-            raise rhnFault(4010, "Configuration channel %s already exists" % 
+            raise rhnFault(4010, "Configuration channel %s already exists" %
                 config_channel, explain=0)
-        
-        insert_call = rhnSQL.Function('rhn_config.insert_channel', 
+
+        insert_call = rhnSQL.Function('rhn_config.insert_channel',
             rhnSQL.types.NUMBER())
         config_channel_id = insert_call(self.org_id,
                                         'normal',
                                         config_channel_name,
                                         config_channel,
                                         config_channel_description)
-                                        
-        
+
+
         rhnSQL.commit()
         return {}
 
@@ -121,9 +121,9 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
         if not row:
             raise rhnFault(4009, "Channel not found")
-        
+
         delete_call = rhnSQL.Procedure('rhn_config.delete_channel')
-        
+
         try:
             delete_call(row['id'])
         except rhnSQL.SQLError, e:
@@ -136,7 +136,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         log_debug(5, "Removed:", config_channel)
         rhnSQL.commit()
         return ""
-            
+
     _query_management_list_files = rhnSQL.Statement("""
         select cc.label config_channel,
                cfn.path
@@ -158,7 +158,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
         config_channel = dict.get('config_channel')
         # XXX Validate the config channel
-        
+
         log_debug(3, "Org id", self.org_id, "Config channel", config_channel)
 
         h = rhnSQL.prepare(self._query_management_list_files)
@@ -179,7 +179,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         retval.sort(lambda x,y: cmp(x['path'], y['path']))
         log_debug(4, "Return value", retval)
         return retval
-        
+
     def management_get_file(self, dict):
         log_debug(1)
         self._get_and_validate_session(dict)
@@ -191,7 +191,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
         row = self._get_file(config_channel, path, revision=revision)
         if not row:
-            raise rhnFault(4011, "File %s does not exist in channel %s" % 
+            raise rhnFault(4011, "File %s does not exist in channel %s" %
                 (path, config_channel), explain=0)
 
         return self._format_file_results(row)
@@ -221,7 +221,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                  rhnSQL.fetchall_dict(self._query_list_file_revisions,
                         org_id=self.org_id, config_channel=config_channel, path=path) or [])
         if not retval:
-            raise rhnFault(4011, "File %s does not exist in channel %s" % 
+            raise rhnFault(4011, "File %s does not exist in channel %s" %
                 (path, config_channel), explain=0)
 
         return retval
@@ -242,7 +242,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
     _query_get_file = """
         select :path path,
-               cc.label config_channel, 
+               cc.label config_channel,
                ccont.contents file_contents,
                ccont.is_binary,
                c.checksum_type,
@@ -255,7 +255,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                ci.filemode,
 	       cft.label,
 	       ci.selinux_ctx,
-           case 
+           case
                 when cft.label='symlink' then (select path from rhnConfigFileName where id = ci.SYMLINK_TARGET_FILENAME_ID)
                 else ''
             end as symlink
@@ -375,24 +375,24 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
         file_too_large = result.get('file_too_large')
         if file_too_large:
-            raise rhnFault(4003, "File %s is too large (%s bytes)" % 
+            raise rhnFault(4003, "File %s is too large (%s bytes)" %
                 (dict['path'], dict['size']), explain=0)
 
         rhnSQL.commit()
         return {}
-        
+
     def management_get_delimiters(self, dict):
         log_debug(1)
         self._get_and_validate_session(dict)
 
         return self._get_delimiters()
-    
+
     def management_get_maximum_file_size(self, dict={}):
         log_debug(1)
         self._get_and_validate_session(dict)
 
         return self._get_maximum_file_size()
-                
+
     def __attributes_differ(self, fsrc, fdst):
         """ Returns true if acl, ownership, type or selinux context differ. """
         return (fsrc['filemode'] != fdst['filemode']) or (fsrc['label'] != fdst['label']) or \
@@ -428,13 +428,13 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         config_channel_src = dict['config_channel_src']
         revision_src = dict.get('revision_src')
         fsrc = self._get_file_revision(config_channel_src, revision_src, path)
-        
+
         config_channel_dst = dict.get('config_channel_dst')
         if config_channel_dst is None:
             config_channel_dst = config_channel_src
         revision_dst = dict.get('revision_dst')
         fdst = self._get_file_revision(config_channel_dst, revision_dst, path)
-        
+
         if fsrc['label'] != fdst['label']:
             raise rhnFault(4017,
                   "Path %s  is a %s in channel %s while it is a %s in channel %s" \
@@ -513,7 +513,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         row = rhnSQL.fetchone_dict(self._query_org_config_channels,
                   config_channel=config_channel, org_id=self.org_id)
         if not row:
-            raise rhnFault(4009, "Configuration channel %s does not exist" % 
+            raise rhnFault(4009, "Configuration channel %s does not exist" %
                 config_channel, explain=0)
         return row
 
@@ -523,5 +523,5 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
             # All good
             return
 
-        raise rhnFault(4006, 
+        raise rhnFault(4006,
             "User is not a allowed to manage config files")

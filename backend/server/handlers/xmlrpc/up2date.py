@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # Implements the up2date.* fucntions for XMLRPC
 #
@@ -60,7 +60,7 @@ class Up2date(rhnHandler):
         self.functions.append('solveDependencies')
         self.functions.append('solveDependencies_arch')
         self.functions.append('solveDependencies_with_limits')
-    
+
     def auth_system(self, action, system_id):
         # Stuff the action in the headers:
         transport = rhnFlags.get('outputTransportOptions')
@@ -226,7 +226,7 @@ class Up2date(rhnHandler):
             version is the version of the client that is calling the function.
         """
         log_debug(4, system_id)
-        return self.__solveDep_with_limits( system_id, deps, action = "solvedep", 
+        return self.__solveDep_with_limits( system_id, deps, action = "solvedep",
             clientVersion = 2, all=all, limit_operator=limit_operator, limit=limit)
 
     def history(self, system_id, summary, body = ""):

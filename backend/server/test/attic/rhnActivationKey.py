@@ -8,10 +8,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # $Id$
@@ -36,7 +36,7 @@ class ActivationKey:
     def __init__(self):
         self._row_reg_token = None
         self._row_activ_key = None
-        
+
         self._server_groups = {}
         self._channels = {}
         self._token = None
@@ -96,7 +96,7 @@ class ActivationKey:
         return ret
 
     # Setters
-    
+
     def set_entitlement_level(self, val):
         entitlements = {}
         for k, v in val.items():
@@ -140,7 +140,7 @@ class ActivationKey:
         self._row_reg_token[name] = val
 
     # Getters
-    
+
     _query_get_reg_token_entitlements = rhnSQL.Statement("""
         select sgt.label
           from rhnServerGroupType sgt,
@@ -181,7 +181,7 @@ class ActivationKey:
         if not row:
             raise InvalidEntitlementError(entitlement_level)
         return row['id']
-        
+
 
     def generate_token(self):
         s = hashlib.new('sha1')
@@ -248,7 +248,7 @@ class ActivationKey:
         h.execute(reg_token_id=reg_token_id)
 
         h = rhnSQL.prepare(self._query_insert_reg_token_entitlements)
-        h.executemany(reg_token_id=reg_token_ids, 
+        h.executemany(reg_token_id=reg_token_ids,
             server_group_type_id=entitlements)
 
     _query_delete_groups = rhnSQL.Statement("""
@@ -290,7 +290,7 @@ class ActivationKey:
         db_channels = self._load_channels()
         token_id = self._row_reg_token['id']
 
-        inserts, deletes = self._diff_hashes(db_channels, 
+        inserts, deletes = self._diff_hashes(db_channels,
             self._channels)
 
         if deletes:
@@ -301,7 +301,7 @@ class ActivationKey:
             token_ids = [ token_id ] * len(inserts)
             h = rhnSQL.prepare(self._query_insert_channels)
             h.executemany(token_id=token_ids, channel_id=inserts)
-    
+
     def _diff_hashes(self, h1, h2):
         "diffs src and dst; returns a list of (inserts, deletes)"
         inserts = []

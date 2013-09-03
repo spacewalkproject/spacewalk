@@ -8,10 +8,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 
@@ -53,7 +53,7 @@ class ServerGroup:
 
     def set_org_id(self, org_id):
         self._set('org_id', self._lookup_org_id(org_id))
-            
+
     def _set(self, name, val):
         if self._row_server_group is None:
             self._row_server_group = rhnSQL.Row('rhnServerGroup', 'id')

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Session management
@@ -64,9 +64,9 @@ class Session:
             raise ValueError, "session id not supplied"
 
         secrets = self.get_secrets()
-        
+
         ctx = hashlib.new('md5')
-        ctx.update(string.join(secrets[:2] + [str(self.session_id)] + 
+        ctx.update(string.join(secrets[:2] + [str(self.session_id)] +
             secrets[2:], ':'))
 
         return string.join(map(lambda a: "%02x" % ord(a), ctx.digest()), '')
@@ -120,7 +120,7 @@ class Session:
             rhnSQL.commit();
 
         raise ExpiredSessionError("Session not found")
-        
+
 
     def save(self):
         expires = int(time.time()) + self.duration

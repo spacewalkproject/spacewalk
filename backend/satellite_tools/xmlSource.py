@@ -9,10 +9,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import sys
@@ -88,7 +88,7 @@ class Node:
 
     def __repr__(self):
         return "[<Node element: name=%s>]" % self.name
-    
+
 
 # Base class we use as a SAX parsing handler
 class BaseDispatchHandler(ContentHandler, ErrorHandler):
@@ -118,7 +118,7 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
         # Restore the parser's handlers to self
         self.__parser.setContentHandler(self)
         self.__parser.setErrorHandler(self)
-    
+
     def setStream(self, stream):
         BaseDispatchHandler.__stream = stream
 
@@ -146,7 +146,7 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
         # WARNING: better call this function when you're done, or you'll end
         # up with a circular reference
         self.__parser = None
-        
+
     def clear(self):
         # clear out the current container's parse batch; start afresh
         if self.__container:
@@ -162,7 +162,7 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
     def set_container(self, obj):
         if not hasattr(obj, "container_name"):
             raise Exception("%s not a container type" % type(obj))
-        
+
         # reset the container (to clean up garbage from previous parses)
         obj.reset()
         self.container_dispatch[obj.container_name] = obj
@@ -178,7 +178,7 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
 
     def has_container(self, name):
         return (name in self.container_dispatch)
-    
+
     # Overwrite the functions required by SAX
     def setDocumentLocator(self, locator):
         ContentHandler.setDocumentLocator(self, locator)
@@ -221,7 +221,7 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
             self.__container.endElement(element)
         except _EndContainerEvent:
             self.__container = None
-        
+
     #___Error handling methods___
 
     def error(self, e):
@@ -271,7 +271,7 @@ class SatelliteDispatchHandler(BaseDispatchHandler):
             version = "0"
         stream_version = map(int, string.split(version, '.'))
         allowed_version = map(int, string.split(self.version, "."))
-        if (stream_version[0] != allowed_version[0] or 
+        if (stream_version[0] != allowed_version[0] or
             stream_version[1] < allowed_version[1]):
             raise IncompatibleVersionError(version, self.version,
                 "Incompatible stream version %s; code supports %s" % (
@@ -291,7 +291,7 @@ class BaseItem:
         self.populateFromElements(item, elements)
         return item
 
-    
+
     def populateFromAttributes(self, obj, sourceDict):
         # Populates dict with items from sourceDict
         for key, value in sourceDict.items():
@@ -357,7 +357,7 @@ def _dict_to_utf8(d):
             v = v.encode('UTF8')
         ret[k] = v
     return ret
-            
+
 
 __itemDispatcher = {}
 
@@ -371,7 +371,7 @@ def _createItem(element):
         return None
     item = __itemDispatcher[element.name]()
     return item.populate(element.attributes, element.subelements)
-        
+
 #
 # ITEMS:
 #
@@ -661,7 +661,7 @@ class DependencyItem(BaseItem):
 class ProvidesItem(DependencyItem):
     item_name = 'rhn-package-provides-entry'
 addItem(ProvidesItem)
-    
+
 class RequiresItem(DependencyItem):
     item_name = 'rhn-package-requires-entry'
 addItem(RequiresItem)
@@ -829,7 +829,7 @@ class ContainerHandler:
     def __init__(self):
         # The tag stack; each item is an array [element, attributes]
         self.tagStack = []
-        # The object stack; each item is an array 
+        # The object stack; each item is an array
         # [element, attributes, content]
         self.objStack = []
         # Collects the elements in a batch
@@ -917,7 +917,7 @@ class ContainerHandler:
             log_debug(0, 'XML parser error: found "rhn-error" item: %s' %
                 item['error'])
             raise ParseException(item['error'])
-            
+
         self.postprocessItem(item)
         # Add it to the items list
         self.batch.append(item)
@@ -928,7 +928,7 @@ class ContainerHandler:
     def postprocessItem(self, item):
         # Do nothing
         pass
-    
+
 def _normalizeSubelements(objtype, subelements):
     # Deal with simple cases first
     if objtype is None:
@@ -954,14 +954,14 @@ def _normalizeSubelements(objtype, subelements):
         _s.append(subel)
         if not _is_string(subel):
             _strings_only = 0
-            
+
     if _strings_only:
         # Multiple strings - contactenate into one
         subelements = [ string.join(subelements, '') ]
     else:
         # Ignore whitespaces around elements
         subelements = _s
-    
+
     if not isinstance(objtype, types.ListType):
         if len(subelements) > 1:
             raise Exception("Expected a scalar, got back a list")
@@ -980,7 +980,7 @@ def _normalizeSubelements(objtype, subelements):
                 # Treat it as NULL
                 return None
             return int(subelement)
-        
+
         if objtype is importLib.DateType:
             return _normalizeDateType(subelement)
         raise Exception("Unhandled type %s for subelement %s" % (objtype,
@@ -1012,8 +1012,8 @@ def _normalizeSubelements(objtype, subelements):
         result.append(item)
 
     return result
-        
-    
+
+
 def _normalizeAttribute(objtype, attribute):
     # Deal with simple cases first
     if (objtype is None) or (objtype is types.StringType):
@@ -1062,7 +1062,7 @@ class ChannelFamilyContainer(ContainerHandler):
 
 class ChannelContainer(ContainerHandler):
     container_name = 'rhn-channels'
-    
+
 class IncompletePackageContainer(ContainerHandler):
     container_name = 'rhn-packages-short'
 

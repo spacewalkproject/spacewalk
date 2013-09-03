@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 from spacewalk.server import rhnSQL
 from spacewalk.common import rhnLog
@@ -24,11 +24,11 @@ if __name__ == '__main__':
         'name'      : 'XXX',
         'version'   : 0,
         'status'    : [
-            [['SMCsudo', '1.6.7p5', '0', 'sparc-solaris',], 
+            [['SMCsudo', '1.6.7p5', '0', 'sparc-solaris',],
                 [1, "", ""]],
-            [['SFWungif', '4.1.0', '2001.05.21.04.41', 'sparc-solaris',], 
+            [['SFWungif', '4.1.0', '2001.05.21.04.41', 'sparc-solaris',],
                 [1, "out1", "error1"]],
-            [['SMCtracer', '1.4a12', '0', 'sparc-solaris',], 
+            [['SMCtracer', '1.4a12', '0', 'sparc-solaris',],
                 [1, "out1", "error1"]],
             [['SMCrcs', '5.7', '0', 'sparc-solaris',],
                 [2, "out2", "error2"]],

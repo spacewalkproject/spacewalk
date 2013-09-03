@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 import sys
 import iconv
@@ -26,7 +26,7 @@ def main():
 
         if run == total_runs:
             break
-        
+
         run = run + 1
 
         cd = iconv.CD("UTF-8", "iso-8859-1")
@@ -35,7 +35,7 @@ def main():
 
 def print_mem_usage(run):
     d = mem_usage()
-    sys.stderr.write("%-3d name: %s; vsz: %s; rss: %s; vmdata: %s\n" % 
+    sys.stderr.write("%-3d name: %s; vsz: %s; rss: %s; vmdata: %s\n" %
         (run, d[0], d[1], d[2], d[3]))
 
 def mem_usage():

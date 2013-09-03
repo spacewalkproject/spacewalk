@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 
@@ -29,7 +29,7 @@ class rhnHandler(RPC_Base):
         # extra class members we handle
         self.server = None
         self.server_id = None
-        
+
         # XXX Some subclasses set this as a string, others as an rhnUser
         self.user = None
 
@@ -38,13 +38,13 @@ class rhnHandler(RPC_Base):
         self.load_user = 0
         # do we check for entitlement of the server
         self.check_entitlement = 1
-        # do we attempt throttling 
+        # do we attempt throttling
         self.throttle = CFG.THROTTLE
         # attempt quality of service checks
         self.set_qos = CFG.QOS
         # do we update the checking counters
         self.update_checkin = 1
-            
+
     # Authenticate a system based on the certificate. There are a lot
     # of modifiers that can be set before this function is called (see
     # the __init__ function for this class).

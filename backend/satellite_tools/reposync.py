@@ -405,7 +405,7 @@ class RepoSync(object):
             self.print_msg("No new packages to sync.")
             return
         else:
-            self.print_msg("Packages already synced:      %5d" % 
+            self.print_msg("Packages already synced:      %5d" %
                                                   (num_passed - num_to_process))
             self.print_msg("Packages to sync:             %5d" % num_to_process)
 

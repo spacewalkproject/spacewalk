@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # Implements the errata.* functions for XMLRPC
 #
@@ -36,7 +36,7 @@ class Errata(rhnHandler):
         self.functions.append('getPackageErratum') # Clients v2+
         self.functions.append('getErrataInfo')     # clients v2+
         self.functions.append('getErrataNamesById')
-        
+
     def GetByPackage(self, pkg, osRel):
         """ Clients v1- Get errata for a package given "n-v-r" format
             IN:  pkg:   "n-v-r" (old client call)
@@ -119,7 +119,7 @@ class Errata(rhnHandler):
         name, ver, rel, epoch, arch, size, channel = pkg[:7]
         if epoch in ['', 'none', 'None']:
             epoch = None
-            
+
         # XXX: also, should arch/size/channel ever be used?
         #bug#186996:adding synopsis field to errata info
         #client side changes are needed to access this data.
@@ -153,7 +153,7 @@ class Errata(rhnHandler):
         and cp.channel_id = sc.channel_id
         and sc.server_id = :server_id
         """) # " emacs sucks
-        h.execute(name = name, ver = ver, rel = rel, epoch = epoch, 
+        h.execute(name = name, ver = ver, rel = rel, epoch = epoch,
                   server_id = str(self.server_id))
         return self._sanitize_result(h)
 
@@ -187,20 +187,20 @@ class Errata(rhnHandler):
             cap_info =  client_caps['packages.update']
         if cap_info and cap_info['version'] > 1:
             multiarch = 1
- 
+
         statement = """
         select distinct
                pn.name,
                pe.epoch,
-               pe.version, 
+               pe.version,
                pe.release,
                pa.label arch
         from
                rhnPackageName pn,
-               rhnPackageEVR pe, 
+               rhnPackageEVR pe,
                rhnPackage p,
-               rhnPackageArch pa, 
-               rhnChannelPackage cp, 
+               rhnPackageArch pa,
+               rhnChannelPackage cp,
                rhnServerChannel sc,
                rhnErrataPackage ep
         where
@@ -208,7 +208,7 @@ class Errata(rhnHandler):
                and ep.package_id = p.id
                and p.name_id = pn.id
                and p.evr_id = pe.id
-               and p.package_arch_id = pa.id 
+               and p.package_arch_id = pa.id
                and sc.server_id = :server_id
                and sc.channel_id = cp.channel_id
                and cp.package_id = p.id
@@ -221,7 +221,7 @@ class Errata(rhnHandler):
         ret = []
         if not packages:
             return []
-        
+
         for package in packages:
             if package['name'] is not None:
 		if package['epoch'] is None:
@@ -230,7 +230,7 @@ class Errata(rhnHandler):
                 pkg_arch = ''
                 if multiarch:
                     pkg_arch = package['arch'] or ''
-                ret.append([package['name'], 
+                ret.append([package['name'],
                             package['version'],
                             package['release'],
                             package['epoch'],

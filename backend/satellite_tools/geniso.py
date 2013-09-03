@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 
@@ -28,17 +28,17 @@ DVD_IMAGE_SIZE = "4380M"
 
 def main(arglist):
     optionsTable = [
-        Option('-m', '--mountpoint',    action='store', 
+        Option('-m', '--mountpoint',    action='store',
             help="mount point"),
-        Option('-s', '--size',          action='store', 
+        Option('-s', '--size',          action='store',
             help="image size (eg. 630M)"),
         Option('-p', '--file-prefix',   action='store',
             help='Filename prefix'),
-        Option('-o', '--output',        action='store', 
+        Option('-o', '--output',        action='store',
             help='output directory'),
-        Option('-v', '--version',       action='store', 
+        Option('-v', '--version',       action='store',
             help='version string'),
-        Option('-r', '--release',       action='store', 
+        Option('-r', '--release',       action='store',
             help='release string'),
         Option('--copy-iso-dir',        action='store',
             help='directory to copy the isos to after they have been generated.'),
@@ -70,7 +70,7 @@ def main(arglist):
 
     if options.release is None:
         options.release = '0'
-    
+
     if options.output is None:
         options.output = "/tmp/satellite-isos"
 
@@ -81,10 +81,10 @@ def main(arglist):
     # Get rid of the extra files in that directory
     for f in os.listdir(options.output):
         os.unlink(os.path.join(options.output, f))
-    
+
     # Normalize the directory name
     mountPoint = os.path.normpath(mountPoint)
-        
+
     # Generate the listings for each CD
     files = findFiles(mountPoint)
     cds = []
@@ -100,12 +100,12 @@ def main(arglist):
             cd.append(filePath)
             sz = sz + fileSize
             # Advance to the next record
-            del files[0] 
+            del files[0]
         cds.append(cd)
-        
+
     # We now have the CD contents available; generate the ISOs
     cdcount = len(cds)
-    
+
     # Create an empty temp file
     fd, empty_file_path = tempfile.mkstemp(dir = '/tmp', prefix = 'empty.file-')
     os.close(fd)
@@ -119,7 +119,7 @@ def main(arglist):
         filename = "%s/%s-%s.%s-%02d.iso" % (options.output, file_prefix,
             options.version, options.release, i+1)
         #else:
-        #    filename = "%s/%s-%s-%s.%s-%02d.iso" % (options.output, file_prefix, 
+        #    filename = "%s/%s-%s-%s.%s-%02d.iso" % (options.output, file_prefix,
         #        options.type, options.version, options.release, i+1)
 
         # Create a temp file to store the path specs
@@ -154,7 +154,7 @@ def main(arglist):
             os.write(pathfiles_fd, graft)
             os.write(pathfiles_fd, "\n")
         os.close(pathfiles_fd)
-        
+
         print "Creating %s" % filename
         # And run it
         fd = os.popen(cmd, "r")
@@ -174,7 +174,7 @@ def main(arglist):
 
     # Remove the file we used to label the CDs
     os.unlink(empty_file_path)
-        
+
 
 def sizeStrToInt(s):
     # Converts s to an int
@@ -186,7 +186,7 @@ def sizeStrToInt(s):
     # Strip the dashes in front - we don't want the number to be negative
     while s and s[0] == '-':
         s = s[1:]
-        
+
     try:
         return int(s)
     except ValueError:
@@ -219,7 +219,7 @@ def __visitfunc(arg, dirname, names):
         sz = os.stat(filename)[ST_SIZE]
         # Append the filename and size to the list
         arg.append((filename, sz))
-    
+
 # Given a directory name, returns the paths of all the files from that
 # directory, together with the file size
 def findFiles(start):

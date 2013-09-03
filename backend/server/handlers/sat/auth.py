@@ -34,7 +34,7 @@ class Authentication(rhnHandler):
         rhnHandler.__init__(self)
         self.functions.append('check')
         self.functions.append('login')
-        
+
         # this is populated directly by server.apacheRequest.py
         self.remote_hostname = ''
 
@@ -48,13 +48,13 @@ class Authentication(rhnHandler):
               _('Server "%s" is not enabled for ISS.')
                 % self.remote_hostname)
         return self.remote_hostname
-        
+
     def check(self, system_id_ignored):
         """xmlrpc authentication.
         """
         log_debug(3)
 
-        # Authenticate server 
+        # Authenticate server
         try:
             self.auth_system()
         except rhnFault, e:
@@ -84,7 +84,7 @@ class Authentication(rhnHandler):
                                      self.remote_hostname,
                                      rhnServerTime,
                                      expireOffset)
-        
+
         loginDict = {
                 'X-RHN-Server-Hostname'     : self.remote_hostname,
                 'X-RHN-Auth'                : signature,

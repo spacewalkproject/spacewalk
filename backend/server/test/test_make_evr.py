@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 import unittest
 from spacewalk.server import rhnDependency
@@ -19,7 +19,7 @@ from spacewalk.server import rhnDependency
 class MakeEvrTestCase( unittest.TestCase ):
     def setUp( self ):
         self.make_evr = rhnDependency.make_evr
-            
+
     def testEvr1( self ):
         ret = self.make_evr( '100:testcase1-0-0' )
         assert ret['epoch'] == '100' and ret['name']=='testcase1' and ret['version'] == '0' and ret['release'] == '0'
@@ -45,6 +45,6 @@ class MakeEvrTestCase( unittest.TestCase ):
                ret['name'] == 'Bbbb.a111' and\
                ret['version'] == 'cccC' and\
                ret['release'] == 'qwerty'
-    
+
 if __name__ == "__main__":
     unittest.main()

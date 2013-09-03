@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # a class used to handle a row of data in a particular table
 #
@@ -36,7 +36,7 @@ class Row(UserDictCase):
         UserDictCase.__init__(self)
         if not isinstance(db, sql_base.Database):
             raise rhnException("Argument db is not a database instance", db)
-        self.db = db              
+        self.db = db
         self.table = table
         self.hashname = string.lower(hashname)
 
@@ -46,13 +46,13 @@ class Row(UserDictCase):
         self.real = 0
         if hashval is not None: # if we have to load an entry already...
             self.load(hashval)
-            
+
     def __repr__(self):
         return "<%s instance at 0x%0x on (%s, %s, %s)>" % (
             self.__class__.__name__, abs(id(self)),
             self.table, self.hashname, self.get(self.hashname))
     __str__ = __repr__
-    
+
     def __setitem__(self, name, value):
         """ make it work like a dictionary """
         x = string.lower(name)
@@ -80,7 +80,7 @@ class Row(UserDictCase):
         for k in self.data.keys():
             # tuples do not support item assignement
             self.data[k] = (self.data[k][0], val)
-    
+
     def create(self, hashval):
         """ create it as a new entry """
         self.data[self.hashname] = (hashval, 0)
@@ -90,7 +90,7 @@ class Row(UserDictCase):
     def load(self, hashval):
         """ load an entry """
         return self.load_sql("%s = :hashval" % self.hashname, {'hashval': hashval})
-    
+
     def load_sql(self, sql, pdict = {}):
         """ load from a sql clause """
         h = self.db.prepare("select * from %s where %s" % (self.table, sql))
@@ -104,14 +104,14 @@ class Row(UserDictCase):
             self.data[k] = (ret[k], 0)
         self.real = 1
         return 1
-    
+
     def save(self, with_updates=1):
         """ now save an entry """
         if not self.data.has_key(self.hashname):
             raise AttributeError, "Table does not have a hash `%s' key" % self.hashname
         # get a list of fields to be set
         items = map(lambda a: (a[0], a[1][0]),
-                    filter(lambda b: b[1][1] == 1, self.data.items()))        
+                    filter(lambda b: b[1][1] == 1, self.data.items()))
         if not items: # if there is nothing for us to do, avoid doing it.
             return
         # and now build the SQL statements
@@ -127,4 +127,4 @@ class Row(UserDictCase):
         apply(h.execute, (), pdict)
         self.real = 1
         return
-        
+

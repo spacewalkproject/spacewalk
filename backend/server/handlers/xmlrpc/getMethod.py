@@ -10,10 +10,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # An allowable xmlrpc method is retrieved given a base location, a
@@ -34,7 +34,7 @@ class GetMethodException(Exception):
 def sanity(methodNameComps):
     """ Verifies if all the components have proper names."""
     # Allowed characters in each string
-    alpha = string.lowercase + string.uppercase 
+    alpha = string.lowercase + string.uppercase
     allowedChars = alpha + string.digits + '_'
     for comp in methodNameComps:
         if not len(comp):
@@ -67,7 +67,7 @@ def getMethod(methodName, baseClass):
             # Okay, go on
             continue
         # Try to load this as a file
-        for extension in ['py', 'pyc', 'pyo']:            
+        for extension in ['py', 'pyc', 'pyo']:
             if os.path.isfile("%s.%s" % (path, extension)):
                 # Yes, this is a file
                 break
@@ -140,7 +140,7 @@ if __name__ == '__main__':
         try:
             method = getMethod(m, 'Actions')
         except GetMethodException, e:
-            print "Error getting the method %s: %s" % (m, 
+            print "Error getting the method %s: %s" % (m,
                 string.join(map(str, e.args)))
         else:
             method()

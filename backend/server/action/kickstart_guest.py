@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 import sys
 from spacewalk.common.rhnLog import log_debug
@@ -22,22 +22,22 @@ from spacewalk.server.action.utils import SubscribedChannel, \
                                 NoActionInfo, \
                                 PackageNotFound
 from spacewalk.server.rhnChannel import subscribe_to_tools_channel
-                                 
+
 
 __rhnexport__ = ['initiate', 'schedule_virt_guest_pkg_install', 'add_tools_channel']
 
 _query_initiate_guest = rhnSQL.Statement("""
- select  ksd.label as profile_name, akg.kickstart_host, kvt.label as virt_type, 
-       akg.mem_kb, akg.vcpus, akg.disk_path, akg.virt_bridge, akg.cobbler_system_name, 
-       akg.disk_gb, akg.append_string, 
-       akg.guest_name, akg.ks_session_id from rhnActionKickstartGuest akg, 
+ select  ksd.label as profile_name, akg.kickstart_host, kvt.label as virt_type,
+       akg.mem_kb, akg.vcpus, akg.disk_path, akg.virt_bridge, akg.cobbler_system_name,
+       akg.disk_gb, akg.append_string,
+       akg.guest_name, akg.ks_session_id from rhnActionKickstartGuest akg,
         rhnKSData ksd, rhnKickstartSession ksess,
        rhnKickstartDefaults ksdef, rhnKickstartVirtualizationType kvt
      where akg.action_id = :action_id
        and ksess.kickstart_id = ksd.id
        and ksess.id = akg.ks_session_id
        and ksdef.kickstart_id = ksd.id
-       and ksdef.virtualization_type = kvt.id       
+       and ksdef.virtualization_type = kvt.id
 """)
 
 def schedule_virt_guest_pkg_install(server_id, action_id, dry_run=0):
@@ -46,7 +46,7 @@ def schedule_virt_guest_pkg_install(server_id, action_id, dry_run=0):
         rhn-virtualization-guest package.
     """
     log_debug(3)
-    
+
     virt_host_package_name = "rhn-virtualization-guest"
     tools_channel = SubscribedChannel(server_id, "rhn-tools")
     found_tools_channel = tools_channel.is_subscribed_to_channel()
@@ -83,7 +83,7 @@ def initiate(server_id, action_id, dry_run=0):
 
     if not row:
         raise InvalidAction("Kickstart action without an associated kickstart")
-    
+
     kickstart_host  = row['kickstart_host']
     virt_type       = row['virt_type']
     name            = row['guest_name']
@@ -95,8 +95,8 @@ def initiate(server_id, action_id, dry_run=0):
     ks_session_id   = row['ks_session_id']
     virt_bridge     = row['virt_bridge']
     disk_path       = row['disk_path']
-    cobbler_system_name = row['cobbler_system_name'] 
-    
+    cobbler_system_name = row['cobbler_system_name']
+
     if not boot_image:
         raise InvalidAction("Boot image missing")
 

@@ -30,11 +30,11 @@ class Tests1(unittest.TestCase):
             rhnSQL.execute("drop table %s" % self.table_name)
         except rhnSQL.SQLStatementPrepareError:
             pass
-        
-    def tearDown(self): 
+
+    def tearDown(self):
         self._cleanup()
-       
-        rhnSQL.commit() 
+
+        rhnSQL.commit()
 
     def test_exception_procedure_1(self):
         "Tests exceptions raised by procedure calls"
@@ -43,7 +43,7 @@ class Tests1(unittest.TestCase):
 
     def test_function_1(self):
         "Tests function calls"
-        p = rhnSQL.Function("rhn_entitlements.get_server_entitlement", 
+        p = rhnSQL.Function("rhn_entitlements.get_server_entitlement",
             rhnSQL.types.STRING())
         ret = p(1000102174)
         self.failUnless(isinstance(ret, types.StringType))
@@ -54,7 +54,7 @@ class Tests1(unittest.TestCase):
         args = (username, password, None, None, 'P', rhnSQL.types.NUMBER(),
             rhnSQL.types.NUMBER(), rhnSQL.types.NUMBER())
         return apply(p, args), args
-        
+
     def test_procedure_1(self):
         "Tests procedure calls that return things in their OUT variables"
         ret, args = self._run_stproc()
@@ -87,7 +87,7 @@ class Tests1(unittest.TestCase):
         table_name = self.table_name + "_1"
         rhnSQL.execute("create table %s (id int)" % table_name)
         tables = self._list_tables()
-        self.failUnless(string.upper(table_name) in tables, 
+        self.failUnless(string.upper(table_name) in tables,
             "Table %s not created" % table_name)
         rhnSQL.execute("drop table %s" % table_name)
 

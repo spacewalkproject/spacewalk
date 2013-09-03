@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Kickstart-related operations
@@ -21,10 +21,10 @@ from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnException
 from spacewalk.server import rhnSQL, rhnAction, rhnLib, rhnChannel
 
-def update_kickstart_session(server_id, action_id, action_status, 
+def update_kickstart_session(server_id, action_id, action_status,
         kickstart_state, next_action_type):
     log_debug(3, server_id, action_id, action_status, kickstart_state, next_action_type)
-    
+
     # Is this a kickstart-related action?
     ks_session_id = get_kickstart_session_id(server_id, action_id)
     if ks_session_id is None:
@@ -71,7 +71,7 @@ def update_ks_session_table(ks_session_id, ks_status, next_action_id,
         delete_guests(server_id)
 
 _query_lookup_guests_for_host = rhnSQL.Statement("""
-    select virtual_system_id from rhnVirtualInstance 
+    select virtual_system_id from rhnVirtualInstance
         where host_system_id = :server_id
 """)
 _query_delete_virtual_instances = rhnSQL.Statement("""
@@ -137,7 +137,7 @@ _query_lookup_kickstart_session_id = rhnSQL.Statement("""
     select ks.id
       from rhnKickstartSession ks
      where (
-             (ks.old_server_id = :server_id and ks.new_server_id is NULL) 
+             (ks.old_server_id = :server_id and ks.new_server_id is NULL)
              or ks.new_server_id = :server_id
              or ks.host_server_id = :server_id
            )
@@ -167,12 +167,12 @@ _query_insert_action_package_delta = rhnSQL.Statement("""
 _query_insert_package_delta_element = rhnSQL.Statement("""
     insert into rhnPackageDeltaElement
            (package_delta_id, transaction_package_id)
-    values 
-           (:package_delta_id, 
+    values
+           (:package_delta_id,
             lookup_transaction_package(:operation, :n, :e, :v, :r, :a))
 """)
 
-def schedule_kickstart_delta(server_id, kickstart_session_id, 
+def schedule_kickstart_delta(server_id, kickstart_session_id,
         installs, removes):
     log_debug(3, server_id, kickstart_session_id)
     row = get_kickstart_session_info(kickstart_session_id, server_id)
@@ -200,11 +200,11 @@ def schedule_kickstart_delta(server_id, kickstart_session_id,
     __execute_many(h, removes, col_names, operation='delete', a=None,
         package_delta_id=package_delta_id)
 
-    update_ks_session_table(kickstart_session_id, 'package_synch_scheduled', 
+    update_ks_session_table(kickstart_session_id, 'package_synch_scheduled',
         action_id, server_id)
 
     return action_id
-    
+
 def schedule_kickstart_sync(server_id, kickstart_session_id):
     row = get_kickstart_session_info(kickstart_session_id, server_id)
     org_id = row['org_id']
@@ -213,7 +213,7 @@ def schedule_kickstart_sync(server_id, kickstart_session_id):
     # Create a new action
     action_id = rhnAction.schedule_server_action(
         server_id,
-        action_type='kickstart.schedule_sync', 
+        action_type='kickstart.schedule_sync',
         action_name="Schedule a package sync",
         delta_time=0, scheduler=scheduler, org_id=org_id,
     )
@@ -250,7 +250,7 @@ def subscribe_to_tools_channel(server_id, kickstart_session_id):
     org_id = row['org_id']
     scheduler = row['scheduler']
     ks_type_id = row['virtualization_type']
-    ks_type = _get_ks_virt_type(ks_type_id)    
+    ks_type = _get_ks_virt_type(ks_type_id)
 
     if ks_type == 'para_host':
         action_id = rhnAction.schedule_server_action(
@@ -269,7 +269,7 @@ def subscribe_to_tools_channel(server_id, kickstart_session_id):
     else:
         action_id = None
     return action_id
-    
+
 
 
 def schedule_virt_pkg_install(server_id, kickstart_session_id):
@@ -281,7 +281,7 @@ def schedule_virt_pkg_install(server_id, kickstart_session_id):
     log_debug(1, "VIRTUALIZATION_TYPE: %s" % str(ks_type_id))
     ks_type = _get_ks_virt_type(ks_type_id)
     log_debug(1, "VIRTUALZIATION_TYPE_LABEL: %s" % str(ks_type))
-    
+
     if ks_type == 'para_host':
         log_debug(1, "SCHEDULING VIRT HOST PACKAGE INSTALL...")
         action_id = rhnAction.schedule_server_action(
@@ -303,7 +303,7 @@ def schedule_virt_pkg_install(server_id, kickstart_session_id):
         action_id = None
 
     return action_id
-        
+
 _query_ak_deploy_config = rhnSQL.Statement("""
 select rt.deploy_configs
   from rhnKickstartSession ks,
@@ -328,12 +328,12 @@ def ks_activation_key_deploy_config(kickstart_session_id):
     return False
 
 _query_schedule_config_files = rhnSQL.Statement("""
-    insert into rhnActionConfigRevision 
+    insert into rhnActionConfigRevision
            (id, action_id, server_id, config_revision_id)
-    select sequence_nextval('rhn_actioncr_id_seq'), :action_id, 
+    select sequence_nextval('rhn_actioncr_id_seq'), :action_id,
            server_id, config_revision_id
       from (
-            select distinct scc.server_id, 
+            select distinct scc.server_id,
                    cf.latest_config_revision_id config_revision_id
               from rhnServerConfigChannel scc,
                    rhnConfigChannelType cct,
@@ -395,7 +395,7 @@ def schedule_rhncfg_install(server_id, action_id, scheduler,
         server_profile=None):
     capability = 'rhn-config-action'
     try:
-        packages = _subscribe_server_to_capable_channels(server_id, scheduler, 
+        packages = _subscribe_server_to_capable_channels(server_id, scheduler,
             capability)
     except MissingBaseChannelError:
         log_debug(2, "No base channel", server_id)
@@ -403,7 +403,7 @@ def schedule_rhncfg_install(server_id, action_id, scheduler,
 
     if not packages:
         # No channels offer this capability
-        log_debug(3, server_id, action_id, 
+        log_debug(3, server_id, action_id,
             "No channels to provide %s found" % capability)
         # No new action needed here
         return action_id
@@ -426,9 +426,9 @@ def schedule_rhncfg_install(server_id, action_id, scheduler,
         # We already have these packages installed
         log_debug(4, "No packages needed to be installed")
         return action_id
-        
+
     log_debug(4, "Scheduling package install action")
-    new_action_id = schedule_package_install(server_id, action_id, scheduler, 
+    new_action_id = schedule_package_install(server_id, action_id, scheduler,
         packages_to_install)
     return new_action_id
 
@@ -441,14 +441,14 @@ _query_lookup_subscribed_server_channels = rhnSQL.Statement("""
 """)
 _query_lookup_unsubscribed_server_channels = rhnSQL.Statement("""
 select c.id
-  from 
+  from
       -- Get all the channels available to this org
       ( select cfm.channel_id
           from rhnChannelFamilyMembers cfm,
                rhnPrivateChannelFamily pcf
          where pcf.org_id = :org_id
            and pcf.channel_family_id = cfm.channel_family_id
-           and pcf.current_members < coalesce(pcf.max_members, 
+           and pcf.current_members < coalesce(pcf.max_members,
                   pcf.current_members + 1)
         union
         select cfm.channel_id
@@ -459,8 +459,8 @@ select c.id
  where c.parent_channel = :base_channel_id
    and c.id = ac.channel_id
    and  not exists (
-        select 1 
-          from rhnServerChannel 
+        select 1
+          from rhnServerChannel
          where server_id = :server_id
          and channel_id = c.id)
 """)
@@ -484,7 +484,7 @@ def _subscribe_server_to_capable_channels(server_id, scheduler, capability):
         raise MissingBaseChannelError()
 
     org_id = rhnSQL.Table('rhnServer', 'id')[server_id]['org_id']
-        
+
     # Get the child channels this system is *not* subscribed to
     h = rhnSQL.prepare(_query_lookup_unsubscribed_server_channels)
     h.execute(server_id=server_id, org_id=org_id,
@@ -508,11 +508,11 @@ def _subscribe_server_to_capable_channels(server_id, scheduler, capability):
             except rhnChannel.SubscriptionCountExceeded:
                 # Try another one
                 continue
-            log_debug(4, "Subscribed to", channel_id, 
+            log_debug(4, "Subscribed to", channel_id,
                 "Found packages", packages)
             # We subscribed to this channel - we're done
             return packages
-            
+
     # No channels provide this capability - we're done
     log_debug(4, "No channels to provide capability", capability)
     return None
@@ -540,9 +540,9 @@ def _channel_provides_capability(channel_id, capability):
     if not ret:
         return ret
     return ret
-    
+
 _query_insert_action_packages = rhnSQL.Statement("""
-    insert into rhnActionPackage 
+    insert into rhnActionPackage
            (id, action_id, name_id, evr_id, package_arch_id, parameter)
     select sequence_nextval('rhn_act_p_id_seq'), :action_id, name_id, evr_id,
            package_arch_id, 'upgrade'
@@ -554,7 +554,7 @@ def schedule_package_install(server_id, action_id, scheduler, packages):
         # Nothing to do
         return action_id
     new_action_id = rhnAction.schedule_server_action(
-        server_id, action_type='packages.update', 
+        server_id, action_type='packages.update',
         action_name="Package update to enable configuration deployment",
         delta_time=0, scheduler=scheduler, prerequisite=action_id,
     )
@@ -643,7 +643,7 @@ def terminate_kickstart_sessions(server_id):
     # Add a history item
     for ks_session_id in ks_session_ids:
         log_debug(4, "Adding history entry for session id", ks_session_id)
-        history.append(("Kickstart session canceled", 
+        history.append(("Kickstart session canceled",
             "A kickstart session for this system was canceled because "
             "the system was re-registered with token <strong>%s</strong>" %
             tokens_obj.get_names()))

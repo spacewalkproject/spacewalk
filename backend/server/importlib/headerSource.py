@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Converts headers to the intermediate format
@@ -40,7 +40,7 @@ class rpmPackage(IncompletePackage):
 
     def populate(self, header, size, checksum_type, checksum, path=None, org_id=None,
         header_start=None, header_end=None, channels=[]):
-        
+
         # XXX is seems to me that this is the place that 'source_rpm' is getting
         # set
         for f in self.keys():
@@ -139,7 +139,7 @@ class rpmBinaryPackage(Package, rpmPackage):
 
         rpmPackage.populate(self, header, size, checksum_type, checksum, path, org_id,
             header_start, header_end)
-        
+
         # workaround for bug in rpm-python <= 4.4.2.3-27.el5 (BZ# 783451)
         self['package_group'] = self['package_group'].rstrip()
         # Populate file information
@@ -269,7 +269,7 @@ class rpmSourcePackage(SourcePackage, rpmPackage):
         # Fill in source_rpm
         for tag in ['name', 'version', 'release']:
             nvr.append(header[tag])
-        
+
         #5/13/05 wregglej - 154248 If 1051 is in the list of keys in the header, the package is a nosrc package and needs to be saved as such.
         if 1051 in header.keys():
             self['source_rpm'] = "%s-%s-%s.nosrc.rpm" % tuple(nvr)
@@ -310,7 +310,7 @@ class rpmFile(File, ChangeLog):
         if type(self['filedigest']) == StringType:
             self['checksum'] = self['filedigest']
             del(self['filedigest'])
-    
+
 class rpmProvides(Dependency):
     # More mappings
     tagMap = {
@@ -318,7 +318,7 @@ class rpmProvides(Dependency):
         'version'   : 'provideversion',
         'flags'     : 'provideflags',
     }
-    
+
 class rpmRequires(Dependency):
     # More mappings
     tagMap = {

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Stuff for handling Certificates and Servers
@@ -34,7 +34,7 @@ class User:
     def __init__(self, username, password):
         # compatibilty with the rest of the code
         self.username = username
-        
+
         # placeholders for the table schemas
         # web_contact
         self.contact = rhnSQL.Row("web_contact", "id")
@@ -52,7 +52,7 @@ class User:
         # web_user_site_info
         self.__init_site()
         self._session = None
-        
+
     def __init_info(self):
         """ init web_user_personal_info """
         # web_user_personal_info
@@ -69,7 +69,7 @@ class User:
         self.perms["email"] = "Y"
         self.perms["mail"] = "Y"
         self.perms["call"] = "Y"
-        self.perms["fax"] = "Y"      
+        self.perms["fax"] = "Y"
     def __init_site(self):
         """ init web_user_site_info """
         # web_user_site_info
@@ -87,12 +87,12 @@ class User:
         if CFG.pam_auth_service:
             # a PAM service is defined
             # We have to check the user's rhnUserInfo.use_pam_authentication
-            # XXX Should we create yet another __init_blah function? 
-            # since it's the first time we had to lool at rhnUserInfo, 
-            # I'll assume it's not something to happen very frequently, 
+            # XXX Should we create yet another __init_blah function?
+            # since it's the first time we had to lool at rhnUserInfo,
+            # I'll assume it's not something to happen very frequently,
             # so I'll use a query for now
             # - misa
-            # 
+            #
             h = rhnSQL.prepare("""
                 select ui.use_pam_authentication
                 from web_contact w, rhnUserInfo ui
@@ -106,19 +106,19 @@ class User:
                     self.contact["login"])
             if data['use_pam_authentication'] == 'Y':
                 # use PAM
-                import rhnAuthPAM 
-                return rhnAuthPAM.check_password(self.contact["login"], 
+                import rhnAuthPAM
+                return rhnAuthPAM.check_password(self.contact["login"],
                     password, CFG.pam_auth_service)
             # If the entry in rhnUserInfo is 'N', perform regular
             # authentication
         return check_password(password, good_pwd, old_pwd)
-        
+
     def set_org_id(self, org_id):
         if not org_id:
             raise rhnException("Invalid org_id requested for user", org_id)
         self.contact["org_id"] = int(org_id)
         self.customer.load(int(org_id))
-        
+
     def getid(self):
         if not self.contact.has_key("id"):
             userid = rhnSQL.Sequence("web_contact_id_seq")()
@@ -126,7 +126,7 @@ class User:
         else:
             userid = self.contact["id"]
         return userid
-                    
+
     def set_contact_perm(self, name, value):
         """ handling of contact permissions """
         if not name: return -1
@@ -149,7 +149,7 @@ class User:
             "first_name" : "first_names",
             "position"   : "title",
             "title"      : "prefix"
-            }       
+            }
         if not name:
             return -1
         name = name.lower()
@@ -172,7 +172,7 @@ class User:
         if name in ["last_name", "first_names",
                     "company", "phone", "fax", "email", "title"]:
             self.info[name] = value[:128]
-            changed = 1            
+            changed = 1
         elif name == "prefix":
             values = ["Mr.", "Mrs.", "Ms.", "Dr.", "Hr.", "Sr.", " "]
             # Now populate a dictinary of valid values
@@ -180,7 +180,7 @@ class User:
             for v in values: # initialize from good values, with and w/o the dot
                 valids[v] = v
                 valids[v[:-1]] = v
-            # commonly encountered values            
+            # commonly encountered values
             valids["Miss"] = "Miss"
             valids["Herr"] = "Hr."
             valids["Sig."] = "Sr."
@@ -232,23 +232,23 @@ class User:
         """)
         h.execute(user_id=user_id)
         return map(lambda x: x['role'], h.fetchall_dict() or [])
-    
+
     def reload(self, user_id):
         """ Reload the current data from the SQL database using the given id """
         log_debug(3, user_id)
 
         # If we can not load these we have a fatal condition
         if not self.contact.load(user_id):
-            raise rhnException("Could not find contact record for id", user_id)        
+            raise rhnException("Could not find contact record for id", user_id)
         if not self.customer.load(self.contact["org_id"]):
             raise rhnException("Could not find org record",
                                "user_id = %s" % user_id,
-                               "org_id = %s" % self.contact["org_id"])        
+                               "org_id = %s" % self.contact["org_id"])
         # These other ones are non fatal because we can create dummy records
         if not self.info.load(user_id):
-            self.__init_info()           
+            self.__init_info()
         if not self.perms.load(user_id):
-            self.__init_perms()       
+            self.__init_perms()
         # The site info is trickier, we need to find it first
         if not self.site.load_sql("web_user_id = :userid and type = 'M'",
                                   { "userid" : user_id }):
@@ -267,7 +267,7 @@ class User:
 
 
 def auth_username_password(username, password):
-    # hrm.  it'd be nice to move importlib.userAuth stuff here 
+    # hrm.  it'd be nice to move importlib.userAuth stuff here
     user = search(username)
 
     if not user:
@@ -372,10 +372,10 @@ def __reserve_user_db(user, password):
     where r.login_uc = upper(:p1)
     """)
     h.execute(p1=user)
-    data = h.fetchone_dict()   
+    data = h.fetchone_dict()
     if data and data["login"]:
         # found already reserved
-        if check_password(password, data["password"], None) > 0: 
+        if check_password(password, data["password"], None) > 0:
             return 1
         return -2
 
@@ -394,7 +394,7 @@ def __reserve_user_db(user, password):
     """)
     h.execute(username=user, password=password)
     rhnSQL.commit()
-    
+
     # all should be dandy
     return 0
 
@@ -406,7 +406,7 @@ def __new_user_db(username, password, email, org_id, org_password):
     encrypted_password = CFG.encrypted_passwords
     log_debug(3, username, email, encrypted_password)
 
-    # now search it in the database        
+    # now search it in the database
     h = rhnSQL.prepare("""
     select w.id, w.password, w.old_password, ui.use_pam_authentication
     from web_contact w, rhnUserInfo ui
@@ -417,7 +417,7 @@ def __new_user_db(username, password, email, org_id, org_password):
     data = h.fetchone_dict()
 
     pre_existing_user = 0
-    
+
     if not data:
         # the username is not there, check the reserved user table
         h = rhnSQL.prepare("""
@@ -450,10 +450,10 @@ def __new_user_db(username, password, email, org_id, org_password):
         password = 'pam:%.8f' % time.time()
     else:
         # Regular authentication
-        if check_password(password, data["password"], data["old_password"]) == 0: 
+        if check_password(password, data["password"], data["old_password"]) == 0:
             # Bad password
             raise rhnFault(2)
-        
+
     # creation of user was never supported in spacewalk but this call was mis-used
     # to check username/password in the past
     # so let's skip other checks and return now
@@ -505,7 +505,7 @@ def check_email(email):
             CFG.MAX_EMAIL_LEN)
     # XXX More to come (check the format is indeed foo@bar.baz
     return email
-    
+
 def check_password(key, pwd1, pwd2=None):
     """ Validates the given key against the current or old password
         If encrypted_password is false, it compares key with pwd1 and pwd2
@@ -594,7 +594,7 @@ def validate_new_password(password):
     tmp = invalid_re.search(password)
     if tmp is not None:
         pos = tmp.regs[0]
-        raise rhnFault(15, 
+        raise rhnFault(15,
             _("password contains character `%s'") % password[pos[1]-1])
 
 
@@ -604,7 +604,7 @@ def validate_new_username(username):
     if len(username) < CFG.MIN_NEW_USER_LEN:
         raise rhnFault(13, _("username should be at least %d characters long")
                              % CFG.MIN_NEW_USER_LEN)
-        
+
     disallowed_suffixes = CFG.DISALLOWED_SUFFIXES or []
     if not isinstance(disallowed_suffixes, type([])):
         disallowed_suffixes = [ disallowed_suffixes ]

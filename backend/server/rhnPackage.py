@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -75,10 +75,10 @@ def get_package_path(server_id, pkg_spec, channel):
               channel = channel, server_id = server_id)
     rs = h.fetchall_dict()
     if not rs:
-        log_debug(4, "Error", "Non-existant package requested", server_id, 
+        log_debug(4, "Error", "Non-existant package requested", server_id,
             pkg_spec, channel)
         raise rhnFault(17, _("Invalid RPM package %s requested") % pkg_spec)
-    # It is unlikely for this query to return more than one row, 
+    # It is unlikely for this query to return more than one row,
     # but it is possible
     # (having two packages with the same n, v, r, a and different epoch in
     # the same channel is prohibited by the RPM naming scheme; but extra
@@ -140,7 +140,7 @@ def get_source_package_path(server_id, pkgFilename, channel):
     log_debug(3, server_id, pkgFilename, channel)
     rs = __query_source_package_path_by_name(server_id, pkgFilename, channel)
     if rs is None:
-        log_debug(4, "Error", "Non-existant package requested", server_id, 
+        log_debug(4, "Error", "Non-existant package requested", server_id,
             pkgFilename, channel)
         raise rhnFault(17, _("Invalid RPM package %s requested") % pkgFilename)
 
@@ -170,7 +170,7 @@ def __query_source_package_path_by_name(server_id, pkgFilename, channel):
             rhnChannelPackage cp,
             rhnChannel c,
             rhnServerChannel sc
-    where   
+    where
                 sc.server_id = :server_id
             and sc.channel_id = cp.channel_id
             and cp.channel_id = c.id
@@ -179,7 +179,7 @@ def __query_source_package_path_by_name(server_id, pkgFilename, channel):
             and p.source_rpm_id = sr.id
             and sr.name = :name
             and p.source_rpm_id = ps.source_rpm_id
-            and ((p.org_id is null and ps.org_id is null) 
+            and ((p.org_id is null and ps.org_id is null)
                 or p.org_id = ps.org_id)
     """
     h = rhnSQL.prepare(statement)
@@ -253,4 +253,4 @@ if __name__ == '__main__':
     # new client
     print get_package_path(1000463284, 'kernel-2.4.2-2.i686.rpm', 'redhat-linux-i386-7.1')
     print get_source_package_path(1000463284, 'kernel-2.4.2-2.i686.rpm', 'redhat-linux-i386-7.1')
-    
+

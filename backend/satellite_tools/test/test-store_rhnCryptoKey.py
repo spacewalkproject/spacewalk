@@ -19,7 +19,7 @@
     In this test case:
     org_id = 1
     description = 'RHN-ORG-TRUSTED-SSL-CERT'
-    
+
 """
 
 import os

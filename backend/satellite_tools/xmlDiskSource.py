@@ -9,10 +9,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -144,7 +144,7 @@ class ChannelCompsDiskSource(ChannelDiskSource):
 
     def _file_name(self):
         return "comps.xml"
-    
+
 
 class ShortPackageDiskSource(DiskSource):
     subdir = "packages_short"
@@ -169,7 +169,7 @@ class ShortPackageDiskSource(DiskSource):
         if os.path.exists(f + '.gz') or os.path.exists(f):
             return 1
         return 0
-        
+
     def _getFile(self, create=0):
         dirname = "%s/%s" % (self._getDir(create), self._hashID())
         # Create the directoru if we have to
@@ -220,7 +220,7 @@ class KickstartDataDiskSource(DiskSource):
         DiskSource.__init__(self, mountPoint)
         self.id = None
 
-    def setID(self, ks_label):  
+    def setID(self, ks_label):
         self.id = ks_label
 
     def _getFile(self, create=0):

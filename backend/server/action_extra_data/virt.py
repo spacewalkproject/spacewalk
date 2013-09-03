@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 from spacewalk.common import rhnFlags
@@ -31,7 +31,7 @@ def _do_nothing(server_id, action_id):
     log_debug(4, action_id)
     action_status = rhnFlags.get('action_status')
     log_debug(4, "Action ID: %s, Action Status: %s" % (str(action_id), str(action_status)))
- 
+
 def schedulePoller(server_id, action_id, data={}):
     _do_nothing(server_id, action_id)
 
@@ -57,4 +57,4 @@ def setMemory(server_id, action_id, data={}):
     _do_nothing(server_id, action_id)
 
 def setVCPUs(server_id, action_id, data={}):
-    _do_nothing(server_id, action_id)    
+    _do_nothing(server_id, action_id)

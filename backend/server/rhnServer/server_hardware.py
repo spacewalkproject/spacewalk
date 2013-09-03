@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # This file contains all the logic necessary to manipulate Hardware
@@ -28,7 +28,7 @@ from spacewalk.server import rhnSQL
 
 def kudzu_mapping(dict = None):
     """ this is a class we use to get the mapping for a kudzu entry """
-    # This is the generic mapping we need    
+    # This is the generic mapping we need
     mapping = {
         'desc'        : 'description',
         }
@@ -36,9 +36,9 @@ def kudzu_mapping(dict = None):
     if not dict:
         return mapping
     if not type(dict) == type({}) and not isinstance(dict, UserDictCase):
-        return mapping   
+        return mapping
     hw_bus = dict.get("bus")
-    # we need to have a bus type to be able to continue    
+    # we need to have a bus type to be able to continue
     if not hw_bus:
         return mapping
     hw_bus = string.lower(hw_bus)
@@ -133,7 +133,7 @@ def kudzu_mapping(dict = None):
             "usbprod"           : None,
             "usbsubclass"       : None,
             "usbprotocol"       : None,
-            "usbport"           : None,          
+            "usbport"           : None,
             "usbmfr"            : None,
             "productname"       : None,
             "productrevision"   : None,
@@ -145,7 +145,7 @@ def kudzu_mapping(dict = None):
             'deviceid'    : 'prop2',
             'subvendorid' : 'prop3',
             'subdeviceid' : 'prop4',
-            }            
+            }
     elif hw_bus == 'pcmcia':
         extra = {
             'vendorid'      : 'prop1',
@@ -170,7 +170,7 @@ def cleanse_ip_addr(ip_addr):
     # lstrip will remove all leading zeros; if multiple zeros are present, it
     # would remove too much, hence the or '0' here.
     return '.'.join([ x.lstrip('0') or '0' for x in arr ])
-    
+
 class GenericDevice:
     """ A generic device class """
     table = "override-GenericDevice"
@@ -188,7 +188,7 @@ class GenericDevice:
     def must_save(self):
         if self.id == 0 and self.status == 2: # deleted new item
             return 0
-        if self.status == 0: # original item, unchanged            
+        if self.status == 0: # original item, unchanged
             return 0
         return 1
     def save(self, sysid):
@@ -211,7 +211,7 @@ class GenericDevice:
                 del self.data[k]
         self.data["server_id"] = sysid
         t[devid] = self.data
-        self.status = 0 # now it is saved        
+        self.status = 0 # now it is saved
         return 0
     def reload(self, devid):
         """ reload from rhnDevice table based on devid """
@@ -269,8 +269,8 @@ class Device(GenericDevice):
             log_error("Argument passed is not a dictionary", dict, mapping)
             raise TypeError("Argument passed is not a dictionary",
                             dict, mapping)
-        # make sure we have a platform       
-        for k in dict.keys():                        
+        # make sure we have a platform
+        for k in dict.keys():
             if dict[k] == '':
                 dict[k] = None
             if self.data.has_key(k):
@@ -303,8 +303,8 @@ class Device(GenericDevice):
         except IndexError:
             raise IndexError, "Can not process data = %s, key = %s" % (
                 repr(self.data), k), sys.exc_info()[2]
-                
-                                
+
+
 class HardwareDevice(Device):
     """ A more specific device based on the Device class """
     table = "rhnDevice"
@@ -318,7 +318,7 @@ class HardwareDevice(Device):
         Device.__init__(self, fields, dict, mapping)
         # use the hardware id sequencer
         self.sequence = "rhn_hw_dev_id_seq"
-        
+
 class CPUDevice(Device):
     """ A class for handling CPU - mirrors the rhnCPU structure """
     table = "rhnCPU"
@@ -351,11 +351,11 @@ class CPUDevice(Device):
             return
         if self.data.get("cpu_arch_id") is not None:
             return # all fine, we have the arch
-        # if we don't have an architecture, guess it        
+        # if we don't have an architecture, guess it
         if not self.data.has_key("architecture"):
             log_error("hash does not have a platform member: %s" % dict)
             raise AttributeError, "Expected a hash value for member `platform'"
-        # now extract the arch field, which has to come out of rhnCpuArch 
+        # now extract the arch field, which has to come out of rhnCpuArch
         arch = self.data["architecture"]
         row = rhnSQL.Table("rhnCpuArch", "label")[arch]
         if row is None or not row.has_key("id"):
@@ -370,7 +370,7 @@ class CPUDevice(Device):
                 self.data["nrcpu"] = 1
             if self.data["nrcpu"] == 0:
                 self.data["nrcpu"] = 1
-                
+
 class NetworkInformation(Device):
     """ This is a wrapper class for the Network Information (rhnServerNetwork) """
     table = "rhnServerNetwork"
@@ -521,7 +521,7 @@ class NetIfaceInformation(Device):
             where %s"""
 
         columns = ['server_id', 'name']
-        wheres = map(lambda x: '%s = :%s' % (x, x), columns) 
+        wheres = map(lambda x: '%s = :%s' % (x, x), columns)
         h = rhnSQL.prepare(q % string.join(wheres, " and "))
         return _dml(h, params)
 
@@ -532,21 +532,21 @@ class NetIfaceInformation(Device):
         self._null_columns(params, self._autonull)
 
         wheres = ['server_id', 'name']
-        wheres = map(lambda x: '%s = :%s' % (x, x), wheres) 
+        wheres = map(lambda x: '%s = :%s' % (x, x), wheres)
         wheres = string.join(wheres, " and ")
 
         updates = self.key_mapping.values()
         updates.sort()
-        updates = map(lambda x: '%s = :%s' % (x, x), updates) 
+        updates = map(lambda x: '%s = :%s' % (x, x), updates)
         updates = string.join(updates, ", ")
-        
+
         h = rhnSQL.prepare(q % (updates, wheres))
         return _dml(h, params)
 
     def reload(self, server_id):
         h = rhnSQL.prepare("""
-            select * 
-            from rhnServerNetInterface 
+            select *
+            from rhnServerNetInterface
             where server_id = :server_id
         """)
         h.execute(server_id=server_id)
@@ -830,9 +830,9 @@ class InstallInformation(Device):
     table = "rhnServerInstallInfo"
     def __init__(self, dict = None):
         fields = ['install_method', 'iso_status', 'mediasum']
-        mapping = { 
+        mapping = {
             'class'         : None,
-            'installmethod' : 'install_method', 
+            'installmethod' : 'install_method',
             'isostatus'     : 'iso_status',
             'mediasum'      : 'mediasum',
         }
@@ -848,7 +848,7 @@ class Hardware:
 
     def hardware_by_class(self, device_class):
         return self.__hardware[device_class]
-    
+
     def add_hardware(self, hardware):
         """ add new hardware """
         log_debug(4, hardware)
@@ -866,7 +866,7 @@ class Hardware:
         hw_class = string.lower(hw_class)
 
         class_type = None
-        
+
         if hw_class in ["video", "audio", "audio_hd", "usb", "other", "hd", "floppy",
                         "mouse", "modem", "network", "cdrom", "scsi",
                         "unspec", "scanner", "tape", "capture", "raid",
@@ -897,7 +897,7 @@ class Hardware:
 
         # create the new device
         new_dev = class_type(hardware)
-        
+
         if self.__hardware.has_key(class_type):
             _l = self.__hardware[class_type]
         else:
@@ -911,7 +911,7 @@ class Hardware:
         """ This function deletes all hardware. """
         log_debug(4, sysid)
         if not self.__loaded:
-            self.reload_hardware_byid(sysid)            
+            self.reload_hardware_byid(sysid)
         hardware = self.__hardware
         if hardware == {}:
             # nothing to delete
@@ -921,10 +921,10 @@ class Hardware:
         for device_type in hardware.keys():
             for hw in hardware[device_type]:
                 hw.status = 2 # deleted
-                
+
             # filter out the hardware that was just added and then
             # deleted before saving
-            hardware[device_type] = filter(lambda a: 
+            hardware[device_type] = filter(lambda a:
                 not (a.status == 2 and hasattr(a, "id") and a.id == 0),
                 hardware[device_type])
         return 0
@@ -957,7 +957,7 @@ class Hardware:
             dev = DevClass()
             dev.reload(dev_id)
             self.__hardware[DevClass].append(dev)
-    
+
     def reload_hardware_byid(self, sysid):
         """ load all hardware devices for a server """
         log_debug(4, sysid)

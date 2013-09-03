@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -55,7 +55,7 @@ class i18n:
 
     def _set_catalog(self):
         # Set the catalog object
-        self.cat = gettext.Catalog(self.domain, localedir=self.localedir, 
+        self.cat = gettext.Catalog(self.domain, localedir=self.localedir,
             languages=self.langs, fallback=1, class_=RHN_Translations)
 
     def getlangs(self):

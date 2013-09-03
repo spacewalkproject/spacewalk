@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # From the _apache.py
 # this is a dummy module that makes pychecker happy and provides
@@ -30,7 +30,7 @@ def make_table(*args):
 
 def parse_qs(*args):
     pass
-    
+
 def parse_qsl(*args):
     pass
 
@@ -52,7 +52,7 @@ from spacewalk.server import rhnSQL
 from spacewalk.common import rhn_rpm
 
 options_table = [
-    Option("-v", "--verbose",       action="count", 
+    Option("-v", "--verbose",       action="count",
         help="Increase verbosity"),
     Option("--commit",              action="store_true",
         help="Commit work"),
@@ -67,7 +67,7 @@ class Runner:
         self.options = None
         self._channels_hash = None
         self._channel_packages = {}
-        
+
     def main(self):
         parser = OptionParser(option_list=options_table)
 
@@ -139,7 +139,7 @@ class Runner:
             return None
 
         return package_ids
-            
+
 
     _query_get_channel_packages = rhnSQL.Statement("""
         select c.id, c.label
@@ -150,7 +150,7 @@ class Runner:
     """)
 
     _query_get_channels = rhnSQL.Statement("""
-        select id, label from rhnChannel 
+        select id, label from rhnChannel
     """)
     def _get_channels(self):
         h = rhnSQL.prepare(self._query_get_channels)
@@ -175,7 +175,7 @@ class Runner:
     """)
 
     _query_add_package_header_values = rhnSQL.Statement("""
-        update rhnPackage 
+        update rhnPackage
            set header_start = :header_start,
                header_end = :header_end
          where id = :package_id
@@ -204,10 +204,10 @@ class Runner:
 
     def _backup_packages(self, package_ids, backup_file):
         f = open(backup_file, "w+")
-        
+
         if not package_ids:
             return
-        
+
         template = "update rhnPackage set header_start=%s and header_end=%s where id = %s;\n"
         for package_id, (path, header_start, header_end) in package_ids.items():
             s = template % (header_start, header_end, package_id)

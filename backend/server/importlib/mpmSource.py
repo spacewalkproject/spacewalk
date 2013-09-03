@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Converts headers to the intermediate format
@@ -94,7 +94,7 @@ class mpmBinaryPackage(headerSource.rpmBinaryPackage):
         group = self.get('package_group', '')
         if group == '':
             self['package_group'] = 'NoGroup'
-        
+
         # Solaris specific populations
         if header.get('package_type', "") == "solaris":
             group = header.get('package_group', "")
@@ -120,9 +120,9 @@ class mpmBinaryPackage(headerSource.rpmBinaryPackage):
         self['files'] = files
 
     def _populateDependencyInformation(self, header):
-        mapping = { 
-            'provides'  : headerSource.rpmProvides, 
-            'requires'  : headerSource.rpmRequires, 
+        mapping = {
+            'provides'  : headerSource.rpmProvides,
+            'requires'  : headerSource.rpmRequires,
             'conflicts' : headerSource.rpmConflicts,
             'obsoletes' : headerSource.rpmObsoletes,
             'recommends': headerSource.rpmRecommends,
@@ -136,7 +136,7 @@ class mpmBinaryPackage(headerSource.rpmBinaryPackage):
             for dinfo in header.get(k, []):
                 hash = dinfo
                 if not len(hash['name']):
-                    continue 
+                    continue
                 dep_nv = (hash['name'], hash['version'], hash['flags'])
                 if dep_nv not in unique_deps:
                     unique_deps.append(dep_nv)
@@ -172,7 +172,7 @@ class mpmBinaryPackage(headerSource.rpmBinaryPackage):
         list_ = []
 
         for pkg in header.get('packages', []):
-            # mpmSolarisPatchPackagesInfo contains only info from the db, so 
+            # mpmSolarisPatchPackagesInfo contains only info from the db, so
             # I'll store tuples so that the info from the db can be retrieved
             list_.append((pkg, mpmSolarisPatchPackagesInfo()))
 
@@ -184,7 +184,7 @@ class mpmBinaryPackage(headerSource.rpmBinaryPackage):
         }
         for k, v in mapping.items():
             self._populate_solaris_tag(k, v, header)
-            
+
         list_ = []
 
         patch_list = header.get('patches', [])
@@ -192,7 +192,7 @@ class mpmBinaryPackage(headerSource.rpmBinaryPackage):
             member = mpmSolarisPatchSetMember()
             member['patch_order'] = patch['patch_order']
             list_.append((patch, member))
-            
+
         self['solaris_patch_set_members'] = list_
 
 

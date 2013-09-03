@@ -66,7 +66,7 @@ def store_client_route(server_id):
         # Nothing to do here
         # This also catches the case of no routes at all
         return
-        
+
     if oldRoute:
         # blow away table rhnServerPath entries for server_id
         log_debug(8, 'blow away route-info for %s' % server_id)
@@ -83,7 +83,7 @@ def store_client_route(server_id):
     log_debug(8, 'adding route-info entries: %s - %s' % (server_id, newRoute))
 
     h = rhnSQL.prepare("""
-        insert into rhnServerPath 
+        insert into rhnServerPath
                (server_id, proxy_server_id, position, hostname)
         values (:server_id, :proxy_server_id, :position, :hostname)
     """)
@@ -91,7 +91,7 @@ def store_client_route(server_id):
     proxy_ids = []
     proxy_hostnames = []
     positions = []
-    counter = 0 
+    counter = 0
     for p in newRoute:
         proxy_id, proxy_hostname = p[:2]
         proxy_ids.append(proxy_id)
@@ -104,5 +104,5 @@ def store_client_route(server_id):
         proxy_hostnames)
     h.executemany(server_id=server_ids, proxy_server_id=proxy_ids,
         position=positions, hostname=proxy_hostnames)
-    
+
     rhnSQL.commit()

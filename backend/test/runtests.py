@@ -15,8 +15,8 @@
 # in this software or its documentation.
 #
 
-""" 
-Pure unit tests for the Spacewalk backend Python code. 
+"""
+Pure unit tests for the Spacewalk backend Python code.
 
 These tests should require no network or disk access and run on just about
 any system.

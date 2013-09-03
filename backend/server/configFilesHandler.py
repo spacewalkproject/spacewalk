@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Config file handler (base class)
@@ -172,7 +172,7 @@ class ConfigFilesHandler(rhnHandler):
             # Need delimiters
             raise ConfigFileMissingDelimError(file)
 
-        if not (file.get('user') and file.get('group') and 
+        if not (file.get('user') and file.get('group') and
                 file.get('mode')) and not self._is_link(file) :
             raise ConfigFileMissingInfoError(file)
 
@@ -227,13 +227,13 @@ class ConfigFilesHandler(rhnHandler):
     # A wrapper around _push_file, that also catches exceptions
     def push_file(self, config_channel_id, file):
         try:
-            result = self._push_file(config_channel_id, file) 
+            result = self._push_file(config_channel_id, file)
         except ConfigFilePathIncomplete, e:
             raise rhnFault(4015,
                            "Full path of file '%s' must be specified" % e.file.get('path'),
                            explain=0), None, sys.exc_info()[2]
         except ConfigFileExistsError, e:
-            raise rhnFault(4013, 
+            raise rhnFault(4013,
                            "File %s already uploaded" % e.file.get('path'),
                            explain=0), None, sys.exc_info()[2]
         except ConfigFileVersionMismatchError, e:
@@ -243,7 +243,7 @@ class ConfigFilesHandler(rhnHandler):
             raise rhnFault(4008, "Delimiter not specified for file %s" %
                            e.file.get('path'), explain=0), None, sys.exc_info()[2]
         except ConfigFileMissingContentError, e:
-            raise rhnFault(4007, "No content sent for file %s" % 
+            raise rhnFault(4007, "No content sent for file %s" %
                            e.file.get('path'), explain=0), None, sys.exc_info()[2]
         except ConfigFileExceedsQuota, e:
             raise rhnFault(4014, "File size of %s exceeds free quota space" %
@@ -267,7 +267,7 @@ class ConfigFilesHandler(rhnHandler):
     """)
 
     _query_insert_content = rhnSQL.Statement("""
-        insert into rhnConfigContent 
+        insert into rhnConfigContent
                (id, checksum_id, file_size, contents, is_binary, delim_start, delim_end)
         values (:config_content_id, lookup_checksum(:checksum_type, :checksum),
                 :file_size, :contents, :is_binary, :delim_start, :delim_end)
@@ -380,7 +380,7 @@ class ConfigFilesHandler(rhnHandler):
         file['config_file_id'] = insert_call(file['config_channel_id'], file['path'])
 
     _query_lookup_revision = rhnSQL.Statement("""
-        select id, revision, config_content_id, config_info_id, 
+        select id, revision, config_content_id, config_info_id,
                config_file_type_id
           from rhnConfigRevision
          where config_file_id = :config_file_id
@@ -427,7 +427,7 @@ class ConfigFilesHandler(rhnHandler):
 
 
     _query_update_revision = rhnSQL.Statement("""
-        update rhnConfigRevision 
+        update rhnConfigRevision
            set modified = current_timestamp
          where id = :config_revision_id
     """)
@@ -438,7 +438,7 @@ class ConfigFilesHandler(rhnHandler):
 
 
     def _insert_revision(self, file):
-        insert_call = rhnSQL.Function("rhn_config.insert_revision", 
+        insert_call = rhnSQL.Function("rhn_config.insert_revision",
                                       rhnSQL.types.NUMBER())
         file['config_revision_id'] = insert_call(file['revision'],
                                                  file['config_file_id'],
@@ -484,7 +484,7 @@ class ConfigFilesHandler(rhnHandler):
 
 def format_file_results(row, server=None):
     encoding = ''
-    contents = None 
+    contents = None
     contents = rhnSQL.read_lob(row['file_contents']) or ''
 
     if server and (row['is_binary'] == 'N') and contents:
@@ -509,7 +509,7 @@ def format_file_results(row, server=None):
         'path'          : row['path'],
         'config_channel': row['config_channel'],
         'file_contents' : contents,
-        'symlink' : row['symlink'] or '', 
+        'symlink' : row['symlink'] or '',
         'checksum_type' : row['checksum_type'] or '',
         'checksum'      : row['checksum'] or '',
         'delim_start'   : row['delim_start'] or '',

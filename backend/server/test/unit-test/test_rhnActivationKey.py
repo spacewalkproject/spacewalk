@@ -8,10 +8,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 #
@@ -26,7 +26,7 @@ from spacewalk.server import rhnSQL, rhnActivationKey
 import misc_functions
 
 DB = 'rhnuser/rhnuser@webdev'
-    
+
 
 class Tests(unittest.TestCase):
 
@@ -61,7 +61,7 @@ class Tests(unittest.TestCase):
         token_note = "Test activation key %d" % int(time.time())
 
         a = misc_functions.create_activation_key(org_id=token_org_id,
-            user_id=token_user_id, entitlement_level=token_entitlement_level, 
+            user_id=token_user_id, entitlement_level=token_entitlement_level,
             note=token_note, groups=groups, channels=channels)
 
         token = a.get_token()
@@ -84,15 +84,15 @@ class Tests(unittest.TestCase):
     def test_exception_token_load_1(self):
         a = rhnActivationKey.ActivationKey()
         self.assertRaises(rhnActivationKey.InvalidTokenError, a.load, "a")
-    
+
     def test_exception_token_channels_1(self):
         a = rhnActivationKey.ActivationKey()
-        self.assertRaises(rhnActivationKey.InvalidChannelError, a.set_channels, 
+        self.assertRaises(rhnActivationKey.InvalidChannelError, a.set_channels,
             ["a"])
 
     def test_exception_token_entitlement_level_1(self):
         a = rhnActivationKey.ActivationKey()
-        self.assertRaises(rhnActivationKey.InvalidEntitlementError, 
+        self.assertRaises(rhnActivationKey.InvalidEntitlementError,
             a.set_entitlement_level, {'a' : None})
 
 if __name__ == '__main__':

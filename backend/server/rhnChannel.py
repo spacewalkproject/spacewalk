@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 
@@ -110,7 +110,7 @@ class BaseChannelObject(BaseDatabaseObject):
     _table_name = None
     _sequence_name = None
     _generic_fields = []
-    
+
     def load_by_label(self, label):
         self.__init__()
         self._row = rhnSQL.Row(self._table_name, 'label')
@@ -134,7 +134,7 @@ class BaseChannelObject(BaseDatabaseObject):
 
     def _load_rest(self, dict):
         pass
-    
+
     def exists(self):
         if not self._row:
             return 0
@@ -148,7 +148,7 @@ class BaseChannelObject(BaseDatabaseObject):
         if row.real:
             return row['login']
         return org_id
-    
+
     def set_org_id(self, val):
         self._new_row()
         if val is None or isinstance(val, IntType):
@@ -250,7 +250,7 @@ class Channel(BaseChannelObject):
         channel_id = self._row.get('id')
         dists = self._get_db_dists(channel_id)
         self.set_dists(dists)
-        
+
     _query_get_db_dists = rhnSQL.Statement("""
         select os, release
           from rhnDistChannelMap
@@ -263,10 +263,10 @@ class Channel(BaseChannelObject):
         h = rhnSQL.prepare(self._query_get_db_dists)
         h.execute(channel_id=channel_id)
         return h.fetchall_dict() or []
-        
+
 
     # Setters
-    
+
     def set_channel_arch(self, val):
         self._new_row()
         arch = self._sanitize_arch(val)
@@ -274,7 +274,7 @@ class Channel(BaseChannelObject):
         if not row.real:
             raise InvalidDataError("No such architecture", arch)
         self._row['channel_arch_id'] = row['id']
-        
+
 
     def _sanitize_arch(self, arch):
         if arch == 'i386':
@@ -357,7 +357,7 @@ class Channel(BaseChannelObject):
         if date_obj is None:
             return None
         return "%s-%02d-%02d %02d:%02d:%02d" % (
-            date_obj.year, date_obj.month, date_obj.day, 
+            date_obj.year, date_obj.month, date_obj.day,
             date_obj.hour, date_obj.minute, date_obj.second)
 
     def get_dists(self):
@@ -455,9 +455,9 @@ class Channel(BaseChannelObject):
         self._remove_dists(to_remove)
         self._update_dists(to_update[0], to_update[1])
         self._add_dists(to_add[0], to_add[1])
-                
+
     _query_add_dists = rhnSQL.Statement("""
-        insert into rhnDistChannelMap 
+        insert into rhnDistChannelMap
                (channel_id, channel_arch_id, release, os, org_id)
         values (:channel_id, :channel_arch_id, :release, :os, null)
         """)
@@ -500,7 +500,7 @@ class Channel(BaseChannelObject):
     def _compatible_channel_arches(self, parent_channel_arch, channel_arch):
         # This could get more complicated later
         return (parent_channel_arch == channel_arch)
-        
+
     def as_dict(self):
         ret = BaseChannelObject.as_dict(self)
         ret['dists'] = self.get_dists()
@@ -525,9 +525,9 @@ def _load_by_id(query, item_object, pattern=None):
         if not row:
             break
         c = item_object.load_by_id(row['id'])
-        ret.append(c.as_dict()) 
+        ret.append(c.as_dict())
     return ret
-    
+
 def list_channel_families(pattern=None):
     query = """
             select id
@@ -538,7 +538,7 @@ def list_channel_families(pattern=None):
 
 def list_channels(pattern=None):
     query = """
-            select id 
+            select id
               from rhnChannel
              where 1=1
         """
@@ -561,12 +561,12 @@ def __stringify(object):
         return ret
     # by default, we just str() it
     return str(object)
-            
+
 
 # return the channel information
 def channel_info(channel):
     log_debug(3, channel)
-    
+
     # get the channel information
     h = rhnSQL.prepare("""
     select
@@ -617,7 +617,7 @@ def get_base_channel(server_id, none_ok = 0):
             log_error("Server not subscribed to a base channel!", server_id)
         return None
     return __stringify(ret)
-    
+
 def channels_for_server(server_id):
     """channel info list for all channels accessible by this server.
 
@@ -638,7 +638,7 @@ def channels_for_server(server_id):
     # to know if any of those channels has local packages in it... A
     # local package has a org_id set.
     h = rhnSQL.prepare("""
-    select 
+    select
         ca.label arch,
         c.id,
         c.parent_channel,
@@ -664,7 +664,7 @@ def channels_for_server(server_id):
     """)
     h.execute(server_id = str(server_id))
     channels = h.fetchall_dict()
-    if not channels: 
+    if not channels:
         log_error("Server not subscribed to any channels", server_id)
         channels = []
     return __stringify(channels)
@@ -680,7 +680,7 @@ def isCustomChannel(channel_id):
     h = rhnSQL.prepare("""
     select
         rcf.label
-    from 
+    from
         rhnChannelFamily rcf,
         rhnChannelFamilyMembers rcfm
     where
@@ -699,7 +699,7 @@ def isCustomChannel(channel_id):
 
 
 # Fetch base channel for a given release and arch
-def base_channel_for_rel_arch(release, server_arch, org_id=-1, 
+def base_channel_for_rel_arch(release, server_arch, org_id=-1,
             user_id=None):
     log_debug(4, release, server_arch, org_id, user_id)
 
@@ -973,7 +973,7 @@ def channels_for_release_arch(release, server_arch, org_id=-1, user_id=None):
     and cp.org_id = :org_id
     and c.parent_channel = :parent_channel
     """)
-    h.execute(org_id = org_id, 
+    h.execute(org_id = org_id,
         parent_channel=base_channel['id'], user_id=user_id)
 
     channels = [base_channel]
@@ -989,7 +989,7 @@ def channels_for_release_arch(release, server_arch, org_id=-1, user_id=None):
             continue
 
         channels.append(row)
-    
+
     return __stringify(channels)
 
 
@@ -1008,7 +1008,7 @@ def list_packages_source(channel_id):
     h = rhnSQL.prepare(_query_get_source_packages_from_ids)
     h.execute(channel_id=channel_id)
     results = h.fetchall_dict()
-    if results: 
+    if results:
         for r in results:
             r = r['name']
             if string.find(r, ".rpm") != -1:
@@ -1037,15 +1037,15 @@ def list_packages_sql(channel_id):
     # return the latest packages from the specified channel
     query = """
     select
-        pn.name,  
-        pevr.version,  
-        pevr.release,  
-        pevr.epoch,  
-        pa.label arch,  
-        full_channel.package_size 
-    from  
+        pn.name,
+        pevr.version,
+        pevr.release,
+        pevr.epoch,
+        pa.label arch,
+        full_channel.package_size
+    from
         rhnPackageArch pa,
-        ( select 
+        ( select
             p.name_id,
             max(pe.evr) evr
           from
@@ -1072,7 +1072,7 @@ def list_packages_sql(channel_id):
         ) full_channel,
         -- Rank the package's arch
         ( select
-            package_arch_id, 
+            package_arch_id,
             count(*) rank
           from
             rhnServerPackageArchCompat
@@ -1096,13 +1096,13 @@ def list_packages_sql(channel_id):
 _query_latest_packages_from_channel = """
     select
         p.id,
-        pn.name,  
-        pevr.version,  
-        pevr.release,  
-        pevr.epoch,  
-        pa.label arch,  
-        p.package_size 
-    from  
+        pn.name,
+        pevr.version,
+        pevr.release,
+        pevr.epoch,
+        pa.label arch,
+        p.package_size
+    from
         rhnChannelPackage cp,
         rhnPackage p,
         rhnPackageName pn,
@@ -1122,13 +1122,13 @@ def list_all_packages_sql(channel_id):
     log_debug(3, channel_id)
     return _list_packages_sql(_query_latest_packages_from_channel, channel_id)
 
-# This function executes the SQL call for listing packages with all the 
+# This function executes the SQL call for listing packages with all the
 # dep information for each package also
 def list_all_packages_complete_sql(channel_id):
     log_debug(3, channel_id)
     # return the latest packages from the specified channel
     h = rhnSQL.prepare(_query_latest_packages_from_channel)
-    # This gathers the provides, requires, conflicts, obsoletes info  
+    # This gathers the provides, requires, conflicts, obsoletes info
     g = rhnSQL.prepare("""
     select
        pp.package_id,
@@ -1261,7 +1261,7 @@ def list_all_packages_complete_sql(channel_id):
             pkgi[item['capability_type']].append(dep)
     # process the results
     ret = map(lambda a: (a["name"], a["version"], a["release"], a["epoch"],
-                         a["arch"], a["package_size"], a['provides'], 
+                         a["arch"], a["package_size"], a['provides'],
                          a['requires'], a['conflicts'], a['obsoletes'], a['recommends'], a['suggests'], a['supplements']),
               __stringify(ret))
     return ret
@@ -1272,7 +1272,7 @@ def list_packages_path(channel_id):
     h = rhnSQL.prepare("""
     select
         p.path
-    from  
+    from
         rhnPackage p,
         rhnChannelPackage cp
     where
@@ -1309,7 +1309,7 @@ def list_all_packages_complete(channel):
 # function is the generator function
 def _list_packages(channel, cache_prefix, function):
     log_debug(3, channel, cache_prefix)
-    
+
     # try the caching thing first
     c_info = channel_info(channel)
     if not c_info: # unknown channel
@@ -1321,7 +1321,7 @@ def _list_packages(channel, cache_prefix, function):
         # Mark the response as being already XMLRPC-encoded
         rhnFlags.set("XMLRPC-Encoded-Response", 1)
         return ret
-    
+
     ret = function(c_info["id"])
     if not ret:
         # we assume that channels with no packages are very fast to list,
@@ -1559,49 +1559,49 @@ def guess_channels_for_server(server, user_id=None, none_ok=0,
         if server.release is None:
             server.release = ret["release"]
         if server.arch is None:
-            server.arch = ret["arch"]        
+            server.arch = ret["arch"]
 
     if raise_exceptions and not none_ok:
         # Let exceptions pass through
-        return channels_for_release_arch(server.release, server.arch, 
+        return channels_for_release_arch(server.release, server.arch,
             server.org_id, user_id=user_id)
 
     try:
-        return channels_for_release_arch(server.release, server.arch, 
+        return channels_for_release_arch(server.release, server.arch,
             server.org_id, user_id=user_id)
     except NoBaseChannelError:
         if none_ok:
             return []
-        
+
         log_error("No available channels for (server, org)",
                   (server.id, server.org_id), server.release, server.arch)
         msg = _("Your account does not have access to any channels matching "
               "(release='%(release)s', arch='%(arch)s')%(www_activation)s")
-        
+
         error_strings = {
-            'release'        : server.release, 
-            'arch'           : server.arch, 
+            'release'        : server.release,
+            'arch'           : server.arch,
             'www_activation' : ''
         }
-        
+
         if CFG.REFER_TO_WWW:
             error_strings['www_activation'] = _("\nIf you have a "
                 "registration number, please register with it first at "
                 "http://www.redhat.com/apps/activate/ and then try again.\n\n")
-            
+
         raise rhnFault(19, msg % error_strings), None, sys.exc_info()[2]
     except BaseChannelDeniedError:
         if none_ok:
             return []
 
-        raise rhnFault(71, 
-                _("Insufficient subscription permissions for release (%s, %s") 
+        raise rhnFault(71,
+                _("Insufficient subscription permissions for release (%s, %s")
                     % (server.release, server.arch)), None, sys.exc_info()[2]
-            
+
 # Subscribes the server to channels
 # can raise SubscriptionCountExceeded, BaseChannelDeniedError, NoBaseChannelError
 # Only used for new server registrations
-def subscribe_server_channels(server, user_id=None, none_ok=0): 
+def subscribe_server_channels(server, user_id=None, none_ok=0):
     s = LiteServer().init_from_server(server)
 
     # bretm 02/19/2007 -- have to leave none_ok in here for now due to how
@@ -1619,7 +1619,7 @@ def subscribe_server_channels(server, user_id=None, none_ok=0):
             # Re-raise the exception
             e.channel = c
             raise
-        
+
     return channels
 
 # small wrapper around a PL/SQL function
@@ -1671,7 +1671,7 @@ def unsubscribe_channel(server_id, channel, username, password):
     raise rhnFault(71)
 
 # unsubscribe from all channels
-def unsubscribe_all_channels(server_id):           
+def unsubscribe_all_channels(server_id):
     log_debug(3, server_id)
     # We need to unsubscribe the children channels before the base ones.
     rhnSQL.transaction("unsub_all_channels")
@@ -1762,7 +1762,7 @@ def is_subscribed(server_id, channel):
         return 0
     return 1
 
-# Returns 0, "", "" if system does not need any message, or 
+# Returns 0, "", "" if system does not need any message, or
 # (error_code, message_title, message) otherwise
 def system_reg_message(server):
     server_id = server.server['id']
@@ -1777,8 +1777,8 @@ def system_reg_message(server):
     if not ret:
         # System not subscribed to any channel
         #
-        return (-1, s_invalid_channel_title, 
-                s_invalid_channel_message % 
+        return (-1, s_invalid_channel_title,
+                s_invalid_channel_message %
                 (server.server["release"], server.archname))
 
 
@@ -1812,7 +1812,7 @@ def subscribe_to_tools_channel(server_id):
     if base_channel_dict is None:
        raise NoBaseChannelError("Server %s has no base channel." % \
            str(server_id))
-    
+
     lookup_child_channels = rhnSQL.Statement("""
         select  id, label, parent_channel
           from  rhnChannel
@@ -1826,7 +1826,7 @@ def subscribe_to_tools_channel(server_id):
     if child_channels is None:
         raise NoChildChannels("Base channel id %s has no child channels associated with it." % \
                               base_channel_dict['id'])
-    
+
     tools_channel = None
     for channel in child_channels:
         if channel.has_key('label'):
@@ -1843,7 +1843,7 @@ def subscribe_to_tools_channel(server_id):
             raise InvalidChannel("RHN Tools channel has no label.")
         if not tools_channel.has_key('parent_channel'):
             raise InvalidChannel("RHN Tools channel has no parent_channel.")
-        
+
         subscribe_channels(server_id, [tools_channel])
 
 # Various messages that can be reused
@@ -1854,10 +1854,10 @@ def subscribe_to_tools_channel(server_id):
 h_invalid_channel_title = _("System Registered but Inactive")
 h_invalid_channel_message = _("""
 Invalid Architecture and OS release combination (%s, %s).
-Your system has been registered, but will not receive updates 
+Your system has been registered, but will not receive updates
 because it is not subscribed to a channel. If you have not yet
 activated your product for service, please visit our website at:
-  
+
      http://www.redhat.com/apps/activate/
 
 ...to activate your product.""")

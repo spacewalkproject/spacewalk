@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # Stuff for handling Servers
 #
@@ -58,7 +58,7 @@ class Server(ServerWrapper):
         # Also, at this point we know that this is a real server
         self.type = "REAL"
         self.default_description()
-        # Satellite certificate associated to this server 
+        # Satellite certificate associated to this server
         self.satellite_cert = None
 
         # custom info values
@@ -69,7 +69,7 @@ class Server(ServerWrapper):
         self.registration_number = None
 
     _query_lookup_arch = rhnSQL.Statement("""
-        select sa.id, 
+        select sa.id,
                case when at.label = 'rpm' then 1 else 0 end is_rpm_managed
           from rhnServerArch sa,
                rhnArchType at
@@ -91,12 +91,12 @@ class Server(ServerWrapper):
             # Log it to disk, it may show interesting things
             log_error("Attempt to create server with invalid arch `%s'" %
                 arch)
-            raise rhnFault(24, 
+            raise rhnFault(24,
                 _("Architecture `%s' is not supported") % arch)
         self.server["server_arch_id"] = data["id"]
         self.is_rpm_managed = data['is_rpm_managed']
-        
-    # set the default description...    
+
+    # set the default description...
     def default_description(self):
         self.server["description"] = "Initial Registration Parameters:\n"\
                                      "OS: %s\n"\
@@ -116,10 +116,10 @@ class Server(ServerWrapper):
             "self.server" : self.server.data,
             })
     __str__ = __repr__
-    
+
     # Return a Digital Certificate that can be placed in a file on the
     # client side.
-    def system_id(self):       
+    def system_id(self):
         log_debug(3, self.server, self.cert)
         if self.cert is None:
             # need to instantiate it
@@ -139,9 +139,9 @@ class Server(ServerWrapper):
 
     # return the id of this system
     def getid(self):
-        if not self.server.has_key("id"):            
+        if not self.server.has_key("id"):
             sysid = rhnSQL.Sequence("rhn_server_id_seq")()
-            self.server["digital_server_id"] = "ID-%09d" % sysid           
+            self.server["digital_server_id"] = "ID-%09d" % sysid
             # we can't reset the id column, so we need to poke into
             # internals. kind of illegal, but it works...
             self.server.data["id"] = (sysid, 0)
@@ -153,10 +153,10 @@ class Server(ServerWrapper):
     # change the base channel of a server
     def change_base_channel(self, new_rel):
         log_debug(3, self.server["id"], new_rel)
-        old_rel = self.server["release"]       
+        old_rel = self.server["release"]
         current_channels = rhnChannel.channels_for_server(self.server["id"])
-        # Extract the base channel off of 
-        old_base = filter(lambda x: not x['parent_channel'], 
+        # Extract the base channel off of
+        old_base = filter(lambda x: not x['parent_channel'],
             current_channels)
 
         # Quick sanity check
@@ -168,18 +168,18 @@ class Server(ServerWrapper):
         else:
             raise rhnException("Server %s subscribed to multiple base channels"
                 % (self.server["id"], ))
-       
+
         #bz 442355
         #Leave custom base channels alone, don't alter any of the channel subscriptions
         if not CFG.RESET_BASE_CHANNEL and rhnChannel.isCustomChannel(old_base["id"]):
-            log_debug(3, 
+            log_debug(3,
                     "Custom base channel detected, will not alter channel subscriptions")
             self.server["release"] = new_rel
             self.server.save()
-            msg = """The Red Hat Satellite Update Agent has detected a 
-            change in the base version of the operating system running 
+            msg = """The Red Hat Satellite Update Agent has detected a
+            change in the base version of the operating system running
             on your system, additionaly you are subscribed to a custom
-            channel as your base channel.  Due to this configuration 
+            channel as your base channel.  Due to this configuration
             your channel subscriptions will not be altered.
             """
             self.add_history("Updated system release from %s to %s" % (
@@ -187,7 +187,7 @@ class Server(ServerWrapper):
             self.save_history_byid(self.server["id"])
             return 1
 
-        
+
         s = rhnChannel.LiteServer().init_from_server(self)
         s.release = new_rel
         s.arch = self.archname
@@ -244,8 +244,8 @@ class Server(ServerWrapper):
         sub_channels = rhnChannel.channels_for_server(self.server["id"])
         if sub_channels:
             channel_list = map(lambda a: a["name"], sub_channels)
-            msg = """The Red Hat Satellite Update Agent has detected a 
-            change in the base version of the operating system running 
+            msg = """The Red Hat Satellite Update Agent has detected a
+            change in the base version of the operating system running
             on your system and has updated your channel subscriptions
             to reflect that.
             Your server has been automatically subscribed to the following
@@ -291,7 +291,7 @@ class Server(ServerWrapper):
     """)
     def load_custom_info(self):
         self.custom_info = {}
-        
+
         h = rhnSQL.prepare(self._query_server_custom_info)
         h.execute(server_id = self.getid())
         rows = h.fetchall_dict()
@@ -299,10 +299,10 @@ class Server(ServerWrapper):
         if not rows:
             log_debug(4, "no custom info values")
             return
-        
+
         for row in rows:
             self.custom_info[row['label']] = row['value']
-    
+
     # load additional server information from the token definition
     def load_token(self):
         # Fetch token
@@ -328,7 +328,7 @@ class Server(ServerWrapper):
         self.server["creator_id"] = user_id
         self.server["org_id"] = org_id
         return 0
-    
+
     # perform the actions required by the token (subscribing to
     # channels, server groups, etc)
     def use_token(self):
@@ -342,7 +342,7 @@ class Server(ServerWrapper):
 
         # We get back a history of what is being done in the
         # registration process
-        history = server_token.process_token(self.server, self.archname, 
+        history = server_token.process_token(self.server, self.archname,
             tokens_obj, self.virt_type)
 
         if is_rereg_token:
@@ -351,14 +351,14 @@ class Server(ServerWrapper):
         else:
             event_name = "Subscription via Token"
             event_text = "System created"
-        
+
         token_name = tokens_obj.get_names()
         # now record that history nicely
-        self.add_history(event_name, 
-            "%s with token <strong>%s</strong><br />\n%s" % 
+        self.add_history(event_name,
+            "%s with token <strong>%s</strong><br />\n%s" %
                 (event_text, token_name, history))
         self.save_history_byid(self.server["id"])
-        
+
         #6/23/05 wregglej 157262, use get_kickstart session_id() to see if we're in the middle of a kickstart.
         ks_id = tokens_obj.get_kickstart_session_id()
 
@@ -366,7 +366,7 @@ class Server(ServerWrapper):
         #6/23/05 wregglej 157262, don't call flush_actions() if we're in the middle of a kickstart.
         #   It would cause all of the remaining kickstart actions to get flushed, which is bad.
         if is_rereg_token and ks_id is None:
-            self.flush_actions() 
+            self.flush_actions()
 
         # XXX: will need to call self.save() later to commit all that
         return 0
@@ -398,20 +398,20 @@ class Server(ServerWrapper):
         entitlement_hierarchy = ['enterprise_entitled', 'sw_mgr_entitled']
 
         any_base_entitlements = 0
-        
+
         for entitlement in entitlement_hierarchy:
             try:
                 self._entitle(entitlement)
                 any_base_entitlements = 1
             except rhnSQL.SQLSchemaError, e:
                 if e.errno == 20220:
-                    # ORA-20220: (servergroup_max_members) - Server group 
+                    # ORA-20220: (servergroup_max_members) - Server group
                     # membership cannot excede maximum membership
                     #
                     # ignore for now, since any_base_entitlements will throw
                     # an error at the end if not set
                     continue
-                
+
                 if e.errno == 20287:
                     # ORA-20287: (invalid_entitlement) - The server can not be
                     # entitled to the specified level
@@ -471,7 +471,7 @@ class Server(ServerWrapper):
         if not uuid:
             log_debug('Nothing to do')
             return
-        
+
         uuid = uuid[:uuid_col_length]
         server_id = self.server['id']
         log_debug(4, "Trimmed uuid", uuid, server_id)
@@ -503,7 +503,7 @@ class Server(ServerWrapper):
                 user_id = self.user.getid()
             else:
                 user_id = None
-            
+
             # some more default values
             self.server["auto_update"] = "N"
             if self.user and not self.server.has_key("creator_id"):
@@ -536,7 +536,7 @@ class Server(ServerWrapper):
                 log_debug(4, "eus channel id %s" % str(channel_info))
                 rhnChannel._subscribe_sql(server_id, channel_info['id'])
             else:
-                rhnChannel.subscribe_server_channels(self, 
+                rhnChannel.subscribe_server_channels(self,
                                none_ok=have_reg_token,
                                user_id=user_id)
 
@@ -545,12 +545,12 @@ class Server(ServerWrapper):
                 #   rhnSystemEntitlementException
                 #   rhnNoSystemEntitlementsException
                 self.autoentitle()
-            
+
                 # If a new server that was registered by an user (i.e. not
-                # with a registration token), look for this user's default 
+                # with a registration token), look for this user's default
                 # groups
                 self.join_groups()
-            
+
             server_lib.join_rhn(org_id)
         # Update the uuid - but don't commit yet
         self.update_uuid(self.uuid, commit=0)
@@ -571,7 +571,7 @@ class Server(ServerWrapper):
         rhnSQL.transaction("save_server")
         try:
             self.__save(channel)
-        except: # roll back to what we have before and raise again           
+        except: # roll back to what we have before and raise again
             rhnSQL.rollback("save_server")
             # shoot the exception up the chain
             raise
@@ -588,7 +588,7 @@ class Server(ServerWrapper):
     # Reload the current configuration from database using a server id.
     def reload(self, server, reload_all = 0):
         log_debug(4, server, "reload_all = %d" % reload_all)
-        
+
         if not self.server.load(int(server)):
             log_error("Could not find server record for reload", server)
             raise rhnFault(29, "Could not find server record in the database")
@@ -607,15 +607,15 @@ class Server(ServerWrapper):
         # we don't know this one anymore (well, we could look for, but
         # why would we do that?)
         self.user = None
-        
+
         # XXX: Fix me
         if reload_all:
             if not self.reload_packages_byid(self.server["id"]) == 0:
                 return -1
             if not self.reload_hardware_byid(self.server["id"]) == 0:
-                return -1       
+                return -1
         return 0
-    
+
     # Use the values we find in the cert to cause a reload of this
     # server from the database.
     def loadcert(self, cert, load_user = 1):
@@ -639,7 +639,7 @@ class Server(ServerWrapper):
         # a given server we can have only one owner at any given time.
         # cert includes it and it's valid because it has been verified
         # through checksuming before we got here
-        
+
         self.user = None
 
         #Load the user if at all possible. If it's not possible,
@@ -660,9 +660,9 @@ class Server(ServerWrapper):
         # XXX: make sure that the database thinks that the server
         # registrnt is the same as this certificate thinks. The
         # certificate passed checksum checks, but it never hurts to be
-        # too careful now with satellites and all.        
+        # too careful now with satellites and all.
         return 0
-        
+
     # Is this server entitled?
     def check_entitlement(self):
         if not self.server.has_key("id"):
@@ -670,10 +670,10 @@ class Server(ServerWrapper):
         log_debug(3, self.server["id"])
 
         return server_lib.check_entitlement(self.server['id'])
- 
+
     def validateSatCert(self):
         # make sure the cert is still valid
-        
+
         h = rhnSQL.prepare("""
         select TO_CHAR(expires, 'YYYY-MM-DD HH24:MI:SS') expires
           from rhnSatelliteCert
@@ -688,7 +688,7 @@ class Server(ServerWrapper):
             log_debug(2, "Satellite certificate not found")
             return 0
         expire_string = ret['expires']
-        expire_time = time.mktime(time.strptime(expire_string, 
+        expire_time = time.mktime(time.strptime(expire_string,
             "%Y-%m-%d %H:%M:%S"))
 
         now = time.time()
@@ -763,12 +763,12 @@ class Server(ServerWrapper):
         history = server_kickstart.terminate_kickstart_sessions(self.getid())
         for k, v in history:
             self.add_history(k, v)
-        
+
         kickstart_session_id = tokens_obj.get_kickstart_session_id()
         if kickstart_session_id is None:
             log_debug(4, "No kickstart_session_id associated with token %s (%s)"
                 % (tokens_obj.get_names(), tokens_obj.tokens))
-                
+
             # Nothing to do here
             return
 
@@ -776,7 +776,7 @@ class Server(ServerWrapper):
         self.flush_actions()
 
         server_id = self.getid()
-        action_id = server_kickstart.schedule_kickstart_sync(server_id, 
+        action_id = server_kickstart.schedule_kickstart_sync(server_id,
             kickstart_session_id)
 
         server_kickstart.subscribe_to_tools_channel(server_id,
@@ -786,7 +786,7 @@ class Server(ServerWrapper):
             kickstart_session_id)
 
         # Update the next action to the newly inserted one
-        server_kickstart.update_ks_session_table(kickstart_session_id, 
+        server_kickstart.update_ks_session_table(kickstart_session_id,
             'registered', action_id, server_id)
 
     def flush_actions(self):
@@ -832,4 +832,4 @@ class Server(ServerWrapper):
         server_id = self.getid()
         ret = server_lib.update_push_client_jid(server_id, jid)
         return ret
-        
+

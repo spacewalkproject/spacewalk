@@ -8,10 +8,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 #
@@ -24,7 +24,7 @@ import unittest
 from spacewalk.server import rhnSQL, rhnChannel
 
 DB = 'rhnuser/rhnuser@webdev'
-    
+
 
 class Tests(unittest.TestCase):
 
@@ -40,7 +40,7 @@ class Tests(unittest.TestCase):
         cf = rhnChannel.ChannelFamily()
         cf.load_from_dict(self._new_channel_family_dict())
         cf.save()
-        
+
         label = cf.get_label()
         vdict = self._new_channel_dict(label=label, channel_family=label)
 
@@ -59,13 +59,13 @@ class Tests(unittest.TestCase):
             self.assertEqual(v, dbv)
         rhnSQL.commit()
         return c
-    
+
     def test_new_channel_2(self):
         """Tests new channel creation from dictionary"""
         cf = rhnChannel.ChannelFamily()
         cf.load_from_dict(self._new_channel_family_dict())
         cf.save()
-        
+
         label = cf.get_label()
         vdict = self._new_channel_dict(label=label, channel_family=label)
 
@@ -136,7 +136,7 @@ class Tests(unittest.TestCase):
     def _new_channel_dict(self, **kwargs):
         if not hasattr(self, '_counter'):
             self._counter = 0
-            
+
         label = kwargs.get('label')
         if label is None:
             label = 'rhn-unittest-%.3f-%s' % (time.time(), self._counter)
@@ -172,14 +172,14 @@ class Tests(unittest.TestCase):
     def _new_channel_family_dict(self, **kwargs):
         if not hasattr(self, '_counter'):
             self._counter = 0
-            
+
         label = kwargs.get('label')
         if label is None:
             label = 'rhn-unittest-%.3f-%s' % (time.time(), self._counter)
             self._counter = self._counter + 1
 
         product_url = kwargs.get('product_url') or 'http://rhn.redhat.com'
-        
+
         vdict = {
             'label'             : label,
             'name'              : kwargs.get('name') or label,

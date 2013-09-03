@@ -10,10 +10,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # $Id$
@@ -44,7 +44,7 @@ class PackagePush(basePackageUpload.BasePackageUpload):
         self.rel_package_path = None
         self.org_id = None
         self.package_path = None
-        
+
     def headerParserHandler(self, req):
         ret = basePackageUpload.BasePackageUpload.headerParserHandler(self, req)
         # Optional headers
@@ -60,7 +60,7 @@ class PackagePush(basePackageUpload.BasePackageUpload):
         if CFG.SEND_MESSAGE_TO_ALL:
             rhnSQL.closeDB()
             log_debug(1, "send_message_to_all is set")
-        
+
             rhnFlags.set("apache-return-code", apache.HTTP_NOT_FOUND)
             try:
                 outage_message = open(CFG.MESSAGE_TO_ALL).read()
@@ -77,7 +77,7 @@ class PackagePush(basePackageUpload.BasePackageUpload):
             use_session = 1
         else:
             encoded_auth_token = self.field_data['Auth']
-        
+
         if not use_session:
             auth_token = self.get_auth_token(encoded_auth_token)
 
@@ -86,11 +86,11 @@ class PackagePush(basePackageUpload.BasePackageUpload):
                 raise rhnFault(105, "Unable to autenticate")
 
             self.username, self.password = auth_token[:2]
-        
+
         force = self.field_data['Force']
         force = int(force)
         log_debug(1, "Username", self.username, "Force", force)
-        
+
         if use_session:
             self.org_id, self.force = rhnPackageUpload.authenticate_session(session_token,
                 force=force, null_org=self.null_org)
@@ -119,7 +119,7 @@ class PackagePush(basePackageUpload.BasePackageUpload):
             checksum_type=a_pkg.checksum_type, checksum=a_pkg.checksum)
         self.package_path = os.path.join(CFG.MOUNT_POINT,
             self.rel_package_path)
-        
+
         package_dict, diff_level = rhnPackageUpload.push_package(a_pkg,
             force=self.force,
             relative_path=self.rel_package_path, org_id=self.org_id)
@@ -134,7 +134,7 @@ class PackagePush(basePackageUpload.BasePackageUpload):
         req.send_http_header()
         req.write(reply)
         log_debug(2, "Returning with OK")
-        
+
         return apache.OK
 
     @staticmethod

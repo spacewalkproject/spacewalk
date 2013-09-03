@@ -8,14 +8,14 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
-# PyUnit test for bug 122534 
-# https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=122534 
+# PyUnit test for bug 122534
+# https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=122534
 
 # This test assumes the following:
 #     1. The machine this test is running on has a working rhn perl stack
@@ -59,27 +59,27 @@ class ReactivationTest(unittest.TestCase):
 
     def testProfileNameSticksAfterReactivation(self):
         """ Makes sure that upon reactivation, the profile name of a system \
-            doesn't change. 
+            doesn't change.
             Follows these steps:
-                1. saves original profile name 
+                1. saves original profile name
                 2. adds a suffix to original profile name
                 3. gets a reactivation key
                 4. registers box (with rhnreg_ks)
                 5. asserts that the profile name is same from step 2.
                 6. resets profile name to saved name from step 1.
-        """ 
+        """
         # save off the original name
         self.debug("Getting original name...")
         origProfileName = self.runGetProfileName()
         self.debugln("done")
 
         # set new profile name
-        newname = "%s%s" % (origProfileName, NEWPROFILENAMESUFFIX) 
+        newname = "%s%s" % (origProfileName, NEWPROFILENAMESUFFIX)
         self.runSetProfileName(newname)
         newnameVerify = self.runGetProfileName()
         self.debugln("Name before reactivation: %s" % newnameVerify)
         self.assertEquals(newname, newnameVerify)
-       
+
         # get a re-activation key
         self.debug("Getting reactivation key...")
         key = self.runGetReactivationKey()
@@ -95,9 +95,9 @@ class ReactivationTest(unittest.TestCase):
             postRegName = self.runGetProfileName()
             self.debugln("Name after reactivation: %s" % postRegName)
             self.assertEquals(newname, postRegName)
-        
+
             # if we get here, we're basically good
-       
+
         finally:
             # change it back to old name
             self.debug("Resetting name...")
@@ -110,32 +110,32 @@ class ReactivationTest(unittest.TestCase):
         prog = "set_profile_name"
         cmd = "%s%s %s %s %s" % (UTIL_DIR, prog, DB, SYSTEMID, newname)
         return self.__runSimpleProg(cmd)
-        
+
     def runGetProfileName(self):
         prog = "get_profile_name"
         cmd = "%s%s %s %s" % (UTIL_DIR, prog, DB, SYSTEMID)
         return self.__runSimpleProg(cmd)
-        
+
     def runGetReactivationKey(self):
         prog = "get_reactivation_key"
         cmd = "%s%s %s %s %s" % (UTIL_DIR, prog, DB, SYSTEMID, USERNAME)
         return self.__runSimpleProg(cmd)
-        
+
     def runReactivation(self, regkey):
         prog = "rhnreg_ks"
         cmd = "/usr/sbin/%s --force --activationkey=%s --serverUrl=%s" % \
             (prog, regkey, RHNREGURL)
         return self.__runSimpleProg(cmd)
-        
+
     def __runSimpleProg(self, cmd):
         """ runs a program that returns a one-line response """
         cmdout = os.popen('%s' % cmd)
-        lines = ""        
+        lines = ""
         line = cmdout.readline()
         while line:
             lines = lines + line
             line = cmdout.readline()
-       
+
         retcode = cmdout.close();
         self.assertEquals(None, retcode, "Problem running %s: %s" % \
             (cmd, lines))
@@ -158,4 +158,4 @@ class ReactivationTest(unittest.TestCase):
             sys.stdout.write(str + '\n')
 
 if __name__ == "__main__":
-    unittest.main()        
+    unittest.main()

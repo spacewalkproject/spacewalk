@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # implements a bunch of functions needed by rhnServer modules
 #
@@ -224,7 +224,7 @@ def throttle(server):
     #if not os.path.exists(throttlefile):
     #    # We don't throttle anybody
     #    return
-    return 
+    return
 
 def join_rhn(org_id):
     """ Stub """
@@ -259,7 +259,7 @@ def entitlement_grants_service(entitlement, service):
 # Push client related
 # XXX should be moved to a different file?
 _query_update_push_client_registration = rhnSQL.Statement("""
-    update rhnPushClient 
+    update rhnPushClient
        set name = :name_in,
            shared_key = :shared_key_in,
            state_id = :state_id_in,
@@ -281,7 +281,7 @@ def update_push_client_registration(server_id):
     row = t['offline']
     assert row is not None
     state_id = row['id']
-    
+
     h = rhnSQL.prepare(_query_update_push_client_registration)
     rowcount = h.execute(server_id_in=server_id, name_in=client_name,
         shared_key_in=shared_key, state_id_in=state_id)
@@ -295,7 +295,7 @@ def update_push_client_registration(server_id):
     timestamp = int(time.time())
     rhnSQL.commit()
     return timestamp, client_name, shared_key
-        
+
 _query_delete_duplicate_client_jids = rhnSQL.Statement("""
     update rhnPushClient
        set jabber_id = null

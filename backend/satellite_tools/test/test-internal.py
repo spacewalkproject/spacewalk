@@ -7,15 +7,15 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 import sys
 from spacewalk.satellite_tools.connection import StreamConnection
 
-if __name__ == '__main__':    
+if __name__ == '__main__':
     #s = StreamConnection("http://scripts.back-webqa.redhat.com/SAT-DUMP-INTERNAL",
     s = StreamConnection("http://rhnxml.back-webdev.redhat.com/SAT-DUMP-INTERNAL",
     #s = StreamConnection("http://roadrunner.devel.redhat.com/SAT-DUMP",
@@ -47,7 +47,7 @@ if __name__ == '__main__':
         f = s.dump.packages_short(['rhn-package-16262'])
         print f.read()
         f.close()
-    
+
     if 0:
         f = s.dump.packages(['rhn-package-16262'])
         print f.read()

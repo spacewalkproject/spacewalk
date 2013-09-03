@@ -8,10 +8,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # $Id$
@@ -34,9 +34,9 @@ class Tests(unittest.TestCase):
 
     def test_cache_2(self):
         "Tests storing of more complex data structures"
-        content = [ (1, 2, 3), {'a' : 1}, 'ab' ] 
+        content = [ (1, 2, 3), {'a' : 1}, 'ab' ]
         self._test(self.key, content)
-        
+
     def test_cache_3(self):
         "Tests storing of raw content"
         content = self.content * 10
@@ -71,7 +71,7 @@ class Tests(unittest.TestCase):
         self.failUnless(rhnCache.has_key(self.key, modified=timestamp))
         self.failIf(rhnCache.has_key(self.key, modified='20001122112233'))
         self._cleanup(self.key)
-        
+
     def test_missing_1(self):
         "Tests exceptions raised by the code"
         self._cleanup(self.key)

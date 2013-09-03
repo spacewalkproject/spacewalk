@@ -23,10 +23,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 # system module imports
@@ -87,7 +87,7 @@ def initLOG(log_file = "stderr", level = 0):
     log_path = os.path.dirname(log_file)
     if log_file not in ('stderr', 'stdout') \
     and log_path and not os.path.exists(os.path.dirname(log_file)):
-        log_stderr("WARNING: log path not found; attempting to create %s" % 
+        log_stderr("WARNING: log path not found; attempting to create %s" %
                 log_path, sys.exc_info()[:2])
 
         # fetch uid, gid so we can do a "chown apache.root"
@@ -131,7 +131,7 @@ def log_error(*args):
         LOG.logMessage("ERROR", *args)
     # log to stderr too
     log_stderr(str(args))
-    
+
 # Log a string with no extra info.
 def log_clean(level, msg):
     if LOG and LOG.level >= level:
@@ -148,9 +148,9 @@ class rhnLog:
     def __init__(self, log_file, level):
         self.level = level
         self.log_info = "0.0.0.0: "
-        self.file = log_file       
+        self.file = log_file
         self.pid = os.getpid()
-        self.real = 0        
+        self.real = 0
         if self.file in ["stderr", "stdout"]:
             self.fd = getattr(sys, self.file)
             self.log_info = ""
@@ -160,7 +160,7 @@ class rhnLog:
         if not os.path.exists(self.file):
             newfileYN = 1 # just used for the chown/chmod
 
-        # else, open it as a real file, with locking and stuff        
+        # else, open it as a real file, with locking and stuff
         try:
             # try to open it in line buffered mode
             self.fd = open(self.file, "a", 1)
@@ -179,7 +179,7 @@ class rhnLog:
             self.fd = sys.stderr
         else:
             self.real = 1
-        
+
     # Main logging method.
     def logMessage(self, *args):
         tbStack = traceback.extract_stack()
@@ -211,7 +211,7 @@ class rhnLog:
         else:
             msg = "%s %s" % (log_time(), msg)
         self.writeToLog(msg)
-    
+
     # send a message to the log file.
     def writeToLog(self, msg):
         # this is for debugging in case of errors
@@ -221,7 +221,7 @@ class rhnLog:
     # Reinitialize req info if req has changed.
     def set_req(self, req = None):
         remoteAddr = '0.0.0.0'
-        if req: 
+        if req:
             if req.headers_in.has_key("X-Forwarded-For"):
                 remoteAddr = req.headers_in["X-Forwarded-For"]
             else:
@@ -234,7 +234,7 @@ class rhnLog:
             self.fd.close()
         self.level = self.log_info = None
         self.pid = self.file = self.real = self.fd = None
-            
+
 # Exit function is always the last function run.
 _exitfuncChain = getattr(sys, 'exitfunc', None)
 def _exit(lastExitfunc=_exitfuncChain):

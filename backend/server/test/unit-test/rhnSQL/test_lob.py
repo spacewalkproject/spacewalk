@@ -17,14 +17,14 @@ class ExceptionsTest(unittest.TestCase):
 
         rhnSQL.execute("create table misatestlob (id int, val blob)")
         rhnSQL.execute("create sequence misatestlob_id_seq")
-    
+
 
     def _cleanup(self):
         try:
             rhnSQL.execute("drop table misatestlob")
         except rhnSQL.SQLStatementPrepareError:
             pass
-        
+
         try:
             rhnSQL.execute("drop sequence misatestlob_id_seq")
         except rhnSQL.SQLStatementPrepareError:
@@ -32,11 +32,11 @@ class ExceptionsTest(unittest.TestCase):
         except rhnSQL.SQLError, e:
             if e.args[0] != 2289:
                 raise
-       
-    def tearDown(self): 
+
+    def tearDown(self):
         self._cleanup()
-       
-        rhnSQL.commit() 
+
+        rhnSQL.commit()
 
     def test_lobs(self):
         new_id = rhnSQL.Sequence('misatestlob_id_seq').next()

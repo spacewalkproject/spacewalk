@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 
@@ -540,7 +540,7 @@ class ChannelFamilyContainer(xmlSource.ChannelFamilyContainer):
 def populate_channel_family_permissions(cert):
     # Find channel families that we have imported
     current_cfs = _fetch_existing_channel_families()
-    
+
     # Put the channel families coming from the cert into a hash
     # Add rh-public with unlimited subscriptions
     # Filter channel families that do not exist locally (this is possible with
@@ -605,24 +605,24 @@ def populate_channel_family_permissions(cert):
             # New channel family, populate the db from cert
             cfps[(cf_name, org_id)] = max_tuple
             old_max_tuple = None
-              
+
 
     sum_max_values = compute_sum_max_members(cfps)
     for (cf_name, org_id), (max_members, max_flex) in cfps.items():
         if org_id == 1:
             if cert_chfam_hash.has_key(cf_name):
                 cert_max_value = cert_chfam_hash[cf_name][0] or 0
-                cert_max_flex = cert_chfam_hash[cf_name][1] or 0 
+                cert_max_flex = cert_chfam_hash[cf_name][1] or 0
             else:
                 # remove entitlements on extra slots
                 cfps[(cf_name, org_id)] = None
                 continue
-            if not max_members: 
+            if not max_members:
                 max_members = 0
             if not max_flex:
                 max_flex = 0
 
-            (sum_max_mem, sum_max_flex) = sum_max_values[cf_name] 
+            (sum_max_mem, sum_max_flex) = sum_max_values[cf_name]
             if cert_max_value >= sum_max_mem:
                 cfps[(cf_name, 1)][0] = max_members + \
                                   (cert_max_value - sum_max_mem)
@@ -636,7 +636,7 @@ def populate_channel_family_permissions(cert):
             else:
                 # lowering entitlements
                 flex_purge_count = sum_max_flex - cert_max_flex
-                cfps[(cf_name, 1)][1] = max_flex - flex_purge_count 
+                cfps[(cf_name, 1)][1] = max_flex - flex_purge_count
 
     # Cleanup left out suborgs
     for (cf_name, org_id), max_list in cfps.items():
@@ -658,7 +658,7 @@ def populate_channel_family_permissions(cert):
             'max_members'       : max_members,
             'max_flex'          : max_flex,
         }))
-   
+
     importer = channelImport.ChannelFamilyPermissionsImport(batch,
         diskImportLib.get_backend())
     importer.will_commit = 0
@@ -700,8 +700,8 @@ def _fetch_existing_channel_families():
 
 _query_fetch_channel_family_permissions = rhnSQL.Statement("""
     select cf.label as channel_family, cfp.org_id,
-           cfp.max_members, cfp.current_members, cfp.fve_max_members as max_flex, 
-           cfp.fve_current_members as current_flex, 
+           cfp.max_members, cfp.current_members, cfp.fve_max_members as max_flex,
+           cfp.fve_current_members as current_flex,
             cf.org_id as owner_org_id
       from rhnChannelFamilyPermissions cfp, rhnChannelFamily cf
      where cfp.channel_family_id = cf.id

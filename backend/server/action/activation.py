@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # Activation key related queuing functions
 #
@@ -47,7 +47,7 @@ def schedule_deploy(server_id, action_id, dry_run=0):
     # Schedule an rhncfg install
     new_action_id = server_kickstart.schedule_rhncfg_install(server_id,
         action_id, scheduler=None)
-        
+
     new_action_id_2 = rhnAction.schedule_server_action(
         server_id,
         action_type='configfiles.deploy',

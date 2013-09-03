@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 
@@ -36,7 +36,7 @@ class RequestedChannels:
         self._available = {}
         # All imported channels
         self._imported = {}
-        
+
         # These will be computed
         # We could have initialized them in a loop, but pychecker would
         # complain that the data member does not exist
@@ -46,11 +46,11 @@ class RequestedChannels:
         self._not_requested = []
         self._end_of_service = []
         self._typos = []
-        
+
         for l in self.__lists:
             assert hasattr(self, l), "Class does not initialize %s" % l
             assert isinstance(getattr(self, l), types.ListType)
-        
+
         # Initialize the requested channels
         self.request(requested)
 

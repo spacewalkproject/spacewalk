@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 
@@ -33,7 +33,7 @@ from syncLib import log, log2, RhnSyncException
 from rhn import rpclib
 
 class BaseWireSource:
-    
+
     """ Base object for wire-commo to RHN for delivery of XML/RPMS. """
 
     serverObj = None
@@ -54,7 +54,7 @@ class BaseWireSource:
         if forcedYN:
             self.setServer(self.handler, self.url, forcedYN)
         return BaseWireSource.serverObj
-            
+
     def schemeAndUrl(self, url):
         """ http[s]://BLAHBLAHBLAH/ACKACK --> http[s]://BLAHBLAHBLAH """
 
@@ -81,19 +81,19 @@ class BaseWireSource:
             return
 
         self._set_connection_params(handler, url)
-            
+
         url = '%s%s' % (url, handler) # url is properly set up now.
 
         serverObj = self._set_connection(url)
         self._set_ssl_trusted_certs(serverObj)
         return serverObj
-    
+
     def _set_connection_params(self, handler, url):
         BaseWireSource.handler = handler
         BaseWireSource.url = url
 
     def _cached_connection_params(self, handler, url, forcedYN=0):
-        """Helper function; returns 0 if we have to reset the connection 
+        """Helper function; returns 0 if we have to reset the connection
         params, 1 if the cached values are ok"""
         if forcedYN:
             return 0
@@ -103,8 +103,8 @@ class BaseWireSource:
 
     def _set_connection(self, url):
         "Instantiates a connection object"
-        
-        serverObj = connection.StreamConnection(url, proxy=CFG.HTTP_PROXY, 
+
+        serverObj = connection.StreamConnection(url, proxy=CFG.HTTP_PROXY,
             username=CFG.HTTP_PROXY_USERNAME, password=CFG.HTTP_PROXY_PASSWORD,
             xml_dump_version=self.xml_dump_version, timeout=CFG.timeout)
         BaseWireSource.serverObj = serverObj
@@ -135,7 +135,7 @@ class BaseWireSource:
         return None
 
     def _openSocketStream(self, method, params):
-        """Wraps the gzipstream.GzipStream instantiation in a test block so we 
+        """Wraps the gzipstream.GzipStream instantiation in a test block so we
            can open normally if stream is not gzipped."""
 
         stream = None
@@ -185,7 +185,7 @@ class BaseWireSource:
             self.server_handler = CFG.RHN_METADATA_HANDLER
 
 class MetadataWireSource(BaseWireSource):
-    
+
     """retrieve specific xml stream through xmlrpc interface."""
 
     def is_disk_loader(self):
@@ -208,7 +208,7 @@ class MetadataWireSource(BaseWireSource):
         "retrieve xml stream for the product names data"
         self._prepare()
         return self._openSocketStream("dump.product_names", (self.systemid,))
-    
+
 
     def getChannelFamilyXmlStream(self):
         """retrieve xml stream for channel family data."""
@@ -236,7 +236,7 @@ class MetadataWireSource(BaseWireSource):
         """retrieve xml stream for short package data given a channel
         label and the last modified timestamp of the channel"""
         self._prepare()
-        return self._openSocketStream("dump.channel_packages_short", 
+        return self._openSocketStream("dump.channel_packages_short",
             (self.systemid, channel, last_modified))
 
 
@@ -245,7 +245,7 @@ class MetadataWireSource(BaseWireSource):
         list of package ids."""
         self._prepare()
         return self._openSocketStream("dump.packages", (self.systemid, packageIds))
-    
+
     def getSourcePackageXmlStream(self, packageIds):
         """retrieve xml stream for package data given a
         list of package ids."""
@@ -260,7 +260,7 @@ class MetadataWireSource(BaseWireSource):
     def getKickstartsXmlStream(self, ksLabels):
         "retrieve xml stream for kickstart trees"
         self._prepare()
-        return self._openSocketStream("dump.kickstartable_trees", 
+        return self._openSocketStream("dump.kickstartable_trees",
             (self.systemid, ksLabels))
 
     def getComps(self, channel):
@@ -310,7 +310,7 @@ class AuthWireSource(XMLRPCWireSource):
         try:
             authYN = self._xmlrpc('authentication.check', (self.systemid,))
         except (rpclib.xmlrpclib.ProtocolError, rpclib.xmlrpclib.Fault), e:
-            # bug 141197: the logging of all exceptions is handled higher up in 
+            # bug 141197: the logging of all exceptions is handled higher up in
             # the call stack
 #            log2(-1, 1, '   ERROR: %s' % e, stream=sys.stderr)
             raise
@@ -353,7 +353,7 @@ class RPCGetWireSource(BaseWireSource):
     def _set_connection_params(self, handler, url):
         BaseWireSource._set_connection_params(self, handler, url)
         RPCGetWireSource.login_token = None
-    
+
     def login(self, force=0):
         "Perform a login, return a GET Server instance"
         if force:
@@ -362,7 +362,7 @@ class RPCGetWireSource(BaseWireSource):
         if self.login_token:
             # Return cached one
             return self.get_server_obj
-        
+
         # Force a login otherwise
         self._set_login_token(self._login())
         url = self.url + self.handler
@@ -373,7 +373,7 @@ class RPCGetWireSource(BaseWireSource):
         self._set_ssl_trusted_certs(get_server_obj)
         self._set_rpc_server(get_server_obj)
         return self.get_server_obj
-            
+
     def _login(self):
         if not self.systemid:
             raise Exception("systemid not set!")
@@ -420,7 +420,7 @@ class RPCGetWireSource(BaseWireSource):
                     # File not found
                     self.extinctErrorYN = 1
                     return None
-                log(-1, 'ERROR: http error code :%s; fault code: %s; %s' % 
+                log(-1, 'ERROR: http error code :%s; fault code: %s; %s' %
                     (http_error_code, fault_code, fault_string))
                 # XXX
                 raise
@@ -436,7 +436,7 @@ class RPCGetWireSource(BaseWireSource):
         package_name = "%s-%s-%s.%s.rpm" % (nvrea[0], nvrea[1], release,
             nvrea[4])
         return self._rpc_call("getPackage", (channel, package_name))
-    
+
     def getKickstartFileStream(self, channel, ks_tree_label, relative_path):
         return self._rpc_call("getKickstartFile", (channel, ks_tree_label,
             relative_path))

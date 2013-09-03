@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import sys
@@ -44,7 +44,7 @@ class ProgressBar:
         self.size = 0.0
         self.barLength = 0
         self.barLengthPrinted = 0
-        
+
     def printAll(self, contextYN=0):
         """ Prints/reprints the prompt and current level of hashmarks.
         Eg:             ____________________
@@ -121,6 +121,6 @@ if __name__ == '__main__':
         time.sleep(0.005)
         pb.printIncrement()
     pb.printComplete()
-            
+
 #------------------------------------------------------------------------------
 

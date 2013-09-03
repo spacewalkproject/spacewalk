@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Errata import process
@@ -32,7 +32,7 @@ class ErrataImport(GenericPackageImport):
     def preprocess(self):
         # Processes the package batch to a form more suitable for database
         # operations
-        
+
         # We use this to avoid having the same erratum pushed multiple times
         advisories = {}
 
@@ -93,12 +93,12 @@ class ErrataImport(GenericPackageImport):
             #elif f['file_type'] == 'SRPM':
             #    # XXX misa: do something here
             #    pass
-            
+
     def _preprocessErratumFileChannels(self, erratum):
         for f in (erratum['files'] or []):
             for channel_name in (f.get('channel_list') or []):
                 self.channels[channel_name] = None
-                
+
 
     def fix(self):
         self.backend.lookupChannels(self.channels)
@@ -128,12 +128,12 @@ class ErrataImport(GenericPackageImport):
             self._fix_erratum_severity(erratum)
             #fix oval info to populate the relevant dbtables
             self._fix_erratum_oval_info(erratum)
-            
+
         self.backend.lookupPackages(self.packages.values(), self.checksums, self.ignoreMissing)
         for erratum in self.batch:
             self._fix_erratum_packages(erratum)
             self._fix_erratum_file_channels(erratum)
-    
+
 
     def _fixCVE(self):
         # Look up and insert the missing CVE's
@@ -220,9 +220,9 @@ class ErrataImport(GenericPackageImport):
 
             channels[channel['id']] = None
 
-        erratum['channels'] = map(lambda x: {'channel_id' : x}, 
+        erratum['channels'] = map(lambda x: {'channel_id' : x},
             channels.keys())
-                
+
 
     def _fix_erratum_packages_lookup(self, erratum):
         # To make the packages unique
@@ -274,7 +274,7 @@ class ErrataImport(GenericPackageImport):
                 # Ignore this package
                 continue
             pkgs.append({'package_id' : package.id})
-        
+
         erratum['packages'] = pkgs
 
         for ef in (erratum['files'] or []):
@@ -293,13 +293,13 @@ class ErrataImport(GenericPackageImport):
                     continue
                 channels.append(self.channels[c]['id'])
             f['channels'] = channels
-        
+
     def _fix_erratum_severity(self, erratum):
         """sets the severity-id to insert into rhnErrata
         """
 	# Re-check for severity, it could be a RHBA or RHEA
-	# If RHBA/RHEA severity is irrelevant and posibly 
-	# not included or it could not be hosted 
+	# If RHBA/RHEA severity is irrelevant and posibly
+	# not included or it could not be hosted
         if erratum.has_key('security_impact'):
 	    erratum['severity_id'] = self.backend.lookupErrataSeverityId(erratum)
 
@@ -310,10 +310,10 @@ class ErrataImport(GenericPackageImport):
 
         """
         import os
-        
+
         if not erratum.has_key('oval_info'):
             return
-        
+
         for oval_file in erratum['oval_info']:
             if has_suffix(oval_file['filename'], '.xml'):
                 eft = oval_file['file_type'] = 'OVAL'
@@ -331,12 +331,12 @@ class ErrataImport(GenericPackageImport):
                 raise rhnFault(47,
                     "Oval file %s not found on the server. " % oval_file['filename'],
                     explain=0)
-                        
+
             # add the oval info into the files field to get
             # populated into db
             erratum['files'].append(oval_file)
-            
-    
+
+
 def get_nevrao(package):
     return map(lambda x, d=package: d[x],
         ['name', 'epoch', 'version', 'release', 'arch', 'org_id'])

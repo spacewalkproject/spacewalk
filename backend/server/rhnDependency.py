@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 
@@ -341,10 +341,10 @@ def solve_dependencies_with_limits(server_id, deps, version, all = 0, limit_oper
 
     for dep in deplist:
         dict = {}
-        
+
         #Retrieve the package information from the database.
         h.execute(server_id = server_id, dep=dep)
-        
+
         #Get a list of dictionaries containing row data.
         rs = h.fetchall_dict() or [] #rs = [{},{},... ]
 
@@ -357,12 +357,12 @@ def solve_dependencies_with_limits(server_id, deps, version, all = 0, limit_oper
 
         #sort all the package lists so the most recent version is first
         for pl in packages_all.keys():
-            
+
             packages_all[pl].sort(cmp_evr)
             package_list = package_list + packages_all[pl]
-       
+
         package_list.reverse()
-        #Use the limit* parameters to filter out packages you don't want. 
+        #Use the limit* parameters to filter out packages you don't want.
         if limit_operator != None and limit != None:
             keep_list = []
 
@@ -370,7 +370,7 @@ def solve_dependencies_with_limits(server_id, deps, version, all = 0, limit_oper
                 limit = rhnLib.make_evr(limit)
             except:
                 raise
-  
+
             for package in package_list:
                 try:
                     keep = test_evr(package, limit_operator,  limit)
@@ -379,10 +379,10 @@ def solve_dependencies_with_limits(server_id, deps, version, all = 0, limit_oper
 
                 if keep:
                     keep_list.append(package)
- 
+
             package_list = keep_list
 
-        
+
         list_of_tuples = []
         for p in package_list:
             if p['epoch'] == None:
@@ -394,20 +394,20 @@ def solve_dependencies_with_limits(server_id, deps, version, all = 0, limit_oper
 
             #Added for readability
             name_key = entry[0]
-        
-            if all == 0: 
+
+            if all == 0:
                 #NOTE: Remember that the values in dict are tuples that look like (entry, preference).
                 #NOTE, Part Deux: the '<=' was a '<' originally. I changed it because if two packages
                 #with the same preference but different versions came through, the second package was being used.
-                #The changes I made above make it so that at this point the packages are sorted from highest nvre 
-                #to lowest nvre. Selecting the second package was causing the earlier package to be 
+                #The changes I made above make it so that at this point the packages are sorted from highest nvre
+                #to lowest nvre. Selecting the second package was causing the earlier package to be
                 #returned, which is bad.
                 if dict.has_key(name_key) and dict[name_key][1] <= p['preference']:
                     # Already have it with a lower preference
-                    continue            
+                    continue
                 # The first time we see this package.
                 dict[name_key] = (entry, p['preference'])
-            else:               
+            else:
                 name_key = entry[ 0 ]
                 newtuple = (entry, p['preference'])
                 list_of_tuples.append(newtuple)
@@ -427,7 +427,7 @@ def solve_dependencies_with_limits(server_id, deps, version, all = 0, limit_oper
 
             list_of_tuples.sort(lambda a, b: cmp(a[1], b[1]))
             packages[dep] = map(lambda x: x[0], list_of_tuples)
-        
+
     # v2 clients are done
     if version > 1:
         return packages
@@ -465,16 +465,16 @@ def solve_dependencies_arch(server_id, deps, version):
     return solve_dependencies(server_id, deps, version, nvre)
 
 def solve_dependencies(server_id, deps, version, nvre=None):
-    """ The unchanged version of solve_dependencies. 
-        IN: 
+    """ The unchanged version of solve_dependencies.
+        IN:
            server_id := id info of the server
            deps := list of filenames that are needed by the caller
            version := version of the client
 
         OUT:
            Dictionary with key values being the filnames in deps and the values being a list of lists of package info.
-           Example :=  {'filename1'    :   [['name', 'version', 'release', 'epoch'], 
-                                            ['name2', 'version2', 'release2', 'epoch2']]}    
+           Example :=  {'filename1'    :   [['name', 'version', 'release', 'epoch'],
+                                            ['name2', 'version2', 'release2', 'epoch2']]}
     """
     if not nvre:
         #list of the keys to the values in each row of the recordset.
@@ -572,7 +572,7 @@ def test_evr(evr, operator, limit):
         IN: evr = { 'epoch' : value, 'version':value, 'release':value }
             operator can be any of: '<', '<=', '==', '>=', '>'
             limit = { 'epoch' : value, 'version':value, 'release':value }
-        OUT: 
+        OUT:
            1 or 0
     """
     good_operators = ['<', '<=', '==', '>=', '>']
@@ -630,15 +630,15 @@ def check_against_operator(ret, operator):
 # double selecting the same data and then filtering it to obtain the
 # correct response.
 ##__packages_sql = """
-##select 
+##select
 ##    q.name,
 ##    q.evr.version version,
 ##    q.evr.release release,
 ##    q.evr.epoch epoch,
 ##    1 preference
 ##from
-##    ( select 
-##          pn.name name, 
+##    ( select
+##          pn.name name,
 ##          max(pe.evr) evr
 ##      from
 ##          rhnServerChannel sc,

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # This file implements teh Sequence class
 #
@@ -22,7 +22,7 @@ import sql_base
 
 # A class to handle sequences
 # XXX: this is still Oracle specific, but it shouldn't be
-class Sequence: 
+class Sequence:
     def __init__(self, db, seq):
 	if not seq or type(seq) != type(""):
 	    raise rhnException("First argument needs to be a sequence name", seq)
@@ -35,7 +35,7 @@ class Sequence:
 	sql = "select sequence_nextval('%s') as ID from dual" % self.__seq
 	cursor = self.__db.prepare(sql)
 	cursor.execute()
-	ret = cursor.fetchone_dict()        
+	ret = cursor.fetchone_dict()
 	if ret is None: # how the hell can this happen?
 	    return ret
 	return int(ret['id'])

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 
@@ -20,7 +20,7 @@ from spacewalk.server import rhnSQL
 def schedule_action(action_type, action_name=None, delta_time=0,
                     scheduler=None, org_id=None, prerequisite=None):
     action_id = rhnSQL.Sequence('rhn_event_id_seq').next()
-    
+
     at = rhnSQL.Table('rhnActionType', 'label')
     if not at.has_key(action_type):
         raise ValueError("Unknown action type %s" % action_type)
@@ -31,15 +31,15 @@ def schedule_action(action_type, action_name=None, delta_time=0,
         'org_id'            : org_id,
         'action_type_id'    : at[action_type]['id'],
         'action_name'       : action_name,
-        'delta'             : delta_time,   
+        'delta'             : delta_time,
         'scheduler'         : scheduler,
         'prerequisite'      : prerequisite,
     }
 
     h = rhnSQL.prepare("""
-        insert into rhnAction 
+        insert into rhnAction
                (id, org_id, action_type, name, scheduler, earliest_action, prerequisite)
-        values (:action_id, :org_id, :action_type_id, :action_name, :scheduler, 
+        values (:action_id, :org_id, :action_type_id, :action_name, :scheduler,
                 current_timestamp + numtodsinterval(:delta, 'second'), :prerequisite)
     """)
     apply(h.execute, (), params)

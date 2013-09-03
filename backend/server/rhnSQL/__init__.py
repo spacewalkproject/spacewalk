@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # entry points for the rhnSQL module
 #
@@ -59,7 +59,7 @@ def __init__DB(backend, host, port, username, password, database):
 
     if __DB.is_connected_to(backend, host, port, username, password,
             database):
-        __DB.check_connection()       
+        __DB.check_connection()
         return
 
     __DB.commit()
@@ -124,7 +124,7 @@ def closeDB():
     __DB.close()
     del __DB
     return
-    
+
 # common function for testing the connection state (ie, __DB defined
 def __test_DB():
     global __DB
@@ -230,7 +230,7 @@ class _Callable(object):
 
     def __getattr__(self, name):
         return self.__class__("%s.%s" % (self._name, name))
-    
+
     def __call__(self, *args):
         proc = self._implementor.__call__(self._name)
         return proc(*args)

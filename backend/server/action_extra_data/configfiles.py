@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # config file-related error handling functions
 #
@@ -40,11 +40,11 @@ _query_mark_upload_files = rhnSQL.Statement("""
 
 def upload(server_id, action_id, data={}):
     log_debug(3)
-    
+
     # First, unmark any file as being failed
     h = rhnSQL.prepare(_query_reset_upload_files)
     h.execute(server_id=server_id, action_id=action_id)
-    
+
     if not data:
         log_debug(4, "No data sent by client")
         return
@@ -70,7 +70,7 @@ def upload(server_id, action_id, data={}):
 
         failure_id = failure_table[reason_map[reason]]['id']
         log_debug(6, 'failure_id', failure_id)
-        
+
         for path in failed_files:
             log_debug(6, 'path', path)
             ret = h.execute(server_id=server_id, action_id=action_id,
@@ -118,10 +118,10 @@ def mtime_upload(server_id, action_id, data={}):
     if already_filenames:
         h = rhnSQL.prepare(_query_clear_action_config_filenames)
         h.execute(server_id=server_id, action_id=action_id)
-    
+
     num_paths = len(paths)
-        
-    h = rhnSQL.prepare(_query_create_action_config_filename)    
+
+    h = rhnSQL.prepare(_query_create_action_config_filename)
     h.execute_bulk({
         'action_id' : [action_id] * num_paths,
         'server_id' : [server_id] * num_paths,
@@ -129,15 +129,15 @@ def mtime_upload(server_id, action_id, data={}):
         })
 
     upload(server_id, action_id, data)
-    
+
 
 
 def deploy(server_id, action_id, data={}):
     log_debug(3)
 
     action_status = rhnFlags.get('action_status')
-    server_kickstart.update_kickstart_session(server_id, 
-            action_id, action_status, kickstart_state='complete', 
+    server_kickstart.update_kickstart_session(server_id,
+            action_id, action_status, kickstart_state='complete',
             next_action_type=None)
     return
 
@@ -203,7 +203,7 @@ def _mark_missing_diff_files(server_id, action_id, missing_files):
         if hash.has_key(path):
             # This shouldn't really happen
             log_error("Duplicate path for diff "
-                "(scheduler did not resolve config files? %s, %s" % 
+                "(scheduler did not resolve config files? %s, %s" %
                 (hash[path], action_config_revision_id))
         else:
             hash[path] = action_config_revision_id
@@ -227,11 +227,11 @@ def _mark_missing_diff_files(server_id, action_id, missing_files):
         'action_config_revision_id' : ids,
         'failure_id'                : failure_ids,
     })
-        
+
 def _process_diffs(server_id, action_id, diffs):
     _disable_old_diffs(server_id)
     for file_path, diff in diffs.items():
-        action_config_revision_id = _lookup_action_revision_id(server_id, 
+        action_config_revision_id = _lookup_action_revision_id(server_id,
             action_id, file_path)
         if action_config_revision_id is None:
             log_error(
@@ -239,7 +239,7 @@ def _process_diffs(server_id, action_id, diffs):
                 % (server_id, action_id, file_path))
             continue
         _add_result(action_config_revision_id, diff)
-    
+
 _query_lookup_action_revision_id = rhnSQL.Statement("""
     select acr.id
       from rhnConfigRevision cr, rhnConfigFile cf, rhnActionConfigRevision acr
@@ -266,7 +266,7 @@ _query_add_result_diff = rhnSQL.Statement("""
 def _add_result(action_config_revision_id, diff):
 
     log_debug(4, action_config_revision_id, diff)
-    
+
     if diff:
         blob_map = {'result': 'result'}
         if type(diff) == UnicodeType:
@@ -278,7 +278,7 @@ def _add_result(action_config_revision_id, diff):
     h = rhnSQL.prepare(_query_add_result_diff, blob_map=blob_map)
     h.execute(action_config_revision_id=action_config_revision_id,
               result=diff)
-    
+
 _query_lookup_old_diffs = rhnSQL.Statement("""
     select acr.id
       from rhnActionConfigRevision acr
@@ -297,6 +297,6 @@ def _disable_old_diffs(server_id):
     if not old_acr_ids:
         # Nothing to do here
         return
-    
+
     h = rhnSQL.prepare(_query_delete_old_diffs)
     h.execute_bulk({'action_config_revision_id' : old_acr_ids})

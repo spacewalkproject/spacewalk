@@ -25,18 +25,18 @@ class ExecutemanyTest(unittest.TestCase):
 
         rhnSQL.execute("create table %s (id int, val varchar2(10))" %
             self.table_name)
-    
+
 
     def _cleanup(self):
         try:
             rhnSQL.execute("drop table %s" % self.table_name)
         except rhnSQL.SQLStatementPrepareError:
             pass
-        
-    def tearDown(self): 
+
+    def tearDown(self):
         self._cleanup()
-       
-        rhnSQL.commit() 
+
+        rhnSQL.commit()
 
     def test_executemany(self):
         """

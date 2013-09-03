@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 
@@ -56,7 +56,7 @@ def run(server_id, action_id, data={}):
     # clear any previously received output
     h = rhnSQL.prepare(_query_clear_output)
     h.execute(server_id=server_id, action_id=action_id)
-    
+
     if not data:
         log_debug(4, "No data sent by client")
         return
@@ -68,7 +68,7 @@ def run(server_id, action_id, data={}):
     # otherwise xmlrpc isn't very happy on certain characters
     if data.has_key('base64enc'):
         output = base64.decodestring(output)
-    
+
     return_code = data.get('return_code')
     process_end = data.get('process_end')
     process_start = data.get('process_start')

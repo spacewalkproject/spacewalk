@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # config file-related queuing functions
 #
@@ -86,7 +86,7 @@ def mtime_upload(server_id, action_id, dry_run=0):
             data['ignore'].append(row['file_name'])
 
     log_debug(4, 'data', data)
-    
+
     return action_id, data
 
 
@@ -125,11 +125,11 @@ _query_get_files = rhnSQL.Statement("""
            ci.filemode,
 	       cft.label,
 	       ci.selinux_ctx,
-           case 
+           case
                 when cft.label='symlink' then (select path from rhnConfigFileName where id = ci.SYMLINK_TARGET_FILENAME_ID)
                 else ''
-            end as symlink	       
-      from 
+            end as symlink
+      from
            rhnConfigFileState cfs,
            rhnConfigChannel cc,
            rhnConfigFileName cfn,
@@ -159,7 +159,7 @@ def _get_files(server_id, action_id):
     h.execute(action_id=action_id, server_id=server_id)
     server = rhnServer.search(server_id)
     server = var_interp_prep(server)
-    
+
     files = []
     while 1:
         row = h.fetchone_dict()

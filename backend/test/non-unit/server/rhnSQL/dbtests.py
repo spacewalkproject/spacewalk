@@ -187,7 +187,7 @@ class RhnSQLDatabaseTests(unittest.TestCase):
             i = i + 1
 
     def test_unicode_string_argument(self):
-        query = rhnSQL.prepare("SELECT * FROM %s WHERE name=:name" % 
+        query = rhnSQL.prepare("SELECT * FROM %s WHERE name=:name" %
             self.temp_table)
         query.execute(name=u'blah')
 
@@ -242,8 +242,8 @@ class OracleDatabaseTests(RhnSQLDatabaseTests):
     """
 
     SIMPLE_PROCEDURE = """
-CREATE OR REPLACE FUNCTION 
-    return_int(returnme in integer) 
+CREATE OR REPLACE FUNCTION
+    return_int(returnme in integer)
 RETURN INTEGER  AS
 BEGIN
     RETURN returnme;

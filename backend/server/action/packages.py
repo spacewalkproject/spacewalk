@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # package-related queuing functions
 #
@@ -52,13 +52,13 @@ def verify(serverId, actionId, dry_run=0):
     tmppackages = h.fetchall_dict()
 
     if not tmppackages:
-        raise InvalidAction("invalid action %s for server %s" % 
+        raise InvalidAction("invalid action %s for server %s" %
             (actionId, serverId))
 
     packages = []
-    
+
     for package in tmppackages:
-            
+
         packages.append([package['name'],
                          package['version'],
                          package['release'],
@@ -116,7 +116,7 @@ def update(serverId, actionId, dry_run=0):
 
 def refresh_list(serverId, actionId, dry_run=0):
     """ Call the equivalent of up2date -p.
-    
+
         I.e. update the list of a client's installed packages known by
         Red Hat's DB.
     """
@@ -176,7 +176,7 @@ def runTransaction(server_id, action_id, dry_run=0):
         else:
             # Unsupported
             continue
-        
+
         # Fix null epochs
         epoch = row['epoch']
         if epoch is None:
@@ -185,9 +185,9 @@ def runTransaction(server_id, action_id, dry_run=0):
         name, version, release = row['name'], row['version'], row['release']
         # The package arch can be null now because of the outer join
         package_arch = row['package_arch'] or ""
-        
+
         result.append([
-            [name, version, release, epoch, package_arch], 
+            [name, version, release, epoch, package_arch],
             operation
         ])
     return { 'packages' : result }

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 #
@@ -36,19 +36,19 @@ class ServerTemplatedDocument(TemplatedDocument):
 
     def __init__(self, server, start_delim=None, end_delim=None):
         TemplatedDocument.__init__(self, start_delim=start_delim, end_delim=end_delim)
-        
+
         self.server = server
 
     def fallback_call(self, fname, params, defval):
         # Re-compose the macro if we don't know the function
         return self.null_call(fname, params, defval)
-    
+
     def set_functions(self):
         self.functions.clear()
         self.functions.update({
             RHN_PREFIX + 'sid'            : self.sid,
             RHN_PREFIX + 'profile_name'   : self.profile_name,
-            RHN_PREFIX + 'description'    : self.description,            
+            RHN_PREFIX + 'description'    : self.description,
             RHN_PREFIX + 'hostname'       : self.hostname,
             RHN_PREFIX + 'ip_address'     : self.ipaddr,
             RHN_PREFIX + 'ip6_address'    : self.ip6addr,
@@ -116,7 +116,7 @@ class ServerTemplatedDocument(TemplatedDocument):
             if iface['name'] == interface_name:
                 return iface
         return None
-        
+
 
 
     def net_intf_ipaddr(self, interface_name):

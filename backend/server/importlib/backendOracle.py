@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Oracle-specific stuff
@@ -40,7 +40,7 @@ class OracleBackend(Backend):
             attribute   = 'provides',
             map         = { 'sense' : 'flags', },
         ),
-        Table('rhnPackageRequires', 
+        Table('rhnPackageRequires',
             fields      = {
                 'package_id'    : DBint(),
                 'capability_id' : DBint(),
@@ -145,25 +145,25 @@ class OracleBackend(Backend):
         ),
         Table('rhnPackage',
             fields      = {
-                'id'            : DBint(), 
-                'org_id'        : DBint(), 
-                'name_id'       : DBint(), 
-                'evr_id'        : DBint(), 
-                'package_arch_id': DBint(), 
-                'package_group' : DBint(), 
+                'id'            : DBint(),
+                'org_id'        : DBint(),
+                'name_id'       : DBint(),
+                'evr_id'        : DBint(),
+                'package_arch_id': DBint(),
+                'package_group' : DBint(),
                 'rpm_version'   : DBstring(16),
                 'description'   : DBstring(4000),
                 'summary'       : DBstring(4000),
-                'package_size'  : DBint(), 
+                'package_size'  : DBint(),
                 'payload_size'  : DBint(),
                 'installed_size': DBint(),
-                'build_host'    : DBstring(256), 
+                'build_host'    : DBstring(256),
                 'build_time'    : DBdateTime(),
                 'source_rpm_id' : DBint(),
                 'checksum_id'   : DBint(),
-                'vendor'        : DBstring(64), 
-                'payload_format': DBstring(32), 
-                'path'          : DBstring(1000), 
+                'vendor'        : DBstring(64),
+                'payload_format': DBstring(32),
+                'path'          : DBstring(1000),
                 'copyright'     : DBstring(128),
                 'cookie'        : DBstring(128),
                 'header_start'  : DBint(),
@@ -209,7 +209,7 @@ class OracleBackend(Backend):
                 'severity_id'   : DBint(),
                 'errata_from'   : DBstring(127),
                 # We will treat issue_date and update_date as regular dates
-                # with times instead of DBdate types, otherwise we'd have 
+                # with times instead of DBdate types, otherwise we'd have
                 # issues with timezones
                 'issue_date'    : DBdateTime(),
                 'update_date'   : DBdateTime(),
@@ -390,16 +390,16 @@ class OracleBackend(Backend):
                 'id'            : DBint(),
                 'org_id'        : DBint(),
                 'source_rpm_id' : DBint(),
-                'package_group' : DBint(), 
+                'package_group' : DBint(),
                 'rpm_version'   : DBstring(16),
                 'payload_size'  : DBint(),
-                'build_host'    : DBstring(256), 
+                'build_host'    : DBstring(256),
                 'build_time'    : DBdateTime(),
                 'path'          : DBstring(1000),
                 'package_size'  : DBint(),
                 'checksum_id'   : DBint(),
                 'sigchecksum_id' : DBint(),
-                'vendor'        : DBstring(64), 
+                'vendor'        : DBstring(64),
                 'cookie'        : DBstring(128),
                 'last_modified' : DBdateTime(),
             },
@@ -483,7 +483,7 @@ class OracleBackend(Backend):
         Table('rhnKickstartableTree',
             fields      = {
                 'id'                : DBint(),
-                'org_id'            : DBint(), 
+                'org_id'            : DBint(),
                 'base_path'         : DBstring(256),
                 'channel_id'        : DBint(),
                 'label'             : DBstring(64),
@@ -527,7 +527,7 @@ class OracleBackend(Backend):
                 'relative_filename' : 'relative_path',
             },
         ),
-        
+
         Table('rhnProductName',
             fields      = {
                 'id'                : DBint(),
@@ -548,7 +548,7 @@ class OracleBackend(Backend):
         ),
 
         # tables needed for solaris --------------------------------------
-        
+
         Table('rhnSolarisPatch',
             # Table column -> Column type mapping
             fields      = {

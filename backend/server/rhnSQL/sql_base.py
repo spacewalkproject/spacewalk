@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # This file defines the base classes for the objects and classes used
 # by the generic SQL interfaces so we can make sure that all backends
@@ -64,7 +64,7 @@ class SQLError(Exception):
 # other Schema Errors
 class SQLSchemaError(SQLError):
     def __init__(self, errno, errmsg, *args):
-        self.errno = errno       
+        self.errno = errno
         (self.errmsg, errmsg)  = string.split(errmsg, '\n', 1)
         if len(args):
             apply(SQLError.__init__, (self, self.errno, self.errmsg, errmsg) + args)
@@ -97,7 +97,7 @@ class SQLStatementPrepareError(SQLError):
 
 class ModifiedRowError(SQLError):
     pass
-            
+
 
 
 class Cursor:
@@ -123,7 +123,7 @@ class Cursor:
 
         # Store a reference to the underlying Python DB API Cursor:
         self._real_cursor = self._prepare(force=force)
-        
+
     def _prepare_sql(self):
         raise NotImplementedError
 
@@ -150,7 +150,7 @@ class Cursor:
         self.sql = sql
         self._real_cursor = self._prepare(force=force)
 
-    def update_blob(self, table_name, column_name, where_clause, 
+    def update_blob(self, table_name, column_name, where_clause,
             data, **kwargs):
         """
         Abstraction for the update of a blob column which can vary wildly
@@ -201,8 +201,8 @@ class Cursor:
         return ret
 
     def _execute_wrapper(self, function, *p, **kw):
-        """ 
-        Database specific execute wrapper. Mostly used just to catch DB 
+        """
+        Database specific execute wrapper. Mostly used just to catch DB
         exceptions and wrap them.
 
         Must be subclasses by database specific drivers.
@@ -228,16 +228,16 @@ class Cursor:
     # Please note: these functions return None if no data is available,
     # not an empty tuple or a list of empty tuples, or an empty list
     # or any other combination you can imagine with the word "empty" in it.
-    
+
     def fetchone(self):
         return self._real_cursor.fetchone()
 
     def fetchall(self):
         rows = self._real_cursor.fetchall()
         return rows
-    
+
     def fetchone_dict(self):
-        """ 
+        """
         Return a dictionary for the row returned mapping column name to
         it's value.
         """
@@ -270,7 +270,7 @@ class Cursor:
 
 
 class Procedure:
-    """ 
+    """
     Class for calling out to stored procedures.
 
     Written to behave very much like a Python function in that these
@@ -325,7 +325,7 @@ class Database:
         The return value is a (possibly modified) copy of the arguments passed
         in. see cx_Oracle's Cursor.callproc for more details"""
         return self._procedure_class(name, None)
-    
+
         return self._procedure_class(name, None)
 
     def function(self, name, ret_type):
@@ -345,11 +345,11 @@ class Database:
     def _function(self, name, ret_type):
         raise NotImplementedError
 
-    
+
     def transaction(self, name):
         "set a transaction point to which we can rollback to"
         pass
-    
+
     def rollback(self, name = None):
         "rollback changes, optionally to a previously set transaction point"
         pass

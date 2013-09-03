@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Package import process
@@ -42,7 +42,7 @@ class KickstartableTreeImport(Import):
             kstree_type_label = ent['kstree_type_label']
             kstree_type_name = ent['kstree_type_name']
             self.kstree_types[kstree_type_label] = kstree_type_name
-            
+
             ks_install_label = ent['install_type_label']
             ks_install_name = ent['install_type_name']
             self.ks_install_types[ks_install_label] = ks_install_name

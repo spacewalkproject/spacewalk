@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 import sys
 import time
@@ -43,8 +43,8 @@ if __name__ == "__main__":
 
     print rhnChannel.get_server_channel_mappings(1000102174, release='2.1AS')
     print rhnChannel.get_server_channel_mappings(1000102174, release='2.1AS',
-        user_id=2825619, none_ok=1) 
-    
+        user_id=2825619, none_ok=1)
+
     print rhnChannel.channels_for_release_arch('2.1AS', 'athlon-redhat-linux')
     print rhnChannel.channels_for_release_arch('2.1AS', 'athlon-redhat-linux', user_id=575937)
     print rhnChannel.channels_for_release_arch('2.1AS', 'XXXX-redhat-linux', user_id=575937)
@@ -55,7 +55,7 @@ if __name__ == "__main__":
     sys.exit(1)
 
     channel = "redhat-linux-i386-7.1"
-    
+
     start = time.time()
     ret = rhnChannel.list_packages(channel)
     print "Took %.2f seconds to list %d packages in %s" % (

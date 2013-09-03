@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # rollback functions
 #
@@ -30,7 +30,7 @@ def config(serverId, actionId, dry_run=0):
 def listTransactions(serverId, actionId, dry_run=0):
     log_debug(3)
     return None
-    
+
 def rollback(serverId, actionId, dry_run=0):
     log_debug(3, dry_run)
     # since rhnActionTransactions table is gone, this call have to fail

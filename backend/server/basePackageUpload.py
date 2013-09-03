@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # $Id$
 
@@ -46,7 +46,7 @@ class BasePackageUpload:
         """
         # Initialize the logging
         log_debug(3, "Method", req.method)
-        
+
         #Header string. This is what the Auth-Session field will look like in the header.
         session_header = "%s-%s" % (self.header_prefix, "Auth-Session")
 
@@ -70,7 +70,7 @@ class BasePackageUpload:
                     self.field_data["Auth-Session"] = req.headers_in[session_header]
                     continue
 
-                #The current field being looked for isn't the Auth field and it's missing, so something is wrong. 
+                #The current field being looked for isn't the Auth field and it's missing, so something is wrong.
                 else:
                     log_debug(4, "Required field %s missing" % f)
                     raise rhnFault(500, f)
@@ -80,7 +80,7 @@ class BasePackageUpload:
             else:
                 if req.headers_in.has_key(session_header):
                     self.field_data[f] = req.headers_in[hf]
-                
+
         self.package_name = self.field_data["Package-Name"]
         self.package_version = self.field_data["Package-Version"]
         self.package_release = self.field_data["Package-Release"]

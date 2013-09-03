@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import sys
@@ -40,7 +40,7 @@ _query_refresh = rhnSQL.Statement("""
 """)
 
 _query_shutdown = rhnSQL.Statement("""
-    select  avs.action_id, 
+    select  avs.action_id,
             avs.uuid
     from    rhnActionVirtShutdown avs
     where   avs.action_id = :action_id
@@ -49,7 +49,7 @@ _query_shutdown = rhnSQL.Statement("""
 _query_suspend = rhnSQL.Statement("""
     select  avs.action_id,
             avs.uuid
-    from    rhnActionVirtSuspend avs    
+    from    rhnActionVirtSuspend avs
     where   avs.action_id = :action_id
 """)
 

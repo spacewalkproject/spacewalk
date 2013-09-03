@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 # system imports:
@@ -33,7 +33,7 @@ def initEMAIL_LOG(reinit=0):
     global EMAIL_LOG
     if EMAIL_LOG is None or reinit:
         EMAIL_LOG = StringIO()
-    
+
 def dumpEMAIL_LOG():
     global EMAIL_LOG
     if EMAIL_LOG is not None:
@@ -127,7 +127,7 @@ def log2stderr(level, msg, cleanYN=0, notimeYN=0):
     log2stream(level, msg, cleanYN, notimeYN, sys.stderr)
 
 def log2stdout(level, msg, cleanYN=0, notimeYN=0):
-    """Log to standard out 
+    """Log to standard out
     Arguments: see def _prepLogMsg(...) above.
     """
     log2email(level, msg, cleanYN, notimeYN)
@@ -249,6 +249,6 @@ class RpmManip(FileManip):
         self.pdict = pdict
 
     def nvrea(self):
-        return tuple(map(lambda x, s=self: s.pdict[x], 
+        return tuple(map(lambda x, s=self: s.pdict[x],
             ['name', 'version', 'release', 'epoch', 'arch']))
 

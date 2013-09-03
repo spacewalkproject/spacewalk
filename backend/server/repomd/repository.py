@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 #   Classes for generating repository metadata from RHN info.
@@ -68,7 +68,7 @@ class Repository(object):
         self.updateinfo_prefix = "repomd_updateinfo.xml"
 
         self._channel = None
-        
+
         cache = rhnCache.Cache()
         self.cache = rhnCache.NullCache(cache)
 
@@ -160,7 +160,7 @@ class Repository(object):
             comps_view = view.CompsView(self.channel.comps)
             return comps_view.get_file()
         elif comps_mapping.has_key(self.channel.label):
-            comps_view = view.CompsView(Comps(None, 
+            comps_view = view.CompsView(Comps(None,
                 os.path.join(CFG.mount_point, comps_mapping[self.channel.label])))
             return comps_view.get_file()
         else:
@@ -197,7 +197,7 @@ class Repository(object):
 class CompressedRepository:
 
     """ Decorator for Repositories adding gzip compression of the output. """
-    
+
     def __init__(self, repository):
         self.repository = repository
 
@@ -231,9 +231,9 @@ class CompressedRepository:
     def __get_compressed_file(self, uncompressed_file):
         string_file = StringIO.StringIO()
         gzip_file = NoTimeStampGzipFile(mode = "wb", fileobj = string_file)
-        
+
         shutil.copyfileobj(uncompressed_file, gzip_file)
-        
+
         gzip_file.close()
 
         string_file.seek(0,0)
@@ -247,7 +247,7 @@ class CachedRepository:
 
     def __init__(self, repository):
         self.repository = repository
-        
+
         cache = rhnCache.Cache()
         self.cache = rhnCache.NullCache(cache)
 
@@ -263,15 +263,15 @@ class CachedRepository:
     def get_filelists_xml_file(self):
         return self._cached(self.filelists_prefix,
             self.repository.get_filelists_xml_file)
-   
+
     def get_updateinfo_xml_file(self):
         return self._cached(self.updateinfo_prefix,
             self.repository.get_updateinfo_xml_file)
-   
+
     def _cached(self, cache_prefix, fallback_method):
         """
-        Return the cached results if they are new enough, else get new results. 
-    
+        Return the cached results if they are new enough, else get new results.
+
         cache_prefix is a unique string that will identify the cached data.
         fallback_method is the method to call if the cached data doesn't exist
         or isn't new enough.
@@ -285,12 +285,12 @@ class CachedRepository:
             cache_file = self.cache.set_file(cache_entry, self.last_modified)
 
             shutil.copyfileobj(ret, cache_file)
-            
+
             ret.close
             cache_file.close()
             ret = self.cache.get_file(cache_entry, self.last_modified)
         return ret
-        
+
     def __getattr__(self, x):
         return getattr(self.repository, x)
 
@@ -303,7 +303,7 @@ class MetadataRepository:
     A Metadata Repository is composed of a repository and a
     CompressedRepository, as both are required to generate the repomd file.
     """
-    
+
     def __init__(self, repository, compressed_repository):
         self.repository = repository
         self.compressed_repository = compressed_repository
@@ -312,7 +312,7 @@ class MetadataRepository:
 
     def get_repomd_file(self):
         """ Return uncompressed repomd.xml file """
- 
+
         cache_entry = "%s-%s" % (self.repomd_prefix, self.channel_id)
         ret = self.cache.get_file(cache_entry, self.last_modified)
 
@@ -322,7 +322,7 @@ class MetadataRepository:
                 "%Y%m%d%H%M%S")))
 
             to_generate = []
-            
+
             if not self.repository.get_primary_cache():
                 to_generate.append(self.repository.get_primary_view())
             if not self.repository.get_other_cache():
@@ -399,7 +399,7 @@ class MetadataRepository:
 
     def __getattr__(self, x):
         return getattr(self.compressed_repository, x)
-     
+
 
 def get_repository(channel):
     """ Factory Method-ish function to create a repository from a channel. """

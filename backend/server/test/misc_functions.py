@@ -8,10 +8,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 #
@@ -104,14 +104,14 @@ def create_new_user(org_id=None, username=None, password=None, roles=None):
         org_id = create_new_org()
     else:
         org_id = lookup_org_id(org_id)
-    
+
     if username is None:
         username = "unittest-user-%.3f" % time.time()
     if password is None:
         password = "unittest-password-%.3f" % time.time()
     if roles is None:
         roles = []
-    
+
     u = rhnUser.User(username, password)
     u.set_org_id(org_id)
     u.save()
@@ -139,7 +139,7 @@ def create_new_user(org_id=None, username=None, password=None, roles=None):
         create_ugm(user_id, user_group_id)
 
     rhnSQL.commit()
-    
+
     return u
 
 def lookup_org_id(org_id):
@@ -148,12 +148,12 @@ def lookup_org_id(org_id):
         # Is it a user?
 
         u = rhnUser.search(org_id)
-                                                                            
+
         if not u:
             raise rhnServerGroup.InvalidUserError(org_id)
-                                                                            
+
         return u.contact['org_id']
-                                                                            
+
     t = rhnSQL.Table('web_customer', 'id')
     row = t[org_id]
     if not row:
@@ -239,15 +239,15 @@ def new_server(user, org_id):
     serv = rhnServer.Server(user, org_id = org_id)
     #serv.default_description()
     params = build_sys_params_with_username( username=user.contact['login'] )
-    
-    #print params 
+
+    #print params
     serv.server['release']      = params['os_release']
     serv.server['os']           = "Unittest Distro"
-    serv.server['name']         = params['profile_name']       
+    serv.server['name']         = params['profile_name']
     serv.set_arch('i386')
     serv.default_description()
     serv.getid()
-    serv.gen_secret()    
+    serv.gen_secret()
     serv.save()
     return serv
 
@@ -298,7 +298,7 @@ def build_sys_params_with_username(**kwargs):
 
 
 
-def create_activation_key(org_id=None, user_id=None, groups=None, 
+def create_activation_key(org_id=None, user_id=None, groups=None,
         channels=None, entitlement_level=None, note=None, server_id=None):
     if org_id is None:
         need_user = 1

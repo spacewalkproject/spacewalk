@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 
@@ -112,7 +112,7 @@ def remove(server_id, action_id, dry_run=0):
         ret.append((val, {}))
 
     return ret
-    
+
 patchInstall = install
 
 patchRemove = remove
@@ -123,7 +123,7 @@ patchClusterRemove = remove
 
 def refresh_list(serverId, actionId, dry_run=0):
     """ Call the equivalent of up2date -p.
-    
+
         I.e. update the list of a client's installed packages known by
         Red Hat's DB.
     """

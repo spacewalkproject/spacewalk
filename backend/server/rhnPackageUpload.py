@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # $Id$
 
@@ -99,7 +99,7 @@ def relative_path_from_nevra(nevra, org_id, package_type=None, checksum_type=Non
     else:
         is_source = 0
     log_debug(4, nevra, is_source)
-    return get_package_path(nevra, org_id=org_id, source=is_source, 
+    return get_package_path(nevra, org_id=org_id, source=is_source,
         prepend=CFG.PREPENDED_DIR, omit_epoch=None, package_type=package_type,
         checksum_type=checksum_type, checksum=checksum)
 
@@ -176,7 +176,7 @@ def push_package(a_pkg, org_id=None, force=None, channels=[], relative_path=None
         #pkilambi bug#180347
         #case 1:check if the path exists in the db and also on the file system.
         #if it does then no need to copy
-        #case2: file exists on file system but path not in db.then add the 
+        #case2: file exists on file system but path not in db.then add the
         #realtive path in the db based on checksum of the pkg
         #case3: if no file on file system but path exists.then we write the
         #file to file system
@@ -184,7 +184,7 @@ def push_package(a_pkg, org_id=None, force=None, channels=[], relative_path=None
         orig_path = package['path']
         orig_path = os.path.join(CFG.MOUNT_POINT, orig_path)
         log_debug(3, "Original package", orig_path)
-        
+
         #check included to query for source and binary rpms
         h_path_sql = """
             select ps.path path
@@ -233,7 +233,7 @@ def push_package(a_pkg, org_id=None, force=None, channels=[], relative_path=None
 
     if not a_pkg.header.is_source:
         errataCache.schedule_errata_cache_update(importer.affected_channels)
-                        
+
     log_debug(2, "Returning")
     return {}, 0
 
@@ -249,12 +249,12 @@ def _diff_header_sigs(h1, h2, diff_list):
     h2_key_ids = _key_ids(h2sigs)
 
     diff_list.append(['sig_key_id', h1_key_ids, h2_key_ids])
-    
+
 def _key_ids(sigs):
     h = {}
     for sig in sigs:
         h[sig['key_id']] = None
-    
+
     l = h.keys()
     l.sort()
     return l

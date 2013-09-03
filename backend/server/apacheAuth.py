@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 
@@ -43,7 +43,7 @@ def splitProxyAuthToken(token):
 
 def _verifyProxyAuthToken(auth_token):
     """ verifies the validity of a proxy auth token
-    
+
         NOTE: X-RHN-Proxy-Auth described in proxy/broker/rhnProxyAuth.py
     """
 
@@ -73,7 +73,7 @@ def _verifyProxyAuthToken(auth_token):
                  % (repr(token), hostname or 'n/a'))
 
     proxyId, proxyUser, rhnServerTime, expireOffset, signature = token[:5]
-    computed = computeSignature(CFG.SECRET_KEY, proxyId, proxyUser, 
+    computed = computeSignature(CFG.SECRET_KEY, proxyId, proxyUser,
                                 rhnServerTime, expireOffset)
 
     if computed != signature:
@@ -107,7 +107,7 @@ def auth_proxy():
     """ Authenticates a proxy carrying a clients request. For a valid or
         unsigned request, this function returns 1 (OK), otherwise it raises
         rhnFault
-    
+
         NOTE: X-RHN-Proxy-Auth described in proxy/broker/rhnProxyAuth.py
     """
 
@@ -125,7 +125,7 @@ def auth_proxy():
     #   - > v3.1: we send the route of the requests via multiple tokens
     #     "token1:hostname1,token2:hostname2" the first tuple is the first
     #     proxy hit.
-    
+
     tokens = string.split(rhnFlags.get('X-RHN-Proxy-Auth'), ',')
     tokens = filter(lambda token: token, tokens)
 
@@ -135,7 +135,7 @@ def auth_proxy():
     # if no rhnFault was raised then the tokens all passed
     return 1
 
-    
+
 def auth_client():
     """ Authenticates a request from a client
         For an unsigned request, this function returns 0 (request should be
@@ -167,7 +167,7 @@ def auth_client():
     rhnServerTime  = token['X-RHN-Auth-Server-Time']
     expireOffset   = token['X-RHN-Auth-Expire-Offset']
 
-    computed = computeSignature(CFG.SECRET_KEY, clientId, username, 
+    computed = computeSignature(CFG.SECRET_KEY, clientId, username,
                                 rhnServerTime, expireOffset)
     if computed != signature:
         log_debug(4, "Sent client signature %s does not match ours %s." % (
@@ -180,7 +180,7 @@ def auth_client():
 
     if rhnServerTime + expireOffset < time.time():
         log_debug(4, "Expired client authentication token")
-        raise rhnFault(34, "Expired client authentication token")            
+        raise rhnFault(34, "Expired client authentication token")
 
     log_debug(4, "Client auth OK")
     return 1

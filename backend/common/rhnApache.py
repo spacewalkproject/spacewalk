@@ -31,9 +31,9 @@ from rhnLog import log_debug, log_error, log_setreq
 from rhnTranslate import cat
 
 class rhnApache:
-    """ Shared rhnApache class: rhnApache classes in proxy and server inherit 
-        this class. 
-    
+    """ Shared rhnApache class: rhnApache classes in proxy and server inherit
+        this class.
+
         Shared apache handler code: headerParserHandler,
                                 handler (defined in class that inherits this),
                                 cleanupHandler.

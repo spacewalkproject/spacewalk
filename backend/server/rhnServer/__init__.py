@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # Module for handling the rhnServer objects.
 #
@@ -38,13 +38,13 @@ def get(system_id, load_user = 1):
         return None
     # if invalid, stop here
     if not cert.valid():
-        return None    
+        return None
 
     # this looks like a real server
     server = Server(None)
     # and load it up
     if not server.loadcert(cert, load_user) == 0:
-        return None   
+        return None
     # okay, it is a valid certificate
     return server
 

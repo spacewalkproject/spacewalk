@@ -50,14 +50,14 @@ def _unlock(fd):
     try:
         fcntl.lockf(fd, fcntl.LOCK_UN)
     except IOError:
-        # If LOCK is not relinquished try flock, 
+        # If LOCK is not relinquished try flock,
         # its usually more forgiving.
         fcntl.flock(fd, fcntl.LOCK_UN)
 
 ### The following functions expose this module as a dictionary
 
 
-    
+
 def get(name, modified = None, raw = None, compressed=None, missing_is_null=1):
     cache = __get_cache(raw, compressed)
 
@@ -66,14 +66,14 @@ def get(name, modified = None, raw = None, compressed=None, missing_is_null=1):
 
     return cache.get(name, modified)
 
-    
+
 def set(name, value, modified = None, raw = None, compressed=None, \
         user='root', group='root', mode=0755):
     # pylint: disable=W0622
     cache = __get_cache(raw, compressed)
 
     cache.set(name, value, modified, user, group, mode)
-    
+
 def has_key(name, modified = None):
     cache = Cache()
     return cache.has_key(name, modified)
@@ -139,7 +139,7 @@ def _safe_create(fname, user, group, mode):
                 # Pass exception through
                 raise
         # If we got here, it means the directory exists
-            
+
         # file does not exist, attempt to create it
         # we pass most of the exceptions through
         try:
@@ -169,7 +169,7 @@ class LockedFile(object):
             self.modified = timestamp(modified)
         else:
             self.modified = None
-        
+
         self.fname = _fname(name)
         self.fd = self.get_fd(name, user, group, mode)
 
@@ -308,7 +308,7 @@ class CompressedCache:
         self.cache = cache
 
     def get(self, name, modified = None):
-        fd = self.get_file(name, modified) 
+        fd = self.get_file(name, modified)
         try:
             value = fd.read()
         except (ValueError, IOError, gzip.zlib.error):
@@ -319,7 +319,7 @@ class CompressedCache:
         fd.close()
 
         return value
-    
+
     def set(self, name, value, modified = None, user='root', group='root', \
             mode=0755):
         # Since most of the data is kept in memory anyway, don't bother to
@@ -330,10 +330,10 @@ class CompressedCache:
 
     def has_key(self, name, modified = None):
         return self.cache.has_key(name, modified)
-        
+
     def delete(self, name):
         self.cache.delete(name)
-        
+
     def get_file(self, name, modified = None):
         compressed_file = self.cache.get_file(name, modified)
         return ClosingZipFile('r', compressed_file)
@@ -356,7 +356,7 @@ class ObjectCache:
             return cPickle.loads(pickled)
         except cPickle.UnpicklingError:
             raise KeyError(name), None, sys.exc_info()[2]
-    
+
     def set(self, name, value, modified = None, user='root', group='root', \
             mode=0755):
         pickled = cPickle.dumps(value, -1)
@@ -364,10 +364,10 @@ class ObjectCache:
 
     def has_key(self, name, modified = None):
         return self.cache.has_key(name, modified)
-        
+
     def delete(self, name):
         self.cache.delete(name)
-        
+
     @staticmethod
     def get_file(*_args):
         raise RuntimeError("Getting a file descriptor for an object makes no sense.")

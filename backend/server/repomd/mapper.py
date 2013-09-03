@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 #   Classes for mapping domain objects to the rhn db.
@@ -33,7 +33,7 @@ CACHE_PREFIX = "/var/cache/rhn/"
 class ChannelMapper:
 
     """ Data Mapper for Channels to the RHN db. """
-    
+
     def __init__(self, pkg_mapper, erratum_mapper, comps_mapper):
         self.pkg_mapper = pkg_mapper
         self.erratum_mapper = erratum_mapper
@@ -108,9 +108,9 @@ class ChannelMapper:
 
         self.channel_details_sql.execute(channel_id = channel_id)
         details = self.channel_details_sql.fetchone()
-        
+
         channel = domain.Channel(channel_id)
-    
+
         channel.label = details[0]
         channel.name = details[1]
         channel.checksum_type = details[2]
@@ -141,7 +141,7 @@ class ChannelMapper:
     def _package_generator(self, package_ids):
         for package_id in package_ids:
             pkg = self.pkg_mapper.get_package(package_id[0])
-            yield pkg 
+            yield pkg
 
     def _erratum_generator(self, channel_id):
         self.errata_id_sql.execute(channel_id = channel_id)
@@ -155,7 +155,7 @@ class ChannelMapper:
 class CachedPackageMapper:
 
     """ Data Mapper for Packages to an on-disc cache. """
-   
+
     def __init__(self, mapper):
         cache = rhnCache.Cache()
 
@@ -168,8 +168,8 @@ class CachedPackageMapper:
 
     def get_package(self, package_id):
         """
-        Load the package with id package_id. 
-        
+        Load the package with id package_id.
+
         Load from the cache, if it is new enough. If not, fall back to the
         provided mapper.
         """
@@ -192,15 +192,15 @@ class CachedPackageMapper:
 class SqlPackageMapper:
 
     """ Data Mapper for Packages to the RHN db. """
-    
+
     def __init__(self):
         self.details_sql = rhnSQL.prepare("""
         select
-            pn.name,  
-            pevr.version,  
-            pevr.release,  
-            pevr.epoch,  
-            pa.label arch,  
+            pn.name,
+            pevr.version,
+            pevr.release,
+            pevr.epoch,
+            pa.label arch,
             c.checksum checksum,
             p.summary,
             p.description,
@@ -218,7 +218,7 @@ class SqlPackageMapper:
             sr.name source_rpm,
             p.last_modified,
             c.checksum_type
-        from  
+        from
             rhnPackage p,
             rhnPackageName pn,
             rhnPackageEVR pevr,
@@ -235,7 +235,7 @@ class SqlPackageMapper:
         and p.source_rpm_id = sr.id
         and p.checksum_id = c.id
         """)
-       
+
         self.filelist_sql = rhnSQL.prepare("""
         select
             pc.name
@@ -355,7 +355,7 @@ class SqlPackageMapper:
         """ Get the last_modified date on the package with id package_id. """
         self.last_modified_sql.execute(package_id = package_id)
         return self.last_modified_sql.fetchone()[0]
-    
+
     def get_package(self, package_id):
         """ Get the package with id package_id from the RHN db. """
         package = domain.Package(package_id)
@@ -365,24 +365,24 @@ class SqlPackageMapper:
         self._fill_package_other(package)
         return package
 
-    def _get_package_filename(self, pkg): 
-        if pkg[18]: 
-            path = pkg[18] 
-            return os.path.basename(path) 
-        else: 
-            name = pkg[0] 
-            version = pkg[1] 
-            release = pkg[2] 
-            arch = pkg[4] 
+    def _get_package_filename(self, pkg):
+        if pkg[18]:
+            path = pkg[18]
+            return os.path.basename(path)
+        else:
+            name = pkg[0]
+            version = pkg[1]
+            release = pkg[2]
+            arch = pkg[4]
 
-            return "%s-%s-%s.%s.rpm" % (name, version, release, arch) 
+            return "%s-%s-%s.%s.rpm" % (name, version, release, arch)
 
     def _fill_package_details(self, package):
         """ Load the packages basic details (summary, description, etc). """
         self.details_sql.execute(package_id = package.id)
         pkg = self.details_sql.fetchone()
 
-        package.name = pkg[0] 
+        package.name = pkg[0]
         package.version = pkg[1]
         package.release = pkg[2]
         if pkg[3] != None:
@@ -396,7 +396,7 @@ class SqlPackageMapper:
         package.vendor = string_to_unicode(pkg[8])
 
         package.build_time = oratimestamp_to_sinceepoch(pkg[9])
-        
+
         package.package_size = pkg[10]
         package.payload_size = pkg[11]
         package.installed_size = pkg[12]
@@ -431,7 +431,7 @@ class SqlPackageMapper:
                 if len(vertup) > 1:
                     epoch = vertup[0]
                     version = vertup[1]
-            
+
             dep = {'name' : string_to_unicode(item[2]), 'flag' : relation,
                 'version' : version, 'release' : release, 'epoch' : epoch}
 
@@ -458,14 +458,14 @@ class SqlPackageMapper:
 
         # Flip the bits for easy comparison
         sense = sense & 0xf
-        
-        if sense == 2: 
+
+        if sense == 2:
             relation = "LT"
-        elif sense == 4: 
+        elif sense == 4:
             relation = "GT"
-        elif sense == 8: 
+        elif sense == 8:
             relation = "EQ"
-        elif sense == 10: 
+        elif sense == 10:
             relation = "LE"
         elif sense == 12:
             relation = "GE"
@@ -473,9 +473,9 @@ class SqlPackageMapper:
             assert False, "Unknown relation sense: %s" % sense
 
         return relation
-       
+
     __get_relation = staticmethod(__get_relation)
-    
+
     def _fill_package_filelist(self, package):
         """ Load the package's list of files. """
         self.filelist_sql.execute(package_id = package.id)
@@ -486,12 +486,12 @@ class SqlPackageMapper:
 
     def _fill_package_other(self, package):
         """ Load the package's changelog info. """
-        
+
         self.other_sql.execute(package_id = package.id)
         log_data = self.other_sql.fetchall() or []
-        
+
         for data in log_data:
-           
+
             date = oratimestamp_to_sinceepoch(data[2])
 
             chglog = {'author' : string_to_unicode(data[0]), 'date' : date,
@@ -502,7 +502,7 @@ class SqlPackageMapper:
 class CachedErratumMapper:
 
     """ Data Mapper for Errata to an on-disc cache. """
-   
+
     def __init__(self, mapper, package_mapper):
         self.package_mapper = package_mapper
 
@@ -513,8 +513,8 @@ class CachedErratumMapper:
 
     def get_erratum(self, erratum_id):
         """
-        Load the erratum with id erratum_id. 
-        
+        Load the erratum with id erratum_id.
+
         Load from the cache, if it is new enough. If not, fall back to the
         provided mapper.
         """
@@ -569,13 +569,13 @@ class SqlErratumMapper:
             rhnErrata
         where
             id = :erratum_id
-       """)   
-       
+       """)
+
         self.erratum_cves_sql = rhnSQL.prepare("""
         select
             cve.name as cve_name
-        from 
-            rhnCVE cve, 
+        from
+            rhnCVE cve,
             rhnErrataCVE ec
         where
             ec.errata_id = :erratum_id
@@ -589,7 +589,7 @@ class SqlErratumMapper:
             href
         from
             rhnErrataBuglist
-        where 
+        where
             errata_id = :erratum_id
         """)
 
@@ -623,10 +623,10 @@ class SqlErratumMapper:
     def _fill_erratum_details(self, erratum):
         self.erratum_details_sql.execute(erratum_id = erratum.id)
         ertm = self.erratum_details_sql.fetchone()
-    
+
         erratum.readable_id = ertm[0]
         erratum.title = ertm[1]
-   
+
         if ertm[2] == 'Security Advisory':
             erratum.advisory_type = 'security'
         elif ertm[2] == 'Bug Fix Advisory':
@@ -635,7 +635,7 @@ class SqlErratumMapper:
             erratum.advisory_type = 'enhancement'
         else:
             erratum.advisory_type = 'errata'
-       
+
         erratum.version = ertm[3]
         erratum.description = ertm[4]
         erratum.synopsis = ertm[5]
@@ -674,7 +674,7 @@ class SqlCompsMapper:
             relative_filename
         from
             rhnChannelComps
-        where 
+        where
             id = :comps_id
         """)
 

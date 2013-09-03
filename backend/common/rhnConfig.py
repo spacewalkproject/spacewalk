@@ -209,7 +209,7 @@ class RHNOptions:
     def __getattr__(self, key):
         """fetch option you want in a self.DEBUG kind of syntax
            (can force component selection)
-        
+
         e.g.: say for example we have an option proxy.debug = 5
               stored in the dictionary. proxy just says that only proxy
               can access this option. So for this exmple,
@@ -444,7 +444,7 @@ def read_file(filename):
                 new_lines.append(combined)
                 combined = ''
             else:
-                combined = combined + line.replace('\\\n', ' ') 
+                combined = combined + line.replace('\\\n', ' ')
         return new_lines
     except (IOError, OSError), e:
         raise ConfigParserError("Can not read config file", filename, e.args[1]), None, sys.exc_info()[2]

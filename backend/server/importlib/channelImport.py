@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # Channel import process
 #
@@ -70,7 +70,7 @@ class ChannelImport(Import):
                 log(1, "         Running synchronization will move the channel to orgid %s." % \
                     channel['org_id'])
                 log(1,'')
-        
+
     def fix(self):
         self.backend.lookupChannelArches(self.arches)
         self.backend.lookupChannelFamilies(self.families)
@@ -175,7 +175,7 @@ class ChannelImport(Import):
 
         # And look them up
         self.backend.lookupChannels(unknownChannels)
-        
+
         # Copy the ids back into parentChannels, to make life easier
         missingParents = []
         for k, v in unknownChannels.items():
@@ -196,7 +196,7 @@ class ChannelImport(Import):
                 continue
             # Replace the label with the id
             channel['parent_channel'] = parentChannels[parent]
-        
+
         # And process these channels too
         try:
             self.backend.processChannels(nonNullParentBatch, False)
@@ -222,7 +222,7 @@ class ChannelImport(Import):
             self.backend.commit()
 
 class ChannelFamilyImport(Import):
-    def preprocess(self): 
+    def preprocess(self):
         if CFG.ISS_PARENT:
             # Filter out private channel families from ISS syncs
             self.__filterCustomChannelFamilies()
@@ -243,7 +243,7 @@ class ChannelFamilyImport(Import):
                     continue
                 cid = chash['id']
                 channel_ids.append(cid)
-                
+
     def submit(self):
         try:
             self.backend.processChannelFamilies(self.batch)
@@ -270,7 +270,7 @@ class ChannelFamilyPermissionsImport(Import):
         Import.__init__(self, batch, backend)
         self.channel_families = {}
         self.will_commit = 1
-    
+
     def preprocess(self):
         for cf in self.batch:
             self.channel_families[cf['channel_family']] = None
@@ -288,7 +288,7 @@ class ChannelFamilyPermissionsImport(Import):
             if cf['org_id'] == -1:
                 # Make it our own org_id
                 cf['org_id'] = org_id
-    
+
     def submit(self):
         try:
             self.backend.processChannelFamilyPermissions(self.batch)
@@ -307,10 +307,10 @@ class DistChannelMapImport(Import):
     def preprocess(self):
         # Processes the batch to a form more suitable for database
         # operations
-        for dcm in self.batch:   
+        for dcm in self.batch:
             self.arches[dcm['arch']] = None
             self.channels[dcm['channel']] = None
-    
+
     def fix(self):
         # Look up arches and channels
         self.backend.lookupChannelArches(self.arches)
@@ -320,17 +320,17 @@ class DistChannelMapImport(Import):
             if arch is None:
                 # Invalid arch
                 dcm.ignored = 1
-                raise InvalidArchError(dcm['arch'], 
+                raise InvalidArchError(dcm['arch'],
                     "Invalid dist_channel_map arch %s" % dcm['arch'])
             channel = self.channels[dcm['channel']]
             if channel is None:
                 dcm.ignored = 1
-                raise InvalidChannelError(dcm['channel'], 
+                raise InvalidChannelError(dcm['channel'],
                     "Invalid dist_channel_map channel %s" % dcm['channel'])
             dcm['arch'] = arch
             dcm['channel_id'] = channel['id']
             dcm['org_id'] = None
-            
+
     def submit(self):
         try:
             self.backend.processDistChannelMap(self.batch)
@@ -363,7 +363,7 @@ if __name__ == '__main__':
                 'channel'   : 'redhat-linux-i386-6.2',
             },
         ]
-        
+
         for dcm in dcms:
             x = DistChannelMap()
             x.populate(dcm)

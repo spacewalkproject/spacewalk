@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Package uploading functions.
@@ -44,7 +44,7 @@ from spacewalk.server.importlib.errataCache import schedule_errata_cache_update
 #One of the requirements for this was to maintain backwards compatibility, so older
 #versions of rhnpush can still talk to a newer satellite. This meant that I had to
 #add new versions of each XMLRPC call that did authentication by sessions rather than
-#username/password. I noticed that the only real difference between the two was the 
+#username/password. I noticed that the only real difference between the two was the
 #authentication scheme that the functions used, so rather than copy-n-paste a bunch of code,
 #I separated the functionality from the authentication and just pass a authentication object
 #to the function that actually does stuff.
@@ -53,7 +53,7 @@ from spacewalk.server.importlib.errataCache import schedule_errata_cache_update
 class Packages(RPC_Base):
     def __init__(self):
         log_debug(3)
-        RPC_Base.__init__(self)        
+        RPC_Base.__init__(self)
         self.functions.append('uploadPackageInfo')
         self.functions.append('uploadPackageInfoBySession')
         self.functions.append('uploadSourcePackageInfo')
@@ -81,7 +81,7 @@ class Packages(RPC_Base):
         self.functions.append('getPackageMD5sumBySession')
         self.functions.append('getSourcePackageMD5sum')
         self.functions.append('getSourcePackageMD5sumBySession')
-        
+
     def no_op(self):
         """ This is so the client can tell if the satellite supports session tokens or not.
 
@@ -110,9 +110,9 @@ class Packages(RPC_Base):
         force = 0
         if info.has_key('force'):
             force = info['force']
-        return uploadPackages(info, force=force, 
+        return uploadPackages(info, force=force,
             caller="server.app.uploadPackageInfo")
-    
+
     def uploadSourcePackageInfo(self, username, password, info):
         """ Upload a collection of source packages. """
         log_debug(5, username, info)
@@ -138,7 +138,7 @@ class Packages(RPC_Base):
         log_debug(5, channelList, username)
         authobj = auth(username, password)
         return self._listChannelSource(authobj, channelList)
-    
+
     def listChannelSourceBySession(self, channelList, session_string):
         log_debug(5, channelList, session_string)
         authobj = auth_session(session_string)
@@ -147,7 +147,7 @@ class Packages(RPC_Base):
     def _listChannelSource(self, authobj, channelList):
         authobj.authzChannels(channelList)
         ret = listChannelsSource(channelList)
-        return ret 
+        return ret
 
 
     def listChannel(self, channelList, username, password):
@@ -169,7 +169,7 @@ class Packages(RPC_Base):
         """ This function that takes in the username
             and password and returns a session string if they are correct. It raises a
             rhnFault if the user/pass combo is not acceptable.
-        """ 
+        """
         log_debug(5, username)
         user = rhnUser.search(username)
         if not user or not user.check_password(password):
@@ -192,7 +192,7 @@ class Packages(RPC_Base):
         except:
             return 0
         return 1
-    
+
     def test_new_login(self, username, password, session=None):
         """ rhnpush's --extended-test will call this function. """
         log_debug(5, "testing new login")
@@ -213,7 +213,7 @@ class Packages(RPC_Base):
 
     def listMissingSourcePackagesBySession(self, channelList, session_string):
         log_debug(5, channelList, session_string)
-        authobj = auth_session(session_string)  
+        authobj = auth_session(session_string)
         return self._listMissingSourcePackages(authobj, channelList)
 
     def _listMissingSourcePackages(self, authobj, channelList):
@@ -267,7 +267,7 @@ class Packages(RPC_Base):
         if not packageList:
             log_debug(1, "No packages found; done")
             return 0
-        
+
         if not info.has_key('channels') or not info['channels']:
             log_debug(1, "No channels found; done")
             return 0
@@ -276,7 +276,7 @@ class Packages(RPC_Base):
         authobj.authzChannels(channelList)
 
         # Have to turn the channel list into a list of Channel objects
-        channelList = map(lambda x: Channel().populate({'label' : x}), 
+        channelList = map(lambda x: Channel().populate({'label' : x}),
             channelList)
 
         # Since we're dealing with superusers, we allow them to change the org
@@ -439,16 +439,16 @@ class Packages(RPC_Base):
           and  p.package_arch_id = pa.id
           and  pa.label    = :pkg_arch
           and  p.checksum_id = c.id
-          %s 
+          %s
     """
- 
+
     def _getPackageChecksum(self, org_id, pkg_infos):
         log_debug(3)
         row_list = {}
         checksum_exists = 0
         for pkg in pkg_infos.keys():
 
-            pkg_info = pkg_infos[pkg] 
+            pkg_info = pkg_infos[pkg]
             pkg_epoch = pkg_info['epoch']
             if pkg_epoch is not None:
                 # Force empty strings to None (NULLs in database)
@@ -457,7 +457,7 @@ class Packages(RPC_Base):
                 # and force numbers to strings
                 else:
                     pkg_epoch = str(pkg_epoch)
-           
+
             query_args = {
                 'name':     pkg_info['name'],
                 'pkg_epoch':    pkg_epoch,
@@ -475,7 +475,7 @@ class Packages(RPC_Base):
                     'checksum_type':    pkg_info['checksum_type'],
                     'checksum':         pkg_info['checksum'],
                 })
-                
+
             h = rhnSQL.prepare(self._get_pkg_info_query % _checksum_sql_filter)
             row_list[pkg] = self._get_package_checksum(h, query_args)
 
@@ -571,7 +571,7 @@ class Packages(RPC_Base):
             row_list[pkg] = self._get_package_checksum(h,
                                         {'name':pkg, 'orgid': org_id})
         return row_list
-        
+
 def auth(login, password):
     """ Authorize this user. """
     authobj = UserAuth()

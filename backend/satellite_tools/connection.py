@@ -9,10 +9,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 
@@ -55,9 +55,9 @@ class Transport(rpclib.transports.Transport):
             fd.close()
             connection.close()
             return ret
-            
+
         # XXX application/octet-stream should go away
-        if content_type in ('application/xml', 'application/octet-stream', 
+        if content_type in ('application/xml', 'application/octet-stream',
                 'application/x-rpm'):
             f = rpclib.transports.File(fd)
             # Explanation copied from the base class' method (rhn.transports):
@@ -89,7 +89,7 @@ class _Server(rpclib.Server):
 
 
 class StreamConnection(_Server):
-    def __init__(self, uri, proxy=None, username=None, password=None, 
+    def __init__(self, uri, proxy=None, username=None, password=None,
                 refreshCallback=None, xml_dump_version=constants.PROTOCOL_VERSION,
                 timeout=None):
         _Server.__init__(self, uri, proxy=proxy, username=username,

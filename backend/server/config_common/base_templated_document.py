@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Templating code for the configuration management project
@@ -54,9 +54,9 @@ class BaseTemplatedDocument:
         # need to escape those
         escaped_start_delim = re.escape(self.start_delim)
         escaped_end_delim = re.escape(self.end_delim)
-        
+
         regex_key = (self.start_delim, self.end_delim)
-        
+
         # At this point, self.start_delim and self.end_delim are non-null
         if self.compiled_regexes.has_key(regex_key):
             # We already have the regex compiled
@@ -103,7 +103,7 @@ class TemplatedDocument(BaseTemplatedDocument):
         dict = mo.groupdict()
         fname = dict.get('fname')
         defval = dict.get('defval')
-        
+
         fname = self.strip(fname)
         defval = self.unquote(defval)
         params = None
@@ -123,7 +123,7 @@ class TemplatedDocument(BaseTemplatedDocument):
         # Validate the function name
         if not self.funcname_regex.match(fname):
             raise ValueError, "Invalid function name %s" % fname
-        
+
         return fname, params, defval
 
     def null_call(self, fname, params, defval):
@@ -174,7 +174,7 @@ class TemplatedDocument(BaseTemplatedDocument):
         if len(s) <= 1:
             # Nothing to unquote
             return s
-            
+
         if s[0] == s[-1] and s[0] in ['"', "'"]:
             # Strip quotes
             return s[1:-1]

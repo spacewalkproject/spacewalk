@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Generic DB backend data structures
@@ -57,7 +57,7 @@ class Table:
     # A list of supported keywords
     keywords = {
         'fields'    : DictType,
-        'pk'        : ListType, 
+        'pk'        : ListType,
         'attribute' : StringType,
         'map'       : DictType,
         'nullable'  : ListType, # Will become a hash eventually
@@ -104,7 +104,7 @@ class Table:
                     raise TypeError("Unknown nullable field %s in table %s" % (
                         field, name))
                 self.nullable[field] = None
-        
+
         # Now analyze pk
         for field in self.pk:
             if not self.fields.has_key(field):
@@ -139,7 +139,7 @@ class Table:
             if not self.severityHash.has_key(field):
                 self.severityHash[field] = self.defaultSeverity
         return self.severityHash
-    
+
 # A collection of tables
 class TableCollection(UserDict):
     def __init__(self, *list):
@@ -218,7 +218,7 @@ class BaseTableLookup:
         # And save it to the cached queries pool
         self.queries[key] = statement
         return statement
-    
+
     def query(self, values):
         key, values = self._selectQueryKey(values)
         statement = self._getCachedQuery(key)
@@ -264,7 +264,7 @@ class TableUpdate(BaseTableLookup):
                 break
 
     def _buildQuery(self, key):
-        return self.queryTemplate % (self.table.name, self.updateclause, 
+        return self.queryTemplate % (self.table.name, self.updateclause,
             self.whereclauses[key])
 
     def _split_blob_values(self, values, blob_only=0):
@@ -296,13 +296,13 @@ class TableUpdate(BaseTableLookup):
             for k in self.pks:
                 pk_val[k] = val[k] = values[k][i]
             key, val = self._selectQueryKey(val)
-            
+
             if not blob_only:
                 # Add the rest of the values
                 for k in self.otherfields:
                     val[k] = values[k][i]
                 addHash(valuesHash[key], val)
-            
+
             if not self.blob_fields:
                 # Nothing else to do
                 continue
@@ -362,7 +362,7 @@ class TableUpdate(BaseTableLookup):
                     # unique
                     raise ValueError("Primary key not unique",
                         self.table.name, lookup_hash)
-            
+
 class TableDelete(TableLookup):
     def __init__(self, table, dbmodule):
         TableLookup.__init__(self, table, dbmodule)
@@ -399,7 +399,7 @@ class TableDelete(TableLookup):
                 continue
             statement = self._getCachedQuery(key)
             executeStatement(statement, val, self.count)
-        
+
 
 class TableInsert(TableUpdate):
     def __init__(self, table, dbmodule):
@@ -409,9 +409,9 @@ class TableInsert(TableUpdate):
 
         self.insert_fields = self.pks + self.otherfields + self.blob_fields
         self.insert_values = map(lambda x: ':%s' % x, self.pks + self.otherfields + self.blob_fields)
-    
+
     def _buildQuery(self, key):
-        q = self.queryTemplate % (self.table.name, 
+        q = self.queryTemplate % (self.table.name,
             string.join(self.insert_fields, ', '),
             string.join(self.insert_values, ', '))
         return q
@@ -430,7 +430,7 @@ class TableInsert(TableUpdate):
         statement = self._getCachedQuery(None, blob_map=blob_map)
         executeStatement(statement, values, chunksize)
 
-    
+
 def executeStatement(statement, valuesHash, chunksize):
     # Executes a statement with chunksize values at the time
     if not valuesHash:

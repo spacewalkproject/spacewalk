@@ -8,10 +8,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Tests verious codepaths for server registration
@@ -28,7 +28,7 @@ from spacewalk.server.xmlrpc import registration
 import misc_functions
 
 DB = 'rhnuser/rhnuser@webdev'
-    
+
 
 class Tests(unittest.TestCase):
     _channel = 'redhat-advanced-server-i386'
@@ -44,7 +44,7 @@ class Tests(unittest.TestCase):
     def tearDown(self):
         # Roll back any unsaved data
         rhnSQL.rollback()
-        
+
     def test_new_server_1(self):
         "Test normal server registration, with username/password"
         u = self._create_new_user()
@@ -52,7 +52,7 @@ class Tests(unittest.TestCase):
         password = u.contact['password']
         params = build_new_system_params_with_username(username=username,
             password=password, os_release="2.1AS")
-        
+
         system_id = register_new_system(params)
         rhnSQL.commit()
 
@@ -73,7 +73,7 @@ class Tests(unittest.TestCase):
             entitlement_level=entitlements, user_id=u.getid())
 
         token = t.get_token()
-        
+
         params = build_new_system_params_with_token(token=token)
 
         system_id = register_new_system(params)
@@ -93,7 +93,7 @@ class Tests(unittest.TestCase):
             channels=[base_channel])
 
         token = t.get_token()
-        
+
         params = build_new_system_params_with_token(token=token,
             os_release="2.1AS")
 
@@ -115,7 +115,7 @@ class Tests(unittest.TestCase):
         password = u.contact['password']
         params = build_new_system_params_with_username(username=username,
             password=password, os_release="2.1AS")
-        
+
         system_id = register_new_system(params)
         rhnSQL.commit()
 
@@ -141,9 +141,9 @@ class Tests(unittest.TestCase):
 
         s2 = rhnServer.get(system_id)
         server_id_2 = s2.getid()
-        
+
         groups2 = misc_functions.fetch_server_groups(server_id_2)
-        
+
         self.assertNotEqual(s2, None)
         self.assertEqual(server_id_1, server_id_2)
         # Should be subscribed to the same groups
@@ -162,7 +162,7 @@ class Tests(unittest.TestCase):
 
         token1 = t.get_token()
         sg1 = t.get_server_groups()
-        
+
         t = misc_functions.create_activation_key(org_id=u.contact['org_id'],
             entitlement_level=entitlements, user_id=u.getid())
 
@@ -170,7 +170,7 @@ class Tests(unittest.TestCase):
         sg2 = t.get_server_groups()
 
         token = token1 + ',' + token2
-        
+
         params = build_new_system_params_with_token(token=token,
             os_release="2.1AS")
 
@@ -195,15 +195,15 @@ class Tests(unittest.TestCase):
         # Grant entitlements to the org
         misc_functions.grant_entitlements(org_id, 'enterprise_entitled', 1)
         misc_functions.grant_channel_family_entitlements(org_id,
-            self._channel_family, 1) 
-        
+            self._channel_family, 1)
+
         # Create new user
         u = misc_functions.create_new_user(org_id=org_id, roles=['org_admin'])
         username = u.contact['login']
         # XXX This will break on satellites where passwords are encrypted
         password = u.contact['password']
         return u
-        
+
 class Counter:
     _counter = 0
     def value(self):
@@ -215,7 +215,7 @@ def build_new_system_params_with_username(**kwargs):
     import time
     val = Counter().value()
     rnd_string = "%d-%d" % (int(time.time()), val)
-    
+
     params = {
         'os_release'    : '9',
         'architecture'  : 'i686-redhat-linux',
@@ -240,7 +240,7 @@ def build_new_system_params_with_token(**kwargs):
 def register_new_system(params):
     rhnFlags.reset()
     return registration.Registration().new_system(params)
-    
+
 
 if __name__ == '__main__':
     sys.exit(unittest.main() or 0)

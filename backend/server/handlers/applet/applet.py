@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 # system module imports
@@ -64,8 +64,8 @@ class Applet(rhnHandler):
         h.execute(uuid=uuid)
         row = h.fetchone_dict()
         if not row:
-            raise rhnFault(140, 
-                _("Your system was not found in the RHN database"), 
+            raise rhnFault(140,
+                _("Your system was not found in the RHN database"),
                 explain=0)
         server_id = row['id']
 
@@ -82,7 +82,7 @@ class Applet(rhnHandler):
         log_debug(1, uuid)
         systemid = str(systemid)
         uuid = str(uuid)
-        
+
         server = self.auth_system(systemid)
         if not uuid:
             # Nothing to do
@@ -90,16 +90,16 @@ class Applet(rhnHandler):
 
         server.update_uuid(uuid)
         return 1
-            
+
     # return our sttaus - for now a dummy function
     def poll_status(self):
-        checkin_interval = (CFG.CHECKIN_INTERVAL + 
+        checkin_interval = (CFG.CHECKIN_INTERVAL +
             random.random() * CFG.CHECKIN_INTERVAL_MAX_OFFSET)
-        return { 
-            'checkin_interval'  : int(checkin_interval), 
-            'server_status'     : 'normal' 
+        return {
+            'checkin_interval'  : int(checkin_interval),
+            'server_status'     : 'normal'
         }
-    
+
     # poll for latest packages for the RHN Applet
     def poll_packages(self, release, server_arch, timestamp = 0, uuid = None):
         log_debug(1, release, server_arch, timestamp, uuid)
@@ -109,16 +109,16 @@ class Applet(rhnHandler):
         server_arch = rhnLib.normalize_server_arch(server_arch)
         timestamp = str(timestamp)
         uuid = str(uuid)
-        
+
         # get a list of acceptable channels
         channel_list = []
-        
+
         channel_list = rhnChannel.applet_channels_for_uuid(uuid)
 
         # it's possible the tie between uuid and rhnServer.id wasn't yet
         # made, default to normal behavior
         if not channel_list:
-            channel_list = rhnChannel.get_channel_for_release_arch(release, 
+            channel_list = rhnChannel.get_channel_for_release_arch(release,
                                                                    server_arch)
             channel_list = [channel_list]
         # bork if no channels returned
@@ -126,7 +126,7 @@ class Applet(rhnHandler):
             log_debug(8, "No channels for release = '%s', arch = '%s', uuid = '%s'" % (
                 release, server_arch, uuid))
             return { 'last_modified' : 0, 'contents' : [] }
-        
+
         last_channel_changed_ts = max(map(lambda a: a["last_modified"], channel_list))
 
         # make satellite content override a cache caused by hosted
@@ -142,8 +142,8 @@ class Applet(rhnHandler):
 
            if sc_ts and (sc_ts >= last_channel_changed_ts):
                client_cache_invalidated = 1
-               
-        
+
+
         if (last_channel_changed_ts <= timestamp) and (not client_cache_invalidated):
             # XXX: I hate these freaking return codes that return
             # different members in the dictinary depending on what
@@ -152,8 +152,8 @@ class Applet(rhnHandler):
             return { 'use_cached_copy' : 1 }
 
         # we'll have to return something big - compress
-        rhnFlags.set("compress_response", 1)                        
-        
+        rhnFlags.set("compress_response", 1)
+
         # Mark the response as being already XMLRPC-encoded
         rhnFlags.set("XMLRPC-Encoded-Response", 1)
 
@@ -162,7 +162,7 @@ class Applet(rhnHandler):
         label_list.sort()
         log_debug(4, "label_list", label_list)
         cache_key = "applet-poll-%s" % string.join(label_list, "-")
-        
+
         ret = rhnCache.get(cache_key, last_channel_changed_ts)
         if ret: # we have a good entry with matching timestamp
             log_debug(3, "Cache HIT for", cache_key)
@@ -211,7 +211,7 @@ class Applet(rhnHandler):
 			sq_e.synopsis as errata_synopsis,
 			sq_e.advisory as errata_advisory,
 			sq_ep.package_id
-		from	
+		from
 			rhnErrata sq_e,
 			rhnErrataPackage sq_ep,
 			rhnChannelErrata sq_ce
@@ -226,26 +226,26 @@ class Applet(rhnHandler):
         and cnp.evr_id = pe.id
         """ % (qlist, qlist))
         apply(h.execute, (), qdict)
-        
+
         plist = h.fetchall_dict()
-        
+
         if not plist:
             # We've set XMLRPC-Encoded-Response above
             ret = xmlrpclib.dumps((ret, ), methodresponse=1)
             return ret
 
         contents = {}
-        
+
         for p in plist:
             for k in p.keys():
                 if p[k] is None:
-                    p[k] = ""            
+                    p[k] = ""
             p["nevr"] = "%s-%s-%s:%s" % (
                  p["name"], p["version"], p["release"], p["epoch"])
             p["nvr"] = "%s-%s-%s" % (p["name"], p["version"], p["release"])
 
             pkg_name = p["name"]
-            
+
             if contents.has_key(pkg_name):
                 stored_pkg = contents[pkg_name]
 
@@ -269,12 +269,12 @@ class Applet(rhnHandler):
             else:
                 log_debug(7, "initial store for %s" % pkg_name)
                 contents[pkg_name] = p
-            
+
         ret["contents"] = contents.values()
-        
+
         # save it in the cache
         # We've set XMLRPC-Encoded-Response above
         ret = xmlrpclib.dumps((ret, ), methodresponse=1)
         rhnCache.set(cache_key, ret, last_channel_changed_ts)
-        
+
         return ret

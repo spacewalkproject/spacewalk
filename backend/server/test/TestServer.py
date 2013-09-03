@@ -8,10 +8,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import time
@@ -29,9 +29,9 @@ class TestServer:
     class TestServerImplementation:
 
         def __init__(self)
-            #start_init = time.time()            
+            #start_init = time.time()
 
-            
+
             self.filesuploaded = False
 
             self.options = rhnConfig.initCFG( 'server' )
@@ -39,13 +39,13 @@ class TestServer:
 
             mytime = time.time()
             self.test_username = username or ("test_username_%.3f" % mytime)
-            self.test_password = password or ("test_password_%.3f" % mytime) 
+            self.test_password = password or ("test_password_%.3f" % mytime)
             self.test_email = email or ("%s@test_domain.com" % self.test_username)
-            self.channel_arch = 'unittestarch'            
+            self.channel_arch = 'unittestarch'
 
             self.roles = ['org_admin']
             rhnFlags.set( 'outputTransportOptions', UserDictCase() )
-            
+
             self._init_db()
             self._init_org()
             self._init_user(self.roles)
@@ -57,10 +57,10 @@ class TestServer:
         def _init_db( self ):
             rhnSQL.initDB()
 
-        #creates an org 
+        #creates an org
         def _init_org( self ):
-            self.org_id, self.org_name, self.org_password = misc_functions.create_new_org() 
-        
+            self.org_id, self.org_name, self.org_password = misc_functions.create_new_org()
+
         #create a user. Must have called _init_client first.
         def _init_user( self, roles ):
             self.testuser = misc_functions.create_new_user( username=self.test_username,\
@@ -69,7 +69,7 @@ class TestServer:
                                                         org_id = self.org_id,\
                                                         #org_password = self.org_password,\
                                                         roles = roles )
-    
+
         #create a server. Must have called _init_client and _init_user.
         def _init_server( self ):
             self.testserver = misc_functions.new_server( self.testuser, self.org_id )
@@ -79,7 +79,7 @@ class TestServer:
             #create a channel family.
             self.cf = misc_functions.create_channel_family()
             self.label = self.cf.get_label()
-        
+
             #Create a new channel using the channel family info
             self.channel = misc_functions.create_channel( self.label, self.label, org_id = self.org_id )
 
@@ -89,7 +89,7 @@ class TestServer:
             VALUES ( :channel_family_id, :org_id, :max_members )"""
             insert_channel_family = rhnSQL.prepare( _insert_channel_family )
             insert_channel_family.execute( channel_family_id = self.cf.get_id(), org_id = self.org_id, max_members = 10 )
-            rhnSQL.commit() 
+            rhnSQL.commit()
 
             #Associate the channel with the server
             _insert_channel = "INSERT INTO rhnServerChannel( server_id, channel_id ) VALUES ( :server_id, :channel_id )"
@@ -133,14 +133,14 @@ class TestServer:
                                                 source = source )
                 self.filesuploaded = True
             #fin_upload = time.time()
-            #print "Upload time: %s" % ( str( fin_upload - start_upload ) 
+            #print "Upload time: %s" % ( str( fin_upload - start_upload )
 
         def getServerId( self ):
             return self.testserver.getid()
 
         def getUsername( self ):
             return self.test_username
-    
+
         def getPassword( self ):
             return self.test_password
 
@@ -149,11 +149,11 @@ class TestServer:
 
         def getChannelFamily( self ):
             return self.cf
-    
+
         def getSystemId( self ):
             return self.testserver.system_id()
 
-        
+
 
     #Will contain the reference to a TestServerImplementation object
     __instance = None
@@ -161,14 +161,14 @@ class TestServer:
     def __init__(self):
         if TestServer.__instance is None:
             TestServer.__instance = TestServer.TestServerImplementation()
-        
+
         self.__dict__['_TestServer__instance'] = TestServer.__instance
 
     def __getattr__(self, attr):
         return getattr( TestServer.__instance, attr )
 
     def __setattr__(self, attr, value):
-        return setattr( TestServer.__instance, attr, value )    
+        return setattr( TestServer.__instance, attr, value )
 
 
 _query_action_lookup = rhnSQL.Statement("""
@@ -181,7 +181,7 @@ def look_at_actions(server_id):
     h = rhnSQL.prepare(_query_action_lookup)
     h.execute(server_id=server_id)
     return h.fetchall_dict()
-    
+
 
 if __name__ == "__main__":
     myserver = TestServer()
@@ -191,19 +191,19 @@ if __name__ == "__main__":
     #up2date = myserver.getUp2date()
     #id = myserver.getSystemId()
     #print up2date.solvedep( id, ['libcaps.so'] )
-    #print "Done!" 
+    #print "Done!"
     #rhnserver = rhnServer.Server(myserver.testuser, org_id=myserver.org_id)
- 
+
     fake_key = create_activation_key(org_id=myserver.org_id, user_id=myserver.testuser.getid(), channels=[myserver.label], server_id=myserver.getServerId())
     fake_action = rhnAction.schedule_server_action(myserver.getServerId(), "packages.update", action_name="Testing", delta_time=9999, org_id=myserver.org_id)
     fake_token = rhnServer.search_token(fake_key._token)
-    
+
     print look_at_actions(myserver.getServerId())
-    
+
     rhnFlags.set("registration_token", fake_token)
     myserver.testserver.use_token()
-    
+
     print look_at_actions(myserver.getServerId())
-    
+
     rhnAction.invalidate_action(myserver.getServerId(), fake_action)
     rhnSQL.rollback()

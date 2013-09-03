@@ -11,10 +11,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 ## language imports
@@ -114,7 +114,7 @@ def create_first_org(owner):
     return get_org_id()
 
 _query_get_allorg_slot_types = rhnSQL.Statement("""
-    select sg.org_id,sg.group_type as slot_type_id, 
+    select sg.org_id,sg.group_type as slot_type_id,
            sgt.label as slot_name, sg.max_members, sg.current_members
       from rhnServerGroup sg,
            rhnServerGroupType sgt
@@ -340,7 +340,7 @@ def set_slots_from_cert(cert, testonly=False):
     h = rhnSQL.prepare(_query_get_allorg_slot_types)
     h.execute()
     row = h.fetchall_dict()
-    
+
     sys_ent_counts = {}
     extra_slots = {}
     curr_sys_ent_counts = {}
@@ -359,7 +359,7 @@ def set_slots_from_cert(cert, testonly=False):
             sys_ent_total_max[ent_name] = max_members
         else:
             sys_ent_total_max[ent_name] += max_members
-        
+
 
     for slot_type in cert.get_slot_types():
         slots = cert.get_slots(slot_type)
@@ -388,7 +388,7 @@ def set_slots_from_cert(cert, testonly=False):
 	        # If cert count is lower than existing db slot
                 purge_count = sys_ent_total_max[db_label] - int(quantity)
                 quantity = sys_ent_counts[(db_label, 1)] - purge_count
-                  
+
             else:
 	        # If cert is higher take the extra count and add to max
                 quantity = sys_ent_counts[(db_label, 1)] + \
@@ -480,16 +480,16 @@ def storeRhnCert(cert, check_generation=0, check_version=0):
         wu_up = rhnSQL.prepare(_query_update_web_user)
         wu_up.execute(owner=sc.owner)
 
-        # XXX bug 145491, there may be further work here for rhnchannelfamily, 
-        # but only if it actually affects rhn's behaviour (because it's a real 
-        # bitch to fix because the channel family's name column is *based* on 
+        # XXX bug 145491, there may be further work here for rhnchannelfamily,
+        # but only if it actually affects rhn's behaviour (because it's a real
+        # bitch to fix because the channel family's name column is *based* on
         # the certificate owner
 
         h = rhnSQL.prepare(_query_insert_cert)
         h.execute(label=label, version=version, expires=expires, issued=issued)
 
         # Oracle aparently needs a separate query to update the cert blob:
-        h.update_blob("rhnSatelliteCert", "cert", 
+        h.update_blob("rhnSatelliteCert", "cert",
             "WHERE label = :label AND version = :version", cert, label=label,
             version=version)
 
@@ -511,7 +511,7 @@ _query_latest_version = rhnSQL.Statement("""
     FROM rhnSatelliteCert
     WHERE label = :label
     ORDER BY CASE WHEN version IS NULL
-        THEN 0 
+        THEN 0
         ELSE version
     END DESC
 """)
@@ -525,7 +525,7 @@ def retrieve_db_cert(label='rhn-satellite-cert'):
     return row
 
 _query_insert_cert = rhnSQL.Statement("""
-    INSERT into rhnSatelliteCert 
+    INSERT into rhnSatelliteCert
            (label, version, cert, expires, issued)
     VALUES (:label, :version, empty_blob(),
             TO_TIMESTAMP(:expires, 'YYYY-MM-DD HH24:MI:SS'),
@@ -557,12 +557,12 @@ def push_monitoring_configs(org_id):
     if not rows:
         #since we've not found any scouts, just do nothing
         pass
-    else: 
+    else:
         for row in rows:
             push_configs_proc(org_id, row['recid'], '1')
 
         print "Pushing scout configs to all monitoring scouts"
-        
+
 
 _query_get_sat_clusters = rhnSQL.Statement("""
     SELECT recid
@@ -741,7 +741,7 @@ def create_first_private_chan_family():
     except rhnSQL.SQLError, e:
         # if we're here that means we're voilating something
         raise
-           
+
 
 def verify_family_permissions(orgid=1):
     """
@@ -770,7 +770,7 @@ def verify_family_permissions(orgid=1):
             (channel_family_id, org_id, max_members, current_members)
         VALUES  (:id, :org_id, NULL, 0)
     """
-    
+
     h = rhnSQL.prepare(_query_create_priv_chfam)
     h.execute(id=cfid['id'], org_id=orgid)
 

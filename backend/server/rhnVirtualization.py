@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # This file contains classes and functions that save and retrieve virtual
@@ -93,7 +93,7 @@ class PropertyType:
     ID          = 'id'
     MESSAGE     = 'message'
 
-CLIENT_SERVER_STATE_MAP = { 
+CLIENT_SERVER_STATE_MAP = {
     ClientStateType.NOSTATE  : ServerStateType.RUNNING,
     ClientStateType.RUNNING  : ServerStateType.RUNNING,
     ClientStateType.BLOCKED  : ServerStateType.RUNNING,
@@ -141,7 +141,7 @@ class VirtualizationEventHandler:
     ##
     # This map defines how to route each event to the appropriate handler.
     #
-    HANDLERS = { 
+    HANDLERS = {
 ( EventType.EXISTS,      TargetType.SYSTEM )  : '_handle_system_exists',
 ( EventType.EXISTS,      TargetType.DOMAIN )  : '_handle_domain_exists',
 ( EventType.REMOVED,     TargetType.DOMAIN )  : '_handle_domain_removed',
@@ -157,7 +157,7 @@ class VirtualizationEventHandler:
         ( EventType.EXISTS, TargetType.SYSTEM )  : ( PropertyType.IDENTITY,
                                                      PropertyType.UUID, ),
         ( EventType.EXISTS, TargetType.DOMAIN )  : ( PropertyType.UUID, ),
-        ( EventType.EXISTS, TargetType.LOG_MSG ) : ( PropertyType.MESSAGE, 
+        ( EventType.EXISTS, TargetType.LOG_MSG ) : ( PropertyType.MESSAGE,
                                                      PropertyType.ID, )
     }
 
@@ -199,7 +199,7 @@ class VirtualizationEventHandler:
             for required_property in required_properties:
                 if not properties.has_key(required_property):
                     raise VirtualizationEventError(
-                        "Event does not have required property:", 
+                        "Event does not have required property:",
                         required_property,
                         event)
 
@@ -230,7 +230,7 @@ class VirtualizationEventHandler:
             self.__db_insert_system(identity, system_id, uuid, virt_type)
         else:
             self.__db_update_system(identity, system_id, row)
-            
+
             self.__notify_listeners(ListenerEvent.GUEST_REGISTERED,
                     row['host_system_id'],
                     system_id)
@@ -243,23 +243,23 @@ class VirtualizationEventHandler:
             self.__db_insert_domain(system_id, uuid, properties)
 
             # We've noticed a new guest; send a notification down the pipeline.
-            self.__notify_listeners(ListenerEvent.GUEST_DISCOVERED, 
-                                    system_id, 
+            self.__notify_listeners(ListenerEvent.GUEST_DISCOVERED,
+                                    system_id,
                                     uuid)
         else:
             self.__db_update_domain(system_id, uuid, properties, row)
 
-            # We'll attempt to detect migration by checking if the host system 
+            # We'll attempt to detect migration by checking if the host system
             # ID has changed.
             if row.has_key('host_system_id') and \
                 row['host_system_id'] != system_id:
-            
+
                 self.__notify_listeners(ListenerEvent.GUEST_MIGRATED,
                                         row['host_system_id'],
                                         system_id,
                                         row['virtual_system_id'],
                                         uuid)
-                                       
+
     def _handle_domain_removed(self, system_id, timestamp, properties):
         """ Handle a domain removal.  Since we are dealing with virtual domains, we
             can't really tell whether physical removal took place, so we'll just mark
@@ -298,9 +298,9 @@ class VirtualizationEventHandler:
 
         condition = None
 
-        # The SELECT condition is different, depending on whether this system 
-        # is a host or a guest.  A guest will always have a UUID, while a host 
-        # will never have one.  Instead, a host should be identified by its 
+        # The SELECT condition is different, depending on whether this system
+        # is a host or a guest.  A guest will always have a UUID, while a host
+        # will never have one.  Instead, a host should be identified by its
         # sysid only.
         #
         # When IdentityType.GUEST, need to worry about cross-org issues...
@@ -328,7 +328,7 @@ class VirtualizationEventHandler:
                         and shost.id = vi.host_system_id
                         and sguest.id = :system_id
                         and shost.org_id = sguest.org_id )
-            """ 
+            """
         else:
             raise VirtualizationEventError(
                 "Unknown identity:", identity)
@@ -347,7 +347,7 @@ class VirtualizationEventHandler:
         """ % (condition)
         query = rhnSQL.prepare(select_sql)
         query.execute(system_id = system_id, uuid = uuid)
- 
+
         row = query.fetchone_dict() or {}
 
         return row
@@ -361,19 +361,19 @@ class VirtualizationEventHandler:
         host_id  = None
         guest_id = None
         if   identity == IdentityType.HOST:  host_id  = system_id
-        elif identity == IdentityType.GUEST: 
+        elif identity == IdentityType.GUEST:
             guest_id = system_id
 
             # Check to see if this uuid has already been registered to a
             # host and is confirmed.
             check_sql = """
-                select 
+                select
                     vi.id,
                     vi.host_system_id,
                     vi.confirmed
-                from 
+                from
                     rhnVirtualInstance vi
-                where 
+                where
                     vi.uuid = :uuid
                     and confirmed = 1
             """
@@ -403,7 +403,7 @@ class VirtualizationEventHandler:
 
         if not row or not row.has_key('id'):
             raise VirtualizationEventError('unable to get virt instance id')
-        
+
         insert_sql = """
             INSERT INTO rhnVirtualInstance
                 (id, host_system_id, virtual_system_id, uuid, confirmed)
@@ -435,7 +435,7 @@ class VirtualizationEventHandler:
         """
         query = rhnSQL.prepare(insert_sql)
         query.execute(id=row['id'],
-                      state = ServerStateType.UNKNOWN, 
+                      state = ServerStateType.UNKNOWN,
                       virt_type = virt_type)
 
     def __db_update_system(self, identity, system_id, existing_row):
@@ -447,13 +447,13 @@ class VirtualizationEventHandler:
 
         new_values_array = []
         bindings = {}
-        if not existing_row.get('confirmed'): 
+        if not existing_row.get('confirmed'):
             new_values_array.append("confirmed=1")
 
         # Some guests may have been unregistered before, and therefore did not
         # have sysid's.  If we got an EXISTS for a guest system, then a guest
-        # must have been registered.  Make sure that we update the 
-        # virtual_system_id column in the DB to reflect that this guest is now 
+        # must have been registered.  Make sure that we update the
+        # virtual_system_id column in the DB to reflect that this guest is now
         # registered.
         if identity == IdentityType.GUEST:
             if existing_row['virtual_system_id'] != system_id:
@@ -466,7 +466,7 @@ class VirtualizationEventHandler:
         # Only touch the database if something changed.
         if new_values_array:
             new_values = string.join(new_values_array, ', ')
-        
+
             bindings['row_id'] = existing_row['id']
 
             update_sql = """
@@ -502,8 +502,8 @@ class VirtualizationEventHandler:
                                WHERE matching_uuid_system.id = rvi.virtual_system_id
                                  AND host_system.id = :host_id
                                  AND host_system.org_id != matching_uuid_system.org_id)) or
-                 (:uuid is null and 
-                      rvi.uuid is null and 
+                 (:uuid is null and
+                      rvi.uuid is null and
                       rvi.host_system_id=:host_id)) and
                 rvi.id = rvii.instance_id and
                 rvit.id = rvii.instance_type and
@@ -511,13 +511,13 @@ class VirtualizationEventHandler:
         """
         query = rhnSQL.prepare(select_sql)
         query.execute(host_id = host_id, uuid = uuid)
- 
+
         row = query.fetchone_dict() or {}
 
         return row
 
     def __db_insert_domain(self, host_id, uuid, properties):
-        """ To create a new domain, we must modify both the rhnVirtualInstance 
+        """ To create a new domain, we must modify both the rhnVirtualInstance
             and the rhnVirtualInstanceInfo tables.
         """
         # We'll do rhnVirtualInstance first.
@@ -551,10 +551,10 @@ class VirtualizationEventHandler:
                  state)
             SELECT
                 :id,
-                :name, 
+                :name,
                 :vcpus,
                 :memory,
-                rvit.id, 
+                rvit.id,
                 rvis.id
             FROM
                 rhnVirtualInstanceType rvit,
@@ -579,18 +579,18 @@ class VirtualizationEventHandler:
 
     def __db_update_domain(self, host_id, uuid, properties, existing_row):
 
-        # First, update the rhnVirtualInstance table.  If a guest domain was 
-        # registered but its host was not, it is possible that the 
+        # First, update the rhnVirtualInstance table.  If a guest domain was
+        # registered but its host was not, it is possible that the
         # rhnVirtualInstance table's host_system_id column is null.  We'll
         # update that now, if need be.
 
         # __db_get_domain is responsible for ensuring that the org for any
         # existing_row matches the org for host_id
-        
+
         new_values_array = []
         bindings = {}
 
-        if not existing_row.get('confirmed'): 
+        if not existing_row.get('confirmed'):
             new_values_array.append('confirmed=1')
 
         if existing_row['host_system_id'] != host_id:
@@ -600,7 +600,7 @@ class VirtualizationEventHandler:
         # Only touch the database if something changed.
         if new_values_array:
             new_values = string.join(new_values_array, ', ')
-        
+
             bindings['row_id'] = existing_row['rvi_id']
 
             update_sql = """
@@ -615,7 +615,7 @@ class VirtualizationEventHandler:
                 raise VirtualizationEventError, str(e), sys.exc_info()[2]
 
         # Now update the rhnVirtualInstanceInfo table.
- 
+
         new_values_array = []
         bindings = {}
 
@@ -648,8 +648,8 @@ class VirtualizationEventHandler:
            existing_row['state'] != properties[PropertyType.STATE]:
             new_values_array.append("""
                 state = (
-                    SELECT rvis.id 
-                    FROM rhnVirtualInstanceState rvis 
+                    SELECT rvis.id
+                    FROM rhnVirtualInstanceState rvis
                     WHERE rvis.label = :state)
             """)
             bindings['state'] = properties[PropertyType.STATE]
@@ -657,7 +657,7 @@ class VirtualizationEventHandler:
         # Only touch the database if something changed.
         if new_values_array:
             new_values = string.join(new_values_array, ', ')
-        
+
             bindings['row_id'] = existing_row['instance_id']
 
             update_sql = """
@@ -685,14 +685,14 @@ class VirtualizationEventHandler:
         query.execute(sysid=system_id)
 
     def __remove_unconfirmed_domains(self, system_id):
-        """ Mark the unconfirmed entries in the RVII table as stopped, since it 
+        """ Mark the unconfirmed entries in the RVII table as stopped, since it
             appears they are no longer running.
         """
-     
+
         update_sql = """
             UPDATE rhnVirtualInstanceInfo rvii
             SET state=(
-                SELECT rvis.id 
+                SELECT rvis.id
                 FROM rhnVirtualInstanceState rvis
                 WHERE rvis.label=:state
             )
@@ -720,11 +720,11 @@ class VirtualizationEventHandler:
                 (sequence_nextval('rhn_viil_id_seq'), :log_message, :kickstart_session_id)
         """
         query = rhnSQL.prepare(insert_sql)
-        query.execute(log_message          = log_message, 
+        query.execute(log_message          = log_message,
                       kickstart_session_id = kickstart_session_id)
 
     def __convert_properties(self, properties):
-        """ This function normalizes and converts the values of some properties to 
+        """ This function normalizes and converts the values of some properties to
             format consumable by the server.
         """
         # Attempt to normalize the UUID.
@@ -734,14 +734,14 @@ class VirtualizationEventHandler:
                 uuid_as_number = string.atol(uuid, 16)
 
                 if uuid_as_number == 0:
-                    # If the UUID is a bunch of null bytes, we will convert it 
-                    # to None.  This will allow us to interact with the 
+                    # If the UUID is a bunch of null bytes, we will convert it
+                    # to None.  This will allow us to interact with the
                     # database properly, since the database assumes a null UUID
                     # when the system is a host.
                     properties[PropertyType.UUID] = None
                 else:
-                    # Normalize the UUID.  We don't know how it will appear 
-                    # when it comes from the client, so we'll convert it to a 
+                    # Normalize the UUID.  We don't know how it will appear
+                    # when it comes from the client, so we'll convert it to a
                     # normal form.
                     # if UUID had leading 0, we must pad 0 again #429192
                     properties[PropertyType.UUID] = "%032x" % uuid_as_number
@@ -777,7 +777,7 @@ def _notify_guest(server_id, uuid, virt_type):
          * system_id   - a string representation of the system's system id.
          * uuid        - a string representation of the system's uuid.
          * virt_type   - a string representation of the system's virt type
- 
+
          No return value.
     """
     identity = IdentityType.GUEST
@@ -815,17 +815,17 @@ def _virt_notify(server_id, actions):
 def _make_virt_action(event, target, properties):
     """
     Construct a tuple representing a virtualization action.
-    
-    New for RHEL 5. 
-    
+
+    New for RHEL 5.
+
     Args are:
-    * event       - one of EventType.EXISTS, EventType.REMOVED, 
+    * event       - one of EventType.EXISTS, EventType.REMOVED,
                     EventType.CRAWL_BEGAN, EventType.CRAWL_ENDED
-    * target      - one of TargetType.SYSTEM, TargetType.DOMAIN, 
+    * target      - one of TargetType.SYSTEM, TargetType.DOMAIN,
                     TargetType.LOG_MSG
     * properties  - a dictionary that associates a PropertyType with
                     a value (typically a string).
-    
+
     Return a tuple consisting of (timestamp, event, target, properties).
     """
 
@@ -836,7 +836,7 @@ def _make_virt_action(event, target, properties):
 def is_host_uuid(uuid):
     uuid = eval('0x%s' % uuid)
     return long(uuid) == 0L
-    
+
 
 ###############################################################################
 # Testing
@@ -852,15 +852,15 @@ if __name__ == '__main__':
 
     # Create some fake actions.
 
-    host_exists  = ( int(time.time()), 
-                     EventType.EXISTS, 
-                     TargetType.SYSTEM, 
+    host_exists  = ( int(time.time()),
+                     EventType.EXISTS,
+                     TargetType.SYSTEM,
                      { PropertyType.UUID     : None,
                        PropertyType.IDENTITY : IdentityType.HOST   })
 
-    guest_exists = ( int(time.time()), 
-                     EventType.EXISTS, 
-                     TargetType.SYSTEM, 
+    guest_exists = ( int(time.time()),
+                     EventType.EXISTS,
+                     TargetType.SYSTEM,
                      { PropertyType.UUID     : '2e2e2e2e2e2e2e2e',
                        PropertyType.IDENTITY : IdentityType.GUEST  })
 
@@ -954,7 +954,7 @@ if __name__ == '__main__':
 ###############################################################################
 
 class VirtualizationListener:
-    
+
     def __init__(self):
         pass
 

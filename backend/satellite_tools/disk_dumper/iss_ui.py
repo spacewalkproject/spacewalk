@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 from optparse import OptionParser, Option
@@ -22,12 +22,12 @@ option = Option
 
 class UI:
     def __init__(self):
-        self.optiontable =  [ 
-            option("-d",    "--dir",                    action="store",     
+        self.optiontable =  [
+            option("-d",    "--dir",                    action="store",
                 help="This is the directory that the information that you want to sync gets dumped in."),
             option(         "--hard-links",             action="store_true",        default=0,
                 help="Exported RPM and kickstart are hard linked to original files."),
-            option(         "--list-channels",          action="store_true",    default=0,  
+            option(         "--list-channels",          action="store_true",    default=0,
                 help="List all of the channels that can be exported."),
             option(         "--list-steps",             action="store_true",    default=0,
                 help="List all of the steps that rhn-satellite-exporter takes while exporting data. These can be used as values for --step"),
@@ -80,11 +80,11 @@ class UI:
         self.options, self.args = self.optionparser.parse_args()
         if self.options.verbose and not self.options.debug_level:
             self.options.debug_level=3
-         
+
         for i in self.options.__dict__.keys():
             if not self.__dict__.has_key(i):
                 self.__dict__[i] = self.options.__dict__[i]
 
 if __name__ == "__main__":
-    a = UI() 
+    a = UI()
     print str(a.no_errata)

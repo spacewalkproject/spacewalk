@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 
@@ -42,12 +42,12 @@ def set_client_capabilities(capabilities):
         name = string.strip(dict['name'])
         version = string.strip(dict['version'])
         value = string.strip(dict['value'])
-        
+
         caps[name] = {
             'version'   : version,
             'value'     : value,
         }
-        
+
     rhnFlags.set('client-capabilities', caps)
     log_debug(4, "Client capabilities", caps)
 
@@ -79,7 +79,7 @@ def update_client_capabilities(server_id):
         row = h.fetchone_dict()
         if not row:
             break
-        
+
         name = row['capability']
         version = row['version']
         capability_name_id = row['capability_name_id']
@@ -129,8 +129,8 @@ def update_client_capabilities(server_id):
 
     if inserts['server_id']:
         h = rhnSQL.prepare("""
-            insert into rhnClientCapability 
-            (server_id, capability_name_id, version) 
+            insert into rhnClientCapability
+            (server_id, capability_name_id, version)
             values (:server_id, LOOKUP_CLIENT_CAPABILITY(:capability), :version)
         """)
         apply(h.executemany, (), inserts)

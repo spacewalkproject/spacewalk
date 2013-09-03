@@ -8,10 +8,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Test for blob updates
@@ -24,7 +24,7 @@ To create the table for this test run:
 
 drop table test_blob_update;
 
-create table test_blob_update 
+create table test_blob_update
     (id1 int not null, id2 int, val1 blob, val2 blob, nval int not null);
 """
 
@@ -65,7 +65,7 @@ def main():
     blob_values2[4][2:5] = [newval5_1, newval5_2, 33]
     blob_values2[5][2:5] = [newval6_1, newval6_2, 4]
 
-    test_blob_update = Table("test_blob_update", 
+    test_blob_update = Table("test_blob_update",
         fields = {
             'id1'   : DBint(),
             'id2'   : DBint(),
@@ -77,7 +77,7 @@ def main():
         pk = ['id2', 'id1'],
         nullable = ['id2'],
     )
-    
+
     fields = ['id1', 'id2', 'val1', 'val2', 'nval']
     setup(test_blob_update, blob_values1, fields)
     print "Insert test"
@@ -105,12 +105,12 @@ def _build_update_hash(fields, blob_values, rows):
             values[f].append(row[j])
 
     return values
-    
+
 
 def setup(table, blob_values, fields):
     h = rhnSQL.prepare("delete from test_blob_update")
     h.execute()
-    
+
     hash_values = {}
     for f in fields:
         hash_values[f] = []
@@ -133,7 +133,7 @@ def verify(blob_values):
         v1 = v[2]
         v2 = v[3]
         hval = {'id1' : i1}
-        if i2 is None:  
+        if i2 is None:
             s = "id2 is null"
         else:
             s = "id2 = :id2"

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Common data structures used throughout the import code
@@ -44,7 +44,7 @@ class Item(UserDict):
         return self
 
     def __repr__(self):
-        return "[<%s instance; attributes=%s]" % (str(self.__class__), 
+        return "[<%s instance; attributes=%s]" % (str(self.__class__),
             str(self.data))
 
 # BaseInformation is an Item with a couple of other features (an id, an ignored
@@ -55,7 +55,7 @@ class BaseInformation(Item):
     """
     def __init__(self, dict=None):
         Item.__init__(self, dict)
-        # Initialize attributes 
+        # Initialize attributes
         for k in dict.keys():
             self[k] = None
         # Each information object has an id (which is set by the database)
@@ -127,14 +127,14 @@ class Collection(UserList):
         for obj in other:
             validateInformation(obj)
         UserList.__add__(self, other)
-        
+
     def __radd__(self, other):
         for obj in other:
             validateInformation(obj)
         UserList.__radd__(self, other)
 
     def __repr__(self):
-        return "[<%s instance; items=%s]" % (str(self.__class__), 
+        return "[<%s instance; items=%s]" % (str(self.__class__),
             str(self.data))
 
 
@@ -694,7 +694,7 @@ class GenericPackageImport(Import):
 
         if not self.package_arches.has_key(package.arch):
             self.package_arches[package.arch] = None
-   
+
         for type, chksum in package['checksums'].iteritems():
             checksumTuple = (type, chksum)
             if not checksumTuple in self.checksums:
@@ -705,7 +705,7 @@ class GenericPackageImport(Import):
         if not arch:
             # Unsupported arch
             package.ignored = 1
-            raise InvalidArchError(package.arch, 
+            raise InvalidArchError(package.arch,
                 "Unknown arch %s" % package.arch)
 
 #        package['package_arch_id'] = arch

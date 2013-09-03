@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import time
@@ -306,7 +306,7 @@ class _ChannelDumper(BaseRowDumper):
     def set_iterator(self):
         channel_id = self._row['id']
         arr = []
-        mappings = [ 
+        mappings = [
             ('rhn-channel-parent-channel', 'parent_channel'),
             ('rhn-channel-basedir', 'basedir'),
             ('rhn-channel-name', 'name'),
@@ -318,7 +318,7 @@ class _ChannelDumper(BaseRowDumper):
         for k, v in mappings:
             arr.append(SimpleDumper(self._writer, k, self._row[v]))
 
-        arr.append(SimpleDumper(self._writer, 'rhn-channel-last-modified', 
+        arr.append(SimpleDumper(self._writer, 'rhn-channel-last-modified',
             _dbtime2timestamp(self._row['last_modified']))
         )
         channel_product_details = self._get_channel_product_details()
@@ -491,7 +491,7 @@ class _ChannelDumper(BaseRowDumper):
            and e.last_modified >= TO_TIMESTAMP(:lower_limit, 'YYYYMMDDHH24MISS')
            and e.last_modified <= TO_TIMESTAMP(:upper_limit, 'YYYYMMDDHH24MISS')
     """ % _query__get_errata_ids)
-    
+
     def _get_errata_ids(self):
         return self._get_ids(self._query__get_errata_ids_by_limits,
                              self._query__get_errata_ids_by_rhnlimits,
@@ -678,7 +678,7 @@ class ChannelFamiliesDumper(BaseQueryDumper):
     tag_name = 'rhn-channel-families'
     iterator_query = 'select cf.* from rhnChannelFamily'
 
-    def __init__(self, writer, data_iterator=None, ignore_subelements=0, 
+    def __init__(self, writer, data_iterator=None, ignore_subelements=0,
             null_max_members=1, virt_filter=0):
         BaseQueryDumper.__init__(self, writer, data_iterator=data_iterator)
         self._ignore_subelements = ignore_subelements
@@ -686,7 +686,7 @@ class ChannelFamiliesDumper(BaseQueryDumper):
         self.virt_filter = virt_filter
 
     def dump_subelement(self, data):
-        cf = _ChannelFamilyDumper(self._writer, data, 
+        cf = _ChannelFamilyDumper(self._writer, data,
             ignore_subelements=self._ignore_subelements,
             null_max_members=self._null_max_members, virt_filter=self.virt_filter)
         cf.dump()
@@ -701,7 +701,7 @@ class _ChannelFamilyDumper(BaseRowDumper):
         self._null_max_members = null_max_members
 
         self._virt_filter      = virt_filter
-    
+
     _query_cf_virt_sublevel = """
         select vsl.label, vsl.name
           from rhnChannelFamilyVirtSubLevel cfvsl,
@@ -715,7 +715,7 @@ class _ChannelFamilyDumper(BaseRowDumper):
 
         arr = []
 
-        mappings = [ 
+        mappings = [
             ('rhn-channel-family-name', 'name'),
             ('rhn-channel-family-product-url', 'product_url'),
         ]
@@ -749,7 +749,7 @@ class _ChannelFamilyDumper(BaseRowDumper):
 
             vsl_name = map(lambda x: x['name'], cf_virt_data)
             cf_vsl_name = ','.join(vsl_name)
-        
+
         attributes = {
             'id'            : "rhn-channel-family-%s" % channel_family_id,
             'label'         : self._row['label'],
@@ -758,7 +758,7 @@ class _ChannelFamilyDumper(BaseRowDumper):
         if not self._virt_filter and cf_virt_data != []:
             attributes['virt-sub-level-label'] = cf_vsl_label
             attributes['virt-sub-level-name'] = cf_vsl_name
-            
+
         if self._ignore_subelements:
             return attributes
         if self._row['label'] != 'rh-public':
@@ -774,7 +774,7 @@ class _PackageDumper(BaseRowDumper):
 
     def set_attributes(self):
         attrs = ["name", "version", "release", "package_arch",
-            "package_group", "rpm_version", "package_size", "payload_size", 
+            "package_group", "rpm_version", "package_size", "payload_size",
             "installed_size", "build_host", "source_rpm", "payload_format",
             "compat"]
         attr_dict = {
@@ -795,7 +795,7 @@ class _PackageDumper(BaseRowDumper):
     def set_iterator(self):
         arr = []
 
-        mappings = [ 
+        mappings = [
             ('rhn-package-summary', 'summary'),
             ('rhn-package-description', 'description'),
             ('rhn-package-vendor', 'vendor'),
@@ -814,7 +814,7 @@ class _PackageDumper(BaseRowDumper):
                         data_iterator=ArrayIterator(checksum_arr)))
 
         h = rhnSQL.prepare("""
-            select 
+            select
                 name, text,
                 TO_CHAR(time, 'YYYYMMDDHH24MISS') as time
             from rhnPackageChangeLog
@@ -848,13 +848,13 @@ class _PackageDumper(BaseRowDumper):
                 and pd.package_id = :package_id
             """ % table_name)
             h.execute(package_id = self._row['id'])
-            arr.append(_DependencyDumper(self._writer, data_iterator=h, 
+            arr.append(_DependencyDumper(self._writer, data_iterator=h,
                 container_name=container_name,
                 entry_name=entry_name))
 
         # Files
         h = rhnSQL.prepare("""
-            select 
+            select
                 pc.name, pf.device, pf.inode, pf.file_mode, pf.username,
                 pf.groupname, pf.rdev, pf.file_size,
                 TO_CHAR(mtime, 'YYYYMMDDHH24MISS') mtime,
@@ -910,7 +910,7 @@ class SourcePackagesDumper(BaseQueryDumper):
     def dump_subelement(self, data):
         attributes = {}
         attrs = [
-            "id", "source_rpm", "package_group", "rpm_version", 
+            "id", "source_rpm", "package_group", "rpm_version",
             "payload_size", "build_host", "sigchecksum_type", "sigchecksum", "vendor",
             "cookie", "package_size", "checksum_type", "checksum"
         ]
@@ -940,7 +940,7 @@ class _ChangelogEntryDumper(BaseRowDumper):
 
     def set_iterator(self):
         arr = []
-        mappings = [ 
+        mappings = [
             ('rhn-package-changelog-entry-name', 'name'),
             ('rhn-package-changelog-entry-text', 'text'),
         ]
@@ -985,7 +985,7 @@ class _PackageFilesDumper(BaseDumper):
             data['md5'] = data['checksum']
         data['linkto'] = data['linkto'] or ""
         data['lang'] = data['lang'] or ""
-        d = EmptyDumper(self._writer, 'rhn-package-file', 
+        d = EmptyDumper(self._writer, 'rhn-package-file',
             attributes=data)
         d.dump()
 
@@ -1009,7 +1009,7 @@ class _ErratumDumper(BaseRowDumper):
             where ep.errata_id = :errata_id
         """)
         h.execute(errata_id=self._row['id'])
-        packages = map(lambda x: "rhn-package-%s" % x['package_id'], 
+        packages = map(lambda x: "rhn-package-%s" % x['package_id'],
             h.fetchall_dict() or [])
 
         h = rhnSQL.prepare("""
@@ -1020,7 +1020,7 @@ class _ErratumDumper(BaseRowDumper):
         """)
         h.execute(errata_id=self._row['id'])
         cves = map(lambda x: x['cve'], h.fetchall_dict() or [])
-        
+
         return {
             'id'        : 'rhn-erratum-%s' % self._row['id'],
             'org_id'    : self._row['org_id'] or "",
@@ -1083,7 +1083,7 @@ class _ErratumDumper(BaseRowDumper):
                 and ef.type = eft.id
                 and ef.checksum_id = c.id
                 %s
-        """  
+        """
         h = rhnSQL.prepare(_query_errata_file_info % self.type_id_column)
         h.execute(errata_id=self._row['id'])
         arr.append(_ErratumFilesDumper(self._writer, data_iterator=h))
@@ -1112,7 +1112,7 @@ class _ErratumBugDumper(BaseRowDumper):
     def set_iterator(self):
         arr = [
             SimpleDumper(self._writer, 'rhn-erratum-bug-id', self._row['bug_id']),
-            SimpleDumper(self._writer, 'rhn-erratum-bug-summary', 
+            SimpleDumper(self._writer, 'rhn-erratum-bug-summary',
                 self._row['summary'] or ""),
             SimpleDumper(self._writer, 'rhn-erratum-bug-href', self._row['href']),
         ]
@@ -1165,7 +1165,7 @@ class _ErratumFilesDumper(BaseSubelementDumper):
 class BaseArchesDumper(BaseDumper):
     table_name = 'foo'
     subelement_tag = 'foo'
-    
+
     def set_iterator(self):
         h = rhnSQL.prepare("""
             select id, label, name
@@ -1190,7 +1190,7 @@ class RestrictedArchesDumper(BaseArchesDumper):
 
     def set_iterator(self):
         query_templ = """
-            select aa.id, aa.label, aa.name, 
+            select aa.id, aa.label, aa.name,
                    at.label arch_type_label, at.name arch_type_name
               from %s aa,
                    rhnArchType at
@@ -1252,7 +1252,7 @@ class RestrictedArchCompatDumper(BaseArchesDumper):
         _virt_filter_sql = ""
         if self.virt_filter:
             _virt_filter_sql = """and sgt.label not like 'virt%'"""
-        
+
         if self._subelement_tag == 'rhn-server-group-server-arch-compat':
             if self.rpm_arch_type_only:
                 h = rhnSQL.prepare(self._query_rpm_arch_type_only % _virt_filter_sql)
@@ -1269,16 +1269,16 @@ class RestrictedArchCompatDumper(BaseArchesDumper):
 
     def dump_subelement(self, data):
         EmptyDumper(self._writer, self._subelement_tag, data).dump()
-        
+
 class ServerPackageArchCompatDumper(RestrictedArchCompatDumper):
     tag_name = 'rhn-server-package-arch-compatibility-map'
     _subelement_tag = 'rhn-server-package-arch-compat'
 
     _query_rpm_arch_type_only = rhnSQL.Statement("""
-        select sa.label "server-arch", 
+        select sa.label "server-arch",
             pa.label "package-arch",
             spac.preference
-        from rhnServerPackageArchCompat spac, 
+        from rhnServerPackageArchCompat spac,
             rhnServerArch sa,
             rhnPackageArch pa,
             rhnArchType aas,
@@ -1292,10 +1292,10 @@ class ServerPackageArchCompatDumper(RestrictedArchCompatDumper):
     """)
 
     _query_arch_type_all = rhnSQL.Statement("""
-        select sa.label "server-arch", 
+        select sa.label "server-arch",
             pa.label "package-arch",
             spac.preference
-        from rhnServerPackageArchCompat spac, 
+        from rhnServerPackageArchCompat spac,
             rhnServerArch sa,
             rhnPackageArch pa
         where spac.server_arch_id = sa.id
@@ -1309,9 +1309,9 @@ class ServerChannelArchCompatDumper(RestrictedArchCompatDumper):
 
 
     _query_rpm_arch_type_only = rhnSQL.Statement("""
-        select sa.label "server-arch", 
+        select sa.label "server-arch",
                ca.label "channel-arch"
-          from rhnServerChannelArchCompat scac, 
+          from rhnServerChannelArchCompat scac,
                rhnServerArch sa,
                rhnChannelArch ca,
                rhnArchType aas,
@@ -1325,9 +1325,9 @@ class ServerChannelArchCompatDumper(RestrictedArchCompatDumper):
     """)
 
     _query_arch_type_all = rhnSQL.Statement("""
-        select sa.label "server-arch", 
+        select sa.label "server-arch",
                ca.label "channel-arch"
-          from rhnServerChannelArchCompat scac, 
+          from rhnServerChannelArchCompat scac,
                rhnServerArch sa,
                rhnChannelArch ca
          where scac.server_arch_id = sa.id
@@ -1342,7 +1342,7 @@ class ChannelPackageArchCompatDumper(RestrictedArchCompatDumper):
     _query_rpm_arch_type_only = rhnSQL.Statement("""
         select ca.label "channel-arch",
                pa.label "package-arch"
-          from rhnChannelPackageArchCompat cpac, 
+          from rhnChannelPackageArchCompat cpac,
                rhnChannelArch ca,
                rhnPackageArch pa,
                rhnArchType aac,
@@ -1358,7 +1358,7 @@ class ChannelPackageArchCompatDumper(RestrictedArchCompatDumper):
     _query_arch_type_all = rhnSQL.Statement("""
         select ca.label "channel-arch",
                pa.label "package-arch"
-          from rhnChannelPackageArchCompat cpac, 
+          from rhnChannelPackageArchCompat cpac,
                rhnChannelArch ca,
                rhnPackageArch pa
          where cpac.channel_arch_id = ca.id

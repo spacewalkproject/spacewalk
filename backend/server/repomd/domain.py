@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 #   Domain Classes for generating repository metadata from RHN info.
@@ -19,7 +19,7 @@
 class Channel:
 
     """ A pure data object representing an RHN Channel. """
-    
+
     def __init__(self, channel_id):
         self.id = channel_id
 
@@ -37,7 +37,7 @@ class Channel:
 class Package:
 
     """ A pure data object representing an RHN Package. """
-    
+
     def __init__(self, package_id):
         self.id = package_id
 
@@ -78,7 +78,7 @@ class Package:
 
 
 class Erratum:
-    
+
     """ An object representing a single update to a channel. """
 
     def __init__(self, erratum_id):

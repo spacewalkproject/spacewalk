@@ -8,10 +8,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # UTF-8 aware XML writer
 #
@@ -24,7 +24,7 @@ class XMLWriter:
     """
     XML writer, UTF-8 aware
     """
-    
+
     # We escape &<>'" and chars UTF-8 does not properly escape (everything
     # other than tab (\x09), newline and carriage return (\x0a and \x0d) and
     # stuff above ASCII 32)
@@ -44,14 +44,14 @@ class XMLWriter:
 
     def open_tag(self, name, attributes=None, namespace=None):
         "Opens a tag with the specified attributes"
-        return self._open_tag(None, name, attributes=attributes, 
+        return self._open_tag(None, name, attributes=attributes,
             namespace=namespace)
 
     def empty_tag(self, name, attributes=None, namespace=None):
         "Writes an empty tag with the specified attributes"
         return self._open_tag(1, name, attributes=attributes,
             namespace=namespace)
-    
+
     # Now the function that does most of the work for open_tag and empty_tag
     def _open_tag(self, empty, name, attributes=None, namespace=None):
         if namespace:
@@ -133,4 +133,4 @@ if __name__ == '__main__':
     writer.empty_tag("yahoo", attributes={'abc' : 1})
     writer.close_tag(weirdtag)
     print
-    
+

@@ -31,7 +31,7 @@ class Certificate(Authentication):
         self.functions = [
             'download',
         ]
-        
+
     def download(self, system_id):
         log_debug(3)
         self.auth_system(system_id)
@@ -49,7 +49,7 @@ class Certificate(Authentication):
 
         # Bugzilla #219625
         # cert is now a blob
-        cert = row['cert']            
+        cert = row['cert']
         cert = cert.read()
 
         return cert
