@@ -92,11 +92,6 @@ rhnSharedChannelView             :: rhnChannel rhnChannelTrust rhnTrustedOrgs
 rhnSharedChannelTreeView         :: rhnSharedChannelView
 rhnUserActionOverview            :: rhnActionStatus rhnUserServerPerms rhnServerAction \
                                     rhnActionOverview 
-rhnServerNeededView              :: rhnPackage rhnChannelNewestPackage \
-                                    rhnPackageEVR rhnServerPackage \
-                                    rhnChannelPackage rhnServerChannel \
-                                    rhnServer rhnErrataPackage \
-                                    rhnChannelErrata rhnPackageUpgradeArchCompat
 rhnPackageChangeLog              :: rhnPackageChangeLogData rhnPackageChangeLogRec
 rhnUserReceiveNotifications      :: rhnUserServerPerms rhnWebContactDisabled web_contact \
                                     rhnUserInfo web_user_personal_info rhnUserServerPrefs

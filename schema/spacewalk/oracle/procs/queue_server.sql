@@ -27,12 +27,7 @@ IS
 BEGIN
     IF immediate_in > 0
     THEN
-        DELETE FROM rhnServerNeededCache WHERE server_id = server_id_in;
-        INSERT INTO rhnServerNeededCache
-       	    (SELECT server_id, errata_id, package_id
-	       FROM rhnServerNeededView
-              WHERE server_id = server_id_in);
-
+          rhn_server.update_needed_cache(server_id_in);
     ELSE
           SELECT org_id INTO org_id_tmp FROM rhnServer WHERE id = server_id_in;
 	  

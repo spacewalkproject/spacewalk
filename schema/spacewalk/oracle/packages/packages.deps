@@ -65,5 +65,8 @@ rhn_server.pkb          :: rhnServerChannel rhnConfigFileName \
                            rhnUserManagedServerGroups rhnServerEntitlementVirtual \
                            rhnSatelliteInfo rhnProxyInfo \
                            lookup_functions lookup_first_matching_cf \
-                           set_ks_session_history_message
+                           set_ks_session_history_message \
+                           rhnPackage rhnChannelNewestPackage \
+                           rhnPackageEVR rhnChannelPackage rhnErrataPackage \
+                           rhnChannelErrata rhnPackageUpgradeArchCompat
 rhn_user.pkb            :: rhnUserTypeBase

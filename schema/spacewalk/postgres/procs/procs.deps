@@ -112,9 +112,8 @@ lookup_xccdf_ident              :: rhnXccdfIdentSystem \
 lookup_xccdf_profile            :: rhnXccdfProfile \
                                    pg_dblink_exec
 pxt_session_cleanup             :: PXTSessions
-queue_server                    :: rhnServerNeededPackageCache rhnTaskQueue \
-                                   rhnServer \
-                                   rhnServerNeededErrataCache rhnServerNeededView
+queue_server                    :: rhnTaskQueue rhnServer \
+                                   rhn_server.update_needed_cache
 
 rhn_install_org_satellites      :: rhn_command_queue_instances rhn_ll_netsaint \
                                    rhn_sat_cluster web_customer \
