@@ -68,6 +68,11 @@ public class UpdateErrataCacheCommand extends BaseTransactionCommand {
 
         Org org = OrgFactory.lookupById(orgId);
 
+        if (org == null) {
+            log.error("Org with id " + orgId + " was not found");
+            return;
+        }
+
         int count = ErrataCacheManager.countServersInQueue(org);
 
         if (log.isDebugEnabled()) {
