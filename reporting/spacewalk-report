@@ -64,7 +64,7 @@ def processCommandline():
 		Option('--where-<column-id>', action='store', metavar='VALUE',
 			dest='_where_trap',
 			help='limit the output to records where column-id has value VALUE'),
-		Option('--like<column-id>', action='store', metavar='VALUE',
+		Option('--like-<column-id>', action='store', metavar='VALUE',
       dest='_like_trap',
       help='limit the output to records where column-id has value like VALUE (string only)'),
 		Option('--timezone', action='store', type='str',
