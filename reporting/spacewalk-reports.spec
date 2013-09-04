@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.5
+Version: 2.1.6
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Wed Sep 04 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.6-1
+- updating help text - forgotten "-" sign
+
 * Mon Aug 19 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.5-1
 - 997909 - updating man page
 - 997909 - report all dates in spacewalk-report as UTC by default
