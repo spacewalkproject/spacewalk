@@ -142,11 +142,11 @@ public class MasterHandler extends BaseHandler {
     }
 
     /**
-     * Return the current default-master for this slave
+     * Return the current default-Master for this Slave
      * @param sessionKey User's session key
-     * @return current default master, null if there isn't one
+     * @return current default Master, null if there isn't one
      *
-     * @xmlrpc.doc Return the current default-master for this slave
+     * @xmlrpc.doc Return the current default-Master for this Slave
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype $IssMasterSerializer
      */
@@ -179,7 +179,7 @@ public class MasterHandler extends BaseHandler {
      * @param caCertFilename path to this Master's CA Cert on this Slave
      * @return 1 on success, exception otherwise
      *
-     * @xmlrpc.doc Make the specified Master the default for this Slave's satellite-sync
+     * @xmlrpc.doc Set the CA-CERT filename for specified Master on this Slave
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("int", "id", "Id of the Master to affect")
      * @xmlrpc.param #param_desc("string", "caCertFilename",
@@ -198,7 +198,7 @@ public class MasterHandler extends BaseHandler {
      * @param masterId Id of the Master to look for
      * @return the specified Master if found, exception otherwise
      *
-     * @xmlrpc.doc Remove the specified Master
+     * @xmlrpc.doc Find a Master by specifying its ID
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("int", "id", "Id of the desired Master")
      * @xmlrpc.returntype $IssMasterSerializer
@@ -217,7 +217,7 @@ public class MasterHandler extends BaseHandler {
      * @param masterLabel Label of the Master to look for
      * @return the specified Master if found, exception otherwise
      *
-     * @xmlrpc.doc Remove the specified Master
+     * @xmlrpc.doc Find a Master by specifying its label
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("string", "label", "Label of the desired Master")
      * @xmlrpc.returntype $IssMasterSerializer
@@ -231,11 +231,11 @@ public class MasterHandler extends BaseHandler {
     }
 
     /**
-     * Get all the masters this slave knows about
+     * Get all the Masters this Slave knows about
      * @param sessionKey User's session key.
      * @return list of all the IssMasters we know about
      *
-     * @xmlrpc.doc Get all the masters this slave knows about
+     * @xmlrpc.doc Get all the Masters this Slave knows about
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype
      *      #array()
@@ -278,7 +278,7 @@ public class MasterHandler extends BaseHandler {
      * @param orgMaps List of MasterOrgs we know about
      * @return 1 if successful, exception otherwise
      *
-     * @xmlrpc.doc List all organizations the specified Master has exported to this Slave
+     * @xmlrpc.doc Reset all organizations the specified Master has exported to this Slave
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("int", "id", "Id of the desired Master")
      * @xmlrpc.param

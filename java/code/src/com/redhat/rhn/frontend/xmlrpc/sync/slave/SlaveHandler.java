@@ -48,7 +48,7 @@ public class SlaveHandler extends BaseHandler {
      * @param inAllowAllOrgs Should we export all orgs to this Slave?
      * @return Newly created ISSSlave object.
      *
-     * @xmlrpc.doc Create a new Slave, known to this Slave.
+     * @xmlrpc.doc Create a new Slave, known to this Master.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("string", "slave", "Slave's fully-qualified domain name")
      * @xmlrpc.param #param_desc("boolean",
@@ -77,22 +77,22 @@ public class SlaveHandler extends BaseHandler {
     }
 
     /**
-     * Updates the label of the specified Slave
+     * Updates attributes of the specified Slave
      * @param sessionKey User's session key.
-     * @param inSlaveId id of slave to update
+     * @param inSlaveId id of Slave to update
      * @param inSlave Slave's fully-qualified domain name
      * @param inEnabled Is this Slave allowed to talk to us?
      * @param inAllowAllOrgs Should we export all orgs to this Slave?
      * @return updated IssSlave
      *
-     * @xmlrpc.doc Updates the label of the specified Slave
+     * @xmlrpc.doc Updates attributes of the specified Slave
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("int", "id", "Id of the Slave to update")
      * @xmlrpc.param #param_desc("string", "slave", "Slave's fully-qualified domain name")
      * @xmlrpc.param #param_desc("boolean",
      *    "enabled", "Let this slave talk to us?")
      * @xmlrpc.param #param_desc("boolean",
-     *    "allowAllOrgs", "Export all our orgs to this slave?")
+     *    "allowAllOrgs", "Export all our orgs to this Slave?")
      * @xmlrpc.returntype $IssSlaveSerializer
      */
     public IssSlave update(String sessionKey,
@@ -166,11 +166,11 @@ public class SlaveHandler extends BaseHandler {
     }
 
     /**
-     * Get all the slaves this master knows about
+     * Get all the Slaves this Master knows about
      * @param sessionKey User's session key.
      * @return list of all the IssSlaves we know about
      *
-     * @xmlrpc.doc Get all the slaves this master knows about
+     * @xmlrpc.doc Get all the Slaves this Master knows about
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype
      *      #array()
@@ -184,12 +184,12 @@ public class SlaveHandler extends BaseHandler {
     }
 
     /**
-     * Get all the orgs that this master is willing to export to the specified slave
+     * Get all the orgs that this Master is willing to export to the specified Slave
      * @param sessionKey User's session key.
      * @param slaveId Id of the Slave to look for
      * @return list of all the IssSlaves we know about
      *
-     * @xmlrpc.doc Get all the slaves this master knows about
+     * @xmlrpc.doc Get all orgs this Master is willing to export to the specified Slave
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("int", "id", "Id of the desired Slave")
      * @xmlrpc.returntype #array_single("int", "ids of allowed organizations")
@@ -204,16 +204,16 @@ public class SlaveHandler extends BaseHandler {
     }
 
     /**
-     * Set the orgs that this master is willing to export to the specified slave
+     * Set the orgs that this Master is willing to export to the specified Slave
      * @param sessionKey User's session key.
      * @param slaveId Id of the Slave to look for
      * @param orgIds List of org-ids we're willing to export
      * @return 1 for success, exception otherwise
      *
-     * @xmlrpc.doc Get all the slaves this master knows about
+     * @xmlrpc.doc Set the orgs this Master is willing to export to the specified Slave
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("int", "id", "Id of the desired Slave")
-     * @xmlrpc.param #array_single("int", "List of revisions to delete")
+     * @xmlrpc.param #array_single("int", "List of org-ids we're willing to export")
      * @xmlrpc.returntype #return_int_success()
      */
     public int setAllowedOrgs(String sessionKey, Integer slaveId, List<Integer> orgIds) {
