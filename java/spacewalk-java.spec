@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.35
+Version: 2.1.36
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Sep 04 2013 Grant Gainey <ggainey@redhat.com> 2.1.36-1
+- 1004547 - fixed API doc for some ISS calls
+- 1003565 - packages.getPackage returns a binary object, not a base64 encoded
+  package
+- making OrgChannelFamily serializable
+
 * Tue Sep 03 2013 Jan Dobes 2.1.35-1
 - 976136 - unsubsribe from all channels before migration
 - Unnecessary fully qualified names.
