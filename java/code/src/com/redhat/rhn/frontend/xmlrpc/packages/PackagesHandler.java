@@ -546,8 +546,7 @@ public class PackagesHandler extends BaseHandler {
      * @xmlrpc.doc Retrieve the package file associated with a package.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("int", "package_id")
-     * @xmlrpc.returntype
-     *  base64 - base64 encoded package
+     * @xmlrpc.returntype binary object - package file
      */
     public byte[] getPackage(String sessionKey, Integer pid) throws IOException {
         User loggedInUser = getLoggedInUser(sessionKey);
