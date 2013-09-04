@@ -30,6 +30,10 @@ def printAcrossSatelliteUsage():
    print ("Software Channel Entitlements Across " + PRODUCT_NAME + " :")
    query = "SELECT cfo.label,SUM(cfo.max_members) as total,SUM(cfo.current_members) as used,(SELECT (cfo2.max_members) - (cfo2.current_members) FROM rhnChannelFamilyOverview cfo2 WHERE cfo2.label = cfo.label AND cfo2.org_id = 1) as available,SUM(cfo.fve_max_members) as total_flex,SUM(cfo.fve_current_members) as used_flex,(SELECT (cfo2.fve_max_members) - (cfo2.fve_current_members) FROM rhnChannelFamilyOverview cfo2 WHERE cfo2.label = cfo.label AND cfo2.org_id = 1) as available_flex FROM rhnChannelFamilyOverview cfo WHERE cfo.max_members is not null and (cfo.current_members !=0 or cfo.fve_current_members!=0) GROUP BY cfo.label, cfo.name HAVING (SUM(cfo.max_members) is not null) ORDER by cfo.name DESC" 
    list = run_query(query)
+   if list == None:
+      print("")
+      return
+
    print("%35s %s %s %s %s %s %s" % ("Channel Label","   Total  ","Regular Used","Available","Total Flex","Flex Used","Available Flex"))
    print("%35s %s %s %s %s %s %s" % ("-------------","----------","------------","---------","----------","---------","--------------"))
 
