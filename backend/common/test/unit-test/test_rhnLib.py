@@ -62,6 +62,20 @@ class Tests(unittest.TestCase):
         locale.setlocale(locale.LC_TIME, old_locale)
         self.assertEqual(result, target, result + " != " + target)
 
+    def testParseUrl(self):
+        self.assertEquals(('', '', '', '', '', ''),
+                rhnLib.parseUrl(''))
+        self.assertEquals(('', 'somehostname', '', '', '', ''),
+                rhnLib.parseUrl('somehostname'))
+        self.assertEquals(('http', 'somehostname', '', '', '', ''),
+                rhnLib.parseUrl('http://somehostname'))
+        self.assertEquals(('https', 'somehostname', '', '', '', ''),
+                rhnLib.parseUrl('https://somehostname'))
+        self.assertEquals(('https', 'somehostname:123', '', '', '', ''),
+                rhnLib.parseUrl('https://somehostname:123'))
+        self.assertEquals(('https', 'somehostname:123', '/ABCDE', '', '', ''),
+                rhnLib.parseUrl('https://somehostname:123/ABCDE'))
+
 if __name__ == '__main__':
     sys.exit(unittest.main() or 0)
 
