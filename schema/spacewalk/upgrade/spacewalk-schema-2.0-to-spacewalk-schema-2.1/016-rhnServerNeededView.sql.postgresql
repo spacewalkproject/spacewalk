@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 efc46c2dc28ac3b03ffd95c66205d5d9f187253f
+
 update pg_settings set setting = 'rhn_server,' || setting where name = 'search_path';
 
     create or replace function update_needed_cache(
