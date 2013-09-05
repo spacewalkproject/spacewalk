@@ -177,9 +177,9 @@ class ConfigFilesHandler(rhnHandler):
             raise ConfigFileMissingInfoError(file)
 
         # Oracle doesn't like certain binding variables
-        file['username'] = file.get('user','')
-        file['groupname'] = file.get('group','')
-        file['file_mode'] = str(file.get('mode',''))
+        file['username'] = file.get('user', '')
+        file['groupname'] = file.get('group', '')
+        file['file_mode'] = str(file.get('mode', ''))
         # if the selinux flag is not sent by the client it is set to the last file
         # revision (or to None (i.e. NULL) in case of first revision) - see the bug
         # 644985 - SELinux context cleared from RHEL4 rhncfg-client
@@ -308,7 +308,6 @@ class ConfigFilesHandler(rhnHandler):
                     file['is_binary'] = 'Y'
                     break
 
-
         h = rhnSQL.prepare(self._query_content_lookup)
         h.execute(**file)
         row = h.fetchone_dict()
@@ -405,7 +404,7 @@ class ConfigFilesHandler(rhnHandler):
             for f in fields:
                 if file.get(f) != row.get(f):
                     break
-            else: # for
+            else:  # for
                 # All fields are equal
                 file['config_revision_id'] = row['id']
                 self._update_revision(file)
@@ -425,7 +424,6 @@ class ConfigFilesHandler(rhnHandler):
             self._add_author(file, self.user)
         self._update_config_file(file)
 
-
     _query_update_revision = rhnSQL.Statement("""
         update rhnConfigRevision
            set modified = current_timestamp
@@ -435,7 +433,6 @@ class ConfigFilesHandler(rhnHandler):
     def _update_revision(self, file):
         h = rhnSQL.prepare(self._query_update_revision)
         h.execute(**file)
-
 
     def _insert_revision(self, file):
         insert_call = rhnSQL.Function("rhn_config.insert_revision",
@@ -455,7 +452,6 @@ class ConfigFilesHandler(rhnHandler):
     def _add_author(self, file, author):
         h = rhnSQL.prepare(self._query_update_revision_add_author)
         h.execute(user_id = author.getid(), rev_id = file['config_revision_id'])
-
 
     _query_update_config_file = rhnSQL.Statement("""
         update rhnConfigFile
@@ -482,6 +478,7 @@ class ConfigFilesHandler(rhnHandler):
     def new_config_channel_id(self):
         return rhnSQL.Sequence('rhn_confchan_id_seq').next()
 
+
 def format_file_results(row, server=None):
     encoding = ''
     contents = None
@@ -493,7 +490,6 @@ def format_file_results(row, server=None):
                                                start_delim=row['delim_start'],
                                                end_delim=row['delim_end'])
         contents = interpolator.interpolate(contents)
-
 
     if contents:
         client_caps = rhnCapability.get_client_capabilities()
