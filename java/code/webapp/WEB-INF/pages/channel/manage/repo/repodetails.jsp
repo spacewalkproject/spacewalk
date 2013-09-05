@@ -35,6 +35,7 @@
     <html:form action="${url}">
     <rhn:csrf />
     <rhn:submitted/>
+    <html:hidden property="id" value="${repo.id}"/>
 	<table class="details">
     <tr>
         <th>

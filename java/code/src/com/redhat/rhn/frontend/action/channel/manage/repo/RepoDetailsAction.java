@@ -121,9 +121,8 @@ public class RepoDetailsAction extends RhnAction {
                 }
             }
         }
-        else {
-            setup(request, form, isCreateMode(request));
-        }
+
+        setup(request, form, isCreateMode(request));
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
