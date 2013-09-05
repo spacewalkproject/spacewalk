@@ -53,7 +53,9 @@ public class RebootSystemAction
         extends RhnListAction
         implements Listable {
 
-    @Override
+    /**
+    * {@inheritDoc}
+    */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm actionForm,
                                  HttpServletRequest request,

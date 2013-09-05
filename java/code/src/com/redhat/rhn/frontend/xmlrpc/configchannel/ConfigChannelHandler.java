@@ -214,7 +214,8 @@ public class ConfigChannelHandler extends BaseHandler {
      * @param revision The configuration file revision.
      * @return Revisions of the configuration file, errors out otherwise.
      *
-     * @xmlrpc.doc Get revision of the specified configuration file and transmit the contents as base64 encoded.
+     * @xmlrpc.doc Get revision of the specified configuration file and transmit the
+     *             contents as base64 encoded.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "configChannelLabel",
      *                          "label of config channel to lookup on")

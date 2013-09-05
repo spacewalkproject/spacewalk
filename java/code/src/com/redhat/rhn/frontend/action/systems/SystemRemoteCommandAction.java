@@ -264,7 +264,9 @@ public class SystemRemoteCommandAction extends RhnAction {
     }
 
 
-    @Override
+    /**
+    * {@inheritDoc}
+    */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm actionForm,
                                  HttpServletRequest request,
