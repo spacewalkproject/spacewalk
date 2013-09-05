@@ -1,5 +1,6 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
 <!ENTITY RHN "Spacewalk" >
+<!ENTITY HOSTED " or Hosted" >
 <!ENTITY RHNCFGM "rhncfg-manager" >
 
 ]>
@@ -13,7 +14,7 @@
 <RefNameDiv>
 <RefName><command>&RHNCFGM;</command></RefName>
 <RefPurpose>
-  a tool used managing Spacewalk's central repository of configuration files
+  a tool for managing &RHN; central repository of configuration files
   and channels.
 </RefPurpose>
 </RefNameDiv>
@@ -24,6 +25,8 @@
         <command>&RHNCFGM;</command>
         <arg>MODE</arg>
         <arg>--server-name <replaceable>name</replaceable></arg>
+        <arg>--username <replaceable>user</replaceable></arg>
+        <arg>--password <replaceable>pass</replaceable></arg>
         <arg>params</arg>
     </cmdsynopsis>
 </Synopsis>
@@ -31,17 +34,17 @@
 
 <RefSect1><Title>Description</Title>
 <para>
-    The Spacewalk Configuration Manager (<emphasis>&RHNCFGM;</emphasis>) is used to
-    manage Spacewalk configuration files and channels.
+    The &RHN; Configuration Manager (<emphasis>&RHNCFGM;</emphasis>) is used to
+    manage &RHN; configuration files and channels.
 </para>
 <para>
     This tool offers a command line alternative to the configuration management
-    features found within the Spacewalk website (or Red Hat Satellite), as well
+    features found within the &RHN; web user interface&HOSTED;, as well
     as the ability to script some or all of the related maintenance.
 </para>
 <para>
     This tool is intended for use by the Config Administrator and therefore
-    requires an Spacewalk username and password that has the appropriate permission
+    requires an &RHN; username and password that has the appropriate permission
     set. (The username may be specified in
     <filename>/etc/sysconfig/rhn/rhncfg-manager.conf</filename> or in the [rhncfg-manager] section
     of <filename>~/.rhncfgrc</filename>).
@@ -78,7 +81,7 @@
 <para>
   <simplelist>
     <member>This tool utilizes a "cvs style" command syntax: command mode options</member>
-    <member>For example: &RHNCFGM; diff-revisions --help/</member>
+    <member>For example: &RHNCFGM; diff-revisions --help</member>
   </simplelist>
 </para>
 </RefSect1>
@@ -144,7 +147,7 @@
         <term>get [ <replaceable>OPTIONS</replaceable> ] <replaceable>FILE</replaceable> [ <replaceable>FILE</replaceable> ... ]</term>
         <listitem>
             <para>
-              Get the contents of a particulare configuration file. Outputs
+              Get the contents of a particular configuration file. Outputs
               to stdout.
             </para>
             <para>-c<replaceable>CHANNEL_LABEL</replaceable>, --channel=<replaceable>CHANNEL_LABEL</replaceable> -- get file(s) from this config channel</para>
@@ -223,12 +226,34 @@
             <para>-t<replaceable>TOPDIR</replaceable>, --topdir=<replaceable>TOPDIR</replaceable> -- directory all file paths are relative to</para>
         </listitem>
     </varlistentry>
+</variablelist>
+</RefSect1>
+<RefSect1><Title>others</Title>
+<variablelist>
+    <varlistentry>
+        <term>--server-name</term>
+        <listitem>
+            <para>&RHN; server name.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+    <term>--username</term>
+        <listitem>
+            <para>&RHN; user name.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--password</term>
+        <listitem>
+            <para>&RHN; password for the specified user.</para>
+        </listitem>
+    </varlistentry>
     <varlistentry>
         <term>-h, --help</term>
         <listitem>
             <para>Display the help screen with a list of options.</para>
             <para>Use context sensitive help as well with the diffent "modes".
-                  E.g., &RHNCFGM; upload-channe --help</para>
+                  E.g., &RHNCFGM; upload-channel --help</para>
         </listitem>
     </varlistentry>
 </variablelist>
