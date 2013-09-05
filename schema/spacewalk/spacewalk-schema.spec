@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.1.15
+Version:        2.1.16
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Sep 05 2013 Stephen Herr <sherr@redhat.com> 2.1.16-1
+- 999453 - updating sha1 hashes
+
 * Thu Sep 05 2013 Stephen Herr <sherr@redhat.com> 2.1.15-1
 - 999453 - move the rhnServerNeededView sql into the function for performance
 - Revert "999453 - update rhnServerNeededView to make it easier to optimize for
