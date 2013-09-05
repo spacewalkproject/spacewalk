@@ -173,7 +173,7 @@ class ConfigFilesHandler(rhnHandler):
             raise ConfigFileMissingDelimError(file)
 
         if not (file.get('user') and file.get('group') and
-                file.get('mode')) and not self._is_link(file) :
+                file.get('mode') is not None) and not self._is_link(file):
             raise ConfigFileMissingInfoError(file)
 
         # Oracle doesn't like certain binding variables
