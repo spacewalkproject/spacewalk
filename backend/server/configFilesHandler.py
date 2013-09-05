@@ -83,7 +83,7 @@ class ConfigFilesHandler(rhnHandler):
 
     # Returns a reference to a callable method
     def get_function(self, function):
-        if not self.functions.has_key(function):
+        if function not in self.functions:
             return None
 
         # Turn compression on by default
@@ -163,7 +163,7 @@ class ConfigFilesHandler(rhnHandler):
         if not (path[0] == os.sep):
             raise ConfigFilePathIncomplete(file)
 
-        if not file.has_key('config_file_type_id'):
+        if 'config_file_type_id' not in file:
             log_debug(4, "Client does not support config directories, so set file_type_id to 1")
             file['config_file_type_id'] = '1'
         # Check if delimiters are present
@@ -283,10 +283,10 @@ class ConfigFilesHandler(rhnHandler):
         file_path = file.get('path')
         file_contents = file.get('file_contents') or ''
 
-        if file.has_key('enc64') and file_contents:
+        if 'enc64' in file and file_contents:
             file_contents = base64.decodestring(file_contents)
 
-        if not file.has_key('config_file_type_id'):
+        if 'config_file_type_id' not in file:
             log_debug(4, "Client does not support config directories, so set file_type_id to 1")
             file['config_file_type_id'] = '1'
 
@@ -397,7 +397,7 @@ class ConfigFilesHandler(rhnHandler):
 
             fields = ['config_content_id', 'config_info_id', 'config_file_type_id']
 
-            if not file.has_key('config_file_type_id'):
+            if 'config_file_type_id' not in file:
                 log_debug(4, "Client does not support config directories, so set file_type_id to 1")
                 file['config_file_type_id'] = '1'
 
@@ -493,10 +493,10 @@ def format_file_results(row, server=None):
 
     if contents:
         client_caps = rhnCapability.get_client_capabilities()
-        if client_caps and client_caps.has_key('configfiles.base64_enc'):
+        if client_caps and 'configfiles.base64_enc' in client_caps:
             encoding = 'base64'
             contents = base64.encodestring(contents)
-    if row.has_key('modified') and row['modified']:
+    if row.get('modified', False):
         m_date = xmlrpclib.DateTime(str(row['modified']))
     else:
         m_date = ''
