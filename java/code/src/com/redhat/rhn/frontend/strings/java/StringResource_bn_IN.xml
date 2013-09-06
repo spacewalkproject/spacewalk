@@ -6076,7 +6076,7 @@ user before attempting to deactivate their account.</source>
         <target>SSL</target>
       </trans-unit>
       <trans-unit id="crypto.key.nokey">
-        <source>No file found.  Please select a file from your local machine to upload.</source>
+        <source>No file contents found. Please select a proper key file from your local machine to upload.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeysCreate.do</context>
         </context-group>
