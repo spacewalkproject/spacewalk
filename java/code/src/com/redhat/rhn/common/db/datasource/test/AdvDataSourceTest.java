@@ -44,10 +44,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import junit.extensions.TestSetup;
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 /*
  * $Rev$
  */
@@ -185,7 +181,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
 
     public void testDelete() throws Exception {
         // Take nothing for granted, make sure the data is there.
-        lookup("Blarg", 1, 1);
+        insert("Blarg", 1);
         WriteMode m = ModeFactory.getWriteMode("test_queries", "delete_from_table");
         Map params = new HashMap();
         params.put("foobar", "Blarg");
@@ -336,34 +332,12 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
         System.out.println(dr);
     }
 
-    public static Test suite()
-        throws Exception {
-        TestSuite suite = new TestSuite(AdvDataSourceTest.class);
-        TestSetup wrapper = new TestSetup(suite) {
-            protected void setUp() throws Exception {
-                oneTimeSetup();
-            }
 
-            protected void tearDown() throws Exception {
-                oneTimeTeardown();
-            }
-        };
-
-        return wrapper;
-    }
-
-    protected static void oneTimeSetup() throws Exception {
-        Session session = null;
-        Connection c = null;
-        Statement stmt = null;
+    protected void setUp() throws Exception {
+        Session session = HibernateFactory.getSession();
+        Connection c = session.connection();
+        Statement stmt = c.createStatement();
         try {
-            session = HibernateFactory.getSession();
-            c = session.connection();
-            stmt = c.createStatement();
-            stmt.executeQuery("select 1 from adv_datasource");
-        }
-        catch (SQLException e) {
-            // Couldn't select 1, so the table didn't exist, create it
             if (ConfigDefaults.get().isOracle()) {
                 stmt.execute("create table adv_datasource " +
                         "( " +
@@ -373,11 +347,8 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
                         "  id     number" +
                         "         constraint adv_datasource_pk primary key" +
                         ")");
-                stmt.execute("insert into adv_datasource(foobar, id) " +
-                        "values ('Blarg', 1)");
             }
             else {
-                c.rollback();
                 stmt.execute("create table adv_datasource " +
                         "( " +
                         "  foobar VarChar," +
@@ -386,8 +357,6 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
                         "  id     numeric" +
                         "         constraint adv_datasource_pk primary key" +
                         ");");
-                stmt.execute("insert into adv_datasource(foobar, id) " +
-                        "values ('Blarg', 1);");
             }
             c.commit();
         }
@@ -396,7 +365,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
         }
     }
 
-    protected static void oneTimeTeardown() throws Exception {
+    protected void tearDown() throws Exception {
         Session session = null;
         Connection c = null;
         Statement stmt = null;
