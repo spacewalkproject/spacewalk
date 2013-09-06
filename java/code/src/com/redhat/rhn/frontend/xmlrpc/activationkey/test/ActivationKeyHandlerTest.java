@@ -14,6 +14,18 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.activationkey.test;
 
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.config.ConfigChannel;
@@ -40,17 +52,6 @@ import com.redhat.rhn.testing.ChannelTestUtils;
 import com.redhat.rhn.testing.ConfigTestUtils;
 import com.redhat.rhn.testing.ServerGroupTestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
-
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
-import redstone.xmlrpc.XmlRpcSerializer;
 
 public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
 
@@ -136,7 +137,7 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
                 baseChannelLabel, new Integer(0), KEY_ENTITLEMENTS, Boolean.FALSE);
             fail();
         }
-        catch (InvalidEntitlementException e) {
+        catch (FaultException e) {
             // expected
         }
     }

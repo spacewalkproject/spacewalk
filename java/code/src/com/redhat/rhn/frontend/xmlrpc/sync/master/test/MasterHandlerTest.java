@@ -20,6 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.iss.IssFactory;
 import com.redhat.rhn.domain.iss.IssMaster;
 import com.redhat.rhn.domain.iss.IssMasterOrg;
@@ -171,8 +172,13 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
             assertNotNull(retMaster);
             assertFalse(retMaster.isDefaultMaster());
 
-            retMaster = handler.getDefaultMaster(adminKey);
-            assertNull(retMaster);
+            try {
+                retMaster = handler.getDefaultMaster(adminKey);
+                fail();
+            }
+            catch (LookupException le) {
+                // success!
+            }
 
             if (defaultMaster != null) {
                 handler.makeDefault(adminKey, defaultMaster.getId().intValue());

@@ -145,7 +145,7 @@ public class VirtualizationEntitlementsManagerTest extends BaseTestCaseWithUser 
         committed = true;
 
         int guestsToCreate = setupEligibleFlexGuestTests(true, user.getOrg(),
-                user, 5, 5, 1);
+                user, 5, 5, 20);
 
         List<ChannelFamilySystemGroup> l = VirtualizationEntitlementsManager.
                                         getInstance().listEligibleFlexGuests(user);
@@ -154,7 +154,7 @@ public class VirtualizationEntitlementsManagerTest extends BaseTestCaseWithUser 
         assertEquals(guestsToCreate, l.get(0).expand().size());
         ChannelFamilySystemGroup group = l.get(0);
         List<Long> sids = new LinkedList<Long>();
-        for (ChannelFamilySystem cfs : group.expand().subList(0, 2)) {
+        for (ChannelFamilySystem cfs : group.expand().subList(0, 1)) {
             sids.add(cfs.getId());
         }
         assertEquals(1, VirtualizationEntitlementsManager.getInstance().
