@@ -7502,7 +7502,8 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
         </context-group>
-      <target>{0} செயல்கள் திட்டமிடப்பட்டுள்ளது.</target></trans-unit>
+        <target>{0} செயல்கள் திட்டமிடப்பட்டுள்ளது.</target>
+      </trans-unit>
       <trans-unit id="systems.details.virt.no.virt.deleted">
         <source>No virtual systems deleted.</source>
         <context-group name="ctx">

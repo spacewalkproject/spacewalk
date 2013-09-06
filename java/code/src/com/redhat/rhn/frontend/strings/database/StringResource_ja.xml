@@ -116,12 +116,19 @@
         </trans-unit>
       </group>
       <!-- TimeZones -->
-      <trans-unit id="Australia/Sydney">
-        <source>(GMT+1000) Australia (Eastern)</source>
+      <trans-unit id="Australia/Brisbane">
+        <source>(GMT+1000) Australia (Eastern Standard)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-        <target>(GMT+1000) オーストラリア (東部)</target>
+        <target>(GMT+1000) オーストラリア (東部標準時間)</target>
+      </trans-unit>
+      <trans-unit id="Australia/Sydney">
+        <source>(GMT+1000) Australia (Eastern Daylight)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+        <target>(GMT+1000) オーストラリア (東部夏時間)</target>
       </trans-unit>
       <trans-unit id="Asia/Tokyo">
         <source>(GMT+0900) Japan</source>
@@ -143,6 +150,13 @@
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
         <target>(GMT+0400) ロシア (モスクワ)</target>
+      </trans-unit>
+      <trans-unit id="Africa/Johannesburg">
+        <source>(GMT+0200) South Africa (Johannesburg)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+        <target>(GMT+0200) 南アフリカ (ヨハネスブルグ)</target>
       </trans-unit>
       <trans-unit id="Europe/Bucharest">
         <source>(GMT+0200) Europe (Eastern)</source>
@@ -388,7 +402,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
         </context-group>
-        <target>メールドメイン (例 myemail@redhat.com で redhat.com の部分)</target>
+        <target>メールドメイン (例 myemail@redhat.com の redhat.com の部分)</target>
       </trans-unit>
       <trans-unit id="RHN_ADMIN_EMAIL">
         <source>@@PRODUCT_NAME@@ administrator email</source>
@@ -409,7 +423,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
         </context-group>
-        <target>@@PRODUCT_NAME@@ ウェブサーバーポート (http は 80、https は 443)</target>
+        <target>@@PRODUCT_NAME@@ Web サーバーポート (http は 80、https は 443)</target>
       </trans-unit>
       <trans-unit id="XPROTO">
         <source>External protocol ('http' or 'https')</source>
@@ -529,7 +543,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: 使用中の利用可能セッション Pct</target>
+        <target>重大: 利用可能セッションの使用率</target>
       </trans-unit>
       <trans-unit id="Critical Blocked Process Count">
         <source>Critical Blocked Process Count</source>
@@ -585,7 +599,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: 使用中の CPU Pct </target>
+        <target>重大: CPU 使用率 </target>
       </trans-unit>
       <trans-unit id="Critical CPU Time Rate">
         <source>Critical CPU Time Rate</source>
@@ -641,7 +655,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: 壊死プロセス数</target>
+        <target>重大: 非アクティブプロセス数</target>
       </trans-unit>
       <trans-unit id="Critical Disk Sort Ratio">
         <source>Critical Disk Sort Ratio</source>
@@ -669,7 +683,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: Exit ステータス</target>
+        <target>重大: 終了状態</target>
       </trans-unit>
       <trans-unit id="Critical FIN_WAIT Connections">
         <source>Critical FIN_WAIT Connections</source>
@@ -683,14 +697,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: 使用中ファイルシステム Pct</target>
+        <target>重大: ファイルシステム使用率</target>
       </trans-unit>
       <trans-unit id="Critical Heap Free">
         <source>Critical Heap Free</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: 空きヒープ (Heap)</target>
+        <target>重大: 空きヒープ</target>
       </trans-unit>
       <trans-unit id="Critical High Execution Time">
         <source>Critical High Execution Time</source>
@@ -704,35 +718,35 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: 遊休セッション</target>
+        <target>重大: アイドルセッション</target>
       </trans-unit>
       <trans-unit id="Critical Idle Threads">
         <source>Critical Idle Threads</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: 遊休スレッド</target>
+        <target>重大: アイドルスレッド</target>
       </trans-unit>
       <trans-unit id="Critical Inodes Pct Used">
         <source>Critical Inodes Pct Used</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: 使用中アイノード Pct </target>
+        <target>重大: Inode 使用率 </target>
       </trans-unit>
       <trans-unit id="Critical Input Rate">
         <source>Critical Input Rate</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: インプット率</target>
+        <target>重大: 入力率</target>
       </trans-unit>
       <trans-unit id="Critical Latency">
         <source>Critical Latency</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: 時間待ち (Latency)</target>
+        <target>重大: 待ち時間</target>
       </trans-unit>
       <trans-unit id="Critical Library Cache Miss Ratio">
         <source>Critical Library Cache Miss Ratio</source>
@@ -746,7 +760,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: 行の率</target>
+        <target>重大: 行数率</target>
       </trans-unit>
       <trans-unit id="Critical Lines">
         <source>Critical Lines</source>
@@ -809,7 +823,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: パケットロス Pct</target>
+        <target>重大: パケットロス率</target>
       </trans-unit>
       <trans-unit id="Critical Percent">
         <source>Critical Percent</source>
@@ -823,7 +837,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: 使用中物理メモリ</target>
+        <target>重大: 使用中の物理メモリ</target>
       </trans-unit>
       <trans-unit id="Critical Process Count">
         <source>Critical Process Count</source>
@@ -956,21 +970,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: 停止プロセスの数</target>
+        <target>重大: 停止プロセス数</target>
       </trans-unit>
       <trans-unit id="Critical Swap Pct Free">
         <source>Critical Swap Pct Free</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: 空きスワップ Pct </target>
-      </trans-unit>
-      <trans-unit id="Critical Swapped Process Count">
-        <source>Critical Swapped Process Count</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>重大: スワップ済みプロセス数</target>
+        <target>重大: 空きスワップ率</target>
       </trans-unit>
       <trans-unit id="Critical TIME_WAIT Connections">
         <source>Critical TIME_WAIT Connections</source>
@@ -1040,14 +1047,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: 空き仮想メモリ Pct</target>
+        <target>重大: 空き仮想メモリ率</target>
       </trans-unit>
       <trans-unit id="Critical Virtual Memory Used">
         <source>Critical Virtual Memory Used</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大: 使用中仮想メモリ</target>
+        <target>重大: 使用中の仮想メモリ</target>
       </trans-unit>
       <trans-unit id="Critical Waiters">
         <source>Critical Waiters</source>
@@ -1069,41 +1076,6 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <target>重大: 書き込み率</target>
-      </trans-unit>
-      <trans-unit id="Critical if number of blocked processes exceeds">
-        <source>Critical if number of blocked processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>ブロックされたプロセスが超過の場合: 重大</target>
-      </trans-unit>
-      <trans-unit id="Critical if number of children for any process exceeds">
-        <source>Critical if number of children for any process exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>いずれかのプロセスの子の数が超過の場合: 重大</target>
-      </trans-unit>
-      <trans-unit id="Critical if number of defunct processes exceeds">
-        <source>Critical if number of defunct processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>壊死プロセスの数が超過の場合: 重大</target>
-      </trans-unit>
-      <trans-unit id="Critical if number of stopped processes exceeds">
-        <source>Critical if number of stopped processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>停止プロセスの数が超過の場合、重大</target>
-      </trans-unit>
-      <trans-unit id="Critical if number of swapped processes exceeds">
-        <source>Critical if number of swapped processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>スワップしたプロセス数が超過の場合: 重大</target>
       </trans-unit>
       <trans-unit id="Database">
         <source>Database</source>
@@ -1236,7 +1208,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>インターフェイス</target>
+        <target>インターフェース</target>
       </trans-unit>
       <trans-unit id="JDBC Pool Name">
         <source>JDBC Pool Name</source>
@@ -1278,14 +1250,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大レベル、 割当て拡張数が次より大きい場合</target>
+        <target>重大レベル、 割り当てられたエクステント数が次より大きい場合</target>
       </trans-unit>
       <trans-unit id="Number of Allocated Extents Warn if Above">
         <source>Number of Allocated Extents Warn if Above</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告レベル、 割当て拡張数が次より大きい場合</target>
+        <target>警告レベル、 割り当てられたエクステント数が次より大きい場合</target>
       </trans-unit>
       <trans-unit id="OK Exit Status">
         <source>OK Exit Status</source>
@@ -1315,13 +1287,6 @@
         </context-group>
         <target>Oracle パスワード</target>
       </trans-unit>
-      <trans-unit id="Oracle Password_confirm">
-        <source>Oracle Password Confirm</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Oracle パスワード確認</target>
-      </trans-unit>
       <trans-unit id="Oracle Port">
         <source>Oracle Port</source>
         <context-group name="ctx">
@@ -1348,14 +1313,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>出力トラフィックが重大レベル</target>
+        <target>出力トラフィック: 重大</target>
       </trans-unit>
       <trans-unit id="PID file (overrides command name)">
         <source>PID file (overrides command name)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>PID ファイル(コマンド名を無視)</target>
+        <target>PID ファイル (コマンド名を無視)</target>
       </trans-unit>
       <trans-unit id="Packets to send">
         <source>Packets to send</source>
@@ -1383,14 +1348,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>重大レベル、 利用可能な拡張率が次より大きい場合</target>
+        <target>重大レベル、使用可能なエクステント数が次より大きい場合</target>
       </trans-unit>
       <trans-unit id="Percent of Available Extents Warn if Above">
         <source>Percent of Available Extents Warn if Above</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告レベル、 利用可能な拡張率が次より大きい場合</target>
+        <target>警告レベル、使用可能なエクステント数が次より大きい場合</target>
       </trans-unit>
       <trans-unit id="Port">
         <source>Port</source>
@@ -1644,41 +1609,6 @@
         </context-group>
         <target>警告: ユーザー</target>
       </trans-unit>
-      <trans-unit id="Warn if number of blocked processes exceeds">
-        <source>Warn if number of blocked processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>ブロックされたプロセスが超過した場合: 警告</target>
-      </trans-unit>
-      <trans-unit id="Warn if number of children for any process exceeds">
-        <source>Warn if number of children for any process exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>いずれかのプロセスの子数が超過した場合: 警告</target>
-      </trans-unit>
-      <trans-unit id="Warn if number of defunct processes exceeds">
-        <source>Warn if number of defunct processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>壊死プロセス数が超過した場合: 警告</target>
-      </trans-unit>
-      <trans-unit id="Warn if number of stopped processes exceeds">
-        <source>Warn if number of stopped processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>停止プロセス数が超過の場合: 警告</target>
-      </trans-unit>
-      <trans-unit id="Warn if number of swapped processes exceeds">
-        <source>Warn if number of swapped processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>スワップしたプロセス数が超過の場合: 警告</target>
-      </trans-unit>
       <trans-unit id="Warning Accesses">
         <source>Warning Accesses</source>
         <context-group name="ctx">
@@ -1705,7 +1635,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告: 使用中の利用可能セッション Pct</target>
+        <target>警告: 利用可能セッションの使用率</target>
       </trans-unit>
       <trans-unit id="Warning Blocked Process Count">
         <source>Warning Blocked Process Count</source>
@@ -1719,7 +1649,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告: ブロックしているセッション</target>
+        <target>警告: ブロック中のセッション</target>
       </trans-unit>
       <trans-unit id="Warning Buffer Cache Hit Ratio">
         <source>Warning Buffer Cache Hit Ratio</source>
@@ -1761,7 +1691,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告: 使用の CPU Pct</target>
+        <target>警告: CPU 使用率</target>
       </trans-unit>
       <trans-unit id="Warning CPU Time Rate">
         <source>Warning CPU Time Rate</source>
@@ -1817,14 +1747,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告: 壊死プロセス数</target>
+        <target>警告: 非アクティブプロセス数</target>
       </trans-unit>
       <trans-unit id="Warning Disk Sort Ratio">
         <source>Warning Disk Sort Ratio</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告: ディスク分別比率</target>
+        <target>警告: ディスクソート率</target>
       </trans-unit>
       <trans-unit id="Warning ESTABLISHED Connections">
         <source>Warning ESTABLISHED Connections</source>
@@ -1845,7 +1775,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告: Exit ステータス</target>
+        <target>警告: 終了状態</target>
       </trans-unit>
       <trans-unit id="Warning FIN_WAIT Connections">
         <source>Warning FIN_WAIT Connections</source>
@@ -1859,14 +1789,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告: 使用中ファイルシステム Pct </target>
+        <target>警告: ファイルシステム使用率</target>
       </trans-unit>
       <trans-unit id="Warning Heap Free">
         <source>Warning Heap Free</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告: 空きヒープ (Heap)</target>
+        <target>警告: 空きヒープ</target>
       </trans-unit>
       <trans-unit id="Warning High Execution Time">
         <source>Warning High Execution Time</source>
@@ -1880,21 +1810,21 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告: 遊休セッション</target>
+        <target>警告: アイドルセッション</target>
       </trans-unit>
       <trans-unit id="Warning Idle Threads">
         <source>Warning Idle Threads</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告: 遊休スレッド</target>
+        <target>警告: アイドルスレッド</target>
       </trans-unit>
       <trans-unit id="Warning Inodes Pct Used">
         <source>Warning Inodes Pct Used</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告: 使用中アイノード Pct</target>
+        <target>警告: Inode 使用率</target>
       </trans-unit>
       <trans-unit id="Warning Input Rate">
         <source>Warning Input Rate</source>
@@ -1929,7 +1859,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告:行</target>
+        <target>警告: 行</target>
       </trans-unit>
       <trans-unit id="Warning Match Rate">
         <source>Warning Match Rate</source>
@@ -1971,7 +1901,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告: パケットロス Pct</target>
+        <target>警告: パケットロス率</target>
       </trans-unit>
       <trans-unit id="Warning Physical Memory Used">
         <source>Warning Physical Memory Used</source>
@@ -2027,7 +1957,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告: やり直しバッファ割当て再試行</target>
+        <target>警告: やり直しバッファ割り当ての再試行</target>
       </trans-unit>
       <trans-unit id="Warning Redo Log Space Requests">
         <source>Warning Redo Log Space Requests</source>
@@ -2111,14 +2041,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告: 空きスワップ Pct</target>
-      </trans-unit>
-      <trans-unit id="Warning Swapped Process Count">
-        <source>Warning Swapped Process Count</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>警告: スワップしたプロセス数</target>
+        <target>警告: 空きスワップ率</target>
       </trans-unit>
       <trans-unit id="Warning TIME_WAIT Connections">
         <source>Warning TIME_WAIT Connections</source>
@@ -2188,7 +2111,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>警告: 空き仮想メモリ Pct</target>
+        <target>警告: 空き仮想メモリ率</target>
       </trans-unit>
       <trans-unit id="Warning Virtual Memory Used">
         <source>Warning Virtual Memory Used</source>
@@ -2238,7 +2161,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>ブロックしているセッション</target>
+        <target>ブロック中のセッション</target>
       </trans-unit>
       <trans-unit id="metrics.Buffer cache hit ratio">
         <source>Buffer cache hit ratio</source>
@@ -2273,7 +2196,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>CPU ロード 15 分合計</target>
+        <target>CPU ロード 15 分平均</target>
       </trans-unit>
       <trans-unit id="metrics.CPU load 15-min avg">
         <source>CPU load 15-min avg</source>
@@ -2371,7 +2294,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>壊死プロセス</target>
+        <target>非アクティブプロセス</target>
       </trans-unit>
       <trans-unit id="metrics.Disk sort rate">
         <source>Disk sort rate</source>
@@ -2385,7 +2308,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>ディスク分別比率</target>
+        <target>ディスクソート率</target>
       </trans-unit>
       <trans-unit id="metrics.ESTABLISHED conns">
         <source>ESTABLISHED conns</source>
@@ -2462,7 +2385,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>アイノード使用率</target>
+        <target>Inode 使用率</target>
       </trans-unit>
       <trans-unit id="metrics.Input rate">
         <source>Input rate</source>
@@ -2476,7 +2399,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>呼出し率</target>
+        <target>呼び出し率</target>
       </trans-unit>
       <trans-unit id="metrics.Latency">
         <source>Latency</source>
@@ -2511,7 +2434,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>低度実行時間</target>
+        <target>低実行時間</target>
       </trans-unit>
       <trans-unit id="metrics.Max transferred per child">
         <source>Max transferred per child</source>
@@ -2581,7 +2504,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>使用中物理メモリ</target>
+        <target>使用中の物理メモリ</target>
       </trans-unit>
       <trans-unit id="metrics.Physical read rate">
         <source>Physical read rate</source>
@@ -2658,7 +2581,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>やり直しバッファ割当て再試行率</target>
+        <target>やり直しバッファ割り当ての再試行率</target>
       </trans-unit>
       <trans-unit id="metrics.Redo log space request rate">
         <source>Redo log space request rate</source>
@@ -2900,19 +2823,19 @@
         </note>
         <trans-unit id="crit_max">
           <source>Critical if above</source>
-          <target>重大、 次を超える場合</target>
+          <target>重大、次を超える場合</target>
         </trans-unit>
         <trans-unit id="crit_min">
           <source>Critical if below</source>
-          <target>重大、 次を下回る場合</target>
+          <target>重大、次を下回る場合</target>
         </trans-unit>
         <trans-unit id="warn_max">
           <source>Warn if above</source>
-          <target>警告、 次を超える場合</target>
+          <target>警告、次を超える場合</target>
         </trans-unit>
         <trans-unit id="warn_min">
           <source>Warn if below</source>
-          <target>警告、 次を下回る場合</target>
+          <target>警告、次を下回る場合</target>
         </trans-unit>
       </group>
       <group>
@@ -2924,7 +2847,7 @@
         </note>
         <trans-unit id="Active Locks">
           <source>Active Locks</source>
-          <target>アクティブ ロック</target>
+          <target>アクティブロック</target>
         </trans-unit>
         <trans-unit id="Blocked Processes">
           <source>Blocked Processes</source>
@@ -2932,7 +2855,7 @@
         </trans-unit>
         <trans-unit id="Buffer Cache Hit Ratio">
           <source>Buffer Cache Hit Ratio</source>
-          <target>バッファキャッシュ ヒット比率</target>
+          <target>バッファキャッシュヒット比率</target>
         </trans-unit>
         <trans-unit id="CLOSE_WAIT Connections">
           <source>CLOSE_WAIT Connections</source>
@@ -2944,7 +2867,7 @@
         </trans-unit>
         <trans-unit id="CPU Load 15-Minute Average">
           <source>CPU Load 15-Minute Average</source>
-          <target>CPU ロード15分平均</target>
+          <target>CPU ロード 15分平均</target>
         </trans-unit>
         <trans-unit id="CPU Load 5-Minute Average">
           <source>CPU Load 5-Minute Average</source>
@@ -2956,7 +2879,7 @@
         </trans-unit>
         <trans-unit id="Cache Miss Rate">
           <source>Cache Miss Rate</source>
-          <target>キャッシュ ミス率</target>
+          <target>キャッシュミス率</target>
         </trans-unit>
         <trans-unit id="Child Process Groups">
           <source>Child Process Groups</source>
@@ -2980,7 +2903,7 @@
         </trans-unit>
         <trans-unit id="DB Block Get Rate">
           <source>DB Block Get Rate</source>
-          <target>DB ブロック ゲット率</target>
+          <target>DB ブロックゲット率</target>
         </trans-unit>
         <trans-unit id="Data Dictionary Hit Ratio">
           <source>Data Dictionary Hit Ratio</source>
@@ -2988,11 +2911,11 @@
         </trans-unit>
         <trans-unit id="Defunct Processes">
           <source>Defunct Processes</source>
-          <target>壊死したプロセス</target>
+          <target>非アクティブプロセス</target>
         </trans-unit>
         <trans-unit id="Disk Sort Rate">
           <source>Disk Sort Rate</source>
-          <target>ディスク 分別率</target>
+          <target>ディスクソート率</target>
         </trans-unit>
         <trans-unit id="ESTABLISHED Connections">
           <source>ESTABLISHED Connections</source>
@@ -3032,7 +2955,7 @@
         </trans-unit>
         <trans-unit id="Inodes Used">
           <source>Inodes Used</source>
-          <target>使用中アイノード</target>
+          <target>使用中の Inode</target>
         </trans-unit>
         <trans-unit id="Input Rate">
           <source>Input Rate</source>
@@ -3040,7 +2963,7 @@
         </trans-unit>
         <trans-unit id="Invocation Rate">
           <source>Invocation Rate</source>
-          <target>呼出し率</target>
+          <target>呼び出し率</target>
         </trans-unit>
         <trans-unit id="Library Cache Miss Ratio">
           <source>Library Cache Miss Ratio</source>
@@ -3048,7 +2971,7 @@
         </trans-unit>
         <trans-unit id="Line Rate">
           <source>Line Rate</source>
-          <target>行の率</target>
+          <target>行率</target>
         </trans-unit>
         <trans-unit id="Lines">
           <source>Lines</source>
@@ -3068,7 +2991,7 @@
         </trans-unit>
         <trans-unit id="Memory Sort Rate">
           <source>Memory Sort Rate</source>
-          <target>メモリ分配率</target>
+          <target>メモリ分別率</target>
         </trans-unit>
         <trans-unit id="Open Objects">
           <source>Open Objects</source>
@@ -3088,7 +3011,7 @@
         </trans-unit>
         <trans-unit id="Physical Memory Used">
           <source>Physical Memory Used</source>
-          <target>使用中物理メモリ</target>
+          <target>使用中の物理メモリ</target>
         </trans-unit>
         <trans-unit id="Physical Read Rate">
           <source>Physical Read Rate</source>
@@ -3124,7 +3047,7 @@
         </trans-unit>
         <trans-unit id="Redo Buffer Allocation Retry Rate">
           <source>Redo Buffer Allocation Retry Rate</source>
-          <target>やり直しバッファ割当て再試行率</target>
+          <target>やり直しバッファ割り当ての再試行率</target>
         </trans-unit>
         <trans-unit id="Redo Log Space Request Rate">
           <source>Redo Log Space Request Rate</source>
@@ -3136,7 +3059,7 @@
         </trans-unit>
         <trans-unit id="Regular Expression Matches">
           <source>Regular Expression Matches</source>
-          <target>正規表現一致</target>
+          <target>正規表現の一致</target>
         </trans-unit>
         <trans-unit id="Reload Rate">
           <source>Reload Rate</source>
@@ -3212,7 +3135,7 @@
         </trans-unit>
         <trans-unit id="Virtual Memory Used">
           <source>Virtual Memory Used</source>
-          <target>使用中仮想メモリ</target>
+          <target>使用中の仮想メモリ</target>
         </trans-unit>
         <trans-unit id="Waiters">
           <source>Waiters</source>
@@ -3379,27 +3302,27 @@
           rhn_command_requirements.name -&gt; rhn_command_requirements.description</note>
         <trans-unit id="npunix">
           <source>RHNMD must be running on the monitored host to perform this check.</source>
-          <target>このチェックを実行するには、 RHNMD がモニター中のホストで稼動していなければなりません。</target>
+          <target>このチェックを実行するには、RHNMD がモニター中のホストで稼動していなければなりません。</target>
         </trans-unit>
         <trans-unit id="oracle">
           <source>Oracle checks require the configuration of the database and public associations made by running $ORACLE_HOME/rdbms/admin/catalog.sql. In addition, in any instance of Oracle, the Oracle user configured in the check must have minimum privileges of CONNECT and SELECT_CATALOG_ROLE.</source>
-          <target>Oracle チェックは、 $ORACLE_HOME/rdbms/admin/catalog.sql の実行により作成されるデータベースの設定と公共関連付けが必要になります。 また、 いずれの Oracle のインスタンスでも、 チェック内に設定された Oracle ユーザーは CONNECT とSELECT_CATALOG_ROLE の最低限度の権限を持っている必要があります。</target>
+          <target>Oracle チェックは、$ORACLE_HOME/rdbms/admin/catalog.sql の実行により作成されるデータベースの設定と公共関連付けが必要になります。また、いずれの Oracle のインスタンスでも、チェック内に設定された Oracle ユーザーは CONNECT とSELECT_CATALOG_ROLE の最低限度の権限を持っている必要があります。</target>
         </trans-unit>
         <trans-unit id="snmp">
           <source>SNMP must be running on the monitored host to perform this check.</source>
-          <target>このチェックを実行するには、 モニター中のホスト上で SNMP が稼動していなければなりません。</target>
+          <target>このチェックを実行するには、モニター中のホスト上で SNMP が稼動していなければなりません。</target>
         </trans-unit>
         <trans-unit id="bea61_snmp">
           <source>This check may be configured against a BEA Managed Server if the IP address of the Domain Admin Server is given. SNMP must also be enabled on the Domain Admin Server which can be done via the Weblogic Console.</source>
-          <target>Domain Admin サーバーの IP アドレスがある場合、 このチェックは BEA 管理のサーバーに対して設定することができます。 SNMP は DomainAdmin サーバー上でも有効にする必要があり、 これは Weblogic コンソールで行うことができます。</target>
+          <target>Domain Admin サーバーの IP アドレスがある場合、このチェックは BEA 管理サーバーに対して設定することができます。SNMP は DomainAdmin サーバー上でも有効にする必要があり、これは Weblogic コンソールで行うことができます。</target>
         </trans-unit>
         <trans-unit id="npunix_oracle">
           <source>RHNMD must be running on the monitored host to perform this check. Oracle checks require the configuration of the database and public associations made by running $ORACLE_HOME/rdbms/admin/catalog.sql. In addition, in any instance of Oracle, the Oracle user configured in the check must have minimum privileges of CONNECT and SELECT_CATALOG_ROLE.</source>
-          <target>このチェックを実行するには、 モニター中のホスト上で RHNMD が稼動していなければなりません。 Oracle チェックは、 $ORACLE_HOME/rdbms/admin/catalog.sql の実行により作成されるデータベースの設定と公共関連付けが必要になります。 また、 いずれの Oracle インスタンスでも、 このチェック内で設定された Oracle ユーザーは CONNECT と SELECT_CATALOG_ROLE の最低限度の権限を持っている必要があります。</target>
+          <target>このチェックを実行するには、モニター中のホスト上で RHNMD が稼動していなければなりません。Oracle チェックは、$ORACLE_HOME/rdbms/admin/catalog.sql の実行により作成されるデータベースの設定と公共関連付けが必要になります。また、いずれの Oracle インスタンスでも、このチェック内で設定された Oracle ユーザーは CONNECT と SELECT_CATALOG_ROLE の最低限度の権限を持っている必要があります。</target>
         </trans-unit>
         <trans-unit id="apache1_3">
           <source>The ExtendedStatus directive in the httpd.conf file of this webserver must be set to On for this check to function properly.</source>
-          <target>この web サーバーの httpd.conf ファイル内の ExtendedStatus ディレクティブは、 このチェックが正常に機能するよう On に設定する必要があります。</target>
+          <target>この Web サーバーの httpd.conf ファイル内の ExtendedStatus ディレクティブは、このチェックが正常に機能するよう On に設定する必要があります。</target>
         </trans-unit>
       </group>
       <group>
@@ -3419,10 +3342,6 @@
         <trans-unit id="BEA Weblogic">
           <source>BEA Weblogic</source>
           <target>BEA Weblogic</target>
-        </trans-unit>
-        <trans-unit id="Red Hat Application Server">
-          <source>Red Hat Application Server</source>
-          <target>Red Hat Application Server</target>
         </trans-unit>
         <trans-unit id="General">
           <source>General</source>
@@ -3473,7 +3392,7 @@
         </trans-unit>
         <trans-unit id="Blocking Sessions">
           <source>Blocking Sessions</source>
-          <target>ブロック中セッション</target>
+          <target>ブロック中のセッション</target>
         </trans-unit>
         <trans-unit id="Buffer Cache">
           <source>Buffer Cache</source>
@@ -3509,7 +3428,7 @@
         </trans-unit>
         <trans-unit id="Disk Sort Ratio">
           <source>Disk Sort Ratio</source>
-          <target>ディスク分配比率</target>
+          <target>ディスクソート率</target>
         </trans-unit>
         <trans-unit id="Disk Space">
           <source>Disk Space</source>
@@ -3533,11 +3452,11 @@
         </trans-unit>
         <trans-unit id="Heap Free">
           <source>Heap Free</source>
-          <target>空きヒープ (Heap)</target>
+          <target>空きヒープ</target>
         </trans-unit>
         <trans-unit id="Host Availability">
           <source>Host Availability</source>
-          <target>ホストアベイラビリティ</target>
+          <target>ホストの可用性</target>
         </trans-unit>
         <trans-unit id="ICMP Blocked">
           <source>ICMP Blocked</source>
@@ -3553,7 +3472,7 @@
         </trans-unit>
         <trans-unit id="Index Extents">
           <source>Index Extents</source>
-          <target>インデックス拡張</target>
+          <target>インデックスのエクステント</target>
         </trans-unit>
         <trans-unit id="Inodes">
           <source>Inodes</source>
@@ -3587,9 +3506,9 @@
           <source>Log Pattern Match</source>
           <target>ログパターン一致</target>
         </trans-unit>
-        <trans-unit id="Log Size">
-          <source>Log Size</source>
-          <target>ログサイズ</target>
+        <trans-unit id="Log Size Growth">
+          <source>Log Size Growth</source>
+          <target>ロズサイズの増加</target>
         </trans-unit>
         <trans-unit id="LongLegs">
           <source>LongLegs</source>
@@ -3717,11 +3636,11 @@
         </trans-unit>
         <trans-unit id="Table Extents">
           <source>Table Extents</source>
-          <target>表拡張</target>
+          <target>テーブルのエクステント</target>
         </trans-unit>
         <trans-unit id="Tablespace Usage">
           <source>Tablespace Usage</source>
-          <target>表スペース使用</target>
+          <target>テーブル領域の使用</target>
         </trans-unit>
         <trans-unit id="Threads Running">
           <source>Threads Running</source>
@@ -3771,7 +3690,7 @@
         </context-group>
         <trans-unit id="kickstart.state.created">
           <source>Kickstart session created but has not yet been used.</source>
-          <target>キックスタートセッションが作成されましたが、 まだ使用されていません。</target>
+          <target>キックスタートセッションが作成されましたが、まだ使用されていません。</target>
         </trans-unit>
         <trans-unit id="kickstart.state.deployed">
           <source>Files required for kickstart action have been installed.</source>
@@ -3779,11 +3698,11 @@
         </trans-unit>
         <trans-unit id="kickstart.state.injected">
           <source>The system configuration has been modified to begin kickstart upon next boot.</source>
-          <target>このシステム設定は次回起動時にキックスタートを開始するよう変更されています。</target>
+          <target>このシステム設定は次回の起動時にキックスタートを開始するよう変更されています。</target>
         </trans-unit>
         <trans-unit id="kickstart.state.restarted">
           <source>The system has been restarted in order to begin the kickstart process.</source>
-          <target>キックスタートプロセスを開始するため、 システムが再起動されています。</target>
+          <target>キックスタートプロセスを開始するため、システムが再起動されています。</target>
         </trans-unit>
         <trans-unit id="kickstart.state.configuration_accessed">
           <source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
@@ -3803,7 +3722,7 @@
         </trans-unit>
         <trans-unit id="kickstart.state.package_synch">
           <source>Package synchronization in progress.</source>
-          <target>パッケージの同期が進行中です。</target>
+          <target>パッケージの同期が実行中です。</target>
         </trans-unit>
         <trans-unit id="kickstart.state.package_synch_scheduled">
           <source>Package synchronization scheduled.</source>

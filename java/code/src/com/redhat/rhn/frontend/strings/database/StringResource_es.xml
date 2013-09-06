@@ -104,7 +104,7 @@
         </trans-unit>
         <trans-unit id="add-on">
           <source>Add-On</source>
-          <target>Extras</target>
+          <target>Complementos</target>
         </trans-unit>
         <trans-unit id="virtualization_host">
           <source>Virtualization</source>
@@ -116,12 +116,19 @@
         </trans-unit>
       </group>
       <!-- TimeZones -->
-      <trans-unit id="Australia/Sydney">
-        <source>(GMT+1000) Australia (Eastern)</source>
+      <trans-unit id="Australia/Brisbane">
+        <source>(GMT+1000) Australia (Eastern Standard)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-        <target>(GMT+1000) Australia (Oriental)</target>
+        <target>(GMT+1000) Australia (Estándar del Este)</target>
+      </trans-unit>
+      <trans-unit id="Australia/Sydney">
+        <source>(GMT+1000) Australia (Eastern Daylight)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+        <target>(GMT+1000) Australia (Horario de verano)</target>
       </trans-unit>
       <trans-unit id="Asia/Tokyo">
         <source>(GMT+0900) Japan</source>
@@ -142,7 +149,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-        <target>(GMT+0400) Rusia (Moscú)</target>
+        <target>(GMT+0400) Russia (Moscú)</target>
+      </trans-unit>
+      <trans-unit id="Africa/Johannesburg">
+        <source>(GMT+0200) South Africa (Johannesburg)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+        <target>(GMT+0200) Sudáfrica (Johannesburgo)</target>
       </trans-unit>
       <trans-unit id="Europe/Bucharest">
         <source>(GMT+0200) Europe (Eastern)</source>
@@ -965,13 +979,6 @@
         </context-group>
         <target>Crítico: Porcentaje de swap libre</target>
       </trans-unit>
-      <trans-unit id="Critical Swapped Process Count">
-        <source>Critical Swapped Process Count</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Crítico: Cuenta de procesos en intercambio (swap)</target>
-      </trans-unit>
       <trans-unit id="Critical TIME_WAIT Connections">
         <source>Critical TIME_WAIT Connections</source>
         <context-group name="ctx">
@@ -1069,41 +1076,6 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <target>Crítico: Tasa de escritura</target>
-      </trans-unit>
-      <trans-unit id="Critical if number of blocked processes exceeds">
-        <source>Critical if number of blocked processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Estado crítico si el número de procesos bloqueados excede</target>
-      </trans-unit>
-      <trans-unit id="Critical if number of children for any process exceeds">
-        <source>Critical if number of children for any process exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Estado crítico si el número de hijos por cada proceso excede</target>
-      </trans-unit>
-      <trans-unit id="Critical if number of defunct processes exceeds">
-        <source>Critical if number of defunct processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Estado crítico si el número de procesos muertos excede</target>
-      </trans-unit>
-      <trans-unit id="Critical if number of stopped processes exceeds">
-        <source>Critical if number of stopped processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Estado crítico si el número de procesos detenidos excede</target>
-      </trans-unit>
-      <trans-unit id="Critical if number of swapped processes exceeds">
-        <source>Critical if number of swapped processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Estado crítico si el número de procesos en intercambio excede</target>
       </trans-unit>
       <trans-unit id="Database">
         <source>Database</source>
@@ -1314,13 +1286,6 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <target>Contraseña Oracle</target>
-      </trans-unit>
-      <trans-unit id="Oracle Password_confirm">
-        <source>Oracle Password Confirm</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Confirme la contraseña de Oracle</target>
       </trans-unit>
       <trans-unit id="Oracle Port">
         <source>Oracle Port</source>
@@ -1643,41 +1608,6 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <target>Advertencia: Usuarios</target>
-      </trans-unit>
-      <trans-unit id="Warn if number of blocked processes exceeds">
-        <source>Warn if number of blocked processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Advertir si el número de procesos bloqueados excede</target>
-      </trans-unit>
-      <trans-unit id="Warn if number of children for any process exceeds">
-        <source>Warn if number of children for any process exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Advertir si el número de hijos para cualquier proceso excede</target>
-      </trans-unit>
-      <trans-unit id="Warn if number of defunct processes exceeds">
-        <source>Warn if number of defunct processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Advertir si el nombre de procesos muertos excede</target>
-      </trans-unit>
-      <trans-unit id="Warn if number of stopped processes exceeds">
-        <source>Warn if number of stopped processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Advertir si el nombre de procesos detenidos excede</target>
-      </trans-unit>
-      <trans-unit id="Warn if number of swapped processes exceeds">
-        <source>Warn if number of swapped processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Advertir si el nombre de procesos en intercambio excede</target>
       </trans-unit>
       <trans-unit id="Warning Accesses">
         <source>Warning Accesses</source>
@@ -2112,13 +2042,6 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <target>Advertencia: Porcentaje de swap libre</target>
-      </trans-unit>
-      <trans-unit id="Warning Swapped Process Count">
-        <source>Warning Swapped Process Count</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Advertencia: Cuenta de procesos en intercambio (swap)</target>
       </trans-unit>
       <trans-unit id="Warning TIME_WAIT Connections">
         <source>Warning TIME_WAIT Connections</source>
@@ -3420,10 +3343,6 @@
           <source>BEA Weblogic</source>
           <target>BEA Weblogic</target>
         </trans-unit>
-        <trans-unit id="Red Hat Application Server">
-          <source>Red Hat Application Server</source>
-          <target>Red Hat Application Server</target>
-        </trans-unit>
         <trans-unit id="General">
           <source>General</source>
           <target>General</target>
@@ -3587,8 +3506,8 @@
           <source>Log Pattern Match</source>
           <target>Coincidencias de patrones de registro</target>
         </trans-unit>
-        <trans-unit id="Log Size">
-          <source>Log Size</source>
+        <trans-unit id="Log Size Growth">
+          <source>Log Size Growth</source>
           <target>Tamaño del registro</target>
         </trans-unit>
         <trans-unit id="LongLegs">
@@ -3815,7 +3734,7 @@
         </trans-unit>
         <trans-unit id="kickstart.state.complete">
           <source>Kickstart complete.</source>
-          <target>Kickstart completado.</target>
+          <target>Kickstart completo.</target>
         </trans-unit>
         <trans-unit id="kickstart.state.failed">
           <source>Kickstart failed.</source>

@@ -58,13 +58,6 @@
         </context-group>
         <target>安裝升級檔</target>
       </trans-unit>
-      <trans-unit id="system.nav.all">
-        <source>All</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-        <target>全部</target>
-      </trans-unit>
       <trans-unit id="virtualization.entitlements">
         <source>Virtualization Entitlements</source>
         <context-group name="ctx">
@@ -107,12 +100,33 @@
         </context-group>
         <target>虛擬系統</target>
       </trans-unit>
+      <trans-unit id="Physical Systems">
+        <source>Physical Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+        <target>實體系統</target>
+      </trans-unit>
       <trans-unit id="Duplicate Systems">
         <source>Duplicate Systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
         <target>複製系統</target>
+      </trans-unit>
+      <trans-unit id="Requiring Reboot">
+        <source>Requiring Reboot</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+        <target>需要重新開機</target>
+      </trans-unit>
+      <trans-unit id="Extra Packages">
+        <source>Extra Packages</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+        <target>額外套件</target>
       </trans-unit>
       <trans-unit id="duplicate.systems.nav.ips">
         <source>Duplicate IP Address</source>
@@ -149,40 +163,40 @@
         </context-group>
         <target>系統貨幣</target>
       </trans-unit>
-      <trans-unit id="system.nav.outofdate">
-        <source>Out of Date</source>
+      <trans-unit id="software.crashes">
+        <source>Software Crashes</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-        <target>過時的系統</target>
+        <target>軟體當機</target>
       </trans-unit>
-      <trans-unit id="system.nav.unentitled">
-        <source>Unentitled</source>
+      <trans-unit id="software.crashes.overview">
+        <source>Software Crashes Overview</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-        <target>未享有權利</target>
+        <target>軟體當機總覽</target>
       </trans-unit>
-      <trans-unit id="system.nav.ungrouped">
-        <source>Ungrouped</source>
+      <trans-unit id="software.crashes.overview.summary">
+        <source>The table below lists software crashes, grouped by UUID, that occured on your systems. Identical crash UUIDs may potentially indicate similar or identical types of software crash.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-        <target>未分組</target>
+        <target>下列表格列出了在您系統上發生的軟體當機事件（以 UUID 排序）。相似的 UUID 可能代表類似或相同類型的軟體當機事件。</target>
       </trans-unit>
-      <trans-unit id="system.nav.inactive">
-        <source>Inactive</source>
+      <trans-unit id="software.crashes.by.uuid.summary">
+        <source>The table below lists systems where a crash with the above UUID occured.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-        <target>非啟動</target>
+        <target>以下表格列出了發生以上當機情況 ID 的系統。</target>
       </trans-unit>
-      <trans-unit id="system.nav.proxy">
-        <source>Proxy</source>
+      <trans-unit id="software.crashes.uuid.header">
+        <source>Summary for crashes with identical UUID</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-        <target>代理伺服器</target>
+        <target>相同 UUID 的當機情況概要</target>
       </trans-unit>
       <trans-unit id="ssm.nav.config">
         <source>Configuration</source>
@@ -254,13 +268,6 @@
         </context-group>
         <target>全部</target>
       </trans-unit>
-      <trans-unit id="channel.nav.relevant">
-        <source>Relevant channels</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Channel Navigation Menu</context>
-        </context-group>
-        <target>相關頻道</target>
-      </trans-unit>
       <trans-unit id="channel.nav.all">
         <source>All Channels</source>
         <context-group name="ctx">
@@ -303,13 +310,6 @@
         </context-group>
         <target>已淘汰的頻道</target>
       </trans-unit>
-      <trans-unit id="audit.nav.audit">
-        <source>Audit</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Audit Navigation Menu</context>
-        </context-group>
-        <target>稽核</target>
-      </trans-unit>
       <trans-unit id="config.nav.managed">
         <source>Managed Systems</source>
         <context-group name="ctx">
@@ -344,13 +344,6 @@
           <context context-type="sourcefile">Configuration Navigation Menu</context>
         </context-group>
         <target>配置檔案</target>
-      </trans-unit>
-      <trans-unit id="config.nav.quota">
-        <source>Quota for File Storage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Configuration Navigation Menu</context>
-        </context-group>
-        <target>檔案儲存配額</target>
       </trans-unit>
       <trans-unit id="config.nav.globalfiles">
         <source>Centrally Managed Files</source>
@@ -549,14 +542,6 @@
           <source>View/Modify Files</source>
           <target>檢視 / 修改檔案</target>
         </trans-unit>
-        <trans-unit id="nav.sdc.config.add_files">
-          <source>Add File</source>
-          <target>增加檔案</target>
-        </trans-unit>
-        <trans-unit id="nav.sdc.config.deploy_files">
-          <source>Deploy Files</source>
-          <target>檔案建置</target>
-        </trans-unit>
         <trans-unit id="nav.sdc.config.compare_files">
           <source>Compare Files</source>
           <target>檔案比較</target>
@@ -667,13 +652,6 @@
         </context-group>
         <target>Session 狀態</target>
       </trans-unit>
-      <trans-unit id="Session History">
-        <source>Session History</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Session 歷史</target>
-      </trans-unit>
       <trans-unit id="Sandbox">
         <source>Sandbox</source>
         <context-group name="ctx">
@@ -694,6 +672,27 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>@@PRODUCT_NAME@@ 配置</target>
+      </trans-unit>
+      <trans-unit id="ISS Configuration">
+        <source>ISS Configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+        <target>ISS 配置</target>
+      </trans-unit>
+      <trans-unit id="Master Setup">
+        <source>Master Setup</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+        <target>Master 設定</target>
+      </trans-unit>
+      <trans-unit id="Slave Setup">
+        <source>Slave Setup</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+        <target>Slave 設定</target>
       </trans-unit>
       <trans-unit id="Remote Command">
         <source>Remote Command</source>
@@ -820,20 +819,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>設定檔</target>
-      </trans-unit>
-      <trans-unit id="Local Overrides">
-        <source>Local Overrides</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>本機覆蓋</target>
-      </trans-unit>
-      <trans-unit id="Outage Policy">
-        <source>Outage Policy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>停機政策</target>
       </trans-unit>
       <trans-unit id="Join">
         <source>Join</source>
@@ -1003,20 +988,6 @@
         </context-group>
         <target>套件設定檔</target>
       </trans-unit>
-      <trans-unit id="Expiration Dates &amp; Purchase History">
-        <source>Expiration Dates &amp; Purchase History</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Overview left nav menu</context>
-        </context-group>
-        <target>過期日與購買紀錄</target>
-      </trans-unit>
-      <trans-unit id="Purchase or Renew">
-        <source>Purchase or Renew</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Overview left nav menu</context>
-        </context-group>
-        <target>購買或更新</target>
-      </trans-unit>
       <trans-unit id="Critical">
         <source>Critical</source>
         <context-group name="ctx">
@@ -1135,13 +1106,6 @@
           <context context-type="sourcefile">/rhn/admin/multiorg/Subscriptions.do</context>
         </context-group>
         <target>訂閱服務</target>
-      </trans-unit>
-      <trans-unit id="subdetails.details">
-        <source>Details</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/EntitlementDetails.do</context>
-        </context-group>
-        <target>詳細資料</target>
       </trans-unit>
       <!-- SSM NAV -->
       <group>

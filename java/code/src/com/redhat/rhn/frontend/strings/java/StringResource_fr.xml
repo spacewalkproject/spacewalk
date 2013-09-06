@@ -293,7 +293,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/Addresses</context>
         </context-group>
-        <target>Adresse</target>
+        <target>Adresse postale</target>
       </trans-unit>
       <trans-unit id="address type S">
         <source>Shipping Address</source>
@@ -378,13 +378,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>Actions archivées</target>
-      </trans-unit>
-      <trans-unit id="Buy Now">
-        <source>Buy Now</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">All pages</context>
-        </context-group>
-        <target>Acheter maintenant</target>
       </trans-unit>
       <trans-unit id="cant have spaces">
         <source>do spaces work?</source>
@@ -505,13 +498,6 @@
         </context-group>
         <target>Canaux de configuration</target>
       </trans-unit>
-      <trans-unit id="Contact Spacewalk">
-        <source>Contact @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Contacter @@PRODUCT_NAME@@</target>
-      </trans-unit>
       <trans-unit id="Create Account">
         <source>Create Account</source>
         <context-group name="ctx">
@@ -540,13 +526,6 @@
         </context-group>
         <target>Détails</target>
       </trans-unit>
-      <trans-unit id="Developer's Area">
-        <source>Developer's Area</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Zone du développeur</target>
-      </trans-unit>
       <trans-unit id="digits">
         <source>0 1 2 3 4 5 6 7 8 9</source>
         <context-group name="ctx">
@@ -562,13 +541,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>Distributions</target>
-      </trans-unit>
-      <trans-unit id="Download Software">
-        <source>Download Software</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Télécharger les logiciels</target>
       </trans-unit>
       <trans-unit id="Edit this address">
         <source>Edit this address</source>
@@ -605,13 +577,6 @@
         </context-group>
         <target>FAQ</target>
       </trans-unit>
-      <trans-unit id="FAQ Management">
-        <source>FAQ Management</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Gestion du FAQ</target>
-      </trans-unit>
       <trans-unit id="fax">
         <source>Fax</source>
         <context-group name="ctx">
@@ -619,33 +584,12 @@
         </context-group>
         <target>Fax</target>
       </trans-unit>
-      <trans-unit id="Feedback Management">
-        <source>Feedback Management</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Gestion des commentaires</target>
-      </trans-unit>
       <trans-unit id="File Preservation">
         <source>File Preservation</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>Conservation de fichiers</target>
-      </trans-unit>
-      <trans-unit id="Get Spacewalk Software">
-        <source>Get @@PRODUCT_NAME@@ Software</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Obtenir le logiciel @@PRODUCT_NAME@@</target>
-      </trans-unit>
-      <trans-unit id="Global Config">
-        <source>Global Config</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-        <target>Configuration globale</target>
       </trans-unit>
       <trans-unit id="Go">
         <source>Go</source>
@@ -696,33 +640,12 @@
         </context-group>
         <target>Kickstart</target>
       </trans-unit>
-      <trans-unit id="LoginSubmit.do">
-        <source>LoginSubmit.do</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-        <target>LoginSubmit.do</target>
-      </trans-unit>
       <trans-unit id="Lookup Login/Password">
         <source>Lookup Login/Password</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>Consultation de login / mot de passe</target>
-      </trans-unit>
-      <trans-unit id="Magic Entitler">
-        <source>Magic Entitler</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Magic Entitler</target>
-      </trans-unit>
-      <trans-unit id="Manage Config Channels">
-        <source>Manage Config Channels</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Gérer les canaux de configuration</target>
       </trans-unit>
       <trans-unit id="Manage Errata">
         <source>Manage Errata</source>
@@ -731,40 +654,12 @@
         </context-group>
         <target>Gérer les errata</target>
       </trans-unit>
-      <trans-unit id="Manage Files">
-        <source>Manage Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Gérer les fichiers</target>
-      </trans-unit>
       <trans-unit id="Management">
         <source>Management</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>Gestion</target>
-      </trans-unit>
-      <trans-unit id="Management Spacewalk Guide">
-        <source>Management @@PRODUCT_NAME@@ Guide</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Guide de gestion @@PRODUCT_NAME@@</target>
-      </trans-unit>
-      <trans-unit id="Management Spacewalk">
-        <source>Management @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Gestion de @@PRODUCT_NAME@@</target>
-      </trans-unit>
-      <trans-unit id="Management Spacewalk Release Notes">
-        <source>Management @@PRODUCT_NAME@@ Release Notes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Notes de mise à jour de gestion de @@PRODUCT_NAME@@</target>
       </trans-unit>
       <trans-unit id="Manage Software Channels">
         <source>Manage Software Channels</source>
@@ -787,6 +682,13 @@
         </context-group>
         <target>Gére les référentiels</target>
       </trans-unit>
+      <trans-unit id="Distribution Channel Mapping">
+        <source>Distribution Channel Mapping</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+        <target>Mappage du canal de distribution</target>
+      </trans-unit>
       <trans-unit id="Monitoring">
         <source>Monitoring</source>
         <context-group name="ctx">
@@ -799,7 +701,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">NOT USED</context>
         </context-group>
-        <target>Le nom</target>
+        <target>nom</target>
       </trans-unit>
       <trans-unit id="Notification Methods">
         <source>Notification Methods</source>
@@ -820,7 +722,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>Périmés</target>
+        <target>Expirés</target>
       </trans-unit>
       <trans-unit id="Overview">
         <source>Overview</source>
@@ -927,13 +829,6 @@
         </context-group>
         <target>Confiances de l'organisation</target>
       </trans-unit>
-      <trans-unit id="Quick Start Guide">
-        <source>Quick Start Guide</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Guide de démarrage</target>
-      </trans-unit>
       <trans-unit id="Quota">
         <source>Quota</source>
         <context-group name="ctx">
@@ -976,41 +871,6 @@
         </context-group>
         <target>Requête</target>
       </trans-unit>
-      <trans-unit id="RHL Migration FAQ">
-        <source>RHL Migration FAQ</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>FAQ sur la migration de RHL</target>
-      </trans-unit>
-      <trans-unit id="Spacewalk Management Tools">
-        <source>@@PRODUCT_NAME@@ Management Tools</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Outils de gestion de @@PRODUCT_NAME@@</target>
-      </trans-unit>
-      <trans-unit id="Spacewalk Login">
-        <source>@@PRODUCT_NAME@@ Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Connexion @@PRODUCT_NAME@@</target>
-      </trans-unit>
-      <trans-unit id="Create Login">
-        <source>Create Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Créer le login</target>
-      </trans-unit>
-      <trans-unit id="Spacewalk Support Tools">
-        <source>@@PRODUCT_NAME@@ Support Tools</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Outils de support de @@PRODUCT_NAME@@</target>
-      </trans-unit>
       <trans-unit id="Schedule">
         <source>Schedule</source>
         <context-group name="ctx">
@@ -1039,13 +899,6 @@
         </context-group>
         <target>Sessions</target>
       </trans-unit>
-      <trans-unit id="Session Tracer">
-        <source>Session Tracer</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Suivi de sessions</target>
-      </trans-unit>
       <trans-unit id="Sign In">
         <source>Sign In</source>
         <context-group name="ctx">
@@ -1060,6 +913,13 @@
         </context-group>
         <target>Canaux logiciels</target>
       </trans-unit>
+      <trans-unit id="Software Crashes">
+        <source>Software Crashes</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+        <target>Incidents logiciel</target>
+      </trans-unit>
       <trans-unit id="Status">
         <source>Status</source>
         <context-group name="ctx">
@@ -1073,13 +933,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>Profils stockés</target>
-      </trans-unit>
-      <trans-unit id="String Manager">
-        <source>String Manager</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Gestionnaire de chaînes</target>
       </trans-unit>
       <trans-unit id="Subscription">
         <source>Subscription</source>
@@ -1137,13 +990,6 @@
         </context-group>
         <target>Afficher les logs de Tomcat</target>
       </trans-unit>
-      <trans-unit id="Terms &amp; Conditions">
-        <source>Terms &amp; Conditions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Termes et conditions</target>
-      </trans-unit>
       <trans-unit id="testMessage">
         <source>this is a test of the emergency broadcast</source>
         <context-group name="ctx">
@@ -1170,7 +1016,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Traceback Email Notifications</context>
         </context-group>
-        <target>L'exception suivante s'est produite lors de l'exécution de cette requête&amp;nbsp;:</target>
+        <target>L'exception suivante s'est produite lors de l'exécution de cette requête :</target>
       </trans-unit>
       <trans-unit id="Ungrouped">
         <source>Ungrouped</source>
@@ -1178,13 +1024,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>Sans groupe</target>
-      </trans-unit>
-      <trans-unit id="Unix Reference Guide">
-        <source>Unix Reference Guide</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Guide de référence d'Unix</target>
       </trans-unit>
       <trans-unit id="Unix Release Notes">
         <source>Unix Release Notes</source>
@@ -1272,6 +1111,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
+        <target> </target>
       </trans-unit>
       <trans-unit id="user.delete">
         <source>Deleted user &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -1341,13 +1181,6 @@ utilisateur avant de supprimer son compte.</target>
         </context-group>
         <target>Impossible d'effacer le dernier adminisrateur de satellite.</target>
       </trans-unit>
-      <trans-unit id="Users/Servers">
-        <source>Users/Servers</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Utilisateurs/Serveurs</target>
-      </trans-unit>
       <trans-unit id="Users">
         <source>Users</source>
         <context-group name="ctx">
@@ -1412,13 +1245,6 @@ utilisateur avant de supprimer son compte.</target>
         </context-group>
         <target>Candidats de l'organisation</target>
       </trans-unit>
-      <trans-unit id="Organization Admins">
-        <source>Organization Admins</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-        <target>Administrateurs d'organisations</target>
-      </trans-unit>
       <trans-unit id="Activation Key Administrators">
         <source>Activation Key Administrators</source>
         <context-group name="ctx">
@@ -1446,20 +1272,6 @@ utilisateur avant de supprimer son compte.</target>
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
         <target>Administrateurs @@PRODUCT_NAME@@</target>
-      </trans-unit>
-      <trans-unit id="Spacewalk Administrators">
-        <source>@@PRODUCT_NAME@@ Administrators</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-        <target>Administrateurs @@PRODUCT_NAME@@</target>
-      </trans-unit>
-      <trans-unit id="Spacewalk Super Users">
-        <source>@@PRODUCT_NAME@@ Super Users</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-        <target>Super-utilisateurs de @@PRODUCT_NAME@@</target>
       </trans-unit>
       <trans-unit id="System Group Administrators">
         <source>System Group Administrators</source>
@@ -1522,21 +1334,14 @@ utilisateur avant de supprimer son compte.</target>
         <context-group name="ctx">
           <context context-type="sourcefile">/admin/multiorg/OrgCreate</context>
         </context-group>
-        <target>Ce nom d'organisation est déjà utilisé&amp;nbsp;; veuillez en choisir un autre.</target>
+        <target>Ce nom d'organisation est déjà utilisé ; veuillez en choisir un autre.</target>
       </trans-unit>
       <trans-unit id="error.login_already_taken">
         <source>That username is already taken; please choose another.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/users/CreateUser</context>
         </context-group>
-        <target>Ce nom d'utilisateur est déjà utilisé&amp;nbsp;; veuillez en choisir un autre.</target>
-      </trans-unit>
-      <trans-unit id="error.link_problem">
-        <source>There is a problem with the link you have been sent. Please contact customer support.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/users/CreateUser</context>
-        </context-group>
-        <target>Le lien qui vous a été envoyé pose problème. Veuillez contacter l'assistance clientèle.</target>
+        <target>Ce nom d'utilisateur est déjà utilisé ; veuillez en choisir un autre.</target>
       </trans-unit>
       <trans-unit id="error.same_email">
         <source>You must specify a different email</source>
@@ -1544,13 +1349,6 @@ utilisateur avant de supprimer son compte.</target>
           <context context-type="sourcefile">/rhn/users/ChangeEmail</context>
         </context-group>
         <target>Vous devez spécifier une autre adresse électronique.</target>
-      </trans-unit>
-      <trans-unit id="error.addr_empty">
-        <source>A valid email address must be entered</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/GeneralConfig</context>
-        </context-group>
-        <target>Une adresse électronique valide doit être saisie</target>
       </trans-unit>
       <trans-unit id="error.maxemail">
         <source>The email address is too long. Please enter a shorter email address and try again.</source>
@@ -1568,15 +1366,12 @@ utilisateur avant de supprimer son compte.</target>
         </context-group>
         <target>L'adresse électronique saisie n'est pas valide</target>
       </trans-unit>
-      <trans-unit id="error.addr_exists">
-        <source>Email address "{0}" already exists</source>
+      <trans-unit id="error.proxy_invalid">
+        <source>HTTP proxy needs to be specified as host:port.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/ChangeEmail</context>
           <context context-type="sourcefile">/rhn/admin/config/GeneralConfig</context>
-          <context context-type="sourcefile">com.redhat.rhn.frontend.action.monitoring.notification.AbstractFilterEditAction</context>
-          <context context-type="sourcefile">/users/CreateUser</context>
         </context-group>
-        <target>L'adresse électronique "{0}" existe déjà</target>
+        <target>Le proxy HTTP doit être spécifié en tant que host:port.</target>
       </trans-unit>
       <trans-unit id="/rhn/">
         <source>That username is already taken; please choose another.</source>
@@ -1584,7 +1379,7 @@ utilisateur avant de supprimer son compte.</target>
           <context context-type="sourcefile">/newlogin/CreatePersonal</context>
           <context context-type="sourcefile">/newlogin/CreateCorporate</context>
         </context-group>
-        <target>Ce nom d'utilisateur est déjà utilisé&amp;nbsp;; veuillez en choisir un autre.</target>
+        <target>Ce nom d'utilisateur est déjà utilisé ; veuillez en choisir un autre.</target>
       </trans-unit>
       <trans-unit id="error.minlogin">
         <source>Logins must be no shorter than {0} characters.</source>
@@ -1592,14 +1387,14 @@ utilisateur avant de supprimer son compte.</target>
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
           <context context-type="paramnotes">Logins must be no shorter than 5 characters.</context>
         </context-group>
-        <target>Les logins ne peuvent pas avoir moins de {0} caractères.</target>
+        <target>Les identifiants ne peuvent pas avoir moins de {0} caractères.</target>
       </trans-unit>
       <trans-unit id="error.maxlogin">
         <source>The desired login you requested is too long. Please enter a shorter desired login and try again.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
-        <target>Le login que vous souhaitez est trop long. Saisissez un login plus court et essayez à nouveau.</target>
+        <target>L'identifiant que vous souhaitez est trop long. Saisissez un identifiant plus court et essayez à nouveau.</target>
       </trans-unit>
       <trans-unit id="error.minpassword">
         <source>Passwords must be at least {0} characters.</source>
@@ -1631,13 +1426,6 @@ utilisateur avant de supprimer son compte.</target>
           <context context-type="sourcefile">/rhn/users/UserDetailsSubmit</context>
         </context-group>
         <target>Les mots de passe ne correspondent pas.</target>
-      </trans-unit>
-      <trans-unit id="error.unknown_usertype">
-        <source>Unknown account type.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-        <target>Type de compte inconnu.</target>
       </trans-unit>
       <trans-unit id="error.user_invalid_prefix">
         <source>Invalid prefix [{0}]. Must be one of {1}.</source>
@@ -1774,7 +1562,7 @@ utilisateur avant de supprimer son compte.</target>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
         </context-group>
-        <target>L'étagère</target>
+        <target>Rack</target>
       </trans-unit>
       <trans-unit id="system_name">
         <source>System Name</source>
@@ -1873,6 +1661,13 @@ utilisateur avant de supprimer son compte.</target>
         </context-group>
         <target>You avez programmé avec succès une actualisation de profil de matériel pour {0}.</target>
       </trans-unit>
+      <trans-unit id="message.interfaceSet">
+        <source>Primary network interface set to &lt;strong&gt;{0}&lt;/strong&gt;.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">NOT USED</context>
+        </context-group>
+        <target>Interface réseau principale définie sur &lt;strong&gt;{0}&lt;/strong&gt;.</target>
+      </trans-unit>
       <trans-unit id="prefix">
         <source>Prefix</source>
         <context-group name="ctx">
@@ -1913,7 +1708,7 @@ utilisateur avant de supprimer son compte.</target>
         <context-group name="ctx">
           <context context-type="sourcefile">NOT USED</context>
         </context-group>
-        <target>Enregistrement d'adresse&amp;nbsp;:</target>
+        <target>Enregistrement d'adresse :</target>
       </trans-unit>
       <trans-unit id="message.defaultSystemGroups">
         <source>Default system groups updated for &lt;strong&gt;{0}&lt;/strong&gt;</source>
@@ -1945,13 +1740,6 @@ utilisateur avant de supprimer son compte.</target>
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
         <target>Informations de l'utilisateur mises à jour</target>
-      </trans-unit>
-      <trans-unit id="message.TnCAcknowledged">
-        <source>Thank you for acknowledging the Terms &amp; Conditions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-        <target>Merci d'avoir accepté les Termes et conditions</target>
       </trans-unit>
       <trans-unit id="no user loggedin">
         <source>No User logged in.</source>
@@ -1989,14 +1777,14 @@ utilisateur avant de supprimer son compte.</target>
         <context-group name="ctx">
           <context context-type="sourcefile">NOT USED</context>
         </context-group>
-        <target>Filtrer par {0}&amp;nbsp;: </target>
+        <target>Filtrer par {0} : </target>
       </trans-unit>
       <trans-unit id="message.filterby.multiple">
         <source>Filter by: </source>
         <context-group name="ctx">
           <context context-type="sourcefile">NOT USED</context>
         </context-group>
-        <target>Filtrer par&amp;nbsp;: </target>
+        <target>Filtrer par : </target>
       </trans-unit>
       <trans-unit id="message.range">
         <source>&lt;strong id="list_min" &gt;{0}&lt;/strong&gt; - &lt;strong id="list_max"&gt;{1}&lt;/strong&gt; of &lt;strong id="list_total"&gt;{2}&lt;/strong&gt;</source>
@@ -2060,42 +1848,35 @@ utilisateur avant de supprimer son compte.</target>
         <context-group name="ctx">
           <context context-type="sourcefile">Logfile error message</context>
         </context-group>
-        <target>La classe n'implémente pas le gestionnaire d'Acl&amp;nbsp;: {0}</target>
+        <target>La classe n'implémente pas le gestionnaire d'Acl : {0}</target>
       </trans-unit>
       <trans-unit id="bad-signature">
         <source>Bad ACL handler method [{0}]. ACL handler methods must have the following signature (may be static or non-static), with no declared exceptions: public aclXXXX(Object, String[])</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Logfile error message</context>
         </context-group>
-        <target>Mauvaise méthode de gestionnaire d'ACL [{0}]. Les méthodes gestionnaire d'ACL doivent posséder la signature suivante (qui peut être statique ou non), avec aucune exception déclarée&amp;nbsp;: public aclXXXX(Object, String[])</target>
+        <target>Mauvaise méthode de gestionnaire d'ACL [{0}]. Les méthodes gestionnaire d'ACL doivent posséder la signature suivante (qui peut être statique ou non), avec aucune exception déclarée : public aclXXXX(Object, String[])</target>
       </trans-unit>
       <trans-unit id="bad-syntax">
         <source>Could not parse ACL statement: "{0}"</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Logfile error message</context>
         </context-group>
-        <target>Impossible d'analyser l'instruction ACL&amp;nbsp;: "{0}"</target>
+        <target>Impossible d'analyser l'instruction ACL : "{0}"</target>
       </trans-unit>
       <trans-unit id="bad-handler">
         <source>Could not find ACL handler {0} in statement: "{1}". Available ACL handlers: {2}</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Logfile error message</context>
         </context-group>
-        <target>Impossible de trouver le gestionnaire d'ACL {0} dans l'instruction&amp;nbsp;: "{1}". Gestionnaires d'ACL disponibles&amp;nbsp;: {2}</target>
-      </trans-unit>
-      <trans-unit id="illegal-access-exception">
-        <source>IllegalAccessException calling {0} ("{1}"): {2}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-        <target>IllegalAccessException appelant {0} ("{1}")&amp;nbsp;: {2}</target>
+        <target>Impossible de trouver le gestionnaire d'ACL {0} dans l'instruction : "{1}". Gestionnaires d'ACL disponibles : {2}</target>
       </trans-unit>
       <trans-unit id="invocation-target-exception">
         <source>IllegalInvocationException calling {0} ("{1}"): {2}</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Logfile error message</context>
         </context-group>
-        <target>IllegalInvocationException appelant {0} ("{1}")&amp;nbsp;: {2}</target>
+        <target>IllegalInvocationException appelant {0} ("{1}") : {2}</target>
       </trans-unit>
       <trans-unit id="no notes">
         <source>(none)</source>
@@ -2251,28 +2032,28 @@ utilisateur avant de supprimer son compte.</target>
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
           <context context-type="paramnotes">Destination Configuration Channel: sandbox for postmaster.devel</context>
         </context-group>
-        <target>Destination du canal de configuration&amp;nbsp;: {0}</target>
+        <target>Destination du canal de configuration : {0}</target>
       </trans-unit>
       <trans-unit id="config.upload.channels">
         <source>Destination Configuration Channels:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
-        <target>Destination des canaux de configuration&amp;nbsp;:</target>
+        <target>Destination des canaux de configuration :</target>
       </trans-unit>
       <trans-unit id="config.upload.filenames">
         <source>Files for Upload:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
-        <target>Fichiers pour le téléchargement&amp;nbsp;:</target>
+        <target>Fichiers pour le téléchargement :</target>
       </trans-unit>
       <trans-unit id="kickstart.invalidchannel.message">
         <source>The following packages are not available in any of the channels associated to this kickstart profile: {0}. In order for all kickstart functionality to work correctly, these packages should be present in at least one channel associated to this profile.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Kickstart Profile Details pages.</context>
         </context-group>
-        <target>Les paquetages suivants ne sont pas disponibles dans les canaux associés à ce profil kickstart : {0}. Afin que toutes fonctionnalités de kickstart fonctionnent correctement, les paquetages suivants devraient se trouver dans au moins un canal associé au profil.</target>
+        <target>Les paquetages suivants ne sont pas disponibles dans les canaux associés à ce profil kickstart : {0}. Afin que toutes fonctionnalités de kickstart fonctionnent correctement, les paquetages suivants devraient se trouver dans au moins un canal associé au profil.</target>
       </trans-unit>
       <trans-unit id="kickstart.invalidchannel.satmessage">
         <source>&lt;div style="text-align: left;"&gt;
@@ -2304,8 +2085,8 @@ available for this kickstart profile to function properly.
         <context-group name="ctx">
           <context context-type="sourcefile">Kickstart Profile Details pages.</context>
         </context-group>
-        <target>&lt; div style = \ "aligner le texte : gauche; " &gt;
- &lt;p&gt;pour résoudre ce problème, vérifiez les points suivants :&lt;/p&gt;
+        <target>&lt; div style = \ "aligner le texte : gauche; " &gt;
+ &lt;p&gt;pour résoudre ce problème, vérifiez les points suivants :&lt;/p&gt;
  &lt;ul&gt;
  &lt;li&gt;
 Est-ce que le canal de logiciel 'rhn-tools' enfant pour le canal de base
@@ -2352,26 +2133,19 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
         </context-group>
         <target>Programmer une synchronisation de paquetages pour les kickstarts</target>
       </trans-unit>
-      <trans-unit id="kickstart.error.nolabel">
-        <source>Please enter a label for this kickstart profile below.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
-        </context-group>
-        <target>Veuillez saisir ci-dessous une étiquette pour ce profil kickstart.</target>
-      </trans-unit>
       <trans-unit id="kickstart.error.invalidlabel">
         <source>Your selected kickstart label is invalid, it must be at least {0} characters and only contain the following characters : A-Z, a-z, 0-9, _, - </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
-        <target>L'étiquette kickstart que vous avez sélectionnée est invalide, elle doit avoir au moins {0} caractères et contenir uniquement les caractères suivants&amp;nbsp;: A-Z, a-z, 0-9, _, - </target>
+        <target>L'étiquette kickstart que vous avez sélectionnée est invalide, elle doit avoir au moins {0} caractères et contenir uniquement les caractères suivants : A-Z, a-z, 0-9, _, - </target>
       </trans-unit>
       <trans-unit id="kickstart.error.labelexists">
-        <source>Kickstart label already exists. Please choose a unique kickstart label.</source>
+        <source>Kickstart label already exists: '{0}'. Please choose a unique kickstart label.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
-        <target>L'étiquette kickstart existe déjà. Choisissez une étiquette unique.</target>
+        <target>L'étiquette kickstart existe déjà : « {0} ». Choisissez une étiquette unique.</target>
       </trans-unit>
       <trans-unit id="kickstart.details.success">
         <source>Kickstart details successfully updated.</source>
@@ -2394,13 +2168,6 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
         </context-group>
         <target>Le kickstart a bien été supprimé.</target>
       </trans-unit>
-      <trans-unit id="kickstart.delete.failure">
-        <source>Kickstart {0} could not be deleted, try again on your next login.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartDeleteSubmit</context>
-        </context-group>
-        <target>Impossible de supprimer le kickstart {0}, essayez à nouveau lors de votre prochaine connexion.</target>
-      </trans-unit>
       <trans-unit id="kickstart.options.success">
         <source>Kickstart advanced options successfully updated.</source>
         <context-group name="ctx">
@@ -2413,7 +2180,7 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartOptionsEdit</context>
         </context-group>
-        <target>&lt;strong&gt;REMARQUE :&lt;/strong&gt; Par défaut, les URL de kickstart de @@PRODUCT_NAME@@ ne sont stockées qu'avec le chemin du fichier, permettant à @@PRODUCT_NAME@@ de savoir quand dynamiquement ajuster le nom d'hôte dans les URL rendues dans le fichier kickstart. (Pour les proxies, etc.) Vous pouvez personnaliser cette valeur en la changeant en URL qualifiée, ce qui apparaîtra dans le fichier kickstart.</target>
+        <target>&lt;strong&gt;REMARQUE :&lt;/strong&gt; Par défaut, les URL de kickstart de @@PRODUCT_NAME@@ ne sont stockées qu'avec le chemin du fichier, permettant à @@PRODUCT_NAME@@ de savoir quand dynamiquement ajuster le nom d'hôte dans les URL rendues dans le fichier kickstart. (Pour les proxies, etc.) Vous pouvez personnaliser cette valeur en la changeant en URL qualifiée, ce qui apparaîtra dans le fichier kickstart.</target>
       </trans-unit>
       <trans-unit id="kickstart.options.rootpw.note">
         <source>&lt;strong&gt;NOTE:&lt;/strong&gt; You may set any password hash into this field. Make sure the hash algorithm is correctly set in the &lt;strong&gt;auth&lt;/strong&gt; option. However you may enter a plaintext password, that will be md5 encrypted when selecting the &lt;strong&gt;MD5 Encrypt&lt;/strong&gt; checkbox.</source>
@@ -2434,14 +2201,14 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartIpRangeEdit</context>
         </context-group>
-        <target>Erreur&amp;nbsp;: La gamme d'IP que vous avez saisie entre en conflit avec une autre gamme d'IP. Veuillez choisir une gamme d'IP différente.</target>
+        <target>Erreur : La gamme d'IP que vous avez saisie entre en conflit avec une autre gamme d'IP. Veuillez choisir une gamme d'IP différente.</target>
       </trans-unit>
       <trans-unit id="kickstart.iprange_validate.failure">
         <source>Error: IP range values must be between 0 and 255. Please check IP range you just entered and try again.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartIpRangeEdit</context>
         </context-group>
-        <target>Erreur&amp;nbsp;: Les valeurs de la gamme d'IP doivent se trouver entre 0 et 255. Vérifiez la gamme d'IP que vous venez de saisir et essayez à nouveau.</target>
+        <target>Erreur : Les valeurs de la gamme d'IP doivent se trouver entre 0 et 255. Vérifiez la gamme d'IP que vous venez de saisir et essayez à nouveau.</target>
       </trans-unit>
       <trans-unit id="kickstart.iprange_delete.success">
         <source>Successfully deleted IP Range from Kickstart Profile {0}</source>
@@ -2519,20 +2286,6 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
           <context context-type="sourcefile">/rhn/kickstart/KickstartIpRangeEdit</context>
         </context-group>
         <target>De nouveaux systèmes peuvent être installés avec kickstart selon leur adresse ip en ajoutant &lt;code&gt;{0}&lt;/code&gt; aux paramètres du noyau pour une installation kickstart.</target>
-      </trans-unit>
-      <trans-unit id="kickstart.partition.duplicate">
-        <source>Only one {0} partition is allowed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartPartitionEdit</context>
-        </context-group>
-        <target>Une seule partition {0} est autorisée.</target>
-      </trans-unit>
-      <trans-unit id="kickstart.partition.invalid">
-        <source>Invalid partition value removed: &lt;strong&gt;{0}&lt;/strong&gt;. Please verify the input values and resubmit.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartPartitionEdit</context>
-        </context-group>
-        <target>Valeur de partition invalide supprimée&amp;nbsp;: &lt;strong&gt;{0}&lt;/strong&gt;. Vérifiez les valeurs d'entrée et envoyez à nouveau.</target>
       </trans-unit>
       <trans-unit id="kickstart.partition.success">
         <source>Kickstart profile options updated successfully.</source>
@@ -2699,7 +2452,15 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">Errata Update: RHSA-2004:577 - Security Advisory</context>
         </context-group>
-        <target>Mise à jour d'errata&amp;nbsp;: {0} - {1}</target>
+        <target>Mise à jour d'errata : {0} - {1}</target>
+      </trans-unit>
+      <trans-unit id="errata.swstack">
+        <source>Errata Update: Combined update for the software update stack ({0} errata)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
+          <context context-type="paramnotes">Errata Update: combined software stack update (4 errata)</context>
+        </context-group>
+        <target>Mise à jour d'errata : Mise à jour combinée pour la pile de mise à jour de logiciel ({0} errata)</target>
       </trans-unit>
       <trans-unit id="errata.schedule">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; errata update has been scheduled for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
@@ -2740,33 +2501,12 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
         </context-group>
         <target>Vous devez sélectionner au moins un système.</target>
       </trans-unit>
-      <trans-unit id="erratasearch.error.parse.startdate">
-        <source>Unable to parse start date, please re-enter in format yyyy-mm-dd.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search.do</context>
-        </context-group>
-        <target>Impossible d'analyser la date de commencement, veuillez ré-entrer la date dans le format suivant : aaaa-mm-jj.</target>
-      </trans-unit>
-      <trans-unit id="erratasearch.error.parse.enddate">
-        <source>Unable to parse end date, please re-enter in format yyyy-mm-dd.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search.do</context>
-        </context-group>
-        <target>Impossible d'analyser la date de fin, veuillez ré-entrer la date dans le format suivant : aaaa-mm-jj.</target>
-      </trans-unit>
-      <trans-unit id="patchremoveconfirm.schedule">
-        <source>Patch removal has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/patches/PatchConfirmSubmit.do</context>
-        </context-group>
-        <target>La suppression de correctifs a été programmée pour &lt;strong&gt;{1}&lt;/strong&gt; système</target>
-      </trans-unit>
       <trans-unit id="run as">
         <source>Run as:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">rhn/schedule/ActionDetails.do</context>
         </context-group>
-        <target>Exécuté en tant que&amp;nbsp;:</target>
+        <target>Exécuté en tant que :</target>
       </trans-unit>
       <trans-unit id="Completed Systems">
         <source>Completed Systems</source>
@@ -2845,13 +2585,6 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
         </context-group>
         <target>Administrateur de canaux</target>
       </trans-unit>
-      <trans-unit id="rhn_superuser">
-        <source>@@PRODUCT_NAME@@ Superuser</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/UserDetails</context>
-        </context-group>
-        <target>Super-utilisateur @@PRODUCT_NAME@@ </target>
-      </trans-unit>
       <trans-unit id="coma_admin">
         <source>Coma CMS Administrator</source>
         <context-group name="ctx">
@@ -2907,13 +2640,6 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
         <target>Administrateur de clés d'activation</target>
-      </trans-unit>
-      <trans-unit id="normal_user">
-        <source>(normal user)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/UserDetails</context>
-        </context-group>
-        <target>(utilisateur normal)</target>
       </trans-unit>
       <trans-unit id="Admin Access">
         <source>Admin Access</source>
@@ -3091,6 +2817,13 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
         </context-group>
         <target>supprimer le profil</target>
       </trans-unit>
+      <trans-unit id="toolbar.delete.crash">
+        <source>delete software crash</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/SoftwareCrashDetail.do</context>
+        </context-group>
+        <target>supprimer l'incident logiciel</target>
+      </trans-unit>
       <trans-unit id="message.unscheduled.system">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; unscheduled for &lt;strong&gt;{1}&lt;/strong&gt; system.</source>
         <context-group name="ctx">
@@ -3124,21 +2857,21 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/Create.do</context>
         </context-group>
-        <target>Alerte de correctif de bogue</target>
+        <target>Avis de correctif de bogue</target>
       </trans-unit>
       <trans-unit id="errata.create.productenhancementadvisory">
         <source>Product Enhancement Advisory</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/Create.do</context>
         </context-group>
-        <target>Alerte d'amélioration de produit</target>
+        <target>Avis d'amélioration de produit</target>
       </trans-unit>
       <trans-unit id="errata.create.securityadvisory">
         <source>Security Advisory</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/Create.do</context>
         </context-group>
-        <target>Alerte de sécurité</target>
+        <target>Avis de sécurité</target>
       </trans-unit>
       <trans-unit id="errata.create.securityadvisory.crit">
         <source>Security Advisory (Critical)</source>
@@ -3168,13 +2901,6 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
         </context-group>
         <target>Avis de sécurité (moindre)</target>
       </trans-unit>
-      <trans-unit id="errata.search.could_not_execute_query">
-        <source>Could not execute query: {0}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search.do</context>
-        </context-group>
-        <target>Impossible d'analyser la requête : {0}</target>
-      </trans-unit>
       <trans-unit id="packages.search.both">
         <source>Name and Summary</source>
         <context-group name="ctx">
@@ -3202,27 +2928,6 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
           <context context-type="sourcefile">/rhn/channels/Search</context>
         </context-group>
         <target>Formulaire libre</target>
-      </trans-unit>
-      <trans-unit id="packages.search.chooseone">
-        <source>You must choose to search relevant channels or at least one architecture</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-        <target>Vous devez choisir de rechercher les canaux appropriés ou au moins une architecture</target>
-      </trans-unit>
-      <trans-unit id="packages.search.onlyone">
-        <source>Either search relevant channels or architectures, not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-        <target>Recherchez parmi les canaux appropriés ou les architectures, mais pas les deux.</target>
-      </trans-unit>
-      <trans-unit id="packages.search.invalidstring">
-        <source>Search strings must contain only letters, numbers, plus symbols, hyphens and dashes.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-        <target>Les chaînes de recherche doivent contenir uniquement des lettres, des nombres, des symboles plus (+), des tirets et des traits.</target>
       </trans-unit>
       <trans-unit id="packages.search.use_free_form">
         <source>Searching by fields can ONLY be done with Free Form search.</source>
@@ -3253,7 +2958,7 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
           <context context-type="sourcefile">/rhn/help/Search</context>
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
-        <target>Fichiers d'index manquants du serveur de recherche . En supposant que les données existent dans la bas de données, les index peuvent être regénérés en exécutant : service rhn-search cleanindex, puis redémarrez rhn-search</target>
+        <target>Fichiers d'index manquants du serveur de recherche. En supposant que les données existent dans la bas de données, les index peuvent être régénérés en exécutant : service rhn-search cleanindex, puis redémarrez rhn-search</target>
       </trans-unit>
       <trans-unit id="packages.search.index_files_missing_for_docs">
         <source>Index files were missing from search-server for your locale. The search operation was performed using the default locale. Assuming data exists in database for your locale, indexes can be regenerated by running: service rhn-search cleanindex, then restart rhn-search</source>
@@ -3273,21 +2978,14 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
           <context context-type="sourcefile">/rhn/help/Search</context>
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
-        <target>Impossible d'analyser la requête '{0}'.</target>
-      </trans-unit>
-      <trans-unit id="packages.search.tooshort">
-        <source>Search strings must be longer than two characters.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-        <target>Les chaînes de recherche doivent contenir plus de deux caractères.</target>
+        <target>Impossible d'analyser la requête « {0} ».</target>
       </trans-unit>
       <trans-unit id="searchserver.index_out_of_sync_with_db">
         <source>SearchServer index and database entries appear to be out of sync. Please run 'service rhn-search cleanindex'</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/Search</context>
         </context-group>
-        <target>Les entrées de base de données et celles de l'index SearchServer ne sont pas synchronisées. Veuillez exécuter 'service rhn-search cleanindex'</target>
+        <target>Les entrées de la base de données et de l'index SearchServer ne sont pas synchronisées. Veuillez exécuter « service rhn-search cleanindex »</target>
       </trans-unit>
       <trans-unit id="patches.installed.notavailable">
         <source>Not Available</source>
@@ -3382,25 +3080,25 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
         <target>Mhz du CPU inférieurs à</target>
       </trans-unit>
       <trans-unit id="systemsearch_cpu_mhz_gt">
-        <source>CPU Mhz Greater Than</source>
+        <source>CPU MHz Greater Than</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        <target>Mhz du CPU supérieurs à</target>
+        <target>MHz du CPU supérieurs à</target>
       </trans-unit>
       <trans-unit id="systemsearch_num_of_cpus_lt">
         <source>Number of CPUs Less Than</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        <target>Nombre de CPU inférieures à</target>
+        <target>Nombre de CPU inférieurs à</target>
       </trans-unit>
       <trans-unit id="systemsearch_num_of_cpus_gt">
         <source>Number of CPUs Greater Than</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        <target>Nombre de CPU supérieures à</target>
+        <target>Nombre de CPU supérieurs à</target>
       </trans-unit>
       <trans-unit id="systemsearch_ram_lt">
         <source>RAM Less Than</source>
@@ -3428,7 +3126,7 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        <target>La description</target>
+        <target>Description</target>
       </trans-unit>
       <trans-unit id="systemsearch_hwdevice_driver">
         <source>Driver</source>
@@ -3568,7 +3266,7 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        <target>L'étagère</target>
+        <target>Rack</target>
       </trans-unit>
       <trans-unit id="systemsearch_uuid">
         <source>UUID</source>
@@ -3644,15 +3342,6 @@ utilisateur avant de désactiver son compte.</target>
         </context-group>
         <target>Seuls les utilisateurs désactivés peuvent être réactivés.</target>
       </trans-unit>
-      <trans-unit id="userenable.error.usernotdisabled.param">
-        <source>{0}: Only deactivated users can be reactivated.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/EnableConfirm</context>
-          <context context-type="paramnotes">kjohnny4: Only deactivated users can
-                                               be reactivated.</context>
-        </context-group>
-        <target>{0}&amp;nbsp;: Seuls les utilisateurs désactivés peuvent être réactivés.</target>
-      </trans-unit>
       <trans-unit id="userenable.error.sameorg">
         <source>User to reactivate must be in the same organization.</source>
         <context-group name="ctx">
@@ -3660,30 +3349,12 @@ utilisateur avant de désactiver son compte.</target>
         </context-group>
         <target>L'utilisateur à réactiver doit être dans la même organisation.</target>
       </trans-unit>
-      <trans-unit id="userenable.error.sameorg.param">
-        <source>{0}: User to reactivate must be in the same organization.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/EnableConfirm</context>
-          <context context-type="paramnotes">kjohnny4: User to reactivate must be
-                                               in the same organization.</context>
-        </context-group>
-        <target>{0}&amp;nbsp;: L'utilisateur à réactiver doit être dans la même organisation.</target>
-      </trans-unit>
       <trans-unit id="userenable.error.orgadmin">
         <source>You must be an Organization Administrator to enable a user.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/EnableUser</context>
         </context-group>
         <target>Vous devez être un administrateur d'organisations pour activer un utilisateur.</target>
-      </trans-unit>
-      <trans-unit id="userenable.error.orgadmin.param">
-        <source>{0}: You must be an Organization Administrator to enable a user.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/EnableConfirm</context>
-          <context context-type="paramnotes">kjohnny4: You must be an Organization
-                                               Administrator to enable a user.</context>
-        </context-group>
-        <target>{0}&amp;nbsp;: Vous devez être un administrateur d'organisations pour activer un utilisateur.</target>
       </trans-unit>
       <trans-unit id="reactivateusers.none">
         <source>Choose at least one user to reactivate.</source>
@@ -3715,26 +3386,12 @@ utilisateur avant de désactiver son compte.</target>
         </context-group>
         <target>Aucun errata sélectionné.</target>
       </trans-unit>
-      <trans-unit id="actions.none">
-        <source>No actions selected.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/ErrataList</context>
-        </context-group>
-        <target>Aucun action sélectionnée.</target>
-      </trans-unit>
       <trans-unit id="systems.none">
         <source>No systems selected.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/InProgressSystems</context>
         </context-group>
         <target>Aucun système sélectionné.</target>
-      </trans-unit>
-      <trans-unit id="packages.none">
-        <source>No packages selected.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/ErrataList</context>
-        </context-group>
-        <target>Aucun paquetage sélectionné.</target>
       </trans-unit>
       <trans-unit id="probesuites.none">
         <source>No probe suites selected.</source>
@@ -3790,7 +3447,7 @@ utilisateur avant de désactiver son compte.</target>
           <context context-type="sourcefile">
                 /rhn/errata/CreateSubmit.do</context>
         </context-group>
-        <target>L'alerte</target>
+        <target>Avis</target>
       </trans-unit>
       <trans-unit id="synopsis">
         <source>Synopsis</source>
@@ -3798,7 +3455,7 @@ utilisateur avant de désactiver son compte.</target>
           <context context-type="sourcefile">
                 /rhn/errata/CreateSubmit.do</context>
         </context-group>
-        <target>La synopsis</target>
+        <target>Synopsis</target>
       </trans-unit>
       <trans-unit id="advisoryName">
         <source>Advisory</source>
@@ -3806,7 +3463,7 @@ utilisateur avant de désactiver son compte.</target>
           <context context-type="sourcefile">
                 /rhn/errata/CreateSubmit.do</context>
         </context-group>
-        <target>L'alerte</target>
+        <target>Avis</target>
       </trans-unit>
       <trans-unit id="advisoryType">
         <source>Advisory Type</source>
@@ -3814,7 +3471,7 @@ utilisateur avant de désactiver son compte.</target>
           <context context-type="sourcefile">
                 /rhn/errata/CreateSubmit.do</context>
         </context-group>
-        <target>Le type d'alerte</target>
+        <target>Le type d'avis</target>
       </trans-unit>
       <trans-unit id="advisoryRelease">
         <source>Advisory Release</source>
@@ -3896,6 +3553,14 @@ utilisateur avant de désactiver son compte.</target>
         </context-group>
         <target>Résumé du bogue</target>
       </trans-unit>
+      <trans-unit id="keywords">
+        <source>Keywords</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">
+                /rhn/errata/CreateSubmit.do</context>
+        </context-group>
+        <target>Mots clés</target>
+      </trans-unit>
       <trans-unit id="Upgrade">
         <source>Upgrade</source>
         <context-group name="ctx">
@@ -3967,6 +3632,13 @@ utilisateur avant de désactiver son compte.</target>
         </context-group>
         <target>{0} heures</target>
       </trans-unit>
+      <trans-unit id="probeedit.probesdeleted">
+        <source>Successfully deleted {0} probe(s).</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>{0} sonde(s) supprimée(s) avec succès.</target>
+      </trans-unit>
       <trans-unit id="probeedit.probedeleted">
         <source>Probe &lt;strong&gt;{0}&lt;/strong&gt; deleted.</source>
         <context-group name="ctx">
@@ -3988,55 +3660,33 @@ utilisateur avant de désactiver son compte.</target>
         </context-group>
         <target>Sonde &lt;strong&gt;{0}&lt;/strong&gt; créée.</target>
       </trans-unit>
-      <trans-unit id="upgrade.none">
-        <source>Choose at least one package to upgrade.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/UpgradableList</context>
-        </context-group>
-        <target>Choisissez au moins un paquetage à mettre à niveau.</target>
-      </trans-unit>
-      <trans-unit id="download.none">
-        <source>Choose at least one package to download.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/UpgradableList</context>
-        </context-group>
-        <target>Choisissez au moins un paquetage à télécharger.</target>
-      </trans-unit>
-      <trans-unit id="download.toomany">
-        <source>At most {0} packages may be downloaded as a tarball at one time; please reduce your selection size.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/UpgradableList</context>
-          <context context-type="paramnotes">At most 10 packages may be downloaded ...</context>
-        </context-group>
-        <target>Un maximum de {0} paquetages peuvent être téléchargés comme un fichier tarball en une fois&amp;nbsp;; veuillez réduire la taille de votre sélection.</target>
-      </trans-unit>
       <trans-unit id="timetag.lastcheckin">
         <source>System last check-in:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/ErrataConfirm</context>
         </context-group>
-        <target>Heure de la dernière connexion du système&amp;nbsp;:</target>
+        <target>Heure de la dernière connexion du système :</target>
       </trans-unit>
       <trans-unit id="timetag.current">
         <source>Current @@PRODUCT_NAME@@ time:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/ErrataConfirm</context>
         </context-group>
-        <target>Heure @@PRODUCT_NAME@@ actuelle :</target>
+        <target>Heure @@PRODUCT_NAME@@ actuelle :</target>
       </trans-unit>
       <trans-unit id="timetag.expected">
         <source>Expected check-in time:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/ErrataConfirm</context>
         </context-group>
-        <target>Heure de connexion attendue&amp;nbsp;:</target>
+        <target>Heure de connexion attendue :</target>
       </trans-unit>
       <trans-unit id="timetag.awol">
         <source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/ErrataConfirm</context>
         </context-group>
-        <target>&lt;strong&gt;REMARQUE :&lt;/strong&gt; Ce système ne s'est pas connecté récemment sur @@PRODUCT_NAME@@. Vu qu'un système ne peut pas être mis à jour s'il ne se connecte pas à @@PRODUCT_NAME@@, il est peu probable que cette action ne réussisse.&lt;br/&gt;&lt;br/&gt;Veuillez vérifier le système et vous assurer que rhnsd est en cours d'exécution.</target>
+        <target>&lt;strong&gt;REMARQUE :&lt;/strong&gt; Ce système ne s'est pas connecté récemment sur @@PRODUCT_NAME@@. Vu qu'un système ne peut pas être mis à jour s'il ne se connecte pas à @@PRODUCT_NAME@@, il est peu probable que cette action ne réussisse.&lt;br/&gt;&lt;br/&gt;Veuillez vérifier le système et vous assurer que rhnsd est en cours d'exécution.</target>
       </trans-unit>
       <trans-unit id="timetag.categorizeFormat">
         <source>{0} {1} {2}</source>
@@ -4360,13 +4010,6 @@ utilisateur avant de désactiver son compte.</target>
         </context-group>
         <target>Admin</target>
       </trans-unit>
-      <trans-unit id="filter_expire_list.success">
-        <source>{0} Filters(s) expired.  These changes may take up to 5 minutes to take effect.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/monitoring/config/notification/Filters.do</context>
-        </context-group>
-        <target>{0} filtres(s) expiré(s). Ces changements peuvent prendre jusqu'à 5 minutes avant de prendre effet.</target>
-      </trans-unit>
       <trans-unit id="Filters">
         <source>Filters</source>
         <context-group name="ctx">
@@ -4380,13 +4023,6 @@ utilisateur avant de désactiver son compte.</target>
           <context context-type="sourcefile">/rhn/monitoring/config/notification/FilterCreate.do</context>
         </context-group>
         <target>Durée de récurrence</target>
-      </trans-unit>
-      <trans-unit id="message.actioninstall">
-        <source>Install</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/profiles</context>
-        </context-group>
-        <target>Installer</target>
       </trans-unit>
       <trans-unit id="message.install">
         <source>Install</source>
@@ -4442,7 +4078,7 @@ utilisateur avant de désactiver son compte.</target>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>Filtres périmés</target>
+        <target>Filtres expirés</target>
       </trans-unit>
       <trans-unit id="message.syncpackages">
         <source>You have successfully &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a package profile sync for &lt;strong&gt;{2}&lt;/strong&gt; from &lt;strong&gt;{3}&lt;/strong&gt;.</source>
@@ -4458,7 +4094,7 @@ utilisateur avant de désactiver son compte.</target>
           <context context-type="sourcefile">/rhn/systems/details/packages/profiles/</context>
           <context context-type="paramnotes">sid, actionid, servername, profilename</context>
         </context-group>
-        <target>&lt;strong&gt;REMARQUE :&lt;/strong&gt; @@PRODUCT_NAME@@ a &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;programmé&lt;/a&gt;&lt;/strong&gt; un rafraîchissement du matériel pour que &lt;strong&gt;{2}&lt;/strong&gt; soit exécuté avant la synchronisation de profils de paquetages. Cette action est requise pour vérifier que le système peut comparer les paquetages.</target>
+        <target>&lt;strong&gt;REMARQUE :&lt;/strong&gt; @@PRODUCT_NAME@@ a &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;programmé&lt;/a&gt;&lt;/strong&gt; un rafraîchissement du matériel pour que &lt;strong&gt;{2}&lt;/strong&gt; soit exécuté avant la synchronisation de profils de paquetages. Cette action est requise pour vérifier que le système peut comparer les paquetages.</target>
       </trans-unit>
       <trans-unit id="filterCreate.success">
         <source>The filter {0} was successfully created</source>
@@ -4536,22 +4172,6 @@ utilisateur avant de désactiver son compte.</target>
           <context context-type="sourcefile">/rhn/systems/Overview</context>
         </context-group>
         <target>Impossible de supprimer le profil de système {0}. Veuillez vérifier le service Cobbler.</target>
-      </trans-unit>
-      <trans-unit id="message.ssm.serverdeleted">
-        <source>Deleted &lt;strong&gt;{0}&lt;/strong&gt; system from the System Set Manager.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Overview</context>
-          <context context-type="paramnotes">Deleted 1 system from the System Set Manager.</context>
-        </context-group>
-        <target>Suppression d'&lt;strong&gt;{0}&lt;/strong&gt; système du gestionnaire d'ensembles de systèmes.</target>
-      </trans-unit>
-      <trans-unit id="message.ssm.serversdeleted">
-        <source>Deleted &lt;strong&gt;{0}&lt;/strong&gt; systems from the System Set Manager.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Overview</context>
-          <context context-type="paramnotes">Deleted 7 systems from the System Set Manager.</context>
-        </context-group>
-        <target>Suppression de &lt;strong&gt;{0}&lt;/strong&gt; systèmes du gestionnaire d'ensembles de systèmes.</target>
       </trans-unit>
       <trans-unit id="message.groupdeleted">
         <source>System group deleted.</source>
@@ -4799,7 +4419,7 @@ utilisateur avant de désactiver son compte.</target>
         <context-group name="ctx">
           <context context-type="sourcefile">All country select list pull-downs</context>
         </context-group>
-        <target>Brunéi Darussalam</target>
+        <target>Brunei</target>
       </trans-unit>
       <trans-unit id="BO">
         <source>Bolivia</source>
@@ -4807,6 +4427,13 @@ utilisateur avant de désactiver son compte.</target>
           <context context-type="sourcefile">All country select list pull-downs</context>
         </context-group>
         <target>Bolivie</target>
+      </trans-unit>
+      <trans-unit id="BQ">
+        <source>Bonaire, Sint Eustatius and Saba</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+        <target>Bonaire, Saint-Eustache et Saba</target>
       </trans-unit>
       <trans-unit id="BR">
         <source>Brazil</source>
@@ -4968,6 +4595,13 @@ utilisateur avant de désactiver son compte.</target>
           <context context-type="sourcefile">All country select list pull-downs</context>
         </context-group>
         <target>Cap Vert</target>
+      </trans-unit>
+      <trans-unit id="CW">
+        <source>Curaçao</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+        <target>Curaçao</target>
       </trans-unit>
       <trans-unit id="CX">
         <source>Christmas Island</source>
@@ -6072,6 +5706,13 @@ utilisateur avant de désactiver son compte.</target>
         </context-group>
         <target>El Salvador</target>
       </trans-unit>
+      <trans-unit id="SX">
+        <source>Sint Maarten</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+        <target>Saint-Martin</target>
+      </trans-unit>
       <trans-unit id="SY">
         <source>Syria</source>
         <context-group name="ctx">
@@ -6401,6 +6042,27 @@ utilisateur avant de désactiver son compte.</target>
         </context-group>
         <target>Script bootstrap</target>
       </trans-unit>
+      <trans-unit id="Crash Details">
+        <source>Crash Details</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+        <target>Détails de l'incident</target>
+      </trans-unit>
+      <trans-unit id="Crash Files">
+        <source>Crash Files</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+        <target>Fichiers de l'incident</target>
+      </trans-unit>
+      <trans-unit id="Crash Notes">
+        <source>Crash Notes</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+        <target>Notes de l'incident</target>
+      </trans-unit>
       <trans-unit id="Restart">
         <source>Restart</source>
         <context-group name="ctx">
@@ -6416,19 +6078,33 @@ utilisateur avant de désactiver son compte.</target>
         <target>Vous avez créé votre premier utilisateur pour le service @@PRODUCT_NAME@@.Toute configuration supplémentaire devrait être finalisée en &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;cliquant ici&lt;/strong&gt;&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="satellite.expired">
-        <source>Your satellite certificate has expired.  Please contact Red Hat for a new certificate.</source>
+        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login.do</context>
         </context-group>
-        <target>Le certificat de votre Satellite a expiré.  Contactez s'il vous plaît Red Hat pour obtenir un nouveau certificat.</target>
+        <target>Votre certificat Satellite a expiré. Veuillez vous rendre sur le lien suivant afin de voir les étapes pour requérir ou générer un nouveau certificat : &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;/a&gt;</target>
+      </trans-unit>
+      <trans-unit id="satellite.expired.restricted">
+        <source>Your Satellite Certificate has expired. Your Satellite is on day {0} of {1} day restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/Login.do</context>
+        </context-group>
+        <target>Votre certificat Satellite a expiré. Votre Satellite en est au jour {0} sur {1} de la période de restriction et arrêtera bientôt de fonctionner. Veuillez vous rendre sur l'URL suivant afin de voir les étapes à suivre pour requérir ou générer un nouveau certificat : https://access.redhat.com/knowledge/tools/satcert</target>
       </trans-unit>
       <trans-unit id="satellite.graceperiod">
-        <source>Your satellite certificate has expired.  Please contact Red Hat for a new certificate.  Your satellite will become inactive in {0} day(s).</source>
+        <source>Your satellite certificate has expired. Please visit the following link for steps on how to request or generate a new certificate: &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt; Your satellite enters restricted period in {0} day(s).</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login.do</context>
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>Le certificat de votre Satellite a expiré.  Veuillez contacter Red Hat pour obtenir un nouveau certificat.  Votre Satellite deviendra inactif dans {0} jour(s).</target>
+        <target>Votre certificat Satellite a expiré. Veuillez vous rendre sur le lien suivant afin de voir les étapes à suivre pour requérir ou générer un nouveau certificat : &lt;a href="https://access.redhat.com/knowledge/tools/satcert"&gt;https://access.redhat.com/knowledge/tools/satcert&lt;a&gt; Votre Satellite va entrer dans la période de restriction dans {0} jour(s).</target>
+      </trans-unit>
+      <trans-unit id="restricted.forbidden">
+        <source>You are not allowed to perform this action until your Satellite Certificate is renewed. Your Satellite is on day {0} of the {1} restricted period and will soon stop functioning. Please visit the following url for steps on how to request or generate a new certificate: https://access.redhat.com/knowledge/tools/satcert</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/Login.do</context>
+        </context-group>
+        <target>Vous n'êtes pas autorisé à effectuer cette action tant que votre certificat Satellite n'est pas renouvelé. Votre Satellite en est au jour {0} sur {1} de la période de restriction et arrêtera bientôt de fonctionner. Veuilez vous rendre sur l'URL suivant afin de voir comment requérir ou générer un nouveau certificat : https://access.redhat.com/knowledge/tools/satcert</target>
       </trans-unit>
       <trans-unit id="certificate.config.error.nocert">
         <source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
@@ -6625,7 +6301,7 @@ utilisateur avant de désactiver son compte.</target>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
-        <target>Une erreur s'est produite lors du redémarrage du Satellite. Vous pouvez le redémarrer manuellement en exécutant la commande suivante de la console&amp;nbsp;: /usr/sbin/service rhn-satellite restart. Veuillez contacter le service d'assistance pour davantage d'informations.</target>
+        <target>Une erreur s'est produite lors du redémarrage du Satellite. Vous pouvez le redémarrer manuellement en exécutant la commande suivante de la console : /usr/sbin/service rhn-satellite restart. Veuillez contacter le service d'assistance pour davantage d'informations.</target>
       </trans-unit>
       <trans-unit id="config.storeconfig.error">
         <source>An error occurred and your satellite configuration changes could not be stored. Please contact support for more information</source>
@@ -6753,20 +6429,6 @@ utilisateur avant de désactiver son compte.</target>
         </context-group>
         <target>L'étiquette de conservation de fichiers existe déjà. Choisissez une étiquette de conservation de fichiers unique.</target>
       </trans-unit>
-      <trans-unit id="file_lists.success">
-        <source>{0} File List(s) deleted.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
-        </context-group>
-        <target>{0} liste(s) de fichiers supprimée(s).</target>
-      </trans-unit>
-      <trans-unit id="file_lists.failure">
-        <source>{0} File List(s) could not be deleted.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
-        </context-group>
-        <target>Impossible de supprimer {0} liste(s) de fichiers.</target>
-      </trans-unit>
       <trans-unit id="filelists.jsp.selectafilelist">
         <source>No File List(s) selected.</source>
         <context-group name="ctx">
@@ -6788,34 +6450,6 @@ utilisateur avant de désactiver son compte.</target>
         </context-group>
         <target>{0} clé(s) d'activation supprimée(s)</target>
       </trans-unit>
-      <trans-unit id="file_lists.added">
-        <source>{0} File Preservation List(s) added.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/FilePreservationLists.do</context>
-        </context-group>
-        <target>{0} liste(s) de conservation de fichiers ajoutée(s).</target>
-      </trans-unit>
-      <trans-unit id="file_lists.removed">
-        <source>{0} File Preservation List(s) removed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/FilePreservationLists.do</context>
-        </context-group>
-        <target>{0} liste(s) de conservation de fichiers supprimée(s).</target>
-      </trans-unit>
-      <trans-unit id="package_profiles.added">
-        <source>{0} Package Profile(s) added.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartPackageProfileEditSubmit.do</context>
-        </context-group>
-        <target>{0} profil(s) de paquetages ajouté(s)</target>
-      </trans-unit>
-      <trans-unit id="package_profiles.removed">
-        <source>{0} Package Profile(s) removed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartPackageProfileEditSubmit.do</context>
-        </context-group>
-        <target>{0} profil(s) de paquetages supprimé(s).</target>
-      </trans-unit>
       <trans-unit id="taskomatic.msg.awolservers">
         <source>Systems Not Checking In:
 -------------------------
@@ -6831,16 +6465,16 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeysCreate.do</context>
         </context-group>
-        <target>Systèmes ne se connectant pas :
+        <target>Systèmes ne se connectant pas :
 -------------------------
-Les systèmes suivants ont récemment arrêté de se connecter à @@PRODUCT_NAME@@ :
+Les systèmes suivants ont récemment arrêté de se connecter à @@PRODUCT_NAME@@ :
 
 {0}
 
 
 Veuillez noter que les systèmes inactifs ne peuvent pas recevoir de mises à jour.
 
-Suivez cet url pour obtenir la liste complète des systèmes inactifs :
+Suivez cet url pour obtenir la liste complète des systèmes inactifs :
 {1}</target>
       </trans-unit>
       <trans-unit id="taskomatic.daily.sid">
@@ -6869,7 +6503,7 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <context-group name="ctx">
           <context context-type="sourcefile">Daily Summary Email</context>
         </context-group>
-        <target>Synopsis des errata&amp;nbsp;:</target>
+        <target>Synopsis des errata :</target>
       </trans-unit>
       <trans-unit id="kickstart.software.success">
         <source>Kickstart Operating System selection successfully updated.</source>
@@ -7016,7 +6650,7 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartSessionCancel.do</context>
         </context-group>
-        <target>Kickstart annulé par l'utilisateur : {0}</target>
+        <target>Kickstart annulé par l'utilisateur : {0}</target>
       </trans-unit>
       <trans-unit id="kickstart.schedule.success">
         <source>System Kickstart scheduled for {0}</source>
@@ -7060,19 +6694,12 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         </context-group>
         <target>Le système {0} ne peut pas être kickstarté car il ne dispose pas d'un périphérique réseau {1} .</target>
       </trans-unit>
-      <trans-unit id="kickstart.schedule.nosubs">
-        <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-        <target>Votre abonnement au @@PRODUCT_NAME@@ approvisionnant le canal pour le canal de base de ce système est terminé.</target>
-      </trans-unit>
       <trans-unit id="kickstart.schedule.nopackage">
         <source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
-        <target>Impossible de trouver les paquetages d'approvisionnement appropriés de @@PRODUCT_NAME@@ dû au canal de base actuel et au canal cible désiré de ce système : {0}</target>
+        <target>Impossible de trouver les paquetages d'approvisionnement appropriés de @@PRODUCT_NAME@@ dû au canal de base actuel et au canal cible désiré de ce système : {0}</target>
       </trans-unit>
       <trans-unit id="kickstart.schedule.cantsubscribe">
         <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
@@ -7095,26 +6722,12 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         </context-group>
         <target>Un kickstart n'a pas été programmé pour {1} ({0}) car le profil de paquetages ne contenait pas le paquetage "up2date". Une mise à jour du profil de paquetages de ce système peut être requise.</target>
       </trans-unit>
-      <trans-unit id="kickstart.schedule.up2dateerror">
-        <source>The latest version of up2date has been scheduled for install before the kickstart action, because the currently-installed version does not support automatic reboot.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-        <target>L'installation de la dernière version de up2date a été programmée avant l'action kickstart vu que la version couramment installée ne supporte pas le redémarrage automatique.</target>
-      </trans-unit>
       <trans-unit id="kickstart.session.newsession">
         <source>A new kickstart session was initiated for this system.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
         <target>Une nouvelle session kickstart a été initiée pour ce système.</target>
-      </trans-unit>
-      <trans-unit id="kickstart.session.notoolschannel">
-        <source>Could not look up the @@PRODUCT_NAME@@ Tools channel for {1}.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-        <target>Impossible de consulter le canal Outils @@PRODUCT_NAME@@ pour {1}.</target>
       </trans-unit>
       <trans-unit id="kickstart.session.newtokennote">
         <source>Kickstart re-activation key for {0}.</source>
@@ -7145,11 +6758,11 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <target>Nous demandons la version {0} ou une version supérieure de up2date pour lancer un système avec kickstart. Ce système possède {1} installé mais nous n'avons pas trouvé une version de up2date dans les canaux de ce système pour le mettre à niveau à la version requise ou supérieure.</target>
       </trans-unit>
       <trans-unit id="kickstart.state.guesttimedout">
-        <source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong&gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
+        <source>&lt;p&gt;The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;/p&gt; &lt;p&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong&gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.&lt;/p&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
-        <target>Le système invité n'a pas communiqué avec @@PRODUCT_NAME@@ depuis ces {0} dernières minutes. Le processus d'installation est peut être gelé ou prendre du temps à cause de contraintes matérielles. &lt;p/&gt;Vous pouvez rechercher l'erreur en exécutant &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong&gt;&lt;/em&gt; sur le système hôte. Cette commande vous permettra de vous connecter à la console texte de l'invité pendant l'installation et peut ainsi vous fournir des informations supplémentaires à propos du statut de l'installation.</target>
+        <target>&lt;p&gt;Le système invité n'a pas communiqué avec @@PRODUCT_NAME@@ depuis ces {0} dernières minutes. Le processus d'installation peut prendre du temps ou être gelé à cause de contraintes matérielles.&lt;/p&gt; &lt;p&gt;Vous pouvez rechercher l'erreur en exécutant &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong&gt;&lt;/em&gt; sur le système hôte. Cette commande vous permettra de vous connecter à la console texte de l'invité pendant l'installation et peut ainsi vous fournir des informations supplémentaires à propos du statut de l'installation.&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="tree.edit.success">
         <source>Kickstart Distribution Updated</source>
@@ -7165,13 +6778,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         </context-group>
         <target>La distribution kickstart a été créée.</target>
       </trans-unit>
-      <trans-unit id="kickstart.tree.invalidurl">
-        <source>The External Location field is not a valid URL.  Please reformat the field to contain a valid http/https/ftp type value.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/TreeEdit.do</context>
-        </context-group>
-        <target>Le champ Emplacement externe n'est pas un URL valide. Veuillez reformater le champ pour contenir une valeur valide de type http/https/ftp.</target>
-      </trans-unit>
       <trans-unit id="kickstart.tree.invalidlabel">
         <source>The label is not formatted properly.  The label should contain only letters, numbers, hyphens, periods, and underscores.  It must also be at least 4 characters long</source>
         <context-group name="ctx">
@@ -7184,14 +6790,14 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/TreeEdit.do</context>
         </context-group>
-        <target>Le noyau n'a pas pu être trouvé à l'emplacement spécifié : {0}</target>
+        <target>Le noyau n'a pas pu être trouvé à l'emplacement spécifié : {0}</target>
       </trans-unit>
       <trans-unit id="kickstart.tree.invalidinitrd">
         <source>The initrd could not be found at the specified location: {0}</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/TreeEdit.do</context>
         </context-group>
-        <target>Le initrd n'a pas pu être trouvé à l'emplacement spécifié : {0}</target>
+        <target>Le initrd n'a pas pu être trouvé à l'emplacement spécifié : {0}</target>
       </trans-unit>
       <trans-unit id="kickstart.tree.inuse">
         <source>The Kickstart Distribution you have chosen to delete is in use.  Please delete or change the Distribution for Kickstart Profiles using this Distribution.</source>
@@ -7266,8 +6872,8 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
           <target>Au moins un des caractères invalides suivants &lt;strong&gt;{1}&lt;/strong&gt;  se trouve dans l'étiquette clé d'activation &lt;strong&gt;{0}&lt;/strong&gt;. Veuillez supprimer ces caractères de l'étiquette.</target>
         </trans-unit>
         <trans-unit id="activation-key.java.exists">
-          <source>An activation key with label &lt;strong&gt;{0}&lt;/strong&gt; is already taken. Please choose a different label.</source>
-          <target>Une clé d'activation avec l'étiquette &lt;strong&gt;{0}&lt;/strong&gt; est déjà utilisée. Veuillez choisir une étiquette différente.</target>
+          <source>An activation key with label '{0}' is already taken. Please choose a different label.</source>
+          <target>Une clé d'activation avec l'étiquette « {0} » est déjà utilisée. Veuillez choisir une étiquette différente.</target>
         </trans-unit>
         <trans-unit id="activation-key.java.created">
           <source>Activation key &lt;strong&gt;{0}&lt;/strong&gt; has been created.</source>
@@ -7292,10 +6898,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <trans-unit id="system.sdc.missing.config_deploy2">
           <source>You may ensure that configuration deployment capability will be enabled on this system by selecting this system in the  &lt;a href={0}&gt;{1}&lt;/a&gt; screen and then clicking "{2}"</source>
           <target>Vous pourrez vous assurer que le déploiement de configuration est bien activé sur ce système, en le sélectionnant dans l'écran &lt;a href={0}&gt;{1}&lt;/a&gt; puis en cliquant sur "{2}".</target>
-        </trans-unit>
-        <trans-unit id="system.sdc.config_enablement.client">
-          <source>Also be certain that configuration management is enabled on this system by running the following commands:.</source>
-          <target>Assurez-vous aussi que la gestion de configuration est activée sur ce système en exécutant les commandes suivantes :</target>
         </trans-unit>
         <trans-unit id="system.sdc.addtossm">
           <source>System added to the System Set Manager.</source>
@@ -7338,20 +6940,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         </context-group>
         <target>{0} Mo</target>
       </trans-unit>
-      <trans-unit id="error.config-cannot-change-dir2file">
-        <source>Error creating configuration file revision: ({0}) is a directory, but you are attempting to change it to a file. If you want to change its file type, you'll need to delete ({0}) and re-add it as a 'file' rather than a 'directory'.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
-        </context-group>
-        <target>Une erreur est survenue lors de la création de la révision du fichier de configuration&amp;nbsp;: ({0}) est un répertoire et vous essayez de le changer en fichier. Si vous voulez changer son type de fichier, vous devez supprimer ({0}) et l'ajouter à nouveau en tant que "fichier" et non pas répertoire.</target>
-      </trans-unit>
-      <trans-unit id="error.config-cannot-change-file2dir">
-        <source>Error creating configuration file revision: ({0}) is a file, but you are attempting to change it to a directory. If you want to change its file type, you'll need to delete ({0}) and re-add it as a 'directory' rather than a 'file'.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
-        </context-group>
-        <target>Une erreur est survenue lors de la création de la révision du fichier de configuration&amp;nbsp;: ({0}) est un fichier et vous essayez de le changer en répertoire. Si vous voulez changer son type de fichier, vous devez supprimer ({0}) et l'ajouter à nouveau en tant que "répertoire" et non pas fichier.</target>
-      </trans-unit>
       <trans-unit id="error.config-cannot-change-type">
         <source>Error creating configuration file revision: ({0}) is a '{1}', but you are attempting to change it to a '{2}'. If you want to change its file type, you'll need to delete ({0}) and re-add it as a '{2}' rather than a '{1}'.</source>
         <context-group name="ctx">
@@ -7364,7 +6952,7 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
         </context-group>
-        <target>Erreur lors de la création d'une version de fichier de configuration&amp;nbsp;: le fichier téléchargé n'a pas été trouvé.</target>
+        <target>Erreur lors de la création d'une version de fichier de configuration : le fichier téléchargé n'a pas été trouvé.</target>
       </trans-unit>
       <trans-unit id="error.config-empty">
         <source>Error creating Configuration File Revision:  File {0} is empty.</source>
@@ -7372,7 +6960,7 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
           <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
           <context context-type="paramnotes">Error creating Configuration File Revision:  File /etc/testfile.txt not found.</context>
         </context-group>
-        <target>Erreur lors de la création d'une version de fichier de configuration&amp;nbsp;: le fichier {0} est vide.</target>
+        <target>Erreur lors de la création d'une version de fichier de configuration : le fichier {0} est vide.</target>
       </trans-unit>
       <trans-unit id="error.configtoolarge">
         <source>Error creating Configuration File Revision:  File too large.  The maximum file size is {0}</source>
@@ -7380,7 +6968,7 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
           <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
           <context context-type="paramnotes">Error creating Configuration File Revision:  File too large.  The maximum file size is 128 KB</context>
         </context-group>
-        <target>Erreur lors de la création d'une version de fichier de configuration&amp;nbsp;:  le fichier est trop volumineux. La taille maximale est {0}.</target>
+        <target>Erreur lors de la création d'une version de fichier de configuration :  le fichier est trop volumineux. La taille maximale est {0}.</target>
       </trans-unit>
       <trans-unit id="config_revisions.failure">
         <source>{0} revision deletions failed.</source>
@@ -7398,44 +6986,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         </context-group>
         <target>{0} versions ont bien été supprimées.</target>
       </trans-unit>
-      <trans-unit id="config_revisions.failure.singular">
-        <source>1 revision deletion failed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
-        </context-group>
-        <target>1 suppression de version a échoué.</target>
-      </trans-unit>
-      <trans-unit id="config_revisions.success.singular">
-        <source>1 revision was deleted successfully.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
-        </context-group>
-        <target>1 version a bien été supprimée.</target>
-      </trans-unit>
-      <trans-unit id="config_files.setFilesToRemove.success">
-        <source>{0} configuration file(s) successfully deleted.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelFiles.do</context>
-          <context context-type="paramnotes">7 configuration files were successfully deleted.</context>
-        </context-group>
-        <target>{0} fichier(s) de configuration a/ont bien été supprimé(s).</target>
-      </trans-unit>
-      <trans-unit id="config_files.setFilesToRemove.failure">
-        <source>{0} file deletion(s) failed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelFiles.do</context>
-          <context context-type="paramnotes">7 file deletions failed.</context>
-        </context-group>
-        <target>{0} supression(s) de fichier a/ont échoué.</target>
-      </trans-unit>
-      <trans-unit id="config_subscribed_systems.unsubscribeSystems.failure">
-        <source>Failed to unsubscribe {0} system(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
-          <context context-type="paramnotes">7 revision deletions failed.</context>
-        </context-group>
-        <target>Échec du désabonnement de {0} sytème(s).</target>
-      </trans-unit>
       <trans-unit id="config_subscribed_systems.unsubscribeSystems.success">
         <source>Successfully unsubscribed {0} system(s).</source>
         <context-group name="ctx">
@@ -7444,14 +6994,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         </context-group>
         <target>{0} système(s) a/ont bien été désabonné(s).</target>
       </trans-unit>
-      <trans-unit id="config_target_systems.subscribeSystems.failure">
-        <source>Failed to subscribe {0} system(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
-          <context context-type="paramnotes">7 revision deletions failed.</context>
-        </context-group>
-        <target>Échec de l'abonnement de {0} système(s).</target>
-      </trans-unit>
       <trans-unit id="config_target_systems.subscribeSystems.success">
         <source>Successfully subscribed {0} system(s).</source>
         <context-group name="ctx">
@@ -7459,22 +7001,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
           <context context-type="paramnotes">Successfully copied file to 7 channels.</context>
         </context-group>
         <target>{0} système(s) a/ont bien été abonné(s).</target>
-      </trans-unit>
-      <trans-unit id="config_channels.failure">
-        <source>Failed to copy file to {0} channels.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
-          <context context-type="paramnotes">7 revision deletions failed.</context>
-        </context-group>
-        <target>Échec lors de la copie du fichier vers {0} canaux.</target>
-      </trans-unit>
-      <trans-unit id="config_channels.success">
-        <source>Successfully copied file to {0} channels.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
-          <context context-type="paramnotes">Successfully copied file to 7 channels.</context>
-        </context-group>
-        <target>Le fichier a bien été copié vers {0} canaux.</target>
       </trans-unit>
       <trans-unit id="config_channel_name.local">
         <source>local override for {0}</source>
@@ -7534,21 +7060,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
           <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
         </context-group>
         <target>Échec de la programmation d'une action de comparaison de configuration</target>
-      </trans-unit>
-      <trans-unit id="scheduledeploy.ssm.success">
-        <source>Configuration Deploy Action scheduled successfully for &lt;strong&gt;1 system&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
-        </context-group>
-        <target>Action de déploiement de configuration programmée avec succès pour &lt;strong&gt;1 système&lt;/strong&gt;.</target>
-      </trans-unit>
-      <trans-unit id="scheduledeploy.ssm.successes">
-        <source>Configuration Deploy Action scheduled successfully for &lt;strong&gt;{0} systems&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
-          <context context-type="paramnotes">Configuration Comparison Action scheduled successfully for {0} systems.</context>
-        </context-group>
-        <target>Action de déploiement de configuration programmée avec succès pour &lt;strong&gt;{0} systèmes&lt;/strong&gt;.</target>
       </trans-unit>
       <trans-unit id="unsubscribe.ssm.success">
         <source>&lt;strong&gt;1 system&lt;/strong&gt; successfully unsubscribed from configuration channels.</source>
@@ -7660,15 +7171,15 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">/etc/../etc/tomcat5: Configuration file path names must be absolute paths - '..' is not allowed</context>
         </context-group>
-        <target>{0}: les noms de chemin d'accès au fichier de configuration doivent être des chemins d'accès absolus - ".." n'est pas accepté</target>
+        <target>{0} : les noms de chemin d'accès au fichier de configuration doivent être des chemins d'accès absolus - ".." n'est pas accepté</target>
       </trans-unit>
       <trans-unit id="configmanager.filedetails.content.no-macro-name">
-        <source>Cannot find a macro function name - make sure the file isn't a binary file!&lt;p/&gt;'{0}'</source>
+        <source>Cannot find a macro function name - make sure the file isn't a binary file! '{0}'</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">Cannot find a macro function name  - make sure the file isn't a binary file!\n'() = default-value'</context>
         </context-group>
-        <target>Nom de fonction macro non trouvé - assurez-vous que le fichier ne soit pas un fichier binaire&amp;nbsp;!&lt;p/&gt;"{0}"</target>
+        <target>Nom de fonction macro non trouvé - assurez-vous que le fichier ne soit pas un fichier binaire ! « {0} »</target>
       </trans-unit>
       <trans-unit id="configmanager.filedetails.content.bad-macro-name">
         <source>Invalid macro function name {0}</source>
@@ -7692,7 +7203,7 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
           <context context-type="paramnotes">Invalid macro - make sure the file isn't a binary file!\n'kjhafkjgy((7623=' </context>
         </context-group>
-        <target>Macro non valide - assurez-vous que le fichier ne soit pas un fichier binaire&amp;nbsp;! "{0}"</target>
+        <target>Macro non valide - assurez-vous que le fichier ne soit pas un fichier binaire ! "{0}"</target>
       </trans-unit>
       <trans-unit id="configdiff.schedule.success">
         <source>&lt;a href="{0}"&gt;Configuration file compare action&lt;/a&gt; scheduled successfully for {1} systems.</source>
@@ -8123,13 +7634,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         </context-group>
         <target>(aucun accès au canal parent)</target>
       </trans-unit>
-      <trans-unit id="kickstart.script.required">
-        <source>Kickstart script required.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-        <target>Script Kickstart requis.</target>
-      </trans-unit>
       <trans-unit id="kickstart.script.toolarge">
         <source>The script must be smaller than {0} characters.</source>
         <context-group name="ctx">
@@ -8142,35 +7646,35 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Registered.do</context>
         </context-group>
-        <target>durant la journée d'hier</target>
+        <target>hier</target>
       </trans-unit>
       <trans-unit id="oneweek">
         <source>within the past week</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Registered.do</context>
         </context-group>
-        <target>durant la semaine passée</target>
+        <target>la semaine dernière</target>
       </trans-unit>
       <trans-unit id="onemonth">
         <source>within the past 30 days</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Registered.do</context>
         </context-group>
-        <target>durant les 30 derniers jours</target>
+        <target>les 30 derniers jours</target>
       </trans-unit>
       <trans-unit id="sixmonths">
         <source>within the past 180 days</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Registered.do</context>
         </context-group>
-        <target>durant les 180 derniers jours</target>
+        <target>les 180 derniers jours</target>
       </trans-unit>
       <trans-unit id="oneyear">
         <source>with the past year</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Registered.do</context>
         </context-group>
-        <target>durant l'année passée</target>
+        <target>l'année passée</target>
       </trans-unit>
       <trans-unit id="allregisteredsystems">
         <source>All Systems</source>
@@ -8178,13 +7682,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
           <context context-type="sourcefile">/rhn/systems/Registered.do</context>
         </context-group>
         <target>Tous les systèmes</target>
-      </trans-unit>
-      <trans-unit id="kickstar.error.missingprofile">
-        <source>A kickstart profile must be selected.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/kickstart/ScheduleWizard.do</context>
-        </context-group>
-        <target>Un profil kickstart doit être sélectionné.</target>
       </trans-unit>
       <trans-unit id="systems.details.virt.guest.virt.shutdown">
         <source>Shutdown</source>
@@ -8361,6 +7858,13 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         </context-group>
         <target>{0} systèmes virtuels supprimés.</target>
       </trans-unit>
+      <trans-unit id="channels.managers.updated">
+        <source>{0} channel manager(s) successfully updated.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
+        </context-group>
+        <target>{0} gestionnaire(s) de canaux mis à jour avec succès.</target>
+      </trans-unit>
       <trans-unit id="sdc.channels.edit.base_channel_updated">
         <source>System's Base Channel has been updated.</source>
         <context-group name="ctx">
@@ -8380,7 +7884,7 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
-        <target>Remarque&amp;nbsp;: certains abonnements à des canaux n'ont pas été mis à jour car il n'y avait pas d'abonnements disponibles.</target>
+        <target>Remarque : certains abonnements à des canaux n'ont pas été mis à jour car il n'y avait pas d'abonnements disponibles.</target>
       </trans-unit>
       <trans-unit id="selinux.java.invalid_mode">
         <source>Invalid SE Linux mode "{0}" specified. Valid values are {1}.</source>
@@ -8396,12 +7900,12 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         </context-group>
         <target>Nombre de droits d'accès mis à jour pour "{0}"</target>
       </trans-unit>
-      <trans-unit id="orgsyssub.invalidnum">
-        <source>Provisioning must be a valid number.</source>
+      <trans-unit id="orgsizelimit.invalid">
+        <source>Size limit modification must be a valid non negative number.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
         </context-group>
-        <target>Provisioning doit être un nombre valide.</target>
+        <target>La modification de la limite de taille doit être un nombre non-négatif valide.</target>
       </trans-unit>
       <trans-unit id="orgsystemsubs.invalid">
         <source>Entitlement modification must be a valid number for {0}.</source>
@@ -8416,13 +7920,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
         </context-group>
         <target>La modification de droits doit être un nombre valide pour {0}.</target>
-      </trans-unit>
-      <trans-unit id="multiorg.delete.org.button">
-        <source>Delete Selected Organizations</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
-        </context-group>
-        <target>Supprimer les organisations sélectionnées</target>
       </trans-unit>
       <trans-unit id="message.org_name_updated">
         <source>Organization {0} was successfully updated.</source>
@@ -8465,14 +7962,14 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
-        <target>Canaux enfants multiples trouvés pour le package: {0}. Veuillez souscrire manuellement ce système au canal enfant qui convient.</target>
+        <target>Canaux enfants multiples trouvés pour le package : {0}. Veuillez souscrire manuellement ce système au canal enfant qui convient.</target>
       </trans-unit>
       <trans-unit id="system.entitle.multiplechannelswithpackagepleaseinstall">
         <source>Found multiple child channels with package: {0}. Please manually subscribe this system to the appropriate child channel, and schedule this package for installation.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
-        <target>Canaux enfants multiples trouvés pour le package: {0}. Veuillez souscrire manuellement ce système au canal enfant qui convient, et programmer l'installation de ce package.</target>
+        <target>Canaux enfants multiples trouvés pour le package : {0}. Veuillez souscrire manuellement ce système au canal enfant qui convient, et programmer l'installation de ce package.</target>
       </trans-unit>
       <trans-unit id="system.entitle.novirtchannel">
         <source>Could not automatically subscribe the system to the RHEL Virtualization Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
@@ -8502,12 +7999,19 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         </context-group>
         <target>Étant donné que vous avez ajouté un droit d'accès Virtualisation au système, nous avons également effectué quelques étapes supplémentaires pour nous assurer que votre système sera capable de mieux gérer les invités virtuels. Cliquez &lt;a href="{0}"&gt;ici&lt;/a&gt; pour davantage d'informations.</target>
       </trans-unit>
+      <trans-unit id="system.entitle.addedvirtualization.nodoc">
+        <source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
+        </context-group>
+        <target>Comme vous avez ajouté un droit d'accès Virtualisation au système, nous avons également effectué quelques étapes supplémentaires pour nous assurer que votre système sera capable de mieux gérer les invités virtuels.</target>
+      </trans-unit>
       <trans-unit id="system.virtualization.help">
         <source>NOTE: To enable and use virtualization capabilities within @@PRODUCT_NAME@@ for this system, install the rhn-virtualization-host package from the associated RHN Tools child channel. Review Red Hat documentation for any other considerations and requirements that Red Hat Enterprise Linux has with enabling Virtualization of a Host system.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsList.do</context>
         </context-group>
-        <target>REMARQUE : Pour activer et utiliser les capacités de virtualisation dans Satellite pour ce système, veuillez installer le paquetage rhn-virtualization-host à partir du canal enfant RHN Tools. Veuillez vous reporter à la documentation Red Hat pour toute autre considération et pour tout autre prérequis nécessaire à l'activation de la virtualisation d'un système hôte dans Red Hat Enterprise Linux.</target>
+        <target>REMARQUE : Pour activer et utiliser les capacités de virtualisation dans @@PRODUCT_NAME@@ pour ce système, veuillez installer le paquetage rhn-virtualization-host à partir du canal enfant RHN Tools. Veuillez vous reporter à la documentation Red Hat pour toute autre considération et condition(s) préalable(s) nécessaire(s) à l'activation de la virtualisation d'un système hôte dans Red Hat Enterprise Linux.</target>
       </trans-unit>
       <trans-unit id="system.entitle.alreadyvirt">
         <source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>
@@ -8576,17 +8080,13 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <source>Invalid system</source>
         <target>Système invalide</target>
       </trans-unit>
-      <trans-unit id="system.runningkernel.unknown">
-        <source>Unknown</source>
-        <target>Inconnu</target>
-      </trans-unit>
       <trans-unit id="api.invalidargs">
         <source>Invalid argument(s): {0}</source>
-        <target>Argument(s) invalide(s) : {0}</target>
+        <target>Argument(s) invalide(s) : {0}</target>
       </trans-unit>
       <trans-unit id="api.action.nosuchaction">
         <source>No such action: {0}</source>
-        <target>Aucune action de ce type&amp;nbsp;: {0}</target>
+        <target>Aucune action de ce type : {0}</target>
       </trans-unit>
       <trans-unit id="api.action.invalidactiontype">
         <source>Invalid action type</source>
@@ -8598,11 +8098,11 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
       </trans-unit>
       <trans-unit id="api.org.migrationtosameorg">
         <source>User cannot migrate a system where the origination and destination organizations are the same.  Org Id: {0}, System Id: {1}.</source>
-        <target>L'utilisateur ne peut pas effectuer la migration d'un système pour lequel les organisations d'origine et de destination sont les mêmes. Org Id: {0}, System Id: {1}.</target>
+        <target>L'utilisateur ne peut pas effectuer la migration d'un système pour lequel les organisations d'origine et de destination sont les mêmes. Org Id : {0}, System Id : {1}.</target>
       </trans-unit>
       <trans-unit id="api.org.nosuchorg">
         <source>No such organization: {0}</source>
-        <target>Aucune organisation de ce type : {0}</target>
+        <target>Aucune organisation de ce type : {0}</target>
       </trans-unit>
       <trans-unit id="api.org.notintrust">
         <source>Organization {0} is not defined in trust.</source>
@@ -8622,35 +8122,31 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
       </trans-unit>
       <trans-unit id="api.errata.invaliderrata">
         <source>Invalid errata: {0}</source>
-        <target>Errata invalide&amp;nbsp;: {0}</target>
+        <target>Errata invalide : {0}</target>
       </trans-unit>
       <trans-unit id="api.package.invalidpackage">
         <source>Invalid package: {0}</source>
-        <target>Paquetage invalide&amp;nbsp;: {0}</target>
+        <target>Paquetage invalide : {0}</target>
       </trans-unit>
       <trans-unit id="api.errata.duplicateerrata">
         <source>Errata already exists with advisory {0}</source>
-        <target>Cet errata existe déjà avec l'alerte {0}</target>
-      </trans-unit>
-      <trans-unit id="api.system.invalidarch">
-        <source>Invalid arch specified: {0}</source>
-        <target>L'architecture spécifiée est invalide&amp;nbsp;: {0}</target>
+        <target>Cet errata existe déjà avec l'avis {0}</target>
       </trans-unit>
       <trans-unit id="api.system.invalidsnapshot">
         <source>Invalid snapshot specified: {0}</source>
-        <target>Capture instantanée spécifiée invalide : {0}</target>
+        <target>Capture instantanée spécifiée invalide : {0}</target>
       </trans-unit>
       <trans-unit id="api.systemgroup.lookupServerGroup">
         <source>Unable to locate or access server group: "{0}"</source>
-        <target>Impossible de localiser ou d'accéder au groupe de serveurs: "{0}"</target>
+        <target>Impossible de localiser ou d'accéder au groupe de serveurs : "{0}"</target>
       </trans-unit>
       <trans-unit id="api.systemgroup.accessChangeDenied">
         <source>Changing administrator access is not allowed for Satellite and Organization administrators.  These users are granted access by default; therefore, the following users should be removed from the input: {0}</source>
-        <target>Les administrateurs de satellite et d'organisations ne sont pas autorisés à changer l'accès administrateur. Ces utilisateurs ont accès par défaut, donc, les utilisateurs suivants doivent être retirés de l'entrée: {0}</target>
+        <target>Les administrateurs de satellite et d'organisations ne sont pas autorisés à changer l'accès administrateur. Ces utilisateurs ont accès par défaut, donc, les utilisateurs suivants doivent être retirés de l'entrée : {0}</target>
       </trans-unit>
       <trans-unit id="api.system.invalidprofilelabel">
         <source>Invalid profile label specified: {0}</source>
-        <target>L'étiquette de profil spécifiée est invalide : {0}</target>
+        <target>L'étiquette de profil spécifiée est invalide : {0}</target>
       </trans-unit>
       <trans-unit id="api.system.missingCapabilities">
         <source>The server {0} does not have the {1} client capability. Please enable the capability before proceeding with the operation.</source>
@@ -8660,13 +8156,25 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <source>The specified server is not a member of the specified group</source>
         <target>Le serveur spécifié n'est pas membre du groupe spécifié</target>
       </trans-unit>
+      <trans-unit id="api.system.crash.nocrashesfound">
+        <source>No crashes recorded for the specified system.</source>
+        <target>Aucun incident enregistré pour le système spécifié.</target>
+      </trans-unit>
+      <trans-unit id="api.system.crash.nosuchcrash">
+        <source>No such crash found.</source>
+        <target>Cet incident est introuvable.</target>
+      </trans-unit>
+      <trans-unit id="api.system.nosuchnetiface">
+        <source>No such network interface: {0}.</source>
+        <target>Pas de telle interface réseau : {0}.</target>
+      </trans-unit>
       <trans-unit id="api.errata.invalidadvisorytype">
         <source>Invalid errata type, "{0}". Please use one of the following: "Security Advisory", "Product Enhancement Advisory", or "Bug Fix Advisory".</source>
-        <target>Type d'errata invalide, "{0}". Veuillez utiliser un de ceux-ci&amp;nbsp;: "Security Advisory", "Product Enhancement Advisory" ou "Bug Fix Advisory".</target>
+        <target>Type d'errata invalide, "{0}". Veuillez utiliser un de ceux-ci : "Security Advisory", "Product Enhancement Advisory" ou "Bug Fix Advisory".</target>
       </trans-unit>
       <trans-unit id="api.errata.invalidadvisoryrelease">
         <source>Invalid advisory release, "{0}". Maximum value is {1}.</source>
-        <target>Conseil de sortie invalide. "{0}". La valeur maximum est {1}.</target>
+        <target>Avis de sortie invalide. "{0}". La valeur maximum est {1}.</target>
       </trans-unit>
       <trans-unit id="api.errata.nochannelsselected">
         <source>You are trying to publish an errata but have not selected any channels to publish to.  Errata must be published to at least one channel.</source>
@@ -8675,6 +8183,10 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
       <trans-unit id="api.package.download.toolarge">
         <source>The requested file is too large to download over XMLRPC.</source>
         <target>Le fichier demandé est trop large pour être téléchargé sur XMLRPC.</target>
+      </trans-unit>
+      <trans-unit id="api.crashfile.download.toolarge">
+        <source>The requested crash file is too large to download over XMLRPC.</source>
+        <target>Le fichier d'incident requis est trop large pour être téléchargé sur XMLRPC.</target>
       </trans-unit>
       <trans-unit id="api.package.download.ioerror">
         <source>There was a general IO Error, check permissions on the requested file.</source>
@@ -8686,7 +8198,7 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
       </trans-unit>
       <trans-unit id="api.channel.software.channelsubscription">
         <source>Unable to subscribe this system to the requested channel: "{0}"</source>
-        <target>Ce système ne peut pas être abonné au canal demandé&amp;nbsp;: "{0}"</target>
+        <target>Ce système ne peut pas être abonné au canal demandé : "{0}"</target>
       </trans-unit>
       <trans-unit id="api.channel.software.multiplebasechannel">
         <source>Multiple base channels selected for subscription.  The channels {0} and {1} were both selected for subscription, but a system can only be subscribed to a single base channel.</source>
@@ -8724,10 +8236,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <source>(unspecified)</source>
         <target>(non spécifié)</target>
       </trans-unit>
-      <trans-unit id="api.kickstart.labelalreadyinuse">
-        <source>Kickstart label already exists: {0}</source>
-        <target>L'étiquette de ce kickstart existe déjà&amp;nbsp;: {0}</target>
-      </trans-unit>
       <trans-unit id="api.provisioning.snapshot.tagalreadyinuse">
         <source>Snapshot tag already exists: {0}</source>
         <target>La balise d'instantané existe déjà : {0}</target>
@@ -8744,17 +8252,13 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <source>The package key specified ({0}) is invalid.</source>
         <target>La clé du paquetage ({0}) spécifiée est invalide.</target>
       </trans-unit>
-      <trans-unit id="api.package.provider.duplicateKey">
-        <source>The package key specified ({0}) already exists.</source>
-        <target>La clé du paquetage ({0}) spécifiée existe déjà.</target>
-      </trans-unit>
       <trans-unit id="api.package.provider.invalidProvider">
         <source>The package provider specified ({0}) is  invalid.</source>
         <target>Le fournisseur du paquetage ({0}) spécifié est invalide.</target>
       </trans-unit>
       <trans-unit id="api.kickstart.invalidvirttype">
         <source>Invalid virtualization type: {0}</source>
-        <target>Type de virtualisation invalide&amp;nbsp;: {0}</target>
+        <target>Type de virtualisation invalide : {0}</target>
       </trans-unit>
       <trans-unit id="org.create.success">
         <source>Organization {0} created successfully</source>
@@ -8766,11 +8270,23 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
       </trans-unit>
       <trans-unit id="api.kickstart.nosuchkickstarttreelabel">
         <source>Unable to locate kickstart tree for your organization: {0}</source>
-        <target>Impossible de localiser l'arborescence kickstart pour votre organisation&amp;nbsp;: {0}</target>
+        <target>Impossible de localiser l'arborescence kickstart pour votre organisation : {0}</target>
       </trans-unit>
       <trans-unit id="api.kickstart.invalidkickstartlabel">
         <source>Invalid kickstart label: {0}</source>
-        <target>Étiquette kickstart invalide&amp;nbsp;: {0}</target>
+        <target>Étiquette kickstart invalide : {0}</target>
+      </trans-unit>
+      <trans-unit id="api.kickstart.invalidUpdateType">
+        <source>Invalid update type: {0}</source>
+        <target>Type de mise à jour invalide : {0}</target>
+      </trans-unit>
+      <trans-unit id="api.kickstart.invalidUpdateTypeAndTree">
+        <source>If update type is red_hat the kickstartable tree you start with must be provided by Red Hat. This tree is not: {0}</source>
+        <target>Si le type de mise à jour est red_hat, l'arborescence amorçable avec Kickstart doit être fournie par Red Hat. L'arborescence n'est pas : {0}</target>
+      </trans-unit>
+      <trans-unit id="api.kickstart.invalidUpdateTypeAndNoBase">
+        <source>The kickstartable tree {0} has no base channel. The only valid update type with a no-base kickstartable tree is 'none'.</source>
+        <target>L'arborescence amorçable avec Kickstart {0} ne possède pas de canal de base. Le seul type de mise à jour valide avec une arborescence amorçable avec Kickstart est « none ».</target>
       </trans-unit>
       <trans-unit id="api.package.invalidpackagearch">
         <source>The package arch specified ({0}) is invalid.</source>
@@ -8798,7 +8314,15 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
       </trans-unit>
       <trans-unit id="org.entitlements.software.proposedwarning">
         <source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
-        <target>Avertissement : L'allocation que vous avez proposée pour {0} offre moins de droits d'accès utilisés pour l'organisation {1}. Veuillez ajuster l'allocation proposée au-dessus du nombre de droits d'accès actuellement utilisés.</target>
+        <target>Avertissement : L'allocation que vous avez proposée pour {0} offre moins de droits d'accès utilisés pour l'organisation {1}. Veuillez ajuster l'allocation proposée au-dessus du nombre de droits d'accès actuellement utilisés.</target>
+      </trans-unit>
+      <trans-unit id="api.iss.duplicatemaster">
+        <source>A record for Master satellite {0} already exists</source>
+        <target>Un enregistrement pour le Satellite maître {0} existe déjà</target>
+      </trans-unit>
+      <trans-unit id="api.iss.duplicateslave">
+        <source>A record for Slave satellite {0} already exists</source>
+        <target>Un enregistrement pour le Satellite esclave {0} existe déjà</target>
       </trans-unit>
       <trans-unit id="securityErrata">
         <source>Security Errata</source>
@@ -8972,13 +8496,9 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <source>Unknown</source>
         <target>Inconnu</target>
       </trans-unit>
-      <trans-unit id="listtag.note">
-        <source>Note:</source>
-        <target>Remarque&amp;nbsp;:</target>
-      </trans-unit>
-      <trans-unit id="listtag.listfiltered">
-        <source> This list is filtered.  </source>
-        <target> Cette liste est filtrée.  </target>
+      <trans-unit id="filter.clearfilter">
+        <source>The list below is filtered.&lt;br/&gt; &lt;a href="{0}"&gt; &lt;strong&gt;Clear filter to see all items.&lt;/strong&gt; &lt;/a&gt;</source>
+        <target>La liste ci-dessous est filtrée.&lt;br/&gt; &lt;a href="{0}"&gt; &lt;strong&gt;Supprimer le filtre pour voir tous les éléments.&lt;/strong&gt; &lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="listtag.clearfilter">
         <source>Clear filter </source>
@@ -9028,6 +8548,10 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <source>IP Addresses must be unique. This IP Address has already been recorded. Please choose a different IP Address.</source>
         <target>Les adresses IP doivent être uniques. Cette adresse IP a déjà été enregistrée. Veuillez choisir une adresse IP différente.</target>
       </trans-unit>
+      <trans-unit id="frontend.actions.systems.virt.invalidregexp">
+        <source>Guest name can only contain alphanumeric characters, hyphens ('-'), periods ('.') and underscores ('_')</source>
+        <target>Le nom de l'invité peut uniquement contenir des caractères alphanumériques, des traits d'union (« - »), points (« . ») et des tirets bas (« _ »)</target>
+      </trans-unit>
       <trans-unit id="frontend.actions.channels.manager.add.viewChannels">
         <source>View Associated Channels</source>
         <target>Voir les canaux associés</target>
@@ -9036,25 +8560,13 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <source>View Associated Errata</source>
         <target>Voir les errata associés</target>
       </trans-unit>
-      <trans-unit id="frontend.actions.channels.manager.add.selectArch">
-        <source>Select Architectures</source>
-        <target>Sélectionner les architectures</target>
-      </trans-unit>
       <trans-unit id="frontend.actions.channels.manager.add.submit">
         <source>Confirm</source>
         <target>Confirmer</target>
       </trans-unit>
-      <trans-unit id="frontend.actions.channels.manager.add.customizePackages">
-        <source>Customize Package Arch Selection</source>
-        <target>Personnaliser la sélection de l'architecture de paquetages</target>
-      </trans-unit>
       <trans-unit id="frontend.actions.channels.manager.add.success">
         <source>Successfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>
         <target>Paquetage(s) {1} correctement ajouté(s) et les Errata planifiés dupliqués sur le canal {2}. Les Errata dupliqués devraient apparaître dans le canal et être applicables aux systèmes en quelques minutes.</target>
-      </trans-unit>
-      <trans-unit id="frontend.actions.channels.manager.add.clone">
-        <source>"Clone"</source>
-        <target>"Clone"</target>
       </trans-unit>
       <trans-unit id="frontend.actions.channels.manager.add.permsfailure">
         <source>You do not have sufficient permissions to perform this action.</source>
@@ -9130,6 +8642,14 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <source>PowerPC Debian</source>
         <target>PowerPC Debian</target>
       </trans-unit>
+      <trans-unit id="ARM soft. FP">
+        <source>ARM soft. FP</source>
+        <target>ARM soft. FP</target>
+      </trans-unit>
+      <trans-unit id="ARM hard. FP">
+        <source>ARM hard. FP</source>
+        <target>ARM hard. FP</target>
+      </trans-unit>
       <trans-unit id="arm Debian">
         <source>arm Debian</source>
         <target>arm Debian</target>
@@ -9150,17 +8670,9 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <source>{0} patch cluster(s) have been removed from this channel</source>
         <target>{0} cluster(s) de correctifs a/ont été supprimé(s) de ce canal</target>
       </trans-unit>
-      <trans-unit id="frontend.xmlrpc.channels.software.merge.permsfailure">
-        <source>You do not have sufficient permissions to merge packages into channel {0}</source>
-        <target>Vous ne disposez pas de suffisamment de permissions pour fusionner les paquetages dans le canal {0}</target>
-      </trans-unit>
       <trans-unit id="probeparam.passnomatch">
         <source>The Password and Password Confirm did not match.</source>
         <target>Le mot de passe et la confirmation du mot de passe ne correspondent pas.</target>
-      </trans-unit>
-      <trans-unit id="Password_confirm">
-        <source>Password Confirm</source>
-        <target>Confirmation du mot de passe</target>
       </trans-unit>
       <trans-unit id="permission.configadmin.needed">
         <source>The requested function requires a Configuration Admin or Organizational Admin role.</source>
@@ -9169,6 +8681,10 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
       <trans-unit id="api.kickstart.invalidscripttype">
         <source>Only script types of "pre" and "post" are allowed for kickstarts.</source>
         <target>Seuls les scripts de type "pré" et "post" sont autorisés pour les kickstarts.</target>
+      </trans-unit>
+      <trans-unit id="api.kickstart.invalidscriptname">
+        <source>Script Name must be larger than 0 and fewer than 40 characters.</source>
+        <target>Le nom du script doit faire plus de 0 caractère et moins de 40 caractères.</target>
       </trans-unit>
       <trans-unit id="api.kickstart.invalidscript">
         <source>You have specified an invalid kickstart script.</source>
@@ -9180,11 +8696,11 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
       </trans-unit>
       <trans-unit id="package.remove.cant.rollback">
         <source>One or more of the packages you have selected for removal below are not contained in
-			a software channel that this system is subscribed to.  If you choose to continue with the removal
-			you will not be able to rollback this system to this snapshot or any prior snapshot.</source>
-        <target>Un ou plus des paquetages ci-dessous que vous avez sélectionné pour être supprimé ne se trouvent pas dans
-			un canal de logiciel auquel ce système est abonné. Si vous choisissez de continuer la suppression
-			vous ne serz plus en mesure de restaurer ce système à cette capture instantanéé ou à toute autre capture précédente.</target>
+            a software channel that this system is subscribed to.  If you choose to continue with the removal
+            you will not be able to rollback this system to this snapshot or any prior snapshot.</source>
+        <target>Un ou plusieurs des paquetages que vous avez sélectionné pour suppression ci-dessous ne se trouvent pas dans
+            un canal de logiciel auquel ce système est abonné. Si vous choisissez de continuer avec la suppression
+            vous ne serez plus en mesure de restaurer ce système à cette capture instantanée ou à toute autre capture précédente.</target>
       </trans-unit>
       <trans-unit id="list.filter.iprange">
         <source>Single Ip Address</source>
@@ -9193,10 +8709,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
       <trans-unit id="api.kickstart.iprange.duplicate">
         <source>The Ip Range specified, {0}, conflicts with an existing Ip Range.</source>
         <target>L'étendue Ip spécifiée {0} est en conflit avec une étendue Ip existante.</target>
-      </trans-unit>
-      <trans-unit id="api.kickstart.iprange.invalid">
-        <source>The Ip Range specified, {0}, is not a valid Ip Range.</source>
-        <target>L'étendue Ip spécifiée {0} n'est pas une étendue Ip valide.</target>
       </trans-unit>
       <trans-unit id="api.kickstart.ip.invalid">
         <source>The Ip Address specified, {0}, is not valid..</source>
@@ -9244,7 +8756,7 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
       </trans-unit>
       <trans-unit id="api.kickstart.invalidkickstartinstalltype">
         <source>Invalid kickstart install type: {0}.</source>
-        <target>Type d'installation kickstart invalide : {0}.</target>
+        <target>Type d'installation kickstart invalide : {0}.</target>
       </trans-unit>
       <trans-unit id="edit.channel.invalidgpgfp">
         <source>Invalid GPG Fingerprint</source>
@@ -9293,11 +8805,11 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <target>Le nom du canal doit commencer par une lettre et peut contenir uniquement des lettres minuscules, traits d'union ('-'), points ('. '), traits de soulignement ('_'), des chiffres, des espaces et des barres obliques ('/'). </target>
       </trans-unit>
       <trans-unit id="edit.channel.invalidchannelname.redhat">
-        <source>Red Hat channels require admin privileges</source>
+        <source>Channels names must not start with '{0}'</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/channels/manage/Edit</context>
         </context-group>
-        <target>Les canaux Red Hat requièrent d'avoir les privilèges d'un administrateur</target>
+        <target>Les noms de canaux ne doivent pas commencer par « {0} »</target>
       </trans-unit>
       <trans-unit id="edit.channel.invalidchannelname.minlength">
         <source>Channel name must be at least {0} characters long</source>
@@ -9346,11 +8858,11 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <target>L'étiquette du canal doit commencer par une lettre et ne doit contenir que les lettres minuscules, des traits d'union ('-'), points ('. '), traits de soulignement ('_'), et des chiffres.</target>
       </trans-unit>
       <trans-unit id="edit.channel.invalidchannellabel.redhat">
-        <source>Red Hat channels require admin privileges</source>
+        <source>Channel labels must not start with '{0}'</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/channels/manage/Edit</context>
         </context-group>
-        <target>Les canaux Red Hat requièrent d'avoir les privilèges d'un administrateur</target>
+        <target>Les étiquettes de canaux ne doivent pas commencer par « {0} »</target>
       </trans-unit>
       <trans-unit id="edit.channel.invalidchannellabel.minlength">
         <source>Channel label must be at least {0} characters long</source>
@@ -9441,6 +8953,22 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <source>Please set frequency for the new schedule.</source>
         <target>Veuillez définir la fréquence pour la nouvelle programmation.</target>
       </trans-unit>
+      <trans-unit id="message.crashdeleted">
+        <source>Software crash {0} was successfully deleted.</source>
+        <target>L'incident logiciel {0} a bien été supprimé.</target>
+      </trans-unit>
+      <trans-unit id="message.crashesdeleted">
+        <source>{0} software crashes were successfully deleted.</source>
+        <target>Les incidents logiciels {0} ont bien été supprimés.</target>
+      </trans-unit>
+      <trans-unit id="message.crashnotecreated">
+        <source>Crash Note was successfully created.</source>
+        <target>La remarque de l'incident a bien été créée.</target>
+      </trans-unit>
+      <trans-unit id="message.crashnoteupdated">
+        <source>Crash Note was successfully updated.</source>
+        <target>La remarque de l'incident a bien été mise à jour.</target>
+      </trans-unit>
       <trans-unit id="kickstart.cobbler.profile.invalidvirt">
         <source>Para-Virtualization is unsupported with the selected kickstart tree or distribution.</source>
         <target>La para-virtualisation n'est pas prise en charge par votre arbre kickstart ou par votre distribution.</target>
@@ -9489,6 +9017,10 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <source>There's already a defined repository with given url, please reuse it.</source>
         <target>Un référentiel défini avec l'URL donné existe déjà, veuillez le réutiliser. </target>
       </trans-unit>
+      <trans-unit id="edit.channel.repo.clientcertmissing">
+        <source>Please set SSL Client Certificate, if you've set SSL Client Key.</source>
+        <target>Veuillez définir le certificat client SSL si vous avec défini la clé du client SSL.</target>
+      </trans-unit>
       <trans-unit id="ssm.provision.scheduled">
         <source>Successfully scheduled {0} system(s) for provisioning.</source>
         <target>Le(s) système(s) {0} ont été planifié(s) avec succès pour le provisionnement.</target>
@@ -9507,7 +9039,7 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
       </trans-unit>
       <trans-unit id="ssm.server.delete.operationname">
         <source>Server Delete</source>
-        <target>Supprimer le serveur</target>
+        <target>Suppression de serveur</target>
       </trans-unit>
       <trans-unit id="ssm.migrate.systems.confirmmessage">
         <source>Systems Migrated</source>
@@ -9580,10 +9112,10 @@ tree will not be usable for kickstarting.
 Ce qui suit est une liste d'erreurs à la suite des tentatives de synchronisation
 des distributions kickstart de Spacewalk à Cobbler. Ces
 erreurs doivent être corrigées pour que les distributions puissent être disponibles
- pour les kickstarting systèmes :
+ pour les kickstarting systèmes :
 
 {0}
-Veuillez cocher:
+Veuillez cocher :
 /var/log/rhn/rhn_taskomatic_daemon.log et
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log

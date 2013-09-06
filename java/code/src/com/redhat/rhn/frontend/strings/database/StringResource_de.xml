@@ -65,7 +65,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
         </context-group>
-        <target>Monitoring</target>
+        <target>Überwachung</target>
       </trans-unit>
       <!--  Human Readable version of the entitlement labels -->
       <group>
@@ -80,7 +80,7 @@
         </trans-unit>
         <trans-unit id="monitoring_entitled">
           <source>Monitoring</source>
-          <target>Monitoring</target>
+          <target>Überwachung</target>
         </trans-unit>
         <trans-unit id="nonlinux_entitled">
           <source>Non-Linux</source>
@@ -116,12 +116,19 @@
         </trans-unit>
       </group>
       <!-- TimeZones -->
-      <trans-unit id="Australia/Sydney">
-        <source>(GMT+1000) Australia (Eastern)</source>
+      <trans-unit id="Australia/Brisbane">
+        <source>(GMT+1000) Australia (Eastern Standard)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-        <target>(GMT+1000) Australien (Ost)</target>
+        <target>(GMT+1000) Australien (Ost-Standard)</target>
+      </trans-unit>
+      <trans-unit id="Australia/Sydney">
+        <source>(GMT+1000) Australia (Eastern Daylight)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+        <target>(GMT+1000) Australien (Ost-Sommerzeit)</target>
       </trans-unit>
       <trans-unit id="Asia/Tokyo">
         <source>(GMT+0900) Japan</source>
@@ -143,6 +150,13 @@
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
         <target>(GMT+0400) Russland (Moskau)</target>
+      </trans-unit>
+      <trans-unit id="Africa/Johannesburg">
+        <source>(GMT+0200) South Africa (Johannesburg)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+        <target>(GMT+0200) Südafrika (Johannesburg)</target>
       </trans-unit>
       <trans-unit id="Europe/Bucharest">
         <source>(GMT+0200) Europe (Eastern)</source>
@@ -662,7 +676,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Kritische durchschnittl. Ausführungszeit in Bewegung</target>
+        <target>Kritische Ausführungszeit gleitender Durchschnitt</target>
       </trans-unit>
       <trans-unit id="Critical Exit Status">
         <source>Critical Exit Status</source>
@@ -965,13 +979,6 @@
         </context-group>
         <target>Kritischer freier Swap in %</target>
       </trans-unit>
-      <trans-unit id="Critical Swapped Process Count">
-        <source>Critical Swapped Process Count</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Kritische Anzahl an geswappten Prozessen</target>
-      </trans-unit>
       <trans-unit id="Critical TIME_WAIT Connections">
         <source>Critical TIME_WAIT Connections</source>
         <context-group name="ctx">
@@ -1069,41 +1076,6 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <target>Kritische Schreibrate</target>
-      </trans-unit>
-      <trans-unit id="Critical if number of blocked processes exceeds">
-        <source>Critical if number of blocked processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Kritisch, wenn Anzahl von blockierten Prozessen darüber hinausgeht</target>
-      </trans-unit>
-      <trans-unit id="Critical if number of children for any process exceeds">
-        <source>Critical if number of children for any process exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Kritisch, wenn Anzahl von Kindern für jeglichen Prozess darüber hinausgeht</target>
-      </trans-unit>
-      <trans-unit id="Critical if number of defunct processes exceeds">
-        <source>Critical if number of defunct processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Kritisch, wenn Anzahl von Zombie-Prozessen darüber hinausgeht</target>
-      </trans-unit>
-      <trans-unit id="Critical if number of stopped processes exceeds">
-        <source>Critical if number of stopped processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Kritisch, wenn Anzahl von angehaltenen Prozessen darüber hinausgeht</target>
-      </trans-unit>
-      <trans-unit id="Critical if number of swapped processes exceeds">
-        <source>Critical if number of swapped processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Kritisch, wenn Anzahl von geswappten Prozessen darüber hinausgeht</target>
       </trans-unit>
       <trans-unit id="Database">
         <source>Database</source>
@@ -1236,7 +1208,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Interface</target>
+        <target>Schnittstelle</target>
       </trans-unit>
       <trans-unit id="JDBC Pool Name">
         <source>JDBC Pool Name</source>
@@ -1314,13 +1286,6 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <target>Oracle-Passwort</target>
-      </trans-unit>
-      <trans-unit id="Oracle Password_confirm">
-        <source>Oracle Password Confirm</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Oracle-Passwort bestätigen</target>
       </trans-unit>
       <trans-unit id="Oracle Port">
         <source>Oracle Port</source>
@@ -1644,41 +1609,6 @@
         </context-group>
         <target>Warnung - Benutzer</target>
       </trans-unit>
-      <trans-unit id="Warn if number of blocked processes exceeds">
-        <source>Warn if number of blocked processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Warnung, wenn die Anzahl blockierter Prozesse darüber hinausgeht</target>
-      </trans-unit>
-      <trans-unit id="Warn if number of children for any process exceeds">
-        <source>Warn if number of children for any process exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Warnung bei Überschreitung der Anzahl der Subprozesse für beliebige Prozesse</target>
-      </trans-unit>
-      <trans-unit id="Warn if number of defunct processes exceeds">
-        <source>Warn if number of defunct processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Warnung bei Überschreitung der Anzahl der Zombie-Prozesse</target>
-      </trans-unit>
-      <trans-unit id="Warn if number of stopped processes exceeds">
-        <source>Warn if number of stopped processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Warnung bei Überschreitung der Anzahl angehaltener Prozesse</target>
-      </trans-unit>
-      <trans-unit id="Warn if number of swapped processes exceeds">
-        <source>Warn if number of swapped processes exceeds</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Warnung bei Überschreitung der Anzahl an geswappten Prozessen</target>
-      </trans-unit>
       <trans-unit id="Warning Accesses">
         <source>Warning Accesses</source>
         <context-group name="ctx">
@@ -1719,7 +1649,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Warnung - Blocking-Sessions</target>
+        <target>Warnung - Blockierende Sessions</target>
       </trans-unit>
       <trans-unit id="Warning Buffer Cache Hit Ratio">
         <source>Warning Buffer Cache Hit Ratio</source>
@@ -1838,7 +1768,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Warnung - Durchschn. Ausführungszeit in Bewegung</target>
+        <target>Warnung - Ausführungszeit gleitender Durchschnitt</target>
       </trans-unit>
       <trans-unit id="Warning Exit Status">
         <source>Warning Exit Status</source>
@@ -2112,13 +2042,6 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <target>Warnung - freier Swap in %</target>
-      </trans-unit>
-      <trans-unit id="Warning Swapped Process Count">
-        <source>Warning Swapped Process Count</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-        <target>Warnung - Anzahl geswappter Prozesse</target>
       </trans-unit>
       <trans-unit id="Warning TIME_WAIT Connections">
         <source>Warning TIME_WAIT Connections</source>
@@ -2399,7 +2322,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Durchschn. Ausführungszeit in Bewegung</target>
+        <target>Ausführungszeit gleitender Durchschnitt</target>
       </trans-unit>
       <trans-unit id="metrics.Execution rate">
         <source>Execution rate</source>
@@ -2756,7 +2679,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Ablaufende Threads</target>
+        <target>Laufende Threads</target>
       </trans-unit>
       <trans-unit id="metrics.Total conns">
         <source>Total conns</source>
@@ -3008,7 +2931,7 @@
         </trans-unit>
         <trans-unit id="Execution Time Moving Average">
           <source>Execution Time Moving Average</source>
-          <target>Durchschn. Ausführungszeit in Bewegung</target>
+          <target>Ausführungszeit gleitender Durchschnitt</target>
         </trans-unit>
         <trans-unit id="FIN_WAIT Connections">
           <source>FIN_WAIT Connections</source>
@@ -3420,10 +3343,6 @@
           <source>BEA Weblogic</source>
           <target>BEA Weblogic</target>
         </trans-unit>
-        <trans-unit id="Red Hat Application Server">
-          <source>Red Hat Application Server</source>
-          <target>Red Hat Anwendungsserver</target>
-        </trans-unit>
         <trans-unit id="General">
           <source>General</source>
           <target>Allgemein</target>
@@ -3505,7 +3424,7 @@
         </trans-unit>
         <trans-unit id="Disk I/O Throughput">
           <source>Disk I/O Throughput</source>
-          <target>I/O Plattenstrom</target>
+          <target>Festplatten I/O Durchsatz</target>
         </trans-unit>
         <trans-unit id="Disk Sort Ratio">
           <source>Disk Sort Ratio</source>
@@ -3587,9 +3506,9 @@
           <source>Log Pattern Match</source>
           <target>Log Pattern Match</target>
         </trans-unit>
-        <trans-unit id="Log Size">
-          <source>Log Size</source>
-          <target>Log-Größe</target>
+        <trans-unit id="Log Size Growth">
+          <source>Log Size Growth</source>
+          <target>Zunahme Log-Größe</target>
         </trans-unit>
         <trans-unit id="LongLegs">
           <source>LongLegs</source>
@@ -3641,7 +3560,7 @@
         </trans-unit>
         <trans-unit id="Process Running">
           <source>Process Running</source>
-          <target>Ablaufender Prozess</target>
+          <target>Laufender Prozess</target>
         </trans-unit>
         <trans-unit id="Processes">
           <source>Processes</source>
@@ -3725,7 +3644,7 @@
         </trans-unit>
         <trans-unit id="Threads Running">
           <source>Threads Running</source>
-          <target>Ablaufende Threads</target>
+          <target>Laufende Threads</target>
         </trans-unit>
         <trans-unit id="UDP Check">
           <source>UDP Check</source>

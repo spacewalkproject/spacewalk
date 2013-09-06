@@ -58,13 +58,6 @@
         </context-group>
         <target>Installer des correctifs</target>
       </trans-unit>
-      <trans-unit id="system.nav.all">
-        <source>All</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-        <target>Tous</target>
-      </trans-unit>
       <trans-unit id="virtualization.entitlements">
         <source>Virtualization Entitlements</source>
         <context-group name="ctx">
@@ -107,12 +100,33 @@
         </context-group>
         <target>Systèmes virtuels</target>
       </trans-unit>
+      <trans-unit id="Physical Systems">
+        <source>Physical Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+        <target>Systèmes physiques</target>
+      </trans-unit>
       <trans-unit id="Duplicate Systems">
         <source>Duplicate Systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
         <target>Baliser les systèmes</target>
+      </trans-unit>
+      <trans-unit id="Requiring Reboot">
+        <source>Requiring Reboot</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+        <target>Redémarrage requis</target>
+      </trans-unit>
+      <trans-unit id="Extra Packages">
+        <source>Extra Packages</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+        <target>Paquetages supplémentaires</target>
       </trans-unit>
       <trans-unit id="duplicate.systems.nav.ips">
         <source>Duplicate IP Address</source>
@@ -149,40 +163,40 @@
         </context-group>
         <target>Besoin de mise à jour du système</target>
       </trans-unit>
-      <trans-unit id="system.nav.outofdate">
-        <source>Out of Date</source>
+      <trans-unit id="software.crashes">
+        <source>Software Crashes</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-        <target>Périmés</target>
+        <target>Incidents logiciel</target>
       </trans-unit>
-      <trans-unit id="system.nav.unentitled">
-        <source>Unentitled</source>
+      <trans-unit id="software.crashes.overview">
+        <source>Software Crashes Overview</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-        <target>Sans droit</target>
+        <target>Aperçu des incidents logiciel</target>
       </trans-unit>
-      <trans-unit id="system.nav.ungrouped">
-        <source>Ungrouped</source>
+      <trans-unit id="software.crashes.overview.summary">
+        <source>The table below lists software crashes, grouped by UUID, that occured on your systems. Identical crash UUIDs may potentially indicate similar or identical types of software crash.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-        <target>Sans groupe</target>
+        <target>Le tableau ci-dessous répertorie les incidents logiciel, regroupés par UUID, qui se sont produits sur vos systèmes. Des UUID d'incidents identiques indiquent potentiellement des incidents logiciel de type similaire ou identique.</target>
       </trans-unit>
-      <trans-unit id="system.nav.inactive">
-        <source>Inactive</source>
+      <trans-unit id="software.crashes.by.uuid.summary">
+        <source>The table below lists systems where a crash with the above UUID occured.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-        <target>Inactifs</target>
+        <target>Le tableau ci-dessous répertorie les systèmes sur lesquels un incident avec l'UUID mentionné ci-dessus s'est produit.</target>
       </trans-unit>
-      <trans-unit id="system.nav.proxy">
-        <source>Proxy</source>
+      <trans-unit id="software.crashes.uuid.header">
+        <source>Summary for crashes with identical UUID</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-        <target>Proxy</target>
+        <target>Sommaire des incidents avec un UUID identique</target>
       </trans-unit>
       <trans-unit id="ssm.nav.config">
         <source>Configuration</source>
@@ -254,13 +268,6 @@
         </context-group>
         <target>Tous</target>
       </trans-unit>
-      <trans-unit id="channel.nav.relevant">
-        <source>Relevant channels</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Channel Navigation Menu</context>
-        </context-group>
-        <target>Canaux appropriés</target>
-      </trans-unit>
       <trans-unit id="channel.nav.all">
         <source>All Channels</source>
         <context-group name="ctx">
@@ -303,13 +310,6 @@
         </context-group>
         <target>Canaux éliminés</target>
       </trans-unit>
-      <trans-unit id="audit.nav.audit">
-        <source>Audit</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Audit Navigation Menu</context>
-        </context-group>
-        <target>Audit</target>
-      </trans-unit>
       <trans-unit id="config.nav.managed">
         <source>Managed Systems</source>
         <context-group name="ctx">
@@ -344,13 +344,6 @@
           <context context-type="sourcefile">Configuration Navigation Menu</context>
         </context-group>
         <target>Fichiers de configuration</target>
-      </trans-unit>
-      <trans-unit id="config.nav.quota">
-        <source>Quota for File Storage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Configuration Navigation Menu</context>
-        </context-group>
-        <target>Quota pour le stockage des fichiers</target>
       </trans-unit>
       <trans-unit id="config.nav.globalfiles">
         <source>Centrally Managed Files</source>
@@ -549,14 +542,6 @@
           <source>View/Modify Files</source>
           <target>Afficher/Modifier des fichiers</target>
         </trans-unit>
-        <trans-unit id="nav.sdc.config.add_files">
-          <source>Add File</source>
-          <target>Ajouter le fichier</target>
-        </trans-unit>
-        <trans-unit id="nav.sdc.config.deploy_files">
-          <source>Deploy Files</source>
-          <target>Déployer les fichiers</target>
-        </trans-unit>
         <trans-unit id="nav.sdc.config.compare_files">
           <source>Compare Files</source>
           <target>Comparer les fichiers</target>
@@ -567,7 +552,7 @@
         </trans-unit>
         <trans-unit id="nav.sdc.config.list_unsubscribe_channels">
           <source>List/Unsubscribe from Channels</source>
-          <target>Lister/Se désabonner des canaux</target>
+          <target>Répertorier/Se désabonner des canaux</target>
         </trans-unit>
         <trans-unit id="nav.sdc.config.subscribe_channels">
           <source>Subscribe to Channels</source>
@@ -667,13 +652,6 @@
         </context-group>
         <target>Statut de sessions</target>
       </trans-unit>
-      <trans-unit id="Session History">
-        <source>Session History</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Historique de sessions</target>
-      </trans-unit>
       <trans-unit id="Sandbox">
         <source>Sandbox</source>
         <context-group name="ctx">
@@ -694,6 +672,27 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>Configuration de @@PRODUCT_NAME@@</target>
+      </trans-unit>
+      <trans-unit id="ISS Configuration">
+        <source>ISS Configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+        <target>Configuration ISS</target>
+      </trans-unit>
+      <trans-unit id="Master Setup">
+        <source>Master Setup</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+        <target>Installation du maître</target>
+      </trans-unit>
+      <trans-unit id="Slave Setup">
+        <source>Slave Setup</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+        <target>Installation de l'esclave</target>
       </trans-unit>
       <trans-unit id="Remote Command">
         <source>Remote Command</source>
@@ -820,20 +819,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>Fichiers de configuration</target>
-      </trans-unit>
-      <trans-unit id="Local Overrides">
-        <source>Local Overrides</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Contournements locaux</target>
-      </trans-unit>
-      <trans-unit id="Outage Policy">
-        <source>Outage Policy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Politique de défaillances</target>
       </trans-unit>
       <trans-unit id="Join">
         <source>Join</source>
@@ -1003,20 +988,6 @@
         </context-group>
         <target>Profils de paquetages</target>
       </trans-unit>
-      <trans-unit id="Expiration Dates &amp; Purchase History">
-        <source>Expiration Dates &amp; Purchase History</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Overview left nav menu</context>
-        </context-group>
-        <target>Dates d'expiration et historique d'achats</target>
-      </trans-unit>
-      <trans-unit id="Purchase or Renew">
-        <source>Purchase or Renew</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Overview left nav menu</context>
-        </context-group>
-        <target>Acheter ou renouveler</target>
-      </trans-unit>
       <trans-unit id="Critical">
         <source>Critical</source>
         <context-group name="ctx">
@@ -1135,13 +1106,6 @@
           <context context-type="sourcefile">/rhn/admin/multiorg/Subscriptions.do</context>
         </context-group>
         <target>Abonnements</target>
-      </trans-unit>
-      <trans-unit id="subdetails.details">
-        <source>Details</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/EntitlementDetails.do</context>
-        </context-group>
-        <target>Détails</target>
       </trans-unit>
       <!-- SSM NAV -->
       <group>

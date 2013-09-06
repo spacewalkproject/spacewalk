@@ -58,13 +58,6 @@
         </context-group>
         <target>Установить исправления</target>
       </trans-unit>
-      <trans-unit id="system.nav.all">
-        <source>All</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-        <target>Все</target>
-      </trans-unit>
       <trans-unit id="virtualization.entitlements">
         <source>Virtualization Entitlements</source>
         <context-group name="ctx">
@@ -84,14 +77,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Virtualization Entitlements Navigation</context>
         </context-group>
-        <target>Узлы платформ виртуализации</target>
+        <target>Хосты виртуализации</target>
       </trans-unit>
       <trans-unit id="guests.without.hosts">
         <source>Guests Without Hosts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Virtualization Entitlements Navigation</context>
         </context-group>
-        <target>Гости без размещающих систем</target>
+        <target>Гости без хостов</target>
       </trans-unit>
       <trans-unit id="Virtualization">
         <source>Virtualization</source>
@@ -107,12 +100,33 @@
         </context-group>
         <target>Виртуальные системы</target>
       </trans-unit>
+      <trans-unit id="Physical Systems">
+        <source>Physical Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+        <target>Физические системы</target>
+      </trans-unit>
       <trans-unit id="Duplicate Systems">
         <source>Duplicate Systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
         <target>Повторяющиеся</target>
+      </trans-unit>
+      <trans-unit id="Requiring Reboot">
+        <source>Requiring Reboot</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+        <target>Требует перезагрузки</target>
+      </trans-unit>
+      <trans-unit id="Extra Packages">
+        <source>Extra Packages</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+        <target>Дополнительные</target>
       </trans-unit>
       <trans-unit id="duplicate.systems.nav.ips">
         <source>Duplicate IP Address</source>
@@ -149,40 +163,40 @@
         </context-group>
         <target>Рейтинг систем</target>
       </trans-unit>
-      <trans-unit id="system.nav.outofdate">
-        <source>Out of Date</source>
+      <trans-unit id="software.crashes">
+        <source>Software Crashes</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-        <target>Устаревший</target>
+        <target>Программные сбои</target>
       </trans-unit>
-      <trans-unit id="system.nav.unentitled">
-        <source>Unentitled</source>
+      <trans-unit id="software.crashes.overview">
+        <source>Software Crashes Overview</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-        <target>Без полномочий</target>
+        <target>Обзор программных сбоев</target>
       </trans-unit>
-      <trans-unit id="system.nav.ungrouped">
-        <source>Ungrouped</source>
+      <trans-unit id="software.crashes.overview.summary">
+        <source>The table below lists software crashes, grouped by UUID, that occured on your systems. Identical crash UUIDs may potentially indicate similar or identical types of software crash.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-        <target>Нет групп</target>
+        <target>Ниже перечислены сбои, сгруппированные по UUID.  </target>
       </trans-unit>
-      <trans-unit id="system.nav.inactive">
-        <source>Inactive</source>
+      <trans-unit id="software.crashes.by.uuid.summary">
+        <source>The table below lists systems where a crash with the above UUID occured.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-        <target>Неактивный</target>
+        <target>Ниже приведен список систем, в которых был зарегистрирован сбой с заданным UUID.</target>
       </trans-unit>
-      <trans-unit id="system.nav.proxy">
-        <source>Proxy</source>
+      <trans-unit id="software.crashes.uuid.header">
+        <source>Summary for crashes with identical UUID</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-        <target>Proxy</target>
+        <target>Сводка сбоев с одинаковыми UUID</target>
       </trans-unit>
       <trans-unit id="ssm.nav.config">
         <source>Configuration</source>
@@ -254,13 +268,6 @@
         </context-group>
         <target>Все</target>
       </trans-unit>
-      <trans-unit id="channel.nav.relevant">
-        <source>Relevant channels</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Channel Navigation Menu</context>
-        </context-group>
-        <target>Подходящие каналы</target>
-      </trans-unit>
       <trans-unit id="channel.nav.all">
         <source>All Channels</source>
         <context-group name="ctx">
@@ -273,14 +280,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Channel Navigation Menu</context>
         </context-group>
-        <target>Совместные</target>
+        <target>Общие</target>
       </trans-unit>
       <trans-unit id="channel.nav.vendor">
         <source>Red Hat Channels</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Channel Navigation Menu</context>
         </context-group>
-        <target>Каналы Red Hat</target>
+        <target>Red Hat</target>
       </trans-unit>
       <trans-unit id="channel.nav.popular">
         <source>Popular Channels</source>
@@ -302,13 +309,6 @@
           <context context-type="sourcefile">Channel Navigation Menu</context>
         </context-group>
         <target>Устаревшие</target>
-      </trans-unit>
-      <trans-unit id="audit.nav.audit">
-        <source>Audit</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Audit Navigation Menu</context>
-        </context-group>
-        <target>Аудит</target>
       </trans-unit>
       <trans-unit id="config.nav.managed">
         <source>Managed Systems</source>
@@ -344,13 +344,6 @@
           <context context-type="sourcefile">Configuration Navigation Menu</context>
         </context-group>
         <target>Файлы конфигурации</target>
-      </trans-unit>
-      <trans-unit id="config.nav.quota">
-        <source>Quota for File Storage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Configuration Navigation Menu</context>
-        </context-group>
-        <target>Квота хранения файлов</target>
       </trans-unit>
       <trans-unit id="config.nav.globalfiles">
         <source>Centrally Managed Files</source>
@@ -549,14 +542,6 @@
           <source>View/Modify Files</source>
           <target>Просмотреть/ Изменить файлы</target>
         </trans-unit>
-        <trans-unit id="nav.sdc.config.add_files">
-          <source>Add File</source>
-          <target>Добавить файл</target>
-        </trans-unit>
-        <trans-unit id="nav.sdc.config.deploy_files">
-          <source>Deploy Files</source>
-          <target>Применить файлы</target>
-        </trans-unit>
         <trans-unit id="nav.sdc.config.compare_files">
           <source>Compare Files</source>
           <target>Сравнить файлы</target>
@@ -667,13 +652,6 @@
         </context-group>
         <target>Статус сессии</target>
       </trans-unit>
-      <trans-unit id="Session History">
-        <source>Session History</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>История сессии</target>
-      </trans-unit>
       <trans-unit id="Sandbox">
         <source>Sandbox</source>
         <context-group name="ctx">
@@ -694,6 +672,27 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>Конфигурация @@PRODUCT_NAME@@</target>
+      </trans-unit>
+      <trans-unit id="ISS Configuration">
+        <source>ISS Configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+        <target>Синхронизация</target>
+      </trans-unit>
+      <trans-unit id="Master Setup">
+        <source>Master Setup</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+        <target>Мастер-сервер</target>
+      </trans-unit>
+      <trans-unit id="Slave Setup">
+        <source>Slave Setup</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+        <target>Подчиненные</target>
       </trans-unit>
       <trans-unit id="Remote Command">
         <source>Remote Command</source>
@@ -820,20 +819,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>Конфиг.файлы</target>
-      </trans-unit>
-      <trans-unit id="Local Overrides">
-        <source>Local Overrides</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Локальные переопределения</target>
-      </trans-unit>
-      <trans-unit id="Outage Policy">
-        <source>Outage Policy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-        <target>Режим отключений</target>
       </trans-unit>
       <trans-unit id="Join">
         <source>Join</source>
@@ -1003,20 +988,6 @@
         </context-group>
         <target>Профили пакетов</target>
       </trans-unit>
-      <trans-unit id="Expiration Dates &amp; Purchase History">
-        <source>Expiration Dates &amp; Purchase History</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Overview left nav menu</context>
-        </context-group>
-        <target>Сроки действия и история приобретений</target>
-      </trans-unit>
-      <trans-unit id="Purchase or Renew">
-        <source>Purchase or Renew</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Overview left nav menu</context>
-        </context-group>
-        <target>Приобрести или обновить</target>
-      </trans-unit>
       <trans-unit id="Critical">
         <source>Critical</source>
         <context-group name="ctx">
@@ -1036,7 +1007,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Registered.do</context>
         </context-group>
-        <target>Недавно зарегистрированы</target>
+        <target>Последние</target>
       </trans-unit>
       <trans-unit id="Target Systems">
         <source>Target Systems</source>
@@ -1135,13 +1106,6 @@
           <context context-type="sourcefile">/rhn/admin/multiorg/Subscriptions.do</context>
         </context-group>
         <target>Подписки</target>
-      </trans-unit>
-      <trans-unit id="subdetails.details">
-        <source>Details</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/EntitlementDetails.do</context>
-        </context-group>
-        <target>Свойства</target>
       </trans-unit>
       <!-- SSM NAV -->
       <group>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.1" xmlns:xyz="urn:appInfo:Items" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.1 http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd" version="1.1">
+  <file source-language="en" datatype="plaintext" original="" target-language="ru">
+    <body>
+      <trans-unit id="bad-class">
+        <source>Class does not implement AclHandler: {0}</source>
+        <target>Класс не использует AclHandler: {0}</target>
+      </trans-unit>
+      <trans-unit id="bad-signature">
+        <source>Bad ACL handler method [{0}]. ACL handler methods must have the following signature (may be static or non-static), with no declared exceptions: public aclXXXX(Object, String[])</source>
+        <target>Недопустимый метод обработчика ACL: [{0}]. Методы должны иметь следующую подпись (может быть статична или нестатична) без объявленных исключений: public aclXXXX(Object, String[])</target>
+      </trans-unit>
+      <trans-unit id="bad-syntax">
+        <source>Could not parse ACL statement: "{0}"</source>
+        <target>Ошибка разбора выражения ACL: «{0}»</target>
+      </trans-unit>
+      <trans-unit id="bad-handler">
+        <source>Could not find ACL handler {0} in statement: "{1}". Available ACL handlers: {2}</source>
+        <target>Не найден обработчик ACL {0} в выражении: "{1}". Доступные обработчики ACL: {2}</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

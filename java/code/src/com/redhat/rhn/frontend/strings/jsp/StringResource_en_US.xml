@@ -11197,7 +11197,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>Deletable</source>
         </trans-unit>
         <trans-unit id="system.audit.xccdfdeleteconfirm.jsp.tip">
-            <source>Only those SCAP Scans can be deleted which have passed their retention period. Retention period can be set in the Organization Configuration dialog.</source>
+          <source>Only those SCAP Scans can be deleted which have passed their retention period. Retention period can be set in the Organization Configuration dialog.</source>
         </trans-unit>
         <trans-unit id="system.audit.xccdfdeleteconfirm.jsp.message">
           <source>{0} SCAP Scan(s) deleted. {1} SCAP Scan(s) retained</source>
@@ -20415,7 +20415,7 @@ given channel.</source>
         <trans-unit id="iss.slave.jsp.header2">
           <source>Known Master Instances</source>
         </trans-unit>
-         <trans-unit id="iss.slave.jsp.nomasters">
+        <trans-unit id="iss.slave.jsp.nomasters">
           <source>No Masters known to this Slave</source>
         </trans-unit>
       </group>

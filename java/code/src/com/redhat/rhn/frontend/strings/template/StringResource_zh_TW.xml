@@ -2,14 +2,6 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.1" xmlns:xyz="urn:appInfo:Items" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.1 http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd" version="1.1">
   <file source-language="en" datatype="plaintext" original="" target-language="zh_TW">
     <body>
-      <trans-unit id="email.verify.subject">
-        <source>@@PRODUCT_NAME@@ login Email Verification</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail.do</context>
-          <context context-type="sourcefile">/users/ChangeEmail.do</context>
-        </context-group>
-        <target>@@PRODUCT_NAME@@ 登入電子郵件驗證</target>
-      </trans-unit>
       <!-- New Account Email -->
       <trans-unit id="email.newaccount.subject">
         <source>Your @@PRODUCT_NAME@@ Account is ready</source>
@@ -203,236 +195,6 @@ Thank you for using @@PRODUCT_NAME@@.
 
 感謝您使用 @@PRODUCT_NAME@@。
 {2}</target>
-      </trans-unit>
-      <trans-unit id="email.user.deleted.subject">
-        <source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
-        <target>@@PRODUCT_NAME@@ 帳號已停用：{0}</target>
-      </trans-unit>
-      <trans-unit id="email.user.deleted.body">
-        <source>
-The Red Hat login {0} has been deactivated in response to your request.
-
-Thank you for contacting Red Hat.
-         </source>
-        <target>
-Red Hat 登入帳號 {0} 已經依據您的需求而停用。
-
-謝謝您聯絡 Red Hat。</target>
-      </trans-unit>
-      <trans-unit id="email.newuser.bala.subject">
-        <source>Red Hat login creation request</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-        </context-group>
-        <target>建立 Red Hat 登入帳號的需求</target>
-      </trans-unit>
-      <trans-unit id="email.newuser.bala.footer">
-        <source>
-For additional information in German language, please visit our Website:
-{0}
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-          <context context-type="paramnotes">
-          {0} - URL to German website
-          </context>
-        </context-group>
-        <target>
-欲知德文版的額外資訊，請參閱我們的網站：
-{0}</target>
-      </trans-unit>
-      <trans-unit id="email.newuser.bala.footer2">
-        <source>
-For French, click here: {0}
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-          <context context-type="paramnotes">
-          {0} - URL to German website containing French and German text
-          </context>
-        </context-group>
-        <target>
-欲知法文版的額外資訊，請參閱我們的網站：{0}
-</target>
-      </trans-unit>
-      <trans-unit id="email.newuser.bala.body">
-        <source>
-Dear Red Hat Customer,
-
-You were recently named on an order for new Red Hat subscriptions.  These
-subscriptions are now available in the following account:
-
-  Customer Name : {0}
-  Account Number: {1}
-
-You can click on the link below to create a new Red Hat Login for this account
-and obtain access to your subscriptions:
-
-{2}
-
-If you are not the technical manager who will utilize the Red Hat subscription
-services purchased, please forward this email to the appropriate user within
-your organization.  If they do not already have a Red Hat Login, that user may
-follow the link above to establish a new one.
-
-If you already have a login and it is linked to the above account, then no
-action is required.  You can find the account number linked to an existing Red
-Hat Login by logging into the following page:
-
-http://www.redhat.com/support/
-
-If you already have a Red Hat Login that is linked to a different account than
-the one listed on this email, and would like to use that account to manage these
-subscriptions, Red Hat can transfer them to your desired account.  Please
-contact your regional Red Hat Customer Service Representative, using the contact
-information provided at the following link:
-
-{3}
-
-Note to the Account Administrator (Organization Administrator): Before a new
-user can access subscriptions, you must grant them the ability to see and manage
-the subscriptions on your account.  This requires that a User Administration
-entitlement exist on your account.  If required, please follow the link above
-and contact your regional Red Hat Customer Service Representative to request
-this feature.
-
-Thank you for choosing Red Hat.
-
-Sincerely,
-Red Hat Account Management Team
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic task: PushedUsers.java</context>
-          <context context-type="paramnotes">
-          {0} - Customers name - Web_Customer.name - Michael Bowman
-          {1} - Account number - 012543
-          {2} - Creation url - http://blah/CreatePersonal.do?checksum=$1$a322349ade
-          {3} - Customer Server url - http://blah/about/contact/dir/#custservice
-          </context>
-        </context-group>
-        <target>
-親愛的 Red Hat 客戶，
-
-您的名字最近出現在 Red Hat 訂閱服務的訂單上。這些訂閱服務會在以下帳號中出現：
-
-  客戶名稱：{0}
-  帳號號碼：{1}
-
-您可以點選以下連結，為此帳號建立新的 Red Hat 登入帳號，並取得訂閱服務的存取權
-限：
-
-{2}
-
-如果您不是使用 Red Hat 訂閱服務的技術經理，請將此電子郵件轉寄給公司內的相關人
-員。如果技術人員沒有 Red Hat 的登入帳號，可使用上述網址建立之。
-
-如果您已經擁有登入帳號，並與上述訂閱服務連接，那麼就不需要採取任何行動。您可
-以登入以下網址，看到此帳戶號碼與現有的 Red Hat 登入帳號相連接：
-
-http://www.redhat.com/support/
-
-如果您已經有 Red Hat 登入帳號，並已連結到不同的帳號，而非此電子郵件所述的帳號
-，同時您想使用現有帳號管理訂閱服務，Red Hat 可以幫您將訂閱服務轉移到現有帳號。
-請透過以下網址，聯絡您所在地區的 Red Hat 客戶服務人員：
-
-{3}
-
-給帳號管理員（組織管理員）的附註：新使用者可以存取訂閱服務之前，您必須賦予他們
-看見、管理您帳號中的訂閱服務之權利。您的帳號需要擁有「使用者管理」權限。如果需
-要的話，請遵循以上網址，聯絡您所在地區的 Red Hat 客服人員，索取此項功能。
-
-感謝您使用 Red Hat 產品。
-
-敬候  籌安
-Red Hat 帳號管理小組
-</target>
-      </trans-unit>
-      <trans-unit id="email.unchanneledsystem.subject">
-        <source>Your Red Hat system is not able to receive service</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-        </context-group>
-        <target>您的 Red Hat 系統無法收到服務</target>
-      </trans-unit>
-      <trans-unit id="email.unchanneledsystem.body">
-        <source>
-Dear Red Hat Customer,
-
-The following system has been associated with your Red Hat login and
-account in the past day, but could not be entitled to @@PRODUCT_NAME@@
-services.
-
-{0}
-
-There are several reasons why this may have occurred:
-
-1) You recently reinstalled a system and are attempting to associate
-   the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on @@PRODUCT_NAME@@.
-
-2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
-   the number of active Red Hat subscriptions associated with your
-   account.  This may be because your subscriptions have expired or
-   you need to purchase a Red Hat subscription.
-
-   To check the expiration dates of your existing Red Hat
-   subscriptions, please visit:
-
-   https://www.redhat.com/apps/support/
-
-   Log in and click on View and manage your subscriptions link.
-
-3) You recently installed a Red Hat product and your subscription
-   number was not successfully activated. If you would like to try and
-   activate your subscription again, please visit:
-
-   https://www.redhat.com/activate
-
-For additional questions, please contact a Red Hat Customer Service
-representative at:
-
-http://www.redhat.com/about/contact/directory.html#custservice
-
-Thank you for using @@PRODUCT_NAME@@.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic task: NoChannelCheck.java</context>
-          <context context-type="paramnotes">
-                     {0} - Server name Name - Server.name - highwind
-          </context>
-        </context-group>
-        <target>
-親愛的 Red Hat 客戶，
-
-昨日以下系統與您的 Red Hat 登入帳號與帳號有所關聯，但無法取得
-@@PRODUCT_NAME@@ 服務。
-
-{0}
-
-原因可能是：
-
-1) 您最近重新安裝了系統，並試圖將此系統與現有、啟用中的訂閱服務相關連。請確定
-您在 @@PRODUCT_NAME@@ 上刪除了現有系統設定檔。
-
-2) 您連上 @@PRODUCT_NAME@@ 的系統數目已超過您帳號裡啟用中的 Red Hat 訂
-閱服務數目。這可能是因為訂閱服務已經過期，或您需要購買 Red Hat 訂閱服務。
-
-要檢查現有 Red Hat 訂閱服務的過期日，請點選：
-
-   https://www.redhat.com/apps/support/
-
-登入並點選「檢視」以管理您的訂閱連結。
-
-3) 您最近安裝了 Red Hat 產品，而您的訂閱服務數目尚未成功啟用。如果您想要再次啟用訂閱服務，請參閱：
-
-   https://www.redhat.com/activate
-
-欲知更多詳情，請參閱以下網址聯絡 Red Hat 客服人員：
-
-http://www.redhat.com/about/contact/directory.html#custservice
-
-謝謝您使用 @@PRODUCT_NAME@@。
-</target>
       </trans-unit>
       <group>
         <context-group name="ctx">
@@ -664,130 +426,12 @@ https://{4}/rhn/account/UserPreferences.do¶
 {6}
 </target>
       </trans-unit>
-      <trans-unit id="email.verification.notice.body">
-        <source>
-Dear @@PRODUCT_NAME@@ User,
-
-This email is sent to validate the email address that you have
-provided for your Red Hat login. Your Red Hat login, in combination
-with an active Red Hat subscription, provides you with access to
-systems management capabilities through @@PRODUCT_NAME@@.
-
-To ensure the security of the account information associated with your
-Red Hat login, please take a moment to click through the link below
-and verify that we have the correct email address. If you do not
-confirm your email address, your Red Hat login will eventually be
-deactivated.
-
-To confirm your email address, please visit the following URL:
-
-{0}
-
-Thank you for using @@PRODUCT_NAME@@.
-{1}
-{2}
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic task: EmailEngine.java</context>
-          <context context-type="paramnotes">
-                     {0} - Confirmation URL: https://rhn.redhat.com/
-          </context>
-        </context-group>
-        <target>
-親愛的 @@PRODUCT_NAME@@ 使用者：
-
-這封電子郵件是用來驗證您用以存取 Red Hat 登入帳號的電子郵件地址。您的 Red Hat
-登入帳號結合了啟用中的 Red Hat 訂閱服務，讓您透過 @@PRODUCT_NAME@@ 存
-取系統管理能力。
-
-要確保您 Red Hat 登入帳號資訊的安全性，請花上一點時間點選以下網址，驗證您的電
-子郵件信箱。如果您不確認電子郵件信箱，那麼您的 Red Hat 登入帳號將會被停用。
-
-要確認您的電子郵件信箱，請點選以下網址：
-
-{0}
-
-謝謝您使用 @@PRODUCT_NAME@@。
-{1}
-{2}
-</target>
-      </trans-unit>
-      <trans-unit id="email.verification.notice.subject">
-        <source>Red Hat login Email Verification</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-        </context-group>
-        <target>Red Hat 登入電子郵件驗證</target>
-      </trans-unit>
-      <trans-unit id="email.verification.warning.body">
-        <source>
-Dear @@PRODUCT_NAME@@ User,
-
-This email is sent to validate the email address that you have
-provided for your Red Hat login. Your Red Hat login, in combination
-with an active Red Hat subscription, provides you with access to
-systems management capabilities through @@PRODUCT_NAME@@.
-
-To ensure the security of the account information associated with your
-Red Hat login, please take a moment to click through the link below
-and verify that we have the correct email address. If you do not
-confirm your email address, your Red Hat login will eventually be
-deactivated.
-
-Please note that this is a final notice.  If you do not click through
-this URL within the next 2 days, your Red Hat login will deactivated.
-
-To confirm your email address, please visit the following URL:
-
-{0}
-
-Thank you for using @@PRODUCT_NAME@@.
-{1}
-{2}
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic task: EmailEngine.java</context>
-          <context context-type="paramnotes">
-                     {0} - Confirmation URL: https://rhn.redhat.com/
-         {1} - EmailFooter
-         {2} - EmailAccountInfo
-          </context>
-        </context-group>
-        <target>
-親愛的 @@PRODUCT_NAME@@ 使用者：
-
-這封電子郵件是用來驗證您用以存取 Red Hat 登入帳號的電子郵件地址。您的 Red Hat
-登入帳號結合了啟用中的 Red Hat 訂閱服務，讓您透過 @@PRODUCT_NAME@@ 存
-取系統管理能力。
-
-要確保您 Red Hat 登入帳號資訊的安全性，請花上一點時間點選以下網址，驗證您的電
-子郵件信箱。如果您不確認電子郵件信箱，那麼您的 Red Hat 登入帳號將會被停用。
-
-請注意這是最後通知。如果在兩天之內您不點選此網址，您的 Red Hat 登入帳號將會被
-停用。
-
-要確認您的電子郵件信箱，請點選以下網址：
-
-{0}
-
-謝謝您使用 @@PRODUCT_NAME@@。
-{1}
-{2}
-</target>
-      </trans-unit>
-      <trans-unit id="email.verification.warning.subject">
-        <source>Red Hat Login Email Verification, Final Notice</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-        </context-group>
-        <target>Red Hat 登入電子郵件驗證，最後通知</target>
-      </trans-unit>
       <trans-unit id="email.satellitecert.graceperiod.subject">
         <source>@@PRODUCT_NAME@@ Certificate expiration warning</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
         </context-group>
-        <target>Red Hat @@PRODUCT_NAME@@ 伺服器認證過期警告</target>
+        <target>Red Hat @@PRODUCT_NAME@@ 伺服器憑證過期警告</target>
       </trans-unit>
       <trans-unit id="email.satellitecert.graceperiod.body">
         <source>
@@ -795,7 +439,8 @@ Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
 has expired on your {0} server. After {1} day(s) the systems
-management services provided by your @@PRODUCT_NAME@@ Server will become inaccessible.</source>
+management services provided by your @@PRODUCT_NAME@@ Server will be restricted for {2} days.
+After that the services will become inaccessible.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
           <context context-type="paramnotes">
@@ -807,15 +452,16 @@ management services provided by your @@PRODUCT_NAME@@ Server will become inacces
 親愛的 @@PRODUCT_NAME@@ 使用者：
 
 這封電子郵件是為了通知您，您的 @@PRODUCT_NAME@@ 憑證已於 {0} 伺服器上
-過期。{1} 天之後，您將無法存取 @@ PRODUCT_NAME@@ 伺服器上的系統管理服
-務。</target>
+過期。{1} 天之後，您將被限制
+使用 @@ PRODUCT_NAME@@ 伺服器所提供的系統管理服務 {2} 天。
+在這之後，您將無法再存取該服務。</target>
       </trans-unit>
       <trans-unit id="email.satellitecert.expired.subject">
         <source>@@PRODUCT_NAME@@ Certificate expiration notice</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
         </context-group>
-        <target>Red Hat 衛星伺服器認證的過期通知</target>
+        <target>@@PRODUCT_NAME@@ 衛星伺服器憑證的過期通知</target>
       </trans-unit>
       <trans-unit id="email.satellitecert.spwbodyend">
         <source>
@@ -830,13 +476,13 @@ Thank you for using @@PRODUCT_NAME@@.
         <target>
 
 
-謝謝您使用 @@PRODUCT_NAME@@。
--- @@PRODUCT_NAME@@ 團隊</target>
+感謝您使用 @@PRODUCT_NAME@@。
+-- @@PRODUCT_NAME@@ 團隊
+</target>
       </trans-unit>
       <trans-unit id="email.satellitecert.satbodyend">
         <source>
-Please contact your regional Red Hat Customer Service Representative for information
-on how to renew your @@PRODUCT_NAME@@ Certificate.
+Please visit the following url for steps on how to request or generate a new @@PRODUCT_NAME@@ certificate: https://access.redhat.com/knowledge/tools/satcert
 
 
 Thank you for using @@PRODUCT_NAME@@.
@@ -846,12 +492,26 @@ Thank you for using @@PRODUCT_NAME@@.
           <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
         </context-group>
         <target>
-欲知如何更新 @@PRODUCT_NAME@@ 憑證，請聯絡您所在區域的 Red Hat 客戶服務人員。
+欲知如何請求或產生一組新的 @@PRODUCT_NAME@@ 憑證，請參閱下列網址以取得相關步驟：https://access.redhat.com/knowledge/tools/satcert
 
 
-謝謝您使用 @@PRODUCT_NAME@@。
--- @@PRODUCT_NAME@@ 團隊
+感謝您使用 @@PRODUCT_NAME@@。
+--@@PRODUCT_NAME@@ 團隊
 </target>
+      </trans-unit>
+      <trans-unit id="email.satellitecert.restricted.body">
+        <source>
+Dear @@PRODUCT_NAME@@ User,
+
+This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
+has expired on your {0} server. Your Satellite is on day {1} of {2} day restricted period
+and will soon stop functioning.</source>
+        <target>
+親愛的 @@PRODUCT_NAME@@ 用戶，
+
+本電子郵件是為了通知您，您 {0} 伺服器上
+的 @@PRODUCT_NAME@@ 憑證已過期。您的衛星伺服器正處於第 {1} 天（總共 {2} 天）的受限期，
+並且很快將會停止運作。</target>
       </trans-unit>
       <trans-unit id="email.satellitecert.expired.body">
         <source>
@@ -868,7 +528,8 @@ until your certificate is renewed.</source>
 親愛的 @@PRODUCT_NAME@@ 使用者：
 
 這封電子郵件是為了通知您，您的 @@PRODUCT_NAME@@ 憑證已於 {0} 伺服器上過
-期。在您更新憑證之前，將無法存取系統管理服務。</target>
+期。在您更新憑證之前，將
+無法存取系統管理服務。</target>
       </trans-unit>
     </body>
   </file>

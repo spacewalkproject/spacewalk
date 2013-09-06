@@ -2,14 +2,6 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.1" xmlns:xyz="urn:appInfo:Items" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.1 http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd" version="1.1">
   <file source-language="en" datatype="plaintext" original="" target-language="it">
     <body>
-      <trans-unit id="email.verify.subject">
-        <source>@@PRODUCT_NAME@@ login Email Verification</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail.do</context>
-          <context context-type="sourcefile">/users/ChangeEmail.do</context>
-        </context-group>
-        <target>Verifica email di login di @@PRODUCT_NAME@@</target>
-      </trans-unit>
       <!-- New Account Email -->
       <trans-unit id="email.newaccount.subject">
         <source>Your @@PRODUCT_NAME@@ Account is ready</source>
@@ -204,239 +196,6 @@ Per poter visualizzare tutti gli utenti attivi ed i login di Red Hat associati a
 
 Grazie per aver utilizzato @@PRODUCT_NAME@@.
 {2}</target>
-      </trans-unit>
-      <trans-unit id="email.user.deleted.subject">
-        <source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
-        <target>Account @@PRODUCT_NAME@@ disattivato: {0}</target>
-      </trans-unit>
-      <trans-unit id="email.user.deleted.body">
-        <source>
-The Red Hat login {0} has been deactivated in response to your request.
-
-Thank you for contacting Red Hat.
-         </source>
-        <target>
-Il login di Red Hat {0} è stato disattivato come indicato dalla tua richiesta.
-
-Grazie per aver contattato Red Hat.
-         </target>
-      </trans-unit>
-      <trans-unit id="email.newuser.bala.subject">
-        <source>Red Hat login creation request</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-        </context-group>
-        <target>Richiesta creazione login di Red Hat</target>
-      </trans-unit>
-      <trans-unit id="email.newuser.bala.footer">
-        <source>
-For additional information in German language, please visit our Website:
-{0}
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-          <context context-type="paramnotes">
-          {0} - URL to German website
-          </context>
-        </context-group>
-        <target>
-Per informazioni aggiuntive in tedesco consultare il sito web:
-{0}
-</target>
-      </trans-unit>
-      <trans-unit id="email.newuser.bala.footer2">
-        <source>
-For French, click here: {0}
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-          <context context-type="paramnotes">
-          {0} - URL to German website containing French and German text
-          </context>
-        </context-group>
-        <target>
-Per il francese fare clic qui di seguito: {0}
-</target>
-      </trans-unit>
-      <trans-unit id="email.newuser.bala.body">
-        <source>
-Dear Red Hat Customer,
-
-You were recently named on an order for new Red Hat subscriptions.  These
-subscriptions are now available in the following account:
-
-  Customer Name : {0}
-  Account Number: {1}
-
-You can click on the link below to create a new Red Hat Login for this account
-and obtain access to your subscriptions:
-
-{2}
-
-If you are not the technical manager who will utilize the Red Hat subscription
-services purchased, please forward this email to the appropriate user within
-your organization.  If they do not already have a Red Hat Login, that user may
-follow the link above to establish a new one.
-
-If you already have a login and it is linked to the above account, then no
-action is required.  You can find the account number linked to an existing Red
-Hat Login by logging into the following page:
-
-http://www.redhat.com/support/
-
-If you already have a Red Hat Login that is linked to a different account than
-the one listed on this email, and would like to use that account to manage these
-subscriptions, Red Hat can transfer them to your desired account.  Please
-contact your regional Red Hat Customer Service Representative, using the contact
-information provided at the following link:
-
-{3}
-
-Note to the Account Administrator (Organization Administrator): Before a new
-user can access subscriptions, you must grant them the ability to see and manage
-the subscriptions on your account.  This requires that a User Administration
-entitlement exist on your account.  If required, please follow the link above
-and contact your regional Red Hat Customer Service Representative to request
-this feature.
-
-Thank you for choosing Red Hat.
-
-Sincerely,
-Red Hat Account Management Team
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic task: PushedUsers.java</context>
-          <context context-type="paramnotes">
-          {0} - Customers name - Web_Customer.name - Michael Bowman
-          {1} - Account number - 012543
-          {2} - Creation url - http://blah/CreatePersonal.do?checksum=$1$a322349ade
-          {3} - Customer Server url - http://blah/about/contact/dir/#custservice
-          </context>
-        </context-group>
-        <target>¶
-Egregio cliente di Red Hat,¶
-¶
-Abbiamo ricevuto una richiesta a suo nome per nuove sottoscrizioni di Red Hat. Queste sottoscrizioni sono ora¶ disponibili nel seguente account:¶
-¶
-Nome utente : {0}¶
-Numero account: {1}¶
-¶
-Selezionare il link di seguito riportato per creare un nuovo login di Red Hat per questo account¶
-ed ottenere un accesso alle sottoscrizioni:¶
-¶
-{2}¶
-¶
-Se non è il responsabile tecnico che utilizzerà i servizi 
-di sottoscrizione di Red Hat la preghiamo di inoltrare¶ questa email all'utente appropriato all'interno della sua
-organizzazione.¶
-Se l'utente in questione non è in possesso di un login di Red Hat allora sarà necessario seguire il link per¶
-poterne creare uno.¶
-¶
-In presenza di un login collegato con il suddetto account non sarà necessario eseguire alcuna azione.¶ 
-È possibile identificare il  numero dell'account collegato ad un login Red Hat esistente eseguendo la registrazione nella seguente pagina:¶
-¶
-http://www.redhat.com/support/¶
-¶
-Se in presenza di un login di Red Hat collegato ad un account diverso da quello presente in questa email e si desidera utilizzare il suddetto account per gestire le sottoscrizioni, Red Hat sarà in grado di trasferire le sottoscrizioni stesse sull'account desiderato. Contattare
-il Rappresentante per il servizio clienti di Red Hat utilizzando le informazioni fornite dal seguente link:¶
-¶
-{3}¶
-¶
-Nota per l'Amministratore dell'account (Amministratore dell'organizzazione): Per l'accesso alle sottoscrizioni da parte di un nuovo utente sarà necessario conferire all'utente in questione la possibilità di visualizzare e gestire le sottoscrizioni presenti nell'account. Per fare questo è necessaria la presenza di un entitlement di Amministrazione per l'utente. Se necessario seguire il link sopra riportato e contattare il Rappresentante del servizio clienti pertinente per richiedere questa funzione.¶
-¶
-Grazie per aver scelto Red Hat.¶
-¶
-Cordialmente
-
-Red Hat Account Management Team¶</target>
-      </trans-unit>
-      <trans-unit id="email.unchanneledsystem.subject">
-        <source>Your Red Hat system is not able to receive service</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-        </context-group>
-        <target>Il sistema Red Hat non è in grado di ricevere i servizi</target>
-      </trans-unit>
-      <trans-unit id="email.unchanneledsystem.body">
-        <source>
-Dear Red Hat Customer,
-
-The following system has been associated with your Red Hat login and
-account in the past day, but could not be entitled to @@PRODUCT_NAME@@
-services.
-
-{0}
-
-There are several reasons why this may have occurred:
-
-1) You recently reinstalled a system and are attempting to associate
-   the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on @@PRODUCT_NAME@@.
-
-2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
-   the number of active Red Hat subscriptions associated with your
-   account.  This may be because your subscriptions have expired or
-   you need to purchase a Red Hat subscription.
-
-   To check the expiration dates of your existing Red Hat
-   subscriptions, please visit:
-
-   https://www.redhat.com/apps/support/
-
-   Log in and click on View and manage your subscriptions link.
-
-3) You recently installed a Red Hat product and your subscription
-   number was not successfully activated. If you would like to try and
-   activate your subscription again, please visit:
-
-   https://www.redhat.com/activate
-
-For additional questions, please contact a Red Hat Customer Service
-representative at:
-
-http://www.redhat.com/about/contact/directory.html#custservice
-
-Thank you for using @@PRODUCT_NAME@@.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic task: NoChannelCheck.java</context>
-          <context context-type="paramnotes">
-                     {0} - Server name Name - Server.name - highwind
-          </context>
-        </context-group>
-        <target>
-Egregio cliente di Red Hat
-
-Il seguente sistema è stato associato con il login di Red Hat e
-con l'account relativo ma non può ricevere i servizi
-di @@PRODUCT_NAME@@
-¶
-{0}¶
-¶
-Questa situazione si è verificata per diversi motivi:
-
-1) È stato reinstallato un sistema ed è stato tentato di associare lo stesso con una sottoscrizione attiva esistente. 
-In tal caso assicurarsi di cancellare il profilo del sistema esistente su @@PRODUCT_NAME@@.
-
-2) Il numero di sistemi collegati con @@PRODUCT_NAME@@ eccede il numero attivo di 
-sottoscrizioni di Red Hat associate con 
-l'account. Ciò si può verificare perchè la sottoscrizione è scaduta o poichè è necessario acquistare una sottoscrizione di Red Hat.
-
-Per controllare le date di scadenza delle sottoscrizioni esistenti consultare:
-¶
-   https://www.redhat.com/apps/support/¶
-¶
-Eseguire il login e selezionare il link per la visualizzazione e gestione delle sottoscrizioni.
-
-3) Recentemente è stato installato un prodotto Red Hat ed il numero di sottoscrizione non è stato attivato con successo. Per provare ad attivare nuovamente la sottoscrizione consultare: 
-¶
-   https://www.redhat.com/activate¶
-¶
-Per ulteriori domande contattare un Rappresentante del servizio clienti di Red Hat su:
-¶
-http://www.redhat.com/about/contact/directory.html#custservice¶
-¶
-Grazie per aver sceto @@PRODUCT_NAME@@.¶</target>
       </trans-unit>
       <group>
         <context-group name="ctx">
@@ -664,117 +423,6 @@ Grazie per aver scelto @@PRODUCT_NAME@@.
 {6}
 </target>
       </trans-unit>
-      <trans-unit id="email.verification.notice.body">
-        <source>
-Dear @@PRODUCT_NAME@@ User,
-
-This email is sent to validate the email address that you have
-provided for your Red Hat login. Your Red Hat login, in combination
-with an active Red Hat subscription, provides you with access to
-systems management capabilities through @@PRODUCT_NAME@@.
-
-To ensure the security of the account information associated with your
-Red Hat login, please take a moment to click through the link below
-and verify that we have the correct email address. If you do not
-confirm your email address, your Red Hat login will eventually be
-deactivated.
-
-To confirm your email address, please visit the following URL:
-
-{0}
-
-Thank you for using @@PRODUCT_NAME@@.
-{1}
-{2}
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic task: EmailEngine.java</context>
-          <context context-type="paramnotes">
-                     {0} - Confirmation URL: https://rhn.redhat.com/
-          </context>
-        </context-group>
-        <target>
-Egregio utente di @@PRODUCT_NAME@@,
-
-Questa email è stata inviata per convalidare l'indirizzo email fornito per la registrazione con Red Hat. Le credenziali per il login di Red Hat insieme ad una sottoscrizione attiva conferisce l'accesso alle capacità di gestione dei sistemi attraverso @@PRODUCT_NAME@@.
-
-Per garantire la sicurezza delle informazioni relative all'account associate con il login di Red Hat, selezionare il link di seguito riportato e verificare la correttezza dell'indirizzo email. Senza alcuna conferma il login di Red Hat potrà essere  disattivato.
-
-Per eseguire la conferma consultare il seguente URL:
-
-{0}
-
-Grazie per aver scelto @@PRODUCT_NAME@@.
-{1}
-{2}
-</target>
-      </trans-unit>
-      <trans-unit id="email.verification.notice.subject">
-        <source>Red Hat login Email Verification</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-        </context-group>
-        <target>Verifica email di login di Red Hat</target>
-      </trans-unit>
-      <trans-unit id="email.verification.warning.body">
-        <source>
-Dear @@PRODUCT_NAME@@ User,
-
-This email is sent to validate the email address that you have
-provided for your Red Hat login. Your Red Hat login, in combination
-with an active Red Hat subscription, provides you with access to
-systems management capabilities through @@PRODUCT_NAME@@.
-
-To ensure the security of the account information associated with your
-Red Hat login, please take a moment to click through the link below
-and verify that we have the correct email address. If you do not
-confirm your email address, your Red Hat login will eventually be
-deactivated.
-
-Please note that this is a final notice.  If you do not click through
-this URL within the next 2 days, your Red Hat login will deactivated.
-
-To confirm your email address, please visit the following URL:
-
-{0}
-
-Thank you for using @@PRODUCT_NAME@@.
-{1}
-{2}
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic task: EmailEngine.java</context>
-          <context context-type="paramnotes">
-                     {0} - Confirmation URL: https://rhn.redhat.com/
-         {1} - EmailFooter
-         {2} - EmailAccountInfo
-          </context>
-        </context-group>
-        <target>
-Egregio utente di @@PRODUCT_NAME@@,
-
-Questa email è stata inviata per convalidare l'indirizzo email fornito per la registrazione con Red Hat. Le credenziali per il login di Red Hat insieme ad una sottoscrizione attiva conferisce l'accesso alle capacità di gestione dei sistemi attraverso @@PRODUCT_NAME@@.
-
-Per garantire la sicurezza delle informazioni relative all'account associate con il login di Red Hat, selezionare il link di seguito riportato e verificare la correttezza dell'indirizzo email. Senza alcuna conferma il login di Red Hat potrà essere  disattivato.
-
-Questo è un avviso finale. Se non selezionate il seguente link nei prossimi 2 giorni, il login di Red Hat verrà disattivato.
-
-Per eseguire la conferma dell'indirizzo email consultare il seguente URL:
-
-{0}
-
-Grazie per aver scelto @@PRODUCT_NAME@@.
-{1}
-{2}
-</target>
-      </trans-unit>
-      <trans-unit id="email.verification.warning.subject">
-        <source>Red Hat Login Email Verification, Final Notice</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-        </context-group>
-        <target>Verifica email login di Red Hat, avviso finale</target>
-      </trans-unit>
       <trans-unit id="email.satellitecert.graceperiod.subject">
         <source>@@PRODUCT_NAME@@ Certificate expiration warning</source>
         <context-group name="ctx">
@@ -788,7 +436,8 @@ Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
 has expired on your {0} server. After {1} day(s) the systems
-management services provided by your @@PRODUCT_NAME@@ Server will become inaccessible.</source>
+management services provided by your @@PRODUCT_NAME@@ Server will be restricted for {2} days.
+After that the services will become inaccessible.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
           <context context-type="paramnotes">
@@ -799,7 +448,10 @@ management services provided by your @@PRODUCT_NAME@@ Server will become inacces
         <target>
 Egregio utente di @@PRODUCT_NAME@@,
 
-Questa email è stata inviata per informaLa che il suo certificato @@PRODUCT_NAME@@ sul server {0} è scaduto. Dopo {1} giorni i servizi di gestione dei sistemi disponibili con il server @@PRODUCT_NAME@@ non potranno essere più usati.</target>
+Questa email è stata inviata per informaLa che il suo certificato @@PRODUCT_NAME@@ sul server
+{0} è scaduto. Dopo {1} giorni i servizi di gestione dei sistemi disponibili
+con il server @@PRODUCT_NAME@@ saranno limitati per {2} giorni.
+Dopo questo periodo i servizi non potranno essere più usati.</target>
       </trans-unit>
       <trans-unit id="email.satellitecert.expired.subject">
         <source>@@PRODUCT_NAME@@ Certificate expiration notice</source>
@@ -827,8 +479,7 @@ Grazie per aver scelto @@PRODUCT_NAME@@.
       </trans-unit>
       <trans-unit id="email.satellitecert.satbodyend">
         <source>
-Please contact your regional Red Hat Customer Service Representative for information
-on how to renew your @@PRODUCT_NAME@@ Certificate.
+Please visit the following url for steps on how to request or generate a new @@PRODUCT_NAME@@ certificate: https://access.redhat.com/knowledge/tools/satcert
 
 
 Thank you for using @@PRODUCT_NAME@@.
@@ -838,12 +489,26 @@ Thank you for using @@PRODUCT_NAME@@.
           <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
         </context-group>
         <target>
-Contattare il Rappresentante per l'assistenza clienti di Red Hat per informazioni su come rinnovare il certificato @@PRODUCT_NAME@@.
+Visitare il seguente url per le fasi da usare per richiedere o generare un nuovo certificato @@PRODUCT_NAME@@: https://access.redhat.com/knowledge/tools/satcert
 
 
 Grazie per aver scelto @@PRODUCT_NAME@@.
---IL team di @@PRODUCT_NAME@@
+--Il team di @@PRODUCT_NAME@@
 </target>
+      </trans-unit>
+      <trans-unit id="email.satellitecert.restricted.body">
+        <source>
+Dear @@PRODUCT_NAME@@ User,
+
+This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
+has expired on your {0} server. Your Satellite is on day {1} of {2} day restricted period
+and will soon stop functioning.</source>
+        <target>
+Egregio utente di @@PRODUCT_NAME@@,
+
+Questa email è stata inviata per informaLa che il certificato @@PRODUCT_NAME@@ sul server {0} è scaduto.
+Satellite risulta essere in uno stato limitato, giorno {1} di un
+periodo di {2} giorni, e tra breve non sarà più operativo.</target>
       </trans-unit>
       <trans-unit id="email.satellitecert.expired.body">
         <source>
@@ -859,7 +524,9 @@ until your certificate is renewed.</source>
         <target>
 Egregio utente di @@PRODUCT_NAME@@,
 
-Questa email è stata inviata per informaLa che il suo certificato @@PRODUCT_NAME@@ sul server {0} è scaduto. I servizi di gestione del sistema non potranno essere usati fino a quando il certificato non sarà rinnovato.</target>
+Questa email è stata inviata per informaLa che il suo certificato @@PRODUCT_NAME@@ sul server {0} è scaduto.
+I servizi di gestione del sistema non potranno
+essere usati fino a quando il certificato non sarà rinnovato.</target>
       </trans-unit>
     </body>
   </file>

@@ -7504,7 +7504,8 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
         </context-group>
-      <target>ਤਹਿ ਕੀਤੀਆਂ {0} ਕਾਰਵਾਈਆਂ।</target></trans-unit>
+        <target>ਤਹਿ ਕੀਤੀਆਂ {0} ਕਾਰਵਾਈਆਂ।</target>
+      </trans-unit>
       <trans-unit id="systems.details.virt.no.virt.deleted">
         <source>No virtual systems deleted.</source>
         <context-group name="ctx">
