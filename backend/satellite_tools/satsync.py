@@ -2136,7 +2136,7 @@ def processCommandline():
         Option(     '--keep-rpms',      action='store_true',
             help=_('do not remove rpms when importing from local dump')),
         Option(     '--master',      action='store',
-            help=_('the fully qualified doman name of the master Satellite. Valid with --mount-point only. Required if you want to import org data and channel permissions.')),
+            help=_('the fully qualified domain name of the master Satellite. Valid with --mount-point only. Required if you want to import org data and channel permissions.')),
         # We can't have this option because then the new org won't have a user:
         #Option(     '--create-missing-orgs',      action='store_true',
         #    help=_('create orgs on this Satellite to match orgs exported by the master Satellite if local orgs have not already been mapped to the master orgs (use with --mount-point or --iss-parent only)')),

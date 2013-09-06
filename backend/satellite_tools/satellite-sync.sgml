@@ -315,7 +315,7 @@ Incrementally synchronize an Red Hat Satellite's DB data and RPM repository with
     <varlistentry>
         <term>--master</term>
         <listitem>
-            <para>the fully qualified doman name of the master Satellite. Valid with
+            <para>the fully qualified domain name of the master Satellite. Valid with
             --mount-point only. Required if you want to import org data and channel
             permissions.</para>
         </listitem>
