@@ -92,11 +92,13 @@ public abstract class BaseCryptoKeyEditAction extends RhnAction {
             ActionErrors errors = RhnValidationHelper.validateDynaActionForm(
                     this, form);
             String contents = strutsDelegate.getFormFileString(form, CONTENTS);
-            if (StringUtils.isEmpty(strutsDelegate.getFormFileName(form, CONTENTS))) {
-                strutsDelegate.addError("configmanager.filedetails.path.empty", null);
-            }
-            else if (isContentsRequired() && StringUtils.isEmpty(contents)) {
-                strutsDelegate.addError("crypto.key.nokey", errors);
+            if (isContentsRequired()) {
+                if (StringUtils.isEmpty(strutsDelegate.getFormFileName(form, CONTENTS))) {
+                    strutsDelegate.addError("configmanager.filedetails.path.empty", null);
+                }
+                else if (StringUtils.isEmpty(contents)) {
+                        strutsDelegate.addError("crypto.key.nokey", errors);
+                }
             }
             if (!errors.isEmpty()) {
                 strutsDelegate.saveMessages(request, errors);
@@ -140,9 +142,9 @@ public abstract class BaseCryptoKeyEditAction extends RhnAction {
     /**
      * 'Overrideable' method for subclasses that require
      * the contents field of cryptoKey to be set and non-empty
-     * @return boolean "true" that can be overridden
+     * @return boolean "false" that can be overridden
      */
     protected boolean isContentsRequired() {
-        return true;
+        return false;
     }
 }

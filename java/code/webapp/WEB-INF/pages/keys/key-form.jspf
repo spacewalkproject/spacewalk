@@ -29,7 +29,14 @@
     </tr>
     <tr>
         <th>
-            <rhn:required-field key="keycreate.jsp.selectfile"/>
+            <c:choose>
+                <c:when test="${cryptoKey.id != null}">
+                    <bean:message key="keycreate.jsp.selectfile"/>
+                </c:when>
+                <c:otherwise>
+                    <rhn:required-field key="keycreate.jsp.selectfile"/>
+                </c:otherwise>
+            </c:choose>
         </th>
             <td>
             <html:file property="contents"/>
