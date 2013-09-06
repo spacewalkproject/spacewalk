@@ -60,6 +60,9 @@ public class ErrataCacheManager extends HibernateFactory {
      * @return the server count that are in the queue for the given org.
      */
     public static int countServersInQueue(Org org) {
+        if (org == null) {
+            return 0;
+        }
         HashMap params = new HashMap();
         params.put("org_id", org.getId());
         DataResult dr = executeSelectMode("ErrataCache_queries",
