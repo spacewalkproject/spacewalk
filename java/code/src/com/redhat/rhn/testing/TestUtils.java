@@ -32,6 +32,7 @@ import com.redhat.rhn.frontend.servlets.PxtSessionDelegate;
 import com.redhat.rhn.frontend.servlets.PxtSessionDelegateFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Level;
@@ -49,6 +50,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.net.URL;
@@ -78,8 +80,10 @@ public class TestUtils {
      * @return URL a URL referencing the file
      * @throws ClassNotFoundException if the calling class can not be found
      * (i.e., should not happen)
+     * @throws IOException if the specified file in an archive (eg. jar) and
+     * it cannot be copied to a temporary location
      */
-    public static URL findTestData(String path) throws ClassNotFoundException {
+    public static URL findTestData(String path) throws ClassNotFoundException, IOException {
         Throwable t = new Throwable();
         StackTraceElement[] ste = t.getStackTrace();
 
@@ -87,6 +91,18 @@ public class TestUtils {
         Class clazz = Class.forName(className);
 
         URL ret = clazz.getResource(path);
+
+        if (ret.toString().contains("!")) { // file is from an archive
+            String tempPath =
+                    "/tmp/" + System.currentTimeMillis() + TestUtils.randomString();
+            InputStream input = clazz.getResourceAsStream(path);
+
+            OutputStream output = new FileOutputStream(tempPath);
+            IOUtils.copy(input, output);
+
+            return new File(tempPath).toURI().toURL();
+        }
+
         return ret;
     }
 

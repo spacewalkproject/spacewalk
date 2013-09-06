@@ -95,6 +95,12 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
         super.setUp();
         server = createTestServer(user);
         assertNotNull(server.getId());
+
+        // ensure we have sufficient entitlements
+        List<EntitlementServerGroup> ents = user.getOrg().getEntitledServerGroups();
+        for (EntitlementServerGroup entitlementServerGroup : ents) {
+            UserTestUtils.incrementSgMaxMembers(entitlementServerGroup, 30L);
+        }
     }
 
     public void testListConfigEnabledSystems() throws Exception {
@@ -567,6 +573,7 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
 
         EntitlementServerGroup sg = ServerGroupTestUtils.createEntitled(owner.getOrg(),
                                                                         type);
+
         SystemManager.entitleServer(newS, sg.getGroupType().getAssociatedEntitlement());
         return (Server) TestUtils.saveAndReload(newS);
     }

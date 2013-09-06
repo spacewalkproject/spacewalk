@@ -312,16 +312,25 @@ public class UserTestUtils extends Assert {
     }
 
     /**
-     * Increments a given server groups max members
-     * @param sg an entitlement server group whose max members
-     *              must be added.
+     * Increases a server group max members' count by 10
+     * @param sg the server group to add members to
      */
     public static void incrementSgMaxMembers(EntitlementServerGroup sg) {
+        incrementSgMaxMembers(sg, 10L);
+    }
+
+    /**
+     * Increases a server group max members' count
+     * @param sg the server group to add members to
+     * @param count count increment
+     */
+    public static void incrementSgMaxMembers(EntitlementServerGroup sg, long count) {
         if (sg.getMaxMembers() != null) {
-            sg.setMaxMembers(new Long(sg.getMaxMembers().longValue() + 10L));
+            sg.setMaxMembers(new Long(sg.getMaxMembers().longValue() +
+                    count));
         }
         else {
-            sg.setMaxMembers(new Long(10L));
+            sg.setMaxMembers(new Long(count));
         }
     }
 

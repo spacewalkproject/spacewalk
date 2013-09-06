@@ -16,18 +16,12 @@ package com.redhat.rhn.domain.server.test;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerConstants;
-import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.manager.entitlement.EntitlementManager;
-import com.redhat.rhn.manager.system.SystemManager;
-import com.redhat.rhn.testing.RhnBaseTestCase;
-import com.redhat.rhn.testing.TestUtils;
+import com.redhat.rhn.testing.ServerTestUtils;
 
 import org.hibernate.Session;
 
-import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -85,14 +79,6 @@ public class HostBuilder {
        return compiledHost;
     }
 
-    private HostBuilder createHost(ServerGroupType type) throws Exception {
-        host = ServerFactoryTest.createTestServer(owner, true, type);
-        if (host.getBaseEntitlement() == null) {
-            SystemManager.entitleServer(host, EntitlementManager.MANAGEMENT);
-        }
-        return this;
-    }
-
     /**
      * Creates a Server with the Virtualization Host entitlement.
      *
@@ -101,9 +87,8 @@ public class HostBuilder {
      * @throws Exception if an error occurs
      */
     public HostBuilder createVirtHost() throws Exception {
-        ServerGroupType type =
-            ServerConstants.getServerGroupTypeVirtualizationEntitled();
-        return createHost(type);
+        host = ServerTestUtils.createVirtHostWithGuests(owner, 0);
+        return this;
     }
 
     /**
@@ -114,9 +99,8 @@ public class HostBuilder {
      * @throws Exception if an error occurs
      */
     public HostBuilder createVirtPlatformHost() throws Exception {
-        ServerGroupType type =
-            ServerConstants.getServerGroupTypeVirtualizationPlatformEntitled();
-        return createHost(type);
+        host = ServerTestUtils.createVirtPlatformHost(owner);
+        return this;
     }
 
     /**
@@ -128,9 +112,8 @@ public class HostBuilder {
      * @throws Exception if an error occurs
      */
     public HostBuilder createNonVirtHost() throws Exception {
-        ServerGroupType type =
-            ServerConstants.getServerGroupTypeEnterpriseEntitled();
-        return createHost(type);
+        host = ServerTestUtils.createTestSystem(owner);
+        return this;
     }
 
     /**
@@ -185,26 +168,27 @@ public class HostBuilder {
 
     private  List<VirtualInstance> createGuests(User user, int numberOfGuests,
                                                 boolean register) throws Exception {
-        VirtualInstance virtualInstance = null;
-        Server guest = null;
         List<VirtualInstance> guests = new LinkedList<VirtualInstance>();
+        for (int i = 0; i < numberOfGuests; i++) {
+            VirtualInstanceManufacturer vim = new VirtualInstanceManufacturer(user);
 
-        for (int i = 0; i < numberOfGuests; ++i) {
-            virtualInstance = new VirtualInstance();
-            virtualInstance.setUuid(TestUtils.randomString());
+            VirtualInstance vi = null;
 
             if (register) {
-                guest = ServerFactoryTest.createUnentitledTestServer(user, true,
-                        ServerFactoryTest.TYPE_SERVER_NORMAL, new Date());
-                RhnBaseTestCase.assertNotNull(guest);
-                virtualInstance.setGuestSystem(guest);
+                vi = vim.newRegisteredGuestWithoutHost();
             }
-            virtualInstance.setConfirmed(host != null ? 1L : 0L);
+            else {
+                vi = vim.newUnregisteredGuest();
+            }
+
             if (host != null) {
-                host.addGuest(virtualInstance);
-                HibernateFactory.getSession().save(host);
+                vi.setConfirmed(1L);
+                host.addGuest(vi);
             }
-            guests.add(virtualInstance);
+            else {
+                vi.setConfirmed(0L);
+            }
+            guests.add(vi);
         }
         return guests;
     }
