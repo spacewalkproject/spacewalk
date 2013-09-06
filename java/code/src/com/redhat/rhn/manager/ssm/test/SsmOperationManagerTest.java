@@ -42,6 +42,7 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
     private String serverSetLabel;
 
     protected void setUp() throws Exception {
+        super.setUp();
         ssmUser = UserTestUtils.findNewUser("ssmuser", "ssmorg");
         serverSetLabel = populateRhnSet();
     }
