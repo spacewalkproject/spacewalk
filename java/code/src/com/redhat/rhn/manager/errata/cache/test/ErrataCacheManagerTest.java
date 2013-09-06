@@ -34,7 +34,6 @@ import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.ErrataCacheDto;
-import com.redhat.rhn.frontend.events.test.UpdateErrataCacheEventTest;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
@@ -327,21 +326,6 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         }
     }
 
-
-    // Not only fails, it creates an Org and fails to clean it up - disabling
-    // for now
-    public void xxxtestUpdatePackageErrataForChannel() throws Exception {
-        // I want to explicitly point out that the UpdateErrataCacheEventTest
-        // actually tests the:
-        //   ErrataCacheManager.updateErrataAndPackageCacheForChannel(()
-        // method so instead of copy-pasting or refactoring all the code in
-        // the below test we will just run it and indicate the coverage here.
-        UpdateErrataCacheEventTest test = new UpdateErrataCacheEventTest();
-        test.setUp();
-        test.testUpdateCacheForChannel();
-        test.tearDown();
-    }
-
     public void testAllServerIdsForOrg() throws Exception {
         // create a lot of stuff to test this simple insert.
         Long oid = UserTestUtils.createOrg("testOrg" + this.getClass().getSimpleName());
@@ -353,8 +337,5 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         assertFalse(dr.isEmpty());
         assertTrue(dr.size() >= 1);
     }
-
-
-
 
 }

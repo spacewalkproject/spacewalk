@@ -14,8 +14,10 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer.test;
 
+import com.redhat.rhn.domain.common.LoggingFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.frontend.xmlrpc.serializer.OrgSerializer;
+import com.redhat.rhn.testing.TestCaseHelper;
 import com.redhat.rhn.testing.UserTestUtils;
 
 import org.jmock.MockObjectTestCase;
@@ -31,8 +33,15 @@ import redstone.xmlrpc.XmlRpcSerializer;
 public class OrgSerializerTest extends MockObjectTestCase {
 
     public void testSerialize() throws XmlRpcException, IOException {
+        // Messing with users means we have to set up for auditing nowadays
+        try {
+            LoggingFactory.clearLogId();
+        }
+        catch (Exception se) {
+            TestCaseHelper.tearDownHelper();
+            LoggingFactory.clearLogId();
+        }
         OrgSerializer os = new OrgSerializer();
-
 
         Org org = UserTestUtils.findNewOrg("foo");
 

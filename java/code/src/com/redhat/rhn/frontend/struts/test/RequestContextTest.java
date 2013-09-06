@@ -18,9 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.jmock.MockObjectTestCase;
 
+import com.redhat.rhn.domain.common.LoggingFactory;
 import com.redhat.rhn.frontend.action.test.LoginActionTest;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.RhnMockHttpServletRequest;
+import com.redhat.rhn.testing.TestCaseHelper;
 
 /**
  * RequestContextTest
@@ -41,6 +43,14 @@ public class RequestContextTest extends MockObjectTestCase {
      * @throws Exception if an error occurs
      */
     public final void testGetLoggedInUser() throws Exception {
+        // Messing with users means we have to set up for auditing nowadays
+        try {
+            LoggingFactory.clearLogId();
+        }
+        catch (Exception se) {
+            TestCaseHelper.tearDownHelper();
+            LoggingFactory.clearLogId();
+        }
         LoginActionTest ltest = new LoginActionTest();
         HttpServletRequest request = ltest.loginUserIntoSessionTest();
         RequestContext requestContext = new RequestContext(request);
