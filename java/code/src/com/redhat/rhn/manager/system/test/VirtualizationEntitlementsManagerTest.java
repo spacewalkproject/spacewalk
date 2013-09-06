@@ -266,6 +266,7 @@ public class VirtualizationEntitlementsManagerTest extends BaseTestCaseWithUser 
             Server host = builder.build();
             ServerFactory.save(host);
 
+            SystemManager.unsubscribeServerFromChannel(host, host.getBaseChannel());
             SystemManager.subscribeServerToChannel(user, host, rhelChannel);
 
             ServerFactory.save(host);
