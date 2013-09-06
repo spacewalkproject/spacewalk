@@ -94,6 +94,9 @@ public abstract class BaseCryptoKeyCommand {
                 throw new IllegalArgumentException("Unsupported encoding!");
             }
         }
+        else {
+            this.key.setKey(null);
+        }
     }
 
     /**

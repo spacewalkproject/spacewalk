@@ -92,8 +92,9 @@ public abstract class BaseCryptoKeyEditAction extends RhnAction {
             ActionErrors errors = RhnValidationHelper.validateDynaActionForm(
                     this, form);
             String contents = strutsDelegate.getFormFileString(form, CONTENTS);
+            String contentFileName = strutsDelegate.getFormFileName(form, CONTENTS);
             if (isContentsRequired()) {
-                if (StringUtils.isEmpty(strutsDelegate.getFormFileName(form, CONTENTS))) {
+                if (StringUtils.isEmpty(contentFileName)) {
                     strutsDelegate.addError("configmanager.filedetails.path.empty", null);
                 }
                 else if (StringUtils.isEmpty(contents)) {
@@ -105,7 +106,9 @@ public abstract class BaseCryptoKeyEditAction extends RhnAction {
             }
             else {
                 cmd.setDescription(form.getString(DESCRIPTION));
-                cmd.setContents(contents);
+                if (!StringUtils.isEmpty(contentFileName)) {
+                    cmd.setContents(contents);
+                }
                 cmd.setType(form.getString(TYPE));
                 ValidatorError[] verrors = cmd.store();
                 if (verrors != null) {
