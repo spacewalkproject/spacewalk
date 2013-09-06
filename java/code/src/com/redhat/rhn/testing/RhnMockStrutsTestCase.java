@@ -55,7 +55,13 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
      */
     public void setUp() throws Exception {
         super.setUp();
-        LoggingFactory.clearLogId();
+        try {
+            LoggingFactory.clearLogId();
+        }
+        catch (Exception e) {
+            TestCaseHelper.tearDownHelper();
+            LoggingFactory.clearLogId();
+        }
 
         RequestContext requestContext = new RequestContext(request);
         Context ctx = Context.getCurrentContext();

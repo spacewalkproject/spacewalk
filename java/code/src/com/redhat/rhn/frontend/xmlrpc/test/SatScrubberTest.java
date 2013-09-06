@@ -52,8 +52,10 @@ public class SatScrubberTest extends TestCase {
     private static Logger log = Logger.getLogger(SatScrubberTest.class);
 
 
-
-    public void testNothing() throws Exception {
+    // Arg - this is completely bogus.  Even if we wanted to do what this does, this is NOT
+    // the way to do it.  Disable until I decide whether we do it better, or just delete
+    // the test.
+    public void xxxtestNothing() throws Exception {
         cleanupKickstarts();
         cleanupChannels();
         cleanupServers();
