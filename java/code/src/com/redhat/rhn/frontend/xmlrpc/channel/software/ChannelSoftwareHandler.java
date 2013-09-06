@@ -514,7 +514,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *
      * @xmlrpc.doc Allows to modify channel attributes
      * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("int", "channelDd", "channel id")
+     * @xmlrpc.param #param_desc("int", "channelId", "channel id")
      * @xmlrpc.param
      *  #struct("channel_map")
      *      #prop_desc("string", "checksum_label", "new channel repository checksum label
