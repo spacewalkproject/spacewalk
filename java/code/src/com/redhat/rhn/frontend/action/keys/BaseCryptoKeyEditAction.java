@@ -92,7 +92,10 @@ public abstract class BaseCryptoKeyEditAction extends RhnAction {
             ActionErrors errors = RhnValidationHelper.validateDynaActionForm(
                     this, form);
             String contents = strutsDelegate.getFormFileString(form, CONTENTS);
-            if (isContentsRequired() && StringUtils.isEmpty(contents)) {
+            if (StringUtils.isEmpty(strutsDelegate.getFormFileName(form, CONTENTS))) {
+                strutsDelegate.addError("configmanager.filedetails.path.empty", null);
+            }
+            else if (isContentsRequired() && StringUtils.isEmpty(contents)) {
                 strutsDelegate.addError("crypto.key.nokey", errors);
             }
             if (!errors.isEmpty()) {

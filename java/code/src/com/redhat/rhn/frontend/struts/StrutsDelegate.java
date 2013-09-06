@@ -215,6 +215,22 @@ public class StrutsDelegate {
     }
 
     /**
+     * Util to get the String file name of a file upload form.
+     *
+     * @param form to get the contents from
+     * @param paramName of the FormFile
+     * @return String file name of the upload.
+     */
+    public String getFormFileName(DynaActionForm form, String paramName) {
+        if (form.getDynaClass().getDynaProperty(paramName) == null) {
+            return "";
+        }
+
+        FormFile f = (FormFile)form.get(paramName);
+        return f.getFileName();
+    }
+
+    /**
      * Util to get the String version of a file upload form. Not useful if the
      * upload is binary.
      *
