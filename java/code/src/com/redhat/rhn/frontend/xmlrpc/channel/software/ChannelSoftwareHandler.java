@@ -1644,7 +1644,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
      * @xmlrpc.param #param("string", "startDate")
-     * @xmlrpc.param #param("string", "startDate")
+     * @xmlrpc.param #param("string", "endDate")
      * @xmlrpc.returntype
      *      #array()
      *          #struct("errata")
