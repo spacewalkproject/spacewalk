@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.37
+Version: 2.1.38
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Sep 06 2013 Tomas Lestach <tlestach@redhat.com> 2.1.38-1
+- 973848 - store a key only if a file to upload is specified
+- 973848 - file upload isn't required on /rhn/keys/CryptoKeyEdit.do page
+- 973848 - correct an error message
+- 973848 - define "type" string
+- 973848 - fix error messaging for GPG nad SSL key creation/edit
+- fix channel.software.setDetails APIdoc
+- fix channel.software.listErrata APIdoc
+
 * Fri Sep 06 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.37-1
 - updated UI strings
 - 1003896 - setup the form even in case of validation failure
