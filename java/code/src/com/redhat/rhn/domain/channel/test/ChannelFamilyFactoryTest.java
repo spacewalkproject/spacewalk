@@ -122,10 +122,15 @@ public class ChannelFamilyFactoryTest extends RhnBaseTestCase {
         return createTestChannelFamily(user, ents, flexEnts, true);
     }
 
-    public static ChannelFamily createTestChannelFamily(User user,
-                    Long ents, Long flexEnts, boolean nullOrg) throws Exception {
-        String label = "ChannelFamilyLabel" + TestUtils.randomString();
-        String name = "ChannelFamilyName" + TestUtils.randomString();
+    public static ChannelFamily createTestChannelFamily(User user, Long ents,
+            Long flexEnts, boolean nullOrg) throws Exception {
+        return createTestChannelFamily(user, ents, flexEnts, nullOrg, "ChannelFamily");
+    }
+
+    public static ChannelFamily createTestChannelFamily(User user, Long ents,
+            Long flexEnts, boolean nullOrg, String prefix) throws Exception {
+        String label = prefix + "Label" + TestUtils.randomString();
+        String name = prefix + "Name" + TestUtils.randomString();
         String productUrl = "http://www.example.com";
 
         ChannelFamily cfam = new ChannelFamily();
@@ -145,7 +150,6 @@ public class ChannelFamilyFactoryTest extends RhnBaseTestCase {
         pcf.setCurrentFlex(0L);
         pcf.setMaxFlex(flexEnts);
         HibernateFactory.getSession().save(pcf);
-
 
         cfam.addPrivateChannelFamily(pcf);
         cfam = (ChannelFamily) TestUtils.reload(cfam);

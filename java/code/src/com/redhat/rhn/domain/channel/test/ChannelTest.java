@@ -109,10 +109,11 @@ public class ChannelTest extends BaseTestCaseWithUser {
 
     public void testIsProxy() throws Exception {
         Channel c = ChannelFactoryTest.createTestChannel(user);
-        ChannelFamily cfam = ChannelFamilyFactory
-                             .lookupByLabel(ChannelFamilyFactory
-                                            .PROXY_CHANNEL_FAMILY_LABEL,
-                                            null);
+        ChannelFamily cfam =
+                ChannelFamilyFactoryTest.createTestChannelFamily(user,
+                        ChannelFamilyFactoryTest.ENTITLEMENT_ALLOCATION,
+                        ChannelFamilyFactoryTest.FLEX_ALLOCATION, false,
+                        ChannelFamilyFactory.PROXY_CHANNEL_FAMILY_LABEL);
 
         c.setChannelFamily(cfam);
 
