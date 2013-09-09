@@ -15,8 +15,10 @@
 
 package com.redhat.rhn.frontend.xmlrpc.test;
 
+import com.redhat.rhn.domain.common.LoggingFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.XmlRpcServlet;
+import com.redhat.rhn.testing.TestCaseHelper;
 import com.redhat.rhn.testing.UserTestUtils;
 
 import com.mockobjects.servlet.MockServletInputStream;
@@ -32,6 +34,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class XmlRpcServletTest extends MockObjectTestCase {
+
+    protected void setUp() throws Exception {
+        super.setUp();
+        try {
+            LoggingFactory.clearLogId();
+        }
+        catch (Exception se) {
+            TestCaseHelper.tearDownHelper();
+            LoggingFactory.clearLogId();
+        }
+    }
 
     public void doTest(String request, String expectedResponse)
         throws Exception {
