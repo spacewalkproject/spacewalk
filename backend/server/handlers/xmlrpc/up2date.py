@@ -19,6 +19,7 @@
 import time
 import string
 
+from spacewalk.server.rhnServer import server_lib
 from rhn import rpclib
 from types import ListType, TupleType, StringType, IntType
 from spacewalk.common import rhnFlags, rhn_rpm
@@ -161,6 +162,7 @@ class Up2date(rhnHandler):
         self.auth_system('subscribeChannel', system_id)
         # log the entry
         log_debug(1, self.server_id, channelNames)
+        server_lib.snapshot_server(self.server_id, 'Base Channel Updated')
         for channelName in channelNames:
             if NONSUBSCRIBABLE_CHANNELS.search(channelName):
                 raise rhnFault(73, explain=False)
