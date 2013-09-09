@@ -357,7 +357,8 @@ class Runner:
     def _step_orgs(self):
         try:
             self.syncer.import_orgs()
-        except RhnSyncException, e:
+        except (RhnSyncException, xmlDiskSource.MissingXmlDiskSourceFileError,
+                xmlDiskSource.MissingXmlDiskSourceDirError), e:
             # the orgs() method doesn't exist; that's fine we just
             # won't sync the orgs
             log(1, [_("The upstream Satellite does not support syncing orgs data."), _("Skipping...")])
