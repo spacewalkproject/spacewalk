@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.19
+Version: 2.1.20
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -628,6 +628,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Sep 09 2013 Stephen Herr <sherr@redhat.com> 2.1.20-1
+- 1005760 - if orgs data does not exist in sat-sync import from disk, just skip
+
 * Mon Sep 09 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.19-1
 - 1005817 - create snapshot when changing base channel via rhn-channel
 
