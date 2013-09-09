@@ -28,10 +28,10 @@ import com.redhat.rhn.manager.satellite.Executor;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.TestUtils;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * ConfigureSatelliteCommandTest - test for ConfigureSatelliteCommand
@@ -73,7 +73,7 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
         assertTrue(cmd.getKeysToBeUpdated().contains(TEST_CONFIG_STRING));
         assertTrue(cmd.getKeysToBeUpdated().contains(TEST_CONFIG_NULL));
 
-        Map optionMap = new HashMap();
+        Map optionMap = new TreeMap();
         Iterator i = cmd.getKeysToBeUpdated().iterator();
         while (i.hasNext()) {
             String key = (String) i.next();
@@ -82,7 +82,7 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
         String[] cmdargs = cmd.getCommandArguments(Config.getDefaultConfigFilePath(),
                 optionMap);
 
-        assertEquals("--option=test.null_config.config_sat_test=", cmdargs[5]);
+        assertEquals("--option=test.null_config.config_sat_test=", cmdargs[4]);
         assertEquals(9, cmdargs.length);
         assertNull(cmd.storeConfiguration());
         assertTrue(cmd.getKeysToBeUpdated().size() == 0);
