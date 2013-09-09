@@ -66,7 +66,7 @@ def init_hook(conduit):
     RHN_DISABLED = _("Red Hat Satellite or RHN Classic support will be disabled.")
 
     conduit_conf = conduit.getConf()
-    timeout = conduit_conf.timeout
+    timeout = conduit.confFloat('main', 'timeout', conduit_conf.timeout)
 
     if not os.geteuid()==0:
         # If non-root notify user Spacewalk repo not accessible
@@ -269,7 +269,8 @@ def posttrans_hook(conduit):
     """ Post rpm transaction hook. We update the RHN profile here. """
     global rhn_enabled
     if rhn_enabled:
-        timeout = conduit.getConf().timeout
+        timeout = conduit.confFloat('main', 'timeout',
+                conduit.getConf().timeout)
         up2date_cfg = config.initUp2dateConfig()
         if up2date_cfg.has_key('writeChangesToLog') and up2date_cfg['writeChangesToLog'] == 1:
             ts_info = conduit.getTsInfo()
