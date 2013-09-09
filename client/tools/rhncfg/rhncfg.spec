@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.58
+Version: 5.10.59
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -120,6 +120,9 @@ fi
 
 # $Id$
 %changelog
+* Mon Sep 09 2013 Michael Mraka <michael.mraka@redhat.com> 5.10.59-1
+- 918036 - update man page for rhncfg-manager
+
 * Thu Sep 05 2013 Milan Zazrivec <mzazrivec@redhat.com> 5.10.58-1
 - 1002880 - Selinux status check for diff function from cli
 
