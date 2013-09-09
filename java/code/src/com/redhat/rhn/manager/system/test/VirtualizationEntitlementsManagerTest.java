@@ -14,6 +14,10 @@
  */
 package com.redhat.rhn.manager.system.test;
 
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
@@ -40,11 +44,8 @@ import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.system.VirtualizationEntitlementsManager;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
+import com.redhat.rhn.testing.ChannelTestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
-
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
 
 
 /**
@@ -77,6 +78,7 @@ public class VirtualizationEntitlementsManagerTest extends BaseTestCaseWithUser 
         Server host = s.getVirtualInstance().getHostSystem();
         Long hostId = host.getId();
         assertNotNull(host);
+        ChannelTestUtils.setupBaseChannelForVirtualization(user, host.getBaseChannel());
         SystemManager.entitleServer(host, EntitlementManager.VIRTUALIZATION);
 
         l = VirtualizationEntitlementsManager.getInstance().
@@ -160,7 +162,7 @@ public class VirtualizationEntitlementsManagerTest extends BaseTestCaseWithUser 
         }
         assertEquals(1, VirtualizationEntitlementsManager.getInstance().
                 convertToFlex(sids, group.getId(), user).size());
-        HibernateFactory.getSession().clear();
+        HibernateFactory.getSession().disconnect();
         l = VirtualizationEntitlementsManager.getInstance().listFlexGuests(user);
         assertTrue(!l.isEmpty());
         assertEquals(1, l.size());
