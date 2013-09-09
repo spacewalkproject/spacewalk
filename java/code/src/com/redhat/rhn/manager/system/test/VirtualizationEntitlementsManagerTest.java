@@ -40,6 +40,7 @@ import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.system.VirtualizationEntitlementsManager;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
+import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -109,7 +110,7 @@ public class VirtualizationEntitlementsManagerTest extends BaseTestCaseWithUser 
             assertNull(cmdVirt.store());
         }
 
-
+        UserTestUtils.ensureSatelliteOrgAdminExists();
         ChannelFamily rhelFamily = ChannelFamilyFactoryTest.createBaseTestChannelFamily(
                 UserFactory.findRandomOrgAdmin(OrgFactory.getSatelliteOrg()),
                 ents, flexEnts);
@@ -200,6 +201,7 @@ public class VirtualizationEntitlementsManagerTest extends BaseTestCaseWithUser 
                 EntitlementManager.MANAGEMENT, org, sysEnts);
         assertNull(cmd1.store());
 
+        UserTestUtils.ensureSatelliteOrgAdminExists();
         ChannelFamily rhelFamily = ChannelFamilyFactoryTest.createBaseTestChannelFamily(
                 UserFactory.findRandomOrgAdmin(OrgFactory.getSatelliteOrg()),
                 Long.valueOf(ents), Long.valueOf(flexEnts));

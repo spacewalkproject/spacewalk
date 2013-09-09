@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.org.UpdateOrgSoftwareEntitlementsCommand;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.TestUtils;
+import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.Iterator;
 
@@ -36,6 +37,8 @@ public class UpdateOrgSoftwareEntitlementsTest extends BaseTestCaseWithUser {
 
     public void setUp() throws Exception {
         super.setUp();
+
+        UserTestUtils.ensureSatelliteOrgAdminExists();
         fam = ChannelFamilyFactoryTest.createTestChannelFamily(
                 UserFactory.findRandomOrgAdmin(OrgFactory.getSatelliteOrg()));
     }

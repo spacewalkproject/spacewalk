@@ -397,11 +397,9 @@ public class UserTestUtils extends Assert {
     public static User ensureOrgAdminExists(Org orgIn) {
         User retval = UserFactory.findRandomOrgAdmin(orgIn);
         if (retval == null) {
-            retval = createUserInternal("testUser");
-            retval = UserFactory.saveNewUser(retval,
-                    createTestAddress(retval), orgIn.getId());
-            retval.addRole(RoleFactory.ORG_ADMIN);
-            UserFactory.save(retval);
+            retval = UserTestUtils.createUser("TestUser", orgIn.getId());
+            UserTestUtils.addUserRole(retval, RoleFactory.ORG_ADMIN);
+            TestUtils.saveAndFlush(orgIn);
         }
         return retval;
     }
@@ -419,6 +417,15 @@ public class UserTestUtils extends Assert {
             retval = createUserInOrg(login, createOrg("testOrg"), false);
         }
         return retval;
+    }
+
+    /**
+     * Ensures that an admin user for the Satellite org exists, creating it if
+     * necessary.
+     */
+    public static void ensureSatelliteOrgAdminExists() {
+        Org satelliteOrg = OrgFactory.getSatelliteOrg();
+        UserTestUtils.ensureOrgAdminExists(satelliteOrg);
     }
 }
 
