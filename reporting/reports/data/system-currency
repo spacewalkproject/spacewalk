@@ -5,7 +5,7 @@ synopsis:
 
 description:
 
-	Prints list of number of available erratas for each registered system
+	Prints list of numbers of available erratas for each registered system
 
 columns:
 
@@ -14,8 +14,8 @@ columns:
 	name	Name of the server
 	critical	Number of critical security updates available
 	important Number of important security updates available
-	moderate	Number of moderate important security updates available
-	low	Number of low important security updates available
+	moderate	Number of moderate importance security updates available
+	low	Number of low importance security updates available
 	bug	Number of bug fixes available
 	enhancement	Number of enhancements available
 	score Total system score
