@@ -649,8 +649,6 @@ public class ProfileManagerTest extends BaseTestCaseWithUser {
         List channels = ProfileManager.getChildChannelsNeededForProfile(
                 server.getCreator(),
                 server.getBaseChannel(), p);
-        commitAndCloseSession();
-        committed = true;
 
         assertEquals(2, channels.size());
         assertTrue(channels.contains(childChannel1));
