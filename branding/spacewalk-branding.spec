@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.1.2
+Version:    2.1.3
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -74,6 +74,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Sep 10 2013 Tomas Lestach <tlestach@redhat.com> 2.1.3-1
+- 1006406 - fix encodig in branding
+
 * Tue Sep 03 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.2-1
 - fix redundant margin in perl sidenav
 
