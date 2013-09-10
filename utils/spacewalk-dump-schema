@@ -47,7 +47,7 @@ $ENV{NLS_TIMESTAMP_TZ_FORMAT} = 'YYYY-MM-DD HH24:MI:SS TZH:TZM';
 my $dbh = DBI->connect("dbi:Oracle:$options{db_name}", $options{db_user}, $options{db_password}, {
 	RaiseError => 1,
 	FetchHashKeyName => 'NAME_lc',
-	LongReadLen => 10_000_000,
+	LongReadLen => 20_000_000,
 	LongTruncOk => 0,
 	AutoCommit => 0,
 });
