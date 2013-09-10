@@ -66,7 +66,7 @@
  <c:if test="${!empty mailableAddress}">
  <div align="right">
    <hr />
-   <html:submit />
+   <html:submit><bean:message key="button.update"/></html:submit>
  </div>
  </c:if>
 
