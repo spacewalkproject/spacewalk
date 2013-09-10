@@ -11281,6 +11281,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="xccdfdiff.secondscan">
           <source>Second Scan</source>
         </trans-unit>
+        <trans-unit id="xccdfdiff.schedulescan">
+          <source>Schedule Scan</source>
+        </trans-unit>
         <trans-unit id="xccdfdiff.view.changed">
           <source>Only Changed Items</source>
         </trans-unit>

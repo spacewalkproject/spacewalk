@@ -28,7 +28,7 @@
     <tr>
       <th><bean:message key="xccdfdiff.secondscan"/>:</th>
       <td><html:text property="second"/>
-        <html:submit/>
+        <html:submit><bean:message key="xccdfdiff.schedulescan"/></html:submit>
       </td>
   </table>
 </html:form>
