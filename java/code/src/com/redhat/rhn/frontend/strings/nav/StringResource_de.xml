@@ -140,7 +140,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Duplicate Systems Navigation Menu</context>
         </context-group>
-        <target>Duplicate IPv6-Adresse</target>
+        <target>Doppelte IPv6-Adresse</target>
       </trans-unit>
       <trans-unit id="duplicate.systems.nav.mac_address">
         <source>Duplicate MAC Address</source>

@@ -1464,7 +1464,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/legends/system-legend.jsp</context>
         </context-group>
-        <target>待定的动作</target>
+        <target>等待处理的动作</target>
       </trans-unit>
       <trans-unit id="system-legend.jsp.notcheckingin">
         <source>Unknown</source>
@@ -2497,7 +2497,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/PendingActions</context>
         </context-group>
-        <target>待定的动作</target>
+        <target>等待处理的动作</target>
       </trans-unit>
       <trans-unit id="pendingactions.jsp.summary">
         <source> The following actions have been scheduled, and are awaiting execution by one or more systems. Actions can only be archived by Org Admins or by the user who scheduled the action. </source>
@@ -2512,7 +2512,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/schedule/PendingActions</context>
           <context context-type="sourcefile">/rhn/YourRhn</context>
         </context-group>
-        <target>没有未完成的动作。</target>
+        <target>没有等待处理的动作。</target>
       </trans-unit>
       <trans-unit id="pendingactions.jsp.confirm_cancel_actions">
         <source>Confirm Cancel Actions</source>
@@ -2864,7 +2864,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/UpgradableList</context>
         </context-group>
-        <target>以下列出的这个系统上的软件包不是最新的，它们可以被升级。</target>
+        <target>以下列出的这个系统上的软件包过期的，它们可以被升级。</target>
       </trans-unit>
       <trans-unit id="upgradable.jsp.latest">
         <source>Latest Package</source>
@@ -5567,7 +5567,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/systems/Proxy</context>
           <context context-type="sourcefile">/rhn/systems/@@PRODUCT_NAME@@</context>
         </context-group>
-        <target>虚拟客户机</target>
+        <target>虚拟机</target>
       </trans-unit>
       <trans-unit id="systemlist.jsp.nonvirt">
         <source>Non-Virtual System</source>
@@ -5866,14 +5866,14 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
         </context-group>
-        <target>工作交集</target>
+        <target>以交集方式运行</target>
       </trans-unit>
       <trans-unit id="grouplist.jsp.union">
         <source>Work With Union</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
         </context-group>
-        <target>工作并集</target>
+        <target>以并集方式运行</target>
       </trans-unit>
       <!--- System Duplicates pages -->
       <group>
@@ -6100,7 +6100,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/SystemEntitlements</context>
         </context-group>
-        <target>系统授权</target>
+        <target>系统权利</target>
       </trans-unit>
       <trans-unit id="systementitlements.jsp.para1">
         <source>In order to get the most out of @@PRODUCT_NAME@@, each system must be &lt;strong&gt;entitled&lt;/strong&gt; to service. If a system is not entitled, you will not be allowed to perform key software management tasks for that system, such as package installs or errata updates.</source>
@@ -6256,7 +6256,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
         <trans-unit id="system_entitlements.virtualization.success_note">
           <source>&lt;strong&gt;NOTE:&lt;/strong&gt; We subscribed the system(s) to the {0} and {1} channel as well as scheduled an install of the {2} package to prepare the system(s) for hosting virtual guests.</source>
-          <target>&lt;strong&gt;注意：&lt;/strong&gt;我们在 {0} 和 {1} 频道中订阅了该系统，也调度了安装 {2} 软件包来使系统为安装虚拟客户机做好准备。</target>
+          <target>&lt;strong&gt;注意：&lt;/strong&gt;我们在 {0} 和 {1} 频道中订阅了该系统，也调度了安装 {2} 软件包来使系统为安装虚拟机做好准备。</target>
         </trans-unit>
         <trans-unit id="system_entitlements.virtualization_host.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
@@ -6264,7 +6264,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
         <trans-unit id="system_entitlements.virtualization_host.removed.success">
           <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
-          <target>从系统 &lt;strong&gt;{0}&lt;/strong&gt; 中删除 &lt;strong&gt;虚拟化&lt;/strong&gt;。这将导致任何和选定主机关联的客户机消耗物理的频道和系统权利。</target>
+          <target>从系统 &lt;strong&gt;{0}&lt;/strong&gt; 中删除 &lt;strong&gt;虚拟化&lt;/strong&gt;。这将导致任何和选定主机关联的虚拟机消耗物理的频道和系统权利。</target>
         </trans-unit>
         <trans-unit id="system_entitlements.virtualization_host.notEnoughSlots">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements, you will be able to upgrade these systems. &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
@@ -6284,7 +6284,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
         <trans-unit id="system_entitlements.virtualization_host_platform.removed.success">
           <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
-          <target>从系统 &lt;strong&gt;{0}&lt;/strong&gt; 中删除 &lt;strong&gt;虚拟化&lt;/strong&gt;。这将导致任何和选定主机关联的客户机消耗物理的频道和系统权利。</target>
+          <target>从系统 &lt;strong&gt;{0}&lt;/strong&gt; 中删除 &lt;strong&gt;虚拟化&lt;/strong&gt;。这将导致任何和选定主机关联的虚拟机消耗物理的频道和系统权利。</target>
         </trans-unit>
         <trans-unit id="system_entitlements.virtualization_host_platform.notEnoughSlots">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements, you will be able to upgrade these systems.  &lt;br/&gt;&lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization.</source>
@@ -7720,7 +7720,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">NOTFILLEDOUT</context>
         </context-group>
-        <target>创建存储的侧写</target>
+        <target>创建保存的侧写</target>
       </trans-unit>
       <trans-unit id="create.jsp.pagesummary">
         <source>This will create a stored profile, based upon the package set of this system, that you may use for profile comparisons.</source>
@@ -11768,7 +11768,7 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>功能功能增强</target>
+        <target>增强勘误</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.toolbar">
         <source>Overview</source>
@@ -11894,7 +11894,7 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>未完成的动作</target>
+        <target>等待处理的动作</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.actions.failed">
         <source>Action Failed</source>
@@ -12855,7 +12855,7 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
         </context-group>
         <trans-unit id="profile.packagelist.summary">
           <source>The following packages are associated with this stored profile.</source>
-          <target>以下的软件包与这个存储的侧写关联：</target>
+          <target>以下的软件包与这个保存的侧写关联：</target>
         </trans-unit>
       </group>
       <group>
@@ -18540,7 +18540,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsList.do</context>
         </context-group>
-        <target>这是配置成在此主机中运行的虚拟客户机的列表。您可以用下面的按钮对这些客户机执行动作。</target>
+        <target>这是配置成在此主机中运行的虚拟机的列表。您可以用下面的按钮对这些虚拟机执行动作。</target>
       </trans-unit>
       <trans-unit id="virtualguestslist.jsp.nosystems">
         <source>No virtual systems.</source>
@@ -18561,7 +18561,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsList.do</context>
         </context-group>
-        <target>客户机</target>
+        <target>虚拟机</target>
       </trans-unit>
       <trans-unit id="virtualguestslist.jsp.unregistered">
         <source>Unregistered System</source>
@@ -18729,7 +18729,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsConfirm.do</context>
         </context-group>
-        <target>客户机</target>
+        <target>虚拟机</target>
       </trans-unit>
       <trans-unit id="virtualguests_confirm.jsp.hostname">
         <source>Hostname</source>
@@ -18820,14 +18820,14 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
-        <target>默认情况下，虚拟客户机的设置，比如内存、cpu 以及存储分配将来自您的 kickstart 侧写。如果您想要覆盖这些设置，请点击下面的 &lt;strong&gt;{0}&lt;/strong&gt; 按钮。</target>
+        <target>默认情况下，虚拟机的设置，比如内存、cpu 以及存储分配将来自您的 kickstart 侧写。如果您想要覆盖这些设置，请点击下面的 &lt;strong&gt;{0}&lt;/strong&gt; 按钮。</target>
       </trans-unit>
       <trans-unit id="virtualization.provision.first.jsp.guest_name.header">
         <source>Guest Name:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
-        <target>客户机名称：</target>
+        <target>虚拟机名称：</target>
       </trans-unit>
       <trans-unit id="virtualization.provision.first.jsp.virt_bridge.example">
         <source>(ex. xenbr0)</source>
@@ -18841,7 +18841,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
-        <target>用什么名称来表示此主机上的客户机？</target>
+        <target>用什么名称来表示此主机上的虚拟机？</target>
       </trans-unit>
       <trans-unit id="virtualization.provision.first.jsp.guest_name.tip1">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; This name is only used for identification purposes on the host system.</source>
@@ -19077,7 +19077,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">System Set Manager header</context>
         </context-group>
-        <target>系统集管理者</target>
+        <target>System Set Manager</target>
       </trans-unit>
       <trans-unit id="ssm.jsp.imgAlt">
         <source>System Set</source>
@@ -19581,7 +19581,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/details/Overview.do</context>
         </context-group>
-        <target>系统要求重启</target>
+        <target>系统需要重启</target>
       </trans-unit>
       <trans-unit id="sdc.details.overview.inactive1">
         <source>&lt;strong&gt;System not checking in with @@PRODUCT_NAME@@&lt;/strong&gt;</source>
@@ -20641,14 +20641,14 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
-        <target>&lt;strong&gt;注意：&lt;/strong&gt;这些频道不是此客户机主机 &lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt; 的红帽企业版 Linux 订阅的一部分。订阅他们将消耗额外的软件权利。&lt;a href="/rhn/systems/details/SystemChannels.do?sid={0}"&gt;应用不同的虚拟系统权利到主机系统&lt;/a&gt; 将影响哪些频道具有这个标记。</target>
+        <target>&lt;strong&gt;注意：&lt;/strong&gt;这些频道不是此虚拟机主机 &lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt; 的红帽企业版 Linux 订阅的一部分。订阅他们将消耗额外的软件权利。&lt;a href="/rhn/systems/details/SystemChannels.do?sid={0}"&gt;应用不同的虚拟系统权利到主机系统&lt;/a&gt; 将影响哪些频道具有这个标记。</target>
       </trans-unit>
       <trans-unit id="sdc.channels.edit.virtsubwarning_nohost">
         <source>&lt;strong&gt;NOTE:&lt;/strong&gt; These channels are not part of the Red Hat Enterprise Linux subscription for this guest's host. Subscribing to them will consume additional software entitlements. Applying a different virtual system entitlement to the host system will affect which channels have this mark.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
-        <target>&lt;strong&gt;注意：&lt;/strong&gt;这些频道不是此客户机主机的红帽企业版 Linux 订阅的一部分。订阅他们将消耗额外的软件权利。应用不同的虚拟系统权利到主机系统将影响哪些频道具有这个标记。</target>
+        <target>&lt;strong&gt;注意：&lt;/strong&gt;这些频道不是此虚拟机主机的红帽企业版 Linux 订阅的一部分。订阅他们将消耗额外的软件权利。应用不同的虚拟系统权利到主机系统将影响哪些频道具有这个标记。</target>
       </trans-unit>
       <trans-unit id="sdc.channels.edit.fastrackBetaWarning">
         <source>&lt;strong&gt;Warning:&lt;/strong&gt; 'FasTrack' and Beta child software channels are not available with Extended Update Support.</source>
@@ -20739,7 +20739,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
         </context-group>
-        <target>下面是具有“虚拟化”权利的主机系统的列表。您可能要考虑把已经超过 4 个客户机限制的系统升级为“无限制虚拟化“权利来使您的订阅和您和红帽的服务级别协议相符。</target>
+        <target>下面是具有“虚拟化”权利的主机系统的列表。您可能要考虑把已经超过 4 个虚拟机限制的系统升级为“无限制虚拟化“权利来使您的订阅和您和红帽的服务级别协议相符。</target>
       </trans-unit>
       <trans-unit id="guestlimited.jsp.hostsystem">
         <source>Host System</source>
@@ -20753,7 +20753,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-        <target>客户机</target>
+        <target>虚拟机</target>
       </trans-unit>
       <trans-unit id="guestslimited.jsp.hostsystem">
         <source>Host System</source>
@@ -20767,28 +20767,28 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-        <target>客户机系统</target>
+        <target>虚拟机系统</target>
       </trans-unit>
       <trans-unit id="physicalhosts.jsp.title">
         <source>@@PRODUCT_NAME@@ - Virtualization Entitlements - Guests without Hosts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-        <target>@@PRODUCT_NAME@@ - 虚拟化权利 - 没有主机的客户机</target>
+        <target>@@PRODUCT_NAME@@ - 虚拟化权利 - 没有主机的虚拟机</target>
       </trans-unit>
       <trans-unit id="physicalhosts.jsp.header2">
         <source>Guests of Non-Virtual Entitled Hosts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-        <target>无虚拟权利主机的客户机</target>
+        <target>无虚拟权利主机的虚拟机</target>
       </trans-unit>
       <trans-unit id="physicalhosts.jsp.para1">
         <source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in @@PRODUCT_NAME@@.  These systems are consuming the same software and system entitlements as a normal physical system.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
         </context-group>
-        <target>下面是和 @@PRODUCT_NAME@@ 中具有虚拟权利（虚拟化或虚拟化平台）主机系统没有关联的客户机系统。这些系统正消耗着和普通物理系统一样的软件和系统权利。</target>
+        <target>下面是和 @@PRODUCT_NAME@@ 中具有虚拟权利（虚拟化或虚拟化平台）主机系统没有关联的虚拟机系统。这些系统正消耗着和普通物理系统一样的软件和系统权利。</target>
       </trans-unit>
       <trans-unit id="virtualentitlements.toolbar">
         <source>Virtualization Entitlements</source>
@@ -20802,7 +20802,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
         </context-group>
-        <target>协调无虚拟权利主机的客户机的权利</target>
+        <target>协调无虚拟权利主机的虚拟机的权利</target>
       </trans-unit>
       <trans-unit id="physicalhosts.jsp.para2">
         <source>You may always delete the @@PRODUCT_NAME@@ system profile of a guest listed above to free the software and system entitlements it consumes (or you may remove system entitlements from the guest to free system entitlements).  You may be able to free the physical entitlements associated with the guest without deleting the guest's profile:</source>
@@ -20816,35 +20816,35 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-        <target>已知主机的客户机</target>
+        <target>已知主机的虚拟机</target>
       </trans-unit>
       <trans-unit id="physicalhosts.jsp.guestsofunknown">
         <source>Guests of Known Unknown Hosts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-        <target>已知或未知主机的客户机</target>
+        <target>已知或未知主机的虚拟机</target>
       </trans-unit>
       <trans-unit id="physicalhosts.jsp.guestsofnonredhat">
         <source>Guests of Non-Red Hat Virtualization Hosts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-        <target>非红帽虚拟主机的客户机</target>
+        <target>非红帽虚拟主机的虚拟机</target>
       </trans-unit>
       <trans-unit id="physicalhosts.jsp.knownnote">
         <source>If you would like to free the physical entitlements of a guest listed above and it is associated with a Host registered with @@PRODUCT_NAME@@ please add either the Virtualization or Virtualization Platform system entitlement.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-        <target>如果您想释放上述客户机的物理权利，且它和在 @@PRODUCT_NAME@@ 注册的主机是相关联的，请添加虚拟化或者虚拟化平台系统权利。</target>
+        <target>如果您想释放上述虚拟机的物理权利，且它和在 @@PRODUCT_NAME@@ 注册的主机是相关联的，请添加虚拟化或者虚拟化平台系统权利。</target>
       </trans-unit>
       <trans-unit id="physicalhosts.jsp.unknownnote">
         <source>If the host of a guest system above is listed as an unknown and you would like to free the physical entitlements the guest consumes please make sure that:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-        <target>如果上面的客户机系统的主机被列为未知主机，且您想释放客户机消耗的物理权利，则请确保：</target>
+        <target>如果上面的虚拟机系统的主机被列为未知主机，且您想释放虚拟机消耗的物理权利，则请确保：</target>
       </trans-unit>
       <trans-unit id="physicalhosts.jsp.unknownnote2">
         <source>The host has a Virtualization or Virtualization host applied to it</source>
@@ -20865,14 +20865,14 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-        <target>如果上面的客户机的主机不是运行红帽企业版 Linux 的红帽虚拟化主机，此时它必须消耗与物理系统相同的软件和系统权利。</target>
+        <target>如果上面的虚拟机的主机不是运行红帽企业版 Linux 的红帽虚拟化主机，此时它必须消耗与物理系统相同的软件和系统权利。</target>
       </trans-unit>
       <trans-unit id="physicalhosts.jsp.nosystems">
         <source>There are no guests consuming physical entitlements.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
         </context-group>
-        <target>没有客户机消耗物理权利。</target>
+        <target>没有虚拟机消耗物理权利。</target>
       </trans-unit>
       <trans-unit id="guestunlimited.jsp.nosystems">
         <source>There are no systems with the Virtualization Platform entitlement.</source>
@@ -20907,7 +20907,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
         </context-group>
-        <target>无限制客户机虚拟化平台主机</target>
+        <target>无限制虚拟机虚拟化平台主机</target>
       </trans-unit>
       <trans-unit id="guestunlimited.jsp.hostsystem">
         <source>Host System</source>
@@ -20921,7 +20921,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
         </context-group>
-        <target>客户机</target>
+        <target>虚拟机</target>
       </trans-unit>
       <trans-unit id="system.remotecommand.scheduled">
         <source>Remote command &lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;amp;hid={1}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{2}&lt;/strong&gt;.</source>
@@ -21152,8 +21152,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-        <target>*&lt;strong&gt;窍门：&lt;/strong&gt;‘总计’如这个 @@PRODUCT_NAME@@ 证书所示
-指的是可用于 @@PRODUCT_NAME@@ 的总量。</target>
+        <target>‘总计’如这个 @@PRODUCT_NAME@@ 证书所示指的是可用于 @@PRODUCT_NAME@@ 的总量。</target>
       </trans-unit>
       <trans-unit id="sys_entitlements.not_allocated">
         <source>Not Allocated*</source>
@@ -22204,7 +22203,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="help.jsp.translation">
         <source>(Translations available)</source>
-        <target>（可用翻译）</target>
+        <target>（有译本）</target>
       </trans-unit>
       <trans-unit id="help.jsp.detailed">
         <source>Detailed instructions for using RHN service.</source>
@@ -22228,7 +22227,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="help.jsp.clients">
         <source>Documentation for setting up clients to connect to a @@PRODUCT_NAME@@ Proxy or @@PRODUCT_NAME@@ server.</source>
-        <target>设置将客户端连接到 @@PRODUCT_NAME@@ Proxy 或者 @@PRODUCT_NAME@@ 服务器的文档。</target>
+        <target>有关将客户端连接到 @@PRODUCT_NAME@@ Proxy 或者 @@PRODUCT_NAME@@ 服务器的设置的文档。</target>
       </trans-unit>
       <trans-unit id="help.jsp.clients.title">
         <source>Client Configuration Guide</source>

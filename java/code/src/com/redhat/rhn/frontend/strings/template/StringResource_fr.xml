@@ -262,7 +262,7 @@ Affected Systems List
 ---------------------
 Cet avis d'errata peuvent s'appliquer aux systèmes répertoriés ci-dessous. Si vous pensez que
  cette errata ne s'applique pas à un système répertorié, il est possible que
- le profil de package de ce serveur soit obsolète. Dans ce cas, vous devrez exécuter
+ le profil de paquetage de ce serveur soit obsolète. Dans ce cas, vous devrez exécuter
  ' up2date -p ' (RHEL 4 et versions inférieures) ou 'rhn-profil-sync' (RHEL 5 et versions supérieures) en tant que racine sur le système en question pour actualiser votre profil de logiciel.
 </target>
         </trans-unit>
@@ -353,7 +353,7 @@ click the "Details" tab.
           <target>
  Changer vos préférences de notification
 ---------------------------------
- Pour activer/désactiver vos préférences d' Errata Alert globalement, veuillez vous connecter à PRODUCT_NAME@@
+ Pour activer/désactiver vos préférences d' Errata Alert globalement, veuillez vous connecter à @@PRODUCT_NAME@@
  et naviguer de "Overview" (aperçu) / "Your Account" (votre compte) à l'onglet "Preferences".
 
  URL: {0}

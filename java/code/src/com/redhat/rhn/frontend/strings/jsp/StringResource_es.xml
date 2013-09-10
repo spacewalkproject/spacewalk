@@ -118,7 +118,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SoftwareCrashesOverview</context>
         </context-group>
-        <target>No hay daños de software</target>
+        <target>No hay fallos de software</target>
       </trans-unit>
       <trans-unit id="none.message">
         <source>(none)</source>
@@ -1011,7 +1011,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
-        <target>@@PRODUCT_NAME@@ ofrece notificaciones por correo-e cuando se han lanzado erratas pertinentes a sus sistemas, asimismo se envían correos-e diarios que resumen los eventos para sus sistemas.</target>
+        <target>@@PRODUCT_NAME@@ ofrece notificaciones por correo-e cuando se han lanzado erratas pertinentes a sus sistemas,y envía correos-e diarios que resumen los eventos para sus sistemas.</target>
       </trans-unit>
       <trans-unit id="preferences.jsp.receivenote">
         <source> Receive email notifications</source>
@@ -3828,7 +3828,7 @@ del rol de Administrador de la organización.</target>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/Users.do</context>
         </context-group>
-        <target>La siguiente lista muestra todos los usuarios de @@PRODUCT_NAME@, a través de todas las organizaciones. Tenga en cuenta que sólo podrá modificar los detalles de los usuarios que sean miembros de la organización en la que está conectado ({0}); y únicamente si tiene los privilegios de administrador de la organización para esta organización.</target>
+        <target>La siguiente lista muestra todos los usuarios de @@PRODUCT_NAME@@, a través de todas las organizaciones. Tenga en cuenta que sólo podrá modificar los detalles de los usuarios que sean miembros de la organización en la que está conectado ({0}); y únicamente si tiene los privilegios de administrador de la organización para esta organización.</target>
       </trans-unit>
       <trans-unit id="org.allusers.title">
         <source>Users Across @@PRODUCT_NAME@@</source>
@@ -5746,7 +5746,7 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
           <context context-type="sourcefile">/rhn/systems/SystemCurrency.do</context>
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>Reporte de moneda del sistema</target>
+        <target>Reporte de actualización del sistema</target>
       </trans-unit>
       <trans-unit id="systemcurrency.jsp.critical">
         <source>Security (Critical)</source>
@@ -6350,7 +6350,7 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
         </trans-unit>
         <trans-unit id="flexguest.jsp.message">
           <source>The following is a list of guest systems that are currently consuming &lt;a href="{0}"&gt; Flex Guest entitlements&lt;/a&gt;. These entitlements are used when registering virtual guests that are not associated with a registered host system or that are associated with a host system that is not Virtualization or Virtualization Platform entitled. Flex Guest Entitlement Consumers</source>
-          <target>La siguiente es una lista de sistemas huéspedes que actualmente están consumiendo &lt;a href="{0}"&gt; derechos flexibles de huéspedes&lt;/a&gt;. Estos derechos se utilizan al registrar huéspedes virtuales que no están asociados con un sistema host registrado o que están asociados con un sistema host que no tiene derechos de virtualización o de plataforma de virtualización. Consumidores flexibles de derechos de huéspedes. </target>
+          <target>La siguiente es una lista de sistemas huéspedes que actualmente están consumiendo &lt;a href="{0}"&gt; derechos flexibles de huéspedes&lt;/a&gt;. Estos derechos se utilizan al registrar huéspedes virtuales que no están asociados con un sistema host registrado o que están asociados con un sistema host que no tiene derechos de virtualización o de plataforma de virtualización.</target>
         </trans-unit>
         <trans-unit id="floating.guests">
           <source>Flex Guest Entitlement Consumers</source>
@@ -9654,7 +9654,7 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
       </trans-unit>
       <trans-unit id="distchannelmap.jsp.summary">
         <source>Distribution channel mappings define default base channels where servers land according to its OS and architecture by registration. Default distribution channel mappings may be overriden, but not deleted.</source>
-        <target>La asignación de canales de distribución define los canales base predeterminados en donde los servidores llegan según su SO y arquitectura mediante registro. La asignación de canales de distribución predeterminados pueden sobrescribirse, pero no se pueden borrar.</target>
+        <target>La asignación de canales de distribución define los canales base predeterminados en donde los servidores llegan según su SO y arquitectura mediante registro. La asignación de canales de distribución predeterminada puede sobrescribirse, pero no se pueden borrar.</target>
       </trans-unit>
       <trans-unit id="distchannelmap.jsp.edit.summary">
         <source>Organization specific Distribution Channel Mappings may be edited here. Default Distribution Channel Mappings cannot be edited. They can only be overriden within every organization.</source>
@@ -10978,7 +10978,7 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
         </context-group>
-        <target>Puede hacer referencia a estas llaves y/o certificados en su perfiles Kickstart para que sean instalados en los sistemas durante el inicio de instalación a través de Kickstart. El sistema necesitará las llaves para instalar paquetes firmados y el certificado correctos para ser iniciados a través de una instalación Kickstart por un servidor proxy de @@ PRODUCT_NAME @@ o un servidor de @@PRODUCT_NAME@@. Para mayor información, consulte la &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_new" &gt;Guía de referencia de RHN&lt;/a&gt;</target>
+        <target>Puede hacer referencia a estas llaves y/o certificados en su perfiles Kickstart para que sean instalados en los sistemas durante el inicio de instalación a través de Kickstart. El sistema necesitará las llaves para instalar paquetes firmados y el certificado correctos para ser iniciados a través de una instalación Kickstart por un servidor proxy de @@PRODUCT_NAME@@ o un servidor de @@PRODUCT_NAME@@. Para mayor información, consulte la &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_new" &gt;Guía de referencia de RHN&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="keys.jsp.toolbar">
         <source>GPG Public Keys and SSL Certificates</source>
@@ -11529,7 +11529,7 @@ la &lt;strong&gt;Guía de administración del sistema Red Hat Enterprise Linux.&
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartPostEdit.do</context>
         </context-group>
-        <target>Puede editar el postscript para su Kickstart abajo. Primero, los comandos relacionados con @@PRODUCT_NAME@@ serán automáticamente ejecutados (por ejemplo, el registro de esystem con @@PRODUCT_NAME@@ ). Luego, el postscript de non-chroot será ejecutado y por último el postscript será ejecutado. Para mayor información sobre postscript de kickstart, consulte la &lt;strong&gt;Guía de administración de sistemas Red Hat Enterprise Linux&lt;/strong&gt;</target>
+        <target>Edite el postscript para su Kickstart abajo. Primero, los comandos relacionados con @@PRODUCT_NAME@@ serán automáticamente ejecutados (por ejemplo, el registro del sistema a @@PRODUCT_NAME@@ ). Luego, el postscript de non-chroot será ejecutado y por último el postscript será ejecutado. Para mayor información sobre postscript de kickstart, consulte la &lt;strong&gt;Guía de administración de sistemas Red Hat Enterprise Linux&lt;/strong&gt;</target>
       </trans-unit>
       <trans-unit id="kickstart.edit.pkgs.jsp.main1">
         <source>Specify below the packages and package groups you'd like to install on systems during kickstart. Please list packages and groups one per line. For more information please see &lt;em&gt;The Red Hat Enterprise Linux System Administration Guide.&lt;/em&gt; If you would prefer to specify packages to be installed by package profile sync, please visit the &lt;em&gt; Package Profiles &lt;/em&gt; tab to change the kickstart software installation method.
@@ -11926,14 +11926,14 @@ la &lt;strong&gt;Guía de administración del sistema Red Hat Enterprise Linux.&
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>Ver Todos los sondeos críticos ({0} sondeo(s) afectando {1} sistema(s))</target>
+        <target>Ver todos los sondeos críticos ({0} sondeo(s) afectando {1} sistema(s))</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.allwarningprobes">
         <source>View All Warning Probes ({0} probe(s) affecting {1} system(s))</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>Ver Todos los sondeos de advertencia ({0} sondeos afectando {1} sistema(s))</target>
+        <target>Ver todos los sondeos de advertencia ({0} sondeos afectando {1} sistema(s))</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.criticalsystems">
         <source>Most Critical Systems</source>
@@ -11996,7 +11996,7 @@ la &lt;strong&gt;Guía de administración del sistema Red Hat Enterprise Linux.&
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>Ver Todos los sistemas inactivos ({0})</target>
+        <target>Ver todos los sistemas inactivos ({0})</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.noinactivesystems">
         <source>&lt;strong&gt;No inactive systems.&lt;/strong&gt; &lt;p&gt;All of your systems are actively checking into @@PRODUCT_NAME@@ at this time. You can view a list of all of your systems at &lt;strong&gt;&lt;a href="/rhn/systems/SystemList.do"&gt;Systems &gt; All&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;</source>
@@ -12241,7 +12241,7 @@ la &lt;strong&gt;Guía de administración del sistema Red Hat Enterprise Linux.&
       </trans-unit>
       <trans-unit id="channels.all.jsp.header1">
         <source>The software channels listed below are &lt;strong&gt;all of the channels&lt;/strong&gt; that your organization has access to.</source>
-        <target>Los canales software listados a continuación son &lt;strong&gt;todos los canales&lt;/strong&gt; a los que su organización tiene acceso. </target>
+        <target>Los canales de software listados a continuación son &lt;strong&gt;todos los canales&lt;/strong&gt; a los que su organización tiene acceso. </target>
       </trans-unit>
       <trans-unit id="channels.vendor.jsp.header1">
         <source>The software channels listed below are Red Hat channels or child channels of Red Hat Channels.</source>
@@ -12747,7 +12747,7 @@ la &lt;strong&gt;Guía de administración del sistema Red Hat Enterprise Linux.&
         </trans-unit>
         <trans-unit id="activation-key.config.jsp.para1">
           <source>Below are all the centrally-managed configuration channels to which this activation key is subscribed. They are in priority order with the highest-ranked channels appearing first in the list.</source>
-          <target>A continuación se muestran todos los canales de configuración de gestión centralizada a los cuales está suscrita esta llave de activación. Dichos canales están listados en orden de prioridad del rango más alto al más bajo.</target>
+          <target>A continuación se muestran todos los canales de configuración de administración centralizada a los cuales está suscrita esta llave de activación. Dichos canales están listados en orden de prioridad del rango más alto al más bajo.</target>
         </trans-unit>
         <trans-unit id="activation-key.config.subscriptions.jsp.para1">
           <source>Below is a list of configuration channels available to this activation key. To subscribe to a channel, check its checkbox. Make sure you click the "{0}" button when you are finished with your changes.</source>
@@ -13431,11 +13431,11 @@ la &lt;strong&gt;Guía de administración del sistema Red Hat Enterprise Linux.&
         </context-group>
         <trans-unit id="config.common.globalAlt">
           <source>centrally-managed configuration channel</source>
-          <target>canal de configuración de gestión centralizada</target>
+          <target>canal de configuración de administración centralizada</target>
         </trans-unit>
         <trans-unit id="config.common.localAlt">
           <source>locally-managed configuration channel</source>
-          <target>canal de configuración de gestión local</target>
+          <target>canal de configuración de administración local</target>
         </trans-unit>
         <trans-unit id="config.common.sandboxAlt">
           <source>configuration sandbox </source>
@@ -13674,14 +13674,14 @@ la &lt;strong&gt;Guía de administración del sistema Red Hat Enterprise Linux.&
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/GlobalConfigChannelList.do</context>
         </context-group>
-        <target>Canales de configuración de gestión centralizada</target>
+        <target>Canales de configuración de administración centralizada</target>
       </trans-unit>
       <trans-unit id="globalconfiglist.jsp.summary">
         <source>The configuration channels listed below are &lt;strong&gt;centrally-managed&lt;/strong&gt;. This means that any system registered to @@PRODUCT_NAME@@ can subscribe to the configuration channels below. Any changes made to the files within one of these channels will affect every system subscribed to that channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/GlobalConfigChannelList.do</context>
         </context-group>
-        <target>A continuación se listan los canales de &lt;strong&gt;gestión centralizada&lt;/strong&gt;. Esto significa que cualquier sistema registrado con @@PRODUCT_NAME@@ puede suscribirse a los canales de configuración listados abajo. Cualquier cambio en alguno de los archivos de estos canales afectará a todos los sistemas suscritos a ese canal.</target>
+        <target>A continuación se listan los canales de &lt;strong&gt;administración centralizada&lt;/strong&gt;. Esto significa que cualquier sistema registrado con @@PRODUCT_NAME@@ puede suscribirse a los canales de configuración listados abajo. Cualquier cambio en alguno de los archivos de estos canales afectará a todos los sistemas suscritos a ese canal.</target>
       </trans-unit>
       <trans-unit id="toolbar.create.configchannel">
         <source>create new config channel</source>
@@ -14669,14 +14669,14 @@ Observe que si un sistema dado sobrescribe un archivo o tiene el archivo en un c
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
           <context context-type="paramnotes">Tip: If you would like to deploy this version of the this file to other systems you'll need to _copy this file to a centrally-managed config channel_</context>
         </context-group>
-        <target>&lt;strong&gt;Consejo:&lt;/strong&gt; Si desea implementar esta versión del archivo de configuración en otros sistemas, deberá &lt;a href="{0}"&gt;copiar este archivo a un canal de configuración de gestión centralizada&lt;/a&gt;</target>
+        <target>&lt;strong&gt;Consejo:&lt;/strong&gt; Si desea implementar esta versión del archivo de configuración en otros sistemas, deberá &lt;a href="{0}"&gt;copiar este archivo a un canal de configuración de administración centralizada&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="deploy.jsp.tip.global-1">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; If a system has a locally-managed override for this file, you will not be able to deploy it.  However, you may click on the 'Modify rank' link to re-rank the overriding channels.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
         </context-group>
-        <target>&lt;strong&gt;Consejo:&lt;/strong&gt; si el sistema tiene una sobrescritura de gestión local para este archivo, no se podrá implementar. Sin embargo, puede hacer clic en el enlace 'Modificar rango' para cambiar el rango de los canales de sobrescritura.</target>
+        <target>&lt;strong&gt;Consejo:&lt;/strong&gt; si el sistema tiene una sobrescritura de administración local para este archivo, no se podrá implementar. Sin embargo, puede hacer clic en el enlace 'Modificar rango' para cambiar el rango de los canales de sobrescritura.</target>
       </trans-unit>
       <trans-unit id="deployglobal.jspf.tip.needadmin">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; If you would like to deploy this file to a system not in this list, request a {0} to subscribe the system to the {1} configuration channel, then return to this screen.</source>
@@ -14835,8 +14835,8 @@ From there, you can deploy the file to systems.</source>
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
         </context-group>
         <target>Un entorno de prueba de configuración es un lugar donde se almacenan archivos de configuración que están bajo desarrollo,
-Si cree que el archivo de configuración está listo para ser implementado en un sistema, puede &lt;a href="{0}"&gt;copiarlo a un canal de configuración de gestión local&lt;/a&gt;
- o &lt;a href="{1}"&gt;copiarlo a un canal de configuración de gestión centralizada&lt;/a&gt; a través de la pestaña &lt;a href="{3}"&gt;{4}&lt;/a&gt;.
+Si cree que el archivo de configuración está listo para ser implementado en un sistema, puede &lt;a href="{0}"&gt;copiarlo a un canal de configuración de administración local&lt;/a&gt;
+ o &lt;a href="{1}"&gt;copiarlo a un canal de configuración de administración centralizada&lt;/a&gt; a través de la pestaña &lt;a href="{3}"&gt;{4}&lt;/a&gt;.
 Desde allí, puede implementar el archivo a los sistemas.</target>
       </trans-unit>
       <trans-unit id="deployglobal.jspf.note">
@@ -15554,14 +15554,14 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/GlobalConfigFileList.do</context>
         </context-group>
-        <target>Archivos de configuración de gestión centralizada</target>
+        <target>Archivos de configuración de administración centralizada</target>
       </trans-unit>
       <trans-unit id="globalfilelist.jsp.summary">
         <source>The list below shows all of the configuration files that are managed centrally via configuration channels. Please note that files managed locally (via a system profile) can override centrally-managed configuration files on particular systems.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/GlobalConfigFileList.do</context>
         </context-group>
-        <target>A continuación se listan todos los archivos de configuración de gestión centralizada a través de canales de configuración. Tenga en cuenta que los archivos de gestión local (a través del perfil del sistema) pueden sobrescribir los archivos de configuración en sistemas particulares.</target>
+        <target>A continuación se listan todos los archivos de configuración de administración centralizada a través de canales de configuración. Tenga en cuenta que los archivos de administración local (a través del perfil del sistema) pueden sobrescribir los archivos de configuración en sistemas particulares.</target>
       </trans-unit>
       <trans-unit id="globalfilelist.jsp.noFiles">
         <source>No configuration files.</source>
@@ -15596,7 +15596,7 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/GlobalConfigFileList.do</context>
         </context-group>
-        <target>* - 'Sistemas suscritos' hace referencia al número total de sistemas suscritos a un archivo particular a través de la suscripción al canal de configuración, incluyendo las máquinas que actualmente sobrescriben el archivo con la versión de gestión local.</target>
+        <target>* - 'Sistemas suscritos' hace referencia al número total de sistemas suscritos a un archivo particular a través de la suscripción al canal de configuración, incluyendo las máquinas que actualmente sobrescriben el archivo con la versión de administración local.</target>
       </trans-unit>
       <!-- localfilelist.jsp -->
       <trans-unit id="localfilelist.jsp.toolbar">
@@ -15604,14 +15604,14 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/LocalConfigFileList.do</context>
         </context-group>
-        <target>Archivos de configuración de gestión local</target>
+        <target>Archivos de configuración de administración local</target>
       </trans-unit>
       <trans-unit id="localfilelist.jsp.summary">
         <source>The list below shows all of the configuration files that are managed locally via individual system profiles. Please note that files managed locally can override centrally-managed configuration files on particular systems.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/LocalConfigFileList.do</context>
         </context-group>
-        <target>A continuación se listan todos los archivos de configuración de gestión local a través de perfiles de sistemas individuales. Tenga en cuenta que los archivos de gestión local pueden sobrescribir archivos de configuración administrados de gestión centralizada en sistemas particulares.</target>
+        <target>A continuación se listan todos los archivos de configuración de administración local a través de perfiles de sistemas individuales. Tenga en cuenta que los archivos de administración local pueden sobrescribir archivos de configuración administrados de administración centralizada en sistemas particulares.</target>
       </trans-unit>
       <trans-unit id="localfilelist.jsp.noFiles">
         <source>No configuration files.</source>
@@ -15647,7 +15647,7 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/system/ManagedSystems.do</context>
         </context-group>
-        <target>A continuación se listan los sistemas que tienen &lt;strong&gt;archivos de configuración administrados por @@PRODUCT_NAME@@&lt;/strong&gt;. Esto significa que cada sistema puede tener archivos de configuración de &lt;strong&gt;gestión local&lt;/strong&gt; a través de su perfil de sistema de @@PRODUCT_NAME@@, puede tener archivos de configuración &lt;strong&gt;de gestión centralizada&lt;/strong&gt; a través de canal(es) de configuración central(es), o puede tener ambos. El número de archivos de gestión local que sobrescribe archivos de gestión centralizada se puede ver en la columna de abajo 'Archivos de gestión local'.</target>
+        <target>A continuación se listan los sistemas que tienen &lt;strong&gt;archivos de configuración administrados por @@PRODUCT_NAME@@&lt;/strong&gt;. Esto significa que cada sistema puede tener archivos de configuración de &lt;strong&gt;administración local&lt;/strong&gt; a través de su perfil de sistema de @@PRODUCT_NAME@@, puede tener archivos de configuración &lt;strong&gt;de administración centralizada&lt;/strong&gt; a través de canal(es) de configuración central(es), o puede tener ambos. El número de archivos de administración local que sobrescribe archivos de administración centralizada se puede ver en la columna de abajo 'Archivos de administración local'.</target>
       </trans-unit>
       <trans-unit id="managedsystems.jsp.noSystems">
         <source>No configuration managed systems.</source>
@@ -15661,7 +15661,7 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/system/ManagedSystems.do</context>
         </context-group>
-        <target>Archivos de gestión local</target>
+        <target>Archivos de administración local</target>
       </trans-unit>
       <trans-unit id="managedsystems.jsp.oneoverride">
         <source>1 override</source>
@@ -19671,7 +19671,7 @@ La ruta del árbol, el RPM Kickstart, el canal base y la generación del instala
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/details/Overview.do</context>
         </context-group>
-        <target>Daños de aplicaciones</target>
+        <target>Fallos de aplicaciones</target>
       </trans-unit>
       <trans-unit id="sdc.details.overview.crashes.nodata">
         <source>No crash data has been reported for this system yet.</source>
@@ -20780,7 +20780,7 @@ La ruta del árbol, el RPM Kickstart, el canal base y la generación del instala
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-        <target>Derechos de virtualización -Huéspedes sin hosts de @PRODUCT_NAME@@</target>
+        <target>Derechos de virtualización -Huéspedes sin hosts de @@PRODUCT_NAME@@</target>
       </trans-unit>
       <trans-unit id="physicalhosts.jsp.header2">
         <source>Guests of Non-Virtual Entitled Hosts</source>
@@ -20906,7 +20906,7 @@ La ruta del árbol, el RPM Kickstart, el canal base y la generación del instala
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
         </context-group>
-        <target>Derechos de virtualización - Plataforma de virtualización de @PRODUCT_NAME@@</target>
+        <target>Derechos de virtualización - Plataforma de virtualización de @@PRODUCT_NAME@@</target>
       </trans-unit>
       <trans-unit id="guestunlimited.jsp.header2">
         <source>Unlimited-Guest Virtualization Platform Hosts</source>
@@ -21458,7 +21458,7 @@ en este  @@PRODUCT_NAME@@. No es igual al total disponible en el certificado del
         <target>
             ¿Está seguro de que quiere borrar las confianzas listadas a continuación?  Hay sistemas en la
             {0} organización que se suscriben al contenido proporcionado por las organizaciones cuya confianza
-            se está borrando. Esto puede afectar adversamente esos sistemas.  Por ejemplo, puede que esos sistemas
+            se está borrando. Esto puede afectar de forma adversa dichos sistemas.  Por ejemplo, puede que esos sistemas
             ya no reciban actualizaciones de seguridad para el contenido proporcionado por medio de la confianza.
             &lt;p/&gt;
             Revise los cambios que está a punto de implementar antes de confirmar el borrado de la confianza.
@@ -21477,7 +21477,7 @@ en este  @@PRODUCT_NAME@@. No es igual al total disponible en el certificado del
         <target>
             Los sistemas listados a continuación serán afectados al borrar la relación de confianza entre la organización
             &lt;b&gt;{0}&lt;/b&gt; y la organización &lt;b&gt;{1}&lt;/b&gt;.
-            El borrar esta confianza puede afectar adversamente estos sistemas.  Por ejemplo, puede que estos sistemas
+            El borrar esta confianza puede afectar de forma adversa estos sistemas.  Por ejemplo, puede que estos sistemas
             ya no reciban actualizaciones de seguridad para contenido esta confianza los proporciona.
         </target>
       </trans-unit>
@@ -22418,15 +22418,15 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="system.jsp.customkey.title">
         <source>Custom System Info Keys</source>
-        <target>Llaves de información de sistema personalizada</target>
+        <target>Llaves de información de sistema personalizadas</target>
       </trans-unit>
       <trans-unit id="system.jsp.customkey.empty">
         <source>No Custom Info Keys Found</source>
-        <target>No se encontraron llaves de información personalizada</target>
+        <target>No se encontraron llaves de información personalizadas</target>
       </trans-unit>
       <trans-unit id="system.jsp.customkey.message">
         <source>Custom system info keys allow your adminstrators to store relevant custom key/value pairs with your system profiles. Custom system info values are fully {0}searchable{1}.</source>
-        <target>Las llaves de información de sistema personalizada le permiten a sus administradores almacenar pares de llave-valor pertinentes a sus perfiles de sistemas. Los valores de información de sistema personalizada son totalmente {0}de búsqueda{1}.</target>
+        <target>Las llaves de información de sistema personalizadas le permiten a sus administradores almacenar pares de llave-valor pertinentes a sus perfiles de sistemas. Los valores de información de sistema personalizada son totalmente {0}de búsqueda{1}.</target>
       </trans-unit>
       <trans-unit id="system.jsp.customkey.message2">
         <source>The following custom system info keys have been defined for your organization.</source>
@@ -23433,7 +23433,7 @@ given channel.</source>
         &lt;strong&gt;privado&lt;/strong&gt;, de acceso únicamente a sistemas en su
         organización? Hay sistema(s) en otra(s) organización(es) listados abajo
         que se suscriben al contenido proporcionado por este canal. Quitar el acceso
-        a este canal puede afectar adversamente esos sistemas. Por ejemplo, esos
+        a este canal puede afectar de forma adversa esos sistemas. Por ejemplo, esos
         sistemas pueden ya no podrán tener actualizaciones para el contenido
         proporcionado por este canal.</target>
       </trans-unit>
@@ -23701,11 +23701,11 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="task.status.message">
         <source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
-        <target>El siguiente es un reporte del estatus de las variadas tareas que la máquina de tareas @@PRODUCT_NAME@@ ejecuta:</target>
+        <target>El siguiente es un reporte del estatus de las tareas ejecutadas por el motor de tareas de @@PRODUCT_NAME@@: </target>
       </trans-unit>
       <trans-unit id="task.status.title">
         <source>Task Engine Status</source>
-        <target>Estatus de la máquina de tareas</target>
+        <target>Estatus del motor de tareas</target>
       </trans-unit>
       <trans-unit id="actions.jsp.pickedup">
         <source>Picked Up</source>

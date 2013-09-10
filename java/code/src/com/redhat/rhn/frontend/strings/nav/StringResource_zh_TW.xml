@@ -161,7 +161,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-        <target>系統貨幣</target>
+        <target>系統狀態報告</target>
       </trans-unit>
       <trans-unit id="software.crashes">
         <source>Software Crashes</source>
@@ -629,14 +629,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu (system details)</context>
         </context-group>
-        <target>Provisioning</target>
+        <target>佈建</target>
       </trans-unit>
       <trans-unit id="Misc">
         <source>Misc</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>Misc</target>
+        <target>其它</target>
       </trans-unit>
       <trans-unit id="Snapshot Tags">
         <source>Snapshot Tags</source>
@@ -1007,7 +1007,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Registered.do</context>
         </context-group>
-        <target>近期註冊的</target>
+        <target>近期註冊的系統</target>
       </trans-unit>
       <trans-unit id="Target Systems">
         <source>Target Systems</source>

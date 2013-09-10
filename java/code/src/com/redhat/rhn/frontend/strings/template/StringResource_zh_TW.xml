@@ -453,7 +453,7 @@ After that the services will become inaccessible.</source>
 
 這封電子郵件是為了通知您，您的 @@PRODUCT_NAME@@ 憑證已於 {0} 伺服器上
 過期。{1} 天之後，您將被限制
-使用 @@ PRODUCT_NAME@@ 伺服器所提供的系統管理服務 {2} 天。
+使用 @@PRODUCT_NAME@@ 伺服器所提供的系統管理服務 {2} 天。
 在這之後，您將無法再存取該服務。</target>
       </trans-unit>
       <trans-unit id="email.satellitecert.expired.subject">

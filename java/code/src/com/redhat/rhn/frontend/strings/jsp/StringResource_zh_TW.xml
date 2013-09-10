@@ -1061,7 +1061,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
-        <target>處於最高臨界狀態的系統</target>
+        <target>處於最高重大狀態的系統</target>
       </trans-unit>
       <trans-unit id="preferences.critical-systems.description">
         <source> A listing of the systems with the most critical update and health status.</source>
@@ -1082,7 +1082,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
-        <target> 處於臨界狀態的偵測一覽。</target>
+        <target> 處於重大狀態的偵測一覽。</target>
       </trans-unit>
       <trans-unit id="preferences.warning-probes.name">
         <source>Monitoring Status - Warning Probes</source>
@@ -1333,7 +1333,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/header.jsp</context>
         </context-group>
-        <target>沒有選擇系統</target>
+        <target>未選擇系統</target>
       </trans-unit>
       <trans-unit id="header.jsp.singleSystemSelected">
         <source>1 system selected</source>
@@ -1478,7 +1478,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/legends/system-legend.jsp</context>
         </context-group>
-        <target>未賦予權利</target>
+        <target>未賦予權利的系統</target>
       </trans-unit>
       <trans-unit id="system-legend.jsp.monitoring">
         <source>Monitoring Status</source>
@@ -1616,8 +1616,8 @@ to log into @@PRODUCT_NAME@@.&lt;/b&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/AccountDeactivation</context>
         </context-group>
-        <target>您可以停用以下 @@PRODUCT_NAME@@ 帳號。&lt;b&gt;這將會移除您
-登入 @@PRODUCT_NAME@@ 的能力。&lt;/b&gt;</target>
+        <target>您可以停用以下 @@PRODUCT_NAME@@ 帳號。&lt;b&gt;這將會移除您登入
+@@PRODUCT_NAME@@ 的能力。&lt;/b&gt;</target>
       </trans-unit>
       <trans-unit id="disableselfconfirm.jsp.warning">
         <source>You will be logged out immediately after pressing the 'Deactivate Account'
@@ -1918,7 +1918,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserList</context>
         </context-group>
-        <target>停用</target>
+        <target>已停用</target>
       </trans-unit>
       <!-- activelist.jsp -->
       <trans-unit id="users.jsp.imgAlt">
@@ -5128,7 +5128,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
         <trans-unit id="ssm.overview.misc">
           <source>Misc</source>
-          <target>雜項</target>
+          <target>其它</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.updateprofiles">
           <source>Update &lt;a href="/rhn/systems/ssm/misc/Index.do#profiles"&gt;hardware/package profiles&lt;/a&gt; and &lt;a href="/rhn/systems/ssm/misc/Index.do#sysprefs"&gt;system preferences&lt;/a&gt;</source>
@@ -5681,7 +5681,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/systems/RequiringReboot</context>
           <context context-type="sourcefile">/rhn/systems/YourRhn.do</context>
         </context-group>
-        <target>需要重新啓用的系統</target>
+        <target>需要重新啓動的系統</target>
       </trans-unit>
       <trans-unit id="extrapackagessystemslist.jsp.header">
         <source>Systems with Extra Packages</source>
@@ -5743,7 +5743,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/systems/SystemCurrency.do</context>
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>系統貨幣報告</target>
+        <target>系統狀態報告</target>
       </trans-unit>
       <trans-unit id="systemcurrency.jsp.critical">
         <source>Security (Critical)</source>
@@ -6237,19 +6237,19 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
         <trans-unit id="system_entitlements.provisioning.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Provisioning&lt;/strong&gt;.</source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已經設定為 &lt;strong&gt;Provisioning&lt;/strong&gt;。</target>
+          <target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已經設定為 &lt;strong&gt;佈建&lt;/strong&gt;。</target>
         </trans-unit>
         <trans-unit id="system_entitlements.provisioning.removed.success">
           <source>Removed &lt;strong&gt;Provisioning&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s).</source>
-          <target>已移除 &lt;strong&gt;{0}&lt;/strong&gt; 台系統的 &lt;strong&gt;Provisioning&lt;/strong&gt; 權利。</target>
+          <target>已移除 &lt;strong&gt;{0}&lt;/strong&gt; 台系統的 &lt;strong&gt;佈建&lt;/strong&gt; 權利。</target>
         </trans-unit>
         <trans-unit id="system_entitlements.provisioning.notEnoughSlots">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Provisioning&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已成功地被設定為擁有 &lt;strong&gt;Provisioning&lt;/strong&gt; 權利，但您沒有足夠的 &lt;strong&gt;Provisioning&lt;/strong&gt; 權利給剩下的 &lt;strong&gt;{1}&lt;/strong&gt; 台系統使用。您可自 &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ 線上商店&lt;/strong&gt;&lt;/a&gt;購買更多的 &lt;strong&gt;Provisioning&lt;/strong&gt; 權利。一旦您獲取更多的 &lt;strong&gt;Provisioning&lt;/strong&gt; 權利後，您便可升級這些系統。</target>
+          <target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已成功地被設定為擁有 &lt;strong&gt;佈建&lt;/strong&gt; 權利，但您沒有足夠的 &lt;strong&gt;佈建&lt;/strong&gt; 權利給剩下的 &lt;strong&gt;{1}&lt;/strong&gt; 台系統使用。您可自 &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ 線上商店&lt;/strong&gt;&lt;/a&gt;購買更多的 &lt;strong&gt;佈建&lt;/strong&gt; 權利。一旦您獲取更多的 &lt;strong&gt;佈建&lt;/strong&gt; 權利後，您便可升級這些系統。</target>
         </trans-unit>
         <trans-unit id="system_entitlements.provisioning.noManagement">
           <source>&lt;strong&gt;Provisioning&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Provisioning&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Provisioning&lt;/strong&gt; entitlement to these system(s).</source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統無法獲得 &lt;strong&gt;Provisioning&lt;/strong&gt; 權利，因為缺少足夠的&lt;strong&gt;管理&lt;/strong&gt;基礎權利。下方仍勾選著這些無法獲得權利的系統。如果您先按下下方的&lt;strong&gt;設定為管理權利&lt;/strong&gt;按鈕，再選擇下拉式選單中的 &lt;strong&gt;Provisioning&lt;/strong&gt;再按下下方的&lt;strong&gt;新增權利&lt;/strong&gt;按鈕，然後您就可以為這些系統新增&lt;strong&gt;Provisioning&lt;/strong&gt;權利。</target>
+          <target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統無法獲得 &lt;strong&gt;佈建&lt;/strong&gt; 權利，因為缺少足夠的&lt;strong&gt;管理&lt;/strong&gt;基礎權利。下方仍勾選著這些無法獲得權利的系統。如果您先按下下方的&lt;strong&gt;設定為管理權利&lt;/strong&gt;按鈕，再選擇下拉式選單中的 &lt;strong&gt;佈建&lt;/strong&gt;再按下下方的&lt;strong&gt;新增權利&lt;/strong&gt;按鈕，然後您就可以為這些系統新增&lt;strong&gt;佈建&lt;/strong&gt;權利。</target>
         </trans-unit>
         <trans-unit id="system_entitlements.virtualization.success_note">
           <source>&lt;strong&gt;NOTE:&lt;/strong&gt; We subscribed the system(s) to the {0} and {1} channel as well as scheduled an install of the {2} package to prepare the system(s) for hosting virtual guests.</source>
@@ -7696,7 +7696,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">NOTFILLEDOUT</context>
         </context-group>
-        <target>您需要將 Provisioning 權利加入「{0}」中，好將套件與以上的清單同步。請按此處編輯這台系統的權利：&lt;a href="/rhn/systems/details/Edit.do?sid={1}"&gt;編輯權利&lt;/a&gt;</target>
+        <target>您需要將佈建權利加入「{0}」中，好將套件與以上的清單同步。請按此處編輯這台系統的權利：&lt;a href="/rhn/systems/details/Edit.do?sid={1}"&gt;編輯權利&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="compare.jsp.thissystem">
         <source>This System</source>
@@ -10102,7 +10102,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartOverview</context>
         </context-group>
-        <target>如要為一個 kickstart 排程，請至上方的系統分頁並選擇您所想 kickstart 的系統。從這裡，請至系統的 Provisioning 分頁並點選「排程」的子分頁。</target>
+        <target>如要為一個 kickstart 排程，請至上方的系統分頁並選擇您所想 kickstart 的系統。從這裡，請至系統的佈建分頁並點選「排程」的子分頁。</target>
       </trans-unit>
       <trans-unit id="kickstartranges.jsp.range">
         <source>Range</source>
@@ -11938,28 +11938,28 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn</context>
         </context-group>
-        <target>處於最高臨界狀態的系統</target>
+        <target>處於最高重大狀態的系統</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.allcriticalsystems">
         <source>View All Critical Systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>檢視所有處於臨界狀態的系統</target>
+        <target>檢視所有處於重大狀態的系統</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.criticalsystems.description">
         <source>most critical systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>處於最高臨界狀態的系統</target>
+        <target>處於最高重大狀態的系統</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.criticalsystems.none">
         <source>&lt;strong&gt;No critical systems.&lt;/strong&gt; &lt;p&gt;None of your systems are in a critical state. &lt;/p&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>&lt;strong&gt;沒有處於臨界狀態的系統。&lt;/strong&gt;&lt;p&gt;您的系統皆不處於臨界狀態中。&lt;/p&gt;</target>
+        <target>&lt;strong&gt;沒有處於重大狀態的系統。&lt;/strong&gt;&lt;p&gt;您的系統皆不處於重大狀態中。&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.recentlyregistered">
         <source>&lt;strong&gt;Recently Registered Systems&lt;/strong&gt;</source>
@@ -13530,7 +13530,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="targetsystems.jsp.summary">
           <source>The systems listed below do not have files managed via @@PRODUCT_NAME@@ configuration management.  For systems to be capable of being managed by @@PRODUCT_NAME@@ configuration management, they will need a provisioning entitlement in addition to having particular rhncfg-* packages installed. You can enable configuration management on selected systems by using the 'Enable @@PRODUCT_NAME@@ Configuration Management' button below.</source>
-          <target>下列所列出的系統中沒有由 @@PRODUCT_NAME@@ 配置管理員所管理的檔案。 假如系統要能由 @@PRODUCT_NAME@@ 配置管理員來管理的話，它們會需要一項 provisioning 權利並安裝著特定的 rhncfg-* 套件。您能夠藉由點選下列的「啟用 @@PRODUCT_NAME@@ 配置管理員」按鈕來啟用配置管理員於您所選擇的系統之上。</target>
+          <target>下列所列出的系統中沒有由 @@PRODUCT_NAME@@ 配置管理員所管理的檔案。 假如系統要能由 @@PRODUCT_NAME@@ 配置管理員來管理的話，它們會需要一項佈建權利並安裝著特定的 rhncfg-* 套件。您能夠藉由點選下列的「啟用 @@PRODUCT_NAME@@ 配置管理員」按鈕來啟用配置管理員於您所選擇的系統之上。</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.noSystems">
           <source>No non-managed systems.</source>
@@ -13562,7 +13562,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="targetsystems.jsp.addprovisioning">
           <source>Add provisioning entitlement</source>
-          <target>附加 provisioning 權利</target>
+          <target>附加佈建權利</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to RHN Tools channel</source>
@@ -13640,7 +13640,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="summary.jsp.provision">
           <source>Could not grant provisioning entitlement.</source>
-          <target>無法賦予 provisioning 權利。</target>
+          <target>無法賦予佈建權利。</target>
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
           <source>Could not subscribe to the RHN Tools channel.</source>
@@ -13679,7 +13679,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/GlobalConfigChannelList.do</context>
         </context-group>
-        <target>以下列出的配置頻道為 &lt;strong&gt;中央管理&lt;/strong&gt;。這代表任何與 @@PRODUCT_NAME@@ 註冊的系統都能訂閱下列的配置頻道。任何對於在這些頻道中的檔案所作的改變都會影響到所有訂閱此頻道的系統。</target>
+        <target>以下列出的配置頻道為&lt;strong&gt;中央管理&lt;/strong&gt;。這代表任何與 @@PRODUCT_NAME@@ 註冊的系統都能訂閱下列的配置頻道。任何對於在這些頻道中的檔案所作的改變都會影響到所有訂閱此頻道的系統。</target>
       </trans-unit>
       <trans-unit id="toolbar.create.configchannel">
         <source>create new config channel</source>
@@ -14341,7 +14341,7 @@ but are not subscribed to {0}.</source>
 but are not subscribed to _@@PRODUCT_NAME@@Config_.</context>
         </context-group>
         <target>以下列出的系統能夠由 @@PRODUCT_NAME@@ 配置管理員來管理
-（這就表示它們安裝了必要的客戶端軟體並且擁有 provisioning 權利）
+（這就表示它們安裝了必要的客戶端軟體並且擁有佈建權利）
 不過並無訂閱至 {0}。</target>
       </trans-unit>
       <trans-unit id="targetsystems.jsp.subscribe">
@@ -14694,7 +14694,7 @@ Tip: If you would like to deploy this file to a system not in this list, request
 Tip: If you would like to deploy this file to a system not in this list, you'll need to first subscribe that system to the _Configgy_ configuration channel using the _'Target Systems' tab_ for that channel, then return to this screen.  Also, note that the target system must have provisioning entitlements.
           </context>
         </context-group>
-        <target>&lt;strong&gt;提示：&lt;/strong&gt;假如您希望將此檔案建置至一部不在您清單中的系統，您首先必須將此系統訂閱至 {0} 配置頻道，您能夠藉由使用此頻道的 &lt;a href="{1}"&gt;「目標系統」分頁&lt;/a&gt;來做到並返回此畫面。還有，請注意目標的系統必須要擁有 provisioning 權利。</target>
+        <target>&lt;strong&gt;提示：&lt;/strong&gt;假如您希望將此檔案建置至一部不在您清單中的系統，您首先必須將此系統訂閱至 {0} 配置頻道，您能夠藉由使用此頻道的 &lt;a href="{1}"&gt;「目標系統」分頁&lt;/a&gt;來做到並返回此畫面。還有，請注意目標的系統必須要擁有佈建權利。</target>
       </trans-unit>
       <trans-unit id="deployglobal.jspf.not_deployable">
         <source>These systems do not yet have configuration deployment capability. Configuration deployment requires that particular software is installed and enabled on your system. You may ensure that configuration deployment capability will be enabled on these systems by selecting them in the  &lt;a href={0}&gt;{1}&lt;/a&gt; screen and then clicking "{2}"</source>
@@ -14711,7 +14711,7 @@ Tip: If you would like to deploy this file to a system not in this list, you'll 
 You may grant provisioning entitlements _here_.
           </context>
         </context-group>
-        <target>您能夠 &lt;a href="{0}"&gt;在此&lt;/a&gt;被賦予 provisioning 權利。</target>
+        <target>您能夠 &lt;a href="{0}"&gt;在此&lt;/a&gt;被賦予佈建權利。</target>
       </trans-unit>
       <!-- date-picker strings -->
       <trans-unit id="deploy.jsp.widgetsummary">
@@ -15739,7 +15739,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="configoverview.jsp.summary">
           <source>The list below shows all of the configuration files that are managed by your organization in @@PRODUCT_NAME@@. This list includes files that are managed centrally in configuration channels and files that are managed locally via individual system profiles.</source>
-          <target>以下清單顯示了 @@PRODUCT_NAME@@ 之中，所有由您組織所管理的配置檔案。此清單包含著由中央管理配置頻道管理的檔案以及藉由個別系統設定檔來被本地管理的檔案。</target>
+          <target>以下清單顯示了 @@PRODUCT_NAME@@ 之中，所有由您組織所管理的配置檔案。此清單包含著由中央管理配置頻道管理的檔案，以及藉由個別系統設定檔來被本地管理的檔案。</target>
         </trans-unit>
         <trans-unit id="configoverview.jsp.configsummary">
           <source>Configuration Summary</source>
@@ -16768,7 +16768,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="ssmenable.jsp.summary">
           <source>The systems listed below do not have files managed via @@PRODUCT_NAME@@ configuration management. For systems to be capable of being managed by @@PRODUCT_NAME@@ configuration management, they will need a provisioning entitlement in addition to having particular rhncfg-* packages installed. You can enable configuration management on the systems listed below. &lt;strong&gt;Note:&lt;/strong&gt; nothing will happen to already enabled systems.</source>
-          <target>下列列出的系統並無由 @@PRODUCT_NAME@@ 配置管理員所管理的檔案。假如系統要能被 @@PRODUCT_NAME@@ 配置管理員管理的話，它們除了安裝了特定的 rhncfg-* 套件，還會需要一項 provisioning 權利。您能夠在下列所列出的系統上啟用配置管理員。&lt;strong&gt;請注意：&lt;/strong&gt;已啟用的系統不會有任何的改變。</target>
+          <target>下列列出的系統並無由 @@PRODUCT_NAME@@ 配置管理員所管理的檔案。假如系統要能被 @@PRODUCT_NAME@@ 配置管理員管理的話，它們除了安裝了特定的 rhncfg-* 套件，還會需要一項佈建權利。您能夠在下列所列出的系統上啟用配置管理員。&lt;strong&gt;請注意：&lt;/strong&gt;已啟用的系統不會有任何的改變。</target>
         </trans-unit>
       </group>
       <!-- configuration/ssm/channelsystems.jsp  -->
@@ -20321,7 +20321,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
         </context-group>
-        <target>雜項</target>
+        <target>其它</target>
       </trans-unit>
       <trans-unit id="sdc.details.hardware.network_ip_addr">
         <source>IP Address:</source>
@@ -21183,7 +21183,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-        <target> Provisioning（附加）</target>
+        <target> 佈建（附加）</target>
       </trans-unit>
       <trans-unit id="sys_entitlements.monitoring_entitled">
         <source> Monitoring (Add-On)</source>
@@ -21717,7 +21717,7 @@ As a Channel Administrator, you may change the base channels your systems are su
           <context-group name="ctx">
             <context context-type="sourcefile">./includes/header.jsp</context>
           </context-group>
-          <target>沒有選擇系統</target>
+          <target>未選擇系統</target>
         </trans-unit>
         <trans-unit id="none">
           <source>(None)</source>
@@ -23850,11 +23850,11 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="iss.slave.name">
         <source>Slave Fully-Qualified Domain Name</source>
-        <target>Slave 的完整網域名稱（Fully Qualified Domain Name，FQDN）</target>
+        <target>Slave 的完整網域名稱</target>
       </trans-unit>
       <trans-unit id="iss.slave.isEnabled">
         <source>Allow Slave to Sync?</source>
-        <target>是否要允許 Slave 同步？</target>
+        <target>是否允許 Slave 同步？</target>
       </trans-unit>
       <trans-unit id="iss.slave.enabled">
         <source>Slave is enabled</source>
@@ -23866,7 +23866,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="iss.slave.toAll">
         <source>Sync All Orgs to Slave?</source>
-        <target>是否要將所有組織同步至 Slave？</target>
+        <target>是否將所有組織同步至 Slave？</target>
       </trans-unit>
       <trans-unit id="iss.slave.all">
         <source>Sync All</source>

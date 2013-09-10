@@ -6697,14 +6697,14 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
-        <target>이 시스템의 현재 기본 채널에 주어지며 목표(target) 채널로 요구되는 필요한 @@PRODUCT_NAME@@ provisioning 패키지를 찾을 수 없습니다: {0} </target>
+        <target>이 시스템의 현재 기본 채널에 주어지며 목표(target) 채널로 요구되는 필요한 @@PRODUCT_NAME@@ 프로비저닝 패키지를 찾을 수 없습니다: {0} </target>
       </trans-unit>
       <trans-unit id="kickstart.schedule.cantsubscribe">
         <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
-        <target>현재 이 시스템의 기본 채널에 대해 @@PRODUCT_NAME@@ provisioning 채널에 남아있는 서브스크립션이 없습니다.  </target>
+        <target>현재 이 시스템의 기본 채널에 대해 @@PRODUCT_NAME@@ 프로비저닝 채널에 남아있는 서브스크립션이 없습니다.  </target>
       </trans-unit>
       <trans-unit id="kickstart.schedule.cantsubscribe.channel">
         <source>You have no remaining subscriptions to the channel {0} for this system's current base channel.</source>

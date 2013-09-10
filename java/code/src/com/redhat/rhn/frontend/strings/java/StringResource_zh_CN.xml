@@ -722,7 +722,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>不是最新的</target>
+        <target>过期的</target>
       </trans-unit>
       <trans-unit id="Overview">
         <source>Overview</source>
@@ -757,7 +757,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>未完成的动作</target>
+        <target>等待处理的动作</target>
       </trans-unit>
       <trans-unit id="Preferences">
         <source>Preferences</source>
@@ -932,7 +932,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>存储的侧写</target>
+        <target>保存的侧写</target>
       </trans-unit>
       <trans-unit id="Subscription">
         <source>Subscription</source>
@@ -960,7 +960,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>系统组管理者</target>
+        <target>System Set Manager</target>
       </trans-unit>
       <trans-unit id="Systems">
         <source>Systems</source>
@@ -2092,19 +2092,19 @@ available for this kickstart profile to function properly.
 向 @@PRODUCT_NAME@@ 管理员请求该 'rhn-tools' 软件频道的权利。
 &lt;/li&gt;
 &lt;li&gt;
-Make sure that the 'rhn-tools' child channel for this kickstart profile's base
-channel is available to your @@PRODUCT_NAME@@. If it is not, please contact your
-satellite administrator and request a satellite-sync for the rhn-tools channel
-and try again.
+请确定这个 kickstart 侧写的基本频道的 'rhn-tools' 子频道
+可在 @@PRODUCT_NAME@@ 中使用。如果不能，请联络
+您的 satellite 管理员并请求一个 rhn-tools 频道
+然后再试一次。
 &lt;/li&gt;
 &lt;li&gt;
-Make sure the rhn-kickstart* packages corresponding to this kickstart are
-available in the kickstart's base channel's 'rhn-tools' channel. If not, you
-will need to make them available for this kickstart profile to function properly.
+请确定 rhn-kickstart* 软件包与这个 kickstart 基本频道的
+的 'rhn-tools' 频道相应。如果不能，
+您需要使其可用于这个 kickstart 侧写以便其正常工作。
 &lt;/li&gt;
 &lt;li&gt;
-Are the packages listed above available in this kickstart's base channel? If not, you will need to make them
-available for this kickstart profile to function properly.
+以上软件包在这个 kickstart 的基本频道中可用吗？如果不能，您需要
+使其可用于这个 kickstart 侧写以便正常工作。
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
@@ -2122,7 +2122,7 @@ available for this kickstart profile to function properly.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
-        <target>初始化客户机系统的 kickstart</target>
+        <target>初始化虚拟机系统的 kickstart</target>
       </trans-unit>
       <trans-unit id="kickstart.schedule_sync">
         <source>Schedule a package sync for kickstarts</source>
@@ -6903,7 +6903,7 @@ Follow this url to see the full list of inactive systems:
         </trans-unit>
         <trans-unit id="system.sdc.removefromssm">
           <source>System removed from the System Set Manager.</source>
-          <target>从系统组管理者中删除系统。</target>
+          <target>从System Set Manager中删除系统。</target>
         </trans-unit>
         <trans-unit id="usageLimit">
           <source>Usage Limit</source>

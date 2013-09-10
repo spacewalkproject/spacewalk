@@ -8,7 +8,7 @@
       </trans-unit>
       <trans-unit id="bad-signature">
         <source>Bad ACL handler method [{0}]. ACL handler methods must have the following signature (may be static or non-static), with no declared exceptions: public aclXXXX(Object, String[])</source>
-        <target>Método errado de manejador ACL [{0}]. Los métodos de manejador ACL deben tener la siguiente firma (pueden ser estáticos o no-estáticos), con excepciones: ACL pública XXXX(Objeto, Cadena[])</target>
+        <target>Método errado de indicador ACL [{0}]. Los métodos de indicador ACL deben tener la siguiente firma (pueden ser estáticos o no-estáticos), con excepciones: ACL pública XXXX(Objeto, Cadena[])</target>
       </trans-unit>
       <trans-unit id="bad-syntax">
         <source>Could not parse ACL statement: "{0}"</source>
@@ -16,7 +16,7 @@
       </trans-unit>
       <trans-unit id="bad-handler">
         <source>Could not find ACL handler {0} in statement: "{1}". Available ACL handlers: {2}</source>
-        <target>No se pudo encontrar el manejador ACL {0} en declaración: "{1}". Manejadores  ACL disponibles: {2}</target>
+        <target>No se pudo encontrar el indicador ACL {0} en declaración: "{1}". Indicadores  ACL disponibles: {2}</target>
       </trans-unit>
     </body>
   </file>

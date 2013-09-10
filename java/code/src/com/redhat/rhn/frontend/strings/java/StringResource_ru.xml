@@ -370,7 +370,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>Примеры сценариев</target>
+        <target>Примеры</target>
       </trans-unit>
       <trans-unit id="Archived Actions">
         <source>Archived Actions</source>
@@ -806,7 +806,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>Замечания к выпуску Proxy</target>
+        <target>Примечания к выпуску Proxy</target>
       </trans-unit>
       <trans-unit id="Published">
         <source>Published</source>
@@ -848,7 +848,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>Замечания к выпуску</target>
+        <target>Примечания к выпуску</target>
       </trans-unit>
       <trans-unit id="Relevant">
         <source>Relevant</source>
@@ -911,7 +911,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>Программные каналы</target>
+        <target>Каналы</target>
       </trans-unit>
       <trans-unit id="Software Crashes">
         <source>Software Crashes</source>
@@ -932,7 +932,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>Сохраненные профили</target>
+        <target>Профили</target>
       </trans-unit>
       <trans-unit id="Subscription">
         <source>Subscription</source>
@@ -1030,7 +1030,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>Замечания к выпуску Unix</target>
+        <target>Примечания к выпуску Unix</target>
       </trans-unit>
       <trans-unit id="Unpublished">
         <source>Unpublished</source>
@@ -1311,7 +1311,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
-        <target>Предпочитаемый пароль</target>
+        <target>Пароль</target>
       </trans-unit>
       <trans-unit id="confirmpass">
         <source>Confirm Password</source>
@@ -1444,7 +1444,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">NOT USED</context>
         </context-group>
-        <target>Предпочитаемый пароль</target>
+        <target>Пароль</target>
       </trans-unit>
       <trans-unit id="passwordConfirm">
         <source>Confirm Password</source>
@@ -1493,7 +1493,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/newlogin/CreateUserSubmit</context>
         </context-group>
-        <target>Предпочитаемый пароль</target>
+        <target>Пароль</target>
       </trans-unit>
       <trans-unit id="desiredpasswordConfirm">
         <source>Confirm Password</source>
@@ -1775,14 +1775,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">NOT USED</context>
         </context-group>
-        <target>Фильтр по {0}: </target>
+        <target>Выберите {0}: </target>
       </trans-unit>
       <trans-unit id="message.filterby.multiple">
         <source>Filter by: </source>
         <context-group name="ctx">
           <context context-type="sourcefile">NOT USED</context>
         </context-group>
-        <target>Фильтр по: </target>
+        <target>Фильтр: </target>
       </trans-unit>
       <trans-unit id="message.range">
         <source>&lt;strong id="list_min" &gt;{0}&lt;/strong&gt; - &lt;strong id="list_max"&gt;{1}&lt;/strong&gt; of &lt;strong id="list_total"&gt;{2}&lt;/strong&gt;</source>
@@ -1797,8 +1797,8 @@
         <context-group name="ctx">
           <context context-type="sourcefile">on any listview page with a set.  1 - 5 of 120</context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; &lt;strong&gt;{2}&lt;/strong&gt;
-{3} отображено</target>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; из &lt;strong&gt;{2}&lt;/strong&gt;
+{3}</target>
       </trans-unit>
       <trans-unit id="message.numselected">
         <source>({0} selected)</source>
@@ -1951,7 +1951,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
-        <target>Рестарт системы</target>
+        <target>Перезапуск системы</target>
       </trans-unit>
       <trans-unit id="rollback.config">
         <source>Enable or Disable RPM Transaction Rollback</source>
@@ -3008,7 +3008,7 @@ available for this kickstart profile to function properly.
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        <target>Имя/ Описание</target>
+        <target>Имя и описание</target>
       </trans-unit>
       <trans-unit id="systemsearch_id">
         <source>ID</source>
@@ -3043,7 +3043,7 @@ available for this kickstart profile to function properly.
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        <target>Число дней со времени последней проверки:</target>
+        <target>Число дней со времени последней проверки</target>
       </trans-unit>
       <trans-unit id="systemsearch_registered">
         <source>Days Since First Registered</source>
@@ -3399,7 +3399,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
         </context-group>
-        <target>Нет выбранных системных групп.</target>
+        <target>Группы не выбраны.</target>
       </trans-unit>
       <trans-unit id="systemgroups.create.successmessage">
         <source>System group {0} created.</source>
@@ -3680,7 +3680,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/ErrataConfirm</context>
         </context-group>
-        <target>&lt;strong&gt;ЗАМЕЧАНИЕ:&lt;/strong&gt; Эта система не заходила в @@PRODUCT_NAME@@ в последнее время. Поскольку система не может быть обновлена, если она не заходит в @@PRODUCT_NAME@@, возможно, это действие не будет завершено успешно.&lt;br/&gt;&lt;br/&gt;Проверьте систему и убедитесь что rhnsd выполняется.</target>
+        <target>&lt;strong&gt;Примечание.&lt;/strong&gt; Эта система не заходила в @@PRODUCT_NAME@@ в последнее время. Поскольку система не может быть обновлена, если она не заходит в @@PRODUCT_NAME@@, возможно, это действие не будет завершено успешно.&lt;br/&gt;&lt;br/&gt;Проверьте систему и убедитесь что rhnsd выполняется.</target>
       </trans-unit>
       <trans-unit id="timetag.categorizeFormat">
         <source>{0} {1} {2}</source>
@@ -4088,7 +4088,7 @@ user before attempting to deactivate their account.</source>
           <context context-type="sourcefile">/rhn/systems/details/packages/profiles/</context>
           <context context-type="paramnotes">sid, actionid, servername, profilename</context>
         </context-group>
-        <target>&lt;strong&gt;Замечание:&lt;/strong&gt; Обновление оборудования для &lt;strong&gt;{2}&lt;/strong&gt; &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;назначено&lt;/a&gt;&lt;/strong&gt; до того, как будет выполнена синхронизация профиля пакетов с целью проверки возможности сравнения пакетов системой.</target>
+        <target>&lt;strong&gt;Примечание.&lt;/strong&gt; Обновление оборудования для &lt;strong&gt;{2}&lt;/strong&gt; &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;назначено&lt;/a&gt;&lt;/strong&gt; до того, как будет выполнена синхронизация профиля пакетов с целью проверки возможности сравнения пакетов системой.</target>
       </trans-unit>
       <trans-unit id="filterCreate.success">
         <source>The filter {0} was successfully created</source>
@@ -6062,7 +6062,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>Рестарт</target>
+        <target>Перезапуск</target>
       </trans-unit>
       <trans-unit id="message.firstusercreated">
         <source>You have created your first user for the @@PRODUCT_NAME@@ Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
@@ -6309,7 +6309,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
-        <target>Выполняется рестарт @@PRODUCT_NAME@@. Страница будет обновлена через 5 мин. Если это не произойдет, &lt;a href="/rhn/YourRhn.do"&gt;нажмите здесь&lt;/a&gt; для обновления ее вручную.</target>
+        <target>Выполняется перезапуск @@PRODUCT_NAME@@. Страница будет обновлена через 5 мин. Если это не произойдет, &lt;a href="/rhn/YourRhn.do"&gt;нажмите здесь&lt;/a&gt; для обновления ее вручную.</target>
       </trans-unit>
       <trans-unit id="restart.config.norestart">
         <source>Please confirm you want to restart the @@PRODUCT_NAME@@ by checking the box in the form below.</source>
@@ -6379,7 +6379,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeysCreate.do</context>
         </context-group>
-        <target>Это описание ключа уже используется. Введите новое описание.</target>
+        <target>Это описание уже используется. Введите новое описание.</target>
       </trans-unit>
       <trans-unit id="label">
         <source>Label</source>
@@ -6393,7 +6393,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/PreservationList.do</context>
         </context-group>
-        <target>Не выполнен выбор. Пожалуйста, осуществите выбор и попробуйте еще раз.</target>
+        <target>Ничего не выбрано. Повторите попытку.</target>
       </trans-unit>
       <trans-unit id="nocripterror">
         <source>Please enable Javascript or use a Javascript enabled browser before proceeding with this action.</source>
@@ -7497,7 +7497,7 @@ Follow this url to see the full list of inactive systems:
         </trans-unit>
         <trans-unit id="config.files_0_dirs_0_symlinks_0">
           <source>No files, directories or symlinks.</source>
-          <target>Нет файлов, каталогов и ссылок.</target>
+          <target>Нет.</target>
         </trans-unit>
         <trans-unit id="config.files_0_dirs_0_symlinks_1">
           <source>{2} symlink</source>
@@ -7654,21 +7654,21 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Registered.do</context>
         </context-group>
-        <target>за последние 30 дней</target>
+        <target>за 30 дней</target>
       </trans-unit>
       <trans-unit id="sixmonths">
         <source>within the past 180 days</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Registered.do</context>
         </context-group>
-        <target>за последние 180 дней</target>
+        <target>за 180 дней</target>
       </trans-unit>
       <trans-unit id="oneyear">
         <source>with the past year</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Registered.do</context>
         </context-group>
-        <target>за последний год</target>
+        <target>за год</target>
       </trans-unit>
       <trans-unit id="allregisteredsystems">
         <source>All Systems</source>
@@ -7710,7 +7710,7 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
         </context-group>
-        <target>Рестарт</target>
+        <target>Перезапуск</target>
       </trans-unit>
       <trans-unit id="systems.details.virt.guest.virt.destroy">
         <source>Destroy</source>
@@ -7878,7 +7878,7 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
-        <target>ЗАМЕЧАНИЕ: Нет доступных подписок, подписки некоторых каналов не были обновлены.</target>
+        <target>Примечание. Нет доступных подписок, подписки некоторых каналов не были обновлены.</target>
       </trans-unit>
       <trans-unit id="selinux.java.invalid_mode">
         <source>Invalid SE Linux mode "{0}" specified. Valid values are {1}.</source>

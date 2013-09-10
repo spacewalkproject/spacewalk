@@ -11169,7 +11169,7 @@ Bitte beachten Sie, dass möglicherweise noch einige manuelle Konfigurationen di
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
         </context-group>
-        <target>Es sind momentan keine Dateierhaltungslisten definiert.  Klicken Sie den obigen Link"Neue Dateierhaltungsliste erstellen", um eine neue Liste zu erstellen.</target>
+        <target>Es sind momentan keine Dateierhaltungslisten definiert.  Klicken Sie den obigen Link "Neue Dateierhaltungsliste erstellen", um eine neue Liste zu erstellen.</target>
       </trans-unit>
       <trans-unit id="preservation_list_delete.jsp.noneselected">
         <source>There were no files selected for deletion</source>
@@ -11548,7 +11548,7 @@ Anschließend wird das nicht-chroot Post-Skript ausgeführt, und zuletzt das Pos
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartPackagesEdit.do</context>
         </context-group>
-        <target>&lt;b&gt;Hinweis: nur Pakete, die in Ihrem Enterprise Linux Installations-Tree verfügbar sind, sollten hier spezifiziert werden.&lt;/b&gt; Um Pakete zu installieren, die in @@PRODUCT_NAME@@ Software-Channels verfügbar sind, verknüpfen Sie bitte im Tab &lt;em&gt;Aktivierungsschlüssel&lt;/em&gt; einen entsprechenden Aktivierungsschlüssel mit diesem Kickstartprofil.
+        <target>&lt;b&gt;Hinweis: Nur Pakete, die in Ihrem Enterprise Linux Installations-Tree verfügbar sind, sollten hier spezifiziert werden.&lt;/b&gt; Um Pakete zu installieren, die in @@PRODUCT_NAME@@ Software-Channels verfügbar sind, verknüpfen Sie bitte im Tab &lt;em&gt;Aktivierungsschlüssel&lt;/em&gt; einen entsprechenden Aktivierungsschlüssel mit diesem Kickstartprofil.
       </target>
       </trans-unit>
       <trans-unit id="kickstart.edit.pkgs.jsp.header1">
@@ -16698,7 +16698,7 @@ dieser Revisionen.  Möchten Sie dies wirklich tun?</target>
         </trans-unit>
         <trans-unit id="unsubscribe.jsp.summary">
           <source>You can unsubscribe systems from the configuration channels below. The channels shown below are all of the global configuration channels to which at least one system in your system set is subscribed.</source>
-          <target>Sie können Systeme von den unten aufgeführten Konfigurations-Channels abmelden. Die unten dargestellten Channels sind alle Bestandteil der allgemeinen Konfigurations-Channels, die mindestens ein System in Ihrem System-Set subskribiert hat.</target>
+          <target>Sie können Systeme von den unten aufgeführten Konfigurations-Channels abmelden. Die unten dargestellten Channels sind alle Bestandteil der allgemeinen Konfigurations-Channels, die mindestens ein System in Ihrem System-Set subskribiert haben.</target>
         </trans-unit>
         <trans-unit id="unsubscribe.jsp.noChannels">
           <source>No configuration channels with subscribed systems in the current System Set!</source>
@@ -17064,7 +17064,7 @@ dieser Revisionen.  Möchten Sie dies wirklich tun?</target>
         </trans-unit>
         <trans-unit id="sdcuploadfile.jsp.summary">
           <source>You may upload a file from your machine below. The uploaded file will be placed in your system sandbox. If you wish to deploy this file or override config files in global channels, copy this file into your local override channel.</source>
-          <target>Sie können nachfolgend eine Datei von Ihrer Maschine hochladen. Die hochgeladene Datei wird im Sandbox Ihres Systems platziert. Falls Sie diese Datei einsetzen, oder Konfigurations-Dateien in allgemeinen Channels ersetzen möchten, kopieren Sie diese Datei in Ihren lokalen "Override"-Channel.</target>
+          <target>Sie können nachfolgend eine Datei von Ihrer Maschine hochladen. Die hochgeladene Datei wird in der Sandbox Ihres Systems platziert. Falls Sie diese Datei einsetzen, oder Konfigurations-Dateien in allgemeinen Channels ersetzen möchten, kopieren Sie diese Datei in Ihren lokalen "Override"-Channel.</target>
         </trans-unit>
       </group>
       <!-- configuration/sdc/importfile.jsp  -->
@@ -17384,7 +17384,7 @@ dieser Revisionen.  Möchten Sie dies wirklich tun?</target>
         </trans-unit>
         <trans-unit id="ssm.operations.viewlog.note">
           <source>Note: only child channel subscription changes and package install/remove/upgrade/verify tasks are listed.</source>
-          <target>Hinweis: nur Änderungen an Subchannel-Subskriptionen und Aufgaben zur Paketinstallation/-entfernung/-aktualisierung/-verifizierung sind aufgelistet.</target>
+          <target>Hinweis: Nur Änderungen an Subchannel-Subskriptionen und Aufgaben zur Paketinstallation/-entfernung/-aktualisierung/-verifizierung sind aufgelistet.</target>
         </trans-unit>
       </group>
       <!-- ssm/packages.jsp -->
@@ -17479,7 +17479,7 @@ dieser Revisionen.  Möchten Sie dies wirklich tun?</target>
           </source>
           <target>Nachfolgend aufgelistete Pakete können von einem oder mehreren Systemen entfernt werden.
 
-             Wählen Sie eines oder mehr und klicken die Schaltfläche &lt;b&gt;Ausgewählte Pakete entfernen&lt;/b&gt;, um die Paketentfernung einzuplanen.
+             Wählen Sie eines oder mehrere und klicken die Schaltfläche &lt;b&gt;Ausgewählte Pakete entfernen&lt;/b&gt;, um die Paketentfernung einzuplanen.
           </target>
         </trans-unit>
         <trans-unit id="ssm.package.remove.select.confirm">
@@ -17531,7 +17531,7 @@ dieser Revisionen.  Möchten Sie dies wirklich tun?</target>
         <trans-unit id="ssm.package.upgrade.select.summary">
           <source>Select the packages to be upgraded. Only those systems to which the package updates apply will receive the updates.
          </source>
-          <target>Wählen Sie die zu aktualisierenden Pakete. Nur solche Systeme, auf die die Paketaktualisierungen zutreffen, erhalten die Aktualisierungen.
+          <target>Wählen Sie die zu aktualisierenden Pakete. Nur solche Systeme, auf welche die Paket-Aktualisierungen zutreffen, erhalten die Aktualisierungen.
          </target>
         </trans-unit>
         <trans-unit id="ssm.package.upgrade.select.confirm">
@@ -17585,7 +17585,7 @@ dieser Revisionen.  Möchten Sie dies wirklich tun?</target>
          </source>
           <target>Die unten aufgeführten Pakete können auf einem oder mehreren Systemen geprüft werden.
 
-            Wählen Sie eines oder mehr und klicken die Schaltfläche &lt;b&gt;Ausgewählte Pakete verifizieren&lt;/b&gt;, um die Paketprüfung einzuplanen.
+            Wählen Sie eines oder mehrere und klicken die Schaltfläche &lt;b&gt;Ausgewählte Pakete verifizieren&lt;/b&gt;, um die Paketprüfung einzuplanen.
          </target>
         </trans-unit>
         <trans-unit id="ssm.package.verify.select.confirm">
@@ -18548,7 +18548,7 @@ Tree-Pfad, Kickstart-RPM, Basis-Channel und Installer-Generation sollten immer �
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsList.do</context>
         </context-group>
-        <target>Dies ist eine Liste virtueller Gäste, die zum betrieb auf diesem Host konfiguriert wurden.  Sie können Aktionen auf diesen Gästen mit der Schaltfläche unten durchführen.</target>
+        <target>Dies ist eine Liste virtueller Gäste, die zum Betrieb auf diesem Host konfiguriert wurden.  Sie können Aktionen auf diesen Gästen mit der Schaltfläche unten durchführen.</target>
       </trans-unit>
       <trans-unit id="virtualguestslist.jsp.nosystems">
         <source>No virtual systems.</source>
@@ -21687,7 +21687,7 @@ Nachfolgend sehen Sie eine Liste der Channels in Ihrer Organisation.
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/channel/ssm/BaseChannelSubscribe.do</context>
           </context-group>
-          <target>Basis-Channel-Änerung</target>
+          <target>Basis-Channel-Änderung</target>
         </trans-unit>
         <trans-unit id="basesub.jsp.summary">
           <source>

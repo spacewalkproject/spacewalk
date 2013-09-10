@@ -293,7 +293,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/Addresses</context>
         </context-group>
-        <target>郵送物の送付先</target>
+        <target>住所 (郵送先)</target>
       </trans-unit>
       <trans-unit id="address type S">
         <source>Shipping Address</source>
@@ -617,7 +617,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>非アクティブ</target>
+        <target>休止中</target>
       </trans-unit>
       <trans-unit id="Active">
         <source>Active</source>

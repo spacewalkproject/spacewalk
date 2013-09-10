@@ -629,7 +629,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu (system details)</context>
         </context-group>
-        <target>Provisioning</target>
+        <target>프로비저닝</target>
       </trans-unit>
       <trans-unit id="Misc">
         <source>Misc</source>

@@ -617,7 +617,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>停用</target>
+        <target>停用中</target>
       </trans-unit>
       <trans-unit id="Active">
         <source>Active</source>
@@ -827,7 +827,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>組織 Trust</target>
+        <target>組織信任關係</target>
       </trans-unit>
       <trans-unit id="Quota">
         <source>Quota</source>
@@ -1023,7 +1023,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>未分組的</target>
+        <target>未分組的系統</target>
       </trans-unit>
       <trans-unit id="Unix Release Notes">
         <source>Unix Release Notes</source>
@@ -1048,7 +1048,7 @@
             system has no entitlements.
           </context>
         </context-group>
-        <target>未賦予權利</target>
+        <target>未賦予權利的系統</target>
       </trans-unit>
       <trans-unit id="User List">
         <source>User List</source>
@@ -6696,14 +6696,14 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
-        <target>找不到需要的 @@PRODUCT_NAME@@ provisioning 套件給這台系統的目前基礎頻道與目標頻道使用：{0}</target>
+        <target>找不到需要的 @@PRODUCT_NAME@@ 佈建套件給這台系統的目前基礎頻道與目標頻道使用：{0}</target>
       </trans-unit>
       <trans-unit id="kickstart.schedule.cantsubscribe">
         <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
-        <target>您已經沒有剩餘的訂閱權利至此系統目前基礎頻道的 @@PRODUCT_NAME@@ provisioning 頻道。</target>
+        <target>您已經沒有剩餘的訂閱權利至此系統目前基礎頻道的 @@PRODUCT_NAME@@ 佈建頻道。</target>
       </trans-unit>
       <trans-unit id="kickstart.schedule.cantsubscribe.channel">
         <source>You have no remaining subscriptions to the channel {0} for this system's current base channel.</source>

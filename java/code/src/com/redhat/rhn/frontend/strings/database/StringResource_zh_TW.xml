@@ -88,7 +88,7 @@
         </trans-unit>
         <trans-unit id="provisioning_entitled">
           <source>Provisioning</source>
-          <target>Provisioning</target>
+          <target>佈建</target>
         </trans-unit>
         <trans-unit id="sw_mgr_entitled">
           <source>Update</source>

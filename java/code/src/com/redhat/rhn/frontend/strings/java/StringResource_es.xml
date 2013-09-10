@@ -820,7 +820,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>Administración de las suscripciones</target>
+        <target>Administración de suscripciones</target>
       </trans-unit>
       <trans-unit id="Organization Trusts">
         <source>Organization Trusts</source>
@@ -918,7 +918,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>Daños de software</target>
+        <target>Fallos de software</target>
       </trans-unit>
       <trans-unit id="Status">
         <source>Status</source>
@@ -1789,7 +1789,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">on any listview page with a set.  1 - 5 of 120</context>
         </context-group>
-        <target>&lt;strong id="list_min" &gt;{0}&lt;/strong&gt; - &lt;strong id="list_max"&gt;{1}&lt;/strong&gt; of &lt;strong id="list_total"&gt;{2}&lt;/strong&gt;</target>
+        <target>&lt;strong id="list_min" &gt;{0}&lt;/strong&gt; - &lt;strong id="list_max"&gt;{1}&lt;/strong&gt; de &lt;strong id="list_total"&gt;{2}&lt;/strong&gt;</target>
       </trans-unit>
       <trans-unit id="message.range.withtypedescription">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; of &lt;strong&gt;{2}&lt;/strong&gt;
@@ -1853,7 +1853,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Logfile error message</context>
         </context-group>
-        <target>Mal método de manejador ACL [{0}]. Los métodos de manejador ACL deben tener la siguiente firma (puede ser estática o no estática), sin excepciones declaradas: public aclXXXX(Object, String[])</target>
+        <target>Mal método de indicador ACL [{0}]. Los métodos de indicador ACL deben tener la siguiente firma (puede ser estática o no estática), sin excepciones declaradas: public aclXXXX(Object, String[])</target>
       </trans-unit>
       <trans-unit id="bad-syntax">
         <source>Could not parse ACL statement: "{0}"</source>
@@ -1867,7 +1867,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Logfile error message</context>
         </context-group>
-        <target>No se pudieron encontrar manejadores ACL {0} en la declaración: "{1}". Manejadores ACL disponibles: {2}</target>
+        <target>No se pudieron encontrar indicadores ACL {0} en la declaración: "{1}". indicadores ACL disponibles: {2}</target>
       </trans-unit>
       <trans-unit id="invocation-target-exception">
         <source>IllegalInvocationException calling {0} ("{1}"): {2}</source>
@@ -2178,7 +2178,7 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartOptionsEdit</context>
         </context-group>
-        <target>&lt;strong&gt;NOTA:&lt;/strong&gt; Las URL Kickstart predeterminadas de @@PRODUCT_NAME@@ están almacenadas con sólo la ruta de archivo, lo que permite a @@PRODUCT_NAME@@ saber cuándo ajustar dinámicamente el nombre de host en la URL entregada en el archivo de kickstart. (Para los proxy, etc). Debe personalizar este valor cambiándolo a su URL totalmente calificada, la cual aparecerá en el archivo de kickstart como tal.</target>
+        <target>&lt;strong&gt;NOTA:&lt;/strong&gt; Las URL Kickstart predeterminadas de @@PRODUCT_NAME@@ están almacenadas con solo la ruta de archivo, lo que permite a @@PRODUCT_NAME@@ saber cuándo ajustar dinámicamente el nombre de host en la URL entregada en el archivo de kickstart. (Para los proxy, etc). Debe personalizar este valor cambiándolo a su URL totalmente calificada, la cual aparecerá en el archivo de kickstart como tal.</target>
       </trans-unit>
       <trans-unit id="kickstart.options.rootpw.note">
         <source>&lt;strong&gt;NOTE:&lt;/strong&gt; You may set any password hash into this field. Make sure the hash algorithm is correctly set in the &lt;strong&gt;auth&lt;/strong&gt; option. However you may enter a plaintext password, that will be md5 encrypted when selecting the &lt;strong&gt;MD5 Encrypt&lt;/strong&gt; checkbox.</source>
@@ -2932,7 +2932,7 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/Search</context>
         </context-group>
-        <target>La búsqueda por campos SÓLO puede hacerse en formato libre.</target>
+        <target>La búsqueda por campos SOLO puede hacerse en formato libre.</target>
       </trans-unit>
       <trans-unit id="packages.search.connection_error">
         <source>Could not connect to search server.</source>
@@ -3338,7 +3338,7 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/EnableUser</context>
         </context-group>
-        <target>Sólo los usuarios desactivados pueden ser reactivados.</target>
+        <target>Solamente los usuarios desactivados pueden ser reactivados.</target>
       </trans-unit>
       <trans-unit id="userenable.error.sameorg">
         <source>User to reactivate must be in the same organization.</source>
@@ -6711,7 +6711,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
-        <target>Usted no tiene suscripciones al canal {0} restantes para el canal base actual de este sistema.</target>
+        <target>No le quedan suscripciones al canal {0} para este canal base actual del sistema.</target>
       </trans-unit>
       <trans-unit id="kickstart.schedule.noup2date">
         <source>A kickstart was not scheduled for {1} ({0}) because the package profile did not contain the 'up2date' package. An update of that system's package profile may be required.</source>
@@ -8156,7 +8156,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
       </trans-unit>
       <trans-unit id="api.system.crash.nocrashesfound">
         <source>No crashes recorded for the specified system.</source>
-        <target>No hay daños registrados para el sistema especificado.</target>
+        <target>No hay fallos registrados para el sistema especificado.</target>
       </trans-unit>
       <trans-unit id="api.system.crash.nosuchcrash">
         <source>No such crash found.</source>
@@ -8184,7 +8184,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
       </trans-unit>
       <trans-unit id="api.crashfile.download.toolarge">
         <source>The requested crash file is too large to download over XMLRPC.</source>
-        <target>El archivo de daños solicitado es demasiado largo para descargar en XMLRPC.</target>
+        <target>El archivo de fallos solicitado es demasiado largo para descargar en XMLRPC.</target>
       </trans-unit>
       <trans-unit id="api.package.download.ioerror">
         <source>There was a general IO Error, check permissions on the requested file.</source>

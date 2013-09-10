@@ -51,7 +51,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
         </context-group>
-        <target>Обеспечение</target>
+        <target>Инициализация</target>
       </trans-unit>
       <trans-unit id="Non-Linux Entitled Servers">
         <source>Non-Linux</source>
@@ -88,7 +88,7 @@
         </trans-unit>
         <trans-unit id="provisioning_entitled">
           <source>Provisioning</source>
-          <target>Обеспечение</target>
+          <target>Инициализация</target>
         </trans-unit>
         <trans-unit id="sw_mgr_entitled">
           <source>Update</source>
@@ -536,7 +536,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: активные сессии</target>
+        <target>Критично: активные сеансы</target>
       </trans-unit>
       <trans-unit id="Critical Avail Sessions Used Pct">
         <source>Critical Avail Sessions Used Pct</source>
@@ -557,7 +557,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: блокирующие сессии</target>
+        <target>Критично: блокирующие сеансы</target>
       </trans-unit>
       <trans-unit id="Critical Buffer Cache Hit Ratio">
         <source>Critical Buffer Cache Hit Ratio</source>
@@ -578,21 +578,21 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: загрузка CPU 1 мин. (среднее)</target>
+        <target>Критично: средняя загрузка CPU 1 мин.</target>
       </trans-unit>
       <trans-unit id="Critical CPU Load 15-Min Ave">
         <source>Critical CPU Load 15-Min Ave</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: загрузка CPU 15 мин. (среднее)</target>
+        <target>Критично: средняя загрузка CPU 15 мин.</target>
       </trans-unit>
       <trans-unit id="Critical CPU Load 5-Min Ave">
         <source>Critical CPU Load 5-Min Ave</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: загрузка CPU 5 мин. (среднее)</target>
+        <target>Критично: средняя загрузка CPU 5 мин.</target>
       </trans-unit>
       <trans-unit id="Critical CPU Pct Used">
         <source>Critical CPU Pct Used</source>
@@ -613,7 +613,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: счётчик дочерних процессов</target>
+        <target>Критично: счетчик дочерних процессов</target>
       </trans-unit>
       <trans-unit id="Critical Child Process Groups">
         <source>Critical Child Process Groups</source>
@@ -718,7 +718,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: бездействующие сессии</target>
+        <target>Критично: неактивные сеансы</target>
       </trans-unit>
       <trans-unit id="Critical Idle Threads">
         <source>Critical Idle Threads</source>
@@ -753,7 +753,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Критично: Пропорция промахов кэша библиотеки</target>
+        <target>Критично: пропорция промахов кэша библиотеки</target>
       </trans-unit>
       <trans-unit id="Critical Line Rate">
         <source>Critical Line Rate</source>
@@ -1257,7 +1257,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Warn: если число выделенных блоков превышает</target>
+        <target>Предупреждение: если число выделенных блоков превышает</target>
       </trans-unit>
       <trans-unit id="OK Exit Status">
         <source>OK Exit Status</source>
@@ -1572,42 +1572,42 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Warn: 1 мин.</target>
+        <target>Предупреждение: 1 мин.</target>
       </trans-unit>
       <trans-unit id="Warn 15 min">
         <source>Warn 15 min</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Warn: 15 мин.</target>
+        <target>Предупреждение: 15 мин.</target>
       </trans-unit>
       <trans-unit id="Warn 5 min">
         <source>Warn 5 min</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Warn: 5 мин.</target>
+        <target>Предупреждение: 5 мин.</target>
       </trans-unit>
       <trans-unit id="Warn Percent">
         <source>Warn Percent</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Warn: процент</target>
+        <target>Предупреждение: процент</target>
       </trans-unit>
       <trans-unit id="Warn Processes">
         <source>Warn Processes</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Warn: процессы</target>
+        <target>Предупреждение: процессы</target>
       </trans-unit>
       <trans-unit id="Warn Users">
         <source>Warn Users</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Warn: пользователи</target>
+        <target>Предупреждение: пользователи</target>
       </trans-unit>
       <trans-unit id="Warning Accesses">
         <source>Warning Accesses</source>
@@ -1628,7 +1628,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: активные сессии</target>
+        <target>Предупреждение: активные сеансы</target>
       </trans-unit>
       <trans-unit id="Warning Avail Sessions Used Pct">
         <source>Warning Avail Sessions Used Pct</source>
@@ -1649,7 +1649,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: блокирующие сессии</target>
+        <target>Предупреждение: блокирующие сеансы</target>
       </trans-unit>
       <trans-unit id="Warning Buffer Cache Hit Ratio">
         <source>Warning Buffer Cache Hit Ratio</source>
@@ -1670,21 +1670,21 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: загрузка CPU 1 мин. (среднее)</target>
+        <target>Предупреждение: средняя загрузка CPU 1 мин.</target>
       </trans-unit>
       <trans-unit id="Warning CPU Load 15-Min Ave">
         <source>Warning CPU Load 15-Min Ave</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: загрузка CPU 15 мин. (среднее)</target>
+        <target>Предупреждение: средняя загрузка CPU 15 мин.</target>
       </trans-unit>
       <trans-unit id="Warning CPU Load 5-Min Ave">
         <source>Warning CPU Load 5-Min Ave</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: загрузка CPU 5 мин. (среднее)</target>
+        <target>Предупреждение: средняя загрузка CPU 5 мин.</target>
       </trans-unit>
       <trans-unit id="Warning CPU Pct Used">
         <source>Warning CPU Pct Used</source>
@@ -1810,7 +1810,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Предупреждение: незанятые сессии</target>
+        <target>Предупреждение: неактивные сеансы</target>
       </trans-unit>
       <trans-unit id="Warning Idle Threads">
         <source>Warning Idle Threads</source>
@@ -2147,7 +2147,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Активные сессии</target>
+        <target>Активные сеансы</target>
       </trans-unit>
       <trans-unit id="metrics.Blocked processes">
         <source>Blocked processes</source>
@@ -2161,7 +2161,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Блокирующие сессии</target>
+        <target>Блокирующие сеансы</target>
       </trans-unit>
       <trans-unit id="metrics.Buffer cache hit ratio">
         <source>Buffer cache hit ratio</source>
@@ -2182,42 +2182,42 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Загрузка CPU 1 мин. (среднее)</target>
+        <target>Средняя загрузка CPU 1 мин.</target>
       </trans-unit>
       <trans-unit id="metrics.CPU load 1-min avg">
         <source>CPU load 1-min avg</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Загрузка CPU 1 мин. (среднее)</target>
+        <target>Средняя загрузка CPU 1 мин.</target>
       </trans-unit>
       <trans-unit id="metrics.CPU load 15-min ave">
         <source>CPU load 15-min ave</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Загрузка CPU 15 мин. (среднее)</target>
+        <target>Средняя загрузка CPU 15 мин.</target>
       </trans-unit>
       <trans-unit id="metrics.CPU load 15-min avg">
         <source>CPU load 15-min avg</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Загрузка CPU 15 мин. (среднее)</target>
+        <target>Средняя загрузка CPU 15 мин.</target>
       </trans-unit>
       <trans-unit id="metrics.CPU load 5-min ave">
         <source>CPU load 5-min ave</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Загрузка CPU 5 мин. (среднее)</target>
+        <target>Средняя загрузка CPU 5 мин.</target>
       </trans-unit>
       <trans-unit id="metrics.CPU load 5-min avg">
         <source>CPU load 5-min avg</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Загрузка CPU 5 мин. (среднее)</target>
+        <target>Средняя загрузка CPU 5 мин.</target>
       </trans-unit>
       <trans-unit id="metrics.CPU pct used">
         <source>CPU pct used</source>
@@ -2371,7 +2371,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Бездействующие сессии</target>
+        <target>Неактивные сеансы</target>
       </trans-unit>
       <trans-unit id="metrics.Idle threads">
         <source>Idle threads</source>
@@ -2644,7 +2644,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Занятое место</target>
+        <target>Занято</target>
       </trans-unit>
       <trans-unit id="metrics.Stopped processes">
         <source>Stopped processes</source>
@@ -2700,7 +2700,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-        <target>Используемые сессии</target>
+        <target>Используемые сеансы</target>
       </trans-unit>
       <trans-unit id="metrics.Users">
         <source>Users</source>
@@ -2831,11 +2831,11 @@
         </trans-unit>
         <trans-unit id="warn_max">
           <source>Warn if above</source>
-          <target>Warn: если больше</target>
+          <target>Предупреждение: если больше</target>
         </trans-unit>
         <trans-unit id="warn_min">
           <source>Warn if below</source>
-          <target>Warn: если меньше</target>
+          <target>Предупреждение: если меньше</target>
         </trans-unit>
       </group>
       <group>
@@ -2863,15 +2863,15 @@
         </trans-unit>
         <trans-unit id="CPU Load 1-Minute Average">
           <source>CPU Load 1-Minute Average</source>
-          <target>Загрузка CPU 1 мин (в среднем)</target>
+          <target>Средняя загрузка CPU 1 мин.</target>
         </trans-unit>
         <trans-unit id="CPU Load 15-Minute Average">
           <source>CPU Load 15-Minute Average</source>
-          <target>Загрузка CPU 15 мин (в среднем)</target>
+          <target>Средняя загрузка CPU 15 мин.</target>
         </trans-unit>
         <trans-unit id="CPU Load 5-Minute Average">
           <source>CPU Load 5-Minute Average</source>
-          <target>Загрузка CPU 5 мин (в среднем)</target>
+          <target>Средняя загрузка CPU 5 мин.</target>
         </trans-unit>
         <trans-unit id="CPU Used">
           <source>CPU Used</source>
@@ -3123,7 +3123,7 @@
         </trans-unit>
         <trans-unit id="Used Sessions">
           <source>Used Sessions</source>
-          <target>Используемые сессии</target>
+          <target>Используемые сеансы</target>
         </trans-unit>
         <trans-unit id="Value">
           <source>Value</source>
@@ -3384,15 +3384,15 @@
 			rhn_command.description -&gt; rhn_command.description</note>
         <trans-unit id="Active Sessions">
           <source>Active Sessions</source>
-          <target>Активные сессии</target>
+          <target>Активные сеансы</target>
         </trans-unit>
         <trans-unit id="Availability">
           <source>Availability</source>
-          <target>Наличие</target>
+          <target>Доступ</target>
         </trans-unit>
         <trans-unit id="Blocking Sessions">
           <source>Blocking Sessions</source>
-          <target>Блокирующие сессии</target>
+          <target>Блокирующие сеансы</target>
         </trans-unit>
         <trans-unit id="Buffer Cache">
           <source>Buffer Cache</source>
@@ -3468,7 +3468,7 @@
         </trans-unit>
         <trans-unit id="Idle Sessions">
           <source>Idle Sessions</source>
-          <target>Неактивные сессии</target>
+          <target>Неактивные сеансы</target>
         </trans-unit>
         <trans-unit id="Index Extents">
           <source>Index Extents</source>
@@ -3540,7 +3540,7 @@
         </trans-unit>
         <trans-unit id="Probe Count">
           <source>Probe Count</source>
-          <target>Счётчик обработчиков</target>
+          <target>Число обработчиков</target>
         </trans-unit>
         <trans-unit id="Process Count Total">
           <source>Process Count Total</source>
@@ -3668,7 +3668,7 @@
         </trans-unit>
         <trans-unit id="Web server (HTTP)">
           <source>Web server (HTTP)</source>
-          <target>Веб-сервер (HTTP)</target>
+          <target>HTTP</target>
         </trans-unit>
         <!-- Kickstart Install Types -->
         <trans-unit id="Red Hat Enterprise Linux 4">

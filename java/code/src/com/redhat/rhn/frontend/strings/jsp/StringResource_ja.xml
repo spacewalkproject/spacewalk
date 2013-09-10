@@ -1231,7 +1231,7 @@ Satellite の 組織管理者でないとユーザーを削除できません。
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
-        <target>個人設定を保存</target>
+        <target>設定を保存</target>
       </trans-unit>
       <!-- header.jsp -->
       <trans-unit id="header.jsp.change">
@@ -4031,7 +4031,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/UserList</context>
         </context-group>
-        <target>組織なし</target>
+        <target>該当する組織なし</target>
       </trans-unit>
       <trans-unit id="org.jsp.noUsers">
         <source>No Users.</source>
@@ -7086,7 +7086,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/ScheduleRemoteCommand.do</context>
         </context-group>
-        <target>これ以降にスケジュールする　</target>
+        <target>次の日付以降にスケジュールする　</target>
       </trans-unit>
       <trans-unit id="scheduleremote.jsp.schedulepackageremoval">
         <source>Confirm Remote Command and Schedule Package Removal</source>
@@ -8706,7 +8706,7 @@ organization management tools if you choose to remove this role from your login.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/manage/CloneConfirm.do</context>
         </context-group>
-        <target>以下に表示されているエラータのクローンが作成されます。 クローンが作成されると、&lt;a href="{0}"&gt;未発行のエラータ一覧&lt;/a&gt; にそのクローンが表示されるようになります。 ここから、各エラータの関連パッケージとテキストを検証します。準備が整ったら、組織内のユーザーに対して利用できるようこのエラータを発行することができます。</target>
+        <target>以下に表示されるエラータのクローンが作成されます。 クローンが作成されると、&lt;a href="{0}"&gt;未発行のエラータ一覧&lt;/a&gt; にそのクローンが表示されるようになります。 ここから、各エラータの関連パッケージとテキストを検証します。準備が整ったら、組織内のユーザーに対して利用できるようこのエラータを発行することができます。</target>
       </trans-unit>
       <trans-unit id="monitoring.status.ok">
         <source>Probe(s) assigned to system have an OK status</source>
@@ -12244,23 +12244,23 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       </trans-unit>
       <trans-unit id="channels.all.jsp.header1">
         <source>The software channels listed below are &lt;strong&gt;all of the channels&lt;/strong&gt; that your organization has access to.</source>
-        <target>以下にリストされたソフトウェアチャンネルは、組織がアクセスできる&lt;strong&gt;すべてのチャンネル&lt;/strong&gt;です。</target>
+        <target>以下に表示されるソフトウェアチャンネルは、組織がアクセスできる&lt;strong&gt;すべてのチャンネル&lt;/strong&gt;です。</target>
       </trans-unit>
       <trans-unit id="channels.vendor.jsp.header1">
         <source>The software channels listed below are Red Hat channels or child channels of Red Hat Channels.</source>
-        <target>以下に表示されているソフトウェアチャンネルは、Red Hat チャンネルまたは Red Hat チャンネルの子チャンネルです。</target>
+        <target>以下に表示されるソフトウェアチャンネルは、Red Hat チャンネルまたは Red Hat チャンネルの子チャンネルです。</target>
       </trans-unit>
       <trans-unit id="channels.shared.jsp.header1">
         <source>The software channels listed below may be shared by your organization.</source>
-        <target>以下にリストされたソフトウェアチャンネルは組織で共有できます。</target>
+        <target>以下に表示されるソフトウェアチャンネルは組織で共有できます。</target>
       </trans-unit>
       <trans-unit id="channels.custom.jsp.header1">
         <source>The software channels listed below belong to your organization.</source>
-        <target>以下に表示されているソフトウェアチャンネルは、ユーザーの組織に属するソフトウェアチャンネルです。</target>
+        <target>以下に表示されるソフトウェアチャンネルは、ユーザーの組織に属するソフトウェアチャンネルです。</target>
       </trans-unit>
       <trans-unit id="channels.popular.jsp.header1">
         <source>The software channels listed below are considered popular (defined as having a certain number of systems subscribed).</source>
-        <target>以下に表示されているソフトウェアチャンネルは、よく利用される (特定数のシステムがサブスクライブしている) ソフトウェアチャンネルです。</target>
+        <target>以下に表示されるソフトウェアチャンネルは、よく利用される (特定数のシステムがサブスクライブしている) ソフトウェアチャンネルです。</target>
       </trans-unit>
       <trans-unit id="channels.popular.jsp.button">
         <source>Update</source>
@@ -12284,7 +12284,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
         <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization &lt;a href="/rhn/channels/software/Entitlements.do"&gt; is entitled to &lt;/a&gt;but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>以下に表示されているソフトウェアチャンネルは、企業/組織が&lt;a href="/rhn/channels/software/Entitlements.do"&gt;エンタイトルメントを有している&lt;/a&gt;が、「終了」日に達したため Red Hat ではサポートしなくなった&lt;strong&gt;リタイアチャンネル&lt;/strong&gt;になります。</target>
+        <target>以下に表示されるソフトウェアチャンネルは、企業/組織が&lt;a href="/rhn/channels/software/Entitlements.do"&gt;エンタイトルメントを有している&lt;/a&gt;が、「終了」日に達したため Red Hat ではサポートしなくなった&lt;strong&gt;リタイアチャンネル&lt;/strong&gt;になります。</target>
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>
@@ -12758,7 +12758,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="activation-keys.config.rank.jsp.para1">
           <source>This activation key is subscribed to the configuration channels listed below in order from highest to lowest rank. Files from a particular channel will override files with the same filepath and name from channels below it.</source>
-          <target>このアクティベーションキーは以下に表示されている設定ファイルチャンネルにサブスクライブされています。設定ファイルチャンネルは順位の高いチャンネルから順に表示されています。特定のチャンネルからのファイルは、そのチャンネルより順位の低いチャンネルの同じファイルパスを持つファイルと同じ名前を持つファイルを上書きします。</target>
+          <target>このアクティベーションキーは以下に表示される設定ファイルチャンネルにサブスクライブされています。設定ファイルチャンネルは順位の高いチャンネルから順に表示されています。特定のチャンネルからのファイルは、そのチャンネルより順位の低いチャンネルの同じファイルパスを持つファイルと同じ名前を持つファイルを上書きします。</target>
         </trans-unit>
         <trans-unit id="activation-keys.config.rank.jsp.para2">
           <source>To modify the respective rankings of the subscribed channels, you may select one channel at a time to move up or down using the arrow buttons below. After you have completed the ranking process, you will need to click on "{0}" below to confirm the channel subscriptions and ordering.</source>
@@ -13357,7 +13357,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="scapsearch.jsp.withresult">
           <source>With Result</source>
-          <target>結果付き</target>
+          <target>結果</target>
         </trans-unit>
         <trans-unit id="scapsearch.jsp.scan_date">
           <source>Scan Dates to Search</source>
@@ -14923,7 +14923,7 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/GlobalRevisionDeployConfirm.do</context>
         </context-group>
-        <target>以下に表示されているように、このファイルのシステムへの配備を本当にスケジュールしますか?</target>
+        <target>以下に表示されるように、このファイルのシステムへの配備を本当にスケジュールしますか?</target>
       </trans-unit>
       <trans-unit id="deployconfirm.jsp.deploybutton">
         <source>Confirm and Deploy File</source>
@@ -15649,7 +15649,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/system/ManagedSystems.do</context>
         </context-group>
-        <target>以下に表示されているシステムは、現在 &lt;strong&gt;@@PRODUCT_NAME@@ 管理の設定ファイル&lt;/strong&gt; を持っています。つまり、各システムはその @@PRODUCT_NAME@@ システムプロファイル経由で &lt;strong&gt;ローカル管理&lt;/strong&gt; された設定ファイル、または中央設定チャンネル経由で &lt;strong&gt;中央管理&lt;/strong&gt; された設定ファイルを持っているか、両方の設定ファイルを持っている可能性があります。中央管理ファイルを上書きするローカル管理のファイル数は以下の「ローカル管理のファイル」列で確認することができます。</target>
+        <target>以下に表示されるシステムは、現在 &lt;strong&gt;@@PRODUCT_NAME@@ 管理の設定ファイル&lt;/strong&gt; を持っています。つまり、各システムはその @@PRODUCT_NAME@@ システムプロファイル経由で &lt;strong&gt;ローカル管理&lt;/strong&gt; された設定ファイル、または中央設定チャンネル経由で &lt;strong&gt;中央管理&lt;/strong&gt; された設定ファイルを持っているか、両方の設定ファイルを持っている可能性があります。中央管理ファイルを上書きするローカル管理のファイル数は以下の「ローカル管理のファイル」列で確認することができます。</target>
       </trans-unit>
       <trans-unit id="managedsystems.jsp.noSystems">
         <source>No configuration managed systems.</source>
@@ -16384,11 +16384,11 @@ any of these revisions.  Are you sure you want to do this?</source>
           <context-group name="ctx">
             <context context-type="paramnotes">The 3 configuration files you have selected will be compared to deployed versions on the systems listed below. Only configuration files in channels to which a system is currently subscribed will be compared. The results of the comparison can be viewed on each system's events page once rhn_check has run on that system.</context>
           </context-group>
-          <target>選択している &lt;strong&gt;{0} 設定ファイル&lt;/strong&gt; が以下に表示されているシステムの配備バージョンと比較されます。システムが現在サブスクライブしているチャンネル内の設定ファイルのみが比較されます。そのシステムで &lt;code&gt;rhn_check&lt;/code&gt; の実行が完了すると、比較結果を各システムのイベントページで確認できます。</target>
+          <target>選択している &lt;strong&gt;{0} 設定ファイル&lt;/strong&gt; が以下に表示されるシステムの配備バージョンと比較されます。システムが現在サブスクライブしているチャンネル内の設定ファイルのみが比較されます。そのシステムで &lt;code&gt;rhn_check&lt;/code&gt; の実行が完了すると、比較結果を各システムのイベントページで確認できます。</target>
         </trans-unit>
         <trans-unit id="diffconfirm.jsp.summary.one">
           <source>The configuration file you have selected will be compared to deployed versions on the systems listed below. Only configuration files in channels to which a system is currently subscribed will be compared. The results of the comparison can be viewed on each system's events page once &lt;code&gt;rhn_check&lt;/code&gt; has run on that system.</source>
-          <target>選択している設定ファイルが以下に表示されているシステムの配備バージョンと比較されます。システムが現在サブスクライブしているチャンネル内の設定ファイルのみが比較されます。そのシステムで &lt;code&gt;rhn_check&lt;/code&gt; の実行が完了すると、比較結果を各システムのイベントページで確認できます。</target>
+          <target>選択している設定ファイルが以下に表示されるシステムの配備バージョンと比較されます。システムが現在サブスクライブしているチャンネル内の設定ファイルのみが比較されます。そのシステムで &lt;code&gt;rhn_check&lt;/code&gt; の実行が完了すると、比較結果を各システムのイベントページで確認できます。</target>
         </trans-unit>
         <trans-unit id="diffconfirm.jsp.noSystems">
           <source>No systems.</source>
@@ -16428,7 +16428,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           <context-group name="ctx">
             <context context-type="paramnotes">The systems listed below are subscribed to a configuration channel that contains a /etc/rhn/rhn.conf configuration file. Note: each system can be subscribed to different or multiple files with this file path. The files listed below are the deployable versions of this file, that is, the file in the configuration channel with the highest priority for each system.</context>
           </context-group>
-          <target>以下に表示されているシステムは、&lt;code&gt;{0}&lt;/code&gt; 設定ファイルを含む設定チャンネルにサブスクライブされています。　&lt;br /&gt;&lt;strong&gt;注記:&lt;/strong&gt; 各システムは、このファイルパスで異なるファイルまたは複数のファイルにサブスクライブすることができます。以下に表示されているファイルはこのファイルの配備可能なバージョンになり、各システムに対して最も優先順位の高い設定チャンネル内のファイルになります。</target>
+          <target>以下に表示されるシステムは、&lt;code&gt;{0}&lt;/code&gt; 設定ファイルを含む設定チャンネルにサブスクライブされています。　&lt;br /&gt;&lt;strong&gt;注記:&lt;/strong&gt; 各システムは、このファイルパスで異なるファイルまたは複数のファイルにサブスクライブすることができます。以下に表示されるファイルはこのファイルの配備可能なバージョンになり、各システムに対して最も優先順位の高い設定チャンネル内のファイルになります。</target>
         </trans-unit>
         <trans-unit id="diffsystems.jsp.file">
           <source>Configuration File</source>
@@ -16456,7 +16456,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           <context-group name="ctx">
             <context context-type="paramnotes">The configuration files listed below are the files you have selected that are relevant to server3.redhat.com.</context>
           </context-group>
-          <target>以下に表示されている設定ファイルはユーザーが選択しているファイルで、&lt;a href="{0}"&gt;{1}&lt;/a&gt; に関連があります。</target>
+          <target>以下に表示される設定ファイルはユーザーが選択しているファイルで、&lt;a href="{0}"&gt;{1}&lt;/a&gt; に関連があります。</target>
         </trans-unit>
         <trans-unit id="difffiles.jsp.note">
           <source>&lt;strong&gt;Note:&lt;/strong&gt; not all the files you have selected are relevant for this system. Any action scheduled with your current set of selected configuration files for this system will only include the configuration files listed below.</source>
@@ -16514,11 +16514,11 @@ any of these revisions.  Are you sure you want to do this?</source>
           <context-group name="ctx">
             <context context-type="paramnotes">The 3 configuration files you have selected will be deployed to the systems listed below. Only configuration files in channels to which a system is currently subscribed will be deployed. You may schedule the earliest execution for the deploy action below.</context>
           </context-group>
-          <target>選択している &lt;strong&gt;{0} 設定ファイル&lt;/strong&gt; が以下に表示されているシステムに対して配備されます。現在システムがサブスクライブしているチャンネル内の設定ファイルのみが配備されます。以下で配備動作を次回の実行としてスケジュールすることができます。</target>
+          <target>選択している &lt;strong&gt;{0} 設定ファイル&lt;/strong&gt; が以下に表示されるシステムに対して配備されます。現在システムがサブスクライブしているチャンネル内の設定ファイルのみが配備されます。以下で配備動作を次回の実行としてスケジュールすることができます。</target>
         </trans-unit>
         <trans-unit id="deployconfirm.jsp.summary.one">
           <source>The configuration file you have selected will be deployed to the systems listed below. Only configuration files in channels to which a system is currently subscribed will be deployed. You may schedule the earliest execution for the deploy action below.</source>
-          <target>選択している設定ファイルは以下に表示されているシステムに配備されます。 システムが現在サブスクライブしているチャンネル内の設定ファイルしか配備しません。 以下で配備動作を次回の実行でスケジュールすることができます。</target>
+          <target>選択している設定ファイルは以下に表示されるシステムに配備されます。 システムが現在サブスクライブしているチャンネル内の設定ファイルしか配備しません。 以下で配備動作を次回の実行でスケジュールすることができます。</target>
         </trans-unit>
         <trans-unit id="deployconfirm.jsp.confirm">
           <source>Confirm File Deploy</source>
@@ -16627,7 +16627,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="ssm.config.subscribeconfirm.jsp.summary">
           <source>The systems listed below will be subscribed to the configuration channels listed below.</source>
-          <target>以下に表示されているシステムは、以下に同様に表示されている設定ファイルに対してサブスクライブされます。</target>
+          <target>以下に表示されるシステムは、以下に同様に表示されている設定ファイルに対してサブスクライブされます。</target>
         </trans-unit>
         <trans-unit id="ssm.config.subscribeconfirm.jsp.replacesummary">
           <source>All of the current configuration channel subscriptions will be &lt;strong&gt;replaced&lt;/strong&gt; with the configuration channels listed below in the order they appear.</source>
@@ -16635,11 +16635,11 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="ssm.config.subscribeconfirm.jsp.lowestsummary">
           <source>All of the configuration channels will be subscribed to in the &lt;strong&gt;lowest&lt;/strong&gt; position in the order they appear below. Any currently existing subscription between one of the systems listed below and one of the channels listed below will be replaced so that it appears in a new position. All other currently existing subscriptions will remain in their current position.</source>
-          <target>すべての設定チャンネルは、以下に表示される順序で&lt;strong&gt;最も低い&lt;/strong&gt;位置にサブスクライブされます。以下に表示されているいずれかのシステムとチャンネル間に現在存在しているサブスクリプションはすべて置換されるため、新しい位置に表示されます。その他の既存サブスクリプションはすべて現在の位置に留まります。</target>
+          <target>すべての設定チャンネルは、以下に表示される順序で&lt;strong&gt;最も低い&lt;/strong&gt;位置にサブスクライブされます。以下に表示されるいずれかのシステムとチャンネル間に現在存在しているサブスクリプションはすべて置換されるため、新しい位置に表示されます。その他の既存サブスクリプションはすべて現在の位置に留まります。</target>
         </trans-unit>
         <trans-unit id="ssm.config.subscribeconfirm.jsp.highestsummary">
           <source>All of the configuration channels will be subscribed to in the &lt;strong&gt;highest&lt;/strong&gt; position in the order they appear below. Any currently existing subscription between one of the systems listed below and one of the channels listed below will be replaced so that it appears in a new position. All other currently existing subscriptions will remain in their current position.</source>
-          <target>すべての設定チャンネルは、以下に表示されている順序で&lt;strong&gt;最も高い&lt;/strong&gt;位置にサブスクライブされます。以下に表示されているいずれかのシステムとチャンネル間に現在存在しているサブスクリプションはすべて置換されるため、新しい位置に表示されます。その他の既存サブスクリプションはすべて現在の位置に留まります。</target>
+          <target>すべての設定チャンネルは、以下に表示される順序で&lt;strong&gt;最も高い&lt;/strong&gt;位置にサブスクライブされます。以下に表示されるいずれかのシステムとチャンネル間に現在存在しているサブスクリプションはすべて置換されるため、新しい位置に表示されます。その他の既存サブスクリプションはすべて現在の位置に留まります。</target>
         </trans-unit>
         <trans-unit id="ssm.config.subscribeconfirm.jsp.currentchannels">
           <source>Current Subscriptions to Chosen Channels</source>
@@ -16699,7 +16699,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="unsubscribe.jsp.summary">
           <source>You can unsubscribe systems from the configuration channels below. The channels shown below are all of the global configuration channels to which at least one system in your system set is subscribed.</source>
-          <target>以下で設定チャンネルに対するシステムのサブスクリプションを中止することができます。以下に表示されているチャンネルはすべて、少なくともユーザーのシステムセット内の 1 システムがサブスクライブしているグローバルな設定チャンネルになります。</target>
+          <target>以下の設定チャンネルに対するシステムのサブスクリプションを中止することができます。以下のチャンネルはすべて、少なくともユーザーのシステムセット内の 1 システムがサブスクライブしているグローバルな設定チャンネルになります。</target>
         </trans-unit>
         <trans-unit id="unsubscribe.jsp.noChannels">
           <source>No configuration channels with subscribed systems in the current System Set!</source>
@@ -16728,11 +16728,11 @@ any of these revisions.  Are you sure you want to do this?</source>
           <context-group name="ctx">
             <context context-type="paramnotes">The systems shown below will be unsubscribed from the 3 configuration channels you have selected. The systems shown below are those in your system set currently subscribed to at least one configuration channel you have selected.</context>
           </context-group>
-          <target>以下に表示されているシステムは、選択している &lt;strong&gt;{0} 設定チャンネル&lt;/strong&gt; に対するサブスクライブを中止します。以下に表示されているシステムはユーザーのシステムセット内にあるシステムで、選択している設定チャンネルの少なくとも 1 チャンネルに現在サブスクライブしています。</target>
+          <target>以下に表示されるシステムは、選択している &lt;strong&gt;{0} 設定チャンネル&lt;/strong&gt; に対するサブスクライブを中止します。以下に表示されるシステムはユーザーのシステムセット内にあるシステムで、選択している設定チャンネルの少なくとも 1 チャンネルに現在サブスクライブしています。</target>
         </trans-unit>
         <trans-unit id="unsubscribeconfirm.jsp.summary.one">
           <source>The systems shown below will be unsubscribed from the &lt;strong&gt;configuration channel&lt;/strong&gt; you have selected. The systems shown below are those in your system set currently subscribed to the configuration channel you have selected.</source>
-          <target>以下に表示されているシステムは、選択している &lt;strong&gt;設定チャンネル&lt;/strong&gt; に対するサブスクライブを中止します。 以下に表示されているシステムはユーザーのシステムセット内にあるシステムで、選択している設定チャンネルに現在サブスクライブしています。</target>
+          <target>以下に表示されるシステムは、選択している &lt;strong&gt;設定チャンネル&lt;/strong&gt; に対するサブスクライブを中止します。 以下に表示されるシステムはユーザーのシステムセット内にあるシステムで、選択している設定チャンネルに現在サブスクライブしています。</target>
         </trans-unit>
         <trans-unit id="unsubscribeconfirm.jsp.noSystems">
           <source>No systems.</source>
@@ -16773,7 +16773,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="ssmenable.jsp.summary">
           <source>The systems listed below do not have files managed via @@PRODUCT_NAME@@ configuration management. For systems to be capable of being managed by @@PRODUCT_NAME@@ configuration management, they will need a provisioning entitlement in addition to having particular rhncfg-* packages installed. You can enable configuration management on the systems listed below. &lt;strong&gt;Note:&lt;/strong&gt; nothing will happen to already enabled systems.</source>
-          <target>以下に表示されているシステムには @@PRODUCT_NAME@@ 設定管理で管理されるファイルがありません。@@PRODUCT_NAME@@ 設定管理でシステムを管理できるようにするには、特定の rhncfg-* パッケージをインストールするほかに、Provisioning エンタイトルメントも必要になります。以下に表示されているシステムで設定管理を有効にすることができます。&lt;strong&gt;注記:&lt;/strong&gt;すでに有効になっているシステムはそのままの状態となります。</target>
+          <target>以下に表示されるシステムには @@PRODUCT_NAME@@ 設定管理で管理されるファイルがありません。@@PRODUCT_NAME@@ 設定管理でシステムを管理できるようにするには、特定の rhncfg-* パッケージをインストールするほかに、Provisioning エンタイトルメントも必要になります。以下に表示されるシステムで設定管理を有効にすることができます。&lt;strong&gt;注記:&lt;/strong&gt;すでに有効になっているシステムはそのままの状態となります。</target>
         </trans-unit>
       </group>
       <!-- configuration/ssm/channelsystems.jsp  -->
@@ -16790,7 +16790,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           <context-group name="ctx">
             <context context-type="paramnotes">The systems listed below are those in your system set that are subscribed to Configgy Channel. Deployable Files are configuration files or directories in this channel that are not overridden by a local system configuration channel or a higher priority global channel.</context>
           </context-group>
-          <target>以下に表示されているシステムはユーザーのシステムセット内にあり、{0} にサブスクライブされています。配備可能なファイルとは、ローカルシステムの設定チャンネルまたは優先順位の高いグローバルチャンネルによって上書きされないこのチャンネル内の設定ファイルまたはディレクトリのことです。</target>
+          <target>以下に表示されるシステムはユーザーのシステムセット内にあり、{0} にサブスクライブされています。配備可能なファイルとは、ローカルシステムの設定チャンネルまたは優先順位の高いグローバルチャンネルによって上書きされないこのチャンネル内の設定ファイルまたはディレクトリのことです。</target>
         </trans-unit>
         <trans-unit id="ssmchannelsystems.jsp.noSystems">
           <source>No systems.</source>
@@ -16830,7 +16830,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           <context-group name="ctx">
             <context context-type="paramnotes">The configuration channels listed below are those selected configuration channels to which system32.devel is subscribed. Deployable Files are configuration files or directories in the channel that are not overridden by a local system configuration channel or a higher priority global channel. Change this system's configuration channel ranking.</context>
           </context-group>
-          <target>以下に表示されている設定チャンネルは、{0} がサブスクライブしている選択された設定チャンネルになります。配備可能なファイルとは、ローカルシステムの設定チャンネルまたは優先順位の高いグローバルチャンネルによって上書きされないこのチャンネル内の設定ファイルまたはディレクトリのことです。&lt;a href="{1}"&gt;このシステムの設定チャンネルのランキングを変更&lt;/a&gt;。</target>
+          <target>以下に表示される設定チャンネルは、{0} がサブスクライブしている選択された設定チャンネルになります。配備可能なファイルとは、ローカルシステムの設定チャンネルまたは優先順位の高いグローバルチャンネルによって上書きされないこのチャンネル内の設定ファイルまたはディレクトリのことです。&lt;a href="{1}"&gt;このシステムの設定チャンネルのランキングを変更&lt;/a&gt;。</target>
         </trans-unit>
         <trans-unit id="ssmsystemchannels.jsp.files">
           <source>Deployable Configuration Files</source>
@@ -17286,7 +17286,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           <context-group name="ctx">
             <context context-type="paramnotes">The files listed below will be scheduled for comparison to files on postmaster.devel.</context>
           </context-group>
-          <target>以下に表示されているファイルは {0} にあるファイルとの比較のためにスケジュールされます。</target>
+          <target>以下に表示されるファイルは {0} にあるファイルとの比較のためにスケジュールされます。</target>
         </trans-unit>
         <trans-unit id="config.diff.success">
           <source>{0} files &lt;a href="{1}"&gt;scheduled&lt;/a&gt; for comparison.</source>
@@ -17314,7 +17314,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           <context-group name="ctx">
             <context context-type="paramnotes">The files listed below will be scheduled for deploy to postmaster.devel.</context>
           </context-group>
-          <target>以下に表示されているファイルの {0} への配備がスケジュールされます。</target>
+          <target>以下に表示されるファイルの {0} への配備がスケジュールされます。</target>
         </trans-unit>
         <trans-unit id="config.deploy.success">
           <source>{0} file(s) &lt;a href="{1}"&gt;scheduled&lt;/a&gt; for deploy.</source>
@@ -17478,7 +17478,7 @@ any of these revisions.  Are you sure you want to do this?</source>
 
              Select one or more and click the &lt;b&gt;Remove Selected Packages&lt;/b&gt; button to schedule package removal.
           </source>
-          <target>以下にリストされたパッケージは 1 つまたは複数のシステムから削除できます。
+          <target>以下に表示されるパッケージは 1 つまたは複数のシステムから削除できます。
 
              1 つまたは複数のシステムを選択し、&lt;b&gt;選択したパッケージを削除&lt;/b&gt;ボタンをクリックしてパッケージ削除をスケジュールします。
           </target>
@@ -17584,7 +17584,7 @@ any of these revisions.  Are you sure you want to do this?</source>
 
             Select one or more and click the &lt;b&gt;Verify Selected Packages&lt;/b&gt; button to schedule package verification.
          </source>
-          <target>以下にリストされたパッケージは 1 つまたは複数のシステムで検証できます。
+          <target>以下に表示されるパッケージは 1 つまたは複数のシステムで検証できます。
 
             1 つまたは複数のシステムを選択し、&lt;b&gt;選択したパッケージの検証&lt;/b&gt;ボタンをクリックしてパッケージ検証をスケジュールします。
          </target>
@@ -19251,7 +19251,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </trans-unit>
         <trans-unit id="sdc.config.rank.jsp.para1">
           <source>This system is subscribed to the configuration channels listed below in order from highest to lowest rank. Files from a particular channel will override files with the same filepath and name from channels below it.</source>
-          <target>このシステムは以下に表示されている設定ファイルに順位の高い順から低い順でサブスクライブされています。特定チャンネルからのファイルはそれより下にあるチャンネルの同じファイルパスと同じ名前を持つファイルを上書きします。</target>
+          <target>このシステムは以下に表示される設定ファイルに順位の高い順から低い順でサブスクライブされています。特定チャンネルからのファイルはそれより下にあるチャンネルの同じファイルパスと同じ名前を持つファイルを上書きします。</target>
         </trans-unit>
         <trans-unit id="sdc.config.rank.jsp.para2">
           <source>To modify the respective rankings of the subscribed channels, you may select one channel at a time to move up or down using the arrow buttons below. After you have completed the ranking process, you will need to click on "{0}" below to confirm the channel subscriptions and ordering.</source>

@@ -93,7 +93,7 @@
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
           <context context-type="paramnotes">"6 systems"</context>
         </context-group>
-        <target>{0} систем(ы)</target>
+        <target>Систем: {0}</target>
       </trans-unit>
       <trans-unit id="onesystem.message">
         <source>1 system</source>
@@ -149,7 +149,7 @@
           <context context-type="sourcefile">Any page with required fields</context>
           <context context-type="paramnotes">Login is required</context>
         </context-group>
-        <target>{0} обязательно.</target>
+        <target>Обязательные поля: {0}.</target>
       </trans-unit>
       <trans-unit id="errors.ascii">
         <source>{0} contains invalid characters.  Only alphanumeric characters, '-', '_', '.', and '@' are allowed.</source>
@@ -218,7 +218,7 @@
           <context context-type="sourcefile">Any page that has required length fields</context>
           <context context-type="paramnotes">Email cannot be greater than 4 characters</context>
         </context-group>
-        <target>{0} не может содержать больше {1} символов. Замечание: Двухбайтовые комбинации не поддерживаются.</target>
+        <target>{0} не может содержать больше {1} символов. Примечание. Двухбайтовые комбинации не поддерживаются.</target>
       </trans-unit>
       <trans-unit id="errors.invalid">
         <source>{0} is invalid.</source>
@@ -1011,7 +1011,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
-        <target>@@PRODUCT_NAME@@ может уведомлять о выходе новых исправлений для ваших систем. Уведомления могут приходить ежедневно, подводя итоги событий.</target>
+        <target>@@PRODUCT_NAME@@ может уведомлять о выходе исправлений для ваших систем. Уведомления могут приходить ежедневно.</target>
       </trans-unit>
       <trans-unit id="preferences.jsp.receivenote">
         <source> Receive email notifications</source>
@@ -1054,7 +1054,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
-        <target> Меню задач состоит из ссылок быстрого доступа к различным разделам интерфейса @@PRODUCT_NAME@@.</target>
+        <target> Меню задач состоит из ссылок быстрого доступа к разделам интерфейса @@PRODUCT_NAME@@.</target>
       </trans-unit>
       <trans-unit id="preferences.critical-systems.name">
         <source>Most Critical Systems</source>
@@ -1138,7 +1138,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
-        <target> Перечисляет зарегистрированные в @@PRODUCT_NAME@@ системы, которые некоторое время не выполняли вход.</target>
+        <target> Зарегистрированные системы, которые некоторое время не выполняли вход.</target>
       </trans-unit>
       <trans-unit id="preferences.pending-actions.name">
         <source>Recently Scheduled Actions</source>
@@ -1188,7 +1188,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
-        <target>Дата и время (на момент входа) для выбранного часового пояса.</target>
+        <target>Дата и время будут показаны в соответствии с выбранным часовым поясом.</target>
       </trans-unit>
       <trans-unit id="preferences.jsp.displaytimesas">
         <source>Display all times as</source>
@@ -1280,7 +1280,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/header.jsp</context>
         </context-group>
-        <target>Настроить</target>
+        <target>Настройки</target>
       </trans-unit>
       <trans-unit id="header.jsp.signout">
         <source>Sign Out</source>
@@ -1326,7 +1326,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/header.jsp</context>
         </context-group>
-        <target>Исправления:</target>
+        <target>Исправления</target>
       </trans-unit>
       <trans-unit id="header.jsp.noSystemsSelected">
         <source>No systems selected</source>
@@ -1625,7 +1625,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/AccountDeactivation</context>
         </context-group>
-        <target>При нажатии на «Отключить учетную запись» будет выполнен выход
+        <target>При нажатии на «Отключить»  будет выполнен выход
 из системы, после чего &lt;b&gt;повторный вход будет уже недоступен.&lt;/b&gt;</target>
       </trans-unit>
       <trans-unit id="disableselfconfirm.jsp.warning_question">
@@ -1640,7 +1640,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/AccountDeactivation</context>
         </context-group>
-        <target>Отключить учетную запись</target>
+        <target>Отключить</target>
       </trans-unit>
       <trans-unit id="details.jsp.account_details">
         <source> Your Account </source>
@@ -1654,7 +1654,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-        <target> Персональная информация </target>
+        <target>Личные сведения</target>
       </trans-unit>
       <!-- channelperms.jsp -->
       <trans-unit id="channelperms.jsp.title">
@@ -1769,14 +1769,14 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/newlogin/CreateCorporate.do</context>
           <context context-type="sourcefile">/rhn/newlogin/CreatePersonal.do</context>
         </context-group>
-        <target>Создать имя входа</target>
+        <target>Создать</target>
       </trans-unit>
       <trans-unit id="usercreate.jsp.pam">
         <source>Pluggable Authentication Modules (PAM): </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser.do</context>
         </context-group>
-        <target>Подключаемые аутентификационные модули (PAM, Pluggable Authentication Modules)</target>
+        <target>Модули PAM</target>
       </trans-unit>
       <trans-unit id="usercreate.jsp.pam.instructions">
         <source>Use PAM to authenticate against LDAP, Kerberos, and other network-based authentication systems. </source>
@@ -1790,14 +1790,14 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser.do</context>
         </context-group>
-        <target>Замечание: Поля пароля не являются обязательными, когда этот флажок установлен; но вы можете ввести пароль, который будет работать, только когда PAM аутентификация для этого пользователя отключена.</target>
+        <target>Поля пароля не являются обязательными, когда этот флажок установлен; но вы можете ввести пароль, который будет работать, только когда PAM аутентификация для этого пользователя отключена.</target>
       </trans-unit>
       <trans-unit id="usercreate.jsp.pam.reference">
         <source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser.do</context>
         </context-group>
-        <target>Если вы хотите настроить Satellite таким образом, чтобы аутентификация осуществлялась c помощью LDAP, Kerberos и других сетевых систем аутентификации, обратитесь к &lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt;справочному руководству&lt;/a&gt; за инструкциями по настройке PAM.</target>
+        <target>Если вы хотите настроить Satellite таким образом, чтобы аутентификация осуществлялась c помощью LDAP, Kerberos и других сетевых систем аутентификации, обратитесь к &lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt;справочному руководству&lt;/a&gt; за инструкциями по настройке подключаемых модулей аутентификации (PAM).</target>
       </trans-unit>
       <!-- userdetails.jsp -->
       <trans-unit id="userdetails.jsp.header">
@@ -1978,7 +1978,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/DisabledList</context>
         </context-group>
-        <target>Реактивировать</target>
+        <target>Включить</target>
       </trans-unit>
       <!-- userconfirm.jsp -->
       <trans-unit id="userconfirm.jsp.header">
@@ -2052,21 +2052,21 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/EnableUser</context>
         </context-group>
-        <target>Реактивировать пользователя</target>
+        <target>Включить пользователя</target>
       </trans-unit>
       <trans-unit id="enableuser.jsp.confirm">
         <source>Confirm User Reactivation</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/EnableUser</context>
         </context-group>
-        <target>Подтвердить реактивацию пользователя</target>
+        <target>Подтвердите активацию пользователя</target>
       </trans-unit>
       <trans-unit id="enableuser.jsp.body">
         <source>&lt;p&gt;This action will allow this user to access @@PRODUCT_NAME@@.  This user will retain all permissions, roles, and data that he or she had before being deactivated.&lt;/p&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/EnableUser</context>
         </context-group>
-        <target>&lt;p&gt;Это действие позволит данному пользователю получить доступ к @@PRODUCT_NAME@@. Пользователь сохранит все свои права, роли и данные, которыми он обладал до отключения.&lt;/p&gt;</target>
+        <target>&lt;p&gt;Это действие позволит пользователю получить доступ к @@PRODUCT_NAME@@. Пользователь сохранит все свои права, роли и данные, которыми он обладал до отключения.&lt;/p&gt;</target>
       </trans-unit>
       <!-- systemsadmin.jsp -->
       <trans-unit id="systemsadmined.jsp.header">
@@ -2438,7 +2438,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ArchivedActions</context>
         </context-group>
-        <target>Архивировать действия</target>
+        <target>В архив</target>
       </trans-unit>
       <trans-unit id="actions.jsp.cancelactions">
         <source>Cancel Actions</source>
@@ -2504,7 +2504,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/PendingActions</context>
         </context-group>
-        <target> Следующие действия были запланированы и ожидают выполнения. Действия могут быть заархивированы администраторами организации или пользователем, назначившим действие.</target>
+        <target> Следующие действия ожидают выполнения. Действия могут быть заархивированы администраторами организации или пользователем, назначившим действие.</target>
       </trans-unit>
       <trans-unit id="pendingactions.jsp.nogroups">
         <source>No actions pending.</source>
@@ -2563,7 +2563,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/CompletedActions</context>
         </context-group>
-        <target> Следующие действия были завершены одной или несколькими системами. Действия могут быть заархивированы только администратором организации или пользователем, назначившим действие.</target>
+        <target> Следующие действия были завершены. Они могут быть заархивированы администратором организации или пользователем, назначившим действие.</target>
       </trans-unit>
       <trans-unit id="completedactions.jsp.nogroups">
         <source>No completed actions.</source>
@@ -3160,7 +3160,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/errata/RelevantErrata</context>
           <context context-type="sourcefile">/rhn/errata/AllErrata</context>
         </context-group>
-        <target>Обновлен(о)</target>
+        <target>Обновлено</target>
       </trans-unit>
       <trans-unit id="erratalist.jsp.securityadvisory">
         <source>Security Advisory</source>
@@ -3721,7 +3721,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/Overview.do</context>
         </context-group>
-        <target>Следующие исправления применены по крайней мере к одной системе, к которой у вас есть административный доступ.</target>
+        <target>Ниже перечислены подходящие для ваших систем исправления.</target>
       </trans-unit>
       <trans-unit id="errata.all.jsp.summary">
         <source>The following errata list represents all errata accessible by your organization.</source>
@@ -4072,14 +4072,14 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
         </context-group>
-        <target>Полномочия каналов ПО в пределах @@PRODUCT_NAME@@</target>
+        <target>Полномочия каналов в пределах @@PRODUCT_NAME@@</target>
       </trans-unit>
       <trans-unit id="softwareentitlements.description">
         <source>The following is a list of all software channel entitlements on this @@PRODUCT_NAME@@, across organizations, and their usage. Click on the entitlement's name for more details about it.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
         </context-group>
-        <target>Следующий список содержит все полномочия каналов ПО для этого @@PRODUCT_NAME@@, независимо от их использования или организаций, которым они принадлежат. Нажмите на имени полномочия для получения более подробной информации.</target>
+        <target>Следующий список содержит все полномочия каналов для этого @@PRODUCT_NAME@@, независимо от их использования или организаций, которым они принадлежат. Нажмите на имени полномочия для получения более подробной информации.</target>
       </trans-unit>
       <trans-unit id="softwareentitlements.noentitlements">
         <source>No entitlements found.</source>
@@ -4093,7 +4093,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
         </context-group>
-        <target>Название полномочия</target>
+        <target>Полномочие</target>
       </trans-unit>
       <trans-unit id="Available/Total">
         <source>Available/Total</source>
@@ -4121,7 +4121,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
         </context-group>
-        <target>Счетчики обычных полномочий</target>
+        <target>Обычные</target>
       </trans-unit>
       <trans-unit id="Regular Usage">
         <source>Regular Usage</source>
@@ -4136,7 +4136,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
         </context-group>
-        <target>Счетчики гибких полномочий</target>
+        <target>Гибкие</target>
       </trans-unit>
       <trans-unit id="Flex Usage">
         <source>Flex Usage</source>
@@ -4176,7 +4176,7 @@ organization. You may grant or remove the organization administrator role in the
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
-        <target>&lt;strong&gt;*Совет:&lt;/strong&gt; Права администратора организации нельзя изменить
+        <target>&lt;strong&gt;*Подсказка.&lt;/strong&gt; Права администратора организации нельзя изменить
 на этой странице. Перейдите на вкладку «Пользователи» для доступа к профилям
 пользователей организации. В секции «Роли» на вкладке «Свойства» можно
 назначить или удалить роль администратора для выбранных пользователей.</target>
@@ -4189,12 +4189,12 @@ deducted from the default organization.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
-        <target>&lt;strong&gt;Совет:&lt;/strong&gt; Эта организация является исходной организацией для вашего @@PRODUCT_NAME@@. Полномочия для нее напрямую связаны с определениями в файле сертификата, поэтому изменить их невозможно.
-Если вы удалите полномочия из организации, которая не является исходной, то они будут добавлены к исходной. А если вы добавите полномочия, то они будут исключены из исходной организации.</target>
+        <target>&lt;strong&gt;Подсказка.&lt;/strong&gt; Эта организация используется по умолчанию. Ее полномочия определяются сертификатом, поэтому изменить их невозможно.
+Если вы удалите полномочия из другой организации, они будут добавлены к исходной. А если вы добавите полномочия, то они будут исключены из исходной организации.</target>
       </trans-unit>
       <trans-unit id="softwareEntitlements.unlimited">
         <source>unlimited</source>
-        <target>не ограничено</target>
+        <target>неограничено</target>
       </trans-unit>
       <trans-unit id="softwareEntitlements.notApplicable">
         <source>N/A</source>
@@ -4219,7 +4219,7 @@ deducted from the default organization.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
         </context-group>
-        <target>С помощью единственного полномочия «{0}» можно получить доступ к любому из перечисленных &lt;a href="/rhn/software/channels/All.do"&gt;программных каналов&lt;/a&gt;:</target>
+        <target>С помощью полномочия «{0}» можно получить доступ к перечисленным &lt;a href="/rhn/software/channels/All.do"&gt;каналам&lt;/a&gt;:</target>
       </trans-unit>
       <trans-unit id="orgsoftwaresubs.jsp.nochannelfams">
         <source>No channels found.</source>
@@ -4437,14 +4437,14 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
-        <target>Искать по:</target>
+        <target>Что искать:</target>
       </trans-unit>
       <trans-unit id="erratasearch.jsp.whatsearch">
         <source>What to search:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
-        <target>Что искать:</target>
+        <target>Где искать:</target>
       </trans-unit>
       <trans-unit id="erratasearch.jsp.errata_advisory">
         <source>Errata Advisory</source>
@@ -4486,7 +4486,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
-        <target>Поиск по дате:</target>
+        <target>Поиск по дате</target>
       </trans-unit>
       <trans-unit id="erratasearch.jsp.issue_date">
         <source>Issue Dates to Search:</source>
@@ -4528,7 +4528,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
-        <target>Типы исправлений для поиска:</target>
+        <target>Тип:</target>
       </trans-unit>
       <trans-unit id="erratalist.jsp.issueDate">
         <source>Issue Date</source>
@@ -4843,14 +4843,14 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/Entitlements</context>
         </context-group>
-        <target>Значок канала ПО</target>
+        <target>Значок канала</target>
       </trans-unit>
       <trans-unit id="entitlements.jsp.header">
         <source>Software Channel Entitlements</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/Entitlements</context>
         </context-group>
-        <target>Полномочия каналов ПО</target>
+        <target>Полномочия каналов</target>
       </trans-unit>
       <trans-unit id="entitlements.jsp.summary">
         <source>The software channels listed below are subscription-based channels to which your organization has paid access.</source>
@@ -4941,7 +4941,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/software/Search.do</context>
         </context-group>
-        <target>Поиск пакета вернет пакеты из выбранного набора каналов ПО. </target>
+        <target>Поиск вернет пакеты из выбранного набора каналов. </target>
       </trans-unit>
       <trans-unit id="packagesearch.jsp.instructions">
         <source>Specify your search criteria below.</source>
@@ -4955,14 +4955,14 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/software/Search</context>
         </context-group>
-        <target>Искать по:</target>
+        <target>Искать:</target>
       </trans-unit>
       <trans-unit id="packagesearch.jsp.whatsearch">
         <source>What to search:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/software/Search</context>
         </context-group>
-        <target>Что искать:</target>
+        <target>Где искать:</target>
       </trans-unit>
       <trans-unit id="packagesearch.jsp.wheresearch">
         <source>Where to search:</source>
@@ -4998,7 +4998,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/software/Search</context>
         </context-group>
-        <target>Каналы для ваших систем</target>
+        <target>Ваши каналы</target>
       </trans-unit>
       <trans-unit id="packagesearch.jsp.specificchannel">
         <source>Specific channel you have access to</source>
@@ -5032,7 +5032,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
         <trans-unit id="ssm.overview.summary">
           <source>Welcome to the System Set Manager. This interface will allow you to easily work with large numbers of systems in the @@PRODUCT_NAME@@.</source>
-          <target>Добро пожаловать в менеджер наборов систем. Он значительно облегчает управление большим числом систем в @@PRODUCT_NAME@@.</target>
+          <target>Добро пожаловать в менеджер наборов систем. Он облегчает управление большим числом систем.</target>
         </trans-unit>
         <trans-unit id="ssm.overview.summary2">
           <source>The following tabs aid you in a number of tasks:</source>
@@ -5060,7 +5060,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
         <trans-unit id="ssm.overview.packages.upgrade">
           <source>&lt;a href="/rhn/ssm/PackageUpgrade.do"&gt;Upgrade&lt;/a&gt; / &lt;a href="/rhn/ssm/PackageInstall.do"&gt;Install&lt;/a&gt; / &lt;a href="/rhn/ssm/PackageRemove.do"&gt;Remove&lt;/a&gt; / &lt;a href="/rhn/ssm/PackageVerify.do"&gt;Verify&lt;/a&gt; packages</source>
-          <target>&lt;a href="/rhn/ssm/PackageUpgrade.do"&gt;Обновление&lt;/a&gt; / &lt;a href="/rhn/ssm/PackageInstall.do"&gt;установка&lt;/a&gt; / &lt;a href="/rhn/ssm/PackageRemove.do"&gt;удаление&lt;/a&gt; / &lt;a href="/rhn/ssm/PackageVerify.do"&gt;проверка&lt;/a&gt; пакетов.</target>
+          <target>&lt;a href="/rhn/ssm/PackageUpgrade.do"&gt;Обновление&lt;/a&gt;,  &lt;a href="/rhn/ssm/PackageInstall.do"&gt;установка&lt;/a&gt;,  &lt;a href="/rhn/ssm/PackageRemove.do"&gt;удаление&lt;/a&gt; и &lt;a href="/rhn/ssm/PackageVerify.do"&gt;проверка&lt;/a&gt; пакетов.</target>
         </trans-unit>
         <trans-unit id="ssm.overview.groups">
           <source>Groups</source>
@@ -5144,11 +5144,11 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
         <trans-unit id="ssm.overview.misc.deletereboot">
           <source>&lt;a href="/rhn/systems/ssm/DeleteConfirm.do"&gt;Delete&lt;/a&gt; / &lt;a href="/rhn/systems/ssm/misc/RebootSystem.do"&gt;Reboot&lt;/a&gt; systems</source>
-          <target>&lt;a href="/rhn/systems/ssm/DeleteConfirm.do"&gt;Удалить&lt;/a&gt; / &lt;a href="/rhn/systems/ssm/misc/RebootSystem.do"&gt;Перезапустить&lt;/a&gt;</target>
+          <target>&lt;a href="/rhn/systems/ssm/DeleteConfirm.do"&gt;Удаление&lt;/a&gt; и &lt;a href="/rhn/systems/ssm/misc/RebootSystem.do"&gt;Перезапуск&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.migrate">
           <source>&lt;a href="/rhn/systems/ssm/misc/Index.do#migrate"&gt;Migrate&lt;/a&gt; systems to another organization</source>
-          <target>&lt;a href="/rhn/systems/ssm/misc/Index.do#migrate"&gt;Перенос&lt;/a&gt; систем в другую организацию</target>
+          <target>&lt;a href="/rhn/systems/ssm/misc/Index.do#migrate"&gt;Перенос&lt;/a&gt; систем между организациями</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.scap">
           <source>&lt;a href="/rhn/systems/ssm/audit/ScheduleXccdf.do"&gt;Audit&lt;/a&gt; systems with OpenSCAP</source>
@@ -5446,7 +5446,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
         </context-group>
-        <target>Исправления:</target>
+        <target>Исправления</target>
       </trans-unit>
       <trans-unit id="systemlist.jsp.configfiles">
         <source>Configs</source>
@@ -5721,14 +5721,14 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/systems/Registered.do</context>
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>Регистрация:</target>
+        <target>Зарегистрировал</target>
       </trans-unit>
       <trans-unit id="registeredlist.jsp.view">
         <source>View systems registered: </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Registered.do</context>
         </context-group>
-        <target>Просмотр зарегистрированных систем:</target>
+        <target>Просмотр зарегистрированных систем</target>
       </trans-unit>
       <trans-unit id="proxylist.jsp.header">
         <source>Proxy Servers</source>
@@ -6253,11 +6253,11 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
         <trans-unit id="system_entitlements.virtualization.success_note">
           <source>&lt;strong&gt;NOTE:&lt;/strong&gt; We subscribed the system(s) to the {0} and {1} channel as well as scheduled an install of the {2} package to prepare the system(s) for hosting virtual guests.</source>
-          <target>&lt;strong&gt;ЗАМЕЧАНИЕ:&lt;/strong&gt; Системы успешно подписаны к каналам {0} и {1}, назначена установка пакета {2}, чтобы подготовить их к размещению виртуальных гостей.</target>
+          <target>&lt;strong&gt;Примечание.&lt;/strong&gt; Системы успешно подписаны к каналам {0} и {1}, назначена установка пакета {2}, чтобы подготовить их к размещению виртуальных гостей.</target>
         </trans-unit>
         <trans-unit id="system_entitlements.virtualization_host.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
-          <target>Количество систем, полномочия которых были изменены на &lt;strong&gt;Виртуализацию&lt;/strong&gt;: &lt;strong&gt;{0}&lt;/strong&gt;. &lt;br/&gt; &lt;strong&gt;ЗАМЕЧАНИЕ:&lt;/strong&gt; Если система обладала полномочием &lt;strong&gt;Платформы виртуализации&lt;/strong&gt;, оно было понижено до уровня полномочия Виртуализации.</target>
+          <target>Количество систем, полномочия которых были изменены на &lt;strong&gt;Виртуализацию&lt;/strong&gt;: &lt;strong&gt;{0}&lt;/strong&gt;. &lt;br/&gt; &lt;strong&gt;Примечание.&lt;/strong&gt; Если система обладала полномочием &lt;strong&gt;Платформы виртуализации&lt;/strong&gt;, оно было понижено до уровня полномочия Виртуализации.</target>
         </trans-unit>
         <trans-unit id="system_entitlements.virtualization_host.removed.success">
           <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
@@ -6265,7 +6265,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
         <trans-unit id="system_entitlements.virtualization_host.notEnoughSlots">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements, you will be able to upgrade these systems. &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
-          <target>Количество систем, полномочия которых были изменены на &lt;strong&gt;Виртуализацию&lt;/strong&gt;: &lt;strong&gt;{0}&lt;/strong&gt;. Однако некоторое число систем (&lt;strong&gt;{1}&lt;/strong&gt;) не было обновлено по причине нехватки полномочий &lt;strong&gt;Виртуализации&lt;/strong&gt;. Полномочия &lt;strong&gt;Виртуализации&lt;/strong&gt; можно приобрести в &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;магазине @@PRODUCT_NAME@@&lt;/strong&gt;&lt;/a&gt;. После получения дополнительных полномочий вы сможете обновить все системы. &lt;br/&gt; &lt;strong&gt;ЗАМЕЧАНИЕ:&lt;/strong&gt; Если система обладала полномочием Платформы виртуализации, оно было снижено до уровня полномочия Виртуализации.</target>
+          <target>Количество систем, полномочия которых были изменены на &lt;strong&gt;Виртуализацию&lt;/strong&gt;: &lt;strong&gt;{0}&lt;/strong&gt;. Однако некоторое число систем (&lt;strong&gt;{1}&lt;/strong&gt;) не было обновлено по причине нехватки полномочий &lt;strong&gt;Виртуализации&lt;/strong&gt;. Полномочия &lt;strong&gt;Виртуализации&lt;/strong&gt; можно приобрести в &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;магазине @@PRODUCT_NAME@@&lt;/strong&gt;&lt;/a&gt;. После получения дополнительных полномочий вы сможете обновить все системы. &lt;br/&gt; &lt;strong&gt;Примечание.&lt;/strong&gt; Если система обладала полномочием Платформы виртуализации, оно было снижено до уровня полномочия Виртуализации.</target>
         </trans-unit>
         <trans-unit id="system_entitlements.virtualization_host.noManagement">
           <source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization&lt;/strong&gt; entitlement to these system(s).</source>
@@ -6277,7 +6277,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
         <trans-unit id="system_entitlements.virtualization_host_platform.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
-          <target>Число систем, полномочия которых были изменены на &lt;strong&gt;Платформу виртуализации&lt;/strong&gt;: &lt;strong&gt;{0}&lt;/strong&gt;. &lt;br/&gt; &lt;strong&gt;ЗАМЕЧАНИЕ:&lt;/strong&gt; Если система обладала полномочием Виртуализации, оно было повышено до уровня полномочия Платформы виртуализации.</target>
+          <target>Число систем, полномочия которых были изменены на &lt;strong&gt;Платформу виртуализации&lt;/strong&gt;: &lt;strong&gt;{0}&lt;/strong&gt;. &lt;br/&gt; &lt;strong&gt;Примечание.&lt;/strong&gt; Если система обладала полномочием Виртуализации, оно было повышено до уровня полномочия Платформы виртуализации.</target>
         </trans-unit>
         <trans-unit id="system_entitlements.virtualization_host_platform.removed.success">
           <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
@@ -6285,7 +6285,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
         <trans-unit id="system_entitlements.virtualization_host_platform.notEnoughSlots">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements, you will be able to upgrade these systems.  &lt;br/&gt;&lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization.</source>
-          <target>Число систем, полномочия которых были изменены на &lt;strong&gt;Платформу виртуализации&lt;/strong&gt;: &lt;strong&gt;{0}&lt;/strong&gt;. Однако некоторое число систем (&lt;strong&gt;{1}&lt;/strong&gt;) не было обновлено по причине нехватки полномочий &lt;strong&gt;Виртуализации&lt;/strong&gt;. Их можно приобрести в &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;магазине @@PRODUCT_NAME@@&lt;/strong&gt;&lt;/a&gt;. После получения дополнительных полномочий &lt;strong&gt;Платформы виртуализации&lt;/strong&gt; вы сможете обновить все системы. &lt;br/&gt;&lt;strong&gt;ЗАМЕЧАНИЕ:&lt;/strong&gt; Если система обладала полномочием Платформы виртуализации, оно было понижено до уровня полномочия Виртуализации.</target>
+          <target>Число систем, полномочия которых были изменены на &lt;strong&gt;Платформу виртуализации&lt;/strong&gt;: &lt;strong&gt;{0}&lt;/strong&gt;. Однако некоторое число систем (&lt;strong&gt;{1}&lt;/strong&gt;) не было обновлено по причине нехватки полномочий &lt;strong&gt;Виртуализации&lt;/strong&gt;. Их можно приобрести в &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;магазине @@PRODUCT_NAME@@&lt;/strong&gt;&lt;/a&gt;. После получения дополнительных полномочий &lt;strong&gt;Платформы виртуализации&lt;/strong&gt; вы сможете обновить все системы. &lt;br/&gt;&lt;strong&gt;Примечание.&lt;/strong&gt; Если система обладала полномочием Платформы виртуализации, оно было понижено до уровня полномочия Виртуализации.</target>
         </trans-unit>
         <trans-unit id="system_entitlements.virtualization_host_platform.noManagement">
           <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement to these system(s).</source>
@@ -6472,7 +6472,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        <target>Результаты точного поиска</target>
+        <target>Включить</target>
       </trans-unit>
       <trans-unit id="systemsearch.jsp.noresults">
         <source>No results found.</source>
@@ -6643,7 +6643,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
         </context-group>
-        <target>После обновления опций конфигурации, будет необходим рестарт служб контроля этого Satellite-сервера и всех ваших серверов @@PRODUCT_NAME@@ Proxy с включенным режимом Мониторинга. Все действия будут назначены автоматически при обновлении этой страницы.</target>
+        <target>После обновления опций конфигурации, будет необходим перезапуск служб контроля этого Satellite-сервера и всех ваших серверов @@PRODUCT_NAME@@ Proxy с включенным режимом Мониторинга. Все действия будут назначены автоматически при обновлении этой страницы.</target>
       </trans-unit>
       <trans-unit id="generalconfig.jsp.update_config">
         <source>Update Config</source>
@@ -8332,7 +8332,7 @@ organization management tools if you choose to remove this role from your login.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/notification/FilterCreate.do</context>
         </context-group>
-        <target>Дн.</target>
+        <target>дн.</target>
       </trans-unit>
       <trans-unit id="filter-form.jspf.weeks">
         <source>Week(s)</source>
@@ -8664,7 +8664,7 @@ organization management tools if you choose to remove this role from your login.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/manage/CloneErrata.do</context>
         </context-group>
-        <target>Обновлен(о)</target>
+        <target>Обновлено</target>
       </trans-unit>
       <trans-unit id="cloneerrata.jsp.potentialchannels">
         <source>Potential Channels</source>
@@ -8987,7 +8987,7 @@ organization management tools if you choose to remove this role from your login.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-        <target>Для вступления изменений в силу необходим рестарт @@PRODUCT_NAME@@.</target>
+        <target>Для вступления изменений в силу необходим перезапуск @@PRODUCT_NAME@@.</target>
       </trans-unit>
       <trans-unit id="general.jsp.header2">
         <source>@@PRODUCT_NAME@@ Configuration</source>
@@ -9001,7 +9001,7 @@ organization management tools if you choose to remove this role from your login.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-        <target>Ниже вы можете настроить @@PRODUCT_NAME@@. Используйте установки HTTP proxy для взаимодействия сервера @@PRODUCT_NAME@@ с родительским сервером @@PRODUCT_NAME@@. Значение HTTP proxy должно быть представлено в форме «узел:порт». Если номер порта опущен, по умолчанию будет использовано значение 8080. Установки HTTP proxy для подключающихся  к серверу @@PRODUCT_NAME@@ клиентов могут отличаться и будут настроены позже. В случае, если вы включили базу данных мониторинга, необходимо также включить скаут Мониторинга или настроить его в качестве отдельного сервера. При включении скаута Мониторинга потребуется включить базу данных Мониторинга.</target>
+        <target>Ниже вы можете настроить @@PRODUCT_NAME@@. Используйте установки HTTP proxy для взаимодействия сервера @@PRODUCT_NAME@@ с родительским сервером @@PRODUCT_NAME@@. Значение HTTP proxy должно быть представлено в форме «узел:порт». Если номер порта опущен, по умолчанию используется порт 8080. Установки HTTP proxy для подключающихся  к @@PRODUCT_NAME@@ клиентов могут отличаться и будут настроены позже. Если вы включили базу данных мониторинга, необходимо также включить систему поиска мониторинга или настроить ее на отдельном сервере. </target>
       </trans-unit>
       <trans-unit id="general.jsp.org.header">
         <source>@@PRODUCT_NAME@@ Organizations</source>
@@ -9114,10 +9114,10 @@ administrator privileges.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
         </context-group>
-        <target>Создание и управление организациями вашего Satellite. Здесь невозможно просмотреть
-всех пользователей @@PRODUCT_NAME@@. Чтобы просмотреть всех пользователей во всех организациях,
-необходимы привилегии администратора организации. При этом также можно предоставить или
-удалить полномочия администратора организации.</target>
+        <target>Пользователи могут создавать и управлять организациями на Satellite.
+Чтобы просмотреть всех пользователей во всех организациях,
+необходимы привилегии администратора организации.
+При этом также можно предоставить или удалить полномочия администратора организации.</target>
       </trans-unit>
       <trans-unit id="general.jsp.org.tbl.link3">
         <source>Go to Users now</source>
@@ -9201,7 +9201,7 @@ administrator privileges.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-        <target>Отключен @@PRODUCT_NAME@@</target>
+        <target>Отключенный  @@PRODUCT_NAME@@</target>
       </trans-unit>
       <trans-unit id="general.jsp.monitoring_backend">
         <source>Enable Monitoring</source>
@@ -9243,7 +9243,7 @@ administrator privileges.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-        <target>Отключена служба Мониторинга. Перейдите к странице &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;общих&lt;/strong&gt;&lt;/a&gt; настроек и установите флажок «Включить Мониторинг».</target>
+        <target>Мониторинг отключен. Перейдите к странице &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;общих&lt;/strong&gt;&lt;/a&gt; настроек и установите флажок «Включить Мониторинг».</target>
       </trans-unit>
       <trans-unit id="certificate.jsp.toolbar">
         <source>@@PRODUCT_NAME@@ Configuration - Certificate</source>
@@ -9293,7 +9293,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/BootstrapConfig.do</context>
         </context-group>
-        <target> Следующая информация может помочь при генерации сценариев начальной загрузки (bootstrap), используемых для настройки получения обновлений клиентом с @@PRODUCT_NAME@@. Созданные сценарии будут доступны на &lt;a href="/pub/bootstrap"&gt;этом сервере&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;
+        <target> Следующая информация может помочь при генерации сценариев начальной загрузки (bootstrap), используемых для настройки получения обновлений. Созданные сценарии будут доступны на &lt;a href="/pub/bootstrap"&gt;этом сервере&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;
 Обратите внимание, что может потребоваться некоторая специализированная настройка сценариев. Путь к сценарию в файловой системе сервера @@PRODUCT_NAME@@: &lt;strong&gt;/var/www/html/pub/bootstrap&lt;/strong&gt;</target>
       </trans-unit>
       <trans-unit id="bootstrap.jsp.header2">
@@ -9371,14 +9371,14 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
-        <target>Конфигурация @@PRODUCT_NAME@@ - Рестарт</target>
+        <target>Конфигурация @@PRODUCT_NAME@@ - Перезапуск</target>
       </trans-unit>
       <trans-unit id="restart.jsp.summary">
         <source> The configuration changes require a restart of the @@PRODUCT_NAME@@. Please click Restart to restart the @@PRODUCT_NAME@@. This page will auto refresh in 4 minutes.  Be aware that this will affect all users logged into this application as well as systems attempting to register or interact with the @@PRODUCT_NAME@@.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
-        <target> Изменения настроек требуют рестарта @@PRODUCT_NAME@@. Нажмите «Рестарт» для перезапуска @@PRODUCT_NAME@@. Обновление этой страницы произойдет через 4 минуты.  При выполнении перезапуска помните о том, что в этот момент к приложению могут быть подключены другие пользователи, или другие системы пытаются взаимодействовать с @@PRODUCT_NAME@@.</target>
+        <target> Изменения настроек требуют перезапуска @@PRODUCT_NAME@@. Нажмите «Перезапуск» для перезапуска @@PRODUCT_NAME@@. Обновление этой страницы произойдет через 4 минуты.  При выполнении перезапуска помните о том, что в этот момент к приложению могут быть подключены другие пользователи, или другие системы пытаются взаимодействовать с @@PRODUCT_NAME@@.</target>
       </trans-unit>
       <trans-unit id="restart.jsp.header2">
         <source>Restart @@PRODUCT_NAME@@</source>
@@ -10320,7 +10320,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartIpRangeEdit</context>
         </context-group>
-        <target>&lt;span class="small-text"&gt;&lt;strong&gt;Совет:&lt;/strong&gt; Доступен полный список диапазонов IP, связанный с профилями кикстарта вашей организации &lt;/span&gt;</target>
+        <target>&lt;span class="small-text"&gt;&lt;strong&gt;Подсказка.&lt;/strong&gt; Доступен полный список диапазонов IP, связанный с профилями кикстарта вашей организации &lt;/span&gt;</target>
       </trans-unit>
       <trans-unit id="kickstartips.jsp.baremetal_summary2">
         <source>Alternatively, you may associate each of your kickstart profiles with particular ip ranges. Then, you can provide bare metal systems with a single URL that will provide each system the kickstart file associated with its IP Address. Below you will find this URL:</source>
@@ -10390,7 +10390,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
-        <target>&lt;strong&gt;Замечание:&lt;/strong&gt; . Значение поля метки не должно быть очевидным, поскольку оно может быть доступно третьим лицам. </target>
+        <target>&lt;strong&gt;Примечание.&lt;/strong&gt; . Значение поля метки не должно быть очевидным, поскольку оно может быть доступно третьим лицам. </target>
       </trans-unit>
       <trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
         <source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
@@ -10400,7 +10400,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
-        <target>&lt;strong&gt;Замечание:&lt;/strong&gt; Изменение типа виртуализации может потребовать изменений
+        <target>&lt;strong&gt;Примечание.&lt;/strong&gt; Изменение типа виртуализации может потребовать изменений
             загрузчика профиля кикстарта и параметров разделов, что может перезаписать пользовательские настройки.
             Для проверки новых настроек перейдите на страницу &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Разбиения&lt;/a&gt;.</target>
       </trans-unit>
@@ -10582,7 +10582,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ActivationKeysEdit.do</context>
         </context-group>
-        <target>&lt;strong&gt;Замечание: Выбор несовместимых ключей активации может помешать регистрации системы после кикстарта.&lt;/strong&gt;  Перед использованием этой возможности пересмотрите секцию об использовании нескольких ключей активации Справочного руководства RHN.</target>
+        <target>&lt;strong&gt;Примечание. Выбор несовместимых ключей активации может помешать регистрации системы после кикстарта.&lt;/strong&gt;  Перед использованием этой возможности пересмотрите секцию об использовании нескольких ключей активации Справочного руководства RHN.</target>
       </trans-unit>
       <trans-unit id="kickstart.activationkeys.jsp.warning">
         <source>&lt;strong&gt;Warning:&lt;/strong&gt; Any child channel subscriptions associated with this profile will be overridden if any activation keys are selected above. If you wish to associate activation keys with this profile, please use an activation key to specify child channel subscriptions.</source>
@@ -10845,7 +10845,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
         </context-group>
-        <target>&lt;strong&gt;Совет:&lt;/strong&gt; Это позволяет применить файлы конфигурации @@PRODUCT_NAME@@ к любой системе, использующей этот профиль кикстарта. Если вы не пользуетесь возможностями управления конфигурацией @@PRODUCT_NAME@@, то мы рекомендуем сбросить этот флажок. При необходимости его можно установить для отдельных систем.</target>
+        <target>&lt;strong&gt;Подсказка.&lt;/strong&gt; Это позволяет применить файлы конфигурации @@PRODUCT_NAME@@ к любой системе, использующей этот профиль кикстарта. Если вы не пользуетесь возможностями управления конфигурацией @@PRODUCT_NAME@@, то мы рекомендуем сбросить этот флажок. При необходимости его можно установить для отдельных систем.</target>
       </trans-unit>
       <trans-unit id="kickstart.remote.cmd.jsp.label">
         <source>Enable @@PRODUCT_NAME@@&lt;br /&gt;Remote&lt;br /&gt;Commands</source>
@@ -10859,7 +10859,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
         </context-group>
-        <target>&lt;strong&gt;Совет:&lt;/strong&gt; Это позволяет удаленно выполнять команды с @@PRODUCT_NAME@@ в любой системе, использующей данный профиль. Если вы не уверены в необходимости использования возможности удаленного выполнения команд, то мы рекомендуем сбросить этот флажок. При необходимости его можно установить для отдельных систем.</target>
+        <target>&lt;strong&gt;Подсказка.&lt;/strong&gt; Это позволяет удаленно выполнять команды с @@PRODUCT_NAME@@ в любой системе, использующей данный профиль. Если вы не уверены в необходимости использования возможности удаленного выполнения команд, то мы рекомендуем сбросить этот флажок. При необходимости его можно установить для отдельных систем.</target>
       </trans-unit>
       <trans-unit id="kickstart.root.password.jsp.label">
         <source>New Root&lt;br /&gt;Password</source>
@@ -11209,14 +11209,14 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
         </context-group>
-        <target>&lt;span class="small-text"&gt;&lt;strong&gt;Замечание:&lt;/strong&gt; Не поддерживаются такие устройства как &lt;tt&gt;/dev/hda1&lt;/tt&gt; и &lt;tt&gt;/dev/sda1&lt;/tt&gt;.&lt;/span&gt;</target>
+        <target>&lt;span class="small-text"&gt;&lt;strong&gt;Примечание.&lt;/strong&gt; Не поддерживаются такие устройства как &lt;tt&gt;/dev/hda1&lt;/tt&gt; и &lt;tt&gt;/dev/sda1&lt;/tt&gt;.&lt;/span&gt;</target>
       </trans-unit>
       <trans-unit id="preservation-form.jsp.tip2">
         <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; Only file and directory names may be entered. No regular expression wildcards can be included.&lt;/span&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
         </context-group>
-        <target>&lt;span class="small-text"&gt;&lt;strong&gt;Замечание:&lt;/strong&gt; Допускается указание только имен файлов и папок. Также допустимо использование шаблонов имен.&lt;/span&gt;</target>
+        <target>&lt;span class="small-text"&gt;&lt;strong&gt;Примечание.&lt;/strong&gt; Допускается указание только имен файлов и папок. Также допустимо использование шаблонов имен.&lt;/span&gt;</target>
       </trans-unit>
       <trans-unit id="preservation_edit.jsp.toolbar">
         <source>Edit Kickstart File Preservation List</source>
@@ -11279,7 +11279,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
         </context-group>
-        <target>&lt;strong&gt;Совет:&lt;/strong&gt; Обратите внимание, что при изменении базового канала вам придется повторить выбор дочерних каналов, которые сопоставлены данному профилю.</target>
+        <target>&lt;strong&gt;Подсказка.&lt;/strong&gt; Обратите внимание, что при изменении базового канала вам придется повторить выбор дочерних каналов, которые сопоставлены данному профилю.</target>
       </trans-unit>
       <trans-unit id="softwareedit.jsp.child_channels">
         <source>Child Channels</source>
@@ -11370,7 +11370,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartCryptoKeysList.do</context>
         </context-group>
-        <target>&lt;span class="small-text"&gt;&lt;strong&gt;Совет:&lt;/strong&gt; Если вы хотите, чтобы клиенты имели возможность подключения через SSH к машинам, для которых был выполнен кикстарт с помощью данного профиля без получения ошибок ключа, то рекомендуется задать список восстановления файлов для данного профиля в /etc/ssh&lt;/span&gt;</target>
+        <target>&lt;span class="small-text"&gt;&lt;strong&gt;Подсказка.&lt;/strong&gt; Если вы хотите, чтобы клиенты имели возможность подключения через SSH к машинам, для которых был выполнен кикстарт с помощью данного профиля без получения ошибок ключа, то рекомендуется задать список восстановления файлов для данного профиля в /etc/ssh&lt;/span&gt;</target>
       </trans-unit>
       <trans-unit id="kickstart.cryptokeys.jsp.key">
         <source>Type</source>
@@ -11466,7 +11466,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
         </context-group>
-        <target>&lt;span class="small-text"&gt;&lt;strong&gt;Замечание:&lt;/strong&gt; Оставьте это поле пустым, для того чтобы использовать оболочку во время установки для создания сценария post.&lt;/span&gt;</target>
+        <target>&lt;span class="small-text"&gt;&lt;strong&gt;Примечание.&lt;/strong&gt; Оставьте это поле пустым, для того чтобы использовать оболочку во время установки для создания сценария post.&lt;/span&gt;</target>
       </trans-unit>
       <trans-unit id="kickstart.script.type">
         <source>Script Execution Time</source>
@@ -11508,7 +11508,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
         </context-group>
-        <target>&lt;span class="small-text"&gt;&lt;strong&gt;Замечание:&lt;/strong&gt; Задает время запуска сценария (до или после выполнения кикстарта).&lt;/span&gt;</target>
+        <target>&lt;span class="small-text"&gt;&lt;strong&gt;Примечание.&lt;/strong&gt; Задает время запуска сценария (до или после выполнения кикстарта).&lt;/span&gt;</target>
       </trans-unit>
       <trans-unit id="post.jsp.summary">
         <source>You can edit the post script for this kickstart below.  First, commands related to @@PRODUCT_NAME@@ will automatically be performed (for example, system registration to @@PRODUCT_NAME@@).  Next, the non-chroot post script will be executed, and finally the post script will be executed.  For more details on kickstart post scripts, please refer to the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/strong&gt;</source>
@@ -12085,7 +12085,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>Управление &lt;strong&gt;Организациями @@PRODUCT_NAME@@&lt;/strong&gt;</target>
+        <target>Управление &lt;strong&gt;организациями&lt;/strong&gt;</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.tasks.config_sat">
         <source>&lt;strong&gt;Configure&lt;/strong&gt; @@PRODUCT_NAME@@</source>
@@ -12127,7 +12127,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/RelevantChannels.do</context>
         </context-group>
-        <target>Обзор каналов ПО</target>
+        <target>Обзор каналов</target>
       </trans-unit>
       <trans-unit id="channels.overview.toolbar.imgAlt">
         <source>Software Icon</source>
@@ -12225,7 +12225,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       </trans-unit>
       <trans-unit id="channels.all.jsp.header1">
         <source>The software channels listed below are &lt;strong&gt;all of the channels&lt;/strong&gt; that your organization has access to.</source>
-        <target>Ниже перечислены &lt;strong&gt;все&lt;/strong&gt; доступные организации каналы пакетов.</target>
+        <target>Ниже перечислены &lt;strong&gt;все&lt;/strong&gt; доступные каналы.</target>
       </trans-unit>
       <trans-unit id="channels.vendor.jsp.header1">
         <source>The software channels listed below are Red Hat channels or child channels of Red Hat Channels.</source>
@@ -12261,15 +12261,15 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       </trans-unit>
       <trans-unit id="channels.retired.jsp.toolbar">
         <source>Retired Software Channel List</source>
-        <target>Список устаревших каналов ПО</target>
+        <target>Список устаревших каналов</target>
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
         <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization &lt;a href="/rhn/channels/software/Entitlements.do"&gt; is entitled to &lt;/a&gt;but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>Ниже перечислены &lt;strong&gt;устаревшие каналы&lt;/strong&gt;, на которые у вашей системы есть &lt;a href="/rhn/channels/software/Entitlements.do"&gt;полномочия&lt;/a&gt;, но которые уже не будут поддерживаться Red Hat.</target>
+        <target>Ниже перечислены &lt;strong&gt;устаревшие каналы&lt;/strong&gt;, на которые у вашей системы есть &lt;a href="/rhn/channels/software/Entitlements.do"&gt;полномочия&lt;/a&gt;, но которые больше не поддерживаются Red Hat.</target>
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>
-        <target>Управление программными каналами</target>
+        <target>Управление каналами</target>
       </trans-unit>
       <trans-unit id="channels.manage.jsp.header1">
         <source>The following software channels are owned by your organization.</source>
@@ -12672,7 +12672,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="activation-key.jsp.delete.para">
           <source>Are you certain you want to delete this key? Activation Keys cannot be recovered once they have been deleted. (Note: A key can be disabled on the &lt;a href="{0}"&gt;key list page&lt;/a&gt;, which prevents it from being used, but preserves it for later use.)</source>
-          <target>Вы уверены, что вы хотите удалить этот ключ? Ключи активации не могут быть восстановлены после удаления. Замечание: Ключи можно отключить, не удаляя их, на &lt;a href="{0}"&gt;этой странице&lt;/a&gt;.</target>
+          <target>Вы уверены, что вы хотите удалить этот ключ? Ключи активации не могут быть восстановлены после удаления. Примечание. Ключи можно отключить, не удаляя их, на &lt;a href="{0}"&gt;этой странице&lt;/a&gt;.</target>
         </trans-unit>
         <trans-unit id="activation-key.jsp.delete.warning">
           <source>&lt;STRONG&gt;NOTE&lt;/STRONG&gt;: Only systems and profiles known to Satellite will be updated.  Kickstarting other entities (e.g., system profiles created using the cobbler command-line tools) which use this key will &lt;STRONG&gt;FAIL&lt;/STRONG&gt; if the key is deleted.</source>
@@ -13322,7 +13322,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="scapsearch.jsp.summary">
           <source>OpenSCAP Search will return finished OpenSCAP scans from all scans you have access.</source>
-          <target>Поиск OpenSCAP вернет результаты доступных вам проверок.</target>
+          <target>Поиск OpenSCAP вернет результаты доступных проверок.</target>
         </trans-unit>
         <trans-unit id="scapsearch.jsp.instructions">
           <source>Specify your search criteria below.</source>
@@ -13358,7 +13358,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="scapsearch.jsp.show_as">
           <source>Show Search Result As</source>
-          <target>Показать результат в формате:</target>
+          <target>Показать</target>
         </trans-unit>
         <trans-unit id="scapsearch.jsp.list_rr">
           <source>List of XCCDF Rule Results</source>
@@ -13516,7 +13516,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="targetsystems.jsp.summary">
           <source>The systems listed below do not have files managed via @@PRODUCT_NAME@@ configuration management.  For systems to be capable of being managed by @@PRODUCT_NAME@@ configuration management, they will need a provisioning entitlement in addition to having particular rhncfg-* packages installed. You can enable configuration management on selected systems by using the 'Enable @@PRODUCT_NAME@@ Configuration Management' button below.</source>
-          <target>Перечисленные ниже системы не содержат файлы под управлением  @@PRODUCT_NAME@@. Для этого, помимо установленных пакетов rhncfg-*, необходимо полномочие инициализации. Можно разрешить управление конфигурацией для выбранных систем, нажав кнопку «Включить управление конфигурацией @@PRODUCT_NAME@@».</target>
+          <target>Перечисленные системы не содержат файлы под управлением  @@PRODUCT_NAME@@. Для этого, помимо установленных пакетов rhncfg-*, необходимо полномочие инициализации. Можно разрешить управление конфигурацией выбранных систем, нажав кнопку «Включить управление c @@PRODUCT_NAME@@».</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.noSystems">
           <source>No non-managed systems.</source>
@@ -13524,11 +13524,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="targetsystems.jsp.enable">
           <source>Enable @@PRODUCT_NAME@@ Configuration Management</source>
-          <target>Включить управление конфигурацией @@PRODUCT_NAME@@</target>
+          <target>Включить управление с @@PRODUCT_NAME@@</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.capable">
           <source>@@PRODUCT_NAME@@ Configuration Capable?</source>
-          <target>Возможность конфигурации @@PRODUCT_NAME@@?</target>
+          <target>Конфигурация c @@PRODUCT_NAME@@?</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.yes">
           <source>Yes</source>
@@ -13540,7 +13540,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="targetsystems.jsp.action">
           <source>Actions needed for configuration capabilities.</source>
-          <target>Для активации возможностей конфигурации необходимы действия.</target>
+          <target>Для управления конфигурацией необходимо:</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.orgadmin">
           <source>Requires organization administrator</source>
@@ -13572,15 +13572,15 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="targetsystems.jsp.usedate">
           <source>Schedule package installs for no sooner than:</source>
-          <target>Назначить установку пакетов не ранее:</target>
+          <target>Установить пакеты не раньше чем:</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.now">
           <source>Schedule package installs as soon as possible.</source>
-          <target>Назначить установку пакетов как можно раньше.</target>
+          <target>Установить пакеты как можно раньше</target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.widgetsummary">
           <source>You may schedule &lt;code&gt;rhncfg*&lt;/code&gt; package installs for the time below. &lt;strong&gt;Note: All other actions will take place immediately.&lt;/strong&gt;</source>
-          <target>Ниже вы можете назначить действия установки пакетов &lt;code&gt;rhncfg*&lt;/code&gt; на определенное время. &lt;strong&gt;Замечание: Другие действия будут выполнены немедленно.&lt;/strong&gt;</target>
+          <target>Ниже вы можете назначить действия установки &lt;code&gt;rhncfg*&lt;/code&gt; на определенное время. &lt;strong&gt;Другие действия будут выполнены немедленно.&lt;/strong&gt;</target>
         </trans-unit>
       </group>
       <!-- configuration/overview/summary.jsp  -->
@@ -13736,7 +13736,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
-        <target>Редактировать свойства</target>
+        <target>Изменить</target>
       </trans-unit>
       <trans-unit id="channelOverview.jsp.edit-instruction">
         <source>You may edit the configuration channel details below.</source>
@@ -13872,7 +13872,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
-        <target>Файлы не найдены</target>
+        <target>Нет</target>
       </trans-unit>
       <trans-unit id="channelOverview.jsp.systems-none">
         <source>No systems subscribed</source>
@@ -13886,7 +13886,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
-        <target>Файлы не изменены</target>
+        <target>Файлы не изменялись</target>
       </trans-unit>
       <trans-unit id="channelOverview.jsp.recentsystem-none">
         <source>No systems subscribed</source>
@@ -14326,8 +14326,8 @@ but are not subscribed to {0}.</source>
 (meaning they have the required client software installed and have provisioning entitlements)
 but are not subscribed to _@@PRODUCT_NAME@@Config_.</context>
         </context-group>
-        <target>Перечисленные ниже системы допускают управление конфигурацией @@PRODUCT_NAME@@
-(в наличии необходимое ПО и полномочия инициализации), но не подписаны к {0}.</target>
+        <target>Перечисленные ниже системы могут управляться с @@PRODUCT_NAME@@
+(то есть включают неободимые программы и обладают полномочиями  инициализации), но не подписаны на {0}.</target>
       </trans-unit>
       <trans-unit id="targetsystems.jsp.subscribe">
         <source>Subscribe systems</source>
@@ -14357,7 +14357,7 @@ but are not subscribed to _@@PRODUCT_NAME@@Config_.</context>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
         </context-group>
-        <target>Загрузить на сервер файл конфигурации</target>
+        <target>Загрузить файл конфигурации на сервер</target>
       </trans-unit>
       <!-- upload.jspf -->
       <trans-unit id="addfiles.jsp.upload.jspf.submit">
@@ -14365,7 +14365,7 @@ but are not subscribed to _@@PRODUCT_NAME@@Config_.</context>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
         </context-group>
-        <target>Загрузить на сервер файл конфигурации</target>
+        <target>Загрузить файл конфигурации на сервер</target>
       </trans-unit>
       <!-- import.jspf -->
       <trans-unit id="addfiles.jsp.import.jspf.title">
@@ -14645,7 +14645,7 @@ Note that if a given system overrides a given file, or has it in that system's l
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
           <context context-type="paramnotes">Tip: You may _schedule a comparison_ between these two file versions to see what changes this deployment will result in.</context>
         </context-group>
-        <target>&lt;strong&gt;Совет:&lt;/strong&gt; Вы можете &lt;a href="{0}"&gt;назначить сравнение&lt;/a&gt; двух версий файла, чтобы понять, насколько различны будут результаты применения файла.</target>
+        <target>&lt;strong&gt;Подсказка.&lt;/strong&gt; Вы можете &lt;a href="{0}"&gt;назначить сравнение&lt;/a&gt; двух версий файла, чтобы понять, насколько различны будут результаты применения файла.</target>
       </trans-unit>
       <trans-unit id="deploylocal.jspf.tip.local">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; If you would like to deploy this version of the this file to other systems you'll need to &lt;a href="{0}"&gt;copy this file to a centrally-managed config channel&lt;/a&gt;</source>
@@ -14653,14 +14653,14 @@ Note that if a given system overrides a given file, or has it in that system's l
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
           <context context-type="paramnotes">Tip: If you would like to deploy this version of the this file to other systems you'll need to _copy this file to a centrally-managed config channel_</context>
         </context-group>
-        <target>&lt;strong&gt;Совет:&lt;/strong&gt; Если вы хотите применить эту версию файла к другим системам, &lt;a href="{0}"&gt;скопируйте файл в центрально управляемый канал конфигурации&lt;/a&gt;.</target>
+        <target>&lt;strong&gt;Подсказка.&lt;/strong&gt; Если вы хотите применить эту версию файла к другим системам, &lt;a href="{0}"&gt;скопируйте файл в центрально управляемый канал конфигурации&lt;/a&gt;.</target>
       </trans-unit>
       <trans-unit id="deploy.jsp.tip.global-1">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; If a system has a locally-managed override for this file, you will not be able to deploy it.  However, you may click on the 'Modify rank' link to re-rank the overriding channels.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
         </context-group>
-        <target>&lt;strong&gt;Совет:&lt;/strong&gt; Если система содержит локальное переопределение этого файла, вы не сможете его применить. Для изменения приоритетов переопределяющих каналов нажмите «Изменить приоритет».</target>
+        <target>&lt;strong&gt;Подсказка.&lt;/strong&gt; Если система содержит локальное переопределение этого файла, вы не сможете его применить. Для изменения приоритетов переопределяющих каналов нажмите «Изменить приоритет».</target>
       </trans-unit>
       <trans-unit id="deployglobal.jspf.tip.needadmin">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; If you would like to deploy this file to a system not in this list, request a {0} to subscribe the system to the {1} configuration channel, then return to this screen.</source>
@@ -14670,7 +14670,7 @@ Note that if a given system overrides a given file, or has it in that system's l
 Tip: If you would like to deploy this file to a system not in this list, request a Configuration Administrator to subscribe the system to the _ConfigChan3_ configuration channel, then return to this screen.
           </context>
         </context-group>
-        <target>&lt;strong&gt;Совет:&lt;/strong&gt; Если вы хотите применить этот файл к системе, которая не указана в списке, создайте запрос подписки системы к каналу конфигурации {1} для {0}, а затем вернитесь к этому экрану.</target>
+        <target>&lt;strong&gt;Подсказка.&lt;/strong&gt; Если вы хотите применить этот файл к системе, которая не указана в списке, создайте запрос подписки системы к каналу конфигурации {1} для {0}, а затем вернитесь к этому экрану.</target>
       </trans-unit>
       <trans-unit id="deployglobal.jspf.tip.configadmin">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; If you would like to deploy this file to a system not in this list, you'll need to first subscribe that system to the {0} configuration channel using the &lt;a href="{1}"&gt;'Target Systems' tab&lt;/a&gt; for that channel, then return to this screen.  Also, note that the target system must have provisioning entitlements.</source>
@@ -15026,21 +15026,21 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/FileDetails.do</context>
         </context-group>
-        <target>&lt;strong&gt;Совет:&lt;/strong&gt; Если заданный пользователь/ группа не существует в системе, к которой применяется файл, то применение не будет успешным.</target>
+        <target>&lt;strong&gt;Подсказка.&lt;/strong&gt; Если пользователь (группа) не существует в системе, к которой применяется файл, операция завершится неудачей.</target>
       </trans-unit>
       <trans-unit id="filedetails.jsp.tip.permissions">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; '644' for text files and '755' for directories and executables will allow global access or execution (but not modification).</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/FileDetails.do</context>
         </context-group>
-        <target>&lt;strong&gt;Совет:&lt;/strong&gt; Разрешение «644» для текстовых файлов, «755» для каталогов и исполняемых файлов позволит глобальный доступ исполнения, но не модификации.</target>
+        <target>&lt;strong&gt;Подсказка.&lt;/strong&gt; Разрешение «644» для текстовых файлов, «755» для каталогов и исполняемых файлов позволит глобальный доступ исполнения, но не модификации.</target>
       </trans-unit>
       <trans-unit id="filedetails.jsp.tip.macros">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; A full listing of the available macros is listed in the &lt;a href="{0}"&gt;RHN Reference Guide&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/FileDetails.do</context>
         </context-group>
-        <target>&lt;strong&gt;Совет:&lt;/strong&gt; &lt;a href="{0}"&gt;Справочное руководство RHN&lt;/a&gt; содержит полный список доступных макросов.</target>
+        <target>&lt;strong&gt;Подсказка.&lt;/strong&gt; &lt;a href="{0}"&gt;Справочное руководство RHN&lt;/a&gt; содержит полный список доступных макросов.</target>
       </trans-unit>
       <trans-unit id="filedetails.jsp.tip.upload">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; Please note that the maximum allowed size for configuration files is &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -15050,7 +15050,7 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
                 &lt;strong&gt;Tip:&lt;/strong&gt; Please note that the maximum allowed size for configuration files is &lt;strong&gt;128K&lt;/strong&gt;.
             </context>
         </context-group>
-        <target>&lt;strong&gt;Подсказка.&lt;/strong&gt; Максимально допустимый размер файла конфигурации &amp;mdash; &lt;strong&gt;{0}&lt;/strong&gt;.</target>
+        <target>Максимально допустимый размер файла &amp;mdash; &lt;strong&gt;{0}&lt;/strong&gt;.</target>
       </trans-unit>
       <trans-unit id="filedetails.jsp.tip.edit">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; Alternatively, you can upload a new revision from the 'Manage Revisions' tab above.</source>
@@ -15593,7 +15593,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/LocalConfigFileList.do</context>
         </context-group>
-        <target>Приведенный список перечисляет все файлы конфигурации, управляемые локально с помощью профилей отдельных систем. Обратите внимание, что такие файлы могут переопределять центрально управляемые файлы конфигурации.</target>
+        <target>Приведенный список перечисляет файлы конфигурации, управляемые локально с помощью профилей. Такие файлы могут переопределять центрально управляемые файлы.</target>
       </trans-unit>
       <trans-unit id="localfilelist.jsp.noFiles">
         <source>No configuration files.</source>
@@ -15629,7 +15629,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/system/ManagedSystems.do</context>
         </context-group>
-        <target>Перечисленным системам в настоящий момент сопоставлены &lt;strong&gt;файлы конфигурации, управляемые @@PRODUCT_NAME@@&lt;/strong&gt;. Это означает, что все системы, файлы конфигурации которых являются &lt;strong&gt;локально управляемыми&lt;/strong&gt; через профиль системы @@PRODUCT_NAME@@, также могут иметь &lt;strong&gt;центрально управляемые&lt;/strong&gt; файлы. Число локально управляемых файлов, переопределяющих центрально управляемые, указано в столбце «Локально управляемые файлы».</target>
+        <target>Перечисленным системам сопоставлены &lt;strong&gt;файлы конфигурации, управление которыми осуществляет @@PRODUCT_NAME@@&lt;/strong&gt;. Все системы, файлы конфигурации которых являются &lt;strong&gt;локально управляемыми&lt;/strong&gt;, также могут иметь &lt;strong&gt;центрально управляемые&lt;/strong&gt; файлы. Число локально управляемых файлов, переопределяющих центрально управляемые, указано в столбце «Локально управляемые файлы».</target>
       </trans-unit>
       <trans-unit id="managedsystems.jsp.noSystems">
         <source>No configuration managed systems.</source>
@@ -15724,11 +15724,11 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="configoverview.jsp.summary">
           <source>The list below shows all of the configuration files that are managed by your organization in @@PRODUCT_NAME@@. This list includes files that are managed centrally in configuration channels and files that are managed locally via individual system profiles.</source>
-          <target>Ниже приведен список, содержащий все файлы конфигурации, управляемые в @@PRODUCT_NAME@@ вашей организацией. Список включает и центрально управляемые файлы в каналах конфигурации, и файлы, управляемые локально через индивидуальные профили систем.</target>
+          <target>Ниже приведен список файлов конфигурации, управляемых в @@PRODUCT_NAME@@ вашей организацией. Список включает и центрально управляемые файлы в каналах конфигурации, и файлы, управляемые локально через профили систем.</target>
         </trans-unit>
         <trans-unit id="configoverview.jsp.configsummary">
           <source>Configuration Summary</source>
-          <target>Сводка конфигурации</target>
+          <target>Сводка</target>
         </trans-unit>
         <trans-unit id="configoverview.jsp.systemsmanaged">
           <source>Systems with Managed Configuration Files:</source>
@@ -15756,11 +15756,11 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="configoverview.jsp.viewfiles">
           <source>View All Managed Configuration Files</source>
-          <target>Просмотр всех управляемых файлов конфигурации</target>
+          <target>Просмотр управляемых файлов конфигурации</target>
         </trans-unit>
         <trans-unit id="configoverview.jsp.viewchannels">
           <source>View All Managed Configuration Channels</source>
-          <target>Просмотр всех управляемых каналов конфигурации</target>
+          <target>Просмотр управляемых каналов конфигурации</target>
         </trans-unit>
         <trans-unit id="configoverview.jsp.createchannel">
           <source>Create a New Configuration Channel</source>
@@ -16408,7 +16408,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           <context-group name="ctx">
             <context context-type="paramnotes">The systems listed below are subscribed to a configuration channel that contains a /etc/rhn/rhn.conf configuration file. Note: each system can be subscribed to different or multiple files with this file path. The files listed below are the deployable versions of this file, that is, the file in the configuration channel with the highest priority for each system.</context>
           </context-group>
-          <target>Перечисленные ниже системы подписаны к каналу конфигурации, который содержит &lt;code&gt;{0}&lt;/code&gt; файл конфигурации. &lt;br /&gt;&lt;strong&gt;Замечание:&lt;/strong&gt; Все системы могут быть подписаны к разным файлам с использованием пути к данному файлу. Приведенные файлы представляют собой доступные для развертывания версии этого файла (наивысший приоритет в канале).</target>
+          <target>Перечисленные ниже системы подписаны к каналу конфигурации, который содержит &lt;code&gt;{0}&lt;/code&gt; файл конфигурации. &lt;br /&gt;&lt;strong&gt;Примечание.&lt;/strong&gt; Все системы могут быть подписаны к разным файлам с использованием пути к данному файлу. Приведенные файлы представляют собой доступные для развертывания версии этого файла (наивысший приоритет в канале).</target>
         </trans-unit>
         <trans-unit id="diffsystems.jsp.file">
           <source>Configuration File</source>
@@ -16440,7 +16440,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="difffiles.jsp.note">
           <source>&lt;strong&gt;Note:&lt;/strong&gt; not all the files you have selected are relevant for this system. Any action scheduled with your current set of selected configuration files for this system will only include the configuration files listed below.</source>
-          <target>&lt;strong&gt;Замечание:&lt;/strong&gt; Не все выбранные вами файлы имеют отношение к этой системе. Любые назначенные действия будут включать только перечисленные ниже файлы конфигурации.</target>
+          <target>&lt;strong&gt;Примечание.&lt;/strong&gt; Не все выбранные вами файлы имеют отношение к этой системе. Любые назначенные действия будут включать только перечисленные ниже файлы конфигурации.</target>
         </trans-unit>
         <trans-unit id="difffiles.jsp.noFiles">
           <source>No configuration files.</source>
@@ -17009,7 +17009,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="sdc.configlist.jsp.note">
           <source>&lt;strong&gt;* - Note:&lt;/strong&gt; Deployable Files are files in a configuration channel that are not outranked by files in greater priority configuration channels nor overridden by files in the systems local configuration channel.</source>
-          <target>&lt;strong&gt;* &amp;mdash; Замечание:&lt;/strong&gt; Файлы для развертывания находятся в канале конфигурации, их приоритет не переопределяется файлами в каналах конфигурации с более высоким приоритетом, и их не переопределяют файлы в локальном канале конфигурации.</target>
+          <target>&lt;strong&gt;* &amp;mdash; Примечание.&lt;/strong&gt; Файлы для развертывания находятся в канале конфигурации, их приоритет не переопределяется файлами в каналах конфигурации с более высоким приоритетом, и их не переопределяют файлы в локальном канале конфигурации.</target>
         </trans-unit>
         <trans-unit id="sdc.configlist.jsp.unsubscribe">
           <source>Unsubscribe</source>
@@ -17357,7 +17357,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="ssm.operations.all.summary">
           <source>The following lists all tasks performed against servers in the SSM. Click on an task's description to see more details.</source>
-          <target>Далее перечислены задачи, выполненные в SSM для серверов. Нажмите на описании задачи для просмотра подробной информации.</target>
+          <target>Далее перечислены выполненные заданчи. Нажмите на описании задачи для просмотра подробной информации.</target>
         </trans-unit>
         <trans-unit id="ssm.operations.completed.summary">
           <source>The following lists all tasks that have finished running. Click on an task's description to see more details.</source>
@@ -17676,7 +17676,7 @@ Base Channel chosen on the
         </context-group>
         <target>Можно синхронизировать системы, для которых выполняется кикстарт,
 с профилем пакетов зарегистрированной в @@PRODUCT_NAME@@ системы путем выбора
-профиля пакета ниже. &lt;strong&gt;Замечание:&lt;/strong&gt; Данный список
+профиля пакета ниже. &lt;strong&gt;Примечание.&lt;/strong&gt; Данный список
 содержит только профили пакетов, связанные с тем же базовым каналом,
 который выбран на странице
 &lt;a href="/rhn/kickstart/KickstartSoftwareEdit.do?ksid={0}"&gt;Операционная система&lt;/a&gt;.</target>
@@ -17690,19 +17690,19 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartPackageProfileEditSubmit.do</context>
         </context-group>
-        <target>&lt;span class="small-text"&gt;&lt;strong&gt;Совет:&lt;/strong&gt;
+        <target>&lt;span class="small-text"&gt;&lt;strong&gt;Подсказка.&lt;/strong&gt;
 Во время выполнения кикстарта не забудьте подписать системы к соответствующим
-каналам ПО. Таким образом, они получат доступ к пакетам синхронизированного
+каналам. Таким образом, они получат доступ к пакетам синхронизированного
 профиля пакетов. Перейдите на вкладку
 &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Ключи активации&lt;/a&gt;
-для подписки систем к каналам ПО.&lt;/span&gt;</target>
+для подписки систем к каналам.&lt;/span&gt;</target>
       </trans-unit>
       <trans-unit id="kickstart.schedule.tip.proxy.jsp">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; Date listed is last time proxy contacted @@PRODUCT_NAME@@.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
         </context-group>
-        <target>&lt;strong&gt;Замечание:&lt;/strong&gt; Указывается дата последнего обращения Proxy к @@PRODUCT_NAME@@.</target>
+        <target>&lt;strong&gt;Примечание.&lt;/strong&gt; Указывается дата последнего обращения Proxy к @@PRODUCT_NAME@@.</target>
       </trans-unit>
       <trans-unit id="kickstart.schedule.heading.proxy.jsp">
         <source>Select @@PRODUCT_NAME@@ Proxy</source>
@@ -17996,7 +17996,7 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
-        <target>Текущий статус прогресса кикстарта.  &lt;strong&gt;Замечание:&lt;/strong&gt; Обновление страницы происходит каждые 15 секунд</target>
+        <target>Текущий статус прогресса кикстарта.  &lt;strong&gt;Примечание.&lt;/strong&gt; Обновление страницы происходит каждые 15 секунд</target>
       </trans-unit>
       <trans-unit id="kickstart.session_status.jsp.progress">
         <source>Kickstart Progress</source>
@@ -18675,7 +18675,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsList.do</context>
         </context-group>
-        <target>Рестарт систем</target>
+        <target>Перезапуск систем</target>
       </trans-unit>
       <trans-unit id="virtualguestslist.jsp.shutdownsystem">
         <source>Shutdown Systems</source>
@@ -18703,7 +18703,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsConfirm.do</context>
         </context-group>
-        <target>Нажмите кнопку «Подтвердить» для удаления виртуальных систем. Из @@PRODUCT_NAME@@ будет удалена вся информация о виртуальной системе. &lt;strong&gt;Замечание:&lt;/strong&gt; Сама виртуальная машина удалена не будет.</target>
+        <target>Нажмите кнопку «Подтвердить» для удаления виртуальных систем. Из @@PRODUCT_NAME@@ будет удалена вся информация о виртуальной системе. &lt;strong&gt;Примечание.&lt;/strong&gt; Сама виртуальная машина удалена не будет.</target>
       </trans-unit>
       <trans-unit id="virtualguests_confirm.jsp.nosystems">
         <source>No systems selected.</source>
@@ -18766,7 +18766,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/TreeDelete.do</context>
         </context-group>
-        <target>&lt;strong&gt;ЗАМЕЧАНИЕ:&lt;/strong&gt; Выбранный вами для удаления дистрибутив кикстарта в настоящий момент используется одним из профилей кикстарта. Измените используемый дистрибутив в профилях до удаления. Нажмите на метку ссылки для редактирования дистрибутива профиля.</target>
+        <target>&lt;strong&gt;Примечание.&lt;/strong&gt; Выбранный вами для удаления дистрибутив кикстарта в настоящий момент используется одним из профилей кикстарта. Измените используемый дистрибутив в профилях до удаления. Нажмите на метку ссылки для редактирования дистрибутива профиля.</target>
       </trans-unit>
       <trans-unit id="distro-delete.jsp.cantdelete">
         <source>This distribution cannot be deleted at this time.</source>
@@ -18836,7 +18836,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
-        <target>&lt;strong&gt;Совет:&lt;/strong&gt; Имя используется исключительно для идентификации.</target>
+        <target>&lt;strong&gt;Подсказка.&lt;/strong&gt; Имя используется исключительно для идентификации.</target>
       </trans-unit>
       <trans-unit id="virtualization.provision.first.jsp.memory_allocation.header">
         <source>Memory Allocation:</source>
@@ -18931,7 +18931,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </trans-unit>
         <trans-unit id="exportcolumn.updateDate">
           <source>Updated</source>
-          <target>Обновлен(о)</target>
+          <target>Обновлено</target>
         </trans-unit>
         <trans-unit id="exportcolumn.suiteName">
           <source>Suite Name</source>
@@ -20033,7 +20033,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/details/Edit.do</context>
         </context-group>
-        <target>Область:</target>
+        <target>Штат или область:</target>
       </trans-unit>
       <trans-unit id="sdc.details.edit.country">
         <source>Country:</source>
@@ -20559,7 +20559,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
-        <target>Подписки канала ПО</target>
+        <target>Подписки канала</target>
       </trans-unit>
       <trans-unit id="sdc.channels.edit.update_sub">
         <source>Change Subscriptions</source>
@@ -20622,21 +20622,21 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
-        <target>У системы нет базового канала ПО. Выберите канал из списка:</target>
+        <target>У системы нет базового канала. Выберите канал из списка:</target>
       </trans-unit>
       <trans-unit id="sdc.channels.edit.virtsubwarning">
         <source>&lt;strong&gt;NOTE:&lt;/strong&gt; These channels are not part of the Red Hat Enterprise Linux subscription for this guest's host, &lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;. Subscribing to them will consume additional software entitlements. &lt;a href="/rhn/systems/details/SystemChannels.do?sid={0}"&gt;Applying a different virtual system entitlement to the host system&lt;/a&gt; will affect which channels have this mark.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
-        <target>&lt;strong&gt;ЗАМЕЧАНИЕ:&lt;/strong&gt; Эти каналы не включены в подписку Red Hat Enterprise Linux для хост-системы данного гостя -- &lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;. Создание подписки использует дополнительные программные полномочия. &lt;a href="/rhn/systems/details/SystemChannels.do?sid={0}"&gt;Применение полномочий виртуальной системы к размещающей системе&lt;/a&gt; приведет к изменению выбора каналов.</target>
+        <target>&lt;strong&gt;Примечание.&lt;/strong&gt; Эти каналы не включены в подписку Red Hat Enterprise Linux для хост-системы данного гостя -- &lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;. Создание подписки использует дополнительные программные полномочия. &lt;a href="/rhn/systems/details/SystemChannels.do?sid={0}"&gt;Применение полномочий виртуальной системы к размещающей системе&lt;/a&gt; приведет к изменению выбора каналов.</target>
       </trans-unit>
       <trans-unit id="sdc.channels.edit.virtsubwarning_nohost">
         <source>&lt;strong&gt;NOTE:&lt;/strong&gt; These channels are not part of the Red Hat Enterprise Linux subscription for this guest's host. Subscribing to them will consume additional software entitlements. Applying a different virtual system entitlement to the host system will affect which channels have this mark.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
-        <target>&lt;strong&gt;ЗАМЕЧАНИЕ:&lt;/strong&gt; Эти каналы не включены в подписку Red Hat Enterprise Linux для хост-системы данного гостя. Создание подписки использует дополнительные программные полномочия. Применение полномочий виртуальной системы к размещающей системе приведет к изменению выбора каналов.</target>
+        <target>&lt;strong&gt;Примечание.&lt;/strong&gt; Эти каналы не включены в подписку Red Hat Enterprise Linux для хост-системы данного гостя. Создание подписки использует дополнительные программные полномочия. Применение полномочий виртуальной системы к размещающей системе приведет к изменению выбора каналов.</target>
       </trans-unit>
       <trans-unit id="sdc.channels.edit.fastrackBetaWarning">
         <source>&lt;strong&gt;Warning:&lt;/strong&gt; 'FasTrack' and Beta child software channels are not available with Extended Update Support.</source>
@@ -20657,7 +20657,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
-        <target>Подтвердить изменения базового канала ПО</target>
+        <target>Подтвердить изменения базового канала</target>
       </trans-unit>
       <trans-unit id="sdc.channels.confirmNewBase.currentlySubscribedTo">
         <source>This system is currently subscribed to the following software channels:</source>
@@ -20678,7 +20678,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
-        <target>Если вы подтвердите изменения базового канала ПО для этой системы, то она будет подписана к следующим каналам ПО:</target>
+        <target>Если вы подтвердите изменения базового канала для этой системы, то она будет подписана к следующим каналам:</target>
       </trans-unit>
       <trans-unit id="sdc.channels.confirmNewBase.otherChannelsWarning">
         <source>&lt;strong&gt;Warning:&lt;/strong&gt; If you have installed packages from any channels that are highlighted above, those packages will &lt;strong&gt;no longer receive software updates&lt;/strong&gt;, including &lt;strong&gt;critical security updates&lt;/strong&gt;, when this system is moved to Extended Update Support.</source>
@@ -20692,7 +20692,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
-        <target>&lt;strong&gt;Замечание:&lt;/strong&gt; Программные каналы FasTrack и Beta несовместимы с расширенной поддержкой обновлений, так как их целью является предоставление доступа к &lt;strong&gt;новым&lt;/strong&gt; выпускам приложений. При этом совместимость c &lt;strong&gt;предыдущими&lt;/strong&gt; выпусками может быть нарушена.</target>
+        <target>&lt;strong&gt;Примечание.&lt;/strong&gt; Программные каналы FasTrack и Beta несовместимы с расширенной поддержкой обновлений, так как их целью является предоставление доступа к &lt;strong&gt;новым&lt;/strong&gt; выпускам приложений. При этом совместимость c &lt;strong&gt;предыдущими&lt;/strong&gt; выпусками может быть нарушена.</target>
       </trans-unit>
       <trans-unit id="sdc.channels.confirmNewBase.cancel">
         <source>Cancel</source>
@@ -20923,7 +20923,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
         </context-group>
-        <target>Для системы &lt;strong&gt;{0}&lt;/strong&gt; для {1} назначен рестарт. Чтобы отменить, удалите &lt;strong&gt;{0}&lt;/strong&gt; из &lt;a href="/rhn/schedule/InProgressSystems.do?aid={2}"&gt;&lt;strong&gt;списка систем для перезагрузки&lt;/strong&gt;&lt;/a&gt;.</target>
+        <target>Для системы &lt;strong&gt;{0}&lt;/strong&gt; для {1} назначен перезапуск. Чтобы отменить, удалите &lt;strong&gt;{0}&lt;/strong&gt; из &lt;a href="/rhn/schedule/InProgressSystems.do?aid={2}"&gt;&lt;strong&gt;списка систем для перезагрузки&lt;/strong&gt;&lt;/a&gt;.</target>
       </trans-unit>
       <trans-unit id="org.login.examples">
         <source>&lt;strong&gt;Examples:&lt;/strong&gt; 'sales-admin', 'admin_prodops@example.com', 'sales.admin'</source>
@@ -20937,7 +20937,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgCreate.do</context>
         </context-group>
-        <target>Совет:</target>
+        <target>Подсказка.</target>
       </trans-unit>
       <trans-unit id="orgcreate.header2">
         <source>Your &lt;strong&gt;@@PRODUCT_NAME@@ Administrator&lt;/strong&gt; role will not allow you to login into or modify this new organization, and your @@PRODUCT_NAME@@ login cannot be a member of more than one organization.  Consequently, you will need to create a new login for the initial &lt;strong&gt;Organization Administrator&lt;/strong&gt; for this organization:</source>
@@ -21007,7 +21007,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
         </context-group>
-        <target>Название полномочия</target>
+        <target>Полномочие</target>
       </trans-unit>
       <trans-unit id="orgsystemsubs.jsp.total">
         <source>Total</source>
@@ -21091,21 +21091,21 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements</context>
         </context-group>
-        <target>Следующий список содержит все полномочия каналов ПО для @@PRODUCT_NAME@@, независимо от их использования или организаций, которым они принадлежат. Нажмите на имени полномочия для получения более подробной информации.</target>
+        <target>Следующий список содержит все полномочия каналов для @@PRODUCT_NAME@@, независимо от их использования или организаций, которым они принадлежат. Нажмите на имени полномочия для получения более подробной информации.</target>
       </trans-unit>
       <trans-unit id="sys_entitlements.header">
         <source>System Entitlements Across @@PRODUCT_NAME@@</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-        <target>Системные полномочия в пределах @@PRODUCT_NAME@@</target>
+        <target>Полномочия систем</target>
       </trans-unit>
       <trans-unit id="sys_entitlements.ent_name">
         <source>Entitlement Name</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-        <target>Название полномочия</target>
+        <target>Полномочие</target>
       </trans-unit>
       <trans-unit id="sys_entitlements.usage">
         <source>Usage</source>
@@ -21140,7 +21140,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-        <target>*&lt;strong&gt;Совет:&lt;/strong&gt; Значение «Всего» отображает величину, которая доступна @@PRODUCT_NAME@@ (согласно сертификату @@PRODUCT_NAME@@).</target>
+        <target>Значение «Всего» отображает величину, которая доступна согласно сертификату @@PRODUCT_NAME@@.</target>
       </trans-unit>
       <trans-unit id="sys_entitlements.not_allocated">
         <source>Not Allocated*</source>
@@ -21252,14 +21252,14 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
-        <target>Единственное полномочие Мониторинга (подключаемое) позволяет отслеживать данные.</target>
+        <target>Полномочие мониторинга (подключаемое) позволяет отслеживать данные.</target>
       </trans-unit>
       <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host">
         <source>A single Virtualization (Add-On) entitlement applied to a host system, enables management for up to 4 guests. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
-        <target>Единственное полномочие Виртуализации (подключаемое к размещающей системе) позволяет управлять несколькими гостевыми системами (до 4-х).</target>
+        <target>Всего одно полномочие виртуализации (подключаемое к размещающей системе) позволяет управлять несколькими гостевыми системами (до 4-х).</target>
       </trans-unit>
       <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host_platform">
         <source>A single Virtualization Platform (Add-On) entitlement applied to a host system, enabled management for unlimited guests. </source>
@@ -21382,7 +21382,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
         </context-group>
-        <target>&lt;strong&gt;*Совет:&lt;/strong&gt; «Всего» ссылается на общее число доступных для организаций полномочий
+        <target>&lt;strong&gt;*Подсказка.&lt;/strong&gt; «Всего» ссылается на общее число доступных для организаций полномочий
 (за исключением текущей организации @@PRODUCT_NAME@@). Это значение отличается от величины, указанной в сертификате @@PRODUCT_NAME@@.</target>
       </trans-unit>
       <trans-unit id="orgsoftwaresubs.jsp.header2">
@@ -21390,7 +21390,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
         </context-group>
-        <target>Счетчики полномочий каналов ПО</target>
+        <target>Счетчики полномочий каналов</target>
       </trans-unit>
       <trans-unit id="orgsoftwaresubs.jsp.description">
         <source>Below you modify the total number of software channel entitlements available to the &lt;strong&gt;{0}&lt;/strong&gt; organization on a per-channel basis.  If you'd like to modify the number of entitlements available to a particular channel note that you are limited by the range indicated next to the field.</source>
@@ -21859,7 +21859,7 @@ As a Channel Administrator, you may change the base channels your systems are su
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/channel/ssm/BaseChannelSubscribe.do</context>
           </context-group>
-          <target>&lt;strong&gt;* Замечание:&lt;/strong&gt; Если вы осуществляете миграцию систем из основной версии Red Hat Enterprise Linux в обновленную (например, из Red Hat Enterprise Linux 5 в Red Hat Enterprise Linux 5.1), стоит помнить, что каналы FasTrack и Beta не будут доступны в версии обновления. Поэтому рекомендуется удалить все пакеты, полученные из каналов FasTrack и Beta, а затем уже перенести систему.</target>
+          <target>&lt;strong&gt;* Примечание.&lt;/strong&gt; Если вы осуществляете миграцию систем из основной версии Red Hat Enterprise Linux в обновленную (например, из Red Hat Enterprise Linux 5 в Red Hat Enterprise Linux 5.1), стоит помнить, что каналы FasTrack и Beta не будут доступны в версии обновления. Поэтому рекомендуется удалить все пакеты, полученные из каналов FasTrack и Beta, а затем уже перенести систему.</target>
         </trans-unit>
         <trans-unit id="basesub.jsp.confirm.noChannelsFound">
           <source>No channels found.</source>
@@ -21955,11 +21955,11 @@ As a Channel Administrator, you may change the base channels your systems are su
       </trans-unit>
       <trans-unit id="kickstartoptions.jsp.customoptionsnote">
         <source>&lt;strong&gt;NOTE:&lt;/strong&gt; Invalid custom options can cause kickstarts to fail.</source>
-        <target>&lt;strong&gt;Замечание:&lt;/strong&gt; Неверные параметры могут привести к сбою кикстарта.</target>
+        <target>&lt;strong&gt;Примечание.&lt;/strong&gt; Неверные параметры могут привести к сбою кикстарта.</target>
       </trans-unit>
       <trans-unit id="kickstartoptions.jsp.customoptionstip">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; The max size of each line is 2048 characters.</source>
-        <target>&lt;strong&gt;Совет:&lt;/strong&gt; Максимальная длина каждой строки &amp;mdash; 2048 символов.</target>
+        <target>&lt;strong&gt;Подсказка.&lt;/strong&gt; Максимальная длина каждой строки &amp;mdash; 2048 символов.</target>
       </trans-unit>
       <trans-unit id="channel.manage.errata.updatedate">
         <source>Update Date</source>
@@ -22064,7 +22064,7 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/packages/NameOverview.do</context>
         </context-group>
-        <target>Замечание: В канале могут присутствовать различные
+        <target>Примечание. В канале могут присутствовать различные
 архитектуры одного пакета. Как следствие, пакет может быть
 отображен несколько раз.</target>
       </trans-unit>
@@ -22136,14 +22136,14 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/Search</context>
         </context-group>
-        <target>Искать по:</target>
+        <target>Искать:</target>
       </trans-unit>
       <trans-unit id="docsearch.jsp.whatsearch">
         <source>What to search:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/Search</context>
         </context-group>
-        <target>Что искать:</target>
+        <target>Где искать:</target>
       </trans-unit>
       <trans-unit id="docsearch.jsp.nopages">
         <source>No pages found.</source>
@@ -22194,11 +22194,11 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="help.jsp.detailed">
         <source>Detailed instructions for using RHN service.</source>
-        <target>Подробные инструкции по использованию службы RHN.</target>
+        <target>Инструкции по использованию службы RHN.</target>
       </trans-unit>
       <trans-unit id="help.jsp.install">
         <source>Detailed information regarding @@PRODUCT_NAME@@ server and its installation. </source>
-        <target>Подробная информация о сервере @@PRODUCT_NAME@@ и его установке.</target>
+        <target>Информация о сервере @@PRODUCT_NAME@@ и его установке.</target>
       </trans-unit>
       <trans-unit id="help.jsp.install.title">
         <source>@@PRODUCT_NAME@@ Installation Guide</source>
@@ -22214,7 +22214,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="help.jsp.clients">
         <source>Documentation for setting up clients to connect to a @@PRODUCT_NAME@@ Proxy or @@PRODUCT_NAME@@ server.</source>
-        <target>Документация по настройке подключения серверов к @@PRODUCT_NAME@@ Proxy или @@PRODUCT_NAME@@.</target>
+        <target>Документация по настройке подключения клиентов к @@PRODUCT_NAME@@ Proxy или @@PRODUCT_NAME@@.</target>
       </trans-unit>
       <trans-unit id="help.jsp.clients.title">
         <source>Client Configuration Guide</source>
@@ -22238,7 +22238,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="package.jsp.emptylist">
         <source>This channel contains no packages.</source>
-        <target>Этот канал не содержит пакетов.</target>
+        <target>Нет пакетов в канале.</target>
       </trans-unit>
       <trans-unit id="package.jsp.list">
         <source>This channel contains the following packages:</source>
@@ -22262,7 +22262,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.chanent">
         <source>Channel Entitlement Name</source>
-        <target>Имя полномочия канала</target>
+        <target>Имя полномочия</target>
       </trans-unit>
       <trans-unit id="channel.jsp.gpgunknown">
         <source>Unknown</source>
@@ -22271,7 +22271,7 @@ given channel.</source>
       <trans-unit id="channel.jsp.package.remove">
         <source>Below is the list of packages which you have selected to remove from this channel. Removing a package from this channel does not affect the systems which are subscribed to it, or the errata which are applicable to it.
         </source>
-        <target>Перечисленные ниже пакеты будут удалены из канала. Эта операция не обновит подписанные системы автоматически.
+        <target>Перечисленные пакеты будут удалены из канала. Эта операция не обновит подписанные системы автоматически.
    </target>
       </trans-unit>
       <trans-unit id="channel.jsp.details.title">
@@ -22404,7 +22404,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="system.jsp.customkey.message">
         <source>Custom system info keys allow your adminstrators to store relevant custom key/value pairs with your system profiles. Custom system info values are fully {0}searchable{1}.</source>
-        <target>Дополнительные ключи позволяют хранить пары ключей и их значений вместе с системными профилями. По желанию можно выполнить поиск {0} в их содержимом {1}</target>
+        <target>Дополнительные ключи позволяют хранить пары ключей и их значений в профиле системы. По желанию можно выполнить {0} поиск значений{1}.</target>
       </trans-unit>
       <trans-unit id="system.jsp.customkey.message2">
         <source>The following custom system info keys have been defined for your organization.</source>
@@ -22813,7 +22813,7 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
-        <target>Ограничения подписки для пользователя</target>
+        <target>Ограничения подписки</target>
       </trans-unit>
       <trans-unit id="channel.edit.jsp.orgsharing">
         <source>Organization Sharing</source>
@@ -23229,7 +23229,7 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/SatSchedules.do</context>
         </context-group>
-        <target>Ниже приведен список расписаний. Расписание определяет частоту выполнения группы задач.</target>
+        <target>Ниже приведен график выполнения задач.</target>
       </trans-unit>
       <trans-unit id="schedule.edit.jsp.introparagraph">
         <source>You can set a schedule of the selected bunch here.</source>
@@ -23271,7 +23271,7 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
         </context-group>
-        <target>Расписание для {0}</target>
+        <target>Расписание {0}</target>
       </trans-unit>
       <trans-unit id="toolbar.create.schedule">
         <source>create schedule</source>
@@ -23358,7 +23358,7 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
         </context-group>
-        <target>Изменить расписание</target>
+        <target>Сохранить</target>
       </trans-unit>
       <trans-unit id="schedule.delete.jsp.deleteschedule">
         <source>Delete Schedule</source>
@@ -23613,11 +23613,11 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="task.status.sync-probe-state">
         <source>Sync Probe State</source>
-        <target>Статус обработчика синхронизации</target>
+        <target>Проверка синхронизации</target>
       </trans-unit>
       <trans-unit id="task.status.clear-log-history">
         <source>Clean Log History</source>
-        <target>Очистить журнал событий</target>
+        <target>Очистка журнала событий</target>
       </trans-unit>
       <trans-unit id="task.status.cobbler-sync">
         <source>Cobbler Sync</source>
@@ -23739,7 +23739,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="duplicate-ip.jsp.inactive.oneday">
         <source>1 Day</source>
-        <target>1 день</target>
+        <target>1 д.</target>
       </trans-unit>
       <trans-unit id="duplicate-ip.jsp.inactive.oneweek">
         <source>1 Week</source>
@@ -23763,7 +23763,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="schedule.disabled">
         <source>Disable Schedule</source>
-        <target>Отключить план</target>
+        <target>Отключить</target>
       </trans-unit>
       <trans-unit id="schedule.daily">
         <source>Daily</source>
@@ -23775,7 +23775,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="schedule.cron">
         <source>Custom Quartz format</source>
-        <target>Спец. формат Quartz</target>
+        <target>Шаблон Quartz</target>
       </trans-unit>
       <trans-unit id="schedule.weekly">
         <source>Weekly</source>
@@ -23795,7 +23795,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="schedule.monthly.day">
         <source>Day</source>
-        <target>День</target>
+        <target>Дата</target>
       </trans-unit>
       <trans-unit id="debuginfo.header">
         <source>DebugInfo Package</source>
@@ -23819,7 +23819,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="iss.slave.name">
         <source>Slave Fully-Qualified Domain Name</source>
-        <target>Полное имя</target>
+        <target>Имя домена</target>
       </trans-unit>
       <trans-unit id="iss.slave.isEnabled">
         <source>Allow Slave to Sync?</source>
@@ -23907,7 +23907,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="iss.master.label">
         <source>Master Fully-Qualified Domain Name</source>
-        <target>Полное имя</target>
+        <target>Имя домена</target>
       </trans-unit>
       <trans-unit id="iss.master.notDefault">
         <source>Not Default Master</source>
@@ -23919,11 +23919,11 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="iss.master.cacert">
         <source>Filename of this Master's CA Certificate</source>
-        <target>Файл CA-сертификата мастер-сервера</target>
+        <target>Файл CA-сертификата</target>
       </trans-unit>
       <trans-unit id="iss.master.cacert.note">
         <source>Note that this is the absolute path on the file system of this @@PRODUCT_NAME@@</source>
-        <target>Это абсолютный путь в файловой системе @@PRODUCT_NAME@@</target>
+        <target>Абсолютный путь в файловой системе @@PRODUCT_NAME@@</target>
       </trans-unit>
       <trans-unit id="iss.master.org.name">
         <source>Master Org Name</source>
@@ -23987,7 +23987,7 @@ given channel.</source>
         </context-group>
         <trans-unit id="iss.master.jsp.toolbar">
           <source>ISS Configuration - Master Setup</source>
-          <target>Синхронизация: главный сервер</target>
+          <target>Синхронизация мастер-сервера</target>
         </trans-unit>
         <trans-unit id="iss.master.jsp.explanation">
           <source>Below are the slaves that are allowed to synchronize content from this @@PRODUCT_NAME@@ instance.</source>
@@ -23999,7 +23999,7 @@ given channel.</source>
         </trans-unit>
         <trans-unit id="iss.master.jsp.noslaves">
           <source>No ISS Slaves are currently defined</source>
-          <target>Нет подчиненных серверов для синхронизации</target>
+          <target>Нет подчиненных серверов </target>
         </trans-unit>
       </group>
       <group>
@@ -24056,11 +24056,11 @@ given channel.</source>
         </context-group>
         <trans-unit id="iss.slave.jsp.toolbar">
           <source>ISS Configuration - Slave Setup</source>
-          <target>Синхронизация: подчиненный сервер</target>
+          <target>Синхронизация подчиненного сервера</target>
         </trans-unit>
         <trans-unit id="iss.slave.jsp.explanation">
           <source>Below are all the master @@PRODUCT_NAME@@ instances that this @@PRODUCT_NAME@@ instance has ever synchronized content from.</source>
-          <target>Ниже перечислены экземпляры мастер-серверов, с которыми синхронизируется этот подчиненный сервер @@PRODUCT_NAME@@.</target>
+          <target>Ниже перечислены мастер-серверы, с которыми синхронизируется этот подчиненный сервер @@PRODUCT_NAME@@.</target>
         </trans-unit>
         <trans-unit id="iss.slave.jsp.header2">
           <source>Known Master Instances</source>
@@ -24136,7 +24136,8 @@ given channel.</source>
           <target>
      Для синхронизации прав доступа к каналам между мастером и подчиненными серверами
      необходимо сопоставить организации мастер-сервера локальным организациям экземпляра @@PRODUCT_NAME@@.
-    Если для организации на мастер-сервере нет соответствия, ее каналы с ограниченным уровнем доступа будут открыто доступны на этом @@PRODUCT_NAME@.
+    Если для организации на мастер-сервере нет соответствия,
+          ее каналы с ограниченным уровнем доступа будут открыто доступны.
    </target>
         </trans-unit>
         <trans-unit id="iss.editmaster.jsp.nomasterorgs">

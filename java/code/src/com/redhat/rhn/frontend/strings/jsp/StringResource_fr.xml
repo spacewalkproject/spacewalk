@@ -3255,14 +3255,14 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/errata/manage/Edit.do</context>
           <context context-type="sourcefile">/rhn/errata/manage/Channels.do</context>
         </context-group>
-        <target>Éditer l'errata</target>
+        <target>Modifier l'errata</target>
       </trans-unit>
       <trans-unit id="errata.edit.instructions">
         <source>Edit erratum here.  Required items are marked with a (&lt;span class="required-form-field"&gt;*&lt;/span&gt;).</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/manage/Edit.do</context>
         </context-group>
-        <target>Éditer l'errata ici. Les éléments requis sont indiqués par un astérisque (&lt;span class="required-form-field"&gt;*&lt;/span&gt;).</target>
+        <target>Modifier l'errata ici. Les éléments requis sont indiqués par un astérisque (&lt;span class="required-form-field"&gt;*&lt;/span&gt;).</target>
       </trans-unit>
       <trans-unit id="errata.edit.updateerrata">
         <source>Update Erratum</source>
@@ -4543,7 +4543,7 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
       </trans-unit>
       <trans-unit id="erratalist.jsp.ownederratapagesummary">
         <source> &lt;p&gt; The following errata list represents errata owned by your organization.&lt;/p&gt; &lt;p&gt; Click on an erratum's Advisory to edit the erratum details or the list of packages to which the erratum applies. &lt;/p&gt;</source>
-        <target> &lt;p&gt; La liste d'errata suivante représente les errata qui appartiennent à votre organisation.&lt;/p&gt; &lt;p&gt; Cliquez sur le synopsis d'un errata pour éditer les détails de l'errata ou la liste des paquetages auxquels s'applique l'errata.&lt;/p&gt;</target>
+        <target> &lt;p&gt; La liste d'errata suivante représente les errata qui appartiennent à votre organisation.&lt;/p&gt; &lt;p&gt; Cliquez sur le synopsis d'un errata pour modifier les détails de l'errata ou la liste des paquetages auxquels s'applique l'errata.&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="erratalist.jsp.unpublishederrata">
         <source>Unpublished Errata</source>
@@ -5016,7 +5016,7 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/software/Search</context>
         </context-group>
-        <target>Packages d'une architecture particulière pour n'importe quel canal auquel vous avez accès</target>
+        <target>paquetages d'une architecture particulière pour n'importe quel canal auquel vous avez accès</target>
       </trans-unit>
       <trans-unit id="packagesearch.jsp.searchwherelegend">
         <source>* means one or more channel architectures are not synchronized.</source>
@@ -5747,7 +5747,7 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
           <context context-type="sourcefile">/rhn/systems/SystemCurrency.do</context>
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>Rapport de besoin de mise à jour du système</target>
+        <target>Rapport sur le besoin de mise à jour du système</target>
       </trans-unit>
       <trans-unit id="systemcurrency.jsp.critical">
         <source>Security (Critical)</source>
@@ -6228,7 +6228,7 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
         <trans-unit id="system_entitlements.setToManagementEntitled.failure">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Management&lt;/strong&gt; entitled, but you do not have  enough &lt;strong&gt;Management&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may free up &lt;strong&gt;Management&lt;/strong&gt; entitlements by downgrading &lt;strong&gt;Management&lt;/strong&gt; entitled machines to an Update entitlement, or you may purchase additional management entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Management&lt;/strong&gt; entitlements, you will be able to upgrade these systems.
     </source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; systèmes ont été correctement définis au niveau du droit d'accès &lt;strong&gt;Management&lt;/strong&gt;, mais vous n'avez pas suffisamment droits d'accès niveau &lt;strong&gt;Management&lt;/strong&gt; pour les autres systèmes &lt;strong&gt;{1}&lt;/strong&gt;. Vous pouvez libérer des droits de &lt;strong&gt;Management&lt;/strong&gt; par rétrogradation de vos droits sur des machines &lt;strong&gt;Management&lt;/strong&gt;, pour un droit de Mise à jour (Update entitlement), ou vous pouvez acheter des droits de management supplémentaires à &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt; &lt;strong&gt;@@ PRODUCT_NAME @@ stocker&lt;/strong&gt;&lt;/a&gt;. Après avoir des droits d'accès niveau &lt;strong&gt;Management&lt;/strong&gt; supplémentaires, vous pourrez mettre à jour ces systèmes.
+          <target>&lt;strong&gt;{0}&lt;/strong&gt; systèmes ont été correctement définis au niveau du droit d'accès &lt;strong&gt;Management&lt;/strong&gt;, mais vous n'avez pas suffisamment droits d'accès niveau &lt;strong&gt;Management&lt;/strong&gt; pour les autres systèmes &lt;strong&gt;{1}&lt;/strong&gt;. Vous pouvez libérer des droits de &lt;strong&gt;Management&lt;/strong&gt; par rétrogradation de vos droits sur des machines &lt;strong&gt;Management&lt;/strong&gt;, pour un droit de Mise à jour (Update entitlement), ou vous pouvez acheter des droits de management supplémentaires à &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt; &lt;strong&gt;@@PRODUCT_NAME@@ stocker&lt;/strong&gt;&lt;/a&gt;. Après avoir des droits d'accès niveau &lt;strong&gt;Management&lt;/strong&gt; supplémentaires, vous pourrez mettre à jour ces systèmes.
     </target>
         </trans-unit>
         <trans-unit id="system_entitlements.unentitle.success">
@@ -6545,11 +6545,11 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
       </trans-unit>
       <trans-unit id="probedetails.jsp.editsuiteprobe">
         <source>edit suite probe</source>
-        <target>éditer la sonde de la suite</target>
+        <target>modifier la sonde de la suite</target>
       </trans-unit>
       <trans-unit id="probedetails.jsp.editthisprobe">
         <source>edit this probe</source>
-        <target>éditer cette sonde</target>
+        <target>modifier cette sonde</target>
       </trans-unit>
       <trans-unit id="probedetails.jsp.currentstate">
         <source>Probe Current State</source>
@@ -6700,7 +6700,7 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
         </context-group>
-        <target>{0} mise à niveau de package ont été &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}\&gt;programmées&lt;/a&gt; pour &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</target>
+        <target>{0} mise à niveau de paquetage ont été &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}\&gt;programmées&lt;/a&gt; pour &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="message.packageupgrades">
         <source>{0} package upgrades have been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
@@ -6817,21 +6817,21 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/RemoveConfirm.do</context>
         </context-group>
-        <target>Ajouter une commande à distance à la suppression de package</target>
+        <target>Ajouter une commande à distance à la suppression de paquetage</target>
       </trans-unit>
       <trans-unit id="installconfirm.jsp.runremotecommand">
         <source>Add Remote Command To Package Install</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/RemoveConfirm.do</context>
         </context-group>
-        <target>Ajouter une commande à distance à l'installation de package</target>
+        <target>Ajouter une commande à distance à l'installation de paquetage</target>
       </trans-unit>
       <trans-unit id="upgradeconfirm.jsp.runremotecommand">
         <source>Add Remote Command To Package Upgrade</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/RemoveConfirm.do</context>
         </context-group>
-        <target>Ajouter une commande à distance à la mise à niveau de package</target>
+        <target>Ajouter une commande à distance à la mise à niveau de paquetage</target>
       </trans-unit>
       <!-- PROBE EDIT PAGE -->
       <trans-unit id="probeedit.jsp.editprobe">
@@ -6839,7 +6839,7 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Éditer la sonde du système</target>
+        <target>Modifier la sonde du système</target>
       </trans-unit>
       <trans-unit id="download.jsp.header">
         <source>Download Packages</source>
@@ -7092,21 +7092,21 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/ScheduleRemoteCommand.do</context>
         </context-group>
-        <target>Confirmer la commande à distance et programmer la suppression de package</target>
+        <target>Confirmer la commande à distance et programmer la suppression de paquetage</target>
       </trans-unit>
       <trans-unit id="scheduleremote.jsp.schedulepackageupgrade">
         <source>Confirm Remote Command and Schedule Package Upgrade</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/ScheduleRemoteCommand.do</context>
         </context-group>
-        <target>Confirmer la commande à distance et programmer la mise à niiveau de package</target>
+        <target>Confirmer la commande à distance et programmer la mise à niveau de paquetage</target>
       </trans-unit>
       <trans-unit id="scheduleremote.jsp.schedulepackageinstall">
         <source>Confirm Remote Command and Schedule Package Install</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/ScheduleRemoteCommand.do</context>
         </context-group>
-        <target>Confirmer la commande à distance et programmer l'installation de packages</target>
+        <target>Confirmer la commande à distance et programmer l'installation de paquetages</target>
       </trans-unit>
       <trans-unit id="packagesindex.jsp.header">
         <source>Packages</source>
@@ -7296,7 +7296,7 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteEdit.do</context>
         </context-group>
-        <target>Éditer une suite de sondes</target>
+        <target>Modifier une suite de sondes</target>
       </trans-unit>
       <trans-unit id="probesuiteedit.jsp.suitename">
         <source>Name</source>
@@ -7324,7 +7324,7 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteEdit.do</context>
         </context-group>
-        <target>Éditer {0}</target>
+        <target>Modifier {0}</target>
       </trans-unit>
       <trans-unit id="probes.jsp.header1">
         <source>Probes in {0}</source>
@@ -7387,14 +7387,14 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteProbeEdit.do</context>
         </context-group>
-        <target>Éditer la sonde {0} pour la suite {1}</target>
+        <target>Modifier la sonde {0} pour la suite {1}</target>
       </trans-unit>
       <trans-unit id="probe-edit.jsp.header2">
         <source>Edit an existing probe for this suite</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteProbeEdit.do</context>
         </context-group>
-        <target>Éditer une sonde existante pour cette suite</target>
+        <target>Modifier une sonde existante pour cette suite</target>
       </trans-unit>
       <trans-unit id="probecreate.jsp.probecommandgroup">
         <source>Command group</source>
@@ -7461,14 +7461,14 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
         </context-group>
-        <target>Éditer les systèmes assignés de {0}</target>
+        <target>Modifier les systèmes assignés de {0}</target>
       </trans-unit>
       <trans-unit id="probesuitesystems.jsp.header2">
         <source>Edit the systems that are assigned to the suite.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
         </context-group>
-        <target>Éditer les systèmes qui sont assignés à la suite.</target>
+        <target>Modifier les systèmes qui sont assignés à la suite.</target>
       </trans-unit>
       <trans-unit id="probesuitesystems.jsp.summary">
         <source>Add and remove systems to this Probe Suite.  Each system will have the Probes in this Suite assigned to it.  Detaching changes the suite of probes to be independent probes that can be configured specific to the system they are monitoring.  Detached probes cannot be re-attached to the Suite.</source>
@@ -7517,42 +7517,42 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
         </context-group>
-        <target>L'action de la commande à distance a été planifiée pour être exécutée &lt;strong&gt;avant&lt;/strong&gt; l'action de suppression du package.</target>
+        <target>L'action de la commande à distance a été planifiée pour être exécutée &lt;strong&gt;avant&lt;/strong&gt; l'action de suppression du paquetage.</target>
       </trans-unit>
       <trans-unit id="message.remotecommandafter.remove">
         <source>The remote command action was scheduled to run &lt;strong&gt;after&lt;/strong&gt; the package remove action.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
         </context-group>
-        <target>L'action de la commande à distance a été planifiée pour être exécutée &lt;strong&gt;après&lt;/strong&gt; l'action de suppression du package.</target>
+        <target>L'action de la commande à distance a été planifiée pour être exécutée &lt;strong&gt;après&lt;/strong&gt; l'action de suppression du paquetage.</target>
       </trans-unit>
       <trans-unit id="message.remotecommandbefore.install">
         <source>The remote command action was scheduled to run &lt;strong&gt;before&lt;/strong&gt; the package install action.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
         </context-group>
-        <target>L'action de la commande à distance a été planifiée pour être exécutée &lt;strong&gt;avant&lt;/strong&gt; l'action d'installation du package.</target>
+        <target>L'action de la commande à distance a été planifiée pour être exécutée &lt;strong&gt;avant&lt;/strong&gt; l'action d'installation du paquetage.</target>
       </trans-unit>
       <trans-unit id="message.remotecommandafter.install">
         <source>The remote command action was scheduled to run &lt;strong&gt;after&lt;/strong&gt; the package install action.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
         </context-group>
-        <target>L'action de la commande à distance a été planifiée pour être exécutée &lt;strong&gt;après&lt;/strong&gt; l'action d'installation du package.</target>
+        <target>L'action de la commande à distance a été planifiée pour être exécutée &lt;strong&gt;après&lt;/strong&gt; l'action d'installation du paquetage.</target>
       </trans-unit>
       <trans-unit id="message.remotecommandbefore.upgrade">
         <source>The remote command action was scheduled to run &lt;strong&gt;before&lt;/strong&gt; the package upgrade action.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
         </context-group>
-        <target>L'action de la commande à distance a été planifiée pour être exécutée &lt;strong&gt;avant&lt;/strong&gt; l'action de mise à niveau du package.</target>
+        <target>L'action de la commande à distance a été planifiée pour être exécutée &lt;strong&gt;avant&lt;/strong&gt; l'action de mise à niveau du paquetage.</target>
       </trans-unit>
       <trans-unit id="message.remotecommandafter.upgrade">
         <source>The remote command action was scheduled to run &lt;strong&gt;after&lt;/strong&gt; the package upgrade action.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
         </context-group>
-        <target>L'action de la commande à distance a été planifiée pour être exécutée &lt;strong&gt;après&lt;/strong&gt; l'action de mise à niveau du package.</target>
+        <target>L'action de la commande à distance a été planifiée pour être exécutée &lt;strong&gt;après&lt;/strong&gt; l'action de mise à niveau du paquetage.</target>
       </trans-unit>
       <trans-unit id="installpkgs.jsp.installpackages">
         <source>Install Selected Packages</source>
@@ -7700,7 +7700,7 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
         <context-group name="ctx">
           <context context-type="sourcefile">NOTFILLEDOUT</context>
         </context-group>
-        <target>Vous devez ajouter le droit d'accès au module Provisioning à "{0}" pour synchroniser les paquetages à la liste ci-dessus. Cliquez ici pour éditer les droits d'accès pour ce système : &lt;a href="/rhn/systems/details/Edit.do?sid={1}"&gt;Éditer les droits d'accès&lt;/a&gt;</target>
+        <target>Vous devez ajouter le droit d'accès au module Provisioning à "{0}" pour synchroniser les paquetages à la liste ci-dessus. Cliquez ici pour modifier les droits d'accès pour ce système : &lt;a href="/rhn/systems/details/Edit.do?sid={1}"&gt;Modifier les droits d'accès&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="compare.jsp.thissystem">
         <source>This System</source>
@@ -7769,7 +7769,7 @@ organization management tools if you choose to remove this role from your login.
         </context-group>
         <target>Etes-vous certain(e) de vouloir supprimer le rôle d'adminstrateur de produit "@@PRODUCT_NAME@@ Administrator" de
 votre propre login ? Vous devrez contacter un autre adminstrateur de satellite pour
-reprendre ce rôle si vous choisissez de le supprimer maintenant.  Vous n'aurez plus accès aux outils de configuraiton de PRODUCT_NAME @@ @@
+reprendre ce rôle si vous choisissez de le supprimer maintenant.  Vous n'aurez plus accès aux outils de configuraiton de @@PRODUCT_NAME@@
 ni aux outils de gestion d'organisation si vous choisissez de supprimer ce rôle de votre connexion.
 </target>
       </trans-unit>
@@ -8556,14 +8556,14 @@ ni aux outils de gestion d'organisation si vous choisissez de supprimer ce rôle
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/notification/FilterCreate.do</context>
         </context-group>
-        <target>Éditer le filtre de notification à l'aide du formulaire fourni.</target>
+        <target>Modifier le filtre de notification à l'aide du formulaire fourni.</target>
       </trans-unit>
       <trans-unit id="filteredit.jsp.header1">
         <source>Edit Notification Filter.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/notification/FilterCreate.do</context>
         </context-group>
-        <target>Éditer le filtre de notification.</target>
+        <target>Modifier le filtre de notification.</target>
       </trans-unit>
       <trans-unit id="delete.jsp.delete">
         <source>Delete Erratum</source>
@@ -8783,14 +8783,14 @@ ni aux outils de gestion d'organisation si vous choisissez de supprimer ce rôle
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbesList.do</context>
         </context-group>
-        <target>Cliquez ici pour éditer la sonde de la suite</target>
+        <target>Cliquez ici pour modifier la sonde de la suite</target>
       </trans-unit>
       <trans-unit id="probes.index.jsp.systemedit">
         <source>Click here to edit the System Probe</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbesList.do</context>
         </context-group>
-        <target>Cliquez ici pour éditer la sonde de système</target>
+        <target>Cliquez ici pour modifier la sonde de système</target>
       </trans-unit>
       <trans-unit id="probes.index.jsp.system">
         <source>System</source>
@@ -8873,7 +8873,7 @@ ni aux outils de gestion d'organisation si vous choisissez de supprimer ce rôle
         </trans-unit>
         <trans-unit id="methods.jsp.nametitle">
           <source>Click here to edit the Method</source>
-          <target>Cliquez ici pour éditer la méthode</target>
+          <target>Cliquez ici pour modifier la méthode</target>
         </trans-unit>
         <trans-unit id="methods.jsp.logintitle">
           <source>Click here to view or create Methods for this User</source>
@@ -9041,10 +9041,10 @@ organization.
         <target>Organizations représente un moyen de placer les frontières entre les ensembles de systèmes, des groupes de système
 les canaux de logiciels, les abonnements et les droits d'accès, les profils de kickstart, les clés d'activation
 les canaux de configuration et les fichiers, les utilisateurs - tout ce que
-vous gérez à l'aide de @@PRODUCT_NAME @@. Chaque organisation est gérée par au moins un administrateur d'organisation
-et l'ensemble de @@PRODUCT_NAME @@ est géré par un administrateur @@PRODUCT_NAME@@
-Les organisations sur un @@ PRODUCT_NAME @@ avec plusieurs organisations
-fonctionne de la même façon que pour les organisations sur plusieurs @@ PRODUCT_NAME@@s avec une seule organisation
+vous gérez à l'aide de @@PRODUCT_NAME@@. Chaque organisation est gérée par au moins un administrateur d'organisation
+et l'ensemble de @@PRODUCT_NAME@@ est géré par un administrateur @@PRODUCT_NAME@@
+Les organisations sur un @@PRODUCT_NAME@@ avec plusieurs organisations
+fonctionne de la même façon que pour les organisations sur plusieurs @@PRODUCT_NAME@@s avec une seule organisation
 .</target>
       </trans-unit>
       <trans-unit id="general.jsp.org.summary3">
@@ -9465,7 +9465,7 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
       <!-- Repo Sync -->
       <trans-unit id="repos.jsp.summary">
         <source>Use repositories to sync additional packages to your channels. Repositories may be linked to your channels.</source>
-        <target>Utiliser les référentiels pour sync les packages supplémentaires à vos canaux. Les référentiels peuvent être reliés à vos canaux.</target>
+        <target>Utiliser les référentiels pour sync les paquetages supplémentaires à vos canaux. Les référentiels peuvent être reliés à vos canaux.</target>
       </trans-unit>
       <trans-unit id="repos.jsp.note.default">
         <source>note here</source>
@@ -9749,7 +9749,7 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
         </trans-unit>
         <trans-unit id="ssm.kickstart.distro.cobbler-only.tooltip">
           <source> Profiles that are not @@PRODUCT_NAME@@-managed are not guaranteed to register systems to @@PRODUCT_NAME@@ after kickstart. You may wish to review these kickstarts (click on the profile name to do so) to confirm whether or not the selected systems will reappear in the @@PRODUCT_NAME@@ system list after kickstart.</source>
-          <target>Les profils qui ne sont pas gérés-@@PRODUCT_NAME@@ n'enregistrent pas forcément les systèmes dans @@ PRODUCT_NAME @@ après le kickstart. Vous voudrez peut-être consulter ces kickstarts (cliquez sur le nom du profil de le faire) pour confirmer si oui ou non les systèmes sélectionnés doivent réapparaitre dans la liste système de @@PRODUCT_NAME@@ après le kickstart.</target>
+          <target>Les profils qui ne sont pas gérés-@@PRODUCT_NAME@@ n'enregistrent pas forcément les systèmes dans @@PRODUCT_NAME@@ après le kickstart. Vous voudrez peut-être consulter ces kickstarts (cliquez sur le nom du profil de le faire) pour confirmer si oui ou non les systèmes sélectionnés doivent réapparaitre dans la liste système de @@PRODUCT_NAME@@ après le kickstart.</target>
         </trans-unit>
       </group>
       <!-- Kickstart -->
@@ -10301,7 +10301,7 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/Scripts</context>
         </context-group>
-        <target>Vous pouvez afficher ou éditer les scripts pour ce kickstart ci-dessous. Vous pouvez ajouter un nouveau script à l'aide du bouton "ajouter un nouveau script kickstart" en haut à droite.</target>
+        <target>Vous pouvez afficher ou modifier les scripts pour ce kickstart ci-dessous. Vous pouvez ajouter un nouveau script à l'aide du bouton "ajouter un nouveau script kickstart" en haut à droite.</target>
       </trans-unit>
       <trans-unit id="kickstartscript.jsp.noscripts">
         <source>No scripts are associated with this kickstart profile</source>
@@ -10535,7 +10535,7 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
-        <target>Vous pouvez associer une ou plusieurs clés d'activation à ce profil kickstart. Les clés d'activation permettront aux systèmes installés avec kickstart utilisant ce profil de s'enregistrer automatiquement à @@PRODUCT_NAME@@, d'obtenir des droits d'accès aux niveaux de services @@PRODUCT_NAME@@, de s'abonner à des canaux de logiciels et de configuration spécifiés et de s'abonner à des groupes de systèmes spécifiés. Les clés d'activation peuvent également spécifier les paquetages à installer sur un système. Pensez aux conséquences de cette action sur votre sélection de paquetages sur l'onglet &lt;a href="/rhn/kickstart/KickstartPackagesEdit.do?ksid={0}"&gt;Logiciels&lt;/a&gt; du profil.</target>
+        <target>Vous pouvez associer une ou plusieurs clés d'activation à ce profil kickstart. Les clés d'activation permettront aux systèmes installés avec kickstart utilisant ce profil de s'enregistrer automatiquement à @@PRODUCT_NAME@@, d'obtenir des droits d'accès aux niveaux de services @@PRODUCT_NAME@@, de s'abonner à des canaux de logiciels et de configuration spécifiés et de s'abonner à des groupes de systèmes spécifiés. Les clés d'activation peuvent également spécifier les paquetages à installer sur un système. Pensez aux conséquences de cette action sur votre sélection de paquetages sur l'onglet &lt;a href="/rhn/kickstart/KickstartpaquetagesEdit.do?ksid={0}"&gt;Logiciels&lt;/a&gt; du profil.</target>
       </trans-unit>
       <trans-unit id="kickstart.activationkeys.jsp.nokeys">
         <source>No activation keys available</source>
@@ -10916,7 +10916,7 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartPartitionEdit.do</context>
         </context-group>
-        <target>Éditer les partitions du disque dur</target>
+        <target>Modifier les partitions du disque dur</target>
       </trans-unit>
       <trans-unit id="kickstart.partition.jsp.partitiondetails">
         <source>Partition &lt;br/&gt;Details</source>
@@ -10937,7 +10937,7 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartPartitionEdit.do</context>
         </context-group>
-        <target>Vous pouvez éditer les partitions qui seront créées sur les systèmes installés avec kickstart, avec ce système ci-dessous :</target>
+        <target>Vous pouvez modifier les partitions qui seront créées sur les systèmes installés avec kickstart, avec ce système ci-dessous :</target>
       </trans-unit>
       <trans-unit id="distro-delete.jsp.header1">
         <source>Delete Distribution: {0}</source>
@@ -11014,7 +11014,7 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeysCreate.do</context>
         </context-group>
-        <target>Éditer la clé GPG/SSL</target>
+        <target>Modifier la clé GPG/SSL</target>
       </trans-unit>
       <trans-unit id="keycreate.jsp.toolbar">
         <source>Create GPG/SSL Key</source>
@@ -11035,7 +11035,7 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeysCreate.do</context>
         </context-group>
-        <target>Éditer la clé</target>
+        <target>Modifier la clé</target>
       </trans-unit>
       <trans-unit id="keycreate.jsp.header2">
         <source>Create Key</source>
@@ -11238,14 +11238,14 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
         </context-group>
-        <target>Éditer la liste de conservation de fichiers kickstart</target>
+        <target>Modifier la liste de conservation de fichiers kickstart</target>
       </trans-unit>
       <trans-unit id="preservation_edit.jsp.header2">
         <source>Edit List</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
         </context-group>
-        <target>Éditer la liste</target>
+        <target>Modifier la liste</target>
       </trans-unit>
       <trans-unit id="preservation_create.jsp.header2">
         <source>Create List</source>
@@ -11343,7 +11343,7 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
         </context-group>
-        <target>Les référentiels sélectionnés seront disponibles dans la section &lt;strong&gt;%packages &lt;/strong&gt; du fichier kickstart.</target>
+        <target>Les référentiels sélectionnés seront disponibles dans la section &lt;strong&gt;%paquetages &lt;/strong&gt; du fichier kickstart.</target>
       </trans-unit>
       <trans-unit id="softwareedit.jsp.warning">
         <source>&lt;span class="small-text"&gt;&lt;strong&gt;Warning:&lt;/strong&gt; If any activation keys are associated with this kickstart profile(under the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;activation keys tab&lt;/a&gt;). the child channel subscriptions above will be overridden. In that situation please use an activation key to specify child channel subscriptions.&lt;/span&gt;</source>
@@ -11447,11 +11447,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
         </context-group>
-        <target>Vous pouvez éditer les scripts pre et post pour le kickstart ci-dessous. Les scripts pre kickstart sont exécutés immédiatement après l'analyse d'un fichier kickstart sur un système.
+        <target>Vous pouvez modifier les scripts pre et post pour le kickstart ci-dessous. Les scripts pre kickstart sont exécutés immédiatement après l'analyse d'un fichier kickstart sur un système.
 Vous pouvez accéder au réseau dans cette section, mais vous devez utiliser les adresses IP (le service de noms n'a pas été configuré à ce point). Pour davantage
 d'informations sur les scripts pre kickstart, consultez le &lt;strong&gt;Guide d'administration système de Red Hat Enterprise Linux.&lt;/strong&gt;
 &lt;br/&gt;&lt;br/&gt;
-Vous pouvez également éditer le script post pour le kickstart ci-dessous. Les commandes associées à @@PRODUCT_NAME@@ seront tout d'abord automatiquement exécutées (par exemple, l'enregistrement du esystem à @@PRODUCT_NAME@@).
+Vous pouvez également modifier le script post pour le kickstart ci-dessous. Les commandes associées à @@PRODUCT_NAME@@ seront tout d'abord automatiquement exécutées (par exemple, l'enregistrement du esystem à @@PRODUCT_NAME@@).
 Le script post non-chroot sera ensuite exécuté et le script post sera enfin exécuté. Pour davantage d'informations sur les scripts post kickstart, consultez le
 &lt;strong&gt;Guide d'administration système de Red Hat Enterprise Linux.&lt;/strong&gt;</target>
       </trans-unit>
@@ -11530,7 +11530,7 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartPostEdit.do</context>
         </context-group>
-        <target>Vous pouvez éditer le script post de ce kickstart ci-dessous. Tout d'abord les commandes associées à @@PRODUCT_NAME@@ seront automatiquement exécutées (par exemple, l'enregistrement d'un esystem à @@PRODUCT_NAME@@). Ensuite, Le script post non-chroot sera exécuté et, finalement, le script post sera exécuté. Pour davantage d'informations sur ces scripts, consultez le &lt;strong&gt;Guide d'administration système de Red Hat Enterprise Linux.&lt;/strong&gt;</target>
+        <target>Vous pouvez modifier le script post de ce kickstart ci-dessous. Tout d'abord les commandes associées à @@PRODUCT_NAME@@ seront automatiquement exécutées (par exemple, l'enregistrement d'un esystem à @@PRODUCT_NAME@@). Ensuite, Le script post non-chroot sera exécuté et, finalement, le script post sera exécuté. Pour davantage d'informations sur ces scripts, consultez le &lt;strong&gt;Guide d'administration système de Red Hat Enterprise Linux.&lt;/strong&gt;</target>
       </trans-unit>
       <trans-unit id="kickstart.edit.pkgs.jsp.main1">
         <source>Specify below the packages and package groups you'd like to install on systems during kickstart. Please list packages and groups one per line. For more information please see &lt;em&gt;The Red Hat Enterprise Linux System Administration Guide.&lt;/em&gt; If you would prefer to specify packages to be installed by package profile sync, please visit the &lt;em&gt; Package Profiles &lt;/em&gt; tab to change the kickstart software installation method.
@@ -11538,7 +11538,7 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartPackagesEdit.do</context>
         </context-group>
-        <target>Spécifier ci-dessous les packages et les groupes de packages que vous souhaiteriez installer au kickstart. Veuillez faire la liste des packages et des groupes une ligne à la fois. Pour plus d'informations, veuillez consulter le guide &lt;em&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/em&gt;. Si vous préférez spécifier les packages à installer par sync de profile de package, veuillez cliquer sur l'onglet &lt;em&gt; Package Profiles &lt;/em&gt; et changer la méthode d'installation de logiciels de kickstart.
+        <target>Spécifier ci-dessous les paquetages et les groupes de paquetages que vous souhaiteriez installer au kickstart. Veuillez faire la liste des paquetages et des groupes une ligne à la fois. Pour plus d'informations, veuillez consulter le guide &lt;em&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/em&gt;. Si vous préférez spécifier les paquetages à installer par sync de profile de paquetage, veuillez cliquer sur l'onglet &lt;em&gt; paquetage Profiles &lt;/em&gt; et changer la méthode d'installation de logiciels de kickstart.
 </target>
       </trans-unit>
       <trans-unit id="kickstart.edit.pkgs.jsp.main2">
@@ -11547,7 +11547,7 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartPackagesEdit.do</context>
         </context-group>
-        <target>&lt;b&gt;Remarque : seuls les packages disponibles dans votre arborescence d'installation Enterprise Linux doivent être spécifiés ici.&lt;/b&gt; Pour installer les packages disponibles dans les canaux de logiciels @@PRODUCT_NAME@@, veuillez associer une clé d'activation appropriée à ce profil kickstart dans l'onglet &lt;em&gt;Activation Keys&lt;/em&gt; (clés d'activation).
+        <target>&lt;b&gt;Remarque : seuls les paquetages disponibles dans votre arborescence d'installation Enterprise Linux doivent être spécifiés ici.&lt;/b&gt; Pour installer les paquetages disponibles dans les canaux de logiciels @@PRODUCT_NAME@@, veuillez associer une clé d'activation appropriée à ce profil kickstart dans l'onglet &lt;em&gt;Activation Keys&lt;/em&gt; (clés d'activation).
 </target>
       </trans-unit>
       <trans-unit id="kickstart.edit.pkgs.jsp.header1">
@@ -13753,14 +13753,14 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
-        <target>Éditer les propriétés</target>
+        <target>Modifier les propriétés</target>
       </trans-unit>
       <trans-unit id="channelOverview.jsp.edit-instruction">
         <source>You may edit the configuration channel details below.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
-        <target>Vous pouvez éditer les détails du canal de configuration ci-dessous.</target>
+        <target>Vous pouvez modifier les détails du canal de configuration ci-dessous.</target>
       </trans-unit>
       <trans-unit id="channelOverview.jsp.create-instruction">
         <source>You must enter the configuration channel details below.</source>
@@ -17383,7 +17383,7 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
         </trans-unit>
         <trans-unit id="ssm.operations.viewlog.note">
           <source>Note: only child channel subscription changes and package install/remove/upgrade/verify tasks are listed.</source>
-          <target>Remarque : seuls les modifications approtées aux abonnements de canaux enfant et les tâches d'installation/suppression/mise à niveau/vérification de package sont répertoriés.</target>
+          <target>Remarque : seuls les modifications approtées aux abonnements de canaux enfant et les tâches d'installation/suppression/mise à niveau/vérification de paquetage sont répertoriés.</target>
         </trans-unit>
       </group>
       <!-- ssm/packages.jsp -->
@@ -17459,7 +17459,7 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
         </trans-unit>
         <trans-unit id="ssm.package.install.message.packageinstalls">
           <source>Package installations are being scheduled, it may take several minutes for this to complete.</source>
-          <target>Les installations de package sont en cours de planification; cela peut prendre quelques minutes.</target>
+          <target>Les installations de paquetage sont en cours de planification; cela peut prendre quelques minutes.</target>
         </trans-unit>
       </group>
       <!-- ssm/packageremove.jsp -->
@@ -17476,9 +17476,9 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
 
              Select one or more and click the &lt;b&gt;Remove Selected Packages&lt;/b&gt; button to schedule package removal.
           </source>
-          <target>Les packages ci-dessous peuvent être supprimés par un ou plusieurs systèmes.
+          <target>Les paquetages ci-dessous peuvent être supprimés par un ou plusieurs systèmes.
 
-Sélectionner en un ou plusieurs et cliquez sur le bouton &lt;b&gt;Supprimer les packages sélectionnés&lt;/b&gt; pour planifier la suppression de package.
+Sélectionner en un ou plusieurs et cliquez sur le bouton &lt;b&gt;Supprimer les paquetages sélectionnés&lt;/b&gt; pour planifier la suppression de paquetage.
 </target>
         </trans-unit>
         <trans-unit id="ssm.package.remove.select.confirm">
@@ -17498,7 +17498,7 @@ Sélectionner en un ou plusieurs et cliquez sur le bouton &lt;b&gt;Supprimer les
         <trans-unit id="ssm.package.remove.schedule.summary">
           <source>Below is a list of the packages that will be removed, on a per system basis.
           </source>
-          <target>Vous trouverez ci-dessous une liste de packages à supprimer, sur la base per système.
+          <target>Vous trouverez ci-dessous une liste de paquetages à supprimer, sur la base per système.
 </target>
         </trans-unit>
         <trans-unit id="ssm.package.remove.schedule.packages">
@@ -17511,11 +17511,11 @@ Sélectionner en un ou plusieurs et cliquez sur le bouton &lt;b&gt;Supprimer les
         </trans-unit>
         <trans-unit id="ssm.package.remove.message.packageremovals">
           <source>Package removals are being scheduled, it may take several minutes for this to complete. </source>
-          <target>Les suppressions de packagessont en cours de planification; cela peut durer plusieurs minutes.</target>
+          <target>Les suppressions de paquetagessont en cours de planification; cela peut durer plusieurs minutes.</target>
         </trans-unit>
         <trans-unit id="ssm.package.remove.operationname">
           <source>Schedule Package Removals</source>
-          <target>Planifier le retrait des packages</target>
+          <target>Planifier le retrait des paquetages</target>
         </trans-unit>
       </group>
       <!-- ssm/packageupgrade.jsp -->
@@ -17530,7 +17530,7 @@ Sélectionner en un ou plusieurs et cliquez sur le bouton &lt;b&gt;Supprimer les
         <trans-unit id="ssm.package.upgrade.select.summary">
           <source>Select the packages to be upgraded. Only those systems to which the package updates apply will receive the updates.
          </source>
-          <target>Sélectionnez les packages de mise à niveau. Seuls ces systèmes auxquels s'appliquent les mises à jour de package recevront les mises à jour.
+          <target>Sélectionnez les paquetages de mise à niveau. Seuls ces systèmes auxquels s'appliquent les mises à jour de paquetage recevront les mises à jour.
 </target>
         </trans-unit>
         <trans-unit id="ssm.package.upgrade.select.confirm">
@@ -17547,7 +17547,7 @@ Sélectionner en un ou plusieurs et cliquez sur le bouton &lt;b&gt;Supprimer les
         </trans-unit>
         <trans-unit id="ssm.package.upgrade.operationname">
           <source>Schedule Package Upgrades</source>
-          <target>Planifier la mise à niveau des packages</target>
+          <target>Planifier la mise à niveau des paquetages</target>
         </trans-unit>
       </group>
       <!-- ssm/packageupgradeschedule.jsp -->
@@ -17557,7 +17557,7 @@ Sélectionner en un ou plusieurs et cliquez sur le bouton &lt;b&gt;Supprimer les
         </context-group>
         <trans-unit id="ssm.package.upgrade.message.packageupgrade">
           <source>Package upgrades are being scheduled, it may take several minutes for this to complete. </source>
-          <target>Les mises à jour de packages sont en cours de planification; cela peut durer plusieurs minutes.</target>
+          <target>Les mises à jour de paquetages sont en cours de planification; cela peut durer plusieurs minutes.</target>
         </trans-unit>
         <trans-unit id="ssm.package.upgrade.schedule.toomanypackages">
           <source>Package list truncated</source>
@@ -17582,8 +17582,8 @@ Sélectionner en un ou plusieurs et cliquez sur le bouton &lt;b&gt;Supprimer les
 
             Select one or more and click the &lt;b&gt;Verify Selected Packages&lt;/b&gt; button to schedule package verification.
          </source>
-          <target>Les packages ci-dessous peuvent être vérifiés sur un ou plusieurs systèmes.
- Sélectionner en un ou plusieurs et cliquez sur le bouton &lt;b&gt;Verify Selected Packages&lt;/b&gt; (vérifier les packages sélectionnés) pour planifier la vérification de package.
+          <target>Les paquetages ci-dessous peuvent être vérifiés sur un ou plusieurs systèmes.
+ Sélectionner en un ou plusieurs et cliquez sur le bouton &lt;b&gt;Verify Selected paquetages&lt;/b&gt; (vérifier les paquetages sélectionnés) pour planifier la vérification de paquetage.
 </target>
         </trans-unit>
         <trans-unit id="ssm.package.verify.select.confirm">
@@ -17603,7 +17603,7 @@ Sélectionner en un ou plusieurs et cliquez sur le bouton &lt;b&gt;Supprimer les
         <trans-unit id="ssm.package.verify.schedule.summary">
           <source>Below is a list of the packages that will be verified, on a per system basis.
          </source>
-          <target>Voici une liste des packages qui seront vérifiées, sur la base per système.
+          <target>Voici une liste des paquetages qui seront vérifiées, sur la base per système.
 </target>
         </trans-unit>
         <trans-unit id="ssm.package.verify.schedule.packages">
@@ -17616,7 +17616,7 @@ Sélectionner en un ou plusieurs et cliquez sur le bouton &lt;b&gt;Supprimer les
         </trans-unit>
         <trans-unit id="ssm.package.verify.message.packageverifications">
           <source>Package verifications are being scheduled, it may take several minutes for this to complete.</source>
-          <target>Les vérifications de packages sont en cours de vérification; cela peut durer plusieurs minutes.</target>
+          <target>Les vérifications de paquetages sont en cours de vérification; cela peut durer plusieurs minutes.</target>
         </trans-unit>
       </group>
       <!-- Kickstart stuff -->
@@ -18359,14 +18359,14 @@ pour abonner des systèmes aux canaux de logiciels durant le kickstart.&lt;/span
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/TreeEdit.do</context>
         </context-group>
-        <target>Éditer la distribution kickstart</target>
+        <target>Modifier la distribution kickstart</target>
       </trans-unit>
       <trans-unit id="treeedit.jsp.toolbar">
         <source>Edit Kickstart Distribution</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/TreeEdit.do</context>
         </context-group>
-        <target>Éditer la distribution kickstart</target>
+        <target>Modifier la distribution kickstart</target>
       </trans-unit>
       <trans-unit id="treecreate.jsp.header1">
         <source>The following details are needed to define a kickstartable distribution. The tree path field should be a valid path to an installation tree located on this @@PRODUCT_NAME@@  server. The Kickstart RPM should be the name of the rpm containing the kickstart deploy scripts. These RPMs are provided by @@PRODUCT_NAME@@ and located in the @@PRODUCT_NAME@@ Tools child channels.&lt;br/&gt;&lt;br/&gt;
@@ -18386,7 +18386,7 @@ Le chemin d'arborescence doit contenir que des lettres, nombres, tirets, périod
 
 Le chemin d'arborescence, le RPM Kickstart, le canal de base, et la génération du programme d'installation doivent toujours correspondre. Cela signifie généralement que les versions pour chaque champ doivent être de la même version de Red Hat Enterprise Linux.&lt;br/&gt;&lt;br/&gt;
 
-&lt;p&gt;Le chemin d'arborescence doit être un chemin d'accès de disque local sur votre serveur PRODUCT_NAME @@ @@ qui contient l'arborescence kickstart totale pour une distribution comprennent le noyau, initrd et les informations de référentiel, mais à l'exclusion de toute RPM. Ce répertoire doit être lisible par les utilisateurs d'apache et tomcat.  A partir du chemin d'accès spécifié de l'arborescence, un noyau devrait être disponible à "./images/pxeboot/vmlinuz"et une image initrd devrait être disponible à "./images/pxeboot/initrd.img". Par exemple, si vous avez des médias situé sur le seveur @@PRODUCT_NAME@@ à : &lt;i&gt;/var/distribution-arbres/rhel-5-serveur /&lt;/i&gt;, vous spécifieriez ce chemin comme votre valeur de chemin d'accès à l'arborecence pour rechercher un noyau et un initrd ici : &lt;i&gt;/var/distribution-arbres/rhel-5-serveur/images/pxeboot/&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;Le chemin d'arborescence doit être un chemin d'accès de disque local sur votre serveur @@PRODUCT_NAME@@ qui contient l'arborescence kickstart totale pour une distribution comprennent le noyau, initrd et les informations de référentiel, mais à l'exclusion de toute RPM. Ce répertoire doit être lisible par les utilisateurs d'apache et tomcat.  A partir du chemin d'accès spécifié de l'arborescence, un noyau devrait être disponible à "./images/pxeboot/vmlinuz"et une image initrd devrait être disponible à "./images/pxeboot/initrd.img". Par exemple, si vous avez des médias situé sur le seveur @@PRODUCT_NAME@@ à : &lt;i&gt;/var/distribution-arbres/rhel-5-serveur /&lt;/i&gt;, vous spécifieriez ce chemin comme votre valeur de chemin d'accès à l'arborecence pour rechercher un noyau et un initrd ici : &lt;i&gt;/var/distribution-arbres/rhel-5-serveur/images/pxeboot/&lt;/i&gt;&lt;/p&gt;
 </target>
       </trans-unit>
       <trans-unit id="treecreate.jsp.header2">
@@ -18784,7 +18784,7 @@ Le chemin d'arborescence, le RPM Kickstart, le canal de base, et la génération
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/TreeDelete.do</context>
         </context-group>
-        <target>&lt;strong&gt;REMARQUE :&lt;/strong&gt; la distribution kickstart que vous avez choisie de supprimer est utilisée par les profils kickstart suivants. Vous devez modifier la distribution utilisée dans les profils ci-dessous avant de supprimer cette distribution. Cliquez sur l'étiquette dans le lien pour éditer la distribution du profil.</target>
+        <target>&lt;strong&gt;REMARQUE :&lt;/strong&gt; la distribution kickstart que vous avez choisie de supprimer est utilisée par les profils kickstart suivants. Vous devez modifier la distribution utilisée dans les profils ci-dessous avant de supprimer cette distribution. Cliquez sur l'étiquette dans le lien pour modifier la distribution du profil.</target>
       </trans-unit>
       <trans-unit id="distro-delete.jsp.cantdelete">
         <source>This distribution cannot be deleted at this time.</source>
@@ -19461,7 +19461,7 @@ Le chemin d'arborescence, le RPM Kickstart, le canal de base, et la génération
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/details/Overview.do</context>
         </context-group>
-        <target>Propriétés du système (&lt;a href="{0}"&gt;Éditer ces propriétés&lt;/a&gt;)</target>
+        <target>Propriétés du système (&lt;a href="{0}"&gt;Modifier ces propriétés&lt;/a&gt;)</target>
       </trans-unit>
       <trans-unit id="sdc.details.overview.entitlement">
         <source>Entitlements:</source>
@@ -20983,7 +20983,7 @@ Le chemin d'arborescence, le RPM Kickstart, le canal de base, et la génération
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/multiorg/Organizations.do</context>
         </context-group>
-        <target>Organisations 'trusted' par {0} ({1})</target>
+        <target>Organisations de confiance pour {0} ({1})</target>
       </trans-unit>
       <trans-unit id="org.login.tip">
         <source>Between {0} and 64 characters</source>
@@ -21393,7 +21393,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
         </context-group>
-        <target>&lt;strong&gt;Conseil :&lt;/strong&gt; Ce montant correspond à la valeur qui se trouve sur votre certificat @@PRODUCT_NAME @@
+        <target>&lt;strong&gt;Conseil :&lt;/strong&gt; Ce montant correspond à la valeur qui se trouve sur votre certificat @@PRODUCT_NAME@@
  pour ce droit d'accès, excluant la consommation de l'organisation par défaut.</target>
       </trans-unit>
       <trans-unit id="entitlementorgs.tip">
@@ -21437,10 +21437,10 @@ disponibles pour les organisations (à l'exception de l'organisation @@PRODUCT_N
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>
         <target>
- Les organisations vérifiées ci-dessous sont des organisations 'trusted' (habilitées) de l'organisation {0}. Cela signifie qu'il
- est possible de partager des contenus et de migrer des systèmes entre ces deux organisations. Vous pouvez ajouter un 'trust' en cochant
- la case correspondant à l'organisation (ou supprimer un 'trust' en décochant la case) et en cliquant sur le bouton 'Modify Trusts'.
-</target>
+          Les organisations vérifiées ci-dessous sont des organisations de confiance de l'organisation {0}. Cela signifie qu'il
+          est possible de partager des contenus et de migrer des systèmes entre ces deux organisations. Vous pouvez ajouter une confiance en cochant
+          la case correspondant à l'organisation (ou supprimer une confiance en décochant la case) et en cliquant sur le bouton « Modifier les confiances ».
+        </target>
       </trans-unit>
       <trans-unit id="org.trust.confirm.summary">
         <source>
@@ -22293,7 +22293,7 @@ fois pour un canal donné.</target>
       <trans-unit id="channel.jsp.package.remove">
         <source>Below is the list of packages which you have selected to remove from this channel. Removing a package from this channel does not affect the systems which are subscribed to it, or the errata which are applicable to it.
         </source>
-        <target>Voici la liste des packages que vous avez choisi de supprimer de ce canal. La suppression d'un package de ce canal n'affecte pas les systèmes qui y sont abonnés, ou les errata qui y sont applicables.
+        <target>Voici la liste des paquetages que vous avez choisi de supprimer de ce canal. La suppression d'un paquetage de ce canal n'affecte pas les systèmes qui y sont abonnés, ou les errata qui y sont applicables.
         </target>
       </trans-unit>
       <trans-unit id="channel.jsp.details.title">
@@ -22305,7 +22305,7 @@ fois pour un canal donné.</target>
       <trans-unit id="channel.jsp.package.removesuccess">
         <source>{0} package(s) removed from channel {1}
         </source>
-        <target>{0} package(s) supprimés du canal {1}
+        <target>{0} paquetage(s) supprimés du canal {1}
         </target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.removebutton">
@@ -22367,7 +22367,7 @@ fois pour un canal donné.</target>
       <trans-unit id="channel.jsp.package.addsuccess">
         <source>{0} package(s) added to channel {1}
         </source>
-        <target>{0} package(s) ajoutés au canal {1}
+        <target>{0} paquetage(s) ajoutés au canal {1}
         </target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addbutton">
@@ -22397,7 +22397,7 @@ fois pour un canal donné.</target>
       <trans-unit id="channel.jsp.package.add.confirm.msg">
         <source>Below is the list of packages which you have selected to add to this channel. Adding a package to this channel does not automatically affect the systems which are subscribed to it, or the errata which are applicable to it.
         </source>
-        <target>Vous trouverez ci-dessous une liste des packages que vous avez sélectionnés et que vous souhaitez ajouter à ce canal. Ajouter un package à ce canal n'affecte pas automatiquement les systèmes auxquels vous avez souscrit, ni les errata qui y sont applicables.
+        <target>Vous trouverez ci-dessous une liste des paquetages que vous avez sélectionnés et que vous souhaitez ajouter à ce canal. Ajouter un paquetage à ce canal n'affecte pas automatiquement les systèmes auxquels vous avez souscrit, ni les errata qui y sont applicables.
         </target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addtitle">
@@ -22690,7 +22690,7 @@ fois pour un canal donné.</target>
       </trans-unit>
       <trans-unit id="package.jsp.menu.map">
         <source>Package Map</source>
-        <target>Carte des paquetages (de l'anglais, Package map)</target>
+        <target>Carte des paquetages (de l'anglais, paquetage map)</target>
       </trans-unit>
       <trans-unit id="package.jsp.menu.deps">
         <source>Dependencies</source>
@@ -22941,7 +22941,7 @@ sha1 offre la plus large compatibilité avec les clients. sha-256 offre une séc
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
         </context-group>
-        <target>Êtes-vous certain de que vouloir supprimer ce canal ? Les packages du canal vont
+        <target>Êtes-vous certain de que vouloir supprimer ce canal ? Les paquetages du canal vont
  être supprimés du canal, mais resteront sur le serveur. On va vous donner
  la possibilité de les supprimer après que le canal aura été supprimé. Les errata
  liées au canal ne seront plus liées au canal, et pourront être
@@ -22986,7 +22986,7 @@ sha1 offre la plus large compatibilité avec les clients. sha-256 offre une séc
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
         </context-group>
-        <target>La suppression d'un canal affectera toute Trusted Organisation possédant des systèmes
+        <target>La suppression d'un canal affectera toute Organisation de confiance possédant des systèmes
  qui ont souscrit au canal.
 </target>
       </trans-unit>
@@ -23013,8 +23013,8 @@ sha1 offre la plus large compatibilité avec les clients. sha-256 offre une séc
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
         </context-group>
-        <target>Désabonner tout système de Trusted Organisation qui a souscrit au
-canal  {0}. Les systèmes abonnés vont perdre leur accès aux packages spécifiques à ce canal.
+        <target>Désabonner tout système d'organisation de confiance qui a souscrit au
+canal  {0}. Les systèmes abonnés vont perdre leur accès aux paquetages spécifiques à ce canal.
 </target>
       </trans-unit>
       <trans-unit id="generic.jsp.none">
@@ -23273,7 +23273,7 @@ Les nom et une étiquette de canal sont requis. Ils doivent être au moins de 6
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/DeleteSchedule.do</context>
         </context-group>
-        <target>Êtes-vous certain de vouloir supprimer la programmation ? Un bunch associé ne sera plus programmé. Ceci peut avoir un énorme impact sur la fonctionnalité de Satellite. Continuez si vous savez ce que vous faîtes uniquement.</target>
+        <target>Êtes-vous certain de vouloir supprimer la programmation ? Un bunch associé ne sera plus programmé. Ceci peut avoir un énorme impact sur la fonctionnalité de Satellite. Continuez si vous savez ce que vous faites uniquement.</target>
       </trans-unit>
       <trans-unit id="schedule.jsp.schedulenameinuse">
         <source>Schedule name {0} is already in use. Please choose another one.</source>
@@ -23629,7 +23629,7 @@ Les nom et une étiquette de canal sont requis. Ils doivent être au moins de 6
       </trans-unit>
       <trans-unit id="task.status.session-cleanup">
         <source>Session Cleanup</source>
-        <target>Nettoyage de session</target>
+        <target>Nettoyage de la session</target>
       </trans-unit>
       <trans-unit id="task.status.errata-queue">
         <source>Errata Notification Queue</source>
@@ -23653,7 +23653,7 @@ Les nom et une étiquette de canal sont requis. Ils doivent être au moins de 6
       </trans-unit>
       <trans-unit id="task.status.clear-log-history">
         <source>Clean Log History</source>
-        <target>Nettoyer l'historique du journal</target>
+        <target>Nettoyage de l'historique du journal</target>
       </trans-unit>
       <trans-unit id="task.status.cobbler-sync">
         <source>Cobbler Sync</source>
@@ -23665,11 +23665,11 @@ Les nom et une étiquette de canal sont requis. Ils doivent être au moins de 6
       </trans-unit>
       <trans-unit id="task.status.sandbox-cleanup">
         <source>Sandbox Cleanup</source>
-        <target>Nettoyer le bac à sable (« Sandbox »)</target>
+        <target>Nettoyage du bac à sable (« Sandbox »)</target>
       </trans-unit>
       <trans-unit id="task.status.package-cleanup">
         <source>Package Cleanup</source>
-        <target>Nettoyage de paquetages</target>
+        <target>Nettoyage des paquetages</target>
       </trans-unit>
       <trans-unit id="task.status.kickstartfile-sync">
         <source>Kickstart Sync</source>
@@ -23697,7 +23697,7 @@ Les nom et une étiquette de canal sont requis. Ils doivent être au moins de 6
       </trans-unit>
       <trans-unit id="task.status.cleanup-packagechangelog-data">
         <source>Changelog Cleanup</source>
-        <target>Nettoyage de Changelog</target>
+        <target>Nettoyage Changelog</target>
       </trans-unit>
       <trans-unit id="task.status.message">
         <source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
@@ -23723,7 +23723,7 @@ Les nom et une étiquette de canal sont requis. Ils doivent être au moins de 6
       </trans-unit>
       <trans-unit id="channel.jsp.errata.sync.note">
         <source>Packages that were omitted as part of the original cloning process will be included here.</source>
-        <target>Les packages qui ont été omis dans le cadre du processus de clonage d'origine seront inclus ici.</target>
+        <target>Les paquetages qui ont été omis dans le cadre du processus de clonage d'origine seront inclus ici.</target>
       </trans-unit>
       <trans-unit id="channel.jsp.errata.sync.listempty">
         <source>No out of date errata were found.</source>
@@ -23731,15 +23731,15 @@ Les nom et une étiquette de canal sont requis. Ils doivent être au moins de 6
       </trans-unit>
       <trans-unit id="header.jsp.errata.sync.packagepush">
         <source>Packages to Push</source>
-        <target>Packages à transmettre</target>
+        <target>paquetages à transmettre</target>
       </trans-unit>
       <trans-unit id="channel.jsp.errata.sync.packages.message">
         <source>The following packages will be pushed to this channel as part of the errata sync process.  Please review this list and unselect any unwanted packages.</source>
-        <target>Les packages suivants vont être transmis dans ce canal dans le cadre du processus de synchronisation errata.  Veuillez consulter cette liste et désélectionner tous les paquets indésirables.</target>
+        <target>Les paquetages suivants vont être transmis dans ce canal dans le cadre du processus de synchronisation errata.  Veuillez consulter cette liste et désélectionner tous les paquets indésirables.</target>
       </trans-unit>
       <trans-unit id="channel.jsp.errata.sync.complete">
         <source>Successfully synchronized {0} errata and pushed {1} packages to channel {2}.</source>
-        <target>{0} errata sync avec succès et {1} packages transmis au canal {2}.</target>
+        <target>{0} errata sync avec succès et {1} paquetages transmis au canal {2}.</target>
       </trans-unit>
       <trans-unit id="channel.jsp.repodata">
         <source>Repo Cache Status</source>
@@ -23791,7 +23791,7 @@ Les nom et une étiquette de canal sont requis. Ils doivent être au moins de 6
       </trans-unit>
       <trans-unit id="duplicate-ip.jsp.inactive.header">
         <source>A system profile is inactive if its system has not checked in for:</source>
-        <target>Un profil de système est inactif si les vérifications système suivantes n'ont pas été faîtes :</target>
+        <target>Un profil de système est inactif si les vérifications système suivantes n'ont pas été effectuées :</target>
       </trans-unit>
       <trans-unit id="schedule.header">
         <source>Select a schedule:</source>

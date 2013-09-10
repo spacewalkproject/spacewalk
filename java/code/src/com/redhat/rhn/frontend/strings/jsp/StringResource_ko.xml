@@ -5086,7 +5086,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
         <trans-unit id="ssm.overview.channels.deploy">
           <source>&lt;a href="/rhn/systems/ssm/config/Deploy.do"&gt;Deploy&lt;/a&gt; / &lt;a href="/rhn/systems/ssm/config/Diff.do"&gt;Diff&lt;/a&gt; config channels</source>
-          <target>설정 채널 &lt;a href="/rhn/systems/ssm/config/Deploy.do"&gt;배포&lt;/a&gt; / &lt;a href="/rhn/systems/ssm/config/Diff.do"&gt;비교&lt;/a&gt; </target>
+          <target>설정 채널 &lt;a href="/rhn/systems/ssm/config/Deploy.do"&gt;배치&lt;/a&gt; / &lt;a href="/rhn/systems/ssm/config/Diff.do"&gt;비교&lt;/a&gt; </target>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning">
           <source>Provisioning</source>
@@ -6349,7 +6349,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
         <trans-unit id="flexguest.jsp.message">
           <source>The following is a list of guest systems that are currently consuming &lt;a href="{0}"&gt; Flex Guest entitlements&lt;/a&gt;. These entitlements are used when registering virtual guests that are not associated with a registered host system or that are associated with a host system that is not Virtualization or Virtualization Platform entitled. Flex Guest Entitlement Consumers</source>
-          <target>다음은 현재 &lt;a href="{0}"&gt; Flex 게스트 인타이틀먼트&lt;/a&gt;를 사용하고 있는 게스트 시스템 목록을 보여주고 있습니다. 이러한 인타이틀먼트는 등록된 호스트 시스템에 연결되지 않은 가상 게스트 또는 가상화나 가상화 플랫폼 인타이틀먼트가 없는 호스트 시스템에 연결된 가상 게스트를 등록할 때 사용됩니다. Flex 게스트 인타이틀먼트 컨슈머 </target>
+          <target>다음은 현재 &lt;a href="{0}"&gt; Flex 게스트 인타이틀먼트&lt;/a&gt;를 사용하고 있는 게스트 시스템 목록을 보여주고 있습니다. 이러한 인타이틀먼트는 등록된 호스트 시스템에 연결되지 않은 가상 게스트 또는 가상화나 가상화 플랫폼 인타이틀먼트가 없는 호스트 시스템에 연결된 가상 게스트를 등록할 때 사용됩니다.</target>
         </trans-unit>
         <trans-unit id="floating.guests">
           <source>Flex Guest Entitlement Consumers</source>
@@ -6978,7 +6978,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDelete.do</context>
         </context-group>
-        <target>이 작업을 수행하는 방법을 잘 모르신다면, 	  이 프로브에 대한 &lt;a href="ProbeEdit.do?probe_id={0}&amp;sid={1}"&gt;자세한 내용을 읽어보시기&lt;/a&gt; 바랍니다.</target>
+        <target>이 작업을 수행하는 방법을 잘 모르신다면, 이 프로브에 대한 &lt;a href="ProbeEdit.do?probe_id={0}&amp;sid={1}"&gt; 자세한 내용을 읽어보시기&lt;/a&gt; 바랍니다.</target>
       </trans-unit>
       <trans-unit id="probdelete.jsp.p3">
         <source>Otherwise, confirm the immediate deletion of this system probe by clicking the button below.</source>
@@ -9402,7 +9402,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
-        <target>@@PRODUCT_NAME@@ 재시작? </target>
+        <target>@@PRODUCT_NAME@@를 재시작하시겠습니까? </target>
       </trans-unit>
       <trans-unit id="restart.jsp.restart">
         <source>Restart</source>
@@ -9423,7 +9423,7 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
         <trans-unit id="cobbler.jsp.toolbar">
           <source>@@PRODUCT_NAME@@ Configuration - Cobbler.</source>
-          <target>@@PRODUCT_NAME@@ 설정 - Cobbler.  </target>
+          <target>@@PRODUCT_NAME@@ 설정 - Cobbler </target>
         </trans-unit>
         <trans-unit id="Cobbler">
           <source>Cobbler</source>
@@ -12689,7 +12689,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="activation-key.jsp.enable-config-auto-deploy">
           <source>Configuration File Deployment</source>
-          <target>설정 파일 배포  </target>
+          <target>설정 파일 배치  </target>
         </trans-unit>
         <trans-unit id="activation-key.jsp.config-auto-deploy-tooltip">
           <source> Deploy configuration files to systems when they are registered with this activation key.</source>
@@ -13537,7 +13537,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="targetsystems.jsp.capable">
           <source>@@PRODUCT_NAME@@ Configuration Capable?</source>
-          <target>@@PRODUCT_NAME@@ 설정 가능? </target>
+          <target>@@PRODUCT_NAME@@ 설정 가능합니까? </target>
         </trans-unit>
         <trans-unit id="targetsystems.jsp.yes">
           <source>Yes</source>
@@ -13937,35 +13937,35 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
-        <target>파일 디플로이</target>
+        <target>파일 배치</target>
       </trans-unit>
       <trans-unit id="channelOverview.jsp.tasks.deployAll2All">
         <source>Deploy all configuration files to all subscribed systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
-        <target>모든 설정 파일을 등록된 모든 시스템에 디플로이</target>
+        <target>모든 설정 파일을 등록된 모든 시스템에 배치</target>
       </trans-unit>
       <trans-unit id="channelOverview.jsp.tasks.deploySel2All">
         <source>Deploy selected configuration files to all subscribed systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
-        <target>선택한 설정 파일을 등록된 모든 시스템에 디플로이</target>
+        <target>선택한 설정 파일을 등록된 모든 시스템에 배치</target>
       </trans-unit>
       <trans-unit id="channelOverview.jsp.tasks.deployAll2Sel">
         <source>Deploy all configuration files to selected subscribed systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
-        <target>모든 설정 파일을 선택한 등록 시스템에 디플로이</target>
+        <target>모든 설정 파일을 선택한 등록 시스템에 배치</target>
       </trans-unit>
       <trans-unit id="channelOverview.jsp.tasks.deploySel2Sel">
         <source>Deploy selected configuration files to selected subscribed systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
-        <target>선택한 설정 파일을 선택한 등록 시스템에 디플로이</target>
+        <target>선택한 설정 파일을 선택한 등록 시스템에 배치</target>
       </trans-unit>
       <trans-unit id="channelOverview.jsp.tasks.compare">
         <source>Compare Files</source>
@@ -14021,7 +14021,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
-        <target>인식되지 않은 디플로이 작업 - Red Hat 지원팀에 연락하시기 바랍니다.</target>
+        <target>인식되지 않은 배치 작업 - Red Hat 지원팀에 연락하시기 바랍니다.</target>
       </trans-unit>
       <trans-unit id="comparetask.error.emptysets">
         <source>Channel has no files, no subscribed systems, or both - compare action canceled.</source>
@@ -14279,7 +14279,7 @@ a file or files, or copy the latest version into a set of local overrides or int
           <context context-type="sourcefile">/rhn/configuration/ChannelSystems.do</context>
           <context context-type="paramnotes">The following systems are subscribed to _@@PRODUCT_NAME@@Config_.  You may deploy any files from _@@PRODUCT_NAME@@Config_ to these systems except for those files that the systems override or that are outranked by files in other channels.</context>
         </context-group>
-        <target>다음의 시스템은 {0}으로 등록되었습니다. 시스템이 덮어쓰거나 다른 채널에 있는 파일로 인해 순위가 앞선 파일을 제외한 모든 파일을 {0}에서 시스템으로 디플로이합니다.</target>
+        <target>다음의 시스템은 {0}으로 등록되었습니다. 시스템이 덮어쓰거나 다른 채널에 있는 파일로 인해 순위가 앞선 파일을 제외한 모든 파일을 {0}에서 시스템으로 배치합니다.</target>
       </trans-unit>
       <trans-unit id="channelsystems.jsp.overridden">
         <source>Overridden Files</source>
@@ -14455,14 +14455,14 @@ but are not subscribed to _@@PRODUCT_NAME@@Config_.</context>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/channel/DeployConfirm.do</context>
         </context-group>
-        <target>선택한 시스템에 파일 디플로이</target>
+        <target>선택한 시스템에 파일 배치</target>
       </trans-unit>
       <trans-unit id="deployconfirm.jsp.h2">
         <source>Deploy Configuration Files: Comfirm Fields and Systems for Deployment</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/channel/DeployConfirm.do</context>
         </context-group>
-        <target>설정 파일 디플로이: 디플로이를 위한 영역 및 시스템을 확인</target>
+        <target>설정 파일 배치: 배치를 위한 영역 및 시스템을 확인</target>
       </trans-unit>
       <trans-unit id="deployconfirm.jsp.note">
         <source>The files shown below will be deployed to the systems shown below.
@@ -14474,19 +14474,19 @@ Note that if a given system overrides a given file, or has it in that system's l
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/channel/DeployConfirm.do</context>
         </context-group>
-        <target>다음의 파일은 아래에서 보여지는 시스템으로 디플로이됩니다.
+        <target>다음의 파일은 아래에서 보여지는 시스템으로 배치됩니다.
 날짜 선택 영역에서 스케줄한 날짜 또는 "최대한 빨리"를 선택합니다.
-확인 버튼을 클릭하여 디플로이를 스케줄하거나
+확인 버튼을 클릭하여 배치를 스케줄하거나
 또는 브라우저 상의 뒤로 가기 버튼을 눌러 파일과 시스템 선택을 수정합니다.
 
-주어진 시스템이 주어진 파일을 덮어 쓰거나 파일이 시스템의 로컬 설정 채널에 있을 경우 파일은 디플로이 되지 않음에 유의하시기 바랍니다.</target>
+주어진 시스템이 주어진 파일을 덮어 쓰거나 파일이 시스템의 로컬 설정 채널에 있을 경우 파일은 배치되지 않음에 유의하시기 바랍니다.</target>
       </trans-unit>
       <trans-unit id="deployconfirm.jsp.systems-header2">
         <source>Systems to Deploy Files To</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/channel/DeployConfirm.do</context>
         </context-group>
-        <target>파일을 디플로이할 시스템</target>
+        <target>파일을 배치할 시스템</target>
       </trans-unit>
       <trans-unit id="deployconfirm.jsp.noSystems">
         <source>Either no systems have been selected, or none match your filter criteria</source>
@@ -14507,14 +14507,14 @@ Note that if a given system overrides a given file, or has it in that system's l
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/channel/DeployConfirm.do/rhn/</context>
         </context-group>
-        <target>디플로이할 최소 한개의 파일을 선택하셔야 합니다.</target>
+        <target>배치할 최소 한개의 파일을 선택하셔야 합니다.</target>
       </trans-unit>
       <trans-unit id="deployconfirm.jsp.zeroSystems">
         <source>You must choose at least one system to deploy files to.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/channel/DeployConfirm.do</context>
         </context-group>
-        <target>파일에 디플로이할 최소 한개의 시스템을 선택하셔야 합니다.</target>
+        <target>파일에 배치할 최소 한개의 시스템을 선택하셔야 합니다.</target>
       </trans-unit>
       <trans-unit id="deploy.jsp.current-header">
         <source>Current Version</source>
@@ -14555,7 +14555,7 @@ Note that if a given system overrides a given file, or has it in that system's l
           <context context-type="sourcefile">/rhn/</context>
           <context context-type="paramnotes"/>
         </context-group>
-        <target>이 채널에 등록된 시스템 중 디플로이할 수 있는 시스템이 없음</target>
+        <target>이 채널에 등록된 시스템 중 배치할 수 있는 시스템이 없음</target>
       </trans-unit>
       <trans-unit id="deploy.jsp.actions-header">
         <source>Actions</source>
@@ -14579,7 +14579,7 @@ Note that if a given system overrides a given file, or has it in that system's l
           <context context-type="sourcefile">/rhn/</context>
           <context context-type="paramnotes"/>
         </context-group>
-        <target>모든 파일을 디플로</target>
+        <target>모든 파일을 배치</target>
       </trans-unit>
       <trans-unit id="deploy.jsp.deployselectedbutton">
         <source>Deploy Selected Files</source>
@@ -14587,7 +14587,7 @@ Note that if a given system overrides a given file, or has it in that system's l
           <context context-type="sourcefile">/rhn/</context>
           <context context-type="paramnotes"/>
         </context-group>
-        <target>선택한 파일을 디플로이</target>
+        <target>선택한 파일을 배치</target>
       </trans-unit>
       <trans-unit id="deploy.jsp.h2">
         <source>Deploy Configuration Files</source>
@@ -14595,7 +14595,7 @@ Note that if a given system overrides a given file, or has it in that system's l
           <context context-type="sourcefile">/rhn/</context>
           <context context-type="paramnotes"/>
         </context-group>
-        <target>설정 파일 디플로이</target>
+        <target>설정 파일 배치 </target>
       </trans-unit>
       <trans-unit id="deploy.jsp.description">
         <source>You may select the files you wish to deploy from the list below.  You will then be asked to select the systems to deploy them to.</source>
@@ -14603,7 +14603,7 @@ Note that if a given system overrides a given file, or has it in that system's l
           <context context-type="sourcefile">/rhn/</context>
           <context context-type="paramnotes"/>
         </context-group>
-        <target>아래의 목록에서 디플로이하시고자 하는 파일을 선택하시기 바랍니다. 그 후 선택한 파일을 디플로이할 시스템을 선택하셔야 합니다.</target>
+        <target>아래의 목록에서 배치하시고자 하는 파일을 선택하시기 바랍니다. 그 후 선택한 파일을 배치할 시스템을 선택하셔야 합니다.</target>
       </trans-unit>
       <trans-unit id="deploy.jsp.filepath">
         <source>Filename</source>
@@ -14619,7 +14619,7 @@ Note that if a given system overrides a given file, or has it in that system's l
           <context context-type="sourcefile">/rhn/</context>
           <context context-type="paramnotes"/>
         </context-group>
-        <target>확인 &amp; 선택한 시스템 디플로이</target>
+        <target>확인 &amp; 선택한 시스템 배치 </target>
       </trans-unit>
       <trans-unit id="deploysystems.jsp.h2">
         <source>Deploy Configuration Files: Select Systems for Deployment</source>
@@ -14627,7 +14627,7 @@ Note that if a given system overrides a given file, or has it in that system's l
           <context context-type="sourcefile">/rhn/</context>
           <context context-type="paramnotes"/>
         </context-group>
-        <target>설정 파일 디플로이: 디플로이할 시스템 선택</target>
+        <target>설정 파일 배치: 배치할 시스템 선택</target>
       </trans-unit>
       <trans-unit id="deploysystems.jsp.note">
         <source>Please select the systems you'd like to deploy the selected files to.</source>
@@ -14635,7 +14635,7 @@ Note that if a given system overrides a given file, or has it in that system's l
           <context context-type="sourcefile">/rhn/</context>
           <context context-type="paramnotes"/>
         </context-group>
-        <target>선택한 파일에 디플로이하시고자 하는 시스템을 선택해 주십시오.</target>
+        <target>선택한 파일에 배치하시고자 하는 시스템을 선택해 주십시오.</target>
       </trans-unit>
       <trans-unit id="deploysystems.jsp.warning">
         <source>&lt;strong&gt;Warning:&lt;/strong&gt; Please note that if any of the files you are attempting to deploy from the {0} configuration channel are overridden or outranked by a file with the same name on a higher-ranked channel any particular system is subscribed to, then the overriding / highest-ranking version of the file will be deployed to that system, rather than the version from the {0} configuration channel.</source>
@@ -14643,7 +14643,7 @@ Note that if a given system overrides a given file, or has it in that system's l
           <context context-type="sourcefile">/rhn/</context>
           <context context-type="paramnotes"/>
         </context-group>
-        <target>&lt;strong&gt;경고:&lt;/strong&gt; {0} 설정 채널에서 디플로이하시려는 파일이 보다 높은 순위의 채널에 있는 같은 이름을 가진 파일에 의해 덮어쓰이거나 순위가 앞서게 되었을 경우, 특정 시스템이 등록되어 {0} 설정 채널에 있는 파일 버전이 아닌 덮어쓰여진/ 가장 높은 순위에 있는 파일 버전이 이 시스템에 디플로이됩니다.</target>
+        <target>&lt;strong&gt;경고:&lt;/strong&gt; {0} 설정 채널에서 배치하시려는 파일이 보다 높은 순위의 채널에 있는 같은 이름을 가진 파일에 의해 덮어쓰이거나 순위가 앞서게 되었을 경우, 특정 시스템이 등록되어 {0} 설정 채널에 있는 파일 버전이 아닌 덮어쓰여진/ 가장 높은 순위에 있는 파일 버전이 이 시스템에 배치됩니다.</target>
       </trans-unit>
       <!-- deployrevision.jsp -->
       <!-- errors -->
@@ -14654,7 +14654,7 @@ Note that if a given system overrides a given file, or has it in that system's l
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
           <context context-type="paramnotes">Tip: You may _schedule a comparison_ between these two file versions to see what changes this deployment will result in.</context>
         </context-group>
-        <target>&lt;strong&gt;힌트:&lt;/strong&gt; 이러한 두개의 파일 버전에서 &lt;a href="{0}"&gt;비교 작업을 스케줄&lt;/a&gt;하여 디플로이 작업에 어떤 변경 사항이 나타나는 지를 확인합니다.</target>
+        <target>&lt;strong&gt;힌트:&lt;/strong&gt; 이러한 두개의 파일 버전에서 &lt;a href="{0}"&gt;비교 작업을 스케줄&lt;/a&gt;하여 배치 작업에 어떤 변경 사항이 나타나는 지를 확인합니다.</target>
       </trans-unit>
       <trans-unit id="deploylocal.jspf.tip.local">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; If you would like to deploy this version of the this file to other systems you'll need to &lt;a href="{0}"&gt;copy this file to a centrally-managed config channel&lt;/a&gt;</source>
@@ -14662,14 +14662,14 @@ Note that if a given system overrides a given file, or has it in that system's l
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
           <context context-type="paramnotes">Tip: If you would like to deploy this version of the this file to other systems you'll need to _copy this file to a centrally-managed config channel_</context>
         </context-group>
-        <target>&lt;strong&gt;힌트:&lt;/strong&gt; 이 파일의 버전을 다른 시스템에 디플로이하시고자 할 경우 &lt;a href="{0}"&gt;이 파일을 중앙 관리 설정 채널에 복사&lt;/a&gt;하셔야 합니다.</target>
+        <target>&lt;strong&gt;힌트:&lt;/strong&gt; 이 파일의 버전을 다른 시스템에 배치하시고자 할 경우 &lt;a href="{0}"&gt;이 파일을 중앙 관리 설정 채널에 복사&lt;/a&gt;하셔야 합니다.</target>
       </trans-unit>
       <trans-unit id="deploy.jsp.tip.global-1">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; If a system has a locally-managed override for this file, you will not be able to deploy it.  However, you may click on the 'Modify rank' link to re-rank the overriding channels.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
         </context-group>
-        <target>&lt;strong&gt;힌트:&lt;/strong&gt; 시스템이 이 파일에 대해 로컬 관리 오버라이드가 될 경우 이를 디플로이할 수 없게 됩니다. 하지만 '순위 수정' 링크를 클릭하여 오버라이딩 채널 순위를 다시 지정할 수 있습니다.</target>
+        <target>&lt;strong&gt;힌트:&lt;/strong&gt; 시스템이 이 파일에 대해 로컬 관리 오버라이드가 될 경우 이를 배치할 수 없게 됩니다. 하지만 '순위 수정' 링크를 클릭하여 오버라이딩 채널 순위를 다시 지정할 수 있습니다.</target>
       </trans-unit>
       <trans-unit id="deployglobal.jspf.tip.needadmin">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; If you would like to deploy this file to a system not in this list, request a {0} to subscribe the system to the {1} configuration channel, then return to this screen.</source>
@@ -14679,7 +14679,7 @@ Note that if a given system overrides a given file, or has it in that system's l
 Tip: If you would like to deploy this file to a system not in this list, request a Configuration Administrator to subscribe the system to the _ConfigChan3_ configuration channel, then return to this screen.
           </context>
         </context-group>
-        <target>&lt;strong&gt;힌트:&lt;/strong&gt; 이 파일을 다음 목록에 없는 시스템에 디플로이하시고자 할 경우, {0}을 요청하여 시스템을 {1} 설정 채널에 등록한 후, 이 화면으로 돌아옵니다.</target>
+        <target>&lt;strong&gt;힌트:&lt;/strong&gt; 이 파일을 다음 목록에 없는 시스템에 배치하시고자 할 경우, {0}을 요청하여 시스템을 {1} 설정 채널에 등록한 후, 이 화면으로 돌아옵니다.</target>
       </trans-unit>
       <trans-unit id="deployglobal.jspf.tip.configadmin">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; If you would like to deploy this file to a system not in this list, you'll need to first subscribe that system to the {0} configuration channel using the &lt;a href="{1}"&gt;'Target Systems' tab&lt;/a&gt; for that channel, then return to this screen.  Also, note that the target system must have provisioning entitlements.</source>
@@ -14689,14 +14689,14 @@ Tip: If you would like to deploy this file to a system not in this list, request
 Tip: If you would like to deploy this file to a system not in this list, you'll need to first subscribe that system to the _Configgy_ configuration channel using the _'Target Systems' tab_ for that channel, then return to this screen.  Also, note that the target system must have provisioning entitlements.
           </context>
         </context-group>
-        <target>&lt;strong&gt;힌트:&lt;/strong&gt; 파일을 이 목록에 없는 시스템에 디플로이하시고자 할 경우, 먼저 &lt;a href="{1}"&gt;'대상 시스템' 탭&lt;/a&gt;을 사용하여 시스템을 {0} 설정 채널에 등록하신 후, 다시 이 화면으로 돌아오시기 바랍니다. 대상 시스템은 프로비저닝(provisioning) 인타이틀먼트를 가지고 있어야 함에 유의하십시오.</target>
+        <target>&lt;strong&gt;힌트:&lt;/strong&gt; 파일을 이 목록에 없는 시스템에 배치하시고자 할 경우, 먼저 &lt;a href="{1}"&gt;'대상 시스템' 탭&lt;/a&gt;을 사용하여 시스템을 {0} 설정 채널에 등록하신 후, 다시 이 화면으로 돌아오시기 바랍니다. 대상 시스템은 프로비저닝(provisioning) 인타이틀먼트를 가지고 있어야 함에 유의하십시오.</target>
       </trans-unit>
       <trans-unit id="deployglobal.jspf.not_deployable">
         <source>These systems do not yet have configuration deployment capability. Configuration deployment requires that particular software is installed and enabled on your system. You may ensure that configuration deployment capability will be enabled on these systems by selecting them in the  &lt;a href={0}&gt;{1}&lt;/a&gt; screen and then clicking "{2}"</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
         </context-group>
-        <target>이 시스템에는 설정 배포 기능이 아직 없습니다. 설정 배포는 특정 소프트웨어가 시스템에 설치되어 활성화되어 있어야 합니다. &lt;a href={0}&gt;{1}&lt;/a&gt; 화면에서 시스템을 선택하고 "{2}"를 클릭하면 설정 배포 기능을 사용할 수 있습니다.</target>
+        <target>이 시스템에는 설정 배치 기능이 아직 없습니다. 설정 배치는 특정 소프트웨어가 시스템에 설치되어 활성화되어 있어야 합니다. &lt;a href={0}&gt;{1}&lt;/a&gt; 화면에서 시스템을 선택하고 "{2}"를 클릭하면 설정 배치 기능을 사용할 수 있습니다.</target>
       </trans-unit>
       <trans-unit id="deployglobal.jspf.tip.orgadmin">
         <source>You may grant provisioning entitlements &lt;a href="{0}"&gt;here&lt;/a&gt;.</source>
@@ -14721,14 +14721,14 @@ You may grant provisioning entitlements _here_.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
         </context-group>
-        <target>&lt;strong&gt;최대한 빨리 파일이 디플로이되도록 스케줄함&lt;/strong&gt;</target>
+        <target>&lt;strong&gt;최대한 빨리 파일이 배치되도록 스케줄함&lt;/strong&gt;</target>
       </trans-unit>
       <trans-unit id="deploy.jsp.usedate">
         <source>&lt;strong&gt;Schedule this file to be deployed no earlier than:&lt;/strong&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
         </context-group>
-        <target>&lt;strong&gt;보다 빨리 파일이 디플로이되도록 스케줄:&lt;/strong&gt;</target>
+        <target>&lt;strong&gt;보다 빨리 파일이 배치되도록 스케줄:&lt;/strong&gt;</target>
       </trans-unit>
       <!-- regular -->
       <trans-unit id="deploy.jsp.header2">
@@ -14736,7 +14736,7 @@ You may grant provisioning entitlements _here_.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
         </context-group>
-        <target>파일 디플로이</target>
+        <target>파일 배치</target>
       </trans-unit>
       <trans-unit id="deploylocal.jspf.local">
         <source>
@@ -14747,7 +14747,7 @@ You may grant provisioning entitlements _here_.
           <context context-type="paramnotes">You can deploy the latest revision (_Revision 7_) of this file to _zanarkand.boston.redhat.com_ - this file is part of that system's locally-managed config channel.</context>
         </context-group>
         <target>
-    이 파일의 최신 버전 (&lt;a href="{1}"&gt;개정 버전 {0}&lt;/a&gt;)을 &lt;a href="{3}"&gt;{2}&lt;/a&gt;에 배포할 수 있습니다 - 이 파일은 시스템의 로컬에서 관리되는 설정 채널의 일부입니다.
+    이 파일의 최신 버전 (&lt;a href="{1}"&gt;개정 버전 {0}&lt;/a&gt;)을 &lt;a href="{3}"&gt;{2}&lt;/a&gt;에 배치할 수 있습니다 - 이 파일은 시스템의 로컬에서 관리되는 설정 채널의 일부입니다.
 </target>
       </trans-unit>
       <trans-unit id="deploy.jsp.filedetails">
@@ -14762,7 +14762,7 @@ You may grant provisioning entitlements _here_.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
         </context-group>
-        <target>디플로이할 버전:</target>
+        <target>배포할 버전:</target>
       </trans-unit>
       <trans-unit id="deploy.jsp.deploy">
         <source>&lt;a href="{1}"&gt;Revision {0}&lt;/a&gt; from &lt;a href="{3}"&gt;{2}&lt;/a&gt;</source>
@@ -14777,7 +14777,7 @@ You may grant provisioning entitlements _here_.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
         </context-group>
-        <target>이 버전이 시스템에 성공적으로 디플로이되지 않았습니다.</target>
+        <target>이 버전이 시스템에 성공적으로 배포되지 않았습니다.</target>
       </trans-unit>
       <trans-unit id="deploy.jsp.latest-name">
         <source>Version on System:</source>
@@ -14806,7 +14806,7 @@ You may grant provisioning entitlements _here_.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
         </context-group>
-        <target>디플로이 작업이 성공적으로 스케줄됨.</target>
+        <target>배치 작업이 성공적으로 스케줄됨.</target>
       </trans-unit>
       <trans-unit id="deploy.jsp.sandbox-note1">
         <source>You can't deploy this file to any systems because this file is part of a config sandbox local to system
@@ -14816,7 +14816,7 @@ You may grant provisioning entitlements _here_.
           <context context-type="paramnotes">You can't deploy this file to any systems because this file is part of a config sandbox local to
 system _zanarkand.boston.redhat.com_.</context>
         </context-group>
-        <target>파일이 설정 모래상자의 부분이기 때문에 이 파일을 시스템에 디플로이하실 수 없습니다
+        <target>파일이 설정 모래상자의 부분이기 때문에 이 파일을 시스템에 배치하실 수 없습니다
 &lt;a href="{1}"&gt;{0}&lt;/a&gt;.</target>
       </trans-unit>
       <trans-unit id="deploy.jsp.sandbox-note2">
@@ -14830,7 +14830,7 @@ From there, you can deploy the file to systems.</source>
         <target>설정 모래 상자는 개발 중에 있는 설정 파일을 저장해 놓은 곳입니다.
  설정 파일을 시스템에 개발할 준비가 되었다고 생각되시면 이를 &lt;a href="{0}"&gt;로컬 관리 설정 채널에 복사&lt;/a&gt;
 하시거나 위의 '&lt;a href="{3}"&gt;{4}&lt;/a&gt;' 탭을 사용하여 &lt;a href="{1}"&gt; 전역 관리 설정 채널에 복사&lt;/a&gt;하시기 바랍니다.
-여기서 파일을 시스템에 디플로이하실 수 있습니다.</target>
+여기서 파일을 시스템에 배치하실 수 있습니다.</target>
       </trans-unit>
       <trans-unit id="deployglobal.jspf.note">
         <source>
@@ -14846,7 +14846,7 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
         </context-group>
         <target>
 이 파일의 최신 버전 (&lt;a href="{1}"&gt;개정 버전 {0}&lt;/a&gt;)을 파일의 중앙 관리 설정
-채널 {2}에 등록된 시스템에 배포할 수 있습니다. 다음은 이 파일을 배포할 수 있는 시스템 목록입니다.
+채널 {2}에 등록된 시스템에 배치할 수 있습니다. 다음은 이 파일을 배치할 수 있는 시스템 목록입니다.
 </target>
       </trans-unit>
       <trans-unit id="globalDeploy.jsp.noSystems">
@@ -14906,28 +14906,28 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/GlobalRevisionDeployConfirm.do</context>
         </context-group>
-        <target>파일 디플로이 확인</target>
+        <target>파일 배치 확인</target>
       </trans-unit>
       <trans-unit id="deployconfirm.jspf.note">
         <source>Are you sure you want to schedule a deployment of this file to the systems shown below?</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/GlobalRevisionDeployConfirm.do</context>
         </context-group>
-        <target>이 파일을 아래에 있는 시스템으로 디플로이할 것을 스케줄하시겠습니까?</target>
+        <target>이 파일을 아래에 있는 시스템으로 배치할 것을 스케줄하시겠습니까?</target>
       </trans-unit>
       <trans-unit id="deployconfirm.jsp.deploybutton">
         <source>Confirm and Deploy File</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/GlobalRevisionDeployConfirm.do</context>
         </context-group>
-        <target>파일 확인 및 디플로이</target>
+        <target>파일 확인 및 배치</target>
       </trans-unit>
       <trans-unit id="deployconfirm.jsp.success">
         <source>1 revision-deploy successfully scheduled.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/GlobalRevisionDeployConfirm.do</context>
         </context-group>
-        <target>1 버전-디플로이 작업이 성공적으로 스케줄되었습니다.</target>
+        <target>1 버전-배치 작업이 성공적으로 스케줄되었습니다.</target>
       </trans-unit>
       <trans-unit id="deployconfirm.jsp.successes">
         <source>{0} revision-deploys successfully scheduled.</source>
@@ -14935,14 +14935,14 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
           <context context-type="sourcefile">/rhn/configuration/file/GlobalRevisionDeployConfirm.do</context>
           <context context-type="paramnotes">File-deploy successfully scheduled for 5 systems</context>
         </context-group>
-        <target>{0} 버전-디플로이 작업이 성공적으로 스케줄되었습니다.</target>
+        <target>{0} 버전-배치 작업이 성공적으로 스케줄되었습니다.</target>
       </trans-unit>
       <trans-unit id="deployconfirm.jsp.override">
         <source>1 revision-deploy overridden.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/GlobalRevisionDeployConfirm.do</context>
         </context-group>
-        <target>1 버전-디플로이 작업을 우위로 합니다.</target>
+        <target>1 버전-배치 작업을 우위로 합니다.</target>
       </trans-unit>
       <trans-unit id="deployconfirm.jsp.overrides">
         <source>{0} revision-deploys overridden.</source>
@@ -14950,7 +14950,7 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
           <context context-type="sourcefile">/rhn/configuration/file/GlobalRevisionDeployConfirm.do</context>
           <context context-type="paramnotes">File-deploy successfully scheduled for 5 systems</context>
         </context-group>
-        <target>{0} 버전-디플로이 작업을 우위로 합니다.</target>
+        <target>{0} 버전-배포 작업을 우위로 합니다.</target>
       </trans-unit>
       <!-- deleterevision.jsp -->
       <trans-unit id="deleterev.jsp.header2">
@@ -15037,7 +15037,7 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/FileDetails.do</context>
         </context-group>
-        <target>&lt;strong&gt;힌트:&lt;/strong&gt; 여기서 나타나는 사용자 또는 그룹이 파일을 디플로이할 시스템에 없을 경우 디플로이하지 못합니다.</target>
+        <target>&lt;strong&gt;힌트:&lt;/strong&gt; 여기서 나타나는 사용자 또는 그룹이 파일을 배치할 시스템에 없을 경우 배치하지 못합니다.</target>
       </trans-unit>
       <trans-unit id="filedetails.jsp.tip.permissions">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; '644' for text files and '755' for directories and executables will allow global access or execution (but not modification).</source>
@@ -16196,14 +16196,14 @@ any of these revisions.  Are you sure you want to do this?</source>
         </context-group>
         <trans-unit id="comparedeployed.jsp.header">
           <source>Compare File to Deployed Versions of File</source>
-          <target>파일을 파일의 디플로이 버전과 비교하기</target>
+          <target>파일을 파일의 배포 버전과 비교하기</target>
         </trans-unit>
         <trans-unit id="comparedeployed.jsp.summary">
           <source>You can compare &lt;a href="{0}"&gt;Revision {1}&lt;/a&gt; of this file to versions of this file deployed on systems. Please select the systems you would like to compare this file to below (this will schedule an action to take place the next time the systems check in).</source>
           <context-group name="ctx">
             <context context-type="paramnotes">You can compare Revision 8 of this file to versions of this file deployed on systems. Please select the systems you would like to compare this file to below (this will schedule an action to take place the next time the systems check in).</context>
           </context-group>
-          <target>이 파일의 &lt;a href="{0}"&gt;버전 {1}&lt;/a&gt;을 시스템에 디플로이된 파일의 버전과 비교하실 수 있습니다. 아래에서 파일 비교 작업을 하시고자 하는 시스템을 선택하시기 바랍니다 (이는 다음번에 시스템이 접속하도록 작업을 스케줄합니다). </target>
+          <target>이 파일의 &lt;a href="{0}"&gt;버전 {1}&lt;/a&gt;을 시스템에 배포된 파일의 버전과 비교하실 수 있습니다. 아래에서 파일 비교 작업을 하시고자 하는 시스템을 선택하시기 바랍니다 (이는 다음번에 시스템이 접속하도록 작업을 스케줄합니다). </target>
         </trans-unit>
         <trans-unit id="comparedeployed.jsp.noSystems">
           <source>No systems.</source>
@@ -16215,7 +16215,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="comparedeployed.jsp.deployed">
           <source>Last Known Deployed Version</source>
-          <target>최근 알려진 디플로이된 버전</target>
+          <target>최근 알려진 배포된 버전</target>
         </trans-unit>
         <trans-unit id="comparedeployed.jsp.lastknown">
           <source>&lt;a href="{0}"&gt;Revision {1}&lt;/a&gt; from &lt;a href="{2}"&gt;{3} {4}&lt;/a&gt;</source>
@@ -16373,11 +16373,11 @@ any of these revisions.  Are you sure you want to do this?</source>
           <context-group name="ctx">
             <context context-type="paramnotes">The 3 configuration files you have selected will be compared to deployed versions on the systems listed below. Only configuration files in channels to which a system is currently subscribed will be compared. The results of the comparison can be viewed on each system's events page once rhn_check has run on that system.</context>
           </context-group>
-          <target>선택하신 &lt;strong&gt;{0} 설정 파일&lt;/strong&gt;은 아래의 시스템 목록에 있는 디플로이된 버전과 비교 작업하게 됩니다. 이는 현재 시스템이 등록된 채널에 있는 설정 파일만을 비교 작업합니다. 비교 작업 결과는 각 시스템의 이벤트 페이지에서 &lt;code&gt;rhn_check&lt;/code&gt;를 실행하여 확인하실 수 있습니다.</target>
+          <target>선택하신 &lt;strong&gt;{0} 설정 파일&lt;/strong&gt;은 아래의 시스템 목록에 있는 배포된 버전과 비교 작업하게 됩니다. 이는 현재 시스템이 등록된 채널에 있는 설정 파일만을 비교 작업합니다. 비교 작업 결과는 각 시스템의 이벤트 페이지에서 &lt;code&gt;rhn_check&lt;/code&gt;를 실행하여 확인하실 수 있습니다.</target>
         </trans-unit>
         <trans-unit id="diffconfirm.jsp.summary.one">
           <source>The configuration file you have selected will be compared to deployed versions on the systems listed below. Only configuration files in channels to which a system is currently subscribed will be compared. The results of the comparison can be viewed on each system's events page once &lt;code&gt;rhn_check&lt;/code&gt; has run on that system.</source>
-          <target>선택하신 설정 파일은 아래의 시스템 목록에 있는 디플로이된 버전과 비교 작업하게 됩니다. 이는 현재 시스템에 등록된 채널에 있는 설정 파일만을 비교 작업합니다. 비교 작업 결과는 각 시스템의 이벤트 페이지에서 &lt;code&gt;rhn_check&lt;/code&gt;를 실행하여 확인하실 수 있습니다.</target>
+          <target>선택하신 설정 파일은 아래의 시스템 목록에 있는 배포된 버전과 비교 작업하게 됩니다. 이는 현재 시스템에 등록된 채널에 있는 설정 파일만을 비교 작업합니다. 비교 작업 결과는 각 시스템의 이벤트 페이지에서 &lt;code&gt;rhn_check&lt;/code&gt;를 실행하여 확인하실 수 있습니다.</target>
         </trans-unit>
         <trans-unit id="diffconfirm.jsp.noSystems">
           <source>No systems.</source>
@@ -16417,7 +16417,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           <context-group name="ctx">
             <context context-type="paramnotes">The systems listed below are subscribed to a configuration channel that contains a /etc/rhn/rhn.conf configuration file. Note: each system can be subscribed to different or multiple files with this file path. The files listed below are the deployable versions of this file, that is, the file in the configuration channel with the highest priority for each system.</context>
           </context-group>
-          <target>아래의 목록에 있는 시스템은 &lt;code&gt;{0}&lt;/code&gt; 설정 파일이 포함된 설정 채널에 등록됩니다.&lt;br /&gt;&lt;strong&gt;알림:&lt;/strong&gt; 각 시스템은 이 파일 경로를 사용하여 다른 파일 또는 여러 파일에 등록될 수 있습니다. 아패의 목록에 있는 파일은 디플로이 가능한 파일 버전으로 각 시스템에 대해 최상위 우선 순위를 갖는 설정 채널에 있습니다.</target>
+          <target>아래의 목록에 있는 시스템은 &lt;code&gt;{0}&lt;/code&gt; 설정 파일이 포함된 설정 채널에 등록됩니다.&lt;br /&gt;&lt;strong&gt;알림:&lt;/strong&gt; 각 시스템은 이 파일 경로를 사용하여 다른 파일 또는 여러 파일에 등록될 수 있습니다. 아패의 목록에 있는 파일은 배포 가능한 파일 버전으로 각 시스템에 대해 최상위 우선 순위를 갖는 설정 채널에 있습니다.</target>
         </trans-unit>
         <trans-unit id="diffsystems.jsp.file">
           <source>Configuration File</source>
@@ -16478,15 +16478,15 @@ any of these revisions.  Are you sure you want to do this?</source>
         </context-group>
         <trans-unit id="ssmdeploy.jsp.header">
           <source>Deploy Configuration Files</source>
-          <target>설정 파일 디플로이</target>
+          <target>설정 파일 배치</target>
         </trans-unit>
         <trans-unit id="ssmdeploy.jsp.summary">
           <source>The following configuration files are associated with the systems in this set. You can select files and deploy the latest revisions of those files from the highest priority configuration channel for each system in the system set.</source>
-          <target>다음의 설정 파일은 이 세트에 있는 시스템과 연계되어 있습니다. 파일을 선택하여 파일의 최신 버전을 시스템 세트에 있는 각 시스템에 대한 최상위 우선 순위 설정 채널에서 디플로이하실 수 있습니다.</target>
+          <target>다음의 설정 파일은 이 세트에 있는 시스템과 연계되어 있습니다. 파일을 선택하여 파일의 최신 버전을 시스템 세트에 있는 각 시스템에 대한 최상위 우선 순위 설정 채널에서 배치하실 수 있습니다.</target>
         </trans-unit>
         <trans-unit id="ssmdeploy.jsp.schedule">
           <source>Schedule File Deploy</source>
-          <target>파일 디플로이 작업 스케줄</target>
+          <target>파일 배치 작업 스케줄</target>
         </trans-unit>
       </group>
       <!-- configuration/ssm/deployconfirm.jsp  -->
@@ -16496,34 +16496,34 @@ any of these revisions.  Are you sure you want to do this?</source>
         </context-group>
         <trans-unit id="deployconfirm.jsp.header">
           <source>Confirm Configuration File Deploy</source>
-          <target>설정 파일 디플로이 확인</target>
+          <target>설정 파일 배치 확인</target>
         </trans-unit>
         <trans-unit id="deployconfirm.jsp.summary">
           <source>The &lt;strong&gt;{0} configuration files&lt;/strong&gt; you have selected will be deployed to the systems listed below. Only configuration files in channels to which a system is currently subscribed will be deployed. You may schedule the earliest execution for the deploy action below.</source>
           <context-group name="ctx">
             <context context-type="paramnotes">The 3 configuration files you have selected will be deployed to the systems listed below. Only configuration files in channels to which a system is currently subscribed will be deployed. You may schedule the earliest execution for the deploy action below.</context>
           </context-group>
-          <target>선택하신 &lt;strong&gt;{0} 설정 파일&lt;/strong&gt;은 아래 목록에 있는 시스템으로 디플로이됩니다. 현재 시스템이 등록된 채널에 있는 설정 파일만이 디플로이됩니다. 디플로이 작업을 위해 가장 빠른 실행시간을 스케줄하실 수 있습니다.</target>
+          <target>선택하신 &lt;strong&gt;{0} 설정 파일&lt;/strong&gt;은 아래 목록에 있는 시스템으로 배치됩니다. 현재 시스템이 등록된 채널에 있는 설정 파일만이 배치됩니다. 배치 작업을 위해 가장 빠른 실행시간을 스케줄하실 수 있습니다.</target>
         </trans-unit>
         <trans-unit id="deployconfirm.jsp.summary.one">
           <source>The configuration file you have selected will be deployed to the systems listed below. Only configuration files in channels to which a system is currently subscribed will be deployed. You may schedule the earliest execution for the deploy action below.</source>
-          <target>선택하신 설정 파일은 아래 목록에 있는 시스템으로 디플로이됩니다. 현재 시스템이 등록된 채널에 있는 설정 파일만이 디플로이됩니다. 디플로이 작업을 위해 가장 빠른 실행 시간을 스케줄하실 수 있습니다.</target>
+          <target>선택하신 설정 파일은 아래 목록에 있는 시스템으로 배치됩니다. 현재 시스템이 등록된 채널에 있는 설정 파일만이 배치됩니다. 배치 작업을 위해 가장 빠른 실행 시간을 스케줄하실 수 있습니다.</target>
         </trans-unit>
         <trans-unit id="deployconfirm.jsp.confirm">
           <source>Confirm File Deploy</source>
-          <target>파일 디플로이 확인</target>
+          <target>파일 배치 확인</target>
         </trans-unit>
         <trans-unit id="deployconfirm.jsp.widgetsummary">
           <source>You may schedule configuration file deploy actions to occur for the time below. &lt;br/&gt; &lt;strong&gt;Note: The time below represents the earliest time the action could occur&lt;/strong&gt;.</source>
-          <target>아래에 있는 시간에 따라 설정 파일 디플로이 작업을 스케줄하실 수 있습니다. &lt;br/&gt; &lt;strong&gt;알림: 아래의 시간은 작업을 실행할 수 있는 가장 빠른 시간입니다&lt;/strong&gt;.</target>
+          <target>아래에 있는 시간에 따라 설정 파일 배치 작업을 스케줄하실 수 있습니다. &lt;br/&gt; &lt;strong&gt;알림: 아래의 시간은 작업을 실행할 수 있는 가장 빠른 시간입니다&lt;/strong&gt;.</target>
         </trans-unit>
         <trans-unit id="deployconfirm.jsp.now">
           <source>Schedule configuration file deploys as soon as possible.</source>
-          <target>가능한 빨리 설정 파일 디플로이 작업을 스케줄하기.</target>
+          <target>가능한 빨리 설정 파일 배치 작업을 스케줄하기.</target>
         </trans-unit>
         <trans-unit id="deployconfirm.jsp.usedate">
           <source>Schedule configuration file deploys for no sooner than:</source>
-          <target>최대한 빨리 설정 파일 디플로이 작업을 스케줄:</target>
+          <target>최대한 빨리 설정 파일 배치 작업을 스케줄:</target>
         </trans-unit>
       </group>
       <group>
@@ -16779,7 +16779,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           <context-group name="ctx">
             <context context-type="paramnotes">The systems listed below are those in your system set that are subscribed to Configgy Channel. Deployable Files are configuration files or directories in this channel that are not overridden by a local system configuration channel or a higher priority global channel.</context>
           </context-group>
-          <target>아래의 목록에 있는 시스템은 {0}에 등록된 시스템 세트에 있는 시스템입니다. 디플로이 가능한 파일은 로컬 시스템 설정 채널이나 최상위 우선 순위의 글로벌 채널에 의해 덮어쓰여지지 않은 채널에 있는 설정 파일이나 디렉토리입니다.</target>
+          <target>아래의 목록에 있는 시스템은 {0}에 등록된 시스템 세트에 있는 시스템입니다. 배치 가능한 파일은 로컬 시스템 설정 채널이나 최상위 우선 순위의 글로벌 채널에 의해 덮어쓰여지지 않은 채널에 있는 설정 파일이나 디렉토리입니다.</target>
         </trans-unit>
         <trans-unit id="ssmchannelsystems.jsp.noSystems">
           <source>No systems.</source>
@@ -16791,18 +16791,18 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="ssmchannelsystems.jsp.files">
           <source>Deployable Configuration Files</source>
-          <target>디플로이 가능한 설정 파일</target>
+          <target>배치 가능한 설정 파일</target>
         </trans-unit>
         <trans-unit id="ssmchannelsystems.jsp.onefile">
           <source>1 deployable file</source>
-          <target>1 디플로이 가능한 파일</target>
+          <target>1 배치 가능한 파일</target>
         </trans-unit>
         <trans-unit id="ssmchannelsystems.jsp.numfiles">
           <source>{0} deployable files</source>
           <context-group name="ctx">
             <context context-type="paramnotes">3 deployable files</context>
           </context-group>
-          <target>{0} 디플로이 가능한 파일</target>
+          <target>{0} 배치 가능한 파일</target>
         </trans-unit>
       </group>
       <!-- configuration/ssm/channelsystems.jsp  -->
@@ -16819,22 +16819,22 @@ any of these revisions.  Are you sure you want to do this?</source>
           <context-group name="ctx">
             <context context-type="paramnotes">The configuration channels listed below are those selected configuration channels to which system32.devel is subscribed. Deployable Files are configuration files or directories in the channel that are not overridden by a local system configuration channel or a higher priority global channel. Change this system's configuration channel ranking.</context>
           </context-group>
-          <target>아래의 목록에 있는 설정 채널은 {0}가 등록된 설정 채널에 있는 것입니다. 디플로이 가능한 파일은로컬 시스템 설정 채널이나 최상위 우선 순위 글로벌 채널에 의해 덮어쓰여지지 않은 채널에 있는 설정 파일이나 디렉토이리입니다. &lt;a href="{1}"&gt;시스템의 설정 채널 순위 변경&lt;/a&gt;.</target>
+          <target>아래의 목록에 있는 설정 채널은 {0}가 등록된 설정 채널에 있는 것입니다. 배치 가능한 파일은 로컬 시스템 설정 채널이나 최상위 우선 순위 글로벌 채널에 의해 덮어쓰여지지 않은 채널에 있는 설정 파일이나 디렉토리입니다. &lt;a href="{1}"&gt;시스템의 설정 채널 순위 변경&lt;/a&gt;.</target>
         </trans-unit>
         <trans-unit id="ssmsystemchannels.jsp.files">
           <source>Deployable Configuration Files</source>
-          <target>디플로이 가능한 설정 파일</target>
+          <target>배치 가능한 설정 파일</target>
         </trans-unit>
         <trans-unit id="ssmsystemchannels.jsp.onefile">
           <source>1 deployable file</source>
-          <target>1 디플로이 가능한 파일</target>
+          <target>1 배치 가능한 파일</target>
         </trans-unit>
         <trans-unit id="ssmsystemchannels.jsp.numfiles">
           <source>{0} deployable files</source>
           <context-group name="ctx">
             <context context-type="paramnotes">3 deployable files</context>
           </context-group>
-          <target>{0} 디플로이 가능한 파일</target>
+          <target>{0} 배치 가능한 파일</target>
         </trans-unit>
       </group>
       <!-- configuration/sdc/viewdiffresult.jsp  -->
@@ -16892,7 +16892,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="sdc.config.file_list.sandbox_description">
           <source>This sandbox is a place you can store configuration files that are under development. This sandbox is associated with this system, {0}, but you may promote files from this sandbox to a centrally-managed configuration channel using the "{1}" below. After files in this sandbox have been promoted to a centrally-managed configuration channel, you will be able to deploy them to other systems.</source>
-          <target>이 모래상자는 개발 중에 있는 설정 파일을 저장할 수 있는 곳에 위치합니다. 이는 시스템 {0}과 연계되어 있지만 아래의 "{1}"를 사용하여 파일을 모래 상자에서 중앙 관리 설정 채널로 상향 이동시킬 수 있습니다. 모래 상자에 있는 파일을 중앙 관리 설정 채널로 상향 이동 후, 이를 다른 시스템에 디플로이 가능합니다.</target>
+          <target>이 모래상자는 개발 중에 있는 설정 파일을 저장할 수 있는 곳에 위치합니다. 이는 시스템 {0}과 연계되어 있지만 아래의 "{1}"를 사용하여 파일을 모래 상자에서 중앙 관리 설정 채널로 상향 이동시킬 수 있습니다. 모래 상자에 있는 파일을 중앙 관리 설정 채널로 상향 이동 후, 이를 다른 시스템에 배치 가능합니다.</target>
         </trans-unit>
         <trans-unit id="sdc.config.file_list.name">
           <source>File Name</source>
@@ -17010,7 +17010,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="sdc.configlist.jsp.deployablefiles">
           <source>Deployable Files*</source>
-          <target>디플로이 가능한 파일*</target>
+          <target>배치 가능한 파일*</target>
         </trans-unit>
         <trans-unit id="sdc.configlist.jsp.rank">
           <source>Rank</source>
@@ -17018,7 +17018,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="sdc.configlist.jsp.note">
           <source>&lt;strong&gt;* - Note:&lt;/strong&gt; Deployable Files are files in a configuration channel that are not outranked by files in greater priority configuration channels nor overridden by files in the systems local configuration channel.</source>
-          <target>&lt;strong&gt;* - 알림:&lt;/strong&gt; 디플로이 가능한 파일은 설정 채널에서 보다 상위 우선 순위의 설정 채널에 있는 파일에 의해 순위가 앞서지 않는 파일이나 또는 로컬 설정 채널 시스템에 있는 파일에 의해 덮여씌여지지 않는 파일을 말합니다.</target>
+          <target>&lt;strong&gt;* - 알림:&lt;/strong&gt; 배치 가능한 파일은 설정 채널에서 보다 상위 우선 순위의 설정 채널에 있는 파일에 의해 순위가 앞서지 않는 파일이나 또는 로컬 설정 채널 시스템에 있는 파일에 의해 덮여씌여지지 않는 파일을 말합니다.</target>
         </trans-unit>
         <trans-unit id="sdc.configlist.jsp.unsubscribe">
           <source>Unsubscribe</source>
@@ -17040,7 +17040,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="sdccreatefile.jsp.summary">
           <source>You may create a file below. The created file will be placed in your system sandbox. If you wish to deploy this file or override config files in global channels, copy this file into your local override channel.</source>
-          <target>아래에서 파일을 생성하실 수 있습니다. 생성된 파일은 시스템의 모래 상자에 위치하게 됩니다. 이 파일을 디플로이하거나 글로벌 채널에서 설정 파일을 덮어쓰고자 할 경우, 파일을 로컬 오버라이드 채널에 복사하시기 바랍니다.</target>
+          <target>아래에서 파일을 생성하실 수 있습니다. 생성된 파일은 시스템의 모래 상자에 위치하게 됩니다. 이 파일을 배치하거나 글로벌 채널에서 설정 파일을 덮어쓰고자 할 경우, 파일을 로컬 오버라이드 채널에 복사하시기 바랍니다.</target>
         </trans-unit>
       </group>
       <!-- configuration/sdc/uploadfile.jsp  -->
@@ -17054,7 +17054,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="sdcuploadfile.jsp.summary">
           <source>You may upload a file from your machine below. The uploaded file will be placed in your system sandbox. If you wish to deploy this file or override config files in global channels, copy this file into your local override channel.</source>
-          <target>아래의 사용자 컴퓨터에서 파일을 업로드 하실 수 있습니다. 업로드된 파일은 시스템의 모래 상자에 위치하게 됩니다. 이 파일을 디플로이하거나 글로벌 채널에서 설정 파일을 덮어쓰고자 할 경우, 파일을 로컬 오버라이드 채널에 복사하시기 바랍니다.</target>
+          <target>아래의 사용자 컴퓨터에서 파일을 업로드하실 수 있습니다. 업로드된 파일은 시스템의 모래 상자에 위치하게 됩니다. 이 파일을 배치하거나 글로벌 채널에서 설정 파일을 덮어쓰고자 할 경우, 파일을 로컬 오버라이드 채널에 복사하시기 바랍니다.</target>
         </trans-unit>
       </group>
       <!-- configuration/sdc/importfile.jsp  -->
@@ -17074,7 +17074,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           <context-group name="ctx">
             <context context-type="paramnotes">All files added through this interface will be imported from terry.pratchett.bn.com into this system's sandbox channel. Files will be imported the next time rhn_check runs on the system. If you wish to deploy these files or override config files in global channels, copy this file into your local override channel after the import has occurred. You may use either or both file selection methods below.</context>
           </context-group>
-          <target>인터페이스를 통해 추가된 모든 파일은 {0}에서 시스템의 모래 상자 채널로 가져오게 됩니다. 다음번에 파일을 가져오려면 시스템에서 &lt;code&gt;rhn_check&lt;/code&gt;을 실행합니다. 이 파일을 디플로이하거나 글로벌 채널에서 설정 파일을 덮어쓰고자 할 경우, 파일을 가져오기 한 후 이를 로컬 오버라이드 채널에 복사합니다. 아래의 파일 선택 방식을 사용하실 수 있습니다.</target>
+          <target>인터페이스를 통해 추가된 모든 파일은 {0}에서 시스템의 모래 상자 채널로 가져오게 됩니다. 다음번에 파일을 가져오려면 시스템에서 &lt;code&gt;rhn_check&lt;/code&gt;을 실행합니다. 이 파일을 배치하거나 글로벌 채널에서 설정 파일을 덮어쓰고자 할 경우, 파일을 가져오기 한 후 이를 로컬 오버라이드 채널에 복사합니다. 아래의 파일 선택 방식을 사용하실 수 있습니다.</target>
         </trans-unit>
         <trans-unit id="sdcimportfile.jsp.new">
           <source>Import New Files</source>
@@ -17101,7 +17101,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           <context-group name="ctx">
             <context context-type="paramnotes">The following is a list of all deployable configuration files to this system. Selected files here will import the version currently on photolab.devel into this system's sandbox.</context>
           </context-group>
-          <target>다음은 이 시스템으로 디플로이 가능한 설정 파일 목록입니다. 여기서 선택된 파일은 {0}에 있는 최신 버전을 시스템의 모래 상자로 가져옵니다.</target>
+          <target>다음은 이 시스템으로 배치 가능한 설정 파일 목록입니다. 여기서 선택된 파일은 {0}에 있는 최신 버전을 시스템의 모래 상자로 가져옵니다.</target>
         </trans-unit>
         <trans-unit id="sdcimportfile.jsp.noFiles">
           <source>No existing configuration files.</source>
@@ -17188,7 +17188,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="sdcconfigfiles.jsp.revision">
           <source>Deployable Revision</source>
-          <target>디플로이할 수 있는 버전</target>
+          <target>배치할 수 있는 버전</target>
         </trans-unit>
         <trans-unit id="sdcconfigfiles.jsp.filerev">
           <source>Revision {0}</source>
@@ -17236,7 +17236,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           <context-group name="ctx">
             <context context-type="paramnotes">You may compare configuration files on postmaster.devel to @@PRODUCT_NAME@@ managed configuration files. The files listed below are the deployable revisions of files from configuration channels to which this system is subscribed.</context>
           </context-group>
-          <target>{0} 에 있는 설정 파일을 @@PRODUCT_NAME@@ 관리 설정 파일에 비교하실 수 있습니다. 아래 목록에 있는 파일은 시스템이 등록된 설정 채널에서 배포할 수 있는 파일 버전입니다.    </target>
+          <target>{0} 에 있는 설정 파일을 @@PRODUCT_NAME@@ 관리 설정 파일에 비교하실 수 있습니다. 아래 목록에 있는 파일은 시스템이 등록된 설정 채널에서 배치할 수 있는 파일 버전입니다.    </target>
         </trans-unit>
       </group>
       <!-- configuration/sdc/deployfile.jsp  -->
@@ -17246,15 +17246,15 @@ any of these revisions.  Are you sure you want to do this?</source>
         </context-group>
         <trans-unit id="sdcdeployfile.jsp.confirm">
           <source>Deploy Files</source>
-          <target>파일 디플로이</target>
+          <target>파일 배치</target>
         </trans-unit>
         <trans-unit id="sdcdeployfile.jsp.header">
           <source>Deploy Files</source>
-          <target>파일 디플로이</target>
+          <target>파일 배치</target>
         </trans-unit>
         <trans-unit id="sdcdeployfile.jsp.summary">
           <source>The following configuration files are deployable to this system. Files from configuration channels with a higher priority take precedence over files from configuration channels with a lower priority.</source>
-          <target>다음의 설정 파일을 시스템에 디플로이할 수 있습니다. 상위 우선 순위로된 설정 채널에서의 파일은 하위 우선 순위로된 설정 채널에서의 파일보다 우선권을 갖습니다.</target>
+          <target>다음의 설정 파일을 시스템에 배치할 수 있습니다. 상위 우선 순위로된 설정 채널에서의 파일은 하위 우선 순위로된 설정 채널에서의 파일보다 우선권을 갖습니다.</target>
         </trans-unit>
       </group>
       <!-- configuration/sdc/difffileconfirm.jsp  -->
@@ -17292,25 +17292,25 @@ any of these revisions.  Are you sure you want to do this?</source>
         </context-group>
         <trans-unit id="sdcdeployconfirm.jsp.schedule">
           <source>Schedule Deploy</source>
-          <target>스케줄 배포 </target>
+          <target>스케줄 배치</target>
         </trans-unit>
         <trans-unit id="sdcdeployconfirm.jsp.header">
           <source>Confirm Deploy Files</source>
-          <target>디플로이 작업 파일 확인</target>
+          <target>배치 작업 파일 확인</target>
         </trans-unit>
         <trans-unit id="sdcdeployconfirm.jsp.summary">
           <source>The files listed below will be scheduled for deploy to {0}.</source>
           <context-group name="ctx">
             <context context-type="paramnotes">The files listed below will be scheduled for deploy to postmaster.devel.</context>
           </context-group>
-          <target>아래의 목록에 있는 파일은 배포 작업을 위해 {0}에 스케줄됩니다.</target>
+          <target>아래의 목록에 있는 파일은 배치 작업을 위해 {0}에 스케줄됩니다.</target>
         </trans-unit>
         <trans-unit id="config.deploy.success">
           <source>{0} file(s) &lt;a href="{1}"&gt;scheduled&lt;/a&gt; for deploy.</source>
           <context-group name="ctx">
             <context context-type="paramnotes">7 files scheduled for deploy.</context>
           </context-group>
-          <target>배포 작업을 위해 {0} 파일이 &lt;a href="{1}"&gt;스케줄됨&lt;/a&gt;.</target>
+          <target>배치 작업을 위해 {0} 파일이 &lt;a href="{1}"&gt;스케줄됨&lt;/a&gt;.</target>
         </trans-unit>
       </group>
       <!-- ssm/view-log.jsp, ssm/view-log-details.jsp -->
@@ -17890,7 +17890,7 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
-        <target>@@PRODUCT_NAME@@ 관리되고 있습니까?* </target>
+        <target>@@PRODUCT_NAME@@에 의해 관리되고 있습니까?* </target>
       </trans-unit>
       <trans-unit id="kickstart.distro.label.jsp">
         <source>Distribution</source>
@@ -18368,12 +18368,12 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/TreeCreate.do</context>
         </context-group>
-        <target>킥스타트 배포를 정의하려면 다음과 같은 정보가 필요합니다. 트리 경로 필드는 @@PRODUCT_NAME@@ 서버에 존재하는 설치 트리로의 유효한 경로여야 합니다. 킥스타트 RPM은 킥스타트 배포 스크립트가 포함된 rpm 이름이어야 합니다. 이 RPM은 @@PRODUCT_NAME@@에 의해 제공되며 @@PRODUCT_NAME@@ 도구 자식 채널에 있습니다.&lt;br/&gt;&lt;br/&gt;¶
-¶
-배포판 레이블 필드에서는 문자, 숫자, 하이픈, 마침표, 밑줄로 지정할 수 있습니다. 또한 최소 4자 이상의 문자로 지정해야 합니다.&lt;br/&gt;&lt;br/&gt;¶
-¶
-트리 경로, 킥스타트 RPM, 기본 채널, 설치 프로그램 생성기는 항상 일치해야 합니다. 일반적으로 이는 각 필드의 버전이 Red Hat Enterprise Linux의 버전과 동일한 버전이 되는 것을 의미합니다. &lt;br/&gt;&lt;br/&gt;¶
-¶
+        <target>킥스타트 배포를 정의하려면 다음과 같은 정보가 필요합니다. 트리 경로 필드는 @@PRODUCT_NAME@@ 서버에 존재하는 설치 트리로의 유효한 경로여야 합니다. 킥스타트 RPM은 킥스타트 배포 스크립트가 포함된 rpm 이름이어야 합니다. 이 RPM은 @@PRODUCT_NAME@@에 의해 제공되며 @@PRODUCT_NAME@@ 도구 자식 채널에 있습니다.&lt;br/&gt;&lt;br/&gt;
+
+배포판 레이블 필드에서는 문자, 숫자, 하이픈, 마침표, 밑줄로 지정할 수 있습니다. 또한 최소 4자 이상의 문자로 지정해야 합니다.&lt;br/&gt;&lt;br/&gt;
+
+트리 경로, 킥스타트 RPM, 기본 채널, 설치 프로그램 생성기는 항상 일치해야 합니다. 일반적으로 이는 각 필드의 버전이 Red Hat Enterprise Linux의 버전과 동일한 버전이 되는 것을 의미합니다. &lt;br/&gt;&lt;br/&gt;
+
 &lt;p&gt;트리 경로는 커널, initrd, 리포지터리 정보가 포함된 (rpm 제외) 배포판의 전체 킥스타트 트리가 들어있는 @@PRODUCT_NAME@@ 서버의 로컬 디스크 경로여야 합니다. 이 디렉토리는 apache및 tomcat 사용자가 읽을 수 있어야 합니다. 지정된 트리 경로 내에서 커널은 "./images/pxeboot/vmlinuz"에서 initrd 이미지는 "./images/pxeboot/initrd.img"에서 사용 가능해야 합니다. 예를 들어, 미디어가 &lt;i&gt;/var/distro-trees/rhel-5-server/&lt;/i&gt;의 @@PRODUCT_NAME@@에 있는 경우 &lt;i&gt;/var/distro-trees/rhel-5-server/images/pxeboot/&lt;/i&gt; 에서 커널 및 initrd을 확인할 수 있는 트리 경로 값으로 경로를 지정합니다.&lt;/p&gt;
 </target>
       </trans-unit>
@@ -19102,7 +19102,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </trans-unit>
         <trans-unit id="sdc.config.files.deployable">
           <source>Deployable</source>
-          <target>디플로이 가능</target>
+          <target>배치 가능</target>
         </trans-unit>
         <trans-unit id="sdc.config.locally-managed">
           <source>Locally-Managed Configuration</source>
@@ -19126,7 +19126,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </trans-unit>
         <trans-unit id="sdc.config.last-config.deployment">
           <source>Last Configuration Deployment</source>
-          <target>마지막 설정 배포 </target>
+          <target>마지막 설정 배치</target>
         </trans-unit>
         <trans-unit id="sdc.config.last-rhn.comparison">
           <source>Last @@PRODUCT_NAME@@ and System Comparison</source>
@@ -19138,15 +19138,15 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </trans-unit>
         <trans-unit id="sdc.config.deploy.files">
           <source>Deploy Files</source>
-          <target>파일 디플로이</target>
+          <target>파일 배치</target>
         </trans-unit>
         <trans-unit id="sdc.config.deploy.managed-files">
           <source>&lt;a href="{0}"&gt;Deploy all managed config files&lt;/a&gt;</source>
-          <target>&lt;a href="{0}"&gt;관리되는 모든 설정 파일을 디플로이&lt;/a&gt;</target>
+          <target>&lt;a href="{0}"&gt;관리되는 모든 설정 파일을 배치&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="sdc.config.deploy.selected-files">
           <source>&lt;a href="{0}"&gt;Deploy selected config files&lt;/a&gt;</source>
-          <target>&lt;a href="{0}"&gt;선택한 설정 파일을 디플로이&lt;/a&gt;</target>
+          <target>&lt;a href="{0}"&gt;선택한 설정 파일을 배치&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="sdc.config.compare.files">
           <source>Compare Files</source>
@@ -21592,11 +21592,11 @@ Below is a list of channels in your organization.
           </context-group>
           <target>
 다음은 조직에 있는 채널 목록을 보여줍니다.
-&lt;ul&gt;¶
-&lt;li&gt;채널을 변경하지 못하도록 하려면 채널에 아무것도 하지 않음이라는 항목을 선택합니다.&lt;/li&gt;¶
-&lt;li&gt;선택된 시스템을 채널에 등록하려면 해당 채널에 등록이라는 항목을 선택합니다.&lt;/li&gt;¶
-&lt;li&gt;선택된 시스템을 채널에서 등록 취소하려면 해당 채널에 대해 등록 취소라는 항목을 선택합니다.&lt;/li&gt;¶
-&lt;/ul&gt;¶
+&lt;ul&gt;
+&lt;li&gt;채널을 변경하지 못하도록 하려면 채널에 아무것도 하지 않음이라는 항목을 선택합니다.&lt;/li&gt;
+&lt;li&gt;선택된 시스템을 채널에 등록하려면 해당 채널에 등록이라는 항목을 선택합니다.&lt;/li&gt;
+&lt;li&gt;선택된 시스템을 채널에서 등록 취소하려면 해당 채널에 대해 등록 취소라는 항목을 선택합니다.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;strong&gt;알림:&lt;/strong&gt; 호환되지 않는 채널에 시스템을 할당하려 할 경우 이를 실패합니다.</target>
         </trans-unit>
         <trans-unit id="ssmchildsubs.jsp.channelname">
@@ -22758,7 +22758,7 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
-        <target>&lt;strong&gt; 힌트:&lt;/strong&gt;¶
+        <target>&lt;strong&gt; 힌트:&lt;/strong&gt;
 sha1은 클라이언트와의 폭넓은 호환성을 제공합니다. sha-256은 강력한 보안을 제공하지만,
  Fedora 11 이상 또는 Enterprise Linux 6 이상과 같은 새로운 클라이언트와만 호환됩니다.</target>
       </trans-unit>
@@ -23016,14 +23016,11 @@ sha1은 클라이언트와의 폭넓은 호환성을 제공합니다. sha-256은
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
-        <target>이 페이지에서 소프트웨어 채널을 생성하거나 편집합니다.¶
-        &lt;p/&gt;¶
+        <target>이 페이지에서 소프트웨어 채널을 생성하거나 편집합니다.        &lt;p/&gt;
 부모 채널이 '없음'으로 설정되어 있는 경우 채널은 기본 채널이 됩니다.
-그렇제 않으면 채널은 지정된 채널의 자식 채널이 됩니다.¶
-        &lt;p/&gt;¶
-채널 이름과 레이블이 필요합니다. 채널 이름과 레이블은 각각 최소 6 자 이상이 
+그렇제 않으면 채널은 지정된 채널의 자식 채널이 됩니다.       &lt;p/&gt; 채널 이름과 레이블이 필요합니다. 채널 이름과 레이블은 각각 최소 6 자 이상이
 되어야 합니다. 레이블은 문자로 시작해야 하며, 소문자, 하이픈 ('-'), 마침표 ('.'), 
-밑줄 ('_'), 숫자로만 지정할 수 있습니다. 채널 이름에는 공백과 슬래시 ('/')도 지정할 수 있습니다. ¶
+밑줄 ('_'), 숫자로만 지정할 수 있습니다. 채널 이름에는 공백과 슬래시 ('/')도 지정할 수 있습니다.
         &lt;p/&gt;
 채널 요약도 필요합니다. </target>
       </trans-unit>

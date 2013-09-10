@@ -28,14 +28,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Users Navigation Menu</context>
         </context-group>
-        <target>Активно</target>
+        <target>Активные</target>
       </trans-unit>
       <trans-unit id="users.nav.disabled">
         <source>Deactivated</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Users Navigation Menu</context>
         </context-group>
-        <target>Не активно</target>
+        <target>Неактивные</target>
       </trans-unit>
       <trans-unit id="User">
         <source>User</source>
@@ -315,14 +315,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Configuration Navigation Menu</context>
         </context-group>
-        <target>Управляемые системы</target>
+        <target>Управляются с Satellite</target>
       </trans-unit>
       <trans-unit id="config.nav.target">
         <source>Target Systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Configuration Navigation Menu</context>
         </context-group>
-        <target>Целевые системы</target>
+        <target>Не управляются с Satellite</target>
       </trans-unit>
       <trans-unit id="config.nav.config">
         <source>Configuration</source>
@@ -629,7 +629,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu (system details)</context>
         </context-group>
-        <target>Обеспечение</target>
+        <target>Инициализация</target>
       </trans-unit>
       <trans-unit id="Misc">
         <source>Misc</source>
@@ -650,7 +650,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>Статус сессии</target>
+        <target>Статус сеанса</target>
       </trans-unit>
       <trans-unit id="Sandbox">
         <source>Sandbox</source>

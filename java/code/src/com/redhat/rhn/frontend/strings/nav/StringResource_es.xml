@@ -161,14 +161,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-        <target>Moneda del sistema</target>
+        <target>Actualización de sistemas</target>
       </trans-unit>
       <trans-unit id="software.crashes">
         <source>Software Crashes</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-        <target>Daños de software</target>
+        <target>Fallos de software</target>
       </trans-unit>
       <trans-unit id="software.crashes.overview">
         <source>Software Crashes Overview</source>

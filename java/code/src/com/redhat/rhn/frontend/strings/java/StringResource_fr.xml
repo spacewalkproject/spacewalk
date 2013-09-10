@@ -547,7 +547,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/Addresses</context>
         </context-group>
-        <target>Éditer cette adresse</target>
+        <target>Modifier cette adresse</target>
       </trans-unit>
       <trans-unit id="Errata">
         <source>Errata</source>
@@ -680,7 +680,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>Gére les référentiels</target>
+        <target>Gérer les référentiels</target>
       </trans-unit>
       <trans-unit id="Distribution Channel Mapping">
         <source>Distribution Channel Mapping</source>
@@ -2091,21 +2091,21 @@ available for this kickstart profile to function properly.
  &lt;li&gt;
 Est-ce que le canal de logiciel 'rhn-tools' enfant pour le canal de base
  de ce profil kickstart est disponible pour votre organisation ? Si ce n'est pas le cas,
-vous devrez faire une demande de droits pour le canal de logiciel 'rhn-tools' à votre administrateur produit PRODUCT_NAME @@ @@.
+vous devrez faire une demande de droits pour le canal de logiciel 'rhn-tools' à votre administrateur produit @@PRODUCT_NAME@@.
 &lt;/li&gt;
  &lt;li&gt;
 Vérifiez que le canal d'enfant 'rhn-tools' pour canal de base
-de ce profil kickstart est disponible pour votre produit PRODUCT_NAME @@ @@. Si ce n'est pas le cas,
+de ce profil kickstart est disponible pour votre produit @@PRODUCT_NAME@@. Si ce n'est pas le cas,
 veuillez contacter l'administrateur du satellite et demander un satellite-sync pour le canal rhn-outils
 et essayez à nouveau.
 &lt;/li&gt;
 &lt;li&gt;
-Vérifiez que les packages rhn - kickstart * correspondant à ce kickstart sont
+Vérifiez que les paquetages rhn - kickstart * correspondant à ce kickstart sont
 disponibles dans le canal 'rhn-tools' du canal de base du kikstart. Si non,
 vous devrez les rendre disponibles pour que ce profil kickstart fonctionne correctement.
 &lt;/li&gt;
 &lt;li&gt;
- Est-ce que les packages répertoriés ci-dessus sont disponibles dans la canal de base de ce kickstart ? Si non, vous devrez les rendre
+ Est-ce que les paquetages répertoriés ci-dessus sont disponibles dans la canal de base de ce kickstart ? Si non, vous devrez les rendre
 disponibles pour que ce profil kickstart puisse fonctionner correctement.
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -3892,7 +3892,7 @@ utilisateur avant de désactiver son compte.</target>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</context>
         </context-group>
-        <target>{0} système(s) détaché(s) de la suite de sondes. Vous pouvez maintenant directement éditer les sondes par rapport aux systèmes.</target>
+        <target>{0} système(s) détaché(s) de la suite de sondes. Vous pouvez maintenant directement modifier les sondes par rapport aux systèmes.</target>
       </trans-unit>
       <trans-unit id="probesuitesystemsedit.jsp.addprobesfirst">
         <source>Please add Probes to the Suite before adding Systems</source>
@@ -7955,21 +7955,21 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
-        <target>Impossible d'abonner le système automatiquement au canal RHN Tools. Ce canal contient des packages requis pour la virtualisation. Cela est certainement dû à un manquement aux droits d'accès.</target>
+        <target>Impossible d'abonner le système automatiquement au canal RHN Tools. Ce canal contient des paquetages requis pour la virtualisation. Cela est certainement dû à un manquement aux droits d'accès.</target>
       </trans-unit>
       <trans-unit id="system.entitle.multiplechannelswithpackage">
         <source>Found multiple child channels with package: {0}. Please manually subscribe this system to the appropriate child channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
-        <target>Canaux enfants multiples trouvés pour le package : {0}. Veuillez souscrire manuellement ce système au canal enfant qui convient.</target>
+        <target>Canaux enfants multiples trouvés pour le paquetage : {0}. Veuillez souscrire manuellement ce système au canal enfant qui convient.</target>
       </trans-unit>
       <trans-unit id="system.entitle.multiplechannelswithpackagepleaseinstall">
         <source>Found multiple child channels with package: {0}. Please manually subscribe this system to the appropriate child channel, and schedule this package for installation.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
-        <target>Canaux enfants multiples trouvés pour le package : {0}. Veuillez souscrire manuellement ce système au canal enfant qui convient, et programmer l'installation de ce package.</target>
+        <target>Canaux enfants multiples trouvés pour le paquetage : {0}. Veuillez souscrire manuellement ce système au canal enfant qui convient, et programmer l'installation de ce paquetage.</target>
       </trans-unit>
       <trans-unit id="system.entitle.novirtchannel">
         <source>Could not automatically subscribe the system to the RHEL Virtualization Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
@@ -9027,15 +9027,15 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
       </trans-unit>
       <trans-unit id="ssm.package.install.operationname">
         <source>Schedule Package Installations</source>
-        <target>Planifier les installations de packages</target>
+        <target>Planifier les installations de paquetages</target>
       </trans-unit>
       <trans-unit id="ssm.package.upgrade.operationname">
         <source>Schedule Package Upgrades</source>
-        <target>Planifier les mises à jour des packages</target>
+        <target>Planifier les mises à jour des paquetages</target>
       </trans-unit>
       <trans-unit id="ssm.package.verify.operationname">
         <source>Schedule Package Verifications</source>
-        <target>Planifier les vérifications de packages</target>
+        <target>Planifier les vérifications de paquetages</target>
       </trans-unit>
       <trans-unit id="ssm.server.delete.operationname">
         <source>Server Delete</source>
@@ -9055,7 +9055,7 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
       </trans-unit>
       <trans-unit id="channel.manage.merge.finished">
         <source>{0} Package(s) have been added and {1} Package(s) have been removed from the channel.</source>
-        <target>{0} Package(s) ont été ajoutés et {1} Package(s) ont été retirés du canal.</target>
+        <target>{0} paquetage(s) ont été ajoutés et {1} paquetage(s) ont été retirés du canal.</target>
       </trans-unit>
       <trans-unit id="system.select.inactive">
         <source>Select Inactive</source>
