@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <div class="sideleg">
   <h2>Event Status Legend</h2>
