@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.40
+Version: 2.1.41
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Sep 10 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.41-1
+- 580995 - updating api doc
+
 * Tue Sep 10 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.40-1
 - updated UI strings pulled from zanata
 - 1006157 - translate submit button
