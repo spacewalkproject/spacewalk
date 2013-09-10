@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.1.17
+Version:        2.1.18
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Sep 10 2013 Stephen Herr <sherr@redhat.com> 2.1.18-1
+- 999453 - missed a sha1 hash
+
 * Tue Sep 10 2013 Stephen Herr <sherr@redhat.com> 2.1.17-1
 - 999453 - one file removal did not make it into the original commit
 
