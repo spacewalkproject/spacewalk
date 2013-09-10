@@ -100,7 +100,7 @@ public class ProfileManagerTest extends BaseTestCaseWithUser {
         // lookup_transaction_package(:operation, :n, :e, :v, :r, :a)
         // which can cause deadlocks.  We are forced to call commitAndCloseTransaction()
         commitAndCloseSession();
-        committed = true;
+        commitHappened();
 
         PackageAction action = ProfileManager.syncToSystem(
                 user, s1.getId(), s2.getId(), idCombos,

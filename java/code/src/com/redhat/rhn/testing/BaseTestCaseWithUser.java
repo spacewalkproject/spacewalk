@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.testing;
 
+import com.redhat.rhn.domain.common.LoggingFactory;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
@@ -25,7 +26,7 @@ import com.redhat.rhn.domain.user.User;
 public abstract class BaseTestCaseWithUser extends RhnBaseTestCase {
 
     protected User user;
-    protected boolean committed = false;
+    private boolean committed = false;
 
     /**
      * {@inheritDoc}
@@ -51,5 +52,17 @@ public abstract class BaseTestCaseWithUser extends RhnBaseTestCase {
         }
         committed = false;
         user = null;
+    }
+
+    // If we have to commit in mid-test, set up the next transaction correctly
+    protected void commitHappened() {
+        committed = true;
+        try {
+            LoggingFactory.clearLogId();
+        }
+        catch (Exception se) {
+            TestCaseHelper.tearDownHelper();
+            LoggingFactory.clearLogId();
+        }
     }
 }

@@ -144,9 +144,6 @@ public class VirtualizationEntitlementsManagerTest extends BaseTestCaseWithUser 
     }
 
     public void testConvertToFlex() throws Exception {
-        // *some(body in here does a commit :(
-        committed = true;
-
         int guestsToCreate = setupEligibleFlexGuestTests(true, user.getOrg(),
                 user, 5, 5, 20);
 
@@ -162,11 +159,11 @@ public class VirtualizationEntitlementsManagerTest extends BaseTestCaseWithUser 
         }
         assertEquals(1, VirtualizationEntitlementsManager.getInstance().
                 convertToFlex(sids, group.getId(), user).size());
-        HibernateFactory.getSession().disconnect();
         l = VirtualizationEntitlementsManager.getInstance().listFlexGuests(user);
         assertTrue(!l.isEmpty());
         assertEquals(1, l.size());
         assertEquals(1, l.get(0).expand().size());
+
     }
 
 

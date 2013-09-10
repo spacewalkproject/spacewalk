@@ -927,7 +927,7 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
 
         server  = ServerFactory.unsubscribeFromAllChannels(user, serverIn);
         ServerFactory.commitTransaction();
-        committed = true;
+        commitHappened();
 
         assertEquals(0, server.getChannels().size());
     }
