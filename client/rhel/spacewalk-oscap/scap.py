@@ -58,8 +58,10 @@ def xccdf_eval(args, cache_only=None):
         })
 
 def _run_oscap(arguments):
-    c = _popen(['/usr/bin/oscap'] + arguments)
+    dev_null = open('/dev/null')
+    c = _popen(['/usr/bin/oscap'] + arguments, stdout=dev_null.fileno())
     ret = c.wait()
+    dev_null.close()
     errors = c.stderr.read()
     if ret != 0:
         errors += 'xccdf_eval: oscap tool returned %i\n' % ret
@@ -76,10 +78,10 @@ def _xccdf_resume(results_file):
     log.log_debug('The xsltproc tool completed:\n%s' % errors)
     return ret, c.stdout.read(), errors
 
-def _popen(args):
+def _popen(args, stdout=subprocess.PIPE):
     log.log_debug('Running: ' + str(args))
     return subprocess.Popen(args, bufsize=-1, stdin=subprocess.PIPE,
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
+        stdout=stdout, stderr=subprocess.PIPE, shell=False)
 
 def _process_params(args, filename, results_dir=None):
     params = ['--results', filename]
