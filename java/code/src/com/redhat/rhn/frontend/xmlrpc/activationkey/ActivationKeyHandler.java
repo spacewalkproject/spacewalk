@@ -277,7 +277,7 @@ public class ActivationKeyHandler extends BaseHandler {
      * @xmlrpc.param #struct("activation key")
      *   #prop_desc("string", "description", "optional")
      *   #prop_desc("string", "base_channel_label", "optional -
-     *   leave empty to set to 'none' to set to default")
+     *   to set default base channel set to empty string or 'none'")
      *   #prop_desc("int", "usage_limit", "optional")
      *   #prop_desc("boolean", "unlimited_usage_limit", "Set true
      *   for unlimited usage and to override usage_limit")
