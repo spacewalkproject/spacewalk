@@ -93,6 +93,9 @@ insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 (sequence_nextval('rhn_pkey_id_seq'), '2e2bcdbcb38a8516', lookup_package_key_type('gpg'), lookup_package_provider('Oracle Inc.'));
 
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), '72f97b74ec551f03', lookup_package_key_type('gpg'), lookup_package_provider('Oracle Inc.'));
+
 
 -- Novell
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
