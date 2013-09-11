@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -43,7 +43,7 @@ class Logger:
                 string.join(map(str, args)))
             if not self.logfile is None:
                 self.write_to_logfile(outstr)
-            
+
 
     def write_to_logfile(self, logstr):
         if os.access(self.logfile, os.F_OK|os.R_OK|os.W_OK):
@@ -57,19 +57,21 @@ class Logger:
             # Set to root-RW-only if we have to create the file
             mode = stat.S_IRUSR | stat.S_IWUSR  # octal 0o600
             try:
-                fd = os.fdopen(os.open(self.logfile, os.O_WRONLY | os.O_CREAT, mode), 'w')
-                os.write(fd, logstr)
-                os.close(fd)
+                # Need to use os.open to insure initial permissions
+                fd = os.open(self.logfile, os.O_WRONLY | os.O_CREAT, mode)
+                logname = os.fdopen(fd, 'w')
+                logname.write(logstr)
+                logname.close()
             except:
                 print "does not have permissions to create file  %s" % (self.logfile)
                 sys.exit(1)
-    
+
     def set_logfile(self, filename):
         Logger.logfile = filename
 
     def set_debug_level(self, debug_level):
         Logger.debug_level = debug_level
-    
+
     def get_debug_level(self):
         return Logger.debug_level
 
