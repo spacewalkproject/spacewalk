@@ -85,17 +85,18 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
                and c.label in (%s)
                and cfm.channel_family_id = cf.id
                and cf.label != 'rh-public'
-               and cf.org_id in (%s)
+               and (cf.org_id in (%s)
+                   or cf.org_id is null)
             union
             select id channel_family_id, NULL quantity
               from rhnChannelFamily
              where label = 'rh-public'
-               and org_id in (%s)
         """
         self._channel_family_query_public = """
             select id channel_family_id, 0 quantity
               from rhnChannelFamily
              where org_id in (%s)
+                or org_id is null
         """
         self._channel_family_query = None
 
@@ -165,7 +166,8 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
             return self
 
         self._channel_family_query = self._channel_family_query_template % (
-            ', '.join(["'%s'" % x for x in channel_labels]), self.exportable_orgs, self.exportable_orgs)
+            ', '.join(["'%s'" % x for x in channel_labels]),
+            self.exportable_orgs)
         return self
 
     def _get_channel_data(self, channels):
