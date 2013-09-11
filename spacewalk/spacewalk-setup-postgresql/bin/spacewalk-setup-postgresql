@@ -72,7 +72,7 @@ def_regexes() {
     local addr="[[:space:]]*($IPv4_addr|$IPv6_addr)[[:space:]]*"
     Local_RE="([[:space:]]*|($addr,)*$addr)"
     local masked="[[:space:]]*($IPv4_addr/$IPv4_mask|$IPv6_addr/$IPv6_mask)[[:space:]]*"
-    Remote_RE="([[:space:]]*|($masked,)*$masked)"
+    Remote_RE="(($masked,)*$masked)"
 }
 def_regexes
 unset -f def_regexes
@@ -94,7 +94,7 @@ create() {
     [ -z "$PGPASSWORD" ] && ask false "Database password: " PGPASSWORD
 
     if $STANDALONE; then
-        [ -z "$ADDRESS" ] && ask_check true "Local addresses to listen on (comma-separated, RETURN for all): " ADDRESS "^|$Local_RE\$"
+        [ -z "$ADDRESS" ] && ask_check true "Local addresses to listen on (comma-separated, RETURN for all): " ADDRESS "^$Local_RE\$"
         [ -z "$ADDRESS" ] && ADDRESS="*"
         [ -z "$REMOTE" ] && ask_check true "Remote addresses to allow connection from (address/netmask format, comma-separated): " REMOTE "^$Remote_RE\$"
     fi
