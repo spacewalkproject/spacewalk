@@ -34,7 +34,7 @@ Archive and purge the audit-logging tables introduced with Spacewalk 2.0
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>-t<replaceable> YYYY-MM-DD hh24:mi:ss</replaceable></arg>
-        <arg>-timestamp=<replaceable>YYYY-MM-DD hh24:mi:ss</replaceable></arg>
+        <arg>--timestamp=<replaceable>YYYY-MM-DD hh24:mi:ss</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>-h</arg><arg>--help</arg>
@@ -44,10 +44,10 @@ Archive and purge the audit-logging tables introduced with Spacewalk 2.0
 
 <RefSect1><Title>Description</Title>
     <para>
-        <emphasis>spacewalk-archive-audits</emphasis> archives and purges the audit-logging tables enabled in the spacewalk instance on which the command is executed
+        <emphasis>spacewalk-archive-audits</emphasis> archives and purges the audit-logging tables enabled in the Spacewalk instance on which the command is executed.
     </para>
     <para>
-        Since audit-entries grow over time, this command is provided to give the spacewalk administrator a tool to cull old table-entries while preserving them for historical reporting.
+        Since audit-entries grow over time, this command is provided to give the Spacewalk administrator a tool to cull old table-entries while preserving them for historical reporting.
     </para>
     <para>
         When --archive or --purge are chosen, an entry is made to /var/log/rhn/archive-audit-tables.log with the action, timestamp, and results.
@@ -65,23 +65,23 @@ Archive and purge the audit-logging tables introduced with Spacewalk 2.0
     <varlistentry>
         <term>-l, --list </term>
         <listitem>
-            <para> List the current sizes of all *_log tables found in the Spacewalk database</para>
+            <para> List the current sizes of all *_log tables found in the Spacewalk database.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
         <term>-a, --archive</term>
         <listitem>
-            <para>Archives all entries occurring before --timestamp-specified time, into files named TABLENAME.CURRENT-TIMESTAMP.csv
+            <para>Archives all entries occurring before --timestamp-specified time, into files named TABLENAME.CURRENT-TIMESTAMP.csv.
         </listitem>
     </varlistentry>
     <varlistentry>
         <term>-p, --purge</term>
         <listitem>
-            <para>Deletes all audit-entries occurring before --timestamp-specified time
+            <para>Deletes all audit-entries occurring before --timestamp-specified time.
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-l=<replaceable> YYYY-MM-DD hh24:mi:ss</replaceable>, --timestamp=<replaceable>YYYY-MM-DD hh24:mi:ss</replaceable></term>
+        <term>-t=<replaceable> YYYY-MM-DD hh24:mi:ss</replaceable>, --timestamp=<replaceable>YYYY-MM-DD hh24:mi:ss</replaceable></term>
         <listitem>
             <para>Specifies the most-recent timestamp to --archive or --purge.  Any/all entries made <emphasis>before</emphasis> this mark will be recorded and/or deleted.  Required for --archive and --purge.</para>
         </listitem>

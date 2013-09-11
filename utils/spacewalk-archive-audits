@@ -22,6 +22,7 @@
 import csv
 import os
 import sys
+import time
 
 from os import getenv
 from optparse import OptionParser, OptionGroup
@@ -96,10 +97,19 @@ def validate_options():
     if (options.archive or options.purge) and not options.purge_date:
         parser.error("--timestamp is required for --archive and --purge")
 
+    if options.purge_date:
+        try:
+            time.strptime(options.purge_date, '%Y-%m-%d %H:%M:%S')
+        except ValueError:
+            parser.error('--timestamp [' + options.purge_date + '] not in format YYYY-MM-DD hh24:mi:ss')
+
     return (options, args)
 
 def _log(stmt):
-    log_clean(0, '%s|%s|%s' % (datetime.now().isoformat(), os.getenv("SUDO_USER"), stmt))
+    logger = os.getenv("SUDO_USER")
+    if logger == None:
+        logger = 'root'
+    log_clean(0, '%s|%s|%s' % (datetime.now().strftime('%Y-%m-%d %H:%M:%S'), logger, stmt))
 
 def _get_sql(key):
     return SQL_PIECES.get(CFG.DB_BACKEND).get(key)
@@ -153,7 +163,7 @@ def archive(opt):
     names = tables()
     for name in names:
         rows = 0
-        outfilename = name+'.'+datetime.now().isoformat()+'.csv'
+        outfilename = name+'.'+(datetime.now().strftime('%Y-%m-%d_%H:%M:%S'))+'.csv'
 
         try:
             f = open(outfilename, 'wb')
@@ -164,7 +174,6 @@ def archive(opt):
         writer = csv.writer(f)
         hdr_names = _get_allcols(name)
         writer.writerow(hdr_names)
-        print _get_data_statement(name)
         stmt = rhnSQL.execute(_get_data_statement(name), tstamp=opt.purge_date)
         rslts = None
         while 1:
@@ -184,7 +193,7 @@ def purge(opt):
     _log('Purging everything before ' + opt.purge_date)
     names = tables()
     for name in names:
-        del_str = _get_sql('PURGE_DATA') % {"pname":name}
+        del_str = _get_sql('PURGE_DATA') % {"ptable":name}
         stmt = rhnSQL.execute(del_str, tstamp=opt.purge_date)
         print '%32s : %s rows remain' % (name, count(name))
         _log('%32s : %s rows remain' % (name, count(name)))
@@ -206,10 +215,6 @@ if __name__ == '__main__':
         print "(Try running as sudo)"
         sys.exit(1)
 
-    if options.archive:
-        print 'Archiving...'
-        archive(options)
-
     if options.purge:
         print 'Starting counts:'
         list(options)
@@ -218,4 +223,7 @@ if __name__ == '__main__':
         archive(options)
         print '...purging'
         purge(options)
-        rhnSQL.commit();
+        rhnSQL.commit()
+    elif options.archive:
+        print 'Archiving...'
+        archive(options)
