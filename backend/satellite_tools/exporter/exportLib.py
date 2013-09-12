@@ -1036,7 +1036,7 @@ class _ErratumDumper(BaseRowDumper):
         arr = []
 
         mappings = [
-            ('rhn-erratum-advisory-name', 'advisory_name', 32),
+            ('rhn-erratum-advisory-name', 'advisory_name', 100),
             ('rhn-erratum-advisory-rel', 'advisory_rel', 32),
             ('rhn-erratum-advisory-type', 'advisory_type', 32),
             ('rhn-erratum-product', 'product', 64),
