@@ -1,3 +1,6 @@
+# Note that there is a comment in the %files section that tells you where
+# each of the files came from. Update it if you change them.
+
 %define _binaries_in_noarch_packages_terminate_build   0
 %define loaders_root /var/lib/cobbler/loaders
 Summary: Bootloaders to make cobbler buildiso work
@@ -47,6 +50,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %dir %{loaders_root}
 %{loaders_root}/*
+
+# As of cobbler-loaders-1.0.2-2.1 the files in this rpm came from
+# the following Red Hat rpms:
+# elilo-ia64.efi: elilo-3.6-4.src.rpm
+# yaboot: yaboot-1.3.14-41.el6.src.rpm
 
 %changelog
 * Tue Apr 30 2013 Stephen Herr <sherr@redhat.com> 1.0.2-1
