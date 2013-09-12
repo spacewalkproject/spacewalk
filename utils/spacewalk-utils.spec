@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.1.15
+Version:	2.1.16
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -88,6 +88,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Sep 12 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.16-1
+- shortened default yum repo label
+
 * Wed Sep 11 2013 Grant Gainey <ggainey@redhat.com> 2.1.15-1
 - 984611 - Fixed a number of spacewalk-archive-audit bugs found by QE
 
