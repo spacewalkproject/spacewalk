@@ -47,6 +47,9 @@ public abstract class BaseTestCaseWithUser extends RhnBaseTestCase {
         // If at some point we created a user and committed the transaction, we need
         // clean up our mess
         if (committed) {
+           // Set up logging again, as Hibernate might have swapped the connection
+           // with a new one after the commit
+           LoggingFactory.clearLogId();
            OrgFactory.deleteOrg(user.getOrg().getId(), user);
            commitAndCloseSession();
         }
