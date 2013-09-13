@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.systems.virtualization.test;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.virtualization.VirtualizationSetMemoryAction;
@@ -45,6 +46,8 @@ import java.util.Map;
  * @version $Rev$
  */
 public class VirtualGuestsActionTest extends RhnPostMockStrutsTestCase {
+
+    private LocalizationService localization = LocalizationService.getInstance();
 
     private RhnSet submitVirtualGuestsForm(String dispatch, Map requestParams)
         throws Exception {
@@ -90,7 +93,8 @@ public class VirtualGuestsActionTest extends RhnPostMockStrutsTestCase {
 
     public void testDeleteGuest() throws Exception {
         Map requestParams = new HashMap();
-        requestParams.put("guestAction", "Delete Systems");
+        requestParams.put("guestAction",
+                localization.getMessage("virtualguestslist.jsp.deletesystem"));
         RhnSet set = submitVirtualGuestsForm("virtualguestslist.jsp.applyaction",
                 requestParams);
 
@@ -144,7 +148,8 @@ public class VirtualGuestsActionTest extends RhnPostMockStrutsTestCase {
 
     public void testSetGuestMemory() throws Exception {
         Map requestParams = new HashMap();
-        requestParams.put("guestSettingToModify", "Memory");
+        requestParams.put("guestSettingToModify",
+                localization.getMessage("virtualguestslist.jsp.setguestmemory"));
         requestParams.put("guestSettingValue", "1000");
         submitVirtualGuestsForm("virtualguestslist.jsp.applychanges",
                 requestParams);
@@ -185,7 +190,8 @@ public class VirtualGuestsActionTest extends RhnPostMockStrutsTestCase {
 
     public void testSetGuestVcpus() throws Exception {
         Map requestParams = new HashMap();
-        requestParams.put("guestSettingToModify", "Virtual CPU");
+        requestParams.put("guestSettingToModify",
+                localization.getMessage("virtualguestslist.jsp.setguestvcpus"));
         requestParams.put("guestSettingValue", "3");
         submitVirtualGuestsForm("virtualguestslist.jsp.applychanges",
                 requestParams);
