@@ -95,7 +95,7 @@ public class VirtualGuestsActionTest extends RhnPostMockStrutsTestCase {
                 requestParams);
 
         verifyNoActionMessages();
-        assertTrue(getActualForward().endsWith("actionName=delete"));
+        assertTrue(getActualForward().contains("actionName=delete"));
         assertTrue(getActualForward().indexOf("guestSettingValue") <= 0);
 
         // Test some of the base list buttons
