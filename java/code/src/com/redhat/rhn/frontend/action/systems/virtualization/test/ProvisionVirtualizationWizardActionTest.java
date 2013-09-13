@@ -22,8 +22,10 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.EntitlementServerGroup;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
+import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
@@ -37,12 +39,16 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.kickstart.KickstartScheduleCommand;
 import com.redhat.rhn.manager.profile.test.ProfileManagerTest;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
+import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.ServerGroupTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+
+import junit.framework.AssertionFailedError;
 
 /**
  * ProvisionVirtualizationWizardActionTest
@@ -61,6 +67,10 @@ public class ProvisionVirtualizationWizardActionTest extends RhnMockStrutsTestCa
         user.addRole(RoleFactory.ORG_ADMIN);
         s = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
+        s.addChannel(ChannelFactoryTest.createBaseChannel(user));
+        EntitlementServerGroup sg = ServerGroupTestUtils.createEntitled(user.getOrg(),
+                ServerFactory.lookupServerGroupTypeByLabel("provisioning_entitled"));
+        SystemManager.entitleServer(s, sg.getGroupType().getAssociatedEntitlement());
         Channel c = ChannelFactoryTest.createTestChannel(user);
         // Required so the Server has a base channel
         // otherwise we cant ks.
@@ -126,7 +136,13 @@ public class ProvisionVirtualizationWizardActionTest extends RhnMockStrutsTestCa
         // Perform step 1
         actionPerform();
         verifyNoActionErrors();
-        verifyActionMessage("kickstart.schedule.noprofiles");
+        try {
+            verifyActionMessage("kickstart.schedule.noprofiles");
+        }
+        catch (AssertionFailedError e) {
+            verifyActionMessages(new String[] {"kickstart.schedule.noprofiles",
+                    "system.virtualization.help"});
+        }
         assertNotNull(request.getAttribute(RequestContext.SYSTEM));
         clearRequestParameters();
 
