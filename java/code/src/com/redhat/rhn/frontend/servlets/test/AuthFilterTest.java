@@ -88,6 +88,12 @@ public class AuthFilterTest extends MockObjectTestCase {
         mockRequest.stubs().method("getMethod")
                 .will(returnValue(new String("GET")));
 
+        mockRequest.stubs().method("getAttribute").with(eq("session"))
+            .will(returnValue(null));
+        mockRequest.stubs().method("setAttribute").withAnyArguments();
+        mockRequest.stubs().method("getCookies")
+            .will(returnValue(null));
+
         filter.setAuthenticationService((AuthenticationService)mockAuthService.proxy());
     }
 
