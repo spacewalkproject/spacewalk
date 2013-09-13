@@ -47,6 +47,7 @@ public class CryptoKeyCreateActionTest extends RhnPostMockStrutsTestCase {
         addRequestParameter(CryptoKeyCreateAction.DESCRIPTION, "somedesc");
         addRequestParameter(CryptoKeyCreateAction.TYPE,
                 KickstartFactory.KEY_TYPE_GPG.getLabel());
+        addUploadedFile(CryptoKeyCreateAction.CONTENTS, "somekey", "");
         actionPerform();
         assertNotNull(request.getAttribute(CryptoKeyCreateAction.KEY));
         String[] keys = {"crypto.key.nokey"};
@@ -65,9 +66,9 @@ public class CryptoKeyCreateActionTest extends RhnPostMockStrutsTestCase {
         TestUtils.flushAndEvict(key);
         addRequestParameter(RequestContext.KEY_ID,
                 key.getId().toString());
+        addUploadedFile(CryptoKeyCreateAction.CONTENTS, "somekey", "");
         actionPerform();
-        String[] keys = {"crypto.key.nokey"};
-        verifyActionErrors(keys);
+        verifyNoActionErrors();
     }
 }
 
