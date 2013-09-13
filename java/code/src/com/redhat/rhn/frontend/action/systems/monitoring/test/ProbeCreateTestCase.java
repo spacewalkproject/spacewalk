@@ -31,6 +31,7 @@ import com.redhat.rhn.testing.ForwardWrapper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.RhnMockHttpServletRequest;
 import com.redhat.rhn.testing.RhnMockHttpSession;
+import com.redhat.rhn.testing.UserTestUtils;
 
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.HibernateException;
@@ -69,6 +70,7 @@ public abstract class ProbeCreateTestCase extends RhnBaseTestCase {
     public final void testMissingParams() throws Exception {
         modifyActionHelper(RhnHelper.DEFAULT_FORWARD);
 
+        UserTestUtils.addMonitoringScoutOrg(user);
         Probe orig = MonitoringFactoryTest.createTestProbe(user);
 
         ah.getForm().set(RhnAction.SUBMITTED, Boolean.TRUE);
@@ -134,6 +136,7 @@ public abstract class ProbeCreateTestCase extends RhnBaseTestCase {
     public final void testThresholdParamsAscending() throws Exception {
         // bugzilla 161387
 
+        UserTestUtils.addMonitoringScoutOrg(user);
         Probe orig = MonitoringFactoryTest.createTestProbe(user);
 
         modifyActionHelper(RhnHelper.DEFAULT_FORWARD);

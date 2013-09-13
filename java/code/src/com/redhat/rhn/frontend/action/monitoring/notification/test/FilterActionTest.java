@@ -87,6 +87,7 @@ public class FilterActionTest extends RhnBaseTestCase {
         filter = FilterTest.createTestFilter(user,
                 "filter" + TestUtils.randomString());
         // Create a test probe
+        UserTestUtils.addMonitoringScoutOrg(user);
         ServerProbe p = (ServerProbe) MonitoringFactoryTest.createTestProbe(user);
         Server s = ServerFactoryTest.createTestServer(user, true);
         SatCluster sc = (SatCluster) user.getOrg().getMonitoringScouts().iterator().next();

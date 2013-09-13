@@ -27,6 +27,7 @@ import com.redhat.rhn.frontend.action.systems.monitoring.ProbeEditAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
+import com.redhat.rhn.testing.UserTestUtils;
 
 import org.apache.struts.action.ActionForward;
 
@@ -55,6 +56,7 @@ public class ProbeEditActionTest extends RhnBaseTestCase {
         user.addRole(RoleFactory.ORG_ADMIN);
         Server s = ServerFactoryTest.createTestServer(user, true);
 
+        UserTestUtils.addMonitoringScoutOrg(user);
         probe = MonitoringFactoryTest.createTestProbe(user);
 
         ah.getForm().setFormName("probeEditForm");

@@ -27,6 +27,7 @@ import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
+import com.redhat.rhn.testing.UserTestUtils;
 
 import org.apache.struts.action.ActionForward;
 
@@ -51,6 +52,7 @@ public class ProbeDeleteActionTest extends RhnBaseTestCase {
         user = ah.getUser();
         user.addRole(RoleFactory.ORG_ADMIN);
         Server s = ServerFactoryTest.createTestServer(user, true);
+        UserTestUtils.addMonitoringScoutOrg(user);
         probe = MonitoringFactoryTest.createTestProbe(user);
 
         ah.getForm().setFormName("probeEditForm");

@@ -34,6 +34,7 @@ import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.manager.monitoring.test.MonitoringManagerTest;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
+import com.redhat.rhn.testing.UserTestUtils;
 
 import org.apache.struts.action.ActionForward;
 
@@ -65,6 +66,7 @@ public class ProbeDetailsActionTest extends RhnBaseTestCase {
         user = ah.getUser();
         user.addRole(RoleFactory.ORG_ADMIN);
         s = ServerFactoryTest.createTestServer(user, true);
+        UserTestUtils.addMonitoringScoutOrg(user);
         probe = MonitoringFactoryTest.createTestProbe(user);
         ProbeState newState = new ProbeState((SatCluster)
                 user.getOrg().getMonitoringScouts().iterator().next());

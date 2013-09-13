@@ -51,6 +51,7 @@ public class ProbeGraphActionTest extends RhnBaseTestCase {
         testTime = new Timestamp(System.currentTimeMillis());
         user = UserTestUtils.createUserInOrgOne();
         server = ServerFactoryTest.createTestServer(user, false);
+        UserTestUtils.addMonitoringScoutOrg(user);
         probe = MonitoringFactoryTest.createTestProbe(user);
 
         action = new ProbeGraphAction();

@@ -30,6 +30,7 @@ import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.TestUtils;
+import com.redhat.rhn.testing.UserTestUtils;
 
 import org.hibernate.HibernateException;
 
@@ -191,6 +192,7 @@ public class ProbeSuiteTest extends BaseTestCaseWithUser {
         }
 
         // Just grab the 1st one for this test.
+        UserTestUtils.addMonitoringScoutOrg(user);
         SatCluster sc = (SatCluster)
             user.getOrg().getMonitoringScouts().iterator().next();
 

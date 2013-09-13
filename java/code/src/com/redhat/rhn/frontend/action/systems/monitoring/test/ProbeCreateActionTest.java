@@ -27,6 +27,7 @@ import com.redhat.rhn.frontend.action.systems.monitoring.ProbeCreateAction;
 import com.redhat.rhn.frontend.action.systems.monitoring.ProbeDetailsAction;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.testing.ForwardWrapper;
+import com.redhat.rhn.testing.UserTestUtils;
 
 /**
  * ProbeCreateActionTest
@@ -46,6 +47,7 @@ public class ProbeCreateActionTest extends ProbeCreateTestCase {
 
     public void testSubmitExecute() throws Exception {
 
+        UserTestUtils.addMonitoringScoutOrg(user);
         Probe orig = MonitoringFactoryTest.createTestProbe(user);
 
         modifyActionHelper("success");

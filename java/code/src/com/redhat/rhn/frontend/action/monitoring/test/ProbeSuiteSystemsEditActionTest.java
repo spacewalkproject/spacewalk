@@ -40,6 +40,7 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
+import com.redhat.rhn.testing.UserTestUtils;
 
 import org.apache.struts.Globals;
 import org.apache.struts.action.Action;
@@ -80,6 +81,7 @@ public class ProbeSuiteSystemsEditActionTest extends RhnBaseTestCase {
         // Create a 2nd server that isn't in the suite
         Server serverNotInSuite = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeMonitoringEntitled());
+        UserTestUtils.addMonitoringScoutOrg(user);
         SatCluster c = (SatCluster)
             user.getOrg().getMonitoringScouts().iterator().next();
         sah.getRequest().
