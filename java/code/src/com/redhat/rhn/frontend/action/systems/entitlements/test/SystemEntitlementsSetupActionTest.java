@@ -52,6 +52,7 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
         setRequestPathInfo("/systems/SystemEntitlements");
         UserTestUtils.addManagement(user.getOrg());
         UserTestUtils.addMonitoring(user.getOrg());
+        UserTestUtils.addVirtualization(user.getOrg());
     }
     /**
      *
