@@ -16,14 +16,13 @@ package com.redhat.rhn.frontend.xmlrpc.org.test;
 
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.channel.ChannelFamily;
-import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
+import com.redhat.rhn.domain.channel.test.ChannelFamilyFactoryTest;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
-import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.dto.MultiOrgEntitlementsDto;
 import com.redhat.rhn.frontend.dto.MultiOrgUserOverview;
 import com.redhat.rhn.frontend.dto.OrgChannelFamily;
@@ -40,7 +39,6 @@ import com.redhat.rhn.frontend.xmlrpc.ValidationException;
 import com.redhat.rhn.frontend.xmlrpc.org.OrgHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.frontend.xmlrpc.test.XmlRpcTestUtils;
-import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.org.OrgManager;
 import com.redhat.rhn.testing.ServerTestUtils;
@@ -62,6 +60,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
     private static final String EMAIL = "fakeadmin@example.com";
     private static final String PREFIX = "Mr.";
     private String[] orgName = {"Test Org 1", "Test Org 2"};
+    private ChannelFamily channelFamily = null;
 
 
     public void setUp() throws Exception {
@@ -71,6 +70,12 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
             orgName[i] = "Test Org " + TestUtils.randomString();
         }
         TestUtils.saveAndFlush(admin);
+
+        channelFamily = ChannelFamilyFactoryTest.createTestChannelFamily(
+                admin,
+                ChannelFamilyFactoryTest.ENTITLEMENT_ALLOCATION,
+                ChannelFamilyFactoryTest.FLEX_ALLOCATION,
+                true);
     }
 
     public void testCreate() throws Exception {
@@ -225,38 +230,37 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         }
 
         Org testOrg = createOrg();
-        ChannelFamily cf = lookupRedHatChannelFamily();
 
         // test the entitlement api before the entitlement has been assigned to the org
         List<OrgSoftwareEntitlementDto> entitlementCounts = null;
 
-        entitlementCounts = handler.listSoftwareEntitlements(adminKey, cf.getLabel(),
-            Boolean.TRUE);
+        entitlementCounts = handler.listSoftwareEntitlements(adminKey,
+                channelFamily.getLabel(), Boolean.TRUE);
         // since includeUnentitled=TRUE, we should find an entry for the org w/ 0 ents
-        assertOrgSoftwareEntitlement(testOrg.getId(), cf.getLabel(),
+        assertOrgSoftwareEntitlement(testOrg.getId(), channelFamily.getLabel(),
             entitlementCounts, 0, true);
 
-        entitlementCounts = handler.listSoftwareEntitlements(adminKey, cf.getLabel(),
-            Boolean.FALSE);
+        entitlementCounts = handler.listSoftwareEntitlements(adminKey,
+            channelFamily.getLabel(), Boolean.FALSE);
         // since includeUnentitled=FALSE, we shouldn't be able to locate the org
-        assertOrgSoftwareEntitlement(testOrg.getId(), cf.getLabel(),
+        assertOrgSoftwareEntitlement(testOrg.getId(), channelFamily.getLabel(),
             entitlementCounts, 0, false);
 
         // now give the org some entitlements
         int result = handler.setSoftwareEntitlements(adminKey,
-                       testOrg.getId().intValue(), cf.getLabel(), 1);
+                       testOrg.getId().intValue(), channelFamily.getLabel(), 1);
         assertEquals(1, result);
 
         // now that the org has the entitlement, we should find it entitled with
         // both variations of the api call
-        entitlementCounts = handler.listSoftwareEntitlements(adminKey, cf.getLabel(),
-            Boolean.TRUE);
-        assertOrgSoftwareEntitlement(testOrg.getId(), cf.getLabel(),
+        entitlementCounts = handler.listSoftwareEntitlements(adminKey,
+            channelFamily.getLabel(), Boolean.TRUE);
+        assertOrgSoftwareEntitlement(testOrg.getId(), channelFamily.getLabel(),
             entitlementCounts, 1, true);
 
-        entitlementCounts = handler.listSoftwareEntitlements(adminKey, cf.getLabel(),
-            Boolean.FALSE);
-        assertOrgSoftwareEntitlement(testOrg.getId(), cf.getLabel(),
+        entitlementCounts = handler.listSoftwareEntitlements(adminKey,
+            channelFamily.getLabel(), Boolean.FALSE);
+        assertOrgSoftwareEntitlement(testOrg.getId(), channelFamily.getLabel(),
             entitlementCounts, 1, true);
     }
 
@@ -291,8 +295,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
 
         assertTrue(!ents.isEmpty());
 
-        ChannelFamily cf = lookupRedHatChannelFamily();
-        MultiOrgEntitlementsDto dto1 = findEntitlementDto(ents, cf.getLabel());
+        MultiOrgEntitlementsDto dto1 = findEntitlementDto(ents, channelFamily.getLabel());
         assertNotNull(dto1);
 
         String random = TestUtils.randomString();
@@ -306,11 +309,11 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
                                         first, last, email, false);
         int slots = 1;
         handler.setSoftwareEntitlements(adminKey,
-                    org.getId().intValue(), cf.getLabel(), slots);
+                    org.getId().intValue(), channelFamily.getLabel(), slots);
 
         ents = handler.listSoftwareEntitlements(adminKey);
 
-        MultiOrgEntitlementsDto dto2 = findEntitlementDto(ents, cf.getLabel());
+        MultiOrgEntitlementsDto dto2 = findEntitlementDto(ents, channelFamily.getLabel());
         assertNotNull(dto2);
 
         assertEquals(dto1.getLabel(), dto2.getLabel());
@@ -339,12 +342,11 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         }
 
         Org testOrg = createOrg();
-        ChannelFamily cf = lookupRedHatChannelFamily();
         int result = handler.setSoftwareEntitlements(adminKey,
-                       testOrg.getId().intValue(), cf.getLabel(), 1);
+                       testOrg.getId().intValue(), channelFamily.getLabel(), 1);
         assertEquals(1, result);
 
-        assertOrgSoftwareEntitlementCount(testOrg.getId(), cf.getLabel(), 1);
+        assertOrgSoftwareEntitlementCount(testOrg.getId(), channelFamily.getLabel(), 1);
     }
 
     public void testSetSystemEntitlements() throws Exception {
@@ -385,7 +387,6 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         }
 
         Org testOrg = createOrg();
-        ChannelFamily cf = lookupRedHatChannelFamily();
         try {
             handler.setSoftwareEntitlements(adminKey,
                     new Integer(testOrg.getId().intValue()), "nosuchfamily",
@@ -398,7 +399,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
 
         try {
             handler.setSoftwareEntitlements(adminKey,
-                    new Integer(-1), cf.getLabel(),
+                    new Integer(-1), channelFamily.getLabel(),
                     new Integer(1));
             fail();
         }
@@ -436,10 +437,9 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
             return;
         }
 
-        ChannelFamily cf = lookupRedHatChannelFamily();
         try {
             handler.setSoftwareEntitlements(adminKey,
-                    new Integer(1), cf.getLabel(), new Integer(10));
+                    new Integer(1), channelFamily.getLabel(), new Integer(10));
             fail();
         }
         catch (IllegalArgumentException e) {
@@ -610,28 +610,6 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         if (!found) {
             fail("unable to find channel family: " + systemEntitlementLabel);
         }
-    }
-
-    /**
-     * Lookup an official Red Hat channel family with free slots.
-     * Fail the test if none can be found.
-     *
-     * @return channel family with free slots.
-     */
-    private ChannelFamily lookupRedHatChannelFamily() {
-        Org satelliteOrg = OrgFactory.getSatelliteOrg();
-        List<ChannelOverview> channelOverviews =
-            ChannelManager.entitlements(satelliteOrg.getId(), null);
-        for (ChannelOverview co : channelOverviews) {
-            if (co.getFreeMembers() > 0) {
-                return ChannelFamilyFactory.lookupByLabel(co.getLabel(), null);
-            }
-        }
-
-        // If we couldn't find a Red Hat entitlement with free slots, raise an
-        // exception and fail the calling test.
-        fail("Unable to find channel family with free slots on satellite.");
-        return null;
     }
 
     public void testMigrateSystem() throws Exception {
