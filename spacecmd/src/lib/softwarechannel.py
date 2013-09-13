@@ -1598,4 +1598,27 @@ def do_softwarechannel_syncrepos(self, args):
         logging.debug('Syncing repos for %s' % channel)
         self.client.channel.software.syncRepo(self.session, channel)
 
+####################
+
+def help_softwarechannel_setsyncschedule(self):
+    print 'softwarechannel_setsyncschedule: '
+    print 'Sets the repo sync schedule for a software channel'
+    print
+    print 'usage: softwarechannel_setsyncschedule <CHANNEL> <SCHEDULE>'
+
+def complete_softwarechannel_setsyncschedule(self, text, line, beg, end):
+    return tab_completer(self.do_softwarechannel_list('', True), text)
+
+def do_softwarechannel_setsyncschedule(self, args):
+    (args, options) = parse_arguments(args, glob = False)
+
+    if not len(args) == 7:
+        self.help_softwarechannel_setsyncschedule()
+        return
+
+    channel = args[0]
+    schedule = ' '.join(args[1:])
+
+    self.client.channel.software.syncRepo(self.session, channel, schedule)
+
 # vim:ts=4:expandtab:
