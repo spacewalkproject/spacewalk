@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.system.test;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
@@ -66,6 +67,8 @@ import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
+import com.redhat.rhn.manager.kickstart.cobbler.test.MockXMLRPCInvoker;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
@@ -79,6 +82,7 @@ import com.redhat.rhn.testing.TestStatics;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
+import org.cobbler.test.MockConnection;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
@@ -100,6 +104,14 @@ public class SystemManagerTest extends RhnBaseTestCase {
     public static final Long NUM_CPUS = new Long(5);
     public static final int HOST_RAM_MB = 2048;
     public static final int HOST_SWAP_MB = 1024;
+
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        Config.get().setString(CobblerXMLRPCHelper.class.getName(),
+                MockXMLRPCInvoker.class.getName());
+        MockConnection.clear();
+    }
 
     public void testSnapshotServer() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",

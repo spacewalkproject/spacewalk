@@ -718,6 +718,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Long sid = server.getId();
         ClientCertificate cert = SystemManager.createClientCertificate(server);
         cert.validate(server.getSecret());
+        KickstartDataTest.setupTestConfiguration(admin);
         assertEquals(1, handler.deleteSystem(cert.toString()));
         assertNull(ServerFactory.lookupById(sid));
     }
@@ -753,6 +754,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         server.setBaseEntitlement(EntitlementManager.MANAGEMENT);
         TestUtils.saveAndFlush(server);
         server = (Server) reload(server);
+        KickstartDataTest.setupTestConfiguration(admin);
         KickstartData k = KickstartDataTest.createKickstartWithProfile(admin);
         KickstartDataTest.addCommand(admin, k, "url", "--url http://cascade.sfbay.redhat." +
         "com/rhn/kickstart/ks-rhel-i386-server-5");
@@ -1856,7 +1858,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         Long returnInt = handler.scheduleReboot(adminKey,
                 new Integer(testServer.getId().intValue()), new Date());
-        assertEquals(returnInt, new Integer(1));
+        assertNotNull(returnInt);
 
         dr = ActionManager.recentlyScheduledActions(admin, null, 30);
         assertEquals(1, dr.size() - preScheduleSize);

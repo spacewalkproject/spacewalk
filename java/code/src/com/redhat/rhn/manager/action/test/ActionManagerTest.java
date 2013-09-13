@@ -332,6 +332,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
             .getServer();
         ActionFactory.save(parentAction);
 
+        KickstartDataTest.setupTestConfiguration(user);
         KickstartData ksData = KickstartDataTest.createKickstartWithOptions(user.getOrg());
         KickstartSession ksSession = KickstartSessionTest.createKickstartSession(server,
                 ksData, user, parentAction);
