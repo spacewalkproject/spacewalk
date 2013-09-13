@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.testing;
 
-import com.mockobjects.servlet.MockHttpServletRequest;
-
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -24,6 +22,10 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
+
+import junit.framework.AssertionFailedError;
+
+import com.mockobjects.servlet.MockHttpServletRequest;
 
 /**
  * RhnMockHttpServletRequest is a mock implementation of the
@@ -124,6 +126,21 @@ public class RhnMockHttpServletRequest extends MockHttpServletRequest {
      */
     public void setupGetHeaderNames(Enumeration headerNamesIn) {
         this.headerNames = headerNamesIn;
+    }
+
+    /**
+     * Override to return 'null' if the requested param doesn't exist
+     * (Mock throws an AssertionError in this case :(
+     * @param paramName name of param to look up
+     * @return value of paramName, or 'null' if paramName isn't in the request
+     */
+    public String getParameter(String paramName) {
+        try {
+            return super.getParameter(paramName);
+        }
+        catch (AssertionFailedError afe) {
+            return null;
+        }
     }
 
     /** {@inheritDoc} */
