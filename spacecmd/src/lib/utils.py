@@ -38,12 +38,13 @@ except ImportError:
 
 __EDITORS = ['vim', 'vi', 'nano', 'emacs']
 
-def parse_arguments(args, options = []):
+def parse_arguments(args, options = [], glob = True):
     try:
         parts = shlex.split(args)
 
         # allow simple globbing
-        parts = [re.sub('\*', '.*', a) for a in parts]
+        if glob:
+            parts = [re.sub('\*', '.*', a) for a in parts]
 
         parser = SpacecmdOptionParser(option_list = options)
         (opts, leftovers) = parser.parse_args(args = parts)
