@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.monitoring.notification.test;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.domain.monitoring.notification.test.MethodTest;
 import com.redhat.rhn.frontend.action.monitoring.notification.MethodsSetupAction;
 import com.redhat.rhn.frontend.dto.monitoring.MethodDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -37,6 +38,10 @@ public class MethodsSetupActionTest extends RhnBaseTestCase {
         sah.getRequest().setupAddParameter("newset", (String)null);
         sah.getRequest().setupAddParameter("returnvisit", (String) null);
         sah.getRequest().setupAddParameter("submitted", "false");
+
+        // ensure a Method exists
+        MethodTest.createTestMethodCommand(sah.getUser());
+
         sah.executeAction();
 
         // Remove if not a List SetupAction
