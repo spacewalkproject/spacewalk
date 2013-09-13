@@ -89,6 +89,9 @@ public class KickstartScriptActionTest extends BaseKickstartEditTestCase {
                 KickstartScript.TYPE_POST);
         addRequestParameter(KickstartScriptCreateAction.SUBMITTED,
                 Boolean.TRUE.toString());
+        addRequestParameter(KickstartScriptCreateAction.SCRIPTNAME,
+                RandomStringUtils.randomAscii(20));
+
         setRequestPathInfo("/kickstart/KickstartScriptCreate");
         actionPerform();
         String[] keys = {"kickstart.script.success"};
@@ -127,6 +130,8 @@ public class KickstartScriptActionTest extends BaseKickstartEditTestCase {
                 KickstartScript.TYPE_POST);
         addRequestParameter(KickstartScriptCreateAction.SUBMITTED,
                 Boolean.TRUE.toString());
+        addRequestParameter(KickstartScriptCreateAction.SCRIPTNAME,
+                RandomStringUtils.randomAscii(20));
         KickstartScript kss = ksdata.getScripts().iterator().next();
         addRequestParameter(RequestContext.KICKSTART_SCRIPT_ID, kss.getId().toString());
         setRequestPathInfo("/kickstart/KickstartScriptEdit");
