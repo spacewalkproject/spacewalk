@@ -274,17 +274,9 @@ Determine the database port.
 The ability of synchronize two Spacewalk/Red Hat Satellites servers
 is called Inter-Red Hat Satellite Sync (ISS)  which allows to synchronize channels
 from the master Red Hat Satellite to slave servers, simplifying the
-process of coordinating contents from one Spacewalk/Red Hat Satellite source to another or several others.
+process of coordinating contents from one Spacewalk/Red Hat Satellite source to another or several others. Note: Several options that used to be available in rhn.conf are now only set by the Satellite Admin in the Admin -> ISS Configuration pages in the web interface. 
 
 .SS Master Spacewalk/Red Hat Satellite Servers
-
-.TP
-.B "allowed_iss_slaves"
-This parameter is used if the server is intended to be a master. Comma separated list of allowed
-iss slaves. Use full qualified domain names
-.B (FQDN)
-at this option.
-.IP
 
 .TP
 .B "disable_iss"
@@ -294,31 +286,6 @@ another spacewalk (or hosted).
 .IP
 .B Default:
 0
-
-.SS Slave Spacewalk/Red Hat Satellite Servers
-
-.TP
-.B "iss_parent"
-This parameter determines the Spacewalk/Red Hat Satellite parent server. If left blank,
-.B server.satellite.rhn_parent
-is taken by default.
-Only use this option if this server is intended to be a slave server.
-.IP
-
-.TP
-.B "iss_ca_chain"
-This parameter specifies the SSL certificate used when communication with
-.B iss_parent
-server. This certificate
-.I must
-contain the
-.I SSL Common Name
-from
-.B iss_parent
-server.
-.IP
-.B Default:
-/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT
 
 .SH FILES
 .I /etc/rhn/rhn.conf
