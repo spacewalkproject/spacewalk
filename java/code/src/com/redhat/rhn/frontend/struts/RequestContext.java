@@ -47,6 +47,7 @@ import org.apache.log4j.Logger;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -589,7 +590,7 @@ public class RequestContext {
             // if we already have this param in the query string we have to
             // reset it to the new value
             if (index >= 0) {
-                Map parammap = new HashMap();
+                Map<String, String> parammap = new TreeMap<String, String>();
                 String[] params = StringUtils.split(request.getQueryString(),
                 '&');
                 // Convert the parameters into a map so we can
@@ -601,9 +602,9 @@ public class RequestContext {
                 parammap.remove(name);
                 parammap.put(name, value);
                 page.append("?");
-                Iterator i = parammap.keySet().iterator();
+                Iterator<String> i = parammap.keySet().iterator();
                 while (i.hasNext()) {
-                    String key = (String)i.next();
+                    String key = i.next();
                     page.append(key + "=" + parammap.get(key));
                     if (i.hasNext()) {
                         page.append("&");
