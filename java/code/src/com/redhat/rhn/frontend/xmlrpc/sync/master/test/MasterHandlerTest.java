@@ -148,7 +148,13 @@ public class MasterHandlerTest extends BaseHandlerTestCase {
 
         // Make sure satellite-admin can
         try {
-            IssMaster defaultMaster = handler.getDefaultMaster(adminKey);
+            IssMaster defaultMaster = null;
+            try {
+                defaultMaster = handler.getDefaultMaster(adminKey);
+            }
+            catch (LookupException e) {
+                // master not found, leave null
+            }
 
             int rc = handler.makeDefault(adminKey, master1.getId().intValue());
             assertEquals(1, rc);
