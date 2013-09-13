@@ -36,6 +36,30 @@ import java.util.Map;
  */
 public class OrgSoftwareSubscriptionsActionTest extends RhnPostMockStrutsTestCase {
 
+
+    /** The channel family. */
+    private ChannelFamily cfm;
+
+    /**
+     * Sets up channel family and subscriptions.
+     *
+     * @throws Exception if problems arise
+     * @see com.redhat.rhn.testing.RhnPostMockStrutsTestCase#setUp()
+     */
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+
+        cfm = ChannelFamilyFactoryTest.createTestChannelFamily(UserFactory
+                        .findRandomOrgAdmin(OrgFactory.getSatelliteOrg()));
+        System.out.println("CFM TEST ID is " + cfm.getId().toString());
+        Map<String, String> subsMap = new HashMap<String, String>();
+        subsMap.put(cfm.getId().toString(), "10");
+        request.getSession().setAttribute(
+                "OrgSoftwareSubscriptions" + user.getOrg().getId().toString(), subsMap);
+
+    }
+
     public void testExecute() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
         user.addRole(RoleFactory.SAT_ADMIN);
@@ -52,17 +76,10 @@ public class OrgSoftwareSubscriptionsActionTest extends RhnPostMockStrutsTestCas
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
         user.addRole(RoleFactory.SAT_ADMIN);
         addRequestParameter(RequestContext.ORG_ID, user.getOrg().getId().toString());
-        ChannelFamily cfm = ChannelFamilyFactoryTest.createTestChannelFamily(
-                UserFactory.findRandomOrgAdmin(OrgFactory.getSatelliteOrg()));
-        System.out.println("CFM TEST ID is " + cfm.getId().toString());
         addRequestParameter(cfm.getId().toString(), "10");
         addRequestParameter("updateOrganizations", "1");
         LocalizationService ls = LocalizationService.getInstance();
         addRequestParameter("dispatch", ls.getMessage("orgdetails.jsp.submit"));
-        Map<String, String> subsMap = new HashMap<String, String>();
-        subsMap.put(cfm.getId().toString(), "10");
-        request.getSession().setAttribute("OrgSoftwareSubscriptions" +
-                                user.getOrg().getId().toString(), subsMap);
         setRequestPathInfo("/admin/multiorg/OrgSoftwareSubscriptions");
 
         addSubmitted();
