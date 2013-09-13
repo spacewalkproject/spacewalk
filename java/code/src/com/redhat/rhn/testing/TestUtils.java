@@ -68,6 +68,9 @@ import java.util.Map;
 
 public class TestUtils {
 
+    /** Prefix for temporary file names created by this class. */
+    private static String filePrefix = TestUtils.randomString();
+
     // static class
     private TestUtils() { }
 
@@ -93,8 +96,7 @@ public class TestUtils {
         URL ret = clazz.getResource(path);
 
         if (ret.toString().contains("!")) { // file is from an archive
-            String tempPath =
-                    "/tmp/" + System.currentTimeMillis() + TestUtils.randomString();
+            String tempPath = "/tmp/" + filePrefix + ret.hashCode();
             InputStream input = clazz.getResourceAsStream(path);
 
             OutputStream output = new FileOutputStream(tempPath);
