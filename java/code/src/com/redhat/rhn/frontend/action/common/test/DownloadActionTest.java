@@ -28,6 +28,8 @@ import com.redhat.rhn.testing.TestUtils;
 import java.io.File;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
+
 /**
  * TinyUrlActionTest
  * @version $Rev$
@@ -120,6 +122,8 @@ public class DownloadActionTest extends RhnMockStrutsTestCase {
                 "x86_64/c7dd5e9b6975bc7f80f2f4657260af53/" +
                 fileName);
         TestUtils.saveAndFlush(p);
+
+        FileUtils.touch(new File("/tmp/Server/" + fileName));
 
         KickstartSession ksession =
             KickstartSessionTest.createKickstartSession(ksdata, user);
