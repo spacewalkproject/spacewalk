@@ -43,7 +43,7 @@ sql:
     join rhnPackageEvr NPE on NPE.id=P.evr_id
   where NPE.evr=(
     select max(PE.evr)
-    from rhnServerNeededPackageCache SPC1
+    from rhnServerNeededCache SPC1
       join rhnPackage P1 on SPC1.package_id=P1.id
       join rhnPackageEvr PE on P1.evr_id=PE.id
     where P1.name_id=P.name_id
