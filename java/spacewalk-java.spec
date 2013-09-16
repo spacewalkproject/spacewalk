@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.41
+Version: 2.1.42
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,33 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Sep 16 2013 Tomas Lestach <tlestach@redhat.com> 2.1.42-1
+- Workaround bug in MockHttpServletRequest - asking for a param that doesn't
+  exist shouldn't assert()
+- VirtualGuestsActionTest: do not rely ontranslation messages
+- ProvisionVirtualizationWizardActionTest:preconditions
+- SystemEntitlementsSetupActionTest: do not assume Org has virtualization
+  entitlement
+- Add support for uploaded files in mockedrequests, fix
+  CryptoKeyCreateActionTest
+- OrgSoftwareSubscriptionsActionTest: always create test channel families
+- MethodsSetupActionTest: do not assume that method command exists
+- KickstartScriptActionTest: missingparameters added
+- junit tests: some logging cleanups
+- Make taskomatic maxmemory configurable in rhn.conf
+- TestUtils: use the same temporaryfilename for the same file
+- junit tests: do not rely on Cobbler
+- VirtualGuestsActionTest: do not rely on query string parameter ordering
+- OrgHandlerTest: don't depend on a channel family with free entitlement slots
+- ActivationKeyHandlerTest: expect correct exceptions
+- AuthFilterTest: mocked request object updated
+- MasterHandlerTest: handlegetDefaultMaster exceptions
+- DownloadActionTest: do not assume file tobe downloaded exists
+- Frontend monitoring tests: ensure aMonitoring Scout exists
+- RequestContext.buildPageLink: forceparameter ordering
+- 580995 - typo fix + clarify meaning
+- Cleaning up more Junits
+
 * Tue Sep 10 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.41-1
 - 580995 - updating api doc
 
