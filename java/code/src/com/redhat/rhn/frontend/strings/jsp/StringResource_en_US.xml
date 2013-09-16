@@ -19104,6 +19104,15 @@ given channel.</source>
 
             This process can take several seconds. Be patient and do not click the button below more than once.</source>
       </trans-unit>
+      <trans-unit id="channel.jsp.manage.package.channel">
+        <source>Channel</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.manage.package.allpackages">
+        <source>All managed packages.</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.manage.package.packagesnochannels">
+        <source>Packages in no channels.</source>
+      </trans-unit>
       <trans-unit id="baddownload.jsp.title">
         <source>File Download Failed</source>
       </trans-unit>

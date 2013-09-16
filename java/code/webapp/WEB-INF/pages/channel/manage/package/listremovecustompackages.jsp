@@ -32,41 +32,7 @@
 <bean:message key="channel.jsp.manage.package.message"/>
 <h2><bean:message key="channel.jsp.manage.package.subtitle"/></h2>
 
-
-<table class="details" width="80%">
-
-			  <tr> <th width="10%">Channel:</th><td width="40%">
-			  <select name="selected_channel">
-					<option value="all_managed_packages" <c:if test="${all_selected eq true}">selected = "selected"</c:if>>All managed packages</option>
-					<option value="orphan_packages" <c:if test="${orphan_selected eq true}">selected = "selected"</c:if>>Packages in no channels.</option>
-				    <optgroup>
-					<c:forEach var="option" items="${channel_list}">
-						<c:choose>
-							<c:when test="${option.baseChannel}">
-							    </optgroup>
-								<option value="${option.id}"  <c:if test="${option.selected eq true}">selected = "selected"</c:if>    >${option.name}	</option>
-								<optgroup>
-							</c:when>
-							<c:otherwise>
-								<option value="${option.id}"   <c:if test="${option.selected eq true}">selected = "selected"</c:if> >${option.name}</option>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-					</optgroup>
-			  </select>
-
-			  </td>
-					  <td>
-							  <input type="submit" name="view"  value="<bean:message key="channel.jsp.package.viewpackages"/>">
-					  </td>
-			     </tr>
-
-
-
-  </table>
-
-
-
+<%@ include file="/WEB-INF/pages/common/fragments/channel/manage/channel_selector.jspf" %>
 
 		  <rl:list dataset="pageList" name="packageList"
 		  decorator="SelectableDecorator"
