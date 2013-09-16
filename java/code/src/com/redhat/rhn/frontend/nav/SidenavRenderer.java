@@ -48,6 +48,7 @@ public class SidenavRenderer extends Renderable {
 
         if (depth == 1) {
             HtmlTag ul = new HtmlTag("ul");
+            ul.setAttribute("class", "nav nav-pills nav-stacked");
             sb.append(ul.renderOpenTag());
         }
 
@@ -67,12 +68,7 @@ public class SidenavRenderer extends Renderable {
             return;
         }
 
-        if (depth > 1) {
-            renderNode(sb, node, "sidenav-selected navchild");
-        }
-        else {
-            renderNode(sb, node, "sidenav-selected navparent");
-        }
+        renderNode(sb, node, "active");
     }
 
     /** {@inheritDoc} */
@@ -84,14 +80,6 @@ public class SidenavRenderer extends Renderable {
         if (!canRender(node, depth)) {
             return;
         }
-
-        if (depth > 1) {
-            renderNode(sb, node, "navchild");
-        }
-        else {
-            renderNode(sb, node, "navparent");
-        }
-
     }
 
     private void renderNode(StringBuffer sb, NavNode node, String cssClass) {
