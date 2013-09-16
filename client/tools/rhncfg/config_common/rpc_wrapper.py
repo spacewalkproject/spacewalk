@@ -133,7 +133,7 @@ class Server(rpclib.Server):
     #This is the logic for switching to a new server resides.
     def _failover(self):
         #The print statements are from alikins rpcServer.py.
-        msg = "An error occured talking to %s:\n" % self._get_uri()
+        msg = "An error occurred talking to %s:\n" % self._get_uri()
         msg = msg + "%s\n%s\n" % (sys.exc_type, sys.exc_value)
 
         #Increments the index to point to the next server in self.list_of_uris

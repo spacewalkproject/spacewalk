@@ -201,7 +201,7 @@ class NoChannelsError(NoLogError):
     pass
 
 class NetworkError(Error):
-    """ some generic network error occured, e.g. connection reset by peer """
+    """ some generic network error occurred, e.g. connection reset by peer """
     premsg = _("Network error: ")
 
 class SSLCertificateVerifyFailedError(RepoError, Error):

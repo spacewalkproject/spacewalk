@@ -590,7 +590,7 @@ class spawn:
         You can see all the data read before the match in 'before'.
         You can see the data that was matched in 'after'.
         The re.MatchObject used in the re match will be in 'match'.
-        If an error occured then 'before' will be set to all the
+        If an error occurred then 'before' will be set to all the
         data read so far and 'after' and 'match' will be None.
 
         If timeout is -1 then timeout will be set to the self.timeout value.

@@ -82,7 +82,7 @@ def _prepare_guest_kernel_and_ramdisk(config):
         commands.getstatusoutput("%s -q %s" % (PYGRUB, disk_image))
     if status != 0:
         raise VirtualizationException, \
-            "Error occured while executing '%s' (status=%d). Output=%s" % \
+            "Error occurred while executing '%s' (status=%d). Output=%s" % \
                 (PYGRUB, status, output)
 
     # Now analyze the output and extract the names of the new kernel and initrd

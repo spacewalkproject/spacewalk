@@ -656,6 +656,6 @@ if __name__ == "__main__":
     except ValueError, e:
         raise # should exit with a 1 (errnoGeneral)
     except Exception:
-        sys.stderr.write('Unhandled ERROR occured.\n')
+        sys.stderr.write('Unhandled ERROR occurred.\n')
         raise # should exit with a 1 (errnoGeneral)
 

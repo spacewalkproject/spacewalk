@@ -54,7 +54,7 @@ sub run {
 
 
     # Execute each command with its parameters and check for errors.
-    # If an error has occured, set the status to unknown and return.
+    # If an error has occurred, set the status to unknown and return.
     $service->execute($command, @currentOpened_params);
     if(defined($service->errors)) {
         $result->item_unknown("Could not connect to the endpoint. Error: ". $service->errors);

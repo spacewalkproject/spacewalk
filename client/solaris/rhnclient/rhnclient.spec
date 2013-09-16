@@ -91,7 +91,7 @@ rm -rf $RPM_BUILD_ROOT
 - Add missing space to log message
 
 * Mon Jul 09 2012 Michael Mraka <michael.mraka@redhat.com> 0.16-1
-- Fix typo in 'Fatal error in Python code occured'
+- Fix typo in 'Fatal error in Python code occurred'
 
 * Thu Jun 21 2012 Jan Pazdziora 0.15-1
 - allow linking against openssl

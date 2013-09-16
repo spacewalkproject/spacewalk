@@ -219,7 +219,7 @@ public class RhnCustomFormatter implements JUnitResultFormatter {
     /**
      * Interface TestListener.
      *
-     * <p>An error occured while running the test.
+     * <p>An error occurred while running the test.
      * @param test the Test that failed
      * @param t the Throwable that occurred
      */

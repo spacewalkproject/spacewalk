@@ -178,14 +178,14 @@
         <target>軟體當機總覽</target>
       </trans-unit>
       <trans-unit id="software.crashes.overview.summary">
-        <source>The table below lists software crashes, grouped by UUID, that occured on your systems. Identical crash UUIDs may potentially indicate similar or identical types of software crash.</source>
+        <source>The table below lists software crashes, grouped by UUID, that occurred on your systems. Identical crash UUIDs may potentially indicate similar or identical types of software crash.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
         <target>下列表格列出了在您系統上發生的軟體當機事件（以 UUID 排序）。相似的 UUID 可能代表類似或相同類型的軟體當機事件。</target>
       </trans-unit>
       <trans-unit id="software.crashes.by.uuid.summary">
-        <source>The table below lists systems where a crash with the above UUID occured.</source>
+        <source>The table below lists systems where a crash with the above UUID occurred.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>

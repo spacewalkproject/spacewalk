@@ -556,7 +556,7 @@
         <target>पृष्ठ आग्रह त्रुटि</target>
       </trans-unit>
       <trans-unit id="badparam.jsp.summary">
-        <source>We could not display the requested page because of a missing parameter.  This error could have occured several ways:</source>
+        <source>We could not display the requested page because of a missing parameter.  This error could have occurred several ways:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Bad Parameter error page</context>
         </context-group>
@@ -8725,7 +8725,7 @@ Please note that some manual configuration of these scripts may still be require
           <target>अपने @@PRODUCT_NAME@@ कोब्बलर सेटिंग को नीचे सेटअप करें.</target>
         </trans-unit>
         <trans-unit id="cobbler.jsp.summary2">
-          <source>Cobbler sync is used to repair or rebuild the contents /tftpboot or /var/www/cobbler when manual modification of cobbler has occured.</source>
+          <source>Cobbler sync is used to repair or rebuild the contents /tftpboot or /var/www/cobbler when manual modification of cobbler has occurred.</source>
           <target>कोब्बलर सिंक को /tftpboot या /var/www/ कोब्बलर सामग्री को सुधारने या पुनर्निर्माण करने में प्रयोग किया जाता है जब कोब्बलर का दस्ती रूपांतरण होता है.</target>
         </trans-unit>
         <trans-unit id="cobbler.jsp.summary3">

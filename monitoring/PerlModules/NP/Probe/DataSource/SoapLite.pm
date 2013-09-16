@@ -95,7 +95,7 @@ sub execute {
 	   $Log->log(2, "About to execute command " . $command . " with params: " . join(" - ", @command_params) . "\n");
 	   my $tmp = $service->$command(@command_params);
 	   $self->result($tmp);
-	   # check to see if a fault occured in SOAPLite
+	   # check to see if a fault occurred in SOAPLite
 	   if(defined($faultstring)) {
 	    	$self->errors($faultstring);
 	   }

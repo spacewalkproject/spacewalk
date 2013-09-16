@@ -178,14 +178,14 @@
         <target>Aperçu des incidents logiciel</target>
       </trans-unit>
       <trans-unit id="software.crashes.overview.summary">
-        <source>The table below lists software crashes, grouped by UUID, that occured on your systems. Identical crash UUIDs may potentially indicate similar or identical types of software crash.</source>
+        <source>The table below lists software crashes, grouped by UUID, that occurred on your systems. Identical crash UUIDs may potentially indicate similar or identical types of software crash.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
         <target>Le tableau ci-dessous répertorie les incidents logiciel, regroupés par UUID, qui se sont produits sur vos systèmes. Des UUID d'incidents identiques indiquent potentiellement des incidents logiciel de type similaire ou identique.</target>
       </trans-unit>
       <trans-unit id="software.crashes.by.uuid.summary">
-        <source>The table below lists systems where a crash with the above UUID occured.</source>
+        <source>The table below lists systems where a crash with the above UUID occurred.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>

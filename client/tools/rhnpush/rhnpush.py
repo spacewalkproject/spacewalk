@@ -409,7 +409,7 @@ class UploadClass(uploadLib.UploadClass):
                     break
 
             #if the preceeding for-loop exits without a call to break, then this else clause gets called.
-            #What's kind of weird is that if the preceeding for-loop doesn't call break then an error occured
+            #What's kind of weird is that if the preceeding for-loop doesn't call break then an error occurred
             #and all of retry attempts failed. If the for-loop *does* call break then everything is hunky-dory.
             #In short, this else clause only get's called if something is F.U.B.A.R and the retry attempts don't
             #fix anything.

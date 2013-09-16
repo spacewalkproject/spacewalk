@@ -6516,7 +6516,7 @@ Feature: Support channel-permissions on ISS
 - Made the expansion decorator show the show all|hide all correctly
   (paji@redhat.com)
 - queuing channel repo generation for new channels (jsherril@redhat.com)
-- Fixed a pagination issue that occured on first page load (paji@redhat.com)
+- Fixed a pagination issue that occurred on first page load (paji@redhat.com)
 - ignoring virt bonded interfaces, changing dups page to not sure the same set,
   and fixing inactive counts on mac and hostname pages (jsherril@redhat.com)
 - 585901 - add an extra null condition (tlestach@redhat.com)
@@ -6537,7 +6537,7 @@ Feature: Support channel-permissions on ISS
 - More work on select all magic (paji@redhat.com)
 - 588901 - Fix listLatestUpgradablePackages API results
   (joshua.roys@gtri.gatech.edu)
-- Fixed an accidental compile error that occured due to a previous commit
+- Fixed an accidental compile error that occurred due to a previous commit
   (paji@redhat.com)
 - Added some magic to show the system names and url instead of ids in the dups
   page (paji@redhat.com)

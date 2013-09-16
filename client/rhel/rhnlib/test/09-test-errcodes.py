@@ -42,5 +42,5 @@ except ProtocolError, e:
     print reportError(e.headers)
     print("OK (error above expected)");
     sys.exit(0);
-print("ERROR: Exception didn't occured!");
+print("ERROR: Exception didn't occurred!");
 sys.exit(-1);

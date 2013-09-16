@@ -178,14 +178,14 @@
         <target>소프트웨어 충돌 개요</target>
       </trans-unit>
       <trans-unit id="software.crashes.overview.summary">
-        <source>The table below lists software crashes, grouped by UUID, that occured on your systems. Identical crash UUIDs may potentially indicate similar or identical types of software crash.</source>
+        <source>The table below lists software crashes, grouped by UUID, that occurred on your systems. Identical crash UUIDs may potentially indicate similar or identical types of software crash.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
         <target>다음 표는 시스템에서 발생하는 소프트웨어 충돌을 UUID 별로 분류한 목록입니다. 동일한 충돌 UUID는 소프트웨어 충돌과 유사하거나 동일한 유형을 나타낼 수 있습니다.</target>
       </trans-unit>
       <trans-unit id="software.crashes.by.uuid.summary">
-        <source>The table below lists systems where a crash with the above UUID occured.</source>
+        <source>The table below lists systems where a crash with the above UUID occurred.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>

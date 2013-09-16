@@ -454,7 +454,7 @@ public class CrashHandler extends BaseHandler {
      *             #prop_desc("int", "server_id",
      *                        "ID of the server the crash occurred on")
      *             #prop_desc("string", "server_name",
-     *                       "Name of the server the crash occured on")
+     *                       "Name of the server the crash occurred on")
      *             #prop_desc("int", "crash_id", "ID of the crash with given UUID")
      *             #prop_desc("int", "crash_count",
      *                        "Number of times the crash with given UUID occurred")

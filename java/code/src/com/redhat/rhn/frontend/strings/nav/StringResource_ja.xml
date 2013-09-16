@@ -178,14 +178,14 @@
         <target>ソフトウェアクラッシュの概要</target>
       </trans-unit>
       <trans-unit id="software.crashes.overview.summary">
-        <source>The table below lists software crashes, grouped by UUID, that occured on your systems. Identical crash UUIDs may potentially indicate similar or identical types of software crash.</source>
+        <source>The table below lists software crashes, grouped by UUID, that occurred on your systems. Identical crash UUIDs may potentially indicate similar or identical types of software crash.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
         <target>以下の表は、お使いのシステムで生じたソフトウェアのクラッシュを UUID ごとに分類した一覧です。同一のクラッシュ UUID は、ソフトウェアクラッシュの同様または同一のタイプを示している可能性があります。</target>
       </trans-unit>
       <trans-unit id="software.crashes.by.uuid.summary">
-        <source>The table below lists systems where a crash with the above UUID occured.</source>
+        <source>The table below lists systems where a crash with the above UUID occurred.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>

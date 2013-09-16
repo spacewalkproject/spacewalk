@@ -527,7 +527,7 @@ make -f Makefile.rhn-client-tools test
 - Fix missing exception scope
 
 * Mon Jul 09 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.11-1
-- Fix typo in 'Fatal error in Python code occured'
+- Fix typo in 'Fatal error in Python code occurred'
 
 * Wed Jul 04 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.10-1
 - read memory information even on kernels 3.x

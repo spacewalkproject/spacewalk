@@ -556,7 +556,7 @@
         <target>பக்க கோரிக்கை பிழை</target>
       </trans-unit>
       <trans-unit id="badparam.jsp.summary">
-        <source>We could not display the requested page because of a missing parameter.  This error could have occured several ways:</source>
+        <source>We could not display the requested page because of a missing parameter.  This error could have occurred several ways:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Bad Parameter error page</context>
         </context-group>
@@ -8725,7 +8725,7 @@ Please note that some manual configuration of these scripts may still be require
           <target>உங்கள் @@PRODUCT_NAME@@ Cobbler அமைவுகளை கீழே அமைக்கவும்.</target>
         </trans-unit>
         <trans-unit id="cobbler.jsp.summary2">
-          <source>Cobbler sync is used to repair or rebuild the contents /tftpboot or /var/www/cobbler when manual modification of cobbler has occured.</source>
+          <source>Cobbler sync is used to repair or rebuild the contents /tftpboot or /var/www/cobbler when manual modification of cobbler has occurred.</source>
           <target>காப்பளர் ஒருங்கிணைப்பு /tftpboot or /var/www/ காப்பளரை சரிசெய்து அல்லது மறுஅமைக்க பயன்படுகிறது கைமுறை மாற்றங்கள் எப்போது காப்பளரில் ஏற்படுகிறதோ.</target>
         </trans-unit>
         <trans-unit id="cobbler.jsp.summary3">

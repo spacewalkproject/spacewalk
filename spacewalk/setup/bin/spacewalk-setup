@@ -244,7 +244,7 @@ sub remove_old_jvm {
 
 	my $result = `rpm -e $remove 2>&1`;
 	if ($? >> 8) {
-		print Spacewalk::Setup::loc("** Error occured while removing the packages:\n");
+		print Spacewalk::Setup::loc("** Error occurred while removing the packages:\n");
 		print Spacewalk::Setup::loc($result);
 	}
 }

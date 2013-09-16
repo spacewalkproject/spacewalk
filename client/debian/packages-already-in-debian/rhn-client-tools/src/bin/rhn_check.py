@@ -351,7 +351,7 @@ class CheckCli(rhncli.RhnCli):
             log.log_exception(*sys.exc_info())
             # The action code failed in some way. let's let the server know.
             status = 6,
-            message = "Fatal error in Python code occured"
+            message = "Fatal error in Python code occurred"
             data = {}
         return (status, message, data)
 

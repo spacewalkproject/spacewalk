@@ -38,7 +38,7 @@ sub run {
 
 
     #Execute each command with its parameters and check for errors.
-    # If an error has occured, set the status to unknown and return.
+    # If an error has occurred, set the status to unknown and return.
   
     $service->execute($command, @count_params);
     if(defined($service->errors)) {

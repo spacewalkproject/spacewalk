@@ -30,7 +30,7 @@ public class DownloadException extends RhnRuntimeException {
     private String content;
     private String url;
     private int errorCode;
-    private static final String ERROR_TEMPLATE = "Error occured while downloading " +
+    private static final String ERROR_TEMPLATE = "Error occurred while downloading " +
                                 "contents from [%s].\nHere are the contents of" +
                                  " the error\n [%s] \n \n error code = [%s]";
 
