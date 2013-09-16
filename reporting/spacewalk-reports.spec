@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.7
+Version: 2.1.8
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Mon Sep 16 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.8-1
+- 1008309 - fix postgresql performance
+
 * Mon Sep 09 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.7-1
 - 914902 - fixing grammar
 
