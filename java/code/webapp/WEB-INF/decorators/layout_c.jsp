@@ -17,13 +17,13 @@
     <header>
       <jsp:include page="/WEB-INF/includes/header.jsp" />
     </header>
-    <div class="container">
-      <aside>
+    <div class="container row">
+      <aside class="col-lg-3">
         <jsp:include page="/WEB-INF/includes/leftnav.jsp" />
         <jsp:include page="/WEB-INF/includes/legends.jsp" />
         <jsp:include page="/WEB-INF/includes/advertisements.jsp" />
       </aside>
-      <section>
+      <section class="col-lg-9">
         <!-- Alerts and messages -->
         <logic:messagesPresent>
           <div class="alert alert-blue">
