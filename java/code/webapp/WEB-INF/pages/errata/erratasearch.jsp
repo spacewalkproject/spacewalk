@@ -52,7 +52,7 @@
                </html:submit>
                <br />
                 <span class="small-text">
-                    <strong>Examples: </strong> <bean:message key="erratasearch.jsp.search.tip" />
+                    <strong><bean:message key="Examples" />: </strong> <bean:message key="erratasearch.jsp.search.tip" />
                 </span>
              </td>
            </tr>
@@ -65,7 +65,7 @@
                  </html:select>
                  <br />
                  <span class="small-text">
-                    <strong>Tip:</strong> <bean:message key="erratasearch.jsp.whatsearch.tip" />
+                    <strong><bean:message key="Tip" />:</strong> <bean:message key="erratasearch.jsp.whatsearch.tip" />
                  </span>
              </td>
            </tr>

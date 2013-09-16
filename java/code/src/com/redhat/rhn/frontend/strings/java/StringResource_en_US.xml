@@ -205,6 +205,9 @@
         <trans-unit id="Custom">
           <source>Custom</source>
         </trans-unit>
+        <trans-unit id="Examples">
+          <source>Examples</source>
+        </trans-unit>
         <trans-unit id="none specified">
           <source>none specified</source>
         </trans-unit>
