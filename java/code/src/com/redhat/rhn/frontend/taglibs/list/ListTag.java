@@ -720,12 +720,10 @@ public class ListTag extends BodyTagSupport {
     }
 
     private void renderEmptyList() throws JspException {
-        ListTagUtil.write(pageContext, "<tr class=\"list-row-odd\"><td ");
-        ListTagUtil.write(pageContext, "class=\"first-column last-column\" ");
+        ListTagUtil.write(pageContext, "<tr><td ");
         ListTagUtil.write(pageContext, "colspan=\"");
         ListTagUtil.write(pageContext, String.valueOf(columnCount));
         ListTagUtil.write(pageContext, "\">");
-
 
         if (emptyKey != null) {
             LocalizationService ls = LocalizationService.getInstance();
@@ -769,9 +767,7 @@ public class ListTag extends BodyTagSupport {
     }
 
     private void startTable() throws JspException {
-        ListTagUtil.write(pageContext, "<table");
-        ListTagUtil.write(pageContext, " cellspacing=\"0\"");
-        ListTagUtil.write(pageContext, " cellpadding=\"0\"");
+        ListTagUtil.write(pageContext, "<table class=\"table table-stripped\"");
         if (styleClass != null) {
             ListTagUtil.write(pageContext, " class=\"");
             ListTagUtil.write(pageContext, styleClass);
