@@ -25,11 +25,13 @@
       ${requestScope.innernavtitle}
     </title>
     <link rel="shortcut icon" href="/img/favicon.ico" />
-    <link rel="stylesheet" href="/css/rhn-base.css" type="text/css" />
+    
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" type="text/css" />
     <script type="text/javascript" src="/rhn/dwr/engine.js"></script>
     <script type="text/javascript" src="/rhn/dwr/util.js"></script>
     <script type="text/javascript" src="/rhn/dwr/interface/DWRItemSelector.js"></script>
     
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"> </script>
     <script src="/javascript/prototype-1.6.0.js" type="text/javascript"> </script>
     <script src="/javascript/check_all.js" type="text/javascript"> </script>
 
