@@ -82,7 +82,7 @@
 
 </div>
 
-<nav>
+<nav class="navbar navbar-default" role="navigation">
   <rhn:require acl="user_authenticated()">
     <rhn:menu mindepth="0" maxdepth="0"
               definition="/WEB-INF/nav/sitenav-authenticated.xml"

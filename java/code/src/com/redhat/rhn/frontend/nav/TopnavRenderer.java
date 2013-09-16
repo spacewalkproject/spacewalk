@@ -50,6 +50,7 @@ public class TopnavRenderer extends Renderable {
         }
         ulTag = new HtmlTag("ul");
         ulTag.setAttribute("id", "mainNav");
+        ulTag.setAttribute("class", "nav navbar-nav");
         sb.append(ulTag.renderOpenTag());
     }
 
@@ -65,6 +66,7 @@ public class TopnavRenderer extends Renderable {
                               int depth) {
         if (canRender(node, depth)) {
             HtmlTag liTag = new HtmlTag("li");
+            liTag.setAttribute("class", "active");
             String classStr = "";
             if (node.isFirst() || !foundFirstNode) {
                 liTag.setAttribute("id", "mainFirst-active");
