@@ -46,7 +46,8 @@ sql:
     from rhnServerNeededPackageCache SPC1
       join rhnPackage P1 on SPC1.package_id=P1.id
       join rhnPackageEvr PE on P1.evr_id=PE.id
-    where P1.name_id=P.name_id)
+    where P1.name_id=P.name_id
+      and SPC1.server_id = s.id)
   ) X
   -- where placeholder
   order by org_id, system_id
