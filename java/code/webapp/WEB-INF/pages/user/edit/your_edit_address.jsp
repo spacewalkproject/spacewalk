@@ -31,7 +31,7 @@
 <div align="right">
 <hr />
 
-    <html:submit value="Update" />
+    <input type="submit" value="<bean:message key="button.update" />" />
 </div>
 
 <html:hidden property="uid" value="${param.uid}"/>
