@@ -39,9 +39,10 @@
           <td>
             <html:text property="search_string" name="search_string"
                 value="${search_string}" maxlength="100" accesskey="4"/>
-            <html:submit>
-              <bean:message key="button.search" />
-            </html:submit>
+            <button type="submit" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-search" />
+                <bean:message key="button.search"/>
+            </button>
             <br/>
             <span class="small-text">
               <bean:message key="scapsearch.jsp.whatsearch.tip"/>

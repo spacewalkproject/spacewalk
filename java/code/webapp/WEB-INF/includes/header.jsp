@@ -22,7 +22,7 @@
   <div id="geo">
     <c:out value="${rhnActiveLang} "/>(<a href="/rhn/account/LocalePreferences.do"><bean:message key="header.jsp.change"/></a>)
   </div>
-  
+
   <div id="linx">
     <span class="hide">
       <strong><bean:message key="header.jsp.shortcuts"/></strong>
@@ -31,7 +31,7 @@
     <span class="navPipe">|</span>
     <a href="/help"><bean:message key="header.jsp.documentation"/></a>
   </div>
-  	
+
   <div id="utilityAccount">
     <ul>
       <li id="acc-logged-user">
@@ -56,9 +56,9 @@
           <bean:message key="header.jsp.signout"/>
         </html:link>
       </li>
-      
+
     </ul>
-  </div>  
+  </div>
 </rhn:require>
 
 <rhn:require acl="user_authenticated()">
@@ -73,7 +73,10 @@
     </select>
     <input type="text" name="search_string" maxlength="40" size="20" accesskey="4" autofocus="autofocus"/>
     <input type="hidden" name="submitted" value="true"/>
-    <input type="submit" class="button" name="image-1" value="<bean:message key='button.search'/>" align="top" />
+    <button type="submit" class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-search" />
+        <bean:message key="button.search"/>
+    </button>
   </form>
 </rhn:require>
 

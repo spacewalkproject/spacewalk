@@ -30,9 +30,10 @@
            <tr><th><bean:message key="docsearch.jsp.searchfor"/></th>
              <td>
                <html:text property="search_string" name="search_string" value="${search_string}" accesskey="4"/>
-               <html:submit>
-                 <bean:message key="button.search" />
-               </html:submit>
+               <button type="submit" class="btn btn-default btn-sm">
+                   <span class="glyphicon glyphicon-search" />
+                   <bean:message key="button.search"/>
+               </button>
              </td>
            </tr>
            <tr><th><bean:message key="docsearch.jsp.whatsearch"/></th>

@@ -172,7 +172,12 @@
             </tr>
             <tr>
                 <td>&nbsp;</td><td>&nbsp;</td>
-                <td style="text-align: right;"><html:submit><bean:message key="button.search" /></html:submit></td>
+                <td style="text-align: right;">
+                    <button type="submit" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-search" />
+                        <bean:message key="button.search"/>
+                    </button>
+                </td>
             </tr>
         </table>
     </div>
