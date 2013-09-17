@@ -3872,11 +3872,13 @@ public class SystemHandler extends BaseHandler {
      * @param entitlements List of addon entitlement labels to add.
      * @return 1 on success, exception thrown otherwise.
      *
-     * @xmlrpc.doc Add addon entitlements to a server. Entitlements a server already has
+     * @xmlrpc.doc Add entitlements to a server. Entitlements a server already has
      * are quietly ignored.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
-     * @xmlrpc.param #array_single("string", " entitlementLabel")
+     * @xmlrpc.param #array_single("string", "entitlementLabel - one of following:
+     * monitoring_entitled, provisioning_entitled, virtualization_host,
+     * virtualization_host_platform, enterprise_entitled")
      * @xmlrpc.returntype #return_int_success()
      */
     public int addEntitlements(String sessionKey, Integer serverId,
