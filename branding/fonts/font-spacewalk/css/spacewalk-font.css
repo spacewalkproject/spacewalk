@@ -1,0 +1,133 @@
+@font-face {
+	font-family: 'spacewalk-icons';
+	src:url('../font/spacewalk-icons.eot');
+	src:url('../font/spacewalk-icons.eot?#iefix') format('embedded-opentype'),
+		url('../font/spacewalk-icons.woff') format('woff'),
+		url('../font/spacewalk-icons.ttf') format('truetype'),
+		url('../font/spacewalk-icons.svg#spacewalk-icons') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[data-icon]:before {
+	font-family: 'spacewalk-icons';
+	content: attr(data-icon);
+	speak: none;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Use the following CSS code if you want to have a class per icon */
+/*
+Instead of a list of all class selectors,
+you can use the generic selector below, but it's slower:
+[class*="spacewalk-icons-"] {
+*/
+.spacewalk-icons-BS-virtual-host, .spacewalk-icons-BS-manage-autoinstallations, .spacewalk-icons-BS-virtual-guest, .spacewalk-icons-BS-locked-system, .spacewalk-icons-BS-unknown-system, .spacewalk-icons-BS-inactive-systems, .spacewalk-icons-BS-Unentitled, .spacewalk-icons-BS-health, .spacewalk-icons-BS-system-groups, .spacewalk-icons-BS-health-unknown, .spacewalk-icons-BS-software-crashes, .spacewalk-icons-BS-health-pending, .spacewalk-icons-BS-software-channels, .spacewalk-icons-BS-enhancement, .spacewalk-icons-BS-download-csv, .spacewalk-icons-BS-Software-Channel-Management, .spacewalk-icons-BS-register-system, .spacewalk-icons-BS-configure-suse-manager, .spacewalk-icons-BS-custom-system-info, .spacewalk-icons-Bs-packages, .spacewalk-icons-BS-clone-patches, .spacewalk-icons-BS-patches, .spacewalk-icons-BS-package-search, .spacewalk-icons-BS-autoinstalling, .spacewalk-icons-BS-organization-trust, .spacewalk-icons-BS-autoinstallations, .spacewalk-icons-BS-monitoring-status, .spacewalk-icons-BS-manage-software-packages, .spacewalk-icons-BS-manage-patches, .spacewalk-icons-BS-manage-configuration-files, .spacewalk-icons-BS-manage-entitlements-subscriptions {
+	font-family: 'spacewalk-icons';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+.spacewalk-icons-BS-virtual-host:before {
+	content: "\e000";
+}
+.spacewalk-icons-BS-manage-autoinstallations:before {
+	content: "\e001";
+}
+.spacewalk-icons-BS-virtual-guest:before {
+	content: "\e002";
+}
+.spacewalk-icons-BS-locked-system:before {
+	content: "\e003";
+}
+.spacewalk-icons-BS-unknown-system:before {
+	content: "\e004";
+}
+.spacewalk-icons-BS-inactive-systems:before {
+	content: "\e005";
+}
+.spacewalk-icons-BS-Unentitled:before {
+	content: "\e006";
+}
+.spacewalk-icons-BS-health:before {
+	content: "\e007";
+}
+.spacewalk-icons-BS-system-groups:before {
+	content: "\e008";
+}
+.spacewalk-icons-BS-health-unknown:before {
+	content: "\e009";
+}
+.spacewalk-icons-BS-software-crashes:before {
+	content: "\e00a";
+}
+.spacewalk-icons-BS-health-pending:before {
+	content: "\e00b";
+}
+.spacewalk-icons-BS-software-channels:before {
+	content: "\e00c";
+}
+.spacewalk-icons-BS-enhancement:before {
+	content: "\e00d";
+}
+.spacewalk-icons-BS-download-csv:before {
+	content: "\e00e";
+}
+.spacewalk-icons-BS-Software-Channel-Management:before {
+	content: "\e00f";
+}
+.spacewalk-icons-BS-register-system:before {
+	content: "\e010";
+}
+.spacewalk-icons-BS-configure-suse-manager:before {
+	content: "\e011";
+}
+.spacewalk-icons-BS-custom-system-info:before {
+	content: "\e012";
+}
+.spacewalk-icons-Bs-packages:before {
+	content: "\e013";
+}
+.spacewalk-icons-BS-clone-patches:before {
+	content: "\e014";
+}
+.spacewalk-icons-BS-patches:before {
+	content: "\e015";
+}
+.spacewalk-icons-BS-package-search:before {
+	content: "\e016";
+}
+.spacewalk-icons-BS-autoinstalling:before {
+	content: "\e017";
+}
+.spacewalk-icons-BS-organization-trust:before {
+	content: "\e018";
+}
+.spacewalk-icons-BS-autoinstallations:before {
+	content: "\e019";
+}
+.spacewalk-icons-BS-monitoring-status:before {
+	content: "\e01a";
+}
+.spacewalk-icons-BS-manage-software-packages:before {
+	content: "\e01b";
+}
+.spacewalk-icons-BS-manage-patches:before {
+	content: "\e01c";
+}
+.spacewalk-icons-BS-manage-configuration-files:before {
+	content: "\e01d";
+}
+.spacewalk-icons-BS-manage-entitlements-subscriptions:before {
+	content: "\e01e";
+}

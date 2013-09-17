@@ -27,6 +27,10 @@
     <link rel="shortcut icon" href="/img/favicon.ico" />
     
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" type="text/css" />
+    
+    <link rel="stylesheet" href="/fonts/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="/fonts/font-spacewalk/css/spacewalk-font.css">
+    <!-- <link rel="stylesheet" href="/css/spacewalk.css"> -->
 
     <style>
       .nav-stacked ul {

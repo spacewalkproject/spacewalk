@@ -1,0 +1,44 @@
+/*spacewalk css theme*/
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,700,900);
+
+h1, h2, h3, h4 {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300
+}
+header{
+	width: 100%;
+	background: #000;
+	padding: 1.2em 0 0 0;
+}
+aside{
+	background: #232526;
+	margin-bottom:-9999px;
+	padding-bottom: 9999px
+}
+section{
+	background: #f7f7f7;
+	margin-bottom:-9999px;
+	padding-bottom: 9999px 
+}
+footer{
+	padding: 1.2em 0;
+	background: #63a625;
+	color: #fff;
+	font-weight: normal;
+	font-size: 0.9em
+}
+.row.body-container{
+	overflow: hidden;
+	min-height: 100%
+}
+[class^="icon-"],
+[class*=" icon-"] {
+  margin-right: .5em;
+}
+header  .navbar-inverse, header  .navbar{
+	margin: 0;
+	border-radius: 0
+}
+header .row{
+	margin: 0 1em 
+}
