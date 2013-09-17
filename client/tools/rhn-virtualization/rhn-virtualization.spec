@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.48
+Version:        5.4.49
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -151,6 +151,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Tue Sep 17 2013 Michael Mraka <michael.mraka@redhat.com> 5.4.49-1
+- Grammar error occurred
+
 * Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 5.4.48-1
 - updating copyright years
 
