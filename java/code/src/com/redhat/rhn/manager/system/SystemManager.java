@@ -353,6 +353,7 @@ public class SystemManager extends BaseManager {
         }
         else {
             if (server.getGuests() != null) {
+                removeAllServerEntitlements(server.getId());
                 // Remove guest associations to the host system we're now deleting:
                 for (Iterator it = server.getGuests().iterator(); it.hasNext();) {
                     VirtualInstance vi = (VirtualInstance)it.next();
