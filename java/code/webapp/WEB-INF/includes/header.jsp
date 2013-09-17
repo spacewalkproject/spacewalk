@@ -9,77 +9,62 @@
     <center><p><c:out value="${custom_header}" escapeXml="false"/></p></center>
 </c:if>
 
-<div id="logo">
-  <a href="<bean:message key="layout.jsp.vendor.website"/>" title="<bean:message key="layout.jsp.vendor.title"/>">
-    <img src="/img/logo_vendor.png" alt="<bean:message key="layout.jsp.vendor.name"/>" id="rhLogo" />
-  </a>
-  <a href="/" title="<bean:message key="layout.jsp.productname"/> homepage">
-    <img src="/img/logo_product.png" alt="<bean:message key="layout.jsp.productname"/>" id="rhnLogo" accesskey="2"/>
-  </a>
-</div>
-
-<rhn:require acl="user_authenticated()">
-  <div id="geo">
-    <c:out value="${rhnActiveLang} "/>(<a href="/rhn/account/LocalePreferences.do"><bean:message key="header.jsp.change"/></a>)
+<div class="row">
+  <div id="logo" class="col-md-3 logo">
+    <a href="<bean:message key="layout.jsp.vendor.website"/>" title="<bean:message key="layout.jsp.vendor.title"/>">
+      <img src="/img/logo_vendor.png" alt="<bean:message key="layout.jsp.vendor.name"/>" id="rhLogo" />
+    </a>
+    <a href="/" title="<bean:message key="layout.jsp.productname"/> homepage">
+      <img src="/img/logo_product.png" alt="<bean:message key="layout.jsp.productname"/>" id="rhnLogo" accesskey="2"/>
+    </a>
   </div>
+  <div class="col-md-9 text-right">
+    <rhn:require acl="user_authenticated()">
+      <ul class="nav nav-pills">
+        <li><a href="/rhn/account/LocalePreferences.do"><c:out value="${rhnActiveLang} "/>(<bean:message key="header.jsp.change"/>)</a></li>
+      </ul>
+      <ul class="nav nav-pills">
+        <li><a href="http://kbase.redhat.com/"><bean:message key="header.jsp.knowledgebase" /></a></li>
+        <li><a href="/help"><bean:message key="header.jsp.documentation" /></a></li>
+      </ul>
+      <ul class="nav nav-pills">
+        <li>
+          <a href="/rhn/account/UserDetails.do"><i class="icon-user"></i>:<c:out escapeXml="true" value="${requestScope.session.user.login}" /></a>
+        </li>
+        <li>
+          <a><i class="icon-sitemap"></i>:<c:out escapeXml="true" value="${requestScope.session.user.org.name}" /></a>
+        </li>
+        <li>
+          <a href="/rhn/account/UserPreferences.do"><i class="icon-cogs"></i></a>
+        </li>
+        <li>
+          <html:link forward="logout"><i class="icon-signout"></i></html:link>
+        </li>
+      </ul>
 
-  <div id="linx">
-    <span class="hide">
-      <strong><bean:message key="header.jsp.shortcuts"/></strong>
-    </span>
-    <a href="http://kbase.redhat.com/"><bean:message key="header.jsp.knowledgebase"/></a>
-    <span class="navPipe">|</span>
-    <a href="/help"><bean:message key="header.jsp.documentation"/></a>
+      <form name="form1" class="form-inline hidden-xs" role="form" action="/rhn/Search.do" method="get">
+        <div class="form-group">
+          <select name="search_type" class="form-control input-sm">
+            <rhn:require acl="org_entitlement(sw_mgr_enterprise)">
+              <option value="systems"><bean:message key="header.jsp.systems" /></option>
+            </rhn:require>
+            <option value="packages"><bean:message key="header.jsp.packages" /></option>
+            <option value="errata"><bean:message key="header.jsp.errata" /></option>
+            <option value="docs"><bean:message key="header.jsp.documentation" /></option>
+          </select>
+        </div>
+        <div class="form-group">
+          <input type="search" class="input-sm" name="search_string" maxlength="40" size="20" accesskey="4" autofocus="autofocus" />
+        </div>
+        <div class="form-group">
+          <input type="hidden" name="submitted" value="true" />
+          <button type="submit" class="btn btn-info input-sm">
+            <bean:message key="button.search" />
+          </button>
+        </div>
+      </form>
+    </rhn:require>
   </div>
-
-  <div id="utilityAccount">
-    <ul>
-      <li id="acc-logged-user">
-        <bean:message key="header.jsp.loggedin"/>
-        <a href="/rhn/account/UserDetails.do">
-          <c:out escapeXml="true" value="${requestScope.session.user.login}" />
-        </a>
-      </li>
-      <li id="acc-logged-user-org">
-        <bean:message key="header.jsp.org"/>
-        <a>
-          <c:out escapeXml="true" value="${requestScope.session.user.org.name}" />
-        </a>
-      </li>
-      <li id="acc-prefs">
-        <a href="/rhn/account/UserPreferences.do">
-          <bean:message key="header.jsp.preferences"/>
-        </a>
-      </li>
-      <li id="acc-logout">
-        <html:link forward="logout">
-          <bean:message key="header.jsp.signout"/>
-        </html:link>
-      </li>
-
-    </ul>
-  </div>
-</rhn:require>
-
-<rhn:require acl="user_authenticated()">
-  <form id="splk-search" name="form1" action="/rhn/Search.do" method="get">
-    <select name="search_type">
-      <rhn:require acl="org_entitlement(sw_mgr_enterprise)">
-        <option value="systems"><bean:message key="header.jsp.systems"/></option>
-      </rhn:require>
-      <option value="packages"><bean:message key="header.jsp.packages"/></option>
-      <option value="errata"><bean:message key="header.jsp.errata"/></option>
-      <option value="docs"><bean:message key="header.jsp.documentation"/></option>
-    </select>
-    <input type="text" name="search_string" maxlength="40" size="20" accesskey="4" autofocus="autofocus"/>
-    <input type="hidden" name="submitted" value="true"/>
-    <button type="submit" class="btn btn-default btn-sm">
-        <span class="glyphicon glyphicon-search" />
-        <bean:message key="button.search"/>
-    </button>
-  </form>
-</rhn:require>
-
 </div>
 
 <nav class="navbar navbar-default" role="navigation">
