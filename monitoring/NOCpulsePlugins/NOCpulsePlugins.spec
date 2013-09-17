@@ -1,5 +1,5 @@
 Name:         NOCpulsePlugins
-Version:      2.209.6
+Version:      2.209.7
 Release:      1%{?dist}
 Summary:      NOCpulse authored Plug-ins
 URL:          https://fedorahosted.org/spacewalk
@@ -86,6 +86,10 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Sep 17 2013 Michael Mraka <michael.mraka@redhat.com> 2.209.7-1
+- Grammar error occurred
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+
 * Wed Aug 01 2012 Jan Pazdziora 2.209.6-1
 - 844992 - force the array context so that Class::MethodMaker behaves the same
   in both versions 1 and 2.
