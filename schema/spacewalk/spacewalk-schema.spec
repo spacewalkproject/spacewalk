@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.1.18
+Version:        2.1.19
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Sep 17 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.19-1
+- upgrade script for Oracle Linux 6 key
+- Added Oracle GPG key used to sign Oracle Linux 6 packages.
+
 * Tue Sep 10 2013 Stephen Herr <sherr@redhat.com> 2.1.18-1
 - 999453 - missed a sha1 hash
 
