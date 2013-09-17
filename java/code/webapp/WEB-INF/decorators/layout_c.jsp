@@ -18,12 +18,12 @@
       <jsp:include page="/WEB-INF/includes/header.jsp" />
     </header>
     <div class="container row">
-      <aside class="col-lg-3">
+      <aside class="col-md-2">
         <jsp:include page="/WEB-INF/includes/leftnav.jsp" />
         <jsp:include page="/WEB-INF/includes/legends.jsp" />
         <jsp:include page="/WEB-INF/includes/advertisements.jsp" />
       </aside>
-      <section class="col-lg-9">
+      <section class="col-md-10">
         <!-- Alerts and messages -->
         <logic:messagesPresent>
           <div class="alert alert-blue">
