@@ -21,12 +21,20 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 /**
- * DialognavRenderer - renders a CSS
+ * DialognavRenderer - renders a navigation bar
+ *
+ * Renders the navigation inside the content, which is implemented
+ * as rows of Twitter Bootstrap tabs (nav-tabs)
+ *
+ * The navigation is enclosed in a div styled with class
+ * 'spacewalk-content-nav' and the individual rows can be styled by
+ * ul:nth-child selectors.
+ *
  * @version $Rev$
  */
 
 public class DialognavRenderer extends Renderable {
-    private StringBuffer titleBuf;
+    private final StringBuffer titleBuf;
     /**
      * Public constructor
      */
@@ -36,46 +44,32 @@ public class DialognavRenderer extends Renderable {
     }
 
     /** {@inheritDoc} */
+    @Override
     public void preNav(StringBuffer sb) {
         HtmlTag div = new HtmlTag("div");
-        div.setAttribute("class", "content-nav");
+        div.setAttribute("class", "spacewalk-content-nav");
         sb.append(div.renderOpenTag());
     }
 
     /** {@inheritDoc} */
+    @Override
     public void preNavLevel(StringBuffer sb, int depth) {
         if (!canRender(null, depth)) {
             return;
         }
 
-        if (depth == 1) {
-            HtmlTag div = new HtmlTag("div");
-            div.setAttribute("class", "contentnav-row2");
-            sb.append(div.renderOpenTag());
-
-            div = new HtmlTag("div");
-            div.setAttribute("class", "top");
-            // This doesn't make much sense, but we must render the open tag
-            // and the close tag as two separate tags.  The top CSS renders
-            // horribly wrong if this is rendered as just a single tag.
-            sb.append(div.renderOpenTag());
-            sb.append(div.renderCloseTag());
-
-            div = new HtmlTag("div");
-            div.setAttribute("class", "bottom");
-            sb.append(div.renderOpenTag());
-        }
-
         HtmlTag ul = new HtmlTag("ul");
-        ul.setAttribute("class", getRowClass(depth));
+        ul.setAttribute("class", "nav nav-tabs");
         sb.append(ul.renderOpenTag());
     }
 
     /** {@inheritDoc} */
+    @Override
     public void preNavNode(StringBuffer sb, int depth) {
     }
 
     /** {@inheritDoc} */
+    @Override
     public void navNodeActive(StringBuffer sb,
                               NavNode node,
                               NavTreeIndex treeIndex,
@@ -88,10 +82,11 @@ public class DialognavRenderer extends Renderable {
         titleBuf.append(" - " + node.getName());
 
         renderNode(sb, node, treeIndex, parameters,
-                   "content-nav-selected", "content-nav-selected-link");
+                   "active");
     }
 
     /** {@inheritDoc} */
+    @Override
     public void navNodeInactive(StringBuffer sb,
                                 NavNode node,
                                 NavTreeIndex treeIndex,
@@ -101,12 +96,12 @@ public class DialognavRenderer extends Renderable {
             return;
         }
 
-        renderNode(sb, node, treeIndex, parameters, "", "");
+        renderNode(sb, node, treeIndex, parameters, "");
     }
 
     private void renderNode(StringBuffer sb, NavNode node,
                             NavTreeIndex treeIndex, Map parameters,
-                            String cssClass, String cssLinkClass) {
+                            String cssClass) {
         HtmlTag li = new HtmlTag("li");
 
         if (!cssClass.equals("")) {
@@ -141,16 +136,18 @@ public class DialognavRenderer extends Renderable {
             href += formVars.toString();
         }
 
-        li.addBody(aHref(href, node.getName(), cssLinkClass, node.getTarget()));
+        li.addBody(aHref(href, node.getName(), node.getTarget()));
         sb.append(li.render());
         sb.append("\n");
     }
 
     /** {@inheritDoc} */
+    @Override
     public void postNavNode(StringBuffer sb, int depth) {
     }
 
     /** {@inheritDoc} */
+    @Override
     public void postNavLevel(StringBuffer sb, int depth) {
         if (!canRender(null, depth)) {
             return;
@@ -159,15 +156,10 @@ public class DialognavRenderer extends Renderable {
         HtmlTag ul = new HtmlTag("ul");
         sb.append(ul.renderCloseTag());
         sb.append("\n");
-
-        if (depth == 1) {
-            HtmlTag div = new HtmlTag("div");
-            sb.append(div.renderCloseTag());
-            sb.append(div.renderCloseTag());
-        }
     }
 
     /** {@inheritDoc} */
+    @Override
     public void postNav(StringBuffer sb) {
         HtmlTag div = new HtmlTag("div");
         sb.append(div.renderCloseTag());
@@ -175,15 +167,13 @@ public class DialognavRenderer extends Renderable {
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean nodeRenderInline(int depth) {
         return false;
     }
 
-    private static String aHref(String url, String text, String style, String target) {
+    private static String aHref(String url, String text, String target) {
         HtmlTag a = new HtmlTag("a");
-        if (style != null && !style.equals("")) {
-            a.setAttribute("class", style);
-        }
 
         if (target != null && !target.equals("")) {
             a.setAttribute("target", target);
@@ -192,18 +182,6 @@ public class DialognavRenderer extends Renderable {
         a.setAttribute("href", url);
         a.addBody(text);
         return a.render();
-    }
-
-    private static String getRowClass(int depth) {
-        if (depth == 0) {
-            return "content-nav-rowone";
-        }
-        else if (depth == 1) {
-            return "content-nav-rowtwo";
-        }
-        else {
-            return "content-nav-rowthree";
-        }
     }
 }
 
