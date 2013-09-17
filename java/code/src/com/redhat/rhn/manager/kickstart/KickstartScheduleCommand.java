@@ -391,9 +391,18 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         if (hostServer != null) {
             log.debug("getKickstartProfiles(): hostServer isnt null");
             Channel baseChannel = hostServer.getBaseChannel();
+            ChannelArch arch = null;
+            log.debug("getKickstartProfiles(): hostServer.baseChannel isnt null");
             if (baseChannel != null) {
-                log.debug("getKickstartProfiles(): hostServer.baseChannel isnt null");
-                ChannelArch arch = baseChannel.getChannelArch();
+                log.debug("getKickstartProfiles(): find arch via base channel");
+                arch = baseChannel.getChannelArch();
+            }
+            else {
+                log.debug("getKickstartProfiles(): find arch via server arch");
+                arch = ChannelFactory
+                    .lookupArchByName(hostServer.getServerArch().getName());
+            }
+            if (arch != null) {
                 SelectMode mode = getMode();
                 Map params = new HashMap();
                 params.put("org_id", this.user.getOrg().getId());
