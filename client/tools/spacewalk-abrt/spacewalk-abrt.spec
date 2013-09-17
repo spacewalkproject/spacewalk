@@ -1,5 +1,5 @@
 Name:           spacewalk-abrt
-Version:        2.1.1
+Version:        2.1.2
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
@@ -37,6 +37,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/*
 
 %changelog
+* Tue Sep 17 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.2-1
+- Grammar error occurred
+
 * Tue Sep 03 2013 Milan Zazrivec <mzazrivec@redhat.com> 2.1.1-1
 - 1002041 - don't upload crash file if over the size limit or the upload is
   disabled
