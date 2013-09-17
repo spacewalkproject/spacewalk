@@ -17,7 +17,7 @@
     <header>
       <jsp:include page="/WEB-INF/includes/header.jsp" />
     </header>
-    <div class="container row">
+    <div class="body-container row">
       <aside class="col-md-2">
         <jsp:include page="/WEB-INF/includes/leftnav.jsp" />
         <jsp:include page="/WEB-INF/includes/legends.jsp" />
