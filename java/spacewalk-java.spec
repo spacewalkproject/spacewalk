@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.42
+Version: 2.1.43
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Sep 17 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.43-1
+- Grammar error occurred
+- 1008687 - Fixing unlocalized strings in Manage Software Channels tab
+- 1006630 - Making "Update" button translated
+- 1008649 - Fixing unlocalized words
+- 1008631 - fixing untranslatable strings
+
 * Mon Sep 16 2013 Tomas Lestach <tlestach@redhat.com> 2.1.42-1
 - Workaround bug in MockHttpServletRequest - asking for a param that doesn't
   exist shouldn't assert()
