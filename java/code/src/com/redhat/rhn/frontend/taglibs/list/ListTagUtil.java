@@ -649,9 +649,6 @@ public class ListTagUtil {
                     "ListFilter.getFieldNames() returned no field names");
         }
         else if (fields.size() == 1) {
-            String label = ls.getMessage("message.filterby",
-                                            fields.get(0).toString());
-            ListTagUtil.write(pageContext, label);
             ListTagUtil.write(pageContext, "<input type=\"hidden\" name=\"");
             ListTagUtil.write(pageContext, filterByKey);
             ListTagUtil.write(pageContext, "\" value=\"");
@@ -659,8 +656,7 @@ public class ListTagUtil {
             ListTagUtil.write(pageContext, "\" />");
         }
         else {
-            String label = ls.getMessage("message.filterby.multiple");
-            ListTagUtil.write(pageContext, label);
+            ListTagUtil.write(pageContext, ls.getMessage("message.filterby.multiple"));
             ListTagUtil.write(pageContext, "<select name=\"");
             ListTagUtil.write(pageContext, filterByKey);
             ListTagUtil.write(pageContext, "\">");
@@ -678,20 +674,33 @@ public class ListTagUtil {
             }
             ListTagUtil.write(pageContext, "</select>");
         }
-        ListTagUtil.write(pageContext, "&nbsp;&nbsp;");
-        ListTagUtil.write(pageContext, "<input type=\"text\" name=\"");
-        ListTagUtil.write(pageContext, filterValueKey);
-        ListTagUtil.write(pageContext, "\" length=\"40\" size=\"10\" value=\"");
-        if (filterValue != null) {
-            ListTagUtil.write(pageContext, StringEscapeUtils.escapeHtml(filterValue));
-        }
-        ListTagUtil.write(pageContext, "\" autofocus=\"autofocus\"/>");
 
-        ListTagUtil.write(pageContext, IE_MAGIC_SNIPPET);
-        ListTagUtil.write(pageContext,
-                "&nbsp;&nbsp;&nbsp;<input type=\"submit\"" +  "name=\""  +
-                filterName + "\"" +  "value=\"" +
-                ls.getMessage(RequestContext.FILTER_KEY) + "\" />");
+        filterValue = StringUtil.nullOrValue(filterValue);
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("<div class=\"col-lg-6\">");
+        sb.append("<div class=\"input-group\">");
+        sb.append(String.format("<span class=\"input-group-addon\">%s</span>",
+                                ls.getMessage("message.filterby",
+                                              fields.get(0).toString())));
+        sb.append(String.format("<input autofocus=\"autofocus\" type=\"text\" " +
+                " name=\"%s\" value=\"%s\" class=\"form-control\"/>",
+                                filterValueKey,
+                                (filterValue != null ?
+                                 StringEscapeUtils.escapeHtml(filterValue) :
+                                 "")));
+        sb.append("<span class=\"input-group-btn\">");
+        sb.append(String.format("<button value=\"%s\" type=\"submit\" name=\"%s\" " +
+                " class=\"btn btn-default\">%s",
+                                ls.getMessage(RequestContext.FILTER_KEY),
+                                filterName,
+                                ls.getMessage(RequestContext.FILTER_KEY)));
+        sb.append("</button>");
+        sb.append("</span>");
+        sb.append("</div>");
+        sb.append("</div>");
+
+        ListTagUtil.write(pageContext, sb.toString());
         ListTagUtil.write(pageContext, "</td>");
     }
 
