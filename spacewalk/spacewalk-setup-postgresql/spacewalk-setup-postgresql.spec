@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-postgresql
-Version:        2.1.3
+Version:        2.1.4
 Release:        1%{?dist}
 Summary:        Tools to setup embedded PostgreSQL database for Spacewalk
 Group:          Applications/System
@@ -50,6 +50,9 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/*
 
 %changelog
+* Tue Sep 17 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.4-1
+- 982560 - Small regex fixes
+
 * Mon Sep 02 2013 Milan Zazrivec <mzazrivec@redhat.com> 2.1.3-1
 - 980355 - check SELinux contexts before PostgreSQL db initialization
 
