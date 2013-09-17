@@ -476,7 +476,6 @@ public class ServerGroupHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "systemGroupName")
      * @xmlrpc.param  #array_single("int", "errataId")
-     * @xmlrpc.returntype #return_int_success()
      * @xmlrpc.returntype #array_single("int", "actionId")
      */
     public List<Long> scheduleApplyErrataToActive(String sessionKey, String systemGroupName,
