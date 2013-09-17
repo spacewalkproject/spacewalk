@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.21
+Version: 2.1.22
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -628,6 +628,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Sep 17 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.22-1
+- recognize signature used by Oracle
+- Fix field length of erratum-advisory-name to match real DB field length
+
 * Wed Sep 11 2013 Stephen Herr <sherr@redhat.com> 2.1.21-1
 - 1006867 - null-org channels should be visible over ISS
 
