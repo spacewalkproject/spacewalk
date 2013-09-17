@@ -40,7 +40,7 @@
         <decorator:body />
       </section>
     </div>
-    <footer>
+    <footer class="row">
       <jsp:include page="/WEB-INF/includes/footer.jsp" />
     </footer>    
   </body>
