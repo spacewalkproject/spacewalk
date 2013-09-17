@@ -2,7 +2,7 @@ Name:         perl-NOCpulse-Probe
 Summary:      Monitoring probes for Spacewalk
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.184.17
+Version:      1.184.18
 Release:      1%{?dist}
 BuildArch:    noarch
 Group:        Development/Libraries
@@ -144,6 +144,10 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/Probe/DataSource/test/TestOracle.pm
 
 %changelog
+* Tue Sep 17 2013 Michael Mraka <michael.mraka@redhat.com> 1.184.18-1
+- Grammar error occurred
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+
 * Mon Feb 18 2013 Miroslav Suchý <msuchy@redhat.com> 1.184.17-1
 - Buildrequire pod2man
 - %%defattr is not needed since rpm 4.4
