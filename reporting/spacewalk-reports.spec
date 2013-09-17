@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.9
+Version: 2.1.10
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Tue Sep 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.10-1
+- 1008309 - further imporove postgresql performance
+
 * Mon Sep 16 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.9-1
 - 1008309 - further imporove postgresql performance
 
