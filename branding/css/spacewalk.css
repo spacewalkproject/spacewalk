@@ -7,38 +7,145 @@ h1, h2, h3, h4 {
 }
 header{
 	width: 100%;
-	background: #000;
-	padding: 1.2em 0 0 0;
-}
-aside{
-	background: #232526;
-	margin-bottom:-9999px;
-	padding-bottom: 9999px
-}
-section{
-	background: #f7f7f7;
-	margin-bottom:-9999px;
-	padding-bottom: 9999px 
+	background: url('../../img/spacewalk-header-background.png') repeat-x #555;
 }
 footer{
 	padding: 1.2em 0;
-	background: #63a625;
+	background: #333;
 	color: #fff;
 	font-weight: normal;
 	font-size: 0.9em
 }
+aside.col-md-2{
+	background: #dedede;
+	/* for the body div to make both columns the same size*/
+	margin-bottom:-9999px;
+	padding-bottom: 9999px;
+	padding-right: 0
+}
+section{
+	background: #f7f7f7;
+	/* for the body div to make both columns the same size*/
+	margin-bottom:-9999px;
+	padding-bottom: 9999px 
+}
+/* for the body div to make both columns the same size*/
 .row.body-container{
 	overflow: hidden;
 	min-height: 100%
 }
+/* adding margin to the icons in fontawesome */
 [class^="icon-"],
-[class*=" icon-"] {
+[class*=" icon-"],
+[class*="spacewalk-icons"],
+[class^="spacewalk-icons"] {
   margin-right: .5em;
 }
-header  .navbar-inverse, header  .navbar{
+
+header .row{
+	margin: 0 1em 
+}
+header .logo{
+	padding:1.2em 0 0  0;
+}
+header form{
+	margin: .9em 0 1em 0
+}
+header .nav-pills{
+	display: inline-block;
+	border-radius: 0 0 4px 4px
+}
+header .nav-pills li > a{
+	padding: .3em 1em;
+	font-size: .85em;
+	color: #fff;
+	font-weight: normal;
+	letter-spacing: normal;
+}
+header .nav-pills li > a:hover{
+	background: none;
+	text-decoration: underline;
+}
+header ul.nav-pills:nth-child(1){
+	background: #000;
+}
+header ul.nav-pills:nth-child(2){
+	background: #333;
+}
+header ul.nav-pills:nth-child(3){
+	background: #666;
+}
+header ul.nav-pills:nth-child(2) li{
+	border-left: 1px #000 solid
+}
+header ul.nav-pills:nth-child(2) li{
+	border-left: 1px #222 solid
+}
+header ul.nav-pills:nth-child(3) li{
+	border-left: 1px #555 solid
+}
+header ul.nav-pills li:first-child {
+	border-left: 0
+}
+header .navbar-nav > li > a{
+	padding: .5em 2em;
+}
+header .navbar-nav > li:hover{
+	background: #00aad4
+}
+header form input[type="search"]{
+	padding: 0px 10px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+/* reseting navbar styles for the main menu */
+header  .nav-spacewalk{
 	margin: 0;
 	border-radius: 0
 }
-header .row{
-	margin: 0 1em 
+.nav-spacewalk{
+	border: 0
+}
+.nav-spacewalk:after{
+	height: 4px;
+	background: #00aad4;
+	width: 100%
+}
+header .navbar{
+	min-height: .5em;
+}
+
+/* style for Menu in the left column */
+#sidenav a{
+	color: #444
+}
+#sidenav li.active > a{
+	color: #fff
+}
+#sidenav li > a{
+	border-radius: 0
+}
+#sidenav li:last-child{
+	border-bottom: 1px solid #ccc;
+	-moz-box-shadow: 0px 1px 1px #fefefe;
+	-webkit-box-shadow: 0px 1px 1px #fefefe;
+	box-shadow: 0px 1px 1px #fefefe;
+}
+aside .sideleg{
+	background: #ccc;
+	width: 90%;
+	padding: .5em 1em;
+	border-radius: 4px;
+	margin: 2em auto;
+	font-size: .8em
+}
+aside .sideleg li{
+	list-style: none;
+	margin: 1em 0;
+	padding:0;
+}
+aside .sideleg ul{
+	margin: 0;
+	padding: 0
 }
