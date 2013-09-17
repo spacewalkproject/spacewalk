@@ -25,25 +25,16 @@
       ${requestScope.innernavtitle}
     </title>
     <link rel="shortcut icon" href="/img/favicon.ico" />
-    
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" type="text/css" />
-    
-    <link rel="stylesheet" href="/fonts/font-awesome/css/font-awesome.css">
-    <link rel="stylesheet" href="/fonts/font-spacewalk/css/spacewalk-font.css">
-    <!-- <link rel="stylesheet" href="/css/spacewalk.css"> -->
 
-    <style>
-      .nav-stacked ul {
-        margin-left: 15px !important;
-      }
-    </style>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/fonts/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="/fonts/font-spacewalk/css/spacewalk-font.css" />
+    <link rel="stylesheet" href="/css/spacewalk.css" />
 
-    <script type="text/javascript" src="/rhn/dwr/engine.js"></script>
-    <script type="text/javascript" src="/rhn/dwr/util.js"></script>
-    <script type="text/javascript" src="/rhn/dwr/interface/DWRItemSelector.js"></script>
-    
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"> </script>
-    <script src="/javascript/prototype-1.6.0.js" type="text/javascript"> </script>
-    <script src="/javascript/check_all.js" type="text/javascript"> </script>
+    <script src="/rhn/dwr/engine.js"></script>
+    <script src="/rhn/dwr/util.js"></script>
+    <script src="/rhn/dwr/interface/DWRItemSelector.js"></script>
 
-
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="/javascript/prototype-1.6.0.js"></script>
+    <script src="/javascript/check_all.js"></script>
