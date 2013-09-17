@@ -67,7 +67,7 @@
   </div>
 </div>
 
-<nav class="navbar navbar-inverse nav-spacewalk" role="navigation">
+<nav class="navbar navbar-inverse spacewalk-main-nav" role="navigation">
   <rhn:require acl="user_authenticated()">
     <rhn:menu mindepth="0" maxdepth="0"
               definition="/WEB-INF/nav/sitenav-authenticated.xml"
