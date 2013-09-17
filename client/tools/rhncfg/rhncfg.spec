@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.60
+Version: 5.10.61
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -120,6 +120,9 @@ fi
 
 # $Id$
 %changelog
+* Tue Sep 17 2013 Michael Mraka <michael.mraka@redhat.com> 5.10.61-1
+- Grammar error occurred
+
 * Wed Sep 11 2013 Grant Gainey <ggainey@redhat.com> 5.10.60-1
 - 1006480 - os.write() is for file-descriptors, not *files*
 
