@@ -34,7 +34,7 @@ sql:
     NPE.version as newest_version,
     NPE.release as newest_release
   from rhnServer S
-    join rhnServerNeededPackageCache SPC on S.id=SPC.server_id
+    join rhnServerNeededCache SPC on S.id=SPC.server_id
     join rhnPackage P on SPC.package_id=P.id
     join rhnPackageName PN on P.name_id=PN.id
     join rhnServerPackage SP on SP.server_id=S.id and SP.name_id=P.name_id
