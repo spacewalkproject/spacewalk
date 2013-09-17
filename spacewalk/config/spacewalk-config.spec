@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 2.1.1
+Version: 2.1.2
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -104,6 +104,10 @@ chgrp apache /etc/rhn /etc/rhn/rhn.conf /etc/rhn/cluster.ini 2> /dev/null || :
 chmod o-rwx /etc/rhn/rhn.conf* /etc/rhn/cluster.ini* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
 
 %changelog
+* Tue Sep 17 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.2-1
+- Updating rhn.conf man page for taskomatic.maxmemory option
+- Changes to rhn.conf man page for ISS settings
+
 * Thu Aug 22 2013 Tomas Lestach <tlestach@redhat.com> 2.1.1-1
 - update webapp-keyring.gpg with pgp public key valid until 2023-02-05
 - Bumping package versions for 2.1.
