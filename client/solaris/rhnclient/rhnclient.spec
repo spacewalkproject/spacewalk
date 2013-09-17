@@ -5,7 +5,7 @@
 Summary: Spacewalk Client Utilities and Libraries
 Name: rhnclient
 Source0: %{name}-%{version}.tar.gz
-Version: 5.5.5
+Version: 5.5.6
 Release: 1
 License: GPLv2
 Group: Development/Libraries
@@ -64,6 +64,9 @@ rm -rf $RPM_BUILD_ROOT
 #%doc ChangeLog COPYING README TODO
 
 %changelog
+* Tue Sep 17 2013 Michael Mraka <michael.mraka@redhat.com> 5.5.6-1
+- Grammar error occurred
+
 * Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 5.5.5-1
 - updating copyright years
 - Get the CPU frequency for solaris clients correctly (even for 7013-53H)
