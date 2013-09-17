@@ -100,14 +100,14 @@ header form input[type="search"]{
 	box-sizing: border-box;
 }
 /* reseting navbar styles for the main menu */
-header  .nav-spacewalk{
+header  .spacewalk-main-nav{
 	margin: 0;
 	border-radius: 0
 }
-.nav-spacewalk{
+.spacewalk-main-nav{
 	border: 0
 }
-.nav-spacewalk:after{
+.spacewalk-main-nav:after{
 	height: 4px;
 	background: #00aad4;
 	width: 100%
@@ -115,7 +115,6 @@ header  .nav-spacewalk{
 header .navbar{
 	min-height: .5em;
 }
-
 /* style for Menu in the left column */
 #sidenav a{
 	color: #444
@@ -126,12 +125,47 @@ header .navbar{
 #sidenav li > a{
 	border-radius: 0
 }
-#sidenav li:last-child{
+#sidenav ul li:last-child{
 	border-bottom: 1px solid #ccc;
-	-moz-box-shadow: 0px 1px 1px #fefefe;
-	-webkit-box-shadow: 0px 1px 1px #fefefe;
-	box-shadow: 0px 1px 1px #fefefe;
+	-moz-box-shadow: 1px 1px 1px #fefefe;
+	-webkit-box-shadow: 1px 1px 1px #fefefe;
+	box-shadow: 1px 1px 1px #fefefe;
 }
+
+/* ul-submenues */
+#sidenav ul>ul li{
+    padding: 0 0 0 1em !important;
+    margin: 0;
+    background: #cdcdcd
+}
+#sidenav ul>ul li:hover, #sidenav ul>ul li a:hover{
+	background: #bcbcbc
+}
+#sidenav ul>ul li:last-child{
+	border-bottom: 1px solid #b6b6b6;
+}
+#sidenav ul>ul>ul li{
+    padding: 0 0 0 1.5em !important;
+    margin: 0;
+    background: #a8a8a8
+}
+#sidenav ul>ul>ul li:hover, #sidenav ul>ul>ul li a:hover{
+	background: #9b9b9b
+}
+#sidenav ul>ul>ul li:last-child{
+	border-bottom: 1px solid #898989;
+}
+aside ul > ul li{
+	list-style: none;
+	padding: 0
+}
+
+/* TABLES */
+.table > thead > tr.active > th{
+	background: #f5f5f5 
+}
+
+/* Icons Legend */
 aside .sideleg{
 	background: #ccc;
 	width: 90%;
