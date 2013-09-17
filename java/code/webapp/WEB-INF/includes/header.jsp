@@ -59,7 +59,7 @@
         <div class="form-group">
           <input type="hidden" name="submitted" value="true" />
           <button type="submit" class="btn btn-info input-sm">
-            <bean:message key="button.search" />
+            <i class="icon-search"></i><bean:message key="button.search" />
           </button>
         </div>
       </form>
@@ -67,7 +67,7 @@
   </div>
 </div>
 
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-inverse nav-spacewalk" role="navigation">
   <rhn:require acl="user_authenticated()">
     <rhn:menu mindepth="0" maxdepth="0"
               definition="/WEB-INF/nav/sitenav-authenticated.xml"
