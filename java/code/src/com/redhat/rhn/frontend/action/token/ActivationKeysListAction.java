@@ -76,7 +76,7 @@ public class ActivationKeysListAction extends RhnAction {
         if (!context.isSubmitted()) {
             set.clear();
             for (ActivationKeyDto dto : dataSet) {
-                if (!dto.isDisabled()) {
+                if (!dto.isKeyDisabled()) {
                     set.addElement(dto.getId().longValue());
                 }
                 if (dto.isOrgDefault()) {

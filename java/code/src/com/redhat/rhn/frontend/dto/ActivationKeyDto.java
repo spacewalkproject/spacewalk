@@ -26,7 +26,7 @@ import org.apache.commons.lang.BooleanUtils;
 public class ActivationKeyDto extends BaseDto {
 
     private Long id;
-    private boolean disabled;
+    private boolean keyDisabled;
     private String note;
     private String token;
     private Integer usageLimit;
@@ -55,20 +55,20 @@ public class ActivationKeyDto extends BaseDto {
      * Is the key disabled?
      * @return Returns true if disabled, false if enabled.
      */
-    public boolean isDisabled() {
-        return disabled;
+    public boolean isKeyDisabled() {
+        return keyDisabled;
     }
 
     /**
      * Disable (or enable) the key
      * @param value 1 if the key is disabled
      */
-    public void setDisabled(Integer value) {
+    public void setKeyDisabled(Integer value) {
         if (value == null || (!value.equals(new Integer(1)))) {
-            this.disabled = false;
+            this.keyDisabled = false;
         }
         else {
-            this.disabled = true;
+            this.keyDisabled = true;
         }
 
         return;

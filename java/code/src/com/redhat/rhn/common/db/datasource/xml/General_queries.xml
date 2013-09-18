@@ -204,7 +204,7 @@ ORDER BY SEV.label
 <mode name="activation_keys_for_org" class="com.redhat.rhn.frontend.dto.ActivationKeyDto">
   <query params="org_id">
   SELECT DISTINCT RT.id,
-                  RT.disabled,
+                  RT.disabled AS key_disabled,
                   RT.note,
                   AK.token,
                   RT.usage_limit,
@@ -228,7 +228,7 @@ ORDER BY RT.note, RT.id
 <mode name="active_activation_keys_for_org" class="com.redhat.rhn.frontend.dto.ActivationKeyDto">
   <query params="org_id">
   SELECT DISTINCT RT.id,
-                  RT.disabled,
+                  RT.disabled AS key_disabled,
                   RT.note,
                   AK.token,
                   RT.usage_limit,
