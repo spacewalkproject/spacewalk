@@ -26,7 +26,7 @@
       <section class="col-md-10">
         <!-- Alerts and messages -->
         <logic:messagesPresent>
-          <div class="alert alert-blue">
+          <div class="alert alert-info">
             <ul>
             <html:messages id="message">
               <li><c:out value="${message}"/></li>
