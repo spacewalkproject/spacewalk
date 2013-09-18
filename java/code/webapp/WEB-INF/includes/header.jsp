@@ -59,7 +59,7 @@
         <div class="form-group">
           <input type="hidden" name="submitted" value="true" />
           <button type="submit" class="btn btn-info input-sm">
-            <i class="icon-search"></i><bean:message key="button.search" />
+            <i class="icon-search"></i>
           </button>
         </div>
       </form>
