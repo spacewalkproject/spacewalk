@@ -54,7 +54,7 @@
           </select>
         </div>
         <div class="form-group">
-          <input type="search" class="input-sm" name="search_string" maxlength="40" size="20" accesskey="4" autofocus="autofocus" />
+          <input type="search" class="form-control input-sm" name="search_string" maxlength="40" size="20" accesskey="4" autofocus="autofocus" placeholder="<bean:message key="button.search" />" />
         </div>
         <div class="form-group">
           <input type="hidden" name="submitted" value="true" />
