@@ -45,6 +45,7 @@ public class ProbeList extends BaseListAction {
     /**
      * {@inheritDoc}
      */
+    @Override
     protected void processRequestAttributes(RequestContext rctx) {
         super.processRequestAttributes(rctx);
         String stateparam = rctx.getParam(PROBE_STATE, false);
@@ -56,8 +57,7 @@ public class ProbeList extends BaseListAction {
         }
         stateparam = stateparam.toLowerCase();
         // Add all/warning/ok/Class css classname
-        rctx.getRequest().setAttribute(stateparam + "Class", "content-nav-selected");
-        rctx.getRequest().setAttribute(stateparam + "Link", "content-nav-selected-link");
+        rctx.getRequest().setAttribute(stateparam + "Class", "active");
 
         // Setup the probe state summary
         Map counts = new HashMap();
@@ -88,6 +88,7 @@ public class ProbeList extends BaseListAction {
         }
     }
 
+    @Override
     protected DataResult getDataResult(RequestContext rctx, PageControl pc) {
         String state = rctx.getParam(PROBE_STATE, false);
         return MonitoringManager.getInstance().
