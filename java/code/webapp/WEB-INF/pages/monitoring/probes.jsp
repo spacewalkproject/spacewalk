@@ -13,11 +13,11 @@
 
 <div class="spacewalk-content-nav">
   <ul class="nav nav-tabs">
-    <li class="${criticalClass}"><a href="/rhn/monitoring/ProbeList.do?state=CRITICAL"><span class="toolbar"><img src="/img/rhn-mon-down.gif"></span><bean:message key="Critical"/> (${criticalCount})</a></li>
-    <li class="${warningClass}"><a href="/rhn/monitoring/ProbeList.do?state=WARNING"><span class="toolbar"><img src="/img/rhn-mon-warning.gif"></span><bean:message key="Warning"/> (${warningCount})</a></li>
-    <li class="${unknownClass}"><a href="/rhn/monitoring/ProbeList.do?state=UNKNOWN"><span class="toolbar"><img src="/img/rhn-mon-unknown.gif"></span><bean:message key="Unknown"/> (${unknownCount})</a></li>
-    <li class="${pendingClass}"><a href="/rhn/monitoring/ProbeList.do?state=PENDING"><span class="toolbar"><img src="/img/rhn-mon-pending.gif"></span><bean:message key="Pending"/> (${pendingCount})</a></li>
-    <li class="${okClass}"><a href="/rhn/monitoring/ProbeList.do?state=OK"><span class="toolbar"><img src="/img/rhn-mon-ok.gif"></span><bean:message key="OK"/> (${okCount})</a></li>
+    <li class="${criticalClass}"><a href="/rhn/monitoring/ProbeList.do?state=CRITICAL"><i class="icon-exclamation-sign text-error"></i><bean:message key="Critical"/> (${criticalCount})</a></li>
+    <li class="${warningClass}"><a href="/rhn/monitoring/ProbeList.do?state=WARNING"><i class="icon-warning-sign text-warning"></i><bean:message key="Warning"/> (${warningCount})</a></li>
+    <li class="${unknownClass}"><a href="/rhn/monitoring/ProbeList.do?state=UNKNOWN"><i class="icon-question-sign text-info"></i><bean:message key="Unknown"/> (${unknownCount})</a></li>
+    <li class="${pendingClass}"><a href="/rhn/monitoring/ProbeList.do?state=PENDING"><i class="icon-time text-info"></i><bean:message key="Pending"/> (${pendingCount})</a></li>
+    <li class="${okClass}"><a href="/rhn/monitoring/ProbeList.do?state=OK"><i class="icon-ok text-success"></i><bean:message key="OK"/> (${okCount})</a></li>
     <li class="${allClass}"><a href="/rhn/monitoring/ProbeList.do"><bean:message key="All"/> (${allCount})</a></li>
   </ul>
 </div>
