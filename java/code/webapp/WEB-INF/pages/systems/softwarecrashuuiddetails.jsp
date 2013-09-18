@@ -61,7 +61,7 @@
                            sortable="true"
                            filterattr="serverName">
                     <a href="/rhn/systems/details/SoftwareCrashDetail.do?crid=${current.crashId}&sid=${current.serverId}">
-                        ${current.serverName}
+                        <c:out value="${current.serverName}" escapeXml="true" />
                     </a>
                 </rl:column>
                 <rl:column headerkey="crashes.jsp.crashcount"
