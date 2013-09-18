@@ -6,7 +6,7 @@
 	  <rhn-tab-url>/rhn/systems/details/Overview.do</rhn-tab-url>
 	  <rhn-tab-url>/network/systems/details/reboot_confirm.pxt</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="Properties" url="/rhn/systems/details/Edit.do" />
+    <rhn-tab name="Properties" acl="not system_has_bootstrap_entitlement()" url="/rhn/systems/details/Edit.do" />
     <rhn-tab name="Remote Command" acl="system_feature(ftr_remote_command)">
       <rhn-tab-url>/rhn/systems/details/SystemRemoteCommand.do</rhn-tab-url>
     </rhn-tab>
@@ -199,7 +199,7 @@
     <rhn-tab name="Images" url="/rhn/systems/details/virtualization/Images.do"/>
   </rhn-tab>
 
-  <rhn-tab name="Audit">
+  <rhn-tab name="Audit" acl="not system_has_bootstrap_entitlement()">
     <rhn-tab-url>/rhn/systems/details/audit/ListScap.do</rhn-tab-url>
     <rhn-tab name="nav.system.audit.list_scans">
       <rhn-tab-url>/rhn/systems/details/audit/ListScap.do</rhn-tab-url>
@@ -212,7 +212,7 @@
     </rhn-tab>
   </rhn-tab>
 
-  <rhn-tab name="Events">
+  <rhn-tab name="Events" acl="not system_has_bootstrap_entitlement()">
     <rhn-tab-url>/network/systems/details/history/pending.pxt</rhn-tab-url>
     <rhn-tab name="Pending">
       <rhn-tab-url>/network/systems/details/history/pending.pxt</rhn-tab-url>
