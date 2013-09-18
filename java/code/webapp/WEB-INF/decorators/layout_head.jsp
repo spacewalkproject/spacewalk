@@ -26,10 +26,11 @@
     </title>
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/fonts/font-awesome/css/font-awesome.css" />
     <link rel="stylesheet" href="/fonts/font-spacewalk/css/spacewalk-font.css" />
-    <link rel="stylesheet" href="/css/spacewalk.css" />
+    <link rel="stylesheet/less" type="text/css" href="/css/spacewalk.less" />
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.4.1/less.min.js"/>
 
     <script src="/rhn/dwr/engine.js"></script>
     <script src="/rhn/dwr/util.js"></script>
