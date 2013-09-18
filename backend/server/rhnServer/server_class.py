@@ -171,7 +171,7 @@ class Server(ServerWrapper):
 
         #bz 442355
         #Leave custom base channels alone, don't alter any of the channel subscriptions
-        if not CFG.RESET_BASE_CHANNEL and rhnChannel.isCustomChannel(old_base["id"]):
+        if not CFG.RESET_BASE_CHANNEL and old_base and rhnChannel.isCustomChannel(old_base["id"]):
             log_debug(3,
                     "Custom base channel detected, will not alter channel subscriptions")
             self.server["release"] = new_rel
