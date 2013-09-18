@@ -1,90 +1,89 @@
 <%@ include file="/WEB-INF/pages/common/fragments/user/user_attribute_sizes.jspf"%>
 
-  <tr>
-    <th><bean:message key="username.displayname"/></th>
-    <td><c:out escapeXml="true" value="${user.login}" /></td>
-  </tr>
+<div class="form-group">
+    <label class="col-lg-3 control-label"><bean:message key="username.displayname"/></label>
+    <div class="col-lg-6"><c:out escapeXml="true" value="${user.login}" /></div>
+</div>
 
-  <tr>
-    <th><bean:message key="prefix.displayname"/></th>
-    <td>
-	<html:select property="prefix">
-	  <html:options collection="availablePrefixes"
-            property="value"
-            labelProperty="label" />
+<div class="form-group">
+    <label class="col-lg-3 control-label"><bean:message key="prefix.displayname"/></label>
+    <div class="col-lg-6">
+        <html:select property="prefix" styleClass="form-control">
+            <html:options collection="availablePrefixes" property="value" labelProperty="label" />
         </html:select>
-    </td>
-  </tr>
+    </div>
+</div>
 
-  <tr>
-    <th><bean:message key="firstNames.displayname"/></th>
-    <td>
-      <html:text property="firstNames" size="20" maxlength="${firstNameLength}"/>
-    </td>
-  </tr>
-  <tr>
-    <th><bean:message key="lastName.displayname"/></th>
-    <td>
-      <html:text property="lastName" size="20" maxlength="${lastNameLength}"/>
-    </td>
-  </tr>
-  <tr>
-    <th><bean:message key="position.displayname"/></th>
-    <td>
-      <html:text property="title" size="30" maxlength="${titleLength}"/>
-    </td>
-  </tr>
-  <rhn:require acl="user_role(org_admin)">
+<div class="form-group">
+    <label class="col-lg-3 control-label"><bean:message key="firstNames.displayname"/></label>
+    <div class="col-lg-6">
+        <html:text property="firstNames" styleClass="form-control" maxlength="${firstNameLength}"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-lg-3 control-label"><bean:message key="lastName.displayname"/></label>
+    <div class="col-lg-6">
+        <html:text property="lastName" styleClass="form-control" maxlength="${lastNameLength}"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-lg-3 control-label"><bean:message key="position.displayname"/></label>
+    <div class="col-lg-6">
+        <html:text property="title" styleClass="form-control" maxlength="${titleLength}"/>
+    </div>
+</div>
+
+<rhn:require acl="user_role(org_admin)">
     <c:if test="${displaypam == true}">
-      <tr>
-        <th><bean:message key="userdetails.usepam" /></th>
-        <td><html:checkbox property="usepam" value="1" /></td>
-      </tr>
+        <div class="form-group">
+            <label class="col-lg-3 control-label"><bean:message key="userdetails.usepam" /></label>
+            <div class="col-lg-6"><html:checkbox property="usepam" value="1" /></div>
+        </div>
     </c:if>
-  </rhn:require>
-  <tr>
-    <th><bean:message key="password.displayname"/></th>
-    <td>
-      <html:password property="desiredpassword" size="20" maxlength="${passwordLength}"/>
-    </td>
-  </tr>
-  <tr>
-    <th><bean:message key="confirmpass.displayname"/></th>
-    <td>
-      <html:password property="desiredpasswordConfirm" size="20" maxlength="${passwordLength}"/>
-    </td>
-  </tr>
-  <tr>
-    <th><bean:message key="email.displayname"/></th>
-    <td>
+</rhn:require>
+
+<div class="form-group">
+    <label class="col-lg-3 control-label"><bean:message key="password.displayname"/></label>
+    <div class="col-lg-6">
+        <html:password property="desiredpassword" styleClass="form-control" maxlength="${passwordLength}"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-lg-3 control-label"><bean:message key="confirmpass.displayname"/></label>
+    <div class="col-lg-6">
+        <html:password property="desiredpasswordConfirm" styleClass="form-control" maxlength="${passwordLength}"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-lg-3 control-label"><bean:message key="email.displayname"/></label>
+        <%-- On sats, we want the link to say "Change" no matter what... in hosted,
+             we want it to display "Confirm" if the address is not confirmed or "Change" if
+             the address has been confirmed already.
+        --%>
+
+    <c:set var="email_display" value="change.displayname"/>
     <c:choose>
-       <c:when test="${!empty mailableAddress}">
-           ${mailableAddress}
-       </c:when>
-       <c:when test="${empty mailableAddress}">
-          <bean:message key="userdetails.jsp.noemailaddress"/>
-       </c:when>
+        <c:when test="${param.uid != null}">
+            <c:set var="email_link" value="/rhn/users/ChangeEmail.do?uid=${param.uid}"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="email_link" value="/rhn/account/ChangeEmail.do"/>
+        </c:otherwise>
     </c:choose>
 
-     <br />
-
-    <%-- On sats, we want the link to say "Change" no matter what... in hosted,
-         we want it to display "Confirm" if the address is not confirmed or "Change" if
-         the address has been confirmed already.
-    --%>
-     <c:set var="email_display" value="change.displayname"/>
-
-    <c:choose>
-      <c:when test="${param.uid != null}">
-        <c:set var="email_link" value="/rhn/users/ChangeEmail.do?uid=${param.uid}"/>
-      </c:when>
-      <c:otherwise>
-        <c:set var="email_link" value="/rhn/account/ChangeEmail.do"/>
-      </c:otherwise>
-    </c:choose>
-
-    <a href="<c:out value="${email_link}"/>"><bean:message key="${email_display}"/></a>
-
-    </td>
-  </tr>
-
+    <a class="btn btn-default btn-sm" href="<c:out value="${email_link}"/>"><bean:message key="${email_display}"/></a>
+    <div class="col-lg-4">
+        <c:choose>
+            <c:when test="${!empty mailableAddress}">
+                ${mailableAddress}
+            </c:when>
+            <c:when test="${empty mailableAddress}">
+                <bean:message key="userdetails.jsp.noemailaddress"/>
+            </c:when>
+        </c:choose>
+    </div>
+</div>

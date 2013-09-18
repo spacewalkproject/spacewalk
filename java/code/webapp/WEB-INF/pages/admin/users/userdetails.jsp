@@ -5,72 +5,81 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 
 <html:html xhtml="true">
-<head>
-</head>
-<body>
+    <body>
+        <%@ include file="/WEB-INF/pages/common/fragments/user/user-header.jspf" %>
+        <html:form action="/users/UserDetailsSubmit?uid=${user.id}" styleClass="form-horizontal">
+            <rhn:csrf />
+            <h2><bean:message key="userdetails.jsp.header"/></h2>
+            <p class="lead"><bean:message key="userdetails.jsp.summary"/></p>
+            <%@ include file="/WEB-INF/pages/common/fragments/user/edit_user_table_rows.jspf"%>
+            <div class="form-group">
+                <label class="col-lg-3 control-label"><bean:message key="userdetails.jsp.adminRoles"/>:</label>
+                <div class="col-lg-6">
+                    <c:forEach items="${adminRoles}" var="role">
+                        <label>
+                            <input type="checkbox" name="role_${role.value}"
+                                   <c:if test="${role.selected}">checked="true"</c:if>
+                                   <c:if test="${role.disabled}">disabled="true"</c:if>/>
+                            ${role.name}
+                        </label>
+                    </c:forEach>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">
+                    <bean:message key="userdetails.jsp.roles"/>:
+                </label>
+                <div class="col-lg-6">
+                    <c:forEach items="${regularRoles}" var="role">
+                        <label>
+                            <input type="checkbox" name="role_${role.value}"
+                                   <c:if test="${role.selected}">checked="true"</c:if>
+                                   <c:if test="${role.disabled}">disabled="true"</c:if>/>
+                            ${role.name}
+                        </label>
+                    </c:forEach>
+                    <c:if test="${orgAdmin}">
+                        <p/>
+                        <bean:message key="userdetails.jsp.grantedByOrgAdmin"/>
+                    </c:if>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">
+                    <bean:message key="created.displayname"/>
+                </label>
+                <label class="col-lg-6">
+                    ${created}
+                </label>
+            </div>
 
-<%@ include file="/WEB-INF/pages/common/fragments/user/user-header.jspf" %>
-<html:form action="/users/UserDetailsSubmit?uid=${user.id}">
+            <div class="form-group">
+                <label class="col-lg-3 control-label">
+                    <bean:message key="last_sign_in.displayname"/>
+                </label>
+                <label class="col-lg-6">
+                    ${lastLoggedIn}
+                </label>
+            </div>
 
- <rhn:csrf />
- <h2><bean:message key="userdetails.jsp.header"/></h2>
- <div class="page-summary">
- <p>
- <bean:message key="userdetails.jsp.summary"/>
- </p>
- </div>
+            <hidden name="disabledRoles" value="${disabledRoles}"/>
 
- <table class="details" align="center">
-
-  <%@ include file="/WEB-INF/pages/common/fragments/user/edit_user_table_rows.jspf"%>
-
-  <tr>
-    <th><bean:message key="userdetails.jsp.adminRoles"/>:</th>
-    <td>
-
-        <c:forEach items="${adminRoles}" var="role">
-            <input type="checkbox" name="role_${role.value}" <c:if test="${role.selected}">checked="true"</c:if> <c:if test="${role.disabled}">disabled="true"</c:if>/> ${role.name}<br/>
-        </c:forEach>
-
-    </td>
-  </tr>
-  <tr>
-    <th><bean:message key="userdetails.jsp.roles"/>:</th>
-    <td>
-
-        <c:forEach items="${regularRoles}" var="role">
-            <input type="checkbox" name="role_${role.value}" <c:if test="${role.selected}">checked="true"</c:if> <c:if test="${role.disabled}">disabled="true"</c:if>/> ${role.name}<br/>
-        </c:forEach>
-
-        <c:if test="${orgAdmin}">
-            <p/>
-            <em><bean:message key="userdetails.jsp.grantedByOrgAdmin"/></em>
-        </c:if>
-
-    </td>
-  </tr>
-  <tr>
-    <th><bean:message key="created.displayname"/></th>
-    <td>${created}</td>
-  </tr>
-
-  <tr>
-    <th><bean:message key="last_sign_in.displayname"/></th>
-    <td>${lastLoggedIn}</td>
-  </tr>
-
- </table>
-
- <input type="hidden" name="disabledRoles" value="${disabledRoles}"/>
-
- <c:if test="${!empty mailableAddress}">
- <div align="right">
-   <hr />
-   <html:submit><bean:message key="button.update"/></html:submit>
- </div>
- </c:if>
-
-</html:form>
-
-</body>
+            <div class="form-group">
+                <div class="col-lg-offset-3 col-lg-6">
+                    <c:choose>
+                        <c:when test="${!empty mailableAddress}">
+                            <button type="submit" class="btn btn-success">
+                                <bean:message key="button.update"/>
+                            </button>
+                        </c:when>
+                        <c:otherwise>
+                            <button type="button" class="btn btn-success" disabled="disabled">
+                                <bean:message key="button.update"/>
+                            </button>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
+        </html:form>
+    </body>
 </html:html>
