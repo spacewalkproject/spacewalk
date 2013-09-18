@@ -23,7 +23,7 @@ from spacewalk.common.rhnException import rhnFault, rhnException
 from spacewalk.common.rhnTranslate import _
 from spacewalk.server import rhnSQL, rhnChannel, rhnAction
 
-from server_lib import join_server_group
+from server_lib import join_server_group, check_entitlement
 
 VIRT_ENT_LABEL = 'virtualization_host'
 VIRT_PLATFORM_ENT_LABEL = 'virtualization_host_platform'
@@ -587,6 +587,12 @@ class ActivationTokens:
         Entitle a server according to the entitlements we have configured.
         """
         log_debug(3, self.entitlements)
+
+        # check for bootstrap_entitled and unentitle first
+        cur = check_entitlement(server_id, True)
+        if cur and 'bootstrap_entitled' in cur:
+            remove_ent = rhnSQL.Procedure("rhn_entitlements.remove_server_entitlement")
+            remove_ent(server_id, "bootstrap_entitled")
 
         entitle_server = rhnSQL.Procedure("rhn_entitlements.entitle_server")
         # TODO: entitle_server calls can_entitle_server, so we're doing this
