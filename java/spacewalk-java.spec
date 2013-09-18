@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.43
+Version: 2.1.44
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Sep 18 2013 Tomas Lestach <tlestach@redhat.com> 2.1.44-1
+- updated UI strings pulled from zanata
+- 1007998 - fix activation key selection
+- 1009019 - mentioning entitlement labels in apidoc
+- 820225 - remove and recount entitlements before we remove guest associations
+- 910739 - fix systemgroup.scheduleApplyErrataToActive API doc
+
 * Tue Sep 17 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.43-1
 - Grammar error occurred
 - 1008687 - Fixing unlocalized strings in Manage Software Channels tab
