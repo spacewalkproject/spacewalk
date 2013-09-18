@@ -1,11 +1,33 @@
+/* Original Bootstrap */
+@import  url(bootstrap/less/bootstrap.less);
 /*spacewalk css theme*/
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,700,900);
-@import "bootstrap/less/bootstrap.less"; 
+@import url(http://fonts.googleapis.com/css?family=Roboto:300,700);
 
-h1, h2, h3, h4 {
-	font-family: 'Roboto', sans-serif;
-	font-weight: 300
+/* Bootstrap color variables overwrited */
+@gray-darker:            lighten(#000, 13.5%); // #222
+@gray-dark:              lighten(#000, 25%);   // #333
+@gray:                   lighten(#000, 50%); // #555
+@gray-light:             lighten(#000, 80%);   // #999
+@gray-lighter:           lighten(#000, 95%); // #eee
+
+/* Roboto variable: font variable to be applied in different text elements*/
+@roboto-font: 'Roboto', sans-serif;
+
+.Roboto-thin{
+	font-family: @roboto-font;
+	font-weight: 300;
 }
+.Roboto-strong{
+	font-family: @roboto-font;
+	font-weight: 700;
+}
+
+/* titles */
+h1, h2, h3, h4 {
+	.Roboto-thin
+}
+
+/* Main HTML5 tags defined for the theme */
 header{
 	width: 100%;
 	background: url('../../img/spacewalk-header-background.png') repeat-x #555;
@@ -38,16 +60,17 @@ section{
 /* adding margin to the icons in fontawesome */
 [class^="icon-"],
 [class*=" icon-"],
-[class*="spacewalk-icons"],
-[class^="spacewalk-icons"] {
+[class*="spacewalk-icon"],
+[class^="spacewalk-icon"] {
   margin-right: .5em;
 }
 
+/* header style */
 header .row{
 	margin: 0 1em 
 }
 header .logo{
-	padding:1.2em 0 0  0;
+	padding:1.2em 0 0 0;
 }
 header form{
 	margin: .9em 0 1em 0
@@ -116,6 +139,38 @@ header  .spacewalk-main-nav{
 header .navbar{
 	min-height: .5em;
 }
+
+/* Systems selector inside the search form in the header */
+section #bar{
+	position: relative;
+	width: 100%
+}
+section #bar .spacewalk-bar{
+	position: absolute;
+	padding: .5em 1.2em;
+	right: 1em;
+	top: 1em;
+	background: #fff;
+	border:1px solid #ccc;
+	border-radius: 4px;
+}
+
+/* system selector */
+.spacewalk-bar a.button:first-of-type{
+	color: #ffffff;
+	background-color: #5bc0de;
+	border-color: #46b8da;
+	padding: .2em .6em;
+	border-radius: 4px;
+	margin: 0 .2em
+}
+.spacewalk-bar a.button:last-of-type{
+	color: #333;
+	background-color: #e2e2e2;
+	border-color: #d4d4d4;
+	padding: .2em .6em;
+	border-radius: 4px
+}
 /* style for Menu in the left column */
 #sidenav a{
 	color: #444
@@ -163,7 +218,7 @@ aside ul > ul li{
 
 /* TABLES */
 .table > thead > tr.active > th{
-	background: #f5f5f5 
+	background: @gray-lighter 
 }
 
 /* Icons Legend */
@@ -183,4 +238,25 @@ aside .sideleg li{
 aside .sideleg ul{
 	margin: 0;
 	padding: 0
+}
+
+
+/* login form */
+#loginForm{
+	border: 1px solid @gray-light;
+	border-radius: @border-radius-base;
+	background: @gray-lighter;
+	margin-top: 2em;
+	margin-bottom:2em;
+	padding: 1.5em
+}
+#loginForm label{
+	text-align: left;
+	.Roboto-thin;
+	color: @gray;
+	font-size: 1.1em
+}
+#loginForm+.col-md-6.col-md-offset-3.text-left{
+	font-size:.8em;
+	margin-bottom:2em;
 }
