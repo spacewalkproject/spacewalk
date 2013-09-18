@@ -29,10 +29,10 @@
       </ul>
       <ul class="nav nav-pills">
         <li>
-          <a href="/rhn/account/UserDetails.do"><i class="icon-user"></i>:<c:out escapeXml="true" value="${requestScope.session.user.login}" /></a>
+          <a href="/rhn/account/UserDetails.do"><i class="icon-user"></i><c:out escapeXml="true" value="${requestScope.session.user.login}" /></a>
         </li>
         <li>
-          <a><i class="icon-sitemap"></i>:<c:out escapeXml="true" value="${requestScope.session.user.org.name}" /></a>
+          <a><i class="icon-sitemap"></i><c:out escapeXml="true" value="${requestScope.session.user.org.name}" /></a>
         </li>
         <li>
           <a href="/rhn/account/UserPreferences.do"><i class="icon-cogs"></i></a>
