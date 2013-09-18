@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'spacewalk-icon';
-	src:url('../fonts/spacewalk-icon.eot');
-	src:url('../fonts/spacewalk-icon.eot?#iefix') format('embedded-opentype'),
-		url('../fonts/spacewalk-icon.woff') format('woff'),
-		url('../fonts/spacewalk-icon.ttf') format('truetype'),
-		url('../fonts/spacewalk-icon.svg#spacewalk-icon') format('svg');
+	src:url('../font/spacewalk-icon.eot');
+	src:url('../font/spacewalk-icon.eot?#iefix') format('embedded-opentype'),
+		url('../font/spacewalk-icon.woff') format('woff'),
+		url('../font/spacewalk-icon.ttf') format('truetype'),
+		url('../font/spacewalk-icon.svg#spacewalk-icon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -131,3 +131,4 @@ you can use the generic selector below, but it's slower:
 .spacewalk-icon-manage-configuration-files:before {
 	content: "\e01e";
 }
+
