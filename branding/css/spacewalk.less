@@ -10,6 +10,8 @@
 @gray-light:             lighten(#000, 80%);   // #999
 @gray-lighter:           lighten(#000, 95%); // #eee
 
+@spacewalk-blue:	 #00aad4;
+
 /* Roboto variable: font variable to be applied in different text elements*/
 @roboto-font: 'Roboto', sans-serif;
 
@@ -26,15 +28,18 @@
 h1, h2, h3, h4 {
 	.Roboto-thin
 }
+h1{
+	font-size: 2em
+}
 
 /* Main HTML5 tags defined for the theme */
 header{
 	width: 100%;
-	background: url('../../img/spacewalk-header-background.png') repeat-x #555;
+	background: url('../../img/spacewalk-header-background.png') repeat-x @gray;
 }
 footer{
 	padding: 1.2em 0;
-	background: #333;
+	background: @gray-dark;
 	color: #fff;
 	font-weight: normal;
 	font-size: 0.9em
@@ -44,7 +49,9 @@ aside.col-md-2{
 	/* for the body div to make both columns the same size*/
 	margin-bottom:-9999px;
 	padding-bottom: 9999px;
-	padding-right: 0
+	/* errasing the predefined paddings in the columns */
+	padding-right: 0;
+	padding-left: 0
 }
 section{
 	background: #f7f7f7;
@@ -115,7 +122,7 @@ header .navbar-nav > li > a{
 	padding: .5em 2em;
 }
 header .navbar-nav > li:hover{
-	background: #00aad4
+	background: @spacewalk-blue;
 }
 header form input[type="search"]{
 	padding: 0px 10px;
@@ -124,10 +131,26 @@ header form input[type="search"]{
 	box-sizing: border-box;
 }
 
-/* fixing margin in the footer */
-footer .col-md-2.text-right{
-	margin-right: 0;
+/* fixing margin issue in Bootstrap 3 */
+
+@media (min-width: 768px) {
+  .row { 
+  	margin-right: 0; 
+  	margin-left: 0; 
+  }
 }
+/* fixing margins in the 1st and last columns */
+section.col-md-10{
+	padding-left:2em;
+	padding-right: 2em
+}
+section [class*=col-md]:first-child{
+	padding-left:0;
+}
+section [class*=col-md]:last-child{
+	padding-right: 0
+}
+
 /* reseting navbar styles for the main menu */
 header  .spacewalk-main-nav{
 	margin: 0;
@@ -138,7 +161,7 @@ header  .spacewalk-main-nav{
 }
 .spacewalk-main-nav:after{
 	height: 4px;
-	background: #00aad4;
+	background: @spacewalk-blue	;
 	width: 100%
 }
 header .navbar{
@@ -147,17 +170,17 @@ header .navbar{
 
 /* Systems selector inside the search form in the header */
 section #bar{
-	position: relative;
-	width: 100%
+	width: 100%;
+	background: @gray-lighter; 
 }
 section #bar .spacewalk-bar{
-	position: absolute;
 	padding: .5em 1.2em;
-	right: 1em;
+	right: 0;
 	top: 1em;
 	background: #fff;
 	border:1px solid #ccc;
-	border-radius: 4px;
+	text-align: right;
+	border-radius: 0 0 4px 4px
 }
 
 /* system selector */
@@ -223,7 +246,7 @@ aside ul > ul li{
 
 /* TABLES */
 .table > thead > tr.active > th{
-	background: @gray-lighter 
+	background: @gray-lighter;
 }
 
 /* Icons Legend */
@@ -234,6 +257,12 @@ aside .sideleg{
 	border-radius: 4px;
 	margin: 2em auto;
 	font-size: .8em
+}
+aside .sideleg:hover{
+	background: @spacewalk-blue;
+}
+aside .sideleg:hover h4, aside .sideleg:hover li{
+	color: #fff
 }
 aside .sideleg li{
 	list-style: none;
@@ -265,3 +294,17 @@ aside .sideleg ul{
 	font-size:.8em;
 	margin-bottom:2em;
 }
+
+
+/* question symbol for help pop up*/
+h1 .icon-stack .icon-question{
+	font-size: .5em;
+}
+.icon-stack .icon-stack-base.icon-circle{
+	font-size: .8em;
+	color: @spacewalk-blue;
+}
+.spacewalk-toolbar{
+	padding: 1em
+}
+
