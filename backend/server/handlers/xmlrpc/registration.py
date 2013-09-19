@@ -546,7 +546,7 @@ class Registration(rhnHandler):
             provisioning_entitled (provisioning add on to management).
             The call will try to use the highest system slot available. An entry will
             be added to failed_system_slots for each one that is tried and fails and
-            system_slots wil contain the one that succeeded if any.
+            system_slots will contain the one that succeeded if any.
             Eg: Calling this on hosted with no reg num and only update entitlements
             will result in system_slots containing 'sw_mgr_entitled' and
             failed_system_slots containing 'enterprise_entitled'.

@@ -13019,7 +13019,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
           <target>OpenSCAP Scans</target>
         </trans-unit>
         <trans-unit id="system.audit.listscap.jsp.missing">
-          <source>This system does not yet have OpenSCAP scan capability. OpenSCAP scanning requires that particular software is installed and enabled on your system. You may ensure that OpenSCAP capability wil be enabled on this system by installing "{0}" package.</source>
+          <source>This system does not yet have OpenSCAP scan capability. OpenSCAP scanning requires that particular software is installed and enabled on your system. You may ensure that OpenSCAP capability will be enabled on this system by installing "{0}" package.</source>
           <target>Este sistema não possui anda a capacidade de scan do  OpenSCAP. O escaneamento do OpenSCAP requer que programas específicos sejam instalados e ativados em seu sistema. Você pode garantir que a capacidade do  OpenSCAP será ativada em seu sistema instalando o pacote  "{0}".</target>
         </trans-unit>
         <trans-unit id="system.audit.listscap.jsp.testresult">

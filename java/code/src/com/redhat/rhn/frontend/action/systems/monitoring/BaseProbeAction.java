@@ -210,7 +210,7 @@ public class BaseProbeAction extends RhnAction {
     /**
      * Edit the probe according to the values submitted in <code>form</code>
      * and command parameters in the request parameters named <tt>param_*</tt>
-     * @param cmd the command that wil modify the probe
+     * @param cmd the command that will modify the probe
      * @param form the submitted form
      * @param req the request
      */

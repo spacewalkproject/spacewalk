@@ -13023,7 +13023,7 @@ la &lt;strong&gt;Guía de administración del sistema Red Hat Enterprise Linux.&
           <target>Sondeos OpenSCAP</target>
         </trans-unit>
         <trans-unit id="system.audit.listscap.jsp.missing">
-          <source>This system does not yet have OpenSCAP scan capability. OpenSCAP scanning requires that particular software is installed and enabled on your system. You may ensure that OpenSCAP capability wil be enabled on this system by installing "{0}" package.</source>
+          <source>This system does not yet have OpenSCAP scan capability. OpenSCAP scanning requires that particular software is installed and enabled on your system. You may ensure that OpenSCAP capability will be enabled on this system by installing "{0}" package.</source>
           <target>Este sistema no tiene aún capacidad de sondeo de OpenSCAP. El sondeo OpenSCAP requiere ese software particular instalado y activado en el sistema. Para asegurarse de que la capacidad de OpenSCAP esté activada en este sistema, instale el paquete "{0}".</target>
         </trans-unit>
         <trans-unit id="system.audit.listscap.jsp.testresult">

@@ -13019,7 +13019,7 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
           <target>OpenSCAP 扫描</target>
         </trans-unit>
         <trans-unit id="system.audit.listscap.jsp.missing">
-          <source>This system does not yet have OpenSCAP scan capability. OpenSCAP scanning requires that particular software is installed and enabled on your system. You may ensure that OpenSCAP capability wil be enabled on this system by installing "{0}" package.</source>
+          <source>This system does not yet have OpenSCAP scan capability. OpenSCAP scanning requires that particular software is installed and enabled on your system. You may ensure that OpenSCAP capability will be enabled on this system by installing "{0}" package.</source>
           <target>这个系统不具备 OpenSCAP 扫描功能。OpenSCAP 扫描需要在您的系统中安装并启用特定软件。您要确定在这个系统中启用 OpenSCAP 功能，方法是安装 "{0}" 软件包。</target>
         </trans-unit>
         <trans-unit id="system.audit.listscap.jsp.testresult">

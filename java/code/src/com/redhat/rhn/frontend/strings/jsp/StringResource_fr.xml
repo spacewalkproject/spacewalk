@@ -13024,7 +13024,7 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
           <target>Scans OpenSCAP</target>
         </trans-unit>
         <trans-unit id="system.audit.listscap.jsp.missing">
-          <source>This system does not yet have OpenSCAP scan capability. OpenSCAP scanning requires that particular software is installed and enabled on your system. You may ensure that OpenSCAP capability wil be enabled on this system by installing "{0}" package.</source>
+          <source>This system does not yet have OpenSCAP scan capability. OpenSCAP scanning requires that particular software is installed and enabled on your system. You may ensure that OpenSCAP capability will be enabled on this system by installing "{0}" package.</source>
           <target>Ce système ne possède pas encore la capacité d'effectuer des scans OpenSCAP. Les scans OpenSCAP requièrent qu'un logiciel particulier soit installé et activé sur votre système. Vous pouvez vous assurer que la capacité OpenSCAP soit activée sur ce système en installant le paquetage « {0} ».</target>
         </trans-unit>
         <trans-unit id="system.audit.listscap.jsp.testresult">

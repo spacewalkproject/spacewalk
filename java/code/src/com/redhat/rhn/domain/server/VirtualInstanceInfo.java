@@ -129,10 +129,10 @@ public class VirtualInstanceInfo extends BaseDomainHelper {
     }
 
     /**
-     * Return the state of the virtual instance, which wil be running, stopped, crashed, or
+     * Return the state of the virtual instance, which will be running, stopped, crashed, or
      * paused.
      *
-     * @return The state of the virtual instance, which wil be running, stopped, crashed, or
+     * @return The state of the virtual instance, which will be running, stopped, crashed, or
      * paused.
      */
     public VirtualInstanceState getState() {

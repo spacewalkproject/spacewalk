@@ -13016,7 +13016,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <target>OpenSCAP 검사 </target>
         </trans-unit>
         <trans-unit id="system.audit.listscap.jsp.missing">
-          <source>This system does not yet have OpenSCAP scan capability. OpenSCAP scanning requires that particular software is installed and enabled on your system. You may ensure that OpenSCAP capability wil be enabled on this system by installing "{0}" package.</source>
+          <source>This system does not yet have OpenSCAP scan capability. OpenSCAP scanning requires that particular software is installed and enabled on your system. You may ensure that OpenSCAP capability will be enabled on this system by installing "{0}" package.</source>
           <target>이 시스템에는 아직 OpenSCAP 검사 기능이 없습니다. OpenSCAP 검사를 할 경우 시스템에 특정 소프트웨어를 설치하고 활성화해야 합니다. "{0}" 패키지를 설치하면 반드시 OpenSCAP 기능이 시스템에서 활성화되어 있는지 확인해야 합니다.</target>
         </trans-unit>
         <trans-unit id="system.audit.listscap.jsp.testresult">

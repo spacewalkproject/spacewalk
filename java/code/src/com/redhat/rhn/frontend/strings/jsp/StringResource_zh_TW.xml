@@ -13021,7 +13021,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <target>OpenSCAP 掃瞄</target>
         </trans-unit>
         <trans-unit id="system.audit.listscap.jsp.missing">
-          <source>This system does not yet have OpenSCAP scan capability. OpenSCAP scanning requires that particular software is installed and enabled on your system. You may ensure that OpenSCAP capability wil be enabled on this system by installing "{0}" package.</source>
+          <source>This system does not yet have OpenSCAP scan capability. OpenSCAP scanning requires that particular software is installed and enabled on your system. You may ensure that OpenSCAP capability will be enabled on this system by installing "{0}" package.</source>
           <target>這部系統尚未擁有 OpenSCAP 掃瞄功能。欲使用 OpenSCAP 掃瞄功能，您需要先在系統上安裝並啟用特定軟體。您可藉由安裝 "{0}" 套件，來確保 OpenSCAP 功能能夠啟用於這部系統上。</target>
         </trans-unit>
         <trans-unit id="system.audit.listscap.jsp.testresult">
