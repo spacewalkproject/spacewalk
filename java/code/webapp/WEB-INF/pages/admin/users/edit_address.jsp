@@ -5,28 +5,22 @@
 
 <html:xhtml/>
 <html>
-<body>
-
-<%@ include file="/WEB-INF/pages/common/fragments/user/user-header.jspf" %>
-<html:form action="/users/EditAddressSubmit">
-<rhn:csrf />
-<html:hidden property="type"/>
-<h2><bean:message key="message.Update"/> ${editAddressForm.map.typedisplay}</h2>
-
-    <div class="page-summary">
-    <p>
-      <bean:message key="edit_address.jsp.summary"/>
-    </p>
-    </div>
-
-<%@ include file="/WEB-INF/pages/common/fragments/user/edit_address_form.jspf" %>
-
-<div align="right">
-<hr />
-    <html:hidden property="uid" />
-    <rhn:submit valueKey="message.Update" />
-</div>
-
-</html:form>
-</body>
+    <body>
+        <%@ include file="/WEB-INF/pages/common/fragments/user/user-header.jspf" %>
+        <h2><bean:message key="message.Update"/> ${editAddressForm.map.typedisplay}</h2>
+        <p class="lead"><bean:message key="edit_address.jsp.summary"/></p>
+        <html:form action="/users/EditAddressSubmit" styleClass="form-horizontal">
+            <rhn:csrf />
+            <%@ include file="/WEB-INF/pages/common/fragments/user/edit_address_form.jspf" %>
+            <div class="form-group">
+                <div class="col-lg-offset-3 col-lg-6">
+                    <button type="submit" class="btn btn-success" value="<bean:message key="message.Update" />">
+                            <bean:message key="message.Update" />
+                    </button>
+                </div>
+            </div>
+            <html:hidden property="uid" />
+            <html:hidden property="type"/>
+        </html:form>
+    </body>
 </html>

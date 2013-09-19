@@ -1,40 +1,68 @@
-<table class="details" align="center">
-    <tr>
-	    <th><rhn:required-field key="edit_address.jsp.phone"/>:</th>
-	    <td><html:text size="14" property="phone"/></td>
-    </tr>
+<div class="form-group">
+    <label class="col-lg-3 control-label">
+        <rhn:required-field key="edit_address.jsp.phone"/>:
+    </label>
+    <div class="col-lg-6">
+        <html:text size="14" property="phone" styleClass="form-control"/>
+    </div>
+</div>
 
-    <tr>
-	    <th><bean:message key="edit_address.jsp.fax"/>:</th>
-	    <td><html:text size="14" property="fax"/></td>
-    </tr>
+<div class="form-group">
+    <label class="col-lg-3 control-label">
+        <bean:message key="edit_address.jsp.fax"/>:
+    </label>
+    <div class="col-lg-6">
+        <html:text size="14" property="fax" styleClass="form-control"/>
+    </div>
+</div>
 
-    <tr>
-	    <th><rhn:required-field key="edit_address.jsp.address"/>:</th>
-	    <td><html:text size="30" property="address1"/><br />
-	    <html:text size="30" property="address2"/></td>
-    </tr>
-    <tr>
-	    <th><rhn:required-field key="edit_address.jsp.city"/>:</th>
-	    <td><html:text size="20" property="city"/></td>
-    </tr>
-    <tr>
-	    <th><rhn:required-field key="edit_address.jsp.state"/>:</th>
-	    <td><html:text size="20" property="state"/><br/><bean:message key="edit_address.jsp.staterequired"/></td>
-    </tr>
-    <tr>
-	    <th><rhn:required-field key="edit_address.jsp.zipcode"/>:</th>
-	    <td><html:text size="14" property="zip"/></td>
-    </tr>
-    <tr>
-	    <th><rhn:required-field key="edit_address.jsp.country"/>:</th>
-        <td>
-        <html:select property="country">
-                <html:options collection="availableCountries"
-                    property="value"
-                    labelProperty="label" />
-                </html:select>
-        </td>
-    </tr>
+<div class="form-group">
+    <label class="col-lg-3 control-label">
+        <rhn:required-field key="edit_address.jsp.address"/>:
+    </label>
+    <div class="col-lg-6">
+        <html:text size="30" property="address1" styleClass="form-control"/><br />
+        <html:text size="30" property="address2" styleClass="form-control"/>
+    </div>
+</div>
 
-</table>
+<div class="form-group">
+    <label class="col-lg-3 control-label">
+        <rhn:required-field key="edit_address.jsp.city"/>:
+    </label>
+    <div class="col-lg-6">
+        <html:text size="20" property="city" styleClass="form-control"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-lg-3 control-label">
+        <rhn:required-field key="edit_address.jsp.state"/>:
+    </label>
+    <div class="col-lg-6">
+        <html:text size="20" property="state" styleClass="form-control"/><br/>
+        <bean:message key="edit_address.jsp.staterequired"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-lg-3 control-label">
+        <rhn:required-field key="edit_address.jsp.zipcode"/>:
+    </label>
+    <div class="col-lg-6">
+        <html:text size="14" property="zip" styleClass="form-control"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-lg-3 control-label">
+        <rhn:required-field key="edit_address.jsp.country"/>:
+    </label>
+    <div class="col-lg-6">
+        <html:select property="country" styleClass="form-control">
+            <html:options collection="availableCountries"
+                          property="value"
+                          labelProperty="label" />
+        </html:select>
+    </div>
+</div>
