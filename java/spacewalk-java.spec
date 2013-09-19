@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.44
+Version: 2.1.45
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Sep 19 2013 Simon Lukasik <slukasik@redhat.com> 2.1.45-1
+- 1009652 - Render empty SCAP results correctly
+- Fixing spelling mistakes
+- 1009396 -  escaping server name for software crashes with identical UUID
+
 * Wed Sep 18 2013 Tomas Lestach <tlestach@redhat.com> 2.1.44-1
 - updated UI strings pulled from zanata
 - 1007998 - fix activation key selection
