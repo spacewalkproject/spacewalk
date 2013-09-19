@@ -75,14 +75,20 @@
         </c:otherwise>
     </c:choose>
 
-    <a class="btn btn-default btn-sm" href="<c:out value="${email_link}"/>"><bean:message key="${email_display}"/></a>
     <div class="col-lg-4">
         <c:choose>
             <c:when test="${!empty mailableAddress}">
-                ${mailableAddress}
+                <a class="btn btn-default btn-sm" href="<c:out value="${email_link}"/>">
+                    <%--
+                    <bean:message key="${email_display}"/>
+                    --%>
+                    ${mailableAddress}
+                </a>
             </c:when>
             <c:when test="${empty mailableAddress}">
-                <bean:message key="userdetails.jsp.noemailaddress"/>
+                <a class="btn btn-default btn-sm" href="<c:out value="${email_link}"/>">
+                    <bean:message key="userdetails.jsp.noemailaddress"/>
+                </a>
             </c:when>
         </c:choose>
     </div>
