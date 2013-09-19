@@ -4,21 +4,34 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <html:xhtml/>
 <html>
-<body>
-<%@ include file="/WEB-INF/pages/common/fragments/user/user-header.jspf" %>
-<%@ include file="/WEB-INF/pages/common/fragments/user/user_attribute_sizes.jspf"%>
-<rhn:toolbar base="h2" helpUrl="/rhn/help/reference/en-US/s1-sm-users.jsp#s2-sm-user-active">
-    <bean:message key="yourchangeemail.jsp.title" />
-</rhn:toolbar>
-
-<p>
-${pageinstructions}
-</p>
-<html:form action="/users/ChangeEmailSubmit.do?uid=${param.uid}">
-  <rhn:csrf />
-  <html:text property="email" size="32" maxlength="${emailLength}" />
-  <html:submit value="${button_label}" />
-  <html:hidden property="uid"/>
-</html:form>
-</body>
+    <body>
+        <%@ include file="/WEB-INF/pages/common/fragments/user/user-header.jspf" %>
+        <%@ include file="/WEB-INF/pages/common/fragments/user/user_attribute_sizes.jspf"%>
+        <rhn:toolbar base="h2" helpUrl="/rhn/help/reference/en-US/s1-sm-users.jsp#s2-sm-user-active">
+            <bean:message key="yourchangeemail.jsp.title" />
+        </rhn:toolbar>
+        <p class="lead">${pageinstructions}</p>
+        <html:form action="/users/ChangeEmailSubmit.do?uid=${param.uid}"
+                   styleClass="form-horizontal">
+            <rhn:csrf />
+            <div class="form-group">
+                <label class="col-lg-3 control-label">
+                    <bean:message key="channel.edit.jsp.emailaddress" />:
+                </label>
+                <div class="col-lg-6">
+                    <html:text property="email"
+                               styleClass="form-control"
+                               maxlength="${emailLength}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-3 col-lg-6">
+                    <button type="submit" class="btn btn-success" value="${button_label}">
+                        ${button_label}
+                    </button>
+                </div>
+            </div>
+            <html:hidden property="uid"/>
+        </html:form>
+    </body>
 </html>
