@@ -176,8 +176,10 @@ public abstract class XccdfTestResultCounts extends BaseDto {
      */
     public Long getSum() {
         Long sum = new Long(0);
-        for (Long i : (List<Long>) this.count) {
-            sum += i;
+        if (this.count != null) {
+            for (Long i : (List<Long>) this.count) {
+                sum += i;
+            }
         }
         return sum;
     }
