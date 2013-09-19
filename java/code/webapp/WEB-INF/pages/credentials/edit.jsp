@@ -5,46 +5,53 @@
 
 <html:xhtml/>
 <html>
-<body>
+    <body>
+        <rhn:toolbar base="h1" img="/img/rhn-icon-users.gif" imgAlt="users.jsp.imgAlt"
+                     helpUrl="/rhn/help/reference/en-US/s1-sm-your-rhn.jsp#s2-sm-your-rhn-account"
+                     deletionUrl="/rhn/account/DeleteCredentials.do"
+                     deletionType="credentials">
+            <bean:message key="Credentials"/>
+        </rhn:toolbar>
+        <h2><bean:message key="credentials.jsp.susestudio" /></h2>
+        <p class="lead">
+            <bean:message key="credentials.jsp.edit.summary" />
+        </p>
 
-<rhn:toolbar base="h1" img="/img/rhn-icon-users.gif" imgAlt="users.jsp.imgAlt"
-    helpUrl="/rhn/help/reference/en-US/s1-sm-your-rhn.jsp#s2-sm-your-rhn-account"
-    deletionUrl="/rhn/account/DeleteCredentials.do"
-    deletionType="credentials">
-  <bean:message key="Credentials"/>
-</rhn:toolbar>
-
-<div class="page-summary">
-  <p><bean:message key="credentials.jsp.edit.summary" /></p>
-</div>
-
-<form method="post" action="/rhn/account/Credentials.do">
-  <rhn:csrf />
-  <rhn:submitted />
-
-  <h2><bean:message key="credentials.jsp.susestudio" /></h2>
-  <table class="details">
-  <tr>
-    <th><bean:message key="credentials.jsp.username" /></th>
-    <td><html:text property="studio_user" value="${creds.username}" /></td>
-  </tr>
-  <tr>
-    <th><bean:message key="credentials.jsp.apikey" /></th>
-    <td><html:text property="studio_key" value="${creds.password}" /></td>
-  </tr>
-  <tr>
-    <th><bean:message key="credentials.jsp.url" /></th>
-    <td><html:text property="studio_url" value="${creds.url}" /></td>
-  </tr>
-  </table>
-
-  <div align="right">
-    <hr />
-    <html:submit>
-      <bean:message key="credentials.jsp.edit.dispatch" />
-    </html:submit>
-  </div>
-</form>
-
-</body>
+        <form method="post" action="/rhn/account/Credentials.do"
+              class="form-horizontal" role="form">
+            <rhn:csrf />
+            <rhn:submitted />
+            <div class="form-group">
+                <label class="col-lg-3 control-label">
+                    <bean:message key="credentials.jsp.username" />
+                </label>
+                <div class="col-lg-6">
+                    <html:text property="studio_user" styleClass="form-control" value="${creds.username}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">
+                    <bean:message key="credentials.jsp.apikey" />
+                </label>
+                <div class="col-lg-6">
+                    <html:text property="studio_key" styleClass="form-control" value="${creds.password}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">
+                    <bean:message key="credentials.jsp.url" />
+                </label>
+                <div class="col-lg-6">
+                    <html:text property="studio_url" styleClass="form-control" value="${creds.url}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-3 col-lg-6">
+                    <button type="submit" class="btn btn-success">
+                        <bean:message key="credentials.jsp.edit.dispatch" />
+                    </button>
+                </div>
+            </div>
+        </form>
+    </body>
 </html>
