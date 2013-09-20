@@ -10,7 +10,7 @@
 <div class="form-group">
   <label for="password-field" class="col-xs-5 control-label"><bean:message key="login.jsp.password"/></label>
   <div class="col-xs-7">
-    <html:password styleId="password-field" styleClass="form-control" tabindex="2" property="password" maxlength="${passwordLength}" value="" />
+    <input type="password" id="password-field" class="form-control" tabindex="2" name="password" maxlength="${passwordLength}" placeholder="Password" />
   </div>
 </div>
 
