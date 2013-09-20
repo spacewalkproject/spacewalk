@@ -1,17 +1,20 @@
 <%@ include file="/WEB-INF/pages/common/fragments/user/user_attribute_sizes.jspf"%>
-    <div class="formrow">
-<span class="label"><bean:message key="login.jsp.redhatlogin"/></span>
-      <span class="formfield"><html:text tabindex="2" property="username" size="10" maxlength="${loginLength}"/></span>
-    </div>
 
-    <div class="formrow">
-      <span class="label"><bean:message key="login.jsp.password"/></span>
-      <span class="formfield"><html:password tabindex="2" property="password" size="10" value="" maxlength="${passwordLength}" /></span>
-    </div>
+<div class="form-group">
+  <label for="username-field" class="col-xs-5 control-label"><bean:message key="login.jsp.redhatlogin" /></label>
+  <div class="col-xs-7">
+    <input type="text" id="username-field" class="form-control" tabindex="1" name="username" maxlength="${loginLength}" placeholder="Login" />
+  </div>
+</div>
 
-    <div class="formrow">
-	    <html:hidden property="login_cb" value="login" />
-	    <span class="formfield"><html:submit tabindex="2" styleId="login">&nbsp;<bean:message key="Sign In"/>&nbsp;</html:submit></span>
-    </div>
+<div class="form-group">
+  <label for="password-field" class="col-xs-5 control-label"><bean:message key="login.jsp.password"/></label>
+  <div class="col-xs-7">
+    <html:password styleId="password-field" styleClass="form-control" tabindex="2" property="password" maxlength="${passwordLength}" value="" />
+  </div>
+</div>
 
-
+<div class="text-right">
+  <html:hidden property="login_cb" value="login" />
+  <html:submit styleId="login" styleClass="btn btn-info" tabindex="3"><bean:message key="Sign In" /></html:submit>
+</div>

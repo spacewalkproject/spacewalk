@@ -17,36 +17,19 @@
 </c:if>
 
 <c:if test="${requestScope.hasExpired != 'true'}">
-<div id="contentLeft">
-  <div class="clearBox">
-  <div class="clearBoxInner">
-  <div class="clearBoxBody">
-
-    <html:form action="/LoginSubmit">
-        <rhn:csrf />
-        <%@ include file="/WEB-INF/pages/common/fragments/login_form.jspf" %>
+  <div class="col-md-8 col-md-offset-2 text-center">
+    <h1>Welcome to Spacewalk</h1>
+    <p><bean:message key="login.jsp.satbody1" /></p>
+    <html:form styleId="loginForm" styleClass="form-horizontal col-md-6 col-md-offset-3 text-left" action="/LoginSubmit">
+      <rhn:csrf />
+      <%@ include file="/WEB-INF/pages/common/fragments/login_form.jspf" %>
     </html:form>
+    <div class="col-md-6 col-md-offset-3 text-left">
+      <p><bean:message key="login.jsp.satbody2" /></p>
+      <p><bean:message key="login.jsp.satbody3"/></p>
+    </div>
   </div>
-  </div>
-  </div>
-</div> <!-- end contentLeft -->
 </c:if>
 
-<div id="contentRight">
-  <c:set var="login_banner" scope="page" value="${rhn:getConfig('java.login_banner')}" />
-  <c:choose>
-    <c:when test="${! empty login_banner}">
-      <p><c:out value="${login_banner}" escapeXml="false"/></p>
-    </c:when>
-    <c:otherwise>
-      <div id="rhn_welcome"></div>
-
-      <p><bean:message key="login.jsp.satbody1"/></p>
-      <p><bean:message key="login.jsp.satbody2"/></p>
-      <p><bean:message key="login.jsp.satbody3"/></p>
-      <p><bean:message key="login.jsp.satbody4"/></p>
-    </c:otherwise>
-  </c:choose>
-</div> <!-- end contentRight -->
 </body>
 </html>
