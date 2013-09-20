@@ -34,6 +34,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * Basic Attributes:<br>
  * <ul>
  * <li>base - base html tag for wrapping the toolbar.
+ * <li>icon - name of the icon (css class) to be displayed to the left of the page title
  * <li>img - img url which is displayed to the left of the page title.
  * <li>altImg - alt text for the img
  * <li>helpUrl - link to the help pages.
@@ -59,7 +60,8 @@ import javax.servlet.jsp.tagext.TagSupport;
  *     <li>acl - Acl limiting view of link
  *     <li>text (required) - link text
  *     <li>alt (required) - alternate link text
- *     <li>img (required) - image to be displayed for link
+ *     <li>icon (required) - icon to be displayed for link
+ *     <li>img (required if no icon specified) - image to be displayed for link
  *     </ul>
  * </ul>
  * @version $Rev$
@@ -68,9 +70,11 @@ public class ToolbarTag extends TagSupport {
     private String base;
     private String img;
     private String imgAlt;
+    private String icon;
     private String helpUrl;
     private String aclMixins;
     private String miscImg;
+    private String miscIcon;
     private String miscAcl;
     private String miscUrl;
     private String miscText;
@@ -89,6 +93,7 @@ public class ToolbarTag extends TagSupport {
     private String deletionType;
     private HtmlTag baseTag;
     private HtmlTag toolbarDivTag;
+    private HtmlTag headerTag;
 
 
     /**
@@ -163,6 +168,22 @@ public class ToolbarTag extends TagSupport {
     }
 
     /**
+     * Sets the icon (css class name) which is displayed.
+     * @param iconId Icon's id (usually the css class)
+     */
+    public void setIcon(String iconId) {
+        icon = iconId;
+    }
+
+    /**
+     * Getter for the icon id
+     * @return the icon id to be displayed.
+     */
+    public String getIcon() {
+        return icon;
+    }
+
+    /**
      * Sets the image location which is displayed.
      * @param imgurl the location of the image.
      */
@@ -208,6 +229,23 @@ public class ToolbarTag extends TagSupport {
     public String getMiscImg() {
         return miscImg;
     }
+
+    /**
+     * Sets the misc icon (css class name) which is displayed.
+     * @param iconId Misc Icon's id (usually the css class)
+     */
+    public void setMiscIcon(String iconId) {
+        miscIcon = iconId;
+    }
+
+    /**
+     * Getter for the icon id
+     * @return the icon id to be displayed.
+     */
+    public String getMiscIcon() {
+        return miscIcon;
+    }
+
 
     /**
      * Sets the deletion type to be acted upon.
@@ -427,6 +465,7 @@ public class ToolbarTag extends TagSupport {
      * {@inheritDoc}
      * @throws JspException
      */
+    @Override
     public int doStartTag() throws JspException {
         JspWriter out = null;
         try {
@@ -434,10 +473,11 @@ public class ToolbarTag extends TagSupport {
             out = pageContext.getOut();
 
             baseTag = new HtmlTag("div");
-            baseTag.setAttribute("class", "toolbar-" + getBase());
+            baseTag.setAttribute("class", "spacewalk-toolbar-" + getBase());
 
             toolbarDivTag = new HtmlTag("div");
-            toolbarDivTag.setAttribute("class", "toolbar");
+            toolbarDivTag.setAttribute("class", "spacewalk-toolbar pull-right");
+
             buf.append(baseTag.renderOpenTag());
             buf.append(toolbarDivTag.renderOpenTag());
 
@@ -447,7 +487,13 @@ public class ToolbarTag extends TagSupport {
             buf.append(renderDeletionLink());
             buf.append(renderMiscLink());
             buf.append(toolbarDivTag.renderCloseTag());
+
+
+            headerTag = new HtmlTag(getBase());
+            buf.append(headerTag.renderOpenTag());
+
             buf.append(renderImgUrl());
+            buf.append(renderIcon());
 
             out.print(buf.toString());
             return (EVAL_BODY_INCLUDE);
@@ -460,6 +506,7 @@ public class ToolbarTag extends TagSupport {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int doEndTag() throws JspException {
         JspWriter out = null;
         try {
@@ -468,6 +515,7 @@ public class ToolbarTag extends TagSupport {
 
             buf.append(renderHelpUrl());
 
+            buf.append(headerTag.renderCloseTag());
             buf.append(baseTag.renderCloseTag());
 
             out.print(buf.toString());
@@ -486,12 +534,13 @@ public class ToolbarTag extends TagSupport {
             tag.setAttribute("href", getHelpUrl());
             tag.setAttribute("target", "_new");
             tag.setAttribute("class", "help-title");
-            HtmlTag helpImg = new HtmlTag("img");
-            helpImg.setAttribute("src", "/img/rhn-icon-help.gif");
-            helpImg.setAttribute("alt",
-                                 LocalizationService.getInstance().
-                                 getMessage("toolbar.jsp.helpicon.alt"));
-            tag.addBody(helpImg);
+
+            HtmlTag i = new HtmlTag("i");
+            i.setAttribute("class", "icon-question text-info");
+
+            tag.addBody(i.renderOpenTag());
+            tag.addBody(i.renderCloseTag());
+
             return tag.render();
         }
         return "";
@@ -511,13 +560,23 @@ public class ToolbarTag extends TagSupport {
         return "";
     }
 
+    private String renderIcon() {
+        if (assertNotEmpty(getIcon())) {
+            HtmlTag tag = new HtmlTag("i");
+            tag.setAttribute("class", getIcon());
+            tag.addBody(" ");
+            return tag.render();
+        }
+        return "";
+    }
+
     private String renderCreationLink() {
         if (evalAcl(getCreationAcl()) && assertNotEmpty(getCreationType()) &&
                 assertNotEmpty(getCreationUrl())) {
 
             String create = "toolbar.create." + getCreationType();
             return renderActionLink(getCreationUrl(), create,
-                                    create, "action-add.gif");
+                                    create, "icon-plus", null);
         }
         return "";
     }
@@ -528,7 +587,7 @@ public class ToolbarTag extends TagSupport {
 
             String clone = "toolbar.clone." + getCloneType();
             return renderActionLink(getCloneUrl(), clone,
-                                    clone, "action-clone.gif");
+                                    clone, "icon-copy", null);
         }
         return "";
     }
@@ -538,7 +597,7 @@ public class ToolbarTag extends TagSupport {
                 assertNotEmpty(getDeletionUrl())) {
 
             String del = "toolbar.delete." + getDeletionType();
-            return renderActionLink(getDeletionUrl(), del, del, "action-del.gif");
+            return renderActionLink(getDeletionUrl(), del, del, "icon-trash", null);
         }
         return "";
     }
@@ -548,7 +607,7 @@ public class ToolbarTag extends TagSupport {
                 assertNotEmpty(getUploadUrl())) {
 
             String del = "toolbar.upload." + getUploadType();
-            return renderActionLink(getUploadUrl(), del, del, "action-upload.gif");
+            return renderActionLink(getUploadUrl(), del, del, "icon-upload", null);
         }
         return "";
     }
@@ -558,13 +617,13 @@ public class ToolbarTag extends TagSupport {
                 assertNotEmpty(getMiscText()) &&
                 assertNotEmpty(getMiscImg())) {
             return renderActionLink(getMiscUrl(), getMiscText(),
-                                    getMiscAlt(), getMiscImg());
+                                    getMiscAlt(), getMiscIcon(), getMiscImg());
         }
         return "";
     }
 
     private String renderActionLink(String url, String text,
-                                    String alt, String imgName) {
+                                    String alt, String iconName, String imgName) {
         if (url == null) {
             return "";
         }
@@ -572,23 +631,28 @@ public class ToolbarTag extends TagSupport {
         alt = LocalizationService.getInstance().getMessage(alt);
         text = LocalizationService.getInstance().getMessage(text);
 
-        HtmlTag span = new HtmlTag("span");
         HtmlTag a = new HtmlTag("a");
-        HtmlTag imgTag = new HtmlTag("img");
-
-        span.setAttribute("class", "toolbar");
         a.setAttribute("href", url);
-        imgTag.setAttribute("src", "/img/" + imgName);
-        imgTag.setAttribute("alt", alt);
-        imgTag.setAttribute("title", alt);
 
-        span.addBody(a);
-        a.addBody(imgTag);
+        if(assertNotEmpty(imgName)) {
+          HtmlTag imgTag = new HtmlTag("img");
+          imgTag.setAttribute("src", "/img/" + imgName);
+          imgTag.setAttribute("alt", alt);
+          imgTag.setAttribute("title", alt);
+          a.addBody(imgTag);
+        }
+
+        if(assertNotEmpty(iconName)) {
+            HtmlTag i = new HtmlTag("i");
+            i.setAttribute("class", iconName);
+            a.addBody(i.renderOpenTag());
+            a.addBody(i.renderCloseTag());
+        }
+
         a.addBody(text);
 
-        return span.render();
+        return a.render();
     }
-
 
     private boolean evalAcl(String acl) {
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
@@ -602,6 +666,7 @@ public class ToolbarTag extends TagSupport {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void release() {
         base = null;
         img = null;
