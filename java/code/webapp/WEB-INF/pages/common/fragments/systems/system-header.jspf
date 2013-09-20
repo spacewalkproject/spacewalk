@@ -5,61 +5,49 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html:xhtml/>
-<div class="toolbar-h1">
-	<div class="toolbar">
-		<span class="toolbar">
-					
-			 <rhn:require acl="system_has_management_entitlement()">
-			 	<c:if test="${!inSSM}">
-					<a href="/rhn/systems/details/AddToSSM.do?sid=${system.id}">
-						<img src="/img/action-add.gif" alt="<bean:message key="toolbar.ssm.add"/>" title="<bean:message key="toolbar.ssm.add"/>" />
-						<bean:message key="toolbar.ssm.add"/>
-					</a>
-  			 	</c:if>
-  			 	
-			 	<c:if test="${inSSM}">
-					<a href="/rhn/systems/details/RemoveFromSSM.do?sid=${system.id}">
-						<img src="/img/action-remove.gif" alt="<bean:message key="toolbar.ssm.remove"/>" title="<bean:message key="toolbar.ssm.remove"/>" />
-						<bean:message key="toolbar.ssm.remove"/>
-					</a>
-  			 	</c:if>  			 	
-  			 	|
-			</rhn:require>							
-						
-			<a href="/rhn/systems/details/DeleteConfirm.do?sid=${system.id}">
-				<img src="/img/action-del.gif" alt="<bean:message key="toolbar.delete.system"/>" title="<bean:message key="toolbar.delete.system"/>" />
-				<bean:message key="toolbar.delete.system"/>
-			</a>			
-				
-		</span>
-	</div>
-	
-	<c:choose>
-		<c:when test="${system.virtualGuest}">
-			<img src="/img/virt-guest.png" alt="system" />
-		</c:when>
-		<c:when test="${system.virtualHost}">
-			<img src="/img/virt-host.png" alt="system" />
-		</c:when>
-		<c:otherwise>
-			<img src="/img/rhn-icon-system.gif" alt="system" />
-		</c:otherwise>
-    </c:choose>
 
-	<c:if test="${empty system}">
-		<decorator:getProperty property="meta.name" />
-	</c:if>
-	<c:if test="${not empty system}">
-		${fn:escapeXml(system.name)}
-	</c:if>
+<c:choose>
+    <c:when test="${!inSSM}">
+        <c:set var="actionLink" value="/rhn/systems/details/AddToSSM.do?sid=${system.id}"/>
+        <c:set var="actionMessage">
+          <bean:message key="toolbar.ssm.add"/>
+        </c:set>
+        <c:set var="actionIcon" value="icon-plus"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="actionLink" value="/rhn/systems/details/RemoveFromSSM.do?sid=${system.id}"/>
+        <c:set var="actionMessage">
+          <bean:message key="toolbar.ssm.remove"/>
+        </c:set>
+        <c:set var="actionIcon" value="icon-minus"/>
+    </c:otherwise>
+</c:choose>
 
-	<a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-details" target="_new" class="help-title">
-		<img src="/img/rhn-icon-help.gif" alt="<bean:message key="toolbar.jsp.helpicon.alt"/>" />
-	</a>
-</div>
+<c:choose>
+    <c:when test="${system.virtualGuest}">
+        <c:set var="systemIcon" value="/img/virt-guest.png"/>
+    </c:when>
+    <c:when test="${system.virtualHost}">
+        <c:set var="systemIcon" value="/img/virt-host.png"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="systemIcon" value="/img/rhn-icon-system.png"/>
+    </c:otherwise>
+</c:choose>
 
-
-
+<rhn:toolbar base="h1"
+             icon="${systemIcon}" miscUrl="${actionLink}" miscIcon="${actionIcon}" miscText="${actionMessage}"
+             miscAcl="system_has_management_entitlement()"
+             helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-details"
+             deletionUrl="/rhn/systems/details/RemoveFromSSM.do?sid=${system.id}"
+             deletionType="system">
+    <c:if test="${empty system}">
+        <decorator:getProperty property="meta.name" />
+    </c:if>
+    <c:if test="${not empty system}">
+        ${fn:escapeXml(system.name)}
+    </c:if>
+</rhn:toolbar>
 
 
 <rhn:dialogmenu mindepth="0" maxdepth="3" definition="/WEB-INF/nav/system_detail.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
