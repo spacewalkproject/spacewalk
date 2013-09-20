@@ -2,7 +2,6 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
-<html:xhtml/>
 <html>
 <head>
     <script src="/javascript/focus.js" type="text/javascript"></script>
