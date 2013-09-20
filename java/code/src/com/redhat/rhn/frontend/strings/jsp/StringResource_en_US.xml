@@ -17037,6 +17037,13 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
           <context context-type="sourcefile">/systems/details/ListCustomData.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="toolbar.create.customdata">
+        <source>create new value</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/details/CreateCustomData.do</context>
+        </context-group>
+      </trans-unit>
+
       <!-- SDC Details Edit Page strings -->
       <trans-unit id="sdc.details.edit.header">
         <source>Edit System Details</source>
