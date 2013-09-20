@@ -36,19 +36,18 @@ if [ "$(spacewalk-cfg-get db_backend)" = "oracle" ]; then
 set feed off;
 set pages 0;"
 
+    if [ -x /etc/init.d/oracle ]; then
+        DB_SERVICE="oracle"
+    fi
+
 elif [ "$(spacewalk-cfg-get db_backend)" = "postgresql" ]; then
     DBSHELL_QUIT="\q"
     DBSHELL_QUIET="
 \set QUIET on
 \t"
-fi
-
-if [ -x /etc/init.d/oracle ]; then
-    DB_SERVICE="oracle"
-fi
-
-if [ -x /etc/init.d/postgresql ]; then
-    DB_SERVICE="postgresql"
+    if [ -x /etc/init.d/postgresql ]; then
+        DB_SERVICE="postgresql"
+    fi
 fi
 
 MONITORING_ENABLED=`awk -F= '! /[[:space:]]*#/ && /web.is_monitoring_backend/ {gsub(/[[:space:]]*/,""); print $2}' $RHN_CONF_FILE`
