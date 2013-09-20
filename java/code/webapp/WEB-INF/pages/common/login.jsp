@@ -7,8 +7,16 @@
 <head>
     <script src="/javascript/focus.js" type="text/javascript"></script>
     <meta name="decorator" content="layout_c" />
+  <script>
+    // Remove the aside to center the login
+    function setupLogin() {
+      $$("aside").invoke("remove");
+      $$("section").invoke("removeClassName", "col-md-10");
+      $$("section").invoke("addClassName", "col-md-8 col-md-offset-2");
+    }
+  </script>
 </head>
-<body onLoad="formFocus('loginForm', 'username')">
+<body onLoad="formFocus('loginForm', 'username');setupLogin();">
 
 <c:if test="${schemaUpgradeRequired == 'true'}">
     <div class="site-alert">
@@ -17,7 +25,7 @@
 </c:if>
 
 <c:if test="${requestScope.hasExpired != 'true'}">
-  <div class="col-md-8 col-md-offset-2 text-center">
+  <div class="text-center">
     <h1>Welcome to Spacewalk</h1>
     <p><bean:message key="login.jsp.satbody1" /></p>
     <html:form styleId="loginForm" styleClass="form-horizontal col-md-6 col-md-offset-3 text-left" action="/LoginSubmit">

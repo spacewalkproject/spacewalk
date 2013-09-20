@@ -6,8 +6,16 @@
 <html>
 <head>
   <script src="/javascript/focus.js" type="text/javascript"></script>
+  <script>
+    // Remove the aside to center the login
+    function setupLogin() {
+      $$("aside").invoke("remove");
+      $$("section").invoke("removeClassName", "col-md-10");
+      $$("section").invoke("addClassName", "col-md-8 col-md-offset-2");
+    }
+  </script>
 </head>
-<body onLoad="formFocus('loginForm', 'username')">
+<body onLoad="formFocus('loginForm', 'username');setupLogin();">
 
 <c:if test="${schemaUpgradeRequired == 'true'}">
     <div class="site-alert">
@@ -17,7 +25,7 @@
 
 <rhn:require acl="not user_authenticated()">
   <c:if test="${requestScope.hasExpired != 'true'}">
-    <div class="col-md-8 col-md-offset-2 text-center">
+    <div class="text-center">
       <h1><bean:message key="relogin.jsp.pleasesignin"/></h1>
       <html:form styleId="loginForm" styleClass="form-horizontal col-md-6 col-md-offset-3 text-left" action="/ReLoginSubmit">
         <rhn:csrf />
