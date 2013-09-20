@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.1.16
+Version:	2.1.17
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -88,6 +88,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Sep 20 2013 Grant Gainey <ggainey@redhat.com> 2.1.17-1
+- 1009657 - fixes spacewalk-hostname-rename issue when postgres and oracle are
+  installed
+
 * Thu Sep 12 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.16-1
 - shortened default yum repo label
 
