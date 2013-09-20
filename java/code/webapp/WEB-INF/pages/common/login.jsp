@@ -4,8 +4,8 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <html>
 <head>
-    <script src="/javascript/focus.js" type="text/javascript"></script>
-    <meta name="decorator" content="layout_c" />
+  <meta name="decorator" content="layout_c" />
+  <script src="/javascript/focus.js"></script>
   <script>
     // Remove the aside to center the login
     function setupLogin() {
