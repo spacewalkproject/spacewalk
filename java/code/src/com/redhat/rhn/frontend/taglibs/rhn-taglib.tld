@@ -169,6 +169,11 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+	<attribute>
+            <name>icon</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
         <attribute>
             <name>helpUrl</name>
             <required>false</required>
@@ -183,6 +188,11 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+	    <name>miscIcon</name>
+	    <required>false</required>
+	    <rtexprvalue>true</rtexprvalue>
+	</attribute>
         <attribute>
             <name>miscAcl</name>
             <required>false</required>
