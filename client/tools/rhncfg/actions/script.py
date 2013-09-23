@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -32,6 +32,7 @@ except ImportError:
 # this is ugly, hopefully it will be natively supported in up2date
 from configfiles import _local_permission_check, _perm_error
 from config_common import local_config
+from config_common.rhn_log import set_logfile, log_to_file
 
 sys.path.append('/usr/share/rhn')
 from up2date_client import config
@@ -78,6 +79,12 @@ def _create_script_file(script, uid=None, gid=None):
 
     return script_path
 
+# Make sure the dir-path to a file exists
+def _create_path(fpath):
+    d = os.path.dirname(fpath)
+    if d and not os.path.exists(d):
+        os.makedirs(d, 0700)
+    return os.path.exists(d)
 
 def run(action_id, params, cache_only=None):
 
@@ -89,13 +96,17 @@ def run(action_id, params, cache_only=None):
     logfile_name = local_config.get('script_log_file')
     log_output = local_config.get('script_log_file_enable')
 
+    if log_output:
+        # If we're going to log, make sure we can create the logfile
+        _create_path(logfile_name)
+
     if cache_only:
         return (0, "no-ops for caching", {})
 
     action_type = 'script.run'
     if not _local_permission_check(action_type):
         return _perm_error(action_type)
-        
+
 
     extras = {'output':''}
     script = params.get('script')
@@ -124,7 +135,7 @@ def run(action_id, params, cache_only=None):
     db_now = params.get('now')
     if not db_now:
         return (1, "'now' argument missing", {})
-    db_now = time.mktime(time.strptime(db_now, "%Y-%m-%d %H:%M:%S")) 
+    db_now = time.mktime(time.strptime(db_now, "%Y-%m-%d %H:%M:%S"))
 
     now = time.time()
     process_start = None
@@ -166,7 +177,7 @@ def run(action_id, params, cache_only=None):
     if not child_pid:
         # Parent doesn't write to child, so close that part
         os.close(pipe_read)
-        
+
         # Redirect both stdout and stderr to the pipe
         os.dup2(pipe_write, sys.stdout.fileno())
         os.dup2(pipe_write, sys.stderr.fileno())
@@ -179,15 +190,15 @@ def run(action_id, params, cache_only=None):
                 pass
 
         # all scripts initial working directory will be /
-        # puts burden on script writer to ensure cwd is correct within the 
+        # puts burden on script writer to ensure cwd is correct within the
         # script
         os.chdir('/')
-        
+
         # the child process gets the desired uid/gid
         os.setgid(run_as_gid)
         os.setuid(uid)
 
-        # give this its own process group (which happens to be equal to its 
+        # give this its own process group (which happens to be equal to its
         # pid)
         os.setpgrp()
 
@@ -210,7 +221,7 @@ def run(action_id, params, cache_only=None):
 
     while 1:
         select_wait = None
-        
+
         if timeout:
             elapsed = time.time() - process_start
 
@@ -227,12 +238,12 @@ def run(action_id, params, cache_only=None):
 
         # XXX try-except here for interrupted system calls
         input_fds, output_fds, error_fds = select.select([pipe_read], [], [], select_wait)
-        
+
         if error_fds:
             # when would this happen?
             os.close(pipe_read)
             return 1, "Fatal exceptional case", extras
-        
+
         if not (pipe_read in input_fds):
             # Read timed out, should be caught in the next loop
             continue
@@ -247,7 +258,7 @@ def run(action_id, params, cache_only=None):
     os.close(pipe_read)
 
     # wait for the child to complete
-    (somepid, exit_status) = os.waitpid(child_pid, 0)    
+    (somepid, exit_status) = os.waitpid(child_pid, 0)
     process_end = time.time()
 
     # Copy the output from the temporary file
@@ -266,14 +277,14 @@ def run(action_id, params, cache_only=None):
     extras['output'] = base64.encodestring(extras['output'])
 
     extras['return_code'] = exit_status
-    
+
     # calculate start and end times in db's timespace
     extras['process_start'] = db_now + (process_start - now)
     extras['process_end'] = db_now + (process_end - now)
 
     for key in ('process_start', 'process_end'):
         extras[key] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(extras[key]))
-        
+
     # clean up the script
     os.unlink(script_path)
 
