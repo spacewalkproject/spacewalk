@@ -17,6 +17,7 @@
 import base64
 import os
 import sys
+import errno
 
 RHNROOT = '/usr/share/rhn'
 if RHNROOT not in sys.path:
@@ -31,16 +32,20 @@ from up2date_client import up2dateAuth
 from up2date_client import rhnserver
 from up2date_client import up2dateLog
 
-def _readline(filepath):
-    if os.path.exists(filepath):
-        filecontent = None
-        f = open(filepath, 'r')
-        filecontent = f.readlines()[0].strip()
-        f.close()
 
-        return filecontent
-    else:
-        return None
+def _readline(filepath):
+    firstline = None
+    try:
+        f = open(filepath, 'r')
+        firstline = f.readline().strip()
+        f.close()
+    except IOError, e:
+        if e.errno == errno.ENOENT:
+            pass
+        else:
+            raise
+    return firstline
+
 
 def _get_abrt_dir():
     abrt_dir = '/var/tmp/abrt'
