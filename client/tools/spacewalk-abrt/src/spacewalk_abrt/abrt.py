@@ -51,11 +51,12 @@ def _get_abrt_dir():
     cf = config.ConfigFile('/etc/abrt/abrt.conf')
     return cf['DumpLocation'] or abrt_dir
 
+
 def report(problem_dir):
     problem_dir = os.path.normpath(os.path.abspath(problem_dir))
     basename = os.path.basename(problem_dir)
     log = up2dateLog.initLog()
-    if not (os.path.exists(problem_dir) and  os.path.isdir(problem_dir)):
+    if not (os.path.exists(problem_dir) and os.path.isdir(problem_dir)):
         log.log_me("The specified path [%s] is not a valid directory." % problem_dir)
         return -1
 
@@ -95,7 +96,7 @@ def report(problem_dir):
     # Create record about the crash
     r = server.abrt.create_crash(systemid, crash_data, pkg_data)
 
-    if (r < 0): # Error creating new crash report
+    if (r < 0):  # Error creating new crash report
         log.log_me("Error creating new crash report.")
         return -1
 
@@ -127,7 +128,7 @@ def update_count(problem_dir):
     problem_dir = os.path.normpath(os.path.abspath(problem_dir))
     basename = os.path.basename(problem_dir)
     log = up2dateLog.initLog()
-    if not (os.path.exists(problem_dir) and  os.path.isdir(problem_dir)):
+    if not (os.path.exists(problem_dir) and os.path.isdir(problem_dir)):
         log.log_me("The specified path [%s] is not a valid directory." % problem_dir)
         return -1
 
