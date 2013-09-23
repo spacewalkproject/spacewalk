@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.61
+Version: 5.10.62
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -120,6 +120,12 @@ fi
 
 # $Id$
 %changelog
+* Mon Sep 23 2013 Grant Gainey <ggainey@redhat.com> 5.10.62-1
+- 1006480 - Another problem was hidden by the previous one   - Have to lay down
+  directories to where the rhncfg-actions logfile is set   - Make it clearer
+  that the scripts-output should go to a different place     than where the
+  rhncfg code logs itself to
+
 * Tue Sep 17 2013 Michael Mraka <michael.mraka@redhat.com> 5.10.61-1
 - Grammar error occurred
 
