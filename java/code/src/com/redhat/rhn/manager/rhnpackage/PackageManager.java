@@ -1297,7 +1297,8 @@ public class PackageManager extends BaseManager {
     public static String generateFtpDebugPath(Package pack) {
 
         String release = getAssociatedRelease(pack);
-        if (release == null) {
+        // generate ftp link only for rhel5 packages
+        if (release == null || !release.startsWith("5")) {
             return null;
         }
 
