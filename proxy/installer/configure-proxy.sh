@@ -253,13 +253,14 @@ HTTPDCONFD_DIR=/etc/httpd/conf.d
 HTMLPUB_DIR=/var/www/html/pub
 JABBERD_DIR=/etc/jabberd
 SQUID_DIR=/etc/squid
+SYSTEMID_PATH=`PYTHONPATH='/usr/share/rhn' python -c "from up2date_client import config; cfg = config.initUp2dateConfig(); print cfg['systemIdPath'] "`
 
-if [ ! -r $SYSCONFIG_DIR/systemid ]; then
+if [ ! -r SYSTEMID_PATH ]; then
 	echo ERROR: Spacewalk Proxy does not appear to be registered
 	exit 2
 fi
 
-SYSTEM_ID=$(/usr/bin/xsltproc /usr/share/rhn/get_system_id.xslt $SYSCONFIG_DIR/systemid | cut -d- -f2)
+SYSTEM_ID=$(/usr/bin/xsltproc /usr/share/rhn/get_system_id.xslt $SYSTEMID_PATH | cut -d- -f2)
 
 DIR=/usr/share/doc/proxy/conf-template
 HOSTNAME=$(hostname)
@@ -468,8 +469,8 @@ if [ $MONITORING -eq 0 ]; then
 fi
 
 # systemid need to be readable by apache/proxy
-chown root:apache $SYSCONFIG_DIR/systemid
-chmod 0640 $SYSCONFIG_DIR/systemid
+chown root:apache $SYSTEMID_PATH
+chmod 0640 $SYSTEMID_PATH
 
 #Setup the cobbler stuff, needed to use koan through a proxy
 PROTO="http";
