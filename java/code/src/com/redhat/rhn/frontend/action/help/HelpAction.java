@@ -64,9 +64,14 @@ public class HelpAction extends RhnAction {
             request.setAttribute("client_config_guide", doc);
         }
 
-        doc = Config.get().getString(ConfigDefaults.DOC_CHANNEL_MGMT_GUIDE);
+        doc = Config.get().getString(ConfigDefaults.DOC_USER_GUIDE);
         if (doc != null && doc.trim().length() > 0) {
-            request.setAttribute("channel_mgmt_guide", doc);
+            request.setAttribute("user_guide", doc);
+        }
+
+        doc = Config.get().getString(ConfigDefaults.DOC_GETTING_STARTED_GUIDE);
+        if (doc != null && doc.trim().length() > 0) {
+            request.setAttribute("getting_started_guide", doc);
         }
 
         doc = Config.get().getString(ConfigDefaults.DOC_RELEASE_NOTES);

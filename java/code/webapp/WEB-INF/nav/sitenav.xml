@@ -24,8 +24,11 @@
     <rhn-tab name="Client Configuration" url="/rhn/help/dispatcher/client_config_guide">
       <rhn-tab-directory>/rhn/help/client-config</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Channel Management" url="/rhn/help/dispatcher/channel_mgmt_guide">
-      <rhn-tab-directory>/rhn/help/channel-mgmt</rhn-tab-directory>
+    <rhn-tab name="User Guide" url="/rhn/help/dispatcher/user_guide">
+      <rhn-tab-directory>/rhn/help/user-guide</rhn-tab-directory>
+    </rhn-tab>
+    <rhn-tab name="Getting Started Guide" url="/rhn/help/dispatcher/getting_started_guide">
+      <rhn-tab-directory>/rhn/help/getting-started</rhn-tab-directory>
     </rhn-tab>
     <rhn-tab name="API" url="/rhn/apidoc/index.jsp">
     	<rhn-tab name="Overview" url="/rhn/apidoc/index.jsp">

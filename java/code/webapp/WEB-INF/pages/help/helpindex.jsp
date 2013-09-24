@@ -50,12 +50,19 @@
         </li>
 
         <li>
-            <a style="font-size:12pt" href=/rhn/help/dispatcher/channel_mgmt_guide>
-                <bean:message key="help.jsp.channel.title"/>
+            <a style="font-size:12pt" href=/rhn/help/dispatcher/user_guide>
+                <bean:message key="help.jsp.user.title"/>
             </a>
-            <strong><bean:message key="help.jsp.translation"/></strong>
             <br />
-            <bean:message key="help.jsp.channel"/>
+            <bean:message key="help.jsp.user"/>
+        </li>
+
+        <li>
+            <a style="font-size:12pt" href=/rhn/help/dispatcher/getting_started_guide>
+                <bean:message key="help.jsp.start.title"/>
+            </a>
+            <br />
+            <bean:message key="help.jsp.start"/>
         </li>
 
         <li>

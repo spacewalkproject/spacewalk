@@ -18951,6 +18951,18 @@ given channel.</source>
       <trans-unit id="help.jsp.release.title">
         <source>@@PRODUCT_NAME@@ Release Notes</source>
       </trans-unit>
+      <trans-unit id="help.jsp.user.title">
+        <source>User Guide</source>
+      </trans-unit>
+      <trans-unit id="help.jsp.user">
+        <source>Using and administering Red Hat Satellite</source>
+      </trans-unit>
+      <trans-unit id="help.jsp.start.title">
+        <source>Getting Started Guide</source>
+      </trans-unit>
+      <trans-unit id="help.jsp.start">
+        <source>Basic setup and configuration with Red Hat Satellite</source>
+      </trans-unit>
       <trans-unit id="iprange.emptylist">
         <source>No Ip Ranges Found</source>
       </trans-unit>
