@@ -83,49 +83,14 @@ class Backend:
         sth.execute()
 
     def processCapabilities(self, capabilityHash):
-        # First figure out which capabilities are already inserted
-	templ = """
-            select /*+index(rhnPackageCapability rhn_pkg_cap_name_version_uq)*/ id
-              from rhnPackageCapability
-             where name = :name
-               and version %s"""
-        sqlNonNull = templ % "= :version"
-        sqlNull = templ % "is null"
-        nullStatement = None
-        nonnullStatement = None
-        toinsert = [[], [], []]
+        h = self.dbmodule.prepare("select lookup_package_capability(:name, :version) as id from dual")
         for name, version in capabilityHash.keys():
             ver = version
             if version is None or version == '':
                 ver = None
-                if not nullStatement:
-                    nullStatement = self.dbmodule.prepare(sqlNull)
-                nullStatement.execute(name=name)
-                row = nullStatement.fetchone_dict()
-            else:
-                if not nonnullStatement:
-                    nonnullStatement = self.dbmodule.prepare(sqlNonNull)
-                nonnullStatement.execute(name=name, version=version)
-                row = nonnullStatement.fetchone_dict()
-            if row:
-                capabilityHash[(name, version)] = row['id']
-                continue
-            # Generate an id
-            id = self.sequences['rhnPackageCapability'].next()
-            capabilityHash[(name, version)] = id
-            toinsert[0].append(id)
-            toinsert[1].append(name)
-            toinsert[2].append(ver)
-        if not toinsert[0]:
-            # Nothing to do
-            return
-        sql = """
-            insert into rhnPackageCapability
-                (id, name, version) values
-                (:id, :name, :version)
-        """
-        h = self.dbmodule.prepare(sql)
-        h.executemany(id=toinsert[0], name=toinsert[1], version=toinsert[2])
+            h.execute(name = name, version = ver)
+            row = h.fetchone_dict()
+            capabilityHash[(name, version)] = row['id']
 
     def processChangeLog(self, changelogHash):
         sql = "select id from rhnPackageChangeLogData where name = :name and time = :time and text = :text"
