@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.1.7
+Version:     2.1.8
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -64,6 +64,12 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Sep 23 2013 Aron Parsons <aronparsons@gmail.com> 2.1.8-1
+- spacecmd: use a non-privileged API call to check session validity
+- spacecmd: handle base64-encoded output in schedule_getoutput
+- spacecmd: add softwarechannel_setsyncschedule function
+- spacecmd: make globbing optional in parse_arguments()
+
 * Mon Sep 02 2013 Aron Parsons <aronparsons@gmail.com> 2.1.7-1
 - spacecmd: try to use a cached session even if the username is passed on the
   command line
