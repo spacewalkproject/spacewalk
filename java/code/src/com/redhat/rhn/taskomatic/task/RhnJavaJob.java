@@ -26,6 +26,8 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Arrays;
 
 
@@ -65,8 +67,13 @@ public abstract class RhnJavaJob implements RhnJob {
      * {@inheritDoc}
      */
     public void appendExceptionToLogError(Exception e) {
-        log.error(e.getMessage());
-        log.error(e.getCause());
+        log.error("Executing a task threw an exception: " + e.getClass().getName());
+        log.error("Message: " + e.getMessage());
+        log.error("Cause: " + e.getCause());
+
+        StringWriter errors = new StringWriter();
+        e.printStackTrace(new PrintWriter(errors));
+        log.error("Stack trace:" + errors.toString());
     }
 
     /**
