@@ -20,6 +20,7 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+import base64
 from operator import itemgetter
 from spacecmd.utils import *
 
@@ -316,7 +317,11 @@ def do_schedule_getoutput(self, args):
             print
             print 'Output'
             print '------'
-            print r.get('output')
+            if r.get('output_enc64'):
+                base64.b64decode(r.get('output'))
+            else:
+                print r.get('output').encode('UTF8')
+
     else:
         completed = self.client.schedule.listCompletedSystems(self.session,
                                                               action_id)
