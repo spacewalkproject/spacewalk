@@ -307,7 +307,7 @@ def do_login(self, args):
         try:
             logging.debug('Using cached credentials from %s' % session_file)
 
-            self.client.user.listUsers(self.session)
+            self.client.api.getApiNamespaces(self.session)
         except:
             logging.warning('Cached credentials are invalid')
             self.current_user = ''
