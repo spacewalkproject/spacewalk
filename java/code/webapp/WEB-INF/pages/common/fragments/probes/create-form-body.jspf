@@ -21,94 +21,137 @@ function refreshNotifFields() {
 //-->
 </script>
 
-
-  <table class="details">
-    <tr>
-      <th><bean:message key="probecreate.jsp.probecommandgroup" /></th>
-      <td colspan="3"><html:select property="command_group" onchange="refreshForm()">
-              <html:options collection="commandGroups"
-                property="value"
-                labelProperty="label" />
-        </html:select></td>
-    </tr>
-    <tr>
-      <th><bean:message key="probecreate.jsp.probecommand" /></th>
-      <td colspan="3"><html:select property="command" onchange="refreshForm()">
-              <html:options collection="commands"
-                property="value"
-                labelProperty="label" />
-        </html:select></td>
-    </tr>
-    <c:if test="${withSatCluster}">
-    <tr>
-      <th><bean:message key="probeedit.jsp.satclusterdesc" /></th>
-      <td colspan="3"><html:select property="sat_cluster_id" onchange="refreshForm()">
-              <html:options collection="satClusters"
-                property="id"
-                labelProperty="description" />
-        </html:select></td>
-    </tr>
-    </c:if>
-    <c:if test='${not empty command.systemRequirements}'>
-    <tr>
-      <th><bean:message key="probeedit.jsp.commandrequirements" /></th>
-      <td colspan="3"><bean:message key="${command.systemRequirements}"/></td>
-    </tr>
-    </c:if>
-    <c:if test='${not empty command.versionSupport}'>
-    <tr>
-      <th><bean:message key="probeedit.jsp.versionsupport" /></th>
-      <td colspan="3">${command.versionSupport}</td>
-    </tr>
-    </c:if>
-    <tr>
-      <th><rhn:required-field key="probeedit.jsp.description"/>:</th>
-      <td colspan="3"><html:text property="description" maxlength="100" size="50" /></td>
-    </tr>
-    <tr>
-      <th><bean:message key="probeedit.jsp.notification" /></th>
-      <td colspan="3"><html:checkbox onclick="refreshNotifFields()" property="notification"/></td>
-    </tr>
-      <tr>
-        <th><bean:message key="probeedit.jsp.notifmin" /></th>
-        <td colspan="3">
-            <html:select property="notification_interval_min" disabled="true">
-              <html:options collection="intervals"
-                property="value"
-                labelProperty="label" />
-            </html:select>
-        </td>
-      </tr>
-      <tr>
-        <th><bean:message key="probeedit.jsp.notifmethod" /></th>
-        <td colspan="3"><html:select property="contact_group_id" disabled="true">
-              <html:options collection="contactGroups"
-                property="value"
-                labelProperty="label" />
-            </html:select>
-        </td>
-      </tr>
-    <tr>
-      <th><bean:message key="probeedit.jsp.checkinterval" /></th>
-      <td colspan="3">
-        <html:select property="check_interval_min">
-              <html:options collection="intervals"
-                property="value"
-                labelProperty="label" />
+<div class="form-group">
+    <label class="col-lg-3 control-label" for="pcg">
+        <bean:message key="probecreate.jsp.probecommandgroup" />
+    </label>
+    <div class="col-lg-6">
+        <html:select property="command_group" onchange="refreshForm()" styleClass="form-control" styleId="pcg">
+            <html:options collection="commandGroups"
+                          property="value"
+                          labelProperty="label" />
         </html:select>
-      </td>
-    </tr>
+    </div>
+</div>
 
-    <%@ include file="/WEB-INF/pages/common/fragments/probes/render-param-value-list.jspf" %>
-    <tr>
-      <td></td>
-      <td colspan="3" align="right"><html:submit><bean:message key="probecreate.jsp.createprobe"/></html:submit></td>
-    </tr>
-  </table>
-  <html:hidden property="submitted" value="true"/>
-  <html:hidden property="old_description"/>
+<div class="form-group">
+        <label class="col-lg-3 control-label" for="pcc">
+            <bean:message key="probecreate.jsp.probecommand" />
+        </label>
+        <div class="col-lg-6">
+            <html:select property="command" onchange="refreshForm()" styleClass="form-control" styleId="pcc">
+                <html:options collection="commands"
+                              property="value"
+                              labelProperty="label" />
+            </html:select>
+        </div>
+</div>
+
+<c:if test="${withSatCluster}">
+    <div class="form-group">
+        <label class="col-lg-3 control-label" for="scd">
+            <bean:message key="probeedit.jsp.satclusterdesc" />
+        </label>
+        <div class="col-lg-6">
+            <html:select property="sat_cluster_id" onchange="refreshForm()" styleClass="form-control" styleId="scd">
+                <html:options collection="satClusters"
+                              property="id"
+                              labelProperty="description" />
+            </html:select>
+        </div>
+    </div>
+</c:if>
+
+<c:if test='${not empty command.systemRequirements}'>
+    <div class="form-group">
+        <label class="col-lg-3 control-label">
+            <bean:message key="probeedit.jsp.commandrequirements" />
+        </label>
+        <div class="col-lg-6">
+            <bean:message key="${command.systemRequirements}"/>
+        </div>
+    </div>
+</c:if>
+
+<c:if test='${not empty command.versionSupport}'>
+    <div class="form-group">
+        <label class="col-lg-3 control-label">
+            <bean:message key="probeedit.jsp.versionsupport" />
+        </label>
+        <div class="col-lg-6">${command.versionSupport}</div>
+    </div>
+</c:if>
+
+<div class="form-group">
+    <label class="col-lg-3 control-label" for="descr">
+        <rhn:required-field key="probeedit.jsp.description"/>:
+    </label>
+    <div class="col-lg-6">
+        <html:text property="description" maxlength="100" size="50" styleId="descr" styleClass="form-control" />
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-lg-3 control-label" for="notif">
+        <bean:message key="probeedit.jsp.notification" />
+    </label>
+    <div class="col-lg-6">
+        <html:checkbox onclick="refreshNotifFields()" property="notification" styleId="notif"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-lg-3 control-label" for="notifmin">
+        <bean:message key="probeedit.jsp.notifmin"/>
+    </label>
+    <div class="col-lg-6">
+        <html:select property="notification_interval_min" disabled="true" styleId="notifmin" styleClass="form-control">
+            <html:options collection="intervals"
+                          property="value"
+                          labelProperty="label" />
+        </html:select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-lg-3 control-label" for="notifmtd">
+        <bean:message key="probeedit.jsp.notifmethod" />
+    </label>
+    <div class="col-lg-6">
+        <html:select property="contact_group_id" disabled="true" styleId="notifmtd" styleClass="form-control">
+            <html:options collection="contactGroups"
+                          property="value"
+                          labelProperty="label" />
+        </html:select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-lg-3 control-label" for="ci">
+        <bean:message key="probeedit.jsp.checkinterval" />
+    </label>
+    <div class="col-lg-6">
+        <html:select property="check_interval_min" styleClass="form-control" styleId="ci">
+            <html:options collection="intervals"
+                          property="value"
+                          labelProperty="label" />
+        </html:select>
+    </div>
+</div>
+
+<%@ include file="/WEB-INF/pages/common/fragments/probes/render-param-value-list.jspf" %>
+
+<div class="form-group">
+    <div class="col-lg-offset-3 col-lg-6">
+        <html:submit styleClass="btn btn-success"><bean:message key="probecreate.jsp.createprobe"/></html:submit>
+    </div>
+</div>
+
+<html:hidden property="submitted" value="true"/>
+<html:hidden property="old_description"/>
+
 <script type="text/javascript" language="JavaScript">
 <!--
-refreshNotifFields()
+    refreshNotifFields();
 //-->
 </script>

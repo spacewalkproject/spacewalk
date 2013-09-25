@@ -4,25 +4,24 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 
-<html:xhtml/>
 <html>
     <head>
         <meta name="page-decorator" content="none" />
     </head>
-<body>
+    <body>
+        <rhn:toolbar base="h1" img="/img/rhn-config_management.gif"
+                     helpUrl="/rhn/help/reference/en-US/s1-sm-monitor.jsp#s2-sm-monitor-psuites">
+            <bean:message key="probe-create.jsp.header1" arg0="${probeSuite.suiteName}" />
+        </rhn:toolbar>
 
-  <rhn:toolbar base="h1" img="/img/rhn-config_management.gif"
-               helpUrl="/rhn/help/reference/en-US/s1-sm-monitor.jsp#s2-sm-monitor-psuites">
-    <bean:message key="probe-create.jsp.header1" arg0="${probeSuite.suiteName}" />
-  </rhn:toolbar>
-
-<h2><bean:message key="probe-create.jsp.header2"/></h2>
-<html:form action="/monitoring/config/ProbeSuiteProbeCreate" method="POST">
-    <rhn:csrf />
-    <c:set var="withSatCluster" value="false"/>
-    <%@ include file="/WEB-INF/pages/common/fragments/probes/create-form-body.jspf" %>
-  <html:hidden property="suite_id" value="${param.suite_id}"/>
-</html:form>
-
-</body>
+        <h2><bean:message key="probe-create.jsp.header2"/></h2>
+        <html:form action="/monitoring/config/ProbeSuiteProbeCreate"
+                   method="POST"
+                   styleClass="form-horizontal">
+            <rhn:csrf />
+            <c:set var="withSatCluster" value="false"/>
+            <%@ include file="/WEB-INF/pages/common/fragments/probes/create-form-body.jspf" %>
+            <html:hidden property="suite_id" value="${param.suite_id}"/>
+        </html:form>
+    </body>
 </html>
