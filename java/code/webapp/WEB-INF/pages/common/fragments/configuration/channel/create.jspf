@@ -33,39 +33,40 @@
 			<html:radio property="filetype" value="symlink" styleId="symlink_radio" /><bean:message
 				key="addfiles.jsp.type.symlink" /><br />
 			<script type="text/javascript">
-				Event.observe('symlink_radio', 'click', function(event){
-					$('cffUid').disabled = true;
-					$('cffGid').disabled = true;
-					$('cffPermissions').disabled = true;
-					$('cffMacroStart').disabled = true;
-					$('cffMacroEnd').disabled = true;
-					$('targetPath').disabled = false;
-					$('contentsRow').style.display = 'none';
-					$('hiddenContentsRow').style.display = '';
-					
-				});
+			    $(document).ready(function() {
+                    $('#symlink_radio').click(function() {
+                        $('#cffUid').attr('disabled', true);
+                        $('#cffGid').attr('disabled', true);
+                        $('#cffPermissions').attr('disabled', true);
+                        $('#cffMacroStart').attr('disabled', true);
+                        $('#cffMacroEnd').attr('disabled', true);
+                        $('#targetPath').attr('disabled', false);
+                        $('#contentsRow').hide();
+                        $('#hiddenContentsRow').show();
+                    });
 
-				Event.observe('file_radio', 'click', function(event){
-					$('cffUid').disabled = false;
-					$('cffGid').disabled = false;
-					$('cffPermissions').disabled = false;
-					$('cffMacroStart').disabled = false;
-					$('cffMacroEnd').disabled = false;
-					$('targetPath').disabled = true;
-					$('contentsRow').style.display = '';
-					$('hiddenContentsRow').style.display = 'none';
-				});
-				
-				Event.observe('dir_radio', 'click', function(event){
-					$('cffUid').disabled = false;
-					$('cffGid').disabled = false;
-					$('cffPermissions').disabled = false;
-					$('cffMacroStart').disabled = true;
-					$('cffMacroEnd').disabled = true;
-					$('targetPath').disabled = true;
-					$('contentsRow').style.display = 'none';
-					$('hiddenContentsRow').style.display = '';
-				});				
+                    $('#file_radio').click(function() {
+                        $('#cffUid').attr('disabled', false);
+                        $('#cffGid').attr('disabled', false);
+                        $('#cffPermissions').attr('disabled', false);
+                        $('#cffMacroStart').attr('disabled', false);
+                        $('#cffMacroEnd').attr('disabled', false);
+                        $('#targetPath').attr('disabled', true);
+                        $('#contentsRow').show();
+                        $('#hiddenContentsRow').hide();
+                    });
+
+                    $('#dir_radio').click(function() {
+                        $('#cffUid').attr('disabled', false);
+                        $('#cffGid').attr('disabled', false);
+                        $('#cffPermissions').attr('disabled', false);
+                        $('#cffMacroStart').attr('disabled', true);
+                        $('#cffMacroEnd').attr('disabled', true);
+                        $('#targetPath').attr('disabled', true);
+                        $('#contentsRow').hide();
+                        $('#hiddenContentsRow').show();
+                    });
+			    });
 			</script>
 			</td>
 		</tr>
