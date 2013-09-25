@@ -4,78 +4,56 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 
-
-<html:html xhtml="true">
-<body>
-<BR>
-
-
-
-
-<div>
-
-
-
-  <div class="toolbar-h1">
-	<div class="toolbar"></div>
-	<img src="/img/rhn-icon-keyring.gif" alt="" />
-       <bean:message key="system.jsp.customkey.createtitle"/>
-
-	<a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-cust-info"
-		target="_new" class="help-title">
-		<img src="/img/rhn-icon-help.gif" alt="Help Icon" />
-	</a>
-  </div>
-
-
-      <div class="page-summary">
-      <p>
-        <bean:message key="system.jsp.customkey.createmsg"/>
-      </p>
-      </div>
-
-
-
-	<hr />
-
-
-      <form action="/rhn/systems/customdata/CreateCustomKey.do" name="edit_token" method="post">
-        <rhn:csrf />
-        <table class="details">
-            <tr>
-              <th><bean:message key="system.jsp.customkey.keylabel"/>:</th>
-              <td><input type="text" name="label" length="64" size="30" value="<c:out value="${old_label}" />"/>
-			  </td>
-            </tr>
-
-            <tr>
-              <th><bean:message key="system.jsp.customkey.description"/>:</th>
-              <td>
-                <textarea wrap="virtual" rows="6" cols="50" name="description"><c:out value="${old_description}" /></textarea>
-              </td>
-            </tr>
-
-
-        </table>
-
-
-
-		<div align="right">
-		<hr />
-
-        <input type="submit" name="CreateKey" value="Create Key" />
-
-		<rhn:submitted/>
-</div>
-      </form>
-
-
-
-
-
-
-
-</div>
-
-</body>
+<html:html>
+    <body>
+        <div>
+            <div class="toolbar-h1">
+                <div class="toolbar"></div>
+                <img src="/img/rhn-icon-keyring.gif" alt="" />
+                <h2><bean:message key="system.jsp.customkey.createtitle"/></h2>
+                <a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-cust-info"
+                   target="_new" class="help-title">
+                    <img src="/img/rhn-icon-help.gif" alt="Help Icon" />
+                </a>
+            </div>
+            <p class="lead">
+                <bean:message key="system.jsp.customkey.createmsg"/>
+            </p>
+            <form action="/rhn/systems/customdata/CreateCustomKey.do"
+                  class="form-horizontal"
+                  name="edit_token" method="post">
+                <rhn:csrf />
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="system.jsp.customkey.keylabel"/>:
+                    </label>
+                    <div class="col-lg-6">
+                        <input type="text" name="label"
+                               length="64" size="30" class="form-control"
+                               value="<c:out value="${old_label}" />"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="descr">
+                        <bean:message key="system.jsp.customkey.description"/>:
+                    </label>
+                    <div class="col-lg-6">
+                        <textarea id="descr" wrap="virtual" rows="6" cols="50"
+                                  class="form-control"
+                                  name="description"><c:out value="${old_description}" /></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-3 col-lg-6">
+                        <button type="submit" class="btn btn-success"
+                                name="CreateKey"
+                                value="Create Key" />
+                            <bean:message key="keycreate.jsp.submit" />
+                        </button>
+                                <rhn:submitted/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
 </html:html>
