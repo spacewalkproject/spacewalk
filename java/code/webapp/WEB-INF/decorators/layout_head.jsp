@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="/fonts/font-spacewalk/css/spacewalk-font.css" />
     <link rel="stylesheet/less" type="text/css" href="/css/spacewalk.less" />
 
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.4.1/less.min.js"></script>
 
     <script src="/rhn/dwr/engine.js"></script>
