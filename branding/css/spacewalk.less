@@ -1,7 +1,11 @@
 /* Original Bootstrap */
 @import  url(bootstrap/less/bootstrap.less);
-/*spacewalk css theme*/
+/* Here begins the spacewalk css theme */
+/* Import of Roboto font */
 @import url(http://fonts.googleapis.com/css?family=Roboto:300,700);
+
+/* Main font size */
+@font-size-base: 13px;
 
 /* Bootstrap color variables overwrited */
 @gray-darker:            lighten(#000, 13.5%); // #222
@@ -11,6 +15,17 @@
 @gray-lighter:           lighten(#000, 95%); // #eee
 
 @spacewalk-blue:	 #00aad4;
+
+/* aside menu colors */
+@spacewalk-list-menu:    @gray-lighter;
+@spacewalk-list-menu-active:    lighten(@spacewalk-list-menu, 4%);
+@spacewalk-list-menu-hover: lighten(@spacewalk-list-menu, 2%);
+@spacewalk-list-first-submenu:    darken(@spacewalk-list-menu, 8%);
+@spacewalk-list-first-submenu-active:    lighten(@spacewalk-list-first-submenu, 6%);
+@spacewalk-list-first-submenu-hover:    lighten(@spacewalk-list-first-submenu, 2%);//#f3f3f3
+@spacewalk-list-second-submenu:    darken(@spacewalk-list-first-submenu, 5%);
+@spacewalk-list-second-submenu-active:    lighten(@spacewalk-list-second-submenu, 6%);
+@spacewalk-list-second-submenu-hover:    lighten(@spacewalk-list-second-submenu, 2%);
 
 /* Roboto variable: font variable to be applied in different text elements*/
 @roboto-font: 'Roboto', sans-serif;
@@ -24,6 +39,17 @@
 	font-weight: 700;
 }
 
+/* glow and shadow for text */
+.glow-text{
+	text-shadow: 1px 1px 1px #fff;
+}
+.glow-text-deleted{
+	text-shadow: 0 transparent;
+}
+.shadow-text{
+	text-shadow: 1px 1px 1px #333;
+}
+
 /* titles */
 h1, h2, h3, h4 {
 	.Roboto-thin
@@ -31,8 +57,14 @@ h1, h2, h3, h4 {
 h1{
 	font-size: 2em
 }
+h2{
+	font-size: 1.7em;
+}
 
 /* Main HTML5 tags defined for the theme */
+body{
+	background: #f7f7f7;
+}
 header{
 	width: 100%;
 	background: url('../../img/spacewalk-header-background.png') repeat-x @gray;
@@ -45,13 +77,14 @@ footer{
 	font-size: 0.9em
 }
 aside.col-md-2{
-	background: #dedede;
+	background: #eeeeee;
 	/* for the body div to make both columns the same size*/
 	margin-bottom:-9999px;
 	padding-bottom: 9999px;
 	/* errasing the predefined paddings in the columns */
 	padding-right: 0;
-	padding-left: 0
+	padding-left: 0;
+	border-right: 1px solid #d5d5d5
 }
 section{
 	background: #f7f7f7;
@@ -76,8 +109,12 @@ section{
 header .row{
 	margin: 0 1em 
 }
+header .row [class*="col-md"]{
+	padding-right: 0;
+	padding-left: 0
+}
 header .logo{
-	padding:1.2em 0 0 0;
+	padding-top: 1.4em;
 }
 header form{
 	margin: .9em 0 1em 0
@@ -119,16 +156,21 @@ header ul.nav-pills li:first-child {
 	border-left: 0
 }
 header .navbar-nav > li > a{
-	padding: .5em 2em;
+	padding: .5em 1.2em;
+
 }
 header .navbar-nav > li:hover{
 	background: @spacewalk-blue;
+	border-radius: 4px 4px 0 0
 }
 header form input[type="search"]{
 	padding: 0px 10px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
+}
+header .btn.btn-info.input-sm{
+	padding-top: 4px
 }
 
 /* fixing margin issue in Bootstrap 3 */
@@ -168,22 +210,16 @@ header .navbar{
 	min-height: .5em;
 }
 
-/* Systems selector inside the search form in the header */
-section #bar{
-	width: 100%;
-	background: @gray-lighter; 
+/* Systems selector inside the main menu in the header */
+header #bar{
+	color: #fff;
 }
-section #bar .spacewalk-bar{
+header #bar .spacewalk-bar{
 	padding: .5em 1.2em;
-	right: 0;
-	top: 1em;
-	background: #fff;
-	border:1px solid #ccc;
 	text-align: right;
-	border-radius: 0 0 4px 4px
 }
 
-/* system selector */
+/* systems selector */
 .spacewalk-bar a.button:first-of-type{
 	color: #ffffff;
 	background-color: #5bc0de;
@@ -200,58 +236,123 @@ section #bar .spacewalk-bar{
 	border-radius: 4px
 }
 /* style for Menu in the left column */
-#sidenav a{
-	color: #444
+.nav-stacked > li + li{
+	margin-top: 0;
 }
-#sidenav li.active > a{
-	color: #fff
+#sidenav a{
+	color: #666;
+	.glow-text;
+}
+#sidenav a:before{
+	content: "\f105 ";
+	font-family: 'FontAwesome';
+	margin-right: .5em
+}
+#sidenav li{
+	border-bottom: 1px solid #d8d8d8;
+}
+#sidenav li.active > a, #sidenav li.active > a:hover{
+	color: @spacewalk-blue;
+	background: @spacewalk-list-menu-active;
 }
 #sidenav li > a{
 	border-radius: 0
 }
 #sidenav ul li:last-child{
 	border-bottom: 1px solid #ccc;
-	-moz-box-shadow: 1px 1px 1px #fefefe;
-	-webkit-box-shadow: 1px 1px 1px #fefefe;
-	box-shadow: 1px 1px 1px #fefefe;
+	-moz-box-shadow: 0px 1px 1px #fefefe;
+	-webkit-box-shadow: 0px 1px 1px #fefefe;
+	box-shadow: 0px 1px 1px #fefefe;
 }
 
 /* ul-submenues */
+/* first submenu */
 #sidenav ul>ul li{
     padding: 0 0 0 1em !important;
     margin: 0;
-    background: #cdcdcd
+    background: @spacewalk-list-first-submenu;
+    border-bottom: 1px solid #ccc;
+}
+#sidenav ul>ul li.active, 
+#sidenav ul>ul li.active:hover, 
+#sidenav ul>ul li.active a, 
+#sidenav ul>ul li.active a:hover{
+	background: @spacewalk-list-first-submenu-active;
+	.glow-text-deleted;
 }
 #sidenav ul>ul li:hover, #sidenav ul>ul li a:hover{
-	background: #bcbcbc
+	background: @spacewalk-list-first-submenu-hover;
 }
 #sidenav ul>ul li:last-child{
-	border-bottom: 1px solid #b6b6b6;
+	border-bottom: 1px solid #c6c6c6;
 }
+/* second submenu */
 #sidenav ul>ul>ul li{
     padding: 0 0 0 1.5em !important;
     margin: 0;
-    background: #a8a8a8
+    background: @spacewalk-list-second-submenu;
+    border-bottom: 1px solid #bbb;
+}
+#sidenav ul>ul>ul li.active, 
+#sidenav ul>ul>ul li.active:hover, 
+#sidenav ul>ul>ul li.active a, 
+#sidenav ul>ul>ul li.active a:hover{
+	background: @spacewalk-list-second-submenu-active;
+	.glow-text-deleted;
 }
 #sidenav ul>ul>ul li:hover, #sidenav ul>ul>ul li a:hover{
-	background: #9b9b9b
+	background: @spacewalk-list-second-submenu-hover;
 }
 #sidenav ul>ul>ul li:last-child{
-	border-bottom: 1px solid #898989;
+	border-bottom: 1px solid #c4c4c4;
 }
 aside ul > ul li{
 	list-style: none;
 	padding: 0
+}
+aside .nav > li > a{
+	padding: .4em 1em
 }
 
 /* TABLES */
 .table > thead > tr.active > th{
 	background: @gray-lighter;
 }
+table{
+	*border-collapse: collapse; /* IE7 and lower */
+    border-spacing: 0; 
+	border-radius: 5px; 
+	border-style: solid; 
+	border-color: #CC0000; 
+	padding: 10; 
+	background-color: #FFFFFF; 
+	margin-left: auto; 
+	margin-right: auto 
+}
+th:first-child {
+    -moz-border-radius: 6px 0 0 0;
+    -webkit-border-radius: 6px 0 0 0;
+    border-radius: 6px 0 0 0;
+}
+
+th:last-child {
+    -moz-border-radius: 0 6px 0 0;
+    -webkit-border-radius: 0 6px 0 0;
+    border-radius: 0 6px 0 0;
+}
+
+th:only-child {
+    -moz-border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+}
+table thead tr th{
+	border-radius: 4px
+}
 
 /* Icons Legend */
 aside .sideleg{
-	background: #ccc;
+	background: lighten(@gray-lighter, 10%);
 	width: 90%;
 	padding: .5em 1em;
 	border-radius: 4px;
@@ -298,13 +399,48 @@ aside .sideleg ul{
 
 /* question symbol for help pop up*/
 h1 .icon-stack .icon-question{
-	font-size: .5em;
+	font-size: .6em;
+}
+h1 .icon-stack{
+	width: 1em;
+	height: 1em;
+	line-height: .7em;
 }
 .icon-stack .icon-stack-base.icon-circle{
-	font-size: .8em;
+	font-size: .7em;
 	color: @spacewalk-blue;
 }
+
+/* spacewalk toolbar */
 .spacewalk-toolbar{
-	padding: 1em
+	padding: .5em 1em
+}
+.spacewalk-toolbar>a{
+	border-right:1px solid @gray-light;
+	padding: 0 .5em
+}
+.spacewalk-toolbar>a:hover{
+	text-decoration: none;
+}
+.spacewalk-toolbar>a:last-child{
+	border-right:0
 }
 
+/* systems selected tool*/
+.spacewalk-bar i, .spacewalk-toolbar>a, #spacewalk-bar-off i{
+	cursor: pointer;
+}
+.spacewalk-bar i{
+	padding: 0 .3em;
+}
+#show-systems-bar{
+	padding: .5em 1.2em;
+	background: #fff;
+	border:1px solid #ccc;
+	border-radius: 0 0 4px 4px;
+}
+
+/* tab nav */
+.spacewalk-content-nav .nav.nav-tabs li.active a{
+	background: #dddddd;
+}
