@@ -16,18 +16,18 @@
       <rhn:csrf />
       <html:hidden property="submitted" value="true"/>
         <div align="right">
-          <html:submit>
+          <html:submit styleClass="btn btn-default">
             <bean:message key="sdc.details.hardware.schedule"/>
           </html:submit>
         </div>
- 
+
     <h2><bean:message key="sdc.details.hardware.general"/></h2>
 
     <c:if test="${cpu_mhz != null}" >
     (${cpu_count}) ${cpu_model} (${cpu_mhz} MHz)
     </c:if>
 
-    <table class="details">
+    <table class="table table-condensed">
       <tr>
         <th>
           <bean:message key="sdc.details.hardware.arch"/>
@@ -99,7 +99,7 @@
 
     <c:if test="${!(empty dmi_vendor and empty dmi_bios and empty dmi_system and empty dmi_product and empty dmi_asset_tag and empty dmi_board)}">
       <h2><bean:message key="sdc.details.hardware.dmi"/></h2>
-      <table class="details">
+      <table class="table table-condensed">
         <tr>
           <th>
             <bean:message key="sdc.details.hardware.dmi_vendor"/>
@@ -149,7 +149,7 @@
 
     <h2><bean:message key="sdc.details.hardware.networking"/></h2>
 
-    <table class="details">
+    <table class="table table-condensed">
       <tr>
         <th>
           <bean:message key="sdc.details.hardware.network_hostname"/>
@@ -210,12 +210,12 @@
 		<br/>
 			<rhn:csrf />
         <div align="right">
-          <html:submit property="update_interface">
+          <html:submit property="update_interface" styleClass="btn btn-default">
             <bean:message key="sdc.details.edit.update"/>
           </html:submit>
         </div>
     <br/>
-    <table class="list compare-list" width="90%" cellspacing="0">
+    <table class="table table-condensed" width="90%" cellspacing="0">
       <thead>
       <tr>
 	<th>Interface</th>
@@ -274,7 +274,7 @@
       </c:forEach>
     </table>
     <br/>
-    <table class="list compare-list" width="90%" cellspacing="0">
+    <table class="table table-condensed">
       <thead>
         <tr>
           <th>Interface</th>
@@ -336,7 +336,7 @@
 
     <c:if test="${not empty storageDevices}">
     <h2><bean:message key="sdc.details.hardware.storage"/></h2>
-    <table class="list" width="90%" cellspacing="0">
+    <table class="table table-condensed">
       <thead>
       <tr>
         <th width="40%">Description</th>
@@ -368,7 +368,7 @@
 
     <c:if test="${not empty videoDevices}">
     <h2><bean:message key="sdc.details.hardware.video"/></h2>
-    <table class="list" width="90%" cellspacing="0">
+    <table class="table table-condensed" >
       <thead>
       <tr>
         <th width="40%">Description</th>
@@ -400,7 +400,7 @@
 
     <c:if test="${not empty audioDevices}">
     <h2><bean:message key="sdc.details.hardware.audio"/></h2>
-    <table class="list" width="90%" cellspacing="0">
+    <table class="table table-condensed">
       <thead>
       <tr>
         <th width="40%">Description</th>
@@ -432,7 +432,7 @@
 
     <c:if test="${not empty usbDevices}">
     <h2><bean:message key="sdc.details.hardware.usb"/></h2>
-    <table class="list" width="90%" cellspacing="0">
+    <table class="table table-condensed">
       <thead>
       <tr>
         <th width="40%">Description</th>
@@ -464,7 +464,7 @@
 
     <c:if test="${not empty captureDevices}">
     <h2><bean:message key="sdc.details.hardware.capture"/></h2>
-    <table class="list" width="90%" cellspacing="0">
+    <table class="table table-condensed">
       <thead>
       <tr>
         <th width="40%">Description</th>
@@ -496,7 +496,7 @@
 
     <c:if test="${not empty miscDevices}">
     <h2><bean:message key="sdc.details.hardware.misc"/></h2>
-    <table class="list" width="90%" cellspacing="0">
+    <table class="table table-condensed">
       <thead>
       <tr>
         <th width="40%">Description</th>
