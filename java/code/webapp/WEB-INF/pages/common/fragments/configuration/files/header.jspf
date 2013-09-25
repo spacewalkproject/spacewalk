@@ -14,10 +14,8 @@
 <c:set var="helpUrl" scope="request" value="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-files-local" />
 <c:set var="downloadUrl" scope="request" value="/rhn/configuration/file/FileDownload.do?crid=${revision.id}&amp;cfid=${file.id}" />
 <c:set var="deleteUrl" scope="request" value="/rhn/configuration/file/DeleteRevision.do?crid=${revision.id}&amp;cfid=${file.id}" />
-<c:set var="fileImg" scope="request" value="/img/file-config.png" />
-<c:set var="dirImg" scope="request" value="/img/folder-config.png" />
-<c:set var="fileAlt" scope="request" value="config.common.fileAlt" />
-<c:set var="dirAlt" scope="request" value="config.common.dirAlt" />
+<c:set var="fileIcon" scope="request" value="icon-file-text" />
+<c:set var="dirIcon" scope="request" value="icon-folder-open-alt" />
 <c:set var="toolbarText" scope="request">
   <bean:message key="filedetails.header.jspf.label"
                 arg0="${fn:escapeXml(file.configFileName.path)}" arg1="${revision.revision}"
@@ -26,8 +24,7 @@
 </c:set>
 
 <c:if test="${revision.symlink}">
-	<c:set var="fileImg" scope="request" value="/img/link-config.png" />
-	<c:set var="fileAlt" scope="request" value="config.common.symlinkAlt" />
+	<c:set var="fileIcon" scope="request" value="icon-link" />
 </c:if>
 
 <c:choose>
@@ -35,24 +32,22 @@
 		<c:choose>
 			<c:when test="${deleting}">
                 <rhn:toolbar base="h1"
-                             img="${fileImg}"
-                             imgAlt="${fileAlt}"
+                             icon="${fileIcon}"
                              helpUrl="${helpUrl}"
                              miscUrl="${downloadUrl}"
-                             miscImg="action-download.gif"
-                             miscAlt="filedetails.jsp.download"
+                             miscIcon="icon-download-alt"
                              miscText="filedetails.header.jspf.download">
 					${toolbarText}
 				</rhn:toolbar>
 			</c:when>
 			<c:otherwise>
-				<rhn:toolbar base="h1" img="${fileImg}" imgAlt="${fileAlt}"
+				<rhn:toolbar base="h1" icon="${fileIcon}"
 					helpUrl="${helpUrl}"
 					deletionUrl="${deleteUrl}"
 					deletionType="configfile"
 					deletionAcl="config_channel_editable(${channel.id})"
 					miscUrl="${downloadUrl}"
-					miscImg="action-download.gif" miscAlt="filedetails.jsp.download"
+					miscIcon="icon-download-alt"
 					miscText="filedetails.header.jspf.download"
 					aclMixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
 					${toolbarText}
@@ -63,13 +58,13 @@
 	<c:otherwise>
 		<c:choose>
 			<c:when test="${deleting}">
-				<rhn:toolbar base="h1" img="${dirImg}" imgAlt="${dirAlt}"
+				<rhn:toolbar base="h1" icon="${dirIcon}"
 					helpUrl="${helpUrl}">
 					${toolbarText}
 				</rhn:toolbar>
 			</c:when>
 			<c:otherwise>
-				<rhn:toolbar base="h1" img="${dirImg}" imgAlt="${dirAlt}"
+				<rhn:toolbar base="h1" icon="${dirIcon}"
 					helpUrl="${helpUrl}"
 					deletionUrl="${deleteUrl}"
 					deletionType="configfile"
