@@ -322,7 +322,7 @@ def parse_comps(component):
         return [()]
     comps = [c.lower() for c in component.split('.')]
     # Now generate the prefixes for this component
-    return map(lambda i, a=comps: tuple(a[:i]), range(len(comps)+1))
+    return [tuple(comps[:i]) for i in range(len(comps)+1)]
 
 
 def parse_line(line):

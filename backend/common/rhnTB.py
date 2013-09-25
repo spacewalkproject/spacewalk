@@ -164,7 +164,7 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
         fr = to
         if isinstance(to, type([])):
             fr = to[0].strip()
-            to = ', '.join(map(lambda x: x.strip(), to))
+            to = ', '.join([x.strip() for x in to])
         headers = {
             "Subject" : "%s TRACEBACK from %s" % (PRODUCT_NAME, unicode_hostname),
             "From"    : "%s <%s>" % (hostname, fr),

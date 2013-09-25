@@ -69,7 +69,7 @@ class i18n:
         if isinstance(langs, types.StringType):
             langs = [ langs ]
         # Filter "C" - we will add it ourselves later anyway
-        langs = filter(lambda x: x != 'C', langs)
+        langs = [l for l in langs if l != 'C']
         langs.extend(self._default_langs)
         self.langs = langs
         self._set_catalog()

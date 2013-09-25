@@ -200,7 +200,7 @@ def rhn_popen(cmd, progressCallback=None, bufferSize=16384, outputLog=None):
                 exitcode = status
                 break
 
-        fd_set = map(lambda x: x[0], fd_mappings)
+        fd_set = [x[0] for x in fd_mappings]
         readfds = select.select(fd_set, [], [])[0]
 
         for in_fd, out_fd in fd_mappings:

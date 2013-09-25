@@ -409,13 +409,13 @@ def sortRPMs(rpms):
     assert isinstance(rpms, type([]))
 
     # Build a list of (header, rpm)
-    helper = map(lambda x: (get_package_header(x), x), rpms)
+    helper = [(get_package_header(x), x) for x in rpms]
 
     # Sort the list using the headers as a comparison
     helper.sort(lambda x, y: hdrLabelCompare(x[0], y[0]))
 
     # Extract the rpm names now
-    return map(lambda x: x[1], helper)
+    return [x[1] for x in helper]
 
 
 def getInstalledHeader(rpmName):
