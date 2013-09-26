@@ -10,7 +10,11 @@ Source0:	https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:	noarch
 
-Requires:	pylint
+%if 0%{?fedora} >= 19
+Requires:	pylint > 1.0
+%else
+Requires:	pylint < 1.0
+%endif
 BuildRequires:	asciidoc
 BuildRequires:	libxslt
 %if 0%{?rhel} && 0%{?rhel} < 6
@@ -34,6 +38,11 @@ install -d -m 755 %{buildroot}/%{_bindir}
 install -p -m 755 spacewalk-pylint %{buildroot}/%{_bindir}/
 install -d -m 755 %{buildroot}/%{_sysconfdir}
 install -p -m 644 spacewalk-pylint.rc %{buildroot}/%{_sysconfdir}/
+%if 0%{?fedora} < 19
+# old pylint don't understand new checks
+sed -i '/disable=/ s/\(,C1001\|,W0121\)//g;' \
+        %{buildroot}%{_sysconfdir}/spacewalk-pylint.rc
+%endif
 mkdir -p %{buildroot}/%{_mandir}/man8
 install -m 644 spacewalk-pylint.8 %{buildroot}/%{_mandir}/man8
 

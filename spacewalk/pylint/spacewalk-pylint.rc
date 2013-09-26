@@ -12,7 +12,7 @@ persistent=no
 [MESSAGES CONTROL]
 
 # Disable the message(s) with the given id(s).
-disable=I0011,C0302,C0111,R0801,R0902,R0904,R0912,R0913,R0914,R0915,W0142,W0403,W0603
+disable=I0011,C0302,C0111,R0801,R0902,R0904,R0912,R0913,R0914,R0915,W0142,W0403,W0603,C1001,W0121
 
 # list of disabled messages:
 #I0011: 62: Locally disabling R0201
@@ -27,7 +27,9 @@ disable=I0011,C0302,C0111,R0801,R0902,R0904,R0912,R0913,R0914,R0915,W0142,W0403,
 #W0142:228:MPM_Package.write: Used * or ** magic
 #W0403: 28: Relative import 'rhnLog', should be 'backend.common.rhnLog'
 #W0603: 72:initLOG: Using the global statement
-
+# for pylint-1.0 we also disable
+#C1001: 46, 0: Old-style class defined. (old-style-class)
+#W0121: 33,16: Use raise ErrorClass(args) instead of raise ErrorClass, args. (old-raise-syntax)
 
 [REPORTS]
 
