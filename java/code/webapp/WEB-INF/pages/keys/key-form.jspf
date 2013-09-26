@@ -1,61 +1,61 @@
-    <table class="details">
-    <tr>
-        <th>
-            <rhn:required-field key="keycreate.jsp.description"/>
-        </th>
-        <td>
-            <html:text property="description" maxlength="40" size="20" />
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <bean:message key="keycreate.jsp.type"/>
-        </th>
-        <td>
-            <c:choose>
-                <c:when test="${cryptoKey.id != null}">
-                    <c:out value="${cryptoKey.cryptoKeyType.label}"/>
-                    <html:hidden property="type" value="${cryptoKey.cryptoKeyType.label}" />
-                </c:when>
-                <c:otherwise>
-                    <html:select property="type">
-                        <html:options collection="types"
-                            property="value"
-                            labelProperty="label" />
-                    </html:select>
-                </c:otherwise>
-            </c:choose>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <c:choose>
-                <c:when test="${cryptoKey.id != null}">
-                    <bean:message key="keycreate.jsp.selectfile"/>
-                </c:when>
-                <c:otherwise>
-                    <rhn:required-field key="keycreate.jsp.selectfile"/>
-                </c:otherwise>
-            </c:choose>
-        </th>
-            <td>
-            <html:file property="contents"/>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <bean:message key="keycreate.jsp.filecontents"/>
-        </th>
-        <td>
+<div class="form-group">
+    <label class="col-lg-3 control-label">
+        <rhn:required-field key="keycreate.jsp.description"/>
+    </label>
+    <div class="col-lg-6">
+        <html:text property="description" maxlength="40" size="20" styleClass="form-control"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-lg-3 control-label" for="type">
+        <bean:message key="keycreate.jsp.type"/>
+    </label>
+    <div class="col-lg-6">
+        <c:choose>
+            <c:when test="${cryptoKey.id != null}">
+                <c:out value="${cryptoKey.cryptoKeyType.label}"/>
+                <html:hidden property="type" value="${cryptoKey.cryptoKeyType.label}" />
+            </c:when>
+            <c:otherwise>
+                <html:select property="type" styleClass="form-control" styleId="type">
+                    <html:options collection="types"
+                                  property="value"
+                                  labelProperty="label" />
+                </html:select>
+            </c:otherwise>
+        </c:choose>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-lg-3 control-label">
+        <c:choose>
+            <c:when test="${cryptoKey.id != null}">
+                <bean:message key="keycreate.jsp.selectfile"/>
+            </c:when>
+            <c:otherwise>
+                <rhn:required-field key="keycreate.jsp.selectfile"/>
+            </c:otherwise>
+        </c:choose>
+    </label>
+    <div class="col-lg-6">
+        <html:file property="contents" styleClass="file-control"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-lg-3 control-label" for="filecontents">
+        <bean:message key="keycreate.jsp.filecontents"/>
+    </label>
+    <div class="col-lg-6" id="filecontents">
         <c:if test="${cryptoKey.keyString != null}">
             <pre style="overflow: scroll;">
-<c:out escapeXml="true" value="${cryptoKey.keyString}" />
+                <c:out escapeXml="true" value="${cryptoKey.keyString}" />
             </pre>
         </c:if>
         <c:if test="${cryptoKey.keyString == null}">
             <bean:message key="keycreate.jsp.nokey"/>
         </c:if>
-
-        </td>
-    </tr>
-    </table>
+    </div>
+</div>

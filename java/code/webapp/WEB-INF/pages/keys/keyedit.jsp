@@ -5,32 +5,33 @@
 
 <html:xhtml/>
 <html>
-<body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-info.gif" imgAlt="system.common.kickstartAlt"
-	 	deletionUrl="/rhn/keys/CryptoKeyDelete.do?key_id=${cryptoKey.id}"
-     	deletionType="CryptoKeyDelete">
-  	<bean:message key="keyedit.jsp.toolbar"/>
-</rhn:toolbar>
+    <body>
+        <rhn:toolbar base="h1" img="/img/rhn-icon-info.gif" imgAlt="system.common.kickstartAlt"
+                     deletionUrl="/rhn/keys/CryptoKeyDelete.do?key_id=${cryptoKey.id}"
+                     deletionType="CryptoKeyDelete">
+            <bean:message key="keyedit.jsp.toolbar"/>
+        </rhn:toolbar>
 
-<bean:message key="keycreate.jsp.summary"/>
+        <bean:message key="keycreate.jsp.summary"/>
 
-<h2><bean:message key="keyedit.jsp.header2"/></h2>
+        <h2><bean:message key="keyedit.jsp.header2"/></h2>
 
-<div>
-    <html:form action="/keys/CryptoKeyEdit?csrf_token=${csrfToken}" enctype="multipart/form-data">
-    <rhn:csrf />
-    <%@ include file="key-form.jspf" %>
-    <hr /><table align="right">
-    	  <tr>
-      		<td></td>
-      		<html:hidden property="submitted" value="true"/>
-      		<html:hidden property="key_id" value="${cryptoKey.id}"/>
-      		<td align="right"><html:submit><bean:message key="keyedit.jsp.submit"/></html:submit></td>
-    	  </tr>
-          </table>
-    </html:form>
-</div>
+        <html:form action="/keys/CryptoKeyEdit?csrf_token=${csrfToken}"
+                   styleClass="form-horizontal"
+                   enctype="multipart/form-data">
+            <rhn:csrf />
+            <%@ include file="key-form.jspf" %>
+            <html:hidden property="submitted" value="true"/>
+            <html:hidden property="key_id" value="${cryptoKey.id}"/>
 
-</body>
+            <div class="form-group">
+                <div class="col-lg-offset-3 col-lg-6">
+                    <html:submit styleClass="btn btn-success">
+                        <bean:message key="keyedit.jsp.submit"/>
+                    </html:submit>
+                </div>
+            </div>
+        </html:form>
+    </body>
 </html>
 
