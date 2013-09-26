@@ -1,62 +1,74 @@
-      <html:hidden property="refreshForm" styleId="refreshForm" value="false"/>
-      <table class="details">
-          <tr>
-            <th><rhn:required-field key="tree-form.jspf.label"/>:</th>
-            <td>
-              <html:text property="label" maxlength="64" size="64" />
-            </td>
-          </tr>
-          <tr>
-            <th><rhn:required-field key="tree-form.jspf.location"/>:</th>
-            <td>
-              <html:text property="basepath" maxlength="256" size="64" />
-            </td>
-          </tr>
-          <tr>
-            <th><rhn:required-field key="softwareedit.jsp.basechannel"/>:</th>
-            <td>
-              <c:if test="${requestScope.nochannels != 'true'}">
-                <html:select property="channelid" onchange="refresh('treeEditForm');">
-                    <html:options collection="channels" property="value" labelProperty="label" />
-                </html:select>
-              </c:if>
-              <c:if test="${requestScope.nochannels == 'true'}">
-                <bean:message key="tree-form.jspf.nochannels" />
-              </c:if>
-            </td>
-          </tr>
-          <c:if test="${requestScope.nochannels != 'true'}">
-            <tr>
-              <th><rhn:required-field key="tree-form.jspf.installer"/>:</th>
-              <td>
-                <c:choose>
-                    <c:when test="${requestScope.noinstalltypes == 'true'}">
-                      <bean:message key="tree-form.jspf.noinstalltypes" />
-                    </c:when>
-                    <c:otherwise>
-                      <html:select property="installtype">
+<html:hidden property="refreshForm" styleId="refreshForm" value="false"/>
+<div class="form-group">
+    <label class="col-lg-3 control-label">
+        <rhn:required-field key="tree-form.jspf.label"/>:
+    </label>
+    <div class="col-lg-6">
+        <html:text property="label" maxlength="64" size="64" styleClass="form-control"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-lg-3 control-label">
+        <rhn:required-field key="tree-form.jspf.location"/>:
+    </label>
+    <div class="col-lg-6">
+        <html:text property="basepath" maxlength="256" size="64" styleClass="form-control"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-lg-3 control-label">
+        <rhn:required-field key="softwareedit.jsp.basechannel"/>:
+    </label>
+    <div class="col-lg-6">
+        <c:if test="${requestScope.nochannels != 'true'}">
+            <html:select property="channelid" onchange="refresh('treeEditForm');" styleClass="form-control">
+                <html:options collection="channels" property="value" labelProperty="label" />
+            </html:select>
+        </c:if>
+        <c:if test="${requestScope.nochannels == 'true'}">
+            <bean:message key="tree-form.jspf.nochannels" />
+        </c:if>
+    </div>
+</div>
+
+<c:if test="${requestScope.nochannels != 'true'}">
+    <div class="form-group">
+        <label class="col-lg-3 control-label">
+            <rhn:required-field key="tree-form.jspf.installer"/>:
+        </label>
+        <div class="col-lg-6">
+            <c:choose>
+                <c:when test="${requestScope.noinstalltypes == 'true'}">
+                    <bean:message key="tree-form.jspf.noinstalltypes" />
+                </c:when>
+                <c:otherwise>
+                    <html:select property="installtype" styleClass="form-control">
                         <html:options collection="installtypes"
-                          property="value"
-                          labelProperty="label" />
-                      </html:select>
-                    </c:otherwise>
-                </c:choose>
-              </td>
-            </tr>
+                                      property="value"
+                                      labelProperty="label" />
+                    </html:select>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </div>
 
-            <tr>
-              <th><bean:message key="kickstartdetails.jsp.kernel_options"/>:</th>
-              <td>
-               <html:text property="kernelopts" maxlength="256" size="64" />
-              </td>
-            </tr>
+    <div class="form-group">
+        <label class="col-lg-3 control-label">
+            <bean:message key="kickstartdetails.jsp.kernel_options"/>:
+        </label>
+        <div class="col-lg-6">
+            <html:text property="kernelopts" maxlength="256" size="64" styleClass="form-control"/>
+        </div>
+    </div>
 
-             <tr>
-              <th><bean:message key="kickstartdetails.jsp.post_kernel_options"/>:</th>
-              <td>
-               <html:text property="postkernelopts" maxlength="256" size="64" />
-              </td>
-            </tr>
-
-          </c:if>
-      </table>
+    <div class="form-group">
+        <label class="col-lg-3 control-label">
+            <bean:message key="kickstartdetails.jsp.post_kernel_options"/>:
+        </label>
+        <div class="col-lg-6">
+            <html:text property="postkernelopts" maxlength="256" size="64" styleClass="form-control"/>
+        </div>
+    </div>
+</c:if>
