@@ -78,6 +78,32 @@
              definition="/WEB-INF/nav/sitenav.xml"
              renderer="com.redhat.rhn.frontend.nav.TopnavRenderer" />
   </rhn:require>
+  <rhn:require acl="user_authenticated()">
+    <div id="bar">
+      <div class="spacewalk-bar">
+          <span id="header_selcount" class="badge">
+            <rhn:setdisplay user="${requestScope.session.user}" />
+          </span>
+          <a class="button" href="/rhn/ssm/index.do">
+            <bean:message key="manage"/>
+          </a>
+          <%--
+            -- Make sure we set the return_url variable correctly here. This will make is to
+            -- the user is returned here after clearing the ssm.
+            --%>
+          <c:choose>
+            <c:when test="${not empty pageContext.request.queryString}">
+              <c:set var="rurl" value="${pageContext.request.requestURI}?${pageContext.request.queryString}"/>
+            </c:when>
+            <c:otherwise>
+              <c:set var="rurl" value="${pageContext.request.requestURI}" />
+            </c:otherwise>
+          </c:choose>
+          <a class="button" href="/rhn/systems/Overview.do?empty_set=true&amp;return_url=${rhn:urlEncode(rurl)}">
+            <bean:message key="clear"/>
+          </a>
+      </div>
+    </div>
+  </rhn:require>
 </nav>
-
 <!-- end header.jsp -->
