@@ -318,7 +318,7 @@ def do_schedule_getoutput(self, args):
             print 'Output'
             print '------'
             if r.get('output_enc64'):
-                base64.b64decode(r.get('output'))
+                print base64.b64decode(r.get('output'))
             else:
                 print r.get('output').encode('UTF8')
 
