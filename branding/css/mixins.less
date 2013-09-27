@@ -1,0 +1,32 @@
+.Roboto-thin{
+	font-family: @roboto-font;
+	font-weight: 300;
+}
+.Roboto-strong{
+	font-family: @roboto-font;
+	font-weight: 700;
+}
+
+/* Mixings */
+.border-rounded(@a; @b; @c; @d){
+	-moz-border-radius: @a @b @c @d;
+	border-radius: @a @b @c @d;
+	-webkit-border-radius: @a @b @c @d;
+	-khtml-border-radius: @a @b @c @d;	
+}
+.spacewalk-table-row-variant(@state; @background; @border) {
+  .spacewalk-table thead tr.@{state},
+  .spacewalk-table tbody tr.@{state},
+  .spacewalk-table tfoot tr.@{state} {
+    background-color: @background;
+  }
+  // Hover states for `.spacewalk-table`
+  // Note: this is not available for cells or rows within `thead` or `tfoot`.
+  .spacewalk-table tbody tr {
+    td.@{state}:hover,
+    th.@{state}:hover,
+    &.@{state}:hover td {
+      background-color: darken(@background, 3%);
+    }
+  }
+}

@@ -1,70 +1,22 @@
 /* Original Bootstrap */
-@import  url(bootstrap/less/bootstrap.less);
+@import url(bootstrap/less/bootstrap.less);
+
 /* Here begins the spacewalk css theme */
+
 /* Import of Roboto font */
 @import url(http://fonts.googleapis.com/css?family=Roboto:300,700);
-
-/* Main font size */
-@font-size-base: 13px;
-
-/* Bootstrap color variables overwrited */
-@gray-darker:            lighten(#000, 13.5%); // #222
-@gray-dark:              lighten(#000, 25%);   // #333
-@gray:                   lighten(#000, 50%); // #555
-@gray-light:             lighten(#000, 80%);   // #999
-@gray-lighter:           lighten(#000, 95%); // #eee
-
-@spacewalk-blue:	 #00aad4;
-
-/* aside menu colors */
-@spacewalk-list-menu:    @gray-lighter;
-@spacewalk-list-menu-active:    lighten(@spacewalk-list-menu, 4%);
-@spacewalk-list-menu-hover: lighten(@spacewalk-list-menu, 2%);
-@spacewalk-list-first-submenu:    darken(@spacewalk-list-menu, 8%);
-@spacewalk-list-first-submenu-active:    lighten(@spacewalk-list-first-submenu, 6%);
-@spacewalk-list-first-submenu-hover:    lighten(@spacewalk-list-first-submenu, 2%);//#f3f3f3
-@spacewalk-list-second-submenu:    darken(@spacewalk-list-first-submenu, 5%);
-@spacewalk-list-second-submenu-active:    lighten(@spacewalk-list-second-submenu, 6%);
-@spacewalk-list-second-submenu-hover:    lighten(@spacewalk-list-second-submenu, 2%);
-
-/* Roboto variable: font variable to be applied in different text elements*/
-@roboto-font: 'Roboto', sans-serif;
-
-.Roboto-thin{
-	font-family: @roboto-font;
-	font-weight: 300;
-}
-.Roboto-strong{
-	font-family: @roboto-font;
-	font-weight: 700;
-}
-
-/* glow and shadow for text */
-.glow-text{
-	text-shadow: 1px 1px 1px #fff;
-}
-.glow-text-deleted{
-	text-shadow: 0 transparent;
-}
-.shadow-text{
-	text-shadow: 1px 1px 1px #333;
-}
-
-/* titles */
-h1, h2, h3, h4 {
-	.Roboto-thin
-}
-h1{
-	font-size: 2em
-}
-h2{
-	font-size: 1.7em;
-}
+/* Spacewalk variables */
+@import url(variables.less);
+/* Spacewalk mixins */
+@import url(mixins.less);
+/*Import of Tables style*/
+@import url(tables.less);
 
 /* Main HTML5 tags defined for the theme */
 body{
 	background: #f7f7f7;
 }
+
 header{
 	width: 100%;
 	background: url('../../img/spacewalk-header-background.png') repeat-x @gray;
@@ -91,6 +43,26 @@ section{
 	/* for the body div to make both columns the same size*/
 	margin-bottom:-9999px;
 	padding-bottom: 9999px 
+}
+/* titles */
+h1, h2, h3, h4 {
+	.Roboto-thin
+}
+h1{
+	font-size: 2em
+}
+h2{
+	font-size: 1.7em;
+}
+/* glow and shadow for text */
+.glow-text{
+	text-shadow: 1px 1px 1px #fff;
+}
+.glow-text-deleted{
+	text-shadow: 0 transparent;
+}
+.shadow-text{
+	text-shadow: 1px 1px 1px #333;
 }
 /* for the body div to make both columns the same size*/
 .row.body-container{
@@ -142,9 +114,6 @@ header ul.nav-pills:nth-child(2){
 }
 header ul.nav-pills:nth-child(3){
 	background: #666;
-}
-header ul.nav-pills:nth-child(2) li{
-	border-left: 1px #000 solid
 }
 header ul.nav-pills:nth-child(2) li{
 	border-left: 1px #222 solid
