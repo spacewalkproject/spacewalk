@@ -255,7 +255,7 @@ JABBERD_DIR=/etc/jabberd
 SQUID_DIR=/etc/squid
 SYSTEMID_PATH=`PYTHONPATH='/usr/share/rhn' python -c "from up2date_client import config; cfg = config.initUp2dateConfig(); print cfg['systemIdPath'] "`
 
-if [ ! -r SYSTEMID_PATH ]; then
+if [ ! -r $SYSTEMID_PATH ]; then
 	echo ERROR: Spacewalk Proxy does not appear to be registered
 	exit 2
 fi
