@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.1.17
+Version:	2.1.18
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -88,6 +88,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Sep 27 2013 Grant Gainey <ggainey@redhat.com> 2.1.18-1
+- 1012963 - Don't use :table as a param-name in Oracle prepared stmts
+- 1012934 - Oracle prepared-stmt cannot have semicolons
+
 * Fri Sep 20 2013 Grant Gainey <ggainey@redhat.com> 2.1.17-1
 - 1009657 - fixes spacewalk-hostname-rename issue when postgres and oracle are
   installed
