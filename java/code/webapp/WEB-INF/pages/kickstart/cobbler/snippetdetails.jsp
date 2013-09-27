@@ -4,120 +4,119 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 
 <head>
-<%@ include file="/WEB-INF/pages/common/fragments/editarea.jspf" %>
+    <%@ include file="/WEB-INF/pages/common/fragments/editarea.jspf" %>
 </head>
 
-<html:html xhtml="true">
-<body>
-<c:choose>
-	<c:when test = "${not empty requestScope.create_mode}">
-<rhn:toolbar base="h1" img="/img/rhn-icon-info.gif" imgAlt="info.alt.img">
-  <bean:message key="snippetcreate.jsp.toolbar"/>
-</rhn:toolbar>
-<h2><bean:message key="snippetcreate.jsp.header2"/></h2>
-	</c:when>
-	<c:otherwise>
-<rhn:toolbar base="h1" img="/img/rhn-icon-info.gif" imgAlt="info.alt.img"
-		               deletionUrl="CobblerSnippetDelete.do?name=${cobblerSnippetsForm.map.name}"
-               deletionType="snippets">
-	<c:out value="${requestScope.snippet.displayName}"/>
-</rhn:toolbar>
-<h2><bean:message key="snippetdetails.jsp.header2"/></h2>
-	</c:otherwise>
-</c:choose>	
+<html:html>
+    <body>
+        <c:choose>
+            <c:when test = "${not empty requestScope.create_mode}">
+                <rhn:toolbar base="h1" img="/img/rhn-icon-info.gif" imgAlt="info.alt.img">
+                    <bean:message key="snippetcreate.jsp.toolbar"/>
+                </rhn:toolbar>
+                <h2><bean:message key="snippetcreate.jsp.header2"/></h2>
+            </c:when>
+            <c:otherwise>
+                <rhn:toolbar base="h1"
+                             img="/img/rhn-icon-info.gif"
+                             imgAlt="info.alt.img"
+                             deletionUrl="CobblerSnippetDelete.do?name=${cobblerSnippetsForm.map.name}"
+                             deletionType="snippets">
+                    <c:out value="${requestScope.snippet.displayName}"/>
+                </rhn:toolbar>
+                <h2><bean:message key="snippetdetails.jsp.header2"/></h2>
+            </c:otherwise>
+        </c:choose>
+        <c:choose>
+            <c:when test="${empty requestScope.create_mode}">
+                <c:set var="url" value ="/kickstart/cobbler/CobblerSnippetEdit"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="url" value ="/kickstart/cobbler/CobblerSnippetCreate"/>
+            </c:otherwise>
+        </c:choose>
 
-
-<c:choose>
-	<c:when test="${empty requestScope.create_mode}">
-		<c:set var="url" value ="/kickstart/cobbler/CobblerSnippetEdit"/>
-	</c:when>
-	<c:otherwise>
-		<c:set var="url" value ="/kickstart/cobbler/CobblerSnippetCreate"/>
-	</c:otherwise>
-</c:choose>
-
-
-<div>
-    <html:form action="${url}">
+    <html:form action="${url}" styleClass="form-horizontal">
     <rhn:csrf />
     <rhn:submitted/>
-	<table class="details">
-    <tr>
-        <th>
-        	<rhn:required-field key = "cobbler.snippet.name"/>
-        </th>
-        <td>
-        		<html:text property="name"/>
-            	<rhn:tooltip key="snippetcreate.jsp.tip1"/>
-            <c:if  test = "${empty requestScope.create_mode}">	
-            	<rhn:warning key="snippetcreate.jsp.warning.tip"/>
-            	<html:hidden property="oldName"/>
+
+    <div class="form-group">
+        <label class="col-lg-3 control-label">
+            <rhn:required-field key = "cobbler.snippet.name"/>
+        </label>
+        <div class="col-lg-6">
+            <html:text property="name" styleClass="form-control"/>
+            <span class="help-block"><rhn:tooltip key="snippetcreate.jsp.tip1"/></span>
+            <c:if  test = "${empty requestScope.create_mode}">
+                <span class="help-block"><rhn:warning key="snippetcreate.jsp.warning.tip"/></span>
+                <html:hidden property="oldName"/>
             </c:if>
-        </td>
-     </tr>
-	<c:if  test = "${empty requestScope.create_mode}">
-    <tr>
-        <th>
-            <bean:message key="cobbler.snippet.path"/>:
-        </th>
-        <td>
-        		<c:out value="${requestScope.snippet.displayPath}"/><br/>
-    				<rhn:tooltip key="cobbler.snippet.path.tip"/>
-        </td>
-     </tr>
-     <tr>
-        <th>
-            <bean:message key="cobbler.snippet.macro"/>:
-        </th>
-        <td>
-        		<p><c:out value="${requestScope.snippet.fragment}"/></p>
-        		<rhn:tooltip key="cobbler.snippet.copy-paste-snippet-tip"/>
-        </td>
-     </tr>
+        </div>
+     </div>
+
+     <c:if  test = "${empty requestScope.create_mode}">
+         <div class="form-group">
+             <label class="col-lg-3 control-label">
+                 <bean:message key="cobbler.snippet.path"/>:
+             </label>
+             <div class="col-lg-6">
+                 <p><c:out value="${requestScope.snippet.displayPath}"/></p>
+                 <span class="help-block"><rhn:tooltip key="cobbler.snippet.path.tip"/></span>
+             </div>
+         </div>
+
+         <div class="form-group">
+             <label class="col-lg-3 control-label">
+                 <bean:message key="cobbler.snippet.macro"/>:
+             </label>
+             <div class="col-lg-6">
+                 <p><c:out value="${requestScope.snippet.fragment}"/></p>
+                 <span class="help-block"><rhn:tooltip key="cobbler.snippet.copy-paste-snippet-tip"/></span>
+             </div>
+         </div>
      </c:if>
-     <tr>
-        <th>
+
+     <div class="form-group">
+        <label class="col-lg-3 control-label">
             <bean:message key="cobbler.snippet.type"/>:
-        </th>
-        <td>
-				<bean:message key="Custom"/><br/>
-            <rhn:tooltip><bean:message key="cobbler.snippet.custom.tip"
-            			arg0="${requestScope.org}"/></rhn:tooltip>	
-        </td>
-     </tr>
-     </table>
-    <h2><bean:message key="snippetcreate.jsp.contents.header"/></h2>
+        </label>
+        <div class="col-lg-6">
+            <bean:message key="Custom"/>
+            <span class="help-block">
+                <rhn:tooltip>
+                    <bean:message key="cobbler.snippet.custom.tip"
+                                  arg0="${requestScope.org}"/>
+                </rhn:tooltip>
+            </span>
+        </div>
+     </div>
 
-    <table  class="details">
-    <tr>
-        <th>
-        	<rhn:required-field key="snippetcreate.jsp.contents"/>
-        </th>
-        <td>
-         	<html:textarea property="contents" rows="24" cols="80" styleId="contents"/>
-        </td>
-    </tr>
-    </table>
+     <h2><bean:message key="snippetcreate.jsp.contents.header"/></h2>
 
-    <hr />
+     <div class="form-group">
+         <label class="col-lg-3 control-label">
+             <rhn:required-field key="snippetcreate.jsp.contents"/>
+         </label>
+         <div class="col-lg-6">
+             <html:textarea property="contents" rows="24" cols="80"
+                            styleId="contents" styleClass="form-control"/>
+         </div>
+     </div>
 
-    <table align="right">
-    	  <tr>
-      		<td></td>
-      		<c:choose>
-      		<c:when test = "${empty requestScope.create_mode}">
-      			<td align="right"><html:submit><bean:message key="snippetupdate.jsp.submit"/></html:submit></td>
-      		</c:when>
-      		<c:otherwise>
-      			<td align="right"><html:submit><bean:message key="snippetcreate.jsp.submit"/></html:submit></td>
-      		</c:otherwise>
-      		</c:choose>
-    	  </tr>
-	</table>
-
-    </html:form>
-</div>
-
-</body>
+     <div class="form-group">
+         <div class="col-lg-offset-3 col-lg-6">
+             <html:submit styleClass="btn btn-success">
+                 <c:choose>
+                     <c:when test = "${empty requestScope.create_mode}">
+                         <bean:message key="snippetupdate.jsp.submit"/>
+                     </c:when>
+                     <c:otherwise>
+                         <bean:message key="snippetcreate.jsp.submit"/>
+                     </c:otherwise>
+                 </c:choose>
+             </html:submit>
+         </div>
+     </div>
+     </html:form>
+     </body>
 </html:html>
-
