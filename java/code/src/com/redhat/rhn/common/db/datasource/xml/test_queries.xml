@@ -3,7 +3,7 @@
   <query params="username">
       SELECT u.username as USERNAME, u.user_id as USER_ID, u.created as CREATED
         FROM all_users u
-       WHERE u.username=:username
+       WHERE LOWER(u.username) = :username
   </query>
   <elaborator name="table_elaborator_or" column="username" params="user_name">
       SELECT c.owner as USERNAME, COUNT(c.table_name) as TABLE_COUNT
@@ -36,7 +36,7 @@
   <elaborator name="table_elaborator_or" column="username" params="user_name">
       SELECT c.owner as USERNAME, COUNT(c.table_name) as TABLE_COUNT
         FROM all_catalog c
-       WHERE owner=:user_name
+       WHERE LOWER(owner) = :user_name
          AND owner IN (%s)
          AND table_type='TABLE'
        GROUP BY owner
@@ -322,12 +322,12 @@ SELECT u.created as CREATED
   <query params="username">
       SELECT u.username as USERNAME, u.user_id as USER_ID, u.created as CREATED
         FROM all_users u
-       WHERE u.username=:username
+       WHERE LOWER(u.username) = :username
   </query>
   <elaborator name="table_elaborator_or" column="username" params="username">
       SELECT c.owner as USERNAME, COUNT(c.table_name) as TABLE_COUNT
         FROM all_catalog c
-       WHERE owner=:username
+       WHERE LOWER(owner) = :username
          AND table_type='TABLE'
        GROUP BY owner
   </elaborator>
@@ -358,7 +358,7 @@ SELECT u.created as CREATED
 <query name="external_elaborator_or" column="username" params="user_name">
           SELECT c.owner as USERNAME, COUNT(c.table_name) as TABLE_COUNT
         FROM all_catalog c
-       WHERE owner=:user_name
+       WHERE LOWER(owner) = :user_name
          AND table_type='TABLE'
        GROUP BY owner
 </query>
