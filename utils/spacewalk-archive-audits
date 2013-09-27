@@ -49,7 +49,7 @@ LOG_COLS = ['id', 'stamp', 'user_id']
 
 SQL_PIECES = {'oracle': {
                   'COUNT' : 'select count(*) from %(table)s',
-                  'FIND_COLS' : "select column_name from user_tab_columns where table_name = :table",
+                  'FIND_COLS' : "select column_name from user_tab_columns where table_name = :the_table",
                   'FIND_TABLE' : "select table_name from user_tables where table_name like '%|_LOG' escape '|'",
                   'GET_DATA' : "select %(cols)s, %(tcols)s from %(tname)s t inner join log l on l.id = t.log_id where l.stamp <= to_date(:tstamp, 'YYYY-MM-DD hh24:mi:ss') order by l.id",
                   'PURGE_DATA' : """
@@ -65,7 +65,7 @@ SQL_PIECES = {'oracle': {
                 },
               'postgresql' : {
                   'COUNT' : 'select count(*) from %(table)s;',
-                  'FIND_COLS' : 'select column_name from information_schema.columns where table_name = :table;',
+                  'FIND_COLS' : 'select column_name from information_schema.columns where table_name = :the_table;',
                   'FIND_TABLE' : "select table_name from information_schema.tables where table_name like '%!_log' escape '!';",
                   'GET_DATA' : 'select %(cols)s, %(tcols)s from %(tname)s t inner join log l on l.id = t.log_id where l.stamp <= (timestamp :tstamp) order by l.id;',
                   'PURGE_DATA' : 'delete from %(ptable)s t using log l where l.id = t.log_id and l.stamp <= (timestamp :tstamp);',
@@ -137,7 +137,7 @@ def tables():
 
 def columns(tbl):
     """What are the columns of table <tbl>?"""
-    stmt = rhnSQL.execute(_get_sql('FIND_COLS'), table=tbl)
+    stmt = rhnSQL.execute(_get_sql('FIND_COLS'), the_table=tbl)
     col_names = stmt.fetchall() or []
     rc = []
     for name in col_names:
