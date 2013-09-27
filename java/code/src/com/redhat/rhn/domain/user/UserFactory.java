@@ -538,8 +538,14 @@ public  class UserFactory extends HibernateFactory {
             if (timeZones != null) {
                 Collections.sort(timeZones, new Comparator() {
                     public int compare(Object o1, Object o2) {
-                        int offSet1 = ((RhnTimeZone)o1).getTimeZone().getRawOffset();
-                        int offSet2 = ((RhnTimeZone)o2).getTimeZone().getRawOffset();
+                        RhnTimeZone t1 = (RhnTimeZone) o1;
+                        RhnTimeZone t2 = (RhnTimeZone) o2;
+                        int offSet1 = t1.getTimeZone().getRawOffset();
+                        int offSet2 = t2.getTimeZone().getRawOffset();
+
+                        if (offSet2 - offSet1 == 0) {
+                            return t2.getOlsonName().compareTo(t1.getOlsonName());
+                        }
 
                         if (offSet1 <= -18000000 && offSet1 >= -36000000 &&
                                 offSet2 <= -18000000 && offSet2 >= -36000000) {
