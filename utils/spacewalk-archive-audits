@@ -48,10 +48,10 @@ LOG_LOCATION = '/var/log/rhn/archive-audit-tables.log'
 LOG_COLS = ['id', 'stamp', 'user_id']
 
 SQL_PIECES = {'oracle': {
-                  'COUNT' : 'select count(*) from %(table)s;',
-                  'FIND_COLS' : "select column_name from user_tab_columns where table_name = :table;",
-                  'FIND_TABLE' : "select table_name from user_tables where table_name like '%!_LOG' escape '!';",
-                  'GET_DATA' : "select %(cols)s, %(tcols)s from %(tname)s t inner join log l on l.id = t.log_id where l.stamp <= to_date(:tstamp, 'YYYY-MM-DD hh24:mi:ss') order by l.id;",
+                  'COUNT' : 'select count(*) from %(table)s',
+                  'FIND_COLS' : "select column_name from user_tab_columns where table_name = :table",
+                  'FIND_TABLE' : "select table_name from user_tables where table_name like '%|_LOG' escape '|'",
+                  'GET_DATA' : "select %(cols)s, %(tcols)s from %(tname)s t inner join log l on l.id = t.log_id where l.stamp <= to_date(:tstamp, 'YYYY-MM-DD hh24:mi:ss') order by l.id",
                   'PURGE_DATA' : """
                     delete %(ptable)s
                      where exists (
@@ -59,9 +59,9 @@ SQL_PIECES = {'oracle': {
                          from log l
                         where l.id = %(ptable)s.log_id
                           and l.stamp <= to_date(:tstamp, 'YYYY-MM-DD hh24:mi:ss')
-                       );
+                       )
                   """,
-                  'PURGE_LOG_DATA' : "delete from log l where l.stamp <= to_date(:tstamp, 'YYYY-MM-DD hh24:mi:ss');"
+                  'PURGE_LOG_DATA' : "delete from log l where l.stamp <= to_date(:tstamp, 'YYYY-MM-DD hh24:mi:ss')"
                 },
               'postgresql' : {
                   'COUNT' : 'select count(*) from %(table)s;',
