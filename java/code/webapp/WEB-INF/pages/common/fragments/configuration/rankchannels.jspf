@@ -1,36 +1,32 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
-<td style="width:80%;">
+<div class="form-group">
+    <div class="col-lg-offset-3 col-lg-6">
+        <html:select name ="channelRanksForm"
+                     property="selectedChannel"
+                     styleClass="form-control"
+                     size="15" styleId="ranksWidget" style="width:100%;">
+            <html:optionsCollection name="channelRanksForm"
+                                    property="possibleChannels"/>
+        </html:select>
+    </div>
+</div>
 
-  <html:select name ="channelRanksForm"
-	           property="selectedChannel"
-	           size="15" styleId="ranksWidget" style="width:100%;">
-    <html:optionsCollection name="channelRanksForm"
-	                        property="possibleChannels"/>
-  </html:select>
-</td>
-<td valign="top">
-	<table>
-	   <tr>
-		<td><html:image src="/img/button-up.gif"
-					altKey="ssm.config.rank.jsp.up"
-					property="dispatch"
-					value="up"
-					onclick="return move_selected_up('ranksWidget');"
-					styleClass="button"/>
-	    </td></tr>
-	    <tr>
-	    <td><html:image src="/img/button-down.gif"
-					altKey="ssm.config.rank.jsp.down"
-					property="dispatch"
-					value="down"
-					onclick="return move_selected_down('ranksWidget');"
-					styleClass="button"/>
-		</td></tr>
-	</table>	
-  <html:hidden name="channelRanksForm"
-               property="submitted" value="true"/>
-  <html:hidden name="channelRanksForm"
-               property="rankedValues" styleId="rankedValues"/>
-  <rhn:noscript/>
-</td>
+<div class="form-group">
+    <div class="col-lg-offset-3 col-lg-6">
+        <div class="btn-group">
+            <button type="button" title="ssm.config.rank.jsp.up" class="btn btn-default" value="up" name="dispatch" onclick="return move_selected_up('ranksWidget');">
+                <i class="icon-circle-arrow-up"></i>
+            </button>
+            <button type="button" title="ssm.config.rank.jsp.down" class="btn btn-default" value="down" name="dispatch" onclick="return move_selected_down('ranksWidget');">
+                <i class="icon-circle-arrow-down"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<html:hidden name="channelRanksForm"
+             property="submitted" value="true"/>
+<html:hidden name="channelRanksForm"
+             property="rankedValues" styleId="rankedValues"/>
+<rhn:noscript/>
+
