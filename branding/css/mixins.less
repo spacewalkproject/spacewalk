@@ -14,15 +14,15 @@
 	-webkit-border-radius: @a @b @c @d;
 	-khtml-border-radius: @a @b @c @d;	
 }
-.spacewalk-table-row-variant(@state; @background; @border) {
-  .spacewalk-table thead tr.@{state},
-  .spacewalk-table tbody tr.@{state},
-  .spacewalk-table tfoot tr.@{state} {
+.table-rounded-row-variant(@state; @background; @border) {
+  .table-rounded thead tr.@{state},
+  .table-rounded tbody tr.@{state},
+  .table-rounded tfoot tr.@{state} {
     background-color: @background;
   }
-  // Hover states for `.spacewalk-table`
+  // Hover states for `.table-rounded`
   // Note: this is not available for cells or rows within `thead` or `tfoot`.
-  .spacewalk-table tbody tr {
+  .table-rounded tbody tr {
     td.@{state}:hover,
     th.@{state}:hover,
     &.@{state}:hover td {

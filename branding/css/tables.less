@@ -1,46 +1,46 @@
 /* TABLES: GENERAL STYLE */
 
-.spacewalk-table{
+.table-rounded{
 	width: 100%;
 	border-collapse: separate;
 	border-spacing: 0;
 }
-.spacewalk-table th,
-.spacewalk-table td{
+.table-rounded th,
+.table-rounded td{
 	text-align: left;
 	border: 1px solid @gray-light;
 }
-.spacewalk-table thead th{
+.table-rounded thead th{
     padding: .7em 0 .7em 1em;
     color: #fff;
     background: #ccc;
 	border-bottom: 0px solid @gray-light;
 	border-right: 0px solid @gray-light;
 }
-.spacewalk-table thead th:first-child{
+.table-rounded thead th:first-child{
 	.border-rounded(6px; 0; 0; 0);
 }
-.spacewalk-table thead th:last-child{
+.table-rounded thead th:last-child{
 	.border-rounded(0; 6px; 0; 0);
 	border-right: 1px solid @gray-light;
 }
-.spacewalk-table thead tr th:only-of-type {
+.table-rounded thead tr th:only-of-type {
 	.border-rounded(6px; 6px; 0; 0);
 }
-.spacewalk-table tbody td{
+.table-rounded tbody td{
     padding: .7em 0 .7em 1em;
 	font-weight: normal;
 	border-right: 0px solid @gray-light;
 	border-bottom: 0px solid @gray-light;
 }
-.spacewalk-table tbody td:last-child{
+.table-rounded tbody td:last-child{
 	border-right: 1px solid @gray-light;
 }
-.spacewalk-table tbody td img{
+.table-rounded tbody td img{
 	margin: 0 8px 0 0;
 	float: left
 }
-.spacewalk-table tbody tr{
+.table-rounded tbody tr{
 	background: #fff;
 	-webkit-transition: background 0.5s ease;  
     -moz-transition: background 0.5s ease;  
@@ -48,42 +48,22 @@
     -ms-transition: background 0.5s ease;  
     transition: background 0.5s ease;
 }
-.spacewalk-table tbody tr:hover{
-	background: darken(@gray-lighter, 1%);
-}
-.spacewalk-table tbody td p{
+.table-rounded tbody td p{
 	float: left;
 	margin: 5px 0 0 0
 }
-.spacewalk-table tbody tr:last-child td:first-child{
+.table-rounded tbody tr:last-child td:first-child{
 	.border-rounded(0; 0; 0; 6px);
 	border-bottom: 1px solid @gray-light;
 }
-.spacewalk-table tbody tr:last-child td:last-child{
+.table-rounded tbody tr:last-child td:last-child{
 	.border-rounded(0; 0; 6px; 0);
 	border-bottom: 1px solid @gray-light;
 }
-.spacewalk-table tbody tr:last-child td:only-of-type{
+.table-rounded tbody tr:last-child td:only-of-type{
 	.border-rounded(0; 0; 6px; 6px);
 	border-bottom: 1px solid @gray-light;
 }
-.spacewalk-table tbody tr:last-child td{
+.table-rounded tbody tr:last-child td{
 	border-bottom: 1px solid @gray-light;
-}
-
-/* XS tables */
-.spacewalk-table.spacewalk-table-xs thead th, 
-.spacewalk-table.spacewalk-table-xs tbody td{
-    padding: .3em 0 .3em .5em;
-}
-
-.spacewalk-table-row-variant(success; @state-success-bg; @state-success-border);
-.spacewalk-table-row-variant(danger; @state-danger-bg; @state-danger-border);
-.spacewalk-table-row-variant(warning; @state-warning-bg; @state-warning-border);
-
-/* Deleting the border on responsive tables */
-@media (max-width: @screen-sm) {
-  .table-responsive {
-    border: 0px;
-	}
 }
