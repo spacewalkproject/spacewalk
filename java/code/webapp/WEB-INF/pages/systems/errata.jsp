@@ -8,14 +8,16 @@
 <html>
 <head>
     <meta name="name" value="System Details" />
-<!-- disables the enter key from submitting the form -->
+    <!-- disables the enter key from submitting the form -->
     <script type="text/javascript" language="JavaScript">
-		function key(e) {
-		var pkey = e ? e.which : window.event.keyCode;
-		return pkey != 13;
-		}
-		document.onkeypress = key;
-		if (document.layers) document.captureEvents(Event.KEYPRESS);
+      $(document).ready(function() {
+        $(window).keydown(function(event){
+          if(event.keyCode == 13) {
+            event.preventDefault();
+            return false;
+          }
+        });
+      });
     </script>
 </head>
 <body>
