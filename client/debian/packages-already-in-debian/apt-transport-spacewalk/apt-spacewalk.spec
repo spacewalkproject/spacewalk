@@ -3,7 +3,7 @@
 
 Name: apt-spacewalk
 Summary: Spacewalk plugin for Advanced Packaging tool.
-Version: 1.0.8
+Version: 1.0.9
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://example.com/%{name}-%{version}.tar.gz
@@ -19,6 +19,9 @@ to acquire content from Spacewalk server
 %files
 
 %changelog
+* Mon Sep 30 2013 Michael Mraka <michael.mraka@redhat.com> 1.0.9-1
+- removed trailing whitespaces
+
 * Thu Mar 21 2013 Jan Pazdziora 1.0.8-1
 - forward port debian bugs #703207, 700821
 
