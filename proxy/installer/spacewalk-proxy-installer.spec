@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 2.1.3
+Version: 2.1.4
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -97,6 +97,9 @@ spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
 %doc LICENSE answers.txt
 
 %changelog
+* Mon Sep 30 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.4-1
+- removed trailing whitespaces
+
 * Mon Sep 30 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.3-1
 - refer systemIdPath from up2date config
 
