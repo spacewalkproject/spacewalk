@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.0
+Version: 2.1.1
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -182,6 +182,9 @@ fi
 %attr(755, root, root) %{_var}/lib/rhn/search/indexes/docs
 
 %changelog
+* Mon Sep 30 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.1-1
+- removed trailing whitespaces
+
 * Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.1-1
 - Bumping package versions for 2.0.
 
