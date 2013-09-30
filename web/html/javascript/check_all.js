@@ -195,7 +195,7 @@ function update_server_set(variable, set_label, checked, values) {
 function pageResponse(data) {
     var resp = eval(data);
     if (typeof(resp['header']) != 'undefined') {
-            dwr.util.setValue("header_selcount", resp.header);
+            dwr.util.setValue("header_selcount", resp.header, {escapeHtml: false});
     }
     dwr.util.setValue("pagination_selcount_top", resp.pagination);
     dwr.util.setValue("pagination_selcount_bottom", resp.pagination);

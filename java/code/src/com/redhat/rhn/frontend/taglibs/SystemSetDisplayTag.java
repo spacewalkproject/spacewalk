@@ -43,30 +43,16 @@ public class SystemSetDisplayTag extends TagSupport {
 
         try {
             JspWriter out = pageContext.getOut();
-            if (user != null) { //Make sure we have a user
-                RhnSet rs = RhnSetDecl.SYSTEMS.lookup(user);
-                if (rs != null && rs.size() == 1) { //User has a system selected
-                    out.println(LocalizationService
-                                .getInstance()
-                                .getMessage("header.jsp.singleSystemSelected"));
-
-                    return EVAL_PAGE;
-                }
-                else if (rs != null && rs.size() > 1) { //User has multiple systems selected
-                    out.println(LocalizationService
-                                .getInstance()
-                                .getMessage("header.jsp.systemsSelected",
-                                            Integer.toString(rs.size()))
-                                );
-
-                    return EVAL_PAGE;
-                }
-            }
-            // We got null for the user or the user has no systems selected
-            out.println(LocalizationService
-                            .getInstance()
-                            .getMessage("header.jsp.noSystemsSelected"));
-
+            RhnSet rs = user != null ? RhnSetDecl.SYSTEMS.lookup(user) : null;
+            int size = rs == null ? 0 : rs.size();
+            StringBuilder result = new StringBuilder();
+            result.append("<span id=\"spacewalk-ssm-counter\" class=\"badge\">");
+            result.append(Integer.toString(size));
+            result.append("</span>");
+            String msgKey = size == 1 ? "header.jsp.singleSystemSelected" :
+                    "header.jsp.systemsSelected";
+            result.append(LocalizationService.getInstance().getMessage(msgKey));
+            out.println(result);
             return EVAL_PAGE;
         }
         catch (IOException ioe) {

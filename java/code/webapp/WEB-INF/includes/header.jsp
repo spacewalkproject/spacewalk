@@ -81,7 +81,7 @@
   <rhn:require acl="user_authenticated()">
     <div id="bar">
       <div class="spacewalk-bar">
-          <span id="header_selcount" class="badge">
+          <span id="header_selcount">
             <rhn:setdisplay user="${requestScope.session.user}" />
           </span>
           <a class="button" href="/rhn/ssm/index.do">

@@ -1133,20 +1133,14 @@
           <context context-type="sourcefile">./includes/header.jsp</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="header.jsp.noSystemsSelected">
-        <source>No systems selected</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">./includes/header.jsp</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="header.jsp.singleSystemSelected">
-        <source>1 system selected</source>
+        <source>system selected</source>
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/header.jsp</context>
         </context-group>
       </trans-unit>
       <trans-unit id="header.jsp.systemsSelected">
-        <source>{0} systems selected</source>
+        <source>systems selected</source>
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/header.jsp</context>
           <context context-type="paramnotes">
