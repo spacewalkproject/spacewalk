@@ -47,7 +47,7 @@ class PixbufCellRenderer(gtk.GenericCellRenderer):
             height = self.pixbuf.get_height()
             xpad = self.get_property("xpad")
             ypad = self.get_property("ypad")
-            if (cell_area.x+xpad < event.x < cell_area.x+xpad+width and 
+            if (cell_area.x+xpad < event.x < cell_area.x+xpad+width and
                 cell_area.y+ypad < event.y < cell_area.y+ypad+height):
                 self.activate(path)
 

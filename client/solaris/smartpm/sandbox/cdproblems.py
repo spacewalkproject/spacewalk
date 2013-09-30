@@ -2,7 +2,7 @@ import sys
 sys.argv = ["./smart.py", "test"]
 execfile('./smart.py')
 import user
-    
+
 # Check if upgrading a package would require upgrading another
 # package which is in a higher numbered CD.
 

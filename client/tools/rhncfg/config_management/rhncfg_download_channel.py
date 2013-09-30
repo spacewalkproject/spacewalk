@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -32,18 +32,18 @@ class Handler(handler_base.HandlerBase):
     def run(self):
         log_debug(2)
         r = self.repository
-        
+
         if not self.args:
             die(6, "No config channels specified")
-        
+
         topdir = self.options.topdir
         if not topdir:
             die(7, "--topdir not specified")
-            
+
         if not os.path.isdir(topdir):
             die(8, "--topdir specified, but `%s' not a directory" %
                 topdir)
-            
+
         for ns in self.args:
             if not r.config_channel_exists(ns):
                 die(6, "Error: config channel %s does not exist" % ns)

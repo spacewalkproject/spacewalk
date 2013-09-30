@@ -14,7 +14,7 @@ def main():
     server_name = "www.redhat.com"
     server_port = 443
     ca_cert = "/usr/share/rhn/RHNS-CA-CERT"
-                
+
     try:
         run_test(server_name, server_port, ca_cert)
     except SSL.SSL.Error, e:

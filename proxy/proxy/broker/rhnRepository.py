@@ -82,15 +82,15 @@ class Repository(rhnRepository.Repository):
         mapping = cPickle.loads(pickledMapping)
 
         # If the file name has parameters, it's a different kind of package.
-        # Determine the architecture requested so we can construct an 
+        # Determine the architecture requested so we can construct an
         # appropriate filename.
         if type(pkgFilename) == types.ListType:
             arch = pkgFilename[3]
             if isSolarisArch(arch):
                 pkgFilename = "%s-%s-%s.%s.pkg" % \
-                    (pkgFilename[0], 
-                     pkgFilename[1], 
-                     pkgFilename[2], 
+                    (pkgFilename[0],
+                     pkgFilename[1],
+                     pkgFilename[2],
                      pkgFilename[3])
 
         if not mapping.has_key(pkgFilename):
@@ -107,7 +107,7 @@ class Repository(rhnRepository.Repository):
 
     def getSourcePackagePath(self, pkgFilename):
         """ OVERLOADS getSourcePackagePath in common/rhnRepository.
-            snag src.rpm and nosrc.rpm from local repo, after ensuring 
+            snag src.rpm and nosrc.rpm from local repo, after ensuring
             we are authorized to fetch it.
         """
 
@@ -284,7 +284,7 @@ def cache(stringObject, directory, filename, version):
     while tries > 0:
         # Try to create this new file
         try:
-            fd = os.open(tempfile, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 
+            fd = os.open(tempfile, os.O_WRONLY | os.O_CREAT | os.O_EXCL,
                 0644)
         except OSError, e:
             if e.errno == 17:

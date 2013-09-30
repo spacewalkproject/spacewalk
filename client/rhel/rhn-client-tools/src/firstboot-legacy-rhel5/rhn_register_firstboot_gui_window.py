@@ -13,7 +13,7 @@ import rhnregGui
 class RhnRegisterFirstbootGuiWindow(FirstbootModuleWindow):
     """This is a base class for our firstboot screens. It shouldn't be used
     directly.
-    
+
     """
     needsparent = 1
 
@@ -37,9 +37,9 @@ class RhnRegisterFirstbootGuiWindow(FirstbootModuleWindow):
 
     def launch(self, doDebug=None):
         """Firstboot calls this to set up the screen. It will use the _getVbox
-        method provided by the derived classes to get the contents of the 
+        method provided by the derived classes to get the contents of the
         screen.
-        
+
         """
         self.doDebug = doDebug
         if self.doDebug:
@@ -55,11 +55,11 @@ class RhnRegisterFirstbootGuiWindow(FirstbootModuleWindow):
 
         internalVBox.pack_start(vbox, True)
         self.mainVBox.pack_start(internalVBox, True)
-        
+
         # Set up cursor changing functions. Overriding functions that aren't in
-        # classes like this could be called a hack, but I think it's the best 
+        # classes like this could be called a hack, but I think it's the best
         # we can do with the current overall setup and isn't too bad.
-        # Having it here will cause this to get called once per module, but I'm 
+        # Having it here will cause this to get called once per module, but I'm
         # not sure if it'll work to put it in the constructor.
         def mySetBusyCursor():
             cursor = gtk.gdk.Cursor(gtk.gdk.WATCH)
@@ -82,7 +82,7 @@ class RhnRegisterFirstbootGuiWindow(FirstbootModuleWindow):
                 gtk.main_iteration(False)
         rhnregGui.setBusyCursor = mySetBusyCursor
         rhnregGui.setArrowCursor = mySetArrowCursor
-        
+
         return self.mainVBox, self.icon, self.windowTitle
 
     def grabFocus(self):
@@ -98,7 +98,7 @@ class RhnRegisterFirstbootGuiWindow(FirstbootModuleWindow):
             text = error
         dlg = messageWindow.ErrorDialog(text)
         self._goImmediatelyToFinish()
-    
+
     def _goImmediatelyToFinish(self):
         self.parent.setPage("rhn_finish_gui")
         def dummyApply(self, *args):

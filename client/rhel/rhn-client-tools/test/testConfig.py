@@ -23,9 +23,9 @@ class TestConfig(unittest.TestCase):
         pass
 
     def tearDown(self):
-        config.cfg == None 
+        config.cfg == None
         testutils.restoreConfig()
-        
+
     def testEmptyInit(self):
         "Verify that the class can be created with no arguments"
         cfg = config.initUp2dateConfig(test_up2date)
@@ -144,8 +144,8 @@ class TestConfig(unittest.TestCase):
         "Verify that Config.load() works without exception"
         cfg = config.initUp2dateConfig(test_up2date)
         cfg.load("/etc/sysconfig/rhn/up2date")
-        
-        
+
+
     def testNetworkConfig(self):
         "Verify that the NetworkConfig class can be created"
         nc = config.NetworkConfig()

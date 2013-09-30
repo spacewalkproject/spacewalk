@@ -76,9 +76,9 @@ def main():
         Option('-?','--usage',      action='store_true', help='Briefly describe the options'),
         Option('-N','--new-cache',  action='store_true', help='Create a new username/password cache'),
         Option(     '--extended-test',  action='store_true', help='Perform a more verbose test'),
-        Option(     '--no-session-caching',  action='store_true', 
+        Option(     '--no-session-caching',  action='store_true',
             help='Disables session-token authentication.'),
-        Option(     '--tolerant',   action='store_true', 
+        Option(     '--tolerant',   action='store_true',
             help='If rhnpush errors while uploading a package, continue uploading the rest of the packages.'),
         Option(     '--ca-chain',     action='store',      help='alternative SSL CA Cert')
     ]
@@ -92,7 +92,7 @@ def main():
     optionParser = OptionParser(option_list=optionsTable, usage="%prog [OPTION] [<package>]")
     manager = rhnpush_confmanager.ConfManager(optionParser, true_list)
     options = manager.get_config()
-    
+
     upload = UploadClass(options, files=options.files)
 
     if options.usage:
@@ -124,7 +124,7 @@ def main():
     if options.newest:
         if not options.channel:
             upload.die(1, "Must specify a channel for --newest to work")
-            
+
         upload.newest()
 
     if not upload.files:
@@ -149,7 +149,7 @@ def main():
     ret = upload.packages()
     if ret != 0:
         return 1
-    
+
 class UploadClass(uploadLib.UploadClass):
     # pylint: disable=E1101,W0201
     def __init__(self, options, files=None):
@@ -310,7 +310,7 @@ class UploadClass(uploadLib.UploadClass):
         ping_status, errmsg, headerinfo = ping.ping()
         self.warn(2, "Result codes:", ping_status, errmsg)
 
-        
+
         # move patch clusters to the end because all the patches in the cluster
         # have to be pushed before the cluster itself
         files1 = []
@@ -334,10 +334,10 @@ class UploadClass(uploadLib.UploadClass):
             self.die(-1, "Pushing to Satellite < 4.1.0 is not supported.")
 
         (server_digest_hash, pkgs_info, digest_hash) = self.check_package_exists()
-            
+
         for pkg in self.files:
             ret = None #pkilambi:errors off as not initialized.this fixes it.
-    
+
             #temporary fix for picking pkgs instead of full paths
             pkg_key = (pkg.strip()).split('/')[-1]
 
@@ -374,7 +374,7 @@ class UploadClass(uploadLib.UploadClass):
                         self.die(-1, msg)
                     self.warn(0, msg)
                     continue
-                
+
             for _t in range(0, tries):
                 try:
                     ret = self.package(pkg, checksum_type, checksum)
@@ -419,7 +419,7 @@ class UploadClass(uploadLib.UploadClass):
                     self.die(1, "Giving up after %d attempts" % tries)
                 else:
                     print "Giving up after %d attempts and continuing on..." % (tries,)
-                
+
             #5/13/05 wregglej - 154248 ?? we still want to add the packages if they're source.
             if ret and self.channels: # and ret['arch'] != 'src':
                 # Don't bother to add the package if
@@ -435,7 +435,7 @@ class UploadClass(uploadLib.UploadClass):
         }
         if self.orgId == '' or self.orgId > 0:
             info['orgId'] = self.orgId
-    
+
         #2/3/06 wregglej 173287 Added check to see if we can use session tokens.
         if channel_packages:
             self.authenticate()
@@ -448,8 +448,8 @@ class UploadClass(uploadLib.UploadClass):
         self.warn(2, "Computing checksum and package info. This may take some time ...")
         pkg_hash = {}
         digest_hash = {}
-        
-        for pkg in self.files: 
+
+        for pkg in self.files:
             pkg_info = {}
             pkg_key = (pkg.strip()).split('/')[-1]
 
@@ -472,10 +472,10 @@ class UploadClass(uploadLib.UploadClass):
                     self.die(-1, "ERROR: %s: No such file or directory available" % pkg)
                 self.warn(2, "ERROR: %s: No such file or directory available" % pkg)
                 continue
-                        
+
             digest_hash[pkg_key] =  (a_pkg.checksum_type, a_pkg.checksum)
             a_pkg.input_stream.close()
-            
+
             for tag in ('name', 'version', 'release', 'epoch', 'arch'):
                 val = a_pkg.header[tag]
                 if val is None:
@@ -485,7 +485,7 @@ class UploadClass(uploadLib.UploadClass):
             #instead of checking arch in header
             if a_pkg.header.is_source:
                 if not self.options.source:
-                    self.die(-1, "ERROR: Trying to Push src rpm, Please re-try with --source.") 
+                    self.die(-1, "ERROR: Trying to Push src rpm, Please re-try with --source.")
                 if RPMTAG_NOSOURCE in a_pkg.header.keys():
                     pkg_info['arch'] = 'nosrc'
                 else:
@@ -499,7 +499,7 @@ class UploadClass(uploadLib.UploadClass):
             orgid = 'null'
         else:
             orgid = ''
-            
+
         info = {
             'packages' : pkg_hash,
             'channels' : self.channels,
@@ -549,9 +549,9 @@ class UploadClass(uploadLib.UploadClass):
             packaging = h.packaging
         else:
             packaging = 'rpm'
-            
+
         if packaging == 'rpm' and self.options.nosig is None and not h.is_signed():
-            #pkilambi:bug#173886:force exit to check for sig if --nosig 
+            #pkilambi:bug#173886:force exit to check for sig if --nosig
             raise uploadLib.UploadError("ERROR: %s: unsigned rpm (use --nosig to force)"% package)
 
         try:
@@ -619,10 +619,10 @@ class UploadClass(uploadLib.UploadClass):
         if status == 403:
             #auth expired raise an exception to grab one
             raise AuthenticationRequired()
-        
+
         if status != 200:
             self.die(1, "Error pushing %s: %s (%s)" % (package, msgstr, status))
-            
+
         return ret
 
 class AuthenticationRequired(Exception):

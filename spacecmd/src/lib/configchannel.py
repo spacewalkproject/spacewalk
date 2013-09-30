@@ -393,7 +393,7 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
     # returns the file_info dict needed to create the file in either
     # the configchannel or sytem sandbox/local-override respectively
     #
-    # file_info is the existing info from lookupFileInfo or None if 
+    # file_info is the existing info from lookupFileInfo or None if
     # no file for this path exists already
 
     # initialize here instead of multiple times below
@@ -839,7 +839,7 @@ def export_configchannel_getdetails(self, channel):
     # need them on import anyway
     # We also strip some other fields which are not useful on import
     # This is a bit complicated because the createOrUpdateFoo functions
-    # take two different struct formats, which are both different to 
+    # take two different struct formats, which are both different to
     # the format returned by lookupFileInfo, doh!
     # We get:                         We need:
     #                                 (file/dir)      (symlink)
@@ -1013,7 +1013,7 @@ def import_configchannel_fromdetails(self, ccdetails):
                     isdir = False
                     # If binary files (or those containing characters which are
                     # invalid in XML, e.g the ascii escape character) are
-                    # exported, on older API versions, you end up with a file 
+                    # exported, on older API versions, you end up with a file
                     # with no "contents" key (
                     # I guess the best thing to do here flag an error and
                     # import everything else
@@ -1225,25 +1225,25 @@ def do_configchannel_diff(self, args):
 
     return diff( source_data, target_data, source_channel, target_channel )
 
-####################                                             
-                                             
+####################
+
 def help_configchannel_sync(self):
     print 'configchannel_sync:'
     print 'sync config files between two config channels'
     print ''
     print 'usage: configchannel_sync SOURCE_CHANNEL TARGET_CHANNEL'
-    
+
 def complete_configchannel_sync(self, text, line, beg, end):
     parts = shlex.split(line)
     if line[-1] == ' ': parts.append('')
     args = len(parts)
-    
+
     if args == 2:
         return tab_completer(self.do_configchannel_list('', True), text)
     if args == 3:
         return tab_completer(self.do_configchannel_list('', True), text)
     return []
-    
+
 def do_configchannel_sync(self, args, doreturn = False):
     options = []
 
@@ -1252,10 +1252,10 @@ def do_configchannel_sync(self, args, doreturn = False):
     if len(args) != 1 and len(args) != 2:
         self.help_configchannel_sync()
         return
-        
+
     source_channel = args[0]
     if not self.check_configchannel( source_channel ): return
-    
+
     target_channel = None
     if len(args) == 2:
         target_channel = args[1]
@@ -1263,8 +1263,8 @@ def do_configchannel_sync(self, args, doreturn = False):
         # can a corresponding channel name be found automatically?
         target_channel=self.do_configchannel_getcorresponding( source_channel)
     if not self.check_configchannel( target_channel ): return
-        
-    logging.info( "syncing files from configchannel "+source_channel+" to "+target_channel )    
+
+    logging.info( "syncing files from configchannel "+source_channel+" to "+target_channel )
 
     source_files = set( self.do_configchannel_listfiles( source_channel, doreturn = True ) )
     target_files = set( self.do_configchannel_listfiles( target_channel, doreturn = True ) )
@@ -1288,22 +1288,22 @@ def do_configchannel_sync(self, args, doreturn = False):
         print
 
     if both:
-        print "files that are in both channels will be overwritten in the target channel" 
+        print "files that are in both channels will be overwritten in the target channel"
     if source_only:
-        print "files only in the source channel will be added to the target channel"        
+        print "files only in the source channel will be added to the target channel"
     if target_only:
         print "files only in the target channel will be deleted"
 
     if not (both or source_only or target_only):
         logging.info( "nothing to do" )
         return
-        
+
     if not self.user_confirm('perform synchronisation [y/N]:'): return
-    
+
     source_data_list = self.client.configchannel.lookupFileInfo(\
-                                      self.session, source_channel, 
+                                      self.session, source_channel,
                                       list( both  ) + list(source_only) )
-        
+
     for source_data in source_data_list:
         if source_data.get('type') == 'file' or source_data.get('type') == 'directory':
             if source_data.get('contents') and not source_data.get('binary'):
@@ -1323,14 +1323,14 @@ def do_configchannel_sync(self, args, doreturn = False):
             }
             for k,v in target_data.items():
                 if not v:
-                    del target_data[k]            
+                    del target_data[k]
             logging.debug( source_data.get('path') + ": " + str(target_data) )
             self.client.configchannel.createOrUpdatePath(self.session,
                                                          target_channel,
                                                          source_data.get('path'),
                                                          source_data.get('type') == 'directory',
                                                          target_data)
-                   
+
         elif source_data.get('type') == 'symlink':
             target_data = {
                 'target_path':  source_data.get('target_path'),
@@ -1341,14 +1341,14 @@ def do_configchannel_sync(self, args, doreturn = False):
                                                             target_channel,
                                                             source_data.get('path'),
                                                             target_data )
-            
+
         else:
             logging.warning( "unknown file type " + source_data.type )
-            
-            
+
+
     # removing all files from target channel that did not exist on source channel
     if target_only:
-        #self.do_configchannel_removefiles( target_channel + " " + "/.metainfo" + " ".join(target_only) )    
+        #self.do_configchannel_removefiles( target_channel + " " + "/.metainfo" + " ".join(target_only) )
         self.do_configchannel_removefiles( target_channel + " " + " ".join(target_only) )
-    
+
 # vim:ts=4:expandtab:

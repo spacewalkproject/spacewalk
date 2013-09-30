@@ -43,7 +43,7 @@ _PROXY_VERSION = '5.5.0' # HISTORY: '0.9.7', '3.2.0', '3.5.0', '3.6.0', '4.1.0',
 
 
 class BrokerHandler(SharedHandler):
-    """ Spacewalk Proxy broker specific handler code called by rhnApache. 
+    """ Spacewalk Proxy broker specific handler code called by rhnApache.
 
         Workflow is:
         Client -> Apache:Broker -> Squid -> Apache:Redirect -> Satellite
@@ -51,7 +51,7 @@ class BrokerHandler(SharedHandler):
         Broker handler get request from clients from outside. Some request
         (POST and HEAD) bypass cache so, it is passed directly to parent.
         For everything else we transform destination to localhost:80 (which
-        is handled by Redirect handler) and set proxy as local squid. 
+        is handled by Redirect handler) and set proxy as local squid.
         This way we got all request cached localy by squid.
     """
 
@@ -101,10 +101,10 @@ class BrokerHandler(SharedHandler):
         self._initConnectionVariables(req)
 
     def _initConnectionVariables(self, req):
-        """ set connection variables 
+        """ set connection variables
             NOTE: self.{caChain,rhnParent,httpProxy*} are initialized
                   in SharedHandler
-        
+
             rules:
                 - GET requests:
                       . are non-SSLed (potentially SSLed by the redirect)
@@ -183,7 +183,7 @@ class BrokerHandler(SharedHandler):
         else:
             ip_path += ',' + client_ip
         _oto['X-RHN-IP-Path'] = ip_path
-            
+
         # NOTE: X-RHN-Proxy-Auth described in broker/rhnProxyAuth.py
         log_debug(5, 'X-RHN-Proxy-Auth currently set to: %s' % repr(_oto['X-RHN-Proxy-Auth']))
 
@@ -221,7 +221,7 @@ class BrokerHandler(SharedHandler):
                       % repr(_oto['X-RHN-Proxy-Auth']))
 
         log_debug(3, 'Trying to connect to parent')
-            
+
         # Loops twice? Here's why:
         #   o If no errors, the loop is broken and we move on.
         #   o If an error, either we get a new token and try again,
@@ -302,7 +302,7 @@ class BrokerHandler(SharedHandler):
             return (None, None, None, None)
         else:
             return (args[1], args[2], args[3], args[4:])
-            
+
     # --- PRIVATE METHODS ---
 
     def __handleAction(self, headers):
@@ -428,7 +428,7 @@ class BrokerHandler(SharedHandler):
 
     def __callLocalRepository(self, channelName, funct, params):
         """ Contacts the local repository and retrieves files
-        
+
             URI looks like:
               /$RHN/<channel>/<function>/<params>
         """

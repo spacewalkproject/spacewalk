@@ -182,7 +182,7 @@ class GtkProgress(Progress, gtk.Window):
 
     def expose(self, topic, percent, subkey, subtopic, subpercent, data, done):
         gtk.Window.show(self)
-        
+
         if self._hassub and subkey:
             if subkey in self._subiters:
                 iter = self._subiters[subkey]
@@ -228,11 +228,11 @@ gobject.type_register(GtkProgress)
 class ProgressCellRenderer(gtk.GenericCellRenderer):
 
     __gproperties__ = {
-        "percent": (gobject.TYPE_INT, "Percent", 
+        "percent": (gobject.TYPE_INT, "Percent",
                     "Progress percentage", 0, 100, 0,
                     gobject.PARAM_READWRITE),
     }
-                     
+
     def __init__(self):
         self.__gobject_init__()
         self.percent = 0

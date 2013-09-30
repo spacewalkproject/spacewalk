@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import sys
@@ -36,12 +36,12 @@ def main():
 
 class Runner(jabber_lib.Runner):
     client_factory = dispatcher_client.Client
-    
+
     # We want the dispatcher to check in quite often in case the jabberd
     # connection drops
     _min_sleep = 10
     _max_sleep = 10
-    
+
     def __init__(self):
         jabber_lib.Runner.__init__(self)
         initCFG("osa-dispatcher")
@@ -150,7 +150,7 @@ class Runner(jabber_lib.Runner):
         client_jids = map(lambda x: x[0], client_jids)
         # Unsubscribe the dispatcher from any client jid that no longer exists
         self.cleanup_roster(c, client_jids)
-        
+
         c.send_presence()
         return c
 
@@ -172,7 +172,7 @@ class Runner(jabber_lib.Runner):
             stripped_jid = str(stripped_jid)
             if not active_stripped_jids.has_key(stripped_jid):
                 to_remove.append(stripped_jid)
-        
+
         client.cancel_subscription(to_remove)
 
     def process_once(self, client):
@@ -204,7 +204,7 @@ class Runner(jabber_lib.Runner):
             self._tcp_server.notify_jabber_nodes()
         else:
             log_debug(5,"Not notifying jabber nodes")
-        
+
 
     _query_reap_pinged_clients = rhnSQL.Statement("""
         update rhnPushClient
@@ -249,7 +249,7 @@ class Runner(jabber_lib.Runner):
 
         # XXX Need config option
         delta = 20
-        
+
         client_ids = map(lambda x: x['id'], clients)
         deltas = [ delta ] * len(client_ids)
         h = rhnSQL.prepare(self._query_update_clients_to_be_pinged)
@@ -266,7 +266,7 @@ class Runner(jabber_lib.Runner):
         assert row is not None
         self._state_ids[state] = row['id']
         return row['id']
-    
+
 
     _query_update_register_dispatcher = rhnSQL.Statement("""
             update rhnPushDispatcher
@@ -276,7 +276,7 @@ class Runner(jabber_lib.Runner):
              where jabber_id = :jabber_id_in
     """)
     _query_insert_register_dispatcher = rhnSQL.Statement("""
-                insert into rhnPushDispatcher 
+                insert into rhnPushDispatcher
                        (id, jabber_id, last_checkin, hostname, port, password)
                 values (sequence_nextval('rhn_pushdispatch_id_seq'), :jabber_id_in, current_timestamp,
                        :hostname_in, :port_in, :password_in)
@@ -307,13 +307,13 @@ class Runner(jabber_lib.Runner):
             # clients that just checked in
             ret.append((row['jabber_id'], row['modified']))
         return ret
-        
+
 
 class UpstreamServer(SocketServer.TCPServer):
     def __init__(self, server_address):
         SocketServer.TCPServer.__init__(self, server_address, None)
         self._next_poll_interval = None
-    
+
     def get_server_port(self):
         return self.server_address[1]
 
@@ -350,16 +350,16 @@ class UpstreamServer(SocketServer.TCPServer):
                 self._next_poll_interval = min(delta, npi)
                 log_debug(4, "Next poll interval", delta)
                 continue
-            
+
             jabber_id = row['jabber_id']
             if jabber_id is None:
                 # Not even online
                 continue
-            
+
             if not self.jabber_connection.jid_available(jabber_id):
                 log_debug(4, "Node %s not available for notifications" %
                     jabber_id)
-                # iterate further, in case there are other clients that 
+                # iterate further, in case there are other clients that
                 # CAN be notified.
                 continue
 

@@ -18,7 +18,7 @@ def requiredByPackageObsoletingCL9(pkg, donemap=None):
                                     repos = loader.getRepository()
                                     if repos.getName().startswith("cl9"):
                                         raise StopIteration
-                    if (reqpkg not in donemap and 
+                    if (reqpkg not in donemap and
                         requiredByPackageObsoletingCL9(reqpkg, donemap)):
                         raise StopIteration
     except StopIteration:

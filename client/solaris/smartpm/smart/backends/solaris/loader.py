@@ -54,7 +54,7 @@ class SolarisPackageInfo(PackageInfo):
     def getURLs(self):
         info = self._info
         if "location" in info and "baseurl" in info:
-            return [os.path.join(info["baseurl"], 
+            return [os.path.join(info["baseurl"],
                                  info["location"],
                                  info["filename"])]
         return []
@@ -99,7 +99,7 @@ class SolarisLoader(Loader):
 
             if self._baseurl:
                 info["baseurl"] = self._baseurl
-            
+
             pkg.loaders[self] = info
 
             prog.add(1)
@@ -123,7 +123,7 @@ class SolarisDBLoader(SolarisLoader):
         self._dir = dir
         self._pdir = pdir
         self.setInstalled(True)
-    
+
     def getInfoList(self):
 
         # Packages
@@ -152,7 +152,7 @@ class SolarisDBLoader(SolarisLoader):
             if type(output) == type(""):
                 output = output.splitlines()
             for entry in output:
-                if not entry.startswith("Patch: "): 
+                if not entry.startswith("Patch: "):
                     continue
                 info = parsePatchLine(entry.rstrip())
                 if info and info["name"]:
@@ -240,7 +240,7 @@ class SolarisRHNLoader(SolarisLoader):
     def __init__(self, pkgs):
         SolarisLoader.__init__(self)
         self._pkgs = pkgs
-    
+
     def getInfoList(self):
         infolst = []
         for pkg in self._pkgs:
@@ -261,7 +261,7 @@ class SolarisRHNLoader(SolarisLoader):
             if name.startswith("patch-solaris-") or \
                name.startswith("patch-cluster-solaris-"):
                 extension = "zip"
-            
+
             info["filename"] = "%s-%s-%s.%s.%s" % (pkg[0], pkg[1], pkg[2], pkg[4], extension)
 
             # Provides
@@ -273,7 +273,7 @@ class SolarisRHNLoader(SolarisLoader):
                 if len(m) == 1:
                     name = m[0]
                 if name:
-                    if ver: 
+                    if ver:
                         ver = ver
                     else:
                         ver = None
@@ -351,11 +351,11 @@ def parsePackageInfo(text):
             description = line[5:].strip()
         elif line.startswith("PSTAMP="):
             pstamp = parse_pstamp_string(line[7:].strip())
-    
+
     info = {}
     if not pkg or not name:
         return info
-    
+
     info["name"] = pkg
     if pkg.startswith("SUNW"):
         info["summary"] = pkg
@@ -496,7 +496,7 @@ def parsePatchLine(line):
     # Change them to lists
     obsoletes = obsoletes and obsoletes.split(", ") or []
     requires = requires and requires.split(", ") or []
-    
+
     # bug 170725: remove invalid output from showrev -p
     # thank you Richard from UBS
     my_temp = []
@@ -508,7 +508,7 @@ def parsePatchLine(line):
 
     for my_patch in my_temp:
        requires.remove(my_patch)
-       
+
     conflicts = conflicts and conflicts.split(", ") or []
     packages = packages and packages.split(", ") or []
 
@@ -536,10 +536,10 @@ def parsePatchData(text):
             conflicts = conflicts and conflicts.split(" ") or []
         elif line.startswith("PKG="):
             packages.append(line[4:].strip())
-    
+
     if not patch:
         return {}
-   
+
     info = createPatchInfo(patch, packages, requires, obsoletes, conflicts)
 
     return info
@@ -656,7 +656,7 @@ def getPatchData(filename):
             if not file.endswith("pkginfo"): continue
             data = data + z.read(file)
             data = data + "\n"
-    
+
     return data
 
 

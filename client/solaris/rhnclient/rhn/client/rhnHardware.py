@@ -28,6 +28,6 @@ def updateHardware():
     #print _("Updating package profile...")
 
     s = rpcServer.getServer()
-    
+
     hardwareList = hardware.Hardware()
     s.registration.refresh_hw_profile(registered, hardwareList)

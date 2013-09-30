@@ -150,7 +150,7 @@ class GtkChannels(object):
                 if not disabled:
                     sysconf.set(("channels", row[1], "disabled"), True)
                     self._changed = True
-            
+
     def show(self):
         self.fill()
         self._window.show()
@@ -221,7 +221,7 @@ class GtkChannels(object):
                 file.close()
                 if succ[url].startswith(sysconf.get("data-dir")):
                     os.unlink(succ[url])
-            
+
             newchannels = parseChannelsDescription(data)
             for alias in newchannels:
                 newchannel = newchannels[alias]
@@ -264,7 +264,7 @@ class GtkChannels(object):
                     self._changed = True
                     if newchannel.get("removable"):
                         removable.append(alias)
-            
+
             if not foundchannel:
                 iface.error(_("No channels detected!"))
                 return
@@ -556,7 +556,7 @@ class ChannelEditor(object):
                         value = newchannel["alias"]
                         if not value:
                             raise Error, _("Invalid alias!")
-                        if (value != alias and 
+                        if (value != alias and
                             sysconf.has(("channels", value))):
                             raise Error, _("Alias already in use!")
                         if not alias:
@@ -601,7 +601,7 @@ class TypeSelector(object):
         table.set_col_spacings(10)
         table.show()
         vbox.pack_start(table)
-        
+
         label = gtk.Label(_("Type:"))
         label.set_alignment(1.0, 0.0)
         label.show()
@@ -696,7 +696,7 @@ class MethodSelector(object):
         table.set_col_spacings(10)
         table.show()
         vbox.pack_start(table)
-        
+
         label = gtk.Label(_("Method:"))
         label.set_alignment(1.0, 0.0)
         label.show()
@@ -798,7 +798,7 @@ class MountPointSelector(object):
         table.set_col_spacings(10)
         table.show()
         vbox.pack_start(table)
-        
+
         label = gtk.Label(_("Media path:"))
         label.set_alignment(1.0, 0.0)
         label.show()

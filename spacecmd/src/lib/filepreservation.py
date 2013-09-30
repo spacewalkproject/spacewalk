@@ -75,7 +75,7 @@ def do_filepreservation_create(self, args):
     print 'File List'
     print '---------'
     print '\n'.join(sorted(files))
-    
+
     if not self.user_confirm(): return
 
     self.client.kickstart.filepreservation.create(self.session,
@@ -124,9 +124,9 @@ def do_filepreservation_details(self, args):
     name = args[0]
 
     details = \
-        self.client.kickstart.filepreservation.getDetails(self.session, 
+        self.client.kickstart.filepreservation.getDetails(self.session,
                                                           name)
 
-    print '\n'.join(sorted(details.get('file_names')))        
+    print '\n'.join(sorted(details.get('file_names')))
 
 # vim:ts=4:expandtab:

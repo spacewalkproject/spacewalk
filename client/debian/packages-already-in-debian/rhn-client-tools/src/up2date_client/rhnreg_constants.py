@@ -17,11 +17,11 @@ COPYRIGHT_TEXT        = _(u"Copyright © 2006--2010 Red Hat, Inc. All rights res
 CONNECT_WINDOW        = _("Attempting to contact the Red Hat Network server.")
 CONNECT_WINDOW_TEXT   = _("We are attempting to contact the Red Hat "
                           "Network server at %s.")
-CONNECT_WINDOW_TEXT2  = _("A proxy was specified at %s.")                          
+CONNECT_WINDOW_TEXT2  = _("A proxy was specified at %s.")
 
 # Start Window
 START_REGISTER_WINDOW = _("Registering for software updates")
-START_REGISTER_TEXT   = _("This assistant will guide you through " 
+START_REGISTER_TEXT   = _("This assistant will guide you through "
                           "connecting your system to "
                           "Red Hat Network (RHN) to receive software "
                           "updates, including "
@@ -34,7 +34,7 @@ START_REGISTER_TEXT   = _("This assistant will guide you through "
                           "or Proxy (optional)\n\n")
 
 # Why Register Window
-WHY_REGISTER          = _("Why Should I Connect to RHN? ...")                  
+WHY_REGISTER          = _("Why Should I Connect to RHN? ...")
 WHY_REGISTER_WINDOW   = _("Why Register")
 WHY_REGISTER_TEXT     = _("Connecting your system to Red Hat Network allows you to take full "
                           "advantage of the benefits of a paid subscription, including:")
@@ -114,7 +114,7 @@ PACKAGES_WINDOW_PKGLIST = _("Building Package List")
 # Product Window
 HOSTED_LOGIN_PROMPT    = _("Please enter your login information for Red "
                            "Hat Network (http://rhn.redhat.com/):\n\n")
-HOSTED_LOGIN_TIP       = _("Tip: Forgot your login or password? " 
+HOSTED_LOGIN_TIP       = _("Tip: Forgot your login or password? "
                             "Visit: https://rhn.redhat.com/rhn/sales/LoginInfo.do")
 EMAIL                  = _("*Email Address:")
 
@@ -220,7 +220,7 @@ MANAGEMENT              = _("Management module: automatic updates, systems "
                             "grouping, systems permissions, system package profiling")
 PROVISIONING            = _("Provisioning module: bare-metal provisioning, existing state provisioning, "
                             "rollbacks, configuration management")
-MONITORING              = _("Monitoring module: pre-defined and custom system " 
+MONITORING              = _("Monitoring module: pre-defined and custom system "
                             "performance probes, system performance email "
                             "notifications, graphs of system performance")
 
@@ -253,11 +253,11 @@ NO_SYS_ENTITLEMENT         = _("This system was unable to be associated with "
 "re-connect this system to Red Hat Network.")
 ACTIVATION_KEY          = _("Universal default activation key detected\n"
                             "A universal default activation key was detected in your RHN organization. "
-                            "What this means is that a set of properties (software channel subscriptions, " 
+                            "What this means is that a set of properties (software channel subscriptions, "
                             "Red Hat Network service, package installations, system group memberships, etc.) "
                             "for your system's connection to Red Hat Network "
                             "have been determined by the activation key rather than your "
-                            "installation number.  " 
+                            "installation number.  "
                             "You may also refer to the RHN Reference Guide, section 6.4.6 for more details "
                             "about activation keys (http://rhn.redhat.com/rhn/help/reference/)\n"
                             "Universal Default activation key: %s")
@@ -284,7 +284,7 @@ SSL_CERT_ERROR_MSG         = _("<b><span size=\"16000\">Incompatible Certificate
                                "The certificate you provided, <b>%s</b>, is not compatible with "
                                " the Red Hat Network server at <b>%s</b>. You may want to double-check"
                                " that you have provided a valid certificate file."
-                               " Are you sure you have provided the correct certificate, and that" 
+                               " Are you sure you have provided the correct certificate, and that"
                                " the certificate file has not been corrupted?\n\n"
                                "Please try again with a different certificate file.")
 
@@ -315,7 +315,7 @@ CHANNEL_PAGE_WARNING = _("Warning:You will not be able to limit this"
                           " system to minor release that is older than"
                           " the recent minor release if you select this"
                           " option.\n")
- 
+
 CONFIRM_OS_WARNING      = _("Your system will be subscribed to %s \n"
                             "base software channel. You will not be\n"
                             "able to move this system to an earlier release\n"

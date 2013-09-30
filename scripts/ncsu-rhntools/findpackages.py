@@ -66,16 +66,16 @@ def match(string, unknown, epsilon = 0.0001):
         return string == unknown
 
     if isinstance(unknown, IntType) or isinstance(unknown, LongType):
-        try: 
+        try:
             i = int(string)
-        except ValueError: 
+        except ValueError:
             return False
         return unknown == i
 
     if isinstance(unknown, FloatType):
-        try: 
+        try:
             f = float(string)
-        except ValueError: 
+        except ValueError:
             return False
         return (f - epsilon) <= unknown <= (f + epsilon)
 
@@ -138,7 +138,7 @@ def bruteForceFind(p):
                         break
 
             return binpath, srcpath
-    
+
     print "Error:  Could not find packages: %s" % str(p)
     return None, None
 
@@ -155,7 +155,7 @@ def buildTreeUsing(label, rpm, srpm):
 
     if srpm == None:
         return
-    location = os.path.join(TreeLocation, label, 'SRPMS', 
+    location = os.path.join(TreeLocation, label, 'SRPMS',
                             os.path.basename(srpm))
     dir, file = os.path.split(location)
     if not os.path.exists(dir):
@@ -175,7 +175,7 @@ def test():
     q = {'package_arch_label': 'x86_64', 'package_name': 'sendmail-doc', 'package_epoch': '100', 'package_version': '8.12.11', 'package_release': '3.3.ncsu', 'package_id': 8555, 'package_last_modified': '2007-04-04 15:42:15'}
 
     print bruteForceFind(q)
- 
+
 def main():
     rhncfg = config.RHNConfig()
     rhn = RHNClient(rhncfg.getURL())

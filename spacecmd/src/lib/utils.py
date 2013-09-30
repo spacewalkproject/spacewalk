@@ -726,7 +726,7 @@ def diff( source_data, target_data, source_channel, target_channel ):
 
 def file_needs_b64_enc(self, contents):
 
-    # Used to check if files (config files primarily) need base64 encoding 
+    # Used to check if files (config files primarily) need base64 encoding
     # in order to work properly via the API
 
     # Files with trailing newlines, which the API strips from files

@@ -188,7 +188,7 @@ def do_report_ipaddresses(self, args):
     for s in report.keys():
         size = len(s)
         if size > system_max_size: system_max_size = size
-    
+
     hostname_max_size = 0
     for h in [report[h]['hostname'] for h in report]:
         size = len(h)
@@ -204,7 +204,7 @@ def do_report_ipaddresses(self, args):
 
         for system in sorted(report):
             print '%s  %s  %s' % \
-                (system.ljust(system_max_size), 
+                (system.ljust(system_max_size),
                  report[system]['hostname'].ljust(hostname_max_size),
                  report[system]['ip'].ljust(15))
 
@@ -239,7 +239,7 @@ def do_report_kernels(self, args):
     for s in report.keys():
         size = len(s)
         if size > system_max_size: system_max_size = size
-    
+
     if len(report):
         print '%s  Kernel' % ('System'.ljust(system_max_size))
 

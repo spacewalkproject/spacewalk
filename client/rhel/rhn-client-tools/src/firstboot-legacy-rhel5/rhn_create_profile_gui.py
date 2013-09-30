@@ -59,7 +59,7 @@ class RhnCreateProfileWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.CreateProf
 
     def updatePage(self):
         self.createProfilePagePrepare()
-    
+
     def _getVbox(self):
         return self.createProfilePageVbox()
 
@@ -72,7 +72,7 @@ class RhnCreateProfileWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.CreateProf
         ret = self.createProfilePageApply()
         if ret:
             return None
-        
+
         return True
 
 childWindow = RhnCreateProfileWindow

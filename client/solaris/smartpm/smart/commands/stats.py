@@ -31,7 +31,7 @@ This command will show some statistics.
 """)
 
 EXAMPLES=_("""
-smart stats 
+smart stats
 """)
 
 def parse_options(argv):

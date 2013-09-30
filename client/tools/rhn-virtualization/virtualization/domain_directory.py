@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import binascii
@@ -86,7 +86,7 @@ class DomainDirectory:
 
     def load_config(self, uuid):
         """
-        This function loads a domain's configuration by its UUID.  A 
+        This function loads a domain's configuration by its UUID.  A
         DomainConfig object is returned.
         """
         return DomainConfig(self.__path, uuid)
@@ -110,18 +110,18 @@ class DomainDirectory:
         passed in the domain_uuids list.  If the UUID is already known, it is
         skipped.
         """
-        
+
         for uuid in domain_uuids:
 
             # If we already have a config for this uuid, skip it.  Also, don't
             # try to figure out a config for a host UUID.
             if not is_host_uuid(uuid) and not self.is_known_config(uuid):
 
-                # The UUID is a formatted string.  Turn it back into a number, 
+                # The UUID is a formatted string.  Turn it back into a number,
                 # since that's what libvirt wants.
                 dehyphenized_uuid = dehyphenize_uuid(uuid)
                 uuid_as_num = binascii.unhexlify(dehyphenized_uuid)
-    
+
                 # Lookup the domain by its uuid.
                 try:
                     domain = self.conn.lookupByUUID(uuid_as_num)
@@ -138,7 +138,7 @@ class DomainDirectory:
                 cfg_file_path = self.__write_xml_file(uuid, xml)
                 new_config = DomainConfig(self.__path, uuid)
 
-                # Don't record the config this time if the domain is 
+                # Don't record the config this time if the domain is
                 # installing; we don't want to restart the domain later and
                 # make it re-install itself.
                 if not new_config.isInstallerConfig():
@@ -146,8 +146,8 @@ class DomainDirectory:
                     # Now we'll reformat the configuration object so that it's
                     # valid the next time this domain runs..
                     self.__fixup_config_for_restart(new_config)
-    
-                    # The config is now prepared.  Save it and move on to the 
+
+                    # The config is now prepared.  Save it and move on to the
                     # next uuid.
                     new_config.save()
 
@@ -165,20 +165,20 @@ class DomainDirectory:
               whatever the hypervisor wants to assign to it, so we should not
               try to assign it explicitly.
 
-            - Determine whether the config contains an <os> section.  
-                - If it does, check whether the kernel and the initrd files 
-                  it refers to actually exist on disk. 
+            - Determine whether the config contains an <os> section.
+                - If it does, check whether the kernel and the initrd files
+                  it refers to actually exist on disk.
                     - If so, do nothing.
                     - If not, remove the entire <os> section and insert a
                       <bootloader> section if one does not yet exist.  These
-                      files might not exist if the instance was started by xm 
-                      using a bootloader such as pygrub, which makes temporary 
+                      files might not exist if the instance was started by xm
+                      using a bootloader such as pygrub, which makes temporary
                       copies of the kernel & initrd and then removes them after
                       starting the instance.
                 - If it does not, ensure there is a <bootloader> section or
                   add one if needed.
         """
-        # Remove the domain ID from the XML.  This is a runtime value that 
+        # Remove the domain ID from the XML.  This is a runtime value that
         # should not be assigned statically.
         if config.hasConfigItem(DomainConfig.DOMAIN_ID):
             config.removeConfigItem(DomainConfig.DOMAIN_ID)
@@ -207,7 +207,7 @@ class DomainDirectory:
             if not config.hasConfigItem(DomainConfig.BOOTLOADER):
                 config.setConfigItem(DomainConfig.BOOTLOADER, "/usr/bin/pygrub")
 
-            
+
     def __write_xml_file(self, uuid, xml):
         cfg_pathname = self.get_config_path(uuid)
         cfg_file = open(cfg_pathname, "w")

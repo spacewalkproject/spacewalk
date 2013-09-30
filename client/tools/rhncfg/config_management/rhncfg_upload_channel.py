@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -47,17 +47,17 @@ class Handler(handler_base.HandlerBase):
         log_debug(2)
         #5/12/05 wregglej - 149034 changed r into a instance variable
         self.r = self.repository
-        
+
         topdir = self.options.topdir
         if not topdir:
             die(7, "--topdir not specified")
-            
+
         if not os.path.isdir(topdir):
             die(8, "--topdir specified, but `%s' not a directory" %
                 topdir)
 
         topdir = utils.normalize_path(topdir)
-       
+
         #5/12/05 wregglej - 149034 allowing the channel name and the directory name to vary independently.
         if not self.options.channel is None:
             #Get the list of channels with leading and trailing whitespace removed.
@@ -79,7 +79,7 @@ class Handler(handler_base.HandlerBase):
             dirs = None
 
         #If dirs isn't None, then each directory needs to be uploaded into each channel.
-        if dirs: 
+        if dirs:
             for channel in channels:
                 for directory in dirs:
                     self.upload_config_channel(topdir, channel, directory)
@@ -103,7 +103,7 @@ class Handler(handler_base.HandlerBase):
 
         if not os.path.exists(channel_dir):
             die(6, "Error: channel directory %s does not exist" % channel_dir)
-                
+
         flist = list_files_recursive(channel_dir)
 
         for (dirname, filenames) in flist:
@@ -113,7 +113,7 @@ class Handler(handler_base.HandlerBase):
             for f in filenames:
                 local_file = utils.join_path(dirname, f)
                 remote_file = utils.join_path(remote_dirname, f)
-                    
+
                 print "Uploading %s from %s" % (remote_file, local_file)
                 try:
                     self.r.put_file(channel, remote_file, local_file, is_first_revision=0,
@@ -121,7 +121,7 @@ class Handler(handler_base.HandlerBase):
                 except cfg_exceptions.RepositoryFilePushError, e:
                     log_error(e)
 
-    
+
 def is_file_or_link(dirname, basename):
     return os.path.isfile(os.path.join(dirname, basename)) or \
                         os.path.islink(os.path.join(dirname, basename))

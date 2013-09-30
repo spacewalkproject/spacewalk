@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import sys
@@ -48,7 +48,7 @@ def create_crontab_line(minute  =   None,\
         month = string.strip(str(month))
     if type(dow) != types.StringType:
         dow = string.strip(str(dow))
-    
+
     str_template = "%s %s %s %s %s %s %s\n"
 
     output_string = str_template % (minute, hour, dom, month, dow, user, command)
@@ -80,11 +80,11 @@ def schedule_poller(minute=None, hour=None, dom=None, month=None, dow=None):
         return (1, "Attempt to schedule poller failed: %s, %s" % (str(status), str(output)))
     else:
         return (0, "Scheduling of poller succeeded!")
-    
+
 
 
 if __name__ == "__main__":
-    schedule_poller(minute="0-59/2")    
-    
-    
-    
+    schedule_poller(minute="0-59/2")
+
+
+

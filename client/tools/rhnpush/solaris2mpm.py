@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 
@@ -213,7 +213,7 @@ def _run(archives=sys.argv[1:]):
                     pkg_mpm = create_pkg_mpm(archive_parser, prefix=dirname)
                     write_mpm(pkg_mpm)
                     _close_mpm(pkg_mpm)
-                        
+
 
             # don't know what the hell the customer is trying to run this on
             else:
@@ -252,8 +252,8 @@ def _is_patch_archive(archive_parser):
 
 def _is_package_archive(archive_parser):
     """[internal] Returns true iff the parser contains a patch archive"""
-    # NOTE: this functions is just to determine that the content in the archive 
-    # is indeed Solaris content. This function witll also return True for 
+    # NOTE: this functions is just to determine that the content in the archive
+    # is indeed Solaris content. This function witll also return True for
     # patches and patch cluster, so this test needs to come last!
     return archive_parser.contains("pkginfo")
 
@@ -439,7 +439,7 @@ def create_pkg_mpm(archive_parser, prefix=""):
         header.update(dct)
 
     # Provides ourself after the header has been updated with the dependency
-    # info (if at all).  This will prevent our own provides from being 
+    # info (if at all).  This will prevent our own provides from being
     # overwritten.
     provide_self(header)
 
@@ -504,7 +504,7 @@ def parse_pkginfo(pkginfo_str):
 #    header['release'] <-- release + [ "_PSTAMP_" + pstamp ]
 #
 def compose_pstamp_and_release(header):
-    
+
     release_part = ''
     if header.has_key('release'):
         release_part = str(header['release'])
@@ -814,7 +814,7 @@ def patch_list(patch_str, sense):
     if patch_str.find('(') >= 0:
         print "Unsupported patch list expression:", patch_str
         return []
-    
+
     dct = { 'name'      : None,
              'version'   : None,
              'flags'     : sense }
@@ -936,7 +936,7 @@ def _compute_pkg_name_extension(arch):
     if dot_index == -1:
         return None
 
-    # Ok.  The presence of a '.' in the arch means this is an arch-specific 
+    # Ok.  The presence of a '.' in the arch means this is an arch-specific
     # package and we should return the appropriate extension.
 
     specific_arch = arch[dot_index + 1:]
@@ -978,7 +978,7 @@ def _extract_pstamp_as_release(pstamp):
 
     if pstamp is None:
         raise PStampParseException("PSTAMP is null")
-    
+
     # Extract the last 12 characters from the pstamp.  This will represent the
     # date and time.
     date_time_stamp = pstamp[-12:]

@@ -26,7 +26,7 @@ from smart.cache import *
 import fnmatch
 import re
 
-__all__ = ["SolarisPackage", "SolarisProvides", "SolarisDepends", 
+__all__ = ["SolarisPackage", "SolarisProvides", "SolarisDepends",
           "SolarisUpgrades", "SolarisConflicts"]
 
 class SolarisPackage(Package):

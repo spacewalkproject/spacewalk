@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import sys
@@ -23,14 +23,14 @@ class ModeMissingException(Exception):
 class ModeController:
     def __init__(self, force=None):
         self.mode_list = {} #Indexed on the name of the mode
-        self.force = False  
-    
-    #Enable the mode. 
+        self.force = False
+
+    #Enable the mode.
     def on(self, mode_name):
         if self.mode_list.has_key(mode_name):
             self.mode_list[mode_name].on()
         else:
-            raise ModeMissingException()            
+            raise ModeMissingException()
 
     #Disable the mode
     def off(self, mode_name):
@@ -38,7 +38,7 @@ class ModeController:
             self.mode_list[mode_name].off()
         else:
             raise ModeMissingException()
-    
+
     #Turn on all of the modes.
     def all_on(self):
         for m in self.mode_list.keys():
@@ -105,7 +105,7 @@ class ConfigFilesModeController(ModeController):
         if mode_name != 'all':
             if self.is_off('all'):
                 ModeController.on(self, mode_name)
-                
+
                 #Go through each of the modes and see if they're on. If they're all on, then place the 'all' file in there.
                 all_modes_on = 1
                 for m in self.mode_list.keys():
@@ -136,13 +136,13 @@ class ConfigFilesModeController(ModeController):
             self.mode_list[mode_name].off()
         else:
             self.all_off()
-            
+
 
     #This is a little different when the 'all' file is used.
     #There shouldn't be any other files in the directory when 'all' is used.
     def all_on(self):
         #Get rid of all of the files.
-        self.all_off()        
+        self.all_off()
         #Turn on the 'all' mode.
         self.mode_list['all'].on()
 
@@ -160,4 +160,4 @@ def ask_before_continuing(question=None):
 
     if answer == 'n':
         sys.exit(0)
-            
+

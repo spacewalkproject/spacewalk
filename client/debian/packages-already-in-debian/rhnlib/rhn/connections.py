@@ -28,7 +28,7 @@ class HTTPResponse(httplib.HTTPResponse):
 
 class HTTPConnection(httplib.HTTPConnection):
     response_class = HTTPResponse
-    
+
     def __init__(self, host, port=None):
         if python_version() >= '2.6.1':
             httplib.HTTPConnection.__init__(self, host, port, timeout=SSL.DEFAULT_TIMEOUT)
@@ -84,7 +84,7 @@ class HTTPConnection(httplib.HTTPConnection):
             response = self.response_class(self.sock, self.debuglevel)
         else:
             response = self.response_class(self.sock)
-        
+
         # The only modification compared to the stock HTTPConnection
         if self._cb_callback:
             response.set_callback(self._cb_rs, self._cb_ws, self._cb_ex,
@@ -135,7 +135,7 @@ class HTTPProxyConnection(HTTPConnection):
         HTTPConnection.putrequest(self, method, newurl, skip_host=skip_host)
         # Add proxy-specific headers
         self._add_proxy_headers()
-        
+
     def _add_proxy_headers(self):
         if not self.__username:
             return
@@ -143,7 +143,7 @@ class HTTPProxyConnection(HTTPConnection):
         userpass = "%s:%s" % (self.__username, self.__password)
         enc_userpass = base64.encodestring(userpass).replace("\n", "")
         self.putheader("Proxy-Authorization", "Basic %s" % enc_userpass)
-        
+
 class HTTPSConnection(HTTPConnection):
     response_class = HTTPResponse
     default_port = httplib.HTTPSConnection.default_port
@@ -190,7 +190,7 @@ class HTTPSProxyResponse(HTTPResponse):
 class HTTPSProxyConnection(HTTPProxyConnection):
     default_port = HTTPSConnection.default_port
 
-    def __init__(self, proxy, host, port=None, username=None, password=None, 
+    def __init__(self, proxy, host, port=None, username=None, password=None,
             trusted_certs=None):
         HTTPProxyConnection.__init__(self, proxy, host, port, username, password)
         trusted_certs = trusted_certs or []
@@ -199,7 +199,7 @@ class HTTPSProxyConnection(HTTPProxyConnection):
     def connect(self):
         # Set the connection with the proxy
         HTTPProxyConnection.connect(self)
-        # Use the stock HTTPConnection putrequest 
+        # Use the stock HTTPConnection putrequest
         host = "%s:%s" % (self._host, self._port)
         HTTPConnection.putrequest(self, "CONNECT", host)
         # Add proxy-specific stuff
@@ -209,7 +209,7 @@ class HTTPSProxyConnection(HTTPProxyConnection):
         # Save the response class
         response_class = self.response_class
         # And replace the response class with our own one, which does not
-        # close the connection after 
+        # close the connection after
         self.response_class = HTTPSProxyResponse
         response = HTTPConnection.getresponse(self)
         # Restore the response class

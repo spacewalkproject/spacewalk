@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -24,30 +24,30 @@ from config_common.rhn_log import log_debug
 import traceback
 
 class ClientRepository(repository.RPC_Repository):
-    
+
     default_systemid = "/etc/sysconfig/rhn/systemid"
-    
+
     # bug #170825,169203: reusing the base class's default value for setup_network
     def __init__(self, setup_network=1):
         repository.RPC_Repository.__init__(self, setup_network)
-            
+
         systemid_file = local_config.get("systemid") or self.default_systemid
         try:
             f = open(systemid_file, "r")
         except IOError, e:
             sys.stderr.write("Cannot open %s: %s\n" % (systemid_file, e))
             sys.exit(1)
-            
+
         self.system_id = f.read()
         f.close()
 
         log_debug(4, 'system id', self.system_id)
 
         self.files_to_delete = []
-    
+
     def rpc_call(self, method_name, *params):
         try:
-            result = apply(repository.RPC_Repository.rpc_call, 
+            result = apply(repository.RPC_Repository.rpc_call,
                 (self, method_name) + params)
         except xmlrpclib.Fault, e:
             if e.faultCode == -9:
@@ -96,7 +96,7 @@ class ClientRepository(repository.RPC_Repository):
         return temp_file, result, dirs_created
 
     def put_files(self, action_id, files, upload_contents=1):
-        """Inserts a set of files into the repo, as a result of a scheduled 
+        """Inserts a set of files into the repo, as a result of a scheduled
         action"""
         log_debug(4)
         missing_files = []
@@ -104,7 +104,7 @@ class ClientRepository(repository.RPC_Repository):
         failed_due_to_quota = []
 
         max_file_size = self.get_maximum_file_size()
-        
+
         for file in files:
             try:
                 params = self._make_file_info(file, local_path=None,
@@ -158,13 +158,13 @@ class ClientRepository(repository.RPC_Repository):
     def _get_default_delimiters(self):
         "retrieves the default delimiters from the server"
         log_debug(4)
-        result = self.rpc_call('config.client.get_default_delimiters', 
+        result = self.rpc_call('config.client.get_default_delimiters',
             self.system_id)
         return result.get('delim_start'), result.get('delim_end')
 
     def _get_maximum_file_size(self):
         log_debug(4)
-        result = self.rpc_call('config.client.get_maximum_file_size', 
+        result = self.rpc_call('config.client.get_maximum_file_size',
             self.system_id)
         return result
 

@@ -28,7 +28,7 @@ class HalDeviceTests(unittest.TestCase):
     def test_no_parent(self):
         properties = { 'info.udi' : 'foo/bar/disk/3' }
         device = haltree.HalDevice(properties)
-        
+
         self.assertEquals(None, device.parent_udi)
 
     def test_with_parent(self):
@@ -36,7 +36,7 @@ class HalDeviceTests(unittest.TestCase):
         properties = { 'info.udi' : 'foo/bar/disk/3',
             'info.parent' : parent_udi }
         device = haltree.HalDevice(properties)
-        
+
         self.assertEquals(parent_udi, device.parent_udi)
 
 
@@ -46,7 +46,7 @@ class HalTreeTests(unittest.TestCase):
         properties = { 'info.udi' : 'foo/bar/computer' }
         self.head = haltree.HalDevice(properties)
 
-        properties = { 'info.udi' : 'foo/bar/disk/3', 
+        properties = { 'info.udi' : 'foo/bar/disk/3',
             'info.parent' : 'foo/bar/computer' }
         self.child = haltree.HalDevice(properties)
 
@@ -54,13 +54,13 @@ class HalTreeTests(unittest.TestCase):
     def test_add_head(self):
         tree = haltree.HalTree()
         tree.add(self.head)
-        
+
         self.assertEquals(self.head, tree.head)
 
     def test_add_device_no_head(self):
         tree = haltree.HalTree()
         tree.add(self.child)
-        
+
         self.assertEquals(None, tree.head)
 
     def test_add_head_single_child_child_first(self):
@@ -91,6 +91,6 @@ def suite():
     suite.addTest(unittest.makeSuite(HalDeviceTests))
     suite.addTest(unittest.makeSuite(HalTreeTests))
     return suite
-       
+
 if __name__ == "__main__":
     unittest.main(defaultTest="suite")

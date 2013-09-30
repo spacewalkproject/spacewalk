@@ -68,7 +68,7 @@ class MirrorSystem(object):
                     count += 1+len(self._mirrors[origin])
                 del self._history[count*HISTORYPERMIRROR:]
 
-    def get(self, url): 
+    def get(self, url):
         elements = {}
         for origin in self._mirrors:
             if url.startswith(origin):

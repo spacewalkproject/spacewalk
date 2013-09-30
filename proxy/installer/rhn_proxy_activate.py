@@ -252,7 +252,7 @@ def activateProxy_api_v3_x(options):
 
 def _deactivateProxy_api_v3_x(options):
     """ Deactivate this machine as Proxy """
-    
+
     s = getServer(options, DEFAULT_WEBRPC_HANDLER_v3_x)
     systemid = getSystemId()
 
@@ -333,7 +333,7 @@ def _activateProxy_api_v3_x(options):
     return (errorCode, errorString)
 
 def createMonitoringScout(options):
-    """ Activate MonitoringScout. 
+    """ Activate MonitoringScout.
         Just create record on parent.
         use activateProxy_api_v3_x method instead.
     """
@@ -369,18 +369,18 @@ def createMonitoringScout(options):
     return (errorCode, errorString)
 
 def activateProxy(options):
-    """ Activate proxy. Decide how to do it upon apiVersion. Currently we 
+    """ Activate proxy. Decide how to do it upon apiVersion. Currently we
         support only API v.3.1+. Support for 3.0 and older has been removed.
     """
     # errorCode == 0 means activated!
     errorCode, errorString = activateProxy_api_v3_x(options)
-        
+
     if errorCode != 0:
         if not errorString:
             errorString = ("An unknown error occurred. Consult with your Red Hat representative.\n")
         sys.stderr.write("\nThere was a problem activating the Spacewalk Proxy entitlement:\n%s\n" % errorString)
         sys.exit(abs(errorCode))
-        
+
 def listAvailableProxyChannels(options):
     """ return list of version available to this system """
 
@@ -475,7 +475,7 @@ def processCommandline():
     # Pad it to be at least 2 components
     if len(exploded_version) == 1:
         exploded_version.append('0')
-    
+
     # Make it a string
     options.version = '.'.join(exploded_version[:2])
 

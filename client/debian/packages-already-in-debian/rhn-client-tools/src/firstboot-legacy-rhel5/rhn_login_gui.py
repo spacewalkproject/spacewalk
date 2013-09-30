@@ -60,7 +60,7 @@ class RhnLoginWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.LoginPage):
 #        self.getCaps()
         self.loginPagePrepare()
         self.goingNextFromNewAccountDialog = False
-    
+
     def grabFocus(self):
         # We must set focus where we want it here. Setting it in updatePage
         # doesn't work.
@@ -70,25 +70,25 @@ class RhnLoginWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.LoginPage):
         return self.loginPageVbox()
 
     def apply(self, *args):
-        """Returns None to stay on the same page. Anything else will cause 
-        firstboot to advance but True is generally used. This is different from 
+        """Returns None to stay on the same page. Anything else will cause
+        firstboot to advance but True is generally used. This is different from
         the gnome druid in rhn_register.
-        
+
         """
         if self.doDebug:
             print "applying rhn_login_gui"
-        
+
         # This is a hack. This function will get called if they click next on
-        # the login page (the else) or when they create an account (the if). In 
+        # the login page (the else) or when they create an account (the if). In
         # that case we don't want to do the normal logging in stuff.
         if self.goingNextFromNewAccountDialog:
             assert rhnregGui.newAccount is True
         else:
             if self.loginPageVerify():
                 return None
-            
+
             assert rhnregGui.newAccount is False
-            
+
             if self.loginPageApply():
                 return None
 
@@ -97,12 +97,12 @@ class RhnLoginWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.LoginPage):
 
         self.parent.setPage('rhn_create_profile_gui')
         return True
-    
+
     def goToPageAfterLogin(self):
         # This is a hack. More info above.
         self.goingNextFromNewAccountDialog = True
         self.parent.nextClicked()
-    
+
     def onLoginPageNext(self, dummy=None, dummy2=None):
         # This is a hackish way to support enter advancing
         self.parent.nextClicked()

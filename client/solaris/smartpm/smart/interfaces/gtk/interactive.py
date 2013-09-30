@@ -542,7 +542,7 @@ class GtkInteractiveInterface(GtkInterface):
             inconsistent = True
         else:
             for pkg in pkgs:
-                if (names and pkg.name in names and 
+                if (names and pkg.name in names and
                     ("=", pkg.version) in names[pkg.name]):
                     newthislocked = True
                     newalllocked = len(names[pkg.name]) > 1

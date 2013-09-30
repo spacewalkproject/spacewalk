@@ -23,7 +23,7 @@ class TestGetSystemID(unittest.TestCase):
 
     def tearDown(self):
         self.cfg['systemIdPath'] = self.sysid
-    
+
     def testGetSystemId(self):
         "Verify that the updateAuth.getSystemId can be called"
         id = up2dateAuth.getSystemId()
@@ -35,7 +35,7 @@ class TestGetSystemID(unittest.TestCase):
         id = up2dateAuth.getSystemId()
         self.assertEqual(id, None)
 
-    
+
 class TestMaybeUpdateVersion(unittest.TestCase):
     def setUp(self):
 	self.__setupData()
@@ -51,8 +51,8 @@ class TestMaybeUpdateVersion(unittest.TestCase):
         import testutils
         testutils.restoreConfig()
         self.cfg['versionOverride'] = self.origversion
-        
-        
+
+
     def testMaybeUpdateVersion(self):
         "Verify that maybeUpdateVersion works"
         ret = up2dateAuth.maybeUpdateVersion()
@@ -109,7 +109,7 @@ class TestLogin(unittest.TestCase):
         else:
             self.fail("Expected a dict containing headers, but the return is not a dict")
 
-    
+
 class TestUpdateLoginInfo(unittest.TestCase):
     def setUp(self):
         self.__setupData()
@@ -127,7 +127,7 @@ class TestUpdateLoginInfo(unittest.TestCase):
         "test that up2dateAuth.up2dateLoginInfo works without exceptions"
         ret = up2dateAuth.updateLoginInfo()
 
-    
+
     def testUpdateLoginInfoCredsType(self):
         "Verify that up2dateAuth.updateLoginInfo returns login credentials in a dict"
         ret = up2dateAuth.updateLoginInfo()
@@ -139,7 +139,7 @@ class TestUpdateLoginInfo(unittest.TestCase):
 
     def testUpdateLoginInfoSingleton(self):
         "Verify that up2dateAuth.updateLoginInfo returns the proper auth info"
-        # test for bugs #124335, #115385 
+        # test for bugs #124335, #115385
         ret1 = up2dateAuth.updateLoginInfo()
         ret2 = up2dateAuth.updateLoginInfo()
         assert ret1 == ret2
@@ -160,7 +160,7 @@ class TestUpdateLoginInfo(unittest.TestCase):
         # if this doesn't throw an auth traceback, the auth doesnt work
         p, t = rpcServer.doCall(rd.listPackages, channel,
                                 msgCallback=None, progressCallback=None)
-        
+
 
     def testUp2dateLoginInfoWorks(self):
         "Verify that up2dateAuth.updateLoginInfo retuns a working authToken"
@@ -168,7 +168,7 @@ class TestUpdateLoginInfo(unittest.TestCase):
         rd = repoDirector.initRepoDirector()
         ret2 = up2dateAuth.updateLoginInfo()
         self.__verifyTokens(rd)
-        
+
 
 #TODO: things we don't test yet but need to
 # authToken timeout (need some server magic)

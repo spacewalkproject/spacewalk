@@ -148,10 +148,10 @@ def read_installinfo():
             continue
         strippedstring = vals[0].strip()
         vals[0] = strippedstring
-        
+
         installdict[vals[0]] = ''.join(vals[1:]).strip()
     return installdict
-    
+
 def cpu_count():
     """ returns number of CPU in system
 
@@ -269,7 +269,7 @@ def read_cpuinfo():
     # class, desc (required to identify the hardware device)
     # count, type, model, model_number, model_ver, model_rev
     # bogomips, platform, speed, cache
-    
+
     hwdict = { 'class': "CPU",
                "desc" : "Processor",
                }
@@ -281,7 +281,7 @@ def read_cpuinfo():
             hwdict['platform'] = 'x86_64'
         else:
             hwdict['platform'] = "i386"
-            
+
         hwdict['count']         = count
         hwdict['type']          = get_entry(tmpdict, 'vendor_id')
         hwdict['model']         = get_entry(tmpdict, 'model name')
@@ -353,7 +353,7 @@ def read_cpuinfo():
             hwdict['speed'] = int(round(float(mhz_speed)) - 1)
         except ValueError:
             hwdict['speed'] = -1
-         
+
     elif uname in ['s390', 's390x']:
         tmpdict = {}
         for cpu in cpulist.split("\n"):
@@ -374,7 +374,7 @@ def read_cpuinfo():
         hwdict['other']         = get_entry(tmpdict, 'features')
         hwdict['speed']         = 0
 
-        
+
     else:
         # XXX: expand me. Be nice to others
         hwdict['platform']      = uname
@@ -411,7 +411,7 @@ def read_cpuinfo():
         number_sockets = __get_number_sockets()
         if number_sockets:
             hwdict['socket_count'] = number_sockets
-        
+
     # This whole things hurts a lot.
     return hwdict
 
@@ -460,10 +460,10 @@ def read_memory_2_6():
         #print blobs
         value = blobs[1].strip()
         meminfo_dict[key] = value
-        
+
     memdict = {}
     memdict["class"] = "MEMORY"
-    
+
     total_str = meminfo_dict['MemTotal']
     blips = total_str.split(" ")
     total_k = long(blips[0])
@@ -533,11 +533,11 @@ def findHostByRoute():
                 continue
             hostname = info.strip()
 
-    # Override hostname with the one in /etc/sysconfig/network 
+    # Override hostname with the one in /etc/sysconfig/network
     # for bz# 457953
     elif os.path.isfile("/etc/sysconfig/network") and os.access("/etc/sysconfig/network", os.R_OK):
         networkinfo = open("/etc/sysconfig/network", "r").readlines()
-	
+
         for info in networkinfo:
             if not len(info):
                 continue
@@ -549,7 +549,7 @@ def findHostByRoute():
             if vals[0] == "HOSTNAME":
                 hostname = ''.join(vals[1:]).strip()
                 break
-        
+
     if hostname == None or hostname == 'localhost.localdomain':
         hostname = "unknown"
     return hostname, intf, intf6
@@ -574,7 +574,7 @@ def get_slave_hwaddr(master, slave):
 
     bonding.close()
     return hwaddr
-    
+
 def read_network():
     netdict = {}
     netdict['class'] = "NETINFO"
@@ -624,7 +624,7 @@ def read_network_interfaces():
             hwaddr = ethtool.get_hwaddr(interface)
         except:
             hwaddr = ""
-            
+
         # slave devices can have their hwaddr changed
         try:
             master = os.readlink('/sys/class/net/%s/master' % interface)
@@ -680,25 +680,25 @@ def read_network_interfaces():
     return intDict
 
 
-# Read DMI information via hal.    
+# Read DMI information via hal.
 def read_dmi():
     dmidict = {}
-    dmidict["class"] = "DMI" 
+    dmidict["class"] = "DMI"
 
     # Try to obtain DMI info if architecture is i386, x86_64 or ia64
     uname = os.uname()[4].lower()
     if not (uname[0] == "i"  and  uname[-2:] == "86") and not (uname == "x86_64"):
         return dmidict
 
-    # System Information 
+    # System Information
     vendor = dmi_vendor()
     if vendor:
         dmidict["vendor"] = vendor
-        
+
     product = get_dmi_data('/dmidecode/SystemInfo/ProductName')
     if product:
         dmidict["product"] = product
-        
+
     version = get_dmi_data('/dmidecode/SystemInfo/Version')
     if version:
         system = product + " " + version
@@ -707,7 +707,7 @@ def read_dmi():
     # BaseBoard Information
     dmidict["board"] = get_dmi_data('/dmidecode/BaseBoardInfo/Manufacturer')
 
-    # Bios Information    
+    # Bios Information
     vendor = get_dmi_data('/dmidecode/BIOSinfo/Vendor')
     if vendor:
         dmidict["bios_vendor"] = vendor
@@ -723,27 +723,27 @@ def read_dmi():
     chassis_serial = get_dmi_data('/dmidecode/ChassisInfo/SerialNumber')
     chassis_tag = get_dmi_data('/dmidecode/ChassisInfo/AssetTag')
     board_serial = get_dmi_data('/dmidecode/BaseBoardInfo/SerialNumber')
-    
+
     system_serial = get_dmi_data('/dmidecode/SystemInfo/SerialNumber')
-    
+
     dmidict["asset"] = "(%s: %s) (%s: %s) (%s: %s) (%s: %s)" % ("chassis", chassis_serial,
                                                      "chassis", chassis_tag,
                                                      "board", board_serial,
                                                      "system", system_serial)
-    
-    # Clean up empty entries    
+
+    # Clean up empty entries
     for k in dmidict.keys()[:]:
         if dmidict[k] is None:
             del dmidict[k]
             # Finished
-            
+
     return dmidict
 
 def get_hal_system_and_smbios():
     try:
         if using_gudev:
             props = get_computer_info()
-        else: 
+        else:
             computer = get_hal_computer()
             props = computer.GetAllProperties()
     except Exception, e:
@@ -790,7 +790,7 @@ def Hardware():
         hal_status, dbus_status = check_hal_dbus_status()
         hwdaemon = 1
         if hal_status or dbus_status:
-            # if status != 0 haldaemon or messagebus service not running. 
+            # if status != 0 haldaemon or messagebus service not running.
             # set flag and dont try probing hardware and DMI info
             # and warn the user.
             log = up2dateLog.initLog()
@@ -802,14 +802,14 @@ def Hardware():
         if hwdaemon:
             try:
                 ret = read_hal()
-                if ret: 
+                if ret:
                     allhw = ret
             except:
                 # bz253596 : Logging Dbus Error messages instead of printing on stdout
                 log = up2dateLog.initLog()
                 msg = "Error reading hardware information: %s\n" % (sys.exc_type)
                 log.log_me(msg)
-        
+
     # all others return individual arrays
 
     # cpu info
@@ -818,26 +818,26 @@ def Hardware():
         if ret: allhw.append(ret)
     except:
         print _("Error reading cpu information:"), sys.exc_type
-        
+
     # memory size info
     try:
         ret = read_memory()
         if ret: allhw.append(ret)
     except:
         print _("Error reading system memory information:"), sys.exc_type
-        
+
     cfg = config.initUp2dateConfig()
     if not cfg["skipNetwork"]:
         # minimal networking info
         try:
             ret = read_network()
-            if ret: 
+            if ret:
                 allhw.append(ret)
         except:
             print _("Error reading networking information:"), sys.exc_type
     # dont like catchall exceptions but theres not
     # really anything useful we could do at this point
-    # and its been trouble prone enough 
+    # and its been trouble prone enough
 
     # minimal DMI info
     try:
@@ -849,7 +849,7 @@ def Hardware():
         log = up2dateLog.initLog()
         msg = "Error reading DMI information: %s\n" % (sys.exc_type)
         log.log_me(msg)
-        
+
     try:
         ret = read_installinfo()
         if ret:
@@ -864,7 +864,7 @@ def Hardware():
                 allhw.append(ret)
         except:
             print _("Error reading network interface information:"), sys.exc_type
-    
+
     # all Done.
     return allhw
 

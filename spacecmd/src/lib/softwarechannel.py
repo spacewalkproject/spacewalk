@@ -1226,7 +1226,7 @@ def do_softwarechannel_adderrata(self, args):
                             errata_wanted)
     logging.debug("errata = %s" % errata)
     if options.skip:
-        # We just match the NNNN:MMMM of the XXXX-NNNN:MMMM as the 
+        # We just match the NNNN:MMMM of the XXXX-NNNN:MMMM as the
         # source errata will be RH[BES]A and the DEST errata will be CLA
         dest_errata_suffix = [ x.get('advisory_name').split("-")[1] \
             for x in dest_errata]
@@ -1290,7 +1290,7 @@ def do_softwarechannel_adderrata(self, args):
         logging.debug('Cloning %s' % erratum)
         if self.check_api_version('10.11'):
             # This call is poorly documented, but it stops errata.clone
-            # pushing EL6 packages into EL5 channels when the errata 
+            # pushing EL6 packages into EL5 channels when the errata
             # package list contains both versions, ref bz678721
             self.client.errata.cloneAsOriginal(self.session, dest_channel,\
                 [erratum])

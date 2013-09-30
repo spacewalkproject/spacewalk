@@ -49,11 +49,11 @@ def read_hwconf():
     ret = []
     return ret
 
-        
+
 
 # the cpuinfo is dict with keys on class, desc, platform,
 #  count, type, model, model_number, model_ver, model_rev,
-#  cache, bogomips, other, and speed  
+#  cache, bogomips, other, and speed
 #
 # of course, the meanings for those vary widely, even on
 #  linux, so best guess for the port
@@ -267,7 +267,7 @@ def read_cpuinfo():
                     pass
                 elif (re.search(r'F50|H50|270', model)):
                     # On these boxes, "lscfg -vp" reports CPU speed as
-                    # ASCII coded hex. 
+                    # ASCII coded hex.
                     stdout = os.popen("/usr/sbin/lscfg -vp")
                     lines = stdout.readlines()
                     stdout.close()
@@ -319,7 +319,7 @@ def read_cpuinfo():
                 count = count + 1
 
         if not count: count = 1
-        
+
 
     hwdict = {'class':'CPU',
               'desc': 'processor',
@@ -333,7 +333,7 @@ def read_cpuinfo():
               'speed': str(mhz)}
 
     return hwdict
-    
+
 
 # figure out how much ram is in the box
 def read_memory():
@@ -436,7 +436,7 @@ def findHostByRoute():
 def read_network():
     netdict = {}
     netdict['class'] = "NETINFO"
-    
+
     hostname = socket.gethostname()
     netdict['hostname'] = hostname
     try:
@@ -444,7 +444,7 @@ def read_network():
     except:
         netdict['ipaddr'] = "127.0.0.1"
 
-    
+
     if netdict['hostname'] == 'localhost.localdomain' or \
 	netdict['ipaddr'] == "127.0.0.1":
         hostname, ipaddr = findHostByRoute()
@@ -471,8 +471,8 @@ def read_network_interfaces():
                               'module': module}
 
     return intDict
-    
-    
+
+
 # this one reads it all
 def Hardware():
     allhw = []
@@ -497,7 +497,7 @@ def Hardware():
 #   ret = read_network_interfaces()
 #    if ret:
 #        allhw.append(ret)
-        
+
     # all Done.
     return allhw
 

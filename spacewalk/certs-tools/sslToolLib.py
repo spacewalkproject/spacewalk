@@ -124,7 +124,7 @@ def chdir(newdir):
 class TempDir:
 
     """ temp directory class with a cleanup destructor and method """
-    
+
     _shutil = shutil # trying to hang onto shutil during garbage collection
 
     def __init__(self, suffix='-rhn-ssl-tool'):
@@ -148,7 +148,7 @@ class TempDir:
         self._shutil.rmtree(self.path)
 
     close = __del__
-        
+
 
 #===============================================================================
 

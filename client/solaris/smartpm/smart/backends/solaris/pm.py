@@ -119,7 +119,7 @@ def solinstall(adminfile, path, pkg, prog=None):
     else:
         # Package install
         #template = "pkgadd -a %s -n -d %s %s"
-        template = "pkgadd -a %s" 
+        template = "pkgadd -a %s"
 
         os_version = os.uname()[2]
         if os_version == "5.10":

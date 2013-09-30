@@ -70,7 +70,7 @@ def startRhnsd():
         rc = os.system("/etc/init.d/rhnsd status > /dev/null")
         if rc:
             os.system("/etc/init.d/rhnsd start > /dev/null")
-	
+
 
 # product info structure
 productInfoHash = {
@@ -90,7 +90,7 @@ productInfoHash = {
     "contact_email" : 1,
     "contact_mail" : 0,
     "contact_phone" : 0,
-    "contact_fax" : 0, 
+    "contact_fax" : 0,
     "newsletter" : 0,
     "special_offers" : 0
     }
@@ -114,13 +114,13 @@ def getOemInfo():
             (key, value) = string.split(i, ':')
         except ValueError:
             raise rhnErrors.OemInfoFileError(i)
-        
+
         info[key] = string.strip(value)
 
     return info
-    
 
-        
+
+
 def registered():
     global SYSID_FILE
     return os.access(SYSID_FILE, os.R_OK)
@@ -128,7 +128,7 @@ def registered():
 def writeSystemId(systemId):
     global SYSID_FILE
     global SYSID_DIR
-    
+
     if not os.access(SYSID_DIR, os.W_OK):
         try:
             os.mkdir(SYSID_DIR)
@@ -165,7 +165,7 @@ def welcomeText():
             raise rhnErrors.DelayError(f.faultString)
         else:
             raise rhnErrors.CommunicationError(f.faultString)
-    
+
 
 def privacyText():
     s = rpcServer.getServer()
@@ -196,7 +196,7 @@ def finishMessage(systemId):
 def getCaps():
     s = rpcServer.getServer()
 
-    
+
     try:
         rpcServer.doCall(s.registration.welcome_message)
     except xmlrpclib.Fault, f:
@@ -211,7 +211,7 @@ def getCaps():
 
     # figure out if were missing any needed caps
     caps.validate()
-    
+
 def termsAndConditions():
     s = rpcServer.getServer()
 
@@ -225,7 +225,7 @@ def termsAndConditions():
 
 def reserveUser(username, password):
     s = rpcServer.getServer()
-    
+
     try:
         ret = rpcServer.doCall(s.registration.reserve_user, username, password)
     except xmlrpclib.Fault, f:
@@ -305,7 +305,7 @@ def registerSystem(username = None, password = None,
 
     auth_dict["uuid"] = cfg["uuid"] or ""
     auth_dict["rhnuuid"] = cfg["rhnuuid"] or ""
-    
+
 
     try:
         if packages == None:

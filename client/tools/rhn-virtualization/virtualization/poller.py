@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import sys
@@ -59,10 +59,10 @@ options = None
 
 def poll_hypervisor():
     """
-    This function polls the hypervisor for information about the currently 
+    This function polls the hypervisor for information about the currently
     running set of domains.  It returns a dictionary object that looks like the
     following:
-   
+
     { uuid : { 'name'        : '...',
                'uuid'        : '...',
                'virt_type'   : '...',
@@ -70,7 +70,7 @@ def poll_hypervisor():
                'vcpus'       : '...',
                'state'       : '...' }, ... }
     """
-    if not libvirt: 
+    if not libvirt:
         return {}
 
     try:
@@ -106,7 +106,7 @@ def poll_hypervisor():
         virt_type = VirtualizationType.PARA
         if is_fully_virt(domain):
             virt_type = VirtualizationType.FULLY
-       
+
         # we need to filter out the small per/minute KB changes
         # that occur inside a vm.  To do this we divide by 1024 to
         # drop our precision down to megabytes with an int then
@@ -133,7 +133,7 @@ def poll_through_vdsm(server):
      Libvirt is disabled by default on RHEV-M managed clients.
      * Imports the localvdsm client that talks to the localhost
        and fetches the list of vms and their info.
-     * Extract the data and construct the state to pass it to the 
+     * Extract the data and construct the state to pass it to the
        execution plan for guest polling.
      * The server should account for business rules similar to
        xen/kvm.
@@ -194,9 +194,9 @@ def poll_state(uuid):
         raise VirtualizationException, \
               "Failed to open connection to hypervisor."
 
-    # Attempt to connect to the domain.  Since there is technically no 
-    # "stopped" state, we will assume that if we cannot connect the domain is 
-    # not running.  Unfortunately, we can't really determine if the domain 
+    # Attempt to connect to the domain.  Since there is technically no
+    # "stopped" state, we will assume that if we cannot connect the domain is
+    # not running.  Unfortunately, we can't really determine if the domain
     # actually exists.
     domain = None
     try:
@@ -215,11 +215,11 @@ def poll_state(uuid):
 
 def _send_notifications(poller_state):
     """
-    This function will send notifications based on vm state change to the 
-    server.  To reduce the possibility of spamming the server but still 
+    This function will send notifications based on vm state change to the
+    server.  To reduce the possibility of spamming the server but still
     maintain an element of consistency, it will compare the previous poll state
     against the current poll state and only send notifications if something has
-    changed.  In the event that the cache might have gotten into an 
+    changed.  In the event that the cache might have gotten into an
     inconsistent state, the cache will be removed after every 50 polls (this is
     about every 1.5 hours).  This will cause the full state to be re-uploaded
     and put things back in sync, if necessary.
@@ -303,7 +303,7 @@ if __name__ == "__main__":
 
     cached_state = PollerStateCache(domain_list,
                                     debug = options and options.debug)
-        
+
     # Send notifications, if necessary.
     _send_notifications(cached_state)
 

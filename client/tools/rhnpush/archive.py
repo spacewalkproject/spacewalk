@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 """Archive Parsing module"""
@@ -121,14 +121,14 @@ class ArchiveParser(object):
             if os.path.isdir(path):
                 p_contents = os.listdir(path)
                 e_contents = [os.path.join(entry, e) for e in p_contents]
-                # this really is something of a hack, the newest contents will 
-                # 'prepended' to the queue instead of 'appended' changing the 
-                # search into depth-first when I think breadth-first would be 
+                # this really is something of a hack, the newest contents will
+                # 'prepended' to the queue instead of 'appended' changing the
+                # search into depth-first when I think breadth-first would be
                 # the expected behavior
-                # that's what we get for programming in python which doesn't 
+                # that's what we get for programming in python which doesn't
                 # supply a nice way of adding real data-structure support
-                # I already tried extending e_contents with contents and then 
-                # reassigning the contents reference to e_contents, but the 
+                # I already tried extending e_contents with contents and then
+                # reassigning the contents reference to e_contents, but the
                 # damn while loop still had a hold of the original reference
                 contents.extend(e_contents)
             else:

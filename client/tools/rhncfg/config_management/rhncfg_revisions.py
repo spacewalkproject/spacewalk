@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import string
@@ -41,7 +41,7 @@ class Handler(handler_base.HandlerBase):
         print "Analyzing files in config channel %s" % channel
         for f in self.args:
             if not r.has_file(channel, f):
-                die(8, "Config channel %s does not contain file %s" % 
+                die(8, "Config channel %s does not contain file %s" %
                     (channel, f))
             try:
                 revisions = r.get_file_revisions(channel, f)

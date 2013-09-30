@@ -28,7 +28,7 @@ except:
 def shutdown(uuid):
     """
     Shuts down the domain with the given UUID.  If the instance is crashed, it
-    is destroyed.  If the instance is paused, it is unpaused and shutdown 
+    is destroyed.  If the instance is paused, it is unpaused and shutdown
     cleanly.
     """
     state = poller.poll_state(uuid)
@@ -51,7 +51,7 @@ def start(uuid):
     elif state.is_paused():
         resume(uuid)
     else:
-        start_domain.start_domain(uuid)    
+        start_domain.start_domain(uuid)
 
 def suspend(uuid):
     """
@@ -68,7 +68,7 @@ def resume(uuid):
 def reboot(uuid):
     """
     Reboots the domain with the given UUID.  If the system is paused, we
-    unpause and reboot it.  If the system is stopped, we start it.  If the 
+    unpause and reboot it.  If the system is stopped, we start it.  If the
     system is crashed, we destroy and restart it.
     """
     state = poller.poll_state(uuid)
@@ -100,7 +100,7 @@ def setVCPUs(uuid, vcpus):
     Sets the number of vcpus for the domain with the given UUID.
     """
     _call_domain_control_routine(uuid, "setVcpus", vcpus)
-    
+
 
 ###############################################################################
 # Helper Routines
@@ -149,10 +149,10 @@ def _call_domain_control_routine(uuid, routine_name, *args):
         raise VirtualizationException, \
               "LibVirt Error %s: %s" % \
                   (routine_name, str(le)), sys.exc_info()[2]
-    
+
     # Handle the return code.  Anything non-zero is an error.
     if result != 0:
         raise VirtualizationException, \
               "Could not perform function '%s' on domain %s.  Error: %s" % \
                   (routine_name, uuid, str(result)), sys.exc_info()[2]
-    
+

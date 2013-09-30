@@ -30,11 +30,11 @@ def parseCap(capstring):
         except ValueError:
             # Bad directive: not in 'a = b' format
             continue
-            
+
         # parse out the version
         # lets give it a shot sans regex's first...
         (key,version) = string.split(key_version, "(", 1)
-        
+
         # just to be paranoid
         if version[-1] != ")":
             print "something broke in parsing the capabilited headers"
@@ -171,20 +171,20 @@ class Capabilities(UserDict.UserDict):
     def hasCapability(self, capability, version=None):
         """Checks if the server supports a capability and optionally a version.
         Returns True or False.
-        
+
         This complements the neededCaps mechanism provided by this module.
-        Using hasCapability makes it easier to do something only if the server 
-        supports it or to put workaround code in the user of this class. The 
+        Using hasCapability makes it easier to do something only if the server
+        supports it or to put workaround code in the user of this class. The
         neededCaps mechanism makes it easier to put workaround code in this
         module, which makes sense if it is to be shared.
-        
-        'capability' should be a string such as 'registration.foobar'. It can 
-        be a capability in 'neededCaps' above or one that isn't there. 'version' 
+
+        'capability' should be a string such as 'registration.foobar'. It can
+        be a capability in 'neededCaps' above or one that isn't there. 'version'
         can be a string (where isdigit() is True) or an int.
-        
+
         """
         assert version is None or str(version).isdigit()
-        
+
         if not self.data.has_key(capability):
             return False
         if version:

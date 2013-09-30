@@ -109,9 +109,9 @@ def main():
                     # Is it indirectly conflicted?
                     if isRequiringConflictingPackage(cl10pkg, cl9pkg):
                         raise StopIteration
-                    
+
                     try:
-                        problems[(cl9pkg, cl10pkg)].append(path)           
+                        problems[(cl9pkg, cl10pkg)].append(path)
                     except KeyError:
                         problems[(cl9pkg, cl10pkg)] = [path]
 

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 # system imports
@@ -222,7 +222,7 @@ class UploadClass:
         self.setServer()
 
         self.authenticate()
-        
+
         sources = self.options.source
 
         if sources:
@@ -230,7 +230,7 @@ class UploadClass:
 
         return self.get_newest_binary_packages()
 
-        
+
     def get_newest_binary_packages(self):
         # Loop through the args and only keep the newest ones
         localPackagesHash = {}
@@ -270,7 +270,7 @@ class UploadClass:
             if skip_rpm:
                 # Older
                 continue
-                    
+
             same_names_hash[nvrea] = filename
 
         # Now get the list from the server
@@ -322,7 +322,7 @@ class UploadClass:
         localPackagesHash = {}
         for filename in self.files:
             localPackagesHash[os.path.basename(filename)] = filename
-        
+
         # Now get the list from the server
         pkglist = self._listMissingSourcePackages()
 
@@ -378,9 +378,9 @@ class UploadClass:
 
         # set the server
         self.setServer()
-        
+
         self.authenticate()
-        
+
         source = self.options.source
         file_list = self._get_files()
 
@@ -388,7 +388,7 @@ class UploadClass:
             chunk = file_list[:self.count]
             del file_list[:self.count]
             uploadedPackages, headersList = self._processBatch(chunk,
-                relativeDir=self.relativeDir, source=self.options.source, 
+                relativeDir=self.relativeDir, source=self.options.source,
                 verbose=self.options.verbose, nosig=self.options.nosig)
 
             if not headersList:
@@ -461,7 +461,7 @@ class UploadClass:
         else:
             self.session = rhnpush_cache.RHNPushSession()
             self.session.setSessionString(session)
-      
+
         if not self.options.no_session_caching:
             self.session.writeSession()
 
@@ -648,7 +648,7 @@ def parseXMLRPCfault(fault):
 def listChannel(server, username, password, channels):
     return call(server.packages.listChannel, channels, username, password)
 
-def listChannelBySession(server, session_string, channels): 
+def listChannelBySession(server, session_string, channels):
     return call(server.packages.listChannelBySession, channels, session_string)
 
 def listChannelSource(server, username, password, channels):
@@ -725,7 +725,7 @@ def get_header(filename, fildes=None, source=None):
         h = get_package_header(filename=filename, fd=fildes)
     except:
         raise UploadError("Package is invalid"), None, sys.exc_info()[2]
-        
+
     # Verify that this is indeed a binary/source. xor magic
     # xor doesn't work with None values, so compare the negated values - the
     # results are identical

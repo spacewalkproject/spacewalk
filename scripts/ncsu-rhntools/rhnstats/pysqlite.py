@@ -19,9 +19,9 @@
 """ An implementation of currents backend as an sqlite database.
 
    Sqlite is a single file 'embedded' database that supports nearly all
-   of the SQL-92 standard. Its a near perfect replacement for the old 
+   of the SQL-92 standard. Its a near perfect replacement for the old
    shelve implementation.
-    
+
 """
 
 import os
@@ -48,12 +48,12 @@ class PySqliteDB(object):
             self.initdb()
         else:
             self.getConnection()
-            
+
 
     def __del__(self):
         self.disconnect()
 
-        
+
     def disconnect(self):
         """ Close down the database file. """
         if self.cursor:
@@ -62,7 +62,7 @@ class PySqliteDB(object):
         if self.conn:
             self.conn.close()
             self.conn = None
-                                                                        
+
 
     def initdb(self):
         """ Do the steps necessary to create an empty database.
@@ -86,7 +86,7 @@ class PySqliteDB(object):
             except Exception, e:
                 log("Exception raised in sqlite.connect()", MANDATORY)
                 raise
-            
+
         return self.conn
 
 
@@ -95,6 +95,6 @@ class PySqliteDB(object):
             self.cursor = self.conn.cursor()
 
         return self.conn.cursor()
-     
+
 
 ## END OF LINE ##

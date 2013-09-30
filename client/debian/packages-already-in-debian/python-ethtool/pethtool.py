@@ -40,7 +40,7 @@ def usage():
                 [rx-frames-high N]
                 [tx-usecs-high N]
                 [tx-frames-high N]
-                [sample-interval N]	
+                [sample-interval N]
 	-i|--driver             Show driver information
 	-k|--show-offload       Get protocol offload information
 	-K|--offload            Set protocol offload
@@ -139,7 +139,7 @@ def show_coalesce(interface, args = None):
 		for tunable in coalkeys:
 			if tunable not in printed:
 				printtab("%s %s" % (tunable, coal[tunable]))
-				
+
 def set_coalesce(interface, args):
 	try:
 		coal = ethtool.get_coalesce(interface)

@@ -25,10 +25,10 @@ def getSystemId():
     path = cfg["systemIdPath"]
     if not os.access(path, os.R_OK):
         return None
-    
+
     f = open(path, "r")
     ret = f.read()
-        
+
     f.close()
     return ret
 
@@ -44,10 +44,10 @@ def maybeUpdateVersion():
         return 0
 
     systemVer = rhnUtils.getVersion()
-    
+
     if idVer != systemVer:
       s = rpcServer.getServer()
-    
+
       try:
           newSystemId = rpcServer.doCall(s.registration.upgrade_version,
                                          getSystemId(), systemVer)
@@ -98,7 +98,7 @@ def login(systemId=None):
 
     if not systemId:
         return None
-        
+
     maybeUpdateVersion()
     log.log_me("logging into up2date server")
 
@@ -125,8 +125,8 @@ def login(systemId=None):
 
 #    for i in response_headers.keys():
 #        print "key: %s foo: %s" % (i, response_headers[i])
-    
-        
+
+
     log.log_me("successfully retrieved authentication token "
                "from up2date server")
 

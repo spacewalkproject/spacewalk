@@ -86,7 +86,7 @@ def parseUrl(url):
               that normally follows the URL, e.g. /XMLRPC
             - if {http[s],file}:// exists, anything between that and the next /
               is the URL.
-              
+
         The behavior of *this* function:
             - if no {http[s],file}:// then the string is simply assumed to be a
               URL without the {http[s],file}:// attached. The parsed info is
@@ -367,7 +367,7 @@ ERROR: the value of --overrides and --script cannot be the same!
 
     if not options.http_proxy_username:
         options.http_proxy_password = ''
-    
+
     # forcing numeric values
     for opt in ['allow_config_actions', 'allow_remote_commands', 'no_ssl',
         'no_gpg', 'no_up2date', 'verbose']:
@@ -414,7 +414,7 @@ def copyFiles(options):
             elif os.path.isfile(dest):
                 writeYN = 0
             if writeYN:
-                copyFile(options.ssl_cert, dest) 
+                copyFile(options.ssl_cert, dest)
 
     # corp GPG key
     if not options.no_gpg and options.gpg_key:
@@ -427,7 +427,7 @@ def copyFiles(options):
             elif os.path.isfile(dest):
                 writeYN = 0
             if writeYN:
-                copyFile(options.gpg_key, dest) 
+                copyFile(options.gpg_key, dest)
 
 
 def writeClientConfigOverrides(options):
@@ -460,7 +460,7 @@ def writeClientConfigOverrides(options):
             scheme = 'http'
         d['serverURL'] = scheme + '://' + options.hostname + '/XMLRPC'
         d['noSSLServerURL'] = 'http://' + options.hostname + '/XMLRPC'
-    
+
     # if proxy, enable it
     # if "", disable it
     if options.http_proxy:
@@ -575,7 +575,7 @@ def generateBootstrapScript(options):
     # concat all those script-bits
     newScript = newScript + getConfigFilesSh() + getUp2dateScriptsSh()
 
-    
+
     newScript = newScript + getGPGKeyImportSh() + getCorpCACertSh() + \
                 getRegistrationSh(MY_PRODUCT_NAME)
 

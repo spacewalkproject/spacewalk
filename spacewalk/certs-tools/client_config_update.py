@@ -44,13 +44,13 @@ And maps that to the client's configuration files.
 To map new settings to a file that uses the format key=value, where
 key[comment]=value is a comment line you do this (e.g., mapping
 key=value pairs to /etc/sysconfig/rhn/up2date):
-    
+
     1. edit a file (e.g., 'client-config-overrides.txt'), inputing new key=value pairs
        to replace in config file (e.g., /etc/sysconfig/rhn/up2date).
        Specifically:
 serverURL=https://test-satellite.example.redhat.com/XMLRPC
 noSSLServerURL=http://test-satellite.example.redhat.com/XMLRPC
-    
+
     2. ./client_config_update.py /etc/sysconfig/rhn/up2date client-config-overrides.txt
 
 That's all there is to it.
@@ -109,7 +109,7 @@ def readConfigFile(configFile):
     fin = open(configFile, 'rb')
 
     d = {}
-    
+
     for line in fin.readlines():
         kv = _parseConfigLine(line)
         if kv:
@@ -191,7 +191,7 @@ examples:
 
     configFilename = os.path.abspath(sys.argv[1])
     newMappings = os.path.abspath(sys.argv[2])
-    
+
     if not os.path.exists(configFilename):
         msg = ("ERROR: filename to alter (1st argument), does not exist:\n"
                "       %s"

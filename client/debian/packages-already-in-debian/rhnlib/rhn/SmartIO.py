@@ -76,7 +76,7 @@ def getDefaultStorage():
     except IOError:
         return tmpdir
     for line in f.readlines():
-        if line.startswith("tmpDir="): 
+        if line.startswith("tmpDir="):
             cfgdir = line.split("=")
             if len(cfgdir) > 1:
                tmpdir = cfgdir[-1].strip() or tmpdir

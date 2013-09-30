@@ -143,7 +143,7 @@ class URPMIChannel(PackageChannel):
                 loader = URPMILoader(localpath, self._baseurl, listpath)
             else:
                 loader = URPMISynthesisLoader(localpath, self._baseurl, listpath)
-                                
+
             loader.setChannel(self)
             self._loaders.append(loader)
 

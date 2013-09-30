@@ -63,13 +63,13 @@ def loadLocalCaps():
                 caps.data[cap] = data
 
 #    print caps.data
-    
+
 loadLocalCaps()
 
 # register local caps we require.
 def registerCap(cap, data):
     caps.data[cap] = data
-    
+
 
 # figure out something pretty here
 registerCap("packages.runTransaction", {'version':'1', 'value':'1'})

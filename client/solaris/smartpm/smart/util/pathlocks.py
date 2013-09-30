@@ -23,7 +23,7 @@ import fcntl
 import os, sys
 
 class PathLocks(object):
-    
+
     def __init__(self, force=True):
         self._lock = {}
         self._force = bool(force)

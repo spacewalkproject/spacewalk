@@ -135,7 +135,7 @@ class SlackLoader(Loader):
 
             if self._baseurl:
                 info["baseurl"] = self._baseurl
-            
+
             pkg.loaders[self] = info
 
             prog.add(1)
@@ -154,7 +154,7 @@ class SlackDBLoader(SlackLoader):
                                            "/var/log/packages"))
         self._dir = dir
         self.setInstalled(True)
-    
+
     def getInfoList(self):
 
         for entry in os.listdir(self._dir):
@@ -173,7 +173,7 @@ class SlackSiteLoader(SlackLoader):
         SlackLoader.__init__(self)
         self._filename = filename
         self._baseurl = baseurl
-    
+
     def getInfoList(self):
         return parsePackageInfo(self._filename)
 

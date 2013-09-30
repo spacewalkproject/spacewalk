@@ -4,14 +4,14 @@
 # HalTree is a way to organize the mess of data you get from hal.  In general,
 # if you want to get all the information about every device in the system, you
 # end up with a list of dicts, where each dict contains the property name/values
-# for a device.  This list isn't very useful as the hal data is actually 
+# for a device.  This list isn't very useful as the hal data is actually
 # organized into a tree.  For example, you have the computer as the head, then
 # there may be a scsi card plugged in.  That in turn will have scsi channels
 # and luns, which scsi devices may be connected to.  So this module will help
 # you reorganize your hal data back to the way they were intended.
 #
 # HalTree Usage:
-# 
+#
 # The tree gets built one device at a time.  Once you've created a HalTree
 # object, devices get added to the tree with HalTree.add(hw_dev_dict).  The
 # devices can be added in any particular order, and the tree gets properly
@@ -33,7 +33,7 @@ class HalDevice:
         self.properties = properties
         self.children = []
         self.classification = None
-        
+
         if properties.has_key('info.parent'):
             self.parent_udi = properties['info.parent']
         else:
@@ -46,8 +46,8 @@ class HalDevice:
         for property, value in self.properties.items():
             print "    ", property," ==> ",  value
 
-    
-        
+
+
 
 class HalTree:
     def __init__ (self):
@@ -65,10 +65,10 @@ class HalTree:
                 self.no_parent_yet.append(hal_device)
         else: #if it doesn't have a parent, it must be the head 'computer'
             self.head = hal_device
-            
+
         #check to see if there are any children waiting for this dev
         self.__get_lost_children(hal_device)
-            
+
 
     def __get_lost_children(self, hal_device):
         found_list = []
@@ -81,7 +81,7 @@ class HalTree:
                 self.no_parent_yet.remove(dev)
 
     def __find_node(self, udi):
-        """ 
+        """
         This takes a node in the HalDevice tree and returns the HalDevice with
         the given udi.
         """
@@ -105,10 +105,10 @@ class HalTree:
             if res:
                 return res
         return None
-    
+
     def print_tree(self):
         self.__print_dev_tree(self.head, "")
-        
+
     def __print_dev_tree(self, node, indent):
         print indent, node.udi
         print indent, "CLASS:", node.classification
@@ -118,7 +118,7 @@ class HalTree:
                     print indent + "    ", "%-20s ==> %s" % (name, hex(int(property)))
                 else:
                     print indent + "    ", "%-20s ==> %s" % (name, property)
-            elif (type(property) == types.IntType): 
+            elif (type(property) == types.IntType):
                 print indent + "    ", "%-20s ==> %s" % (name, hex(int(property)))
             else:
                 print indent + "    ", "%-20s ==> %s" % (name, property)

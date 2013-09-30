@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import rhnpush_config
@@ -31,7 +31,7 @@ class  ConfManager:
         self.cfgFileList = [deffile, regfile, cwdfile]
         self.defaultconfig = rhnpush_config.rhnpushConfigParser(ensure_consistency=True)
 
-        #Get a reference to the object containing command-line options  
+        #Get a reference to the object containing command-line options
         self.cmdconfig = optionparser
         self.store_true_list = store_true_list
 
@@ -62,7 +62,7 @@ class  ConfManager:
                 self.defaultconfig, config2 = utils.make_common_attr_equal(self.defaultconfig, config2)
 
         self._files_to_list()
-        
+
         #Change the channel string into a list of strings.
         # pylint: disable=E1103
         if not self.defaultconfig.channel:
@@ -72,25 +72,25 @@ class  ConfManager:
         else:
             self.defaultconfig.channel = map(lambda x: x.strip(),
                                              self.defaultconfig.channel.split(','))
-        
+
         #Get the command line arguments. These take precedence over the other settings
         argoptions, files = self.cmdconfig.parse_args()
-        
+
         #Makes self.defaultconfig compatible with argoptions by changing all '0' value attributes to None.
         _zero_to_none(self.defaultconfig, self.store_true_list)
-    
+
         #If verbose isn't set at the command-line, it automatically gets set to zero. If it's at zero, change it to
         #None so the settings in the config files take precedence.
         if argoptions.verbose == 0:
-            argoptions.verbose = None   
-    
+            argoptions.verbose = None
+
         #Orgid, count, cache_lifetime, and verbose all need to be integers, just like in argoptions.
         if self.defaultconfig.orgid:
             self.defaultconfig.orgid = int(self.defaultconfig.orgid)
 
         if self.defaultconfig.count:
             self.defaultconfig.count = int(self.defaultconfig.count)
-        
+
         if self.defaultconfig.cache_lifetime:
             self.defaultconfig.cache_lifetime = int(self.defaultconfig.cache_lifetime)
 
@@ -99,12 +99,12 @@ class  ConfManager:
 
         #Copy the settings in argoptions into self.defaultconfig.
         self.defaultconfig, argoptions = utils.make_common_attr_equal(self.defaultconfig, argoptions)
-        
+
         #Make sure files is in the correct format.
         if self.defaultconfig.files != files:
             self.defaultconfig.files = files
 
-        return self.defaultconfig   
+        return self.defaultconfig
 
 def _zero_to_none(config, store_true_list):
     for opt in config.keys():

@@ -67,7 +67,7 @@ class QtProgress(Progress, QDialog):
 
     def expose(self, topic, percent, subkey, subtopic, subpercent, data):
         QDialog.show(self)
-        
+
         self.topic.setText(topic)
         self.progress.setProgress(percent)
 

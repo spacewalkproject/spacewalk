@@ -56,7 +56,7 @@ def parseOpts():
 
     opts, args = opts.parse_args(sys.argv)
     return opts
-        
+
 def main():
 
     opts = parseOpts()
@@ -92,7 +92,7 @@ def populate(db, rhn):
 
         # Sub Channels available for subscription, does not include
         # already subscribed sub channels.
-        channels =  rhn.server.system.list_child_channels(rhn.session, 
+        channels =  rhn.server.system.list_child_channels(rhn.session,
                                                           system["id"])
         chanLabels = Set([ i['LABEL'] for i in channels ])
 
@@ -101,7 +101,7 @@ def populate(db, rhn):
 
         grps = rhn.server.system.list_groups(rhn.session, system["id"])
         flag = 0
-    
+
         for grp in grps:
             groupid = db.addGroup(grp)
             name = grp["system_group_name"]
@@ -143,7 +143,7 @@ def doCSV(db):
 
     fd.write("\nTotal Licenes,%s" % total)
     fd.close()
-    
+
 def doHTML(db):
     file = "rhn.phtml"
     templatefile = "template.kid"
@@ -158,7 +158,7 @@ def doHTML(db):
         d["rlcount"] = db.getGroupRLCount(group)
         p = int(10000 * float(d["count"]) / float(total))
         d["percent"] = p / 100.0
-        
+
         table.append(d)
 
     template = kid.Template(file=templatefile)
@@ -168,7 +168,7 @@ def doHTML(db):
     template.date = time.strftime("%A %B %d %H:%M:%S %Z %Y")
 
     template.write(file, fragment=True)
-    
+
 
 if __name__ == "__main__":
     main()

@@ -28,7 +28,7 @@ import xmlrpclib
 try:
     from virtualization import support
 except ImportError:
-    support = None    
+    support = None
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
@@ -82,7 +82,7 @@ def getOemInfo():
             (key, value) = i.split(':')
         except ValueError:
             raise up2dateErrors.OemInfoFileError(i), None, sys.exc_info()[2]
-        
+
         info[key] = value.strip()
 
     return info
@@ -114,21 +114,21 @@ def _write_secure_file(secure_file, file_contents):
     dir_name = os.path.dirname(secure_file)
     if not os.access(dir_name, os.W_OK):
         return False
-    
+
     if os.access(secure_file, os.F_OK):
         # already have file there; let's back it up
         try:
             os.rename(secure_file, secure_file + '.save')
         except:
             return False
-    
+
     fd = os.open(secure_file, os.O_WRONLY | os.O_CREAT, 0600)
     fd_file = os.fdopen(fd, 'w')
     try:
         fd_file.write(file_contents)
     finally:
         fd_file.close()
-    
+
     return True
 
 def writeSystemId(systemId):
@@ -140,7 +140,7 @@ def writeSystemId(systemId):
         removeSystemRegisterRemindFile()
 
     updateRhsmStatus()
-    
+
     return res
 
 def writeHWCode(hw_activation_code):
@@ -160,7 +160,7 @@ def get_virt_info():
        3.  Check /sys/hypervisor/uuid.  If exists and is non-zero, we know
            the system is a para-virt guest; exit.
        4.  If non of the above checks worked; we know we have a
-           non-xen-enabled system; exit. 
+           non-xen-enabled system; exit.
     """
 
     # First, check whether /proc/xen/xsd_port exists.  If so, we know this is
@@ -169,7 +169,7 @@ def get_virt_info():
         if os.path.exists("/proc/xen/xsd_port"):
             # Ok, we know this is *at least* a host system.  However, it may
             # also be a fully-virt guest.  Check for that next.  If it is, we'll
-            # just report that instead since we only support one level of 
+            # just report that instead since we only support one level of
             # virtualization.
             (uuid, virt_type) = get_fully_virt_info()
             return (uuid, virt_type)
@@ -193,7 +193,7 @@ def get_virt_info():
 
 def get_para_virt_info():
     """
-    This function checks /sys/hypervisor/uuid to see if the system is a 
+    This function checks /sys/hypervisor/uuid to see if the system is a
     para-virt guest.  It returns a (uuid, virt_type) tuple.
     """
     try:
@@ -211,7 +211,7 @@ def get_para_virt_info():
 
 def get_fully_virt_info():
     """
-    This function looks in the SMBIOS area to determine if this is a 
+    This function looks in the SMBIOS area to determine if this is a
     fully-virt guest.  It returns a (uuid, virt_type) tuple.
     """
     vendor = hardware.dmi_vendor()
@@ -231,13 +231,13 @@ def welcomeText():
     s = rhnserver.RhnServer()
 
     return s.registration.welcome_message()
-    
+
 
 def getCaps():
     s = rhnserver.RhnServer()
     # figure out if were missing any needed caps
     s.capabilities.validate()
-    
+
 def reserveUser(username, password):
     s = rhnserver.RhnServer()
     return s.registration.reserve_user(username, password)
@@ -249,7 +249,7 @@ def registerUser(username, password):
 
 
 class RegistrationResult:
-    def __init__(self, systemId, channels, failedChannels, systemSlots, 
+    def __init__(self, systemId, channels, failedChannels, systemSlots,
                  failedSystemSlots, universalActivationKey, rawDict=None):
         # TODO Get rid of rawDict
         self._systemId = systemId
@@ -262,40 +262,40 @@ class RegistrationResult:
         else:
             self._universalActivationKey = None
         self.rawDict = rawDict
-    
+
     def getSystemId(self):
         return self._systemId
-    
+
     def getChannels(self):
         return self._channels
-    
+
     def getFailedChannels(self):
         return self._failedChannels
-    
+
     def getSystemSlots(self):
         return self._systemSlots
-    
+
     def getSystemSlotDescriptions(self):
         return map(self._getSlotDescription, self._systemSlots)
-    
+
     def getFailedSystemSlotDescriptions(self):
         return map(self._getFailedSlotDescription, self._failedSystemSlots)
-    
+
     def getUniversalActivationKey(self):
         """Returns None if no universal activation key was used."""
         return self._universalActivationKey
-    
+
     def hasBaseAndUpdates(self):
         """Returns True if the system was subscribed to at least one channel
         and was given any type of system slot so it will get updates. In other
-        words, returns True if the system will be getting at least basic 
+        words, returns True if the system will be getting at least basic
         updates.
-        
+
         """
-        # If it was subscribed to at least one channel, that must include a 
+        # If it was subscribed to at least one channel, that must include a
         # base channel.
         return len(self._channels) > 0 and len(self._systemSlots) > 0
-   
+
     def _getFailedSlotDescription(self, slot):
         if slot in ['virtualization_host', 'virtualization_host_platform']:
             return rhnreg_constants.VIRT + " " + rhnreg_constants.VIRT_FAILED
@@ -324,13 +324,13 @@ def registerSystem(username = None, password = None,
                    token = None, other = None):
     """Wrapper for the old xmlrpc to register a system. Activates subscriptions
     if a reg num is given.
-    
+
     """
     auth_dict = { "profile_name" : profileName,
                   "os_release" : up2dateUtils.getVersion(),
                   "release_name" : up2dateUtils.getOSRelease(),
                   "architecture" : up2dateUtils.getArch() }
-    # dict of other bits to send 
+    # dict of other bits to send
     if other:
         for (key, item) in other.items():
             auth_dict[key] = item
@@ -342,7 +342,7 @@ def registerSystem(username = None, password = None,
 
     if cfg['supportsSMBIOS']:
         auth_dict["smbios"] = _encode_characters(hardware.get_smbios())
-    
+
     s = rhnserver.RhnServer()
     if packages == None:
         ret = s.registration.new_system(auth_dict)
@@ -370,50 +370,50 @@ def updateRhsmStatus():
         # about a timely reply or what the result might be, we just want
         # the method to run. So we can safely ignore this.
         pass
-    
-      
+
+
 def getAvailableChannels(username, password):
     s = rhnserver.RhnServer()
     server_arch = up2dateUtils.getArch()
     server_version = up2dateUtils.getVersion()
     server_release = up2dateUtils.getRelease()
-    
+
     availableChannels = None
 
     try:
         availableChannels = s.registration.available_eus_channels(
                                                  username, password,
-                                                 server_arch, server_version, 
+                                                 server_arch, server_version,
                                                  server_release)
     except xmlrpclib.Fault, f:
         if f.faultCode == 99:
             raise up2dateErrors.DelayError(f.faultString), None, sys.exc_info()[2]
         else:
             raise
-    
+
     return availableChannels
 
 
 
-    
+
 def registerSystem2(username = None, password = None,
                    profileName = None, packages = None,
                    activationKey = None, other = {}):
     """Uses the new xmlrpcs to register a system. Returns a dict instead of just
     system id.
-    
+
     The main differences between this and registerSystem and that this doesn't
-    do activation and does child channel subscriptions if possible. See the 
+    do activation and does child channel subscriptions if possible. See the
     documentation for the xmlrpc handlers in backend for more detail.
-    
+
     If nothing is going to be in other, it can be {} or None.
 
     New in RHEL 5.
-    
+
     """
     if other is None:
         other = {}
-    
+
     if activationKey:
         assert username is None
         assert password is None
@@ -423,9 +423,9 @@ def registerSystem2(username = None, password = None,
         assert password is not None
         assert activationKey is None
     for key in other.keys():
-        assert key in ['registration_number', 
-                       'org_id', 
-                       'virt_uuid', 
+        assert key in ['registration_number',
+                       'org_id',
+                       'virt_uuid',
                        'virt_type',
                        'channel']
 
@@ -433,7 +433,7 @@ def registerSystem2(username = None, password = None,
         other["smbios"] = _encode_characters(hardware.get_smbios())
 
     s = rhnserver.RhnServer()
-    
+
     if activationKey:
         info = s.registration.new_system_activation_key(profileName,
                                                         up2dateUtils.getOSRelease(),
@@ -450,9 +450,9 @@ def registerSystem2(username = None, password = None,
                                                    password,
                                                    other)
     log.log_debug("Returned:\n%s" % info)
-    result = RegistrationResult(info['system_id'], 
-                                info['channels'], info['failed_channels'], 
-                                info['system_slots'], info['failed_system_slots'], 
+    result = RegistrationResult(info['system_id'],
+                                info['channels'], info['failed_channels'],
+                                info['system_slots'], info['failed_system_slots'],
                                 info['universal_activation_key'],
                                 rawDict=info)
     return result
@@ -478,7 +478,7 @@ def sendHardware(systemId, hardwareList):
     if not s.capabilities.hasCapability('ipv6', 1):
         hardwareList = map(remove_ip6addr, hardwareList)
     s.registration.add_hw_profile(systemId, _encode_characters(hardwareList))
-   
+
 def sendPackages(systemId, packageList):
     s = rhnserver.RhnServer()
     if not s.capabilities.hasCapability('xmlrpc.packages.extended_profile', 2):
@@ -495,9 +495,9 @@ def listPackages(systemId):
     print s.registration.list_packages,systemId()
 
 def makeNiceServerUrl(server):
-    """Raises up2dateErrors.InvalidProtocolError if the server url has a 
+    """Raises up2dateErrors.InvalidProtocolError if the server url has a
     protocol specified and it's not http or https.
-    
+
     """
     protocol, host, path, parameters, query, fragmentIdentifier = urlparse.urlparse(server)
     if protocol is None or protocol == '':
@@ -511,7 +511,7 @@ def makeNiceServerUrl(server):
                                                  "http are allowed.")
     if path is None or path == '' or path == '/':
         path = '/XMLRPC'
-    server = urlparse.urlunparse((protocol, host, path, parameters, query, 
+    server = urlparse.urlunparse((protocol, host, path, parameters, query,
                                   fragmentIdentifier))
     # TODO Raise an exception if url isn't valid
     return server
@@ -519,9 +519,9 @@ def makeNiceServerUrl(server):
 def getServerType(serverUrl=None):
     """Returns 'hosted' if the url points to a known hosted server. Otherwise
     returns 'satellite'.
-    
+
     If serverUrl is not specified, it is read from the config entry 'serverURL'.
-    
+
     """
     if serverUrl is None:
         serverUrl = config.getServerlURL()[0]
@@ -529,9 +529,9 @@ def getServerType(serverUrl=None):
     serverUrl = makeNiceServerUrl(serverUrl)
     protocol, host, path, parameters, query, fragmentIdentifier = \
             urlparse.urlparse(serverUrl)
-            
+
     hosted_whitelist = cfg['hostedWhitelist']
-    
+
     if host in ['xmlrpc.rhn.redhat.com', 'rhn.redhat.com'] or \
        hosted_whitelist is not None and host in hosted_whitelist:
         return 'hosted'
@@ -546,21 +546,21 @@ def updatePackages(systemId):
 class ActivationResult:
     ACTIVATED_NOW = 0
     ALREADY_USED = 1
-    
+
     def __init__(self, status, registrationNumber, channels={}, systemSlots={}):
-        """channels and systemSlots are dicts where the key/value pairs are 
+        """channels and systemSlots are dicts where the key/value pairs are
         label (string) / quantity (int).
-        
+
         """
         self._status = status
         # TODO Validate reg num
         self._regNum = registrationNumber
         self._channels = channels
         self._systemSlots = systemSlots
-    
+
     def getStatus(self):
         return self._status
-    
+
     def getRegistrationNumber(self):
         return self._regNum
 
@@ -625,23 +625,23 @@ def _activate_hardware(login, password):
 def activateHardwareInfo(username, password, hardwareInfo, orgId=None):
     """Tries to activate an entitlement linked to the hardware info that we
     read from the bios.
-    
+
     Returns an ActivationResult.
     Can raise:
         Invalid number.
         Hardware info is not entitling.
         Communication errors, etc
-    
+
     """
 ##    import pprint
 ##    pprint.pprint(hardwareInfo)
-    
+
     other = {}
     if orgId:
         other = {'org_id': orgId}
-    
+
     server = rhnserver.RhnServer()
-    result = server.registration.activate_hardware_info(username, password, 
+    result = server.registration.activate_hardware_info(username, password,
                                                         hardwareInfo, other)
     statusCode = result['status_code']
     regNum = result['registration_number']

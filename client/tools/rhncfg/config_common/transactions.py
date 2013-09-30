@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -61,7 +61,7 @@ class DeployTransaction:
     def _generate_backup_path(self, path):
         return "%s%s%s" % (BACKUP_PREFIX, path, BACKUP_EXTENSION)
 
-    
+
     def _rename_to_backup(self, path):
         """renames a file to it's new backup name"""
         # ensure we haven't attempted to back this file up before
@@ -120,19 +120,19 @@ class DeployTransaction:
         if file_info['filetype'] != 'symlink':
             uid = file_info.get('uid')
             if uid is None:
-                if file_info.has_key('username'):            
+                if file_info.has_key('username'):
                     # determine uid
-    
+
                     try:
                         user_record = pwd.getpwnam(file_info['username'])
                     except Exception, e:
                         raise cfg_exceptions.UserNotFound(file_info['username']), None, sys.exc_info()[2]
-            
+
                     uid = user_record[2]
                 else:
                     #default to root (3.2 sats)
                     uid = 0
-    
+
             gid = file_info.get('gid')
             if gid is None:
                 if file_info.has_key('groupname'):
@@ -141,7 +141,7 @@ class DeployTransaction:
                         group_record = grp.getgrnam(file_info['groupname'])
                     except Exception, e:
                         raise cfg_exceptions.GroupNotFound(file_info['groupname']), None, sys.exc_info()[2]
-    
+
                     gid = group_record[2]
                 else:
                     #default to root (3.2 sats)
@@ -176,9 +176,9 @@ class DeployTransaction:
                 sys.stderr.write("cannonical file ownership and permissions lost on %s\n" % dest_path)
             else:
                 raise
-                
 
-        
+
+
     def _normalize_path_to_root(self, path):
         if self.transaction_root:
             path = utils.normalize_path(self.transaction_root + os.sep + path)
@@ -213,7 +213,7 @@ class DeployTransaction:
                 raise Exception("needed key %s mising from file structure" % k)
 
         file_info['path'] = self._normalize_path_to_root(file_info['path'])
-        
+
         # Older servers will not return directories; if filetype is missing,
         # assume file
 	if file_info.get('filetype') == 'directory':
@@ -256,7 +256,7 @@ class DeployTransaction:
             log_debug(9, "directory reverted")
 
 	#remove any directories created by either mkdir_p or in the deploy
-        self.new_dirs.reverse()	
+        self.new_dirs.reverse()
 	for i in range(len(self.new_dirs)):
 	    remove_dir = self.new_dirs[i]
 	    log_debug(6, "removing directory %s that was created during transaction ..." % remove_dir)
@@ -267,7 +267,7 @@ class DeployTransaction:
 	    log_debug(9, "directory removed")
 
         log_debug(3, "rollback successful")
-                
+
     def deploy(self):
         """attempt deployment; will rollback if auto_rollback is set"""
         fp = file_utils.FileProcessor()
@@ -277,9 +277,9 @@ class DeployTransaction:
         for dep_file in self.files:
 	    if dep_file['filetype'] == 'symlink':
 		self.symlinks.append(dep_file)
- 
+
         # 0. handle any dirs we need to create first
-        #    a) if the dir exists, then just change the mode and owners, 
+        #    a) if the dir exists, then just change the mode and owners,
         #	else create it and then make sure the mode and owners are correct.
         #    b) if there are files, then continue
         # 1. write new version (tmp)
@@ -291,7 +291,7 @@ class DeployTransaction:
         #    a)  if anything breaks, remove all deployed files, then do 2-a.
         #
         # (yes, this leaves the backup version on disk...)
-        
+
         try:
 
 	    # 0.
@@ -347,12 +347,12 @@ class DeployTransaction:
                     dirs_created = utils.mkdir_p(directory, None, self.symlinks, self.files)
 		    self.new_dirs.extend(dirs_created)
                     log_debug(7, "directories created and added to list for rollback")
-                
+
                 # write the new contents to a tmp file, and store the path of the
                 # new tmp file by it's eventual target path
                 self.newtemp_by_path[path], temp_new_dirs = fp.process(dep_file, os.path.sep)
                 self.new_dirs.extend(temp_new_dirs or [])
-                
+
                 # properly chown and chmod it
                 self._chown_chmod_chcon(self.newtemp_by_path[path], path, dep_file)
                 log_debug(9, "tempfile written:  %s" % self.newtemp_by_path[path])
@@ -364,7 +364,7 @@ class DeployTransaction:
             # 2.
             for path in paths:
 		if os.path.isdir(path) and not os.path.islink(path):
-		    raise cfg_exceptions.FileEntryIsDirectory(path)	
+		    raise cfg_exceptions.FileEntryIsDirectory(path)
 		else:
                     self._rename_to_backup(path)
                     if self.backup_by_path.has_key(path):
@@ -382,7 +382,7 @@ class DeployTransaction:
                 log_debug(9, "new version of %s deployed" % path)
 
             log_debug(3, "deploy transaction successful")
-                
+
         except Exception:
             #log_debug(1, traceback.format_exception_only(SyntaxError, e))
             #traceback.print_exc()

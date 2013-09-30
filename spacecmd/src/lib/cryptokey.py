@@ -45,7 +45,7 @@ def do_cryptokey_create(self, args):
         options.description = ''
         while options.description == '':
             options.description = prompt_user('Description:')
-       
+
         if self.user_confirm('Read an existing file [y/N]:',
                              nospacer = True, ignore_yes = True):
             options.file = prompt_user('File:')
@@ -90,7 +90,7 @@ def help_cryptokey_delete(self):
 
 def complete_cryptokey_delete(self, text, line, beg, end):
     if len(line.split(' ')) <= 2:
-        return tab_completer(self.do_cryptokey_list('', True), 
+        return tab_completer(self.do_cryptokey_list('', True),
                                   text)
 
 def do_cryptokey_delete(self, args):

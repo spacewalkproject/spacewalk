@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Useful kickstart functions
@@ -41,7 +41,7 @@ YABOOT_CONF = "/etc/yaboot.conf"
 ZIPL_CONF   = "/etc/zipl.conf"
 
 def initiate(base, extra_append, static_device=None, preserve_files=[]):
-    # XXX it's bad to hardcode each special case, but this is the only one I 
+    # XXX it's bad to hardcode each special case, but this is the only one I
     # can think of...
     if os.path.exists(ELILO_BOOT):
         base_dir = os.path.join(PREFIX, ELILO_BOOT, RHN_KS_DIR, base)
@@ -74,7 +74,7 @@ def initiate(base, extra_append, static_device=None, preserve_files=[]):
     # cleanup previous attempt
     rm_rf(SHADOW)
     os.mkdir(SHADOW)
-   
+
     if static_device:
         extra_append, error = local_network_kickstart(extra_append,
                 kickstart_config, static_device, initrd, preserve_files)
@@ -87,9 +87,9 @@ def initiate(base, extra_append, static_device=None, preserve_files=[]):
             # Error
             return ret
         initrd = initrd + ".merged"
-    
+
     # XXX hardcoding the ramdisk_size is potentially bad, and
-    # should be dynamic based on the size of the uncompressed new initrd 
+    # should be dynamic based on the size of the uncompressed new initrd
     if os.path.exists(ZIPL_CONF):
         append = ["ip=off", "root=/dev/ram0", "ramdisk_size=40000", "ro", "RUNKS=1"]
     else:
@@ -104,10 +104,10 @@ def initiate(base, extra_append, static_device=None, preserve_files=[]):
 
     if os.path.exists(GRUB_CONF):
         # the boolean logic marks success to '1' if function call suceeds
-        success = _modify_grub_conf(base, kernel, initrd, append, error_messages) or success 
+        success = _modify_grub_conf(base, kernel, initrd, append, error_messages) or success
 
     if os.path.exists(LILO_CONF):
-        success = _modify_lilo_conf(base, kernel, initrd, append, error_messages) or success 
+        success = _modify_lilo_conf(base, kernel, initrd, append, error_messages) or success
 
     if os.path.exists(YABOOT_CONF):
         success = _modify_yaboot_conf(base, kernel, initrd, append, error_messages) or success
@@ -119,7 +119,7 @@ def initiate(base, extra_append, static_device=None, preserve_files=[]):
         success = _modify_s390(base, kernel, initrd, append, error_messages) or success
 
     if not success:
-        return (10, "Kickstart initiate failed: failed to install bootloaders", 
+        return (10, "Kickstart initiate failed: failed to install bootloaders",
             error_messages)
 
     return (0, "Kickstart initiate succeeded", error_messages)
@@ -158,13 +158,13 @@ def _modify_lilo_conf(base, vmlinuz, initrd, append, error_messages):
     modify the configuration file for the lilo bootloader
     returns '1' on success, '0' on failure
     """
-    
+
     label = "kickstart"
 
     add_to_lilo(label=label, vmlinuz=vmlinuz, initrd=initrd, append=append, lilo_conf=LILO_CONF)
     bootloader_args = [
-        "/sbin/lilo", 
-        "-C", LILO_CONF, 
+        "/sbin/lilo",
+        "-C", LILO_CONF,
     ]
     exit_code, stdout, stderr = my_popen(bootloader_args)
     if exit_code:
@@ -217,9 +217,9 @@ def _modify_elilo_conf(base, vmlinuz, initrd, append, error_messages):
     # XXX ugly hack to work around required relative path for elilo
     e_vmlinuz = string.replace(vmlinuz, '/boot/efi', '../..', 1)
     e_initrd  = string.replace(initrd, '/boot/efi', '../..', 1)
-    
+
     # this works for elilo as well: for rhel2.1
-    # XXX the problem with this approach is that there is *no* error checking, 
+    # XXX the problem with this approach is that there is *no* error checking,
     # so we won't know about a failure until it's too late
     label = "kickstart"
     add_to_lilo(label=label, vmlinuz=e_vmlinuz, initrd=e_initrd, append=append, lilo_conf=ELILO_CONF)
@@ -251,7 +251,7 @@ def _modify_s390(base, vmlinuz, initrd, append, error_messages):
 
     # Buid parm file from kernel parameters in append.
     # There is a maximum of 32 parameters.
-    parmfn = os.path.join(PREFIX, BOOT, RHN_KS_DIR, "user.parm")    
+    parmfn = os.path.join(PREFIX, BOOT, RHN_KS_DIR, "user.parm")
     if os.path.exists(parmfn):
         os.unlink(parmfn)
     parmfd = os.open(parmfn, os.O_CREAT | os.O_WRONLY)
@@ -445,7 +445,7 @@ def local_network_kickstart(extra_append, ks_data, static_device, initrd, preser
 
     if not os.access(SHADOW, os.F_OK):
         os.mkdir(SHADOW, 0700)
-    
+
     ks_file = SHADOW + "/" + "ks.cfg"
     f = open(ks_file, "w")
     f.write(ks_data)
@@ -458,20 +458,20 @@ def local_network_kickstart(extra_append, ks_data, static_device, initrd, preser
         if status:
             return None, (15, "Unable to create network kickstart",
                 _build_error(status, stdout, stderr))
-    
+
     ret = create_new_rd(initrd, preserve_files)
     if ret:
         # Error
         return None, ret
-        
+
     extra_append = "%s%s%s" % (extra_append[:match.start(1)], "ks=file:/ks.cfg", extra_append[match.end(1):])
-    
+
     return extra_append, None
 
 
 def create_new_rd(initrd, preserve_files=[]):
     """
-    Returns None if everything went well, or a tuple 
+    Returns None if everything went well, or a tuple
     (err_code, err_string, dict) if problems were found
     """
     if not initrd:
@@ -484,9 +484,9 @@ def create_new_rd(initrd, preserve_files=[]):
 	# lame naming below to use /tmp/ks-tres-shadow 2X
 	# but needed to get it here the ks.cfg expects it
 	preserve_shadow = SHADOW + SHADOW
-	# new FileCopier class handles the dirty work of getting the 
+	# new FileCopier class handles the dirty work of getting the
 	# preserved file set copied w/ all permissions, owners, etc
-	# kept intact and in the correct location 
+	# kept intact and in the correct location
 	c = FileCopier(preserve_files, preserve_shadow, quota=quota)
         try:
 	    c.copy()
@@ -520,7 +520,7 @@ def _remove_func(path):
         # Attempt to remove the file/link/etc
         os.unlink(path)
         return
-        
+
     # It's a directory!
     files = os.listdir(path)
     # We need to add the path since listdir only returns a relative path
@@ -540,7 +540,7 @@ def _build_error(status, stdout, stderr):
         'stderr'    : stderr.read(),
     }
     return params
-    
+
 
 
 class QuotaExceeded(Exception):
@@ -601,7 +601,7 @@ class FileCopier:
         # Quota enabled
         if self.current_quota + file_size > self.quota:
             raise QuotaExceeded(f)
-        
+
 
     def _update_quota(self, f, file_size):
         self.current_quota = self.current_quota + file_size
@@ -616,7 +616,7 @@ class FileCopier:
         os.chmod(dest, st[stat.ST_MODE])
         os.chown(dest, st[stat.ST_UID], st[stat.ST_GID])
         os.utime(dest, (st[stat.ST_ATIME], st[stat.ST_MTIME]))
-    
+
 
     def _copy_dir(self, f, st):
         files = map(lambda x, d=f: os.path.join(d, x), os.listdir(f))
@@ -660,7 +660,7 @@ class FileCopier:
         for d in l:
             src_dir = os.path.join(src_dir, d)
             src_st = os.lstat(src_dir)
-            dest_dir = os.path.join(dest_dir, d) 
+            dest_dir = os.path.join(dest_dir, d)
             if not os.path.exists(dest_dir):
                 os.mkdir(dest_dir)
             os.chmod(dest_dir, src_st[stat.ST_MODE])

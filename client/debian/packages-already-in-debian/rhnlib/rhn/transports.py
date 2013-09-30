@@ -5,7 +5,7 @@
 #
 # Author: Mihai Ibanescu <misa@redhat.com>
 # Based on what was previously shipped as cgiwrap:
-#   - Cristian Gafton <gafton@redhat.com> 
+#   - Cristian Gafton <gafton@redhat.com>
 #   - Erik Troan <ewt@redhat.com>
 
 # $Id$
@@ -62,7 +62,7 @@ class Transport(xmlrpclib.Transport):
         self.refreshCallback = refreshCallback
 
     # set the buffer size
-    # The bigger this is, the faster the read is, but the more seldom is the 
+    # The bigger this is, the faster the read is, but the more seldom is the
     # progress callback called
     def set_buffer_size(self, bufferSize):
         if bufferSize is None:
@@ -76,7 +76,7 @@ class Transport(xmlrpclib.Transport):
         if method not in ("GET", "POST"):
             raise IOError, "Unknown request method %s" % method
         self.method = method
-    
+
     # reset the transport options
     def set_transport_flags(self, transfer=None, encoding=None, **kwargs):
         # For backwards compatibility, we keep transfer and encoding as
@@ -126,15 +126,15 @@ class Transport(xmlrpclib.Transport):
         if self.verbose:
             print "Connecting via http to %s" % (host, )
         return connections.HTTPConnection(host)
-        
+
     def request(self, host, handler, request_body, verbose=0):
         # issue XML-RPC request
         # XXX: automatically compute how to send depending on how much data
         #      you want to send
-        
+
         # XXX Deal with HTTP/1.1 if necessary
         self.verbose = verbose
-        
+
         # implement BASIC HTTP AUTHENTICATION
         host, extra_headers, x509 = self.get_host_info(host)
         if not extra_headers:
@@ -163,9 +163,9 @@ class Transport(xmlrpclib.Transport):
         # Host and Content-Length are set by HTTP*Connection
         for h in ['Content-Length', 'Host']:
             req.clear_header(h)
-        
+
         headers, fd = req.send_http(host, handler)
-        
+
         if self.verbose:
             print "Incoming headers:"
             for header, value in headers.items():
@@ -187,9 +187,9 @@ class Transport(xmlrpclib.Transport):
         # Now use the Input class in case we get an enhanced response
         resp = Input(self.headers_in, progressCallback=self.progressCallback,
                 bufferSize=self.bufferSize)
-        
+
         fd = resp.decode(fd)
-        
+
         if isinstance(fd, InputStream):
             # When the File object goes out of scope, so will the InputStream;
             # that will eventually call the connection's close() method and
@@ -235,14 +235,14 @@ class Transport(xmlrpclib.Transport):
         p.close()
         return u.close()
 
-        
+
     def setlang(self, lang):
         self._lang = lang
 
 class SafeTransport(Transport):
     def __init__(self, transfer=0, encoding=0, refreshCallback=None,
                 progressCallback=None, trusted_certs=None):
-        Transport.__init__(self, transfer, encoding, 
+        Transport.__init__(self, transfer, encoding,
             refreshCallback=refreshCallback, progressCallback=progressCallback)
         self.trusted_certs = []
         for certfile in (trusted_certs or []):
@@ -274,16 +274,16 @@ class ProxyTransport(Transport):
         if self.verbose:
             print "Connecting via http to %s proxy %s, username %s, pass %s" % (
                 host, self._proxy, self._proxy_username, self._proxy_password)
-        return connections.HTTPProxyConnection(self._proxy, host, 
+        return connections.HTTPProxyConnection(self._proxy, host,
             username=self._proxy_username, password=self._proxy_password)
 
 class SafeProxyTransport(ProxyTransport):
     def __init__(self, proxy, proxyUsername=None, proxyPassword=None,
             transfer=0, encoding=0, refreshCallback=None,
             progressCallback=None, trusted_certs=None):
-        ProxyTransport.__init__(self, proxy, 
+        ProxyTransport.__init__(self, proxy,
             proxyUsername=proxyUsername, proxyPassword=proxyPassword,
-            transfer=transfer, encoding=encoding, 
+            transfer=transfer, encoding=encoding,
             refreshCallback=refreshCallback,
             progressCallback=progressCallback)
         self.trusted_certs = []
@@ -299,8 +299,8 @@ class SafeProxyTransport(ProxyTransport):
         if self.verbose:
             print "Connecting via https to %s proxy %s, username %s, pass %s" % (
                 host, self._proxy, self._proxy_username, self._proxy_password)
-        return connections.HTTPSProxyConnection(self._proxy, host, 
-            username=self._proxy_username, password=self._proxy_password, 
+        return connections.HTTPSProxyConnection(self._proxy, host,
+            username=self._proxy_username, password=self._proxy_password,
             trusted_certs=self.trusted_certs)
 
 # ============================================================================
@@ -339,7 +339,7 @@ class Input:
         self.progressCallback = progressCallback
         self.bufferSize = bufferSize
         self.max_mem_size = max_mem_size
-        
+
         if not headers:
             # we need to get them from environment
             if os.environ.has_key("HTTP_CONTENT_TRANSFER_ENCODING"):
@@ -381,17 +381,17 @@ class Input:
                     self.lang = value.lower()
                 elif h == "x-package-filename":
                     self.name = value
-            
+
         self.io = None
-   
+
     def read(self, fd = sys.stdin):
         # The octet-streams are passed right back
         if self.type == "application/octet-stream":
             return
-        
+
         if self.length:
             # Read exactly the amount of data we were told
-            self.io = _smart_read(fd, self.length, 
+            self.io = _smart_read(fd, self.length,
                 bufferSize=self.bufferSize,
                 progressCallback=self.progressCallback,
                 max_mem_size=self.max_mem_size)
@@ -414,7 +414,7 @@ class Input:
         # The octet-stream data are passed right back
         if self.type == "application/octet-stream":
             return InputStream(fd, self.length, self.name, close=fd.close)
-        
+
         if not self.io:
             self.read(fd)
 
@@ -448,7 +448,7 @@ class Input:
             self.length = len(data)
             self.io = SmartIO(max_mem_size=self.max_mem_size)
             self.io.write(data)
-        elif self.encoding == "x-gpg":           
+        elif self.encoding == "x-gpg":
             # XXX: should be written
             raise NotImplementedError(self.transfer, self.encoding)
         else:
@@ -457,11 +457,11 @@ class Input:
         # Play nicely and rewind the file descriptor
         self.io.seek(0, 0)
         return self.io
-    
+
     def getlang(self):
         return self.lang
 
-# Utility functions 
+# Utility functions
 
 def _smart_total_read(fd, bufferSize=1024, max_mem_size=16384):
     """
@@ -490,14 +490,14 @@ def _smart_read(fd, amt, bufferSize=1024, progressCallback=None,
     # Unlike read(), _smart_read tries to return exactly the requested amount
     # (whereas read will return _up_to_ that amount). Reads from sockets will
     # usually reaturn less data, or the read can be interrupted
-    # 
+    #
     # Inspired by Greg Stein's httplib.py (the standard in python 2.x)
     #
     # support for progress callbacks added
     startTime = time.time()
     lastTime = startTime
     buf = SmartIO(max_mem_size=max_mem_size)
-    
+
     origsize = amt
     while amt > 0:
         curTime = time.time()
@@ -522,7 +522,7 @@ def _smart_read(fd, amt, bufferSize=1024, progressCallback=None,
             lastTime = curTime
             # use float() so that we force float division in the next step
             bytesRead = float(origsize - amt)
-            # if amt == 0, on a fast machine it is possible to have 
+            # if amt == 0, on a fast machine it is possible to have
             # curTime - lastTime == 0, so add an epsilon to prevent a division
             # by zero
             speed = bytesRead / ((curTime - startTime) + .000001)
@@ -534,7 +534,7 @@ def _smart_read(fd, amt, bufferSize=1024, progressCallback=None,
                 # of 0 length; but that's impossible since we already checked
                 # that l is non-null
                 secs = amt / speed
-            progressCallback(bytesRead, origsize, speed, secs) 
+            progressCallback(bytesRead, origsize, speed, secs)
 
     # Now rewind the SmartIO
     buf.seek(0, 0)
@@ -554,13 +554,13 @@ class InputStream:
 # ============================================================================
 # Output class that will be used to build the temporary output string
 class BaseOutput:
-    # DEFINES for instances use   
+    # DEFINES for instances use
     # Content-Encoding
     ENCODE_NONE = 0
     ENCODE_GZIP = 1
     ENCODE_ZLIB = 2
     ENCODE_GPG  = 3
-    
+
     # Content-Transfer-Encoding
     TRANSFER_NONE   = 0
     TRANSFER_BINARY = 1
@@ -608,7 +608,7 @@ class BaseOutput:
 
         # internal flags
         self.__processed = 0
-        
+
     def set_header(self, name, arg):
         if type(arg) in [ type([]), type(()) ]:
             # Multi-valued header
@@ -668,7 +668,7 @@ class BaseOutput:
             self.set_header("Content-Transfer-Encoding", transfer_name)
             self.set_header("Content-Type", "text/base64")
             self.data = base64.encodestring(self.data)
-            
+
         self.set_header("Content-Length", len(self.data))
 
         rpc_version = __version__
@@ -677,10 +677,10 @@ class BaseOutput:
 
         # other headers
         self.set_header("X-Transport-Info",
-            'Extended Capabilities Transport (C) Red Hat, Inc (version %s)' % 
+            'Extended Capabilities Transport (C) Red Hat, Inc (version %s)' %
             rpc_version)
         self.__processed = 1
-        
+
     # reset the transport options
     def set_transport_flags(self, transfer=0, encoding=0, **kwargs):
         self.transfer = transfer
@@ -696,16 +696,16 @@ class BaseOutput:
         if self._connection is None:
             raise Exception("No connection object found")
         self._connection.connect()
-        self._connection.request(self.method, handler, body=self.data, 
+        self._connection.request(self.method, handler, body=self.data,
             headers=self.headers)
-        
+
         response = self._connection.getresponse()
 
         if not self.response_acceptable(response):
-            raise xmlrpclib.ProtocolError("%s %s" % 
+            raise xmlrpclib.ProtocolError("%s %s" %
                 (self._host, handler),
                 response.status, response.reason, response.msg)
-                
+
         # A response object has read() and close() methods, so we can safely
         # pass the whole object back
         return response.msg, response
@@ -802,13 +802,13 @@ class File:
                 break
             file.write(buf)
         return file
-        
+
     def _get_file(self):
         """Read everything into a temporary file and call the progress
         callbacks if the file length is defined, or just reads till EOF"""
         if self.length:
             io = _smart_read(self.file_obj, self.length,
-                bufferSize=self.bufferSize, 
+                bufferSize=self.bufferSize,
                 progressCallback=self.progressCallback)
             io.seek(0, 0)
         else:

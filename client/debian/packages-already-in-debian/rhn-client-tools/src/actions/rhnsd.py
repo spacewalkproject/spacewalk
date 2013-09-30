@@ -27,7 +27,7 @@ def __configRhnsd(interval, cache_only=None):
         if comps[0] == "INTERVAL":
             index = count
         count = count + 1
-            
+
     if index != None:
         tmplines[index] = "INTERVAL=%s" % interval
 

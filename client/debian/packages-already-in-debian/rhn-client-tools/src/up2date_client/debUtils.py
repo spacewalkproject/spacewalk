@@ -15,7 +15,7 @@ _ = t.ugettext
 # FIXME: After Debian bug 187019 is resolved
 def verifyPackages(packages):
     cache = apt.Cache()
-    missing_packages = []                                                                            
+    missing_packages = []
     for package in packages:
         pkg = cache[package[0]]
         if pkg == None or not pkg.is_installed:
@@ -28,7 +28,7 @@ def parseVRE(version):
     release = '0'
     if version.find(':') != -1:
         epoch, version = version.split(':')
-    if version.find('-') != -1: 
+    if version.find('-') != -1:
         tmp = version.split('-')
         version = '-'.join(tmp[:-1])
         release = tmp[-1]
@@ -43,7 +43,7 @@ def installTime(pkg_name):
 
 #FIXME: Using Apt cache might not be an ultimate solution.
 # It could be better to parse /var/lib/dpkg/status manually.
-# Apt cache might not contain all the packages. 
+# Apt cache might not contain all the packages.
 def getInstalledPackageList(msgCallback = None, progressCallback = None,
                             getArch=None, getInfo = None):
     """ Return list of packages. Package is dict with following keys:

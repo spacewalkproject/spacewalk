@@ -84,7 +84,7 @@ Smart Package Manager is a next generation package handling tool.
                                ["smart/util/cdistance.c"]),
                     ],
       data_files = I18NFILES +
-                   [(PYTHONLIB+"/smart/interfaces/images", 
+                   [(PYTHONLIB+"/smart/interfaces/images",
                      glob.glob("smart/interfaces/images/*.png"))],
       )
 

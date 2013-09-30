@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -42,7 +42,7 @@ class Handler(handler_base.HandlerBase):
              help="Get this file revision",
          ),
     ]
-                                                    
+
     def run(self):
         log_debug(2)
         r = self.repository
@@ -74,17 +74,17 @@ class Handler(handler_base.HandlerBase):
         for f in self.args:
             try:
                 directory = topdir or tempfile.gettempdir()
-                
+
                 #5/11/05 wregglej - 157066 dirs_created is returned from get_file_info.
                 (temp_file, info, dirs_created) = r.get_file_info(channel, f, revision=revision,
                                                     auto_delete=0, dest_directory=directory)
-                
+
             except cfg_exceptions.RepositoryFileMissingError:
                 if revision is not None:
                     die(2, "Error: file %s (revision %s) not in config "
                         "channel %s" % (f, revision, channel))
                 else:
-                    die(2, "Error: file %s not in config channel %s" % 
+                    die(2, "Error: file %s not in config channel %s" %
                         (f, channel))
 
             if topdir:
@@ -93,7 +93,7 @@ class Handler(handler_base.HandlerBase):
                 continue
             elif info.get('filetype') == 'symlink':
                 print "%s -> %s" % (info['path'], info['symlink'])
-                continue            
+                continue
             elif info.get('filetype') == 'directory':
                 print "%s is a directory entry, nothing to get" % info['path']
                 continue
@@ -117,5 +117,5 @@ class Handler(handler_base.HandlerBase):
                     raise
                 else:
                     raise e, "Deploy failed, rollback successful:  ", sys.exc_info()[2]
-            
+
 

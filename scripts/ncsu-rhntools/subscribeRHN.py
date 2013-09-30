@@ -24,7 +24,7 @@
 # ...ummm... occurance that causes all machines to lose their base
 # channel.  Getting the base channels back is normally pretty easy
 # but at that point all the sub-channel information has been
-# completely lost.  
+# completely lost.
 
 import pickle
 import xmlrpclib
@@ -84,12 +84,12 @@ for host in hosts:
                           'realmlinux-as4-amd64']:
             chan = c['LABEL']
             cid = c['ID']
-    
+
     if chan == "":
         print "Realm Linux channel already set for: %s" % host
         continue
-    
+
     print "Setting sub-channels of %s to %s, %s" % (host, chan, cid)
     ret = server.system.setChildChannels(session, sid, [cid])
     print "RHN Returned %s" % ret
-    
+

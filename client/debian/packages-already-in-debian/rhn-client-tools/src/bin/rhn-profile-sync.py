@@ -7,7 +7,7 @@
 # Authors:
 #       Adrian Likins <alikins@redhat.com>
 #       Preston Brown <pbrown@redhat.com>
-#       James Bowes <jbowes@redhat.com> 
+#       James Bowes <jbowes@redhat.com>
 
 import sys
 
@@ -25,7 +25,7 @@ from up2date_client import rhnHardware
 try:
     from virtualization import support
 except ImportError:
-    support = None    
+    support = None
 
 class ProfileCli(rhncli.RhnCli):
 
@@ -42,10 +42,10 @@ class ProfileCli(rhncli.RhnCli):
 
         print _("Updating package profile...")
         rhnPackageInfo.updatePackageProfile()
-        
+
         print _("Updating hardware profile...")
         rhnHardware.updateHardware()
-       
+
         if support is not None:
             print _("Updating virtualization profile...")
             support.refresh()

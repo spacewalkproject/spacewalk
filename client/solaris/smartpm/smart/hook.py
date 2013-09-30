@@ -25,7 +25,7 @@ import traceback
 class Hooks:
     def __init__(self):
         self._hook = {}
-    
+
     def register(self, hookname, hookfunc, priority=500, threaded=0):
         hook = self._hook.get(hookname)
         if not hook:
@@ -40,10 +40,10 @@ class Hooks:
                 i = i + 1
             else:
                 hook.append((hookfunc,priority,threaded))
-    
+
     def unregister(self, hookname, hookfunc, priority=500, threaded=0):
         self._hook[hookname].remove((hookfunc,priority,threaded))
-    
+
     def call(self, hookname, *hookparam, **hookkwparam):
         ret = []
         if hookname in self._hook:

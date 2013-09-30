@@ -257,7 +257,7 @@ class UmountMedia(Media):
     def umount(self):
         if not self.isMounted():
             return True
-        status, output = commands.getstatusoutput("umount %s" % 
+        status, output = commands.getstatusoutput("umount %s" %
                                                   self._mountpoint)
         if status != 0:
             iface.debug(output)

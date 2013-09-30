@@ -44,7 +44,7 @@ for system in systems:
     c = c + 1
     grps = s.system.list_groups(rhn.session, int(system["id"]))
     flag = 0
-    
+
     for grp in grps:
         name = grp["system_group_name"]
         if int(grp["subscribed"]) > 0:

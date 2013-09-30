@@ -24,7 +24,7 @@ from smart import *
 
 class Uncompressor(object):
 
-    _handlers = [] 
+    _handlers = []
 
     def addHandler(self, handler):
         self._handlers.append(handler())

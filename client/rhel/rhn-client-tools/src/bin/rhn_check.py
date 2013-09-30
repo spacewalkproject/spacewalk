@@ -56,7 +56,7 @@ cfg = config.initUp2dateConfig()
 log = up2dateLog.initLog()
 
 # action version we understand
-ACTION_VERSION = 2 
+ACTION_VERSION = 2
 
 # lock file to check if we're disabled at the server's request
 DISABLE_FILE = "/etc/sysconfig/rhn/disable"
@@ -70,7 +70,7 @@ class CheckCli(rhncli.RhnCli):
     def __init__(self):
         super(CheckCli, self).__init__()
 
-        self.rhns_ca_cert = cfg['sslCACert'] 
+        self.rhns_ca_cert = cfg['sslCACert']
         self.server = None
 
     def main(self):
@@ -174,13 +174,13 @@ class CheckCli(rhncli.RhnCli):
     def __run_remote_actions(self):
         # the list of caps the client needs
         caps = capabilities.Capabilities()
-        
+
         status_report = CheckCli.__build_status_report()
 
         action = self.__get_action(status_report)
         while action != "" and action != {}:
             self.__verify_server_capabilities(caps)
-               
+
             if self.is_valid_action(action):
                 try:
                     up2dateAuth.updateLoginInfo()
@@ -195,12 +195,12 @@ class CheckCli(rhncli.RhnCli):
         response_headers = self.server.get_response_headers()
         caps.populate(response_headers)
         # do we actually want to validte here?
-        try:        
+        try:
             caps.validate()
         except up2dateErrors.ServerCapabilityError, e:
             print e
             sys.exit(1)
- 
+
     def __parse_action_data(self, action):
         """ Parse action data and returns (method, params) """
         data = action['action']
@@ -216,7 +216,7 @@ class CheckCli(rhncli.RhnCli):
 
         # get a new server object with fresh headers
         self.server = CheckCli.__get_server()
-        
+
         try:
             ret = self.server.queue.submit(up2dateAuth.getSystemId(),
                                       action_id, status, message, data)
@@ -236,15 +236,15 @@ class CheckCli(rhncli.RhnCli):
         except socket.error:
             print "Could not submit to %s.\n"\
                   "Possible networking problem?" % str(self.server)
-            sys.exit(-1)                
+            sys.exit(-1)
         return ret
- 
+
     def handle_action(self, action, cache_only=None):
         """ Wrapper handler for the action we're asked to do. """
         log.log_debug("handle_action", action)
         log.log_debug("handle_action actionid = %s, version = %s" % (
             action['id'], action['version']))
-            
+
         (method, params) = self.__parse_action_data(action)
         (status, message, data) = CheckCli.__run_action(method, params, {'cache_only': cache_only})
         ret = 0
@@ -256,7 +256,7 @@ class CheckCli(rhncli.RhnCli):
 
     def is_valid_action(self, action):
         log.log_debug("check_action", action)
-            
+
         # be very paranoid of what we get back
         if type(action) != type({}):
             print "Got unparseable action response from server"
@@ -278,7 +278,7 @@ class CheckCli(rhncli.RhnCli):
                             xmlrpclib.Fault(-99, "Can not handle this version"))
             return False
         return True
- 
+
     @staticmethod
     def __get_server():
         """ Initialize a server connection and set up capability info. """
@@ -342,7 +342,7 @@ class CheckCli(rhncli.RhnCli):
 
         method = getMethod.getMethod(method, "/usr/share/rhn/", "actions")
         retval = method(*params, **kwargs)
-    
+
         return retval
 
     @staticmethod
@@ -381,7 +381,7 @@ class CheckCli(rhncli.RhnCli):
     def __check_instance_lock():
         lock = None
         try:
-            lock = rhnLockfile.Lockfile('/var/run/rhn_check.pid')        
+            lock = rhnLockfile.Lockfile('/var/run/rhn_check.pid')
         except rhnLockfile.LockfileLockedException, e:
             sys.stderr.write(rhncli.utf8_encode(_("Attempting to run more than one instance of rhn_check. Exiting.\n")))
             sys.exit(0)

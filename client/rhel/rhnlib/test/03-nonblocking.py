@@ -1,7 +1,7 @@
 import socket
 import sys
 sys.path.append('..')
-from rhn.connections import HTTPConnection 
+from rhn.connections import HTTPConnection
 
 def callback(r, w, x, u):
     print "Callback called"

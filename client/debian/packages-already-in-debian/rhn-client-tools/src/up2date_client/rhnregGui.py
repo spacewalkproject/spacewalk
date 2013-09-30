@@ -30,24 +30,24 @@
 # this is a module containing classes for the registration related windows in
 # gui.py. The code is split up so we can reuse it in the firstboot modules
 """
-Explanation of the RHN registration gui and how it is used from both 
+Explanation of the RHN registration gui and how it is used from both
 rhn_register and firstboot (from alikins):
-Most of the "work" happens in rhnregGui.py. Thats where the 
+Most of the "work" happens in rhnregGui.py. Thats where the
 logic for the screens is.
-gui.py has Gui which is the big monster class (using druid) that makes up the 
-main gui wizard for up2date/rhn_register. Gui implements showing the pages for 
-up2date/rhn_register. For up2date/rhnreg, it has methods that load the classes 
-from rhnregGui (by multiple inheritance...), but it's not too bad, it's all 
-mixin stuff, nothing wacky, no overridden methods or anything. 
-firstboot/* does more or less the same thing, but with a different style of 
-wrapper just to present the firstboot style api's. (Each "page" in firstboot is 
+gui.py has Gui which is the big monster class (using druid) that makes up the
+main gui wizard for up2date/rhn_register. Gui implements showing the pages for
+up2date/rhn_register. For up2date/rhnreg, it has methods that load the classes
+from rhnregGui (by multiple inheritance...), but it's not too bad, it's all
+mixin stuff, nothing wacky, no overridden methods or anything.
+firstboot/* does more or less the same thing, but with a different style of
+wrapper just to present the firstboot style api's. (Each "page" in firstboot is
 a module with a class that inherits FirstBootGuiWindow.)
 """
 
 import urlparse
 import gtk
-# Need to import gtk.glade to make this file work alone even though we always 
-# access it as gtk.glade. Not sure why. Maybe gtk's got weird hackish stuff 
+# Need to import gtk.glade to make this file work alone even though we always
+# access it as gtk.glade. Not sure why. Maybe gtk's got weird hackish stuff
 # going on?
 import gtk.glade
 import gobject
@@ -88,7 +88,7 @@ hw_activation_code = None
 serverType = None
 chosen_channel = None
 
-# _hasBaseChannelAndUpdates gets set by the code in create profile which 
+# _hasBaseChannelAndUpdates gets set by the code in create profile which
 # registers the system and used by hasBaseChannelAndUpdates()
 _hasBaseChannelAndUpdates = False
 _autoActivatedNumbers = False # used by autoActivateNumbersOnce()
@@ -99,7 +99,7 @@ class ReviewLog:
         self._boldTag = self._text.create_tag(weight=700)
 
     def prependBoldText(self, text):
-        """Adds a blob of bolded text to the beggining specified section. Adds a newline 
+        """Adds a blob of bolded text to the beggining specified section. Adds a newline
         after the text.
         """
         self.prependText(text)
@@ -110,9 +110,9 @@ class ReviewLog:
         self._text.apply_tag(self._boldTag, startOfText, endOfText)
 
     def addBoldText(self, text):
-        """Adds a blob of bolded text to the specified section. Adds a newline 
+        """Adds a blob of bolded text to the specified section. Adds a newline
         after the text.
-        
+
         """
         self.addText(text)
         # Make it bold
@@ -131,17 +131,17 @@ class ReviewLog:
     def addText(self, text):
         """Adds a blob of text to the specified section. Adds a newline after
         the text.
-        
+
         """
         end = self._text.get_end_iter()
         self._text.insert(end, text + '\n')
-    
+
     def addBulletedText(self, text):
         self.addText(u'\u2022' + ' ' + text)
-    
+
     def getTextBuffer(self):
         return self._text
-    
+
     def usedUniversalActivationKey(self, keyName):
         self.addBoldText(_("Notice"))
         keys = ', '.join(keyName)
@@ -189,7 +189,7 @@ class ReviewLog:
             for channel in failedChannels:
                 self.addBulletedText(channel)
         self.addText('') # adds newline
-    
+
     def systemSlots(self, slots, failedSlots):
         self.addBoldText(rhnreg_constants.SLOTS_TITLE)
         self.addText(rhnreg_constants.OK_SLOTS)
@@ -203,15 +203,15 @@ class ReviewLog:
             for slot in failedSlots:
                 self.addBulletedText(slot)
         self.addText('') # adds newline
-    
+
 reviewLog = ReviewLog()
 
 
 class StartPage:
     """There is a section of this page which asks if the user wants to register,
-    which will only be shown in firstboot. This is specified by the arg to the 
+    which will only be shown in firstboot. This is specified by the arg to the
     constructor.
-    
+
     """
     def __init__(self, firstboot=False):
         self.startXml = gtk.glade.XML(gladefile, "startWindowVbox",
@@ -224,24 +224,24 @@ class StartPage:
             startWindowVbox = self.startXml.get_widget("startWindowVbox")
             chooseToRegisterVbox = self.startXml.get_widget('chooseToRegisterVbox')
             startWindowVbox.remove(chooseToRegisterVbox)
-    
+
     def startPageVbox(self):
         return self.startXml.get_widget("startWindowVbox")
-    
+
     def startPageWhyRegisterButton(self, button):
         WhyRegisterDialog()
 
     def startPageRegisterNow(self):
-        """Returns True if the user has selected to register now. False if 
+        """Returns True if the user has selected to register now. False if
         they've selected to register later.
-        
+
         """
         return self.registerNowButton.get_active()
 
 
 class ChooseServerPage:
     def __init__(self):
-        self.chooseServerXml = gtk.glade.XML(gladefile, 
+        self.chooseServerXml = gtk.glade.XML(gladefile,
                                              "chooseServerWindowVbox",
                                              domain="rhn-client-tools")
         self.chooseServerXml.signal_autoconnect ({
@@ -251,28 +251,28 @@ class ChooseServerPage:
         self.hostedButton = self.chooseServerXml.get_widget('hostedButton')
         self.satelliteButton = self.chooseServerXml.get_widget('satelliteButton')
         self.customServerEntry = self.chooseServerXml.get_widget('satelliteServerEntry')
-   
+
         self.customServerBox = self.chooseServerXml.get_widget('customServerTable')
 
     def chooseServerPagePrepare(self):
         self.server = config.getServerlURL()[0]
-            
+
         log.log_debug("server is %s" % self.server)
         if "rhn.redhat.com/XMLRPC" in self.server:
             self.hostedButton.set_active(True)
         else:
             self.satelliteButton.set_active(True)
             self.customServerEntry.set_text(self.server)
-    
+
     def chooseServerPageVbox(self):
         return self.chooseServerXml.get_widget("chooseServerWindowVbox")
-    
+
     def onSatelliteButtonToggled(self, entry):
         is_sensitive = False
         if self.satelliteButton.get_active():
             is_sensitive = True
         self.customServerBox.set_sensitive(is_sensitive)
-    
+
     def showNetworkConfigDialog(self, button):
         NetworkConfigDialog()
 
@@ -290,11 +290,11 @@ class ChooseServerPage:
             return False
         else:
             return True
-    
+
     def _chooseServerPageApply(self):
         """Returns True if an error happened so we shouldn't advance to the next
         screen, but it was already dealt with. False if everything is peachy.
-        Can probably raise all sorts of exceptions, but I wish it only raised 
+        Can probably raise all sorts of exceptions, but I wish it only raised
         SSLCertificateVerifyFailedError.
         """
         global serverType
@@ -316,11 +316,11 @@ class ChooseServerPage:
             if customServer != self.server:
                 config.setServerURL(customServer)
             if not cfg['sslCACert']:
-                up2dateConfig.set('sslCACert', 
+                up2dateConfig.set('sslCACert',
                                   '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT')
 
         serverType = rhnreg.getServerType()
-        
+
         NEED_SERVER_MESSAGE = _("You will not be able to successfully register "
                                 "this system without contacting a Red Hat Network server.")
 
@@ -389,7 +389,7 @@ class LoginPage:
                "LoginPage must be derived from, by a class that implements goToPageAfterLogin."
         self.loginXml = gtk.glade.XML(gladefile,
                                       "initialLoginWindowVbox", domain="rhn-client-tools")
-        self.loginXml.signal_autoconnect ({ 
+        self.loginXml.signal_autoconnect ({
               "onLoginUserEntryActivate" : self.loginPageAccountInfoActivate,
               "onLoginPasswordEntryActivate" : self.loginPageAccountInfoActivate,
               })
@@ -399,7 +399,7 @@ class LoginPage:
     def loginPagePrepare(self):
         """Changes the screen slightly depending on whether hosted or satellite
         is being used.
-        
+
         """
         assert serverType in ['hosted', 'satellite']
         instructionsLabel = self.loginXml.get_widget('instructionsLabel')
@@ -422,17 +422,17 @@ class LoginPage:
             forgotInfoHosted.show()
             tipIconSatellite.hide()
             tipIconHosted.show()
-    
+
     def loginPageVbox(self):
         return self.loginXml.get_widget("initialLoginWindowVbox")
 
     def loginPageAccountInfoActivate(self, entry):
         """Handles activation (hitting enter) in the username and password fields.
-        
+
         If a password was entered or the focus is already in the password field,
-        tries to advance the screen if possible. If focus in elsewhere and 
+        tries to advance the screen if possible. If focus in elsewhere and
         nothing is in the password field, puts the focus in there.
-        
+
         """
         passwordEntry = self.loginXml.get_widget("loginPasswordEntry")
         if entry == passwordEntry or len(passwordEntry.get_text()) > 0:
@@ -441,9 +441,9 @@ class LoginPage:
                 self.onLoginPageNext(None, None)
         else:
             passwordEntry.grab_focus()
-    
+
     def loginPageVerify(self):
-        """Returns True if there's an error with the user input, False 
+        """Returns True if there's an error with the user input, False
         otherwise.
         """
         self.loginPw = self.loginXml.get_widget("loginPasswordEntry")
@@ -487,13 +487,13 @@ class LoginPage:
             print e.errmsg
             self.fatalError(_("There was an error communicating with the registration server.  The message was:\n") + e.errmsg)
             return True # fatalError in firstboot will return to here
-        
+
         return False
 
     def loginPageApply(self):
-        """Returns True if an error happened (the user will have gotten an error 
+        """Returns True if an error happened (the user will have gotten an error
         message) or False if everything was ok.
-        
+
         """
         status = callAndFilterExceptions(
                 self._loginPageApply,
@@ -504,7 +504,7 @@ class LoginPage:
             return False
         else:
             return True
-    
+
     def _loginPageApply(self):
         """Returns False if everything's ok, True if there was a problem."""
         try:
@@ -525,10 +525,10 @@ class LoginPage:
             print e.errmsg
             self.fatalError(_("There was an error communicating with the registration server.  The message was:\n") + e.errmsg)
             return True # fatalError in firstboot will return to here
-        
+
         setArrowCursor()
         return False
-    
+
 
 class ReviewSubscriptionPage:
     def __init__(self):
@@ -537,26 +537,26 @@ class ReviewSubscriptionPage:
                                                 domain="rhn-client-tools")
         self.reviewTextView = \
                         self.reviewSubscriptionXml.get_widget("reviewTextView")
-    
+
     def reviewSubscriptionPagePrepare(self):
         self.reviewTextView.set_buffer(reviewLog.getTextBuffer())
-    
+
     def reviewSubscriptionPageVbox(self):
         return self.reviewSubscriptionXml.get_widget("reviewSubscriptionWindowVbox")
 
 
 class ConfirmAllUpdatesDialog:
     def __init__(self):
-        self.xml = gtk.glade.XML(gladefile, "confirmAllUpdatesDialog", 
+        self.xml = gtk.glade.XML(gladefile, "confirmAllUpdatesDialog",
                                  domain="rhn-client-tools")
         self.dialog = self.xml.get_widget("confirmAllUpdatesDialog")
-        
+
         self.rc = self.dialog.run()
         if self.rc != 1:
             self.rc = 0
         self.dialog.destroy()
 
-        
+
 class ChooseChannelPage:
     def __init__(self):
         self.chooseChannelXml = gtk.glade.XML(gladefile,
@@ -568,35 +568,35 @@ class ChooseChannelPage:
         self.all_updates_button = self.chooseChannelXml.get_widget("all_updates_button")
         self.chose_all_updates = False
         self.chose_default_channel = True
-    
+
     def chooseChannelPageVbox(self):
         return self.chooseChannelXml.get_widget("chooseChannelWindowVbox")
-        
+
     def channel_changed_cb(self, combobox):
         self.limited_updates_button.set_active(True)
-        
+
     def chooseChannelPagePrepare(self):
-    
+
         global username, password
 
         # The self.eus_channels was populated in chooseChannelShouldBeShown
 
         self.channels = self.eus_channels['channels']
         self.receiving_updates = self.eus_channels['receiving_updates']
-        
+
         list_entry = gtk.ListStore(gobject.TYPE_STRING)
         self.chooseChannelList.set_model(list_entry)
         cell = gtk.CellRendererText()
         self.chooseChannelList.pack_start(cell, False)
-        
+
         self.chooseChannelList.connect('changed', self.channel_changed_cb)
-        
+
         self.chooseChannelList.remove_text(0)
 
         for label, name in self.channels.items():
             if label in self.receiving_updates:
                 self.channels[label] = name + ' *'
-                    
+
         channel_values = self.channels.values()
         channel_values.sort()
         for name in channel_values:
@@ -604,9 +604,9 @@ class ChooseChannelPage:
 
         self.chooseChannelList.set_active(0)
         self.all_updates_button.set_active(True)
-        
+
         setArrowCursor()
-        
+
     def chooseChannelPageApply(self):
         if self.limited_updates_button.get_active():
             global chosen_channel
@@ -620,11 +620,11 @@ class ChooseChannelPage:
                 self.chose_default_channel = False
             else:
                 self.chose_default_channel = True
-                
+
             return True
         else:
             self.chose_all_updates = True
-        
+
     def chooseChannelShouldBeShown(self):
         '''
         Returns True if the choose channel window should be shown, else
@@ -656,7 +656,7 @@ class CreateProfilePage:
         self.activationNoPackages = None # used by fb
         self.noChannels = None # used by fb
         self.serviceNotEnabled = None # used by fb
-   
+
     def createProfilePagePrepare(self):
         callAndFilterExceptions(
                 self._createProfilePagePrepare,
@@ -666,16 +666,16 @@ class CreateProfilePage:
 
     def _createProfilePagePrepare(self):
         # There was a comment by these calls that said "part of fix for #144704"
-        # I don't understand how the code fixed that bug. It might be that 
-        # they had originally been run at screen initialization which would 
+        # I don't understand how the code fixed that bug. It might be that
+        # they had originally been run at screen initialization which would
         # break stuff and it was changed to only run them when the user got
         # to this screen.
         self.getHardware()
         self.populateProfile()
-    
+
     def createProfilePageVbox(self):
         return self.createProfileXml.get_widget("createProfileWindowVbox")
-    
+
     # we cant do this on module load because there might be a valid interface
     # but zero connectivity
     def getHardware(self):
@@ -683,7 +683,7 @@ class CreateProfilePage:
             self.hardware = hardware.Hardware()
         except:
             print _("Error running hardware profile")
-    
+
     def populateProfile(self):
         try:
             if not self.initProfile:
@@ -698,7 +698,7 @@ class CreateProfilePage:
                                 ipaddr = hw.get('ipaddr')
                                 ip6addr = hw.get('ip6addr')
             # the check against "unknown" is a bit lame, but it's
-            # the minimal change to fix #144704 
+            # the minimal change to fix #144704
                 if hostname and (hostname != "unknown"):
                     profileName = hostname
                 elif ipaddr:
@@ -714,17 +714,17 @@ class CreateProfilePage:
         except:
             unexpectedError(_("There was an error while populating the profile."), sys.exc_info())
         setArrowCursor()
-    
+
     def createProfilePageShowHardwareDialog(self, button):
         HardwareDialog()
-    
+
     def createProfilePageShowPackageDialog(self, button):
         PackageDialog()
-    
+
     def createProfilePageVerify(self):
-        """Returns True if an error happened (the user will have gotten an error 
+        """Returns True if an error happened (the user will have gotten an error
         message) or False if everything was ok.
-        
+
         """
         systemNameEntry = self.createProfileXml.get_widget("systemNameEntry")
         sendHardwareButton = self.createProfileXml.get_widget("sendHardwareButton")
@@ -738,11 +738,11 @@ class CreateProfilePage:
         if not self.sendPackages:
             self.activationNoPackages = 1
         return False
-    
+
     def createProfilePageApply(self):
-        """Returns True if an error happened (the user will have gotten an error 
+        """Returns True if an error happened (the user will have gotten an error
         message) or False if everything was ok.
-        
+
         """
         status = callAndFilterExceptions(
                 self._createProfilePageApply,
@@ -753,7 +753,7 @@ class CreateProfilePage:
             return False
         else:
             return True
-    
+
     def _createProfilePageApply(self):
         """Returns False if everything's ok or True if something's wrong."""
         setBusyCursor()
@@ -774,9 +774,9 @@ class CreateProfilePage:
             other['virt_type'] = virt_type
 
         profileName  = self.createProfileXml.get_widget("systemNameEntry").get_text()
-        
+
         pwin.setProgress(1, 6)
-       
+
         pwin.setStatusLabel(_("Registering System"))
         try:
             reg_info = rhnreg.registerSystem2(username, password, profileName, other=other)
@@ -787,7 +787,7 @@ class CreateProfilePage:
                 reviewLog.usedUniversalActivationKey(
                         reg_info.getUniversalActivationKey())
             reviewLog.channels(reg_info.getChannels(), reg_info.getFailedChannels())
-            reviewLog.systemSlots(reg_info.getSystemSlotDescriptions(), 
+            reviewLog.systemSlots(reg_info.getSystemSlotDescriptions(),
                                   reg_info.getFailedSystemSlotDescriptions())
         except up2dateErrors.CommunicationError, e:
             pwin.hide()
@@ -816,7 +816,7 @@ class CreateProfilePage:
             log.log_exception(*sys.exc_info())
             return True
         pwin.setProgress(2,6)
-        
+
         # write the system id out.
         if self.systemId:
             if not rhnreg.writeSystemId(self.systemId):
@@ -850,7 +850,7 @@ class CreateProfilePage:
                 import time
                 time.sleep(1)
         pwin.setProgress(4, 6)
-        
+
         if self.sendPackages:
             getArch = 0
             if cfg['supportsExtendedPackageProfile']:
@@ -891,7 +891,7 @@ class CreateProfilePage:
         except up2dateErrors.RhnServerException, e:
             self.fatalError(str(e), wrap=0)
             return True # fatalError in firstboot will return to here
-        
+
         if li:
             # see if we have any active channels
             if li['X-RHN-Auth-Channels'] == []:
@@ -911,11 +911,11 @@ class CreateProfilePage:
         rhnreg.spawnRhnCheckForUI()
         pwin.setProgress(6,6)
         pwin.hide()
-        
+
         setArrowCursor()
         return False
-    
-    
+
+
     def __updateContactInfo(self, newAccount, productInfo, uname, password, pwin):
         try:
             if newAccount:
@@ -929,8 +929,8 @@ class CreateProfilePage:
             pwin.hide()
             errorWindow(_("Problem registering personal information"))
             return True
-        return False   
-    
+        return False
+
     def __registerProduct(self, newAccount, productInfo, pwin):
         try:
             if newAccount:
@@ -954,55 +954,55 @@ class ProvideCertificatePage:
         self.provideCertificateXml = gtk.glade.XML(gladefile,
                                                 "provideCertificateWindowVbox",
                                                 domain="rhn-client-tools")
-        
+
         self.orig_cert_label_template = self.provideCertificateXml.get_widget("SecurityCertLabel").get_text()
 
     def provideCertificatePageVbox(self):
         return self.provideCertificateXml.get_widget("provideCertificateWindowVbox")
 
     def setUrlInWidget(self):
-        """ 
-        sets the security cert label's server url at runtime 
+        """
+        sets the security cert label's server url at runtime
         """
         securityCertlabel = self.provideCertificateXml.get_widget("SecurityCertLabel")
         securityCertlabel.set_text(self.orig_cert_label_template % config.getServerlURL()[0] )
 
     def provideCertificatePageApply(self):
-        """If the 'I have a cert' radio button is selected, this function will 
-        copy the cert to /usr/share/rhn. If we're using hosted it will name it 
-        RHNS-CA-CERT otherwise it will name it RHN-ORG-TRUSTED-SSL-CERT. It will 
-        change the owner to root and the perms to 644. If a file with 
-        that name already exists it will add a '.save<lowest available integer>' to 
-        the end of the old file's name. It will update the config file to point 
+        """If the 'I have a cert' radio button is selected, this function will
+        copy the cert to /usr/share/rhn. If we're using hosted it will name it
+        RHNS-CA-CERT otherwise it will name it RHN-ORG-TRUSTED-SSL-CERT. It will
+        change the owner to root and the perms to 644. If a file with
+        that name already exists it will add a '.save<lowest available integer>' to
+        the end of the old file's name. It will update the config file to point
         to the new cert.
         Returns:
             0- cert was installed
             1- the user doesn't want to provide a cert right now
             2- an error occurred and the user was notified
-            3- the cert was installed ok, but the server doesn't support needed 
+            3- the cert was installed ok, but the server doesn't support needed
                calls
         Doesn't raise any exceptions.
         """
         status = callAndFilterExceptions(
                 self._provideCertificatePageApply,
-                [], 
+                [],
                 _("There was an error while installing the certificate.")
         )
         if status == 0 or status == 1 or status == 3:
             return status
         else:
             return 2
-    
+
     def _provideCertificatePageApply(self):
-        """Does what the comment for provideCertificatePageApply says, but might 
+        """Does what the comment for provideCertificatePageApply says, but might
         raise various exceptions.
-        
+
         """
         CERT_INSTALLED = 0
         NOT_INSTALLING_CERT = 1
         ERROR_WAS_HANDLED = 2
         SERVER_TOO_OLD = 3
-        
+
         assert serverType in ['hosted', 'satellite']
         try:
             provideCertButton = self.provideCertificateXml.get_widget("provideCertificateButton")
@@ -1043,13 +1043,13 @@ class ProvideCertificatePage:
 
                 return ERROR_WAS_HANDLED
             except OpenSSL.SSL.Error:
-                # TODO Modify rhnlib to raise a unique exception for the not a 
+                # TODO Modify rhnlib to raise a unique exception for the not a
                 # cert file case.
                 errorWindow(_("There was an SSL error. This could be because the file you picked was not a certificate file."))
                 return ERROR_WAS_HANDLED
 
             return CERT_INSTALLED
-            
+
         except IOError, e:
             # TODO Provide better messages
             message = _("Something went wrong while installing the new certificate:\n")
@@ -1061,7 +1061,7 @@ class ProvideCertificatePage:
 class FinishPage:
     """The finish screen. This can show two different versions: successful and
     unsuccessful.
-    
+
     """
     def __init__(self):
         self.failedFinishXml = gtk.glade.XML(gladefile,
@@ -1080,10 +1080,10 @@ class FinishPage:
                 self.successfulFinishXml.get_widget("successfulFinishWindowVbox")
         # Put one in now (either one) to make the prepare code simpler
         self.finishContainerVbox.pack_start(self.failedFinishVbox)
-   
+
     def finishPageVbox(self):
         return self.finishContainerVbox
-    
+
     def finishPagePrepare(self):
         containerChildren = self.finishContainerVbox.get_children()
         assert len(containerChildren) == 1
@@ -1098,18 +1098,18 @@ class AlreadyRegisteredDialog:
     def __init__(self):
         """Returns when dialog closes. Dialog.rc will be set to 1 if the user
         clicked continue, or 0 if they clicked cancel or close the dialog.
-        
+
         """
-        self.xml = gtk.glade.XML(gladefile, "alreadyRegisteredDialog", 
+        self.xml = gtk.glade.XML(gladefile, "alreadyRegisteredDialog",
                                  domain="rhn-client-tools")
         self.dialog = self.xml.get_widget("alreadyRegisteredDialog")
-        
+
         server = _('unknown')
         oldUsername = _('unknown')
         systemId = _('unknown')
         try:
             # If the serverURL config value is a list, we have no way of knowing
-            # for sure which one the machine registered against, 
+            # for sure which one the machine registered against,
             # so default to the
             # first element.
             server = config.getServerlURL()[0]
@@ -1121,11 +1121,11 @@ class AlreadyRegisteredDialog:
             systemId = systemIdXml[0][0]['system_id']
         except:
             pass
-        
+
         self.xml.get_widget('serverUrlLabel').set_label(server)
         self.xml.get_widget('usernameLabel').set_label(oldUsername)
         self.xml.get_widget('systemIdLabel').set_label(systemId)
-        
+
         self.rc = self.dialog.run()
         if self.rc != 1:
             self.rc = 0
@@ -1152,15 +1152,15 @@ class AlreadyRegisteredSubscriptionManagerDialog:
 class ConfirmQuitDialog:
     def __init__(self):
         """Returns when dialog closes. Dialog.rc will be set to 0 if the user
-        clicked "take me back" or closed the dialog, or 1 if they clicked "i'll 
+        clicked "take me back" or closed the dialog, or 1 if they clicked "i'll
         register later". I've they clicked I'll register later, the remind file
         will be written to disk.
-        
+
         """
-        self.xml = gtk.glade.XML(gladefile, "confirmQuitDialog", 
+        self.xml = gtk.glade.XML(gladefile, "confirmQuitDialog",
                                  domain="rhn-client-tools")
         self.dialog = self.xml.get_widget("confirmQuitDialog")
-        
+
         self.rc = self.dialog.run()
         if self.rc == gtk.RESPONSE_NONE:
             self.rc = 0
@@ -1181,30 +1181,30 @@ class WhyRegisterDialog:
         self.whyRegisterXml.signal_autoconnect({
             "onBackToRegistrationButtonClicked" : self.finish,
         })
-    
+
     def finish(self, button):
         self.dlg.hide()
         self.rc = 1 # What does this do? Is it needed?
 
-    
+
 class HardwareDialog:
     def __init__(self):
         self.hwXml = gtk.glade.XML(
             gladefile,
             "hardwareDialog", domain="rhn-client-tools")
         self.dlg = self.hwXml.get_widget("hardwareDialog")
-        
+
         self.hwXml.get_widget("okButton").connect("clicked", self.finish)
         callAndFilterExceptions(
                 self.populateHardware,
-                [], 
+                [],
                 _("There was an error getting the list of hardware.")
         )
 
     def populateHardware(self):
         # Read all hardware in
         self.hardware = hardware.Hardware()
-            
+
         for hw in self.hardware:
             if hw['class'] == 'CPU':
                 label = self.hwXml.get_widget("cpuLabel")
@@ -1234,13 +1234,13 @@ class HardwareDialog:
         try:
             distversion = up2dateUtils.getVersion()
         except up2dateErrors.RpmError, e:
-            # TODO Do something similar during registration if the same 
+            # TODO Do something similar during registration if the same
             # situation can happen. Even better, factor out the code to get the
             # hardware.
             errorWindow(e.errmsg)
             distversion = 'unknown'
         label.set_text(distversion)
-                                                                                
+
     def finish(self, button):
         self.dlg.hide()
         self.rc = 1
@@ -1252,12 +1252,12 @@ class PackageDialog:
             gladefile,
             "packageDialog", domain="rhn-client-tools")
         self.dlg = self.swXml.get_widget("packageDialog")
-        
+
         self.swXml.get_widget("okButton").connect("clicked", self.finish)
-        
+
         callAndFilterExceptions(
                 self.populateDialog,
-                [], 
+                [],
                 _("There was an error building the list of packages.")
         )
 
@@ -1270,7 +1270,7 @@ class PackageDialog:
             self.packageStore.append((nvr, arch))
         self.packageTreeView = self.swXml.get_widget("packageTreeView")
         self.packageTreeView.set_model(self.packageStore)
-        
+
         self.packageTreeView.set_rules_hint(True)
 
         col = gtk.TreeViewColumn(_("Package"), gtk.CellRendererText(), text=0)
@@ -1289,7 +1289,7 @@ class PackageDialog:
         packageDialogPackages = pkgUtils.getInstalledPackageList(progressCallback = pwin.setProgress, getArch=1)
         pwin.hide()
         return packageDialogPackages
-    
+
     def finish(self, button):
         self.dlg.hide()
         self.rc = 1
@@ -1297,14 +1297,14 @@ class PackageDialog:
 
 class NetworkConfigDialog:
     """This is the dialog that allows setting http proxy settings.
-    
-    It uses the instant apply paradigm or whatever you wanna call it that the 
-    gnome HIG recommends. Whenever a toggle button is flipped or a text entry 
+
+    It uses the instant apply paradigm or whatever you wanna call it that the
+    gnome HIG recommends. Whenever a toggle button is flipped or a text entry
     changed, the new setting will be saved.
-    
+
     """
     def __init__(self):
-        self.xml = gtk.glade.XML(gladefile, "networkConfigDialog", 
+        self.xml = gtk.glade.XML(gladefile, "networkConfigDialog",
                                         domain="rhn-client-tools")
         # Get widgets we'll need to access
         self.dlg = self.xml.get_widget("networkConfigDialog")
@@ -1320,8 +1320,8 @@ class NetworkConfigDialog:
                                         "configuration.  Make sure that\nyou "
                                         "have read access to /etc/sysconfig/rhn."),
                                       self.dlg)
-        # Need to load values before connecting signals because when the dialog 
-        # starts up it seems to trigger the signals which overwrites the config 
+        # Need to load values before connecting signals because when the dialog
+        # starts up it seems to trigger the signals which overwrites the config
         # with the blank values.
         self.setInitialValues()
         self.enableProxyButton.connect("toggled", self.enableAction)
@@ -1333,7 +1333,7 @@ class NetworkConfigDialog:
         self.proxyPasswordEntry.connect("focus-out-event", self.writeValues)
         self.xml.get_widget("closeButton").connect("clicked", self.close)
         self.dlg.show()
-    
+
     def setInitialValues(self):
         self.xml.get_widget("enableProxyButton").set_active(self.cfg["enableProxy"])
         self.enableAction(self.xml.get_widget("enableProxyButton"))
@@ -1342,7 +1342,7 @@ class NetworkConfigDialog:
         self.enableAction(self.xml.get_widget("enableProxyAuthButton"))
         self.xml.get_widget("proxyUserEntry").set_text(str(self.cfg["proxyUser"]))
         self.xml.get_widget("proxyPasswordEntry").set_text(str(self.cfg["proxyPassword"]))
-    
+
     def writeValues(self, widget=None, dummy=None):
         self.cfg.set("enableProxy",
                      int(self.xml.get_widget("enableProxyButton").get_active()))
@@ -1361,10 +1361,10 @@ class NetworkConfigDialog:
                 "There was an error saving your configuration. "\
                 "Make sure that\nyou own %s.") % self.cfg.fileName,
                                             self.dlg)
-    
+
     def close(self, button):
         self.dlg.hide()
-    
+
     def enableAction(self, button):
         if button.get_name() == "enableProxyButton":
             self.xml.get_widget("proxyEntry").set_sensitive(button.get_active())
@@ -1381,10 +1381,10 @@ def errorWindow(message):
 
 def unexpectedError(message, exc_info=None):
     """Shows an error dialog with the message and logs that an error happened.
-    
+
     This function is designed to be used in an except block like so:
         unexpectedError(_("Your error here."), sys.exc_info())
-    
+
     """
     setArrowCursor()
     logFile = cfg['logFile'] or '/var/log/up2date'
@@ -1400,16 +1400,16 @@ def unexpectedError(message, exc_info=None):
     else:
         log.log_me("An unexpected error happened, but exc_info wasn't provided.")
 
-def callAndFilterExceptions(function, allowedExceptions, 
+def callAndFilterExceptions(function, allowedExceptions,
         disallowedExceptionMessage, errorHandler=unexpectedError):
     """Calls function and limits the exceptions that can be raised to those in
-    the list provided and SystemExit. If an exception is raised which isn't 
-    allowed, errorHandler will be called and then None will be returned. 
-    errorHandler defaults to the unexpectedError function and will be passed 
-    disallowedExceptionMessage. If it is overridden, the function provided must 
-    take a string and a tuple (see below for details). If no exceptions are 
+    the list provided and SystemExit. If an exception is raised which isn't
+    allowed, errorHandler will be called and then None will be returned.
+    errorHandler defaults to the unexpectedError function and will be passed
+    disallowedExceptionMessage. If it is overridden, the function provided must
+    take a string and a tuple (see below for details). If no exceptions are
     raised, functions's return value is returned.
-    
+
     I need this function because if some of the functions in the Pages raise
     unexpected exceptions, the druid might advance when it shouldn't or go to
     the wrong page. I think it's shorter and more readable to factor this out
@@ -1424,7 +1424,7 @@ def callAndFilterExceptions(function, allowedExceptions,
         if exceptionType in allowedExceptions:
             raise
         else:
-            errorHandler(disallowedExceptionMessage, 
+            errorHandler(disallowedExceptionMessage,
                     (exceptionType, exception, stackTrace))
 
 def try_to_activate_hardware():
@@ -1438,11 +1438,11 @@ def try_to_activate_hardware():
         setArrowCursor()
 
 def hasBaseChannelAndUpdates():
-    """Returns a bool indicating whether the system has registered, subscribed 
+    """Returns a bool indicating whether the system has registered, subscribed
     to a base channel, and has at least update entitlements.
-    Uses information from the most recent time the create profile screen was run 
+    Uses information from the most recent time the create profile screen was run
     through.
-    
+
     """
     global _hasBaseChannelAndUpdates
     return _hasBaseChannelAndUpdates
@@ -1451,13 +1451,13 @@ def hasBaseChannelAndUpdates():
 def setBusyCursor():
     """Dummy function that will be overidden by rhn_register's standalone gui
     and firstboot in different ways.
-    
+
     """
     pass
 
 def setArrowCursor():
     """Dummy function that will be overidden by rhn_register's standalone gui
     and firstboot in different ways.
-    
+
     """
     pass

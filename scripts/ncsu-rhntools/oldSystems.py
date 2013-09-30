@@ -31,7 +31,7 @@ from rhnapi import RHNClient
 def userconfirm():
     """gets a yes or no from the user, defaults to No"""
 
-    while True:            
+    while True:
         choice = raw_input('Is this ok [y/N]: ')
         choice = choice.lower()
         if len(choice) == 0 or choice[0] in ['y', 'n']:
@@ -39,7 +39,7 @@ def userconfirm():
 
     if len(choice) == 0 or choice[0] != 'y':
         return False
-    else:            
+    else:
         return True
 # end stealage
 
@@ -54,10 +54,10 @@ def cliOptions():
     parser.add_option("-d", "--days", action="store", default=30,
                       type="int", dest="days", help="Your RHN server.")
     parser.add_option("--delete", action="store_true", default=False,
-                      dest="delete", 
+                      dest="delete",
                       help="Delete these registrations from RHN.")
     parser.add_option("--noconfirm", action="store_true", default=False,
-                      dest="noconfirm", 
+                      dest="noconfirm",
                       help="Don't ask for delete confirmation.")
 
     if len(sys.argv) == 1:

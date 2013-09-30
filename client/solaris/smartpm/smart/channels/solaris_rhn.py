@@ -39,7 +39,7 @@ class SolarisRHNChannel(PackageChannel):
 
     def fetch(self, fetcher, progress):
         # FIXME (20050517): figure out a way to show progress
-        
+
         # FIXME (20050517): we need a digest and RPC call to compare
         # against latest digest
 
@@ -65,16 +65,16 @@ class SolarisRHNChannel(PackageChannel):
 
         #print "  fetch(), pkgs: ", len(pkgs)
 
-        self._pkgs = pkgs 
+        self._pkgs = pkgs
 
         self.removeLoaders()
         loader = SolarisRHNLoader(self._pkgs)
         loader.setChannel(self)
         self._loaders.append(loader)
-        
+
 
         return True
-    
+
 
 def create(alias, data):
     return SolarisRHNChannel(data['baseurl'],

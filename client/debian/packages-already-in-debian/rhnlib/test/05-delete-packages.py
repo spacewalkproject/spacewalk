@@ -39,4 +39,4 @@ if __name__ == '__main__':
     result = s.registration.delete_packages(systemid, packages[:1000]);
     sys.exit(result);
 
-    
+

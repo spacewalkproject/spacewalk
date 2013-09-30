@@ -151,7 +151,7 @@ def complete_snippet_update(self, text, line, beg, end):
 
 def do_snippet_update(self, args):
     (args, options) = parse_arguments(args)
-    
+
     if not len(args):
         self.help_snippet_update()
         return
@@ -169,7 +169,7 @@ def complete_snippet_delete(self, text, line, beg, end):
 
 def do_snippet_delete(self, args):
     (args, options) = parse_arguments(args)
-    
+
     if not len(args):
         self.help_snippet_delete()
         return

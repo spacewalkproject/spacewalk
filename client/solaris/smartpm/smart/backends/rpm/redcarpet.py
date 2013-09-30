@@ -64,7 +64,7 @@ class RPMRedCarpetPackageInfo(PackageInfo):
 
 
 class RPMRedCarpetLoader(Loader):
- 
+
     def __init__(self, filename, baseurl):
         Loader.__init__(self)
         self._filename = filename
@@ -289,7 +289,7 @@ class XMLParser(object):
         self._lastoffset = offset
         self._progress.add(div)
         self._progress.show()
- 
+
     def parse(self):
         parser = expat.ParserCreate(namespace_separator=" ")
         parser.StartElementHandler = self.startElement

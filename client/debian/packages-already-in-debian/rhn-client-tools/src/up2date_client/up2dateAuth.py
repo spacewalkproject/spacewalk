@@ -24,10 +24,10 @@ def getSystemId():
     path = cfg["systemIdPath"]
     if not os.access(path, os.R_OK):
         return None
-    
+
     f = open(path, "r")
     ret = f.read()
-        
+
     f.close()
     return ret
 
@@ -43,10 +43,10 @@ def maybeUpdateVersion():
         return 0
 
     systemVer = up2dateUtils.getVersion()
-    
+
     if idVer != systemVer:
       s = rhnserver.RhnServer()
-    
+
       newSystemId = s.registration.upgrade_version(getSystemId(), systemVer)
 
       path = cfg["systemIdPath"]
@@ -90,7 +90,7 @@ def writeCachedLogin():
         return False
     data = {'time': time.time(),
             'loginInfo': loginInfo}
-    
+
     pcklDir = os.path.dirname(pcklAuthFileName)
     if not os.access(pcklDir, os.W_OK):
         try:
@@ -104,7 +104,7 @@ def writeCachedLogin():
     pickle.dump(data, pcklAuth)
     pcklAuth.close()
     expireTime = data['time'] + float(loginInfo['X-RHN-Auth-Expire-Offset'])
-    log.log_debug("Wrote pickled loginInfo at ", data['time'], " with expiration of ", 
+    log.log_debug("Wrote pickled loginInfo at ", data['time'], " with expiration of ",
             expireTime, " seconds.")
     return True
 
@@ -131,9 +131,9 @@ def readCachedLogin():
     li = data['loginInfo']
     currentTime = time.time()
     expireTime = createdTime + float(li['X-RHN-Auth-Expire-Offset'])
-    #Check if expired, offset is stored in "X-RHN-Auth-Expire-Offset" 
+    #Check if expired, offset is stored in "X-RHN-Auth-Expire-Offset"
     log.log_debug("Checking pickled loginInfo, currentTime=", currentTime,
-            ", createTime=", createdTime, ", expire-offset=", 
+            ", createTime=", createdTime, ", expire-offset=",
             float(li['X-RHN-Auth-Expire-Offset']))
     if (currentTime > expireTime):
         log.log_debug("Pickled loginInfo has expired, created = %s, expire = %s." \
@@ -179,12 +179,12 @@ def login(systemId=None, forceUpdate=False):
 
     if not systemId:
         return None
-        
+
     maybeUpdateVersion()
     log.log_me("logging into up2date server")
 
     li = server.up2date.login(systemId)
-    
+
     # figure out if were missing any needed caps
     server.capabilities.validate()
     _updateLoginInfo(li) #update global var, loginInfo

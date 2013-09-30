@@ -41,7 +41,7 @@ def create(ctrl, command=None, argv=None):
     else:
         from smart.interfaces.gtk.interactive import GtkInteractiveInterface
         return GtkInteractiveInterface(ctrl)
-    
+
 _pixbuf = {}
 
 def getPixbuf(name):

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import sys
@@ -24,7 +24,7 @@ class ModeControllerCreator:
         self.mode_list = mode_list or []
 
         #A reference to a class obj. This is the type of controller that will be returned by create_controller.
-        self.controller_class = ModeController.ModeController 
+        self.controller_class = ModeController.ModeController
 
     #Sets the class that the controller will be instantiated as. The constructor for the class shouldn't have
     #to take any parameters.
@@ -38,7 +38,7 @@ class ModeControllerCreator:
     #using the Modes in self.mode_list, create, populate, and return a ModeController
     def create_controller(self):
         controller = self.controller_class()
-        
+
         for m in self.mode_list:
             controller.add_mode(m)
 
@@ -49,7 +49,7 @@ def get_controller_creator():
         mode_list = [Modes.SolarisDeployMode(), Modes.SolarisDiffMode(), Modes.SolarisUploadMode(), Modes.SolarisMTimeUploadMode(), Modes.SolarisAllMode()]
     else:
         mode_list = [Modes.DeployMode(), Modes.DiffMode(), Modes.UploadMode(), Modes.MTimeUploadMode(), Modes.AllMode()]
-    
+
     controller = ModeControllerCreator(mode_list=mode_list)
     controller.set_controller_class(ModeController.ConfigFilesModeController)
     return controller

@@ -5,8 +5,8 @@ import os
 import re
 import rpm
 
-# global variables 
-YUM_PLUGIN_CONF = '/etc/yum/pluginconf.d/rhnplugin.conf' 
+# global variables
+YUM_PLUGIN_CONF = '/etc/yum/pluginconf.d/rhnplugin.conf'
 
 def pluginEnable():
     """Enables yum-rhn-plugin, may throw IOError"""

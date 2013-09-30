@@ -75,7 +75,7 @@ def split_host(hoststring):
         host = arr[0]
         if len(arr) == 2:
             port = arr[1]
-        
+
     return (host, port, user, passwd)
 
 def get_proxy_info(proxy):
@@ -86,9 +86,9 @@ def get_proxy_info(proxy):
     if len(arr) == 2:
         # scheme found, strip it
         proxy = arr[1]
-    
+
     return split_host(proxy)
-        
+
 
 class MalformedURIError(IOError):
     pass
@@ -126,7 +126,7 @@ class Server:
     _transport_class_https = transports.SafeTransport
     _transport_class_proxy = transports.ProxyTransport
     _transport_class_https_proxy = transports.SafeProxyTransport
-    def __init__(self, uri, transport=None, encoding=None, verbose=0, 
+    def __init__(self, uri, transport=None, encoding=None, verbose=0,
         proxy=None, username=None, password=None, refreshCallback=None,
         progressCallback=None):
         # establish a "logical" server connection
@@ -149,7 +149,7 @@ class Server:
 
                 if pw is not None and password is None:
                     password = pw
-                    
+
         self._uri = uri
         self._refreshCallback = None
         self._progressCallback = None
@@ -174,7 +174,7 @@ class Server:
             # set up independantly
             #
             self._allow_redirect = 0
-            
+
         self._redirected = None
         self.use_handler_path = 1
         self._transport = transport
@@ -196,10 +196,10 @@ class Server:
     def default_transport(self, type, proxy=None, username=None, password=None):
         if proxy:
             if type == 'https':
-                transport = self._transport_class_https_proxy(proxy, 
+                transport = self._transport_class_https_proxy(proxy,
                     proxyUsername=username, proxyPassword=password)
             else:
-                transport = self._transport_class_proxy(proxy, 
+                transport = self._transport_class_proxy(proxy,
                     proxyUsername=username, proxyPassword=password)
         else:
             if type == 'https':
@@ -339,7 +339,7 @@ class Server:
             return tuple(result)
 
     def _request(self, methodname, params):
-        """ Call a method on the remote server 
+        """ Call a method on the remote server
             we can handle redirections. """
         # the loop is used to handle redirections
         redirect_response = 0
@@ -358,11 +358,11 @@ class Server:
                 self._transport.set_header(k, v)
 
             self._transport.add_header("X-Info",
-                'RPC Processor (C) Red Hat, Inc (version %s)' % 
+                'RPC Processor (C) Red Hat, Inc (version %s)' %
                 self.rpc_version)
             # identify the capability set of this client to the server
             self._transport.set_header("X-Client-Version", 1)
-            
+
             if self._allow_redirect:
                 # Advertise that we follow redirects
                 #changing the version from 1 to 2 to support backward compatibility
@@ -402,12 +402,12 @@ class Server:
 
             if not self._allow_redirect:
                 raise InvalidRedirectionError("Redirects not allowed")
-                                
+
             if self._verbose:
                 print "%s redirected to %s" % (self._uri, self._redirected)
 
             typ, uri = urllib.splittype(self._redirected)
-            
+
             if typ != None:
                 typ = typ.lower()
             if typ not in ("http", "https"):
@@ -446,7 +446,7 @@ class Server:
         if isinstance(response, transports.File):
             # Just return the file
             return response
-            
+
         # an XML-RPC encoded data structure
         if isinstance(response, TupleType) and len(response) == 1:
             response = response[0]
@@ -510,7 +510,7 @@ class Server:
         self._lang = lang
         if self._transport and hasattr(self._transport, "setlang"):
             self._transport.setlang(lang)
-        
+
     # Sets the CA chain to be used
     def use_CA_chain(self, ca_chain = None):
         raise NotImplementedError, "This method is deprecated"
@@ -519,7 +519,7 @@ class Server:
         self._trusted_cert_files.append(certfile)
         if self._transport and hasattr(self._transport, "add_trusted_cert"):
             self._transport.add_trusted_cert(certfile)
-        
+
     def close(self):
         if self._transport:
             self._transport.close()
@@ -564,7 +564,7 @@ class GETServer(Server):
     def __init__(self, uri, transport=None, proxy=None, username=None,
             password=None, client_version=2, headers={}, refreshCallback=None,
             progressCallback=None):
-        Server.__init__(self, uri, 
+        Server.__init__(self, uri,
             proxy=proxy,
             username=username,
             password=password,
@@ -589,12 +589,12 @@ class GETServer(Server):
 
         #save the constructed handler in case of redirect
         self.send_handler = self._handler
-        
+
         # Add headers
         #override the handler to replace /XMLRPC with pkg path
         if self._redirected and not self.use_handler_path:
            self._handler = self._new_req_body()
-            
+
         for h, v in self._headers.items():
             self._transport.set_header(h, v)
 
@@ -618,7 +618,7 @@ class GETServer(Server):
         type, tmpuri = urllib.splittype(self._redirected)
         site, handler = urllib.splithost(tmpuri)
         return handler
-    
+
     def set_range(self, offset=None, amount=None):
         if offset is not None:
             try:
@@ -636,7 +636,7 @@ class GETServer(Server):
 
             if amount <= 0:
                 raise RangeError("Invalid value `%s' for amount" % amount)
-                
+
         self._amount = amount
         self._offset = offset
 
@@ -665,7 +665,7 @@ def getHeaderValues(headers, name):
             return [headers[name]]
         return []
 
-    return map(lambda x: x.split(':', 1)[1].strip(), 
+    return map(lambda x: x.split(':', 1)[1].strip(),
             headers.getallmatchingheaders(name))
 
 class _Method:
@@ -700,7 +700,7 @@ class SlicingMethod(_Method):
         self._offset = kwargs.get('offset')
         self._amount = kwargs.get('amount')
 
-        # im_self is a pointer to self, so we can modify the class underneath 
+        # im_self is a pointer to self, so we can modify the class underneath
         try:
             self._send.im_self.set_range(offset=self._offset,
                 amount=self._amount)
@@ -716,7 +716,7 @@ class SlicingMethod(_Method):
             pass
 
         return result
-        
+
 
 def reportError(headers):
     """ Reports the error from the headers. """

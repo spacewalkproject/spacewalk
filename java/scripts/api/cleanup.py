@@ -10,7 +10,7 @@ if False:
    for i in range(0, len(list)):
       t = list.pop()
       print "deleting org: " + str(t['id'])
-      try: 
+      try:
          if t['id'] != 1:
             client.org.delete(key, t['id'])
       except:
@@ -45,7 +45,7 @@ if False:
       print "deleting group: " + i['name']
       client.systemgroup.delete(key, i['name'])
 
-if True: 
+if True:
    list = client.kickstart.tree.list(key)
    print list
    for i in list:
@@ -57,7 +57,7 @@ if True:
       list = client.channel.listSoftwareChannels(key)
       for i in list:
          print "deleting channel:" + i['name']
-         try: 
+         try:
             client.channel.software.delete(key, i['label'])
          except:
             print sys.exc_info()[0]

@@ -73,7 +73,7 @@ class RPMMetaDataPackageInfo(PackageInfo):
 class RPMMetaDataLoader(Loader):
 
     __stateversion__ = Loader.__stateversion__+1
- 
+
     def __init__(self, filename, filelistsname, baseurl):
         Loader.__init__(self)
         self._filename = filename

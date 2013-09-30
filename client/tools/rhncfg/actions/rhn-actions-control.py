@@ -8,10 +8,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import sys
@@ -46,14 +46,14 @@ def main():
 
     runcreator = ModeControllerCreator.get_run_controller_creator()
     runcontroller = runcreator.create_controller()
-    runcontroller.set_force(options.force)    
+    runcontroller.set_force(options.force)
 
     if options.enable_deploy:
         controller.on('deploy')
 
     if options.enable_diff:
         controller.on('diff')
-    
+
     if options.enable_upload:
         controller.on('upload')
 
@@ -83,21 +83,21 @@ def main():
     if options.disable_all:
         controller.all_off()
         runcontroller.all_off()
-    
+
     if options.disable_run:
         runcontroller.off('run')
         runcontroller.off('all')
 
     if options.report:
         mode_list = ['deploy', 'diff', 'upload', 'mtime_upload']
-        
+
         for m in mode_list:
             rstring = "%s is %s"
             status = "disabled"
             if controller.is_on(m):
                 status = "enabled"
             print rstring % (m, status)
-        
+
         status = "disabled"
         if runcontroller.is_on('all'):
             runcontroller.off('all')
@@ -106,8 +106,8 @@ def main():
         if runcontroller.is_on('run'):
             status = "enabled"
         print rstring % ('run', status)
-           
-        
+
+
 if __name__ == "__main__":
     try:
         sys.exit(main() or 0)

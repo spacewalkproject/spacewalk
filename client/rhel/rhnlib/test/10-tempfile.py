@@ -43,7 +43,7 @@ if __name__ == '__main__':
             failed = True;
 
     del ret
-        
+
     print "Running without saving object references"
     for i in range(1000):
         print "Running", i

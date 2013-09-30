@@ -16,7 +16,7 @@ class SystemTests(RhnTestCase):
         self.assertTrue(len(kernel) > 0)
 
     def test_compare_profiles(self):
-        result = client.system.comparePackages(self.session_key, 
+        result = client.system.comparePackages(self.session_key,
             SERVER_ID, SERVER_ID_2)
         for row in result:
             self.assertTrue(row.has_key('package_name'))
@@ -40,7 +40,7 @@ class SystemTests(RhnTestCase):
     #        errata_ids.append(e['id'])
     #    earliest = datetime.now() + timedelta(3) # 3 days from now
     #    dt = xmlrpclib.DateTime(earliest.timetuple())
-    #    client.system.scheduleApplyErrata(self.session_key, SERVER_ID, 
+    #    client.system.scheduleApplyErrata(self.session_key, SERVER_ID,
     #        errata_ids, dt)
     #def test_apply_errata(self):
     #    errata = client.system.getRelevantErrata(self.session_key, SERVER_ID)
@@ -78,10 +78,10 @@ class SystemTests(RhnTestCase):
 #!/bin/sh
 cat /proc/cpuinfo
 """
-        earliest = datetime.now() + timedelta(3) # 3 days 
+        earliest = datetime.now() + timedelta(3) # 3 days
         dt = xmlrpclib.DateTime(earliest.timetuple())
 
-        script_id = client.system.scheduleScriptRun(self.session_key, 
+        script_id = client.system.scheduleScriptRun(self.session_key,
             SERVER_ID, 'root', 'root', 600, script, dt)
 
     def test_get_script_output(self):
@@ -137,7 +137,7 @@ cat /proc/cpuinfo
 
     def test_sync_to_system(self):
         packages_to_sync = [232, 260]
-        diff = client.system.comparePackages(self.session_key, SERVER_ID_2, 
+        diff = client.system.comparePackages(self.session_key, SERVER_ID_2,
             SERVER_ID)
         for pnid in packages_to_sync:
             found = False
@@ -149,7 +149,7 @@ cat /proc/cpuinfo
 
         earliest = datetime.now() + timedelta(3) # 3 days from now
         dt = xmlrpclib.DateTime(earliest.timetuple())
-        client.system.scheduleSyncPackagesWithSystem(self.session_key, 
+        client.system.scheduleSyncPackagesWithSystem(self.session_key,
             SERVER_ID_2, SERVER_ID, packages_to_sync, dt)
 
     def test_get_unscheduled_errata(self):

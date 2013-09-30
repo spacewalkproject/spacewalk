@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import sys
@@ -70,7 +70,7 @@ class HandlerBase:
                 rhn_log.die(1, "Session error: %s\n" % e)
 
     def get_auth_info(self, username=None):
-        if username is None: 
+        if username is None:
             username = self._read_username()
 
         password = getpass.getpass()
@@ -90,4 +90,4 @@ class HandlerBase:
             tty.write("\n")
             sys.exit(0)
         return string.strip(username)
-    
+

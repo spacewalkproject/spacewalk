@@ -74,7 +74,7 @@ def do_package_details(self, args):
         print 'Path:    %s' % details.get('path')
         print 'Size:    %s' % details.get('size')
         print 'MD5:     %s' % details.get('md5sum')
-        print 
+        print
         print 'Installed Systems: %i' % len(installed_systems)
         print
         print 'Description'
@@ -166,8 +166,8 @@ def do_package_remove(self, args):
             self.client.packages.removePackage(self.session, package_id)
         except:
             logging.error('Failed to remove package ID %i' % package_id)
-   
-    # regenerate the package cache after removing these packages         
+
+    # regenerate the package cache after removing these packages
     self.generate_package_cache(True)
 
 ####################
@@ -215,7 +215,7 @@ def do_package_removeorphans(self, args):
             logging.error('Failed to remove package ID %i' % package.get('id'))
 
 ####################
-        
+
 def help_package_listinstalledsystems(self):
     print 'package_listinstalledsystems: List the systems with a package ' + \
           'installed'
@@ -257,7 +257,7 @@ def do_package_listinstalledsystems(self, args):
             print '\n'.join(sorted([ s.get('name') for s in systems ]))
 
 ####################
-        
+
 def help_package_listerrata(self):
     print 'package_listerrata: List the errata that provide this package'
     print 'usage: package_listerrata PACKAGE ...'

@@ -8,10 +8,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 
@@ -33,24 +33,24 @@ from up2date_client import up2dateAuth
 def create_server_obj(server_url):
 
     cfg = config.initUp2dateConfig()
-    
+
     enable_proxy = cfg['enableProxy']
     proxy_host = None
     proxy_user = None
     proxy_password = None
-    
+
     if enable_proxy:
         proxy_host = config.getProxySetting()
 
         if cfg['enableProxyAuth']:
             proxy_user = cfg['proxyUser']
             proxy_password = cfg['proxyPassword']
-                                                                                       
+
     ca = cfg['sslCACert']
-        
+
     if isinstance(ca, basestring):
         ca = [ca]
- 
+
     ca_certs = ca or ["/usr/share/rhn/RHNS-CA-CERT"]
 
     lang = None
@@ -68,14 +68,14 @@ def create_server_obj(server_url):
                            proxy=proxy_host,
                            username=proxy_user,
                            password=proxy_password)
-                                                                                       
+
     if lang:
         server.setlang(lang)
-                                                                                       
+
     for ca_cert in ca_certs:
         if not os.access(ca_cert, os.R_OK):
             raise "could not find cert %s" % ca_cert
-                                                                                       
+
         server.add_trusted_cert(ca_cert)
 
     return server
@@ -97,7 +97,7 @@ def read_username():
 
 def system_exit(code, msgs=None):
     "Exit with a code and optional message(s). Saved a few lines of code."
- 
+
     if msgs:
         if type(msgs) not in [type([]), type(())]:
             msgs = (msgs, )
@@ -155,7 +155,7 @@ def get_sys_id():
 
     if not sysid_xml:
         system_exit(1, "Could not get RHN systemid")
-    
+
     m = search('ID-(?P<sysid>[0-9]+)', sysid_xml)
 
     if m:
@@ -187,12 +187,12 @@ def main():
         url = munge_server_url(config.getServerlURL()[0])
 
     s = create_server_obj(url)
-    
+
     sid = get_sys_id()
 
     if not sid:
         system_exit(1, "Could not determine systemid")
-    
+
     try:
         session = s.auth.login(options.username, options.password)
 
@@ -218,12 +218,12 @@ def main():
             print "%s\t%s" % (key, ret[key])
 
         system_exit(0, None)
-        
+
     else:
         if ret:
             system_exit(0, None);
         else:
             system_exit(1, "Unknown failure!\n")
-        
+
 if __name__ == "__main__":
     main()

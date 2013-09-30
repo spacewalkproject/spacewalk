@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import time
@@ -80,7 +80,7 @@ class Client(jabber_lib.JabberClient):
         if actions and action not in actions:
             log_debug(1, "action %s not allowed" % action)
             return None
-        
+
         attrs = {
             'client-id'     : x_client_id,
             'timestamp'     : x.getAttr('timestamp'),
@@ -139,7 +139,7 @@ class Client(jabber_lib.JabberClient):
 
         # Actions we know how to react to
         actions = [
-            jabber_lib.NS_RHN_MESSAGE_RESPONSE_CHECKIN, 
+            jabber_lib.NS_RHN_MESSAGE_RESPONSE_CHECKIN,
             jabber_lib.NS_RHN_MESSAGE_RESPONSE_PING,
         ]
         sig = self._check_signature_from_message(stanza, actions)
@@ -160,7 +160,7 @@ class Client(jabber_lib.JabberClient):
             if jid is None:
                 continue
             self.send_message(jid, jabber_lib.NS_RHN_MESSAGE_REQUEST_PING)
-        
+
     def set_jid_available(self, jid):
         jabber_lib.JabberClient.set_jid_available(self, jid)
         self._set_state(jid, self._get_push_state_id('online'))

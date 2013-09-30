@@ -46,7 +46,7 @@ class RPMMetaDataChannel(PackageChannel):
         return 3
 
     def fetch(self, fetcher, progress):
-        
+
         fetcher.reset()
         repomd = posixpath.join(self._baseurl, "repodata/repomd.xml")
         item = fetcher.enqueue(repomd)

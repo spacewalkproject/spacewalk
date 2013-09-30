@@ -32,7 +32,7 @@ class RHNClient(object):
         self.server = xmlrpclib.ServerProxy(self.url)
         if user == None or password == None:
             user, password = self.auth()
-            
+
         self.session = self.server.auth.login(user, password, 3600)
 
 
@@ -44,4 +44,4 @@ class RHNClient(object):
         pw = getpass.getpass("RHN Password: ")
 
         return id, pw
-        
+

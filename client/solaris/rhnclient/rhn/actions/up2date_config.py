@@ -72,7 +72,7 @@ def main():
     print configdata
 #    print
     import pprint
-    
+
     pprint.pprint(update(configdata))
 
     configdata['serverURL'] = "http://hokeypokeyland.org/XMLRPC"

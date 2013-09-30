@@ -19,13 +19,13 @@ class NonBlockingFile:
         self.user_data = None
         self.callback = None
 
-    def set_callback(self, read_fd_set, write_fd_set, exc_fd_set, 
+    def set_callback(self, read_fd_set, write_fd_set, exc_fd_set,
             user_data, callback):
         self.read_fd_set = read_fd_set
         # Make the objects non-blocking
         for f in self.read_fd_set:
             fcntl.fcntl(f.fileno(), fcntl.F_SETFL, os.O_NDELAY)
-            
+
         self.write_fd_set = write_fd_set
         self.exc_fd_set = exc_fd_set
         self.user_data = user_data

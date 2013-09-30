@@ -13,14 +13,14 @@ class Log:
     def __init__(self):
         self.app = "rhn client"
         self.cfg = config.initUp2dateConfig()
-        
+
 
     def log_debug(self, *args):
         if self.cfg["debug"] > 1:
             apply(self.log_me, args, {})
             if self.cfg["isatty"]:
                 print "D:", string.join(map(lambda a: str(a), args), " ")
-                
+
     def log_me(self, *args):
         self.log_info = "[%s] %s" % (time.ctime(time.time()), self.app)
 	s = ""
@@ -36,7 +36,7 @@ class Log:
         self.write_log(bar)
 
     def write_log(self, s):
-        
+
         log_name = self.cfg["logFile"] or "%s//var/log/up2date" % config.PREFIX
         log_file = open(log_name, 'a')
         msg = "%s %s\n" % (self.log_info, str(s))

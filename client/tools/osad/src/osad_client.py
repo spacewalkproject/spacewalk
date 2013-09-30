@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -31,7 +31,7 @@ class Client(jabber_lib.JabberClient):
         self.time_drift = 0
         self._dispatchers = []
         self._config = {}
-    
+
     def set_config_options(self, config):
         self._config = config
 
@@ -123,7 +123,7 @@ class Client(jabber_lib.JabberClient):
         abs_drift = abs(current_drift - self.time_drift)
         if abs_drift > max_drift:
             log_debug(1, "Dropping message, drift is too big", abs_drift)
-        
+
         action = x.getAttr('action')
 
         if actions and action not in actions:
@@ -135,7 +135,7 @@ class Client(jabber_lib.JabberClient):
         if not full_jid:
             log_debug(3, "Full JID not found in signature stanza")
             return None
-        
+
         attrs = {
             'timestamp'     : x.getAttr('timestamp'),
             'serial'        : x.getAttr('serial'),
@@ -162,7 +162,7 @@ class Client(jabber_lib.JabberClient):
 
         # Actions we know how to react to
         actions = [
-            jabber_lib.NS_RHN_MESSAGE_REQUEST_CHECKIN, 
+            jabber_lib.NS_RHN_MESSAGE_REQUEST_CHECKIN,
             jabber_lib.NS_RHN_MESSAGE_REQUEST_PING,
         ]
         sig = self._check_signature_from_message(stanza, actions)
@@ -177,9 +177,9 @@ class Client(jabber_lib.JabberClient):
             return
 
         # Send confirmation
-        self.send_message(stanza.getFrom(), 
+        self.send_message(stanza.getFrom(),
             jabber_lib.NS_RHN_MESSAGE_RESPONSE_CHECKIN)
-            
+
         command = self._config.get('rhn_check_command')
 	# rhn_check now checks for multiple instances,
 	# lets use that directly
@@ -190,11 +190,11 @@ class Client(jabber_lib.JabberClient):
             args = string.split(command)
 
         log_debug(3, "About to execute:", args)
-        
+
         # Checkin
         run_check = self._config.get('run_rhn_check')
         log_debug(3, "run_rhn_check:", run_check)
-        
+
         if not self._config.get('run_rhn_check'):
             log_debug(0, "Pretend that rhn_check just ran")
         else:

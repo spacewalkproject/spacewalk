@@ -125,14 +125,14 @@ def complete_activationkey_removegroups(self, text, line, beg, end):
     if len(parts) == 2:
         return tab_completer(self.do_activationkey_list('', True), text)
     elif len(parts) > 2:
-        key_details = self.client.activationkey.getDetails(self.session, 
+        key_details = self.client.activationkey.getDetails(self.session,
                                                            parts[-1])
 
         groups = []
         for group in key_details.get('server_group_ids'):
-            details = self.client.systemgroup.getDetails(self.session, 
+            details = self.client.systemgroup.getDetails(self.session,
                                                          group)
-            groups.append(details.get('name'))                
+            groups.append(details.get('name'))
 
         return tab_completer(groups, text)
 
@@ -178,8 +178,8 @@ def do_activationkey_addentitlements(self, args):
     key = args.pop(0)
     entitlements = args
 
-    self.client.activationkey.addEntitlements(self.session, 
-                                              key, 
+    self.client.activationkey.addEntitlements(self.session,
+                                              key,
                                               entitlements)
 
 ####################
@@ -211,8 +211,8 @@ def do_activationkey_removeentitlements(self, args):
     key = args.pop(0)
     entitlements = args
 
-    self.client.activationkey.removeEntitlements(self.session, 
-                                                 key, 
+    self.client.activationkey.removeEntitlements(self.session,
+                                                 key,
                                                  entitlements)
 
 ####################
@@ -288,8 +288,8 @@ def do_activationkey_removechildchannels(self, args):
     key = args.pop(0)
     channels = args
 
-    self.client.activationkey.removeChildChannels(self.session, 
-                                                  key, 
+    self.client.activationkey.removeChildChannels(self.session,
+                                                  key,
                                                   channels)
 
 ####################
@@ -488,9 +488,9 @@ def do_activationkey_addconfigchannels(self, args):
         else:
             options.top = True
 
-    self.client.activationkey.addConfigChannels(self.session, 
-                                                key, 
-                                                channels, 
+    self.client.activationkey.addConfigChannels(self.session,
+                                                key,
+                                                channels,
                                                 options.top)
 
 ####################
@@ -507,7 +507,7 @@ def complete_activationkey_removeconfigchannels(self, text, line, beg, end):
         return tab_completer(self.do_activationkey_list('', True), text)
     elif len(parts) > 2:
         key_channels = \
-            self.client.activationkey.listConfigChannels(self.session, 
+            self.client.activationkey.listConfigChannels(self.session,
                                                          parts[1])
 
         config_channels = [c.get('label') for c in key_channels]
@@ -523,8 +523,8 @@ def do_activationkey_removeconfigchannels(self, args):
     key = [ args.pop(0) ]
     channels = args
 
-    self.client.activationkey.removeConfigChannels(self.session, 
-                                                   key, 
+    self.client.activationkey.removeConfigChannels(self.session,
+                                                   key,
                                                    channels)
 
 ####################
@@ -534,7 +534,7 @@ def help_activationkey_setconfigchannelorder(self):
           'configuration channels'
     print 'usage: activationkey_setconfigchannelorder KEY'
 
-def complete_activationkey_setconfigchannelorder(self, text, line, beg, 
+def complete_activationkey_setconfigchannelorder(self, text, line, beg,
                                                  end):
     return tab_completer(self.do_activationkey_list('', True), text)
 
@@ -562,8 +562,8 @@ def do_activationkey_setconfigchannelorder(self, args):
     for i in range(len(new_channels)):
         print '[%i] %s' % (i + 1, new_channels[i])
 
-    self.client.activationkey.setConfigChannels(self.session, 
-                                                [key], 
+    self.client.activationkey.setConfigChannels(self.session,
+                                                [key],
                                                 new_channels)
 
 ####################
@@ -828,7 +828,7 @@ def help_activationkey_enableconfigdeployment(self):
           'channel deployment'
     print 'usage: activationkey_enableconfigdeployment KEY'
 
-def complete_activationkey_enableconfigdeployment(self, text, line, beg, 
+def complete_activationkey_enableconfigdeployment(self, text, line, beg,
                                                   end):
     return tab_completer(self.do_activationkey_list('', True), text)
 
@@ -850,7 +850,7 @@ def help_activationkey_disableconfigdeployment(self):
           'channel deployment'
     print 'usage: activationkey_disableconfigdeployment KEY'
 
-def complete_activationkey_disableconfigdeployment(self, text, line, beg, 
+def complete_activationkey_disableconfigdeployment(self, text, line, beg,
                                                    end):
     return tab_completer(self.do_activationkey_list('', True), text)
 
@@ -890,7 +890,7 @@ def do_activationkey_setbasechannel(self, args):
     key = args.pop(0)
     channel = args[0]
 
-    current_details = self.client.activationkey.getDetails(self.session, 
+    current_details = self.client.activationkey.getDetails(self.session,
                                                            key)
 
     details = { 'description' : current_details.get('description'),
@@ -974,7 +974,7 @@ def do_activationkey_setuniversaldefault(self, args):
 
     key = args.pop(0)
 
-    current_details = self.client.activationkey.getDetails(self.session, 
+    current_details = self.client.activationkey.getDetails(self.session,
                                                            key)
 
     details = { 'description' : current_details.get('description'),
@@ -1026,7 +1026,7 @@ def export_activationkey_getdetails(self, key):
     logging.debug("Got config channel label list of %s" % cclist)
     details['config_channels'] = cclist
 
-    logging.debug("activationkey.checkConfigDeployment %s" % key) 
+    logging.debug("activationkey.checkConfigDeployment %s" % key)
     details['config_deploy'] = \
         self.client.activationkey.checkConfigDeployment(self.session, key)
 
@@ -1096,7 +1096,7 @@ def do_activationkey_export(self, args):
     if os.path.isfile(filename):
         if not self.user_confirm("File %s exists, confirm overwrite file? (y/n)" % \
                     filename):
-            return 
+            return
 
     if json_dump_to_file(keydetails_list, filename) != True:
         logging.error("Failed to save exported keys to file" % filename)
@@ -1113,7 +1113,7 @@ def do_activationkey_import(self, args):
 
     if len(args) == 0:
         logging.error("No filename passed")
-        self.help_activationkey_import() 
+        self.help_activationkey_import()
         return
 
     for filename in args:

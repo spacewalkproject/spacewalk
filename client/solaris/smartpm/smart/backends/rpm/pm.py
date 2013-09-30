@@ -70,7 +70,7 @@ class RPMPackageManager(PackageManager):
                             if upgpkg in changeset:
                                 del changeset[upgpkg]
 
-        # FIXME (20050321): Solaris rpm 4.1 hack 
+        # FIXME (20050321): Solaris rpm 4.1 hack
         if sys.platform[:5] == "sunos":
             rpm.addMacro("_dbPath", sysconf.get("rpm-root", "/"))
             ts = rpm.TransactionSet()
@@ -245,7 +245,7 @@ class RPMCallback:
             self.fd = os.open(path, os.O_RDONLY)
             setCloseOnExec(self.fd)
             return self.fd
-        
+
         elif what == rpm.RPMCALLBACK_INST_CLOSE_FILE:
             if self.fd is not None:
                 os.close(self.fd)

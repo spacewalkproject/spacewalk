@@ -42,7 +42,7 @@ def main():
 
     print "Test PASSES"
     return 0
-                
+
 
 def run_test(server_name, server_port, ca_cert):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

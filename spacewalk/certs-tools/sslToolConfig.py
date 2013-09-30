@@ -82,7 +82,7 @@ def setOption(options, opt, value):
 
 
 def getStartDate_aWeekAgo():
-    """ for SSL cert/key generation, returns now, minus 1 week 
+    """ for SSL cert/key generation, returns now, minus 1 week
         just in case weird time zone issues get in the way of a working
         cert/key.
 
@@ -272,7 +272,7 @@ def figureDEFS_distinguishing(options):
     #if options:
     #    print 'XXX options.__dict__.keys()', options.__dict__.keys()
     #print 'XXX figureDEFS_distinguishing()'
-    
+
     ## map the config file settings to the DEFS object
     conf = {}
     caYN = '--gen-ca-cert' in sys.argv or '--gen-ca' in sys.argv
@@ -523,7 +523,7 @@ class ConfigFile:
     def parse(self):
         """ yank all the pertinent ssl data from a previously
             generated openssl.cnf.
-            
+
             NOTE: we get a limited sampling of info here. We have no concept
             of the [ some heading ] divisions in the rhn_openssl.cnf file.
         """
@@ -578,7 +578,7 @@ class ConfigFile:
             fo = open(self.filename, 'r')
         except:
             return
-        
+
         if newdir is None:
             newdir = os.path.dirname(self.filename)
 
@@ -588,7 +588,7 @@ class ConfigFile:
 
         line = fo.readline()
         while line:
-            cleanLine = string.strip(line) 
+            cleanLine = string.strip(line)
 
             # is this a label?
             isLabelYN = 0

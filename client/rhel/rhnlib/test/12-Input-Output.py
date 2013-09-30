@@ -29,6 +29,6 @@ if __name__ == '__main__':
     for transfer in range(3):
         for encoding in range(3):
             tests.append((transfer, encoding))
-        
+
     for test in tests:
         t(test[0], test[1])

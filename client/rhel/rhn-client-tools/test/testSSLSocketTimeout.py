@@ -17,7 +17,7 @@ class TestSomething(unittest.TestCase):
 
     def __setupData(self):
         pass
-        
+
     def testHttpConnection(self):
         con = httplib.HTTPConnection("www.adrianlikins.com")
         con.request("GET", "/")
@@ -39,13 +39,13 @@ class TestSomething(unittest.TestCase):
         con.request("GET", "/")
         r1 = con.getresponse()
         data = r1.read()
-        con.close() 
+        con.close()
 
 
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestSomething))
     return suite
- 
+
 if __name__ == "__main__":
     unittest.main(argv=sys.argv)

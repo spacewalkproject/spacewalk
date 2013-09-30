@@ -38,7 +38,7 @@ class RhnStartWindow(RhnRegisterFirstbootGuiWindow):
     windowTitle = moduleName
     shortMessage = _("Register with Red Hat Satellite")
     needsparent = 1
-    
+
     def __init__(self):
         RhnRegisterFirstbootGuiWindow.__init__(self)
         self.start_page = None
@@ -52,13 +52,13 @@ class RhnStartWindow(RhnRegisterFirstbootGuiWindow):
         else:
             self.start_page = NoNetworkPage()
         return self.start_page.startPageVbox()
-    
+
     def apply(self, *args):
         """Returns True to change the page (to the one set)."""
         if not self.start_page.startPageRegisterNow():
             dlg = rhnregGui.ConfirmQuitDialog()
             if not dlg.rc:
-                self.parent.setPage("rhn_start_gui") 
+                self.parent.setPage("rhn_start_gui")
             else:
                 self.parent.setPage("rhn_finish_gui")
         return True

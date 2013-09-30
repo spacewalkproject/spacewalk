@@ -152,7 +152,7 @@ class RPMHeaderPackageInfo(PackageInfo):
 class RPMHeaderLoader(Loader):
 
     __stateversion__ = Loader.__stateversion__+1
- 
+
     COMPFLAGS = rpm.RPMSENSE_EQUAL|rpm.RPMSENSE_GREATER|rpm.RPMSENSE_LESS
 
     COMPMAP = { rpm.RPMSENSE_EQUAL:   "=",
@@ -531,7 +531,7 @@ class RPMDBLoader(RPMHeaderLoader):
         return 1
 
     def getHeaders(self, prog):
-        # FIXME (20050321): Solaris rpm 4.1 hack 
+        # FIXME (20050321): Solaris rpm 4.1 hack
         if sys.platform[:5] == "sunos":
             rpm.addMacro("_dbPath", sysconf.get("rpm-root", "/"))
             ts = rpm.TransactionSet()
@@ -548,7 +548,7 @@ class RPMDBLoader(RPMHeaderLoader):
 
     if rpmhelper:
         def getHeader(self, pkg):
-            # FIXME (20050321): Solaris rpm 4.1 hack 
+            # FIXME (20050321): Solaris rpm 4.1 hack
             if sys.platform[:5] == "sunos":
                 rpm.addMacro("_dbPath", sysconf.get("rpm-root", "/"))
                 ts = rpm.TransactionSet()
@@ -558,7 +558,7 @@ class RPMDBLoader(RPMHeaderLoader):
             return mi.next()
     else:
         def getHeader(self, pkg):
-            # FIXME (20050321): Solaris rpm 4.1 hack 
+            # FIXME (20050321): Solaris rpm 4.1 hack
             if sys.platform[:5] == "sunos":
                 rpm.addMacro("_dbPath", sysconf.get("rpm-root", "/"))
                 ts = rpm.TransactionSet()
@@ -580,7 +580,7 @@ class RPMDBLoader(RPMHeaderLoader):
         return None
 
     def loadFileProvides(self, fndict):
-        # FIXME (20050321): Solaris rpm 4.1 hack 
+        # FIXME (20050321): Solaris rpm 4.1 hack
         if sys.platform[:5] == "sunos":
             rpm.addMacro("_dbPath", sysconf.get("rpm-root", "/"))
             ts = rpm.TransactionSet()
@@ -615,7 +615,7 @@ class RPMDirLoader(RPMHeaderLoader):
         return len(self._filenames)
 
     def getHeaders(self, prog):
-        # FIXME (20050321): Solaris rpm 4.1 hack 
+        # FIXME (20050321): Solaris rpm 4.1 hack
         if sys.platform[:5] == "sunos":
             rpm.addMacro("_dbPath", sysconf.get("rpm-root", "/"))
             ts = rpm.TransactionSet()
@@ -638,7 +638,7 @@ class RPMDirLoader(RPMHeaderLoader):
         filename = self._filenames[pkg.loaders[self]]
         filepath = os.path.join(self._dir, filename)
         file = open(filepath)
-        # FIXME (20050321): Solaris rpm 4.1 hack 
+        # FIXME (20050321): Solaris rpm 4.1 hack
         if sys.platform[:5] == "sunos":
             rpm.addMacro("_dbPath", sysconf.get("rpm-root", "/"))
             ts = rpm.TransactionSet()
@@ -673,7 +673,7 @@ class RPMDirLoader(RPMHeaderLoader):
         return None
 
     def loadFileProvides(self, fndict):
-        # FIXME (20050321): Solaris rpm 4.1 hack 
+        # FIXME (20050321): Solaris rpm 4.1 hack
         if sys.platform[:5] == "sunos":
             rpm.addMacro("_dbPath", sysconf.get("rpm-root", "/"))
             ts = rpm.TransactionSet()
@@ -692,10 +692,10 @@ class RPMDirLoader(RPMHeaderLoader):
                 iface.error("%s: %s" % (os.path.basename(filepath), e))
             else:
                 file.close()
-                # FIXME (20050321): Solaris rpm 4.1 hack 
+                # FIXME (20050321): Solaris rpm 4.1 hack
                 f = h[1027] # RPMTAG_OLDFILENAMES
                 if f == None: f = []
-                for fn in f: 
+                for fn in f:
                     fn = fndict.get(fn)
                     if fn:
                         bfp(self._offsets[i], (RPMProvides, fn, None))

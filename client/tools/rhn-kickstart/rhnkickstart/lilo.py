@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 """Module for manipulation of lilo.conf files."""
@@ -92,7 +92,7 @@ class LiloConfigFile:
 	    s = s + '\n'
         for count in range(len(self.diskRemaps)):
             s = s + "disk = %s\n" % self.diskRemaps[count][1]
-            s = s + "\tbios = %s\n" % self.biosRemaps[count][1] 
+            s = s + "\tbios = %s\n" % self.biosRemaps[count][1]
 	for cl in self.images:
 	    s = s + "\n%s=%s\n" % (cl.imageType, cl.path)
 	    s = s + cl.__repr__(1)
@@ -140,8 +140,8 @@ class LiloConfigFile:
             if config.getEntry('alias'):
                 if string.lower(config.getEntry('alias')) == string.lower(label):
                     return (config.imageType, config,config.path,config.other)
-    
-        
+
+
 	raise IndexError, "unknown image %s" % (label)
 
     def addImage (self, config,first=None):
@@ -204,7 +204,7 @@ class LiloConfigFile:
 		f1 = string.strip (fields [1])
 		if (f0 == "image" or f0 == "other"):
 		    if image: self.addImage(image)
-		    image = LiloConfigFile(imageType = f0, 
+		    image = LiloConfigFile(imageType = f0,
 					   path = f1)
                     if (f0 == "other"):
                         image.other = 1
@@ -227,7 +227,7 @@ class LiloConfigFile:
 		apply(self.addEntry, args)
 
 	if image: self.addImage(image)
-	    
+
 	f.close()
 
     def __init__(self, imageType = None, path = None):

@@ -512,7 +512,7 @@ class Loader(object):
                 searcher.addResult(pkg, ratio)
 
     __stateversion__ = 1
-    
+
     def __getstate__(self):
         state = self.__dict__.copy()
         state["__stateversion__"] = self.__stateversion__

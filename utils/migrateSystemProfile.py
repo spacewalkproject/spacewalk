@@ -25,15 +25,15 @@ client = None
 DEBUG = 0
 
 options_table = [
-    Option("-v", "--verbose",       action="count", 
+    Option("-v", "--verbose",       action="count",
         help="Increase verbosity"),
-    Option("-u", "--username",       action="store", 
+    Option("-u", "--username",       action="store",
         help="Satellite/Org Admin username"),
-    Option("-p", "--password",       action="store", 
+    Option("-p", "--password",       action="store",
         help="Satellite/Org Admin password"),
-    Option("--satellite",       action="store", 
+    Option("--satellite",       action="store",
         help="Satellite server to run migration"),
-    Option("--systemId",               action="append", 
+    Option("--systemId",               action="append",
         help="client system to migrate"),
     Option("--to-org-id",          action="store",
         help="Destination Org ID"),
@@ -81,12 +81,12 @@ def main():
             to_org_id = options.to_org_id or None
 
         migrate_data = [[options.systemId, to_org_id]]
-    
+
     username, password = getUsernamePassword(options.username, \
                             options.password)
-    
+
     sessionKey = xmlrpc_login(client, username, password)
-    
+
     if not migrate_data:
         sys.stderr.write("Nothing to migrate. Exiting.. \n")
         sys.exit(1)
@@ -100,7 +100,7 @@ def main():
             migrate_system(sessionKey, int(to_org_id), server_id)
         except Exception:
             raise
-    
+
     if DEBUG:
         print "Migration Completed successfully"
     xmlrpc_logout(client, sessionKey)
@@ -134,7 +134,7 @@ def lookup_server(key, from_org_id):
     for row in rows:
         print " %s   %s " % (row['id'], row['name'])
     print "--------------------------------------------"
-    
+
     return rows
 
 def read_csv_file(csv_file):

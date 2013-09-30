@@ -32,7 +32,7 @@ class makeAttempts(Thread):
     def run(self):
         global system_id_file
         systemid = open(system_id_file).read()
-        
+
         dict = self.server.up2date.login(systemid)
         channels = dict['X-RHN-Auth-Channels']
         c = channels[0]

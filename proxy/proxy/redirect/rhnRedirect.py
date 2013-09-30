@@ -34,12 +34,12 @@ from rhn import connections
 
 # Main apache entry point for the proxy.
 class RedirectHandler(SharedHandler):
-    """ Spacewalk Proxy SSL Redirect specific handler code called by rhnApache. 
+    """ Spacewalk Proxy SSL Redirect specific handler code called by rhnApache.
 
         Workflow is:
         Client -> Apache:Broker -> Squid -> Apache:Redirect -> Satellite
 
-        Redirect handler get all request for localhost:80 and they come 
+        Redirect handler get all request for localhost:80 and they come
         from Broker handler through Squid, which hadle caching.
         Redirect module transform destination url to parent or http proxy.
         Depend on what we have in CFG.
@@ -50,9 +50,9 @@ class RedirectHandler(SharedHandler):
         self.componentType = 'proxy.redirect'
         self._initConnectionVariables(req)
         self.rhnParentXMLRPC = None
-        
+
     def _initConnectionVariables(self, _req):
-        """ set connection variables 
+        """ set connection variables
             NOTE: self.{caChain,rhnParent,httpProxy*} are initialized
                   in SharedHandler
         """
@@ -155,7 +155,7 @@ class RedirectHandler(SharedHandler):
 
             if (redirectStatus != apache.HTTP_OK) and (redirectStatus != apache.HTTP_PARTIAL_CONTENT):
 
-                # We must have run out of retry attempts.  Fail over to Hosted 
+                # We must have run out of retry attempts.  Fail over to Hosted
                 # to perform the request.
 
                 log_debug(1, "Redirection failed; retries exhausted.  " \
@@ -170,33 +170,33 @@ class RedirectHandler(SharedHandler):
             return SharedHandler._handleServerResponse(self, status)
 
     def __redirectToNextLocation(self, loopProtection = False):
-        """ This function will perform a redirection to the next location, as 
-            specified in the last response's "Location" header. This function will 
-            return an actual HTTP response status code.  If successful, it will 
-            return apache.HTTP_OK, not apache.OK.  If unsuccessful, this function       
-            will retry a configurable number of times, as defined in 
+        """ This function will perform a redirection to the next location, as
+            specified in the last response's "Location" header. This function will
+            return an actual HTTP response status code.  If successful, it will
+            return apache.HTTP_OK, not apache.OK.  If unsuccessful, this function
+            will retry a configurable number of times, as defined in
             CFG.NETWORK_RETRIES.  The following codes define "success".
-     
+
               HTTP_OK
               HTTP_PARTIAL_CONTENT
               HTTP_MOVED_TEMPORARILY
               HTTP_MOVED_PERMANENTLY
-     
+
             Upon successful completion of this function, the responseContext
             should be populated with the response.
-    
+
             Arguments:
-        
+
             loopProtection - If True, this function will insert a special
                            header into the new request that tells the RHN
                            server not to issue another redirect to us, in case
                            that's where we end up being redirected.
-      
+
             Return:
-     
-            This function may return any valid HTTP_* response code.  See 
+
+            This function may return any valid HTTP_* response code.  See
             __redirectToNextLocationNoRetry for more info.
-        """ 
+        """
         retriesLeft = CFG.NETWORK_RETRIES
 
         # We'll now try to redirect to the 3rd party.  We will keep
@@ -221,7 +221,7 @@ class RedirectHandler(SharedHandler):
                          "Code=",                              \
                          redirectStatus)
 
-            # Pop the current response context and restore the state to 
+            # Pop the current response context and restore the state to
             # the last successful response.  The acts of remove the current
             # context will cause all of its open connections to be closed.
             self.responseContext.remove()
@@ -233,23 +233,23 @@ class RedirectHandler(SharedHandler):
         return redirectStatus
 
     def __redirectToNextLocationNoRetry(self, loopProtection = False):
-        """ This function will perform a redirection to the next location, as 
-            specified in the last response's "Location" header. This function will 
-            return an actual HTTP response status code.  If successful, it will 
-            return apache.HTTP_OK, not apache.OK.  If unsuccessful, this function 
-            will simply return; no retries will be performed.  The following error 
+        """ This function will perform a redirection to the next location, as
+            specified in the last response's "Location" header. This function will
+            return an actual HTTP response status code.  If successful, it will
+            return apache.HTTP_OK, not apache.OK.  If unsuccessful, this function
+            will simply return; no retries will be performed.  The following error
             codes can be returned:
-     
+
             HTTP_OK,HTTP_PARTIAL_CONTENT - Redirect successful.
             HTTP_MOVED_TEMPORARILY     - Redirect was redirected again by 3rd party.
             HTTP_MOVED_PERMANENTLY     - Redirect was redirected again by 3rd party.
             HTTP_INTERNAL_SERVER_ERROR - Error extracting redirect information
-            HTTP_SERVICE_UNAVAILABLE   - Could not connect to 3rd party server, 
+            HTTP_SERVICE_UNAVAILABLE   - Could not connect to 3rd party server,
                                          connection was reset, or a read error
                                          occurred during communication.
             HTTP_*                     - Any other HTTP status code may also be
                                          returned.
-     
+
             Upon successful completion of this function, a new responseContext
             will be created and pushed onto the stack.
         """
@@ -278,7 +278,7 @@ class RedirectHandler(SharedHandler):
         redirectLocation = redirectLocation[0]
         log_debug(1, "  Redirecting to: ", redirectLocation)
 
-        # Tear apart the redirect URL.  We need the scheme, the host, the 
+        # Tear apart the redirect URL.  We need the scheme, the host, the
         # port (if not the default), and the URI.
 
         _scheme, host, port, uri = self._parse_url(redirectLocation)
@@ -335,7 +335,7 @@ class RedirectHandler(SharedHandler):
                 connection.putheader(rhnConstants.HEADER_RHN_REDIRECT, '0')
 
             log_debug(4, "  Adding original URL header: ", self.rhnParent)
-            connection.putheader(rhnConstants.HEADER_RHN_ORIG_LOC, 
+            connection.putheader(rhnConstants.HEADER_RHN_ORIG_LOC,
                                  self.rhnParent)
 
             # Add all the other headers in the original request in case we
@@ -377,7 +377,7 @@ class RedirectHandler(SharedHandler):
         self.responseContext.setBodyFd(response)
         self.responseContext.setHeaders(response.msg)
 
-        log_debug(4, "Response headers: ", 
+        log_debug(4, "Response headers: ",
                      self.responseContext.getHeaders().items())
         log_debug(4, "Got redirect response.  Status=", response.status)
 
@@ -389,10 +389,10 @@ class RedirectHandler(SharedHandler):
         """ This routine resends the original request back to the satellite/hosted
             system if a redirect to a 3rd party failed.  To prevent redirection loops
             from occurring, an "X-RHN-Redirect: 0" header is passed along with the
-            request.  This function will return apache.HTTP_OK if everything 
+            request.  This function will return apache.HTTP_OK if everything
             succeeded, otherwise it will return an appropriate HTTP error code.
         """
-        
+
         # Add a special header which will tell the server not to send us any
         # more redirects.
 
@@ -408,7 +408,7 @@ class RedirectHandler(SharedHandler):
         self._connectToParent()
 
         # We'll just call serverCommo once more.  The X-RHN-Redirect constant
-        # will prevent us from falling into an infinite loop.  Only GETs are 
+        # will prevent us from falling into an infinite loop.  Only GETs are
         # redirected, so we can safely pass an empty string in as the request
         # body.
 

@@ -119,7 +119,7 @@ class DebTagLoader(Loader):
                     continue
                 if status != "installed":
                     continue
-            
+
             name = section.get("package")
             version = section.get("version")
 

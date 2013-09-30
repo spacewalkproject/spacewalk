@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -48,7 +48,7 @@ def path_full_split(path):
     components (as opposed to os.path.split which splits it into
     trailing component and preceeding path
     """
-    
+
     path = normalize_path(path)
     splitpath = []
     while 1:
@@ -68,7 +68,7 @@ def copyfile_p(src, dst):
     Simple util function, copies src path to dst path, making
     directories as necessary. File permissions are not preserved.
     """
-    
+
     directory = os.path.split(dst)[0]
     try:
         os.makedirs(directory)
@@ -91,7 +91,7 @@ def copyfile_p(src, dst):
 def mkdir_p(path, mode=None, symlinks=None, allfiles=None):
     """
     Similar to 'mkdir -p' -- makes all directories necessary to ensure
-    the 'path' is a directory, and return the list of directories that were 
+    the 'path' is a directory, and return the list of directories that were
     made as a result
     """
     if not mode:
@@ -121,9 +121,9 @@ def mkdir_p(path, mode=None, symlinks=None, allfiles=None):
         dirs_created.append(d)
 
     log_debug(6, "dirs_created:",dirs_created)
-	
+
     return dirs_created
-	
+
 def rmdir_p(path, stoppath):
     """
     if rmdir had a -p option, this would be it.  remove dir and up
@@ -140,7 +140,7 @@ def rmdir_p(path, stoppath):
     if path[:len(stoppath)] != stoppath:
         raise OSError, "Could not remove %s: %s is not a prefix" % (
             path, stoppath)
-    
+
     while 1:
         if stoppath == path:
             # We're done
@@ -157,7 +157,7 @@ def rmdir_p(path, stoppath):
         if current == '':
             # We're done - reached the root
             break
-           
+
 #returns slashstring with any trailing slash removed
 def rm_trailing_slash(slashstring):
     if slashstring[-1] == "/":
@@ -180,7 +180,7 @@ def sha1_file(filename):
 
 def parse_url(server_url, scheme="https"):
     return urlparse.urlparse(server_url, scheme=scheme)
-    
+
 def unparse_url(url_tuple):
     return urlparse.urlunparse(url_tuple)
 

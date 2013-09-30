@@ -173,7 +173,7 @@ class InvalidRegistrationNumberError(ValidationError):
 class InvalidProductRegistrationError(NoLogError):
     """indicates an error during server input validation"""
     premsg = _("The installation number is invalid")
-    
+
 class OemInfoFileError(NoLogError):
     premsg = _("Error parsing the oemInfo file at field:\n")
 
@@ -228,15 +228,15 @@ class SSLCertificateFileNotFound(Error):
 
 class AuthenticationOrAccountCreationError(ValidationError):
     """Class that can represent different things depending on context:
-    While logging in with an existing user it represents a username or password 
+    While logging in with an existing user it represents a username or password
     being incorrect.
-    While creating a new account, it represents the username already being 
+    While creating a new account, it represents the username already being
     taken or the user not being allowed to create an account.
     Optimally these different things would be different exceptions, but there
     are single fault codes the server can return to the client that can mean
-    more than one of them so we have no way of knowing which is actually 
+    more than one of them so we have no way of knowing which is actually
     intended.
-    
+
     """
     pass
 
@@ -272,19 +272,19 @@ class InsuffMgmntEntsError(RhnServerException):
     def changeExplanation(self, msg):
         newExpln = _("""
     Your organization does not have enough Management entitlements to register this
-    system to Red Hat Network. Please notify your organization administrator of this error. 
-    You should be able to register this system after your organization frees existing 
+    system to Red Hat Network. Please notify your organization administrator of this error.
+    You should be able to register this system after your organization frees existing
     or purchases additional entitlements. Additional entitlements may be purchased by your
     organization administrator by logging into Red Hat Network and visiting
     the 'Subscription Management' page in the 'Your RHN' section of RHN.
-    
+
     A common cause of this error code is due to having mistakenly setup an
     Activation Key which is set as the universal default.  If an activation key is set
     on the account as a universal default, you can disable this key and retry to avoid
     requiring a Management entitlement.""")
         term = "Explanation:"
         loc = msg.rindex(term) + len(term)
-        return msg[:loc] + newExpln 
+        return msg[:loc] + newExpln
 
 class NoSystemIdError(NoLogError):
     pass

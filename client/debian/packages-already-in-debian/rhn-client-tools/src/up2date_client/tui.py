@@ -52,7 +52,7 @@ def WarningWindow(screen, errmsg):
                              [OK.encode('utf-8')])
     screen.finish()
 
-    
+
 def ConfirmQuitWindow(screen):
     button = snack.ButtonChoiceWindow(screen, CONFIRM_QUIT.encode('utf-8'),
                              CONFIRM_QUIT_SURE.encode('utf-8') + "\n" + \
@@ -74,8 +74,8 @@ def ConfirmQuitWindow(screen):
         return 1
     else:
         return 0
-    
-    
+
+
 def tui_call_wrapper(screen, func, *params):
 
     try:
@@ -85,14 +85,14 @@ def tui_call_wrapper(screen, func, *params):
     except up2dateErrors.SSLCertificateVerifyFailedError, e:
         FatalErrorWindow(screen, e.errmsg)
     except up2dateErrors.NoBaseChannelError, e:
-        FatalErrorWindow(screen, e.errmsg + '\n' + 
-                         BASECHANNELERROR % (up2dateUtils.getArch(), 
+        FatalErrorWindow(screen, e.errmsg + '\n' +
+                         BASECHANNELERROR % (up2dateUtils.getArch(),
                                              up2dateUtils.getOSRelease(),
                                              up2dateUtils.getVersion()))
     except up2dateErrors.SSLCertificateFileNotFound, e:
         FatalErrorWindow(screen, e.errmsg + '\n\n' +
                          SSL_CERT_FILE_NOT_FOUND_ERRER)
-        
+
     return results
 
 class WindowSkipException:
@@ -206,7 +206,7 @@ class ConnectWindow:
             config.setServerURL(self.server)
 
             cfg.save()
-        
+
         self.proxy = cfg['httpProxy']
 
         toplevel = snack.GridForm(self.screen, CONNECT_WINDOW.encode('utf-8'), 1, 1)
@@ -216,11 +216,11 @@ class ConnectWindow:
         if self.proxy:
             text += CONNECT_WINDOW_TEXT2 % self.proxy
 
-        tb = snack.Textbox(size[0]-30, size[1]-20, 
+        tb = snack.Textbox(size[0]-30, size[1]-20,
                            text.encode('utf-8'),
                            1, 1)
 
-        toplevel.add(tb, 0, 0, padding = (0, 0, 0, 1))                           
+        toplevel.add(tb, 0, 0, padding = (0, 0, 0, 1))
 
         self.g = toplevel
 
@@ -234,7 +234,7 @@ class ConnectWindow:
         result = self.g.draw()
         self.screen.refresh()
         tui_call_wrapper(self.screen, rhnreg.getCaps)
-            
+
         self.screen.popWindow()
 
         # Just return next, although the user wouldn't have actually pressed
@@ -243,9 +243,9 @@ class ConnectWindow:
 
     def saveResults(self):
         pass
-    
+
 class StartWindow:
-    
+
     def __init__(self, screen, tui):
         self.name = "StartWindow"
         self.screen = screen
@@ -324,7 +324,7 @@ class WhyRegisterWindow:
         button = self.bb.buttonPressed(result)
 
         return button
-    
+
 
 class InfoWindow:
 
@@ -335,7 +335,7 @@ class InfoWindow:
         self.tui.alreadyRegistered = 0
 
         self.server = self.tui.serverURL
-        
+
         size = snack._snack.size()
 
         toplevel = snack.GridForm(screen, REGISTER_WINDOW.encode('utf-8'), 1, 4)
@@ -431,7 +431,7 @@ class InfoWindow:
     def saveResults(self):
         self.tui.userName = self.userNameEntry.value()
         self.tui.password = self.passwordEntry.value()
-        
+
     def run(self):
         log.log_debug("Running %s" % self.__class__.__name__)
         self.screen.refresh()
@@ -451,7 +451,7 @@ class InfoWindow:
 
         self.screen.popWindow()
         return button
-    
+
 class OSReleaseWindow:
 
     def __init__(self, screen, tui):
@@ -478,10 +478,10 @@ class OSReleaseWindow:
 
         self.name = "OSReleaseWindow"
         self.screen = screen
-        self.size = snack._snack.size()          
+        self.size = snack._snack.size()
 
         self.selectChannel = False
- 
+
         toplevel = snack.GridForm(self.screen, SELECT_OSRELEASE.encode('utf-8'), 1, 7)
         self.g = toplevel
 
@@ -502,7 +502,7 @@ class OSReleaseWindow:
         self.sublabel = snack.Label(MINOR_RELEASE.encode('utf-8'))
         toplevel.add(self.sublabel, 0, 2, anchorLeft = 1)
 
-        self.channelList = snack.Listbox(self.size[1]-22, 1, 
+        self.channelList = snack.Listbox(self.size[1]-22, 1,
 	                         width = self.size[0]-10)
         toplevel.add(self.channelList, 0, 3)
 
@@ -517,16 +517,16 @@ class OSReleaseWindow:
         optiontext2 = ALL_UPDATES.encode('utf-8')
 
         if self.tui.all_updates_button:
-            self.all_updates_button = snack.SingleRadioButton(optiontext2, 
+            self.all_updates_button = snack.SingleRadioButton(optiontext2,
                                             self.limited_updates_button, isOn=1)
         else:
-            self.all_updates_button = snack.SingleRadioButton(optiontext2, 
+            self.all_updates_button = snack.SingleRadioButton(optiontext2,
                                             self.limited_updates_button)
-            
+
         toplevel.add(self.all_updates_button, 0, 5, padding = (0, 0, 0, 1),
                      anchorLeft = 1)
 
-        #self.warning = snack.TextboxReflowed(self.size[0]-10, 
+        #self.warning = snack.TextboxReflowed(self.size[0]-10,
         #                     CHANNEL_PAGE_WARNING.encode('utf-8'))
         #toplevel.add(self.warning, 0, 9, anchorLeft = 1)
 
@@ -539,7 +539,7 @@ class OSReleaseWindow:
 
         self.screen.refresh()
 
-        
+
 
     def run(self):
         log.log_debug("Running %s" % self.__class__.__name__)
@@ -566,7 +566,7 @@ class OSReleaseWindow:
         if self.limited_updates_button.selected():
             later_release = self.channelList.current() != \
                                  self.available_channels['default_channel']
-         
+
         title = CONFIRM_OS_RELEASE_SELECTION.encode('utf-8')
         if later_release:
             msgbox = snack.ButtonChoiceWindow(self.screen, title,
@@ -615,7 +615,7 @@ class HardwareWindow:
 
         # read all hardware in
         tui.hardware = hardware.Hardware()
-        
+
         toplevel = snack.GridForm(screen, HARDWARE_WINDOW.encode('utf-8'), 1, 7)
 
         text = snack.TextboxReflowed(70, HARDWARE_WINDOW_DESC1.encode('utf-8'))
@@ -631,12 +631,12 @@ class HardwareWindow:
         grid.setField(self.profileEntry, 1, 0, anchorLeft = 1)
 
         toplevel.add(grid, 0, 1, anchorLeft = 1)
-        
+
         if tui.includeHardware:
             self.hardwareButton = snack.Checkbox(HARDWARE_WINDOW_CHECKBOX.encode('utf-8'), isOn = 1)
         else:
             self.hardwareButton = snack.Checkbox(HARDWARE_WINDOW_CHECKBOX.encode('utf-8'))
-            
+
         toplevel.add(self.hardwareButton, 0, 2, padding = (0, 1, 0, 0),
                      anchorLeft = 1)
 
@@ -655,10 +655,10 @@ class HardwareWindow:
 
         hardware_text += _("CPU model: ")
 
-        for hw in tui.hardware:            
+        for hw in tui.hardware:
             if hw['class'] == 'CPU':
                 hardware_text += hw['model'] +"\n"
-                
+
         hardware_text += _("Hostname: ")
 
         for hw in tui.hardware:
@@ -673,7 +673,7 @@ class HardwareWindow:
 
         hardware_text += _("CPU speed: ")
 
-        for hw in tui.hardware:            
+        for hw in tui.hardware:
             if hw['class'] == 'CPU':
                 hardware_text += _("%d MHz") % hw['speed'] + "  "
 
@@ -699,7 +699,7 @@ class HardwareWindow:
 
         toplevel.add(self.additionalHWLabel, 0, 5, padding = (0, 1, 0, 0),
                      anchorLeft = 1)
-        
+
         # BUTTON BAR
         self.bb = snack.ButtonBar(screen,
                                   [(NEXT.encode('utf-8'), "next"),
@@ -771,7 +771,7 @@ class PackagesWindow:
                                                   package['release']),
                                                   item = package['name'],
                                                   selected = 1)
-            
+
         # BUTTON BAR
         self.bb = snack.ButtonBar(screen,
                                   [(NEXT.encode('utf-8'), "next"),
@@ -786,7 +786,7 @@ class PackagesWindow:
         self.scale.set(int(((amount * 1.0)/ total) * 100))
         self.pwin.draw()
         self.screen.refresh()
-        
+
 
     def saveResults(self):
         self.tui.includePackages = self.packagesButton.selected()
@@ -795,7 +795,7 @@ class PackagesWindow:
             if pkg['name'] in selection:
                 self.tui.selectedPackages.append(pkg)
 
-        
+
     def run(self):
         log.log_debug("Running %s" % self.__class__.__name__)
         result = self.g.runOnce()
@@ -812,7 +812,7 @@ class SendWindow:
         self.tui = tui
         self.name = "SendWindow"
         size = snack._snack.size()
-        
+
         toplevel = snack.GridForm(screen, SEND_WINDOW.encode('utf-8'), 1, 2)
 
         text = snack.TextboxReflowed(size[0]-15, SEND_WINDOW_DESC.encode('utf-8'))
@@ -862,25 +862,25 @@ class SendingWindow:
 
         reg_info = None
         try:
-            # reg_info dict contains: 'system_id', 'channels', 
+            # reg_info dict contains: 'system_id', 'channels',
             # 'failed_channels', 'slots', 'failed_slots'
             log.log_debug('other is %s' % str(self.tui.other))
 
             reg_info = rhnreg.registerSystem2(self.tui.userName, self.tui.password,
-                                             self.tui.profileName, 
+                                             self.tui.profileName,
                                              other = self.tui.other)
             reg_info = reg_info.rawDict
-            
+
             if isinstance(reg_info['system_id'], unicode):
                 systemId = unicode.encode(reg_info['system_id'], 'utf-8')
             else:
                 systemId = reg_info['system_id']
-                
+
         except up2dateErrors.CommunicationError, e:
-            FatalErrorWindow(self.screen, 
+            FatalErrorWindow(self.screen,
                              _("Problem registering system:\n") + e.errmsg)
         except up2dateErrors.RhnUuidUniquenessError, e:
-            FatalErrorWindow(self.screen, 
+            FatalErrorWindow(self.screen,
                              _("Problem registering system:\n") + e.errmsg)
         except up2dateErrors.InsuffMgmntEntsError, e:
             FatalErrorWindow(self.screen,
@@ -894,14 +894,14 @@ class SendingWindow:
 
         # write the system id out.
         if not rhnreg.writeSystemId(systemId):
-            FatalErrorWindow(self.screen, 
+            FatalErrorWindow(self.screen,
                              _("Problem writing out system id to disk."))
 
         self.setScale(1, 4)
 
         # include the info from the oeminfo file as well
         self.oemInfo = rhnreg.getOemInfo()
-        
+
         # dont send if already registered, do send if they have oemInfo
         if ( not self.tui.alreadyRegistered ) or ( len(self.oemInfo)):
             # send product registration information
@@ -913,17 +913,17 @@ class SendingWindow:
                 except:
                     print sys.exc_info()
                     print sys.exc_type
-                    
-                    FatalErrorWindow(self.screen, 
+
+                    FatalErrorWindow(self.screen,
                                      _("Problem registering personal information"))
-                    
+
             else:
                 rhnreg.registerProduct(systemId, self.tui.productInfo,self.tui.oemInfo)
                 try:
                     rhnreg.registerProduct(systemId, self.tui.productInfo,self.tui.oemInfo)
                 except up2dateErrors.CommunicationError, e:
-                    FatalErrorWindow(self.screen, 
-                                     _("Problem registering personal information:\n") + 
+                    FatalErrorWindow(self.screen,
+                                     _("Problem registering personal information:\n") +
                                      e.errmsg)
                 except:
                     log.log_exception(*sys.exc_info())
@@ -1033,7 +1033,7 @@ class ReviewWindow:
         self.tui = tui
         self.reg_info = tui.reg_info
         size = snack._snack.size()
-        
+
         toplevel = snack.GridForm(screen, REVIEW_WINDOW.encode('utf-8'), 1, 2)
         review_window_text = ''
 
@@ -1056,7 +1056,7 @@ class ReviewWindow:
 
             channels = CHANNELS_TITLE + "\n" + \
                        OK_CHANNELS + "\n" + \
-                       "%s\n" 
+                       "%s\n"
 
             # If it's hosted, reference the hosted url,
             # otherwise, we don't know the url for their sat.
@@ -1067,7 +1067,7 @@ class ReviewWindow:
                 channels += CHANNELS_SAT_WARNING
 
             review_window_text += channels % channel_list + "\n\n"
-            
+
         if len(self.reg_info['system_slots']) > 0:
             slot_list = ""
             for slot in self.reg_info['system_slots']:
@@ -1086,17 +1086,17 @@ class ReviewWindow:
                 else:
                     slot_list += slot + "\n"
             review_window_text += SLOTS % slot_list + "\n\n"
-            
+
         if len(self.reg_info['universal_activation_key']) > 0:
             act_key_list = ""
             for act_key in self.reg_info['universal_activation_key']:
                 act_key_list += act_key
             review_window_text += ACTIVATION_KEY % (act_key_list)
-            
+
         self.review_window = snack.Textbox(size[0]-10, size[1]-14, review_window_text.encode('utf-8'), 1, 1)
-    
+
         toplevel.add(self.review_window, 0, 0, padding = (0, 1, 0, 0))
-        
+
         # BUTTON BAR
         self.bb = snack.ButtonBar(screen, [(OK.encode('utf-8'), "next")])
         toplevel.add(self.bb, 0, 1, padding = (0, 1, 0, 0),
@@ -1118,9 +1118,9 @@ class ReviewWindow:
             button = "exit"
         if self.tui.yum_plugin_conf_error:
             button = "exit"
-            
-        return button    
-    
+
+        return button
+
 class Tui:
 
     def __init__(self, screen, test):
@@ -1150,15 +1150,15 @@ class Tui:
             FinishWindow
             ]
         self.serverURL = config.getServerlURL()[0]
-        
+
         if not cfg['sslCACert']:
-            # Always use the path from the cert if available, else set to 
+            # Always use the path from the cert if available, else set to
             # default location
             if self.serverType == "hosted":
                 cfg.set('sslCACert', '/usr/share/rhn/RHNS-CA-CERT')
             else:
-                cfg.set('sslCACert', '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT') 
-       
+                cfg.set('sslCACert', '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT')
+
     def __del__(self):
         self.screen.finish()
 
@@ -1187,12 +1187,12 @@ class Tui:
             "country" : "",
            }
 
-        self.other = {} 
+        self.other = {}
         self.other['registration_number'] = ''
-        
+
         self.profileName = ""
         self.includeHardware = 1
-        
+
         self.limited_updates_button = 1
         self.all_updates_button = 0
         self.includePackages = 0
@@ -1205,7 +1205,7 @@ class Tui:
     def run(self):
         log.log_debug("Running %s" % self.__class__.__name__)
         self.initResults()
-        
+
         direction = "forward"
 
         try:
@@ -1223,7 +1223,7 @@ class Tui:
                     continue
 
                 log.log_debug("index is %s" % index)
-                
+
                 result = win.run()
                 log.log_debug("Result %s" % result)
 
@@ -1238,11 +1238,11 @@ class Tui:
 
                 elif result == "cancel":
                     log.log_debug("Caught a cancel request")
-                    
+
                     # Show the confirm quit window
                     if ConfirmQuitWindow(self.screen) == 1:
                         return
-                    
+
                 elif result == "next":
                     index = index + 1
                     win.saveResults()
@@ -1251,9 +1251,9 @@ class Tui:
         finally:
             self.screen.finish()
 
-        
+
 def main():
-    test = 0    
+    test = 0
     signal.signal(signal.SIGINT, signal.SIG_IGN)
 
     if len(sys.argv) > 1:
@@ -1268,6 +1268,6 @@ def main():
     tui = Tui(screen, test)
     tui.run()
 
-    
+
 if __name__ == "__main__":
     main()

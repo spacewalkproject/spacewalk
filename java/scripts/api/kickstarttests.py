@@ -194,10 +194,10 @@ class KickstartTests(RhnTestCase):
             self.assertTrue(c.has_key('channel_summary'))
 
     def test_list_kickstartable_trees(self):
-        trees = client.kickstart.listKickstartableTrees(self.session_key, 
+        trees = client.kickstart.listKickstartableTrees(self.session_key,
             CHANNEL_LABEL)
         # should be true on any satellite we're testing against
-        self.assertTrue(len(trees) > 0) 
+        self.assertTrue(len(trees) > 0)
         for t in trees:
             self.assertTrue(t.has_key('channel_id'))
             self.assertTrue(t.has_key('boot_image'))
@@ -205,20 +205,20 @@ class KickstartTests(RhnTestCase):
             self.assertTrue(t.has_key('label'))
 
     def test_import(self):
-        trees = client.kickstart.listKickstartableTrees(self.session_key, 
+        trees = client.kickstart.listKickstartableTrees(self.session_key,
             CHANNEL_LABEL)
 
         # could fail if you ran it enough
-        ks_label = "test-profile-%s" % random.randint(100, 999) 
+        ks_label = "test-profile-%s" % random.randint(100, 999)
 
         client.kickstart.importFile(self.session_key, ks_label, 'none',
-            trees[0]['label'], False, KICKSTART_FILE)          
+            trees[0]['label'], False, KICKSTART_FILE)
 
     def test_create(self):
-        trees = client.kickstart.listKickstartableTrees(self.session_key, 
+        trees = client.kickstart.listKickstartableTrees(self.session_key,
             CHANNEL_LABEL)
-        ks_label = "api-created-%s" % random.randint(100, 999) 
-        client.kickstart.createProfile(self.session_key, ks_label, 
+        ks_label = "api-created-%s" % random.randint(100, 999)
+        client.kickstart.createProfile(self.session_key, ks_label,
             'none', trees[0]['label'], SATELLITE_HOST, 'rootpw')
 
 

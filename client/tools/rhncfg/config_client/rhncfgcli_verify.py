@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 from config_common import utils
@@ -35,7 +35,7 @@ class Handler(handler_base.HandlerBase):
     _options_table = [
         handler_base.HandlerBase._option_class(
             '--verbose',
-            "-v", 
+            "-v",
             action="count",
             help="Increase the amount of output detail.",
         ),
@@ -61,7 +61,7 @@ class Handler(handler_base.HandlerBase):
         file_status = "FILE"
 
         status_help = "(channel:local)"
-        
+
         maxlenarr = {
             'status' : len(status_label),
             'owner' : max(len(owner_status), len(status_help)),
@@ -82,7 +82,7 @@ class Handler(handler_base.HandlerBase):
 
             dst = self.get_dest_file(file)
 
-            #Added file_info parameter, which contains information needed to look for differences in the owner, group, and mode.            
+            #Added file_info parameter, which contains information needed to look for differences in the owner, group, and mode.
             ret_dict = self._process_file(src, dst, file, ftype, file_info)
 
             if self.options.verbose:
@@ -99,7 +99,7 @@ class Handler(handler_base.HandlerBase):
             #Place the return values into a list so we can iterate through them later when we want to print them out.
             ret.append(ret_dict)
 
-        if self.options.verbose:       
+        if self.options.verbose:
             formatstr = "%-*s"      #format string for the fields where the length matters.
             formatstr_nolimit = "%-s"   #format string for the fields where the length of the field doesn't matter. Namely, the file field.
 
@@ -107,7 +107,7 @@ class Handler(handler_base.HandlerBase):
             outstring = "%(status)s  %(owner)s  %(group)s  %(mode)s  %(selinux)s  %(file)s"
 
             #Print out the column labels.
-            print outstring % {     
+            print outstring % {
                                     "status"       :       formatstr % (maxlenarr['status'], status_label),
                                     "owner"        :       formatstr % (maxlenarr['owner'], owner_status),
                                     "group"        :       formatstr % (maxlenarr['group'], group_status),
@@ -176,7 +176,7 @@ class Handler(handler_base.HandlerBase):
         group_status = ""
         perm_status = ""
         selinux_status = ""
-        
+
         status = []
         stat_err = 0
         #Stat the destination file
@@ -196,14 +196,14 @@ class Handler(handler_base.HandlerBase):
                     dst_user = "unknown(UID %d)" % (dst_uid,)
             else:
                 dst_user = "missing"
-            
+
             #owner_status gets displayed with the verbose option.
             if src_user == dst_user:
                 owner_status = ""
             else:
                 owner_status = owner_report % (src_user, dst_user)
                 status.append('user')
-    
+
             src_group = info['groupname']
             if not stat_err:
                 #check for group differences
@@ -215,14 +215,14 @@ class Handler(handler_base.HandlerBase):
                     dst_group = "unknown(GID %d)" % (dst_gid,)
             else:
                 dst_group = "missing"
-    
+
             #group_status gets displayed with the verbose option.
             if src_group == dst_group:
                 group_status = ""
             else:
                 group_status = group_report % (src_group, dst_group)
                 status.append('group')
-            
+
             #check for permissions differences
             src_perm = str(info['filemode'])
             if not stat_err:
@@ -233,11 +233,11 @@ class Handler(handler_base.HandlerBase):
                 dst_perm = str(oct(stat.S_IMODE(dst_stat[stat.ST_MODE])))
             else:
                 dst_perm = "missing"
-    
+
             #rip off the leading '0' from the mode returned by stat()
             if dst_perm[0] == '0':
                 dst_perm = dst_perm[1:]
-            
+
             #perm_status gets displayed with the verbose option.
             if src_perm == dst_perm:
                 perm_status = ""
@@ -260,7 +260,7 @@ class Handler(handler_base.HandlerBase):
                         dst_selinux = ""
                 else:
                     dst_selinux = "missing"
-    
+
                 if src_selinux == dst_selinux:
                     selinux_status = ""
                 else:

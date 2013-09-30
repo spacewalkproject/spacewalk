@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # rhnpush_cache.py
 #
@@ -20,7 +20,7 @@
 # UserInfo - Instantiations of this class are pickled.
 #            Cache won't be valid after a certain amount of time.
 #
-# CacheManager - Controls access to the cache. 
+# CacheManager - Controls access to the cache.
 
 import utils
 import os

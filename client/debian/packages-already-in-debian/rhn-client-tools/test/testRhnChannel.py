@@ -36,7 +36,7 @@ class testRhnChannel(unittest.TestCase):
              'org_id': '',
              'id': '63',
              'label': 'redhat-linux-i386-9'}]
-    
+
     def testGetChannelDetails(self):
         "rhnChannel.GetChannelDetails"
         res = rhnChannel.getChannelDetails()
@@ -53,7 +53,7 @@ class testRhnChannel(unittest.TestCase):
     def testGetChannels(self):
         "Test rhnChannel.getChannels()"
         res = rhnChannel.getChannels()
-        
+
         write(res)
 
     def testUpdateChannels(self):

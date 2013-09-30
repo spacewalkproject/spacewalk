@@ -98,7 +98,7 @@ class moduleClass(Module):
             self.start_page = NoNetworkPage()
             self.skip_registration = True
         return self.start_page.startPageVbox()
-    
+
 class KsRegisteredPage:
 
     def __init__(self):

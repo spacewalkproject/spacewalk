@@ -6,8 +6,8 @@ import sys
 import config
 import clientCaps
 import rhnLog
-import rhnErrors 
-import rhnAuth 
+import rhnErrors
+import rhnAuth
 import rhnUtils
 
 #import wrapperUtils
@@ -24,9 +24,9 @@ try:
     from rhn import rpclib
 except ImportError:
     rpclib = __import__("xmlrpclib")
-    
+
 from translate import _
-            
+
 
 def stdoutMsgCallback(msg):
     print msg
@@ -72,13 +72,13 @@ def getServer(refreshCallback=None):
             lang = string.split(lang, '.')[0]
             break
 
-        
+
     s = rpclib.Server(serverUrl, refreshCallback=refreshCallback,
                       proxy=proxyHost,
                       username=proxyUser,
                       password=proxyPassword)
     s.add_header("X-Up2date-Version", rhnUtils.version())
-    
+
     if lang:
         s.setlang(lang)
 
@@ -112,7 +112,7 @@ def doCall(method, *args, **kwargs):
 
     while 1:
         failure = 0
-        ret = None        
+        ret = None
         try:
             ret = apply(method, args, kwargs)
         except KeyboardInterrupt:
@@ -130,7 +130,7 @@ def doCall(method, *args, **kwargs):
             else:
                 failure = 1
         except httplib.IncompleteRead:
-            print "httplib.IncompleteRead" 
+            print "httplib.IncompleteRead"
             raise rhnErrors.CommunicationError("httplib.IncompleteRead")
 
         except urllib2.HTTPError, e:
@@ -140,9 +140,9 @@ def doCall(method, *args, **kwargs):
             msg = msg + "Error Message: %s\n" % e.msg
             log.log_me(msg)
             raise rhnErrors.CommunicationError(msg)
-        
+
         except xmlrpclib.ProtocolError, e:
-            
+
             log.log_me("A protocol error occurred: %s , attempt #%s," % (
                 e.errmsg, attempt_count))
             (errCode, errMsg) = rpclib.reportError(e.headers)
@@ -175,7 +175,7 @@ def doCall(method, *args, **kwargs):
                     pkg = args[0]
                 else:
                     pkg=args[1]
-                    
+
                 if type(pkg) == type([]):
                     pkgName = "%s-%s-%s.%s" % (pkg[0], pkg[1], pkg[2], pkg[4])
                 else:
@@ -183,13 +183,13 @@ def doCall(method, *args, **kwargs):
 		msg = "File Not Found: %s\n%s" % (pkgName, errMsg)
 		log.log_me(msg)
                 raise rhnErrors.FileNotFoundError(msg)
-                
+
             if not reset:
                 if attempt_count >= attempts:
                     raise rhnErrors.CommunicationError(e.errmsg)
                 else:
                     failure = 1
-            
+
         except xmlrpclib.ResponseError:
             raise rhnErrors.CommunicationError(
                 "Broken response from the server.")
@@ -200,6 +200,6 @@ def doCall(method, *args, **kwargs):
             attempt_count = attempt_count + 1
         if ret != None:
             break
-        
+
     return ret
-    
+

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 #The configuration file parser for the rhnpush utility.
@@ -30,7 +30,7 @@ class rhnpushConfigParser:
     _instance = None
 
     def __init__(self, filename=None, ensure_consistency=False):
-                
+
         #Defaults that are used if the ensure_consistency parameter of the constructor is true
         #and the config file that is being read is missing some values.
         self.options_defaults = {
@@ -56,32 +56,32 @@ class rhnpushConfigParser:
                                 'cache_lifetime'    :   '600',
                                 'new_cache'         :   '0',
                                 'extended_test'     :   '0',
-                                'no_session_caching'     :   '0', 
+                                'no_session_caching'     :   '0',
                                 'proxy'             :   '',
-                                'tolerant'          :   '0',            
+                                'tolerant'          :   '0',
                                 'ca_chain'          :   '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT',
 
                                 }
 
         #Used to parse the config file.
         self.settings = ConfigParser.ConfigParser()
-        
-        #use options from the rhnpush section.  
+
+        #use options from the rhnpush section.
         self.section = "rhnpush"
 
         self.username = None
-        self.password = None    
-    
+        self.password = None
+
         if filename:
             self.filename = filename
             self._read_config_files()
 
-        #Take all of the options read from the configuration file and add them as attributes 
+        #Take all of the options read from the configuration file and add them as attributes
         #(instance variables, member variables, whatever) of this object.
         self._add_config_as_attr(ensure_consistency=ensure_consistency)
-    
+
     #Use the ConfigParser to read in the configuration file.
-    def _read_config_files(self):   
+    def _read_config_files(self):
         try:
             self.settings.read([self.filename])
         except IOError, e:
@@ -123,19 +123,19 @@ class rhnpushConfigParser:
 
     def __delitem__(self, item):
         pass
-   
+
     def __len__(self, item):
         pass
-   
+
     def __setitem__(self, item):
         pass
-   
+
     #Takes all of the configuration options read in by the ConfigParser and makes them attributes of the object.
     def _add_config_as_attr(self, ensure_consistency=False):
         for k in self._keys():
             self.__dict__[k] = self.settings.get(self.section, k)
 
-        #ensuring consistency only checks for missing configuration option. 
+        #ensuring consistency only checks for missing configuration option.
         if ensure_consistency:
             for thiskey in self.options_defaults.keys():
                 if not self.__dict__.has_key(thiskey):

@@ -15,17 +15,17 @@ def need_to_backup(src_dir, dest_dir):
             src = abspath(join(path, f))
             path_suffix = src[len(src_dir) + 1 :]
             dest = join(dest_dir, path_suffix)
-            if exists(dest) and (not islink(dest) or (islink(dest) and 
+            if exists(dest) and (not islink(dest) or (islink(dest) and
                                 src != os.readlink(dest))):
                 return True
     return False
 
 
 def ignorable(f, ignorables = ["*.*~", "*.swp", "*.pyc", "*.pyo", "*.pyd", "Makefile*"]):
-    for i in ignorables: 
+    for i in ignorables:
         if fnmatch.fnmatch(f, i): return True
     return False
-    
+
 def link_tree(src_dir, dest_dir):
     src_dir = abspath(src_dir)
     dest_dir = abspath(dest_dir)

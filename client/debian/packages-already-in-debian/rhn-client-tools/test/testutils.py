@@ -12,7 +12,7 @@ DBCACHEPATH="/tmp/testdbcaches/"
 UP2DATE_COMMAND="up2date --justdb --dbpath $DBPATH"
 DATAPATH="/tmp/datadir"
 TOPDIR="../"
-DBDIR="%s/testdbs" % "/usr/src/rhn/test/up2date/depsolve/" 
+DBDIR="%s/testdbs" % "/usr/src/rhn/test/up2date/depsolve/"
 PKGDIR="%s/testpackages" % "/usr/src/rhn/test/up2date/rollbacks/"
 RESULTSPATH="%s/results/" % (TOPDIR)
 CONFIGPATH="%s/configs" % "/usr/src/rhn/test/up2date/depsolve/"
@@ -27,7 +27,7 @@ def createDbDir():
         #whatever...
         print "%s doesnt exist, creating it" % DBPATH
         pass
-    
+
     # make the new
     if not os.access(DBPATH, os.W_OK):
         os.makedirs(DBPATH)
@@ -40,7 +40,7 @@ def createRepackageDir():
         #whatever...
         print "%s doesnt exist, creating it" % REPACKAGEDIR
         pass
-    
+
     # make the new
     if not os.access(REPACKAGEDIR, os.W_OK):
         os.makedirs(REPACKAGEDIR)
@@ -50,7 +50,7 @@ def createRepackageDir():
 def createDataDirs():
     createDbDir()
     createRepackageDir()
-        
+
     if not os.access(DATAPATH, os.W_OK):
         os.makedirs(DATAPATH)
 
@@ -58,7 +58,7 @@ def createDataDirs():
 def rebuildRepackageDir(repackageName):
     createRepackageDir()
     files = glob.glob("%s/%s/*.rpm" % (PKGDIR, repackageName))
-    for file in files: 
+    for file in files:
     	shutil.copy(file , REPACKAGEDIR)
 
 
@@ -83,7 +83,7 @@ def populateDbCache(dbname):
 
 def rebuildRpmDatabase(dbname):
     createDbDir()
-	
+
     if lookForDbCache(dbname):
 	print "Rebuilding rpm database"
     	shutil.copy("%s/%s/Packages" % (DBDIR,dbname) , DBPATH)
@@ -91,7 +91,7 @@ def rebuildRpmDatabase(dbname):
     	fd = os.popen(cmdline)
     	fd.read()
     	fd.close()
-	
+
 	populateDbCache(dbname)
 
 
@@ -106,7 +106,7 @@ def getRpmQAList():
     fd = os.popen(cmdline)
     tmp = fd.readlines()
     out = map(lambda a:string.strip(a), tmp)
-    
+
     fd.close()
     return out
 
@@ -162,7 +162,7 @@ def logFailures(name):
     fd = open("%s/FAILURES" % DATAPATH, "w+")
     fd.write("%s\n" % name)
     fd.close()
-    
+
 def runTestcase(testcase):
     print "Generating an rpm db in %s based on %s" % (DBPATH, "%s/%s" % (DBDIR,testcase.dbname))
     rebuildRpmDatabase(testcase.dbname)
@@ -218,7 +218,7 @@ def compareResults(resultsName, afterList):
     resultsFile = "%s/%s" % (RESULTSPATH, resultsName)
     if not os.access(resultsFile, os.R_OK):
         raise "NoResultsError"
-    
+
     fd = open("%s/%s" % (RESULTSPATH, resultsName), "r")
     expected = fd.readlines()
     expected.sort()
@@ -233,10 +233,10 @@ def compareResults(resultsName, afterList):
     else:
         return 1
 
-            
 
 
-    
+
+
 class Testcase:
     def __init__(self, name=None, dbname=None,
                  configs=None, results=None, options=None):
@@ -253,14 +253,14 @@ class Testcase:
         out = out + "results: %s" % self.results
         out = out + "options: %s " % self.options
         return out
-    
+
 testcases = []
 testcasenames = []
 def parsefile(m):
     while 1:
         s = m.readline()
         if not len(s):
-            break    
+            break
         s = s[:-1]
         if not s:
             continue

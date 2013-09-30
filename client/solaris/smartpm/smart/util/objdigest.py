@@ -40,7 +40,7 @@ class ObjectDigest(object):
 
     def getHexDigest(self):
         return self._digest.hexdigest()
-    
+
     def addObject(self, obj):
         cPickle.dump(obj, DigestFile(self._digest), 2)
 

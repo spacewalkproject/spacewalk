@@ -566,7 +566,7 @@ class Interpreter(Cmd):
             if alias.startswith(text):
                 matches.append(alias)
         return matches
-        
+
     def do_update(self, line):
         args = shlex.split(line)
         if args:

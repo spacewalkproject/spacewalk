@@ -14,7 +14,7 @@
 #
 #
 # This module provides a response context for use by the proxy broker
-# and redirect components.  This context provides a stackable set of 
+# and redirect components.  This context provides a stackable set of
 # response, header, and connection sets which can be used to easily maintain
 # the proxy's response state in the event of redirects.
 
@@ -114,7 +114,7 @@ class ResponseContext:
 ###############################################################################
 # Test Routine
 ###############################################################################
-        
+
 if __name__ == "__main__":
     respContext = ResponseContext()
     print "init   | context = " + str(respContext)

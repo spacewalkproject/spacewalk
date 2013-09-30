@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import sys
@@ -40,8 +40,8 @@ class PollerStateCache:
 
     def __init__(self, domain_data, debug = 0):
         """
-        This method creates a new poller state based on the provided domain 
-        list.  The domain_data list should be in the form returned from 
+        This method creates a new poller state based on the provided domain
+        list.  The domain_data list should be in the form returned from
         poller.poll_hypervisor.  That is,
 
              { uuid : { 'name'        : '...',
@@ -92,14 +92,14 @@ class PollerStateCache:
 
     def get_modified(self):
         """
-        Returns a list of uuids for each domain that has been modified since 
+        Returns a list of uuids for each domain that has been modified since
         the last state poll.
         """
         return self.__modified
 
     def get_removed(self):
         """
-        Returns a list of uuids for each domain that has been removed since 
+        Returns a list of uuids for each domain that has been removed since
         the last state poll.
         """
         return self.__removed
@@ -121,7 +121,7 @@ class PollerStateCache:
             # We'll only complain if debugging is enabled.
             self._log_debug("Could not open cache file '%s': %s" % \
                                (CACHE_DATA_PATH, str(ioe)))
-    
+
         # Now, if a previous state was cached, load it.
         state = {}
         if cache_file:
@@ -137,7 +137,7 @@ class PollerStateCache:
                 cache_file.close()
 
             cache_file.close()
-    
+
         if state:
             self._log_debug("Loaded state: %s" % repr(state))
 
@@ -150,7 +150,7 @@ class PollerStateCache:
                 os.unlink(CACHE_DATA_PATH)
             else:
                 self.__old_domain_data = state['domain_data']
-                
+
         else:
             self.__old_domain_data = None
             self.__expire_time     = None
@@ -163,7 +163,7 @@ class PollerStateCache:
         cache_dir_path = os.path.dirname(CACHE_DATA_PATH)
         if not os.path.exists(cache_dir_path):
             os.makedirs(cache_dir_path, 0700)
-    
+
         state = {}
         state['domain_data'] = self.__new_domain_data
         if self.__expire_time is None or self.is_expired():
@@ -179,15 +179,15 @@ class PollerStateCache:
 
     def _compare_domain_data(self):
         """
-        Compares the old domain_data to the new domain_data.  Returns a tuple 
+        Compares the old domain_data to the new domain_data.  Returns a tuple
         of lists, relative to the new domain_data:
-    
+
             (added, removed, modified)
         """
         self.__added    = {}
         self.__removed  = {}
         self.__modified = {}
-    
+
         # First, figure out the modified and added uuids.
         if self.__new_domain_data:
             for (uuid, new_properties) in self.__new_domain_data.items():
@@ -199,7 +199,7 @@ class PollerStateCache:
                     old_properties = self.__old_domain_data[uuid]
                     if old_properties != new_properties:
                         self.__modified[uuid] = self.__new_domain_data[uuid]
-    
+
         # Now, figure out the removed uuids.
         if self.__old_domain_data:
             for uuid in self.__old_domain_data.keys():
@@ -207,7 +207,7 @@ class PollerStateCache:
                     not self.__new_domain_data.has_key(uuid):
 
                     self.__removed[uuid] = self.__old_domain_data[uuid]
-    
+
     def _log_debug(self, msg, include_trace = 0):
         if self.__debug:
             print "DEBUG: " + str(msg)

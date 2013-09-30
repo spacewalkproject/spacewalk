@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import socket
@@ -113,7 +113,7 @@ class PackageUpload:
             self.connection.connect()
         except socket.error, e:
             raise ConnectionError("Error connecting", str(e)), None, sys.exc_info()[2]
-        
+
         # Add content_length
         if not self.headers.has_key('Content-Length') and \
                 content_length is not None:
@@ -161,7 +161,7 @@ class PackageUpload:
         """
         Uploads a file.
         Returns (http_error_code, error_message)
-        Sets: 
+        Sets:
             self.package_name
             self.package_epoch
             self.package_version
@@ -200,7 +200,7 @@ class PackageUpload:
         # use the precomputed passed checksum
         self.checksum_type = fileChecksumType
         self.checksum = fileChecksum
-                
+
         # Set headers
         self.set_header("Content-Type", "application/x-rpm")
         self.set_header("User-Agent", self.user_agent)
@@ -216,7 +216,7 @@ class PackageUpload:
         else:
             self.set_header("%s-%s" % (prefix, "File-Checksum-Type"), self.checksum_type)
             self.set_header("%s-%s" % (prefix, "File-Checksum"), self.checksum)
-        
+
         a_pkg.input_stream.seek(0, 0)
         self._response = self.send_http('POST', stream_body=a_pkg.input_stream)
         a_pkg.input_stream.close()

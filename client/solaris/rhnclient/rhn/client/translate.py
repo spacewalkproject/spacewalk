@@ -44,7 +44,7 @@ def _readEnvironment():
             newlang.append(l)
     lang = newlang
     del newlang
-    
+
 if 'C' not in lang:
     lang.append('C')
 

@@ -38,7 +38,7 @@ log = up2dateLog.initLog()
 
 YUM_PID_FILE = '/var/run/yum.pid'
 
-# file used to keep track of the next time rhn_check 
+# file used to keep track of the next time rhn_check
 # is allowed to update the package list on the server
 LAST_UPDATE_FILE="/var/lib/up2date/dbtimestamp"
 
@@ -84,7 +84,7 @@ class YumAction(yum.YumBase):
                     downloadpkgs.append(po)
 
         log.log_debug('Downloading Packages:')
-        problems = self.downloadPkgs(downloadpkgs) 
+        problems = self.downloadPkgs(downloadpkgs)
 
         if len(problems.keys()) > 0:
             errstring = ''
@@ -107,15 +107,15 @@ class YumAction(yum.YumBase):
         # Check GPG signatures
         if self.gpgsigcheck(downloadpkgs) != 0:
             return 1
-        
+
         log.log_debug('Running Transaction Test')
         tsConf = {}
         for feature in ['diskspacecheck']: # more to come, I'm sure
             tsConf[feature] = getattr(self.conf, feature)
-        
-        # clean out the ts b/c we have to give it new paths to the rpms 
+
+        # clean out the ts b/c we have to give it new paths to the rpms
         del self.ts
-        
+
         self.initActionTs()
         # save our dsCallback out
         testcb = callback.RPMInstallCallback(output=0)
@@ -124,17 +124,17 @@ class YumAction(yum.YumBase):
         self.dsCallback = None # dumb, dumb dumb dumb!
         self.populateTs(keepold=0) # sigh
         tserrors = self.ts.test(testcb, conf=tsConf)
-        
+
         log.log_debug('Finished Transaction Test')
         if len(tserrors) > 0:
             errstring = 'Transaction Check Error: '
             for descr in tserrors:
-                errstring += '  %s\n' % descr 
-            
+                errstring += '  %s\n' % descr
+
             raise yum.Errors.YumBaseError, errstring
         log.log_debug('Transaction Test Succeeded')
         del self.ts
-        
+
         self.initActionTs() # make a new, blank ts to populate
         self.populateTs(keepold=0) # populate the ts
         self.ts.check() #required for ordering
@@ -162,7 +162,7 @@ class YumAction(yum.YumBase):
 
             if result == 0:
                 # Verified ok, or verify not req'd
-                continue            
+                continue
 
             elif result == 1:
                 # bz 433781
@@ -193,14 +193,14 @@ class YumAction(yum.YumBase):
                 log.log_debug(
                         "keyurl = %s, isn't a known Red Hat key, so this " \
                         "will not be imported.  Manually import this key "  \
-                        "or set gpgcheck=0 in the RHN yum plugin configuration file" 
+                        "or set gpgcheck=0 in the RHN yum plugin configuration file"
                         % (keyurl))
                 return False
         return True
 
     def getInstalledPkgObject(self, package_tup):
         installed = self.rpmdb.returnPackages()
-       
+
         log.log_debug("Searching for installed package to remove: %s"
             % str(package_tup))
         exactmatch, matched, unmatched = yum.packages.parsePackages(
@@ -216,7 +216,7 @@ class YumAction(yum.YumBase):
             return ()
 
     def add_transaction_data(self, transaction_data):
-        """ Add packages to transaction. 
+        """ Add packages to transaction.
             transaction_data is in format:
             { 'packages' : [
                 [['name', '1.0.0', '1', '', ''], 'e'], ...
@@ -264,17 +264,17 @@ class YumAction(yum.YumBase):
             elif action == 'e':
                 package_tup = _yum_package_tup(pkgtup)
                 packages = self.getInstalledPkgObject(package_tup)
-                for package in packages: 
+                for package in packages:
                     self.remove(package)
             else:
                 assert False, "Unknown package transaction action."
 
 # global module level reference to YumAction
 yum_base = YumAction()
- 
+
 def _yum_package_tup(package_tup):
-    """ Create a yum-style package tuple from an rhn package tuple. 
-        Allowed styles: n, n.a, n-v-r, n-e:v-r.a, n-v, n-v-r.a, 
+    """ Create a yum-style package tuple from an rhn package tuple.
+        Allowed styles: n, n.a, n-v-r, n-e:v-r.a, n-v, n-v-r.a,
                         e:n-v-r.a
         Choose from the above styles to be compatible with yum.parsePackage
     """
@@ -299,7 +299,7 @@ def remove(package_list, cache_only=None):
     log.log_debug("Called remove_packages", package_list)
 
     transaction_data = __make_transaction(package_list, 'e')
-    
+
     return _runTransaction(transaction_data)
 
 def update(package_list, cache_only=None):
@@ -308,7 +308,7 @@ def update(package_list, cache_only=None):
         return (13, "Invalid arguments passed to function", {})
 
     log.log_debug("Called update", package_list)
-  
+
     # Remove already installed packages from the list
     for package in package_list[:]:
         pkgkeys = {
@@ -365,7 +365,7 @@ def update(package_list, cache_only=None):
         return (0, "Requested packages already installed", {})
 
     transaction_data = __make_transaction(package_list, 'i')
-   
+
     return _runTransaction(transaction_data, cache_only)
 
 def __make_transaction(package_list, action):
@@ -401,10 +401,10 @@ def _runTransaction(transaction_data, cache_only=None):
     return _run_yum_action(command, cache_only)
 
 def runTransaction(transaction_data, cache_only=None):
-    """ Run a transaction on a group of packages. 
+    """ Run a transaction on a group of packages.
         This was historicaly meant as generic call, but
-        is only called for rollback. 
-        Therefore we change all actions "i" (install) to 
+        is only called for rollback.
+        Therefore we change all actions "i" (install) to
         "r" (rollback) where we will not check dependencies and obsoletes.
     """
     if cache_only:
@@ -485,7 +485,7 @@ def _run_yum_action(command, cache_only=None):
                 # Fatal Error
                 for msg in resultmsgs:
                     log.log_debug('Error: %s' % msg)
-                raise yum.Errors.DepError, resultmsgs 
+                raise yum.Errors.DepError, resultmsgs
             elif result == 0 or result == 2:
                 # Continue on
                 pass
@@ -494,11 +494,11 @@ def _run_yum_action(command, cache_only=None):
                 for msg in resultmsgs:
                     log.log_debug('Error: %s' % msg)
                 raise yum.Errors.YumBaseError, resultmsgs
-                
+
             log.log_debug("Dependencies Resolved")
             yum_base.cache_only=cache_only
             yum_base.doTransaction()
-    
+
         finally:
             yum_base.closeRpmDB()
             yum_base.doUnlock(YUM_PID_FILE)
@@ -507,7 +507,7 @@ def _run_yum_action(command, cache_only=None):
         data = {}
         data['version'] = "1"
         data['name'] = "package_install_failure"
-        
+
         return (32, "Failed: Packages failed to install "\
                 "properly: %s" % str(e), data)
     except yum.Errors.RemoveError, e:
@@ -527,7 +527,7 @@ def _run_yum_action(command, cache_only=None):
         message = "Error while executing packages action: %s" % str(e)
         data = {}
         return (status, message, data)
-  
+
     return (0, "Update Succeeded", {})
 
 
@@ -561,7 +561,7 @@ def checkNeedUpdate(rhnsd=None, cache_only=None):
     if last >= (dbtime - 10):
         return (0, "rpm database not modified since last update (or package "
             "list recently updated)", data)
-    
+
     if last == 0:
         try:
             file = open(LAST_UPDATE_FILE, "w+")
@@ -572,7 +572,7 @@ def checkNeedUpdate(rhnsd=None, cache_only=None):
     # call the refresh_list action with a argument so we know it's
     # from rhnsd
     return refresh_list(rhnsd=1)
-   
+
 def refresh_list(rhnsd=None, cache_only=None):
     """ push again the list of rpm packages to the server """
     if cache_only:
@@ -590,7 +590,7 @@ def refresh_list(rhnsd=None, cache_only=None):
     touch_time_stamp()
     return (0, "rpmlist refreshed", {})
 
- 
+
 def touch_time_stamp():
     try:
         file_d = open(LAST_UPDATE_FILE, "w+")
@@ -615,9 +615,9 @@ def verify(packages, cache_only=None):
     data['name'] = "packages.verify"
     data['version'] = 0
     ret, missing_packages = rpmUtils.verifyPackages(packages)
-                                                                                
+
     data['verify_info'] = ret
-    
+
     if len(missing_packages):
         data['name'] = "packages.verify.missing_packages"
         data['version'] = 0

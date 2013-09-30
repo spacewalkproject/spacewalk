@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 from config_common import handler_base, cfg_exceptions
@@ -32,6 +32,6 @@ class Handler(handler_base.HandlerBase):
             except cfg_exceptions.ConfigChannelNotInRepo:
                 die("Config channel %s does not exist" % config_channel)
             except cfg_exceptions.ConfigChannelNotEmptyError:
-                die("Could not remove non-empty config channel %s" % 
+                die("Could not remove non-empty config channel %s" %
                     config_channel)
             print "Config channel %s removed" % config_channel

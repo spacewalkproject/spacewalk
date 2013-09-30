@@ -132,7 +132,7 @@ class Up2dateInterface(Interface):
                 result = install.main(self._ctrl, opts, RHNSolarisGreedyPolicyInstall)
             else:
                 result = install.main(self._ctrl, opts, RHNSolarisPolicyInstall)
-            
+
         if action == "list":
             pkgs = self.getRHNPackages()
             print _("""
@@ -419,36 +419,36 @@ class RHNSolarisPolicyInstall(PolicyInstall):
         # Let T be the package we wish to find the best provider for.
         # Let P be the set of patches which was determined to provide T.
         # For each P[i], let X be the the set of patches that provides P[i].
-        # 
-        # We determine qualification based on count(X) for each P[i].  The 
-        # lower the count(X), the more qualified P[i] is, and the higher it 
+        #
+        # We determine qualification based on count(X) for each P[i].  The
+        # lower the count(X), the more qualified P[i] is, and the higher it
         # will be weighted.
-        # 
+        #
         # In the SmartPM dep solver, a lower weight indicates a better match.
-        # Therefore, at the end of this algorithm, the P[i] with the lowest 
+        # Therefore, at the end of this algorithm, the P[i] with the lowest
         # count(X) should be the lowest-weighted.  In the event of a tie, where
         # more than one P[i] is of equally low weight, we allow the "winner" to
         # be arbitrarily picked by the calling code.
-        # 
-        # If P[i] is not a patch, it must be a package.  In this case, we 
-        # automatically weight it with the highest value and exclude it from 
-        # our search.  We never want a package to override a patch.  We 
+        #
+        # If P[i] is not a patch, it must be a package.  In this case, we
+        # automatically weight it with the highest value and exclude it from
+        # our search.  We never want a package to override a patch.  We
         # shouldn't see this scenario, but we'll account for it just in case.
-        # 
-        # This algorithm makes a number of assumptions based on extensive 
-        # observations of the Solaris patch distribution web page at SunSolve 
+        #
+        # This algorithm makes a number of assumptions based on extensive
+        # observations of the Solaris patch distribution web page at SunSolve
         # (http://sunsolve.sun.com/pub-cgi/show.pl?target=patches/patch-access).
         # These are:
-        # 
-        #     - If a patch P2 obsoletes another path, P1, then P2 will provide 
+        #
+        #     - If a patch P2 obsoletes another path, P1, then P2 will provide
         #       both P2 and P1.
-        # 
-        #     - If a patch P3 then obsoletes P2, P3 will provide both P3, P2, 
+        #
+        #     - If a patch P3 then obsoletes P2, P3 will provide both P3, P2,
         #       and P1.
-        # 
-        #     - In no case will two patches, P4 and P3, both obsolete another 
+        #
+        #     - In no case will two patches, P4 and P3, both obsolete another
         #       patch P2 without P4 also obsoleting P3 or vice-versa.  In other
-        #       words, patches must be accumulated in a hierarchical manner; 
+        #       words, patches must be accumulated in a hierarchical manner;
         #       two or more patches may not accumulate another at the same tree
         #       level.
 
@@ -457,8 +457,8 @@ class RHNSolarisPolicyInstall(PolicyInstall):
 
         # First, populate the result set with the lowest possible weights.
         # Then, create a mapping between package names and the actual package
-        # objects.  Since pkg.provides is a collection of Provides objects, 
-        # this will allow us to efficiently reference back to the original 
+        # objects.  Since pkg.provides is a collection of Provides objects,
+        # this will allow us to efficiently reference back to the original
         # packages.
         for providingPkg in providingPkgs:
             result[providingPkg] = 0.0
@@ -468,7 +468,7 @@ class RHNSolarisPolicyInstall(PolicyInstall):
         # providers for each patch.
         for providingPkg in providingPkgs:
 
-            # Non-patches just don't make sense in this context.  Give them a 
+            # Non-patches just don't make sense in this context.  Give them a
             # very high weight.
             if not providingPkg.isPatch():
                 result[providingPkg] = 9999999.0
@@ -487,7 +487,7 @@ class RHNSolarisPolicyInstall(PolicyInstall):
 
 
 class RHNSolarisGreedyPolicyInstall(RHNSolarisPolicyInstall):
-    
+
     def getWeight(self, changeset):
         # Do not peanlize for bringing in extra packages
         # BZ: #428490

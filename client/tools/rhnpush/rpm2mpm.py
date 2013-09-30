@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import sys
@@ -53,7 +53,7 @@ def rpm_to_mpm(header, file_stream):
         'build_time'    : 'buildtime',
         'source_rpm'    : 'sourcerpm',
     }
-    
+
     tags = [
         'name',
         'epoch',
@@ -77,7 +77,7 @@ def rpm_to_mpm(header, file_stream):
         'siggpg',
         'sigsize',
     ]
-    
+
     result = {}
     for t in tags:
         tt = tag_map.get(t, t)
@@ -96,7 +96,7 @@ def rpm_to_mpm(header, file_stream):
 
     # md5sum, package_size
     file_stream.seek(0, 2)
-    file_size = file_stream.tell() 
+    file_size = file_stream.tell()
     result['package_size'] = file_size
 
     is_source = 0
@@ -110,7 +110,7 @@ def rpm_to_mpm(header, file_stream):
     p = rhn_mpm.MPM_Package()
     p.header = h
     p.payload_stream = file_stream
-    
+
     return p
 
 def _extract_files(header):

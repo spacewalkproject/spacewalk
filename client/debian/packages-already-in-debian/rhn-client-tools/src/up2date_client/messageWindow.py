@@ -110,25 +110,25 @@ class YesNoDialog(MessageWindow):
 class BulletedOkDialog:
     """A dialog box that can have one more sections of text. Each section can
     be standard blob of text or a bulleted item.
-    
+
     """
     def __init__ (self, title=None, parent=None):
         self.rc = None
         self.dialog = gtk.Dialog(title, parent, 0, ("Close", 1))
         self.dialog.set_has_separator(False)
-        # Vbox to contain just the stuff that will be add to the dialog with 
+        # Vbox to contain just the stuff that will be add to the dialog with
         # addtext
         self.vbox = gtk.VBox(spacing=15)
         self.vbox.set_border_width(15)
         # Put our vbox into the top part of the dialog
         self.dialog.get_children()[0].pack_start(self.vbox, expand=False)
-    
+
     def add_text(self, text):
         label = gtk.Label(text)
         label.set_alignment(0, 0)
         label.set_line_wrap(True)
         self.vbox.pack_start(label, expand=False)
-    
+
     def add_bullet(self, text):
         label = gtk.Label(text)
         label.set_alignment(0, 0)
@@ -139,7 +139,7 @@ class BulletedOkDialog:
         hbox.pack_start(bullet, expand=False)
         hbox.pack_start(label, expand=False)
         self.vbox.pack_start(hbox, expand=False)
-    
+
     def run(self):
         # addFrame(self.dialog) # Need to do this differently if we want it
         self.dialog.set_position(gtk.WIN_POS_CENTER)
@@ -150,6 +150,6 @@ class BulletedOkDialog:
             self.rc = 0
         self.dialog.destroy()
         gtk.main_iteration()
-    
+
     def getrc (self):
         return self.rc

@@ -34,7 +34,7 @@ class APTDEBChannel(PackageChannel):
 
     def __init__(self, baseurl, distro, comps, fingerprint, *args):
         super(APTDEBChannel, self).__init__(*args)
-        
+
         self._baseurl = baseurl
         self._distro = distro
         self._comps = comps

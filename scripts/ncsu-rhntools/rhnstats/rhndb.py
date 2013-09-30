@@ -17,15 +17,15 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 class RHNStore(object):
-    
+
     def __init__(self, sdb):
         self.sdb = sdb
         self.conn = self.sdb.getConnection()
         self.c = self.sdb.getCursor()
-   
+
     def commit(self):
         self.conn.commit()
-        
+
     def addSystem(self, system):
         q1 = """select clientid from CLIENTS where rhnsid = %s"""
         q2 = """insert into CLIENTS (rhnsid, name, lastcheckin) values
@@ -44,11 +44,11 @@ class RHNStore(object):
 
         self.c.execute(q1, (system["id"],))
         return self.c.fetchone()[0]
-            
+
     def addGroup(self, grp):
         q1 = """select groupid from GROUPINFO where rhnsid = %s"""
         q2 = """insert into GROUPINFO (rhnsid, name) values (%s, %s)"""
-        
+
         self.c.execute(q1, (grp["sgid"],))
         ret = self.c.fetchone()
 
@@ -70,7 +70,7 @@ class RHNStore(object):
         q2 = """insert into GROUPS (clientid, groupid) values (%s, %s)"""
         for id in groupids:
             self.c.execute(q2, (clientid, id))
-    
+
     def markRL(self, clients):
         q = ""
         for id in clients:

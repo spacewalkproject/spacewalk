@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -90,19 +90,19 @@ class ConfigFilesBaseMode(BaseMode):
         BaseMode.__init__(self)
         self.ph = PathHandler()
         self.name = None       #Must be set in subclass
-    
+
     def on(self):
         self.ph.add_file(self.name)
         self.state = True
-                                                                                                  
+
     def off(self):
         self.ph.remove_file(self.name)
         self.state = False
-    
-    #Could probably just check the value of state...                                                                                              
+
+    #Could probably just check the value of state...
     def is_on(self):
         return self.ph.check_for_file(self.name)
-                                                                                                  
+
     def is_off(self):
         if self.ph.check_for_file(self.name):
             return False
@@ -113,7 +113,7 @@ class RunMode(ConfigFilesBaseMode):
     def __init__(self):
         ConfigFilesBaseMode.__init__(self)
         self.name = "run"
-        self.ph.set_rhn_root("/etc/sysconfig/rhn/allowed-actions/script") 
+        self.ph.set_rhn_root("/etc/sysconfig/rhn/allowed-actions/script")
 
 class RunAllMode(ConfigFilesBaseMode):
     def __init__(self):
@@ -130,7 +130,7 @@ class DeployMode(ConfigFilesBaseMode):
     def __init__(self):
         ConfigFilesBaseMode.__init__(self)
         self.name = "deploy"
-    
+
 class DiffMode(ConfigFilesBaseMode):
     def __init__(self):
         ConfigFilesBaseMode.__init__(self)
@@ -151,7 +151,7 @@ class SolarisRunMode(ConfigFilesBaseMode):
     def __init__(self):
         ConfigFilesBaseMode.__init__(self)
         self.name = "run"
-        self.ph.set_rhn_root("/opt/redhat/rhn/solaris/etc/sysconfig/rhn/allowed-actions/script") 
+        self.ph.set_rhn_root("/opt/redhat/rhn/solaris/etc/sysconfig/rhn/allowed-actions/script")
 
 class SolarisAllRunMode(ConfigFilesBaseMode):
     def __init__(self):
@@ -163,30 +163,30 @@ class SolarisAllMode(ConfigFilesBaseMode):
     def __init__(self):
         ConfigFilesBaseMode.__init__(self)
         self.name = "all"
-        self.ph.set_rhn_root("/opt/redhat/rhn/solaris/etc/sysconfig/rhn/allowed-actions/configfiles") 
+        self.ph.set_rhn_root("/opt/redhat/rhn/solaris/etc/sysconfig/rhn/allowed-actions/configfiles")
 
 class SolarisDeployMode(ConfigFilesBaseMode):
     def __init__(self):
         ConfigFilesBaseMode.__init__(self)
         self.name = "deploy"
-        self.ph.set_rhn_root("/opt/redhat/rhn/solaris/etc/sysconfig/rhn/allowed-actions/configfiles") 
-    
+        self.ph.set_rhn_root("/opt/redhat/rhn/solaris/etc/sysconfig/rhn/allowed-actions/configfiles")
+
 class SolarisDiffMode(ConfigFilesBaseMode):
     def __init__(self):
         ConfigFilesBaseMode.__init__(self)
         self.name = "diff"
-        self.ph.set_rhn_root("/opt/redhat/rhn/solaris/etc/sysconfig/rhn/allowed-actions/configfiles") 
+        self.ph.set_rhn_root("/opt/redhat/rhn/solaris/etc/sysconfig/rhn/allowed-actions/configfiles")
 
 class SolarisUploadMode(ConfigFilesBaseMode):
     def __init__(self):
         ConfigFilesBaseMode.__init__(self)
         self.name = "upload"
-        self.ph.set_rhn_root("/opt/redhat/rhn/solaris/etc/sysconfig/rhn/allowed-actions/configfiles") 
+        self.ph.set_rhn_root("/opt/redhat/rhn/solaris/etc/sysconfig/rhn/allowed-actions/configfiles")
 
 class SolarisMTimeUploadMode(ConfigFilesBaseMode):
     def __init__(self):
         ConfigFilesBaseMode.__init__(self)
         self.name = "mtime_upload"
-        self.ph.set_rhn_root("/opt/redhat/rhn/solaris/etc/sysconfig/rhn/allowed-actions/configfiles") 
+        self.ph.set_rhn_root("/opt/redhat/rhn/solaris/etc/sysconfig/rhn/allowed-actions/configfiles")
 
 

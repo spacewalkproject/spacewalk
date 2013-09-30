@@ -142,7 +142,7 @@ def _getOptionsTree(defs):
         ]
 
     # the base options
-    _optGenCa = make_option('--gen-ca', action='store_true', help='generate a Certificate Authority (CA) key pair and public RPM. Review "--gen-ca --help" for more information.') 
+    _optGenCa = make_option('--gen-ca', action='store_true', help='generate a Certificate Authority (CA) key pair and public RPM. Review "--gen-ca --help" for more information.')
     _optGenServer = make_option("--gen-server", action='store_true', help="""generate the web server's SSL key set, RPM and tar archive. Review "--gen-server --help" for more information.""")
 
 
@@ -235,7 +235,7 @@ def setIntersection(*sets):
     n = len(sets)
     if n <= 1:
         return unique(sets[0])
-    
+
     setA = unique(sets[0])
     #setB = setIntersection(*sets[1:]) # a python 2.* -ism
     setB = apply(setIntersection, sets[1:], {})

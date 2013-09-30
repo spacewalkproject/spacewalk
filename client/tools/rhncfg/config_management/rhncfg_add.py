@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -53,7 +53,7 @@ class Handler(handler_base.HandlerBase):
              help="Overwrite the SELinux context",
          ),
     ]
-                                                    
+
     def run(self):
         log_debug(2)
 
@@ -79,7 +79,7 @@ class Handler(handler_base.HandlerBase):
                 die(7, "--dest-file accepts a single file")
 	    if not (self.options.dest_file[0] == os.sep):
 		die(7, "--dest-file argument must begin with " + os.sep)
-            files_to_push.append((files[0], self.options.dest_file)) 
+            files_to_push.append((files[0], self.options.dest_file))
         elif self.options.topdir:
             if not os.path.isdir(self.options.topdir):
                 die(8, "--topdir specified, but `%s' not a directory" %
@@ -95,11 +95,11 @@ class Handler(handler_base.HandlerBase):
                 files_to_push.append((f, f[len(self.options.topdir):]))
         else:
             for f in files:
-		#if a file is given w/o a full path, then use the abspath of the 
+		#if a file is given w/o a full path, then use the abspath of the
 		#file as name of the file to be uploaded into the channel
 		if not (f[0] == os.sep):
                     files_to_push.append((f, os.path.abspath(f)))
-		else: 
+		else:
                     files_to_push.append((f, f))
 
         for (local_file, remote_file) in files_to_push:
@@ -118,10 +118,10 @@ class Handler(handler_base.HandlerBase):
         selinux_ctx = None
         if type(self.options.selinux_context) != None:
             selinux_ctx = self.options.selinux_context
-        
+
         for (local_file, remote_file) in files_to_push:
             try:
-                r.put_file(channel, remote_file, local_file, 
+                r.put_file(channel, remote_file, local_file,
                     is_first_revision=self.is_first_revision,
                     delim_start=delim_start,
                     delim_end=delim_end,

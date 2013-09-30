@@ -51,7 +51,7 @@ class moduleClass(Module):
         if status == 0: # cert was installed
             return RESULT_SUCCESS
         elif status == 1: # the user doesn't want to provide a cert right now
-            # TODO write a message to disk like the other cases? need to decide 
+            # TODO write a message to disk like the other cases? need to decide
             # how we want to do error handling in general.
             interface.moveToPage(moduleTitle=_("Finish Updates Setup"))
             return RESULT_JUMP

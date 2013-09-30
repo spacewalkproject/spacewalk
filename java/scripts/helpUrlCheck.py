@@ -59,7 +59,7 @@ if __name__ == "__main__":
         for key in brokenUrls.keys():
             print "   %s" % key
             print "      Error: %s" % brokenUrls[key]['error']
-            print "      Files: (note: may include multiple occurrences)" 
+            print "      Files: (note: may include multiple occurrences)"
             filesProcessed = []
             for filename in brokenUrls[key]['files']:
                 if filename not in filesProcessed:

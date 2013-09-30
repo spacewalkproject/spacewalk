@@ -76,7 +76,7 @@ def do_ssm_add(self, args):
 
     if len(self.ssm):
         logging.debug('Systems Selected: %i' % len(self.ssm))
-    
+
     # save the SSM for use between sessions
     save_cache(self.ssm_cache_file, self.ssm)
 

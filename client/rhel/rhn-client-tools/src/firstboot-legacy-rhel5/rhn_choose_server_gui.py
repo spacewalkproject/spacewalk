@@ -42,19 +42,19 @@ class RhnChooseServerWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.ChooseServe
     needsparent = 1
     needsnetwork = 1
     noSidebar = True
-    
+
     def __init__(self):
         RhnRegisterFirstbootGuiWindow.__init__(self)
         rhnregGui.ChooseServerPage.__init__(self)
         if rhnreg.registered():
             self.skipme = True
-    
+
     def _getVbox(self):
         return self.chooseServerPageVbox()
-    
+
     def updatePage(self):
         self.chooseServerPagePrepare()
-    
+
     def apply(self, *args):
         """Returns True to change the page (to the one set)."""
         try:

@@ -23,7 +23,7 @@ class SimplePkgDict:
     A Simple package dictionary object.
     This is essentially another way to get up2date info into yum.
     """
-                      
+
     def __init__(self, nevra):
         self.nevra = nevra
 
@@ -31,7 +31,7 @@ class SimplePkgDict:
 class DummyPackageObject(YumAvailablePackage):
 
     """ A yum package object for objects stored in RHN. """
-    
+
     def __init__(self, pkg, storageDir, repo):
 
         name    = pkg[0]
@@ -45,23 +45,23 @@ class DummyPackageObject(YumAvailablePackage):
         # YUM prefers the epoch to be '0', not ''.
         if epoch == '':
             epoch = '0'
-        
+
         nevra = (name, epoch, version, release, arch)
         pkgdict = SimplePkgDict(nevra)
-   
+
         YumAvailablePackage.__init__(self, repo, pkgdict)
 
         self.pkg = pkg
         self.simple['repoid']      = channel
         self.simple['id']          = name
         self.simple['packagesize'] = size
-        
+
         # Not including epoch here because up2date doesn't.
         hdrname = "%s-%s-%s.%s.hdr" % (name, version, release, arch)
         rpmname = "%s-%s-%s.%s.rpm" % (name, version, release, arch)
 
         self.simple['relativepath'] = rpmname
-        
+
         self.hdrpath = "%s/%s" % (storageDir, hdrname)
         self.localpath = "%s/%s" % (storageDir, rpmname)
 
@@ -70,7 +70,7 @@ class DummyPackageObject(YumAvailablePackage):
     def returnSimple(self, name):
         """
         Return one of the package's simple attributes. If we don't know about it,
-        return None instead. 
+        return None instead.
         """
         try:
             return YumAvailablePackage.returnSimple(self, name)
@@ -96,7 +96,7 @@ class ProfileSyncTests(unittest.TestCase):
             "rhel-4")
         self.old_package = DummyPackageObject(self.old_pkg_tup,
             "/Fake/Location", repo)
-        
+
         self.ts_info = transactioninfo.TransactionData()
 
 
@@ -133,7 +133,7 @@ class ProfileSyncTests(unittest.TestCase):
 
     def testUpdatedProfileSync(self):
         self.ts_info.addUpdate(self.package, self.old_package)
- 
+
         delta = rhnplugin.make_package_delta(self.ts_info)
 
         self.assertEquals(0, len(delta["removed"]))
@@ -150,7 +150,7 @@ class ProfileSyncTests(unittest.TestCase):
         self.assertEquals(1, len(delta["added"]))
 
         self.assertEquals(self.pkg_tup[:5], delta["added"][0])
-                                
+
     def testObsoletedProfileSync(self):
         self.ts_info.addObsoleted(self.old_package, self.package)
 
@@ -164,6 +164,6 @@ def suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(ProfileSyncTests))
     return suite
-                
+
 if __name__ == "__main__":
     unittest.main(defaultTest="suite")

@@ -866,7 +866,7 @@ class Transaction(object):
                     if csweight < weight:
                         weight = csweight
                         changeset.setState(cs)
-                
+
     def _fix(self, pkgs, changeset, locked, pending, depth=0):
         #print "[%03d] _fix()" % depth
         #depth += 1
@@ -1171,7 +1171,7 @@ class ChangeSetSplitter(object):
                 if found:
                     continue
 
-                needed = (not wasbroken and 
+                needed = (not wasbroken and
                           (self._forcerequires or
                            isinstance(req, PreRequires)))
 

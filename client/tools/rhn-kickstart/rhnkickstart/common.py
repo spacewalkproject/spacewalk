@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -26,8 +26,8 @@ from rhnkickstart.kickstart_exceptions import \
 def download_install_images(kickstart_config, remote_path, local_path):
     # Dig out the URL for the kernel image and ramdisk.
     ks_tree_url = _extract_ks_tree_from_config(kickstart_config)
-    
-    # Now download the kernel and ramdisk files.  We'll store them in 
+
+    # Now download the kernel and ramdisk files.  We'll store them in
     # temporary files.
     (kernel_path, initrd_path) = _download_install_images(ks_tree_url,
         remote_path, local_path)
@@ -51,9 +51,9 @@ def extract_kickstart_url(extra_append):
 
 
 def download_kickstart_file(extra_append):
-    """ 
+    """
     Download the kickstart config file.
-    
+
     Read the location from the kernel parameters found in extra_append.
     Return a string containing the contents of the config file.
     """
@@ -65,7 +65,7 @@ def download_kickstart_file(extra_append):
         raise KickstartDownloadException, \
                   "Error downloading kickstart file from '%s': %s" % \
                       (ks_url, str(e)), sys.exc_info()[2]
-    
+
     # Sanity check to make sure we actually received a kickstart file.
     _ensure_valid_kickstart_file(ks_url, ks_data)
 
@@ -83,8 +83,8 @@ def _ensure_valid_kickstart_file(ks_url, ks_data):
                 (ks_url)
 
 def _extract_ks_tree_from_config(kickstart_config):
-    tree_url_match = re.search("url --url (\S+)", 
-                               kickstart_config, 
+    tree_url_match = re.search("url --url (\S+)",
+                               kickstart_config,
                                re.MULTILINE)
     if not tree_url_match:
         raise MalformedKickstartFileException, \

@@ -57,7 +57,7 @@ def init_hook(conduit):
     Plugin initialization hook. We setup the Spacewlk channels here.
 
     We get a list of Spacewalk channels from the server, then make a repo object for
-    each one. This list of repos is then added to yum's list of repos via the 
+    each one. This list of repos is then added to yum's list of repos via the
     conduit.
     """
 
@@ -87,7 +87,7 @@ def init_hook(conduit):
         rhn_enabled = False
         PROXY_ERROR =  _("There was an error parsing the Red Hat Satellite Proxy settings.")
         conduit.error(0, PROXY_ERROR + "\n" + RHN_DISABLED)
-        return 
+        return
 
     # check commands and options which don't need network communication
     prog_name = os.path.basename(sys.argv[0])
@@ -138,7 +138,7 @@ def init_hook(conduit):
     try:
         svrChannels = rhnChannel.getChannelDetails(timeout=timeout)
     except up2dateErrors.NoChannelsError:
-        conduit.error(0, _("This system is not subscribed to any channels.") + 
+        conduit.error(0, _("This system is not subscribed to any channels.") +
             "\n" + CHANNELS_DISABLED)
         truncateRHNReposCache(conduit)
         return
@@ -151,7 +151,7 @@ def init_hook(conduit):
     except up2dateErrors.RhnServerException, e:
         if hasattr(conduit._base, 'exit_code') and 'check-update' in sys.argv:
             conduit._base.exit_code = 1
-        conduit.error(0, COMMUNICATION_ERROR + "\n" + CHANNELS_DISABLED + 
+        conduit.error(0, COMMUNICATION_ERROR + "\n" + CHANNELS_DISABLED +
             "\n" + unicode(e))
         return
 
@@ -281,7 +281,7 @@ def posttrans_hook(conduit):
                 rhnPackageInfo.updatePackageProfile(timeout=timeout)
             except up2dateErrors.RhnServerException, e:
                 conduit.error(0, COMMUNICATION_ERROR + "\n" +
-                    _("Package profile information could not be sent.") + "\n" + 
+                    _("Package profile information could not be sent.") + "\n" +
                     unicode(e))
 
 def rewordError(e):
@@ -301,8 +301,8 @@ def rewordError(e):
     #preceeding the Error Class Code
     indexB = e.errmsg.rfind("\n", 0, index)
     e.errmsg = "\n" + replacedText + e.errmsg[indexB:]
-                
-            
+
+
 
 class RhnRepo(YumRepository):
 
@@ -317,7 +317,7 @@ class RhnRepo(YumRepository):
                           'X-RHN-Auth',
                           'X-RHN-Auth-Server-Time',
                           'X-RHN-Auth-Expire-Offset']
-    
+
     def __init__(self, channel):
         YumRepository.__init__(self, channel['label'])
         self.name = channel['name']
@@ -332,7 +332,7 @@ class RhnRepo(YumRepository):
         else: # type will be always list since Spacewalk 1.4, in future this will be dead coed
             urls.append(channel['url'] + '/GET-REQ/' + self.id)
 
-        self.baseurl = urls 
+        self.baseurl = urls
         self.urls = self.baseurl
         self.failovermethod = 'priority'
         self.keepalive = 0
@@ -347,7 +347,7 @@ class RhnRepo(YumRepository):
         self.gpgkey = []
         self.gpgcheck = False
         self.up2date_cfg = config.initUp2dateConfig()
-    
+
         try:
             self.gpgkey = get_gpg_key_urls(channel['gpg_key_url'])
         except InvalidGpgKeyLocation:
@@ -358,7 +358,7 @@ class RhnRepo(YumRepository):
 
     def setupRhnHttpHeaders(self):
         """ Set up self.http_headers with needed RHN X-RHN-blah headers """
-        
+
         try:
             li = up2dateAuth.getLoginInfo(timeout=self.timeout)
         except up2dateErrors.RhnServerException, e:
@@ -374,7 +374,7 @@ class RhnRepo(YumRepository):
                 error = _("Missing required login information for RHN: %s") \
                     % header
                 raise yum.Errors.RepoError(error)
-            
+
             self.http_headers[header] = li[header]
         if not self.up2date_cfg['useNoSSLForPackages']:
             self.http_headers['X-RHN-Transport-Capability'] = "follow-redirects=3"
@@ -494,7 +494,7 @@ class RhnRepo(YumRepository):
             except URLGrabError, e:
                 urlException = e
                 continue
-            
+
         if result == None:
             raise urlException
         return result
@@ -667,7 +667,7 @@ def get_proxy_url(up2date_cfg):
         proxy_url = proxy_url + ':'
         proxy_url = proxy_url + urllib.quote(up2date_cfg['proxyPassword'])
         proxy_url = proxy_url + '@'
-   
+
     netloc = config.getProxySetting()
     if netloc == '':
         raise BadProxyConfig
@@ -681,7 +681,7 @@ def is_valid_gpg_key_url(key_url):
     proto_split = key_url.split('://')
     if len(proto_split) != 2:
         return False
-    
+
     proto, path = proto_split
     if proto.lower() != 'file':
         return False

@@ -21,7 +21,7 @@ class Error:
     def __repr__(self):
         self.log.log_me(self.errmsg)
         return self.errmsg
-    
+
 class FileError(Error):
     """
     error to report when we encounter file errors (missing files/dirs,
@@ -51,7 +51,7 @@ class RpmInstallError(Error):
         log = rhnLog.initLog()
         log.log_me(msg)
         return msg
-    
+
 
 class PasswordError(Error):
     """Raise when the server responds with that a password is incorrect"""
@@ -84,7 +84,7 @@ class FileConflictError(Error):
         log = rhnLog.initLog()
         log.log_me(msg)
         return msg
-    
+
 class DependencyError(Error):
     """Raise when a rpm transaction set has a dependency error"""
     def __init__(self, msg, deps=None):
@@ -92,7 +92,7 @@ class DependencyError(Error):
         # just tag on the whole deps tuple, so we have plenty of info
         # to play with
         self.deps = deps
-        
+
     def __repr__(self):
         msg = _("RPM dependency error. The message was:\n") + self.errmsg
         log = rhnLog.initLog()
@@ -106,7 +106,7 @@ class TransactionError(Error):
         # just tag on the whole deps tuple, so we have plenty of info
         # to play with
         self.deps = deps
-        
+
     def __repr__(self):
         msg = _("RPM  error. The message was:\n") + self.errmsg
         log = rhnLog.initLog()
@@ -119,7 +119,7 @@ class UnsolvedDependencyError(Error):
     def __init__(self, msg, dep=None, pkgs=None):
         self.errmsg = msg
         self.dep = dep
-        self.pkgs = pkgs 
+        self.pkgs = pkgs
     def __repr__(self):
         msg = _("RPM dependency error.  The message was:\n") + self.errmsg
         log = rhnLog.initLog()
@@ -143,7 +143,7 @@ class SkipListError(Error):
     """Raise when all the packages you want updated are on a skip list"""
     def __init__(self, msg, pkglist=None):
 	self.errmsg = msg
-	self.pkglist = pkglist 
+	self.pkglist = pkglist
     def __repr__(self):
         msg = _("Package Skip List error.  The message was:\n") + self.errmsg
         log = rhnLog.initLog()
@@ -305,7 +305,7 @@ class ServerThrottleError(Error):
 
     def __repr__(self):
         return self.errmsg
-    
+
 class AbuseError(Error):
     def __init__(self, msg):
         self.errmsg = msg
@@ -323,7 +323,7 @@ class AuthenticationTicketError(Error):
 class AuthenticationError(Error):
     def __init__(self, msg):
         self.errmsg = msg
- 
+
     def __repr__(self):
         return self.errmsg
 
@@ -334,7 +334,7 @@ class ValidationError(Error):
     # indicates an error during server input validation
     def __repr__(self):
         return _("Error validating data at server:\n") + self.errmsg
-    
+
 class OemInfoFileError(Error):
     def __init__(self,errmsg):
         Error.__init__(self, errmsg)

@@ -8,7 +8,7 @@ base_template="""<?xml version="1.0" encoding="UTF-8"?>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="build/classes"/>
         <classpathentry kind="lib" path="code/webapp"/>
-%s	
+%s
 </classpath>"""
 
 classpath_entry = """	<classpathentry kind="lib" path="%s"/>"""

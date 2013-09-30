@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -59,7 +59,7 @@ def _local_permission_check(action_type):
         potential_all_path = apply(os.path.join, all_structure)
         if os.path.exists(os.path.join(_permission_root_dir, potential_all_path)):
             return 1
-    
+
     action_path = apply(os.path.join, atype_structure)
     return os.path.exists(os.path.join(_permission_root_dir, action_path))
 
@@ -73,12 +73,12 @@ def _visit_dir(params, dirname, names):
     info = params['info']
     ignore_dirs = params['ignore']
     now = params['now']
-    
+
     i = 0
     while i < len(names):
         full_path = os.path.join(dirname, names[i])
         is_dir = os.path.isdir(full_path)
-        
+
         if is_dir:
             if ignore_dirs.has_key(full_path):
                 # don't consider the entire subtree on subsequent runs of
@@ -94,7 +94,7 @@ def _visit_dir(params, dirname, names):
         if not os.path.exists(full_path):
             i = i + 1
             continue
-        
+
         mtime = os.path.getmtime(full_path)
 
         # do it via delta...
@@ -143,7 +143,7 @@ def mtime_upload(action_id, params, cache_only=None):
     if not _local_permission_check(action_type):
         log_to_file(0, "permissions error: " + str(action_type))
         return _perm_error(action_type)
-        
+
     _init()
 
     file_matches = []
@@ -170,7 +170,7 @@ def mtime_upload(action_id, params, cache_only=None):
 
     r = rpc_cli_repository.ClientRepository()
     result = r.put_files(action_id, file_matches, upload_contents=upload_contents)
-    
+
     formatted_result = format_result(result, file_matches)
     log_to_file(0, formatted_result)
     return formatted_result
@@ -184,7 +184,7 @@ def upload(action_id, params, cache_only=None):
     if not _local_permission_check(action_type):
         log_to_file(0, "permissions error: " + str(action_type))
         return _perm_error(action_type)
-        
+
     _init()
 
     files = params or []
@@ -210,7 +210,7 @@ def deploy(params, topdir=None, cache_only=None):
     _init()
     files = params.get('files') or []
     dep_trans = DeployTransaction(transaction_root=topdir, auto_rollback=0)
-    
+
     for file in files:
         dep_trans.add(file)
 
@@ -219,7 +219,7 @@ def deploy(params, topdir=None, cache_only=None):
     #5/3/05 wregglej - 135415 Adding stuff for missing user info
     except cfg_exceptions.UserNotFound, e:
             try:
-                dep_trans.rollback()    
+                dep_trans.rollback()
             except FailedRollback:
                 log_to_file(0, "Failed deployment and rollback, information on user '%s' could not be found" % (e[0], ))
                 return (44, "Failed deployment and rollback, information on user '%s' could not be found" % (e[0], ), {})
@@ -348,7 +348,7 @@ def diff(params, cache_only=None):
     extras = {}
     if missing_files:
         extras['missing_files'] = missing_files
-    
+
     if diffs:
         for file in diffs.keys():
             if not is_utf8(diffs[file]):
@@ -377,7 +377,7 @@ def format_file_string(file_list, keylist):
     return outstr
 
 #Returns a list of strings. Each string is a key in the dictionary containing file information.
-#The number of keys returned corresponds to the debug_level. The higher the debug_level, the longer the 
+#The number of keys returned corresponds to the debug_level. The higher the debug_level, the longer the
 #list of keys.
 def create_key_list():
     #The list of keys. The order of the keys determines what debug_level they will be returned in.

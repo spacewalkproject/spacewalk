@@ -40,9 +40,9 @@ from proxy.rhnProxyAuth import get_proxy_auth
 from spacewalk.common.byterange import parse_byteranges, get_content_range
 
 def getComponentType(req):
-    """ 
+    """
         Are we a 'proxy.broker' or a 'proxy.redirect'.
-    
+
         Checks to see if the last visited Spacewalk Proxy was itself. If so, we
         are a 'proxy.redirect'. If not, then we must be a 'proxy.broker'.
     """
@@ -59,7 +59,7 @@ def getComponentType(req):
     proxy_server_id = get_proxy_auth().getProxyServerId()
     # is it the same box?
     try:
-        log_debug(4, "last_visited", last_visited, "; proxy server id", 
+        log_debug(4, "last_visited", last_visited, "; proxy server id",
             proxy_server_id)
     # pylint: disable=W0702
     except:
@@ -98,15 +98,15 @@ class apacheHandler(rhnApache):
         return token
 
     def headerParserHandler(self, req):
-        """ Name-munging if request came from anaconda in response to a 
-            kickstart. """ 
+        """ Name-munging if request came from anaconda in response to a
+            kickstart. """
         ret = rhnApache.headerParserHandler(self, req)
         if ret != apache.OK:
             return ret
 
         self.input = rpclib.transports.Input(req.headers_in)
 
-        # Before we allow the main handler code to commence, we'll first check 
+        # Before we allow the main handler code to commence, we'll first check
         # to see if this request came from anaconda in response to a kickstart.
         # If so, we'll need to do some special name-munging before we continue.
 
@@ -115,14 +115,14 @@ class apacheHandler(rhnApache):
 
     def _transformKickstartRequest(self, req):
         """ If necessary, this routine will transform a "tinified" anaconda-
-            generated kickstart request into a normalized form capable of being 
-            cached effectively by squid.  
-            
+            generated kickstart request into a normalized form capable of being
+            cached effectively by squid.
+
             This is done by first making a HEAD request
-            to the satellite for the purpose of updating the kickstart progress and 
-            retrieving an MD5 sum for the requested file.  We then replace the 
+            to the satellite for the purpose of updating the kickstart progress and
+            retrieving an MD5 sum for the requested file.  We then replace the
             tinyURL part of the URI with the retrieved MD5 sum.  This effectively
-            removes session-specific information while allowing us to still cache 
+            removes session-specific information while allowing us to still cache
             based on the uniqueness of the file.
         """
         # Kickstart requests only come in the form of a GET, so short-circuit
@@ -130,15 +130,15 @@ class apacheHandler(rhnApache):
 
         if (req.method != "GET"):
             return apache.OK
- 
+
         log_debug(6, "URI", req.uri)
         log_debug(6, "COMPONENT", self._component)
 
-        # If we're a broker, we know that this is a kickstart request from 
-        # anaconda by checking if the URI begins with /ty/*, otherwise just 
+        # If we're a broker, we know that this is a kickstart request from
+        # anaconda by checking if the URI begins with /ty/*, otherwise just
         # return.  If we're an SSL redirect, we check that the URI begins with
         # /ty-cksm/*, otherwise return.
-        
+
         if self._component == COMPONENT_BROKER:
             if req.uri.startswith(URI_PREFIX_KS):
                 log_debug(3, "Found a kickstart URI: %s" % req.uri)
@@ -163,14 +163,14 @@ class apacheHandler(rhnApache):
 
         newURI = self._generateCacheableKickstartURI(req.uri, checksum)
         if not newURI:
-            # Couldn't create a cacheable URI, log an error and revert to 
+            # Couldn't create a cacheable URI, log an error and revert to
             # BZ 158236 behavior.
 
             log_error('Could not create cacheable ks URI from "%s"' % req.uri)
             return apache.OK
 
         # Now we must embed the old URI into a header in the original request
-        # so that the SSL Redirect has it available if the resource has not 
+        # so that the SSL Redirect has it available if the resource has not
         # been cached yet.  We will also embed a header that holds the new URI,
         # so that the content handler can use it later.
 
@@ -183,7 +183,7 @@ class apacheHandler(rhnApache):
     @staticmethod
     def _transformKsRequestForRedirect(req):
 
-        # If we don't get the actual URI in the headers, we'll decline the 
+        # If we don't get the actual URI in the headers, we'll decline the
         # request.
 
         if not req.headers_in or not req.headers_in.has_key(HEADER_ACTUAL_URI):
@@ -213,9 +213,9 @@ class apacheHandler(rhnApache):
         log_debug(6, "Using scheme: %s" % scheme)
 
         # Initiate a HEAD request to the satellite to retrieve the MD5 sum.
-        # Actually, we make the request through our own proxy first, so 
-        # that we don't accidentally bypass necessary authentication 
-        # routines.  Since it's a HEAD request, the proxy will forward it 
+        # Actually, we make the request through our own proxy first, so
+        # that we don't accidentally bypass necessary authentication
+        # routines.  Since it's a HEAD request, the proxy will forward it
         # directly to the satellite like it would a POST request.
 
         host = "127.0.0.1"
@@ -263,16 +263,16 @@ class apacheHandler(rhnApache):
 
         responseHdrs = response.msg
         if not responseHdrs:
-            # No headers?!  This shouldn't happen at all.  But if it does, 
+            # No headers?!  This shouldn't happen at all.  But if it does,
             # revert to the old # BZ 158236 behavior.
-            
+
             log_error("HEAD response - No HTTP headers!")
             return (apache.OK, None)
 
         if not responseHdrs.has_key(HEADER_CHECKSUM):
             # No checksum was provided.  This could happen if a newer
             # proxy is talking to an older satellite.  To keep things
-            # running smoothly, we'll just revert to the BZ 158236 
+            # running smoothly, we'll just revert to the BZ 158236
             # behavior.
 
             log_debug(1, "HEAD response - No X-RHN-Checksum field provided!")
@@ -287,13 +287,13 @@ class apacheHandler(rhnApache):
         """
         This routine computes a new cacheable URI based on the old URI and the
         checksum. For example, if the checksum is 1234ABCD and the oldURI was:
-    
+
             /ty/AljAmCEt/RedHat/base/comps.xml
-    
+
         Then, the new URI will be:
-     
+
             /ty-cksm/1234ABCD/RedHat/base/comps.xml
-    
+
         If for some reason the new URI could not be generated, return None.
         """
 
@@ -311,7 +311,7 @@ class apacheHandler(rhnApache):
 
         # If the URI didn't have enough parts, return None.
 
-        if numParts <= 2: 
+        if numParts <= 2:
             newURI = None
 
         return newURI
@@ -464,13 +464,13 @@ class apacheHandler(rhnApache):
             compress_response = 0
             # This is an xmlrpc Fault, so we have to encode it
             needs_xmlrpc_encoding = 1
-        
+
         output = rpclib.transports.Output()
 
         if not is_fault:
             # First, use the same encoding/transfer that the client used
             output.set_transport_flags(
-                transfer=rpclib.transports.lookupTransfer(self.input.transfer), 
+                transfer=rpclib.transports.lookupTransfer(self.input.transfer),
                 encoding=rpclib.transports.lookupEncoding(self.input.encoding))
 
         if compress_response:

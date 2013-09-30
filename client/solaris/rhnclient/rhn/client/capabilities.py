@@ -30,11 +30,11 @@ def parseCap(capstring):
         except ValueError:
             # Bad directive: not in 'a = b' format
             continue
-            
+
         # parse out the version
         # lets give it a shot sans regex's first...
         (key,version) = string.split(key_version, "(", 1)
-        
+
         # just to be paranoid
         if version[-1] != ")":
             print "something broke in parsing the capabilited headers"
@@ -141,7 +141,7 @@ class Capabilities(UserDict.UserDict):
 
         #print "self.cfg['supportsExtendedPackageProfile']: %s" % self.cfg['supportsExtendedPackageProfile']
         #print tmpCaps
-            
+
         # if we want to blow up on missing caps we cant eat around
         missingCaps = []
         wrongVersionCaps = []

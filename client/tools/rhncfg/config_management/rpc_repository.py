@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -40,9 +40,9 @@ class Repository(repository.RPC_Repository):
 
         if not self.session and not (username and password):
             raise cfg_exceptions.InvalidSession()
-            
+
         if self.session and not username:
-            test = self.rpc_call('config.test_session', 
+            test = self.rpc_call('config.test_session',
                 {'session' : self.session})
             if not test:
                 raise cfg_exceptions.InvalidSession('Session is either expired or invalid')
@@ -67,7 +67,7 @@ class Repository(repository.RPC_Repository):
 
         if not self.session:
             raise cfg_exceptions.InvalidSession
-        
+
         self.assert_repo_health()
 
 
@@ -109,11 +109,11 @@ class Repository(repository.RPC_Repository):
 
         if auto_delete:
             self.files_to_delete.append(fullpath)
-        
+
         del result['file_contents']
 
         return fullpath, result, dirs_created
-    
+
 
     def has_file(self, config_channel, repopath):
         params =  {
@@ -122,7 +122,7 @@ class Repository(repository.RPC_Repository):
             'path'              : repopath,
         }
         return self.rpc_call('config.management.has_file', params)
-        
+
     def remove_file(self, config_channel, repopath):
         """ remove a given file from the repo """
         log_debug(4)
@@ -133,8 +133,8 @@ class Repository(repository.RPC_Repository):
         }
         return self.rpc_call('config.management.remove_file', params)
 
-    def put_file(self, config_channel, repopath, localfile=None, 
-            is_first_revision=None, old_revision=None, delim_start=None, 
+    def put_file(self, config_channel, repopath, localfile=None,
+            is_first_revision=None, old_revision=None, delim_start=None,
             delim_end=None, selinux_ctx=None):
         """
         Insert a given file into the repo, overwriting if necessary.
@@ -148,7 +148,7 @@ class Repository(repository.RPC_Repository):
         max_file_size = self.get_maximum_file_size()
 
         if params['size'] > max_file_size:
-            error_msg = "%s too large (%s bytes, %s bytes max allowed)"  
+            error_msg = "%s too large (%s bytes, %s bytes max allowed)"
             raise cfg_exceptions.ConfigFileTooLargeError(error_msg % (localfile, params['size'], max_file_size))
 
         if selinux_ctx is not None:
@@ -167,35 +167,35 @@ class Repository(repository.RPC_Repository):
 
         try:
             result = self.rpc_call('config.management.put_file', params)
-            
+
         except xmlrpclib.Fault, e:
             fault_code, fault_string = e.faultCode, e.faultString
-            
+
             if is_first_revision and fault_code == -4013:
                 raise cfg_exceptions.RepositoryFileExistsError(fault_string), None, sys.exc_info()[2]
-            
+
             if old_revision and fault_code == -4012:
                 raise cfg_exceptions.RepositoryFileVersionMismatchError(fault_string), None, sys.exc_info()[2]
-            
+
             if fault_code == -4003:
                 raise cfg_exceptions.ConfigFileTooLargeError(fault_string), None, sys.exc_info()[2]
-            
+
             if fault_code == -4014:
                 raise cfg_exceptions.QuotaExceeded(fault_string), None, sys.exc_info()[2]
-            
+
             raise cfg_exceptions.RepositoryFilePushError(fault_code, fault_string), None, sys.exc_info()[2]
-        
+
         return result
-    
+
 
     def config_channel_exists(self, config_channel):
         log_debug(4, config_channel)
         return (config_channel in self.list_config_channels())
-        
+
     def list_files(self, config_channel, repopath = None, recurse = 1):
-        """ 
-        list files in a repo, recursing if requested; 
-        repopath is not used yet 
+        """
+        list files in a repo, recursing if requested;
+        repopath is not used yet
         """
         log_debug(4)
         files = self.rpc_call('config.management.list_files',
@@ -229,18 +229,18 @@ class Repository(repository.RPC_Repository):
         log_debug(4)
         if hasattr(self, 'config_channels'):
             return self.config_channels
-        
+
         self.config_channels = self.rpc_call(
             'config.management.list_config_channels', {'session' : self.session}
         ) or []
 
         return self.config_channels
-    
+
     def create_config_channel(self, config_channel):
         "creates a configuration channel"
         log_debug(4, config_channel)
         try:
-            return self.rpc_call('config.management.create_config_channel', 
+            return self.rpc_call('config.management.create_config_channel',
                 {'session' : self.session, 'config_channel' : config_channel})
         except xmlrpclib.Fault, e:
             if e.faultCode == -4010:
@@ -251,7 +251,7 @@ class Repository(repository.RPC_Repository):
         "Removes a configuration channel"
         log_debug(4, config_channel)
         try:
-            return self.rpc_call('config.management.remove_config_channel', 
+            return self.rpc_call('config.management.remove_config_channel',
                 {'session' : self.session, 'config_channel' : config_channel})
         except xmlrpclib.Fault, e:
             if e.faultCode == -4009:
@@ -259,7 +259,7 @@ class Repository(repository.RPC_Repository):
             if e.faultCode == -4005:
                 raise cfg_exceptions.ConfigChannelNotEmptyError(config_channel), None, sys.exc_info()[2]
             raise
-    
+
     def _get_default_delimiters(self):
         "retrieves the default delimiters from the server"
         log_debug(4)
@@ -273,12 +273,12 @@ class Repository(repository.RPC_Repository):
         result = self.rpc_call('config.management.get_maximum_file_size',
             {'session'   : self.session})
         return result
-    
+
     def assert_repo_health(self):
         log_debug(4)
         pass
-    
-    def diff_file_revisions(self, path, config_channel_src, revision_src, 
+
+    def diff_file_revisions(self, path, config_channel_src, revision_src,
             config_channel_dst, revision_dst):
         log_debug(4)
         params = {
@@ -332,7 +332,7 @@ class Repository(repository.RPC_Repository):
             os.unlink(p)
         except OSError:
             pass
-        
+
     def _get_session_path(self):
         return os.path.join(utils.get_home_dir(), self._session_file)
 

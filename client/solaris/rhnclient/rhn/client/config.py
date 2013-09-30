@@ -80,7 +80,7 @@ Defaults = {
     'headerCacheSize'   : ("The maximum number of rpm headers to cache in ram",
                            40),
     'headerFetchCount'  : ("The maximimum number of rpm headers to "\
-                           "fetch at once", 
+                           "fetch at once",
                            10),
     'forceInstall'      : ("Force package installation, ignoring package, "\
                            "file and config file skip list",
@@ -124,7 +124,7 @@ class ConfigFile:
 	self.fileName = filename
         if self.fileName:
             self.load()
-            
+
     def load(self, filename = None):
         if filename:
             self.fileName = filename
@@ -133,14 +133,14 @@ class ConfigFile:
         if not os.access(self.fileName, os.R_OK):
             print "warning: can't access %s" % self.fileName
             return
-        
+
         f = open(self.fileName, "r")
 
 	for line in f.readlines():
             # strip comments
             if '#' in line:
                 line = line[:string.find(line, '#')]
-            line = string.strip(line)            
+            line = string.strip(line)
             if not line:
 		continue
 
@@ -187,7 +187,7 @@ class ConfigFile:
     def save(self):
 	if self.fileName == None:
 	    return
-        
+
         f = open(self.fileName, "w")
         os.chmod(self.fileName, 0600)
 
@@ -219,7 +219,7 @@ class ConfigFile:
     def __getitem__(self, name):
         if self.dict.has_key(name):
             return self.dict[name][1]
-        return None    
+        return None
     def __setitem__(self, name, value):
         if self.dict.has_key(name):
             val = self.dict[name]
@@ -277,11 +277,11 @@ class Config:
         if self.stored.has_key(name):
             return self.stored[name]
         return None
-        
+
     # These function expose access to the peristent storage for
     # updates and saves
     def info(self, name): # retrieve comments
-        return self.stored.info(name)    
+        return self.stored.info(name)
     def save(self):
         self.stored.save()
     def load(self, filename):
@@ -303,7 +303,7 @@ class UuidConfig(ConfigFile):
     "derived from the ConfigFile class, with prepopulated default values"
     def __init__(self):
         ConfigFile.__init__(self)
-        self.fileName = UP2DATE_UUID 
+        self.fileName = UP2DATE_UUID
 
 
 def initUp2dateConfig(file = UP2DATE_CONFIG):
@@ -312,11 +312,11 @@ def initUp2dateConfig(file = UP2DATE_CONFIG):
         cfg = cfg
     except NameError:
         cfg = None
-        
+
     if cfg == None:
 
         cfg = Config(file)
-        cfg["isatty"] = 0 
+        cfg["isatty"] = 0
         if sys.stdout.isatty():
             cfg["isatty"] = 1
                 # pull this into the main cfg dict from the

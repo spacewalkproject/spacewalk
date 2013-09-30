@@ -19,7 +19,7 @@ def main():
         ca_cert = sys.argv[2]
     except:
         pass
-    server_url = "https://" + server_name + "/APPLET" 
+    server_url = "https://" + server_name + "/APPLET"
 
     mem_usage = None
     mem_usage_VmSize_max = None
@@ -53,7 +53,7 @@ def run_test(server_url, ca_cert):
     s.add_trusted_cert(ca_cert)
 
     status = s.applet.poll_status()
-    
+
 
 def mem_usage():
     f = open("/proc/self/status")

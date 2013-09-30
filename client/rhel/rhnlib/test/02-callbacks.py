@@ -39,7 +39,7 @@ if __name__ == '__main__':
 
     channels = dict['X-RHN-Auth-Channels']
     cn, cv = channels[0][:2]
-    
+
     print "Calling listPackages"
     l = gs.listPackages(cn, cv)
     for p in l:
@@ -48,7 +48,7 @@ if __name__ == '__main__':
             break
     else:
         raise Exception("Package not found")
-    
+
     print "PACKAGE TO DOWNLOAD: %s %s %s %s" % (package[0], package[1], package[2], package[4])
     filename = "%s-%s-%s.%s.rpm" % (package[0], package[1], package[2], package[4])
     print "Calling getPackages"

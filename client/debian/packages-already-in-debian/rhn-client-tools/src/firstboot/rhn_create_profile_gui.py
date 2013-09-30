@@ -58,7 +58,7 @@ class moduleClass(Module):
             return RESULT_JUMP
         if ret:
             return RESULT_FAILURE
-        
+
         return RESULT_SUCCESS
 
     def createScreen(self):

@@ -54,7 +54,7 @@ DEBARCH = sysconf.get("deb-arch", getArchitecture())
 class DebPackage(Package):
 
     packagemanager = DebPackageManager
-    
+
     def coexists(self, other):
         if not isinstance(other, DebPackage):
             return True

@@ -126,7 +126,7 @@ class TextInterface(Interface):
         return self.askOkCancel(_("Continue?"), True)
 
     # Non-standard interface methods:
-        
+
     def showChangeSet(self, changeset, keep=None, confirm=False):
         self.hideStatus()
         report = Report(changeset)

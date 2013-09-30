@@ -87,9 +87,9 @@ class TestClientCaps(unittest.TestCase):
             os.makedirs(dirname)
         try:
             clientCaps.loadLocalCaps(test_clientCaps_d)
-            os.rmdir(dirname) 
+            os.rmdir(dirname)
         except:
-            os.rmdir(dirname) 
+            os.rmdir(dirname)
             self.fail()
 
 
@@ -110,6 +110,6 @@ def suite():
     suite.addTest(unittest.makeSuite(TestClientCaps))
     suite.addTest(unittest.makeSuite(TestLoginWithCaps))
     return suite
-       
+
 if __name__ == "__main__":
     unittest.main(defaultTest="suite")

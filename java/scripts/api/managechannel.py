@@ -71,7 +71,7 @@ def pushContent(users, channels):
 def main():
     # Create Session keys
     keys = getKeys(SATELLITE_LOGIN_HASH)
-    # Create channels 
+    # Create channels
     channel_list = createChannels(keys, CHANNEL_INFO)
     # push content to channels
     pushContent(SATELLITE_LOGIN_HASH, channel_list)

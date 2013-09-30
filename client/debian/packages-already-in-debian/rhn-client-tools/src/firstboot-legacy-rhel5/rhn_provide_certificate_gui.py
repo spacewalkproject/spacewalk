@@ -41,23 +41,23 @@ class RhnProvideCertificateWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.Provi
     needsparent = 1
     needsnetwork = 1
     noSidebar = True
-    
+
     def __init__(self):
         RhnRegisterFirstbootGuiWindow.__init__(self)
         rhnregGui.ProvideCertificatePage.__init__(self)
         if rhnreg.registered():
             self.skipme = True
-    
+
     def _getVbox(self):
         return self.provideCertificatePageVbox()
-    
+
     def apply(self, *args):
         """Returns True to change the page or None to stay on the same page."""
         status = self.provideCertificatePageApply()
         if status == 0: # cert was installed
             return True
         elif status == 1: # the user doesn't want to provide a cert right now
-            # TODO write a message to disk like the other cases? need to decide 
+            # TODO write a message to disk like the other cases? need to decide
             # how we want to do error handling in general.
             self.parent.setPage("rhn_finish_gui")
             return True

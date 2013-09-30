@@ -42,7 +42,7 @@ class SSLSocket:
     def __init__(self, socket, trusted_certs=None):
         # SSL.Context object
         self._ctx = None
-        # SSL.Connection object 
+        # SSL.Connection object
         self._connection = None
         self._sock = socket
         self._trusted_certs = []
@@ -53,7 +53,7 @@ class SSLSocket:
         # SSL method to use
         self._ssl_method = SSL.SSLv23_METHOD
         # Flags to pass to the SSL layer
-        self._ssl_verify_flags = SSL.VERIFY_PEER 
+        self._ssl_verify_flags = SSL.VERIFY_PEER
 
         # Buffer size for reads
         self._buffer_size = 8192
@@ -95,7 +95,7 @@ class SSLSocket:
         self._ctx.set_verify(self._ssl_verify_flags, ssl_verify_callback)
         if hasattr(SSL, "OP_DONT_INSERT_EMPTY_FRAGMENTS"):
             # Certain SSL implementations break when empty fragments are
-            # initially sent (even if sending them is compliant to 
+            # initially sent (even if sending them is compliant to
             # SSL 3.0 and TLS 1.0 specs). Play it safe and disable this
             # feature (openssl 0.9.6e and later)
             self._ctx.set_options(SSL.OP_DONT_INSERT_EMPTY_FRAGMENTS)
@@ -117,7 +117,7 @@ class SSLSocket:
         # that originally called makefile() are gone
         self._makefile_called = self._makefile_called + 1
         return self
-    
+
     def close(self):
         """
         Closes the SSL connection
@@ -180,7 +180,7 @@ class SSLSocket:
 
             try:
                 data = self._connection.recv(buffer_size)
- 
+
                 self._buffer = self._buffer + data
                 buffer_length = len(self._buffer)
 
@@ -222,8 +222,8 @@ class SSLSocket:
         Writes to the SSL connection.
         """
         self._check_closed()
-        
-        # XXX Should use sendall 
+
+        # XXX Should use sendall
         # sent = self._connection.sendall(data)
         origlen = len(data)
         while True:
@@ -236,7 +236,7 @@ class SSLSocket:
                 self._poll(select.POLLOUT, 'write')
             except SSL.WantReadError:
                 self._poll(select.POLLIN, 'write')
-                 
+
         return origlen
 
     def recv(self, amt):
@@ -302,7 +302,7 @@ def ssl_verify_callback(conn, cert, errnum, depth, ok):
     return ok
 
 class TimeoutException(SSL.Error, socket.timeout):
-    
+
     def __init__(self, *args):
         self.args = args
 

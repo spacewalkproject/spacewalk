@@ -203,7 +203,7 @@ class Control(object):
     def rebuildSysConfChannels(self):
 
         channels = sysconf.get("channels", ())
-    
+
         forcechannels = sysconf.get("force-channels", "")
         if forcechannels:
             forcechannels = forcechannels.split(",")
@@ -370,7 +370,7 @@ class Control(object):
         progress.setStopped()
         progress.show()
         progress.stop()
- 
+
         # Build cache with the new information.
         self._cache.load()
 
@@ -538,7 +538,7 @@ class Control(object):
                         del channels[channel]
                     else:
                         channels[channel] = pkgs
-            
+
             self._fetcher.setForceCopy(True)
             copypkgpaths.update(self.fetchPackages(copypkgs, caching))
             self._fetcher.setForceCopy(False)
@@ -641,7 +641,7 @@ class Control(object):
         for pkg in self._cache.getPackages(s):
             if pkg.name == s or "%s-%s" % (pkg.name, pkg.version) == s:
                 objects.append((1.0, pkg))
-         
+
         if not objects:
             if "*" in s:
                 cutoff = globcutoff

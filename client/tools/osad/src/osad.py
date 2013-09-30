@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import re
@@ -85,7 +85,7 @@ class Runner(jabber_lib.Runner):
         logfile = self.options.logfile
         if logfile is None or logfile == '':
             logfile = config['logfile']
-    
+
         debug_level = self.options.verbose
         if debug_level is None:
             dl = config['debug_level']
@@ -122,7 +122,7 @@ class Runner(jabber_lib.Runner):
         self._jabber_servers = []
         if self.options.jabber_server:
             self._jabber_servers.append(self.options.jabber_server)
-        
+
         if type(server_url) == type([]):
             for su in server_url:
                 a_su = self._parse_url(su)[1]
@@ -131,10 +131,10 @@ class Runner(jabber_lib.Runner):
             upstream_jabber_server = self._parse_url(server_url)[1]
             if upstream_jabber_server not in self._jabber_servers:
                 self._jabber_servers.append(upstream_jabber_server)
-        
+
         if type(server_url) != type([]):
             server_url = [server_url]
-        
+
         for su in server_url:
             try:
                 params['uri'] = su
@@ -142,14 +142,14 @@ class Runner(jabber_lib.Runner):
                 if osa_ssl_cert:
                     s.add_trusted_cert(osa_ssl_cert)
                 s.registration.welcome_message()
-        
+
                 server_capabilities = get_server_capability(s)
                 if not server_capabilities.has_key('registration.register_osad'):
                     die("Server does not support OSAD registration")
-        
+
                 self._systemid_file = systemid_file = config['systemid']
                 self._systemid = systemid = open(systemid_file).read()
-        
+
                 current_timestamp = int(time.time())
                 ret = s.registration.register_osad(systemid, {'client-timestamp' :
                     current_timestamp})
@@ -158,12 +158,12 @@ class Runner(jabber_lib.Runner):
                 continue
         else: #for
             ret = {}
-            
+
         #Bugzilla: 142067
         #If the server doesn't have push support. 'ret' won't have anything in it.
         if len(ret.keys()) < 1:
             raise jabber_lib.JabberConnectionError
-        
+
         server_timestamp = ret.get('server-timestamp')
         # Compute the time drift between the client and the server
         self._time_drift = server_timestamp - current_timestamp
@@ -185,7 +185,7 @@ class Runner(jabber_lib.Runner):
         self._shared_key = ret.get('shared-key')
         log_debug(2, "Client name", self._client_name)
         log_debug(2, "Shared key", self._shared_key)
-        
+
         # Load the config
         self._config_options.clear()
         self._config_options.update(config)
@@ -197,7 +197,7 @@ class Runner(jabber_lib.Runner):
         #    'client_name'       : self._client_name,
         #    'shared_key'        : self._shared_key,
         })
-        
+
 
     def _parse_url(self, url, scheme="http"):
         import urlparse
@@ -207,7 +207,7 @@ class Runner(jabber_lib.Runner):
             url = scheme + "://" + url
             sch, netloc, path, params, query, fragment = urlparse.urlparse(url)
         return sch, netloc, path, params, query, fragment
-        
+
     def fix_connection(self, c):
         "After setting up the connection, do whatever else is necessary"
         c.set_config_options(self._config_options)
@@ -234,7 +234,7 @@ class Runner(jabber_lib.Runner):
         return c
 
     def process_once(self, client):
-    
+
         # Re-read the systemid file.  If it's changed from the
         # previous version re-setup the config.  This will create a new
         # key on the satellite server tied to this new system id.
@@ -245,7 +245,7 @@ class Runner(jabber_lib.Runner):
             log_debug(4, "System re-registration detected. systemid file has changed.")
             config = self.read_config()
             raise jabber_lib.NeedRestart
-           
+
         client.process(timeout=180)
 
     def read_config(self):
@@ -253,7 +253,7 @@ class Runner(jabber_lib.Runner):
         # Read from the global config first
         config_file = self.options.cfg
         self._config = osad_config.init('osad', config_file=config_file)
-        config_keys = ['debug_level', 'osa_ssl_cert', 'logfile', 'run_rhn_check', 
+        config_keys = ['debug_level', 'osa_ssl_cert', 'logfile', 'run_rhn_check',
             'rhn_check_command', 'enable_failover']
         for key in config_keys:
             ret[key] = osad_config.get(key)
@@ -267,7 +267,7 @@ class Runner(jabber_lib.Runner):
                 server_url = config.getServerlURL()[0]
 
         ret['server_url'] = server_url
-        
+
         #8/23/05 wregglej 165775 added the run_rhn_check option.
         run_rhn_check = osad_config.get('run_rhn_check')
         if run_rhn_check is None:
@@ -291,7 +291,7 @@ class Runner(jabber_lib.Runner):
             ret['enable_proxy'] = 1
 
             ret['proxy_url'] = config.getProxySetting()
-            
+
             enable_proxy_auth = self._config.get_option('enableProxyAuth')
             if enable_proxy_auth is None:
                 enable_proxy_auth = self.get_up2date_config()['enableProxyAuth']
@@ -331,12 +331,12 @@ class Runner(jabber_lib.Runner):
             ret['osa_ssl_cert'] = osa_ssl_cert
 
         return ret
-    
+
     def get_up2date_config(self):
         if self._up2date_config is None:
             self._up2date_config = initUp2dateConfig()
         return self._up2date_config
-        
+
     def build_rpclib_params(self, config):
         ret = {}
         kmap = {

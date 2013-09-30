@@ -11,7 +11,7 @@ import rhnplugin
 
 
 class ProxyConfigTests(unittest.TestCase):
-    
+
     def testProxyDisabled(self):
         up2date_cfg = {}
         up2date_cfg['enableProxy'] = False
@@ -147,6 +147,6 @@ def suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(ProxyConfigTests))
     return suite
-                
+
 if __name__ == "__main__":
     unittest.main(defaultTest="suite")

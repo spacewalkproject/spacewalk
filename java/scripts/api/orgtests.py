@@ -22,8 +22,8 @@ class OrgTests(RhnTestCase):
         # Create a test org that will be deleted in teardown:
         self.random_int = randint(1, 1000000)
         self.org_name = "Test Org %s" % self.random_int
-        self.org = client.org.create(self.session_key, self.org_name, 
-                "admin%s" % self.random_int, "password", 
+        self.org = client.org.create(self.session_key, self.org_name,
+                "admin%s" % self.random_int, "password",
                 "Mr.", "Fake", "Admin", "fake@example.com", False)
         self.org_id = self.org['id']
 
@@ -44,7 +44,7 @@ class OrgTests(RhnTestCase):
         self.assertRaises(Exception, client.org.delete, self.session_key, -1)
 
     def test_list_channel_family_entitlements(self):
-        result = client.org.listSoftwareEntitlements(self.session_key, 
+        result = client.org.listSoftwareEntitlements(self.session_key,
                 CHANNEL_FAMILY_LABEL)
         self.assertTrue(len(result) >= 1) # default org at least
         for counts in result:
@@ -56,7 +56,7 @@ class OrgTests(RhnTestCase):
 
     def test_list_channel_family_entitlements_for_org(self):
         # NOTE: Using the default org here:
-        result = client.org.listSoftwareEntitlementsForOrg(self.session_key, 
+        result = client.org.listSoftwareEntitlementsForOrg(self.session_key,
                 SATELLITE_ORG_ID)
         for counts in result:
             self.assertTrue(counts.has_key('label'))
@@ -91,7 +91,7 @@ class OrgTests(RhnTestCase):
 
     def test_set_channel_family_entitlements(self):
         # Lookup satellite org count for verification:
-        result = client.org.listSoftwareEntitlementsForOrg(self.session_key, 
+        result = client.org.listSoftwareEntitlementsForOrg(self.session_key,
                 SATELLITE_ORG_ID)
         count = self.__find_count_for_entitlement(result, CHANNEL_FAMILY_LABEL)
         sat_org_total = count['allocated']
@@ -101,25 +101,25 @@ class OrgTests(RhnTestCase):
                 self.org_id, CHANNEL_FAMILY_LABEL, 100)
         self.assertEquals(1, result)
 
-        result = client.org.listSoftwareEntitlementsForOrg(self.session_key, 
+        result = client.org.listSoftwareEntitlementsForOrg(self.session_key,
                 self.org_id)
         count = self.__find_count_for_entitlement(result, CHANNEL_FAMILY_LABEL)
         self.assertEquals(100, count['allocated'])
 
         # Check that the satellite org lost it's entitlements:
-        result = client.org.listSoftwareEntitlementsForOrg(self.session_key, 
+        result = client.org.listSoftwareEntitlementsForOrg(self.session_key,
                 SATELLITE_ORG_ID)
         count = self.__find_count_for_entitlement(result, CHANNEL_FAMILY_LABEL)
         self.assertEquals(sat_org_total - 100, count['allocated'])
 
     def test_set_too_many_channel_family_entitlements(self):
-        result = client.org.listSoftwareEntitlementsForOrg(self.session_key, 
+        result = client.org.listSoftwareEntitlementsForOrg(self.session_key,
                 SATELLITE_ORG_ID)
         count = self.__find_count_for_entitlement(result, CHANNEL_FAMILY_LABEL)
         sat_org_free = count['free']
 
         # Allocate one too many entitlements:
-        result = self.assertRaises(Exception, 
+        result = self.assertRaises(Exception,
                 client.org.setSoftwareEntitlements, self.session_key,
                 self.org_id, CHANNEL_FAMILY_LABEL, sat_org_free + 1)
 
@@ -137,9 +137,9 @@ class OrgTests(RhnTestCase):
 
     def test_set_system_entitlements(self):
         # Lookup satellite org count for verification:
-        result = client.org.listSystemEntitlementsForOrg(self.session_key, 
+        result = client.org.listSystemEntitlementsForOrg(self.session_key,
                 SATELLITE_ORG_ID)
-        count = self.__find_count_for_entitlement(result, 
+        count = self.__find_count_for_entitlement(result,
                 SYSTEM_ENTITLEMENT_LABEL)
         sat_org_total = count['allocated']
         self.assertTrue(count['free'] >= 100)
@@ -148,34 +148,34 @@ class OrgTests(RhnTestCase):
                 self.org_id, SYSTEM_ENTITLEMENT_LABEL, 100)
         self.assertEquals(1, result)
 
-        result = client.org.listSystemEntitlementsForOrg(self.session_key, 
+        result = client.org.listSystemEntitlementsForOrg(self.session_key,
                 self.org_id)
-        count = self.__find_count_for_entitlement(result, 
+        count = self.__find_count_for_entitlement(result,
                 SYSTEM_ENTITLEMENT_LABEL)
         self.assertEquals(100, count['allocated'])
 
         # Check that the satellite org lost it's entitlements:
-        result = client.org.listSystemEntitlementsForOrg(self.session_key, 
+        result = client.org.listSystemEntitlementsForOrg(self.session_key,
                 SATELLITE_ORG_ID)
-        count = self.__find_count_for_entitlement(result, 
+        count = self.__find_count_for_entitlement(result,
                 SYSTEM_ENTITLEMENT_LABEL)
         self.assertEquals(sat_org_total - 100, count['allocated'])
 
     def test_set_too_many_system_entitlements(self):
-        result = client.org.listSystemEntitlementsForOrg(self.session_key, 
+        result = client.org.listSystemEntitlementsForOrg(self.session_key,
                 SATELLITE_ORG_ID)
-        count = self.__find_count_for_entitlement(result, 
+        count = self.__find_count_for_entitlement(result,
                 SYSTEM_ENTITLEMENT_LABEL)
         sat_org_free = count['free']
 
         # Allocate one too many entitlements:
-        result = self.assertRaises(Exception, 
+        result = self.assertRaises(Exception,
                 client.org.setSoftwareEntitlements, self.session_key,
                 self.org_id, SYSTEM_ENTITLEMENT_LABEL, sat_org_free + 1)
 
     def test_set_system_entitlements_on_default_org(self):
         self.assertRaises(Exception, client.org.setSystemEntitlements,
-                self.session_key, SATELLITE_ORG_ID, SYSTEM_ENTITLEMENT_LABEL, 
+                self.session_key, SATELLITE_ORG_ID, SYSTEM_ENTITLEMENT_LABEL,
                 100)
 
 

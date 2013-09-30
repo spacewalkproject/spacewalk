@@ -174,19 +174,19 @@ problems, isn't running, or the token is somehow corrupt.
 
     def login(self):
         """ Login and fetch new token (proxy token).
-        
+
             How it works in a nutshell.
             Only the broker component uses this. We perform a xmlrpc request
             to rhn_parent. This occurs outside of the http process we are
             currently working on. So, we do this all on our own; do all of
             our own SSL decisionmaking etc. We use CFG.RHN_PARENT as we always
             bypass the SSL redirect.
-        
+
             DESIGN NOTES:  what is the proxy auth token?
             -------------------------------------------
             An Spacewalk Proxy auth token is a token fetched upon login from
             Red Hat Satellite or hosted.
-        
+
             It has this format:
                'S:U:ST:EO:SIG'
             Where:
@@ -196,33 +196,33 @@ problems, isn't running, or the token is somehow corrupt.
                EO  = expiration offset
                SIG = signature
                H   = hostname (important later)
-        
+
             Within this function within the Spacewalk Proxy Broker we also tag on
             the hostname to the end of the token. The token as described above
             is enough for authentication purposes, but we need a to identify
             the exact hostname (as the Spacewalk Proxy sees it). So now the token
             becomes (token:hostname):
                'S:U:ST:EO:SIG:H'
-        
+
             DESIGN NOTES:  what is X-RHN-Proxy-Auth?
             -------------------------------------------
             This is where we use the auth token beyond Spacewalk Proxy login
             purposes. This a header used to track request routes through
             a hierarchy of RHN Proxies.
-        
+
             X-RHN-Proxy-Auth is a header that passes proxy authentication
             information around in the form of an ordered list of tokens. This
             list is used to gain information as to how a client request is
             routed throughout an RHN topology.
-           
+
             Format: 'S1:U1:ST1:EO1:SIG1:H1,S2:U2:ST2:EO2:SIG2:H2,...'
                      |_________1_________| |_________2_________| |__...
                              token                 token
                      where token is really: token:hostname
-           
+
             leftmost token was the first token hit by a client request.
             rightmost token was the last token hit by a client request.
-           
+
         """
         # pylint: disable=R0915
 
@@ -331,9 +331,9 @@ problems, isn't running, or the token is somehow corrupt.
     @staticmethod
     def __getXmlrpcServer():
         """ get an xmlrpc server object
-        
+
             WARNING: if CFG.USE_SSL is off, we are sending info
-                     in the clear. 
+                     in the clear.
         """
         log_debug(3)
 
@@ -400,7 +400,7 @@ class AuthLocalBackend:
     def __delitem__(self, key):
         rkey = self._compute_key(key)
         return rhnCache.delete(rkey)
-    
+
     def _compute_key(self, key):
         return os.path.join(self._cache_prefix, str(key))
 

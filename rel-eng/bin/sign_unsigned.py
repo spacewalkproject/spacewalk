@@ -51,7 +51,7 @@ class CliTool(AbstractTool):
 
     def __init__(self, opts=None):
         AbstractTool.__init__(self)
-        
+
         # option parser
         usage = "%prog [help] <command> [options and arguments] ...]"
         self.parser = optparse.OptionParser(usage)
@@ -92,10 +92,10 @@ class CliTool(AbstractTool):
         if len(sys.argv) > 1 and not sys.argv[1].startswith('-'):
             command = sys.argv[1]
             del sys.argv[1]
-        
+
 #        # replace '-' by '_'
 #        command = command.replace('-', '_')
-        
+
         # add command-specific options
         self.run_options(command, self.parser)
 
@@ -142,7 +142,7 @@ class CliTool(AbstractTool):
 
         if len(choice) == 0 or choice[0] != 'y':
             return False
-        
+
         return True
 
 
@@ -161,7 +161,7 @@ class CliTool(AbstractTool):
             prompt = "Enter your password: "
 
         return getpass.getpass(prompt)
-                
+
 
 
     ################################################################################
@@ -170,7 +170,7 @@ class CliTool(AbstractTool):
     # default action when no (or wrong) command is going to be executed
     # override if you need some custom default action handling
     # can be used also to handle scripts with no commands
-    
+
     def parse_default(self):
         pass
 
@@ -216,20 +216,20 @@ class CliTool(AbstractTool):
                         continue
                     # mark admin commands with '*'
                     commands[key[9:]] = '*'
-        
+
         commandlist = commands.keys()
         commandlist.sort()
-        
+
         for cmd in commandlist:
             parser = optparse.OptionParser()
             self.run_options(cmd, parser)
-            
+
             # remove 'help' option
             parser.remove_option('-h')
-            
+
             parser.formatter.indent()
             parser.formatter.indent()
-            
+
             # this ugly command splits the option help and joins it excluding the first line (containing 'options:')
             result += "\n".join(parser.format_option_help().split('\n')[1:])
 
@@ -242,7 +242,7 @@ class CliTool(AbstractTool):
 
     ################################################################################
     # run_* commands
-    
+
     def run_help(self, command):
         help = getattr(self, 'help_%s' % command, None)
         if callable(help):
@@ -272,13 +272,13 @@ class CliTool(AbstractTool):
     def run_command(self, command=None):
         if command == None:
             command = self.options.command.replace('-', '_')
-        
+
         # get command-specific options
 #        self.run_options(command, self.parser)
 
         # parse arguments for given command
         self.run_parse(command)
-    
+
 
         # try to run the ADMIN command (method: admincmd_*)
         if self.check_admin():

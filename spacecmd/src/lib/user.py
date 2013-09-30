@@ -208,11 +208,11 @@ def help_user_addrole(self):
 
 def complete_user_addrole(self, text, line, beg, end):
     parts = line.split(' ')
-    
+
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
     elif len(parts) == 3:
-        return tab_completer(self.do_user_listavailableroles('', True), 
+        return tab_completer(self.do_user_listavailableroles('', True),
                                   text)
 
 def do_user_addrole(self, args):
@@ -235,7 +235,7 @@ def help_user_removerole(self):
 
 def complete_user_removerole(self, text, line, beg, end):
     parts = line.split(' ')
-    
+
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
     elif len(parts) == 3:
@@ -290,7 +290,7 @@ def do_user_details(self, args):
             logging.warning('%s is not a valid user' % user)
             continue
 
-        org_details = self.client.org.getDetails(self.session, 
+        org_details = self.client.org.getDetails(self.session,
                                                  details.get('org_id'))
         organization = org_details.get('name')
 
@@ -317,7 +317,7 @@ def do_user_details(self, args):
             print 'Assigned Groups'
             print '---------------'
             print '\n'.join(sorted([g.get('name') for g in groups]))
-        
+
         if len(default_groups):
             print
             print 'Default Groups'
@@ -333,7 +333,7 @@ def help_user_addgroup(self):
 def complete_user_addgroup(self, text, line, beg, end):
     parts = shlex.split(line)
     if line[-1] == ' ': parts.append('')
-    
+
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
     elif len(parts) > 2:
@@ -349,9 +349,9 @@ def do_user_addgroup(self, args):
     user = args.pop(0)
     groups = args
 
-    self.client.user.addAssignedSystemGroups(self.session, 
-                                             user, 
-                                             groups, 
+    self.client.user.addAssignedSystemGroups(self.session,
+                                             user,
+                                             groups,
                                              False)
 
 ####################
@@ -363,7 +363,7 @@ def help_user_adddefaultgroup(self):
 def complete_user_adddefaultgroup(self, text, line, beg, end):
     parts = shlex.split(line)
     if line[-1] == ' ': parts.append('')
-    
+
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
     elif len(parts) > 2:
@@ -379,8 +379,8 @@ def do_user_adddefaultgroup(self, args):
     user = args.pop(0)
     groups = args
 
-    self.client.user.addDefaultSystemGroups(self.session, 
-                                            user, 
+    self.client.user.addDefaultSystemGroups(self.session,
+                                            user,
                                             groups)
 
 ####################
@@ -392,12 +392,12 @@ def help_user_removegroup(self):
 def complete_user_removegroup(self, text, line, beg, end):
     parts = shlex.split(line)
     if line[-1] == ' ': parts.append('')
-    
+
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
     elif len(parts) > 2:
         # only list the groups currently assigned to this user
-        groups = self.client.user.listAssignedSystemGroups(self.session, 
+        groups = self.client.user.listAssignedSystemGroups(self.session,
                                                            parts[1])
         return tab_completer([ g.get('name') for g in groups ], parts[-1])
 
@@ -411,9 +411,9 @@ def do_user_removegroup(self, args):
     user = args.pop(0)
     groups = args
 
-    self.client.user.removeAssignedSystemGroups(self.session, 
-                                                user, 
-                                                groups, 
+    self.client.user.removeAssignedSystemGroups(self.session,
+                                                user,
+                                                groups,
                                                 True)
 
 ####################
@@ -426,12 +426,12 @@ def help_user_removedefaultgroup(self):
 def complete_user_removedefaultgroup(self, text, line, beg, end):
     parts = shlex.split(line)
     if line[-1] == ' ': parts.append('')
-    
+
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
     elif len(parts) > 2:
         # only list the groups currently assigned to this user
-        groups = self.client.user.listDefaultSystemGroups(self.session, 
+        groups = self.client.user.listDefaultSystemGroups(self.session,
                                                           parts[1])
         return tab_completer([ g.get('name') for g in groups ], parts[-1])
 
@@ -445,8 +445,8 @@ def do_user_removedefaultgroup(self, args):
     user = args.pop(0)
     groups = args
 
-    self.client.user.removeDefaultSystemGroups(self.session, 
-                                               user, 
+    self.client.user.removeDefaultSystemGroups(self.session,
+                                               user,
                                                groups)
 
 ####################

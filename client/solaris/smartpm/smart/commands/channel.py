@@ -139,7 +139,7 @@ def main(ctrl, opts):
         print _("(*) These fields are necessary for this type.")
         print
         sys.exit(0)
-    
+
     if opts.add:
         if len(opts.add) == 1:
             arg = opts.add[0]
@@ -289,7 +289,7 @@ def main(ctrl, opts):
 
     if opts.edit:
         sysconf.assertWritable()
-        
+
         fd, name = tempfile.mkstemp(".ini")
         file = os.fdopen(fd, "w")
         for alias in sysconf.get("channels"):

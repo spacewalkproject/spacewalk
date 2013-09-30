@@ -11,7 +11,7 @@ import urllib2
 
 import clientCaps
 import up2dateLog
-import up2dateErrors 
+import up2dateErrors
 import up2dateUtils
 import up2dateAuth
 
@@ -40,7 +40,7 @@ class RetryServer(rpclib.Server):
             except xmlrpclib.Fault:
                 raise
             except httplib.BadStatusLine:
-                self.log.log_me("Error: Server Unavailable. Please try later.") 
+                self.log.log_me("Error: Server Unavailable. Please try later.")
                 stdoutMsgCallback(
                       _("Error: Server Unavailable. Please try later."))
                 sys.exit(-1)
@@ -79,18 +79,18 @@ class RetryServer(rpclib.Server):
             break
         return ret
 
-    
+
     def __getattr__(self, name):
         # magic method dispatcher
         return rpclib.xmlrpclib._Method(self._request1, name)
-                
+
 
 # uh, yeah, this could be an iterator, but we need it to work on 1.5 as well
 class ServerList:
     def __init__(self, serverlist=[]):
         self.serverList = serverlist
         self.index = 0
-        
+
     def server(self):
         self.serverurl = self.serverList[self.index]
         return self.serverurl
@@ -151,7 +151,7 @@ def getServer(refreshCallback=None):
     s.addServerList(serverList)
 
     s.add_header("X-Up2date-Version", up2dateUtils.version())
-    
+
     if lang:
         s.setlang(lang)
 
@@ -191,7 +191,7 @@ def doCall(method, *args, **kwargs):
 
     while 1:
         failure = 0
-        ret = None        
+        ret = None
         try:
             ret = method(*args, **kwargs)
         except KeyboardInterrupt:
@@ -209,7 +209,7 @@ def doCall(method, *args, **kwargs):
             else:
                 failure = 1
         except httplib.IncompleteRead:
-            print "httplib.IncompleteRead" 
+            print "httplib.IncompleteRead"
             raise up2dateErrors.CommunicationError("httplib.IncompleteRead"), None, sys.exc_info()[2]
 
         except urllib2.HTTPError, e:
@@ -219,9 +219,9 @@ def doCall(method, *args, **kwargs):
             msg = msg + "Error Message: %s\n" % e.msg
             log.log_me(msg)
             raise up2dateErrors.CommunicationError(msg), None, sys.exc_info()[2]
-        
+
         except xmlrpclib.ProtocolError, e:
-            
+
             log.log_me("A protocol error occurred: %s , attempt #%s," % (
                 e.errmsg, attempt_count))
             if e.errcode == 404:
@@ -255,7 +255,7 @@ def doCall(method, *args, **kwargs):
                     pkg = args[0]
                 else:
                     pkg=args[1]
-                    
+
                 if type(pkg) == type([]):
                     pkgName = "%s-%s-%s.%s" % (pkg[0], pkg[1], pkg[2], pkg[4])
                 else:
@@ -263,13 +263,13 @@ def doCall(method, *args, **kwargs):
                 msg = "File Not Found: %s\n%s" % (pkgName, errMsg)
                 log.log_me(msg)
                 raise up2dateErrors.FileNotFoundError(msg), None, sys.exc_info()[2]
-                
+
             if not reset:
                 if attempt_count >= attempts:
                     raise up2dateErrors.CommunicationError(e.errmsg), None, sys.exc_info()[2]
                 else:
                     failure = 1
-            
+
         except xmlrpclib.ResponseError:
             raise up2dateErrors.CommunicationError(
                 "Broken response from the server."), None, sys.exc_info()[2]
@@ -284,9 +284,9 @@ def doCall(method, *args, **kwargs):
             # rest for five seconds before trying again
             time.sleep(5)
             attempt_count = attempt_count + 1
-        
+
         if attempt_count > attempts:
             raise up2dateErrors.CommunicationError("The data returned from the server was incomplete")
 
     return ret
-    
+

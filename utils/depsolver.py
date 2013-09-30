@@ -27,13 +27,13 @@ from yum.packageSack import ListPackageSack
 from yum.packages import parsePackages
 from yum.repos import RepoStorage
 
-try:    
+try:
     from spacewalk.satellite_tools.progress_bar import ProgressBar
 except ImportError:
     # pylint: disable=F0401
     _LIBPATH = "/usr/share/rhn"
     if _LIBPATH not in sys.path:
-        sys.path.append(_LIBPATH)    
+        sys.path.append(_LIBPATH)
     from satellite_tools.progress_bar import ProgressBar
 
 
@@ -87,8 +87,8 @@ class DepSolver:
          The package name format could be any of the following:
          name, name.arch, name-ver-rel.arch, name-ver, name-ver-rel,
          epoch:name-ver-rel.arch, name-epoch:ver-rel.arch
-        """                    
-        
+        """
+
         ematch, match, _unmatch = parsePackages(self._repostore.pkgSack, self.pkgs)
         pkgs = []
         for po in ematch + match:
@@ -108,8 +108,8 @@ class DepSolver:
         """
         solved = []
         to_solve = self.pkgs
-        all_results = {}    
-        
+        all_results = {}
+
         while to_solve:
             log.debug("Solving %s \n\n" % to_solve)
             results = self.getDependencylist()
@@ -130,12 +130,12 @@ class DepSolver:
     def __locateDeps(self, pkgs):
         results = {}
         regex_filename_match = re.compile(r'[/*?]|\[[^]]*/[^]]*\]').match
-                
+
         print("Solving Dependencies (%i): " % len(pkgs))
         pb = ProgressBar(prompt='', endTag=' - complete',
                      finalSize=len(pkgs), finalBarLength=40, stream=sys.stdout)
         pb.printAll(1)
-                
+
         for pkg in pkgs:
             pb.addTo(1)
             pb.printIncrement()
@@ -211,7 +211,7 @@ class DepSolver:
 if __name__ == '__main__':
     if len(sys.argv) < 3:
         print "USAGE: python depsolver.py <repoid> <repodata_path> <pkgname1> <pkgname2> ....<pkgnameN>"
-        sys.exit(0)    
+        sys.exit(0)
     arg_repo = {'id' : sys.argv[1],
             'relative_path' : sys.argv[2],} #path to where repodata is located
     arg_pkgs = sys.argv[3:]

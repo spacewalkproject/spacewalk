@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 
@@ -48,7 +48,7 @@ def initiate(ks_session_id, name, mem_kb, vcpus, disk_gb, extra_append, cache_on
     log_notify_handler = KickstartLogNotifyHandler(ks_session_id)
 
     try:
-        kickstart_guest.initiate_guest(name, mem_kb, vcpus, disk_gb, 
+        kickstart_guest.initiate_guest(name, mem_kb, vcpus, disk_gb,
                 extra_append, log_notify_handler)
     except VirtualizationKickstartException, ke:
         error_code = 1
@@ -64,7 +64,7 @@ def initiate(ks_session_id, name, mem_kb, vcpus, disk_gb, extra_append, cache_on
 ###############################################################################
 
 class KickstartLogNotifyHandler(BatchNotifyHandler):
-    
+
     def __init__(self, ks_session_id):
         self.__ks_session_id = ks_session_id
         self.__plan = None

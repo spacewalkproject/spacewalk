@@ -19,7 +19,7 @@
 #
 # NOTE: translating seconds to years is an approximation. I.e., xxx secs *
 #       365 not really right. Some years do not come out to 365 days.
-#    
+#
 # $Id$
 
 #

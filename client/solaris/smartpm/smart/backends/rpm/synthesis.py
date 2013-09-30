@@ -70,7 +70,7 @@ class URPMISynthesisLoader(Loader):
 
     def getInfo(self, pkg):
         return URPMISynthesisPackageInfo(pkg, self, pkg.loaders[self])
-	
+
     def getLoadSteps(self):
         indexfile = open(self._filename)
         total = 0
@@ -79,7 +79,7 @@ class URPMISynthesisLoader(Loader):
                 total += 1
         indexfile.close()
         return total
-    
+
     def splitDepends(self, depsarray, _dependsre=DEPENDSRE,
                      _operationre=OPERATIONRE):
         result = []
@@ -185,7 +185,7 @@ class URPMISynthesisLoader(Loader):
                     upg = (Obs, n, r, v)
                     upgdict[upg] = True
                     cnfdict[upg] = True
-                    
+
                 pkg = self.buildPackage((Pkg, name, versionarch),
                                         prvdict.keys(), reqdict.keys(),
                                         upgdict.keys(), cnfdict.keys())

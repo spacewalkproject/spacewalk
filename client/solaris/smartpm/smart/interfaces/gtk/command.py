@@ -42,7 +42,7 @@ class GtkCommandInterface(GtkInterface):
             gtk.main_iteration()
 
     def run(self, command=None, argv=None):
-        result = GtkInterface.run(self, command, argv)        
+        result = GtkInterface.run(self, command, argv)
         self._status.wait()
         while self._log.isVisible():
             time.sleep(0.1)

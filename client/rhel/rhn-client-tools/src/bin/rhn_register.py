@@ -7,7 +7,7 @@
 # Authors:
 #       Adrian Likins <alikins@redhat.com>
 #       Preston Brown <pbrown@redhat.com>
-#       James Bowes <jbowes@redhat.com> 
+#       James Bowes <jbowes@redhat.com>
 #       Daniel Benamy <dbenamy@redhat.com>
 
 import sys
@@ -27,9 +27,9 @@ from up2date_client import tui
 from up2date_client import up2dateErrors
 
 class RhnRegister(rhncli.RhnCli):
-    """Runs rhn_register. Can run it in gui or tui mode depending on 
+    """Runs rhn_register. Can run it in gui or tui mode depending on
     availablility of gui, DISPLAY environment variable, and --nox switch.
-    
+
     """
     def __init__(self):
         super(RhnRegister, self).__init__()
@@ -46,13 +46,13 @@ class RhnRegister(rhncli.RhnCli):
                 return gui
         except:
             pass
-        
+
         return tui
 
     def main(self):
         """RhnCli (the base class) just sets stuff up and then calls this to run
         the rest of the program.
-        
+
         """
         ui = self._get_ui()
         ui.main()
@@ -64,7 +64,7 @@ class RhnRegister(rhncli.RhnCli):
                     sys.exit(1)
         except up2dateErrors.RhnServerException:
             sys.exit(1)
-        
+
         # Assuming registration worked, remember to save info (proxy setup,etc)
         # from rhncli
         self.saveConfig()

@@ -35,7 +35,7 @@ class IsValidGpgKeyUrlTests(unittest.TestCase):
 
 
 class GetGpgKeyUrlsTests(unittest.TestCase):
-    
+
     def test_empty_string(self):
         key_urls = ""
         url_list = rhnplugin.get_gpg_key_urls(key_urls)
@@ -80,6 +80,6 @@ def suite():
     suite.addTest(unittest.makeSuite(IsValidGpgKeyUrlTests))
     suite.addTest(unittest.makeSuite(GetGpgKeyUrlsTests))
     return suite
-                
+
 if __name__ == "__main__":
     unittest.main(defaultTest="suite")

@@ -6,7 +6,7 @@
 #         Adrian Likins <alikins@redhat.com
 #
 #
-# a couple of classes wrapping up transactions so that we  
+# a couple of classes wrapping up transactions so that we
 #    can share transactions instead of creating new ones all over
 #
 
@@ -70,7 +70,7 @@ class TransactionData:
                                                     pkgInfo[2], pkgInfo[3])
         return out
 
-    
+
 # wrapper/proxy class for rpm.Transaction so we can
 # instrument it, etc easily
 class Up2dateTransaction:
@@ -115,7 +115,7 @@ class Up2dateTransaction:
     def popVSFlags(self):
         del self.tsflags[-1]
         self.ts.setVSFlags(self.tsflags[-1])
-        
+
 def initReadOnlyTransaction():
     global read_ts
     if read_ts == None:

@@ -43,7 +43,7 @@ class UserDictCase(UserDict):
         key = self.__lower_string(key)
         if not self.data.has_key(key):
             return None
-        return self.data[key]   
+        return self.data[key]
 
     get = __getitem__
 
@@ -64,13 +64,13 @@ class UserDictCase(UserDict):
 
     def clear(self):
         self.data.clear()
-        self.kcase.clear()        
+        self.kcase.clear()
 
     # return this data as a real hash
     def get_hash(self):
         return reduce(lambda a, (ik, v), hc=self.kcase:
                       a.update({ hc[ik] : v}) or a, self.data.items(), {})
-                              
+
     # return the data for marshalling
     def __getstate__(self):
         return self.get_hash()

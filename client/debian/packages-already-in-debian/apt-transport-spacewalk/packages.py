@@ -1,5 +1,5 @@
 #
-# actions.packages dispatcher for Debian clients 
+# actions.packages dispatcher for Debian clients
 #
 # Author: Simon Lukasik
 #         Lukas Durfina
@@ -29,7 +29,7 @@ from up2date_client import rhnPackageInfo
 
 log = up2dateLog.initLog()
 
-# file used to keep track of the next time rhn_check 
+# file used to keep track of the next time rhn_check
 # is allowed to update the package list on the server
 LAST_UPDATE_FILE="/var/lib/up2date/dbtimestamp"
 
@@ -172,9 +172,9 @@ def verify(packages, cache_only=None):
     data['name'] = "packages.verify"
     data['version'] = 0
     ret, missing_packages = pkgUtils.verifyPackages(packages)
-                                                                                
+
     data['verify_info'] = ret
-    
+
     if len(missing_packages):
         data['name'] = "packages.verify.missing_packages"
         data['version'] = 0

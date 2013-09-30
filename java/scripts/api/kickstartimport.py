@@ -29,7 +29,7 @@ print "   virtualization type: %s" % virt_type
 print "   kickstart tree label: %s" % ks_tree_label
 print "   kickstart file: %s" % ks_file
 
-client.kickstart.importKickstartFile(session_key, ks_label, virt_type, 
+client.kickstart.importKickstartFile(session_key, ks_label, virt_type,
     ks_tree_label, True, file_contents)
 
 

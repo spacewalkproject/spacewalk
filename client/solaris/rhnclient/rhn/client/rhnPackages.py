@@ -101,7 +101,7 @@ def _readFD(fd, filename):
 
 def downloadPackage(channel, pkghash, localfile, serverUrl=None):
     cfg = config.initUp2dateConfig()
-    
+
     serverSettings = ServerSettings()
     if serverUrl is not None:
         serverSettings.httpServerUrl = serverUrl
@@ -110,7 +110,7 @@ def downloadPackage(channel, pkghash, localfile, serverUrl=None):
 
     fd = rpcServer.doCall(s.getPackage, channel, pkghash)
     status = s.get_response_status()
-    
+
     f2 = _readFD(fd, localfile)
     f2.close()
     fd.close()

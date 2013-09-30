@@ -65,7 +65,7 @@ class ConfigFile:
         self.fileName = filename
         if self.fileName:
             self.load()
-            
+
     def load(self, filename = None):
         if filename:
             self.fileName = filename
@@ -74,14 +74,14 @@ class ConfigFile:
         if not os.access(self.fileName, os.R_OK):
 #            print "warning: can't access %s" % self.fileName
             return
-        
+
         f = open(self.fileName, "r")
 
         for line in f.readlines():
             # strip comments
             if line.find('#') == 0:
                 continue
-            line = line.strip()            
+            line = line.strip()
             if not line:
                 continue
 
@@ -143,7 +143,7 @@ class ConfigFile:
             if not os.access(os.path.dirname(self.fileName), os.R_OK):
                 print _("%s was not found" % os.path.dirname(self.fileName))
                 return
-        
+
         f = open(self.fileName+'.new', "w")
         os.chmod(self.fileName, 0600)
 
@@ -175,14 +175,14 @@ class ConfigFile:
 
     def update(self, dict):
         self.dict.update(dict)
-    
+
     # we return None when we reference an invalid key instead of
     # raising an exception
     def __getitem__(self, name):
         if self.dict.has_key(name):
             return self.dict[name][1]
-        return None    
-   
+        return None
+
     def __setitem__(self, name, value):
         if self.dict.has_key(name):
             val = self.dict[name]
@@ -248,11 +248,11 @@ class Config:
         if self.stored.has_key(name):
             return self.stored[name]
         return None
-        
+
     # These function expose access to the peristent storage for
     # updates and saves
     def info(self, name): # retrieve comments
-        return self.stored.info(name)    
+        return self.stored.info(name)
 
     def save(self):
         self.stored.save()
@@ -327,11 +327,11 @@ def initUp2dateConfig(cfg_file = "/etc/sysconfig/rhn/up2date"):
         cfg
     except NameError:
         cfg = None
-        
+
     if cfg == None:
         cfg = Config(cfg_file)
         cfg["isatty"] = False
         if sys.stdout.isatty():
             cfg["isatty"] = True
-        
+
     return cfg

@@ -2,7 +2,7 @@
 #
 #
 #
-# $Id$ 
+# $Id$
 #
 # Usage: $0 SERVER PROXY:PORT [SYSTEMID] [PROXY_USER] [PROXY_PASS]
 
@@ -18,7 +18,7 @@ PROXY_USERNAME = None
 PROXY_PASSWORD = None
 system_id_file = '/etc/sysconfig/rhn/systemid'
 
-if len(sys.argv) < 3: 
+if len(sys.argv) < 3:
     print "Non efficient cmd-line arguments! Provide at least server & proxy!"
     sys.exit(1);
 
@@ -43,7 +43,7 @@ def get_test_server_proxy_https():
     return Server("https://%s%s" % (SERVER, HANDLER), proxy=PROXY,
         username=PROXY_USERNAME, password=PROXY_PASSWORD)
 
-    
+
 if __name__ == '__main__':
     systemid = open(system_id_file).read()
 

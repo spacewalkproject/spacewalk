@@ -171,7 +171,7 @@ class GtkFlags(object):
         flaglst.sort()
         for flag in flaglst:
             self._flagsmodel.append((flag,))
-    
+
     def fillTargets(self):
         self._targetsmodel.clear()
         if self._flag:
@@ -310,7 +310,7 @@ class FlagCreator(object):
         table.set_col_spacings(10)
         table.show()
         vbox.pack_start(table)
-        
+
         label = gtk.Label(_("Name:"))
         label.set_alignment(1.0, 0.5)
         label.show()
@@ -391,7 +391,7 @@ class TargetCreator(object):
         table.set_col_spacings(10)
         table.show()
         vbox.pack_start(table)
-        
+
         label = gtk.Label(_("Target:"))
         label.set_alignment(1.0, 0.5)
         label.show()

@@ -19,7 +19,7 @@ class rhnChannel:
 
         for kw in kwargs.keys():
             self.dict[kw] = kwargs[kw]
-               
+
     def __getitem__(self, item):
         return self.dict[item]
 
@@ -100,7 +100,7 @@ def getChannels(force=None, label_whitelist=None, timeout=None):
         for chan in up2dateChannels:
             if label_whitelist and not label_whitelist.has_key(chan['label']):
                 continue
-                
+
             channel = rhnChannel(type = 'up2date', url = config.getServerlURL())
             for key in chan.keys():
                 if key == "last_modified":
@@ -113,7 +113,7 @@ def getChannels(force=None, label_whitelist=None, timeout=None):
         raise up2dateErrors.NoChannelsError(_("This system may not be updated until it is associated with a channel."))
 
     return selected_channels
-            
+
 
 def setChannels(tempchannels):
     global selected_channels

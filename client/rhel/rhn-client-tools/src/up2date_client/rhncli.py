@@ -16,7 +16,7 @@
 # Authors:
 #       Adrian Likins <alikins@redhat.com>
 #       Preston Brown <pbrown@redhat.com>
-#       James Bowes <jbowes@redhat.com> 
+#       James Bowes <jbowes@redhat.com>
 #
 # In addition, as a special exception, the copyright holders give
 # permission to link the code of portions of this program with the
@@ -84,7 +84,7 @@ class RhnCli(object):
 
         self.options = None
         self.args = None
-        
+
         self.hasGui = False
 
     def run(self):
@@ -132,7 +132,7 @@ class RhnCli(object):
 
     def initialize(self):
         (self.options, self.args) = self.optparser.parse_args()
- 
+
         RhnCli.__setDebugLevel(self.options.verbose)
 
         # see if were running as root
@@ -218,7 +218,7 @@ class RhnCli(object):
     def __setDebugLevel(level):
         cfg = config.initUp2dateConfig()
         # figure out the debug level
-        cfg["debug"] = cfg["debug"] + level 
+        cfg["debug"] = cfg["debug"] + level
         if cfg["debug"] > 2:
             pkgUtils.setDebugVerbosity()
 

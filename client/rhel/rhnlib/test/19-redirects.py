@@ -49,7 +49,7 @@ def main():
 
 def run_test(url, allow_redirect, should_fail, text_message):
     global SYSTEM_ID
-    
+
     message = "Running test: %s" % text_message
 
     print message,
@@ -73,7 +73,7 @@ def run_test(url, allow_redirect, should_fail, text_message):
 
     print "PASS"
     return 0
-        
+
 
 if __name__ == '__main__':
     sys.exit(main() or 0)

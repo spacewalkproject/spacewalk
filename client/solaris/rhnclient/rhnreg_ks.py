@@ -1,11 +1,11 @@
 #!/usr/bin/python
 #
-# Registration client for the Spacewalk for useage with kickstart 
+# Registration client for the Spacewalk for useage with kickstart
 # Copyright (c) 1999--2012 Red Hat, Inc.  Distributed under GPL.
 #
 # Author: Adrian Likins <alikins@redhat.com>
 #
-#  see the output of "--help" for the valid options. 
+#  see the output of "--help" for the valid options.
 #
 #  The contact info is in the form or a "key: value" one per line.
 #  valid keys are:
@@ -49,7 +49,7 @@ def printUsage():
     print _("    --noSSLServerURL=<url>     - specify a url for a non ssl server")
     print _("    --useNoSSLForPackages      - dont use ssl to download packages")
     print _("    --sslCACert=<path>         - specify a file to use as the ssl CA cert")
-    print _("    --serverUrl=<URL>          - specify a url to use as a server") 
+    print _("    --serverUrl=<URL>          - specify a url to use as a server")
     print _("    --email=<value>            - specify a email address ")
     print _("    --activationkey=<value>    - specify an activation key ")
     print _("    --contactinfo              - read contact info from stdin ")
@@ -93,7 +93,7 @@ def readContactInfo():
         "contact_fax",
         "contact_special",
         "contact_newsletter"]
-    
+
     # read a file from standard in or filename if specified
     L = sys.stdin.readlines()
 
@@ -118,13 +118,13 @@ def generateProfileName(hardwareList):
         if hw['class'] == 'NETINFO':
             hostname = hw.get('hostname')
             ipaddr = hw.get('ipaddr')
-            
+
     if hostname:
         profileName = idn_pune_to_unicode(hostname)
     else:
         if ipaddr:
             profileName = ipaddr
-            
+
     if not profileName:
         print _("A profilename was not specified, "\
                 "and hostname and IP address could not be determined "\
@@ -143,7 +143,7 @@ def runRhnCheck():
 
 
 def main(arglist=[]):
-    
+
     if not len(arglist):
         arglist = sys.argv[1:]
     try:
@@ -161,12 +161,12 @@ def main(arglist=[]):
                                        'activationkey=',
                                        'serialnumber=',
                                        'serverUrl=',
-                                       'noSSLServerURL=', 
+                                       'noSSLServerURL=',
                                        'useNoSSLForPackages',
                                        'proxy=',
                                        'proxyUser=',
                                        'proxyPassword=',
-                                       'sslCACert=', 
+                                       'sslCACert=',
                                        'contactinfo',
                                        'email=',"force",])
     except getopt.error, e:
@@ -190,7 +190,7 @@ def main(arglist=[]):
     # the "rhnregks;up2date -u" case
     rhnReg.cfg.set("networkSetup", 1)
     rhnReg.cfg.save()
-    
+
     save_cfg = 0
     for opt in optlist:
         if opt[0] in ['-h', "--help"]:
@@ -219,7 +219,7 @@ def main(arglist=[]):
         if opt[0] == "--nohardware":
             nohardware = 1
         if opt[0] == "--norhnsd":
-            norhnsd = 1  
+            norhnsd = 1
         if opt[0] == "--serialnumber":
             print "--serialnumber is deprecated, please use --activationkey"
             serialnumber = str(opt[1])
@@ -241,7 +241,7 @@ def main(arglist=[]):
             rhnReg.cfg.set("httpProxy", opt[1])
 	    rhnReg.cfg.set("enableProxy", 1)
             save_cfg = 1
-        if opt[0] == "--proxyUser":            
+        if opt[0] == "--proxyUser":
             rhnReg.cfg.set("proxyUser", opt[1])
             rhnReg.cfg.set("enableProxyAuth", 1)
             save_cfg = 1
@@ -264,7 +264,7 @@ def main(arglist=[]):
 
     if save_cfg:
         rhnReg.cfg.save()
-        
+
     if rhnReg.registered() and not force:
         print _("This system is already registered. Use --force to override")
         sys.exit(-1)
@@ -275,7 +275,7 @@ def main(arglist=[]):
         sys.exit(-1)
 
     rhnReg.getCaps()
-    
+
     if not serialnumber:
         # reserver the username
         ret = rhnReg.reserveUser(username, password)
@@ -292,11 +292,11 @@ def main(arglist=[]):
 #        packageList = []
 
 
-    # collect oemInfo 
+    # collect oemInfo
     oemInfo = rhnReg.getOemInfo()
-    
+
     hardwareList = hardware.Hardware()
-    
+
     if not profilename:
         profilename = generateProfileName(hardwareList)
 
@@ -315,8 +315,8 @@ def main(arglist=[]):
     except rhnErrors.CommunicationError, e:
         print "%s" % e.errmsg
         sys.exit(1)
-        
-        
+
+
     if serialnumber:
         rhnReg.sendSerialNumber(systemId, serialnumber)
 

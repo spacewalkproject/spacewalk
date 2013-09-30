@@ -40,16 +40,16 @@ class RhnFinishWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.FinishPage):
     needsparent = 1
     needsnetwork = 1
     noSidebar = True
-    
+
     def __init__(self):
         RhnRegisterFirstbootGuiWindow.__init__(self)
         rhnregGui.FinishPage.__init__(self)
         if rhnreg.registered():
             self.skipme = True
-    
+
     def _getVbox(self):
         return self.finishPageVbox()
-    
+
     def updatePage(self):
 ##        if rhnregGui.hasBaseChannelAndUpdates():
 ##            self.druid.finish.set_label(_("_Finish"))
@@ -60,12 +60,12 @@ class RhnFinishWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.FinishPage):
         self.finishPagePrepare()
 ##        self.mainWin.set_title(title)
 ##        self.finishPage.set_title(title)
-    
+
     def apply(self, *args):
-        """Returns None to stay on the same page. Anything else will cause 
-        firstboot to advance but True is generally used. This is different from 
+        """Returns None to stay on the same page. Anything else will cause
+        firstboot to advance but True is generally used. This is different from
         the gnome druid in rhn_register.
-        
+
         """
         up2DateConfig = config.initUp2dateConfig()
         up2DateConfig.save()

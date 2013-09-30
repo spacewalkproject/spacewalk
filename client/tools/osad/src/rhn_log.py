@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -24,7 +24,7 @@ class Logger:
     logfile = "/var/log/osad"
 
     def set_logfile( self, logfile ):
-        Logger.logfile = logfile    
+        Logger.logfile = logfile
 
     def log_debug(self, debug_level, *args):
         if debug_level <= self.debug_level:
@@ -33,7 +33,7 @@ class Logger:
                 self.get_caller(),
                 string.join(map(str, args))
             )
-            
+
             outstring = "%s %s: %s\n" % info_out
             sys.stdout.write( outstring )
 
@@ -43,7 +43,7 @@ class Logger:
                     os.write(fd, outstring)
                     os.close(fd)
                 except IOError:
-                    raise 
+                    raise
 
     def set_debug_level(self, debug_level):
         Logger.debug_level = debug_level

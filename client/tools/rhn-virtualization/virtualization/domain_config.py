@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 from xml.dom.minidom import parse
@@ -38,7 +38,7 @@ class DomainConfigItem:
         self.data_type = data_type
 
 class DomainConfig:
-    
+
     ###########################################################################
     # Constants
     ###########################################################################
@@ -54,7 +54,7 @@ class DomainConfig:
     COMMAND_LINE    = DomainConfigItem("domain/os/cmdline", DataType.VALUE)
     KERNEL_PATH     = DomainConfigItem("domain/os/kernel",  DataType.VALUE)
     RAMDISK_PATH    = DomainConfigItem("domain/os/initrd",  DataType.VALUE)
-    DISK_IMAGE_PATH = DomainConfigItem("domain/devices/disk/source/file", 
+    DISK_IMAGE_PATH = DomainConfigItem("domain/devices/disk/source/file",
                                        DataType.ATTRIBUTE)
     DOMAIN_ID       = DomainConfigItem("domain/id",         DataType.ATTRIBUTE)
 
@@ -110,7 +110,7 @@ class DomainConfig:
                 *config_item.path.split("/"))
         elif config_item.data_type == DataType.VALUE:
             return self.__getElementValue(
-                self.__dom_tree, 
+                self.__dom_tree,
                 *config_item.path.split("/"))
 
         raise DomainConfigError("Unknown config item data type '%s'" % \
@@ -130,7 +130,7 @@ class DomainConfig:
                 *config_item.path.split("/"))
         elif config_item.data_type == DataType.VALUE:
             return self.__removeElementValue(
-                self.__dom_tree, 
+                self.__dom_tree,
                 *config_item.path.split("/"))
 
         raise DomainConfigError("Unknown config item data type '%s'" % \
@@ -172,7 +172,7 @@ class DomainConfig:
                 command_line_dict[key] = None
                 if len(command_line_args) >= 2:
                     command_line_dict[key] = '='.join(command_line_args[1:])
-            
+
             # Look for the "method" argument.  This is a good indication that
             # the instance is in the installer.
             if (command_line_dict.has_key("method") or
@@ -192,8 +192,8 @@ class DomainConfig:
         if len(found.childNodes) == 0:
             raise DomainConfigError, \
                   "Unable to find config value: " + "/".join(tag_path)
-    
-        return found.childNodes[0].data 
+
+        return found.childNodes[0].data
 
     def __getElementAttribute(self, start_tree, *tag_path):
         """
@@ -216,13 +216,13 @@ class DomainConfig:
         if len(found.childNodes) == 0:
             raise DomainConfigError, \
                   "Unable to find config value: " + "/".join(tag_path)
-    
+
         found.parentNode.removeChild(found)
 
     def __removeElementAttribute(self, start_tree, *tag_path):
         attribute_name = tag_path[-1]
         found = self.__extractElement(start_tree, *tag_path[:-1])
-        
+
         if not found.hasAttribute(attribute_name):
             raise DomainConfigError, \
                   "Unable to find config attribute: " + "/".join(tag_path)
@@ -255,7 +255,7 @@ class DomainConfig:
         found.setAttribute(attribute_name, str(value))
 
     def __makeElement(self, start_tree, *tag_path):
-        # If there are no more tags left in the path, there's nothing more to 
+        # If there are no more tags left in the path, there's nothing more to
         # add.
         if len(tag_path) == 0:
             return start_tree
@@ -303,7 +303,7 @@ class DomainConfig:
             tag_node = node_list[0]
             return self.__extractElement(tag_node, *tag_path[1:])
 
-        # If we got here, we couldn't find the tag in question.  Raise an 
+        # If we got here, we couldn't find the tag in question.  Raise an
         # exception
         raise DomainConfigError, "Could not locate tag " + str(tag)
 

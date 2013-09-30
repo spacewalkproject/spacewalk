@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -22,7 +22,7 @@ else:
     # Python 1.5.2 - use the internal copy
     import _ConfigParser
     ConfigParser = _ConfigParser
-    
+
 InterpolationError = ConfigParser.InterpolationError
 
 class ClientConfigParser(ConfigParser.ConfigParser):
@@ -42,7 +42,7 @@ class ClientConfigParser(ConfigParser.ConfigParser):
         try:
             self.read(self._get_config_files())
         except ConfigParser.MissingSectionHeaderError, e:
-            print "Config error: line %s, file %s: %s" % (e.lineno, 
+            print "Config error: line %s, file %s: %s" % (e.lineno,
                 e.filename, e)
             sys.exit(1)
 
@@ -54,11 +54,11 @@ class ClientConfigParser(ConfigParser.ConfigParser):
     def get_option(self, option, defval=None):
         try:
             return self.get(self.section, option, vars=self.overrides)
-        except (ConfigParser.NoOptionError, ConfigParser.NoSectionError), e:            
+        except (ConfigParser.NoOptionError, ConfigParser.NoSectionError), e:
             pass
 
         defaults = self.defaults()
-        
+
         if defaults.has_key(option):
             return defaults[option]
 
@@ -83,7 +83,7 @@ def init(section, defaults=None, config_file=None, **overrides):
         cp._global_config_file = config_file
     cp.read_config_files(overrides)
     return cp
-    
+
 def get(var, defval=None):
     return _get_config().get_option(var, defval=defval)
 
@@ -112,7 +112,7 @@ def get_auth_info(auth_file, section, force, **defaults):
             c.set(section, k, v)
             _modified = 1
     if _modified:
-        fd = os.open(c._global_config_file, 
+        fd = os.open(c._global_config_file,
             os.O_CREAT | os.O_TRUNC | os.O_WRONLY, 0600)
         f = os.fdopen(fd, "w")
         f.write("# Automatically generated. Do not edit!\n\n")

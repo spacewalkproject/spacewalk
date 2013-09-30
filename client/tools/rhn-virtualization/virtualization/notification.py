@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 #
@@ -58,13 +58,13 @@ class Plan:
     def add(self, event, target = None, properties = {}):
         """
         Creates a new plan item and adds it to the list.
-        """ 
+        """
         self.__items.append(self.__make_item(event, target, properties))
 
     def execute(self):
         """
         Sends all items in the plan to the satellite.
-        """ 
+        """
         systemid = up2dateAuth.getSystemId()
 
         if systemid is None:
@@ -77,7 +77,7 @@ class Plan:
         except up2dateErrors.CommunicationError, e:
             log.trace_me()
             log.log_me(e)
-        
+
 
     def __make_item(self, event, target, properties):
         """

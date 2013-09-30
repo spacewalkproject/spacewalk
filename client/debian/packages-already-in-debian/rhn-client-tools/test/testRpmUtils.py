@@ -19,7 +19,7 @@ class TestVerifyPackages(unittest.TestCase):
 
     def __setupData(self):
         pass
-        
+
     def testEmptyLabelList(self):
         "Verify that the verifyPackages call with empty list works"
         data, missing_packages = pkgUtils.verifyPackages([])
@@ -88,6 +88,6 @@ def suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestVerifyPackages))
     return suite
-       
+
 if __name__ == "__main__":
     unittest.main(defaultTest="suite")

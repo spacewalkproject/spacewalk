@@ -45,12 +45,12 @@ class RHNConfig(Configuration):
 
     def getPassword(self):
         return self.get("password")
-    
+
 
 class DBConfig(Configuration):
 
     type = "db"
-   
+
     def getDBType(self):
         return self.get("db_type")
 

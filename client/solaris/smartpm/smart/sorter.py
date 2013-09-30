@@ -154,7 +154,7 @@ class ElementSorter(object):
         dct = self._successors.get(elem)
         if dct:
             for succ, kind in dct.keys():
-                    
+
                 # Should we care about this relation?
                 if succ not in loops:
                     continue
@@ -190,7 +190,7 @@ class ElementSorter(object):
                     continue
 
                 # We have an enforced relation. Let's check if we
-                # have OR groups that could satisfy it. 
+                # have OR groups that could satisfy it.
                 groups = self._groups.get(tup)
                 if groups:
                     # Any enforced AND groups tell us we can't
@@ -280,7 +280,7 @@ class ElementSorter(object):
                 del reclock[tup]
                 if not broke:
                     result = False
-    
+
         return result
 
     def _breakRelation(self, pred, succ, kind):
@@ -491,7 +491,7 @@ class ElementSorter(object):
                 print "Number of relation groups:", ngroups
                 print "Number of enforced relations:", enforce
                 print "Number of optional relations:", optional
-                
+
                 self._profile_start = time.clock()
             elif id == 2:
                 print "Number of disabled relations:", len(self._disabled)

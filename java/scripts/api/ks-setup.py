@@ -30,7 +30,7 @@ def setup(parser):
     parser.add_option("-d","--distro", dest="distro",
                                 default=default,
                                 help="Rhel 5 Distro Path example [/engarchive/released/RHEL-5-Server/U3/i386/os] - default '%s'" % default)
-    
+
     default = os.path.join(os.path.abspath('.') , 'spacewalk-koan.rpm')
     parser.add_option("-k","--koan", dest="koan",
                                 default=default,
@@ -39,13 +39,13 @@ def setup(parser):
     default = 'fedora'
     parser.add_option("-p","--prefix", dest="prefix",
                                 default=default,
-                                help="prefix for channel names/ activaiton key name etc] - default '%s'" % default)    
+                                help="prefix for channel names/ activaiton key name etc] - default '%s'" % default)
 
 def main():
     parser = optparse.OptionParser()
     setup(parser)
     (options, args) = parser.parse_args()
-    
+
     key = login()
     #create custom channel
     channel = uniquify(options.prefix)
@@ -57,7 +57,7 @@ def main():
 
     #create activation key
 
-    act_key = client.activationkey.create(key, uniquify(options.prefix.lower()), 
+    act_key = client.activationkey.create(key, uniquify(options.prefix.lower()),
                         uniquify(options.prefix.title() + " Key"), channel, ["provisioning_entitled"], False)
     print act_key
     #create the distro

@@ -70,7 +70,7 @@ class RPMRHNLoader(RPMHeaderLoader):
         print "m:", "RPMRHNLoader.getDigest"
         return 123
 
-    
+
 
 class RPMRHNChannel(PackageChannel):
     def __init__(self, baseurl, channel_info,  *args):
@@ -87,18 +87,18 @@ class RPMRHNChannel(PackageChannel):
         loader = RPMRHNLoader(self.channel_info)
         loader.setChannel(self)
         self._loaders.append(loader)
-        
+
         # get package list
         # get obsolete list
 
         # setup a loader
         # loader probably based on RPMHeaderLoader
-        
+
         #  the loader will need to be able to do
         #  get header across the net
 
         return True
-    
+
 
 def create(alias, data):
     return RPMRHNChannel(data['baseurl'],

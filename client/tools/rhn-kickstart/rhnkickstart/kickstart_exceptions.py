@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Kickstart-related exceptions.
@@ -27,7 +27,7 @@ class KickstartDownloadException(KickstartException):
     """Error occurred while downloading the kickstart configuration."""
     pass
 
-class MalformedKickstartURLException(KickstartException): 
+class MalformedKickstartURLException(KickstartException):
     """Couldn't parse the kickstart URL."""
     pass
 

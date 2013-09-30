@@ -8,10 +8,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -47,25 +47,25 @@ def _get_uuid_config():
     return cfg
 
 def _create_server_obj(server_url):
-    
+
     enable_proxy = read_cfg_val(cfg, 'enableProxy')
     enable_proxy_auth = read_cfg_val(cfg, 'enableProxyAuth')
     proxy_host = None
     proxy_user = None
     proxy_password = None
-    
+
     if enable_proxy:
         proxy_host = self._local_config.get('httpProxy')
-                                                                                       
+
         if enable_proxy_auth:
             proxy_user = read_cfg_val(cfg, 'proxyUser')
             proxy_password = read_cfg_val(cfg, 'proxyPassword')
-                                                                                       
+
     ca = read_cfg_val(cfg, 'sslCACert')
-        
+
     if type(ca) == type(""):
         ca = [ca]
- 
+
     ca_certs = ca or ["/usr/share/rhn/RHNS-CA-CERT"]
 
     lang = None
@@ -83,16 +83,16 @@ def _create_server_obj(server_url):
                            proxy=proxy_host,
                            username=proxy_user,
                            password=proxy_password)
-                                                                                       
+
     #server.set_transport_flags(encoding="gzip", transfer="binary")
-                                                                                       
+
     if lang:
         server.setlang(lang)
-                                                                                       
+
     for ca_cert in ca_certs:
         if not os.access(ca_cert, os.R_OK):
             raise Exception("could not find cert %s" % ca_cert)
-                                                                                       
+
         server.add_trusted_cert(ca_cert)
 
     return server
@@ -103,13 +103,13 @@ def read_cfg_val(obj, key):
     if obj.has_key(key):
         return obj[key]
     return None
-        
+
 def update_applet_cfg():
     server_url = config.getServerlURL()[0]
     # get up2date's conf vals...
     new_ca = read_cfg_val(cfg, 'sslCACert')
 
-    # TODO: applet needs to support failover 
+    # TODO: applet needs to support failover
     # for now patch the ca
     if type(new_ca) == type([]):
         new_ca_buf = "%s" % (string.join(map(str, new_ca), ';'))
@@ -127,20 +127,20 @@ def update_applet_cfg():
 
     up2date_uuid_cfg = _get_uuid_config()
     uuid = read_cfg_val(up2date_uuid_cfg, "rhnuuid")
-    
-    try:        
+
+    try:
         # 2. create new file
         fd = os.open(new_filename, os.O_RDWR | os.O_CREAT | os.O_EXCL, 0644)
         new_file = os.fdopen(fd, 'w')
         new_file.seek(0)
 
         seen_ca_cert = 0
-        
+
         for line in string.split(contents, "\n"):
-            if line.startswith('server_url='):                
+            if line.startswith('server_url='):
                 new_file.write("server_url=%s\n\n" % new_url)
                 continue
-            
+
             if line.startswith('uuid='):
               if uuid:
                   # Use the up2date uuid instead
@@ -150,7 +150,7 @@ def update_applet_cfg():
               uuid = (string.split(line, '='))[1]
               new_file.write(line + '\n\n')
               continue
-            
+
             if line.startswith('use_ca_cert='):
               seen_ca_cert = 1
               new_file.write("use_ca_cert=%s\n" % new_ca_buf)
@@ -160,7 +160,7 @@ def update_applet_cfg():
             new_file.write("use_ca_cert=%s\n" % new_ca_buf)
 
         new_file.close()
-        
+
         # 3. rename current to backup
         os.rename(APPLET_CONF, backup_filename)
         # 4. rename new to current
@@ -188,7 +188,7 @@ def use_satellite():
     except Exception, e:
         return (1, "unable to tie rhn-applet uuid to systemid:  %s" % e, {})
 
-    
+
     return (0, "rhn-applet now configured to use %s" % new_url, {})
 
 

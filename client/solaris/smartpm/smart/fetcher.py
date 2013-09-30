@@ -1105,7 +1105,7 @@ class URLLIBHandler(FetcherHandler):
                 return info
 
         opener = Opener()
-        
+
         fetcher = self._fetcher
 
         while not self._cancel:
@@ -1291,7 +1291,7 @@ class URLLIB2Handler(FetcherHandler):
 
     def fetch(self):
         import urllib2, rfc822
-        
+
         fetcher = self._fetcher
 
         while True:
@@ -1832,7 +1832,7 @@ class RHNHandler(FetcherHandler):
         try:
             url = item.getURL()
             channel = url.host
-            parts = url.path.split("/")[1:-1] 
+            parts = url.path.split("/")[1:-1]
             pkghash = "/".join(parts)
             localpath = self.getLocalPath(item)
             # FIXME (20050329): This might not be thread safe because
@@ -1843,13 +1843,13 @@ class RHNHandler(FetcherHandler):
 
             if not os.path.isfile(localpath):
                 raise Error, _("File not found")
-                
+
             fetchedsize = os.path.getsize(localpath)
 
         except (Error, IOError, OSError), e:
             item.setFailed(unicode(e))
         except:
-            # Since rhnPackages.downloadPackage() can return many 
+            # Since rhnPackages.downloadPackage() can return many
             # different exceptions, just set this item to failed so
             # that we don't hang.
             item.setFailed(unicode(sys.exc_info()[0]))

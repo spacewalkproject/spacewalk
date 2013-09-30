@@ -72,7 +72,7 @@ def print_schedule_summary(self, type, args):
             if action.get('earliest') < begin_date: continue
 
         if end_date:
-            if action.get('earliest') > end_date: continue            
+            if action.get('earliest') > end_date: continue
 
         if self.check_api_version('10.11'):
             print '%s  %s   %s  %s  %s    %s' % \
@@ -219,12 +219,12 @@ def do_schedule_details(self, args):
         logging.warning('%s is not a valid ID' % str(a))
         return
 
-    completed = self.client.schedule.listCompletedSystems(self.session, 
+    completed = self.client.schedule.listCompletedSystems(self.session,
                                                           action_id)
 
     failed = self.client.schedule.listFailedSystems(self.session, action_id)
 
-    pending = self.client.schedule.listInProgressSystems(self.session, 
+    pending = self.client.schedule.listInProgressSystems(self.session,
                                                          action_id)
 
     # put all the system arrays together for the summary
@@ -241,11 +241,11 @@ def do_schedule_details(self, args):
             action = a
             del all_actions
             break
-   
+
     print 'ID:        %i' % action.get('id')
     print 'Action:    %s' % action.get('name')
     print 'User:      %s' % action.get('scheduler')
-    print 'Date:      %s' % action.get('earliest') 
+    print 'Date:      %s' % action.get('earliest')
     print
     print 'Completed: %s' % str(len(completed)).rjust(3)
     print 'Failed:    %s' % str(len(failed)).rjust(3)
@@ -352,7 +352,7 @@ def help_schedule_listpending(self):
 
 def do_schedule_listpending(self, args):
     return self.print_schedule_summary('pending', args)
-    
+
 ####################
 
 def help_schedule_listcompleted(self):

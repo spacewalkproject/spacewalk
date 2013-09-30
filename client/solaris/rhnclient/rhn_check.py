@@ -52,24 +52,24 @@ cfg = config.initUp2dateConfig()
 log = rhnLog.initLog()
 
 # action version we understand
-ACTION_VERSION = 2 
+ACTION_VERSION = 2
 
 # lock file to check if we're disabled at the server's request
 DISABLE_FILE = os.path.join(config.RHN_SYSCONFIG_DIR, "disable")
 
 # path location of the CA cert file
-rhns_ca_cert = cfg['sslCACert'] 
+rhns_ca_cert = cfg['sslCACert']
 
 # Exceptions
 class UnknownXML:
     def __init__(self, value):
         self.__value = value
-        
+
     def __repr__(self):
         return "Invalid request received (%s)." % self.__value
 
 
-def showHelp():                        
+def showHelp():
     print _("Usage: rhn_check [options]")
     print ""
     print _("Available command line options:")
@@ -88,7 +88,7 @@ def run_local_actions():
         params =  method_params[1]
         (status, message, data) = run_action(method, params)
         log.log_debug("local action status: ", (status, message, data))
-    
+
 # submit a response for an action_id
 def submit_response(action_id, status, message, data):
     global server
@@ -112,7 +112,7 @@ def submit_response(action_id, status, message, data):
     except socket.error:
         print "Could not submit to %s.\n"\
               "Possible networking problem?" % str(server)
-        sys.exit(-1)                
+        sys.exit(-1)
     return ret
 
 ###
@@ -120,7 +120,7 @@ def submit_response(action_id, status, message, data):
 ###
 def check_action(action):
     log.log_debug("check_action", action)
-        
+
     # be very paranoid of what we get back
     if type(action) != type({}):
         print "Got unparseable action response from server"
@@ -146,10 +146,10 @@ def check_action(action):
 def run_action(method, params):
     try:
         log.log_debug("do_call", method, params)
-        (status, message, data) = rhn.actions.do_call(method, params)   
+        (status, message, data) = rhn.actions.do_call(method, params)
     except (TypeError, ValueError, KeyError, IndexError):
         if cfg["debug"]:
-            traceback.print_exc()            
+            traceback.print_exc()
         # wrong number of arguments, wrong type of arguments, etc
         status = 6,
         message = "Fatal error in Python code occurred"
@@ -172,16 +172,16 @@ def run_action(method, params):
 # Wrapper handler for the action we're asked to do
 def handle_action(action):
     global server
-    
+
     log.log_debug("handle_action", action)
-        
+
     version = action['version']
     action_id = action['id']
     data = action['action']
 
     log.log_debug("handle_action actionid = %s, version = %s" % (
         action_id, version))
-        
+
     # Decipher the data
     parser, decoder = xmlrpclib.getparser()
     parser.feed(data)
@@ -194,7 +194,7 @@ def handle_action(action):
 
     log.log_debug("Sending back response", (status, message, data))
     return submit_response(action_id, status, message, data)
-    
+
 ###
 # Init
 ###
@@ -219,12 +219,12 @@ for (opt, val) in opts:
     elif opt in ["--help", "-h"]:
         showHelp()
         sys.exit(0)
-        
+
 # if we're disabled, go down (almost) quietly
 if os.path.exists(DISABLE_FILE):
     print "RHN service is disabled. Check %s" % DISABLE_FILE
     sys.exit(0)
-    
+
 # retrieve the system_id. This is required.
 if not rhnAuth.getSystemId():
     print "ERROR: unable to read system id."
@@ -306,13 +306,13 @@ while 1:
     response_headers = server.get_response_headers()
     caps.populate(response_headers)
     # do we actually want to validte here?
-    try:        
+    try:
         caps.validate()
     except rhnErrors.ServerCapabilityError, e:
         print e
         sys.exit(1)
-        
-    
+
+
     if action == "" or action == {}:
         break
 

@@ -325,7 +325,7 @@ class GtkPackageInfo(gtk.Alignment):
         for prv in pkg.provides:
 
             prvmap = {}
-            
+
             requiredby = []
             for req in prv.requiredby:
                 requiredby.extend(req.packages)

@@ -9,7 +9,7 @@
 # Few notes about what is done here:
 #   - thread AUTH sends authentication digest
 #   - thread NC uses netcat and grep to see results
-#   - Little hack with (echo -n) is much more easier to use, 
+#   - Little hack with (echo -n) is much more easier to use,
 #     than some settrace machinary
 
 import sys
@@ -71,7 +71,7 @@ def authenticate():
         except socket.error, e:
             # nobody is listenning, try to authenticate again
             connected = False;
-            pass;    
+            pass;
         except httplib.BadStatusLine, e:
             # This is ok, netcat does not send apropriate response
             pass
@@ -92,7 +92,7 @@ if __name__ == '__main__':
     global nc, auth
     nc  = killable(target = netcat);
     auth = killable(target = authenticate);
-    
+
     nc.start();
     auth.start();
 

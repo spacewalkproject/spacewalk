@@ -174,7 +174,7 @@ def getHeader(productName, activation_keys, org_gpg_key,
               overrides, hostname, orgCACert, isRpmYN,
               using_ssl, using_gpg,
               allow_config_actions, allow_remote_commands, up2dateYN, pubname):
-    #2/14/06 wregglej 181407 If the org_gpg_key option has the path to the file 
+    #2/14/06 wregglej 181407 If the org_gpg_key option has the path to the file
     #in it, remove it. It will cause the $FETCH to fail.
     path_list = os.path.split(org_gpg_key)
     if path_list[0] and path_list[0] != '':

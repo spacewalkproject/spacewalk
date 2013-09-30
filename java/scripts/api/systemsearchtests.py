@@ -14,7 +14,7 @@ class SystemSearchTests(RhnTestCase):
             self.assertTrue(s.has_key("name"))
             self.assertTrue(s.has_key("ip"))
             self.assertTrue(s.has_key("id"))
-    
+
     def test_searchByIp(self):
         systems = client.system.search.ip(self.session_key, SYS_SEARCH_IP)
         self.assertTrue(systems != None)

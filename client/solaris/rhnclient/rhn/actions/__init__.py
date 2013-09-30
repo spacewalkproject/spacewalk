@@ -1,5 +1,5 @@
 """Export allowable xmlrpc actions and do_call method"""
-    
+
 # RHN Action exporter
 # Copyright (c) 1999-2005 Red Hat, Inc.  Distributed under GPL.
 # $Id$
@@ -9,7 +9,7 @@ def do_call(method, params):
     <method> format is "ACTION_FILE.METHOD_NAME"."""
 
     parts = method.split(".")
-    if len(parts) != 2: 
+    if len(parts) != 2:
         raise AttributeError("Invalid action syntax: '%s'" % method)
     try:
         func = getattr(globals()[parts[0]], parts[1])
@@ -27,7 +27,7 @@ class Action:
 
 def setup():
     import os, sys
-    
+
     actions_dir = os.path.dirname(sys.modules[__name__].__file__) or '.'
     if actions_dir not in sys.path:
         sys.path.append(actions_dir)

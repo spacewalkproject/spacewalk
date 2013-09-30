@@ -82,7 +82,7 @@ def writeUp2dateMacro(macroName, macroValue):
     value_r = re.compile("%s.*" % macroName)
     blank_r = re.compile("\s*")
     newfile = []
-    for line in lines: 
+    for line in lines:
         m = value_r.match(line)
         if m:
             continue
@@ -93,7 +93,7 @@ def writeUp2dateMacro(macroName, macroValue):
             continue
 
         newfile.append(line)
-            
+
         # dont care about blank lines...
 
     newfile.append("\n")
@@ -117,7 +117,7 @@ def main():
     configdata['timeStampTest'] = timestamp
     print configdata
     import pprint
-    
+
     pprint.pprint(update(configdata))
 
     configdata['serverURL'] = "http://localhost/XMLRPC"

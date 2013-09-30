@@ -27,7 +27,7 @@ class TestGetAllPkgInfo(unittest.TestCase):
             if multilib:
                 self.allPkgs.append(["a%04d" % i, '1.0', '1', '', arch1])
                 self.allPkgs.append(["a%04d" % i, '1.0', '1', '', arch2])
-            else:		
+            else:
                 self.allPkgs.append(["a%04d" % i, '1.0', '1', '', arch1])
 
     def setUp(self):
@@ -49,7 +49,7 @@ class TestTransactionData(unittest.TestCase):
         self.packages1 = [(('kernel', '2.4.0', '1.0', ''), "u"),
                           (('blippy', '1.0', '1.0', '', 'i686'), "i")]
 
-        
+
     def testPopulateData1(self):
         "Verify that populating data set 1 works correctly"
         self.td.data['packages'] = self.packages1
@@ -70,7 +70,7 @@ class TestGenTransaction(unittest.TestCase):
         self.packages1 = [(('kernel', '2.4.0', '1.0', ''), "u"),
                           (('blippy', '1.0', '1.0', '', 'i686'), "i")]
 
- 
+
 #    def testGenTransactionData1(self):
 #        td = transaction.TransactionData()
 #        td.data['packages'] = self.packages1
@@ -83,12 +83,12 @@ class TestGenTransactionSat1(unittest.TestCase):
     setupflag = 0
     def _realSetup(self, testname):
         rpm.addMacro("_dbpath",testutils.DBPATH)
-        repackagedir =  "/tmp/testrepackage" 
+        repackagedir =  "/tmp/testrepackage"
         rpm.addMacro("_repackage_dir", repackagedir)
-        
+
         if TestGenTransactionSat1.setupflag != 0:
             return
-        
+
         testutils.createDataDirs()
         testutils.rebuildRpmDatabase(testname)
         testutils.rebuildRepackageDir(testname)
@@ -107,12 +107,12 @@ class TestGenTransactionSat1(unittest.TestCase):
 #        self.packages1 = [(('kernel', '2.4.0', '1.0', ''), "u"),
 #                          (('blippy', '1.0', '1.0', '', 'i686'), "i")]#
 
- 
+
 
     def tearDown(self):
         pass
  #       testutils.restoreConfig()
-        
+
 
 #    def testGenTransactionData1(self):
 #        td = transaction.TransactionData()
@@ -138,12 +138,12 @@ class TestActionsTransactions(unittest.TestCase):
     setupflag = 0
     def _realSetup(self, testname):
         rpm.addMacro("_dbpath",testutils.DBPATH)
-        repackagedir =  "/tmp/testrepackage" 
+        repackagedir =  "/tmp/testrepackage"
         rpm.addMacro("_repackage_dir", repackagedir)
-        
+
         if TestGenTransactionSat1.setupflag != 0:
             return
-        
+
         testutils.createDataDirs()
         testutils.rebuildRpmDatabase(testname)
         testutils.rebuildRepackageDir(testname)
@@ -159,7 +159,7 @@ class TestActionsTransactions(unittest.TestCase):
     def __setupData(self):
         self.packages1 = [(('wget', '1.8.2', '5', ''), 'u'),
                           (('cvs', '1.11.2', '8', ''), 'u')]
- 
+
 
     def tearDown(self):
         pass
@@ -169,7 +169,7 @@ class TestActionsTransactions(unittest.TestCase):
 
         data = {}
         data['packages'] = self.packages1
-        
+
         res = packages.runTransaction(data)
         write(res)
 

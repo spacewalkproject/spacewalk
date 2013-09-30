@@ -39,24 +39,24 @@ class RhnReviewWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.ReviewSubscriptio
     needsparent = 1
     needsnetwork = 1
     noSidebar = True
-    
+
     def __init__(self):
         RhnRegisterFirstbootGuiWindow.__init__(self)
         rhnregGui.ReviewSubscriptionPage.__init__(self)
         if rhnreg.registered():
             self.skipme = True
-    
+
     def _getVbox(self):
         return self.reviewSubscriptionPageVbox()
-    
+
     def updatePage(self):
         self.reviewSubscriptionPagePrepare()
-    
+
     def apply(self, *args):
-        """Returns None to stay on the same page. Anything else will cause 
-        firstboot to advance but True is generally used. This is different from 
+        """Returns None to stay on the same page. Anything else will cause
+        firstboot to advance but True is generally used. This is different from
         the gnome druid in rhn_register.
-        
+
         """
         return True
 

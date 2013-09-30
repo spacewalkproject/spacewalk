@@ -219,7 +219,7 @@ class PriorityCreator(object):
         table.set_col_spacings(10)
         table.show()
         vbox.pack_start(table)
-        
+
         label = gtk.Label(_("Package Name:"))
         label.set_alignment(1.0, 0.5)
         label.show()
@@ -345,7 +345,7 @@ class GtkSinglePriority(object):
     def show(self, pkg):
 
         priority = sysconf.get(("package-priorities", pkg.name), {})
-        
+
         table = self._table
         table.foreach(table.remove)
 
@@ -439,7 +439,7 @@ class GtkSinglePriority(object):
             spin.show()
             chantable.attach(spin, 1, 2, pos, pos+1, gtk.FILL, gtk.FILL)
             pos += 1
-        
+
         self._window.show()
         gtk.main()
         self._window.hide()

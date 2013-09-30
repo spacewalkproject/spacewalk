@@ -91,7 +91,7 @@ class GtkChanges(object):
 
         report = Report(changeset)
         report.compute()
-        
+
         class Sorter(str):
             ORDER = [_("Remove"), _("Downgrade"), _("Reinstall"),
                      _("Install"), _("Upgrade")]

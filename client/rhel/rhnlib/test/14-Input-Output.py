@@ -7,7 +7,7 @@
 # 2004-11-29: fails, but it looks like it never worked. Need to investigate
 
 import string
-import sys 
+import sys
 sys.path.append('..')
 from rhn import transports
 import xmlrpclib
@@ -63,7 +63,7 @@ if __name__ == '__main__':
     for transfer in range(3):
         for encoding in range(3):
             tests.append((transfer, encoding))
-        
+
     for test in tests:
         test_xmlrpc(test[0], test[1])
         test_blob(test[0], test[1])

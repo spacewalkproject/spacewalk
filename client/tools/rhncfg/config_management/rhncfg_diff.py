@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import base64
@@ -132,7 +132,7 @@ class Handler(handler_base.HandlerBase):
             src_link = info['symlink']
             dest_link = os.readlink(local_file)
             if src_link != os.readlink(local_file):
-                return "Symbolic links differ. Channel: '%s' -> '%s'   System: '%s' -> '%s' \n " % (path,src_link, path, dest_link) 
+                return "Symbolic links differ. Channel: '%s' -> '%s'   System: '%s' -> '%s' \n " % (path,src_link, path, dest_link)
             return ""
         fromlines = info['file_contents'].splitlines(1)
         tolines = open(local_file, 'r').readlines()

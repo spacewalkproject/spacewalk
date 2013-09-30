@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Kickstart functions for Xen guests.
@@ -101,12 +101,12 @@ XEN_CREATE_TEMPLATE = """
 # Public interface
 ###############################################################################
 
-def initiate_guest(name, mem_kb, vcpus, disk_gb, extra_append, 
+def initiate_guest(name, mem_kb, vcpus, disk_gb, extra_append,
         log_notify_handler=None):
 
     files_to_cleanup = []
 
-    # We'll wrap this up in a try block so that we can clean up should an 
+    # We'll wrap this up in a try block so that we can clean up should an
     # exception occur.
     try:
         # First, download the kickstart file.
@@ -118,7 +118,7 @@ def initiate_guest(name, mem_kb, vcpus, disk_gb, extra_append,
         # are served a 404.  We'll remove this hack when we figure out what the
         # server-side issue is.
         time.sleep(5)
-        
+
         # Download the kernel and initrd images.
         (install_kernel_path, install_initrd_path) = \
             common.download_install_images(kickstart_config, "images/xen",
@@ -129,13 +129,13 @@ def initiate_guest(name, mem_kb, vcpus, disk_gb, extra_append,
         # Create the disk image for the instance.
         disk_image_path = _create_disk_image(name, disk_gb)
         files_to_cleanup.append(disk_image_path)
-    
-        # Determine the type of disk image.  
+
+        # Determine the type of disk image.
         disk_image_type = _determine_disk_image_type(disk_image_path)
-    
+
         # Generate a UUID for this new instance.
         uuid = _generate_uuid()
-    
+
         # Generate a MAC address for this new instance.
         if DEBUG:
             mac = DEBUG_MAC_ADDRESS
@@ -145,18 +145,18 @@ def initiate_guest(name, mem_kb, vcpus, disk_gb, extra_append,
         # Connect to the hypervisor.
         connection = _connect_to_hypervisor()
 
-        # Now we have enough information to actually create and install the 
+        # Now we have enough information to actually create and install the
         # domain.
         domain = _begin_domain_installation( \
             connection,
-            name                = name, 
-            install_kernel_path = install_kernel_path, 
-            install_initrd_path = install_initrd_path, 
-            extra_append        = extra_append, 
-            mem_kb              = mem_kb, 
-            vcpus               = vcpus, 
-            uuid                = uuid, 
-            disk_image_path     = disk_image_path, 
+            name                = name,
+            install_kernel_path = install_kernel_path,
+            install_initrd_path = install_initrd_path,
+            extra_append        = extra_append,
+            mem_kb              = mem_kb,
+            vcpus               = vcpus,
+            uuid                = uuid,
+            disk_image_path     = disk_image_path,
             disk_image_type     = disk_image_type,
             mac                 = mac)
 
@@ -171,16 +171,16 @@ def initiate_guest(name, mem_kb, vcpus, disk_gb, extra_append,
             name                = name,
             mem_kb              = mem_kb,
             vcpus               = vcpus,
-            uuid                = uuid, 
-            disk_image_path     = disk_image_path, 
-            disk_image_type     = disk_image_type, 
+            uuid                = uuid,
+            disk_image_path     = disk_image_path,
+            disk_image_type     = disk_image_type,
             mac                 = mac)
         files_to_cleanup.append(config_file_path)
 
         # Restart the domain with the new configuration.
         _boot_domain(uuid)
 
-        # The domain is now started.  Finally, refresh the current 
+        # The domain is now started.  Finally, refresh the current
         # virtualization state on the server.
 
         # VCPUs get plugged in one at a time, querying the hypervisor state
@@ -198,7 +198,7 @@ def initiate_guest(name, mem_kb, vcpus, disk_gb, extra_append,
         files_to_cleanup.append(install_initrd_path)
 
     finally:
-        # If something went wrong, the logic will bounce out here before 
+        # If something went wrong, the logic will bounce out here before
         # returning to the caller.  We'll use this opportunity to clean up
         # any files that we might have created so far.  It would be quite rude
         # to leave multi-GB sized files laying around.
@@ -227,11 +227,11 @@ def _generate_uuid():
 
 def _generate_mac_address():
     """Generate a random MAC address and return it."""
-    mac_list = [ 0x00, 
-                 0x16, 
-                 0x3e, 
-                 random.randint(0x00, 0x7f), 
-                 random.randint(0x00, 0xff), 
+    mac_list = [ 0x00,
+                 0x16,
+                 0x3e,
+                 random.randint(0x00, 0x7f),
+                 random.randint(0x00, 0xff),
                  random.randint(0x00, 0xff) ]
     return ":".join(map(lambda x: "%02x" % x, mac_list))
 
@@ -247,7 +247,7 @@ def _create_disk_image(guest_name, img_size_gb, base_dir = XEN_DISK_IMAGE_DIR):
         except Exception, e:
             raise DiskImageCreationException, \
                   "Could not create %s: %s" % (base_dir, str(e)), sys.exc_info()[2]
-    
+
     # Construct the path of the disk image.
     image_path = os.path.join(base_dir, "%s.disk" % guest_name)
 
@@ -297,14 +297,14 @@ def _connect_to_hypervisor():
     return connection
 
 def _begin_domain_installation(connection,
-                               name, 
-                               install_kernel_path, 
-                               install_initrd_path, 
-                               extra_append, 
-                               mem_kb, 
-                               vcpus, 
-                               uuid, 
-                               disk_image_path, 
+                               name,
+                               install_kernel_path,
+                               install_initrd_path,
+                               extra_append,
+                               mem_kb,
+                               vcpus,
+                               uuid,
+                               disk_image_path,
                                disk_image_type,
                                mac):
     """
@@ -338,7 +338,7 @@ def _begin_domain_installation(connection,
               "Error occurred while attempting to create domain %s: %s" % \
                   (name, str(e)), sys.exc_info()[2]
 
-    # Wait a bit for the instance to start and then ensure that the domain is 
+    # Wait a bit for the instance to start and then ensure that the domain is
     # still around.  If it isn't we will assume that it crashed.
     time.sleep(5)
     try:
@@ -356,8 +356,8 @@ def _wait_for_domain_installation_completion(conn, domain):
     appear in the list of running domains. At this time we assume the guest
     kickstart is underway.
 
-    Next we monitor that list of running domain IDs until the one we're 
-    interested in is no longer present. At this time we assume the guest 
+    Next we monitor that list of running domain IDs until the one we're
+    interested in is no longer present. At this time we assume the guest
     kickstart has terminated successfully.
     """
 
@@ -399,7 +399,7 @@ def _check_guest_mbr(diskPath):
     Checks the guests disk path for a master boot record that would seem to
     indicate success.
 
-    This code was taken from the python-virtinst package in 
+    This code was taken from the python-virtinst package in
     /usr/sbin/virt-install.
     """
 
@@ -409,7 +409,7 @@ def _check_guest_mbr(diskPath):
         os.close(fd)
         if len(buf) == 512 and \
                 struct.unpack("H", buf[0x1fe: 0x200]) == (0xaa55,):
-                return 
+                return
         else:
             # This looks like a failed install, but it's not certain:
             raise VirtualizationKickstartException, \
@@ -420,12 +420,12 @@ def _check_guest_mbr(diskPath):
             "Error checking for guest disk MBR, install may have failed: %s" % \
                   diskPath, sys.exc_info()[2]
 
-def _create_boot_config_file(name, 
-                             mem_kb, 
-                             vcpus, 
-                             uuid, 
-                             disk_image_path, 
-                             disk_image_type, 
+def _create_boot_config_file(name,
+                             mem_kb,
+                             vcpus,
+                             uuid,
+                             disk_image_path,
+                             disk_image_type,
                              mac):
     """
     Writes reboot-specific XML out to a config file in our directory.
@@ -437,11 +437,11 @@ def _create_boot_config_file(name,
     # Now write the XML blob out to a file so it can be reused later.
     domain_dir = DomainDirectory()
     try:
-        domain_dir.create_standard_config(uuid, 
-                                          name, 
-                                          mem_kb, 
-                                          vcpus, 
-                                          disk_image_path, 
+        domain_dir.create_standard_config(uuid,
+                                          name,
+                                          mem_kb,
+                                          vcpus,
+                                          disk_image_path,
                                           mac)
     except Exception, e:
         raise VirtualizationKickstartException, \
@@ -468,18 +468,18 @@ def _boot_domain(uuid):
 def syslog_listener(host, port, log_notify_handler):
     """
     syslog listener to grab the anaconda output
-    """ 
+    """
     log_notifier = BatchingLogNotifier(log_notify_handler)
     log_notifier.start()
-    # Caution the user  
+    # Caution the user
     log_notifier.add_log_message("RHN:: If your guest firewall is enabled, " \
                	"some parts of the installation process might not be logged")
-    
+
     # socket to listen to syslog
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
     try:
-        s.bind((host, int(port))) 
+        s.bind((host, int(port)))
     except socket.error:
         s.close()
         log_notifier.add_log_message("RHN:: Port %s already in use" % port)
@@ -489,16 +489,16 @@ def syslog_listener(host, port, log_notify_handler):
     try:
         # receive installation log from syslog
         while 1:
-            chunk = s.recv(1024) 
+            chunk = s.recv(1024)
             if not chunk:
                 break
             chunk = chunk + " \n"
-            log_notifier.add_log_message(chunk)    
+            log_notifier.add_log_message(chunk)
         s.close()
     finally:
         # Always make sure we stop the log notifier thread.
         log_notifier.stop()
-    return 
+    return
 
 # Test routine
 if __name__ == "__main__":

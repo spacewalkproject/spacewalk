@@ -150,7 +150,7 @@ WARNING: %s
                   % (s, os.path.basename(unknown), s))
 
     # move legacy server SSL RPMs. But if server_rpm_name is the same name
-    # as the target RPM name, then we move the RPMs into the appropriate 
+    # as the target RPM name, then we move the RPMs into the appropriate
     # machine name directory.
     for name in [LEGACY_SERVER_RPM_NAME1, LEGACY_SERVER_RPM_NAME2]:
         old_server_rpms = glob.glob(os.path.join(topdir, name+'-*-*.*.rpm'))
@@ -986,7 +986,7 @@ def genServerRpm(d, verbosity=0):
     # check for new installed RPM.
     # Work out the release number.
     hdr = getInstalledHeader(server_rpm_name)
-    
+
     #find RPMs in the directory as well.
     filenames = glob.glob("%s-*.noarch.rpm" % server_rpm)
     if filenames:
@@ -1026,7 +1026,7 @@ server with this hostname: %s
     if jabberd_user is None:
         print ("WARNING: No jabber/jabberd user on system, skipping " +
                 "jabberd.pem generation.")
-    
+
     jabberd_cert_string = ""
     if jabberd_user is not None:
         jabberd_cert_string = \
@@ -1201,7 +1201,7 @@ def main():
          10  private CA key generation error
          11  public CA certificate generation error
          12  public CA certificate RPM build error
-     
+
          20  private web server key generation error
          21  public web server certificate request generation error
          22  public web server certificate generation error

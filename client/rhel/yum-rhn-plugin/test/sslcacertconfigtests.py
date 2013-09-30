@@ -11,23 +11,23 @@ import rhnplugin
 
 
 class SslCaCertConfigTests(unittest.TestCase):
-    
+
     def test_ssl_ca_cert_empty(self):
         up2date_cfg = {}
         up2date_cfg['sslCACert'] = ''
-       
+
         self.assertRaises(rhnplugin.BadSslCaCertConfig,
             rhnplugin.get_ssl_ca_cert, up2date_cfg)
 
     def test_no_ssl_ca_cert(self):
         up2date_cfg = {}
-        
+
         self.assertRaises(rhnplugin.BadSslCaCertConfig,
             rhnplugin.get_ssl_ca_cert, up2date_cfg)
 
     def test_single_ssl_ca_cert(self):
         up2date_cfg = {}
-        
+
         expected = '/var/foo/bar'
         up2date_cfg['sslCACert'] = expected
 
@@ -60,7 +60,7 @@ class SslCaCertConfigTests(unittest.TestCase):
     def test_ssl_ca_cert_empty_list(self):
         up2date_cfg = {}
         up2date_cfg['sslCACert'] = []
-       
+
         self.assertRaises(rhnplugin.BadSslCaCertConfig,
             rhnplugin.get_ssl_ca_cert, up2date_cfg)
 
@@ -69,6 +69,6 @@ def suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(SslCaCertConfigTests))
     return suite
-                
+
 if __name__ == "__main__":
     unittest.main(defaultTest="suite")

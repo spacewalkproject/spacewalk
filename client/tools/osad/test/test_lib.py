@@ -7,17 +7,17 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import sys
 import jabber_lib
 import time
 import rhn_log
-    
+
 class SimpleClient(jabber_lib.JabberClient):
     def start(self, username, password, resource):
         t0 = time.time()
@@ -64,7 +64,7 @@ class SimpleRunner(jabber_lib.Runner):
     def read_config(self):
         return {
             'logfile'       : self.log_file,
-        } 
+        }
 
     def setup_config(self, config):
         self.options.nodetach = 1
@@ -92,6 +92,6 @@ class SimpleRunner(jabber_lib.Runner):
         self.ssl_cert = self.options.trusted_cert
 
         self._jabber_servers.extend(self.options.jabberd)
-        
+
     def process_once(self, client):
         client.process(timeout=None)

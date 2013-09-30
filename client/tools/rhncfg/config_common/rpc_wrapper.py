@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import sys
@@ -38,14 +38,14 @@ class NoMoreServers(Exception):
 #The problem that spurred that was when a xmlrpc function was called on an object that was an
 #attribute of the server class it wasn't passing through the _request that I had written here,
 #it was going directly to rpclib.Server's _request() and missing all of the failover logic that I had added.
-#The short version is that I needed to make sure this class was in the inheritance hierarchy. 
+#The short version is that I needed to make sure this class was in the inheritance hierarchy.
 class Server(rpclib.Server):
     def __init__(self, uri, transport=None, encoding=None, verbose=0,
         proxy=None, username=None, password=None, refreshCallback=None,
         progressCallback=None, server_list=None, rpc_handler=None):
         self.list_of_uris = None    #Contains all of the possible uris.
         self.current_index = 0      #index of the uri that we're currently using.
-        
+
         #If server_list is None, then no failover systems were listed in the up2date config and
         #we need to use the one that was put together in the rhncfg-* config, which was passed in as
         #uri.
@@ -70,7 +70,7 @@ class Server(rpclib.Server):
         #Grabs the initial uri that we're going to use.
         init_uri = self._get_uri()
 
-        
+
         #self.rpc_args = {
         #                    'transport'             :       transport,
         #                    'encoding'              :       encoding,
@@ -110,7 +110,7 @@ class Server(rpclib.Server):
         if typ not in ("http", "https"):
             raise InvalidRedirectionError(
                 "Redirected to unsupported protocol %s" % typ)
-        
+
         self._host, self._handler = urllib.splithost(uri)
         self._orig_handler = self._handler
         self._type = typ
@@ -146,7 +146,7 @@ class Server(rpclib.Server):
             failover_uri = self._get_uri()  #Grab the uri of the new server to use.
         msg = msg + "Trying the next serverURL: %s\n" % failover_uri
 
-        print msg        
+        print msg
 
         #Set up rpclib.Server to use the new uri.
         self.init_server(failover_uri)
@@ -171,13 +171,13 @@ class Server(rpclib.Server):
             except (error, sslerror, herror, gaierror, timeout), e:
                 save_traceback = sys.exc_info()[2]
                 try:
-                    self._failover()    
+                    self._failover()
                 except NoMoreServers, f:
                     raise e, None, save_traceback
                 continue
             succeed = 1 #If we get here then the function call eventually succeeded and we don't need to try again.
         return ret
- 
+
     def _request(self, methodname, params):
         return self._call_function(rpclib.Server._request, (self, methodname, params))
 

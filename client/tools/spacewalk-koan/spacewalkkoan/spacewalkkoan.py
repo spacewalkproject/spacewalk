@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 # Kickstart a system using koan.
 #
@@ -35,7 +35,7 @@ def execute(cmd):
     status = os.system(cmd + " > " + tmp)
     data = open(tmp).readlines()
     ret = []
-    for l in data: 
+    for l in data:
         ret.append(string.strip(l))
     if status == 0:
         return ret
@@ -127,15 +127,15 @@ def initiate(kickstart_host, base, extra_append, static_device=None, system_reco
 
     error_messages = {}
     success = 0
-    
+
     # cleanup previous attempt
     rm_rf(SHADOW)
     os.mkdir(SHADOW)
-    
+
     print "Preserve files! : %s"  % preserve_files
-    
+
     try:
-        if static_device: 
+        if static_device:
             update_static_device_records(kickstart_host, static_device)
 
         k = Koan()
@@ -187,9 +187,9 @@ def initiate(kickstart_host, base, extra_append, static_device=None, system_reco
             # Error
             return ret
         initrd = initrd + ".merged"
-    
-    
-    
+
+
+
     return (0, "Kickstart initiate succeeded", error_messages)
 
 
@@ -265,7 +265,7 @@ def initiate_guest(kickstart_host, cobbler_system_name, virt_type, name, mem_kb,
 
 def create_new_rd(initrd, preserve_files=[]):
     """
-    Returns None if everything went well, or a tuple 
+    Returns None if everything went well, or a tuple
     (err_code, err_string, dict) if problems were found
     """
     if not initrd:
@@ -277,9 +277,9 @@ def create_new_rd(initrd, preserve_files=[]):
     # lame naming below to use /tmp/ks-tres-shadow 2X
     # but needed to get it here the ks.cfg expects it
     preserve_shadow = SHADOW + SHADOW
-    # new FileCopier class handles the dirty work of getting the 
+    # new FileCopier class handles the dirty work of getting the
     # preserved file set copied w/ all permissions, owners, etc
-    # kept intact and in the correct location 
+    # kept intact and in the correct location
     c = FileCopier(preserve_files, preserve_shadow, quota=quota)
     try:
         c.copy()
@@ -313,7 +313,7 @@ def _remove_func(path):
         # Attempt to remove the file/link/etc
         os.unlink(path)
         return
-        
+
     # It's a directory!
     files = os.listdir(path)
     # We need to add the path since listdir only returns a relative path
@@ -420,7 +420,7 @@ class FileCopier:
         # Quota enabled
         if self.current_quota + file_size > self.quota:
             raise QuotaExceeded(f)
-        
+
 
     def _update_quota(self, f, file_size):
         self.current_quota = self.current_quota + file_size
@@ -435,7 +435,7 @@ class FileCopier:
         os.chmod(dest, st[stat.ST_MODE])
         os.chown(dest, st[stat.ST_UID], st[stat.ST_GID])
         os.utime(dest, (st[stat.ST_ATIME], st[stat.ST_MTIME]))
-    
+
 
     def _copy_dir(self, f, st):
         files = map(lambda x, d=f: os.path.join(d, x), os.listdir(f))
@@ -479,7 +479,7 @@ class FileCopier:
         for d in l:
             src_dir = os.path.join(src_dir, d)
             src_st = os.lstat(src_dir)
-            dest_dir = os.path.join(dest_dir, d) 
+            dest_dir = os.path.join(dest_dir, d)
             if not os.path.exists(dest_dir):
                 os.mkdir(dest_dir)
             os.chmod(dest_dir, src_st[stat.ST_MODE])

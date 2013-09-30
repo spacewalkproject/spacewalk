@@ -24,7 +24,7 @@ def sanity(methodNameComps):
     # Verifies if all the components have proper names
     #"""
     # Allowed characters in each string
-    alpha = string.ascii_lowercase + string.ascii_uppercase 
+    alpha = string.ascii_lowercase + string.ascii_uppercase
     allowedChars = alpha + string.digits + '_'
     for comp in methodNameComps:
         if not len(comp):
@@ -45,7 +45,7 @@ def getMethod(methodName, abspath, baseClass):
     #route/label.
     #"""
     # First split the method name
-    methodNameComps = string.split(baseClass, '.') + string.split(methodName, '.')  
+    methodNameComps = string.split(baseClass, '.') + string.split(methodName, '.')
     # Sanity checks
     sanity(methodNameComps)
     # Build the path to the file
@@ -58,7 +58,7 @@ def getMethod(methodName, abspath, baseClass):
             # Okay, go on
             continue
         # Try to load this as a file
-        for extension in ['py', 'pyc', 'pyo']:            
+        for extension in ['py', 'pyc', 'pyo']:
             if os.path.isfile("%s.%s" % (path, extension)):
                 # Yes, this is a file
                 break
@@ -131,7 +131,7 @@ if __name__ == '__main__':
         try:
             method = getMethod(m, '.', 'Actions')
         except GetMethodException, e:
-            print "Error getting the method %s: %s" % (m, 
+            print "Error getting the method %s: %s" % (m,
                 string.join(map(str, e.args)))
         else:
             method()

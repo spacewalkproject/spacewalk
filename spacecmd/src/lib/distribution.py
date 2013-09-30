@@ -71,9 +71,9 @@ def do_distribution_create(self, args, update = False):
 
         install_types = \
             self.client.kickstart.tree.listInstallTypes(self.session)
-   
+
         install_types = [ t.get('label') for t in install_types ]
- 
+
         options.install_type = ''
         while options.install_type == '':
             print
@@ -150,7 +150,7 @@ def help_distribution_delete(self):
 
 def complete_distribution_delete(self, text, line, beg, end):
     if len(line.split(' ')) <= 2:
-        return tab_completer(self.do_distribution_list('', True), 
+        return tab_completer(self.do_distribution_list('', True),
                                   text)
 
 def do_distribution_delete(self, args):
@@ -225,7 +225,7 @@ def help_distribution_rename(self):
 
 def complete_distribution_rename(self, text, line, beg, end):
     if len(line.split(' ')) <= 2:
-        return tab_completer(self.do_distribution_list('', True), 
+        return tab_completer(self.do_distribution_list('', True),
                                   text)
 
 def do_distribution_rename(self, args):
@@ -253,7 +253,7 @@ options:
 
 def complete_distribution_update(self, text, line, beg, end):
     if len(line.split(' ')) <= 2:
-        return tab_completer(self.do_distribution_list('', True), 
+        return tab_completer(self.do_distribution_list('', True),
                                   text)
 
 def do_distribution_update(self, args):

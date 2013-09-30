@@ -4,7 +4,7 @@
 #
 # $Id$
 #
-# Usage: $0 SERVER PROXY 
+# Usage: $0 SERVER PROXY
 
 
 import sys

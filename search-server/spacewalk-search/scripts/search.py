@@ -10,9 +10,9 @@ search criteria"
 
 parser = OptionParser(usage=usage, description=desc)
 parser.add_option("--sessionid", dest="sessionid", type="int", help="PXT sessionid")
-parser.add_option("--package", action="store_true", dest="package", 
+parser.add_option("--package", action="store_true", dest="package",
                   help="search packages", default=True)
-parser.add_option("--system", action="store_true", dest="system", 
+parser.add_option("--system", action="store_true", dest="system",
                   help="search systems", default=False)
 parser.add_option("--indexName", dest="indexName", type="string",
         help="lucene index name to search ex: package server hwdevice snapshotTag errata")

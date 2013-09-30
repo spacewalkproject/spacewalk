@@ -34,7 +34,7 @@ import config
 
 from translate import _
 
-# file used to keep track of the next time rhn_check 
+# file used to keep track of the next time rhn_check
 # is allowed to update the package list on the server
 LAST_UPDATE_FILE = os.path.normpath("%s/var/lib/rhn/dbtimestamp" % config.PREFIX)
 
@@ -79,12 +79,12 @@ def restartUp2date():
 #    if exit:
 #        sys.exit()
 #    os.wait()
-    
-    
+
+
 
 def md5sum(fileName):
     hash = md5.new()
-    
+
     try:
         f = open(fileName, "r")
     except:
@@ -94,7 +94,7 @@ def md5sum(fileName):
     hash.update(fData)
     del fData
     f.close()
-    
+
     hex = string.hexdigits
     md5res = ""
     for c in hash.digest():
@@ -167,13 +167,13 @@ def findArch():
     out = outfd.read()
     unameparts = string.split(out)
     arch = unameparts[5]
-    
+
     # ugh, I really dont want to implement config.guess...
     if osname == "SunOS":
         osname = "solaris"
 
     return "%s-%s-%s" % (arch, platform, osname)
-    
+
 def getArch():
     platformpath = os.path.normpath("%s/etc/rhn/platform" % config.PREFIX)
     if not os.access(platformpath, os.R_OK):
@@ -221,7 +221,7 @@ def my_popen(cmd):
     c = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                  stderr=subprocess.PIPE, close_fds=True, bufsize=0)
 
-    # We don't write to the child process 
+    # We don't write to the child process
     c.stdin.close()
 
     child_out = tempfile.TemporaryFile()
@@ -254,7 +254,7 @@ def my_popen(cmd):
         for childfd, tempfd in fd_mappings:
             if childfd in readfds:
                 data = os.read(childfd.fileno(), buffer_size)
-                
+
                 if data:
                     tempfd.write(data)
 
@@ -281,7 +281,7 @@ def freeDiskSpace():
 #dbpath = "/var/lib/rpm"
 #if cfg['dbpath']:
 #    dbpath = cfg['dbpath']
-#RPM_PACKAGE_FILE="%s/Packages" % dbpath 
+#RPM_PACKAGE_FILE="%s/Packages" % dbpath
 
 def touchTimeStamp():
     try:

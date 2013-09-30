@@ -45,7 +45,7 @@ def get_test_server_http():
     global SERVER, HANDLER
     return Server("http://%s%s" % (SERVER, HANDLER))
 
-    
+
 if __name__ == '__main__':
     systemid = open(system_id_file).read()
 
@@ -59,5 +59,5 @@ if __name__ == '__main__':
         s = gs()
         print "--- %s ---" % gs
         print s.up2date.login(systemid)
-    
+
 

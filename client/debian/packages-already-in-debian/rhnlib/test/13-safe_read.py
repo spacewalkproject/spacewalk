@@ -20,7 +20,7 @@ class SlowSocket:
     def read(self, amt=None):
         time.sleep(.01)
         return self._buf.read(amt)
-    
+
     def __getattr__(self, name):
         return getattr(self._buf, name)
 
@@ -48,7 +48,7 @@ def openedFiles():
     global pid
     path = '/proc/' + pid + '/fd/';
     return len(glob.glob(os.path.join(path, '*')));
-    
+
 
 if __name__ == '__main__':
     global pid

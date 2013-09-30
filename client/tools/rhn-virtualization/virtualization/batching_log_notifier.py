@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 #
@@ -34,7 +34,7 @@ class BatchingLogNotifier:
 
     def __init__(self, batch_notify_handler):
         self.__log_message_queue = LockableLogMessageQueue()
-        self.__notify_thread = NotifyThread(self.__log_message_queue, 
+        self.__notify_thread = NotifyThread(self.__log_message_queue,
                                             batch_notify_handler)
 
     def add_log_message(self, log_message):
@@ -89,7 +89,7 @@ class BatchNotifyHandler:
     This is just a stub class, which should be inherited by anyone who wants
     to respond to logging events.
     """
-    
+
     def __init__(self):
         pass
 
@@ -126,7 +126,7 @@ class NotifyThread(Thread):
         while not self.__stop_event.isSet():
             self.__flush_log_message_queue()
             self.__stop_event.wait(POLL_INTERVAL)
-        
+
         # We've been signaled to stop, but flush the queue one more time before
         # exiting.
         self.__flush_log_message_queue()

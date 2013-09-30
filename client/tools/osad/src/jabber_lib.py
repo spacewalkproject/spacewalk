@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -106,7 +106,7 @@ class Runner:
             else:
                 # Been here before, no need to fork anymore
                 no_fork=1
-            
+
             try:
                 config = self.read_config()
                 if force_setup:
@@ -137,7 +137,7 @@ class Runner:
                 continue
             except JabberConnectionError:
                 time_to_sleep = random.randint(self._min_sleep, self._max_sleep)
-                log_debug(0, "Unable to connect to jabber servers, sleeping" 
+                log_debug(0, "Unable to connect to jabber servers, sleeping"
                     " %s seconds" % time_to_sleep)
                 if not self.is_in_background():
                     self.push_to_background()
@@ -262,7 +262,7 @@ class Runner:
             except JabberError, e:
                 self.print_message(js, "JabberError")
                 log_error(extract_traceback())
-                continue 
+                continue
             except SSLError, e:
                 self.print_message(js, "SSLError")
                 log_error(extract_traceback())
@@ -282,14 +282,14 @@ class Runner:
             self.push_to_background()
 
         # Autentication and resource binding
-        c.start(username=self._username, password=self._password, 
+        c.start(username=self._username, password=self._password,
             resource=self._resource)
 
         # Register callbacks
         c.custom_handler.register_callback(c._presence_callback, 'presence')
         c.custom_handler.register_callback(c._message_callback, 'message')
         return c
-    
+
     def _get_jabber_client(self, jabber_server):
         """Returns a connected Jabber client, or raises an exception if it was
         unable to connect"""
@@ -359,7 +359,7 @@ class Handlers:
         log_debug(5, stanza)
 
         self.cleanup_expired_callbacks()
-        
+
         callbacks = self._get_callbacks(stanza)
         if not callbacks:
             log_debug(4, "Unhandled stanza", stanza)
@@ -406,8 +406,8 @@ class Handlers:
                 continue
             # Update the usage count
             ent[2] = usage_count - 1
-                
-    def register_callback(self, callback, stanza_name, stanza_id=None, 
+
+    def register_callback(self, callback, stanza_name, stanza_id=None,
             stanza_ns=None, timeout=None, usage_count=None):
         log_debug(3, callback, stanza_name, stanza_id, stanza_ns, timeout,
             usage_count)
@@ -416,7 +416,7 @@ class Handlers:
         else:
             expiry = None
         callback_entry = [callback, expiry, usage_count]
-        h_idns, h_id, h_ns, l_def = self._get_from_hash(self._handlers, 
+        h_idns, h_id, h_ns, l_def = self._get_from_hash(self._handlers,
             stanza_name, default_value=({}, {}, {}, []))
         # h_id is for all the callbacks we should call for a particular stanza
         # id; h_ns is for namespaces
@@ -437,7 +437,7 @@ class Handlers:
 
         # Default callback
         l_def.append(callback_entry)
-        
+
     def _get_from_hash(self, h, key, default_value):
         if h.has_key(key):
             val = h[key]
@@ -470,7 +470,7 @@ class Handlers:
                 continue
             # Callback is stale
             vals.remove(val)
-                    
+
 def my_debug(*args):
     print "Debugging:", args
 
@@ -479,7 +479,7 @@ class RestartRequested(Exception):
 
 class JabberError(Exception):
     pass
-    
+
 class NeedRestart(Exception):
     pass
 
@@ -527,7 +527,7 @@ class JabberClient(jabber.Client):
 
         self.debug_level = 0
         self.trusted_certs = []
-        
+
         self.registerProtocol('unknown', JabberProtocolNode)
         self.registerProtocol('iq', JabberIqNode)
         self.registerProtocol('message', JabberMessageNode)
@@ -545,7 +545,7 @@ class JabberClient(jabber.Client):
 
         self._non_ssl_sock = None
         self._roster = Roster()
-    
+
         self._uniq_client_string = generate_random_string(6)
 
     def add_trusted_cert(self, trusted_cert):
@@ -678,7 +678,7 @@ class JabberClient(jabber.Client):
         cert = ssl.get_peer_certificate()
         if cert is None:
             raise SSLVerifyError("Unable to retrieve peer cert")
-        
+
         subject = cert.get_subject()
         if not hasattr(subject, 'CN'):
             raise SSLVerifyError("Certificate has no Common Name")
@@ -692,13 +692,13 @@ class JabberClient(jabber.Client):
         hdot = self._host
         if hdot[-1] != '.':
             hdot = hdot + '.'
-        
+
         if common_name != hdot and not fnmatch.fnmatchcase(hdot, common_name):
             raise SSLVerifyError("Mismatch: peer name: %s; common name: %s" %
                 (self._host, common_name))
-            
+
     def retrieve_roster(self):
-        """Request the roster. Will register the roster callback, 
+        """Request the roster. Will register the roster callback,
         but the call will wait for the roster to be properly populated"""
         # Register the roster callback
         self.custom_handler.register_callback(self._roster_callback, 'iq')
@@ -707,7 +707,7 @@ class JabberClient(jabber.Client):
         iq_node.setQuery(jabber.NS_ROSTER)
         iq_node.setID(iq_node_id)
         self.send(iq_node)
-        
+
         stanza = None
         # Wait for an IQ stanza with the same ID as the one we sent
         while 1:
@@ -728,7 +728,7 @@ class JabberClient(jabber.Client):
 
     def _roster_callback(self, client, stanza):
         log_debug(3, "Updating the roster", stanza)
-        
+
         # Extract the <query> node
         qnode = stanza.getTag('query')
         if qnode is None or qnode.getNamespace() != jabber.NS_ROSTER:
@@ -741,7 +741,7 @@ class JabberClient(jabber.Client):
         if node_type not in ('result', 'set'):
             log_debug(5, "Not a result or a set, skipping")
             return
-        
+
         # Now extract the <item> nodes
         for node in qnode.getTags('item'):
             self._roster.add_item(node)
@@ -767,7 +767,7 @@ class JabberClient(jabber.Client):
         node.insertNode(qnode)
 
         self.send(node)
-        
+
     def get_one_stanza(self, timeout=None):
         """Returns one stanza (or None if timeout is set)"""
         if timeout:
@@ -784,7 +784,7 @@ class JabberClient(jabber.Client):
                 tm = None
             # No nodes in the queue, read some data
             self.process(timeout=tm)
-            
+
         # Now we have nodes in the queue
         node = self._incoming_node_queue[0]
         del self._incoming_node_queue[0]
@@ -863,7 +863,7 @@ class JabberClient(jabber.Client):
         q.insertTag('resource').insertData(resource)
 
         if auth_ret_query.getTag('token'):
-            token = auth_ret_query.getTag('token').getData() 
+            token = auth_ret_query.getTag('token').getData()
             seq = auth_ret_query.getTag('sequence').getData()
 
             h = hashlib.new('sha1', hashlib.new('sha1', password).hexdigest() + token).hexdigest()
@@ -886,7 +886,7 @@ class JabberClient(jabber.Client):
                 log_debug(4, "Need to register")
                 return self.register(username, password)
             raise
-        
+
         log_debug(4, "Authenticated")
         return True
 
@@ -911,7 +911,7 @@ class JabberClient(jabber.Client):
         subscribed -> [ both ]
                                          [ both ]
         ----------+-------------------+------------------+----------
-        
+
         Enclosed in square brackets is the state when the communication took
         place.
         """
@@ -1022,7 +1022,7 @@ class JabberClient(jabber.Client):
                 tm = start + timeout - now
             else:
                 tm = None
-            
+
             # tm is the number of seconds we have to wait (or None)
             log_debug(5, "before select(); timeout", tm)
             rfds, wfds, exfds = select.select([fileno], [], [], tm)
@@ -1058,7 +1058,7 @@ class JabberClient(jabber.Client):
                 if not data:
                     raise JabberError("Premature EOF")
                 self._parser.Parse(data)
-                    
+
             # We may not have read enough data to be able to produce a node
             if not self._incoming_node_queue:
                 # Go back and read some more
@@ -1070,7 +1070,7 @@ class JabberClient(jabber.Client):
                 return 0
             return len(self._incoming_node_queue)
         return 0
-        
+
 
     def register(self, username, password):
         log_debug(2, username, password)
@@ -1121,7 +1121,7 @@ class JabberClient(jabber.Client):
                 # get_one_stanza should only return None for a timeout
                 assert timeout is not None
                 break
-                
+
             error_code = stanza.getErrorCode()
             if error_code:
                 # Error
@@ -1134,7 +1134,7 @@ class JabberClient(jabber.Client):
             if ID == tid:
                 # This is the node
                 return stanza
-            
+
             # Keep looking for stanzas until we time out (if a timeout was
             # passed)
 
@@ -1153,7 +1153,7 @@ class JabberClient(jabber.Client):
             raise JabberQualifiedError(self.lastErrCode, self.lastErr)
 
         raise JabberError("Unknown error", self.lastErr)
-            
+
 
     def get_unique_id(self):
         seq = self._seq
@@ -1213,12 +1213,12 @@ class JabberClient(jabber.Client):
             # case
             self.subscribe_to_presence([jid])
             return
-        
+
         if presence_type in ('unsubscribed', 'unavailable'):
-            log_debug(4, "Node is unavailable", jid, presence_type) 
+            log_debug(4, "Node is unavailable", jid, presence_type)
             self.set_jid_unavailable(jid)
             return
-        
+
         if presence_type == 'subscribe':
             # XXX misa 20051111: don't check signatures for presence anymore,
             # the fact they expire makes them unreliable
@@ -1301,7 +1301,7 @@ class JabberClient(jabber.Client):
             log_debug(1, 'Unsupported message type %s ignored' % message_type)
             return None
 
-        x_delayed_nodes = self.match_stanza_tags(stanza, 'x', 
+        x_delayed_nodes = self.match_stanza_tags(stanza, 'x',
             namespace=jabber.NS_DELAY)
         if x_delayed_nodes:
             log_debug(1, 'Ignoring delayed stanza')
@@ -1341,16 +1341,16 @@ def generate_random_string(length=20):
         cur_length = cur_length + len(buf)
         if cur_length >= length:
             break
- 
+
     devrandom.close()
- 
+
     result = string.join(result, '')[:length]
     return string.lower(result)
 
 def push_to_background():
     log_debug(3, "Pushing process into background")
     # Push this process into background
-    pid = os.fork() 
+    pid = os.fork()
     if pid > 0:
         # Terminate parent process
         os._exit(0)
@@ -1361,7 +1361,7 @@ def push_to_background():
 
     # Change working directory
     os.chdir('/')
-    
+
     # Set umask
     #7/7/05 wregglej 162619 set the umask to 0 so the remote scripts can run
     os.umask(0)
@@ -1369,7 +1369,7 @@ def push_to_background():
     #redirect stdin, stdout, and stderr.
     for f in sys.stdout, sys.stderr:
         f.flush()
-        
+
     #files we want stdin,stdout and stderr to point to.
     si = open("/dev/null", 'r')
     so = open("/dev/null", 'a+')
@@ -1466,16 +1466,16 @@ class Roster:
 
     def __repr__(self):
         return "Roster:\n\tto: %s\n\tfrom: %s\n\tboth: %s\n\tnone: %s" % (
-            self._subscribed_to.keys(), 
-            self._subscribed_from.keys(), 
-            self._subscribed_both.keys(), 
+            self._subscribed_to.keys(),
+            self._subscribed_from.keys(),
+            self._subscribed_both.keys(),
             self._subscribed_none.keys(),
         )
 
 
 def strip_resource(jid):
     # One doesn't subscribe to a specific resource
-    if not isinstance(jid, jabber.JID): 
+    if not isinstance(jid, jabber.JID):
         jid = jabber.JID(jid)
     return jid.getStripped()
 

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -26,7 +26,7 @@ class rhncfgConfigParser(ConfigParser.ConfigParser):
 
     def __init__(self, section, defaults=None):
         """defaults is either None, or a dictionary of default values which can be overridden"""
-        if defaults: 
+        if defaults:
             for (k, v) in defaults.iteritems():
               if type(v) == int:
                     defaults[k] = str(v)
@@ -42,13 +42,13 @@ class rhncfgConfigParser(ConfigParser.ConfigParser):
         try:
             self.read(self._get_config_files())
         except ConfigParser.MissingSectionHeaderError, e:
-            print "Config error: line %s, file %s: %s" % (e.lineno, 
+            print "Config error: line %s, file %s: %s" % (e.lineno,
                 e.filename, e)
             sys.exit(1)
 
     def _get_config_files(self):
         if string.find(sys.platform, 'sunos') > -1:
-            return [ 
+            return [
                 "/opt/redhat/rhn/solaris/etc/sysconfig/rhn/%s.conf" % self.section,
                 os.path.join(utils.get_home_dir(), self._local_config_file_name),
                 self._local_config_file_name,
@@ -68,25 +68,25 @@ class rhncfgConfigParser(ConfigParser.ConfigParser):
             if self.mydefaults.has_key('server_list'):
                 if type(self.mydefaults['server_list']) is type([]):
                     return self.mydefaults['server_list']
-                
+
         try:
             ret = self.get(self.section, option, vars=self.overrides)
 
             #5/25/05 wregglej - 158694
             #Move the cast to an int to here from the up2date_config_parser, that way the stuff that needs to get interpolated
-            #gets interpolated, the stuff that should be an int ends up and int, and the stuff that's neither doesn't get 
+            #gets interpolated, the stuff that should be an int ends up and int, and the stuff that's neither doesn't get
             #messed with.
             try:
                 if type(ret) != type([]):
                     ret = int(ret)
             except ValueError:
                 pass
-            return ret 
-        except (ConfigParser.NoOptionError, ConfigParser.NoSectionError), e:            
+            return ret
+        except (ConfigParser.NoOptionError, ConfigParser.NoSectionError), e:
             pass
 
         defaults = self.defaults()
-        
+
         if defaults.has_key(option):
             return defaults[option]
         else:
@@ -101,7 +101,7 @@ class rhncfgConfigParser(ConfigParser.ConfigParser):
 def init(section, defaults=None, **overrides):
     cp = rhncfgConfigParser._instance = rhncfgConfigParser(section, defaults)
     cp.read_config_files(overrides)
-    
+
 def get(var):
     return _get_config().get_option(var)
 

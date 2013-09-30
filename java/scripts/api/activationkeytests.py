@@ -21,8 +21,8 @@ class ActivationKeyTests(RhnTestCase):
     def create_key(self):
         random_int = randint(1, 1000000)
         self.key = "xmlrpckey_python"  + str(random_int)
-        self.key = client.activationkey.create(self.session_key, self.key, 
-            "xmlrpc test key " + str(random_int), BASE_CHANNEL_LABEL, 0, 
+        self.key = client.activationkey.create(self.session_key, self.key,
+            "xmlrpc test key " + str(random_int), BASE_CHANNEL_LABEL, 0,
             ["provisioning_entitled"], False)
         print "created key: %s" % self.key
         return self.key
@@ -31,8 +31,8 @@ class ActivationKeyTests(RhnTestCase):
     def test_create_new_key(self):
         random_int = randint(1, 1000000)
         key = "xmlrpckey" + str(random_int)
-        newkey = client.activationkey.create(self.session_key, key, 
-            "xmlrpc test key " + str(random_int), BASE_CHANNEL_LABEL, 0, 
+        newkey = client.activationkey.create(self.session_key, key,
+            "xmlrpc test key " + str(random_int), BASE_CHANNEL_LABEL, 0,
             ["provisioning_entitled"], False)
 
         new_details = {}
@@ -49,7 +49,7 @@ class ActivationKeyTests(RhnTestCase):
         self.assertEquals(BASE_CHANNEL_LABEL, new_details['base_channel_label'])
 
         # Add some new entitlements:
-        client.activationkey.addEntitlements(self.session_key, newkey, 
+        client.activationkey.addEntitlements(self.session_key, newkey,
             ['monitoring_entitled', 'virtualization_host'])
 
         client.activationkey.addChildChannels(self.session_key, newkey,

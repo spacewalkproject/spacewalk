@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import sys
@@ -27,7 +27,7 @@ __rhnexport__ = [
 ]
 
 def initiate(kickstart_host, base, extra_append, static_device="", system_record="", preserve_files=[], cache_only=False):
-    log = up2dateLog.initLog() 
+    log = up2dateLog.initLog()
     log.log_me("initiating spacewalkkoan kickstart")
     return spacewalkkoan.initiate(kickstart_host, base, extra_append=extra_append,
         static_device=static_device, system_record=system_record, preserve_files=preserve_files)

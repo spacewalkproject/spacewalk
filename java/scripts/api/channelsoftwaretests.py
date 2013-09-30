@@ -147,7 +147,7 @@ class ChannelSoftware(RhnTestCase):
         self.assertTrue(len(fromErrata) == len(toErrata))
         self.assertTrue(fromErrata == toErrata)
 
-        # attempt a second merge of the same errata and confirm that 
+        # attempt a second merge of the same errata and confirm that
         # there is no change to the errata in the 'to channel'...
         # there shouldn't be since the channel already had those errata...
         mergeResult = client.channel.software.mergeErrata(self.session_key, CHANNEL_LABEL, toChannelLabel)

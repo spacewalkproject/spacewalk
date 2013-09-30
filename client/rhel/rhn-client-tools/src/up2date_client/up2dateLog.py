@@ -14,18 +14,18 @@ class Log:
         self.app = "up2date"
         self.cfg = config.initUp2dateConfig()
         self.log_info = ''
-    
+
     def set_app_name(self, name):
         self.app = str(name)
-    
+
     def log_debug(self, *args):
         if self.cfg["debug"] > 1:
             self.log_me("D: ", *args)
-    
+
     def log_me(self, *args):
         """General logging function.
         Eg: log_me("I am a banana.")
-        
+
         """
         self.log_info = "[%s] %s" % (time.ctime(time.time()), self.app)
         s = u""
@@ -52,9 +52,9 @@ class Log:
         output = output + traceback.format_list(traceback.extract_tb(tb))
         output.append("%s: %s\n" % (logtype, value))
         self.write_log("".join(output))
-    
+
     def write_log(self, s):
-        
+
         log_name = self.cfg["logFile"] or "/var/log/up2date"
         log_file = open(log_name, 'a')
         msg = u"%s %s\n" % (self.log_info, s)

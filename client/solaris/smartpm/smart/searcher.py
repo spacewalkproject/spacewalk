@@ -29,7 +29,7 @@ class Searcher(object):
     """
     The search mechanism is smart is accessed mainly by giving a
     Searcher instance to the cache.search() method.
-    
+
     Internally, the searching may go through different paths depending
     on the kind of information being looked for. More specifically:
 

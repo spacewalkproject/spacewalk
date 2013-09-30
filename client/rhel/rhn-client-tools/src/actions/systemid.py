@@ -23,7 +23,7 @@ def disable(messageText, cache_only=None):
     fd.write("Disable lock created on %s. RHN Server Message:\n\n%s\n" % (
         time.ctime(time.time()), messageText))
     fd.close()
-    
+
     # done if we survived this long
     return(0, "systemId disable lock file has been writen", {})
 

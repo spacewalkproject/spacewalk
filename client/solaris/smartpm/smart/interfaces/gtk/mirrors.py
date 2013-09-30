@@ -94,7 +94,7 @@ class GtkMirrors(object):
             for mirror in mirrors[origin]:
                 iter = self._treemodel.append(parent, (mirror,))
         self._treeview.expand_all()
-            
+
     def show(self):
         self.fill()
         self._window.show()
@@ -181,7 +181,7 @@ class MirrorCreator(object):
         table.set_col_spacings(10)
         table.show()
         vbox.pack_start(table)
-        
+
         label = gtk.Label(_("Origin URL:"))
         label.set_alignment(1.0, 0.5)
         label.show()

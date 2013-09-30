@@ -294,7 +294,7 @@ def main(ctrl, opts, reloadchannels=True):
                                 newpackages[pkg] = True
         packages = newpackages.keys()
 
-    
+
     format = opts.format.lower()+"output"
     for attr, value in globals().items():
         if attr.lower() == format:
@@ -723,7 +723,7 @@ class PrologOutput(NullOutput):
         for fact in facts:
             print fact
         print
-    
+
     def showPackage(self, pkg):
         self.add("package('%s')." % pkg)
         if self.opts.show_priority:

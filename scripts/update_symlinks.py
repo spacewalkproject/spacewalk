@@ -8,10 +8,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 #
 # Test for blob updates
@@ -19,12 +19,12 @@
 # $Id$
 
 """
-This script is meant to be used by spacewalk users upgrading from  1.0 to 1.1. 
-The schema storing the symlinks target path was updated between spacewalk 1.0 to 1.1 
+This script is meant to be used by spacewalk users upgrading from  1.0 to 1.1.
+The schema storing the symlinks target path was updated between spacewalk 1.0 to 1.1
 from a blob in rhnConfigContent to symlink_target_filename_id in rhnConfigInfo.
 
 This script extracts symlink paths that were previously stored as blobs in rhnConfigContent
-and then creates an entry in rhnConfigFileName with that path and sets the 
+and then creates an entry in rhnConfigFileName with that path and sets the
 rhnConfigInfo.symlink_target_filename_id.
 
 It acquires the database information from rhn.conf
@@ -48,32 +48,32 @@ def setup_db():
     db_user = CFG.DB_user
     db_password = CFG.DB_PASSWORD
     database = CFG.DB_NAME
-    rhnSQL.initDB(backend=db_backend, host=db_host, port=db_port, 
+    rhnSQL.initDB(backend=db_backend, host=db_host, port=db_port,
                         username=db_user, password=db_password, database=database)
 
 def main():
     setup_db()
     print "================="
     print "Updating Symbolic Links"
-    q = """select cr.id as rev_id, 
+    q = """select cr.id as rev_id,
                     ccon.id as content_id,
                     ccon.contents,
                     cr.CONFIG_INFO_ID as info_id,
                     cf.id as file_id,
                     cc.org_id,
                     wc.name as org_name,
-                    ci.SELINUX_CTX as selinux, 
+                    ci.SELINUX_CTX as selinux,
                     cfn.path as path,
                     ci.SYMLINK_TARGET_FILENAME_ID as info_target,
                     nvl( (select path from rhnCOnfigFileName where id = ci.SYMLINK_TARGET_FILENAME_ID), 'None') as name_target
-           from rhnConfigContent ccon 
+           from rhnConfigContent ccon
             inner join rhnConfigRevision cr on cr.config_content_id = ccon.id
             inner join rhnConfigFile cf on cr.CONFIG_FILE_ID  = cf.id
             inner join rhnConfigFileName cfn on cfn.id = cf.config_file_name_id
             inner join rhnConfigInfo ci on ci.id = cr.CONFIG_INFO_ID
             inner join rhnConfigChannel cc on cf.CONFIG_CHANNEL_ID = cc.id
             inner join web_customer wc on cc.org_id = wc.id
-            where 
+            where
             cr.CONFIG_FILE_TYPE_ID in (select id from rhnConfigFileType where label='symlink')"""
     h = rhnSQL.prepare(q)
     h.execute()
@@ -97,10 +97,10 @@ def main():
                    symlink_target = rhnSQL.read_lob(row["contents"])))
 
 
-    update_query = """update rhnConfigRevision set config_info_id =                            
+    update_query = """update rhnConfigRevision set config_info_id =
         lookup_config_info(null, null, null, :selinux, lookup_config_filename(:symlink_target)) where id = :revision_id"""
 
-    null_symlink_update_query = """update rhnConfigRevision set config_info_id =                            
+    null_symlink_update_query = """update rhnConfigRevision set config_info_id =
         lookup_config_info(null, null, null, :selinux, null) where id = :revision_id"""
 
     update_cr = """ update rhnConfigRevision set config_content_id = null where id = :revision_id"""
@@ -111,7 +111,7 @@ def main():
     Update URL: https://<FQDN>/rhn/configuration/file/FileDetails.do?cfid=%(file_id)d&crid=%(revision_id)d
     Organization Id : [%(org_id)d]
     Organization Name : [%(org_name)s]
-    """    
+    """
     bad_items = list()
     for item in contents:
         if item['symlink_target'] is None:
@@ -131,10 +131,10 @@ def main():
     print "%d rows updated." % len(contents)
     print "Update completed"
     print "================="
-    msg = """ 
-    The following symbolic link paths are either null or not absolute or above 1024 characters in length. 
-    While entries have been added in the DB, the values have to be updated for them in the Web UI. 
-    Please go to the provided url, logging in as a user with config admin/org admin role in the specified organization 
+    msg = """
+    The following symbolic link paths are either null or not absolute or above 1024 characters in length.
+    While entries have been added in the DB, the values have to be updated for them in the Web UI.
+    Please go to the provided url, logging in as a user with config admin/org admin role in the specified organization
     and update the target path value accordingly.
     """
 

@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import commands
@@ -45,8 +45,8 @@ def start_domain(uuid):
     # Connect to the hypervisor.
     connection = libvirt.open(None)
 
-    # We will attempt to determine if the domain is configured to use a 
-    # bootloader.  If not, we'll have to explicitly use the kernel and initrd 
+    # We will attempt to determine if the domain is configured to use a
+    # bootloader.  If not, we'll have to explicitly use the kernel and initrd
     # data provided in the config to start the domain.
     try:
         config.getConfigItem(DomainConfig.BOOTLOADER)
@@ -55,7 +55,7 @@ def start_domain(uuid):
         # the disk image if its Xen. For fully virt we dont have pygrub, it
         # directly emulates the BIOS loading the first sector of the boot disk.
         if connection.getType() == 'Xen':
-            # This uses pygrub which comes only with xen 
+            # This uses pygrub which comes only with xen
             _prepare_guest_kernel_and_ramdisk(config)
 
     # Now, we'll restart the instance, this time using the re-create XML.
@@ -73,7 +73,7 @@ def start_domain(uuid):
 def _prepare_guest_kernel_and_ramdisk(config):
     """
     Use PyGrub to extract the kernel and ramdisk from the given disk image.
-    """ 
+    """
 
     disk_image = config.getConfigItem(DomainConfig.DISK_IMAGE_PATH)
 
