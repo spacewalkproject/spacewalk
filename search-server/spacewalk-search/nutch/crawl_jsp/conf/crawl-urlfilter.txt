@@ -51,8 +51,8 @@
 #ingore all svn entries
 -.*\.svn
 #only read in english docs from these locations
-+.*/docs/guides/channel-mgmt/en/
 +.*/docs/guides/client-config/en/
++.*/docs/guides/getting-started/en/
 +.*/docs/guides/proxy/rhn511/en/
 +.*/docs/release-notes/satellite/rhn510/en-US/
 +.*/docs/guides/satellite/en/
