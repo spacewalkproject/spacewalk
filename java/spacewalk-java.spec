@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.49
+Version: 2.1.50
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Sep 30 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.50-1
+- removed trailing whitespaces
+
 * Mon Sep 30 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.49-1
 - UserManagerTest: fix new timezone ordering
 - Orphaned class PushDispatcher removed
