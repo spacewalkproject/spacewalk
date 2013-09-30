@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.1.7
+Version: 2.1.8
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -357,6 +357,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Mon Sep 30 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.8-1
+- 994531 - uptime report: respect xmlrpc's integer limits
+
 * Tue Sep 17 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.7-1
 - Grammar error occurred
 
