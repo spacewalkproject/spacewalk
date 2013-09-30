@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.1.8
+Version:     2.1.9
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -64,6 +64,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Sep 30 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.9-1
+- Fix typo, the decoded output need to be printed...
+
 * Mon Sep 23 2013 Aron Parsons <aronparsons@gmail.com> 2.1.8-1
 - spacecmd: use a non-privileged API call to check session validity
 - spacecmd: handle base64-encoded output in schedule_getoutput
