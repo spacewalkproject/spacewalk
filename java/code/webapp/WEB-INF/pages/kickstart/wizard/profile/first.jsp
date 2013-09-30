@@ -124,7 +124,7 @@ function clickNewestTree() {
                 <bean:message key="kickstart.jsp.create.wizard.virtualization.label" />
             </label>
             <div class="col-lg-6">
-                <html:select property="virtualizationTypeLabel">
+                <html:select property="virtualizationTypeLabel" styleClass="form-control">
                     <html:optionsCollection property="virtualizationTypes" label="formattedName" value="label" />
                 </html:select>
             </div>
