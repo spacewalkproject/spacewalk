@@ -197,8 +197,10 @@ function pageResponse(data) {
     if (typeof(resp['header']) != 'undefined') {
             dwr.util.setValue("header_selcount", resp.header, {escapeHtml: false});
     }
-    dwr.util.setValue("pagination_selcount_top", resp.pagination);
-    dwr.util.setValue("pagination_selcount_bottom", resp.pagination);
+    if (document.getElementById('pagination_selcount_top')) {
+      dwr.util.setValue("pagination_selcount_top", resp.pagination);
+      dwr.util.setValue("pagination_selcount_bottom", resp.pagination);
+    }
 }
 
 function sortColumn(sortByWidget, sortByValue, sortDirWidget, sortDirValue) {
