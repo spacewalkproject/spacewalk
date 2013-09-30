@@ -4,7 +4,7 @@ Summary: Python libraries for the Spacewalk project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.66
+Version: 2.5.67
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Mon Sep 30 2013 Michael Mraka <michael.mraka@redhat.com> 2.5.67-1
+- removed trailing whitespaces
+
 * Tue Sep 17 2013 Michael Mraka <michael.mraka@redhat.com> 2.5.66-1
 - Grammar error occurred
 
