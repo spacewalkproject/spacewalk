@@ -19,19 +19,38 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
+import java.io.File;
 import java.util.Iterator;
 import java.util.Properties;
+
+import org.apache.commons.io.FileUtils;
 
 public class ConfigTest extends RhnBaseTestCase {
     static final String TEST_KEY = "user";
     static final String TEST_VALUE = "newval";
-    static final String TEST_CONF_LOCATION = "/usr/share/rhn/unit-tests/conf";
     private Config c;
 
     public void setUp() throws Exception {
         c = new Config();
-        c.addPath(TEST_CONF_LOCATION + "/default");
-        c.addPath(TEST_CONF_LOCATION);
+
+        // create test config path
+        String confPath = "/tmp/" + TestUtils.randomString() + "/conf";
+        String defaultPath = confPath + "/default";
+        new File(defaultPath).mkdirs();
+
+        // copy test configuration files over
+        FileUtils.copyURLToFile(TestUtils.findTestData("conf/rhn.conf"), new File(confPath,
+                "rhn.conf"));
+        FileUtils.copyURLToFile(TestUtils.findTestData("conf/default/rhn_web.conf"),
+                new File(defaultPath, "rhn_web.conf"));
+        FileUtils.copyURLToFile(TestUtils.findTestData("conf/default/rhn_prefix.conf"),
+                new File(defaultPath, "rhn_prefix.conf"));
+        FileUtils.copyURLToFile(TestUtils
+                .findTestData("conf/default/bug154517.conf.rpmsave"),
+                new File(defaultPath, "bug154517.conf.rpmsave"));
+
+        c.addPath(confPath);
+        c.addPath(defaultPath);
         c.parseFiles();
     }
 
