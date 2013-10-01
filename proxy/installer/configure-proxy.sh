@@ -96,7 +96,7 @@ set_value() {
     local VAR="$2"
     local ARG="$3"
     [[ "$ARG" =~ ^- ]] && echo "$0: option $OPTION requires argument!" && print_help
-    eval "$VAR=$ARG"
+    eval "$(printf "%q=%q" "$VAR" "$ARG")"
 }
 
 INTERACTIVE=1
@@ -108,6 +108,7 @@ if [ $? != 0 ] ; then
     print_help
 fi
 
+# It is getopt's responsibility to make this safe
 eval set -- "$OPTS"
 
 while : ; do
@@ -159,7 +160,7 @@ default_or_input() {
     local DEFAULT="$3"
 
     local INPUT
-    local CURRENT_VALUE=$(eval "echo \$$VARIABLE")
+    local CURRENT_VALUE=${!VARIABLE}
     #in following code is used not so common expansion
     #var_a=${var_b:-word}
     #which is like: var_a = $var_b ? word
@@ -172,13 +173,13 @@ default_or_input() {
     elif [ -z "$VARIABLE_ISSET" ]; then
         echo $DEFAULT
     else
-        eval "DEFAULT=\$$VARIABLE"
+        DEFAULT=${!VARIABLE}
         echo $DEFAULT
     fi
     if [ -z "$INPUT" ]; then
         INPUT="$DEFAULT"
     fi
-    eval "$VARIABLE='$INPUT'"
+    eval "$(printf "%q=%q" "$VARIABLE" "$INPUT")"
 }
 
 yes_no() {
