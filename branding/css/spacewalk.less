@@ -16,7 +16,9 @@
 body{
 	background: #f7f7f7;
 }
-
+html, body{
+	height: 100%
+}
 header{
 	width: 100%;
 	background: url('../../img/spacewalk-header-background.png') repeat-x @gray;
@@ -67,7 +69,21 @@ h2{
 /* for the body div to make both columns the same size*/
 .row.body-container{
 	overflow: hidden;
-	min-height: 100%
+	min-height: 100%;
+}
+/* style for the login page */
+.wrap{
+	overflow: hidden;
+	min-height: 100%;
+	margin:0 auto -80px auto;
+	padding: 0 0 80px
+}
+.login-page{
+	width: 70%;
+	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
+	overflow: hidden;
 }
 /* adding margin to the icons in fontawesome */
 [class^="icon-"],
