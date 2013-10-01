@@ -1,6 +1,6 @@
 Summary: Spacewalk support for yum
 Name: yum-rhn-plugin
-Version: 2.1.3
+Version: 2.1.4
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -70,6 +70,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Mon Sep 30 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.4-1
+- removed trailing whitespaces
+
 * Mon Sep 09 2013 Stephen Herr <sherr@redhat.com> 2.1.3-1
 - 1006037 - keep yum-rhn-plugins higher default timeout
 
