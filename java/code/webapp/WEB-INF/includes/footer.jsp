@@ -2,9 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 
-<div class="col-md-2">
+<div class="col-xs-2">
 </div>
-<div class="col-md-8 text-center">
+<div class="col-xs-8 text-center">
   <bean:message key="footer.jsp.copyright" />
   <a href="https://www.redhat.com/legal/privacy_statement.html"><bean:message key="footer.jsp.privacyStatement" /></a>
   : <a href="http://www.redhat.com/legal/legal_statement.html"><bean:message key="footer.jsp.legalStatement" /></a>
@@ -16,7 +16,7 @@
       <p><c:out value="${custom_footer}" escapeXml="false" /></p>
   </c:if>
 </div>
-<div class="col-md-2 text-right">
+<div class="col-xs-2 text-right">
   <img src="/img/logo_vendor.png" />
 </div>
 
