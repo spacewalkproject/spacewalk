@@ -113,6 +113,8 @@ def processCommandline():
 				where[k] = [ v ]
 			if like:
 				where_like.append(k)
+		elif sys.argv[i].startswith('--where=') or sys.argv[i].startswith('--like='):
+			optionParser.error('no such option: %s' % sys.argv[i])
 
 		i += 1
 
