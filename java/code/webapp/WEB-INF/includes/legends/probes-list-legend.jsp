@@ -3,24 +3,19 @@
 <div class="sideleg">
   <h2><bean:message key="probes-list-legend.jsp.title"/></h2>
   <ul>
-  <li><img src="/img/rhn-mon-ok.gif" title="<bean:message key='monitoring.status.ok'/>"
-       alt="<bean:message key='monitoring.status.ok'/>"/>
+  <li><i class="spacewalk-icon-health spacewalk-icon-green"></i>
     <bean:message key="probes-list-legend.jsp.ok"/>
   </li>
-  <li><img src="/img/rhn-mon-warning.gif" title="<bean:message key='monitoring.status.warn'/>"
-       alt="<bean:message key='monitoring.status.warn'/>"/>
+  <li><i class="spacewalk-icon-health spacewalk-icon-yellow"></i>
     <bean:message key="probes-list-legend.jsp.warning"/>
   </li>
-  <li><img src="/img/rhn-mon-down.gif" title="<bean:message key='monitoring.status.critical'/>"
-       alt="<bean:message key='monitoring.status.critical'/>"/>
+  <li><i class="spacewalk-icon-health spacewalk-icon-red"></i>
     <bean:message key="probes-list-legend.jsp.critical"/>
   </li>
-  <li><img src="/img/rhn-mon-unknown.gif" title="<bean:message key='monitoring.status.unknown'/>"
-           alt="<bean:message key='monitoring.status.unknown'/>"/>
+  <li><i class="spacewalk-icon-health-unknown"></i>
     <bean:message key="probes-list-legend.jsp.unknown"/>
   </li>
-  <li><img src="/img/rhn-mon-pending.gif" title="<bean:message key='monitoring.status.pending'/>"
-       alt="<bean:message key='monitoring.status.pending'/>"/>
+  <li><i class="spacewalk-icon-health-pending"></i>
     <bean:message key="probes-list-legend.jsp.pending"/>
   </li>
   </ul>
