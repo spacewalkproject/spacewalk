@@ -40,3 +40,4 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="/javascript/prototype-1.6.0.js"></script>
     <script src="/javascript/check_all.js"></script>
+    <script src="/javascript/spacewalk-essentials.js"></script>

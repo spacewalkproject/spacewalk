@@ -4,7 +4,8 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <html>
 <head>
-  <script src="/javascript/focus.js" type="text/javascript"></script>
+  <script src="/javascript/focus.js"></script>
+  <script src="/javascript/spacewalk-login.js"></script>
   <script>
     // Remove the aside to center the login
     function setupLogin() {
