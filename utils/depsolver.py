@@ -111,7 +111,7 @@ class DepSolver:
         all_results = {}
 
         while to_solve:
-            log.debug("Solving %s \n\n" % to_solve)
+            log.debug("Solving %s \n\n", to_solve)
             results = self.getDependencylist()
             all_results.update(results)
             found = self.processResults(results)[0]
