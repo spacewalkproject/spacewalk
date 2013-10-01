@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.50
+Version: 2.1.51
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Oct 01 2013 Grant Gainey <ggainey@redhat.com> 2.1.51-1
+- Refactoring that lets us log serialization errors * Added
+  RhnXmlRpcCustomSerializer base class * Refactored all Serializers to extend
+  from RhnXmlRpcCustomSerializer * Refactored SerializerFactory to be
+  less...clever
+
 * Mon Sep 30 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.50-1
 - removed trailing whitespaces
 
