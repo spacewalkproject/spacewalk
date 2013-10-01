@@ -41,14 +41,14 @@ class  ConfManager:
         #Change the files options to lists.
         if (self.defaultconfig.__dict__.has_key('files') and
             not type(self.defaultconfig.files) == type([])):
-            self.defaultconfig.files = map(lambda x: x.strip(),
-                                           self.defaultconfig.files.split(','))
+            self.defaultconfig.files = [x.strip() for x in
+                                           self.defaultconfig.files.split(',')]
 
         #Change the exclude options to list.
         if (self.defaultconfig.__dict__.has_key('exclude') and
             not type(self.defaultconfig.__dict__['exclude']) == type([])):
-            self.defaultconfig.exclude = map(lambda x: x.strip(),
-                                             self.defaultconfig.exclude.split(','))
+            self.defaultconfig.exclude = [x.strip() for x in
+                                             self.defaultconfig.exclude.split(',')]
 
 
     #Changes every option in config that is also in store_true_list that is set to '0' to None
@@ -70,8 +70,8 @@ class  ConfManager:
             #an empty string array from of size 1 [''] .
             self.defaultconfig.channel = []
         else:
-            self.defaultconfig.channel = map(lambda x: x.strip(),
-                                             self.defaultconfig.channel.split(','))
+            self.defaultconfig.channel = [x.strip() for x in
+                                             self.defaultconfig.channel.split(',')]
 
         #Get the command line arguments. These take precedence over the other settings
         argoptions, files = self.cmdconfig.parse_args()

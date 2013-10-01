@@ -255,7 +255,7 @@ class PackageUpload:
 
     def get_error_message(self, headers):
         prefix = self.header_prefix + '-Error'
-        text = map(lambda x: x[1], headers.getaddrlist(prefix + '-String'))
+        text = [x[1] for x in headers.getaddrlist(prefix + '-String')]
         # text is a list now, convert it to a string
         text = '\n'.join(text)
         text = base64.decodestring(text)
