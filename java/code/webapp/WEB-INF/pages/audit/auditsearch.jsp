@@ -22,9 +22,7 @@
 
 <script type="text/javascript">
 <c:out escapeXml="false" value="//<![CDATA[" />
-    var typeSets = new Hash(
-        <c:out escapeXml="false" value="${auJsonTypes}" />
-    );
+    var typeSets = <c:out escapeXml="false" value="${auJsonTypes}" />;
 
     function check_defaults() {
         check_set("default");
@@ -42,49 +40,44 @@
     function check_set(setName) {
         uncheck_all();
 
-        typeSets.get(setName).each(function(typeName) {
-            var cbox = $("type_" + typeName);
-
-            if (cbox) {
-                cbox.checked = "checked";
-            }
+        $.each(typeSets[setName], function(index, typeName) {
+            $("#type_" + typeName).prop('checked', 'checked');
         });
     }
 
     function check_set_from_option(ev) {
         check_set(this.innerHTML);
-        ev.stop();
+        ev.stopPropagation();
     }
 
     // set all checkboxes to val
     function set_checkboxes(val) {
-        $$("input[type=checkbox]").each(function(cbox) {
-            cbox.checked = val;
-        });
+        $("input[type=checkbox]").prop('checked', val);
     }
 
-    function init() {
+    $(document).ready(function() {
         check_defaults();
 
-        Event.observe('check_all_button', 'click', check_all);
-        Event.observe('uncheck_all_button', 'click', uncheck_all);
+        $('#check_all_button').click(check_all);
+        $('#uncheck_all_button').click(uncheck_all);
 
         // create the 'set selector' dropdown
-        var setChooser = new Element('select');
-        setChooser.insert(new Element('option').update('Check [set]'));
+        var setChooser = $(document.createElement('select'));
+        setChooser.append(
+            $(document.createElement('option')).html('Check [set]')
+        );
 
-        typeSets.keys().each(function(key) {
-            setChooser.insert(
-                new Element('option')
-                    .observe('click', check_set_from_option)
-                    .update(key)
+        $.each(typeSets, function(key, typeName) {
+            setChooser.append(
+              $(document.createElement('option'))
+              .click(check_set_from_option)
+              .html(key)
             );
         });
 
-        $('checkboxControls').insert(setChooser);
-    }
+        $('#checkboxControls').append(setChooser);
+    });
 
-    document.observe("dom:loaded", init);
 <c:out escapeXml="false" value="//]]>" />
 </script>
 
