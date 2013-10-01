@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.12
+Version: 2.1.13
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Tue Oct 01 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.13-1
+- 1012261 - report system virtualization type
+- 1009462 - display error message for --(like|where)=<column-id>
+
 * Tue Oct 01 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.12-1
 - using bind variable in postgres
 
