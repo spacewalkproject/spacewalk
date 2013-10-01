@@ -44,6 +44,6 @@
     </div>
     <footer class="row">
       <jsp:include page="/WEB-INF/includes/footer.jsp" />
-    </footer>    
+    </footer>
   </body>
 </html:html>
