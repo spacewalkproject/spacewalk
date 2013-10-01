@@ -214,7 +214,7 @@ class BrokerHandler(SharedHandler):
 
         # list of tokens to be pushed into the headers.
         tokens.append(authToken)
-        tokens = filter(lambda token: token, tokens)
+        tokens = [t for t in tokens if t]
 
         _oto['X-RHN-Proxy-Auth'] = ','.join(tokens)
         log_debug(5, '    (auth token after): %s'
@@ -413,7 +413,7 @@ class BrokerHandler(SharedHandler):
                 # Multivalued header
                 #values = headers.getHeaderValues(k)
                 values = self._get_header(k)
-                token[k] = map(lambda x: x.split(':'), values)
+                token[k] = [x.split(':') for x in values]
             else:
                 # Single-valued header
                 token[k] = headers[k]
@@ -514,7 +514,7 @@ class BrokerHandler(SharedHandler):
             raise rhnFault(34) # Session key has expired
 
         # Only autherized channels are the ones stored in the cache.
-        authChannels = map(lambda x: x[0], self.authChannels)
+        authChannels = [x[0] for x in self.authChannels]
         log_debug(4, "Auth channels: '%s'" % authChannels)
         # Check the authorization
         if channel not in authChannels:
