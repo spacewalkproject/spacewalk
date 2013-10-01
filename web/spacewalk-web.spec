@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.21
+Version: 2.1.22
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -272,6 +272,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Oct 01 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.22-1
+- 1013629 - clean up old help links
+
 * Tue Sep 17 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.21-1
 - do not reshape logo in un-authenitaced 40x and 500 pages
 
