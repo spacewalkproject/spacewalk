@@ -29,6 +29,7 @@ columns:
 	virtual_host:i		System identifier of host, if system is a guest
 	architecture		Architecture of the system
 	is_virtualized	Information whether system is virtualized or not
+  virt_type System virtualization type
 	osad_status	OSAD status
 	hardware		Hardware information
 
@@ -47,7 +48,7 @@ sql:
 		registration_time, last_checkin_time, kernel_version,
 		packages_out_of_date, errata_out_of_date,
 		software_channel, configuration_channel,
-		entitlements, system_group, organization, virtual_host, architecture, is_virtualized, osad_status, hardware
+		entitlements, system_group, organization, virtual_host, architecture, is_virtualized, virt_type, osad_status, hardware
 	from (
 	select rhnserver.id as server_id, rhnserver.name as profile_name,
 		rhnservernetwork.hostname, trim(rhnservernetwork.ipaddr) as ip_address,
@@ -78,6 +79,7 @@ sql:
 		) as architecture,
 		(case when (select rhnVirtualInstance.virtual_system_id from rhnVirtualInstance where rhnVirtualInstance.virtual_system_id=rhnserver.id) is null then 'No' else 'Yes' end
 ) as is_virtualized,
+    (select rvit.name from rhnvirtualinstance rvi inner join rhnvirtualinstanceinfo rvii on rvi.id = rvii.instance_id inner join rhnvirtualinstancetype rvit on rvii.instance_type = rvit.id where rvi.virtual_system_id = rhnserver.id) as virt_type,
 		(nvl((select rhnpushclientstate.label from rhnpushclient join rhnpushclientstate on rhnpushclient.state_id=rhnpushclientstate.id where rhnpushclient.server_id=rhnServer.id), 'Not enabled')) as osad_status,
 		get_hw_info_as_clob(rhnserver.id, '; ') as hardware
 	from rhnserver left outer join
