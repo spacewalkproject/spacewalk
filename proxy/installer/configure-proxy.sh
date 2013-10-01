@@ -235,17 +235,12 @@ WARNING
     fi
 }
 
-#do we have yum or up2date?
-YUM_OR_UPDATE="up2date -i"
-UPGRADE="up2date -u"
-if [ -f /usr/bin/yum ]; then
-    YUM_OR_UPDATE="yum install"
-    UPGRADE="yum upgrade"
-    # add -y for non-interactive installation
-    if [ "$INTERACTIVE" = "0" ]; then
-        YUM_OR_UPDATE="$YUM_OR_UPDATE -y"
-        UPGRADE="$UPGRADE -y"
-    fi
+YUM="yum install"
+UPGRADE="yum upgrade"
+# add -y for non-interactive installation
+if [ "$INTERACTIVE" = "0" ]; then
+    YUM="$YUM -y"
+    UPGRADE="$UPGRADE -y"
 fi
 SYSCONFIG_DIR=/etc/sysconfig/rhn
 RHNCONF_DIR=/etc/rhn
@@ -377,7 +372,7 @@ if [ -x /usr/sbin/rhn-proxy ]; then
     /usr/sbin/rhn-proxy stop
 fi
 
-$YUM_OR_UPDATE spacewalk-proxy-management
+$YUM spacewalk-proxy-management
 # check if package install successfully
 rpm -q spacewalk-proxy-management >/dev/null
 if [ $? -ne 0 ]; then
@@ -396,14 +391,14 @@ else
         echo "You do not have monitoring installed."
         echo "Do you want to install monitoring scout?"
 
-        default_or_input "Will run '$YUM_OR_UPDATE spacewalk-proxy-monitoring'." INSTALL_MONITORING 'Y/n'
+        default_or_input "Will run '$YUM spacewalk-proxy-monitoring'." INSTALL_MONITORING 'Y/n'
         INSTALL_MONITORING=$(yes_no $INSTALL_MONITORING)
         if [ "$INSTALL_MONITORING" = "1" ]; then
-            $YUM_OR_UPDATE spacewalk-proxy-monitoring
+            $YUM spacewalk-proxy-monitoring
             MONITORING=$?
         fi
     else
-        $YUM_OR_UPDATE spacewalk-proxy-monitoring
+        $YUM spacewalk-proxy-monitoring
         # check if package install successfully
         rpm -q spacewalk-proxy-monitoring >/dev/null
         if [ $? -ne 0 ]; then
