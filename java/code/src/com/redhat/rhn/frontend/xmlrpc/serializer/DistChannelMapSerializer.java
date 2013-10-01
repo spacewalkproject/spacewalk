@@ -14,15 +14,14 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.domain.channel.DistChannelMap;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.domain.channel.DistChannelMap;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 /**
  *
@@ -38,7 +37,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *          #prop_desc("string", "org_specific", "'Y' organization specific, 'N' default")
  *     #struct_end()
  */
-public class DistChannelMapSerializer implements XmlRpcCustomSerializer {
+public class DistChannelMapSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -50,11 +49,11 @@ public class DistChannelMapSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
 
         DistChannelMap dstChannelMap = (DistChannelMap) value;
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
 
         helper.add("os", dstChannelMap.getOs());
         helper.add("release", dstChannelMap.getRelease());

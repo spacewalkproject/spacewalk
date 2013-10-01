@@ -14,15 +14,14 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.domain.server.CPU;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.domain.server.CPU;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 /**
  *
@@ -43,7 +42,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *  #struct_end()
  *
  */
-public class CpuSerializer implements XmlRpcCustomSerializer {
+public class CpuSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      *
@@ -56,9 +55,9 @@ public class CpuSerializer implements XmlRpcCustomSerializer {
      *
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
         CPU cpu = (CPU) value;
         helper.add("cache", cpu.getCache());
         helper.add("family", cpu.getFamily());

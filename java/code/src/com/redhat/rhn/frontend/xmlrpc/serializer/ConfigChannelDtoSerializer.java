@@ -14,16 +14,15 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.domain.config.ConfigChannelType;
-import com.redhat.rhn.frontend.dto.ConfigChannelDto;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.domain.config.ConfigChannelType;
+import com.redhat.rhn.frontend.dto.ConfigChannelDto;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 
 /**
@@ -42,7 +41,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *   $ConfigChannelTypeSerializer
  * #struct_end()
  */
-public class ConfigChannelDtoSerializer implements XmlRpcCustomSerializer {
+public class ConfigChannelDtoSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -54,10 +53,10 @@ public class ConfigChannelDtoSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
         ConfigChannelDto dto = (ConfigChannelDto) value;
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
         helper.add("id", dto.getId().longValue());
         helper.add("label", dto.getLabel());
         helper.add("name", dto.getName());

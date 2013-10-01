@@ -14,15 +14,14 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 
 /**
@@ -30,7 +29,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * It converts an Org to an XMLRPC &lt;struct&gt;.
  * @version $Rev$
  */
-public class OrgSerializer implements XmlRpcCustomSerializer {
+public class OrgSerializer extends RhnXmlRpcCustomSerializer {
 
     /** {@inheritDoc} */
     public Class getSupportedClass() {
@@ -38,7 +37,7 @@ public class OrgSerializer implements XmlRpcCustomSerializer {
     }
 
     /** {@inheritDoc} */
-    public void serialize(Object value, Writer output, XmlRpcSerializer serializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
 
         SerializerHelper helper = new SerializerHelper(serializer);

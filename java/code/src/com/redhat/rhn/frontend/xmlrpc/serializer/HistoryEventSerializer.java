@@ -14,15 +14,14 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.frontend.dto.HistoryEvent;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.frontend.dto.HistoryEvent;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 /**
  *
@@ -39,7 +38,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *
  *
  */
-public class HistoryEventSerializer implements XmlRpcCustomSerializer {
+public class HistoryEventSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -52,10 +51,10 @@ public class HistoryEventSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
 
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
         HistoryEvent event = (HistoryEvent) value;
 
        helper.add("summary", event.getSummary());

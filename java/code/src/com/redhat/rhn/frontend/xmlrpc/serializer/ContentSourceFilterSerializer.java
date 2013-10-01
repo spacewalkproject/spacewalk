@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.xmlrpc.serializer;
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
@@ -37,7 +36,7 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  *  #struct_end()
  *
  */
-public class ContentSourceFilterSerializer implements XmlRpcCustomSerializer {
+public class ContentSourceFilterSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -49,9 +48,9 @@ public class ContentSourceFilterSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
         ContentSourceFilter filter = (ContentSourceFilter) value;
 
         helper.add("sortOrder", filter.getSortOrder());

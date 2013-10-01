@@ -14,18 +14,17 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.common.util.StringUtil;
-import com.redhat.rhn.domain.action.script.ScriptResult;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
-import org.apache.commons.codec.binary.Base64;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
+import org.apache.commons.codec.binary.Base64;
+
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.common.util.StringUtil;
+import com.redhat.rhn.domain.action.script.ScriptResult;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 
 /**
@@ -44,7 +43,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *  #struct_end()
  *
  */
-public class ScriptResultSerializer implements XmlRpcCustomSerializer {
+public class ScriptResultSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -54,10 +53,10 @@ public class ScriptResultSerializer implements XmlRpcCustomSerializer {
     }
 
     /** {@inheritDoc} */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
         ScriptResult scriptResult = (ScriptResult)value;
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
         helper.add("serverId", scriptResult.getServerId());
         helper.add("startDate", scriptResult.getStartDate());
         helper.add("stopDate", scriptResult.getStopDate());

@@ -14,15 +14,14 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.frontend.dto.ServerPath;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.frontend.dto.ServerPath;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 
 /**
@@ -39,7 +38,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *         #prop_desc("string", "hostname", "Proxy host name")
  *  #struct_end()
  */
-public class ServerPathSerializer implements XmlRpcCustomSerializer {
+public class ServerPathSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -51,12 +50,12 @@ public class ServerPathSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
 
         ServerPath serverPath = (ServerPath)value;
 
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
         helper.add("position", serverPath.getPosition());
         helper.add("id", serverPath.getId());
         helper.add("hostname", serverPath.getHostname());

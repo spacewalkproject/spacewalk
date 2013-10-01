@@ -14,15 +14,14 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.frontend.dto.OrgTrustOverview;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.frontend.dto.OrgTrustOverview;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 
 /**
@@ -38,7 +37,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *   #array_end()
  * @version $Rev$
  */
-public class OrgTrustOverviewSerializer implements XmlRpcCustomSerializer {
+public class OrgTrustOverviewSerializer extends RhnXmlRpcCustomSerializer {
 
     /** {@inheritDoc} */
     public Class<OrgTrustOverview> getSupportedClass() {
@@ -46,7 +45,7 @@ public class OrgTrustOverviewSerializer implements XmlRpcCustomSerializer {
     }
 
     /** {@inheritDoc} */
-    public void serialize(Object value, Writer output, XmlRpcSerializer serializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
         SerializerHelper helper = new SerializerHelper(serializer);
         OrgTrustOverview tr = (OrgTrustOverview) value;

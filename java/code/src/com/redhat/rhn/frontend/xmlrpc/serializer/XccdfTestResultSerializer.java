@@ -18,7 +18,6 @@ package com.redhat.rhn.frontend.xmlrpc.serializer;
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
@@ -51,7 +50,7 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  *   #prop_desc("bool", "deletable", "Indicates whether the scan can be deleted.")
  * #struct_end()
  */
-public class XccdfTestResultSerializer implements XmlRpcCustomSerializer {
+public class XccdfTestResultSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -63,15 +62,15 @@ public class XccdfTestResultSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output,
-            XmlRpcSerializer builtInSerializer) throws XmlRpcException, IOException {
+    protected void doSerialize(Object value, Writer output,
+            XmlRpcSerializer serializer) throws XmlRpcException, IOException {
         XccdfTestResult testResult = (XccdfTestResult) value;
         ScapActionDetails actionDetails = testResult.getScapActionDetails();
         XccdfBenchmark benchmark = testResult.getBenchmark();
         XccdfProfile profile = testResult.getProfile();
         Action parentAction = actionDetails.getParentAction();
 
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
         addToHelper(helper, "xid", testResult.getId());
         addToHelper(helper, "sid", testResult.getServer().getId());
         addToHelper(helper, "path", actionDetails.getPath());

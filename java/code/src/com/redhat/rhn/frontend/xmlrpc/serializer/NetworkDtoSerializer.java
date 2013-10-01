@@ -14,17 +14,16 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.frontend.dto.NetworkDto;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
-import org.apache.commons.lang.StringUtils;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
+import org.apache.commons.lang.StringUtils;
+
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.frontend.dto.NetworkDto;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 
 /**
@@ -40,7 +39,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *              successfully checked in")
  * #struct_end()
  */
-public class NetworkDtoSerializer implements XmlRpcCustomSerializer {
+public class NetworkDtoSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -50,10 +49,10 @@ public class NetworkDtoSerializer implements XmlRpcCustomSerializer {
     }
 
     /** {@inheritDoc} */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
         NetworkDto net = (NetworkDto)value;
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
         helper.add("systemId", net.getId());
         String name = net.getName();
         if (StringUtils.isBlank(name)) {

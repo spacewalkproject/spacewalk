@@ -14,15 +14,14 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.domain.rhnpackage.PackageNevra;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.domain.rhnpackage.PackageNevra;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 
 /**
@@ -40,7 +39,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *      #prop("string", "arch")
  *  #struct_end()
  */
-public class PackageNevraSerializer implements XmlRpcCustomSerializer {
+public class PackageNevraSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -52,11 +51,11 @@ public class PackageNevraSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
 
         PackageNevra pack = (PackageNevra)value;
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
         helper.add("name", pack.getName().getName());
         helper.add("epoch", pack.getEvr().getEpoch());
         helper.add("version", pack.getEvr().getVersion());

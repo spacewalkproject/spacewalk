@@ -14,16 +14,15 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.domain.action.Action;
-import com.redhat.rhn.domain.action.server.ServerAction;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.server.ServerAction;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 
 /**
@@ -64,7 +63,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *                                       executes at the client machine. (optional)")
  *      #struct_end()
  */
-public class ServerActionSerializer implements XmlRpcCustomSerializer {
+public class ServerActionSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -74,11 +73,11 @@ public class ServerActionSerializer implements XmlRpcCustomSerializer {
     }
 
     /** {@inheritDoc} */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
         ServerAction sAct = (ServerAction) value;
         Action act = sAct.getParentAction();
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
 
         helper.add("failed_count", act.getFailedCount());
         helper.add("modified", act.getModified().toString());

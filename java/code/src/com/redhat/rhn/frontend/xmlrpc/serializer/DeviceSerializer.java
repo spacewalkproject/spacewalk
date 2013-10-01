@@ -14,15 +14,14 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.domain.server.Device;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.domain.server.Device;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 /**
  *
@@ -40,17 +39,17 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *      #prop("string", "pcitype")
  *   #struct_end()
  */
-public class DeviceSerializer implements XmlRpcCustomSerializer {
+public class DeviceSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      *
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
     throws XmlRpcException, IOException {
 
         Device dev = (Device) value;
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
         helper.add("device", dev.getDevice());
         helper.add("device_class", dev.getDeviceClass());
         helper.add("driver", dev.getDriver());

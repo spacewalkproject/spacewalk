@@ -14,24 +14,23 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.domain.entitlement.Entitlement;
-import com.redhat.rhn.domain.server.Network;
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-import com.redhat.rhn.manager.entitlement.EntitlementManager;
-
-import org.apache.commons.lang.StringUtils;
-
 import java.io.IOException;
 import java.io.Writer;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
+import org.apache.commons.lang.StringUtils;
+
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.entitlement.Entitlement;
+import com.redhat.rhn.domain.server.Network;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
+import com.redhat.rhn.manager.entitlement.EntitlementManager;
 
 
 /**
@@ -72,7 +71,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *           for virtual guests only (optional)")
  *  #struct_end()
  */
-public class ServerSerializer implements XmlRpcCustomSerializer {
+public class ServerSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -84,12 +83,12 @@ public class ServerSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
 
         Server server = (Server)value;
 
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
         helper.add("id", server.getId());
         helper.add("profile_name", server.getName());
 

@@ -15,17 +15,16 @@
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
 
-import com.redhat.rhn.domain.server.Dmi;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
-import org.apache.commons.lang.StringUtils;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
+import org.apache.commons.lang.StringUtils;
+
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.domain.server.Dmi;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 /**
  *
@@ -43,7 +42,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *          #prop_desc("string", "bios_version", "(optional)")
  *      #struct_end()
  */
-public class DmiSerializer implements XmlRpcCustomSerializer {
+public class DmiSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -54,9 +53,9 @@ public class DmiSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
-        SerializerHelper bean = new SerializerHelper(builtInSerializer);
+        SerializerHelper bean = new SerializerHelper(serializer);
         Dmi dmi = (Dmi) value;
 
         bean.add("vendor", StringUtils.defaultString(dmi.getVendor()));

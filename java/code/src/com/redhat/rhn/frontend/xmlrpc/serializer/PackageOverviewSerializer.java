@@ -14,17 +14,16 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.frontend.dto.PackageOverview;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
-import org.apache.commons.lang.StringUtils;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
+import org.apache.commons.lang.StringUtils;
+
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.frontend.dto.PackageOverview;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 /**
  * PackageOverviewSerializer
@@ -43,7 +42,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *   #prop("string", "provider")
  *   #struct_end()
  */
-public class PackageOverviewSerializer implements XmlRpcCustomSerializer {
+public class PackageOverviewSerializer extends RhnXmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
@@ -52,10 +51,10 @@ public class PackageOverviewSerializer implements XmlRpcCustomSerializer {
     }
 
     /** {@inheritDoc} */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
         PackageOverview pO = (PackageOverview)value;
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
         helper.add("id", pO.getId());
         helper.add("name", pO.getPackageName());
         helper.add("summary", pO.getSummary());

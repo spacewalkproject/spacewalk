@@ -14,15 +14,14 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.frontend.dto.ConfigSystemDto;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.frontend.dto.ConfigSystemDto;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 
 /**
@@ -35,7 +34,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *   #prop("string", "name")
  * #struct_end()
  */
-public class ConfigSystemDtoSerializer implements XmlRpcCustomSerializer {
+public class ConfigSystemDtoSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -45,12 +44,12 @@ public class ConfigSystemDtoSerializer implements XmlRpcCustomSerializer {
     }
 
     /**
-     * {@inheritDoc}builtInSerializer
+     * {@inheritDoc}serializer
      */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
         ConfigSystemDto dto = (ConfigSystemDto) value;
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
         helper.add("id", dto.getId());
         helper.add("name", dto.getName());
         helper.writeTo(output);

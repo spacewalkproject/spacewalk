@@ -14,15 +14,14 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.domain.user.RhnTimeZone;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.domain.user.RhnTimeZone;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 /**
  * RhnTimeZoneSerializer will serialize an RhnTimeZone object to XMLRPC
@@ -36,7 +35,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *   #prop_desc("string", "olson_name", "Name as identified by the Olson database.")
  * #struct_end()
  */
-public class RhnTimeZoneSerializer implements XmlRpcCustomSerializer {
+public class RhnTimeZoneSerializer extends RhnXmlRpcCustomSerializer {
 
     /** {@inheritDoc} */
     public Class getSupportedClass() {
@@ -44,11 +43,11 @@ public class RhnTimeZoneSerializer implements XmlRpcCustomSerializer {
     }
 
     /** {@inheritDoc} */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
         RhnTimeZone tz = (RhnTimeZone) value;
 
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
         helper.add("time_zone_id", new Integer(tz.getTimeZoneId()));
         helper.add("olson_name", tz.getOlsonName());
         helper.writeTo(output);

@@ -14,16 +14,15 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.domain.org.OrgFactory;
-import com.redhat.rhn.frontend.dto.OrgSoftwareEntitlementDto;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.domain.org.OrgFactory;
+import com.redhat.rhn.frontend.dto.OrgSoftwareEntitlementDto;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 
 /**
@@ -40,7 +39,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *   #prop("int", "free")
  * #struct_end()
  */
-public class OrgSoftwareEntitlementDtoSerializer implements XmlRpcCustomSerializer {
+public class OrgSoftwareEntitlementDtoSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -52,10 +51,10 @@ public class OrgSoftwareEntitlementDtoSerializer implements XmlRpcCustomSerializ
     /**
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output,
-            XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output,
+            XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
         OrgSoftwareEntitlementDto dto = (OrgSoftwareEntitlementDto) value;
         helper.add("org_id", dto.getOrg().getId());
         helper.add("org_name", dto.getOrg().getName());

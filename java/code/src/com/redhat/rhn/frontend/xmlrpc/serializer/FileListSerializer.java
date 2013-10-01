@@ -14,18 +14,17 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.domain.common.FileList;
-import com.redhat.rhn.domain.config.ConfigFileName;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 import java.util.LinkedList;
 import java.util.List;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.domain.common.FileList;
+import com.redhat.rhn.domain.config.ConfigFileName;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 /**
  * FileListSerializer: Converts a FileList object for representation
@@ -38,7 +37,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *     #prop_array("file_names", "string", "name")
  *   #struct_end()
  */
-public class FileListSerializer implements XmlRpcCustomSerializer {
+public class FileListSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -50,11 +49,11 @@ public class FileListSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
         FileList fl = (FileList)value;
 
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
 
         helper.add("name", fl.getLabel());
 

@@ -14,21 +14,20 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.domain.server.NetworkInterface;
-import com.redhat.rhn.domain.server.ServerNetAddress6;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
-import org.apache.commons.lang.StringUtils;
-
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
+import org.apache.commons.lang.StringUtils;
+
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.domain.server.NetworkInterface;
+import com.redhat.rhn.domain.server.ServerNetAddress6;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 
 /**
@@ -55,7 +54,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *      #struct_end()
  *
  */
-public class NetworkInterfaceSerializer implements XmlRpcCustomSerializer {
+public class NetworkInterfaceSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -65,14 +64,14 @@ public class NetworkInterfaceSerializer implements XmlRpcCustomSerializer {
     }
 
     /** {@inheritDoc} */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
         NetworkInterface device = (NetworkInterface)value;
-        SerializerHelper devMap = new SerializerHelper(builtInSerializer);
+        SerializerHelper devMap = new SerializerHelper(serializer);
         ArrayList ipv6List = new ArrayList();
 
         for (ServerNetAddress6 addr : device.getIPv6Addresses()) {
-//            SerializerHelper m = new SerializerHelper(builtInSerializer);
+//            SerializerHelper m = new SerializerHelper(serializer);
             Map m = new HashMap();
             m.put("address", StringUtils.defaultString(addr.getAddress()));
             m.put("netmask", StringUtils.defaultString(addr.getNetmask()));

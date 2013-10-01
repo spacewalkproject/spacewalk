@@ -18,7 +18,6 @@ package com.redhat.rhn.frontend.xmlrpc.serializer;
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
@@ -37,7 +36,7 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  *   #prop_desc($date, "completed", "Scan completion time")
  * #struct_end()
  */
-public class XccdfTestResultDtoSerializer implements XmlRpcCustomSerializer {
+public class XccdfTestResultDtoSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -49,10 +48,10 @@ public class XccdfTestResultDtoSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output,
-            XmlRpcSerializer builtInSerializer) throws XmlRpcException, IOException {
+    protected void doSerialize(Object value, Writer output,
+            XmlRpcSerializer serializer) throws XmlRpcException, IOException {
         XccdfTestResultDto dto = (XccdfTestResultDto) value;
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
         addToHelper(helper, "xid", dto.getXid());
         addToHelper(helper, "profile", dto.getProfile());
         addToHelper(helper, "path", dto.getPath());

@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.xmlrpc.serializer;
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
@@ -36,7 +35,7 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  *   #prop("boolean", "isCurrentMaster")
  * #struct_end()
  */
-public class IssMasterSerializer implements XmlRpcCustomSerializer {
+public class IssMasterSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -48,7 +47,7 @@ public class IssMasterSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public void serialize(Object obj, Writer writer, XmlRpcSerializer serializer)
+    protected void doSerialize(Object obj, Writer writer, XmlRpcSerializer serializer)
             throws XmlRpcException, IOException {
         SerializerHelper helper = new SerializerHelper(serializer);
 

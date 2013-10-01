@@ -14,15 +14,14 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 /**
  * Serializes instances of
@@ -37,7 +36,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *          #prop("string", "content")
  *      #struct_end()
  */
-public class CryptoKeySerializer implements XmlRpcCustomSerializer {
+public class CryptoKeySerializer extends RhnXmlRpcCustomSerializer {
 
     /** {@inheritDoc} */
     public Class getSupportedClass() {
@@ -45,7 +44,7 @@ public class CryptoKeySerializer implements XmlRpcCustomSerializer {
     }
 
     /** {@inheritDoc} */
-    public void serialize(Object o, Writer writer, XmlRpcSerializer xmlRpcSerializer)
+    protected void doSerialize(Object o, Writer writer, XmlRpcSerializer xmlRpcSerializer)
         throws XmlRpcException, IOException {
 
         if (!(o instanceof CryptoKey)) {

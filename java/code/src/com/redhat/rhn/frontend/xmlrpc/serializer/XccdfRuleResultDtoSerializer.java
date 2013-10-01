@@ -18,7 +18,6 @@ package com.redhat.rhn.frontend.xmlrpc.serializer;
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
@@ -36,7 +35,7 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  *   #prop_desc("string", "idents", "Comma separated list of XCCDF idents.")
  * #struct_end()
  */
-public class XccdfRuleResultDtoSerializer implements XmlRpcCustomSerializer {
+public class XccdfRuleResultDtoSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -48,10 +47,10 @@ public class XccdfRuleResultDtoSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output,
-            XmlRpcSerializer builtInSerializer) throws XmlRpcException, IOException {
+    protected void doSerialize(Object value, Writer output,
+            XmlRpcSerializer serializer) throws XmlRpcException, IOException {
         XccdfRuleResultDto dto = (XccdfRuleResultDto) value;
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
         helper.add("idref", dto.getDocumentIdref());
         helper.add("result", dto.getLabel());
         helper.add("idents", dto.getIdentsString());

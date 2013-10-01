@@ -14,15 +14,14 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.domain.channel.ChannelArch;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.domain.channel.ChannelArch;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 /**
  * ChannelArchSerializer serializes ChannelArch object to XMLRPC.
@@ -33,7 +32,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *          #prop("string", "label")
  *      #struct_end()
  */
-public class ChannelArchSerializer implements XmlRpcCustomSerializer {
+public class ChannelArchSerializer extends RhnXmlRpcCustomSerializer {
 
     /** {@inheritDoc} */
     public Class getSupportedClass() {
@@ -42,11 +41,11 @@ public class ChannelArchSerializer implements XmlRpcCustomSerializer {
 
     /** {@inheritDoc}
      * @throws IOException */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
         ChannelArch arch = (ChannelArch) value;
 
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
         helper.add("name", arch.getName());
         helper.add("label", arch.getLabel());
         helper.writeTo(output);

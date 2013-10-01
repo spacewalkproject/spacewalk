@@ -14,15 +14,14 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.frontend.dto.MultiOrgUserOverview;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.frontend.dto.MultiOrgUserOverview;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 /**
  *
@@ -38,8 +37,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *   #prop("boolean", "is_org_admin")
  * #struct_end()
  */
-public class MultiOrgUserOverviewSerializer implements
-        XmlRpcCustomSerializer {
+public class MultiOrgUserOverviewSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      *
@@ -53,10 +51,10 @@ public class MultiOrgUserOverviewSerializer implements
      *
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output,
-            XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output,
+            XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
-        SerializerHelper se = new SerializerHelper(builtInSerializer);
+        SerializerHelper se = new SerializerHelper(serializer);
         MultiOrgUserOverview dto = (MultiOrgUserOverview) value;
 
         se.add("login", dto.getLogin());

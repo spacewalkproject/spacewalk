@@ -30,9 +30,6 @@ import redstone.xmlrpc.XmlRpcCustomSerializer;
 public class SerializerFactory {
     private List<XmlRpcCustomSerializer> serializers;
 
-    private static final String INTERFACE_NAME =
-        "redstone.xmlrpc.XmlRpcCustomSerializer";
-
     /** private constructor */
     public SerializerFactory() {
         serializers = new ArrayList<XmlRpcCustomSerializer>();
@@ -48,12 +45,11 @@ public class SerializerFactory {
     }
 
     private void initialize() {
-        String[] excludes = new String[1];
-        excludes[0] = "Test";
         List<Class> classes = SerializerRegistry.getSerializationClasses();
+
         for (Class clazz : classes) {
             try {
-                if (doesClassImplement(clazz, INTERFACE_NAME)) {
+                if (XmlRpcCustomSerializer.class.isAssignableFrom(clazz)) {
                     Object s = clazz.newInstance();
                     serializers.add((XmlRpcCustomSerializer)s);
                 }
@@ -62,17 +58,5 @@ public class SerializerFactory {
                 e.printStackTrace(System.out);
             }
         }
-    }
-
-    private boolean doesClassImplement(Class clazz, String interfaceName) {
-        Class[] interfaces = clazz.getInterfaces();
-        boolean found = false;
-        for (int i = 0; i < interfaces.length; i++) {
-            if (interfaces[i].getName().equals(interfaceName)) {
-                found = true;
-                break;
-            }
-        }
-        return found;
     }
 }

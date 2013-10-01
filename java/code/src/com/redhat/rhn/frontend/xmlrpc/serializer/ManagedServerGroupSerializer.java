@@ -14,16 +14,15 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.domain.server.ManagedServerGroup;
-import com.redhat.rhn.domain.server.ServerGroup;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.domain.server.ManagedServerGroup;
+import com.redhat.rhn.domain.server.ServerGroup;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 
 /**
@@ -40,7 +39,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *      #struct_end()
  *
  */
-public class ManagedServerGroupSerializer implements XmlRpcCustomSerializer {
+public class ManagedServerGroupSerializer extends RhnXmlRpcCustomSerializer {
 
     public static final String CURRENT_MEMBERS = "system_count";
 
@@ -55,23 +54,23 @@ public class ManagedServerGroupSerializer implements XmlRpcCustomSerializer {
      * instead of traversing the entire object graph.
      * @param value ServerGroup object.
      * @param output Buffer to serialize the object to.
-     * @param builtInSerializer basic XMLRPC serializer
+     * @param serializer basic XMLRPC serializer
      * @throws XmlRpcException thrown if a problem occurs with serializing
      * the value.
      * @throws IOException thrown if a problem occurs with serializing
      * the value.
      */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
 
         ServerGroup sg = (ServerGroup) value;
 
-        SerializerHelper serializer = new SerializerHelper(builtInSerializer);
-        serializer.add("id", sg.getId());
-        serializer.add("name", sg.getName());
-        serializer.add("description", sg.getDescription());
-        serializer.add(CURRENT_MEMBERS, sg.getCurrentMembers());
-        serializer.add("org_id", sg.getOrg().getId());
-        serializer.writeTo(output);
+        SerializerHelper helper = new SerializerHelper(serializer);
+        helper.add("id", sg.getId());
+        helper.add("name", sg.getName());
+        helper.add("description", sg.getDescription());
+        helper.add(CURRENT_MEMBERS, sg.getCurrentMembers());
+        helper.add("org_id", sg.getOrg().getId());
+        helper.writeTo(output);
     }
 }

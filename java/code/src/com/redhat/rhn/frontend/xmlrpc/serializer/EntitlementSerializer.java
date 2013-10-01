@@ -14,15 +14,14 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.domain.entitlement.Entitlement;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.domain.entitlement.Entitlement;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 
 /**
@@ -36,7 +35,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *   #prop("string", "type")
  * #struct_end()
  */
-public class EntitlementSerializer implements XmlRpcCustomSerializer {
+public class EntitlementSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -48,10 +47,10 @@ public class EntitlementSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output,
-            XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output,
+            XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
         Entitlement ent = (Entitlement) value;
         helper.add("label", ent.getLabel());
         helper.add("name", ent.getHumanReadableLabel());

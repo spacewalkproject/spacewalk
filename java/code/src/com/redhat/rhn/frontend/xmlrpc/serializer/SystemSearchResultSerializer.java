@@ -14,15 +14,14 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.frontend.dto.SystemSearchResult;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.frontend.dto.SystemSearchResult;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 /**
  *
  * SystemSearchResultSerializer
@@ -44,7 +43,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * #struct_end()
  *
  */
-public class SystemSearchResultSerializer implements XmlRpcCustomSerializer {
+public class SystemSearchResultSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -56,11 +55,11 @@ public class SystemSearchResultSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output,
-            XmlRpcSerializer builtInSerializer) throws XmlRpcException,
+    protected void doSerialize(Object value, Writer output,
+            XmlRpcSerializer serializer) throws XmlRpcException,
             IOException {
         SystemSearchResult result = (SystemSearchResult) value;
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
         helper.add("id", result.getId());
         helper.add("name", result.getName());
         helper.add("last_checkin", result.getLastCheckinDate());

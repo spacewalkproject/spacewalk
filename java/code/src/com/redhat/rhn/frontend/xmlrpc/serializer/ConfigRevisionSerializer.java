@@ -14,22 +14,21 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.FaultException;
-import com.redhat.rhn.common.util.StringUtil;
-import com.redhat.rhn.domain.config.ConfigRevision;
-import com.redhat.rhn.domain.config.EncodedConfigRevision;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
-import org.apache.commons.codec.binary.Base64;
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.text.DecimalFormat;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
+import org.apache.commons.codec.binary.Base64;
+
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.FaultException;
+import com.redhat.rhn.common.util.StringUtil;
+import com.redhat.rhn.domain.config.ConfigRevision;
+import com.redhat.rhn.domain.config.EncodedConfigRevision;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 
 /**
@@ -69,7 +68,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *          "Macro end delimiter for a config file. Present for text files only.")
  * #struct_end()
  */
-public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
+public class ConfigRevisionSerializer extends RhnXmlRpcCustomSerializer {
 
     public static final String CONTENTS = "contents";
     public static final String CONTENTS_ENC64 = "contents_enc64";
@@ -97,10 +96,10 @@ public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
         ConfigRevision rev = (ConfigRevision) value;
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
 
         if (rev.getConfigFileType() != null) {
             helper.add(TYPE, rev.getConfigFileType().getLabel());

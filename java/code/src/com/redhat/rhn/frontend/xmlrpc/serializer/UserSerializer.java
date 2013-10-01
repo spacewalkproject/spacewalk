@@ -15,15 +15,14 @@
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
 
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 /**
  *
@@ -39,7 +38,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *                         false if the user is disabled")
  *      #struct_end()
  */
-public class UserSerializer implements XmlRpcCustomSerializer {
+public class UserSerializer extends RhnXmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
@@ -50,9 +49,9 @@ public class UserSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
-       SerializerHelper helper = new SerializerHelper(builtInSerializer);
+       SerializerHelper helper = new SerializerHelper(serializer);
 
        User user = (User) value;
        helper.add("id", user.getId());

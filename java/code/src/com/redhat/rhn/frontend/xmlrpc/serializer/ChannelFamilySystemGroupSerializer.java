@@ -14,18 +14,17 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.frontend.dto.ChannelFamilySystem;
-import com.redhat.rhn.frontend.dto.ChannelFamilySystemGroup;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.frontend.dto.ChannelFamilySystem;
+import com.redhat.rhn.frontend.dto.ChannelFamilySystemGroup;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 /**
  * ChannelArchSerializer serializes ChannelArch object to XMLRPC.
@@ -38,7 +37,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *          #array_single("int", "systems")
  *      #struct_end()
  */
-public class ChannelFamilySystemGroupSerializer implements XmlRpcCustomSerializer {
+public class ChannelFamilySystemGroupSerializer extends RhnXmlRpcCustomSerializer {
 
     /** {@inheritDoc} */
     public Class getSupportedClass() {
@@ -47,12 +46,12 @@ public class ChannelFamilySystemGroupSerializer implements XmlRpcCustomSerialize
 
     /** {@inheritDoc}
      * @throws IOException */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
     throws XmlRpcException, IOException {
         ChannelFamilySystemGroup group = (ChannelFamilySystemGroup) value;
 
 
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
         helper.add("id", group.getId());
         helper.add("label", group.getLabel());
         helper.add("name", group.getName());

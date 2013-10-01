@@ -14,16 +14,15 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.domain.errata.Errata;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 /**
  *
@@ -39,7 +38,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *          #prop_desc("string", "advisory_synopsis", "Summary of the erratum.")
  *     #struct_end()
  */
-public class ErrataSerializer implements XmlRpcCustomSerializer {
+public class ErrataSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -51,11 +50,11 @@ public class ErrataSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
 
         Errata errata = (Errata) value;
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
 
         helper.add("id", errata.getId());
 

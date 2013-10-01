@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.io.Writer;
 import java.math.BigDecimal;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
@@ -31,7 +30,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * @xmlrpc.doc
  *      #param ("int")
  */
-public class BigDecimalSerializer implements XmlRpcCustomSerializer {
+public class BigDecimalSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -43,8 +42,8 @@ public class BigDecimalSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output,
-                          XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output,
+                          XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
         BigDecimal bd = (BigDecimal) value;
         output.write("<i4>");

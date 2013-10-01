@@ -14,18 +14,17 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
+import java.io.IOException;
+import java.io.Writer;
+
+import redstone.xmlrpc.XmlRpcException;
+import redstone.xmlrpc.XmlRpcSerializer;
+
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageKey;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
-import java.io.IOException;
-import java.io.Writer;
-
-import redstone.xmlrpc.XmlRpcCustomSerializer;
-import redstone.xmlrpc.XmlRpcException;
-import redstone.xmlrpc.XmlRpcSerializer;
 
 /**
  *
@@ -47,7 +46,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *  #struct_end()
  *
  */
-public class PackageSerializer implements XmlRpcCustomSerializer {
+public class PackageSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -59,11 +58,11 @@ public class PackageSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
         Package pack = (Package) value;
 
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
         helper.add("name", pack.getPackageName().getName());
         helper.add("version", pack.getPackageEvr().getVersion());
         helper.add("release", pack.getPackageEvr().getRelease());

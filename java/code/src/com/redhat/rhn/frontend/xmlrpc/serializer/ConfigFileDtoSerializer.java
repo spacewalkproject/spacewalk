@@ -14,15 +14,14 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.frontend.dto.ConfigFileDto;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
+
+import com.redhat.rhn.frontend.dto.ConfigFileDto;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 
 /**
@@ -41,7 +40,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *   #prop_desc($date, "last_modified","Last Modified Date")
  * #struct_end()
  */
-public class ConfigFileDtoSerializer implements XmlRpcCustomSerializer {
+public class ConfigFileDtoSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -51,12 +50,12 @@ public class ConfigFileDtoSerializer implements XmlRpcCustomSerializer {
     }
 
     /**
-     * {@inheritDoc}builtInSerializer
+     * {@inheritDoc}serializer
      */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
         ConfigFileDto dto = (ConfigFileDto) value;
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
         helper.add("type", dto.getType());
         helper.add("path", dto.getPath());
         helper.add("last_modified", dto.getModified());
