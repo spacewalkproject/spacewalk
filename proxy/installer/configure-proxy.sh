@@ -5,7 +5,7 @@ if [ 0$UID -gt 0 ]; then
     exit 1
 fi
 
-print_help () {
+print_help() {
     cat <<HELP
 usage: configure-proxy.sh [options]
 
@@ -78,7 +78,7 @@ HELP
     exit 1
 }
 
-parse_answer_file () {
+parse_answer_file() {
     local FILE="$1"
     local ALIAS
     if [ ! -r "$FILE" ] ; then
@@ -153,7 +153,7 @@ while : ; do
     shift
 done
 
-default_or_input () {
+default_or_input() {
     local MSG="$1"
     local VARIABLE="$2"
     local DEFAULT="$3"
@@ -192,7 +192,7 @@ yes_no() {
     esac
 }
 
-config_error () {
+config_error() {
     if [ $1 -gt 0 ]; then
         echo "$2 Installation interrupted."
         /usr/bin/rhn-proxy-activate \
@@ -207,13 +207,13 @@ config_error () {
 }
 
 # Return 0 if rhnParent is Hosted. Otherwise return 1.
-is_hosted () {
+is_hosted() {
     [ "$1" = "xmlrpc.rhn.redhat.com" -o \
         $( PYTHONPATH='/usr/share/rhn' python -c "from up2date_client import config; cfg = config.initUp2dateConfig(); print  '$1' in cfg['hostedWhitelist']" ) = "True" ]
     return $?
 }
 
-check_ca_conf () {
+check_ca_conf() {
     if [ -f /root/ssl-build/rhn-ca-openssl.cnf ] \
         && awk '/^[[:space:]]*\[[[:space:]]*[_[:alnum:]]*[[:space:]]*]/ {CORRECT_SECTION=0} \
         /^[[:space:]]*\[[[:space:]]*CA_default[[:space:]]*]/ {CORRECT_SECTION=1} \
