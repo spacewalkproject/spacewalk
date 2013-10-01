@@ -206,7 +206,8 @@ if __name__ == '__main__':
 			if CFG.DB_BACKEND == 'oracle':
 				rhnSQL.execute('alter session set time_zone = \'%s\'' % options.timezone)
 			else:
-				rhnSQL.execute('set session timezone to \'%s\'' % options.timezone)
+				tz = rhnSQL.prepare('set session timezone to :tz')
+				tz.execute(tz=options.timezone)
 
 			h = rhnSQL.prepare(the_sql)
 			h.execute(**dict(report.params.items() + the_dict_where.items()))
