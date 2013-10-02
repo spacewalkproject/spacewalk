@@ -14,13 +14,13 @@
  */
 package com.redhat.rhn.taskomatic.serializer;
 
+import com.redhat.rhn.frontend.xmlrpc.serializer.RhnXmlRpcCustomSerializer;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 import com.redhat.rhn.taskomatic.TaskoBunch;
 
 import java.io.IOException;
 import java.io.Writer;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
@@ -29,7 +29,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * TaskoBunchSerializer
  * @version $Rev$
  */
-public class TaskoBunchSerializer implements XmlRpcCustomSerializer {
+public class TaskoBunchSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -41,12 +41,12 @@ public class TaskoBunchSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output,
-            XmlRpcSerializer builtInSerializer)
+    public void doSerialize(Object value, Writer output,
+            XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
 
             TaskoBunch bunch = (TaskoBunch) value;
-            SerializerHelper helper = new SerializerHelper(builtInSerializer);
+            SerializerHelper helper = new SerializerHelper(serializer);
 
             helper.add("name", bunch.getName());
             helper.add("description", bunch.getDescription());

@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.taskomatic.serializer;
 
+import com.redhat.rhn.frontend.xmlrpc.serializer.RhnXmlRpcCustomSerializer;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 import com.redhat.rhn.taskomatic.TaskoSchedule;
 
@@ -22,7 +23,6 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
-import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
@@ -31,7 +31,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * TaskoScheduleSerializer
  * @version $Rev$
  */
-public class TaskoScheduleSerializer implements XmlRpcCustomSerializer {
+public class TaskoScheduleSerializer extends RhnXmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
@@ -43,12 +43,12 @@ public class TaskoScheduleSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output,
-            XmlRpcSerializer builtInSerializer)
+    public void doSerialize(Object value, Writer output,
+            XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
 
         TaskoSchedule schedule = (TaskoSchedule) value;
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        SerializerHelper helper = new SerializerHelper(serializer);
 
         helper.add("id", schedule.getId());
         helper.add("job_label", schedule.getJobLabel());
