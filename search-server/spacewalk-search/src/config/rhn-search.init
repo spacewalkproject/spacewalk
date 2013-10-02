@@ -1,0 +1,20 @@
+#! /bin/sh
+#
+# rhn-search    This shell script takes care of starting and stopping
+#               the java rhn-search server.
+#
+# chkconfig: -  94 12
+# description:  This is Spacewalk search engine.
+#
+### BEGIN INIT INFO
+# Provides:       rhn-search
+# Required-Start: $local_fs $network satellite-httpd
+# Required-Stop:  $local_fs $network satellite-httpd
+# Default-Start:
+# Default-Stop:   0 1 2 3 4 5 6
+# Short-Description: This is Spacewalk search engine.
+# Description:       This is Spacewalk search engine.
+### END INIT INFO
+
+exec /usr/sbin/rhn-search "$@"
+

@@ -92,8 +92,8 @@ install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/lib
 install -d -m 755 $RPM_BUILD_ROOT%{_var}/lib/rhn/search
 install -d -m 755 $RPM_BUILD_ROOT%{_var}/lib/rhn/search/indexes
 ln -s -f %{_prefix}/share/rhn/search/indexes/docs $RPM_BUILD_ROOT%{_var}/lib/rhn/search/indexes/docs
-%if 0%{?fedora}
 install -d -m 755 $RPM_BUILD_ROOT%{_sbindir}
+%if 0%{?fedora}
 install -d -m 755 $RPM_BUILD_ROOT%{_unitdir}
 %else
 install -d -m 755 $RPM_BUILD_ROOT%{_initrddir}
@@ -106,11 +106,11 @@ install -p -m 644 dist/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_prefix}/share/rh
 # using install -m does not preserve the symlinks
 cp -d lib/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/lib
 install -p -m 644 src/config/etc/logrotate.d/rhn-search $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn-search
-%if 0%{?fedora}
 install -p -m 755 src/config/rhn-search $RPM_BUILD_ROOT%{_sbindir}
+%if 0%{?fedora}
 install -p -m 755 src/config/rhn-search.service $RPM_BUILD_ROOT%{_unitdir}
 %else
-install -p -m 755 src/config/rhn-search $RPM_BUILD_ROOT%{_initrddir}
+install -p -m 755 src/config/rhn-search.init $RPM_BUILD_ROOT%{_initrddir}/rhn-search
 %endif
 ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT%{_bindir}/rhnsearchd
 install -p -m 644 src/config/search/rhn_search.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_search.conf
@@ -167,8 +167,8 @@ fi
 %files
 %attr(755, root, root) %{_var}/log/rhn/search
 %{_prefix}/share/rhn/search/lib/*
-%if 0%{?fedora}
 %attr(755, root, root) %{_sbindir}/rhn-search
+%if 0%{?fedora}
 %attr(755, root, root) %{_unitdir}/rhn-search.service
 %else
 %attr(755, root, root) %{_initrddir}/rhn-search
