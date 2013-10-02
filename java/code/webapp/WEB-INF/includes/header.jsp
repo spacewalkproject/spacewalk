@@ -84,7 +84,7 @@
           <span id="header_selcount">
             <rhn:setdisplay user="${requestScope.session.user}" />
           </span>
-          <a class="button" href="/rhn/ssm/index.do">
+          <a id="clearbtn" class="button" href="/rhn/ssm/index.do">
             <bean:message key="manage"/>
           </a>
           <%--
