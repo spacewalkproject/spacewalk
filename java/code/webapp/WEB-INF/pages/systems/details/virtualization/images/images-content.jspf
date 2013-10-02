@@ -15,7 +15,7 @@
     <rl:list dataset="imagesList" emptykey="images.jsp.noimages">
       <rl:column headerkey="images.jsp.name" filterattr="name">
         <c:set var="nameJS" value="${fn:escapeXml(rhn:escapeJS(current.name))}" />
-        <a href="javascript:void();" onclick="showForm('${current.id}','${nameJS}','${current.version}','${current.arch}','${current.imageType}','${current.editUrl}');">
+        <a href="javascript:void(0);" onclick="showForm('${current.id}','${nameJS}','${current.version}','${current.arch}','${current.imageType}','${current.editUrl}');">
           <c:out value="${current.name}" />
         </a>
       </rl:column>
@@ -83,7 +83,7 @@
       <html:hidden styleId="image-id" property="image_id" value="" />
       <hr />
       <input type="button"
-             onclick="showImages()"
+             onclick="showImages();"
              value="${rhn:localize('images.jsp.cancel')}" />
       <html:submit property="dispatch"
                    disabled="${empty sessionScope.imagesList}">
