@@ -3,58 +3,52 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 
-<html:xhtml/>
 <html>
-<body>
-<rhn:toolbar base="h1" img="/img/rhn-config_management.gif"
-	           helpUrl="">
-    <bean:message key="generalconfig.jsp.header1"/>
-  </rhn:toolbar>
-
-
-
-<div>
-  <p>
-    <bean:message key="generalconfig.jsp.summary"/>
-  </p>
-</div>
-
-<rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/sat_config.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
-
-<h2><bean:message key="generalconfig.jsp.header2"/></h2>
-
-    <rhn:require acl="user_role(satellite_admin)">
-    <html:form action="/admin/config/MonitoringConfig" method="POST">
-      <rhn:csrf />
-      <table class="details">
-        <tr>
-            <th>
-                <label for="is_monitoring_scout"><bean:message key="general.jsp.monitoring_scout"/></label>
-            </th>
-            <td>
-                <html:checkbox property="is_monitoring_scout" styleId="is_monitoring_scout" />
-            </td>
-        </tr>
-        <c:forEach items="${configList}" var="config">
-          <tr>
-            <th><label for="${config.name}">${config.description}</label></th>
-            <td><input type="text" size="30" name="${config.name}" value="${config.value}" maxlength="255" styleId="${config.name}" /></td>
-          </tr>
-        </c:forEach>
-
-      </table>
-
-      <div align="right">
-        <hr />
-        <html:submit><bean:message key="generalconfig.jsp.update_config"/></html:submit>
-        <input type="hidden" name="submitted" value="true" />
-      </div>
-
-    </html:form>
-    </rhn:require>
-    <rhn:require acl="not user_role(satellite_admin)">
-        <bean:message key="monitoring.jsp.monitoringdisabled"/>
-    </rhn:require>
-</body>
+    <body>
+        <rhn:toolbar base="h1" img="/img/rhn-config_management.gif"
+                     helpUrl="">
+            <bean:message key="generalconfig.jsp.header1"/>
+        </rhn:toolbar>
+        <p><bean:message key="generalconfig.jsp.summary"/></p>
+        <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/sat_config.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
+        <h2><bean:message key="generalconfig.jsp.header2"/></h2>
+        <rhn:require acl="user_role(satellite_admin)">
+            <html:form action="/admin/config/MonitoringConfig"
+                       styleClass="form-horizontal"
+                       method="POST">
+                <rhn:csrf />
+                <div class="form-group">
+                    <div class="col-lg-offset-3 col-lg-6">
+                        <div class="checkbox">
+                            <label for="is_monitoring_scout" class="control-label">
+                                <html:checkbox property="is_monitoring_scout" styleId="is_monitoring_scout" />
+                                <bean:message key="general.jsp.monitoring_scout"/>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <c:forEach items="${configList}" var="config">
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label" for="${config.name}">${config.description}</label>
+                        <div class="col-lg-6">
+                            <input type="text" size="30" name="${config.name}" class="form-control"
+                                   value="${config.value}" maxlength="255" styleId="${config.name}" />
+                        </div>
+                    </div>
+                </c:forEach>
+                <div class="form-group">
+                    <div class="col-lg-offset-3 col-lg-6">
+                        <html:submit styleClass="btn btn-success">
+                            <bean:message key="generalconfig.jsp.update_config"/>
+                        </html:submit>
+                    </div>
+                    <input type="hidden" name="submitted" value="true" />
+                </div>
+            </html:form>
+        </rhn:require>
+        <rhn:require acl="not user_role(satellite_admin)">
+            <bean:message key="monitoring.jsp.monitoringdisabled"/>
+        </rhn:require>
+    </body>
 </html>
 
