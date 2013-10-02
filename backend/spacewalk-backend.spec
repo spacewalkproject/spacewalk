@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.24
+Version: 2.1.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -628,6 +628,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Oct 02 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.25-1
+- 923338 - replace application code with database lookup to prevent conflicting
+  inserts
+
 * Mon Sep 30 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.24-1
 - make pylint 1.0 happy about map/filter on lambda
 
