@@ -28,23 +28,22 @@ footer{
 	background: @gray-dark;
 	color: #fff;
 	font-weight: normal;
-	font-size: 0.9em
+	font-size: 0.9em;
+	height: 80px
 }
 aside.col-md-2{
 	background: #eeeeee;
-	/* for the body div to make both columns the same size*/
-	margin-bottom:-9999px;
-	padding-bottom: 9999px;
 	/* errasing the predefined paddings in the columns */
 	padding-right: 0;
 	padding-left: 0;
-	border-right: 1px solid #d5d5d5
+	border-right: 1px solid #d5d5d5;
+	height: auto;
+	min-height: 100%;
 }
 section{
-	background: #f7f7f7;
 	/* for the body div to make both columns the same size*/
-	margin-bottom:-9999px;
-	padding-bottom: 9999px 
+	height: auto;
+	min-height: 100%;
 }
 /* titles */
 h1, h2, h3, h4 {
@@ -71,13 +70,15 @@ h2{
 	overflow: hidden;
 	min-height: 100%;
 }
-/* style for the login page */
+/* fixing the footer to the bottom */
 .wrap{
 	overflow: hidden;
-	min-height: 100%;
-	margin:0 auto -80px auto;
-	padding: 0 0 80px
+	margin-bottom: -80px;
+	padding-bottom: 80px;
+	height: auto;
+	min-height: 100%
 }
+/* style for the login page */
 .login-page{
 	width: 70%;
 	text-align: center;
