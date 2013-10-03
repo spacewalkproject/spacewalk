@@ -20374,7 +20374,7 @@ given channel.</source>
           <source>ISS Configuration - Master Setup</source>
         </trans-unit>
         <trans-unit id="iss.master.jsp.explanation">
-          <source>Below are the slaves that are allowed to synchronize content from this @@PRODUCT_NAME@@ instance.</source>
+          <source>Below are the slaves that are allowed to synchronize content from this master @@PRODUCT_NAME@@ instance.</source>
         </trans-unit>
         <trans-unit id="iss.master.jsp.header2">
           <source>Known Slave Instances</source>
@@ -20428,7 +20428,7 @@ given channel.</source>
           <source>ISS Configuration - Slave Setup</source>
         </trans-unit>
         <trans-unit id="iss.slave.jsp.explanation">
-          <source>Below are all the master @@PRODUCT_NAME@@ instances that this @@PRODUCT_NAME@@ instance has ever synchronized content from.</source>
+          <source>Below are all the master @@PRODUCT_NAME@@ instances that this slave @@PRODUCT_NAME@@ instance has ever synchronized content from.</source>
         </trans-unit>
         <trans-unit id="iss.slave.jsp.header2">
           <source>Known Master Instances</source>
