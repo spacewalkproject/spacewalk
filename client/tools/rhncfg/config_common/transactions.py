@@ -125,10 +125,13 @@ class DeployTransaction:
 
                     try:
                         user_record = pwd.getpwnam(file_info['username'])
+                        uid = user_record[2]
                     except Exception, e:
-                        raise cfg_exceptions.UserNotFound(file_info['username']), None, sys.exc_info()[2]
-
-                    uid = user_record[2]
+                        #Check if username is an int
+                        try:
+                            uid = int(file_info['username'])
+                        except ValueError:
+                            raise cfg_exceptions.UserNotFound(file_info['username']), None, sys.exc_info()[2]
                 else:
                     #default to root (3.2 sats)
                     uid = 0
@@ -139,10 +142,13 @@ class DeployTransaction:
                     # determine gid
                     try:
                         group_record = grp.getgrnam(file_info['groupname'])
+                        gid = group_record[2]
                     except Exception, e:
-                        raise cfg_exceptions.GroupNotFound(file_info['groupname']), None, sys.exc_info()[2]
+                        try:
+                            gid = int(file_info['groupname'])
+                        except ValueError:
+                            raise cfg_exceptions.GroupNotFound(file_info['groupname']), None, sys.exc_info()[2]
 
-                    gid = group_record[2]
                 else:
                     #default to root (3.2 sats)
                     gid = 0
