@@ -69,11 +69,14 @@ class RhnSQLDatabaseTests(unittest.TestCase):
         self.assertRaises(sql_base.SQLError, cursor.execute, name="Blah")
 
     def test_statement_prepare_error(self):
+        rhnSQL.transaction("test_statement_prepare_error")
+
         query = "aaa bbb ccc"
         cursor = rhnSQL.prepare(query)
         self.assertRaises(rhnSQL.SQLStatementPrepareError,
             cursor.execute)
-        rhnSQL.rollback()
+
+        rhnSQL.rollback("test_statement_prepare_error")
 
     def test_execute_bindbyname_extra_params_passed(self):
         query = "SELECT * FROM %s WHERE id = :id" % self.temp_table
