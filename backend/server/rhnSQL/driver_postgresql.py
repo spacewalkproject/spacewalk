@@ -277,6 +277,8 @@ class Cursor(sql_base.Cursor):
             if m:
                error_code = int(m.group(1))
             raise sql_base.SQLSchemaError(error_code, e.pgerror, e)
+        except psycopg2.ProgrammingError, e:
+            raise sql_base.SQLStatementPrepareError(self.dbh, e.pgerror, self.sql)
         return retval
 
     def _execute_(self, args, kwargs):
