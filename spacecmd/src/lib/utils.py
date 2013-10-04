@@ -226,7 +226,7 @@ def prompt_user(prompt, noblank = False, multiline = False):
     return userinput
 
 
-# parse time input from the userand return xmlrpclib.DateTime
+# parse time input from the user and return xmlrpclib.DateTime
 def parse_time_input(userinput = ''):
     timestamp = None
 
