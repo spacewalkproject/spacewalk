@@ -30,14 +30,14 @@ options:
             The username for an authenticated proxy.
   --install-monitoring
             Install and enable monitoring.
-  --non-interactive
-            For use only with --answer-file. If the --answer-file doesn't
-            provide a required response, default answer is used.
   --monitoring-parent=MONITORING_PARENT
             Name of the parent for your scout. Usually the same value as in
             RHN_PARENT.
   --monitoring-parent-ip=MONITORING_PARENT_IP
             IP address of MONITORING_PARENT
+  --non-interactive
+            For use only with --answer-file. If the --answer-file doesn't
+            provide a required response, default answer is used.
   --populate-config-channel
             Create config chanel and save configuration files to that channel.
             Configuration channel name is rhn_proxy_config_\${SYSTEM_ID}.
