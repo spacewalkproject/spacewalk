@@ -130,6 +130,18 @@ provide a required response, default answer is used.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
+        <term>--rhn-password=RHN_PASSWORD</term>
+        <listitem>
+            <para>Red Hat Network or Spacewalk password.</para>
+	</listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--rhn-user=RHN_USER</term>
+        <listitem>
+            <para>Red Hat Network or Spacewalk user acount.</para>
+	</listitem>
+    </varlistentry>
+    <varlistentry>
         <term>--ssl-build-dir=SSL_BUILD_DIR</term>
         <listitem>
             <para>The directory where we build SSL certificate. Default is /root/ssl-build.</para>
@@ -232,6 +244,18 @@ provide a required response, default answer is used.</para>
         <listitem>
            <para>Your parent Spacewalk server.</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>RHN_PASSWORD</term>
+        <listitem>
+            <para>Red Hat Network or Spacewalk password.</para>
+	</listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>RHN_USER</term>
+        <listitem>
+            <para>Red Hat Network or Spacewalk user acount.</para>
+	</listitem>
     </varlistentry>
     <varlistentry>
         <term>TRACEBACK_EMAIL</term>

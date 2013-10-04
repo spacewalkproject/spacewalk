@@ -43,6 +43,10 @@ options:
             Configuration channel name is rhn_proxy_config_\${SYSTEM_ID}.
   --rhn-parent=RHN_PARENT
             Your parent Spacewalk server.
+  --rhn-password=RHN_PASSWORD
+            Red Hat Network or Spacewalk password.
+  --rhn-user=RHN_USER
+            Red Hat Network or Spacewalk user acount.
   --ssl-build-dir=SSL_BUILD_DIR
             The directory where we build SSL certificate. Default is /root/ssl-build
   --ssl-city=SSL_CITY
@@ -142,6 +146,8 @@ while : ; do
         --monitoring-parent-ip) set_value "$1" MONITORING_PARENT_IP "$2"; shift;;
         --populate-config-channel) POPULATE_CONFIG_CHANNEL="${2:-Y}"; shift;;
         --start-services) START_SERVICES="${2:-Y}"; shift;;
+        --rhn-user) set_value "$1" RHN_USER "$2"; shift;;
+        --rhn-password) set_value "$1" RHN_PASSWORD "$2"; shift;;
         --) shift;
             if [ $# -gt 0 ] ; then
                 echo "Error: Extra arguments found: $@"
@@ -153,6 +159,14 @@ while : ; do
     esac
     shift
 done
+
+# params dep check
+if [[ $INTERACTIVE == 0 \
+    && ( -z $POPULATE_CONFIG_CHANNEL || $( yes_no $POPULATE_CONFIG_CHANNEL ) == 1 ) \
+    && ( -z  $RHN_USER || -z $RHN_PASSWORD ) ]]; then
+        echo "Error: When --populate-config-channel is set to Yes both --rhn-user and --rhn-password have to be provided."
+        exit 1
+fi
 
 ACCUMULATED_ANSWERS=""
 
@@ -574,9 +588,13 @@ default_or_input "Create and populate configuration channel $CHANNEL_LABEL?" POP
 POPULATE_CONFIG_CHANNEL=$(yes_no $POPULATE_CONFIG_CHANNEL)
 if [ "$POPULATE_CONFIG_CHANNEL" = "1" ]; then
     RHNCFG_STATUS=1
+    default_or_input "RHN username:" RHN_USER ''
     while [ $RHNCFG_STATUS != 0 ] ; do
-        CONFIG_CHANNELS=$(rhncfg-manager list-channels --server-name "$RHN_PARENT")
+        CONFIG_CHANNELS=$(rhncfg-manager list-channels ${RHN_USER:+--username="${RHN_USER}"} ${RHN_PASSWORD:+--password="${RHN_PASSWORD}"} --server-name="$RHN_PARENT")
         RHNCFG_STATUS=$?
+        # In case of incorrect username/password, we want to re-ask user
+        unset RHN_USER
+        unset RHN_PASSWORD
     done
     if ! grep -q -E "^ +$CHANNEL_LABEL$" <<<"$CONFIG_CHANNELS" ; then
         rhncfg-manager create-channel --server-name "$RHN_PARENT" "$CHANNEL_LABEL"
