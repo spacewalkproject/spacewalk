@@ -23,6 +23,7 @@ import os
 import sys
 import unittest
 
+from ConfigParser import ConfigParser
 from spacewalk.server import rhnSQL
 
 # Import all test modules here:
@@ -32,10 +33,13 @@ sys.path.insert(
 )
 import dbtests
 
-PG_HOST = "localhost"
-PG_USER = "dgoodwin"
-PG_PASSWORD = "spacewalk"
-PG_DATABASE = "spacewalk"
+config = ConfigParser()
+config.read(os.path.dirname(os.path.abspath(__file__)) + "/db_settings.ini")
+
+PG_HOST = config.get('postgresql', 'host')
+PG_USER = config.get('postgresql', 'user')
+PG_PASSWORD= config.get('postgresql', 'password')
+PG_DATABASE = config.get('postgresql', 'database')
 
 rhnSQL.initDB(backend="postgresql", host=PG_HOST, username=PG_USER,
         password=PG_PASSWORD, database=PG_DATABASE)
