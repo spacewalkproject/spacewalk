@@ -6457,6 +6457,13 @@ utilisateur avant de désactiver son compte.</target>
         </context-group>
         <target>{0} liste(s) de conservation de fichiers supprimée(s).</target>
       </trans-unit>
+      <trans-unit id="file_lists.added">
+        <source>{0} File Preservation List(s) added.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/FilePreservationLists.do</context>
+        </context-group>
+        <target>{0} liste(s) de conservation de fichiers ajoutée(s).</target>
+      </trans-unit>
       <trans-unit id="taskomatic.msg.awolservers">
         <source>Systems Not Checking In:
 -------------------------
