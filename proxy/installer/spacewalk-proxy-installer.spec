@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 2.1.4
+Version: 2.1.5
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -97,6 +97,16 @@ spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
 %doc LICENSE answers.txt
 
 %changelog
+* Mon Oct 07 2013 Matej Kollar <mkollar@redhat.com> 2.1.5-1
+- Removed set_value as getopt made it redundant
+- 516296 - Allow truly non-interactive proxy install
+- Order list of options in help
+- Allow user to save entered data as answer file
+- There is no up2date anymore
+- Eliminating eval where possible
+- Some seemingly unimportant spaces
+- Tabs vs. Spaces War
+
 * Mon Sep 30 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.4-1
 - removed trailing whitespaces
 
