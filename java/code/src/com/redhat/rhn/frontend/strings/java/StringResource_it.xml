@@ -6447,6 +6447,13 @@ utente prima di disabilitare l'account in questione.</target>
         </context-group>
         <target>Chiave/i di attivazione {0} rimossa/e.</target>
       </trans-unit>
+      <trans-unit id="file_lists.removed">
+        <source>{0} File Preservation List(s) removed.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/FilePreservationLists.do</context>
+        </context-group>
+        <target>{0} Elenco di conservazione dei file rimosso.</target>
+      </trans-unit>
       <trans-unit id="taskomatic.msg.awolservers">
         <source>Systems Not Checking In:
 -------------------------
