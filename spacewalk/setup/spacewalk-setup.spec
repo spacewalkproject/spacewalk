@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.1.5
+Version:        2.1.6
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -103,6 +103,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Oct 07 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.6-1
+- setting up configuration for editarea for apache >= 2.4
+
 * Tue Sep 17 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.5-1
 - Grammar error occurred
 
