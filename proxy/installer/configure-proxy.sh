@@ -14,8 +14,6 @@ options:
             Indicates the location of an answer file to be use for answering
             questions asked during the installation process. See man page for
             for an example and documentation.
-  --ca-chain=CA_CHAIN
-            The CA cert used to verify the ssl connection to parent.
   --enable-scout
             Enable monitoring scout.
   --force-own-ca
@@ -31,8 +29,7 @@ options:
   --install-monitoring
             Install and enable monitoring.
   --monitoring-parent=MONITORING_PARENT
-            Name of the parent for your scout. Usually the same value as in
-            RHN_PARENT.
+            Name of the parent for your scout. Usually RHN parent.
   --monitoring-parent-ip=MONITORING_PARENT_IP
             IP address of MONITORING_PARENT
   --non-interactive
@@ -41,8 +38,6 @@ options:
   --populate-config-channel
             Create config chanel and save configuration files to that channel.
             Configuration channel name is rhn_proxy_config_\${SYSTEM_ID}.
-  --rhn-parent=RHN_PARENT
-            Your parent Spacewalk server.
   --rhn-password=RHN_PASSWORD
             Red Hat Network or Spacewalk password.
   --rhn-user=RHN_USER
@@ -98,7 +93,7 @@ parse_answer_file() {
 INTERACTIVE=1
 CNAME_INDEX=0
 
-OPTS=$(getopt --longoptions=help,answer-file:,non-interactive,version:,rhn-parent:,traceback-email:,use-ssl::,ca-chain:,force-own-ca,http-proxy:,http-username:,http-password:,ssl-build-dir:,ssl-org:,ssl-orgunit:,ssl-common:,ssl-city:,ssl-state:,ssl-country:,ssl-email:,ssl-password:,ssl-cname:,install-monitoring::,enable-scout::,monitoring-parent:,monitoring-parent-ip:,populate-config-channel::,start-services:: -n ${0##*/} -- h "$@")
+OPTS=$(getopt --longoptions=help,answer-file:,non-interactive,version:,traceback-email:,use-ssl::,force-own-ca,http-proxy:,http-username:,http-password:,ssl-build-dir:,ssl-org:,ssl-orgunit:,ssl-common:,ssl-city:,ssl-state:,ssl-country:,ssl-email:,ssl-password:,ssl-cname:,install-monitoring::,enable-scout::,monitoring-parent:,monitoring-parent-ip:,populate-config-channel::,start-services:: -n ${0##*/} -- h "$@")
 
 if [ $? != 0 ] ; then
     print_help
@@ -114,10 +109,8 @@ while : ; do
                        parse_answer_file "$ANSWER_FILE"; shift;;
         --non-interactive) INTERACTIVE=0;;
         --version) VERSION="$2"; shift;;
-        --rhn-parent) RHN_PARENT="$2"; shift;;
         --traceback-email) TRACEBACK_EMAIL="$2"; shift;;
         --use-ssl) USE_SSL="${2:-1}"; shift;;
-        --ca-chain) CA_CHAIN="$2"; shift;;
         --force-own-ca) FORCE_OWN_CA=1;;
         --http-proxy) HTTP_PROXY="$2"; shift;;
         --http-username) HTTP_USERNAME="$2"; shift;;
@@ -294,7 +287,9 @@ if ! [ -d $SSL_BUILD_DIR ] && [ 0$FORCE_OWN_CA -eq 0 ]; then
     exit 1
 fi
 
-default_or_input "RHN Parent" RHN_PARENT $(awk -F= '/serverURL=/ {split($2, a, "/")} END { print a[3]}' $SYSCONFIG_DIR/up2date)
+UP2DATE_FILE=$SYSCONFIG_DIR/up2date
+RHN_PARENT=$(awk -F= '/serverURL=/ {split($2, a, "/")} END {print a[3]}' $UP2DATE_FILE)
+echo "Using RHN parent (from $UP2DATE_FILE): $RHN_PARENT"
 
 if [ "$RHN_PARENT" == "rhn.redhat.com" ]; then
    RHN_PARENT="xmlrpc.rhn.redhat.com"
@@ -304,7 +299,8 @@ if [ "$RHN_PARENT" == "rhn.redhat.com" ]; then
 WARNING
 fi
 
-default_or_input "CA Chain" CA_CHAIN $(awk -F'[=;]' '/sslCACert=/ {a=$2} END { print a}' $SYSCONFIG_DIR/up2date)
+CA_CHAIN=$(awk -F'[=;]' '/sslCACert=/ {a=$2} END {print a}' $UP2DATE_FILE)
+echo "Using CA Chain (from $UP2DATE_FILE): $CA_CHAIN"
 
 if [ 0$FORCE_OWN_CA -eq 0 ] && \
     ! is_hosted "$RHN_PARENT" && \
@@ -315,7 +311,6 @@ Please do copy your CA key and public certificate from $RHN_PARENT to
 /root/ssl-build directory. You may want to execute this command:
  scp 'root@$RHN_PARENT:/root/ssl-build/{RHN-ORG-PRIVATE-SSL-KEY,RHN-ORG-TRUSTED-SSL-CERT,rhn-ca-openssl.cnf}' $SSL_BUILD_DIR
 CA_KEYS
-        generate_answers
         exit 1
 fi
 
@@ -323,7 +318,6 @@ check_ca_conf
 
 if ! /sbin/runuser nobody -s /bin/sh --command="[ -r $CA_CHAIN ]" ; then
     echo Error: File $CA_CHAIN is not readable by nobody user.
-    generate_answers
     exit 1
 fi
 
