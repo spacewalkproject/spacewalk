@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.52
+Version: 2.1.53
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Oct 07 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.53-1
+- 1012951 - Revert "removing unused string with trans-id 'file_lists.added'"
+- 1012951 - Revert "removing unused string with trans-id 'file_lists.removed'"
+- 1006127 - Make Search button translatable
+- 1006182 - Make ISS Master and Slave tabs less confusing
+
 * Wed Oct 02 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.52-1
 - 1002590 - unified way how we call rhn-search cleanindex
 - Serializers for Taskomatic: log serialization errors
