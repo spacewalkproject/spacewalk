@@ -163,6 +163,11 @@ if [[ $INTERACTIVE == 0 \
         exit 1
 fi
 
+if [[ $INTERACTIVE == 0 && -z $ANSWER_FILE ]]; then
+    echo "Option --non-interactive is for use only with option --answer-file."
+    exit 1
+fi
+
 ACCUMULATED_ANSWERS=""
 
 generate_answers() {
