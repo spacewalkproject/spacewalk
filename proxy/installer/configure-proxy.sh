@@ -46,7 +46,7 @@ options:
   --rhn-password=RHN_PASSWORD
             Red Hat Network or Spacewalk password.
   --rhn-user=RHN_USER
-            Red Hat Network or Spacewalk user acount.
+            Red Hat Network or Spacewalk user account.
   --ssl-build-dir=SSL_BUILD_DIR
             The directory where we build SSL certificate. Default is /root/ssl-build
   --ssl-city=SSL_CITY

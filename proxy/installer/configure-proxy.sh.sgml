@@ -138,7 +138,7 @@ provide a required response, default answer is used.</para>
     <varlistentry>
         <term>--rhn-user=RHN_USER</term>
         <listitem>
-            <para>Red Hat Network or Spacewalk user acount.</para>
+            <para>Red Hat Network or Spacewalk user account.</para>
 	</listitem>
     </varlistentry>
     <varlistentry>
@@ -254,7 +254,7 @@ provide a required response, default answer is used.</para>
     <varlistentry>
         <term>RHN_USER</term>
         <listitem>
-            <para>Red Hat Network or Spacewalk user acount.</para>
+            <para>Red Hat Network or Spacewalk user account.</para>
 	</listitem>
     </varlistentry>
     <varlistentry>
