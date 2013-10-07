@@ -95,14 +95,6 @@ parse_answer_file() {
     done
 }
 
-set_value() {
-    local OPTION="$1"
-    local VAR="$2"
-    local ARG="$3"
-    [[ "$ARG" =~ ^- ]] && echo "$0: option $OPTION requires argument!" && print_help
-    eval "$(printf "%q=%q" "$VAR" "$ARG")"
-}
-
 INTERACTIVE=1
 CNAME_INDEX=0
 
@@ -118,36 +110,36 @@ eval set -- "$OPTS"
 while : ; do
     case "$1" in
         --help|-h)  print_help;;
-        --answer-file) set_value "$1" ANSWER_FILE "$2";
+        --answer-file) ANSWER_FILE="$2";
                        parse_answer_file "$ANSWER_FILE"; shift;;
         --non-interactive) INTERACTIVE=0;;
-        --version) set_value "$1" VERSION "$2"; shift;;
-        --rhn-parent) set_value "$1" RHN_PARENT "$2"; shift;;
-        --traceback-email) set_value "$1" TRACEBACK_EMAIL "$2"; shift;;
+        --version) VERSION="$2"; shift;;
+        --rhn-parent) RHN_PARENT="$2"; shift;;
+        --traceback-email) TRACEBACK_EMAIL="$2"; shift;;
         --use-ssl) USE_SSL="${2:-1}"; shift;;
-        --ca-chain) set_value "$1" CA_CHAIN "$2"; shift;;
+        --ca-chain) CA_CHAIN="$2"; shift;;
         --force-own-ca) FORCE_OWN_CA=1;;
-        --http-proxy) set_value "$1" HTTP_PROXY "$2"; shift;;
-        --http-username) set_value "$1" HTTP_USERNAME "$2"; shift;;
-        --http-password) set_value "$1" HTTP_PASSWORD "$2"; shift;;
-        --ssl-build-dir) set_value "$1" SSL_BUILD_DIR "$2"; shift;;
-        --ssl-org) set_value "$1" SSL_ORG "$2"; shift;;
-        --ssl-orgunit) set_value "$1" SSL_ORGUNIT "$2"; shift;;
-        --ssl-common) set_value "$1" SSL_COMMON "$2"; shift;;
-        --ssl-city) set_value "$1" SSL_CITY "$2"; shift;;
-        --ssl-state) set_value "$1" SSL_STATE "$2"; shift;;
-        --ssl-country) set_value "$1" SSL_COUNTRY "$2"; shift;;
-        --ssl-email) set_value "$1" SSL_EMAIL "$2"; shift;;
-        --ssl-password) set_value "$1" SSL_PASSWORD "$2"; shift;;
-        --ssl-cname) set_value "$1" "SSL_CNAME_PARSED[CNAME_INDEX++]=--set-cname" "$2"; shift;;
-        --install-monitoring) set_value "$1" INSTALL_MONITORING="${2:-Y}"; shift;;
+        --http-proxy) HTTP_PROXY="$2"; shift;;
+        --http-username) HTTP_USERNAME="$2"; shift;;
+        --http-password) HTTP_PASSWORD="$2"; shift;;
+        --ssl-build-dir) SSL_BUILD_DIR="$2"; shift;;
+        --ssl-org) SSL_ORG="$2"; shift;;
+        --ssl-orgunit) SSL_ORGUNIT="$2"; shift;;
+        --ssl-common) SSL_COMMON="$2"; shift;;
+        --ssl-city) SSL_CITY="$2"; shift;;
+        --ssl-state) SSL_STATE="$2"; shift;;
+        --ssl-country) SSL_COUNTRY="$2"; shift;;
+        --ssl-email) SSL_EMAIL="$2"; shift;;
+        --ssl-password) SSL_PASSWORD="$2"; shift;;
+        --ssl-cname) SSL_CNAME_PARSED[CNAME_INDEX++]="--set-cname=$2"; shift;;
+        --install-monitoring) INSTALL_MONITORING="${2:-Y}"; shift;;
         --enable-scout) ENABLE_SCOUT="${2:-1}"; shift;;
-        --monitoring-parent) set_value "$1" MONITORING_PARENT "$2"; shift;;
-        --monitoring-parent-ip) set_value "$1" MONITORING_PARENT_IP "$2"; shift;;
+        --monitoring-parent) MONITORING_PARENT="$2"; shift;;
+        --monitoring-parent-ip) MONITORING_PARENT_IP="$2"; shift;;
         --populate-config-channel) POPULATE_CONFIG_CHANNEL="${2:-Y}"; shift;;
         --start-services) START_SERVICES="${2:-Y}"; shift;;
-        --rhn-user) set_value "$1" RHN_USER "$2"; shift;;
-        --rhn-password) set_value "$1" RHN_PASSWORD "$2"; shift;;
+        --rhn-user) RHN_USER="$2"; shift;;
+        --rhn-password) RHN_PASSWORD="$2"; shift;;
         --) shift;
             if [ $# -gt 0 ] ; then
                 echo "Error: Extra arguments found: $@"
