@@ -15,7 +15,6 @@
 #
 # Builds an rpm out of command line options
 #
-# $Id$
 
 PATH=$PATH:/usr/bin
 

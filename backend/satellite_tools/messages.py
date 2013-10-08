@@ -13,7 +13,6 @@
 # in this software or its documentation.
 #
 #
-# $Id$
 """ Spacewalk Synchronization Tool Messages
 
     Copyright (c) 2002--2013 Red Hat, Inc.

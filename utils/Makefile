@@ -1,6 +1,5 @@
 # Makefile for spacewalk-utils
 #
-# $Id$
 
 NAME := spacewalk-utils
 

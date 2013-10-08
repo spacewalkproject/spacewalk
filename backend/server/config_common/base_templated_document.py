@@ -15,7 +15,6 @@
 #
 # Templating code for the configuration management project
 #
-# $Id$
 
 import re
 import string

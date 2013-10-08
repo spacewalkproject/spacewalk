@@ -1,6 +1,5 @@
 # Makefile for installing man pages for the up2date client
 #
-# $Id$
 
 ACTIONS		= up2date_config hardware reboot \
 		  rhnsd systemid __init__

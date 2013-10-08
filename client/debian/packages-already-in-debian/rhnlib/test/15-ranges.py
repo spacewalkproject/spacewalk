@@ -2,7 +2,6 @@
 #
 # Tests the encodings in Input and Output objects
 #
-# $Id$
 
 import sys
 sys.path.append('..')

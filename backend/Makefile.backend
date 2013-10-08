@@ -1,6 +1,5 @@
 # Makefile for the backend directory
 #
-# $Id$
 
 SPACEWALK_FILES = __init__
 CODE_DIRS = common server upload_server satellite_tools satellite_exporter po wsgi

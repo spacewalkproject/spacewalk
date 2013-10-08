@@ -2,7 +2,6 @@
 
 # RHN Action exporter
 # Copyright (c) 1999-2005 Red Hat, Inc.  Distributed under GPL.
-# $Id$
 
 def do_call(method, params):
     """Find and execute an allowable xmlrpc method.

@@ -18,7 +18,6 @@
 #
 # Usage: ./xxx.py <server-name> <db>
 #
-# $Id$
 
 import os
 import sys

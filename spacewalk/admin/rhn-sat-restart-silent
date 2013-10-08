@@ -14,7 +14,6 @@
 # in this software or its documentation.
 #
 #
-# $Id$
 
 # We do this, because Runtime.exec in the java code seems to only allocate a buffer so big for stdout
 #   and since we are restarting ourself, we can not flush the buffer in order 

@@ -1,6 +1,5 @@
 # Makefile for rhncustominfo
 #
-# $Id$
 
 # what is the backend top dir
 TOP     = .

@@ -15,7 +15,6 @@
 #
 # rhn-ssl-tool openssl.cnf style file manipulation class
 #
-# $Id$
 
 ## FIXME: the logic here is *WAY* too complicated. Need to simplify -taw
 

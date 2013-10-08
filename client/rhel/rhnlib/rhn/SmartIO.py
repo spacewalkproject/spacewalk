@@ -5,7 +5,6 @@
 #
 # Author: Mihai Ibanescu <misa@redhat.com>
 
-# $Id$
 """
 This module implements the SmartIO class
 """

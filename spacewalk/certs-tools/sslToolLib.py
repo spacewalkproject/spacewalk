@@ -15,7 +15,6 @@
 #
 # rhn-ssl-tool general library
 #
-# $Id$
 
 ## language imports
 import os

@@ -1,6 +1,5 @@
 # Makefile for the config-common module
 #
-# $Id$
 
 TOP	= ../..
 SUBDIR	= server/config_common

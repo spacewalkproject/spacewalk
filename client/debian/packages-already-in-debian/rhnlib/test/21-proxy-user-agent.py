@@ -2,7 +2,6 @@
 #
 # tests rhn.rpclib.Server(), connection through proxy
 #
-# $Id$
 #
 # USAGE:  $0 SERVER PROXY [SYSTEMID]
 

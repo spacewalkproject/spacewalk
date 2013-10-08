@@ -1,6 +1,5 @@
 # Makefile for the action handlers module
 #
-# $Id$
 
 TOP	= ../..
 SUBDIR	= server/action

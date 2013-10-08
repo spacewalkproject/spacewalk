@@ -1,6 +1,5 @@
 #!/usr/bin/python
 #
-# $Id$
 """
 Tests a memory leak in the applet
 """

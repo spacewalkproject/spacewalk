@@ -5,7 +5,6 @@
 #
 # Author: Mihai Ibanescu <misa@redhat.com>
 
-# $Id$
 
 
 import base64

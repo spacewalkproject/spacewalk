@@ -2,7 +2,6 @@
 #
 #
 #
-# $Id$
 #
 # Usage: $0 SERVER PROXY [SYSTEMID]
 

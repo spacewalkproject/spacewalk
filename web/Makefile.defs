@@ -1,6 +1,5 @@
 # Makefile for the backend directory
 #
-# $Id$
 
 # perl setup
 PERL		= /usr/bin/perl

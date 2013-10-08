@@ -1,6 +1,5 @@
 # Makefile for satellite_tool for RHNS
 #
-# $Id$
 
 TOP	= ..
 

@@ -2,7 +2,6 @@
 #
 # Test for SmartIO objects
 #
-# $Id$
 
 import sys
 sys.path.append('..')

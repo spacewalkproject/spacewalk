@@ -22,7 +22,6 @@
 # RHN-ORG-TRUSTED-SSL-CERT (or ca.cert) is packaged as
 # rhn-org-trusted-ssl-cert-*.rpm
 #
-# $Id$
 
 TOPDIR=$(cd $(dirname $0) && pwd)
 

@@ -1,5 +1,4 @@
 #
-# $Id$
 
 import rhnserver
 import config

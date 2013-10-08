@@ -1,7 +1,6 @@
 #!/usr/bin/python
 #
 #
-# $Id$
 
 from distutils.core import setup
 

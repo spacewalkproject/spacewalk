@@ -1,6 +1,5 @@
 # logrotation file for Spacewalk server
 #
-# $Id$
 
 /var/log/rhn/rhn_server_app.log {
     weekly

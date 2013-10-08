@@ -1,6 +1,5 @@
 # Makefile for the PO files (translation) catalog
 #
-# $Id$
 
 TOP	= ..
 SUBDIR	= locale

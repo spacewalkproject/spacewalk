@@ -17,7 +17,6 @@
 # It catches the exception and sends the traceback, but the DB password should
 # be censored.
 # Run the test and look into the email.
-# $Id$
 
 from spacewalk.server import rhnSQL
 from spacewalk.common.rhnConfig import initCFG

@@ -14,7 +14,6 @@
 #
 # This file defines the classes available for the XMLRPC receiver
 #
-# $Id$
 
 __all__ = []
 

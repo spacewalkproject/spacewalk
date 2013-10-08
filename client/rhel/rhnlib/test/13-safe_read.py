@@ -2,7 +2,6 @@
 #
 # Test _smart_read over a slow socket
 #
-# $Id$
 
 import sys
 import os

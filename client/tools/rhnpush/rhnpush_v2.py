@@ -16,7 +16,6 @@
 #
 # Package uploading tool
 #
-# $Id$
 
 import base64
 

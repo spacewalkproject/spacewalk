@@ -1,7 +1,6 @@
 More expansive description of how we create CA keys/certs and httpd-server
 keys/cert-reqs/certs:
 ------------------------------------------------------------------------------
-$Id$
 
 XXX Needs to be updated XXX
 

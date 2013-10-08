@@ -29,7 +29,6 @@
 #
 # Author: Todd Warner <taw@redhat.com>
 #
-# $Id$
 
 
 ## language imports

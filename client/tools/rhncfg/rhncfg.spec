@@ -118,7 +118,6 @@ fi
 %{_mandir}/man8/rhn-actions-control.8*
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
-# $Id$
 %changelog
 * Fri Oct 04 2013 Michael Mraka <michael.mraka@redhat.com> 5.10.64-1
 - Adding fallback support for numeric UID/GID

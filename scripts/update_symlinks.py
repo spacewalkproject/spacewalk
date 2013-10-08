@@ -16,7 +16,6 @@
 #
 # Test for blob updates
 #
-# $Id$
 
 """
 This script is meant to be used by spacewalk users upgrading from  1.0 to 1.1.

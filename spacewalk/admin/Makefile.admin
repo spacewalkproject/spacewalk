@@ -15,7 +15,6 @@
 #
 # Makefile for Red Hat Satellite admin scripts
 #
-# $Id$
 
 BINDIR	  = /usr/bin
 SBINDIR   = /usr/sbin

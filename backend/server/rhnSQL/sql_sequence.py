@@ -14,7 +14,6 @@
 #
 # This file implements teh Sequence class
 #
-# $Id$
 
 from spacewalk.common.rhnException import rhnException
 

@@ -1,6 +1,5 @@
 # Makefile for installing the html files for RHN
 #
-# $Id$
 
 TOP = ..
 

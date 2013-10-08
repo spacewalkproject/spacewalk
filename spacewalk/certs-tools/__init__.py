@@ -13,6 +13,5 @@
 # in this software or its documentation.
 #
 #
-# $Id$
 __all__ = []
 

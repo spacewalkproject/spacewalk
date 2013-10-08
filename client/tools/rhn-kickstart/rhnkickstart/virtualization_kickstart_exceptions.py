@@ -15,7 +15,6 @@
 #
 # Kickstart-related exceptions.
 #
-# $Id$
 
 from kickstart_exceptions import KickstartException
 

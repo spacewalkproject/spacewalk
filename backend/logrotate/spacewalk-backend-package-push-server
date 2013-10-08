@@ -1,6 +1,5 @@
 # logrotation file for Spacewalk Server package uploader
 #
-# $Id$
 
 /var/log/rhn/rhn_upload_package_push.log {
     weekly

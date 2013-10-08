@@ -14,7 +14,6 @@
 #
 #
 #
-# $Id$
 
 from base_templated_document import TemplatedDocument
 

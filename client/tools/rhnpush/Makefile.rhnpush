@@ -1,6 +1,5 @@
 # Makefile for the rhnpush module
 #
-# $Id$
 
 INSTALL         = install -D -p --verbose 
 INSTALL_BIN     = $(INSTALL) -m 755 

@@ -15,7 +15,6 @@
 #
 # Config file handler (management tool)
 #
-# $Id$
 
 import sys
 import difflib

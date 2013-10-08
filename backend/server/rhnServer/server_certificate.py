@@ -16,7 +16,6 @@
 # Classes and functions needed for handling certificates
 # The only really exportable item is the Certificate class
 #
-# $Id$
 
 import hashlib
 import time

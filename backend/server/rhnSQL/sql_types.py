@@ -15,7 +15,6 @@
 #
 # Database types we support for out variables
 #
-# $Id$
 
 # Data types
 class DatabaseDataType:

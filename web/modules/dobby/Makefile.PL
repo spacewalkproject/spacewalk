@@ -1,7 +1,6 @@
 #!/usr/bin/perl
 # perl makefile for the dobby module
 #
-# $Id$
 
 use ExtUtils::MakeMaker;
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence

@@ -15,7 +15,6 @@
 #
 # shell script function library for rhn-bootstrap
 #
-# $Id$
 
 import os.path
 

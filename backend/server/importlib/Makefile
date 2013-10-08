@@ -1,6 +1,5 @@
 # Makefile for the import code
 #
-# $Id$
 
 TOP	= ../..
 

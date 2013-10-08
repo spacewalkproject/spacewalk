@@ -14,7 +14,6 @@
 #
 # init module for the XML-RPC handlers. Bare.
 #
-# $Id$
 
 # we stat all dirs anyway...
 __all__ = []

@@ -20,7 +20,6 @@
 # check how the function/class you are about to modify is used first.
 # Or ask gafton.
 #
-# $Id$
 
 import string
 

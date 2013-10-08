@@ -1,6 +1,5 @@
 # Makefile for the rhnServer module
 #
-# $Id$
 
 TOP     = ../..
 SUBDIR	= server/rhnServer

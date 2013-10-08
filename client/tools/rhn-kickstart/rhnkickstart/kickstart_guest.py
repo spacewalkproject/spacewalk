@@ -15,7 +15,6 @@
 #
 # Kickstart functions for Xen guests.
 #
-# $Id$
 
 import os
 import random

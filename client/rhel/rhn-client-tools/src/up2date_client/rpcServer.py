@@ -1,5 +1,4 @@
 #
-# $Id$
 
 import os
 import sys

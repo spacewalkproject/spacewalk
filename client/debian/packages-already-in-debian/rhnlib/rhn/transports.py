@@ -8,7 +8,6 @@
 #   - Cristian Gafton <gafton@redhat.com>
 #   - Erik Troan <ewt@redhat.com>
 
-# $Id$
 
 # Transport objects
 import os

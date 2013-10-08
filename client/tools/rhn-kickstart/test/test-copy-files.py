@@ -15,7 +15,6 @@
 #
 # Copy files
 #
-# $Id$
 
 from kickstart import kickstart
 

@@ -2,7 +2,6 @@
 #
 # munge the headers to produce an error message
 #
-# $Id$
 #
 # USAGE:  $0 SERVER SYSTEMID
 

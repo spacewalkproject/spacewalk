@@ -14,7 +14,6 @@
 #
 
 #
-# $Id$
 """
 Management tool for the Spacewalk Proxy.
 

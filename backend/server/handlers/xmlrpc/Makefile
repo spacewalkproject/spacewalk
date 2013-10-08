@@ -1,6 +1,5 @@
 # Makefile for the xmlrpc module
 #
-# $Id$
 
 TOP	= ../../..
 SUBDIR	= server/handlers/xmlrpc

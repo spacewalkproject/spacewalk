@@ -1,6 +1,5 @@
 # Makefile for spacewalk backend
 #
-# $Id$
 
 TOP	= ../..
 

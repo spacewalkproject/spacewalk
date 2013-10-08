@@ -16,7 +16,6 @@
 #
 #
 #
-# $Id$
 
 import time
 import types

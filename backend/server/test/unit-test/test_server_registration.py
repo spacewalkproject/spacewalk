@@ -16,7 +16,6 @@
 #
 # Tests verious codepaths for server registration
 #
-# $Id$
 
 import sys
 import unittest

@@ -2,7 +2,6 @@
 #
 # tests leaking file descriptors
 #
-# $Id$
 #
 # USAGE:  $0 SERVER SYSTEMID
 

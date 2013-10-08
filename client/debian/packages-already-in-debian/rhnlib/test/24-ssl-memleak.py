@@ -1,6 +1,5 @@
 #!/usr/bin/python
 #
-# $Id$
 #
 # USAGE:  $0 SERVER CERT
 """

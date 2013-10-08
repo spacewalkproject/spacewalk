@@ -1,6 +1,5 @@
 # Makefile for the applet module
 #
-# $Id$
 
 TOP	= ../../..
 SUBDIR	= server/handlers/applet

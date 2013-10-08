@@ -1,7 +1,6 @@
 #
 #
 #
-# $Id$
 
 import select
 import fcntl

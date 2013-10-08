@@ -2,7 +2,6 @@
 #
 # Checking if the values encoded in hex (base 16) are properly decoded.
 #
-# $Id$
 
 import os
 import sys

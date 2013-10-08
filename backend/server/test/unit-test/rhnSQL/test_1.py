@@ -3,7 +3,6 @@
 #
 #
 #
-# $Id$
 
 import os
 import string

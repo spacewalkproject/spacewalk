@@ -2,7 +2,6 @@
 #
 # tests uploads over SSL
 #
-# $Id$
 #
 # USAGE:  $0 SERVER SYSTEMID
 # OUTPUT: return code = 0

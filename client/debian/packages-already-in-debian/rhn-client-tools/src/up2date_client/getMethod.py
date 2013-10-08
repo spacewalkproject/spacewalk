@@ -6,7 +6,6 @@
 # An allowable xmlrpc method is retrieved given a base location, a
 # hierarchical route to the class/module, and method name.
 #
-# $Id$
 
 import os
 import string

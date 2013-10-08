@@ -14,7 +14,6 @@
 # in this software or its documentation.
 #
 #
-# $Id$
 
 use strict;
 use warnings;

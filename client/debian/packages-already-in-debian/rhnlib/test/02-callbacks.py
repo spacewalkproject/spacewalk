@@ -2,7 +2,6 @@
 #
 #
 #
-# $Id$
 
 import sys
 sys.path.append('..')

@@ -270,7 +270,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/spacewalk/web
 %doc LICENSE
 
-# $Id$
 %changelog
 * Mon Oct 07 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.23-1
 - Revert "removing Perl reboot system page"

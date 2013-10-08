@@ -1,6 +1,5 @@
 # Makefile for installation of the RHN server configuration files
 #
-# $Id$
 
 # what is the backend top dir
 TOP	= ..

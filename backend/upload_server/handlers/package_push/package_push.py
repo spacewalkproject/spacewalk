@@ -16,7 +16,6 @@
 # in this software or its documentation.
 #
 #
-# $Id$
 
 import os
 import base64

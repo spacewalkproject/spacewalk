@@ -2,7 +2,6 @@
 #
 # Test case for digest authentication
 #
-# $Id$
 #
 # USAGE: (echo -n) | $0 PORT
 #

@@ -2,7 +2,6 @@
 #
 # Tests the encodings in Input and Output objects
 #
-# $Id$
 #
 # 2004-11-29: fails, but it looks like it never worked. Need to investigate
 

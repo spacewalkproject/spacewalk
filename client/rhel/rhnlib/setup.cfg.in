@@ -1,5 +1,4 @@
 # Configuration file for distutils
-# $Id$
 [bdist_rpm]
 release = @RELEASE@
 packager = Red Hat, Inc. <http://bugzilla.redhat.com/bugzilla>

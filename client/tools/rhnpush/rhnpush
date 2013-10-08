@@ -2,7 +2,6 @@
 #
 # Wrapper for rhnpush.py
 #
-# $Id$
 
 import os
 import sys

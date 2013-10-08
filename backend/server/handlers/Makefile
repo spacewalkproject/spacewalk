@@ -1,6 +1,5 @@
 # Makefile for the xmlrpc handlers
 #
-# $Id$
 
 TOP	= ../..
 SUBDIR	= server/handlers

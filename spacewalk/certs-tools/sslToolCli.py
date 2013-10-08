@@ -15,7 +15,6 @@
 #
 # rhn-ssl-tool command line option module
 #
-# $Id$
 
 ## FIXME: the logic here is *WAY* too complicated. Need to simplify -taw
 

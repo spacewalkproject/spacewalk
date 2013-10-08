@@ -1,6 +1,5 @@
 #!/usr/bin/python
 #
-# $Id$
 """
 Negative test - make sure we raise an exception when the wrong SSL cert is
 used

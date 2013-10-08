@@ -16,7 +16,6 @@
 #
 # Test for blob updates
 #
-# $Id$
 
 """
 Test module for blob updates.

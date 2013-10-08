@@ -1,6 +1,5 @@
 # Makefile for the rhnSQL module
 #
-# $Id$
 
 TOP     = ../..
 SUBDIR	= server/rhnSQL

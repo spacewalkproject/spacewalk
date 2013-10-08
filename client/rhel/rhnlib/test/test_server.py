@@ -1,7 +1,6 @@
 #!/usr/bin/python
 #
 #
-# $Id$
 
 import unittest
 from rhn.rpclib import Server

@@ -1,6 +1,5 @@
 # Makefile for the app module
 #
-# $Id$
 
 TOP	= ../../..
 SUBDIR	= server/handlers/config_mgmt

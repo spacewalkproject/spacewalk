@@ -1,6 +1,5 @@
 # Makefile for spacewalk backend
 #
-# $Id$
 
 # what is the backend top dir
 TOP     = ..

@@ -5,7 +5,6 @@
  *	Cristian Gafton <gafton@redhat.com>
  *
  * Distributed under GPLv2
- * $Id$
  */
 
 #include <features.h>

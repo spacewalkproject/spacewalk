@@ -1,6 +1,5 @@
 # Makefile for installation of the httpd configuration files
 #
-# $Id$
 
 # what is the backend top dir
 TOP	= ..

@@ -5,7 +5,6 @@
 #       Cristian Gafton <gafton@redhat.com>
 #       Adrian Likins   <alikins@redhat.com>
 #
-# $Id$
 """
 This module includes the Config and Up2date Config classes use by the
 up2date agent to hold config info.

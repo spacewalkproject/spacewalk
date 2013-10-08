@@ -1,6 +1,5 @@
 # Makefile for Update Agent
 #
-# $Id$
 
 PREFIX		?= /
 

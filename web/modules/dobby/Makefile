@@ -1,6 +1,5 @@
 # dummy Makefile for perl module
 #
-# $Id$
 
 TOP = ../..
 export TOP

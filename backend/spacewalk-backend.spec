@@ -626,7 +626,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/exportLib.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
-# $Id$
 %changelog
 * Fri Oct 04 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.26-1
 - Python pgsql db tests: fix broken test

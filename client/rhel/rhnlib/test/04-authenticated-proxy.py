@@ -2,7 +2,6 @@
 #
 #
 #
-# $Id$
 #
 # Usage: $0 SERVER PROXY:PORT [SYSTEMID] [PROXY_USER] [PROXY_PASS]
 

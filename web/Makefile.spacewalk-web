@@ -1,6 +1,5 @@
 # Makefile for the backend directory
 #
-# $Id$
 
 # global defines which control this build and where we deploy files
 PREFIX	=

@@ -3,7 +3,6 @@
 # Test for tempfile creation
 # Use lsof to see how many open files we have
 #
-# $Id$
 
 import sys
 import os

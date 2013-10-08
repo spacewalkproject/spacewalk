@@ -20,7 +20,6 @@
 # NOTE: translating seconds to years is an approximation. I.e., xxx secs *
 #       365 not really right. Some years do not come out to 365 days.
 #
-# $Id$
 
 #
 # The Unix Epoch is/was: 1970-01-01 00:00:00

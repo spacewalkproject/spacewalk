@@ -1,4 +1,3 @@
-$Id$
 
 - Check nonblocking support for HTTPS as well.
 - Allow for multi-valued headers

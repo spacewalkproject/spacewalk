@@ -18,7 +18,6 @@
 # opposed to the Python one, this script returns error codes when a
 # compile fails, so it can be used from Makefiles
 #
-# $Id$
 
 import os
 import sys

@@ -1,6 +1,5 @@
 # Makefile for installing man pages for the up2date client
 #
-# $Id$
 
 # INSTALL scripts 
 INSTALL         = install --verbose 

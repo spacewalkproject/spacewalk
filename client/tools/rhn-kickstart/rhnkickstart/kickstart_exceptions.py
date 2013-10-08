@@ -15,7 +15,6 @@
 #
 # Kickstart-related exceptions.
 #
-# $Id$
 
 class KickstartException(Exception):
     """General kickstart exception."""

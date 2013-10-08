@@ -14,7 +14,6 @@
 # in this software or its documentation.
 #
 #
-# $Id$
 
 import sys
 import locale

@@ -3,7 +3,6 @@
 #
 #
 #
-# $Id$
 
 import unittest
 from spacewalk.server import rhnSQL

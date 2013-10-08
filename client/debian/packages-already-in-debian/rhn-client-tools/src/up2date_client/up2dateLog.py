@@ -1,5 +1,4 @@
 #
-# $Id$
 
 import time
 import config

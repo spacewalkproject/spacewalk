@@ -1,6 +1,5 @@
 # Makefile for installing man pages for the up2date client
 #
-# $Id$
 
 MODULES		= rhn_login_gui \
 		  rhn_register_firstboot_gui_window \

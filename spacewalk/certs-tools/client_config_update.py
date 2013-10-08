@@ -23,7 +23,6 @@
 #
 # Author: Todd Warner <taw@redhat.com>
 #
-# $Id$
 
 """
 Client configuration mapping script that writes to an RHN Update Agent-type

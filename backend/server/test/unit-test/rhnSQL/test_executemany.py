@@ -3,7 +3,6 @@
 #
 #
 #
-# $Id$
 
 raise Exception("""
 
