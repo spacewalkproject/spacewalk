@@ -10,8 +10,8 @@ table.list-doubleheader tr + tr th:last-child {
 }
 
 th.thin-column, td.thin-column {
-	width: 1%;
         text-align: center;
+	white-space: nowrap;
 }
 
 .list-checkbox {
