@@ -4978,7 +4978,7 @@ Are you sure you would like to continue?</property>
 	  <child>
 	    <widget class="GtkLabel" id="label73">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">The tool you are using is attempting to re-register using RHN Classic technology. Red Hat recommends (except in a few cases) that customers only register with RHN once.</property>
+	      <property name="label" translatable="yes">Your system is being registered again using RHN Classic technology. Red Hat recommends that customers only register once.</property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">False</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>
