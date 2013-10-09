@@ -129,11 +129,9 @@ SYSTEM_ALREADY_SETUP = _("System Already Registered")
 SYSTEM_ALREADY_REGISTERED = _("It appears this system has already been set up for software updates:")
 SYSTEM_ALREADY_REGISTERED_CONT = _("Are you sure you would like to continue?")
 
-RHSM_SYSTEM_ALREADY_REGISTERED = _("This system has already been registered with RHN Classic/Red Hat Satellite"
-				" using Red Hat certficate-based technology.\n\n"
-				"The tool you are using is attempting to re-register "
-				"using Red Hat Satellite or Red Hat Satellite Proxy technology. Red Hat recommends "
-				"(except in a few cases) that customers only register with Red Hat Satellie once.\n\n"
+RHSM_SYSTEM_ALREADY_REGISTERED = _("This system has already been registered using Red Hat Subscription Management.\n\n"
+				"Your system is being registered again using Red Hat Satellite"
+				" or Red Hat Satellite Proxy technology. Red Hat recommends that customers only register once.\n\n"
 				"To learn more about RHN Classic/Red Hat Satellite registration and technologies please consult this"
 				" Knowledge Base Article: https://access.redhat.com/kb/docs/DOC-45563")
 
