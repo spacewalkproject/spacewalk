@@ -4,7 +4,7 @@ Summary: Python libraries for the Spacewalk project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.68
+Version: 2.5.69
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Thu Oct 10 2013 Michael Mraka <michael.mraka@redhat.com> 2.5.69-1
+- cleaning up old svn Ids
+
 * Fri Oct 04 2013 Michael Mraka <michael.mraka@redhat.com> 2.5.68-1
 - Python: fixed UserDictCase behaviour when key is not found
 
