@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.64
+Version: 5.10.65
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -119,6 +119,9 @@ fi
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
 %changelog
+* Thu Oct 10 2013 Michael Mraka <michael.mraka@redhat.com> 5.10.65-1
+- cleaning up old svn Ids
+
 * Fri Oct 04 2013 Michael Mraka <michael.mraka@redhat.com> 5.10.64-1
 - Adding fallback support for numeric UID/GID
 
