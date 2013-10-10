@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 5.0.13
+Version: 5.0.14
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -138,6 +138,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Oct 10 2013 Michael Mraka <michael.mraka@redhat.com> 5.0.14-1
+- cleaning up old svn Ids
+
 * Mon Jun 17 2013 Michael Mraka <michael.mraka@redhat.com> 5.0.13-1
 - removed old CVS/SVN version ids
 
