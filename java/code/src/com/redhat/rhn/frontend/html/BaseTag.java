@@ -27,10 +27,10 @@ import java.util.Map;
  * @version $Rev: 60021 $
  */
 public abstract class BaseTag {
-    private String tag;
-    private Map<String, String> attribs;
-    private List body;
-    private boolean spaceBeforeEndTag;
+    private final String tag;
+    private final Map<String, String> attribs;
+    private final List body;
+    private final boolean spaceBeforeEndTag;
 
     /**
      * Public constructor
@@ -66,7 +66,16 @@ public abstract class BaseTag {
     }
 
     /**
-     * set the body of the tag
+     * sets the body of the tag
+     * @param bodyIn the new body
+     */
+    public void setBody(String bodyIn) {
+        body.clear();
+        body.add(bodyIn);
+    }
+
+    /**
+     * adds to the body of the tag
      * @param bodyIn the new body
      */
     public void addBody(String bodyIn) {

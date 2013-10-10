@@ -679,22 +679,23 @@ public class ListTagUtil {
         StringBuilder sb = new StringBuilder();
 
         sb.append("<div class=\"col-lg-6\">");
-        sb.append("<div class=\"input-group\">");
-        sb.append(String.format("<span class=\"input-group-addon\">%s</span>",
-                                ls.getMessage("message.filterby",
-                                              fields.get(0).toString())));
+        sb.append("<div class=\"input-group input-group-sm\">");
+
+        String placeHolder = StringUtils.defaultString(ls.getMessage("message.filterby",
+                fields.get(0).toString()));
         sb.append(String.format("<input autofocus=\"autofocus\" type=\"text\" " +
-                " name=\"%s\" value=\"%s\" class=\"form-control\"/>",
+                " name=\"%s\" value=\"%s\" class=\"form-control\" placeholder=\"%s\"/>",
                                 filterValueKey,
                                 (filterValue != null ?
                                  StringEscapeUtils.escapeHtml(filterValue) :
-                                 "")));
+                                 ""),
+                                 StringEscapeUtils.escapeHtml(placeHolder)
+                                 ));
         sb.append("<span class=\"input-group-btn\">");
         sb.append(String.format("<button value=\"%s\" type=\"submit\" name=\"%s\" " +
-                " class=\"btn btn-default\">%s",
+                " class=\"btn btn-default\"><i class=\"icon-filter\"></i>",
                                 ls.getMessage(RequestContext.FILTER_KEY),
-                                filterName,
-                                ls.getMessage(RequestContext.FILTER_KEY)));
+                                filterName));
         sb.append("</button>");
         sb.append("</span>");
         sb.append("</div>");

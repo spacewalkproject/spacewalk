@@ -18,6 +18,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.frontend.html.HtmlTag;
 import com.redhat.rhn.frontend.taglibs.ListDisplayTag;
 import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
+import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 
 import javax.servlet.jsp.JspException;
 
@@ -38,6 +39,7 @@ public class AddToSsmDecorator extends BaseListDecorator {
     public static final String PARAM_CLEAR_SSM = "clear-ssm-first";
 
     /** {@inheritDoc} */
+    @Override
     public void afterList() throws JspException {
         if (!currentList.isEmpty()) {
 
@@ -51,20 +53,30 @@ public class AddToSsmDecorator extends BaseListDecorator {
 
             // Generate the HTML to output
             StringBuffer buf = new StringBuffer();
-            buf.append("<span class=\"list-selection-buttons\">");
+            buf.append("<span class=\"spacewalk-list-selection-btns\">");
 
             //   Add to SSM button
-            HtmlTag tag = new HtmlTag("input");
+            HtmlTag tag = new HtmlTag("button");
+            tag.setAttribute("class", "btn btn-default");
             tag.setAttribute("type", "submit");
             tag.setAttribute("name", buttonName);
             tag.setAttribute("value", value);
+            tag.setBody(value);
             buf.append(tag.render()).append("&nbsp;");
 
             //   Checkbox for whether or not to clear the existing SSM servers
             tag = new HtmlTag("input");
+            String uId = TagHelper.generateUniqueName("chkbox-clear-ssm");
+            tag.setAttribute("id", uId);
             tag.setAttribute("type", "checkbox");
             tag.setAttribute("name", PARAM_CLEAR_SSM);
-            buf.append(tag.render()).append(clearText).append("&nbsp;");
+
+            HtmlTag lbl = new HtmlTag("label");
+            lbl.setAttribute("for", uId);
+            lbl.setBody(clearText);
+
+            buf.append(tag.render());
+            buf.append(lbl.render());
 
             buf.append("</span>");
             ListTagUtil.write(pageContext, buf.toString());

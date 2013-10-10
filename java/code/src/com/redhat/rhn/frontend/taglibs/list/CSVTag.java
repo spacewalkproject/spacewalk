@@ -153,6 +153,7 @@ public class CSVTag extends BodyTagSupport {
     /**
      * ${@inheritDoc}
      */
+    @Override
     public int doEndTag() throws JspException {
         setupPageData();
         if ((null != exportColumns) && (null != pageData)) {
@@ -165,6 +166,7 @@ public class CSVTag extends BodyTagSupport {
     /**
      * ${@inheritDoc}
      */
+    @Override
     public int doStartTag() throws JspException {
 
         verifyEnvironment();
@@ -174,6 +176,7 @@ public class CSVTag extends BodyTagSupport {
     /**
      * ${@inheritDoc}
      */
+    @Override
     public void release() {
         name = ListHelper.LIST;
         dataSetName = ListHelper.DATA_SET;
@@ -193,8 +196,8 @@ public class CSVTag extends BodyTagSupport {
     private void renderExport() throws JspException {
         StringBuffer page = new StringBuffer(CSV_DOWNLOAD_URI);
         page.append("?" + makeCSVRequestParams());
-        String exportLink = new String("<div class=\"csv-download\"><a href=\"" +
-                page + "\"><img src=\"/img/csv-16.png\" alt=\"\"/>" +
+        String exportLink = new String("<div class=\"spacewalk-csv-download\"><a href=\"" +
+                page + "\"><i class=\"icon-download-alt\"></i>" +
                 LocalizationService.getInstance().getMessage(
                         "listdisplay.csv") + "</a></div>");
         ListTagUtil.write(pageContext, exportLink);

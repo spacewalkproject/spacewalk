@@ -31,6 +31,7 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.IOException;
@@ -55,7 +56,6 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * The ListDisplayTag defines the structure of the ListView.  This tag iterates
  * through the {@link com.redhat.rhn.common.db.datasource.DataResult DataResult}
  * contained in its parent tag,
- * {@link com.redhat.rhn.frontend.taglibs.ListTag ListTag}. In the first
  * iteration the {@link com.redhat.rhn.frontend.taglibs.ColumnTag ColumnTags}
  * render the headers of the ListView, while subsequent iterations render the
  * data contained within the
@@ -592,8 +592,8 @@ public class ListDisplayTag extends BodyTagSupport {
         if (request.getQueryString() != null) {
             page.append("&" + request.getQueryString());
         }
-        out.println("<div class=\"csv-download\"><a href=\"" + page +
-              "\"><img src=\"/img/csv-16.png\"/ alt=\"\">" +
+        out.println("<div class=\"spacewalk-csv-download\"><a href=\"" + page +
+              "\"><i class=\"icon-download-alt\"></i>" +
               LocalizationService.getInstance().getMessage("listdisplay.csv") +
               "</a></div>");
     }
@@ -605,11 +605,9 @@ public class ListDisplayTag extends BodyTagSupport {
      */
     private void renderTitle(JspWriter out) throws IOException {
         if (!StringUtils.isEmpty(title)) {
-            HtmlTag tr = new HtmlTag("tr");
-            HtmlTag th = new HtmlTag("th");
-            th.addBody(LocalizationService.getInstance().getMessage(title));
-            tr.addBody(th);
-            out.println(tr.render());
+            HtmlTag caption = new HtmlTag("caption");
+            caption.addBody(LocalizationService.getInstance().getMessage(title));
+            out.println(caption.render());
         }
     }
 
@@ -633,15 +631,21 @@ public class ListDisplayTag extends BodyTagSupport {
 
     private void renderFilterBox(JspWriter out) throws IOException {
         LocalizationService ls = LocalizationService.getInstance();
+
         HtmlTag tag = new HtmlTag("div");
-        tag.setAttribute("class", "filter-input");
+        tag.setAttribute("class", "spacewalk-filter-input input-group");
 
         StringBuffer buf = new StringBuffer();
+
         HtmlTag input = new HtmlTag("input");
         input.setAttribute("type", "text");
-        input.setAttribute("size", "12");
+        input.setAttribute("class", "form-control");
         input.setAttribute("name", RequestContext.FILTER_STRING);
         input.setAttribute("value", pageList.getFilterData());
+        String placeHolder = StringEscapeUtils.escapeHtml(
+                ls.getMessage("message.filterby", ls.getMessage(filterBy)));
+        input.setAttribute("placeholder", placeHolder);
+
         buf.append(input.render());
 
         input = new HtmlTag("input");
@@ -650,15 +654,20 @@ public class ListDisplayTag extends BodyTagSupport {
         input.setAttribute("value", pageList.getFilterData());
         buf.append(input.render());
 
-        input = new HtmlTag("input");
-        input.setAttribute("type", "submit");
-        input.setAttribute("name", FILTER_DISPATCH);
-        input.setAttribute("value", ls.getMessage(RequestContext.FILTER_KEY));
-        buf.append(input.render());
+        HtmlTag btnSpan = new HtmlTag("span");
+        btnSpan.setAttribute("class", "input-group-btn");
 
+        HtmlTag btn = new HtmlTag("button");
+        btn.setAttribute("class", "btn btn-default icon-filter");
+        btn.setAttribute("type", "submit");
+        btn.setAttribute("name", FILTER_DISPATCH);
+        //input.setAttribute("value", ls.getMessage(RequestContext.FILTER_KEY));
 
-        tag.addBody(ls.getMessage("message.filterby", ls.getMessage(filterBy)) +
-                    buf.toString());
+        btnSpan.addBody(btn);
+
+        buf.append(btnSpan.render());
+
+        tag.addBody(buf.toString());
         out.println(tag.render());
     }
 
@@ -683,11 +692,12 @@ public class ListDisplayTag extends BodyTagSupport {
 
         LocalizationService ls = LocalizationService.getInstance();
 
-        HtmlTag input = new HtmlTag("input");
-        input.setAttribute("type", "submit");
-        input.setAttribute("name", name);
-        input.setAttribute("value", ls.getMessage(label));
-        return input;
+        HtmlTag btn = new HtmlTag("button");
+        btn.setAttribute("class", "btn btn-default");
+        btn.setAttribute("type", "submit");
+        btn.setAttribute("name", name);
+        btn.addBody(ls.getMessage(label));
+        return btn;
 
     }
 
@@ -704,10 +714,10 @@ public class ListDisplayTag extends BodyTagSupport {
         throws IOException {
 
         if (type.equals("list")) {
-            out.println("<table width=\"100%\" class=\"list-pagination\"");
+            out.println("<div class=\"spacewalk-list-pagination\"");
         }
         else {
-            out.println("<table class=\"list-pagination\"");
+            out.println("<div class=\"spacewalk-list-pagination\"");
         }
 
         if (tableId != null) {
@@ -715,9 +725,10 @@ public class ListDisplayTag extends BodyTagSupport {
         }
 
         out.println(">");
-        out.println("<tr>");
+
+        out.println("<div class=\"row\">");
        // if (!showSetButtons) {
-            out.println("<td valign=\"middle\" width=\"90%\">");
+            out.println("<div class=\"col-md-10\">");
         //}
         //else {
         //    out.println("<td valign=\"middle\">");
@@ -728,7 +739,7 @@ public class ListDisplayTag extends BodyTagSupport {
         }
         if (!top && set != null) {
             if (showSetButtons) {
-                out.print("<span class=\"list-selection-buttons\">");
+                out.print("<span class=\"spacewalk-list-selection-btns\">");
                 renderSetButtons(out);
                 out.print("</span>");
             }
@@ -738,8 +749,9 @@ public class ListDisplayTag extends BodyTagSupport {
         }
 
 
-        out.println("</td>");
-        out.print("<td valign=\"middle\" class=\"list-infotext\">");
+        out.println("</div>");
+
+        out.print("<div class=\"col-md-2\" class=\"list-infotext\">");
         int finalResult = pageList.getEnd();
         if (finalResult > pageList.getTotalSize()) {
             finalResult = pageList.getTotalSize();
@@ -773,47 +785,42 @@ public class ListDisplayTag extends BodyTagSupport {
             out.print("</span></strong>\n");
         }
 
-        out.println("</td>");
+        out.println("</div>");
         appendButtons(out);
-        out.println("  </tr>\n");
-        out.println("</table>");
+        out.println("  </div>\n");
+        out.println("</div>");
     }
 
     private void appendButtons(JspWriter out) throws IOException {
-        out.println("<td valign=\"middle\" class=\"list-navbuttons\">");
+        out.println("<div class=\"list-navbuttons\">");
 
         boolean canGoForward = pageList.getEnd() < pageList.getTotalSize();
         boolean canGoBack = pageList.getStart() > 1;
 
         if (canGoForward || canGoBack) {
             out.println(renderPaginationButton(FIRST,
-                    "/img/list-allbackward", " |&lt; ", canGoBack));
-            out.println(renderPaginationButton(PREV, "/img/list-backward",
+                    "icon-fast-backward", " |&lt; ", canGoBack));
+            out.println(renderPaginationButton(PREV, "icon-backward",
                     " &lt; ", canGoBack));
-            out.println(renderPaginationButton(NEXT, "/img/list-forward",
+            out.println(renderPaginationButton(NEXT, "icon-forward",
                     " &gt; ", canGoForward));
             out.println(renderPaginationButton(LAST,
-                    "/img/list-allforward", " &gt;| ", canGoForward));
+                    "icon-fast-forward", " &gt;| ", canGoForward));
         }
-        out.println("</td>\n");
+        out.println("</div>\n");
     }
 
-    private String renderPaginationButton(String name, String imgPrefix,
+    private String renderPaginationButton(String name, String icon,
             String text, boolean active) {
-        HtmlTag ret = new HtmlTag("input");
-        ret.setAttribute("type", "image");
+        HtmlTag ret = new HtmlTag("button");
         ret.setAttribute("name", name);
-        ret.setAttribute("value", text);
+        String styleClass = String.format("btn btn-default %s", icon);
 
-        if (active) {
-            ret.setAttribute("class", "list-nextprev-active");
-            ret.setAttribute("src", imgPrefix + ".gif");
-        }
-        else {
-            ret.setAttribute("class", "list-nextprev-inactive");
-            ret.setAttribute("src", imgPrefix + "-unfocused.gif");
+        if (!active) {
+            styleClass += " disabled";
         }
 
+        ret.addBody(String.format("<span class=\"sr-only\">%s</span>", text));
         return ret.render();
     }
 
@@ -827,22 +834,21 @@ public class ListDisplayTag extends BodyTagSupport {
         }
 
 
-        out.println("<div align=\"right\">");
-        out.println("  <hr />");
+        out.println("<div class=\"text-right\">");
 
         if (getButton() != null && AclManager.hasAcl(getButtonAcl(),
                 (HttpServletRequest) pageContext.getRequest(), getMixins())) {
 
-            out.println("<input type=\"submit\" name=\"dispatch\" value=\"" +
+            out.println("<button class=\"btn btn-default\" type=\"submit\" name=\"dispatch\">" +
                     LocalizationService.getInstance().getMessage(getButton()) +
-                    "\" />");
+                    "</button>");
         }
         if (getButton2() != null && AclManager.hasAcl(getButton2Acl(),
                 (HttpServletRequest) pageContext.getRequest(), getMixins())) {
 
-            out.println("<input type=\"submit\" name=\"dispatch\" value=\"" +
+            out.println("<button class=\"btn btn-default\" type=\"submit\" name=\"dispatch\">" +
                     LocalizationService.getInstance().getMessage(getButton2()) +
-                    "\" />");
+                    "</button>");
         }
 
         out.println("</div>");
@@ -926,17 +932,10 @@ public class ListDisplayTag extends BodyTagSupport {
     private void renderAlphabar(JspWriter out) throws IOException {
         StringBuffer target = new StringBuffer();
 
-        if (type.equals("list")) {
-            target.append("<table width=\"100%\" cellspacing=\"0\"" +
-            " cellpadding=\"1\">");
-        }
-        else {
-            target.append("<table cellspacing=\"0\" " + " cellpadding=\"1\">");
-        }
+        target.append("<div class=\"spacewalk-alphabar\">");
 
-        target.append("<tr valign=\"top\">");
-        target.append("<td class=\"list-alphabar\"><div align=\"center\"><strong>");
-        StringBuffer enabled = new StringBuffer("<a href=\"");
+        target.append("<ul class=\"pagination pagination-sm\">");
+        StringBuffer enabled = new StringBuffer("<li><a href=\"");
         enabled.append("?lower={1}");
 
         /**
@@ -975,15 +974,12 @@ public class ListDisplayTag extends BodyTagSupport {
             }
         }
 
-        enabled.append("\" class=\"list-alphabar-enabled\">{0}</a>");
+        enabled.append("\">{0}</a><li>");
         AlphaBar ab = new AlphaBar(enabled.toString(),
-                      "<span class=\"list-alphabar-disabled\">{0}</span>");
+                      "<li class=\"disabled\"><span>{0}</span></li>");
         target.append(ab.getAlphaList(pageList.getIndex()));
-        target.append("</strong></div>");
-        target.append("<br />");
-        target.append("</td>");
-        target.append("  </tr>");
-        target.append("</table>");
+        target.append("</ul>");
+        target.append("</div>");
 
         out.println(target.toString());
     }
@@ -1054,6 +1050,7 @@ public class ListDisplayTag extends BodyTagSupport {
     //////////////////////////////////////////////////////////////////////////
 
     /** {@inheritDoc} */
+    @Override
     public int doStartTag() throws JspException {
         rowCnt = 0;
         numItemsChecked = 0;
@@ -1099,17 +1096,11 @@ public class ListDisplayTag extends BodyTagSupport {
             /* If the type is list, we must set the width explicitly. Otherwise,
              * it shouldn't matter
              */
-            if (type.equals("list") && title == null) {
-                out.print("<table width=\"100%\" cellspacing=\"0\"" +
-                        " cellpadding=\"0\" " + "class=\"list\"");
-            }
-            else if (type.equals("list") && title != null) {
-                out.print("<table width=\"100%\" cellspacing=\"0\"" +
-                        " cellpadding=\"0\" " + "class=\"list list-doubleheader\"");
+            if (type.equals("list")) {
+                out.print("<table class=\"table table-striped spacewalk-list\"");
             }
             else {
-                out.print("<table cellspacing=\"0\" " + " cellpadding=\"0\" " +
-                            "class=\"" + type + "\"");
+                out.print("<table class=\"" + type + "\"");
             }
 
             /*if (isTransparent()) {
@@ -1122,9 +1113,9 @@ public class ListDisplayTag extends BodyTagSupport {
 
             out.println(">");
 
-            out.println("<thead>");
-
             renderTitle(out);
+
+            out.println("<thead>");
 
             out.println("\n<tr>");
 
@@ -1142,6 +1133,7 @@ public class ListDisplayTag extends BodyTagSupport {
     }
 
     /** {@inheritDoc} */
+    @Override
     public int doEndTag() throws JspException {
         JspWriter out = null;
         try {
@@ -1182,6 +1174,7 @@ public class ListDisplayTag extends BodyTagSupport {
                 }
                 out.println(bodyString);
             }
+            out.println("</tbody>");
 
             /* If the type is a half-table, we must draw an extra row on the
              * end of the table if the reflink has been set
@@ -1189,17 +1182,7 @@ public class ListDisplayTag extends BodyTagSupport {
                 if (reflink != null) {
                     columnCount = 0;
 
-                    out.println(getTrElement(null));
-
-                    out.print("<td style=\"text-align: center;\" " +
-                              "class=\"first-column last-column\" ");
-
-
-                    /* TODO: Make this colspan setting dynamic so that
-                     * the reflink row display correctly for lists of
-                     * with n columns instead of just 2
-                     */
-                    out.println("colspan=\"2\">");
+                    out.println("<tfoot>");
 
                     out.println("<a href=\"" + reflink + "\" >");
 
@@ -1221,11 +1204,10 @@ public class ListDisplayTag extends BodyTagSupport {
                     }
 
                     out.println("</a>");
-                    out.println("</td>");
-                    out.println("</tr>");
+                    out.println("</tfoot>");
                 }
 
-            out.println("</tbody>");
+
             out.println("</table>\n");
 
             /* If paging is on, we render the pagination */
@@ -1250,7 +1232,7 @@ public class ListDisplayTag extends BodyTagSupport {
                 args[2] = new Integer(pageList.getTotalSize());
                 args[3] = LocalizationService.getInstance().getMessage(description);
 
-                out.print("<span class=\"full-width-note-left\">\n");
+                out.print("<span class=\"text-left\">\n");
                 out.print(LocalizationService.getInstance()
                             .getMessage("message.range.withtypedescription", args));
                 out.println("</span>");
@@ -1269,6 +1251,7 @@ public class ListDisplayTag extends BodyTagSupport {
     }
 
     /** {@inheritDoc} */
+    @Override
     public int doAfterBody() throws JspException {
         JspWriter out = null;
         try {
@@ -1301,6 +1284,7 @@ public class ListDisplayTag extends BodyTagSupport {
     }
 
     /** {@inheritDoc} */
+    @Override
     public void release() {
         // reset the state of the tag
         iterator = null;

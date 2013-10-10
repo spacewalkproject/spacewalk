@@ -39,6 +39,7 @@ public class SelectableDecorator extends BaseListDecorator {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void beforeList() throws JspException {
         ListTagUtil.write(pageContext, "<input type=\"hidden\" name=\"list_" +
                 listName + "_all\" value=\"false\" id=\"" + "list_" + listName +
@@ -51,6 +52,7 @@ public class SelectableDecorator extends BaseListDecorator {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void afterTopPagination() throws JspException {
         renderSelectedCaption(true);
     }
@@ -58,6 +60,7 @@ public class SelectableDecorator extends BaseListDecorator {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void afterBottomPagination() throws JspException {
         renderSelectedCaption(false);
     }
@@ -65,6 +68,7 @@ public class SelectableDecorator extends BaseListDecorator {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void afterList() throws JspException {
         renderSelectButtons();
         String script = SelectableColumnTag.
@@ -107,19 +111,22 @@ public class SelectableDecorator extends BaseListDecorator {
     private void renderSelectButtons() throws JspException {
         if (!currentList.isEmpty()) {
             StringBuffer buf = new StringBuffer();
-            buf.append("<span class=\"list-selection-buttons\">");
+            buf.append("<span class=\"spacewalk-list-selection-btns\">");
             String buttonName = ListTagUtil.makeSelectActionName(listName);
             LocalizationService ls = LocalizationService.getInstance();
-            HtmlTag tag = new HtmlTag("input");
+            HtmlTag tag = new HtmlTag("button");
+            tag.setAttribute("class", "btn btn-default");
             tag.setAttribute("type", "submit");
             tag.setAttribute("name", buttonName);
             tag.setAttribute("value",
                     ls.getMessage(ListDisplayTag.UPDATE_LIST_KEY));
             tag.setAttribute("id", "update_list_key_id");
+            tag.setBody(ls.getMessage(ListDisplayTag.UPDATE_LIST_KEY));
             buf.append(tag.render()).append("&nbsp;");
 
             tag.setAttribute("value",
                     ls.getMessage(ListDisplayTag.SELECT_ALL_KEY));
+            tag.setBody(ls.getMessage(ListDisplayTag.SELECT_ALL_KEY));
             buf.append(tag.render()).append("&nbsp;");
 
             String selectedName = ListTagUtil.makeSelectedAmountName(listName);
@@ -127,6 +134,7 @@ public class SelectableDecorator extends BaseListDecorator {
             if (!NULL_SELECTION.equals(selected) &&  selected != null) {
                 tag.setAttribute("value",
                         ls.getMessage(ListDisplayTag.UNSELECT_ALL_KEY));
+                tag.setBody(ls.getMessage(ListDisplayTag.UNSELECT_ALL_KEY));
                 buf.append(tag.render()).append("\n");
             }
             buf.append("</span>");

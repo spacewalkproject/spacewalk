@@ -392,23 +392,17 @@ public class ListTag extends BodyTagSupport {
     /**
      * ${@inheritDoc}
      */
+    @Override
     public int doEndTag() throws JspException {
 
         /* If a reference link was provided, it needs to be rendered on a separate
          * row within the table.
          */
         if ((refLink != null) && (!isEmpty())) {
-            ListTagUtil.write(pageContext, "<tr");
-            renderRowClassAndId();
-            ListTagUtil.write(pageContext, ">");
-
-            ListTagUtil.write(pageContext, "<td style=\"text-align: center;\" " +
-                "class=\"first-column last-column\" ");
-
-            ListTagUtil.write(pageContext,
-                "colspan=" + String.valueOf(getColumnCount()) + ">");
+            ListTagUtil.write(pageContext, "<tfoot>");
+            ListTagUtil.write(pageContext, "<tr>");
+            ListTagUtil.write(pageContext, "<td colspan=\"" + String.valueOf(getColumnCount()) + "\">");
             ListTagUtil.write(pageContext, "<a href=\"" + refLink + "\" >");
-
             /* Here we render the reflink and its key. If the key hasn't been set
              * we just display the link address itself.
              */
@@ -428,10 +422,13 @@ public class ListTag extends BodyTagSupport {
             ListTagUtil.write(pageContext, "</a>");
             ListTagUtil.write(pageContext, "</td>");
             ListTagUtil.write(pageContext, "</tr>");
+            ListTagUtil.write(pageContext, "</tfoot>");
         }
+
 
         ListTagUtil.write(pageContext, "</table>");
         renderPaginationControls(true);
+        ListTagUtil.write(pageContext, "</div>");
         ListTagUtil.write(pageContext, "<!-- END " + getUniqueName() + " -->");
         release();
         return BodyTagSupport.EVAL_PAGE;
@@ -440,6 +437,7 @@ public class ListTag extends BodyTagSupport {
     /**
      * ${@inheritDoc}
      */
+    @Override
     public int doAfterBody() throws JspException {
         int retval = BodyTagSupport.EVAL_BODY_AGAIN;
 
@@ -610,6 +608,7 @@ public class ListTag extends BodyTagSupport {
     /**
      * ${@inheritDoc}
      */
+    @Override
     public int doStartTag() throws JspException {
         verifyEnvironment();
         addDecorator(decoratorName);
@@ -619,7 +618,9 @@ public class ListTag extends BodyTagSupport {
                 (HttpServletRequest) pageContext.getRequest(),
                 getUniqueName(), isParentAnElement(), searchParent, searchChild);
         int retval = BodyTagSupport.EVAL_BODY_INCLUDE;
-        emitId();
+
+        ListTagUtil.write(pageContext, "<!-- START LIST " + getUniqueName() + " -->");
+        ListTagUtil.write(pageContext, "<div class=\"spacewalk-list\" id=\"" + getUniqueName() + "\">");
 
         ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
                 ListCommand.ENUMERATE);
@@ -684,6 +685,7 @@ public class ListTag extends BodyTagSupport {
     /**
      * ${@inheritDoc}
      */
+    @Override
     public void release() {
         if (pageContext.getAttribute("current") != null) {
             pageContext.removeAttribute("current");
@@ -760,14 +762,8 @@ public class ListTag extends BodyTagSupport {
         }
     }
 
-    private void emitId() throws JspException {
-        ListTagUtil.write(pageContext, "<!-- List id ");
-        ListTagUtil.write(pageContext, getUniqueName());
-        ListTagUtil.write(pageContext, " -->\n");
-    }
-
     private void startTable() throws JspException {
-        ListTagUtil.write(pageContext, "<table class=\"table table-stripped\"");
+        ListTagUtil.write(pageContext, "<table class=\"table table-striped\"");
         if (styleClass != null) {
             ListTagUtil.write(pageContext, " class=\"");
             ListTagUtil.write(pageContext, styleClass);
