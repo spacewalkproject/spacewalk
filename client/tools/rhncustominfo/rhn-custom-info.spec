@@ -4,7 +4,7 @@ Group: Applications/System
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
-Version: 5.4.19
+Version: 5.4.20
 Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Thu Oct 10 2013 Michael Mraka <michael.mraka@redhat.com> 5.4.20-1
+- cleaning up old svn Ids
+
 * Mon Sep 30 2013 Michael Mraka <michael.mraka@redhat.com> 5.4.19-1
 - removed trailing whitespaces
 
