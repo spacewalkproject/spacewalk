@@ -38,7 +38,7 @@ def xccdf_eval(args, cache_only=None):
         _cleanup_temp(results_dir)
         return (1, 'oscap tool did not produce valid xml.\n' + oscap_err, {})
 
-    ret, resume, xslt_err = _xccdf_resume(results_file.name)
+    ret, resume, xslt_err = _xccdf_resume(results_file.name, temp_dir=results_dir)
     if ret != 0 or resume == '':
         del(results_file)
         _cleanup_temp(results_dir)
@@ -68,15 +68,24 @@ def _run_oscap(arguments):
     log.log_debug('The oscap tool completed\n%s' % errors)
     return errors
 
-def _xccdf_resume(results_file):
+def _xccdf_resume(results_file, temp_dir=None):
     xslt = '/usr/share/openscap/xsl/xccdf-resume.xslt'
-    c = _popen(['/usr/bin/xsltproc', xslt, results_file])
+
+    dev_null = open('/dev/null')
+    resume_file = tempfile.NamedTemporaryFile(dir=temp_dir)
+    c = _popen(['/usr/bin/xsltproc', '--output', resume_file.name,
+            xslt, results_file], stdout=dev_null.fileno())
     ret = c.wait()
+    dev_null.close()
+
     errors = c.stderr.read()
     if ret != 0:
         errors += 'xccdf_eval: xsltproc tool returned %i\n' % ret
     log.log_debug('The xsltproc tool completed:\n%s' % errors)
-    return ret, c.stdout.read(), errors
+
+    resume = resume_file.read()
+    del(resume_file)
+    return ret, resume, errors
 
 def _popen(args, stdout=subprocess.PIPE):
     log.log_debug('Running: ' + str(args))
