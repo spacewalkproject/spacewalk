@@ -4,7 +4,7 @@ $(document).on("ready", function(){
 	$("#sidenav ul>ul").hide();
 	if ($("#sidenav li").attr("class", "active")){
 		$(this).next("ul").show(300);
-	});
+	};
 	/* Systems Selected Toolbar - actions to hide the toolbar when th Clear button is pressed or when 
 	no system is selected */
 	$("#clearbtn").click(hidesystemtool);
