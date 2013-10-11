@@ -87,7 +87,7 @@ public class SpanTag extends TagSupport {
     public int doEndTag() throws JspException {
         ListCommand cmd = ListTagUtil.getCurrentCommand(this, pageContext);
         ListTag parent = (ListTag) TagSupport.findAncestorWithClass(this, ListTag.class);
-        if (cmd.equals(ListCommand.TBL_HEADER) && role.equals("header")) {
+        if (cmd.equals(ListCommand.TBL_ADDONS) && role.equals("header")) {
             renderHeader(parent);
         }
         else if (cmd.equals(ListCommand.TBL_FOOTER) && role.equals("footer")) {

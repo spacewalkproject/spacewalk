@@ -46,41 +46,29 @@ import javax.servlet.jsp.PageContext;
 public class DataSetManipulator {
     private static final String[] LINK_PREFIXES = {"_first", "_prev", "_next", "_last"};
 
-    private int pageSize;
+    private final int pageSize;
     private List dataset;
     private ListFilter filter;
     private String filterBy;
     private String filterValue;
     private int totalDataSetSize;
-    private HttpServletRequest request;
-    private String uniqueName;
+    private final HttpServletRequest request;
+    private final String uniqueName;
     private int pageNumber = -1;
     private String alphaCol;
     private int alphaPosition = -1;
     private boolean ascending = true;
-    private int unfilteredDataSize;
-    private boolean parentIsAnElement;
+    private final int unfilteredDataSize;
+    private final boolean parentIsAnElement;
 
-    private boolean searchParent;
-    private boolean searchChild;
+    private final boolean searchParent;
+    private final boolean searchChild;
 
     private String defaultSortAttribute;
-    private static final String IMG_FIRST = "/img/list-allbackward.gif";
-    private static final String IMG_FIRST_UNFOCUSED =
-                                        "/img/list-allbackward-unfocused.gif";
-
-    private static final String IMG_PREV = "/img/list-backward.gif";
-    private static final String IMG_PREV_UNFOCUSED =
-                                           "/img/list-backward-unfocused.gif";
-
-    private static final String IMG_NEXT = "/img/list-forward.gif";
-    private static final String IMG_NEXT_UNFOCUSED =
-                                           "/img/list-forward-unfocused.gif";
-
-
-    private static final String IMG_LAST = "/img/list-allforward.gif";
-    private static final String IMG_LAST_UNFOCUSED =
-                                    "/img/list-allforward-unfocused.gif";
+    private static final String ICON_FIRST = "icon-fast-backward";
+    private static final String ICON_PREV = "icon-backward";
+    private static final String ICON_NEXT = "icon-forward";
+    private static final String ICON_LAST = "icon-fast-forward";
 
 
     /**
@@ -419,14 +407,13 @@ public class DataSetManipulator {
             String pageLinkName = "list_" + uniqueName + "_page";
             String[] data = new String[4];
             if (!isFirstPage()) {
-                data[0] = IMG_FIRST;
+                data[0] = ICON_FIRST;
                 data[1] = pageLinkName + "_first";
                 data[2] = "first";
                 data[3] = "First Page";
-
             }
             else {
-                data[0] = IMG_FIRST_UNFOCUSED;
+                data[0] = ICON_FIRST;
                 data[1] = null;
                 data[2] = null;
                 data[3] = null;
@@ -434,13 +421,13 @@ public class DataSetManipulator {
             links.put("allBackward", data);
             data = new String[4];
             if (getPrevPageNumber() > -1) {
-                data[0] = IMG_PREV;
+                data[0] = ICON_PREV;
                 data[1] = pageLinkName + "_prev";
                 data[2] = String.valueOf(getPrevPageNumber());
                 data[3] = "Previous Page";
             }
             else {
-                data[0] = IMG_PREV_UNFOCUSED;
+                data[0] = ICON_PREV;
                 data[1] = null;
                 data[2] = null;
                 data[3] = null;
@@ -448,13 +435,13 @@ public class DataSetManipulator {
             links.put("backward", data);
             data = new String[4];
             if (getNextPageNumber() > -1) {
-                data[0] = IMG_NEXT;
+                data[0] = ICON_NEXT;
                 data[1] = pageLinkName + "_next";
                 data[2] = String.valueOf(getNextPageNumber());
                 data[3] = "Next Page";
             }
             else {
-                data[0] = IMG_NEXT_UNFOCUSED;
+                data[0] = ICON_NEXT;
                 data[1] = null;
                 data[2] = null;
                 data[3] = null;
@@ -462,13 +449,13 @@ public class DataSetManipulator {
             links.put("forward", data);
             data = new String[4];
             if (!isLastPage()) {
-                data[0] = IMG_LAST;
+                data[0] = ICON_LAST;
                 data[1] = pageLinkName + "_last";
                 data[2] = "last";
                 data[3] = "Last Page";
             }
             else {
-                data[0] = IMG_LAST_UNFOCUSED;
+                data[0] = ICON_LAST;
             }
             links.put("allForward", data);
         }

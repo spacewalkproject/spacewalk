@@ -43,6 +43,15 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 /**
  * Renders a list of data bean in a page
  *
+ * The list is rendered as a bootstrap 3.x panel
+ *
+ * The title of the list is put in the panel-heading
+ * Pagination, alphabars and addons go into the panel-body
+ * Bottom pagination and reflinks g into the panel-footer
+ * The table goes as is, for seamless display into the panel
+ *
+ * @see http://getbootstrap.com/components/#panels
+ *
  * @version $Rev $
  */
 public class ListTag extends BodyTagSupport {
@@ -53,7 +62,8 @@ public class ListTag extends BodyTagSupport {
     private static final String HIDDEN_TEXT = "<input type=\"hidden\" " +
                                                 "name=\"%s\" value=\"%s\"/>";
     private boolean haveColsEnumerated = false;
-    private boolean haveTblHeadersRendered = false;
+    private boolean haveTblHeadingRendered = false;
+    private boolean haveTblAddonsRendered = false;
     private boolean haveTblFootersRendered = false;
     private boolean haveColHeadersRendered = false;
     private int columnCount;
@@ -394,40 +404,6 @@ public class ListTag extends BodyTagSupport {
      */
     @Override
     public int doEndTag() throws JspException {
-
-        /* If a reference link was provided, it needs to be rendered on a separate
-         * row within the table.
-         */
-        if ((refLink != null) && (!isEmpty())) {
-            ListTagUtil.write(pageContext, "<tfoot>");
-            ListTagUtil.write(pageContext, "<tr>");
-            ListTagUtil.write(pageContext, "<td colspan=\"" + String.valueOf(getColumnCount()) + "\">");
-            ListTagUtil.write(pageContext, "<a href=\"" + refLink + "\" >");
-            /* Here we render the reflink and its key. If the key hasn't been set
-             * we just display the link address itself.
-             */
-            if (refLinkKey != null) {
-                Object[] args = new Object[2];
-                args[0] = new Integer(getPageRowCount());
-                args[1] = refLinkKeyArg0;
-                String message = LocalizationService.getInstance().
-                    getMessage(refLinkKey, args);
-
-                ListTagUtil.write(pageContext, message);
-            }
-            else {
-                ListTagUtil.write(pageContext, refLink);
-            }
-
-            ListTagUtil.write(pageContext, "</a>");
-            ListTagUtil.write(pageContext, "</td>");
-            ListTagUtil.write(pageContext, "</tr>");
-            ListTagUtil.write(pageContext, "</tfoot>");
-        }
-
-
-        ListTagUtil.write(pageContext, "</table>");
-        renderPaginationControls(true);
         ListTagUtil.write(pageContext, "</div>");
         ListTagUtil.write(pageContext, "<!-- END " + getUniqueName() + " -->");
         release();
@@ -442,14 +418,43 @@ public class ListTag extends BodyTagSupport {
         int retval = BodyTagSupport.EVAL_BODY_AGAIN;
 
         ListCommand cmd = ListTagUtil.getCurrentCommand(this, pageContext);
-        boolean haveRenderedColumnHeaderEndTag = false;
+
+        // close the panel-heading div
+        if (cmd.equals(ListCommand.TBL_HEADING)) {
+            //ListTagUtil.write(pageContext, "<!-- END heading (panel-heading) -->");
+            //ListTagUtil.write(pageContext, "</div>");
+        }
+
+        // close the panel-body div
+        if (cmd.equals(ListCommand.TBL_ADDONS)) {
+            //ListTagUtil.write(pageContext, "<!-- END addons (panel-body) -->");
+            //ListTagUtil.write(pageContext, "</div>");
+        }
+
         if (cmd.equals(ListCommand.COL_HEADER)) {
-            ListTagUtil.write(pageContext, "</tr></thead><tbody>");
-            haveRenderedColumnHeaderEndTag = true;
+            ListTagUtil.write(pageContext, "</tr>");
         }
 
         setState();
-        if (haveColsEnumerated && !haveTblHeadersRendered) {
+
+        if (haveColsEnumerated && !haveTblHeadingRendered) {
+            ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
+                    ListCommand.TBL_HEADING);
+
+            ListTagUtil.write(pageContext, "<div class=\"panel-heading\">");
+
+            if (!StringUtils.isBlank(title)) {
+                HtmlTag h3 = new HtmlTag("h3");
+                h3.setAttribute("class", "panel-title");
+                h3.addBody(title);
+
+                ListTagUtil.write(pageContext, h3.render());
+            }
+            ListTagUtil.write(pageContext, "<!-- END heading (panel-heading) -->");
+            ListTagUtil.write(pageContext, "</div>");
+        }
+        else if (haveColsEnumerated && !haveTblAddonsRendered) {
+            ListTagUtil.write(pageContext, "<div class=\"panel-body\">");
             setupManipulator();
             manip.sort();
             pageData = manip.getPage();
@@ -469,82 +474,67 @@ public class ListTag extends BodyTagSupport {
                     ListTagUtil.makeFilterSearchChildLabel(uniqueName), searchChild));
             ListTagUtil.write(pageContext, String.format(HIDDEN_TEXT,
                     ListTagUtil.makeParentIsAnElementLabel(uniqueName), parentIsElement));
-            setupFilterUI();
+
+            ListTagUtil.write(pageContext, "<div class=\"filter-input\">");
+            ListTagUtil.write(pageContext, "<div class=\"row\">");
+
+         // column with the filter
+            ListTagUtil.write(pageContext, "<div class=\"col-lg-6 text-left\">");
             if (filter != null && manip.getUnfilteredDataSize() !=  0) {
                 ListTagUtil.renderFilterUI(pageContext, filter,
                             getUniqueName(), width, columnCount,
                             searchParent, searchChild);
             }
             if (isSortable()) {
-                String sortByLabel = ListTagUtil.makeSortByLabel(getUniqueName());
-                String sortDirLabel = ListTagUtil.makeSortDirLabel(getUniqueName());
-
-                HtmlTag sortByInputTag = new HtmlTag("input");
-                sortByInputTag.setAttribute("type", "hidden");
-                sortByInputTag.setAttribute("name", sortByLabel);
-                sortByInputTag.setAttribute("id",
-                        ListTagUtil.makeSortById(getUniqueName()));
-                sortByInputTag.setAttribute("value", StringUtils.defaultString(
-                        pageContext.getRequest().getParameter(sortByLabel)));
-
-                HtmlTag sortByDirTag = new HtmlTag("input");
-                sortByDirTag.setAttribute("type", "hidden");
-                sortByDirTag.setAttribute("name", sortDirLabel);
-                sortByDirTag.setAttribute("id", ListTagUtil.
-                                                makeSortDirId(getUniqueName()));
-                sortByDirTag.setAttribute("value", StringUtils.defaultString(
-                        pageContext.getRequest().getParameter(sortDirLabel)));
-
-                ListTagUtil.write(pageContext, sortByInputTag.render());
-                ListTagUtil.write(pageContext, sortByDirTag.render());
+                renderSortableHiddenFields();
             }
-
 
            if (!isEmpty()) {
                 for (ListDecorator dec : getDecorators()) {
                     dec.beforeTopPagination();
                 }
            }
-            renderPaginationControls(false);
-            startTable();
-            HttpServletRequest request = (HttpServletRequest) pageContext
+           ListTagUtil.write(pageContext, "</div>");
+
+           // column with the pagination controls
+           ListTagUtil.write(pageContext, "<div class=\"col-lg-6 text-right list-infotext\">");
+           renderTopPaginationControls();
+           ListTagUtil.write(pageContext, "</div>");
+
+           // end of the row
+           ListTagUtil.write(pageContext, "</div>");
+
+           // end of the filter-input div
+           ListTagUtil.write(pageContext, "</div>");
+
+           ListTagUtil.write(pageContext, "<!-- END addons (panel-boddy) -->");
+           ListTagUtil.write(pageContext, "</div>");
+
+           startTable();
+           HttpServletRequest request = (HttpServletRequest) pageContext
                     .getRequest();
-            manip.bindPaginationInfo();
-            request.setAttribute("dataSize", String
-                    .valueOf(pageData.size() + 1));
-            ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
-                    ListCommand.TBL_HEADER);
-            if (pageData != null && pageData.size() > 0) {
-                iterator = pageData.iterator();
-            }
-            else {
-                iterator = null;
-            }
+           manip.bindPaginationInfo();
+           request.setAttribute("dataSize", String
+                   .valueOf(pageData.size() + 1));
+           ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
+                   ListCommand.TBL_ADDONS);
+           if (pageData != null && pageData.size() > 0) {
+               iterator = pageData.iterator();
+           }
+           else {
+               iterator = null;
+           }
         }
-        if (haveColsEnumerated && haveTblHeadersRendered &&
+        if (haveColsEnumerated && haveTblAddonsRendered &&
                             !haveColHeadersRendered) {
+
+            // Nothing to do when rendering the col headers
+            // those are done by the column tag
             ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
                     ListCommand.COL_HEADER);
 
-            ListTagUtil.write(pageContext, "<thead><tr>");
-
-            if (!StringUtils.isBlank(title)) {
-                HtmlTag th = new HtmlTag("th");
-                th.setAttribute("colspan", String.valueOf(getColumnCount()));
-                HtmlTag strong = new HtmlTag("strong");
-                strong.addBody(title);
-                th.addBody(strong.render());
-
-                ListTagUtil.write(pageContext, th.render());
-
-                ListTagUtil.write(pageContext, "</tr>\n<tr>");
-            }
-
         }
         if (haveColHeadersRendered && !haveTblFootersRendered) {
-            if (!haveRenderedColumnHeaderEndTag) {
-                ListTagUtil.write(pageContext, "</tr>");
-            }
 
             if (manip.isListEmpty()) {
                 renderEmptyList();
@@ -564,6 +554,7 @@ public class ListTag extends BodyTagSupport {
             }
             if (currentObject == null) {
                 ListTagUtil.write(pageContext, "</tbody>");
+                ListTagUtil.write(pageContext, "</table>");
                 ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
                         ListCommand.TBL_FOOTER);
             }
@@ -577,8 +568,59 @@ public class ListTag extends BodyTagSupport {
         }
         else if (haveTblFootersRendered) {
             retval = BodyTagSupport.SKIP_BODY;
+
+            ListTagUtil.write(pageContext, "<div class=\"panel-footer\">");
+
+            if ((refLink != null) && (!isEmpty())) {
+                ListTagUtil.write(pageContext, "<a href=\"" + refLink + "\" >");
+                /* Here we render the reflink and its key. If the key hasn't been set
+                 * we just display the link address itself.
+                 */
+                if (refLinkKey != null) {
+                    Object[] args = new Object[2];
+                    args[0] = new Integer(getPageRowCount());
+                    args[1] = refLinkKeyArg0;
+                    String message = LocalizationService.getInstance().
+                        getMessage(refLinkKey, args);
+
+                    ListTagUtil.write(pageContext, message);
+                }
+                else {
+                    ListTagUtil.write(pageContext, refLink);
+                }
+
+                ListTagUtil.write(pageContext, "</a>");
+            }
+
+            renderFooterPaginationControls();
+            // closes the panel footer
+            ListTagUtil.write(pageContext, "</div>");
         }
         return retval;
+    }
+
+    private void renderSortableHiddenFields() throws JspException {
+        String sortByLabel = ListTagUtil.makeSortByLabel(getUniqueName());
+        String sortDirLabel = ListTagUtil.makeSortDirLabel(getUniqueName());
+
+        HtmlTag sortByInputTag = new HtmlTag("input");
+        sortByInputTag.setAttribute("type", "hidden");
+        sortByInputTag.setAttribute("name", sortByLabel);
+        sortByInputTag.setAttribute("id",
+                ListTagUtil.makeSortById(getUniqueName()));
+        sortByInputTag.setAttribute("value", StringUtils.defaultString(
+                pageContext.getRequest().getParameter(sortByLabel)));
+
+        HtmlTag sortByDirTag = new HtmlTag("input");
+        sortByDirTag.setAttribute("type", "hidden");
+        sortByDirTag.setAttribute("name", sortDirLabel);
+        sortByDirTag.setAttribute("id", ListTagUtil.
+                                        makeSortDirId(getUniqueName()));
+        sortByDirTag.setAttribute("value", StringUtils.defaultString(
+                pageContext.getRequest().getParameter(sortDirLabel)));
+
+        ListTagUtil.write(pageContext, sortByInputTag.render());
+        ListTagUtil.write(pageContext, sortByDirTag.render());
     }
 
     private void setupPageData() throws JspException {
@@ -617,14 +659,13 @@ public class ListTag extends BodyTagSupport {
         manip = new DataSetManipulator(pageSize, pageData,
                 (HttpServletRequest) pageContext.getRequest(),
                 getUniqueName(), isParentAnElement(), searchParent, searchChild);
-        int retval = BodyTagSupport.EVAL_BODY_INCLUDE;
 
         ListTagUtil.write(pageContext, "<!-- START LIST " + getUniqueName() + " -->");
-        ListTagUtil.write(pageContext, "<div class=\"spacewalk-list\" id=\"" + getUniqueName() + "\">");
+        ListTagUtil.write(pageContext, "<div class=\"spacewalk-list panel panel-default\" id=\"" + getUniqueName() + "\">");
 
         ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
                 ListCommand.ENUMERATE);
-        return retval;
+        return BodyTagSupport.EVAL_BODY_INCLUDE;
     }
 
     private void setupManipulator() throws JspException {
@@ -708,7 +749,7 @@ public class ListTag extends BodyTagSupport {
         filter = null;
         haveColsEnumerated = false;
         haveColHeadersRendered = false;
-        haveTblHeadersRendered = false;
+        haveTblAddonsRendered = false;
         haveTblFootersRendered = false;
         getDecorators().clear();
         decorators = null;
@@ -787,8 +828,11 @@ public class ListTag extends BodyTagSupport {
         if (cmd.equals(ListCommand.ENUMERATE)) {
             haveColsEnumerated = true;
         }
-        else if (cmd.equals(ListCommand.TBL_HEADER)) {
-            haveTblHeadersRendered = true;
+        else if (cmd.equals(ListCommand.TBL_HEADING)) {
+            haveTblHeadingRendered = true;
+        }
+        else if (cmd.equals(ListCommand.TBL_ADDONS)) {
+            haveTblAddonsRendered = true;
         }
         else if (cmd.equals(ListCommand.COL_HEADER)) {
             haveColHeadersRendered = true;
@@ -798,25 +842,24 @@ public class ListTag extends BodyTagSupport {
         }
     }
 
-    private void renderPaginationControls(boolean isFooter) throws JspException {
+    private void renderFooterPaginationControls() throws JspException {
 
-        if (isFooter && (isEmpty() || hidePageNums)) {
+        if (isEmpty() || hidePageNums) {
             return;
         }
 
-        if (isFooter) {
-            ListTagUtil.write(pageContext, "<div>");
-            ListTagUtil.write(pageContext, "<table ");
-            ListTagUtil.write(pageContext, " cellspacing=\"0\" ");
-            ListTagUtil.write(pageContext, "cellpadding=\"0\" width=\"100%\">");
-            ListTagUtil.write(pageContext, "<tr>");
-            ListTagUtil.write(pageContext, "<td align=\"left\">");
+        ListTagUtil.write(pageContext, "<div>");
+        ListTagUtil.write(pageContext, "<table ");
+        ListTagUtil.write(pageContext, " cellspacing=\"0\" ");
+        ListTagUtil.write(pageContext, "cellpadding=\"0\" width=\"100%\">");
+        ListTagUtil.write(pageContext, "<tr>");
+        ListTagUtil.write(pageContext, "<td align=\"left\">");
 
-            for (ListDecorator dec : getDecorators()) {
-                dec.afterList();
-            }
-            ListTagUtil.write(pageContext, "</td>");
+        for (ListDecorator dec : getDecorators()) {
+            dec.setCurrentList(this);
+            dec.afterList();
         }
+        ListTagUtil.write(pageContext, "</td>");
 
         ListTagUtil.write(pageContext,
                 "<td valign=\"middle\" class=\"list-infotext\">");
@@ -826,13 +869,8 @@ public class ListTag extends BodyTagSupport {
 
         if (!manip.isListEmpty()) {
             for (ListDecorator dec : getDecorators()) {
-                if (isFooter) {
-                    dec.afterBottomPagination();
-                    dec.setCurrentList(null);
-                }
-                else {
-                    dec.afterTopPagination();
-                }
+                dec.afterBottomPagination();
+                dec.setCurrentList(null);
             }
         }
 
@@ -845,20 +883,21 @@ public class ListTag extends BodyTagSupport {
     }
 
 
-    private void setupFilterUI() throws JspException {
-        ListTagUtil.write(pageContext, "<div class=\"filter-input\"><table");
-        ListTagUtil.write(pageContext, " cellspacing=\"0\"");
-        ListTagUtil.write(pageContext, " cellpadding=\"0\"");
-        if (width != null) {
-            ListTagUtil.write(pageContext, " width=\"");
-            ListTagUtil.write(pageContext, width);
-            ListTagUtil.write(pageContext, "\"");
+    private void renderTopPaginationControls() throws JspException {
+
+        if (!isEmpty() && !hidePageNums) {
+            ListTagUtil.write(pageContext, manip.getPaginationMessage());
         }
-        else {
-            ListTagUtil.write(pageContext, " width=\"100%\"");
+
+        if (!manip.isListEmpty()) {
+            for (ListDecorator dec : getDecorators()) {
+                dec.afterTopPagination();
+            }
         }
-        ListTagUtil.write(pageContext, ">");
-        ListTagUtil.write(pageContext, "<tr>");
+
+        ListTagUtil.write(pageContext, "&nbsp;&nbsp;");
+        ListTagUtil.renderPaginationLinks(pageContext, PAGINATION_NAMES,
+                manip.getPaginationLinks());
     }
 
     private void setPageSize() {

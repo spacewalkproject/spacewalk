@@ -22,7 +22,8 @@ package com.redhat.rhn.frontend.taglibs.list;
 
 public enum ListCommand {
     RENDER ("__render__"),
-    TBL_HEADER ("__tbl_header__"),
+    TBL_HEADING ("__tbl_heading__"),
+    TBL_ADDONS ("__tbl_addons__"),
     TBL_FOOTER ("__tbl__footer__"),
     COL_HEADER ("__col_header__"),
     ENUMERATE ("__enum__");
@@ -36,6 +37,7 @@ public enum ListCommand {
     /**
      * ${@inheritDoc}
      */
+    @Override
     public String toString() {
         return _cmd;
     }

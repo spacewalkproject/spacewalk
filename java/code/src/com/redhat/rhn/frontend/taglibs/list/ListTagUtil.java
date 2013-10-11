@@ -569,35 +569,35 @@ public class ListTagUtil {
         if (links.size() == 0) {
             return;
         }
+        ListTagUtil.write(pageContext, "<div class=\"btn-group\">");
         for (int x = 0; x < linkNames.length; x++) {
             String[] linkData = (String[]) links.get(linkNames[x]);
-            if (linkData[1] != null) {
-                ListTagUtil.write(pageContext, "<input align=\"top\" type=\"image\" ");
-                ListTagUtil.write(pageContext, "src=\"");
-                ListTagUtil.write(pageContext, linkData[0]);
+            ListTagUtil.write(pageContext, "<button ");
+            ListTagUtil.write(pageContext, "class=\"btn btn-default ");
+            ListTagUtil.write(pageContext, linkData[0]);
+
+            // if the link is disabled...
+            if (linkData[1] == null) {
+                ListTagUtil.write(pageContext, " disabled");
+            }
+            else {
                 ListTagUtil.write(pageContext, "\" name=\"");
                 ListTagUtil.write(pageContext, linkData[1]);
                 ListTagUtil.write(pageContext, "\" value=\"");
                 ListTagUtil.write(pageContext, linkData[2]);
-                ListTagUtil.write(pageContext, "\" alt=\"");
-                ListTagUtil.write(pageContext, linkData[3]);
-                ListTagUtil.write(pageContext, "\" />");
+            }
+            ListTagUtil.write(pageContext, "\" />");
 
-                ListTagUtil.write(pageContext, "<input type=\"hidden\" name=\"");
-                ListTagUtil.write(pageContext, linkData[1]);
-                ListTagUtil.write(pageContext, "\" value=\"");
-                ListTagUtil.write(pageContext, linkData[2]);
-                ListTagUtil.write(pageContext, "\" />");
-            }
-            else {
-                ListTagUtil.write(pageContext, "<img align=\"top\" src=\"");
-                ListTagUtil.write(pageContext, linkData[0]);
-                ListTagUtil.write(pageContext, "\">");
-                if (linkData[1] != null) {
-                    ListTagUtil.write(pageContext, "</a>");
-                }
-            }
+            /*
+            if (linkData[1] = null) {
+            ListTagUtil.write(pageContext, "<input type=\"hidden\" name=\"");
+            ListTagUtil.write(pageContext, linkData[1]);
+            ListTagUtil.write(pageContext, "\" value=\"");
+            ListTagUtil.write(pageContext, linkData[2]);
+            ListTagUtil.write(pageContext, "\" />");
+           */
         }
+        ListTagUtil.write(pageContext, "</div>");
     }
 
     /**
@@ -641,8 +641,6 @@ public class ListTagUtil {
                         StringEscapeUtils.escapeHtml(filterValue)));
 
 
-        ListTagUtil.write(pageContext, "<td");
-        ListTagUtil.write(pageContext, " align=\"left\">");
         List fields = filter.getFieldNames();
         if (fields == null || fields.size() == 0) {
             throw new JspException(
@@ -678,7 +676,7 @@ public class ListTagUtil {
         filterValue = StringUtil.nullOrValue(filterValue);
         StringBuilder sb = new StringBuilder();
 
-        sb.append("<div class=\"col-lg-6\">");
+        // create a new row
         sb.append("<div class=\"input-group input-group-sm\">");
 
         String placeHolder = StringUtils.defaultString(ls.getMessage("message.filterby",
@@ -698,11 +696,11 @@ public class ListTagUtil {
                                 filterName));
         sb.append("</button>");
         sb.append("</span>");
-        sb.append("</div>");
+
         sb.append("</div>");
 
         ListTagUtil.write(pageContext, sb.toString());
-        ListTagUtil.write(pageContext, "</td>");
+
     }
 
     private static String makePageLink(HttpServletRequest request,

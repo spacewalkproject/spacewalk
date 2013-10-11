@@ -108,8 +108,8 @@ public class ListTagTest extends MockObjectTestCase {
         Stub[] cmdValues = {
                 returnValue(ListCommand.ENUMERATE), // listtag asking
                 returnValue(ListCommand.ENUMERATE), // columntag asking
-                returnValue(ListCommand.TBL_HEADER), // listtag asking
-                returnValue(ListCommand.TBL_HEADER), // columntag asking
+                returnValue(ListCommand.TBL_ADDONS), // listtag asking
+                returnValue(ListCommand.TBL_ADDONS), // columntag asking
                 returnValue(ListCommand.COL_HEADER), // listtag asking
                 returnValue(ListCommand.COL_HEADER), // columntag asking
                 returnValue(ListCommand.RENDER),    // listtag asking
