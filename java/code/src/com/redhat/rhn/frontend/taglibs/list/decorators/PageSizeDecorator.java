@@ -106,11 +106,12 @@ public class PageSizeDecorator extends BaseListDecorator {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void beforeTopPagination() throws JspException {
         if (!getCurrentList().isEmpty()) {
             StringBuilder stringBuild = new StringBuilder();
 
-            stringBuild.append("<td class=\"list-sizeselector\">");
+            stringBuild.append("<div class=\"list-sizeselector\">");
             HtmlTag select = new HtmlTag("Select");
             select.setAttribute("name", makePageSizeLabel(listName));
             select.setAttribute("onChange", makeOnChangeScript());
@@ -128,7 +129,7 @@ public class PageSizeDecorator extends BaseListDecorator {
             LocalizationService ls = LocalizationService.getInstance();
             stringBuild.append(ls.getMessage("message.items.per.page",
                                                     select.render()));
-            stringBuild.append("</td>");
+            stringBuild.append("</div>");
             HtmlTag input = new HtmlTag("input");
             input.setAttribute("type", "hidden");
             input.setAttribute("id", makeSelectionId(listName));

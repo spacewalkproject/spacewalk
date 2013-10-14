@@ -28,6 +28,7 @@ import com.redhat.rhn.frontend.html.HtmlTag;
 import com.redhat.rhn.frontend.listview.AlphaBar;
 import com.redhat.rhn.frontend.listview.PaginationUtil;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
 import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
@@ -592,7 +593,7 @@ public class ListDisplayTag extends BodyTagSupport {
         if (request.getQueryString() != null) {
             page.append("&" + request.getQueryString());
         }
-        out.println("<div class=\"spacewalk-csv-download\"><a href=\"" + page +
+        out.println("<div class=\"spacewalk-csv-download text-right\"><a href=\"" + page +
               "\"><i class=\"icon-download-alt\"></i>" +
               LocalizationService.getInstance().getMessage("listdisplay.csv") +
               "</a></div>");
@@ -605,9 +606,13 @@ public class ListDisplayTag extends BodyTagSupport {
      */
     private void renderTitle(JspWriter out) throws IOException {
         if (!StringUtils.isEmpty(title)) {
-            HtmlTag caption = new HtmlTag("caption");
-            caption.addBody(LocalizationService.getInstance().getMessage(title));
-            out.println(caption.render());
+            HtmlTag heading = new HtmlTag("div");
+            heading.setAttribute("class", "panel-heading");
+            HtmlTag h3 = new HtmlTag("h3");
+            h3.setAttribute("class", "panel-title");
+            h3.addBody(LocalizationService.getInstance().getMessage(title));
+            heading.addBody(h3);
+            out.println(heading.render());
         }
     }
 
@@ -744,10 +749,6 @@ public class ListDisplayTag extends BodyTagSupport {
                 out.print("</span>");
             }
         }
-        if (!top && exportColumns != null) {
-            renderExport(out);
-        }
-
 
         out.println("</div>");
 
@@ -1074,6 +1075,36 @@ public class ListDisplayTag extends BodyTagSupport {
                 doSort(sortedColumn);
             }
 
+            out.print("<div class=\"spacewalk-list-container\">");
+            out.print("<div class=\"spacewalk-list panel panel-default\">");
+
+            renderTitle(out);
+
+            /* If the type is list, we must set the width explicitly. Otherwise,
+             * it shouldn't matter
+             */
+            if (type.equals("list")) {
+                out.print("<table class=\"table table-striped\"");
+            }
+            else {
+                out.print("<table class=\"" + type + "\"");
+            }
+
+            /*if (isTransparent()) {
+                out.print(" style=\"border-bottom: 1px solid #ffffff;\" ");
+            }*/
+
+            if (tableId != null) {
+                out.print(" id=\"" + tableId + "\"");
+            }
+
+            out.println(">");
+
+            // we render the pagination controls as an additional head
+            out.println("<thead>");
+            out.println("<tr>");
+            out.println("<td colspan=\"" + getNumberOfColumns() + "\">");
+
             /* If pageList contains an index and pageList.size() (what we are
              * displaying on the page) is less than pageList.getTotalSize()
              * (the total number of items in the data result), render alphabar.
@@ -1092,29 +1123,10 @@ public class ListDisplayTag extends BodyTagSupport {
                 renderPagination(out, true);
                 renderBoundsVariables(out);
             }
+            out.println("</td>");
+            out.println("</tr>");
 
-            /* If the type is list, we must set the width explicitly. Otherwise,
-             * it shouldn't matter
-             */
-            if (type.equals("list")) {
-                out.print("<table class=\"table table-striped spacewalk-list\"");
-            }
-            else {
-                out.print("<table class=\"" + type + "\"");
-            }
-
-            /*if (isTransparent()) {
-                out.print(" style=\"border-bottom: 1px solid #ffffff;\" ");
-            }*/
-
-            if (tableId != null) {
-                out.print(" id=\"" + tableId + "\"");
-            }
-
-            out.println(">");
-
-            renderTitle(out);
-
+            // Now print the column headings
             out.println("<thead>");
 
             out.println("\n<tr>");
@@ -1179,36 +1191,9 @@ public class ListDisplayTag extends BodyTagSupport {
             /* If the type is a half-table, we must draw an extra row on the
              * end of the table if the reflink has been set
              */
-                if (reflink != null) {
-                    columnCount = 0;
-
-                    out.println("<tfoot>");
-
-                    out.println("<a href=\"" + reflink + "\" >");
-
-                    /* Here we render the reflink and its key. If the key hasn't been set
-                     * we just display the link address itself.
-                     */
-                    if (reflinkkey != null) {
-                        Object[] args = new Object[2];
-
-                        args[0] = new Integer(pageList.getTotalSize());
-                        args[1] = reflinkkeyarg0;
-
-                        String message = LocalizationService.getInstance().
-                                         getMessage(reflinkkey, args);
-                        out.println(message);
-                    }
-                    else {
-                        out.println(reflink);
-                    }
-
-                    out.println("</a>");
-                    out.println("</tfoot>");
-                }
-
-
-            out.println("</table>\n");
+            out.println("<tfoot>");
+            out.println("<tr>");
+            out.println("<td colspan=\"" + getNumberOfColumns() + "\">");
 
             /* If paging is on, we render the pagination */
             if (isPaging()) {
@@ -1237,6 +1222,48 @@ public class ListDisplayTag extends BodyTagSupport {
                             .getMessage("message.range.withtypedescription", args));
                 out.println("</span>");
             }
+            out.println("</tr>");
+            out.println("</td>");
+            out.println("</tfoot>\n");
+
+            out.println("</table>\n");
+
+            if (reflink != null) {
+                columnCount = 0;
+
+                out.println("<div class=\"panel-footer\">");
+
+                out.println("<a href=\"" + reflink + "\" >");
+
+                /* Here we render the reflink and its key. If the key hasn't been set
+                 * we just display the link address itself.
+                 */
+                if (reflinkkey != null) {
+                    Object[] args = new Object[2];
+
+                    args[0] = new Integer(pageList.getTotalSize());
+                    args[1] = reflinkkeyarg0;
+
+                    String message = LocalizationService.getInstance().
+                                     getMessage(reflinkkey, args);
+                    out.println(message);
+                }
+                else {
+                    out.println(reflink);
+                }
+
+                out.println("</a>");
+                out.println("</div>");
+            }
+
+
+            out.println("</div>\n");
+            // export button goes outside of the panel
+            if (exportColumns != null) {
+                renderExport(out);
+            }
+            out.println("</div>\n");
+
             setColumnCount(0);
             numberOfColumns = 0;
         }
