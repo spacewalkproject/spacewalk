@@ -7,7 +7,7 @@ from spacewalk.common.rhnConfig import CFG, initCFG
 initCFG('web')
 
 setup(name = "rhnclient",
-      version = "5.5.7",
+      version = "5.5.8",
       description = CFG.PRODUCT_NAME + " Client Utilities and Libraries",
       long_description = CFG.PRODUCT_NAME + """\
  Client Utilities
