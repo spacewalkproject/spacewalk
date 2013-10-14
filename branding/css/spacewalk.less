@@ -29,7 +29,8 @@ footer{
 	color: #fff;
 	font-weight: normal;
 	font-size: 0.9em;
-	height: 80px
+	height: 80px;
+	clear: both
 }
 aside.col-md-2{
 	background: #eeeeee;
@@ -39,6 +40,8 @@ aside.col-md-2{
 	border-right: 1px solid #d5d5d5;
 	height: auto;
 	min-height: 100%;
+	margin-bottom: -9999px;
+	padding-bottom: 9999px;
 }
 section{
 	/* for the body div to make both columns the same size*/
@@ -75,7 +78,7 @@ h2{
 	overflow: hidden;
 	margin-bottom: -80px;
 	padding-bottom: 80px;
-	height: auto;
+	height: auto !important;
 	min-height: 100%
 }
 /* style for the login page */
@@ -183,7 +186,8 @@ header .btn.btn-info.input-sm{
 /* fixing margins in the 1st and last columns */
 section.col-md-10{
 	padding-left:2em;
-	padding-right: 2em
+	padding-right: 2em;
+	padding-bottom: 3em;
 }
 section [class*=col-md]:first-child{
 	padding-left:0;

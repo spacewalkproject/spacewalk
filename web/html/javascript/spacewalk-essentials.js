@@ -20,28 +20,3 @@ $(document).on("ready", function(){
 		});
 	}
 });
-
-// taking the screen size and resizing the columns to keep the footer fixed to the bottom
-// On page load
-$(window).load(columnHeight);
-
-// On window resize
-$(window).resize( function () {
-    // Clear all forced column heights before recalculating them after window resize
-    $("aside").css("height", "");  
-    $("section").css("height", "");
-    columnHeight();
-});
-
-// Make columns 100% in height
-function columnHeight() {
-	//Only if the screen size is higher than the max-width set up in the Variables.less under the definition @screen-md: 
-	//PLEASE: update this if you change the content of @screen-md
-	if ($(document).width()>992) {
-	    // Column heights should equal the document height minus the header height and footer height
-	    var newHeight = $(document).height() - 200 + "px";
-	    console.log(newHeight);
-	    $("aside").css("height", newHeight);
-	    $("section").css("height", newHeight);
-    };
-}
