@@ -535,6 +535,7 @@ public class ListTag extends BodyTagSupport {
 
             if (manip.isListEmpty()) {
                 renderEmptyList();
+                ListTagUtil.write(pageContext, "</table>");
                 return BodyTagSupport.SKIP_BODY;
             }
             ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
@@ -773,6 +774,7 @@ public class ListTag extends BodyTagSupport {
     }
 
     private void renderEmptyList() throws JspException {
+        ListTagUtil.write(pageContext, "<tbody>");
         ListTagUtil.write(pageContext, "<tr><td ");
         ListTagUtil.write(pageContext, "colspan=\"");
         ListTagUtil.write(pageContext, String.valueOf(columnCount));
@@ -784,10 +786,11 @@ public class ListTag extends BodyTagSupport {
             ListTagUtil
                     .write(pageContext, "<div class=\"list-empty-message\">");
             ListTagUtil.write(pageContext, msg);
-            ListTagUtil.write(pageContext, "<br /></div>");
+            ListTagUtil.write(pageContext, "</div>");
         }
 
         ListTagUtil.write(pageContext, "</td></tr>");
+        ListTagUtil.write(pageContext, "</tbody>");
     }
 
     private void renderRowClassAndId() throws JspException {
