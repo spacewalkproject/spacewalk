@@ -1,4 +1,5 @@
 $(document).on("ready", function(){
+
 	/* Menu in the left column - actions to hide submenu and create animation when a 
 	menu only has submenues and doesnt have a URL */
 	$("#sidenav ul>ul").hide();
@@ -20,3 +21,30 @@ $(document).on("ready", function(){
 		});
 	}
 });
+
+$(window).load(function(){
+	// taking the screen size and resizing the columns to keep the footer fixed to the bottom
+	// On page load
+	$("section.col-md-10").css("padding-bottom", "");
+	columnHeight();
+});
+
+// On window resize
+$(window).resize( function () {
+	$("section.col-md-10").css("padding-bottom", "");
+    columnHeight();
+});
+
+// Make columns 100% in height
+function columnHeight() {
+  //Only if the screen size is higher than the max-width set up in the Variables.less under the definition @screen-md: 
+  //PLEASE: update this if you change the content of @screen-md
+  //if ($(document).width()>992) {
+  	  var sectionHeight = $("section.col-md-10").outerHeight();
+  	  var heightDoc = $(document).height();
+      // Column heights should equal the document height minus the header height and footer height
+      var newHeight = heightDoc - 160 - sectionHeight + "px";
+      console.log(sectionHeight + " " + newHeight + " " + heightDoc);
+      $("section.col-md-10").css("padding-bottom", newHeight);
+    //};
+};
