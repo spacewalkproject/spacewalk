@@ -37,6 +37,5 @@
     <script src="/rhn/dwr/util.js"></script>
     <script src="/rhn/dwr/interface/DWRItemSelector.js"></script>
 
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-    <script src="/javascript/prototype-1.6.0.js"></script>
+    <script src="/javascript/bootstrap.js"></script>
     <script src="/javascript/check_all.js"></script>
