@@ -25,5 +25,5 @@
 	the form elements we may need have been rendered.
 --%>
 <!-- Javascript -->
-<script src="/javascript/check_all.js" type="text/javascript"></script>
+<script src="/javascript/check_all.js"></script>
 <script src="/javascript/spacewalk-essentials.js"></script>
