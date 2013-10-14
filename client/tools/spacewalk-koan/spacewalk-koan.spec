@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.1.2
+Version: 2.1.3
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -47,6 +47,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Mon Oct 14 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.3-1
+- cleaning up old svn Ids
+
 * Mon Sep 30 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.2-1
 - removed trailing whitespaces
 
