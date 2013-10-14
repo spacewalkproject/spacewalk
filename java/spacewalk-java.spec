@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.53
+Version: 2.1.54
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Oct 14 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.54-1
+- cleaning up old svn Ids
+
 * Mon Oct 07 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.53-1
 - 1012951 - Revert "removing unused string with trans-id 'file_lists.added'"
 - 1012951 - Revert "removing unused string with trans-id 'file_lists.removed'"
