@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for Red Hat Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 2.1.1
+Version: 2.1.2
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -90,6 +90,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Oct 14 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.2-1
+- cleaning up old svn Ids
+
 * Thu Aug 08 2013 Jan Dobes 2.1.1-1
 - fixing decrementation
 - 972626 - general waiting function
