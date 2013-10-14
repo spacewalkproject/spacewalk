@@ -34,10 +34,10 @@ footer{
 }
 aside.col-md-2{
 	background: #eeeeee;
-
 	border-right: 1px solid #d5d5d5;
 	height: auto;
 	min-height: 100%;
+	/* 100% height */
 	margin-bottom: -9999px;
 	padding-bottom: 9999px;
 	/* errasing the predefined paddings in the columns */
@@ -189,6 +189,9 @@ section.col-md-10{
 	padding-left:2em;
 	padding-right: 2em;
 	padding-bottom: 3em;
+	/* some animation */
+	transition: width 2s, height 2s, transform 2s;
+    -webkit-transition: width 2s, height 2s, -webkit-transform 2s;
 }
 section [class*=col-md]:first-child{
 	padding-left:0;
