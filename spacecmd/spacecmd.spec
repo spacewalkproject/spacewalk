@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.1.11
+Version:     2.1.12
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -64,6 +64,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Oct 14 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.12-1
+- fix typo in a comment
+
 * Wed Oct 02 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.11-1
 - spacecmd: Fix session validation
 
