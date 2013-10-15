@@ -48,11 +48,47 @@ rhnSQL.initDB(backend="postgresql", host=PG_HOST, username=PG_USER,
 rhnSQL.initDB(backend="postgresql", host=PG_HOST, username=PG_USER,
         password=PG_PASSWORD, database=PG_DATABASE)
 
+class PostgreSQLDatabaseTests(dbtests.RhnSQLDatabaseTests):
+    QUERY_CREATE_TABLE = """
+        CREATE TABLE %s(id INT, name TEXT, num NUMERIC(5,2))
+    """
+
+    SIMPLE_PROCEDURE = """
+CREATE OR REPLACE FUNCTION return_int(returnme INTEGER) RETURNS int AS $$
+DECLARE
+    myInt int;
+BEGIN
+    myInt := returnme;
+    RETURN myInt;
+END
+$$ LANGUAGE 'plpgsql';
+    """
+
+    def setUp(self):
+        self.set_temp_table()
+        create_table_query = self.QUERY_CREATE_TABLE % self.temp_table
+        cursor = rhnSQL.prepare(create_table_query)
+        cursor.execute()
+
+        dbtests.RhnSQLDatabaseTests.setUp(self)
+
+        cursor = rhnSQL.prepare(self.SIMPLE_PROCEDURE)
+        cursor.execute()
+
+    def tearDown(self):
+        try:
+            cursor = rhnSQL.prepare("DROP FUNCTION return_int(returnme integer)")
+            cursor.execute()
+        except:
+            pass
+
+        dbtests.RhnSQLDatabaseTests.tearDown(self)
+
 def suite():
+    s = unittest.TestSuite()
+    s.addTest(unittest.makeSuite(PostgreSQLDatabaseTests))
     # Append all test suites here:
-    return unittest.TestSuite((
-        dbtests.postgresql_suite(),
-   ))
+    return unittest.TestSuite(s)
 
 if __name__ == "__main__":
     try:

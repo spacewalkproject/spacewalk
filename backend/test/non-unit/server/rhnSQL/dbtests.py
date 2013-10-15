@@ -201,44 +201,6 @@ class RhnSQLDatabaseTests(unittest.TestCase):
 
 
 
-class PostgreSQLDatabaseTests(RhnSQLDatabaseTests):
-    QUERY_CREATE_TABLE = """
-        CREATE TABLE %s(id INT, name TEXT, num NUMERIC(5,2))
-    """
-
-    SIMPLE_PROCEDURE = """
-CREATE OR REPLACE FUNCTION return_int(returnme INTEGER) RETURNS int AS $$
-DECLARE
-    myInt int;
-BEGIN
-    myInt := returnme;
-    RETURN myInt;
-END
-$$ LANGUAGE 'plpgsql';
-    """
-
-    def setUp(self):
-        self.set_temp_table()
-        create_table_query = self.QUERY_CREATE_TABLE % self.temp_table
-        cursor = rhnSQL.prepare(create_table_query)
-        cursor.execute()
-
-        RhnSQLDatabaseTests.setUp(self)
-
-        cursor = rhnSQL.prepare(self.SIMPLE_PROCEDURE)
-        cursor.execute()
-
-    def tearDown(self):
-        try:
-            cursor = rhnSQL.prepare("DROP FUNCTION return_int(returnme integer)")
-            cursor.execute()
-        except:
-            pass
-
-        RhnSQLDatabaseTests.tearDown(self)
-
-
-
 class OracleDatabaseTests(RhnSQLDatabaseTests):
     QUERY_CREATE_TABLE = """
         CREATE TABLE %s(id NUMBER, name VARCHAR2(256), num NUMBER(5,2))
@@ -269,13 +231,6 @@ END;
         cursor.execute()
 
         RhnSQLDatabaseTests.tearDown(self)
-
-
-
-def postgresql_suite():
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(PostgreSQLDatabaseTests))
-    return suite
 
 def oracle_suite():
     suite = unittest.TestSuite()
