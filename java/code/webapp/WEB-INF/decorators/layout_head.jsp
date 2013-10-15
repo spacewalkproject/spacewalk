@@ -38,5 +38,4 @@
     <script src="/rhn/dwr/interface/DWRItemSelector.js"></script>
 
     <script src="/javascript/bootstrap.js"></script>
-    <script src="/javascript/check_all.js"></script>
     <script src="/javascript/spacewalk-essentials.js"></script>
