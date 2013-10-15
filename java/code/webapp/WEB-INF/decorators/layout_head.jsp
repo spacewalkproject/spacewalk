@@ -31,7 +31,7 @@
     <link rel="stylesheet/less" type="text/css" href="/css/spacewalk.less" />
 
     <script src="/javascript/jquery.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.4.1/less.min.js"></script>
+    <script src="/javascript/less.js"></script>
 
     <script src="/rhn/dwr/engine.js"></script>
     <script src="/rhn/dwr/util.js"></script>
