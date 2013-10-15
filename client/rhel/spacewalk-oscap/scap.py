@@ -143,7 +143,7 @@ def _upload_results(xccdf_result, results_dir, args):
 
 def _upload_file(server, systemid, args, path, filename, f):
     if filename != 'xccdf-report.html' and not _assert_xml(f):
-        log.log_debug('Excluding "%s" file from upload. Not an XML.', path)
+        log.log_debug('Excluding "%s" file from upload. Not an XML.' % path)
         return '\nxccdf_eval: File "%s" not uploaded. Not an XML file format.' % filename
 
     stat = os.fstat(f.fileno())
