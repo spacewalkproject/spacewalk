@@ -5,6 +5,7 @@ function makeAjaxCallback(divId, debug) {
       }
       $('#' + divId).html(text);
       $('#' + divId).fadeIn();
+      columnHeight();
    };
    return cb;
 }
