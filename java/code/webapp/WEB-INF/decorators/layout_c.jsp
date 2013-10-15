@@ -14,7 +14,7 @@
 	  <decorator:head />
   </head>
   <body onload="<decorator:getProperty property="body.onload" />">
-    <div class="wrap">
+    <div class="spacewalk-top-wrap">
       <header>
         <jsp:include page="/WEB-INF/includes/header.jsp" />
       </header>
