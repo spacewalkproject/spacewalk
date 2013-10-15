@@ -22,12 +22,10 @@ $(document).on("ready", function(){
 	}
 });
 
-setTimeout(function(){
-	// taking the screen size and resizing the columns to keep the footer fixed to the bottom
-	// On page load
-	$("section.col-md-10").css("padding-bottom", "");
-	columnHeight();
-}, 700);
+// On window load
+$(window).load(function () {
+  columnHeight();
+});
 
 // On window resize
 $(window).resize( function () {
@@ -44,7 +42,6 @@ function columnHeight() {
   	  var heightDoc = $(document).height();
       // Column heights should equal the document height minus the header height and footer height
       var newHeight = heightDoc - 160 - sectionHeight + "px";
-      console.log(sectionHeight + " " + newHeight + " " + heightDoc);
       $("section.col-md-10").animate({
       	"padding-bottom": newHeight},
       	200);
