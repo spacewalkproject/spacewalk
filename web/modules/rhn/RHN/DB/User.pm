@@ -1038,8 +1038,9 @@ sub verify_channel_role {
   my $sth = $dbh->prepare(<<EOQ);
 	select rhn_channel.user_role_check(:cid, :user_id, :role) from dual
 EOQ
-
-  my $result = $sth->execute_h(cid => $channel_id,
+  # channel_id is always > 0 because rhn_channel_id_seq starts at 101
+  # so next ternary operator is safe way to turn '' to NULL
+  my $result = $sth->execute_h(cid => ($channel_id ? $channel_id : undef),
 		  user_id => $self->id,
 		  role => $role,
 		);
