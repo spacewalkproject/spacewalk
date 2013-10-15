@@ -6,16 +6,8 @@
 <head>
   <script src="/javascript/focus.js"></script>
   <script src="/javascript/spacewalk-login.js"></script>
-  <script>
-    // Remove the aside to center the login
-    function setupLogin() {
-      $$("aside").invoke("remove");
-      $$("section").invoke("removeClassName", "col-md-10");
-      $$("section").invoke("addClassName", "col-md-8 col-md-offset-2");
-    }
-  </script>
 </head>
-<body onLoad="formFocus('loginForm', 'username');setupLogin();">
+<body onLoad="formFocus('loginForm', 'username');">
 
 <c:if test="${schemaUpgradeRequired == 'true'}">
     <div class="site-alert">
