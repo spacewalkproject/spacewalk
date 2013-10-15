@@ -80,7 +80,7 @@
   </rhn:require>
   <rhn:require acl="user_authenticated()">
     <div id="bar">
-      <div class="spacewalk-bar">
+      <div class="spacewalk-bar pull-right">
           <span id="header_selcount">
             <rhn:setdisplay user="${requestScope.session.user}" />
           </span>
