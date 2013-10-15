@@ -9,8 +9,8 @@
     <center><p><c:out value="${custom_header}" escapeXml="false"/></p></center>
 </c:if>
 
-<div class="row">
-  <div id="logo" class="col-md-3 logo">
+<div class="spacewalk-header-container">
+  <div id="logo" class="spacewalk-logo">
     <a href="<bean:message key="layout.jsp.vendor.website"/>" title="<bean:message key="layout.jsp.vendor.title"/>">
       <img src="/img/logo_vendor.png" alt="<bean:message key="layout.jsp.vendor.name"/>" id="rhLogo" />
     </a>
@@ -18,7 +18,7 @@
       <img src="/img/logo_product.png" alt="<bean:message key="layout.jsp.productname"/>" id="rhnLogo" accesskey="2"/>
     </a>
   </div>
-  <div class="col-md-9 text-right">
+  <div class="spacewalk-header-links">
     <rhn:require acl="user_authenticated()">
       <ul class="nav nav-pills">
         <li><a href="/rhn/account/LocalePreferences.do"><c:out value="${rhnActiveLang} "/>(<bean:message key="header.jsp.change"/>)</a></li>

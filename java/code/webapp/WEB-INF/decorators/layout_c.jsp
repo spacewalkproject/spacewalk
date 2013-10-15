@@ -18,13 +18,13 @@
       <header>
         <jsp:include page="/WEB-INF/includes/header.jsp" />
       </header>
-      <div class="body-container row">
-        <aside class="col-md-2">
+      <div class="spacewalk-aside-content-layout">
+        <aside id="spacewalk-aside">
           <jsp:include page="/WEB-INF/includes/leftnav.jsp" />
           <jsp:include page="/WEB-INF/includes/legends.jsp" />
           <jsp:include page="/WEB-INF/includes/advertisements.jsp" />
         </aside>
-        <section class="col-md-10">
+        <section id="spacewalk-content">
           <!-- Alerts and messages -->
           <logic:messagesPresent>
             <div class="alert alert-info">

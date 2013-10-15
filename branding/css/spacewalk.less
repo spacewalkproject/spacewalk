@@ -12,18 +12,44 @@
 /*Import of Tables style*/
 @import url(tables.less);
 
+/* basic layout */
+
+.spacewalk-header-container {
+	.make-row();
+	.spacewalk-logo {
+		.make-md-column(3);
+	}
+	.spacewalk-header-links {
+		.make-md-column(9);
+		.text-right;
+	}
+}
+
+.spacewalk-aside-content-layout {
+	.make-row();
+	overflow: hidden;
+	min-height: 100%;
+	aside {
+		.make-md-column(2);			
+	}
+	section {
+		.make-md-column(10);
+	}
+}
+
+
 /* Main HTML5 tags defined for the theme */
-body{
+body {
 	background: #f7f7f7;
 }
-html, body{
+html, body {
 	height: 100%
 }
-header{
+header {
 	width: 100%;
 	background: url('../../img/spacewalk-header-background.png') repeat-x @gray;
 }
-footer{
+footer {
 	padding: 1.2em 0;
 	background: @gray-dark;
 	color: #fff;
@@ -32,19 +58,8 @@ footer{
 	height: 80px;
 	clear: both
 }
-aside.col-md-2{
-	background: #eeeeee;
-	border-right: 1px solid #d5d5d5;
-	height: auto;
-	min-height: 100%;
-	/* 100% height */
-	margin-bottom: -9999px;
-	padding-bottom: 9999px;
-	/* errasing the predefined paddings in the columns */
-	padding-right: 0;
-	padding-left: 0;
-}
-section{
+
+section {
 	/* for the body div to make both columns the same size*/
 	height: auto;
 	min-height: 100%;
@@ -53,29 +68,60 @@ section{
 h1, h2, h3, h4 {
 	.Roboto-thin
 }
-h1{
+h1 {
 	font-size: 2em
 }
-h2{
+h2 {
 	font-size: 1.7em;
 }
+
+.spacewalk-aside-content-layout {
+	/* override the grid row margin */
+	margin-right: 0; 
+		margin-left: 0;
+ 	aside {
+		background: #eeeeee;
+		border-right: 1px solid #d5d5d5;
+		height: auto;
+		min-height: 100%;
+		/* 100% height */
+		margin-bottom: -9999px;
+		padding-bottom: 9999px;
+		/* erasing the predefined paddings in the columns */
+		padding-right: 0;
+			padding-left: 0;
+	}
+
+	/* fixing margins in the 1st and last columns */
+	section {
+		padding-left:2em;
+		padding-right: 2em;
+		padding-bottom: 3em;
+		/* some animation */
+		transition: width 2s, height 2s, transform 2s;
+    	-webkit-transition: width 2s, height 2s, -webkit-transform 2s;
+    	&:first-child {
+    		padding-left:0;
+    	}
+    	&:last-child {
+    		padding-right: 0
+    	}
+    }	
+}
+
 /* glow and shadow for text */
-.glow-text{
+.glow-text {
 	text-shadow: 1px 1px 1px #fff;
 }
-.glow-text-deleted{
+.glow-text-deleted {
 	text-shadow: 0 transparent;
 }
-.shadow-text{
+.shadow-text {
 	text-shadow: 1px 1px 1px #333;
 }
-/* for the body div to make both columns the same size*/
-.row.body-container{
-	overflow: hidden;
-	min-height: 100%;
-}
+
 /* fixing the footer to the bottom */
-.wrap{
+.wrap {
 	overflow: hidden;
 	margin-bottom: -80px;
 	padding-bottom: 80px;
@@ -83,7 +129,7 @@ h2{
 	min-height: 100%
 }
 /* style for the login page */
-.login-page{
+.login-page {
 	width: 70%;
 	text-align: center;
 	margin-right: auto;
@@ -99,82 +145,124 @@ i[class^="spacewalk-icon"] {
 }
 
 /* color for icon */
-.spacewalk-icon-green{
+.spacewalk-icon-green {
 	color: @spacewalk-updates-green
 }
-.spacewalk-icon-red{
+.spacewalk-icon-red {
 	color: @spacewalk-security-red
 }
-.spacewalk-icon-yellow{
+.spacewalk-icon-yellow {
 	color: @spacewalk-bugs-yellow;
 }
-.spacewalk-icon-blue{
+.spacewalk-icon-blue {
 	color: @spacewalk-enhancement-blue
 }
 /* header style */
-header .row{
+header .row {
 	margin: 0 1em 
 }
-header .row [class*="col-md"]{
-	padding-right: 0;
-	padding-left: 0
-}
-header .logo{
-	padding-top: 1.4em;
-}
-header form{
-	margin: .9em 0 1em 0
-}
-header .nav-pills{
-	display: inline-block;
-	border-radius: 0 0 4px 4px
-}
-header .nav-pills li > a{
-	padding: .3em 1em;
-	font-size: .85em;
-	color: #fff;
-	font-weight: normal;
-	letter-spacing: normal;
-}
-header .nav-pills li > a:hover{
-	background: none;
-	text-decoration: underline;
-}
-header ul.nav-pills:nth-child(1){
-	background: #000;
-}
-header ul.nav-pills:nth-child(2){
-	background: #333;
-}
-header ul.nav-pills:nth-child(3){
-	background: #666;
-}
-header ul.nav-pills:nth-child(2) li{
-	border-left: 1px #222 solid
-}
-header ul.nav-pills:nth-child(3) li{
-	border-left: 1px #555 solid
-}
-header ul.nav-pills li:first-child {
-	border-left: 0
-}
-header .navbar-nav > li > a{
-	padding: .5em 1.2em;
 
+/* undo the padding the grid columns give */
+header {
+	&#spacewalk-header {
+		padding-right: 0;
+		padding-left: 0
+	}
+
+	.spacewalk-logo {
+		padding-top: 1.4em;
+	}
+
+	.spacewalk-logo {
+		padding-top: 1.4em;
+	}
+
+	header .nav-pills {
+		display: inline-block;
+		border-radius: 0 0 4px 4px
+	}
+
+	.nav-pills li > a {
+		padding: .3em 1em;
+		font-size: .85em;
+		color: #fff;
+		font-weight: normal;
+		letter-spacing: normal;
+	}
+	
+	.nav-pills li > a:hover {
+		background: none;
+		text-decoration: underline;
+	}
+	
+	ul.nav-pills:nth-child(1) {
+		background: #000;
+	}
+
+	ul.nav-pills:nth-child(2) {
+		background: #333;
+	}
+
+	ul.nav-pills:nth-child(3) {
+		background: #666;
+	}
+
+	ul.nav-pills:nth-child(2) li {
+		border-left: 1px #222 solid
+	}
+
+	ul.nav-pills:nth-child(3) li {
+		border-left: 1px #555 solid
+	}
+
+	ul.nav-pills li:first-child {
+		border-left: 0
+	}
+
+	.navbar-nav > li > a {
+		padding: .5em 1.2em;
+
+	}
+
+	.navbar-nav > li:hover {
+		background: @spacewalk-blue;
+		border-radius: 4px 4px 0 0
+	}
+
+	form input[type="search"] {
+		padding: 0px 10px;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+
+	.btn.btn-info.input-sm {
+		padding-top: 4px
+	}
+
+	/* reseting navbar styles for the main menu */
+	.spacewalk-main-nav {
+		margin: 0;
+		border-radius: 0
+	}
+
+	.navbar {
+		min-height: .5em;
+	}
+
+	/* Systems selector inside the main menu in the header */
+	#bar {
+		color: #fff;
+	}
+	#bar .spacewalk-bar {
+		padding: .5em 1.2em;
+		text-align: right;
+	}
+	#bar .spacewalk-bar .badge {
+		margin-right: .5em
+	}
 }
-header .navbar-nav > li:hover{
-	background: @spacewalk-blue;
-	border-radius: 4px 4px 0 0
-}
-header form input[type="search"]{
-	padding: 0px 10px;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-header .btn.btn-info.input-sm{
-	padding-top: 4px
-}
+
 
 /* fixing margin issue in Bootstrap 3 */
 
@@ -184,53 +272,19 @@ header .btn.btn-info.input-sm{
   	margin-left: 0; 
   }
 }
-/* fixing margins in the 1st and last columns */
-section.col-md-10{
-	padding-left:2em;
-	padding-right: 2em;
-	padding-bottom: 3em;
-	/* some animation */
-	transition: width 2s, height 2s, transform 2s;
-    -webkit-transition: width 2s, height 2s, -webkit-transform 2s;
-}
-section [class*=col-md]:first-child{
-	padding-left:0;
-}
-section [class*=col-md]:last-child{
-	padding-right: 0
-}
 
-/* reseting navbar styles for the main menu */
-header  .spacewalk-main-nav{
-	margin: 0;
-	border-radius: 0
-}
-.spacewalk-main-nav{
+
+.spacewalk-main-nav {
 	border: 0
 }
-.spacewalk-main-nav:after{
+.spacewalk-main-nav:after {
 	height: 4px;
 	background: @spacewalk-blue	;
 	width: 100%
 }
-header .navbar{
-	min-height: .5em;
-}
-
-/* Systems selector inside the main menu in the header */
-header #bar{
-	color: #fff;
-}
-header #bar .spacewalk-bar{
-	padding: .5em 1.2em;
-	text-align: right;
-}
-header #bar .spacewalk-bar .badge{
-	margin-right: .5em
-}
 
 /* systems selector */
-.spacewalk-bar a.button:first-of-type{
+.spacewalk-bar a.button:first-of-type {
 	color: #ffffff;
 	background-color: #5bc0de;
 	border-color: #46b8da;
@@ -238,7 +292,7 @@ header #bar .spacewalk-bar .badge{
 	border-radius: 4px;
 	margin: 0 .2em
 }
-.spacewalk-bar a.button:last-of-type{
+.spacewalk-bar a.button:last-of-type {
 	color: #333;
 	background-color: #e2e2e2;
 	border-color: #d4d4d4;
@@ -246,91 +300,95 @@ header #bar .spacewalk-bar .badge{
 	border-radius: 4px
 }
 /* style for Menu in the left column */
-.nav-stacked > li + li{
+.nav-stacked > li + li {
 	margin-top: 0;
 }
-#sidenav a{
-	color: #666;
-	.glow-text;
-}
-#sidenav a:before{
-	content: "\f105 ";
-	font-family: 'FontAwesome';
-	margin-right: .5em
-}
-#sidenav li{
-	border-bottom: 1px solid #d8d8d8;
-}
-#sidenav li.active > a, #sidenav li.active > a:hover{
-	color: @spacewalk-blue;
-	background: @spacewalk-list-menu-active;
-}
-#sidenav li > a{
-	border-radius: 0
-}
-#sidenav ul li:last-child{
-	border-bottom: 1px solid #ccc;
-	-moz-box-shadow: 0px 1px 1px #fefefe;
-	-webkit-box-shadow: 0px 1px 1px #fefefe;
-	box-shadow: 0px 1px 1px #fefefe;
+
+#sidenav {
+	a {
+		color: #666;
+		.glow-text;
+	}
+	a:before {
+		content: "\f105 ";
+		font-family: 'FontAwesome';
+		margin-right: .5em
+	}
+	li {
+		border-bottom: 1px solid #d8d8d8;
+	}
+	li.active > a, #sidenav li.active > a:hover {
+		color: @spacewalk-blue;
+		background: @spacewalk-list-menu-active;
+	}
+	li > a {
+		border-radius: 0
+	}
+	ul li:last-child {
+		border-bottom: 1px solid #ccc;
+		-moz-box-shadow: 0px 1px 1px #fefefe;
+		-webkit-box-shadow: 0px 1px 1px #fefefe;
+		box-shadow: 0px 1px 1px #fefefe;
+	}
+
+	/* ul-submenues */
+	/* first submenu */
+	ul>ul li {
+	    padding: 0 0 0 1em !important;
+	    margin: 0;
+	    background: @spacewalk-list-first-submenu;
+	    border-bottom: 1px solid #ccc;
+	}
+	ul>ul li.active, 
+	ul>ul li.active:hover, 
+	ul>ul li.active a, 
+	ul>ul li.active a:hover {
+		background: @spacewalk-list-first-submenu-active;
+		.glow-text-deleted;
+	}
+	ul>ul li:hover, ul>ul li a:hover {
+		background: @spacewalk-list-first-submenu-hover;
+	}
+	ul>ul li:last-child {
+		border-bottom: 1px solid #c6c6c6;
+	}
+	/* second submenu */
+	ul>ul>ul li {
+	    padding: 0 0 0 1.5em !important;
+	    margin: 0;
+	    background: @spacewalk-list-second-submenu;
+	    border-bottom: 1px solid #bbb;
+	}
+	ul>ul>ul li.active, 
+	ul>ul>ul li.active:hover, 
+	ul>ul>ul li.active a, 
+	ul>ul>ul li.active a:hover {
+		background: @spacewalk-list-second-submenu-active;
+		.glow-text-deleted;
+	}
+	ul>ul>ul li:hover, ul>ul>ul li a:hover {
+		background: @spacewalk-list-second-submenu-hover;
+	}
+	ul>ul>ul li:last-child {
+		border-bottom: 1px solid #c4c4c4;
+	}
 }
 
-/* ul-submenues */
-/* first submenu */
-#sidenav ul>ul li{
-    padding: 0 0 0 1em !important;
-    margin: 0;
-    background: @spacewalk-list-first-submenu;
-    border-bottom: 1px solid #ccc;
-}
-#sidenav ul>ul li.active, 
-#sidenav ul>ul li.active:hover, 
-#sidenav ul>ul li.active a, 
-#sidenav ul>ul li.active a:hover{
-	background: @spacewalk-list-first-submenu-active;
-	.glow-text-deleted;
-}
-#sidenav ul>ul li:hover, #sidenav ul>ul li a:hover{
-	background: @spacewalk-list-first-submenu-hover;
-}
-#sidenav ul>ul li:last-child{
-	border-bottom: 1px solid #c6c6c6;
-}
-/* second submenu */
-#sidenav ul>ul>ul li{
-    padding: 0 0 0 1.5em !important;
-    margin: 0;
-    background: @spacewalk-list-second-submenu;
-    border-bottom: 1px solid #bbb;
-}
-#sidenav ul>ul>ul li.active, 
-#sidenav ul>ul>ul li.active:hover, 
-#sidenav ul>ul>ul li.active a, 
-#sidenav ul>ul>ul li.active a:hover{
-	background: @spacewalk-list-second-submenu-active;
-	.glow-text-deleted;
-}
-#sidenav ul>ul>ul li:hover, #sidenav ul>ul>ul li a:hover{
-	background: @spacewalk-list-second-submenu-hover;
-}
-#sidenav ul>ul>ul li:last-child{
-	border-bottom: 1px solid #c4c4c4;
-}
-aside ul > ul li{
+aside ul > ul li {
 	list-style: none;
 	padding: 0
 }
-aside .nav > li > a{
+aside .nav > li > a {
 	padding: .4em 1em
 }
 
 /* TABLES */
-.table > thead > tr.active > th{
+.table > thead > tr.active > th {
 	background: @gray-lighter;
 }
 
 /* Icons Legend */
-aside .sideleg{
+aside .sideleg {
 	background: lighten(@gray-lighter, 10%);
 	width: 90%;
 	padding: .5em 1em;
@@ -338,25 +396,25 @@ aside .sideleg{
 	margin: 2em auto;
 	font-size: .8em
 }
-aside .sideleg:hover{
+aside .sideleg:hover {
 	background: @spacewalk-blue;
 }
-aside .sideleg:hover h4, aside .sideleg:hover li{
+aside .sideleg:hover h4, aside .sideleg:hover li {
 	color: #fff
 }
-aside .sideleg li{
+aside .sideleg li {
 	list-style: none;
 	margin: 1em 0;
 	padding:0;
 }
-aside .sideleg ul{
+aside .sideleg ul {
 	margin: 0;
 	padding: 0
 }
 
 
 /* login form */
-#loginForm{
+#loginForm {
 	border: 1px solid @gray-light;
 	border-radius: @border-radius-base;
 	background: @gray-lighter;
@@ -364,55 +422,56 @@ aside .sideleg ul{
 	margin-bottom:2em;
 	padding: 1.5em
 }
-#loginForm label{
+#loginForm label {
 	text-align: left;
 	.Roboto-thin;
 	color: @gray;
 	font-size: 1.1em
 }
-#loginForm+.col-md-6.col-md-offset-3.text-left{
+
+#loginForm+.col-md-6.col-md-offset-3.text-left {
 	font-size:.8em;
 	margin-bottom:2em;
 }
 
 
 /* question symbol for help pop up*/
-h1 .icon-stack .icon-question{
+h1 .icon-stack .icon-question {
 	font-size: .6em;
 }
-h1 .icon-stack{
+h1 .icon-stack {
 	width: 1em;
 	height: 1em;
 	line-height: .7em;
 }
-.icon-stack .icon-stack-base.icon-circle{
+.icon-stack .icon-stack-base.icon-circle {
 	font-size: .7em;
 	color: @spacewalk-blue;
 }
 
 /* spacewalk toolbar */
-.spacewalk-toolbar{
+.spacewalk-toolbar {
 	padding: .5em 1em
 }
-.spacewalk-toolbar>a{
+.spacewalk-toolbar>a {
 	border-right:1px solid @gray-light;
 	padding: 0 .5em
 }
-.spacewalk-toolbar>a:hover{
+.spacewalk-toolbar>a:hover {
 	text-decoration: none;
 }
-.spacewalk-toolbar>a:last-child{
+.spacewalk-toolbar>a:last-child {
 	border-right:0
 }
 
 /* systems selected tool*/
-.spacewalk-bar i, .spacewalk-toolbar>a, #spacewalk-bar-off i{
+.spacewalk-bar i, .spacewalk-toolbar>a, #spacewalk-bar-off i {
 	cursor: pointer;
 }
-.spacewalk-bar i{
+.spacewalk-bar i {
 	padding: 0 .3em;
 }
-#show-systems-bar{
+#show-systems-bar {
 	padding: .5em 1.2em;
 	background: #fff;
 	border:1px solid #ccc;
@@ -420,6 +479,6 @@ h1 .icon-stack{
 }
 
 /* tab nav */
-.spacewalk-content-nav .nav.nav-tabs li.active a{
+.spacewalk-content-nav .nav.nav-tabs li.active a {
 	background: #dddddd;
 }
