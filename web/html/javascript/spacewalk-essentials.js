@@ -7,7 +7,7 @@ $(document).on("ready", function(){
   $("#sidenav li.active").each(function() {
     $(this).next("ul").show(300);
   });
-	
+
   /* Systems Selected Toolbar - actions to hide the toolbar when th Clear button is pressed or when 
   no system is selected */
 
@@ -24,7 +24,6 @@ $(document).on("ready", function(){
   }
   // See if there is a system already selected as soon as the page loads
   updateSsmToolbarOpacity();
-  
 });
 /* Getting the screen size to create a fixed padding-bottom in the Section tag to make both columns the same size */
 // On window load
