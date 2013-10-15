@@ -1,5 +1,5 @@
 Name:		spacewalk-oscap
-Version:	0.0.21
+Version:	0.0.22
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -47,6 +47,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Oct 15 2013 Simon Lukasik <slukasik@redhat.com> 0.0.22-1
+- Improve logged error message.
+
 * Fri Oct 11 2013 Simon Lukasik <slukasik@redhat.com> 0.0.21-1
 - 1009512 - redirect stdout of xsltproc to /dev/null
 
