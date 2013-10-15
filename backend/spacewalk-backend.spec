@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.27
+Version: 2.1.28
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -627,6 +627,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Tue Oct 15 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.28-1
+- python pgsql tests: made easier Jenkins integration
+
 * Wed Oct 09 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.27-1
 - cleaning up old svn Ids
 
