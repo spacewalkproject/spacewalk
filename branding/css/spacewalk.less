@@ -25,7 +25,7 @@
 	}
 }
 
-.spacewalk-aside-content-layout {
+.spacewalk-main-column-layout {
 	.make-row();
 	overflow: hidden;
 	min-height: 100%;
@@ -75,10 +75,10 @@ h2 {
 	font-size: 1.7em;
 }
 
-.spacewalk-aside-content-layout {
+.spacewalk-main-column-layout {
 	/* override the grid row margin */
 	margin-right: 0; 
-		margin-left: 0;
+	margin-left: 0;
  	aside {
 		background: #eeeeee;
 		border-right: 1px solid #d5d5d5;
@@ -99,13 +99,7 @@ h2 {
 		padding-bottom: 3em;
 		/* some animation */
 		transition: width 2s, height 2s, transform 2s;
-    	-webkit-transition: width 2s, height 2s, -webkit-transform 2s;
-    	&:first-child {
-    		padding-left:0;
-    	}
-    	&:last-child {
-    		padding-right: 0
-    	}
+    	-webkit-transition: width 2s, height 2s, -webkit-transform 2s;    	
     }	
 }
 
@@ -177,7 +171,7 @@ header {
 		padding-top: 1.4em;
 	}
 
-	header .nav-pills {
+	.nav-pills {
 		display: inline-block;
 		border-radius: 0 0 4px 4px
 	}
