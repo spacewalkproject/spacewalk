@@ -8,7 +8,6 @@
   <head>
     <script type="text/javascript" src="/rhn/dwr/interface/ImagesRenderer.js"></script>
     <script type="text/javascript" src="/rhn/dwr/engine.js"></script>
-    <script type="text/javascript" src="/javascript/render.js"></script>
     <script type="text/javascript" src="/javascript/images.js"></script>
   </head>
   <body>

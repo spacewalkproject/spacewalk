@@ -32,8 +32,6 @@
 <c:if test="${requestScope.systemGroupsWidget == 'y'}">
 	<script type="text/javascript" src="/rhn/dwr/interface/SystemGroupsRenderer.js"></script>
 </c:if>
-<script type="text/javascript" src="/javascript/scriptaculous.js"></script>
-<script type="text/javascript" src="/javascript/render.js"></script>
 </head>
 <body>
 <rhn:toolbar base="h1" img="/img/rhn-icon-your_rhn.gif" imgAlt="yourrhn.jsp.toolbar.img.alt"
