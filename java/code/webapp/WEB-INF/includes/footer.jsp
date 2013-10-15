@@ -26,4 +26,3 @@
 --%>
 <!-- Javascript -->
 <script src="/javascript/check_all.js"></script>
-<script src="/javascript/spacewalk-essentials.js"></script>
