@@ -16,9 +16,11 @@ browserType = is_ie;
 function onLoadStuff(columns) {
   columnsPerRow = columns;
   var channelTable = document.getElementById('channel-list');
-  createParentRows(channelTable, rowHash);
-  reuniteChildrenWithParents(channelTable, rowHash);
-  iconifyChildlessParents(rowHash);
+  if (channelTable) {
+    createParentRows(channelTable, rowHash);
+    reuniteChildrenWithParents(channelTable, rowHash);
+    iconifyChildlessParents(rowHash);
+  }
 }
 
 function iconifyChildlessParents(rowHash) {
