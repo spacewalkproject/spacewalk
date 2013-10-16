@@ -16,7 +16,7 @@
 /* basic layout */
 
 .spacewalk-header-container {
-	.make-row();
+	.make-row(0);
 	.spacewalk-logo {
 		.make-md-column(3);
 	}
@@ -27,7 +27,7 @@
 }
 
 .spacewalk-main-column-layout {
-	.make-row();
+	.make-row(0);
 	overflow: hidden;
 	min-height: 100%;
 	aside {
@@ -37,7 +37,6 @@
 		.make-md-column(10);
 	}
 }
-
 
 /* Main HTML5 tags defined for the theme */
 body {
@@ -57,7 +56,21 @@ footer {
 	font-weight: normal;
 	font-size: 0.9em;
 	height: 80px;
-	clear: both
+	clear: both;
+
+	.make-row(0);
+
+	div:nth-child(1) {
+		.make-xs-column(2);
+	}
+	div:nth-child(2) {
+		.make-xs-column(8);
+		.text-center;
+	}
+	div:nth-child(3) {
+		.make-xs-column(2);
+		.text-right;
+	}
 }
 
 section {
@@ -78,7 +91,7 @@ h2 {
 
 .spacewalk-main-column-layout {
 	/* override the grid row margin */
-	margin-right: 0; 
+	margin-right: 0;
 	margin-left: 0;
  	aside {
 		background: #eeeeee;
@@ -100,8 +113,8 @@ h2 {
 		padding-bottom: 3em;
 		/* some animation */
 		transition: width 2s, height 2s, transform 2s;
-    	-webkit-transition: width 2s, height 2s, -webkit-transform 2s;    	
-    }	
+    	-webkit-transition: width 2s, height 2s, -webkit-transform 2s;
+    }
 }
 
 /* glow and shadow for text */
@@ -152,13 +165,14 @@ i[class^="spacewalk-icon"] {
 .spacewalk-icon-blue {
 	color: @spacewalk-enhancement-blue
 }
-/* header style */
-header .row {
-	margin: 0 1em 
-}
 
-/* undo the padding the grid columns give */
 header {
+
+	.spacewalk-header-container {
+	  margin: 0 1em;
+	}
+
+	/* undo the padding the grid columns give */
 	&#spacewalk-header {
 		padding-right: 0;
 		padding-left: 0
@@ -184,12 +198,12 @@ header {
 		font-weight: normal;
 		letter-spacing: normal;
 	}
-	
+
 	.nav-pills li > a:hover {
 		background: none;
 		text-decoration: underline;
 	}
-	
+
 	ul.nav-pills:nth-child(1) {
 		background: #000;
 	}
@@ -262,9 +276,9 @@ header {
 /* fixing margin issue in Bootstrap 3 */
 
 @media (min-width: 768px) {
-  .row { 
-  	margin-right: 0; 
-  	margin-left: 0; 
+  .row {
+  	margin-right: 0;
+  	margin-left: 0;
   }
 }
 
@@ -334,9 +348,9 @@ header {
 	    background: @spacewalk-list-first-submenu;
 	    border-bottom: 1px solid #ccc;
 	}
-	ul>ul li.active, 
-	ul>ul li.active:hover, 
-	ul>ul li.active a, 
+	ul>ul li.active,
+	ul>ul li.active:hover,
+	ul>ul li.active a,
 	ul>ul li.active a:hover {
 		background: @spacewalk-list-first-submenu-active;
 		.glow-text-deleted;
@@ -354,9 +368,9 @@ header {
 	    background: @spacewalk-list-second-submenu;
 	    border-bottom: 1px solid #bbb;
 	}
-	ul>ul>ul li.active, 
-	ul>ul>ul li.active:hover, 
-	ul>ul>ul li.active a, 
+	ul>ul>ul li.active,
+	ul>ul>ul li.active:hover,
+	ul>ul>ul li.active a,
 	ul>ul>ul li.active a:hover {
 		background: @spacewalk-list-second-submenu-active;
 		.glow-text-deleted;
