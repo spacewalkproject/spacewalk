@@ -220,6 +220,7 @@ ORDER BY SEV.label
    WHERE RT.org_id = :org_id
      AND RT.server_id IS NULL
      AND AK.ks_session_id IS NULL
+     AND AK.bootstrap = 'N'
      AND RT.id = AK.reg_token_id
 ORDER BY RT.note, RT.id
   </query>
@@ -245,6 +246,7 @@ ORDER BY RT.note, RT.id
      AND RT.disabled = 0
      AND RT.server_id IS NULL
      AND AK.ks_session_id IS NULL
+     AND AK.bootstrap = 'N'
      AND RT.id = AK.reg_token_id
 ORDER BY RT.note, RT.id
   </query>
@@ -258,6 +260,7 @@ ORDER BY RT.note, RT.id
          rhnActivationKey AK
    WHERE STR.server_id = :server_id
      AND AK.reg_token_id = STR.token_id
+     AND AK.bootstrap = 'N'
   </query>
 </mode>
 
