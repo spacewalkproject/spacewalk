@@ -29,7 +29,11 @@ CREATE TABLE rhnActivationKey
     created        timestamp with local time zone
                        DEFAULT (current_timestamp) NOT NULL,
     modified       timestamp with local time zone
-                       DEFAULT (current_timestamp) NOT NULL
+                       DEFAULT (current_timestamp) NOT NULL,
+    bootstrap      CHAR(1)
+                       DEFAULT ('N') NOT NULL
+                       CONSTRAINT rhn_act_key_bootstrap_ck
+                           CHECK (bootstrap in ('Y', 'N'))
 )
 ENABLE ROW MOVEMENT
 ;
