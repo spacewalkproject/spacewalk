@@ -6,7 +6,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <class name="com.redhat.rhn.domain.token.ActivationKey"
         table="rhnActivationKey">
         <id name="key" type="string" column="token"/>
-
+        
+        <property name="bootstrap" column="bootstrap" not-null="true" type="string" length="1" />
         <property name="created" column="created" type="timestamp" insert="false"
             update="false"/>
         <property name="modified" column="modified" type="timestamp" insert="false"
