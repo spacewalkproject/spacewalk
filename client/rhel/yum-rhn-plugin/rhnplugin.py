@@ -361,9 +361,7 @@ class RhnRepo(YumRepository):
 
         try:
             li = up2dateAuth.getLoginInfo(timeout=self.timeout)
-        except up2dateErrors.RhnServerException, e:
-            raise yum.Errors.RepoError(unicode(e)), None, sys.exc_info()[2]
-        except e:
+        except Exception, e:
             raise yum.Errors.RepoError(unicode(e)), None, sys.exc_info()[2]
 
         # TODO:  do evalution on li auth times to see if we need to obtain a
