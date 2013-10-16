@@ -59,8 +59,11 @@ import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.test.CPUTest;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.server.test.ServerGroupTest;
+import com.redhat.rhn.domain.token.ActivationKey;
+import com.redhat.rhn.domain.token.test.ActivationKeyTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.frontend.dto.ActivationKeyDto;
 import com.redhat.rhn.frontend.dto.CustomDataKeyOverview;
 import com.redhat.rhn.frontend.dto.EssentialServerDto;
 import com.redhat.rhn.frontend.dto.SystemOverview;
@@ -1211,5 +1214,26 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
     }
 
+    public void testGetActivationKeys() throws Exception {
+        User user = UserTestUtils.findNewUser("testUser", "testOrg" +
+            this.getClass().getSimpleName());
 
+        ActivationKey activationKey = ActivationKeyTest.createTestActivationKey(user);
+        Server server = activationKey.getServer();
+        activationKey.getToken().getActivatedServers().add(server);
+        DataResult<ActivationKeyDto> result = SystemManager.getActivationKeys(server);
+        assertEquals(1, result.size());
+    }
+
+    public void testGetBootstrapActivationKeys() throws Exception {
+        User user = UserTestUtils.findNewUser("testUser", "testOrg" +
+            this.getClass().getSimpleName());
+
+        ActivationKey activationKey = ActivationKeyTest.createTestActivationKey(user);
+        activationKey.setBootstrap("Y");
+        Server server = activationKey.getServer();
+        activationKey.getToken().getActivatedServers().add(server);
+        DataResult<ActivationKeyDto> result = SystemManager.getActivationKeys(server);
+        assertEquals(0, result.size());
+    }
 }
