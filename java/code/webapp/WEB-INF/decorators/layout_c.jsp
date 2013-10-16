@@ -42,7 +42,7 @@
         </section>
       </div>
     </div>
-    <footer class="row">
+    <footer>
       <jsp:include page="/WEB-INF/includes/footer.jsp" />
     </footer>
   </body>

@@ -2,10 +2,15 @@
 
 <pxt-passthrough>
 <pxt-use class="Sniglets::Users" />
-  <div id="footer">
-    Copyright &#169; 2002&#x2012;12 Red Hat, Inc. All rights reserved. <a href="https://www.redhat.com/legal/privacy_statement.html">Privacy statement</a> : <a href="http://www.redhat.com/legal/legal_statement.html" accesskey="8">Legal statement</a> : <a href="http://www.redhat.com/">redhat.com</a>
-    <div style="color: black">
-      Spacewalk release <a href="/rhn/help/dispatcher/release_notes"><pxt-config var="version" /></a>
-    </div>
-  </div>
+<div>
+</div>
+<div>
+  Copyright &#169; 2002&#x2012;12 Red Hat, Inc. All rights reserved. <a href="https://www.redhat.com/legal/privacy_statement.html">Privacy statement</a> : <a href="http://www.redhat.com/legal/legal_statement.html" accesskey="8">Legal statement</a> : <a href="http://www.redhat.com/">redhat.com</a>
+<div style="color: black">
+  Spacewalk release <a href="/rhn/help/dispatcher/release_notes"><pxt-config var="version" /></a>
+</div>
+</div>
+<div>
+  <img src="/img/logo_vendor.png" />
+</div>
 </pxt-passthrough>

@@ -1,54 +1,111 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML>
 
 <pxt-passthrough>
   <pxt-use class="Sniglets::Users" />
   <pxt-use class="Sniglets::HTML" />
   <pxt-use class="Grail::Frame" />
   <pxt-use class="Sniglets::Navi" />
+  <pxt-use class="Sniglets::Header" />
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html lang="en">
   <pxt-include-late file="/templates/header.pxt" />
 
-  <body><div class="wrap" id="top-wrap">
-    <rhn-navi-nav depth="0" style="topnav"/>
-    <pxt-include-late file="/network/components/status_bar/main.pxi" />
+  <body>
+    <div class="spacewalk-top-wrap">
+      <header>
+        <div class="spacewalk-header-container">
+          <div id="logo" class="spacewalk-logo">
+            <a href="http://www.spacewalkproject.org/" title="Visit http://www.spacewalkproject.org/ for more information">
+              <img src="/img/logo_vendor.png" alt="Spacewalk project" id="rhLogo" />
+            </a>
+            <a href="/" title="Spacewalk homepage">
+              <img src="/img/logo_product.png" alt="Spacewalk" id="rhnLogo" accesskey="2"/>
+            </a>
+          </div>
+
+          <div class="spacewalk-header-links">
+            <ul class="nav nav-pills">
+              <li><a href="/rhn/account/LocalePreferences.do">English (change)</a></li>
+            </ul>
+            <ul class="nav nav-pills">
+              <li><a href="http://kbase.redhat.com/">Knowledgebase</a></li>
+              <li><a href="/help">Documentation</a></li>
+            </ul>
+
+            <rhn-display-login>
+            <ul class="nav nav-pills">
+              <li>
+                <a href="/rhn/account/UserDetails.do"><i class="icon-user"></i>[login]</a>
+              </li>
+              <li>
+                <a><i class="icon-sitemap"></i>[org]</a>
+              </li>
+              <li>
+                <a href="/rhn/account/UserPreferences.do"><i class="icon-cogs"></i></a>
+              </li>
+              <li>
+                <a href="/rhn/Logout.do"><i class="icon-signout"></i></a>
+              </li>
+            </ul>
+            </rhn-display-login>
+
+            <form name="form1" class="form-inline hidden-xs" role="form" action="/rhn/Search.do" method="get">
+              <div class="form-group">
+                <select name="search_type" class="form-control input-sm">
+
+                    <option value="systems">Systems</option>
+
+                  <option value="packages">Packages</option>
+                  <option value="errata">Errata</option>
+                  <option value="docs">Documentation</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <input type="search" class="form-control input-sm" name="search_string" maxlength="40" size="20" accesskey="4" autofocus="autofocus" placeholder="Search" />
+              </div>
+              <div class="form-group">
+                <input type="hidden" name="submitted" value="true" />
+                <button type="submit" class="btn btn-info input-sm">
+                  <i class="icon-search"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <pxt-include-late file="/network/components/status_bar/main.pxi" />
+        <rhn-navi-nav depth="0" style="spacewalk-main-nav"/>
+      </header>
+
+      <div class="spacewalk-main-column-layout">
+
+        <aside id="spacewalk-aside">
+          <grail-canvas mode="left_menu_canvas">
+            <rhn-navi-nav depth="1" style="sidenav"/>
+          </grail-canvas>
+          <grail-canvas mode="legend_canvas">
+          </grail-canvas>
+
+          <rhn-require acl="global_config(chat_enabled)">
+           <a href="http://webchat.freenode.net?channels=#spacewalk" target="_blank">
+             <img src="/img/chat.png" alt=""/>
+           </a>
+          </rhn-require>
+        </aside>
+
+        <section id="spacewalk-content">
+          <pxt-include-late file="/network/components/message_queues/site.pxi" />
+          <grail-early-canvas mode="main_canvas">
+          </grail-early-canvas>
+        </section>
+      </div>
+
     </div>
-    <div class="wrap" id="bottom-wrap">
-  <div id="content">
-    <table width="100%" cellspacing="0">
-      <tr>
-        <td class="sidebar">
-	<grail-canvas mode="left_menu_canvas">
-          <rhn-navi-nav depth="1" style="sidenav"/>
-	</grail-canvas>
-	<grail-canvas mode="legend_canvas">
-	</grail-canvas>
-
-     <rhn-require acl="global_config(chat_enabled)">
-       <br/>
-       <a href="http://webchat.freenode.net?channels=#spacewalk" target="_blank">
-         <img src="/img/chat.png" alt=""/>
-       </a>
-     </rhn-require>
-
-	</td>
-        <td class="page-content" width="100%">
-<pxt-include-late file="/network/components/message_queues/site.pxi" />
-
-<grail-early-canvas mode="main_canvas">
-</grail-early-canvas>
-
-	</td>
-      </tr>
-    </table>
-
-    <pxt-include-late file="/templates/footer.pxt" />
-    <pxt-include-late file="/templates/profile.pxt" />
-
-  </div> <!-- close content -->
-  </div> <!-- close wrap -->
-
+    <footer>
+      <pxt-include-late file="/templates/footer.pxt" />
+      <pxt-include-late file="/templates/profile.pxt" />
+    </footer>
   </body>
-</html>
+  </pxt-passthrough>
 
-</pxt-passthrough>
+

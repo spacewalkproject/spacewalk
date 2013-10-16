@@ -92,7 +92,13 @@ sub navi_nav {
   }
 
   my $tree = Sniglets::Navi->load_tree($file);
-  my $style = new Sniglets::Navi::Style($params{style});
+
+  # the style is used as a perl package name so
+  # remove the hyphens
+  my $ns = $params{style};
+  $ns =~ s/[\-]/_/g;
+  
+  my $style = new Sniglets::Navi::Style($ns);
 
   my $prefix = $tree->label;
   $prefix = "${prefix}_";
