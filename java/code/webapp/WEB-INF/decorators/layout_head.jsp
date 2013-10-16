@@ -28,10 +28,16 @@
 
     <link rel="stylesheet" href="/fonts/font-awesome/css/font-awesome.css" />
     <link rel="stylesheet" href="/fonts/font-spacewalk/css/spacewalk-font.css" />
-    <link rel="stylesheet/less" type="text/css" href="/css/spacewalk.less" />
 
-    <script type="text/javascript">less = { env: 'development' };</script>
-    <script src="/javascript/less.js"></script>
+    <rhn:require acl="is(development_environment)">
+      <link rel="stylesheet/less" type="text/css" href="/css/spacewalk.less" />
+      <script>less = { env: 'development' };</script>
+      <script src="/javascript/less.js"></script>
+    </rhn:require>
+    <rhn:require acl="not is(development_environment)">
+      <link rel="stylesheet" href="/css/spacewalk.css" />
+    </rhn:require>
+
     <script src="/javascript/jquery.js"></script>
     <script src="/javascript/bootstrap.js"></script>
     <script src="/javascript/spacewalk-essentials.js"></script>
