@@ -12,7 +12,7 @@
     <li><i class="spacewalk-icon-locked-system"></i><bean:message key="system-legend.jsp.locked"/></li>
   </rhn:require>
   <rhn:require acl="org_entitlement(rhn_provisioning)">
-    <li><img src="/img/icon_kickstart_session.gif" alt="" /><bean:message key="system-legend.jsp.kickstarting"/></li>
+    <li><i class="icon-rocket"></i><bean:message key="system-legend.jsp.kickstarting"/></li>
   </rhn:require>
   <li><i class="icon-time"></i><bean:message key="system-legend.jsp.pending"/></li>
   <li><i class="spacewalk-icon-Unentitled"></i><bean:message key="system-legend.jsp.unentitled"/></li>
