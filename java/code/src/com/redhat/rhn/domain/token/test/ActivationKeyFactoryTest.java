@@ -41,4 +41,20 @@ public class ActivationKeyFactoryTest extends BaseTestCaseWithUser {
 
     }
 
+    public void testLookupByServer() throws Exception{
+        ActivationKey activationKey = ActivationKeyTest.createTestActivationKey(user);
+
+        List<ActivationKey> activationKeys =
+                ActivationKeyFactory.lookupByServer(activationKey.getServer());
+        assertEquals(1, activationKeys.size());
+    }
+
+    public void testLookupByServerBootstrap() throws Exception{
+        ActivationKey activationKey = ActivationKeyTest.createTestActivationKey(user);
+        activationKey.setBootstrap("Y");
+
+        List<ActivationKey> activationKeys =
+                ActivationKeyFactory.lookupByServer(activationKey.getServer());
+        assertEquals(0, activationKeys.size());
+    }
 }

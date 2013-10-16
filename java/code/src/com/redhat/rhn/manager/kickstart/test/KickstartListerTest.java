@@ -25,12 +25,17 @@ import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.test.CryptoTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.token.ActivationKey;
+import com.redhat.rhn.domain.token.ActivationKeyFactory;
+import com.redhat.rhn.frontend.dto.ActivationKeyDto;
 import com.redhat.rhn.frontend.dto.CryptoKeyDto;
 import com.redhat.rhn.frontend.dto.FilePreservationDto;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
+import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.TestStatics;
+import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
 /**
@@ -75,4 +80,59 @@ public class KickstartListerTest extends BaseTestCaseWithUser {
        assertTrue(dr.size() > 0);
    }
 
+    public void testGetActivationKeysInOrg() throws Exception {
+        ActivationKeyFactory.createNewKey(user, null, "ak- " + TestUtils.randomString(),
+                "", 1L, null, true);
+
+        PageControl pc = new PageControl();
+        pc.setStart(1);
+
+        DataResult<ActivationKeyDto> result =
+                KickstartLister.getInstance().getActivationKeysInOrg(user.getOrg(), pc);
+        assertEquals(1, result.size());
+    }
+
+    public void testGetBootstrapActivationKeysInOrg() throws Exception {
+        ActivationKey activationKey =
+                ActivationKeyFactory.createNewKey(user, null,
+                        "ak- " + TestUtils.randomString(), "", 1L, null, true);
+        activationKey.setBootstrap("Y");
+
+        PageControl pc = new PageControl();
+        pc.setStart(1);
+
+        DataResult<ActivationKeyDto> result =
+                KickstartLister.getInstance().getActivationKeysInOrg(user.getOrg(), pc);
+        assertEquals(0, result.size());
+    }
+
+    public void testGetActiveActivationKeysInOrg() throws Exception {
+        ActivationKeyFactory.createNewKey(user, null, "ak- " + TestUtils.randomString(),
+                "", 1L, null, true);
+
+        PageControl pc = new PageControl();
+        pc.setStart(1);
+
+        @SuppressWarnings("unchecked")
+        DataResult<ActivationKeyDto> result =
+                KickstartLister.getInstance().getActiveActivationKeysInOrg(user.getOrg(),
+                        pc);
+        assertEquals(1, result.size());
+    }
+
+    public void testGetBootstrapActiveActivationKeysInOrg() throws Exception {
+        ActivationKey activationKey =
+                ActivationKeyFactory.createNewKey(user, null,
+                        "ak- " + TestUtils.randomString(), "", 1L, null, true);
+        activationKey.setBootstrap("Y");
+
+        PageControl pc = new PageControl();
+        pc.setStart(1);
+
+        @SuppressWarnings("unchecked")
+        DataResult<ActivationKeyDto> result =
+                KickstartLister.getInstance().getActiveActivationKeysInOrg(user.getOrg(),
+                        pc);
+        assertEquals(0, result.size());
+    }
 }

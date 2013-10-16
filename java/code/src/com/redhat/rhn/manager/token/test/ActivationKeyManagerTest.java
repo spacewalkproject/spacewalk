@@ -37,6 +37,7 @@ import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -258,5 +259,25 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
         TokenPackage pkg = key.getPackages().iterator().next();
         assertEquals(ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME,
                                                     pkg.getPackageName().getName());
+    }
+
+    public void testFindAll() throws Exception{
+        ActivationKeyFactory.createNewKey(user, null, "ak- " + TestUtils.randomString(),
+                "", 1L, null, true);
+
+        List<ActivationKey> activationKeys =
+                ActivationKeyManager.getInstance().findAll(user);
+        assertEquals(1, activationKeys.size());
+    }
+
+    public void testFindAllBootstrap() throws Exception{
+        ActivationKey activationKey =
+                ActivationKeyFactory.createNewKey(user, null,
+                        "ak- " + TestUtils.randomString(), "", 1L, null, true);
+        activationKey.setBootstrap("Y");
+
+        List<ActivationKey> activationKeys =
+                ActivationKeyManager.getInstance().findAll(user);
+        assertEquals(0, activationKeys.size());
     }
 }
