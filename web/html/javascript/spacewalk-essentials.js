@@ -10,7 +10,9 @@ $(document).on("ready", function(){
 	
   /* Systems Selected Toolbar - actions to hide the toolbar when th Clear button is pressed or when 
   no system is selected */
-  $("#clearbtn").click(hidesystemtool);
+
+  $("#clear-btn").click(hidesystemtool);
+
   function hidesystemtool(){
     $(".spacewalk-bar").animate({
       "right": "-=50px",
@@ -20,22 +22,9 @@ $(document).on("ready", function(){
       $(this).hide();
     });
   }
-  // See if there is a system selected
-  ssmToolbar();
-
-  $("#spacewalk-ssm-counter").on("change", ssmToolbar);
-  function ssmToolbar(){
-  	console.log("entro");
-  	var systemsSpan = $("#spacewalk-ssm-counter").text();
-    if (systemsSpan == 0){
-      $(".spacewalk-bar").animate({"opacity": "0"}, 300, function() {
-        /* stuff to do after animation is complete */
-        //$(this).hide();
-      });
-    }else{
-      (".spacewalk-bar").animate({"opacity":"100"}, 300);
-    }
-  }
+  // See if there is a system already selected as soon as the page loads
+  updateSsmToolbarOpacity();
+  
 });
 /* Getting the screen size to create a fixed padding-bottom in the Section tag to make both columns the same size */
 // On window load
