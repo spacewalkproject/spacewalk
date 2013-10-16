@@ -326,12 +326,22 @@ public class ActivationKeyManager {
      * @param requester User requesting the list.
      * @return All activation keys visible to user.
      */
-    public List <ActivationKey> findAll(User requester) {
+    public List<ActivationKey> findAll(User requester, boolean bootstrap) {
         Session session = null;
         session = HibernateFactory.getSession();
         return session.getNamedQuery("ActivationKey.findByOrg")
            .setEntity("org", requester.getOrg())
+           .setString("bootstrap", bootstrap ? "Y" : "N")
            .list();
+    }
+
+    /**
+     * Finds all activation keys visible to user.
+     * @param requester User requesting the list.
+     * @return All activation keys visible to user.
+     */
+    public List <ActivationKey> findAll(User requester) {
+        return findAll(requester, false);
     }
 
     /**

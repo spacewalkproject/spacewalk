@@ -36,6 +36,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                    from com.redhat.rhn.domain.token.ActivationKey actKey,
                         com.redhat.rhn.domain.token.Token token
                   where actKey.token = token
+                    and actKey.bootstrap = 'N'
                     and token.server = :server]]>
     </query>
 
@@ -44,7 +45,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
 
     <query name="ActivationKey.findByOrg">
-        <![CDATA[from com.redhat.rhn.domain.token.ActivationKey as ak where ak.token.org = :org and ak.kickstartSession = null and ak.token.server = null]]>
+        <![CDATA[from com.redhat.rhn.domain.token.ActivationKey as ak
+                   where ak.token.org = :org
+                     and ak.kickstartSession = null
+                     and ak.token.server = null
+                     and ak.bootstrap = :bootstrap]]>
     </query>
 
 
