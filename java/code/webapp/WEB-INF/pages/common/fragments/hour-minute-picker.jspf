@@ -4,20 +4,23 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 
 
-
-<select name='${picker.name}_${timeName}_hour' size="1">
-<c:forEach var="hourLabel" begin="0" end="23">
-  <option <c:if test="${picker.hourLong == hourLabel}">selected="selected"</c:if> value='${hourLabel}'>${hourLabel}</option>
-</c:forEach>
-</select>:<select name='${picker.name}_${timeName}_minute' size="1">
-<c:forEach var="minLabel" begin="0" end="9">
-  <option <c:if test="${minLabel == picker.minuteLong}">selected="selected"</c:if> value='${minLabel}'>
-    0${minLabel}
-  </option>
-</c:forEach>
-<c:forEach var="minLabel" begin="10" end="59">
-  <option <c:if test="${minLabel == picker.minuteLong}">selected="selected"</c:if> value='${minLabel}'>
-    ${minLabel}
-  </option>
-</c:forEach>
-</select>
+<div class="input-group">
+    <select name='${picker.name}_${timeName}_hour' size="1" class="form-control">
+        <c:forEach var="hourLabel" begin="0" end="23">
+            <option <c:if test="${picker.hourLong == hourLabel}">selected="selected"</c:if> value='${hourLabel}'>${hourLabel}</option>
+        </c:forEach>
+    </select>
+    <strong class="input-group-addon">:</strong>
+    <select name='${picker.name}_${timeName}_minute' size="1" class="form-control">
+        <c:forEach var="minLabel" begin="0" end="9">
+            <option <c:if test="${minLabel == picker.minuteLong}">selected="selected"</c:if> value='${minLabel}'>
+                0${minLabel}
+            </option>
+        </c:forEach>
+        <c:forEach var="minLabel" begin="10" end="59">
+            <option <c:if test="${minLabel == picker.minuteLong}">selected="selected"</c:if> value='${minLabel}'>
+                ${minLabel}
+            </option>
+        </c:forEach>
+    </select>
+</div>
