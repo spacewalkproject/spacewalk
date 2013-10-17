@@ -5,7 +5,7 @@
 
 <html:html>
     <body>
-        <rhn:toolbar base="h1" img="/img/rhn-icon-info.gif" imgAlt="info.alt.img">
+        <rhn:toolbar base="h1" icon="icon-info-sign" imgAlt="info.alt.img">
             <bean:message key="bootstrap.jsp.toolbar"/>
         </rhn:toolbar>
         <div class="page-summary">

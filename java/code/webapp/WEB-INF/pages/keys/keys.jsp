@@ -7,7 +7,7 @@
 <html:xhtml/>
 <html>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-info.gif"
+<rhn:toolbar base="h1" icon="icon-info-sign"
                creationUrl="CryptoKeyCreate.do"
                creationType="keys"
                imgAlt="info.alt.img">

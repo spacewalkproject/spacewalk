@@ -5,7 +5,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <html:html>
     <body>
-        <rhn:toolbar base="h1" img="/img/rhn-icon-info.gif">
+        <rhn:toolbar base="h1" icon="icon-info-sign">
             <bean:message key="iss.confirmslaveremove.jsp.toolbar" />
         </rhn:toolbar>
         <p><bean:message key="iss.confirmslaveremove.jsp.areyousure" /></p>

@@ -11,14 +11,14 @@
     <body>
         <c:choose>
             <c:when test = "${not empty requestScope.create_mode}">
-                <rhn:toolbar base="h1" img="/img/rhn-icon-info.gif" imgAlt="info.alt.img">
+                <rhn:toolbar base="h1" icon="icon-info-sign" imgAlt="info.alt.img">
                     <bean:message key="snippetcreate.jsp.toolbar"/>
                 </rhn:toolbar>
                 <h2><bean:message key="snippetcreate.jsp.header2"/></h2>
             </c:when>
             <c:otherwise>
                 <rhn:toolbar base="h1"
-                             img="/img/rhn-icon-info.gif"
+                             icon="icon-info-sign"
                              imgAlt="info.alt.img"
                              deletionUrl="CobblerSnippetDelete.do?name=${cobblerSnippetsForm.map.name}"
                              deletionType="snippets">

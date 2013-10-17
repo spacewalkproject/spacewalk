@@ -6,10 +6,10 @@
 
 <html>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif"
+<rhn:toolbar base="h1" icon="icon-info-sign"
                creationUrl="CobblerSnippetCreate.do"
                creationType="snippets"
-               imgAlt="info.alt.img">
+               iconAlt="info.alt.img">
   <bean:message key="snippets.jsp.toolbar"/>
 </rhn:toolbar>
 <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/snippet_tabs.xml"
