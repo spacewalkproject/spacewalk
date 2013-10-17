@@ -103,7 +103,7 @@ public class DWRItemSelector {
         Boolean systemsRelated = RhnSetDecl.SYSTEMS.getLabel().equals(setLabel);
         if (systemsRelated) {
             StringBuffer headerMessage = new StringBuffer();
-            headerMessage.append("<span id='spacewalk-ssm-counter' class='badge'>");
+            headerMessage.append("<span id='spacewalk-set-system_list-counter' class='badge'>");
             headerMessage.append(Integer.toString(setSize));
             headerMessage.append("</span>");
             if (setSize == 1) {

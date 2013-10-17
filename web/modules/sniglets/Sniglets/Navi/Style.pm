@@ -307,18 +307,6 @@ sub post_level {
   return "</ul>";
 }
 
-sub pre_nav {
-  my $self = shift;
-  my $pxt = shift;
-  return qq{\n<nav class="navbar navbar-inverse spacewalk-main-nav" role="navigation">};
-}
-
-sub post_nav {
-  my $self = shift;
-  my $pxt = shift;
-  return qq{\n</nav>};
-}
-
 #sub item_style_active {
 #  return "current";
 #}

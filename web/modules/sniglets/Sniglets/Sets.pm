@@ -36,13 +36,17 @@ sub set_totals {
 
   if ($params{set}) {
     if ($params{noun}) {
-      return sprintf("%s %s%s selected",
-		     $sets{$params{set}} || "No",
+
+      return sprintf(qq{<span id="spacewalk-set-%s-counter" class="badge">%s</span> %s%s selected},
+         $params{set},
+		     $sets{$params{set}} || "0",
 		     $params{noun},
 		     ((not exists $sets{$params{set}}) || $sets{$params{set}} > 1) ? "s" : "");
     }
     else {
-      return sprintf "%d", $sets{$params{set}} || 0;
+      return sprintf(qq{<span id="spacewalk-set-%s-counter" class="badge">%s</span>},
+         $params{set},
+         $sets{$params{set}} || "0");
     }
   }
 

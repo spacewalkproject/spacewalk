@@ -73,8 +73,11 @@
           </div>
         </div>
 
-        <pxt-include-late file="/network/components/status_bar/main.pxi" />
-        <rhn-navi-nav depth="0" style="spacewalk-main-nav"/>
+        <nav class="navbar navbar-inverse spacewalk-main-nav" role="navigation">
+          <rhn-navi-nav depth="0" style="spacewalk-main-nav"/>
+          <pxt-include-late file="/network/components/status_bar/main.pxi" />
+        </nav>
+
       </header>
 
       <div class="spacewalk-main-column-layout">
