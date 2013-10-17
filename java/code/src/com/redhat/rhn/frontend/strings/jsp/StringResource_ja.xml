@@ -5403,11 +5403,11 @@ value for this entitlement, excluding the default organization's consumption.</s
         <target>システムアイコン</target>
       </trans-unit>
       <trans-unit id="overview.jsp.systems">
-        <source>Systems (&lt;a href="/rhn/systems/Overview.do?showgroups=true"&gt;View System Groups&lt;/a&gt;)</source>
+        <source>&lt;a href="/rhn/systems/Overview.do?showgroups=true"&gt; &lt;div class="btn btn-default spacewalk-btn-margin-vertical"&gt; &lt;i class="spacewalk-icon-system-groups"&gt; &lt;/i&gt; View System Groups &lt;/div&gt; &lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Overview</context>
         </context-group>
-        <target>システム (&lt;a href="/rhn/systems/Overview.do?showgroups=true"&gt;システムグループの表示&lt;/a&gt;)</target>
+        <target>&lt;a href="/rhn/systems/Overview.do?showgroups=true"&gt; &lt;div class="btn btn-default spacewalk-btn-margin-vertical"&gt; &lt;i class="spacewalk-icon-system-groups"&gt; &lt;/i&gt; システムグループの表示 &lt;/div&gt; &lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="overview.jsp.groups">
         <source>System Groups (&lt;a href="/rhn/systems/Overview.do?showgroups=false"&gt;View Systems&lt;/a&gt;)</source>
