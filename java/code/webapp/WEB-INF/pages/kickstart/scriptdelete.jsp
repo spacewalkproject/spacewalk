@@ -6,7 +6,7 @@
 <html:xhtml/>
 <html>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif">
+<rhn:toolbar base="h1" icon="icon-rocket">
   <bean:message key="kickstartdelete.jsp.header1" arg0="${ksdata.label}"/>
 </rhn:toolbar>
 

@@ -6,7 +6,7 @@
 <html:xhtml/>
 <html>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif" imgAlt="kickstarts.alt.img">
+<rhn:toolbar base="h1" icon="icon-rocket" imgAlt="kickstarts.alt.img">
 	<c:out value="${requestScope.snippet.displayName}"/>
 </rhn:toolbar>
 <h2><bean:message key="cobbler.snippet.delete"/></h2>

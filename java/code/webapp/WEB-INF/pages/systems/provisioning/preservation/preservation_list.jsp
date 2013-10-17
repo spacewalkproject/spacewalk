@@ -5,7 +5,7 @@
 
 <html:html xhtml="true">
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif"
+<rhn:toolbar base="h1" icon="icon-rocket"
     imgAlt="system.common.kickstartAlt"
     creationUrl="PreservationListCreate.do"
     creationType="filelist">

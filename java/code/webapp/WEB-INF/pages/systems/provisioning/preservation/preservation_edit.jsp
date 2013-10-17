@@ -5,7 +5,7 @@
 
 <html>
     <body>
-        <rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif" imgAlt="system.common.kickstartAlt"
+        <rhn:toolbar base="h1" icon="icon-rocket" imgAlt="system.common.kickstartAlt"
                      deletionUrl="/rhn/systems/provisioning/preservation/PreservationListDeleteSingle.do?file_list_id=${fileList.id}"
                      deletionType="filelist">
             <bean:message key="preservation_edit.jsp.toolbar"/>

@@ -1,7 +1,7 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif"
+<rhn:toolbar base="h1" icon="icon-rocket"
                imgAlt="system.common.kickstartAlt"
                deletionUrl="/rhn/kickstart/KickstartDelete.do?ksid=${ksdata.id}"
                deletionType="kickstart"

@@ -5,7 +5,7 @@
 
 <html:html xhtml="true">
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif"
+<rhn:toolbar base="h1" icon="icon-rocket"
 			 deletionUrl="/rhn/kickstart/TreeDelete.do?kstid=${kstid}"
              deletionType="deleteTree"
              imgAlt="kickstarts.alt.img">
