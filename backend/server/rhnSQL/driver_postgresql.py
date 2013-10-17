@@ -91,7 +91,7 @@ class Function(sql_base.Procedure):
                 error_code = int(m.group(1))
             raise sql_base.SQLSchemaError(error_code, e.pgerror, e)
 
-        if self.ret_type == None:
+        if self.ret_type is None:
             return ret
         else:
             return self.cursor.fetchone()[0]
