@@ -149,9 +149,17 @@ i[class^="icon-"],
 i[class*=" icon-"],
 i[class*="spacewalk-icon"],
 i[class^="spacewalk-icon"] {
-  margin-right: .5em;
+	margin-right: .5em;
 }
-
+/* if the icon is inside a H tag we wont use a margin*/
+h1, h2, h3, h4, h5, h6{
+	i[class^="icon-"],
+	i[class*=" icon-"],
+	i[class*="spacewalk-icon"],
+	i[class^="spacewalk-icon"] {
+		margin-right: 0;
+	}
+}
 /* color for icon */
 .spacewalk-icon-green {
 	color: @spacewalk-updates-green
@@ -403,22 +411,16 @@ aside .sideleg {
 	padding: .5em 1em;
 	border-radius: 4px;
 	margin: 2em auto;
-	font-size: 1em
-}
-aside .sideleg:hover {
-	background: @spacewalk-blue;
-}
-aside .sideleg:hover h4, aside .sideleg:hover li {
-	color: #fff
-}
-aside .sideleg li {
-	list-style: none;
-	margin: 1em 0;
-	padding:0;
-}
-aside .sideleg ul {
-	margin: 0;
-	padding: 0
+	font-size: 1em;
+	li {
+		list-style: none;
+		margin: 1em 0;
+		padding:0;
+	}
+	ul {
+		margin: 0;
+		padding: 0
+	}
 }
 
 
@@ -429,13 +431,13 @@ aside .sideleg ul {
 	background: @gray-lighter;
 	margin-top: 2em;
 	margin-bottom:2em;
-	padding: 1.5em
-}
-#loginForm label {
-	text-align: left;
-	.Roboto-thin;
-	color: @gray;
-	font-size: 1.1em
+	padding: 1.5em;
+	label {
+		text-align: left;
+		.Roboto-thin;
+		color: @gray;
+		font-size: 1.1em
+	}
 }
 
 #loginForm+.col-md-6.col-md-offset-3.text-left {
@@ -460,17 +462,17 @@ h1 .icon-stack {
 
 /* spacewalk toolbar */
 .spacewalk-toolbar {
-	padding: .5em 1em
-}
-.spacewalk-toolbar>a {
-	border-right:1px solid @gray-light;
-	padding: 0 .5em
-}
-.spacewalk-toolbar>a:hover {
-	text-decoration: none;
-}
-.spacewalk-toolbar>a:last-child {
-	border-right:0
+	padding: .5em 1em;
+	a {
+		border-right:1px solid @gray-light;
+		padding: 0 .5em
+	}
+	a:hover {
+		text-decoration: none;
+	}
+	a:last-child {
+		border-right:0
+	}
 }
 
 /* systems selected tool*/
@@ -490,4 +492,8 @@ h1 .icon-stack {
 /* tab nav */
 .spacewalk-content-nav .nav.nav-tabs li.active a {
 	background: #dddddd;
+}
+/* btn with margin top and bottom */
+.btn.spacewalk-btn-margin-vertical{
+	margin: 1em 0
 }

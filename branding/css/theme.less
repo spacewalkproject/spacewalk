@@ -1,20 +1,48 @@
-.pagination > li > a, .pagination > li > span{
-	border-top: 1px solid #dddddd;
+//PAGINATOR from 0 - 9 and A - Z
+
+.spacewalk-alphabar{
 	border-bottom: 1px solid #dddddd;
+	margin-bottom: .8em;
+	.pagination{
+		margin: .8em 0
+	}
+	.pagination > li > a, .pagination > li > span{
+		border-top: 1px solid #dddddd;
+		border-bottom: 1px solid #dddddd;
+		border-left: 0;
+		border-right: 0;
+	}
+	.pagination-sm > li:first-child > a, .pagination-sm > li:first-child > span{
+		border-left: 1px solid #dddddd;
+		padding-left: 8px;
+	}
+	.pagination-sm > li:last-child > a, .pagination-sm > li:last-child > span{
+		border-right: 1px solid #dddddd;
+		padding-right: 8px;
+	}
+	.pagination-sm > li > a, .pagination-sm > li > span{
+		padding: 4px 6px;
+	}
+	.pagination-sm > li:nth-child(11) > a{
+		border-left: 1px solid #dddddd;
+		padding-left: 10px;
+	}
+	.pagination-sm > li:nth-child(10) > a{
+		padding-right: 10px;
+	}
+}
+
+// Filter by system button besides the input search
+.spacewalk-button-filter{
 	border-left: 0;
-	border-right: 0
+	color: #666666;
+	background-color: #ffffff;
+	border-color: #cccccc;
 }
-.pagination-sm > li:first-child > a, .pagination-sm > li:first-child > span{
-	border-left: 1px solid #dddddd;
-	padding-left: 8px;
-}
-.pagination-sm > li:last-child > a, .pagination-sm > li:last-child > span{
-	border-right: 1px solid #dddddd;
-	padding-right: 8px
-}
-.pagination-sm > li > a, .pagination-sm > li > span{
-	padding: 4px 6px;
-}
-.pagination-sm > li:nth-child(11) > a{
-	border-left: 1px solid #dddddd;
+
+//Table's filters
+.filter-input{
+	.col-md-3{
+		padding-left: 0;
+	}
 }
