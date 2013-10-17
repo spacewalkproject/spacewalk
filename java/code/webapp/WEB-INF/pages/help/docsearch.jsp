@@ -10,7 +10,7 @@
 <script type="text/javascript" src="/javascript/highlander.js"></script>
 </head>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-search.gif" imgAlt="docsearch.jsp.imgAlt"
+<rhn:toolbar base="h1" icon="icon-search" imgAlt="docsearch.jsp.imgAlt"
                helpUrl="">
     <bean:message key="docsearch.jsp.toolbar"/>
   </rhn:toolbar>

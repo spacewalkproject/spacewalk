@@ -6,7 +6,7 @@
 <html:xhtml/>
 <html>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-your_rhn.gif"
+<rhn:toolbar base="h1" icon="icon-home"
 	           helpUrl="">
     <bean:message key="task.status.title"/>
   </rhn:toolbar>

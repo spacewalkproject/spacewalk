@@ -23,7 +23,7 @@ document.getElementById("checksum").value = baseChannelChecksums[document.getEle
 }
 </script>
 
-<rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif"
+<rhn:toolbar base="h1" icon="spacewalk-icon-software-channels"
              deletionUrl="/rhn/channels/manage/Delete.do?cid=${param.cid}"
              deletionAcl="user_role(channel_admin); formvar_exists(cid)"
              deletionType="software.channel">

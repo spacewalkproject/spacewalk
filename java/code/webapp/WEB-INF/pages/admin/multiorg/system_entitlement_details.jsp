@@ -7,7 +7,7 @@
 <head>
 </head>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-system.gif"
+<rhn:toolbar base="h1" icon="icon-desktop"
 	miscUrl="${url}"
 	miscAcl="user_role(org_admin)"
 	miscText="${text}"

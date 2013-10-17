@@ -5,7 +5,7 @@
 <html:xhtml/>
 <html>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-users.gif" imgAlt="users.jsp.imgAlt">
+<rhn:toolbar base="h1" icon="icon-user" imgAlt="users.jsp.imgAlt">
 <bean:message key="disableself.jsp.account_deactivation" />
 </rhn:toolbar>
 <div class="page-summary">

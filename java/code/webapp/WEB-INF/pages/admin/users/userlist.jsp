@@ -10,7 +10,7 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-users.gif" imgAlt="users.jsp.imgAlt"
+<rhn:toolbar base="h1" icon="icon-user" imgAlt="users.jsp.imgAlt"
  helpUrl="/rhn/help/reference/en-US/s1-sm-users.jsp#s2-sm-users-all"
  creationUrl="/rhn/users/CreateUser.do?account_type=into_org"
  creationType="user">

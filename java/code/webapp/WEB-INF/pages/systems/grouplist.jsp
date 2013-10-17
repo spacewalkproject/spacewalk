@@ -10,7 +10,7 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-system_group.gif" imgAlt="system.common.groupAlt"
+<rhn:toolbar base="h1" icon="spacewalk-icon-system-groups" imgAlt="system.common.groupAlt"
  helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-group-list"
  creationUrl="/rhn/groups/CreateGroup.do"
  creationType="group"

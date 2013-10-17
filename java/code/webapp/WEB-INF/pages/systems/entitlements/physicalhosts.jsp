@@ -13,7 +13,7 @@
   </head>
 
   <body>
-    <rhn:toolbar base="h1" img="/img/rhn-icon-system.gif" imgAlt="system.common.systemAlt">
+    <rhn:toolbar base="h1" icon="icon-desktop" imgAlt="system.common.systemAlt">
       <bean:message key="virtualentitlements.toolbar" />
     </rhn:toolbar>
     <p/>

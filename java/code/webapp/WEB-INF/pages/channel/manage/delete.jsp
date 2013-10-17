@@ -5,7 +5,7 @@
 
 <html>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif">
+<rhn:toolbar base="h1" icon="spacewalk-icon-software-channels">
     <bean:message key="channel.delete.jsp.toolbar" arg0="${channel.name}"/>
 </rhn:toolbar>
 

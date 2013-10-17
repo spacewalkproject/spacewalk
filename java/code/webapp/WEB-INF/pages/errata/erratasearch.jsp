@@ -25,7 +25,7 @@
     </head>
 
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-search.gif"
+<rhn:toolbar base="h1" icon="icon-search"
                helpUrl="/rhn/help/reference/en-US/s1-sm-errata.jsp#s2-sm-errata-search"
                imgAlt="search.alt.img">
     <bean:message key="erratasearch.jsp.toolbar"/>

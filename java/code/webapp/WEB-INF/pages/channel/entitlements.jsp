@@ -11,7 +11,7 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif"
+<rhn:toolbar base="h1" icon="spacewalk-icon-software-channels"
  helpUrl="/rhn/help/reference/en-US/s1-sm-your-rhn.jsp#s2-sm-systems-entitlements"
  imgAlt="channels.jsp.alt">
   <bean:message key="entitlements.jsp.header"/>

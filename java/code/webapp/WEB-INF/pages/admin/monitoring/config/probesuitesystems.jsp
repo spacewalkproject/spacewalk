@@ -6,7 +6,7 @@
 <html:xhtml/>
 <html>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-system_group.gif"
+<rhn:toolbar base="h1" icon="spacewalk-icon-system-groups"
   	           creationUrl="ProbeSuiteSystemsEdit.do?suite_id=${probeSuite.id}"
                creationType="probesuitesystem"
 	           helpUrl="/rhn/help/reference/en-US/s1-sm-monitor.jsp#s2-sm-monitor-psuites">

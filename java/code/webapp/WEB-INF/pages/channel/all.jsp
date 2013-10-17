@@ -17,7 +17,7 @@ function showFiltered() {
 </head>
 
 <body onLoad="onLoadStuff(4); showFiltered();">
-<rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif" imgAlt="channels.overview.toolbar.imgAlt"
+<rhn:toolbar base="h1" icon="spacewalk-icon-software-channels" imgAlt="channels.overview.toolbar.imgAlt"
              helpUrl="/rhn/help/reference/en-US/s1-sm-channels-packages.jsp" >
   <bean:message key="channels.all.jsp.toolbar"/>
 </rhn:toolbar>

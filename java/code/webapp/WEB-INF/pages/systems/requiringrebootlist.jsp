@@ -10,7 +10,7 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-system.gif" imgAlt="system.common.systemAlt"
+<rhn:toolbar base="h1" icon="icon-desktop" imgAlt="system.common.systemAlt"
  helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-list-inact">
   <bean:message key="requiringrebootlist.jsp.header"/>
 </rhn:toolbar>

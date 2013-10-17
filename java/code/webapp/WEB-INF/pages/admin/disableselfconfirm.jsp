@@ -5,7 +5,7 @@
 <html:xhtml/>
 <html>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-users.gif">
+<rhn:toolbar base="h1" icon="icon-user">
 <bean:message key="disableselfconfirm.jsp.warning_question" />
 </rhn:toolbar>
 <div class="page-summary">

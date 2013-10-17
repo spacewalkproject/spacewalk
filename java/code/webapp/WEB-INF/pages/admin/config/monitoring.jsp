@@ -5,7 +5,7 @@
 
 <html>
     <body>
-        <rhn:toolbar base="h1" img="/img/rhn-config_management.gif"
+        <rhn:toolbar base="h1" icon="icon-cog"
                      helpUrl="">
             <bean:message key="generalconfig.jsp.header1"/>
         </rhn:toolbar>

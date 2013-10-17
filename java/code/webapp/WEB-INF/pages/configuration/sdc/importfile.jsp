@@ -13,7 +13,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <rhn:toolbar base="h2"
-             img="/img/rhn-icon-system.gif"
+             icon="icon-desktop"
              imgAlt="system.common.systemAlt">
   <bean:message key="sdcimportfile.jsp.header"
                 arg0="${fn:escapeXml(system.name)}"/>

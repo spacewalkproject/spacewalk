@@ -9,7 +9,7 @@
         <meta name="page-decorator" content="none" />
     </head>
     <body>
-        <rhn:toolbar base="h1" img="/img/rhn-icon-users.gif"
+        <rhn:toolbar base="h1" icon="icon-user"
                      helpUrl="/rhn/help/reference/en-US/s1-sm-your-rhn.jsp#s2-sm-your-rhn-account"
                      imgAlt="users.jsp.imgAlt">
             <bean:message key="details.jsp.account_details" />

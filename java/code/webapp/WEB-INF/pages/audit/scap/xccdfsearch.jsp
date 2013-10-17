@@ -23,7 +23,7 @@
 
 <body>
 
-<rhn:toolbar base="h1" img="/img/rhn-icon-search.gif" imgAlt="search.alt.img">
+<rhn:toolbar base="h1" icon="icon-search" imgAlt="search.alt.img">
   <bean:message key="scapsearch.jsp.toolbar"/>
 </rhn:toolbar>
 

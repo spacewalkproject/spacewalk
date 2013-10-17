@@ -12,7 +12,7 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-<rhn:toolbar base="h2" img="/img/rhn-icon-system.gif" >
+<rhn:toolbar base="h2" icon="icon-desktop" >
   <bean:message key="sdcdiffconfirm.jsp.header"
                 arg0="${fn:escapeXml(system.name)}"/>
 </rhn:toolbar>

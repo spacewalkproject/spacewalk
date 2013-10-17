@@ -10,7 +10,7 @@
         <meta name="page-decorator" content="none" />
     </head>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-system_group.gif"
+<rhn:toolbar base="h1" icon="spacewalk-icon-system-groups"
 	           helpUrl="/rhn/help/reference/en-US/s1-sm-monitor.jsp#s2-sm-monitor-notif">
     <bean:message key="filtercreate.jsp.header1" />
   </rhn:toolbar>

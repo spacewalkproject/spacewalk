@@ -10,7 +10,7 @@
     </head>
     <body>
         <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
-        <rhn:toolbar base="h2" img="/img/rhn-icon-system.gif">
+        <rhn:toolbar base="h2" icon="icon-desktop">
             <bean:message key="probeedit.jsp.editprobe" />
         </rhn:toolbar>
         <html:form action="/systems/details/probes/ProbeCreate" method="POST" styleClass="form-horizontal">

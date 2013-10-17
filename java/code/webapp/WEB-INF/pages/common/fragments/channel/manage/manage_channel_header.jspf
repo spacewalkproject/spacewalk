@@ -1,4 +1,4 @@
-<rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif"
+<rhn:toolbar base="h1" icon="spacewalk-icon-software-channels"
              imgAlt="overview.jsp.alt"
              helpUrl="/rhn/help/reference/en-US/s1-sm-channels-packages.jsp#s2-sm-channel-manage"
              deletionUrl="/rhn/channels/manage/Delete.do?cid=${cid}"
