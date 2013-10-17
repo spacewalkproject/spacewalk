@@ -1,15 +1,22 @@
 <pxt-passthrough>
   <head>
     <pxt-use class="Sniglets::Navi" />
+    <pxt-use class="Sniglets::Users" />
     <title><rhn-navi-page-title /></title>
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
     <link rel="stylesheet" href="/fonts/font-awesome/css/font-awesome.css" />
     <link rel="stylesheet" href="/fonts/font-spacewalk/css/spacewalk-font.css" />
-    <link rel="stylesheet/less" type="text/css" href="/css/spacewalk.less" />
 
-    <script type="text/javascript">less = { env: 'development' };</script>
-    <script src="/javascript/less.js"></script>
+    <rhn-require acl="global_config(development_environment)">
+      <link rel="stylesheet/less" type="text/css" href="/css/spacewalk.less" />
+      <script type="text/javascript">less = { env: 'development' };</script>
+      <script src="/javascript/less.js"></script>
+    </rhn-require>
+    <rhn-require acl="not global_config(development_environment)">
+      <link rel="stylesheet" href="/fonts/font-spacewalk/css/spacewalk.css" />
+    </rhn-require>
+
     <script src="/javascript/jquery.js"></script>
     <script src="/javascript/bootstrap.js"></script>
     <script src="/javascript/spacewalk-essentials.js"></script>
