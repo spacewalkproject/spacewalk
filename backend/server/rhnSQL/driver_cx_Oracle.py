@@ -522,7 +522,7 @@ class Database(sql_base.Database):
         # an invalid pointer if we set an environment variable.
         # If the environment variables are already set, this will be a noop
 
-        if not os.environ.has_key("NLS_LANG"):
+        if "NLS_LANG" not in os.environ:
             value = None
             # Do we have a config object?
             if rhnConfig.CFG.is_initialized():

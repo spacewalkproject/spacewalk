@@ -90,7 +90,7 @@ def initDB(backend=None, host=None, port=None, username=None,
         username = CFG.DB_USER
         password = CFG.DB_PASSWORD
 
-    if not SUPPORTED_BACKENDS.has_key(backend):
+    if backend not in SUPPORTED_BACKENDS:
         raise rhnException("Unsupported database backend", backend)
 
     if port:

@@ -111,7 +111,7 @@ class Cursor:
 
         self.description = None
 
-        if not self._cursor_cache.has_key(self._dbh_id):
+        if self._dbh_id not in self._cursor_cache:
             self._cursor_cache[self._dbh_id] = {}
 
         # Store a reference to the underlying Python DB API Cursor:

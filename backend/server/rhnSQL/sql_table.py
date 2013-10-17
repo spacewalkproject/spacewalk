@@ -132,7 +132,7 @@ class Table:
 
     # make this table look like a dictionary
     def __getitem__(self, key):
-        if self.__cache and self.__cache.has_key(key):
+        if self.__cache and key in self.__cache:
             return self.__cache[key]
         h = self.__db.prepare("select * from %s where %s = :p1" % (
             self.__table, self.__hashid))
@@ -152,7 +152,7 @@ class Table:
     # be modified.
     def get(self, key):
         ret = self.__getitem__(key)
-        if self.__cache and self.__cache.has_key(key):
+        if self.__cache and key in self.__cache:
             del self.__cache[key]
         sql = "update %s set %%s = :new_val where %s = :row_id" % (
             self.__table, self.__hashid)
@@ -164,7 +164,7 @@ class Table:
     def __setitem__(self, key, value):
         if not type(value) == type({}) and not isinstance(value, UserDictCase):
             raise TypeError, "Expected value to be a hash"
-        if value.has_key(self.__hashid): # we don't need that
+        if self.__hashid in value:  # we don't need that
             if key is None:
                 key = value[self.__hashid]
             del value[self.__hashid]
