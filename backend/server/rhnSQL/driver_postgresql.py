@@ -117,6 +117,7 @@ class Procedure(Function):
         #if not (type(result) == 'tuple' and result[0] == ''):
             #raise rhnSQL.SQLError("Unexpected result returned by procedure %s: %s" % (self.name, str(result)))
 
+
 def decimal2intfloat(dec, cursor):
     "Convert a Decimal to an int or a float with no loss of information."
     "The dec is passed in as str (not Decimal) so we cannot check its type."

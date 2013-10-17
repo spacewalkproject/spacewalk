@@ -92,7 +92,7 @@ class Table:
         if type(rows) == type([]):
             for x in rows:
                 insert_row(x)
-	    return None
+            return None
         raise rhnException("Invalid data %s passed" % type(rows), rows)
 
     # select from the whole table all the entries that match the
@@ -102,7 +102,7 @@ class Table:
             raise rhnException("Expecting hash argument. %s is invalid" % type(row),
                                row)
         if row == {}:
-	    raise rhnException("The hash argument is empty", row)
+            raise rhnException("The hash argument is empty", row)
         keys = row.keys()
         # Sort the list of keys, to always get the same list of arguments
         keys.sort()
@@ -113,10 +113,10 @@ class Table:
             else:
                 clause = "%s = :%s" % (col, col)
             args.append(clause)
-	sql = "select * from %s where " % self.__table
-	cursor = self.__db.prepare(sql + string.join(args, " and "))
-	apply(cursor.execute, (), row)
-	rows = cursor.fetchall_dict()
+        sql = "select * from %s where " % self.__table
+        cursor = self.__db.prepare(sql + string.join(args, " and "))
+        apply(cursor.execute, (), row)
+        rows = cursor.fetchall_dict()
         if rows is None:
             return None
         # fill up the cache
@@ -133,14 +133,14 @@ class Table:
     # make this table look like a dictionary
     def __getitem__(self, key):
         if self.__cache and self.__cache.has_key(key):
-	    return self.__cache[key]
+            return self.__cache[key]
         h = self.__db.prepare("select * from %s where %s = :p1" % (
             self.__table, self.__hashid))
         h.execute(p1=key)
         ret = h.fetchone_dict()
         if ret is None:
-	    if self.__cache is not None:
-		self.__cache[key] = None
+            if self.__cache is not None:
+                self.__cache[key] = None
             return None
         xret = UserDictCase(ret)
         if self.__cache is not None:
@@ -153,7 +153,7 @@ class Table:
     def get(self, key):
         ret = self.__getitem__(key)
         if self.__cache and self.__cache.has_key(key):
-	    del self.__cache[key]
+            del self.__cache[key]
         sql = "update %s set %%s = :new_val where %s = :row_id" % (
             self.__table, self.__hashid)
         return RowData(ret, self.__db, sql, key, self.__cache)
@@ -174,7 +174,7 @@ class Table:
         items = value.items()
         if items == []: # quick check for noop
             return
-	sql = None
+        sql = None
         if self.has_key(key):
             sql, pdict = sql_lib.build_sql_update(self.__table, self.__hashid, items)
         else:
@@ -183,11 +183,11 @@ class Table:
         pdict["p0"] =  key
         h = self.__db.prepare(sql)
         apply(h.execute, (), pdict)
-	try:
-	    value[self.__hashid] = key
-	    self.__cache[key] = value
-	except:
-	    pass
+        try:
+            value[self.__hashid] = key
+            self.__cache[key] = value
+        except:
+            pass
 
     # length
     def __len__(self):
@@ -203,8 +203,8 @@ class Table:
         h = self.__db.prepare("delete from %s where %s = :p1" % (
             self.__table, self.__hashid))
         h.execute(p1=key)
-	try: del self.__cache[key]
-	except: pass
+        try: del self.__cache[key]
+        except: pass
         return 0
 
     # get all keys
@@ -247,9 +247,9 @@ class Table:
         return self.__db.commit()
     # passthrough rollback
     def rollback(self):
-	self.flush()
+        self.flush()
         return self.__db.rollback()
 
     def printcache(self):
-	print self.__cache
+        print self.__cache
         return

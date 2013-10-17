@@ -23,24 +23,24 @@ import sql_base
 # XXX: this is still Oracle specific, but it shouldn't be
 class Sequence:
     def __init__(self, db, seq):
-	if not seq or type(seq) != type(""):
-	    raise rhnException("First argument needs to be a sequence name", seq)
-	self.__seq = seq
+        if not seq or type(seq) != type(""):
+            raise rhnException("First argument needs to be a sequence name", seq)
+        self.__seq = seq
         if not isinstance(db, sql_base.Database):
             raise rhnException("Argument db is not a database instance", db)
         self.__db = db
 
     def next(self):
-	sql = "select sequence_nextval('%s') as ID from dual" % self.__seq
-	cursor = self.__db.prepare(sql)
-	cursor.execute()
-	ret = cursor.fetchone_dict()
-	if ret is None: # how the hell can this happen?
-	    return ret
-	return int(ret['id'])
+        sql = "select sequence_nextval('%s') as ID from dual" % self.__seq
+        cursor = self.__db.prepare(sql)
+        cursor.execute()
+        ret = cursor.fetchone_dict()
+        if ret is None: # how the hell can this happen?
+            return ret
+        return int(ret['id'])
 
     def __call__(self):
-	return self.next()
+        return self.next()
 
     def __del__(self):
         self.__seq = self.__db = None

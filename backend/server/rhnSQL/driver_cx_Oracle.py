@@ -504,7 +504,7 @@ class Database(sql_base.Database):
         log_debug(3, self.dbtxt, name)
         if name: # we need to roll back to a savepoint
             return self.execute("rollback to savepoint %s" % name)
-	return self.dbh.rollback()
+        return self.dbh.rollback()
 
     def check_connection(self):
         try:
