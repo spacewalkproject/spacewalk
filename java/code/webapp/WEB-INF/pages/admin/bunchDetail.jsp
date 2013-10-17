@@ -9,7 +9,7 @@
 <html>
 <body>
 
-<rhn:toolbar base="h1" icon="icon-home"
+<rhn:toolbar base="h1" icon="icon-dashboard"
 	         helpUrl="">
     <bean:message key="bunch.edit.jsp.toolbar" arg0="${label}"/>
 </rhn:toolbar>

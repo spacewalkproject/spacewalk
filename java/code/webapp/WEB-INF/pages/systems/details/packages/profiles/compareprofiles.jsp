@@ -9,7 +9,7 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-<rhn:toolbar base="h2" img="/img/rhn-icon-packages.gif"
+<rhn:toolbar base="h2" icon="spacewalk-icon-packages"
     deletionUrl="/rhn/systems/details/packages/profiles/DeleteProfile.do?sid=${param.sid}&prid=${param.prid}"
     deletionType="profile">
   <bean:message key="compare.jsp.compareto" arg0="${requestScope.profilename}" />

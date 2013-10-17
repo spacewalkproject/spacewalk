@@ -6,7 +6,7 @@
 <html:xhtml/>
 <html>
 <body>
-<rhn:toolbar base="h1" icon="icon-home"
+<rhn:toolbar base="h1" icon="icon-dashboard"
 	           helpUrl="">
     <bean:message key="task.status.title"/>
   </rhn:toolbar>

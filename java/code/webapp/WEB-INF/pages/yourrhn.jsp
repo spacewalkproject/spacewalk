@@ -34,7 +34,7 @@
 </c:if>
 </head>
 <body>
-<rhn:toolbar base="h1" icon="icon-home" imgAlt="yourrhn.jsp.toolbar.img.alt"
+<rhn:toolbar base="h1" icon="icon-dashboard" imgAlt="yourrhn.jsp.toolbar.img.alt"
              helpUrl="/rhn/help/reference/en-US/s1-sm-your-rhn.jsp">
   <bean:message key="yourrhn.jsp.toolbar"/>
 </rhn:toolbar>

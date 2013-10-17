@@ -9,7 +9,7 @@
 <html>
 <body>
 
-<rhn:toolbar base="h1" icon="icon-home"
+<rhn:toolbar base="h1" icon="icon-dashboard"
              imgAlt="channels.overview.toolbar.imgAlt"
              creationUrl="/rhn/admin/ScheduleDetail.do"
              creationType="schedule"
