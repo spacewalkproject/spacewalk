@@ -1302,6 +1302,13 @@
         <form-property name="date_am_pm" type="java.lang.Integer"/>
     </form-bean>
 
+    <form-bean name="forgotCredentialsForm"
+                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+        <form-property name="username" type="java.lang.String" />
+        <form-property name="email" type="java.lang.String" />
+        <form-property name="submitted" type="java.lang.Boolean" />
+    </form-bean>
+
   </form-beans>
 
   <global-exceptions>
@@ -8086,6 +8093,18 @@
             type="com.redhat.rhn.frontend.action.CSVDownloadAction">
         <forward name="error"
                  path="/WEB-INF/pages/common/errors/badcsvaction.jsp"/>
+    </action>
+
+    <action path="/help/ForgotCredentials"
+        scope="request"
+        name="forgotCredentialsForm"
+        input="/WEB-INF/pages/help/forgotcredentials.jsp"
+        type="com.redhat.rhn.frontend.action.help.ForgotCredentialsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/help/forgotcredentials.jsp"/>
+        <forward name="success"
+                 path="/help/ForgotCredentials.do" redirect="true"/>
     </action>
 
     <action path="/help/Search"
