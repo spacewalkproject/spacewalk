@@ -32,7 +32,7 @@ def ociDict(names=None, row=None):
     """ Create a dictionary from a row description and its values. """
     data = {}
     if not names:
-        raise AttributeError, "Class initialization requires a description hash"
+        raise AttributeError("Class initialization requires a description hash")
     if row is None:
         return data
     for x in range(len(names)):
@@ -118,7 +118,7 @@ class Cursor:
         self._real_cursor = self._prepare(force=force)
 
     def _prepare_sql(self):
-        raise NotImplementedError
+        raise NotImplementedError()
 
     def _prepare(self, force=None):
         if self.sql:
@@ -149,7 +149,7 @@ class Cursor:
         Abstraction for the update of a blob column which can vary wildly
         between different database implementations.
         """
-        raise NotImplementedError
+        raise NotImplementedError()
 
     def execute(self, *p, **kw):
         """ Execute a single query. """
@@ -200,7 +200,7 @@ class Cursor:
 
         Must be subclasses by database specific drivers.
         """
-        raise NotImplementedError
+        raise NotImplementedError()
 
     def _execute(self, *args, **kwargs):
         if kwargs:
@@ -210,12 +210,11 @@ class Cursor:
         return self._execute_(args, kwargs)
 
     def _executemany(self, *args, **kwargs):
-        raise NotImplementedError
+        raise NotImplementedError()
 
     def _execute_(self, args, kwargs):
         """ Database specific execution of the query. """
-        raise NotImplementedError
-
+        raise NotImplementedError()
 
     # DATA RETRIEVAL
     # Please note: these functions return None if no data is available,
@@ -296,21 +295,21 @@ class Database:
 
     def connect(self, reconnect=1):
         """ Opens a connection to the database. """
-        raise NotImplementedError
+        raise NotImplementedError()
 
     def check_connection(self):
         """ Check that this connection is still valid. """
         # Delegates to sub-classes as this is usually done with a DB specific
         # query:
-        raise NotImplementedError
+        raise NotImplementedError()
 
     def prepare(self, sql, force=0):
         """ Prepare an SQL statement. """
-        raise NotImplementedError
+        raise NotImplementedError()
 
     def commit(self):
         """ Commit changes """
-        raise NotImplementedError
+        raise NotImplementedError()
 
     def procedure(self, name):
         """Return a pointer to a callable instance for a given stored
@@ -336,8 +335,7 @@ class Database:
         return self._function(name, ret_type)
 
     def _function(self, name, ret_type):
-        raise NotImplementedError
-
+        raise NotImplementedError()
 
     def transaction(self, name):
         "set a transaction point to which we can rollback to"
@@ -368,16 +366,15 @@ class Database:
         """
         Check if this database matches the given connection parameters.
         """
-        raise NotImplementedError
+        raise NotImplementedError()
 
     def Date(self, year, month, day):
         "Returns a Date object"
-        raise NotImplementedError
+        raise NotImplementedError()
 
     def DateFromTicks(self, ticks):
         "Returns a Date object"
-        raise NotImplementedError
-
+        raise NotImplementedError()
 
 
 # Class that we use just as a markup for queries/statements; if the statement

@@ -24,12 +24,13 @@ from spacewalk.common.rhnException import rhnException
 import sql_base
 import sql_lib
 
+
 # A class to handle row updates transparently
 class RowData(UserDictCase):
     def __init__(self, dict, db, sql, rowid, cache=None):
         UserDictCase.__init__(self, dict)
         if not isinstance(db, sql_base.Database):
-            raise TypeError, "Second argument needs to be a database handle"
+            raise TypeError("Second argument needs to be a database handle")
         self.__db = db
         self.__sql = sql
         self.__rowid = rowid
@@ -163,14 +164,14 @@ class Table:
     # primary key identifier
     def __setitem__(self, key, value):
         if not type(value) == type({}) and not isinstance(value, UserDictCase):
-            raise TypeError, "Expected value to be a hash"
+            raise TypeError("Expected value to be a hash")
         if self.__hashid in value:  # we don't need that
             if key is None:
                 key = value[self.__hashid]
             del value[self.__hashid]
 
         if key is None:
-            raise KeyError, "Can not insert entry with NULL key"
+            raise KeyError("Can not insert entry with NULL key")
         items = value.items()
         if items == []: # quick check for noop
             return

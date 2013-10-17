@@ -224,7 +224,7 @@ class Cursor(sql_base.Cursor):
     def __getattr__(self, name):
         if hasattr(self._real_cursor, name):
             return getattr(self._real_cursor, name)
-        raise AttributeError, name
+        raise AttributeError(name)
 
     # deletion of the object
     def __del__(self):
@@ -363,7 +363,7 @@ class Database(sql_base.Database):
 
         # Oracle requires enough info to connect
         if not (username and password and database):
-            raise AttributeError, "A valid Oracle username, password, and SID are required."
+            raise AttributeError("A valid Oracle username, password, and SID are required.")
 
         sql_base.Database.__init__(self)
 

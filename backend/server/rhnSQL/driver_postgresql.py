@@ -154,7 +154,7 @@ class Database(sql_base.Database):
 
         # Minimum requirements to connect to a PostgreSQL db:
         if not (self.username and self.database):
-            raise AttributeError, "PostgreSQL requires at least a user and database name."
+            raise AttributeError("PostgreSQL requires at least a user and database name.")
 
         sql_base.Database.__init__(self)
 

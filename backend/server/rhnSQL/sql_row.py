@@ -62,14 +62,15 @@ class Row(UserDictCase):
         # "load from new id"?). We provide interfaces for load, save
         # and create instead.
         if x == self.hashname:
-            raise AttributeError, "Can not reset the value of the hash key"
+            raise AttributeError("Can not reset the value of the hash key")
         if x not in self.data or self.data[x][0] != value:
             self.data[x] = (value, 1)
     def __getitem__(self, name):
         x = string.lower(name)
         if x in self.data:
             return self.data[x][0]
-        raise KeyError, "Key %s not found in the Row dictionary" % name
+        raise KeyError("Key %s not found in the Row dictionary" % name)
+
     def get(self, name):
         x = string.lower(name)
         if x in self.data:
@@ -109,7 +110,7 @@ class Row(UserDictCase):
     def save(self, with_updates=1):
         """ now save an entry """
         if self.hashname not in self.data:
-            raise AttributeError, "Table does not have a hash `%s' key" % self.hashname
+            raise AttributeError("Table does not have a hash `%s' key" % self.hashname)
         # get a list of fields to be set
         items = map(lambda a: (a[0], a[1][0]),
                     filter(lambda b: b[1][1] == 1, self.data.items()))
