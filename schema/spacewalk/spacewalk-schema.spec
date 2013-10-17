@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.1.20
+Version:        2.1.21
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Oct 17 2013 Stephen Herr <sherr@redhat.com> 2.1.21-1
+- 1020497 - provide a way to order kickstart scripts
+
 * Tue Sep 17 2013 Jan Dobes 2.1.20-1
 - 820225 - recount associated virtual guests entitlements even in other orgs
 
