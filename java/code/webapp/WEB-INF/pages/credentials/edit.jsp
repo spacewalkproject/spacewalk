@@ -12,10 +12,10 @@
                      deletionType="credentials">
             <bean:message key="Credentials"/>
         </rhn:toolbar>
-        <h2><bean:message key="credentials.jsp.susestudio" /></h2>
         <p class="lead">
             <bean:message key="credentials.jsp.edit.summary" />
         </p>
+        <h2><bean:message key="credentials.jsp.susestudio" /></h2>
 
         <form method="post" action="/rhn/account/Credentials.do"
               class="form-horizontal" role="form">
