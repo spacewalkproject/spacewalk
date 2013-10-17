@@ -160,7 +160,7 @@ sub recursive_type {
 sub pre_nav {
   my $self = shift;
 
-    return qq{\n<div class="content-nav">};
+    return qq{\n<div class="spacewalk-content-nav">};
 
 }
 sub post_nav {
@@ -179,19 +179,10 @@ sub pre_level {
 
   my $level_style = $self->level_style($level);
   if ($level_style) {
-    $ret = qq{\n<ul class="$level_style">}
+    $ret = qq{\n<ul class="nav nav-tabs $level_style">}
   }
   else {
-    $ret = qq{\n<ul>};
-  }
-
-  if ($level == 1) {
-
-    $ret = sprintf("%s%s",<<EOQ, $ret);
-<div class="contentnav-row2">
-<div class="top"></div>
-<div class="bottom">
-EOQ
+    $ret = qq{\n<ul class="nav nav-tabs">};
   }
 
   return $ret;
@@ -203,40 +194,16 @@ sub post_level {
 
   my $ret = "</ul>\n";
 
-  if ((defined $depth) and ($depth == 1)) {
-    $ret .= "\n</div>\n</div>\n";
-  }
-
   return $ret;
 }
 
-sub level_style {
-  my $class = shift;
-  my $level = shift;
-
-  if ($level == 0) {
-    return "content-nav-rowone";
-  }
-  elsif ($level == 1) {
-    return "content-nav-rowtwo";
-  }
-  elsif ($level == 2) {
-    return "content-nav-rowthree";
-  }
-}
-
 sub item_style_active {
-  return "content-nav-selected";
+  return "active";
 }
 
 sub item_style_type {
   return "class";
 }
-
-sub link_style_active {
-  return "content-nav-selected-link";
-}
-
 
 package Sniglets::Navi::Style::sidenav;
 use base qw/Sniglets::Navi::Style::ul/;
