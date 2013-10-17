@@ -2,6 +2,7 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <head>
 <%@ include file="/WEB-INF/pages/common/fragments/editarea.jspf" %>
@@ -10,18 +11,17 @@
 <html:xhtml/>
 <html>
 <body>
-<%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
-
+<rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif"
+           deletionUrl="/rhn/kickstart/KickstartScriptDelete.do?kssid=${kssid}&ksid=${ksdata.id}"
+           deletionType="kickstartscript" >
+   <bean:message key="kickstartdetails.jsp.header1" arg0="${fn:escapeXml(ksdata.label)}"/>
+</rhn:toolbar>
 <rhn:dialogmenu mindepth="0" maxdepth="1"
     definition="/WEB-INF/nav/kickstart_details.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <p>
-<rhn:toolbar base="h2" img="/img/rhn-kickstart_profile.gif"
-    deletionUrl="/rhn/kickstart/KickstartScriptDelete.do?kssid=${kssid}&ksid=${ksdata.id}"
-    deletionType="kickstartscript" >
-<bean:message key="kickstart.script.header1"/>
-</rhn:toolbar>
+<h2><bean:message key="kickstart.script.header1"/></h2>
 
 <div>
   <p>

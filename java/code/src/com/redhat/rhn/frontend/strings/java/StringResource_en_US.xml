@@ -5637,6 +5637,24 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="kickstart.script.order.fakename">
+        <source>Registration and server actions</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/Scripts.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.script.order.fakeinterpreter">
+        <source>Not Applicable</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/Scripts.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.script.order.success">
+        <source>Kickstart Script order was successfully updated.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/Scripts.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="listdisplaytag.viewall">
         <source>View All</source>
         <context-group name="ctx">

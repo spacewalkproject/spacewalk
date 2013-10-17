@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008--2012 Red Hat, Inc.
+ * Copyright (c) 2008--2013 Red Hat, Inc.
  * All Rights Reserved.
  *
  * This software is licensed to you under the GNU General Public License,
@@ -16,17 +16,17 @@
  */
 
 /**
-This file contains java script code related to ConfigChannel Rankings page.
+This file contains java script code related to ConfigChannel Rankings and Kickstart Scripts Ordering pages.
 Basically functions to handle things like the up and down buttons. 
 Note this file uses a couple of functions from 'Prototype' library 
 to asynchronously post to the channel rankings update page.
 */
 
-function config_channel_up(rankingWidgetName) {
-   return config_channel_move(rankingWidgetName, true);
+function move_selected_up(rankingWidgetName) {
+   return move_selected(rankingWidgetName, true);
 }
-function config_channel_down(rankingWidgetName) {
-   return config_channel_move(rankingWidgetName, false);
+function move_selected_down(rankingWidgetName) {
+   return move_selected(rankingWidgetName, false);
 }
 
 
@@ -43,7 +43,7 @@ saving to a set etc..)..
 @param moveUp the direction in which the selected item must be moved 
                 (up if true, down if false).
 */
-function config_channel_move(rankingWidgetName, moveUp) {
+function move_selected(rankingWidgetName, moveUp) {
 
     var element = document.getElementById(rankingWidgetName);    
     var index = element.selectedIndex;
@@ -66,7 +66,7 @@ function config_channel_move(rankingWidgetName, moveUp) {
 }
 
 /**
-This function gets called when a form submit / 'update subscriptions' action is clicked.
+This function should get called when a form submit action is clicked.
 Behaviour:
 1) Basically joins the values of the rankingWidgetElements into a comma separated string,
 2) Stores the value in the element provided by 'storerName'
@@ -78,13 +78,31 @@ supports javascript but does not support ajax..
        ('rankedValues' in the case of SDC channel rankings)
 @param formName name of the form who has to be submitted.
 */
-function handle_config_channels_dispatch (rankingWidgetName, storerName, formName) {
+function handle_ranking_dispatch (rankingWidgetName, storerName, formName) {
     element = document.getElementById(rankingWidgetName);
     storer = document.getElementById(storerName);
     form = document.getElementById(formName);
-    storer.value = make_config_channels_csv(rankingWidgetName);
+    storer.value = make_ranking_csv(rankingWidgetName);
     form.submit();
     return true;
+}
+
+/**
+ * This function does the same thing that handle_ranking_dispatch does,
+ * but without submitting the form. This is necessary so that you can submit
+ * a form with more than one rankingWidget in it. The last rakingWidget should
+ * call handle_config_channels_dispatch to submit the form.
+ * @param rankingWidgetName the name of the ranking widget list box.
+ * @param storerName name of the element in whom the CS string will be stored
+ *        ('rankedValues' in the case of SDC channel rankings)
+ * @param formName name of the form who has to be submitted.
+ */
+function handle_ranking (rankingWidgetName, storerName, formName) {
+    element = document.getElementById(rankingWidgetName);
+    storer = document.getElementById(storerName);
+    form = document.getElementById(formName);
+    storer.value = make_ranking_csv(rankingWidgetName);
+    return false;
 }
 
 /**
@@ -92,7 +110,7 @@ This function binds the values of each element of a list box  ('listBox') in a c
 @param listBoxName  the name of the list box element who's transform is desired
 @return a comma separated list of list elements...
 */
-function make_config_channels_csv(listBoxName) {
+function make_ranking_csv(listBoxName) {
     var values =  new Array();
     var listBox  = document.getElementById(listBoxName);
     for (var i = 0; i < listBox.options.length; i++) {

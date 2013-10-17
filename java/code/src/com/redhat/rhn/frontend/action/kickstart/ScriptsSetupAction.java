@@ -14,42 +14,56 @@
  */
 package com.redhat.rhn.frontend.action.kickstart;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.frontend.listview.PageControl;
-import com.redhat.rhn.frontend.struts.BaseListAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
 
 /**
  * KickstartsSetupAction.
  * @version $Rev: 1 $
  */
-public class ScriptsSetupAction extends BaseListAction {
+public class ScriptsSetupAction extends RhnAction {
+
+    static final String LIST_NAME = "kickstart_scripts";
 
     /**
      *
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(RequestContext rctx, PageControl pc) {
-        Long ksid = rctx.getRequiredParam(RequestContext.KICKSTART_ID);
+    public ActionForward execute(ActionMapping mapping, ActionForm formIn,
+            HttpServletRequest request, HttpServletResponse response) {
+        RequestContext rctx = new RequestContext(request);
         Org org = rctx.getCurrentUser().getOrg();
-        return KickstartLister.getInstance().scriptsInKickstart(org, ksid, pc);
+        KickstartData ksdata = KickstartFactory.lookupKickstartDataByIdAndOrg(org,
+                rctx.getRequiredParam(RequestContext.KICKSTART_ID));
+        DataResult<KickstartScript> dataSet = getDataResult(ksdata.getId(), org);
+
+        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
+        request.setAttribute(LIST_NAME, dataSet);
+        request.setAttribute(RequestContext.KICKSTART, ksdata);
+
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     /**
      *
      * {@inheritDoc}
      */
-    protected void processRequestAttributes(RequestContext rctx) {
-        super.processRequestAttributes(rctx);
-
-        KickstartData ksdata = KickstartFactory
-            .lookupKickstartDataByIdAndOrg(rctx.getCurrentUser().getOrg(),
-                    rctx.getRequiredParam(RequestContext.KICKSTART_ID));
-        rctx.getRequest().setAttribute(RequestContext.KICKSTART, ksdata);
+    protected DataResult<KickstartScript> getDataResult(Long ksid, Org org) {
+        return KickstartLister.getInstance().scriptsInKickstartWithFakeEntry(org, ksid);
     }
-
 }

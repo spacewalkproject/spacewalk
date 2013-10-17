@@ -16,15 +16,15 @@
 					altKey="ssm.config.rank.jsp.up"
 					property="dispatch"
 					value="up"
-					onclick="return config_channel_up('ranksWidget');"
+					onclick="return move_selected_up('ranksWidget');"
 					styleClass="button"/>
-	    <td></tr>
+	    </td></tr>
 	    <tr>
 	    <td><html:image src="/img/button-down.gif"
 					altKey="ssm.config.rank.jsp.down"
 					property="dispatch"
 					value="down"
-					onclick="return config_channel_down('ranksWidget');"
+					onclick="return move_selected_down('ranksWidget');"
 					styleClass="button"/>
 		</td></tr>
 	</table>	

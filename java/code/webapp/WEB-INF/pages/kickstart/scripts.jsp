@@ -3,15 +3,30 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 
 <html:html xhtml="true">
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif"
+<c:if test="${! empty kickstart_scripts}">
+    <rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif"
+               creationUrl="/rhn/kickstart/KickstartScriptCreate.do?ksid=${ksdata.id}"
+               creationType="kickstartscript"
+               miscUrl="/rhn/kickstart/KickstartScriptOrder.do?ksid=${ksdata.id}"
+               miscText="toolbar.misc.kickstartscript"
+               miscImg="action-order.gif"
+               miscAlt="toolbar.misc.kickstartscriptalt"
+               imgAlt="kickstarts.alt.img">
+      <bean:message key="kickstartdetails.jsp.header1" arg0="${fn:escapeXml(ksdata.label)}"/>
+    </rhn:toolbar>
+</c:if>
+<c:if test="${empty kickstart_scripts}">
+    <rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif"
                creationUrl="/rhn/kickstart/KickstartScriptCreate.do?ksid=${ksdata.id}"
                creationType="kickstartscript"
                imgAlt="kickstarts.alt.img">
-  <bean:message key="kickstartdetails.jsp.header1" arg0="${fn:escapeXml(ksdata.label)}"/>
-</rhn:toolbar>
+      <bean:message key="kickstartdetails.jsp.header1" arg0="${fn:escapeXml(ksdata.label)}"/>
+    </rhn:toolbar>
+</c:if>
 
 <rhn:dialogmenu mindepth="0" maxdepth="1"
     definition="/WEB-INF/nav/kickstart_details.xml"
@@ -26,31 +41,39 @@
     <p>
     <bean:message key="kickstartscript.jsp.summary2"/>
     </p>
-    <form method="post" name="rhn_list" action="/rhn/kickstart/Scripts.do">
-      <rhn:csrf />
-      <rhn:submitted />
-
-      <rhn:list pageList="${requestScope.pageList}" noDataText="kickstartscript.jsp.noscripts">
-
-      <rhn:listdisplay renderDisabled="true"
-          set="${requestScope.set}">
-
-        <rhn:column header="kickstartscript.jsp.type" style="text-align: center;">
-        ${current.scriptType}
-        </rhn:column>
-        <rhn:column header="kickstartscript.jsp.scriptnum">
-          <a href="/rhn/kickstart/KickstartScriptEdit.do?kssid=${current.id}&amp;ksid=${ksdata.id}"><bean:message key="kickstartscript.jsp.script"/> ${current.position}</a>
-        </rhn:column>
-        <rhn:column header="kickstartscript.jsp.scriptname">
-          <a href="/rhn/kickstart/KickstartScriptEdit.do?kssid=${current.id}&amp;ksid=${ksdata.id}">${current.scriptName}</a>
-        </rhn:column>
-        <rhn:column header="kickstartscript.jsp.language">
-        ${current.interpreter}
-        </rhn:column>
-
-      </rhn:listdisplay>
-      </rhn:list>
-    </form>
+    
+    <rl:listset name="kickstartScriptsSet">
+        <rhn:csrf />
+        <rl:list dataset="kickstart_scripts"
+                width="100%"
+                name="kickstartPreScripts"
+                styleclass="list"
+                emptykey="kickstartscript.jsp.noscripts">
+                
+            <rl:column bound="false"
+                    sortable="false"
+                    headerkey="kickstartscript.jsp.type">
+                ${current.prettyScriptType}
+            </rl:column>
+                
+            <rl:column bound="false"
+                    sortable="false"
+                    headerkey="kickstartscript.jsp.scriptname">
+                <c:if test="${current.editable}">
+                <a href="/rhn/kickstart/KickstartScriptEdit.do?kssid=${current.id}&amp;ksid=${ksdata.id}">${current.scriptName}</a>
+                </c:if>
+                <c:if test="${not current.editable}">
+                ${current.scriptName}
+                </c:if>
+            </rl:column>
+                
+            <rl:column bound="false"
+                    sortable="false"
+                    headerkey="kickstartscript.jsp.language">
+                ${current.prettyInterpreter}
+            </rl:column>
+        </rl:list>
+    </rl:listset>
 </div>
 
 </body>

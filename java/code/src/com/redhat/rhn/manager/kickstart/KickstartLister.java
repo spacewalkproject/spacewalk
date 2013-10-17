@@ -17,7 +17,9 @@ package com.redhat.rhn.manager.kickstart;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
@@ -49,6 +51,7 @@ import java.util.Set;
  */
 public class KickstartLister extends BaseManager {
 
+    public static final String FAKE_SCRIPT_LABEL = "kickstart.script.order.fakename";
     /**
      * Logger for this class
      */
@@ -126,22 +129,52 @@ public class KickstartLister extends BaseManager {
      *
      * @param orgIn Org coming in.
      * @param ksIn Kickstart Id we want to fetch scripts for
-     * @param pc PageControl
      * @return the kickstart profiles for <code>orgIn</code>
      */
-    public DataResult scriptsInKickstart(Org orgIn, Long ksIn, PageControl pc) {
-
+    public DataResult<KickstartScript> scriptsInKickstart(Org orgIn, Long ksIn) {
         SelectMode m = ModeFactory.getMode("General_queries", "scripts_for_kickstart");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("kickstart_id", ksIn);
         params.put("org_id", orgIn.getId());
-        Map elabParams = new HashMap();
-        DataResult returnDataResult = makeDataResult(params, elabParams, pc, m);
+        Map<String, String> elabParams = new HashMap<String, String>();
+        DataResult<KickstartScript> returnDataResult = makeDataResultNoPagination(params,
+                elabParams, m);
         if (logger.isDebugEnabled()) {
-            logger.debug("scriptsInKickstart(KS, PageControl) - end - return value=" +
+            logger.debug("scriptsInKickstart(KS) - end - return value=" +
                     returnDataResult);
         }
         return returnDataResult;
+    }
+
+    /**
+     * List the kickstart scripts for a particular kickstart.
+     * Inserts a fake result to mark where the Red Hat registration
+     * and Server Actions will occur.
+     *
+     * @param orgIn Org coming in.
+     * @param ksIn Kickstart Id we want to fetch scripts for
+     * @return the kickstart profiles for <code>orgIn</code>
+     */
+    public DataResult<KickstartScript>
+            scriptsInKickstartWithFakeEntry(Org orgIn, Long ksIn) {
+        DataResult<KickstartScript> scripts = scriptsInKickstart(orgIn, ksIn);
+
+        KickstartScript fakeScript = new KickstartScript();
+        fakeScript.setPosition(0L);
+        fakeScript.setScriptType(KickstartScript.TYPE_POST);
+        fakeScript.setScriptName(LocalizationService.getInstance().getMessage(
+                FAKE_SCRIPT_LABEL));
+        fakeScript.setInterpreter(LocalizationService.getInstance().getMessage(
+                "kickstart.script.order.fakeinterpreter"));
+        fakeScript.setEditable(false);
+        fakeScript.setChroot("y");
+
+        if (scripts.size() != 0) {
+            scripts.add(fakeScript);
+            Collections.sort(scripts);
+        }
+
+        return scripts;
     }
 
     /**

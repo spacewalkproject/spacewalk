@@ -64,6 +64,7 @@ import org.cobbler.Profile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -389,12 +390,14 @@ public class ProfileHandler extends BaseHandler {
     }
 
     /**
-     * List the pre and post scripts for a kickstart profile.
+     * List the pre and post scripts for a kickstart profile in the order
+     * they will run.
      * @param sessionKey key
      * @param label the kickstart label
      * @return list of kickstartScript objects
      *
-     * @xmlrpc.doc List the pre and post scripts for a kickstart profile.
+     * @xmlrpc.doc List the pre and post scripts for a kickstart profile
+     * in the order they will run.
      * profile
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel", "The label of the
@@ -406,8 +409,121 @@ public class ProfileHandler extends BaseHandler {
         checkKickstartPerms(loggedInUser);
         KickstartData data = lookupKsData(label, loggedInUser.getOrg());
 
-        return new ArrayList<KickstartScript>(data.getScripts());
+        ArrayList<KickstartScript> scripts = new ArrayList<KickstartScript>(
+                data.getScripts());
+        Collections.sort(scripts);
 
+        return scripts;
+
+    }
+
+    /**
+     * Change the order that kickstart scripts will run for this kickstart
+     * profile. Scripts will run in the order they appear in the array.
+     * There are three arrays, one for all pre scripts, one for the post
+     * scripts that run before registration and server actions happen,
+     * and one for post scripts that run after registration and server
+     * actinos. All scripts must be included in one of these lists, as
+     * appropriate.
+     * @param sessionKey key
+     * @param ksLabel the kickstart label
+     * @param preScripts the ordered list of pre scripts
+     * @param postScriptsBeforeRegistration the ordered list of post
+     * scripts that run before registration
+     * @param postScriptsAfterRegistration the ordered list of post
+     * scripts that run after registration
+     * @return 1 on success
+     *
+     * @xmlrpc.doc Change the order that kickstart scripts will run for
+     * this kickstart profile. Scripts will run in the order they appear
+     * in the array. There are three arrays, one for all pre scripts, one
+     * for the post scripts that run before registration and server
+     * actions happen, and one for post scripts that run after registration
+     * and server actions. All scripts must be included in one of these
+     * lists, as appropriate.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "ksLabel", "The label of the
+     * kickstart")
+     * @xmlrpc.param #array_single("int",
+     *              "IDs of the ordered pre scripts")
+     * @xmlrpc.param #array_single("int",
+     *              "IDs of the ordered post scripts that will run
+     *              before registration")
+     * @xmlrpc.param #array_single("int",
+     *              "IDs of the ordered post scripts that will run
+     *              after registration")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int orderScripts(String sessionKey, String ksLabel, List<Integer> preScripts,
+            List<Integer> postScriptsBeforeRegistration,
+            List<Integer> postScriptsAfterRegistration) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        checkKickstartPerms(loggedInUser);
+        KickstartData data = lookupKsData(ksLabel, loggedInUser.getOrg());
+        if (data == null) {
+            throw new FaultException(-3, "kickstartProfileNotFound",
+                    "No Kickstart Profile found with label: " + ksLabel);
+        }
+        Set<KickstartScript> scripts = data.getScripts();
+
+        // validate the input
+        List<KickstartScript> myPreScripts = new ArrayList<KickstartScript>();
+        List<KickstartScript> myPostScripts = new ArrayList<KickstartScript>();
+        Map<Integer, KickstartScript> idToScript = new HashMap<Integer, KickstartScript>();
+        for (KickstartScript script : scripts) {
+            idToScript.put(script.getId().intValue(), script);
+            if (script.getScriptType().equals(KickstartScript.TYPE_PRE)) {
+                myPreScripts.add(script);
+                if (!preScripts.contains(script.getId().intValue())) {
+                    throw new IllegalArgumentException("Kickstart Script ID missing: " +
+                            script.getId());
+                }
+            }
+            else {
+                myPostScripts.add(script);
+                if (!(postScriptsBeforeRegistration.contains(script.getId().intValue()) ||
+                        postScriptsAfterRegistration.contains(
+                        script.getId().intValue()))) {
+                    throw new IllegalArgumentException("Kickstart Script ID missing: " +
+                            script.getId());
+                }
+            }
+        }
+        if (preScripts.size() != myPreScripts.size()) {
+            throw new IllegalArgumentException("Too many pre script IDs.");
+        }
+        if ((postScriptsBeforeRegistration.size() + postScriptsAfterRegistration.size() !=
+                myPostScripts.size())) {
+            throw new IllegalArgumentException("Too many post script IDs.");
+        }
+
+        // To avoid db constraint error about two scripts having same position,
+        // make them something else
+        Long fakePosition = 10000L;
+        for (KickstartScript script : scripts) {
+            script.setPosition(fakePosition);
+            fakePosition += 1;
+            HibernateFactory.getSession().save(script);
+        }
+        KickstartFactory.saveKickstartData(data);
+
+        // create new position values
+        Long nextPosition = 1L;
+        Long nextNegativePosition = -1L;
+        for (Integer id : preScripts) {
+            idToScript.get(id).setPosition(nextPosition);
+            nextPosition += 1;
+        }
+        for (Integer id : postScriptsBeforeRegistration) {
+            idToScript.get(id).setPosition(nextNegativePosition);
+            nextNegativePosition -= 1;
+        }
+        for (Integer id : postScriptsAfterRegistration) {
+            idToScript.get(id).setPosition(nextPosition);
+            nextPosition += 1;
+        }
+
+        return 1;
     }
 
     /**

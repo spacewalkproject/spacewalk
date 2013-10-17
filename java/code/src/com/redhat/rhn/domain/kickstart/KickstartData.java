@@ -929,16 +929,33 @@ public class KickstartData {
      * @param ksIn to add
      */
     public void addScript(KickstartScript ksIn) {
-        // Calc the max position and add this script at the end
-        Iterator i = scripts.iterator();
-        long maxPosition = 0;
-        while (i.hasNext()) {
-            KickstartScript kss = (KickstartScript) i.next();
-            if (kss.getPosition().longValue() > maxPosition) {
-                maxPosition = kss.getPosition().longValue();
+        // The ordering goes: Pre scripts and post (chroot) scripts have
+        // positive positions, post nochroot scripts have negative
+        // positions where the most negative script is run right before
+        // Red Hat's scripts. The user can adjust these default positions
+        // later, but this allows us to preserve previous behavor where
+        // adding a nochroot post script added it right before Red Hat's
+        // post scripts and adding a post (chroot) script added it as the
+        // last script that runs.
+        if (ksIn.getScriptType().equals(KickstartScript.TYPE_POST) &&
+                !ksIn.thisScriptIsChroot()) {
+            Long minPosition = 0L;
+            for (KickstartScript script : scripts) {
+                if (script.getPosition() < minPosition) {
+                    minPosition = script.getPosition();
+                }
             }
+            ksIn.setPosition(minPosition - 1);
         }
-        ksIn.setPosition(new Long(maxPosition + 1));
+        else {
+            Long maxPosition = 0L;
+            for (KickstartScript script : scripts) {
+                if (script.getPosition() > maxPosition) {
+                    maxPosition = script.getPosition();
+                }
+            }
+            ksIn.setPosition(maxPosition + 1);
+        }
         ksIn.setKsdata(this);
 
         scripts.add(ksIn);

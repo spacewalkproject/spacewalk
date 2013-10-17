@@ -15,17 +15,24 @@
 package com.redhat.rhn.domain.kickstart;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.frontend.dto.BaseDto;
 
 import java.util.Date;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * KickstartScript - Class representation of the table rhnKickstartScript.
  * @version $Rev: 1 $
  */
-public class KickstartScript implements Comparable<KickstartScript> {
+public class KickstartScript extends BaseDto implements Comparable<KickstartScript> {
 
     public static final String TYPE_PRE = "pre";
     public static final String TYPE_POST = "post";
+    private static final String BASH = "bash";
+    private static final String PRE = "Pre";
+    private static final String POST = "Post";
+    private static final String NOCHROOTPOST = "Nochroot Post";
 
     private Long id;
     private Long position;
@@ -38,8 +45,23 @@ public class KickstartScript implements Comparable<KickstartScript> {
     private Date created;
     private Date modified;
     private Boolean raw = true;
+    private boolean editable = true;
 
     private KickstartData ksdata;
+
+    /**
+     * @return True if the script is editable
+     */
+    public boolean getEditable() {
+        return this.editable;
+    }
+
+    /**
+     * @param editableIn Set if script is editable
+     */
+    public void setEditable(boolean editableIn) {
+        this.editable = editableIn;
+    }
 
     /** Setup the default value for
      * chroot and other fields.
@@ -106,6 +128,28 @@ public class KickstartScript implements Comparable<KickstartScript> {
     }
 
     /**
+     * Has to have the horrible name because "isChroot" is magic
+     * and causes a "can't cast boolean to String" error in hibernate.
+     * @return true if the script is run in a chrooted environment
+     */
+    public boolean thisScriptIsChroot() {
+        return !this.chroot.toLowerCase().equals("n");
+    }
+
+    /**
+     * @return script "prettyified" type for this script
+     */
+    public String getPrettyScriptType() {
+        if (this.scriptType.equals(TYPE_POST)) {
+            if (!this.thisScriptIsChroot()) {
+                return NOCHROOTPOST;
+            }
+            return POST;
+        }
+        return PRE;
+    }
+
+    /**
      * Setter for scriptType
      * @param scriptTypeIn to set
     */
@@ -154,6 +198,17 @@ public class KickstartScript implements Comparable<KickstartScript> {
     */
     public String getInterpreter() {
         return this.interpreter;
+    }
+
+    /**
+     *
+     * @return interpreter for this script
+     */
+    public String getPrettyInterpreter() {
+        if (StringUtils.isBlank(this.interpreter)) {
+            return BASH;
+        }
+        return interpreter;
     }
 
     /**
@@ -267,6 +322,25 @@ public class KickstartScript implements Comparable<KickstartScript> {
     public int compareTo(KickstartScript scriptIn) {
         final int before = -1;
         final int after = 1;
+
+        // pre scripts always come first
+        if (!scriptIn.getScriptType().equals(this.getScriptType())) {
+            if (scriptIn.getScriptType().equals(TYPE_PRE)) {
+                return after;
+            }
+            return before;
+        }
+
+        // If both positions are negative then -2 should come *after* -1.
+        // This is so that we can give a new script the most negative number
+        // and have it come right before Red Hat's scripts, preserving
+        // existing behavior.
+        if (scriptIn.getPosition() < 0 && this.getPosition() < 0) {
+            if (scriptIn.getPosition() > this.getPosition()) {
+                return after;
+            }
+            return before;
+        }
 
         if (scriptIn.getPosition() < this.getPosition()) {
             return after;

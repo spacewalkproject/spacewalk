@@ -170,6 +170,8 @@ public class KickstartFormatter {
     private final String ksHost;
     private final User user;
     private KickstartSession session;
+    private int postLogPostfix;
+    private int preLogPostfix;
 
     /**
      * constructor
@@ -181,6 +183,8 @@ public class KickstartFormatter {
         this.ksdata = ksdataIn;
         this.ksHost = hostIn;
         this.user = UserFactory.findRandomOrgAdmin(this.ksdata.getOrg());
+        this.postLogPostfix = 1;
+        this.preLogPostfix = 1;
     }
 
     /**
@@ -233,6 +237,22 @@ public class KickstartFormatter {
      */
     public String getFileData() {
         RegistrationType regType = ksdata.getRegistrationType(user);
+        List<KickstartScript> l = new LinkedList<KickstartScript>(this.ksdata.getScripts());
+        Collections.sort(l);
+        List<KickstartScript> preScripts = new ArrayList<KickstartScript>();
+        List<KickstartScript> postBeforeRedHatScripts = new ArrayList<KickstartScript>();
+        List<KickstartScript> postAfterRedHatScripts = new ArrayList<KickstartScript>();
+        for (KickstartScript ks : l) {
+            if (ks.getScriptType().equals(KickstartScript.TYPE_PRE)) {
+                preScripts.add(ks);
+            }
+            else if (ks.getPosition() < 0L) {
+                postBeforeRedHatScripts.add(ks);
+            }
+            else {
+                postAfterRedHatScripts.add(ks);
+            }
+        }
         StringBuilder buf = new StringBuilder();
         buf.append(getHeader());
         buf.append(getCommands());
@@ -271,9 +291,18 @@ public class KickstartFormatter {
             addEnd(buf);
         }
 
-        buf.append(getPrePost(KickstartScript.TYPE_PRE));
+        buf.append(renderScripts(preScripts));
         buf.append(NEWLINE);
-        buf.append(getNoChroot());
+
+        // This script should always be the first post script to run
+        buf.append("%" + KickstartScript.TYPE_POST + SPACE + NOCHROOT + NEWLINE);
+        buf.append(RHN_NOCHROOT + NEWLINE);
+        if (this.ksdata.getKsCfg()) {
+            buf.append(SAVE_KS_CFG + NEWLINE);
+        }
+        addEnd(buf);
+
+        buf.append(renderScripts(postBeforeRedHatScripts));
         buf.append(NEWLINE);
 
         if (RegistrationType.REACTIVATION.equals(regType)) {
@@ -288,7 +317,7 @@ public class KickstartFormatter {
         buf.append(NEWLINE);
         buf.append(getRhnPost());
         buf.append(NEWLINE);
-        buf.append(getPrePost(KickstartScript.TYPE_POST));
+        buf.append(renderScripts(postAfterRedHatScripts));
         buf.append(NEWLINE);
         buf.append("%" + KickstartScript.TYPE_POST);    //new %post for last kernel stuff
         addCobblerSnippet(buf, "post_install_kernel_options");
@@ -343,7 +372,7 @@ public class KickstartFormatter {
         LinkedList l = new LinkedList(this.ksdata.getCommands());
         Collections.sort(l);
         for (Iterator itr = l.iterator(); itr.hasNext();) {
-            KickstartCommand command = (KickstartCommand)itr.next();
+            KickstartCommand command = (KickstartCommand) itr.next();
             String cname = command.getCommandName().getName();
             log.debug("getCommands name: " + cname);
 
@@ -532,8 +561,8 @@ public class KickstartFormatter {
      */
     private String getPackages() {
         StringBuffer buf = new StringBuffer();
-        for (Iterator itr = ksdata.getKsPackages().iterator(); itr.hasNext();) {
-            buf.append(((KickstartPackage)itr.next()).getPackageName().getName() + NEWLINE);
+        for (KickstartPackage kp : ksdata.getKsPackages()) {
+            buf.append(kp.getPackageName().getName() + NEWLINE);
         }
         if (KickstartVirtualizationType.paraHost().equals(ksdata.getKickstartDefaults().
                 getVirtualizationType())) {
@@ -550,123 +579,69 @@ public class KickstartFormatter {
     }
 
     /**
-     * @param typeIn type of script to render (pre or post)
+     * @param scrupts the kickstart scripts we want to render
      * @return rendered script(s)
      */
-    private String getPrePost(String typeIn) {
+    private String renderScripts(List<KickstartScript> scripts) {
         StringBuilder retval = new StringBuilder();
-        if (this.ksdata.getScripts() != null) {
-            List<KickstartScript> l =
-                new LinkedList<KickstartScript>(this.ksdata.getScripts());
-            Collections.sort(l);
-            Iterator<KickstartScript> i = l.iterator();
-            for (KickstartScript kss : l) {
+        for (KickstartScript kss : scripts) {
+            boolean isPre = kss.getScriptType().equals(KickstartScript.TYPE_PRE);
 
-                // render either pre or chroot posts
-                if (kss.getScriptType().equals(typeIn)) {
-                    if (typeIn.equals(KickstartScript.TYPE_PRE) ||
-                            (typeIn.equals(KickstartScript.TYPE_POST) &&
-                                    (kss.getChroot().equals("Y")))) {
-                        retval.append(NEWLINE);
-                        if (kss.getRaw()) {
-                            retval.append(RAW_START + NEWLINE);
-                        }
-                        String command = "%" + typeIn;
-                        if (kss.getErrorOnFail()) {
-                            command += SPACE + ERRORONFAIL;
-                        }
-                        if (!StringUtils.isBlank(kss.getInterpreter())) {
-                            command += SPACE + INTERPRETER_OPT + SPACE +
-                                    kss.getInterpreter();
-                        }
-                        retval.append(command);
-                        if (typeIn.equals(KickstartScript.TYPE_POST) &&
-                                ksdata.getPostLog()) {
-                            addLogBegin(retval, POST_LOG_FILE + "." + kss.getPosition(),
-                                    kss.getInterpreter());
-                        }
-                        else if (typeIn.equals(KickstartScript.TYPE_PRE) &&
-                                ksdata.getPreLog()) {
-                            addLogBegin(retval, PRE_LOG_FILE + "." + kss.getPosition(),
-                                    kss.getInterpreter());
-                        }
-                        else {
-                            retval.append(NEWLINE);
-                        }
-                        retval.append(kss.getDataContents() + NEWLINE);
+            retval.append(NEWLINE);
+            if (kss.getRaw()) {
+                retval.append(RAW_START + NEWLINE);
+            }
+            String command = "%" + kss.getScriptType();
+            if (!isPre && !kss.thisScriptIsChroot()) {
+                command += SPACE + NOCHROOT;
+            }
+            if (kss.getErrorOnFail()) {
+                command += SPACE + ERRORONFAIL;
+            }
+            if (!StringUtils.isBlank(kss.getInterpreter())) {
+                command += SPACE + INTERPRETER_OPT + SPACE + kss.getInterpreter();
+            }
+            retval.append(command);
+            if (ksdata.getPreLog() && isPre) {
+                addLogBegin(retval, PRE_LOG_FILE + "." + this.preLogPostfix,
+                        kss.getInterpreter());
+            }
+            else if (ksdata.getPostLog() && !isPre && kss.thisScriptIsChroot()) {
+                addLogBegin(retval, POST_LOG_FILE + "." + this.postLogPostfix,
+                        kss.getInterpreter());
+            }
+            else if (ksdata.getNonChrootPost() && !isPre && !kss.thisScriptIsChroot()) {
+                addLogBegin(retval, POST_LOG_NOCHROOT_FILE + "." + this.postLogPostfix,
+                        kss.getInterpreter());
+                retval.append(RHN_TRACE);
+            }
+            else {
+                retval.append(NEWLINE);
+            }
 
-                        if (typeIn.equals(KickstartScript.TYPE_POST) &&
-                                ksdata.getPostLog()) {
-                            addLogEnd(retval, POST_LOG_FILE + "." + kss.getPosition(),
-                                    kss.getInterpreter());
-                        }
-                        else if (typeIn.equals(KickstartScript.TYPE_PRE) &&
-                                ksdata.getPreLog()) {
-                            addLogEnd(retval, PRE_LOG_FILE + "." + kss.getPosition(),
-                                    kss.getInterpreter());
-                        }
-                        if (kss.getRaw()) {
-                            retval.append(RAW_END + NEWLINE);
-                        }
-                        addEnd(retval);
-                    }
-                } // end script type and chroot = y
+            retval.append(kss.getDataContents() + NEWLINE);
 
-            } // end iterator
-        } // end if have scripts
-        return retval.toString();
-    }
+            if (ksdata.getPreLog() && isPre) {
+                addLogEnd(retval, PRE_LOG_FILE + "." + kss.getPosition(),
+                        kss.getInterpreter());
+                this.preLogPostfix += 1;
+            }
+            else if (ksdata.getPostLog() && !isPre && kss.thisScriptIsChroot()) {
+                addLogEnd(retval, POST_LOG_FILE + "." + this.postLogPostfix,
+                        kss.getInterpreter());
+                this.postLogPostfix += 1;
+            }
+            else if (ksdata.getNonChrootPost() && !isPre && !kss.thisScriptIsChroot()) {
+                addLogEnd(retval, POST_LOG_NOCHROOT_FILE + "." + this.postLogPostfix,
+                        kss.getInterpreter());
+                this.postLogPostfix += 1;
+            }
 
-    /**
-     *
-     * @return string containing nochroot post contents
-     */
-    private String getNoChroot() {
-        StringBuilder retval = new StringBuilder();
-        if (this.ksdata.getScripts() != null) {
-            retval.append("%" + KickstartScript.TYPE_POST + SPACE +
-                    NOCHROOT + NEWLINE);
-            retval.append(RHN_NOCHROOT + NEWLINE);
-            if (this.ksdata.getKsCfg()) {
-                retval.append(SAVE_KS_CFG + NEWLINE);
+            if (kss.getRaw()) {
+                retval.append(RAW_END + NEWLINE);
             }
             addEnd(retval);
-            for (KickstartScript kss : this.ksdata.getScripts()) {
-                if (kss.getScriptType().equals(KickstartScript.TYPE_POST) &&
-                        kss.getChroot().equals("N")) {
-                    // Put a blank line in between the scripts
-                    retval.append(NEWLINE);
-                    String scriptCommand = "%" + KickstartScript.TYPE_POST + SPACE +
-                            NOCHROOT;
-                    if (kss.getErrorOnFail()) {
-                        scriptCommand += SPACE + ERRORONFAIL;
-                    }
-                    String kssInterpreter = kss.getInterpreter();
-                    if (!StringUtils.isBlank(kssInterpreter)) {
-                        scriptCommand += SPACE + INTERPRETER_OPT + SPACE +
-                                kssInterpreter;
-                    }
-                    retval.append(scriptCommand);
-
-                    if (ksdata.getNonChrootPost()) {
-                        addLogBegin(retval, POST_LOG_NOCHROOT_FILE + "." +
-                                kss.getPosition(), kssInterpreter);
-                        if (isBashInterpreter(kssInterpreter)) {
-                            retval.append(RHN_TRACE);
-                        }
-                    }
-                    retval.append(NEWLINE);
-                    retval.append(kss.getDataContents() + NEWLINE);
-                    if (ksdata.getNonChrootPost()) {
-                        addLogEnd(retval, POST_LOG_NOCHROOT_FILE + "." + kss.getPosition(),
-                                  kssInterpreter);
-                    }
-                    addEnd(retval);
-                }
-            } // end iterator
-        } // end if we have scripts to process
-
-
+        } // end loop
         return retval.toString();
     }
 
@@ -914,9 +889,9 @@ public class KickstartFormatter {
      *
      * @return list of packages we need to up2date
      */
-    private HashSet getUpdatePackages(List<ActivationKey> keys) {
+    private HashSet<String> getUpdatePackages(List<ActivationKey> keys) {
         log.debug("getUpdatePackages() ..");
-        HashSet retval = new HashSet();
+        HashSet<String> retval = new HashSet<String>();
         Channel c = ksdata.getKickstartDefaults().getKstree().getChannel();
         for (ActivationKey key : keys) {
             if (key.getChannels() != null) {
@@ -960,37 +935,35 @@ public class KickstartFormatter {
      *
      * @return list of optional packages we need to up2date to the latest nvr
      */
-    private HashSet getFreshPackages(List<ActivationKey> keys) {
-
-            Channel c = ksdata.getKickstartDefaults().getKstree().getChannel();
-            for (ActivationKey key : keys) {
-                for (Channel chan : key.getChannels()) {
-                    if (chan.isBaseChannel()) {
-                        c = chan;
-                        break;
-                    }
+    private HashSet<String> getFreshPackages(List<ActivationKey> keys) {
+        Channel c = ksdata.getKickstartDefaults().getKstree().getChannel();
+        for (ActivationKey key : keys) {
+            for (Channel chan : key.getChannels()) {
+                if (chan.isBaseChannel()) {
+                    c = chan;
+                    break;
                 }
             }
+        }
 
-            String [] pkglist = {};
-            if (ksdata.isRhel2()) {
-                pkglist = FRESH_PKG_NAMES_RHEL2;
-            }
-            else if (ksdata.isRhel3() || ksdata.isRhel4()) {
-                pkglist = FRESH_PKG_NAMES_RHEL34;
-            }
-            HashSet retval = new HashSet();
-            for (int i = 0; i < pkglist.length; i++) {
-                Long packageId = ChannelManager.getLatestPackageEqualInTree(c.getId(),
-                        pkglist[i]);
-                if (packageId != null) {
-                    Package p = PackageFactory.lookupByIdAndUser(packageId, user);
-                    if (p != null) {
-                        retval.add(getSHA1PackagePath(p));
-                    }
+        String[] pkglist = {};
+        if (ksdata.isRhel2()) {
+            pkglist = FRESH_PKG_NAMES_RHEL2;
+        }
+        else if (ksdata.isRhel3() || ksdata.isRhel4()) {
+            pkglist = FRESH_PKG_NAMES_RHEL34;
+        }
+        HashSet<String> retval = new HashSet<String>();
+        for (String pkg : pkglist) {
+            Long packageId = ChannelManager.getLatestPackageEqualInTree(c.getId(), pkg);
+            if (packageId != null) {
+                Package p = PackageFactory.lookupByIdAndUser(packageId, user);
+                if (p != null) {
+                    retval.add(getSHA1PackagePath(p));
                 }
             }
-            return retval;
+        }
+        return retval;
     }
 
     /**
@@ -998,12 +971,11 @@ public class KickstartFormatter {
      * @param setIn of gpg keys for this kickstart
      * @return rendered gpg key string for kickstart
      */
-    private String renderGpgKeys(HashSet setIn) {
+    private String renderGpgKeys(HashSet<CryptoKey> setIn) {
         StringBuffer retval = new StringBuffer();
         int peg = 1;
-        for (Iterator itr = setIn.iterator(); itr.hasNext();) {
+        for (CryptoKey myKey : setIn) {
             retval.append("cat > /tmp/gpg-key-" + peg + " <<'EOF'" + NEWLINE);
-            CryptoKey myKey = (CryptoKey)itr.next();
             retval.append(myKey.getKeyString() + NEWLINE);
             retval.append("EOF\n# gpg-key" + peg + NEWLINE);
             if (this.ksdata.isRhel2()) {

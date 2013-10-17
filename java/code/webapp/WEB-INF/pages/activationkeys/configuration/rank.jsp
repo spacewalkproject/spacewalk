@@ -6,7 +6,7 @@
 <html:xhtml/>
 <html>
 <head>
-<script src="/javascript/config_channel_ranks.js" type="text/javascript"></script>
+<script src="/javascript/rank_options.js" type="text/javascript"></script>
 </head>
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/activationkeys/common-header.jspf" %>
@@ -42,7 +42,7 @@
       <html:hidden property="dispatch" value="${rhn:localize('sdc.config.rank.jsp.update')}"/>
       <input type=submit name="dispatcher"
 			value="${rhn:localize('sdc.config.rank.jsp.update')}"
-                   onclick="handle_config_channels_dispatch('ranksWidget','rankedValues','channelRanksForm');"/>
+                   onclick="handle_ranking_dispatch('ranksWidget','rankedValues','channelRanksForm');"/>
 	</div>
 	</html:form>
 </body>

@@ -720,6 +720,18 @@
             <form-property name="submitted"  type="java.lang.Boolean"/>
             <form-property name="no_scrub" type="java.lang.String" initial="contents"/>
         </form-bean>
+        
+        
+    <form-bean name="kickstartScriptOrderForm"
+            type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+            <form-property name="preScripts" type="java.util.ArrayList"/>
+            <form-property name="postScripts" type="java.util.ArrayList"/>
+            <form-property name="selectedPre" type="java.lang.String"/>
+            <form-property name="selectedPost" type="java.lang.String"/>
+            <form-property name="submitted"   type="java.lang.Boolean" />
+            <form-property name="rankedPreValues" type="java.lang.String"/>
+            <form-property name="rankedPostValues" type="java.lang.String"/>
+    </form-bean>
 
         <form-bean name="kickstartPackages"
                    type="org.apache.struts.action.DynaActionForm">
@@ -6020,6 +6032,17 @@
                  path="/WEB-INF/pages/kickstart/scripts.jsp"/>
     </action>
 
+    <action path="/kickstart/Scripts"
+        scope="request"
+        input="/WEB-INF/pages/kickstart/scripts.jsp"
+        type="com.redhat.rhn.frontend.action.kickstart.ScriptsSetupAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/kickstart/scripts.jsp"/>
+    </action>
+
     <action path="/kickstart/KickstartIpRanges"
         scope="request"
         input="/WEB-INF/pages/kickstart/kickstartranges.jsp"
@@ -6741,6 +6764,21 @@
                  path="/WEB-INF/pages/kickstart/scriptdelete.jsp"/>
         <forward name="success"
                  path="/kickstart/Scripts.do"/>
+    </action>
+
+    <action path="/kickstart/KickstartScriptOrder"
+        scope="request"
+        name="kickstartScriptOrderForm"
+        input="/WEB-INF/pages/kickstart/scriptorder.jsp"
+        type="com.redhat.rhn.frontend.action.kickstart.KickstartScriptOrderAction"
+        parameter="dispatch"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/kickstart/scriptorder.jsp"/>
+        <forward name="success"
+                 redirect="true" path="/kickstart/Scripts.do"/>
     </action>
 
     <action path="/kickstart/KickstartClone"

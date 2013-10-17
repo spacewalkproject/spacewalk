@@ -31,6 +31,7 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  * @xmlrpc.doc
  *      #struct("kickstart script")
  *          #prop("int", "id")
+ *          #prop("string", "name")
  *          #prop("string", "contents")
  *          #prop_desc("string", "script_type", "Which type of script ('pre' or 'post').")
  *          #prop_desc("string", "interpreter", "The scripting language interpreter to use
@@ -41,6 +42,8 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  *          #prop_desc("boolean", "erroronfail", "True if the script will throw an error if
  *                  it fails.")
  *          #prop_desc("boolean", "template", "True if templating using cobbler is enabled")
+ *          #prop_desc("boolean", "beforeRegistration", "True if script will run before the
+ *                  server registers and performs server actions.")
  *     #struct_end()
  */
 public class KickstartScriptSerializer extends RhnXmlRpcCustomSerializer {
@@ -62,6 +65,7 @@ public class KickstartScriptSerializer extends RhnXmlRpcCustomSerializer {
         SerializerHelper helper = new SerializerHelper(serializer);
 
         helper.add("id", script.getId());
+        helper.add("name", script.getScriptName());
         helper.add("contents", script.getDataContents());
         helper.add("script_type", script.getScriptType());
 
@@ -82,6 +86,11 @@ public class KickstartScriptSerializer extends RhnXmlRpcCustomSerializer {
         helper.add("erroronfail", script.getErrorOnFail());
 
         helper.add("template", !script.getRaw());
+
+        helper.add(
+                "beforeRegistration",
+                script.getScriptType().equals(KickstartScript.TYPE_PRE) ||
+                        script.getPosition() < 0L);
 
         helper.writeTo(output);
     }
