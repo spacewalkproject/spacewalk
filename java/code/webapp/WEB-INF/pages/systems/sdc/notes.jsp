@@ -21,11 +21,11 @@
 
         <rhn:column header="sdc.details.notes.subject" width="35%" sortProperty="subject"
             url="/rhn/systems/details/EditNote.do?sid=${system.id}&nid=${current.id}">
-          ${current.subject}
+          <c:out value="${current.subject}" escapeXml="true" />
         </rhn:column>
 
         <rhn:column header="sdc.details.notes.details" width="50%">
-          <pre>${current.note}</pre>
+          <pre><c:out value="${current.note}" escapeXml="true" /></pre>
         </rhn:column>
 
         <rhn:column header="sdc.details.notes.updated" sortProperty="modified">
