@@ -2,7 +2,7 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 
 <div class="sideleg">
-  <h4><bean:message key="yourrhn-legend.jsp.title" /></h4>
+  <h2><bean:message key="yourrhn-legend.jsp.title" /></h2>
   <ul>
     <li><i class="icon-ok-sign"></i><bean:message key="system-legend.jsp.fully" /></li>
     <li><i class="icon-exclamation-sign"></i><bean:message key="system-legend.jsp.critical" /></li>
