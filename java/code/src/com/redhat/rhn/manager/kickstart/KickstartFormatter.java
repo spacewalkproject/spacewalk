@@ -641,22 +641,25 @@ public class KickstartFormatter {
                     if (kss.getErrorOnFail()) {
                         scriptCommand += SPACE + ERRORONFAIL;
                     }
-                    if (!StringUtils.isBlank(kss.getInterpreter())) {
+                    String kssInterpreter = kss.getInterpreter();
+                    if (!StringUtils.isBlank(kssInterpreter)) {
                         scriptCommand += SPACE + INTERPRETER_OPT + SPACE +
-                                kss.getInterpreter();
+                                kssInterpreter;
                     }
                     retval.append(scriptCommand);
 
                     if (ksdata.getNonChrootPost()) {
                         addLogBegin(retval, POST_LOG_NOCHROOT_FILE + "." +
-                                kss.getPosition(), kss.getInterpreter());
-                        retval.append(RHN_TRACE);
+                                kss.getPosition(), kssInterpreter);
+                        if (isBashInterpreter(kssInterpreter)) {
+                            retval.append(RHN_TRACE);
+                        }
                     }
                     retval.append(NEWLINE);
                     retval.append(kss.getDataContents() + NEWLINE);
                     if (ksdata.getNonChrootPost()) {
                         addLogEnd(retval, POST_LOG_NOCHROOT_FILE + "." + kss.getPosition(),
-                                  kss.getInterpreter());
+                                  kssInterpreter);
                     }
                     addEnd(retval);
                 }
