@@ -11,7 +11,7 @@
       <!--span id="spacewalk-ssm-counter" class="badge">0</span>systems selected</span-->
     </span>
 
-    <a id="clearbtn" class="button" href="/rhn/ssm/index.do">
+    <a id="clear-btn" class="button" href="/rhn/ssm/index.do">
       Manage
     </a>
     <rhn-return-link default="/network">
