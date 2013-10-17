@@ -149,12 +149,12 @@ def Sequence(seq):
     return sql_sequence.Sequence(db, seq)
 
 # Wrapper for the Row class
-def Row(table, hash_name, hash_value = None):
+def Row(table, hash_name, hash_value=None):
     db = __test_DB()
     return sql_row.Row(db, table, hash_name, hash_value)
 
 # Wrapper for the Table class
-def Table(table, hash_name, local_cache = 0):
+def Table(table, hash_name, local_cache=0):
     db = __test_DB()
     return sql_table.Table(db, table, hash_name, local_cache)
 
@@ -181,7 +181,7 @@ def fetchone_dict(sql, *args, **kwargs):
 def commit():
     db = __test_DB()
     return db.commit()
-def rollback(name = None):
+def rollback(name=None):
     db = __test_DB()
     return db.rollback(name)
 def transaction(name):

@@ -343,7 +343,7 @@ class Database:
         "set a transaction point to which we can rollback to"
         pass
 
-    def rollback(self, name = None):
+    def rollback(self, name=None):
         "rollback changes, optionally to a previously set transaction point"
         pass
 

@@ -448,7 +448,7 @@ class Database(sql_base.Database):
         return self._cursor_class(dbh=self.dbh)
 
     # pass-through functions for when you want to do SQL yourself
-    def prepare(self, sql, force=0, blob_map = None):
+    def prepare(self, sql, force=0, blob_map=None):
         # Abuse the map calls to get rid of SQL comments and extra spaces
         sql = string.join(filter(lambda a: len(a),
             map(string.strip,
@@ -500,7 +500,7 @@ class Database(sql_base.Database):
         log_debug(3, self.dbtxt)
         return self.dbh.commit()
 
-    def rollback(self, name = None):
+    def rollback(self, name=None):
         log_debug(3, self.dbtxt, name)
         if name: # we need to roll back to a savepoint
             return self.execute("rollback to savepoint %s" % name)

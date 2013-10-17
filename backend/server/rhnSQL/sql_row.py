@@ -32,7 +32,8 @@ class Row(UserDictCase):
         The easiest way to separate what these things are for is to remember that
         the Table class indexes by KEY, while the Row class indexes by column
     """
-    def __init__(self, db, table, hashname, hashval = None):
+
+    def __init__(self, db, table, hashname, hashval=None):
         UserDictCase.__init__(self)
         if not isinstance(db, sql_base.Database):
             raise rhnException("Argument db is not a database instance", db)
@@ -75,7 +76,7 @@ class Row(UserDictCase):
             return self.data[x][0]
         return None
 
-    def reset(self, val = 0):
+    def reset(self, val=0):
         """ reset the changed status for these entries """
         for k in self.data.keys():
             # tuples do not support item assignement
@@ -91,7 +92,7 @@ class Row(UserDictCase):
         """ load an entry """
         return self.load_sql("%s = :hashval" % self.hashname, {'hashval': hashval})
 
-    def load_sql(self, sql, pdict = {}):
+    def load_sql(self, sql, pdict={}):
         """ load from a sql clause """
         h = self.db.prepare("select * from %s where %s" % (self.table, sql))
         apply(h.execute, (), pdict)
