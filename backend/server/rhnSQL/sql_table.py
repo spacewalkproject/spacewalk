@@ -61,11 +61,11 @@ class RowData(UserDictCase):
 # Some day we'll figure out how to reduce confusion...
 class Table:
     def __init__(self, db, table, hashid, cache=False):
-        if not table or not type(table) == type(""):
+        if not table or not isinstance(table, str):
             raise rhnException("First argument needs to be a table name",
                                table)
         self.__table = table
-        if not hashid or not type(hashid) == type(""):
+        if not hashid or not isinstance(hashid, str):
             raise rhnException("Second argument needs to be the name of the unique index column",
                                hashid)
         self.__hashid = hashid
@@ -91,9 +91,9 @@ class Table:
             if self.__cache is not None:
                 self.__cache[row[self.__hashid]] = row
             return self.__setitem__(None, row)
-        if type(rows) == type({}) or isinstance(rows, UserDictCase):
+        if isinstance(rows, dict) or isinstance(rows, UserDictCase):
             return insert_row(rows)
-        if type(rows) == type([]):
+        if isinstance(rows, list):
             for x in rows:
                 insert_row(x)
             return None
@@ -102,7 +102,7 @@ class Table:
     # select from the whole table all the entries that match the
     # valuies of the hash provided (kind of a complex select)
     def select(self, row):
-        if not type(row) == type({}) and not isinstance(row, UserDictCase):
+        if not isinstance(row, dict) and not isinstance(row, UserDictCase):
             raise rhnException("Expecting hash argument. %s is invalid" % type(row),
                                row)
         if row == {}:
@@ -166,7 +166,7 @@ class Table:
     # values for all columns except the one that functions as the
     # primary key identifier
     def __setitem__(self, key, value):
-        if not type(value) == type({}) and not isinstance(value, UserDictCase):
+        if not isinstance(value, dict) and not isinstance(value, UserDictCase):
             raise TypeError("Expected value to be a hash")
         if self.__hashid in value:  # we don't need that
             if key is None:
