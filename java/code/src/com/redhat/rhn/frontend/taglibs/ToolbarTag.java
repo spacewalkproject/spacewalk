@@ -533,14 +533,22 @@ public class ToolbarTag extends TagSupport {
             HtmlTag tag = new HtmlTag("a");
             tag.setAttribute("href", getHelpUrl());
             tag.setAttribute("target", "_new");
-            tag.setAttribute("class", "help-title");
+            //tag.setAttribute("class", "help-title");
 
-            HtmlTag i = new HtmlTag("i");
-            i.setAttribute("class", "icon-question text-info");
+            HtmlTag stack = new HtmlTag("span");
+            stack.setAttribute("class", "icon-stack");
+            
+            HtmlTag iBack = new HtmlTag("i");
+            iBack.setAttribute("class", "icon-circle icon-stack-base");
+            HtmlTag iFront = new HtmlTag("i");
+            iFront.setAttribute("class", "icon-question icon-light");
 
-            tag.addBody(i.renderOpenTag());
-            tag.addBody(i.renderCloseTag());
+            stack.addBody(iBack.renderOpenTag());
+            stack.addBody(iBack.renderCloseTag());
+            stack.addBody(iFront.renderOpenTag());
+            stack.addBody(iFront.renderCloseTag());
 
+            tag.addBody(stack);
             return tag.render();
         }
         return "";

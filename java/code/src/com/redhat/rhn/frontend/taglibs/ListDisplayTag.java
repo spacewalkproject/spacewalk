@@ -594,7 +594,7 @@ public class ListDisplayTag extends BodyTagSupport {
             page.append("&" + request.getQueryString());
         }
         out.println("<div class=\"spacewalk-csv-download text-right\"><a href=\"" + page +
-              "\"><i class=\"icon-download-alt\"></i>" +
+              "\"><i class=\"spacewalk-icon-download-csv\"></i>" +
               LocalizationService.getInstance().getMessage("listdisplay.csv") +
               "</a></div>");
     }
@@ -663,7 +663,7 @@ public class ListDisplayTag extends BodyTagSupport {
         btnSpan.setAttribute("class", "input-group-btn");
 
         HtmlTag btn = new HtmlTag("button");
-        btn.setAttribute("class", "btn btn-default icon-filter");
+        btn.setAttribute("class", "btn btn-default icon-eye-open");
         btn.setAttribute("type", "submit");
         btn.setAttribute("name", FILTER_DISPATCH);
         //input.setAttribute("value", ls.getMessage(RequestContext.FILTER_KEY));

@@ -51,8 +51,8 @@
   		</rl:list>
 
   		<span class="full-width-note-right">
-		<a href="/rhn/systems/SystemGroupList.do">
-  			<bean:message key="yourrhn.jsp.allgroups" />
+		  <a href="/rhn/systems/SystemGroupList.do">
+  			<div class="btn btn-default spacewalk-btn-margin-vertical"><bean:message key="yourrhn.jsp.allgroups" /></div>
   		</a>
   		</span>
   		

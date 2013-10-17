@@ -20,7 +20,7 @@
     <rhn:csrf />
     <rhn:submitted />
 	<c:if test="${not groups}">
-	  <h2><bean:message key="overview.jsp.systems"/></h2>
+	  <bean:message key="overview.jsp.systems"/>
 	      <%@ include file="/WEB-INF/pages/common/fragments/systems/system_listdisplay.jspf" %>
 	</c:if>
 

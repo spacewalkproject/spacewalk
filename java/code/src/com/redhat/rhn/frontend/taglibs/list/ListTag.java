@@ -483,14 +483,14 @@ public class ListTag extends BodyTagSupport {
 
             ListTagUtil.write(pageContext, "<div class=\"filter-input row\">");
             // column with the filter
-            ListTagUtil.write(pageContext, "<div class=\"col-md-4 text-left\">");
+            ListTagUtil.write(pageContext, "<div class=\"col-md-3 text-left\">");
             if (filter != null && manip.getUnfilteredDataSize() !=  0) {
                 ListTagUtil.renderFilterUI(pageContext, filter,
                             getUniqueName(), width, columnCount,
                             searchParent, searchChild);
             }
             ListTagUtil.write(pageContext, "</div>");
-            ListTagUtil.write(pageContext, "<div class=\"col-md-8 text-right\">");
+            ListTagUtil.write(pageContext, "<div class=\"col-md-9 text-right\">");
             if (!isEmpty()) {
                 for (ListDecorator dec : getDecorators()) {
                     dec.beforeTopPagination();
