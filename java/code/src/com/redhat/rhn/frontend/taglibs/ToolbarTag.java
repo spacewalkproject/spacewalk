@@ -476,7 +476,7 @@ public class ToolbarTag extends TagSupport {
             baseTag.setAttribute("class", "spacewalk-toolbar-" + getBase());
 
             toolbarDivTag = new HtmlTag("div");
-            toolbarDivTag.setAttribute("class", "spacewalk-toolbar pull-right");
+            toolbarDivTag.setAttribute("class", "spacewalk-toolbar");
 
             buf.append(baseTag.renderOpenTag());
             buf.append(toolbarDivTag.renderOpenTag());

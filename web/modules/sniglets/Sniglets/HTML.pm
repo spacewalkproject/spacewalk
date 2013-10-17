@@ -77,6 +77,7 @@ sub toolbar {
   my %params = @_;
 
   my $img = '';
+  my $icon = '';
   my $help = '';
   my @toolbar;
   my $base = $params{base};
@@ -87,7 +88,10 @@ sub toolbar {
     $img = PXT::HTML->img(-src => $params{img},
                           -alt => $params{'alt'} || '');
   }
-  
+
+  if (defined $params{icon}) {
+    $icon= sprintf(qq{<i class="$params{icon}"></i>});
+  }
 
   if (defined $params{'help-url'}) {
     $help = rhn_help($pxt, (href => $params{'help-url'},
@@ -106,6 +110,10 @@ sub toolbar {
 				      img => $params{'misc-img'},
 				      alt => $params{'misc-alt'},
 				      text => $params{'misc-text'}));
+  } elsif (defined $params{'misc-icon'} and $acl->eval_acl($pxt, $params{'misc-acl'} || '')) {
+      push @toolbar, misc_link($pxt, (url => $params{'misc-url'},
+              img => $params{'misc-icon'},
+              text => $params{'misc-text'}));
   }
 
   if (defined $params{'creation-url'} and $acl->eval_acl($pxt, $params{'creation-acl'} || '')) {
@@ -119,28 +127,33 @@ sub toolbar {
 
   my $toolbar = join(" | ", @toolbar);
 
-  return qq{<div class="toolbar-$base"><div class="toolbar">$toolbar</div>$img $params{__block__}$help</div>};
+  return qq{<div class="spacewalk-toolbar-$base"><div class="spacewalk-toolbar">$toolbar</div>$img $icon $params{__block__}$help</div>};
 }
 
 sub creation_link {
   my $pxt = shift;
   my %params = @_;
 
-  return qq{<span class="toolbar"><a href="$params{url}"><img src="/img/action-add.gif" alt="create new $params{type}" title="add new $params{type}" />create new $params{type}</a></span>};
+  return qq{<a href="$params{url}"><i class="icon-plus"></i>create new $params{type}</a>};
 }
 
 sub deletion_link {
   my $pxt = shift;
   my %params = @_;
 
-  return qq{<span class="toolbar"><a href="$params{url}"><img src="/img/action-del.gif" alt="delete $params{type}" title="delete $params{type}" />delete $params{type}</a></span>};
+  return qq{<a href="$params{url}"><i class="icon-trash"></i>delete $params{type}</a>};
 }
 
 sub misc_link {
   my $pxt = shift;
   my %params = @_;
 
-  return qq{<span class="toolbar"><a href="$params{url}"><img src="$params{img}" alt="$params{'alt'}" title="$params{'alt'}" />$params{text}</a></span>};
+  if (defined $params{icon}) {
+    return qq{<a href="$params{url}"><i class="$params{icon}"></i>$params{text}</a>};
+  }
+  else {
+    return qq{<a href="$params{url}"><img src="$params{img}" alt="$params{'alt'}" title="$params{'alt'}" />$params{text}</a>};
+  }
 }
 
 sub rhn_help {
