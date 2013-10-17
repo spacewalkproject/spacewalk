@@ -1,7 +1,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 
 <div class="sideleg">
-  <h2><bean:message key="probes-list-legend.jsp.title"/></h2>
+  <h4><bean:message key="probes-list-legend.jsp.title"/></h4>
   <ul>
   <li><i class="spacewalk-icon-health spacewalk-icon-green"></i>
     <bean:message key="probes-list-legend.jsp.ok"/>

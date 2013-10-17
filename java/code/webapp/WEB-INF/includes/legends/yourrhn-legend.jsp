@@ -2,7 +2,7 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 
 <div class="sideleg">
-  <h2><bean:message key="yourrhn-legend.jsp.title" /></h2>
+  <h4><bean:message key="yourrhn-legend.jsp.title" /></h4>
   <ul>
     <li><i class="icon-ok-sign"></i><bean:message key="system-legend.jsp.fully" /></li>
     <li><i class="icon-exclamation-sign"></i><bean:message key="system-legend.jsp.critical" /></li>
@@ -12,7 +12,7 @@
       <li><i class="spacewalk-icon-locked-system"></i><bean:message key="system-legend.jsp.locked" /></li>
     </rhn:require>
     <rhn:require acl="org_entitlement(rhn_provisioning)">
-      <li><i class="spacewalk-icon-autoinstalling"></i><bean:message key="system-legend.jsp.kickstarting" /></li>
+      <li><i class="icon-rocket"></i><bean:message key="system-legend.jsp.kickstarting" /></li>
     </rhn:require>
     <li><i class="icon-time"></i><bean:message key="system-legend.jsp.pending" /></li>
     <li><i class="icon-remove-circle"></i><bean:message key="yourrhn-legend.jsp.failedactions" /></li>

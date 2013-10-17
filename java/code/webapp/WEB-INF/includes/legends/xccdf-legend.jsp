@@ -2,7 +2,7 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 
 <div class="sideleg">
-<h2><bean:message key="system.audit.listscap.jsp.legend"/></h2>
+<h4><bean:message key="system.audit.listscap.jsp.legend"/></h4>
 <ul>
 <li><bean:message key="system.audit.listscap.jsp.pass.abb"/> -
 	<bean:message key="system.audit.listscap.jsp.pass"/></li>
