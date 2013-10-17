@@ -613,7 +613,9 @@ public class KickstartFormatter {
             else if (ksdata.getNonChrootPost() && !isPre && !kss.thisScriptIsChroot()) {
                 addLogBegin(retval, POST_LOG_NOCHROOT_FILE + "." + this.postLogPostfix,
                         kss.getInterpreter());
-                retval.append(RHN_TRACE);
+                if (isBashInterpreter(kss.getInterpreter())) {
+                    retval.append(RHN_TRACE);
+                }
             }
             else {
                 retval.append(NEWLINE);
