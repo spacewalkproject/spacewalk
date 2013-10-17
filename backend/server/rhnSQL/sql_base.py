@@ -52,9 +52,7 @@ def __oci_name_value(names, value):
 
 # this is for when an execute statement went bad...
 class SQLError(Exception):
-    def __init__(self, *args):
-        apply(Exception.__init__, (self, ) + args)
-
+    pass
 
 
 # other Schema Errors

@@ -81,9 +81,9 @@ class Row(UserDictCase):
 
     def reset(self, val=0):
         """ reset the changed status for these entries """
-        for k in self.data.keys():
+        for k, v in self.data.items():
             # tuples do not support item assignement
-            self.data[k] = (self.data[k][0], val)
+            self.data[k] = (v[0], val)
 
     def create(self, hashval):
         """ create it as a new entry """
@@ -104,8 +104,8 @@ class Row(UserDictCase):
         if not ret:
             self.real = 0
             return 0
-        for k in ret.keys():
-            self.data[k] = (ret[k], 0)
+        for k, v in ret.items():
+            self.data[k] = (v, 0)
         self.real = 1
         return 1
 
