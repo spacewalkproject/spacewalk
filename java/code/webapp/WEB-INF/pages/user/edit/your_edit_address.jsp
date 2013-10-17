@@ -12,7 +12,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4>
-                    ${editAddressForm.map.typedisplay}
+                    <c:out value="${editAddressForm.map.typedisplay}" escapeXml="true" />
                     <bean:message key="your_edit_address_record.displayname"/>
                 </h4>
             </div>

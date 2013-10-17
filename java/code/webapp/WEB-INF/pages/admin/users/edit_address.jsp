@@ -7,7 +7,10 @@
 <html>
     <body>
         <%@ include file="/WEB-INF/pages/common/fragments/user/user-header.jspf" %>
-        <h2><bean:message key="message.Update"/> ${editAddressForm.map.typedisplay}</h2>
+        <h2>
+            <bean:message key="message.Update"/>
+            <c:out value="${editAddressForm.map.typedisplay}" escapeXml="true" />
+        </h2>
         <p><bean:message key="edit_address.jsp.summary"/></p>
         <html:form action="/users/EditAddressSubmit" styleClass="form-horizontal">
             <rhn:csrf />
