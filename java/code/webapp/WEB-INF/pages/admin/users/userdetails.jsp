@@ -62,7 +62,7 @@
                 </label>
             </div>
 
-            <hidden name="disabledRoles" value="${disabledRoles}"/>
+            <input type="hidden" name="disabledRoles" value="${disabledRoles}"/>
 
             <div class="form-group">
                 <div class="col-lg-offset-3 col-lg-6">
