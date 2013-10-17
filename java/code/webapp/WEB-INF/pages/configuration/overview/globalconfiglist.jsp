@@ -9,7 +9,7 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-config_namespace-2.gif" imgAlt="config.jsp.imgAlt"
+<rhn:toolbar base="h1" icon="spacewalk-icon-Software-Channel-Management" imgAlt="config.jsp.imgAlt"
  helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-files-central"
  creationUrl="/rhn/configuration/ChannelCreate.do?editing=true"
  creationType="configchannel"
