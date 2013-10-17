@@ -36,6 +36,7 @@ from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnException
 from const import POSTGRESQL
 
+
 def convert_named_query_params(query):
     """
     Convert a query with named parameters (i.e. :id, :name, etc) into one
@@ -131,6 +132,7 @@ def decimal2intfloat(dec, cursor):
     except ValueError:
         return float(dec)
 
+
 class Database(sql_base.Database):
     """ Class for PostgreSQL database operations. """
 
@@ -188,17 +190,17 @@ class Database(sql_base.Database):
         if not port:
             port = -1
         return (backend == POSTGRESQL) and (self.host == host) and \
-               (self.port == port) and (self.username == username) \
-               and (self.password == password) and (self.database == database)
+               (self.port == port) and (self.username == username) and \
+               (self.password == password) and (self.database == database)
 
     def check_connection(self):
         try:
             c = self.prepare("select 1")
             c.execute()
-        except: # try to reconnect, that one MUST WORK always
+        except:  # try to reconnect, that one MUST WORK always
             log_error("DATABASE CONNECTION TO '%s' LOST" % self.database,
                       "Exception information: %s" % sys.exc_info()[1])
-            self.connect() # only allow one try
+            self.connect()  # only allow one try
 
     def prepare(self, sql, force=0, blob_map=None):
         return Cursor(dbh=self.dbh, sql=sql, force=force, blob_map=blob_map)
@@ -240,7 +242,6 @@ class Database(sql_base.Database):
         return str(lob)
 
 
-
 class Cursor(sql_base.Cursor):
     """ PostgreSQL specific wrapper over sql_base.Cursor. """
 
@@ -261,15 +262,15 @@ class Cursor(sql_base.Cursor):
         return cursor
 
     def _execute_wrapper(self, function, *p, **kw):
-        params =  ','.join(["%s: %s" % (key, value) for key, value \
-                            in kw.items()])
+        params = ','.join(["%s: %s" % (key, value) for key, value
+                          in kw.items()])
         log_debug(5, "Executing SQL: \"%s\" with bind params: {%s}"
                   % (self.sql, params))
         if self.sql is None:
             raise rhnException("Cannot execute empty cursor")
         if self.blob_map:
             for blob_var in self.blob_map.keys():
-                 kw[blob_var] = buffer(kw[blob_var])
+                kw[blob_var] = buffer(kw[blob_var])
 
         try:
             retval = apply(function, p, kw)
@@ -277,7 +278,7 @@ class Cursor(sql_base.Cursor):
             error_code = 99999
             m = re.match('ERROR: +-([0-9]+)', e.pgerror)
             if m:
-               error_code = int(m.group(1))
+                error_code = int(m.group(1))
             raise sql_base.SQLSchemaError(error_code, e.pgerror, e)
         except psycopg2.ProgrammingError, e:
             raise sql_base.SQLStatementPrepareError(self.dbh, e.pgerror, self.sql)

@@ -19,6 +19,7 @@ from spacewalk.common.rhnException import rhnException
 
 import sql_base
 
+
 # A class to handle sequences
 # XXX: this is still Oracle specific, but it shouldn't be
 class Sequence:
@@ -35,7 +36,7 @@ class Sequence:
         cursor = self.__db.prepare(sql)
         cursor.execute()
         ret = cursor.fetchone_dict()
-        if ret is None: # how the hell can this happen?
+        if ret is None:  # how the hell can this happen?
             return ret
         return int(ret['id'])
 

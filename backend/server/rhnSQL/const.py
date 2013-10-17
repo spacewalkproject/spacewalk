@@ -20,7 +20,6 @@ POSTGRESQL = "postgresql"
 
 # Backend constants:
 SUPPORTED_BACKENDS = {
-        ORACLE: "",
-        POSTGRESQL: "",
+    ORACLE: "",
+    POSTGRESQL: "",
 }
-

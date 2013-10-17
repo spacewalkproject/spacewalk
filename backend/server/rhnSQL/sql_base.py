@@ -28,6 +28,7 @@ import sys
 import sql_types
 import types
 
+
 def ociDict(names=None, row=None):
     """ Create a dictionary from a row description and its values. """
     data = {}
@@ -40,12 +41,14 @@ def ociDict(names=None, row=None):
         data[name] = value
     return data
 
+
 def __oci_name_value(names, value):
     """ Extract the name, value pair needed by ociDict function. """
     # the format of the names is
     name, dbitype, dsize, dbsize, prec, scale, nullok = names
     name = name.lower()
     return name, value
+
 
 # this is for when an execute statement went bad...
 class SQLError(Exception):
@@ -58,12 +61,11 @@ class SQLError(Exception):
 class SQLSchemaError(SQLError):
     def __init__(self, errno, errmsg, *args):
         self.errno = errno
-        (self.errmsg, errmsg)  = string.split(errmsg, '\n', 1)
+        (self.errmsg, errmsg) = string.split(errmsg, '\n', 1)
         if len(args):
             apply(SQLError.__init__, (self, self.errno, self.errmsg, errmsg) + args)
         else:
             apply(SQLError.__init__, (self, errno, self.errmsg) + (errmsg,))
-
 
 
 # SQL connect error
@@ -78,7 +80,6 @@ class SQLConnectError(SQLError):
             SQLError.__init__(self, errno, errmsg, db)
 
 
-
 # Cannot prepare statement
 class SQLStatementPrepareError(SQLError):
     def __init__(self, db, errmsg, *args):
@@ -87,10 +88,8 @@ class SQLStatementPrepareError(SQLError):
         apply(SQLError.__init__, (self, errmsg, db) + args)
 
 
-
 class ModifiedRowError(SQLError):
     pass
-
 
 
 class Cursor:
@@ -220,7 +219,6 @@ class Cursor:
     # Please note: these functions return None if no data is available,
     # not an empty tuple or a list of empty tuples, or an empty list
     # or any other combination you can imagine with the word "empty" in it.
-
     def fetchone(self):
         return self._real_cursor.fetchone()
 
@@ -260,7 +258,6 @@ class Cursor:
         return 0
 
 
-
 class Procedure:
     """
     Class for calling out to stored procedures.
@@ -278,7 +275,6 @@ class Procedure:
         if self.cursor:
             self.cursor.close()
             self.cursor = None
-
 
 
 class Database:
@@ -362,7 +358,7 @@ class Database:
         return None
 
     def is_connected_to(self, backend, host, port, username, password,
-            database):
+                        database):
         """
         Check if this database matches the given connection parameters.
         """

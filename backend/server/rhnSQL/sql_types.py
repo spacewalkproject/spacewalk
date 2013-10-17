@@ -16,9 +16,11 @@
 # Database types we support for out variables
 #
 
+
 # Data types
 class DatabaseDataType:
     type_name = None
+
     def __init__(self, value=None, size=None):
         self.size = size or 1
         self.set_value(value)
@@ -36,18 +38,21 @@ class DatabaseDataType:
 class NUMBER(DatabaseDataType):
     type_name = "NUMBER"
 
+
 class STRING(DatabaseDataType):
     type_name = "STRING"
+
     def __init__(self, value=None, size=None):
         DatabaseDataType.__init__(self, value=value, size=size)
         if not size:
             self.size = 4000
 
+
 class BINARY(DatabaseDataType):
     type_name = "BINARY"
+
 
 class LONG_BINARY(DatabaseDataType):
     type_name = "LONG_BINARY"
 
 # XXX More data types to be added as we find need for them
-

@@ -23,6 +23,7 @@
 
 import string
 
+
 def build_sql_insert(table, hash_name, items):
     """ This statement builds a sql statement for an insert
         of 'items' into "table" indexed by "hash_name"
@@ -31,9 +32,10 @@ def build_sql_insert(table, hash_name, items):
         table, hash_name,
         string.join(map(lambda a: a[0], items), ", "),
         string.join(map(lambda a: ":p_%s" % a[0], items), ", "))
-    pdict = { "p0" : None } # This must be reset after we return from this call
-    map(pdict.update, map(lambda a : { "p_%s" % a[0] : a[1] }, items))
+    pdict = {"p0": None}  # This must be reset after we return from this call
+    map(pdict.update, map(lambda a: {"p_%s" % a[0]: a[1]}, items))
     return sql, pdict
+
 
 def build_sql_update(table, hash_name, items):
     """ This statement builds a sql statement for an update
@@ -45,7 +47,6 @@ def build_sql_update(table, hash_name, items):
                         map(lambda a: a[0], items)),
                     ", "),
         hash_name)
-    pdict = { "p0" : None } # This must be reset after we return from this call
-    map(pdict.update, map(lambda a : { "p_%s" % a[0] : a[1] }, items))
+    pdict = {"p0": None}  # This must be reset after we return from this call
+    map(pdict.update, map(lambda a: {"p_%s" % a[0]: a[1]}, items))
     return sql, pdict
-

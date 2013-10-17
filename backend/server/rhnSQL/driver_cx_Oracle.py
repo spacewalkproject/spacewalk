@@ -44,6 +44,7 @@ ORACLE_TYPE_MAPPING = [
     (sql_types.LONG_BINARY, cx_Oracle.LONG_BINARY),
 ]
 
+
 class Cursor(sql_base.Cursor):
     """
     Wrapper that should just transform Oracle specific exceptions into
@@ -55,7 +56,7 @@ class Cursor(sql_base.Cursor):
 
         try:
             sql_base.Cursor.__init__(self, dbh=dbh, sql=sql,
-                    force=force)
+                                     force=force)
             self._type_mapping = ORACLE_TYPE_MAPPING
             self.blob_map = blob_map
         except sql_base.SQLSchemaError, e:
@@ -89,19 +90,19 @@ class Cursor(sql_base.Cursor):
         return cursor
 
     def _execute_wrapper(self, function, *p, **kw):
-        params =  ','.join(["%s: %s" % (repr(key), repr(value)) for key, value \
-                in kw.items()])
+        params = ','.join(["%s: %s" % (repr(key), repr(value)) for key, value
+                           in kw.items()])
         log_debug(5, "Executing SQL: \"%s\" with bind params: {%s}"
-                % (self.sql, params))
+                  % (self.sql, params))
         if self.sql is None:
             raise rhnException("Cannot execute empty cursor")
         if self.blob_map:
             blob_content = {}
             for orig_blob_var in self.blob_map.keys():
-                 new_blob_var = orig_blob_var + '_blob'
-                 blob_content[new_blob_var] = kw[orig_blob_var]
-                 kw[new_blob_var] = self.var(cx_Oracle.BLOB)
-                 del kw[orig_blob_var]
+                new_blob_var = orig_blob_var + '_blob'
+                blob_content[new_blob_var] = kw[orig_blob_var]
+                kw[new_blob_var] = self.var(cx_Oracle.BLOB)
+                del kw[orig_blob_var]
         modified_params = self._munge_args(kw)
 
         try:
@@ -114,26 +115,26 @@ class Cursor(sql_base.Cursor):
             if 900 <= errno <= 999:
                 # Per Oracle's documentation, SQL parsing error
                 raise sql_base.SQLStatementPrepareError(errno, errmsg, self.sql), None, sys.exc_info()[2]
-            if errno == 1475: # statement needs to be reparsed; force a prepare again
-                if self.reparsed: # useless, tried that already. give up
+            if errno == 1475:  # statement needs to be reparsed; force a prepare again
+                if self.reparsed:  # useless, tried that already. give up
                     log_error("Reparsing cursor did not fix it", self.sql)
                     args = ("Reparsing tried and still got this",) + tuple(ret)
                     raise sql_base.SQLError(*args), None, sys.exc_info()[2]
                 self._real_cursor = self.dbh.prepare(self.sql)
                 self.reparsed = 1
                 apply(self._execute_wrapper, (function, ) + p, kw)
-            elif 20000 <= errno <= 20999: # error codes we know we raise as schema errors
+            elif 20000 <= errno <= 20999:  # error codes we know we raise as schema errors
                 raise sql_base.SQLSchemaError(*ret), None, sys.exc_info()[2]
             raise apply(sql_base.SQLError, ret), None, sys.exc_info()[2]
         except ValueError:
             # this is not good.Let the user know
             raise
         else:
-            self.reparsed = 0 # reset the reparsed counter
+            self.reparsed = 0  # reset the reparsed counter
 
         if self.blob_map:
             for blob_var, content in blob_content.items():
-                 kw[blob_var].getvalue().write(content)
+                kw[blob_var].getvalue().write(content)
         # Munge back the values
         self._unmunge_args(kw, modified_params)
         return retval
@@ -194,7 +195,7 @@ class Cursor(sql_base.Cursor):
             for i in xrange(item_count):
                 pdict = arr[i]
                 for k, v in kwargs.iteritems():
-                    pdict[k] = to_string(v[start+i])
+                    pdict[k] = to_string(v[start + i])
 
             # We clear self->bindVariables so that list of all nulls
             # in the previous chunk which caused the type to be set to
@@ -264,10 +265,10 @@ class Cursor(sql_base.Cursor):
         return modified
 
     def update_blob(self, table_name, column_name, where_clause, data,
-            **kwargs):
+                    **kwargs):
         sql = "SELECT %s FROM %s %s FOR update of %s" % \
             (column_name, table_name, where_clause, column_name)
-        c= rhnSQL.prepare(sql)
+        c = rhnSQL.prepare(sql)
         apply(c.execute, (), kwargs)
         row = c.fetchone_dict()
         blob = row[column_name]
@@ -293,9 +294,9 @@ class Procedure(sql_base.Procedure):
         except cx_Oracle.DatabaseError, e:
             if not hasattr(e, "args"):
                 raise sql_base.SQLError(self.name, args), None, sys.exc_info()[2]
-            elif 20000 <= e[0].code <= 20999: # error codes we know we raise as schema errors
+            elif 20000 <= e[0].code <= 20999:  # error codes we know we raise as schema errors
 
-               raise sql_base.SQLSchemaError(e[0].code, str(e[0])), None, sys.exc_info()[2]
+                raise sql_base.SQLSchemaError(e[0].code, str(e[0])), None, sys.exc_info()[2]
             raise sql_base.SQLError(e[0].code, str(e[0])), None, sys.exc_info()[2]
         except cx_Oracle.NotSupportedError, error:
             raise sql_base.SQLError(*error.args), None, sys.exc_info()[2]
@@ -341,7 +342,6 @@ class Procedure(sql_base.Procedure):
             return self.cursor.callproc(self.name, args)
 
 
-
 class Function(Procedure):
     def __init__(self, name, proc, ret_type):
         Procedure.__init__(self, name, proc)
@@ -351,7 +351,6 @@ class Function(Procedure):
         return self._call_proc_ret(args, self.ret_type)
 
 
-
 class Database(sql_base.Database):
     _cursor_class = Cursor
     _procedure_class = Procedure
@@ -359,7 +358,7 @@ class Database(sql_base.Database):
     OracleError = cx_Oracle.DatabaseError
 
     def __init__(self, host=None, port=None, username=None,
-        password=None, database=None):
+                 password=None, database=None):
 
         # Oracle requires enough info to connect
         if not (username and password and database):
@@ -396,7 +395,7 @@ class Database(sql_base.Database):
                 # we don't try to reconnect blindly.  We have a list of
                 # known "good" failure codes that warrant a reconnect
                 # attempt
-                if errno in [ 12547 ] : # lost contact
+                if errno in [12547]:  # lost contact
                     return self.connect(reconnect=0)
                 err_args = [self.dbtxt, errno, errmsg]
                 err_args.extend(list(ret[2:]))
@@ -412,13 +411,13 @@ class Database(sql_base.Database):
     def _connect(self):
         dbh = cx_Oracle.Connection(self.username, self.password, self.database)
         if hasattr(sys, "argv"):
-          dbh.cursor().execute(
-                  "BEGIN DBMS_APPLICATION_INFO.SET_MODULE('%s',NULL); END;"
-                  % sys.argv[0])
+            dbh.cursor().execute(
+                "BEGIN DBMS_APPLICATION_INFO.SET_MODULE('%s',NULL); END;"
+                % sys.argv[0])
         return dbh
 
     def is_connected_to(self, backend, host, port, username, password,
-            database):
+                        database):
         # NOTE: host and port are unused for Oracle:
         return (backend == ORACLE) and (self.username == username) and \
             (self.password == password) and (self.database == database)
@@ -459,11 +458,11 @@ class Database(sql_base.Database):
             col_list = []
             bind_list = []
             for bind_var, column in blob_map.items():
-                r=re.compile(":%s" % bind_var)
+                r = re.compile(":%s" % bind_var)
                 sql = re.sub(r, 'empty_blob()', sql)
                 col_list.append(column)
                 bind_list.append(":%s_blob" % bind_var)
-            sql += " returning %s into %s" %(','.join(col_list), ','.join(bind_list))
+            sql += " returning %s into %s" % (','.join(col_list), ','.join(bind_list))
         # this way we only hit the network once for each sql statement
         return self._cursor_class(dbh=self.dbh, sql=sql, force=force, blob_map=blob_map)
 
@@ -502,7 +501,7 @@ class Database(sql_base.Database):
 
     def rollback(self, name=None):
         log_debug(3, self.dbtxt, name)
-        if name: # we need to roll back to a savepoint
+        if name:  # we need to roll back to a savepoint
             return self.execute("rollback to savepoint %s" % name)
         return self.dbh.rollback()
 
@@ -510,10 +509,10 @@ class Database(sql_base.Database):
         try:
             h = self.prepare("select 1 from dual")
             h.execute()
-        except: # try to reconnect, that one MUST WORK always
+        except:  # try to reconnect, that one MUST WORK always
             log_error("DATABASE CONNECTION TO '%s' LOST" % self.dbtxt,
                       "Exception information: %s" % sys.exc_info()[1])
-            self.connect() # only allow one try
+            self.connect()  # only allow one try
         return 0
 
     # function that attempts to fix the environment variables
@@ -552,4 +551,3 @@ class Database(sql_base.Database):
 
     def DatetimeFromTicks(self, ticks):
         return cx_Oracle.DatetimeFromTicks(ticks)
-

@@ -43,9 +43,12 @@ class RowData(UserDictCase):
         h.execute(new_val=value, row_id=self.__rowid)
         # keep self.data in sync
         self.data[key] = value
-        if self.__cache: # maintain cache consistency
-            try: self.__cache[self.__rowid][key] = value
-            except: pass
+        if self.__cache:  # maintain cache consistency
+            try:
+                self.__cache[self.__rowid][key] = value
+            except:
+                pass
+
 
 # A class to handle operations on a table.
 #
@@ -77,7 +80,7 @@ class Table:
         if not value:
             self.__cache = None
             return
-        if self.__cache is not None: # already enabled
+        if self.__cache is not None:  # already enabled
             return
         self.__cache = {}
 
@@ -173,7 +176,7 @@ class Table:
         if key is None:
             raise KeyError("Can not insert entry with NULL key")
         items = value.items()
-        if items == []: # quick check for noop
+        if items == []:  # quick check for noop
             return
         sql = None
         if self.has_key(key):
@@ -181,7 +184,7 @@ class Table:
         else:
             sql, pdict = sql_lib.build_sql_insert(self.__table, self.__hashid, items)
         # import the value of the hash key
-        pdict["p0"] =  key
+        pdict["p0"] = key
         h = self.__db.prepare(sql)
         apply(h.execute, (), pdict)
         try:
@@ -204,8 +207,10 @@ class Table:
         h = self.__db.prepare("delete from %s where %s = :p1" % (
             self.__table, self.__hashid))
         h.execute(p1=key)
-        try: del self.__cache[key]
-        except: pass
+        try:
+            del self.__cache[key]
+        except:
+            pass
         return 0
 
     # get all keys
@@ -240,12 +245,13 @@ class Table:
 
     # flush the cache. if cache is off, then noop
     def flush(self):
-        if self.__cache is not None: # avoid turning caching on when flushing
+        if self.__cache is not None:  # avoid turning caching on when flushing
             self.__cache = {}
 
     # passthrough commit
     def commit(self):
         return self.__db.commit()
+
     # passthrough rollback
     def rollback(self):
         self.flush()
