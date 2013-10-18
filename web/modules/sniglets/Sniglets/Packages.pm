@@ -94,7 +94,7 @@ sub package_dependencies {
   $package = RHN::Package->lookup(-id => $pid);
   $pxt->pnotes(package_name => $package->nvre);
 
-  foreach my $dependency (qw/requires provides obsoletes conflicts recommends suggests supplements/) {
+  foreach my $dependency (qw/requires provides obsoletes conflicts recommends suggests supplements enhances/) {
     my @list = $package->$dependency();
     my $dep_list;
     foreach my $dep (@list) {

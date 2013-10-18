@@ -35,6 +35,9 @@
     <h2>Supplements</h2>
     <p>{package_supplements}</p>
 
+    <h2>Enhances</h2>
+    <p>{package_enhances}</p>
+
 </rhn-package-dependencies>
 
   </grail-canvas-template>
