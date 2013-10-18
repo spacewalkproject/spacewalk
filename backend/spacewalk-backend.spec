@@ -512,6 +512,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/common/rhn_mpm.py*
 %{pythonrhnroot}/common/rhn_pkg.py*
 %{pythonrhnroot}/common/rhn_rpm.py*
+%{pythonrhnroot}/common/stringutils.py*
 
 %files config-files-common
 %doc LICENSE

@@ -27,7 +27,8 @@ SPACEWALK_FILES	=   __init__ \
 	    rhn_deb \
 	    rhn_mpm \
 	    rhn_pkg \
-	    rhn_rpm
+	    rhn_rpm \
+	    stringutils
 SCRIPTS = spacewalk-cfg-get
 
 # check if we can build man pages
