@@ -17,7 +17,7 @@ function showFiltered() {
 </head>
 
 <body onLoad="onLoadStuff(3); showFiltered();">
-<rhn:toolbar base="h1" img="/img/rhn-icon-org.gif">
+<rhn:toolbar base="h1" icon="icon-group">
   ${trustorg}
 </rhn:toolbar>
 

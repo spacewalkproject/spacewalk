@@ -6,7 +6,7 @@
 
 <html>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-org.gif">
+<rhn:toolbar base="h1" icon="icon-group">
   <bean:message key="orgdelete.jsp.header1" arg0="${orgName}"/>
 </rhn:toolbar>
 

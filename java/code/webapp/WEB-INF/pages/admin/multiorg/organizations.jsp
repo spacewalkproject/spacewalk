@@ -6,7 +6,7 @@
 
 <html>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-org.gif"
+<rhn:toolbar base="h1" icon="icon-group"
      creationUrl="/rhn/admin/multiorg/OrgCreate.do"
      creationType="org">
   <bean:message key="organizations.jsp.toolbar"/>

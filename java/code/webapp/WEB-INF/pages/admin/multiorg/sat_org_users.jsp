@@ -6,7 +6,7 @@
 
 <html>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-org.gif"
+<rhn:toolbar base="h1" icon="icon-group"
  miscUrl="${url}"
  miscAcl="user_role(org_admin)"
  miscText="${text}"

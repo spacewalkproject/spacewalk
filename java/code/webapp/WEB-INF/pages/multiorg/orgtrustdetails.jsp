@@ -5,7 +5,7 @@
 
 <html:html xhtml="true">
   <body>
-    <rhn:toolbar base="h1" img="/img/rhn-icon-org.gif" >
+    <rhn:toolbar base="h1" icon="icon-group" >
       ${orgtrust}
     </rhn:toolbar>
     <rhn:dialogmenu mindepth="0" maxdepth="3"
