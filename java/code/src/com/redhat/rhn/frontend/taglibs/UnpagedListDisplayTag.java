@@ -317,8 +317,10 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
 
     private void renderFilterBox(JspWriter out) throws IOException {
         LocalizationService ls = LocalizationService.getInstance();
-        HtmlTag tag = new HtmlTag("div");
-        tag.setAttribute("class", "filter-input");
+        HtmlTag tagFilterInput = new HtmlTag("div");
+        tagFilterInput.setAttribute("class", "filter-input");
+        HtmlTag tagInputGroup = new HtmlTag("div");
+        tagInputGroup.setAttribute("class", "input-group input-group-sm");
 
         StringBuffer buf = new StringBuffer();
         HtmlTag input = new HtmlTag("input");
@@ -344,12 +346,12 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
          * TODO: This is BAD. Makes the code specific to the Chanel Tree view
          * Should be fixed in future versions
          */
-        tag.addBody(ls.getMessage("message.filterby", ls.getMessage(filterBy)) +
-                    buf.toString());
-
+        tagInputGroup.addBody(ls.getMessage("message.filterby", ls.getMessage(filterBy)) +
+                buf.toString());
+        tagFilterInput.addBody(tagInputGroup);
 
         if (type.equals("treeview")) {
-            tag.addBody("<div style=\"text-align: right;\">" +
+            tagFilterInput.addBody("<div style=\"text-align: right;\">" +
                     "<a href=\"javascript:showAllRows();\" style=\"cursor: pointer;\">" +
                     ls.getMessage("channels.overview.showall") +
                     "</a>&nbsp;&nbsp;|&nbsp;&nbsp;" +
@@ -357,8 +359,7 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
                     ls.getMessage("channels.overview.hideall") + "</a></div>");
         }
 
-
-        out.println(tag.render());
+        out.println(tagFilterInput.render());
     }
 
     private String getTrElement(Object o, int row) {
