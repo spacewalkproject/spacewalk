@@ -67,3 +67,19 @@
 .table-rounded tbody tr:last-child td{
 	border-bottom: 1px solid @gray-light;
 }
+
+
+.table thead > tr > td{
+	padding: 0
+}
+// colour to the head, except for when it is the last TR in the thead (it will be white)
+thead tr{
+	background: #e7e7e7;
+	&:last-of-type{
+		background: #ffffff;
+	}
+}
+// Colour to the tfoot
+tfoot{
+	background: #f3f3f3
+}

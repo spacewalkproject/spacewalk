@@ -463,19 +463,22 @@ h1 .icon-stack {
 }
 
 /* spacewalk toolbar */
-.spacewalk-toolbar {
-	.pull-right;
-	padding: .5em 1em;
-	a {
-		border-right:1px solid @gray-light;
-		padding: 0 .5em
-	}
-	a:hover {
-		text-decoration: none;
-	}
-	a:last-child {
-		border-right:0
-	}
+.spacewalk-toolbar-h1{
+	margin-bottom: 1.5em;
+	.spacewalk-toolbar {
+		.pull-right;
+		padding: .5em 1em;
+		a {
+			border-right:1px solid @gray-light;
+			padding: 0 .5em
+		}
+		a:hover {
+			text-decoration: none;
+		}
+		a:last-child {
+			border-right:0
+		}
+	}	
 }
 
 /* systems selected tool*/
@@ -499,4 +502,10 @@ h1 .icon-stack {
 /* btn with margin top and bottom */
 .btn.spacewalk-btn-margin-vertical{
 	margin: 1em 0
+}
+
+//button dispatch
+input[name="dispatch"]{
+	.btn;
+	.btn-default;
 }
