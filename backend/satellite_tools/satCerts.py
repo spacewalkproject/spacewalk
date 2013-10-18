@@ -151,13 +151,13 @@ from (
         CFO.label,
            CFO.current_members, coalesce(CFO.max_members, 0) as max_members,
            CFO.fve_current_members, coalesce(CFO.fve_max_members, 0) as fve_max_members,
-           (select count(CFS.server_id)
+           (select count(distinct CFS.server_id)
             from rhnChannelFamilyServers CFS
             where CFS.customer_id = CFO.org_id
               and CFS.channel_family_id = CFO.id
               and CFS.server_id not in
                  (select virtual_system_id from rhnVirtualInstance)) as physical_count,
-            (select count(CFS.server_id)
+            (select count(distinct CFS.server_id)
             from rhnChannelFamilyServers CFS
             where CFS.customer_id = CFO.org_id
               and CFS.channel_family_id = CFO.id
