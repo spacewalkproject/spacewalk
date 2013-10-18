@@ -26,7 +26,7 @@ import com.redhat.rhn.testing.UserTestUtils;
  * KickstartsSetupActionTest
  * @version $Rev: 1 $
  */
-public class ScriptSetupActionTest extends RhnMockStrutsTestCase {
+public class ScriptsSetupActionTest extends RhnMockStrutsTestCase {
 
     public void testKickstartList() throws Exception {
         // Create a kickstart and the defaults so the list

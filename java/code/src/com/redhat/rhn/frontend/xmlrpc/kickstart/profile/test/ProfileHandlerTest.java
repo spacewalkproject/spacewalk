@@ -169,6 +169,70 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         assertTrue(found);
     }
 
+    public void testOrderScripts() throws Exception {
+        KickstartData ks = KickstartDataTest.createKickstartWithChannel(admin.getOrg());
+        // delete kickstart scripts that are already there
+        List<KickstartScript> scripts = handler.listScripts(adminKey, ks.getLabel());
+        for (KickstartScript script : scripts) {
+            handler.removeScript(adminKey, ks.getLabel(), script.getId().intValue());
+        }
+        ks = (KickstartData) HibernateFactory.reload(ks);
+
+        int idPost1 =
+                handler.addScript(adminKey, ks.getLabel(), "myPost1", "This is a script",
+                        "", "post", true);
+        int idPost2 =
+                handler.addScript(adminKey, ks.getLabel(), "myPost2", "This is a script",
+                        "", "post", true);
+        int idPostNochroot1 =
+                handler.addScript(adminKey, ks.getLabel(), "myPostNochroot1",
+                        "This is a script", "", "post", false);
+        int idPostNochroot2 =
+                handler.addScript(adminKey, ks.getLabel(), "myPostNochroot2",
+                        "This is a script", "", "post", false);
+        int idPre1 =
+                handler.addScript(adminKey, ks.getLabel(), "myPre1", "This is a script",
+                        "", "pre", false);
+        int idPre2 =
+                handler.addScript(adminKey, ks.getLabel(), "myPre2", "This is a script",
+                        "", "pre", false);
+        ks = (KickstartData) HibernateFactory.reload(ks);
+
+        // make sure they're in the proper order initially
+        scripts = handler.listScripts(adminKey, ks.getLabel());
+        assertNotNull(scripts);
+        assertEquals(6, scripts.size());
+        assertEquals(idPre1, scripts.get(0).getId().intValue());
+        assertEquals(scripts.get(1).getId().intValue(), idPre2);
+        assertEquals(scripts.get(2).getId().intValue(), idPostNochroot1);
+        assertEquals(scripts.get(3).getId().intValue(), idPostNochroot2);
+        assertEquals(scripts.get(4).getId().intValue(), idPost1);
+        assertEquals(scripts.get(5).getId().intValue(), idPost2);
+
+        List<Integer> orderedPre = new ArrayList<Integer>();
+        List<Integer> orderedPostBefore = new ArrayList<Integer>();
+        List<Integer> orderedPostAfter = new ArrayList<Integer>();
+        orderedPre.add(idPre2);
+        orderedPre.add(idPre1);
+        orderedPostBefore.add(idPost1);
+        orderedPostBefore.add(idPostNochroot1);
+        orderedPostAfter.add(idPost2);
+        orderedPostAfter.add(idPostNochroot2);
+
+        //make the acutal call
+        handler.orderScripts(adminKey, ks.getLabel(), orderedPre, orderedPostBefore,
+                orderedPostAfter);
+
+        //test results
+        scripts = handler.listScripts(adminKey, ks.getLabel());
+        assertTrue(scripts.get(0).getId().intValue() == idPre2);
+        assertTrue(scripts.get(1).getId().intValue() == idPre1);
+        assertTrue(scripts.get(2).getId().intValue() == idPost1);
+        assertTrue(scripts.get(3).getId().intValue() == idPostNochroot1);
+        assertTrue(scripts.get(4).getId().intValue() == idPost2);
+        assertTrue(scripts.get(5).getId().intValue() == idPostNochroot2);
+    }
+
     public void testAddScript() throws Exception {
         KickstartData ks  = KickstartDataTest.createKickstartWithChannel(admin.getOrg());
         int id = handler.addScript(adminKey, ks.getLabel(), "sample",

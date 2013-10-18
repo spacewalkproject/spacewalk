@@ -196,7 +196,9 @@ public class KickstartScriptOrderAction extends RhnLookupDispatchAction {
         // update scripts with the appropriate priorities
         for (KickstartScript script : scripts) {
             script.setPosition(oldToNew.get(fakeToOld.get(script.getPosition())));
+            HibernateFactory.getSession().save(script);
         }
+        KickstartFactory.saveKickstartData(ksdata);
 
         getStrutsDelegate().saveMessage("kickstart.script.order.success", request);
         return getStrutsDelegate().forwardParam(mapping.findForward("success"),

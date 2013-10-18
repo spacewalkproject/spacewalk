@@ -511,17 +511,24 @@ public class ProfileHandler extends BaseHandler {
         Long nextPosition = 1L;
         Long nextNegativePosition = -1L;
         for (Integer id : preScripts) {
-            idToScript.get(id).setPosition(nextPosition);
+            KickstartScript script = idToScript.get(id);
+            script.setPosition(nextPosition);
             nextPosition += 1;
+            HibernateFactory.getSession().save(script);
         }
         for (Integer id : postScriptsBeforeRegistration) {
-            idToScript.get(id).setPosition(nextNegativePosition);
+            KickstartScript script = idToScript.get(id);
+            script.setPosition(nextNegativePosition);
             nextNegativePosition -= 1;
+            HibernateFactory.getSession().save(script);
         }
         for (Integer id : postScriptsAfterRegistration) {
-            idToScript.get(id).setPosition(nextPosition);
+            KickstartScript script = idToScript.get(id);
+            script.setPosition(nextPosition);
             nextPosition += 1;
+            HibernateFactory.getSession().save(script);
         }
+        KickstartFactory.saveKickstartData(data);
 
         return 1;
     }
