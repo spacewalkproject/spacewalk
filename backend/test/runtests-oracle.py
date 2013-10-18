@@ -47,11 +47,42 @@ rhnSQL.initDB(backend="oracle", username=USER,
 rhnSQL.initDB(backend="oracle", username=USER,
         password=PASSWORD, database=DATABASE)
 
+class OracleDatabaseTests(dbtests.RhnSQLDatabaseTests):
+    QUERY_CREATE_TABLE = """
+        CREATE TABLE %s(id NUMBER, name VARCHAR2(256), num NUMBER(5,2))
+    """
+
+    SIMPLE_PROCEDURE = """
+CREATE OR REPLACE FUNCTION
+    return_int(returnme in integer)
+RETURN INTEGER  AS
+BEGIN
+    RETURN returnme;
+END;
+    """
+
+    def setUp(self):
+        self.set_temp_table()
+        create_table_query = self.QUERY_CREATE_TABLE % self.temp_table
+        cursor = rhnSQL.prepare(create_table_query)
+        cursor.execute()
+
+        dbtests.RhnSQLDatabaseTests.setUp(self)
+
+        cursor = rhnSQL.prepare(self.SIMPLE_PROCEDURE)
+        cursor.execute()
+
+    def tearDown(self):
+        cursor = rhnSQL.prepare("DROP FUNCTION return_int")
+        cursor.execute()
+
+        dbtests.RhnSQLDatabaseTests.tearDown(self)
+
 def suite():
+    s = unittest.TestSuite()
+    s.addTest(unittest.makeSuite(OracleDatabaseTests))
     # Append all test suites here:
-    return unittest.TestSuite((
-        dbtests.oracle_suite(),
-   ))
+    return unittest.TestSuite(s)
 
 if __name__ == "__main__":
     try:
