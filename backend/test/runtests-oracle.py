@@ -19,16 +19,17 @@
 Non-pure tests requiring connectivity to an Oracle server configured below.
 """
 
+import os
 import sys
 import unittest
-
-sys.path.insert(0, '../')
-sys.path.insert(0, './suites')
-sys.path.insert(0, '../../client/rhel/rhnlib')
 
 from spacewalk.server import rhnSQL
 
 # Import all test modules here:
+sys.path.insert(
+    0,
+    os.path.abspath(os.path.dirname(os.path.abspath(__file__) + "/../non-unit/server/rhnSQL/"))
+)
 import dbtests
 
 USER = "spacewalk"
