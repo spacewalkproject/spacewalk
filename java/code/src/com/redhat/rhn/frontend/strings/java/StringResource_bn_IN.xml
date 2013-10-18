@@ -1684,19 +1684,19 @@
         <target>চিহ্নিত মান অনুসারে ফিল্টার করা হবে: </target>
       </trans-unit>
       <trans-unit id="message.range">
-        <source>&lt;strong id="list_min" &gt;{0}&lt;/strong&gt; - &lt;strong id="list_max"&gt;{1}&lt;/strong&gt; of &lt;strong id="list_total"&gt;{2}&lt;/strong&gt;</source>
+        <source>&lt;span id="list_min" &gt;{0}&lt;/span&gt; - &lt;span id="list_max"&gt;{1}&lt;/span&gt; of &lt;span id="list_total"&gt;{2}&lt;/span&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">on any listview page with a set.  1 - 5 of 120</context>
         </context-group>
-        <target>&lt;strong id="list_min" &gt;{0}&lt;/strong&gt; - &lt;strong id="list_max"&gt;{1}&lt;/strong&gt; &lt;strong id="list_total"&gt;{2}&lt;/strong&gt;-র</target>
+        <target>&lt;span id="list_min" &gt;{0}&lt;/span&gt; - &lt;span id="list_max"&gt;{1}&lt;/span&gt; &lt;span id="list_total"&gt;{2}&lt;/span&gt;-র</target>
       </trans-unit>
       <trans-unit id="message.range.withtypedescription">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; of &lt;strong&gt;{2}&lt;/strong&gt;
+        <source>&lt;span&gt;{0}&lt;/span&gt; - &lt;span&gt;{1}&lt;/span&gt; of &lt;span&gt;{2}&lt;/span&gt;
 {3} displayed</source>
         <context-group name="ctx">
           <context context-type="sourcefile">on any listview page with a set.  1 - 5 of 120</context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt;, &lt;strong&gt;{2}&lt;/strong&gt;-র
+        <target>&lt;span&gt;{0}&lt;/span&gt; - &lt;span&gt;{1}&lt;/span&gt;, &lt;span&gt;{2}&lt;/span&gt;-র
 {3} প্রদর্শিত</target>
       </trans-unit>
       <trans-unit id="message.numselected">
