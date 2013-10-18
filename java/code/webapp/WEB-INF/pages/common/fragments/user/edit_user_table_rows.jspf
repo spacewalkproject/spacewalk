@@ -79,6 +79,7 @@
         <c:choose>
             <c:when test="${!empty mailableAddress}">
                 <a class="btn btn-default btn-sm" href="<c:out value="${email_link}"/>">
+                    <i class="icon-refresh"></i>
                     <%--
                     <bean:message key="${email_display}"/>
                     --%>
