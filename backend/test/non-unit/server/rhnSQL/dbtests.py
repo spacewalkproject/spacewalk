@@ -66,7 +66,7 @@ class RhnSQLDatabaseTests(unittest.TestCase):
         query = "INSERT INTO %s(id, name) VALUES(:id, :name)" % \
                 self.temp_table
         cursor = rhnSQL.prepare(query)
-        self.assertRaises(KeyError, cursor.execute, name="Blah")
+        self.assertRaises(sql_base.SQLError, cursor.execute, name="Blah")
 
     def test_statement_prepare_error(self):
         rhnSQL.transaction("test_statement_prepare_error")

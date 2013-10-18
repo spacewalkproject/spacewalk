@@ -18,6 +18,7 @@
 #
 
 import sys
+import string
 import re
 import psycopg2
 
@@ -279,6 +280,9 @@ class Cursor(sql_base.Cursor):
             raise sql_base.SQLSchemaError(error_code, e.pgerror, e)
         except psycopg2.ProgrammingError, e:
             raise sql_base.SQLStatementPrepareError(self.dbh, e.pgerror, self.sql)
+        except KeyError, e:
+            raise sql_base.SQLError("Unable to bound the following variable(s): %s"
+                                    % (string.join(e.args, " ")))
         return retval
 
     def _execute_(self, args, kwargs):
