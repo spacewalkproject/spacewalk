@@ -682,6 +682,16 @@ where rhnChannelErrata.errata_id = rhnErrataPackage.errata_id
    </query>
 </mode>
 
+<mode name="repomdgenerator_capability_enhances"
+    class="com.redhat.rhn.frontend.dto.PackageCapabilityDto">
+   <query params="package_id">
+  SELECT pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
+    FROM rhnPackageEnhances pkgp, rhnPackageCapability pkgcap
+   WHERE pkgp.capability_id = pkgcap.id
+     AND pkgp.package_id = :package_id
+   </query>
+</mode>
+
 <mode name="repomdgenerator_package_changelog"
     class="com.redhat.rhn.frontend.dto.PackageChangelogDto">
    <query params="package_id">

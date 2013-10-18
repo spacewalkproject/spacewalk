@@ -263,6 +263,9 @@ public class PrimaryXmlWriter extends RepomdWriter {
         addPackageDepData(
                 TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_SUPPLEMENTS,
                 pkgDto.getId(), "supplements", localHandler);
+        addPackageDepData(
+                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_ENHANCES,
+                pkgDto.getId(), "enhances", localHandler);
     }
 
     /**
