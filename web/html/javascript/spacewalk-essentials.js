@@ -5,7 +5,7 @@ $(document).on("ready", function(){
   $("#sidenav ul>ul").hide();
 
   $("#sidenav li.active").each(function() {
-    $(this).next("ul").show(300);
+    $(this).next("ul").show();
   });
 
   /* Systems Selected Toolbar - actions to hide the toolbar when th Clear button is pressed or when 
