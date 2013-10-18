@@ -125,6 +125,7 @@ rhnPackageProvides             :: rhnPackage rhnPackageCapability
 rhnPackageRequires             :: rhnPackage rhnPackageCapability
 rhnPackageSuggests             :: rhnPackage rhnPackageCapability
 rhnPackageSupplements          :: rhnPackage rhnPackageCapability
+rhnPackageEnhances             :: rhnPackage rhnPackageCapability
 rhnPackageRecommends           :: rhnPackage rhnPackageCapability
 rhnPackageSource               :: web_customer rhnSourceRPM rhnFile rhnPackageGroup \
                                   rhnChecksum
