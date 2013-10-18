@@ -240,7 +240,7 @@
             </div>
             <div class="form-group">
                 <label class="col-lg-3 control-label">
-                    <bean:message key="channel.edit.jsp.orgsharing"/>
+                    <bean:message key="channel.edit.jsp.orgsharing"/>:
                 </label>
                 <div class="col-lg-6">
                     <div class="radio">
