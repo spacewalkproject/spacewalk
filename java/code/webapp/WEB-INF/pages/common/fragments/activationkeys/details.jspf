@@ -3,130 +3,144 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 
-<html:form action="${param.url}">
+<html:form action="${param.url}" styleClass="form-horizontal">
     <rhn:csrf />
-<c:if test="${not empty param.tid}">
-<input type="hidden" name="tid" value="${param.tid}"/>
-</c:if>
-<div class="page-summary">
-	<h2><bean:message key="activation-key.details.jsp.title"/></h2>
-    <p>
-        <bean:message key="activation-key.jsp.summary"/>
-    </p>
+    <c:if test="${not empty param.tid}">
+        <input type="hidden" name="tid" value="${param.tid}"/>
+    </c:if>
+        <h2><bean:message key="activation-key.details.jsp.title"/></h2>
+        <p><bean:message key="activation-key.jsp.summary"/></p>
 
-<table class="details">
-    <tr>
-        <th>
-            <label for="description"><bean:message key="kickstart.activationkeys.jsp.description"/></label>
-        </th>
-        <td>
-            <html:text property="description" styleId="description"/><br/>
-            <rhn:tooltip>
-	            <bean:message key="activation-key.jsp.edit-description-tooltip"
-	            	 arg0 = "${requestScope.blankDescription}"/>
-            </rhn:tooltip>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <label for="key"><bean:message key="kickstart.activationkeys.jsp.key"/>:</label>
-        </th>
-        <td>
-        	<c:if test="${not requestScope.unprefixed}">${requestScope.prefix}</c:if>
-            <html:text property="key" styleId="key"/><br/>
-            <c:choose>
-            	<c:when test = "${not requestScope.unprefixed}">
-            	<rhn:tooltip key="activation-key.jsp.blank.auto-generator.prefix-notice"/>
-            	</c:when>
-            	<c:otherwise>
-	            	<rhn:tooltip key="activation-key.jsp.blank.auto-generator"/><br/>
-	            	<rhn:tooltip>
-	            		<bean:message key="activation-key.jsp.org_notice" arg0="${requestScope.prefix}"/>	
-			</rhn:tooltip>
-            	</c:otherwise>
-            </c:choose>
+        <div class="form-group">
+            <label class="col-lg-3 control-label" for="description">
+                <bean:message key="kickstart.activationkeys.jsp.description"/>
+            </label>
+            <div class="col-lg-6">
+                <html:text property="description" styleClass="form-control" styleId="description"/><br/>
+                <span class="help-block">
+                    <bean:message key="activation-key.jsp.edit-description-tooltip"
+                                  arg0 = "${requestScope.blankDescription}"/>
+                </span>
+            </div>
+        </div>
 
-    </td>
-    </tr>
-    <tr>
-        <th>
-            <label for="usageLimit"><bean:message key="kickstart.activationkeys.jsp.usagelimit"/>:</label>
-        </th>
-        <td>
-            <html:text property="usageLimit" styleId="usageLimit"/><br/>
-            <rhn:tooltip key="activation-key.jsp.blank.unlimited-use"/>
-        </td>
-    </tr>
-	<tr>
-        <th>
-            <label for="selectedChannel"><bean:message key="activation-key.jsp.base-channels"/>:</label>
-        </th>
-        <td>
-           <html:select property="selectedChannel" styleId="selectedChannel">
-		          <html:options collection="possibleChannels"
-        						    property="value"
-            						labelProperty="label" />
-           </html:select><br/>
-
-            <rhn:tooltip>
-	            <bean:message key="activation-key.jsp.edit-basechannel-tooltip"
-	            	 arg0 = "${rhn:localize('activation-key.jsp.rh-default')}"/>
-            </rhn:tooltip>
-
-        </td>
-    </tr>
-
-	<tr>
-        <th>
-            <bean:message key="activation-key.jsp.addon-entitlements"/>:
-        </th>
-        <td>
-    <c:forEach items="${possibleEntitlements}" var="item">
-	    <html:multibox property="selectedEntitlements" disabled="${item.disabled}" styleId="${item.value}" value="${item.value}"/>
-    <label for="${item.value}"><c:out value="${item.label}"/></label>
-    	<br />
-	</c:forEach>
-
-       </td>
-    </tr>
-    <c:if test="${not requestScope.create}">
-	<tr>
-        <th>
-            <label for="enable-config-auto-deploy"><bean:message key="activation-key.jsp.enable-config-auto-deploy"/>:</label>
-        </th>
-         <td>
-
-      <rhn:require acl="token_has_entitlement(provisioning_entitled)"
-      		mixins="com.redhat.rhn.common.security.acl.ActivationKeyAclHandler">
-            <html:checkbox property="autoDeploy" styleId="enable-config-auto-deploy" /><br/>
-            <rhn:tooltip key="activation-key.jsp.config-auto-deploy-tooltip"/>
-      </rhn:require>
-      <rhn:require acl="not token_has_entitlement(provisioning_entitled)"
-      		mixins="com.redhat.rhn.common.security.acl.ActivationKeyAclHandler">
-      		<input type=checkbox disabled=true/><br/>
-			<rhn:tooltip><bean:message key="activation-key.jsp.disabled-config-auto-deploy-tooltip"
-            							arg0="${rhn:localize('provisioning_entitled')}"
-            							arg1="${rhn:localize('activation-key.jsp.addon-entitlements')}"/>
-			</rhn:tooltip>            							
-      </rhn:require>
-      </td>
-    </tr>
-	</c:if>
-    <tr>
-        <th>
-            <label for="universal"><bean:message key="activation-key.jsp.universal-default"/>:</label>
-        </th>
-        <td>
-            <html:checkbox property="universal" styleId="universal" /><br/>
-            <rhn:tooltip key="activation-key.jsp.edit.universal-default-tooltip"/>
-        </td>
-    </tr>
-</table>
-<div align="right">
-<hr />
-<html:submit property="dispatch"><bean:message key="${param.submit}"/></html:submit>
-</div>
-<rhn:submitted/>
-</div>
+        <div class="form-group">
+            <label class="col-lg-3 control-label" for="key">
+                <bean:message key="kickstart.activationkeys.jsp.key"/>:
+            </label>
+            <div class="col-lg-6">
+                <div class="input-group">
+                    <c:if test="${not requestScope.unprefixed}">
+                        <span class="input-group-addon">${requestScope.prefix}</span>
+                    </c:if>
+                    <html:text property="key" styleId="key" styleClass="form-control"/>
+                </div>
+                <c:choose>
+                    <c:when test = "${not requestScope.unprefixed}">
+                        <span class="help-block">
+                            <bean:message key="activation-key.jsp.blank.auto-generator.prefix-notice"/>
+                        </span>
+                    </c:when>
+                    <c:otherwise>
+                        <span class="help-block">
+                            <bean:message key="activation-key.jsp.blank.auto-generator"/>
+                        </span>
+                        <span class="help-block">
+                            <bean:message key="activation-key.jsp.org_notice" arg0="${requestScope.prefix}"/>
+                        </span>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-3 control-label" for="usageLimit">
+                <bean:message key="kickstart.activationkeys.jsp.usagelimit"/>:
+            </label>
+            <div class="col-lg-6">
+                <html:text property="usageLimit" styleClass="form-control" styleId="usageLimit"/>
+                <span class="help-block">
+                    <bean:message key="activation-key.jsp.blank.unlimited-use"/>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-3 control-label" for="selectedChannel">
+                <bean:message key="activation-key.jsp.base-channels"/>:
+            </label>
+            <div class="col-lg-6">
+                <html:select property="selectedChannel" styleId="selectedChannel" styleClass="form-control">
+                    <html:options collection="possibleChannels"
+                                  property="value"
+                                  labelProperty="label" />
+                </html:select>
+                <span class="help-block">
+                    <bean:message key="activation-key.jsp.edit-basechannel-tooltip"
+                                  arg0 = "${rhn:localize('activation-key.jsp.rh-default')}"/>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-3 control-label">
+                <bean:message key="activation-key.jsp.addon-entitlements"/>:
+            </label>
+            <div class="col-lg-6">
+                <c:forEach items="${possibleEntitlements}" var="item">
+                    <div class="checkbox">
+                        <label>
+                            <html:multibox property="selectedEntitlements" disabled="${item.disabled}"
+                                           styleId="${item.value}" value="${item.value}"/>
+                            <c:out value="${item.label}"/>
+                        </label>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+        <c:if test="${not requestScope.create}">
+            <div class="form-group">
+                <div class="col-lg-offset-3 col-lg-6">
+                    <rhn:require acl="token_has_entitlement(provisioning_entitled)"
+                                 mixins="com.redhat.rhn.common.security.acl.ActivationKeyAclHandler">
+                        <label>
+                            <html:checkbox property="autoDeploy" styleId="enable-config-auto-deploy" />
+                            <bean:message key="activation-key.jsp.enable-config-auto-deploy"/>
+                        </label>
+                        <span class="help-block">
+                            <bean:message key="activation-key.jsp.config-auto-deploy-tooltip"/>
+                        </span>
+                    </rhn:require>
+                    <rhn:require acl="not token_has_entitlement(provisioning_entitled)"
+                                 mixins="com.redhat.rhn.common.security.acl.ActivationKeyAclHandler">
+                        <label>
+                            <input type=checkbox disabled=true/>
+                            <bean:message key="activation-key.jsp.enable-config-auto-deploy"/>
+                        </label>
+                        <span class="help-block">
+                            <bean:message key="activation-key.jsp.disabled-config-auto-deploy-tooltip"
+                                          arg0="${rhn:localize('provisioning_entitled')}"
+                                          arg1="${rhn:localize('activation-key.jsp.addon-entitlements')}"/>
+                        </span>
+                    </rhn:require>
+                </div>
+            </div>
+        </c:if>
+        <div class="form-group">
+            <div class="col-lg-offset-3 col-lg-6">
+                <div class="checkbox">
+                    <html:checkbox property="universal" styleId="universal" />
+                    <bean:message key="activation-key.jsp.universal-default"/>
+                </div>
+                <span class="help-block">
+                    <rhn:tooltip key="activation-key.jsp.edit.universal-default-tooltip"/>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-3 col-lg-6">
+                <html:submit property="dispatch" styleClass="btn btn-success">
+                    <bean:message key="${param.submit}"/>
+                </html:submit>
+            </div>
+        </div>
+        <rhn:submitted/>
 </html:form>
 
