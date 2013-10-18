@@ -38,7 +38,7 @@ import com.redhat.rhn.manager.kickstart.KickstartLister;
  */
 public class ScriptsSetupAction extends RhnAction {
 
-    static final String LIST_NAME = "kickstart_scripts";
+    public static final String LIST_NAME = "kickstart_scripts";
 
     /**
      *

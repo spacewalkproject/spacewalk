@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.kickstart.test;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
+import com.redhat.rhn.frontend.action.kickstart.ScriptsSetupAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
@@ -35,7 +36,7 @@ public class ScriptSetupActionTest extends RhnMockStrutsTestCase {
         setRequestPathInfo("/kickstart/Scripts");
         addRequestParameter(RequestContext.KICKSTART_ID, k.getId().toString());
         actionPerform();
-        DataResult dr = (DataResult) request.getAttribute(RequestContext.PAGE_LIST);
+        DataResult dr = (DataResult) request.getAttribute(ScriptsSetupAction.LIST_NAME);
         assertNotNull(dr);
         assertTrue(dr.size() > 0);
 
