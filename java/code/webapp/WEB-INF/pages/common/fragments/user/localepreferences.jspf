@@ -2,7 +2,7 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h5><bean:message key="preferences.jsp.tz"/></h5>
+    <h5 class="panel-title"><bean:message key="preferences.jsp.tz"/></h5>
   </div>
   <div class="panel-body">
     <p><bean:message key="preferences.jsp.datestimes"/></p>
@@ -18,7 +18,7 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h5><bean:message key="preferences.jsp.lang" /></h5>
+    <h5 class="panel-title"><bean:message key="preferences.jsp.lang" /></h5>
   </div>
   <div class="panel-body">
     <p><bean:message key="preferences.jsp.langs" /></p>
