@@ -356,7 +356,7 @@ class Database:
         return None
 
     def is_connected_to(self, backend, host, port, username, password,
-                        database):
+                        database, sslmode):
         """
         Check if this database matches the given connection parameters.
         """
