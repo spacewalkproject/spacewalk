@@ -6,7 +6,7 @@
 
 <html>
 <body>
-<rhn:toolbar base="h1" icon="spacewalk-icon-software-channels"
+<rhn:toolbar base="h1" icon="spacewalk-icon-manage-entitlements-subscriptions"
  miscUrl="${url}"
  miscAcl="user_role(org_admin)"
  miscText="${text}"
