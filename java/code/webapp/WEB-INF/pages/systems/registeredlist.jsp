@@ -19,7 +19,7 @@
 <rl:listset name="registeredSystems" legend="system">
   <rhn:csrf />
   <bean:message key="registeredlist.jsp.view"/>
-  <select name="threshold">
+  <select name="threshold" class="view-systems-registered">
    		<c:forEach var="option" items="${options}">
    			<c:choose>
    				<c:when test="${recentlyRegisteredSystemsForm.map.threshold eq option.value}">

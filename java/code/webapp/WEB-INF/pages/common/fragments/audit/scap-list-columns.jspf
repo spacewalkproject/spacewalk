@@ -7,9 +7,8 @@
 				title="<bean:message key="scapdiff.jsp.i.${current.diffIcon}"/>"/></a>
 		</c:when>
 		<c:otherwise>
-			<img src="/img/icon_checkin.gif"
-				alt="<bean:message key="system.audit.xccdfdetails.jsp.nodiff"/>"
-				title="<bean:message key="system.audit.xccdfdetails.jsp.nodiff"/>"/>
+			<i class="spacewalk-icon-unknown-system"
+				title="<bean:message key="system.audit.xccdfdetails.jsp.nodiff"/>"/></i>
 		</c:otherwise>
 	</c:choose>&nbsp;
 

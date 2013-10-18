@@ -5,12 +5,12 @@
 <pxt-use class="Sniglets::Users" />
 
 <div class="sideleg">
-  <h2>System Legend</h2>
+  <h4>System Legend</h4>
   <ul>
   <li><img src="/img/icon_up2date.gif" alt="" />OK</li>
   <li><img src="/img/icon_crit_update.gif" alt="" />Critical</li>
   <li><img src="/img/icon_reg_update.gif" alt="" />Warning</li>
-  <li><img src="/img/icon_checkin.gif" alt="" />Unknown</li>
+  <li><i class="spacewalk-icon-unknown-system" />Unknown</li>
 <rhn-require acl="org_entitlement(sw_mgr_enterprise)">
   <li><img src="/img/icon_locked.gif" alt="" />Locked</li>
 </rhn-require>

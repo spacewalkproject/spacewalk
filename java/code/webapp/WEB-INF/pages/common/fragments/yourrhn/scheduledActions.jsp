@@ -26,7 +26,7 @@
     			<img src="/img/rhn-listicon-error.gif" title="<bean:message key="yourrhn.jsp.actions.failed" />" alt="<bean:message key="yourrhn.jsp.actions.failed" />" />
     		</c:when>
     		<c:otherwise>
-    			<img src="/img/icon_checkin.gif" title="<bean:message key="yourrhn.jsp.actions.unknown" />" alt="<bean:message key="yourrhn.jsp.actions.unknown" />"  />
+    			<i class="spacewalk-icon-unknown-system" title="<bean:message key="yourrhn.jsp.actions.unknown" />"></i>
     		</c:otherwise>
     	</c:choose>
       <a href="/rhn/schedule/ActionDetails.do?aid=${current.id}"><c:out value="${current.actionName}" /></a>

@@ -69,10 +69,9 @@ public class SystemListSetupActionTest extends RhnMockStrutsTestCase {
                          ls.getMessage("systemlist.jsp.up2date") + "\" alt=\"" +
                          ls.getMessage("systemlist.jsp.up2date") + "\" /></a>";
         String awol = "<a href=\"/rhn/help/reference/en-US/s1-sm-systems.jsp" +
-                      "\"><img src=\"/img/icon_checkin.gif\" " +
-                      "alt=\"" + ls.getMessage("systemlist.jsp.notcheckingin") + "\" " +
+                      "\"><i class=\"spacewalk-icon-unknown-system\" " + "\" " +
                       "title=\"" + ls.getMessage("systemlist.jsp.notcheckingin") +
-                      "\" /></a>";
+                      "\" ></i></a>";
 
 
         //Page through all the systems because we don't know where our new system is
