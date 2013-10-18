@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.57
+Version: 2.1.58
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Oct 18 2013 Stephen Herr <sherr@redhat.com> 2.1.58-1
+- 1020497 - fixing a bug and adding a unit test for ordering kickstarts
+- Cobbler tests: added missing return
+- Update ScriptSetupActionTest for new attribute name
+
 * Thu Oct 17 2013 Stephen Herr <sherr@redhat.com> 2.1.57-1
 - 1020497 - re-applying fix from 122418187 that got missed in the merge in
   c821c7ee2
