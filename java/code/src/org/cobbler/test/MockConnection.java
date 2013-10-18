@@ -233,6 +233,7 @@ public class MockConnection extends CobblerConnection {
     }
     else if ("remove_system".equals(name)) {
         systems.remove(findByName((String)args[0], systems));
+        return true;
     }
     else if ("new_system".equals(name)) {
         Map profile = new HashMap();
