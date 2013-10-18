@@ -107,7 +107,7 @@ def rotateFile(filepath, depth=5, suffix='.', verbosity=0):
                          % os.path.dirname(pathNSuffix))
 
     # is there anything to do? (existence, then size, then checksum)
-    checksum_type = 'md5'       # FIXME: this should be configuation option
+    checksum_type = 'sha1'
     if os.path.exists(pathNSuffix1) and os.path.isfile(pathNSuffix1) \
       and os.stat(filepath)[6] == os.stat(pathNSuffix1)[6] \
       and getFileChecksum(checksum_type, filepath) == \
