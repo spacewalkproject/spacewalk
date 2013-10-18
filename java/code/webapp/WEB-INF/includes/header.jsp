@@ -84,7 +84,7 @@
           <span id="header_selcount">
             <rhn:setdisplay user="${requestScope.session.user}" />
           </span>
-          <a id="clear-btn" class="button" href="/rhn/ssm/index.do">
+          <a class="button" href="/rhn/ssm/index.do">
             <bean:message key="manage"/>
           </a>
           <%--
@@ -99,7 +99,7 @@
               <c:set var="rurl" value="${pageContext.request.requestURI}" />
             </c:otherwise>
           </c:choose>
-          <a class="button" href="/rhn/systems/Overview.do?empty_set=true&amp;return_url=${rhn:urlEncode(rurl)}">
+          <a id="clear-btn" class="button" href="/rhn/systems/Overview.do?empty_set=true&amp;return_url=${rhn:urlEncode(rurl)}">
             <bean:message key="clear"/>
           </a>
       </div>

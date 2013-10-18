@@ -11,11 +11,11 @@
       <!--span id="spacewalk-ssm-counter" class="badge">0</span>systems selected</span-->
     </span>
 
-    <a id="clear-btn" class="button" href="/rhn/ssm/index.do">
+    <a class="button" href="/rhn/ssm/index.do">
       Manage
     </a>
     <rhn-return-link default="/network">
-      <a class="button" href="/rhn/systems/Overview.do?empty_set=true&amp;set_label=system_list&amp;return_url={return_url}">Clear</a>
+      <a id="clear-btn" class="button" href="/rhn/systems/Overview.do?empty_set=true&amp;set_label=system_list&amp;return_url={return_url}">Clear</a>
     </rhn-return-link>
   </rhn-require>
 </div>
