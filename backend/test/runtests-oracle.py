@@ -23,6 +23,7 @@ import os
 import sys
 import unittest
 
+from ConfigParser import ConfigParser
 from spacewalk.server import rhnSQL
 
 # Import all test modules here:
@@ -32,9 +33,12 @@ sys.path.insert(
 )
 import dbtests
 
-USER = "spacewalk"
-PASSWORD = "spacewalk"
-DATABASE = "xe"
+config = ConfigParser()
+config.read(os.path.dirname(os.path.abspath(__file__)) + "/db_settings.ini")
+
+USER     = config.get('oracle', 'user')
+PASSWORD = config.get('oracle', 'password')
+DATABASE = config.get('oracle', 'database')
 
 rhnSQL.initDB(backend="oracle", username=USER,
         password=PASSWORD, database=DATABASE)
