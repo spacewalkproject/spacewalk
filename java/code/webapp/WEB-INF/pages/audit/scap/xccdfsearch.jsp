@@ -40,7 +40,7 @@
             <html:text property="search_string" name="search_string"
                 value="${search_string}" maxlength="100" accesskey="4"/>
             <button type="submit" class="btn btn-default btn-sm">
-                <span class="glyphicon glyphicon-search" />
+                <i class="icon-search" />
                 <bean:message key="button.search"/>
             </button>
             <br/>
