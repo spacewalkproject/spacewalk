@@ -488,6 +488,7 @@ def _delete_rpm_group(packageIds):
         'rhnPackageRecommends',
         'rhnPackageSuggests',
         'rhnPackageSupplements',
+        'rhnPackageEnhances',
         'rhnServerNeededCache',
     ]
     deleteStatement = "delete from %s where package_id = :package_id"

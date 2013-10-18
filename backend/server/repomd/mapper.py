@@ -297,6 +297,18 @@ class SqlPackageMapper:
            and supp.capability_id = pc.id
         union all
         select
+           'enhances',
+           enh.sense,
+           pc.name,
+           pc.version
+        from
+           rhnPackageCapability pc,
+           rhnPackageEnhances enh
+        where
+           enh.package_id = :package_id
+           and enh.capability_id = pc.id
+        union all
+        select
            'suggests',
            sugg.sense,
            pc.name,
@@ -447,6 +459,8 @@ class SqlPackageMapper:
                 package.recommends.append(dep)
             elif item[0] == "supplements":
                 package.supplements.append(dep)
+            elif item[0] == "enhances":
+                package.enhances.append(dep)
             elif item[0] == "suggests":
                 package.suggests.append(dep)
             else:

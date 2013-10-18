@@ -839,6 +839,8 @@ class _PackageDumper(BaseRowDumper):
                 'rhn-package-suggests-entry'],
             ['rhnPackageSupplements',  'rhn-package-supplements',
                 'rhn-package-supplements-entry'],
+            ['rhnPackageEnhances',  'rhn-package-enhances',
+                'rhn-package-enhances-entry'],
        ]
         for table_name, container_name, entry_name in mappings:
             h = rhnSQL.prepare("""

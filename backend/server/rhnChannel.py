@@ -1201,6 +1201,20 @@ def list_all_packages_complete_sql(channel_id):
        and supp.capability_id = pc.id
     union all
     select
+       supp.package_id,
+       'enhances' as capability_type,
+       enh.capability_id,
+       enh.sense,
+       pc.name,
+       pc.version
+    from
+       rhnPackageEnhances enh,
+       rhnPackageCapability pc
+    where
+       enh.package_id = :package_id
+       and enh.capability_id = pc.id
+    union all
+    select
        pcon.package_id,
        'conflicts' as capability_type,
        pcon.capability_id,
@@ -1245,6 +1259,7 @@ def list_all_packages_complete_sql(channel_id):
         pkgi['recommends'] = []
         pkgi['suggests'] = []
         pkgi['supplements'] = []
+        pkgi['enhances'] = []
         g.execute(package_id = pkgi["id"])
         deps = g.fetchall_dict() or []
         for item in deps:
@@ -1262,7 +1277,7 @@ def list_all_packages_complete_sql(channel_id):
     # process the results
     ret = map(lambda a: (a["name"], a["version"], a["release"], a["epoch"],
                          a["arch"], a["package_size"], a['provides'],
-                         a['requires'], a['conflicts'], a['obsoletes'], a['recommends'], a['suggests'], a['supplements']),
+                         a['requires'], a['conflicts'], a['obsoletes'], a['recommends'], a['suggests'], a['supplements'], a['enhances']),
               __stringify(ret))
     return ret
 

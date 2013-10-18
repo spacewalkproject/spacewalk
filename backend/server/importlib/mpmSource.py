@@ -127,6 +127,7 @@ class mpmBinaryPackage(headerSource.rpmBinaryPackage):
             'obsoletes' : headerSource.rpmObsoletes,
             'recommends': headerSource.rpmRecommends,
             'supplements': headerSource.rpmSupplements,
+            'enhances'  : headerSource.rpmEnhances,
             'suggests'  : headerSource.rpmSuggests,
         }
 

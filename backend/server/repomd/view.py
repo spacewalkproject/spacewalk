@@ -159,6 +159,10 @@ class PrimaryView(object):
         output.extend(self._get_deps(package.supplements))
         output.append("      </rpm:supplements>")
 
+        output.append("      <rpm:enhances>")
+        output.extend(self._get_deps(package.enhances))
+        output.append("      </rpm:enhances>")
+
         output.append("      <rpm:conflicts>")
         output.extend(self._get_deps(package.conflicts))
         output.append("      </rpm:conflicts>")

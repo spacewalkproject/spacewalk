@@ -118,6 +118,7 @@ class rpmBinaryPackage(Package, rpmPackage):
         'obsoletes'     : None,
         'suggests'      : None,
         'supplements'   : None,
+        'enhances'      : None,
         'recommends'    : None,
         'files'         : None,
         'changelog'     : None,
@@ -162,6 +163,7 @@ class rpmBinaryPackage(Package, rpmPackage):
             'conflicts' : rpmConflicts,
             'obsoletes' : rpmObsoletes,
             'supplements' : rpmSupplements,
+            'enhances'  : rpmEnhances,
             'suggests'  : rpmSuggests,
             'recommends'  : rpmRecommends,
         }
@@ -213,15 +215,15 @@ class rpmBinaryPackage(Package, rpmPackage):
                     hash[k] = v[i]
 
             # RPMSENSE_STRONG(1<<27) indicate recommends; if not set it is suggests only
-            if tag == 'recommends' and not(hash['flags'] & (1 << 27)):
+            if tag in ['recommends', 'supplements'] and not(hash['flags'] & (1 << 27)):
                 continue
-            if tag == 'suggests' and (hash['flags'] & (1 << 27)):
+            if tag in ['suggests', 'enhances'] and (hash['flags'] & (1 << 27)):
                 continue
             # Create a file
             obj = Class()
             # Fedora 10+ rpms have duplicate provides deps,
             # Lets clean em up before db inserts.
-            if tag in ['requires', 'provides', 'obsoletes', 'conflicts', 'recommends', 'suggests', 'supplements']:
+            if tag in ['requires', 'provides', 'obsoletes', 'conflicts', 'recommends', 'suggests', 'supplements', 'enhances']:
                 if not len(hash['name']):
                     continue
                 dep_nv = (hash['name'], hash['version'], hash['flags'])
@@ -345,6 +347,14 @@ class rpmRecommends(Dependency):
     }
 
 class rpmSupplements(Dependency):
+    # More mappings
+    tagMap = {
+        'name'      : 1159, #'enhancesname',
+        'version'   : 1160, #'enhancesversion',
+        'flags'     : 1161, #'enhancesflags',
+    }
+
+class rpmEnhances(Dependency):
     # More mappings
     tagMap = {
         'name'      : 1159, #'enhancesname',

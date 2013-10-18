@@ -100,6 +100,16 @@ class OracleBackend(Backend):
             attribute   = 'supplements',
             map         = { 'sense' : 'flags', },
         ),
+        Table('rhnPackageEnhances',
+            fields      = {
+                'package_id'    : DBint(),
+                'capability_id' : DBint(),
+                'sense'         : DBint(),
+            },
+            pk          = ['package_id', 'capability_id', 'sense'],
+            attribute   = 'enhances',
+            map         = { 'sense' : 'flags', },
+        ),
         Table('rhnPackageChangeLogRec',
             fields      = {
                 'id'            : DBint(),
