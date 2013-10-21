@@ -80,4 +80,22 @@ public interface ListDecorator {
      * @throws JspException exception
      */
     void beforeTopPagination() throws JspException;
+
+    /**
+     * Notifies the decorator that the list is on the top extra content section
+     * @throws JspException exception
+     */
+    void onTopExtraContent() throws JspException;
+
+    /**
+     * Notifies the decorator that the list is on the bottom extra content section
+     * @throws JspException exception
+     */
+    void onBottomExtraContent() throws JspException;
+
+    /**
+     * Notifies the decorator that the list is in the addons section
+     * @throws JspException something bad happened
+     */
+    void onTopAddons() throws JspException;
 }

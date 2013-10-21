@@ -107,7 +107,7 @@ public class PageSizeDecorator extends BaseListDecorator {
      * {@inheritDoc}
      */
     @Override
-    public void beforeTopPagination() throws JspException {
+    public void onTopAddons() throws JspException {
         if (!getCurrentList().isEmpty()) {
             StringBuilder stringBuild = new StringBuilder();
 

@@ -92,11 +92,30 @@ public abstract class BaseListDecorator implements ListDecorator {
     }
 
     /**
-     *
      * {@inheritDoc}
      */
     public void beforeTopPagination() throws JspException {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public void onTopExtraContent() throws JspException {
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void onBottomExtraContent() throws JspException {
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void onTopAddons() throws JspException {
+
+    }
 }

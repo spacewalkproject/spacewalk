@@ -16,19 +16,7 @@
 package com.redhat.rhn.frontend.taglibs.list;
 
 
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.context.Context;
-import com.redhat.rhn.frontend.html.HtmlTag;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.taglibs.RhnListTagFunctions;
-import com.redhat.rhn.frontend.taglibs.list.decorators.ListDecorator;
-import com.redhat.rhn.frontend.taglibs.list.decorators.PageSizeDecorator;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
-import com.redhat.rhn.frontend.taglibs.list.row.RowRenderer;
-
-import org.apache.commons.lang.StringUtils;
-
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -39,6 +27,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+
+import org.apache.commons.lang.StringUtils;
+
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.context.Context;
+import com.redhat.rhn.frontend.html.HtmlTag;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.taglibs.RhnListTagFunctions;
+import com.redhat.rhn.frontend.taglibs.list.decorators.ListDecorator;
+import com.redhat.rhn.frontend.taglibs.list.decorators.PageSizeDecorator;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
+import com.redhat.rhn.frontend.taglibs.list.row.RowRenderer;
 
 /**
  * Renders a list of data bean in a page
@@ -66,6 +67,7 @@ public class ListTag extends BodyTagSupport {
     private boolean haveTblAddonsRendered = false;
     private boolean haveTblFootersRendered = false;
     private boolean haveColHeadersRendered = false;
+
     private int columnCount;
     private int pageSize = -1;
     private String dataSetName = ListHelper.DATA_SET;
@@ -405,6 +407,26 @@ public class ListTag extends BodyTagSupport {
     @Override
     public int doEndTag() throws JspException {
         ListTagUtil.write(pageContext, "</div>");
+
+        // print the hidden fields after the list widget is printed
+        // but before the form of the listset is closed.
+        ListTagUtil.write(pageContext, String.format(HIDDEN_TEXT,
+                ListTagUtil.makeFilterSearchParentLabel(uniqueName),
+                searchParent));
+        ListTagUtil.write(pageContext,
+                String.format(HIDDEN_TEXT,
+                        ListTagUtil.makeFilterSearchChildLabel(uniqueName),
+                        searchChild));
+        ListTagUtil.write(pageContext, String.format(HIDDEN_TEXT,
+                ListTagUtil.makeParentIsAnElementLabel(uniqueName),
+                parentIsElement));
+
+        // here decorators should insert other e.g hidden input fields
+        for (ListDecorator dec : getDecorators()) {
+            dec.setCurrentList(this);
+            dec.afterList();
+        }
+
         ListTagUtil.write(pageContext, "<!-- END " + getUniqueName() + " -->");
         release();
         return BodyTagSupport.EVAL_PAGE;
@@ -418,18 +440,6 @@ public class ListTag extends BodyTagSupport {
         int retval = BodyTagSupport.EVAL_BODY_AGAIN;
 
         ListCommand cmd = ListTagUtil.getCurrentCommand(this, pageContext);
-
-        // close the panel-heading div
-        if (cmd.equals(ListCommand.TBL_HEADING)) {
-            //ListTagUtil.write(pageContext, "<!-- END heading (panel-heading) -->");
-            //ListTagUtil.write(pageContext, "</div>");
-        }
-
-        // close the panel-body div
-        if (cmd.equals(ListCommand.TBL_ADDONS)) {
-            //ListTagUtil.write(pageContext, "<!-- END addons (panel-body) -->");
-            //ListTagUtil.write(pageContext, "</div>");
-        }
 
         if (cmd.equals(ListCommand.COL_HEADER)) {
             ListTagUtil.write(pageContext, "</tr>");
@@ -455,55 +465,114 @@ public class ListTag extends BodyTagSupport {
 
             startTable();
 
-            ListTagUtil.write(pageContext, "<thead>");
-
-            // render the navigation and filters as a row of the header
-            ListTagUtil.write(pageContext, "<tr>");
-            ListTagUtil.write(pageContext, "<td colspan=\"" + getColumnCount() + "\">");
+            // as the header addons is populated with decorators, we don't
+            // know if there will be content or not, but we want to avoid
+            // writing the head tag at all if there is none, so we push a
+            // buffer into the stack, and empty it later.
+            StringWriter theadAlphaBarContent = new StringWriter();
+            StringWriter theadAddons = new StringWriter();
+            StringWriter theadBeforeTopPagDecContent = new StringWriter();
+            StringWriter theadFilterContent = new StringWriter();
+            StringWriter theadExtraContent = new StringWriter();
 
             setupManipulator();
             manip.sort();
             pageData = manip.getPage();
 
+            pageContext.pushBody(theadAlphaBarContent);
             if (!manip.isListEmpty() && !StringUtils.isBlank(alphaBarColumn)) {
                 AlphaBarHelper.getInstance().writeAlphaBar(pageContext,
                         manip.getAlphaBarIndex(), getUniqueName());
             }
+            pageContext.popBody();
 
-            for (ListDecorator dec : getDecorators()) {
-                dec.setCurrentList(this);
-                dec.beforeList();
+            pageContext.pushBody(theadAddons);
+            if (!isEmpty()) {
+                for (ListDecorator dec : getDecorators()) {
+                    dec.setCurrentList(this);
+                    dec.onTopAddons();
+                }
             }
-            ListTagUtil.write(pageContext, String.format(HIDDEN_TEXT,
-                    ListTagUtil.makeFilterSearchParentLabel(uniqueName), searchParent));
-            ListTagUtil.write(pageContext, String.format(HIDDEN_TEXT,
-                    ListTagUtil.makeFilterSearchChildLabel(uniqueName), searchChild));
-            ListTagUtil.write(pageContext, String.format(HIDDEN_TEXT,
-                    ListTagUtil.makeParentIsAnElementLabel(uniqueName), parentIsElement));
+            pageContext.popBody();
 
-            ListTagUtil.write(pageContext, "<div class=\"filter-input row\">");
-            // column with the filter
-            ListTagUtil.write(pageContext, "<div class=\"col-md-3 text-left\">");
+            pageContext.pushBody(theadFilterContent);
             if (filter != null && manip.getUnfilteredDataSize() !=  0) {
                 ListTagUtil.renderFilterUI(pageContext, filter,
                             getUniqueName(), width, columnCount,
                             searchParent, searchChild);
             }
-            ListTagUtil.write(pageContext, "</div>");
-            ListTagUtil.write(pageContext, "<div class=\"col-md-9 text-right\">");
+            pageContext.popBody();
+
+            pageContext.pushBody(theadBeforeTopPagDecContent);
             if (!isEmpty()) {
                 for (ListDecorator dec : getDecorators()) {
+                    dec.setCurrentList(this);
                     dec.beforeTopPagination();
                 }
             }
+            pageContext.popBody();
 
-            // column with the pagination controls
-            renderTopPaginationControls();
-            ListTagUtil.write(pageContext, "</div>");
+            pageContext.pushBody(theadExtraContent);
+            if (!isEmpty()) {
+                for (ListDecorator dec : getDecorators()) {
+                    dec.setCurrentList(this);
+                    dec.onTopExtraContent();
+                }
+            }
+            pageContext.popBody();
 
-            ListTagUtil.write(pageContext, "</div>");
-            ListTagUtil.write(pageContext, "</td>");
-            ListTagUtil.write(pageContext, "</tr>");
+            ListTagUtil.write(pageContext, "<thead>");
+
+            // this avoid render the row is there is no content at all
+            if ((theadAlphaBarContent.getBuffer().length() +
+                 theadFilterContent.getBuffer().length() +
+                 theadBeforeTopPagDecContent.getBuffer().length() +
+                 theadAddons.getBuffer().length()) > 0) {
+                // render the navigation and filters as a row of the header
+                ListTagUtil.write(pageContext, "<tr>");
+                ListTagUtil.write(pageContext, "<td colspan=\""
+                        + getColumnCount() + "\">");
+
+                ListTagUtil.write(pageContext,
+                        "<div class=\"spacewalk-list-top\">");
+
+                ListTagUtil.write(pageContext,
+                        "<div class=\"spacewalk-list-top-wrap\">");
+                ListTagUtil.write(pageContext,
+                        "<div class=\"spacewalk-list-top-alphabar\">");
+                ListTagUtil.write(pageContext, theadAlphaBarContent.toString());
+                ListTagUtil.write(pageContext, "</div>");
+                ListTagUtil.write(pageContext,
+                        "<div class=\"spacewalk-list-top-addons\">");
+                ListTagUtil.write(pageContext, theadAddons.toString());
+                ListTagUtil.write(pageContext, "</div>");
+                ListTagUtil.write(pageContext, "</div>");
+
+                ListTagUtil.write(pageContext,
+                        "<div class=\"spacewalk-list-top-wrap\">");
+                ListTagUtil.write(pageContext,
+                        "<div class=\"spacewalk-list-filter\">");
+                ListTagUtil.write(pageContext, theadFilterContent.toString());
+                ListTagUtil.write(pageContext, "</div>");
+                ListTagUtil.write(pageContext,
+                        "<div class=\"spacewalk-list-top-pagination\">");
+                ListTagUtil.write(pageContext,
+                        theadBeforeTopPagDecContent.toString());
+                // column with the pagination controls
+                renderTopPaginationControls();
+                ListTagUtil.write(pageContext, "</div>");
+                ListTagUtil.write(pageContext, "</div>");
+
+                ListTagUtil.write(pageContext,
+                        "<div class=\"spacewalk-list-top-extra\">");
+                ListTagUtil.write(pageContext, theadExtraContent.toString());
+                ListTagUtil.write(pageContext, "</div>");
+
+                ListTagUtil.write(pageContext, "</div>");
+
+                ListTagUtil.write(pageContext, "</td>");
+                ListTagUtil.write(pageContext, "</tr>");
+            }
 
             HttpServletRequest request = (HttpServletRequest) pageContext
                     .getRequest();
@@ -529,7 +598,6 @@ public class ListTag extends BodyTagSupport {
 
         }
         if (haveColHeadersRendered && !haveTblFootersRendered) {
-
             ListTagUtil.write(pageContext, "</tr>");
             ListTagUtil.write(pageContext, "</thead>");
 
@@ -566,14 +634,26 @@ public class ListTag extends BodyTagSupport {
         else if (haveTblFootersRendered) {
             retval = BodyTagSupport.SKIP_BODY;
 
-            // render the pagination controls as the footer of the table
-            ListTagUtil.write(pageContext, "<tfoot>");
-            ListTagUtil.write(pageContext, "<tr>");
-            ListTagUtil.write(pageContext, "<td colspan=\"" + getColumnCount() + "\">");
+            // as the footer addons are populated with decorators, we don't
+            // know if there will be content or not, but we want to avoid
+            // writing the tfoot tag at all if there is none, so we push a
+            // buffer into the stack, and empty it later.
+            StringWriter tfootAddonsContent = new StringWriter();
+            pageContext.pushBody(tfootAddonsContent);
             renderFooterPaginationControls();
-            ListTagUtil.write(pageContext, "</td>");
-            ListTagUtil.write(pageContext, "</tr>");
-            ListTagUtil.write(pageContext, "</tfoot>");
+            pageContext.popBody();
+
+            if (tfootAddonsContent.getBuffer().length() > 0) {
+                // render the pagination controls as the footer of the table
+                ListTagUtil.write(pageContext, "<tfoot>");
+                ListTagUtil.write(pageContext, "<tr>");
+                ListTagUtil.write(pageContext, "<td colspan=\"" + getColumnCount() + "\">");
+                ListTagUtil.write(pageContext, tfootAddonsContent.toString());
+                ListTagUtil.write(pageContext, "</td>");
+                ListTagUtil.write(pageContext, "</tr>");
+                ListTagUtil.write(pageContext, "</tfoot>");
+            }
+
             ListTagUtil.write(pageContext, "</table>");
 
             // if there is reference links, put them as a panel footer
@@ -672,6 +752,12 @@ public class ListTag extends BodyTagSupport {
                 getUniqueName(), isParentAnElement(), searchParent, searchChild);
 
         ListTagUtil.write(pageContext, "<!-- START LIST " + getUniqueName() + " -->");
+
+        for (ListDecorator dec : getDecorators()) {
+            dec.setCurrentList(this);
+            dec.beforeList();
+        }
+
         ListTagUtil.write(pageContext, "<div class=\"spacewalk-list panel panel-default\" id=\"" + getUniqueName() + "\">");
 
         ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
@@ -862,10 +948,7 @@ public class ListTag extends BodyTagSupport {
         }
 
         ListTagUtil.write(pageContext, "<div class=\"pull-left\">");
-        for (ListDecorator dec : getDecorators()) {
-            dec.setCurrentList(this);
-            dec.afterList();
-        }
+        // Here were the afterList decorators
         ListTagUtil.write(pageContext, "</div>");
 
         ListTagUtil.write(pageContext, "<div class=\"pull-right\">");

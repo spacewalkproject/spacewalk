@@ -509,3 +509,37 @@ h1 .icon-stack {
 ul.nav.nav-tabs:last-child{
 	margin-bottom: 1.5em
 }
+
+// data lists
+
+.spacewalk-list {
+	.spacewalk-list-top {
+		padding: 0.7em;
+		.spacewalk-list-top-wrap {
+			.make-row();
+
+			.spacewalk-list-top-alphabar {
+				.make-md-column(9);
+				.text-left;
+			}
+			.spacewalk-list-top-addons {
+				.make-md-column(3);
+				.text-right;
+			}
+
+			.spacewalk-list-filter {
+				.make-md-column(4);
+				.text-left;
+			}
+			.spacewalk-list-top-pagination {
+				.make-md-column(8);
+				.text-right;
+			}
+		}
+
+		.spacewalk-list-top-extra {
+			.make-row();
+		}
+	}
+}
+

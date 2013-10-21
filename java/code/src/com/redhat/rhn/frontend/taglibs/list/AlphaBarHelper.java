@@ -83,11 +83,9 @@ public class AlphaBarHelper {
      */
     public void writeAlphaBar(PageContext pageContext,
             Set<Character> activeChars, String listName) throws JspException {
-
+        
         ListTagUtil.write(pageContext,
-                         "<div class=\"spacewalk-alphabar\">");
-        ListTagUtil.write(pageContext,
-                "<ul class=\"pagination pagination-sm\">");
+                "<ul class=\"spacewalk-alphabar pagination pagination-sm\">");
 
         List<String> alphabet = LocalizationService.getInstance().getAlphabet();
         List<String> numbers = LocalizationService.getInstance().getDigits();
@@ -115,7 +113,6 @@ public class AlphaBarHelper {
         }
 
         ListTagUtil.write(pageContext, "</ul>");
-        ListTagUtil.write(pageContext, "</div>");
     }
 
     private String renderEnabledAlpha(char alpha,
