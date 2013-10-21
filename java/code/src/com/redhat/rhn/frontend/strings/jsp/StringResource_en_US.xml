@@ -4832,6 +4832,18 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/systems/SystemEntitlements</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="systemlist.jsp.bootstrap">
+        <source>Bare metal host</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Overview</context>
+          <context context-type="sourcefile">/rhn/systems/SystemList</context>
+          <context context-type="sourcefile">/rhn/systems/OutOfDate</context>
+          <context context-type="sourcefile">/rhn/systems/Unentitled</context>
+          <context context-type="sourcefile">/rhn/systems/Ungrouped</context>
+          <context context-type="sourcefile">/rhn/systems/Proxy</context>
+          <context context-type="sourcefile">/rhn/systems/@@PRODUCT_NAME@@</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="systemlist.jsp.virthost">
         <source>Virtual Host</source>
         <context-group name="ctx">

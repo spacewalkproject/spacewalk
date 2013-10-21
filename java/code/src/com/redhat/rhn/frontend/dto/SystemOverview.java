@@ -15,6 +15,8 @@
 package com.redhat.rhn.frontend.dto;
 
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.manager.entitlement.EntitlementManager;
+import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -710,6 +712,13 @@ public class SystemOverview extends BaseDto implements Serializable  {
      */
     public boolean getVirtualGuest() {
         return this.isVirtualGuest;
+    }
+
+    /**
+     * @return true if this system is a bare-metal server
+     */
+    public boolean isBootstrap() {
+        return SystemManager.hasEntitlement(getId(), EntitlementManager.BOOTSTRAP);
     }
 
     /**
