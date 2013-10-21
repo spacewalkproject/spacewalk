@@ -82,18 +82,16 @@ public class Config {
     /** hash of configuration properties */
     private final Properties configValues = new Properties();
     /** set of configuration file names */
-    private final TreeSet<File> fileList = new TreeSet<File>(new Comparator() {
+    private final TreeSet<File> fileList = new TreeSet<File>(new Comparator<File>() {
 
         /** {inheritDoc} */
-        public int compare(Object o1, Object o2) {
+        public int compare(File f1, File f2) {
             // Need to make sure we read the child namespace before the base
             // namespace.  To do that, we sort the list in reverse order based
             // on the length of the file name.  If two filenames have the same
             // length, then we need to do a lexigraphical comparison to make
             // sure that the filenames themselves are different.
 
-            File f1 = (File) o1;
-            File f2 = (File) o2;
             int lenDif = f2.getAbsolutePath().length() - f1.getAbsolutePath().length();
 
             if (lenDif != 0) {
