@@ -687,6 +687,19 @@ public  class UserFactory extends HibernateFactory {
     }
 
     /**
+     * Return a list of all Users who has the given email.
+     *
+     * @param email String to find users for.
+     * @return list of users.
+     */
+    public static List<User> lookupByEmail(String email) {
+        Session session = HibernateFactory.getSession();
+        Query query = session.getNamedQuery("User.findByEmail")
+                .setParameter("userEmail", email);
+        return query.list();
+    }
+
+    /**
      * Return a list of all User's who are in the given org.
      *
      * @param inOrg Org to find users for.

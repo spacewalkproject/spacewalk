@@ -91,6 +91,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.user.legacy.UserImpl as u where u.id in (:userIds)]]>
     </query>
 
+    <query name="User.findByEmail">
+        <![CDATA[from com.redhat.rhn.domain.user.legacy.UserImpl as u where upper(u.personalInfo.email) = upper(:userEmail)]]>
+    </query>
+
     <query name="User.findAllUsersByOrg">
         <![CDATA[from com.redhat.rhn.domain.user.legacy.UserImpl as u where org_id = :org_id]]>
     </query>
