@@ -8,13 +8,14 @@
   <body>
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
+    <html:form method="post" action="/systems/details/SystemHardware.do?sid=${sid}">
+    <rhn:require acl="not system_has_bootstrap_entitlement()">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4><bean:message key="sdc.details.hardware.header"/></h4>
       </div>
       <div class="panel-body">
         <bean:message key="sdc.details.hardware.refresh"/>
-        <html:form method="post" action="/systems/details/SystemHardware.do?sid=${sid}">
           <rhn:csrf />
           <html:hidden property="submitted" value="true"/>
             <div class="text-right">
@@ -24,6 +25,7 @@
             </div>
       </div>
     </div>
+    </rhn:require>
 
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -212,6 +214,7 @@
             </td>
           </tr>
 
+      <rhn:require acl="not system_has_bootstrap_entitlement()">
           <tr>
             <th>
               <c:out value="Primary network interface:"/>
@@ -224,17 +227,20 @@
               </html:select>
             </td>
           </tr>
+      </rhn:require>
 
         </table>
       </div>
     </div>
 
+    <rhn:require acl="not system_has_bootstrap_entitlement()">
 			<rhn:csrf />
         <div class="text-right margin-bottom-sm">
           <html:submit property="update_interface" styleClass="btn btn-default">
             <bean:message key="sdc.details.edit.update"/>
           </html:submit>
         </div>
+    </rhn:require>
 
     <div class="panel panel-default">
       <div class="panel-body">
