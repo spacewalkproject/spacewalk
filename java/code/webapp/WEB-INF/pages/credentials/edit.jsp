@@ -12,46 +12,51 @@
                      deletionType="credentials">
             <bean:message key="Credentials"/>
         </rhn:toolbar>
-        <p class="lead">
+        <p>
             <bean:message key="credentials.jsp.edit.summary" />
         </p>
-        <h2><bean:message key="credentials.jsp.susestudio" /></h2>
-
-        <form method="post" action="/rhn/account/Credentials.do"
-              class="form-horizontal" role="form">
-            <rhn:csrf />
-            <rhn:submitted />
-            <div class="form-group">
-                <label class="col-lg-3 control-label">
-                    <bean:message key="credentials.jsp.username" />
-                </label>
-                <div class="col-lg-6">
-                    <html:text property="studio_user" styleClass="form-control" value="${creds.username}" />
-                </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4><bean:message key="credentials.jsp.susestudio" /></h4>
             </div>
-            <div class="form-group">
-                <label class="col-lg-3 control-label">
-                    <bean:message key="credentials.jsp.apikey" />
-                </label>
-                <div class="col-lg-6">
-                    <html:text property="studio_key" styleClass="form-control" value="${creds.password}" />
-                </div>
+            <div class="panel-body">
+                <form method="post" action="/rhn/account/Credentials.do"
+                  class="form-horizontal" role="form">
+                    <rhn:csrf />
+                    <rhn:submitted />
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">
+                            <bean:message key="credentials.jsp.username" />
+                        </label>
+                        <div class="col-lg-6">
+                            <html:text property="studio_user" styleClass="form-control" value="${creds.username}" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">
+                            <bean:message key="credentials.jsp.apikey" />
+                        </label>
+                        <div class="col-lg-6">
+                            <html:text property="studio_key" styleClass="form-control" value="${creds.password}" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">
+                            <bean:message key="credentials.jsp.url" />
+                        </label>
+                        <div class="col-lg-6">
+                            <html:text property="studio_url" styleClass="form-control" value="${creds.url}" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-3 col-lg-6">
+                            <button type="submit" class="btn btn-success">
+                                <bean:message key="credentials.jsp.edit.dispatch" />
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label class="col-lg-3 control-label">
-                    <bean:message key="credentials.jsp.url" />
-                </label>
-                <div class="col-lg-6">
-                    <html:text property="studio_url" styleClass="form-control" value="${creds.url}" />
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-lg-offset-3 col-lg-6">
-                    <button type="submit" class="btn btn-success">
-                        <bean:message key="credentials.jsp.edit.dispatch" />
-                    </button>
-                </div>
-            </div>
-        </form>
+        </div>  
     </body>
 </html>

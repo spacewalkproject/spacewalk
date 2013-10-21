@@ -15,14 +15,16 @@
     <bean:message key="Addresses" />
 </rhn:toolbar>
 
-<div class="page-summary">
-<p>
-   <bean:message key="addresses.summary" />
-</p>
-</div>
-
-  <table class="details">
-    <rhn:address type="M" action="my" user="${requestScope.targetuser}" address="${requestScope.addressMarketing}"/>
-  </table>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h4>
+		   <bean:message key="addresses.summary" />
+		</h4>
+	</div>
+	<div class="panel-body">
+		<table class="table">
+	    	<rhn:address type="M" action="my" user="${requestScope.targetuser}" address="${requestScope.addressMarketing}"/>
+		</table>
+	</div>
 </body>
 </html>
