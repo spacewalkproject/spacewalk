@@ -6,7 +6,7 @@
 	  <rhn-tab-url>/rhn/systems/details/Overview.do</rhn-tab-url>
 	  <rhn-tab-url>/network/systems/details/reboot_confirm.pxt</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="Properties" acl="not system_has_bootstrap_entitlement()" url="/rhn/systems/details/Edit.do" />
+    <rhn-tab name="Properties" url="/rhn/systems/details/Edit.do" />
     <rhn-tab name="Remote Command" acl="system_feature(ftr_remote_command)">
       <rhn-tab-url>/rhn/systems/details/SystemRemoteCommand.do</rhn-tab-url>
     </rhn-tab>
@@ -184,7 +184,7 @@
     <rhn-tab-url>/network/systems/details/probes/delete_conf.pxt</rhn-tab-url>
   </rhn-tab>
 
-  <rhn-tab name="Groups" acl="system_feature(ftr_system_grouping); user_role(org_admin) or user_role(system_group_admin)" url="/rhn/systems/details/groups/ListRemove.do">
+  <rhn-tab name="Groups" acl="system_feature(ftr_system_grouping); user_role(org_admin) or user_role(system_group_admin);not system_has_bootstrap_entitlement()" url="/rhn/systems/details/groups/ListRemove.do">
 
     <rhn-tab name="List / Leave" url="/rhn/systems/details/groups/ListRemove.do"/>
     <rhn-tab name="Join" url="/rhn/systems/details/groups/Add.do"/>
