@@ -21,6 +21,7 @@ BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:  noarch
 
 BuildRequires: java-devel >= 1.5.0
+BuildRequires: nodejs-less
 Requires:   httpd
 
 %description
@@ -34,6 +35,9 @@ Spacewalk specific branding, CSS, and images.
 javac java/code/src/com/redhat/rhn/branding/strings/StringPackage.java
 rm -f java/code/src/com/redhat/rhn/branding/strings/StringPackage.java
 jar -cf java-branding.jar -C java/code/src com
+
+# Compile less into css
+lessc css/spacewalk.less > css/spacewalk.css
 
 %install
 rm -rf %{buildroot}
