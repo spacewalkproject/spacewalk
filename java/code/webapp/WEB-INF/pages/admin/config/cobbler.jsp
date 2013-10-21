@@ -32,7 +32,7 @@
                         <bean:message key="cobbler.jsp.sync"/>
                     </th>
                     <td>
-                        <input type="submit" name="cobbler_sync" value="${rhn:localize('update')}" />
+                        <input type="submit" class="btn btn-success" name="cobbler_sync" value="${rhn:localize('update')}" />
                     </td>
                 </tr>
                 </table>

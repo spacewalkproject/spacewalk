@@ -38,7 +38,7 @@
 
                 </table>
                 <hr/>
-                <div align="right"><html:submit><bean:message key="restart.jsp.restart"/></html:submit></div>
+                <div class="pull-right"><html:submit styleClass="btn btn-success"><bean:message key="restart.jsp.restart"/></html:submit></div>
             <rhn:submitted/>
             </html:form>
         </div>
