@@ -62,10 +62,8 @@ public class SchedulerKernel {
      */
     public SchedulerKernel() throws InstantiationException, UnknownHostException {
         Properties props = Config.get().getNamespaceProperties("org.quartz");
-        String dbName = Config.get().getString(ConfigDefaults.DB_NAME);
         String dbUser = Config.get().getString(ConfigDefaults.DB_USER);
         String dbPass = Config.get().getString(ConfigDefaults.DB_PASSWORD);
-        String dbProto = Config.get().getString(ConfigDefaults.DB_PROTO);
         props.setProperty(dataSourceConfigPath, defaultDataSource);
         String ds = dataSourcePrefix + "." + defaultDataSource;
         props.setProperty(ds + ".user", dbUser);
@@ -79,15 +77,7 @@ public class SchedulerKernel {
             String driver = Config.get().getString(ConfigDefaults.DB_CLASS,
                     "oracle.jdbc.driver.OracleDriver");
             props.setProperty(ds + ".driver", driver);
-
-            String dbUrl = dbProto + ":@";
-            if (dbProto.contains("thin")) {
-                String dbHost = Config.get().getString(ConfigDefaults.DB_HOST);
-                String dbPort = Config.get().getString(ConfigDefaults.DB_PORT);
-                dbUrl += dbHost + ":" + dbPort + ":";
-            }
-            dbUrl += dbName;
-            props.setProperty(ds + ".URL", dbUrl);
+            props.setProperty(ds + ".URL", ConfigDefaults.get().getJdbcConnectionString());
         }
         else if (ConfigDefaults.get().isPostgresql()) {
             props.setProperty("org.quartz.jobStore.driverDelegateClass",
@@ -96,23 +86,11 @@ public class SchedulerKernel {
             String driver = Config.get().getString(ConfigDefaults.DB_CLASS,
                     "org.postgresql.Driver");
             props.setProperty(ds + ".driver", driver);
-
-            String connectionUrl = Config.get().getString(
-                    ConfigDefaults.DB_PROTO) +
-                    ":";
-            String dbHost = Config.get().getString(ConfigDefaults.DB_HOST);
-            String dbPort = Config.get().getString(ConfigDefaults.DB_PORT);
-            if (dbHost != null && dbHost.length() > 0) {
-                connectionUrl += "//" + dbHost;
-                if (dbPort != null && dbPort.length() > 0) {
-                    connectionUrl += ":" + dbPort;
-                }
-                connectionUrl += "/";
-            }
-            connectionUrl += dbName;
-            props.setProperty(ds + ".URL", connectionUrl);
+            props.setProperty(ds + ".URL", ConfigDefaults.get().getJdbcConnectionString());
         }
         else {
+            // This code should never get called as Exception would get
+            // thrown in getJdbcConnectionString.
             throw new InstantiationException(
                     "Unknown db backend set, expecting oracle or postgresql");
         }
