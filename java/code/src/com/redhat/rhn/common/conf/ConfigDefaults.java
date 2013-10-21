@@ -531,6 +531,46 @@ public class ConfigDefaults {
     }
 
     /**
+     * Constructs JDBC connection string based on configuration, checks for
+     * some basic sanity.
+     * @return JDBC connection string
+     * @throws ConfigException if unknown database backend is set,
+     */
+    public String getJdbcConnectionString() throws ConfigException {
+        String dbName = Config.get().getString(DB_NAME);
+        String dbHost = Config.get().getString(DB_HOST);
+        String dbPort = Config.get().getString(DB_PORT);
+        String dbProto = Config.get().getString(DB_PROTO);
+        String dbSslmode = Config.get().getString(DB_SSLMODE);
+
+        String connectionUrl;
+
+        if (isOracle()) {
+            connectionUrl = dbProto + ":@";
+            if (dbProto.contains("thin")) {
+                connectionUrl += dbHost + ":" + dbPort + ":";
+            }
+            connectionUrl += dbName;
+        }
+        else if (isPostgresql()) {
+            connectionUrl = dbProto + ":";
+            if (dbHost != null && dbHost.length() > 0) {
+                connectionUrl += "//" + dbHost;
+                if (dbPort != null && dbPort.length() > 0) {
+                    connectionUrl += ":" + dbPort;
+                }
+                connectionUrl += "/";
+            }
+            connectionUrl += dbName;
+        }
+        else {
+            throw new ConfigException(
+                "Unknown db backend set, expecting oracle or postgresql");
+        }
+        return connectionUrl;
+    }
+
+    /**
      * is documentation available
      * @return true if so
      */
