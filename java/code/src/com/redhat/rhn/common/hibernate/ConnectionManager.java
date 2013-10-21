@@ -169,29 +169,9 @@ class ConnectionManager {
             hibProperties.put("hibernate.connection.password",
                     Config.get()
                     .getString(ConfigDefaults.DB_PASSWORD));
-            String connectionUrl =
-                    Config.get().getString(ConfigDefaults.DB_PROTO) + ":";
-            String dbName = Config.get().getString(ConfigDefaults.DB_NAME);
-            String dbHost = Config.get().getString(ConfigDefaults.DB_HOST);
-            String dbPort = Config.get().getString(ConfigDefaults.DB_PORT);
 
-            if (ConfigDefaults.get().isOracle() && connectionUrl.contains("thin")) {
-                connectionUrl += "@" + dbHost + ":" + dbPort + ":" + dbName;
-            }
-            else if (ConfigDefaults.get().isOracle()) {
-                connectionUrl += "@" + dbName;
-            }
-            else {
-                if (dbHost != null && dbHost.length() > 0) {
-                    connectionUrl += "//" + dbHost;
-                    if (dbPort != null && dbPort.length() > 0) {
-                        connectionUrl += ":" + dbPort;
-                    }
-                    connectionUrl += "/";
-                }
-                connectionUrl += dbName;
-            }
-            hibProperties.put("hibernate.connection.url", connectionUrl);
+            hibProperties.put("hibernate.connection.url",
+                    ConfigDefaults.get().getJdbcConnectionString());
 
             config.addProperties(hibProperties);
             // Force the use of our txn factory
