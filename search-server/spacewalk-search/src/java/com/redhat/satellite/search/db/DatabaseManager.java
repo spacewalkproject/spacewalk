@@ -15,6 +15,7 @@
 
 package com.redhat.satellite.search.db;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,6 +27,7 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import com.ibatis.sqlmap.client.SqlMapSession;
 import com.redhat.satellite.search.config.Configuration;
+import com.redhat.satellite.search.config.ConfigException;
 
 /**
  * Manages DB activity - connections, running queries, etc
@@ -67,13 +69,28 @@ public class DatabaseManager {
         if (config.getString("db_backend").equals("oracle")) {
             overrides.setProperty("db_name", "@" + overrides.getProperty("db_name"));
         } else {
-            String db_host = config.getString("db_host");
-            String db_port = config.getString("db_port");
-            if (db_host != null && db_host.length() > 0) {
-                if (db_port != null && db_port.length() > 0) {
-                    overrides.setProperty("db_name", "//" + db_host + ":" + db_port + "/" + overrides.getProperty("db_name"));
-                } else {
-                    overrides.setProperty("db_name", "//" + db_host + "/" + overrides.getProperty("db_name"));
+            String dbHost = config.getString("db_host");
+            String dbPort = config.getString("db_port");
+            if (dbHost != null && dbHost.length() > 0) {
+                String connectionUrl = "//" + dbHost;
+                if (dbPort != null && dbPort.length() > 0) {
+                    connectionUrl += ":" + dbPort;
+                }
+                connectionUrl += "/" + overrides.getProperty("db_name");
+
+                String sslmode = config.getString("db_sslmode");
+                if (sslmode != null && sslmode.equals("verify-full")) {
+                    connectionUrl += "?ssl=true";
+                    String trustStore = config.getString("java.ssl_truststore");
+                    if (trustStore == null || ! new File(trustStore).isFile()) {
+                        throw new ConfigException("Can not find java truststore at " +
+                            trustStore + ". Path can be changed with java.ssl_truststore option.");
+                    }
+                    System.setProperty("javax.net.ssl.trustStore", trustStore);
+                }
+                else if (sslmode != null) {
+                    throw new ConfigException(
+                        "Unsuported value for db_sslmode. Only 'verify-full' is supported.");
                 }
             }
         }
