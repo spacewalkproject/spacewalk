@@ -14,11 +14,11 @@
  */
 package com.redhat.rhn.frontend.taglibs.list.decorators;
 
-import com.redhat.rhn.frontend.taglibs.list.ListSetTag;
-import com.redhat.rhn.frontend.taglibs.list.ListTag;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
+
+import com.redhat.rhn.frontend.taglibs.list.ListSetTag;
+import com.redhat.rhn.frontend.taglibs.list.ListTag;
 
 /**
  * General-use base class for writing decorators
@@ -116,6 +116,13 @@ public abstract class BaseListDecorator implements ListDecorator {
      * {@inheritDoc}
      */
     public void onTopAddons() throws JspException {
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void onBottomAddons() throws JspException {
 
     }
 }

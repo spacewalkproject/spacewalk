@@ -14,6 +14,10 @@
  */
 package com.redhat.rhn.frontend.taglibs.list.decorators;
 
+import javax.servlet.jsp.JspException;
+
+import org.apache.commons.lang.StringUtils;
+
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.frontend.html.HtmlTag;
 import com.redhat.rhn.frontend.taglibs.ListDisplayTag;
@@ -21,10 +25,6 @@ import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
 import com.redhat.rhn.frontend.taglibs.list.SelectableColumnTag;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-
-import org.apache.commons.lang.StringUtils;
-
-import javax.servlet.jsp.JspException;
 
 /**
  * Handles selectable lists, such as lists backed by RhnSet
@@ -65,12 +65,16 @@ public class SelectableDecorator extends BaseListDecorator {
         renderSelectedCaption(false);
     }
 
+    @Override
+    public void onBottomAddons() throws JspException {
+        renderSelectButtons();
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void afterList() throws JspException {
-        renderSelectButtons();
         String script = SelectableColumnTag.
                         getPostScript(listName, pageContext.getRequest());
         if (!StringUtils.isBlank(script)) {

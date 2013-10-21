@@ -98,4 +98,10 @@ public interface ListDecorator {
      * @throws JspException something bad happened
      */
     void onTopAddons() throws JspException;
+
+    /**
+     * Notifies the decorator that the list is in the addons section
+     * @throws JspException something bad happened
+     */
+    void onBottomAddons() throws JspException;
 }

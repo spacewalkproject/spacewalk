@@ -947,17 +947,27 @@ public class ListTag extends BodyTagSupport {
             return;
         }
 
-        ListTagUtil.write(pageContext, "<div class=\"pull-left\">");
-        // Here were the afterList decorators
+        ListTagUtil.write(pageContext, "<div class=\"spacewalk-list-bottom\">");
+
+        ListTagUtil.write(pageContext,
+                "<div class=\"spacewalk-list-bottom-wrap\">");
+        ListTagUtil.write(pageContext, "<div class=\"spacewalk-list-bottom-addons\">");
+        if (!manip.isListEmpty()) {
+            for (ListDecorator dec : getDecorators()) {
+                dec.onBottomAddons();
+                dec.setCurrentList(null);
+            }
+        }
         ListTagUtil.write(pageContext, "</div>");
 
-        ListTagUtil.write(pageContext, "<div class=\"pull-right\">");
+        ListTagUtil.write(pageContext, "<div class=\"spacewalk-list-bottom-pagination\">");
         if (!isEmpty() && !hidePageNums) {
             ListTagUtil.write(pageContext, manip.getPaginationMessage());
         }
 
         if (!manip.isListEmpty()) {
             for (ListDecorator dec : getDecorators()) {
+                dec.setCurrentList(this);
                 dec.afterBottomPagination();
                 dec.setCurrentList(null);
             }
@@ -966,6 +976,18 @@ public class ListTag extends BodyTagSupport {
         ListTagUtil.write(pageContext, "&nbsp;&nbsp;");
         ListTagUtil.renderPaginationLinks(pageContext, PAGINATION_NAMES,
                 manip.getPaginationLinks());
+        ListTagUtil.write(pageContext, "</div>");
+        ListTagUtil.write(pageContext, "</div>");
+
+        ListTagUtil.write(pageContext, "<div class=\"spacewalk-list-bottom-extra\">");
+        if (!manip.isListEmpty()) {
+            for (ListDecorator dec : getDecorators()) {
+                dec.setCurrentList(this);
+                dec.onBottomExtraContent();
+                dec.setCurrentList(null);
+            }
+        }
+        ListTagUtil.write(pageContext, "</div>");
 
         ListTagUtil.write(pageContext, "</div>");
     }
