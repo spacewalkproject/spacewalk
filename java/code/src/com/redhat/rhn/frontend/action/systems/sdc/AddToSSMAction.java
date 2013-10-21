@@ -57,7 +57,8 @@ public class AddToSSMAction extends RhnAction {
         User user = rctx.getLoggedInUser();
         Server s  = SystemManager.lookupByIdAndUser(sid, user);
 
-        if (s.hasEntitlement(EntitlementManager.MANAGEMENT)) {
+        if (s.hasEntitlement(EntitlementManager.MANAGEMENT) ||
+            s.hasBootstrapEntitlement()) {
             RhnSet set = RhnSetDecl.SYSTEMS.get(user);
 
             if (!set.getElementValues().contains(s.getId())) {
