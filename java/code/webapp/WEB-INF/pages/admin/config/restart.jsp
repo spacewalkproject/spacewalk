@@ -11,39 +11,38 @@
 	</c:if>
 </head>
 <body  <c:if test="${requestScope.restart == 'true'}">onload="checkConnection(${requestScope.restartDelay})"</c:if> >
-<rhn:toolbar base="h1" icon="icon-info-sign" imgAlt="info.alt.img">
-  <bean:message key="restart.jsp.toolbar"/>
-</rhn:toolbar>
-
-<div class="page-summary">
+    <rhn:toolbar base="h1" icon="icon-info-sign" imgAlt="info.alt.img">
+      <bean:message key="restart.jsp.toolbar"/>
+    </rhn:toolbar>
     <p>
         <bean:message key="restart.jsp.summary"/>
     </p>
-</div>
-<rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/sat_config.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
+    <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/sat_config.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4><bean:message key="restart.jsp.header2"/></h4>
+        </div>
 
-<h2><bean:message key="restart.jsp.header2"/></h2>
+        <div class="panel-body">
+            <html:form action="/admin/config/Restart">
+                <rhn:csrf />
+                <table class="table">
+                <tr>
+                    <th>
+                        <label for="restart"><bean:message key="restart.jsp.restart_satellite"/></label>
+                    </th>
+                    <td>
+                        <html:checkbox property="restart" styleId="restart" />
+                    </td>
+                </tr>
 
-<div>
-<html:form action="/admin/config/Restart">
-    <rhn:csrf />
-    <table class="details">
-    <tr>
-        <th>
-            <label for="restart"><bean:message key="restart.jsp.restart_satellite"/></label>
-        </th>
-        <td>
-            <html:checkbox property="restart" styleId="restart" />
-        </td>
-    </tr>
-
-    </table>
-    <hr/>
-    <div align="right"><html:submit><bean:message key="restart.jsp.restart"/></html:submit></div>
-<rhn:submitted/>
-</html:form>
-</div>
-
+                </table>
+                <hr/>
+                <div align="right"><html:submit><bean:message key="restart.jsp.restart"/></html:submit></div>
+            <rhn:submitted/>
+            </html:form>
+        </div>
+    </div>
 </body>
 </html:html>
 
