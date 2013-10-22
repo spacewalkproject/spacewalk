@@ -22,5 +22,6 @@
   <li><rhn:icon type="system-virt-host" /><bean:message key="systemlist.jsp.virthost"/></li>
   <li><rhn:icon type="system-virt-guest" /><bean:message key="systemlist.jsp.virtguest"/></li>
   <li><rhn:icon type="system-physical" /><bean:message key="systemlist.jsp.nonvirt"/></li>
+  <li><rhn:icon type="system-bootstrap" /><bean:message key="systemlist.jsp.bootstrap"/></li>
  </ul>
 </div>
