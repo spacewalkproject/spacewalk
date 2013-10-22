@@ -514,7 +514,7 @@ ul.nav.nav-tabs:last-child{
 	.spacewalk-list-top {
 		padding: 0.7em;
 		.spacewalk-list-top-wrap {
-			.make-row();
+			.make-row(0);
 
 			.spacewalk-list-top-alphabar {
 				.make-md-column(9);
@@ -537,6 +537,20 @@ ul.nav.nav-tabs:last-child{
 
 		.spacewalk-list-top-extra {
 			.make-row();
+		}
+	}
+
+	.spacewalk-list-bottom {
+		.spacewalk-list-bottom-wrap {
+			.make-row(0);
+			.spacewalk-list-bottom-addons {
+				.make-md-column(4);
+				.text-left;
+			}
+			.spacewalk-list-bottom-pagination {
+				.make-md-column(8);
+				.text-right;
+			}
 		}
 	}
 }

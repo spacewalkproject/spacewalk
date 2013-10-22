@@ -15,24 +15,9 @@
 
 package com.redhat.rhn.frontend.taglibs;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.util.CSVWriter;
-import com.redhat.rhn.common.util.DynamicComparator;
-import com.redhat.rhn.common.util.ExportWriter;
-import com.redhat.rhn.common.util.ServletExportHandler;
-import com.redhat.rhn.frontend.dto.BaseListDto;
-import com.redhat.rhn.frontend.dto.UserOverview;
-import com.redhat.rhn.frontend.html.HtmlTag;
-import com.redhat.rhn.frontend.struts.RequestContext;
-
-import org.apache.commons.lang.StringUtils;
-
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,7 +25,16 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.BodyContent;
-import javax.servlet.jsp.tagext.BodyTagSupport;
+
+import org.apache.commons.lang.StringUtils;
+
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.util.DynamicComparator;
+import com.redhat.rhn.common.util.ExportWriter;
+import com.redhat.rhn.common.util.ServletExportHandler;
+import com.redhat.rhn.frontend.dto.BaseListDto;
+import com.redhat.rhn.frontend.dto.UserOverview;
+import com.redhat.rhn.frontend.struts.RequestContext;
 
 /**
  * The UnpagedListDisplayTag defines the structure of the ListView.  This tag iterates
@@ -96,93 +90,21 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * @see com.redhat.rhn.frontend.taglibs.ColumnTag
  * @see com.redhat.rhn.frontend.taglibs.ListTag
  */
-public class UnpagedListDisplayTag extends BodyTagSupport {
+public class UnpagedListDisplayTag extends ListDisplayTagBase {
 
-    /** iterates through the page list */
-    private Iterator iterator;
-    /** list of data to show on page */
-    private DataResult pageList;
     /** row count determines whether we're an even or odd row */
     private int rowCnt = 0;
-    /** How many columns are there? */
-    protected int numberOfColumns = 0;
-    /** Which column are we rendering now? */
-    protected int columnCount = 0;
-    /** Which row are we on now? */
     protected int currRow = 0;
 
-    private String filterBy;
-    /** type of table we are using. default is list" */
-    private String type = "list";
     /** determines whether or not we should show the borders
      *  of the list and if the rows should all be white
      */
     private boolean transparent = false;
     /** determines whether we should show the disabled CSS */
-    private boolean renderDisabled;
-    /** comma separated list of columns to be exported */
-    private String exportColumns;
-    /** optional title attribute for displaying a titled list */
-    private String title;
-    private String hiddenvars;
     private String nodeIdString = null;
 
     /** Public constructor  */
     public UnpagedListDisplayTag() {
-    }
-
-    /**
-     * @return Returns the disabled.
-     */
-    public boolean renderDisabled() {
-        return renderDisabled;
-    }
-    /**
-     * @param disabled The disabled to set.
-     */
-    public void setRenderDisabled(String disabled) {
-        renderDisabled = disabled.equals("true");
-    }
-
-    /**
-     * Set the header of the filter on which to filter
-     * @param filterByIn The filterBy to set.
-     */
-    public void setFilterBy(String filterByIn) {
-        this.filterBy = filterByIn;
-    }
-
-    /**
-     * Returns the title message key.
-     * @return Returns the title.
-     */
-    public String getTitle() {
-        return title;
-    }
-
-    /**
-     * Sets the title message key.
-     * @param titleIn The title to set.
-     */
-    public void setTitle(String titleIn) {
-        title = titleIn;
-    }
-
-
-    /**
-     * Sets the type of the list
-     * @param stringIn desired alignment for the list
-     */
-    public void setType(String stringIn) {
-        type = stringIn;
-    }
-
-    /**
-     * Gets the type of the list
-     * @return String alignment of the list
-     */
-    public String getType() {
-        return type;
     }
 
     /**
@@ -198,24 +120,11 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
     public void setTransparent(boolean booleanIn) {
         transparent = booleanIn;
     }
+
     private void doSort(String sortedColumn) {
         HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
-        Collections.sort(pageList, new DynamicComparator(sortedColumn,
+        Collections.sort(getPageList(), new DynamicComparator(sortedColumn,
                 request.getParameter(RequestContext.SORT_ORDER)));
-    }
-
-    /**
-     * @return Returns the hiddenvars.
-     */
-    public String getHiddenvars() {
-        return hiddenvars;
-    }
-
-    /**
-     * @param hv The hiddenvars to set.
-     */
-    public void setHiddenvars(String hv) {
-        this.hiddenvars = hv;
     }
 
     private String getSortedColumn() {
@@ -224,142 +133,29 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
         return request.getParameter(RequestContext.LIST_SORT);
     }
 
-    private void setupPageList() throws JspTagException {
-        ListTag listTag = (ListTag) findAncestorWithClass(this, ListTag.class);
-        if (listTag == null) {
-            throw new JspTagException("Tag nesting error: " +
-                    "listDisplay must be nested in a list tag");
-        }
-        pageList = listTag.getPageList();
-        iterator = pageList.iterator();
+    protected void setupPageList() throws JspTagException {
+        super.setupPageList();
         currRow = 0;
-    }
-
-    /**
-     * Method to fetch a new ExportWriter instance.  Override
-     * if desired to use different instance.  Currently creates
-     * a new CSVWriter instance.
-     * @return new instance of an ExportWriter
-     */
-    protected ExportWriter createExportWriter() {
-        return new CSVWriter(new StringWriter());
-    }
-
-    /**
-     * Increment the column # that is being rendered at this moment.
-     **/
-    public void incrColumnCount() {
-        this.columnCount++;
-    }
-
-    /**
-     * Increment the total number of columns
-     **/
-    public void incrNumberOfColumns() {
-        this.numberOfColumns++;
-    }
-
-    /**
-     * Get the number of the column that is being rendered at this moment.
-     * (0 == The first column)
-     * @return int the column number
-     **/
-    public int getColumnCount() {
-        return this.columnCount;
-    }
-
-    /**
-     * Get the number of columns in the list.
-     * @return int the number of columns
-     **/
-    public int getNumberOfColumns() {
-        return this.numberOfColumns;
-    }
-
-    /**
-     * Set the number of columns in the list.
-     * @param num number of columns i nthe list
-     **/
-    public void setNumberOfColumns(int num) {
-        this.numberOfColumns = num;
-    }
-
-    /**
-     * Set the column # that is being rendered at this moment
-     *
-     * Used when 'colspan' is used for an element to skip over the
-     * intervening columns.
-     *
-     * @param columnCountIn The column count to set.
-     **/
-    public void setColumnCount(int columnCountIn) {
-        this.columnCount = columnCountIn;
     }
 
     //////////////////////////////////////////////////////////////////////////
     // RENDER methods
     //////////////////////////////////////////////////////////////////////////
 
-    /**
-     * Renders the title header if set.
-     * @param out JspWriter
-     * @throws IOException thrown if there's a problem writing to the JSP
-     */
-    private void renderTitle(JspWriter out) throws IOException {
-        if (!StringUtils.isEmpty(title)) {
-            HtmlTag tr = new HtmlTag("tr");
-            HtmlTag th = new HtmlTag("th");
-            th.addBody(LocalizationService.getInstance().getMessage(title));
-            tr.addBody(th);
-            out.println(tr.render());
-        }
-    }
 
-    private void renderFilterBox(JspWriter out) throws IOException {
+    @Override
+    protected void renderFilterBox(JspWriter out) throws IOException {
+        super.renderFilterBox(out);
         LocalizationService ls = LocalizationService.getInstance();
-        HtmlTag tagFilterInput = new HtmlTag("div");
-        tagFilterInput.setAttribute("class", "filter-input");
-        HtmlTag tagInputGroup = new HtmlTag("div");
-        tagInputGroup.setAttribute("class", "input-group input-group-sm");
-
-        StringBuffer buf = new StringBuffer();
-        HtmlTag input = new HtmlTag("input");
-        input.setAttribute("type", "text");
-        input.setAttribute("size", "12");
-        input.setAttribute("name", RequestContext.FILTER_STRING);
-        input.setAttribute("value", pageList.getFilterData());
-        buf.append(input.render());
-
-        input = new HtmlTag("input");
-        input.setAttribute("type", "hidden");
-        input.setAttribute("name", "prev_filter_value");
-        input.setAttribute("value", pageList.getFilterData());
-        buf.append(input.render());
-
-        input = new HtmlTag("input");
-        input.setAttribute("type", "submit");
-        input.setAttribute("name", ListDisplayTag.FILTER_DISPATCH);
-        input.setAttribute("value", ls.getMessage(RequestContext.FILTER_KEY));
-        buf.append(input.render());
-
-        /*
-         * TODO: This is BAD. Makes the code specific to the Chanel Tree view
-         * Should be fixed in future versions
-         */
-        tagInputGroup.addBody(ls.getMessage("message.filterby", ls.getMessage(filterBy)) +
-                buf.toString());
-        tagFilterInput.addBody(tagInputGroup);
-
-        if (type.equals("treeview")) {
-            tagFilterInput.addBody("<div style=\"text-align: right;\">" +
+        if (getType().equals("treeview")) {
+            out.print("<div style=\"text-align: right;\">"
+                    +
                     "<a href=\"javascript:showAllRows();\" style=\"cursor: pointer;\">" +
                     ls.getMessage("channels.overview.showall") +
                     "</a>&nbsp;&nbsp;|&nbsp;&nbsp;" +
                     "<a href=\"javascript:hideAllRows();\" style=\"cursor: pointer;\">" +
                     ls.getMessage("channels.overview.hideall") + "</a></div>");
         }
-
-        out.println(tagFilterInput.render());
     }
 
     private String getTrElement(Object o, int row) {
@@ -443,23 +239,8 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
     public boolean isExport() {
         RequestContext ctx = new RequestContext((HttpServletRequest)
                 pageContext.getRequest());
-        return (ctx.isRequestedExport() && this.exportColumns != null);
+        return (ctx.isRequestedExport() && getExportColumns() != null);
     }
-
-    /**
-     * @return Returns the exportColumns.
-     */
-    public String getExportColumns() {
-        return exportColumns;
-    }
-
-    /**
-     * @param exportIn The export to set.
-     */
-    public void setExportColumns(String exportIn) {
-        this.exportColumns = exportIn;
-    }
-
 
     //////////////////////////////////////////////////////////////////////////
     // JSP Tag lifecycle methods
@@ -485,24 +266,22 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
                 doSort(sortedColumn);
             }
 
-            if (pageList.hasFilter()) {
-                renderFilterBox(out);
-            }
+            out.print("<div class=\"spacewalk-list-container\">");
+            out.print("<div class=\"spacewalk-list panel panel-default\">");
+
+            renderTitle(out);
 
             /* If the type is list, we must set the width explicitly. Otherwise,
              * it shouldn't matter
              */
-            if (type.equals("list")) {
-                out.print("<table width=\"100%\" cellspacing=\"0\"" +
-                        " cellpadding=\"0\" " + "class=\"list\"");
+            if (getType().equals("list")) {
+                out.print("<table class=\"table table-striped\"");
             }
-            else if (type.equals("treeview")) {
-                out.print("<table width=\"100%\" cellspacing=\"0\"" +
-                        " cellpadding=\"0\" " + "class=\"list\" id=\"channel-list\"");
+ else if (getType().equals("treeview")) {
+                out.print("<table class=\"table table-striped\" id=\"channel-list\"");
             }
             else {
-                out.print("<table cellspacing=\"0\" " + " cellpadding=\"0\" " +
-                            "class=\"" + type + "\"");
+                out.print("<table class=\"" + getType() + "\"");
             }
 
             /*if (isTransparent()) {
@@ -513,11 +292,18 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
             out.println(">");
 
             out.println("<thead>");
-            renderTitle(out);
+
+            out.println("\n<tr>");
+            out.println("\n<td colspan=\"" + getColumnCount() + "\">");
+            if (getPageList().hasFilter()) {
+                renderFilterBox(out);
+            }
+            out.println("\n</td>");
+            out.println("\n</tr>");
 
             out.println("\n<tr>");
 
-            if (iterator != null && iterator.hasNext()) {
+            if (getIterator() != null && getIterator().hasNext()) {
                 // Push a new BodyContent writer onto the stack so that
                 // we can buffer the body data.
                 bodyContent = pageContext.pushBody();
@@ -534,13 +320,14 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
     public int doEndTag() throws JspException {
         JspWriter out = null;
         try {
-            if (pageList.isEmpty()) {
+            if (getPageList().isEmpty()) {
                 return EVAL_PAGE;
             }
 
             if (isExport()) {
                 ExportWriter eh = createExportWriter();
-                String[] columns  = StringUtils.split(this.exportColumns, ',');
+                String[] columns = StringUtils.split(this.getExportColumns(),
+                        ',');
                 eh.setColumns(Arrays.asList(columns));
                 ServletExportHandler seh = new ServletExportHandler(eh);
                 pageContext.getOut().clear();
@@ -548,7 +335,7 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
                 pageContext.getResponse().reset();
                 seh.writeExporterToOutput(
                         (HttpServletResponse) pageContext.getResponse(),
-                        pageList);
+                        getPageList());
                 return SKIP_PAGE;
             }
 
@@ -565,6 +352,8 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
             // Rely on content to have emitted a tbody tag somewhere
             out.println("</tbody>");
             out.println("</table>\n");
+            out.println("</div>\n");
+            out.println("</div>\n");
             setNumberOfColumns(0);
             setColumnCount(0);
             setCurrRow(0);
@@ -595,9 +384,9 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
                 out.println("</tr>");
             }
 
-            if (iterator.hasNext()) {
-                columnCount = 0;
-                Object next = iterator.next();
+            if (getIterator().hasNext()) {
+                setColumnCount(0);
+                Object next = getIterator().next();
                 out.println(getTrElement(next, currRow++));
                 pageContext.setAttribute("current", next);
                 return EVAL_BODY_AGAIN;
@@ -612,21 +401,12 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
     }
 
     /** {@inheritDoc} */
+    @Override
     public void release() {
         // reset the state of the tag
-        iterator = null;
         currRow = 0;
-        pageList = null;
         rowCnt = 0;
-        filterBy = null;
-        type = "list";
-        renderDisabled = false;
-        exportColumns = null;
-        title = null;
-        hiddenvars = null;
         nodeIdString = null;
-        columnCount = 0;
-        numberOfColumns = 0;
         // now release our super classes
         super.release();
     }

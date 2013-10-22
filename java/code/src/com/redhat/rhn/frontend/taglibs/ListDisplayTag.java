@@ -15,28 +15,7 @@
 
 package com.redhat.rhn.frontend.taglibs;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.util.CSVWriter;
-import com.redhat.rhn.common.util.DynamicComparator;
-import com.redhat.rhn.common.util.ExportWriter;
-import com.redhat.rhn.common.util.ServletExportHandler;
-import com.redhat.rhn.common.util.StringUtil;
-import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.frontend.dto.UserOverview;
-import com.redhat.rhn.frontend.html.HtmlTag;
-import com.redhat.rhn.frontend.listview.AlphaBar;
-import com.redhat.rhn.frontend.listview.PaginationUtil;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
-import com.redhat.rhn.manager.acl.AclManager;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
-
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -48,10 +27,24 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.BodyContent;
-import javax.servlet.jsp.tagext.BodyTagSupport;
+
+import org.apache.commons.lang.StringUtils;
+
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.util.DynamicComparator;
+import com.redhat.rhn.common.util.ExportWriter;
+import com.redhat.rhn.common.util.ServletExportHandler;
+import com.redhat.rhn.common.util.StringUtil;
+import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.frontend.dto.UserOverview;
+import com.redhat.rhn.frontend.html.HtmlTag;
+import com.redhat.rhn.frontend.listview.AlphaBar;
+import com.redhat.rhn.frontend.listview.PaginationUtil;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.manager.acl.AclManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
 /**
  * The ListDisplayTag defines the structure of the ListView.  This tag iterates
@@ -135,8 +128,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * @see com.redhat.rhn.frontend.taglibs.SetTag
  * @see com.redhat.rhn.domain.rhnset.RhnSet
  */
-public class ListDisplayTag extends BodyTagSupport {
-    public static final String FILTER_DISPATCH = "filter.dispatch";
+public class ListDisplayTag extends ListDisplayTagBase {
     private static final String LAST = "Last";
     private static final String NEXT = "Next";
     private static final String PREV = "Prev";
@@ -147,21 +139,9 @@ public class ListDisplayTag extends BodyTagSupport {
     private static final String FIRST_LOWER = "first_lower";
     private static final Set PAGINATION_WASH_SET = buildPaginationWashSet();
 
-    /** iterates through the page list */
-    private Iterator iterator;
-    /** list of data to show on page */
-    private DataResult pageList;
     /** row count determines whether we're an even or odd row */
     protected int rowCnt = 0;
-    /** How many columns are there? */
-    protected int numberOfColumns = 0;
-    /** Which column are we rendering now? */
-    protected int columnCount = 0;
-
-    private String filterBy;
     private RhnSet set;
-    private String hiddenvars;
-    /** contains the number of items checked */
     private int numItemsChecked;
     /** true if we are to show the set operation buttons */
     private boolean showSetButtons;
@@ -195,18 +175,13 @@ public class ListDisplayTag extends BodyTagSupport {
      */
     private boolean transparent = false;
     /** determines whether we should show the disabled CSS */
-    private boolean renderDisabled;
-    /** buttons and associated acls */
     private String button;
     private String buttonAcl;
     private String button2;
     private String button2Acl;
     private String mixins;
     private String domainClass;
-    /** comma separated list of columns to be exported */
-    private String exportColumns;
-    /** optional title attribute for displaying a titled list */
-    private String title;
+
     /** **/
     private String tableId;
 
@@ -333,18 +308,7 @@ public class ListDisplayTag extends BodyTagSupport {
     public void setMixins(String mixinsIn) {
         this.mixins = mixinsIn;
     }
-    /**
-     * @return Returns the disabled.
-     */
-    public boolean renderDisabled() {
-        return renderDisabled;
-    }
-    /**
-     * @param disabled The disabled to set.
-     */
-    public void setRenderDisabled(String disabled) {
-        renderDisabled = disabled.equals("true");
-    }
+
     /**
      * Set the set for this listview.
      * @param s The set to set.
@@ -359,44 +323,6 @@ public class ListDisplayTag extends BodyTagSupport {
      */
     public RhnSet getSet() {
         return set;
-    }
-
-    /**
-     * @return Returns the hiddenvars.
-     */
-    public String getHiddenvars() {
-        return hiddenvars;
-    }
-
-    /**
-     * @param hv The hiddenvars to set.
-     */
-    public void setHiddenvars(String hv) {
-        this.hiddenvars = hv;
-    }
-
-    /**
-     * Set the header of the filter on which to filter
-     * @param filterByIn The filterBy to set.
-     */
-    public void setFilterBy(String filterByIn) {
-        this.filterBy = filterByIn;
-    }
-
-    /**
-     * Returns the title message key.
-     * @return Returns the title.
-     */
-    public String getTitle() {
-        return title;
-    }
-
-    /**
-     * Sets the title message key.
-     * @param titleIn The title to set.
-     */
-    public void setTitle(String titleIn) {
-        title = titleIn;
     }
 
     /**
@@ -505,7 +431,7 @@ public class ListDisplayTag extends BodyTagSupport {
     }
     private void doSort(String sortedColumn) {
         HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
-        Collections.sort(pageList, new DynamicComparator(sortedColumn,
+        Collections.sort(getPageList(), new DynamicComparator(sortedColumn,
                 request.getParameter(RequestContext.SORT_ORDER)));
     }
 
@@ -515,70 +441,7 @@ public class ListDisplayTag extends BodyTagSupport {
         return request.getParameter(RequestContext.LIST_SORT);
     }
 
-    private void setupPageList() throws JspTagException {
-        ListTag listTag = (ListTag) findAncestorWithClass(this, ListTag.class);
-        if (listTag == null) {
-            throw new JspTagException("Tag nesting error: " +
-                    "listDisplay must be nested in a list tag");
-        }
-        pageList = listTag.getPageList();
-        iterator = pageList.iterator();
-    }
-
-    /**
-     * Method to fetch a new ExportWriter instance.  Override
-     * if desired to use different instance.  Currently creates
-     * a new CSVWriter instance.
-     * @return new instance of an ExportWriter
-     */
-    protected ExportWriter createExportWriter() {
-        return new CSVWriter(new StringWriter());
-    }
-
-    /**
-     * Increment the column # that is being rendered at this moment.
-     **/
-    public void incrColumnCount() {
-        this.columnCount++;
-    }
-
-    /**
-     * Increment the total number of columns
-     **/
-    public void incrNumberOfColumns() {
-        this.numberOfColumns++;
-    }
-
-    /**
-     * Get the number of the column that is being rendered at this moment.
-     * (0 == The first column)
-     * @return int the column number
-     **/
-    public int getColumnCount() {
-        return this.columnCount;
-    }
-
-    /**
-     * Get the number of columns in the list.
-     * @return int the number of columns
-     **/
-    public int getNumberOfColumns() {
-        return this.numberOfColumns;
-    }
-
-    /**
-     * Set the column # that is being rendered at this moment
-     *
-     * Used when 'colspan' is used for an element to skip over the
-     * intervening columns.
-     *
-     * @param columnCountIn The column count to set.
-     **/
-    public void setColumnCount(int columnCountIn) {
-        this.columnCount = columnCountIn;
-    }
-
-    //////////////////////////////////////////////////////////////////////////
+    // ////////////////////////////////////////////////////////////////////////
     // RENDER methods
     //////////////////////////////////////////////////////////////////////////
 
@@ -599,81 +462,22 @@ public class ListDisplayTag extends BodyTagSupport {
               "</a></div>");
     }
 
-    /**
-     * Renders the title header if set.
-     * @param out JspWriter
-     * @throws IOException thrown if there's a problem writing to the JSP
-     */
-    private void renderTitle(JspWriter out) throws IOException {
-        if (!StringUtils.isEmpty(title)) {
-            HtmlTag heading = new HtmlTag("div");
-            heading.setAttribute("class", "panel-heading");
-            HtmlTag h3 = new HtmlTag("h3");
-            h3.setAttribute("class", "panel-title");
-            h3.addBody(LocalizationService.getInstance().getMessage(title));
-            heading.addBody(h3);
-            out.println(heading.render());
-        }
-    }
-
     private void renderBoundsVariables(JspWriter out) throws IOException {
         StringBuffer target = new StringBuffer();
         // pagination formvars
-        renderHidden(target, "lower", String.valueOf(pageList.getStart()));
+        renderHidden(target, "lower", String.valueOf(getPageList().getStart()));
 
         PaginationUtil putil = new PaginationUtil(
-                                    pageList.getStart(),
-                                    pageList.getEnd(),
-                                    pageList.getEnd() - pageList.getStart() + 1,
-                                    pageList.getTotalSize());
+                                    getPageList().getStart(),
+                                    getPageList().getEnd(),
+                                    getPageList().getEnd() - getPageList().getStart() + 1,
+                                    getPageList().getTotalSize());
 
         renderHidden(target, FIRST_LOWER, putil.getFirstLower());
         renderHidden(target, PREV_LOWER, putil.getPrevLower());
         renderHidden(target, NEXT_LOWER, putil.getNextLower());
         renderHidden(target, LAST_LOWER, putil.getLastLower());
         out.println(target.toString());
-    }
-
-    private void renderFilterBox(JspWriter out) throws IOException {
-        LocalizationService ls = LocalizationService.getInstance();
-
-        HtmlTag tag = new HtmlTag("div");
-        tag.setAttribute("class", "spacewalk-filter-input input-group");
-
-        StringBuffer buf = new StringBuffer();
-
-        HtmlTag input = new HtmlTag("input");
-        input.setAttribute("type", "text");
-        input.setAttribute("class", "form-control");
-        input.setAttribute("name", RequestContext.FILTER_STRING);
-        input.setAttribute("value", pageList.getFilterData());
-        String placeHolder = StringEscapeUtils.escapeHtml(
-                ls.getMessage("message.filterby", ls.getMessage(filterBy)));
-        input.setAttribute("placeholder", placeHolder);
-
-        buf.append(input.render());
-
-        input = new HtmlTag("input");
-        input.setAttribute("type", "hidden");
-        input.setAttribute("name", RequestContext.PREVIOUS_FILTER_STRING);
-        input.setAttribute("value", pageList.getFilterData());
-        buf.append(input.render());
-
-        HtmlTag btnSpan = new HtmlTag("span");
-        btnSpan.setAttribute("class", "input-group-btn");
-
-        HtmlTag btn = new HtmlTag("button");
-        btn.setAttribute("class", "btn btn-default icon-eye-open");
-        btn.setAttribute("type", "submit");
-        btn.setAttribute("name", FILTER_DISPATCH);
-        //input.setAttribute("value", ls.getMessage(RequestContext.FILTER_KEY));
-
-        btnSpan.addBody(btn);
-
-        buf.append(btnSpan.render());
-
-        tag.addBody(buf.toString());
-        out.println(tag.render());
     }
 
 
@@ -725,21 +529,21 @@ public class ListDisplayTag extends BodyTagSupport {
         out.println(">");
 
         out.print("<div class=\"list-infotext\">");
-        int finalResult = pageList.getEnd();
-        if (finalResult > pageList.getTotalSize()) {
-            finalResult = pageList.getTotalSize();
+        int finalResult = getPageList().getEnd();
+        if (finalResult > getPageList().getTotalSize()) {
+            finalResult = getPageList().getTotalSize();
         }
 
         Object [] args = new Object[4];
-        if (pageList.size() == 0) {
+        if (getPageList().size() == 0) {
             args[0] = new Integer(0);
             args[1] = args[0];
             args[2] = args[0];
         }
         else {
-            args[0] = new Integer(pageList.getStart());
+            args[0] = new Integer(getPageList().getStart());
             args[1] = new Integer(finalResult);
-            args[2] = new Integer(pageList.getTotalSize());
+            args[2] = new Integer(getPageList().getTotalSize());
         }
         out.println(LocalizationService.getInstance()
                     .getMessage("message.range", args));
@@ -766,8 +570,9 @@ public class ListDisplayTag extends BodyTagSupport {
     private void appendButtons(JspWriter out) throws IOException {
         out.println("<div class=\"list-navbuttons\">");
 
-        boolean canGoForward = pageList.getEnd() < pageList.getTotalSize();
-        boolean canGoBack = pageList.getStart() > 1;
+        boolean canGoForward = getPageList().getEnd() < getPageList()
+                .getTotalSize();
+        boolean canGoBack = getPageList().getStart() > 1;
 
         if (canGoForward || canGoBack) {
             out.println(renderPaginationButton(FIRST,
@@ -797,7 +602,7 @@ public class ListDisplayTag extends BodyTagSupport {
     }
 
     private void renderActionButtons(JspWriter out) throws IOException {
-        if (pageList.size() == 0 || getButton() == null) {
+        if (getPageList().size() == 0 || getButton() == null) {
             return;
         }
 
@@ -949,7 +754,7 @@ public class ListDisplayTag extends BodyTagSupport {
         enabled.append("\">{0}</a><li>");
         AlphaBar ab = new AlphaBar(enabled.toString(),
                       "<li class=\"disabled\"><span>{0}</span></li>");
-        target.append(ab.getAlphaList(pageList.getIndex()));
+        target.append(ab.getAlphaList(getPageList().getIndex()));
         target.append("</ul>");
         target.append("</div>");
 
@@ -978,21 +783,7 @@ public class ListDisplayTag extends BodyTagSupport {
     public boolean isExport() {
         RequestContext ctx = new RequestContext((HttpServletRequest)
                 pageContext.getRequest());
-        return (ctx.isRequestedExport() && this.exportColumns != null);
-    }
-
-    /**
-     * @return Returns the exportColumns.
-     */
-    public String getExportColumns() {
-        return exportColumns;
-    }
-
-    /**
-     * @param exportIn The export to set.
-     */
-    public void setExportColumns(String exportIn) {
-        this.exportColumns = exportIn;
+        return (ctx.isRequestedExport() && this.getExportColumns() != null);
     }
 
     /**
@@ -1026,7 +817,6 @@ public class ListDisplayTag extends BodyTagSupport {
     public int doStartTag() throws JspException {
         rowCnt = 0;
         numItemsChecked = 0;
-        numberOfColumns = 0;
         JspWriter out = null;
         showSetButtons = false;
 
@@ -1079,8 +869,8 @@ public class ListDisplayTag extends BodyTagSupport {
             out.println("<div class=\"spacewalk-list-top\">");
             out.println("<div class=\"spacewalk-list-top-wrap\">");
             out.println("<div class=\"spacewalk-list-top-alphabar\">");
-            if (pageList.getIndex().size() > 0 &&
-                    pageList.size() < pageList.getTotalSize()) {
+            if (getPageList().getIndex().size() > 0
+                    && getPageList().size() < getPageList().getTotalSize()) {
 
                 renderViewAllLink(out);
                 renderAlphabar(out);
@@ -1098,7 +888,7 @@ public class ListDisplayTag extends BodyTagSupport {
             out.println("</div>");
             out.println("<div class=\"spacewalk-list-top-wrap\">");
             out.println("<div class=\"spacewalk-list-filter\">");
-            if (pageList.hasFilter()) {
+            if (getPageList().hasFilter()) {
                 renderFilterBox(out);
             }
             out.println("</div>");
@@ -1124,7 +914,7 @@ public class ListDisplayTag extends BodyTagSupport {
 
             out.println("\n<tr>");
 
-            if (iterator != null && iterator.hasNext()) {
+            if (getIterator() != null && getIterator().hasNext()) {
                 // Push a new BodyContent writer onto the stack so that
                 // we can buffer the body data.
                 bodyContent = pageContext.pushBody();
@@ -1142,13 +932,14 @@ public class ListDisplayTag extends BodyTagSupport {
     public int doEndTag() throws JspException {
         JspWriter out = null;
         try {
-            if (pageList.isEmpty()) {
+            if (getPageList().isEmpty()) {
                 return EVAL_PAGE;
             }
 
             if (isExport()) {
                 ExportWriter eh = createExportWriter();
-                String[] columns  = StringUtils.split(this.exportColumns, ',');
+                String[] columns = StringUtils.split(this.getExportColumns(),
+                        ',');
                 eh.setColumns(Arrays.asList(columns));
                 ServletExportHandler seh = new ServletExportHandler(eh);
                 pageContext.getOut().clear();
@@ -1156,7 +947,7 @@ public class ListDisplayTag extends BodyTagSupport {
                 pageContext.getResponse().reset();
                 seh.writeExporterToOutput(
                         (HttpServletResponse) pageContext.getResponse(),
-                        pageList);
+                        getPageList());
                 return SKIP_PAGE;
             }
 
@@ -1170,7 +961,7 @@ public class ListDisplayTag extends BodyTagSupport {
                 String bodyString = body.getString();
                 // The toReplace string is kind of odd, but it is because
                 // HtmlTag doesn't understand adding a property to be replaced.
-                if (numItemsChecked == pageList.size()) {
+                if (numItemsChecked == getPageList().size()) {
                     bodyString = bodyString.replaceFirst("@@CHECKED@@=\"\"",
                                                          "checked=\"1\"");
                 }
@@ -1204,15 +995,15 @@ public class ListDisplayTag extends BodyTagSupport {
              */
             else if (type.equals("list")) {
 
-                int finalResult = pageList.getEnd();
-                if (finalResult > pageList.getTotalSize()) {
-                    finalResult = pageList.getTotalSize();
+                int finalResult = getPageList().getEnd();
+                if (finalResult > getPageList().getTotalSize()) {
+                    finalResult = getPageList().getTotalSize();
                 }
 
                 Object [] args = new Object[4];
-                args[0] = new Integer(pageList.getStart());
+                args[0] = new Integer(getPageList().getStart());
                 args[1] = new Integer(finalResult);
-                args[2] = new Integer(pageList.getTotalSize());
+                args[2] = new Integer(getPageList().getTotalSize());
                 args[3] = LocalizationService.getInstance().getMessage(description);
 
                 out.print("<span class=\"text-left\">\n");
@@ -1234,7 +1025,7 @@ public class ListDisplayTag extends BodyTagSupport {
             out.println("</table>\n");
 
             if (reflink != null) {
-                columnCount = 0;
+                setColumnCount(0);
 
                 out.println("<div class=\"panel-footer\">");
 
@@ -1246,7 +1037,7 @@ public class ListDisplayTag extends BodyTagSupport {
                 if (reflinkkey != null) {
                     Object[] args = new Object[2];
 
-                    args[0] = new Integer(pageList.getTotalSize());
+                    args[0] = new Integer(getPageList().getTotalSize());
                     args[1] = reflinkkeyarg0;
 
                     String message = LocalizationService.getInstance().
@@ -1264,13 +1055,13 @@ public class ListDisplayTag extends BodyTagSupport {
 
             out.println("</div>\n");
             // export button goes outside of the panel
-            if (exportColumns != null) {
+            if (getExportColumns() != null) {
                 renderExport(out);
             }
             out.println("</div>\n");
 
             setColumnCount(0);
-            numberOfColumns = 0;
+            setNumberOfColumns(0);
         }
         catch (IOException e) {
             throw new JspException("IO error" + e.getMessage());
@@ -1298,9 +1089,9 @@ public class ListDisplayTag extends BodyTagSupport {
                 out.println("</tr>");
             }
 
-            if (iterator.hasNext()) {
-                columnCount = 0;
-                Object next = iterator.next();
+            if (getIterator().hasNext()) {
+                setColumnCount(0);
+                Object next = getIterator().next();
                 out.println(getTrElement(next));
                 pageContext.setAttribute("current", next);
                 return EVAL_BODY_AGAIN;
@@ -1319,27 +1110,18 @@ public class ListDisplayTag extends BodyTagSupport {
     @Override
     public void release() {
         // reset the state of the tag
-        iterator = null;
-        pageList = null;
         rowCnt = 0;
-        filterBy = null;
         set = null;
-        hiddenvars = null;
         numItemsChecked = 0;
         showSetButtons = false;
         paging = true;
         type = "list";
-        renderDisabled = false;
         button = null;
         buttonAcl = null;
         button2 = null;
         button2Acl = null;
         mixins = null;
         domainClass = null;
-        exportColumns = null;
-        title = null;
-        columnCount = 0;
-        numberOfColumns = 0;
         buttonsAttrName = null;
         buttonsAttrValue = null;
 
