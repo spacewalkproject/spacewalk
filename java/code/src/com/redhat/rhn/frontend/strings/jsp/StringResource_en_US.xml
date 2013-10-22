@@ -15276,8 +15276,20 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
           <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="kickstart.configure.heading1.jsp">
+        <source>Configure Kickstart</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="kickstart.schedule.heading1.text.jsp">
         <source>You can schedule this system for a kickstart action. This will re-install this system using the selected kickstart options.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.configure.heading1.text.jsp">
+        <source>You can configure kickstart on this system. This will install this system using the selected kickstart options as soon as it boots up.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
         </context-group>

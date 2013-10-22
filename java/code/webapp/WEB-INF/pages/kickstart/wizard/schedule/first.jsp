@@ -29,6 +29,14 @@ function setStep(stepName) {
 <h2>
   <rhn:icon type="header-kickstart" title="<bean:message key='system.common.kickstartAlt' />" />
   <bean:message key="kickstart.schedule.heading1.jsp" />
+  <c:choose>
+    <c:when test="${system.bootstrap}">
+      <bean:message key="kickstart.configure.heading1.jsp" />
+    </c:when>
+    <c:otherwise>
+      <bean:message key="kickstart.schedule.heading1.jsp" />
+    </c:otherwise>
+  </c:choose>
 </h2>
 
 <c:if test="${requestScope.isVirtualGuest == 'true'}">
@@ -44,7 +52,14 @@ function setStep(stepName) {
 
     <div class="page-summary">
     <p>
-        <bean:message key="kickstart.schedule.heading1.text.jsp" />
+      <c:choose>
+        <c:when test="${system.bootstrap}">
+          <bean:message key="kickstart.configure.heading1.text.jsp" />
+        </c:when>
+        <c:otherwise>
+          <bean:message key="kickstart.schedule.heading1.text.jsp" />
+        </c:otherwise>
+      </c:choose>
     </p>
     <h2><bean:message key="kickstart.schedule.heading2.jsp" /></h2>
     </div>
