@@ -2,93 +2,97 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <rl:listset name="groupSet">
-  <rhn:csrf />
-  <html:hidden property="sid" value="${param.sid}" />
-
-  <div id="images-table">
+    <rhn:csrf />
+    <html:hidden property="sid" value="${param.sid}" />
     <h2><bean:message key="images.jsp.select.title" /></h2>
-    <div class="page-summary">
-      <p>
-        <bean:message key="images.jsp.select.summary" />
-      </p>
-    </div>
+    <p><bean:message key="images.jsp.select.summary" /></p>
     <rl:list dataset="imagesList" emptykey="images.jsp.noimages">
-      <rl:column headerkey="images.jsp.name" filterattr="name">
-        <c:set var="nameJS" value="${fn:escapeXml(rhn:escapeJS(current.name))}" />
-        <a href="javascript:void(0);" onclick="showForm('${current.id}','${nameJS}','${current.version}','${current.arch}','${current.imageType}','${current.editUrl}');">
-          <c:out value="${current.name}" />
-        </a>
-      </rl:column>
-      <rl:column headerkey="images.jsp.version">
-        <c:out value="${current.version}" />
-      </rl:column>
-      <rl:column headerkey="images.jsp.arch">
-        <c:out value="${current.arch}" />
-      </rl:column>
-      <rl:column headerkey="images.jsp.type">
-        <c:out value="${current.imageType}" />
-      </rl:column>
+        <rl:column headerkey="images.jsp.name" filterattr="name">
+            <c:set var="nameJS" value="${fn:escapeXml(rhn:escapeJS(current.name))}" />
+            <a href="javascript:void(0);"
+               onclick="showForm('${current.id}','${nameJS}','${current.version}','${current.arch}','${current.imageType}','${current.editUrl}');">
+                <c:out value="${current.name}" />
+            </a>
+        </rl:column>
+        <rl:column headerkey="images.jsp.version">
+            <c:out value="${current.version}" />
+        </rl:column>
+        <rl:column headerkey="images.jsp.arch">
+            <c:out value="${current.arch}" />
+        </rl:column>
+        <rl:column headerkey="images.jsp.type">
+            <c:out value="${current.imageType}" />
+        </rl:column>
     </rl:list>
-  </div>
 
-  <div id="deployment-form" style="display:none">
-    <h2><bean:message key="images.jsp.deploy.title" /><a id="edit-link" href="" target="_blank"></a></h2>
-    <div class="page-summary">
-      <p><bean:message key="images.jsp.deploy.summary" /></p>
+    <div id="deployment-form" style="display:none" class="form-horizontal">
+        <h2><bean:message key="images.jsp.deploy.title" /><a id="edit-link" href="" target="_blank"></a></h2>
+        <p><bean:message key="images.jsp.deploy.summary" /></p>
+
+        <h3><bean:message key="images.jsp.vmsetup" /></h3>
+        <div class="form-group">
+            <label class="col-lg-3 control-label">
+                <bean:message key="images.jsp.vcpus" />
+            </label>
+            <div class="col-lg-6">
+                <html:text property="vcpus" size="15" value="1" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-3 control-label">
+                <bean:message key="images.jsp.memory" />
+            </label>
+            <div class="col-lg-6">
+                <html:text property="mem_mb" size="15" value="512" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-3 control-label">
+                <bean:message key="images.jsp.bridge" />
+            </label>
+            <div class="col-lg-6">
+                <html:text property="bridge" size="15" value="br0" />
+            </div>
+        </div>
+
+       <h3><bean:message key="images.jsp.proxyconfig" /></h3>
+       <div class="form-group">
+            <label class="col-lg-3 control-label">
+               <bean:message key="images.jsp.proxyserver" />
+            </label>
+            <div class="col-lg-6">
+               <html:text property="proxy_server" size="30" value="" />
+            </div>
+       </div>
+       <div class="form-group">
+            <label class="col-lg-3 control-label">
+               <bean:message key="images.jsp.proxyuser" />
+            </label>
+            <div class="col-lg-6">
+                <html:text property="proxy_user" size="15" value="" />
+            </div>
+       </div>
+       <div class="form-group">
+            <label class="col-lg-3 control-label">
+               <bean:message key="images.jsp.proxypass" />
+            </label>
+            <div class="col-lg-6">
+                <html:password property="proxy_pass" size="15" value="" />
+            </div>
+       </div>
+       <div class="form-group">
+           <rhn:submitted />
+           <div class="col-lg-offset-3 col-lg-6">
+               <html:hidden styleId="image-id" property="image_id" value="" />
+               <input type="button" class="btn btn-default"
+                      onclick="showImages();"
+                      value="${rhn:localize('images.jsp.cancel')}" />
+               <html:submit property="dispatch"
+                            styleClass="btn btn-success"
+                            disabled="${empty sessionScope.imagesList}">
+                   <bean:message key="images.jsp.dispatch" />
+               </html:submit>
+           </div>
+       </div>
     </div>
-
-    <table class="details-2-columns" width="100%">
-      <tbody>
-        <tr>
-          <td width="50%">
-            <h2><bean:message key="images.jsp.vmsetup" /></h2>
-            <table class="details">
-              <tr>
-                <th><bean:message key="images.jsp.vcpus" /></th>
-                <td><html:text property="vcpus" size="15" value="1" /></td>
-              </tr>
-              <tr>
-                <th><bean:message key="images.jsp.memory" /></th>
-                <td><html:text property="mem_mb" size="15" value="512" /></td>
-              </tr>
-              <tr>
-                <th><bean:message key="images.jsp.bridge" /></th>
-                <td><html:text property="bridge" size="15" value="br0" /></td>
-              </tr>
-            </table>
-          </td>
-          <td width="50%">
-            <h2><bean:message key="images.jsp.proxyconfig" /></h2>
-            <table class="details">
-              <tr>
-                <th><bean:message key="images.jsp.proxyserver" /></th>
-                <td><html:text property="proxy_server" size="30" value="" /></td>
-              </tr>
-              <tr>
-                <th><bean:message key="images.jsp.proxyuser" /></th>
-                <td><html:text property="proxy_user" size="15" value="" /></td>
-              </tr>
-              <tr>
-                <th><bean:message key="images.jsp.proxypass" /></th>
-                <td><html:password property="proxy_pass" size="15" value="" /></td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div align="right">
-      <rhn:submitted />
-      <html:hidden styleId="image-id" property="image_id" value="" />
-      <hr />
-      <input type="button"
-             onclick="showImages();"
-             value="${rhn:localize('images.jsp.cancel')}" />
-      <html:submit property="dispatch"
-                   disabled="${empty sessionScope.imagesList}">
-        <bean:message key="images.jsp.dispatch" />
-      </html:submit>
-    </div>
-  </div>
 </rl:listset>
