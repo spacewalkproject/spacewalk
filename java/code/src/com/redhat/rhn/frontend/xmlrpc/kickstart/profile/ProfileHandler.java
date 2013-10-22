@@ -391,14 +391,13 @@ public class ProfileHandler extends BaseHandler {
 
     /**
      * List the pre and post scripts for a kickstart profile in the order
-     * they will run.
+     * they will run during the kickstart.
      * @param sessionKey key
      * @param label the kickstart label
      * @return list of kickstartScript objects
      *
      * @xmlrpc.doc List the pre and post scripts for a kickstart profile
-     * in the order they will run.
-     * profile
+     * in the order they will run during the kickstart.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel", "The label of the
      * kickstart")
