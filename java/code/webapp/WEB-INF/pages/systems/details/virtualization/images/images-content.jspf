@@ -4,26 +4,29 @@
 <rl:listset name="groupSet">
     <rhn:csrf />
     <html:hidden property="sid" value="${param.sid}" />
-    <h2><bean:message key="images.jsp.select.title" /></h2>
-    <p><bean:message key="images.jsp.select.summary" /></p>
-    <rl:list dataset="imagesList" emptykey="images.jsp.noimages">
-        <rl:column headerkey="images.jsp.name" filterattr="name">
-            <c:set var="nameJS" value="${fn:escapeXml(rhn:escapeJS(current.name))}" />
-            <a href="javascript:void(0);"
-               onclick="showForm('${current.id}','${nameJS}','${current.version}','${current.arch}','${current.imageType}','${current.editUrl}');">
-                <c:out value="${current.name}" />
-            </a>
-        </rl:column>
-        <rl:column headerkey="images.jsp.version">
-            <c:out value="${current.version}" />
-        </rl:column>
-        <rl:column headerkey="images.jsp.arch">
-            <c:out value="${current.arch}" />
-        </rl:column>
-        <rl:column headerkey="images.jsp.type">
-            <c:out value="${current.imageType}" />
-        </rl:column>
-    </rl:list>
+
+    <div id="images-table">
+      <h2><bean:message key="images.jsp.select.title" /></h2>
+      <p><bean:message key="images.jsp.select.summary" /></p>
+      <rl:list dataset="imagesList" emptykey="images.jsp.noimages">
+          <rl:column headerkey="images.jsp.name" filterattr="name">
+              <c:set var="nameJS" value="${fn:escapeXml(rhn:escapeJS(current.name))}" />
+              <a href="javascript:void(0);"
+                 onclick="showForm('${current.id}','${nameJS}','${current.version}','${current.arch}','${current.imageType}','${current.editUrl}');">
+                  <c:out value="${current.name}" />
+              </a>
+          </rl:column>
+          <rl:column headerkey="images.jsp.version">
+              <c:out value="${current.version}" />
+          </rl:column>
+          <rl:column headerkey="images.jsp.arch">
+              <c:out value="${current.arch}" />
+          </rl:column>
+          <rl:column headerkey="images.jsp.type">
+              <c:out value="${current.imageType}" />
+          </rl:column>
+      </rl:list>
+    </div>
 
     <div id="deployment-form" style="display:none" class="form-horizontal">
         <h2><bean:message key="images.jsp.deploy.title" /><a id="edit-link" href="" target="_blank"></a></h2>
