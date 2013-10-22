@@ -1,32 +1,49 @@
-          <tr>
-            <th><bean:message key="kickstartdetails.jsp.virtualization_type" /></th>
-            <td colspan="2" align="left">
-              <html:select property="virtualizationTypeLabel" onchange="this.form.submit();return true;">
-                <html:optionsCollection property="virtualizationTypes" label="formattedName" value="label"/>
-              </html:select><br/>
-			<c:if test="${not ksdata.rawData and not empty ksdata.id}">
-            	  <span class="small-text"><bean:message key="kickstartdetails.jsp.virtTypeChangeWarning" arg0="${ksdata.id}"/></span>
-			</c:if>
-            </td>
-          </tr>
+<div class="form-group">
+    <label class="col-lg-3 control-label">
+        <bean:message key="kickstartdetails.jsp.virtualization_type" />
+    </label>
+    <div class="col-lg-6">
+        <html:select property="virtualizationTypeLabel"
+                     styleClass="form-control"
+                     onchange="this.form.submit();return true;">
+            <html:optionsCollection property="virtualizationTypes" label="formattedName" value="label"/>
+        </html:select>
+        <c:if test="${not ksdata.rawData and not empty ksdata.id}">
+            <span class="help-block"><bean:message key="kickstartdetails.jsp.virtTypeChangeWarning" arg0="${ksdata.id}"/></span>
+        </c:if>
+    </div>
+</div>
 <c:if test="${not empty requestScope.is_virt}">
-         <tr>
-            <th><bean:message key="kickstartdetails.jsp.virt_mem_mb"/>:</th>
-            <td><html:text property="virt_mem_mb" size="10" /></td>
-          </tr>
-
-         <tr>
-            <th><bean:message key="kickstartdetails.jsp.virt_cpus"/>:</th>
-            <td><html:text property="virt_cpus" size="10" /></td>
-          </tr>
-         <tr>
-            <th><bean:message key="kickstartdetails.jsp.virt_disk_size"/>:</th>
-            <td><html:text property="virt_disk_size" size="10" /></td>
-          </tr>
-
-        <tr>
-            <th><bean:message key="kickstartdetails.jsp.virt_bridge"/>:</th>
-            <td><html:text property="virt_bridge"  size="10" /></td>
-         </tr>
-
+    <div class="form-group">
+        <label class="col-lg-3 control-label">
+            <bean:message key="kickstartdetails.jsp.virt_mem_mb"/>:
+        </label>
+        <div class="col-lg-6">
+            <html:text property="virt_mem_mb" size="10" styleClass="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-3 control-label">
+            <bean:message key="kickstartdetails.jsp.virt_cpus"/>:
+        </label>
+        <div class="col-lg-6">
+            <html:text property="virt_cpus" size="10" styleClass="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-3 control-label">
+            <bean:message key="kickstartdetails.jsp.virt_disk_size"/>:
+        </label>
+        <div class="col-lg-6">
+            <html:text property="virt_disk_size" size="10" styleClass="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-3 control-label">
+            <bean:message key="kickstartdetails.jsp.virt_bridge"/>:
+        </label>
+        <div class="col-lg-6">
+            <html:text property="virt_bridge"  size="10" styleClass="form-control" />
+        </div>
+    </div>
 </c:if>
