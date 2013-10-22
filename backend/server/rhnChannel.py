@@ -1201,7 +1201,7 @@ def list_all_packages_complete_sql(channel_id):
        and supp.capability_id = pc.id
     union all
     select
-       supp.package_id,
+       enh.package_id,
        'enhances' as capability_type,
        enh.capability_id,
        enh.sense,
