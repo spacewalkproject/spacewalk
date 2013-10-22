@@ -24,7 +24,11 @@ $(document).on("ready", function(){
   }
   // See if there is a system already selected as soon as the page loads
   updateSsmToolbarOpacity();
+
+  // This is in check_all.js
+  create_checkall_checkbox();
 });
+
 /* Getting the screen size to create a fixed padding-bottom in the Section tag to make both columns the same size */
 // On window load
 $(window).load(function () {

@@ -1,5 +1,3 @@
-create_checkall_checkbox();
-
 function blockEnter(evt) {
     evt = (evt) ? evt : event;
     var charCode = (evt.charCode) ? evt.charCode :((evt.which) ? evt.which : evt.keyCode);

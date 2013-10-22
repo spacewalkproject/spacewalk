@@ -19,10 +19,3 @@
 <div>
   <img src="/img/logo_vendor.png" />
 </div>
-
-<%--
-	Render Javascript here so we can be sure that all of
-	the form elements we may need have been rendered.
---%>
-<!-- Javascript -->
-<script src="/javascript/check_all.js"></script>
