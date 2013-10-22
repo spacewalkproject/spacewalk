@@ -4833,7 +4833,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       </trans-unit>
       <trans-unit id="systemlist.jsp.bootstrap">
-        <source>Bare metal host</source>
+        <source>Bare Metal System</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Overview</context>
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
