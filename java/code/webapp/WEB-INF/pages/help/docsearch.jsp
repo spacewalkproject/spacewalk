@@ -27,12 +27,14 @@
       <div class="search-choices-group panel-body">
         <div class="form-group row">
           <div class="col-md-2 text-right">
-            <label><bean:message key="docsearch.jsp.searchfor"/></label>
+            <label for="searchform"><bean:message key="docsearch.jsp.searchfor"/></label>
           </div>
-          <div class="col-md-10">
+          <div class="col-md-4">
             <html:text property="search_string" 
                          name="search_string" 
+                         styleId="searchform"
                         value="${search_string}" 
+                   styleClass="form-control"
                     accesskey="4"/>
           </div>
         </div>
@@ -40,8 +42,8 @@
           <div class="col-md-2 text-right">
             <label><bean:message key="docsearch.jsp.whatsearch"/></label>
           </div>
-          <div class="col-md-10">
-            <html:select property="view_mode" value="${view_mode}" >
+          <div class="col-md-4">
+            <html:select property="view_mode" styleClass="form-control" value="${view_mode}" >
               <html:options collection="searchOptions"
                               property="value"
                          labelProperty="display" />

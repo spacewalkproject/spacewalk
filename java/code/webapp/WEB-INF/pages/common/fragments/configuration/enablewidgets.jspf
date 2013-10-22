@@ -5,19 +5,19 @@
 
 <c:if test="${not empty requestScope.pageList}">
 <p><bean:message key="targetsystems.jsp.widgetsummary" /></p>
-<table class="schedule-action-interface" align="center">
+<table class="table">
     <tr>
         <td><html:radio property="use_date" value="false" /></td>
-        <th><bean:message key="targetsystems.jsp.now"/></th>
+        <td><bean:message key="targetsystems.jsp.now"/></td>
     </tr>
     <tr>
         <td><html:radio property="use_date" value="true" /></td>
-        <th><bean:message key="targetsystems.jsp.usedate"/></th>
+        <td><bean:message key="targetsystems.jsp.usedate"/></td>
     </tr>
     <tr>
-        <th><img src="/img/rhn-icon-schedule.gif" alt="<bean:message key="syncprofile.jsp.selection"/>"
-                                                  title="<bean:message key="syncprofile.jsp.selection"/>"/>
-        </th>
+        <td>
+            <i class="icon-desktop"></i>
+        </td>
         <td>
           <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
             <jsp:param name="widget" value="date"/>
@@ -26,8 +26,7 @@
     </tr>
 </table>
 
-<div align="right">
-    <hr />
+<div class="pull-right">
     <html:submit property="dispatch">
         <bean:message key="targetsystems.jsp.enable" />
     </html:submit>
