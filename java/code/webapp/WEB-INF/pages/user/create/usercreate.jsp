@@ -5,8 +5,6 @@
 <html:xhtml/>
 <html>
 <body>
-<script language="javascript" src="/javascript/display.js"></script>
-
 <%@ include file="/WEB-INF/pages/common/fragments/user/user_attribute_sizes.jspf"%>
 
 <!-- Setup the account_type variable, which is used throughout this page -->
@@ -63,7 +61,7 @@
         <td>
           <c:choose>
             <c:when test="${displaypamcheckbox == 'true'}">
-            <html:checkbox property="usepam" onclick="toggleVisibilityByName('password-asterisk')" styleId="pam"/>
+            <html:checkbox property="usepam" onclick="$(\"[name='password-asterisk']\").toggle()" styleId="pam"/>
             <label for="pam"><bean:message key="usercreate.jsp.pam.instructions"/></label> <br/>
             <strong><span style="font-size: 10px">
                 <bean:message key="usercreate.jsp.pam.instructions.note"/>

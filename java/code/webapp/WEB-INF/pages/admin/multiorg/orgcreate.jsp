@@ -5,7 +5,6 @@
 
 <html>
     <body>
-        <script language="javascript" src="/javascript/display.js"></script>
         <rhn:toolbar base="h1" icon="icon-info-sign">
             <bean:message key="orgcreate.jsp.title"/>
         </rhn:toolbar>
@@ -82,7 +81,7 @@
                     <c:choose>
                         <c:when test="${displaypamcheckbox == 'true'}">
                             <label for="pam">
-                                <html:checkbox property="usepam" onclick="toggleVisibilityByName('password-asterisk')" styleId="pam"/>
+                                <html:checkbox property="usepam" onclick="$(\"[name='password-asterisk']\").toggle()" styleId="pam"/>
                                 <bean:message key="usercreate.jsp.pam.instructions"/>
                             </label>
                             <span class="help-block">
