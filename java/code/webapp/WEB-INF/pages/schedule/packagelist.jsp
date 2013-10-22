@@ -9,40 +9,34 @@
 <html>
 <body>
 
-<%@ include file="/WEB-INF/pages/common/fragments/scheduledactions/action-header.jspf" %>
+  <%@ include file="/WEB-INF/pages/common/fragments/scheduledactions/action-header.jspf" %>
 
-  <h2><bean:message key="packagelist.jsp.header.${type}"/></h2>
+    <h2><bean:message key="packagelist.jsp.header.${type}"/></h2>
 
-  <div class="page-summary">
-    <p>
-      <bean:message key="packagelist.jsp.summary.${type}"/>
-    </p>
-  </div>
+      <p>
+        <bean:message key="packagelist.jsp.summary.${type}"/>
+      </p>
 
+  <rl:listset name="packset">
 
+  <rhn:csrf />
+  <rl:list emptykey="packagelist.jsp.nopackages">
 
-<rl:listset name="packset">
+                  <rl:decorator name="ElaborationDecorator"/>
 
-<rhn:csrf />
-<rl:list emptykey="packagelist.jsp.nopackages">
+                  <rl:column sortable="true"
+                                     bound="false"
+                             headerkey="packagelist.jsp.name.${type}"
+                             sortattr="nvre"
+                             defaultsort="asc"  >
+                             ${current.nvre}
+                  </rl:column>
 
-                <rl:decorator name="ElaborationDecorator"/>
+  </rl:list>
 
+  <input type="hidden" name="aid" value="${aid}">
 
-                <rl:column sortable="true"
-                                   bound="false"
-                           headerkey="packagelist.jsp.name.${type}"
-                           sortattr="nvre"
-                           defaultsort="asc"  >
-                           ${current.nvre}
-                </rl:column>
-
-</rl:list>
-
-<input type="hidden" name="aid" value="${aid}">
-
-</rl:listset>
-
+  </rl:listset>
 	
 </body>
 </html>

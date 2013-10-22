@@ -7,41 +7,38 @@
 <html>
 <body>
 
-<%@ include file="/WEB-INF/pages/common/fragments/scheduledactions/action-header.jspf" %>
+  <%@ include file="/WEB-INF/pages/common/fragments/scheduledactions/action-header.jspf" %>
 
-<h2><bean:message key="failedsystems.jsp.failedsystems"/></h2>
+  <h2><bean:message key="failedsystems.jsp.failedsystems"/></h2>
 
-    <div class="page-summary">
-      <p><bean:message key="failedsystems.jsp.summary"/></p>
-    </div>
+  <p><bean:message key="failedsystems.jsp.summary"/></p>
 
+  <form method="POST" role="form" name="rhn_list" action="/rhn/schedule/FailedSystemsSubmit.do">
+    <rhn:csrf />
 
-<form method="POST" name="rhn_list" action="/rhn/schedule/FailedSystemsSubmit.do">
-<rhn:csrf />
+    <rhn:list pageList="${requestScope.pageList}"
+              noDataText="failedsystems.jsp.nosystems">
+    	  <rhn:listdisplay button="failedsystems.jsp.rescheduleactions"
+    	                   buttonsAttr="canEdit:true">
+        <rhn:column header="actions.jsp.system"
+                    url="/network/systems/details/history/event.pxt?sid=${current.id}&hid=${action.id}">
+            <c:out value="${current.serverName}" escapeXml="true" />
+        </rhn:column>
 
-<rhn:list pageList="${requestScope.pageList}"
-          noDataText="failedsystems.jsp.nosystems">
-	  <rhn:listdisplay button="failedsystems.jsp.rescheduleactions"
-	                   buttonsAttr="canEdit:true">
-    <rhn:column header="actions.jsp.system"
-                url="/network/systems/details/history/event.pxt?sid=${current.id}&hid=${action.id}">
-        <c:out value="${current.serverName}" escapeXml="true" />
-    </rhn:column>
+        <rhn:column header="failedsystems.jsp.failed">
+            ${current.displayDate}
+        </rhn:column>
 
-    <rhn:column header="failedsystems.jsp.failed">
-        ${current.displayDate}
-    </rhn:column>
+        <rhn:column header="failedsystems.jsp.message">
+            ${current.message}
+        </rhn:column>
+      </rhn:listdisplay>
 
-    <rhn:column header="failedsystems.jsp.message">
-        ${current.message}
-    </rhn:column>
-  </rhn:listdisplay>
+      <input type="hidden" name="aid" value="${action.id}" />
+      <input type="hidden" name="formvars" value="aid" />
 
-  <input type="hidden" name="aid" value="${action.id}" />
-  <input type="hidden" name="formvars" value="aid" />
-
-</rhn:list>
-	
-</form>
+    </rhn:list>
+  	
+  </form>
 </body>
 </html>

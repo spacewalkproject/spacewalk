@@ -11,7 +11,7 @@
 
 <h2><bean:message key="completedsystems.jsp.completedsystems"/></h2>
 
-<form method="POST" name="rhn_list" action="/rhn/schedule/CompletedSystemsSubmit.do">
+<form method="POST" role="form" name="rhn_list" action="/rhn/schedule/CompletedSystemsSubmit.do">
 <rhn:csrf />
 
 <rhn:list pageList="${requestScope.pageList}"

@@ -7,39 +7,29 @@
 <html:xhtml/>
 <html>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-schedule_computer.gif"
+<rhn:toolbar base="h1" icon="icon-time"
   			   imgAlt="actions.jsp.imgAlt"
                helpUrl="/rhn/help/reference/en-US/s1-sm-actions.jsp#s2-sm-action-pend">
     <bean:message key="pendingactions.jsp.pending_actions"/>
   </rhn:toolbar>
 
-  <div class="page-summary">
-    <p>
+  <p>
     <bean:message key="pendingactions.jsp.summary"/>
-    </p>
-  </div>
-
-<br/>
+  </p>
 
 	<rl:listset name="pendingList">
-        <rhn:csrf />
+  <rhn:csrf />
 
-		<rl:list emptykey="pendingactions.jsp.nogroups" styleclass="list">
-
-
-			<%@ include file="/WEB-INF/pages/common/fragments/scheduledactions/listdisplay-new.jspf" %>
-
-
-		</rl:list>
+	<rl:list emptykey="pendingactions.jsp.nogroups" styleclass="list">
+		<%@ include file="/WEB-INF/pages/common/fragments/scheduledactions/listdisplay-new.jspf" %>
+	</rl:list>
 		<rhn:submitted/>
-		 <div align="right">
-		     <input type="submit"
+		  <div class="pull-right">
+		    <input type="submit"
                name="dispatch"
+               class="btn btn-default"
                value='<bean:message key="actions.jsp.cancelactions"/>'/>
-         </div>
+      </div>
 	</rl:listset>
-	
-
-
 </body>
 </html>

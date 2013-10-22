@@ -4,53 +4,44 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 
-
 <html:xhtml/>
 <html>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-schedule_computer.gif"
+<rhn:toolbar base="h1" icon="icon-time"
   			   imgAlt="actions.jsp.imgAlt"
                helpUrl="/rhn/help/reference/en-US/s1-sm-actions.jsp#s2-sm-action-pend">
     <bean:message key="pendingactions.jsp.confirm_cancel_actions"/>
   </rhn:toolbar>
 
-  <div class="page-summary">
     <p>
     <bean:message key="pendingactions.jsp.confirm_cancel_actions_summary"/>
     </p>
-  </div>
-
-	<br>
-
 
 	<rl:listset name="pendingList">
 
-        <rhn:csrf />
+    <rhn:csrf />
 		<rl:list emptykey="pendingactions.jsp.nogroups" styleclass="list">
 
-                <rl:decorator name="ElaborationDecorator"/>
-
+      <rl:decorator name="ElaborationDecorator"/>
 
 			<rl:column sortable="true"
-                                   bound="false"
-                           headerkey="actions.jsp.action"
-                           sortattr="actionName"
-                           defaultsort="asc"
-                           filterattr="actionName">
+                 bound="false"
+                 headerkey="actions.jsp.action"
+                 sortattr="actionName"
+                 defaultsort="asc"
+                 filterattr="actionName">
 				<a href="/rhn/schedule/CompletedSystems.do?aid=${current.id}"><c:out value="${current.actionName}" /></a>
                 </rl:column>
 
-
                 <rl:column sortable="true"
-                                   bound="false"
+                           bound="false"
                            headerkey="actions.jsp.earliest"
                            sortattr="earliest" >
                         <c:out value="${current.earliest}" />
                 </rl:column>
 
-
                 <rl:column sortable="false"
-                                   bound="false"
+                           bound="false"
                            headerkey="actions.jsp.succeeded"
                             >
                         <c:if test="${current.completed != 0}">
@@ -61,9 +52,8 @@
                         </c:if>
                 </rl:column>
 
-
                 <rl:column sortable="false"
-                                   bound="false"
+                           bound="false"
                            headerkey="actions.jsp.failed"
                            >
                         <c:if test="${current.failed != 0}">
@@ -74,10 +64,8 @@
                         </c:if>
                 </rl:column>
 
-
-
                 <rl:column sortable="false"
-                                   bound="false"
+                           bound="false"
                            headerkey="actions.jsp.inprogress"
                            >
                         <c:if test="${current.inProgress != 0}">
@@ -95,20 +83,16 @@
 				${current.tally}
                 </rl:column>
 
-
 		</rl:list>
 		<rhn:submitted/>
-		 <div align="right">
+		 <div class="pull-right">
 		     <input type="submit"
                name="dispatch"
+               class="btn btn-default"
                value='<bean:message key="actions.jsp.confirmcancelactions"/>'/>
          </div>
 	</rl:listset>
 
-
-
-
-	
 </body>
 </html>
 

@@ -10,23 +10,25 @@
 
   <h2><bean:message key="actiondetails.jsp.heading2"/></h2>
 
-  <table class="details">
-    <tr>
-      <th><bean:message key="actiondetails.jsp.actiontype"/>:</th>
-      <td>${requestScope.actiontype}</td>
-    </tr>
-    <tr>
-      <th><bean:message key="actiondetails.jsp.scheduler"/>:</th>
-      <td>${requestScope.scheduler}</td>
-    </tr>
-    <tr>
-      <th><bean:message key="actiondetails.jsp.earliestexecution"/>:</th>
-      <td>${requestScope.earliestaction}</td>
-    </tr>
-    <tr>
-      <th><bean:message key="actiondetails.jsp.notes"/>:</th>
-      <td>${requestScope.actionnotes}</td>
-    </tr>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td><bean:message key="actiondetails.jsp.actiontype"/>:</td>
+        <td>${requestScope.actiontype}</td>
+      </tr>
+      <tr>
+        <td><bean:message key="actiondetails.jsp.scheduler"/>:</td>
+        <td>${requestScope.scheduler}</td>
+      </tr>
+      <tr>
+        <td><bean:message key="actiondetails.jsp.earliestexecution"/>:</td>
+        <td>${requestScope.earliestaction}</td>
+      </tr>
+      <tr>
+        <td><bean:message key="actiondetails.jsp.notes"/>:</td>
+        <td>${requestScope.actionnotes}</td>
+      </tr>
+    </tbody>
   </table>
 
 </body>
