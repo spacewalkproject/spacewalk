@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.25
+Version: 2.1.26
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -271,6 +271,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Oct 22 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.26-1
+- add support for enhances rpm weak dependency (web) (bnc#846436)
+- 1020497 - provide a way to order kickstart scripts
+
 * Tue Oct 15 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.25-1
 - 1018194 - convert empty string to NULL
 
