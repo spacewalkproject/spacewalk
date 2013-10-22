@@ -14,7 +14,15 @@
 /* Import of the Theme */
 @import url(theme.less);
 /* basic layout */
-
+.row-0 {
+	.make-row();
+	&:first-child {
+		padding-left:0;
+	}
+	&:last-child {
+		padding-right: 0
+	}
+}
 .spacewalk-header-container {
 	.make-row(0);
 	.spacewalk-logo {
@@ -90,7 +98,9 @@ h1 {
 h2 {
 	font-size: 1.7em;
 }
-
+p {
+	margin-bottom: 2em;
+}
 .spacewalk-main-column-layout {
 	/* override the grid row margin */
 	margin-right: 0;
@@ -154,7 +164,7 @@ i[class^="spacewalk-icon"] {
 	margin-right: .5em;
 }
 /* if the icon is inside a H tag we wont use a margin*/
-h1, h2, h3, h4, h5, h6{
+h1, h2, h3, h4, h5, h6 {
 	i[class^="icon-"],
 	i[class*=" icon-"],
 	i[class*="spacewalk-icon"],
@@ -177,30 +187,24 @@ h1, h2, h3, h4, h5, h6{
 }
 
 header {
-
 	.spacewalk-header-container {
 	  margin: 0 1em;
 	}
-
 	/* undo the padding the grid columns give */
 	&#spacewalk-header {
 		padding-right: 0;
 		padding-left: 0
 	}
-
 	.spacewalk-logo {
 		padding-top: 1.4em;
 	}
-
 	.spacewalk-logo {
 		padding-top: 1.4em;
 	}
-
 	.nav-pills {
 		display: inline-block;
 		border-radius: 0 0 4px 4px
 	}
-
 	.nav-pills li > a {
 		padding: .3em 1em;
 		font-size: .85em;
@@ -208,12 +212,10 @@ header {
 		font-weight: normal;
 		letter-spacing: normal;
 	}
-
 	.nav-pills li > a:hover {
 		background: none;
 		text-decoration: underline;
 	}
-
 	ul.nav-pills:nth-child(1) {
 		background: #000;
 	}
@@ -464,7 +466,7 @@ h1 .icon-stack {
 }
 
 /* spacewalk toolbar */
-.spacewalk-toolbar-h1{
+.spacewalk-toolbar-h1 {
 	margin-bottom: 1.5em;
 	.spacewalk-toolbar {
 		.pull-right;
