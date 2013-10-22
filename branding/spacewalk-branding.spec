@@ -42,6 +42,7 @@ lessc css/spacewalk.less > css/spacewalk.css
 %install
 rm -rf %{buildroot}
 install -d -m 755 %{buildroot}%{_var}/www/html
+install -d -m 755 %{buildroot}%{_var}/www/html/css
 install -d -m 755 %{buildroot}%{_datadir}/spacewalk
 install -d -m 755 %{buildroot}%{_datadir}/spacewalk/web
 install -d -m 755 %{buildroot}%{_datadir}/spacewalk/web/nav
@@ -49,7 +50,7 @@ install -d -m 755 %{buildroot}%{_datadir}/rhn/lib/
 install -d -m 755 %{buildroot}%{_var}/lib/%{tomcat}/webapps/rhn/WEB-INF/lib/
 install -d -m 755 %{buildroot}/%{_sysconfdir}/rhn
 install -d -m 755 %{buildroot}/%{_prefix}/share/rhn/config-defaults
-cp -p css/*.css %{buildroot}/%{_var}/www/html/
+cp -p css/*.css %{buildroot}/%{_var}/www/html/css
 cp -pR img %{buildroot}/%{_var}/www/html/
 # Appplication expects two favicon's for some reason, copy it so there's just
 # one in source:
