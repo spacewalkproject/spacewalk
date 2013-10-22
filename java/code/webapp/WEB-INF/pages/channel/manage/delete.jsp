@@ -4,197 +4,175 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 
 <html>
-<body>
-<rhn:toolbar base="h1" icon="spacewalk-icon-software-channels">
-    <bean:message key="channel.delete.jsp.toolbar" arg0="${channel.name}"/>
-</rhn:toolbar>
+    <body>
+        <rhn:toolbar base="h1" icon="spacewalk-icon-software-channels">
+            <bean:message key="channel.delete.jsp.toolbar" arg0="${channel.name}"/>
+        </rhn:toolbar>
+        <rhn:dialogmenu mindepth="0" maxdepth="1"
+                        definition="/WEB-INF/nav/manage_channel.xml"
+                        renderer="com.redhat.rhn.frontend.nav.DialognavRenderer"/>
+            <html:form action="/channels/manage/Delete" styleClass="form-horizontal">
+                <rhn:csrf />
+                <h2><bean:message key="channel.delete.jsp.channelheader"/></h2>
+                <p><bean:message key="channel.delete.jsp.introparagraph"/></p>
 
-<rhn:dialogmenu mindepth="0" maxdepth="1"
-                definition="/WEB-INF/nav/manage_channel.xml"
-                renderer="com.redhat.rhn.frontend.nav.DialognavRenderer"/>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.edit.jsp.name"/>:
+                    </label>
+                    <div class="col-lg-6">
+                        <div class="well well-sm">
+                            <strong><c:out value="${channel.name}"/></strong> (<c:out value="${channel.label}"/>)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.edit.jsp.parent"/>:
+                    </label>
+                    <div class="col-lg-6">
+                            <c:choose>
+                                <c:when test="${channel.parentChannel eq null}">
+                                    <span class="no-details"><bean:message key="none.message"/></span>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:out value="${channel.parentChannel.name}"/>
+                                </c:otherwise>
+                            </c:choose>
+                    </div>
+                </div>
 
-<div>
-    <html:form action="/channels/manage/Delete">
-    <rhn:csrf />
+                <!-- Architecture -->
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.delete.jsp.arch"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <div class="well well-sm">
+                            <c:out value="${channel.channelArch.name}"/>
+                        </div>
+                    </div>
+                </div>
 
-        <!--
-            Channel Details
-        -->
+                <!-- Total Packages -->
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.delete.jsp.totalpackages"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <div class="well well-sm">
+                            <c:out value="${channel.packageCount}"/>
+                        </div>
+                    </div>
+                </div>
 
-        <h2><bean:message key="channel.delete.jsp.channelheader"/></h2>
+                <!-- Subscribed Systems -->
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.delete.jsp.systemssubscribed"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <div class="well well-sm">
+                            <c:out value="${subscribedSystemsCount}"/>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="page-summary">
-            <p><bean:message key="channel.delete.jsp.introparagraph"/></p>
-        </div>
+                <!-- Summary -->
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.edit.jsp.summary"/>:
+                    </label>
+                    <div class="col-lg-6">
+                        <div class="well well-sm">
+                            <c:out value="${channel.summary}"/>
+                        </div>
+                    </div>
+                </div>
 
-        <table class="details">
-            <!-- Channel Name -->
-            <tr>
-                <th nowrap="nowrap">
-                    <bean:message key="channel.edit.jsp.name"/>:
-                </th>
-                <td class="small-form">
-                    <strong><c:out value="${channel.name}"/></strong> (<c:out value="${channel.label}"/>)
-                </td>
-            </tr>
+                <!-- Description -->
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.edit.jsp.description"/>:
+                    </label>
+                    <div class="col-lg-6">
+                        <div class="well well-sm">
+                        <c:choose>
+                            <c:when test="${channel.description eq null}">
+                                <span class="no-details"><bean:message key="none.message"/></span>
+                            </c:when>
+                            <c:otherwise>
+                                <c:out value="${channel.description}"/>
+                            </c:otherwise>
+                        </c:choose>
+                        </div>
+                    </div>
+                </div>
 
-            <!-- Parent Channel -->
-            <tr>
-                <th nowrap="nowrap">
-                    <bean:message key="channel.edit.jsp.parent"/>:
-                </th>
-                <td class="small-form">
-                    <c:choose>
-                        <c:when test="${channel.parentChannel eq null}">
-                            <span class="no-details"><bean:message key="none.message"/></span>
-                        </c:when>
-                        <c:otherwise>
-                            <c:out value="${channel.parentChannel.name}"/>
-                        </c:otherwise>
-                    </c:choose>
-                </td>
-            </tr>
+                <!-- Trusted Organizations -->
+                <h2><bean:message key="channel.delete.jsp.orgsheader"/></h2>
+                <p><bean:message key="channel.delete.jsp.orgsparagraph" arg0="<strong>${channel.name}</strong>"/></p>
 
-            <!-- Architecture -->
-            <tr>
-                <th nowrap="nowrap">
-                    <bean:message key="channel.delete.jsp.arch"/>
-                </th>
-                <td class="small-form">
-                    <c:out value="${channel.channelArch.name}"/>
-                </td>
-            </tr>
+                    <!-- Organizations Affected -->
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.delete.jsp.orgsaffected"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <div class="well well-sm">
+                            <c:out value="${channel.trustedOrgsCount}"/>
+                        </div>
+                    </div>
+                </div>
 
-            <!-- Total Packages -->
-            <tr>
-                <th nowrap="nowrap">
-                    <bean:message key="channel.delete.jsp.totalpackages"/>
-                </th>
-                <td class="small-form">
-                    <c:out value="${channel.packageCount}"/>
-                </td>
-            </tr>
+                    <!-- Trusted Systems Affected -->
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.delete.jsp.systemssubscribed"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <div class="well well-sm">
+                            <c:out value="${trustedSystemsCount}"/>
+                        </div>
+                    </div>
+                </div>
 
-            <!-- Subscribed Systems -->
-            <tr>
-                <th nowrap="nowrap">
-                    <bean:message key="channel.delete.jsp.systemssubscribed"/>
-                </th>
-                <td class="small-form">
-                    <c:out value="${subscribedSystemsCount}"/>
-                </td>
-            </tr>
+                <!-- Unsubscribe Option -->
+                <h2><bean:message key="channel.delete.jsp.unsubheader"/></h2>
+                <p><bean:message key="channel.delete.jsp.unsubparagraph" arg0="<strong>${channel.name}</strong>"/></p>
 
-            <!-- Summary -->
-            <tr>
-                <th nowrap="nowrap">
-                    <bean:message key="channel.edit.jsp.summary"/>:
-                </th>
-                <td class="small-form">
-                    <c:out value="${channel.summary}"/>
-                </td>
-            </tr>
-
-            <!-- Description -->
-            <tr>
-                <th nowrap="nowrap">
-                    <bean:message key="channel.edit.jsp.description"/>:
-                </th>
-                <td class="small-form">
-                    <c:choose>
-                        <c:when test="${channel.description eq null}">
-                            <span class="no-details"><bean:message key="none.message"/></span>
-                        </c:when>
-                        <c:otherwise>
-                            <c:out value="${channel.description}"/>
-                        </c:otherwise>
-                    </c:choose>
-                </td>
-            </tr>
-
-        </table>
-
-        <!--
-            Trusted Organizations
-        -->
-
-        <h2><bean:message key="channel.delete.jsp.orgsheader"/></h2>
-
-        <div class="page-summary">
-            <p><bean:message key="channel.delete.jsp.orgsparagraph" arg0="<strong>${channel.name}</strong>"/></p>
-        </div>
-
-        <table class="details">
-
-            <!-- Organizations Affected -->
-            <tr>
-                <th nowrap="nowrap">
-                    <bean:message key="channel.delete.jsp.orgsaffected"/>
-                </th>
-                <td class="small-form">
-                    <c:out value="${channel.trustedOrgsCount}"/>
-                </td>
-            </tr>
-
-            <!-- Trusted Systems Affected -->
-            <tr>
-                <th nowrap="nowrap">
-                    <bean:message key="channel.delete.jsp.systemssubscribed"/>
-                </th>
-                <td class="small-form">
-                    <c:out value="${trustedSystemsCount}"/>
-                </td>
-            </tr>
-
-        </table>
-
-        <!--
-            Unsubscribe Option
-        -->
-
-        <h2><bean:message key="channel.delete.jsp.unsubheader"/></h2>
-
-        <div class="page-summary">
-            <p><bean:message key="channel.delete.jsp.unsubparagraph" arg0="<strong>${channel.name}</strong>"/></p>
-        </div>
-
-        <table class="details">
-
-            <!-- Unsubscribe option -->
-            <tr>
-                <th nowrap="nowrap">
-                    <bean:message key="channel.delete.jsp.unsubheader"/>:
-                </th>
-                <td class="small-form">
-                    <input type="checkbox" name="unsubscribeSystems"/>
-                </td>
-            </tr>
-
-        </table>
-
-        <div align="right">
-            <hr/>
-	<c:choose>
-	<c:when test="${empty requestScope.disableDelete}">
-            <html:submit property="delete_button">
-                <bean:message key="channel.delete.jsp.channelheader"/>
-            </html:submit>
-	</c:when>
-	<c:otherwise>
-            <html:submit property="delete_button" disabled="true">
-                <bean:message key="channel.delete.jsp.channelheader"/>
-            </html:submit>	
-	</c:otherwise>
-	</c:choose>
-
-        </div>
-        <html:hidden property="submitted" value="true"/>
-        <c:if test='${not empty param.cid}'>
-            <html:hidden property="cid" value="${param.cid}"/>
-        </c:if>
-    </html:form>
-</div>
-
-</body>
+                    <!-- Unsubscribe option -->
+                <div class="form-group">
+                    <div class="col-lg-offset-3 col-lg-6">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="unsubscribeSystems"/>
+                                <bean:message key="channel.delete.jsp.unsubheader"/>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-3 col-lg-6">
+                        <c:choose>
+                            <c:when test="${empty requestScope.disableDelete}">
+                                <html:submit property="delete_button" styleClass="btn btn-success">
+                                    <bean:message key="channel.delete.jsp.channelheader"/>
+                                </html:submit>
+                            </c:when>
+                            <c:otherwise>
+                                <html:submit property="delete_button" disabled="true" styleClass="btn btn-success">
+                                    <bean:message key="channel.delete.jsp.channelheader"/>
+                                </html:submit>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </div>
+                <html:hidden property="submitted" value="true"/>
+                <c:if test='${not empty param.cid}'>
+                    <html:hidden property="cid" value="${param.cid}"/>
+                </c:if>
+            </html:form>
+    </body>
 </html>
 
