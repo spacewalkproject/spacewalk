@@ -718,41 +718,13 @@ public class ListDisplayTag extends BodyTagSupport {
     private void renderPagination(JspWriter out, boolean top)
         throws IOException {
 
-        if (type.equals("list")) {
-            out.println("<div class=\"spacewalk-list-pagination\"");
-        }
-        else {
-            out.println("<div class=\"spacewalk-list-pagination\"");
-        }
-
+        out.println("<div class=\"spacewalk-list-pagination\"");
         if (tableId != null) {
             out.print("id=\"" + tableId + "\" ");
         }
-
         out.println(">");
 
-        out.println("<div class=\"row\">");
-       // if (!showSetButtons) {
-            out.println("<div class=\"col-md-10\">");
-        //}
-        //else {
-        //    out.println("<td valign=\"middle\">");
-        //}
-
-        if (top && pageList.hasFilter()) {
-            renderFilterBox(out);
-        }
-        if (!top && set != null) {
-            if (showSetButtons) {
-                out.print("<span class=\"spacewalk-list-selection-btns\">");
-                renderSetButtons(out);
-                out.print("</span>");
-            }
-        }
-
-        out.println("</div>");
-
-        out.print("<div class=\"col-md-2\" class=\"list-infotext\">");
+        out.print("<div class=\"list-infotext\">");
         int finalResult = pageList.getEnd();
         if (finalResult > pageList.getTotalSize()) {
             finalResult = pageList.getTotalSize();
@@ -789,7 +761,6 @@ public class ListDisplayTag extends BodyTagSupport {
         out.println("</div>");
         appendButtons(out);
         out.println("  </div>\n");
-        out.println("</div>");
     }
 
     private void appendButtons(JspWriter out) throws IOException {
@@ -1105,6 +1076,40 @@ public class ListDisplayTag extends BodyTagSupport {
             out.println("<tr>");
             out.println("<td colspan=\"" + getNumberOfColumns() + "\">");
 
+            out.println("<div class=\"spacewalk-list-top\">");
+            out.println("<div class=\"spacewalk-list-top-wrap\">");
+            out.println("<div class=\"spacewalk-list-top-alphabar\">");
+            if (pageList.getIndex().size() > 0 &&
+                    pageList.size() < pageList.getTotalSize()) {
+
+                renderViewAllLink(out);
+                renderAlphabar(out);
+            }
+            out.println("</div>");
+            out.println("<div class=\"spacewalk-list-top-addons\">");
+            if (set != null) {
+                if (showSetButtons) {
+                    out.print("<span class=\"spacewalk-list-selection-btns\">");
+                    renderSetButtons(out);
+                    out.print("</span>");
+                }
+            }
+            out.println("</div>");
+            out.println("</div>");
+            out.println("<div class=\"spacewalk-list-top-wrap\">");
+            out.println("<div class=\"spacewalk-list-filter\">");
+            if (pageList.hasFilter()) {
+                renderFilterBox(out);
+            }
+            out.println("</div>");
+            out.println("<div class=\"spacewalk-list-top-pagination\">");
+            if (isPaging()) {
+                renderPagination(out, true);
+                renderBoundsVariables(out);
+            }
+            out.println("</div>");
+            out.println("</div>");
+            out.println("</div>");
             /* If pageList contains an index and pageList.size() (what we are
              * displaying on the page) is less than pageList.getTotalSize()
              * (the total number of items in the data result), render alphabar.
@@ -1112,22 +1117,10 @@ public class ListDisplayTag extends BodyTagSupport {
              * all of the entries on a single page and is similar to how the
              * perl code behaves.
              */
-            if (pageList.getIndex().size() > 0 &&
-                    pageList.size() < pageList.getTotalSize()) {
 
-                renderViewAllLink(out);
-                renderAlphabar(out);
-            }
 
-            if (isPaging()) {
-                renderPagination(out, true);
-                renderBoundsVariables(out);
-            }
             out.println("</td>");
             out.println("</tr>");
-
-            // Now print the column headings
-            out.println("<thead>");
 
             out.println("\n<tr>");
 
@@ -1195,6 +1188,11 @@ public class ListDisplayTag extends BodyTagSupport {
             out.println("<tr>");
             out.println("<td colspan=\"" + getNumberOfColumns() + "\">");
 
+            out.println("<div class=\"spacewalk-list-bottom\">");
+            out.println("<div class=\"spacewalk-list-bottom-wrap\">");
+            out.println("<div class=\"spacewalk-list-bottom-addons\">");
+            out.println("</div>");
+            out.println("<div class=\"spacewalk-list-bottom-pagination\">");
             /* If paging is on, we render the pagination */
             if (isPaging()) {
                 renderPagination(out, false);
@@ -1222,6 +1220,13 @@ public class ListDisplayTag extends BodyTagSupport {
                             .getMessage("message.range.withtypedescription", args));
                 out.println("</span>");
             }
+            out.println("</div>");
+            out.println("</div>");
+            out.println("<div class=\"spacewalk-list-extra\">");
+            out.println("</div>");
+
+            out.println("</div>");
+
             out.println("</tr>");
             out.println("</td>");
             out.println("</tfoot>\n");
