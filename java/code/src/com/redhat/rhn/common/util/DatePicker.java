@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.common.util;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.DynaActionForm;
 
 import java.text.DateFormat;
@@ -380,7 +381,7 @@ public class DatePicker {
             //this is necessary for reading request parameters.
             else if (value instanceof String[]) {
                 String [] s = (String[])value;
-                if (s[0] == null) {
+                if (StringUtils.isEmpty(s[0])) {
                     fieldValue = null;
                 }
                 else {
