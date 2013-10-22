@@ -1,23 +1,31 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
-<table cellspacing="0" cellpadding="0" class="half-table">
-    <thead><th><bean:message key="configoverview.jsp.configlinks"/></th></thead>
-    <tr class="list-row-odd"><td class="last-column first-column"><a href="/rhn/configuration/system/ManagedSystems.do">
+<div class="panel-heading">
+  <h4><bean:message key="configoverview.jsp.configlinks"/></h4>
+</div>
+<ul class="list-group">
+  <li class="list-group-item">
+    <a href="/rhn/configuration/system/ManagedSystems.do">
       <bean:message key="configoverview.jsp.viewsystems"/>
-    </a></td></tr>
-
-    <tr class="list-row-even"><td class="last-column first-column"><a href="/rhn/configuration/file/GlobalConfigFileList.do">
+    </a>
+  </li>
+  <li class="list-group-item">
+    <a href="/rhn/configuration/file/GlobalConfigFileList.do">
       <bean:message key="configoverview.jsp.viewfiles"/>
-    </a></td></tr>
-
-    <tr class="list-row-odd"><td class="last-column first-column"><a href="/rhn/configuration/GlobalConfigChannelList.do">
+    </a>
+  </li>
+  <li class="list-group-item">
+    <a href="/rhn/configuration/GlobalConfigChannelList.do">
       <bean:message key="configoverview.jsp.viewchannels"/>
-    </a></td></tr>
-
-    <tr class="list-row-even"><td class="last-column first-column"><a href="/rhn/configuration/ChannelCreate.do?editing=true">
+    </a>
+  </li>
+  <li class="list-group-item">
+    <a href="/rhn/configuration/ChannelCreate.do?editing=true">
       <bean:message key="configoverview.jsp.createchannel"/>
-    </a></td></tr>
-
-    <tr class="list-row-odd"><td class="last-column first-column"><a href="/rhn/configuration/system/TargetSystems.do">
+    </a>
+  </li>
+  <li class="list-group-item">
+    <a href="/rhn/configuration/system/TargetSystems.do">
       <bean:message key="configoverview.jsp.enableconfig"/>
-    </a></td></tr>
-</table>
+    </a>
+  </li>
+</ul>

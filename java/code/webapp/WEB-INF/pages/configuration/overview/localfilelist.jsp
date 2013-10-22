@@ -7,16 +7,14 @@
 <html:xhtml/>
 <html>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-config_files.gif" imgAlt="config.common.filesAlt"
+<rhn:toolbar base="h1" icon="spacewalk-icon-manage-configuration-file" 
  helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-files-local">
   <bean:message key="localfilelist.jsp.toolbar"/>
 </rhn:toolbar>
 
-<div class="page-summary">
-  <bean:message key="localfilelist.jsp.summary"/>
-</div> <br />
+  <p><bean:message key="localfilelist.jsp.summary"/></p>
 
-<form method="post" name="rhn_list" action="/rhn/configuration/file/LocalConfigFileList.do">
+<form method="post" role="form" name="rhn_list" action="/rhn/configuration/file/LocalConfigFileList.do">
   <rhn:csrf />
   <rhn:submitted />
 
@@ -30,8 +28,7 @@
 
       <rhn:column header="localfilelist.jsp.system"
                   url="/rhn/systems/details/configuration/Overview.do?sid=${current.serverId}">
-    	  <img src="/img/rhn-listicon-system.gif"
-    	       alt="<bean:message key='system.common.systemAlt' />" />
+    	  <i class="icon-desktop" title="<bean:message key='system.common.systemAlt' />"></i>
     	  ${current.serverName}
       </rhn:column>
     </rhn:listdisplay>

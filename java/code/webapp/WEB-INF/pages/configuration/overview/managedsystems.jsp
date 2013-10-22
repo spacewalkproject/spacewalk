@@ -9,19 +9,17 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-<rhn:toolbar base="h1" icon="icon-desktop" imgAlt="system.common.systemAlt"
+<rhn:toolbar base="h1" icon="icon-desktop"
  helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#config-systems" >
   <bean:message key="managedsystems.jsp.toolbar"/>
 </rhn:toolbar>
 <!-- no create button (these have to be created according to specific systems)-->
 
-  <div class="page-summary">
     <p>
     <bean:message key="managedsystems.jsp.summary"/>
     </p>
-  </div>
 
-<form method="post" name="rhn_list" action="/rhn/configuration/system/ManagedSystems.do">
+<form method="post" role="form" name="rhn_list" action="/rhn/configuration/system/ManagedSystems.do">
   <rhn:csrf />
   <rhn:submitted />
 

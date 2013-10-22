@@ -1,49 +1,51 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
-<table cellspacing="0" cellpadding="0" class="half-table">
-    <thead><th><bean:message key="configoverview.jsp.configsummary"/></th> <th></th></thead>
-    <tr class="list-row-odd">
-      <td><bean:message key="configoverview.jsp.systemsmanaged"/></td>
-      <td><a href="/rhn/configuration/system/ManagedSystems.do">
-        <c:if test="${summary.systems == 1}">
-          <bean:message key="system.common.onesystem" />
-        </c:if>
-        <c:if test="${summary.systems != 1}">
-          <bean:message key="system.common.numsystems" arg0="${summary.systems}"/>
-        </c:if>
-      </a></td>
-    </tr>
-    <tr class="list-row-even">
-      <td><bean:message key="configoverview.jsp.configchannels"/></td>
-      <td><a href="/rhn/configuration/GlobalConfigChannelList.do">
-        <c:if test="${summary.channels == 1}">
-          <bean:message key="configoverview.jsp.onechannel" />
-        </c:if>
-        <c:if test="${summary.channels != 1}">
-          <bean:message key="configoverview.jsp.numchannels" arg0="${summary.channels}"/>
-        </c:if>
-      </a></td>
-    </tr>
-    <tr class="list-row-odd">
-      <td><bean:message key="configoverview.jsp.centralfiles"/></td>
-      <td><a href="/rhn/configuration/file/GlobalConfigFileList.do">
-        <c:if test="${summary.global_files == 1}">
-          <bean:message key="config.common.onefile" />
-        </c:if>
-        <c:if test="${summary.global_files != 1}">
-          <bean:message key="config.common.numfiles" arg0="${summary.global_files}"/>
-        </c:if>
-      </a></td>
-    </tr>
-    <tr class="list-row-even">
-      <td><bean:message key="configoverview.jsp.localfiles"/></td>
-      <td><a href="/rhn/configuration/file/LocalConfigFileList.do">
-        <c:if test="${summary.local_files == 1}">
-          <bean:message key="config.common.onefile" />
-        </c:if>
-        <c:if test="${summary.local_files != 1}">
-          <bean:message key="config.common.numfiles" arg0="${summary.local_files}"/>
-        </c:if>
-      </a></td>
-    </tr>
-</table>
+<div class="panel-heading">
+  <h4><bean:message key="configoverview.jsp.configsummary"/></h4>
+</div>
+<ul class="list-group">
+  <li class="list-group-item">
+    <bean:message key="configoverview.jsp.systemsmanaged"/> 
+    <a href="/rhn/configuration/system/ManagedSystems.do">
+      <c:if test="${summary.systems == 1}">
+        <bean:message key="system.common.onesystem" />
+      </c:if>
+      <c:if test="${summary.systems != 1}">
+        <bean:message key="system.common.numsystems" arg0="${summary.systems}"/>
+      </c:if>
+    </a>
+  </li>
+  <li class="list-group-item">
+    <bean:message key="configoverview.jsp.configchannels"/> 
+    <a href="/rhn/configuration/GlobalConfigChannelList.do">
+      <c:if test="${summary.channels == 1}">
+        <bean:message key="configoverview.jsp.onechannel" />
+      </c:if>
+      <c:if test="${summary.channels != 1}">
+        <bean:message key="configoverview.jsp.numchannels" arg0="${summary.channels}"/>
+      </c:if>
+    </a>
+  </li>
+  <li class="list-group-item">
+    <bean:message key="configoverview.jsp.centralfiles"/> 
+    <a href="/rhn/configuration/file/GlobalConfigFileList.do">
+      <c:if test="${summary.global_files == 1}">
+        <bean:message key="config.common.onefile" />
+      </c:if>
+      <c:if test="${summary.global_files != 1}">
+        <bean:message key="config.common.numfiles" arg0="${summary.global_files}"/>
+      </c:if>
+    </a>
+  </li>
+  <li class="list-group-item">
+    <bean:message key="configoverview.jsp.localfiles"/> 
+    <a href="/rhn/configuration/file/LocalConfigFileList.do">
+      <c:if test="${summary.local_files == 1}">
+        <bean:message key="config.common.onefile" />
+      </c:if>
+      <c:if test="${summary.local_files != 1}">
+        <bean:message key="config.common.numfiles" arg0="${summary.local_files}"/>
+      </c:if>
+    </a>
+  </li>
+</ul>

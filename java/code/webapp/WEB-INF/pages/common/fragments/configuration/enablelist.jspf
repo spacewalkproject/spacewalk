@@ -5,8 +5,7 @@
 	 	
 <rhn:column header="system.common.systemName"
             url="/rhn/systems/details/Overview.do?sid=${current.id}">
-  <img alt="<bean:message key='system.common.systemAlt' />"
-       src="/img/rhn-listicon-system.gif" />
+  <i class="icon-desktop"></i>
   ${fn:escapeXml(current.name)}
 </rhn:column>
       	
@@ -22,7 +21,7 @@
 <rhn:column header="targetsystems.jsp.action">
   <rhn:require acl="not user_role(org_admin)">
     <c:if test="${not current.provisioning}">
-      <font color="red"><strong><bean:message key="targetsystems.jsp.orgadmin"/></strong></font><br />
+      <p class="text-danger"><strong><bean:message key="targetsystems.jsp.orgadmin"/></strong></p><br />
     </c:if>
   </rhn:require>
 

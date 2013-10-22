@@ -8,21 +8,18 @@
 <html:xhtml/>
 <html>
 <body>
-<rhn:toolbar base="h1" icon="icon-desktop" imgAlt="system.common.systemAlt"
+<rhn:toolbar base="h1" icon="icon-desktop"
  helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#config-systems">
   <bean:message key="targetsystems.jsp.toolbar" />
 </rhn:toolbar>
 
-<div class="page-summary">
   <p>
   <bean:message key="targetsystems.jsp.summary"
     arg0="${channel.displayName}"
 	arg1="/rhn/configuration/ChannelOverview.do?ccid=${ccid}"
 	arg2="/img/folder-config-sm.png" />
   </p>
-</div>
 
-<div>
 <html:form method="POST" action="/configuration/system/TargetSystemsSubmit">
   <rhn:csrf />
   <rhn:list pageList="${requestScope.pageList}"
@@ -37,7 +34,6 @@
   <%@ include file="/WEB-INF/pages/common/fragments/configuration/enablewidgets.jspf" %>
   <html:hidden property="submitted" value="true"/>
 </html:form>
-</div>
 
 </body>
 </html>

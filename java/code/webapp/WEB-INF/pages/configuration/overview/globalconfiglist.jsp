@@ -9,7 +9,7 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-<rhn:toolbar base="h1" icon="spacewalk-icon-Software-Channel-Management" imgAlt="config.jsp.imgAlt"
+<rhn:toolbar base="h1" icon="spacewalk-icon-Software-Channel-Management"
  helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-files-central"
  creationUrl="/rhn/configuration/ChannelCreate.do?editing=true"
  creationType="configchannel"
@@ -17,13 +17,11 @@
   <bean:message key="globalconfiglist.jsp.toolbar"/>
 </rhn:toolbar>
 
-  <div class="page-summary">
     <p>
     <bean:message key="globalconfiglist.jsp.summary"/>
     </p>
-  </div>
 
-<form method="post" name="rhn_list" action="/rhn/configuration/GlobalConfigChannelList.do">
+<form method="post" role="form" name="rhn_list" action="/rhn/configuration/GlobalConfigChannelList.do">
   <rhn:csrf />
   <rhn:submitted />
 
@@ -31,8 +29,7 @@
     <rhn:listdisplay filterBy="globalconfiglist.jsp.name">
       <rhn:column header="globalconfiglist.jsp.name"
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.id}">
-        <img alt='<bean:message key="config.common.globalAlt" />'
-             src="/img/rhn-listicon-channel.gif" />
+        <i class="spacewalk-icon-software-channels" title="<bean:message key="config.common.globalAlt" />"></i>
         ${current.name}
       </rhn:column>
 

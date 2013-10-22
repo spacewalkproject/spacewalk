@@ -8,16 +8,16 @@
 <html:xhtml/>
 <html>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-config_files.gif" imgAlt="config.common.filesAlt"
+<rhn:toolbar base="h1" icon="spacewalk-icon-manage-configuration-file" 
  helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-files-central">
   <bean:message key="globalfilelist.jsp.toolbar"/>
 </rhn:toolbar>
 
-<div class="page-summary">
+<p>
   <bean:message key="globalfilelist.jsp.summary"/>
-</div> <br />
+</p>
 
-<form method="post" name="rhn_list" action="/rhn/configuration/file/GlobalConfigFileList.do">
+<form method="post" role="form" name="rhn_list" action="/rhn/configuration/file/GlobalConfigFileList.do">
   <rhn:csrf />
   <rhn:submitted />
 
