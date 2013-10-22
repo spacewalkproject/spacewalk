@@ -10,28 +10,44 @@
 </head>
 <body>
 
-<rhn:toolbar base="h1" icon="icon-search" imgAlt="search.alt.img">
+<rhn:toolbar base="h1" icon="icon-search">
   <bean:message key="scapdiff.jsp.toolbar"/>
 </rhn:toolbar>
 
 <p><bean:message key="scapdiff.jsp.summary"/></p>
-<p><bean:message key="scapdiff.jsp.instructions"/></p>
 
 <html:form method="get" action="/audit/scap/DiffSubmit.do">
   <rhn:csrf/>
-
-  <table class="details">
-    <tr>
-      <th><bean:message key="xccdfdiff.firstscan"/>:</th>
-      <td><html:text property="first"/></td>
-    </tr>
-    <tr>
-      <th><bean:message key="xccdfdiff.secondscan"/>:</th>
-      <td><html:text property="second"/>
-        <html:submit><bean:message key="xccdfdiff.schedulescan"/></html:submit>
-      </td>
-  </table>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <bean:message key="scapdiff.jsp.instructions"/>
+      </div>
+      <div class="panel-body">
+        <div class="form-group row">
+          <div class="col-md-2 text-right">
+            <bean:message key="xccdfdiff.firstscan"/>:
+          </div>
+          <div class="col-md-4">
+            <html:text styleClass="form-control" property="first"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-2 text-right">
+            <bean:message key="xccdfdiff.secondscan"/>:
+          </div>
+          <div class="col-md-4">
+            <html:text property="second" styleClass="form-control"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-offset-2 col-md-4">
+            <html:submit styleClass="btn btn-success"><bean:message key="xccdfdiff.schedulescan"/></html:submit>
+          </div>
+        </div>
+      </div>
+    </div>
 </html:form>
+
 </body>
 </html>
 
