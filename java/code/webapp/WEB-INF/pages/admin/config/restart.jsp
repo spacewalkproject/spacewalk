@@ -26,19 +26,20 @@
         <div class="panel-body">
             <html:form action="/admin/config/Restart">
                 <rhn:csrf />
-                <table class="table">
-                <tr>
-                    <th>
+                <div class="row">
+                    <div class="col-md-2 text-right">
                         <label for="restart"><bean:message key="restart.jsp.restart_satellite"/></label>
-                    </th>
-                    <td>
+                    </div>
+                    <div class="col-md-10">
                         <html:checkbox property="restart" styleId="restart" />
-                    </td>
-                </tr>
-
-                </table>
-                <hr/>
-                <div class="pull-right"><html:submit styleClass="btn btn-success"><bean:message key="restart.jsp.restart"/></html:submit></div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-10">
+                        <html:submit styleClass="btn btn-success"><bean:message key="restart.jsp.restart"/></html:submit>
+                    </div>
+                </div>
             <rhn:submitted/>
             </html:form>
         </div>

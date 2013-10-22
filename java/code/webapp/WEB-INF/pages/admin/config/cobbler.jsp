@@ -25,19 +25,16 @@
         </div>
         <div class="panel-body">
             <form action="/rhn/admin/config/Cobbler.do" method="POST">
-                <rhn:csrf />
-                <table class="table">
-                <tr>
-                    <th>
+                <div class="row">
+                    <div class="col-md-2 text-right">
                         <bean:message key="cobbler.jsp.sync"/>
-                    </th>
-                    <td>
-                        <input type="submit" class="btn btn-success" name="cobbler_sync" value="${rhn:localize('update')}" />
-                    </td>
-                </tr>
-                </table>
-                <hr/>
-            <rhn:submitted/>
+                    </div>
+                    <div class="col-md-10">
+                        <input type="submit" class="btn btn-default" name="cobbler_sync" value="${rhn:localize('update')}" />
+                        <rhn:csrf />
+                        <rhn:submitted/>
+                    </div>
+                </div>
             </form>
         </div>
     </div>

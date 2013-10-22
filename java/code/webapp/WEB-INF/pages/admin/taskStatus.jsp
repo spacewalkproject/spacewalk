@@ -11,42 +11,38 @@
     <bean:message key="task.status.title"/>
   </rhn:toolbar>
 
-<div>
   <p>
     <bean:message key="task.status.message"/>
   </p>
-</div>
-
-    <rhn:require acl="user_role(satellite_admin)"/>
-
-      <table class="details">
-        <tr>
-            <th>
-                <bean:message key="task.status.taskomatic.on"/>:
-            </th>
-            <td>
-                <c:out value="${taskomatic_on}"/>
-            </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="font-weight: bold;text-align: center"><bean:message key="task.status.last.execution"/></td>
-        </tr>
-
+  <rhn:require acl="user_role(satellite_admin)"/>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <bean:message key="task.status.taskomatic.on"/>: <c:out value="${taskomatic_on}"/>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <bean:message key="task.status.last.execution"/>
+    </div>
+    <div class="panel-body">
+      <table class="table table-striped">
+        <tbody>
         <c:forEach items="${list}" var="item">
-		<tr>
-			<th>
-				<bean:message key="${item.name}"/>:
-			</th>
-			<td>
-				<c:out value="${item.start_time}"/>
-			</td>
-			<td>
-				<c:out value="${item.status}"/>
-			</td>
-		</tr>
-		</c:forEach>
-
+      		<tr>
+      			<td>
+      				<bean:message key="${item.name}"/>:
+      			</td>
+      			<td>
+      				<c:out value="${item.start_time}"/>
+      			</td>
+      			<td>
+      				<c:out value="${item.status}"/>
+      			</td>
+      		</tr>
+        </c:forEach>
+        </tbody>
       </table>
-
+    </div>
+  </div>
 </body>
 </html>

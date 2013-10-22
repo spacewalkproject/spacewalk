@@ -23,34 +23,42 @@
   <rhn:csrf />
 
   <!-- Search Box -->
-    <div class="search-choices">
-
-       <div class="search-choices-group">
-         <table class="details">
-           <tr><th><bean:message key="docsearch.jsp.searchfor"/></th>
-             <td>
-               <html:text property="search_string" name="search_string" value="${search_string}" accesskey="4"/>
-               <button type="submit" class="btn btn-default btn-sm">
-                   <i class="icon-search" />
-                   <bean:message key="button.search"/>
-               </button>
-             </td>
-           </tr>
-           <tr><th><bean:message key="docsearch.jsp.whatsearch"/></th>
-             <td>
-               <div style="text-align: left">
-                 <html:select property="view_mode" value="${view_mode}" >
-                   <html:options collection="searchOptions"
-                                 property="value"
-                                 labelProperty="display" />
-                 </html:select>
-               </div>
-             </td>
-           </tr>
-         </table>
-       </div>
-
+    <div class="search-choices panel panel-default">
+      <div class="search-choices-group panel-body">
+        <div class="form-group row">
+          <div class="col-md-2 text-right">
+            <label><bean:message key="docsearch.jsp.searchfor"/></label>
+          </div>
+          <div class="col-md-10">
+            <html:text property="search_string" 
+                         name="search_string" 
+                        value="${search_string}" 
+                    accesskey="4"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-2 text-right">
+            <label><bean:message key="docsearch.jsp.whatsearch"/></label>
+          </div>
+          <div class="col-md-10">
+            <html:select property="view_mode" value="${view_mode}" >
+              <html:options collection="searchOptions"
+                              property="value"
+                         labelProperty="display" />
+            </html:select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-offset-2 col-md-10">
+          <button type="submit" class="btn btn-success btn-sm">
+             <i class="icon-search"></i>
+             <bean:message key="button.search"/>
+          </button>
+          </div>
+        </div>
+      </div>
     </div>
+    
     <input type="hidden" name="submitted" value="true" />
   </html:form>
 

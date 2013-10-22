@@ -9,16 +9,8 @@
 <script type="text/javascript" src="/javascript/highlander.js"></script>
 </head>
 <body>
-
-    <h1><img src="/img/rhn-icon-help-h1.gif" alt="help" /><bean:message key="help.jsp.chat"/></h1>
-
-    <ul>
-
-        <div><bean:message key="help.jsp.chatinfo"/></div>
-        <br/><br/>
-        <div><bean:message key="help.jsp.chatlink"/></div>
-
-    </ul>
-
+    <h1><i class="icon-question-sign" title="Help"></i><bean:message key="help.jsp.chat"/></h1>
+    <p><bean:message key="help.jsp.chatinfo"/></p>
+    <p><bean:message key="help.jsp.chatlink"/></p>
 </body>
 </html>

@@ -22,22 +22,18 @@ editAreaLoader.init({
 <body>
 
    <rhn:require acl="user_role(satellite_admin)"/>
-
-   <div>
-     <form action="/rhn/admin/Catalina.do">
-       <rhn:csrf />
-       <table class="details">
-         <tr>
-           <th>
-             <bean:message key="catalina.jsp.show"/>
-           </th>
-           <td>
-               <textarea name="contents" rows="24" cols="80" id="contents">${contents}</textarea>
-           </td>
-         </tr>
-       </table>
-       <rhn:submitted/>
-     </form>
-   </div>
+   <h1><i class="icon-list"></i> Tomcat</h1>
+   <form action="/rhn/admin/Catalina.do">
+     <rhn:csrf />
+     <div class="panel panel-default">
+       <div class="panel-heading">
+         <bean:message key="catalina.jsp.show"/>
+       </div>
+       <div class="panel-body">
+        <textarea name="contents" rows="24" class="form-control" id="contents">${contents}</textarea>
+       </div>
+     </div>
+     <rhn:submitted/>
+   </form>
  </body>
 </html>
