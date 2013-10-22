@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.31
+Version: 2.1.32
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -628,6 +628,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Tue Oct 22 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.32-1
+- fixed table alias
+- add support for enhances rpm weak dependencies (backend) (bnc#846436)
+
 * Mon Oct 21 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.31-1
 - fixed pylint warnings and errors
 
