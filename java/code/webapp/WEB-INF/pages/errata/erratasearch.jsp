@@ -32,74 +32,81 @@
 
   <p><bean:message key="erratasearch.jsp.summary"/></p>
 
-  <p><bean:message key="erratasearch.jsp.instructions"/></p>
-
-  <html:form action="/errata/Search.do">
+  <html:form styleClass="form-horizontal" action="/errata/Search.do">
   <rhn:csrf />
 
   <!-- Search Box -->
-   <div class="search-choices">
-
-       <div class="search-choices-group">
-         <table class="details">
-           <tr><th><bean:message key="erratasearch.jsp.searchfor"/></th>
+   <div class="panel panel-default">
+       <div class="panel-heading">
+          <h4><bean:message key="erratasearch.jsp.instructions"/></h4>
+       </div>
+       <div class="panel-body">
+         <table class="table">
+           <tr>
+             <td><bean:message key="erratasearch.jsp.searchfor"/></td>
              <td>
-               <html:text property="search_string" name="search_string"
+              <div class="row-0">
+                <div class="col-md-5">
+                  <html:text property="search_string" styleClass="form-control input-sm" name="search_string"
                      value="${search_string}" maxlength="36" accesskey="4"/>
-                <button type="submit" class="btn btn-default btn-sm">
-                    <i class="icon-search"></i>
-                    <bean:message key="button.search"/>
-                </button>
-               <br />
-                <span class="small-text">
-                    <strong><bean:message key="Examples" />: </strong> <bean:message key="erratasearch.jsp.search.tip" />
+                </div>
+                <span class="col-md-7">
+                  <strong><bean:message key="Examples" />: </strong> <bean:message key="erratasearch.jsp.search.tip" />
                 </span>
+                </div>
              </td>
            </tr>
-           <tr><th><bean:message key="erratasearch.jsp.whatsearch"/></th>
+           <tr><td><bean:message key="erratasearch.jsp.whatsearch"/></td>
              <td>
-                 <html:select property="view_mode">
-	               <html:options collection="searchOptions"
-	                             property="value"
-	                             labelProperty="display" />
-                 </html:select>
-                 <br />
-                 <span class="small-text">
+                <div class="row-0">
+                  <div class="col-md-5">
+                    <html:select property="view_mode" styleClass="form-control input-sm">
+  	                <html:options collection="searchOptions"
+  	                             property="value"
+  	                             labelProperty="display" />
+                    </html:select>
+                  </div>
+                  <span class="col-md-7">
                     <strong><bean:message key="Tip" />:</strong> <bean:message key="erratasearch.jsp.whatsearch.tip" />
-                 </span>
+                  </span>
+                </div>
              </td>
            </tr>
-           <tr><th><bean:message key="erratasearch.jsp.types_to_search"/></th>
+           <tr><td><bean:message key="erratasearch.jsp.types_to_search"/></td>
              <td>
-                <html:checkbox property="errata_type_bug">
+                <div class="checkbox">
+                  <html:checkbox property="errata_type_bug">
                     <img src="/img/wrh-bug.gif"
                         title="<bean:message key="erratalist.jsp.bugadvisory"/>" />
                         <bean:message key="erratalist.jsp.bugadvisory"/>
-                </html:checkbox>
-                <br />
+                  </html:checkbox>
+                </div>
+                <div class="checkbox">
                 <html:checkbox property="errata_type_security">
                     <img src="/img/wrh-security.gif"
                         title="<bean:message key="erratalist.jsp.securityadvisory"/>" />
                     <bean:message key="erratalist.jsp.securityadvisory"/>
                 </html:checkbox>
-                <br />
+                </div>
+                <div class="checkbox">
                 <html:checkbox property="errata_type_enhancement">
                     <img src="/img/wrh-product.gif"
                         title="<bean:message key="erratalist.jsp.productenhancementadvisory"/>" />
                     <bean:message key="erratalist.jsp.productenhancementadvisory"/>
                 </html:checkbox>
-                <br />
+                </div>
             </td>
            </tr>
            <tr>
-            <th><bean:message key="erratasearch.jsp.issue_date"/></th>
+            <td><bean:message key="erratasearch.jsp.issue_date"/></td>
                 <td>
+                  <div class="checkbox">
                     <html:checkbox styleId="issueDateOptionsCheckBox" property="optionIssueDateSearch" onclick="javascript:issueDateSearchOptions()" >
                         <bean:message key="erratasearch.jsp.search_by_issue_dates"/>
                     </html:checkbox>
-                    <br />
-                    <div id="issueDateOptions" class="indent">
-                        <table>
+                  </div>
+                    <div id="issueDateOptions">
+                        <table class="table">
                             <tr>
                                 <td>
                                     <bean:message key="erratasearch.jsp.start_date" />
@@ -125,12 +132,23 @@
                 </td>
            </tr>
            <tr>
-              <th><label for="fineGrainedlabel"><bean:message key="systemsearch.jsp.finegrainedlabel"/></label></th>
+              <td><label for="fineGrainedlabel"><bean:message key="systemsearch.jsp.finegrainedlabel"/></label></td>
               <td>
-                   <div style="text-align: left">
-               <html:checkbox property="fineGrained" styleId="fineGrainedlabel"><label for="fineGrainedlabel"><bean:message key="systemsearch.jsp.finegrained"/></label></html:checkbox>
-                   </div>
+                <div class="checkbox">
+                  <html:checkbox property="fineGrained" styleId="fineGrainedlabel"> <label for="fineGrainedlabel"><bean:message key="systemsearch.jsp.finegrained"/></label></html:checkbox>
+                </div>
               </td>
+           </tr>
+           <tr>
+            <td>
+              &nbsp;
+            </td>
+            <td>
+              <button type="submit" class="btn btn-success btn-sm">
+                <i class="icon-search"></i>
+                <bean:message key="button.search"/>
+            </button>
+            </td>
            </tr>
          </table>
        </div> <!-- search choices group -->
