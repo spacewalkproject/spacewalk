@@ -27,7 +27,7 @@
         <section id="spacewalk-content">
           <!-- Alerts and messages -->
           <logic:messagesPresent>
-            <div class="alert alert-info">
+            <div class="alert alert-warning">
               <ul>
               <html:messages id="message">
                 <li><c:out value="${message}"/></li>

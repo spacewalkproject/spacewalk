@@ -44,10 +44,9 @@ public class MessagesTag extends TagSupport {
         try {
             out = pageContext.getOut();
 
-            // For now, hard-code the site-info class.  If we want to abstract
-            // this later, we can.
+            // Use boostrap alert classes
             baseTag = new HtmlTag("div");
-            baseTag.setAttribute("class", "site-info");
+            baseTag.setAttribute("class", "alert alert-info");
 
             out.print(baseTag.renderOpenTag());
             return (EVAL_BODY_INCLUDE);
