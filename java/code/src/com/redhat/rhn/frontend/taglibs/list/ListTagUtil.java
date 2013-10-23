@@ -15,15 +15,6 @@
 
 package com.redhat.rhn.frontend.taglibs.list;
 
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.util.StringUtil;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.taglibs.list.decorators.ExtraButtonDecorator;
-
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.StringEscapeUtils;
-
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Enumeration;
@@ -41,6 +32,15 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 import javax.servlet.jsp.tagext.Tag;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
+
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.util.StringUtil;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.taglibs.list.decorators.ExtraButtonDecorator;
 
 /**
  * Provides various utility functions for the ListTag, ColumnTag, and SpanTag
@@ -573,7 +573,7 @@ public class ListTagUtil {
         for (int x = 0; x < linkNames.length; x++) {
             String[] linkData = (String[]) links.get(linkNames[x]);
             ListTagUtil.write(pageContext, "<button ");
-            ListTagUtil.write(pageContext, "class=\"btn btn-default ");
+            ListTagUtil.write(pageContext, "class=\"btn btn-default btn-xs ");
             ListTagUtil.write(pageContext, linkData[0]);
 
             // if the link is disabled...
@@ -586,7 +586,7 @@ public class ListTagUtil {
                 ListTagUtil.write(pageContext, "\" value=\"");
                 ListTagUtil.write(pageContext, linkData[2]);
             }
-            ListTagUtil.write(pageContext, "\" />");
+            ListTagUtil.write(pageContext, "\"></button>");
 
             /*
             if (linkData[1] = null) {

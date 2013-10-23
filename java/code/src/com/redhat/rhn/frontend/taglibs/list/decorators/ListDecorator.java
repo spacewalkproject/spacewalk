@@ -14,11 +14,11 @@
  */
 package com.redhat.rhn.frontend.taglibs.list.decorators;
 
-import com.redhat.rhn.frontend.taglibs.list.ListSetTag;
-import com.redhat.rhn.frontend.taglibs.list.ListTag;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
+
+import com.redhat.rhn.frontend.taglibs.list.ListSetTag;
+import com.redhat.rhn.frontend.taglibs.list.ListTag;
 
 /**
  * Decorator for a given list
@@ -76,32 +76,74 @@ public interface ListDecorator {
     void setCurrentList(ListTag currentList);
 
     /**
-     * Notifies the decorator that the list is about to render the top pagination control
-     * @throws JspException exception
+     * Use this hook to insert content before the top pagination
+     * 
+     * @throws JspException
+     *             exception
      */
     void beforeTopPagination() throws JspException;
 
     /**
-     * Notifies the decorator that the list is on the top extra content section
-     * @throws JspException exception
+     * With this hook one can insert content before the list
+     * 
+     * @throws JspException
+     *             exception
      */
     void onTopExtraContent() throws JspException;
 
     /**
-     * Notifies the decorator that the list is on the bottom extra content section
-     * @throws JspException exception
+     * With this hook one can insert content in the heading
+     * 
+     * @throws JspException
+     *             exception
+     */
+    void onHeadExtraContent() throws JspException;
+
+    /**
+     * With this hook one can insert content in the footer
+     * 
+     * @throws JspException
+     *             exception
+     */
+    void onFooterExtraContent() throws JspException;
+
+    /**
+     * With this hook one can insert content after the list
+     * 
+     * @throws JspException
+     *             exception
      */
     void onBottomExtraContent() throws JspException;
 
     /**
-     * Notifies the decorator that the list is in the addons section
-     * @throws JspException something bad happened
+     * With this hook one can insert extra addons in the before the list
+     * 
+     * @throws JspException
+     *             something bad happened
      */
-    void onTopAddons() throws JspException;
+    void onTopExtraAddons() throws JspException;
 
     /**
-     * Notifies the decorator that the list is in the addons section
-     * @throws JspException something bad happened
+     * With this hook one can insert extra addons in the heading
+     * 
+     * @throws JspException
+     *             something bad happened
      */
-    void onBottomAddons() throws JspException;
+    void onHeadExtraAddons() throws JspException;
+
+    /**
+     * With this hook one can insert extra addons in the footer
+     * 
+     * @throws JspException
+     *             something bad happened
+     */
+    void onFooterExtraAddons() throws JspException;
+
+    /**
+     * With this hook one can insert extra addons after the list
+     * 
+     * @throws JspException
+     *             something bad happened
+     */
+    void onBottomExtraAddons() throws JspException;
 }

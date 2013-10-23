@@ -14,20 +14,20 @@
  */
 package com.redhat.rhn.frontend.taglibs.list.decorators;
 
-import com.redhat.rhn.common.conf.ConfigDefaults;
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.frontend.html.HtmlTag;
-import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
+import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.frontend.html.HtmlTag;
+import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
 
 /**
  * PageSizeDecorator
@@ -107,7 +107,7 @@ public class PageSizeDecorator extends BaseListDecorator {
      * {@inheritDoc}
      */
     @Override
-    public void onTopAddons() throws JspException {
+    public void onHeadExtraAddons() throws JspException {
         if (!getCurrentList().isEmpty()) {
             StringBuilder stringBuild = new StringBuilder();
 

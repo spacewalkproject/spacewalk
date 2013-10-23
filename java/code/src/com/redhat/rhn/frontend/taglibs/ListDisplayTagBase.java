@@ -234,13 +234,10 @@ public class ListDisplayTagBase extends BodyTagSupport {
      */
     protected void renderTitle(JspWriter out) throws IOException {
         if (!StringUtils.isEmpty(title)) {
-            HtmlTag heading = new HtmlTag("div");
-            heading.setAttribute("class", "panel-heading");
-            HtmlTag h3 = new HtmlTag("h3");
-            h3.setAttribute("class", "panel-title");
-            h3.addBody(LocalizationService.getInstance().getMessage(title));
-            heading.addBody(h3);
-            out.println(heading.render());
+            HtmlTag h4 = new HtmlTag("h4");
+            h4.setAttribute("class", "panel-title");
+            h4.addBody(LocalizationService.getInstance().getMessage(title));
+            out.println(h4.render());
         }
     }
 

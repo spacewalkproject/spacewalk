@@ -66,7 +66,7 @@ public class SelectableDecorator extends BaseListDecorator {
     }
 
     @Override
-    public void onBottomAddons() throws JspException {
+    public void onFooterExtraAddons() throws JspException {
         renderSelectButtons();
     }
 
@@ -98,7 +98,7 @@ public class SelectableDecorator extends BaseListDecorator {
                     pageContext.getRequest());
             if (!RhnSetDecl.SYSTEMS.getLabel().equals(setName)) {
                 String msg = ls.getMessage("message.numselected", args);
-                ListTagUtil.write(pageContext, "&nbsp;<strong><span id=\"");
+                ListTagUtil.write(pageContext, "<span id=\"");
                 if (isHeader) {
                     ListTagUtil.write(pageContext, "pagination_selcount_top");
                 }
@@ -107,7 +107,7 @@ public class SelectableDecorator extends BaseListDecorator {
                 }
                 ListTagUtil.write(pageContext, "\">");
                 ListTagUtil.write(pageContext, msg);
-                ListTagUtil.write(pageContext, "</span></strong>");
+                ListTagUtil.write(pageContext, "</span>");
             }
         }
     }

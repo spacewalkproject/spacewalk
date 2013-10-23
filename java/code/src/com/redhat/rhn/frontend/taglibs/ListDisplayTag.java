@@ -456,7 +456,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
         if (request.getQueryString() != null) {
             page.append("&" + request.getQueryString());
         }
-        out.println("<div class=\"spacewalk-csv-download text-right\"><a href=\"" + page +
+        out.println("<div class=\"spacewalk-csv-download\"><a href=\"" + page +
               "\"><i class=\"spacewalk-icon-download-csv\"></i>" +
               LocalizationService.getInstance().getMessage("listdisplay.csv") +
               "</a></div>");
@@ -610,9 +610,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
             return;
         }
 
-
-        out.println("<div class=\"text-right\">");
-
+        out.println("<div>");
         if (getButton() != null && AclManager.hasAcl(getButtonAcl(),
                 (HttpServletRequest) pageContext.getRequest(), getMixins())) {
 
@@ -836,10 +834,58 @@ public class ListDisplayTag extends ListDisplayTagBase {
                 doSort(sortedColumn);
             }
 
-            out.print("<div class=\"spacewalk-list-container\">");
-            out.print("<div class=\"spacewalk-list panel panel-default\">");
+            out.print("<div class=\"spacewalk-list\">");
+
+            out.println("<div class=\"spacewalk-list-top-addons\">");
+            out.println("<div class=\"spacewalk-list-alphabar\">");
+            /*
+             * If pageList contains an index and pageList.size() (what we are
+             * displaying on the page) is less than pageList.getTotalSize() (the
+             * total number of items in the data result), render alphabar. This
+             * prevents the alphabar from showing up on pages that show all of
+             * the entries on a single page and is similar to how the perl code
+             * behaves.
+             */
+            if (getPageList().getIndex().size() > 0
+                    && getPageList().size() < getPageList().getTotalSize()) {
+
+                renderViewAllLink(out);
+                renderAlphabar(out);
+            }
+            out.println("</div>");
+            if (isPaging()) {
+                renderPagination(out, true);
+                renderBoundsVariables(out);
+            }
+            out.println("</div>");
+
+
+            out.print("<div class=\"panel panel-default\">");
+
+            out.print("<div class=\"panel-heading\">");
 
             renderTitle(out);
+
+            out.println("<div class=\"spacewalk-list-head-addons\">");
+            out.println("<div class=\"spacewalk-list-filter\">");
+            if (getPageList().hasFilter()) {
+                renderFilterBox(out);
+            }
+            out.println("</div>");
+            out.println("<div class=\"spacewalk-list-head-addons-extra\">");
+            if (set != null) {
+                if (showSetButtons) {
+                    out.print("<span class=\"spacewalk-list-selection-btns\">");
+                    renderSetButtons(out);
+                    out.print("</span>");
+                }
+            }
+            out.println("</div>");
+            out.println("</div>");
+
+
+            // end panel heading
+            out.println("</div>");
 
             /* If the type is list, we must set the width explicitly. Otherwise,
              * it shouldn't matter
@@ -863,55 +909,6 @@ public class ListDisplayTag extends ListDisplayTagBase {
 
             // we render the pagination controls as an additional head
             out.println("<thead>");
-            out.println("<tr>");
-            out.println("<td colspan=\"" + getNumberOfColumns() + "\">");
-
-            out.println("<div class=\"spacewalk-list-top\">");
-            out.println("<div class=\"spacewalk-list-top-wrap\">");
-            out.println("<div class=\"spacewalk-list-top-alphabar\">");
-            if (getPageList().getIndex().size() > 0
-                    && getPageList().size() < getPageList().getTotalSize()) {
-
-                renderViewAllLink(out);
-                renderAlphabar(out);
-            }
-            out.println("</div>");
-            out.println("<div class=\"spacewalk-list-top-addons\">");
-            if (set != null) {
-                if (showSetButtons) {
-                    out.print("<span class=\"spacewalk-list-selection-btns\">");
-                    renderSetButtons(out);
-                    out.print("</span>");
-                }
-            }
-            out.println("</div>");
-            out.println("</div>");
-            out.println("<div class=\"spacewalk-list-top-wrap\">");
-            out.println("<div class=\"spacewalk-list-filter\">");
-            if (getPageList().hasFilter()) {
-                renderFilterBox(out);
-            }
-            out.println("</div>");
-            out.println("<div class=\"spacewalk-list-top-pagination\">");
-            if (isPaging()) {
-                renderPagination(out, true);
-                renderBoundsVariables(out);
-            }
-            out.println("</div>");
-            out.println("</div>");
-            out.println("</div>");
-            /* If pageList contains an index and pageList.size() (what we are
-             * displaying on the page) is less than pageList.getTotalSize()
-             * (the total number of items in the data result), render alphabar.
-             * This prevents the alphabar from showing up on pages that show
-             * all of the entries on a single page and is similar to how the
-             * perl code behaves.
-             */
-
-
-            out.println("</td>");
-            out.println("</tr>");
-
             out.println("\n<tr>");
 
             if (getIterator() != null && getIterator().hasNext()) {
@@ -972,22 +969,56 @@ public class ListDisplayTag extends ListDisplayTagBase {
             }
             out.println("</tbody>");
 
+            out.println("</table>");
+
             /* If the type is a half-table, we must draw an extra row on the
              * end of the table if the reflink has been set
              */
-            out.println("<tfoot>");
-            out.println("<tr>");
-            out.println("<td colspan=\"" + getNumberOfColumns() + "\">");
-
-            out.println("<div class=\"spacewalk-list-bottom\">");
-            out.println("<div class=\"spacewalk-list-bottom-wrap\">");
-            out.println("<div class=\"spacewalk-list-bottom-addons\">");
+            out.println("<div class=\"panel-footer\">");
+            out.println("<div class=\"spacewalk-list-footer-addons\">");
+            out.println("<div class=\"spacewalk-list-footer-addons-extra\">");
+            if (isPaging()) {
+                renderActionButtons(out);
+            }
             out.println("</div>");
-            out.println("<div class=\"spacewalk-list-bottom-pagination\">");
+            out.println("<div class=\"spacewalk-list-reflinks\">");
+            if (reflink != null) {
+                setColumnCount(0);
+                out.println("<a href=\"" + reflink + "\" >");
+
+                /*
+                 * Here we render the reflink and its key. If the key hasn't
+                 * been set we just display the link address itself.
+                 */
+                if (reflinkkey != null) {
+                    Object[] args = new Object[2];
+
+                    args[0] = new Integer(getPageList().getTotalSize());
+                    args[1] = reflinkkeyarg0;
+
+                    String message = LocalizationService.getInstance()
+                            .getMessage(reflinkkey, args);
+                    out.println(message);
+                } else {
+                    out.println(reflink);
+                }
+
+                out.println("</a>");
+            }
+            out.println("</div>");
+            out.println("</div>");
+
+            // close footer
+            out.println("</div>");
+
+            // close panel
+            out.println("</div>");
+
+            out.println("<div class=\"spacewalk-list-bottom-addons\">");
+            out.println("<div class=\"spacewalk-list-pagination\">");
             /* If paging is on, we render the pagination */
             if (isPaging()) {
                 renderPagination(out, false);
-                renderActionButtons(out);
             }
             /* If paging is off and we are rendering a normal list,
              * we show a count of the results in the lower left corner
@@ -1006,59 +1037,18 @@ public class ListDisplayTag extends ListDisplayTagBase {
                 args[2] = new Integer(getPageList().getTotalSize());
                 args[3] = LocalizationService.getInstance().getMessage(description);
 
-                out.print("<span class=\"text-left\">\n");
+                out.print("<span class=\"text-right\">\n");
                 out.print(LocalizationService.getInstance()
                             .getMessage("message.range.withtypedescription", args));
                 out.println("</span>");
             }
             out.println("</div>");
             out.println("</div>");
-            out.println("<div class=\"spacewalk-list-extra\">");
-            out.println("</div>");
 
-            out.println("</div>");
-
-            out.println("</tr>");
-            out.println("</td>");
-            out.println("</tfoot>\n");
-
-            out.println("</table>\n");
-
-            if (reflink != null) {
-                setColumnCount(0);
-
-                out.println("<div class=\"panel-footer\">");
-
-                out.println("<a href=\"" + reflink + "\" >");
-
-                /* Here we render the reflink and its key. If the key hasn't been set
-                 * we just display the link address itself.
-                 */
-                if (reflinkkey != null) {
-                    Object[] args = new Object[2];
-
-                    args[0] = new Integer(getPageList().getTotalSize());
-                    args[1] = reflinkkeyarg0;
-
-                    String message = LocalizationService.getInstance().
-                                     getMessage(reflinkkey, args);
-                    out.println(message);
-                }
-                else {
-                    out.println(reflink);
-                }
-
-                out.println("</a>");
-                out.println("</div>");
-            }
-
-
-            out.println("</div>\n");
             // export button goes outside of the panel
             if (getExportColumns() != null) {
                 renderExport(out);
             }
-            out.println("</div>\n");
 
             setColumnCount(0);
             setNumberOfColumns(0);
