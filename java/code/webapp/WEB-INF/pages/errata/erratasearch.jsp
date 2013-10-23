@@ -26,8 +26,7 @@
 
 <body>
 <rhn:toolbar base="h1" icon="icon-search"
-               helpUrl="/rhn/help/reference/en-US/s1-sm-errata.jsp#s2-sm-errata-search"
-               imgAlt="search.alt.img">
+               helpUrl="/rhn/help/reference/en-US/s1-sm-errata.jsp#s2-sm-errata-search">
     <bean:message key="erratasearch.jsp.toolbar"/>
   </rhn:toolbar>
 
@@ -48,7 +47,7 @@
                <html:text property="search_string" name="search_string"
                      value="${search_string}" maxlength="36" accesskey="4"/>
                 <button type="submit" class="btn btn-default btn-sm">
-                    <i class="icon-search" />
+                    <i class="icon-search"></i>
                     <bean:message key="button.search"/>
                 </button>
                <br />

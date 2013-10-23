@@ -23,52 +23,61 @@
 
 <body>
 
-<rhn:toolbar base="h1" icon="icon-search" imgAlt="search.alt.img">
+<rhn:toolbar base="h1" icon="icon-search">
   <bean:message key="scapsearch.jsp.toolbar"/>
 </rhn:toolbar>
 
 <p><bean:message key="scapsearch.jsp.summary"/></p>
-<p><bean:message key="scapsearch.jsp.instructions"/></p>
-
-<html:form action="/audit/scap/Search.do">
-  <rhn:csrf/>
-  <div class="search-choises">
-    <div class="search-choices-group">
-      <table class="details">
-        <tr><th><bean:message key="scapsearch.jsp.searchfor"/>:</th>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4><bean:message key="scapsearch.jsp.instructions"/></h4>
+  </div>
+  <div class="panel-body">
+    <html:form styleClass="form-inline" action="/audit/scap/Search.do">
+      <rhn:csrf/>
+      <table class="table">
+        <tr>
+          <td><bean:message key="scapsearch.jsp.searchfor"/>:</td>
           <td>
-            <html:text property="search_string" name="search_string"
+            <div class="form-group">
+              <html:text property="search_string" styleClass="form-control" name="search_string"
                 value="${search_string}" maxlength="100" accesskey="4"/>
-            <button type="submit" class="btn btn-default btn-sm">
-                <i class="icon-search" />
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-default btn-sm">
+                <i class="icon-search"></i>
                 <bean:message key="button.search"/>
-            </button>
+              </button>
+            </div>
             <br/>
             <span class="small-text">
               <bean:message key="scapsearch.jsp.whatsearch.tip"/>
             </span>
           </td>
         </tr>
-        <tr><th><bean:message key="scapsearch.jsp.withresult"/>:</th>
+        <tr>
+          <td><bean:message key="scapsearch.jsp.withresult"/>:</td>
           <td>
-            <html:select property="result_filter">
-              <html:options collection="allResults" property="label" labelProperty="label"/>
-            </html:select>
+            <div class="form-group">
+              <html:select styleClass="form-control" property="result_filter">
+                <html:options collection="allResults" property="label" labelProperty="label"/>
+              </html:select>
+            </div>
           </td>
         </tr>
-        <tr><th><bean:message key="systemsearch.jsp.wheretosearch"/></th>
+        <tr><td><bean:message key="systemsearch.jsp.wheretosearch"/></td>
           <td>
-            <div style="text-align: left">
+            <div class="text-left">
               <html:radio property="whereToSearch" value="all" styleId="whereToSearch-all"/>
               <label for="whereToSearch-all"><bean:message key="systemsearch.jsp.searchallsystems"/></label>
             </div>
-            <div style="text-align: left">
+            <div class="text-left">
               <html:radio property="whereToSearch" value="system_list" styleId="whereToSearch-system_list"/>
               <label for="whereToSearch-system_list"><bean:message key="systemsearch.jsp.searchSSM"/></label>
             </div>
           </td>
         </tr>
-        <tr><th><bean:message key="scapsearch.jsp.scan_date"/>:</th>
+        <tr><td><bean:message key="scapsearch.jsp.scan_date"/>:</td>
           <td>
             <html:checkbox styleId="scanDateOptionsCheckBox" property="optionScanDateSearch" onclick="javascript:scanDateSearchOptions()">
               <label for="scanDateOptionsCheckBox">
@@ -94,23 +103,26 @@
             </div>
           </td>
         </tr>
-        <tr><th><bean:message key="scapsearch.jsp.show_as"/>:</th>
+        <tr><td><bean:message key="scapsearch.jsp.show_as"/>:</td>
           <td>
-            <div style="text-align: left">
+            <div class="text-left">
               <html:radio property="show_as" value="rr" styleId="show_as-rr"/>
               <label for="show_as-rr"><bean:message key="scapsearch.jsp.list_rr"/></label>
             </div>
-            <div style="text-align: left">
+            <div class="text-left">
               <html:radio property="show_as" value="tr" styleId="show_as-tr"/>
               <label for="show_as-tr"><bean:message key="scapsearch.jsp.list_tr"/></label>
             </div>
           </td>
         </tr>
       </table>
-    </div> <!-- search-choices-group -->
-  </div> <!-- search-choices -->
-  <input type="hidden" name="submitted" value="true"/>
-</html:form>
+      <input type="hidden" name="submitted" value="true"/>
+    </html:form>
+  </div>
+</div>
+
+
+
 
 <c:if test="${(search_string != null && search_string != '')}">
   <c:set var="pageList" value="${requestScope.pageList}"/>
