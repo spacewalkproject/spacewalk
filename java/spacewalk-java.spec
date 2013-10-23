@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.59
+Version: 2.1.60
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Oct 23 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.60-1
+- added messages for SystemRemoteCommandAction.java
+- reformated xliff file using xmllint
+- using @@PRODUCT_NAME@@ instead of Spacewalk
+- api doc fix
+
 * Tue Oct 22 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.59-1
 - add support for enhances rpm weak dependency (java) (bnc#846436)
 
