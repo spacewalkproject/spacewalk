@@ -1046,7 +1046,6 @@ public class ListTag extends BodyTagSupport {
             }
         }
 
-        ListTagUtil.write(pageContext, "&nbsp;&nbsp;");
         ListTagUtil.renderPaginationLinks(pageContext, PAGINATION_NAMES,
                 manip.getPaginationLinks());
     }

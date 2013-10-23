@@ -2,6 +2,7 @@ package com.redhat.rhn.frontend.taglibs;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.io.Writer;
 import java.util.Iterator;
 
 import javax.servlet.jsp.JspTagException;
@@ -227,21 +228,56 @@ public class ListDisplayTagBase extends BodyTagSupport {
         iterator = pageList.iterator();
     }
 
+    protected void renderHeadExtraAddons(Writer out) throws IOException {
+        // noop
+    }
+
+    protected void renderPanelHeading(JspWriter out) throws IOException {
+
+        StringWriter headFilterContent = new StringWriter();
+        StringWriter titleContent = new StringWriter();
+        StringWriter headAddons = new StringWriter();
+
+        renderTitle(titleContent);
+        if (getPageList().hasFilter()) {
+            headFilterContent.append("<div class=\"spacewalk-list-filter\">");
+            renderFilterBox(headFilterContent);
+            headFilterContent.append("</div>");
+        }
+        renderHeadExtraAddons(headAddons);
+
+        int headContentLength = headFilterContent.getBuffer().length()
+                + titleContent.getBuffer().length()
+                + headAddons.getBuffer().length();
+
+        if (headContentLength > 0) {
+            out.println("<div class=\"panel-heading\">");
+            out.println(titleContent.toString());
+            out.println("<div class=\"spacewalk-list-head-addons\">");
+            out.println(headFilterContent.toString());
+            out.println("<div class=\"spacewalk-list-head-addons-extra\">");
+            out.println(headAddons.toString());
+            out.println("</div>");
+            out.println("</div>");
+            out.println("</div>");
+        }
+    }
+
     /**
      * Renders the title header if set.
      * @param out JspWriter
      * @throws IOException thrown if there's a problem writing to the JSP
      */
-    protected void renderTitle(JspWriter out) throws IOException {
+    protected void renderTitle(Writer out) throws IOException {
         if (!StringUtils.isEmpty(title)) {
             HtmlTag h4 = new HtmlTag("h4");
             h4.setAttribute("class", "panel-title");
             h4.addBody(LocalizationService.getInstance().getMessage(title));
-            out.println(h4.render());
+            out.append(h4.render());
         }
     }
 
-    protected void renderFilterBox(JspWriter out) throws IOException {
+    protected void renderFilterBox(Writer out) throws IOException {
         LocalizationService ls = LocalizationService.getInstance();
 
         HtmlTag tag = new HtmlTag("div");
@@ -280,7 +316,7 @@ public class ListDisplayTagBase extends BodyTagSupport {
         buf.append(btnSpan.render());
 
         tag.addBody(buf.toString());
-        out.println(tag.render());
+        out.append(tag.render());
     }
 
     /** {@inheritDoc} */

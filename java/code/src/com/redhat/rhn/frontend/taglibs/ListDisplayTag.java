@@ -16,6 +16,7 @@
 package com.redhat.rhn.frontend.taglibs;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -480,20 +481,30 @@ public class ListDisplayTag extends ListDisplayTagBase {
         out.println(target.toString());
     }
 
+    @Override
+    protected void renderHeadExtraAddons(Writer out) throws IOException {
+        renderSetButtons(out);
+    }
 
-    private void renderSetButtons(JspWriter out) throws IOException {
+    private void renderSetButtons(Writer out) throws IOException {
         StringBuffer buf = new StringBuffer();
-        buf.append(addButtonTo(buf, RequestContext.DISPATCH, UPDATE_LIST_KEY,
-                                            "update_list_key_id").render());
-        buf.append(" ");
-        buf.append(addButtonTo(buf, RequestContext.DISPATCH, SELECT_ALL_KEY).render());
+        if (set != null) {
+            if (showSetButtons) {
+                buf.append("<span class=\"spacewalk-list-selection-btns\">");
+                buf.append(addButtonTo(buf, RequestContext.DISPATCH, UPDATE_LIST_KEY,
+                                                    "update_list_key_id").render());
+                buf.append(" ");
+                buf.append(addButtonTo(buf, RequestContext.DISPATCH, SELECT_ALL_KEY).render());
 
-        if (numItemsChecked > 0) {
-            buf.append(" ");
-            buf.append(addButtonTo(buf, RequestContext.DISPATCH, UNSELECT_ALL_KEY)
-                .render());
+                if (numItemsChecked > 0) {
+                    buf.append(" ");
+                    buf.append(addButtonTo(buf, RequestContext.DISPATCH, UNSELECT_ALL_KEY)
+                        .render());
+                }
+                buf.append("</span>");
+            }
         }
-        out.println(buf.toString());
+        out.append(buf.toString());
     }
 
     private HtmlTag addButtonTo(StringBuffer buf, String name,
@@ -862,30 +873,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
 
             out.print("<div class=\"panel panel-default\">");
 
-            out.print("<div class=\"panel-heading\">");
-
-            renderTitle(out);
-
-            out.println("<div class=\"spacewalk-list-head-addons\">");
-            out.println("<div class=\"spacewalk-list-filter\">");
-            if (getPageList().hasFilter()) {
-                renderFilterBox(out);
-            }
-            out.println("</div>");
-            out.println("<div class=\"spacewalk-list-head-addons-extra\">");
-            if (set != null) {
-                if (showSetButtons) {
-                    out.print("<span class=\"spacewalk-list-selection-btns\">");
-                    renderSetButtons(out);
-                    out.print("</span>");
-                }
-            }
-            out.println("</div>");
-            out.println("</div>");
-
-
-            // end panel heading
-            out.println("</div>");
+            renderPanelHeading(out);
 
             /* If the type is list, we must set the width explicitly. Otherwise,
              * it shouldn't matter

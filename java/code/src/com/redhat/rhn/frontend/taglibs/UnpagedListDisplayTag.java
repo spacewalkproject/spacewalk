@@ -16,6 +16,7 @@
 package com.redhat.rhn.frontend.taglibs;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -142,18 +143,17 @@ public class UnpagedListDisplayTag extends ListDisplayTagBase {
     // RENDER methods
     //////////////////////////////////////////////////////////////////////////
 
-
     @Override
-    protected void renderFilterBox(JspWriter out) throws IOException {
-        super.renderFilterBox(out);
+    protected void renderHeadExtraAddons(Writer out) throws IOException {
+        super.renderHeadExtraAddons(out);
         LocalizationService ls = LocalizationService.getInstance();
         if (getType().equals("treeview")) {
-            out.print("<div style=\"text-align: right;\">"
+            out.append("<div class=\"spacewalk-list-channel-show-hide\">"
                     +
-                    "<a href=\"javascript:showAllRows();\" style=\"cursor: pointer;\">" +
+                    "<a class=\"spacewalk-list-channel-show-all\" href=\"javascript:showAllRows();\" style=\"cursor: pointer;\">" +
                     ls.getMessage("channels.overview.showall") +
                     "</a>&nbsp;&nbsp;|&nbsp;&nbsp;" +
-                    "<a href=\"javascript:hideAllRows();\" style=\"cursor: pointer;\">" +
+                    "<a class=\"spacewalk-list-channel-hide-all\" href=\"javascript:hideAllRows();\" style=\"cursor: pointer;\">" +
                     ls.getMessage("channels.overview.hideall") + "</a></div>");
         }
     }
@@ -266,10 +266,10 @@ public class UnpagedListDisplayTag extends ListDisplayTagBase {
                 doSort(sortedColumn);
             }
 
-            out.print("<div class=\"spacewalk-list-container\">");
-            out.print("<div class=\"spacewalk-list panel panel-default\">");
+            out.print("<div class=\"spacewalk-list\">");
+            out.print("<div class=\"panel panel-default\">");
 
-            renderTitle(out);
+            renderPanelHeading(out);
 
             /* If the type is list, we must set the width explicitly. Otherwise,
              * it shouldn't matter
@@ -290,18 +290,6 @@ public class UnpagedListDisplayTag extends ListDisplayTagBase {
 
 
             out.println(">");
-
-            out.println("<thead>");
-
-            out.println("\n<tr>");
-            out.println("\n<td colspan=\"" + getColumnCount() + "\">");
-            if (getPageList().hasFilter()) {
-                renderFilterBox(out);
-            }
-            out.println("\n</td>");
-            out.println("\n</tr>");
-
-            out.println("\n<tr>");
 
             if (getIterator() != null && getIterator().hasNext()) {
                 // Push a new BodyContent writer onto the stack so that
