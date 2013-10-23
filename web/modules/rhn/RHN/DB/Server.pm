@@ -600,15 +600,22 @@ sub server_event_package_action {
 SELECT PN.name ||
        CASE
          WHEN PE.id IS NULL THEN ''
-         ELSE '-' || evr_t_as_vre_simple(PE.evr) END
-       AS NVRE,
+         ELSE '-' || evr_t_as_vre_simple(PE.evr) END ||
+       CASE
+         WHEN AP.package_arch_id is NULL THEN ''
+         ELSE '.' || ARCH.label END
+       AS NVREA,
        AP.id AS ACTION_PACKAGE_ID,
        PN.id || '|' || PE.id AS id_combo,
        AP.package_arch_id
   FROM rhnPackageName PN,
-       rhnActionPackage AP LEFT OUTER JOIN
+       rhnActionPackage AP
+  LEFT OUTER JOIN
        rhnPackageEVR PE
     ON AP.evr_id = PE.id
+  LEFT OUTER JOIN
+       rhnPackageArch ARCH
+    ON ARCH.id = AP.package_arch_id
  WHERE AP.action_id = :aid
    AND AP.name_id = PN.id
 EOS
@@ -664,13 +671,22 @@ sub server_event_delta_action {
 
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare(<<EOS);
-SELECT rTO.label AS OPERATION, PN.name AS NAME, PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE
+SELECT rTO.label AS OPERATION,
+       PN.name AS NAME,
+       PN.name || '-' || evr_t_as_vre_simple(PE.evr) ||
+       CASE
+         WHEN TP.package_arch_id is NULL THEN ''
+         ELSE '.' || ARCH.label END
+       AS NVREA
   FROM rhnPackageName PN,
        rhnPackageEVR PE,
        rhnTransactionOperation rTO,
        rhnTransactionPackage TP,
        rhnPackageDeltaElement PDE,
        rhnActionPackageDelta APD
+  LEFT OUTER JOIN
+       rhnPackageArch ARCH
+    ON ARCH.id = TP.package_arch_id
  WHERE APD.action_id = :aid
    AND APD.package_delta_id = PDE.package_delta_id
    AND PDE.transaction_package_id = TP.id
@@ -1859,7 +1875,10 @@ sub event_package_results {
 SELECT SAPR.RESULT_CODE,
        SAPR.STDOUT,
        SAPR.STDERR,
-       PN.name || CASE WHEN PE.id IS NULL THEN '' ELSE '-' || evr_t_as_vre_simple(PE.evr) END AS NVRE,
+       PN.name ||
+       CASE WHEN PE.id IS NULL THEN '' ELSE '-' || evr_t_as_vre_simple(PE.evr) END ||
+       CASE WHEN AP.package_arch_id is NULL THEN '' ELSE '.' || ARCH.label END
+       AS NVRE,
        AP.id AS ACTION_PACKAGE_ID,
        PN.id || '|' || PE.id AS ID_COMBO,
        AP.package_arch_id,
@@ -1871,6 +1890,9 @@ SELECT SAPR.RESULT_CODE,
        rhnPackageEVR PE,
        rhnPackageName PN,
        rhnActionPackage AP
+  LEFT OUTER JOIN
+       rhnPackageArch ARCH
+    ON ARCH.id = AP.package_arch_id
  WHERE AP.action_id = :aid
    AND AP.name_id = :name_id
    AND AP.evr_id = :evr_id

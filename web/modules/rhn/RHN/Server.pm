@@ -300,7 +300,7 @@ sub render {
   $ret->{server_event_details} .= qq{<div class="action-summary-package">$package_name to be removed:<br /><ul>\n};
 
   for my $pkg (@{$self->{PACKAGES}}) {
-    $ret->{server_event_details} .= qq{  <li class="action-summary-package-nvre">$pkg->{NVRE}</li>\n};
+    $ret->{server_event_details} .= qq{  <li class="action-summary-package-nvre">$pkg->{NVREA}</li>\n};
   }
   $ret->{server_event_details} .= qq{</ul></div>\n};
 
@@ -321,7 +321,7 @@ sub render {
   $ret->{server_event_details} .= qq{<div class="action-summary-package">Packages to be verified:<br /><ul>\n};
 
   for my $pkg (@{$self->{PACKAGES}}) {
-    $ret->{server_event_details} .= qq{  <li class="action-summary-package-nvre">$pkg->{NVRE}</li>\n};
+    $ret->{server_event_details} .= qq{  <li class="action-summary-package-nvre">$pkg->{NVREA}</li>\n};
   }
   $ret->{server_event_details} .= qq{</ul></div>\n};
 
@@ -366,7 +366,7 @@ EOQ
 
     $html .= "\n  </li>";
 
-    $ret->{server_event_details} .= sprintf($html, $pkg->{NVRE}, $self->{SERVER_ID}, $self->{ACTION_ID}, $pkg->{ID_COMBO}, $pkg->{RESULTS}->{RESULT_CODE});
+    $ret->{server_event_details} .= sprintf($html, $pkg->{NVREA}, $self->{SERVER_ID}, $self->{ACTION_ID}, $pkg->{ID_COMBO}, $pkg->{RESULTS}->{RESULT_CODE});
   }
   $ret->{server_event_details} .= qq{</ul></div>\n};
 
@@ -386,7 +386,7 @@ sub render {
   $ret->{server_event_details} .= qq{<div class="action-summary-package">Packages Scheduled:<br /><ul>\n};
 
   for my $pkg (@{$self->{PACKAGES}}) {
-    $ret->{server_event_details} .= qq{  <li class="action-summary-package-nvre">$pkg->{NVRE}</li>\n};
+    $ret->{server_event_details} .= qq{  <li class="action-summary-package-nvre">$pkg->{NVREA}</li>\n};
   }
   $ret->{server_event_details} .= qq{</ul></div>\n};
 
@@ -421,7 +421,7 @@ EOQ
 
     $html .= "\n  </li>";
 
-    $ret->{server_event_details} .= sprintf($html, $pkg->{NVRE}, $self->{SERVER_ID}, $self->{ACTION_ID}, $pkg->{ID_COMBO}, $pkg->{RESULTS}->{RESULT_CODE});
+    $ret->{server_event_details} .= sprintf($html, $pkg->{NVREA}, $self->{SERVER_ID}, $self->{ACTION_ID}, $pkg->{ID_COMBO}, $pkg->{RESULTS}->{RESULT_CODE});
   }
   $ret->{server_event_details} .= qq{</ul></div>\n};
 
@@ -449,7 +449,7 @@ sub render {
   my @packages;
   for my $pkg (@{$self->{PACKAGES}}) {
     if ($packages[-1] and $packages[-1]->{NAME} eq $pkg->{NAME}) {
-      $packages[-1]->{OTHER_NVRE} = $pkg->{NVRE};
+      $packages[-1]->{OTHER_NVREA} = $pkg->{NVREA};
       $packages[-1]->{OPERATION} = 'replace';
     }
     else {
@@ -460,10 +460,10 @@ sub render {
   for my $pkg (@packages) {
     my $op = $operation_label_map{$pkg->{OPERATION}};
     if ($pkg->{OPERATION} eq 'replace') {
-      $ret->{server_event_details} .= qq{  <li class="action-summary-package-nvre">$op $pkg->{NVRE} with $pkg->{OTHER_NVRE}</li>\n};
+      $ret->{server_event_details} .= qq{  <li class="action-summary-package-nvre">$op $pkg->{NVREA} with $pkg->{OTHER_NVREA}</li>\n};
     }
     else {
-      $ret->{server_event_details} .= qq{  <li class="action-summary-package-nvre">$op $pkg->{NVRE}</li>\n};
+      $ret->{server_event_details} .= qq{  <li class="action-summary-package-nvre">$op $pkg->{NVREA}</li>\n};
     }
   }
   $ret->{server_event_details} .= qq{</ul></div>\n};
