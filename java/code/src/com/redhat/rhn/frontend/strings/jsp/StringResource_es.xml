@@ -5277,7 +5277,7 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
           <target>Actualizaciones de perfil de sistema</target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.profileupdates.summary">
-          <source>If you've changed hardware on your system or have manually installed RPMs, and those changes are not appearing on Spacewalk, you need to schedule a profile update.</source>
+          <source>If you've changed hardware on your system or have manually installed RPMs, and those changes are not appearing on @@PRODUCT_NAME@@, you need to schedule a profile update.</source>
           <target>Si ha cambiado hardware en su sistema o si ha instalado RPM de forma manual, y esos cambios no aparecen en Spacewalk, necesitará programar una actualización de perfil.</target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.profileupdates.hardware">
@@ -5321,7 +5321,7 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
           <target>Reiniciar sistemas</target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.reboot.summary">
-          <source>With Red Hat Enterprise Linux 3 or newer releases, Spacewalk allows you to remotely reboot your systems.</source>
+          <source>With Red Hat Enterprise Linux 3 or newer releases, @@PRODUCT_NAME@@ allows you to remotely reboot your systems.</source>
           <target>Con Red Hat Enterprise Linux 3 o lanzamientos más recientes, Spacewalk le permite reiniciar sus sistemas de forma remota.</target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.lock.header">
@@ -5329,7 +5329,7 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
           <target>Bloquear sistemas</target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.lock.summary">
-          <source>Systems may be locked or unlocked.  Locking prevents changes from the Spacewalk website.</source>
+          <source>Systems may be locked or unlocked. Locking prevents changes from the @@PRODUCT_NAME@@ website.</source>
           <target>Los sistemas pueden ser bloqueados o desbloqueados. Al bloquear los sistemas no se pueden hacer cambios desde el sitio web de Spacewalk.</target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.lock.lock">

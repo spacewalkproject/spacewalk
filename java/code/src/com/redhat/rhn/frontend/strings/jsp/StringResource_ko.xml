@@ -5276,7 +5276,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>시스템 프로파일 업데이트 </target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.profileupdates.summary">
-          <source>If you've changed hardware on your system or have manually installed RPMs, and those changes are not appearing on Spacewalk, you need to schedule a profile update.</source>
+          <source>If you've changed hardware on your system or have manually installed RPMs, and those changes are not appearing on @@PRODUCT_NAME@@, you need to schedule a profile update.</source>
           <target>시스템의 하드웨어를 변경하거나 수동으로 RPM을 설치하는 경우 이러한 변경 사항은 Spacewalk에 표시되지 않습니다. 프로파일 업데이트를 스케줄해야 합니다.</target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.profileupdates.hardware">
@@ -5320,7 +5320,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>시스템 재부팅 </target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.reboot.summary">
-          <source>With Red Hat Enterprise Linux 3 or newer releases, Spacewalk allows you to remotely reboot your systems.</source>
+          <source>With Red Hat Enterprise Linux 3 or newer releases, @@PRODUCT_NAME@@ allows you to remotely reboot your systems.</source>
           <target>Red Hat Enterprise Linux 3 또는 이후 버전에서 Spacewalk를 사용하여 시스템을 원격으로 재부팅할 수 있습니다.</target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.lock.header">
@@ -5328,7 +5328,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>시스템 잠금 </target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.lock.summary">
-          <source>Systems may be locked or unlocked.  Locking prevents changes from the Spacewalk website.</source>
+          <source>Systems may be locked or unlocked. Locking prevents changes from the @@PRODUCT_NAME@@ website.</source>
           <target>시스템을 잠금 또는 잠금 해제할 수 있습니다. 시스템을 잠그면 Spacewalk 웹사이트에서 변경되지 않게 합니다.</target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.lock.lock">

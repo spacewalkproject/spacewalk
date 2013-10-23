@@ -5277,7 +5277,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>Aggiornamento profilo hardware</target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.profileupdates.summary">
-          <source>If you've changed hardware on your system or have manually installed RPMs, and those changes are not appearing on Spacewalk, you need to schedule a profile update.</source>
+          <source>If you've changed hardware on your system or have manually installed RPMs, and those changes are not appearing on @@PRODUCT_NAME@@, you need to schedule a profile update.</source>
           <target>Se non è stato modificato l'hardware sul sistema o se sono stati installati manualmente gli RPM e le modifiche non sono presenti su Spacewalk, allora sarà necessario programmare un aggiornamento del profilo.</target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.profileupdates.hardware">
@@ -5321,7 +5321,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>Riavvia il sistema</target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.reboot.summary">
-          <source>With Red Hat Enterprise Linux 3 or newer releases, Spacewalk allows you to remotely reboot your systems.</source>
+          <source>With Red Hat Enterprise Linux 3 or newer releases, @@PRODUCT_NAME@@ allows you to remotely reboot your systems.</source>
           <target>Con Red Hat Enterprise Linux 3 o versioni più recenti, Spacewalk permette di eseguire il riavvio remoto dei sistemi.</target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.lock.header">
@@ -5329,7 +5329,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>Blocca i sistemi</target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.lock.summary">
-          <source>Systems may be locked or unlocked.  Locking prevents changes from the Spacewalk website.</source>
+          <source>Systems may be locked or unlocked. Locking prevents changes from the @@PRODUCT_NAME@@ website.</source>
           <target>I sistemi possono essere bloccati o sbloccati. Il blocco impedisce le modifiche dal sito web di Spacewalk.</target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.lock.lock">

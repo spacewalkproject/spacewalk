@@ -5279,7 +5279,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>システムプロファイルの更新</target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.profileupdates.summary">
-          <source>If you've changed hardware on your system or have manually installed RPMs, and those changes are not appearing on Spacewalk, you need to schedule a profile update.</source>
+          <source>If you've changed hardware on your system or have manually installed RPMs, and those changes are not appearing on @@PRODUCT_NAME@@, you need to schedule a profile update.</source>
           <target>システム上のハードウェアに変更を行っている場合、または手作業で RPM をインストールしている場合、Spacewalk には変更が表示されません。プロファイルの更新をスケジュールする必要があります。</target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.profileupdates.hardware">
@@ -5323,7 +5323,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>システムの再起動</target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.reboot.summary">
-          <source>With Red Hat Enterprise Linux 3 or newer releases, Spacewalk allows you to remotely reboot your systems.</source>
+          <source>With Red Hat Enterprise Linux 3 or newer releases, @@PRODUCT_NAME@@ allows you to remotely reboot your systems.</source>
           <target>Red Hat Enterprise Linux 3 またはそれ以降のリリースでは、Spacewalk を使用するとシステムをリモートで起動することができるようになります。</target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.lock.header">
@@ -5331,7 +5331,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>システムのロック</target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.lock.summary">
-          <source>Systems may be locked or unlocked.  Locking prevents changes from the Spacewalk website.</source>
+          <source>Systems may be locked or unlocked. Locking prevents changes from the @@PRODUCT_NAME@@ website.</source>
           <target>システムのロックおよびロックの解除ができます。システムをロックすると Spacewalk Web サイトから変更されなくなります。</target>
         </trans-unit>
         <trans-unit id="ssm.misc.index.lock.lock">

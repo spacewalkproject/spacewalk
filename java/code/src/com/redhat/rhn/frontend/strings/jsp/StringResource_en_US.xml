@@ -4551,7 +4551,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>System Profile Updates</source>
         </trans-unit>
         <trans-unit id="ssm.misc.index.profileupdates.summary">
-          <source>If you've changed hardware on your system or have manually installed RPMs, and those changes are not appearing on Spacewalk, you need to schedule a profile update.</source>
+          <source>If you've changed hardware on your system or have manually installed RPMs, and those changes are not appearing on @@PRODUCT_NAME@@, you need to schedule a profile update.</source>
         </trans-unit>
         <trans-unit id="ssm.misc.index.profileupdates.hardware">
           <source>Update Hardware Profile</source>
@@ -4584,13 +4584,13 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>Reboot Systems</source>
         </trans-unit>
         <trans-unit id="ssm.misc.index.reboot.summary">
-          <source>With Red Hat Enterprise Linux 3 or newer releases, Spacewalk allows you to remotely reboot your systems.</source>
+          <source>With Red Hat Enterprise Linux 3 or newer releases, @@PRODUCT_NAME@@ allows you to remotely reboot your systems.</source>
         </trans-unit>
         <trans-unit id="ssm.misc.index.lock.header">
           <source>Lock Systems</source>
         </trans-unit>
         <trans-unit id="ssm.misc.index.lock.summary">
-          <source>Systems may be locked or unlocked.  Locking prevents changes from the Spacewalk website.</source>
+          <source>Systems may be locked or unlocked. Locking prevents changes from the @@PRODUCT_NAME@@ website.</source>
         </trans-unit>
         <trans-unit id="ssm.misc.index.lock.lock">
           <source>Lock System Profiles</source>
