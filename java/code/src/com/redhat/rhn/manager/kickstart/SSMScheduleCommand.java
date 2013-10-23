@@ -185,18 +185,23 @@ public class SSMScheduleCommand {
 
         KickstartData uniqueKs = ksdata;
         String profileId = "";
+        Server server = SystemManager.lookupByIdAndUser(sid, user);
+        String serverName = server != null ? server.getName() : sid + "";
 
+        if (server.isBootstrap()) {
+            return new ValidatorError("kickstart.schedule.no.schedule.on.bootstrap.jsp",
+                serverName);
+        }
 
         if (isIpBasedKs) {
-            Server ser = SystemManager.lookupByIdAndUser(sid, user);
-            uniqueKs = KickstartManager.getInstance().findProfileForServersNetwork(ser);
+            uniqueKs = KickstartManager.getInstance().findProfileForServersNetwork(server);
         }
 
         if (uniqueKs == null && !isCobblerOnly) {
             //an IP Range was not found for the ip address of this system
             //   and no org default was set.  In the future maybe we should handle this
             //   but for now, we'll just move on
-            return new ValidatorError("no.kickstart.profiles");
+            return new ValidatorError("kickstart.schedule.no.profile.jsp", serverName);
         }
 
         KickstartScheduleCommand com;

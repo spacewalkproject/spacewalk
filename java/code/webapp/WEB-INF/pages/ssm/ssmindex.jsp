@@ -29,83 +29,85 @@
                 </div>
             </div>
         </li>
-        <li class="list-group-item">
-            <div class="row">
-                <div class="col-sm-2">
-                    <rhn:icon type="header-errata" title="<bean:message key='ssm.overview.errata'/>" />
-                    <bean:message key="ssm.overview.errata"/>
-                </div>
-                <div class="col-sm-10">
-                    <bean:message key="ssm.overview.errata.schedule"/>
-                </div>
-            </div>
-        </li>
-        <li class="list-group-item">
-            <div class="row">
-                <div class="col-sm-2">
-                  <rhn:icon type="header-package" title="<bean:message key='ssm.overview.packages' />" />
-                    <bean:message key="ssm.overview.packages"/>
-                </div>
-                <div class="col-sm-10">
-                    <bean:message key="ssm.overview.packages.upgrade"/>
-                </div>
-            </div>
-        </li>
-        <rhn:require acl="is(enable_solaris_support)">
+        <rhn:require acl="no_bootstrap_systems_in_set()">
             <li class="list-group-item">
                 <div class="row">
                     <div class="col-sm-2">
-                      <rhn:icon type="header-errata" title="<bean:message key='ssm.overview.patches' />" />
-                        <bean:message key="ssm.overview.patches"/>
+                        <rhn:icon type="header-errata" title="<bean:message key='ssm.overview.errata'/>" />
+                        <bean:message key="ssm.overview.errata"/>
                     </div>
                     <div class="col-sm-10">
-                        <a href="/network/systems/ssm/patches/install.pxt"><bean:message key="ssm.overview.patches.install"/></a> / <a href="/network/systems/ssm/patches/remove.pxt"><bean:message key="ssm.overview.patches.remove"/></a>
-                        <bean:message key="ssm.overview.patches.patches"/>
+                        <bean:message key="ssm.overview.errata.schedule"/>
                     </div>
                 </div>
             </li>
             <li class="list-group-item">
                 <div class="row">
                     <div class="col-sm-2">
-                      <rhn:icon type="header-errata-set" title="<bean:message key='ssm.overview.patch.clusters' />" />
-                        <bean:message key="ssm.overview.patch.clusters"/>
+                      <rhn:icon type="header-package" title="<bean:message key='ssm.overview.packages' />" />
+                        <bean:message key="ssm.overview.packages"/>
                     </div>
                     <div class="col-sm-10">
-                        <bean:message key="ssm.overview.patch.clusters.install"/>
+                        <bean:message key="ssm.overview.packages.upgrade"/>
+                    </div>
+                </div>
+            </li>
+            <rhn:require acl="is(enable_solaris_support)">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-sm-2">
+                          <rhn:icon type="header-errata" title="<bean:message key='ssm.overview.patches' />" />
+                            <bean:message key="ssm.overview.patches"/>
+                        </div>
+                        <div class="col-sm-10">
+                            <a href="/network/systems/ssm/patches/install.pxt"><bean:message key="ssm.overview.patches.install"/></a> / <a href="/network/systems/ssm/patches/remove.pxt"><bean:message key="ssm.overview.patches.remove"/></a>
+                            <bean:message key="ssm.overview.patches.patches"/>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-sm-2">
+                          <rhn:icon type="header-errata-set" title="<bean:message key='ssm.overview.patch.clusters' />" />
+                            <bean:message key="ssm.overview.patch.clusters"/>
+                        </div>
+                        <div class="col-sm-10">
+                            <bean:message key="ssm.overview.patch.clusters.install"/>
+                        </div>
+                    </div>
+                </li>
+            </rhn:require>
+            <rhn:require acl="user_role(org_admin)">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-sm-2">
+                          <rhn:icon type="header-system-groups" title="<bean:message key='ssm.overview.groups' />" />
+                            <bean:message key="ssm.overview.groups"/>
+                        </div>
+                        <div class="col-sm-10">
+                            <bean:message key="ssm.overview.groups.create"/>
+                        </div>
+                    </div>
+                </li>
+            </rhn:require>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-sm-2">
+                      <rhn:icon type="header-channel" title="<bean:message key='ssm.overview.channels' />" />
+                        <bean:message key="ssm.overview.channels"/>
+                    </div>
+                    <div class="col-sm-10">
+                        <ul>
+                            <li><bean:message key="ssm.overview.channels.memberships"/></li>
+                            <rhn:require acl="org_entitlement(rhn_provisioning); user_role(config_admin)">
+                              <li><bean:message key="ssm.overview.channels.subscriptions"/></li>
+                              <li><bean:message key="ssm.overview.channels.deploy"/></li>
+                            </rhn:require>
+                        </ul>
                     </div>
                 </div>
             </li>
         </rhn:require>
-        <rhn:require acl="user_role(org_admin)">
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-sm-2">
-                      <rhn:icon type="header-system-groups" title="<bean:message key='ssm.overview.groups' />" />
-                        <bean:message key="ssm.overview.groups"/>
-                    </div>
-                    <div class="col-sm-10">
-                        <bean:message key="ssm.overview.groups.create"/>
-                    </div>
-                </div>
-            </li>
-        </rhn:require>
-        <li class="list-group-item">
-            <div class="row">
-                <div class="col-sm-2">
-                  <rhn:icon type="header-channel" title="<bean:message key='ssm.overview.channels' />" />
-                    <bean:message key="ssm.overview.channels"/>
-                </div>
-                <div class="col-sm-10">
-                    <ul>
-                        <li><bean:message key="ssm.overview.channels.memberships"/></li>
-                        <rhn:require acl="org_entitlement(rhn_provisioning); user_role(config_admin)">
-                          <li><bean:message key="ssm.overview.channels.subscriptions"/></li>
-                          <li><bean:message key="ssm.overview.channels.deploy"/></li>
-                        </rhn:require>
-                    </ul>
-                </div>
-            </div>
-        </li>
         <rhn:require acl="org_entitlement(rhn_provisioning);">
             <li class="list-group-item">
                 <div class="row">
@@ -116,8 +118,10 @@
                     <div class="col-sm-10">
                         <ul>
                             <li><bean:message key="ssm.overview.provisioning.kickstart"/></li>
-                            <li><bean:message key="ssm.overview.provisioning.rollback"/></li>
-                            <li><bean:message key="ssm.overview.provisioning.remotecommands"/></li>
+                            <rhn:require acl="no_bootstrap_systems_in_set()">
+                                <li><bean:message key="ssm.overview.provisioning.rollback"/></li>
+                                <li><bean:message key="ssm.overview.provisioning.remotecommands"/></li>
+                            </rhn:require>
                             <li><bean:message key="ssm.overview.provisioning.powermanagement.configure"/></li>
                             <li><bean:message key="ssm.overview.provisioning.powermanagement.operations"/></li>
                         </ul>
@@ -133,17 +137,23 @@
                 </div>
                 <div class="col-sm-10">
                     <ul>
-                        <li><bean:message key="ssm.overview.misc.updateprofiles"/></li>
-                        <rhn:require acl="org_entitlement(rhn_provisioning)">
+                        <rhn:require acl="no_bootstrap_systems_in_set()">
+                            <li><bean:message key="ssm.overview.misc.updateprofiles"/></li>
+                        </rhn:require>
+                        <rhn:require acl="org_entitlement(rhn_provisioning); no_bootstrap_systems_in_set()">
                             <li><bean:message key="ssm.overview.misc.customvalues"/></li>
                         </rhn:require>
-                        <rhn:require acl="user_role(org_admin);org_entitlement(rhn_provisioning) or org_entitlement(rhn_monitor)">
+                        <rhn:require acl="user_role(org_admin);org_entitlement(rhn_provisioning) or org_entitlement(rhn_monitor); no_bootstrap_systems_in_set()">
                             <li><bean:message key="ssm.overview.misc.entitlements"/></li>
                         </rhn:require>
                         <li><bean:message key="ssm.overview.misc.delete"/></li>
-                        <li><bean:message key="ssm.overview.misc.reboot"/></li>
+                        <rhn:require acl="no_bootstrap_systems_in_set()">
+                            <li><bean:message key="ssm.overview.misc.reboot"/></li>
+                        </rhn:require>
                         <li><bean:message key="ssm.overview.misc.migrate"/></li>
-                        <li><bean:message key="ssm.overview.misc.scap"/></li>
+                        <rhn:require acl="no_bootstrap_systems_in_set()">
+                            <li><bean:message key="ssm.overview.misc.scap"/></li>
+                        </rhn:require>
                     </ul>
                 </div>
             </div>

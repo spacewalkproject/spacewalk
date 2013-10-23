@@ -176,7 +176,22 @@ public class Access extends BaseHandler {
     }
 
     /**
-     * Check if a system has a management entitlement
+     * Check if any system in the current system set is a bootsrap system.
+     * @param ctx Context map to pass in.
+     * @param params Parameters to use to fetch from context.
+     * @return true if at least one system in the set is a bootstrap system
+     */
+    @SuppressWarnings("unchecked")
+    public boolean aclNoBootstrapSystemsInSet(Object ctx, String[] params) {
+        Map<String, Object> map = (Map<String, Object>) ctx;
+        User user = (User) map.get("user");
+
+        return SystemManager.countEntitledSystemsInSet(user, RhnSetDecl.SYSTEMS.getLabel(),
+            EntitlementManager.BOOTSTRAP.getLabel()) == 0;
+    }
+
+    /**
+     * Check if any system has a management entitlement
      * @param ctx Context map to pass in.
      * @param params Parameters to use to fetch from context.
      * @return True if system has management entitlement, false otherwise.
