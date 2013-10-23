@@ -14858,6 +14858,18 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>The errata below apply to one or more of your selected systems.</source>
         </trans-unit>
       </group>
+      <trans-unit id="ssm.operations.actionchaindetails.schedulesuccess">
+        <source>Action chain "{0}" has been successfully scheduled at "{1}".</source>
+      </trans-unit>
+      <trans-unit id="ssm.operations.actionchaindetails.purgesuccess">
+        <source>Action chain "{0}" has been purged.</source>
+      </trans-unit>
+      <trans-unit id="ssm.operations.actionchaindetails.scheduleerror.general">
+        <source>Unable to schedule chain action.</source>
+      </trans-unit>
+      <trans-unit id="ssm.operations.actionchaindetails.scheduleerror.general.param">
+        <source>Fatal error due to {0}.</source>
+      </trans-unit>
       <!-- ssm/packages.jsp -->
       <group>
         <context-group name="ctx">
