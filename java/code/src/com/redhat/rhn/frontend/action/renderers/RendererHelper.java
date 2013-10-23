@@ -15,11 +15,6 @@
 
 package com.redhat.rhn.frontend.action.renderers;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.frontend.action.renderers.io.CachingResponseWrapper;
-import com.redhat.rhn.frontend.dto.SystemOverviewComparator;
-
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -27,6 +22,11 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.frontend.action.renderers.io.CachingResponseWrapper;
+import com.redhat.rhn.frontend.dto.SystemOverviewComparator;
 
 /**
  * General helper for fragment rendering
@@ -36,21 +36,16 @@ import javax.servlet.http.HttpServletResponse;
 public class RendererHelper {
 
     private static final String FULL_TABLE_HEADER =
-            "<div style=\"clear:both; padding-top: 30px;\">" +
-             "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" class=\"list\">" +
-             "<thead><tr><th style=\"text-align:left;\">";
+            "<div class=\"spacewalk-full-table panel panel-default\"><div class=\"panel-heading\"><h3 class=\"panel-title\">";
 
-    private static final String FULL_TABLE_FOOTER = "</td></tr></thead></table></div>";
+    private static final String FULL_TABLE_FOOTER = "</div></div>";
 
-    private static final String HALF_TABLE_HEADER =
-            "<table cellspacing=\"0\" cellpadding=\"0\" class=\"half-table\">" +
-            "<thead><tr><th style=\"text-align:left;\">";
+    private static final String HALF_TABLE_HEADER = 
+            "<div class=\"spacewalk-half-table panel panel-default\"><div class=\"panel-heading\"><h3 class=\"panel-title\">";
 
-    private static final String HALF_TABLE_FOOTER = "</td></tr></thead></table>";
+    private static final String HALF_TABLE_FOOTER = "</div></div>";
 
-    private static final String TABLE_BODY =
-        "</th></tr><tr class=\"list-row-odd\">" +
-        "<td style=\"padding-bottom: 24px;\" class=\"first-column last-column\">";
+    private static final String TABLE_BODY = "</h3></div><div class=\"panel-body\">";
 
     private RendererHelper() {
 
