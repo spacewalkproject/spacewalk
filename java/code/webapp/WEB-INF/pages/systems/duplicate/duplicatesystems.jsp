@@ -109,18 +109,15 @@
 
 </rl:list>
 
-  <div align="right">
-
-    <hr />
-    <html:submit property="dispatch">
-        <bean:message key="Delete Selected"/>
+  <div class="text-right">
+    <html:submit styleClass="btn btn-default" property="dispatch">
+       <bean:message key="Delete Selected"/>
     </html:submit>
 
   </div>
 <rhn:submitted/>
 
 </rl:listset>
-
 
 </body>
 </html>
