@@ -4067,6 +4067,12 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/errata/manage/Create.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="errata.create.jsp.newbug">
+        <source>New Bug</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/manage/Create.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="errata.create.jsp.id">
         <source>ID:</source>
         <context-group name="ctx">
