@@ -5,10 +5,9 @@
 <html>
 <head>
   <meta name="decorator" content="layout_c" />
-  <script src="/javascript/focus.js"></script>
   <script src="/javascript/spacewalk-login.js"></script>
 </head>
-<body onLoad="formFocus('loginForm', 'username');">
+<body>
 
 <c:if test="${schemaUpgradeRequired == 'true'}">
     <div class="site-alert">

@@ -4,10 +4,9 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <html>
 <head>
-  <script src="/javascript/focus.js"></script>
   <script src="/javascript/spacewalk-login.js"></script>
 </head>
-<body onLoad="formFocus('loginForm', 'username');">
+<body>
 
 <c:if test="${schemaUpgradeRequired == 'true'}">
     <div class="site-alert">
