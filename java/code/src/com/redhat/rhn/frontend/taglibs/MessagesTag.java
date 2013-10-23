@@ -44,7 +44,7 @@ public class MessagesTag extends TagSupport {
         try {
             out = pageContext.getOut();
 
-            // Use boostrap alert classes
+            // Use bootstrap alert classes
             baseTag = new HtmlTag("div");
             baseTag.setAttribute("class", "alert alert-info");
 
