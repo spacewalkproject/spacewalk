@@ -79,7 +79,6 @@ sub footer {
 
   my $ret =<<EOQ;
 </table>
-<script src="/javascript/check_all.js"></script>
 EOQ
 
   return $ret;
