@@ -41,6 +41,25 @@ public class OverviewAction extends RhnListAction {
 
     private static Logger log = Logger.getLogger(OverviewAction.class);
 
+    // redirect_url can send us to the Java side or the Perl side, and *nowhere else*
+    private static final String[] ALLOWED_REDIRECTS = { "/rhn/", "/network/" };
+
+    //
+    // Only follow redirects if they're "inside" the app
+    //
+    private String getLegalReturnUrl(String proposedRedirect) {
+        if (proposedRedirect == null) {
+            return null;
+        }
+
+        for (String dest : ALLOWED_REDIRECTS) {
+            if (proposedRedirect.startsWith(dest)) {
+                return proposedRedirect;
+            }
+        }
+        return null;
+    }
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
@@ -64,7 +83,7 @@ public class OverviewAction extends RhnListAction {
          */
         String emptySet = request.getParameter("empty_set");
         String setLabel = request.getParameter("set_label");
-        String returnUrl = request.getParameter("return_url");
+        String returnUrl = getLegalReturnUrl(request.getParameter("return_url"));
         if (emptySet != null && emptySet.equals("true")) {
             //Set defaults if needed.
             if (setLabel == null) {
