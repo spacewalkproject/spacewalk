@@ -17,7 +17,7 @@ function showFiltered() {
 </head>
 
 <body onLoad="onLoadStuff(3); showFiltered();">
-<rhn:toolbar base="h1" icon="spacewalk-icon-software-channels" imgAlt="channels.overview.toolbar.imgAlt">
+<rhn:toolbar base="h1" icon="spacewalk-icon-software-channels">
   <bean:message key="channel.nav.popular"/>
 </rhn:toolbar>
 
@@ -27,11 +27,10 @@ function showFiltered() {
 <bean:message key="channels.popular.jsp.header1" />
 </p>
 
-
 <form method="post" name="rhn_list" action="/rhn/software/channels/Popular.do">
         <rhn:csrf />
         <rhn:submitted />
-    	<table class="details">
+    	<table class="table">
     		<th>
     			<bean:message key="channels.popular.jsp.label0" />:
     		</th>
@@ -49,13 +48,11 @@ function showFiltered() {
 		         </c:forEach>
 			</select>
 			<bean:message key="channels.popular.jsp.label2" />
-			<INPUT type="submit" value="<bean:message key="channels.popular.jsp.button" />">
+			<INPUT type="submit" class="btn btn-default" value="<bean:message key="channels.popular.jsp.button" />">
 			</td>
 		</table>
-		<BR>
+		<br/>
 	<%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree_multiorg.jspf" %>
-	
-
 </form>
 
 </body>

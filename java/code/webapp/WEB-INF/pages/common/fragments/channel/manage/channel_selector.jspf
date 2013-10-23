@@ -1,8 +1,9 @@
-<table class="details" width="80%">
-
-  <tr> <th width="10%"><bean:message key="channel.jsp.manage.package.channel"/>:</th>
-    <td width="40%">
-      <select name="selected_channel">
+<div class="row">
+  <div class="col-md-1">
+    <bean:message key="channel.jsp.manage.package.channel"/>:
+  </div>
+  <div class="col-md-4">
+    <select name="selected_channel" class="form-control input-sm">
         <option value="all_managed_packages" <c:if test="${all_selected eq true}">selected = "selected"</c:if>><bean:message key="channel.jsp.manage.package.allpackages"/></option>
         <option value="orphan_packages" <c:if test="${orphan_selected eq true}">selected = "selected"</c:if>><bean:message key="channel.jsp.manage.package.packagesnochannels"/></option>
         <optgroup>
@@ -10,7 +11,7 @@
             <c:choose>
               <c:when test="${option.baseChannel}">
                 </optgroup>
-                <option value="${option.id}"  <c:if test="${option.selected eq true}">selected = "selected"</c:if>    >${option.name}	</option>
+                <option value="${option.id}"  <c:if test="${option.selected eq true}">selected = "selected"</c:if>    >${option.name} </option>
                 <optgroup>
               </c:when>
               <c:otherwise>
@@ -20,12 +21,8 @@
           </c:forEach>
         </optgroup>
       </select>
-    </td>
-    <td>
-      <input type="submit" name="view"  value="<bean:message key="channel.jsp.package.viewpackages"/>">
-    </td>
-  </tr>
-
-
-
-</table>
+  </div>
+  <div class="col-md-7 text-left">
+    <input type="submit" name="view" class="btn btn-default" value="<bean:message key="channel.jsp.package.viewpackages"/>">
+  </div>
+</div>

@@ -26,9 +26,6 @@
    <bean:message key="channel.jsp.manage.package.title"/>
 </rhn:toolbar>
 
-
-
-
 <rl:listset name="packageSet">
 <rhn:csrf />
 <bean:message key="channel.jsp.manage.package.message"/>
@@ -83,18 +80,15 @@
                         ${current.provider}
                 </rl:column>
 
-
-
 			  </rl:list>
 
-
-			<p align="right">
-			<input type="submit" name="confirm"  value="<bean:message key="channel.jsp.manage.package.confirmbutton"/>"
+			<div class="text-right">
+			 <input type="submit" class="btn btn-default" name="confirm"  value="<bean:message key="channel.jsp.manage.package.confirmbutton"/>"
             <c:choose>
                 <c:when test="${empty pageList}">disabled</c:when>
             </c:choose>
             >
-			</p>
+			</div>
      <rhn:submitted/>
 </rl:listset>
 </body>
