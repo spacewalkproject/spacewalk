@@ -4413,8 +4413,11 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="ssm.overview.misc.entitlements">
           <source>&lt;a href="/rhn/systems/ssm/misc/Index.do#entitle"&gt;Add or Remove&lt;/a&gt; Add-On Entitlements</source>
         </trans-unit>
-        <trans-unit id="ssm.overview.misc.deletereboot">
-          <source>&lt;a href="/rhn/systems/ssm/DeleteConfirm.do"&gt;Delete&lt;/a&gt; / &lt;a href="/rhn/systems/ssm/misc/RebootSystem.do"&gt;Reboot&lt;/a&gt; systems</source>
+        <trans-unit id="ssm.overview.misc.delete">
+          <source>&lt;a href="/rhn/systems/ssm/DeleteConfirm.do"&gt;Delete&lt;/a&gt; systems</source>
+        </trans-unit>
+        <trans-unit id="ssm.overview.misc.reboot">
+          <source>&lt;a href="/rhn/systems/ssm/misc/RebootSystem.do"&gt;Reboot&lt;/a&gt; systems</source>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.migrate">
           <source>&lt;a href="/rhn/systems/ssm/MigrateSystems.do"&gt;Migrate&lt;/a&gt; systems to another organization</source>
@@ -14938,6 +14941,9 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.remotecommand.header">
           <source>Remote Command on {0}</source>
+        </trans-unit>
+        <trans-unit id="ssm.overview.bootstrap.notice">
+          <source>At least one system in the set is bare metal: some actions will not be available. &lt;a href="/rhn/systems/BootstrapSystemList.do"&gt;Check bare metal systems&lt;/a&gt;.</source>
         </trans-unit>
         <trans-unit id="">
           <source/>

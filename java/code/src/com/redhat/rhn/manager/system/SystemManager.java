@@ -1224,6 +1224,29 @@ public class SystemManager extends BaseManager {
     }
 
     /**
+     * Returns a count of the systems that belong to a set and have a certain
+     * entitlement.
+     *
+     * @param user user making the request
+     * @param setLabel label of the set
+     * @param entitlementLabel label of the entitlement
+     * @return number of entitled systems in the set
+     */
+    public static int countEntitledSystemsInSet(User user, String setLabel,
+        String entitlementLabel) {
+        SelectMode m = ModeFactory.getMode("System_queries",
+                "count_entitled_systems_in_set");
+
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("set_label", setLabel);
+        params.put("entitlement_label", entitlementLabel);
+
+        DataResult dr = makeDataResult(params, null, null, m);
+        return ((Long)((HashMap)dr.get(0)).get("count")).intValue();
+    }
+
+    /**
      * Returns true if server has capability.
      * @param sid Server id
      * @param capability capability

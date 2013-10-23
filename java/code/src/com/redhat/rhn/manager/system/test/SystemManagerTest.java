@@ -1236,4 +1236,33 @@ public class SystemManagerTest extends RhnBaseTestCase {
         DataResult<ActivationKeyDto> result = SystemManager.getActivationKeys(server);
         assertEquals(0, result.size());
     }
+
+    public void testCountEntitledSystemsInSet() throws Exception {
+        User user = UserTestUtils.findNewUser("testUser", "testOrg" +
+            this.getClass().getSimpleName());
+
+        String setLabel = TestUtils.randomString();
+        int actual = SystemManager.countEntitledSystemsInSet(user, setLabel,
+            EntitlementManager.MANAGEMENT.getLabel());
+        assertEquals(0, actual);
+
+        Server server = ServerFactoryTest.createTestServer(user, true,
+            ServerConstants.getServerGroupTypeEnterpriseEntitled());
+
+        RhnSet set = RhnSetManager.createSet(user.getId(), setLabel, SetCleanup.NOOP);
+        set.addElement(server.getId());
+        RhnSetManager.store(set);
+
+        actual = SystemManager.countEntitledSystemsInSet(user, setLabel,
+            EntitlementManager.MANAGEMENT.getLabel());
+        assertEquals(1, actual);
+
+        actual = SystemManager.countEntitledSystemsInSet(user, setLabel,
+            EntitlementManager.BOOTSTRAP.getLabel());
+        assertEquals(0, actual);
+
+        actual = SystemManager.countEntitledSystemsInSet(user, "non matching",
+            EntitlementManager.MANAGEMENT.getLabel());
+        assertEquals(0, actual);
+    }
 }

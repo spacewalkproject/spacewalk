@@ -5898,6 +5898,18 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="kickstart.schedule.no.schedule.on.bootstrap.jsp">
+        <source>System &lt;strong&gt;{0}&lt;/strong&gt; is bare-metal, no scheduling is possible.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/kickstart/KickstartableSystems.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.schedule.no.profile.jsp">
+        <source>Could not find a matching profile for system &lt;strong&gt;{0}&lt;/strong&gt;.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="kickstart.bond.not.defined.jsp">
         <source>If you want to create a bonded network after installation you must specefy a bond name and at least one slave interface.</source>
         <context-group name="ctx">
