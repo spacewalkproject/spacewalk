@@ -23,8 +23,6 @@ use RHN::User;
 use RHN::Org;
 use PXT::HTML;
 use RHN::Mail;
-use RHN::Postal;
-use RHN::TemplateString;
 use PXT::ACL;
 use Mail::RFC822::Address;
 use URI;
@@ -54,9 +52,6 @@ sub register_tags {
 sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
-
-  $pxt->register_callback('rhn:forgot_password_cb', \&forgot_password_cb);
-  $pxt->register_callback('rhn:forgot_accounts_cb', \&forgot_accounts_cb);
 
   $pxt->register_callback('rhn:user_prefs_edit_cb' => \&user_prefs_edit_cb);
 }
@@ -178,80 +173,6 @@ sub rhn_login_form {
   }
 
   return $body;
-}
-
-sub forgot_password_cb {
-  my $pxt = shift;
-
-  my $user = RHN::User->lookup(-username => $pxt->dirty_param('username'));
-  my $email = $pxt->dirty_param('email');
-
-  my $previous_request = $pxt->session->get('previous_password_request');
-  if ($previous_request) {
-    if (uc($previous_request->{email}) eq uc($email) and
-	$previous_request->{username} eq $pxt->dirty_param('username') and
-	time - $previous_request->{time} < 60) {
-      warn "attempt to rerequest password reset; ignoring";
-      $pxt->push_message(site_info => 'Email sent.');
-      return;
-    }
-  }
-
-  if ($user and uc($user->email) eq uc($email)) {
-    my $password = PXT::Utils->random_password(12);
-    my $username = $user->login;
-
-    $user->set_password($password);
-    $user->commit;
-    
-    my $letter = new RHN::Postal;
-    $letter->template("forgot_password.xml");
-    $letter->set_tag('email-address' => $email);
-    $letter->set_tag('product-name' => PXT::Config->get('product_name'));
-    $letter->set_tag('username' => $username);
-    $letter->set_tag('password' => $password);
-    $letter->render;
-    $letter->to($email);
-
-    $pxt->session->set(previous_password_request => {email => $email, username => $pxt->dirty_param('username'), time => time });
-
-    $pxt->push_message(site_info => 'Email sent.');
-    $letter->send;
-  }
-  else {
-    $pxt->push_message(local_alert => 'Either that username does not exist, or the supplied email address does not match our records.');
-  }
-}
-
-sub forgot_accounts_cb {
-  my $pxt = shift;
-
-  my $email = $pxt->dirty_param('email');
-  my @users = sort { $a->login_uc cmp $b->login_uc } map { RHN::User->lookup(-id => $_->[0]) } RHN::User->users_by_email($email);
-
-  my $last_req = $pxt->session->get('previous_account_request');
-  if ($last_req and time - $last_req < 300) {
-    $pxt->push_message(site_info => "An email has already been sent; you may only request your account list every five minutes.");
-    return;
-  }
-  if (not @users) {
-    $pxt->push_message(site_info => 'There are no registered accounts with that email address.');
-    return;
-  }
-
-  $pxt->session->set('previous_account_request' => time);
-  my $letter = new RHN::Postal;
-  $letter->template("forgot_accounts.xml");
-  $letter->set_tag('email-address' => $email);
-  $letter->set_tag('product-name' => PXT::Config->get('product_name'));
-  $letter->set_tag('account-list' => join("\n", map { "  " . $_->login } @users));
-  $letter->set_header("X-RHN-Info" => "account_list");
-  $letter->render;
-  $letter->to($email);
-
-  $pxt->push_message(site_info => 'Email sent.');
-
-  $letter->send;
 }
 
 sub user_prefs_edit_cb {

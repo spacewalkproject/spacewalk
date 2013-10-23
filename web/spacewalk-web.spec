@@ -197,7 +197,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Org.pm
 %{perl_vendorlib}/RHN/Package.pm
 %{perl_vendorlib}/RHN/Package/
-%{perl_vendorlib}/RHN/Postal.pm
 %{perl_vendorlib}/RHN/Profile.pm
 %{perl_vendorlib}/RHN/SCDB.pm
 %{perl_vendorlib}/RHN/SatCluster.pm
@@ -214,7 +213,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/SystemSnapshot.pm
 %{perl_vendorlib}/RHN/TSDB.pm
 %{perl_vendorlib}/RHN/Tag.pm
-%{perl_vendorlib}/RHN/TemplateString.pm
 %{perl_vendorlib}/RHN/Token.pm
 %{perl_vendorlib}/RHN/User.pm
 %{perl_vendorlib}/RHN/Utils.pm
