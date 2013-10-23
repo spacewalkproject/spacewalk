@@ -620,6 +620,11 @@ public class ListTag extends BodyTagSupport {
             if (manip.isListEmpty()) {
                 renderEmptyList();
                 ListTagUtil.write(pageContext, "</table>");
+                // close panel
+                ListTagUtil.write(pageContext, "</div>");
+                // close list
+                ListTagUtil.write(pageContext, "</div>");
+
                 return BodyTagSupport.SKIP_BODY;
             }
             ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
