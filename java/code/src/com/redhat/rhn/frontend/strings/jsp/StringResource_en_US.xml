@@ -20543,6 +20543,35 @@ given channel.</source>
           <source>This master did not export any of its organizations to this slave</source>
         </trans-unit>
       </group>
+      <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/help/ForgotCredentials.do</context>
+        </context-group>
+        <trans-unit id="help.credentials.jsp.passwordreset">
+          <source>Password Reset</source>
+        </trans-unit>
+        <trans-unit id="help.credentials.jsp.logininfo">
+          <source>Login Information</source>
+        </trans-unit>
+        <trans-unit id="help.credentials.jsp.passwordtip">
+          <source>If you do not know your password, please enter your @@PRODUCT_NAME@@ login and email address below and your password will be reset and sent to you.</source>
+        </trans-unit>
+        <trans-unit id="help.credentials.jsp.loginstip">
+          <source>If you do not know your @@PRODUCT_NAME@@ login, please enter your email address below and your @@PRODUCT_NAME@@ login will be sent to you.</source>
+        </trans-unit>
+        <trans-unit id="help.credentials.jsp.passwordbutton">
+          <source>Send Password</source>
+        </trans-unit>
+        <trans-unit id="help.credentials.jsp.loginbutton">
+          <source>Send Login(s)</source>
+        </trans-unit>
+        <trans-unit id="help.credentials.jsp.emailinput">
+          <source>Email Address:</source>
+        </trans-unit>
+        <trans-unit id="help.credentials.jsp.logininput">
+          <source>@@PRODUCT_NAME@@ Login:</source>
+        </trans-unit>
+      </group>
     </body>
   </file>
 </xliff>
