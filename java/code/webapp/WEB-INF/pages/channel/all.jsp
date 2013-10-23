@@ -17,7 +17,7 @@ function showFiltered() {
 </head>
 
 <body onLoad="onLoadStuff(4); showFiltered();">
-<rhn:toolbar base="h1" icon="spacewalk-icon-software-channels" imgAlt="channels.overview.toolbar.imgAlt"
+<rhn:toolbar base="h1" icon="spacewalk-icon-software-channels"
              helpUrl="/rhn/help/reference/en-US/s1-sm-channels-packages.jsp" >
   <bean:message key="channels.all.jsp.toolbar"/>
 </rhn:toolbar>
@@ -28,7 +28,7 @@ function showFiltered() {
 	<bean:message key="channels.all.jsp.header1" />
 </p>
 
-<form method="post" name="rhn_list" action="/rhn/software/channels/All.do">
+<form method="post" role="form" name="rhn_list" action="/rhn/software/channels/All.do">
   <rhn:csrf />
   <rhn:submitted />
   <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree_multiorg.jspf" %>

@@ -40,12 +40,13 @@
 
     </rl:list>
 
-    <div align="right">
+    <div class="pull-right">
         <rhn:submitted/>
-        <hr/>
-        <input type="submit"
+        <button type="submit"
                name="dispatch"
-               value='<bean:message key="erratalist.jsp.deleteerrata"/>'/>
+               class="btn btn-default">
+           <i class="icon-trash"></i> <bean:message key="erratalist.jsp.deleteerrata"/>
+        </button>
     </div>
 
 </rl:listset>
