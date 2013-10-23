@@ -9,7 +9,7 @@
 <body>
 
 <c:if test="${schemaUpgradeRequired == 'true'}">
-    <div class="site-alert">
+    <div class="alert alert-danger">
         <bean:message key="login.jsp.schemaupgraderequired" />
     </div>
 </c:if>

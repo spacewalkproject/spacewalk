@@ -10,7 +10,7 @@
 
 
 <c:if test="${requestScope.pageList != null}">
-	<div class="site-alert">
+	<div class="alert alert-danger">
 		     <bean:message key="distro-delete.jsp.cantdelete"/>
 	</div>
 </c:if>

@@ -162,7 +162,7 @@ sub proxy_entitlement_form {
 
   	$subs{proxy_message} = "This machine is currently a licensed Red Hat Satellite Proxy (v$version).";
   } else {
-    $subs{proxy_message} = "<div class=\"site-alert\">WebUI Spacewalk Proxy installer is obsoleted since version 5.3. Please use command line installer from package spacewalk-proxy-installer.</div>";
+    $subs{proxy_message} = "<div class=\"alert alert-danger\">WebUI Spacewalk Proxy installer is obsoleted since version 5.3. Please use command line installer from package spacewalk-proxy-installer.</div>";
   }
 
   $block = PXT::Utils->perform_substitutions($block, \%subs);
