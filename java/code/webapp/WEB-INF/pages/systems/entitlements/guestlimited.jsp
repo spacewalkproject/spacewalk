@@ -14,16 +14,14 @@
   </head>
 
   <body>
-    <rhn:toolbar base="h1" icon="icon-desktop" imgAlt="system.common.systemAlt">
+    <rhn:toolbar base="h1" icon="icon-desktop">
       <bean:message key="virtualentitlements.toolbar" />
     </rhn:toolbar>
-    <p/>
     <rhn:dialogmenu mindepth="0"
                     maxdepth="1"
                     definition="/WEB-INF/nav/virt_entitlements.xml"
                     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer"/>
 
-    <div style="clear: both; width: 65%; float: left;">
       <h2><bean:message key="guestlimited.jsp.header2" /></h2>
       <p>
         <bean:message key="guestlimited.jsp.para1" />
@@ -37,16 +35,15 @@
                  dataset="pageList"
                  emptykey="guestlimited.jsp.nosystems"
                  width="100%">
-	  <rl:column bound="false" sortable="false" headerkey="guestlimited.jsp.hostsystem">
+	    <rl:column bound="false" sortable="false" headerkey="guestlimited.jsp.hostsystem">
             <a href="/rhn/systems/details/Overview.do?sid=${current.hostId}">
                 <c:out value="${current.hostName}" escapeXml="true" />
             </a>
 	      </rl:column>
-	  <rl:column bound="false" sortable="false" headerkey="guestlimited.jsp.guest">
+	    <rl:column bound="false" sortable="false" headerkey="guestlimited.jsp.guest">
 		    <a href="/rhn/systems/details/Overview.do?sid=${current.hostId}">${current.numberOfGuests}</a>
 	      </rl:column>
         </rl:list>
       </rl:listset>
-    </div>
   </body>
 </html>

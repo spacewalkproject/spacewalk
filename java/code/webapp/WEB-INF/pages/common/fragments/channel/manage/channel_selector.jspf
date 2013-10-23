@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row-0">
   <div class="col-md-1">
     <bean:message key="channel.jsp.manage.package.channel"/>:
   </div>
@@ -26,3 +26,4 @@
     <input type="submit" name="view" class="btn btn-default" value="<bean:message key="channel.jsp.package.viewpackages"/>">
   </div>
 </div>
+<hr/>

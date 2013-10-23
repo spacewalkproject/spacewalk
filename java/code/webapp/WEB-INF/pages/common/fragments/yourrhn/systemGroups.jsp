@@ -18,19 +18,13 @@
             	<a href="/network/systems/groups/errata_list.pxt?sgid=${current.id}">
 		      		<c:choose>
                                         <c:when test="${current.mostSevereErrata == 'Security Advisory'}">
-				<img src="/img/icon_crit_update.gif" border="0"
-						alt="<bean:message key="grouplist.jsp.security"/>"
-           					title="<bean:message key="grouplist.jsp.security"/>" />
+				<i class="icon-warning-sign icon-1-5x spacewalk-icon-red" title="<bean:message key="grouplist.jsp.security"/>"></i>
 	        			</c:when>
                                         <c:when test="${current.mostSevereErrata == 'Bug Fix Advisory' or current.mostSevereErrata == 'Product Enhancement Advisory'}">
-					<img src="/img/icon_reg_update.gif" border="0"
-						alt="<bean:message key="grouplist.jsp.updates"/>"
-    	       				title="<bean:message key="grouplist.jsp.updates"/>" />
+					<i class="icon-exclamation-sign icon-1-5x spacewalk-icon-yellow" title="<bean:message key="grouplist.jsp.updates"/>"></i>
 	    	    		</c:when>
 	        			<c:otherwise>
-	          			<img src="/img/icon_up2date.gif" border="0"
-           					alt="<bean:message key="grouplist.jsp.noerrata"/>"
-	           				title="<bean:message key="grouplist.jsp.noerrata"/>" />
+	          			<i class="icon-ok-sign icon-1-5x spacewalk-icon-green" title="<bean:message key="grouplist.jsp.noerrata"/>"></i>
 		        		</c:otherwise>
 	   				</c:choose>
 	   			</a>
@@ -50,10 +44,8 @@
  		
   		</rl:list>
 
-  		<span class="full-width-note-right">
 		  <a href="/rhn/systems/SystemGroupList.do">
-  			<div class="btn btn-default spacewalk-btn-margin-vertical"><bean:message key="yourrhn.jsp.allgroups" /></div>
+  			<div class="btn btn-default spacewalk-btn-margin-vertical"><i class="spacewalk-icon-system-groups"></i><bean:message key="yourrhn.jsp.allgroups" /></div>
   		</a>
-  		</span>
   		
 	</rl:listset>

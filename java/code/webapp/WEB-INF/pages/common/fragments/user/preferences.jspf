@@ -1,47 +1,65 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <html>
-
-<h2><bean:message key="preferences.jsp.header"/></h2>
-<p><bean:message key="preferences.jsp.leadin"/></p>
-
-<div class="preference"><html:checkbox  property="emailNotif" value="1" /><bean:message key="preferences.jsp.receivenote"/></div>
-<br />
-
-<h2><bean:message key="preferences.jsp.listsize"/></h2>
-<p><bean:message key="preferences.jsp.controlentry"/></p>
-<div class="preference"><bean:message key="preferences.jsp.show"/>
-<html:select property="pagesize">
-	<html:options collection="pagesizes"
-	property="value"
-	labelProperty="display" />
-</html:select>
-<bean:message key="preferences.jsp.entriesperpage"/></div>
-<br />
-
-<h2><bean:message key="preferences.jsp.startpagetitle"/></h2>
-<p><bean:message key="preferences.jsp.startpagedesc"/></p>
-
-<div class="preference">
-<c:forEach items="${userPrefForm.map.possiblePanes}" var="item">
-    <html:multibox property="selectedPanes" value="${item.value}" disabled="${item.disabled}" styleId="type_${item.value}"/>
-	<label for="type_${item.value}">${item.label}</label>
-    <br />
-</c:forEach>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4><bean:message key="preferences.jsp.header"/></h4>
+  </div>
+  <div class="panel-body">
+    <p><bean:message key="preferences.jsp.leadin"/></p>
+    <div class="checkbox">
+      <html:checkbox  property="emailNotif" value="1" /><bean:message key="preferences.jsp.receivenote"/>
+    </div>
+  </div>
 </div>
 
-<h2><bean:message key="preferences.jsp.csvtitle" /></h2>
-<p><bean:message key="preferences.jsp.csvdesc" /></p>
-<div class="preference">
-  <html:radio property="csvSeparator" value="," styleId="radio-comma" />
-  <label for="radio-comma"><bean:message key="preferences.jsp.csvcomma" /></label><br />
-  <html:radio property="csvSeparator" value=";" styleId="radio-semicolon" />
-  <label for="radio-semicolon"><bean:message key="preferences.jsp.csvsemicolon" /></label>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4><bean:message key="preferences.jsp.listsize"/></h4>
+  </div>
+  <div class="panel-body">
+    <p><bean:message key="preferences.jsp.controlentry"/></p>
+    <bean:message key="preferences.jsp.show"/>
+    <html:select property="pagesize">
+      <html:options collection="pagesizes"
+      property="value"
+      labelProperty="display" />
+    </html:select>
+    <bean:message key="preferences.jsp.entriesperpage"/>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4><bean:message key="preferences.jsp.startpagetitle"/></h4>
+  </div>
+  <div class="panel-body">
+    <p><bean:message key="preferences.jsp.startpagedesc"/></p>
+    <c:forEach items="${userPrefForm.map.possiblePanes}" var="item">
+      <div class="checkbox">
+        <label for="type_${item.value}">
+        <html:multibox property="selectedPanes" value="${item.value}" disabled="${item.disabled}" styleId="type_${item.value}"/>
+        ${item.label}</label>
+      </div>
+  </c:forEach>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4><bean:message key="preferences.jsp.csvtitle" /></h4>
+  </div>
+  <div class="panel-body">
+    <p><bean:message key="preferences.jsp.csvdesc" /></p>
+      <html:radio property="csvSeparator" value="," styleId="radio-comma" />
+      <label for="radio-comma"><bean:message key="preferences.jsp.csvcomma" /></label><br />
+      <html:radio property="csvSeparator" value=";" styleId="radio-semicolon" />
+      <label for="radio-semicolon"><bean:message key="preferences.jsp.csvsemicolon" /></label>
+  </div>
 </div>
 
     <input type="hidden" name="pxt:trap" value="rhn:user_prefs_edit_cb" />
     <html:hidden property="uid" />
 
-<div align="right">
-<hr />
+<div class="text-left">
 <rhn:submit valueKey="preferences.jsp.submitvalue"/>
 </div>

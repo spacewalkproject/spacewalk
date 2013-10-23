@@ -27,7 +27,7 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-    <rhn:toolbar base="h1" icon="icon-desktop" imgAlt="system.common.systemAlt">
+    <rhn:toolbar base="h1" icon="icon-desktop">
       <bean:message key="virtualentitlements.toolbar" />
     </rhn:toolbar>
 
@@ -56,17 +56,14 @@
 			</option>
 		</c:forEach>
 	</select>
-	<html:submit property="show">
+	<html:submit styleClass="btn btn-default" property="show">
 		<bean:message key="system.errata.show"/>
 	</html:submit>
 	<br/>
 
-
 <rl:list
 	styleclass="list"
-	emptykey="${empty_msg}"
-
-	>
+	emptykey="${empty_msg}">
 			<rl:decorator name="PageSizeDecorator"/>
 	<c:if test="${not empty requestScope.selectable && not empty requestScope.dataset}">
 		<rl:decorator name="SelectableDecorator"/>
@@ -74,17 +71,12 @@
 								selected="${current.selected}"/>
 	</c:if>
 
-
-
-
 	<!-- Name Column -->
 	<rl:column headerkey="systemlist.jsp.system"
 		filterattr="name" filtermessage="${filtermessage}"
 		styleclass="${namestyle}"
 		sortattr="name"
-		defaultsort="asc"
-		>
-
+		defaultsort="asc">
 
 			<c:out value="<a href=\"/rhn/systems/details/Overview.do?sid=${current.id}\">"  escapeXml="false" />
 			<c:choose>
@@ -118,19 +110,15 @@
 <rhn:submitted/>
 
 <c:if test="${not empty requestScope.selectable && not empty requestScope.dataset}">
-	  <div align="right">
-
-    <hr />
-    <html:submit property="dispatch">
+	<div class="text-right">
+    <html:submit styleClass="btn btn-default" property="dispatch">
         <bean:message key="Make Flex"/>
     </html:submit>
 
   </div>
 </c:if>
 
-
 </rl:listset>
-
 
 </body>
 </html>

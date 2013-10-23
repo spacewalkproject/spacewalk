@@ -13,42 +13,54 @@
 
     <h2><bean:message key="cloneerrata.jsp.cloneerrata"/></h2>
 
-    <div class="page-summary">
-        <p><bean:message key="cloneerrata.jsp.pagesummary"/></p>
-    </div>
-
-    <br/>
-
+    <p><bean:message key="cloneerrata.jsp.pagesummary"/></p>
 
     <rl:listset name="groupList" legend="errata">
 
         <rhn:csrf />
 
-        <p>
-            <bean:message key="cloneerrata.jsp.viewapplicableerrata"/>:
-            <select name="channel">
-                <c:forEach items="${clonablechannels}" var="option">
-                    <option value="<c:out value="${option.value}"/>"
-                        <c:if test="${option.value == param.channel}">selected="1"</c:if>>
-                        <c:out value="${option.label}"/>
-                    </option>
-                </c:forEach>
-            </select>
-            <html:submit>
-                <bean:message key="cloneerrata.jsp.view"/>
-            </html:submit>
-            <br/>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row-0">
+                    <div class="col-md-3">
+                        <bean:message key="cloneerrata.jsp.viewapplicableerrata"/>:
+                    </div>
+                    <div class="col-md-5">
+                        <select name="channel" class="form-control">
+                            <c:forEach items="${clonablechannels}" var="option">
+                                <option value="<c:out value="${option.value}"/>"
+                                    <c:if test="${option.value == param.channel}">selected="1"</c:if>>
+                                    <c:out value="${option.label}"/>
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </div>
+                <div class="row-0">
+                    <div class="col-md-offset-3 col-md-5">
+                        <div class="checkbox">
+                            <label>
+                                <c:if test="${param.showalreadycloned == 1}">
+                                    <input type="checkbox" name="showalreadycloned" value="1" checked>
+                                </c:if>
+                                <c:if test="${param.showalreadycloned != 1}">
+                                    <input type="checkbox" name="showalreadycloned" value="1">
+                                </c:if>
+                                <bean:message key="cloneerrata.jsp.showclonederrata"/>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-0">
+                    <div class="col-md-offset-3 col-md-5">
+                        <html:submit styleClass="btn btn-success">
+                            <bean:message key="cloneerrata.jsp.view"/>
+                        </html:submit>
+                    </div>
+                </div>
 
-            <c:if test="${param.showalreadycloned == 1}">
-                <input type="checkbox" name="showalreadycloned" value="1" checked>
-            </c:if>
-            <c:if test="${param.showalreadycloned != 1}">
-                <input type="checkbox" name="showalreadycloned" value="1">
-            </c:if>
-
-            <bean:message key="cloneerrata.jsp.showclonederrata"/>
-
-        </p>
+            </div>
+        </div>
 
         <rl:list emptykey="cloneerrata.jsp.noerrata">
 
@@ -90,11 +102,11 @@
 
         </rl:list>
 
-        <div align="right">
+        <div class="text-right">
             <rhn:submitted/>
-            <hr/>
             <input type="submit"
                    name="dispatch"
+                   class="btn btn-default"
                    value='<bean:message key="cloneerrata.jsp.cloneerrata"/>'/>
         </div>
 
