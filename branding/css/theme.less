@@ -32,7 +32,7 @@
 	}
 }
 
-// Filter by system button besides the input search
+// Filter by system: button besides the input search
 .spacewalk-button-filter{
 	border-left: 0;
 	color: #666666;
@@ -61,4 +61,181 @@
 	width: 10em;
 	display: inline-block;
 	border: 1px solid #dddddd;
+}
+
+/* Icons Legend */
+aside .sideleg {
+	background: lighten(@gray-lighter, 10%);
+	width: 90%;
+	padding: .5em 1em;
+	border-radius: 4px;
+	margin: 2em auto;
+	.hidden-sm;
+	.hidden-xs;
+	li {
+		list-style: none;
+		margin: 1em 0;
+		padding:0;
+	}
+	ul {
+		margin: 0;
+		padding: 0
+	}
+}
+
+//Menu in left column
+aside ul > ul li {
+	list-style: none;
+	padding: 0
+}
+aside .nav > li > a {
+	padding: .4em 1em
+}
+#sidenav {
+	a {
+		color: #666;
+		.glow-text;
+	}
+	a:before {
+		content: "\f105 ";
+		font-family: 'FontAwesome';
+		margin-right: .5em
+	}
+	li {
+		border-bottom: 1px solid #d8d8d8;
+	}
+	li.active > a, #sidenav li.active > a:hover {
+		color: @spacewalk-blue;
+		background: @spacewalk-list-menu-active;
+	}
+	li > a {
+		border-radius: 0
+	}
+	ul li:last-child {
+		border-bottom: 1px solid #ccc;
+		-moz-box-shadow: 0px 1px 1px #fefefe;
+		-webkit-box-shadow: 0px 1px 1px #fefefe;
+		box-shadow: 0px 1px 1px #fefefe;
+	}
+
+	/* ul-submenues */
+	/* first submenu */
+	ul>ul li {
+	    padding: 0 0 0 1em !important;
+	    margin: 0;
+	    background: @spacewalk-list-first-submenu;
+	    border-bottom: 1px solid #ccc;
+	}
+	ul>ul li.active,
+	ul>ul li.active:hover,
+	ul>ul li.active a,
+	ul>ul li.active a:hover {
+		background: @spacewalk-list-first-submenu-active;
+		.glow-text-deleted;
+	}
+	ul>ul li:hover, ul>ul li a:hover {
+		background: @spacewalk-list-first-submenu-hover;
+	}
+	ul>ul li:last-child {
+		border-bottom: 1px solid #c6c6c6;
+	}
+	/* second submenu */
+	ul>ul>ul li {
+	    padding: 0 0 0 1.5em !important;
+	    margin: 0;
+	    background: @spacewalk-list-second-submenu;
+	    border-bottom: 1px solid #bbb;
+	}
+	ul>ul>ul li.active,
+	ul>ul>ul li.active:hover,
+	ul>ul>ul li.active a,
+	ul>ul>ul li.active a:hover {
+		background: @spacewalk-list-second-submenu-active;
+		.glow-text-deleted;
+	}
+	ul>ul>ul li:hover, ul>ul>ul li a:hover {
+		background: @spacewalk-list-second-submenu-hover;
+	}
+	ul>ul>ul li:last-child {
+		border-bottom: 1px solid #c4c4c4;
+	}
+
+}
+
+/* question symbol for help pop up*/
+h1 .icon-stack .icon-question {
+	font-size: .6em;
+}
+h1 .icon-stack {
+	width: 1em;
+	height: 1em;
+	line-height: .7em;
+}
+.icon-stack .icon-stack-base.icon-circle {
+	font-size: .7em;
+	color: @spacewalk-blue;
+}
+
+// Panels: reseting default margins and paddings in H tags
+.panel .panel-heading{
+	h1, h2, h3, h4, h5, h6{
+		padding: 0;
+		margin: 0;
+	}
+}
+//Panels: deleting border-top in the first row of a table contained within a Panel class
+.panel-body tr:first-child{
+	td, th{
+		border-top: 0;
+	}
+}
+
+/* systems selected tool*/
+.spacewalk-bar i, .spacewalk-toolbar>a, #spacewalk-bar-off i {
+	cursor: pointer;
+}
+.spacewalk-bar i {
+	padding: 0 .3em;
+}
+#show-systems-bar {
+	padding: .5em 1.2em;
+	background: #fff;
+	border:1px solid #ccc;
+	border-radius: 0 0 4px 4px;
+}
+
+/* spacewalk toolbar: contains the H1 of each page + the toolbar */
+.spacewalk-toolbar-h1 {
+	margin-bottom: 1.5em;
+	.spacewalk-toolbar {
+		.pull-right;
+		padding: .5em 1em;
+		a {
+			border-right:1px solid @gray-light;
+			padding: 0 .5em
+		}
+		a:hover {
+			text-decoration: none;
+		}
+		a:last-child {
+			border-right:0
+		}
+	}
+}
+
+/* systems selected manager */
+.spacewalk-bar a.button:first-of-type {
+	color: #ffffff;
+	background-color: #5bc0de;
+	border-color: #46b8da;
+	padding: .2em .6em;
+	border-radius: 4px;
+	margin: 0 .2em
+}
+.spacewalk-bar a.button:last-of-type {
+	color: #333;
+	background-color: #e2e2e2;
+	border-color: #d4d4d4;
+	padding: .2em .6em;
+	border-radius: 4px
 }

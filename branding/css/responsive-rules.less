@@ -1,0 +1,63 @@
+/* Rules to make it responsive */
+.aside-horizontal {
+	.spacewalk-main-column-layout aside {
+		margin-bottom: 1em;
+		padding-bottom: 0;
+		border-bottom: 1px solid #ccc
+	}
+}
+.sidenav-horizontal {
+	#sidenav{
+		a:before {
+			content: "";
+			margin: 0;
+		}
+		li {
+			display: inline-block;	
+			border-bottom:0;
+		}
+		ul li:last-child, ul>ul li:last-child, ul>ul>ul li:last-child {
+			border-bottom: 0;
+			-moz-box-shadow: 0px 0px 0px;
+			-webkit-box-shadow: 0px 0px 0px;
+			box-shadow: 0px 0px 0px;
+		}
+		li.active > a, li.active > a:hover, ul li:hover, ul li a:hover {
+			color: @spacewalk-blue;
+			background: transparent;
+		}
+		/* first submenu */
+		ul>ul li {
+		    padding: 0 !important;
+		    background: transparent;
+		    border: 0px;
+		}
+		ul>ul {
+			border-top: 1px solid #ccc;
+			border-bottom: 1px solid #ccc;
+			background: @spacewalk-list-first-submenu;
+			padding: .2em 0;
+		}
+		ul>ul li.active,
+		ul>ul li.active:hover,
+		ul>ul li.active a,
+		ul>ul li.active a:hover {
+			background: transparent;
+		}
+		ul>ul li:hover, ul>ul li a:hover {
+			background: transparent;
+			color: @spacewalk-blue;
+		}
+		ul>ul li:last-child {
+			border-bottom: 0px;
+		}
+	}
+}
+@media (min-width: @screen-sm) and (max-width: @screen-sm-max) {
+	.sidenav-horizontal;
+	.aside-horizontal;
+}
+@media (max-width: @screen-xs-max) {
+	.sidenav-horizontal;
+	.aside-horizontal;
+}

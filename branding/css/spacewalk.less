@@ -13,6 +13,7 @@
 @import url(tables.less);
 /* Import of the Theme */
 @import url(theme.less);
+
 /* basic layout */
 .row-0 {
 	.make-row();
@@ -115,7 +116,7 @@ p {
 		padding-bottom: 9999px;
 		/* erasing the predefined paddings in the columns */
 		padding-right: 0;
-			padding-left: 0;
+		padding-left: 0;
 	}
 
 	/* fixing margins in the 1st and last columns */
@@ -305,129 +306,10 @@ header {
 	width: 100%
 }
 
-/* systems selector */
-.spacewalk-bar a.button:first-of-type {
-	color: #ffffff;
-	background-color: #5bc0de;
-	border-color: #46b8da;
-	padding: .2em .6em;
-	border-radius: 4px;
-	margin: 0 .2em
-}
-.spacewalk-bar a.button:last-of-type {
-	color: #333;
-	background-color: #e2e2e2;
-	border-color: #d4d4d4;
-	padding: .2em .6em;
-	border-radius: 4px
-}
 /* style for Menu in the left column */
 .nav-stacked > li + li {
 	margin-top: 0;
 }
-
-#sidenav {
-	a {
-		color: #666;
-		.glow-text;
-	}
-	a:before {
-		content: "\f105 ";
-		font-family: 'FontAwesome';
-		margin-right: .5em
-	}
-	li {
-		border-bottom: 1px solid #d8d8d8;
-	}
-	li.active > a, #sidenav li.active > a:hover {
-		color: @spacewalk-blue;
-		background: @spacewalk-list-menu-active;
-	}
-	li > a {
-		border-radius: 0
-	}
-	ul li:last-child {
-		border-bottom: 1px solid #ccc;
-		-moz-box-shadow: 0px 1px 1px #fefefe;
-		-webkit-box-shadow: 0px 1px 1px #fefefe;
-		box-shadow: 0px 1px 1px #fefefe;
-	}
-
-	/* ul-submenues */
-	/* first submenu */
-	ul>ul li {
-	    padding: 0 0 0 1em !important;
-	    margin: 0;
-	    background: @spacewalk-list-first-submenu;
-	    border-bottom: 1px solid #ccc;
-	}
-	ul>ul li.active,
-	ul>ul li.active:hover,
-	ul>ul li.active a,
-	ul>ul li.active a:hover {
-		background: @spacewalk-list-first-submenu-active;
-		.glow-text-deleted;
-	}
-	ul>ul li:hover, ul>ul li a:hover {
-		background: @spacewalk-list-first-submenu-hover;
-	}
-	ul>ul li:last-child {
-		border-bottom: 1px solid #c6c6c6;
-	}
-	/* second submenu */
-	ul>ul>ul li {
-	    padding: 0 0 0 1.5em !important;
-	    margin: 0;
-	    background: @spacewalk-list-second-submenu;
-	    border-bottom: 1px solid #bbb;
-	}
-	ul>ul>ul li.active,
-	ul>ul>ul li.active:hover,
-	ul>ul>ul li.active a,
-	ul>ul>ul li.active a:hover {
-		background: @spacewalk-list-second-submenu-active;
-		.glow-text-deleted;
-	}
-	ul>ul>ul li:hover, ul>ul>ul li a:hover {
-		background: @spacewalk-list-second-submenu-hover;
-	}
-	ul>ul>ul li:last-child {
-		border-bottom: 1px solid #c4c4c4;
-	}
-}
-
-aside ul > ul li {
-	list-style: none;
-	padding: 0
-}
-aside .nav > li > a {
-	padding: .4em 1em
-}
-
-/* TABLES */
-.table > thead > tr.active > th {
-	background: @gray-lighter;
-}
-
-/* Icons Legend */
-aside .sideleg {
-	background: lighten(@gray-lighter, 10%);
-	width: 90%;
-	padding: .5em 1em;
-	border-radius: 4px;
-	margin: 2em auto;
-	font-size: 1em;
-	li {
-		list-style: none;
-		margin: 1em 0;
-		padding:0;
-	}
-	ul {
-		margin: 0;
-		padding: 0
-	}
-}
-
 
 /* login form */
 #loginForm {
@@ -448,54 +330,6 @@ aside .sideleg {
 #loginForm+.col-md-6.col-md-offset-3.text-left {
 	font-size:.8em;
 	margin-bottom:2em;
-}
-
-
-/* question symbol for help pop up*/
-h1 .icon-stack .icon-question {
-	font-size: .6em;
-}
-h1 .icon-stack {
-	width: 1em;
-	height: 1em;
-	line-height: .7em;
-}
-.icon-stack .icon-stack-base.icon-circle {
-	font-size: .7em;
-	color: @spacewalk-blue;
-}
-
-/* spacewalk toolbar */
-.spacewalk-toolbar-h1 {
-	margin-bottom: 1.5em;
-	.spacewalk-toolbar {
-		.pull-right;
-		padding: .5em 1em;
-		a {
-			border-right:1px solid @gray-light;
-			padding: 0 .5em
-		}
-		a:hover {
-			text-decoration: none;
-		}
-		a:last-child {
-			border-right:0
-		}
-	}	
-}
-
-/* systems selected tool*/
-.spacewalk-bar i, .spacewalk-toolbar>a, #spacewalk-bar-off i {
-	cursor: pointer;
-}
-.spacewalk-bar i {
-	padding: 0 .3em;
-}
-#show-systems-bar {
-	padding: .5em 1.2em;
-	background: #fff;
-	border:1px solid #ccc;
-	border-radius: 0 0 4px 4px;
 }
 
 /* btn with margin top and bottom */
@@ -580,19 +414,6 @@ ul.nav.nav-tabs:last-child{
 	.pull-right;
 }
 
-
-.panel .panel-heading{
-	h1, h2, h3, h4, h5, h6{
-		padding: 0;
-		margin: 0;
-	}
-}
-.panel-body tr:first-child{
-	td, th{
-		border-top: 0;
-	}
-}
-
 // alerts
 .alert {
   margin: 18px 0;
@@ -608,3 +429,9 @@ ul.nav.nav-tabs:last-child{
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
+
+
+
+// LEAVE THIS LINE AT THE END ALWAYS TO WARRANTY THE RESPONSIVE RULES REWRITE THE EXISTING STYLES
+/* Responsive rules */
+@import url(responsive-rules.less);
