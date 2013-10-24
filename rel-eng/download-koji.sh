@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-KOJI=$(echo "$1" | sed 's,\(https*://.*\)/[^/]*$,\1/,')
+KOJI=$( echo "$1" | sed 's,\(https\?://.*\)/[^/]*$,\1/,' )
 WGET='wget --no-check-certificate -nv'
 
 $WGET -O - $1 \
@@ -13,4 +13,6 @@ $WGET -O - $1 \
                         print "'"$KOJI"'" $2 " -O " basename($2)}
                 /"http:\/\/download.*\.rpm/ && ! /src\.rpm/ {
                         print $2 " -O " basename($2)} ' \
-    | xargs -n 3 $WGET
+    | xargs --no-run-if-empty -n 3 $WGET
+
+# rpm -Fvh *.rpm
