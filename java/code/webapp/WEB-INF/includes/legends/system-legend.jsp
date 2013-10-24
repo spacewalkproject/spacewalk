@@ -5,8 +5,8 @@
   <h4><bean:message key="system-legend.jsp.title"/></h4>
   <ul>
   <li><i class="icon-ok-sign spacewalk-icon-green icon-1-5x"></i><bean:message key="system-legend.jsp.fully"/></li>
-  <li><i class="icon-exclamation-sign spacewalk-icon-yellow icon-1-5x"></i><bean:message key="system-legend.jsp.critical"/></li>
-  <li><i class="icon-warning-sign spacewalk-icon-red icon-1-5x"></i><bean:message key="system-legend.jsp.updates"/></li>
+  <li><i class="icon-exclamation-sign spacewalk-icon-red icon-1-5x"></i><bean:message key="system-legend.jsp.critical"/></li>
+  <li><i class="icon-warning-sign spacewalk-icon-yellow icon-1-5x"></i><bean:message key="system-legend.jsp.updates"/></li>
   <li><i class="spacewalk-icon-unknown-system icon-1-5x"></i><bean:message key="system-legend.jsp.notcheckingin"/></li>
   <rhn:require acl="org_entitlement(sw_mgr_enterprise)">
     <li><i class="spacewalk-icon-locked-system icon-1-5x"></i><bean:message key="system-legend.jsp.locked"/></li>

@@ -14,8 +14,7 @@
      			<bean:message key="toolbar.work.with.group"/>
      		</a>
      	    <a href="/network/systems/groups/delete_confirm.pxt?sgid=${systemgroup.id}">	
-				<img src="/img/action-del.gif" alt="<bean:message key="toolbar.delete.systemgroup"/>"
-				title="<bean:message key="toolbar.delete.systemgroup"/>" />
+				<i class="icon-trash" title="<bean:message key="toolbar.delete.systemgroup"/>" ></i>
 				<bean:message key="toolbar.delete.systemgroup"/>
 			</a>			
 				

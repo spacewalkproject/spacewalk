@@ -16,11 +16,11 @@
   <div class="toolbar">
     <span class="toolbar">
       <a href="/rhn/systems/details/DeleteCustomData.do?sid=${sid}&cikid=${cikid}">
-        <img src="/img/action-del.gif" alt="delete value" title="delete value" />delete value
+        <i class="icon-trash" title="delete value"></i>delete value
       </a>
     </span>
   </div>
-  <img src="/img/rhn-icon-info.gif" alt="" />
+  <i class="icon-info-sign"></i>
   <bean:message key="system.jsp.customkey.updatetitle"/>
 </div>
 
@@ -28,7 +28,7 @@
 
   <form action="/rhn/systems/details/UpdateCustomData.do?sid=${system.id}&cikid=${cikid}" name="edit_token" method="post">
     <rhn:csrf />
-    <table class="details">
+    <table class="table">
       <tr>
         <th><bean:message key="system.jsp.customkey.keylabel"/>:</th>
         <td>${label}</td>
@@ -52,7 +52,7 @@
       </tr>
     </table>
 
-    <div align="right">
+    <div class="text-right">
       <hr />
 
       <input type="submit" name="UpdateKey" value="Update Key" />

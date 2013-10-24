@@ -8,16 +8,12 @@
 <body>
 <h1><bean:message key="usercreate.createFirstLogin" /></h1>
 
-    <div class="page-summary">
-      <p><bean:message key="usercreate.satSummary" /></p>
-    </div>
-<br />
+<p><bean:message key="usercreate.satSummary" /></p>
 
 <jsp:include page="usercreate.jsp">
   <jsp:param name="action_path" value="/newlogin/CreateFirstUserSubmit"/>
   <jsp:param name="account_type" value="create_sat"/>
 </jsp:include>
-
 
 </body>
 </html>

@@ -30,9 +30,8 @@
 
   <c:if test="${testResult.deletable}">
     <a href="/rhn/systems/details/audit/XccdfDeleteConfirm.do?sid=${param.sid}&xid=${testResult.id}">
-      <img src="/img/action-del.gif"
-          alt="<bean:message key="system.audit.xccdfdelete"/>"
-          title="<bean:message key="system.audit.xccdfdelete"/>"/>
+      <i class="icon-trash"
+          title="<bean:message key="system.audit.xccdfdelete"/>"></i>
       <bean:message key="system.audit.xccdfdelete"/>
     </a>
   |

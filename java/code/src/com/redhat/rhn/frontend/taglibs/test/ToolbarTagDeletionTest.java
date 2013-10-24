@@ -39,8 +39,8 @@ public class ToolbarTagDeletionTest extends BaseTestToolbarTag {
             // setup mock objects
             String output = "<div class=\"toolbar-h1\"><div class=\"" +
                 "toolbar\"><span class=\"toolbar\"><a href=\"deletion-url\">" +
-                "<img src=\"/img/action-del.gif\" alt=\"delete user\"" +
-                " title=\"delete user\" />delete user</a></span>" +
+                "<i class=\"icon-trash\"" +
+                " title=\"delete user\" ></i>delete user</a></span>" +
                 "</div></div>";
 
 
@@ -72,8 +72,8 @@ public class ToolbarTagDeletionTest extends BaseTestToolbarTag {
         try {
             String output = "<div class=\"toolbar-h1\"><div class=\"" +
             "toolbar\"><span class=\"toolbar\"><a href=\"deletion-url\">" +
-            "<img src=\"/img/action-del.gif\" alt=\"delete user\"" +
-            " title=\"delete user\" />delete user</a></span>" +
+            "<i class=\"icon-trash\"" +
+            " title=\"delete user\" ></i>delete user</a></span>" +
             "</div></div>";
 
             setupDeletionTag("h1", "deletion-url",
@@ -97,8 +97,8 @@ public class ToolbarTagDeletionTest extends BaseTestToolbarTag {
         try {
             String output = "<div class=\"toolbar-h1\"><div class=\"" +
             "toolbar\"><span class=\"toolbar\"><a href=\"deletion-url\">" +
-            "<img src=\"/img/action-del.gif\" alt=\"delete user\"" +
-            " title=\"delete user\" />delete user</a></span>" +
+            "<i class=\"icon-trash\"" +
+            " title=\"delete user\" ></i>delete user</a></span>" +
             "</div></div>";
 
             setupDeletionTag("h1", "deletion-url",
@@ -144,8 +144,8 @@ public class ToolbarTagDeletionTest extends BaseTestToolbarTag {
             // setup mock objects
             String output = "<div class=\"toolbar-h1\"><div class=\"" +
                 "toolbar\"><span class=\"toolbar\"><a href=\"deletion-url\">" +
-                "<img src=\"/img/action-del.gif\" alt=\"delete user\"" +
-                " title=\"delete user\" />delete user</a></span>" +
+                "<i class=\"icon-trash\"" +
+                " title=\"delete user\" ></i>delete user</a></span>" +
                 "</div></div>";
 
             setupDeletionTag("h1", "deletion-url", "true_test()", "user");

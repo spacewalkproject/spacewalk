@@ -32,144 +32,170 @@
 <html:form action="${action_path}">
 
   <rhn:csrf />
-  <h2><bean:message key="usercreate.login" /></h2>
+  <div class="row-0">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4><bean:message key="usercreate.login" /></h4>
+        </div>
+        <div class="panel-body">
+          <table class="table">
+              <tr>
+                <td><label for="login"><rhn:required-field key="desiredlogin"/>:</label></td>
+                <td>
+                  <html:text property="login" styleClass="form-control" maxlength="${loginLength}" styleId="login"/>
+                </td>
+              </tr>
+              <tr>
+                <td><label for="desiredpass"><bean:message key="desiredpass" /><span name="password-asterisk"
+                      class="required-form-field">*</span>:</td></label>
+                <td>
+                  <html:password property="desiredpassword" styleClass="form-control" size="15" maxlength="${passwordLength}"/>
+                </td>
+              </tr>
+              <tr>
+                <td><label for="confirmpass"><bean:message key="confirmpass" /><span name="password-asterisk"
+                      class="required-form-field">*</span>:</label></td>
+                <td>
+                  <html:password styleClass="form-control" property="desiredpasswordConfirm" size="15" maxlength="${passwordLength}" styleId="confirmpass"/>
+                </td>
+              </tr>
+              <c:if test="${displaypam == 'true' && account_type != 'create_sat'}">
+                <tr>
+                  <td><label for="pam"><bean:message key="usercreate.jsp.pam"/></label></td>
+                  <td>
+                    <c:choose>
+                      <c:when test="${displaypamcheckbox == 'true'}">
+                      <html:checkbox property="usepam" onclick="$(\"[name='password-asterisk']\").toggle()" styleId="pam"/>
+                      <label for="pam"><bean:message key="usercreate.jsp.pam.instructions"/></label> <br/>
+                      <strong><span>
+                          <bean:message key="usercreate.jsp.pam.instructions.note"/>
+                      </span></strong>
+                      </c:when>
+                      <c:otherwise>
+                        <bean:message key="usercreate.jsp.pam.reference"/>
+                      </c:otherwise>
+                    </c:choose>
+                  </td>
+                </tr>
+              </c:if>
+            </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4><bean:message key="usercreate.accountInfo" /></h4>
+        </div>
+        <div class="panel-body">
+          <table class="table">
+            <tr>
+              <td><label for="firstNames"><rhn:required-field key="usercreate.names"/>:</td></label>
+              <td>
+                <html:select styleClass="form-control margin-bottom-xs" property="prefix">
+                  <html:options collection="availablePrefixes"
+                    property="value"
+                    labelProperty="label" />
+                </html:select>
 
-  <table class="details" align="center">
-    <tr>
-      <th><label for="login"><rhn:required-field key="desiredlogin"/>:</label></th>
-      <td>
-        <html:text property="login" size="15" maxlength="${loginLength}" styleId="login"/>
-      </td>
-    </tr>
-    <tr>
-      <th><label for="desiredpass"><bean:message key="desiredpass" /><span name="password-asterisk"
-            class="required-form-field">*</span>:</th></label>
-      <td>
-        <html:password property="desiredpassword" size="15" maxlength="${passwordLength}"/>
-      </td>
-    </tr>
-    <tr>
-      <th><label for="confirmpass"><bean:message key="confirmpass" /><span name="password-asterisk"
-            class="required-form-field">*</span>:</label></th>
-      <td>
-        <html:password property="desiredpasswordConfirm" size="15" maxlength="${passwordLength}" styleId="confirmpass"/>
-      </td>
-    </tr>
-    <c:if test="${displaypam == 'true' && account_type != 'create_sat'}">
-      <tr>
-        <th><label for="pam"><bean:message key="usercreate.jsp.pam"/></label></th>
-        <td>
-          <c:choose>
-            <c:when test="${displaypamcheckbox == 'true'}">
-            <html:checkbox property="usepam" onclick="$(\"[name='password-asterisk']\").toggle()" styleId="pam"/>
-            <label for="pam"><bean:message key="usercreate.jsp.pam.instructions"/></label> <br/>
-            <strong><span style="font-size: 10px">
-                <bean:message key="usercreate.jsp.pam.instructions.note"/>
-            </span></strong>
-            </c:when>
-            <c:otherwise>
-              <bean:message key="usercreate.jsp.pam.reference"/>
-            </c:otherwise>
-          </c:choose>
-        </td>
-      </tr>
-    </c:if>
-  </table>
+                <html:text property="firstNames" size="15" styleClass="form-control margin-bottom-xs" maxlength="${firstNameLength}" styleId="firstNames"/>
+                <html:text property="lastName" size="15" styleClass="form-control margin-bottom-xs" maxlength="${lastNameLength}"/>
+              </td>
+            </tr>
 
-  <h2><bean:message key="usercreate.accountInfo" /></h2>
-  <table class="details" align="center">
-    <tr>
-      <th><label for="firstNames"><rhn:required-field key="usercreate.names"/>:</th></label>
-      <td>
-        <html:select property="prefix">
-          <html:options collection="availablePrefixes"
-            property="value"
-            labelProperty="label" />
-        </html:select>
-
-        <html:text property="firstNames" size="15" maxlength="${firstNameLength}" styleId="firstNames"/>
-        <html:text property="lastName" size="15" maxlength="${lastNameLength}"/>
-      </td>
-    </tr>
-
-    <tr>
-       <th><label for="email"><rhn:required-field key="email"/>:</label></th>
-       <td>
-           <html:text property="email" size="20" maxlength="${emailLength}" styleId="email"/>
-       </td>
-    </tr>
-<html:hidden property="account_type" value="${account_type}" />
-
-    <tr>
-      <td style="border: 0; text-align: center" colspan="2"><span class="required-form-field">*</span> - <bean:message key="usercreate.requiredField" /></td>
-    </tr>
-</table>
-
+            <tr>
+               <td><label for="email"><rhn:required-field key="email"/>:</label></td>
+               <td>
+                   <html:text property="email" styleClass="form-control" maxlength="${emailLength}" styleId="email"/>
+               </td>
+            </tr>
+            <html:hidden property="account_type" value="${account_type}" />
+            <tr>
+              <td colspan="2"><span class="required-form-field">*</span> - <bean:message key="usercreate.requiredField" /></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <c:if test="${account_type == 'into_org'}">
-  <h2><bean:message key="preferences.jsp.tz"/></h2>
-  <p><bean:message key="preferences.jsp.datestimes"/></p>
-  <div class="preference"><bean:message key="preferences.jsp.displaytimesas"/>
-  <select name="timezone">
-    <c:forEach var="tz" items="${requestScope.timezones}">
-      <c:if test="${tz.value == requestScope.default_tz}">
-        <option value="${tz.value}" selected="selected">${tz.display}</option>
-      </c:if>
-      <c:if test="${tz.value != requestScope.default_tz}">
-        <option value="${tz.value}">${tz.display}</option>
-      </c:if>
-    </c:forEach>
-  </select>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4><bean:message key="preferences.jsp.tz"/></h4>
+    </div>
+    <div class="panel-body">
+      <p><bean:message key="preferences.jsp.datestimes"/></p>
+      <div class="well well-sm">
+        <bean:message key="preferences.jsp.displaytimesas"/>
+        <select name="timezone">
+          <c:forEach var="tz" items="${requestScope.timezones}">
+            <c:if test="${tz.value == requestScope.default_tz}">
+              <option value="${tz.value}" selected="selected">${tz.display}</option>
+            </c:if>
+            <c:if test="${tz.value != requestScope.default_tz}">
+              <option value="${tz.value}">${tz.display}</option>
+            </c:if>
+          </c:forEach>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4><bean:message key="preferences.jsp.lang" /></h4>
+    </div>
+    <div class="panel-body">
+      <p><bean:message key="preferences.jsp.langs" /></p>
+      <div class="well well-sm">
+        <c:set var="counter" value="0" />
+        <table width="75%" cellpadding="0">
+          <tr>
+            <td width="50%">
+              <input type="radio" name="preferredLocale" value="<c:out value="${noLocale.languageCode}" />"
+              <c:if test="${noLocale.languageCode == currentLocale}">
+                checked="checked"
+              </c:if>/>
+              <c:out value="${noLocale.localizedName}" />
+              <br />
+              <br />
+            </td>
+           </tr>
+        <c:forEach var="item" items="${supportedLocales}">
+          <c:if test="${counter == 0}">
+            <tr>
+          </c:if>
+          <td width="50%">
+            <input type="radio" name="preferredLocale" value="<c:out value="${item.key}" />"
+              <c:if test="${item.key == currentLocale}">
+                checked="checked"
+              </c:if>/>
+             <img src="<c:out value="${item.value.imageUri}" />" alt="<c:out value="${item.value.localizedName}" />" />&nbsp;(<c:out value="${item.value.localizedName}" />)
+          </td>
+          <c:if test="${counter == 1}">
+            </tr>
+          </c:if>
+          <c:set var="counter" value="${counter + 1}" />
+          <c:if test="${counter == 2}">
+            <c:set var="counter" value="0" />
+          </c:if>
+        </c:forEach>
+
+        <c:if test="${counter == 1}">
+                </tr>
+        </c:if>
+        </table>
+      </div>
+    </div>
   </div>
 
-  <h2><bean:message key="preferences.jsp.lang" /></h2>
-  <p><bean:message key="preferences.jsp.langs" /></p>
-
-  <div class="preference">
-  <c:set var="counter" value="0" />
-  <table width="75%" cellpadding="0">
-    <tr>
-      <td width="50%">
-        <input type="radio" name="preferredLocale" value="<c:out value="${noLocale.languageCode}" />"
-        <c:if test="${noLocale.languageCode == currentLocale}">
-          checked="checked"
-        </c:if>/>
-        <c:out value="${noLocale.localizedName}" />
-        <br />
-        <br />
-      </td>
-     </tr>
-  <c:forEach var="item" items="${supportedLocales}">
-    <c:if test="${counter == 0}">
-      <tr>
-    </c:if>
-    <td width="50%">
-      <input type="radio" name="preferredLocale" value="<c:out value="${item.key}" />"
-        <c:if test="${item.key == currentLocale}">
-          checked="checked"
-        </c:if>/>
-       <img src="<c:out value="${item.value.imageUri}" />" alt="<c:out value="${item.value.localizedName}" />" />&nbsp;(<c:out value="${item.value.localizedName}" />)
-    </td>
-    <c:if test="${counter == 1}">
-      </tr>
-    </c:if>
-    <c:set var="counter" value="${counter + 1}" />
-    <c:if test="${counter == 2}">
-      <c:set var="counter" value="0" />
-    </c:if>
-  </c:forEach>
-
-  <c:if test="${counter == 1}">
-          </tr>
-  </c:if>
-  </table>
-  </div>
 </c:if>
 
-<div align="right">
-<html:submit>
-  <bean:message key="usercreate.jsp.createlogin"/>
-</html:submit>
+<div class="text-right">
+  <html:submit styleClass="btn btn-success">
+    <bean:message key="usercreate.jsp.createlogin"/>
+  </html:submit>
 </div>
 
 

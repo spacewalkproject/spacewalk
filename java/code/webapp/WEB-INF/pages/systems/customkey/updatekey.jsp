@@ -6,70 +6,70 @@
 
 <html:html xhtml="true">
     <body>
-            <div class="toolbar-h1">
-                <div class="toolbar">
-                    <span class="toolbar">
-                        <a href="/rhn/systems/customdata/DeleteCustomKey.do?cikid=${cikid}">
-                            <img src="/img/action-del.gif" alt="delete key" title="delete key" />delete key</a>
-                    </span>
+        <div class="toolbar-h1">
+            <div class="toolbar">
+                <span class="toolbar">
+                    <a href="/rhn/systems/customdata/DeleteCustomKey.do?cikid=${cikid}">
+                        <i class="icon-trash" title="delete key"></i>delete key</a>
+                </span>
+            </div>
+            <img src="/img/rhn-icon-keyring.gif" alt="" />
+            <bean:message key="system.jsp.customkey.updatetitle"/>
+
+            <a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-cust-info" target="_new" class="help-title">
+                <i class="icon-question-sign" title="Help icon"></i>
+            </a>
+        </div>
+
+        <div class="page-summary">
+            <p><bean:message key="system.jsp.customkey.updatemsg"/></p>
+        </div>
+
+        <rl:listset name="systemListSet" legend="system">
+            <rhn:csrf />
+            <rhn:submitted/>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="system.jsp.customkey.keylabel"/>:
+                    </label>
+                    <div class="col-lg-6">${label}</div>
                 </div>
-                <img src="/img/rhn-icon-keyring.gif" alt="" />
-                <bean:message key="system.jsp.customkey.updatetitle"/>
 
-                <a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-cust-info" target="_new" class="help-title">
-                    <img src="/img/rhn-icon-help.gif" alt="Help Icon" />
-                </a>
-            </div>
-
-            <div class="page-summary">
-                <p><bean:message key="system.jsp.customkey.updatemsg"/></p>
-            </div>
-
-            <rl:listset name="systemListSet" legend="system">
-                <rhn:csrf />
-                <rhn:submitted/>
-
-                <div class="form-horizontal">
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label">
-                            <bean:message key="system.jsp.customkey.keylabel"/>:
-                        </label>
-                        <div class="col-lg-6">${label}</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label">
-                            <bean:message key="system.jsp.customkey.description"/>:
-                        </label>
-                        <div class="col-lg-6">
-                            <textarea wrap="virtual" rows="6" cols="50"
-                                      class="form-control"
-                                      name="description"><c:out value="${description}" /></textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label">
-                            <bean:message key="system.jsp.customkey.created"/>:
-                        </label>
-                        <div class="col-lg-6">${created} by ${creator}</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label">
-                            <bean:message key="system.jsp.customkey.modified"/>:
-                        </label>
-                        <div class="col-lg-6">${modified} by ${modifier}</div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-lg-offset-3 col-lg-6">
-                            <input type="submit" name="dispatch" class="btn btn-success"
-                                   value="${rhn:localize('system.jsp.customkey.updatebutton')}" />
-                            <input type="hidden" name="cikid" value="${param.cikid}" />
-                        </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="system.jsp.customkey.description"/>:
+                    </label>
+                    <div class="col-lg-6">
+                        <textarea wrap="virtual" rows="6" cols="50"
+                                  class="form-control"
+                                  name="description"><c:out value="${description}" /></textarea>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="system.jsp.customkey.created"/>:
+                    </label>
+                    <div class="col-lg-6">${created} by ${creator}</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="system.jsp.customkey.modified"/>:
+                    </label>
+                    <div class="col-lg-6">${modified} by ${modifier}</div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-3 col-lg-6">
+                        <input type="submit" name="dispatch" class="btn btn-success"
+                               value="${rhn:localize('system.jsp.customkey.updatebutton')}" />
+                        <input type="hidden" name="cikid" value="${param.cikid}" />
+                    </div>
+                </div>
+            </div>
 
         <h2><bean:message key="system.jsp.customkey.updateheader"/></h2>
         <rl:list
