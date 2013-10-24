@@ -20,7 +20,7 @@
     <script src="/javascript/jquery.js"></script>
     <script src="/javascript/bootstrap.js"></script>
     <script src="/javascript/spacewalk-essentials.js"></script>
-    <script src="/javascript/check_all.js"></script>
+    <script src="/javascript/spacewalk-checkall.js"></script>
   </head>
 </pxt-passthrough>
 

@@ -25,7 +25,7 @@ $(document).on("ready", function(){
   // See if there is a system already selected as soon as the page loads
   updateSsmToolbarOpacity();
 
-  // This is in check_all.js
+  // This is a function from spacewalk-checkall.js
   create_checkall_checkbox();
 });
 
