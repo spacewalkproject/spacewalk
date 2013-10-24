@@ -503,9 +503,10 @@ public class Org extends BaseDomainHelper {
         while (i.hasNext()) {
             ServerGroupType sgt = ((ServerGroup) i.next()).getGroupType();
 
-            // Filter out the update entitlement for satellite:
-            if (sgt.isBase() && !sgt.getLabel().equals(
-                    EntitlementManager.UPDATE.getLabel())) {
+            // Filter out the update and bootstrap entitlements
+            if (sgt.isBase() &&
+                !sgt.getLabel().equals(EntitlementManager.UPDATE.getLabel()) &&
+                !sgt.getLabel().equals(EntitlementManager.BOOTSTRAP.getLabel())) {
                 baseEntitlements.add(EntitlementManager.getByName(sgt
                         .getLabel()));
             }
