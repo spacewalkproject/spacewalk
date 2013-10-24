@@ -221,6 +221,7 @@ public class ErrataHandler extends BaseHandler {
 
         Map errataMap = new HashMap();
 
+        errataMap.put("id", errata.getId());
         if (errata.getIssueDate() != null) {
             errataMap.put("issue_date",
                     LocalizationService.getInstance()
