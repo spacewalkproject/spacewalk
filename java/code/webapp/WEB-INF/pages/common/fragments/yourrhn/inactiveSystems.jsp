@@ -10,6 +10,7 @@
                   noDataText="${requestScope.inactiveSystemsEmpty}"
                   formatMessage="false">
 		  <rhn:listdisplay set="${requestScope.set}"
+                           type="half-table"
                            title="inactivelist.jsp.header"
                            paging="false"
                            reflink="/rhn/systems/Inactive.do"
