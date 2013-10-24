@@ -5,258 +5,315 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 
 
-<html:html xhtml="true">
-<body>
-<%@ include file="/WEB-INF/pages/common/fragments/channel/channel_header.jspf" %>
-<BR>
+<html:html>
+    <body>
+        <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_header.jspf" %>
+        <html:form action="/channels/ChannelDetail" styleClass="form-horizontal">
+        <rhn:csrf />
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2><bean:message key="channel.edit.jsp.basicchanneldetails"/></h2>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.edit.jsp.name"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <c:out value="${channel.name}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.edit.jsp.label"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <c:out value="${channel.label}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.jsp.parentchannel"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <c:if test="${empty channel.parentChannel}">
+                            (none)
+                        </c:if>
+                        <c:if test="${!empty channel.parentChannel}">
+                            <a class="btn btn-info" href="/rhn/channels/ChannelDetail.do?cid=${channel.parentChannel.id}">
+                                <c:out value="${channel.parentChannel.name}" /> <i class="fa fa-arrow-right"></i>
+                            </a>
+                        </c:if>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.edit.jsp.checksum"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <c:if test="${empty channel.checksumType}">
+                            (none)
+                        </c:if>
+                        <c:if test="${!empty channel.checksumType}">
+                            <c:out value="${channel.checksumType}" />
+                        </c:if>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="packagelist.jsp.packagearch"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <c:out value="${channel.channelArch.name}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.jsp.summary"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <c:out value="${channel.summary}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="details.jsp.description"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <c:if test="${empty channel.description}">
+                            (none)
+                        </c:if>
+                        <c:if test="${!empty channel.description}">
+                            <c:out value="${channel.description}" />
+                        </c:if>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.jsp.chanent"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <c:out value="${channel.channelFamily.name}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channelfiles.jsp.lastmod"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <c:out value="${channel_last_modified}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.jsp.repolastbuild"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <c:choose>
+                            <c:when test="${repo_last_build != null}">
+                                <c:out value="${repo_last_build}" />
+                            </c:when>
+                            <c:otherwise>
+                                (none)
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.jsp.repodata"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <c:choose>
+                            <c:when test="${repo_status ==  null}">
+                                (none)
+                            </c:when>
+                            <c:when test="${repo_status == true}">
+                                <bean:message key="channel.jsp.repodata.inProgress"/>
+                            </c:when>
+                            <c:when test="${repo_status == false && repo_last_build != null}">
+                                <bean:message key="channel.jsp.repodata.completed"/>
+                            </c:when>
+                            <c:otherwise>
+                                (none)
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="header.jsp.packages"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <a class="btn btn-info" href="/rhn/channels/ChannelPackages.do?cid=${channel.id}">
+                            ${pack_size} <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.edit.jsp.perusersub"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <div class="checkbox">
+                            <label>
+                                <c:choose>
+                                    <c:when test="${has_access}">
+                                        <html:radio property="global" value="all" />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <html:radio property="global" value="all" disabled="true"/>
+                                    </c:otherwise>
+                                </c:choose>
+                                <bean:message key="channel.edit.jsp.allusers"/>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-3 col-lg-6">
+                        <div class="checkbox">
+                            <label>
+                                <c:choose>
+                                    <c:when test="${has_access == true}">
+                                        <html:radio property="global" value="selected" />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <html:radio property="global" value="selected" disabled="true"/>
+                                    </c:otherwise>
+                                </c:choose>
+                                <bean:message key="channel.edit.jsp.selectedusers"/>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.jsp.systemssubsribed"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <a class="btn btn-info" href="/rhn/channels/ChannelSubscribers.do?cid=${channel.id}">
+                            ${systems_subscribed} <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2><bean:message key="channel.edit.jsp.contactsupportinfo"/></h2>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                            <bean:message key="channel.edit.jsp.maintainername"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <c:out value="${channel.maintainerName}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.edit.jsp.maintainercontactinfo"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <bean:message key="channel.edit.jsp.emailaddress"/>
+                            </span>
+                            <div class="form-control">
+                                <c:out value="${channel.maintainerEmail}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-3 col-lg-6">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <bean:message key="channel.edit.jsp.phonenumber"/>
+                            </span>
+                            <div class="form-control">
+                                <c:out value="${channel.maintainerPhone}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.edit.jsp.supportpolicy"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <c:out value="${channel.supportPolicy}" />
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<h2><bean:message key="channel.edit.jsp.basicchanneldetails"/></h2>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2><bean:message key="channel.edit.jsp.security.gpg"/></h2>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.edit.jsp.gpgkeyurl"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <c:choose>
+                            <c:when test="${channel.GPGKeyUrl !=  null}">
+                                <c:out value="${channel.GPGKeyUrl}" />
+                            </c:when>
+                            <c:otherwise>
+                                (none entered)
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.edit.jsp.gpgkeyid"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <c:choose>
+                            <c:when test="${channel.GPGKeyId !=  null}">
+                                <c:out value="${channel.GPGKeyId}" />
+                            </c:when>
+                            <c:otherwise>
+                                (none entered)
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
+                        <bean:message key="channel.edit.jsp.gpgkeyfingerprint"/>
+                    </label>
+                    <div class="col-lg-6">
+                        <c:choose>
+                            <c:when test="${channel.GPGKeyFp !=  null}">
+                                <c:out value="${channel.GPGKeyFp}" />
+                            </c:when>
+                            <c:otherwise>
+                                (none entered)
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<div>
-
-<html:form action="/channels/ChannelDetail">
-
-    <rhn:csrf />
-
-    <table class="details" width="100%">
-      <tr>
-         <th nowrap="nowrap">
-            <bean:message key="channel.edit.jsp.name"/>:
-         </th>
-         <td class="small-form">
-            <c:out value="${channel.name}" />
-         </td>
-      </tr>
-      <tr>
-         <th nowrap="nowrap">
-            <bean:message key="channel.edit.jsp.label"/>:
-         </th>
-         <td class="small-form">
-            <c:out value="${channel.label}"/>
-         </td>
-      </tr>
-      <tr>
-        <th><bean:message key="channel.jsp.parentchannel"/>:</th>
-        <td>
-        	<c:if test="${empty channel.parentChannel}">
-        		<span class="no-details">(none)</span>
-        	</c:if>
-        	<c:if test="${!empty channel.parentChannel}">
-        		<a href="/rhn/channels/ChannelDetail.do?cid=${channel.parentChannel.id}">
-        		<c:out value="${channel.parentChannel.name}" />
-        		</a>
-        	</c:if>           	
-        </td>
-      </tr>
-      <tr>
-        <th><bean:message key="channel.edit.jsp.checksum"/>:</th>
-        <td>
-            <c:if test="${empty channel.checksumType}">
-                <span class="no-details">(none)</span>
-            </c:if>
-            <c:if test="${!empty channel.checksumType}">
-                <c:out value="${channel.checksumType}" />
-            </c:if>
-        </td>
-      </tr>
-      <tr>
-        <th><bean:message key="packagelist.jsp.packagearch"/>:</th>
-        <td><c:out value="${channel.channelArch.name}" /></td>
-      </tr>
-      <tr>
-        <th><bean:message key="channel.jsp.summary"/>:</th>
-        <td><c:out value="${channel.summary}" /></td>
-      </tr>
-      <tr>
-        <th><bean:message key="details.jsp.description"/>:</th>
-        <td>
-        	<c:if test="${empty channel.description}">
-        		<span class="no-details">(none)</span>
-        	</c:if>
-        	<c:if test="${!empty channel.description}">
-        		<c:out value="${channel.description}" />
-        	</c:if>        	
-        </td>
-      </tr>
-      <tr>
-        <th><bean:message key="channel.jsp.chanent"/>:</th>
-        <td><c:out value="${channel.channelFamily.name}" /></td>
-      </tr>
-      <tr>
-        <th><bean:message key="channelfiles.jsp.lastmod"/>:</th>
-        <td><c:out value="${channel_last_modified}" /></td>
-      </tr>
-      <tr>
-        <th><bean:message key="channel.jsp.repolastbuild"/>:</th>
-        <td>
-        <c:choose>
-              <c:when test="${repo_last_build != null}">
-		        <c:out value="${repo_last_build}" /></td>
-              </c:when>
-              <c:otherwise>
-                <span class="no-details">(none)</span>
-              </c:otherwise>
-        </c:choose>
-      </tr>
-      <tr>
-        <th><bean:message key="channel.jsp.repodata"/>:</th>
-        <td>
-           <c:choose>
-               <c:when test="${repo_status ==  null}">
-               <span class="no-details">(none)</span>
-               </c:when>
-               <c:when test="${repo_status == true}">
-                  <bean:message key="channel.jsp.repodata.inProgress"/>
-               </c:when>
-               <c:when test="${repo_status == false && repo_last_build != null}">
-                    <bean:message key="channel.jsp.repodata.completed"/>
-               </c:when>
-               <c:otherwise>
-                <span class="no-details">(none)</span>
-              </c:otherwise>
-           </c:choose>
-        </td>
-      </tr>
-      <tr>
-        <th><bean:message key="header.jsp.packages"/>:</th>
-        <td><a href="/rhn/channels/ChannelPackages.do?cid=${channel.id}">
-        		${pack_size}</a></td>
-      </tr>
-      <tr>
-         <th nowrap="nowrap">
-            <bean:message key="channel.edit.jsp.perusersub"/>:
-         </th>
-         <td class="small-form">
-            <table>
-            <tr>
-	            <c:choose>
-		            <c:when test="${has_access}">
-		                <td><html:radio property="global" value="all" /></td>
-		            </c:when>
-		            <c:otherwise>
-		                <td><html:radio property="global" value="all" disabled="true"/></td>
-		            </c:otherwise>
-	            </c:choose>
-            <td><bean:message key="channel.edit.jsp.allusers"/></td>
-            </tr><tr>
-	            <c:choose>
-		            <c:when test="${has_access == true}">
-		                <td><html:radio property="global" value="selected" /></td>
-		            </c:when>
-		            <c:otherwise>
-		                <td><html:radio property="global" value="selected" disabled="true"/></td>
-		            </c:otherwise>
-	            </c:choose>
-            <td><bean:message key="channel.edit.jsp.selectedusers"/></td>
-            </tr>
-            </table>
-         </td>
-      </tr>
-
-      <tr>
-        <th><bean:message key="channel.jsp.systemssubsribed"/>:</th>
-        <td><a href="/rhn/channels/ChannelSubscribers.do?cid=${channel.id}">${systems_subscribed}</a></td>
-      </tr>
-    </table>
-   <h2><bean:message key="channel.edit.jsp.contactsupportinfo"/></h2>
-   <table class="details">
-      <tr>
-         <th nowrap="nowrap">
-            <bean:message key="channel.edit.jsp.maintainername"/>:
-         </th>
-         <td class="small-form">
-            <c:out value="${channel.maintainerName}" />
-         </td>
-      </tr>
-      <tr>
-         <th nowrap="nowrap">
-            <bean:message key="channel.edit.jsp.maintainercontactinfo"/>:
-         </th>
-         <td class="small-form">
-            <table>
-            <tr>
-            <td><bean:message key="channel.edit.jsp.emailaddress"/>:</td>
-            <td><c:out value="${channel.maintainerEmail}" /></td>
-            </tr><tr>
-            <td><bean:message key="channel.edit.jsp.phonenumber"/>:</td>
-            <td><c:out value="${channel.maintainerPhone}" /></td>
-            </tr>
-            </table>
-         </td>
-      </tr>
-      <tr>
-         <th nowrap="nowrap">
-            <bean:message key="channel.edit.jsp.supportpolicy"/>:
-         </th>
-         <td class="small-form">
-            <c:out value="${channel.supportPolicy}" />
-         </td>
-      </tr>
-   </table>
-   <h2><bean:message key="channel.edit.jsp.security.gpg"/></h2>
-   <table class="details">
-      <tr>
-         <th nowrap="nowrap">
-            <bean:message key="channel.edit.jsp.gpgkeyurl"/>:
-         </th>
-         <td class="small-form">
-            <c:choose>
-              <c:when test="${channel.GPGKeyUrl !=  null}">
-                <c:out value="${channel.GPGKeyUrl}" /><br><br> 		
-              </c:when>
-              <c:otherwise>
-                (none entered)<br><br> 		
-              </c:otherwise>
-            </c:choose>
-         </td>
-      </tr>
-      <tr>
-         <th nowrap="nowrap">
-            <bean:message key="channel.edit.jsp.gpgkeyid"/>:
-         </th>
-         <td class="small-form">
-            <c:choose>
-              <c:when test="${channel.GPGKeyId !=  null}">
-                <c:out value="${channel.GPGKeyId}" /><br><br> 		
-              </c:when>
-              <c:otherwise>
-                (none entered)<br><br> 		
-              </c:otherwise>
-            </c:choose>
-         </td>
-      </tr>
-      <tr>
-         <th nowrap="nowrap">
-            <bean:message key="channel.edit.jsp.gpgkeyfingerprint"/>:
-         </th>
-         <td class="small-form">
-            <c:choose>
-              <c:when test="${channel.GPGKeyFp !=  null}">
-                <c:out value="${channel.GPGKeyFp}" /><br><br> 		
-              </c:when>
-              <c:otherwise>
-                (none entered)<br><br> 		
-              </c:otherwise>
-            </c:choose>
-         </td>
-      </tr>
-   </table>
-
-      <c:if test="${has_access}">
-	    <p align="right">
-            <html:submit property="Update">
-                <bean:message key="message.Update"/>
-            </html:submit>
-	    </p>
-      </c:if>
- <rhn:submitted/>
- <html:hidden property="cid" value="${channel.id}" />
-</html:form>
-
-    		
-
-</div>
-
-</body>
+        <c:if test="${has_access}">
+            <div class="form-group">
+                <div class="col-lg-offset-3 col-lg-6">
+                    <html:submit property="Update" styleClass="btn btn-success">
+                        <bean:message key="message.Update"/>
+                    </html:submit>
+                </div>
+            </div>
+        </c:if>
+        <rhn:submitted/>
+        <html:hidden property="cid" value="${channel.id}" />
+        </html:form>
+    </body>
 </html:html>
-
