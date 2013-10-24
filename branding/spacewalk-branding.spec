@@ -51,6 +51,7 @@ install -d -m 755 %{buildroot}%{_var}/lib/%{tomcat}/webapps/rhn/WEB-INF/lib/
 install -d -m 755 %{buildroot}/%{_sysconfdir}/rhn
 install -d -m 755 %{buildroot}/%{_prefix}/share/rhn/config-defaults
 cp -p css/*.css %{buildroot}/%{_var}/www/html/css
+cp -pR fonts %{buildroot}/%{_var}/www/html/
 cp -pR img %{buildroot}/%{_var}/www/html/
 # Appplication expects two favicon's for some reason, copy it so there's just
 # one in source:
@@ -69,6 +70,8 @@ rm -rf %{buildroot}
 %files
 %dir %{_var}/www/html/css
 %{_var}/www/html/css/*
+%dir %{_var}/www/html/fonts
+%{_var}/www/html/fonts/*
 %dir /%{_var}/www/html/img
 %{_var}/www/html/img/*
 %{_var}/www/html/favicon.ico
