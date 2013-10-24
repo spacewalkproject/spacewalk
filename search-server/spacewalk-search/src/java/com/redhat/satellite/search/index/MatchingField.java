@@ -36,7 +36,7 @@ public class MatchingField {
     protected Document doc;
     protected Object[] terms;
     protected String query;
-    protected Map needNumberToolsAdjust;
+    protected Map<String, Boolean> needNumberToolsAdjust;
     
     /**
      * 
@@ -53,7 +53,7 @@ public class MatchingField {
         else {
             terms = new Term[0];
         }
-        needNumberToolsAdjust = new HashMap();
+        needNumberToolsAdjust = new HashMap<String, Boolean>();
         needNumberToolsAdjust.put("cpuMHz", true);
         needNumberToolsAdjust.put("cpuBogoMIPS", true);
         needNumberToolsAdjust.put("cpuMHz", true);

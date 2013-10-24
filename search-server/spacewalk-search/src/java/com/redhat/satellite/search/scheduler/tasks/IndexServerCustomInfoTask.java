@@ -60,7 +60,7 @@ public class IndexServerCustomInfoTask extends GenericIndexTask {
                 log.info("Skipping the handleDeletedRecords() method");
                 return 0;
             }
-            idSet = new HashSet();
+            idSet = new HashSet<String>();
             for (ServerCustomInfo scInfo : ids) {
                 idSet.add(scInfo.getUniqId());
             }

@@ -96,18 +96,16 @@ public class Configuration {
     private List<KeyTranslator> translators;
     
     /** set of configuration file names */
-    private TreeSet<File> fileList = new TreeSet<File>(new Comparator() {
+    private TreeSet<File> fileList = new TreeSet<File>(new Comparator<File>() {
 
         /** {inheritDoc} */
-    public int compare(Object o1, Object o2) {
+    public int compare(File f1, File f2) {
             // Need to make sure we read the child namespace before the base
             // namespace.  To do that, we sort the list in reverse order based
             // on the length of the file name.  If two filenames have the same
             // length, then we need to do a lexigraphical comparison to make
             // sure that the filenames themselves are different.
 
-            File f1 = (File) o1;
-            File f2 = (File) o2;
             int lenDif = f2.getAbsolutePath().length() - f1.getAbsolutePath().length();
 
             if (lenDif != 0) {
@@ -226,7 +224,7 @@ public class Configuration {
      */
     public Map<String, String> getMap(String name) {
         String value = getString(name);
-        Map retval = null;
+        Map<String,String> retval = null;
         if (value != null) {
             retval = new HashMap<String, String>();
             String[] pairs = value.split(",");
@@ -365,8 +363,8 @@ public class Configuration {
      * @param name config entry name
      * @return instance of java.util.List populated with config values
      */
-    public List getList(String name) {
-        List retval = new LinkedList();
+    public List<String> getList(String name) {
+        List<String> retval = new LinkedList<String>();
         String[] vals = getStringArray(name);
         if (vals != null) {
             retval.addAll(Arrays.asList(vals));

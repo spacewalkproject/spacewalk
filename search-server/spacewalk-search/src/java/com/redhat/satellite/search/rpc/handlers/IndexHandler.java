@@ -196,7 +196,7 @@ public class IndexHandler {
             if (log.isDebugEnabled()) {
                 log.debug("NO HITS FOUND");
             }
-            return Collections.EMPTY_LIST;
+            return Collections.<Result>emptyList();
         }
         List<Long> ids = new ArrayList<Long>();
         for (Result pr : hits) {
@@ -219,7 +219,7 @@ public class IndexHandler {
             return hits;
         }
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("session_id", sessionId);
         params.put("id_list", ids);
 

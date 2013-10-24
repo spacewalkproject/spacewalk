@@ -105,7 +105,7 @@ public abstract class GenericIndexTask implements Job {
         WriteQuery insertQuery = databaseManager.getWriterQuery(getQueryCreateLastRecord());
 
         try {
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put("id", sid);
             params.put("last_modified", Calendar.getInstance().getTime());
 
@@ -180,7 +180,7 @@ public abstract class GenericIndexTask implements Job {
         Query<GenericRecord> srvrQuery = databaseManager.getQuery(
                 getQueryRecordsToIndex());
         try {
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put("id", sid);
             params.put("last_modified", lastRun);
             log.info("GenericIndexTask<" + super.getClass().toString() +
@@ -216,7 +216,7 @@ public abstract class GenericIndexTask implements Job {
                 log.info("Skipping the handleDeletedRecords() method");
                 return 0;
             }
-            idSet = new HashSet();
+            idSet = new HashSet<String>();
             for (Long num : ids) {
                 idSet.add(num.toString());
             }

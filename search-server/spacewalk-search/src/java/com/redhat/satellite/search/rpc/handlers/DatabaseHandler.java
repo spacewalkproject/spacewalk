@@ -145,7 +145,7 @@ public class DatabaseHandler {
         index = index + delim.length() - 1;  // We want to be pointed to end of location of
                                             // delim
         String[] temps = queryIn.substring(index + delim.length() - 1, indexB).split(",");
-        Map params = new HashMap<String, String>();
+        Map<String, Object> params = new HashMap<String, Object>();
         for (int i = 0; i < temps.length; i++) {
             params.put("param" + new Integer(i).toString(), temps[i].trim());
         }
@@ -164,7 +164,7 @@ public class DatabaseHandler {
         throws SQLException, SqlMapException {
         // Look up Query in DB
         args.put("sessionId", sessionId);
-        Query query = databaseManager.getQuery(queryName);
+        Query<Result> query = databaseManager.getQuery(queryName);
         List<Result> retval;
         try {
             retval = query.loadList(args);

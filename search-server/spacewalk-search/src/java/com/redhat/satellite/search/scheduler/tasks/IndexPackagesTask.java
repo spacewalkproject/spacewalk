@@ -116,7 +116,7 @@ public class IndexPackagesTask implements Job {
         WriteQuery updateQuery = databaseManager.getWriterQuery("updateLastPackage");
         WriteQuery insertQuery = databaseManager.getWriterQuery("createLastPackage");
         try {
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put("id", packageId);
             params.put("last_modified", Calendar.getInstance().getTime());
             if (updateQuery.update(params) == 0) {

@@ -157,7 +157,10 @@
                destdir="${build.dir}"
                deprecation="on"
                excludesfile="buildconf/exclude"
-               debug="on" />
+               debug="on">
+            <compilerarg value="-Xlint:unchecked" />
+            <compilerarg value="-Werror" />
+        </javac>
         <copy todir="${build.dir}/com/redhat/satellite/search/db">
             <fileset dir="${config.src.dir}/com/redhat/satellite/search/db/">
                 <include name="*.xml" />

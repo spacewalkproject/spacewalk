@@ -92,7 +92,7 @@ public class IndexErrataTask implements Job {
         WriteQuery insertQuery = databaseManager.getWriterQuery("createLastErrata");
 
         try {
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put("id", eid);
             params.put("last_modified", Calendar.getInstance().getTime());
             if (updateQuery.update(params) == 0) {

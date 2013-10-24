@@ -53,7 +53,7 @@ public class IndexSystemsTaskTest extends BaseTestCase {
         DatabaseManager databaseManager = (DatabaseManager)
             container.getComponentInstanceOfType(DatabaseManager.class);
         WriteQuery updateQuery = databaseManager.getWriterQuery("updateLastServer");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", 0L);
         params.put("last_modified", new Date(0));
         updateQuery.update(params);
