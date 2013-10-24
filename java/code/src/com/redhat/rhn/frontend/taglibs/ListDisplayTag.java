@@ -579,7 +579,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
     }
 
     private void appendButtons(JspWriter out) throws IOException {
-        out.println("<div class=\"list-navbuttons\">");
+        out.println("<div class=\"spacewalk-list-pagination-btns btn-group\">");
 
         boolean canGoForward = getPageList().getEnd() < getPageList()
                 .getTotalSize();
@@ -602,7 +602,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
             String text, boolean active) {
         HtmlTag ret = new HtmlTag("button");
         ret.setAttribute("name", name);
-        String styleClass = String.format("btn btn-default %s", icon);
+        String styleClass = String.format("btn btn-default btn-xs %s", icon);
 
         if (!active) {
             styleClass += " disabled";
