@@ -47,11 +47,11 @@
 
 	</rl:list>
 	
-	<span class="full-width-note-left">
+	<span class="pull-left text-right">
 		${paginationMessage}
 	</span>
 	
-	<span class="full-width-note-right">
+	<span class="pull-right text-right">
   		<a href="/rhn/systems/OutOfDate.do">
   			<bean:message key="yourrhn.jsp.allcriticalsystems" />
   		</a>
