@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.1.22
+Version:        2.1.23
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Oct 24 2013 Milan Zazrivec <mzazrivec@redhat.com> 2.1.23-1
+- schema upgrade fix: explicit cast for bit-wise operand
+
 * Tue Oct 22 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.22-1
 - Regenerate the metadata for rpm enhances dependency (bnc#846436)
 - add support for enhances rpm weak dependency (schema) (bnc#846436)
