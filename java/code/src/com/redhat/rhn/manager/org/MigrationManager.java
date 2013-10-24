@@ -34,6 +34,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.monitoring.ServerProbeDto;
 import com.redhat.rhn.manager.BaseManager;
+import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
 import com.redhat.rhn.manager.system.ServerGroupManager;
@@ -68,6 +69,7 @@ public class MigrationManager extends BaseManager {
         for (Server server : servers) {
 
             Org fromOrg = server.getOrg();
+            boolean wasBootstrap = server.isBootstrap();
 
             // Update the server to ignore entitlement checking... This is needed to ensure
             // that things such as configuration files are moved with the system, even if
@@ -89,6 +91,9 @@ public class MigrationManager extends BaseManager {
                 server.setCreator(UserFactory.findRandomOrgAdmin(toOrg));
             }
 
+            if (wasBootstrap) {
+                server.setBaseEntitlement(EntitlementManager.BOOTSTRAP);
+            }
 
             // update server history to record the migration.
             ServerHistoryEvent event = new ServerHistoryEvent();

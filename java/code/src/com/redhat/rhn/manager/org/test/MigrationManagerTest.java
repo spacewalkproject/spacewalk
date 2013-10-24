@@ -37,8 +37,10 @@ import com.redhat.rhn.domain.server.ServerHistoryEvent;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
 import com.redhat.rhn.manager.org.MigrationManager;
+import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.testing.ConfigTestUtils;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.ServerTestUtils;
@@ -266,5 +268,44 @@ public class MigrationManagerTest extends RhnBaseTestCase {
         assertNotNull(s2Migrations);
         assertEquals(1, s1Migrations.size());
         assertEquals(1, s2Migrations.size());
+    }
+
+    public void testMigrateBootstrapServer() throws Exception {
+        User origOrgAdmin = origOrgAdmins.iterator().next();
+        Server bootstrapServer = ServerFactoryTest.createUnentitledTestServer(origOrgAdmin,
+            true, ServerFactoryTest.TYPE_SERVER_NORMAL, getNow());
+        SystemManager.entitleServer(bootstrapServer, EntitlementManager.BOOTSTRAP);
+
+        assertEquals(1, bootstrapServer.getEntitlements().size());
+
+        assertEquals(bootstrapServer.getOrg(), origOrg);
+
+        List<Server> servers = new ArrayList<Server>();
+        servers.add(bootstrapServer);
+        MigrationManager.migrateServers(origOrgAdmin, destOrg, servers);
+
+        assertEquals(bootstrapServer.getOrg(), destOrg);
+
+        assertNotNull(bootstrapServer.getHistory());
+        assertTrue(bootstrapServer.getHistory().size() > 0);
+        boolean migrationRecorded = false;
+        for (ServerHistoryEvent event : bootstrapServer.getHistory()) {
+            if (event.getSummary().equals("System migration") &&
+                event.getDetails().contains("From organization: " + origOrg.getName()) &&
+                event.getDetails().contains("To organization: " + destOrg.getName()) &&
+                (event.getCreated() != null)) {
+                migrationRecorded = true;
+            }
+        }
+        assertTrue(migrationRecorded);
+
+        List<SystemMigration> s1Migrations = SystemMigrationFactory
+            .lookupByServer(bootstrapServer);
+        assertNotNull(s1Migrations);
+        assertEquals(1, s1Migrations.size());
+
+        assertEquals(1, bootstrapServer.getEntitlements().size());
+        assertEquals(EntitlementManager.BOOTSTRAP_ENTITLED, bootstrapServer
+            .getEntitlements().iterator().next().getLabel());
     }
 }
