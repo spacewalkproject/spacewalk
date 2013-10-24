@@ -82,12 +82,12 @@ if (-f $schema_banner and -s $schema_banner) {
 if ($options{db_backend} eq 'oracle') {
 	my $default_tablespace = get_default_oracle_tablespace();
 	my $used_space = run_query(<<EOF);
-		select sum(bytes)
+		select sum(bytes / 1048576)
 		from user_segments
 		where tablespace_name = '$default_tablespace';
 EOF
 	my $free_space = run_query(<<EOF);
-		select sum(bytes)
+		select sum(bytes / 1048576)
 		from user_free_space
 		where tablespace_name = '$default_tablespace';
 EOF
@@ -98,8 +98,8 @@ EOF
 		for (1 .. 72) { $usage .= '-'; } $usage .= "\n";
 		$usage .= sprintf("%+15s    %15.2f    %15.2f    %15.2f",
 				$default_tablespace,
-				$used_space/1024/1024,
-				$free_space/1024/1024,
+				$used_space,
+				$free_space,
 				$used_space * 100 / ($used_space + $free_space));
 
 		print <<EOF;
