@@ -8,16 +8,9 @@
 <html:html xhtml="true">
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_header.jspf" %>
-<BR>
 
-
-
-
-<div>
-  <h2><img src="/img/rhn-icon-errata.gif"> <bean:message key="header.jsp.errata"/></h2>
+  <h2><i class="spacewalk-icon-patches"></i> <bean:message key="header.jsp.errata"/></h2>
     <bean:message key="channel.jsp.errata.listtitle"/>
-
-
 
     <rl:listset name="errataSet">
     <rhn:csrf />
@@ -89,10 +82,6 @@
 		        exportColumns="id, advisory, advisoryType, advisorySynopsis, updateDate" />
 
     </rl:listset>
-    	
-    		
-
-</div>
 
 </body>
 </html:html>

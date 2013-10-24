@@ -195,14 +195,14 @@
             <td>
             <c:choose>
               <c:when test="${serverLock != null}">
-              <img style="float: left; margin-right: 10px" src="/img/rhn-icon-security.gif"/>
+              <i class="icon-lock"></i>
               <bean:message key="sdc.details.overview.locked"
                             arg0="${serverLock.locker.login}"
                             arg1="${serverLock.reason}" /><br/>
               <bean:message key="sdc.details.overview.unlock" arg0="/rhn/systems/details/Overview.do?sid=${system.id}&amp;lock=0"/>
               </c:when>
               <c:otherwise>
-                  <img style="float: left; margin-right: 10px" src="/img/rhn-icon-unlocked.gif"/>
+                  <i class="icon-unlock"></i>
                   <bean:message key="sdc.details.overview.unlocked"/><br/>
                   <bean:message key="sdc.details.overview.lock" arg0="/rhn/systems/details/Overview.do?sid=${system.id}&amp;lock=1"/>
               </c:otherwise>

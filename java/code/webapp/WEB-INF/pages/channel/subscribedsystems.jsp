@@ -11,15 +11,11 @@
 </head>
 <body>
 
-
  <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_header.jspf" %>
-<BR>
   <h2>
-      <img src="/img/rhn-icon-system.gif" alt="system" />
-          <bean:message key="channelsystems.jsp.header2"/>
-    </h2>
-
-
+      <i class="icon-desktop"></i>
+      <bean:message key="channelsystems.jsp.header2"/>
+  </h2>
 
 <rl:listset name="systemSet" legend="system-group">
 <rhn:csrf />
