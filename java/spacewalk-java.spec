@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.60
+Version: 2.1.61
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Oct 24 2013 Jan Dobes 2.1.61-1
+- 1015747 - resources
+- 1015747 - page handling
+- 1015747 - new jsp page + nav stuff
+
 * Wed Oct 23 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.60-1
 - added messages for SystemRemoteCommandAction.java
 - reformated xliff file using xmllint
