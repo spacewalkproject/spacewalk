@@ -1,26 +1,38 @@
-			<table class="table">
-				<tr>
-					<th><bean:message key="channelOverview.jsp.name-edit" /></th>
-					<td><html:text property="cofName" maxlength="128" size="18"></html:text></td>
-				</tr>
-				<tr>
-					<th><bean:message key="channelOverview.jsp.label-edit" /></th>
-					<td><html:text property="cofLabel" maxlength="64" size="18"></html:text></td>
-				</tr>
-				<tr>
-					<th><bean:message key="channelOverview.jsp.descr-edit" /></th>
-					<td><html:textarea property="cofDescription" rows="4" cols="40"></html:textarea></td>
-				</tr>
-			</table>
-			<div class="text-right">
-			<hr />
-			<html:submit>
-				<c:choose>
-					<c:when test='${channel != null}'>
-						<bean:message key="channel.edit.jsp.editchannel" />
-					</c:when>
-					<c:otherwise>
-						<bean:message key="channelOverview.jsp.submitCreate" />
-					</c:otherwise>
-				</c:choose>
-			</html:submit></div>
+<div class="form-group">
+    <label class="col-lg-3 control-label">
+        <bean:message key="channelOverview.jsp.name-edit" />
+    </label>
+    <div class="col-lg-6">
+        <html:text property="cofName" maxlength="128" size="18" styleClass="form-control"></html:text>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-lg-3 control-label">
+    <bean:message key="channelOverview.jsp.label-edit" />
+    </label>
+    <div class="col-lg-6">
+        <html:text property="cofLabel" maxlength="64" styleClass="form-control" size="18"></html:text>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-lg-3 control-label">
+    <bean:message key="channelOverview.jsp.descr-edit" />
+    </label>
+    <div class="col-lg-6">
+        <html:textarea property="cofDescription" rows="4" styleClass="form-control" cols="40"></html:textarea>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-lg-offset-3 col-lg-6">
+    <html:submit styleClass="btn btn-success">
+        <c:choose>
+            <c:when test='${channel != null}'>
+                <bean:message key="channel.edit.jsp.editchannel" />
+            </c:when>
+            <c:otherwise>
+                <bean:message key="channelOverview.jsp.submitCreate" />
+            </c:otherwise>
+        </c:choose>
+    </html:submit>
+    </div>
+</div>
