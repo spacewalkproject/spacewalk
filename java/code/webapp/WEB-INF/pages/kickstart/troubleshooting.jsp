@@ -8,7 +8,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
 
 <rhn:dialogmenu mindepth="0" maxdepth="1"
-    definition="/WEB-INF/nav/kickstart_details.xml"
+    definition="/WEB-INF/nav/kickstart_table.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <h2><bean:message key="kickstart.troubleshooting.jsp.header1"/></h2>
@@ -19,7 +19,7 @@
   </p>
     <html:form method="post" action="/kickstart/TroubleshootingEdit.do">
       <rhn:csrf />
-      <table class="details">
+      <table class="table">
 
         <tr>
           <th><bean:message key="kickstart.troubleshooting.jsp.bootloader" /></th>

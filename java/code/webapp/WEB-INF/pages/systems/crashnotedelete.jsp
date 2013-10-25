@@ -12,7 +12,7 @@
     <div class="toolbar-h2">
         <div class="toolbar">
             <span class="toolbar">
-                <a href="/rhn/systems/details/SoftwareCrashDelete.do?crid=${crid}&sid=${sid}">
+                <a href="/rhn/systems/table/SoftwareCrashDelete.do?crid=${crid}&sid=${sid}">
                     <i class="icon-trash"
                        title="<bean:message key="toolbar.delete.crash"/>" ></i>
                     <bean:message key="toolbar.delete.crash"/>
@@ -29,21 +29,21 @@
     <br />
     <%@ include file="/WEB-INF/pages/common/fragments/systems/crash-header.jspf" %>
     <div class="page-summary">
-      <p><bean:message key="details.crashnotes.delete.confirm"/></p>
+      <p><bean:message key="table.crashnotes.delete.confirm"/></p>
     </div>
-    <html:form method="post" action="/systems/details/DeleteCrashNote.do">
+    <html:form method="post" action="/systems/table/DeleteCrashNote.do">
         <rhn:csrf />
         <html:hidden property="submitted" value="true"/>
         <html:hidden property="sid" value="${sid}"/>
         <html:hidden property="crid" value="${crid}"/>
         <html:hidden property="cnid" value="${cnid}"/>
-        <table class="details">
+        <table class="table">
             <tr>
-                <th><bean:message key="sdc.details.notes.subject"/></th>
+                <th><bean:message key="sdc.table.notes.subject"/></th>
                 <td>${subject}</td>
             </tr>
             <tr>
-                <th><bean:message key="sdc.details.notes.details"/></th>
+                <th><bean:message key="sdc.table.notes.details"/></th>
                 <td>${note}</td>
             </tr>
         </table>
@@ -51,7 +51,7 @@
         <hr/>
         <div align="right">
             <html:submit>
-                <bean:message key="sdc.details.notes.delete"/>
+                <bean:message key="sdc.table.notes.delete"/>
             </html:submit>
         </div>
     </html:form>

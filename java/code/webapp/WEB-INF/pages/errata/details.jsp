@@ -15,31 +15,31 @@
 <h2><bean:message key="erratalist.jsp.synopsis"/></h2>
     <div class="page-summary">${errata.synopsis}</div>
     <br/>
-      <table class="details">
+      <table class="table">
         <tr>
-          <th><bean:message key="details.jsp.issued"/></th>
+          <th><bean:message key="table.jsp.issued"/></th>
           <td>${issued}</td>
         </tr>
         <tr>
-          <th><bean:message key="details.jsp.updated"/></th>
+          <th><bean:message key="table.jsp.updated"/></th>
           <td>${updated}</td>
         </tr>
         <tr>
-          <th><bean:message key="details.jsp.from"/></th>
+          <th><bean:message key="table.jsp.from"/></th>
           <td>${errataFrom}</td>
         </tr>
       </table>
 
-<h2><bean:message key="details.jsp.topic"/></h2>
+<h2><bean:message key="table.jsp.topic"/></h2>
     <div class="page-summary">${topic}</div>
 
-<h2><bean:message key="details.jsp.description"/></h2>
+<h2><bean:message key="table.jsp.description"/></h2>
     <div class="page-summary">${description}</div>
 
-<h2><bean:message key="details.jsp.solution"/></h2>
+<h2><bean:message key="table.jsp.solution"/></h2>
     <div class="page-summary">${solution}</div>
 
-<h2><bean:message key="details.jsp.affectedchannels"/></h2>
+<h2><bean:message key="table.jsp.affectedchannels"/></h2>
     <c:forEach items="${channels}" var="current">
         <div class="page-summary">
             <a href="/rhn/channels/ChannelPackages.do?cid=${current.id}">
@@ -48,11 +48,11 @@
     </c:forEach>
     <c:if test="${empty channels}">
         <div class="page-summary">
-            <bean:message key="details.jsp.none"/>
+            <bean:message key="table.jsp.none"/>
         </div>
     </c:if>
 
-<h2><bean:message key="details.jsp.fixes"/></h2>
+<h2><bean:message key="table.jsp.fixes"/></h2>
     <c:forEach items="${fixed}" var="current">
         <div class="page-summary">
             <c:choose>
@@ -61,7 +61,7 @@
                 <c:out value="${current.summary}"/></a>
               </c:when>
               <c:when test="${current.href == null && errata.org != null}">
-                <bean:message key="details.jsp.bugnumber" arg0="${current.bugId}"/> <c:out value="${current.summary}"/>
+                <bean:message key="table.jsp.bugnumber" arg0="${current.bugId}"/> <c:out value="${current.summary}"/>
               </c:when>
               <c:otherwise>
                 <a href="${current.href}">
@@ -72,19 +72,19 @@
     </c:forEach>
     <c:if test="${empty fixed}">
         <div class="page-summary">
-            <bean:message key="details.jsp.none"/>
+            <bean:message key="table.jsp.none"/>
         </div>
     </c:if>
 
-<h2><bean:message key="details.jsp.keywords"/></h2>
+<h2><bean:message key="table.jsp.keywords"/></h2>
     <div class="page-summary">
         ${keywords}
         <c:if test="${empty keywords}">
-            <bean:message key="details.jsp.none"/>
+            <bean:message key="table.jsp.none"/>
         </c:if>
     </div>
 
-<h2><bean:message key="details.jsp.cves"/></h2>
+<h2><bean:message key="table.jsp.cves"/></h2>
     <c:forEach items="${cve}" var="current">
         <div class="page-summary">
             <a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=${current.name}">
@@ -93,7 +93,7 @@
     </c:forEach>
     <c:if test="${empty cve}">
         <div class="page-summary">
-            <bean:message key="details.jsp.none"/>
+            <bean:message key="table.jsp.none"/>
         </div>
     </c:if>
 
@@ -105,24 +105,24 @@
     </c:if>
     <c:if test="${ovalFile == null}">
         <div class="page-summary">
-            <bean:message key="details.jsp.none"/>
+            <bean:message key="table.jsp.none"/>
         </div>
     </c:if>
 
 
-<h2><bean:message key="details.jsp.references"/></h2>
+<h2><bean:message key="table.jsp.references"/></h2>
     <div class="page-summary">
         ${references}
         <c:if test="${empty references}">
-            <bean:message key="details.jsp.none"/>
+            <bean:message key="table.jsp.none"/>
         </c:if>
     </div>
 
-<h2><bean:message key="actiondetails.jsp.notes"/></h2>
+<h2><bean:message key="actiontable.jsp.notes"/></h2>
     <div class="page-summary">
         ${notes}
         <c:if test="${empty notes}">
-            <bean:message key="details.jsp.none"/>
+            <bean:message key="table.jsp.none"/>
         </c:if>
     </div>
 

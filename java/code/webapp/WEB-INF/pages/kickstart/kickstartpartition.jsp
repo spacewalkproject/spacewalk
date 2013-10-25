@@ -7,7 +7,7 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
 <rhn:dialogmenu mindepth="0" maxdepth="1"
-    definition="/WEB-INF/nav/kickstart_details.xml"
+    definition="/WEB-INF/nav/kickstart_table.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <h2><bean:message key="kickstart.partition.jsp.header"/></h2>
@@ -21,10 +21,10 @@
   </p>
     <html:form method="post" action="/kickstart/KickstartPartitionEdit.do">
       <rhn:csrf />
-      <table class="details">
+      <table class="table">
           <tr>
               <th>
-                  <rhn:required-field key="kickstart.partition.jsp.partitiondetails"/>:
+                  <rhn:required-field key="kickstart.partition.jsp.partitiontable"/>:
               </th>
               <td>
                   <html:textarea rows="6" cols="80" property="partitions"/>

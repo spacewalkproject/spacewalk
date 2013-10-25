@@ -48,7 +48,7 @@ function setStep(stepName) {
     </rl:list>
 	
 	<h2><bean:message key="virtualization.provision.first.jsp.header2" /></h2>
-    <table class="details">
+    <table class="table">
       <tr>
         <th><rhn:required-field key="virtualization.provision.first.jsp.guest_name.header"/></th>
         <td>

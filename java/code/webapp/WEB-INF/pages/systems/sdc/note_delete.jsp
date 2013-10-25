@@ -7,18 +7,18 @@
   <body>
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
     <h2>
-      <img src="/img/rhn-icon-note.gif" alt="" /><bean:message key="sdc.details.notes.delete.header"/>
+      <img src="/img/rhn-icon-note.gif" alt="" /><bean:message key="sdc.table.notes.delete.header"/>
    </h2>
     <div class="page-summary">
-      <p><bean:message key="sdc.details.notes.delete.confirm"/></p>
+      <p><bean:message key="sdc.table.notes.delete.confirm"/></p>
     </div>
-    <html:form method="post" action="/systems/details/DeleteNote.do?sid=${system.id}&nid=${n.id}">
+    <html:form method="post" action="/systems/table/DeleteNote.do?sid=${system.id}&nid=${n.id}">
       <rhn:csrf />
       <html:hidden property="submitted" value="true"/>
-    <table class="details">
+    <table class="table">
       <tr>
         <th>
-          <bean:message key="sdc.details.notes.subject"/>
+          <bean:message key="sdc.table.notes.subject"/>
         </th>
         <td>
           ${subject}
@@ -26,7 +26,7 @@
       </tr>
       <tr>
         <th>
-          <bean:message key="sdc.details.notes.details"/>
+          <bean:message key="sdc.table.notes.details"/>
         </th>
         <td>
           ${note}
@@ -35,7 +35,7 @@
       <hr/>
         <div align="right">
           <html:submit>
-            <bean:message key="sdc.details.notes.delete"/>
+            <bean:message key="sdc.table.notes.delete"/>
           </html:submit>
         </div>
     </html:form>

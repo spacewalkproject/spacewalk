@@ -19,7 +19,7 @@
 <hr />
 
 <h2><bean:message key="credentials.jsp.susestudio" /></h2>
-<table class="details">
+<table class="table">
 <tr>
   <th><bean:message key="credentials.jsp.username" /></th>
   <td><c:out value="${creds.username}" /></td>

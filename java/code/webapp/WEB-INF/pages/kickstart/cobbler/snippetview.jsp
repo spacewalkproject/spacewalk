@@ -13,10 +13,10 @@
   ${requestScope.snippet.displayName}
 </rhn:toolbar>
 
-<h2><bean:message key="snippetdetails.jsp.header2"/></h2>
+<h2><bean:message key="snippettable.jsp.header2"/></h2>
 
 <div>
-    <table class="details">
+    <table class="table">
     <tr>
         <th>
             <bean:message key="cobbler.snippet.path"/>:
@@ -48,7 +48,7 @@
      </table>
     <h2><bean:message key="snippetcreate.jsp.contents.header"/></h2>
 
-    <table  class="details">
+    <table  class="table">
     <tr>
         <th>
             <bean:message key="snippetcreate.jsp.contents"/>

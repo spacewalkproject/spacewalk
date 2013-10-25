@@ -2,19 +2,19 @@
 
 <bean:message key="deploylocal.jspf.local" arg0="${revision.revision}"
 	arg1="/rhn/configuration/file/FileDetails.do?cfid=${file.id}&crid=${revision.id}"
-	arg2="${system}" arg3="/rhn/systems/details/configuration/Overview.do?system_detail_navi_node=selected_configfiles&sid=${sid}" />
-<h2><bean:message key="deploy.jsp.filedetails" /></h2>
+	arg2="${system}" arg3="/rhn/systems/table/configuration/Overview.do?system_detail_navi_node=selected_configfiles&sid=${sid}" />
+<h2><bean:message key="deploy.jsp.filetable" /></h2>
   <html:form
 	action="/configuration/file/RevisionDeploy.do?cfid=${cfid}&crid=${crid}">
     <rhn:csrf />
 	<html:hidden property="submitted" value="true"/>
-	<table class="details">
+	<table class="table">
 		<tr>
 			<th><bean:message key="deploy.jsp.deploy-name" /></th>
 			<td><bean:message key="deploy.jsp.deploy" arg0="${revision.revision}"
 				arg1="/rhn/configuration/file/FileDetails.do?cfid=${file.id}&crid=${revision.id}"
 				arg2="${system}"	
-				arg3="/rhn/systems/details/configuration/Overview.do?system_detail_navi_node=selected_configfiles&sid=${sid}" /></td>
+				arg3="/rhn/systems/table/configuration/Overview.do?system_detail_navi_node=selected_configfiles&sid=${sid}" /></td>
 		</tr>
 		<tr>
 			<th><bean:message key="deploy.jsp.latest-name" /></th>

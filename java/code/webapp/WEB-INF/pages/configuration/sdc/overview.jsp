@@ -16,7 +16,7 @@
 	<td>
 		<h2><bean:message key="sdc.config.header.overview"/></h2>
 
-		<table class="details">
+		<table class="table">
 		  <tr>
 		    <th><bean:message key="sdc.config.centrally-managed"/>:</th>
 		    <td>
@@ -44,13 +44,13 @@
 		  </tr>
 		  <tr>
 		    <th><bean:message key="sdc.config.central-channel.subscriptions"/>:</th>
-		    <td>${requestScope.globalConfigChannels}.&nbsp;[<a href="/rhn/systems/details/configuration/SubscriptionsSetup.do?sid=${param.sid}"><bean:message key="sdc.config.subscribe_to_channels"/></a>]</td>
+		    <td>${requestScope.globalConfigChannels}.&nbsp;[<a href="/rhn/systems/table/configuration/SubscriptionsSetup.do?sid=${param.sid}"><bean:message key="sdc.config.subscribe_to_channels"/></a>]</td>
 		  </tr>
 		</table>
 		<!-- Adding recent events -->
 		<h2><bean:message key="sdc.config.header.recent-events"/></h2>
 		
-		<table class="details">
+		<table class="table">
 		  <tr>
 		    <th><bean:message key="sdc.config.last-config.deployment"/>:</th>
 		
@@ -92,14 +92,14 @@
 
 			    <tr class="list-row-odd">
 			      <td><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.deploy.managed-files"
-                           arg0 ="/rhn/systems/details/configuration/DeployFileConfirm.do?selectall=true&sid=${param.sid}" />
+                           arg0 ="/rhn/systems/table/configuration/DeployFileConfirm.do?selectall=true&sid=${param.sid}" />
                   </td>
 
 				  <td></td>
 			    </tr>
 			    <tr class="list-row-odd">
 			      <td><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.deploy.selected-files"
-							       arg0="/rhn/systems/details/configuration/DeployFile.do?sid=${param.sid}"/></td>
+							       arg0="/rhn/systems/table/configuration/DeployFile.do?sid=${param.sid}"/></td>
 				  <td></td>
 			    </tr>
 			</table>
@@ -115,12 +115,12 @@
 			    </thead>
 			    <tr class="list-row-odd">
 			      <td><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.compare.managed-files"
-			      		arg0="/rhn/systems/details/configuration/DiffFileConfirm.do?selectall=true&sid=${param.sid}"/></td>
+			      		arg0="/rhn/systems/table/configuration/DiffFileConfirm.do?selectall=true&sid=${param.sid}"/></td>
 				  <td></td>
 			    </tr>
 			    <tr class="list-row-odd">
 			      <td><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.compare.selected-files"
-			      			 arg0="/rhn/systems/details/configuration/DiffFile.do?sid=${param.sid}"/></td>
+			      			 arg0="/rhn/systems/table/configuration/DiffFile.do?sid=${param.sid}"/></td>
 				  <td></td>
 			    </tr>
 			</table>
@@ -134,25 +134,25 @@
 			    </thead>
 			    <tr class="list-row-odd">
 			      <td><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.add-create.new-files"
-					      arg0 = "/rhn/systems/details/configuration/addfiles/CreateFile.do?sid=${param.sid}"/></td>
+					      arg0 = "/rhn/systems/table/configuration/addfiles/CreateFile.do?sid=${param.sid}"/></td>
 				  <td></td>
 			    </tr>
 			    <tr class="list-row-odd">
 			      <td><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.add-create.upload-files"
-      					arg0 = "/rhn/systems/details/configuration//addfiles/UploadFile.do?sid=${param.sid}"/></td>
+      					arg0 = "/rhn/systems/table/configuration//addfiles/UploadFile.do?sid=${param.sid}"/></td>
 			      <td></td>
 			    </tr>
 				<rhn:require mixins="com.redhat.rhn.common.security.acl.SystemAclHandler"
 													 acl="client_capable(configfiles.upload)">
 			    <tr class="list-row-odd">
 			      <td><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.add-create.import-all-files"
-					      arg0 = "/rhn/systems/details/configuration/addfiles/ImportFileConfirm.do?selectall=true&sid=${param.sid}"/></td>
+					      arg0 = "/rhn/systems/table/configuration/addfiles/ImportFileConfirm.do?selectall=true&sid=${param.sid}"/></td>
 			      <td></td>
 			    </tr>
 
 			    <tr class="list-row-odd">
 			      <td><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.add-create.import-selected-files"
-			 	      	arg0="/rhn/systems/details/configuration/addfiles/ImportFile.do?sid=${param.sid}"/></td>
+			 	      	arg0="/rhn/systems/table/configuration/addfiles/ImportFile.do?sid=${param.sid}"/></td>
 				  <td></td>
 			    </tr>
 			    </rhn:require>

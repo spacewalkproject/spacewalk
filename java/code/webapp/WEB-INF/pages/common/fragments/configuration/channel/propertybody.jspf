@@ -1,4 +1,4 @@
-			<table class="details">
+			<table class="table">
 				<tr>
 					<th><bean:message key="channelOverview.jsp.name-edit" /></th>
 					<td><html:text property="cofName" maxlength="128" size="18"></html:text></td>

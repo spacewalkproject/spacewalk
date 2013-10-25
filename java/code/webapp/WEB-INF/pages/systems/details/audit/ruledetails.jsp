@@ -12,38 +12,38 @@
 
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-<h2><bean:message key="system.audit.ruledetails.jsp.heading"/></h2>
+<h2><bean:message key="system.audit.ruletable.jsp.heading"/></h2>
 <rhn:csrf/>
 
-<table class="details">
+<table class="table">
   <tr>
-    <th><bean:message key="system.audit.ruledetails.jsp.idref"/>:</th>
+    <th><bean:message key="system.audit.ruletable.jsp.idref"/>:</th>
     <td><c:out value="${ruleResult.documentIdref}"/></td>
   </tr>
   <tr>
-    <th><bean:message key="system.audit.ruledetails.jsp.result"/>:</th>
+    <th><bean:message key="system.audit.ruletable.jsp.result"/>:</th>
     <td><c:out value="${ruleResult.label}"/></td>
   </tr>
   <tr>
-    <th><bean:message key="system.audit.ruledetails.jsp.parent"/>:</th>
+    <th><bean:message key="system.audit.ruletable.jsp.parent"/>:</th>
     <td>
-      <a href="/rhn/systems/details/audit/XccdfDetails.do?sid=${param.sid}&xid=${ruleResult.testResult.id}">
+      <a href="/rhn/systems/table/audit/XccdfDetails.do?sid=${param.sid}&xid=${ruleResult.testResult.id}">
         <c:out value="${ruleResult.testResult.identifier}"/>
       </a>
     </td>
   </tr>
 </table>
 
-<h2><bean:message key="system.audit.ruledetails.jsp.assignedidents"/></h2>
+<h2><bean:message key="system.audit.ruletable.jsp.assignedidents"/></h2>
 
 <rl:listset name="groupSet">
   <rhn:csrf/>
-  <rl:list emptykey="system.audit.ruledetails.jsp.noidents">
+  <rl:list emptykey="system.audit.ruletable.jsp.noidents">
 
-    <rl:column headerkey="system.audit.ruledetails.jsp.system" sortattr="system" sortable="true">
+    <rl:column headerkey="system.audit.ruletable.jsp.system" sortattr="system" sortable="true">
       <c:out value="${current.system}"/>
     </rl:column>
-    <rl:column headerkey="system.audit.ruledetails.jsp.ident" sortattr="identifier" sortable="true">
+    <rl:column headerkey="system.audit.ruletable.jsp.ident" sortattr="identifier" sortable="true">
       <c:out value="${current.identifier}"/>
     </rl:column>
   </rl:list>

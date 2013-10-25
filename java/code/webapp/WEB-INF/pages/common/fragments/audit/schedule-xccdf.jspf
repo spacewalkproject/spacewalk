@@ -4,7 +4,7 @@
 </c:if>
 
 <rhn:csrf/>
-<table class="details">
+<table class="table">
 <tr>
 	<th><bean:message key="system.audit.schedulexccdf.jsp.command"/>:</th>
 	<td>/usr/bin/oscap xccdf eval</td>

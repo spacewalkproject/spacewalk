@@ -9,7 +9,7 @@
 <head>
     <meta name="name" value="System Details" />
     <style type="text/css">
-	    .details td, .details th { white-space: nowrap; }
+	    .table td, .table th { white-space: nowrap; }
     </style>
     <c:if test="${not failed and not complete}">
 	<script type="text/javascript" src="/javascript/rememberScroll.js"> </script>
@@ -19,11 +19,11 @@
 
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 <div class="page-summary">
-<h2><bean:message key="kickstartdetails.jsp.header2"/></h2>
+<h2><bean:message key="kickstarttable.jsp.header2"/></h2>
 
-<table class="details">
+<table class="table">
   <tr>
-    <th><bean:message key="kickstartdetails.jsp.label" /></th>
+    <th><bean:message key="kickstarttable.jsp.label" /></th>
     <td><a href="/rhn/kickstart/KickstartDetailsEdit.do?ksid=${ksdata.id}">${ksdata.label}</td>
   </tr>
   <tr>
@@ -49,7 +49,7 @@
   <tr>
     <td>
 
-<table class="details">
+<table class="table">
   <tr>
     <th><bean:message key="kickstart.session_status.jsp.next_action" /></th>
     <td>
@@ -94,7 +94,7 @@
   <tr>
     <th><bean:message key="kickstart.session_status.jsp.cancel_cancel" /></th>
     <td>
-      <a href="/rhn/systems/details/kickstart/SessionCancel.do?sid=${system.id}"><bean:message key="kickstart.session_cancel.jsp.cancel"/></a>
+      <a href="/rhn/systems/table/kickstart/SessionCancel.do?sid=${system.id}"><bean:message key="kickstart.session_cancel.jsp.cancel"/></a>
     </td>
   </tr>
   </c:if>
@@ -201,7 +201,7 @@
   </tr>
 </table>
 </div>
-<form id="saveScrollPosition" method="POST" action="/rhn/systems/details/kickstart/SessionStatus.do?sid=${requestScope.sid}">
+<form id="saveScrollPosition" method="POST" action="/rhn/systems/table/kickstart/SessionStatus.do?sid=${requestScope.sid}">
     <rhn:csrf />
     <rhn:submitted />
 	<input id="scrollPosX" type="hidden" name="xPosition" value="${requestScope.scrollX}" />

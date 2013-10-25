@@ -48,7 +48,7 @@ function showDestination() {
 //-->
 </script>
 
-    <table class="details">
+    <table class="table">
     <tr>
         <th>
             <label for="description"><rhn:required-field key="filter-form.jspf.description"/></label>

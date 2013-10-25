@@ -22,7 +22,7 @@
 
 			<div class="left-column">
 						<h2>Errata Summary:</h2>
-						<table class="details">
+						<table class="table">
 							<tr>
 									<th><img src="/img/wrh-bug.gif"    alt="<bean:message key="erratalist.jsp.bugadvisory"/>" />
 										Bug Fix Advisory:
@@ -55,7 +55,7 @@
 			</div>
 			<div class="right-column">
 						<h2>Package Summary:</h2>
-						<table class="details">
+						<table class="table">
 
 									<c:forEach var="option" items="${arch_count}">
 										<tr>

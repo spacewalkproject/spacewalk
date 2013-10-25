@@ -15,7 +15,7 @@
       <img src="/img/rhn-icon-errata.gif" alt="erratum" /> <bean:message key="header.jsp.errata.add"/>
     </h2>
 
- <table class="details">
+ <table class="table">
 
 
  	<tr>

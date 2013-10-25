@@ -1,4 +1,4 @@
-    <table class="details">
+    <table class="table">
     <tr>
         <th>
             <rhn:required-field key="probesuiteedit.jsp.suitename"/>

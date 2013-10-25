@@ -25,7 +25,7 @@
   <html:form method="post" action="/systems/ssm/MigrateSystems.do">
     <rhn:csrf />
     <rhn:submitted />
-    <table class="details">
+    <table class="table">
       <tr>
         <th>
           <bean:message key="ssm.migrate.systems.org"/>

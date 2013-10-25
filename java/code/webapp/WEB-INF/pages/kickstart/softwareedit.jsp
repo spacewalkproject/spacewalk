@@ -45,7 +45,7 @@ function clickNewestTree() {
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
 
 <rhn:dialogmenu mindepth="0" maxdepth="1"
-    definition="/WEB-INF/nav/kickstart_details.xml"
+    definition="/WEB-INF/nav/kickstart_table.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <h2><bean:message key="softwareedit.jsp.header2"/></h2>
@@ -57,7 +57,7 @@ function clickNewestTree() {
 
     <html:form method="post" action="/kickstart/KickstartSoftwareEdit.do">
       <rhn:csrf />
-      <table class="details">
+      <table class="table">
           <tr>
             <th><rhn:required-field key="softwareedit.jsp.basechannel"/>:</th>
             <td>
@@ -158,7 +158,7 @@ function clickNewestTree() {
           </tr>
          </c:if>
           <tr>
-            <td align="right" colspan="2"><html:submit><bean:message key="kickstartdetails.jsp.updatekickstart"/></html:submit></td>
+            <td align="right" colspan="2"><html:submit><bean:message key="kickstarttable.jsp.updatekickstart"/></html:submit></td>
           </tr>
       </table>
       <html:hidden property="url" value="${kickstartSoftwareForm.map.url}"/>

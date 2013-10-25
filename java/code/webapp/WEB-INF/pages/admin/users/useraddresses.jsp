@@ -13,7 +13,7 @@
     <bean:message key="address.jsp.associated" />
     </p>
     </div>
-  <table class="details">
+  <table class="table">
     <rhn:address type="M" action="user" user="${requestScope.targetuser}" address="${requestScope.addressMarketing}"/>
   </table>
 </body>

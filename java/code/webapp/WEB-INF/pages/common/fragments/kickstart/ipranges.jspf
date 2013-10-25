@@ -33,7 +33,7 @@
     <bean:message key="kickstartips.jsp.ranges_summary"/>
   </p>
 
-        <table class="details">
+        <table class="table">
           <c:forEach items="${ranges}" var="ip_range">
             <tr>
               <th><bean:message key="kickstartips.jsp.label" />:</th>
@@ -45,7 +45,7 @@
 
       <html:form method="post" action="${param.range_edit_url}">
         <rhn:csrf />
-        <table class="details">
+        <table class="table">
           <tr>
             <th><bean:message key="kickstartips.jsp.label" />:</th>
             <td><html:text property="octet1a" maxlength="3" size="3" />.

@@ -1,4 +1,4 @@
-  <table class="details">
+  <table class="table">
     <tr>
       <th>
         <bean:message key="crashes.jsp.component"/>:

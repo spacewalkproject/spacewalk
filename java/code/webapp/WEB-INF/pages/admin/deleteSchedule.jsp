@@ -19,7 +19,7 @@
             <p><bean:message key="schedule.delete.jsp.introparagraph"/></p>
         </div>
 
-        <table class="details">
+        <table class="table">
             <!-- Channel Name -->
             <tr>
                 <th nowrap="nowrap">

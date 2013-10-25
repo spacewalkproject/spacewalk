@@ -23,7 +23,7 @@
         <p><bean:message key="ssm.misc.lockunlock.summary" /></p>
 
         <rl:listset name="systemsListSet" legend="system">
-            <table class="details">
+            <table class="table">
                 <tbody>
                     <tr>
                         <th><label for="lock-reason">Lock reason:</label></th>
@@ -50,7 +50,7 @@
                     <c:choose>
                         <c:when test="${current.locked > 0}">
                             <img src="/img/icon_locked.gif"/>
-                            <a href="/rhn/systems/details/Overview.do?sid=${current.id}">${current.name}</a>
+                            <a href="/rhn/systems/table/Overview.do?sid=${current.id}">${current.name}</a>
                         </c:when>
                         <c:otherwise>
                             <%@ include file="/WEB-INF/pages/common/fragments/systems/system_list_fragment.jspf" %>

@@ -6,7 +6,7 @@
     <h2><bean:message key="virtualization.provision.first.jsp.header3" /></h2>
     	<bean:message key="virtualization.provision.override.jsp.message" />
     	<br/><br/>
-    <table class="details">
+    <table class="table">
       <tr>
         <th><bean:message key="virtualization.provision.first.jsp.memory_allocation.header"/></th>
         <td>
@@ -33,7 +33,7 @@
         </td>
       </tr>
       <tr>
-        <th><bean:message key="kickstartdetails.jsp.virt_bridge"/>:</th>
+        <th><bean:message key="kickstarttable.jsp.virt_bridge"/>:</th>
         <td>
             <html:text  property="virtBridge" maxlength="20" size="6" styleId="virtBridgeId"/>
             <bean:message key="virtualization.provision.first.jsp.virt_bridge.example"/>
@@ -41,20 +41,20 @@
         </td>
       </tr>
       <tr>
-        <th><bean:message key="kickstartdetails.jsp.virt_disk_path"/>:</th>
+        <th><bean:message key="kickstarttable.jsp.virt_disk_path"/>:</th>
         <td>
             <html:text  property="diskPath" maxlength="64" size="20" styleId="diskPathId"/>
             <br/>
-            <bean:message key="kickstartdetails.jsp.virt_disk_path.tip"/>
+            <bean:message key="kickstarttable.jsp.virt_disk_path.tip"/>
             <br/><br/>
         </td>
       </tr>
       <tr>
-        <th><bean:message key="kickstartdetails.jsp.mac_address"/>:</th>
+        <th><bean:message key="kickstarttable.jsp.mac_address"/>:</th>
         <td>
             <html:text  property="macAddress" maxlength="17" size="17" styleId="macAddressId"/>
             <br/>
-            <bean:message key="kickstartdetails.jsp.mac_address.tip"/>
+            <bean:message key="kickstarttable.jsp.mac_address.tip"/>
             <br/><br/>
         </td>
       </tr>

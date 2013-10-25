@@ -18,20 +18,20 @@
 <div class="page-summary">
 	<h2><bean:message key="kickstartdelete.jsp.header2"/></h2>
     <p><bean:message key="kickstartdelete.jsp.summary1"/></p>
-      <table class="details">
+      <table class="table">
 
           <tr>
-            <th><bean:message key="kickstartdetails.jsp.label" />:</th>
+            <th><bean:message key="kickstarttable.jsp.label" />:</th>
             <td><strong>${ksdata.label}</strong></td>
           </tr>
           <c:if test="${not param.raw_mode}">
           <tr>
-            <th><bean:message key="kickstartdetails.jsp.install_type" /></th>
+            <th><bean:message key="kickstarttable.jsp.install_type" /></th>
             <td><strong><c:out value="${ksdata.kickstartDefaults.kstree.channel.name}"/></strong></td>
           </tr>
           </c:if>
           <tr>
-            <th><bean:message key="kickstartdetails.jsp.active"/></th>
+            <th><bean:message key="kickstarttable.jsp.active"/></th>
             <td><strong>
                 <c:if test="${ksdata.active}">
                 <bean:message key="kickstart.jsp.active"/>
@@ -43,7 +43,7 @@
           </tr>
           <c:if test="${empty param.noComments}">
           <tr>
-            <th><bean:message key="kickstartdetails.jsp.comments"/></th>
+            <th><bean:message key="kickstarttable.jsp.comments"/></th>
             <td><html:textarea disabled="true" property="comments" cols="80" rows="6"
                 value="${ksdata.comments}" />
             </td>

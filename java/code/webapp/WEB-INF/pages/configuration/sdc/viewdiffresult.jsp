@@ -48,7 +48,7 @@
 		/></strong></c:set>
 
 
-<table class="details">
+<table class="table">
 	<tr>
 		<th><bean:message key="sdc.config.diff_result.original_file"/>:</th>
 			<td><bean:message key="sdc.config.diff_result.original_file_value"

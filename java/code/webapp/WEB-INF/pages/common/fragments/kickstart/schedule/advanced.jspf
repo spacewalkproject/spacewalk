@@ -65,7 +65,7 @@ function enableBondStaticIpAddress() {
     <html:hidden property="sid" />
     <html:hidden property="guestName" />
     <html:hidden property="proxyHost" />
-    <table class="details">
+    <table class="table">
         <%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/network-options.jspf" %>
         <c:if test="${!empty regularKS}">
             <%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/post-network-options.jspf" %>

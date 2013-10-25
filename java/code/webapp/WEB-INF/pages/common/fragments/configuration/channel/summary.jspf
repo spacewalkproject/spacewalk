@@ -1,6 +1,6 @@
 <!--  Summary info for a specific channel  -->
 <h2><bean:message key="channelOverview.jsp.information" /></h2>
-<table class="details">
+<table class="table">
 	<tr>
 		<th><bean:message key="channelOverview.jsp.numfiles-header" /></th>
 		<c:choose>
@@ -46,7 +46,7 @@
 				<c:when test="${summary.numSystems > 0}">
 					<td>
 					  <img alt='<bean:message key="system.common.systemAlt" />' src="/img/rhn-listicon-system.gif" />
-					  <a href="/rhn/systems/details/configuration/Overview.do?&amp;sid=${summary.mostRecentSystem.id}">
+					  <a href="/rhn/systems/table/configuration/Overview.do?&amp;sid=${summary.mostRecentSystem.id}">
 					    <c:out value="${summary.mostRecentSystem.name}" />
 					  </a><br />
 					  ${summary.systemDate}
@@ -96,7 +96,7 @@
 					arg1="${summary.recentFileDate}"/>
 				</c:if>
 				<c:if test="${summary.mostRecentMod.configFile.latestConfigRevision.changedBy == null}">
-				  <bean:message key="filedetails.details.jspf.modifiedBy-unknown"
+				  <bean:message key="filetable.details.jspf.modifiedBy-unknown"
 					arg0="${summary.recentFileDate}"/>
 				</c:if>
 			  </c:when>
