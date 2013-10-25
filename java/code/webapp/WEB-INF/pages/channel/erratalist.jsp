@@ -47,8 +47,8 @@
                 </rl:column>
 
                  <rl:column sortable="true"
-                                   bound="false"
-                                   sortattr="advisory"
+                            bound="false"
+                            sortattr="advisory"
                            headerkey="erratalist.jsp.advisory"
                           >
                         <a href="/rhn/errata/details/Details.do?eid=${current.id}">
@@ -58,7 +58,7 @@
 
 
                  <rl:column sortable="false"
-                                   bound="false"
+                            bound="false"
                            headerkey="erratalist.jsp.synopsis"
                           >
                           <c:out value="${current.advisorySynopsis}" />
@@ -66,11 +66,11 @@
 
 
                  <rl:column sortable="true"
-                                   bound="false"
-                           headerkey="erratalist.jsp.updated"
-                           sortattr="updateDateObj"
-                           defaultsort="desc"
-                          >
+                            bound="false"
+                            headerkey="erratalist.jsp.updated"
+                            sortattr="updateDateObj"
+                            defaultsort="desc"
+                            >
                         ${current.updateDate}
                 </rl:column>
 
