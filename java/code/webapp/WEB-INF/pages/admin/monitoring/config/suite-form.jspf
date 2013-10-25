@@ -1,17 +1,16 @@
-    <table class="table">
-    <tr>
-        <th>
-            <rhn:required-field key="probesuiteedit.jsp.suitename"/>
-        </th>
-        <td>
-            <html:text property="suite_name" maxlength="40" size="20" />
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <bean:message key="probesuiteedit.jsp.description"/>
-        </th>
-        <td>
-            <html:text property="description" maxlength="255" size="50" />
-        </td>
-    </tr>
+<div class="form-group">
+    <label class="col-lg-3 control-label">
+        <rhn:required-field key="probesuiteedit.jsp.suitename"/>
+    </label>
+    <div class="col-lg-6">
+        <html:text property="suite_name" maxlength="40" size="20" styleClass="form-control"/>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-lg-3 control-label">
+        <bean:message key="probesuiteedit.jsp.description"/>
+    </label>
+    <div class="col-lg-6">
+        <html:text property="description" maxlength="255" size="50" styleClass="form-control"/>
+    </div>
+</div>
