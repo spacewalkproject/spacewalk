@@ -134,7 +134,7 @@
         <p/>
 
         <html:form method="post" action="/channel/ssm/BaseChannelSubscribe.do">
-            <div align="right">
+            <div class="text-right">
                 <rhn:csrf />
                 <html:hidden property="submitted" value="true"/>
 

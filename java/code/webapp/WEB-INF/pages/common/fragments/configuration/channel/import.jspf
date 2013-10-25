@@ -30,7 +30,7 @@
 	</rhn:listdisplay>
 </rhn:list>
 <hr />
-  <div align="right">
+  <div class="text-right">
 	  <html:submit  property="dispatch">
 	  	<bean:message key="addfiles.jsp.import.jspf.submit" />
 	  </html:submit>

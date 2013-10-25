@@ -43,7 +43,7 @@
 	</rl:list>
 	<c:if test = "${not empty requestScope.pageList}">
 		<hr />
-		<div align="right">
+		<div class="text-right">
 			<input type="submit"
 					name="dispatch"
 					value="${rhn:localize('copy2channels.jsp.doCopy')}"

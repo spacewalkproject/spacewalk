@@ -12,7 +12,7 @@
 					<td><html:textarea property="cofDescription" rows="4" cols="40"></html:textarea></td>
 				</tr>
 			</table>
-			<div align="right">
+			<div class="text-right">
 			<hr />
 			<html:submit>
 				<c:choose>

@@ -65,7 +65,7 @@
 	<rl:csv dataset="pageList"
 		        name="packageList"
 		        exportColumns="id, nvrea, summary, provider" />
-	<div align="right">
+	<div class="text-right">
 	  <hr />
 		<input type="submit" name="confirm" value="<bean:message key="channel.jsp.package.addbutton"/>" />
 	</div>

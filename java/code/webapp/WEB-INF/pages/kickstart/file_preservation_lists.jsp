@@ -38,7 +38,7 @@
 <hr />
 <input type="hidden" name="ksid" value="<c:out value="${param.ksid}"/>" />
 <input type="hidden" name="returnvisit" value="<c:out value="${param.returnvisit}"/>"/>
-<div align="right">
+<div class="text-right">
   <html:submit property="dispatch">
     <bean:message key="kickstart.filelists.jsp.submit"/>
   </html:submit>

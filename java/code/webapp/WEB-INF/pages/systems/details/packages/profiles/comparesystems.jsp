@@ -56,7 +56,7 @@
         <c:if test="${not empty requestScope.pageList}">
             <rhn:require acl="system_feature(ftr_delta_action)"
                 mixins="com.redhat.rhn.common.security.acl.SystemAclHandler">
-                <div align="right">
+                <div class="text-right">
                     <rhn:submitted/>
                     <hr />
                     <html:submit property="dispatch">

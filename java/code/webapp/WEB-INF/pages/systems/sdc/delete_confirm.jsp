@@ -15,7 +15,7 @@
     <html:form method="post" action="/systems/details/DeleteConfirm.do?sid=${sid}">
       <rhn:csrf />
       <html:hidden property="submitted" value="true"/>
-      <div align="right">
+      <div class="text-right">
         <html:submit property="button">
           <bean:message key="delete_confirm.jsp.button"/>
         </html:submit>

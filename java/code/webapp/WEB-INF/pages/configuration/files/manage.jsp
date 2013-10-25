@@ -64,7 +64,7 @@
     </tr>
   </table>
 
-  <div align="right">
+  <div class="text-right">
     <hr />
     <html:submit property="dispatch">
         <bean:message key="manage.jsp.uploadbutton"/>

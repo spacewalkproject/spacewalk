@@ -21,7 +21,7 @@
     <rhn:csrf />
     <rhn:submitted />
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system_listdisplay.jspf" %>
-	<div align="right">
+	<div class="text-right">
       <hr />
       <input type ="submit" name="dispatch" value="${rhn:localize('ssm.delete.systems.confirmbutton')}"/>
     </div>

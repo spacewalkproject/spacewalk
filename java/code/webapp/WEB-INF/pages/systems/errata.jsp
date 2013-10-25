@@ -143,7 +143,7 @@
 	</rl:list>
 	
 	<c:if test="${requestScope.showApplyErrata == 'true'}">
-		<div align="right">
+		<div class="text-right">
     		<hr />
     		<html:submit property="dispatch">
       			<bean:message key="errata.jsp.apply"/>

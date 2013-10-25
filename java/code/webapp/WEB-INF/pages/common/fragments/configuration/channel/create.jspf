@@ -143,6 +143,6 @@
 		
 	</table>
 	<hr />
-	<div align="right"><html:submit>
+	<div class="text-right"><html:submit>
 		<bean:message key="addfiles.jsp.create.jspf.submit" />
 	</html:submit></div>

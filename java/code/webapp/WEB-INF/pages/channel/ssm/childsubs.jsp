@@ -25,7 +25,7 @@
             <table width="100%">
                 <tr>
                     <td width="50%"><strong>${parent.name}</strong></td>
-                    <td align="right">
+                    <td class="text-right">
                         <c:choose>
                             <c:when test="${parent.systemCount == 1}">
                                 <a href="/rhn/channels/ChannelSubscribers.do?cid=${parent.id}"><strong><bean:message key="ssmchildsubs.jsp.one-system"/></strong></a>
@@ -68,7 +68,7 @@
         </c:forEach>
     </table>
 	<hr />
-	<div align="right"><html:submit property="dispatch"><bean:message key="ssmchildsubs.jsp.alter"/></html:submit></div>
+	<div class="text-right"><html:submit property="dispatch"><bean:message key="ssmchildsubs.jsp.alter"/></html:submit></div>
   </rl:listset>
 </body>
 </html>

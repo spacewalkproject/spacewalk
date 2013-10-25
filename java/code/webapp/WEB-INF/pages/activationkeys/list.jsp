@@ -160,7 +160,7 @@
 <hr/>
 <div class="small-text">*<strong><bean:message key="Tip"/>:</strong> <bean:message key="activation-keys.jsp.is-default-key-tip"/></div>
 <c:if test = "${not empty requestScope.pageList}">
-<div align="right">
+<div class="text-right">
    <rhn:submitted/>
     <input type="submit"
 		name ="dispatch"

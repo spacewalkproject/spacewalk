@@ -58,7 +58,7 @@
 
   </rl:list>
 
-  <div align="right">
+  <div class="text-right">
   <hr/>
     <html:hidden property="sid" value="${system.id}"/>
     <html:submit property="dispatch">

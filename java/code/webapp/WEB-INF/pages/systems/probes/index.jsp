@@ -79,7 +79,7 @@
 
 </rl:list>
 
-  <div align="right">
+  <div class="text-right">
     <hr/>
     <input type="hidden" name="sid" value="${sid}" />
     <input type="submit" name="dispatch"

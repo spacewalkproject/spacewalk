@@ -69,7 +69,7 @@
         </td>
     </tr>
 </table>
-<div align="right">
+<div class="text-right">
 <hr />
 <input type="submit" name="dispatch" value="${rhn:localize('ssm.config.subscribe.jsp.continue')}"
 		<c:if test="${not empty disableProfiles}">disabled="true"</c:if>

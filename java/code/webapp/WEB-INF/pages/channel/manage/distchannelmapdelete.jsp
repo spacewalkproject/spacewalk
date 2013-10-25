@@ -59,7 +59,7 @@
     </tr>
   </table>
 
-  <div align="right">
+  <div class="text-right">
   <hr />
     <html:submit disabled="${empty dcmap.org}"><bean:message key="distchannelmap.jsp.delete.submit"/></html:submit>
     <html:hidden property="dcm" value="${dcmap.id}" />

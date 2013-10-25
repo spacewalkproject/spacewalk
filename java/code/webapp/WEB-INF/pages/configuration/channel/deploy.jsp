@@ -45,7 +45,7 @@
 	</rhn:list>
 <c:if test="${not empty requestScope.pageList}">
 <hr />
-	<div align="right">
+	<div class="text-right">
 		<html:submit property="dispatch"><bean:message key="deploy.jsp.deployallbutton" /></html:submit>
 		<html:submit property="dispatch"><bean:message key="deploy.jsp.deployselectedbutton" /></html:submit>
 	</div>

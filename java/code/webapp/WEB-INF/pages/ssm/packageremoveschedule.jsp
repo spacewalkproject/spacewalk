@@ -47,7 +47,7 @@
 
     </rl:list>
 
-    <div align="right">
+    <div class="text-right">
 
         <div align="left">
             <p><bean:message key="installconfirm.jsp.widgetsummary"/></p>

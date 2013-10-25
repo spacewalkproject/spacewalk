@@ -26,7 +26,7 @@
 
     <p><strong><bean:message key="probdelete.jsp.p4"/></strong></p>
 
-    <div align="right">
+    <div class="text-right">
     <hr />
         <html:submit><bean:message key="probdelete.jsp.deleteprobe"/></html:submit></td>
 

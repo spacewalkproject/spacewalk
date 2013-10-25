@@ -71,6 +71,6 @@
 
 
 <hr/>
-<div align="right">
+<div class="text-right">
 <rhn:submit valueKey="preferences.jsp.submitvalue"/>
 </div>

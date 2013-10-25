@@ -51,7 +51,7 @@
 
  </table>
 
- <div align="right">
+ <div class="text-right">
    <hr/>
    <html:submit>
    <bean:message key="orgdelete.jsp.submit"/>

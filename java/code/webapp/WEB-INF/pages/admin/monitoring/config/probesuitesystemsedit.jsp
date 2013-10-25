@@ -34,7 +34,7 @@
     </rhn:list>
     <html:hidden property="suite_id" value="${probeSuite.id}"/>
     <c:if test="${not empty pageList}">
-      <div align="right">
+      <div class="text-right">
         <hr><bean:message key="probesuitesystemsedit.jsp.monscouttouse"/>
         <select name="satCluster">
           <c:forEach items="${satClusters}" var="cluster">

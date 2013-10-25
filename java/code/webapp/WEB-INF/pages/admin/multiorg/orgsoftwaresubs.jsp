@@ -135,7 +135,7 @@
 			exportColumns="name,currentMembers,maxMembers,maxAvailable,currentFlex,maxFlex,maxAvailableFlex" />
 <p><rhn:tooltip>*-<bean:message key = "Used/Allotted.tip"/></rhn:tooltip></p>
 <c:if test="${param.oid != 1}">
- <div align="right">
+ <div class="text-right">
    <hr/>
    <input type="submit" name="dispatch" value="${rhn:localize('orgdetails.jsp.submit')}"/>
  </div>

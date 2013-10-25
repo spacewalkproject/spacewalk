@@ -21,7 +21,7 @@
        <div class="page-summary">
           <c:out value="${bunchdescription}"/>
        </div>
-       <div align="right">
+       <div class="text-right">
           <input type="submit" name="dispatch"
             value="<bean:message key="bunch.edit.jsp.button-schedule"/>" />
             <rhn:csrf/>

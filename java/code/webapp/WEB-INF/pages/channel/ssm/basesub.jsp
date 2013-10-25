@@ -80,7 +80,7 @@
 
   	</rl:list>
 	<hr />
-	<div align="right"><html:submit property="dispatch"><bean:message key="basesub.jsp.confirmSubscriptions"/></html:submit></div>
+	<div class="text-right"><html:submit property="dispatch"><bean:message key="basesub.jsp.confirmSubscriptions"/></html:submit></div>
   </rl:listset>
 </body>
 </html>

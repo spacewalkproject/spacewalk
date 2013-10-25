@@ -56,7 +56,7 @@
 	</table>
 	</div>
 	<hr />
-	<div align="right">
+	<div class="text-right">
 		<html:submit property="dispatch">
 			<bean:message key="deployconfirm.jsp.deploybutton" />
 		</html:submit>

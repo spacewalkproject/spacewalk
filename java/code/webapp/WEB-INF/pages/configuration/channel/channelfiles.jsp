@@ -52,7 +52,7 @@
     </rhn:list>
 <c:if test="${not empty requestScope.pageList}">
 <hr />
-  <div align="right">
+  <div class="text-right">
     <rhn:require acl="config_channel_editable(channel.id)"
                  mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
       <html:submit property="dispatch"><bean:message key="channelfiles.jsp.removeselected" /></html:submit>

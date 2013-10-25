@@ -40,7 +40,7 @@
                 </rl:column>
 
 	</rl:list>
-	<div align="right">
+	<div class="text-right">
 	  <hr />
 		<input type="submit" name="dispatch"
 				value="<bean:message key="repos.jsp.button-sync"/>"    <c:if test="${inactive}">disabled="disabled"</c:if>/>
@@ -53,7 +53,7 @@
         <jsp:param name="widget" value="date"/>
       </jsp:include>
 
-	<div align="right">
+	<div class="text-right">
 				<input type="submit" name="dispatch" <c:if test="${inactive}">disabled="disabled"</c:if>
 						value="<bean:message key="schedule.button"/>" />
 	</div>

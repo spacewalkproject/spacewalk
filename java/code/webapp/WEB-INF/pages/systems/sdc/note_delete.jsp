@@ -33,7 +33,7 @@
     </table>
 
       <hr/>
-        <div align="right">
+        <div class="text-right">
           <html:submit>
             <bean:message key="sdc.table.notes.delete"/>
           </html:submit>

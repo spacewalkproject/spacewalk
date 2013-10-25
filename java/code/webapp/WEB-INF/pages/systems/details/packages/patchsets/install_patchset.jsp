@@ -31,7 +31,7 @@
     <input type="hidden" name="sid" value="${param.sid}" />
     <input type="hidden" name="pid" value="${param.pid}" />
 
-    <div align="right">
+    <div class="text-right">
       <hr />
         <html:submit property="dispatch">
           <bean:message key="install_patchset.jsp.installbutton" />

@@ -16,7 +16,7 @@
 
 <html:form action="/admin/multiorg/SatRoleConfirm.do">
       <rhn:csrf />
-      <div align="right">
+      <div class="text-right">
         <hr />
         <html:hidden property="uid" value="${param.uid}" />
         <html:hidden property="submitted" value="true" />

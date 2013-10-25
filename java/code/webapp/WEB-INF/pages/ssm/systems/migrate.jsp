@@ -38,7 +38,7 @@
             </c:forEach>
           </html:select>
         </td>
-        <td align="right">
+        <td class="text-right">
           <input type ="submit" name="dispatch" value="${rhn:localize('ssm.migrate.systems.confirmbutton')}"/>
         </td>
       </tr>
@@ -50,7 +50,7 @@
 <rl:listset name="systemListSet" legend="system">
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system_listdisplay.jspf" %>
 <%--
-	<div align="right">
+	<div class="text-right">
       <hr />
       <input type ="submit" name="dispatch" value="${rhn:localize('ssm.migrate.systems.confirmbutton')}"/>
     </div>

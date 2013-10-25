@@ -36,7 +36,7 @@
 		</p>
 		<hr />
 		<input type="hidden" name="ksid" value="<c:out value="${param.ksid}"/>" />
-		<div align="right">
+		<div class="text-right">
 		  <html:submit property="dispatch">
 		    <bean:message key="kickstart.packageprofile.jsp.clear"/>
 		  </html:submit>

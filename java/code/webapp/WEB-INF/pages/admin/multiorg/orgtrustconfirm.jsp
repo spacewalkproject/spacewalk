@@ -51,7 +51,7 @@
       </rl:column>
    </rl:list>
    <hr/>
-   <div align="right">
+   <div class="text-right">
      <rhn:submitted/>
      <input type="button"
                 value="${rhn:localize('org.trust.cancel')}"

@@ -93,7 +93,7 @@
 	  </rhn:require>
     </div>
 	<hr />
-	<div align="right">
+	<div class="text-right">
 	  <html:submit property="dispatch"><bean:message key="deploy.jsp.deploybutton" /></html:submit>
 	</div>
 

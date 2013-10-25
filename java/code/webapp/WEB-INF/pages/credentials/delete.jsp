@@ -37,7 +37,7 @@
 <form method="post" action="/rhn/account/DeleteCredentials.do">
   <rhn:csrf />
   <rhn:submitted />
-  <div align="right">
+  <div class="text-right">
     <hr />
     <html:submit property="dispatch">
       <bean:message key="credentials.jsp.delete.dispatch" />

@@ -25,7 +25,7 @@
 
   <hr />
 
-  <div align="right">
+  <div class="text-right">
     <form action="/rhn/errata/manage/NotifySubmit.do" method="POST">
       <rhn:csrf />
       <input type="hidden" name="eid" value="<c:out value="${param.eid}"/>"/>

@@ -58,7 +58,7 @@
         </c:choose>
         </p>
     </div>
-    <div align="right">
+    <div class="text-right">
     <hr />
     <html:submit property="createBtn">
         <bean:message key="profile.jsp.createsystemprofile"/>

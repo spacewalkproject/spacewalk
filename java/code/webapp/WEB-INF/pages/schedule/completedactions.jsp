@@ -26,7 +26,7 @@
 
 		</rl:list>
 		<rhn:submitted/>
-		 <div align="right">
+		 <div class="text-right">
 		     <input type="submit"
                name="dispatch"
                class="btn btn-default"

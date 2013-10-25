@@ -17,7 +17,7 @@
 
 <html:form action="/systems/details/packages/profiles/DeleteProfile">
       <rhn:csrf />
-      <div align="right">
+      <div class="text-right">
         <hr />
         <html:hidden property="sid" value="${param.sid}" />
         <html:hidden property="prid" value="${param.prid}" />

@@ -32,7 +32,7 @@
 	</tr>
 	</table>
 	<hr />
-	<div align="right">
+	<div class="text-right">
 	  <html:submit><bean:message key="deleterev.jsp.submit" /></html:submit>
 	</div>
 </html:form>

@@ -93,7 +93,7 @@
             </rl:column>
         </rl:list>
 
-        <div align="right">
+        <div class="text-right">
             <rhn:submitted/>
             <hr/>
             <input type="submit"

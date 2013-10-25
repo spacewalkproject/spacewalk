@@ -45,7 +45,7 @@
 <hr />
 <input type="hidden" name="eid" value="<c:out value="${param.eid}"/>" />
 <input type="hidden" name="returnvisit" value="<c:out value="${param.returnvisit}"/>"/>
-<div align="right">
+<div class="text-right">
   <html:submit property="dispatch">
     <bean:message key="errata.channels.updatechannels"/>
   </html:submit>

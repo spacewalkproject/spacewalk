@@ -93,7 +93,7 @@
 	    </tr>
 	</table>
 	<!--  DoIt Button -->
-	<div align="right">
+	<div class="text-right">
 		<html:submit property="dispatch">
 			<bean:message key="deployconfirm.jsp.confirmbutton" />
 		</html:submit>

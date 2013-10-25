@@ -40,7 +40,7 @@
 		</rl:column>
 	</rl:list>
 	<hr />
-	<div align="right">
+	<div class="text-right">
 		<input type="submit"
 				name="dispatch"
 				value="${rhn:localize('copy2systems.jsp.doCopy')}"

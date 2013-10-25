@@ -66,7 +66,7 @@
     <rhn:require acl="system_feature(ftr_delta_action)"
         mixins="com.redhat.rhn.common.security.acl.SystemAclHandler">
         <rhn:submitted/>
-        <div align="right">
+        <div class="text-right">
             <hr />
             <html:submit property="dispatch">
                 <bean:message key="schedulesync.jsp.schedulesync" />

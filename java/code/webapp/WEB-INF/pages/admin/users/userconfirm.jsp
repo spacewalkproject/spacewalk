@@ -40,7 +40,7 @@
 		name="userConfirmList"
 		exportColumns="userLogin,userLastName,userFirstName,roleNames,lastLoggedIn"/>
 		
-	<div align="right">
+	<div class="text-right">
     	<hr />
     	<input type="submit" name="dispatch" value="<bean:message key="userconfirm.jsp.confirm" />" />
 	</div>

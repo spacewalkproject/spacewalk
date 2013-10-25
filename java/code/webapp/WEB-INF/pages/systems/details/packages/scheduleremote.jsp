@@ -57,7 +57,7 @@
     <html:hidden property="use_date" />
 <%@ include file="/WEB-INF/pages/common/fragments/date-picker-hidden.jspf" %>
 
-  <div align="right">
+  <div class="text-right">
     <hr />
       <c:if test="${param.mode == 'remove'}">
 	      <html:submit>

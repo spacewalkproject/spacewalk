@@ -48,7 +48,7 @@
 
         </table>
 
-        <div align="right">
+        <div class="text-right">
           <hr />
 
           <input type="submit" name="RemoveValue" value="${rhn:localize('system.jsp.customdata.removevalue')}"  />

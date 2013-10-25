@@ -59,7 +59,7 @@
     </rhn:list>
     <html:hidden property="suite_id" value="${probeSuite.id}"/>
     <c:if test="${not empty pageList}">
-    <div align="right">
+    <div class="text-right">
         <hr>
       <html:submit property="dispatch">
         <bean:message key="probesuitesystems.jsp.detachsystem"/>

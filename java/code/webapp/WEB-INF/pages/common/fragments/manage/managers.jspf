@@ -52,7 +52,7 @@
 
     </rl:list>
 
-    <div align="right">
+    <div class="text-right">
         <hr />
         <input type="submit" name="confirm"
                 value="<bean:message key="message.Update"/>" />

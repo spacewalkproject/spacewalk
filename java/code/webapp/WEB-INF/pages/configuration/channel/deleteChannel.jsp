@@ -24,7 +24,7 @@
 			<td><strong>${currChannel.description}</strong></td>
 		</tr>
 	</table>
-	<div align="right">
+	<div class="text-right">
 	<hr />
 	<html:submit>
 		<bean:message key="channelOverview.jsp.deleteChannel" />

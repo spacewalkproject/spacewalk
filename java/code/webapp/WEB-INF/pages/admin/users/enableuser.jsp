@@ -19,7 +19,7 @@
 
 <form method="POST" action="/rhn/users/EnableUserSubmit.do?uid=${param.uid}">
 <rhn:csrf />
-<div align="right">
+<div class="text-right">
       <hr />
       <html:submit>
           <bean:message key="enableuser.jsp.enable"/>

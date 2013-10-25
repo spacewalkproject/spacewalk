@@ -54,7 +54,7 @@
   <form method="POST" name="rhn_list" action="/rhn/systems/details/packages/Packages.do?sid=${param.sid}">
     <rhn:csrf />
     <rhn:submitted />
-    <div align="right">
+    <div class="text-right">
       <hr />
       <html:submit property="dispatch">
         <bean:message key="packagesindex.jsp.update"/>

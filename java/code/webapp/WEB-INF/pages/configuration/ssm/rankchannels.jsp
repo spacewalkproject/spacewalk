@@ -52,7 +52,7 @@
 			</tr>
 		</table>
 		
-	<div align="right">
+	<div class="text-right">
       <hr />
       <html:hidden property="dispatch" value="${rhn:localize('ssm.config.rank.jsp.apply')}"/>
       <input type=submit name="dispatcher"

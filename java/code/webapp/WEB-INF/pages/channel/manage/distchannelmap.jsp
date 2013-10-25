@@ -78,7 +78,7 @@
                 </rl:column>
 	</rl:list>
 <!--
-	<div align="right">
+	<div class="text-right">
 	  <hr />
 		<input type="submit" name="dispatch"
 				value="<bean:message key="distchannelmap.jsp.update"/>" />

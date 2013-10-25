@@ -110,7 +110,7 @@
 <html:form method="POST" action="/systems/ssm/config/SubscribeConfirm.do?position=${param.position}">
     <rhn:csrf />
     <rhn:submitted />
-    <div align="right">
+    <div class="text-right">
       <hr />
       <html:submit property="dispatch">
         <bean:message key="ssm.config.subscribeconfirm.jsp.confirm" />

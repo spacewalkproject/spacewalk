@@ -59,7 +59,7 @@
  			
 </div>
 <rhn:require acl="user_role(org_admin) or user_role(system_group_admin)">
-<div align="right">
+<div class="text-right">
    <rhn:submitted/>
    <hr/>
     <input type="submit"

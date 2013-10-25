@@ -20,7 +20,7 @@
 
 <form method="POST" action="/rhn/users/DeleteUserSubmit.do?uid=${param.uid}">
 <rhn:csrf />
-<div align="right">
+<div class="text-right">
       <hr />
       <html:submit>
           <bean:message key="deleteuser.jsp.delete"/>

@@ -107,7 +107,7 @@
                     </tr>
                 </table>
             </div>
-            <div align="right">
+            <div class="text-right">
                 <hr />
                 <html:submit property="dispatch">
                     <bean:message key="errata.jsp.apply"/>
@@ -142,7 +142,7 @@
 
                 <html:form action="/systems/ssm/ListPatches">
                     <rhn:csrf />
-                    <div align="right">
+                    <div class="text-right">
                         <hr/>
                         <input type="submit" name="back" value="<bean:message key="ssm.errata.serverlist.return"/>" />
                     </div>

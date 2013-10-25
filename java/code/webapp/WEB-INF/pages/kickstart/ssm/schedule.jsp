@@ -115,7 +115,7 @@
 	  <p>
 	    <bean:message key="kickstarts.jsp.diskwarningssm" />
 	  </p>
-<div align="right">
+<div class="text-right">
 <hr />
 <input type="submit" name="dispatch" value="${rhn:localize('kickstart.schedule.button2.jsp')}"/>
 </div>

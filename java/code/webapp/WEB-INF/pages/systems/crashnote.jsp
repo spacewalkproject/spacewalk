@@ -64,7 +64,7 @@
         </table>
 
         <hr/>
-        <div align="right">
+        <div class="text-right">
             <c:choose>
                 <c:when test='${not empty cnid}'>
                     <html:submit property="edit_button"><bean:message key="edit_note.jsp.update"/></html:submit>

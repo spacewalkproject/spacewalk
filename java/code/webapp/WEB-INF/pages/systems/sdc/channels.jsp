@@ -93,7 +93,7 @@
         </c:if>
       </c:if>
       <hr/>
-      <div align="right">
+      <div class="text-right">
         <html:submit property="dispatch">
           <bean:message key="sdc.channels.edit.update_sub"/>
         </html:submit>
@@ -149,7 +149,7 @@
           </select>
 
           <hr/>
-          <div align="right">
+          <div class="text-right">
             <html:submit property="dispatch">
               <bean:message key="sdc.channels.edit.confirm_update_base"/>
             </html:submit>

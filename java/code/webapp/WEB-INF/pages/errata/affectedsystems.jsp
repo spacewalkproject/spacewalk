@@ -81,7 +81,7 @@
 			</rl:column>
 		</rl:list>
 		
-		<div align="right">
+		<div class="text-right">
     		<hr />
     		<html:submit property="dispatch">
       			<bean:message key="affectedsystems.jsp.apply"/>

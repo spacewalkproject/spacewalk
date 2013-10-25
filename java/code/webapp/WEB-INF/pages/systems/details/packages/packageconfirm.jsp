@@ -37,7 +37,7 @@
 	</rl:list>
  			
 <c:if test="${not empty requestScope.pageList}">
-      <div align="right">
+      <div class="text-right">
         <div align="left">
           <p><bean:message key="${widgetSummary}"/></p>
         </div>

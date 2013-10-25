@@ -71,7 +71,7 @@
                     </c:choose>
                 </rl:column>
             </rl:list>
-            <div align="right">
+            <div class="text-right">
                 <input type="submit" name="dispatch" value='<bean:message key="ssm.misc.lockunlock.dispatch.lock"/>'/>
                 <input type="submit" name="dispatch" value='<bean:message key="ssm.misc.lockunlock.dispatch.unlock"/>'/>
             </div>

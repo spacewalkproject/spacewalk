@@ -53,7 +53,7 @@
 	</rl:list>
 <hr/>
 <c:if test="${not empty requestScope.dataset}">
-<div align="right">
+<div class="text-right">
    <rhn:submitted/>
     <input type="submit"
 		name ="dispatch"

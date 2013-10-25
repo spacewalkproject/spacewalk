@@ -30,7 +30,7 @@
   <%@ include file="/WEB-INF/pages/common/fragments/configuration/ssm/configconfirmlist.jspf"%>
 
   <c:if test="${not empty requestScope.pageList}">
-    <div align="right">
+    <div class="text-right">
       <hr />
       <html:submit property="dispatch">
         <bean:message key="diffconfirm.jsp.confirm" />

@@ -69,7 +69,7 @@
 
   </rhn:list>
 
-  <div align="right">
+  <div class="text-right">
 
     <hr />
 

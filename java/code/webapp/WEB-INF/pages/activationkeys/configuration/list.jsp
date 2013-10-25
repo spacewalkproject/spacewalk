@@ -50,7 +50,7 @@
 	</rl:list>
  			
 <c:if test="${not empty requestScope.all}">
-<div align="right">
+<div class="text-right">
    <rhn:submitted/>
    <hr/>
 	

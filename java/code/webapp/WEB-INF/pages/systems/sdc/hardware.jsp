@@ -15,7 +15,7 @@
     <html:form method="post" action="/systems/details/SystemHardware.do?sid=${sid}">
       <rhn:csrf />
       <html:hidden property="submitted" value="true"/>
-        <div align="right">
+        <div class="text-right">
           <html:submit styleClass="btn btn-default">
             <bean:message key="sdc.details.hardware.schedule"/>
           </html:submit>
@@ -209,7 +209,7 @@
     </table>
 		<br/>
 			<rhn:csrf />
-        <div align="right">
+        <div class="text-right">
           <html:submit property="update_interface" styleClass="btn btn-default">
             <bean:message key="sdc.details.edit.update"/>
           </html:submit>

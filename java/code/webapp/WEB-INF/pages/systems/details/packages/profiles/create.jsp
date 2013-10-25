@@ -28,7 +28,7 @@
         </tr>
       </table>
 
-      <div align="right">
+      <div class="text-right">
         <hr />
         <html:hidden property="sid" value="${param.sid}" />
         <html:hidden property="submitted" value="true" />

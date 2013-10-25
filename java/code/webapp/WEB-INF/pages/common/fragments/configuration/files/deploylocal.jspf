@@ -62,7 +62,7 @@
     </tr>
     </table>
     <hr />
-    <div align="right"><html:submit property="dispatch">
+    <div class="text-right"><html:submit property="dispatch">
     <bean:message key="deploy.jsp.deploybutton" />
   </html:submit></div>			
 		</c:when>

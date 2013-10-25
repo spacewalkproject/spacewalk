@@ -36,7 +36,7 @@
         </tr>
     </table>
 
-    <div align="right">
+    <div class="text-right">
         <hr />
         <html:submit property="edit_button">
             <bean:message key="button.update"/>

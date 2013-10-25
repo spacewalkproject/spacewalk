@@ -69,7 +69,7 @@
 
   </table>
 
-  <div align="right">
+  <div class="text-right">
     <hr />
 
     <input type="submit" name="sscd_change_system_prefs" value="<bean:message key="ssm.misc.index.syspref.changepreferences"/>" />

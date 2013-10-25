@@ -44,7 +44,7 @@
           </tr>
         </table>
 
-        <div align="right">
+        <div class="text-right">
           <hr />
 
           <input type="submit" name="DeleteKey" value="Delete Key" />

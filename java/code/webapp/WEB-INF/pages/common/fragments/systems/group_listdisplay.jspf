@@ -103,7 +103,7 @@
 <rl:csv dataset="pageList"
 	        name="groupList"
 	        exportColumns="id, name, groupAdmins, serverCount, monitoringStatus" />
-<div align="right">
+<div class="text-right">
   <hr />
 	<input type="submit" name="union" value="${rhn:localize('grouplist.jsp.union')}" />
 	<input type="submit" name="intersection" value="${rhn:localize('grouplist.jsp.intersection')}" />

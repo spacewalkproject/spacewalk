@@ -48,7 +48,7 @@
             </div>
 
             <%--
-                  <div align="right">
+                  <div class="text-right">
                     <hr />
                     <input type="hidden" name="pxt:trap" value="rhn:server_group_create_cb" />
                     <input type="hidden" name="redirect_to" value="/rhn/systems/SystemGroupList.do" />

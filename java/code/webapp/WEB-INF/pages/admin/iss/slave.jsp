@@ -50,7 +50,7 @@
                 </rl:column>
             </rl:list>
             <c:if test="${not empty requestScope.all}">
-                <div align="right">
+                <div class="text-right">
                     <rhn:submitted />
                     <input type="submit" name="dispatch" class="btn btn-default"
                            value='<bean:message key="iss.master.remove"/>' />

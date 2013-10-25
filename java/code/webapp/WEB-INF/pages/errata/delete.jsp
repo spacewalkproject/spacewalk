@@ -38,7 +38,7 @@
   </table>
 
   <hr />
-  <div align="right">
+  <div class="text-right">
     <form action="/rhn/errata/manage/Delete.do" method="POST">
     <rhn:csrf />
     <rhn:submitted />

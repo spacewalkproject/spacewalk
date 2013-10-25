@@ -60,7 +60,7 @@
                         </tbody>
                     </table>
                     <html:hidden property="submitted" value="true"/>
-                    <div align="right"><hr>
+                    <div class="text-right"><hr>
                         <input type="submit" name="schedule_remote_command" value="<bean:message key="ssm.operations.provisioning.remotecommand.form.submit" />">
                         <hidden name="use_date" value="true" />
                     </div>

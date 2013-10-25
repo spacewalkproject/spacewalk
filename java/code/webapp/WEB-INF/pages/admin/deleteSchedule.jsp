@@ -50,7 +50,7 @@
             </c:if>
         </table>
 
-        <div align="right">
+        <div class="text-right">
             <hr/>
              <html:submit property="edit_button">
                 <bean:message key="schedule.delete.jsp.deleteschedule"/>

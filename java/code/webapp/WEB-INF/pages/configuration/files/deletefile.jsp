@@ -32,7 +32,7 @@
 	</c:if>
 	</table>
 	<hr />
-	<div align="right">
+	<div class="text-right">
 	  <html:submit><bean:message key="deletefile.jsp.submit" /></html:submit>
 	</div>
 </html:form>

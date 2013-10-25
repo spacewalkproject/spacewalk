@@ -29,7 +29,7 @@
 
         <%@ include file="/WEB-INF/pages/common/fragments/systems/crash_details.jspf" %>
 
-        <div align="right">
+        <div class="text-right">
             <hr/>
             <html:hidden property="crid" value="${crid}"/>
             <html:hidden property="sid" value="${sid}"/>

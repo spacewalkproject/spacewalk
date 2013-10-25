@@ -76,7 +76,7 @@
         exportColumns="crash,count,component,modified"
         header="${system.name}"/>
 
-    <div align="right">
+    <div class="text-right">
         <hr />
         <html:submit property="dispatch">
             <bean:message key="crashes.jsp.delete.button"/>

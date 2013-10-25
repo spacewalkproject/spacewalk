@@ -33,7 +33,7 @@
       ${current.patchType}
     </rhn:column>
   </rhn:listdisplay>
-  <div align="right">
+  <div class="text-right">
       <hr />
       <html:submit property="dispatch">
       <bean:message key="packagelist.jsp.confirmpatchinstall"/>
