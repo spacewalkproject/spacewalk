@@ -17,7 +17,7 @@
 <html:form action="/configuration/file/DeleteRevision.do?crid=${crid}&amp;cfid=${cfid}">
     <rhn:csrf />
 	<html:hidden property="submitted" value="true"/>
-	<table class="table">
+	<table class="details">
 	<tr>
 		<th><bean:message key="deleterev.jsp.channelname" /></th>
 		<td>${file.configChannel.displayName}</td>

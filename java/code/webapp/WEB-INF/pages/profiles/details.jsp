@@ -12,12 +12,12 @@
     <rhn:csrf />
 
     <div class="page-summary">
-        <bean:message key="profile.table.summary"/>
+        <bean:message key="profile.details.summary"/>
     </div>
 
     <hr>
 
-    <table class="table">
+    <table class="details">
         <tr>
             <th nowrap="nowrap">
                 <bean:message key="row.name"/>:

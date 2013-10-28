@@ -29,7 +29,7 @@
 
       <form action="/rhn/systems/customdata/DeleteCustomKey.do?cikid=${cikid}" name="edit_token" method="post">
         <rhn:csrf />
-        <table class="table">
+        <table class="details">
           <tr>
             <th><bean:message key="system.jsp.customkey.keylabel"/>:</th>
             <td><input disabled="true" type="text" name="label" length="64" size="30" value="<c:out value="${label}" />"/>

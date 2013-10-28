@@ -27,13 +27,13 @@
   </div>
 
 <html:form method="post"
-		action="/systems/table/configuration/addfiles/ImportFileSubmit.do?sid=${system.id}">
+		action="/systems/details/configuration/addfiles/ImportFileSubmit.do?sid=${system.id}">
   <rhn:csrf />
 
   <h2><bean:message key="sdcimportfile.jsp.new"/></h2>
   <p><bean:message key="sdcimportfile.jsp.newsummary"/></p>
 
-  <table class="table">
+  <table class="details">
     <tr>
       <th><bean:message key="sdcimportfile.jsp.paths"/></th>
       <td>

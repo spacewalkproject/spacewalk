@@ -11,7 +11,7 @@
 </rhn:toolbar>
 
 <rhn:dialogmenu mindepth="0" maxdepth="1"
-    definition="/WEB-INF/nav/kickstart_table.xml"
+    definition="/WEB-INF/nav/kickstart_details.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <h2><bean:message key="kickstart.scriptdelete.jsp.header2"/></h2>
@@ -21,7 +21,7 @@
     <bean:message key="kickstart.scriptdelete.jsp.summary1"/>
     <html:form method="POST" action="/kickstart/KickstartScriptDelete.do">
       <rhn:csrf />
-      <table class="table">
+      <table class="details">
 
           <tr>
             <td colspan="2">

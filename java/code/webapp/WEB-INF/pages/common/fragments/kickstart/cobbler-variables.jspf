@@ -14,7 +14,7 @@
   <br>
     <html:form method="post" action="${param.post_url}">
       <rhn:csrf />
-      <table class="table">
+      <table class="details">
 		<c:if test= "${not empty param.show_netboot}">
 		      <tr>
               <th>
@@ -27,7 +27,7 @@
 		</c:if>
           <tr>
               <th>
-                  <bean:message key="kickstart.variable.jsp.variabletable"/>:
+                  <bean:message key="kickstart.variable.jsp.variabledetails"/>:
               </th>
               <td>
                   <html:textarea rows="25" cols="60" property="variables"/>

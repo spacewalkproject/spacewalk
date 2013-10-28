@@ -55,10 +55,10 @@
 		<br/>
 		
 <h2><img src="/img/icon_kickstart_session-medium.gif" /><bean:message key="kickstart.schedule.heading4.jsp" /></h2>
-		<table class="table">
+		<table class="details">
 		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/network-options.jspf" %>
       <tr>
-        <th width="10%"><bean:message key="kickstarttable.jsp.kernel_options" />:</th>
+        <th width="10%"><bean:message key="kickstartdetails.jsp.kernel_options" />:</th>
         <td>
         <input type="radio" name="kernelParamsType" value="distro" onclick="form.kernelParamsId.disabled = true;"
 			<c:if test="${empty form.kernelParamsType or form.kernelParamsType == 'distro'}">checked="checked"</c:if>
@@ -83,7 +83,7 @@
         </td>
       </tr>
       <tr>
-        <th width="10%"><bean:message key="kickstarttable.jsp.post_kernel_options" />:</th>
+        <th width="10%"><bean:message key="kickstartdetails.jsp.post_kernel_options" />:</th>
         <td>
 		  <input type="radio" name="postKernelParamsType" value="distro" onclick="form.postKernelParamsId.disabled = true;"
 				<c:if test="${empty form.postKernelParamsType or form.postKernelParamsType == 'distro'}">checked="checked"</c:if>

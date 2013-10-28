@@ -24,7 +24,7 @@
 <html:form method="post" action="/channels/manage/DistChannelMapDelete">
   <rhn:csrf />
   <rhn:submitted/>
-  <table class="table">
+  <table class="details">
     <tr>
       <th>
         <bean:message key="Operating System"/>

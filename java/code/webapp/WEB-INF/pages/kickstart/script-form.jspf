@@ -1,4 +1,4 @@
-      <table class="table">
+      <table class="details">
           <tr>
             <td colspan="2">
               <h2><bean:message key="kickstart.script.langheader"/></h2>
@@ -77,6 +77,6 @@
               </td>
           </tr>
           <tr>
-            <td align="right" colspan="2"><html:submit><bean:message key="kickstarttable.jsp.updatekickstart"/></html:submit></td>
+            <td align="right" colspan="2"><html:submit><bean:message key="kickstartdetails.jsp.updatekickstart"/></html:submit></td>
           </tr>
       </table>

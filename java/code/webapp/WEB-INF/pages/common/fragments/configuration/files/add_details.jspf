@@ -1,16 +1,16 @@
 <c:if test="${not empty revision.configContent}">
-<h2><bean:message key="filetable.add_details.jspf.header2" /></h2>
-<table class="table">
+<h2><bean:message key="filedetails.add_details.jspf.header2" /></h2>
+<table class="details">
 <tr>
-  <th><bean:message key="filetable.add_details.jspf.md5" /></th>
+  <th><bean:message key="filedetails.add_details.jspf.md5" /></th>
   <td>${revision.configContent.checksum}</td>
 </tr>
 
 <c:if test="${!revision.configContent.binary && !revision.directory}">
 <tr>
-  <th><bean:message key="filetable.add_details.jspf.macro" /></th>
+  <th><bean:message key="filedetails.add_details.jspf.macro" /></th>
   <td nowrap>
-    <bean:message key="filetable.add_details.jspf.macro.start" />
+    <bean:message key="filedetails.add_details.jspf.macro.start" />
     <rhn:require acl="config_channel_editable(${channel.id})"
                  mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
         <html:text property="cffMacroStart" value="${revision.configContent.delimStart}" size="3"/>
@@ -20,7 +20,7 @@
         <c:out value="${revision.configContent.delimStart}" />
     </rhn:require>
 
-    <bean:message key="filetable.add_details.jspf.macro.end" />
+    <bean:message key="filedetails.add_details.jspf.macro.end" />
 
     <rhn:require acl="config_channel_editable(${channel.id})"
                  mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
@@ -32,7 +32,7 @@
     </rhn:require>
     <br />
     <c:if test="${documentation == 'true'}">
-      <span class="small-text"><bean:message key="filetable.jsp.tip.macros" arg0="/rhn/help/reference/en-US/s1-sm-configuration.jsp"/></span>
+      <span class="small-text"><bean:message key="filedetails.jsp.tip.macros" arg0="/rhn/help/reference/en-US/s1-sm-configuration.jsp"/></span>
     </c:if>
 </tr>
 </c:if>

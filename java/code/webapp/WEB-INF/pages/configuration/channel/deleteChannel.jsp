@@ -8,13 +8,13 @@
 <html>
 <body>
 
-<%@ include	file="/WEB-INF/pages/common/fragments/configuration/channel/table-header.jspf"%>
+<%@ include	file="/WEB-INF/pages/common/fragments/configuration/channel/details-header.jspf"%>
 
 <html:form action="/configuration/DeleteChannel.do?ccid=${ccid}">
     <rhn:csrf />
 	<html:hidden property="submitted" value="true" />
 	<p><bean:message key="channelOverview.jsp.deleteInstruction" /></p>
-	<table class="table">
+	<table class="details">
 		<tr>
 			<th><bean:message key="channelOverview.jsp.name" /></th>
 			<td><strong>${currChannel.name}</strong></td>

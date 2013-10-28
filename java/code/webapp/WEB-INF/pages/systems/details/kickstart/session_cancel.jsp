@@ -13,11 +13,11 @@
 <bean:message key="kickstart.session_cancel.jsp.summary" />
 <p>
 
-<html:form method="POST" action="/systems/table/kickstart/SessionCancel.do">
+<html:form method="POST" action="/systems/details/kickstart/SessionCancel.do">
   <rhn:csrf />
-  <table class="table">
+  <table class="details">
     <tr>
-      <th><bean:message key="kickstarttable.jsp.label" /></th>
+      <th><bean:message key="kickstartdetails.jsp.label" /></th>
       <td><a href="/rhn/kickstart/KickstartDetailsEdit.do?ksid=${ksession.ksdata.id}">${ksession.ksdata.label}</td>
     </tr>
     <tr>

@@ -3,10 +3,10 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean"	prefix="bean"%>
 <%@ taglib uri="http://struts.apache.org/tags-html"	prefix="html"%>
 
-<h2><bean:message key="filetable.details.jspf.header2" /></h2>
-<table class="table">
+<h2><bean:message key="filedetails.details.jspf.header2" /></h2>
+<table class="details">
 <tr>
-  <th><bean:message key="filetable.details.jspf.channel-name" /></th>
+  <th><bean:message key="filedetails.details.jspf.channel-name" /></th>
   <td>
     <c:choose>
       <c:when test="${channel.configChannelType.label == 'normal'}">
@@ -26,18 +26,18 @@
   </td>
 </tr>
 <tr>
-  <th><bean:message key="filetable.details.jspf.revision-name" /></th>
+  <th><bean:message key="filedetails.details.jspf.revision-name" /></th>
   <td>
     ${revision.revision}
-    (<a href="/rhn/configuration/file/ManageRevision.do?cfid=${file.id}"><bean:message key="table.jspf.other-revisions"/></a>)
+    (<a href="/rhn/configuration/file/ManageRevision.do?cfid=${file.id}"><bean:message key="details.jspf.other-revisions"/></a>)
   </td>
 </tr>
 <tr>
-  <th><bean:message key="filetable.details.jspf.creation-name" /></th>
+  <th><bean:message key="filedetails.details.jspf.creation-name" /></th>
   <td>${created}</td>
 </tr>
 <tr>
-  <th><bean:message key="filetable.details.jspf.modified-name" /></th>
+  <th><bean:message key="filedetails.details.jspf.modified-name" /></th>
   <td>
     <c:choose>
     	<c:when test="${lastUser != null}">
@@ -59,51 +59,51 @@
               </a>
             </rhn:require>
     	  </c:set>
-		<bean:message key="filetable.details.jspf.modifiedBy"
+		<bean:message key="filedetails.details.jspf.modifiedBy"
 			arg0="${modified}"
         		arg1='${beanarg}' />
     	</c:when>
     	<c:otherwise>
-    		<bean:message key="filetable.details.jspf.modifiedBy-unknown" arg0="${modified}"/>
+    		<bean:message key="filedetails.details.jspf.modifiedBy-unknown" arg0="${modified}"/>
     	</c:otherwise>
     </c:choose>
   </td>
 </tr>
 <tr>
-  <th><bean:message key="filetable.details.jspf.filetype-name" /></th>
+  <th><bean:message key="filedetails.details.jspf.filetype-name" /></th>
   <td>
     <c:choose>
 	<c:when test="${revision.directory}">
-		<bean:message key="filetable.details.jspf.directory" />
+		<bean:message key="filedetails.details.jspf.directory" />
 	</c:when>
 	<c:when test="${revision.symlink}">
-		<bean:message key="filetable.details.jspf.symlink" />
+		<bean:message key="filedetails.details.jspf.symlink" />
 	</c:when>
 	<c:otherwise>
 	  <rhn:require acl="config_channel_editable(${channel.id})"
                        mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
     	    <html:select property="binary">
     	      <html:option value="false">
-    	        <bean:message key="filetable.details.jspf.textfile"/>
+    	        <bean:message key="filedetails.details.jspf.textfile"/>
     	      </html:option>
     	      <html:option value="true">
-    	        <bean:message key="filetable.details.jspf.binfile"/>
+    	        <bean:message key="filedetails.details.jspf.binfile"/>
     	      </html:option>
             </html:select>
           </rhn:require>
           <rhn:require acl="not config_channel_editable(${channel.id})"
                        mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
             <c:if test="${form.map.binary}">
-              <bean:message key="filetable.details.jspf.binfile"/>
+              <bean:message key="filedetails.details.jspf.binfile"/>
             </c:if>
             <c:if test="${not form.map.binary}">
-              <bean:message key="filetable.details.jspf.textfile"/>
+              <bean:message key="filedetails.details.jspf.textfile"/>
             </c:if>
           </rhn:require>
             <br />
             <c:if test="${documentation == 'true'}">
               <span class="small-text">
-                <bean:message key="filetable.jsp.binarytoggletip"
+                <bean:message key="filedetails.jsp.binarytoggletip"
                             arg0="/rhn/help/reference/en-US/s1-sm-configuration.jsp" />
               </span>
             </c:if>
@@ -114,7 +114,7 @@
 <tr>
 <rhn:require acl="config_channel_editable(${channel.id})"
                        mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-  <th> <bean:message key="filetable.details.jspf.revnum"/> </th>
+  <th> <bean:message key="filedetails.details.jspf.revnum"/> </th>
   <td>
 	<html:text property="revnum" size="7"/>
   </td>

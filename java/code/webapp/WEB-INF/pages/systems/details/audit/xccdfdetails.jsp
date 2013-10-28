@@ -19,17 +19,17 @@
         <img src="/img/rhn-listicon-${testResult.diffIcon}.gif"
           alt="<bean:message key="scapdiff.jsp.i.${testResult.diffIcon}"/>"
           title="<bean:message key="scapdiff.jsp.i.${testResult.diffIcon}"/>"/>
-        <bean:message key="system.audit.xccdftable.jsp.diff"/>
+        <bean:message key="system.audit.xccdfdetails.jsp.diff"/>
       </a>
     </c:when>
     <c:otherwise>
-      <bean:message key="system.audit.xccdftable.jsp.nodiff"/>
+      <bean:message key="system.audit.xccdfdetails.jsp.nodiff"/>
     </c:otherwise>
   </c:choose>
   |
 
   <c:if test="${testResult.deletable}">
-    <a href="/rhn/systems/table/audit/XccdfDeleteConfirm.do?sid=${param.sid}&xid=${testResult.id}">
+    <a href="/rhn/systems/details/audit/XccdfDeleteConfirm.do?sid=${param.sid}&xid=${testResult.id}">
       <i class="icon-trash"
           title="<bean:message key="system.audit.xccdfdelete"/>"></i>
       <bean:message key="system.audit.xccdfdelete"/>
@@ -37,22 +37,22 @@
   |
   </c:if>
 
-  <a href="/rhn/systems/table/audit/ScheduleXccdf.do?sid=${param.sid}&path=${testResult.scapActionDetails.path}&params=${testResult.scapActionDetails.parametersContents}">
-    <img src="/img/restart.png" alt="<bean:message key="system.audit.xccdftable.jsp.reschedule"/>"/>
-    <bean:message key="system.audit.xccdftable.jsp.reschedule"/>
+  <a href="/rhn/systems/details/audit/ScheduleXccdf.do?sid=${param.sid}&path=${testResult.scapActionDetails.path}&params=${testResult.scapActionDetails.parametersContents}">
+    <img src="/img/restart.png" alt="<bean:message key="system.audit.xccdfdetails.jsp.reschedule"/>"/>
+    <bean:message key="system.audit.xccdfdetails.jsp.reschedule"/>
   </a>
 </div>
 
-<h2><bean:message key="system.audit.xccdftable.jsp.header"/></h2>
+<h2><bean:message key="system.audit.xccdfdetails.jsp.header"/></h2>
 <rhn:csrf/>
 
-<table class="table">
+<table class="details">
   <tr>
-    <th><bean:message key="system.audit.xccdftable.jsp.id"/>:</th>
+    <th><bean:message key="system.audit.xccdfdetails.jsp.id"/>:</th>
     <td><c:out value="${testResult.id}"/></td>
   </tr>
   <tr>
-    <th><bean:message key="system.audit.xccdftable.jsp.path"/>:</th>
+    <th><bean:message key="system.audit.xccdfdetails.jsp.path"/>:</th>
     <td><c:out value="${testResult.scapActionDetails.path}"/></td>
   </tr>
   <tr>
@@ -63,45 +63,45 @@
     <th><bean:message key="configoverview.jsp.scheduledBy"/>:</th>
     <td>
       <img src="/img/rhn-listicon-user.gif" alt="<bean:message key="yourrhn.jsp.user.alt" />"/>
-      <a href="/network/systems/table/history/event.pxt?sid=${param.sid}&hid=${testResult.scapActionDetails.parentAction.id}">
+      <a href="/network/systems/details/history/event.pxt?sid=${param.sid}&hid=${testResult.scapActionDetails.parentAction.id}">
         <c:out value="${testResult.scapActionDetails.parentAction.schedulerUser.login}"/>
       </a>
     </td>
   </tr>
   <tr>
-    <th><bean:message key="system.audit.xccdftable.jsp.benchmarkid"/>:</th>
+    <th><bean:message key="system.audit.xccdfdetails.jsp.benchmarkid"/>:</th>
     <td><c:out value="${testResult.benchmark.identifier}"/></td>
   </tr>
   <tr>
-    <th><bean:message key="system.audit.xccdftable.jsp.version"/>:</th>
+    <th><bean:message key="system.audit.xccdfdetails.jsp.version"/>:</th>
     <td><c:out value="${testResult.benchmark.version}"/></td>
   </tr>
   <tr>
-    <th><bean:message key="system.audit.xccdftable.jsp.profileid"/>:</th>
+    <th><bean:message key="system.audit.xccdfdetails.jsp.profileid"/>:</th>
     <td><c:out value="${testResult.profile.identifier}"/></td>
   </tr>
   <tr>
-    <th><bean:message key="system.audit.xccdftable.jsp.title"/>:</th>
+    <th><bean:message key="system.audit.xccdfdetails.jsp.title"/>:</th>
     <td><c:out value="${testResult.profile.title}"/></td>
   </tr>
   <tr>
-    <th><bean:message key="system.audit.xccdftable.jsp.started"/>:</th>
+    <th><bean:message key="system.audit.xccdfdetails.jsp.started"/>:</th>
     <td><c:out value="${testResult.startTime}"/></td>
   </tr>
   <tr>
-    <th><bean:message key="system.audit.xccdftable.jsp.completed"/>:</th>
+    <th><bean:message key="system.audit.xccdfdetails.jsp.completed"/>:</th>
     <td><c:out value="${testResult.endTime}"/></td>
   </tr>
   <tr>
-    <th><bean:message key="system.audit.xccdftable.jsp.errors"/>:</th>
+    <th><bean:message key="system.audit.xccdfdetails.jsp.errors"/>:</th>
     <td><pre><c:out value="${testResult.errrosContents}"/></pre></th>
   </tr>
   <c:if test="${not empty testResult.files}">
     <tr>
-      <th><bean:message key="system.audit.xccdftable.jsp.files"/>:</th>
+      <th><bean:message key="system.audit.xccdfdetails.jsp.files"/>:</th>
       <td>
         <c:forEach items="${testResult.files}" var="file">
-          <a href="/rhn/systems/table/audit/ScapResultDownload.do?sid=${param.sid}&xid=${param.xid}&name=${file.filename}"
+          <a href="/rhn/systems/details/audit/ScapResultDownload.do?sid=${param.sid}&xid=${param.xid}&name=${file.filename}"
              target="${file.HTML ? '_blank' : '_self'}"><c:out value="${file.filename}"/></a> &nbsp;
         </c:forEach>
       </td>
@@ -109,7 +109,7 @@
   </c:if>
 </table>
 
-<h2><bean:message key="system.audit.xccdftable.jsp.xccdfrules"/></h2>
+<h2><bean:message key="system.audit.xccdfdetails.jsp.xccdfrules"/></h2>
 
 <rl:listset name="xccdfDetails">
   <rhn:csrf/>

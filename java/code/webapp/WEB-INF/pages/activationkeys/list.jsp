@@ -31,7 +31,7 @@
 </p>
 <c:choose>
    <c:when test="${not empty requestScope['default']}">
-<table class="table">
+<table class="details">
     <tr>
         <th>
             <bean:message key="kickstart.activationkeys.jsp.description"/>

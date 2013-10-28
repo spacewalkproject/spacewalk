@@ -25,13 +25,13 @@ function refreshNotifFields() {
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <rhn:toolbar base="h2" icon="icon-desktop"
-    deletionUrl="/rhn/systems/table/probes/ProbeDelete.do?probe_id=${probe.id}&amp;sid=${system.id}"
+    deletionUrl="/rhn/systems/details/probes/ProbeDelete.do?probe_id=${probe.id}&amp;sid=${system.id}"
     deletionType="probe">
  <bean:message key="probeedit.jsp.editprobe" />
 </rhn:toolbar>
-<html:form action="/systems/table/probes/ProbeEdit" method="POST">
+<html:form action="/systems/details/probes/ProbeEdit" method="POST">
   <rhn:csrf />
-  <table class="table">
+  <table class="details">
     <tr>
       <th><bean:message key="probeedit.jsp.probecommand" /></th>
       <td colspan="3">${probe.command.description}</td>

@@ -8,7 +8,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
 
 <rhn:dialogmenu mindepth="0" maxdepth="1"
-    definition="/WEB-INF/nav/kickstart_table.xml"
+    definition="/WEB-INF/nav/kickstart_details.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <h2><bean:message key="kickstart.locale.jsp.header1"/></h2>
@@ -21,7 +21,7 @@
     <rhn:csrf />
     <html:hidden property="ksid" value="${ksdata.id}"/>
     <html:hidden property="submitted" value="true"/>
-      <table class="table">
+      <table class="details">
 
         <tr>
           <th><bean:message key="kickstart.locale.jsp.timezone" /></th>

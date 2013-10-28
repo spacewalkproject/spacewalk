@@ -20,7 +20,7 @@
 		</html:form>
 	</c:when>
 	<c:otherwise>
-		<table class="table">
+		<table class="details">
 			<tr>
 				<th><bean:message key="channelOverview.jsp.name" /></th>
 				<td><bean:write name="channelOverviewForm" property="cofName"></bean:write></td>

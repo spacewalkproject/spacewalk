@@ -1,23 +1,23 @@
-<h2><bean:message key="filetable.properties.jspf.header2" /></h2>
-<table class="table">
+<h2><bean:message key="filedetails.properties.jspf.header2" /></h2>
+<table class="details">
 <tr>
-  <th><bean:message key="filetable.properties.jspf.path" /></th>
+  <th><bean:message key="filedetails.properties.jspf.path" /></th>
   <td><bean:write name="configFileForm" property="cffPath"/></td>
 </tr>
 <c:choose>
 <c:when test="${revision.symlink}">
 <tr>
-	<th><bean:message key="filetable.properties.jspf.targetpath" /></th>
+	<th><bean:message key="filedetails.properties.jspf.targetpath" /></th>
 	<td><html:text name="configFileForm" property="targetPath" size="30"/></td>
 </tr>
 </c:when>
 <c:otherwise>
 <tr>
-  <th><bean:message key="filetable.properties.jspf.ownership" /></th>
+  <th><bean:message key="filedetails.properties.jspf.ownership" /></th>
   <td>
     <table>
       <tr>
-        <td><bean:message key="filetable.properties.jspf.uid" /></td>
+        <td><bean:message key="filedetails.properties.jspf.uid" /></td>
         <td>
           <rhn:require acl="config_channel_editable(${channel.id})"
                        mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
@@ -30,7 +30,7 @@
         </td>
       </tr>
       <tr>
-        <td><bean:message key="filetable.properties.jspf.gid" /></td>
+        <td><bean:message key="filedetails.properties.jspf.gid" /></td>
         <td>
           <rhn:require acl="config_channel_editable(${channel.id})"
                        mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
@@ -42,12 +42,12 @@
           </rhn:require>
         </td>
       </tr>
-      <tr><td colspan="2"><span class="small-text"><bean:message key="filetable.jsp.tip.ownership" /></span></td></tr>
+      <tr><td colspan="2"><span class="small-text"><bean:message key="filedetails.jsp.tip.ownership" /></span></td></tr>
     </table>
   </td>
 </tr>
 <tr>
-  <th><bean:message key="filetable.properties.jspf.permissions" /></th>
+  <th><bean:message key="filedetails.properties.jspf.permissions" /></th>
   <td>
     <rhn:require acl="config_channel_editable(${channel.id})"
                  mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
@@ -58,7 +58,7 @@
         ${form.map.cffPermissions}
     </rhn:require>
   	<br />
-    <span class="small-text"><bean:message key="filetable.jsp.tip.permissions" /></span>
+    <span class="small-text"><bean:message key="filedetails.jsp.tip.permissions" /></span>
   </td>
 </tr>
 </c:otherwise>
@@ -76,7 +76,7 @@
       ${form.map.cffSELinuxCtx}
     </rhn:require>
     <br />
-    <span class="small-text"><bean:message key="filetable.jsp.tip.selinux" /></span>
+    <span class="small-text"><bean:message key="filedetails.jsp.tip.selinux" /></span>
   </td>
 </tr>
 </table>

@@ -19,9 +19,9 @@
 <div class="page-summary">
 	<h2><bean:message key="kickstart.clone.jsp.header2"/></h2>
     <p><bean:message key="kickstart.clone.jsp.summary"/></p>
-      <table class="table">
+      <table class="details">
           <tr>
-            <th><rhn:required-field key="kickstarttable.jsp.label"/>:</th>
+            <th><rhn:required-field key="kickstartdetails.jsp.label"/>:</th>
             <td><html:text property="label" maxlength="64" size="32" /></td>
           </tr>
           <tr>

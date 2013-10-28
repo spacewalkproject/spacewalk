@@ -14,7 +14,7 @@
             <span class="toolbar">
                 <c:choose>
                     <c:when test="${not empty param.cnid}">
-                        <a href="/rhn/systems/table/DeleteCrashNote.do?sid=${sid}&crid=${crid}&cnid=${cnid}">
+                        <a href="/rhn/systems/details/DeleteCrashNote.do?sid=${sid}&crid=${crid}&cnid=${cnid}">
                             <i class="icon-trash"
                                  title="<bean:message key="toolbar.delete.note"/>" ></i>
                             <bean:message key="toolbar.delete.note"/>
@@ -22,7 +22,7 @@
                         |
                     </c:when>
                 </c:choose>
-                <a href="/rhn/systems/table/SoftwareCrashDelete.do?crid=${crid}&sid=${sid}">
+                <a href="/rhn/systems/details/SoftwareCrashDelete.do?crid=${crid}&sid=${sid}">
                     <i class="icon-trash"
                          title="<bean:message key="toolbar.delete.crash"/>" ></i>
                     <bean:message key="toolbar.delete.crash"/>
@@ -43,22 +43,22 @@
     <c:choose>
         <c:when test="${empty param.cnid}">
             <br />
-            <bean:message key="table.crashnotes.createnote"/>
+            <bean:message key="details.crashnotes.createnote"/>
         </c:when>
     </c:choose>
 
-    <html:form method="post" action="/systems/table/EditCrashNote.do">
+    <html:form method="post" action="/systems/details/EditCrashNote.do">
         <rhn:csrf />
         <html:hidden property="submitted" value="true"/>
         <html:hidden property="sid" value="${sid}"/>
         <html:hidden property="crid" value="${crid}"/>
-        <table class="table">
+        <table class="details">
             <tr>
-                <th><bean:message key="sdc.table.notes.subject"/></th>
+                <th><bean:message key="sdc.details.notes.subject"/></th>
                 <td><html:text property="subject" maxlength="128" size="40" styleId="subject" /></td>
             </tr>
             <tr>
-                <th><bean:message key="sdc.table.notes.details"/></th>
+                <th><bean:message key="sdc.details.notes.details"/></th>
                 <td><html:textarea property="note" cols="40" rows="6" styleId="note"/></td>
             </tr>
         </table>

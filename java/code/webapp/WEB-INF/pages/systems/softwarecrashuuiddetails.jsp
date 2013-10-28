@@ -22,7 +22,7 @@
 
     <br />
 
-    <table class="table">
+    <table class="details">
         <tr>
             <th><bean:message key="crashes.jsp.uuid"/></th>
             <td><c:out value="${crashesSummary.uuid}"/></td>
@@ -60,7 +60,7 @@
                            sortattr="serverName"
                            sortable="true"
                            filterattr="serverName">
-                    <a href="/rhn/systems/table/SoftwareCrashDetail.do?crid=${current.crashId}&sid=${current.serverId}">
+                    <a href="/rhn/systems/details/SoftwareCrashDetail.do?crid=${current.crashId}&sid=${current.serverId}">
                         <c:out value="${current.serverName}" escapeXml="true" />
                     </a>
                 </rl:column>

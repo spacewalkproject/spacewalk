@@ -23,7 +23,7 @@
       <p><bean:message key="delete.jsp.summary"/></p>
     </div>
 
-  <table class="table">
+  <table class="details">
     <tr>
       <th><bean:message key="delete.jsp.erratum"/></th>
       <td>

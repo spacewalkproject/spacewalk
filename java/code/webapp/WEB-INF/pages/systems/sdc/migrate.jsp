@@ -6,15 +6,15 @@
 <html:html xhtml="true">
   <body>
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
-    <h2><bean:message key="sdc.table.migrate.header"/></h2>
+    <h2><bean:message key="sdc.details.migrate.header"/></h2>
 
-    <html:form method="post" action="/systems/table/SystemMigrate.do?sid=${system.id}">
+    <html:form method="post" action="/systems/details/SystemMigrate.do?sid=${system.id}">
       <rhn:csrf />
       <html:hidden property="submitted" value="true"/>
-    <table class="table">
+    <table class="details">
       <tr>
         <th>
-          <bean:message key="sdc.table.migrate.org"/>
+          <bean:message key="sdc.details.migrate.org"/>
         </th>
         <td>
           <html:select property="to_org">
@@ -30,7 +30,7 @@
       <hr/>
         <div class="text-right">
           <html:submit>
-            <bean:message key="sdc.table.migrate.migrate"/>
+            <bean:message key="sdc.details.migrate.migrate"/>
           </html:submit>
         </div>
     </html:form>

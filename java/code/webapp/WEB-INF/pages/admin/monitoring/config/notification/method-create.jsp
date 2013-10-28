@@ -17,7 +17,7 @@
 
 <html:form action="/monitoring/config/notification/MethodCreate" method="POST">
     <rhn:csrf />
-    <table class="table">
+    <table class="details">
     <tr>
         <th>
             <rhn:required-field key="method-form.jspf.name"/>

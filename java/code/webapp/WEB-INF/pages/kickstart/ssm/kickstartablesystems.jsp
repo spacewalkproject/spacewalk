@@ -47,7 +47,7 @@
 <h2><bean:message key="ssm.kickstartable-systems.jsp.systems"/></h2>
     <p><bean:message key="ssm.kickstartable-systems.jsp.systems.summary"/></p>
 
-<table class="table">
+<table class="details">
     <tr>
         <th>
             <bean:message key="ssm.kickstartable-systems.jsp.type"/>:

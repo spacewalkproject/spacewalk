@@ -47,7 +47,7 @@ boolean staticIfDisabled = Boolean.valueOf(
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
 
 <rhn:dialogmenu mindepth="0" maxdepth="1"
-    definition="/WEB-INF/nav/kickstart_table.xml"
+    definition="/WEB-INF/nav/kickstart_details.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 
@@ -57,10 +57,10 @@ boolean staticIfDisabled = Boolean.valueOf(
     <rhn:csrf />
     <html:hidden property="ksid" />
     <html:hidden property="submitted" />
-    <h2><bean:message key="kickstart.systemtable.jsp.header1"/></h2>
+    <h2><bean:message key="kickstart.systemdetails.jsp.header1"/></h2>
     <c:if test="${not ksdata.legacyKickstart}">
-      <h2><bean:message key="kickstart.systemtable.jsp.header2"/></h2>
-      <table class="table">
+      <h2><bean:message key="kickstart.systemdetails.jsp.header2"/></h2>
+      <table class="details">
         <tr>
           <th><bean:message key="kickstart.selinux.jsp.label" />:</th>
           <td>
@@ -72,8 +72,8 @@ boolean staticIfDisabled = Boolean.valueOf(
       </table>
     </c:if>
 
-    <h2><bean:message key="kickstart.systemtable.jsp.header3"/></h2>
-      <table class="table">
+    <h2><bean:message key="kickstart.systemdetails.jsp.header3"/></h2>
+      <table class="details">
        <tr>
          <th><bean:message key="kickstart.config.mgmt.jsp.label" />:</th>
          <td><html:checkbox property="configManagement" /><br />
@@ -96,8 +96,8 @@ boolean staticIfDisabled = Boolean.valueOf(
         </tr>
 
       </table>
-    <h2><bean:message key="kickstart.systemtable.jsp.header4"/></h2>
-    <table class="table">
+    <h2><bean:message key="kickstart.systemdetails.jsp.header4"/></h2>
+    <table class="details">
       <tr>
         <th><bean:message key="kickstart.root.password.jsp.label" />:</th>
         <td><html:password property="rootPassword" maxlength="32" size="32" redisplay="false"/></td>
@@ -108,7 +108,7 @@ boolean staticIfDisabled = Boolean.valueOf(
       </tr>
       <tr>
         <td align="right" colspan="2">
-            <input type="submit" value="<bean:message key="kickstart.systemtable.edit.submit.jsp.label" />" />
+            <input type="submit" value="<bean:message key="kickstart.systemdetails.edit.submit.jsp.label" />" />
         </td>
       </tr>
     </table>

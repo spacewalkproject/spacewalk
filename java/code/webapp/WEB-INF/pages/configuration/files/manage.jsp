@@ -57,7 +57,7 @@
 <html:form method="post" action="/configuration/file/ManageRevisionSubmit.do?cfid=${file.id}&csrf_token=${csrfToken}"
            enctype="multipart/form-data">
   <rhn:csrf />
-  <table class="table">
+  <table class="details">
     <tr>
       <th><bean:message key="manage.jsp.uploadtab"/></th>
       <td><html:file property="cffUpload" /></td>

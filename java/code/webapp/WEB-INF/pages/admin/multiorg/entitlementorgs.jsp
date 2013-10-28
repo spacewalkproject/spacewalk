@@ -77,7 +77,7 @@ imgAlt="users.jsp.imgAlt">
 
 <h2><bean:message key="entitlementorgs.usage"/></h2>
 
-<table class="table">
+<table class="details">
     <tr>
         <th>
             <b><bean:message key="entitlementorgs.total_allocated"/>:</

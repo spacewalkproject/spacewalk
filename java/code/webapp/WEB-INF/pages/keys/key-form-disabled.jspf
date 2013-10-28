@@ -1,4 +1,4 @@
-    <table class="table">
+    <table class="details">
     <tr>
         <th>
             <rhn:required-field key="keycreate.jsp.description"/>

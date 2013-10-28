@@ -139,7 +139,7 @@
 <c:if test="${not empty requestScope.regularAvailable}">
 <h2><bean:message key="softwareEntitlementSubs.systemWideCounts.header.regular"/></h2>
 
-<table class="table">
+<table class="details">
     <tr>
         <th>
             <strong><bean:message key="softwareEntitlementSubs.systemWideCounts.total"/>:</strong>
@@ -174,7 +174,7 @@
 <c:if test="${not empty requestScope.flexAvailable}">
 <h2><bean:message key="softwareEntitlementSubs.systemWideCounts.header.flex"/></h2>
 
-<table class="table">
+<table class="details">
     <tr>
         <th>
             <strong><bean:message key="softwareEntitlementSubs.systemWideCounts.total"/>:</strong>
