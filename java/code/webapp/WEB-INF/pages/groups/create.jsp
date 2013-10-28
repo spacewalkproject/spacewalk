@@ -12,7 +12,7 @@
                 <img src="/img/rhn-icon-help.gif" alt="Help Icon" />
             </a>
         </h1>
-        <p class="lead"><bean:message key="systemgroup.create.summary"/></p>
+        <p><bean:message key="systemgroup.create.summary"/></p>
         <c:if test="${not empty emptynameordesc}">
             <div class="local-alert"><bean:message key="systemgroup.create.requirements"/><br /></div>
         </c:if>

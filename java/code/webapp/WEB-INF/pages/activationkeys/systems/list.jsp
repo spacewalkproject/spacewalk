@@ -14,7 +14,7 @@
 
 
 <div class="page-summary">
-	<h2><img src="/img/rhn-icon-system.gif" alt="${rhn:localize('system.common.systemAlt')}" />
+	<h2><i class="icon-desktop"></i>
 	<bean:message key="Systems"/>
 	</h2>
     <p>

@@ -8,7 +8,7 @@
     <body>
         <%@ include file="/WEB-INF/pages/common/fragments/user/user-header.jspf" %>
         <h2><bean:message key="message.Update"/> ${editAddressForm.map.typedisplay}</h2>
-        <p class="lead"><bean:message key="edit_address.jsp.summary"/></p>
+        <p><bean:message key="edit_address.jsp.summary"/></p>
         <html:form action="/users/EditAddressSubmit" styleClass="form-horizontal">
             <rhn:csrf />
             <%@ include file="/WEB-INF/pages/common/fragments/user/edit_address_form.jspf" %>

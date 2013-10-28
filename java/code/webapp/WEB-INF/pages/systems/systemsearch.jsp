@@ -11,7 +11,7 @@
                      imgAlt="search.alt.img">
             <bean:message key="systemsearch.jsp.toolbar"/>
         </rhn:toolbar>
-        <p class="lead"><bean:message key="systemsearch.jsp.summary"/></p>
+        <p><bean:message key="systemsearch.jsp.summary"/></p>
         <p><bean:message key="erratasearch.jsp.instructions"/></p>
 
         <html:form action="/systems/Search.do" styleClass="form-horizontal">

@@ -17,7 +17,7 @@
 
 
 <div class="page-summary">
-	<h2><img src="/img/rhn-icon-system_group.gif" alt="system group" />
+	<h2><i class="spacewalk-icon-system-groups"></i>
 	<bean:message key="${param.title_key}"/>
 	</h2>
     <p>

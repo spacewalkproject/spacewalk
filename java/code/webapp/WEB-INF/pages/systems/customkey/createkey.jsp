@@ -16,7 +16,7 @@
                     <img src="/img/rhn-icon-help.gif" alt="Help Icon" />
                 </a>
             </div>
-            <p class="lead">
+            <p>
                 <bean:message key="system.jsp.customkey.createmsg"/>
             </p>
             <form action="/rhn/systems/customdata/CreateCustomKey.do"
