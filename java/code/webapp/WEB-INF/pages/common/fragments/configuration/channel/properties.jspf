@@ -1,38 +1,49 @@
 <!-- Properties of the channel itself  -->
-<h2><bean:message key="channelOverview.jsp.properties" />
-  <rhn:require acl="config_channel_type(normal); user_role(config_admin)"
-               mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-    <c:if test="${channelOverviewForm.map.editing != 'true'}">
-		  (<a
-		href="/rhn/configuration/ChannelOverview.do?ccid=${ccid}&amp;editing=true"><bean:message
-		key="channelOverview.jsp.choose-edit" /></a>)
-    </c:if>
-  </rhn:require>
+<h2>
+    <bean:message key="channelOverview.jsp.properties" />
+    <rhn:require acl="config_channel_type(normal); user_role(config_admin)"
+                 mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+        <c:if test="${channelOverviewForm.map.editing != 'true'}">
+            (<a
+                href="/rhn/configuration/ChannelOverview.do?ccid=${ccid}&amp;editing=true"><bean:message
+                    key="channelOverview.jsp.choose-edit" /></a>)
+            </c:if>
+        </rhn:require>
 </h2>
 <c:choose>
-	<c:when test="${channelOverviewForm.map.editing == 'true'}">
-		<p><bean:message key="channelOverview.jsp.edit-instruction" /></p>
-		<html:form action="/configuration/ChannelOverview.do?ccid=${ccid}">
+    <c:when test="${channelOverviewForm.map.editing == 'true'}">
+        <p><bean:message key="channelOverview.jsp.edit-instruction" /></p>
+        <html:form action="/configuration/ChannelOverview.do?ccid=${ccid}" styleClass="form-horizontal">
             <rhn:csrf />
-	        <html:hidden property="submitted" value="true"/>
-			<html:hidden property="creating" value="false"/>
-			<%@ include	file="/WEB-INF/pages/common/fragments/configuration/channel/propertybody.jspf"%>
-		</html:form>
-	</c:when>
-	<c:otherwise>
-		<table class="details">
-			<tr>
-				<th><bean:message key="channelOverview.jsp.name" /></th>
-				<td><bean:write name="channelOverviewForm" property="cofName"></bean:write></td>
-			</tr>
-			<tr>
-				<th><bean:message key="channelOverview.jsp.label" /></th>
-				<td><bean:write name="channelOverviewForm" property="cofLabel"></bean:write></td>
-			</tr>
-			<tr>
-				<th><bean:message key="channelOverview.jsp.descr" /></th>
-				<td><bean:write name="channelOverviewForm" property="cofDescription"></bean:write></td>
-			</tr>
-		</table>
-	</c:otherwise>
+            <html:hidden property="submitted" value="true"/>
+            <html:hidden property="creating" value="false"/>
+            <%@ include	file="/WEB-INF/pages/common/fragments/configuration/channel/propertybody.jspf"%>
+        </html:form>
+    </c:when>
+    <c:otherwise>
+        <div class="form-group">
+            <label class="col-lg-3 control-label">
+                <bean:message key="channelOverview.jsp.name" />
+            </label>
+            <div class="col-lg-6">
+                <bean:write name="channelOverviewForm" property="cofName"></bean:write>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-3 control-label">
+                <bean:message key="channelOverview.jsp.label" />
+            </label>
+            <div class="col-lg-6">
+                <bean:write name="channelOverviewForm" property="cofLabel"></bean:write>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-3 control-label">
+                <bean:message key="channelOverview.jsp.descr" />
+            </label>
+            <div class="col-lg-6">
+                <bean:write name="channelOverviewForm" property="cofDescription"></bean:write>
+            </div>
+        </div>
+    </c:otherwise>
 </c:choose>

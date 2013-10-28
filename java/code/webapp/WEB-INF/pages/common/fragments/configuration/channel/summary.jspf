@@ -1,6 +1,6 @@
 <!--  Summary info for a specific channel  -->
 <h2><bean:message key="channelOverview.jsp.information" /></h2>
-<table class="details">
+<table class="table">
 	<tr>
 		<th><bean:message key="channelOverview.jsp.numfiles-header" /></th>
 		<c:choose>
@@ -76,7 +76,7 @@
 				<a href="/rhn/configuration/file/FileDetails.do?cfid=${summary.mostRecentMod.configFile.id}">
 				  <c:out value="${summary.mostRecentMod.configFile.configFileName.path}" />
 				</a><br />
-				
+
 				<c:if test="${summary.mostRecentMod.configFile.latestConfigRevision.changedBy != null}">
 				  <%-- The c:set here creates an image with a user name.
 				       It has a link around it if the logged in user is an org admin --%>
