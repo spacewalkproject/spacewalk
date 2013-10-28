@@ -21,128 +21,204 @@
 		toggleElement(document.getElementById(linkId + 'Hide'));
 	}
 	</script>
-	<table class="details">
-		<tr>
-			<th><bean:message key="addfiles.jsp.type-name" /></th>
-			<td>
-			<html:radio property="filetype" value="file" styleId="file_radio" /><bean:message
-				key="addfiles.jsp.type.text" /> <br />
-			<html:radio
-				property="filetype" value="directory" styleId="dir_radio" /><bean:message
-				key="addfiles.jsp.type.directory" /><br />
-			<html:radio property="filetype" value="symlink" styleId="symlink_radio" /><bean:message
-				key="addfiles.jsp.type.symlink" /><br />
-			<script type="text/javascript">
-			    $(document).ready(function() {
-                    $('#symlink_radio').click(function() {
-                        $('#cffUid').attr('disabled', true);
-                        $('#cffGid').attr('disabled', true);
-                        $('#cffPermissions').attr('disabled', true);
-                        $('#cffMacroStart').attr('disabled', true);
-                        $('#cffMacroEnd').attr('disabled', true);
-                        $('#targetPath').attr('disabled', false);
-                        $('#contentsRow').hide();
-                        $('#hiddenContentsRow').show();
-                    });
+        <div class="form-group">
+            <label class="col-lg-3 control-label">
+                <bean:message key="addfiles.jsp.type-name" />
+            </label>
+            <div class="col-lg-6">
+                <div class="checkbox">
+                    <label>
+                        <html:radio property="filetype" value="file" styleId="file_radio" />
+                        <bean:message key="addfiles.jsp.type.text" />
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-3 col-lg-6">
+                <div class="checkbox">
+                    <label>
+                        <html:radio property="filetype" value="directory" styleId="dir_radio" />
+                        <bean:message key="addfiles.jsp.type.directory" />
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-3 col-lg-6">
+                <div class="checkbox">
+                    <label>
+			<html:radio property="filetype" value="symlink" styleId="symlink_radio" />
+                        <bean:message key="addfiles.jsp.type.symlink" />
+                    </label>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+           $(document).ready(function() {
+               $('#symlink_radio').click(function() {
+                   $('#cffUid').attr('disabled', true);
+                   $('#cffGid').attr('disabled', true);
+                   $('#cffPermissions').attr('disabled', true);
+                   $('#cffMacroStart').attr('disabled', true);
+                   $('#cffMacroEnd').attr('disabled', true);
+                   $('#targetPath').attr('disabled', false);
+                   $('#contentsRow').hide();
+                   $('#hiddenContentsRow').show();
+               });
 
-                    $('#file_radio').click(function() {
-                        $('#cffUid').attr('disabled', false);
-                        $('#cffGid').attr('disabled', false);
-                        $('#cffPermissions').attr('disabled', false);
-                        $('#cffMacroStart').attr('disabled', false);
-                        $('#cffMacroEnd').attr('disabled', false);
-                        $('#targetPath').attr('disabled', true);
-                        $('#contentsRow').show();
-                        $('#hiddenContentsRow').hide();
-                    });
+               $('#file_radio').click(function() {
+                   $('#cffUid').attr('disabled', false);
+                   $('#cffGid').attr('disabled', false);
+                   $('#cffPermissions').attr('disabled', false);
+                   $('#cffMacroStart').attr('disabled', false);
+                   $('#cffMacroEnd').attr('disabled', false);
+                   $('#targetPath').attr('disabled', true);
+                   $('#contentsRow').show();
+                   $('#hiddenContentsRow').hide();
+               });
 
-                    $('#dir_radio').click(function() {
-                        $('#cffUid').attr('disabled', false);
-                        $('#cffGid').attr('disabled', false);
-                        $('#cffPermissions').attr('disabled', false);
-                        $('#cffMacroStart').attr('disabled', true);
-                        $('#cffMacroEnd').attr('disabled', true);
-                        $('#targetPath').attr('disabled', true);
-                        $('#contentsRow').hide();
-                        $('#hiddenContentsRow').show();
-                    });
-			    });
-			</script>
-			</td>
-		</tr>
-		<tr>
-			<th><bean:message key="filedetails.properties.jspf.path" /></th>
-			<td><html:text name="configFileForm" property="cffPath" size="30"/></td>
-		</tr>
-		<tr>
-			<th><bean:message key="filedetails.properties.jspf.targetpath" /></th>
-			<td><html:text name="configFileForm" property="targetPath" disabled = "${configFileForm.map.filetype != 'symlink'}" styleId="targetPath" size="30"/></td>
-		</tr>
-		<tr>
-			<th><bean:message key="filedetails.properties.jspf.ownership" /></th>
-			<td>
-			<table>
-				<tr>
-					<td><bean:message key="filedetails.properties.jspf.uid" /></td>
-					<td><html:text property="cffUid" size="6" styleId="cffUid" disabled = "${configFileForm.map.filetype == 'symlink'}"/></td>
-				</tr>
-				<tr>
-					<td><bean:message key="filedetails.properties.jspf.gid" /></td>
-					<td><html:text property="cffGid" size="6" styleId="cffGid" disabled = "${configFileForm.map.filetype == 'symlink'}"/></td>
-				</tr>
-				<tr>
-					<td colspan="2"><span class="small-text"><bean:message
-						key="filedetails.jsp.tip.ownership" /></span></td>
-				</tr>
-			</table>
-			</td>
-		</tr>
-		<tr>
-			<th><bean:message key="filedetails.properties.jspf.permissions" /></th>
-			<td><html:text property="cffPermissions" maxlength="4" size="4" styleId="cffPermissions" disabled = "${configFileForm.map.filetype == 'symlink'}"/><br />
-			<span class="small-text"><bean:message
-				key="filedetails.jsp.tip.permissions" /></span></td>
-		</tr>
-		<tr>
-			<th>SELinux context</th>
-			<td><html:text property="cffSELinuxCtx" size="30" /><br />
-			<span class="small-text"><bean:message key="filedetails.jsp.tip.selinux" /></span></td>
-		</tr>
-		<tr>
-			<th><bean:message key="filedetails.add_details.jspf.macro" /></th>
-			<td nowrap="nowrap">
-			  <bean:message key="filedetails.add_details.jspf.macro.start" />
-			  <html:text property="cffMacroStart" size="3" styleId="cffMacroStart" disabled = "${configFileForm.map.filetype == 'symlink'}" />
+               $('#dir_radio').click(function() {
+                   $('#cffUid').attr('disabled', false);
+                   $('#cffGid').attr('disabled', false);
+                   $('#cffPermissions').attr('disabled', false);
+                   $('#cffMacroStart').attr('disabled', true);
+                   $('#cffMacroEnd').attr('disabled', true);
+                   $('#targetPath').attr('disabled', true);
+                   $('#contentsRow').hide();
+                   $('#hiddenContentsRow').show();
+               });
+           });
+       </script>
+       <div class="form-group">
+           <label class="col-lg-3 control-label">
+               <bean:message key="filedetails.properties.jspf.path" />
+           </label>
+           <div class="col-lg-6">
+               <html:text name="configFileForm" property="cffPath" size="30" styleClass="form-control"/>
+           </div>
+       </div>
+       <div class="form-group">
+           <label class="col-lg-3 control-label">
+               <bean:message key="filedetails.properties.jspf.targetpath" />
+           </label>
+           <div class="col-lg-6">
+               <html:text name="configFileForm" property="targetPath"
+                          styleClass="form-control"
+                          disabled = "${configFileForm.map.filetype != 'symlink'}"
+                          styleId="targetPath" size="30"/>
+           </div>
+       </div>
+       <div class="form-group">
+           <label class="col-lg-3 control-label">
+               <bean:message key="filedetails.properties.jspf.ownership" />
+           </label>
+           <div class="col-lg-2">
+               <bean:message key="filedetails.properties.jspf.uid" />
+           </div>
+           <div class="col-lg-2">
+               <html:text property="cffUid" size="6"
+                          styleId="cffUid" styleClass="form-control"
+                          disabled = "${configFileForm.map.filetype == 'symlink'}"/>
+           </div>
+       </div>
+       <div class="form-group">
+           <div class="col-lg-offset-3 col-lg-2">
+               <bean:message key="filedetails.properties.jspf.gid" />
+           </div>
+           <div class="col-lg-2">
+               <html:text property="cffGid" size="6"
+                          styleId="cffGid" styleClass="form-control"
+                          disabled = "${configFileForm.map.filetype == 'symlink'}"/>
+           </div>
+       </div>
+       <div class="form-group">
+           <div class="col-lg-offset-3 col-lg-6">
+               <strong><bean:message key="filedetails.jsp.tip.ownership" /></strong>
+           </div>
+       </div>
+       <div class="form-group">
+           <label class="col-lg-3 control-label">
+               <bean:message key="filedetails.properties.jspf.permissions" />
+           </label>
+           <div class="col-lg-2">
+               <html:text property="cffPermissions" maxlength="4" size="4"
+                          styleId="cffPermissions" styleClass="form-control"
+                          disabled = "${configFileForm.map.filetype == 'symlink'}"/>
+           </div>
+       </div>
+       <div class="form-group">
+           <div class="col-lg-offset-3 col-lg-6">
+               <span class="help-block">
+                   <bean:message key="filedetails.jsp.tip.permissions" />
+               </span>
+           </div>
+       </div>
+       <div class="form-group">
+           <label class="col-lg-3 control-label">
+               SELinux context
+           </label>
+           <div class="col-lg-6">
+               <html:text property="cffSELinuxCtx" styleClass="form-control" size="30" />
+               <span class="help-block"><bean:message key="filedetails.jsp.tip.selinux" /></span>
+           </div>
+       </div>
+       <div class="form-group">
+           <label class="col-lg-3 control-label">
+               <bean:message key="filedetails.add_details.jspf.macro" />
+           </label>
+           <div class="col-lg-1">
+               <bean:message key="filedetails.add_details.jspf.macro.start" />
+           </div>
+           <div class="col-lg-1">
+               <html:text property="cffMacroStart" size="3"
+                          styleId="cffMacroStart" styleClass="form-control"
+                          disabled = "${configFileForm.map.filetype == 'symlink'}" />
+           </div>
+           <div class="col-lg-1">
               <bean:message key="filedetails.add_details.jspf.macro.end" />
-              <html:text property="cffMacroEnd" size="3" styleId="cffMacroEnd" disabled = "${configFileForm.map.filetype == 'symlink'}" /><br />
-              <c:if test="${documentation == 'true'}">
-                <span class="small-text">
-                  <bean:message key="filedetails.jsp.tip.macros" arg0="/rhn/help/reference/index.jsp" />
-                </span>
-              </c:if>
-            </td>
-		</tr>
-		<tr id = "contentsRow"
-			<c:if test="${configFileForm.map.filetype == 'symlink'}"> style="display:none"</c:if>
-		>
-		  <th><bean:message key="addfiles.create.jspf.content-name" /></th>
-		  <td>
-		  	<html:textarea property="contents" rows="20" cols="80" styleId="contents"/><br />
-			<span class="small-text"><bean:message key="filedetails.jsp.tip.edit"/></span>
-		  </td>
-		</tr>
-		<tr id = "hiddenContentsRow" 
-			<c:if test="${configFileForm.map.filetype != 'symlink'}"> style="display:none"</c:if>
-			>
-		  <th><bean:message key="addfiles.create.jspf.content-name" /></th>
-		  <td>
-		  	<textarea name="dumb" cols="80" rows="20" disabled="true"></textarea><br />
-			<span class="small-text"><bean:message key="filedetails.jsp.tip.edit"/></span>
-		  </td>
-		</tr>		
-		
-	</table>
-	<hr />
-	<div class="text-right"><html:submit>
-		<bean:message key="addfiles.jsp.create.jspf.submit" />
-	</html:submit></div>
+           </div>
+           <div class="col-lg-1">
+               <html:text property="cffMacroEnd" size="3"
+                          styleId="cffMacroEnd" styleClass="form-control"
+                          disabled = "${configFileForm.map.filetype == 'symlink'}" />
+           </div>
+       </div>
+       <c:if test="${documentation == 'true'}">
+           <div class="form-group">
+               <div class="col-lg-offset-3 col-lg-6">
+                   <span class="help-block">
+                       <bean:message key="filedetails.jsp.tip.macros" arg0="/rhn/help/reference/index.jsp" />
+                   </span>
+               </div>
+           </div>
+       </c:if>
+       <div class="form-group" <c:if test="${configFileForm.map.filetype == 'symlink'}"> style="display:none"</c:if>>
+           <label class="col-lg-3 control-label">
+               <bean:message key="addfiles.create.jspf.content-name" />
+           </label>
+           <div class="col-lg-6">
+               <html:textarea property="contents" rows="20" cols="80" styleClass="form-control" styleId="contents"/>
+               <span class="help-block">
+                   <bean:message key="filedetails.jsp.tip.edit"/>
+               </span>
+           </div>
+       </div>
+       <div class="form-group" <c:if test="${configFileForm.map.filetype != 'symlink'}"> style="display:none"</c:if>>
+           <label class="col-lg-3 control-label">
+               <bean:message key="addfiles.create.jspf.content-name" />
+           </label>
+           <div class="col-lg-6">
+               <textarea name="dumb" cols="80" rows="20" disabled="true" styleClass="form-control"></textarea>
+               <span class="help-block">
+                   <bean:message key="filedetails.jsp.tip.edit"/>
+               </span>
+           </div>
+       </div>
+       <div class="form-group">
+           <div class="col-lg-offset-3 col-lg-6">
+               <html:submit styleClass="btn btn-success">
+                   <bean:message key="addfiles.jsp.create.jspf.submit" />
+               </html:submit>
+           </div>
+       </div>
