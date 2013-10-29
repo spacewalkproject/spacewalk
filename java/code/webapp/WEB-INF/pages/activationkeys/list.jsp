@@ -20,22 +20,16 @@
 </rhn:toolbar>
 
 
-<p>
-	<bean:message key="activation-keys.jsp.para1"/>
-</p>
-
-<p>
+<p><bean:message key="activation-keys.jsp.para1"/></p>
 <h2><bean:message key="activation-key.jsp.universal-default"/></h2>
-<p>
-	<bean:message key="activation-keys.jsp.universal-default-text"/>
-</p>
+<p><bean:message key="activation-keys.jsp.universal-default-text"/></p>
 <c:choose>
-   <c:when test="${not empty requestScope['default']}">
-<table class="details">
+  <c:when test="${not empty requestScope['default']}">
+  <table class="table">
     <tr>
-        <th>
+        <td>
             <bean:message key="kickstart.activationkeys.jsp.description"/>
-        </th>
+        </td>
         <td>
 			<c:choose>
                <c:when test="${requestScope['default'].note != null}">
@@ -51,20 +45,19 @@
 
         </td>
     </tr>
-
     <tr>
-        <th>
+        <td>
             <bean:message key="kickstart.activationkeys.jsp.key"/>
-        </th>
+        </td>
         <td>
         	<c:out value="${requestScope['default'].token}"/>
         </td>
     </tr>
 
     <tr>
-        <th>
+        <td>
             <bean:message key="kickstart.activationkeys.jsp.usagelimit"/>
-        </th>
+        </td>
         <td>
 			<c:choose>
                <c:when test="${requestScope['default'].usageLimit != null}">
@@ -78,9 +71,9 @@
         </td>
     </tr>
     <tr>
-        <th>
+        <td>
             <bean:message key="Status"/>
-        </th>
+        </td>
         <td>
 			<c:choose>
                <c:when test="${not requestScope['default'].disabled}">
@@ -164,6 +157,7 @@
    <rhn:submitted/>
     <input type="submit"
 		name ="dispatch"
+    class="btn btn-default"
     	value="${rhn:localize('kickstart.activationkeys.jsp.submit')}"/>
 </div>
 </c:if>

@@ -7,16 +7,13 @@
   <body>
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-    <rhn:toolbar base="h2" img="/img/rhn-icon-note.gif"
+    <rhn:toolbar base="h2" icon="icon-pushpin"
            creationUrl="/rhn/systems/details/EditNote.do?sid=${system.id}"
-           creationType="note"
-      >
+           creationType="note">
       <bean:message key="sdc.details.notes.header"/>
     </rhn:toolbar>
 
-    <div class="page-summary">
-      <p><bean:message key="sdc.details.notes.message"/></p>
-    </div>
+    <p><bean:message key="sdc.details.notes.message"/></p>
     <rhn:list pageList="${requestScope.pageList}"
             noDataText="sdc.details.notes.nonotes">
 
@@ -38,7 +35,6 @@
       </rhn:listdisplay>
 
     </rhn:list>
-
 
   </body>
 </html:html>

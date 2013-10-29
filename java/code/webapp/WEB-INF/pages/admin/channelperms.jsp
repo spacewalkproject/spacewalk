@@ -10,14 +10,11 @@
 
 <h2><bean:message key="channelperms.jsp.title" /></h2>
 
-<div class="page-summary">
 <p><bean:message key="channelperms.jsp.summary"/></p>
 
 <p>
 
-(<span class="ok-explanation"><img src="/img/rhn-listicon-ok.gif"
-        alt="<bean:message key="channelperms.jsp.permGranted.short"/>"
-        title="<bean:message key="channelperms.jsp.permGranted.short"/>" /></span>
+(<span class="ok-explanation"><i class="icon-ok" title="<bean:message key="channelperms.jsp.permGranted.short"/>"></i></span>
 <bean:message key="channelperms.jsp.permGranted" />)
 </p>
 
@@ -30,7 +27,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/admin/channelperms_list.jspf" %>
 
 </html:form>
-</div>
+
 </body>
 </html>
 

@@ -2,14 +2,10 @@
   <rhn:listdisplay filterBy="channelperms.jsp.channelname" button="channelperms.jsp.submitpermissions">
 	<rhn:column header="channelperms.jsp.permission" width="5%">
         <c:if test="${userIsChannelAdmin}">
-            <img src="/img/rhn-listicon-ok.gif"
-                 title="<bean:message key="channelperms.jsp.permAdmin"/>"
-                 alt="<bean:message key="channelperms.jsp.permAdmin"/>" />
+            <i class="icon-ok" title="<bean:message key="channelperms.jsp.permAdmin"/>"></i>
         </c:if>
         <c:if test="${current.globallySubscribable and not (userIsChannelAdmin)}">
-            <img src="/img/rhn-listicon-ok.gif"
-                 title="<bean:message key="channelperms.jsp.permGlobal"/>"
-                 alt="<bean:message key="channelperms.jsp.permGlobal"/>" />
+            <i class="icon-ok" title="<bean:message key="channelperms.jsp.permGlobal"/>"></i>
         </c:if>
         <c:if test="${not (userIsChannelAdmin or current.globallySubscribable)}">
             <html:multibox property="selectedChannels">${current.id}</html:multibox>

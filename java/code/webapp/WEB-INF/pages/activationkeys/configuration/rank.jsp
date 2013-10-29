@@ -15,7 +15,7 @@
                     action="/activationkeys/configuration/Rank.do?tid=${param.tid}">
             <rhn:csrf />
             <h2>
-                <img src="${cfg:channelHeaderIcon('central')}" alt="${cfg:channelAlt('central')}"/>
+                <i class="spacewalk-icon-software-channels"></i>
                 <bean:message key="sdc.config.rank.jsp.header"/>
             </h2>
             <c:if test="${not empty param.wizardMode}">

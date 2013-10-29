@@ -9,14 +9,12 @@
 <html>
 <body>
 
-<rhn:toolbar base="h1" icon="icon-dashboard"
-	         helpUrl="">
+<rhn:toolbar base="h1" icon="icon-dashboard">
     <bean:message key="bunch.edit.jsp.toolbar" arg0="${label}"/>
 </rhn:toolbar>
 
 <rl:listset name="runList">
 
-    <div>
        <h2><bean:message key="bunch.edit.jsp.bunchdescription"/></h2>
        <div class="page-summary">
           <c:out value="${bunchdescription}"/>
@@ -32,7 +30,6 @@
        <div class="page-summary">
           <bean:message key="bunch.jsp.generaldescription"/>
        </div>
-    </div>
     <br/>
     <rl:list
         emptykey="schedule.jsp.noruns"
@@ -62,8 +59,7 @@
 
                 <rl:column bound="false"
                            headerkey="kickstart.jsp.status"
-                           sortattr="status"
- >
+                           sortattr="status">
                         <c:out value="${current.status}" />
                 </rl:column>
 

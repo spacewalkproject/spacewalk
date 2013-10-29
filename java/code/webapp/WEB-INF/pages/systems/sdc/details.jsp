@@ -6,87 +6,91 @@
 <html:html xhtml="true">
     <body>
         <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
-        <h2><bean:message key="sdc.details.edit.header"/></h2>
 
-    <html:form method="post" action="/systems/details/Edit.do?sid=${system.id}" styleClass="form-horizontal">
-            <rhn:csrf />
-            <html:hidden property="submitted" value="true"/>
-
-            <div class="form-group">
-                <label for="system_name" class="col-lg-3 control-label">
-                    <bean:message key="sdc.details.edit.profilename"/>
-                </label>
-                <div class="col-lg-6">
-                    <html:text property="system_name" styleClass="form-control" styleId="system_name"/>
-                </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4><bean:message key="sdc.details.edit.header"/></h4>
             </div>
+            <div class="panel-body">
+                <html:form method="post" action="/systems/details/Edit.do?sid=${system.id}" styleClass="form-horizontal">
+                    <rhn:csrf />
+                    <html:hidden property="submitted" value="true"/>
 
-            <div class="form-group">
-                <label for="baseentitlement" class="col-lg-3 control-label">
-                    <bean:message key="sdc.details.edit.baseentitlement"/>
-                </label>
-                <div class="col-lg-6">
-                    <c:choose>
-                        <c:when test="${!base_entitlement_permanent}">
-                            <rhn:require acl="user_role(org_admin)">
-                                <html:select property="base_entitlement" styleId="baseentitlement" styleClass="form-control">
-                                    <html:options collection="base_entitlement_options" property="value" labelProperty="label"/>
-                                </html:select>
-                            </rhn:require>
-                            <rhn:require acl="not user_role(org_admin)">
-                                <c:out value="${base_entitlement}"/>
-                            </rhn:require>
-                        </c:when>
-                        <c:otherwise>
-                            <c:out value="${base_entitlement}"/>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-            </div>
+                    <div class="form-group">
+                        <label for="system_name" class="col-lg-3 control-label">
+                            <bean:message key="sdc.details.edit.profilename"/>
+                        </label>
+                        <div class="col-lg-6">
+                            <html:text property="system_name" styleClass="form-control" styleId="system_name"/>
+                        </div>
+                    </div>
 
-            <div class="form-group">
-                <label class="col-lg-3 control-label">
-                    <bean:message key="sdc.details.edit.addonentitlements"/>
-                </label>
-                <div class="col-lg-6">
-                    <c:choose>
-                        <c:when test="${system.baseEntitlement == null}">
-                            <bean:message key="sdc.details.edit.nobase"/>
-                        </c:when>
-                        <c:otherwise>
-                            <c:forEach items="${addon_entitlements}" var="entitlement">
-                                <div class="checkbox">
-                                    <label for="${entitlement.entitlement.label}">
-                                        <html:checkbox property="${entitlement.entitlement.label}"
-                                                       styleId="${entitlement.entitlement.label}"/>
-                                        <strong>
-                                            <c:out value="${entitlement.entitlement.humanReadableLabel}"/>
-                                        </strong>
-                                        (${entitlement.availbleEntitlements} <bean:message key="sdc.channels.edit.available"/>)
-                                    </label>
-                                </div>
-                            </c:forEach>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-            </div>
+                    <div class="form-group">
+                        <label for="baseentitlement" class="col-lg-3 control-label">
+                            <bean:message key="sdc.details.edit.baseentitlement"/>
+                        </label>
+                        <div class="col-lg-6">
+                            <c:choose>
+                                <c:when test="${!base_entitlement_permanent}">
+                                    <rhn:require acl="user_role(org_admin)">
+                                        <html:select property="base_entitlement" styleId="baseentitlement" styleClass="form-control">
+                                            <html:options collection="base_entitlement_options" property="value" labelProperty="label"/>
+                                        </html:select>
+                                    </rhn:require>
+                                    <rhn:require acl="not user_role(org_admin)">
+                                        <c:out value="${base_entitlement}"/>
+                                    </rhn:require>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:out value="${base_entitlement}"/>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                    </div>
 
-            <div class="form-group">
-                <label class="col-lg-3 control-label">
-                    <bean:message key="sdc.details.edit.notifications"/>
-                </label>
-                <div class="col-lg-6">
-                    <c:choose>
-                        <c:when test="${notifications_disabled}">
-                            <bean:message key="sdc.details.overview.notifications.disabled"/>
-                        </c:when>
-                        <c:when test="${system.baseEntitlement == null}">
-                            <bean:message key="sdc.details.edit.notifications.unentitled"/>
-                        </c:when>
-                        <c:otherwise>
-                            <label for="receive_notifications">
-                                <html:checkbox property="receive_notifications" styleId="receive_notifications"/>
-                                <bean:message key="sdc.details.edit.updates"/>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">
+                            <bean:message key="sdc.details.edit.addonentitlements"/>
+                        </label>
+                        <div class="col-lg-6">
+                            <c:choose>
+                                <c:when test="${system.baseEntitlement == null}">
+                                    <bean:message key="sdc.details.edit.nobase"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forEach items="${addon_entitlements}" var="entitlement">
+                                        <div class="checkbox">
+                                            <label for="${entitlement.entitlement.label}">
+                                                <html:checkbox property="${entitlement.entitlement.label}"
+                                                               styleId="${entitlement.entitlement.label}"/>
+                                                <strong>
+                                                    <c:out value="${entitlement.entitlement.humanReadableLabel}"/>
+                                                </strong>
+                                                (${entitlement.availbleEntitlements} <bean:message key="sdc.channels.edit.available"/>)
+                                            </label>
+                                        </div>
+                                    </c:forEach>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">
+                            <bean:message key="sdc.details.edit.notifications"/>
+                        </label>
+                        <div class="col-lg-6">
+                            <c:choose>
+                                <c:when test="${notifications_disabled}">
+                                    <bean:message key="sdc.details.overview.notifications.disabled"/>
+                                </c:when>
+                                <c:when test="${system.baseEntitlement == null}">
+                                    <bean:message key="sdc.details.edit.notifications.unentitled"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <label for="receive_notifications">
+                                        <html:checkbox property="receive_notifications" styleId="receive_notifications"/>
+                                        <bean:message key="sdc.details.edit.updates"/>
                             </label>
                             <label for="summary">
                                 <html:checkbox property="include_in_daily_summary" styleId="summary"/>
@@ -199,5 +203,7 @@
                 </div>
             </div>
         </html:form>
+            </div>
+        </div>
     </body>
 </html:html>
