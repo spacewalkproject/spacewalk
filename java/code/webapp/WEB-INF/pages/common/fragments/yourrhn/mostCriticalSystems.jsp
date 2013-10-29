@@ -46,17 +46,15 @@
     	</rl:column>
 
 	</rl:list>
-	
-	<span class="pull-left text-right">
-		${paginationMessage}
-	</span>
-	
-	<span class="pull-right text-right">
-  		<a href="/rhn/systems/OutOfDate.do">
-  			<bean:message key="yourrhn.jsp.allcriticalsystems" />
-  		</a>
-  	</span>
+	<div class="row">
+		<div class="col-md-6 text-left">
+			${paginationMessage}
+		</div>
+		<div class="col-md-6 text-right">
+			<a href="/rhn/systems/OutOfDate.do">
+	  			<bean:message key="yourrhn.jsp.allcriticalsystems" />
+	  		</a>
+		</div>
+		<hr/>
+	</div>
 </rl:listset>
-
-
-
