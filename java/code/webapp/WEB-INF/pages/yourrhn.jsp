@@ -32,6 +32,22 @@
 <c:if test="${requestScope.systemGroupsWidget == 'y'}">
 	<script type="text/javascript" src="/rhn/dwr/interface/SystemGroupsRenderer.js"></script>
 </c:if>
+<script type="text/javascript">
+  $(document).on("ready", function() {
+    //for each div with class row
+    $(".row-0").each(function() {
+      //we count the number of childrens with class col-md-6
+      var numberOfChildrenCol6 = $(this).children(".col-md-6").length;
+      //and we count the number of children with class different than col-md-6
+      var numberOfChildrenDifferent = $(this).children().not('.col-md-6').length;
+      //if the number of childrens different to col-md-6 is Cero and the row has only 1 col-md-6 (which takes only 50% of the space)
+      if (numberOfChildrenDifferent == 0 && numberOfChildrenCol6 == 1) {
+        //we remove the class col-md-6 and change it for col-md-12, which will take a width of 100%.
+        $(this).children(".col-md-6").removeClass('col-md-6').addClass('col-md-12');
+      }
+    });
+  });
+</script>
 </head>
 <body>
 <rhn:toolbar base="h1" icon="fa-tachometer" imgAlt="yourrhn.jsp.toolbar.img.alt"
@@ -45,25 +61,24 @@
 
 <c:choose>
     <c:when test="${requestScope.anyListsSelected == 'true'}">
-  	    <c:if test="${requestScope.tasks == 'y'}">
-  	        <div class="half-table half-table-left" id="tasks-pane" >
-  	            <script type="text/javascript">
-  	     	        TasksRenderer.renderAsync(makeAjaxCallback('tasks-pane', false));
-  	            </script>
-  	        </div>
-  	    </c:if>
-  	    <c:if test="${requestScope.inactiveSystems == 'y'}">
-  	        <div class="half-table half-table-right" id="inactive-systems-pane" >
-	            <script type="text/javascript">
-  	                InactiveSystemsRenderer.renderAsync(makeAjaxCallback("inactive-systems-pane", false));
-  	            </script>
-  	        </div>
-  	    </c:if>
-
+      <div class="row-0">
+        <c:if test="${requestScope.tasks == 'y'}">
+            <div class="col-md-6" id="tasks-pane" >
+                <script type="text/javascript">
+                  TasksRenderer.renderAsync(makeAjaxCallback('tasks-pane', false));
+                </script>
+            </div>
+        </c:if>
+        <c:if test="${requestScope.inactiveSystems == 'y'}">
+            <div class="col-md-6" id="inactive-systems-pane" >
+              <script type="text/javascript">
+                    InactiveSystemsRenderer.renderAsync(makeAjaxCallback("inactive-systems-pane", false));
+                </script>
+            </div>
+        </c:if>
+      </div>
   	    <c:if test="${requestScope.criticalSystems == 'y'}">
-            <div style="clear: both; padding-top: 10px;">
-  		        <div id="critical-systems-pane" >
-  		
+  		        <div id="critical-systems-pane" class="row">
   		            <script type="text/javascript">
   		                CriticalSystemsRenderer.renderAsync(makeAjaxCallback("critical-systems-pane", false));
   		            </script>
@@ -71,7 +86,7 @@
         </c:if>
 
         <c:if test="${requestScope.criticalProbes == 'y'}">
-            <div id="critical-probes-pane" >
+            <div id="critical-probes-pane" class="row">
                 <script type="text/javascript">
                     CriticalProbesRenderer.renderAsync(makeAjaxCallback("critical-probes-pane", false));
                 </script>
@@ -79,43 +94,40 @@
         </c:if>
 
         <c:if test="${requestScope.warningProbes == 'y'}">
-            <div id="warning-probes-pane" >
+            <div id="warning-probes-pane" class="row">
                 <script type="text/javascript">
                     WarningProbesRenderer.renderAsync(makeAjaxCallback("warning-probes-pane", false));
                 </script>
             </div>
         </c:if>
-
-        <div style="clear: both;">
-            <c:if test="${requestScope.pendingActions =='y'}">
-                <div id="pending-actions-pane" class="full-width-wrapper">
-                    <script type="text/javascript">
-      	                PendingActionsRenderer.renderAsync(makeAjaxCallback("pending-actions-pane", false));
-                    </script>
-                </div>
-            </c:if>
-            <c:if test="${requestScope.latestErrata == 'y'}">
-    	        <div id="latest-errata-pane" class="full-width-wrapper">
-    	            <script type="text/javascript">
-    	  	            LatestErrataRenderer.renderAsync(makeAjaxCallback("latest-errata-pane", false));    	
-    	            </script>
-    	        </div>
-            </c:if>
-            <c:if test="${requestScope.systemGroupsWidget == 'y'}">
-                <div id="systems-groups-pane" class="full-width-wrapper">
-                    <script type="text/javascript">
-                        SystemGroupsRenderer.renderAsync(makeAjaxCallback("systems-groups-pane", false));
-                    </script>
-                </div>
-            </c:if>
-            <c:if test="${requestScope.recentlyRegisteredSystems == 'y'}">
-                <div id="recently-registered-pane" class="full-width-wrapper">
-                    <script>
-                        RecentSystemsRenderer.renderAsync(makeAjaxCallback("recently-registered-pane", false));
-                    </script>
-                </div>
-            </c:if>
-        </div>
+        <c:if test="${requestScope.pendingActions =='y'}">
+            <div id="pending-actions-pane" class="row">
+                <script type="text/javascript">
+  	                PendingActionsRenderer.renderAsync(makeAjaxCallback("pending-actions-pane", false));
+                </script>
+            </div>
+        </c:if>
+        <c:if test="${requestScope.latestErrata == 'y'}">
+	        <div id="latest-errata-pane" class="row">
+	            <script type="text/javascript">
+	  	            LatestErrataRenderer.renderAsync(makeAjaxCallback("latest-errata-pane", false));    	
+	            </script>
+	        </div>
+        </c:if>
+        <c:if test="${requestScope.systemGroupsWidget == 'y'}">
+            <div id="systems-groups-pane" class="row">
+                <script type="text/javascript">
+                    SystemGroupsRenderer.renderAsync(makeAjaxCallback("systems-groups-pane", false));
+                </script>
+            </div>
+        </c:if>
+        <c:if test="${requestScope.recentlyRegisteredSystems == 'y'}">
+            <div id="recently-registered-pane" class="row">
+                <script>
+                    RecentSystemsRenderer.renderAsync(makeAjaxCallback("recently-registered-pane", false));
+                </script>
+            </div>
+        </c:if>
     </c:when>
 
     <c:otherwise>
