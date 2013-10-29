@@ -1,107 +1,112 @@
 <!--  Channel-overview-tasks -->
 <!--  Divide into three sections, Deploy, Compare, and Add/Create -->
-<h2><bean:message key="channelOverview.jsp.actions" /></h2>
-<%-- This is here so that we can display a message if none of the following tables get shown --%>
-<c:set var="tableshown" scope="request" value="false" />
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h4><bean:message key="channelOverview.jsp.actions" /></h4>
+	</div>
+	<div class="panel-body">
+		<%-- This is here so that we can display a message if none of the following tables get shown --%>
+		<c:set var="tableshown" scope="request" value="false" />
 
-<rhn:require acl="not config_channel_type(server_import); config_channel_has_files(); config_channel_has_systems()"
-             mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-  <c:set var="tableshown" scope="request" value="true" />
-  <!-- Deploy Files table -->
-  <table cellspacing="0" cellpadding="0"
-	class="half-table half-table-right">
-	<thead>
-		<tr>
-			<th style="text-align: left;"><bean:message
-				key="channelOverview.jsp.tasks.deploy" /></th>
-		</tr>
-	</thead>
-	<tr class="list-row-odd">
-		<td style="text-align: left;"><img
-			style="margin-left: 4px;" src="/img/parent_node.gif"
-			alt="" /> <a
-			href="/rhn/configuration/channel/ChannelDeployTasks.do?ccid=${ccid}&amp;mode=all2all"> <bean:message
-			key="channelOverview.jsp.tasks.deployAll2All" /></a></td>
-	</tr>
-	<tr class="list-row-odd">
-		<td style="text-align: left;"><img
-			style="margin-left: 4px;" src="/img/parent_node.gif"
-			alt="" /> <a
-			href="/rhn/configuration/channel/ChannelDeployTasks.do?ccid=${ccid}&amp;mode=sel2all"> <bean:message
-			key="channelOverview.jsp.tasks.deploySel2All" /></a></td>
-	</tr>
-	<tr class="list-row-odd">
-		<td style="text-align: left;"><img
-			style="margin-left: 4px;" src="/img/parent_node.gif"
-			alt="" /> <a
-			href="/rhn/configuration/channel/ChannelDeployTasks.do?ccid=${ccid}&amp;mode=all2sel"> <bean:message
-			key="channelOverview.jsp.tasks.deployAll2Sel" /></a></td>
-	</tr>
-	<tr class="list-row-odd">
-		<td style="text-align: left;"><img
-			style="margin-left: 4px;" src="/img/parent_node.gif"
-			alt="" /> <a
-			href="/rhn/configuration/channel/ChannelDeployTasks.do?ccid=${ccid}&amp;mode=sel2sel"> <bean:message
-			key="channelOverview.jsp.tasks.deploySel2Sel" /></a></td>
-	</tr>
-  </table>
-</rhn:require>
+		<rhn:require acl="not config_channel_type(server_import); config_channel_has_files(); config_channel_has_systems()"
+		             mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+		  <c:set var="tableshown" scope="request" value="true" />
+		  <!-- Deploy Files table -->
+		  <div class="col-md-6">
+		  <table class="table">
+			<thead>
+				<tr>
+					<th style="text-align: left;"><bean:message
+						key="channelOverview.jsp.tasks.deploy" /></th>
+				</tr>
+			</thead>
+			<tr class="list-row-odd">
+				<td style="text-align: left;"><img
+					style="margin-left: 4px;" src="/img/parent_node.gif"
+					alt="" /> <a
+					href="/rhn/configuration/channel/ChannelDeployTasks.do?ccid=${ccid}&amp;mode=all2all"> <bean:message
+					key="channelOverview.jsp.tasks.deployAll2All" /></a></td>
+			</tr>
+			<tr class="list-row-odd">
+				<td style="text-align: left;"><img
+					style="margin-left: 4px;" src="/img/parent_node.gif"
+					alt="" /> <a
+					href="/rhn/configuration/channel/ChannelDeployTasks.do?ccid=${ccid}&amp;mode=sel2all"> <bean:message
+					key="channelOverview.jsp.tasks.deploySel2All" /></a></td>
+			</tr>
+			<tr class="list-row-odd">
+				<td style="text-align: left;"><img
+					style="margin-left: 4px;" src="/img/parent_node.gif"
+					alt="" /> <a
+					href="/rhn/configuration/channel/ChannelDeployTasks.do?ccid=${ccid}&amp;mode=all2sel"> <bean:message
+					key="channelOverview.jsp.tasks.deployAll2Sel" /></a></td>
+			</tr>
+			<tr class="list-row-odd">
+				<td style="text-align: left;"><img
+					style="margin-left: 4px;" src="/img/parent_node.gif"
+					alt="" /> <a
+					href="/rhn/configuration/channel/ChannelDeployTasks.do?ccid=${ccid}&amp;mode=sel2sel"> <bean:message
+					key="channelOverview.jsp.tasks.deploySel2Sel" /></a></td>
+			</tr>
+		  </table>
+		  </div>
+		</rhn:require>
 
-<rhn:require acl="config_channel_has_files(); config_channel_has_systems()"
-             mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-  <c:set var="tableshown" scope="request" value="true" />
-  <!-- Compare Files table -->
-  <table cellspacing="0" cellpadding="0"
-	class="half-table half-table-right">
-	<thead>
-		<th style="text-align: left;"><bean:message
-			key="channelOverview.jsp.tasks.compare" /></th>
-	</thead>
-	<tr class="list-row-odd">
-		<td style="text-align: left;"><img
-			style="margin-left: 4px;" src="/img/parent_node.gif"
-			alt="" /> <a
-			href="/rhn/configuration/channel/ChannelDeployTasks.do?ccid=${ccid}&amp;mode=compare"> <bean:message
-			key="channelOverview.jsp.tasks.compareAll" /></a></td>
-	</tr>
-  </table>
-</rhn:require>
+		<rhn:require acl="config_channel_has_files(); config_channel_has_systems()"
+		             mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+		  <c:set var="tableshown" scope="request" value="true" />
+		  <!-- Compare Files table -->
+		  <table class="col-md-6">
+			<thead>
+				<th class="text-left"><bean:message
+					key="channelOverview.jsp.tasks.compare" /></th>
+			</thead>
+			<tr class="list-row-odd">
+				<td style="text-align: left;"><img
+					style="margin-left: 4px;" src="/img/parent_node.gif"
+					alt="" /> <a
+					href="/rhn/configuration/channel/ChannelDeployTasks.do?ccid=${ccid}&amp;mode=compare"> <bean:message
+					key="channelOverview.jsp.tasks.compareAll" /></a></td>
+			</tr>
+		  </table>
+		</rhn:require>
 
-<rhn:require acl="config_channel_editable()"
-             mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-  <c:set var="tableshown" scope="request" value="true" />
-  <!-- Add/Create Files table -->
-  <table cellspacing="0" cellpadding="0"
-	class="half-table half-table-right">
-	<thead>
-		<th style="text-align: left;"><bean:message
-			key="channelOverview.jsp.tasks.modify" /></th>
-	</thead>
-	<tr class="list-row-odd">
-		<td style="text-align: left;"><img
-			style="margin-left: 4px;" src="/img/parent_node.gif"
-			alt="" /> <a
-			href="/rhn/configuration/ChannelCreateFiles.do?ccid=${ccid}"> <bean:message
-			key="channelOverview.jsp.tasks.modifyCreate" /></a></td>
-	</tr>
-	<tr class="list-row-odd">
-		<td style="text-align: left;"><img
-			style="margin-left: 4px;" src="/img/parent_node.gif"
-			alt="" /> <a
-			href="/rhn/configuration/ChannelUploadFiles.do?ccid=${ccid}"> <bean:message
-			key="channelOverview.jsp.tasks.modifyUpload" /></a></td>
-	</tr>
-	<tr class="list-row-odd">
-		<td style="text-align: left;"><img
-			style="margin-left: 4px;" src="/img/parent_node.gif"
-			alt="" /> <a
-			href="/rhn/configuration/ChannelImportFiles.do?ccid=${ccid}"> <bean:message
-			key="channelOverview.jsp.tasks.modifyImport" /></a></td>
-	</tr>
-  </table>
-</rhn:require>
+		<rhn:require acl="config_channel_editable()"
+		             mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+		  <c:set var="tableshown" scope="request" value="true" />
+		  <!-- Add/Create Files table -->
+		  <table class="table">
+			<thead>
+				<th style="text-align: left;"><bean:message
+					key="channelOverview.jsp.tasks.modify" /></th>
+			</thead>
+			<tr class="list-row-odd">
+				<td style="text-align: left;"><img
+					style="margin-left: 4px;" src="/img/parent_node.gif"
+					alt="" /> <a
+					href="/rhn/configuration/ChannelCreateFiles.do?ccid=${ccid}"> <bean:message
+					key="channelOverview.jsp.tasks.modifyCreate" /></a></td>
+			</tr>
+			<tr class="list-row-odd">
+				<td style="text-align: left;"><img
+					style="margin-left: 4px;" src="/img/parent_node.gif"
+					alt="" /> <a
+					href="/rhn/configuration/ChannelUploadFiles.do?ccid=${ccid}"> <bean:message
+					key="channelOverview.jsp.tasks.modifyUpload" /></a></td>
+			</tr>
+			<tr class="list-row-odd">
+				<td style="text-align: left;"><img
+					style="margin-left: 4px;" src="/img/parent_node.gif"
+					alt="" /> <a
+					href="/rhn/configuration/ChannelImportFiles.do?ccid=${ccid}"> <bean:message
+					key="channelOverview.jsp.tasks.modifyImport" /></a></td>
+			</tr>
+		  </table>
+		</rhn:require>
 
-<%-- If none of the tables got shown, show a message --%>
-<c:if test="${not tableshown}">
-  <bean:message key="channelOverview.jsp.tasks.noTasks" />
-</c:if>
+		<%-- If none of the tables got shown, show a message --%>
+		<c:if test="${not tableshown}">
+		  <bean:message key="channelOverview.jsp.tasks.noTasks" />
+		</c:if>
+	</div>
+</div>

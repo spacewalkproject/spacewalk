@@ -1,108 +1,116 @@
 <!--  Summary info for a specific channel  -->
-<h2><bean:message key="channelOverview.jsp.information" /></h2>
-<table class="table">
-	<tr>
-		<th><bean:message key="channelOverview.jsp.numfiles-header" /></th>
-		<c:choose>
-			<c:when test="${summary.numFiles + summary.numDirs + summary.numSymlinks > 0}">
-				<td><bean:message key="channelOverview.jsp.numfiles"
-					arg0="${summary.numFiles}" arg1="${summary.numDirs}" arg2="${summary.numSymlinks}" />
-					<br />(<a
-					href="/rhn/configuration/ChannelFiles.do?ccid=${channel.id}"><bean:message
-					key="channelOverview.jsp.numfiles-total"
-					arg0="${summary.numFiles + summary.numDirs + summary.numSymlinks}" /></a>)</td>
-			</c:when>
-			<c:otherwise>
-				<td><bean:message key="channelOverview.jsp.numfiles-none" /></td>
-			</c:otherwise>
-		</c:choose>
-	</tr>
-	<%-- If this is not a global channel, there will always be one system subscribed. --%>
-	<rhn:require acl="config_channel_type(normal)"
-	             mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-      <tr>
-		<th><bean:message key="channelOverview.jsp.systems-header" /></th>
-		<c:choose>
-			<c:when test="${summary.numSystems == 1}">
-				<td><a href="/rhn/configuration/channel/ChannelSystems.do?ccid=${channel.id}"><bean:message
-					key="onesystem.message"/></a>
-				<bean:message key="channelOverview.jsp.systems-subscribed" /></td>
-			</c:when>
-			<c:when test="${summary.numSystems > 1}">
-				<td><a href="/rhn/configuration/channel/ChannelSystems.do?ccid=${channel.id}"><bean:message
-					key="manysystems.message" arg0="${summary.numSystems}" /></a>
-				<bean:message key="channelOverview.jsp.systems-subscribed" /></td>
-			</c:when>
-			<c:otherwise>
-				<td><bean:message key="channelOverview.jsp.systems-none" /></td>
-			</c:otherwise>
-		</c:choose>
-      </tr>
-    </rhn:require>
-	<c:if test="${channel.configChannelType.label == 'normal'}">
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h4><bean:message key="channelOverview.jsp.information" /></h4>
+	</div>
+	<div class="panel-body">
+		<table class="table">
 		<tr>
-			<th><bean:message key="channelOverview.jsp.recentsystem-header" /></th>
+			<th><bean:message key="channelOverview.jsp.numfiles-header" /></th>
 			<c:choose>
-				<c:when test="${summary.numSystems > 0}">
-					<td>
-					  <img alt='<bean:message key="system.common.systemAlt" />' src="/img/rhn-listicon-system.gif" />
-					  <a href="/rhn/systems/details/configuration/Overview.do?&amp;sid=${summary.mostRecentSystem.id}">
-					    <c:out value="${summary.mostRecentSystem.name}" />
-					  </a><br />
-					  ${summary.systemDate}
-					</td>
+				<c:when test="${summary.numFiles + summary.numDirs + summary.numSymlinks > 0}">
+					<td><bean:message key="channelOverview.jsp.numfiles"
+						arg0="${summary.numFiles}" arg1="${summary.numDirs}" arg2="${summary.numSymlinks}" />
+						<br />(<a
+						href="/rhn/configuration/ChannelFiles.do?ccid=${channel.id}"><bean:message
+						key="channelOverview.jsp.numfiles-total"
+						arg0="${summary.numFiles + summary.numDirs + summary.numSymlinks}" /></a>)</td>
 				</c:when>
 				<c:otherwise>
-					<td><bean:message key="channelOverview.jsp.recentsystem-none" /></td>
+					<td><bean:message key="channelOverview.jsp.numfiles-none" /></td>
 				</c:otherwise>
 			</c:choose>
 		</tr>
-	</c:if>
-	<tr>
-		<th><bean:message key="channelOverview.jsp.recentfile-header" /></th>
-		<td><c:choose>
-			<c:when test="${summary.numFiles + summary.numDirs + summary.numSymlinks > 0}">
+		<%-- If this is not a global channel, there will always be one system subscribed. --%>
+		<rhn:require acl="config_channel_type(normal)"
+		             mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+	      <tr>
+			<th><bean:message key="channelOverview.jsp.systems-header" /></th>
+			<c:choose>
+				<c:when test="${summary.numSystems == 1}">
+					<td><a href="/rhn/configuration/channel/ChannelSystems.do?ccid=${channel.id}"><bean:message
+						key="onesystem.message"/></a>
+					<bean:message key="channelOverview.jsp.systems-subscribed" /></td>
+				</c:when>
+				<c:when test="${summary.numSystems > 1}">
+					<td><a href="/rhn/configuration/channel/ChannelSystems.do?ccid=${channel.id}"><bean:message
+						key="manysystems.message" arg0="${summary.numSystems}" /></a>
+					<bean:message key="channelOverview.jsp.systems-subscribed" /></td>
+				</c:when>
+				<c:otherwise>
+					<td><bean:message key="channelOverview.jsp.systems-none" /></td>
+				</c:otherwise>
+			</c:choose>
+	      </tr>
+	    </rhn:require>
+		<c:if test="${channel.configChannelType.label == 'normal'}">
+			<tr>
+				<th><bean:message key="channelOverview.jsp.recentsystem-header" /></th>
 				<c:choose>
-					<c:when test="${summary.mostRecentMod.configFile.latestConfigRevision.directory}">
-						<img alt='<bean:message key="config.common.dirAlt" />' src="/img/rhn-listicon-cfg_folder.gif" />
-					</c:when>
-					<c:when test="${summary.mostRecentMod.configFile.latestConfigRevision.symlink}">
-						<img alt='<bean:message key="config.common.symlinkAlt" />' src="/img/rhn-listicon-cfg_symlink.gif" />
+					<c:when test="${summary.numSystems > 0}">
+						<td>
+						  <img alt='<bean:message key="system.common.systemAlt" />' src="/img/rhn-listicon-system.gif" />
+						  <a href="/rhn/systems/details/configuration/Overview.do?&amp;sid=${summary.mostRecentSystem.id}">
+						    <c:out value="${summary.mostRecentSystem.name}" />
+						  </a><br />
+						  ${summary.systemDate}
+						</td>
 					</c:when>
 					<c:otherwise>
-						<img alt='<bean:message key="config.common.fileAlt" />' src="/img/rhn-listicon-cfg_file.gif" />
+						<td><bean:message key="channelOverview.jsp.recentsystem-none" /></td>
 					</c:otherwise>
 				</c:choose>
-				<a href="/rhn/configuration/file/FileDetails.do?cfid=${summary.mostRecentMod.configFile.id}">
-				  <c:out value="${summary.mostRecentMod.configFile.configFileName.path}" />
-				</a><br />
+			</tr>
+		</c:if>
+		<tr>
+			<th><bean:message key="channelOverview.jsp.recentfile-header" /></th>
+			<td><c:choose>
+				<c:when test="${summary.numFiles + summary.numDirs + summary.numSymlinks > 0}">
+					<c:choose>
+						<c:when test="${summary.mostRecentMod.configFile.latestConfigRevision.directory}">
+							<img alt='<bean:message key="config.common.dirAlt" />' src="/img/rhn-listicon-cfg_folder.gif" />
+						</c:when>
+						<c:when test="${summary.mostRecentMod.configFile.latestConfigRevision.symlink}">
+							<img alt='<bean:message key="config.common.symlinkAlt" />' src="/img/rhn-listicon-cfg_symlink.gif" />
+						</c:when>
+						<c:otherwise>
+							<img alt='<bean:message key="config.common.fileAlt" />' src="/img/rhn-listicon-cfg_file.gif" />
+						</c:otherwise>
+					</c:choose>
+					<a href="/rhn/configuration/file/FileDetails.do?cfid=${summary.mostRecentMod.configFile.id}">
+					  <c:out value="${summary.mostRecentMod.configFile.configFileName.path}" />
+					</a><br />
 
-				<c:if test="${summary.mostRecentMod.configFile.latestConfigRevision.changedBy != null}">
-				  <%-- The c:set here creates an image with a user name.
-				       It has a link around it if the logged in user is an org admin --%>
-				  <c:set var="userbeanarg" scope="request">
-				    <rhn:require acl="user_role(org_admin)">
-				      <a href="/rhn/users/UserDetails.do?uid=${summary.mostRecentMod.configFile.latestConfigRevision.changedBy.id}">
-				    </rhn:require>
-				    <img src="/img/rhn-listicon-user.gif"
-				         alt="<bean:message key='user.common.userAlt' />" />
-				    <c:out value="${summary.mostRecentMod.configFile.latestConfigRevision.changedBy.login}" />
-				    <rhn:require acl="user_role(org_admin)">
-				      </a>
-				    </rhn:require>
-				  </c:set>
-				  <bean:message key="channelOverview.jsp.recentfile"
-				    arg0="${userbeanarg}"
-					arg1="${summary.recentFileDate}"/>
-				</c:if>
-				<c:if test="${summary.mostRecentMod.configFile.latestConfigRevision.changedBy == null}">
-				  <bean:message key="filedetails.details.jspf.modifiedBy-unknown"
-					arg0="${summary.recentFileDate}"/>
-				</c:if>
-			  </c:when>
-			<c:otherwise>
-				<bean:message key="channelOverview.jsp.recentfile-none" />
-			</c:otherwise>
-		</c:choose></td>
-	</tr>
-</table>
+					<c:if test="${summary.mostRecentMod.configFile.latestConfigRevision.changedBy != null}">
+					  <%-- The c:set here creates an image with a user name.
+					       It has a link around it if the logged in user is an org admin --%>
+					  <c:set var="userbeanarg" scope="request">
+					    <rhn:require acl="user_role(org_admin)">
+					      <a href="/rhn/users/UserDetails.do?uid=${summary.mostRecentMod.configFile.latestConfigRevision.changedBy.id}">
+					    </rhn:require>
+					    <img src="/img/rhn-listicon-user.gif"
+					         alt="<bean:message key='user.common.userAlt' />" />
+					    <c:out value="${summary.mostRecentMod.configFile.latestConfigRevision.changedBy.login}" />
+					    <rhn:require acl="user_role(org_admin)">
+					      </a>
+					    </rhn:require>
+					  </c:set>
+					  <bean:message key="channelOverview.jsp.recentfile"
+					    arg0="${userbeanarg}"
+						arg1="${summary.recentFileDate}"/>
+					</c:if>
+					<c:if test="${summary.mostRecentMod.configFile.latestConfigRevision.changedBy == null}">
+					  <bean:message key="filedetails.details.jspf.modifiedBy-unknown"
+						arg0="${summary.recentFileDate}"/>
+					</c:if>
+				  </c:when>
+				<c:otherwise>
+					<bean:message key="channelOverview.jsp.recentfile-none" />
+				</c:otherwise>
+			</c:choose></td>
+		</tr>
+	</table>
+
+	</div>
+</div>
+

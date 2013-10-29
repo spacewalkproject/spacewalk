@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
     <div class="${requestScope.inactiveSystemsClass}">
-	  <form method="post" name="rhn_list" action="/YourRhn.do">
+	  <form method="post" name="rhn_list" role="form" action="/YourRhn.do">
 
 	    <rhn:list pageList="${requestScope.inactiveSystemList}"
                   noDataText="${requestScope.inactiveSystemsEmpty}"

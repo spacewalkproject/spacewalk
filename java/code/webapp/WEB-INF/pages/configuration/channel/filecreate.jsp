@@ -4,13 +4,17 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 
 <html>
-    <body>
-        <%@ include
-            file="/WEB-INF/pages/common/fragments/configuration/channel/details-header.jspf"%>
+<body>
+<%@ include
+    file="/WEB-INF/pages/common/fragments/configuration/channel/details-header.jspf"%>
 
-            <div class="createfragment">
-                <!-- create file to channel  -->
-                <h2><bean:message key="addfiles.jsp.create.jspf.title" /> </h2>
+    <div class="createfragment">
+        <!-- create file to channel  -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4><bean:message key="addfiles.jsp.create.jspf.title" /> </h4>
+            </div>
+            <div class="panel-body">
                 <html:form
                     styleClass="form-horizontal"
                     action="/configuration/ChannelCreateFiles.do?ccid=${ccid}">
@@ -19,7 +23,7 @@
                     <%@ include file="/WEB-INF/pages/common/fragments/configuration/channel/create.jspf" %>
                 </html:form>
             </div>
-
-        </body>
-    </html>
-
+        </div>
+    </div>
+</body>
+</html>
