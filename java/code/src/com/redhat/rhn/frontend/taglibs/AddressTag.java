@@ -160,12 +160,14 @@ public class AddressTag extends TagSupport {
             out = pageContext.getOut();
             LocalizationService ls = LocalizationService.getInstance();
 
-            StringBuffer result = new StringBuffer();
-            StringBuffer key = new StringBuffer("address type ");
+            StringBuilder result = new StringBuilder();
+            StringBuilder key = new StringBuilder("address type ");
             key.append(type);
-            result.append("<tr><th>");
+            result.append("<div class=\"jumbotron\">");
+            result.append("<div class=\"container\">");
+            result.append("<h1>");
             result.append(ls.getMessage(key.toString()));
-            result.append("</th>");
+            result.append("</h1>");
             if (user == null) {
                 throw new IllegalArgumentException("User is null");
             }
@@ -174,14 +176,17 @@ public class AddressTag extends TagSupport {
             if (address != null &&
                 address.getCity() != null &&
                 address.getZip() != null) {
-                result.append("<td>");
-                result.append("<div>");
+
+                // Address 1 and 2
+                result.append("<p>");
                 result.append(address.getAddress1());
-                result.append("<br/>");
                 if (address.getAddress2() != null) {
-                    result.append(address.getAddress2());
                     result.append("<br/>");
+                    result.append(address.getAddress2());
                 }
+                result.append("<br/>");
+
+                // Sity
                 result.append(address.getCity());
                 if (address.getState() != null) {
                     result.append(", ");
@@ -189,46 +194,56 @@ public class AddressTag extends TagSupport {
                 }
                 result.append(" ");
                 result.append(address.getZip());
-                result.append("</div>");
-                result.append("<div>");
+                result.append("</p>");
+
+                // Phones
+                result.append("<p>");
                 result.append(ls.getMessage("phone"));
                 result.append(": ");
                 result.append(address.getPhone());
-                result.append("</div>");
-                result.append("<div>");
+                result.append("<br/>");
                 result.append(ls.getMessage("fax"));
                 result.append(": ");
                 if (address.getFax() != null) {
                     result.append(address.getFax());
                 }
-                result.append("</div>");
-                result.append("<div>");
-                result.append("<a href=\"" + getActionUrl() +
-                              "/EditAddress.do?type=");
-                result.append(type);
-                result.append("&amp;uid=");
-                result.append(String.valueOf(user.getId()));
-                result.append("\">");
-                result.append(ls.getMessage("Edit this address"));
-                result.append("</a>");
-                result.append("</div>");
-                result.append("</td>");
+                result.append("</p>");
+
+                result.append("<p>");
+                result.append("<a ")
+                      .append("class=\"btn btn-success btn-lg\"")
+                      .append("href=\"")
+                      .append(getActionUrl())
+                      .append("/EditAddress.do?type=")
+                      .append(type)
+                      .append("&amp;uid=")
+                      .append(String.valueOf(user.getId()))
+                      .append("\">")
+                      .append(ls.getMessage("Edit this address"))
+                      .append("</a>");
+                result.append("</p>");
             }
             else {
-                result.append("<td><div><strong>");
+                result.append("<div class=\"alert alert-info\">");
                 result.append(ls.getMessage("address not filled out"));
-                result.append("</div></strong>");
-                result.append("<a href=\"" + getActionUrl() +
-                              "/EditAddress.do?type=");
-                result.append(type);
-                result.append("&amp;uid=");
-                result.append(String.valueOf(user.getId()));
-                result.append("\">");
-                result.append(ls.getMessage("Add this address"));
-                result.append("</a>");
-                result.append("</td>");
+                result.append("</div>");
+                result.append("<p>");
+                result.append("<a ")
+                      .append("class=\"btn btn-success btn-lg\"")
+                      .append(" href=\"")
+                      .append(getActionUrl())
+                      .append("/EditAddress.do?type=")
+                      .append(type)
+                      .append("&amp;uid=")
+                      .append(String.valueOf(user.getId()))
+                      .append("\">")
+                      .append(ls.getMessage("Add this address"))
+                      .append("</a>");
+                result.append("</p>");
             }
-            result.append("</tr>");
+            result.append("</div>");
+            result.append("</div>");
+
             out.print(result);
         }
         catch (IOException ioe) {
