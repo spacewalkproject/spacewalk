@@ -84,9 +84,9 @@
                         </button>
                         </div>
                     </div>
-                    <hidden name="sid" value="${system.id}" />
-                    <hidden name="submitted" value="true" />
-                    <hidden name="use_date" value="true" />
+                    <input type="hidden" name="sid" value="${system.id}" />
+                    <input type="hidden" name="submitted" value="true" />
+                    <input type="hidden" name="use_date" value="true" />
                 </form>
             </div>
         </div>
