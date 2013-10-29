@@ -5372,6 +5372,17 @@
 
     </action>
 
+    <action path="/admin/config/BootstrapSystems"
+        scope="request"
+        input="/WEB-INF/pages/admin/config/bootstrapsystems.jsp"
+        type="com.redhat.rhn.frontend.action.satellite.BootstrapSystemConfigAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <set-property property="acls" value="user_role(satellite_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/admin/config/bootstrapsystems.jsp"/>
+    </action>
+
     <action path="/admin/Catalina"
         scope="request"
         input="/WEB-INF/pages/admin/catalina.jsp"
