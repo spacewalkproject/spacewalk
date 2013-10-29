@@ -75,7 +75,7 @@
 
   <div class="text-right">
     <hr />
-    <button type="submit" class="btn btn-default" name="refresh"><i class="icon-refresh"></i> <bean:message key='Refresh Comparison'/></button>
+    <button type="submit" class="btn btn-default" name="refresh"><i class="fa fa-refresh"></i> <bean:message key='Refresh Comparison'/></button>
   </div>
 <rhn:submitted/>
 <br/>

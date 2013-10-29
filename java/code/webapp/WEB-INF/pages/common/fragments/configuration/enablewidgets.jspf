@@ -16,7 +16,7 @@
     </tr>
     <tr>
         <td>
-            <i class="icon-desktop"></i>
+            <i class="fa fa-desktop"></i>
         </td>
         <td>
           <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">

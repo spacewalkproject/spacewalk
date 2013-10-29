@@ -50,15 +50,15 @@
                       url="/rhn/configuration/file/FileDetails.do?cfid=${current.id}">
             <c:choose>
               <c:when test="${current.type == 'file'}">
-                <i class="icon-file-text-alt"></i>
+                <i class="fa fa-file-text-o"></i>
                 ${fn:escapeXml(current.path)}
               </c:when>
               <c:when test="${current.type == 'directory'}">
-                <i class="icon-folder-close"></i>
+                <i class="fa fa-folder"></i>
                 ${fn:escapeXml(current.path)}
               </c:when>
               <c:otherwise>
-                <i class="icon-list-alt"></i>
+                <i class="fa fa-list-alt"></i>
                 ${fn:escapeXml(current.path)}
               </c:otherwise>
             </c:choose>
@@ -73,12 +73,12 @@
             </c:if>
 
             <c:if test="${current.configChannelType == 'local_override'}">
-              <i class="icon-desktop"></i>
+              <i class="fa fa-desktop"></i>
               ${current.channelNameDisplay}
             </c:if>
 
             <c:if test="${current.configChannelType == 'server_import'}">
-              <i class="icon-beaker"></i>
+              <i class="fa fa-flask"></i>
               ${current.channelNameDisplay}
             </c:if>
 
@@ -102,7 +102,7 @@
         <rhn:listdisplay>
           <rhn:column header="configoverview.jsp.system"
                       url="/rhn/systems/details/configuration/Overview.do?sid=${current.serverId}">
-            <i class="icon-desktop"></i>
+            <i class="fa fa-desktop"></i>
             ${fn:escapeXml(current.serverName)}
           </rhn:column>
 

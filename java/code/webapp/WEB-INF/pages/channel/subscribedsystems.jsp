@@ -13,7 +13,7 @@
 
  <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_header.jspf" %>
   <h2>
-      <i class="icon-desktop"></i>
+      <i class="fa fa-desktop"></i>
       <bean:message key="channelsystems.jsp.header2"/>
   </h2>
 

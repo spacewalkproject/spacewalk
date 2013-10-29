@@ -45,7 +45,7 @@
         <button type="submit"
                name="dispatch"
                class="btn btn-default">
-           <i class="icon-trash"></i> <bean:message key="erratalist.jsp.deleteerrata"/>
+           <i class="fa fa-trash-o"></i> <bean:message key="erratalist.jsp.deleteerrata"/>
         </button>
     </div>
 

@@ -164,6 +164,7 @@ p {
 	overflow: hidden;
 }
 /* adding margin to the icons in fontawesome */
+i[class~="fa"],
 i[class^="icon-"],
 i[class*=" icon-"],
 i[class*="spacewalk-icon"],
@@ -172,25 +173,14 @@ i[class^="spacewalk-icon"] {
 }
 /* if the icon is inside a H tag we wont use a margin*/
 h1, h2, h3, h4, h5, h6 {
+	i[class~="fa"],
 	i[class^="icon-"],
 	i[class*=" icon-"],
+	i[class^="fa-"],
 	i[class*="spacewalk-icon"],
 	i[class^="spacewalk-icon"] {
 		margin-right: 0;
 	}
-}
-/* color for icon */
-.spacewalk-icon-green {
-	color: @spacewalk-updates-green
-}
-.spacewalk-icon-red {
-	color: @spacewalk-security-red
-}
-.spacewalk-icon-yellow {
-	color: @spacewalk-bugs-yellow;
-}
-.spacewalk-icon-blue {
-	color: @spacewalk-enhancement-blue
 }
 
 header {
@@ -429,10 +419,10 @@ ul.nav.nav-tabs:last-child{
 }
 
 // icon size smaller than the ones default by Font Awesome
-.icon-1-5x {
+.fa-1-5x {
   font-size: 1.3em;
 }
-.icon-1-5x.icon-border {
+.fa-1-5x.icon-border {
   border-width: 2px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;

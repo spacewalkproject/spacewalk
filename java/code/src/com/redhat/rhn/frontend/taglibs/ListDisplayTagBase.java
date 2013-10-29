@@ -306,10 +306,15 @@ public class ListDisplayTagBase extends BodyTagSupport {
         btnSpan.setAttribute("class", "input-group-btn");
 
         HtmlTag btn = new HtmlTag("button");
-        btn.setAttribute("class", "btn btn-default icon-eye-open");
+        btn.setAttribute("class", "btn btn-default");
         btn.setAttribute("type", "submit");
         btn.setAttribute("name", FILTER_DISPATCH);
         btn.setAttribute("value", ls.getMessage(RequestContext.FILTER_KEY));
+
+        HtmlTag icon = new HtmlTag("i");
+        icon.setAttribute("class", "fa fa-eye");
+        icon.addBody(" ");
+        btn.addBody(icon);
 
         btnSpan.addBody(btn);
 

@@ -533,15 +533,14 @@ public class ToolbarTag extends TagSupport {
             HtmlTag tag = new HtmlTag("a");
             tag.setAttribute("href", getHelpUrl());
             tag.setAttribute("target", "_new");
-            //tag.setAttribute("class", "help-title");
 
             HtmlTag stack = new HtmlTag("span");
-            stack.setAttribute("class", "icon-stack");
-            
+            stack.setAttribute("class", "fa-stack");
+
             HtmlTag iBack = new HtmlTag("i");
-            iBack.setAttribute("class", "icon-circle icon-stack-base");
+            iBack.setAttribute("class", "fa fa-circle fa-stack-1x");
             HtmlTag iFront = new HtmlTag("i");
-            iFront.setAttribute("class", "icon-question icon-light");
+            iFront.setAttribute("class", "fa fa-question fa-stack-1x fa-inverse");
 
             stack.addBody(iBack.renderOpenTag());
             stack.addBody(iBack.renderCloseTag());
@@ -571,7 +570,7 @@ public class ToolbarTag extends TagSupport {
     private String renderIcon() {
         if (assertNotEmpty(getIcon())) {
             HtmlTag tag = new HtmlTag("i");
-            tag.setAttribute("class", getIcon());
+            tag.setAttribute("class", "fa " + getIcon());
             tag.addBody(" ");
             return tag.render();
         }
@@ -584,7 +583,7 @@ public class ToolbarTag extends TagSupport {
 
             String create = "toolbar.create." + getCreationType();
             return renderActionLink(getCreationUrl(), create,
-                                    create, "icon-plus", null);
+                                    create, "fa-plus", null);
         }
         return "";
     }
@@ -595,7 +594,7 @@ public class ToolbarTag extends TagSupport {
 
             String clone = "toolbar.clone." + getCloneType();
             return renderActionLink(getCloneUrl(), clone,
-                                    clone, "icon-copy", null);
+                                    clone, "fa-files-o", null);
         }
         return "";
     }
@@ -605,7 +604,7 @@ public class ToolbarTag extends TagSupport {
                 assertNotEmpty(getDeletionUrl())) {
 
             String del = "toolbar.delete." + getDeletionType();
-            return renderActionLink(getDeletionUrl(), del, del, "icon-trash", null);
+            return renderActionLink(getDeletionUrl(), del, del, "fa-trash-o", null);
         }
         return "";
     }
@@ -615,7 +614,7 @@ public class ToolbarTag extends TagSupport {
                 assertNotEmpty(getUploadUrl())) {
 
             String del = "toolbar.upload." + getUploadType();
-            return renderActionLink(getUploadUrl(), del, del, "icon-upload", null);
+            return renderActionLink(getUploadUrl(), del, del, "fa-upload", null);
         }
         return "";
     }
@@ -652,7 +651,7 @@ public class ToolbarTag extends TagSupport {
 
         if(assertNotEmpty(iconName)) {
             HtmlTag i = new HtmlTag("i");
-            i.setAttribute("class", iconName);
+            i.setAttribute("class", "fa " + iconName);
             a.addBody(i.renderOpenTag());
             a.addBody(i.renderCloseTag());
         }

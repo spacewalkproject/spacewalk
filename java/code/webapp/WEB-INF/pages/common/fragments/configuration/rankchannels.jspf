@@ -16,10 +16,10 @@
     <div class="col-lg-offset-3 col-lg-6">
         <div class="btn-group">
             <button type="button" title="ssm.config.rank.jsp.up" class="btn btn-default" value="up" name="dispatch" onclick="return move_selected_up('ranksWidget');">
-                <i class="icon-circle-arrow-up"></i>
+                <i class="fa fa-arrow-circle-up"></i>
             </button>
             <button type="button" title="ssm.config.rank.jsp.down" class="btn btn-default" value="down" name="dispatch" onclick="return move_selected_down('ranksWidget');">
-                <i class="icon-circle-arrow-down"></i>
+                <i class="fa fa-arrow-circle-down"></i>
             </button>
         </div>
     </div>

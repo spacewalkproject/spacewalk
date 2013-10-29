@@ -27,10 +27,10 @@
           <c:when test="${hasUpdates}">
               <c:choose>
                   <c:when test="${criticalErrataCount > 0}">
-                      <i class="icon-exclamation-sign spacewalk-icon-red icon-1-5x"></i>
+                      <i class="fa fa-exclamation-circle fa-1-5x text-danger"></i>
                   </c:when>
                   <c:otherwise>
-                      <i class="icon-warning-sign spacewalk-icon-yellow icon-1-5x"></i>
+                      <i class="fa fa-exclamation-triangle fa-1-5x text-warning"></i>
                   </c:otherwise>
               </c:choose>
 
@@ -48,7 +48,7 @@
           </c:when>
 
           <c:otherwise>
-           <i class="icon-ok-sign spacewalk-icon-green icon-1-5x"></i> <bean:message key="sdc.details.overview.updated"/>
+           <i class="fa fa-check-circle fa-1-5x text-success"></i> <bean:message key="sdc.details.overview.updated"/>
           </c:otherwise>
         </c:choose>
 
@@ -195,14 +195,14 @@
             <td>
             <c:choose>
               <c:when test="${serverLock != null}">
-              <i class="icon-lock"></i>
+              <i class="fa fa-lock"></i>
               <bean:message key="sdc.details.overview.locked"
                             arg0="${serverLock.locker.login}"
                             arg1="${serverLock.reason}" /><br/>
               <bean:message key="sdc.details.overview.unlock" arg0="/rhn/systems/details/Overview.do?sid=${system.id}&amp;lock=0"/>
               </c:when>
               <c:otherwise>
-                  <i class="icon-unlock"></i>
+                  <i class="fa fa-unlock"></i>
                   <bean:message key="sdc.details.overview.unlocked"/><br/>
                   <bean:message key="sdc.details.overview.lock" arg0="/rhn/systems/details/Overview.do?sid=${system.id}&amp;lock=1"/>
               </c:otherwise>

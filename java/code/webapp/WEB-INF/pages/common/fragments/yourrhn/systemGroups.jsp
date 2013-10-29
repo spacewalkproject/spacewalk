@@ -18,13 +18,13 @@
             	<a href="/network/systems/groups/errata_list.pxt?sgid=${current.id}">
 		      		<c:choose>
                                         <c:when test="${current.mostSevereErrata == 'Security Advisory'}">
-				<i class="icon-warning-sign icon-1-5x spacewalk-icon-red" title="<bean:message key="grouplist.jsp.security"/>"></i>
+				<i class="fa fa-exclamation-triangle fa-1-5x text-danger" title="<bean:message key="grouplist.jsp.security"/>"></i>
 	        			</c:when>
                                         <c:when test="${current.mostSevereErrata == 'Bug Fix Advisory' or current.mostSevereErrata == 'Product Enhancement Advisory'}">
-					<i class="icon-exclamation-sign icon-1-5x spacewalk-icon-yellow" title="<bean:message key="grouplist.jsp.updates"/>"></i>
+					<i class="fa fa-exclamation-circle fa-1-5x text-warning" title="<bean:message key="grouplist.jsp.updates"/>"></i>
 	    	    		</c:when>
 	        			<c:otherwise>
-	          			<i class="icon-ok-sign icon-1-5x spacewalk-icon-green" title="<bean:message key="grouplist.jsp.noerrata"/>"></i>
+	          			<i class="fa fa-check-circle fa-1-5x text-success" title="<bean:message key="grouplist.jsp.noerrata"/>"></i>
 		        		</c:otherwise>
 	   				</c:choose>
 	   			</a>

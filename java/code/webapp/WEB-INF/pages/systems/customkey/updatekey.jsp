@@ -10,14 +10,14 @@
             <div class="toolbar">
                 <span class="toolbar">
                     <a href="/rhn/systems/customdata/DeleteCustomKey.do?cikid=${cikid}">
-                        <i class="icon-trash" title="delete key"></i>delete key</a>
+                        <i class="fa fa-trash-o" title="delete key"></i>delete key</a>
                 </span>
             </div>
             <img src="/img/rhn-icon-keyring.gif" alt="" />
             <bean:message key="system.jsp.customkey.updatetitle"/>
 
             <a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-cust-info" target="_new" class="help-title">
-                <i class="icon-question-sign" title="Help icon"></i>
+                <i class="fa fa-question-circle" title="Help icon"></i>
             </a>
         </div>
 

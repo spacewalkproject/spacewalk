@@ -58,7 +58,7 @@
     </span>
     <span>
       <a href="/rhn/configuration/file/DownloadDiff.do?cfid=${file.id}&amp;crid=${revision.id}&amp;ocrid=${orevision.id}">
-        <i class="icon-download-alt"
+        <i class="fa fa-download"
            aria-hidden='true'></i>
         <bean:message key="diff.jsp.download" />
       </a>

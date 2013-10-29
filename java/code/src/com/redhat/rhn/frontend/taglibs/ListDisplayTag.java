@@ -587,13 +587,13 @@ public class ListDisplayTag extends ListDisplayTagBase {
 
         if (canGoForward || canGoBack) {
             out.println(renderPaginationButton(FIRST,
-                    "icon-fast-backward", " |&lt; ", canGoBack));
-            out.println(renderPaginationButton(PREV, "icon-backward",
+                    "fa-fast-backward", " |&lt; ", canGoBack));
+            out.println(renderPaginationButton(PREV, "fa-backward",
                     " &lt; ", canGoBack));
-            out.println(renderPaginationButton(NEXT, "icon-forward",
+            out.println(renderPaginationButton(NEXT, "fa-forward",
                     " &gt; ", canGoForward));
             out.println(renderPaginationButton(LAST,
-                    "icon-fast-forward", " &gt;| ", canGoForward));
+                    "fa-fast-forward", " &gt;| ", canGoForward));
         }
         out.println("</div>\n");
     }
@@ -602,11 +602,15 @@ public class ListDisplayTag extends ListDisplayTagBase {
             String text, boolean active) {
         HtmlTag ret = new HtmlTag("button");
         ret.setAttribute("name", name);
-        String styleClass = String.format("btn btn-default btn-xs %s", icon);
+        String styleClass = "btn btn-default btn-xs";
+        HtmlTag iconTag = new HtmlTag("i");
+        iconTag.setAttribute("class", "fa " + icon);
+        ret.addBody(iconTag);
 
         if (!active) {
             styleClass += " disabled";
         }
+        ret.setAttribute("class", styleClass);
 
         ret.addBody(String.format("<span class=\"sr-only\">%s</span>", text));
         return ret.render();

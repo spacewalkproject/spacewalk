@@ -692,7 +692,7 @@ public class ListTagUtil {
                                  ));
         sb.append("<span class=\"input-group-btn\">");
         sb.append(String.format("<button value=\"%s\" type=\"submit\" name=\"%s\" " +
-                " class=\"btn btn-default spacewalk-button-filter\"><i class=\"icon-eye-open\"></i>",
+ " class=\"btn btn-default spacewalk-button-filter\"><i class=\"fa fa-eye\"></i>",
                                 ls.getMessage(RequestContext.FILTER_KEY),
                                 filterName));
         sb.append("</button>");

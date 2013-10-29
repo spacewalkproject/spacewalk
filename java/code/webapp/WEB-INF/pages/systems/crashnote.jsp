@@ -15,7 +15,7 @@
                 <c:choose>
                     <c:when test="${not empty param.cnid}">
                         <a href="/rhn/systems/details/DeleteCrashNote.do?sid=${sid}&crid=${crid}&cnid=${cnid}">
-                            <i class="icon-trash"
+                            <i class="fa fa-trash-o"
                                  title="<bean:message key="toolbar.delete.note"/>" ></i>
                             <bean:message key="toolbar.delete.note"/>
                         </a>
@@ -23,7 +23,7 @@
                     </c:when>
                 </c:choose>
                 <a href="/rhn/systems/details/SoftwareCrashDelete.do?crid=${crid}&sid=${sid}">
-                    <i class="icon-trash"
+                    <i class="fa fa-trash-o"
                          title="<bean:message key="toolbar.delete.crash"/>" ></i>
                     <bean:message key="toolbar.delete.crash"/>
                 </a>

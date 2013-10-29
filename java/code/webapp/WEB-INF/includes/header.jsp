@@ -29,16 +29,16 @@
       </ul>
       <ul class="nav nav-pills">
         <li>
-          <a href="/rhn/account/UserDetails.do"><i class="icon-user"></i><c:out escapeXml="true" value="${requestScope.session.user.login}" /></a>
+          <a href="/rhn/account/UserDetails.do"><i class="fa fa-user"></i><c:out escapeXml="true" value="${requestScope.session.user.login}" /></a>
         </li>
         <li>
-          <a><i class="icon-sitemap"></i><c:out escapeXml="true" value="${requestScope.session.user.org.name}" /></a>
+          <a><i class="fa fa-sitemap"></i><c:out escapeXml="true" value="${requestScope.session.user.org.name}" /></a>
         </li>
         <li>
-          <a href="/rhn/account/UserPreferences.do"><i class="icon-cogs"></i></a>
+          <a href="/rhn/account/UserPreferences.do"><i class="fa fa-cogs"></i></a>
         </li>
         <li>
-          <html:link forward="logout"><i class="icon-signout"></i></html:link>
+          <html:link forward="logout"><i class="fa fa-sign-out"></i></html:link>
         </li>
       </ul>
 
@@ -59,7 +59,7 @@
         <div class="form-group">
           <input type="hidden" name="submitted" value="true" />
           <button type="submit" class="btn btn-info input-sm">
-            <i class="icon-search"></i>
+            <i class="fa fa-search"></i>
           </button>
         </div>
       </form>

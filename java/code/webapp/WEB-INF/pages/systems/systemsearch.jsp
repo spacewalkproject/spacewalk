@@ -29,7 +29,7 @@
                                    value="${search_string}" maxlength="100" accesskey="4"/>
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-default">
-                                <i class="icon-search"></i>
+                                <i class="fa fa-search"></i>
                             </button>
                         </span>
                     </div>

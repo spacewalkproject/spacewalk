@@ -83,7 +83,7 @@
         <rhn:submitted />
         <div class="text-right form-group">
             <button type="submit" class="btn btn-success">
-                <i class="icon-search"></i>
+                <i class="fa fa-search"></i>
                 <bean:message key="button.search"/>
             </button>
         </div>
@@ -173,7 +173,7 @@
         </div>
         <div class="text-right">
             <button type="submit" class="btn btn-success">
-                <i class="icon-search"></i>
+                <i class="fa fa-search"></i>
                 <bean:message key="button.search"/>
             </button>
         </div>

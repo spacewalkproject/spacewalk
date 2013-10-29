@@ -145,7 +145,7 @@
             </td>
             <td>
               <button type="submit" class="btn btn-success btn-sm">
-                <i class="icon-search"></i>
+                <i class="fa fa-search"></i>
                 <bean:message key="button.search"/>
             </button>
             </td>

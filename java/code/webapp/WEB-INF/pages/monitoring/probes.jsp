@@ -13,11 +13,11 @@
 
 <div class="spacewalk-content-nav">
   <ul class="nav nav-tabs">
-    <li class="${criticalClass}"><a href="/rhn/monitoring/ProbeList.do?state=CRITICAL"><i class="icon-exclamation-sign text-error"></i><bean:message key="Critical"/><span class="badge">${criticalCount}</span></a></li>
-    <li class="${warningClass}"><a href="/rhn/monitoring/ProbeList.do?state=WARNING"><i class="icon-warning-sign text-warning"></i><bean:message key="Warning"/><span class="badge">${warningCount}</span></a></li>
-    <li class="${unknownClass}"><a href="/rhn/monitoring/ProbeList.do?state=UNKNOWN"><i class="icon-question-sign text-info"></i><bean:message key="Unknown"/><span class="badge">${unknownCount}</span></a></li>
-    <li class="${pendingClass}"><a href="/rhn/monitoring/ProbeList.do?state=PENDING"><i class="icon-time text-info"></i><bean:message key="Pending"/><span class="badge">${pendingCount}</span></a></li>
-    <li class="${okClass}"><a href="/rhn/monitoring/ProbeList.do?state=OK"><i class="icon-ok text-success"></i><bean:message key="OK"/><span class="badge">${okCount}</span></a></li>
+    <li class="${criticalClass}"><a href="/rhn/monitoring/ProbeList.do?state=CRITICAL"><i class="fa fa-exclamation-circle text-error"></i><bean:message key="Critical"/><span class="badge">${criticalCount}</span></a></li>
+    <li class="${warningClass}"><a href="/rhn/monitoring/ProbeList.do?state=WARNING"><i class="fa fa-exclamation-triangle text-warning"></i><bean:message key="Warning"/><span class="badge">${warningCount}</span></a></li>
+    <li class="${unknownClass}"><a href="/rhn/monitoring/ProbeList.do?state=UNKNOWN"><i class="fa fa-question-circle text-info"></i><bean:message key="Unknown"/><span class="badge">${unknownCount}</span></a></li>
+    <li class="${pendingClass}"><a href="/rhn/monitoring/ProbeList.do?state=PENDING"><i class="fa fa-clock-o text-info"></i><bean:message key="Pending"/><span class="badge">${pendingCount}</span></a></li>
+    <li class="${okClass}"><a href="/rhn/monitoring/ProbeList.do?state=OK"><i class="fa fa-check text-success"></i><bean:message key="OK"/><span class="badge">${okCount}</span></a></li>
     <li class="${allClass}"><a href="/rhn/monitoring/ProbeList.do"><bean:message key="All"/><span class="badge">${allCount}</span></a></li>
   </ul>
 </div>
