@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.32
+Version: 2.1.33
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -628,6 +628,17 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Tue Oct 29 2013 Matej Kollar <mkollar@redhat.com> 2.1.33-1
+- 1020952 - SSL for Postgresql: Backend (Python)
+- Simplification
+- Simplification: use isinstance
+- Various small coding convetions (PEP8)
+- Test for None with `is`
+- Older Class to newer Instance exceptions
+- Small coding conventions
+- Change deprecated 'has_key' to 'in'
+- Tab vs. Space War
+
 * Tue Oct 22 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.32-1
 - fixed table alias
 - add support for enhances rpm weak dependencies (backend) (bnc#846436)
