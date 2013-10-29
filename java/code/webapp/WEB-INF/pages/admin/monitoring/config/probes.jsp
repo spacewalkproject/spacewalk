@@ -9,7 +9,7 @@
 <html:xhtml/>
 <html>
 <body>
-<rhn:toolbar base="h1" icon="icon-cog"
+<rhn:toolbar base="h1" icon="fa-cog"
 	creationUrl="ProbeSuiteProbeCreate.do?suite_id=${suite_id}"
 	creationType="probe"
 	helpUrl="/rhn/help/reference/en-US/s1-sm-monitor.jsp#s2-sm-monitor-psuites">

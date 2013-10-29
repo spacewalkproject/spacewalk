@@ -7,13 +7,13 @@
     <body>
         <c:choose>
             <c:when test = "${not empty requestScope.create_mode}">
-                <rhn:toolbar base="h1" icon="icon-info-sign" imgAlt="info.alt.img">
+                <rhn:toolbar base="h1" icon="fa-info-circle" imgAlt="info.alt.img">
                     <bean:message key="repos.jsp.toolbar"/>
                 </rhn:toolbar>
                 <h2><bean:message key="repos.jsp.header2"/></h2>
             </c:when>
             <c:otherwise>
-                <rhn:toolbar base="h1" icon="icon-info-sign" imgAlt="info.alt.img"
+                <rhn:toolbar base="h1" icon="fa-info-circle" imgAlt="info.alt.img"
                              deletionUrl="RepoDelete.do?id=${requestScope.repo.id}"
                              deletionType="repos">
                     <c:out value="${requestScope.repo.label}"/>

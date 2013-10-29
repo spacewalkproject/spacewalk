@@ -24,7 +24,7 @@ function refreshNotifFields() {
 
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-<rhn:toolbar base="h2" icon="icon-desktop"
+<rhn:toolbar base="h2" icon="fa-desktop"
     deletionUrl="/rhn/systems/details/probes/ProbeDelete.do?probe_id=${probe.id}&amp;sid=${system.id}"
     deletionType="probe">
  <bean:message key="probeedit.jsp.editprobe" />

@@ -5,7 +5,7 @@
 
 <html:html xhtml="true">
 <body>
-<rhn:toolbar base="h1" icon="icon-rocket"
+<rhn:toolbar base="h1" icon="fa-rocket"
     imgAlt="system.common.kickstartAlt"
     creationUrl="PreservationListCreate.do"
     creationType="filelist">

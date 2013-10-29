@@ -4,7 +4,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <html:html>
     <body>
-        <rhn:toolbar base="h1" icon="icon-key"
+        <rhn:toolbar base="h1" icon="fa-key"
                      imgAlt="activation-keys.common.alt"
                      helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-systems-activation-keys"
                      >

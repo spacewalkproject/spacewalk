@@ -6,7 +6,7 @@
 <html:xhtml/>
 <html>
     <body>
-        <rhn:toolbar base="h1" icon="icon-user" imgAlt="users.jsp.imgAlt"
+        <rhn:toolbar base="h1" icon="fa-user" imgAlt="users.jsp.imgAlt"
                      helpUrl="/rhn/help/reference/en-US/s1-sm-your-rhn.jsp#s2-sm-your-rhn-account"
                      deletionUrl="/rhn/account/DeleteCredentials.do"
                      deletionType="credentials">

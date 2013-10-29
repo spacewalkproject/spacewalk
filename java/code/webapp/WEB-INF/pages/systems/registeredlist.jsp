@@ -11,7 +11,7 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-<rhn:toolbar base="h1" icon="icon-desktop" imgAlt="system.common.systemAlt"
+<rhn:toolbar base="h1" icon="fa-desktop" imgAlt="system.common.systemAlt"
  helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-sstem-list-rregistered">
   <bean:message key="registeredlist.jsp.header"/>
 </rhn:toolbar>

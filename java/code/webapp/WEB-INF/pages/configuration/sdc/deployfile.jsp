@@ -12,7 +12,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <rhn:toolbar base="h2"
-             icon="icon-desktop"
+             icon="fa-desktop"
              imgAlt="system.common.systemAlt">
   <bean:message key="sdcdeployfile.jsp.header"
                 arg0="${system.name}"/>

@@ -17,7 +17,7 @@ function showFiltered() {
 </head>
 
 <body onLoad="onLoadStuff(3); showFiltered();">
-<rhn:toolbar base="h1" icon="icon-group">
+<rhn:toolbar base="h1" icon="fa-group">
   ${trustorg}
 </rhn:toolbar>
 

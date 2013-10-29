@@ -18,7 +18,7 @@ function modifyUploadCheckbox(checkbox) {
     <body>
     <c:choose>
         <c:when test="${param.oid != 1}">
-            <rhn:toolbar base="h1" icon="icon-group"
+            <rhn:toolbar base="h1" icon="fa-group"
                          miscUrl="${url}"
                          miscAcl="user_role(org_admin)"
                          miscText="${text}"
@@ -32,7 +32,7 @@ function modifyUploadCheckbox(checkbox) {
             </rhn:toolbar>
         </c:when>
         <c:otherwise>
-            <rhn:toolbar base="h1" icon="icon-group"
+            <rhn:toolbar base="h1" icon="fa-group"
                          miscUrl="${url}"
                          miscAcl="user_role(org_admin)"
                          miscText="${text}"

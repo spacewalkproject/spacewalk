@@ -9,7 +9,7 @@
     <meta http-equiv="Pragma" content="no-cache" />
 </head>
 <body>
-    <rhn:toolbar base="h1" icon="icon-info-sign" imgAlt="info.alt.img">
+    <rhn:toolbar base="h1" icon="fa-info-circle" imgAlt="info.alt.img">
         <bean:message key="treecreate.jsp.toolbar"/>
     </rhn:toolbar>
     <bean:message key="treecreate.jsp.header1"/>

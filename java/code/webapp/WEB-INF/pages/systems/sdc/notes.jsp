@@ -7,7 +7,7 @@
   <body>
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-    <rhn:toolbar base="h2" icon="icon-pushpin"
+    <rhn:toolbar base="h2" icon="fa-thumb-tack"
            creationUrl="/rhn/systems/details/EditNote.do?sid=${system.id}"
            creationType="note">
       <bean:message key="sdc.details.notes.header"/>

@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<rhn:toolbar base="h1" icon="icon-desktop"
+<rhn:toolbar base="h1" icon="fa-desktop"
  helpUrl="/rhn/help/reference/en-US/s2-sm-system-overview.jsp">
   <bean:message key="auditsearch.jsp.header"/>
 </rhn:toolbar>

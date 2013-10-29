@@ -11,7 +11,7 @@
 <html:xhtml/>
 <html>
 <body>
-<rhn:toolbar base="h1" icon="icon-rocket"
+<rhn:toolbar base="h1" icon="fa-rocket"
            deletionUrl="/rhn/kickstart/KickstartScriptDelete.do?kssid=${kssid}&ksid=${ksdata.id}"
            deletionType="kickstartscript" >
    <bean:message key="kickstartdetails.jsp.header1" arg0="${fn:escapeXml(ksdata.label)}"/>

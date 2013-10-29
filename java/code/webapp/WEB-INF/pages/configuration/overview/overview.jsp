@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<rhn:toolbar base="h1" icon="icon-cog" imgAlt="config.jsp.imgAlt"
+<rhn:toolbar base="h1" icon="fa-cog" imgAlt="config.jsp.imgAlt"
  helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-overview" >
   <bean:message key="configoverview.jsp.toolbar"/>
 </rhn:toolbar>

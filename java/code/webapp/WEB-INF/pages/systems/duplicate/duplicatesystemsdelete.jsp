@@ -7,7 +7,7 @@
 <html:xhtml/>
 <html>
 <body>
-<rhn:toolbar base="h1" icon="icon-desktop" imgAlt="system.common.systemAlt"
+<rhn:toolbar base="h1" icon="fa-desktop" imgAlt="system.common.systemAlt"
  helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-list-ood">
   <bean:message key="duplicates.jsp.header"/>
 </rhn:toolbar>

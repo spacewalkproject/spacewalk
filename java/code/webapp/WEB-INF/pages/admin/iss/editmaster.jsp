@@ -7,14 +7,14 @@
     <body>
         <c:choose>
             <c:when test="${requestScope.id > 0}">
-                <rhn:toolbar base="h1" icon="icon-info-sign"
+                <rhn:toolbar base="h1" icon="fa-info-circle"
                              deletionUrl="/rhn/admin/iss/RemoveMasterConfirm.do?mid=${requestScope.id}"
                              deletionType="master" deletionAcl="user_role(satellite_admin)">
                     <bean:message key="iss.editmaster.jsp.toolbar" />
                 </rhn:toolbar>
             </c:when>
             <c:otherwise>
-                <rhn:toolbar base="h1" icon="icon-info-sign">
+                <rhn:toolbar base="h1" icon="fa-info-circle">
                     <bean:message key="iss.editmaster.jsp.toolbar" />
                 </rhn:toolbar>
             </c:otherwise>

@@ -20,7 +20,7 @@ function clickNewestTree(obj) {
         </script>
     </head>
     <body>
-        <rhn:toolbar base="h1" icon="icon-rocket"
+        <rhn:toolbar base="h1" icon="fa-rocket"
                      imgAlt="system.common.kickstartAlt">
             <bean:message key ="kickstart.advanced.jsp.create"/>
         </rhn:toolbar>

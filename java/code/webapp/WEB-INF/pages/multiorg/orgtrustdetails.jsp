@@ -5,7 +5,7 @@
 
 <html:html xhtml="true">
   <body>
-    <rhn:toolbar base="h1" icon="icon-group" >
+    <rhn:toolbar base="h1" icon="fa-group" >
       ${orgtrust}
     </rhn:toolbar>
     <rhn:dialogmenu mindepth="0" maxdepth="3"

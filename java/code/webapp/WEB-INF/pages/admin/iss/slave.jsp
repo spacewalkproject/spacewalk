@@ -5,7 +5,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <html:html>
     <body>
-        <rhn:toolbar base="h1" icon="icon-info-sign"
+        <rhn:toolbar base="h1" icon="fa-info-circle"
                      creationUrl="/rhn/admin/iss/EditMaster.do" creationType="master"
                      creationAcl="user_role(satellite_admin)">
             <bean:message key="iss.slave.jsp.toolbar" />

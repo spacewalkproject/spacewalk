@@ -9,7 +9,7 @@
         <meta name="page-decorator" content="none" />
     </head>
     <body>
-        <rhn:toolbar base="h1" icon="icon-cog"
+        <rhn:toolbar base="h1" icon="fa-cog"
                      helpUrl="/rhn/help/reference/en-US/s1-sm-monitor.jsp#s2-sm-monitor-psuites">
             <bean:message key="probe-create.jsp.header1" arg0="${probeSuite.suiteName}" />
         </rhn:toolbar>

@@ -6,7 +6,7 @@
 <html:xhtml/>
 <html>
 <body>
-<rhn:toolbar base="h1" icon="icon-cogs">
+<rhn:toolbar base="h1" icon="fa-cogs">
   <bean:message key="summary.jsp.toolbar"/>
 </rhn:toolbar>
 

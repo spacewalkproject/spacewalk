@@ -6,7 +6,7 @@
 <html:html xhtml="true">
 
 <body>
-    <rhn:toolbar base="h1" icon="icon-info-sign" imgAlt="info.alt.img">
+    <rhn:toolbar base="h1" icon="fa-info-circle" imgAlt="info.alt.img">
       <bean:message key="cobbler.jsp.toolbar"/>
     </rhn:toolbar>
     <p>

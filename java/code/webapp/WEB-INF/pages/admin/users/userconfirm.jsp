@@ -10,7 +10,7 @@
     <meta name="name" value="Users" />
 </head>
 <body>
-<rhn:toolbar base="h1" icon="icon-user"
+<rhn:toolbar base="h1" icon="fa-user"
  helpUrl="/rhn/help/reference/en-US/s1-sm-users.jsp">
   <bean:message key="userconfirm.jsp.header" />
 </rhn:toolbar>

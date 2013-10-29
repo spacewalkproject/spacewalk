@@ -7,7 +7,7 @@
 <body>
 <rhn:toolbar
    base="h1"
-   icon="icon-group"
+   icon="fa-group"
    miscUrl="${url}"
    miscAcl="user_role(org_admin)"
    miscText="${text}"

@@ -7,7 +7,7 @@
 <html>
 <body>
 
-<rhn:toolbar base="h1" icon="icon-user" imgAlt="users.jsp.imgAlt">
+<rhn:toolbar base="h1" icon="fa-user" imgAlt="users.jsp.imgAlt">
     <c:out escapeXml="true" value="${targetuser.login}" />
 </rhn:toolbar>
 

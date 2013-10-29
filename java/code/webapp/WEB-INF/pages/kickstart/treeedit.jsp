@@ -12,7 +12,7 @@
 </head>
 
 <body>
-<rhn:toolbar base="h1" icon="icon-rocket"
+<rhn:toolbar base="h1" icon="fa-rocket"
 			 deletionUrl="/rhn/kickstart/TreeDelete.do?kstid=${kstree.id}"
              deletionType="deleteTree"
              imgAlt="kickstarts.alt.img">

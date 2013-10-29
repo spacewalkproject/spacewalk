@@ -8,7 +8,7 @@
 <html:xhtml/>
 <html>
 <body>
-<rhn:toolbar base="h1" icon="icon-time"
+<rhn:toolbar base="h1" icon="fa-clock-o"
   			   imgAlt="actions.jsp.imgAlt"
                helpUrl="/rhn/help/reference/en-US/s1-sm-actions.jsp#s2-sm-action-comp">
     <bean:message key="completedactions.jsp.completed_actions"/>

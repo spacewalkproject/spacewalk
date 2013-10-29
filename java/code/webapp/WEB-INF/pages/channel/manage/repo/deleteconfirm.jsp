@@ -6,7 +6,7 @@
 <html:xhtml/>
 <html>
 <body>
-<rhn:toolbar base="h1" icon="icon-info-sign" imgAlt="info.alt.img">
+<rhn:toolbar base="h1" icon="fa-info-circle" imgAlt="info.alt.img">
 	<c:out value="${requestScope.label}"/>
 </rhn:toolbar>
 

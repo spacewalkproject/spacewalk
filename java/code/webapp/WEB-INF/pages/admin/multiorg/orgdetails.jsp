@@ -8,7 +8,7 @@
     <body>
         <c:choose>
             <c:when test="${param.oid != 1}">
-                <rhn:toolbar base="h1" icon="icon-group"
+                <rhn:toolbar base="h1" icon="fa-group"
                              miscUrl="${url}"
                              miscAcl="user_role(org_admin)"
                              miscText="${text}"
@@ -22,7 +22,7 @@
                 </rhn:toolbar>
             </c:when>
             <c:otherwise>
-                <rhn:toolbar base="h1" icon="icon-group"
+                <rhn:toolbar base="h1" icon="fa-group"
                              miscUrl="${url}"
                              miscAcl="user_role(org_admin)"
                              miscText="${text}"

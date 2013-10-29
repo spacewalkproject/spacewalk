@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<rhn:toolbar base="h1" icon="icon-search">
+<rhn:toolbar base="h1" icon="fa-search">
   <bean:message key="scapdiff.jsp.toolbar"/>
 </rhn:toolbar>
 

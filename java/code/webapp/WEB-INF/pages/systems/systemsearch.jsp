@@ -6,7 +6,7 @@
 
 <html:html xhtml="true">
     <body>
-        <rhn:toolbar base="h1" icon="icon-search"
+        <rhn:toolbar base="h1" icon="fa-search"
                      helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-search"
                      imgAlt="search.alt.img">
             <bean:message key="systemsearch.jsp.toolbar"/>

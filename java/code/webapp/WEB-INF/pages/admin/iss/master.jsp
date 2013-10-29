@@ -6,7 +6,7 @@
 <html:html>
     <body>
 
-        <rhn:toolbar base="h1" icon="icon-info-sign"
+        <rhn:toolbar base="h1" icon="fa-info-circle"
                      creationUrl="/rhn/admin/iss/EditSlave.do" creationType="slave"
                      creationAcl="user_role(satellite_admin)">
             <bean:message key="iss.master.jsp.toolbar" />

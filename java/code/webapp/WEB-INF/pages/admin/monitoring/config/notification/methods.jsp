@@ -6,7 +6,7 @@
 <html:xhtml/>
 <html>
 <body>
-<rhn:toolbar base="h1" icon="icon-info-sign">
+<rhn:toolbar base="h1" icon="fa-info-circle">
   <bean:message key="methods.jsp.toolbar"/>
 </rhn:toolbar>
 

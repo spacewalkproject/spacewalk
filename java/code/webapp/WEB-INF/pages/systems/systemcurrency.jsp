@@ -11,7 +11,7 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-<rhn:toolbar base="h1" icon="icon-desktop" imgAlt="system.common.systemAlt">
+<rhn:toolbar base="h1" icon="fa-desktop" imgAlt="system.common.systemAlt">
   <bean:message key="systemcurrency.jsp.header"/>
 </rhn:toolbar>
 

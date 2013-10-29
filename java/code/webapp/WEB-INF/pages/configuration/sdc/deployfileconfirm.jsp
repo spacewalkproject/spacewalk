@@ -12,7 +12,7 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-<rhn:toolbar base="h2" icon="icon-desktop" >
+<rhn:toolbar base="h2" icon="fa-desktop" >
   <bean:message key="sdcdeployconfirm.jsp.header"/>
 </rhn:toolbar>
 
