@@ -271,13 +271,22 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
     }
 
     public void testFindAllBootstrap() throws Exception{
-        ActivationKey activationKey =
-                ActivationKeyFactory.createNewKey(user, null,
-                        "ak- " + TestUtils.randomString(), "", 1L, null, true);
+        ActivationKey activationKey = ActivationKeyFactory.createNewKey(user, null, "ak- " +
+            TestUtils.randomString(), "", 1L, null, true);
         activationKey.setBootstrap("Y");
 
         List<ActivationKey> activationKeys =
                 ActivationKeyManager.getInstance().findAll(user);
         assertEquals(0, activationKeys.size());
+    }
+
+    public void testFindBootstrap() throws Exception{
+        ActivationKey activationKey = ActivationKeyFactory.createNewKey(user, null, "ak- " +
+            TestUtils.randomString(), "", 1L, null, true);
+        activationKey.setBootstrap("Y");
+
+        List<ActivationKey> activationKeys =
+                ActivationKeyManager.getInstance().findBootstrap();
+        assertEquals(1, activationKeys.size());
     }
 }

@@ -65,7 +65,7 @@ public class CobblerDisableBootstrapCommandTest extends BaseTestCaseWithUser {
         assertEquals(0, system.size());
 
         List<ActivationKey> activationKeys = ActivationKeyManager.getInstance()
-                .findAll(user, true);
+                .findBootstrap();
         assertEquals(0, activationKeys.size());
     }
 
