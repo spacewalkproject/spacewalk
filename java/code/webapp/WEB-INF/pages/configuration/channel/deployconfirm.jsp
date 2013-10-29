@@ -19,7 +19,7 @@
 
 <h2><bean:message key="deployconfirm.jsp.h2" /></h2>
 <bean:message key="deployconfirm.jsp.note" />
-<p />
+
 <c:set var="channel_name_display"><cfg:channel id="${ccid}"
 									name="${channel.name}"
 									type="global"/></c:set>
@@ -52,8 +52,8 @@
 		</rl:column>
 	</rl:list>
 	</div>
-	<p />
-	<p />
+	
+	
 	<h2><bean:message key="deployconfirm.jsp.systems-header2" /></h2>
 	<!--  Systems-list -->
 	<div>

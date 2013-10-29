@@ -102,7 +102,7 @@
                         <td>
                             <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
                                 <jsp:param name="widget" value="date"/>
-                            </jsp:include><br/><p/>
+                            </jsp:include><br/>
                         </td>
                     </tr>
                 </table>

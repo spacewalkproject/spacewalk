@@ -29,7 +29,7 @@
         <c:if test="${foundUnmatchedChannels}">
             <h3><bean:message key="basesub.jsp.confirm.unmatchedHeader"/></h3>
 
-            <bean:message key="basesub.jsp.confirm.unmatchedDescription"/> *<p/>
+            <bean:message key="basesub.jsp.confirm.unmatchedDescription"/> *
 
             <rl:listset name="unmatchedChannelSet">
                 <rhn:csrf />
@@ -82,7 +82,7 @@
 
         <h3><bean:message key="basesub.jsp.confirm.matchedHeader"/></h3>
 
-        <bean:message key="basesub.jsp.confirm.matchedDescription"/><p/>
+        <bean:message key="basesub.jsp.confirm.matchedDescription"/>
 
         <rl:listset name="matchedChannelSet">
             <rl:list dataset="matched_child_channels"
@@ -131,7 +131,7 @@
             </rl:list>
         </rl:listset>
 
-        <p/>
+        
 
         <html:form method="post" action="/channel/ssm/BaseChannelSubscribe.do">
             <div class="text-right">
@@ -151,7 +151,7 @@
             </div>
         </html:form>
 
-        <p/>
+        
         <span class="small-text"><bean:message key="basesub.jsp.confirm.fasTrackBetaNote"/></span>
 
     </body>

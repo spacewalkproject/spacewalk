@@ -48,7 +48,7 @@
 
 <rhn:require acl="is_file();config_channel_editable(${channel.id})"
              mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-<a name="upload" />
+<a name="upload"></a>
 <h2><bean:message key="manage.jsp.upload"/></h2>
 <p>
 <bean:message key="manage.jsp.uploadsummary" arg0="${max_size}"/>

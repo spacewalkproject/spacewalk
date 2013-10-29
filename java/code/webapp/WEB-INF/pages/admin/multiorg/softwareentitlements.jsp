@@ -20,7 +20,7 @@
 
 <bean:message key="softwareentitlements.description"/>
 
-<p/>
+
 
 <c:choose>
 	<c:when test = "${orgCount > 1}">

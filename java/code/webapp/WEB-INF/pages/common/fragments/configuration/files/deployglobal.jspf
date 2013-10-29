@@ -13,7 +13,7 @@
 	arg0="${revision.revision}"
 	arg1="/rhn/configuration/file/FileDetails.do?cfid=${file.id}&amp;crid=${revision.id}"
 	arg2="${beanarg}" />
-<p />
+
 <html:form
 	action="/configuration/file/GlobalRevisionDeploySubmit.do?ccid=${ccid}&amp;cfid=${cfid}&amp;crid=${crid}">
     <rhn:csrf />

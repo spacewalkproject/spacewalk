@@ -146,7 +146,7 @@
         </th>
         <td>
             ${maxMem}
-            <p/>
+            
             <rhn:tooltip key="softwareEntitlementSubs.systemWideCounts.totaltip"/>
              </span>
         </td>
@@ -181,7 +181,7 @@
         </th>
         <td>
             ${maxFlex}
-            <p/>
+            
             <rhn:tooltip key="softwareEntitlementSubs.systemWideCounts.totaltip"/>
         </td>
     </tr>

@@ -17,7 +17,7 @@ imgAlt="users.jsp.imgAlt">
 </rhn:toolbar>
 
 <bean:message key="sys_entitlements.description"/>
-<p/>
+
 
 <c:choose>
 	<c:when test = "${orgCount > 1}">
@@ -75,7 +75,7 @@ imgAlt="users.jsp.imgAlt">
 
     </rl:list>
 </rl:listset>
-<p/>
+
 <rhn:tooltip typeKey="Tip">*-<bean:message key = "sys_entitlements.tip"/></rhn:tooltip>
 <rhn:tooltip typeKey="Tip">**-<bean:message key = "Used/Allotted.tip"/></rhn:tooltip>
 </body>

@@ -10,10 +10,10 @@
 	file="/WEB-INF/pages/common/fragments/configuration/channel/details-header.jspf"%>
 
 <div class="importfragment">
-<a name="import"/>
+<a name="import"></a>
 <%@ include file="/WEB-INF/pages/common/fragments/configuration/channel/import.jspf" %>
 </div>
-<p />
+
 
 </body>
 </html>

@@ -109,7 +109,7 @@
         <div class="page-summary">
           <p>
             <bean:message key="sdc.channels.edit.summary2"/>
-          <p/>
+          
           <select name="new_base_channel_id" size="${fn:length(base_channels)+fn:length(custom_base_channels)+3}">
             <option value="-1"
             	<c:if test="${current_base_channel_id == -1}">

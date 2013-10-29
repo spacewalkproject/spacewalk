@@ -34,7 +34,7 @@ function setStep(stepName) {
 
 <c:if test="${requestScope.isVirtualGuest == 'true'}">
     <div class="page-summary">
-        <bean:message key="kickstart.schedule.cannot.provision.guest"/><p/>
+        <bean:message key="kickstart.schedule.cannot.provision.guest"/>
         <c:if test="${requestScope.virtHostIsRegistered == 'true'}">
             <bean:message key="kickstart.schedule.visit.host.virt.tab" arg0="${requestScope.hostSid}"/>
         </c:if>

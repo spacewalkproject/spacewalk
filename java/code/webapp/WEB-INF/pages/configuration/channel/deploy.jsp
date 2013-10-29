@@ -14,7 +14,7 @@
 
 <h2><bean:message key="deploy.jsp.h2" /></h2>
 <bean:message key="deploy.jsp.description"/>
-<p />
+
 <html:form action="/configuration/channel/ChooseFilesSubmit.do?ccid=${ccid}">
     <rhn:csrf />
 	<rhn:submitted/>

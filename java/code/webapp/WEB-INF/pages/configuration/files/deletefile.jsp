@@ -11,7 +11,7 @@
 
 <h2><bean:message key="deletefile.jsp.header2" /></h2>
 <bean:message key="deletefile.jsp.info" />
-<p />
+
 <html:form action="/configuration/file/DeleteFile.do?cfid=${cfid}">
     <rhn:csrf />
 	<html:hidden property="submitted" value="true"/>

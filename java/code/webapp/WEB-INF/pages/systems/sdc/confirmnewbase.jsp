@@ -11,7 +11,7 @@
             <bean:message key="sdc.channels.confirmNewBase.header.confirm"/>
         </h2>
 
-        <bean:message key="sdc.channels.confirmNewBase.currentlySubscribedTo"/><p/>
+        <bean:message key="sdc.channels.confirmNewBase.currentlySubscribedTo"/>
         <c:choose>
             <c:when test="${current_base_channel == null}">
                 <strong><bean:message key="sdc.channels.confirmNewBase.noBaseChannel"/></strong>
@@ -28,9 +28,9 @@
                 </ul>
             </c:otherwise>
         </c:choose>
-        <p/>
+        
 
-        <bean:message key="sdc.channels.confirmNewBase.toBeSubscribedTo"/><p/>
+        <bean:message key="sdc.channels.confirmNewBase.toBeSubscribedTo"/>
         <c:choose>
             <c:when test="${new_base_channel == null}">
                 <strong><bean:message key="sdc.channels.confirmNewBase.noBaseChannel"/></strong>
@@ -44,10 +44,10 @@
                 </ul>
             </c:otherwise>
         </c:choose>
-        <p/>
+        
 
         <bean:message key="sdc.channels.confirmNewBase.otherChannelsWarning"/>
-        <p/>&nbsp;<p/>
+        &nbsp;
 
         <span class="small-text">
             <bean:message key="sdc.channels.confirmNewBase.fasTrackBetaNote"/>

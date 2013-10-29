@@ -43,7 +43,7 @@
                                 </label>
                             </c:forEach>
                             <c:if test="${orgAdmin}">
-                                <p/>
+                                
                                 <bean:message key="userdetails.jsp.grantedByOrgAdmin"/>
                             </c:if>
                         </div>

@@ -16,7 +16,7 @@
 	arg2="${channel.displayName}"
 	arg3="/rhn/configuration/ChannelOverview.do?ccid=${ccid}" />
 </c:if>
-<p />
+
 <html:form
 	action="/configuration/file/GlobalRevisionDeployConfirmSubmit.do?cfid=${cfid}&amp;crid=${crid}">
     <rhn:csrf />
@@ -31,7 +31,7 @@
     		</rhn:column>
 		</rhn:listdisplay>
 	</rhn:list>
-	<p />
+	
 	<c:if test="${not empty requestScope.pageList}">
 	<div>
 	<bean:message key="deploy.jsp.widgetsummary" /></p>

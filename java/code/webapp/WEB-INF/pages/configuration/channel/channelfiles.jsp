@@ -15,7 +15,7 @@
 <h2><bean:message key="channelfiles.jsp.header2" /></h2>
 
 <bean:message key="channelfiles.jsp.description"/>
-<p />
+
 <div>
 <html:form action="/configuration/ChannelFilesSubmit.do?ccid=${ccid}">
     <rhn:csrf />

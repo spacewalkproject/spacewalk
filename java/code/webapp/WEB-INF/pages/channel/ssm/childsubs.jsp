@@ -13,7 +13,7 @@
 </h2>
 
     <div class="page-summary"><bean:message key="ssmchildsubs.jsp.summary"/></div>
-    <p />
+    
 
   <rl:listset name="channellist">
     <rhn:csrf />

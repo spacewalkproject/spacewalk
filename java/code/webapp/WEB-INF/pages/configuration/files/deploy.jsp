@@ -25,7 +25,7 @@
 	<bean:message key="deploy.jsp.sandbox-note1"
 		arg1="/rhn/systems/details/Overview.do?sid=${sid}"
   		arg0="${system}"/>
-  	<p />
+  	
   	<c:set var="copyname" scope="request">
   		<bean:message key="copycentral.jsp.copy" />
   	</c:set>

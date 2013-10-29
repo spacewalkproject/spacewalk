@@ -23,7 +23,7 @@
 
 <bean:message key="system_entitlement_details.access_grant_desc.${name}"/>
 
-<p/>
+
 
 
 </body>
