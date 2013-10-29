@@ -326,22 +326,12 @@ public class ActivationKeyManager {
      * @param requester User requesting the list.
      * @return All activation keys visible to user.
      */
-    public List<ActivationKey> findAll(User requester, boolean bootstrap) {
+    public List <ActivationKey> findAll(User requester) {
         Session session = null;
         session = HibernateFactory.getSession();
         return session.getNamedQuery("ActivationKey.findByOrg")
            .setEntity("org", requester.getOrg())
-           .setString("bootstrap", bootstrap ? "Y" : "N")
            .list();
-    }
-
-    /**
-     * Finds all activation keys visible to user.
-     * @param requester User requesting the list.
-     * @return All activation keys visible to user.
-     */
-    public List <ActivationKey> findAll(User requester) {
-        return findAll(requester, false);
     }
 
     /**
@@ -608,5 +598,17 @@ public class ActivationKeyManager {
         }
         subscribeToChildChannelWithPackageName(key,
                 ChannelManager.VIRT_CHANNEL_PACKAGE_NAME);
+    }
+
+    /**
+     * Returns all bootstrap keys from any Org.
+     *
+     * @return bootstrap keys
+     */
+    @SuppressWarnings("unchecked")
+    public List<ActivationKey> findBootstrap() {
+        return HibernateFactory.getSession()
+            .getNamedQuery("ActivationKey.findBootstrap")
+            .list();
     }
 }

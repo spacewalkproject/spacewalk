@@ -76,7 +76,7 @@ public class CobblerEnableBootstrapCommandTest extends BaseTestCaseWithUser {
         assertEquals(1, previousDistro.size());
 
         List<ActivationKey> previousActivationKeys = ActivationKeyManager.getInstance()
-                .findAll(user, true);
+                .findBootstrap();
         assertEquals(1, previousActivationKeys.size());
 
         CobblerEnableBootstrapCommand command = new CobblerEnableBootstrapCommand(user,
@@ -129,7 +129,7 @@ public class CobblerEnableBootstrapCommandTest extends BaseTestCaseWithUser {
         assertEquals(Profile.BOOTSTRAP_NAME, newSystem.get("profile"));
 
         List<ActivationKey> activationKeys = ActivationKeyManager.getInstance()
-                .findAll(user, true);
+                .findBootstrap();
         assertEquals(1, activationKeys.size());
         ActivationKey activationKey = activationKeys.get(0);
         assertEquals(activationKeyToken, activationKey.getKey());

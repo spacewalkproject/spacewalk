@@ -85,7 +85,7 @@ public class CobblerDisableBootstrapCommand extends CobblerCommand {
         }
 
         List<ActivationKey> previousActivationKeys = ActivationKeyManager.getInstance()
-            .findAll(user, true);
+            .findBootstrap();
         for (ActivationKey key : previousActivationKeys) {
             ActivationKeyFactory.removeKey(key);
         }
