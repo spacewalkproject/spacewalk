@@ -88,6 +88,7 @@ public abstract class GenericIndexTask implements Job {
                     getIndexName() + ">");
         }
         catch (SQLException e) {
+            e.printStackTrace();
             throw new JobExecutionException(e);
         }
         catch (IndexingException e) {
