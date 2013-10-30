@@ -849,10 +849,9 @@ public class ListDisplayTag extends ListDisplayTagBase {
                 doSort(sortedColumn);
             }
 
-            out.print("<div class=\"spacewalk-list\">");
+            BodyContent topAddonsContent = pageContext.pushBody();
 
             out.println("<div class=\"spacewalk-list-top-addons\">");
-            out.println("<div class=\"spacewalk-list-alphabar\">");
             /*
              * If pageList contains an index and pageList.size() (what we are
              * displaying on the page) is less than pageList.getTotalSize() (the
@@ -864,16 +863,23 @@ public class ListDisplayTag extends ListDisplayTagBase {
             if (getPageList().getIndex().size() > 0
                     && getPageList().size() < getPageList().getTotalSize()) {
 
-                renderViewAllLink(out);
-                renderAlphabar(out);
+                out.println("<div class=\"spacewalk-list-alphabar\">");
+                renderViewAllLink(topAddonsContent);
+                renderAlphabar(topAddonsContent);
+                out.println("</div>");
             }
-            out.println("</div>");
             if (isPaging()) {
-                renderPagination(out, true);
-                renderBoundsVariables(out);
+                renderPagination(topAddonsContent, true);
+                renderBoundsVariables(topAddonsContent);
             }
-            out.println("</div>");
 
+            pageContext.popBody();
+
+            if (topAddonsContent.getBufferSize() > 0) {
+                out.print("<div class=\"spacewalk-list\">");
+                topAddonsContent.writeOut(out);
+                out.println("</div>");
+            }
 
             out.print("<div class=\"panel panel-default\">");
 
