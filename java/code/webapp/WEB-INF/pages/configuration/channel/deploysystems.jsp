@@ -5,7 +5,7 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/config-managment" prefix="cfg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<html:xhtml />
+
 
 <html>
 <body>

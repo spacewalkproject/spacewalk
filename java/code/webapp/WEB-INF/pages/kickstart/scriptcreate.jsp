@@ -7,7 +7,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/editarea.jspf" %>
 </head>
 
-<html:html xhtml="true">
+<html:html >
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
 

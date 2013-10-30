@@ -6,7 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 
-<html:html xhtml="true">
+<html:html >
 <body>
 <br>
 

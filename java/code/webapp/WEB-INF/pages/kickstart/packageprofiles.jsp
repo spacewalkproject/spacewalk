@@ -5,7 +5,7 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 
 
-<html:html xhtml="true">
+<html:html >
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
 

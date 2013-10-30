@@ -8,7 +8,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/editarea.jspf" %>
 </head>
 
-<html:xhtml/>
+
 <html>
 <body>
 <rhn:toolbar base="h1" icon="fa-rocket"

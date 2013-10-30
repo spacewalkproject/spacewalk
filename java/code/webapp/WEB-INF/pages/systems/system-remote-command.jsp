@@ -5,7 +5,7 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <%@ page language="java" import="com.redhat.rhn.frontend.action.systems.SystemRemoteCommandAction.FormData"%>
 
-<html:xhtml/>
+
 
 <html>
     <head><meta name="page-decorator" content="none" /></head>

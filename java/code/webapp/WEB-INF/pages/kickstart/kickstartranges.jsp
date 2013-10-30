@@ -5,7 +5,7 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 
 
-<html:html xhtml="true">
+<html:html >
 <body>
 <rhn:toolbar base="h1" icon="fa-rocket" imgAlt="kickstarts.alt.img">
   <bean:message key="kickstartranges.jsp.toolbar"/>

@@ -6,7 +6,7 @@
 	prefix="html"%>
 <%@ taglib uri="http://rhn.redhat.com/tags/config-managment" prefix="cfg" %>
 
-<html:xhtml/>
+
 <html>
 <body>
 <%@ include

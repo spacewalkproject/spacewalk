@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 
-<html:html xhtml="true">
+<html:html >
 <body>
 <c:if test="${! empty kickstart_scripts}">
     <rhn:toolbar base="h1" icon="fa-rocket"

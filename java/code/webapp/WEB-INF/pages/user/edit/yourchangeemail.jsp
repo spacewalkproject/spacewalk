@@ -3,7 +3,7 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ include file="/WEB-INF/pages/common/fragments/user/user_attribute_sizes.jspf"%>
-<html:xhtml/>
+
 <html>
     <body>
         <rhn:toolbar base="h1" icon="fa-user"

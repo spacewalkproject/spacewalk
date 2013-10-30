@@ -3,7 +3,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 
-<html:html xhtml="true">
+<html:html >
 <body>
 <h2><bean:message key="erratalist.jsp.cloneerrata" /></h2>
 

@@ -3,7 +3,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 
-<html:html xhtml="true">
+<html:html >
 <body>
 <rhn:require acl="is_ks_raw(${ksid})" mixins="com.redhat.rhn.common.security.acl.KickstartAclHandler">
 	<%@ include file="/WEB-INF/pages/common/fragments/kickstart/advanced/header.jspf"%>

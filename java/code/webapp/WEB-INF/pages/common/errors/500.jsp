@@ -2,7 +2,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<html:xhtml/>
+
 <page:applyDecorator name="layout_c">
 <body>
     <h1>

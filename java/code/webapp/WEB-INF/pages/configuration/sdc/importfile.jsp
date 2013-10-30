@@ -4,7 +4,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/config-managment" prefix="cfg" %>
-<html:xhtml/>
+
 <html>
 <head>
     <meta name="name" value="sdc.config.jsp.header" />

@@ -4,7 +4,7 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 
-<html:xhtml/>
+
 <html>
 <body>
 <rhn:toolbar base="h1" icon="fa-info-circle"

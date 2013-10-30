@@ -3,7 +3,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 
-<html:xhtml/>
+
 <html>
     <body>
         <rhn:toolbar base="h1" icon="fa-user" imgAlt="users.jsp.imgAlt"

@@ -4,7 +4,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 
-<html:html xhtml="true">
+<html:html >
     <body>
         <rhn:toolbar base="h1" icon="fa-search"
                      helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-search"

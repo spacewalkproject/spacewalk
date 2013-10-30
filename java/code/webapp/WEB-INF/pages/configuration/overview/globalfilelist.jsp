@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/config-managment" prefix="cfg" %>
 
-<html:xhtml/>
+
 <html>
 <body>
 <rhn:toolbar base="h1" icon="spacewalk-icon-manage-configuration-file" 

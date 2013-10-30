@@ -4,7 +4,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 
-<html:html xhtml="true">
+<html:html >
     <body>
 <rhn:toolbar base="h1" img="/img/rhn-icon-errata.gif"
 		 helpUrl="/rhn/help/getting-started/en-US/sect-Getting_Started_Guide-Errata_Management-Cloning_Errata.jsp">

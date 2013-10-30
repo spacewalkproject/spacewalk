@@ -6,7 +6,7 @@
 	prefix="html"%>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 
-<html:xhtml/>
+
 <html>
 <body>
 <rhn:toolbar base="h1" icon="fa-cog"

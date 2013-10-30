@@ -6,7 +6,7 @@
 
 
 
-<html:xhtml/>
+
 <html>
 <body>
 <rhn:toolbar base="h1" icon="spacewalk-icon-system-groups"

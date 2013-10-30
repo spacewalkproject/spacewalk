@@ -3,7 +3,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean"	prefix="bean"%>
 <%@ taglib uri="http://struts.apache.org/tags-html"	prefix="html"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<html:xhtml/>
+
 <html>
 <head>
   <script src="/javascript/iso_download.js" type="text/javascript"> </script>

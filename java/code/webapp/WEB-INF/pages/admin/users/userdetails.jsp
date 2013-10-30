@@ -4,7 +4,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 
-<html:html xhtml="true">
+<html:html >
     <body>
         <%@ include file="/WEB-INF/pages/common/fragments/user/user-header.jspf" %>
         <div class="panel panel-default">

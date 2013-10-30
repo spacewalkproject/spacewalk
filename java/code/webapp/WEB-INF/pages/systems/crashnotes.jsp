@@ -6,7 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
-<html:html xhtml="true">
+<html:html >
 <body>
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
     <br/>

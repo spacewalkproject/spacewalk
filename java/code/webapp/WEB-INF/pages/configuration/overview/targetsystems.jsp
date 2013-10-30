@@ -5,7 +5,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-html"
 	prefix="html"%>
 
-<html:xhtml/>
+
 <html>
 <body>
 <rhn:toolbar base="h1" icon="fa-desktop"

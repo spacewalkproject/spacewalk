@@ -21,7 +21,7 @@
 </c:choose>
 
 
-<html:xhtml/>
+
 <html>
 <head>
     <meta name="page-decorator" content="none" />
