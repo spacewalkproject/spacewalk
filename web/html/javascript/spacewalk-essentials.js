@@ -53,7 +53,7 @@ function columnHeight() {
     var sectionHeight = $(".spacewalk-main-column-layout section").outerHeight();
   	var heightDoc = $(document).height();
     // Column heights should equal the document height minus the header height and footer height
-    var newHeight = heightDoc - 160 - sectionHeight + "px";
+    var newHeight = heightDoc - 145 - sectionHeight + "px";
     $(".spacewalk-main-column-layout section").css("padding-bottom", newHeight);
   };
 };
