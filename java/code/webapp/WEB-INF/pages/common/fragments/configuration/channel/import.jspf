@@ -5,34 +5,40 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/config-managment" prefix="cfg"%>
 
 <!-- Import file from another channel  -->
-<h2><bean:message key="addfiles.jsp.import.jspf.title" /> </h2>
-<html:form action="/configuration/ChannelImportFilesSubmit.do?ccid=${ccid}">
-    <rhn:csrf />
-	<html:hidden property="submitted" value="true"/>
-	<rhn:list
-	  pageList="${requestScope.pageList}"
-	  noDataText="channelfiles.jsp.noFiles">
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h4><bean:message key="addfiles.jsp.import.jspf.title" /> </h4>
+	</div>
+	<div class="panel-body">
+		<html:form action="/configuration/ChannelImportFilesSubmit.do?ccid=${ccid}">
+	    <rhn:csrf />
+		<html:hidden property="submitted" value="true"/>
+		<rhn:list
+		  pageList="${requestScope.pageList}"
+		  noDataText="channelfiles.jsp.noFiles">
 
-	<rhn:listdisplay filterBy="channelfiles.jsp.path" set="${requestScope.set}">
-	 	<rhn:set value="${current.id}"/>
-		<rhn:column header="channelfiles.jsp.path">
-			<cfg:file id="${current.id}"  path="${current.path}" type="${current.type}" />
-      	</rhn:column>
+		<rhn:listdisplay filterBy="channelfiles.jsp.path" set="${requestScope.set}">
+		 	<rhn:set value="${current.id}"/>
+			<rhn:column header="channelfiles.jsp.path">
+				<cfg:file id="${current.id}"  path="${current.path}" type="${current.type}" />
+	      	</rhn:column>
 
-		<rhn:column header="channelfiles.jsp.channel">
-		  <cfg:channel id="${current.configChannelId}" name="${current.configChannelName}" type="${current.configChannelType}" />
-		</rhn:column>
+			<rhn:column header="channelfiles.jsp.channel">
+			  <cfg:channel id="${current.configChannelId}" name="${current.configChannelName}" type="${current.configChannelType}" />
+			</rhn:column>
 
-		<rhn:column header="channelfiles.jsp.lastmod"
-			url="/rhn/configuration/file/FileDetails.do?cfid=${current.id}">
-			${current.modifiedDisplay}
-		</rhn:column>
-	</rhn:listdisplay>
-</rhn:list>
-<hr />
-  <div class="text-right">
-	  <html:submit  property="dispatch">
-	  	<bean:message key="addfiles.jsp.import.jspf.submit" />
-	  </html:submit>
-  </div>
-</html:form>
+			<rhn:column header="channelfiles.jsp.lastmod"
+				url="/rhn/configuration/file/FileDetails.do?cfid=${current.id}">
+				${current.modifiedDisplay}
+			</rhn:column>
+		</rhn:listdisplay>
+	</rhn:list>
+	<hr />
+	  <div class="text-right">
+		  <html:submit  property="dispatch" styleClass="btn btn-default">
+		  	<bean:message key="addfiles.jsp.import.jspf.submit" />
+		  </html:submit>
+	  </div>
+	</html:form>
+	</div>
+</div>
