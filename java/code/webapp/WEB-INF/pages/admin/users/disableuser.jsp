@@ -3,31 +3,23 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 
-<html:xhtml/>
 <html>
-<body>
-
-<rhn:toolbar base="h1" icon="fa-user" imgAlt="users.jsp.imgAlt">
-    <c:out escapeXml="true" value="${targetuser.login}" />
-</rhn:toolbar>
-
-<h2><bean:message key="disableuser.jsp.confirm"/></h2>
-
-<div class="page-summary">
-<p>
-    <bean:message key="disableuser.jsp.body"/>
-</p>
-</div>
-
-<form method="POST" action="/rhn/users/DisableUserSubmit.do?uid=${param.uid}">
-<rhn:csrf />
-<div class="text-right">
-      <hr />
-      <html:submit>
-          <bean:message key="disableuser.jsp.disable"/>
-      </html:submit>
-    </div>
-</form>
-
-</body>
+    <body>
+        <rhn:toolbar base="h1" icon="fa-user" imgAlt="users.jsp.imgAlt">
+            <c:out escapeXml="true" value="${targetuser.login}" />
+        </rhn:toolbar>
+        <form method="POST" action="/rhn/users/DisableUserSubmit.do?uid=${param.uid}">
+            <div class="jumbotron">
+                <div class="container">
+                    <h2><bean:message key="disableuser.jsp.confirm"/></h2>
+                    <p><bean:message key="disableuser.jsp.body"/></p>
+                    <br/>
+                    <rhn:csrf />
+                    <html:submit styleClass="btn btn-danger btn-lg">
+                        <bean:message key="disableuser.jsp.disable"/>
+                    </html:submit>
+                </div>
+            </div>
+        </form>
+    </body>
 </html>

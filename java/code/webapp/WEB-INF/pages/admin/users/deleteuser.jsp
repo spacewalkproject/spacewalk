@@ -3,30 +3,25 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 
-<html:xhtml/>
 <html>
-<body>
-
-<rhn:toolbar base="h1" icon="fa-user" imgAlt="users.jsp.imgAlt">
-    <c:out escapeXml="true" value="${targetuser.login}" />
-</rhn:toolbar>
-
-
-<h2><bean:message key="deleteuser.jsp.confirm"/></h2>
-
-<div class="page-summary">
-    <bean:message key="deleteuser.jsp.body"/>
-</div>
-
-<form method="POST" action="/rhn/users/DeleteUserSubmit.do?uid=${param.uid}">
-<rhn:csrf />
-<div class="text-right">
-      <hr />
-      <html:submit>
-          <bean:message key="deleteuser.jsp.delete"/>
-      </html:submit>
-    </div>
-</form>
-
-</body>
+    <body>
+        <rhn:toolbar base="h1" icon="fa-user" imgAlt="users.jsp.imgAlt">
+            <c:out escapeXml="true" value="${targetuser.login}" />
+        </rhn:toolbar>
+        <form method="POST" action="/rhn/users/DeleteUserSubmit.do?uid=${param.uid}">
+            <div class="jumbotron">
+                <div class="container">
+                    <h2><bean:message key="deleteuser.jsp.confirm"/></h2>
+                    <p><bean:message key="deleteuser.jsp.body"/></p>
+                    <br/>
+                    <p>
+                        <rhn:csrf />
+                        <html:submit styleClass="btn btn-danger btn-lg">
+                            <bean:message key="deleteuser.jsp.delete"/>
+                        </html:submit>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </body>
 </html>
