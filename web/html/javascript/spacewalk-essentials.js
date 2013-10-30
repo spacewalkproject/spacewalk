@@ -27,6 +27,10 @@ $(document).on("ready", function(){
 
   // This is a function from spacewalk-checkall.js
   create_checkall_checkbox();
+
+  // Adding div wrapping the tables in a div which will make them responsive    
+  $(".table").wrap("<div class='table-responsive'>");
+
 });
 
 /* Getting the screen size to create a fixed padding-bottom in the Section tag to make both columns the same size */
@@ -66,4 +70,5 @@ function makeAjaxCallback(divId, debug) {
   };
   return cb;
 }
+
 
