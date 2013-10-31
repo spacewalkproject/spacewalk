@@ -16,6 +16,7 @@
 package com.redhat.rhn.frontend.taglibs;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Arrays;
 import java.util.Collections;
@@ -463,7 +464,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
               "</a></div>");
     }
 
-    private void renderBoundsVariables(JspWriter out) throws IOException {
+    private void renderBoundsVariables(Writer out) throws IOException {
         StringBuffer target = new StringBuffer();
         // pagination formvars
         renderHidden(target, "lower", String.valueOf(getPageList().getStart()));
@@ -478,7 +479,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
         renderHidden(target, PREV_LOWER, putil.getPrevLower());
         renderHidden(target, NEXT_LOWER, putil.getNextLower());
         renderHidden(target, LAST_LOWER, putil.getLastLower());
-        out.println(target.toString());
+        out.append(target.toString());
     }
 
     @Override
@@ -530,16 +531,12 @@ public class ListDisplayTag extends ListDisplayTagBase {
 
     }
 
-    private void renderPagination(JspWriter out, boolean top)
+    private void renderPagination(Writer out, boolean top)
         throws IOException {
 
-        out.println("<div class=\"spacewalk-list-pagination\"");
-        if (tableId != null) {
-            out.print("id=\"" + tableId + "\" ");
-        }
-        out.println(">");
+        out.append("<div class=\"spacewalk-list-pagination\">\n");
 
-        out.print("<div class=\"list-infotext\">");
+        out.append("<div class=\"list-infotext\">");
         int finalResult = getPageList().getEnd();
         if (finalResult > getPageList().getTotalSize()) {
             finalResult = getPageList().getTotalSize();
@@ -556,46 +553,46 @@ public class ListDisplayTag extends ListDisplayTagBase {
             args[1] = new Integer(finalResult);
             args[2] = new Integer(getPageList().getTotalSize());
         }
-        out.println(LocalizationService.getInstance()
+        out.append(LocalizationService.getInstance()
                     .getMessage("message.range", args));
 
         if ((set != null) && (!RhnSetDecl.SYSTEMS.getLabel().equals(set.getLabel()))) {
             if (top) {
-                out.print("<strong><span id=\"pagination_selcount_top\">");
+                out.append("<strong><span id=\"pagination_selcount_top\">");
             }
             else {
-                out.print("<strong><span id=\"pagination_selcount_bottom\">");
+                out.append("<strong><span id=\"pagination_selcount_bottom\">");
             }
-            out.print(LocalizationService.getInstance()
+            out.append(LocalizationService.getInstance()
                       .getMessage("message.numselected",
                            Integer.toString(set.size()))
                       );
-            out.print("</span></strong>\n");
+            out.append("</span></strong>\n");
         }
 
-        out.println("</div>");
+        out.append("</div>");
         appendButtons(out);
-        out.println("  </div>\n");
+        out.append("  </div>");
     }
 
-    private void appendButtons(JspWriter out) throws IOException {
-        out.println("<div class=\"spacewalk-list-pagination-btns btn-group\">");
+    private void appendButtons(Writer out) throws IOException {
+        out.append("<div class=\"spacewalk-list-pagination-btns btn-group\">\n");
 
         boolean canGoForward = getPageList().getEnd() < getPageList()
                 .getTotalSize();
         boolean canGoBack = getPageList().getStart() > 1;
 
         if (canGoForward || canGoBack) {
-            out.println(renderPaginationButton(FIRST,
+            out.append(renderPaginationButton(FIRST,
                     "fa-fast-backward", " |&lt; ", canGoBack));
-            out.println(renderPaginationButton(PREV, "fa-backward",
+            out.append(renderPaginationButton(PREV, "fa-backward",
                     " &lt; ", canGoBack));
-            out.println(renderPaginationButton(NEXT, "fa-forward",
+            out.append(renderPaginationButton(NEXT, "fa-forward",
                     " &gt; ", canGoForward));
-            out.println(renderPaginationButton(LAST,
+            out.append(renderPaginationButton(LAST,
                     "fa-fast-forward", " &gt;| ", canGoForward));
         }
-        out.println("</div>\n");
+        out.append("</div>\n");
     }
 
     private String renderPaginationButton(String name, String icon,
@@ -719,7 +716,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
         out.println(link.render());*/
     }
 
-    private void renderAlphabar(JspWriter out) throws IOException {
+    private void renderAlphabar(Writer out) throws IOException {
         StringBuffer target = new StringBuffer();
 
         target.append("<div class=\"spacewalk-alphabar\">");
@@ -770,8 +767,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
         target.append(ab.getAlphaList(getPageList().getIndex()));
         target.append("</ul>");
         target.append("</div>");
-
-        out.println(target.toString());
+        out.append(target.toString());
     }
 
     /**
@@ -849,9 +845,13 @@ public class ListDisplayTag extends ListDisplayTagBase {
                 doSort(sortedColumn);
             }
 
-            BodyContent topAddonsContent = pageContext.pushBody();
+            out.print("<div class=\"spacewalk-list ");
+            out.println(type + "\"");
+            if (tableId != null) {
+                out.print(" id=\"" + tableId + "\"");
+            }
+            out.println(">");
 
-            out.println("<div class=\"spacewalk-list-top-addons\">");
             /*
              * If pageList contains an index and pageList.size() (what we are
              * displaying on the page) is less than pageList.getTotalSize() (the
@@ -860,24 +860,34 @@ public class ListDisplayTag extends ListDisplayTagBase {
              * the entries on a single page and is similar to how the perl code
              * behaves.
              */
+            StringWriter alphaBarContent = new StringWriter();
+            StringWriter paginationContent = new StringWriter();
+
+            pageContext.pushBody(alphaBarContent);
             if (getPageList().getIndex().size() > 0
                     && getPageList().size() < getPageList().getTotalSize()) {
 
-                out.println("<div class=\"spacewalk-list-alphabar\">");
-                renderViewAllLink(topAddonsContent);
-                renderAlphabar(topAddonsContent);
-                out.println("</div>");
+                //renderViewAllLink(alphaBarContent);
+                renderAlphabar(alphaBarContent);
             }
-            if (isPaging()) {
-                renderPagination(topAddonsContent, true);
-                renderBoundsVariables(topAddonsContent);
-            }
-
             pageContext.popBody();
 
-            if (topAddonsContent.getBufferSize() > 0) {
-                out.print("<div class=\"spacewalk-list\">");
-                topAddonsContent.writeOut(out);
+            pageContext.pushBody(paginationContent);
+            if (isPaging()) {
+                renderPagination(paginationContent, true);
+                renderBoundsVariables(paginationContent);
+            }
+            pageContext.popBody();
+
+            int topAddonsContentLen = alphaBarContent.getBuffer().length()
+                    + paginationContent.getBuffer().length();
+
+            if (topAddonsContentLen > 0) {
+                out.println("<div class=\"spacewalk-list-top-addons\">");
+                out.println("<div class=\"spacewalk-list-alphabar\">");
+                out.print(alphaBarContent.getBuffer().toString());
+                out.println("</div>");
+                out.print(paginationContent.getBuffer().toString());
                 out.println("</div>");
             }
 
@@ -885,26 +895,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
 
             renderPanelHeading(out);
 
-            /* If the type is list, we must set the width explicitly. Otherwise,
-             * it shouldn't matter
-             */
-            if (type.equals("list")) {
-                out.print("<table class=\"table table-striped\"");
-            }
-            else {
-                out.print("<table class=\"" + type + "\"");
-            }
-
-            /*if (isTransparent()) {
-                out.print(" style=\"border-bottom: 1px solid #ffffff;\" ");
-            }*/
-
-            if (tableId != null) {
-                out.print(" id=\"" + tableId + "\"");
-            }
-
-            out.println(">");
-
+            out.print("<table class=\"table table-striped\">");
             // we render the pagination controls as an additional head
             out.println("<thead>");
             out.println("\n<tr>");
@@ -1043,7 +1034,11 @@ public class ListDisplayTag extends ListDisplayTagBase {
             out.println("</div>");
             out.println("</div>");
 
-            // export button goes outside of the panel
+            // close list
+            out.println("</div>");
+
+            // export button goes outside of the list because in the new
+            // implementation it is data-set dependent and not list dependent
             if (getExportColumns() != null) {
                 renderExport(out);
             }
