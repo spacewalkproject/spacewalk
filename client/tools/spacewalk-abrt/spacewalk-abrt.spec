@@ -11,6 +11,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  gettext
 Requires:       abrt
+Requires:       abrt-cli
 Requires:       rhnlib
 Requires:       rhn-check
 %description
@@ -28,6 +29,9 @@ make -f Makefile.spacewalk-abrt install PREFIX=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post
+service abrtd restart
 
 %files
 %config  /etc/sysconfig/rhn/clientCaps.d/abrt
