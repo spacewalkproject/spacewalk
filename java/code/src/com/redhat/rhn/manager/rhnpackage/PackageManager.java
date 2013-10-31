@@ -1188,7 +1188,7 @@ public class PackageManager extends BaseManager {
      * Create all repoentries for a channel's packages if needed
      * @param cid the channel id
      */
-    public synchronized static void createRepoEntrys(Long cid) {
+    public static synchronized void createRepoEntrys(Long cid) {
         Map params = new HashMap();
         params.put("cid", cid);
         try {
