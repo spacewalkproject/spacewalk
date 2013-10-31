@@ -1355,6 +1355,7 @@
         type="com.redhat.rhn.frontend.action.user.CreateUserAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="postRequired" value="true" />
+      <set-property property="acls" value="need_first_user()"/>
       <forward name="success_sat" path="/YourRhn.do"
                redirect="true"/>
       <forward name="fail-sat" path="/newlogin/CreateFirstUser.do"/>
