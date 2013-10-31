@@ -99,6 +99,11 @@ public class ListTag extends BodyTagSupport {
     private boolean searchParent = true;
     private boolean searchChild;
 
+    @Override
+    public void setPageContext(PageContext ctx) {
+        super.setPageContext(ctx);
+        ListTagUtil.setCurrentCommand(ctx, getUniqueName(), ListCommand.ENUMERATE);
+    }
 
     /**
      * @param searchParentIn The searchParent to set.
