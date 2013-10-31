@@ -835,14 +835,20 @@ public class ListTag extends BodyTagSupport {
 
         ListTagUtil.write(pageContext, "<!-- START LIST " + getUniqueName() + " -->");
 
+        String listId = (getStyleId() != null) ? getStyleId() : getUniqueName();
+        ListTagUtil.setCurrentCommand(pageContext, listId,
+                ListCommand.ENUMERATE);
+
         for (ListDecorator dec : getDecorators()) {
             dec.setCurrentList(this);
             dec.beforeList();
         }
 
-        ListTagUtil.write(pageContext, "<div class=\"spacewalk-list\" id=\"" + getUniqueName() + "\">");
-        ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
-        ListCommand.ENUMERATE);
+        ListTagUtil.write(pageContext, "<div class=\"spacewalk-list");
+        if (styleClass != null) {
+            ListTagUtil.write(pageContext, " " + styleClass);
+        }
+        ListTagUtil.write(pageContext, "\" id=\"" + listId + "\">");
         return BodyTagSupport.EVAL_BODY_INCLUDE;
     }
 
@@ -984,15 +990,7 @@ public class ListTag extends BodyTagSupport {
     }
 
     private void startTable() throws JspException {
-        ListTagUtil.write(pageContext, "<table class=\"table table-striped ");
-        if (styleClass != null) {
-            ListTagUtil.write(pageContext, styleClass);
-        }
-        ListTagUtil.write(pageContext, "\"");
-
-        ListTagUtil.write(pageContext, " id=\"");
-        ListTagUtil.write(pageContext, getStyleId());
-        ListTagUtil.write(pageContext, "\"");
+        ListTagUtil.write(pageContext, "<table class=\"table table-striped\"");
 
         if (width != null) {
             ListTagUtil.write(pageContext, " width=\"");
