@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.28
+Version: 2.1.29
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Oct 31 2013 Matej Kollar <mkollar@redhat.com> 2.1.29-1
+- 1020952 - Single db root cert + option name change
+- 1020952 - SSL for Postgresql: Java (Perl DBI)
+
 * Thu Oct 24 2013 Jan Dobes 2.1.28-1
 - 1015747 - cleanup
 - 1015747 - new jsp page + nav stuff
