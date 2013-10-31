@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.4
+Version: 2.1.5
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -182,6 +182,9 @@ fi
 %attr(755, root, root) %{_var}/lib/rhn/search/indexes/docs
 
 %changelog
+* Thu Oct 31 2013 Matej Kollar <mkollar@redhat.com> 2.1.5-1
+- 1020952 - Single db root cert + option name change
+
 * Thu Oct 31 2013 Tomas Lestach <tlestach@redhat.com> 2.1.4-1
 - 1023669 - set Session Time Zone for Oracle connections
 - Unchecked conversion removed in rhnsearch
