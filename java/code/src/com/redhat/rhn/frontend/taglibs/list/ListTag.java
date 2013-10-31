@@ -672,6 +672,7 @@ public class ListTag extends BodyTagSupport {
             pageContext.pushBody(footAddonsContent);
             if (!manip.isListEmpty()) {
                 for (ListDecorator dec : getDecorators()) {
+                    dec.setCurrentList(this);
                     dec.onFooterExtraAddons();
                     dec.setCurrentList(null);
                 }
@@ -681,6 +682,7 @@ public class ListTag extends BodyTagSupport {
             pageContext.pushBody(footExtraContent);
             if (!manip.isListEmpty()) {
                 for (ListDecorator dec : getDecorators()) {
+                    dec.setCurrentList(this);
                     dec.onFooterExtraContent();
                     dec.setCurrentList(null);
                 }
