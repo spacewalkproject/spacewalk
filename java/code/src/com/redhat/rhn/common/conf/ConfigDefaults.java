@@ -126,6 +126,13 @@ public class ConfigDefaults {
     private static final String COBBLER_NAME_SEPARATOR = "cobbler.name.separator";
     public static final String POWER_MANAGEMENT_TYPES = "java.power_management.types";
 
+    public static final String COBBLER_BOOTSTRAP_KERNEL = "java.cobbler_bootstrap.kernel";
+    public static final String COBBLER_BOOTSTRAP_INITRD = "java.cobbler_bootstrap.initrd";
+    public static final String COBBLER_BOOTSTRAP_BREED = "java.cobbler_bootstrap.breed";
+    public static final String COBBLER_BOOTSTRAP_ARCH = "java.cobbler_bootstrap.arch";
+    public static final String COBBLER_BOOTSTRAP_EXTRA_KERNEL_OPTIONS =
+        "java.cobbler_bootstrap.extra_kernel_options";
+
     public static final String KVM_VIRT_PATH_DIR = "kickstart.virt_storage_path_kvm";
     public static final String XEN_VIRT_PATH_DIR = "kickstart.virt_storage_path_xen";
     private static final String DEFAULT_XEN_VIRT_PATH = "/var/lib/xen/images";
@@ -524,6 +531,46 @@ public class ConfigDefaults {
     public String getCobblerNameSeparator() {
         return Config.get().getString(COBBLER_NAME_SEPARATOR, ":");
 
+    }
+
+    /**
+     * Returns the bootstrap kernel path
+     * @return the path
+     */
+    public String getCobblerBootstrapKernel() {
+        return Config.get().getString(COBBLER_BOOTSTRAP_KERNEL);
+    }
+
+    /**
+     * Returns the bootstrap initrd path
+     * @return the path
+     */
+    public String getCobblerBootstrapInitrd() {
+        return Config.get().getString(COBBLER_BOOTSTRAP_INITRD);
+    }
+
+    /**
+     * Returns the bootstrap breed
+     * @return the breed
+     */
+    public String getCobblerBootstrapBreed() {
+        return Config.get().getString(COBBLER_BOOTSTRAP_BREED);
+    }
+
+    /**
+     * Returns the bootstrap kernel arch name
+     * @return the arch
+     */
+    public String getCobblerBootstrapArch() {
+        return Config.get().getString(COBBLER_BOOTSTRAP_ARCH);
+    }
+
+    /**
+     * Returns the bootstrap extra kernel options
+     * @return the options
+     */
+    public String getCobblerBootstrapExtraKernelOptions() {
+        return Config.get().getString(COBBLER_BOOTSTRAP_EXTRA_KERNEL_OPTIONS);
     }
 
     /**
