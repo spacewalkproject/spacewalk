@@ -41,7 +41,7 @@ from sql_base import SQLError, SQLSchemaError, SQLConnectError, \
 # EVER be exposed to the calling applications.
 
 
-def __init__DB(backend, host, port, username, password, database, sslmode):
+def __init__DB(backend, host, port, username, password, database, sslmode, sslrootcert):
     """
     Establish and check the connection so we can wrap it and handle
     exceptions.
@@ -52,14 +52,14 @@ def __init__DB(backend, host, port, username, password, database, sslmode):
         my_db = __DB
     except NameError:  # __DB has not been set up
         db_class = dbi.get_database_class(backend=backend)
-        __DB = db_class(host, port, username, password, database, sslmode)
+        __DB = db_class(host, port, username, password, database, sslmode, sslrootcert)
         __DB.connect()
         return
     else:
         del my_db
 
     if __DB.is_connected_to(backend, host, port, username, password,
-                            database, sslmode):
+                            database, sslmode, sslrootcert):
         __DB.check_connection()
         return
 
@@ -67,13 +67,13 @@ def __init__DB(backend, host, port, username, password, database, sslmode):
     __DB.close()
     # now we have to get a different connection
     __DB = dbi.get_database_class(backend=backend)(
-        host, port, username, password, database, sslmode)
+        host, port, username, password, database, sslmode, sslrootcert)
     __DB.connect()
     return 0
 
 
 def initDB(backend=None, host=None, port=None, username=None,
-           password=None, database=None, sslmode=None):
+           password=None, database=None, sslmode=None, sslrootcert=None):
     """
     Initialize the database.
 
@@ -91,7 +91,11 @@ def initDB(backend=None, host=None, port=None, username=None,
         database = CFG.DB_NAME
         username = CFG.DB_USER
         password = CFG.DB_PASSWORD
-        sslmode = CFG.DB_SSLMODE
+        sslmode = None
+        sslrootcert = None
+        if CFG.DB_SSL_ENABLED:
+            sslmode = 'verify-full'
+            sslrootcert = CFG.DB_SSLROOTCERT
 
     if backend not in SUPPORTED_BACKENDS:
         raise rhnException("Unsupported database backend", backend)
@@ -102,7 +106,7 @@ def initDB(backend=None, host=None, port=None, username=None,
     # Hide the password
     add_to_seclist(password)
     try:
-        __init__DB(backend, host, port, username, password, database, sslmode)
+        __init__DB(backend, host, port, username, password, database, sslmode, sslrootcert)
 #    except (rhnException, SQLError):
 #        raise  # pass on, we know those ones
 #    except (KeyboardInterrupt, SystemExit):

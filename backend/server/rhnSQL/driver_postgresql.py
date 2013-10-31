@@ -137,12 +137,13 @@ class Database(sql_base.Database):
     """ Class for PostgreSQL database operations. """
 
     def __init__(self, host=None, port=None, username=None,
-                 password=None, database=None, sslmode=None):
+                 password=None, database=None, sslmode=None, sslrootcert=None):
 
         self.username = username
         self.password = password
         self.database = database
         self.sslmode = sslmode
+        self.sslrootcert = sslrootcert
 
         # Minimum requirements to connect to a PostgreSQL db:
         if not (self.username and self.database):
@@ -163,25 +164,28 @@ class Database(sql_base.Database):
 
     def connect(self, reconnect=1):
         try:
-            kwargs = {
-                'database': str(self.database),
-                'user': str(self.username),
-                'password': str(self.password)}
+            dsndata = {
+                'dbname': self.database,
+                'user': self.username,
+                'password': self.password}
             if self.host is not None:
-                kwargs['host'] = self.host
-                kwargs['port'] = self.port
-            if self.sslmode is not None and self.sslmode == 'verify-full':
-                kwargs['sslmode'] = str(self.sslmode)
+                dsndata['host'] = self.host
+                dsndata['port'] = self.port
+            if self.sslmode is not None and self.sslmode == 'verify-full' and self.sslrootcert is not None:
+                dsndata['sslmode'] = self.sslmode
+                dsndata['sslrootcert'] = self.sslrootcert
             elif self.sslmode is not None:
-                raise AttributeError("Only sslmode=verify-full is supported.")
+                raise AttributeError("Only sslmode=\"verify-full\" (or None) is supported.")
+            if self.sslmode is not None and self.sslrootcert is None:
+                raise AttributeError("Attribute sslrootcert needs to be set if sslmode is set.")
 
-            self.dbh = psycopg2.connect(**kwargs)
+            self.dbh = psycopg2.connect(" ".join("%s=%s" % (k, re.escape(str(v))) for k, v in dsndata.iteritems()))
 
             # convert all DECIMAL types to float (let Python to choose one)
             DEC2INTFLOAT = psycopg2.extensions.new_type(psycopg2._psycopg.DECIMAL.values,
                                                         'DEC2INTFLOAT', decimal2intfloat)
             psycopg2.extensions.register_type(DEC2INTFLOAT)
-        except Exception, e:
+        except psycopg2.Error, e:
             if reconnect > 0:
                 # Try one more time:
                 return self.connect(reconnect=reconnect - 1)
@@ -192,7 +196,7 @@ class Database(sql_base.Database):
                 "Attempting Re-Connect to the database failed"), None, sys.exc_info()[2]
 
     def is_connected_to(self, backend, host, port, username, password,
-                        database, sslmode):
+                        database, sslmode, sslrootcert):
         if host is None or host == '' or host == 'localhost':
             host = None
             port = None
@@ -201,7 +205,7 @@ class Database(sql_base.Database):
         return (backend == POSTGRESQL) and (self.host == host) and \
                (self.port == port) and (self.username == username) and \
                (self.password == password) and (self.database == database) and \
-               (self.sslmode == sslmode)
+               (self.sslmode == sslmode) and (self.sslrootcert == sslrootcert)
 
     def check_connection(self):
         try:

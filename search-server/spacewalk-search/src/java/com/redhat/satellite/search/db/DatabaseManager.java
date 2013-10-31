@@ -86,8 +86,7 @@ public class DatabaseManager {
                 }
                 connectionUrl += "/" + overrides.getProperty("db_name");
 
-                String sslmode = config.getString("db_sslmode");
-                if (sslmode != null && sslmode.equals("verify-full")) {
+                if (config.getBoolean("db_ssl_enabled")) {
                     connectionUrl += "?ssl=true";
                     String trustStore = config.getString("java.ssl_truststore");
                     if (trustStore == null || ! new File(trustStore).isFile()) {
@@ -95,10 +94,7 @@ public class DatabaseManager {
                             trustStore + ". Path can be changed with java.ssl_truststore option.");
                     }
                     System.setProperty("javax.net.ssl.trustStore", trustStore);
-                }
-                else if (sslmode != null) {
-                    throw new ConfigException(
-                        "Unsuported value for db_sslmode. Only 'verify-full' is supported.");
+                    overrides.setProperty("db_name", connectionUrl);
                 }
             }
         }

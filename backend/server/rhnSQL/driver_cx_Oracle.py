@@ -358,13 +358,15 @@ class Database(sql_base.Database):
     OracleError = cx_Oracle.DatabaseError
 
     def __init__(self, host=None, port=None, username=None,
-                 password=None, database=None, sslmode=None):
+                 password=None, database=None, sslmode=None, sslrootcert=None):
 
         # Oracle requires enough info to connect
         if not (username and password and database):
             raise AttributeError("A valid Oracle username, password, and SID are required.")
         if sslmode is not None:
             raise AttributeError("Option sslmode is not supported for Oracle database backend.")
+        if sslrootcert is not None:
+            raise AttributeError("Option sslrootcert is not supported for Oracle database backend.")
 
         sql_base.Database.__init__(self)
 
@@ -419,10 +421,11 @@ class Database(sql_base.Database):
         return dbh
 
     def is_connected_to(self, backend, host, port, username, password,
-                        database, sslmode):
+                        database, sslmode, sslrootcert):
         # NOTE: host and port are unused for Oracle:
         return (backend == ORACLE) and (self.username == username) and \
-            (self.password == password) and (self.database == database)
+            (self.password == password) and (self.database == database) and \
+            (sslmode is None) and (sslrootcert is None)
 
     # try to close it first nicely
     def close(self):
