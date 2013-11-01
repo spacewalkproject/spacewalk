@@ -178,7 +178,13 @@ public class ServerSerializer extends RhnXmlRpcCustomSerializer {
         helper.add("lock_status", locked);
 
         if (server.isVirtualGuest()) {
-            helper.add("virtualization", server.getVirtualInstance().getType().getName());
+            if (server.getVirtualInstance().getType() != null) {
+                helper.add("virtualization", server.getVirtualInstance().getType().
+                        getName());
+            }
+            else {
+                helper.add("virtualization", "");
+            }
         }
 
         helper.writeTo(output);
