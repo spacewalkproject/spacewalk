@@ -21,17 +21,17 @@
   <div class="spacewalk-header-links">
     <rhn:require acl="user_authenticated()">
       <ul class="nav nav-pills">
-        <li><a href="/rhn/account/LocalePreferences.do"><c:out value="${rhnActiveLang} "/>(<bean:message key="header.jsp.change"/>)</a></li>
+        <li class="hidden-sm hidden-xs"><a href="/rhn/account/LocalePreferences.do"><c:out value="${rhnActiveLang} "/>(<bean:message key="header.jsp.change"/>)</a></li>
       </ul>
       <ul class="nav nav-pills">
-        <li><a href="http://kbase.redhat.com/"><bean:message key="header.jsp.knowledgebase" /></a></li>
-        <li><a href="/help"><bean:message key="header.jsp.documentation" /></a></li>
+        <li class="hidden-sm hidden-xs"><a href="http://kbase.redhat.com/"><bean:message key="header.jsp.knowledgebase" /></a></li>
+        <li class="hidden-sm hidden-xs"><a href="/help"><bean:message key="header.jsp.documentation" /></a></li>
       </ul>
       <ul class="nav nav-pills">
         <li>
           <a href="/rhn/account/UserDetails.do"><i class="fa fa-user"></i><c:out escapeXml="true" value="${requestScope.session.user.login}" /></a>
         </li>
-        <li>
+        <li class="hidden-sm hidden-xs hidden-md">
           <a><i class="fa fa-sitemap"></i><c:out escapeXml="true" value="${requestScope.session.user.org.name}" /></a>
         </li>
         <li>
@@ -68,16 +68,7 @@
 </div>
 
 <nav class="navbar navbar-inverse spacewalk-main-nav" role="navigation">
-  <rhn:require acl="user_authenticated()">
-    <rhn:menu mindepth="0" maxdepth="0"
-              definition="/WEB-INF/nav/sitenav-authenticated.xml"
-              renderer="com.redhat.rhn.frontend.nav.TopnavRenderer" />
-  </rhn:require>
-  <rhn:require acl="not user_authenticated()">
-    <rhn:menu mindepth="0" maxdepth="0"
-             definition="/WEB-INF/nav/sitenav.xml"
-             renderer="com.redhat.rhn.frontend.nav.TopnavRenderer" />
-  </rhn:require>
+  <button class="pull-left main-menu-mobile" data-toggle="collapse" data-target=".main-menu-hor"></button>
   <rhn:require acl="user_authenticated()">
     <div id="bar">
       <div class="spacewalk-bar pull-right">
@@ -105,5 +96,17 @@
       </div>
     </div>
   </rhn:require>
+  <div class="clear-responsive-btn"></div>
+  <rhn:require acl="user_authenticated()">
+      <rhn:menu mindepth="0" maxdepth="0"
+                definition="/WEB-INF/nav/sitenav-authenticated.xml"
+                renderer="com.redhat.rhn.frontend.nav.TopnavRenderer" />
+  </rhn:require>
+  <rhn:require acl="not user_authenticated()">
+      <rhn:menu mindepth="0" maxdepth="0"
+               definition="/WEB-INF/nav/sitenav.xml"
+               renderer="com.redhat.rhn.frontend.nav.TopnavRenderer" />
+  </rhn:require>
+  
 </nav>
 <!-- end header.jsp -->

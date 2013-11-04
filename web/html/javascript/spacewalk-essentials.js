@@ -56,6 +56,14 @@ function columnHeight() {
     var newHeight = heightDoc - 145 - sectionHeight + "px";
     $(".spacewalk-main-column-layout section").css("padding-bottom", newHeight);
   };
+  //function to hide or show the Collapsable menues. 768 is the size described by Bootstrap for @screen-desktop
+  if ($(document).width()>1051) {
+    $(".collapse").addClass('in').css({
+      "height": 'auto'
+    });
+  } else {
+    $(".collapse").removeClass('in');
+  };
 };
 
 // Render page fragments loaded via DWR
