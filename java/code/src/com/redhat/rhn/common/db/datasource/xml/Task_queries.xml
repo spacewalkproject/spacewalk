@@ -166,6 +166,8 @@ where rhnChannelErrata.errata_id = rhnErrataPackage.errata_id
                         and rhnChannelNewestPackage.package_id = cp.package_id
                         and rhnServerChannel.server_id = csc.server_id
                         and cp.channel_id &lt; rhnChannelNewestPackage.channel_id
+                        and cp.channel_id = :channel_id
+--                          ^ helping PostgreSQL 8.4 optimizer, see BZ#1022279 for details
         )
         and not exists (
 		-- rule out records where the server has the same package name with higher evr
@@ -187,6 +189,8 @@ where rhnChannelErrata.errata_id = rhnErrataPackage.errata_id
                         and rhnPackageEVR.evr &lt; oevr.evr
                         and rhnServerPackage.package_arch_id = puac.package_arch_id
                         and puac.package_upgrade_arch_id = ocnp.package_arch_id
+                        and csc.channel_id = :channel_id
+--                          ^ helping PostgreSQL 8.4 optimizer, see BZ#1022279 for details
         )
 --
   ) SNV
