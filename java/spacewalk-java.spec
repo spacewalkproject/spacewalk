@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.63
+Version: 2.1.64
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Nov 04 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.64-1
+- 1022279 - modified query to work better with PostgreSQL 8.4 optimizer
+- 1022279 - added hints for PostgreSQL 8.4 optimizer
+
 * Thu Oct 31 2013 Matej Kollar <mkollar@redhat.com> 2.1.63-1
 - 1020952 - Single db root cert + option name change
 - Checkstyle fix, follow JSL for method modifiers
