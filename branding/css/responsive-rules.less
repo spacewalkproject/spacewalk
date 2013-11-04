@@ -7,7 +7,7 @@
 	}
 }
 .sidenav-horizontal {
-	#sidenav{
+	#sidenav {
 		a:before {
 			content: "";
 			margin: 0;
@@ -53,11 +53,125 @@
 		}
 	}
 }
-@media (min-width: @screen-sm) and (max-width: @screen-sm-max) {
+//second logo of SPACEWALK
+.logoLetter {
+	.spacewalk-header-container a:nth-child(2) {
+		display: none;
+	}
+}
+// columns in the header
+.header-responsive {
+	.spacewalk-header-container {
+		.make-row(0);
+		.spacewalk-logo {
+			.make-xs-column(6);
+			padding-left: 0;
+		}
+		.spacewalk-header-links {
+			.make-xs-column(6);
+			padding-right: 0;
+		}
+	}
+	header {
+		.spacewalk-logo {
+			padding-top: .2em;
+			img#rhLogo {
+				width: 33px;
+			}
+			img#rhnLogo {
+				height: 34px
+			}
+		}
+	}
+}
+// columns without paddings
+.columns-no-padding {
+	.row-0 {
+		.col-md-6 {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+}
+// Logal text in the footer takes 100% in small screens
+.legal-text-footer {
+	footer {
+		div:nth-child(1) {
+			.make-xs-column(12);
+		}
+	}	
+}
+// buttons will go 100% width
+.buttons-full-size {
+	form {
+		.btn-success {
+			width: 100%
+		}
+	}
+}
+// main navigation bar hidden in medium and small screens but with a button to make them visible again
+.menu-toggle-hide {
+	.main-menu-hor {
+		float: none;
+		width: 100%;
+		border-top: 1px solid #555;
+		margin: 0;
+		&.navbar-nav > li:hover {
+			.border-rounded(0;0;0;0);
+		}
+	}
+	.clear-responsive-btn {
+		.clearfix;
+	}
+}
+.main-menu-hor {
+	.pull-left;
+}
+.clear-responsive-btn{
+	clear: none;
+}
+
+// Button for the main menu
+.main-menu-mobile{
+	display: none;
+}
+.button-main-menu-vissible {
+	.main-menu-mobile {
+		display: inline-block;
+		border: 1px solid #444;
+		padding: 0 .4em;
+		margin: 5px 15px;
+		color: #555;
+		background: #000;
+		.border-rounded(4px; 4px; 4px; 4px);
+		&:before{
+			content: "\f0c9";
+			font-family: 'FontAwesome';
+			font-size: 1.3em
+		}
+		&:hover{
+			color: #444;
+		}
+	}
+}
+//classes that will take effect on tablets and mobiles screens
+@media (max-width: 1061px) {
+	.button-main-menu-vissible;
+	.menu-toggle-hide;
+}
+@media (max-width: @screen-tablet) {
 	.sidenav-horizontal;
 	.aside-horizontal;
+	.header-responsive;
+	.columns-no-padding;
+	.legal-text-footer;
+	.menu-toggle-hide;
+	.button-main-menu-vissible;
 }
-@media (max-width: @screen-xs-max) {
-	.sidenav-horizontal;
-	.aside-horizontal;
+//classes that will take effect only on mobiles screens
+@media (max-width: @screen-phone) {
+	.logoLetter;
+	.buttons-full-size;
 }
+
+
