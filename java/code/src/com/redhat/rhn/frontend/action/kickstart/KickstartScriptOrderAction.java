@@ -91,13 +91,13 @@ public class KickstartScriptOrderAction extends RhnLookupDispatchAction {
         }
         if (!preScripts.isEmpty()) {
             if (StringUtils.isEmpty((String) formIn.get(SELECTED_PRE))) {
-                String selected = ((LabelValueBean) preScripts.get(0)).getLabel();
+                String selected = preScripts.get(0).getLabel();
                 formIn.set(SELECTED_PRE, selected);
             }
         }
         if (!postScripts.isEmpty()) {
             if (StringUtils.isEmpty((String) formIn.get(SELECTED_POST))) {
-                String selected = ((LabelValueBean) postScripts.get(0)).getLabel();
+                String selected = postScripts.get(0).getLabel();
                 formIn.set(SELECTED_POST, selected);
             }
         }
@@ -145,7 +145,7 @@ public class KickstartScriptOrderAction extends RhnLookupDispatchAction {
         DynaActionForm form = (DynaActionForm) formIn;
         // if its not javascript enabled, can't do much report error
         if (!context.isJavaScriptEnabled()) {
-            return handleNoScript(mapping, (DynaActionForm) formIn, request, response);
+            return handleNoScript(mapping, formIn, request, response);
         }
 
         Set<KickstartScript> scripts = ksdata.getScripts();
