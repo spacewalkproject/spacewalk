@@ -709,10 +709,13 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         cmd.store();
         log.debug("cobbler system record created.");
         String[] args = new String[2];
+        String msgKey = server.isBootstrap() ?
+            "kickstart.schedule.cobblercreate.bootstrap" :
+            "kickstart.schedule.cobblercreate";
         args[0] = server.getName();
         args[1] = profile.getName();
-        createMessage(ctx.getRequest(), "kickstart.schedule.cobblercreate",
-                args);
+        createMessage(ctx.getRequest(), msgKey, args);
+
         return getStrutsDelegate().forwardParams(
                 mapping.findForward("cobbler-success"), params);
     }

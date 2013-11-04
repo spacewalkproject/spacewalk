@@ -5754,6 +5754,12 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="kickstart.schedule.cobblercreate.bootstrap">
+        <source>System record created for {0} in Cobbler. This will start installation as soon as the system is booted.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="kickstart.cobbler.schedule.success">
         <source>System Kickstart scheduled for {0}. Please check the system console for status information.</source>
         <context-group name="ctx">
