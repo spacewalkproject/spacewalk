@@ -46,6 +46,7 @@ class ProbeStateValidator extends ParameterValidator {
      * {@inheritDoc}
      */
     public String normalize(String value) {
+        value = super.normalize(value);
         if (value != null) {
             value = value.toUpperCase();
         }

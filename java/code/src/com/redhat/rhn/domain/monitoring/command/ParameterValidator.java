@@ -74,12 +74,16 @@ public abstract class ParameterValidator {
     }
 
     /**
-     * Normalize <code>value</code>. Returns <code>null</code> if the
-     * value is considered empty or not present.
+     * Normalize <code>value</code>. Removes all backticks unless param.isBacktickAllowed()
+     * returns true.  Returns <code>null</code> if the value is considered empty
+     * or not present.
      * @param value the value to normalized
      * @return the normalized value
      */
     public String normalize(String value) {
+        if (!param.isBackTickAllowed() && !StringUtils.isBlank(value)) {
+            value = value.replaceAll("`", "");
+        }
         return StringUtils.isBlank(value) ? null : value;
     }
 

@@ -14,6 +14,12 @@
  */
 package com.redhat.rhn.domain.monitoring.command.test;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import com.redhat.rhn.domain.monitoring.MonitoringConstants;
 import com.redhat.rhn.domain.monitoring.MonitoringFactory;
 import com.redhat.rhn.domain.monitoring.Probe;
@@ -23,6 +29,7 @@ import com.redhat.rhn.domain.monitoring.command.Command;
 import com.redhat.rhn.domain.monitoring.command.CommandGroup;
 import com.redhat.rhn.domain.monitoring.command.CommandParameter;
 import com.redhat.rhn.domain.monitoring.command.Metric;
+import com.redhat.rhn.domain.monitoring.command.ParameterValidator;
 import com.redhat.rhn.domain.monitoring.command.ThresholdParameter;
 import com.redhat.rhn.domain.monitoring.command.ThresholdType;
 import com.redhat.rhn.domain.monitoring.test.MonitoringFactoryTest;
@@ -33,11 +40,6 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 import org.apache.commons.collections.Transformer;
 import org.hibernate.HibernateException;
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 /**
  * CommandTest
@@ -193,6 +195,30 @@ public class CommandTest extends RhnBaseTestCase {
         assertTrue(changedValue);*/
 
 
+    }
+
+    public void testBacktickCleansing() throws Exception {
+        User user = UserTestUtils.findNewUser("testUser", "testOrg"  +
+                        this.getClass().getSimpleName());
+        Probe probe = MonitoringFactoryTest.createTestProbe(user);
+        assertNotNull(probe.getCommand().getCommandParameters());
+        assertTrue(probe.getCommand().getCommandParameters().size() > 0);
+
+        // Make sure that cmd-de-backticking works
+        Set<CommandParameter> cps = probe.getCommand().getCommandParameters();
+        for (CommandParameter cp : cps) {
+            ParameterValidator pv = cp.getValidator();
+            System.out.println(cp.getParamName() + "/" + cp.getParamType() + "(" +
+                            pv.getClass().getName() + ") [" +
+                            pv.normalize("`BACKTICKS`") + "]");
+            if (cp.isBackTickAllowed()) {
+                assertEquals("`HAS_BACKTICKS`", pv.normalize("`HAS_BACKTICKS`"));
+            }
+            else {
+                assertEquals("NO_BACKTICKS", pv.normalize("NO_BACKTICKS"));
+                assertEquals("REMOVE_BACKTICKS", pv.normalize("`REMOVE_BACKTICKS`"));
+            }
+        }
     }
 }
 

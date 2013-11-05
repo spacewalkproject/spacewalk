@@ -26,6 +26,7 @@ import java.util.Date;
  * @version $Rev: 1 $
  */
 public class CommandParameter implements Serializable {
+    private static final String[] BACKTICK_ALLOWED = {"command"};
 
     private Command command;
     private String paramName;
@@ -311,6 +312,25 @@ public class CommandParameter implements Serializable {
             validator = createValidator();
         }
         return validator;
+    }
+
+    /**
+     * As a general rules, backticks (`) are not allowed in probe-values,
+     * in order to decrease the possible attack-surface of the monitoring
+     * subsystem.
+     *
+     * For some probes' function, however, they *must* be allowed.
+     *
+     * @return 'true' if it's ok for a value to contain backticks,
+     * false otherwise.
+     */
+    public boolean isBackTickAllowed() {
+        for (String s : BACKTICK_ALLOWED) {
+            if (s.equals(this.paramName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private ParameterValidator createValidator() {

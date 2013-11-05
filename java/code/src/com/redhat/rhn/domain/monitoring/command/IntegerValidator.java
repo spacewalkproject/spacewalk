@@ -44,6 +44,7 @@ class IntegerValidator extends ParameterValidator {
      * {@inheritDoc}
      */
     public String normalize(String value) {
+        value = super.normalize(value);
         return StringUtils.stripToNull(value);
     }
 
