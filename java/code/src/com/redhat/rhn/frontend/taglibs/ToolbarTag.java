@@ -14,14 +14,14 @@
  */
 package com.redhat.rhn.frontend.taglibs;
 
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.frontend.html.HtmlTag;
-import com.redhat.rhn.manager.acl.AclManager;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
+
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.frontend.html.HtmlTag;
+import com.redhat.rhn.manager.acl.AclManager;
 
 /**
  * The ToolbarTag generates a toolbar showing the page title, optional
@@ -618,15 +618,20 @@ public class ToolbarTag extends TagSupport {
         }
         return "";
     }
+
     private String renderMiscLink() {
-        if (evalAcl(getMiscAcl()) &&
-                assertNotEmpty(getMiscUrl()) &&
-                assertNotEmpty(getMiscText()) &&
-                assertNotEmpty(getMiscImg())) {
-            return renderActionLink(getMiscUrl(), getMiscText(),
-                                    getMiscAlt(), getMiscIcon(), getMiscImg());
+        if (!evalAcl(getMiscAcl())) {
+            return "";
         }
-        return "";
+        if (!assertNotEmpty(getMiscUrl()) || !assertNotEmpty(getMiscText())) {
+            return "";
+        }
+        // either icon or img is fine
+        if (!assertNotEmpty(getMiscImg()) && !assertNotEmpty(getMiscIcon())) {
+            return "";
+        }
+        return renderActionLink(getMiscUrl(), getMiscText(),
+                                 getMiscAlt(), getMiscIcon(), getMiscImg());
     }
 
     private String renderActionLink(String url, String text,
