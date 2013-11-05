@@ -128,9 +128,6 @@
 .spacewalk-icon-manage-configuration-files:before {
 	content: "\e622";
 }
-.spacewalk-icon-schedule2:before {
-	content: "\e623";
-}
 .spacewalk-icon-clone-patches:before {
 	content: "\e624";
 }
@@ -176,9 +173,6 @@
 .spacewalk-icon-organization-trust:before {
 	content: "\e632";
 }
-.spacewalk-icon-unknown-system:before {
-	content: "\e633";
-}
 .spacewalk-icon-virtual-guest:before {
 	content: "\e634";
 }
@@ -196,4 +190,7 @@
 }
 .spacewalk-icon-virtual-host:before {
 	content: "\e639";
+}
+.spacewalk-icon-unknown-system:before {
+	content: "\e633";
 }
