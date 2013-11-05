@@ -6,15 +6,14 @@
 
 <html>
 <body>
-<div class="toolbar-h1">
-  <div class="toolbar">
-    <span class="toolbar">
-      <a href="TreeCreate.do"><img src="/img/action-add.gif" alt="<bean:message key="kickstart.kickstartable_distro_create_new.jsp" />" title="<bean:message key="kickstart.kickstartable_distro_create_new.jsp" />" /><bean:message key="kickstart.kickstartable_distro_create_new.jsp" /></a>
-     </span>
-   </div><img alt="<bean:message key="kickstarts.alt.img"/>" src="/img/rhn-kickstart_profile.gif" />
-  <bean:message key="kickstart.kickstartable_distributions.jsp" />
-</div>
 
+<rhn:toolbar base="h1" miscIcon="fa-plus"
+    miscText="kickstart.kickstartable_distro_create_new.jsp"
+    miscUrl="TreeCreate.do"
+    img="/img/rhn-kickstart_profile.gif"
+    imgAlt="kickstarts.alt.img">
+<bean:message key="kickstart.kickstartable_distributions.jsp" />
+</rhn:toolbar>
 
 <div class="page-summary">
   <p>
