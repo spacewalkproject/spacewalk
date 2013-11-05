@@ -5151,8 +5151,8 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
           <target>&lt;a href="/rhn/systems/ssm/DeleteConfirm.do"&gt;Supprimer&lt;/a&gt; / &lt;a href="/rhn/systems/ssm/misc/RebootSystem.do"&gt;Redémarrer&lt;/a&gt; les systèmes</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.migrate">
-          <source>&lt;a href="/rhn/systems/ssm/misc/Index.do#migrate"&gt;Migrate&lt;/a&gt; systems to another organization</source>
-          <target>&lt;a href="/rhn/systems/ssm/misc/Index.do#migrate"&gt;Migrer&lt;/a&gt; les systèmes vers une autre organisation</target>
+          <source>&lt;a href="/rhn/systems/ssm/MigrateSystems.do"&gt;Migrate&lt;/a&gt; systems to another organization</source>
+          <target>&lt;a href="/rhn/systems/ssm/MigrateSystems.do"&gt;Migrer&lt;/a&gt; les systèmes vers une autre organisation</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.scap">
           <source>&lt;a href="/rhn/systems/ssm/audit/ScheduleXccdf.do"&gt;Audit&lt;/a&gt; systems with OpenSCAP</source>

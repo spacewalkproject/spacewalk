@@ -5151,8 +5151,8 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
           <target>&lt;a href="/rhn/systems/ssm/DeleteConfirm.do"&gt;Löschen&lt;/a&gt; / &lt;a href="/rhn/systems/ssm/misc/RebootSystem.do"&gt;Neustarten&lt;/a&gt; von Systemen</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.migrate">
-          <source>&lt;a href="/rhn/systems/ssm/misc/Index.do#migrate"&gt;Migrate&lt;/a&gt; systems to another organization</source>
-          <target>&lt;a href="/rhn/systems/ssm/misc/Index.do#migrate"&gt;Migrieren&lt;/a&gt; von Systemen auf eine andere Organisation</target>
+          <source>&lt;a href="/rhn/systems/ssm/MigrateSystems.do"&gt;Migrate&lt;/a&gt; systems to another organization</source>
+          <target>&lt;a href="/rhn/systems/ssm/MigrateSystems.do"&gt;Migrieren&lt;/a&gt; von Systemen auf eine andere Organisation</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.scap">
           <source>&lt;a href="/rhn/systems/ssm/audit/ScheduleXccdf.do"&gt;Audit&lt;/a&gt; systems with OpenSCAP</source>

@@ -5150,8 +5150,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>&lt;a href="/rhn/systems/ssm/DeleteConfirm.do"&gt;Cancellare&lt;/a&gt; / &lt;a href="/rhn/systems/ssm/misc/RebootSystem.do"&gt;Riavviare&lt;/a&gt; i sistemi</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.migrate">
-          <source>&lt;a href="/rhn/systems/ssm/misc/Index.do#migrate"&gt;Migrate&lt;/a&gt; systems to another organization</source>
-          <target>&lt;a href="/rhn/systems/ssm/misc/Index.do#migrate"&gt;Migrare&lt;/a&gt; i sistemi ad un'altra organizzazione</target>
+          <source>&lt;a href="/rhn/systems/ssm/MigrateSystems.do"&gt;Migrate&lt;/a&gt; systems to another organization</source>
+          <target>&lt;a href="/rhn/systems/ssm/MigrateSystems.do"&gt;Migrare&lt;/a&gt; i sistemi ad un'altra organizzazione</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.scap">
           <source>&lt;a href="/rhn/systems/ssm/audit/ScheduleXccdf.do"&gt;Audit&lt;/a&gt; systems with OpenSCAP</source>

@@ -5150,8 +5150,8 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
           <target>&lt;a href="/rhn/systems/ssm/DeleteConfirm.do"&gt;Borrar&lt;/a&gt; / &lt;a href="/rhn/systems/ssm/misc/RebootSystem.do"&gt;Reboot&lt;/a&gt; sistemas</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.migrate">
-          <source>&lt;a href="/rhn/systems/ssm/misc/Index.do#migrate"&gt;Migrate&lt;/a&gt; systems to another organization</source>
-          <target>&lt;a href="/rhn/systems/ssm/misc/Index.do#migrate"&gt;Migrar&lt;/a&gt; sistemas a otra organización.</target>
+          <source>&lt;a href="/rhn/systems/ssm/MigrateSystems.do"&gt;Migrate&lt;/a&gt; systems to another organization</source>
+          <target>&lt;a href="/rhn/systems/ssm/MigrateSystems.do"&gt;Migrar&lt;/a&gt; sistemas a otra organización.</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.scap">
           <source>&lt;a href="/rhn/systems/ssm/audit/ScheduleXccdf.do"&gt;Audit&lt;/a&gt; systems with OpenSCAP</source>

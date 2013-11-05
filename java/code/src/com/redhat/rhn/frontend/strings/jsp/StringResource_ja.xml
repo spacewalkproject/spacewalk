@@ -5152,8 +5152,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>システムの &lt;a href="/rhn/systems/ssm/DeleteConfirm.do"&gt;削除&lt;/a&gt; / &lt;a href="/rhn/systems/ssm/misc/RebootSystem.do"&gt;再起動&lt;/a&gt; を行います</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.migrate">
-          <source>&lt;a href="/rhn/systems/ssm/misc/Index.do#migrate"&gt;Migrate&lt;/a&gt; systems to another organization</source>
-          <target>システムを別の組織に&lt;a href="/rhn/systems/ssm/misc/Index.do#migrate"&gt;移行&lt;/a&gt; します</target>
+          <source>&lt;a href="/rhn/systems/ssm/MigrateSystems.do"&gt;Migrate&lt;/a&gt; systems to another organization</source>
+          <target>システムを別の組織に&lt;a href="/rhn/systems/ssm/MigrateSystems.do"&gt;移行&lt;/a&gt; します</target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.scap">
           <source>&lt;a href="/rhn/systems/ssm/audit/ScheduleXccdf.do"&gt;Audit&lt;/a&gt; systems with OpenSCAP</source>

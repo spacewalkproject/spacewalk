@@ -5149,8 +5149,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>시스템 &lt;a href="/rhn/systems/ssm/DeleteConfirm.do"&gt;삭제&lt;/a&gt; / &lt;a href="/rhn/systems/ssm/misc/RebootSystem.do"&gt;재부팅&lt;/a&gt;  </target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.migrate">
-          <source>&lt;a href="/rhn/systems/ssm/misc/Index.do#migrate"&gt;Migrate&lt;/a&gt; systems to another organization</source>
-          <target>시스템을 다른 조직으로 &lt;a href="/rhn/systems/ssm/misc/Index.do#migrate"&gt;마이그레이션&lt;/a&gt; </target>
+          <source>&lt;a href="/rhn/systems/ssm/MigrateSystems.do"&gt;Migrate&lt;/a&gt; systems to another organization</source>
+          <target>시스템을 다른 조직으로 &lt;a href="/rhn/systems/ssm/MigrateSystems.do"&gt;마이그레이션&lt;/a&gt; </target>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.scap">
           <source>&lt;a href="/rhn/systems/ssm/audit/ScheduleXccdf.do"&gt;Audit&lt;/a&gt; systems with OpenSCAP</source>
