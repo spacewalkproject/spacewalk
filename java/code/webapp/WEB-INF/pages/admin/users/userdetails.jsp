@@ -7,14 +7,15 @@
 <html:html >
     <body>
         <%@ include file="/WEB-INF/pages/common/fragments/user/user-header.jspf" %>
-        <div class="panel panel-default">
-            <html:form action="/users/UserDetailsSubmit?uid=${user.id}" styleClass="form-horizontal">
+        <html:form action="/users/UserDetailsSubmit?uid=${user.id}" styleClass="form-horizontal">
+            <div class="panel panel-default">
                 <rhn:csrf />
                 <div class="panel-heading">
                     <h4><bean:message key="userdetails.jsp.header"/></h4>
-                    <p><bean:message key="userdetails.jsp.summary"/></p>
                 </div>
                 <div class="panel-body">
+                    <p><bean:message key="userdetails.jsp.summary"/></p>
+                    <hr/>
                     <%@ include file="/WEB-INF/pages/common/fragments/user/edit_user_table_rows.jspf"%>
                     <div class="form-group">
                         <label class="col-lg-3 control-label"><bean:message key="userdetails.jsp.adminRoles"/>:</label>
@@ -85,7 +86,7 @@
                         </div>
                     </div>
                 </div>
-            </html:form>
-        </div>
+            </div>
+        </html:form>
     </body>
 </html:html>

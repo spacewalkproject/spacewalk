@@ -18,9 +18,7 @@
     <bean:message key="softwareentitlements.header"/>
 </rhn:toolbar>
 
-<bean:message key="softwareentitlements.description"/>
-
-
+<p class="margin-bottom-md"><bean:message key="softwareentitlements.description"/></p>
 
 <c:choose>
 	<c:when test = "${orgCount > 1}">
@@ -32,8 +30,6 @@
 		<c:set var = "usagestyle" value = ""/>
 	</c:otherwise>
 </c:choose>
-
-
 
 <rl:listset name="entitlementSet">
     <rhn:csrf />
@@ -110,7 +106,7 @@
     </rl:list>
 </rl:listset>
 
-<rhn:tooltip typeKey="Tip">*-<bean:message key = "Available/Total.tip"/></rhn:tooltip>
-<rhn:tooltip typeKey="Tip">**-<bean:message key = "Used/Allotted.tip"/></rhn:tooltip>
+<rhn:tooltip><small>*-<bean:message key = "Available/Total.tip"/></small></rhn:tooltip>
+<rhn:tooltip><small>**-<bean:message key = "Used/Allotted.tip"/></small></rhn:tooltip>
 </body>
 </html:html>

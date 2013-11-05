@@ -6,26 +6,31 @@
 <html:html>
 <head>
     <script type="text/javascript" language="JavaScript">
-function setOrgClicked(target) {
-    document.forms[0].orgClicked.value=target;
-    alert(target);
-};
+        function setOrgClicked(target) {
+          document.forms[0].orgClicked.value=target;
+          alert(target);
+        };
     </script>
 </head>
 <body>
-    <rhn:toolbar base="h1" icon="spacewalk-icon-software-channels"
-                 miscUrl="${url}"
-                 miscAcl="user_role(org_admin)"
-                 miscText="${text}"
-                 miscImg="${img}"
-                 miscAlt="${text}"
-                 imgAlt="users.jsp.imgAlt">
-        <c:out value="${entname}"/>
-    </rhn:toolbar>
-    <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/systemEntitlementOrgs.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
-    <h2><bean:message key="entitlementorgs.miniheader"/></h2>
-    <p><bean:message key="entitlementorgs.description" arg0="${enthuman}"/></p>
-    <rl:listset name="entitlementSet">
+  <rhn:toolbar base="h1" icon="spacewalk-icon-software-channels"
+               miscUrl="${url}"
+               miscAcl="user_role(org_admin)"
+               miscText="${text}"
+               miscImg="${img}"
+               miscAlt="${text}"
+               imgAlt="users.jsp.imgAlt">
+      <c:out value="${entname}"/>
+  </rhn:toolbar>
+  <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/systemEntitlementOrgs.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4><bean:message key="entitlementorgs.miniheader"/></h4>
+    </div>
+    <div class="panel-body">
+      <p><bean:message key="entitlementorgs.description" arg0="${enthuman}"/></p>
+      <rl:listset name="entitlementSet">
         <rhn:csrf />
         <!-- Reuse the form opened by the list tag -->
         <html:hidden property="submitted" value="true"/>
@@ -75,11 +80,20 @@ function setOrgClicked(target) {
             </rl:column>
         </rl:list>
     </rl:listset>
-    <span class="help-block">
+    <p>
+      <small>
         <bean:message key="entitlementorgs.tip"/>
-    </span>
-    <h2><bean:message key="entitlementorgs.usage"/></h2>
-    <div class="form-horizontal">
+      </small>
+    </p>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4><bean:message key="entitlementorgs.usage"/></h4>
+    </div>
+    <div class="panel-body">
+      <div class="form-horizontal">
         <div class="form-group">
             <label class="col-lg-3 control-label">
                 <bean:message key="entitlementorgs.total_allocated"/>:
@@ -115,6 +129,7 @@ function setOrgClicked(target) {
             </div>
         </div>
     </div>
+    </div>
+  </div>
 </body>
 </html:html>
-

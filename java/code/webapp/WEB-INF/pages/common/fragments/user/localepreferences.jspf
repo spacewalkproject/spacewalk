@@ -2,23 +2,28 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h5 class="panel-title"><bean:message key="preferences.jsp.tz"/></h5>
+    <h4><bean:message key="preferences.jsp.tz"/></h4>
   </div>
   <div class="panel-body">
     <p><bean:message key="preferences.jsp.datestimes"/></p>
-    <div class="preference"><bean:message key="preferences.jsp.displaytimesas"/>
-      <html:select property="timezone">
-        <html:options collection="timezones"
-        property="value"
-        labelProperty="display" />
-      </html:select>
+    <div class="row-0">
+      <div class="col-md-2">
+        <bean:message key="preferences.jsp.displaytimesas"/>
+      </div>
+      <div class="col-md-4">
+        <html:select styleClass="form-control" property="timezone">
+          <html:options collection="timezones"
+          property="value"
+          labelProperty="display" />
+        </html:select>
+      </div>
     </div>
   </div>
 </div>
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h5 class="panel-title"><bean:message key="preferences.jsp.lang" /></h5>
+    <h4><bean:message key="preferences.jsp.lang" /></h4>
   </div>
   <div class="panel-body">
     <p><bean:message key="preferences.jsp.langs" /></p>
@@ -67,8 +72,6 @@
 
   </div>
 </div>
-
-
 
 <hr/>
 <div class="text-right">
