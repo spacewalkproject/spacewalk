@@ -230,7 +230,7 @@
     </div>
 
 			<rhn:csrf />
-        <div class="text-right margin-bottom-md">
+        <div class="text-right margin-bottom-sm">
           <html:submit property="update_interface" styleClass="btn btn-default">
             <bean:message key="sdc.details.edit.update"/>
           </html:submit>
