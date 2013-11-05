@@ -32,22 +32,7 @@
 <c:if test="${requestScope.systemGroupsWidget == 'y'}">
 	<script type="text/javascript" src="/rhn/dwr/interface/SystemGroupsRenderer.js"></script>
 </c:if>
-<script type="text/javascript">
-  $(document).on("ready", function() {
-    //for each div with class row
-    $(".row-0").each(function() {
-      //we count the number of childrens with class col-md-6
-      var numberOfChildrenCol6 = $(this).children(".col-md-6").length;
-      //and we count the number of children with class different than col-md-6
-      var numberOfChildrenDifferent = $(this).children().not('.col-md-6').length;
-      //if the number of childrens different to col-md-6 is Cero and the row has only 1 col-md-6 (which takes only 50% of the space)
-      if (numberOfChildrenDifferent == 0 && numberOfChildrenCol6 == 1) {
-        //we remove the class col-md-6 and change it for col-md-12, which will take a width of 100%.
-        $(this).children(".col-md-6").removeClass('col-md-6').addClass('col-md-12');
-      }
-    });
-  });
-</script>
+
 </head>
 <body>
 <rhn:toolbar base="h1" icon="fa-tachometer" imgAlt="yourrhn.jsp.toolbar.img.alt"
@@ -63,14 +48,14 @@
     <c:when test="${requestScope.anyListsSelected == 'true'}">
       <div class="row-0">
         <c:if test="${requestScope.tasks == 'y'}">
-            <div class="col-md-6" id="tasks-pane" >
+            <div class="col-md-auto" id="tasks-pane" >
                 <script type="text/javascript">
                   TasksRenderer.renderAsync(makeAjaxCallback('tasks-pane', false));
                 </script>
             </div>
         </c:if>
         <c:if test="${requestScope.inactiveSystems == 'y'}">
-            <div class="col-md-6" id="inactive-systems-pane" >
+            <div class="col-md-auto" id="inactive-systems-pane" >
               <script type="text/javascript">
                     InactiveSystemsRenderer.renderAsync(makeAjaxCallback("inactive-systems-pane", false));
                 </script>

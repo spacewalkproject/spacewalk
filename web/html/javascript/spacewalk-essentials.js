@@ -79,4 +79,30 @@ function makeAjaxCallback(divId, debug) {
   return cb;
 }
 
-
+// Extension to Twitter Bootstrap.
+// Gives you a col-XX-auto class like Bootstrap
+// That dynamically adjust the grid for the columns to take
+// as much space as possible while still being responsive
+// So three col-md-auto would get col-md-4 each.
+// Five col-md-auto would get two with col-md-3 and three with col-md-2
+$(document).on("ready", function() {
+  $.each(['xs', 'sm', 'md', 'lg'], function(idx, gridSize) {
+    //for each div with class row
+    $('.col-' + gridSize + '-auto:first').parent().each(function() {
+      //we count the number of childrens with class col-md-6
+      var numberOfCols = $(this).children('.col-'  + gridSize + '-auto').length;
+      if (numberOfCols > 0 && numberOfCols < 13) {
+        minSpan = Math.floor(12 / numberOfCols);
+        remainder = (12 % numberOfCols);
+        $(this).children('.col-' + gridSize + '-auto').each(function(idx, col) {
+          var width = minSpan;
+          if (remainder > 0) {
+            width += 1;
+            remainder--;
+          }
+          $(this).addClass('col-' + gridSize + '-' + width);
+        });
+      }
+    });
+  });
+});
