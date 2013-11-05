@@ -48,7 +48,7 @@ public class TopnavRenderer extends Renderable {
             return;
         }
         ulTag = new HtmlTag("ul");
-        ulTag.setAttribute("class", "nav navbar-nav");
+        ulTag.setAttribute("class", "nav navbar-nav collapse main-menu-hor");
         sb.append(ulTag.renderOpenTag());
     }
 
