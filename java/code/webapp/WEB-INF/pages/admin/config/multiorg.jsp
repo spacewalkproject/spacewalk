@@ -21,7 +21,7 @@
     <p><bean:message key="general.jsp.org.summary3"/></p>
     <table class="table">
     	<tr>
-    		<td><img src="/img/rhn-icon-org.gif"/></td>
+    		<td><i class="fa fa-sitemap fa-3x"></i></td>
     		<td><bean:message key="general.jsp.org.tbl.header1"/>:</td>
         <td>
           <p>
@@ -33,7 +33,7 @@
         </td>
     	</tr>
     	<tr>
-    		<td><img src="/img/rhn-icon-channels.gif"/></td>
+    		<td><i class="fa fa-list-alt fa-3x"></i></td>
     		<td><bean:message key="general.jsp.org.tbl.header2"/>:</td>
         <td>
           <p>
@@ -45,7 +45,7 @@
         </td>
     	</tr>
     	<tr>
-    		<td><img src="/img/rhn-icon-users.gif"/></td>
+    		<td><i class="fa fa-group fa-3x"></i></td>
     		<td><bean:message key="general.jsp.org.tbl.header3"/>:</td>
         <td>
           <p>
@@ -56,12 +56,17 @@
           </p>
         </td>
     	</tr>	
+      <tr>
+        <td colspan="3">
+          <p>
+            <small>
+              <bean:message key="general.jsp.org.summary4"/><a href="/rhn/help/reference/index.jsp">
+              <bean:message key="general.jsp.org.tbl.link4"/></a>.
+            </small>
+          </p>
+        </td>
+      </tr>
     </table>
-    <hr>
-    <p>
-      <bean:message key="general.jsp.org.summary4"/><a href="/rhn/help/reference/index.jsp">
-       <bean:message key="general.jsp.org.tbl.link4"/></a>.
-    </p>
 
   </div>
 </div>
