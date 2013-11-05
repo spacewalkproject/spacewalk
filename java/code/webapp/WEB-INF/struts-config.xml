@@ -1445,6 +1445,7 @@
         type="com.redhat.rhn.frontend.action.user.CreateUserAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="postRequired" value="true" />
+      <set-property property="acls" value="user_role(org_admin)"/>
       <forward name="existorgsuccess" path="/users/ActiveList.do"
                redirect="true"/>
       <forward name="failure" path="/users/CreateUser.do"/>
