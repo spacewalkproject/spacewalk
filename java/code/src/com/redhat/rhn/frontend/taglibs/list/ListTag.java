@@ -408,14 +408,14 @@ public class ListTag extends BodyTagSupport {
         // print the hidden fields after the list widget is printed
         // but before the form of the listset is closed.
         ListTagUtil.write(pageContext, String.format(HIDDEN_TEXT,
-                ListTagUtil.makeFilterSearchParentLabel(uniqueName),
+                ListTagUtil.makeFilterSearchParentLabel(getUniqueName()),
                 searchParent));
         ListTagUtil.write(pageContext,
                 String.format(HIDDEN_TEXT,
-                        ListTagUtil.makeFilterSearchChildLabel(uniqueName),
+                        ListTagUtil.makeFilterSearchChildLabel(getUniqueName()),
                         searchChild));
         ListTagUtil.write(pageContext, String.format(HIDDEN_TEXT,
-                ListTagUtil.makeParentIsAnElementLabel(uniqueName),
+                ListTagUtil.makeParentIsAnElementLabel(getUniqueName()),
                 parentIsElement));
 
         // here decorators should insert other e.g hidden input fields
@@ -850,7 +850,7 @@ public class ListTag extends BodyTagSupport {
         manip.setAlphaColumn(alphaBarColumn);
         manip.filter(filter, pageContext);
         if (!StringUtils.isBlank(ListTagHelper.
-                getFilterValue(pageContext.getRequest(), uniqueName))) {
+                getFilterValue(pageContext.getRequest(), getUniqueName()))) {
             LocalizationService ls = LocalizationService.getInstance();
 
             ListTagUtil.write(pageContext, "<div class=\"site-info\">");
@@ -894,7 +894,7 @@ public class ListTag extends BodyTagSupport {
                 ListTagUtil.write(pageContext, ls.getMessage(
                          "listtag.all_items_in_filter",
                           ListTagHelper.getFilterValue(pageContext.getRequest(),
-                                                uniqueName)));
+                                                getUniqueName())));
             }
 
             ListTagUtil.write(pageContext, "</div>");
