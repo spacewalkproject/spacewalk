@@ -77,7 +77,7 @@ public interface ListDecorator {
 
     /**
      * Use this hook to insert content before the top pagination
-     * 
+     *
      * @throws JspException
      *             exception
      */
@@ -85,7 +85,7 @@ public interface ListDecorator {
 
     /**
      * With this hook one can insert content before the list
-     * 
+     *
      * @throws JspException
      *             exception
      */
@@ -93,7 +93,7 @@ public interface ListDecorator {
 
     /**
      * With this hook one can insert content in the heading
-     * 
+     *
      * @throws JspException
      *             exception
      */
@@ -101,7 +101,7 @@ public interface ListDecorator {
 
     /**
      * With this hook one can insert content in the footer
-     * 
+     *
      * @throws JspException
      *             exception
      */
@@ -109,7 +109,7 @@ public interface ListDecorator {
 
     /**
      * With this hook one can insert content after the list
-     * 
+     *
      * @throws JspException
      *             exception
      */
@@ -117,7 +117,7 @@ public interface ListDecorator {
 
     /**
      * With this hook one can insert extra addons in the before the list
-     * 
+     *
      * @throws JspException
      *             something bad happened
      */
@@ -125,7 +125,7 @@ public interface ListDecorator {
 
     /**
      * With this hook one can insert extra addons in the heading
-     * 
+     *
      * @throws JspException
      *             something bad happened
      */
@@ -133,7 +133,7 @@ public interface ListDecorator {
 
     /**
      * With this hook one can insert extra addons in the footer
-     * 
+     *
      * @throws JspException
      *             something bad happened
      */
@@ -141,7 +141,7 @@ public interface ListDecorator {
 
     /**
      * With this hook one can insert extra addons after the list
-     * 
+     *
      * @throws JspException
      *             something bad happened
      */

@@ -53,18 +53,16 @@ public class SystemSetDisplayTag extends TagSupport {
             if (rs != null) {
                 size = rs.size();
             }
+
             StringBuilder result = new StringBuilder();
-            result.append("<span id=\"spacewalk-set-system_list-counter\" class=\"badge\">");
-            result.append(Integer.toString(size));
-            result.append("</span>");
-            String msgKey;
-            if (size == 1) {
-                msgKey = "header.jsp.singleSystemSelected";
-            }
-            else {
-                msgKey = "header.jsp.systemsSelected";
-            }
-            result.append(LocalizationService.getInstance().getMessage(msgKey));
+            result.append("<span id=\"spacewalk-set-system_list-counter\" ")
+                  .append("class=\"badge\">")
+                  .append(Integer.toString(size))
+                  .append("</span>")
+                  .append(LocalizationService.getInstance()
+                          .getMessage(size == 1 ?
+                                      "header.jsp.singleSystemSelected" :
+                                      "header.jsp.systemsSelected"));
             out.println(result);
             return EVAL_PAGE;
         }

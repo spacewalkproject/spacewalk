@@ -1,3 +1,18 @@
+/**
+ * Copyright (c) 2009--2011 Red Hat, Inc.
+ *
+ * This software is licensed to you under the GNU General Public License,
+ * version 2 (GPLv2). There is NO WARRANTY for this software, express or
+ * implied, including the implied warranties of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+ * along with this software; if not, see
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+ *
+ * Red Hat trademarks are not licensed under GPLv2. No permission is
+ * granted to use or replicate Red Hat trademarks that are incorporated
+ * in this software or its documentation.
+ */
+
 package com.redhat.rhn.frontend.taglibs;
 
 import java.io.IOException;
@@ -19,6 +34,11 @@ import com.redhat.rhn.common.util.ExportWriter;
 import com.redhat.rhn.frontend.html.HtmlTag;
 import com.redhat.rhn.frontend.struts.RequestContext;
 
+/**
+ * Base class for ListDisplayTag implementation.
+ *
+ * @author bo
+ */
 public class ListDisplayTagBase extends BodyTagSupport {
     public static final String FILTER_DISPATCH = "filter.dispatch";
 
@@ -77,7 +97,7 @@ public class ListDisplayTagBase extends BodyTagSupport {
 
     /**
      * Returns the title message key.
-     * 
+     *
      * @return Returns the title.
      */
     public String getTitle() {
@@ -86,7 +106,7 @@ public class ListDisplayTagBase extends BodyTagSupport {
 
     /**
      * Sets the title message key.
-     * 
+     *
      * @param titleIn
      *            The title to set.
      */
@@ -96,7 +116,7 @@ public class ListDisplayTagBase extends BodyTagSupport {
 
     /**
      * Sets the type of the list
-     * 
+     *
      * @param stringIn
      *            desired alignment for the list
      */
@@ -106,7 +126,7 @@ public class ListDisplayTagBase extends BodyTagSupport {
 
     /**
      * Gets the type of the list
-     * 
+     *
      * @return String alignment of the list
      */
     public String getType() {
@@ -115,7 +135,7 @@ public class ListDisplayTagBase extends BodyTagSupport {
 
     /**
      * Set the header of the filter on which to filter
-     * 
+     *
      * @param filterByIn
      *            The filterBy to set.
      */
@@ -141,7 +161,7 @@ public class ListDisplayTagBase extends BodyTagSupport {
     /**
      * Method to fetch a new ExportWriter instance. Override if desired to use
      * different instance. Currently creates a new CSVWriter instance.
-     * 
+     *
      * @return new instance of an ExportWriter
      */
     protected ExportWriter createExportWriter() {
@@ -165,7 +185,7 @@ public class ListDisplayTagBase extends BodyTagSupport {
     /**
      * Get the number of the column that is being rendered at this moment. (0 ==
      * The first column)
-     * 
+     *
      * @return int the column number
      **/
     public int getColumnCount() {
@@ -174,7 +194,7 @@ public class ListDisplayTagBase extends BodyTagSupport {
 
     /**
      * Get the number of columns in the list.
-     * 
+     *
      * @return int the number of columns
      **/
     public int getNumberOfColumns() {
@@ -183,7 +203,7 @@ public class ListDisplayTagBase extends BodyTagSupport {
 
     /**
      * Set the number of columns in the list.
-     * 
+     *
      * @param num
      *            number of columns i nthe list
      **/
@@ -193,10 +213,10 @@ public class ListDisplayTagBase extends BodyTagSupport {
 
     /**
      * Set the column # that is being rendered at this moment
-     * 
+     *
      * Used when 'colspan' is used for an element to skip over the intervening
      * columns.
-     * 
+     *
      * @param columnCountIn
      *            The column count to set.
      **/
@@ -221,8 +241,8 @@ public class ListDisplayTagBase extends BodyTagSupport {
     protected void setupPageList() throws JspTagException {
         ListTag listTag = (ListTag) findAncestorWithClass(this, ListTag.class);
         if (listTag == null) {
-            throw new JspTagException("Tag nesting error: "
-                    + "listDisplay must be nested in a list tag");
+            throw new JspTagException("Tag nesting error: " +
+                    "listDisplay must be nested in a list tag");
         }
         pageList = listTag.getPageList();
         iterator = pageList.iterator();
@@ -246,9 +266,9 @@ public class ListDisplayTagBase extends BodyTagSupport {
         }
         renderHeadExtraAddons(headAddons);
 
-        int headContentLength = headFilterContent.getBuffer().length()
-                + titleContent.getBuffer().length()
-                + headAddons.getBuffer().length();
+        int headContentLength = headFilterContent.getBuffer().length() +
+                                titleContent.getBuffer().length() +
+                                headAddons.getBuffer().length();
 
         if (headContentLength > 0) {
             out.println("<div class=\"panel-heading\">");

@@ -83,7 +83,7 @@ public class AlphaBarHelper {
      */
     public void writeAlphaBar(PageContext pageContext,
             Set<Character> activeChars, String listName) throws JspException {
-        
+
         ListTagUtil.write(pageContext,
                 "<ul class=\"spacewalk-alphabar pagination pagination-sm\">");
 

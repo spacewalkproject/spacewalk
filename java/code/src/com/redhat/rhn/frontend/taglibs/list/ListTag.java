@@ -490,7 +490,7 @@ public class ListTag extends BodyTagSupport {
                 }
             }
             pageContext.popBody();
-            
+
             int topContentLength = topAddonsContent.getBuffer().length() +
                     topAlphaBarContent.getBuffer().length() +
                     topPaginationContent.getBuffer().length() +

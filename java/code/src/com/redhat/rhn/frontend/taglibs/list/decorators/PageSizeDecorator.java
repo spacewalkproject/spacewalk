@@ -115,7 +115,7 @@ public class PageSizeDecorator extends BaseListDecorator {
             HtmlTag select = new HtmlTag("Select");
             select.setAttribute("name", makePageSizeLabel(listName));
             select.setAttribute("onChange", makeOnChangeScript());
-            select.setAttribute("class","display-number");
+            select.setAttribute("class", "display-number");
 
             for (int size : PAGE_SIZE) {
                 HtmlTag option = new HtmlTag("option");

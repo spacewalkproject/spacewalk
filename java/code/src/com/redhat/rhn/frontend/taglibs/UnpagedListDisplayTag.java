@@ -148,13 +148,14 @@ public class UnpagedListDisplayTag extends ListDisplayTagBase {
         super.renderHeadExtraAddons(out);
         LocalizationService ls = LocalizationService.getInstance();
         if (getType().equals("treeview")) {
-            out.append("<div class=\"spacewalk-list-channel-show-hide\">"
-                    +
-                    "<a class=\"spacewalk-list-channel-show-all\" href=\"javascript:showAllRows();\" style=\"cursor: pointer;\">" +
-                    ls.getMessage("channels.overview.showall") +
-                    "</a>&nbsp;&nbsp;|&nbsp;&nbsp;" +
-                    "<a class=\"spacewalk-list-channel-hide-all\" href=\"javascript:hideAllRows();\" style=\"cursor: pointer;\">" +
-                    ls.getMessage("channels.overview.hideall") + "</a></div>");
+            out.append("<div class=\"spacewalk-list-channel-show-hide\">" +
+                       "<a class=\"spacewalk-list-channel-show-all\"" +
+                       " href=\"javascript:showAllRows();\" style=\"cursor: pointer;\">" +
+                       ls.getMessage("channels.overview.showall") +
+                       "</a>&nbsp;&nbsp;|&nbsp;&nbsp;" +
+                       "<a class=\"spacewalk-list-channel-hide-all\"" +
+                       " href=\"javascript:hideAllRows();\" style=\"cursor: pointer;\">" +
+                       ls.getMessage("channels.overview.hideall") + "</a></div>");
         }
     }
 

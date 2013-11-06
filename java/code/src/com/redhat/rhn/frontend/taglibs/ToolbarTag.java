@@ -646,15 +646,15 @@ public class ToolbarTag extends TagSupport {
         HtmlTag a = new HtmlTag("a");
         a.setAttribute("href", url);
 
-        if(assertNotEmpty(imgName)) {
-          HtmlTag imgTag = new HtmlTag("img");
-          imgTag.setAttribute("src", "/img/" + imgName);
-          imgTag.setAttribute("alt", alt);
-          imgTag.setAttribute("title", alt);
-          a.addBody(imgTag);
+        if (assertNotEmpty(imgName)) {
+            HtmlTag imgTag = new HtmlTag("img");
+            imgTag.setAttribute("src", "/img/" + imgName);
+            imgTag.setAttribute("alt", alt);
+            imgTag.setAttribute("title", alt);
+            a.addBody(imgTag);
         }
 
-        if(assertNotEmpty(iconName)) {
+        if (assertNotEmpty(iconName)) {
             HtmlTag i = new HtmlTag("i");
             i.setAttribute("class", "fa " + iconName);
             a.addBody(i.renderOpenTag());

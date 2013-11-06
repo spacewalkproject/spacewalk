@@ -103,9 +103,10 @@ public class DWRItemSelector {
         Boolean systemsRelated = RhnSetDecl.SYSTEMS.getLabel().equals(setLabel);
         if (systemsRelated) {
             StringBuffer headerMessage = new StringBuffer();
-            headerMessage.append("<span id='spacewalk-set-system_list-counter' class='badge'>");
-            headerMessage.append(Integer.toString(setSize));
-            headerMessage.append("</span>");
+            headerMessage.append("<span id='spacewalk-set-system_list-counter'")
+                         .append(" class='badge'>")
+                         .append(Integer.toString(setSize))
+                         .append("</span>");
             if (setSize == 1) {
                 headerMessage.append(ls.getMessage("header.jsp.singleSystemSelected"));
             }
@@ -124,9 +125,9 @@ public class DWRItemSelector {
             paginationMessage = ls.getMessage("message.numselected",
                     Integer.toString(setSize));
         }
-        responseText.append("\"pagination\":\"").
-                        append(paginationMessage).
-                        append("\"");
+        responseText.append("\"pagination\":\"")
+                    .append(paginationMessage)
+                    .append("\"");
         return  "({" + responseText.toString() + "})";
     }
 }

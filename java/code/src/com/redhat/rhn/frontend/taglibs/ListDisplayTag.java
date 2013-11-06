@@ -495,7 +495,8 @@ public class ListDisplayTag extends ListDisplayTagBase {
                 buf.append(addButtonTo(buf, RequestContext.DISPATCH, UPDATE_LIST_KEY,
                                                     "update_list_key_id").render());
                 buf.append(" ");
-                buf.append(addButtonTo(buf, RequestContext.DISPATCH, SELECT_ALL_KEY).render());
+                buf.append(addButtonTo(buf,
+                                       RequestContext.DISPATCH, SELECT_ALL_KEY).render());
 
                 if (numItemsChecked > 0) {
                     buf.append(" ");
@@ -626,16 +627,18 @@ public class ListDisplayTag extends ListDisplayTagBase {
         if (getButton() != null && AclManager.hasAcl(getButtonAcl(),
                 (HttpServletRequest) pageContext.getRequest(), getMixins())) {
 
-            out.println("<button class=\"btn btn-default\" type=\"submit\" name=\"dispatch\">" +
-                    LocalizationService.getInstance().getMessage(getButton()) +
-                    "</button>");
+            out.println("<button class=\"btn btn-default\"" +
+                        " type=\"submit\" name=\"dispatch\">" +
+                        LocalizationService.getInstance().getMessage(getButton()) +
+                        "</button>");
         }
         if (getButton2() != null && AclManager.hasAcl(getButton2Acl(),
                 (HttpServletRequest) pageContext.getRequest(), getMixins())) {
 
-            out.println("<button class=\"btn btn-default\" type=\"submit\" name=\"dispatch\">" +
-                    LocalizationService.getInstance().getMessage(getButton2()) +
-                    "</button>");
+            out.println("<button class=\"btn btn-default\"" +
+                        " type=\"submit\" name=\"dispatch\">" +
+                        LocalizationService.getInstance().getMessage(getButton2()) +
+                        "</button>");
         }
 
         out.println("</div>");

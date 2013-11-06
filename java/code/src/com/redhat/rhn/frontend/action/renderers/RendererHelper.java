@@ -36,12 +36,14 @@ import com.redhat.rhn.frontend.dto.SystemOverviewComparator;
 public class RendererHelper {
 
     private static final String FULL_TABLE_HEADER =
-            "<div class=\"spacewalk-full-table panel panel-default\"><div class=\"panel-heading\"><h3 class=\"panel-title\">";
+            "<div class=\"spacewalk-full-table panel panel-default\">" +
+            "<div class=\"panel-heading\"><h3 class=\"panel-title\">";
 
     private static final String FULL_TABLE_FOOTER = "</div></div>";
 
-    private static final String HALF_TABLE_HEADER = 
-            "<div class=\"spacewalk-half-table panel panel-default\"><div class=\"panel-heading\"><h3 class=\"panel-title\">";
+    private static final String HALF_TABLE_HEADER =
+            "<div class=\"spacewalk-half-table panel panel-default\">" +
+            "<div class=\"panel-heading\"><h3 class=\"panel-title\">";
 
     private static final String HALF_TABLE_FOOTER = "</div></div>";
 
