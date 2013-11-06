@@ -35,6 +35,7 @@ import com.redhat.rhn.manager.acl.AclManager;
  * <ul>
  * <li>base - base html tag for wrapping the toolbar.
  * <li>icon - name of the icon (css class) to be displayed to the left of the page title
+ * <li>iconAlt - alternate text for the icon. Don't use it if the icon decorates text.
  * <li>img - img url which is displayed to the left of the page title.
  * <li>altImg - alt text for the img
  * <li>helpUrl - link to the help pages.
@@ -71,6 +72,7 @@ public class ToolbarTag extends TagSupport {
     private String img;
     private String imgAlt;
     private String icon;
+    private String iconAlt;
     private String helpUrl;
     private String aclMixins;
     private String miscImg;
@@ -181,6 +183,21 @@ public class ToolbarTag extends TagSupport {
      */
     public String getIcon() {
         return icon;
+    }
+
+    /**
+     * @return Returns the localization key that will resolve to the alt text of the icon.
+     */
+    public String getIconAlt() {
+        return iconAlt;
+    }
+
+    /**
+     * @param iconAltIn Sets the localization key that will resolve
+     * to the alt text of the icon
+     */
+    public void setIconAlt(String iconAltIn) {
+        this.iconAlt = iconAltIn;
     }
 
     /**
@@ -657,6 +674,10 @@ public class ToolbarTag extends TagSupport {
         if (assertNotEmpty(iconName)) {
             HtmlTag i = new HtmlTag("i");
             i.setAttribute("class", "fa " + iconName);
+            // Research should be done if would't be better to
+            // use a sr-only div (Screeen-Reader only) instead of
+            // title.
+            i.setAttribute("title", alt);
             a.addBody(i.renderOpenTag());
             a.addBody(i.renderCloseTag());
         }
