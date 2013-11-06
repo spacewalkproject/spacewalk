@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.65
+Version: 2.1.66
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Nov 06 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.66-1
+- 1024395 - modified query to work better with PostgreSQL 8.4 optimizer
+- Reorder snippet tabs
+- Broken link in SSM index fixed
+- 1025626 - Prevent NPE with system.getDetails() API call for virtual systems
+  with no virtualization type
+
 * Mon Nov 04 2013 Tomas Lestach <tlestach@redhat.com> 2.1.65-1
 - 1023482 - spped up /rhn/channels/manage/errata/AddRedHatErrata.do page
 - Fix navigation for the default snippets page
