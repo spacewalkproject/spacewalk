@@ -99,12 +99,6 @@ public class ListTag extends BodyTagSupport {
     private boolean searchParent = true;
     private boolean searchChild;
 
-    @Override
-    public void setPageContext(PageContext ctx) {
-        super.setPageContext(ctx);
-        ListTagUtil.setCurrentCommand(ctx, getUniqueName(), ListCommand.ENUMERATE);
-    }
-
     /**
      * @param searchParentIn The searchParent to set.
      */
@@ -836,7 +830,7 @@ public class ListTag extends BodyTagSupport {
         ListTagUtil.write(pageContext, "<!-- START LIST " + getUniqueName() + " -->");
 
         String listId = (getStyleId() != null) ? getStyleId() : getUniqueName();
-        ListTagUtil.setCurrentCommand(pageContext, listId,
+        ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
                 ListCommand.ENUMERATE);
 
         for (ListDecorator dec : getDecorators()) {
