@@ -407,8 +407,11 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                             ConfigDefaults.get().getCobblerAutomatedUser()),
                             system.getCobblerId());
             if (rec != null) {
-                ListTagHelper.selectRadioValue(ListHelper.LIST,
-                        rec.getProfile().getId(), ctx.getRequest());
+                org.cobbler.Profile profile = rec.getProfile();
+                if (profile != null) {
+                    ListTagHelper.selectRadioValue(ListHelper.LIST,
+                        profile.getId(), ctx.getRequest());
+                }
             }
         }
 
@@ -516,7 +519,8 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             if (cmd.getServer().getCobblerId() != null) {
                 SystemRecord rec = SystemRecord.
                         lookupById(con, cmd.getServer().getCobblerId());
-                if (rec != null && profile.getName().equals(rec.getProfile().getName())) {
+                if (rec != null && rec.getProfile() != null &&
+                    profile.getName().equals(rec.getProfile().getName())) {
                     if (StringUtils.isBlank(form.getString(KERNEL_PARAMS_TYPE))) {
                         form.set(KERNEL_PARAMS_TYPE, KERNEL_PARAMS_CUSTOM);
                         form.set(KERNEL_PARAMS, rec.getKernelOptionsString());
