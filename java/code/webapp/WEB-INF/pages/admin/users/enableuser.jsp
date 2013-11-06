@@ -9,16 +9,20 @@
     <body>
         <%@ include file="/WEB-INF/pages/common/fragments/user/user-header.jspf" %>
         <form method="POST" action="/rhn/users/EnableUserSubmit.do?uid=${param.uid}">
-            <div class="jumbotron">
-                <h2><bean:message key="enableuser.jsp.confirm"/></h2>
-                <p><bean:message key="enableuser.jsp.body"/></p>
-                <rhn:csrf />
-                <br/>
-                <p>
-                    <html:submit styleClass="btn btn-success btn-lg">
-                        <bean:message key="enableuser.jsp.enable"/>
-                    </html:submit>
-                </p>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2><bean:message key="enableuser.jsp.confirm"/></h2>
+                </div>
+                <div class="panel-body">
+                    <p><bean:message key="enableuser.jsp.body"/></p>
+                    <rhn:csrf />
+                    <br/>
+                    <p>
+                        <html:submit styleClass="btn btn-success">
+                            <bean:message key="enableuser.jsp.enable"/>
+                        </html:submit>
+                    </p>
+                </div>
             </div>
         </form>
     </body>

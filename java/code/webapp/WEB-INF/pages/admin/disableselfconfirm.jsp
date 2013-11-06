@@ -9,11 +9,10 @@
             <bean:message key="disableselfconfirm.jsp.warning_question" />
         </rhn:toolbar>
         <form method="POST" name="rhn_list" action="/rhn/account/AccountDeactivationConfirm.do">
-            <div class="jumbotron">
-                <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-body">
                     <p><bean:message key="disableselfconfirm.jsp.warning" /></p>
-                    <br/>
-                    <html:submit styleClass="btn btn-danger btn-lg">
+                    <html:submit styleClass="btn btn-danger">
                         <bean:message key="disableself.jsp.deactivate"/>
                     </html:submit>
                     <html:hidden property="submitted" value="true" />

@@ -9,13 +9,12 @@
             <bean:message key="disableself.jsp.account_deactivation" />
         </rhn:toolbar>
         <form method="post" name="rhn_list" action="/rhn/account/AccountDeactivationSubmit.do">
-            <div class="jumbotron">
-                <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-body">
                     <p><bean:message key="disableself.jsp.message" /></p>
                     <rhn:csrf />
-                    <br/>
                     <p>
-                        <html:submit styleClass="btn btn-danger btn-lg">
+                        <html:submit styleClass="btn btn-danger">
                             <bean:message key="disableself.jsp.deactivate"/>
                         </html:submit>
                     </p>

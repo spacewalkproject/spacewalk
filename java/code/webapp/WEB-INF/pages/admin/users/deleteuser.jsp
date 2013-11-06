@@ -9,14 +9,15 @@
             <c:out escapeXml="true" value="${targetuser.login}" />
         </rhn:toolbar>
         <form method="POST" action="/rhn/users/DeleteUserSubmit.do?uid=${param.uid}">
-            <div class="jumbotron">
-                <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-heading">
                     <h2><bean:message key="deleteuser.jsp.confirm"/></h2>
+                </div>
+                <div class="panel-body">
                     <p><bean:message key="deleteuser.jsp.body"/></p>
-                    <br/>
                     <p>
                         <rhn:csrf />
-                        <html:submit styleClass="btn btn-danger btn-lg">
+                        <html:submit styleClass="btn btn-danger">
                             <bean:message key="deleteuser.jsp.delete"/>
                         </html:submit>
                     </p>
