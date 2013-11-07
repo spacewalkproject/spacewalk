@@ -157,6 +157,8 @@
       <rhn-tab name="kickstart.variable.nav" url="/rhn/systems/details/kickstart/Variables.do"  acl="cobbler_system_record_exists()"/>
     </rhn-tab>
 
+    <rhn-tab name="Power Management" url="/rhn/systems/details/kickstart/PowerManagement.do" acl="system_feature(ftr_kickstart)" node-id="power_management" />
+
     <rhn-tab name="Snapshots" acl="client_capable(packages.runTransaction) or client_capable(configfiles.deploy); system_feature(ftr_snapshotting); not is_solaris()" url="/network/systems/details/history/snapshots/index.pxt" hide_all_children_unless_active="1">
       <rhn-tab name="Rollback" formvar="ss_id" url="/network/systems/details/history/snapshots/rollback.pxt" />
       <rhn-tab name="Groups" formvar="ss_id" url="/network/systems/details/history/snapshots/groups.pxt" />

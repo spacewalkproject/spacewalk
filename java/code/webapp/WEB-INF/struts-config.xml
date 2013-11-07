@@ -1315,6 +1315,15 @@
         <form-property name="submitted" type="java.lang.Boolean" />
     </form-bean>
 
+    <form-bean name="powerManagementForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+      <form-property name="systemId" type="java.lang.Long" />
+      <form-property name="powerType" type="java.lang.String" />
+      <form-property name="powerAddress" type="java.lang.String" />
+      <form-property name="powerUsername" type="java.lang.String" />
+      <form-property name="powerPassword" type="java.lang.String" />
+      <form-property name="powerId" type="java.lang.String" />
+    </form-bean>
   </form-beans>
 
   <global-exceptions>
@@ -6756,6 +6765,16 @@
                  redirect="true" path="/systems/details/kickstart/ScheduleWizard.do"/>
         <forward name="fifth"
                 path="/WEB-INF/pages/kickstart/wizard/schedule/fifth.jsp" />
+    </action>
+
+    <action path="/systems/details/kickstart/PowerManagement"
+        scope="request"
+        name="powerManagementForm"
+        type="com.redhat.rhn.frontend.action.kickstart.PowerManagementAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/kickstart/powermanagement.jsp"/>
     </action>
 
     <action path="/systems/details/virtualization/ProvisionVirtualizationWizard"

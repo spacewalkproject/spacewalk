@@ -562,6 +562,12 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Power Management">
+        <source>Power Management</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Lookup Login/Password">
         <source>Lookup Login/Password</source>
         <context-group name="ctx">

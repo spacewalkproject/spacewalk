@@ -1,0 +1,15 @@
+<button type="submit" name="dispatch" class="btn btn-success"
+  value="<bean:message key="kickstart.powermanagement.jsp.power_on"/>"
+>
+  <i class="fa fa-power-off"></i><bean:message key="kickstart.powermanagement.jsp.power_on"/>
+</button>
+<button type="submit" name="dispatch" class="btn btn-danger"
+value="<bean:message key="kickstart.powermanagement.jsp.power_off" />"
+>
+  <i class="fa fa-power-off"></i><bean:message key="kickstart.powermanagement.jsp.power_off"/>
+</button>
+<button type="submit" name="dispatch" class="btn btn-info"
+value="<bean:message key="kickstart.powermanagement.jsp.reboot" />"
+>
+  <i class="fa fa-refresh"></i><bean:message key="kickstart.powermanagement.jsp.reboot"/>
+</button>
