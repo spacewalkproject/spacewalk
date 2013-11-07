@@ -32,6 +32,9 @@ public class Distro extends CobblerObject {
     private static final String SOURCE_REPOS = "source_repos";
     private static final String TREE_BUILD_TIME = "tree_build_time";
 
+    /** Cobbler distro name for default PXE boot */
+    public static final String BOOTSTRAP_NAME = "pxe-default-image";
+
     private Distro(CobblerConnection clientIn) {
         client = clientIn;
     }
