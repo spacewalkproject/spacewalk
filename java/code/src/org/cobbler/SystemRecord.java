@@ -46,6 +46,11 @@ public class SystemRecord extends CobblerObject {
     private static final String IPV6_AUTOCONF = "ipv6_autoconfiguration";
 
     /**
+     * Image key.
+     */
+    public static final String IMAGE = "image";
+
+    /**
      * Power management type key.
      */
     public static final String POWER_TYPE = "power_type";
@@ -88,6 +93,25 @@ public class SystemRecord extends CobblerObject {
         sys.handle = (String) client.invokeTokenMethod("new_system");
         sys.modify(NAME, name);
         sys.setProfile(profile);
+        sys.save();
+        sys = lookupByName(client, name);
+        return sys;
+    }
+
+    /**
+     * Create a new system record in Cobbler, based on an image
+     * @param client the xmlrpc client
+     * @param name the system record name
+     * @param image the image to be associated to this system
+     * @return the newly created system record
+     */
+    public static SystemRecord create(CobblerConnection client,
+                                String name,
+                                Image image) {
+        SystemRecord sys = new SystemRecord(client);
+        sys.handle = (String) client.invokeTokenMethod("new_system");
+        sys.modify(NAME, name);
+        sys.setImage(image);
         sys.save();
         sys = lookupByName(client, name);
         return sys;
@@ -265,6 +289,13 @@ public class SystemRecord extends CobblerObject {
      }
 
      /**
+      * @return the Cobbler Image
+      */
+     public Image getImage() {
+         return Image.lookupByName(client, (String)dataMap.get(IMAGE));
+     }
+
+     /**
      * @return the VirtBridge
      */
      public String getVirtBridge() {
@@ -400,6 +431,22 @@ public class SystemRecord extends CobblerObject {
        */
       public void  setProfile(String profileName) {
           modify(PROFILE, profileName);
+      }
+
+      /**
+       * Associates an image to this system record
+       * @param image the image to associate
+       */
+      public void setImage(Image image) {
+          setImage(image.getName());
+      }
+
+      /**
+       * Associates an image to this system record
+       * @param imageName the name of the image
+       */
+      public void  setImage(String imageName) {
+          modify(IMAGE, imageName);
       }
 
       /**
