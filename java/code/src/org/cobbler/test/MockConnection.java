@@ -44,11 +44,13 @@ public class MockConnection extends CobblerConnection {
     private static List<Map> profiles = new ArrayList<Map>();
     private static List<Map> distros = new ArrayList<Map>();
     private static List<Map> systems = new ArrayList<Map>();
+    private static List<Map> images = new ArrayList<Map>();
 
 
     private static Map<String, Map> systemMap = new HashMap<String, Map>();
     private static Map<String, Map> profileMap = new HashMap<String, Map>();
     private static Map<String, Map> distroMap = new HashMap<String, Map>();
+    private static Map<String, Map> imageMap = new HashMap<String, Map>();
 
 
     /**
@@ -251,15 +253,55 @@ public class MockConnection extends CobblerConnection {
         profile.put("redhat_management_key", "");
         return key;
     }
-    else if ("sync".equals(name)) {
-        return true;
-    }
     else if ("power_system".equals(name)) {
         boolean firstArgumentValid = systemMap.containsKey(args[0]);
         boolean secondArgumentValid = args[1].equals("on") || args[1].equals("off") ||
             args[1].equals("reboot");
         boolean thirdArgumentValid = args[2].equals(token);
         return firstArgumentValid && secondArgumentValid && thirdArgumentValid;
+    }
+    // images
+    else if ("find_image".equals(name)) {
+        return find((Map)args[0], images);
+    }
+    else if ("get_images".equals(name)) {
+        return images;
+    }
+    else if (name.equals("modify_image")) {
+        Map image = imageMap.get(args[0]);
+        image.put(args[1], args[2]);
+        imageMap.get(args[0]).put(args[1], args[2]);
+    }
+    else if ("rename_image".equals(name)) {
+        imageMap.get(args[0]).put("name", args[2]);
+        return "";
+    }
+    else if ("get_image".equals(name)) {
+        return findByName((String)args[0], images);
+    }
+    else if ("get_image_handle".equals(name)) {
+        if (findByName((String) args[0], images) != null) {
+            String key = random();
+            imageMap.put(key, findByName((String) args[0], images));
+            return key;
+        }
+        return null;
+    }
+    else if ("remove_image".equals(name)) {
+        images.remove(findByName((String)args[0], images));
+        return true;
+    }
+    else if ("new_image".equals(name)) {
+        Map<String, Object> image = new HashMap<String, Object>();
+        String uid = random();
+        image.put("uid", uid);
+        images.add(image);
+        imageMap.put(uid, image);
+        return uid;
+    }
+    // other
+    else if ("sync".equals(name)) {
+        return true;
     }
     else {
         log.debug("Unhandled xmlrpc call in MockConnection: " + name);
@@ -332,11 +374,13 @@ public class MockConnection extends CobblerConnection {
         profiles = new ArrayList<Map>();
         distros = new ArrayList<Map>();
         systems = new ArrayList<Map>();
+        images = new ArrayList<Map>();
 
 
         systemMap = new HashMap<String, Map>();
         profileMap = new HashMap<String, Map>();
         distroMap = new HashMap<String, Map>();
+        imageMap = new HashMap<String, Map>();
     }
 
 }
