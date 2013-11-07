@@ -77,6 +77,13 @@ public class SystemRecordTest extends BaseTestCaseWithUser {
     }
 
     /**
+     * Test status retrieval.
+     */
+    public void testGetPowerStatus() {
+        assertTrue(system.getPowerStatus());
+    }
+
+    /**
      * Test setter and getter for power type.
      */
     public void testSetGetPowerType() {

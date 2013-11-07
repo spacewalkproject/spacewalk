@@ -256,8 +256,8 @@ public class MockConnection extends CobblerConnection {
     }
     else if ("power_system".equals(name)) {
         boolean firstArgumentValid = systemMap.containsKey(args[0]);
-        boolean secondArgumentValid = args[1].equals("on") || args[1].equals("off") ||
-            args[1].equals("reboot");
+            boolean secondArgumentValid = args[1].equals("on") || args[1].equals("off") ||
+                args[1].equals("reboot") || args[1].equals("status");
         boolean thirdArgumentValid = args[2].equals(token);
         if (firstArgumentValid && secondArgumentValid && thirdArgumentValid) {
             powerCommands.add(name + " " + args[1] + " " +
