@@ -23,7 +23,7 @@
       </select>
   </div>
   <div class="col-md-7 text-left">
-    <input type="submit" name="view" class="btn btn-default" value="<bean:message key="channel.jsp.package.viewpackages"/>">
+    <input type="submit" name="view" class="btn btn-default" value="<bean:message key='channel.jsp.package.viewpackages'/>">
   </div>
 </div>
 <hr/>

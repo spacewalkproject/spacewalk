@@ -70,7 +70,7 @@
  		<c:if test="${requestScope.showApplyErrata == 'false'}">
   			<rl:column headerkey="emptyspace.jsp"  styleclass="text-align: center;">
     			<img src="/img/icon_pending.gif"
-             		title="<bean:message key="errata.jsp.scheduled"/>" />
+             		title="<bean:message key='errata.jsp.scheduled'/>" />
             </rl:column>
  		</c:if>
 
@@ -85,15 +85,15 @@
 		  	bound="false">
 		      <c:if test="${current.securityAdvisory}">
 		        <img src="/img/wrh-security.gif"
-		             title="<bean:message key="erratalist.jsp.securityadvisory"/>" />
+		             title="<bean:message key='erratalist.jsp.securityadvisory'/>" />
 		      </c:if>
 		      <c:if test="${current.bugFix}">
 		        <img src="/img/wrh-bug.gif"
-		             title="<bean:message key="erratalist.jsp.bugadvisory"/>" />
+		             title="<bean:message key='erratalist.jsp.bugadvisory'/>" />
 		      </c:if>
 		      <c:if test="${current.productEnhancement}">
 		        <img src="/img/wrh-product.gif"
-		             title="<bean:message key="erratalist.jsp.productenhancementadvisory"/>" />
+		             title="<bean:message key='erratalist.jsp.productenhancementadvisory'/>" />
 		      </c:if>
 		  </rl:column>
 		

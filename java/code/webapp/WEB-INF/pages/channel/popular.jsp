@@ -48,7 +48,7 @@ function showFiltered() {
 		         </c:forEach>
 			</select>
 			<bean:message key="channels.popular.jsp.label2" />
-			<INPUT type="submit" class="btn btn-default" value="<bean:message key="channels.popular.jsp.button" />">
+			<INPUT type="submit" class="btn btn-default" value="<bean:message key='channels.popular.jsp.button'/>">
 			</td>
 		</table>
 		<br/>

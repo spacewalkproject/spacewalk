@@ -9,12 +9,12 @@
 	<div class="toolbar">
 		<span class="toolbar">
 			<a href="/network/systems/ssm/work_with_group.pxt?sgid=${systemgroup.id}&pxt_trap=rhn:work_with_group_cb">
-			<img src="/img/work_with_group.gif" alt="<bean:message key="toolbar.work.with.group"/>"
-     			title="<bean:message key="toolbar.work.with.group"/>" />
+			<img src="/img/work_with_group.gif" alt="<bean:message key='toolbar.work.with.group'/>"
+     			title="<bean:message key='toolbar.work.with.group'/>" />
      			<bean:message key="toolbar.work.with.group"/>
      		</a>
      	    <a href="/network/systems/groups/delete_confirm.pxt?sgid=${systemgroup.id}">	
-				<i class="icon-trash" title="<bean:message key="toolbar.delete.systemgroup"/>" ></i>
+				<i class="icon-trash" title="<bean:message key='toolbar.delete.systemgroup'/>" ></i>
 				<bean:message key="toolbar.delete.systemgroup"/>
 			</a>			
 				
@@ -30,7 +30,7 @@
 		${fn:escapeXml(systemgroup.name)}
 	</c:if>
 	<a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-group-list" target="_new" class="help-title">
-		<img src="/img/rhn-icon-help.gif" alt="<bean:message key="toolbar.jsp.helpicon.alt"/>" />
+		<img src="/img/rhn-icon-help.gif" alt="<bean:message key='toolbar.jsp.helpicon.alt'/>" />
 	</a>
 </div>
 

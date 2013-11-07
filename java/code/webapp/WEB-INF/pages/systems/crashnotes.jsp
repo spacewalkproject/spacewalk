@@ -16,23 +16,23 @@
             <span class="toolbar">
                 <a href="/rhn/systems/details/EditCrashNote.do?crid=${crid}&sid=${sid}">
                     <img src="/img/action-add.gif"
-                         alt="<bean:message key="toolbar.create.crashnote"/>"
-                         title="<bean:message key="toolbar.create.crashnote"/>" />
+                         alt="<bean:message key='toolbar.create.crashnote'/>"
+                         title="<bean:message key='toolbar.create.crashnote'/>" />
                     <bean:message key="toolbar.create.crashnote"/>
                 </a>
                 |
                 <a href="/rhn/systems/details/SoftwareCrashDelete.do?crid=${crid}&sid=${sid}">
                     <img src="/img/action-del.gif"
-                         alt="<bean:message key="toolbar.delete.crash"/>"
-                         title="<bean:message key="toolbar.delete.crash"/>" />
+                         alt="<bean:message key='toolbar.delete.crash'/>"
+                         title="<bean:message key='toolbar.delete.crash'/>" />
                     <bean:message key="toolbar.delete.crash"/>
                 </a>
 
             </span>
         </div>
         <img src="/img/rhn-icon-bug-ex.gif"
-             alt="<bean:message key="info.alt.img"/>"
-             title="<bean:message key="info.alt.img"/>"/>
+             alt="<bean:message key='info.alt.img'/>"
+             title="<bean:message key='info.alt.img'/>"/>
         ${fn:escapeXml(crash.crash)}
     </div>
 

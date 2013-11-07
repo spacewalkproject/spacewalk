@@ -1,13 +1,13 @@
                       <c:out value="<a href=\"/rhn/systems/details/Overview.do?sid=${current.id}\">"  escapeXml="false" />
 						<c:choose>
 						<c:when test="${current.virtualGuest && empty nosystemicons}">
-						          <img src="/img/rhn-listicon-virtguest.gif" alt="<bean:message key="systemlist.jsp.virtguest"/>" />
+						          <img src="/img/rhn-listicon-virtguest.gif" alt="<bean:message key='systemlist.jsp.virtguest'/>" />
 						        </c:when>
 						        <c:when test="${current.virtualHost && empty nosystemicons}">
-						          <img src="/img/rhn-listicon-virthost.gif" alt="<bean:message key="systemlist.jsp.virthost"/>" />
+						          <img src="/img/rhn-listicon-virthost.gif" alt="<bean:message key='systemlist.jsp.virthost'/>" />
 						        </c:when>
 						        <c:otherwise>
-						        <img src="/img/rhn-listicon-system.gif" alt="<bean:message key="systemlist.jsp.nonvirt"/>" />
+						        <img src="/img/rhn-listicon-system.gif" alt="<bean:message key='systemlist.jsp.nonvirt'/>" />
 						        </c:otherwise>
 						</c:choose>
 						<c:choose>

@@ -44,12 +44,12 @@
 	exportColumns="xid,testResult,completed,pass,fail,error,unknown,notapplicable,notchecked,notselected,informational,fixed,sum"/>
 
 <p align="right">
-  <input type="submit" name="dispatch"  value="<bean:message key="system.audit.listscap.jsp.diffbut"/>"
+  <input type="submit" name="dispatch"  value="<bean:message key='system.audit.listscap.jsp.diffbut'/>"
     <c:choose>
       <c:when test="${empty pageList}">disabled</c:when>
     </c:choose>
   > &nbsp;
-  <input type="submit" name="dispatch"  value="<bean:message key="system.audit.listscap.jsp.removebut"/>"
+  <input type="submit" name="dispatch"  value="<bean:message key='system.audit.listscap.jsp.removebut'/>"
     <c:choose>
       <c:when test="${empty pageList}">disabled</c:when>
     </c:choose>

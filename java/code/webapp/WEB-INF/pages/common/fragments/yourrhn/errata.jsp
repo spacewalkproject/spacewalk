@@ -14,7 +14,7 @@
   					description="yourrhn.jsp.relevanterrata.description">
 
     <rhn:column header="yourrhn.jsp.securityerrata">
-        <img src="/img/wrh-security.gif" alt="<bean:message key="errata-legend.jsp.security"/>"/>
+        <img src="/img/wrh-security.gif" alt="<bean:message key='errata-legend.jsp.security'/>"/>
             <a href="/rhn/errata/details/Details.do?eid=${current.id}">${current.advisoryName}</a>
     </rhn:column>
 

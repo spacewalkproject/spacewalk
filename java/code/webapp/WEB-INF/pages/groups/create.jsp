@@ -52,7 +52,7 @@
                     <hr />
                     <input type="hidden" name="pxt:trap" value="rhn:server_group_create_cb" />
                     <input type="hidden" name="redirect_to" value="/rhn/systems/SystemGroupList.do" />
-                    <input type="submit" name="make_group" value="<bean:message key="systemgroup.create.creategroup" />" />
+                    <input type="submit" name="make_group" value="<bean:message key='systemgroup.create.creategroup'/>" />
             --%>
 
             <div class="form-group">

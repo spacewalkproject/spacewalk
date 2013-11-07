@@ -53,8 +53,8 @@
             <th><bean:message key="confirm.jsp.than"/></th>
           </tr>
           <tr>
-            <th><img src="/img/rhn-icon-schedule.gif" alt="<bean:message key="confirm.jsp.selection"/>"
-                                                    title="<bean:message key="confirm.jsp.selection"/>"/>
+            <th><img src="/img/rhn-icon-schedule.gif" alt="<bean:message key='confirm.jsp.selection'/>"
+                                                    title="<bean:message key='confirm.jsp.selection'/>"/>
             </th>
             <td>
               <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">

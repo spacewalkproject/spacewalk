@@ -77,21 +77,21 @@
                 <div class="checkbox">
                   <html:checkbox property="errata_type_bug">
                     <img src="/img/wrh-bug.gif"
-                        title="<bean:message key="erratalist.jsp.bugadvisory"/>" />
+                        title="<bean:message key='erratalist.jsp.bugadvisory'/>" />
                         <bean:message key="erratalist.jsp.bugadvisory"/>
                   </html:checkbox>
                 </div>
                 <div class="checkbox">
                 <html:checkbox property="errata_type_security">
                     <img src="/img/wrh-security.gif"
-                        title="<bean:message key="erratalist.jsp.securityadvisory"/>" />
+                        title="<bean:message key='erratalist.jsp.securityadvisory'/>" />
                     <bean:message key="erratalist.jsp.securityadvisory"/>
                 </html:checkbox>
                 </div>
                 <div class="checkbox">
                 <html:checkbox property="errata_type_enhancement">
                     <img src="/img/wrh-product.gif"
-                        title="<bean:message key="erratalist.jsp.productenhancementadvisory"/>" />
+                        title="<bean:message key='erratalist.jsp.productenhancementadvisory'/>" />
                     <bean:message key="erratalist.jsp.productenhancementadvisory"/>
                 </html:checkbox>
                 </div>
@@ -171,15 +171,15 @@
         headerkey="erratalist.jsp.type">
 		<c:if test="${current.securityAdvisory}">
 		  <img src="/img/wrh-security.gif"
-		       title="<bean:message key="erratalist.jsp.securityadvisory"/>" />
+		       title="<bean:message key='erratalist.jsp.securityadvisory'/>" />
 		</c:if>
 		<c:if test="${current.bugFix}">
 		  <img src="/img/wrh-bug.gif"
-		       title="<bean:message key="erratalist.jsp.bugadvisory"/>" />
+		       title="<bean:message key='erratalist.jsp.bugadvisory'/>" />
 		</c:if>
 		<c:if test="${current.productEnhancement}">
 		  <img src="/img/wrh-product.gif"
-		       title="<bean:message key="erratalist.jsp.productenhancementadvisory"/>" />
+		       title="<bean:message key='erratalist.jsp.productenhancementadvisory'/>" />
 		</c:if>
       </rl:column>
 

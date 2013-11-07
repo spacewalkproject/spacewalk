@@ -29,7 +29,7 @@
                         <div class="col-lg-offset-3 col-lg-6">
                             <button type="submit"
                                     class="btn btn-success"
-                                    value="<bean:message key="button.update"/>">
+                                    value="<bean:message key='button.update'/>">
                                 <bean:message key="button.update"/>
                             </button>
                         </div>

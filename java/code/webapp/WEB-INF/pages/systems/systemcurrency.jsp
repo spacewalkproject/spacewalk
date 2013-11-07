@@ -37,7 +37,7 @@
                            bound="false"
                            headerkey="systemlist.jsp.system"
                            sortattr="name" >
-		    <img src="/img/rhn-listicon-system.gif" alt="<bean:message key="systemlist.jsp.nonvirt"/>" />
+		    <img src="/img/rhn-listicon-system.gif" alt="<bean:message key='systemlist.jsp.nonvirt'/>" />
                     <c:out value="<a href=\"/rhn/systems/details/Overview.do?sid=${current.id}\">"  escapeXml="false" />
 		    <c:choose>
                         <c:when test="${empty current.name}">

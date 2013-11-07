@@ -47,11 +47,11 @@
               <td align="right">
               <c:if test="${not empty regularKS}">
                 <input type="button"
-			value="<bean:message key="kickstart.schedule.button0.jsp" />"
+			value="<bean:message key='kickstart.schedule.button0.jsp'/>"
 			onclick="setStep('fourth');this.form.submit();" />
 			  </c:if>
-                <input type="button" value="<bean:message key="kickstart.schedule.button1.jsp" />" onclick="setStep('second');this.form.submit();" />
-                <input type="button" value="<bean:message key="kickstart.schedule.button2.jsp" />" onclick="setStep('third');this.form.submit();" />
+                <input type="button" value="<bean:message key='kickstart.schedule.button1.jsp'/>" onclick="setStep('second');this.form.submit();" />
+                <input type="button" value="<bean:message key='kickstart.schedule.button2.jsp'/>" onclick="setStep('third');this.form.submit();" />
               </td>
             </tr>
           </table>

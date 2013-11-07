@@ -108,7 +108,7 @@ boolean staticIfDisabled = Boolean.valueOf(
       </tr>
       <tr>
         <td align="right" colspan="2">
-            <input type="submit" value="<bean:message key="kickstart.systemdetails.edit.submit.jsp.label" />" />
+            <input type="submit" value="<bean:message key='kickstart.systemdetails.edit.submit.jsp.label'/>" />
         </td>
       </tr>
     </table>

@@ -59,7 +59,7 @@
   </td>
  <td>
 
-  <input type="submit" name="dispatch"  value="<bean:message key="frontend.actions.channels.manager.add.viewChannels"/>">
+  <input type="submit" name="dispatch"  value="<bean:message key='frontend.actions.channels.manager.add.viewChannels'/>">
  </td>
 </tr>
 
@@ -89,7 +89,7 @@
 
 			  </td>
 			   		  <td>
-							  <input type="submit" name="dispatch"  value="<bean:message key="frontend.actions.channels.manager.add.viewErrata"/>">
+							  <input type="submit" name="dispatch"  value="<bean:message key='frontend.actions.channels.manager.add.viewErrata'/>">
 		  			  </td>
 		  	     </tr>
 		  </c:if>
@@ -117,15 +117,15 @@
 		           	   headerclass="thin-column">
 							        <c:if test="${current.securityAdvisory}">
 							            <img src="/img/wrh-security.gif"
-							                 alt="<bean:message key="erratalist.jsp.securityadvisory"/>" />
+							                 alt="<bean:message key='erratalist.jsp.securityadvisory'/>" />
 							        </c:if>
 							        <c:if test="${current.bugFix}">
 							            <img src="/img/wrh-bug.gif"
-							                 alt="<bean:message key="erratalist.jsp.bugadvisory"/>" />
+							                 alt="<bean:message key='erratalist.jsp.bugadvisory'/>" />
 							        </c:if>
 							        <c:if test="${current.productEnhancement}">
 							            <img src="/img/wrh-product.gif"
-							                 alt="<bean:message key="erratalist.jsp.productenhancementadvisory"/>" />
+							                 alt="<bean:message key='erratalist.jsp.productenhancementadvisory'/>" />
 							        </c:if>
 				</rl:column>	  		
 		  		
@@ -156,7 +156,7 @@
 </c:choose>
 
   			<p align="right">
-			<input type="submit" name="dispatch"  value="<bean:message key="frontend.actions.channels.manager.add.submit"/>"
+			<input type="submit" name="dispatch"  value="<bean:message key='frontend.actions.channels.manager.add.submit'/>"
             <c:choose>
                 <c:when test="${empty pageList}">disabled</c:when>
             </c:choose>

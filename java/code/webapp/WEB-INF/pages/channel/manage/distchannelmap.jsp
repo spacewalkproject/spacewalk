@@ -81,7 +81,7 @@
 	<div class="text-right">
 	  <hr />
 		<input type="submit" name="dispatch"
-				value="<bean:message key="distchannelmap.jsp.update"/>" />
+				value="<bean:message key='distchannelmap.jsp.update'/>" />
 	</div>
 		<rhn:submitted/>
 -->

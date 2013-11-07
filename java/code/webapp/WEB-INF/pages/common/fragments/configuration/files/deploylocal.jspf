@@ -51,8 +51,8 @@
     </tr>
     <tr>
       <th>
-        <img src="/img/rhn-icon-schedule.gif" alt="<bean:message key="deploy.jsp.selection"/>"
-                                              title="<bean:message key="deploy.jsp.selection"/>"/>
+        <img src="/img/rhn-icon-schedule.gif" alt="<bean:message key='deploy.jsp.selection'/>"
+                                              title="<bean:message key='deploy.jsp.selection'/>"/>
       </th>
       <td>
         <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">

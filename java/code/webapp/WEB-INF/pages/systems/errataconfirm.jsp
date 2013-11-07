@@ -32,15 +32,15 @@
     <rl:column headerkey="erratalist.jsp.type" styleclass="text-align: center;">
       <c:if test="${current.securityAdvisory}">
         <img src="/img/wrh-security.gif"
-             title="<bean:message key="erratalist.jsp.securityadvisory"/>" />
+             title="<bean:message key='erratalist.jsp.securityadvisory'/>" />
       </c:if>
       <c:if test="${current.bugFix}">
         <img src="/img/wrh-bug.gif"
-             title="<bean:message key="erratalist.jsp.bugadvisory"/>" />
+             title="<bean:message key='erratalist.jsp.bugadvisory'/>" />
       </c:if>
       <c:if test="${current.productEnhancement}">
         <img src="/img/wrh-product.gif"
-             title="<bean:message key="erratalist.jsp.productenhancementadvisory"/>" />
+             title="<bean:message key='erratalist.jsp.productenhancementadvisory'/>" />
       </c:if>
     </rl:column>
 
@@ -68,8 +68,8 @@
     		<th><bean:message key="syncprofile.jsp.than"/></th>
   		</tr>
   		<tr>
-    		<th><img src="/img/rhn-icon-schedule.gif" alt="<bean:message key="syncprofile.jsp.selection"/>"
-             	title="<bean:message key="syncprofile.jsp.selection"/>"/>
+    		<th><img src="/img/rhn-icon-schedule.gif" alt="<bean:message key='syncprofile.jsp.selection'/>"
+             	title="<bean:message key='syncprofile.jsp.selection'/>"/>
     		</th>
     		<td>
       			 <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">

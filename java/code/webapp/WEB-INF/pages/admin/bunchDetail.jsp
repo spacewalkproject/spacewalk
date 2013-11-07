@@ -21,7 +21,7 @@
        </div>
        <div class="text-right">
           <input type="submit" name="dispatch"
-            value="<bean:message key="bunch.edit.jsp.button-schedule"/>" />
+            value="<bean:message key='bunch.edit.jsp.button-schedule'/>" />
             <rhn:csrf/>
           <rhn:submitted/>
        </div>

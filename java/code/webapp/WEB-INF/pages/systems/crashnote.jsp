@@ -16,7 +16,7 @@
                     <c:when test="${not empty param.cnid}">
                         <a href="/rhn/systems/details/DeleteCrashNote.do?sid=${sid}&crid=${crid}&cnid=${cnid}">
                             <i class="fa fa-trash-o"
-                                 title="<bean:message key="toolbar.delete.note"/>" ></i>
+                                 title="<bean:message key='toolbar.delete.note'/>" ></i>
                             <bean:message key="toolbar.delete.note"/>
                         </a>
                         |
@@ -24,15 +24,15 @@
                 </c:choose>
                 <a href="/rhn/systems/details/SoftwareCrashDelete.do?crid=${crid}&sid=${sid}">
                     <i class="fa fa-trash-o"
-                         title="<bean:message key="toolbar.delete.crash"/>" ></i>
+                         title="<bean:message key='toolbar.delete.crash'/>" ></i>
                     <bean:message key="toolbar.delete.crash"/>
                 </a>
 
             </span>
         </div>
         <img src="/img/rhn-icon-bug-ex.gif"
-             alt="<bean:message key="info.alt.img"/>"
-             title="<bean:message key="info.alt.img"/>"/>
+             alt="<bean:message key='info.alt.img'/>"
+             title="<bean:message key='info.alt.img'/>"/>
         ${fn:escapeXml(crash.crash)}
     </div>
 

@@ -17,16 +17,16 @@
     <rhn:column header="schedulesync.jsp.action">
     	<c:choose>
     		<c:when test="${current.actionStatusId == 0 || current.actionStatusId == 1}">
-    			<img src="/img/rhn-listicon-pending.gif" title="<bean:message key="yourrhn.jsp.actions.pending" />" alt="<bean:message key="yourrhn.jsp.actions.pending" />" />
+    			<img src="/img/rhn-listicon-pending.gif" title="<bean:message key='yourrhn.jsp.actions.pending'/>" alt="<bean:message key='yourrhn.jsp.actions.pending'/>" />
     		</c:when>
     		<c:when test="${current.actionStatusId == 2}">
-    			<img src="/img/rhn-listicon-ok.gif" title="<bean:message key="yourrhn.jsp.actions.completed" />" alt="<bean:message key="yourrhn.jsp.actions.completed" />" />
+    			<img src="/img/rhn-listicon-ok.gif" title="<bean:message key='yourrhn.jsp.actions.completed'/>" alt="<bean:message key='yourrhn.jsp.actions.completed'/>" />
     		</c:when>
     		<c:when test="${current.actionStatusId == 3}">
-    			<img src="/img/rhn-listicon-error.gif" title="<bean:message key="yourrhn.jsp.actions.failed" />" alt="<bean:message key="yourrhn.jsp.actions.failed" />" />
+    			<img src="/img/rhn-listicon-error.gif" title="<bean:message key='yourrhn.jsp.actions.failed'/>" alt="<bean:message key='yourrhn.jsp.actions.failed'/>" />
     		</c:when>
     		<c:otherwise>
-    			<i class="spacewalk-icon-unknown-system" title="<bean:message key="yourrhn.jsp.actions.unknown" />"></i>
+    			<i class="spacewalk-icon-unknown-system" title="<bean:message key='yourrhn.jsp.actions.unknown'/>"></i>
     		</c:otherwise>
     	</c:choose>
       <a href="/rhn/schedule/ActionDetails.do?aid=${current.id}"><c:out value="${current.actionName}" /></a>
@@ -36,7 +36,7 @@
         			style="text-align: center;">
         <c:choose>
         	<c:when test="${current.userName != ''}">
-                <img src="/img/rhn-listicon-user.gif" alt="<bean:message key="yourrhn.jsp.user.alt" />"  />
+                <img src="/img/rhn-listicon-user.gif" alt="<bean:message key='yourrhn.jsp.user.alt'/>"  />
                 ${current.userName}	
             </c:when>
             <c:otherwise>

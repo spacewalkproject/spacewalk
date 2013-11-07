@@ -36,7 +36,7 @@
                         <div class="col-lg-offset-3 col-lg-6">
                             <button type="submit"
                                     class="btn btn-success"
-                                    value="<bean:message key="message.Update"/>"
+                                    value="<bean:message key='message.Update'/>"
                                 <c:if test="${empty mailableAddress}">disabled="disabled"</c:if> >
                                 <bean:message key="message.Update"/>
                             </button>

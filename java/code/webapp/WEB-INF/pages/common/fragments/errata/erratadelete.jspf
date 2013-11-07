@@ -3,15 +3,15 @@
     <rhn:column header="erratalist.jsp.type">
         <c:if test="${current.securityAdvisory}">
             <img src="/img/wrh-security.gif"
-                 title="<bean:message key="erratalist.jsp.securityadvisory"/>" />
+                 title="<bean:message key='erratalist.jsp.securityadvisory'/>" />
         </c:if>
         <c:if test="${current.bugFix}">
             <img src="/img/wrh-bug.gif"
-                 title="<bean:message key="erratalist.jsp.bugadvisory"/>" />
+                 title="<bean:message key='erratalist.jsp.bugadvisory'/>" />
         </c:if>
         <c:if test="${current.productEnhancement}">
             <img src="/img/wrh-product.gif"
-                 title="<bean:message key="erratalist.jsp.productenhancementadvisory"/>" />
+                 title="<bean:message key='erratalist.jsp.productenhancementadvisory'/>" />
         </c:if>
     </rhn:column>
     <rhn:column header="erratalist.jsp.advisory">

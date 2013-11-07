@@ -51,12 +51,12 @@
 		</rl:column>
       		<rl:column  bound="false" headerkey="kickstart.jsp.active"  sortattr="active">
 	      		<c:if test="${current.active}">
-	            <img src="/img/rhn-listicon-ok.gif" alt="<bean:message key="kickstart.jsp.active"/>"
-	            									title="<bean:message key="kickstart.jsp.active"/>"/>
+	            <img src="/img/rhn-listicon-ok.gif" alt="<bean:message key='kickstart.jsp.active'/>"
+	            									title="<bean:message key='kickstart.jsp.active'/>"/>
 	          </c:if>
 	         <c:if test="${not current.active}">
-	            <img src="/img/rhn-listicon-error.gif" alt="<bean:message key="kickstart.jsp.inactive"/>"
-	            									   title="<bean:message key="kickstart.jsp.inactive"/>"/>
+	            <img src="/img/rhn-listicon-error.gif" alt="<bean:message key='kickstart.jsp.inactive'/>"
+	            									   title="<bean:message key='kickstart.jsp.inactive'/>"/>
 	          </c:if>
       		</rl:column>
                 <rl:column headerkey="kickstart.distro.label.jsp" sortattr="treeLabel">

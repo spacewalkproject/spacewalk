@@ -42,7 +42,7 @@
 		
 	<div class="text-right">
     	<hr />
-    	<input type="submit" name="dispatch" value="<bean:message key="userconfirm.jsp.confirm" />" />
+    	<input type="submit" name="dispatch" value="<bean:message key='userconfirm.jsp.confirm'/>" />
 	</div>
 	
 </rl:listset>

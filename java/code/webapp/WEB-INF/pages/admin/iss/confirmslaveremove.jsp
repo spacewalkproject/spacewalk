@@ -28,26 +28,26 @@
                            sortattr="enabled">
                     <c:if test="${current.enabled == 'Y'}">
                         <img src="/img/rhn-listicon-checked.gif"
-                             alt="<bean:message key="iss.slave.enabled"/>"
-                             title="<bean:message key="iss.slave.enabled"/>" />
+                             alt="<bean:message key='iss.slave.enabled'/>"
+                             title="<bean:message key='iss.slave.enabled'/>" />
                     </c:if>
                     <c:if test="${current.enabled != 'Y'}">
                         <img src="/img/rhn-listicon-unchecked.gif"
-                             alt="<bean:message key="iss.slave.disabled"/>"
-                             title="<bean:message key="iss.slave.disabled"/>" />
+                             alt="<bean:message key='iss.slave.disabled'/>"
+                             title="<bean:message key='iss.slave.disabled'/>" />
                     </c:if>
                 </rl:column>
                 <rl:column bound="false" headerkey="iss.slave.toAll"
                            sortattr="allOrgs">
                     <c:if test="${current.allowAllOrgs == 'Y'}">
                         <img src="/img/rhn-listicon-checked.gif"
-                             alt="<bean:message key="iss.slave.all"/>"
-                             title="<bean:message key="iss.slave.all"/>" />
+                             alt="<bean:message key='iss.slave.all'/>"
+                             title="<bean:message key='iss.slave.all'/>" />
                     </c:if>
                     <c:if test="${current.allowAllOrgs != 'Y'}">
                         <img src="/img/rhn-listicon-unchecked.gif"
-                             alt="<bean:message key="iss.slave.notAll"/>"
-                             title="<bean:message key="iss.slave.notAll"/>" />
+                             alt="<bean:message key='iss.slave.notAll'/>"
+                             title="<bean:message key='iss.slave.notAll'/>" />
                     </c:if>
                 </rl:column>
             </rl:list>

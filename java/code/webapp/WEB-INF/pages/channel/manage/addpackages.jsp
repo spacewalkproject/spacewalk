@@ -77,7 +77,7 @@
 
 
   			<p align="right">
-			<input type="submit" name="confirm"  value="<bean:message key="channel.jsp.package.addconfirmbutton"/>"
+			<input type="submit" name="confirm"  value="<bean:message key='channel.jsp.package.addconfirmbutton'/>"
             <c:choose>
                 <c:when test="${empty pageList}">disabled</c:when>
             </c:choose>

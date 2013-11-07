@@ -80,7 +80,7 @@
 		        exportColumns="id, nvrea, summary, provider" />
 	<div class="text-right">
 	  <hr />
-		<input type="submit" name="confirm" value="<bean:message key="channel.jsp.manage.package.delete"/>" />
+		<input type="submit" name="confirm" value="<bean:message key='channel.jsp.manage.package.delete'/>" />
 	</div>
 		<rhn:submitted/>
 

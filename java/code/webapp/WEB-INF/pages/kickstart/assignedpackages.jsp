@@ -45,7 +45,7 @@
             </tr>
             <tr>
               <td align="right">
-                <input type="submit" value="<bean:message key="kickstart.edit.pkgs.submit.jsp.label" />" />
+                <input type="submit" value="<bean:message key='kickstart.edit.pkgs.submit.jsp.label'/>" />
               </td>
             </tr>
           </table>

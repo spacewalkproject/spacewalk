@@ -97,7 +97,7 @@
 			</rl:list>
 
 			<p align="right">
-			<input type="submit" name="dispatch"  value="<bean:message key="channel.jsp.errata.remove"/>"
+			<input type="submit" name="dispatch"  value="<bean:message key='channel.jsp.errata.remove'/>"
 	            <c:choose>
 	                <c:when test="${empty errata_data}">disabled</c:when>
 	            </c:choose>

@@ -89,7 +89,7 @@
 	<rhn:tooltip key="channel.jsp.errata.sync.note"/>
 
 			<p align="right">
-			<input type="submit" name="dispatch"  value="<bean:message key="header.jsp.errata.sync"/>">
+			<input type="submit" name="dispatch"  value="<bean:message key='header.jsp.errata.sync'/>">
 			</p>
      <rhn:submitted/>
 

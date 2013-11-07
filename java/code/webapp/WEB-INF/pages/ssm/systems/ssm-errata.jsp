@@ -39,13 +39,13 @@
 
                 <rl:column headerkey="erratalist.jsp.type" styleclass="text-align: center;" bound="false">
                     <c:if test="${current.securityAdvisory}">
-                        <img src="/img/wrh-security.gif" title="<bean:message key="erratalist.jsp.securityadvisory"/>" />
+                        <img src="/img/wrh-security.gif" title="<bean:message key='erratalist.jsp.securityadvisory'/>" />
                     </c:if>
                     <c:if test="${current.bugFix}">
-                        <img src="/img/wrh-bug.gif" title="<bean:message key="erratalist.jsp.bugadvisory"/>" />
+                        <img src="/img/wrh-bug.gif" title="<bean:message key='erratalist.jsp.bugadvisory'/>" />
                     </c:if>
                     <c:if test="${current.productEnhancement}">
-                        <img src="/img/wrh-product.gif" title="<bean:message key="erratalist.jsp.productenhancementadvisory"/>" />
+                        <img src="/img/wrh-product.gif" title="<bean:message key='erratalist.jsp.productenhancementadvisory'/>" />
                     </c:if>
                 </rl:column>
 
@@ -144,7 +144,7 @@
                     <rhn:csrf />
                     <div class="text-right">
                         <hr/>
-                        <input type="submit" name="back" value="<bean:message key="ssm.errata.serverlist.return"/>" />
+                        <input type="submit" name="back" value="<bean:message key='ssm.errata.serverlist.return'/>" />
                     </div>
                 </html:form>
             </c:otherwise>

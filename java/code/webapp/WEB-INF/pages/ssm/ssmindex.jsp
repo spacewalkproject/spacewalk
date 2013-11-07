@@ -30,7 +30,7 @@
   </tr>
 
   <tr>
-    <td><img src="/img/rhn-icon-packages.gif" alt="<bean:message key="ssm.overview.packages"/>" /></td>
+    <td><img src="/img/rhn-icon-packages.gif" alt="<bean:message key='ssm.overview.packages'/>" /></td>
     <th><b><bean:message key="ssm.overview.packages"/></b></th>
     <td><bean:message key="ssm.overview.packages.upgrade"/></td>
   </tr>
@@ -38,7 +38,7 @@
 <rhn:require acl="is(enable_solaris_support)">
   <tr>
      <td><img src="/img/rhn-icon-patch.gif"
-                alt="<bean:message key="ssm.overview.patches"/>"/></td>
+                alt="<bean:message key='ssm.overview.patches'/>"/></td>
                 <th><bean:message key="ssm.overview.patches"/>:</th>
                 <td>
 <a href="/network/systems/ssm/patches/install.pxt"><bean:message key="ssm.overview.patches.install"/></a> / <a href="/network/systems/ssm/patches/remove.pxt"><bean:message key="ssm.overview.patches.remove"/></a>
@@ -48,7 +48,7 @@
 
   <tr>
      <td><img src="/img/rhn-icon-patchset.gif"
-                alt="<bean:message key="ssm.overview.patch.clusters"/>"/></td>
+                alt="<bean:message key='ssm.overview.patch.clusters'/>"/></td>
                 <th><bean:message key="ssm.overview.patch.clusters"/>:</th>
                 <td> <bean:message key="ssm.overview.patch.clusters.install"/><br />
      </td>
@@ -57,14 +57,14 @@
 
 <rhn:require acl="user_role(org_admin)">
   <tr>
-    <td><img src="/img/rhn-icon-system_group.gif" alt="<bean:message key="ssm.overview.groups"/>" /></td>
+    <td><img src="/img/rhn-icon-system_group.gif" alt="<bean:message key='ssm.overview.groups'/>" /></td>
     <th><b><bean:message key="ssm.overview.groups"/></b></th>
     <td><bean:message key="ssm.overview.groups.create"/></td>
   </tr>
 </rhn:require>
 
   <tr>
-    <td><img src="/img/rhn-icon-channels.gif" alt="<bean:message key="ssm.overview.channels"/>" /></td>
+    <td><img src="/img/rhn-icon-channels.gif" alt="<bean:message key='ssm.overview.channels'/>" /></td>
     <th><b><bean:message key="ssm.overview.channels"/></b></th>
     <td>
       <p>
@@ -80,7 +80,7 @@
 
 <rhn:require acl="org_entitlement(rhn_provisioning)">
   <tr>
-    <td><img src="/img/rhn-kickstart_profile.gif" alt="<bean:message key="ssm.overview.provisioning"/>" /></td>
+    <td><img src="/img/rhn-kickstart_profile.gif" alt="<bean:message key='ssm.overview.provisioning'/>" /></td>
     <th><b><bean:message key="ssm.overview.provisioning"/></b></th>
     <td>
       <p>
@@ -93,7 +93,7 @@
 </rhn:require>
 
   <tr>
-    <td><img src="/img/rhn-icon-form.gif" alt="<bean:message key="ssm.overview.misc"/>" /></td>
+    <td><img src="/img/rhn-icon-form.gif" alt="<bean:message key='ssm.overview.misc'/>" /></td>
     <th><b><bean:message key="ssm.overview.misc"/>:</b></th>
     <td>
       <p>

@@ -132,7 +132,7 @@ function clickNewestTree() {
 
         <div class="form-group">
             <div class="col-lg-offset-3 col-lg-6">
-                <input type="button" value="<bean:message key="wizard.jsp.next.step" />" onclick="moveNext();" class="btn btn-default"/>
+                <input type="button" value="<bean:message key='wizard.jsp.next.step'/>" onclick="moveNext();" class="btn btn-default"/>
             </div>
         </div>
     </html:form>

@@ -70,7 +70,7 @@
 		        exportColumns="id, nvrea, summary, provider" />
 	<div class="text-right">
 	  <hr />
-		<input type="submit" name="confirm" value="<bean:message key="channel.jsp.package.confirmbutton"/>" />
+		<input type="submit" name="confirm" value="<bean:message key='channel.jsp.package.confirmbutton'/>" />
 	</div>
 		<rhn:submitted/>
 

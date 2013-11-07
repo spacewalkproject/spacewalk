@@ -11,11 +11,11 @@
 
 <div class="spacewalk-header-container">
   <div id="logo" class="spacewalk-logo">
-    <a href="<bean:message key="layout.jsp.vendor.website"/>" title="<bean:message key="layout.jsp.vendor.title"/>">
-      <img src="/img/logo_vendor.png" alt="<bean:message key="layout.jsp.vendor.name"/>" id="rhLogo" />
+    <a href="<bean:message key='layout.jsp.vendor.website'/>" title="<bean:message key='layout.jsp.vendor.title'/>">
+      <img src="/img/logo_vendor.png" alt="<bean:message key='layout.jsp.vendor.name'/>" id="rhLogo" />
     </a>
     <a href="/" title="<bean:message key="layout.jsp.productname"/> homepage">
-      <img src="/img/logo_product.png" alt="<bean:message key="layout.jsp.productname"/>" id="rhnLogo" accesskey="2"/>
+      <img src="/img/logo_product.png" alt="<bean:message key='layout.jsp.productname'/>" id="rhnLogo" accesskey="2"/>
     </a>
   </div>
   <div class="spacewalk-header-links">
@@ -54,7 +54,7 @@
           </select>
         </div>
         <div class="form-group">
-          <input type="search" class="form-control input-sm" name="search_string" maxlength="40" size="20" accesskey="4" autofocus="autofocus" placeholder="<bean:message key="button.search" />" />
+          <input type="search" class="form-control input-sm" name="search_string" maxlength="40" size="20" accesskey="4" autofocus="autofocus" placeholder="<bean:message key='button.search'/>" />
         </div>
         <div class="form-group">
           <input type="hidden" name="submitted" value="true" />

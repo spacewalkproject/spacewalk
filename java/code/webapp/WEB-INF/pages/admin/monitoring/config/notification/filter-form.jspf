@@ -69,7 +69,7 @@ function showDestination() {
             </html:select>
         </td>
     </tr>
-    <tr id="destination" title="<bean:message key="filter-form.jspf.destination_help"/>">
+    <tr id="destination" title="<bean:message key='filter-form.jspf.destination_help'/>">
         <th>
             <label for="destination"><bean:message key="filter-form.jspf.destination"/></label>
         </th>

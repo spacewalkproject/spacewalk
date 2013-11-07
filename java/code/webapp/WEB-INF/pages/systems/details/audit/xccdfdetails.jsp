@@ -17,8 +17,8 @@
     <c:when test="${not empty testResult.comparableId}">
       <a href="/rhn/audit/scap/DiffSubmit.do?first=${testResult.comparableId}&second=${testResult.id}&view=changed">
         <img src="/img/rhn-listicon-${testResult.diffIcon}.gif"
-          alt="<bean:message key="scapdiff.jsp.i.${testResult.diffIcon}"/>"
-          title="<bean:message key="scapdiff.jsp.i.${testResult.diffIcon}"/>"/>
+          alt="<bean:message key='scapdiff.jsp.i.${testResult.diffIcon}'/>"
+          title="<bean:message key='scapdiff.jsp.i.${testResult.diffIcon}'/>"/>
         <bean:message key="system.audit.xccdfdetails.jsp.diff"/>
       </a>
     </c:when>
@@ -31,14 +31,14 @@
   <c:if test="${testResult.deletable}">
     <a href="/rhn/systems/details/audit/XccdfDeleteConfirm.do?sid=${param.sid}&xid=${testResult.id}">
       <i class="fa fa-trash-o"
-          title="<bean:message key="system.audit.xccdfdelete"/>"></i>
+          title="<bean:message key='system.audit.xccdfdelete'/>"></i>
       <bean:message key="system.audit.xccdfdelete"/>
     </a>
   |
   </c:if>
 
   <a href="/rhn/systems/details/audit/ScheduleXccdf.do?sid=${param.sid}&path=${testResult.scapActionDetails.path}&params=${testResult.scapActionDetails.parametersContents}">
-    <img src="/img/restart.png" alt="<bean:message key="system.audit.xccdfdetails.jsp.reschedule"/>"/>
+    <img src="/img/restart.png" alt="<bean:message key='system.audit.xccdfdetails.jsp.reschedule'/>"/>
     <bean:message key="system.audit.xccdfdetails.jsp.reschedule"/>
   </a>
 </div>
@@ -62,7 +62,7 @@
   <tr>
     <th><bean:message key="configoverview.jsp.scheduledBy"/>:</th>
     <td>
-      <img src="/img/rhn-listicon-user.gif" alt="<bean:message key="yourrhn.jsp.user.alt" />"/>
+      <img src="/img/rhn-listicon-user.gif" alt="<bean:message key='yourrhn.jsp.user.alt'/>"/>
       <a href="/network/systems/details/history/event.pxt?sid=${param.sid}&hid=${testResult.scapActionDetails.parentAction.id}">
         <c:out value="${testResult.scapActionDetails.parentAction.schedulerUser.login}"/>
       </a>

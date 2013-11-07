@@ -61,7 +61,7 @@
 	<div class="text-right">
 	  <hr />
 		<input type="submit" name="dispatch"
-				value="<bean:message key="confirm"/>" />
+				value="<bean:message key='confirm'/>" />
 	</div>
 		<rhn:submitted/>
 

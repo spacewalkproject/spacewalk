@@ -42,7 +42,7 @@
                 <div class="col-lg-6">
                     <select name="view_mode" id="fieldtosearch" class="form-control">
                         <c:forEach items="${optGroupsKeys}" var="key">
-                            <optgroup label="<bean:message key="${key}"/>">
+                            <optgroup label="<bean:message key='${key}'/>">
                                 <c:forEach items="${optGroupsMap[key]}" var="option">
                                     <c:choose>
                                         <c:when test="${view_mode == option['value']}">

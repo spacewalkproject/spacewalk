@@ -73,8 +73,8 @@
           <th><bean:message key="sdcimportconfirm.jsp.usedate"/></th>
         </tr>
         <tr>
-          <th><img src="/img/rhn-icon-schedule.gif" alt="<bean:message key="syncprofile.jsp.selection"/>"
-                                                  title="<bean:message key="syncprofile.jsp.selection"/>"/>
+          <th><img src="/img/rhn-icon-schedule.gif" alt="<bean:message key='syncprofile.jsp.selection'/>"
+                                                  title="<bean:message key='syncprofile.jsp.selection'/>"/>
           </th>
           <td>
             <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">

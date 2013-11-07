@@ -74,7 +74,7 @@
          </tr>
 
           <tr>
-            <td align="right" colspan="3"><input type="submit" value="<bean:message key="kickstartoptions.jsp.updatekickstart"/>"/></td>
+            <td align="right" colspan="3"><input type="submit" value="<bean:message key='kickstartoptions.jsp.updatekickstart'/>"/></td>
           </tr>
 
       </table>

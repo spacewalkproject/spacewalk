@@ -24,19 +24,19 @@
 						<h2>Errata Summary:</h2>
 						<table class="details">
 							<tr>
-									<th><img src="/img/wrh-bug.gif"    alt="<bean:message key="erratalist.jsp.bugadvisory"/>" />
+									<th><img src="/img/wrh-bug.gif"    alt="<bean:message key='erratalist.jsp.bugadvisory'/>" />
 										Bug Fix Advisory:
 									</th>
 									<td>${bug_count}</td>
 							</tr>
 							<tr>
-									<th><img src="/img/wrh-product.gif"   alt="<bean:message key="erratalist.jsp.productenhancementadvisory"/>" />
+									<th><img src="/img/wrh-product.gif"   alt="<bean:message key='erratalist.jsp.productenhancementadvisory'/>" />
 										Product Enhancement Advisory:
 									</th>
 									<td>${enhance_count}</td>
 							</tr>							
 							<tr>
-									<th><img src="/img/wrh-security.gif"  alt="<bean:message key="erratalist.jsp.securityadvisory"/>" />
+									<th><img src="/img/wrh-security.gif"  alt="<bean:message key='erratalist.jsp.securityadvisory'/>" />
 										Security Advisory:
 									</th>
 									<td>${secure_count}</td>
@@ -90,7 +90,7 @@
 	
 			<hr />
 			<p align="right">
-				<input type="submit" name="dispatch"  value="<bean:message key="Clone Errata"/>"
+				<input type="submit" name="dispatch"  value="<bean:message key='Clone Errata'/>"
 		            <c:choose>
 		                <c:when test="${totalSize < 1}">disabled</c:when>
 		            </c:choose>					
