@@ -8220,6 +8220,12 @@ Please note that some manual configuration of these scripts may still be require
           <source>Update</source>
         </trans-unit>
       </group>
+      <trans-unit id="bootstrapsystems.kernel_not_found">
+        <source>Bootstrap kernel file not found, please check that {0} exists and is accessible.</source>
+      </trans-unit>
+      <trans-unit id="bootstrapsystems.initrd_not_found">
+        <source>Bootstrap initrd file not found, please check that {0} exists and is accessible.</source>
+      </trans-unit>
       <!-- Repo Sync -->
       <trans-unit id="repos.jsp.summary">
         <source>Use repositories to sync additional packages to your channels. Repositories may be linked to your channels.</source>

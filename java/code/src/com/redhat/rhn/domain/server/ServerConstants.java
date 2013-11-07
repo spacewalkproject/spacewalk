@@ -92,4 +92,11 @@ public class ServerConstants {
         return ServerFactory.lookupServerGroupTypeByLabel("virtualization_host_platform");
     }
 
+    /**
+     * Static representing the provisioning entitled server group type
+     * @return ServerGroupType
+     */
+    public static final ServerGroupType getServerGroupTypeBootstrapEntitled() {
+        return ServerFactory.lookupServerGroupTypeByLabel("bootstrap_entitled");
+    }
 }

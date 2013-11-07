@@ -45,6 +45,8 @@ public class ActivationKey extends BaseDomainHelper {
     private KickstartSession kickstartSession;
     /** "Y" if this key is a bootstrap key, "N" otherwise. */
     private String bootstrap;
+    /** Suffix in bootstrap tokens. */
+    public static final String BOOTSTRAP_TOKEN = "spacewalk-bootstrap-activation-key";
 
     /**
      * Istantiates a new non-bootstrap activation key.
