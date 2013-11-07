@@ -30,13 +30,22 @@ import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.frontend.dto.ActivationKeyDto;
 import com.redhat.rhn.frontend.dto.CryptoKeyDto;
 import com.redhat.rhn.frontend.dto.FilePreservationDto;
+import com.redhat.rhn.frontend.dto.kickstart.CobblerProfileDto;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.TestStatics;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
+
+import org.cobbler.CobblerConnection;
+import org.cobbler.Distro;
+import org.cobbler.Profile;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * JUnit test case for the KickstartLister class.
@@ -134,5 +143,21 @@ public class KickstartListerTest extends BaseTestCaseWithUser {
                 KickstartLister.getInstance().getActiveActivationKeysInOrg(user.getOrg(),
                         pc);
         assertEquals(0, result.size());
+    }
+
+    public void testListCobblerProfiles() throws Exception {
+        CobblerConnection connection = CobblerXMLRPCHelper.getConnection("test");
+        Distro distro = Distro.create(connection, "test-distro",
+            "test-kernel", "test-initrd", new HashMap());
+        Profile.create(connection, "test-profile", distro);
+        KickstartLister kickstartLister = KickstartLister.getInstance();
+        List<CobblerProfileDto> profiles = kickstartLister.listCobblerProfiles(user);
+
+        assertEquals(1, profiles.size());
+
+        // Bootstrap profile should NOT be returned
+        Profile.create(connection, Profile.BOOTSTRAP_NAME, distro);
+        profiles = kickstartLister.listCobblerProfiles(user);
+        assertEquals(1, profiles.size());
     }
 }
