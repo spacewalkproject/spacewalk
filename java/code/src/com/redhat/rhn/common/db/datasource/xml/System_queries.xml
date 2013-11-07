@@ -1284,21 +1284,26 @@ ORDER BY  UPPER(COALESCE(SERVER_NAME, '(none)')), SERVER_ID
 
 <query name="system_config_files_with_diffs">
   SELECT ACR.server_id AS ID, count(*) AS config_files_with_differences
-    FROM rhnActionConfigRevision ACR
-         INNER JOIN rhnActionConfigRevisionResult ACRR ON ACR.id = ACRR.action_config_revision_id
-   WHERE ACR.action_id = (
-         SELECT MAX(rA.id)
-           FROM rhnAction rA
-                INNER JOIN rhnServerAction rSA ON rSA.action_id = rA.id
-                INNER JOIN rhnActionStatus rAS ON rAS.id = rSA.status
-                INNER JOIN rhnActionType rAT ON rAT.id = rA.action_type
-          WHERE rSA.server_id = ACR.server_id
-            AND rAS.name in ('Completed', 'Failed')
-            AND rAT.label = 'configfiles.diff'
-         )
-     AND ACR.failure_id is null
+    FROM
+         (SELECT rSA.server_id, MAX(rA.id)
+            FROM rhnAction rA
+            JOIN rhnServerAction rSA
+              ON rSA.action_id = rA.id
+            JOIN rhnActionStatus rAS
+              ON rAS.id = rSA.status
+            JOIN rhnActionType rAT
+              ON rAT.id = rA.action_type
+           WHERE RSA.server_id in (%s)
+             AND rAS.name in ('Completed', 'Failed')
+             AND rAT.label = 'configfiles.diff'
+           GROUP BY rSA.server_id
+         ) X
+    JOIN rhnActionConfigRevision ACR
+      ON X.server_id = ACR.server_id
+    JOIN rhnActionConfigRevisionResult ACRR
+      ON ACR.id = ACRR.action_config_revision_id
+   WHERE ACR.failure_id is null
      AND ACRR.result is not null
-     AND ACR.server_id in (%s)
 GROUP BY ACR.server_id
 </query>
 
