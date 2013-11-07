@@ -281,6 +281,16 @@ public class SystemRecord extends CobblerObject {
             client.invokeTokenMethod("power_system", getHandle(), "reboot") == 0;
     }
 
+    /**
+     * Gets the power status of this system, assuming correct power information
+     * was set (type, username, password, address, and optionally id).
+     *
+     * @return true if the system is on, false if it is off, null if it cannot be determined
+     */
+    public Boolean getPowerStatus() {
+        return (Boolean) client.invokeTokenMethod("power_system", getHandle(), "status");
+    }
+
      /**
      * @return the Cobbler Profile name
      */
