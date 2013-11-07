@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.67
+Version: 2.1.68
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 07 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.68-1
+- 1027050 - optimized system_config_files_with_diffs eleborator for PostgreSQL
+- 1027454 - fix ISE, when renaming channel to channel name already in use
+
 * Wed Nov 06 2013 Tomas Lestach <tlestach@redhat.com> 2.1.67-1
 - ConfigTest: do not rely on hardcoded paths, preexisting files
 - Use kickstart icon on the snippets page
