@@ -17,7 +17,7 @@
 
 
     <h2>
-      <img src="/img/rhn-snapshot.gif" />
+      <i class="fa fa-camera"></i>
       Confirm Snapshot Tag Removal
     </h2>
 

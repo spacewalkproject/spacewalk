@@ -39,13 +39,13 @@
 
                 <rl:column headerkey="erratalist.jsp.type" styleclass="text-align: center;" bound="false">
                     <c:if test="${current.securityAdvisory}">
-                        <img src="/img/wrh-security.gif" title="<bean:message key='erratalist.jsp.securityadvisory'/>" />
+                        <i class="fa fa-lock"></i>
                     </c:if>
                     <c:if test="${current.bugFix}">
-                        <img src="/img/wrh-bug.gif" title="<bean:message key='erratalist.jsp.bugadvisory'/>" />
+                        <i class="fa fa-bug"></i>
                     </c:if>
                     <c:if test="${current.productEnhancement}">
-                        <img src="/img/wrh-product.gif" title="<bean:message key='erratalist.jsp.productenhancementadvisory'/>" />
+                        <i class="fa  spacewalk-icon-enhancement"></i>
                     </c:if>
                 </rl:column>
 

@@ -49,7 +49,7 @@
                 <rl:column headerkey="systemlist.jsp.system" bound="false" sortattr="name" sortable="true">
                     <c:choose>
                         <c:when test="${current.locked > 0}">
-                            <img src="/img/icon_locked.gif"/>
+                            <i class="fa fa-lock"></i>
                             <a href="/rhn/systems/details/Overview.do?sid=${current.id}">${current.name}</a>
                         </c:when>
                         <c:otherwise>

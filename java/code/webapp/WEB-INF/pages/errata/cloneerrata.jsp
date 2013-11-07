@@ -6,8 +6,8 @@
 
 <html:html >
     <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-errata.gif"
-		 helpUrl="/rhn/help/getting-started/en-US/sect-Getting_Started_Guide-Errata_Management-Cloning_Errata.jsp">
+<rhn:toolbar base="h1" icon="spacewalk-icon-patches"
+                 helpUrl="/rhn/help/getting-started/en-US/sect-Getting_Started_Guide-Errata_Management-Cloning_Errata.jsp">
         <bean:message key="cloneerrata.jsp.erratamanagement"/>
     </rhn:toolbar>
 

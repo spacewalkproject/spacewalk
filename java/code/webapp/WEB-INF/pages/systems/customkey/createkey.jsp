@@ -9,11 +9,11 @@
         <div>
             <div class="toolbar-h1">
                 <div class="toolbar"></div>
-                <img src="/img/rhn-icon-keyring.gif" alt="" />
+                <i class="fa fa-key" title=""></i>
                 <h2><bean:message key="system.jsp.customkey.createtitle"/></h2>
                 <a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-cust-info"
                    target="_new" class="help-title">
-                    <img src="/img/rhn-icon-help.gif" alt="Help Icon" />
+                    <i class="fa fa-question-circle" title="Help Icon"></i>
                 </a>
             </div>
             <p>

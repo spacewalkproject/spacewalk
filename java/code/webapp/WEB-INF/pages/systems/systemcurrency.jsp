@@ -37,7 +37,7 @@
                            bound="false"
                            headerkey="systemlist.jsp.system"
                            sortattr="name" >
-		    <img src="/img/rhn-listicon-system.gif" alt="<bean:message key='systemlist.jsp.nonvirt'/>" />
+		    <i class="fa fa-desktop" title="<bean:message key='systemlist.jsp.nonvirt'/>"></i>
                     <c:out value="<a href=\"/rhn/systems/details/Overview.do?sid=${current.id}\">"  escapeXml="false" />
 		    <c:choose>
                         <c:when test="${empty current.name}">
@@ -64,10 +64,10 @@
                            </c:choose>
                            <c:choose>
                              <c:when test="${current.critical >= 10}">
-                               <img height="10%" width="10%" src="/img/icon_crit_update.gif"/>
+                               <i class="fa fa-exclamation-circle text-danger"></i>
                              </c:when>
                              <c:when test="${current.critical >= 5}">
-                               <img height="10%" width="10%" src="/img/rhn-icon-warning.gif"/>
+                               <i class="fa fa-warning text-warning"></i>
                              </c:when>
                            </c:choose>
 		</rl:column>
@@ -86,10 +86,10 @@
                            </c:choose>
                            <c:choose>
                              <c:when test="${current.important >= 15}">
-                               <img height="10%" width="10%" src="/img/icon_crit_update.gif"/>
+                               <i class="fa fa-exclamation-circle text-danger"></i>
                              </c:when>
                              <c:when test="${current.important >= 10}">
-                               <img height="10%" width="10%" src="/img/rhn-icon-warning.gif"/>
+                               <i class="fa fa-warning text-warning"></i>
                              </c:when>
                            </c:choose>
 		</rl:column>
@@ -108,10 +108,10 @@
                            </c:choose>
                            <c:choose>
                              <c:when test="${current.moderate >= 20}">
-                               <img height="10%" width="10%" src="/img/icon_crit_update.gif"/>
+                               <i class="fa fa-exclamation-circle text-danger"></i>
                              </c:when>
                              <c:when test="${current.moderate >= 15}">
-                               <img height="10%" width="10%" src="/img/rhn-icon-warning.gif"/>
+                               <i class="fa fa-warning text-warning"></i>
                              </c:when>
                            </c:choose>
 		</rl:column>
@@ -130,10 +130,10 @@
                            </c:choose>
                            <c:choose>
                              <c:when test="${current.low >= 25}">
-                               <img height="10%" width="10%" src="/img/icon_crit_update.gif"/>
+                               <i class="fa fa-exclamation-circle text-danger"></i>
                              </c:when>
                              <c:when test="${current.low >= 20}">
-                               <img height="10%" width="10%" src="/img/rhn-icon-warning.gif"/>
+                               <i class="fa fa-warning text-warning"></i>
                              </c:when>
                            </c:choose>
 		</rl:column>

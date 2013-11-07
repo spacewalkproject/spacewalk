@@ -10,8 +10,8 @@
 <rhn:toolbar base="h1" miscIcon="fa-plus"
     miscText="kickstart.kickstartable_distro_create_new.jsp"
     miscUrl="TreeCreate.do"
-    img="/img/rhn-kickstart_profile.gif"
-    imgAlt="kickstarts.alt.img">
+    icon="fa-rocket"
+    iconAlt="kickstarts.alt.img">
 <bean:message key="kickstart.kickstartable_distributions.jsp" />
 </rhn:toolbar>
 
@@ -40,10 +40,10 @@
             <rl:column headertext="${rhn:localize('kickstart.distro.is-valid.jsp')}?*" sortattr="valid">
             	<c:choose>
                     <c:when test="${current.valid}">
-                    	<img src="/img/rhn-listicon-checked.gif">
+                    	<i class="fa fa-check text-success"></i>
                     </c:when>
 					<c:otherwise>
-						<img src="/img/rhn-listicon-error.gif">
+						<i class="fa fa-times-circle text-danger"></i>
                 	</c:otherwise>
                 </c:choose>
             </rl:column>

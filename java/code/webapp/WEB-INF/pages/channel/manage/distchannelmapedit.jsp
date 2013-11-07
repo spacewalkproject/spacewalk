@@ -7,13 +7,13 @@
     <body>
         <c:choose>
             <c:when test="${empty dcm}">
-                <rhn:toolbar base="h1" img="/img/rhn-icon-subscribe_replace.png" imgAlt="info.alt.img">
+                <rhn:toolbar base="h1" icon="fa-retweet" iconAlt="info.alt.img">
                     <bean:message key="distchannelmap.jsp.create"/>
                 </rhn:toolbar>
                 <h2><bean:message key="distchannelmap.jsp.create"/></h2>
             </c:when>
             <c:otherwise>
-                <rhn:toolbar base="h1" img="/img/rhn-icon-subscribe_replace.png" imgAlt="info.alt.img"
+                <rhn:toolbar base="h1" icon="fa-retweet" iconAlt="info.alt.img"
                              deletionUrl="DistChannelMapDelete.do?dcm=${dcm}"
                              deletionType="distchannelmap">
                     <bean:message key="distchannelmap.jsp.update"/>

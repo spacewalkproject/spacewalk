@@ -13,7 +13,7 @@
                         <i class="fa fa-trash-o" title="delete key"></i>delete key</a>
                 </span>
             </div>
-            <img src="/img/rhn-icon-keyring.gif" alt="" />
+            <i class="fa fa-key" title=""></i>
             <bean:message key="system.jsp.customkey.updatetitle"/>
 
             <a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-cust-info" target="_new" class="help-title">

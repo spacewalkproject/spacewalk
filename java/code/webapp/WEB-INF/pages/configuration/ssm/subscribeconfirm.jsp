@@ -11,7 +11,7 @@
 
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
 <h2>
-  <img src="/img/rhn-config_channels.gif" alt='<bean:message key="config.common.channelsAlt" />' />
+  <i class="fa spacewalk-icon-channels-config" title="<bean:message key="config.common.channelsAlt" />"></i>
   <bean:message key="ssm.config.subscribeconfirm.jsp.header"/>
 </h2>
 <h3><bean:message key="ssm.config.subscribeconfirm.jsp.step"/></h3>
@@ -47,8 +47,7 @@
              headerkey="system.common.systemName"
              attr="name">
     <a href="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">
-      <img src="/img/rhn-listicon-system.gif"
-             alt="<bean:message key='system.common.systemAlt' />" />
+      <i class="fa fa-desktop" title="<bean:message key='system.common.systemAlt' />"></i>
       ${current.name}
     </a>
   </rl:column>

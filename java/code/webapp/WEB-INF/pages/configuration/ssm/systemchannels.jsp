@@ -8,7 +8,7 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
 <h2>
-  <img src="/img/rhn-config_channels.gif" alt='<bean:message key="config.common.channelsAlt" />' />
+  <i class="fa spacewalk-icon-channels-config" title="<bean:message key="config.common.channelsAlt" />"></i>
   <bean:message key="ssmsystemchannels.jsp.header" />
 </h2>
 
@@ -16,8 +16,7 @@
     <p>
       <c:set var="beanarg" scope="request">
         <a href="/rhn/systems/details/configuration/Overview.do?sid=${system.id}"
-          <img src="/img/rhn-listicon-system.gif"
-               alt="<bean:message key='system.common.systemAlt' />" />
+          <i class="fa fa-desktop" title="<bean:message key='system.common.systemAlt' />"></i>
           ${system.name}
         </a>
       </c:set>
@@ -35,7 +34,7 @@
     <rhn:listdisplay filterBy="config.common.configChannel">
       <rhn:column header="config.common.configChannel"
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.id}">
-        <img alt='<bean:message key="config.common.globalAlt" />' src="/img/rhn-listicon-channel.gif">
+        <i class="fa spacewalk-icon-software-channels" title="<bean:message key="config.common.globalAlt" />"></i>
         ${current.name}
       </rhn:column>
 

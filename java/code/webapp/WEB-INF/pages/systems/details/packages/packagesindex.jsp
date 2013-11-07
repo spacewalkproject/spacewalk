@@ -13,8 +13,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <h2>
-  <img src="/img/rhn-icon-packages.gif"
-       alt="<bean:message key='errata.common.packageAlt' />" />
+  <i class="fa spacewalk-icon-packages" title="<bean:message key='errata.common.packageAlt' />"></i>
   <bean:message key="packagesindex.jsp.header"/>
 </h2>
 

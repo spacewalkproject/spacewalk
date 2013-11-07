@@ -29,7 +29,7 @@
 
       <rhn:column header="configsystemfilter.name"
                   url="/rhn/systems/details/configuration/ViewModifyLocalPaths.do?sid=${current.id}">
-        <img alt='<bean:message key="config.common.localAlt" />' src="/img/rhn-listicon-system.gif" />
+        <i class="fa fa-desktop" title="<bean:message key="config.common.localAlt" />"></i>
         ${fn:escapeXml(current.name)}
       </rhn:column>
 

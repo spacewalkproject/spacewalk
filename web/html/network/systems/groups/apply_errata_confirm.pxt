@@ -12,7 +12,7 @@
 <pxt-include file="/network/components/system_groups/sgdc_header.pxi" />
 
     <h2>
-      <img src="/img/rhn-icon-errata.gif" />
+      <i class="fa spacewalk-icon-patches"></i>
       Confirm Errata Update: <rhn-errata-advisory /> - <rhn-errata-name />
     </h2>
 

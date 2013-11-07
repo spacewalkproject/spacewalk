@@ -27,27 +27,19 @@
                 <rl:column bound="false" headerkey="iss.slave.isEnabled"
                            sortattr="enabled">
                     <c:if test="${current.enabled == 'Y'}">
-                        <img src="/img/rhn-listicon-checked.gif"
-                             alt="<bean:message key='iss.slave.enabled'/>"
-                             title="<bean:message key='iss.slave.enabled'/>" />
+                        <i class="fa fa-check text-success" title="<bean:message key='iss.slave.enabled'/>"></i>
                     </c:if>
                     <c:if test="${current.enabled != 'Y'}">
-                        <img src="/img/rhn-listicon-unchecked.gif"
-                             alt="<bean:message key='iss.slave.disabled'/>"
-                             title="<bean:message key='iss.slave.disabled'/>" />
+                        <i class="fa fa-circle-o" title="<bean:message key='iss.slave.disabled'/>"></i>
                     </c:if>
                 </rl:column>
                 <rl:column bound="false" headerkey="iss.slave.toAll"
                            sortattr="allOrgs">
                     <c:if test="${current.allowAllOrgs == 'Y'}">
-                        <img src="/img/rhn-listicon-checked.gif"
-                             alt="<bean:message key='iss.slave.all'/>"
-                             title="<bean:message key='iss.slave.all'/>" />
+                        <i class="fa fa-check text-success" title="<bean:message key='iss.slave.all'/>"></i>
                     </c:if>
                     <c:if test="${current.allowAllOrgs != 'Y'}">
-                        <img src="/img/rhn-listicon-unchecked.gif"
-                             alt="<bean:message key='iss.slave.notAll'/>"
-                             title="<bean:message key='iss.slave.notAll'/>" />
+                        <i class="fa fa-circle-o" title="<bean:message key='iss.slave.notAll'/>"></i>
                     </c:if>
                 </rl:column>
             </rl:list>

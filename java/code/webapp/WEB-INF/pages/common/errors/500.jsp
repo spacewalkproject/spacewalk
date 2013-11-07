@@ -6,8 +6,7 @@
 <page:applyDecorator name="layout_c">
 <body>
     <h1>
-      <img src="/img/rhn-icon-warning.gif"
-           alt="<bean:message key='500.jsp.imgAlt' />" />
+      <i class="fa fa-warning text-warning" title="<bean:message key='500.jsp.imgAlt' />"></i>
       <bean:message key="500.jsp.title"/>
     </h1>
     <p><bean:message key="500.jsp.summary"/></p>

@@ -32,14 +32,10 @@
                 <rl:column bound="false" headerkey="iss.master.isDefault"
                            styleclass="center" headerclass="center">
                     <c:if test="${current.defaultMaster}">
-                        <img src="/img/rhn-listicon-checked.gif"
-                             alt="<bean:message key='iss.master.isDefault'/>"
-                             title="<bean:message key='iss.master.isDefault'/>" />
+                        <i class="fa fa-check text-success" title="<bean:message key='iss.master.isDefault'/>"></i>
                     </c:if>
                     <c:if test="${not current.defaultMaster}">
-                        <img src="/img/rhn-listicon-unchecked.gif"
-                             alt="<bean:message key='iss.master.notDefault'/>"
-                             title="<bean:message key='iss.master.notDefault'/>" />
+                        <i class="fa fa-circle-o" title="<bean:message key='iss.master.notDefault'/>"></i>
                     </c:if>
                 </rl:column>
                 <rl:column headerkey="iss.num.master.orgs" styleclass="center" headerclass="center">

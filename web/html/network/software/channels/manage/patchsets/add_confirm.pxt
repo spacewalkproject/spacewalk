@@ -17,7 +17,7 @@
     </div>
 
     <h2>
-      <img src="/img/rhn-icon-patchset_install.gif" />
+      <i class="fa spacewalk-icon-patchset-install"></i>
       Confirm Patchset Addition
     </h2>
 

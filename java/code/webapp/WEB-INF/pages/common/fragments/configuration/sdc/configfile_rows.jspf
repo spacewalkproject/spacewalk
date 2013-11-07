@@ -5,16 +5,13 @@
        <rhn:column header="sdcconfigfiles.jsp.filename">
 			<c:choose>
               <c:when test="${current.configFileType == 'file'}">
-                <img alt='<bean:message key="config.common.fileAlt" />'
-                     src="/img/rhn-listicon-cfg_file.gif"> ${current.path}
+                <i class="fa fa-file-text-o" title="<bean:message key="config.common.fileAlt" />"></i> ${current.path}
               </c:when>
               <c:when test="${current.configFileType == 'directory'}">
-                <img alt='<bean:message key="config.common.dirAlt" />'
-                     src="/img/rhn-listicon-cfg_folder.gif"> ${current.path}
+                <i class="fa fa-folder-open-o" title="<bean:message key="config.common.dirAlt" />"></i> ${current.path}
               </c:when>
               <c:otherwise>
-                <img alt='<bean:message key="config.common.symlinkAlt" />'
-                     src="/img/rhn-listicon-cfg_symlink.gif"> ${current.path}
+                <i class="fa spacewalk-icon-listicon-cfg-symlink" title="<bean:message key="config.common.symlinkAlt" />"></i> ${current.path}
               </c:otherwise>
             </c:choose>
       	</rhn:column>
@@ -28,16 +25,13 @@
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.configChannelId}">
           <c:choose>
             <c:when test="${current.configChannelType == 'normal'}">
-              <img alt='<bean:message key="config.common.globalAlt" />'
-    	           src="/img/rhn-listicon-channel.gif">
+              <i class="fa spacewalk-icon-software-channels" title="<bean:message key="config.common.globalAlt" />"></i>
             </c:when>
             <c:when test="${current.configChannelType == 'local_override'}">
-              <img alt='<bean:message key="config.common.localAlt" />'
-                   src="/img/rhn-listicon-system.gif">
+              <i class="fa fa-desktop" title="<bean:message key="config.common.localAlt" />"></i>
             </c:when>
             <c:otherwise>
-              <img alt='<bean:message key="config.common.sandboxAlt" />'
-                   src="/img/rhn-listicon-sandbox.png">
+              <i class="fa spacewalk-icon-sandbox" title="<bean:message key="config.common.sandboxAlt" />"></i>
             </c:otherwise>
           </c:choose>
           ${current.channelNameDisplay}

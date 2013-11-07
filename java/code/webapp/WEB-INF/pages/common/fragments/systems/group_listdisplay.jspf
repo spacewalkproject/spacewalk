@@ -32,19 +32,13 @@
 
 	              <c:choose>
 			        <c:when test="${current.mostSevereErrata == 'Security Advisory'}">
-			          <img src="/img/icon_crit_update.gif" border="0"
-			           alt="<bean:message key='grouplist.jsp.security'/>"
-			           title="<bean:message key='grouplist.jsp.security'/>" />
+			          <i class="fa fa-exclamation-circle text-danger" title="<bean:message key='grouplist.jsp.security'/>"></i>
 			        </c:when>
 			        <c:when test="${current.mostSevereErrata == 'Bug Fix Advisory' or current.mostSevereErrata == 'Product Enhancement Advisory'}">
-			          <img src="/img/icon_reg_update.gif" border="0"
-			           alt="<bean:message key='grouplist.jsp.updates'/>"
-			           title="<bean:message key='grouplist.jsp.updates'/>" />
+			          <i class="fa fa-warning text-warning" title="<bean:message key='grouplist.jsp.updates'/>"></i>
 			        </c:when>
 			        <c:otherwise>
-			          <img src="/img/icon_up2date.gif" border="0"
-			           alt="<bean:message key='grouplist.jsp.noerrata'/>"
-			           title="<bean:message key='grouplist.jsp.noerrata'/>" />
+			          <i class="fa fa-check-square-o text-primary" title="<bean:message key='grouplist.jsp.noerrata'/>"></i>
 			        </c:otherwise>
 			      </c:choose>
 

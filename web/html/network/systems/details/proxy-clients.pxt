@@ -16,7 +16,7 @@
 
     <pxt-include-late file="/network/components/message_queues/local.pxi"/>
 
-    <h2><img src="/img/rhn-icon-proxy.gif"/>Proxy Clients</h2>
+    <h2><i class="fa spacewalk-icon-proxy"></i>Proxy Clients</h2>
 
     <rhn-listview class="Sniglets::ListView::SystemList" mode="clients_through_proxy" alphabar_column="name">
       <formvars>

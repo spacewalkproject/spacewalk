@@ -86,7 +86,7 @@
 	           attr="orgAdmin">
 	    <c:choose>
 	      <c:when test="${current.orgAdmin == 1}">
-	        <img src="/img/rhn-listicon-checked_immutable.gif">
+	        <i class="fa fa-check"></i>
 	      </c:when>
 	      <c:otherwise>
 	        <img src="/img/rhn-listicon-unchecked_immutable.gif">

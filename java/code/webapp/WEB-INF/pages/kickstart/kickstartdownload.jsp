@@ -24,8 +24,7 @@
     <c:choose>
       <c:when test="${invalid_channel}">
         <tr><td>
-          <img src="/img/rhn-listicon-alert.gif"
-               alt="<bean:message key='error.common.errorAlt' />" />
+          <i class="fa fa-warning text-warning" title="<bean:message key='error.common.errorAlt' />"></i>
           <bean:message key="kickstartdownload.jsp.invalidchannel"/>
         </td></tr>
       </c:when>

@@ -17,11 +17,11 @@
     <div class="toolbar-h1"><div class="toolbar">
     	<span class="toolbar">
 		<a href="/rhn/systems/customdata/CreateCustomKey.do">
-    			<img src="/img/action-add.gif" alt="create new key" title="add new key" />
+    			<i class="fa fa-plus-circle text-success" title="create new key"></i>
     			<bean:message key="system.jsp.customkey.createlink"/>
     		</a>
     	</span>
-    </div><img src="/img/rhn-icon-keyring.gif" alt="keyring" />
+    </div><i class="fa fa-key" title="keyring"></i>
 	<bean:message key="system.jsp.customkey.title"/>
 </div>
 

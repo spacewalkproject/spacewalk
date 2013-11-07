@@ -19,7 +19,7 @@
     </div>
 
     <h2>
-      <img src="/img/rhn-icon-errata.gif" />
+      <i class="fa spacewalk-icon-patches"></i>
       Clone Errata
     </h2>
 

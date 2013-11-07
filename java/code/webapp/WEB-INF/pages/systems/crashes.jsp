@@ -14,8 +14,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <h2>
-  <img src="/img/rhn-icon-bug-ex.gif"
-       alt="<bean:message key='crashes.jsp.crashes' />" />
+  <i class="fa spacewalk-icon-bug-ex" title="<bean:message key='crashes.jsp.crashes' />"></i>
   <bean:message key="crashes.jsp.crashes"/>
 </h2>
 

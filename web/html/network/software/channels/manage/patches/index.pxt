@@ -11,7 +11,7 @@
 <pxt-include file="/network/software/channels/manage/manage_channels_header.pxi" />
 
     <h2>
-      <img src="/img/rhn-icon-patch.gif" /> Patches
+      <i class="fa spacewalk-icon-patches"></i> Patches
     </h2>
 
     <pxt-formvar>

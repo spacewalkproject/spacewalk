@@ -12,7 +12,7 @@
 
     <br/>
 
-    <rhn:toolbar base="h2" img="/img/rhn-icon-bug-ex.gif" imgAlt="info.alt.img"
+    <rhn:toolbar base="h2" icon="spacewalk-icon-bug-ex" iconAlt="info.alt.img"
                  deletionUrl="SoftwareCrashDelete.do?crid=${crid}&sid=${sid}"
                  deletionType="crash">
         ${fn:escapeXml(crash.crash)}

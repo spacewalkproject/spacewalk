@@ -21,7 +21,7 @@
 
 <rhn-snapshot-details>
 
-<rhn-toolbar base="h2" img="/img/rhn-snapshot.gif" creation-url="/network/systems/details/history/snapshots/add_snapshot_tag.pxt?sid={formvar:sid}&amp;ss_id={formvar:ss_id}" creation-type="snapshot tag">
+<rhn-toolbar base="h2" icon="fa-camera" creation-url="/network/systems/details/history/snapshots/add_snapshot_tag.pxt?sid={formvar:sid}&amp;ss_id={formvar:ss_id}" creation-type="snapshot tag">
 {snapshot_created}
 Snapshot - Snapshot Tags
 </rhn-toolbar>

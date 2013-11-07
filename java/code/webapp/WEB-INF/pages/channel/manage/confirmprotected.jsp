@@ -17,7 +17,7 @@
 
 <br/>
 <h2>
-  <img src="/img/rhn-icon-packages.gif" />
+  <i class="fa spacewalk-icon-packages"></i>
   <bean:message key="confirmprivate.jsp.title"/>
 </h2>
 <p><bean:message key="confirmprotected.jsp.confirmmsg"/></p>

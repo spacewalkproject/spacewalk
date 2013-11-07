@@ -11,7 +11,7 @@
 
 <rhn:require acl="is_solaris()">
 	<h2>
-		<img src="/img/rhn-icon-package_del.gif" />
+		<i class="fa spacewalk-icon-package-delete"></i>
 		<bean:message key="packagelist.jsp.confirmpatch" />
 	</h2>
 	<div class="page-summary">

@@ -17,7 +17,7 @@
     </div>
 
     <h2>
-      <img src="/img/rhn-icon-patch_remove.gif" />
+      <i class="fa spacewalk-icon-patch-remove"></i>
       Confirm Patch Removal
     </h2>
 

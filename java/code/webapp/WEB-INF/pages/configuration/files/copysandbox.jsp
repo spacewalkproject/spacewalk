@@ -28,7 +28,7 @@
 
       <rhn:column header="copysandbox.jsp.channel"
                   url="/rhn/systems/details/configuration/ViewModifySandboxPaths.do?sid=${current.id}">
-        <img alt='<bean:message key="config.common.sandboxAlt" />' src="/img/rhn-listicon-sandbox.png" />
+        <i class="fa spacewalk-icon-sandbox" title="<bean:message key="config.common.sandboxAlt" />"></i>
         ${fn:escapeXml(current.name)}
       </rhn:column>
 

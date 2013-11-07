@@ -13,7 +13,7 @@
 
 <%@ include file="/WEB-INF/pages/common/fragments/errata/errata-header.jspf" %>
 <h2>
-  <img src="/img/rhn-icon-system.gif" alt="<bean:message key='system.common.systemAlt' />" />
+  <i class="fa fa-desktop" title="<bean:message key='system.common.systemAlt' />"></i>
   <bean:message key="affectedsystems.jsp.header"/>
 </h2>
 

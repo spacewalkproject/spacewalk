@@ -21,7 +21,7 @@
 
 
 <h2>
-<img src="/img/rhn-snapshot.gif" alt="snapshot" />
+<i class="fa fa-camera" title="snapshot"></i>
 <rhn-snapshot-details>
 {snapshot_created}
 </rhn-snapshot-details>

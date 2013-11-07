@@ -16,7 +16,7 @@
     </div>
 
     <h2>
-      <img src="/img/rhn-icon-packages.gif" alt="package" />
+      <i class="fa spacewalk-icon-packages" title="package"></i>
       Compare Packages
     </h2>
 

@@ -8,14 +8,14 @@
 
 <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
 
-    <h1><img src="/img/rhn-icon-system_group.gif" alt="system set" /> System Set Manager <rhn-help href="s1-sm-systems.jsp#s2-sm-ssm" /></h1>
+    <h1><i class="fa spacewalk-icon-system-groups" title="system set"></i> System Set Manager <rhn-help href="s1-sm-systems.jsp#s2-sm-ssm" /></h1>
 
     <rhn-navi-nav prefix="system_set_manager" depth="0"
     file="/nav/ssm.xml" style="contentnav" />
 
 
 <rhn-errata-details>
-<h2><img src="/img/rhn-icon-system.gif"  />
+<h2><i class="fa fa-desktop"></i>
 Selected systems affected by {errata_advisory_name}</h2>
 </rhn-errata-details>
 

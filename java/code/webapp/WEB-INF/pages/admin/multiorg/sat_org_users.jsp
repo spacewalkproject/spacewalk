@@ -67,7 +67,7 @@
 	           attr="orgAdmin">
 	    <c:choose>
 	      <c:when test="${current.orgAdmin == 1}">
-	        <img src="/img/rhn-listicon-checked_immutable.gif">
+	        <i class="fa fa-check"></i>
 	      </c:when>
 	      <c:otherwise>
 	        <img src="/img/rhn-listicon-unchecked_immutable.gif">
@@ -81,12 +81,12 @@
 	    <c:choose>
 	      <c:when test="${current.satAdmin == 1}">
 	        <a href="/rhn/admin/multiorg/ToggleSatAdmin.do?uid=${current.id}">
-	        <img src="/img/rhn-listicon-ok.gif">
+	        <i class="fa fa-check text-success"></i>
 	        </a>
 	      </c:when>
 	      <c:otherwise>
 	        <a href="/rhn/admin/multiorg/ToggleSatAdmin.do?uid=${current.id}">
-	        <img src="/img/rhn-listicon-unchecked.gif">
+	        <i class="fa fa-circle-o"></i>
 	        </a>
 	      </c:otherwise>
 		</c:choose>

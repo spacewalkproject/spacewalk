@@ -28,7 +28,7 @@
 <rhn:csrf />
 <input type="hidden" name="cid" value="${cid}">
 <bean:message key="channel.jsp.package.addmessage"/>
-<h2><img src="/img/rhn-icon-packages.gif"> <bean:message key="channel.jsp.package.addtitle"/></h2>
+<h2><i class="fa spacewalk-icon-packages"></i> <bean:message key="channel.jsp.package.addtitle"/></h2>
 
 <%@ include file="/WEB-INF/pages/common/fragments/channel/manage/channel_selector.jspf" %>
 

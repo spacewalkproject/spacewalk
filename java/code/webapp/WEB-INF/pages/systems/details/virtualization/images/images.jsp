@@ -16,7 +16,7 @@
       <c:when test="${requestScope.loadAsync == true}">
         <div id="images-content">
           <div style="padding: 1em;">
-            <img src="/img/spinner.gif" style="vertical-align: middle;" />
+            <i class="fa fa-spinner fa-spin"></i>
             <span style="padding-left: 0.3em;">Loading ...</span>
           </div>
           <script type="text/javascript">

@@ -53,19 +53,13 @@
         <rl:column headerkey="ssm.package.upgrade.select.advisory" bound="false">
             <c:if test="${not empty current.advisory}">
               <c:if test="${current.advisoryType == 'Security Advisory'}">
-                <img src="/img/wrh-security.gif"
-                     alt="<bean:message key='erratalist.jsp.securityadvisory' />"
-                     title="<bean:message key='erratalist.jsp.securityadvisory' />" />
+                <i class="fa fa-lock" title="<bean:message key='erratalist.jsp.securityadvisory' />"></i>
               </c:if>
               <c:if test="${current.advisoryType == 'Bug Fix Advisory'}">
-                <img src="/img/wrh-bug.gif"
-                     alt="<bean:message key='erratalist.jsp.bugadvisory' />"
-                     title="<bean:message key='erratalist.jsp.bugadvisory' />" />
+                <i class="fa fa-bug" title="<bean:message key='erratalist.jsp.bugadvisory' />"></i>
               </c:if>
               <c:if test="${current.advisoryType == 'Product Enhancement Advisory'}">
-                <img src="/img/wrh-product.gif"
-                     alt="<bean:message key='erratalist.jsp.productenhancementadvisory' />"
-                     title="<bean:message key='erratalist.jsp.productenhancementadvisory' />" />
+                <i class="fa  spacewalk-icon-enhancement" title="<bean:message key='erratalist.jsp.productenhancementadvisory' />"></i>
               </c:if>
               <a href="/rhn/errata/details/Details.do?eid=${current.advisoryId}">${current.advisory}</a><br/>
             </c:if>

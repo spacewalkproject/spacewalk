@@ -55,7 +55,7 @@
         <c:if test="${rebootRequired}">
           <div class="systeminfo">
             <div class="systeminfo-full">
-              <img src="/img/restart.png"/><bean:message key="sdc.details.overview.requires_reboot"/>
+              <i class="fa fa-refresh text-primary"></i><bean:message key="sdc.details.overview.requires_reboot"/>
               <bean:message key="sdc.details.overview.schedulereboot" arg0="/network/systems/details/reboot_confirm.pxt?sid=${system.id}"/>
             </div>
           </div>
@@ -66,10 +66,10 @@
             <div class="col-md-6">
               <c:choose>
                 <c:when test="${probeList[0].state == 'CRITICAL'}">
-                  <img src="/img/rhn-mon-down.gif"/>  <bean:message key="sdc.details.overview.probes.critical" arg0="/rhn/help/reference/en-US/s1-sm-monitor.jsp"/>
+                  <i class="fa spacewalk-icon-monitoring-down"></i>  <bean:message key="sdc.details.overview.probes.critical" arg0="/rhn/help/reference/en-US/s1-sm-monitor.jsp"/>
                 </c:when>
                 <c:otherwise>
-                  <img src="/img/rhn-mon-warning.gif"/>  <bean:message key="sdc.details.overview.probes.warning" arg0="/rhn/help/reference/en-US/s1-sm-monitor.jsp"/>
+                  <i class="fa spacewalk-icon-monitoring-warning"></i>  <bean:message key="sdc.details.overview.probes.warning" arg0="/rhn/help/reference/en-US/s1-sm-monitor.jsp"/>
                 </c:otherwise>
               </c:choose>
             </div>
@@ -77,10 +77,10 @@
               <c:forEach items="${probeList}" var="probe">
                 <c:choose>
                   <c:when test="${probe.state == 'CRITICAL'}">
-                    <img src="/img/rhn-mini_icon-critical.gif"/>
+                    <i class="fa fa-circle text-danger"></i>
                   </c:when>
                   <c:otherwise>
-                    <img src="/img/rhn-mini_icon-warning.gif"/>
+                    <i class="fa fa-warning text-warning"></i>
                   </c:otherwise>
                 </c:choose>
                 <a href="/rhn/systems/details/probes/ProbeDetails.do?sid=${system.id}&probe_id=${probe.id}">${probe.description}</a><br/>

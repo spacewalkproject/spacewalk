@@ -1,5 +1,5 @@
-<rhn:toolbar base="h1" img="/img/rhn-icon-schedule_computer.gif"
-             imgAlt="action.common.scheduleAlt"
+<rhn:toolbar base="h1" icon="spacewalk-icon-schedule-computer"
+             iconAlt="action.common.scheduleAlt"
              helpUrl="/rhn/help/reference/en-US/s1-sm-actions.jsp">
   ${requestScope.actionname}
 </rhn:toolbar>

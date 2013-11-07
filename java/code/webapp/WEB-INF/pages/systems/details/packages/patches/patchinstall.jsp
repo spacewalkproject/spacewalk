@@ -11,7 +11,7 @@
 
 <rhn:require acl="is_solaris()">
 	<h2>
-		<img src="/img/rhn-icon-package_add.gif" />
+		<i class="fa spacewalk-icon-package-add"></i>
 		<bean:message key="packagelist.jsp.installablepatches" />
 	</h2>
 	<div class="page-summary">

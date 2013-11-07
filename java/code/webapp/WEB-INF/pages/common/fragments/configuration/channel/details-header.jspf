@@ -7,8 +7,8 @@
 <c:choose>
 	<c:when test='${channel != null}'>
 		<c:if test="${channel.globalChannel}">
-		  <rhn:toolbar base="h1" img="/img/rhn-config_central.gif"
-			imgAlt="config.common.globalAlt"
+		  <rhn:toolbar base="h1" icon="spacewalk-icon-channels-config"
+			iconAlt="config.common.globalAlt"
 			helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#config-config-channels-channel-details"
 			deletionUrl="/rhn/configuration/DeleteChannel.do?ccid=${ccid}"
 			deletionType="configchannel" deletionAcl="user_role(config_admin)">
@@ -16,8 +16,8 @@
 		  </rhn:toolbar>
 		</c:if>
 		<c:if test="${channel.localChannel}">
-		  <rhn:toolbar base="h1" img="/img/rhn-config_system.gif"
-			imgAlt="config.common.localAlt"
+		  <rhn:toolbar base="h1" icon="spacewalk-icon-config-system"
+			iconAlt="config.common.localAlt"
 			helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#config-config-channels-channel-details"
 			deletionUrl="/rhn/configuration/DeleteChannel.do?ccid=${ccid}"
 			deletionType="configchannel" deletionAcl="user_role(config_admin)">
@@ -25,8 +25,8 @@
 		  </rhn:toolbar>
 		</c:if>
 		<c:if test="${channel.sandboxChannel}">
-		  <rhn:toolbar base="h1" img="/img/rhn-config_sandbox.gif"
-			imgAlt="config.common.sandboxAlt"
+		  <rhn:toolbar base="h1" icon="spacewalk-icon-sandbox"
+			iconAlt="config.common.sandboxAlt"
 			helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#config-config-channels-channel-details"
 			deletionUrl="/rhn/configuration/DeleteChannel.do?ccid=${ccid}"
 			deletionType="configchannel" deletionAcl="user_role(config_admin)">

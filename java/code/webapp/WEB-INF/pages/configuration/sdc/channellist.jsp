@@ -30,7 +30,7 @@
 	  <rhn:set value="${current.id}"/>
       <rhn:column header="sdc.configlist.jsp.name"
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.id}">
-        <img alt='<bean:message key="config.common.globalAlt" />' src="/img/rhn-listicon-channel.gif" />
+        <i class="fa spacewalk-icon-software-channels" title="<bean:message key="config.common.globalAlt" />"></i>
         ${current.name}
       </rhn:column>
 

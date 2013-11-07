@@ -6,10 +6,10 @@
 <html>
     <body>
         <h1>
-            <img src="/img/rhn-icon-system_group.gif" alt="system group" />
+            <i class="fa spacewalk-icon-system-groups" title="system group"></i>
             <bean:message key="systemgroup.create.header"/>
             <a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-group-creation" target="_new" class="help-title">
-                <img src="/img/rhn-icon-help.gif" alt="Help Icon" />
+                <i class="fa fa-question-circle" title="Help Icon"></i>
             </a>
         </h1>
         <p><bean:message key="systemgroup.create.summary"/></p>

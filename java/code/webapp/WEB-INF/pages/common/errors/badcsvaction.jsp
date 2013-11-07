@@ -6,7 +6,7 @@
 
 <rhn:require acl="user_authenticated()">
 
-<h1><img src="/img/rhn-icon-warning.gif"/><bean:message key="badcsvaction.jsp.title"/></h1>
+<h1><i class="fa fa-warning text-warning"></i><bean:message key="badcsvaction.jsp.title"/></h1>
 
 <p><bean:message key="badcsvaction.jsp.summary"/></p>
     <ol>

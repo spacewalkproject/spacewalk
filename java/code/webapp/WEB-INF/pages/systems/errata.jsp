@@ -25,8 +25,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <h2>
-  <img src="/img/rhn-icon-errata.gif"
-       alt="<bean:message key='errata.common.errataAlt' />" />
+  <i class="fa spacewalk-icon-patches" title="<bean:message key='errata.common.errataAlt' />"></i>
   <bean:message key="errata.jsp.header"/>
 </h2>
 
@@ -69,8 +68,7 @@
  		
  		<c:if test="${requestScope.showApplyErrata == 'false'}">
   			<rl:column headerkey="emptyspace.jsp"  styleclass="text-align: center;">
-    			<img src="/img/icon_pending.gif"
-             		title="<bean:message key='errata.jsp.scheduled'/>" />
+    			<i class="fa fa-clock-o"></i>
             </rl:column>
  		</c:if>
 
@@ -84,16 +82,13 @@
 		  <rl:column headerkey="erratalist.jsp.type" styleclass="text-align: center;"
 		  	bound="false">
 		      <c:if test="${current.securityAdvisory}">
-		        <img src="/img/wrh-security.gif"
-		             title="<bean:message key='erratalist.jsp.securityadvisory'/>" />
+		        <i class="fa fa-lock"></i>
 		      </c:if>
 		      <c:if test="${current.bugFix}">
-		        <img src="/img/wrh-bug.gif"
-		             title="<bean:message key='erratalist.jsp.bugadvisory'/>" />
+		        <i class="fa fa-bug"></i>
 		      </c:if>
 		      <c:if test="${current.productEnhancement}">
-		        <img src="/img/wrh-product.gif"
-		             title="<bean:message key='erratalist.jsp.productenhancementadvisory'/>" />
+		        <i class="fa  spacewalk-icon-enhancement"></i>
 		      </c:if>
 		  </rl:column>
 		

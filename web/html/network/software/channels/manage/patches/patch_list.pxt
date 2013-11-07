@@ -19,7 +19,7 @@
     </div>
 
     <h2>
-      <img src="/img/rhn-icon-patch_remove.gif" />
+      <i class="fa spacewalk-icon-patch-remove"></i>
       List/Remove Channel Patches
     </h2>
 

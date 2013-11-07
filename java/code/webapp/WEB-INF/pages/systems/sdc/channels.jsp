@@ -8,7 +8,7 @@
 <body>
   <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
   <h2>
-    <img src="/img/rhn-icon-channels.gif" alt="channel"/>
+    <i class="fa spacewalk-icon-software-channels" title="channel"></i>
     <bean:message key="sdc.channels.edit.header2"/>
   </h2>
   <html:form method="post" action="/systems/details/SystemChannels.do?sid=${system.id}">
@@ -101,7 +101,7 @@
       <rhn:require acl="not system_is_proxy(); not system_is_satellite()" mixins="com.redhat.rhn.common.security.acl.SystemAclHandler">
 
         <h2>
-          <img src="/img/rhn-icon-channels.gif" />
+          <i class="fa spacewalk-icon-software-channels"></i>
           <bean:message key="sdc.channels.edit.base_software_channel"/>
         </h2>
 

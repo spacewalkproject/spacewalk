@@ -13,7 +13,7 @@
 
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-<h2><img src="/img/rhn-icon-errata.gif" /><bean:message key="errataconfirm.jsp.header"/></h2>
+<h2><i class="fa spacewalk-icon-patches"></i><bean:message key="errataconfirm.jsp.header"/></h2>
 
 <rhn:systemtimemessage server="${system}" />
 
@@ -31,16 +31,13 @@
 
     <rl:column headerkey="erratalist.jsp.type" styleclass="text-align: center;">
       <c:if test="${current.securityAdvisory}">
-        <img src="/img/wrh-security.gif"
-             title="<bean:message key='erratalist.jsp.securityadvisory'/>" />
+        <i class="fa fa-lock"></i>
       </c:if>
       <c:if test="${current.bugFix}">
-        <img src="/img/wrh-bug.gif"
-             title="<bean:message key='erratalist.jsp.bugadvisory'/>" />
+        <i class="fa fa-bug"></i>
       </c:if>
       <c:if test="${current.productEnhancement}">
-        <img src="/img/wrh-product.gif"
-             title="<bean:message key='erratalist.jsp.productenhancementadvisory'/>" />
+        <i class="fa  spacewalk-icon-enhancement"></i>
       </c:if>
     </rl:column>
 
@@ -68,8 +65,7 @@
     		<th><bean:message key="syncprofile.jsp.than"/></th>
   		</tr>
   		<tr>
-    		<th><img src="/img/rhn-icon-schedule.gif" alt="<bean:message key='syncprofile.jsp.selection'/>"
-             	title="<bean:message key='syncprofile.jsp.selection'/>"/>
+    		<th><i class="fa spacewalk-icon-schedule" title="<bean:message key='syncprofile.jsp.selection'/>"></i>
     		</th>
     		<td>
       			 <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">

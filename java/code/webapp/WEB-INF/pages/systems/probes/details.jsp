@@ -14,7 +14,7 @@
         <c:if test="${is_suite_probe}">
             <rhn:toolbar base="h2" icon="fa-desktop"
                          miscAlt="probedetails.jsp.editsuiteprobe"
-                         miscImg="action-clone.gif"
+                         miscIcon="fa-copy"
                          miscUrl="/rhn/monitoring/config/ProbeSuiteProbeEdit.do?suite_id=${probe.templateProbe.probeSuite.id}&amp;probe_id=${probe.templateProbe.id}"
                          miscText="probedetails.jsp.editsuiteprobe"
                          creationUrl="/rhn/systems/details/probes/ProbeCreate.do?sid=${system.id}"
@@ -27,7 +27,7 @@
                          deletionUrl="/rhn/systems/details/probes/ProbeDelete.do?probe_id=${probe.id}&amp;sid=${system.id}"
                          deletionType="probe"
                          miscAlt="probedetails.jsp.editthisprobe"
-                         miscImg="action-clone.gif"
+                         miscIcon="fa-copy"
                          miscUrl="ProbeEdit.do?probe_id=${probe.id}&amp;sid=${system.id}"
                          miscText="probedetails.jsp.editthisprobe"
                          creationUrl="/rhn/systems/details/probes/ProbeCreate.do?sid=${system.id}"
@@ -126,7 +126,7 @@
         <c:if test="${requestScope.show_graph}">
             <h2><bean:message key="probedetails.jsp.graph"/></h2>
             <img src="/rhn/systems/details/probes/ProbeGraph.do?${requestScope.l10ned_selected_metrics_string}${requestScope.selected_metrics_string}startts=${requestScope.startts}&amp;endts=${requestScope.endts}&amp;sid=${system.id}&amp;probe_id=${probe.id}"/>
-            <br><a href="/rhn/systems/details/probes/ProbeGraph.do?lde=1&${requestScope.l10ned_selected_metrics_string}${requestScope.selected_metrics_string}startts=${requestScope.startts}&amp;endts=${requestScope.endts}&amp;sid=${system.id}&amp;probe_id=${probe.id}"><img src="/img/csv-16.png" alt=""><bean:message key="listdisplay.csv"/></a>
+            <br><a href="/rhn/systems/details/probes/ProbeGraph.do?lde=1&${requestScope.l10ned_selected_metrics_string}${requestScope.selected_metrics_string}startts=${requestScope.startts}&amp;endts=${requestScope.endts}&amp;sid=${system.id}&amp;probe_id=${probe.id}"><i class="fa spacewalk-icon-download-csv text-primary" title=""></i><bean:message key="listdisplay.csv"/></a>
             </c:if>
             <c:if test="${requestScope.show_log}">
             <h2><bean:message key="probedetails.jsp.eventlog"/></h2>

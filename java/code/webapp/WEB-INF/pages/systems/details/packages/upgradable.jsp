@@ -11,8 +11,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
   <h2>
-    <img src="/img/rhn-icon-package-upgrade.gif"
-         alt="<bean:message key='errata.common.upgradepackageAlt' />" />
+    <i class="fa spacewalk-icon-package-upgrade" title="<bean:message key='errata.common.upgradepackageAlt' />"></i>
     <bean:message key="upgradable.jsp.header" />
   </h2>
   <div class="page-summary">
@@ -54,19 +53,13 @@
       <c:forEach items="${current.errata}" var="errata">
         <c:if test="${not empty errata.advisory}">
           <c:if test="${errata.type == 'Security Advisory'}">
-            <img src="/img/wrh-security.gif"
-                 alt="<bean:message key='erratalist.jsp.securityadvisory' />"
-                 title="<bean:message key='erratalist.jsp.securityadvisory' />" />
+            <i class="fa fa-lock" title="<bean:message key='erratalist.jsp.securityadvisory' />"></i>
           </c:if>
           <c:if test="${errata.type == 'Bug Fix Advisory'}">
-            <img src="/img/wrh-bug.gif"
-                 alt="<bean:message key='erratalist.jsp.bugadvisory' />"
-                 title="<bean:message key='erratalist.jsp.bugadvisory' />" />
+            <i class="fa fa-bug" title="<bean:message key='erratalist.jsp.bugadvisory' />"></i>
           </c:if>
           <c:if test="${errata.type == 'Product Enhancement Advisory'}">
-            <img src="/img/wrh-product.gif"
-                 alt="<bean:message key='erratalist.jsp.productenhancementadvisory' />"
-                 title="<bean:message key='erratalist.jsp.productenhancementadvisory' />" />
+            <i class="fa  spacewalk-icon-enhancement" title="<bean:message key='erratalist.jsp.productenhancementadvisory' />"></i>
           </c:if>
           <a href="/rhn/errata/details/Details.do?eid=${errata.id}">${errata.advisory}</a><br/>
         </c:if>

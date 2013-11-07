@@ -10,13 +10,13 @@
   <td>
     <c:choose>
       <c:when test="${channel.configChannelType.label == 'normal'}">
-        <img alt='<bean:message key="config.common.globalAlt" />' src="/img/rhn-listicon-channel.gif" />
+        <i class="fa spacewalk-icon-software-channels" title="<bean:message key="config.common.globalAlt" />"></i>
       </c:when>
       <c:when test="${channel.configChannelType.label == 'local_override'}">
-        <img alt='<bean:message key="config.common.localAlt" />' src="/img/rhn-listicon-system.gif" />
+        <i class="fa fa-desktop" title="<bean:message key="config.common.localAlt" />"></i>
       </c:when>
       <c:otherwise>
-        <img alt='<bean:message key="config.common.sandboxAlt" />' src="/img/rhn-listicon-sandbox.png" />
+        <i class="fa spacewalk-icon-sandbox" title="<bean:message key="config.common.sandboxAlt" />"></i>
       </c:otherwise>
     </c:choose>
 
@@ -49,8 +49,7 @@
     	    * the login of the user
     	   --%>
     	  <c:set var="beanarg" scope="request">
-    	    <img alt="<bean:message key='user.common.userAlt' />"
-    	         src="/img/rhn-listicon-user.gif" />
+    	    <i class="fa fa-user" title="<bean:message key='user.common.userAlt' />"></i>
     	    <rhn:require acl="user_role(org_admin)">
     	      <a href="/rhn/users/UserDetails.do?uid=${lastUserId}">
     	    </rhn:require>

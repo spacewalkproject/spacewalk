@@ -15,7 +15,7 @@
 <pxt-include file="/network/components/system_groups/sgdc_header.pxi" />
 
     <h2>
-      <img src="/img/rhn-icon-errata.gif" alt="erratum" />
+      <i class="fa spacewalk-icon-patches" title="erratum"></i>
       Relevant Errata
     </h2>
 

@@ -41,18 +41,15 @@
               <i><bean:message key="sdcimportconfirm.jsp.new" /></i>
             </c:when>
             <c:when test="${current.configChannelType == 'normal'}">
-              <img alt='<bean:message key="config.common.globalAlt" />'
-    	           src="/img/rhn-listicon-channel.gif">
+              <i class="fa spacewalk-icon-software-channels" title="<bean:message key="config.common.globalAlt" />"></i>
     	      ${current.channelNameDisplay}
             </c:when>
             <c:when test="${current.configChannelType == 'local_override'}">
-              <img alt='<bean:message key="config.common.localAlt" />'
-                   src="/img/rhn-listicon-system.gif">
+              <i class="fa fa-desktop" title="<bean:message key="config.common.localAlt" />"></i>
               ${current.channelNameDisplay}
             </c:when>
             <c:otherwise>
-              <img alt='<bean:message key="config.common.sandboxAlt" />'
-                   src="/img/rhn-listicon-sandbox.png">
+              <i class="fa spacewalk-icon-sandbox" title="<bean:message key="config.common.sandboxAlt" />"></i>
               ${current.channelNameDisplay}
             </c:otherwise>
           </c:choose>
@@ -73,8 +70,7 @@
           <th><bean:message key="sdcimportconfirm.jsp.usedate"/></th>
         </tr>
         <tr>
-          <th><img src="/img/rhn-icon-schedule.gif" alt="<bean:message key='syncprofile.jsp.selection'/>"
-                                                  title="<bean:message key='syncprofile.jsp.selection'/>"/>
+          <th><i class="fa spacewalk-icon-schedule" title="<bean:message key='syncprofile.jsp.selection'/>"></i>
           </th>
           <td>
             <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">

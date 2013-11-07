@@ -76,22 +76,19 @@
              <td>
                 <div class="checkbox">
                   <html:checkbox property="errata_type_bug">
-                    <img src="/img/wrh-bug.gif"
-                        title="<bean:message key='erratalist.jsp.bugadvisory'/>" />
+                    <i class="fa fa-bug"></i>
                         <bean:message key="erratalist.jsp.bugadvisory"/>
                   </html:checkbox>
                 </div>
                 <div class="checkbox">
                 <html:checkbox property="errata_type_security">
-                    <img src="/img/wrh-security.gif"
-                        title="<bean:message key='erratalist.jsp.securityadvisory'/>" />
+                    <i class="fa fa-lock"></i>
                     <bean:message key="erratalist.jsp.securityadvisory"/>
                 </html:checkbox>
                 </div>
                 <div class="checkbox">
                 <html:checkbox property="errata_type_enhancement">
-                    <img src="/img/wrh-product.gif"
-                        title="<bean:message key='erratalist.jsp.productenhancementadvisory'/>" />
+                    <i class="fa  spacewalk-icon-enhancement"></i>
                     <bean:message key="erratalist.jsp.productenhancementadvisory"/>
                 </html:checkbox>
                 </div>
@@ -170,16 +167,13 @@
       <rl:column bound="false" sortable="true" sortattr="securityAdvisory"
         headerkey="erratalist.jsp.type">
 		<c:if test="${current.securityAdvisory}">
-		  <img src="/img/wrh-security.gif"
-		       title="<bean:message key='erratalist.jsp.securityadvisory'/>" />
+		  <i class="fa fa-lock"></i>
 		</c:if>
 		<c:if test="${current.bugFix}">
-		  <img src="/img/wrh-bug.gif"
-		       title="<bean:message key='erratalist.jsp.bugadvisory'/>" />
+		  <i class="fa fa-bug"></i>
 		</c:if>
 		<c:if test="${current.productEnhancement}">
-		  <img src="/img/wrh-product.gif"
-		       title="<bean:message key='erratalist.jsp.productenhancementadvisory'/>" />
+		  <i class="fa  spacewalk-icon-enhancement"></i>
 		</c:if>
       </rl:column>
 

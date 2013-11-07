@@ -12,7 +12,7 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-    <rhn:toolbar base="h1" img="/img/rhn-icon-bug-ex.gif">
+    <rhn:toolbar base="h1" icon="spacewalk-icon-bug-ex">
         <bean:message key="software.crashes"/>
     </rhn:toolbar>
 

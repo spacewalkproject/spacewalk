@@ -17,7 +17,7 @@
              		 reflinkkey="yourrhn.jsp.allwarningprobes"
              		 reflinkkeyarg0="${requestScope.warningReflinkkeyarg0}">
 				<rl:column headerkey="yourrhn.jsp.warningprobes">
-		    		<img src="/img/rhn-mon-warning.gif"/>
+		    		<i class="fa spacewalk-icon-monitoring-warning"></i>
     				<c:out value="${current.description}"/>
 				</rl:column>
 				<rl:column headerkey="yourrhn.jsp.systems">

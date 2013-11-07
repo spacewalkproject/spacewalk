@@ -5,8 +5,7 @@
 <body>
 
 <h1>
-  <img src="/img/rhn-icon-warning.gif"
-       alt="<bean:message key='error.common.errorAlt' />" />
+  <i class="fa fa-warning text-warning" title="<bean:message key='error.common.errorAlt' />"></i>
   <bean:message key="unknown.kickstart" />:
 </h1>
 

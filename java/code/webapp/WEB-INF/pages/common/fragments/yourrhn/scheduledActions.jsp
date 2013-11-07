@@ -17,13 +17,13 @@
     <rhn:column header="schedulesync.jsp.action">
     	<c:choose>
     		<c:when test="${current.actionStatusId == 0 || current.actionStatusId == 1}">
-    			<img src="/img/rhn-listicon-pending.gif" title="<bean:message key='yourrhn.jsp.actions.pending'/>" alt="<bean:message key='yourrhn.jsp.actions.pending'/>" />
+    			<i class="fa fa-clock-o" title="<bean:message key='yourrhn.jsp.actions.pending'/>"></i>
     		</c:when>
     		<c:when test="${current.actionStatusId == 2}">
-    			<img src="/img/rhn-listicon-ok.gif" title="<bean:message key='yourrhn.jsp.actions.completed'/>" alt="<bean:message key='yourrhn.jsp.actions.completed'/>" />
+    			<i class="fa fa-check text-success" title="<bean:message key='yourrhn.jsp.actions.completed'/>"></i>
     		</c:when>
     		<c:when test="${current.actionStatusId == 3}">
-    			<img src="/img/rhn-listicon-error.gif" title="<bean:message key='yourrhn.jsp.actions.failed'/>" alt="<bean:message key='yourrhn.jsp.actions.failed'/>" />
+    			<i class="fa fa-times-circle text-danger" title="<bean:message key='yourrhn.jsp.actions.failed'/>"></i>
     		</c:when>
     		<c:otherwise>
     			<i class="spacewalk-icon-unknown-system" title="<bean:message key='yourrhn.jsp.actions.unknown'/>"></i>
@@ -36,7 +36,7 @@
         			style="text-align: center;">
         <c:choose>
         	<c:when test="${current.userName != ''}">
-                <img src="/img/rhn-listicon-user.gif" alt="<bean:message key='yourrhn.jsp.user.alt'/>"  />
+                <i class="fa fa-user" title="<bean:message key='yourrhn.jsp.user.alt'/>"></i>
                 ${current.userName}	
             </c:when>
             <c:otherwise>

@@ -10,29 +10,19 @@
 			<c:out value="<a href=\"/network/systems/groups/probe_list.pxt?sgid=${current.id}\">" escapeXml="false" />
 
             <c:if test="${current.monitoringStatus == 'CRITICAL'}">
-                <img src="/img/rhn-mon-down.gif"
-                 alt="<bean:message key='systemlist.jsp.probecritical'/>"
-                 title="<bean:message key='systemlist.jsp.probecritical'/>" />
+                <i class="fa spacewalk-icon-monitoring-down" title="<bean:message key='systemlist.jsp.probecritical'/>"></i>
             </c:if>
             <c:if test="${current.monitoringStatus == 'WARNING'}">
-                <img src="/img/rhn-mon-warning.gif"
-                 alt="<bean:message key='systemlist.jsp.probewarning'/>"
-                 title="<bean:message key='systemlist.jsp.probewarning'/>" />
+                <i class="fa spacewalk-icon-monitoring-warning" title="<bean:message key='systemlist.jsp.probewarning'/>"></i>
             </c:if>
             <c:if test="${current.monitoringStatus == 'UNKNOWN'}">
-                <img src="/img/rhn-mon-unknown.gif"
-                 alt="<bean:message key='systemlist.jsp.probeunknown'/>"
-                 title="<bean:message key='systemlist.jsp.probeunknown'/>" />
+                <i class="fa spacewalk-icon-monitoring-unknown" title="<bean:message key='systemlist.jsp.probeunknown'/>"></i>
             </c:if>
             <c:if test="${current.monitoringStatus == 'PENDING'}">
-                <img src="/img/rhn-mon-pending.gif"
-                 alt="<bean:message key='systemlist.jsp.probepending'/>"
-                 title="<bean:message key='systemlist.jsp.probepending'/>" />
+                <i class="fa spacewalk-icon-monitoring-pending" title="<bean:message key='systemlist.jsp.probepending'/>"></i>
             </c:if>
             <c:if test="${current.monitoringStatus == 'OK'}">
-                <img src="/img/rhn-mon-ok.gif"
-                 alt="<bean:message key='systemlist.jsp.probeok'/>"
-                 title="<bean:message key='systemlist.jsp.probeok'/>" />
+                <i class="fa spacewalk-icon-monitoring-ok" title="<bean:message key='systemlist.jsp.probeok'/>"></i>
             </c:if>
 
   			<c:out value="</a>" escapeXml="false"/>

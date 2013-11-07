@@ -3,8 +3,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
           <h2>
-            <img src="/img/rhn-icon-schedule.gif"
-                 alt="<bean:message key='system.common.scheduleAlt' />" />
+            <i class="fa spacewalk-icon-schedule" title="<bean:message key='system.common.scheduleAlt' />"></i>
             <bean:message key="kickstart.schedule.heading3.jsp" />
           </h2>
           <c:choose>

@@ -8,7 +8,7 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
 <h2>
-  <img src="/img/rhn-config_files.gif" alt='<bean:message key="ssmdiff.jsp.imgAlt" />' />
+  <i class="fa spacewalk-icon-manage-configuration-files" title="<bean:message key="ssmdiff.jsp.imgAlt" />"></i>
   <bean:message key="difffiles.jsp.header" />
 </h2>
 
@@ -32,18 +32,15 @@
       <rhn:column header="difffiles.jsp.filename">
         <c:choose>
           <c:when test="${current.configFileType == 'file'}">
-            <img alt='<bean:message key="config.common.fileAlt" />'
-                 src="/img/rhn-listicon-cfg_file.gif" />
+            <i class="fa fa-file-text-o" title="<bean:message key="config.common.fileAlt" />"></i>
             <c:out value="${current.path}" />
           </c:when>
           <c:when test="${current.configFileType == 'directory'}">
-            <img alt='<bean:message key="config.common.dirAlt" />'
-                 src="/img/rhn-listicon-cfg_folder.gif" />
+            <i class="fa fa-folder-open-o" title="<bean:message key="config.common.dirAlt" />"></i>
             <c:out value="${current.path}" />
           </c:when>
           <c:otherwise>
-            <img alt='<bean:message key="config.common.symlinkAlt" />'
-                 src="/img/rhn-listicon-cfg_symlink.gif" />
+            <i class="fa spacewalk-icon-listicon-cfg-symlink" title="<bean:message key="config.common.symlinkAlt" />"></i>
           </c:otherwise>
         </c:choose>
       </rhn:column>
@@ -56,14 +53,12 @@
       <rhn:column header="config.common.configChannel"
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.configChannelId}">
         <c:if test="${current.configChannelType == 'normal'}">
-    	  <img alt='<bean:message key="config.common.globalAlt" />'
-    	       src="/img/rhn-listicon-channel.gif" />
+    	  <i class="fa spacewalk-icon-software-channels" title="<bean:message key="config.common.globalAlt" />"></i>
           ${current.channelNameDisplay}
         </c:if>
 
         <c:if test="${current.configChannelType == 'local_override'}">
-          <img alt='<bean:message key="config.common.localAlt" />'
-               src="/img/rhn-listicon-system.gif" />
+          <i class="fa fa-desktop" title="<bean:message key="config.common.localAlt" />"></i>
           ${current.channelNameDisplay}
         </c:if>
 

@@ -18,10 +18,10 @@
 		<rl:column headerkey="kickstart.distro.sw_managed.jsp" sortable="true" sortattr="cobbler">
 			<c:choose>
 	                    <c:when test="${current.cobbler}">
-				<img src="/img/rhn-listicon-error.gif">
+				<i class="fa fa-times-circle text-danger"></i>
 	                    </c:when>
 						<c:otherwise>
-							<img src="/img/rhn-listicon-checked.gif">
+							<i class="fa fa-check text-success"></i>
 			</c:otherwise>
                     </c:choose>
 		</rl:column>

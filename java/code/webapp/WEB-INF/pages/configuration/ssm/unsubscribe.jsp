@@ -9,7 +9,7 @@
 
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
 <h2>
-  <img src="/img/rhn-config_channels.gif" alt='<bean:message key="config.common.channelsAlt" />' />
+  <i class="fa spacewalk-icon-channels-config" title="<bean:message key="config.common.channelsAlt" />"></i>
   <bean:message key="unsubscribe.jsp.header"/>
 </h2>
 
@@ -29,7 +29,7 @@
 
       <rhn:column header="config.common.configChannel"
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.id}">
-        <img alt='<bean:message key="config.common.globalAlt" />' src="/img/rhn-listicon-channel.gif">
+        <i class="fa spacewalk-icon-software-channels" title="<bean:message key="config.common.globalAlt" />"></i>
         ${current.name}
       </rhn:column>
 

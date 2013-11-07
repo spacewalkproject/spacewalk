@@ -21,7 +21,7 @@
     </div>
 
     <h2>
-      <img src="/img/rhn-icon-patchset.gif" />
+      <i class="fa spacewalk-icon-patch-set"></i>
       <bean:message key="channel.manage.patchset.title"/>
 
     </h2>

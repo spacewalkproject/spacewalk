@@ -8,20 +8,16 @@
 	 	
     <rhn:column header="summary.jsp.status">
       <c:if test="${current.success}">
-        <img title='<bean:message key="summary.jsp.okAlt" />'
-             alt='<bean:message key="summary.jsp.okAlt" />'
-             src="/img/rhn-listicon-ok.gif" />
+        <i class="fa fa-check text-success" title="<bean:message key="summary.jsp.okAlt" />"></i>
       </c:if>
       <c:if test="${!current.success}">
-        <img title='<bean:message key="summary.jsp.errorAlt" />'
-             alt='<bean:message key="summary.jsp.errorAlt" />'
-        src="/img/rhn-listicon-error.gif" />
+        <i class="fa fa-times-circle text-danger" title="<bean:message key="summary.jsp.errorAlt" />"></i>
       </c:if>
     </rhn:column>
 
 	<rhn:column header="system.common.systemName"
 	  url="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">
-	  <img alt="" src="/img/rhn-listicon-system.gif"> ${current.name}
+	  <i class="fa fa-desktop" title=""></i> ${current.name}
     </rhn:column>
       	
     <rhn:column header="summary.jsp.error">

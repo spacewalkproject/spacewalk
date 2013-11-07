@@ -33,8 +33,7 @@
 			sortable="true"
 			sortattr="name">
 			<a href="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">
-			  <img src="/img/rhn-listicon-system.gif"
-			       alt="<bean:message key='system.common.systemAlt' />" />
+			  <i class="fa fa-desktop" title="<bean:message key='system.common.systemAlt' />"></i>
 			  ${current.name}
 			</a>
 		</rl:column>

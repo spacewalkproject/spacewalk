@@ -8,7 +8,7 @@
 
 <pxt-include file="/network/components/system_groups/sgdc_header.pxi" />
 
-    <rhn-toolbar base="h2" img="/img/rhn-icon-system_group.gif">
+    <rhn-toolbar base="h2" icon="spacewalk-icon-system-groups">
       Probe Status
     </rhn-toolbar>
 

@@ -25,13 +25,13 @@
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.id}">
         <c:choose>
           <c:when test="${requestScope.type == 'central'}">
-            <img alt='<bean:message key="config.common.globalAlt" />' src="/img/rhn-listicon-channel.gif" />
+            <i class="fa spacewalk-icon-software-channels" title="<bean:message key="config.common.globalAlt" />"></i>
           </c:when>
           <c:when test="${requestScope.type == 'local'}">
-            <img alt='<bean:message key="config.common.localAlt" />' src="/img/rhn-listicon-system.gif" />
+            <i class="fa fa-desktop" title="<bean:message key="config.common.localAlt" />"></i>
           </c:when>
           <c:otherwise>
-            <img alt='<bean:message key="config.common.sandboxAlt" />' src="/img/rhn-listicon-sandbox.png" />
+            <i class="fa spacewalk-icon-sandbox" title="<bean:message key="config.common.sandboxAlt" />"></i>
           </c:otherwise>
         </c:choose>
         ${current.nameDisplay}

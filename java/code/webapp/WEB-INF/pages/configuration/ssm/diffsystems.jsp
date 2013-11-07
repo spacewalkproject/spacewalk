@@ -9,14 +9,13 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
 <h2>
-  <img src="/img/rhn-config_files.gif" alt='<bean:message key="ssmdiff.jsp.imgAlt" />' />
+  <i class="fa spacewalk-icon-manage-configuration-files" title="<bean:message key="ssmdiff.jsp.imgAlt" />"></i>
   <bean:message key="diffsystems.jsp.header" />
 </h2>
 
   <div class="page-summary">
     <c:set var="beanarg" scope="request">
-      <img src="/img/rhn-listicon-cfg_file.gif"
-           alt="<bean:message key='config.common.fileAlt' />" />
+      <i class="fa fa-file-text-o" title="<bean:message key='config.common.fileAlt' />"></i>
       ${fn:escapeXml(requestScope.filepath)}
     </c:set>
     <p>
@@ -32,8 +31,7 @@
     <rhn:listdisplay filterBy="system.common.systemName">
       <rhn:column header="system.common.systemName"
                   url="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">
-        <img src="/img/rhn-listicon-system.gif"
-             alt="<bean:message key='system.common.systemAlt' />" />
+        <i class="fa fa-desktop" title="<bean:message key='system.common.systemAlt' />"></i>
         ${fn:escapeXml(current.name)}
       </rhn:column>
 

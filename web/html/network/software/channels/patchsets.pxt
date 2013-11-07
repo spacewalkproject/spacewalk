@@ -10,7 +10,7 @@
   <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
 
 <rhn-channel-details>
-    <h1><img src="/img/rhn-icon-channels.gif"  /> {channel_name}</h1>
+    <h1><i class="fa spacewalk-icon-software-channels"></i> {channel_name}</h1>
 </rhn-channel-details>
 
     <rhn-navi-nav prefix="channel_details" depth="0" file="/nav/channel_detail.xml" style="contentnav" />

@@ -10,8 +10,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <h2>
-	<img src="/img/rhn-icon-package_add.gif"
-	     alt="<bean:message key='${alt}'/>" />
+	<i class="fa spacewalk-icon-package-add" title="<bean:message key='${alt}'/>"></i>
 	<bean:message key="${pack_header}" />
 </h2>
 <div class="page-summary">

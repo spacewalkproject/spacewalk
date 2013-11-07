@@ -4,8 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <c:if test="${errata.securityAdvisory}">
-     <rhn:toolbar base="h1" img="/img/rhn-icon-security.gif"
-     						imgAlt="errata-legend.jsp.security"
+     <rhn:toolbar base="h1" icon="fa-lock"
+     						iconAlt="errata-legend.jsp.security"
 						helpUrl="/rhn/help/reference/en-US/s1-sm-errata.jsp#s3-sm-errata-details">
 	   <c:if test="${empty errata}">
 	 	 <decorator:getProperty property="meta.name" />
@@ -16,8 +16,8 @@
 	 </rhn:toolbar>
  </c:if>
  <c:if test="${errata.bugFix}">
-     <rhn:toolbar base="h1" img="/img/rhn-icon-bug.gif"
-     						imgAlt="errata-legend.jsp.bugfix"
+     <rhn:toolbar base="h1" icon="fa-bug"
+     						iconAlt="errata-legend.jsp.bugfix"
 						helpUrl="/rhn/help/reference/en-US/s1-sm-errata.jsp">
 	   <c:if test="${empty errata}">
 	 	 <decorator:getProperty property="meta.name" />
@@ -28,8 +28,8 @@
 	 </rhn:toolbar>
  </c:if>
  <c:if test="${errata.productEnhancement}">
-     <rhn:toolbar base="h1" img="/img/rhn-icon-enhancement.gif"
-     						imgAlt="errata-legend.jsp.enhancement"
+     <rhn:toolbar base="h1" icon=" spacewalk-icon-enhancement"
+     						iconAlt="errata-legend.jsp.enhancement"
 						helpUrl="/rhn/help/reference/en-US/s1-sm-errata.jsp">
 	   <c:if test="${empty errata}">
 	 	 <decorator:getProperty property="meta.name" />

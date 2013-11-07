@@ -10,7 +10,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
   <h2>
-    <img src="/img/rhn-icon-package_del.gif" />
+    <i class="fa spacewalk-icon-package-delete"></i>
     <bean:message key="install_patchset.jsp.header" />
   </h2>
 
