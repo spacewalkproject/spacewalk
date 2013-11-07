@@ -258,7 +258,10 @@ public class MockConnection extends CobblerConnection {
         boolean secondArgumentValid = args[1].equals("on") || args[1].equals("off") ||
             args[1].equals("reboot");
         boolean thirdArgumentValid = args[2].equals(token);
-        return firstArgumentValid && secondArgumentValid && thirdArgumentValid;
+        if (firstArgumentValid && secondArgumentValid && thirdArgumentValid) {
+            return 0;
+        }
+        return 1;
     }
     // images
     else if ("find_image".equals(name)) {
