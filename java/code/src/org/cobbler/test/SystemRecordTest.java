@@ -21,6 +21,7 @@ import com.redhat.rhn.testing.TestUtils;
 
 import org.cobbler.CobblerConnection;
 import org.cobbler.Distro;
+import org.cobbler.Image;
 import org.cobbler.Profile;
 import org.cobbler.SystemRecord;
 
@@ -123,6 +124,21 @@ public class SystemRecordTest extends BaseTestCaseWithUser {
         system.setPowerId(expected);
         assertEquals(expected, system.getPowerId());
         assertSystemKeyEquals(expected, SystemRecord.POWER_ID);
+    }
+
+    /**
+     * Test setter and getter for the associated image.
+     */
+    public void testSetGetImage() {
+        Image expected = Image.create(connection, "test", Image.TYPE_ISO, "dummy.file");
+        system.setImage(expected);
+        assertEquals(expected, system.getImage());
+        assertSystemKeyEquals(expected.getName(), SystemRecord.IMAGE);
+
+        expected = Image.create(connection, "test_two", Image.TYPE_ISO, "dummy.file");
+        system.setImage(expected.getName());
+        assertEquals(expected, system.getImage());
+        assertSystemKeyEquals(expected.getName(), SystemRecord.IMAGE);
     }
 
     /**
