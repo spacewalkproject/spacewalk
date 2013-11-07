@@ -15321,6 +15321,12 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
           <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="kickstart.powermanagement.not_configured">
+        <source>Cannot do power management on a system that has no saved configuration.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="kickstart.powermanagement.cannot_create_file">
         <source>Cannot create a necessary temporary file. Check disk space and permissions on /tmp.</source>
         <context-group name="ctx">
