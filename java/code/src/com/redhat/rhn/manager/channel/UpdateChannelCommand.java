@@ -100,7 +100,9 @@ public class UpdateChannelCommand extends CreateChannelCommand {
 
         if (ChannelFactory.doesChannelNameExist(name) &&
                 !name.equals(c.getName())) {
-            throw new InvalidChannelNameException();
+            throw new InvalidChannelNameException(name,
+                    InvalidChannelNameException.Reason.NAME_IN_USE,
+                    "edit.channel.invalidchannelname.nameinuse", name);
         }
 
         if (ChannelFactory.findArchByLabel(archLabel) == null) {
