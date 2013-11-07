@@ -50,6 +50,9 @@ public class Profile extends CobblerObject {
     private static final String VIRT_RAM = "virt_ram";
     private static final String DISTRO = "distro";
 
+    /** Cobbler profile name for default PXE boot */
+    public static final String BOOTSTRAP_NAME = "pxe-default-profile";
+
 
     private Profile(CobblerConnection clientIn) {
         client = clientIn;

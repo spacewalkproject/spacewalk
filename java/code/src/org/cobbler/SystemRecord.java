@@ -44,6 +44,8 @@ public class SystemRecord extends CobblerObject {
     private static final String SET_INTERFACES = "modify_interface";
     private static final String GET_INTERFACES = "interface";
     private static final String IPV6_AUTOCONF = "ipv6_autoconfiguration";
+    /** Cobbler system name for default PXE boot */
+    public static final String BOOTSTRAP_NAME = "default";
 
     private SystemRecord(CobblerConnection clientIn) {
         client = clientIn;
