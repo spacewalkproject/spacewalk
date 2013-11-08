@@ -653,23 +653,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "name", "name of the new channel")
      * @xmlrpc.param #param_desc("string", "summary" "summary of the channel")
      * @xmlrpc.param #param_desc("string", "archLabel",
-     *              "the label of the architecture the channel corresponds to")
-     *      #options()
-     *          #item_desc ("channel-ia32", "For 32 bit channel architecture")
-     *          #item_desc ("channel-ia64", "For 64 bit channel architecture")
-     *          #item_desc ("channel-sparc", "For Sparc channel architecture")
-     *          #item_desc ("channel-alpha", "For Alpha channel architecture")
-     *          #item_desc ("channel-s390", "For s390 channel architecture")
-     *          #item_desc ("channel-s390x", "For s390x  channel architecture")
-     *          #item_desc ("channel-iSeries", "For i-Series channel architecture")
-     *          #item_desc ("channel-pSeries", "For p-Series channel architecture")
-     *          #item_desc ("channel-x86_64", "For x86_64 channel architecture")
-     *          #item_desc ("channel-ppc", "For PPC channel architecture")
-     *          #item_desc ("channel-sparc-sun-solaris",
-     *                                  "For Sparc Solaris channel architecture")
-     *          #item_desc ("channel-i386-sun-solaris",
-     *                                  "For i386 Solaris channel architecture")
-     *      #options_end()
+     *              "the label of the architecture the channel corresponds to,
+     *              see channel.software.listArches API for complete listing")
      * @xmlrpc.param #param_desc("string", "parentLabel", "label of the parent of this
      *              channel, an empty string if it does not have one")
      * @xmlrpc.param #param_desc("string", "checksumType", "checksum type for this channel,
@@ -739,23 +724,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "name", "name of the new channel")
      * @xmlrpc.param #param_desc("string", "summary" "summary of the channel")
      * @xmlrpc.param #param_desc("string", "archLabel",
-     *              "the label of the architecture the channel corresponds to")
-     *      #options()
-     *          #item_desc ("channel-ia32", "For 32 bit channel architecture")
-     *          #item_desc ("channel-ia64", "For 64 bit channel architecture")
-     *          #item_desc ("channel-sparc", "For Sparc channel architecture")
-     *          #item_desc ("channel-alpha", "For Alpha channel architecture")
-     *          #item_desc ("channel-s390", "For s390 channel architecture")
-     *          #item_desc ("channel-s390x", "For s390x  channel architecture")
-     *          #item_desc ("channel-iSeries", "For i-Series channel architecture")
-     *          #item_desc ("channel-pSeries", "For p-Series channel architecture")
-     *          #item_desc ("channel-x86_64", "For x86_64 channel architecture")
-     *          #item_desc ("channel-ppc", "For PPC channel architecture")
-     *          #item_desc ("channel-sparc-sun-solaris",
-     *                                  "For Sparc Solaris channel architecture")
-     *          #item_desc ("channel-i386-sun-solaris",
-     *                                  "For i386 Solaris channel architecture")
-     *      #options_end()
+     *              "the label of the architecture the channel corresponds to,
+     *              see channel.software.listArches API for complete listing")
      * @xmlrpc.param #param_desc("string", "parentLabel", "label of the parent of this
      *              channel, an empty string if it does not have one")
      * @xmlrpc.param #param_desc("string", "checksumType", "checksum type for this channel,
@@ -803,23 +773,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "name", "name of the new channel")
      * @xmlrpc.param #param_desc("string", "summary" "summary of the channel")
      * @xmlrpc.param #param_desc("string", "archLabel",
-     *              "the label of the architecture the channel corresponds to")
-     *      #options()
-     *          #item_desc ("channel-ia32", "For 32 bit channel architecture")
-     *          #item_desc ("channel-ia64", "For 64 bit channel architecture")
-     *          #item_desc ("channel-sparc", "For Sparc channel architecture")
-     *          #item_desc ("channel-alpha", "For Alpha channel architecture")
-     *          #item_desc ("channel-s390", "For s390 channel architecture")
-     *          #item_desc ("channel-s390x", "For s390x  channel architecture")
-     *          #item_desc ("channel-iSeries", "For i-Series channel architecture")
-     *          #item_desc ("channel-pSeries", "For p-Series channel architecture")
-     *          #item_desc ("channel-x86_64", "For x86_64 channel architecture")
-     *          #item_desc ("channel-ppc", "For PPC channel architecture")
-     *          #item_desc ("channel-sparc-sun-solaris",
-     *                                  "For Sparc Solaris channel architecture")
-     *          #item_desc ("channel-i386-sun-solaris",
-     *                                  "For i386 Solaris channel architecture")
-     *      #options_end()
+     *              "the label of the architecture the channel corresponds to,
+     *              see channel.software.listArches API for complete listing")
      * @xmlrpc.param #param_desc("string", "parentLabel", "label of the parent of this
      *              channel, an empty string if it does not have one")
      * @xmlrpc.returntype int - 1 if the creation operation succeeded, 0 otherwise
