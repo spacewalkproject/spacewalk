@@ -90,14 +90,6 @@ DELETE FROM rhnOrgErrataCacheQueue WHERE org_id = :org_id
   </query>
 </write-mode>
 
-<write-mode name="insert_needed_package_cache">
-   <query params="server_id, errata_id, package_id">
-    INSERT INTO rhnServerNeededCache
-    (server_id, errata_id, package_id)
-	VALUES (:server_id, :errata_id, :package_id)
-   </query>
-</write-mode>
-
 <callable-mode name="update_needed_cache_for_channel">
   <query params="channel_id">
       {call rhn_channel.update_needed_cache(:channel_id)}

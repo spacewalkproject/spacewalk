@@ -122,7 +122,7 @@ public class ErrataCacheManager extends HibernateFactory {
     public static int insertNeededPackageCache(Long sid, Long errataId,
             Long packageId) {
         WriteMode m = ModeFactory.getWriteMode("ErrataCache_queries",
-                "insert_needed_package_cache");
+                "insert_needed_errata_cache");
         Map params = new HashMap();
         params.put("server_id", sid);
         params.put("errata_id", errataId);
