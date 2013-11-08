@@ -9,29 +9,25 @@
 <c:choose>
     <c:when test="${!inSSM}">
         <c:set var="actionLink" value="/rhn/systems/details/AddToSSM.do?sid=${system.id}"/>
-        <c:set var="actionMessage">
-          <bean:message key="toolbar.ssm.add"/>
-        </c:set>
-        <c:set var="actionIcon" value="icon-plus"/>
+        <c:set var="actionMessage" value="toolbar.ssm.add"/>
+        <c:set var="actionIcon" value="fa-plus-circle"/>
     </c:when>
     <c:otherwise>
         <c:set var="actionLink" value="/rhn/systems/details/RemoveFromSSM.do?sid=${system.id}"/>
-        <c:set var="actionMessage">
-          <bean:message key="toolbar.ssm.remove"/>
-        </c:set>
-        <c:set var="actionIcon" value="icon-minus"/>
+        <c:set var="actionMessage" value="toolbar.ssm.remove"/>
+        <c:set var="actionIcon" value="fa-times-circle-o"/>
     </c:otherwise>
 </c:choose>
 
 <c:choose>
     <c:when test="${system.virtualGuest}">
-        <c:set var="systemIcon" value="/img/virt-guest.png"/>
+        <c:set var="systemIcon" value="spacewalk-icon-virtual-guest"/>
     </c:when>
     <c:when test="${system.virtualHost}">
-        <c:set var="systemIcon" value="/img/virt-host.png"/>
+        <c:set var="systemIcon" value="spacewalk-icon-virtual-host"/>
     </c:when>
     <c:otherwise>
-        <c:set var="systemIcon" value="/img/rhn-icon-system.png"/>
+        <c:set var="systemIcon" value="fa-desktop"/>
     </c:otherwise>
 </c:choose>
 
