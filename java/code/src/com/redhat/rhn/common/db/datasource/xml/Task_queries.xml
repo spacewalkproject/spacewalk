@@ -501,76 +501,17 @@ ORDER BY next_action DESC
 
 <mode name="erratamailer_get_relevant_servers">
    <query params="errata_id,org_id, channel_id">
-    SELECT DISTINCT snv.server_id AS server_id, S.name, S.release, SA.name as arch,
-        urn.user_id
-      FROM (
---
-select rhnChannelErrata.errata_id, rhnChannelErrata.channel_id, rhnServerChannel.server_id, rhnErrataPackage.package_id
-from rhnChannelErrata, rhnErrataPackage, rhnChannelNewestPackage, rhnPackageEVR,
-        rhnServerChannel, rhnServerPackage, rhnPackageUpgradeArchCompat
-where rhnChannelErrata.errata_id = rhnErrataPackage.errata_id
---
-        and rhnChannelErrata.channel_id = rhnChannelNewestPackage.channel_id
-        and rhnErrataPackage.package_id = rhnChannelNewestPackage.package_id
---
-        and rhnChannelErrata.channel_id = rhnServerChannel.channel_id
-        and rhnChannelNewestPackage.name_id = rhnServerPackage.name_id
-        and rhnServerChannel.server_id = rhnServerPackage.server_id
---
-        and rhnChannelNewestPackage.evr_id = rhnPackageEVR.id
---
-        and rhnServerPackage.package_arch_id = rhnPackageUpgradeArchCompat.package_arch_id
-        and rhnPackageUpgradeArchCompat.package_upgrade_arch_id = rhnChannelNewestPackage.package_arch_id
---
-        and not exists (
-		-- rule out records where channels with lower id exist == get min
-                select 1 from rhnChannelPackage cp, rhnServerChannel csc
-                where cp.channel_id = csc.channel_id
-                        and rhnChannelNewestPackage.package_id = cp.package_id
-                        and rhnServerChannel.server_id = csc.server_id
-                        and cp.channel_id &lt; rhnChannelNewestPackage.channel_id
-                        and cp.channel_id = :channel_id
---                          ^ helping PostgreSQL 8.4 optimizer, see BZ#1024395 for details
-        )
-        and not exists (
-		-- rule out records where the server has the same package name with higher evr
-                select 1 from rhnServerPackage sp, rhnPackageEVR sevr, rhnPackageUpgradeArchCompat puac,
-                              rhnErrataPackage jep, rhnPackage jp
-                where rhnServerPackage.server_id = sp.server_id
-                        and rhnServerPackage.name_id = sp.name_id
-                        and sp.evr_id = sevr.id
-                        and rhnPackageEVR.evr &lt;= sevr.evr
-                        and rhnServerPackage.package_arch_id = puac.package_arch_id
-                        and puac.package_upgrade_arch_id = sp.package_arch_id
-                        and jep.errata_id = :errata_id and jep.package_id = jp.id and jp.name_id = sp.name_id
---                          ^ helping PostgreSQL 8.4 optimizer, see BZ#1024395 for details
-        )
-        and not exists (
-		-- rule out records where other channel provides the same package name with higher evr
-                select 1 from rhnServerChannel csc, rhnChannelNewestPackage ocnp, rhnPackageEVR oevr, rhnPackageUpgradeArchCompat puac
-                where rhnServerChannel.server_id = csc.server_id
-                        and csc.channel_id = ocnp.channel_id
-                        and rhnServerPackage.name_id = ocnp.name_id
-                        and ocnp.evr_id = oevr.id
-                        and rhnPackageEVR.evr &lt; oevr.evr
-                        and rhnServerPackage.package_arch_id = puac.package_arch_id
-                        and puac.package_upgrade_arch_id = ocnp.package_arch_id
-                        and csc.channel_id = :channel_id
---                          ^ helping PostgreSQL 8.4 optimizer, see BZ#1024395 for details
-        )
---
-  ) snv
-      JOIN rhnUserReceiveNotifications urn
-        ON snv.server_id = urn.server_id
-      JOIN rhnServerChannel sc
-        ON sc.server_id = snv.server_id
-      JOIN rhnServer S
-        ON S.id = SC.server_id
-      JOIN rhnServerArch sa
-        ON s.server_arch_id = sa.id
-     WHERE sc.channel_id = :channel_id
-       AND snv.errata_id = :errata_id
-       AND S.org_id = :org_id
+select distinct s.id as server_id, s.name, s.release, sa.name as arch, urn.user_id
+ from rhnServerNeededCache snc
+ join rhnServer s
+   on snc.server_id = s.id
+ join rhnServerArch sa
+   on s.server_arch_id = sa.id
+ join rhnUserReceiveNotifications urn
+   on urn.server_id = snc.server_id
+where snc.errata_id = :errata_id
+  and snc.channel_id = :channel_id
+  and s.org_id = :org_id
    </query>
 </mode>
 
