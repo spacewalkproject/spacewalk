@@ -793,8 +793,8 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
       delete from rhnServerNeededCache
         where server_id = server_id_in;
       insert into rhnServerNeededCache
-             (server_id, errata_id, package_id)
-        (select distinct sp.server_id, x.errata_id, p.id
+             (server_id, errata_id, package_id, channel_id)
+        (select distinct sp.server_id, x.errata_id, p.id, x.channel_id
            FROM (SELECT sp_sp.server_id, sp_sp.name_id,
 		        sp_sp.package_arch_id, max(sp_pe.evr) AS max_evr
                    FROM rhnServerPackage sp_sp
