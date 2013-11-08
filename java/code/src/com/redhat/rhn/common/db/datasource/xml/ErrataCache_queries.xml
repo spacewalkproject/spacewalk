@@ -100,10 +100,11 @@ DELETE FROM rhnOrgErrataCacheQueue WHERE org_id = :org_id
 <write-mode name="insert_new_cache_entries_by_packages">
   <!-- -->
   <query params="channel_id">
-  INSERT INTO rhnServerNeededCache (server_id, package_id)
+  INSERT INTO rhnServerNeededCache (server_id, package_id, channel_id)
 	  ( SELECT DISTINCT
 	     S.id as server_id,
 	     P.id as package_id
+             :channel_id as channel_id
 		FROM
 		     rhnPackage P,
 		     rhnServerPackageArchCompat SPAC,
@@ -135,11 +136,12 @@ DELETE FROM rhnOrgErrataCacheQueue WHERE org_id = :org_id
 <write-mode name="insert_new_cache_entries_by_errata">
   <!-- -->
   <query params="channel_id, errata_id">
-  INSERT INTO rhnServerNeededCache (server_id, errata_id, package_id)
+  INSERT INTO rhnServerNeededCache (server_id, errata_id, package_id, channel_id)
 	  ( SELECT DISTINCT
 	     S.id as server_id,
 	     :errata_id as errata_id,
 	     P.id as package_id
+             :channel_id as channel_id
 		FROM
 		     rhnPackage P,
 		     rhnServerPackageArchCompat SPAC,
