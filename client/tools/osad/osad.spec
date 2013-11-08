@@ -17,7 +17,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.30
+Version: 5.11.31
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -388,6 +388,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Fri Nov 08 2013 Milan Zazrivec <mzazrivec@redhat.com> 5.11.31-1
+- 917070 - catch jabberd connection errors
+
 * Thu Oct 10 2013 Michael Mraka <michael.mraka@redhat.com> 5.11.30-1
 - cleaning up old svn Ids
 
