@@ -113,24 +113,6 @@ public class ErrataCacheManager extends HibernateFactory {
     }
 
     /**
-     * Inserts record into NeededPackage cache table
-     * @param sid Server Id
-     * @param errataId Errata Id
-     * @param packageId Package Id
-     * @return number of rows affected.
-     */
-    public static int insertNeededPackageCache(Long sid, Long errataId,
-            Long packageId) {
-        WriteMode m = ModeFactory.getWriteMode("ErrataCache_queries",
-                "insert_needed_errata_cache");
-        Map params = new HashMap();
-        params.put("server_id", sid);
-        params.put("errata_id", errataId);
-        params.put("package_id", packageId);
-        return m.executeUpdate(params);
-    }
-
-    /**
      * Deletes record from NeededPackage cache table.
      * @param sid Server Id
      * @param errataId Errata Id

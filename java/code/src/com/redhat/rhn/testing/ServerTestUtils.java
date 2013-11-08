@@ -271,7 +271,7 @@ public class ServerTestUtils {
         upgradedPackage.setPackageEvr(upgradedPackageEvr);
         TestUtils.saveAndFlush(upgradedPackage);
 
-        ErrataCacheManager.insertNeededPackageCache(
+        ErrataCacheManager.insertNeededErrataCache(
                 server.getId(), errata.getId(), installedPackage.getId());
 
         return installedPackage;

@@ -1951,7 +1951,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Long sid = new Long(testServer.getId().longValue());
         Package pack = PackageTest.createTestPackage(admin.getOrg());
 
-        ErrataCacheManager.insertNeededPackageCache(sid, null,
+        ErrataCacheManager.insertNeededErrataCache(sid, null,
                 pack.getId());
 
         Object [] array =  handler.listOutOfDateSystems(regularKey);

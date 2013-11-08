@@ -104,7 +104,7 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         Long pid = pkg.getId();
 
         // insert record into table
-        int rows = ErrataCacheManager.insertNeededPackageCache(
+        int rows = ErrataCacheManager.insertNeededErrataCache(
                 sid, eid, pid);
         assertEquals(1, rows);
 
@@ -157,7 +157,7 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         userIn.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(userIn);
         TestUtils.flushAndEvict(userIn);
-        int rows = ErrataCacheManager.insertNeededPackageCache(
+        int rows = ErrataCacheManager.insertNeededErrataCache(
                 s.getId(), e.getId(), p.getId());
         assertEquals(1, rows);
         return retval;
@@ -176,7 +176,7 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         Long pid = pkg.getId();
 
         // insert record into table
-        int rows = ErrataCacheManager.insertNeededPackageCache(
+        int rows = ErrataCacheManager.insertNeededErrataCache(
                 sid, eid, pid);
         assertEquals(1, rows);
 
@@ -307,7 +307,7 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         Long pid = pkg.getId();
 
         // insert record into table
-        int rows = ErrataCacheManager.insertNeededPackageCache(
+        int rows = ErrataCacheManager.insertNeededErrataCache(
                 sid, eid, pid);
         assertEquals(1, rows);
 

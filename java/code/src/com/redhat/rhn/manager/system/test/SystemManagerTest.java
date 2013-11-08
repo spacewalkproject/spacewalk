@@ -382,7 +382,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
         for (Iterator itr = e.getPackages().iterator(); itr.hasNext();) {
             Package pkg = (Package) itr.next();
-            ErrataCacheManager.insertNeededPackageCache(server.getId(),
+            ErrataCacheManager.insertNeededErrataCache(server.getId(),
                     e.getId(), pkg.getId());
         }
 
@@ -1109,7 +1109,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
         for (Iterator itr = e.getPackages().iterator(); itr.hasNext();) {
             Package pkg = (Package) itr.next();
-            ErrataCacheManager.insertNeededPackageCache(server.getId(),
+            ErrataCacheManager.insertNeededErrataCache(server.getId(),
                     e.getId(), pkg.getId());
             List<SystemOverview> systems =
                 SystemManager.listSystemsWithNeededPackage(user, pkg.getId());
