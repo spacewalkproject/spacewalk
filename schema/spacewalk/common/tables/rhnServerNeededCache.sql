@@ -27,6 +27,10 @@ CREATE TABLE rhnServerNeededCache
     package_id  NUMBER NOT NULL
                     CONSTRAINT rhn_sncp_pid_fk
                         REFERENCES rhnPackage (id)
+                        ON DELETE CASCADE,
+    channel_id   NUMBER
+                    CONSTRAINT rhn_sncp_cid_fk
+                        REFERENCES rhnChannel (id)
                         ON DELETE CASCADE
 )
 ENABLE ROW MOVEMENT
@@ -41,6 +45,11 @@ CREATE INDEX rhn_snc_pid_idx
 
 CREATE INDEX rhn_snc_eid_idx
     ON rhnServerNeededCache (errata_id)
+    TABLESPACE [[128m_tbs]]
+    NOLOGGING;
+
+CREATE INDEX rhn_snc_cid_idx
+    ON rhnServerNeededCache (channel_id)
     TABLESPACE [[128m_tbs]]
     NOLOGGING;
 

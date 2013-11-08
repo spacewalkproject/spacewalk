@@ -163,7 +163,7 @@ rhnServerInfo                  :: rhnServer
 rhnServerUuid                  :: rhnServer
 rhnServerInstallInfo           :: rhnServer
 rhnServerLocation              :: rhnServer
-rhnServerNeededCache           :: web_customer rhnServer rhnErrata
+rhnServerNeededCache           :: web_customer rhnServer rhnErrata rhnChannel
 rhnServerNetwork               :: rhnServer
 rhnServerNotes                 :: rhnServer web_contact
 rhnServerPackage               :: rhnServer rhnPackageArch rhnPackageName rhnPackageEVR
