@@ -4,9 +4,9 @@
   Spacewalk build file, please indent 2 spaces. NO TABS!
 -->
 <project name="RHN" default="all" basedir=".">
-  <property name="tomcat" value="tomcat5" />
   <available file="/usr/share/java/tomcat6" type="dir" property="tomcat" value="tomcat6" />
   <available file="/usr/share/java/tomcat" type="dir" property="tomcat" value="tomcat7" />
+  <property name="tomcat" value="tomcat5" />
   <echo message="Importing buildconf/build-props-${tomcat}.xml" />
   <import file="buildconf/build-props-${tomcat}.xml" />
   <import file="buildconf/build-props.xml" />
