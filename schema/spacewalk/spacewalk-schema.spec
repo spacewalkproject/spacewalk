@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.1.25
+Version:        2.1.26
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Nov 11 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.26-1
+- fixed oracle equivalent checksums
+
 * Mon Nov 11 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.25-1
 - schema upgrade for rhnServerNeededCache
 - extended update_needed_cache() to insert channel_id
