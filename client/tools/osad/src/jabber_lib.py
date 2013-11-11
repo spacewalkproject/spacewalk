@@ -566,7 +566,7 @@ class JabberClient(jabber.Client):
         for retry in range(0,3):
             try:
                 jabber.Client.connect(self)
-            except except socket.error, e:
+            except socket.error, e:
                 log_error("Error connecting to jabber server: %s" % e)
                 raise JabberConnectionError(e)
 
