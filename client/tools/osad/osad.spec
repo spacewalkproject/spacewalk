@@ -17,7 +17,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.31
+Version: 5.11.32
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -388,6 +388,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Mon Nov 11 2013 Milan Zazrivec <mzazrivec@redhat.com> 5.11.32-1
+- remove extraneous 'except'
+
 * Fri Nov 08 2013 Milan Zazrivec <mzazrivec@redhat.com> 5.11.31-1
 - 917070 - catch jabberd connection errors
 
