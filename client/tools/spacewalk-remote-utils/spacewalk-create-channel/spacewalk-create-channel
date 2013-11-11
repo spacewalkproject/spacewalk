@@ -26,7 +26,7 @@ versions = ( "6", "5", "4", "3", "2.1" );
 releases = ( "AS", "ES", "WS", "Server", "Client", "Desktop", "Appliance",
 		"ComputeNode", "WebServer", "Workstation");
 arches = ( "i386",  "ia64",  "ppc",  "s390",  "s390x",  "x86_64", "ppc64");
-updates = ("GOLD", "U1", "U2", "U3", "U4", "U5", "U6", "U7", "U8", "U9" );
+updates = ("GOLD", "U1", "U2", "U3", "U4", "U5", "U6", "U7", "U8", "U9", "U10" );
 subrepos = ("VT", "Cluster", "ClusterStorage", "Workstation", "ResilientStorage",
 		"ScalableFileSystem", "LoadBalancer", "HighAvailability"); #RHEL 5 yum repos on the discs
 extras = ("Extras", "Supplementary"); #things shipped on other cds
