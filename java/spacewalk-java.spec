@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.69
+Version: 2.1.70
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Nov 11 2013 Tomas Lestach <tlestach@redhat.com> 2.1.70-1
+- fix $Serializer macro expansion in API doc
+
 * Mon Nov 11 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.69-1
 - reuse rhnServerNeededCache for errataqueue_find_autoupdate_servers
 - reuse rhnServerNeededCache content for ErrataMailer
