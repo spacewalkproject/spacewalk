@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 b6947eea546edc7a66c7b53d0b62dc734ce3ca8a
+-- oracle equivalent source sha1 4654e8979a0e16254c65bbc25229624c52de426c
 
 
 update pg_settings set setting = 'rhn_server,' || setting where name = 'search_path';
