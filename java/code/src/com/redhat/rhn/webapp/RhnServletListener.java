@@ -136,6 +136,12 @@ public class RhnServletListener implements ServletContextListener {
         stopHibernate();
         logStop("Hibernate");
 
+        if (sce == null) {
+            // this has been called from the testsuite, next steps would
+            // break subsequent tests
+            return;
+        }
+
         // This manually deregisters JDBC driver,
         // which prevents Tomcat from complaining about memory leaks
         Enumeration<Driver> drivers = DriverManager.getDrivers();
