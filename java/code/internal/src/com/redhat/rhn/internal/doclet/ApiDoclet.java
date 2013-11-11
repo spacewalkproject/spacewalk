@@ -172,8 +172,9 @@ public class ApiDoclet {
     private static List<ClassDoc> getSerializers(ClassDoc[] classes) {
         List<ClassDoc> serializers = new ArrayList<ClassDoc>();
         for (ClassDoc clas : classes) {
-
-            if (implInterface("XmlRpcCustomSerializer", clas)) {
+            ClassDoc baseSerializerIface = clas.findClass(
+                    "redstone.xmlrpc.XmlRpcCustomSerializer");
+            if (clas.subclassOf(baseSerializerIface)) {
                 serializers.add(clas);
             }
         }
@@ -206,17 +207,6 @@ public class ApiDoclet {
 
         Collections.sort(handlers);
         return handlers;
-    }
-
-    private static boolean implInterface(String iface, ClassDoc clas) {
-        ClassDoc[] interfaces = clas.interfaces();
-        for (ClassDoc interf : interfaces) {
-           //System.out.println(interf.name() + " " + clas);
-            if (interf.name().equals(iface)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private static Tag getFirst(Tag[] tags) {
