@@ -366,7 +366,7 @@ sub command_pg_restore {
   $EUID = $rec[2];
   $cli->fatal("Error: file $file is not readable by user $rec[0]") unless -r $file;
 
-  my $service_status = system('service postgresql status >/dev/null 2>&1');
+  my $service_status = system('service ' . Dobby::CLI::MiscCommands->pg_version() . ' status >/dev/null 2>&1');
   $cli->fatal("PostgreSQL database is not running.\n"
              ."Run 'service postgresql start' to start it.") unless $service_status == 0;
 

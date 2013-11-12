@@ -35,7 +35,12 @@ proactive and increase the storage before getting to 100% usage."
    exit 0
 }
 
-REPORTUSAGE=$(df -hP /var/lib/pgsql/data/)
+DATADIR="/var/lib/pgsql/data/"
+rpm -q postgresql92-postgresql > /dev/null
+if [ $? == 0 ]; then
+   DATADIR="/opt/rh/postgresql92/root/var/lib/pgsql/data/"
+fi
+REPORTUSAGE=$(df -hP $DATADIR)
 NUMBERS=$(echo "$REPORTUSAGE" | awk '{if (FNR > 1) {sub("%",""); print $5}}')
 
 for num in $NUMBERS
