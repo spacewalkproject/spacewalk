@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.70
+Version: 2.1.71
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Nov 12 2013 Tomas Lestach <tlestach@redhat.com> 2.1.71-1
+- 1029066 - enhance Package.listOrphans query
+- TestFactoryWrapperTest: avoid adding TestImpl.hbm.xml twice
+- RhnServletListener: do not break subsequent testcases
+
 * Mon Nov 11 2013 Tomas Lestach <tlestach@redhat.com> 2.1.70-1
 - fix $Serializer macro expansion in API doc
 
