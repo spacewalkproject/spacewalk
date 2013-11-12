@@ -223,10 +223,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="Package.listOrphans">
     	<![CDATA[ select p
     		from com.redhat.rhn.domain.rhnpackage.Package as p
-		where p.org = :org and not exists (
-				select  p
-				from com.redhat.rhn.domain.channel.Channel c
-				where p in elements(c.packages)  )
+		where p.org = :org and p.channels is empty
     	]]>
     </query>
 
