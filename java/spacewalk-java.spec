@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.0.5
+Version: 2.0.6
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -771,6 +771,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Nov 12 2013 Tomas Lestach <tlestach@redhat.com> 2.0.6-1
+- CVE-2013-4480 - restrict user creation to org_admin only
+- CVE-2013-4480 - restrict first user creation with need_first_user acl
+
 * Mon Aug 05 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.5-1
 - Revert "987977 - Fix chaining of pkg-scheduling in SSM"
 - Revert "987977 - Fix there-can-be-solaris issue and make Upgrade behave like
