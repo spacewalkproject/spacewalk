@@ -76,21 +76,23 @@ public class DeleteCustomDataAction extends RhnAction {
                 .setEntity("key", key)
                 .setCacheable(true).uniqueResult();
 
-        request.setAttribute(CIKID_PARAM, cikid);
-        request.setAttribute(LABEL_PARAM, cdv.getKey().getLabel());
-        request.setAttribute(DESC_PARAM, cdv.getValue());
-        request.setAttribute(CREATOR_PARAM, cdv.getCreator().getLogin());
-        request.setAttribute(CREATED_PARAM, cdv.getCreated());
-        if (cdv.getLastModifier() != null) {
-            request.setAttribute(LAST_MODIFIER_PARAM, cdv.getLastModifier().getLogin());
+        if (cdv != null) {
+            request.setAttribute(CIKID_PARAM, cikid);
+            request.setAttribute(LABEL_PARAM, cdv.getKey().getLabel());
+            request.setAttribute(DESC_PARAM, cdv.getValue());
+            request.setAttribute(CREATOR_PARAM, cdv.getCreator().getLogin());
+            request.setAttribute(CREATED_PARAM, cdv.getCreated());
+            if (cdv.getLastModifier() != null) {
+                request.setAttribute(LAST_MODIFIER_PARAM, cdv.getLastModifier().getLogin());
+            }
+            else {
+                request.setAttribute(LAST_MODIFIER_PARAM, "");
+            }
+            request.setAttribute(MODIFIED_PARAM, cdv.getModified());
+            request.setAttribute("system", server);
         }
-        else {
-            request.setAttribute(LAST_MODIFIER_PARAM, "");
-        }
-        request.setAttribute(MODIFIED_PARAM, cdv.getModified());
-        request.setAttribute("system", server);
 
-        if (requestContext.isSubmitted()) {
+        if (cdv == null || requestContext.isSubmitted()) {
             ServerFactory.removeCustomDataValue(server, key);
 
             return getStrutsDelegate().forwardParams(mapping.findForward("deleted"),
