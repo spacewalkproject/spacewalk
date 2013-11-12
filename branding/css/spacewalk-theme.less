@@ -308,8 +308,9 @@ header {
 
 /* Icons Legend */
 aside .sideleg {
-	background: lighten(@gray-lighter, 10%);
+	background: @spacewalk-icon-legend;
 	width: 90%;
+	color: @spacewalk-icon-legend-text;
 	padding: .5em 1em;
 	border-radius: 4px;
 	margin: 2em auto;
@@ -414,7 +415,7 @@ aside .nav > li > a {
 		background: @spacewalk-list-second-submenu-hover;
 	}
 	ul>ul>ul li:last-child {
-		border-bottom: 1px solid #c4c4c4;
+		border-bottom: 1px solid @spacewalk-list-second-submenu-last-line;
 	}
 
 }
