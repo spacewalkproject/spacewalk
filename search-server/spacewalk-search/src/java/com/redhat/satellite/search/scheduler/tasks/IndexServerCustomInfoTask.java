@@ -62,7 +62,7 @@ public class IndexServerCustomInfoTask extends GenericIndexTask {
             }
             idSet = new HashSet<String>();
             for (ServerCustomInfo scInfo : ids) {
-                idSet.add(scInfo.getUniqId());
+                idSet.add(new Long(scInfo.getId()).toString());
             }
             uniqField = getUniqueFieldId();
             indexName = getIndexName();
@@ -93,7 +93,7 @@ public class IndexServerCustomInfoTask extends GenericIndexTask {
             throws ClassCastException {
         ServerCustomInfo scInfo = (ServerCustomInfo)data;
         Map<String, String> attrs = new HashMap<String, String>();
-        attrs.put("uniqId", scInfo.getUniqId());
+        attrs.put("id", new Long(scInfo.getId()).toString());
         attrs.put("serverId", new Long(scInfo.getServerId()).toString());
         attrs.put("value", scInfo.getValue());
         attrs.put("label", scInfo.getLabel());
@@ -156,7 +156,7 @@ public class IndexServerCustomInfoTask extends GenericIndexTask {
      * {@inheritDoc}
      */
     public String getUniqueFieldId() {
-        return "uniqId";
+        return "id";
     }
     /**
      * {@inheritDoc}

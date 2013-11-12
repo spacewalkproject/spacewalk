@@ -33,17 +33,17 @@ public class ServerCustomInfo extends GenericRecord {
      *
      * @param serverIdIn server id
      * @param keyIdIn key id
-     * @return string based on server id and key id
+     * @return long based on server id and key id
      */
-    public static String makeUniqId(long serverIdIn, long keyIdIn) {
-        return serverIdIn + "-" + keyIdIn;
+    public static long makeUniqId(long serverIdIn, long keyIdIn) {
+        return new Long("" + serverIdIn + keyIdIn);
     }
 
     /**
      *
-     * @return uniqId
+     * @return unique id for a server/custom info key pair
      */
-    public String getUniqId() {
+    public long getId() {
         return makeUniqId(serverId, keyId);
     }
     /**
