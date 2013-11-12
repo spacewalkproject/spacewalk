@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.84
+Version: 1.9.85
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Nov 12 2013 Tomas Lestach <tlestach@redhat.com> 1.9.85-1
+- CVE-2013-4480 - restrict user creation to org_admin only
+- CVE-2013-4480 - restrict first user creation with need_first_user acl
+
 * Wed Mar 13 2013 Stephen Herr <sherr@redhat.com> 1.9.84-1
 - 920813 - update to latest tree, not alphabetically last tree
 - 920489 - no longer allow change of the type of the key bu the action expects
