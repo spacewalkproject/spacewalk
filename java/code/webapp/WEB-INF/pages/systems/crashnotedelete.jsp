@@ -19,8 +19,7 @@
                 </a>
             </span>
         </div>
-        <i class="fa spacewalk-icon-bug-ex" title="<bean:message key="></i>"
-             title="<bean:message key="info.alt.img"/>"/>
+        <i class="fa spacewalk-icon-bug-ex" title="<bean:message key='info.alt.img'/>"></i>
         ${fn:escapeXml(crash.crash)}
     </div>
 
