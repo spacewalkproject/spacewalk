@@ -48,6 +48,9 @@ elif [ "$(spacewalk-cfg-get db_backend)" = "postgresql" ]; then
     if [ -x /etc/init.d/postgresql ]; then
         DB_SERVICE="postgresql"
     fi
+    if [ -x /etc/init.d/postgresql92-postgresql ]; then
+        DB_SERVICE="postgresql92-postgresql"
+    fi
 fi
 
 MONITORING_ENABLED=`awk -F= '! /[[:space:]]*#/ && /web.is_monitoring_backend/ {gsub(/[[:space:]]*/,""); print $2}' $RHN_CONF_FILE`
