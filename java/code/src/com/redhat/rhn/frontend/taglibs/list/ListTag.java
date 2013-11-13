@@ -429,6 +429,321 @@ public class ListTag extends BodyTagSupport {
         return BodyTagSupport.EVAL_PAGE;
     }
 
+    private void doAfterBodyRenderTopAddons() throws JspException {
+        setupManipulator();
+        manip.sort();
+        pageData = manip.getPage();
+
+        StringWriter topAlphaBarContent = new StringWriter();
+        StringWriter topPaginationContent = new StringWriter();
+        StringWriter topAddonsContent = new StringWriter();
+        StringWriter topExtraContent = new StringWriter();
+
+        pageContext.pushBody(topAlphaBarContent);
+        if (!manip.isListEmpty() && !StringUtils.isBlank(alphaBarColumn)) {
+            AlphaBarHelper.getInstance().writeAlphaBar(pageContext,
+                    manip.getAlphaBarIndex(), getUniqueName());
+        }
+        pageContext.popBody();
+
+        pageContext.pushBody(topPaginationContent);
+        if (!isEmpty()) {
+            for (ListDecorator dec : getDecorators()) {
+                dec.setCurrentList(this);
+                dec.beforeTopPagination();
+            }
+        }
+        renderTopPaginationControls();
+        pageContext.popBody();
+
+        pageContext.pushBody(topAddonsContent);
+        if (!isEmpty()) {
+            for (ListDecorator dec : getDecorators()) {
+                dec.setCurrentList(this);
+                dec.onTopExtraAddons();
+            }
+        }
+        pageContext.popBody();
+
+        int topContentLength = topAddonsContent.getBuffer().length() +
+                topAlphaBarContent.getBuffer().length() +
+                topPaginationContent.getBuffer().length() +
+                topExtraContent.getBuffer().length();
+
+        if (topContentLength > 0) {
+            ListTagUtil.write(pageContext,
+                    "<div class=\"spacewalk-list-top-addons\">");
+            ListTagUtil.write(pageContext,
+                    "<div class=\"spacewalk-list-alphabar\">");
+            ListTagUtil.write(pageContext, topAlphaBarContent.toString());
+            ListTagUtil.write(pageContext, "</div>");
+            ListTagUtil.write(pageContext,
+                    "<div class=\"spacewalk-list-pagination\">");
+            ListTagUtil.write(pageContext, topPaginationContent.toString());
+            ListTagUtil.write(pageContext, "</div>");
+            ListTagUtil.write(pageContext,
+                    "<div class=\"spacewalk-list-top-addons-extra\">");
+            ListTagUtil.write(pageContext, topAddonsContent.toString());
+            ListTagUtil.write(pageContext, "</div>");
+            ListTagUtil.write(pageContext, "</div>");
+            ListTagUtil.write(pageContext,
+                    "<div class=\"spacewalk-list-top-extra\">");
+            ListTagUtil.write(pageContext, "</div>");
+        }
+
+        ListTagUtil.write(pageContext, "<div class=\"panel panel-default\">");
+        // as the header addons is populated with decorators, we don't
+        // know if there will be content or not, but we want to avoid
+        // writing the head tag at all if there is none, so we push a
+        // buffer into the stack, and empty it later.
+        StringWriter headAddons = new StringWriter();
+        StringWriter headFilterContent = new StringWriter();
+        StringWriter headExtraContent = new StringWriter();
+
+        pageContext.pushBody(headAddons);
+        if (!isEmpty()) {
+            for (ListDecorator dec : getDecorators()) {
+                dec.setCurrentList(this);
+                dec.onHeadExtraAddons();
+            }
+        }
+        pageContext.popBody();
+
+        pageContext.pushBody(headFilterContent);
+        if (filter != null && manip.getUnfilteredDataSize() !=  0) {
+            ListTagUtil.renderFilterUI(pageContext, filter,
+                        getUniqueName(), width, columnCount,
+                        searchParent, searchChild);
+        }
+        pageContext.popBody();
+
+        pageContext.pushBody(headExtraContent);
+        if (!isEmpty()) {
+            for (ListDecorator dec : getDecorators()) {
+                dec.setCurrentList(this);
+                dec.onHeadExtraContent();
+            }
+        }
+        pageContext.popBody();
+
+        int headContentLength = headFilterContent.getBuffer().length() +
+                headAddons.getBuffer().length() +
+                headExtraContent.getBuffer().length();
+        if (!StringUtils.isBlank(title)) {
+            headContentLength += title.length();
+        }
+
+        // this avoid render the row is there is no content at all
+        if (headContentLength > 0) {
+            ListTagUtil.write(pageContext, "<div class=\"panel-heading\">");
+         // only if there is a title, add a panel-heading
+            if (!StringUtils.isBlank(title)) {
+                HtmlTag h3 = new HtmlTag("h3");
+                h3.setAttribute("class", "panel-title");
+                h3.addBody(title);
+                ListTagUtil.write(pageContext, h3.render());
+            }
+            // render the navigation and filters as a row of the header
+
+            ListTagUtil.write(pageContext,
+                    "<div class=\"spacewalk-list-head-addons\">");
+
+            ListTagUtil.write(pageContext,
+                    "<div class=\"spacewalk-list-filter\">");
+            ListTagUtil.write(pageContext, headFilterContent.toString());
+            ListTagUtil.write(pageContext, "</div>");
+            ListTagUtil.write(pageContext,
+                    "<div class=\"spacewalk-list-head-addons-extra\">");
+            ListTagUtil.write(pageContext, headAddons.toString());
+            ListTagUtil.write(pageContext, "</div>");
+
+            ListTagUtil.write(pageContext, "</div>");
+
+            ListTagUtil.write(pageContext,
+                    "<div class=\"spacewalk-list-head-extra\">");
+            ListTagUtil.write(pageContext, headExtraContent.toString());
+            ListTagUtil.write(pageContext, "</div>");
+            // close the panel heading
+            ListTagUtil.write(pageContext, "</div>");
+        }
+
+        HttpServletRequest request = (HttpServletRequest) pageContext
+                .getRequest();
+        manip.bindPaginationInfo();
+        request.setAttribute("dataSize", String
+               .valueOf(pageData.size() + 1));
+        ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
+            ListCommand.TBL_ADDONS);
+        if (pageData != null && pageData.size() > 0) {
+            iterator = pageData.iterator();
+        }
+        else {
+            iterator = null;
+        }
+    }
+
+    private int doAfterBodyRenderFooter() throws JspException {
+        ListTagUtil.write(pageContext, "</tr>");
+        ListTagUtil.write(pageContext, "</thead>");
+
+        if (manip.isListEmpty()) {
+            renderEmptyList();
+            ListTagUtil.write(pageContext, "</table>");
+            // close panel
+            ListTagUtil.write(pageContext, "</div>");
+            // close list
+            ListTagUtil.write(pageContext, "</div>");
+
+            return BodyTagSupport.SKIP_BODY;
+        }
+        ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
+                ListCommand.RENDER);
+        if (iterator.hasNext()) {
+            Object obj = iterator.next();
+            if (RhnListTagFunctions.isExpandable(obj)) {
+                parentObject = obj;
+            }
+            currentObject = obj;
+        }
+        else {
+            currentObject = null;
+        }
+        if (currentObject == null) {
+            ListTagUtil.write(pageContext, "</tbody>");
+            ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
+                    ListCommand.TBL_FOOTER);
+        }
+        else {
+            ListTagUtil.write(pageContext, "<tr");
+            renderRowClassAndId();
+
+            ListTagUtil.write(pageContext, ">");
+            pageContext.setAttribute(rowName, currentObject);
+        }
+        return BodyTagSupport.EVAL_BODY_AGAIN;
+    }
+
+    private void doAfterBodyRenderColHeaders() throws JspException {
+        startTable();
+        ListTagUtil.write(pageContext, "<thead>");
+        // open the row tag for the column header th's
+        ListTagUtil.write(pageContext, "<tr>");
+        ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
+                ListCommand.COL_HEADER);
+    }
+
+    private int doAfterBodyRenderFooterAddons() throws JspException {
+        ListTagUtil.write(pageContext, "</table>");
+        // as the footer addons are populated with decorators, we don't
+        // know if there will be content or not, but we want to avoid
+        // writing the tfoot tag at all if there is none, so we push a
+        // buffer into the stack, and empty it later.
+        StringWriter footAddonsContent = new StringWriter();
+        StringWriter footLinksContent = new StringWriter();
+        StringWriter footExtraContent = new StringWriter();
+
+        pageContext.pushBody(footAddonsContent);
+        if (!manip.isListEmpty()) {
+            for (ListDecorator dec : getDecorators()) {
+                dec.setCurrentList(this);
+                dec.onFooterExtraAddons();
+                dec.setCurrentList(null);
+            }
+        }
+        pageContext.popBody();
+
+        pageContext.pushBody(footExtraContent);
+        if (!manip.isListEmpty()) {
+            for (ListDecorator dec : getDecorators()) {
+                dec.setCurrentList(this);
+                dec.onFooterExtraContent();
+                dec.setCurrentList(null);
+            }
+        }
+        pageContext.popBody();
+
+        pageContext.pushBody(footLinksContent);
+        // if there is reference links, put them as a panel footer
+        if ((refLink != null) && (!isEmpty())) {
+
+            ListTagUtil.write(pageContext, "<a href=\"" + refLink + "\" >");
+            /* Here we render the reflink and its key. If the key hasn't been set
+             * we just display the link address itself.
+             */
+            if (refLinkKey != null) {
+                Object[] args = new Object[2];
+                args[0] = new Integer(getPageRowCount());
+                args[1] = refLinkKeyArg0;
+                String message = LocalizationService.getInstance().
+                    getMessage(refLinkKey, args);
+
+                ListTagUtil.write(pageContext, message);
+            }
+            else {
+                ListTagUtil.write(pageContext, refLink);
+            }
+
+            ListTagUtil.write(pageContext, "</a>");
+        }
+        pageContext.popBody();
+
+        int footerContentLength = footLinksContent.getBuffer().length() +
+                footAddonsContent.getBuffer().length() +
+                footExtraContent.getBuffer().length();
+
+        if (footerContentLength > 0) {
+            ListTagUtil.write(pageContext, "<div class=\"panel-footer\">");
+            ListTagUtil.write(pageContext,
+                    "<div class=\"spacewalk-list-footer-addons\">");
+            ListTagUtil.write(pageContext,
+                    "<div class=\"spacewalk-list-reflinks\">");
+            ListTagUtil.write(pageContext, footLinksContent.toString());
+            ListTagUtil.write(pageContext, "</div>");
+            ListTagUtil.write(pageContext,
+                    "<div class=\"spacewalk-list-footer-addons-extra\">");
+            ListTagUtil.write(pageContext, footAddonsContent.toString());
+            ListTagUtil.write(pageContext, "</div>");
+            ListTagUtil.write(pageContext, "</div>");
+            ListTagUtil.write(pageContext,
+                    "<div class=\"spacewalk-list-footer-extra\">");
+            ListTagUtil.write(pageContext, footExtraContent.toString());
+            ListTagUtil.write(pageContext, "</div>");
+            // closes the panel footer
+            ListTagUtil.write(pageContext, "</div>");
+        }
+
+        // close the panel
+        ListTagUtil.write(pageContext, "</div>");
+
+        ListTagUtil.write(pageContext,
+                "<div class=\"spacewalk-list-bottom-addons\">");
+        renderFooterPaginationControls();
+        ListTagUtil.write(pageContext,
+                "<div class=\"spacewalk-list-bottom-addons-extra\">");
+        if (!isEmpty()) {
+            for (ListDecorator dec : getDecorators()) {
+                dec.setCurrentList(this);
+                dec.onBottomExtraAddons();
+            }
+        }
+        ListTagUtil.write(pageContext, "</div>");
+        ListTagUtil.write(pageContext, "</div>");
+        ListTagUtil.write(pageContext,
+                "<div class=\"spacewalk-list-bottom-addons-extra\">");
+        if (!isEmpty()) {
+            for (ListDecorator dec : getDecorators()) {
+                dec.setCurrentList(this);
+                dec.onBottomExtraContent();
+            }
+        }
+        ListTagUtil.write(pageContext, "</div>");
+        // we render the hidden fields outside of the table
+        if (isSortable()) {
+            renderSortableHiddenFields();
+        }
+        return BodyTagSupport.SKIP_BODY;
+    }
+
     /**
      * ${@inheritDoc}
      */
@@ -449,319 +764,17 @@ public class ListTag extends BodyTagSupport {
                     ListCommand.TBL_HEADING);
         }
         else if (haveColsEnumerated && !haveTblAddonsRendered) {
-
-            setupManipulator();
-            manip.sort();
-            pageData = manip.getPage();
-
-            StringWriter topAlphaBarContent = new StringWriter();
-            StringWriter topPaginationContent = new StringWriter();
-            StringWriter topAddonsContent = new StringWriter();
-            StringWriter topExtraContent = new StringWriter();
-
-            pageContext.pushBody(topAlphaBarContent);
-            if (!manip.isListEmpty() && !StringUtils.isBlank(alphaBarColumn)) {
-                AlphaBarHelper.getInstance().writeAlphaBar(pageContext,
-                        manip.getAlphaBarIndex(), getUniqueName());
-            }
-            pageContext.popBody();
-
-            pageContext.pushBody(topPaginationContent);
-            if (!isEmpty()) {
-                for (ListDecorator dec : getDecorators()) {
-                    dec.setCurrentList(this);
-                    dec.beforeTopPagination();
-                }
-            }
-            renderTopPaginationControls();
-            pageContext.popBody();
-
-            pageContext.pushBody(topAddonsContent);
-            if (!isEmpty()) {
-                for (ListDecorator dec : getDecorators()) {
-                    dec.setCurrentList(this);
-                    dec.onTopExtraAddons();
-                }
-            }
-            pageContext.popBody();
-
-            int topContentLength = topAddonsContent.getBuffer().length() +
-                    topAlphaBarContent.getBuffer().length() +
-                    topPaginationContent.getBuffer().length() +
-                    topExtraContent.getBuffer().length();
-
-            if (topContentLength > 0) {
-                ListTagUtil.write(pageContext,
-                        "<div class=\"spacewalk-list-top-addons\">");
-                ListTagUtil.write(pageContext,
-                        "<div class=\"spacewalk-list-alphabar\">");
-                ListTagUtil.write(pageContext, topAlphaBarContent.toString());
-                ListTagUtil.write(pageContext, "</div>");
-                ListTagUtil.write(pageContext,
-                        "<div class=\"spacewalk-list-pagination\">");
-                ListTagUtil.write(pageContext, topPaginationContent.toString());
-                ListTagUtil.write(pageContext, "</div>");
-                ListTagUtil.write(pageContext,
-                        "<div class=\"spacewalk-list-top-addons-extra\">");
-                ListTagUtil.write(pageContext, topAddonsContent.toString());
-                ListTagUtil.write(pageContext, "</div>");
-                ListTagUtil.write(pageContext, "</div>");
-                ListTagUtil.write(pageContext,
-                        "<div class=\"spacewalk-list-top-extra\">");
-                ListTagUtil.write(pageContext, "</div>");
-            }
-
-            ListTagUtil.write(pageContext, "<div class=\"panel panel-default\">");
-            // as the header addons is populated with decorators, we don't
-            // know if there will be content or not, but we want to avoid
-            // writing the head tag at all if there is none, so we push a
-            // buffer into the stack, and empty it later.
-            StringWriter headAddons = new StringWriter();
-            StringWriter headFilterContent = new StringWriter();
-            StringWriter headExtraContent = new StringWriter();
-
-            pageContext.pushBody(headAddons);
-            if (!isEmpty()) {
-                for (ListDecorator dec : getDecorators()) {
-                    dec.setCurrentList(this);
-                    dec.onHeadExtraAddons();
-                }
-            }
-            pageContext.popBody();
-
-            pageContext.pushBody(headFilterContent);
-            if (filter != null && manip.getUnfilteredDataSize() !=  0) {
-                ListTagUtil.renderFilterUI(pageContext, filter,
-                            getUniqueName(), width, columnCount,
-                            searchParent, searchChild);
-            }
-            pageContext.popBody();
-
-            pageContext.pushBody(headExtraContent);
-            if (!isEmpty()) {
-                for (ListDecorator dec : getDecorators()) {
-                    dec.setCurrentList(this);
-                    dec.onHeadExtraContent();
-                }
-            }
-            pageContext.popBody();
-
-            int headContentLength = headFilterContent.getBuffer().length() +
-                    headAddons.getBuffer().length() +
-                    headExtraContent.getBuffer().length();
-            if (!StringUtils.isBlank(title)) {
-                headContentLength += title.length();
-            }
-
-            // this avoid render the row is there is no content at all
-            if (headContentLength > 0) {
-                ListTagUtil.write(pageContext, "<div class=\"panel-heading\">");
-             // only if there is a title, add a panel-heading
-                if (!StringUtils.isBlank(title)) {
-                    HtmlTag h3 = new HtmlTag("h3");
-                    h3.setAttribute("class", "panel-title");
-                    h3.addBody(title);
-                    ListTagUtil.write(pageContext, h3.render());
-                }
-                // render the navigation and filters as a row of the header
-
-                ListTagUtil.write(pageContext,
-                        "<div class=\"spacewalk-list-head-addons\">");
-
-                ListTagUtil.write(pageContext,
-                        "<div class=\"spacewalk-list-filter\">");
-                ListTagUtil.write(pageContext, headFilterContent.toString());
-                ListTagUtil.write(pageContext, "</div>");
-                ListTagUtil.write(pageContext,
-                        "<div class=\"spacewalk-list-head-addons-extra\">");
-                ListTagUtil.write(pageContext, headAddons.toString());
-                ListTagUtil.write(pageContext, "</div>");
-
-                ListTagUtil.write(pageContext, "</div>");
-
-                ListTagUtil.write(pageContext,
-                        "<div class=\"spacewalk-list-head-extra\">");
-                ListTagUtil.write(pageContext, headExtraContent.toString());
-                ListTagUtil.write(pageContext, "</div>");
-                // close the panel heading
-                ListTagUtil.write(pageContext, "</div>");
-            }
-
-            HttpServletRequest request = (HttpServletRequest) pageContext
-                    .getRequest();
-            manip.bindPaginationInfo();
-            request.setAttribute("dataSize", String
-                   .valueOf(pageData.size() + 1));
-            ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
-                ListCommand.TBL_ADDONS);
-            if (pageData != null && pageData.size() > 0) {
-                iterator = pageData.iterator();
-            }
-            else {
-                iterator = null;
-            }
+            doAfterBodyRenderTopAddons();
         }
         if (haveColsEnumerated && haveTblAddonsRendered &&
                             !haveColHeadersRendered) {
-
-            startTable();
-            ListTagUtil.write(pageContext, "<thead>");
-            // open the row tag for the column header th's
-            ListTagUtil.write(pageContext, "<tr>");
-            ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
-                    ListCommand.COL_HEADER);
-
+            doAfterBodyRenderColHeaders();
         }
         if (haveColHeadersRendered && !haveTblFootersRendered) {
-            ListTagUtil.write(pageContext, "</tr>");
-            ListTagUtil.write(pageContext, "</thead>");
-
-            if (manip.isListEmpty()) {
-                renderEmptyList();
-                ListTagUtil.write(pageContext, "</table>");
-                // close panel
-                ListTagUtil.write(pageContext, "</div>");
-                // close list
-                ListTagUtil.write(pageContext, "</div>");
-
-                return BodyTagSupport.SKIP_BODY;
-            }
-            ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
-                    ListCommand.RENDER);
-            if (iterator.hasNext()) {
-                Object obj = iterator.next();
-                if (RhnListTagFunctions.isExpandable(obj)) {
-                    parentObject = obj;
-                }
-                currentObject = obj;
-            }
-            else {
-                currentObject = null;
-            }
-            if (currentObject == null) {
-                ListTagUtil.write(pageContext, "</tbody>");
-                ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
-                        ListCommand.TBL_FOOTER);
-            }
-            else {
-                ListTagUtil.write(pageContext, "<tr");
-                renderRowClassAndId();
-
-                ListTagUtil.write(pageContext, ">");
-                pageContext.setAttribute(rowName, currentObject);
-            }
+            retval = doAfterBodyRenderFooter();
         }
         else if (haveTblFootersRendered) {
-            retval = BodyTagSupport.SKIP_BODY;
-
-            ListTagUtil.write(pageContext, "</table>");
-            // as the footer addons are populated with decorators, we don't
-            // know if there will be content or not, but we want to avoid
-            // writing the tfoot tag at all if there is none, so we push a
-            // buffer into the stack, and empty it later.
-            StringWriter footAddonsContent = new StringWriter();
-            StringWriter footLinksContent = new StringWriter();
-            StringWriter footExtraContent = new StringWriter();
-
-            pageContext.pushBody(footAddonsContent);
-            if (!manip.isListEmpty()) {
-                for (ListDecorator dec : getDecorators()) {
-                    dec.setCurrentList(this);
-                    dec.onFooterExtraAddons();
-                    dec.setCurrentList(null);
-                }
-            }
-            pageContext.popBody();
-
-            pageContext.pushBody(footExtraContent);
-            if (!manip.isListEmpty()) {
-                for (ListDecorator dec : getDecorators()) {
-                    dec.setCurrentList(this);
-                    dec.onFooterExtraContent();
-                    dec.setCurrentList(null);
-                }
-            }
-            pageContext.popBody();
-
-            pageContext.pushBody(footLinksContent);
-            // if there is reference links, put them as a panel footer
-            if ((refLink != null) && (!isEmpty())) {
-
-                ListTagUtil.write(pageContext, "<a href=\"" + refLink + "\" >");
-                /* Here we render the reflink and its key. If the key hasn't been set
-                 * we just display the link address itself.
-                 */
-                if (refLinkKey != null) {
-                    Object[] args = new Object[2];
-                    args[0] = new Integer(getPageRowCount());
-                    args[1] = refLinkKeyArg0;
-                    String message = LocalizationService.getInstance().
-                        getMessage(refLinkKey, args);
-
-                    ListTagUtil.write(pageContext, message);
-                }
-                else {
-                    ListTagUtil.write(pageContext, refLink);
-                }
-
-                ListTagUtil.write(pageContext, "</a>");
-            }
-            pageContext.popBody();
-
-            int footerContentLength = footLinksContent.getBuffer().length() +
-                    footAddonsContent.getBuffer().length() +
-                    footExtraContent.getBuffer().length();
-
-            if (footerContentLength > 0) {
-                ListTagUtil.write(pageContext, "<div class=\"panel-footer\">");
-                ListTagUtil.write(pageContext,
-                        "<div class=\"spacewalk-list-footer-addons\">");
-                ListTagUtil.write(pageContext,
-                        "<div class=\"spacewalk-list-reflinks\">");
-                ListTagUtil.write(pageContext, footLinksContent.toString());
-                ListTagUtil.write(pageContext, "</div>");
-                ListTagUtil.write(pageContext,
-                        "<div class=\"spacewalk-list-footer-addons-extra\">");
-                ListTagUtil.write(pageContext, footAddonsContent.toString());
-                ListTagUtil.write(pageContext, "</div>");
-                ListTagUtil.write(pageContext, "</div>");
-                ListTagUtil.write(pageContext,
-                        "<div class=\"spacewalk-list-footer-extra\">");
-                ListTagUtil.write(pageContext, footExtraContent.toString());
-                ListTagUtil.write(pageContext, "</div>");
-                // closes the panel footer
-                ListTagUtil.write(pageContext, "</div>");
-            }
-
-            // close the panel
-            ListTagUtil.write(pageContext, "</div>");
-
-            ListTagUtil.write(pageContext,
-                    "<div class=\"spacewalk-list-bottom-addons\">");
-            renderFooterPaginationControls();
-            ListTagUtil.write(pageContext,
-                    "<div class=\"spacewalk-list-bottom-addons-extra\">");
-            if (!isEmpty()) {
-                for (ListDecorator dec : getDecorators()) {
-                    dec.setCurrentList(this);
-                    dec.onBottomExtraAddons();
-                }
-            }
-            ListTagUtil.write(pageContext, "</div>");
-            ListTagUtil.write(pageContext, "</div>");
-            ListTagUtil.write(pageContext,
-                    "<div class=\"spacewalk-list-bottom-addons-extra\">");
-            if (!isEmpty()) {
-                for (ListDecorator dec : getDecorators()) {
-                    dec.setCurrentList(this);
-                    dec.onBottomExtraContent();
-                }
-            }
-            ListTagUtil.write(pageContext, "</div>");
-            // we render the hidden fields outside of the table
-            if (isSortable()) {
-                renderSortableHiddenFields();
-            }
+            retval = doAfterBodyRenderFooterAddons();
         }
         return retval;
     }
