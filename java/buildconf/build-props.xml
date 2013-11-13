@@ -35,9 +35,11 @@
   <!-- IVY Properties -->
   <property name="ivyserver" value="http://sherr.fedorapeople.org" />
   <property name="ivy.log.module.when.found" value="false"/>
-  <property name="ivy.log.resolved.revision" value="false"/>  
-
+  <property name="ivy.log.resolved.revision" value="false"/>
+  <property name="ivy.dep.file" value="${rhn-home}/buildconf/ivy/ivy-suse.xml" />
+  <property name="ivy.settings.file" value="${rhn-home}/buildconf/ivy/ivyconf.xml" />
   <!-- END IVY Properties -->
+
   <property name="rhn.war" value="${build.dir}/webapp/rhnjava.war"/>
   <property name="megajar.jar" value="${run.lib.dir}/rhn.jar" />
   <property name="testjar.jar" value="${run.lib.dir}/rhn-test.jar" />
@@ -78,7 +80,7 @@
       value="bcel cglib commons-beanutils commons-cli commons-codec
              commons-collections commons-digester commons-discovery
              commons-el commons-fileupload commons-io commons-lang commons-logging commons-validator ${hibernate}
-             mailapi smtp jdom jpam ${jmock-jars}
+             mailapi smtp jdom ${jmock-jars}
              log4j oro redstone-xmlrpc-client redstone-xmlrpc ${struts-jars} ${tomcat-jars}
              bcprov bcpg jcommon stringtree-json postgresql-jdbc
              ${jfreechart} taglibs-core logdriver quartz dwr slf4j-api slf4j-log4j12
@@ -129,11 +131,11 @@
       value="bcel cglib commons-beanutils commons-cli commons-codec 
              commons-collections commons-digester commons-discovery
              commons-el commons-fileupload commons-io commons-lang commons-logging commons-validator ${hibernate}
-             ${tomcat-jars} javamail jdom jpam dwr
+             ${tomcat-jars} javamail jdom jsch dwr
              log4j oro redstone-xmlrpc-client redstone-xmlrpc ${struts-jars}
              jcommon stringtree-json postgresql-jdbc
              ${jfreechart} taglibs-core quartz
-             concurrent simple-core simple-xml susestudio-java-client" />
+             concurrent simple-core snakeyaml simple-xml susestudio-java-client" />
 
   <property name="dist.jar.dependencies"
       value="antlr ${asm} bcel c3p0 cglib
@@ -142,9 +144,9 @@
              commons-lang commons-logging
              commons-validator concurrent dom4j ${hibernate} jta
              jaf ${jasper-jars} javamail jcommon jdom ${other-jars}
-             ${jfreechart} ${tomcat-jars} jpam log4j redstone-xmlrpc-client redstone-xmlrpc
+             ${jfreechart} ${tomcat-jars} log4j redstone-xmlrpc-client redstone-xmlrpc
              oro oscache quartz stringtree-json sitemesh ${struts-jars} taglibs-core
-             taglibs-standard tanukiwrapper postgresql-jdbc simple-xml susestudio-java-client
+             taglibs-standard tanukiwrapper postgresql-jdbc snakeyaml simple-xml susestudio-java-client
              xalan-j2 xerces-j2 xml-commons-apis simple-core" />
 
   <path id="bootjars">

@@ -1,8 +1,8 @@
-<ivyconf>
-  <conf defaultResolver="digdugResolver"/>
+<ivysettings>
+  <settings defaultResolver="default" />
   <resolvers>
-    <url name="digdugResolver">
-      <artifact pattern="http://digdug.rhndev.redhat.com/ivy/[artifact]-[revision].[ext]"/>
+    <url name="default">
+      <artifact pattern="http://w3.suse.de/~jrenner/ivy/[artifact]-[revision].[ext]" />
     </url>
   </resolvers>
-</ivyconf>
+</ivysettings>

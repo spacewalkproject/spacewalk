@@ -708,9 +708,9 @@ public class ListTag extends BodyTagSupport {
             }
             pageContext.popBody();
 
-            int footerContentLength = footLinksContent.getBuffer().length()
-                    + footAddonsContent.getBuffer().length()
-                    + footExtraContent.getBuffer().length();
+            int footerContentLength = footLinksContent.getBuffer().length() +
+                    footAddonsContent.getBuffer().length() +
+                    footExtraContent.getBuffer().length();
 
             if (footerContentLength > 0) {
                 ListTagUtil.write(pageContext, "<div class=\"panel-footer\">");
@@ -754,7 +754,7 @@ public class ListTag extends BodyTagSupport {
             if (!isEmpty()) {
                 for (ListDecorator dec : getDecorators()) {
                     dec.setCurrentList(this);
-                    dec.onBottomExtraContent();;
+                    dec.onBottomExtraContent();
                 }
             }
             ListTagUtil.write(pageContext, "</div>");

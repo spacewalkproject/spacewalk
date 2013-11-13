@@ -867,8 +867,8 @@ public class ListDisplayTag extends ListDisplayTagBase {
             StringWriter paginationContent = new StringWriter();
 
             pageContext.pushBody(alphaBarContent);
-            if (getPageList().getIndex().size() > 0
-                    && getPageList().size() < getPageList().getTotalSize()) {
+            if (getPageList().getIndex().size() > 0 &&
+                    getPageList().size() < getPageList().getTotalSize()) {
 
                 //renderViewAllLink(alphaBarContent);
                 renderAlphabar(alphaBarContent);
@@ -882,8 +882,8 @@ public class ListDisplayTag extends ListDisplayTagBase {
             }
             pageContext.popBody();
 
-            int topAddonsContentLen = alphaBarContent.getBuffer().length()
-                    + paginationContent.getBuffer().length();
+            int topAddonsContentLen = alphaBarContent.getBuffer().length() +
+                    paginationContent.getBuffer().length();
 
             if (topAddonsContentLen > 0) {
                 out.println("<div class=\"spacewalk-list-top-addons\">");
@@ -991,7 +991,8 @@ public class ListDisplayTag extends ListDisplayTagBase {
                     String message = LocalizationService.getInstance()
                             .getMessage(reflinkkey, args);
                     out.println(message);
-                } else {
+                }
+                else {
                     out.println(reflink);
                 }
 
