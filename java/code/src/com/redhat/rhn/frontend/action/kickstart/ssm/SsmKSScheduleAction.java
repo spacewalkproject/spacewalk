@@ -77,14 +77,9 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
         }
 
         if (context.wasDispatched("kickstart.schedule.button2.jsp")) {
-            List list = schedule(request, form, context);
+            int result = schedule(request, form, context).size();
 
-            ActionMessages msg = new ActionMessages();
-            String[] params = {list.size() + ""};
-            msg.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("ssm.provision.scheduled",
-                            params));
-            getStrutsDelegate().saveMessages(context.getRequest(), msg);
+            saveSuccessMessage(context, "ssm.provision.scheduled", result);
             return mapping.findForward("success");
         }
 
@@ -99,6 +94,18 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
+    /**
+     * Saves a success message in the Struts delegate.
+     * @param context current request context
+     * @param message message to save
+     * @param count number of saved servers
+     */
+    private void saveSuccessMessage(RequestContext context, String message, int count) {
+        ActionMessages msg = new ActionMessages();
+        String[] params = {count + ""};
+        msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(message, params));
+        getStrutsDelegate().saveMessages(context.getRequest(), msg);
+    }
 
     private List<Action> schedule(HttpServletRequest request, ActionForm form,
                                             RequestContext context) {
