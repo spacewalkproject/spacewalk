@@ -32,6 +32,7 @@ import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.manager.kickstart.KickstartManager;
+import com.redhat.rhn.manager.kickstart.SSMCreateRecordCommand;
 import com.redhat.rhn.manager.kickstart.SSMScheduleCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.profile.ProfileManager;
@@ -60,6 +61,10 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
     private static final String SCHEDULE_TYPE_IP = "isIP";
     public static final String USE_IPV6_GATEWAY = "useIpv6Gateway";
 
+    /** A possible submit "dispatch" value */
+    public static final String CREATE_RECORDS_BUTTON =
+        "ssm.kickstart.schedule.create.records.button.jsp";
+
     private boolean isIP(HttpServletRequest request) {
         return Boolean.TRUE.equals(request.getAttribute(SCHEDULE_TYPE_IP));
     }
@@ -76,6 +81,13 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
             request.setAttribute(SCHEDULE_TYPE_IP, Boolean.TRUE);
         }
 
+        if (context.wasDispatched(CREATE_RECORDS_BUTTON)) {
+            ScheduleActionResult result = createProfiles(request, form, context, user);
+
+            saveSuccessMessage(context, "ssm.provision.records.created",
+                result);
+            return mapping.findForward("success");
+        }
         if (context.wasDispatched("kickstart.schedule.button2.jsp")) {
             ScheduleActionResult result = schedule(request, form, context);
 
@@ -120,6 +132,26 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
         String[] params = {result.getSuccessCount() + "", errorString};
         msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(message, params));
         getStrutsDelegate().saveMessages(context.getRequest(), msg);
+    }
+
+    /**
+     * Creates Cobbler profiles for systems in the set.
+     * @param request the request
+     * @param form the form
+     * @param context the context
+     * @param user the currently logged user
+     * @return a result
+     */
+    private ScheduleActionResult createProfiles(HttpServletRequest request,
+        DynaActionForm form, RequestContext context, User user) {
+
+        String selectedProfileId = ListTagHelper
+            .getRadioSelection(ListHelper.LIST, request);
+        SSMCreateRecordCommand command = new SSMCreateRecordCommand(user,
+            isIP(request) ? null : selectedProfileId);
+        List<ValidatorError> errors = command.store();
+
+        return new ScheduleActionResult(command.getSucceededServers().size(), errors);
     }
 
     private ScheduleActionResult schedule(HttpServletRequest request, ActionForm form,

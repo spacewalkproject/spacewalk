@@ -5887,7 +5887,7 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       </trans-unit>
       <trans-unit id="kickstart.schedule.already.scheduled.jsp">
-        <source>System {0} has a pending kickstart scheduled.</source>
+        <source>System &lt;strong&gt;{0}&lt;/strong&gt; has a pending kickstart scheduled.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
         </context-group>
