@@ -1,17 +1,17 @@
 <project name="build-taskdefs">
   <target name="init-ivy" depends="boot-deps" unless="installbuild">
     <taskdef name="ivy-retrieve"
-             classname="org.apache.ivy.ant.IvyRetrieve"
-             classpathref="bootjars" />
+             classname="fr.jayasoft.ivy.ant.IvyRetrieve"
+             classpathref="bootjars"/>
     <taskdef name="ivy-configure"
-             classname="org.apache.ivy.ant.IvyConfigure"
-             classpathref="bootjars" />
+             classname="fr.jayasoft.ivy.ant.IvyConfigure"
+             classpathref="bootjars"/>
     <taskdef name="ivy-resolve"
-             classname="org.apache.ivy.ant.IvyResolve"
-             classpathref="bootjars" />
+             classname="fr.jayasoft.ivy.ant.IvyResolve"
+             classpathref="bootjars"/>
     <taskdef name="ivy-publish"
-             classname="org.apache.ivy.ant.IvyPublish"
-             classpathref="bootjars" />
+             classname="fr.jayasoft.ivy.ant.IvyPublish"
+             classpathref="bootjars"/>
   </target>
 
   <target name="init-taskdefs" depends="link-jars,compile-internal"
