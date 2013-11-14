@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.1.5
+Version:    2.1.6
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -82,6 +82,97 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Nov 14 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.6-1
+- typo: wrong css url in the perl pages for production mode
+- prefix the less files
+- Font updated
+- classes for margin added
+- new icons in Spacewalk font
+- Fully responsive
+- changes in columns in the footer
+- responsive rules added
+- styles re-organized in different stylesheets
+- icon Help name modified to apply with the new fontawesome 4 names
+- port to FontAwesome 4.x
+- h3 and h4 added
+- margin classes created
+- replace a &nbsp; with some padding
+- Classes reorganized + responsive rules created
+- Add the missing fonts directory with all its content
+- Rename check_all.js to spacewalk-checkall.js
+- Alphabet filter reduced to fit in small screens
+- Colour added to icons in legends
+- All *.js should be loaded from within the <head>
+- Panels added and tables well formated
+- Add top and bottom margin to all alerts
+- fix empty lists
+- Refactor UnpagedListDisplayTag and ListDisplayTag so that all the copy pasted
+  code is now common in ListDisplayTagBase.
+- P bottom-margin redused
+- the first row of a table within a panel will not have border-top
+- tables inside panels have no bottom margin. thead bg colour changed
+- class .row-0 makes the first and last child have no paddings in the left and
+  right side. P now has 2em margin-bottom
+- copy files matched by glob to /%%{_var}/www/html/css instead of
+  /%%{_var}/www/html
+- nav-tabs style added by me now is removed, we dont need it and we will use
+  the original from Bootstrap
+- less error fixed
+- Panels added in Admin Configuration. Less: removed margin in h tags in panel-
+  heading
+- - Use pushBody() to avoid creating tags without content. - define the areas
+  for the components of the list:
+- Install only those *.css files on the first layer
+- Use nodejs-less to compile spacewalk.less into css
+- ssmToolbar hidden when the page loads
+- button reverted and margin added to tab lists
+- thead improved
+- perl: port the toolbar move the pull-right for the links to the css as a
+  mixin (DRY)
+- paddings deleted from header
+- Support development mode also for perl pages
+- Less re-organized
+- Fix the System Set counter in the Perl pages.
+- initial port of the perl pages to the new layout/css
+- use make-row(0) for no margin instead of a hack make the footer semantic
+  instead of class names
+- .wrap is not global, does not include footer: rename wrap -> spacewalk-top-
+  wrap
+- include the right js/less in the perl pages
+- paginator styled and icon fixed in systems legend
+- better name for the content wrapper fix some typos in the less
+- make the layout semantic... now col-md-X and row classes in the html See
+  http://getbootstrap.com/css/#grid-less
+- Roboto loaded locally
+- timeout added to wait for all the elements to be loaded and detect the
+  correct screen size
+- changes to fix aside section 100%% height
+- footer and margin in Section tag fixed
+- make some space between the badge with the system count and the text in the
+  top bar.
+- add margin only to icons in a <i> tag otherwise we deform button groups
+- Systems selected
+- Columns fixed
+- colors for icons
+- Footer fixed (less)
+- tables class changed
+- New less files and new style for tables
+- Red borders removed
+- New Less
+- Toolbar + overview + margin fixed
+- footer
+- Update of spacewalk Less
+- add the bootstrap less files until we generate css at build time
+- Fixed error in the font
+- Use less files for bootstrap and the main css. We need to look at a way to
+  precompile them for production.
+- rename font icons to have name convention spacewalk-icon-$name
+- CSS update
+- TB3: Perl headers prepared.
+- updated spacewalk theme
+- add the new Spacewalk branding, commented, so that can be enabled on local
+  development.
+
 * Thu Oct 17 2013 Stephen Herr <sherr@redhat.com> 2.1.5-1
 - 1020497 - provide a way to order kickstart scripts
 
