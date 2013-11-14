@@ -373,5 +373,110 @@ sub find_clones_of_errata {
   return $data;
 }
 
+sub clone_errata_fast {
+  my $class = shift;
+  my $old_eid = shift;
+  my $org_id = shift;
+
+  throw "No eid" unless $old_eid;
+
+  my $errata = RHN::Errata->lookup(-id => $old_eid);
+  my $new = RHN::Errata->create_errata;
+
+  my $update_date = $errata->update_date;
+
+  foreach my $meth ($errata->method_names) {
+    $new->$meth($errata->$meth());
+  }
+
+  my $new_update = $new->update_date;
+
+  $new->org_id($org_id);
+
+  my $adv = $new->advisory;
+  my $adv_name = $new->advisory_name;
+
+  ($adv, $adv_name) = find_next_advisory($adv, $adv_name, $old_eid);
+
+  $new->advisory($adv);
+  $new->advisory_name($adv_name);
+
+  $new->commit(0);
+  my $new_eid = $new->id;
+
+  my $dbh = RHN::DB->connect;
+
+  my ($query, $sth);
+
+  $query =<<EOQ;
+INSERT
+  INTO rhnErrataBugList
+       (errata_id, bug_id, summary, href)
+       (SELECT :new_eid, BL.bug_id, BL.summary, BL.href
+          FROM rhnErrataBuglist BL
+         WHERE BL.errata_id = :old_eid)
+EOQ
+
+  $sth = $dbh->prepare($query);
+  $sth->execute_h(new_eid => $new_eid, old_eid => $old_eid);
+
+  $query =<<EOQ;
+INSERT
+  INTO rhnErrataPackage
+       (errata_id, package_id)
+       (SELECT :new_eid, EP.package_id
+          FROM rhnErrataPackage EP
+         WHERE EP.errata_id = :old_eid)
+EOQ
+  $sth = $dbh->prepare($query);
+  $sth->execute_h(new_eid => $new_eid, old_eid => $old_eid);
+
+  $query =<<EOQ;
+INSERT
+  INTO rhnErrataFile
+       (id, errata_id, type, checksum_id, filename)
+       (SELECT sequence_nextval('rhn_erratafile_id_seq'), :new_eid, EF.type, EF.checksum_id, EF.filename
+          FROM rhnErrataFile EF
+         WHERE EF.errata_id = :old_eid)
+EOQ
+  #$sth = $dbh->prepare($query);
+  #$sth->execute_h(new_eid => $new_eid, old_eid => $old_eid);
+
+  $query =<<EOQ;
+INSERT
+  INTO rhnErrataKeyword
+       (errata_id, keyword)
+       (SELECT :new_eid, EK.keyword
+          FROM rhnErrataKeyword EK
+         WHERE EK.errata_id = :old_eid)
+EOQ
+  $sth = $dbh->prepare($query);
+  $sth->execute_h(new_eid => $new_eid, old_eid => $old_eid);
+
+  $query =<<EOQ;
+INSERT
+  INTO rhnErrataCloned
+       (original_id, id)
+       VALUES
+       (:old_eid, :new_eid)
+EOQ
+
+  $sth = $dbh->prepare($query);
+  $sth->execute_h(new_eid => $new_eid, old_eid => $old_eid);
+
+  $query =<<EOQ;
+INSERT INTO rhnErrataCve
+        (errata_id, cve_id)
+        (SELECT ECL.id, EC.cve_id
+           FROM rhnErrataCVE EC, rhnErrataCloned ECL
+          WHERE ECL.original_id = EC.errata_id
+           AND ECL.id = :new_eid)
+EOQ
+  $sth = $dbh->prepare($query);
+  $sth->execute_h(new_eid => $new_eid);
+
+  return ($new_eid);
+}
+
 1;
 

@@ -327,39 +327,45 @@ sub clone_all_errata {
   my $data = $class->errata_migration_provider(-from_cid => $attr{from_cid}, -to_cid => $attr{to_cid}, -org_id => $attr{org_id});
 
   my $special_handling;
+  my @eids;
 
   foreach my $e_data (@{$data}) {
     my $eid = $e_data->{ID};
+    my $new_eid;
     my $owned_errata = $e_data->{OWNED_ERRATA};
 
 
 	#if there are no errata that have been cloned from this one, let's clone it
     if (not defined $owned_errata) {
-      RHN::ChannelEditor->clone_errata_into_channel(%attr, -eid => $eid);
+      $new_eid = RHN::ErrataEditor->clone_errata_fast($eid, $attr{org_id});
+      push @eids, $new_eid;
     }
     #if there has only been one errata cloned from it, and it isn't modified or published
     elsif ( (scalar @{$owned_errata} == 1)
 	    and not $owned_errata->[0]->{LOCALLY_MODIFIED}
 	    and $owned_errata->[0]->{PUBLISHED} ) {
-      RHN::ChannelEditor->add_cloned_errata_to_channel(-eids => [ $owned_errata->[0]->{ID} ], -to_cid => $attr{to_cid}, -from_cid => $attr{from_cid});
+      push @eids, $owned_errata->[0]->{ID};
     }
     #else there are more than 1 errata (or none that are unmodified and published), so we need to figure out how to handle it
     else {
     	my $found = 0;
 		foreach my $tmp_errata (@{$owned_errata}) {
 			if ( not $tmp_errata->{LOCALLY_MODIFIED} and $tmp_errata->{PUBLISHED}) {
-				RHN::ChannelEditor->add_cloned_errata_to_channel(-eids => [ $tmp_errata->{ID} ], -to_cid => $attr{to_cid}, -from_cid => $attr{from_cid});
+				push @eids, $tmp_errata->{ID};
 				$found = 1;
 				last;
 			}
 		}
 		#none of the multiple errata aren't modified or they are not published, so lets use the original errata
 		if (not $found) {
-			RHN::ChannelEditor->clone_errata_into_channel(%attr, -eid => $eid);
+			$new_eid = RHN::ErrataEditor->clone_errata_fast($eid, $attr{org_id});
+                        push @eids, $new_eid;
 		}
        $special_handling++;
     }
   }
+
+  RHN::ChannelEditor->add_cloned_errata_to_channel(-eids => \@eids, -to_cid => $attr{to_cid}, -from_cid => $attr{from_cid});
 
   return $data;
 }
@@ -726,6 +732,33 @@ EOQ
   $sth->finish;
 
   return $exists;
+}
+
+sub clone_newest_package {
+  my $class = shift;
+  my %attr = validate(@_, {from_cid => 1, to_cid => 1});
+
+  my $dbh = RHN::DB->connect;
+
+  my $sth = $dbh->prepare(<<EOQ);
+DELETE FROM rhnChannelNewestPackage
+    WHERE channel_id = :to_cid
+EOQ
+
+  $sth->execute_h(to_cid => $attr{to_cid});
+
+  $sth = $dbh->prepare(<<EOQ);
+INSERT INTO rhnChannelNewestPackage
+    ( channel_id, name_id, evr_id, package_id, package_arch_id )
+    ( SELECT :to_cid, name_id, evr_id, package_id, package_arch_id
+        FROM rhnChannelNewestPackage
+        WHERE channel_id = :from_cid
+    )
+EOQ
+
+  $sth->execute_h(from_cid => $attr{from_cid}, to_cid => $attr{to_cid});
+
+  return 1;
 }
 
 1;

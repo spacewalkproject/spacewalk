@@ -277,7 +277,7 @@ sub channel_edit_cb {
       $channel->adopt_into_family(\@cf_ids);
 
       $cid = $channel->id;
-      RHN::Channel->refresh_newest_package_cache($cid, 'web.channel_created');
+      RHN::ChannelEditor->clone_newest_package(-from_cid => $clone_from, -to_cid => $cid);
       #load packes from cloned channel, if any
     }
 

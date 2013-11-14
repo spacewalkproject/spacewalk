@@ -482,6 +482,9 @@ sub potential_for_cloned_channel_cb {
 
     my $cloned_from = RHN::Channel->channel_cloned_from($cid);
 
+    my @eids;
+    my $new_eid;
+
     foreach my $eid (keys %set_as_hash) {
       my $target_eid = $set_as_hash{$eid};
 
@@ -511,13 +514,16 @@ sub potential_for_cloned_channel_cb {
 	}
 	undef $target_errata; #don't use this anymore, it might not exist.
 
-	RHN::ChannelEditor->add_cloned_errata_to_channel(-eids => [ $target_eid ], -to_cid => $cid, -from_cid => $cloned_from);
+        push @eids, $target_eid;
       }
       else { # create new errata
 	$clone_count++;
-	RHN::ChannelEditor->clone_errata_into_channel(-to_cid => $cid, -eid => $eid, -org_id => $pxt->user->org_id, -include_packages => 1, -from_cid => $cloned_from);
+	$new_eid = RHN::ErrataEditor->clone_errata_fast($eid, $pxt->user->org_id);
+        push @eids, $new_eid;
       }
     }
+
+    RHN::ChannelEditor->add_cloned_errata_to_channel(-eids => \@eids, -to_cid => $cid, -from_cid => $cloned_from);
 
     my $channel = RHN::Channel->lookup(-id => $cid);
     my @messages;
@@ -534,7 +540,7 @@ sub potential_for_cloned_channel_cb {
     }
 
     RHN::ChannelEditor->schedule_errata_cache_update($pxt->user->org_id, $cid, 0);
-    RHN::Channel->refresh_newest_package_cache($cid, 'web.channel_manager');
+    RHN::ChannelEditor->clone_newest_package(-from_cid => $cloned_from, -to_cid => $cid);
 
     $transaction->nested_commit;
 
