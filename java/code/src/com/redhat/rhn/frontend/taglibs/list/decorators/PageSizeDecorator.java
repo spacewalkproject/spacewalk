@@ -21,6 +21,7 @@ import java.util.List;
 import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -135,8 +136,8 @@ public class PageSizeDecorator extends BaseListDecorator {
             input.setAttribute("type", "hidden");
             input.setAttribute("id", makeSelectionId(listName));
             input.setAttribute("name", makeSelectionLabel(listName));
-            input.setAttribute("value", pageContext.getRequest().getParameter
-                                            (makeSelectionLabel(listName)));
+            input.setAttribute("value", StringEscapeUtils.escapeHtml(pageContext
+                            .getRequest().getParameter(makeSelectionLabel(listName))));
             stringBuild.append(input.render());
             ListTagUtil.write(pageContext, stringBuild.toString());
         }
@@ -205,7 +206,7 @@ public class PageSizeDecorator extends BaseListDecorator {
         catch (NumberFormatException nfe) {
             logger.warn("Number format exception encountered while parsing " +
                     ConfigDefaults.PAGE_SIZES + "=" + pageSizes);
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
     }
 }
