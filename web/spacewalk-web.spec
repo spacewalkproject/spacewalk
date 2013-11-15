@@ -270,55 +270,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Thu Nov 14 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.30-1
-- Port images to font iconts (FontAwesome)
-- Improve the half-table by creating a .col-md-auto which adjust the grid
-  dynamically while still being responsive (ej: in sm size they would break)
-- Fully responsive
-- column space in the footer fixed
-- Javascripts wraps Tables in responsive divs with scroll for small screen
-  resolutions
-- Rename check_all.js to spacewalk-checkall.js
-- Should be obsolete since we call the function on doc ready
-- Bootstrapify all obsoleted site-alerts
-- Rewrote spacewalk-login.js to make focus.js obsolete
-- Make display.js obsolete by calling jquery directly
-- Refactor images.js to spacewalk-images.js
-- Call create_checkall_checkbox() when document is ready
-- menu animation deleted
-- clear-btn fixed
-- systems icons changed
-- perl: port the toolbar move the pull-right for the links to the css as a
-  mixin (DRY)
-- port content-nav in perl
-- I had already renamed clearbtn to clear-btn in the css
-- Fix the System Set counter in the Perl pages.
-- initial port of the perl pages to the new layout/css
-- don't use grid classes as selectors
-- typo, missing $
-- Fix channel_tree.js in case of no channels available
-- Selected Systems Toolbar
-- Provide a static version of less version 1.4.1
-- Systems Selected Toolbar function to hide the tooldbar when there is no
-  systems selected
-- Move content of render.js into spacewalk-essentials.js
-- Call columnHeight() whenever a fragment is rendered with DWR
-- Call columnHeight() on the window load event instead of using timeout
-- timeout added to wait for all the elements to be loaded and detect the
-  correct screen size
-- Include a static version of bootstrap.js (v3.0.0)
-- changes to fix aside section 100%% height
-- Serve jquery locally instead of fetching it from a CDN
-- footer and margin in Section tag fixed
-- fix the ul.active selector for the opening of the selected left menu item
-- syntax error in js
-- Migrated images.js from prototype to jquery
-- Menu fixed
-- Columns fixed
-- Jquery files for login, UL lists and SSM toolbar
-- Port to JQuery
-- remove prototype
-- Fix javascript errors in case there is no pagination
-- Fix markup of the SSM system selection counter
+- Bootstrap 3.0 changes, brand new WebUI look
 
 * Thu Oct 31 2013 Matej Kollar <mkollar@redhat.com> 2.1.29-1
 - 1020952 - Single db root cert + option name change
