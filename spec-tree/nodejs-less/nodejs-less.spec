@@ -66,6 +66,9 @@ ln -s %{nodejs_sitelib}/less/bin/lessc \
 
 
 %changelog
+* Fri Nov 15 2013 Michael Mraka <michael.mraka@redhat.com> 1.4.1-1
+- initial build
+
 * Fri Jul 05 2013 Stephen Gallagher <sgallagh@redhat.com> - 1.4.1-1
 - New upstream release 1.4.1
 - https://github.com/less/less.js/blob/v1.4.1/CHANGELOG.md
