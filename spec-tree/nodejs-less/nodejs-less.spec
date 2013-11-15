@@ -2,7 +2,7 @@
 
 Name:           nodejs-less
 Version:        1.4.1
-Release:        1%{?dist}
+Release:        1.1%{?dist}
 Summary:        Less.js The dynamic stylesheet language
 Group  :        Unspecified
 
@@ -67,6 +67,9 @@ ln -s %{nodejs_sitelib}/less/bin/lessc \
 
 
 %changelog
+* Fri Nov 15 2013 Michael Mraka <michael.mraka@redhat.com> 1.4.1-1.1
+- koji build needs Group specified
+
 * Fri Nov 15 2013 Michael Mraka <michael.mraka@redhat.com> 1.4.1-1
 - initial build
 
