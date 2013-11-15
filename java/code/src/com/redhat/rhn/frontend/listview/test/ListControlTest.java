@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.listview.test;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
-import com.redhat.rhn.common.util.CharacterMap;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.listview.PageControl;
@@ -66,13 +65,13 @@ public class ListControlTest extends RhnBaseTestCase {
         DataResult dr = m.execute(params);
         dr.setIndex(pc.createIndex(dr));
 
-        CharacterMap cs1 = dr.getIndex();
+        Map<Character, Integer> cs1 = dr.getIndex();
 
         // We can't ensure that the characterSets are the same, because in a
         // satellite case they may not be.  This code should be uncommented
         // once we can delete users from the Org (because then the test can just
         // loop through deleting users before the test is run).
-        //CharacterMap cs2 = new CharacterMap();
+        //Map<Character, Integer> cs2 = new HashMap<Character, Integer>();
         //cs2.put('A', 1);
         //cs2.put('F', 2);
         //cs2.put('Z', 4);

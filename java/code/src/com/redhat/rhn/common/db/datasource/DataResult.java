@@ -14,11 +14,10 @@
  */
 package com.redhat.rhn.common.db.datasource;
 
-import com.redhat.rhn.common.util.CharacterMap;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +38,7 @@ public class DataResult<T> extends ArrayList<T> {
     private int totalSize;
     private int start;
     private int end;
-    private CharacterMap index;
+    private Map<Character, Integer> index;
     private String filterData;
     private boolean filter;
     private Map<String, Object> elabParams;
@@ -244,11 +243,11 @@ public class DataResult<T> extends ArrayList<T> {
 
     /**
      * Get the index
-     * @return A CharacterMap containing the index for the list
+     * @return A Map containing the index for the list
      */
-    public CharacterMap getIndex() {
+    public Map<Character, Integer> getIndex() {
         if (index == null) {
-            this.index = new CharacterMap();
+            this.index = new HashMap<Character, Integer>();
         }
         return index;
     }
@@ -257,7 +256,7 @@ public class DataResult<T> extends ArrayList<T> {
      * Set the index
      * @param i The new value for index
      */
-    public void setIndex(CharacterMap i) {
+    public void setIndex(Map<Character, Integer> i) {
         this.index = i;
     }
 

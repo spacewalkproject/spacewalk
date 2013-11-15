@@ -15,11 +15,12 @@
 package com.redhat.rhn.frontend.listview;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.util.CharacterMap;
 import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.frontend.filter.Matcher;
 import com.redhat.rhn.frontend.filter.ResultsFilter;
+import java.util.HashMap;
+import java.util.Map;
 
 import java.util.Iterator;
 
@@ -110,14 +111,14 @@ public class ListControl {
     /**
      * Create index on the DataResult dr
      * @param dr DataResult to create index on
-     * @return CharacterMap containing index
+     * @return Map&lt;Character, Integer&gt; containing index
      */
-    public CharacterMap createIndex(DataResult dr) {
+    public Map<Character, Integer> createIndex(DataResult dr) {
         // The crappy thing is that we  have to
         // iterate over the data in its entirety to
         // generate the set of actual characters that
         // exist in the alpha column
-        CharacterMap alphaSet = new CharacterMap();
+        Map<Character, Integer> alphaSet = new HashMap<Character, Integer>();
         Iterator di = dr.iterator();
         int i = 0;
         while (di.hasNext()) {

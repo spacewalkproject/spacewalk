@@ -16,11 +16,11 @@
 package com.redhat.rhn.frontend.listview;
 
 import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.util.CharacterMap;
 
 import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * AlphaBar, helper class to render a listing of letters/digits that
@@ -28,7 +28,7 @@ import java.util.List;
  * with a list of letters contained within the set passed into the getAlphaList()
  * method.
  * <pre>
- *       CharacterMap charset = new CharacterMap();
+ *       Map&lt;Character, Integer&gt; charset = new HashMap&lt;Character, Integer&gt;();
  *       charset.add(new Character('A'));
  *       charset.add(new Character('M'));
  *       charset.add(new Character('Z'));
@@ -76,7 +76,7 @@ public class AlphaBar {
     * @return String representation of Alpha bar with the
     * correct characters enabled.
     */
-    public String getAlphaList(CharacterMap charsEnabled) {
+    public String getAlphaList(Map<Character, Integer> charsEnabled) {
         StringBuffer target = new StringBuffer();
         // Get the list of all the letters and digits in current thread's Locale
         // and put them together in the collection
