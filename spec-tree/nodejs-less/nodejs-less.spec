@@ -4,6 +4,7 @@ Name:           nodejs-less
 Version:        1.4.1
 Release:        1%{?dist}
 Summary:        Less.js The dynamic stylesheet language
+Group  :        Unspecified
 
 # cssmin.js is licensed under BSD license
 # everything else is ASL 2.0
