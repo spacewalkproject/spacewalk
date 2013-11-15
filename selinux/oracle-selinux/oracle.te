@@ -125,6 +125,8 @@ corecmd_search_bin(oracle_db_t)
 dev_read_rand(oracle_db_t)
 dev_read_urand(oracle_db_t)
 dev_rw_zero(oracle_db_t)
+dev_search_sysfs(oracle_db_t)
+dev_read_sysfs(oracle_db_t)
 
 ###
 ## Allow reading proc, system settings, and state
