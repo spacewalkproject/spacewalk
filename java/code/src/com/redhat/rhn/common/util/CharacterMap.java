@@ -22,14 +22,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * An wrapper around HashMap that ONLY acccepts
+ * An wrapper around HashMap that ONLY accepts
  * java.lang.Characters and java.lang.Integers.
  *
  * 5.0: This class should be removed once we
  * switch to Java 5.0 and we get Generics.
+ * The time has come. Removal has already began.
  *
  * @version $Rev: 325 $
+ * @deprecated use generics, (i.e. {@link HashMap}&lt;Character, Integer&gt;) instead.
  */
+@Deprecated
 public class CharacterMap implements Serializable {
 
     private Map innerMap;
