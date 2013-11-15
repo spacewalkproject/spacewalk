@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.1.6
+Version:    2.1.7
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -82,6 +82,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Nov 15 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.7-1
+- polishing changelog
+
 * Thu Nov 14 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.6-1
 - Bootstrap 3.0 changes, brand new WebUI look
 
