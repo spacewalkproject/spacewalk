@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.73
+Version: 2.1.74
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Nov 15 2013 Matej Kollar <mkollar@redhat.com> 2.1.74-1
+- Fix ISE when deleting a non persistent custom info value
+- Replaced deprecated Priority.WARN with suggested Level.WARN
+- Removing deprecated and unused classes
+- Removing use of now deprecated CharacterMap
+- Explicitly marking as deprecated
+
 * Thu Nov 14 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.73-1
 - (temporalily) removing stuff preventing build in upstream koji
 - refactor doAfterBody in different sub-methods to comply with checkstyle.
