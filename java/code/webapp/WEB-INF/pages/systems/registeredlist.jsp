@@ -87,7 +87,7 @@
 		<rl:column sortable="true"
 				   bound="false"
 		           headerkey="registeredlist.jsp.user"
-		           sortattr="nameOfUserWhoRegisteredSystem" >
+		           sortattr="creatorName" >
 	          <c:choose>
 	            <c:when test="${current.creatorName != null}">
 	              <i class="fa fa-user" title="<bean:message key='yourrhn.jsp.user.alt'/>"></i>
