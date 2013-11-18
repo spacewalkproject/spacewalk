@@ -13,7 +13,6 @@
 -- in this software or its documentation.
 --
 
-
 CREATE TABLE rhnSsmOperationServer
 (
     operation_id  NUMBER
@@ -23,7 +22,8 @@ CREATE TABLE rhnSsmOperationServer
     server_id     NUMBER
                       CONSTRAINT rhn_ssmops_ser_fk
                           REFERENCES rhnServer (id)
-                          ON DELETE CASCADE
+                          ON DELETE CASCADE,
+    note          VARCHAR2(256)
+                      DEFAULT NULL
 )
 ;
-

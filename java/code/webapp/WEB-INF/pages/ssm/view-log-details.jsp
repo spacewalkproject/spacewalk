@@ -62,6 +62,9 @@
                     value="${current.name}"/></a>
         </rl:column>
 
+        <rl:column headerkey="ssm.operations.viewlog.note_heading" bound="false">
+            <c:out value="${current.translatedNote}"/>
+        </rl:column>
     </rl:list>
 
 </rl:listset>

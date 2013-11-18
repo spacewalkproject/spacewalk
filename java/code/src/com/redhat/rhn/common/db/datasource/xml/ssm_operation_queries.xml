@@ -148,9 +148,9 @@
 </write-mode>
 
 <!-- Returns a list of all servers involved in the operation identified by the given ID. -->
-<mode name="find_server_data_for_operation_id">
+<mode name="find_server_data_for_operation_id" class="com.redhat.rhn.frontend.dto.ServerOperationDataDto">
    <query params="op_id">
-      SELECT s.id, s.name
+      SELECT s.id, s.name, sos.note
         FROM rhnSsmOperationServer sos,
              rhnServer s
        WHERE sos.operation_id = :op_id
@@ -158,4 +158,13 @@
    </query>
 </mode>
 
+<!-- Adds a note to an operation-server pair. -->
+<write-mode name="add_note_to_operation_on_server">
+   <query params="op_id, server_id, note">
+      UPDATE rhnSsmOperationServer
+         SET note = :note
+       WHERE operation_id = :op_id
+         AND server_id = :server_id
+   </query>
+</write-mode>
 </datasource_modes>
