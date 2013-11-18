@@ -154,7 +154,7 @@ class apacheRequest:
                 log_debug(2, "Server Group Membership EXCEEDED")
                 f = rhnFault(44, e.errmsg)
             if not f:
-                log_debug(4, "rhnSQL.SQLSchemaError caught", e)
+                log_error("rhnSQL.SQLSchemaError caught", e)
                 rhnSQL.rollback()
                 # generate the traceback report
                 Traceback(method, self.req,
@@ -163,13 +163,14 @@ class apacheRequest:
                 return apache.HTTP_INTERNAL_SERVER_ERROR
             response = f.getxml()
         except rhnSQL.SQLError, e:
-            log_debug(4, "rhnSQL.SQLError caught", e)
+            log_error("rhnSQL.SQLError caught", e)
             rhnSQL.rollback()
             Traceback(method, self.req,
                       extra="SQL Error generated: %s" % e,
                       severity="schema")
             return apache.HTTP_INTERNAL_SERVER_ERROR
-        except:
+        except Exception, e:
+            log_error("Unhandled exception", e)
             rhnSQL.rollback()
             # otherwise we do a full stop
             Traceback(method, self.req, severity="unhandled")
