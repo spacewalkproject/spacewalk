@@ -3217,6 +3217,10 @@ public class SystemHandler extends BaseHandler {
             packageMaps.add(pkgMap);
         }
 
+        if (packageMaps.isEmpty()) {
+            throw new InvalidParameterException("No packages to install.");
+        }
+
         Action action = null;
         try {
             action = ActionManager.schedulePackageInstall(loggedInUser, server,
