@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.31
+Version: 2.1.32
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Nov 18 2013 Tomas Lestach <tlestach@redhat.com> 2.1.32-1
+- replace 'Channel Managemet Guide' docs with 'User Guide' and 'Getting Started
+  Guide'
+
 * Fri Nov 15 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.31-1
 - polishing changelog
 - making db-control work with pg 9.2 from rhscl
