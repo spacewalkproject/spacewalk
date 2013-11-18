@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.32
+Version: 2.1.33
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Nov 18 2013 Jan Dobes 2.1.33-1
+- 1012468 - errata cloning optimalizations in perl
+
 * Mon Nov 18 2013 Tomas Lestach <tlestach@redhat.com> 2.1.32-1
 - replace 'Channel Managemet Guide' docs with 'User Guide' and 'Getting Started
   Guide'
