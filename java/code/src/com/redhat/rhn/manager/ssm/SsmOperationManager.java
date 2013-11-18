@@ -275,5 +275,22 @@ public class SsmOperationManager extends BaseManager {
         params.put("user_id", userId);
         writeMode.executeUpdate(params, sidsIn);
     }
+
+    /**
+     * Updates an association between an operation and a server adding a note.
+     * @param operationId identifies an existing operation
+     * @param serverId identifies the server on which the operation failed
+     * @param note note to be added
+     */
+    public static void addNoteToOperationOnServer(long operationId, long serverId,
+        String note) {
+        WriteMode writeMode = ModeFactory.getWriteMode("ssm_operation_queries",
+            "add_note_to_operation_on_server");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("op_id", operationId);
+        params.put("server_id", serverId);
+        params.put("note", note);
+        writeMode.executeUpdate(params);
+    }
 }
 

@@ -14815,6 +14815,9 @@ any of these revisions.  Are you sure you want to do this?</source>
         <trans-unit id="ssm.operations.viewlog.servers">
           <source>Servers</source>
         </trans-unit>
+        <trans-unit id="ssm.operations.viewlog.note_heading">
+          <source>Note</source>
+        </trans-unit>
         <trans-unit id="ssm.operations.viewlog.inprogress">
           <source>In Progress</source>
         </trans-unit>
