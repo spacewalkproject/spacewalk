@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.1.7
+Version:    2.1.8
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -82,6 +82,11 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Nov 18 2013 Tomas Lestach <tlestach@redhat.com> 2.1.8-1
+- point Spacewalk documentation to Red Hat Satellite 5.6 documentation
+- replace 'Channel Managemet Guide' docs with 'User Guide' and 'Getting Started
+  Guide'
+
 * Fri Nov 15 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.7-1
 - polishing changelog
 
