@@ -1,9 +1,8 @@
-http://www.redhat.com/docs/manuals/satellite/Red_Hat_Network_Satellite-5.2.0/html/Release_notes/index.html
-http://www.redhat.com/docs/manuals/satellite/Red_Hat_Network_Satellite-5.2.0/html/Installation_Guide/index.html
-http://www.redhat.com/docs/manuals/satellite/Red_Hat_Network_Satellite-5.2.0/html/Reference_Guide/index.html
-http://www.redhat.com/docs/manuals/satellite/Red_Hat_Network_Satellite-5.2.0/html/API/index.html
-http://www.redhat.com/docs/manuals/satellite/Red_Hat_Network_Satellite-5.2.0/html/Channel_Management_Guide/index.html
-http://www.redhat.com/docs/manuals/satellite/Red_Hat_Network_Satellite-5.2.0/html/Client_Configuration_Guide/index.html
-http://www.redhat.com/docs/manuals/satellite/Red_Hat_Network_Satellite-5.2.0/html/Proxy_Installation_Guide/index.html
-
-
+https://fedorahosted.org/spacewalk/wiki/ReleaseNotes20
+https://access.redhat.com/site/documentation/en-US/Red_Hat_Satellite/5.6/html/Reference_Guide/index.html
+https://access.redhat.com/site/documentation/en-US/Red_Hat_Satellite/5.6/html/Installation_Guide/index.html
+https://access.redhat.com/site/documentation/en-US/Red_Hat_Satellite/5.6/html/Proxy_Installation_Guide/index.html
+https://access.redhat.com/site/documentation/en-US/Red_Hat_Satellite/5.6/html/Client_Configuration_Guide/index.html
+https://access.redhat.com/site/documentation/en-US/Red_Hat_Satellite/5.6/html/User_Guide/index.html
+https://access.redhat.com/site/documentation/en-US/Red_Hat_Satellite/5.6/html/Getting_Started_Guide/index.html
+https://access.redhat.com/site/documentation/en-US/Red_Hat_Satellite/5.6/html/API_Overview/index.html

@@ -39,6 +39,7 @@
 # accept hosts in MY.DOMAIN.NAME
 #+^http://([a-z0-9]*\.)*MY.DOMAIN.NAME/
 #+^http://([a-z0-9]*\.)*redhat.com/
-+^http://www.redhat.com/docs/manuals/satellite/Red_Hat_Network_Satellite-5.2.0/
++^https://access.redhat.com/site/documentation/en-US/Red_Hat_Satellite/5.6/
++^https://fedorahosted.org/spacewalk/wiki/ReleaseNotes20
 # skip everything else
 -.
