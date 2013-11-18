@@ -111,6 +111,9 @@
           <rhn-tab name="Remote Command" url="/rhn/systems/ssm/provisioning/RemoteCommand.do">
               <rhn-tab-url>/rhn/systems/ssm/provisioning/RemoteCommand.do</rhn-tab-url>
           </rhn-tab>
+          <rhn-tab name="Power Management Configuration" url="/rhn/systems/ssm/provisioning/PowerManagementConfiguration.do">
+            <rhn-tab-url>/rhn/systems/ssm/provisioning/PowerManagementConfiguration.do</rhn-tab-url>
+          </rhn-tab>
         </rhn-tab>
 
 	<rhn-tab name="Audit">

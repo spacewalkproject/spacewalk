@@ -3242,4 +3242,20 @@ public class SystemManager extends BaseManager {
         return m.execute(params);
     }
 
+     * Returns ids and names for systems in a given set with at least one of the
+     * specified entitlements.
+     * @param user the requesting user
+     * @param setLabel the set label
+     * @param entitlements the entitlement labels
+     * @return a list of SystemOverview objects
+     */
+    @SuppressWarnings("unchecked")
+    public static List<SystemOverview> entitledInSet(User user, String setLabel,
+        List<String> entitlements) {
+        SelectMode mode = ModeFactory.getMode("System_queries", "entitled_systems_in_set");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("user_id", user.getId());
+        params.put("set_label", setLabel);
+        return mode.execute(params, entitlements);
+    }
 }

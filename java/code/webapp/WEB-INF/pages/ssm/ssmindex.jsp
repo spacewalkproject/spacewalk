@@ -118,6 +118,7 @@
                             <li><bean:message key="ssm.overview.provisioning.kickstart"/></li>
                             <li><bean:message key="ssm.overview.provisioning.rollback"/></li>
                             <li><bean:message key="ssm.overview.provisioning.remotecommands"/></li>
+                            <li><bean:message key="ssm.overview.provisioning.powermanagement.configure"/></li>
                         </ul>
                     </div>
                 </div>

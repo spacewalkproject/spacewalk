@@ -2353,4 +2353,15 @@ ORDER BY UPPER(COALESCE(X.SERVER_NAME, '(none)')), X.ID
   <elaborator name="system_overview" />
 </mode>
 
+<mode name="entitled_systems_in_set" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="user_id, set_label">
+    SELECT rhnServer.id, rhnServer.name
+      FROM rhnServerEntitlementView
+        JOIN rhnSet ON rhnServerEntitlementView.server_id = rhnSet.element
+        JOIN rhnServer ON rhnServerEntitlementView.server_id = rhnServer.id
+      WHERE rhnSet.user_id = :user_id AND
+        rhnSet.label = :set_label AND
+        rhnServerEntitlementView.label IN (%s)
+  </query>
+</mode>
 </datasource_modes>

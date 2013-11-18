@@ -4769,6 +4769,9 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="ssm.overview.provisioning.remotecommands">
           <source>Run &lt;a href="/rhn/systems/ssm/provisioning/RemoteCommand.do"&gt;remote commands&lt;/a&gt;</source>
         </trans-unit>
+        <trans-unit id="ssm.overview.provisioning.powermanagement.configure">
+          <source>&lt;a href="/rhn/systems/ssm/provisioning/PowerManagementConfiguration.do"&gt;Configure power management&lt;/a&gt;</source>
+        </trans-unit>
         <trans-unit id="ssm.overview.misc">
           <source>Misc</source>
         </trans-unit>
@@ -15785,6 +15788,22 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="ssm.overview.provisioning.remotecommand.header">
           <source>Remote Command on {0}</source>
+        </trans-unit>
+        <!-- Power Management Configuration Labels -->
+        <trans-unit id="ssm.provisioning.powermanagement.configuration.header">
+          <source>Change Power Management Configuration</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.powermanagement.configuration.summary">
+          <source>Change power management configuration details to the systems displayed below. Leave a field blank to avoid changing the corresponding parameter.</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.powermanagement.configuration.saved">
+          <source>Configuration successfully saved for {0} system(s).</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.powermanagement.configuration.dontchange">
+          <source>Don't change</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.powermanagement.configuration.update">
+          <source>Update</source>
         </trans-unit>
         <trans-unit id="">
           <source/>
