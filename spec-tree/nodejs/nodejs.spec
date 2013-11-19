@@ -77,7 +77,6 @@ Development headers for the Node.js JavaScript runtime.
 %package docs
 Summary: Node.js API documentation
 Group: Documentation
-BuildArch: noarch
 
 %description docs
 The API documentation for the Node.js JavaScript runtime.
