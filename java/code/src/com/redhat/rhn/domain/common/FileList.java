@@ -88,8 +88,10 @@ public class FileList extends BaseDomainHelper implements Identifiable {
             this.fileNames = new LinkedList();
         }
         ConfigFileName cfn = ConfigurationFactory.lookupOrInsertConfigFileName(fileIn);
-        cfn.setPath(fileIn);
-        this.fileNames.add(cfn);
+        if (!this.fileNames.contains(cfn)) {
+            cfn.setPath(fileIn);
+            this.fileNames.add(cfn);
+        }
     }
 
 
