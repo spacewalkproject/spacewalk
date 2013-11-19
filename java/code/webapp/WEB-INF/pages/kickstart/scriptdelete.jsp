@@ -33,7 +33,7 @@
                   <bean:message key="kickstart.script.scriptname"/>
               </th>
               <td>
-                  ${ksscript.scriptName}
+                  <c:out value="${ksscript.scriptName}" escapeXml="true" />
               </td>
           </tr>
           <tr>
