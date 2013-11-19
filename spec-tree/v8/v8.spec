@@ -21,6 +21,8 @@
 
 # %%global svnver 20110721svn8716
 
+%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+
 Name:		v8
 Version:	%{somajor}.%{sominor}.%{sobuild}.%{sotiny}
 Release:	2%{?dist}
@@ -59,7 +61,7 @@ Development headers and libraries for v8.
 %patch2 -p1
 
 # -fno-strict-aliasing is needed with gcc 4.4 to get past some ugly code
-PARSED_OPT_FLAGS=`echo \'$RPM_OPT_FLAGS -fPIC -fno-strict-aliasing -Wno-unused-parameter -Wno-error=strict-overflow -Wno-unused-but-set-variable\'| sed "s/ /',/g" | sed "s/',/', '/g"`
+PARSED_OPT_FLAGS=`echo \'$RPM_OPT_FLAGS -fPIC -fno-strict-aliasing -Wno-unused-parameter\'| sed "s/ /',/g" | sed "s/',/', '/g"`
 sed -i "s|'-O3',|$PARSED_OPT_FLAGS,|g" SConstruct
 
 # clear spurious executable bits
@@ -149,7 +151,7 @@ armeabi=hard \
 %ifarch armv5tel armv6l armv7l
 armeabi=soft \
 %endif
-snapshots=on console=readline visibility=default || :
+snapshots=on visibility=default || :
 # library=shared snapshots=on console=readline visibility=default || :
 
 # Sigh. I f*****g hate scons.
