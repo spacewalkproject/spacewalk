@@ -18955,13 +18955,13 @@ given channel.</source>
         <source>User Guide</source>
       </trans-unit>
       <trans-unit id="help.jsp.user">
-        <source>Using and administering Red Hat Satellite</source>
+        <source>Using and administering @@PRODUCT_NAME@@</source>
       </trans-unit>
       <trans-unit id="help.jsp.start.title">
         <source>Getting Started Guide</source>
       </trans-unit>
       <trans-unit id="help.jsp.start">
-        <source>Basic setup and configuration with Red Hat Satellite</source>
+        <source>Basic setup and configuration with @@PRODUCT_NAME@@</source>
       </trans-unit>
       <trans-unit id="iprange.emptylist">
         <source>No Ip Ranges Found</source>
