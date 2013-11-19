@@ -14,12 +14,12 @@ blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm oracle-rhn
 
 [spacewalk-nightly-rhel6]
 disttag = .el6
-blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm oracle-rhnsat-selinux jabberd-selinux apt-spacewalk python-hwdata spacewalk-oro-compat mod_perl nodejs-less nodejs scons v8 gyp http-parser
+blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm oracle-rhnsat-selinux jabberd-selinux apt-spacewalk python-hwdata spacewalk-oro-compat mod_perl nodejs-less nodejs scons v8 gyp http-parser libuv
 
 [spacewalk-nightly-fedora18]
 disttag = .fc18
-blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm apt-spacewalk python-hwdata oracle-rhnsat-selinux mod_perl nodejs scons v8 gyp http-parser
+blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm apt-spacewalk python-hwdata oracle-rhnsat-selinux mod_perl nodejs scons v8 gyp http-parser libuv
 
 [spacewalk-nightly-fedora19]
 disttag = .fc19
-blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm apt-spacewalk python-hwdata oracle-rhnsat-selinux mod_perl nodejs-less nodejs scons v8 gyp http-parser
+blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm apt-spacewalk python-hwdata oracle-rhnsat-selinux mod_perl nodejs-less nodejs scons v8 gyp http-parser libuv
