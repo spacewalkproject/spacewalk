@@ -17,12 +17,16 @@ Source100: %{name}-tarball.sh
 
 # Disable running gyp on bundled deps we don't use
 Patch1: nodejs-disable-gyp-deps.patch
+Patch2: nodejs-python24.patch
 
 # V8 presently breaks ABI at least every x.y release while never bumping SONAME,
 # so we need to be more explicit until spot fixes that
 %global v8_ge 1:3.14.5.7
 %global v8_lt 1:3.15
 %global v8_abi 3.14
+
+BuildRoot:   %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+%global _rpmconfigdir /usr/lib/rpm
 
 BuildRequires: v8-devel >= %{v8_ge}
 BuildRequires: http-parser-devel >= 2.0
@@ -82,6 +86,7 @@ The API documentation for the Node.js JavaScript runtime.
 %prep
 %setup -q -n node-v%{version}
 %patch1 -p1
+%patch2 -p0
 
 rm -rf deps
 
@@ -92,7 +97,7 @@ export CXXFLAGS='%{optflags} -g -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64'
 
 ./configure --prefix=%{_prefix} \
            --shared-v8 \
-           --shared-openssl \
+           --without-ssl \
            --shared-zlib \
            --shared-cares \
            --shared-cares-includes=%{_includedir}/c-ares19 \
