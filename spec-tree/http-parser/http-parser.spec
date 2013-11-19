@@ -8,7 +8,7 @@
 
 Name:           http-parser
 Version:        %{somajor}.%{sominor}
-Release:        4.%{git_date}git%{git_commit_hash}%{?dist}
+Release:        4.%{git_date}git%{git_commit_hash}.1%{?dist}
 Summary:        HTTP request/response parser for C
 
 Group:          System Environment/Libraries
