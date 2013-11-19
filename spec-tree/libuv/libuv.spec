@@ -14,8 +14,10 @@ License: MIT and BSD and ISC
 URL: http://nodejs.org/
 Source0: http://libuv.org/dist/v%{version}/%{name}-v%{version}.tar.gz
 Source2: libuv.pc.in
+Patch0:  libuv-python24.patch
 
 BuildRequires: gyp
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 
@@ -37,6 +39,7 @@ Development libraries for libuv
 
 %prep
 %setup -q -n %{name}-v%{version}
+%patch0 -p0
 
 %build
 export CFLAGS='%{optflags}'
