@@ -8243,6 +8243,16 @@
                  path="/WEB-INF/pages/ssm/powermanagement-configuration.jsp"/>
     </action>
 
+    <action path="/systems/ssm/provisioning/PowerManagementOperations"
+            name="powerManagementForm"
+            type="com.redhat.rhn.frontend.action.ssm.PowerManagementOperationsAction"
+            scope="request"
+            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/powermanagement-operations.jsp"/>
+    </action>
+
     <!-- SSM Package tab home page -->
     <action path="/ssm/Packages"
             forward="/WEB-INF/pages/ssm/packages.jsp" />

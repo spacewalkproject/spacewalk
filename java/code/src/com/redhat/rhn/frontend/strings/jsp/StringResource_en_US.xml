@@ -4404,6 +4404,9 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="ssm.overview.provisioning.powermanagement.configure">
           <source>&lt;a href="/rhn/systems/ssm/provisioning/PowerManagementConfiguration.do"&gt;Configure power management&lt;/a&gt;</source>
         </trans-unit>
+        <trans-unit id="ssm.overview.provisioning.powermanagement.operations">
+          <source>Run &lt;a href="/rhn/systems/ssm/provisioning/PowerManagementOperations.do"&gt;power management operations&lt;/a&gt;</source>
+        </trans-unit>
         <trans-unit id="ssm.overview.misc">
           <source>Misc</source>
         </trans-unit>
@@ -14900,6 +14903,18 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="ssm.provisioning.powermanagement.configuration.update">
           <source>Update</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.powermanagement.operations.header">
+          <source>Power Management Operations</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.powermanagement.operations.summary">
+          <source>Apply one of the following power management operations to the systems below.</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.powermanagement.operations.saved">
+          <source>Successfully scheduled {0} system(s) for {1}.</source>
+        </trans-unit>
+        <trans-unit id="ssm.provisioning.powermanagement.cobbler_error">
+          <source>Unexpected Cobbler error, please check server and Cobbler logs.</source>
         </trans-unit>
         <trans-unit id="">
           <source/>
