@@ -1,0 +1,234 @@
+--- configure   2013-11-12 15:22:12.000000000 -0500
++++ configure   2013-11-18 09:42:55.000000000 -0500
+@@ -439,7 +439,7 @@
+
+   armv7 = is_arch_armv7()
+   # CHECKME VFPv3 implies ARMv7+ but is the reverse true as well?
+-  fpu = 'vfpv3' if armv7 else 'vfpv2'
++  fpu = armv7 and 'vfpv3' or 'vfpv2'
+
+   o['variables']['armv7'] = int(armv7)
+   o['variables']['arm_fpu'] = fpu
+@@ -458,15 +458,15 @@
+
+
+ def configure_node(o):
+-  o['variables']['v8_enable_gdbjit'] = 1 if options.gdb else 0
++  o['variables']['v8_enable_gdbjit'] = options.gdb and 1 or 0
+   o['variables']['v8_no_strict_aliasing'] = 1 # work around compiler bugs
+   o['variables']['node_prefix'] = os.path.expanduser(options.prefix or '')
+   o['variables']['node_install_npm'] = b(not options.without_npm)
+   o['variables']['node_unsafe_optimizations'] = (
+-    1 if options.unsafe_optimizations else 0)
+-  o['default_configuration'] = 'Debug' if options.debug else 'Release'
++    options.unsafe_optimizations and 1 or 0)
++  o['default_configuration'] = options.debug and 'Debug' or 'Release'
+
+-  host_arch = host_arch_win() if os.name == 'nt' else host_arch_cc()
++  host_arch = os.name == 'nt' and host_arch_win() or host_arch_cc()
+   target_arch = options.dest_cpu or host_arch
+   o['variables']['host_arch'] = host_arch
+   o['variables']['target_arch'] = target_arch
+@@ -477,7 +477,7 @@
+     configure_mips(o)
+
+   cc_version, is_clang = compiler_version()
+-  o['variables']['clang'] = 1 if is_clang else 0
++  o['variables']['clang'] = is_clang and 1 or 0
+
+   if not is_clang and cc_version != 0:
+     o['variables']['gcc_version'] = 10 * cc_version[0] + cc_version[1]
+@@ -685,7 +685,7 @@
+   pprint.pformat(output, indent=2) + "\n")
+
+ config = {
+-  'BUILDTYPE': 'Debug' if options.debug else 'Release',
++  'BUILDTYPE': options.debug and 'Debug' or 'Release',
+   'USE_NINJA': str(int(options.use_ninja or 0)),
+   'USE_XCODE': str(int(options.use_xcode or 0)),
+   'PYTHON': sys.executable,
+--- tools/gyp/pylib/gyp/input.py        2013-11-12 15:22:12.000000000 -0500
++++ tools/gyp/pylib/gyp/input.py        2013-11-18 09:53:17.000000000 -0500
+@@ -12,7 +12,6 @@
+ import compiler
+ import copy
+ import gyp.common
+-import multiprocessing
+ import optparse
+ import os.path
+ import re
+@@ -22,6 +22,7 @@
+ import threading
+ import time
+ import traceback
++import types
+ from gyp.common import GypError
+
+
+@@ -558,59 +558,6 @@
+     self.condition.release()
+
+
+-def LoadTargetBuildFilesParallel(build_files, data, aux_data,
+-                                 variables, includes, depth, check,
+-                                 generator_input_info):
+-  parallel_state = ParallelState()
+-  parallel_state.condition = threading.Condition()
+-  # Make copies of the build_files argument that we can modify while working.
+-  parallel_state.dependencies = list(build_files)
+-  parallel_state.scheduled = set(build_files)
+-  parallel_state.pending = 0
+-  parallel_state.data = data
+-  parallel_state.aux_data = aux_data
+-
+-  try:
+-    parallel_state.condition.acquire()
+-    while parallel_state.dependencies or parallel_state.pending:
+-      if parallel_state.error:
+-        break
+-      if not parallel_state.dependencies:
+-        parallel_state.condition.wait()
+-        continue
+-
+-      dependency = parallel_state.dependencies.pop()
+-
+-      parallel_state.pending += 1
+-      data_in = {}
+-      data_in['target_build_files'] = data['target_build_files']
+-      aux_data_in = {}
+-      global_flags = {
+-        'path_sections': globals()['path_sections'],
+-        'non_configuration_keys': globals()['non_configuration_keys'],
+-        'multiple_toolsets': globals()['multiple_toolsets']}
+-
+-      if not parallel_state.pool:
+-        parallel_state.pool = multiprocessing.Pool(8)
+-      parallel_state.pool.apply_async(
+-          CallLoadTargetBuildFile,
+-          args = (global_flags, dependency,
+-                  data_in, aux_data_in,
+-                  variables, includes, depth, check, generator_input_info),
+-          callback = parallel_state.LoadTargetBuildFileCallback)
+-  except KeyboardInterrupt, e:
+-    parallel_state.pool.terminate()
+-    raise e
+-
+-  parallel_state.condition.release()
+-
+-  parallel_state.pool.close()
+-  parallel_state.pool.join()
+-  parallel_state.pool = None
+-
+-  if parallel_state.error:
+-    sys.exit(1)
+-
+ # Look for the bracket that matches the first bracket seen in a
+ # string, and return the start and end as a tuple.  For example, if
+ # the input is something like "<(foo <(bar)) blah", then it would
+@@ -871,7 +871,7 @@
+             parsed_contents = shlex.split(contents)
+             try:
+               py_module = __import__(parsed_contents[0])
+-            except ImportError as e:
++            except ImportError, e:
+               raise GypError("Error importing pymod_do_main"
+                              "module (%s): %s" % (parsed_contents[0], e))
+             replacement = str(py_module.DoMain(parsed_contents[1:])).rstrip()
+@@ -1898,7 +1899,7 @@
+ def MergeLists(to, fro, to_file, fro_file, is_paths=False, append=True):
+   # Python documentation recommends objects which do not support hash
+   # set this value to None. Python library objects follow this rule.
+-  is_hashable = lambda val: val.__hash__
++  is_hashable = lambda val: type(val) not in [types.ListType, types.DictType]
+
+   # If x is hashable, returns whether x is in s. Else returns whether x is in l.
+   def is_in_set_or_list(x, s, l):
+@@ -2681,12 +2628,7 @@
+   # Normalize paths everywhere.  This is important because paths will be
+   # used as keys to the data dict and for references between input files.
+   build_files = set(map(os.path.normpath, build_files))
+-  if parallel:
+-    LoadTargetBuildFilesParallel(build_files, data, aux_data,
+-                                 variables, includes, depth, check,
+-                                 generator_input_info)
+-  else:
+-    for build_file in build_files:
++  for build_file in build_files:
+       try:
+         LoadTargetBuildFile(build_file, data, aux_data,
+                             variables, includes, depth, check, True)
+--- tools/gyp/pylib/gyp/common.py       2013-11-12 15:22:12.000000000 -0500
++++ tools/gyp/pylib/gyp/common.py       2013-11-18 09:55:41.000000000 -0500
+@@ -2,8 +2,6 @@
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+
+-from __future__ import with_statement
+-
+ import errno
+ import filecmp
+ import os.path
+@@ -176,7 +176,7 @@
+   """
+   if not path:
+     return path
+-  toplevel_dir = '.' if toplevel_dir is None else toplevel_dir
++  toplevel_dir = toplevel_dir is None and '.' or toplevel_dir
+   return RelativePath(toplevel_dir, os.path.join(toplevel_dir, path))
+
+
+@@ -432,13 +432,13 @@
+   # Slurp input file.
+   source_path = os.path.join(
+       os.path.dirname(os.path.abspath(__file__)), '%s_tool.py' % prefix)
+-  with open(source_path) as source_file:
+-    source = source_file.readlines()
++  source_file = open(source_path)
++  source = source_file.readlines()
+
+   # Add header and write it out.
+   tool_path = os.path.join(out_path, 'gyp-%s-tool' % prefix)
+-  with open(tool_path, 'w') as tool_file:
+-    tool_file.write(
++  tool_file = open(tool_path, 'w')
++  tool_file.write(
+         ''.join([source[0], '# Generated by gyp. Do not edit.\n'] + source[1:]))
+
+   # Make file executable.
+--- tools/gyp/pylib/gyp/xcode_emulation.py      2013-11-12 15:22:12.000000000 -0500
++++ tools/gyp/pylib/gyp/xcode_emulation.py      2013-11-18 10:18:14.000000000 -0500
+@@ -502,9 +502,10 @@
+     if (self.spec['type'] != 'shared_library' and
+         (self.spec['type'] != 'loadable_module' or self._IsBundle())):
+       return None
++    default=self._IsBundle() and '/Library/Frameworks' or '/usr/local/lib'
+     install_base = self.GetPerTargetSetting(
+         'DYLIB_INSTALL_NAME_BASE',
+-        default='/Library/Frameworks' if self._IsBundle() else '/usr/local/lib')
++        default=default)
+     return install_base
+
+   def _StandardizePath(self, path):
+
+--- tools/install.py    2013-11-12 15:22:12.000000000 -0500
++++ tools/install.py    2013-11-19 05:55:36.000000000 -0500
+@@ -147,7 +147,7 @@
+   dst_dir = node_prefix = variables.get('node_prefix') or '/usr/local'
+   if len(args) > 2: dst_dir = abspath(args[2] + '/' + dst_dir)
+
+-  cmd = args[1] if len(args) > 1 else 'install'
++  cmd = len(args) > 1 and args[1] or 'install'
+   if cmd == 'install': return files(install)
+   if cmd == 'uninstall': return files(uninstall)
+   raise RuntimeError('Bad command: %s\n' % cmd)
+--- tools/gyp/pylib/gyp/generator/make.py       2013-11-12 15:22:12.000000000 -0500
++++ tools/gyp/pylib/gyp/generator/make.py       2013-11-19 05:58:46.000000000 -0500
+@@ -1425,7 +1425,7 @@
+         else:
+           ldflags = config.get('ldflags', [])
+           # Compute an rpath for this output if needed.
+-          if any(dep.endswith('.so') or '.so.' in dep for dep in deps):
++          if [1 for dep in deps if dep.endswith('.so') or '.so.' in dep]:
+             # We want to get the literal string "$ORIGIN" into the link command,
+             # so we need lots of escaping.
+             ldflags.append(r'-Wl,-rpath=\$$ORIGIN/lib.%s/' % self.toolset)
