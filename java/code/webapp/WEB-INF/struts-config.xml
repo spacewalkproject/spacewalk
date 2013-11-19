@@ -6041,17 +6041,6 @@
                  path="/WEB-INF/pages/kickstart/scripts.jsp"/>
     </action>
 
-    <action path="/kickstart/Scripts"
-        scope="request"
-        input="/WEB-INF/pages/kickstart/scripts.jsp"
-        type="com.redhat.rhn.frontend.action.kickstart.ScriptsSetupAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="postRequiredIfSubmitted" value="true" />
-        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
-        <forward name="default"
-                 path="/WEB-INF/pages/kickstart/scripts.jsp"/>
-    </action>
-
     <action path="/kickstart/KickstartIpRanges"
         scope="request"
         input="/WEB-INF/pages/kickstart/kickstartranges.jsp"
