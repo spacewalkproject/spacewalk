@@ -1,0 +1,23 @@
+--- gyp_uv 2013-10-18 16:17:48.000000000 -0400
++++ gyp_uv 2013-11-18 08:20:59.000000000 -0500
+@@ -82,16 +82,16 @@
+     args.append('-Dgcc_version=%d' % (10 * major + minor))
+     args.append('-Dclang=%d' % int(is_clang))
+ 
+-  if not any(a.startswith('-Dhost_arch=') for a in args):
++  if not [1 for a in args if a.startswith('-Dhost_arch=')]:
+     args.append('-Dhost_arch=%s' % host_arch())
+ 
+-  if not any(a.startswith('-Dtarget_arch=') for a in args):
++  if not [1 for a in args if a.startswith('-Dtarget_arch=')]:
+     args.append('-Dtarget_arch=%s' % host_arch())
+ 
+-  if not any(a.startswith('-Dlibrary=') for a in args):
++  if not [1 for a in args if a.startswith('-Dlibrary=')]:
+     args.append('-Dlibrary=static_library')
+ 
+-  if not any(a.startswith('-Dcomponent=') for a in args):
++  if not [1 for a in args if a.startswith('-Dcomponent=')]:
+     args.append('-Dcomponent=static_library')
+ 
+   gyp_args = list(args)
