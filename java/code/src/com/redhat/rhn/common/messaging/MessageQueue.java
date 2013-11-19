@@ -37,6 +37,8 @@ import com.redhat.rhn.frontend.events.SsmDeleteServersAction;
 import com.redhat.rhn.frontend.events.SsmDeleteServersEvent;
 import com.redhat.rhn.frontend.events.SsmErrataAction;
 import com.redhat.rhn.frontend.events.SsmErrataEvent;
+import com.redhat.rhn.frontend.events.SsmPowerManagementAction;
+import com.redhat.rhn.frontend.events.SsmPowerManagementEvent;
 import com.redhat.rhn.frontend.events.TraceBackAction;
 import com.redhat.rhn.frontend.events.TraceBackEvent;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheAction;
@@ -281,6 +283,10 @@ public class MessageQueue {
                                     SsmVerifyPackagesEvent.class);
         MessageQueue.registerAction(new SsmUpgradePackagesAction(),
                                     SsmUpgradePackagesEvent.class);
+
+        // Used to allow SSM power management actions to be run asynchronously
+        MessageQueue.registerAction(new SsmPowerManagementAction(),
+            SsmPowerManagementEvent.class);
 
         //Clone Errata into a channel
         MessageQueue.registerAction(new CloneErrataAction(),
