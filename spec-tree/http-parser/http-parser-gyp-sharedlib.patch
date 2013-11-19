@@ -1,0 +1,40 @@
+--- http_parser.gyp~	2012-11-27 15:40:11.721398004 -0700
++++ http_parser.gyp	2012-11-27 15:40:11.721398004 -0700
+@@ -12,7 +12,7 @@
+       #       RuntimeLibrary MUST MATCH across the entire project
+       'Debug': {
+         'defines': [ 'DEBUG', '_DEBUG' ],
+-        'cflags': [ '-Wall', '-Wextra', '-O0', '-g', '-ftrapv' ],
++        'cflags': [ '-Wall', '-Wextra', '-g', '-ftrapv' ],
+         'msvs_settings': {
+           'VCCLCompilerTool': {
+             'RuntimeLibrary': 1, # static debug
+@@ -21,7 +21,7 @@
+       },
+       'Release': {
+         'defines': [ 'NDEBUG' ],
+-        'cflags': [ '-Wall', '-Wextra', '-O3' ],
++        'cflags': [ '-Wall', '-Wextra' ],
+         'msvs_settings': {
+           'VCCLCompilerTool': {
+             'RuntimeLibrary': 0, # static release
+@@ -50,7 +50,8 @@
+   'targets': [
+     {
+       'target_name': 'http_parser',
+-      'type': 'static_library',
++      'type': 'shared_library',
++      'product_extension': 'so.2', 
+       'include_dirs': [ '.' ],
+       'direct_dependent_settings': {
+         'defines': [ 'HTTP_PARSER_STRICT=0' ],
+@@ -73,7 +74,8 @@
+ 
+     {
+       'target_name': 'http_parser_strict',
+-      'type': 'static_library',
++      'type': 'shared_library',
++      'product_extension': 'so.2',
+       'include_dirs': [ '.' ],
+       'direct_dependent_settings': {
+         'defines': [ 'HTTP_PARSER_STRICT=1' ],
