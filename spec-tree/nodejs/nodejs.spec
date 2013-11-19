@@ -7,7 +7,7 @@ Group: Development/Languages
 URL: http://nodejs.org/
 
 # Exclusive archs must match v8
-ExclusiveArch: %{ix86} x86_64 %{arm}
+ExclusiveArch: i386 x86_64
 
 # nodejs bundles openssl, but we use the system version in Fedora
 # because openssl contains prohibited code, we remove openssl completely from
