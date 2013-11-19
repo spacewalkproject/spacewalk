@@ -2,7 +2,7 @@
 
 Name:		scons
 Version:	2.0.1
-Release:	1%{?posttag}%{?dist}
+Release:	1%{?posttag}.1%{?dist}
 Summary:	An Open Source software construction tool
 Group:		Development/Tools
 License:	MIT
