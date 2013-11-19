@@ -60,10 +60,12 @@
                     sortable="false"
                     headerkey="kickstartscript.jsp.scriptname">
                 <c:if test="${current.editable}">
-                <a href="/rhn/kickstart/KickstartScriptEdit.do?kssid=${current.id}&amp;ksid=${ksdata.id}">${current.scriptName}</a>
+                <a href="/rhn/kickstart/KickstartScriptEdit.do?kssid=${current.id}&amp;ksid=${ksdata.id}">
+                <c:out value="${current.scriptName}" escapeXml="true" />
+                </a>
                 </c:if>
                 <c:if test="${not current.editable}">
-                ${current.scriptName}
+                <c:out value="${current.scriptName}" escapeXml="true" />
                 </c:if>
             </rl:column>
                 
