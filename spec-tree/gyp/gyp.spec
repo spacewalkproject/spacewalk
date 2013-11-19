@@ -6,7 +6,7 @@
 
 Name:		gyp
 Version:	0.1
-Release:	0.6%{?revision:.%{revision}svn}%{?dist}
+Release:	0.6%{?revision:.%{revision}svn}.1%{?dist}
 Summary:	Generate Your Projects
 
 Group:		Development/Tools
