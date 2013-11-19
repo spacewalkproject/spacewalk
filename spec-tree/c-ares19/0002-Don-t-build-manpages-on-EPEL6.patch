@@ -1,0 +1,25 @@
+From 4637d37cf2e80c502d1ee4ce011c8adc861812c6 Mon Sep 17 00:00:00 2001
+From: Stephen Gallagher <sgallagh@redhat.com>
+Date: Tue, 9 Apr 2013 10:58:39 -0400
+Subject: [PATCH 2/2] Don't build manpages on EPEL6
+
+---
+ Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 7d3aafc71d1d9221a1bf854c9b2eeb984dd2ab69..366802627b6b2c45da6a3075b74e81f938a283a0 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -36,7 +36,7 @@ endif
+ 
+ lib_LTLIBRARIES = libcares19.la
+ 
+-man_MANS = $(MANPAGES)
++#man_MANS = $(MANPAGES)
+ 
+ MSVCFILES = vc/vc6aws.dsw vc/acountry/vc6acountry.dsp vc/adig/vc6adig.dsp \
+  vc/ahost/vc6ahost.dsp vc/cares/vc6cares.dsp vc/cares/vc6cares.dsw
+-- 
+1.8.1.4
+

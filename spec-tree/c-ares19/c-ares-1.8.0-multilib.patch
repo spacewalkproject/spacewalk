@@ -1,0 +1,48 @@
+--- ares_build.h.in
++++ ares_build.h.in
+@@ -96,7 +96,14 @@
+ #endif
+ 
+ /* The size of `long', as computed by sizeof. */
+-#undef CARES_SIZEOF_LONG
++#include <bits/wordsize.h>
++#if __WORDSIZE == 32
++#define CARES_SIZEOF_LONG 4
++#elif __WORDSIZE == 64
++#define CARES_SIZEOF_LONG 8
++#else
++#error "Unknown word size"
++#endif
+ 
+ /* Integral data type used for ares_socklen_t. */
+ #undef CARES_TYPEOF_ARES_SOCKLEN_T
+--- configure.ac
++++ configure.ac
+@@ -468,7 +468,6 @@ AC_CHECK_SIZEOF(size_t)
+ AC_CHECK_SIZEOF(long)
+ AC_CHECK_SIZEOF(int)
+ AC_CHECK_SIZEOF(short)
+-CARES_CONFIGURE_LONG
+ AC_CHECK_SIZEOF(time_t)
+ 
+ AC_CHECK_TYPE(long long,
+--- configure
++++ configure
+@@ -18096,17 +18096,6 @@
+ _ACEOF
+ 
+ 
+-
+-  if test -z "$ac_cv_sizeof_long" ||
+-    test "$ac_cv_sizeof_long" -eq "0"; then
+-    as_fn_error "cannot find out size of long." "$LINENO" 5
+-  fi
+-
+-cat >>confdefs.h <<_EOF
+-#define CARES_SIZEOF_LONG $ac_cv_sizeof_long
+-_EOF
+-
+-
+ # The cast to long int works around a bug in the HP C Compiler
+ # version HP92453-01 B.11.11.23709.GP, which incorrectly rejects
+ # declarations like `int a3[[(sizeof (unsigned char)) >= 0]];'.
