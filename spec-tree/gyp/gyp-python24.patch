@@ -1,0 +1,57 @@
+diff -u pylib/gyp/mac_tool.py pylib/gyp/mac_tool.py
+--- pylib/gyp/mac_tool.py       2013-11-18 07:42:45.000000000 -0500
++++ pylib/gyp/mac_tool.py       2013-11-18 07:43:11.000000000 -0500
+@@ -38,7 +38,7 @@
+   def ExecFlock(self, lockfile, *cmd_list):
+     """Emulates the most basic behavior of Linux's flock(1)."""
+     # Rely on exception handling to report errors.
+-    fd = os.open(lockfile, os.O_RDONLY|os.O_NOCTTY|os.O_CREAT, 0o666)
++    fd = os.open(lockfile, os.O_RDONLY|os.O_NOCTTY|os.O_CREAT, 0666)
+     fcntl.flock(fd, fcntl.LOCK_EX)
+     return subprocess.call(cmd_list)
+
+diff -u pylib/gyp/generator/make.py pylib/gyp/generator/make.py
+--- pylib/gyp/generator/make.py      2013-11-18 07:39:56.000000000 -0500
++++ pylib/gyp/generator/make.py      2013-11-18 07:41:13.000000000 -0500
+@@ -61,7 +61,9 @@
+ 
+ def GetFlavor(params):
+   """Returns |params.flavor| if it's set, the system's default flavor else."""
+-  return params.get('flavor', 'mac' if sys.platform == 'darwin' else 'linux')
++  flavor = 'linux'
++  if sys.platform == 'darwin': flavor = 'mac'
++  return params.get('flavor', flavor)
+ 
+ 
+ def CalculateVariables(default_variables, params):
+@@ -1797,7 +1799,7 @@
+         else:
+           ldflags = config.get('ldflags', [])
+           # Compute an rpath for this output if needed.
+-          if any(dep.endswith('.so') for dep in deps):
++          if [1 for dep in deps if dep.endswith('.so')]:
+             # We want to get the literal string "$ORIGIN" into the link command,
+             # so we need lots of escaping.
+             ldflags.append(r'-Wl,-rpath=\$$ORIGIN/lib.%s/' % self.toolset)
+@@ -1808,9 +1810,9 @@
+         libraries = gyp.common.uniquer(libraries)
+         # On Mac, framework libraries need to be passed as '-framework Cocoa'.
+         if self.flavor == 'mac':
+-          libraries = [
++          libraries = [ library.endswith('.framework') and
+               '-framework ' + os.path.splitext(os.path.basename(library))[0]
+-              if library.endswith('.framework') else library
++              or library
+               for library in libraries]
+       self.WriteList(libraries, 'LIBS')
+       self.WriteLn(
+@@ -2431,7 +2433,7 @@
+     if os.path.exists(mactool_path):
+       os.remove(mactool_path)
+     CopyMacTool(mactool_path)
+-    os.chmod(mactool_path, 0o755)  # Make file executable.
++    os.chmod(mactool_path, 0755)  # Make file executable.
+ 
+   # Find the list of targets that derive from the gyp file(s) being built.
+   needed_targets = set()
+
