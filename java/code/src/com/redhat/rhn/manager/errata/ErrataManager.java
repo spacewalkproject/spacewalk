@@ -50,6 +50,7 @@ import com.redhat.rhn.frontend.events.CloneErrataEvent;
 import com.redhat.rhn.frontend.events.NewCloneErrataEvent;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.xmlrpc.InvalidErrataException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidParameterException;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
@@ -1422,6 +1423,14 @@ public class ErrataManager extends BaseManager {
      */
     public static List<Long> applyErrataHelper(User loggedInUser, List<Long> systemIds,
             List<Integer> errataIds, Date earliestOccurrence) {
+
+        if (systemIds.isEmpty()) {
+            throw new InvalidParameterException("No systems specified.");
+        }
+        if (errataIds.isEmpty()) {
+            throw new InvalidParameterException("No errata to apply.");
+        }
+
         // first check, whether the errata list is applicable to the whole system list
         // if not, exception is thrown
         for (Long sid : systemIds) {
