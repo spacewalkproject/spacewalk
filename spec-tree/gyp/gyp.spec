@@ -22,9 +22,11 @@ URL:		http://code.google.com/p/gyp/
 # 5. tar -a --exclude-vcs -cf /tmp/gyp-$version-svn$revision.tar.bz2 *
 Source0:	%{archivename}.tar.bz2
 Patch0:		gyp-rpmoptflags.patch
+Patch1:		gyp-python24.patch
 
 BuildRequires:	python2-devel
 BuildArch:	noarch
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
 GYP is a tool to generates native Visual Studio, Xcode and SCons
@@ -38,6 +40,7 @@ irreconcilable differences.
 %prep
 %setup -q -c -n %{archivename}
 %patch0 -p1 -b .0-rpmoptflags
+%patch1 -p0
 for i in $(find pylib -name '*.py'); do
 	sed -e '\,#![ \t]*/.*python,{d}' $i > $i.new && touch -r $i $i.new && mv $i.new $i
 done
