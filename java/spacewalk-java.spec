@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.77
+Version: 2.1.78
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Nov 19 2013 Tomas Lestach <tlestach@redhat.com> 2.1.78-1
+- 1001018 - escape kickstart script name on /rhn/kickstart/Scripts.do page
+- 1020497 - one /kickstart/Scripts action path is enough
+
 * Tue Nov 19 2013 Tomas Lestach <tlestach@redhat.com> 2.1.77-1
 -  replace Red Hat Satellite with @@PRODUCT_NAME@@
 - 1021934 - do not save duplicate filenames
