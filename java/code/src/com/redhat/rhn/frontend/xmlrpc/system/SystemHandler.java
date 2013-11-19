@@ -3282,6 +3282,10 @@ public class SystemHandler extends BaseHandler {
             packageMaps.add(pkgMap);
         }
 
+        if (packageMaps.isEmpty()) {
+            throw new InvalidParameterException("No packages to remove.");
+        }
+
         PackageAction action = null;
         try {
             action = ActionManager.schedulePackageRemoval(loggedInUser, server,
