@@ -5,7 +5,7 @@
 Name: libuv
 Epoch:   1
 Version: 0.10.18
-Release: 1%{?dist}
+Release: 1.1%{?dist}
 Summary: Platform layer for node.js
 
 Group: Development/Tools
