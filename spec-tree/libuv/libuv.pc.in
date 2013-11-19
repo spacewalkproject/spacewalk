@@ -1,0 +1,11 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: libuv
+Description: Development libraries for libuv
+Version: @version@
+Libs: -L${libdir} -luv -lrt -ldl
+Cflags:
+URL: http://nodejs.org/
