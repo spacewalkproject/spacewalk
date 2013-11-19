@@ -1,6 +1,6 @@
 Name: nodejs
 Version: 0.10.22
-Release: 1%{?dist}
+Release: 1.1%{?dist}
 Summary: JavaScript runtime
 License: MIT and ASL 2.0 and ISC and BSD
 Group: Development/Languages
@@ -169,6 +169,11 @@ cp -p common.gypi %{buildroot}%{_datadir}/node
 %{_defaultdocdir}/%{name}-docs-%{version}
 
 %changelog
+* Tue Nov 19 2013 Michael Mraka <michael.mraka@redhat.com> 0.10.22-1.1
+- fixed ExclusiveArch macros for RHEL5
+- packaging changes for RHEL5
+- made nodejs python 2.4 compatible
+
 * Tue Nov 12 2013 T.C. Hollingsworth <tchollingsworth@gmail.com> - 0.10.22-1
 - new upstream release 0.10.22
   http://blog.nodejs.org/2013/11/12/node-v0-10-22-stable/
