@@ -7,6 +7,10 @@ License:        MIT
 URL:            https://fedoraproject.org/wiki/Node.js/Packagers
 Source0:        https://fedorahosted.org/released/%{name}/%{name}-el6-%{version}.tar.xz
 ExclusiveArch:  %{ix86} x86_64 %{arm} noarch
+Group:          Unknown
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+%global _rpmconfigdir /usr/lib/rpm
 
 #nodejs-devel before 0.10.12 provided these macros and owned /usr/share/node
 Requires:       nodejs(engine) >= 0.10.12
