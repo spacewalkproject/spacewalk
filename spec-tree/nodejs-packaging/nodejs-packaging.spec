@@ -1,6 +1,6 @@
 Name:           nodejs-packaging
 Version:        4
-Release:        1%{?dist}
+Release:        1.1%{?dist}
 Summary:        RPM Macros and Utilities for Node.js Packaging
 BuildArch:      noarch
 License:        MIT
