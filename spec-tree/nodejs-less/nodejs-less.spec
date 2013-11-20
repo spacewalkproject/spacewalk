@@ -21,6 +21,9 @@ BuildArch:      noarch
 BuildRequires:  nodejs-devel
 Requires:       nodejs
 ExclusiveArch:  %{ix86} %{arm} x86_64 noarch
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+%global _rpmconfigdir /usr/lib/rpm
 
 Provides:  lessjs = %{version}-%{release}
 Obsoletes: lessjs < 1.3.3-2
