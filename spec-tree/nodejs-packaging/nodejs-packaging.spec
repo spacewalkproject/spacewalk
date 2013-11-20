@@ -9,6 +9,7 @@ Source0:        https://fedorahosted.org/released/%{name}/%{name}-el6-%{version}
 ExclusiveArch:  %{ix86} x86_64 %{arm} noarch
 Group:          Unknown
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Patch0:         nodejs-packaging-python24.patch
 
 %global _rpmconfigdir /usr/lib/rpm
 
@@ -22,6 +23,7 @@ Node.js modules and applications in RPM-based distributions.
 
 %prep
 %setup -qn %{name}-el6-%{version}
+%patch0 -p0
 
 %build
 #nothing to do

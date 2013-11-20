@@ -1,0 +1,45 @@
+--- nodejs.prov    2013-07-29 19:34:36.000000000 -0400
++++ nodejs.prov    2013-11-20 05:21:16.000000000 -0500
+@@ -25,7 +25,7 @@
+ # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ # IN THE SOFTWARE.
+ 
+-import json
++import simplejson as json
+ import subprocess
+ import sys
+
+--- nodejs-fixdep  2013-07-29 19:34:36.000000000 -0400
++++ nodejs-fixdep  2013-11-20 05:21:37.000000000 -0500
+@@ -22,7 +22,7 @@
+ # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ # IN THE SOFTWARE.
+ 
+-import json
++import simplejson as json
+ import os
+ import shutil
+ import sys
+--- nodejs-symlink-deps    2013-07-29 19:34:36.000000000 -0400
++++ nodejs-symlink-deps    2013-11-20 05:21:28.000000000 -0500
+@@ -23,7 +23,7 @@
+ # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ # IN THE SOFTWARE.
+ 
+-import json
++import simplejson as json
+ import os
+ import sys
+
+--- nodejs.req     2013-07-29 19:34:36.000000000 -0400
++++ nodejs.req     2013-11-20 05:24:50.000000000 -0500
+@@ -27,7 +27,7 @@
+ # IN THE SOFTWARE.
+ 
+ from __future__ import unicode_literals
+-import json
++import simplejson as json
+ import re
+ import subprocess
+ import sys
+
