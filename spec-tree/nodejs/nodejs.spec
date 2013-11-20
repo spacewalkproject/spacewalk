@@ -33,6 +33,7 @@ BuildRequires: http-parser-devel >= 2.0
 BuildRequires: libuv-devel
 BuildRequires: c-ares19-devel
 BuildRequires: zlib-devel
+BuildRequires: python-simplejson
 # Node.js requires some features from openssl 1.0.1 for SPDY support
 # but we'll try our best
 BuildRequires: openssl-devel
