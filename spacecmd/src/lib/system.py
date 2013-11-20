@@ -2088,6 +2088,122 @@ def do_system_listcrashedsystems(self, args):
         if len(res_crash) != 0:
                 print "%d : %s : %s" % (len(res_crash),sys['id'],sys['name'])
 
+######
+
+def help_system_deletecrashes(self):
+    print 'system_deletecrashes: Delete crashes reported by spacewalk-abrt.'
+    print 'usage: Delete all crashes for all systems    : system_deletecrashes [--verbose]'
+    print 'usage: Delete all crashes for a single system: system_deletecrashes -i sys_id [--verbose]'
+    print 'usage: Delete a single crash record          : system_deletecrashes -c crash_id [--verbose]'
+    print
+
+
+def print_msg(string_msg,flag_verbose):
+     if flag_verbose:
+          print string_msg
+
+def do_system_deletecrashes(self, args):
+    options = [ Option('-i', '--sysid', action='store'),
+                Option('-c', '--crashid', action='store'),
+                Option('-v', '--verbose', action='store_true') ]
+
+    (args, options) = parse_arguments(args, options)
+
+    if options.crashid:
+        print_msg ("Deleting crash with id %s." % options.crashid,options.verbose)
+        self.client.system.crash.deleteCrash(self.session,int(options.crashid))
+        return
+
+    sys_id=[]
+    if options.sysid:
+         sys_id.append(options.sysid)
+         prompt_string="Deleting all crashes from system with systemid %s [y/N]:" % options.sysid
+    else: # all systems
+         prompt_string='Deleting all crashes from all systems [y/N]:'
+         systems=self.client.system.listUserSystems(self.session)
+         for s in systems:
+             sys_id.append(s['id'])
+
+    confirm = prompt_user(prompt_string)
+    if re.match('n', confirm, re.I):
+         return
+
+    for s_id in sys_id:
+        list_crash=self.client.system.crash.listSystemCrashes(self.session,int(s_id))
+        for crash in list_crash:
+            print_msg("Deleting crash with id %s from system %s." % (crash['id'], s_id),options.verbose)
+            self.client.system.crash.deleteCrash(self.session,int(crash['id']))
+
+#######
+
+def help_system_listcrashesbysystem(self):
+    print 'system_listcrashesbysystem: List all reported crashes for a system.'
+    print 'usage: system_listcrashesbysystem -i sys_id'
+    print
+
+def do_system_listcrashesbysystem(self, args):
+
+    options = [ Option('-i', '--sysid', action='store')]
+
+    (args, options) = parse_arguments(args, options)
+
+    if not options.sysid:
+       print "# System id must be provided."
+       print "usage: system_listcrashesbysystem -i sys_id"
+       return
+
+    l_crashes=self.client.system.crash.listSystemCrashes(self.session, int(options.sysid))
+    print
+    print 'Crash ID | Crash Name'
+    print '---------------------'
+
+    for cr in l_crashes:
+       print "| %s  | %s" % (cr['id'],cr['crash'])
+
+
+#######
+
+def help_system_getcrashfiles(self):
+    print 'system_getcrashfiles: Download all files for a crash record.'
+    print 'usage: system_getcrashfiles -c crash_id [--verbose]'
+    print 'usage: system_getcrashfiles -c crash_id [--dest_folder=/tmp/crash_files] [--verbose]'
+    print
+
+def do_system_getcrashfiles(self, args):
+    options = [ Option('-c', '--crashid', action='store'),
+                Option('-d', '--dest_folder', action='store'),
+                Option('-v', '--verbose', action='store_true') ]
+
+    (args, options) = parse_arguments(args, options)
+
+    if not options.crashid:
+       print "# Crash id must be provided."
+       print "usage: system_getcrashfiles -c crash_id [--dest_folder=/tmp/crash_files] [--verbose]"
+       return
+
+    if not options.verbose:
+       options.verbose="&>/dev/null"
+
+    # create date stamp
+    date_stamp=datetime.now().strftime('%Y-%m-%d_%H:%M:%S')
+
+    if not options.dest_folder:
+       options.dest_folder="files_for_" + "crashid_" + options.crashid + "_" + date_stamp
+    else:
+       options.dest_folder+="_" + date_stamp
+
+    # create folder
+    os.system("mkdir %s" % options.dest_folder)
+    l_files=self.client.system.crash.listSystemCrashFiles(self.session, int(options.crashid))
+
+    for f in l_files:
+       file_url=self.client.system.crash.getCrashFileUrl(self.session, f['id'])
+       os.system("wget  --directory-prefix=%s --tries=1 --no-check-certificate %s %s" % (options.dest_folder,file_url,options.verbose))
+
+    print
+    print "# All files we downloaded to %s." % options.dest_folder
+    print
+
 ####################
 
 def help_system_removechildchannels(self):
