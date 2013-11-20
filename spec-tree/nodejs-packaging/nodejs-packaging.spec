@@ -1,6 +1,6 @@
 Name:           nodejs-packaging
 Version:        4
-Release:        1.2%{?dist}
+Release:        1.3%{?dist}
 Summary:        RPM Macros and Utilities for Node.js Packaging
 BuildArch:      noarch
 License:        MIT
@@ -43,6 +43,9 @@ install -Dpm0644 multiver_modules %{buildroot}%{_datadir}/node/multiver_modules
 %doc LICENSE
 
 %changelog
+* Wed Nov 20 2013 Michael Mraka <michael.mraka@redhat.com> 4-1.3
+- more python 2.4 fixes
+
 * Wed Nov 20 2013 Michael Mraka <michael.mraka@redhat.com> 4-1.2
 - modified for python 2.4
 
