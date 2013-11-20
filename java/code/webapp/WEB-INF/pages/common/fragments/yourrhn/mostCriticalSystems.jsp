@@ -42,7 +42,7 @@
 
     	<rl:column headerkey="yourrhn.jsp.criticalsystems.enhancementerrata"
     			headerclass="row-2 text-align: center;">
-   			<i class="fa  spacewalk-icon-enhancement" title="<bean:message key='errata-legend.jsp.enhancement'/>"></i>${current.enhancementErrata}		
+			<i class="fa  spacewalk-icon-enhancement" title="<bean:message key='errata-legend.jsp.enhancement'/>"></i>${current.enhancementErrata}
     	</rl:column>
 
 	</rl:list>

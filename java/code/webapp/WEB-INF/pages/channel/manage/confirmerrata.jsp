@@ -30,7 +30,7 @@
 									<td>${bug_count}</td>
 							</tr>
 							<tr>
-									<th><i class="fa  spacewalk-icon-enhancement" title="<bean:message key='erratalist.jsp.productenhancementadvisory'/>"></i>
+									<th><i class="fa  spacewalk-icon-enhancement" title="<bean:message key='erratalist.jsp.productenhancementadvisory'/>"></i>
 										Product Enhancement Advisory:
 									</th>
 									<td>${enhance_count}</td>

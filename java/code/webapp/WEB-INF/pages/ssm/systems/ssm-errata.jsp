@@ -45,7 +45,7 @@
                         <i class="fa fa-bug"></i>
                     </c:if>
                     <c:if test="${current.productEnhancement}">
-                        <i class="fa  spacewalk-icon-enhancement"></i>
+                        <i class="fa  spacewalk-icon-enhancement"></i>
                     </c:if>
                 </rl:column>
 

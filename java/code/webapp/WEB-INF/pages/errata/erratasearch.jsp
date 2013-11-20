@@ -88,7 +88,7 @@
                 </div>
                 <div class="checkbox">
                 <html:checkbox property="errata_type_enhancement">
-                    <i class="fa  spacewalk-icon-enhancement"></i>
+                    <i class="fa  spacewalk-icon-enhancement"></i>
                     <bean:message key="erratalist.jsp.productenhancementadvisory"/>
                 </html:checkbox>
                 </div>
@@ -173,7 +173,7 @@
 		  <i class="fa fa-bug"></i>
 		</c:if>
 		<c:if test="${current.productEnhancement}">
-		  <i class="fa  spacewalk-icon-enhancement"></i>
+		  <i class="fa  spacewalk-icon-enhancement"></i>
 		</c:if>
       </rl:column>
 

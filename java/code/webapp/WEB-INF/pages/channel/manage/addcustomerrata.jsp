@@ -100,7 +100,7 @@
 							            <i class="fa fa-bug" title="<bean:message key='erratalist.jsp.bugadvisory'/>"></i>
 							        </c:if>
 							        <c:if test="${current.productEnhancement}">
-							            <i class="fa  spacewalk-icon-enhancement" title="<bean:message key='erratalist.jsp.productenhancementadvisory'/>"></i>
+							            <i class="fa  spacewalk-icon-enhancement" title="<bean:message key='erratalist.jsp.productenhancementadvisory'/>"></i>
 							        </c:if>
 				</rl:column>	  		
 		  		

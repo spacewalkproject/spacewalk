@@ -42,7 +42,7 @@
                            headerclass="thin-column"
                            sortattr="advisoryType">
                         <c:if test="${current.advisoryType == 'Product Enhancement Advisory'}">
-				 <i class="fa  spacewalk-icon-enhancement" title="Product Enhancement Advisory"></i>
+				 <i class="fa  spacewalk-icon-enhancement" title="Product Enhancement Advisory"></i>
                         </c:if>
                        <c:if test="${current.advisoryType == 'Security Advisory'}">
 				 <i class="fa fa-lock" title="Security Advisory"></i>

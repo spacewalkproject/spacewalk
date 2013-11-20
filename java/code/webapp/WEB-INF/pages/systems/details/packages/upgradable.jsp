@@ -59,7 +59,7 @@
             <i class="fa fa-bug" title="<bean:message key='erratalist.jsp.bugadvisory' />"></i>
           </c:if>
           <c:if test="${errata.type == 'Product Enhancement Advisory'}">
-            <i class="fa  spacewalk-icon-enhancement" title="<bean:message key='erratalist.jsp.productenhancementadvisory' />"></i>
+            <i class="fa  spacewalk-icon-enhancement" title="<bean:message key='erratalist.jsp.productenhancementadvisory' />"></i>
           </c:if>
           <a href="/rhn/errata/details/Details.do?eid=${errata.id}">${errata.advisory}</a><br/>
         </c:if>
