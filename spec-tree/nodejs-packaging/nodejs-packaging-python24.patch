@@ -42,4 +42,16 @@
  import re
  import subprocess
  import sys
-
+@@ -129,9 +129,9 @@
+     #oh boy, here we go...
+     else:
+         #split the dotted portions into a list (handling trailing dots properly)
+-        parts = [part if part else 'x' for part in version.split('.')]
+-        parts = [int(part) if part != 'x' and not '-' in part
+-                                                    else part for part in parts]
++        parts = [part or 'x' for part in version.split('.')]
++        parts = [(part != 'x' and not '-' in part) and int(part)
++                                                    or part for part in parts]
+ 
+         # 1 or 1.x or 1.x.x or ~1
+         if len(parts) == 1 or parts[1] == 'x':
