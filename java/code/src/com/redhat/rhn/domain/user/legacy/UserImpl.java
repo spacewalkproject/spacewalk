@@ -155,6 +155,14 @@ public class UserImpl extends BaseDomainHelper implements User {
     }
 
     /**
+     * Sets the value of password as is to new value, no encryption
+     * @param passwordIn New raw value for password
+     */
+    public void setRawPassword(String passwordIn) {
+        this.password = passwordIn;
+    }
+
+    /**
      * Sets the value of password to new value
      * @param passwordIn New value for password
      */

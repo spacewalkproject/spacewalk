@@ -157,6 +157,7 @@ public class ConfigDefaults {
     public static final String LOOKUP_EXCEPT_SEND_EMAIL = "lookup_exception_email";
 
     public static final String KS_PARTITION_DEFAULT = "kickstart.partition.default";
+    public static final String IPA_DEFAULT_USER_ORG = "java.ipa.default_user_org";
 
     /**
      * System Currency defaults
@@ -615,5 +616,17 @@ public class ConfigDefaults {
      */
     public int getTaskoChannelRepodataWorkers() {
         return Config.get().getInt(TASKOMATIC_CHANNEL_REPODATA_WORKERS, 1);
+    }
+
+    /**
+     * Returns Max taskomatic channel repodata workers
+     * @return Max taskomatic channel repodata workers
+     */
+    public Long getIpaDefaultUserOrgId() {
+        Integer ipaDefaultUserOrg = Config.get().getInteger(IPA_DEFAULT_USER_ORG);
+        if (ipaDefaultUserOrg != null) {
+            return ipaDefaultUserOrg.longValue();
+        }
+        throw new ConfigException(IPA_DEFAULT_USER_ORG + " not set!");
     }
 }

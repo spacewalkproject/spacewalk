@@ -243,6 +243,12 @@ public interface User {
     void setPassword(String passwordIn);
 
     /**
+     * Sets the value of password as is to new value, no encryption
+     * @param passwordIn New raw value for password
+     */
+    void setRawPassword(String passwordIn);
+
+    /**
      * Gets the current value of lastLoggedIn
      * @return Date the current value
      */

@@ -988,6 +988,12 @@
           <context context-type="sourcefile">Login or Logout</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="account.user.disabled">
+        <source>Account {0} has been deactivated.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Login or Logout</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="user.enable">
         <source>Reactivated user &lt;strong&gt;{0}&lt;/strong&gt;.</source>
         <context-group name="ctx">
@@ -5216,6 +5222,12 @@ user before attempting to deactivate their account.</source>
       </trans-unit>
       <trans-unit id="message.firstusercreated">
         <source>You have created your first user for the @@PRODUCT_NAME@@ Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="message.kerbuserlogged">
+        <source>You've logged as &lt;strong&gt;{0}&lt;/strong&gt; using the Kerberos ticket. To be able to login using this account without Kerberos ticket, please set your password on &lt;a href="/rhn/account/UserDetails.do"&gt;&lt;strong&gt;{0} user page&lt;/strong&gt;&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>

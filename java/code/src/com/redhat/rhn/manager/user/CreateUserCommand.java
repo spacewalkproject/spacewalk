@@ -285,6 +285,14 @@ public class CreateUserCommand {
     }
 
     /**
+     * @param passwordIn The raw password to set
+     */
+    public void setRawPassword(String passwordIn) {
+        passwordErrors = new ArrayList(); //init password errors list
+        user.setRawPassword(passwordIn);
+    }
+
+    /**
      * @param passwordIn The password to set
      */
     public void setPassword(String passwordIn) {
