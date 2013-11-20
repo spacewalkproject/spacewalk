@@ -1,6 +1,6 @@
 Name:           nodejs-packaging
 Version:        4
-Release:        1.1%{?dist}
+Release:        1.2%{?dist}
 Summary:        RPM Macros and Utilities for Node.js Packaging
 BuildArch:      noarch
 License:        MIT
@@ -43,6 +43,9 @@ install -Dpm0644 multiver_modules %{buildroot}%{_datadir}/node/multiver_modules
 %doc LICENSE
 
 %changelog
+* Wed Nov 20 2013 Michael Mraka <michael.mraka@redhat.com> 4-1.2
+- modified for python 2.4
+
 * Mon Jul 29 2013 T.C. Hollingsworth <tchollingsworth@gmail.com> - 4-1
 - handle cases where the symlink target exists gracefully
 
