@@ -6479,7 +6479,7 @@
         type="com.redhat.rhn.frontend.action.systems.provisioning.PreservationListDeleteSubmitAction"
         parameter="dispatch"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="postRequired" value="true" />
+        <set-property property="postRequiredIfSubmitted" value="true" />
         <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                  path="/systems/provisioning/preservation/PreservationList.do"/>
