@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.1.13
+Version:     2.1.14
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -64,6 +64,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Nov 21 2013 Dimitar Yordanov <dyordano@redhat.com> 2.1.14-1
+- system_deletecrashes, system_getcrashfiles, system_listcrashesbysystem
+
 * Fri Nov 08 2013 Milan Zazrivec <mzazrivec@redhat.com> 2.1.13-1
 - 835979 - system_runscript: convert date/time to iso-8601
 
