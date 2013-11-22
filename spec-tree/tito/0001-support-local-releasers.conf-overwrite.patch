@@ -1,0 +1,24 @@
+From 2ba7cf86f8ef21fbd37446778a0269dd68f98912 Mon Sep 17 00:00:00 2001
+From: Michael Mraka <michael.mraka@redhat.com>
+Date: Fri, 22 Nov 2013 14:27:07 +0100
+Subject: [PATCH] support local releasers.conf overwrite
+
+---
+ src/tito/cli.py |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/src/tito/cli.py b/src/tito/cli.py
+index 4c42b42..4aec245 100644
+--- a/src/tito/cli.py
++++ b/src/tito/cli.py
+@@ -499,7 +499,7 @@ class ReleaseModule(BaseCliModule):
+         rel_eng_dir = os.path.join(find_git_root(), "rel-eng")
+         filename = os.path.join(rel_eng_dir, RELEASERS_CONF_FILENAME)
+         config = ConfigParser.ConfigParser()
+-        config.read(filename)
++        config.read([filename, RELEASERS_CONF_FILENAME])
+         return config
+
+     def _legacy_builder_hack(self, releaser_config):
+--
+1.7.1
