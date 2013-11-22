@@ -6,18 +6,20 @@
 
 
 
-<c:choose>
-    <c:when test="${!inSSM}">
-        <c:set var="actionLink" value="/rhn/systems/details/AddToSSM.do?sid=${system.id}"/>
-        <c:set var="actionMessage" value="toolbar.ssm.add"/>
-        <c:set var="actionIcon" value="fa-plus-circle"/>
-    </c:when>
-    <c:otherwise>
-        <c:set var="actionLink" value="/rhn/systems/details/RemoveFromSSM.do?sid=${system.id}"/>
-        <c:set var="actionMessage" value="toolbar.ssm.remove"/>
-        <c:set var="actionIcon" value="fa-times-circle-o"/>
-    </c:otherwise>
-</c:choose>
+<rhn:require acl="system_has_management_entitlement()">
+    <c:choose>
+        <c:when test="${!inSSM}">
+            <c:set var="actionLink" value="/rhn/systems/details/AddToSSM.do?sid=${system.id}"/>
+            <c:set var="actionMessage" value="toolbar.ssm.add"/>
+            <c:set var="actionIcon" value="fa-plus-circle"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="actionLink" value="/rhn/systems/details/RemoveFromSSM.do?sid=${system.id}"/>
+            <c:set var="actionMessage" value="toolbar.ssm.remove"/>
+            <c:set var="actionIcon" value="fa-times-circle-o"/>
+        </c:otherwise>
+    </c:choose>
+</rhn:require>
 
 <c:choose>
     <c:when test="${system.virtualGuest}">
