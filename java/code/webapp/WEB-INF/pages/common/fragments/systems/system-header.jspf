@@ -35,7 +35,7 @@
              icon="${systemIcon}" miscUrl="${actionLink}" miscIcon="${actionIcon}" miscText="${actionMessage}"
              miscAcl="system_has_management_entitlement()"
              helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-details"
-             deletionUrl="/rhn/systems/details/RemoveFromSSM.do?sid=${system.id}"
+             deletionUrl="/rhn/systems/details/DeleteConfirm.do?sid=${system.id}"
              deletionType="system">
     <c:if test="${empty system}">
         <decorator:getProperty property="meta.name" />
