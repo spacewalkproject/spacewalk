@@ -23,7 +23,7 @@
         <p><c:out value="${login_banner}" escapeXml="false" /></p>
       </c:when>
       <c:otherwise>
-        <h1>Welcome to Spacewalk</h1>
+        <h1><bean:message key="login.jsp.welcomemessage" /></h1>
         <p><bean:message key="login.jsp.satbody1" /></p>
       </c:otherwise>
     </c:choose>
