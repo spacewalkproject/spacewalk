@@ -41,6 +41,7 @@
       <rhn-tab name="All" url="/rhn/systems/SystemList.do"/>
       <rhn-tab name="Physical Systems" url="/rhn/systems/PhysicalList.do"/>
       <rhn-tab name="Virtual Systems" url="/rhn/systems/VirtualSystemsList.do"/>
+      <rhn-tab name="Bare Metal Systems" url="/rhn/systems/BootstrapSystemList.do"/>
       <rhn-tab name="Out of Date" url="/rhn/systems/OutOfDate.do"/>
       <rhn-tab name="Requiring Reboot" url="/rhn/systems/RequiringReboot.do"/>
       <rhn-tab name="Extra Packages" url="/rhn/systems/ExtraPackagesSystems.do"/>

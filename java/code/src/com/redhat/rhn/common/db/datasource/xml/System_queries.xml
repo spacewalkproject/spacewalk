@@ -2057,4 +2057,33 @@ select s.id as id,
   <elaborator name="is_virtual_host" />
 </mode>
 
+<mode name="count_entitled_systems_in_set">
+  <query params="user_id, set_label, entitlement_label">
+    SELECT COUNT(*) as count
+      FROM rhnServerEntitlementView
+        JOIN rhnSet on rhnServerEntitlementView.server_id = rhnSet.element  
+      WHERE rhnSet.user_id = :user_id AND
+        rhnSet.label = :set_label AND
+        rhnServerEntitlementView.label = :entitlement_label
+  </query>
+</mode>
+
+<mode name="bootstrap" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="org_id, user_id">
+    SELECT rhnServer.id, rhnServer.name, 1 AS selectable
+      FROM rhnServerEntitlementView
+        JOIN rhnServer ON rhnServerEntitlementView.server_id = rhnServer.id
+        JOIN rhnUserServerPerms ON rhnServer.id = rhnUserServerPerms.server_id
+      WHERE rhnServerEntitlementView.label = 'bootstrap_entitled'
+        AND rhnServer.org_id = :org_id
+        AND rhnUserServerPerms.user_id = :user_id
+      ORDER BY UPPER(COALESCE(rhnServer.name, '(none)')), rhnServer.id
+  </query>
+  <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
+  <elaborator name="system_monitoring" />
+  <elaborator name="entitlements" />
+  <elaborator name="is_virtual_guest" />
+  <elaborator name="is_virtual_host" />
+</mode>
 </datasource_modes>

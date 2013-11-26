@@ -3002,6 +3002,15 @@
                   redirect="true"/>
      </action>
 
+    <action path="/systems/BootstrapSystemList" scope="request"
+      input="/WEB-INF/pages/systems/bootstrapsystemlist.jsp"
+      type="com.redhat.rhn.frontend.action.systems.BootstrapSystemListSetupAction"
+      className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <set-property property="postRequiredIfSubmitted" value="true" />
+      <forward name="default"
+        path="/WEB-INF/pages/systems/bootstrapsystemlist.jsp" />
+    </action>
+
     <action path="/systems/SystemGroupList"
         scope="request"
         input="/WEB-INF/pages/systems/grouplist.jsp"

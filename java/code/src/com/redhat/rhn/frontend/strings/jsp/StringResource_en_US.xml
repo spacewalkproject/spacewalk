@@ -8226,12 +8226,51 @@ Please note that some manual configuration of these scripts may still be require
           <source>Update</source>
         </trans-unit>
       </group>
-      <trans-unit id="bootstrapsystems.kernel_not_found">
-        <source>Bootstrap kernel file not found, please check that {0} exists and is accessible.</source>
-      </trans-unit>
-      <trans-unit id="bootstrapsystems.initrd_not_found">
-        <source>Bootstrap initrd file not found, please check that {0} exists and is accessible.</source>
-      </trans-unit>
+      <!-- Bare-metal system listing configuration -->
+      <group>
+        <trans-unit id="Bare-metal systems">
+          <source>Bare-metal systems</source>
+        </trans-unit>
+        <trans-unit id="bootstrapsystems.jsp.toolbar">
+          <source>@@PRODUCT_NAME@@ Configuration - Bare-metal systems</source>
+        </trans-unit>
+        <trans-unit id="bootstrapsystems.jsp.header">
+          <source>Bare-metal system management</source>
+        </trans-unit>
+        <trans-unit id="bootstrapsystems.jsp.summary">
+          <source>Allows @@PRODUCT_NAME@@ to automatically add bare-metal systems capable of PXE booting to an organization.</source>
+        </trans-unit>
+        <trans-unit id="bootstrapsystems.jsp.enable_bootstrap_discovery">
+          <source>Bare-metal systems</source>
+        </trans-unit>
+        <trans-unit id="enable">
+          <source>Enable adding to this organization</source>
+        </trans-unit>
+        <trans-unit id="disable">
+          <source>Disable adding to this organization</source>
+        </trans-unit>
+        <trans-unit id="bootstrapsystems.jsp.bootstrap_enabled">
+          <source>Automatic bare-metal system discovery has been successfully enabled</source>
+        </trans-unit>
+        <trans-unit id="bootstrapsystems.jsp.bootstrap_disabled">
+          <source>Automatic bare-metal system discovery has been successfully disabled</source>
+        </trans-unit>
+        <trans-unit id="bootstrapsystems.jsp.bootstrap_enabled_for_other_org">
+          <source>Automatic bare-metal system registration is enabled for organization "{0}", so it cannot be enabled for current organization "{1}" unless a "{0}" administrator disables it first. </source>
+        </trans-unit>
+        <trans-unit id="bootstrapsystems.kernel_not_found">
+          <source>Bootstrap kernel file not found, please check that {0} exists and is accessible.</source>
+        </trans-unit>
+        <trans-unit id="bootstrapsystems.initrd_not_found">
+          <source>Bootstrap initrd file not found, please check that {0} exists and is accessible.</source>
+        </trans-unit>
+        <trans-unit id="bootstrapsystemlist.jsp.header">
+          <source>Bare Metal systems</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/BootstrapSystemList.do</context>
+          </context-group>
+        </trans-unit>
+      </group>
       <!-- Repo Sync -->
       <trans-unit id="repos.jsp.summary">
         <source>Use repositories to sync additional packages to your channels. Repositories may be linked to your channels.</source>
