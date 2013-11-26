@@ -87,6 +87,12 @@
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Bare Metal Systems">
+        <source>Bare Metal Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Physical Systems">
         <source>Physical Systems</source>
         <context-group name="ctx">

@@ -2946,6 +2946,22 @@ public class SystemManager extends BaseManager {
     }
 
     /**
+     * Returns list bare metal systems visible to user.
+     * @param user Currently logged in user.
+     * @param pc PageControl
+     * @return list of SystemOverviews
+     */
+    public static DataResult<SystemOverview> bootstrapList(User user,
+            PageControl pc) {
+        SelectMode m = ModeFactory.getMode("System_queries", "bootstrap");
+        Map<String, Long> params = new HashMap<String, Long>();
+        params.put("org_id", user.getOrg().getId());
+        params.put("user_id", user.getId());
+        Map<String, Long> elabParams = new HashMap<String, Long>();
+        return makeDataResult(params, elabParams, pc, m);
+    }
+
+    /**
      * Returns ids and names for systems in a given set with at least one of the
      * specified entitlements.
      * @param user the requesting user
