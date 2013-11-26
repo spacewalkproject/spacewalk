@@ -4,6 +4,13 @@ ALTER TABLE rhnDistChannelMap DROP CONSTRAINT rhn_dcm_os_release_caid_uq;
 DROP INDEX rhn_dcm_os_release_caid_idx;
 
 delete
+ from rhnDistChannelMap
+where channel_id in (
+      select id
+        from rhnChannel
+       where parent_channel is not null);
+
+delete
   from rhnDistChannelMap a
  where a.rowid > any (
        select b.rowid
