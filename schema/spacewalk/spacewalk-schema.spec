@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.1.27
+Version:        2.1.28
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Nov 26 2013 Milan Zazrivec <mzazrivec@redhat.com> 2.1.28-1
+- delete child channel references from rhnDistChannelMap
+
 * Thu Nov 14 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.27-1
 - schema upgrade fix: explicit cast for bit-wise operand
 
