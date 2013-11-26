@@ -4,113 +4,123 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 
-
 <html>
 <body>
 
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
 
 <h2><bean:message key="ssm.overview.header"/></h2>
-
-<table class="ssm-overview" align="center">
 <div class="page-summary">
-  <p><bean:message key="ssm.overview.summary"/></p>
-  <p><bean:message key="ssm.overview.summary2"/></p>
+    <ul><bean:message key="ssm.overview.summary"/></ul>
+    <ul><bean:message key="ssm.overview.summary2"/></ul>
 </div>
-  <tr>
-    <td><i class="fa fa-desktop fa-2x fa-fw" title="<bean:message key='ssm.overview.systems' />"></i></td>
-    <th><b><bean:message key="ssm.overview.systems"/>:</b></th>
-    <td><bean:message key="ssm.overview.systems.list"/></td>
-  </tr>
 
-  <tr>
-    <td><i class="fa spacewalk-icon-patches fa-2x fa-fw" title="Errata"></i></td>
-    <th><b><bean:message key="ssm.overview.errata"/>:</b></th>
-    <td><bean:message key="ssm.overview.errata.schedule"/></td>
-  </tr>
-
-  <tr>
-    <td><i class="fa spacewalk-icon-packages fa-2x fa-fw" title="<bean:message key='ssm.overview.packages'/>"></i></td>
-    <th><b><bean:message key="ssm.overview.packages"/>:</b></th>
-    <td><bean:message key="ssm.overview.packages.upgrade"/></td>
-  </tr>
-
-<rhn:require acl="is(enable_solaris_support)">
-  <tr>
-     <td><i class="fa spacewalk-icon-patches" title="<bean:message key='ssm.overview.patches'/>"></i></td>
-                <th><bean:message key="ssm.overview.patches"/>:</th>
-                <td>
-<a href="/network/systems/ssm/patches/install.pxt"><bean:message key="ssm.overview.patches.install"/></a> / <a href="/network/systems/ssm/patches/remove.pxt"><bean:message key="ssm.overview.patches.remove"/></a>
- <bean:message key="ssm.overview.patches.patches"/><br />
-                </td>
-  </tr>
-
-  <tr>
-     <td><i class="fa spacewalk-icon-patch-set fa-2x fa-fw" title="<bean:message key='ssm.overview.patch.clusters'/>"></i></td>
-                <th><bean:message key="ssm.overview.patch.clusters"/>:</th>
-                <td> <bean:message key="ssm.overview.patch.clusters.install"/><br />
-     </td>
-  </tr>
-</rhn:require>
-
-<rhn:require acl="user_role(org_admin)">
-  <tr>
-    <td><i class="fa spacewalk-icon-system-groups fa-2x fa-fw" title="<bean:message key='ssm.overview.groups'/>"></i></td>
-    <th><b><bean:message key="ssm.overview.groups"/>:</b></th>
-    <td><bean:message key="ssm.overview.groups.create"/></td>
-  </tr>
-</rhn:require>
-
-  <tr>
-    <td><i class="fa spacewalk-icon-software-channels fa-2x fa-fw" title="<bean:message key='ssm.overview.channels'/>"></i></td>
-    <th><b><bean:message key="ssm.overview.channels"/>:</b></th>
-    <td>
-      <p>
-      <bean:message key="ssm.overview.channels.memberships"/>
-      <rhn:require acl="org_entitlement(rhn_provisioning); user_role(config_admin)">
-        <br />
-        <bean:message key="ssm.overview.channels.subscriptions"/><br />
-        <bean:message key="ssm.overview.channels.deploy"/><br />
-      </rhn:require>
-      </p>
-    </td>
-  </tr>
-
-<rhn:require acl="org_entitlement(rhn_provisioning)">
-  <tr>
-    <td><i class="fa fa-rocket fa-2x fa-fw" title="<bean:message key='ssm.overview.provisioning'/>"></i></td>
-    <th><b><bean:message key="ssm.overview.provisioning"/>:</b></th>
-    <td>
-      <p>
-      <bean:message key="ssm.overview.provisioning.kickstart"/><br />
-      <bean:message key="ssm.overview.provisioning.rollback"/><br />
-      <bean:message key="ssm.overview.provisioning.remotecommands"/><br />
-      </p>
-    </td>
-  </tr>
-</rhn:require>
-
-  <tr>
-    <td><i class="fa fa-suitcase fa-2x fa-fw" title="<bean:message key='ssm.overview.misc'/>"></i></td>
-    <th><b><bean:message key="ssm.overview.misc"/>:</b></th>
-    <td>
-      <p>
-      <bean:message key="ssm.overview.misc.updateprofiles"/><br />
-      <rhn:require acl="org_entitlement(rhn_provisioning)">
-        <bean:message key="ssm.overview.misc.customvalues"/><br />
-      </rhn:require>
-      <rhn:require acl="user_role(org_admin);org_entitlement(rhn_provisioning) or org_entitlement(rhn_monitor)">
-        <bean:message key="ssm.overview.misc.entitlements"/><br />
-      </rhn:require>
-      <bean:message key="ssm.overview.misc.deletereboot"/><br />
-      <bean:message key="ssm.overview.misc.migrate"/><br />
-      <bean:message key="ssm.overview.misc.scap"/><br />
-      </p>
-    </td>
-  </tr>
-
-</table>
-
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <i class="fa fa-desktop fa-fw" title="<bean:message key="ssm.overview.systems" />"></i>
+        <bean:message key="ssm.overview.systems"/>
+    </div>
+    <div class="panel-body">
+        <bean:message key="ssm.overview.systems.list"/>
+    </div>
+    <rhn:require acl="no_bootstrap_systems_in_set()">
+        <div class="panel-heading">
+            <i class="fa spacewalk-icon-patches fa-fw" title="Errata"></i>
+            <bean:message key="ssm.overview.errata"/>
+        </div>
+        <div class="panel-body">
+            <bean:message key="ssm.overview.errata.schedule"/>
+        </div>
+        <div class="panel-heading">
+            <i class="fa spacewalk-icon-packages fa-fw" title="<bean:message key='ssm.overview.packages'/>"></i>
+            <bean:message key="ssm.overview.packages"/>
+        </div>
+        <div class="panel-body">
+            <bean:message key="ssm.overview.packages.upgrade"/>
+        </div>
+        <rhn:require acl="is(enable_solaris_support)">
+            <div class="panel-heading">
+                <i class="fa spacewalk-icon-patches fa-fw" title="<bean:message key='ssm.overview.patches'/>"></i>
+                <bean:message key="ssm.overview.patches"/>
+            </div>
+            <div class="panel-body">
+                <a href="/network/systems/ssm/patches/install.pxt"><bean:message key="ssm.overview.patches.install"/></a> / <a href="/network/systems/ssm/patches/remove.pxt"><bean:message key="ssm.overview.patches.remove"/></a>
+                <bean:message key="ssm.overview.patches.patches"/>
+            </div>
+            <div class="panel-heading">
+                <i class="fa spacewalk-icon-patch-set fa-fw" title="<bean:message key='ssm.overview.patch.clusters'/>"></i>
+                <bean:message key="ssm.overview.patch.clusters"/>
+            </div>
+            <div class="panel-body">
+                <bean:message key="ssm.overview.patch.clusters.install"/>
+            </div>
+        </rhn:require>
+        <rhn:require acl="user_role(org_admin)">
+            <div class="panel-heading">
+                <i class="fa spacewalk-icon-system-groups fa-fw" title="<bean:message key='ssm.overview.groups'/>"></i>
+                <bean:message key="ssm.overview.groups"/>
+            </div>
+            <div class="panel-body">
+                <bean:message key="ssm.overview.groups.create"/>
+            </div>
+        </rhn:require>
+        <div class="panel-heading">
+            <i class="fa spacewalk-icon-software-channels fa-fw" title="<bean:message key='ssm.overview.channels'/>"></i>
+            <bean:message key="ssm.overview.channels"/>
+        </div>
+        <div class="panel-body">
+            <ul>
+                <li><bean:message key="ssm.overview.channels.memberships"/></li>
+                <rhn:require acl="org_entitlement(rhn_provisioning); user_role(config_admin)">
+                  <li><bean:message key="ssm.overview.channels.subscriptions"/></li>
+                  <li><bean:message key="ssm.overview.channels.deploy"/></li>
+                </rhn:require>
+            </ul>
+        </div>
+    </rhn:require>
+    <rhn:require acl="org_entitlement(rhn_provisioning);">
+        <div class="panel-heading">
+            <i class="fa fa-rocket fa-fw" title="<bean:message key='ssm.overview.provisioning'/>"></i>
+            <bean:message key="ssm.overview.provisioning"/>
+        </div>
+        <div class="panel-body">
+            <ul>
+                <li><bean:message key="ssm.overview.provisioning.kickstart"/></li>
+                <rhn:require acl="no_bootstrap_systems_in_set()">
+                    <li><bean:message key="ssm.overview.provisioning.rollback"/></li>
+                    <li><bean:message key="ssm.overview.provisioning.remotecommands"/></li>
+                </rhn:require>
+                <li><bean:message key="ssm.overview.provisioning.powermanagement.configure"/></li>
+                <li><bean:message key="ssm.overview.provisioning.powermanagement.operations"/></li>
+            </ul>
+        </div>
+    </rhn:require>
+    <div class="panel-heading">
+        <i class="fa fa-suitcase fa-fw" title="<bean:message key='ssm.overview.misc'/>"></i>
+        <bean:message key="ssm.overview.misc"/>
+    </div>
+    <div class="panel-body">
+        <ul>
+            <rhn:require acl="no_bootstrap_systems_in_set()">
+                <li><bean:message key="ssm.overview.misc.updateprofiles"/></li>
+            </rhn:require>
+            <rhn:require acl="org_entitlement(rhn_provisioning); no_bootstrap_systems_in_set()">
+                <li><bean:message key="ssm.overview.misc.customvalues"/></li>
+            </rhn:require>
+            <rhn:require acl="user_role(org_admin);org_entitlement(rhn_provisioning) or org_entitlement(rhn_monitor); no_bootstrap_systems_in_set()">
+                <li><bean:message key="ssm.overview.misc.entitlements"/></li>
+            </rhn:require>
+            <li><bean:message key="ssm.overview.misc.delete"/></li>
+            <rhn:require acl="no_bootstrap_systems_in_set()">
+                <li><bean:message key="ssm.overview.misc.reboot"/></li>
+            </rhn:require>
+            <li><bean:message key="ssm.overview.misc.migrate"/></li>
+            <rhn:require acl="no_bootstrap_systems_in_set()">
+                <li><bean:message key="ssm.overview.misc.scap"/></li>
+            </rhn:require>
+        </ul>
+    </div>
+</div>
 
 </body>
 </html>
