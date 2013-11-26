@@ -15,36 +15,41 @@ function swapValues(fromCtlId, toCtlId) {
 }
 
 function moveNext() {
-   var form = document.getElementById("kickstartCreateWizardForm");
+   var form = $("form[name='kickstartCreateWizardForm']");
    swapValues("wizard-nextstep", "wizard-curstep");
    form.submit();
 }
 
 function refresh() {
-   var form = document.getElementById("kickstartCreateWizardForm");
+   var form = $("form[name='kickstartCreateWizardForm']");
    form.submit();
 }
 
 function toggleKSTree(what) {
-   var form = document.getElementById("kickstartCreateWizardForm");
+   var form = $("form[name='kickstartCreateWizardForm']");
+   var select = form.find("select[name='kstreeId']");
    if(what.checked) {
-       form.kstreeId.disabled=1;
+       select.prop("disabled", "disabled");
    } else {
-       form.kstreeId.disabled=0;
+       select.prop("disabled", false);
    }
 }
 
 function clickNewestRHTree() {
-   var form = document.getElementById("kickstartCreateWizardForm");
-   if(form.useNewestRHTree.checked) {
-       form.useNewestTree.checked = false;
+   var form = $("form[name='kickstartCreateWizardForm']");
+   var treeCheckbox = form.find("input[name='useNewestTree']")
+   var rhTreeCheckbox = form.find("input[name='useNewestRHTree']")
+   if(rhTreeCheckbox.is(':checked')) {
+       treeCheckbox.attr('checked', false);
    }
 }
 
 function clickNewestTree() {
-   var form = document.getElementById("kickstartCreateWizardForm");
-   if(form.useNewestTree.checked) {
-       form.useNewestRHTree.checked = false;
+   var form = $("form[name='kickstartCreateWizardForm']");
+   var treeCheckbox = form.find("input[name='useNewestTree']")
+   var rhTreeCheckbox = form.find("input[name='useNewestRHTree']")
+   if(treeCheckbox.is(':checked')) {
+       rhTreeCheckbox.attr('checked', false);
    }
 }
 </script>

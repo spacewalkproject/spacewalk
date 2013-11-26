@@ -32,13 +32,13 @@ function swapValues(fromCtlId, toCtlId) {
 }
 
 function moveNext() {
-   var form = document.getElementById("kickstartCreateWizardForm");
+   var form = $("form[name='kickstartCreateWizardForm']");
    swapValues("wizard-nextstep", "wizard-curstep");
    form.submit();
 }
 
 function movePrevious() {
-   var form = document.getElementById("kickstartCreateWizardForm");
+   var form = $("form[name='kickstartCreateWizardForm']");
    swapValues("wizard-prevstep", "wizard-curstep");
    form.submit();
 }
