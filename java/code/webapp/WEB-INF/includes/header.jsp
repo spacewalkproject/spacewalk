@@ -32,7 +32,7 @@
           <a href="/rhn/account/UserDetails.do"><i class="fa fa-user"></i><c:out escapeXml="true" value="${requestScope.session.user.login}" /></a>
         </li>
         <li class="hidden-sm hidden-xs hidden-md">
-          <a><i class="fa fa-sitemap"></i><c:out escapeXml="true" value="${requestScope.session.user.org.name}" /></a>
+          <i class="fa fa-sitemap"></i><c:out escapeXml="true" value="${requestScope.session.user.org.name}" />
         </li>
         <li>
           <a href="/rhn/account/UserPreferences.do"><i class="fa fa-cogs"></i></a>
@@ -107,6 +107,6 @@
                definition="/WEB-INF/nav/sitenav.xml"
                renderer="com.redhat.rhn.frontend.nav.TopnavRenderer" />
   </rhn:require>
-  
+
 </nav>
 <!-- end header.jsp -->
