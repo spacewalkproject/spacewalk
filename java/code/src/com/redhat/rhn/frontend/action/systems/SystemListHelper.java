@@ -157,24 +157,23 @@ public class SystemListHelper {
 
         if (next.getLocked().intValue() == 1) {
             HtmlTag lockedUrl = new HtmlTag("a");
-            HtmlTag lockedImg = new HtmlTag("img");
+            HtmlTag lockedIcon = new HtmlTag("i");
 
             //status = "locked";
             lockedUrl.setAttribute("href",
                     "/rhn/help/reference/en-US/s1-sm-systems.jsp");
             message = ls.getMessage("systemlist.jsp.locked");
-            lockedImg.setAttribute("src", "/img/icon_locked.gif");
-            lockedImg.setAttribute("alt", message);
-            lockedImg.setAttribute("title", message);
+            lockedIcon.setAttribute("class", "fa spacewalk-icon-locked-system");
+            lockedIcon.setAttribute("title", message);
             if (makeLinks) {
                 makeLinks = ConfigDefaults.get().isDocAvailable();
             }
             if (makeLinks) {
-                lockedUrl.addBody(lockedImg);
+                lockedUrl.addBody(lockedIcon);
                 statusDisplay = statusDisplay + lockedUrl.render();
             }
             else {
-                statusDisplay = statusDisplay + lockedImg.render();
+                statusDisplay = statusDisplay + lockedIcon.render();
             }
         }
 
