@@ -934,6 +934,7 @@ public class ListTag extends BodyTagSupport {
         haveColHeadersRendered = false;
         haveTblAddonsRendered = false;
         haveTblFootersRendered = false;
+        haveTblHeadingRendered = false;
         getDecorators().clear();
         decorators = null;
         decoratorName = null;
