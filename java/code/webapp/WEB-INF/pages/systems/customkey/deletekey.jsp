@@ -6,26 +6,10 @@
 
 <html:html >
 <body>
-<br>
-
-<div>
-
-  <div class="spacewalk-toolbar-h1">
-    <div class="spacewalk-toolbar"></div>
-      <i class="fa fa-key" title=""></i>
+    <rhn:toolbar base="h1" icon="fa-key"
+        helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-cust-info">
         <bean:message key="system.jsp.customkey.deletetitle"/>
-
-        <a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-cust-info"
-		target="_new" class="help-title">
-          <span class="fa-stack"><i class="fa fa-circle fa-stack-1x"></i><i class="fa fa-question fa-stack-1x fa-inverse"></i></span>
-        </a>
-      </div>
-
-      <div class="page-summary">
-        <p><bean:message key="system.jsp.customkey.deletemsg"/></p>
-      </div>
-
-      <hr />
+    </rhn:toolbar>
 
       <form action="/rhn/systems/customdata/DeleteCustomKey.do?cikid=${cikid}" name="edit_token" method="post">
         <rhn:csrf />
@@ -52,8 +36,5 @@
           <rhn:submitted/>
         </div>
       </form>
-
-    </div>
-
   </body>
 </html:html>
