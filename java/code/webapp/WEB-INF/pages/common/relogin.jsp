@@ -28,6 +28,13 @@
         <html:hidden property="url_bounce" />
         <html:hidden property="request_method" />
       </html:form>
+
+      <c:set var="legal_note" scope="page" value="${rhn:getConfig('java.legal_note')}" />
+      <c:if test="${! empty legal_note}">
+        <p class="legal-note">
+          <small><c:out value="${legal_note}" escapeXml="false" /></small>
+        </p>
+      </c:if>
     </div>
   </c:if>
 </rhn:require>
