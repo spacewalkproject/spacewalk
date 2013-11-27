@@ -734,6 +734,24 @@ public class ListTag extends BodyTagSupport {
         return BodyTagSupport.SKIP_BODY;
     }
 
+    private void doAfterBodyRenderListBegin() throws JspException {
+        ListTagUtil.write(pageContext, "<!-- START LIST " + getUniqueName() + " -->");
+
+        String listId = (getStyleId() != null) ? getStyleId() : getUniqueName();
+
+        for (ListDecorator dec : getDecorators()) {
+            dec.beforeList();
+        }
+
+        ListTagUtil.write(pageContext, "<div class=\"spacewalk-list");
+        if (styleClass != null) {
+            ListTagUtil.write(pageContext, " " + styleClass);
+        }
+        ListTagUtil.write(pageContext, "\" id=\"" + listId + "\">");
+        ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
+                ListCommand.TBL_HEADING);
+    }
+
     /**
      * ${@inheritDoc}
      */
@@ -750,8 +768,7 @@ public class ListTag extends BodyTagSupport {
         setState();
 
         if (haveColsEnumerated && !haveTblHeadingRendered) {
-            ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
-                    ListCommand.TBL_HEADING);
+            doAfterBodyRenderListBegin();
         }
         else if (haveColsEnumerated && !haveTblAddonsRendered) {
             doAfterBodyRenderTopAddons();
@@ -829,22 +846,8 @@ public class ListTag extends BodyTagSupport {
         manip = new DataSetManipulator(pageSize, pageData,
                 (HttpServletRequest) pageContext.getRequest(),
                 getUniqueName(), isParentAnElement(), searchParent, searchChild);
-
-        ListTagUtil.write(pageContext, "<!-- START LIST " + getUniqueName() + " -->");
-
-        String listId = (getStyleId() != null) ? getStyleId() : getUniqueName();
         ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
-                ListCommand.ENUMERATE);
-
-        for (ListDecorator dec : getDecorators()) {
-            dec.beforeList();
-        }
-
-        ListTagUtil.write(pageContext, "<div class=\"spacewalk-list");
-        if (styleClass != null) {
-            ListTagUtil.write(pageContext, " " + styleClass);
-        }
-        ListTagUtil.write(pageContext, "\" id=\"" + listId + "\">");
+                    ListCommand.ENUMERATE);
         return BodyTagSupport.EVAL_BODY_INCLUDE;
     }
 
