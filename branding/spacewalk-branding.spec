@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.1.8
+Version:    2.1.9
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -82,6 +82,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Nov 27 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.9-1
+- bootstrap tuning - make disappear only qustion mark and not all links in h1
+- bootstrap tuning - hide the documentation question marks on java and perl
+  pages
 * Mon Nov 18 2013 Tomas Lestach <tlestach@redhat.com> 2.1.8-1
 - point Spacewalk documentation to Red Hat Satellite 5.6 documentation
 - replace 'Channel Managemet Guide' docs with 'User Guide' and 'Getting Started
