@@ -12,28 +12,19 @@
     </rhn:toolbar>
 
       <form action="/rhn/systems/customdata/DeleteCustomKey.do?cikid=${cikid}" name="edit_token" method="post">
-        <rhn:csrf />
-        <table class="details">
-          <tr>
-            <th><bean:message key="system.jsp.customkey.keylabel"/>:</th>
-            <td><input disabled="true" type="text" name="label" length="64" size="30" value="<c:out value="${label}" />"/>
-            </td>
-          </tr>
-
-          <tr>
-            <th><bean:message key="system.jsp.customkey.description"/>:</th>
-            <td>
-              <textarea disabled="true" wrap="virtual" rows="6" cols="50" name="description"><c:out value="${description}" /></textarea>
-            </td>
-          </tr>
-        </table>
+          <rhn:csrf />
+        <div class="form-group">
+            <label for="customkey-label"><bean:message key="system.jsp.customkey.keylabel"/>:</label>
+            <input class="form-control" disabled="true" type="text" id="customkey-label" name="label" length="64" value="<c:out value='${label}' />"/>
+        </div>
+        <div class="form-group">
+          <label for="customkey-desc"><bean:message key="system.jsp.customkey.description"/>:</label>
+          <textarea class="form-control" id="customkey-desc" disabled="true" wrap="virtual" rows="6" name="description"><c:out value="${description}" /></textarea>
+        </div>
 
         <div class="text-right">
-          <hr />
-
-          <input type="submit" name="DeleteKey" value="Delete Key" />
-
-          <rhn:submitted/>
+            <button class="btn btn-primary" type="submit" name="DeleteKey" value="Delete Key">Delete Key</button>
+            <rhn:submitted/>
         </div>
       </form>
   </body>
