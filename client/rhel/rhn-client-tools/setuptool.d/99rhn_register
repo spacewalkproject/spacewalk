@@ -1,1 +1,1 @@
-/usr/sbin/rhn_register|RHN Register
+/usr/sbin/rhn_register --nox|RHN Register
