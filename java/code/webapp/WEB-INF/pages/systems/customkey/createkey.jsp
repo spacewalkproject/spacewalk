@@ -6,54 +6,48 @@
 
 <html:html>
     <body>
-        <div>
-            <div class="spacewalk-toolbar-h1">
-                <div class="spacewalk-toolbar"></div>
-                <i class="fa fa-key" title=""></i>
-                <h2><bean:message key="system.jsp.customkey.createtitle"/></h2>
-                <a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-cust-info"
-                   target="_blank" class="help-title">
-                    <span class="fa-stack"><i class="fa fa-circle fa-stack-1x"></i><i class="fa fa-question fa-stack-1x fa-inverse"></i></span>
-                </a>
+        <rhn:toolbar base="h1" icon="fa-key"
+        helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-cust-info">
+            <bean:message key="system.jsp.customkey.createtitle"/>    
+        </rhn:toolbar>
+
+        <p>
+            <bean:message key="system.jsp.customkey.createmsg"/>
+        </p>
+        <form action="/rhn/systems/customdata/CreateCustomKey.do"
+              class="form-horizontal"
+              name="edit_token" method="post">
+            <rhn:csrf />
+            <div class="form-group">
+                <label class="col-lg-3 control-label">
+                    <bean:message key="system.jsp.customkey.keylabel"/>:
+                </label>
+                <div class="col-lg-6">
+                    <input type="text" name="label"
+                           length="64" size="30" class="form-control"
+                           value="<c:out value="${old_label}" />"/>
+                </div>
             </div>
-            <p>
-                <bean:message key="system.jsp.customkey.createmsg"/>
-            </p>
-            <form action="/rhn/systems/customdata/CreateCustomKey.do"
-                  class="form-horizontal"
-                  name="edit_token" method="post">
-                <rhn:csrf />
-                <div class="form-group">
-                    <label class="col-lg-3 control-label">
-                        <bean:message key="system.jsp.customkey.keylabel"/>:
-                    </label>
-                    <div class="col-lg-6">
-                        <input type="text" name="label"
-                               length="64" size="30" class="form-control"
-                               value="<c:out value="${old_label}" />"/>
-                    </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label" for="descr">
+                    <bean:message key="system.jsp.customkey.description"/>:
+                </label>
+                <div class="col-lg-6">
+                    <textarea id="descr" wrap="virtual" rows="6" cols="50"
+                              class="form-control"
+                              name="description"><c:out value="${old_description}" /></textarea>
                 </div>
-                <div class="form-group">
-                    <label class="col-lg-3 control-label" for="descr">
-                        <bean:message key="system.jsp.customkey.description"/>:
-                    </label>
-                    <div class="col-lg-6">
-                        <textarea id="descr" wrap="virtual" rows="6" cols="50"
-                                  class="form-control"
-                                  name="description"><c:out value="${old_description}" /></textarea>
-                    </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-3 col-lg-6">
+                    <button type="submit" class="btn btn-success"
+                            name="CreateKey"
+                            value="Create Key" />
+                        <bean:message key="keycreate.jsp.submit" />
+                    </button>
+                            <rhn:submitted/>
                 </div>
-                <div class="form-group">
-                    <div class="col-lg-offset-3 col-lg-6">
-                        <button type="submit" class="btn btn-success"
-                                name="CreateKey"
-                                value="Create Key" />
-                            <bean:message key="keycreate.jsp.submit" />
-                        </button>
-                                <rhn:submitted/>
-                    </div>
-                </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </body>
 </html:html>
