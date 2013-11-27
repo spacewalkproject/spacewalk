@@ -7,27 +7,16 @@
 
 <html:html >
 <body>
-<BR>
 
+    <rhn:toolbar base="h1" icon="fa-key"
+                creationUrl="/rhn/systems/customdata/CreateCustomKey.do"
+                creationType="customkey">
+        <bean:message key="system.jsp.customkey.title"/>
+    </rhn:toolbar>
 
+    <p><bean:message key="system.jsp.customkey.message" arg0="<a href=\"/rhn/systems/Search.do\">" arg1="</a>"/></p>
 
-
-<div>
-
-    <div class="spacewalk-toolbar-h1"><div class="spacewalk-toolbar">
-        <span class="spacewalk-toolbar">
-		<a href="/rhn/systems/customdata/CreateCustomKey.do">
-    			<i class="fa fa-plus-circle text-success" title="create new key"></i>
-    			<bean:message key="system.jsp.customkey.createlink"/>
-    		</a>
-    	</span>
-    </div><i class="fa fa-key" title="keyring"></i>
-	<bean:message key="system.jsp.customkey.title"/>
-</div>
-
-    <bean:message key="system.jsp.customkey.message" arg0="<a href=\"/rhn/systems/Search.do\">" arg1="</a>"/>
-    <br><br>
-    <bean:message key="system.jsp.customkey.message2"/>
+    <p><bean:message key="system.jsp.customkey.message2"/></p>
 
 
     <rl:listset name="keySet">
@@ -87,8 +76,6 @@
 		        exportColumns="id, label, description, serverCount, lastModified" />
 
     </rl:listset>
-
-</div>
 
 </body>
 </html:html>

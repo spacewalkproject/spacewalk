@@ -19117,6 +19117,9 @@ given channel.</source>
       <trans-unit id="system.jsp.customkey.createlink">
         <source>create new key</source>
       </trans-unit>
+      <trans-unit id="toolbar.create.customkey">
+        <source>create new key</source>
+      </trans-unit>
       <trans-unit id="system.jsp.customkey.createtitle">
         <source>Create Custom Info Key</source>
       </trans-unit>
