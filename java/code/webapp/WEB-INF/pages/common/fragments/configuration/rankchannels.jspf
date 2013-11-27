@@ -15,10 +15,10 @@
 <div class="form-group">
     <div class="col-lg-offset-3 col-lg-6">
         <div class="btn-group">
-            <button type="button" title="ssm.config.rank.jsp.up" class="btn btn-default" value="up" name="dispatch" onclick="return move_selected_up('ranksWidget');">
+            <button type="button" title="${rhn:localize('ssm.config.rank.jsp.up')}" class="btn btn-default" value="up" name="dispatch" onclick="return move_selected_up('ranksWidget');">
                 <i class="fa fa-arrow-circle-up"></i>
             </button>
-            <button type="button" title="ssm.config.rank.jsp.down" class="btn btn-default" value="down" name="dispatch" onclick="return move_selected_down('ranksWidget');">
+            <button type="button" title="${rhn:localize('ssm.config.rank.jsp.down')}" class="btn btn-default" value="down" name="dispatch" onclick="return move_selected_down('ranksWidget');">
                 <i class="fa fa-arrow-circle-down"></i>
             </button>
         </div>
