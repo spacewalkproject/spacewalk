@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.80
+Version: 2.1.81
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Nov 27 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.81-1
+- bootstrap tuning - organization in head is not a link
+- bootstrap tuning - use bootstrap style for "locked" icon
+- bootstrap tuning - color icons in SystemList like mentioned in legend
+
 * Thu Nov 21 2013 Jan Dobes 2.1.80-1
 - 1009875 - changing order of operations
 - 1021923 - allow deletion link on
