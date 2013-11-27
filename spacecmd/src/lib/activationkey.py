@@ -559,8 +559,8 @@ def do_activationkey_setconfigchannelorder(self, args):
 
     print
     print 'New Configuration Channels:'
-    for i in range(len(new_channels)):
-        print '[%i] %s' % (i + 1, new_channels[i])
+    for i, new_channel in enumerate(new_channels, 1):
+        print '[%i] %s' % (i, new_channel)
 
     self.client.activationkey.setConfigChannels(self.session,
                                                 [key],

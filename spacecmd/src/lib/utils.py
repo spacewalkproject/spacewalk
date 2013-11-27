@@ -415,8 +415,8 @@ def config_channel_order(all_channels=[], new_channels=[]):
     while True:
         print 'Current Selections'
         print '------------------'
-        for i in range(len(new_channels)):
-            print '%i. %s' % (i + 1, new_channels[i])
+        for i, new_channel in enumerate(new_channels, 1):
+            print '%i. %s' % (i, new_channel)
 
         print
         action = prompt_user('a[dd], r[emove], c[lear], d[one]:')
