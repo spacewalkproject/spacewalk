@@ -2647,7 +2647,7 @@ public class ChannelManager extends BaseManager {
      * @param c channel
      * @return the string of the filename (fully qualified)
      */
-    public static String getLatestSyncLogFile(Channel c) {
+    public static List<String> getLatestSyncLogFiles(Channel c) {
 
         String logPath = Config.get().getString(ConfigDefaults.SPACEWALK_REPOSYNC_LOG_PATH,
                 "/var/log/rhn/reposync/");
@@ -2655,19 +2655,15 @@ public class ChannelManager extends BaseManager {
         File dir = new File(logPath);
         List<String> possibleList = new ArrayList<String>();
         String[] dirList = dir.list();
-        if (dirList == null) {
-            return null; // the log directory does not exist
-        }
-        for (String file : dirList) {
-            if (file.contains(c.getLabel())) {
-                possibleList.add(file);
+        if (dirList != null) {
+            for (String file : dirList) {
+                if (file.startsWith(c.getLabel()) && !file.endsWith(".gz")) {
+                    possibleList.add(logPath + file);
+                }
             }
+            Collections.sort(possibleList);
         }
-        if (possibleList.isEmpty()) {
-            return null;
-        }
-        Collections.sort(possibleList);
-        return logPath + possibleList.get(possibleList.size() - 1);
+        return possibleList;
     }
 
 

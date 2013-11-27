@@ -16,6 +16,7 @@
     rotate 5
     copytruncate
     compress
+    delaycompress
     notifempty
     missingok
     size=10M

@@ -54,10 +54,10 @@ import org.apache.struts.actions.DownloadAction;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.RandomAccessFile;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.SimpleDateFormat;
@@ -100,6 +100,8 @@ public class DownloadFile extends DownloadAction {
     private static final String CONTENT_TYPE_OCTET_STREAM = "application/octet-stream";
     private static final String CONTENT_TYPE_TEXT_PLAIN = "text/plain";
     private static final String CONTENT_TYPE_TEXT_XML = "text/xml";
+    private static final Long DOWNLOAD_REPO_LOG_LENGTH = 102400L;
+    private static final Long DOWNLOAD_REPO_LOG_MIN_LENGTH = 10L;
 
     /** {@inheritDoc} */
     @Override
@@ -445,14 +447,27 @@ public class DownloadFile extends DownloadAction {
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_REPO_LOG)) {
                 Channel c = ChannelFactory.lookupById(fileId);
                 ChannelManager.verifyChannelAdmin(user, fileId);
-                File file = new File(ChannelManager.getLatestSyncLogFile(c));
-
                 StringBuilder output = new StringBuilder();
-                BufferedReader input =  new BufferedReader(new FileReader(file));
-                String line;
-                while ((line = input.readLine()) != null) {
-                    output.append(line);
-                    output.append("\n");
+                for (String fileName : ChannelManager.getLatestSyncLogFiles(c)) {
+                    RandomAccessFile file = new RandomAccessFile(fileName, "r");
+                    long fileLength = file.length();
+                    if (fileLength > DOWNLOAD_REPO_LOG_LENGTH) {
+                        file.seek(fileLength - DOWNLOAD_REPO_LOG_LENGTH);
+                        // throw away text till end of the actual line
+                        file.readLine();
+                    }
+                    else {
+                        file.seek(0);
+                    }
+                    String line;
+                    while ((line = file.readLine()) != null) {
+                        output.append(line);
+                        output.append("\n");
+                    }
+                    file.close();
+                     if (output.length() > DOWNLOAD_REPO_LOG_MIN_LENGTH) {
+                        break;
+                    }
                 }
 
                 setTextContentInfo(response, output.length());
