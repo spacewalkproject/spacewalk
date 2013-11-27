@@ -16,7 +16,7 @@
                 <h4><bean:message key="ssm.overview.provisioning.remotecommand.header" arg0="${system.name}"/></h4>
             </div>
             <div class="panel-body">
-                <form action="/rhn/systems/details/SystemRemoteCommand.do" method="post" class="form-horizontal" role="form">
+                <form name="remoteCommandForm" action="/rhn/systems/details/SystemRemoteCommand.do" method="post" class="form-horizontal" role="form">
                     <rhn:csrf />
                     <div class="form-group">
                         <label class="col-lg-3 control-label" for="fUidInput">
