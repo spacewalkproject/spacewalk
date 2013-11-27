@@ -6,20 +6,12 @@
 
 <html:html >
     <body>
-        <div class="spacewalk-toolbar-h1">
-            <div class="spacewalk-toolbar">
-                <span class="spacewalk-toolbar">
-                    <a href="/rhn/systems/customdata/DeleteCustomKey.do?cikid=${cikid}">
-                        <i class="fa fa-trash-o" title="delete key"></i>delete key</a>
-                </span>
-            </div>
-            <i class="fa fa-key" title=""></i>
+        <rhn:toolbar base="h1" icon="fa-key"
+        helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-cust-info"
+        deletionUrl="/rhn/systems/customdata/DeleteCustomKey.do?cikid=${cikid}"
+        deletionType="customkey">
             <bean:message key="system.jsp.customkey.updatetitle"/>
-
-            <a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-cust-info" target="_blank" class="help-title">
-                <span class="fa-stack"><i class="fa fa-circle fa-stack-1x"></i><i class="fa fa-question fa-stack-1x fa-inverse"></i></span>
-            </a>
-        </div>
+        </rhn:toolbar>
 
         <div class="page-summary">
             <p><bean:message key="system.jsp.customkey.updatemsg"/></p>
