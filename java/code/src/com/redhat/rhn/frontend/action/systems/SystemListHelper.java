@@ -120,7 +120,7 @@ public class SystemListHelper {
 
             //status = "up2date";
             message = ls.getMessage("systemlist.jsp.up2date");
-            i.setAttribute("class", "fa fa-check-circle");
+            i.setAttribute("class", "fa fa-check-circle fa-1-5x text-success");
             i.setAttribute("title", message);
             //i.setAttribute("alt", message);
         }
@@ -131,7 +131,7 @@ public class SystemListHelper {
                     next.getId() + "&type=" +
                     LocalizationService.getInstance().getMessage(ErrataSetupAction.SECUR));
             message = ls.getMessage("systemlist.jsp.critical");
-            i.setAttribute("class", "fa fa-exclamation-circle");
+            i.setAttribute("class", "fa fa-exclamation-circle fa-1-5x text-danger");
             i.setAttribute("title", message);
         }
         else if (next.getOutdatedPackages().intValue() > 0) {
@@ -140,7 +140,7 @@ public class SystemListHelper {
                     "/rhn/systems/details/packages/UpgradableList.do?sid=" +
                     next.getId());
             message = ls.getMessage("systemlist.jsp.updates");
-            i.setAttribute("class", "icon-warning-sign");
+            i.setAttribute("class", "fa fa-exclamation-triangle fa-1-5x text-warning");
             i.setAttribute("title", message);
         }
 
