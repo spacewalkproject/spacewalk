@@ -459,6 +459,10 @@ h1 .fa-stack {
 /* spacewalk toolbar: contains the H1 of each page + the toolbar */
 .spacewalk-toolbar-h1 {
 	margin-bottom: 1.5em;
+	/* we want to hide quesiton mark pointing to satellite docs in spacewalk */
+	a {
+		.hidden;
+	}
 	.spacewalk-toolbar {
 		.pull-right;
 		padding: .5em 1em;
