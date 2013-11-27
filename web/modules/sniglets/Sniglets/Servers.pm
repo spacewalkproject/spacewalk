@@ -361,7 +361,6 @@ sub reboot_server_cb {
 
 
   my $pretty_earliest_date = $pxt->user->convert_time($earliest_date);
-  warn("asdfasdfasdf");
 #  my $message = sprintf(<<EOM, $server->name, $server->name, $action_id);
 #Reboot scheduled for system <strong>%s</strong> for $pretty_earliest_date.  To cancel the reboot, remove <strong>%s</strong> from <a href="/rhn/schedule/InProgressSystems.do?aid=%d"><strong>the list of systems to be rebooted</strong></a>.
 #EOM
