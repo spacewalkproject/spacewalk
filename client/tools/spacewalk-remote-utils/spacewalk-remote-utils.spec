@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacewalk-remote-utils
-Version:     2.1.1
+Version:     2.1.2
 Release:     1%{?dist}
 Summary:     Utilities to interact with a Red Hat Satellite or Spacewalk server remotely.
 
@@ -62,6 +62,9 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %doc %{_mandir}/man1/spacewalk-create-channel.1.gz
 
 %changelog
+* Wed Nov 27 2013 Tomas Lestach <tlestach@redhat.com> 2.1.2-1
+- 1035288 - channel definitions for RHEL6.5
+
 * Mon Nov 11 2013 Tomas Lestach <tlestach@redhat.com> 2.1.1-1
 - 1020665 - channel definitions for RHEL-5-U10
 - Bumping package versions for 2.1.
