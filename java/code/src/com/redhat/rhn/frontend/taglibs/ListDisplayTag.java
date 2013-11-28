@@ -628,7 +628,9 @@ public class ListDisplayTag extends ListDisplayTagBase {
                 (HttpServletRequest) pageContext.getRequest(), getMixins())) {
 
             out.println("<button class=\"btn btn-default\"" +
-                        " type=\"submit\" name=\"dispatch\">" +
+                        " type=\"submit\" name=\"dispatch\" value=\"" +
+                        LocalizationService.getInstance().getMessage(getButton()) +
+                        "\">" +
                         LocalizationService.getInstance().getMessage(getButton()) +
                         "</button>");
         }
@@ -636,7 +638,9 @@ public class ListDisplayTag extends ListDisplayTagBase {
                 (HttpServletRequest) pageContext.getRequest(), getMixins())) {
 
             out.println("<button class=\"btn btn-default\"" +
-                        " type=\"submit\" name=\"dispatch\">" +
+                        " type=\"submit\" name=\"dispatch\" value=\"" +
+                        LocalizationService.getInstance().getMessage(getButton2()) +
+                        "\">" +
                         LocalizationService.getInstance().getMessage(getButton2()) +
                         "</button>");
         }
