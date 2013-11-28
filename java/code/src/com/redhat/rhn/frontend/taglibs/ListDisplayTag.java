@@ -814,12 +814,6 @@ public class ListDisplayTag extends ListDisplayTagBase {
         Set result = new HashSet();
         for (int i = 0; i < keys.length; i++) {
             result.add(keys[i]);
-            //add the .x & .y's becasue these are image files
-            //so certain browsers may add the .x & .y's
-            result.add(keys[i] + ".x");
-            result.add(keys[i] + ".X");
-            result.add(keys[i] + ".y");
-            result.add(keys[i] + ".Y");
         }
         return Collections.unmodifiableSet(result);
     }

@@ -279,7 +279,7 @@ public class DataSetManipulator {
 
         for (int x = 0; x < LINK_PREFIXES.length; x++) {
             String imgLink = "list_" + uniqueName + "_page" +
-            LINK_PREFIXES[x] + ".x";
+            LINK_PREFIXES[x];
 
             if (request.getParameter(imgLink) != null) {
                 return  "list_" + uniqueName + "_page" + LINK_PREFIXES[x];
