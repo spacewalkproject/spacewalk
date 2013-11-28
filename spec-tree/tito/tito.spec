@@ -9,6 +9,7 @@ Group: Development/Tools
 License: GPLv2
 URL: http://rm-rf.ca/tito
 Source0: http://rm-rf.ca/files/tito/tito-%{version}.tar.gz
+Patch0:  0001-support-local-releasers.conf-overwrite.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch: noarch
@@ -34,7 +35,7 @@ git.
 
 %prep
 %setup -q -n tito-%{version}
-
+%patch0 -p1
 
 %build
 %{__python} setup.py build
