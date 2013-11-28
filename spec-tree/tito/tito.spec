@@ -2,7 +2,7 @@
 
 Name: tito
 Version: 0.4.18
-Release: 1.1%{?dist}
+Release: 1.2%{?dist}
 Summary: A tool for managing rpm based git projects
 
 Group: Development/Tools
@@ -80,7 +80,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Thu Nov 28 2013 Michael Mraka <michael.mraka@redhat.com> 0.4.18-1.1
+* Thu Nov 28 2013 Michael Mraka <michael.mraka@redhat.com> 0.4.18-1.2
 - support for local releaser.conf overwrite
 
 * Thu Nov 14 2013 Devan Goodwin <dgoodwin@rm-rf.ca> 0.4.18-1
