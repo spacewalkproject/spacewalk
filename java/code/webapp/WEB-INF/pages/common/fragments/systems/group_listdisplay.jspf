@@ -38,7 +38,7 @@
 			          <i class="fa fa-warning text-warning" title="<bean:message key='grouplist.jsp.updates'/>"></i>
 			        </c:when>
 			        <c:otherwise>
-			          <i class="fa fa-check-square-o text-primary" title="<bean:message key='grouplist.jsp.noerrata'/>"></i>
+			          <i class="fa fa-check-circle fa-1-5x text-success" title="<bean:message key='grouplist.jsp.noerrata'/>"></i>
 			        </c:otherwise>
 			      </c:choose>
 
