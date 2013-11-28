@@ -23,7 +23,7 @@
     <p><bean:message key="kickstartdownload.jsp.summary"/></p>
     <table class="details" border="0">
       <tr><td>
-        <a href="${ksurl}" target="_new"><bean:message key="kickstartdownload.jsp.download"/></a>
+        <a href="${ksurl}" target="_blank"><bean:message key="kickstartdownload.jsp.download"/></a>
       </td></tr>
       <tr><td>
         <pre style="overflow: scroll; width: 800px; height: 800px">${filedata}</pre>

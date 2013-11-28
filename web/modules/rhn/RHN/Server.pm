@@ -358,7 +358,7 @@ sub render {
 
     if (defined $pkg->{RESULTS}) {
       $html .= <<EOQ;
-    - <a target="_new" href="/network/systems/details/history/package_event_results.pxt?sid=%d&amp;hid=%d&amp;id_combo=%s">results</a>
+    - <a target="_blank" href="/network/systems/details/history/package_event_results.pxt?sid=%d&amp;hid=%d&amp;id_combo=%s">results</a>
     <br/>
     <span style="color: #555;padding-left: 5%%">return code:</span> %d
 EOQ
@@ -413,7 +413,7 @@ sub render {
 
     if (defined $pkg->{RESULTS}) {
       $html .= <<EOQ;
-    - <a target="_new" href="/network/systems/details/history/package_event_results.pxt?sid=%d&amp;hid=%d&amp;id_combo=%s">results</a>
+    - <a target="_blank" href="/network/systems/details/history/package_event_results.pxt?sid=%d&amp;hid=%d&amp;id_combo=%s">results</a>
     <br/>
     <span style="color: #555;padding-left: 5%%">return code:</span> %d
 EOQ

@@ -971,18 +971,18 @@
         <target>&lt;strong&gt;@@PRODUCT_NAME@@&lt;/strong&gt;는 오픈 소스 (GPLv2) Linux 시스템 관리 솔루션입니다. @@PRODUCT_NAME@@ 서버에 관한 질문이 있으시면 아래의 링크를 참조하십시오.   </target>
       </trans-unit>
       <trans-unit id="login.jsp.satbody2">
-        <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href="http://www.spacewalkproject.org/" target="_new"&gt; http://www.spacewalkproject.org/&lt;/a&gt;. </source>
+        <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href="http://www.spacewalkproject.org/" target="_blank"&gt; http://www.spacewalkproject.org/&lt;/a&gt;. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-        <target>@@PRODUCT_NAME@@에 대한 자세한 내용은, 웹사이트 &lt;a href="http://www.spacewalkproject.org/" target="_new"&gt; http://www.spacewalkproject.org/&lt;/a&gt;에서 참조하십시오.  </target>
+        <target>@@PRODUCT_NAME@@에 대한 자세한 내용은, 웹사이트 &lt;a href="http://www.spacewalkproject.org/" target="_blank"&gt; http://www.spacewalkproject.org/&lt;/a&gt;에서 참조하십시오.  </target>
       </trans-unit>
       <trans-unit id="login.jsp.satbody3">
-        <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_new"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;. </source>
+        <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_blank"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-        <target>@@PRODUCT_NAME@@ 커뮤니티와의 상호 작용에 대한 자세한 내용은 &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_new"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;에서 참조하십시오.  </target>
+        <target>@@PRODUCT_NAME@@ 커뮤니티와의 상호 작용에 대한 자세한 내용은 &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_blank"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;에서 참조하십시오.  </target>
       </trans-unit>
       <trans-unit id="login.jsp.satbody4">
         <source> </source>
@@ -10230,11 +10230,11 @@ Please note that some manual configuration of these scripts may still be require
         <target>킥스타트를 정말로 삭제하시겠습니까?&lt;strong&gt;&lt;p&gt;경고: 킥스타트를 삭제하시면 이와 관련된 시스템과 옵션이 모두 삭제됩니다.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;버튼을 한번만 클릭하시기 바랍니다: 삭제 작업이 완료될 때까지 약간의 시간이 소요될 수 있습니다.&lt;/strong&gt;&lt;/p&gt; </target>
       </trans-unit>
       <trans-unit id="kickstartdetails.jsp.summary2">
-        <source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
+        <source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_blank" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
-        <target>&lt;span class="small-text"&gt; 조직 기본 프로파일 설정은 직접 생성한 킥스타트 파일이나 베어-메탈 킥스타트 파일과 함께 사용 가능합니다. 이 옵션을 선택하여 &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; 이 링크 &lt;/strong&gt; &lt;/a&gt;의 URL이 킥스타트 파일의 &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; 부분에 지정된 경우 조직의 어느 프로파일을 사용할 것인지 지정하실 수 있습니다. 조직 기본 프로파일이 지정되지 않은 경우 이 링크가 작동하지 않을 것입니다.&lt;/span&gt;</target>
+        <target>&lt;span class="small-text"&gt; 조직 기본 프로파일 설정은 직접 생성한 킥스타트 파일이나 베어-메탈 킥스타트 파일과 함께 사용 가능합니다. 이 옵션을 선택하여 &lt;a href="{0}" target="_blank" &gt; &lt;strong&gt; 이 링크 &lt;/strong&gt; &lt;/a&gt;의 URL이 킥스타트 파일의 &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; 부분에 지정된 경우 조직의 어느 프로파일을 사용할 것인지 지정하실 수 있습니다. 조직 기본 프로파일이 지정되지 않은 경우 이 링크가 작동하지 않을 것입니다.&lt;/span&gt;</target>
       </trans-unit>
       <trans-unit id="kickstartdetails.jsp.activeDescription">
         <source>You cannot kickstart a system registered to @@PRODUCT_NAME@@ using an inactive kickstart profile. However, the kickstart files for inactive kickstart profiles are still available for manual download and may be used for bare metal kickstarts.</source>
@@ -10971,11 +10971,11 @@ Please note that some manual configuration of these scripts may still be require
         <target>정의된 공개키나 ssl 인증서가 없습니다.</target>
       </trans-unit>
       <trans-unit id="keys.jsp.summary">
-        <source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an @@PRODUCT_NAME@@ Proxy Server or @@PRODUCT_NAME@@ Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
+        <source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an @@PRODUCT_NAME@@ Proxy Server or @@PRODUCT_NAME@@ Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
         </context-group>
-        <target>킥스타트 과정에서 시스템에 설치할 키 또는 인증서를 킥스타트 프로파일에 지정하실 수 있습니다. 시스템에 서명된 패키지를 설치하고, @@PRODUCT_NAME@@ Proxy 서버나 @@PRODUCT_NAME@@ 서버를 통해 시스템을 킥스타트하고 인증된 패키지를 설치하기위해서는 올바른 인증서와 키가 필요합니다. 보다 자세한 정보는 &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_new"&gt;RHN 참조 가이드&lt;/a&gt;를 살펴보시기 바랍니다.   </target>
+        <target>킥스타트 과정에서 시스템에 설치할 키 또는 인증서를 킥스타트 프로파일에 지정하실 수 있습니다. 시스템에 서명된 패키지를 설치하고, @@PRODUCT_NAME@@ Proxy 서버나 @@PRODUCT_NAME@@ 서버를 통해 시스템을 킥스타트하고 인증된 패키지를 설치하기위해서는 올바른 인증서와 키가 필요합니다. 보다 자세한 정보는 &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_blank"&gt;RHN 참조 가이드&lt;/a&gt;를 살펴보시기 바랍니다.   </target>
       </trans-unit>
       <trans-unit id="keys.jsp.toolbar">
         <source>GPG Public Keys and SSL Certificates</source>
@@ -11132,11 +11132,11 @@ Please note that some manual configuration of these scripts may still be require
         <target>파일 보관 </target>
       </trans-unit>
       <trans-unit id="preservation_list.jsp.summary">
-        <source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
+        <source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
         </context-group>
-        <target>파일 보관 목록이란 특정 킥스타트시 시스템에 복구될 파일 목록을 말합니다.  킥스타트 프로파일에서 파일 보관 목록을 보실 수 있습니다.  보다 자세한 정보는  &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_new" &gt;RHN 참조 가이드&lt;/a&gt;를 읽어보시기 바랍니다. 조직에서 사용할 수 있도록 다음과 같은 파일 보관 목록이 생성되었습니다:         </target>
+        <target>파일 보관 목록이란 특정 킥스타트시 시스템에 복구될 파일 목록을 말합니다.  킥스타트 프로파일에서 파일 보관 목록을 보실 수 있습니다.  보다 자세한 정보는  &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;RHN 참조 가이드&lt;/a&gt;를 읽어보시기 바랍니다. 조직에서 사용할 수 있도록 다음과 같은 파일 보관 목록이 생성되었습니다:         </target>
       </trans-unit>
       <trans-unit id="preservationlistdeleteconfirm.jsp.summary">
         <source>Are you sure you want to delete the selected File List(s)?  &lt;strong&gt;WARNING: Deleting the selected File List(s) will delete all its associated files.&lt;/strong&gt;</source>
@@ -11258,11 +11258,11 @@ Please note that some manual configuration of these scripts may still be require
         <target>킥스타트 파일 보관 목록 생성 </target>
       </trans-unit>
       <trans-unit id="preservation_edit.jsp.summary">
-        <source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.</source>
+        <source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
         </context-group>
-        <target>이곳에 입력된 파일이나 디렉토리는 킥스타트를 마친 후 보관됩니다. 한줄당 한개의 파일 또는 디렉토가 나열됩니다. &lt;br/&gt;각 목록의 최대 용량은 &lt;strong&gt;1 MB&lt;/strong&gt;로 제한되어 있습니다. 보다 자세한 사항은 &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_new" &gt;RHN 참조 가이드&lt;/a&gt;를 참조하시기 바랍니다.        </target>
+        <target>이곳에 입력된 파일이나 디렉토리는 킥스타트를 마친 후 보관됩니다. 한줄당 한개의 파일 또는 디렉토가 나열됩니다. &lt;br/&gt;각 목록의 최대 용량은 &lt;strong&gt;1 MB&lt;/strong&gt;로 제한되어 있습니다. 보다 자세한 사항은 &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;RHN 참조 가이드&lt;/a&gt;를 참조하시기 바랍니다.        </target>
       </trans-unit>
       <trans-unit id="softwareedit.jsp.summary1">
         <source>You can modify the software this kickstart profile will deploy below.</source>

@@ -12,7 +12,7 @@
                 <i class="fa fa-key" title=""></i>
                 <h2><bean:message key="system.jsp.customkey.createtitle"/></h2>
                 <a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-cust-info"
-                   target="_new" class="help-title">
+                   target="_blank" class="help-title">
                     <i class="fa fa-question-circle" title="Help Icon"></i>
                 </a>
             </div>

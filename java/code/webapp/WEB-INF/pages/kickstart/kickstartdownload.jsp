@@ -30,7 +30,7 @@
       </c:when>
       <c:otherwise>
         <tr><td>
-          <a href="${ksurl}" target="_new"><bean:message key="kickstartdownload.jsp.download"/></a>
+          <a href="${ksurl}" target="_blank"><bean:message key="kickstartdownload.jsp.download"/></a>
 
         </td></tr>
         <tr><td>

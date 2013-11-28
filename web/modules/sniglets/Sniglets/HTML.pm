@@ -194,7 +194,7 @@ sub render_help_link {
 
   my $link;
   if ($text) {
-    $link = qq(<a href="$url" target="_new" class="help-title">$text</a>);
+    $link = qq(<a href="$url" target="_blank" class="help-title">$text</a>);
   }
   else {
     $link = $url;

@@ -889,18 +889,18 @@
         <target>&lt;strong&gt;@@PRODUCT_NAME@@&lt;/strong&gt; એ Linux સિસ્ટમો વ્યવસ્થાપન ઉકેલ માટે ઓપન સ્ત્રોત (GPLv2) છે. નીચે અમુક કડીઓ છે કે જે ઉપયોગી સાબિત થવી જોઈએ જો તમને તમારા @@PRODUCT_NAME@@ સર્વર સંબંધિત કોઈ પ્રશ્નો હોય. </target>
       </trans-unit>
       <trans-unit id="login.jsp.satbody2">
-        <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href="http://www.spacewalkproject.org/" target="_new"&gt; http://www.spacewalkproject.org/&lt;/a&gt;. </source>
+        <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href="http://www.spacewalkproject.org/" target="_blank"&gt; http://www.spacewalkproject.org/&lt;/a&gt;. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-        <target>@@PRODUCT_NAME@@ પર વિગતો માટે, મહેરબાની કરીને &lt;a href="http://www.spacewalkproject.org/" target="_new"&gt; http://www.spacewalkproject.org/&lt;/a&gt; આગળની અમારી વેબ સાઈટની મુલાકાત લો. </target>
+        <target>@@PRODUCT_NAME@@ પર વિગતો માટે, મહેરબાની કરીને &lt;a href="http://www.spacewalkproject.org/" target="_blank"&gt; http://www.spacewalkproject.org/&lt;/a&gt; આગળની અમારી વેબ સાઈટની મુલાકાત લો. </target>
       </trans-unit>
       <trans-unit id="login.jsp.satbody3">
-        <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_new"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;. </source>
+        <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_blank"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-        <target>@@PRODUCT_NAME@@ સમુદાય સાથે સંપર્ક કરવા વધારે વિગતો માટે. મહેરબાની કરીને &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_new"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt; પર અમારી મુલાકાત લો. </target>
+        <target>@@PRODUCT_NAME@@ સમુદાય સાથે સંપર્ક કરવા વધારે વિગતો માટે. મહેરબાની કરીને &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_blank"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt; પર અમારી મુલાકાત લો. </target>
       </trans-unit>
       <trans-unit id="login.jsp.satbody4">
         <source> </source>
@@ -9342,11 +9342,11 @@ Please note that some manual configuration of these scripts may still be require
         <target>શું તમે ખરેખર આ કિકસ્ટાર્ટ કાઢી નાંખવા માંગો છો?&lt;strong&gt;&lt;p&gt;ચેતવણી: આ કિકસ્ટાર્ટ કાઢી નાંખવાનું તેની સંકળાયેલ સિસ્ટમ અને લાગતાવળગતા વિકલ્પો કાઢી નાંખશે.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;મહેરબાની કરીને બટન પર માત્ર એક જ વાર ક્લિક કરો; કાઢી નાંખવાની પ્રક્રિયા પૂર્ણ કરવા માટે તેને થોડી ક્ષણો જ લાગશે.&lt;/strong&gt;&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="kickstartdetails.jsp.summary2">
-        <source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
+        <source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_blank" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
-        <target>&lt;span class="small-text"&gt; સંસ્થા મૂળભૂત રૂપરેખા સુયોજન જાતે-બનાવેલ અથવા ન્યૂનતમ-ધાતુ કિકસ્ટાર્ટ ફાઈલો સાથે વાપરી શકાય છે.  જ્યારે &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; આ કડી &lt;/strong&gt; &lt;/a&gt; માંથી URL તમારી કિકસ્ટાર્ટ ફાઈલના &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; વિભાગમાંથી વપરાય ત્યારે તમારી સંસ્થાની રૂપરેખા સૂચવવા માટે આ વિકલ્પ પસંદ કરો.  જ્યાં સુધી સંસ્થા મૂળભૂત સ્પષ્ટ થયેલ નહિં હોય ત્યાં સુધી કડી કામ કરશે નહિં.&lt;/span&gt;</target>
+        <target>&lt;span class="small-text"&gt; સંસ્થા મૂળભૂત રૂપરેખા સુયોજન જાતે-બનાવેલ અથવા ન્યૂનતમ-ધાતુ કિકસ્ટાર્ટ ફાઈલો સાથે વાપરી શકાય છે.  જ્યારે &lt;a href="{0}" target="_blank" &gt; &lt;strong&gt; આ કડી &lt;/strong&gt; &lt;/a&gt; માંથી URL તમારી કિકસ્ટાર્ટ ફાઈલના &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; વિભાગમાંથી વપરાય ત્યારે તમારી સંસ્થાની રૂપરેખા સૂચવવા માટે આ વિકલ્પ પસંદ કરો.  જ્યાં સુધી સંસ્થા મૂળભૂત સ્પષ્ટ થયેલ નહિં હોય ત્યાં સુધી કડી કામ કરશે નહિં.&lt;/span&gt;</target>
       </trans-unit>
       <trans-unit id="kickstartdetails.jsp.activeDescription">
         <source>You cannot kickstart a system registered to @@PRODUCT_NAME@@ using an inactive kickstart profile. However, the kickstart files for inactive kickstart profiles are still available for manual download and may be used for bare metal kickstarts.</source>
@@ -9978,11 +9978,11 @@ Please note that some manual configuration of these scripts may still be require
         <target>કોઈ જાહેર કીઓ અથવા ssl પ્રમાણપત્રો વ્યાખ્યાયિત નથી.</target>
       </trans-unit>
       <trans-unit id="keys.jsp.summary">
-        <source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an @@PRODUCT_NAME@@ Proxy Server or @@PRODUCT_NAME@@ Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
+        <source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an @@PRODUCT_NAME@@ Proxy Server or @@PRODUCT_NAME@@ Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
         </context-group>
-        <target>તમે કિકસ્ટાર્ટ દરમ્યાન સિસ્ટમો પર તે કીઓ/પ્રમાણપત્રો સ્થાપિત કરવા માટે તમારી કિકસ્ટાર્ટ રૂપરેખામાં તે કીઓ અને/અથવા પ્રમાણપત્રોનો સંદર્ભ લઈ શકો છો.  સહી થયેલ પેકેજો સ્થાપિત કરવા માટે સિસ્ટમને યોગ્ય કીઓની જરૂર રહેશે, અને @@PRODUCT_NAME@@ પ્રોક્સી સર્વર અથવા @@PRODUCT_NAME@@ સેટેલાઈટ સર્વર દ્વારા કિકસ્ટાર્ટ થાય તેવા યોગ્ય પ્રમાણપત્રની જરૂર રહેશે.  વધુ જાણકારી માટે, &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN સંદર્ભ માર્ગદર્શન&lt;/a&gt; જુઓ</target>
+        <target>તમે કિકસ્ટાર્ટ દરમ્યાન સિસ્ટમો પર તે કીઓ/પ્રમાણપત્રો સ્થાપિત કરવા માટે તમારી કિકસ્ટાર્ટ રૂપરેખામાં તે કીઓ અને/અથવા પ્રમાણપત્રોનો સંદર્ભ લઈ શકો છો.  સહી થયેલ પેકેજો સ્થાપિત કરવા માટે સિસ્ટમને યોગ્ય કીઓની જરૂર રહેશે, અને @@PRODUCT_NAME@@ પ્રોક્સી સર્વર અથવા @@PRODUCT_NAME@@ સેટેલાઈટ સર્વર દ્વારા કિકસ્ટાર્ટ થાય તેવા યોગ્ય પ્રમાણપત્રની જરૂર રહેશે.  વધુ જાણકારી માટે, &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_blank" &gt;RHN સંદર્ભ માર્ગદર્શન&lt;/a&gt; જુઓ</target>
       </trans-unit>
       <trans-unit id="keys.jsp.toolbar">
         <source>GPG Public Keys and SSL Certificates</source>
@@ -10132,11 +10132,11 @@ Please note that some manual configuration of these scripts may still be require
         <target>ફાઈલ સાચવણી</target>
       </trans-unit>
       <trans-unit id="preservation_list.jsp.summary">
-        <source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
+        <source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
         </context-group>
-        <target>ફાઈલ સાચવણી યાદીઓ ફાઈલોની યાદીઓ છે કે જેઓ ચોક્કસ કિકસ્ટાર્ટ દરમ્યાન સિસ્ટમમાં પુનઃસંગ્રહિત થશે.  તમે કિકસ્ટાર્ટ રૂપરેખામાં ફાઈલ બચાવ યાદીનો સંદર્ભ આપી શકો છો.  વધુ જાણકારી માટે &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_new" &gt;RHN સંદર્ભ માર્ગદર્શન&lt;/a&gt; નો સંદર્ભ લો.  નીચેની ફાઈલ બચાવ યાદીઓ તમારી સંસ્થા દ્વારા વપરાશ માટે બનાવાયેલ છે:</target>
+        <target>ફાઈલ સાચવણી યાદીઓ ફાઈલોની યાદીઓ છે કે જેઓ ચોક્કસ કિકસ્ટાર્ટ દરમ્યાન સિસ્ટમમાં પુનઃસંગ્રહિત થશે.  તમે કિકસ્ટાર્ટ રૂપરેખામાં ફાઈલ બચાવ યાદીનો સંદર્ભ આપી શકો છો.  વધુ જાણકારી માટે &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;RHN સંદર્ભ માર્ગદર્શન&lt;/a&gt; નો સંદર્ભ લો.  નીચેની ફાઈલ બચાવ યાદીઓ તમારી સંસ્થા દ્વારા વપરાશ માટે બનાવાયેલ છે:</target>
       </trans-unit>
       <trans-unit id="preservationlistdeleteconfirm.jsp.summary">
         <source>Are you sure you want to delete the selected File List(s)?  &lt;strong&gt;WARNING: Deleting the selected File List(s) will delete all its associated files.&lt;/strong&gt;</source>
@@ -10258,11 +10258,11 @@ Please note that some manual configuration of these scripts may still be require
         <target>કિકસ્ટાર્ટ ફાઈલ સાચવણી યાદી બનાવો</target>
       </trans-unit>
       <trans-unit id="preservation_edit.jsp.summary">
-        <source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.</source>
+        <source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
         </context-group>
-        <target>અંહિ યાદી થયેલ કોઈપણ ફાઈલો અથવા ડિરેક્ટરીઓ કિકસ્ટાર્ટને અનુસરીને સચવાશે. એક લીટી પ્રતિ ફાઈલો અથવા ડિરેક્ટરીઓની યાદી કરો.&lt;br/&gt;દરેક યાદી એ &lt;strong&gt;1 MB&lt;/strong&gt; ના કુલ માપમાં મર્યાદિત છે.  વધુ જાણકારી માટે &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_new" &gt;RHN સંદર્ભ માર્ગદર્શિકા&lt;/a&gt; જુઓ.</target>
+        <target>અંહિ યાદી થયેલ કોઈપણ ફાઈલો અથવા ડિરેક્ટરીઓ કિકસ્ટાર્ટને અનુસરીને સચવાશે. એક લીટી પ્રતિ ફાઈલો અથવા ડિરેક્ટરીઓની યાદી કરો.&lt;br/&gt;દરેક યાદી એ &lt;strong&gt;1 MB&lt;/strong&gt; ના કુલ માપમાં મર્યાદિત છે.  વધુ જાણકારી માટે &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;RHN સંદર્ભ માર્ગદર્શિકા&lt;/a&gt; જુઓ.</target>
       </trans-unit>
       <trans-unit id="softwareedit.jsp.summary1">
         <source>You can modify the software this kickstart profile will deploy below.</source>

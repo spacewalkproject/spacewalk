@@ -971,18 +971,18 @@
         <target>&lt;strong&gt;@@PRODUCT_NAME@@&lt;/strong&gt; 是一个开源（GPLv2）Linux 系统管理解决方案。如果您有关于您的 @@PRODUCT_NAME@@ 服务器的问题，以下的链接可能会对您有帮助。</target>
       </trans-unit>
       <trans-unit id="login.jsp.satbody2">
-        <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href="http://www.spacewalkproject.org/" target="_new"&gt; http://www.spacewalkproject.org/&lt;/a&gt;. </source>
+        <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href="http://www.spacewalkproject.org/" target="_blank"&gt; http://www.spacewalkproject.org/&lt;/a&gt;. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-        <target>有关 @@PRODUCT_NAME@@ 的详情请访问我们位于 &lt;a href="http://www.spacewalkproject.org/" target="_new"&gt; http://www.spacewalkproject.org/&lt;/a&gt; 的网站。</target>
+        <target>有关 @@PRODUCT_NAME@@ 的详情请访问我们位于 &lt;a href="http://www.spacewalkproject.org/" target="_blank"&gt; http://www.spacewalkproject.org/&lt;/a&gt; 的网站。</target>
       </trans-unit>
       <trans-unit id="login.jsp.satbody3">
-        <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_new"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;. </source>
+        <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_blank"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-        <target>与 @@PRODUCT_NAME@@ 社区互动的详情请访问 &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_new"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;。</target>
+        <target>与 @@PRODUCT_NAME@@ 社区互动的详情请访问 &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_blank"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;。</target>
       </trans-unit>
       <trans-unit id="login.jsp.satbody4">
         <source> </source>
@@ -10229,11 +10229,11 @@ Please note that some manual configuration of these scripts may still be require
         <target>您确认要删除这个 Kickstart 吗？&lt;strong&gt;&lt;p&gt;警告：删除这个 kickstart 将删除素有与其关联的系统和响应的选项。&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;请只点一次按钮，删除过程需要几分钟时间方可完成。&lt;/strong&gt;&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="kickstartdetails.jsp.summary2">
-        <source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
+        <source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_blank" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
-        <target>&lt;span class="small-text"&gt;手动生成或者裸机 kickstart 文件可使用机构默认侧写设置。选择这个选项来表明当在您的 kickstart 文件的 &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; 部分指定来自  &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; 这个链接 &lt;/strong&gt; &lt;/a&gt; 的 URL 时您机构使用的侧写。除非指定机构默认，否则该链接无法工作。&lt;/span&gt;</target>
+        <target>&lt;span class="small-text"&gt;手动生成或者裸机 kickstart 文件可使用机构默认侧写设置。选择这个选项来表明当在您的 kickstart 文件的 &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; 部分指定来自  &lt;a href="{0}" target="_blank" &gt; &lt;strong&gt; 这个链接 &lt;/strong&gt; &lt;/a&gt; 的 URL 时您机构使用的侧写。除非指定机构默认，否则该链接无法工作。&lt;/span&gt;</target>
       </trans-unit>
       <trans-unit id="kickstartdetails.jsp.activeDescription">
         <source>You cannot kickstart a system registered to @@PRODUCT_NAME@@ using an inactive kickstart profile. However, the kickstart files for inactive kickstart profiles are still available for manual download and may be used for bare metal kickstarts.</source>
@@ -10970,11 +10970,11 @@ Kickstart 侧写的引导装载程序和分区选项，有可能覆盖用户定�
         <target>没有定义的公共密钥或 ssl 证书。</target>
       </trans-unit>
       <trans-unit id="keys.jsp.summary">
-        <source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an @@PRODUCT_NAME@@ Proxy Server or @@PRODUCT_NAME@@ Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
+        <source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an @@PRODUCT_NAME@@ Proxy Server or @@PRODUCT_NAME@@ Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
         </context-group>
-        <target>您可以参考这些在您的 kickstart 侧写中的密钥和/或者证书，以便在 kickstart 过程中安装那些密钥/证书。系统需要正确的密钥来安装签注的软件包，还需要正确的证书才能通过 @@PRODUCT_NAME@@ 代理服务器或者 @@PRODUCT_NAME@@ 服务器进行 kickstart。有关详情请参考  &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_new" &gt;《RHN 参考指南》&lt;/a&gt;。</target>
+        <target>您可以参考这些在您的 kickstart 侧写中的密钥和/或者证书，以便在 kickstart 过程中安装那些密钥/证书。系统需要正确的密钥来安装签注的软件包，还需要正确的证书才能通过 @@PRODUCT_NAME@@ 代理服务器或者 @@PRODUCT_NAME@@ 服务器进行 kickstart。有关详情请参考  &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_blank" &gt;《RHN 参考指南》&lt;/a&gt;。</target>
       </trans-unit>
       <trans-unit id="keys.jsp.toolbar">
         <source>GPG Public Keys and SSL Certificates</source>
@@ -11131,11 +11131,11 @@ Kickstart 侧写的引导装载程序和分区选项，有可能覆盖用户定�
         <target>文件保留</target>
       </trans-unit>
       <trans-unit id="preservation_list.jsp.summary">
-        <source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
+        <source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
         </context-group>
-        <target>文件保留列表中所列出的文件会在进行一个特定的 kickstart 时被恢复到系统中。您可以在 kickstart 侧写中指定一个文件保留列表。有关详情请参考&lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_new" &gt;《RHN 参考指南》&lt;/a&gt;。已经为您的机构创建了以下的文件保留列表以供使用： </target>
+        <target>文件保留列表中所列出的文件会在进行一个特定的 kickstart 时被恢复到系统中。您可以在 kickstart 侧写中指定一个文件保留列表。有关详情请参考&lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;《RHN 参考指南》&lt;/a&gt;。已经为您的机构创建了以下的文件保留列表以供使用： </target>
       </trans-unit>
       <trans-unit id="preservationlistdeleteconfirm.jsp.summary">
         <source>Are you sure you want to delete the selected File List(s)?  &lt;strong&gt;WARNING: Deleting the selected File List(s) will delete all its associated files.&lt;/strong&gt;</source>
@@ -11257,11 +11257,11 @@ Kickstart 侧写的引导装载程序和分区选项，有可能覆盖用户定�
         <target>创建 kickstart 文件保留列表</target>
       </trans-unit>
       <trans-unit id="preservation_edit.jsp.summary">
-        <source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.</source>
+        <source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
         </context-group>
-        <target>这里列出的文件和目录会在 kickstart 时被保留。每行只列出一个文件或目录。&lt;br/&gt;每个列表的最大为 &lt;strong&gt;1 MB&lt;/strong&gt;。有关详情请参阅&lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_new" &gt;《RHN 参考指南》&lt;/a&gt;。</target>
+        <target>这里列出的文件和目录会在 kickstart 时被保留。每行只列出一个文件或目录。&lt;br/&gt;每个列表的最大为 &lt;strong&gt;1 MB&lt;/strong&gt;。有关详情请参阅&lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;《RHN 参考指南》&lt;/a&gt;。</target>
       </trans-unit>
       <trans-unit id="softwareedit.jsp.summary1">
         <source>You can modify the software this kickstart profile will deploy below.</source>

@@ -16,7 +16,7 @@
             <i class="fa fa-key" title=""></i>
             <bean:message key="system.jsp.customkey.updatetitle"/>
 
-            <a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-cust-info" target="_new" class="help-title">
+            <a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-cust-info" target="_blank" class="help-title">
                 <i class="fa fa-question-circle" title="Help icon"></i>
             </a>
         </div>

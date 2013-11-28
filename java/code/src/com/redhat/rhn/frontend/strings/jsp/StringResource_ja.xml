@@ -972,18 +972,18 @@ Satellite の 組織管理者でないとユーザーを削除できません。
         <target>&lt;strong&gt;@@PRODUCT_NAME@@&lt;/strong&gt; はオープンソース (GPLv2) の Linux システム管理ソリューションです。@@PRODUCT_NAME@@ サーバーに関するご質問がある場合は、以下のリンクが便利です。</target>
       </trans-unit>
       <trans-unit id="login.jsp.satbody2">
-        <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href="http://www.spacewalkproject.org/" target="_new"&gt; http://www.spacewalkproject.org/&lt;/a&gt;. </source>
+        <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href="http://www.spacewalkproject.org/" target="_blank"&gt; http://www.spacewalkproject.org/&lt;/a&gt;. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-        <target>@@PRODUCT_NAME@@ の詳細については、&lt;a href="http://www.spacewalkproject.org/" target="_new"&gt; http://www.spacewalkproject.org/&lt;/a&gt; の Web サイトをご覧ください。</target>
+        <target>@@PRODUCT_NAME@@ の詳細については、&lt;a href="http://www.spacewalkproject.org/" target="_blank"&gt; http://www.spacewalkproject.org/&lt;/a&gt; の Web サイトをご覧ください。</target>
       </trans-unit>
       <trans-unit id="login.jsp.satbody3">
-        <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_new"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;. </source>
+        <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_blank"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-        <target>@@PRODUCT_NAME@@ コミュニティへの参加に関する詳細は、&lt;a href="http://www.spacewalkproject.org/communicate.html" target="_new"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt; をご覧ください。 </target>
+        <target>@@PRODUCT_NAME@@ コミュニティへの参加に関する詳細は、&lt;a href="http://www.spacewalkproject.org/communicate.html" target="_blank"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt; をご覧ください。 </target>
       </trans-unit>
       <trans-unit id="login.jsp.satbody4">
         <source> </source>
@@ -10236,11 +10236,11 @@ Please note that some manual configuration of these scripts may still be require
         <target>本当にこのキックスタートを削除してもよいですか?&lt;strong&gt;&lt;p&gt;警告: このキックスタートを削除すると、それに対応するオプションとオプションを削除することになります。&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;ボタンをクリックするのは 1 回のみにしてください。削除が完了するまでには少し時間がかかります。&lt;/strong&gt;&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="kickstartdetails.jsp.summary2">
-        <source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
+        <source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_blank" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
-        <target>&lt;span class="small-text"&gt; 企業/組織のデフォルトプロファイル設定は手作業で作成したキックスタートファイルまたはベアメタルのキックスタートファイルと併用することができます。&lt;a href="{0}" target="_new" &gt; &lt;strong&gt; このリンク&lt;/strong&gt; &lt;/a&gt;の URL がご使用のキックスタートファイルの &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; セクションに指定されている場合、このオプションを選択して企業/組織で使用されるプロファイルを示します。企業/組織のデフォルトが指定されていないとこのリンクは動作しません。&lt;/span&gt;</target>
+        <target>&lt;span class="small-text"&gt; 企業/組織のデフォルトプロファイル設定は手作業で作成したキックスタートファイルまたはベアメタルのキックスタートファイルと併用することができます。&lt;a href="{0}" target="_blank" &gt; &lt;strong&gt; このリンク&lt;/strong&gt; &lt;/a&gt;の URL がご使用のキックスタートファイルの &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; セクションに指定されている場合、このオプションを選択して企業/組織で使用されるプロファイルを示します。企業/組織のデフォルトが指定されていないとこのリンクは動作しません。&lt;/span&gt;</target>
       </trans-unit>
       <trans-unit id="kickstartdetails.jsp.activeDescription">
         <source>You cannot kickstart a system registered to @@PRODUCT_NAME@@ using an inactive kickstart profile. However, the kickstart files for inactive kickstart profiles are still available for manual download and may be used for bare metal kickstarts.</source>
@@ -10977,11 +10977,11 @@ Please note that some manual configuration of these scripts may still be require
         <target>パブリックキーまたは SSL 証明書が定義されていません</target>
       </trans-unit>
       <trans-unit id="keys.jsp.summary">
-        <source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an @@PRODUCT_NAME@@ Proxy Server or @@PRODUCT_NAME@@ Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
+        <source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an @@PRODUCT_NAME@@ Proxy Server or @@PRODUCT_NAME@@ Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
         </context-group>
-        <target>キックスタート中にシステムにキーや証明書をインストールするため、キックスタートプロファイルでこれらのキーや証明書を参照することができます。署名済みパッケージのインストールには正しいキー、@@PRODUCT_NAME@@ Proxy Server や @@PRODUCT_NAME@@ Server によるキックスタートには正しい証明書が必要になります。詳細については、 &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_new" &gt;RHN リファレンスガイド&lt;/a&gt; を参照してください。</target>
+        <target>キックスタート中にシステムにキーや証明書をインストールするため、キックスタートプロファイルでこれらのキーや証明書を参照することができます。署名済みパッケージのインストールには正しいキー、@@PRODUCT_NAME@@ Proxy Server や @@PRODUCT_NAME@@ Server によるキックスタートには正しい証明書が必要になります。詳細については、 &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_blank" &gt;RHN リファレンスガイド&lt;/a&gt; を参照してください。</target>
       </trans-unit>
       <trans-unit id="keys.jsp.toolbar">
         <source>GPG Public Keys and SSL Certificates</source>
@@ -11138,11 +11138,11 @@ Please note that some manual configuration of these scripts may still be require
         <target>ファイル保持</target>
       </trans-unit>
       <trans-unit id="preservation_list.jsp.summary">
-        <source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
+        <source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
         </context-group>
-        <target>ファイル保持一覧は、 特定のキックスタート中にシステムに復元されるファイルの一覧です。キックスタートプロファイルでファイル保持一覧を参照することができます。詳細については &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_new" &gt;RHN リファレンスガイド&lt;/a&gt; を参照してください。ユーザーの組織で使用するために作成されたファイル保持一覧は次の通りです。</target>
+        <target>ファイル保持一覧は、 特定のキックスタート中にシステムに復元されるファイルの一覧です。キックスタートプロファイルでファイル保持一覧を参照することができます。詳細については &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;RHN リファレンスガイド&lt;/a&gt; を参照してください。ユーザーの組織で使用するために作成されたファイル保持一覧は次の通りです。</target>
       </trans-unit>
       <trans-unit id="preservationlistdeleteconfirm.jsp.summary">
         <source>Are you sure you want to delete the selected File List(s)?  &lt;strong&gt;WARNING: Deleting the selected File List(s) will delete all its associated files.&lt;/strong&gt;</source>
@@ -11264,11 +11264,11 @@ Please note that some manual configuration of these scripts may still be require
         <target>キックスタートファイル保持一覧の作成</target>
       </trans-unit>
       <trans-unit id="preservation_edit.jsp.summary">
-        <source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.</source>
+        <source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
         </context-group>
-        <target>ここに指定するファイルやディレクトリはキックスタート後に保持されます。1 ファイルまたは 1 ディレクトリを 1 行ずつ記載します。 &lt;br/&gt;各一覧の合計サイズは &lt;strong&gt;1 MB&lt;/strong&gt; に制限されています。詳細については &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_new" &gt;RHN リファレンスガイド&lt;/a&gt; を参照してください。</target>
+        <target>ここに指定するファイルやディレクトリはキックスタート後に保持されます。1 ファイルまたは 1 ディレクトリを 1 行ずつ記載します。 &lt;br/&gt;各一覧の合計サイズは &lt;strong&gt;1 MB&lt;/strong&gt; に制限されています。詳細については &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;RHN リファレンスガイド&lt;/a&gt; を参照してください。</target>
       </trans-unit>
       <trans-unit id="softwareedit.jsp.summary1">
         <source>You can modify the software this kickstart profile will deploy below.</source>

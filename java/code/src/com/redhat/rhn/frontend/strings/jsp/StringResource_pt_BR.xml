@@ -971,18 +971,18 @@
         <target>A &lt;strong&gt;@@PRODUCT_NAME@@&lt;/strong&gt; é o principal serviço para manter a infra-estrutura Linux de sua empresa. Apresentamos alguns links abaixo que podem ser úteis para questões sobre seu servidor  @@PRODUCT_NAME@@.</target>
       </trans-unit>
       <trans-unit id="login.jsp.satbody2">
-        <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href="http://www.spacewalkproject.org/" target="_new"&gt; http://www.spacewalkproject.org/&lt;/a&gt;. </source>
+        <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href="http://www.spacewalkproject.org/" target="_blank"&gt; http://www.spacewalkproject.org/&lt;/a&gt;. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-        <target>Para obter detalhes sobre @@PRODUCT_NAME@@, visite nosso web site em &lt;a href="http://www.spacewalkproject.org/" target="_new"&gt; http://www.spacewalkproject.org/&lt;/a&gt;. </target>
+        <target>Para obter detalhes sobre @@PRODUCT_NAME@@, visite nosso web site em &lt;a href="http://www.spacewalkproject.org/" target="_blank"&gt; http://www.spacewalkproject.org/&lt;/a&gt;. </target>
       </trans-unit>
       <trans-unit id="login.jsp.satbody3">
-        <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_new"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;. </source>
+        <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_blank"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-        <target>Para detalhes sobre como interagir com a comunidade do @@PRODUCT_NAME@@, por favor visite-nos em &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_new"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;.</target>
+        <target>Para detalhes sobre como interagir com a comunidade do @@PRODUCT_NAME@@, por favor visite-nos em &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_blank"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;.</target>
       </trans-unit>
       <trans-unit id="login.jsp.satbody4">
         <source> </source>
@@ -10226,11 +10226,11 @@ Você teria então que usar o $nome dentro do perfil para substituir no valor.</
         <target>Você tem certeza que deseja remover este Kickstart?&lt;strong&gt;&lt;p&gt;ATENÇÃO: remover este kickstart também removerá o sistema e as opções correspondentes associada a este.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Por favor clique no botão somente uma vez; o processo de remoção levará um tempo para completar.&lt;/strong&gt;&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="kickstartdetails.jsp.summary2">
-        <source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
+        <source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_blank" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
-        <target>&lt;span class="small-text"&gt; A configuração do Perfil Padrão da Organização pode ser usada com arquivos de kickstart básicos ou criados manualmente.  Selecione esta opção para indicar qual perfil é utilizado na sua Organização quando a URL &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; deste link &lt;/strong&gt; &lt;/a&gt; é especificada na seção &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; do seu arquivo de kickstart.  O link não funcionará a não ser que o Padrão da Organização seja especificado.&lt;/span&gt;</target>
+        <target>&lt;span class="small-text"&gt; A configuração do Perfil Padrão da Organização pode ser usada com arquivos de kickstart básicos ou criados manualmente.  Selecione esta opção para indicar qual perfil é utilizado na sua Organização quando a URL &lt;a href="{0}" target="_blank" &gt; &lt;strong&gt; deste link &lt;/strong&gt; &lt;/a&gt; é especificada na seção &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; do seu arquivo de kickstart.  O link não funcionará a não ser que o Padrão da Organização seja especificado.&lt;/span&gt;</target>
       </trans-unit>
       <trans-unit id="kickstartdetails.jsp.activeDescription">
         <source>You cannot kickstart a system registered to @@PRODUCT_NAME@@ using an inactive kickstart profile. However, the kickstart files for inactive kickstart profiles are still available for manual download and may be used for bare metal kickstarts.</source>
@@ -10967,11 +10967,11 @@ Você teria então que usar o $nome dentro do perfil para substituir no valor.</
         <target>Nenhuma chave pública ou certificados ssl definidos.</target>
       </trans-unit>
       <trans-unit id="keys.jsp.summary">
-        <source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an @@PRODUCT_NAME@@ Proxy Server or @@PRODUCT_NAME@@ Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
+        <source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an @@PRODUCT_NAME@@ Proxy Server or @@PRODUCT_NAME@@ Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
         </context-group>
-        <target>Você pode referenciar estas chaves e/ou certificados nos seus perfis de kickstart a fim de instalá-los nos sistemas durante um kickstart.  Um sistema precisará das chaves corretas para instalar os pacotes assinados e do certificado correto para poder ter o kickstart por um @@PRODUCT_NAME@@ Proxy Server ou @@PRODUCT_NAME@@ Server.  Para mais informações, consulte o &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</target>
+        <target>Você pode referenciar estas chaves e/ou certificados nos seus perfis de kickstart a fim de instalá-los nos sistemas durante um kickstart.  Um sistema precisará das chaves corretas para instalar os pacotes assinados e do certificado correto para poder ter o kickstart por um @@PRODUCT_NAME@@ Proxy Server ou @@PRODUCT_NAME@@ Server.  Para mais informações, consulte o &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="keys.jsp.toolbar">
         <source>GPG Public Keys and SSL Certificates</source>
@@ -11128,11 +11128,11 @@ Você teria então que usar o $nome dentro do perfil para substituir no valor.</
         <target>Preservação de Arquivos</target>
       </trans-unit>
       <trans-unit id="preservation_list.jsp.summary">
-        <source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
+        <source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
         </context-group>
-        <target>Listas de preservação de arquivos são listas de arquivos que serão restauradas em um sistema durante um kickstart específico. Você pode fazer referência a uma lista de preservação de arquivos em um perfil de kickstart.  Para maiores informações, consulte o &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;. As seguintes listas de preservação de arquivos foram criadas para serem usadas pela sua organização: </target>
+        <target>Listas de preservação de arquivos são listas de arquivos que serão restauradas em um sistema durante um kickstart específico. Você pode fazer referência a uma lista de preservação de arquivos em um perfil de kickstart.  Para maiores informações, consulte o &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;. As seguintes listas de preservação de arquivos foram criadas para serem usadas pela sua organização: </target>
       </trans-unit>
       <trans-unit id="preservationlistdeleteconfirm.jsp.summary">
         <source>Are you sure you want to delete the selected File List(s)?  &lt;strong&gt;WARNING: Deleting the selected File List(s) will delete all its associated files.&lt;/strong&gt;</source>
@@ -11254,11 +11254,11 @@ Você teria então que usar o $nome dentro do perfil para substituir no valor.</
         <target>Criar Lista de Preservação de Arquivos de Kickstart</target>
       </trans-unit>
       <trans-unit id="preservation_edit.jsp.summary">
-        <source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.</source>
+        <source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
         </context-group>
-        <target>Quaisquer arquivos ou diretórios listados aqui serão preservados após o kickstart. Liste arquivos ou diretórios, um por linha.&lt;br/&gt;Cada lista é limitada a um tamanho máximo de &lt;strong&gt;1 MB&lt;/strong&gt;.  Para mais informações, consulte o &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.  </target>
+        <target>Quaisquer arquivos ou diretórios listados aqui serão preservados após o kickstart. Liste arquivos ou diretórios, um por linha.&lt;br/&gt;Cada lista é limitada a um tamanho máximo de &lt;strong&gt;1 MB&lt;/strong&gt;.  Para mais informações, consulte o &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;.  </target>
       </trans-unit>
       <trans-unit id="softwareedit.jsp.summary1">
         <source>You can modify the software this kickstart profile will deploy below.</source>
