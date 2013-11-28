@@ -32,7 +32,7 @@
           <a href="/rhn/account/UserDetails.do"><i class="fa fa-user"></i><c:out escapeXml="true" value="${requestScope.session.user.login}" /></a>
         </li>
         <li class="hidden-sm hidden-xs hidden-md">
-          <i class="fa fa-sitemap"></i><c:out escapeXml="true" value="${requestScope.session.user.org.name}" />
+          <span class="spacewalk-header-non-link"><i class="fa fa-sitemap"></i><c:out escapeXml="true" value="${requestScope.session.user.org.name}" /></span>
         </li>
         <li>
           <a href="/rhn/account/UserPreferences.do"><i class="fa fa-cogs"></i></a>
