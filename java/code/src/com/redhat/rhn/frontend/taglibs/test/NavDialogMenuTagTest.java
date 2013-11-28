@@ -119,12 +119,11 @@ public class NavDialogMenuTagTest extends RhnBaseTestCase {
     }
 
     private String getReturnValue() {
-        return "<div class=\"content-nav\"><ul class=\"content-nav-rowone\">" +
-               "<li class=\"content-nav-selected\"><a class=\"" +
-               "content-nav-selected-link\" href=\"/index.pxt\">Sign In</a></li>\n" +
-               "<li><a href=\"/help/about.pxt\">About</a></li>\n" +
-               "</ul>\n" +
-               "</div>\n";
+        return "<div class=\"spacewalk-content-nav\"><ul class=\"nav nav-tabs\">" +
+        "<li class=\"active\"><a href=\"/index.pxt\">Sign In</a></li>\n" +
+        "<li><a href=\"/help/about.pxt\">About</a></li>\n" +
+        "</ul>\n" +
+        "</div>\n";
     }
 
     public void testSetMaxdepth() {

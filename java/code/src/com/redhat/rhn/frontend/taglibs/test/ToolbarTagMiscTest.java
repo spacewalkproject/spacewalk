@@ -40,10 +40,10 @@ public class ToolbarTagMiscTest extends BaseTestToolbarTag {
     public void testMiscNoAcl() {
         try {
             // setup mock objects
-            String output = "<div class=\"toolbar-h1\"><div class=\"" +
-                "toolbar\"><span class=\"toolbar\"><a href=\"misc-url\">" +
-                "<img src=\"/img/foo.gif\" alt=\"ignore me\" title=\"ignore me\" />" +
-                "ignore me</a></span></div></div>";
+            String output = "<div class=\"spacewalk-toolbar-h1\">" +
+            "<div class=\"spacewalk-toolbar\"><a href=\"misc-url\">" +
+            "<img src=\"/img/foo.gif\" alt=\"ignore me\" title=\"ignore me\" />" +
+            "ignore me</a></div><h1></h1></div>";
 
             setupMiscTag("h1", "misc-url", "", "jsp.testMessage",
                          "jsp.testMessage", "foo.gif");
@@ -58,8 +58,8 @@ public class ToolbarTagMiscTest extends BaseTestToolbarTag {
     public void testMiscWithMissingText() {
         try {
             // setup mock objects
-            String output = "<div class=\"toolbar-h1\"><div class=\"" +
-                "toolbar\"></div></div>";
+            String output = "<div class=\"spacewalk-toolbar-h1\">" +
+            "<div class=\"spacewalk-toolbar\"></div><h1></h1></div>";
 
             setupMiscTag("h1", "misc-url", "true_test()",
                 "alt", "", "foo.gif");
@@ -73,10 +73,10 @@ public class ToolbarTagMiscTest extends BaseTestToolbarTag {
 
     public void testCreateAclMultipleMixinsMultipleAcls() {
         try {
-            String output = "<div class=\"toolbar-h1\"><div class=\"" +
-                "toolbar\"><span class=\"toolbar\"><a href=\"misc-url\">" +
-                "<img src=\"/img/foo.gif\" alt=\"ignore me\" title=\"ignore me\" />" +
-                "ignore me</a></span></div></div>";
+            String output = "<div class=\"spacewalk-toolbar-h1\">" +
+            "<div class=\"spacewalk-toolbar\"><a href=\"misc-url\">" +
+            "<img src=\"/img/foo.gif\" alt=\"ignore me\" title=\"ignore me\" />" +
+            "ignore me</a></div><h1></h1></div>";
 
             setupMiscTag("h1", "misc-url",
                     "first_true_acl(); second_true_acl(); is_foo(foo)",
@@ -97,10 +97,10 @@ public class ToolbarTagMiscTest extends BaseTestToolbarTag {
 
     public void testCreateAclMultipleAclsSingleMixin() {
         try {
-            String output = "<div class=\"toolbar-h1\"><div class=\"" +
-                "toolbar\"><span class=\"toolbar\"><a href=\"misc-url\">" +
-                "<img src=\"/img/foo.gif\" alt=\"ignore me\" title=\"ignore me\" />" +
-                "ignore me</a></span></div></div>";
+            String output = "<div class=\"spacewalk-toolbar-h1\">" +
+            "<div class=\"spacewalk-toolbar\"><a href=\"misc-url\">" +
+            "<img src=\"/img/foo.gif\" alt=\"ignore me\" title=\"ignore me\" />" +
+            "ignore me</a></div><h1></h1></div>";
 
             setupMiscTag("h1", "misc-url",
                     "first_true_acl(); second_true_acl()", "jsp.testMessage",
@@ -144,10 +144,10 @@ public class ToolbarTagMiscTest extends BaseTestToolbarTag {
 
         try {
             // setup mock objects
-            String output = "<div class=\"toolbar-h1\"><div class=\"" +
-                "toolbar\"><span class=\"toolbar\"><a href=\"misc-url\">" +
-                "<img src=\"/img/foo.gif\" alt=\"ignore me\" title=\"ignore me\" />" +
-                "ignore me</a></span></div></div>";
+            String output = "<div class=\"spacewalk-toolbar-h1\">" +
+            "<div class=\"spacewalk-toolbar\"><a href=\"misc-url\">" +
+            "<img src=\"/img/foo.gif\" alt=\"ignore me\" title=\"ignore me\" />" +
+            "ignore me</a></div><h1></h1></div>";
 
             setupMiscTag("h1", "misc-url", "true_test()", "jsp.testMessage",
                          "jsp.testMessage", "foo.gif");
@@ -162,8 +162,8 @@ public class ToolbarTagMiscTest extends BaseTestToolbarTag {
     public void testMiscWithMissingUrl() {
         try {
             // setup mock objects
-            String output = "<div class=\"toolbar-h1\"><div class=\"" +
-                "toolbar\"></div></div>";
+            String output = "<div class=\"spacewalk-toolbar-h1\">" +
+            "<div class=\"spacewalk-toolbar\"></div><h1></h1></div>";
 
             setupMiscTag("h1", null, "true_test()", "alt", "text",
                 "foo.gif");
@@ -178,8 +178,8 @@ public class ToolbarTagMiscTest extends BaseTestToolbarTag {
     public void testMiscWithMissingImg() {
         try {
             // setup mock objects
-            String output = "<div class=\"toolbar-h1\"><div class=\"" +
-                "toolbar\"></div></div>";
+            String output = "<div class=\"spacewalk-toolbar-h1\">" +
+            "<div class=\"spacewalk-toolbar\"></div><h1></h1></div>";
 
             setupMiscTag("h1", "misc-url", "true_test()", "alt", "text",
                 null);

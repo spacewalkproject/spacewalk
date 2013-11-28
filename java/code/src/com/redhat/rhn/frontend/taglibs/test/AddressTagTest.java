@@ -88,16 +88,19 @@ public class AddressTagTest extends RhnBaseTestCase {
     }
 
     private String getPopulatedReturnValue(HttpServletRequest req, Long uid) {
-        return "<tr><th>Mailing Address</th><td><div>444 Castro<br/>" +
-        "#1<br/>Mountain View, CA 94043</div><div>Phone: 650-555-1212</div><div>Fax: " +
-        "650-555-1212</div><div><a href=\"/EditAddress.do?type=M&amp" +
-        ";uid=" + uid + "\">Edit this address</a></div></td></tr>";
+        return "<div class=\"jumbotron\"><div class=\"container\"><h1>Mailing Address</h1>" +
+               "<p>444 Castro<br/>#1<br/>Mountain View, CA 94043</p>" +
+               "<p>Phone: 650-555-1212<br/>Fax: 650-555-1212</p><p>" +
+               "<a class=\"btn btn-success btn-lg\"href=\"/EditAddress.do?type=M&amp;uid=" + uid + 
+               "\">Edit this address</a></p></div></div>";
     }
 
     private String getEmptyReturnValue(HttpServletRequest req, Long uid) {
-        return "<tr><th>Mailing Address</th><td><div><strong>Address " +
-               "not filled out</div></strong><a href=\"/EditAddress.do?" +
-               "type=M&amp;uid=" + uid + "\">Add this address</a></td></tr>";
+        return "<div class=\"jumbotron\"><div class=\"container\">" +
+               "<h1>Mailing Address</h1><div class=\"alert alert-info\">" +
+               "Address not filled out</div><p><a class=\"btn btn-success btn-lg\" " +
+               "href=\"/EditAddress.do?type=M&amp;uid=" + uid +
+               "\">Add this address</a></p></div></div>";
     }
 
 }

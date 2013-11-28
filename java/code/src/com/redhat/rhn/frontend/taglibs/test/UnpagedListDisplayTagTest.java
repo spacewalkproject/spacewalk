@@ -153,14 +153,20 @@ public class UnpagedListDisplayTagTest extends MockObjectTestCase {
     }
 
     private static final String EXPECTED_HTML_OUT =
-        "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" " +
-        "class=\"list\"><thead>\n" +
-        "<tr></tbody></table>\n";
+        "<div class=\"spacewalk-list\"><div class=\"panel panel-default\">" +
+        "<table class=\"table table-striped\"></tbody></table>\n" +
+        "</div>\n" +
+        "</div>\n";
+
 
     private static final String EXPECTED_HTML_OUT_WITH_TITLE =
-        "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" " +
-        "class=\"list\"><thead><tr><th>**Inactive " +
-        "Systems**</th></tr>\n<tr></tbody></table>\n";
+        "<div class=\"spacewalk-list\"><div class=\"panel panel-default\">" +
+        "<div class=\"panel-heading\"><h4 class=\"panel-title\">**Inactive Systems**</h4>" +
+        "<div class=\"spacewalk-list-head-addons\">" +
+        "<div class=\"spacewalk-list-head-addons-extra\"></div>" +
+        "</div></div><table class=\"table table-striped\"></tbody></table>\n" +
+        "</div>\n" +
+        "</div>\n";
 
     private static final String EXPECTED_CSV_OUT =
         "**column1**,**column2**,**column3**\n" +

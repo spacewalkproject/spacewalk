@@ -36,12 +36,10 @@ public class ToolbarTagCreationTest extends BaseTestToolbarTag {
 
     public void testCreationNoAcl() throws Exception {
         // setup mock objects
-        String output = "<div class=\"toolbar-h1\"><div class=\"" +
-            "toolbar\"><span class=\"toolbar\"><a href=\"creation-url\">" +
-            "<img src=\"/img/action-add.gif\" alt=\"create new user\"" +
-            " title=\"create new user\" />create new user</a></span>" +
-            "</div></div>";
-
+        String output = "<div class=\"spacewalk-toolbar-h1\">" +
+			"<div class=\"spacewalk-toolbar\"><a href=\"creation-url\">" +
+			"<i class=\"fa fa-plus\" title=\"create new user\"></i>" +
+			"create new user</a></div><h1></h1></div>";
 
         setupCreationTag("h1", "creation-url", "", "user");
 
@@ -50,20 +48,19 @@ public class ToolbarTagCreationTest extends BaseTestToolbarTag {
 
     public void testCreationWithMissingType() throws Exception {
         // setup mock objects
-        String output = "<div class=\"toolbar-h1\"><div class=\"" +
-            "toolbar\"></div></div>";
-
-        setupCreationTag("h1", "creation-url", "true_test()", "");
+        String output = "<div class=\"spacewalk-toolbar-h1\">" +
+			"<div class=\"spacewalk-toolbar\"></div><h1></h1></div>";
+		
+		setupCreationTag("h1", "creation-url", "true_test()", "");
 
         verifyTag(output);
     }
 
     public void testCreateAclMultipleMixinsMultipleAcls() throws Exception {
-        String output = "<div class=\"toolbar-h1\"><div class=\"" +
-            "toolbar\"><span class=\"toolbar\"><a href=\"creation-url\">" +
-            "<img src=\"/img/action-add.gif\" alt=\"create new user\"" +
-            " title=\"create new user\" />create new user</a></span>" +
-            "</div></div>";
+        String output = "<div class=\"spacewalk-toolbar-h1\">" +
+			"<div class=\"spacewalk-toolbar\"><a href=\"creation-url\">" +
+			"<i class=\"fa fa-plus\" title=\"create new user\">"+
+			"</i>create new user</a></div><h1></h1></div>";
 
         setupCreationTag("h1", "creation-url",
                          "first_true_acl(); second_true_acl(); is_foo(foo)",
@@ -76,11 +73,10 @@ public class ToolbarTagCreationTest extends BaseTestToolbarTag {
     }
 
     public void testCreateAclMultipleAclsSingleMixin() throws Exception {
-        String output = "<div class=\"toolbar-h1\"><div class=\"" +
-            "toolbar\"><span class=\"toolbar\"><a href=\"creation-url\">" +
-            "<img src=\"/img/action-add.gif\" alt=\"create new user\"" +
-            " title=\"create new user\" />create new user</a></span>" +
-            "</div></div>";
+        String output = "<div class=\"spacewalk-toolbar-h1\">" +
+			"<div class=\"spacewalk-toolbar\"><a href=\"creation-url\">" +
+			"<i class=\"fa fa-plus\" title=\"create new user\"></i>" +
+			"create new user</a></div><h1></h1></div>";
 
         setupCreationTag("h1", "creation-url",
                          "first_true_acl(); second_true_acl()", "user");
@@ -113,11 +109,10 @@ public class ToolbarTagCreationTest extends BaseTestToolbarTag {
 
     public void testCreationAcl() throws Exception {
         // setup mock objects
-        String output = "<div class=\"toolbar-h1\"><div class=\"" +
-            "toolbar\"><span class=\"toolbar\"><a href=\"creation-url\">" +
-            "<img src=\"/img/action-add.gif\" alt=\"create new user\"" +
-            " title=\"create new user\" />create new user</a></span>" +
-            "</div></div>";
+        String output = "<div class=\"spacewalk-toolbar-h1\">" +
+			"<div class=\"spacewalk-toolbar\"><a href=\"creation-url\">" +
+			"<i class=\"fa fa-plus\" title=\"create new user\"></i>" +
+			"create new user</a></div><h1></h1></div>";
 
         setupCreationTag("h1", "creation-url", "true_test()", "user");
 
@@ -126,8 +121,8 @@ public class ToolbarTagCreationTest extends BaseTestToolbarTag {
 
     public void testCreationWithMissingUrl() throws Exception {
         // setup mock objects
-        String output = "<div class=\"toolbar-h1\"><div class=\"" +
-            "toolbar\"></div></div>";
+        String output = "<div class=\"spacewalk-toolbar-h1\">" +
+			"<div class=\"spacewalk-toolbar\"></div><h1></h1></div>";
 
         setupCreationTag("h1", null, "true_test()", "user");
 

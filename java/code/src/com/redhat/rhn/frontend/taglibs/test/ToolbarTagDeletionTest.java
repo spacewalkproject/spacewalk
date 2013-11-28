@@ -37,11 +37,9 @@ public class ToolbarTagDeletionTest extends BaseTestToolbarTag {
     public void testDeletionNoAcl() {
         try {
             // setup mock objects
-            String output = "<div class=\"toolbar-h1\"><div class=\"" +
-                "toolbar\"><span class=\"toolbar\"><a href=\"deletion-url\">" +
-                "<i class=\"icon-trash\"" +
-                " title=\"delete user\" ></i>delete user</a></span>" +
-                "</div></div>";
+            String output = "<div class=\"spacewalk-toolbar-h1\">" +
+            "<div class=\"spacewalk-toolbar\"><a href=\"deletion-url\">" +
+            "<i class=\"fa fa-trash-o\" title=\"delete user\"></i>delete user</a></div><h1></h1></div>";
 
 
             setupDeletionTag("h1", "deletion-url", "", "user");
@@ -56,8 +54,8 @@ public class ToolbarTagDeletionTest extends BaseTestToolbarTag {
     public void testDeletionWithMissingType() {
         try {
             // setup mock objects
-            String output = "<div class=\"toolbar-h1\"><div class=\"" +
-                "toolbar\"></div></div>";
+            String output = "<div class=\"spacewalk-toolbar-h1\">" +
+            "<div class=\"spacewalk-toolbar\"></div><h1></h1></div>";
 
             setupDeletionTag("h1", "deletion-url", "true_test()", "");
 
@@ -70,11 +68,9 @@ public class ToolbarTagDeletionTest extends BaseTestToolbarTag {
 
     public void testCreateAclMultipleMixinsMultipleAcls() {
         try {
-            String output = "<div class=\"toolbar-h1\"><div class=\"" +
-            "toolbar\"><span class=\"toolbar\"><a href=\"deletion-url\">" +
-            "<i class=\"icon-trash\"" +
-            " title=\"delete user\" ></i>delete user</a></span>" +
-            "</div></div>";
+            String output = "<div class=\"spacewalk-toolbar-h1\">" +
+            "<div class=\"spacewalk-toolbar\"><a href=\"deletion-url\">" +
+            "<i class=\"fa fa-trash-o\" title=\"delete user\"></i>delete user</a></div><h1></h1></div>";
 
             setupDeletionTag("h1", "deletion-url",
                     "first_true_acl(); second_true_acl(); is_foo(foo)",
@@ -95,11 +91,9 @@ public class ToolbarTagDeletionTest extends BaseTestToolbarTag {
 
     public void testCreateAclMultipleAclsSingleMixin() {
         try {
-            String output = "<div class=\"toolbar-h1\"><div class=\"" +
-            "toolbar\"><span class=\"toolbar\"><a href=\"deletion-url\">" +
-            "<i class=\"icon-trash\"" +
-            " title=\"delete user\" ></i>delete user</a></span>" +
-            "</div></div>";
+            String output = "<div class=\"spacewalk-toolbar-h1\">" +
+            "<div class=\"spacewalk-toolbar\"><a href=\"deletion-url\">" +
+            "<i class=\"fa fa-trash-o\" title=\"delete user\"></i>delete user</a></div><h1></h1></div>";
 
             setupDeletionTag("h1", "deletion-url",
                     "first_true_acl(); second_true_acl()", "user");
@@ -142,11 +136,9 @@ public class ToolbarTagDeletionTest extends BaseTestToolbarTag {
 
         try {
             // setup mock objects
-            String output = "<div class=\"toolbar-h1\"><div class=\"" +
-                "toolbar\"><span class=\"toolbar\"><a href=\"deletion-url\">" +
-                "<i class=\"icon-trash\"" +
-                " title=\"delete user\" ></i>delete user</a></span>" +
-                "</div></div>";
+            String output = "<div class=\"spacewalk-toolbar-h1\">" +
+            "<div class=\"spacewalk-toolbar\"><a href=\"deletion-url\">" +
+            "<i class=\"fa fa-trash-o\" title=\"delete user\"></i>delete user</a></div><h1></h1></div>";
 
             setupDeletionTag("h1", "deletion-url", "true_test()", "user");
 
@@ -160,8 +152,8 @@ public class ToolbarTagDeletionTest extends BaseTestToolbarTag {
     public void testDeletionWithMissingUrl() {
         try {
             // setup mock objects
-            String output = "<div class=\"toolbar-h1\"><div class=\"" +
-                "toolbar\"></div></div>";
+            String output = "<div class=\"spacewalk-toolbar-h1\">" +
+            "<div class=\"spacewalk-toolbar\"></div><h1></h1></div>";
 
             setupDeletionTag("h1", null, "true_test()", "user");
 

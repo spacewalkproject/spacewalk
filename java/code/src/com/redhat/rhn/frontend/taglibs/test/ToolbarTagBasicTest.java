@@ -27,13 +27,16 @@ public class ToolbarTagBasicTest extends BaseTestToolbarTag {
 
         try {
             // setup mock objects
-            String output = "<div class=\"toolbar-h1\">" +
-               "<div class=\"toolbar\"></div>" +
+            String output = "<div class=\"spacewalk-toolbar-h1\">" +
+               "<div class=\"spacewalk-toolbar\"></div>" +
+               "<h1>" +
                "<img src=\"/img/rhn-icon-preferences.gif\" alt=\"Home Icon\" />" +
                "<a href=\"/help/provisioning/" +
-               "s1-sm-your-rhn.html#S2-SM-YOUR-RHN-PREFS\" target=\"_new\" " +
-               "class=\"help-title\">" +
-               "<img src=\"/img/rhn-icon-help.gif\" alt=\"Help Icon\" /></a></div>";
+               "s1-sm-your-rhn.html#S2-SM-YOUR-RHN-PREFS\" target=\"_new\">" +
+               "<span class=\"fa-stack\">" +
+               "<i class=\"fa fa-circle fa-stack-1x\"></i>" +
+               "<i class=\"fa fa-question fa-stack-1x fa-inverse\"></i>" +
+               "</span></a></h1></div>";
             out.setExpectedData(output);
 
             tt.setBase("h1");
@@ -53,8 +56,8 @@ public class ToolbarTagBasicTest extends BaseTestToolbarTag {
 
     public void testNoImgUrl() {
         try {
-            String output = "<div class=\"toolbar-h1\"><div class=\"" +
-                            "toolbar\"></div></div>";
+            String output = "<div class=\"spacewalk-toolbar-h1\"><div class=\"" +
+                            "spacewalk-toolbar\"></div><h1></h1></div>";
             out.setExpectedData(output);
 
             tt.setBase("h1");
@@ -72,9 +75,9 @@ public class ToolbarTagBasicTest extends BaseTestToolbarTag {
 
     public void testImgUrl() {
         try {
-            String output = "<div class=\"toolbar-h1\"><div class=\"" +
-                            "toolbar\"></div><img src=\"" +
-                            "/img/rhn-icon-preferences.gif\" /></div>";
+            String output = "<div class=\"spacewalk-toolbar-h1\"><div class=\"" +
+                            "spacewalk-toolbar\"></div><h1><img src=\"" +
+                            "/img/rhn-icon-preferences.gif\" /></h1></div>";
             out.setExpectedData(output);
 
             tt.setBase("h1");
@@ -108,9 +111,9 @@ public class ToolbarTagBasicTest extends BaseTestToolbarTag {
         try {
             // make sure we don't generate a messed up help url if
             // none was specified
-            String output = "<div class=\"toolbar-h1\"><div class=\"" +
-                            "toolbar\"></div><img src=\"" +
-                            "/img/rhn-icon-preferences.gif\" /></div>";
+            String output = "<div class=\"spacewalk-toolbar-h1\"><div class=\"" +
+                            "spacewalk-toolbar\"></div><h1><img src=\"" +
+                            "/img/rhn-icon-preferences.gif\" /></h1></div>";
 
             out.setExpectedData(output);
 
