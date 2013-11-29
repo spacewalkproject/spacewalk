@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.83
+Version: 2.1.84
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Nov 29 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.84-1
+- Allow UTF-8 in config file
+- Reformat so less unnecessary whitespace gets to output
+
 * Fri Nov 29 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.83-1
 - 1035429 - make package search of a specific architecture faster
 - HTML 5 does allow "_new" as a valid target
