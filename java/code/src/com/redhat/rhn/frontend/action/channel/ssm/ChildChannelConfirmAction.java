@@ -28,7 +28,6 @@ import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.ssm.SsmManager;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
 
@@ -97,14 +96,6 @@ public class ChildChannelConfirmAction extends RhnAction implements Listable {
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
 
-        RhnSet subSet = RhnSetDecl.SSM_CHANNEL_SUBSCRIBE.get(user);
-        subSet.clear();
-        RhnSetManager.store(subSet);
-
-        RhnSet unSubSet = RhnSetDecl.SSM_CHANNEL_UNSUBSCRIBE.get(user);
-        unSubSet.clear();
-        RhnSetManager.store(unSubSet);
-
         ActionForward result;
         if (isSubmitted(daForm)) {
 
@@ -112,9 +103,7 @@ public class ChildChannelConfirmAction extends RhnAction implements Listable {
                     "ssm.subscription.operation.label", null);
 
             SsmOperationManager.associateServersWithOperation(operationId, user.getId(),
-                RhnSetDecl.SSM_CHANNEL_SUBSCRIBE.getLabel());
-            SsmOperationManager.associateServersWithOperation(operationId, user.getId(),
-                RhnSetDecl.SSM_CHANNEL_UNSUBSCRIBE.getLabel());
+                    new ArrayList<Long>(sysSubList.keySet()));
 
             // Fire the request off asynchronously
             SsmChangeChannelSubscriptionsEvent event =
