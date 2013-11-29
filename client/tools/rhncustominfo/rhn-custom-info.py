@@ -121,6 +121,10 @@ def parse_args():
                       action="store", type="string", dest="url",
                       help="use the rhn api at URL", metavar="URL")
 
+    parser.add_option("-d", "--delete-values",
+                      action="store_true", dest="delete_values", default=0,
+                      help="delete one or multiple custom keys from the system")
+
     parser.add_option("-l", "--list-values",
                       action="store_true", dest="list_values", default=0,
                       help="list the custom keys and values for the system",
@@ -141,11 +145,14 @@ def verify_command_line():
     if not options.password:
         options.password = getpass.getpass()
 
-    if not (num_args % 2 == 0) and not options.list_values:
+    if not (num_args % 2 == 0) and not options.list_values and not options.delete_values:
         system_exit(1, "Odd number of arguments; you must provide key/value pairs")
 
-    if not args and not options.list_values:
+    if not args and not options.list_values and not options.delete_values:
         system_exit(1, "You must provide key/value pairs to store")
+
+    if not args and options.delete_values:
+        system_exit(1, "You must provide a key to delete")
 
     return (options, args, num_args)
 
@@ -174,11 +181,17 @@ def main():
     (options, args, num_args) = verify_command_line()
 
     values = {}
+    valuesdel = []
 
     i = 0
-    while (i < num_args):
-        values[args[i]] = args[i+1]
-        i = i + 2
+    if not options.delete_values:
+        while (i < num_args):
+            values[args[i]] = args[i+1]
+            i = i + 2
+    else:
+        while (i < num_args):
+            valuesdel.insert(i, args[i])
+            i = i + 1
 
     url = None
     if options.url:
@@ -198,6 +211,8 @@ def main():
 
         if options.list_values:
             ret = s.system.get_custom_values(session, int(sid))
+        elif options.delete_values:
+            ret = s.system.delete_custom_values(session, int(sid), valuesdel)
         else:
             ret = s.system.set_custom_values(session, int(sid), values)
 
