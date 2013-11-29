@@ -70,6 +70,8 @@ insert into rhnCpuArch (id, label, name) values
 (sequence_nextval('rhn_cpu_arch_id_seq'), 'armv5tejl', 'ARMv5tejl');
 insert into rhnCpuArch (id, label, name) values
 (sequence_nextval('rhn_cpu_arch_id_seq'), 'armv6l', 'ARMv6l');
+insert into rhnCpuArch (id, label, name) values
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'armv6hl', 'ARMv6hl');
 commit;
 
 --

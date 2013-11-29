@@ -77,6 +77,9 @@ insert into rhnServerArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_server_arch_id_seq'), 'armv6l-redhat-linux', 'armv6l', lookup_arch_type('rpm'));
 
 insert into rhnServerArch (id, label, name, arch_type_id) values
+(sequence_nextval('rhn_server_arch_id_seq'), 'armv6hl-redhat-linux', 'armv6hl', lookup_arch_type('rpm'));
+
+insert into rhnServerArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_server_arch_id_seq'), 'powerpc-debian-linux', 'powerpc Debian', lookup_arch_type('deb'));
 
 insert into rhnServerArch (id, label, name, arch_type_id) values

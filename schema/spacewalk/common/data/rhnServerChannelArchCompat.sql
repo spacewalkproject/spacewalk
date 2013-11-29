@@ -88,6 +88,9 @@ insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 (LOOKUP_SERVER_ARCH('armv6l-redhat-linux'), LOOKUP_CHANNEL_ARCH('channel-arm'));
 
 insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
+(LOOKUP_SERVER_ARCH('armv6hl-redhat-linux'), LOOKUP_CHANNEL_ARCH('channel-arm'));
+
+insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 (LOOKUP_SERVER_ARCH('sparc-sun4m-solaris'), LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'));
 
 insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
