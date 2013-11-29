@@ -46,25 +46,3 @@ insert into rhn_command_requirements(name,description)
 
 commit;
 
---
---Revision 1.7  2004/06/22 18:01:26  nhansen
---bug 126498: replace Command Center Daemon refrences with RHNMD
---
---Revision 1.6  2004/06/17 20:48:59  kja
---bugzilla 124970 -- _data is in for 350.
---
---Revision 1.5  2004/06/09 19:10:36  nhansen
---bug 124620: put the commit back
---
---Revision 1.4  2004/06/09 17:35:36  nhansen
---bug 124620: pulled out unused command_requirements data that won't be used for rhn monitoring
---
---Revision 1.3  2004/05/29 21:51:49  pjones
---bugzilla: none -- _data is not for 340, so says kja.
---
---Revision 1.2  2004/05/04 20:03:38  kja
---Added commits.
---
---Revision 1.1  2004/04/22 17:49:49  kja
---Added data for the reference tables.
---

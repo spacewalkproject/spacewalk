@@ -67,8 +67,3 @@ insert into rhn_config_macro(name,definition,description,editable,last_update_us
 insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'USER', 'nocpulse', 'Production user', '0', 'system',current_timestamp);
 insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'XPROTO', '**XPROTO**', 'External protocol (''http'' or ''https'')', '1', 'system',current_timestamp);
 
---
---Revision 1.7  2004/07/15 00:54:11  dfaraldo
---New RHN_CONFIG_MACRO and RHN_CONFIG_PARAMETER static data for the
---combined satellite.
---

@@ -24,7 +24,3 @@ insert into rhnActionStatus values (3, 'Failed', current_timestamp, current_time
 
 commit;
 
---
--- Revision 1.1  2002/03/08 23:01:05  pjones
--- split imports out into seperate files
---

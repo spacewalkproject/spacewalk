@@ -414,33 +414,3 @@ command_class,enabled,for_host_probe,last_update_user,last_update_date,system_re
 commit;
 
 
---
---Revision 1.9  2004/11/15 23:18:13  nhansen
---bug 138411: Drop the Check Alive probe.
---
---Revision 1.8  2004/08/02 22:14:10  dfaraldo
---Changed 'Unix' command group to 'Linux'. -dfaraldo
---
---Revision 1.7  2004/07/26 16:01:43  nhansen
---bug 128448: Drop the SNMP TrapReciever check from the command list for the triumph beta
---
---Revision 1.6  2004/07/23 22:25:56  dfaraldo
---Removed current state push probe (now part of the scheduler). -dfaraldo
---
---Revision 1.5  2004/06/17 20:25:18  kja
---bugzilla 124620 -- Include only approved probes.  Fixed data referential
---integrity errors.  Only approved operating systems.
---
---Revision 1.4  2004/06/09 17:22:06  nhansen
---bug 124620: changes for command and command_groups tables (sql and xml) for probes
---that will be supported in the rhn350 release.
---
---Revision 1.3  2004/05/29 21:51:49  pjones
---bugzilla: none -- _data is not for 340, so says kja.
---
---Revision 1.2  2004/05/04 20:03:38  kja
---Added commits.
---
---Revision 1.1  2004/04/23 18:27:47  kja
---More reference table data.
---

@@ -74,23 +74,3 @@ insert into rhnCpuArch (id, label, name) values
 (sequence_nextval('rhn_cpu_arch_id_seq'), 'armv6hl', 'ARMv6hl');
 commit;
 
---
--- Revision 1.6  2004/05/11 18:29:40  pjones
--- bugzilla: none -- make EM64T and AMD64 registerable as such, and fix their
--- names while I'm at it.
---
--- Revision 1.5  2004/02/18 23:41:04  pjones
--- bugzilla: 116188 -- ia32e
---
--- Revision 1.4  2004/02/11 20:19:57  misa
--- New architectures for sun
---
--- Revision 1.3  2003/01/29 17:11:36  misa
--- bugzilla: 83022  Adding x86_64 as a supported arch
---
--- Revision 1.2  2002/11/14 18:00:59  pjones
--- commits
---
--- Revision 1.1  2002/11/14 16:35:08  misa
--- Populating the table
---

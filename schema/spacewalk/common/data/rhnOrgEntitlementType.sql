@@ -50,19 +50,3 @@ insert into rhnOrgEntitlementType (id, label, name)
 
 commit;
 
---
--- Revision 1.4  2004/02/19 20:17:50  pjones
--- bugzilla: 115896 -- add sgt and oet data for nonlinux, add
--- [un]set_customer_nonlinux
---
--- Revision 1.3  2003/09/19 22:35:07  pjones
--- bugzilla: none
---
--- provisioning and config management entitlement support
---
--- Revision 1.2  2002/07/29 21:03:38  rnorwood
--- Cleanup for messages on front page
---
--- Revision 1.1  2002/03/08 23:01:05  pjones
--- split imports out into seperate files
---

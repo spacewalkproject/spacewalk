@@ -1235,34 +1235,3 @@ command_class)
 
 commit;
 
-
---
---Revision 1.8  2004/12/07 20:34:09  cturner
---bugzilla: 141999, fix bad data
---
---Revision 1.7  2004/11/18 21:48:57  nhansen
---bug 136828: fix typo
---
---Revision 1.6  2004/11/18 21:29:03  nhansen
---bug 136828: sql changes and xml change script to add the needed command_paramter_threshold entries
---and update to current params to support thresholding on some satellite probe metrics
---
---Revision 1.5  2004/11/16 14:39:51  nhansen
---bug 138411: remove check alive param threshold entries
---
---Revision 1.4  2004/06/17 20:25:18  kja
---bugzilla 124620 -- Include only approved probes.  Fixed data referential
---integrity errors.  Only approved operating systems.
---
---Revision 1.3  2004/06/09 19:32:33  nhansen
---bug 124620: drop unneeded command_param_threshold data for rhn350
---
---Revision 1.2  2004/05/29 21:51:49  pjones
---bugzilla: none -- _data is not for 340, so says kja.
---
---Revision 1.1  2004/05/04 20:03:38  kja
---Added commits.
---
---Revision 1.1  2004/04/22 20:27:40  kja
---More reference table data.
---

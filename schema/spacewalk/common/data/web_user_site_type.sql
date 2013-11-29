@@ -18,10 +18,3 @@ insert into WEB_USER_SITE_TYPE VALUES('B', 'BILL_TO');
 insert into WEB_USER_SITE_TYPE VALUES('S', 'SHIP_TO');
 insert into WEB_USER_SITE_TYPE VALUES('R', 'SERVICE');
 
---
--- Revision 1.2  2002/05/09 05:37:31  gafton
--- re-unify again
---
--- Revision 1.1  2002/02/13 16:20:43  pjones
--- commit these here
---

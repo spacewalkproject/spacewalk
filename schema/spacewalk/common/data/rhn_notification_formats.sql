@@ -40,36 +40,3 @@ subject_format,body_format,max_subject_length,max_body_length,reply_format)
     values ( sequence_nextval('rhn_ntfmt_recid_seq'),NULL,'Pager Default (3.6)',NULL,'^[probe state]: ^[hostname]: ^[probe description] at ^[timestamp:"%H:%M %Z"], notification ^[alert id]',0,200,NULL);
 commit;
 
---
---Revision 1.10  2005/02/15 21:40:35  jslagle
---bz #141966
---Improve notification format
---
---Revision 1.9  2004/12/01 15:10:43  kja
---Bugzilla 137559: Replace "Red Hat Command Center" with "Spacewalk Monitoring Satellite."
---
---Revision 1.8  2004/06/17 20:48:59  kja
---bugzilla 124970 -- _data is in for 350.
---
---Revision 1.7  2004/05/29 21:51:49  pjones
---bugzilla: none -- _data is not for 340, so says kja.
---
---Revision 1.6  2004/05/28 19:44:56  pjones
---bugzilla: none -- make it use right schema names...
---
---Revision 1.5  2004/05/06 17:35:10  kja
---More syntax/identifier length changes.
---
---Revision 1.4  2004/05/04 20:03:38  kja
---Added commits.
---
---Revision 1.3  2004/04/22 19:05:45  kja
---Added the 24 x 7 schedule data.  Corrected logic for skipping sequence numbers
---in rhn_notification_formats_data.sql and rhn_strategies_data.sql.
---
---Revision 1.2  2004/04/22 17:53:18  kja
---Changed NOCpulse to Red Hat.
---
---Revision 1.1  2004/04/22 17:49:49  kja
---Added data for the reference tables.
---

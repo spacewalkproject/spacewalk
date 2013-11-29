@@ -24,12 +24,3 @@ insert into rhnErrataFileType ( id, label )
 insert into rhnErrataFileType ( id, label )
 	values ( sequence_nextval('rhn_erratafile_type_id_seq'), 'OVAL' );
 
-
---
--- Revision 1.1  2003/03/11 00:37:16  pjones
--- bugzilla: 85516
---
--- public errata schema checkin
---
--- bretm, you owe me cookies.
---

@@ -157,22 +157,3 @@ insert into rhn_command_class(class_name)
     values ( 'Unix::ProcessRunning');
 commit;
 
---
---Revision 1.6  2004/11/15 23:18:13  nhansen
---bug 138411: Drop the Check Alive probe.
---
---Revision 1.5  2004/06/17 20:48:59  kja
---bugzilla 124970 -- _data is in for 350.
---
---Revision 1.4  2004/06/09 17:59:38  nhansen
---bug 124620: removed unused command_class entries
---
---Revision 1.3  2004/05/29 21:51:49  pjones
---bugzilla: none -- _data is not for 340, so says kja.
---
---Revision 1.2  2004/05/04 20:03:38  kja
---Added commits.
---
---Revision 1.1  2004/04/22 20:27:40  kja
---More reference table data.
---

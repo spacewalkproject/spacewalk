@@ -130,36 +130,3 @@ insert into rhnPackageArch (id, label, name, arch_type_id) values
 
 commit;
 
---
--- Revision 1.10  2004/05/11 18:29:40  pjones
--- bugzilla: none -- make EM64T and AMD64 registerable as such, and fix their
--- names while I'm at it.
---
--- Revision 1.9  2004/02/18 23:41:04  pjones
--- bugzilla: 116188 -- ia32e
---
--- Revision 1.8  2004/02/16 16:38:26  rnorwood
--- bugzilla: 115111 - package arch data for solaris-patch-cluster.
---
--- Revision 1.7  2004/02/13 14:38:50  misa
--- bugzilla: 115516  Arches and compat stuff for solaris patches
---
--- Revision 1.6  2004/02/06 02:21:16  misa
--- Weird solaris arches added
---
--- Revision 1.5  2004/02/05 17:33:12  pjones
--- bugzilla: 115009 -- rhnArchType is new, and has changes to go with it
---
--- Revision 1.4  2003/06/09 18:16:04  misa
--- bugzilla: 86150  Added the ppc64iseries and ppc64pseries arches, plus the channel-ppc channel arch
---
--- Revision 1.3  2003/01/29 17:11:36  misa
--- bugzilla: 83022  Adding x86_64 as a supported arch
---
--- Revision 1.2  2002/11/14 18:00:59  pjones
--- commits
---
--- Revision 1.1  2002/11/13 23:42:28  misa
--- Sequence; data to populate stuff
---
-

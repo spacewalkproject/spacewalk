@@ -3670,19 +3670,3 @@ field_visible,default_value_visible,last_update_user,last_update_date)
 
 commit;
 
-
---Revision 1.5  2004/06/09 19:11:35  system
---bug 124620: pull out all unneeded rhn_command_parameters
---
---Revision 1.4  2004/05/29 21:51:49  pjones
---bugzilla: none -- _data is not for 340, so says kja.
---
---Revision 1.3  2004/05/21 18:44:41  system
---default DNS lookuphost should be www.redhat.com
---
---Revision 1.2  2004/05/04 20:03:38  kja
---Added commits.
---
---Revision 1.1  2004/04/22 20:27:40  kja
---More reference table data.
---

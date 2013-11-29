@@ -110,28 +110,3 @@ values (sequence_nextval('rhn_ks_session_state_id_seq'), 'Failed', 'failed',
 
 commit;
 
---
---
--- Revision 1.7  2004/04/20 04:28:59  rnorwood
--- bugzilla: 113914 - add new kickstart session state.
---
--- Revision 1.6  2004/03/07 17:09:25  pjones
--- bugzilla: none -- add commit
---
--- Revision 1.5  2003/11/04 20:07:35  misa
--- bugzilla: 109062  Need another state and another action type
---
--- Revision 1.4  2003/10/14 15:24:38  rnorwood
--- bugzilla: 106063 - get rid of uniqueness of kickstart sessions - fail the old ones instead.
---
--- Revision 1.3  2003/10/08 19:23:09  pjones
--- bugzilla: none
---
--- change the constraint/trigger/sequence names again, this time less
--- consistant with everywhere else, but a lot more palitable
---
--- Revision 1.2  2003/10/08 18:51:44  pjones
--- bugzilla: none
---
--- Clean up the rhnKickstartSession stuff a bit.
---

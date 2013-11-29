@@ -27,4 +27,3 @@ insert into rhnSolarisPatchType (id, name, label)
 insert into rhnSolarisPatchType (id, name, label)
    values (sequence_nextval('rhn_solaris_pt_seq'), 'Nonstandard Patch', 'nonstandard');
 
---

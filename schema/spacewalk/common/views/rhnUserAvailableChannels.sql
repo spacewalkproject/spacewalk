@@ -63,21 +63,3 @@ where rhn_channel.org_channel_setting(ct.id, ct.org_id ,'not_globally_subscribab
                                 OR rhn_user.check_role(ct.user_id, 'channel_admin') = 1)
 ;
 
---
---
--- Revision 1.8 2008/03/26 mmccune
--- bugzilla: 439023 - making sure org and channel admins can view the channels in their org
---
--- Revision 1.7	2007/10/25 jsherrill
--- bugzilla:172796 -- modified query to obey  user channel permissions in the 
---	rhnChannelPermission table if a channel is not globally subscribable
---
--- Revision 1.6  2004/04/15 16:04:21  pjones
--- bugzilla: none -- add deps, make rhnUserAvailableChannels show org_id
---
--- Revision 1.5  2004/04/15 15:47:46  pjones
--- bugzilla: none -- make rhnUserAvailableChannels suck way less
---
--- Revision 1.4  2004/04/14 00:09:24  pjones
--- bugzilla: 120761 -- split rhnChannelPermissions into two tables, eliminating
--- a frequent full table scan

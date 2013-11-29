@@ -71,33 +71,3 @@ commit;
 insert into rhnActionType values (49, 'proxy.deactivate', 'Deactivate Proxy', 'N', 'N');
 insert into rhnActionType values (50, 'scap.xccdf_eval', 'OpenSCAP xccdf scanning', 'N', 'Y');
 insert into rhnActionType values (500, 'image.deploy', 'Deploy an image to a virtual host.', 'N', 'N');
---
---
--- Revision 1.25  2004/10/29 05:07:52  pjones
--- bugzilla: 136675 -- remove the new action type we created but aren't using
---
--- Revision 1.24  2004/09/23 16:38:02  pjones
--- bugzilla: 133354 -- fix Robin's engrish.
---
--- Revision 1.23  2004/09/23 14:20:08  pjones
--- bugzilla: 133354 -- add action type to support proxy activation
---
--- Revision 1.22  2004/04/13 16:40:31  bretm
--- bugzilla:  119871
---
--- action type for the applet+satellite scheduled action
---
--- Revision 1.21  2004/04/13 16:26:16  pjones
--- bugzilla: 101315 -- add action type entries for package verify
---
--- Revision 1.20  2004/03/16 19:51:43  misa
--- New action type rhnsd.configure
---
--- Revision 1.19  2004/03/03 16:52:47  pjones
--- bugzilla: none -- something went wrong tagging this, starting over.
---
--- Revision 1.18.2.1  2004/03/03 15:43:13  pjones
--- bugzilla: 117023 -- add solarispkgs.refresh_list
---
--- Revision 1.18  2004/02/17 00:22:59  pjones
--- bugzilla: 115898 -- add the action type for arbitrary scripts

@@ -20,10 +20,3 @@ insert into rhnConfigFileType values (1, 'file', 'File', current_timestamp, curr
 insert into rhnConfigFileType values (2, 'directory', 'Directory', current_timestamp, current_timestamp);
 insert into rhnConfigFileType values (3, 'symlink', 'Symlink', current_timestamp, current_timestamp);
 
---
---
--- Revision 1.2  2005/02/10 21:56:02  jslagle
--- Added documentation changes
---
---
-

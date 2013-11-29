@@ -200,18 +200,3 @@ insert into rhn_config_parameter(group_name,name,value,security_type,last_update
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'trapReceiver', 'trapdir', '%{NPLIB}/trapReceiver/traps', 'ALL', 'system',current_timestamp);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'ts_db', 'url', '%{TSDBURL}', 'INTERNAL', 'system',current_timestamp);
 
---
---Revision 1.9  2004/10/29 15:19:34  kja
---Bugzilla 137559: Changing the from name on the monitoring notification email message.
---
---Revision 1.8  2004/07/21 00:21:34  dfaraldo
---Moved TSDBLocalQueue log files to /var/log/nocpulse/TSDBLocalQueue
---(a directory writable by apache). -dfaraldo
---
---Revision 1.7  2004/07/16 21:51:32  dfaraldo
---Added ProbeFramework section and data. -dfaraldo
---
---Revision 1.6  2004/07/15 00:54:11  dfaraldo
---New RHN_CONFIG_MACRO and RHN_CONFIG_PARAMETER static data for the
---combined satellite.
---

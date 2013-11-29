@@ -22,7 +22,3 @@ insert into rhnPackageGroup values (sequence_nextval('rhn_package_group_id_seq')
 
 commit;
 
---
--- Revision 1.1  2002/03/08 23:01:05  pjones
--- split imports out into seperate files
---

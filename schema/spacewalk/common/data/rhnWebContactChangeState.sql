@@ -18,6 +18,3 @@
 insert into rhnWebContactChangeState (id, label) values (sequence_nextval('rhn_wcon_change_state_seq'), 'enabled');
 insert into rhnWebContactChangeState (id, label) values (sequence_nextval('rhn_wcon_change_state_seq'), 'disabled');
 
---
---
---

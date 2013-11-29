@@ -124,22 +124,3 @@ insert into rhn_metrics(metric_id,storage_unit_id,description,last_update_user,l
 
 commit;
 
-
---
---Revision 1.5  2004/11/16 14:25:23  nhansen
---bug 138411: need to drop metrics for the check alive as well
---
---Revision 1.4  2004/06/17 20:25:18  kja
---bugzilla 124620 -- Include only approved probes.  Fixed data referential
---integrity errors.  Only approved operating systems.
---
---Revision 1.3  2004/05/29 21:51:49  pjones
---bugzilla: none 
--- _data is not for 340, so says kja.
---
---Revision 1.2  2004/05/04 20:03:38  kja
---Added commits.
---
---Revision 1.1  2004/04/23 18:27:47  kja
---More reference table data.
---
