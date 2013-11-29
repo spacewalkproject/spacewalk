@@ -106,3 +106,12 @@ $(document).on("ready", function() {
     });
   });
 });
+
+// Put the focus on a given form element
+function formFocus(form, name) {
+  var focusControl = document.forms[form].elements[name];
+  if (focusControl.type != "hidden" && !focusControl.disabled) {
+     focusControl.focus();
+  }
+}
+

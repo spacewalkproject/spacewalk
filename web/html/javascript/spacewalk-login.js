@@ -7,11 +7,3 @@ $(document).on("ready", function() {
   formFocus('loginForm', 'username');
 });
 
-// Put focus on a form element
-function formFocus(form, name) {
-  var focusControl = document.forms[form].elements[name];
-  if (focusControl.type != "hidden" && !focusControl.disabled) {
-     focusControl.focus();
-  }
-}
-
