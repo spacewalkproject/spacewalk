@@ -193,8 +193,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                        from com.redhat.rhn.domain.rhnpackage.Package as p,
                             com.redhat.rhn.domain.channel.Channel as c
                       where p.id IN (:pids)
+                        and c IN elements(p.channels)
                         and c.channelArch.label IN (:channel_arch_labels)
-                        and p in elements(c.packages)
                       ]]>
     </query>
 
