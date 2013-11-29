@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -412,7 +413,7 @@ public class Config {
 
             Properties props = new Properties();
             try {
-                props.load(new FileInputStream(curr));
+                props.load(new InputStreamReader(new FileInputStream(curr), "UTF-8"));
             }
             catch (IOException e) {
                 logger.error("Could not parse file " + curr, e);
