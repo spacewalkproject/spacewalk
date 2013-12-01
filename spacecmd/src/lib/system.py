@@ -364,8 +364,10 @@ def do_system_runscript(self, args):
             options.timeout = 600
         else:
             options.timeout = int(options.timeout)
-        if not options.start_time: options.start_time = parse_time_input('now')
-        options.start_time = parse_time_input(options.start_time)
+        if not options.start_time:
+            options.start_time = parse_time_input('now')
+        else:
+            options.start_time = parse_time_input(options.start_time)
 
         if not options.file:
             logging.error('A script file is required')
