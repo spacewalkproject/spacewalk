@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.1.15
+Version:     2.1.16
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -64,6 +64,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Sun Dec 01 2013 Milan Zazrivec <mzazrivec@redhat.com> 2.1.16-1
+- 835979 - don't double convert start time 'now'
+
 * Fri Nov 29 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.15-1
 - Making code more "pythonic"
 
