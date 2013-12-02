@@ -134,14 +134,14 @@ sub creation_link {
   my $pxt = shift;
   my %params = @_;
 
-  return qq{<a href="$params{url}"><i class="icon-plus"></i>create new $params{type}</a>};
+  return qq{<a href="$params{url}"><i class="fa fa-plus"></i>create new $params{type}</a>};
 }
 
 sub deletion_link {
   my $pxt = shift;
   my %params = @_;
 
-  return qq{<a href="$params{url}"><i class="icon-trash"></i>delete $params{type}</a>};
+  return qq{<a href="$params{url}"><i class="fa fa-trash-o"></i>delete $params{type}</a>};
 }
 
 sub misc_link {
