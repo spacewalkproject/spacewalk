@@ -79,6 +79,8 @@ insert into rhnPackageArch (id, label, name, arch_type_id) values
 insert into rhnPackageArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_package_arch_id_seq'), 'armv7l', 'ARMv7l', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
+(sequence_nextval('rhn_package_arch_id_seq'), 'armv6hl', 'ARMv6hl', lookup_arch_type('rpm'));
+insert into rhnPackageArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_package_arch_id_seq'), 'armv6l', 'ARMv6l', lookup_arch_type('rpm'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_package_arch_id_seq'), 'armv5tel', 'ARMv5tel', lookup_arch_type('rpm'));
