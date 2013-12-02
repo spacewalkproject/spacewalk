@@ -127,7 +127,7 @@ sub toolbar {
 
   my $toolbar = join(" | ", @toolbar);
 
-  return qq{<div class="spacewalk-toolbar-$base"><div class="spacewalk-toolbar">$toolbar</div>$img $icon $params{__block__}$help</div>};
+  return qq{<div class="spacewalk-toolbar-$base"><div class="spacewalk-toolbar">$toolbar</div><$base>$img $icon $params{__block__}$help</$base></div>};
 }
 
 sub creation_link {
