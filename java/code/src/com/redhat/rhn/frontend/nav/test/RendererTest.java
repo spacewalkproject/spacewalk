@@ -167,8 +167,8 @@ public class RendererTest extends RhnBaseTestCase {
         tr.navNodeInactive(buf, node2, null, null, 4);
 
         String expectation = "<li class=\"active\">" +
-        "<a href=\"/newlogin/index.pxt\">Sign In</a></li>\n" +
-        "<li><a href=\"/newlogin/index.pxt\">About</a></li>\n";
+               "<a href=\"/newlogin/index.pxt\">Sign In</a></li>\n" +
+               "<li><a href=\"/newlogin/index.pxt\">About</a></li>\n";
         assertEquals(expectation, buf.toString());
 
         // test the case where inactive node runs first

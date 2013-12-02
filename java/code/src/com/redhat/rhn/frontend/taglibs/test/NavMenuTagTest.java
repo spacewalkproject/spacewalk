@@ -137,10 +137,10 @@ public class NavMenuTagTest extends RhnBaseTestCase {
     }
 
     private String getReturnValue() {
-		return "<ul class=\"nav navbar-nav collapse main-menu-hor\">" +
-				"<li class=\"active\"><a href=\"/index.pxt\">Sign In</a></li>\n" +
-				"<li><a href=\"/help/about.pxt\">About</a></li>\n" +
-				"</ul>";
+        return "<ul class=\"nav navbar-nav collapse main-menu-hor\">" +
+               "<li class=\"active\"><a href=\"/index.pxt\">Sign In</a></li>\n" +
+               "<li><a href=\"/help/about.pxt\">About</a></li>\n" +
+               "</ul>";
     }
 
     public void testSetMaxdepth() {
