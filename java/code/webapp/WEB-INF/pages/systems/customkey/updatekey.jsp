@@ -17,7 +17,7 @@
             <bean:message key="system.jsp.customkey.updatetitle"/>
 
             <a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-cust-info" target="_blank" class="help-title">
-                <i class="fa fa-question-circle" title="Help icon"></i>
+                <span class="fa-stack"><i class="fa fa-circle fa-stack-1x"></i><i class="fa fa-question fa-stack-1x fa-inverse"></i></span>
             </a>
         </div>
 
