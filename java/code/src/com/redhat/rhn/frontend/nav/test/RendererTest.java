@@ -122,7 +122,7 @@ public class RendererTest extends RhnBaseTestCase {
 
     public void testTopnavTrue() {
         Map expectations = new HashMap();
-        expectations.put("preNavLevel", "<ul class=\"nav navbar-nav\">");
+        expectations.put("preNavLevel", "<ul class=\"nav navbar-nav collapse main-menu-hor\">");
         expectations.put("preNavNode", "");
         expectations.put("navNodeActive",
                          "<li class=\"active\"><a href=\"http://rhn.redhat.com\">name</a></li>\n");
