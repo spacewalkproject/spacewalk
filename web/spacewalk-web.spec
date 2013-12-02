@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.34
+Version: 2.1.35
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Dec 02 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.35-1
+- bootstrap tuning
+
 * Fri Nov 29 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.34-1
 - HTML 5 does allow "_new" as a valid target
 - remove old debug message
