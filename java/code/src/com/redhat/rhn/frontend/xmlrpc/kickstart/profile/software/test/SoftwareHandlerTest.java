@@ -66,6 +66,32 @@ public class SoftwareHandlerTest extends BaseHandlerTestCase {
         assertEquals(pkgFound, true);
     }
 
+    // Test API with nobase and ignoremissing
+    public void testSetSoftwareListWithParams() throws Exception {
+
+        KickstartData ksProfile = KickstartDataTest.createKickstartWithProfile(admin);
+
+        List<String> packages = new ArrayList<String>();
+        packages.add("gcc");
+
+        int result = handler.setSoftwareList(adminKey, ksProfile.getLabel(), packages,
+                true, true);
+
+        boolean pkgFound = false;
+        for (Iterator<KickstartPackage> itr = ksProfile.getKsPackages().iterator();
+             itr.hasNext();) {
+              KickstartPackage pkg = itr.next();
+              if (pkg.getPackageName().getName().equals("gcc")) {
+                  pkgFound = true;
+              }
+        }
+        assertEquals(1, result);
+        assertEquals(ksProfile.getKsPackages().size(), 1);
+        assertEquals(pkgFound, true);
+        assertEquals(ksProfile.getNoBase(), true);
+        assertEquals(ksProfile.getIgnoreMissing(), true);
+    }
+
     public void testAppendToSoftwareList() throws Exception {
 
         KickstartData ksProfile  = KickstartDataTest.createKickstartWithProfile(admin);

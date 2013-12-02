@@ -102,6 +102,44 @@ public class SoftwareHandler extends BaseHandler {
     }
 
     /**
+     * Set the list of software packages for a kickstart profile.
+     * @param sessionKey An active session key
+     * @param ksLabel A kickstart profile label
+     * @param packageList  A list of package names.
+     * @param ignoremissing The boolean value setting --ignoremissing in %packages line
+     * when true
+     * @param nobase The boolean value setting --nobase in the %packages line when true
+     * @return 1 on success.
+     * @throws FaultException
+     * @xmlrpc.doc Set the list of software packages for a kickstart profile.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "ksLabel", "The label of a kickstart
+     * profile.")
+     * @xmlrpc.param #param_desc("string[]", "packageList", "A list of package
+     * names to be set on the profile.")
+     * @xmlrpc.param #param_desc("boolean", "ignoremissing", "Ignore missing packages
+     * if true")
+     * @xmlrpc.param #param_desc("boolean", "nobase", "Don't install @Base package group
+     * if true")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setSoftwareList(
+            String sessionKey,
+            String ksLabel,
+            List<String> packageList,
+            Boolean ignoremissing,
+            Boolean nobase) {
+
+        User user = getLoggedInUser(sessionKey);
+        checkKickstartPerms(user);
+        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
+        ksdata.setNoBase(nobase);
+        ksdata.setIgnoreMissing(ignoremissing);
+        KickstartFactory.saveKickstartData(ksdata);
+        return setSoftwareList(sessionKey, ksLabel, packageList);
+    }
+
+    /**
      * Append the list of software packages to a kickstart profile.
      * @param sessionKey An active session key
      * @param ksLabel A kickstart profile label
