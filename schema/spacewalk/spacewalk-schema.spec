@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.1.29
+Version:        2.1.30
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Dec 02 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.30-1
+- 1034742 - schema upgrade for armv6hl arch
+- 1034742 - support for new Raspberry Pi arch (armv6hl)
+
 * Fri Nov 29 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.29-1
 - 1034742 - support for new Raspberry Pi arch (armv6hl)
 
