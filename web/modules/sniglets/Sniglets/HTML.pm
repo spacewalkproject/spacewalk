@@ -112,7 +112,7 @@ sub toolbar {
 				      text => $params{'misc-text'}));
   } elsif (defined $params{'misc-icon'} and $acl->eval_acl($pxt, $params{'misc-acl'} || '')) {
       push @toolbar, misc_link($pxt, (url => $params{'misc-url'},
-              img => $params{'misc-icon'},
+              icon => $params{'misc-icon'},
               text => $params{'misc-text'}));
   }
 
