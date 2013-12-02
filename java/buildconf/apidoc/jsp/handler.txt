@@ -7,17 +7,13 @@ ul.apidoc {
    list-style-image: url('/img/parent_node.gif');
 }
 
-.toolbar-h1 {
-   text-transform: capitalize;
-}
-
 .deprecated {
    text-decoration: line-through;
 }
 </style>
 </head>
 <body>
-<div class="toolbar-h1">
+<div class="spacewalk-toolbar-h1">
 <img src="/img/rhn-icon-api.gif" alt="application program interface" /> <a href="/rhn/apidoc/index.jsp">API Overview</a>:
 
 $handler.desc
