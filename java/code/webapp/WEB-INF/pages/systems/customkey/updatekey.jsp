@@ -6,9 +6,9 @@
 
 <html:html >
     <body>
-        <div class="toolbar-h1">
-            <div class="toolbar">
-                <span class="toolbar">
+        <div class="spacewalk-toolbar-h1">
+            <div class="spacewalk-toolbar">
+                <span class="spacewalk-toolbar">
                     <a href="/rhn/systems/customdata/DeleteCustomKey.do?cikid=${cikid}">
                         <i class="fa fa-trash-o" title="delete key"></i>delete key</a>
                 </span>

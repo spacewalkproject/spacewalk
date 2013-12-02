@@ -14,8 +14,8 @@
 
 <div>
 
-    <div class="toolbar-h1"><div class="toolbar">
-    	<span class="toolbar">
+    <div class="spacewalk-toolbar-h1"><div class="spacewalk-toolbar">
+        <span class="spacewalk-toolbar">
 		<a href="/rhn/systems/customdata/CreateCustomKey.do">
     			<i class="fa fa-plus-circle text-success" title="create new key"></i>
     			<bean:message key="system.jsp.customkey.createlink"/>

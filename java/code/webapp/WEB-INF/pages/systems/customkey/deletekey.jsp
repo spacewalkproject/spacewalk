@@ -10,8 +10,8 @@
 
 <div>
 
-  <div class="toolbar-h1">
-    <div class="toolbar"></div>
+  <div class="spacewalk-toolbar-h1">
+    <div class="spacewalk-toolbar"></div>
       <i class="fa fa-key" title=""></i>
         <bean:message key="system.jsp.customkey.deletetitle"/>
 

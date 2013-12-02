@@ -7,8 +7,8 @@
 <html:html>
     <body>
         <div>
-            <div class="toolbar-h1">
-                <div class="toolbar"></div>
+            <div class="spacewalk-toolbar-h1">
+                <div class="spacewalk-toolbar"></div>
                 <i class="fa fa-key" title=""></i>
                 <h2><bean:message key="system.jsp.customkey.createtitle"/></h2>
                 <a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-cust-info"
