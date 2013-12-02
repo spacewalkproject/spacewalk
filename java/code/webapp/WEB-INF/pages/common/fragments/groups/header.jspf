@@ -5,9 +5,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
-<div class="toolbar-h1">
-	<div class="toolbar">
-		<span class="toolbar">
+<div class="spacewalk-toolbar-h1">
+	<div class="spacewalk-toolbar">
+		<span class="spacewalk-toolbar">
 			<a href="/network/systems/ssm/work_with_group.pxt?sgid=${systemgroup.id}&pxt_trap=rhn:work_with_group_cb">
 			<i class="fa spacewalk-icon-system-groups" title="<bean:message key='toolbar.work.with.group'/>"></i>
      			<bean:message key="toolbar.work.with.group"/>
@@ -19,7 +19,8 @@
 				
 		</span>
 	</div>
-	
+        <h1>
+
 	<i class="fa spacewalk-icon-system-groups" title="system groups"></i>
 
 	<c:if test="${empty systemgroup}">
@@ -31,6 +32,7 @@
 	<a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-group-list" target="_blank" class="help-title">
 		<i class="fa fa-question-circle" title="<bean:message key='toolbar.jsp.helpicon.alt'/>"></i>
 	</a>
+        </h1>
 </div>
 
 
