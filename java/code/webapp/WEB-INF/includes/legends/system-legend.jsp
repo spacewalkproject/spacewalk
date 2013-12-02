@@ -21,6 +21,6 @@
   </rhn:require>
   <li><i class="fa fa-1-5x spacewalk-icon-virtual-host"></i><bean:message key="systemlist.jsp.virthost"/></li>
   <li><i class="fa fa-1-5x spacewalk-icon-virtual-guest"></i><bean:message key="systemlist.jsp.virtguest"/></li>
-  <li><i class="fa fa-laptop fa-1-5x"></i><bean:message key="systemlist.jsp.nonvirt"/></li>
+  <li><i class="fa fa-desktop fa-1-5x"></i><bean:message key="systemlist.jsp.nonvirt"/></li>
  </ul>
 </div>
