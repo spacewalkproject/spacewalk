@@ -18,20 +18,20 @@
   <p><bean:message key="ssm.overview.summary2"/></p>
 </div>
   <tr>
-    <td><img src="/img/rhn-icon-system.gif" alt=<bean:message key="ssm.overview.systems" /></td>
+    <td><i class="fa fa-desktop fa-2x fa-fw" title="<bean:message key='ssm.overview.systems' />"></i></td>
     <th><b><bean:message key="ssm.overview.systems"/>:</b></th>
     <td><bean:message key="ssm.overview.systems.list"/></td>
   </tr>
 
   <tr>
-    <td><i class="fa spacewalk-icon-patches" title="Errata"></i></td>
-    <th><b><bean:message key="ssm.overview.errata"/></b></th>
+    <td><i class="fa spacewalk-icon-patches fa-2x fa-fw" title="Errata"></i></td>
+    <th><b><bean:message key="ssm.overview.errata"/>:</b></th>
     <td><bean:message key="ssm.overview.errata.schedule"/></td>
   </tr>
 
   <tr>
-    <td><i class="fa spacewalk-icon-packages" title="<bean:message key='ssm.overview.packages'/>"></i></td>
-    <th><b><bean:message key="ssm.overview.packages"/></b></th>
+    <td><i class="fa spacewalk-icon-packages fa-2x fa-fw" title="<bean:message key='ssm.overview.packages'/>"></i></td>
+    <th><b><bean:message key="ssm.overview.packages"/>:</b></th>
     <td><bean:message key="ssm.overview.packages.upgrade"/></td>
   </tr>
 
@@ -46,7 +46,7 @@
   </tr>
 
   <tr>
-     <td><i class="fa spacewalk-icon-patch-set" title="<bean:message key='ssm.overview.patch.clusters'/>"></i></td>
+     <td><i class="fa spacewalk-icon-patch-set fa-2x fa-fw" title="<bean:message key='ssm.overview.patch.clusters'/>"></i></td>
                 <th><bean:message key="ssm.overview.patch.clusters"/>:</th>
                 <td> <bean:message key="ssm.overview.patch.clusters.install"/><br />
      </td>
@@ -55,15 +55,15 @@
 
 <rhn:require acl="user_role(org_admin)">
   <tr>
-    <td><i class="fa spacewalk-icon-system-groups" title="<bean:message key='ssm.overview.groups'/>"></i></td>
-    <th><b><bean:message key="ssm.overview.groups"/></b></th>
+    <td><i class="fa spacewalk-icon-system-groups fa-2x fa-fw" title="<bean:message key='ssm.overview.groups'/>"></i></td>
+    <th><b><bean:message key="ssm.overview.groups"/>:</b></th>
     <td><bean:message key="ssm.overview.groups.create"/></td>
   </tr>
 </rhn:require>
 
   <tr>
-    <td><i class="fa spacewalk-icon-software-channels" title="<bean:message key='ssm.overview.channels'/>"></i></td>
-    <th><b><bean:message key="ssm.overview.channels"/></b></th>
+    <td><i class="fa spacewalk-icon-software-channels fa-2x fa-fw" title="<bean:message key='ssm.overview.channels'/>"></i></td>
+    <th><b><bean:message key="ssm.overview.channels"/>:</b></th>
     <td>
       <p>
       <bean:message key="ssm.overview.channels.memberships"/>
@@ -78,8 +78,8 @@
 
 <rhn:require acl="org_entitlement(rhn_provisioning)">
   <tr>
-    <td><i class="fa fa-rocket" title="<bean:message key='ssm.overview.provisioning'/>"></i></td>
-    <th><b><bean:message key="ssm.overview.provisioning"/></b></th>
+    <td><i class="fa fa-rocket fa-2x fa-fw" title="<bean:message key='ssm.overview.provisioning'/>"></i></td>
+    <th><b><bean:message key="ssm.overview.provisioning"/>:</b></th>
     <td>
       <p>
       <bean:message key="ssm.overview.provisioning.kickstart"/><br />
@@ -91,7 +91,7 @@
 </rhn:require>
 
   <tr>
-    <td><i class="fa fa-suitcase" title="<bean:message key='ssm.overview.misc'/>"></i></td>
+    <td><i class="fa fa-suitcase fa-2x fa-fw" title="<bean:message key='ssm.overview.misc'/>"></i></td>
     <th><b><bean:message key="ssm.overview.misc"/>:</b></th>
     <td>
       <p>
