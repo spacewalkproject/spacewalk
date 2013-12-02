@@ -1,8 +1,25 @@
 insert into rhnCpuArch (id, label, name) values
 (sequence_nextval('rhn_cpu_arch_id_seq'), 'armv6hl', 'ARMv6hl');
 
+
+insert into rhnPackageArch (id, label, name, arch_type_id) values
+(sequence_nextval('rhn_package_arch_id_seq'), 'armv6hl', 'ARMv6hl', lookup_arch_type('rpm'));
+
+
 insert into rhnServerArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_server_arch_id_seq'), 'armv6hl-redhat-linux', 'armv6hl', lookup_arch_type('rpm'));
+
+
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('armv6hl'), current_timestamp, current_timestamp);
+
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('armv6hl'), LOOKUP_PACKAGE_ARCH('armv6hl'), current_timestamp, current_timestamp);
+
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('armv6hl'), LOOKUP_PACKAGE_ARCH('noarch'), current_timestamp, current_timestamp);
+
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-arm'), LOOKUP_PACKAGE_ARCH('armv6hl'));
+
 
 insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 (LOOKUP_SERVER_ARCH('armv6hl-redhat-linux'), LOOKUP_CHANNEL_ARCH('channel-arm'));
