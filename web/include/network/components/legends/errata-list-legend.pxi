@@ -3,8 +3,8 @@
 <div class="sideleg">
   <h2>Errata Legend</h2>
   <ul>
-  <li><img src="/img/wrh-security.gif" alt="" />Security</li>
-  <li><img src="/img/wrh-bug.gif" alt="" />Bug Fix</li>
-  <li><img src="/img/wrh-product.gif" alt="" />Enhancement</li>
+  <li><i class="fa fa-shield fa-1-5x"></i>Security</li>
+  <li><i class="fa fa-bug fa-1-5x"></i>Bug Fix</li>
+  <li><i class="fa fa-1-5x spacewalk-icon-enhancement"></i>Enhancement</li>
   </ul>
 </div>
