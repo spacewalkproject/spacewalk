@@ -70,14 +70,14 @@ sub system_group_status_interface {
   }
   elsif ($counts->{SECURITY_ERRATA}) {
 
-    $subst->{icon} = '<img src="/img/icon_crit_update.gif" alt="critical updates available" />';
+    $subst->{icon} = '<i class="fa fa-exclamation-circle fa-1-5x text-danger"></i>';
     $subst->{status_str} = $counts->{SECURITY_ERRATA} . ' critical updates available';
     $subst->{message} = "(<a href=\"/network/systems/groups/errata_list.pxt?sgid=" . $sgid . "\">more info</a>)";;
     $subst->{status_class} = 'system-status-critical-updates';
   }
   else {
 
-    $subst->{icon} = '<img src="/img/icon_reg_update.gif" alt="updates available" />';
+    $subst->{icon} = '<i class="fa fa-exclamation-triangle fa-1-5x text-warning"></i>';
     $subst->{status_str} = ' updates available';
     $subst->{message} = "(<a href=\"/network/systems/groups/errata_list.pxt?sgid=" . $sgid . "\">more info</a>)";
     $subst->{status_class} = 'system-status-updates';
