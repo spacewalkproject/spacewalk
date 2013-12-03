@@ -12,9 +12,12 @@
 <pxt-include file="/network/components/system_groups/sgdc_header.pxi" />
 
 <rhn-admin-server-group-edit-form>
-<table width="100%" class="details-2-columns">
-<tr valign="top">
-<td width="50%">
+
+<div class="row-0">
+<div class="col-md-6">
+<div class="panel panel-default">
+
+<div class="panel-heading">
 <h2>Group Updates</h2>
 
 <rhn-system-group-status-interface>
@@ -23,8 +26,11 @@
 
 
 <br />
+</div>
 <pxt-form method="POST" action="/rhn/groups/ListRemoveSystems.do">
-<table class="details">
+
+<div class="panel-body">
+<table class="table">
   <tr>
     <th>Admins:</th>
     <td>
@@ -43,14 +49,18 @@
     <td>{systems_area}</td>
   </tr>
 </table>
+</div>
 </pxt-form>
-</td>
+</div>
+</div>
 
-<td width="50%">
-
+<div class="col-md-6">
+<div class="panel panel-default">
+<div class="panel-heading">
     <h2>System Group Properties</h2>
-
-    <table class="details" align="center">
+</div>
+    <div class="panel-body">
+    <table class="table">
       <tr>
         <th>Name:</th>
         <td>{name}</td>
@@ -61,6 +71,7 @@
         <td>{description}</td>
       </tr>
     </table>
+    </div>
 
 
 
@@ -70,10 +81,9 @@
 <div align="center"><a href="edit_properties.pxt?sgid={formvar:sgid}">Edit Group Properties</a></div>
 </pxt-formvar>
 </rhn-require>
-</td>
-
-</tr>
-</table>
+</div>
+</div>
+</div>
 </rhn-admin-server-group-edit-form>
 
   </grail-canvas-template>
