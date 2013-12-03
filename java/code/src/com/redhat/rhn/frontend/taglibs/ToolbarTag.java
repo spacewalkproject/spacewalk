@@ -549,7 +549,7 @@ public class ToolbarTag extends TagSupport {
 
             HtmlTag tag = new HtmlTag("a");
             tag.setAttribute("href", getHelpUrl());
-            tag.setAttribute("target", "_new");
+            tag.setAttribute("target", "_blank");
 
             HtmlTag stack = new HtmlTag("span");
             stack.setAttribute("class", "fa-stack");
