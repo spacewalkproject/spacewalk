@@ -38,8 +38,8 @@ public class ToolbarTagCloneTest extends BaseTestToolbarTag {
         // setup mock objects
         String output = "<div class=\"spacewalk-toolbar-h1\">" +
             "<div class=\"spacewalk-toolbar\"><a href=\"Clone-url\">" +
-            "<i class=\"fa fa-files-o\" title=\"clone kickstart\"></i>clone kickstart</a></div>" +
-            "<h1></h1></div>";
+            "<i class=\"fa fa-files-o\" title=\"clone kickstart\"></i>" +
+            "clone kickstart</a></div><h1></h1></div>";
 
 
         setupCloneTag("h1", "Clone-url", "", "kickstart");
@@ -60,7 +60,8 @@ public class ToolbarTagCloneTest extends BaseTestToolbarTag {
     public void testCreateAclMultipleMixinsMultipleAcls() throws Exception {
         String output = "<div class=\"spacewalk-toolbar-h1\">" +
             "<div class=\"spacewalk-toolbar\"><a href=\"Clone-url\">" +
-            "<i class=\"fa fa-files-o\" title=\"clone kickstart\"></i>clone kickstart</a></div><h1></h1></div>";
+            "<i class=\"fa fa-files-o\" title=\"clone kickstart\"></i>" +
+            "clone kickstart</a></div><h1></h1></div>";
 
         setupCloneTag("h1", "Clone-url",
                          "first_true_acl(); second_true_acl(); is_foo(foo)",

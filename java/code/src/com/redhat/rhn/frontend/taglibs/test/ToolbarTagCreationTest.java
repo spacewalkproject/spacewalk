@@ -59,7 +59,7 @@ public class ToolbarTagCreationTest extends BaseTestToolbarTag {
     public void testCreateAclMultipleMixinsMultipleAcls() throws Exception {
         String output = "<div class=\"spacewalk-toolbar-h1\">" +
             "<div class=\"spacewalk-toolbar\"><a href=\"creation-url\">" +
-            "<i class=\"fa fa-plus\" title=\"create new user\">"+
+            "<i class=\"fa fa-plus\" title=\"create new user\">" +
             "</i>create new user</a></div><h1></h1></div>";
 
         setupCreationTag("h1", "creation-url",

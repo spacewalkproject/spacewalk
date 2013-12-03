@@ -88,11 +88,12 @@ public class AddressTagTest extends RhnBaseTestCase {
     }
 
     private String getPopulatedReturnValue(HttpServletRequest req, Long uid) {
-        return "<div class=\"jumbotron\"><div class=\"container\"><h1>Mailing Address</h1>" +
-               "<p>444 Castro<br/>#1<br/>Mountain View, CA 94043</p>" +
-               "<p>Phone: 650-555-1212<br/>Fax: 650-555-1212</p><p>" +
-               "<a class=\"btn btn-success btn-lg\"href=\"/EditAddress.do?type=M&amp;uid=" + uid + 
-               "\">Edit this address</a></p></div></div>";
+        return "<div class=\"jumbotron\"><div class=\"container\">" +
+            "<h1>Mailing Address</h1>" +
+            "<p>444 Castro<br/>#1<br/>Mountain View, CA 94043</p>" +
+            "<p>Phone: 650-555-1212<br/>Fax: 650-555-1212</p><p>" +
+            "<a class=\"btn btn-success btn-lg\"href=\"/EditAddress.do?" +
+            "type=M&amp;uid=" + uid + "\">Edit this address</a></p></div></div>";
     }
 
     private String getEmptyReturnValue(HttpServletRequest req, Long uid) {
