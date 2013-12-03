@@ -15,8 +15,8 @@
       <li><i class="fa fa-rocket fa-1-5x"></i><bean:message key="system-legend.jsp.kickstarting" /></li>
     </rhn:require>
     <li><i class="fa fa-clock-o fa-1-5x"></i><bean:message key="system-legend.jsp.pending" /></li>
-    <li><i class="fa fa-times-circle-o fa-1-5x"></i><bean:message key="yourrhn-legend.jsp.failedactions" /></li>
-    <li><i class="fa fa-check-circle-o fa-1-5x"></i><bean:message key="yourrhn-legend.jsp.completedactions" /></li>
+    <li><i class="fa fa-times-circle-o fa-1-5x text-danger"></i><bean:message key="yourrhn-legend.jsp.failedactions" /></li>
+    <li><i class="fa fa-check-circle-o fa-1-5x text-success"></i><bean:message key="yourrhn-legend.jsp.completedactions" /></li>
     <rhn:require acl="show_monitoring();" mixins="com.redhat.rhn.common.security.acl.MonitoringAclHandler">
       <li><i class="fa fa-1-5x spacewalk-icon-monitoring-status"></i><bean:message key="system-legend.jsp.monitoring" /></li>
     </rhn:require>

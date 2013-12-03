@@ -20,10 +20,10 @@
     			<i class="fa fa-clock-o" title="<bean:message key='yourrhn.jsp.actions.pending'/>"></i>
     		</c:when>
     		<c:when test="${current.actionStatusId == 2}">
-    			<i class="fa fa-check text-success" title="<bean:message key='yourrhn.jsp.actions.completed'/>"></i>
+    			<i class="fa fa-check-circle-o text-success" title="<bean:message key='yourrhn.jsp.actions.completed'/>"></i>
     		</c:when>
     		<c:when test="${current.actionStatusId == 3}">
-    			<i class="fa fa-times-circle text-danger" title="<bean:message key='yourrhn.jsp.actions.failed'/>"></i>
+    			<i class="fa fa-times-circle-o text-danger" title="<bean:message key='yourrhn.jsp.actions.failed'/>"></i>
     		</c:when>
     		<c:otherwise>
     			<i class="spacewalk-icon-unknown-system" title="<bean:message key='yourrhn.jsp.actions.unknown'/>"></i>
