@@ -45,8 +45,7 @@ public class ProbeListTest extends RhnMockStrutsTestCase {
         setRequestPathInfo("/monitoring/ProbeList");
         actionPerform();
         verifyPageList(ServerProbeDto.class);
-        assertEquals("content-nav-selected", request.getAttribute("allClass"));
-        assertEquals("content-nav-selected-link", request.getAttribute("allLink"));
+        assertEquals("active", request.getAttribute("allClass"));
 
         checkCount(ProbeList.PROBE_COUNT_ALL);
         checkCount(ProbeList.PROBE_COUNT_CRITICAL);
@@ -58,8 +57,7 @@ public class ProbeListTest extends RhnMockStrutsTestCase {
         addRequestParameter(ProbeList.PROBE_STATE,
                 MonitoringConstants.PROBE_STATE_CRITICAL);
         actionPerform();
-        assertEquals("content-nav-selected", request.getAttribute("criticalClass"));
-        assertEquals("content-nav-selected-link", request.getAttribute("criticalLink"));
+        assertEquals("active", request.getAttribute("criticalClass"));
     }
 
     private void checkCount(String name) {
