@@ -9,7 +9,7 @@ ul.apidoc {
 
 </head>
 <body>
-<h1><i class="fa fa-gears"><a href="/rhn/apidoc/index.jsp">API Overview</a></h1>
+<h1><i class="fa fa-gears"></i>API Overview</h1>
 Welcome to the Red Hat Satellite API.  By using the included API calls, you can more easily automate many of the tasks you perform everyday.  All API calls are grouped by common functionality.
 <h2>Namespaces</h2>
    <ul class="apidoc">
