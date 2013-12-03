@@ -4,7 +4,7 @@
 
 </head>
 <body>
-<h1><img src="./img/rhn-icon-api.gif" alt="application program interface" /><a href="../scripts.html">Sample Scripts</a></h1>
+<h1><i class="fa fa-gears"><a href="../scripts.html">Sample Scripts</a></h1>
 <h2>Sample Scripts</h2>
 <h3>Perl example:</h3><BR>
 This Perl example shows the system.listUserSystems call being used to get a list of systems a user has access to.  In the example below, the name of each system will be printed.

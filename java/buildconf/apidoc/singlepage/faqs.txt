@@ -4,7 +4,7 @@
 
 </head>
 <body>
-<h1><img src="../img/rhn-icon-api.gif" alt="application program interface" /><a href="faqs.html">Frequently Asked Questions</a></h1>
+<h1><i class="fa fa-gears"><a href="faqs.html">Frequently Asked Questions</a></h1>
 <p />
 <ul>
 	<dt>What programming languages are supported by the Satellite's api?</dt>

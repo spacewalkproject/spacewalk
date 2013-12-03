@@ -4,7 +4,7 @@
 
 </head>
 <body>
-<h3><img src="../img/rhn-icon-api.gif"  /><a href="index.html">API Overview</a></h3>
+<h3><i class="fa fa-gears"><a href="index.html">API Overview</a></h3>
 Welcome to the Red Hat Satellite API.  By using the included API calls, you can more easily automate many of the tasks you perform everyday.  All API calls are grouped by common functionality. <a href="faqs.html">Faqs</a> and <a href="scripts.html">example scripts</a> are available.
 <h2>Namespaces</h2>
    <ul class="apidoc">
