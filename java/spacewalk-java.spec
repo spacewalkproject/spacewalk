@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.85
+Version: 2.1.86
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Dec 03 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.86-1
+- bootstrap tuning
+- Add a missing translation string: system.entitle.guestcantvirt
+
 * Fri Nov 29 2013 Tomas Lestach <tlestach@redhat.com> 2.1.85-1
 - 1034851 - fix SSM child channel membership changes
 
