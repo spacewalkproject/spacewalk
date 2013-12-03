@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.1.10
+Version:    2.1.11
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -82,6 +82,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Dec 03 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.11-1
+- bootstrap tuning
+
 * Fri Nov 29 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.10-1
 - bootstrap tuning: make non-link text in header more visible
 - bootstrap tuning - style submit buttons
