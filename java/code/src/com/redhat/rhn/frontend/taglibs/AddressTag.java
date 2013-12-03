@@ -23,6 +23,7 @@ import java.io.IOException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * <strong>AddressTag</strong>
@@ -163,55 +164,54 @@ public class AddressTag extends TagSupport {
             StringBuilder result = new StringBuilder();
             StringBuilder key = new StringBuilder("address type ");
             key.append(type);
-            result.append("<div class=\"mail-address-border\">");
-            result.append("<div class=\"container\">");
-            result.append("<h1>");
+            result.append("<strong>");
             result.append(ls.getMessage(key.toString()));
-            result.append("</h1>");
+            result.append("</strong>");
             if (user == null) {
                 throw new IllegalArgumentException("User is null");
             }
 
             // If this Address is new
             if (address != null &&
-                address.getCity() != null &&
-                address.getZip() != null) {
-
+                StringUtils.isNotBlank(address.getCity()) &&
+                StringUtils.isNotBlank(address.getZip())) {
+                result.append("<address>");
                 // Address 1 and 2
-                result.append("<p>");
                 result.append(address.getAddress1());
-                if (address.getAddress2() != null) {
-                    result.append("<br/>");
+                result.append("<br>");
+                if (StringUtils.isNotBlank(address.getAddress2())) {
                     result.append(address.getAddress2());
+                    result.append("<br>");
                 }
-                result.append("<br/>");
 
-                // Sity
+                // City
                 result.append(address.getCity());
-                if (address.getState() != null) {
+                if (StringUtils.isNotBlank(address.getState())) {
                     result.append(", ");
                     result.append(address.getState());
                 }
+
                 result.append(" ");
                 result.append(address.getZip());
-                result.append("</p>");
+                result.append("<br>");
 
                 // Phones
-                result.append("<p>");
                 result.append(ls.getMessage("phone"));
                 result.append(": ");
                 result.append(address.getPhone());
-                result.append("<br/>");
-                result.append(ls.getMessage("fax"));
-                result.append(": ");
-                if (address.getFax() != null) {
+                result.append("<br>");
+                if (StringUtils.isNotBlank(address.getFax())) {
+                    result.append(ls.getMessage("fax"));
+                    result.append(": ");
                     result.append(address.getFax());
+                    result.append("<br>");
                 }
-                result.append("</p>");
+
+                result.append("</address>");
 
                 result.append("<p>");
                 result.append("<a ")
-                      .append("class=\"btn btn-success btn-lg\"")
+                      .append("class=\"btn btn-primary\"")
                       .append("href=\"")
                       .append(getActionUrl())
                       .append("/EditAddress.do?type=")
@@ -229,7 +229,7 @@ public class AddressTag extends TagSupport {
                 result.append("</div>");
                 result.append("<p>");
                 result.append("<a ")
-                      .append("class=\"btn btn-success btn-lg\"")
+                      .append("class=\"btn btn-primary\"")
                       .append(" href=\"")
                       .append(getActionUrl())
                       .append("/EditAddress.do?type=")
@@ -241,8 +241,6 @@ public class AddressTag extends TagSupport {
                       .append("</a>");
                 result.append("</p>");
             }
-            result.append("</div>");
-            result.append("</div>");
 
             out.print(result);
         }
