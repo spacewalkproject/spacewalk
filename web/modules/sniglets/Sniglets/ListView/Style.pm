@@ -45,7 +45,7 @@ sub header {
   my $self = shift;
 
   my $ret =<<EOQ;
-<table width="100%" cellspacing="0" cellpadding="0" class="list" align="center">
+<table class="table table-striped">
 <!-- Begin Header Row -->
   <thead>
   <tr>
