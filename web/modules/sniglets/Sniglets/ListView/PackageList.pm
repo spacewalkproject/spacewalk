@@ -1382,9 +1382,9 @@ sub package_install_remote_command_cb {
   return 1;
 }
 
-my %adv_icon = ('Bug Fix Advisory' => '/img/wrh-bug.gif',
-		 'Product Enhancement Advisory' => '/img/wrh-product.gif',
-		 'Security Advisory' => '/img/wrh-security.gif');
+my %adv_icon = ('Bug Fix Advisory' => '<i class="fa fa-bug fa-1-5x"></i>',
+		 'Product Enhancement Advisory' => '<i class="fa fa-1-5x spacewalk-icon-enhancement"></i>',
+		 'Security Advisory' => '<i class="fa fa-shield fa-1-5x"></i>');
 
 sub system_upgradable_package_provider {
   my $self = shift;
@@ -1458,7 +1458,7 @@ sub system_upgradable_package_provider {
     foreach my $adv (@{$row->{ERRATA_ADVISORY}}) {
       my $adv_id = shift @{$row->{ERRATA_ID}};
       my $adv_type = shift @adv_types;
-      push @errata, sprintf('<img src="%s" alt="%s" />&#160;<a href="/rhn/errata/details/Details.do?eid=%s">%s</a>', $adv_icon{$adv_type}, $adv_type, $adv_id, $adv);
+      push @errata, sprintf('%s<a href="/rhn/errata/details/Details.do?eid=%s">%s</a>', $adv_icon{$adv_type}, $adv_id, $adv);
     }
 
     $row->{RELATED_ERRATA} = join("<br />\n", @errata);
@@ -1480,7 +1480,7 @@ sub obsoleting_packages_provider {
     my $adv_type = $row->{ADVISORY_TYPE};
     my $adv_id = $row->{ERRATA_ID};
 
-    $row->{RELATED_ERRATA} = defined $adv_id ? sprintf('<img src="%s" alt="%s" />&#160;<a href="/rhn/errata/details/Details.do?eid=%s">%s</a>', $adv_icon{$adv_type}, $adv_type, $adv_id, $adv) : '';
+    $row->{RELATED_ERRATA} = defined $adv_id ? sprintf('%s<a href="/rhn/errata/details/Details.do?eid=%s">%s</a>', $adv_icon{$adv_type}, $adv_id, $adv) : '';
   }
 
   return (%ret);

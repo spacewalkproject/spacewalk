@@ -170,10 +170,11 @@ sub row_callback {
   my $row = shift;
   my $pxt = shift;
 
+  my %adv_icon = ('Bug Fix Advisory' => '<i class="fa fa-bug fa-1-5x"></i>',
+                  'Product Enhancement Advisory' => '<i class="fa fa-1-5x spacewalk-icon-enhancement"></i>',
+                  'Security Advisory' => '<i class="fa fa-shield fa-1-5x"></i>');
   if (exists $row->{ADVISORY_TYPE}) {
-    $row->{ADVISORY_ICON} = PXT::HTML->img(-src => '/img/wrh-' . lc ((split /[\s]/, $row->{ADVISORY_TYPE})[0]) . '.gif',
-				      -alt => $row->{ADVISORY_TYPE},
-				      -title => $row->{ADVISORY_TYPE});
+    $row->{ADVISORY_ICON} = $adv_icon{$row->{ADVISORY_TYPE}};
   }
 
   if (exists $row->{ADVISORY_LAST_UPDATED}) {
