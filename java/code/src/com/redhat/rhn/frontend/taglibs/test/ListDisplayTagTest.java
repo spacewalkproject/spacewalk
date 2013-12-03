@@ -81,7 +81,7 @@ public class ListDisplayTagTest extends MockObjectTestCase {
         mcontext.expects(atLeastOnce()).method("popBody")
                 .withNoArguments();
         mcontext.expects(atLeastOnce()).method("pushBody")
-                .withNoArguments();
+                .withAnyArguments();
         mreq.expects(atLeastOnce()).method("getParameter")
             .with(eq(RequestContext.LIST_DISPLAY_EXPORT)).will(returnValue(null));
         mreq.stubs().method("getParameter").with(eq(RequestContext.LIST_SORT)).will(
@@ -131,7 +131,7 @@ public class ListDisplayTagTest extends MockObjectTestCase {
         mcontext.expects(atLeastOnce()).method("popBody").
             withNoArguments();
         mcontext.expects(atLeastOnce()).method("pushBody").
-            withNoArguments();
+            withAnyArguments();
         mreq.expects(atLeastOnce()).method("getAttribute").
             with(eq("requestedUri")).will(returnValue("/rhn/somePage.do"));
         mreq.expects(atLeastOnce()).method("getQueryString").
