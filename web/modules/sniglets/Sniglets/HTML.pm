@@ -125,7 +125,7 @@ sub toolbar {
     push @toolbar, deletion_link($pxt, (url => $params{'deletion-url'}, type => $params{'deletion-type'}) );
   }
 
-  my $toolbar = join(" | ", @toolbar);
+  my $toolbar = join("", @toolbar);
 
   return qq{<div class="spacewalk-toolbar-$base"><div class="spacewalk-toolbar">$toolbar</div><$base>$img $icon $params{__block__}$help</$base></div>};
 }
