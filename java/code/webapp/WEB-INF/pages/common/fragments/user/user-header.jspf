@@ -6,12 +6,12 @@
 <c:if test="${not targetuser.disabled}">
    <c:set var="url" value="/rhn/users/DisableUser.do?uid=${param.uid}" />
    <c:set var="text" value="userdetails.jsp.disable" />
-   <c:set var="img" value="action-del.gif" />
+   <c:set var="icon" value="fa-minus-circle" />
 </c:if>
 <c:if test="${targetuser.disabled}">
    <c:set var="url" value="/rhn/users/EnableUser.do?uid=${param.uid}" />
    <c:set var="text" value="userdetails.jsp.enable" />
-   <c:set var="img" value="action-add.gif" />
+   <c:set var="icon" value="fa-plus-circle" />
 </c:if>
 
 <rhn:toolbar base="h1" icon="fa-user"
@@ -19,7 +19,7 @@
  miscUrl="${url}"
  miscAcl="user_role(org_admin)"
  miscText="${text}"
- miscImg="${img}"
+ miscIcon="${icon}"
  miscAlt="${text}"
  deletionUrl="/rhn/users/DeleteUser.do?uid=${param.uid}"
  deletionAcl="user_role(org_admin)"
