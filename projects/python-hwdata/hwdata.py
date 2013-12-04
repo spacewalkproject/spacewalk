@@ -12,6 +12,8 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 #
+import sys
+inPy3k = sys.version_info[0] == 3
 
 """ Query hwdata database and return decription of vendor and/or device. """
 
@@ -33,7 +35,11 @@ class USB:
         if self.cache and not USB.devices:
             # parse usb.ids
             USB.devices = {}
-            for line in open(self.filename).readlines():
+            if inPy3k:
+                f = open(self.filename, encoding='ISO8859-1')
+            else:
+                f = open(self.filename)
+            for line in f.readlines():
                 l = line.split()
                 if line.startswith('#'):
                     if line.startswith('# List of known device classes, subclasses and protocols'):
@@ -110,7 +116,11 @@ class PCI:
             # parse pci.ids
             pcirec = {}
             PCI.devices = {}
-            for line in open(self.filename).readlines():
+            if inPy3k:
+                f = open(self.filename, encoding='ISO8859-1')
+            else:
+                f = open(self.filename)
+            for line in f.readlines():
                 l = line.split()
                 if line.startswith('#'):
                     continue
