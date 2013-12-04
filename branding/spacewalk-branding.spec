@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.1.12
+Version:    2.1.13
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -82,6 +82,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Dec 04 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.13-1
+- bootstrap tuning
+
 * Tue Dec 03 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.12-1
 - bootstrap tuning
 
