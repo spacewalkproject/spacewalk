@@ -1,8 +1,6 @@
-<div class="filter-input">
-<table cellspacing="0" cellpadding="0" width="100%">
-<tr>&nbsp;&nbsp;</td></tr></table></div>
+<div class="panel panel-default">
 
-<table cellspacing="0"  cellpadding="0" class="half-table">
+<table cellspacing="0"  cellpadding="0" class="table">
 		<thead>
 			<tr>
        		    <th style="text-align: left;">
@@ -34,7 +32,5 @@
    			
 </table>
 
-<div class="filter-input">
-<table cellspacing="0" cellpadding="0" width="100%">
-<tr>&nbsp;&nbsp;</td></tr></table></div>
+</div>
 
