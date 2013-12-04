@@ -3,8 +3,8 @@
 <div class="sideleg">
   <h2>Event Status Legend</h2>
   <ul>
-  <li><img src="/img/rhn-listicon-ok.gif" alt="" />Complete</li>
-  <li><img src="/img/rhn-listicon-error.gif" alt="" />Failure</li>
-  <li><img src="/img/rhn-listicon-activity.gif" alt="" />Activity Occuring</li>
+  <li><i class="fa fa-check-circle-o fa-1-5x text-success"></i>Complete</li>
+  <li><i class="fa fa-times-circle-o fa-1-5x text-danger"></i>Failure</li>
+  <li><i class="fa fa-exchange fa-1-5x text-info"></i>Activity Occuring</li>
   </ul>
 </div>

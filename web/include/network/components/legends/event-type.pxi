@@ -3,9 +3,9 @@
 <div class="sideleg">
   <h2>Event Type Legend</h2>
   <ul>
-  <li><img src="/img/rhn-listicon-package.gif" alt="" />Package Event</li>
-  <li><img src="/img/rhn-listicon-errata.gif" alt="" />Errata Event</li>
-  <li><img src="/img/rhn-listicon-preferences.gif" alt="" />Preferences Event</li>
-  <li><img src="/img/rhn-listicon-system.gif" alt="" />System Event</li>
+  <li><i class="fa spacewalk-icon-packages"></i>Package Event</li>
+  <li><i class="fa spacewalk-icon-patches"></i>Errata Event</li>
+  <li><i class="fa fa-cog"></i>Preferences Event</li>
+  <li><i class="fa fa-desktop"></i>System Event</li>
   </ul>
 </div>
