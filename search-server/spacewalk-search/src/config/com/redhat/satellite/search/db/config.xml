@@ -13,14 +13,12 @@
 
 	<environments default="default">
 		<environment id="default">
-			<transactionManager type="JDBC">
-				</transactionManager>
-
-				<dataSource type="SIMPLE">
-						<property name="JDBC.Driver" value="${search.connection.driver_class}"/>
-						<property name="JDBC.ConnectionURL" value="${search.connection.driver_proto}:${db_name}"/>
-						<property name="JDBC.Username" value="${db_user}"/>
-						<property name="JDBC.Password" value="${db_password}"/>
+			<transactionManager type="JDBC" />
+				<dataSource type="com.redhat.satellite.search.config.translator.C3P0DataSourceFactory">
+						<property name="driverClass" value="${search.connection.driver_class}"/>
+						<property name="jdbcUrl" value="${search.connection.driver_proto}:${db_name}"/>
+						<property name="user" value="${db_user}"/>
+						<property name="password" value="${db_password}"/>
 					</dataSource>
 				</environment>
 		</environments>
