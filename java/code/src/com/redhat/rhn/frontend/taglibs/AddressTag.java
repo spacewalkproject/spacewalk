@@ -212,7 +212,7 @@ public class AddressTag extends TagSupport {
                 result.append("<p>");
                 result.append("<a ")
                       .append("class=\"btn btn-primary\"")
-                      .append("href=\"")
+                      .append(" href=\"")
                       .append(getActionUrl())
                       .append("/EditAddress.do?type=")
                       .append(type)
