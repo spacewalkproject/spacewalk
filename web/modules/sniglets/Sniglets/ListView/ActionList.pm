@@ -21,7 +21,6 @@ use Sniglets::ListView::List;
 use RHN::Action;
 use RHN::DataSource::Action;
 
-use PXT::HTML;
 use Data::Dumper;
 
 our @ISA = qw/Sniglets::ListView::List/;
@@ -71,28 +70,28 @@ sub _register_modes {
 }
 
 
-my %history_type_icons = ('packages.refresh_list' => 'rhn-listicon-package.gif',
-			  'packages.delta' => 'rhn-listicon-package.gif',
-			  'packages.update' => 'rhn-listicon-package.gif',
-			  'packages.remove' => 'rhn-listicon-package.gif',
-			  'packages.runTransaction' => 'rhn-listicon-package.gif',
-			  'up2date_config.get' => 'rhn-listicon-preferences.gif',
-			  'up2date_config.update' => 'rhn-listicon-preferences.gif',
-			  'rollback.config' => 'rhn-listicon-preferences.gif',
-			  'rollback.listTransactions' => 'rhn-listicon-package.gif', # bad icon for this
-			  'errata.update' => 'rhn-listicon-errata.gif',
-			  'hardware.refresh_list' => 'rhn-listicon-system.gif', # bad icon for this
-			  'reboot.reboot' => 'rhn-listicon-system.gif', # bad icon for this
-			  'configfiles.upload' => 'rhn-listicon-system.gif',
-			  'configfiles.deploy' => 'rhn-listicon-system.gif',
-			  'configfiles.verify' => 'rhn-listicon-system.gif',
-			  'configfiles.diff' => 'rhn-listicon-system.gif',
+my %history_type_icons = ('packages.refresh_list' => 'spacewalk-icon-packages',
+			  'packages.delta' => 'spacewalk-icon-packages',
+			  'packages.update' => 'spacewalk-icon-packages',
+			  'packages.remove' => 'spacewalk-icon-packages',
+			  'packages.runTransaction' => 'spacewalk-icon-packages',
+			  'up2date_config.get' => 'fa-cog',
+			  'up2date_config.update' => 'fa-cog',
+			  'rollback.config' => 'fa-cog',
+			  'rollback.listTransactions' => 'spacewalk-icon-packages', # bad icon for this
+			  'errata.update' => 'spacewalk-icon-patches',
+			  'hardware.refresh_list' => 'fa-desktop', # bad icon for this
+			  'reboot.reboot' => 'fa-desktop', # bad icon for this
+			  'configfiles.upload' => 'fa-desktop',
+			  'configfiles.deploy' => 'fa-desktop',
+			  'configfiles.verify' => 'fa-desktop',
+			  'configfiles.diff' => 'fa-desktop',
 			 );
 
-my %history_status_icons = ('Completed' => 'rhn-listicon-ok.gif',
-			    'Failed' => 'rhn-listicon-error.gif',
-			    'Picked Up' => 'rhn-listicon-activity.gif',
-			   );
+my %history_status_icons = ('Completed' => 'fa-check-circle-o fa-1-5x text-success',
+                            'Failed' => 'fa-times-circle-o fa-1-5x text-danger',
+                            'Picked Up' => 'fa-exchange fa-1-5x text-info',
+                           );
 
 sub system_history_provider {
   my $self = shift;
@@ -118,28 +117,24 @@ sub system_history_provider {
     if (defined $event->{HISTORY_TYPE}) {
 
       if ($history_type_icons{$event->{HISTORY_TYPE}}) {
-	$event->{HISTORY_TYPE} = PXT::HTML->img(-src => '/img/' . $history_type_icons{$event->{HISTORY_TYPE}},
-						-alt => $event->{HISTORY_TYPE_NAME},
-						-title => $event->{HISTORY_TYPE_NAME});
+	$event->{HISTORY_TYPE} = sprintf(qq{<i class="fa %s" title="%s"></i>},
+                                        $history_type_icons{$event->{HISTORY_TYPE}},
+                                        $event->{HISTORY_TYPE_NAME});
       }
       else {
 	PXT::Debug->log(2,"no icon for scheduled action type?!  type:  " . $event->{HISTORY_TYPE});
-	$event->{HISTORY_TYPE} = PXT::HTML->img(-src => '/img/rhn-listicon-system.gif',
-						-alt => 'System Event',
-						-title => 'System Event');
+	$event->{HISTORY_TYPE} = qq{<i class="fa fa-desktop" title="System Event"></i>};
       }
     }
     else {
-      $event->{HISTORY_TYPE} = PXT::HTML->img(-src => '/img/rhn-listicon-system.gif',
-					      -alt => 'System Event',
-					      -title => 'System Event');
+      $event->{HISTORY_TYPE} = qq{<i class="fa fa-desktop" title="System Event"></i>};
     }
 
     if (defined $event->{HISTORY_STATUS}) {
 
-      $event->{HISTORY_STATUS} = PXT::HTML->img(-src => '/img/' . $history_status_icons{$event->{HISTORY_STATUS}},
-						-alt => $event->{HISTORY_STATUS},
-						-title => $event->{HISTORY_STATUS});
+      $event->{HISTORY_STATUS} = sprintf(qq{<i class="fa %s" title="%s"></i>},
+                                        $history_status_icons{$event->{HISTORY_STATUS}},
+                                        $event->{HISTORY_STATUS});
     }
     else {
       $event->{HISTORY_STATUS} = '<span class="no-details">(n/a)</span>';
