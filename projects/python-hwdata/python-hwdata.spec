@@ -9,7 +9,7 @@
 %endif
 
 Name:		python-hwdata
-Version:	1.10.0
+Version:	1.10.1
 Release:	1%{?dist}
 Summary:	Python bindings to hwdata package
 BuildArch:  noarch
@@ -85,6 +85,11 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Dec 04 2013 Miroslav Suchý <msuchy@redhat.com> 1.10.1-1
+- create python3-hwdata subpackage
+- Bumping package versions for 1.9
+- %%defattr is not needed since rpm 4.4
+
 * Fri Mar 02 2012 Miroslav Suchý 1.7.3-1
 - 798375 - fix PCI device name translation (Joshua.Roys@gtri.gatech.edu)
 - use setup from distutils

@@ -2,7 +2,7 @@
 from distutils.core import setup, Extension
 
 setup (name = 'pciutils',
-       version = '1.7.3',
+       version = '1.10.1',
        description = 'Interface to pciutils',
        author = 'Miroslav Suchý',
        author_email = 'msuchy@redhat.com',
