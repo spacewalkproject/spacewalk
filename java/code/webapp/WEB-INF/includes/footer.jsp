@@ -15,5 +15,5 @@
   </c:if>
 </div>
 <div>
-  <img src="/img/logo_vendor.png" />
+  <img src="/img/logo_vendor.png" alt="<bean:message key='layout.jsp.vendor.name' />" />
 </div>
