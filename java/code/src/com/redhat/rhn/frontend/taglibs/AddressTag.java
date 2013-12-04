@@ -163,7 +163,7 @@ public class AddressTag extends TagSupport {
             StringBuilder result = new StringBuilder();
             StringBuilder key = new StringBuilder("address type ");
             key.append(type);
-            result.append("<div class=\"jumbotron\">");
+            result.append("<div class=\"mail-address-border\">");
             result.append("<div class=\"container\">");
             result.append("<h1>");
             result.append(ls.getMessage(key.toString()));
