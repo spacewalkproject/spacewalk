@@ -1,11 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE sqlMap
-  PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
-  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
-<sqlMap namespace="errata">
-   <select id="listErrataFromId"
-   		   parameterClass="long" 
-   		   resultClass="com.redhat.satellite.search.db.models.Errata">
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed Dec 04 11:26:11 CET 2013-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="errata">
+   <select id="listErrataFromId" parameterType="long" resultType="com.redhat.satellite.search.db.models.Errata">
          SELECT
 			e.id,
 			e.advisory,
@@ -25,29 +22,26 @@
 			e.modified,
 			e.last_modified as lastModified
          FROM rhnErrata e
-         WHERE e.id > #id#
+         WHERE e.id &gt; #{id}
          ORDER by e.id ASC
    </select>
    <delete id="deleteLastErrata">
                 DELETE FROM rhnIndexerWork where object_type = 'errata'
    </delete>
-   <insert id="createLastErrata"
-		   parameterClass="java.util.Map">
-		INSERT INTO rhnIndexerWork values ('errata', #id#, #last_modified#)
+   <insert id="createLastErrata" parameterType="java.util.Map">
+		INSERT INTO rhnIndexerWork values ('errata', #{id}, #{last_modified})
 	</insert>
-	<update id="updateLastErrata"
-		    parameterClass="java.util.Map">
-		UPDATE rhnIndexerWork SET last_id = #id#, last_modified = #last_modified# where object_type = 'errata'
+	<update id="updateLastErrata" parameterType="java.util.Map">
+		UPDATE rhnIndexerWork SET last_id = #{id}, last_modified = #{last_modified} where object_type = 'errata'
 	</update>
-	<select id="getLastErrataId"
-		    resultClass="java.lang.Long">
+	<select id="getLastErrataId" resultType="java.lang.Long">
 		SELECT last_id from rhnIndexerWork where object_type='errata'
 	</select>
-    <select id="maxErrataId" resultClass="java.lang.Long">
+    <select id="maxErrataId" resultType="java.lang.Long">
         SELECT MAX(ID)
           FROM rhnErrata
     </select>
-    <select id="verifyErrataVisibility" resultClass="string">
+    <select id="verifyErrataVisibility" resultType="string">
         select distinct e.id
         from    rhnErrata e,
                 rhnChannelErrata ce,
@@ -58,10 +52,10 @@
                 ce.channel_id = ac.channel_id and
                 ac.org_id = wc.org_id and
                 ps.web_user_id = wc.id and
-                ps.id = #sessionId#
+                ps.id = #{sessionId}
                 and e.id IN
-                <iterate property="id_list" open="(" close=")" conjunction=",">
-                    #id_list[]#
-                </iterate>
+                 <foreach collection="id_list" item="item" separator="," close=")" open="(">
+                    #{id_item}
+                </foreach>
     </select>
-</sqlMap>
+</mapper>

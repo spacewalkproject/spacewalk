@@ -1,11 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE sqlMap
-  PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
-  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
-<sqlMap namespace="package">
-   <select id="getPackageById"
-   		   parameterClass="long"
-   		   resultClass="com.redhat.satellite.search.db.models.RhnPackage">
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed Dec 04 11:26:12 CET 2013-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="package">
+   <select id="getPackageById" parameterType="long" resultType="com.redhat.satellite.search.db.models.RhnPackage">
          SELECT
            p.id as id,
            pn.name as name,
@@ -22,11 +19,9 @@
          WHERE p.evr_id = pe.id
            and p.name_id = pn.id
            and p.package_arch_id = pa.id
-           and p.id = #id# 
+           and p.id = #{id}
    </select>
-   <select id="listPackagesFromId"
-   		   parameterClass="long"
-   		   resultClass="com.redhat.satellite.search.db.models.RhnPackage">
+   <select id="listPackagesFromId" parameterType="long" resultType="com.redhat.satellite.search.db.models.RhnPackage">
          SELECT
            p.id as id,
            pn.name as name,
@@ -43,29 +38,26 @@
          WHERE p.evr_id = pe.id
            and p.name_id = pn.id
            and p.package_arch_id = pa.id
-           and p.id > #id#
+           and p.id &gt; #{id}
          ORDER by p.id ASC
    </select>
    <delete id="deleteLastPackage">
                 DELETE FROM rhnIndexerWork where object_type = 'package'
    </delete>
-   <insert id="createLastPackage"
-		   parameterClass="java.util.Map">
-		INSERT INTO rhnIndexerWork values ('package', #id#, #last_modified#)
+   <insert id="createLastPackage" parameterType="java.util.Map">
+		INSERT INTO rhnIndexerWork values ('package', #{id}, #{last_modified})
 	</insert>
-	<update id="updateLastPackage"
-		    parameterClass="java.util.Map">
-		UPDATE rhnIndexerWork SET last_id = #id#, last_modified = #last_modified# where object_type = 'package'
+	<update id="updateLastPackage" parameterType="java.util.Map">
+		UPDATE rhnIndexerWork SET last_id = #{id}, last_modified = #{last_modified} where object_type = 'package'
 	</update>
-	<select id="getLastPackageId"
-		    resultClass="java.lang.Long">
+	<select id="getLastPackageId" resultType="java.lang.Long">
 		SELECT last_id from rhnIndexerWork where object_type='package'
 	</select>
-   <select id="maxPackageId" resultClass="java.lang.Long">
+   <select id="maxPackageId" resultType="java.lang.Long">
       SELECT MAX(ID)
         FROM rhnPackage
    </select>
-   <select id="verifyPackageVisibility" resultClass="string">
+   <select id="verifyPackageVisibility" resultType="string">
       select distinct p.id
         from rhnPackage p,
              rhnAvailableChannels ac,
@@ -76,10 +68,10 @@
          and ac.channel_id = cp.channel_id
          and ac.org_id = wc.org_id
          and ps.web_user_id = wc.id
-         and ps.id = #session_id#
+         and ps.id = #{session_id}
          and p.id IN
-      <iterate property="id_list" open="(" close=")" conjunction=",">
-         #id_list[]#
-      </iterate>
+       <foreach collection="id_list" item="item" separator="," close=")" open="(">
+         #{id_item}
+      </foreach>
    </select>
-</sqlMap>
+</mapper>

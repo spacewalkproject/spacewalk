@@ -1,39 +1,38 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE sqlMapConfig
-   PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
-   "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
-<!-- Always ensure to use the correct XML header as above! -->
-<sqlMapConfig>
- <!-- These settings control SqlMap configuration details, primarily to do with transaction
-      management. They are all optional (see the Developer Guide for more). -->
- <settings
-   cacheModelsEnabled="true"
-   statementCachingEnabled="false"
-   enhancementEnabled="true"
-   lazyLoadingEnabled="true"
-   maxRequests="100"
-   maxSessions="10"
-   maxTransactions="10"
-   useStatementNamespaces="false"
- />
- <!-- Configure a datasource to use with this SQL Map using SimpleDataSource.
-      Notice the use of the properties from the above resource -->
- <transactionManager type="JDBC" >
-   <dataSource type="SIMPLE">
-    <property name="JDBC.Driver" value="${search.connection.driver_class}"/>
-    <property name="JDBC.ConnectionURL" value="${search.connection.driver_proto}:${db_name}"/>
-    <property name="JDBC.Username" value="${db_user}"/>
-    <property name="JDBC.Password" value="${db_password}"/>
-   </dataSource>
- </transactionManager>
- <!-- Identify all SQL Map XML files to be loaded by this SQL map. Notice the paths
-      are relative to the classpath. For now, we only have one… -->
- <sqlMap resource="com/redhat/satellite/search/db/package.xml" />
- <sqlMap resource="com/redhat/satellite/search/db/errata.xml" />
- <sqlMap resource="com/redhat/satellite/search/db/server.xml" />
- <sqlMap resource="com/redhat/satellite/search/db/errata_handler.xml" />
- <sqlMap resource="com/redhat/satellite/search/db/hwdevice.xml" />
- <sqlMap resource="com/redhat/satellite/search/db/snapshot_tag.xml" />
-  <sqlMap resource="com/redhat/satellite/search/db/server_custom_info.xml" />
- <sqlMap resource="com/redhat/satellite/search/db/xccdf_ident.xml" />
-</sqlMapConfig>
+<?xml version="1.0" encoding="UTF-8"?><!-- Always ensure to use the correct XML header as above! --><!--Converted at: Wed Dec 04 11:26:11 CET 2013-->
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD SQL Map Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration><settings>
+		<setting name="cacheEnabled" value="true"/>
+			<setting name="lazyLoadingEnabled" value="true"/>
+			</settings>
+	<typeAliases>
+		</typeAliases>
+
+	<typeHandlers>
+		</typeHandlers>
+
+	<environments default="default">
+		<environment id="default">
+			<transactionManager type="JDBC">
+				</transactionManager>
+
+				<dataSource type="SIMPLE">
+						<property name="JDBC.Driver" value="${search.connection.driver_class}"/>
+						<property name="JDBC.ConnectionURL" value="${search.connection.driver_proto}:${db_name}"/>
+						<property name="JDBC.Username" value="${db_user}"/>
+						<property name="JDBC.Password" value="${db_password}"/>
+					</dataSource>
+				</environment>
+		</environments>
+
+	<mappers>
+		<mapper resource="com/redhat/satellite/search/db/package.xml"/>
+			<mapper resource="com/redhat/satellite/search/db/errata.xml"/>
+			<mapper resource="com/redhat/satellite/search/db/server.xml"/>
+			<mapper resource="com/redhat/satellite/search/db/errata_handler.xml"/>
+			<mapper resource="com/redhat/satellite/search/db/hwdevice.xml"/>
+			<mapper resource="com/redhat/satellite/search/db/snapshot_tag.xml"/>
+			<mapper resource="com/redhat/satellite/search/db/server_custom_info.xml"/>
+			<mapper resource="com/redhat/satellite/search/db/xccdf_ident.xml"/>
+			</mappers>
+	</configuration>

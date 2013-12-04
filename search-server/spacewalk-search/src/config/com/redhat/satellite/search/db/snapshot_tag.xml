@@ -1,12 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE sqlMap
-  PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
-  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed Dec 04 11:26:12 CET 2013-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="snapshotTag">
 
-<sqlMap namespace="snapshotTag">
-
-    <select id="getSnapshotTagByIdOrDate" parameterClass="java.util.Map"
-        resultClass="com.redhat.satellite.search.db.models.SnapshotTag">
+    <select id="getSnapshotTagByIdOrDate" parameterType="java.util.Map" resultType="com.redhat.satellite.search.db.models.SnapshotTag">
 
             SELECT
                 rt.id as id,
@@ -20,7 +17,7 @@
             FROM rhnSnapshotTag rst
                 INNER JOIN rhnTag rt on rst.tag_id = rt.id
                 INNER JOIN rhnTagName rtn on rt.name_id = rtn.id
-            WHERE rst.tag_id > #id# OR rst.modified > #last_modified#
+            WHERE rst.tag_id &gt; #{id} OR rst.modified &gt; #{last_modified}
             ORDER by rst.snapshot_id ASC
     </select>
 
@@ -28,26 +25,22 @@
    <delete id="deleteLastSnapshotTag">
                 DELETE FROM rhnIndexerWork where object_type = 'snapshot_tag'
    </delete>
-   <insert id="createLastSnapshotTag"
-		   parameterClass="java.util.Map">
-		INSERT INTO rhnIndexerWork values ('snapshot_tag', #id#, #last_modified#)
+   <insert id="createLastSnapshotTag" parameterType="java.util.Map">
+		INSERT INTO rhnIndexerWork values ('snapshot_tag', #{id}, #{last_modified})
 	</insert>
-	<update id="updateLastSnapshotTag"
-		    parameterClass="java.util.Map">
-		UPDATE rhnIndexerWork SET last_id = #id#, last_modified = #last_modified# where object_type = 'snapshot_tag'
+	<update id="updateLastSnapshotTag" parameterType="java.util.Map">
+		UPDATE rhnIndexerWork SET last_id = #{id}, last_modified = #{last_modified} where object_type = 'snapshot_tag'
 	</update>
-	<select id="getLastSnapshotTagId"
-		    resultClass="java.lang.Long">
+	<select id="getLastSnapshotTagId" resultType="java.lang.Long">
 		SELECT last_id from rhnIndexerWork where object_type='snapshot_tag'
 	</select>
-	<select id="getLastSnapshotTagIndexRun"
-            resultClass="java.util.Date">
+	<select id="getLastSnapshotTagIndexRun" resultType="java.util.Date">
         SELECT last_modified from rhnIndexerWork where object_type='snapshot_tag'
     </select>
     
-    <select id="queryAllSnapshotTagIds" resultClass="Long">
+    <select id="queryAllSnapshotTagIds" resultType="Long">
         SELECT snapshot_id from rhnSnapshotTag
     </select>
     
 
-</sqlMap>
+</mapper>

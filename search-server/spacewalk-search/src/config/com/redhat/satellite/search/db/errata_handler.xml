@@ -1,12 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE sqlMap
-  PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
-  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
-<sqlMap namespace="errataHandler">
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed Dec 04 11:26:11 CET 2013-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="errataHandler">
 
-   <select id="listErrataByCVE"
-       parameterClass="Map"
-       resultClass="com.redhat.satellite.search.index.Result">
+   <select id="listErrataByCVE" parameterType="Map" resultType="com.redhat.satellite.search.index.Result">
         SELECT DISTINCT
             ecve.errata_id as id
             from rhnErrataCVE ecve,
@@ -22,13 +19,11 @@
                 ce.channel_id = ac.channel_id and
                 ac.org_id = wc.org_id and
                 ps.web_user_id = wc.id and
-                ps.id = #sessionId# and
-                LOWER(cve.name) like #param0#
+                ps.id = #{sessionId} and
+                LOWER(cve.name) like #{param0}
    </select>
 
-   <select id="listErrataByIssueDateRange"
-		   parameterClass="Map"
-		   resultClass="com.redhat.satellite.search.index.Result" >
+   <select id="listErrataByIssueDateRange" parameterType="Map" resultType="com.redhat.satellite.search.index.Result">
 	    SELECT
                 E.id as id
                 FROM rhnErrata E,
@@ -41,9 +36,9 @@
                 ce.channel_id = ac.channel_id and
                 ac.org_id = wc.org_id and
                 ps.web_user_id = wc.id and
-                ps.id = #sessionId# and
-                E.issue_date &gt;= TO_TIMESTAMP(#param0#, 'YYYY-MM-DD HH24:MI:SS')
-                AND E.issue_date &lt;= TO_TIMESTAMP(#param1#, 'YYYY-MM-DD HH24:MI:SS')
+                ps.id = #{sessionId} and
+                E.issue_date &gt;= TO_TIMESTAMP(#{param0}, 'YYYY-MM-DD HH24:MI:SS')
+                AND E.issue_date &lt;= TO_TIMESTAMP(#{param1}, 'YYYY-MM-DD HH24:MI:SS')
                 ORDER BY E.issue_date ASC
    </select>
-</sqlMap>
+</mapper>

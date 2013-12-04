@@ -1,12 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE sqlMap
-  PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
-  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed Dec 04 11:26:11 CET 2013-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hwdevice">
 
-<sqlMap namespace="hwdevice">
-
-    <select id="getHardwareDeviceById" parameterClass="java.util.Map"
-        resultClass="com.redhat.satellite.search.db.models.HardwareDevice">
+    <select id="getHardwareDeviceById" parameterType="java.util.Map" resultType="com.redhat.satellite.search.db.models.HardwareDevice">
             SELECT
                 rd.id as id,
                 rd.server_id as serverId,
@@ -22,7 +19,7 @@
                 rd.prop4 as subDeviceId,
                 rd.pcitype as pciType
             FROM rhnDevice rd
-            WHERE rd.id > #id#
+            WHERE rd.id &gt; #{id}
             ORDER by rd.id ASC
     </select>
 
@@ -30,24 +27,20 @@
    <delete id="deleteLastHardwareDevice">
                 DELETE FROM rhnIndexerWork where object_type = 'hwdevice'
    </delete>
-   <insert id="createLastHardwareDevice"
-		   parameterClass="java.util.Map">
-		INSERT INTO rhnIndexerWork values ('hwdevice', #id#, #last_modified#)
+   <insert id="createLastHardwareDevice" parameterType="java.util.Map">
+		INSERT INTO rhnIndexerWork values ('hwdevice', #{id}, #{last_modified})
 	</insert>
-	<update id="updateLastHardwareDevice"
-		    parameterClass="java.util.Map">
-		UPDATE rhnIndexerWork SET last_id = #id#, last_modified = #last_modified# where object_type = 'hwdevice'
+	<update id="updateLastHardwareDevice" parameterType="java.util.Map">
+		UPDATE rhnIndexerWork SET last_id = #{id}, last_modified = #{last_modified} where object_type = 'hwdevice'
 	</update>
-	<select id="getLastHardwareDeviceId"
-		    resultClass="java.lang.Long">
+	<select id="getLastHardwareDeviceId" resultType="java.lang.Long">
 		SELECT last_id from rhnIndexerWork where object_type='hwdevice'
 	</select>
-	<select id="getLastHardwareDeviceIndexRun"
-            resultClass="java.util.Date">
+	<select id="getLastHardwareDeviceIndexRun" resultType="java.util.Date">
         SELECT last_modified from rhnIndexerWork where object_type='hwdevice'
     </select>
-    <select id="queryAllHwDeviceIds" resultClass="Long">
+    <select id="queryAllHwDeviceIds" resultType="Long">
         SELECT id from rhnDevice
     </select>
     
-</sqlMap>
+</mapper>
