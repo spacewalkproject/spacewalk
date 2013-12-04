@@ -21,7 +21,7 @@
   <div class="spacewalk-header-links">
     <rhn:require acl="user_authenticated()">
       <ul class="nav nav-pills">
-        <li class="hidden-sm hidden-xs"><a href="/rhn/account/LocalePreferences.do"><c:out value="${rhnActiveLang} "/>(<bean:message key="header.jsp.change"/>)</a></li>
+        <li class="hidden-sm hidden-xs"><a href="/rhn/account/LocalePreferences.do"><c:out value="${rhnActiveLang}" /> (<bean:message key="header.jsp.change"/>)</a></li>
       </ul>
       <ul class="nav nav-pills">
         <li class="hidden-sm hidden-xs"><a href="http://kbase.redhat.com/"><bean:message key="header.jsp.knowledgebase" /></a></li>
@@ -35,10 +35,10 @@
           <span class="spacewalk-header-non-link"><i class="fa fa-sitemap"></i><c:out escapeXml="true" value="${requestScope.session.user.org.name}" /></span>
         </li>
         <li>
-          <a href="/rhn/account/UserPreferences.do"><i class="fa fa-cogs"></i></a>
+          <a href="/rhn/account/UserPreferences.do"><i class="fa fa-cogs" title="<bean:message key='header.jsp.preferences' />"></i></a>
         </li>
         <li>
-          <html:link forward="logout"><i class="fa fa-sign-out"></i></html:link>
+          <html:link forward="logout"><i class="fa fa-sign-out" title="<bean:message key='header.jsp.signout' />"></i></html:link>
         </li>
       </ul>
 
