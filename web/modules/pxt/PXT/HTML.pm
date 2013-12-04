@@ -508,4 +508,22 @@ sub img {
   return qq{<img $inner_str />};
 }
 
+sub icon {
+  my $class = shift;
+  my %params = @_;
+
+  if (not exists $params{-class}) {
+    die "classless icon";
+  }
+
+  my @inner;
+  for my $attr (qw/class title/) {
+    next unless exists $params{"-$attr"};
+    push @inner, sprintf(qq{$attr="$params{-$attr}"});
+  }
+
+  my $inner_str = join(" ", @inner);
+  return qq{<i $inner_str></i>};
+}
+
 1;

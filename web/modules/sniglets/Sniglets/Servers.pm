@@ -191,8 +191,7 @@ sub system_locked_info {
 
   my $ret = {};
   if ($data->{LOCKED}) {
-    $ret->{image} = '/img/icon_locked.gif';
-    $ret->{image_medium} = '/img/icon_locked.gif';
+    $ret->{icon} = 'fa fa-1-5x spacewalk-icon-locked-system';
     $ret->{status_str} = 'System locked';
     $ret->{status_class} = 'system-status-locked';
     $ret->{message} = 'more info';
@@ -219,8 +218,7 @@ sub system_status_info {
   $ret->{$_} = '' foreach (qw/image status_str status_class message link/);
 
   if (not $data->{IS_ENTITLED}) {
-    $ret->{image} = '/img/icon_unentitled.gif';
-    $ret->{image_medium} = '/img/icon_unentitled.gif';
+    $ret->{icon} = 'fa fa-1-5x spacewalk-icon-Unentitled';
     $ret->{status_str} = 'System not entitled';
     $ret->{status_class} = 'system-status-unentitled';
 
@@ -230,8 +228,7 @@ sub system_status_info {
     }
   }
   elsif ($data->{LAST_CHECKIN_DAYS_AGO} > PXT::Config->get('system_checkin_threshold')) {
-    $ret->{image} = '/img/icon_checkin.gif';
-    $ret->{image_medium} = '/img/icon_checkin.gif';
+    $ret->{icon} = 'spacewalk-icon-unknown-system';
     $ret->{status_str} = 'System not checking in with R H N';
     $ret->{status_class} = 'system-status-awol';
     $ret->{message} = 'more info';
@@ -239,46 +236,40 @@ sub system_status_info {
 						    -href => 's1-sm-systems.html#S3-SM-SYSTEM-LIST-INACT');
   }
   elsif ($data->{KICKSTART_SESSION_ID}) {
-    $ret->{image} = '/img/icon_kickstart_session.gif';
-    $ret->{image_medium} = '/img/icon_kickstart_session.gif';
+    $ret->{icon} = 'fa fa-rocket fa-1-5x';
     $ret->{status_str} = 'Kickstart in progress';
     $ret->{status_class} = 'system-status-kickstart';
     $ret->{message} = 'view progress';
     $ret->{link} = "/rhn/systems/details/kickstart/SessionStatus.do?sid=${sid}";
   }
   elsif (not ($errata_count or $data->{OUTDATED_PACKAGES}) and not $package_actions_count) {
-    $ret->{image} = '/img/icon_up2date.gif';
-    $ret->{image_medium} = '/img/icon_up2date.gif';
+    $ret->{icon} = 'fa fa-check-circle fa-1-5x text-success';
     $ret->{status_str} = 'System is up to date';
     $ret->{status_class} = 'system-status-up-to-date';
   }
   elsif ($errata_count and not RHN::Server->unscheduled_errata($sid, $user->id)) {
-    $ret->{image} = '/img/icon_pending.gif';
-    $ret->{image_medium} = '/img/icon_pending.gif';
+    $ret->{icon} = 'fa fa-clock-o fa-1-5x';
     $ret->{status_str} = 'All updates scheduled';
     $ret->{status_class} = 'system-status-updates-scheduled';
     $ret->{message} = 'view actions';
     $ret->{link} = "/network/systems/details/history/pending.pxt?sid=${sid}";
   }
   elsif ($actions_count) {
-    $ret->{image} = '/img/icon_pending.gif';
-    $ret->{image_medium} = '/img/icon_pending.gif';
+    $ret->{icon} = 'fa fa-clock-o fa-1-5x';
     $ret->{status_class} = 'system-status-updates-scheduled';
     $ret->{status_str} = 'Actions scheduled';
     $ret->{message} = 'view actions';
     $ret->{link} = "/network/systems/details/history/pending.pxt?sid=${sid}";
   }
   elsif ($data->{SECURITY_ERRATA}) {
-    $ret->{image} = '/img/icon_crit_update.gif';
-    $ret->{image_medium} = '/img/icon_crit_update.gif';
+    $ret->{icon} = 'fa fa-exclamation-circle fa-1-5x text-danger';
     $ret->{status_str} = 'Critical updates available';
     $ret->{status_class} = 'system-status-critical-updates';
     $ret->{message} = 'update now';
     $ret->{link} = "/rhn/systems/details/ErrataConfirm.do?all=true&amp;sid=${sid}";
   }
   elsif ($data->{OUTDATED_PACKAGES}) {
-    $ret->{image} = '/img/icon_reg_update.gif';
-    $ret->{image_medium} = '/img/icon_reg_update.gif';
+    $ret->{icon} = 'fa fa-exclamation-triangle fa-1-5x text-warning';
     $ret->{status_str} = 'Updates available';
     $ret->{status_class} = 'system-status-updates';
     $ret->{message} = "more info";

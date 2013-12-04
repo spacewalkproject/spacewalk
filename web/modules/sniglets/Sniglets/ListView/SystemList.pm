@@ -567,19 +567,15 @@ sub row_callback {
 
     my $icon_data = Sniglets::Servers::system_status_info($pxt->user, $row);
 
-    my $image = PXT::HTML->img(-src => $icon_data->{image},
-			       -alt => $icon_data->{status_str},
-			       -title => $icon_data->{status_str},
- 			       -border => 0);
+    my $image = PXT::HTML->icon(-class => $icon_data->{icon},
+			        -title => $icon_data->{status_str});
 
     $row->{ADVISORY_ICON} = PXT::HTML->link($icon_data->{link}, $image);
 
     my $locked_data = Sniglets::Servers::system_locked_info($pxt->user, $row);
     if ($locked_data->{link}) {
-      my $locked_image = PXT::HTML->img(-src => $locked_data->{image},
-			       -alt => $locked_data->{status_str},
-			       -title => $locked_data->{status_str},
-			       -border => 0);
+      my $locked_image = PXT::HTML->icon(-class => $locked_data->{icon},
+			       -title => $locked_data->{status_str});
 
       $row->{ADVISORY_ICON} .= PXT::HTML->link($locked_data->{link}, $locked_image);
     }
@@ -590,10 +586,8 @@ sub row_callback {
     if (defined $row->{MONITORING_STATUS}) {
       my $icon_data = Sniglets::Servers::system_monitoring_info($pxt->user, $row);
 
-      my $image = PXT::HTML->img(-src => $icon_data->{image},
-                                 -alt => $icon_data->{status_str},
-                                 -title => $icon_data->{status_str},
-                                 -border => 0);
+      my $image = PXT::HTML->icon(-class => $icon_data->{icon},
+                                  -title => $icon_data->{status_str});
 
       $row->{MONITORING_ICON} = PXT::HTML->link($icon_data->{system_link}, $image);
     }
