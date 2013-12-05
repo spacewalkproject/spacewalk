@@ -118,6 +118,7 @@ public class PowerManagementConfigurationAction extends RhnAction implements Lis
         return SystemManager.entitledInSet(user, RhnSetDecl.SYSTEMS.getLabel(),
             new LinkedList<String>() {
                 {
+                    add(EntitlementManager.BOOTSTRAP_ENTITLED);
                     add(EntitlementManager.PROVISIONING_ENTITLED);
                 }
             });

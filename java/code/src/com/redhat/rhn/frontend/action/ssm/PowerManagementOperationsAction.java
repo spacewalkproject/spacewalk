@@ -111,6 +111,7 @@ public class PowerManagementOperationsAction extends RhnAction implements Listab
         return SystemManager.entitledInSet(user, RhnSetDecl.SYSTEMS.getLabel(),
             new LinkedList<String>() {
                 {
+                    add(EntitlementManager.BOOTSTRAP_ENTITLED);
                     add(EntitlementManager.PROVISIONING_ENTITLED);
                 }
             });
