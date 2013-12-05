@@ -18,8 +18,6 @@ import com.redhat.satellite.search.db.models.GenericRecord;
 import com.redhat.satellite.search.db.models.HardwareDevice;
 import com.redhat.satellite.search.index.builder.BuilderFactory;
 
-import org.apache.log4j.Logger;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,8 +26,6 @@ import java.util.Map;
  * @version $Rev$
  */
 public class IndexHardwareDevicesTask extends GenericIndexTask {
-
-    private static Logger log = Logger.getLogger(IndexHardwareDevicesTask.class);
 
     /**
      *  {@inheritDoc}
