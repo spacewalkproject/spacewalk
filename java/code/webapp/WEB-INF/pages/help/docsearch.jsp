@@ -30,10 +30,10 @@
             <label for="searchform"><bean:message key="docsearch.jsp.searchfor"/></label>
           </div>
           <div class="col-md-4">
-            <html:text property="search_string" 
-                         name="search_string" 
+            <html:text property="search_string"
+                         name="search_string"
                          styleId="searchform"
-                        value="${search_string}" 
+                        value="${search_string}"
                    styleClass="form-control"
                     accesskey="4"/>
           </div>
@@ -60,7 +60,7 @@
         </div>
       </div>
     </div>
-    
+
     <input type="hidden" name="submitted" value="true" />
   </html:form>
 

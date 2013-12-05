@@ -5,7 +5,7 @@
 </div>
 <ul class="list-group">
   <li class="list-group-item">
-    <bean:message key="configoverview.jsp.systemsmanaged"/> 
+    <bean:message key="configoverview.jsp.systemsmanaged"/>
     <a href="/rhn/configuration/system/ManagedSystems.do">
       <c:if test="${summary.systems == 1}">
         <bean:message key="system.common.onesystem" />
@@ -16,7 +16,7 @@
     </a>
   </li>
   <li class="list-group-item">
-    <bean:message key="configoverview.jsp.configchannels"/> 
+    <bean:message key="configoverview.jsp.configchannels"/>
     <a href="/rhn/configuration/GlobalConfigChannelList.do">
       <c:if test="${summary.channels == 1}">
         <bean:message key="configoverview.jsp.onechannel" />
@@ -27,7 +27,7 @@
     </a>
   </li>
   <li class="list-group-item">
-    <bean:message key="configoverview.jsp.centralfiles"/> 
+    <bean:message key="configoverview.jsp.centralfiles"/>
     <a href="/rhn/configuration/file/GlobalConfigFileList.do">
       <c:if test="${summary.global_files == 1}">
         <bean:message key="config.common.onefile" />
@@ -38,7 +38,7 @@
     </a>
   </li>
   <li class="list-group-item">
-    <bean:message key="configoverview.jsp.localfiles"/> 
+    <bean:message key="configoverview.jsp.localfiles"/>
     <a href="/rhn/configuration/file/LocalConfigFileList.do">
       <c:if test="${summary.local_files == 1}">
         <bean:message key="config.common.onefile" />

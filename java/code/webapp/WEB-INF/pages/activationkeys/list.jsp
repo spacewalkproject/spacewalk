@@ -34,7 +34,7 @@
 			<c:choose>
                <c:when test="${requestScope['default'].note != null}">
 				<a href="/rhn/activationkeys/Edit.do?tid=${requestScope['default'].id}">
-					     <c:out value="${requestScope['default'].note}"/></a>            					
+					     <c:out value="${requestScope['default'].note}"/></a>
                </c:when>
                <c:otherwise>
 				<a href="/rhn/activationkeys/Edit.do?tid=${requestScope['default'].id}">
@@ -61,7 +61,7 @@
         <td>
 			<c:choose>
                <c:when test="${requestScope['default'].usageLimit != null}">
-					<c:out value="${requestScope['default'].usageLimit}"/>            					
+					<c:out value="${requestScope['default'].usageLimit}"/>
                </c:when>
                <c:otherwise>
 					<bean:message key="kickstart.activationkeys.jsp.nousagelimit"/>
@@ -77,7 +77,7 @@
         <td>
 			<c:choose>
                <c:when test="${not requestScope['default'].disabled}">
-					<bean:message key="Enabled"/>            					
+					<bean:message key="Enabled"/>
                </c:when>
                <c:otherwise>
 					<bean:message key="Disabled"/>
@@ -118,7 +118,7 @@
 			<c:choose>
                <c:when test="${current.note != null}">
 				<a href="/rhn/activationkeys/Edit.do?tid=${current.id}">
-					     <c:out value="${current.note}"/></a>            					
+					     <c:out value="${current.note}"/></a>
                </c:when>
                <c:otherwise>
 				<a href="/rhn/activationkeys/Edit.do?tid=${current.id}">
@@ -127,13 +127,13 @@
             </c:choose>
 			<c:if test="${current.orgDefault}"><c:out value=" *"/></c:if>
 		</rl:column>
-		
+
 		<!-- Key -->
 		<rl:column bound="true"
 		           headerkey="kickstart.activationkeys.jsp.key"
 		           attr="token"
 					/>
-		
+
 
 		<!-- Usage Limit -->
 		<rl:column bound="false"
@@ -141,14 +141,14 @@
 					>
 			<c:choose>
                <c:when test="${current.usageLimit != null}">
-					    ${current.systemCount}/${current.usageLimit}   					
+					    ${current.systemCount}/${current.usageLimit}
                </c:when>
                <c:otherwise>
 					    ${current.systemCount}/<bean:message key="kickstart.activationkeys.jsp.nousagelimit"/>
                </c:otherwise>
             </c:choose>
-					
-		</rl:column>				
+
+		</rl:column>
 	</rl:list>
 <hr/>
 <div class="small-text">*<strong><bean:message key="Tip"/>:</strong> <bean:message key="activation-keys.jsp.is-default-key-tip"/></div>

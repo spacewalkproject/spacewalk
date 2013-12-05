@@ -34,7 +34,7 @@
  			<rl:decorator name="PageSizeDecorator"/>
  		<rl:decorator name="SelectableDecorator"/>
 	 		<rl:selectablecolumn value="${current.id}"/>
-	 			
+
   	   <!--Name Column -->
 		<rl:column sortable="true"
 				   bound="false"
@@ -50,18 +50,18 @@
 		    		${current.name}
 		    	</c:otherwise>
 		    </c:choose>
-			
-		</rl:column>		 			
+
+		</rl:column>
 	</rl:list>
- 			
+
 </div>
 <div class="text-right">
    <rhn:submitted/>
    <hr/>
-	
+
     <input type="submit"
     	name ="dispatch"
-	    value='<bean:message key="${param.action_key}"/>'/>		
+	    value='<bean:message key="${param.action_key}"/>'/>
 </div>
 
 </c:when>
@@ -71,7 +71,7 @@
   </strong></p>
 </div>
 </c:otherwise>
-</c:choose> 			
+</c:choose>
 </rl:listset>
 </body>
 </html>

@@ -45,7 +45,7 @@
 		<rl:column  headerkey="general.jsp.org.tbl.header1" filterattr="name">
 		   ${current.name}
 		</rl:column>
-		
+
 		<!-- Subscribed Systems column -->
 		<rl:column bound="true"
 		           headerkey="org.channel.subscribed.systems"

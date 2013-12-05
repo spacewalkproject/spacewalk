@@ -32,7 +32,7 @@
         <rhn:column header="sdcimportconfirm.jsp.filename">
 			${current.path}
       	</rhn:column>
-      	
+
       	<rhn:column header="sdcimportconfirm.jsp.channel"
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.configChannelId}"
                   renderUrl="${not empty current.configChannelType}">
@@ -54,7 +54,7 @@
             </c:otherwise>
           </c:choose>
         </rhn:column>
-      	
+
       </rhn:listdisplay>
     </rhn:list>
 

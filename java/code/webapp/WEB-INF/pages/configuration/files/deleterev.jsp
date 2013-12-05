@@ -36,6 +36,6 @@
 	  <html:submit><bean:message key="deleterev.jsp.submit" /></html:submit>
 	</div>
 </html:form>
-	
+
 </body>
 </html>

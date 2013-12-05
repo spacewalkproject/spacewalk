@@ -13,11 +13,11 @@
       </h3>
     </div>
 
-    <ul class="list-group">      
+    <ul class="list-group">
 
       <rhn:require acl="not user_role(satellite_admin)">
         <rhn:require acl="user_role(org_admin)">
-        <li class="list-group-item">          
+        <li class="list-group-item">
             <i class="fa fa-caret-right"></i> <a
               href="/rhn/systems/SystemEntitlements.do"> <bean:message
                   key="yourrhn.jsp.tasks.subscriptions" />
@@ -55,7 +55,7 @@
         <i class="fa fa-caret-right"></i> <a
             href="/rhn/help/client-config/en-US/index.jsp"> <bean:message
                 key="yourrhn.jsp.tasks.registersystem" />
-          </a>          
+          </a>
         </li>
       </c:if>
 

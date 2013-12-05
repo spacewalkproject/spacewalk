@@ -21,7 +21,7 @@
 	<rhn:list pageList="${requestScope.pageList}" noDataText="channelfiles.jsp.noFiles">
 		<rhn:listdisplay filterBy="deploy.jsp.filepath-header" set="${requestScope.set}">
       		<rhn:set value="${current.id}"/>
-      		
+
 			<rhn:column header="deploy.jsp.filepath-header">
         	  <cfg:file id="${current.id}"  path="${current.path}" type="${current.type}" />
     		</rhn:column>
@@ -31,11 +31,11 @@
 			|
 			[<a href="/rhn/configuration/file/CompareRevision.do?cfid=${current.id}"><bean:message key="config.common.compare" /></a>]
 			</rhn:column>
-			
+
 			<rhn:column header="deploy.jsp.lastmodified-header">
 			  <a href="/rhn/configuration/file/FileDetails.do?cfid=${current.id}">${current.modifiedDisplay}</a>
 			</rhn:column>
-			
+
 			<rhn:column header="deploy.jsp.current-header">
 			  <a href="/rhn/configuration/file/FileDetails.do?cfid=${current.id}">
 			    <bean:message key="config.common.revision" arg0="${current.latestConfigRevision}"/>

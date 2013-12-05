@@ -4,13 +4,13 @@
 		<c:forEach items="${items_list}" var="sublist" varStatus="loop">
 			<c:choose>
 				<c:when test ="${loop.count % 2 == 0}">
-					<c:set var ="style_class" value="list-column-even"/>		
+					<c:set var ="style_class" value="list-column-even"/>
 				</c:when>
 				<c:otherwise>
 					<c:set var ="style_class" value="list-column-odd"/>
 				</c:otherwise>
 			</c:choose>
-			
+
 			<c:if test = "${loop.last}">
 				<c:set var ="style_class" value="${style_class} last-column"/>
 			</c:if>
@@ -22,8 +22,8 @@
 		  			<c:choose>
 						<c:when test="${item.similar}"><li class="inactive"></c:when>
 						<c:otherwise><li></c:otherwise>
-					</c:choose>		  		
-				
+					</c:choose>
+
 		  		<c:choose>
 		  				<c:when test="${empty item.value}">
 		  					<c:set var ="value"><bean:message key="generic.jsp.none"/></c:set>

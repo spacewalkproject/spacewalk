@@ -65,7 +65,7 @@
 
         <rl:decorator name="ElaborationDecorator"/>
  		<rl:decorator name="PageSizeDecorator"/>
- 		
+
  		<c:if test="${requestScope.showApplyErrata == 'false'}">
   			<rl:column headerkey="emptyspace.jsp"  styleclass="text-align: center;">
     			<i class="fa fa-clock-o"></i>
@@ -78,7 +78,7 @@
 	 			selected="${current.selected}"
 	 			disabled="${not current.selectable}"/>
   		</c:if>
-  		
+
 		  <rl:column headerkey="erratalist.jsp.type" styleclass="text-align: center;"
 		  	bound="false">
 		      <c:if test="${current.securityAdvisory}">
@@ -91,21 +91,21 @@
 		        <i class="fa  spacewalk-icon-enhancement"></i>
 		      </c:if>
 		  </rl:column>
-		
+
 		  <rl:column headerkey="erratalist.jsp.advisory" bound="false"
 		  	sortattr="advisoryName"
 		  	sortable="true">
 		      <a href="/rhn/errata/details/Details.do?eid=${current.id}">
 		        ${current.advisoryName}</a>
 		  </rl:column>
-		
+
 		  <rl:column headerkey="erratalist.jsp.synopsis" bound="false"
 		  	sortattr="advisorySynopsis"
 			sortable="true"
 			filterattr="advisorySynopsis">
 		      ${current.advisorySynopsis}
 		  </rl:column>
-		
+
 		  <rl:column headerkey="errata.jsp.status" bound="false"
 		  	sortattr="currentStatusAndActionId[0]"
 			sortable="true">
@@ -127,16 +127,16 @@
 		            <bean:message key="affectedsystems.jsp.none"/>
 		      </c:if>
 		  </rl:column>
-		
+
 		  <rl:column headerkey="erratalist.jsp.updated" bound="false"
 		  	sortattr="updateDateObj"
 		  	sortable="true"
 		  	defaultsort="desc">
 		      ${current.updateDate}
-		  </rl:column>  		
-  		
+		  </rl:column>
+
 	</rl:list>
-	
+
 	<c:if test="${requestScope.showApplyErrata == 'true'}">
 		<div class="text-right">
     		<hr />
@@ -146,7 +146,7 @@
 		</div>
 	</c:if>
 
-	
+
 	<c:if test="${requestScope.showApplyErrata == 'true'}">
 		<rl:csv
 			name="errataList"

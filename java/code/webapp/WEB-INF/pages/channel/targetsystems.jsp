@@ -58,7 +58,7 @@
 			           headerkey="systemlist.jsp.channel"  >
 	           <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_list_fragment.jspf" %>
 			</rl:column>
-			
+
 			<!-- Entitlement Column -->
 			<rl:column sortable="false"
 					   bound="false"
@@ -68,10 +68,10 @@
 	                      <c:out value="${current.entitlementLevel}" escapeXml="false"/>
 			</rl:column>
 
-	
+
 		</rl:list>
 		<rhn:submitted/>
-		
+
 		  	<p align="right">
 				<input type="submit" name="dispatch"  value="<bean:message key='confirm'/>" </input>
 			</p>

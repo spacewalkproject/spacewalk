@@ -35,16 +35,16 @@
 		<%@ include file="/WEB-INF/pages/common/fragments/user/userlist_columns.jspf" %>
 
  	</rl:list>
- 	
+
  	<rl:csv dataset="pageList"
 		name="userConfirmList"
 		exportColumns="userLogin,userLastName,userFirstName,roleNames,lastLoggedIn"/>
-		
+
 	<div class="text-right">
     	<hr />
     	<input type="submit" name="dispatch" value="<bean:message key='userconfirm.jsp.confirm'/>" />
 	</div>
-	
+
 </rl:listset>
 
 </body>

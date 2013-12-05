@@ -13,12 +13,12 @@
 
 <h2> <img src="${cfg:channelHeaderIcon('central')}"
 					alt="${cfg:channelAlt('central')}"/>
-			<bean:message key="sdc.config.subscriptions.jsp.header"/></h2>	
+			<bean:message key="sdc.config.subscriptions.jsp.header"/></h2>
 <h3><bean:message key="ssm.config.subscribe.jsp.step"/></h3>
 <p><bean:message key="sdc.config.subscriptions.jsp.para1" /></p>
 <noscript>
 	<p><bean:message key="common.config.rank.jsp.warning.noscript"/></p>
-</noscript>	
+</noscript>
 <c:choose>
 <c:when test="${not empty pageList}">
 <html:form  method="POST" action="/systems/details/configuration/SubscriptionsSubmit.do?sid=${param.sid}">
@@ -51,7 +51,7 @@
       </div>
     </rhn:list>
 	<rhn:noscript/>
-	
+
 	<rhn:submitted/>
 	</html:form>
 </c:when>
@@ -60,6 +60,6 @@
 				arg0="/rhn/systems/details/configuration/ConfigChannelList.do?sid=${param.sid}"/>
 	</strong></p>
 </c:otherwise>
-</c:choose>	
+</c:choose>
 </body>
 </html>

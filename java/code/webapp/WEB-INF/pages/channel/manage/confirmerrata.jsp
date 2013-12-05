@@ -34,7 +34,7 @@
 										Product Enhancement Advisory:
 									</th>
 									<td>${enhance_count}</td>
-							</tr>							
+							</tr>
 							<tr>
 									<th><i class="fa fa-lock" title="<bean:message key='erratalist.jsp.securityadvisory'/>"></i>
 										Security Advisory:
@@ -44,14 +44,14 @@
 							<tr>
 									<th>Total Errata:</th>
 									<td>${bug_count + enhance_count + secure_count}</td>
-							</tr>																		
+							</tr>
 							<tr>
 								<td colspan="2" class="csv-download">
 									<rl:csv  name="errataList" dataset="errataList" exportColumns="advisory, advisorySynopsis, advisoryType, updateDate" />
 								</td>
 							</tr>
 						</table>
-						
+
 			</div>
 			<div class="right-column">
 						<h2>Package Summary:</h2>
@@ -79,21 +79,21 @@
 										<td colspan="2" class="csv-download">
 											<rl:csv  name="packageList" dataset="packageList" exportColumns="id,packageName,packageNvre,packageArch,summary" />
 										</td>
-									</tr>	
+									</tr>
 
 						</table>
 
-					
 
-					
+
+
 			</div>
-	
+
 			<hr />
 			<p align="right">
 				<input type="submit" name="dispatch"  value="<bean:message key='Clone Errata'/>"
 		            <c:choose>
 		                <c:when test="${totalSize < 1}">disabled</c:when>
-		            </c:choose>					
+		            </c:choose>
 				>
 			</p>
 

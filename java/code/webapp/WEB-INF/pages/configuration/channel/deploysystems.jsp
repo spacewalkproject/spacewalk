@@ -27,7 +27,7 @@
 		<rhn:list pageList="${requestScope.pageList}" noDataText="deploy.jsp.noSystems">
 			<rhn:listdisplay filterBy="system.common.systemName" set="${requestScope.set}">
 	      		<rhn:set value="${current.id}"/>
-	      		
+
 			<rhn:column header="system.common.systemName">
               <a href="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">
                 <i class="fa fa-desktop" title="<bean:message key='system.common.systemAlt' />"></i>
@@ -44,4 +44,4 @@
 </html:form>
 </body>
 </html>
-	
+

@@ -10,7 +10,7 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 <h2><img class="h2-image" src="${cfg:channelHeaderIcon('sandbox')}"/>
-<bean:message key="sdc.config.header.overview"/></h2>        					
+<bean:message key="sdc.config.header.overview"/></h2>
 <p><bean:message key="sdc.config.file_list.sandbox_description"
 				arg0="${fn:escapeXml(requestScope.system.name)}"
 				arg1="${rhn:localize('sdc.config.file_list.copy_to_global')}"/></p>
@@ -26,17 +26,17 @@
 	         >
 	    <rl:selectablecolumn value="${current.selectionKey}"
 						selected="${current.selected}"/>
-		
+
 		<!-- File name column -->
 		<rl:column bound = "false"
 				   sortable="true"
 		           headerkey="sdc.config.file_list.name"
 		           sortattr="path"
-					>		
+					>
 		     <cfg:file path="${current.path}"
-		     		type ="${current.configFileType}" nolink = "true"/>					
+		     		type ="${current.configFileType}" nolink = "true"/>
 		</rl:column>
-		
+
 		<!-- Actions -->
 		<rl:column bound="false"
 		           headerkey="sdc.config.file_list.actions">
@@ -50,7 +50,7 @@
 					>
 			       		<c:set var = "revisionLook">
 					       		<bean:message key="sdcconfigfiles.jsp.filerev"
-					       					arg0="${current.configRevision}"/>		
+					       					arg0="${current.configRevision}"/>
 			       		</c:set>
 						<cfg:file path ="${revisionLook}"
 								type ="${current.configFileType}"

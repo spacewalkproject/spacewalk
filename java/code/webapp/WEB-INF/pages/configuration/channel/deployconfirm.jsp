@@ -52,8 +52,8 @@
 		</rl:column>
 	</rl:list>
 	</div>
-	
-	
+
+
 	<h2><bean:message key="deployconfirm.jsp.systems-header2" /></h2>
 	<!--  Systems-list -->
 	<div>
@@ -68,7 +68,7 @@
 		</rl:column>
 	</rl:list>
 	</div>
-	
+
 	<c:if test="${not empty requestScope.selectedSystems && not empty requestScope.selectedFiles}">
 	<!--  Date picker  -->
 	<p><bean:message key="deployconfirm.jsp.widgetsummary" /></p>

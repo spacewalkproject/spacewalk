@@ -81,7 +81,7 @@
 		</c:when>
 		<c:otherwise>
 		<rl:selectablecolumn value="${current.id}"/>
-		
+
 		</c:otherwise>
 	</c:choose>
 
@@ -104,7 +104,7 @@
 	</rl:column>
 	<rl:column headerkey="systemlist.jsp.last_checked_in">
 		<rl:expandable><a href="/rhn/systems/DuplicateSystemsCompare.do?key=${current.key}&key_type=${key_type}"><bean:message key="Compare Systems"/></a></rl:expandable>
-		<rl:non-expandable>${current.lastCheckinString}</rl:non-expandable>						
+		<rl:non-expandable>${current.lastCheckinString}</rl:non-expandable>
 	</rl:column>
 
 </rl:list>

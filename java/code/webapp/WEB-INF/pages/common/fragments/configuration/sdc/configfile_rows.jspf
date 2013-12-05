@@ -15,12 +15,12 @@
               </c:otherwise>
             </c:choose>
       	</rhn:column>
-      	
+
       	<rhn:column header="sdcconfigfiles.jsp.revision"
                   url="/rhn/configuration/file/FileDetails.do?cfid=${current.configFileId}&crid=${current.configRevisionId}">
           <bean:message key="sdcconfigfiles.jsp.filerev" arg0="${current.configRevision}" />
         </rhn:column>
-      	
+
       	<rhn:column header="sdcconfigfiles.jsp.channel"
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.configChannelId}">
           <c:choose>

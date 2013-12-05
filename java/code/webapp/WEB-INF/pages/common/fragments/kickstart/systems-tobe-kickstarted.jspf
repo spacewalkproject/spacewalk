@@ -9,8 +9,8 @@
 				sortable="false"
 				headerkey="kickstart.jsp.system"
 				headerclass="thin-column">
-				
-            <c:if test="${not current.isBareMetal}">								
+
+            <c:if test="${not current.isBareMetal}">
       	       <a href="/rhn/systems/details/Overview.do?sid=${current.serverId}">
       														         ${current.serverName}</a>
     		</c:if>
@@ -26,22 +26,22 @@
 
   	<rl:column bound="false"
 				sortable="false"
-				headerkey="kickstart.jsp.status">		  	
-        	 <c:if test="${not current.isBareMetal}">								
+				headerkey="kickstart.jsp.status">
+        	 <c:if test="${not current.isBareMetal}">
       	       <a href="/rhn/systems/details/kickstart/SessionStatus.do?sid=${current.serverId}">
       	                                                      ${current.description}</a>
     		</c:if>
     		<c:if test="${current.isBareMetal}">
     			${current.description}
-    		</c:if>   		
+    		</c:if>
        </rl:column>
 
   	<rl:column bound="false"
 				sortable="false"
 				headerkey="kickstart.jsp.lastchange"
-				>		  	
+				>
        		${current.elapsedTimeAfterModify}
     </rl:column>
-					
-   	
-</rl:list>   	 					
+
+
+</rl:list>

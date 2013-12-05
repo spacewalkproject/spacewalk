@@ -27,7 +27,7 @@
          filter="com.redhat.rhn.frontend.action.multiorg.OrgListFilter"
          emptykey="orglist.jsp.noOrgs">
 
-	<!-- Organization name column -->		
+	<!-- Organization name column -->
 	<rl:column bound="false"
 	           sortable="true"
 	           headerkey="org.nopunc.displayname"
@@ -47,7 +47,7 @@
 		  <c:out value="${current.sharedChannels}" />
 		</c:otherwise>
 		</c:choose>
-	</rl:column>	
+	</rl:column>
 </rl:list>
 
 </rl:listset>

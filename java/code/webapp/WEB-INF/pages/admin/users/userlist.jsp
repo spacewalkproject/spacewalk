@@ -29,7 +29,7 @@
          filter="com.redhat.rhn.frontend.action.multiorg.UserListFilter"
          emptykey="activelist.jsp.noUsers"
  		 alphabarcolumn="userLogin">
- 		
+
 
 
 		<rl:column bound="false"
@@ -37,9 +37,9 @@
 			headerkey="username.nopunc.displayname"
 			sortattr="userLogin">
 			<c:out value="<a href=\"UserDetails.do?uid=${current.id}\">${current.userLogin}</a>" escapeXml="false" />
-		</rl:column> 		
- 		
- 		
+		</rl:column>
+
+
  		<%@ include file="/WEB-INF/pages/common/fragments/user/userlist_columns.jspf" %>
 
         <rl:column sortable="false" headerkey="userlist.jsp.status">

@@ -51,10 +51,10 @@
 		<rl:column headerkey="lastCheckin">
 		      ${requestScope.dateMap[current.id]}
 		</rl:column>
-		
-		
+
+
 	</rl:list>
- 			
+
 </div>
 </rl:listset>
 </body>

@@ -15,7 +15,7 @@
 <div>
 	<form method="post" action="/rhn/kickstart/cobbler/CobblerSnippetDelete.do">
     <rhn:csrf />
-<h2><bean:message key="snippetcreate.jsp.contents.header"/></h2>	
+<h2><bean:message key="snippetcreate.jsp.contents.header"/></h2>
     <table class="details">
     <tr>
         <th>

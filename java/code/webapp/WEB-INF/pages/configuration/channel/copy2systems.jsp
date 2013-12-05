@@ -43,7 +43,7 @@
 		<input type="submit"
 				name="dispatch"
 				value="${rhn:localize('copy2systems.jsp.doCopy')}"
-				/>	
+				/>
 	</div>
 	<rhn:submitted/>
 </rl:listset>

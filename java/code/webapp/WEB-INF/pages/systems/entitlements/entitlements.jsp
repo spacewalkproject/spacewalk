@@ -48,7 +48,7 @@
 	        ${current.addOnEntitlementLevel}
 	    </rhn:column>
 
-	    <rhn:column header="systemlist.jsp.channel">		
+	    <rhn:column header="systemlist.jsp.channel">
 	    <c:choose>
     		<c:when test="${current.channelId == null}">
         		<bean:message key="none.message"/>
@@ -65,7 +65,7 @@
 
 <!--  Entitlements Section -->
     <c:if test="${requestScope.showCommands}">
-    	<hr/>		
+    	<hr/>
     	<div class="panel panel-default">
 		  <table class="table">
 			<!--  Base Entitlement Section -->
@@ -82,12 +82,12 @@
 				    	      		<bean:message key="systementitlements.jsp.set_to_manage_entitled" />
 				        		</html:submit>
 						  </c:if>
-	
+
 				          <c:if test="${requestScope.showUnentitled}">
 						        <html:submit styleClass="btn btn-default" property="dispatch">
 	  					            <bean:message key="systementitlements.jsp.set_to_unentitled" />
 						        </html:submit>
-						  </c:if>			
+						  </c:if>
 				  </td>
 			</tr>
 			<!--  Add On Entitlement Section -->

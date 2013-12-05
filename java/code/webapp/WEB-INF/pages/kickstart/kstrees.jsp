@@ -24,7 +24,7 @@
       <rhn:csrf />
       <rhn:submitted />
 	<rl:list emptykey="kickstart.distributions.jsp.nolists"
-      			alphabarcolumn="label">      			
+      			alphabarcolumn="label">
       		<rl:decorator name="PageSizeDecorator"/>
 		<rl:column
 			bound="false"

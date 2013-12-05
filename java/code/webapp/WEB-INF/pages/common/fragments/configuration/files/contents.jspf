@@ -8,13 +8,13 @@
       <c:when test="${revision.configContent.binary}">
 		<strong><bean:message key="filedetails.contents.jspf.binary-header"/></strong><br />
 		<bean:message key="filedetails.contents.jspf.binary-edit" />
-		
+
 		<bean:message key="filedetails.contents.jspf.binary-canupload"/>
       </c:when>
       <c:when test="${toolarge}">
 		<strong><bean:message key="filedetails.contents.jspf.toolarge-header"/></strong><br />
 		<bean:message key="filedetails.contents.jspf.toolarge-edit" arg0="${requestScope.maxEditBytes}"/>
-		
+
 		<strong><bean:message key="filedetails.contents.jspf.download-header"/></strong><br />
 		<bean:message key="filedetails.contents.jspf.download"
 			arg0="/rhn/configuration/file/FileDownload.do?crid=${revision.id}&amp;cfid=${revision.configFile.id}"
@@ -37,7 +37,7 @@
 	  <c:when test="${toolarge}">
 		<strong><bean:message key="filedetails.contents.jspf.toolarge-header"/></strong><br />
 		<bean:message key="filedetails.contents.jspf.toolarge-display" arg0="${requestScope.maxbytes}"/>
-		
+
 		<strong><bean:message key="filedetails.contents.jspf.download-header"/></strong><br />
 		<bean:message key="filedetails.contents.jspf.download"
 			arg0="/rhn/configuration/file/FileDownload.do?crid=${revision.id}&amp;cfid=${revision.configFile.id}"

@@ -37,7 +37,7 @@
             <c:out value="${current.name}" escapeXml="true" />
         </a>
 	</rl:column>
-	
+
 	<!-- Channels we're allowed to subscribe to -->
 	<rl:column bound="false"
 	           sortable="false"
@@ -46,7 +46,7 @@
 	  	<c:out value="${chan}" /><br />
 	  </c:forEach>
 	</rl:column>
-	
+
 	<!--  Channels we're allowed to unsubscribe from -->
 	<rl:column bound="false"
 			   sortable="false"

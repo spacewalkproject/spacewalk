@@ -33,10 +33,10 @@
  <rhn:require acl="user_role(org_admin) or user_role(system_group_admin)">
 <div class="text-right">
    <rhn:submitted/>
-   <hr/>	
+   <hr/>
     <input type="submit"
     	name ="dispatch"
-	    value='<bean:message key="${param.action_key}"/>'/>		
+	    value='<bean:message key="${param.action_key}"/>'/>
 </div>
 </rhn:require>
 </c:if>

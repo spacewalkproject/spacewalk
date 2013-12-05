@@ -34,24 +34,24 @@
  		<rl:selectablecolumn value="${current.id}"
 	 		selected="${current.selected}"
 	 		disabled="${not current.selectable}"/>
- 		
+
 		<rl:column bound="false"
 			sortable="true"
 			headerkey="username.nopunc.displayname"
 			sortattr="userLogin">
 			<c:out value="<a href=\"UserDetails.do?uid=${current.id}\">${current.userLogin}</a>" escapeXml="false" />
-		</rl:column> 		
- 		
- 		
+		</rl:column>
+
+
 		<rl:decorator name="PageSizeDecorator"/>
- 		
+
  		<%@ include file="/WEB-INF/pages/common/fragments/user/userlist_columns.jspf" %>
 
 		<rl:column
-	    	headerkey="disabledlist.jsp.disabledBy">	     	
+	    	headerkey="disabledlist.jsp.disabledBy">
 	     	<c:out value="${current.changedByFirstName} ${current.changedByLastName}" escapeXml="false"/>
 	    </rl:column>
-	     	
+
 	    <rl:column headerkey="disabledlist.jsp.disabledOn"
 	    	bound="true"
 	    	attr="changeDateString"

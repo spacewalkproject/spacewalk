@@ -32,7 +32,7 @@
 		 path = "${path}"
 		 type = "${revisionBean.configRevision.configFileType.label}"
 		 nolink="true"
-				/></strong></c:set>				
+				/></strong></c:set>
 <c:set var="channel"
 		value="${revisionBean.configRevision.configFile.configChannel}"/>
 
@@ -76,7 +76,7 @@
 			<td>
 			<pre style="overflow: scroll; width: 100%; height: 400px;"><c:out value="${revisionBean.configRevisionActionResult.resultContents}"/></pre>
 			</td>
-	</tr>	
+	</tr>
 </table>
 </p>
 </body>

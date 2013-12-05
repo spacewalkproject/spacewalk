@@ -35,7 +35,7 @@
 		        ${current.nvre}</a>
 		  </rl:column>
 	</rl:list>
- 			
+
 <c:if test="${not empty requestScope.pageList}">
       <div class="text-right">
         <div align="left">
@@ -90,8 +90,8 @@
 			    value='<bean:message key="installconfirm.jsp.confirm"/>'/>
       </div>
 
-      <input type="hidden" name="sid" value="${param.sid}" /></c:if> 			
- 			
+      <input type="hidden" name="sid" value="${param.sid}" /></c:if>
+
 </rl:listset>
 </body>
 </html>

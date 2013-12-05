@@ -52,7 +52,7 @@
           <a href="/rhn/systems/details/Overview.do?sid=${current.virtualSystemId}">
             <c:out value="${current.serverName}" escapeXml="true" />
           </a>
-        </c:when>        
+        </c:when>
         <c:otherwise>
           <c:out value="${current.serverName}" escapeXml="true" />
         </c:otherwise>
@@ -85,7 +85,7 @@
                     <a href="/rhn/channels/ChannelDetail.do?cid=${current.channelId}">
             ${current.channelLabels}
           </a>
-        </c:when>      
+        </c:when>
         <c:otherwise>
             ${current.channelLabels}
         </c:otherwise>

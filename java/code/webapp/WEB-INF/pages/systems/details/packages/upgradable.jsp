@@ -40,7 +40,7 @@
 		  <rl:column headerkey="upgradable.jsp.latest" bound="false"
 			sortattr="nvrea"
 			sortable="true" filterattr="nvrea">
-		  	
+
 		      <a href="/rhn/software/packages/Details.do?sid=${param.sid}&amp;id_combo=${current.idCombo}">
 		        ${current.nvrea}</a>
 		  </rl:column>
@@ -66,16 +66,16 @@
       </c:forEach>
     </rl:column>
 </rl:list>
- 			
+
 <c:if test="${not empty requestScope.all}">
 <div class="text-right">
    <rhn:submitted/>
    <hr/>
     <input type="submit"
     	name ="dispatch"
-	    value='<bean:message key="upgradable.jsp.upgrade"/>'/>		
+	    value='<bean:message key="upgradable.jsp.upgrade"/>'/>
 </div>
-</c:if> 			
+</c:if>
 </rl:listset>
 </body>
 </html>

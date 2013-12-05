@@ -12,7 +12,7 @@
 		    	value="${requestScope.copy_to_global}"/>
 		</rhn:require>
 	</c:if>
-	
+
 	<c:if test="${not requestScope.server_import}" >
 	    <input type="submit"
 	    	name ="dispatch"
@@ -27,8 +27,8 @@
 		<rhn:require acl="user_role(config_admin)">
 		    <input type="submit"
 		    	name ="dispatch"
-			    value="${requestScope.delete_files}"/>		
-       </rhn:require>	
+			    value="${requestScope.delete_files}"/>
+       </rhn:require>
 	</c:if>
 </div>
 </c:if>

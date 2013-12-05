@@ -13,7 +13,7 @@
 			<th><bean:message key="deploy.jsp.deploy-name" /></th>
 			<td><bean:message key="deploy.jsp.deploy" arg0="${revision.revision}"
 				arg1="/rhn/configuration/file/FileDetails.do?cfid=${file.id}&crid=${revision.id}"
-				arg2="${system}"	
+				arg2="${system}"
 				arg3="/rhn/systems/details/configuration/Overview.do?system_detail_navi_node=selected_configfiles&sid=${sid}" /></td>
 		</tr>
 		<tr>
@@ -63,14 +63,14 @@
     <hr />
     <div class="text-right"><html:submit property="dispatch">
     <bean:message key="deploy.jsp.deploybutton" />
-  </html:submit></div>			
+  </html:submit></div>
 		</c:when>
 		<c:otherwise>
 	            <p><strong><bean:message key="system.sdc.missing.config_deploy1"/></strong></p>
 	            <p><strong><bean:message key="system.sdc.missing.config_deploy2"
 	            		arg0="/rhn/configuration/system/TargetSystems.do"
 	            		arg1="${rhn:localize('targetsystems.jsp.toolbar')}"
-	            		arg2="${rhn:localize('targetsystems.jsp.enable')}"/></strong></p>		
+	            		arg2="${rhn:localize('targetsystems.jsp.enable')}"/></strong></p>
 		</c:otherwise>
 	</c:choose>
 </html:form>

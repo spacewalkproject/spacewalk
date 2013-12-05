@@ -66,7 +66,7 @@
 
     <c:if test="${counter == 1}">
       </tr>
-    </c:if> 
+    </c:if>
     </table>
     </div>
 

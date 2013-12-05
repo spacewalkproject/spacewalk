@@ -55,10 +55,10 @@
 			<c:choose>
             	<c:when test="${empty current.maxMembers or current.maxMembers == 0}">
             		<bean:message key="None Allocated"/>
-            	</c:when>	
+            	</c:when>
             	<c:otherwise>
             	${current.currentMembers}/${current.maxMembers}
-            	</c:otherwise>            	
+            	</c:otherwise>
             </c:choose>
 		</rl:column>
 
@@ -91,13 +91,13 @@
 				<c:choose>
 	            	<c:when test="${empty current.maxFlex or current.maxFlex == 0}">
 	            		<bean:message key="None Allocated"/>
-	            	</c:when>	
+	            	</c:when>
 	            	<c:otherwise>
 	            	${current.currentFlex}/${current.maxFlex}
-	            	</c:otherwise>            	
+	            	</c:otherwise>
 	            </c:choose>
 			</rl:column>
-			
+
 	        <rl:column
 	            headerkey="Flex Proposed Total">
 		       	<c:choose>
@@ -146,7 +146,7 @@
         </th>
         <td>
             ${maxMem}
-            
+
             <rhn:tooltip key="softwareEntitlementSubs.systemWideCounts.totaltip"/>
              </span>
         </td>
@@ -181,7 +181,7 @@
         </th>
         <td>
             ${maxFlex}
-            
+
             <rhn:tooltip key="softwareEntitlementSubs.systemWideCounts.totaltip"/>
         </td>
     </tr>

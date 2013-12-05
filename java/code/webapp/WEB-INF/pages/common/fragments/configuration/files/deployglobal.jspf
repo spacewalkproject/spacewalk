@@ -21,7 +21,7 @@
 
 	<rhn:list pageList="${requestScope.pageList}"
 		noDataText="globalDeploy.jsp.noSystems">
-		
+
 		<rhn:listdisplay filterBy="system.common.systemName" set="${requestScope.set}">
       		<rhn:set value="${current.id}" disabled="${not current.selectable}"/>
 			<rhn:column header="globaldeploy.jsp.systemName-header">
@@ -55,7 +55,7 @@
 		</rhn:listdisplay>
 	</rhn:list>
 	<br/>
-	
+
 	<div class="small-text">*  <bean:message key="deployglobal.jspf.not_deployable"
 	           		arg0="/rhn/configuration/system/TargetSystems.do"
 	            		arg1="${rhn:localize('targetsystems.jsp.toolbar')}"

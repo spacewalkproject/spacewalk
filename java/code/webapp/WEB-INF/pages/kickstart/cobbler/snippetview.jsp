@@ -42,7 +42,7 @@
         </th>
         <td>
 				<bean:message key="cobbler.snippet.default"/><br/>
-            <rhn:tooltip key ="cobbler.snippet.default.tip"/>	
+            <rhn:tooltip key ="cobbler.snippet.default.tip"/>
         </td>
      </tr>
      </table>

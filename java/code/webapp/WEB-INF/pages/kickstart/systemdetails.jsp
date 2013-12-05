@@ -6,7 +6,7 @@
 
 <head>
 	<script language="javascript" type="text/javascript">
-		
+
 		function toggleIFText(ctl) {
 			var toDisable = null;
 			var toEnable = null;
@@ -16,7 +16,7 @@
 			}
 			else {
 				toDisable = document.getElementById("dhcpNetworkIf");
-				toEnable = document.getElementById("staticNetworkIf");		
+				toEnable = document.getElementById("staticNetworkIf");
 			}
 			toDisable.disabled = true;
 			toEnable.disabled = false;
@@ -33,7 +33,7 @@
         }
 
 	</script>
-	
+
 <%
 boolean dhcpIfDisabled = Boolean.valueOf(
 	(String) request.getAttribute("dhcpIfDisabled")).booleanValue();

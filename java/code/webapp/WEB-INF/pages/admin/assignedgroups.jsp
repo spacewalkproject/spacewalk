@@ -34,14 +34,14 @@
 		<rl:column sortable="true"
 					headerkey="assignedgroups.jsp.group"
 					sortattr="name">
-					
+
 		<c:out value="<a href=\"/network/systems/groups/details.pxt?sgid=${current.id}\">${current.name}</a>" escapeXml="false" />
 	    </rl:column>
 
 		<rl:column sortable="true"
 					headerkey="grouplist.jsp.systems"
 					sortattr="serverCount">
-					
+
 						<c:out value="<a href=\"/rhn/groups/ListRemoveSystems.do?sgid=${current.id}\">${current.serverCount}</a>" escapeXml="false" />
 	    </rl:column>
 

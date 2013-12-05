@@ -43,7 +43,7 @@
     <rhn:csrf />
 	<rhn:submitted/>
 	<input type="hidden" name="oid" value="${param.oid}"/>
-	
+
     <rl:list dataset="pageList"
 			name="entitlement"
 	alphabarcolumn="name"
@@ -64,7 +64,7 @@
             	</c:when>
             	<c:otherwise>
           			<c:out value="${current.currentMembers} / ${current.maxMembers}" />
-            	</c:otherwise>            	
+            	</c:otherwise>
             </c:choose>
         </rl:column>
 
@@ -97,7 +97,7 @@
             	</c:when>
             	<c:otherwise>
          	 	<c:out value="${current.currentFlex} / ${current.maxFlex}" />
-            	</c:otherwise>            	
+            	</c:otherwise>
             </c:choose>
 
 
@@ -115,7 +115,7 @@
 		                  <c:when test="${param.oid != 1}">
 		                    <input name="${current.flexKey}" value="${requestScope.subscriptions[current.flexKey]}" type="text" size = "13"
 		                    onkeydown="return blockEnter(event)">
-		                    
+
 		                    <p><small><bean:message key="orgsystemsubs.jsp.possible_vals"
 		                      arg0="0" arg1="${current.maxAvailableFlex}"/></small></p>
 		                  </c:when>

@@ -5,7 +5,7 @@
 <rhn:list pageList="${requestScope.pageList}"
 	          noDataText="summary.jsp.noActions">
   <rhn:listdisplay>
-	 	
+
     <rhn:column header="summary.jsp.status">
       <c:if test="${current.success}">
         <i class="fa fa-check text-success" title="<bean:message key="summary.jsp.okAlt" />"></i>
@@ -19,7 +19,7 @@
 	  url="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">
 	  <i class="fa fa-desktop" title=""></i> ${current.name}
     </rhn:column>
-      	
+
     <rhn:column header="summary.jsp.error">
       ${current.errorDisplay}
     </rhn:column>

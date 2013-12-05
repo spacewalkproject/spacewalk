@@ -23,7 +23,7 @@
   </p>
 	<noscript>
 		<p><bean:message key="common.config.rank.jsp.warning.noscript"/></p>
-	</noscript>  				
+	</noscript>
 </div>
 <html:form method="POST"
                action="/systems/ssm/config/Rank.do">
@@ -51,7 +51,7 @@
 			</td>
 			</tr>
 		</table>
-		
+
 	<div class="text-right">
       <hr />
       <html:hidden property="dispatch" value="${rhn:localize('ssm.config.rank.jsp.apply')}"/>

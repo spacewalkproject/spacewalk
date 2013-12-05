@@ -32,7 +32,7 @@
 
 <table class="details" width="80%">
 	<tr><bean:message key="channel.manage.errata.redhatmsg" /><br><br></tr>
-	
+
 	 <tr>
   		<th>Package Association:</th>
   		<td>
@@ -40,7 +40,7 @@
 			   			   <bean:message key="channel.manage.errata.packageassocmsg" />
 		 </td>
    </tr>
-	
+
 	<tr><th width="10%">Channel Version: </th>
 	<td width="40%">
 
@@ -51,9 +51,9 @@
 
   <select name="selected_version">
    		<c:forEach var="option" items="${version_list}">
-   					<option value="${option.version}" <c:if test="${option.selected eq true}">selected = "selected"</c:if>>${option.name}</option>	
-		</c:forEach>  	
-		</optgroup>	
+   					<option value="${option.version}" <c:if test="${option.selected eq true}">selected = "selected"</c:if>>${option.name}</option>
+		</c:forEach>
+		</optgroup>
   </select>
 
   </td>
@@ -68,7 +68,7 @@
 </c:if>
 
 		<c:if test="${channel_list != null}">
-	   		
+
 			  <tr> <th width="10%">Channel:</th><td width="40%">
 			  <select name="selected_channel">
 				    <optgroup>
@@ -82,9 +82,9 @@
 			   				<c:otherwise>
 								<option value="${option.id}"   <c:if test="${option.selected eq true}">selected = "selected"</c:if> >${option.name}</option>
 							</c:otherwise>
-						</c:choose>		
-					</c:forEach>  	
-					</optgroup>	
+						</c:choose>
+					</c:forEach>
+					</optgroup>
 			  </select>
 
 			  </td>
@@ -106,10 +106,10 @@
 		  			filter="com.redhat.rhn.frontend.action.channel.manage.ErrataFilter">
 		  		<rl:decorator name="ElaborationDecorator"/>
 		  		<rl:decorator name="PageSizeDecorator"/>
-		  		
+
 				<rl:selectablecolumn value="${current.selectionKey}"
 					selected="${current.selected}"/>
-		  		
+
 				<rl:column sortable="true"
 			           headerkey="exportcolumn.errataAdvisoryType"
 			           sortattr="advisoryType"
@@ -124,10 +124,10 @@
 							        <c:if test="${current.productEnhancement}">
 							            <i class="fa  spacewalk-icon-enhancement" title="<bean:message key='erratalist.jsp.productenhancementadvisory'/>"></i>
 							        </c:if>
-				</rl:column>	  		
-		  		
-		  		
-		  		
+				</rl:column>
+
+
+
 				<rl:column sortable="true"
 				           headerkey="erratalist.jsp.advisory"
 				           sortattr="advisory">
@@ -135,18 +135,18 @@
 		                      <c:out value="${current.advisory}"/>
 		                      </a>
 				</rl:column>
-				
+
 				<rl:column sortable="true"
 				           headerkey="erratalist.jsp.synopsis"
 				           sortattr="advisorySynopsis">
 		                      <c:out value="${current.advisorySynopsis}"/>
-				</rl:column>				
+				</rl:column>
 				<rl:column sortable="true"
 				           headerkey="channel.manage.errata.updatedate"
 				           sortattr="updateDateObj">
 		                      <c:out value="${current.updateDate}"/>
-				</rl:column>						
-				
+				</rl:column>
+
 			  </rl:list>
 
   </c:when>

@@ -15,7 +15,7 @@
   <bean:message key="inactivelist.jsp.header"/>
 </rhn:toolbar>
 <c:set var="showLastCheckinSort" value="true"/>
-	
+
 <rl:listset name="systemListSet" legend="system">
     <rhn:csrf />
     <rhn:submitted />

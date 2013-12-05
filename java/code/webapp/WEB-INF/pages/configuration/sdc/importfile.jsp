@@ -52,17 +52,17 @@
       <rhn:listdisplay set="${requestScope.set}"
                        filterBy="sdcimportfile.jsp.filename">
         <rhn:set value="${current.id}"/>
-	 	
+
         <rhn:column header="sdcimportfile.jsp.filename"
 			url="/rhn/configuration/file/FileDetails.do?crid=${current.configRevisionId}&cfid=${current.configFileId}">
 			${current.path}
       	</rhn:column>
-      	
+
       	<rhn:column header="sdcimportfile.jsp.channel">
 			<cfg:channel id="${current.configChannelId}"   name="${current.channelNameDisplay}"
 						 type="${current.configChannelType}"/>
       	</rhn:column>
-      	
+
       </rhn:listdisplay>
   </rhn:list>
   <div class="text-right">

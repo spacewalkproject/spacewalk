@@ -15,7 +15,7 @@
   <bean:message key="proxylist.jsp.header"/>
 </rhn:toolbar>
 
-	
+
 <rl:listset name="systemListSet" legend="system">
     <rhn:csrf />
     <rhn:submitted />

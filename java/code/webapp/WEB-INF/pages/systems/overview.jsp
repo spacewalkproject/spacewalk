@@ -29,7 +29,7 @@
 	    <%@ include file="/WEB-INF/pages/common/fragments/systems/group_listdisplay.jspf" %>
 	</c:if>
 </rl:listset>
-	
+
 </body>
 </html>
 

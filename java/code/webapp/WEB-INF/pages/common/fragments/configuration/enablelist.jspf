@@ -2,13 +2,13 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean"	prefix="bean"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-	 	
+
 <rhn:column header="system.common.systemName"
             url="/rhn/systems/details/Overview.do?sid=${current.id}">
   <i class="fa fa-desktop"></i>
   ${fn:escapeXml(current.name)}
 </rhn:column>
-      	
+
 <rhn:column header="targetsystems.jsp.capable">
   <c:if test="${current.capable}">
     <bean:message key="yes"/>
@@ -17,7 +17,7 @@
     <bean:message key="no"/>
   </c:if>
 </rhn:column>
-      	
+
 <rhn:column header="targetsystems.jsp.action">
   <rhn:require acl="not user_role(org_admin)">
     <c:if test="${not current.provisioning}">

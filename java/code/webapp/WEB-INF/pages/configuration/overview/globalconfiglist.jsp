@@ -40,7 +40,7 @@
       <rhn:column header="globalconfiglist.jsp.files"
                   url="/rhn/configuration/ChannelFiles.do?ccid=${current.id}"
                   renderUrl="${current.fileCount > 0}">
-          <c:out value="${current.fileCountsMessage}"/>        
+          <c:out value="${current.fileCountsMessage}"/>
       </rhn:column>
 
       <rhn:column header="globalconfiglist.jsp.systems"

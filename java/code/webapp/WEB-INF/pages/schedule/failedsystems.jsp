@@ -38,7 +38,7 @@
       <input type="hidden" name="formvars" value="aid" />
 
     </rhn:list>
-  	
+
   </form>
 </body>
 </html>

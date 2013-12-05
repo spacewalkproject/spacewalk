@@ -6,7 +6,7 @@
 <html>
     <body>
         <%@ include file="/WEB-INF/pages/common/fragments/configuration/channel/details-header.jspf"%>
-            
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4><bean:message key="addfiles.jsp.upload-link" /> </h4>

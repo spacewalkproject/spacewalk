@@ -77,7 +77,7 @@
       <td><strong><bean:message key="diff.jsp.selinux" /></strong></td>
       <td>${myrev.configInfo.selinuxCtx}</td>
     </tr>
-  </c:if>  
+  </c:if>
 
   <c:if test="${difftargetpath== 'true'}">
     <tr>
@@ -85,7 +85,7 @@
       <td>${myrev.configInfo.targetFileName.path}</td>
     </tr>
   </c:if>
-  
+
   <c:if test="${diffdelim == 'true'}">
     <tr>
       <td><strong><bean:message key="diff.jsp.startDelim" /></strong></td>

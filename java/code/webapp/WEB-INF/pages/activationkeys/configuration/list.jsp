@@ -49,15 +49,15 @@
 		      <rl:column headerkey="sdc.configlist.jsp.rank"
 		      attr="position" bound="true"/>
 		</rl:list>
-	 			
+
 	<c:if test="${not empty requestScope.all}">
 	<div class="text-right">
 	   <rhn:submitted/>
 	   <hr/>
-		
+
 	    <input type="submit"
 	    	name ="dispatch"
-		    value='<bean:message key="sdc.configlist.jsp.unsubscribe"/>'/>		
+		    value='<bean:message key="sdc.configlist.jsp.unsubscribe"/>'/>
 	</div>
 	</c:if>
 	</c:when>
@@ -66,7 +66,7 @@
 		arg0="/rhn/activationkeys/configuration/Subscribe.do?tid=${param.tid}"/></strong>
 	</p>
 	</c:otherwise>
-	</c:choose> 			
+	</c:choose>
 	</rl:listset>
 </div>
 </div>

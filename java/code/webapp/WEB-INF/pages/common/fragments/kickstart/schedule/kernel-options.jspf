@@ -15,7 +15,7 @@
 				<c:set var="distro_url">(${requestScope.distro.label})</c:set>
         		</c:otherwise>
         	</c:choose>
-        	
+
 		  <html:radio value="distro" property="kernelParamsType" onclick="form.kernelParamsId.disabled = true;">
               <bean:message key="kickstart.schedule.kernel.options.distro"/>
           </html:radio> ${distro_url}:<br/>

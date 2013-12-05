@@ -8,7 +8,7 @@
     <body>
         <rhn:toolbar base="h1" icon="fa-key"
         helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-cust-info">
-            <bean:message key="system.jsp.customkey.createtitle"/>    
+            <bean:message key="system.jsp.customkey.createtitle"/>
         </rhn:toolbar>
 
         <p>

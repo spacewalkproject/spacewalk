@@ -35,7 +35,7 @@
 			emptykey="nosystems.message"
 			alphabarcolumn="name"
 			filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemOverviewFilter">
-			
+
 			<rl:decorator name="ElaborationDecorator"/>
 			<rl:decorator name="SelectableDecorator"/>
 			<rl:decorator name="PageSizeDecorator"/>
@@ -80,19 +80,19 @@
 		    	${current.entitlementLevel}
 			</rl:column>
 		</rl:list>
-		
+
 		<div class="text-right">
     		<hr />
     		<html:submit property="dispatch">
       			<bean:message key="affectedsystems.jsp.apply"/>
     		</html:submit>
 		</div>
-		
+
 		<rl:csv dataset="pageList"
 			name="systemAffectedCSVExport"
 			exportColumns="name, status, channelLabels, entitlementLevel"
 			header="${errata.advisoryName} - ${errata.advisoryType}" />
-			
+
 			<rhn:submitted/>
 	</rl:listset>
 

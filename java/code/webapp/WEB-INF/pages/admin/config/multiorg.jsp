@@ -55,7 +55,7 @@
           <a href="/rhn/admin/multiorg/Users.do"><bean:message key="general.jsp.org.tbl.link3"/></a>.
           </p>
         </td>
-    	</tr>	
+    	</tr>
       <tr>
         <td colspan="3">
           <p>

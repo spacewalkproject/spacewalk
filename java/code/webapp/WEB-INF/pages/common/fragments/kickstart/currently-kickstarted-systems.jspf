@@ -1,4 +1,4 @@
-<h2 style="clear: both; width: 100%; padding-top: 20px;"><bean:message key="kickstart.jsp.current"/></h2>	
+<h2 style="clear: both; width: 100%; padding-top: 20px;"><bean:message key="kickstart.jsp.current"/></h2>
 
 <rl:list dataset="sysKickstarting"
 			 emptykey="kickstartoverview.jsp.nocurrentlyks"
@@ -8,9 +8,9 @@
 	<rl:column bound="false"
 				sortable="false"
 				headerkey="kickstart.jsp.system"
-		           	headerclass="thin-column"> 				
+		           	headerclass="thin-column">
 
-            <c:if test="${not current.isBareMetal}">								
+            <c:if test="${not current.isBareMetal}">
       	       <a href="/rhn/systems/details/Overview.do?sid=${current.serverId}">
       														         ${current.serverName}</a>
     		</c:if>
@@ -22,26 +22,26 @@
     			    <bean:message key="kickstart.jsp.unregistered"/>
                 </c:if>
     		</c:if>
-    				
+
 	</rl:column>
-	
+
 	<rl:column bound="false"
 				sortable="false"
 				headerkey="kickstart.jsp.status">
-				
-     	    <c:if test="${not current.isBareMetal}">								
+
+     	    <c:if test="${not current.isBareMetal}">
       	       <a href="/rhn/systems/details/kickstart/SessionStatus.do?sid=${current.serverId}">
       	                                                      ${current.description}</a>
     		</c:if>
     		<c:if test="${current.isBareMetal}">
     			${current.description}
     		</c:if>
-	</rl:column>		
-	
+	</rl:column>
+
 	<rl:column bound="false"
 				sortable="false"
-				headerkey="kickstart.jsp.lastchange">				
+				headerkey="kickstart.jsp.lastchange">
 		${current.elapsedTimeAfterModify}
-	</rl:column>			
-	
+	</rl:column>
+
 </rl:list>

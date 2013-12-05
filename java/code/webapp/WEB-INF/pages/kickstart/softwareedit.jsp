@@ -146,7 +146,7 @@ function clickNewestTree() {
           <tr>
             <th><bean:message key="softwareedit.jsp.repos" />:</th>
             <td>
-			
+
       <c:forEach items="${kickstartSoftwareForm.map.possibleRepos}" var="item">
     		<html:multibox property="selectedRepos" disabled="${item.disabled}"
     						value = "${item.value}" styleId="type_${item.value}"/>

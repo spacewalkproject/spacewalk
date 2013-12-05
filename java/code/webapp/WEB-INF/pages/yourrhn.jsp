@@ -95,7 +95,7 @@
         <c:if test="${requestScope.latestErrata == 'y'}">
 	        <div id="latest-errata-pane" class="row">
 	            <script type="text/javascript">
-	  	            LatestErrataRenderer.renderAsync(makeAjaxCallback("latest-errata-pane", false));    	
+	  	            LatestErrataRenderer.renderAsync(makeAjaxCallback("latest-errata-pane", false));
 	            </script>
 	        </div>
         </c:if>

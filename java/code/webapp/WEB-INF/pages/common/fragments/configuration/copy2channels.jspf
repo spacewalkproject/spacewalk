@@ -21,7 +21,7 @@
 	         >
 	    <rl:selectablecolumn value="${current.selectionKey}"
 						selected="${current.selected}"/>
-	    					
+
 		<!-- Channel name column -->
 		<rl:column sortable="true"
 		           headerkey="sdc.config.subscriptions.jsp.channel"
@@ -30,7 +30,7 @@
 						name = "${current.name}"
             					type = "central"/>
 		</rl:column>
-		
+
 		<rl:column bound="true"
 		           headerkey="copy2channels.jsp.total_systems"
 		           attr="systemCountString"

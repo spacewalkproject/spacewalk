@@ -38,14 +38,14 @@
 		  			alphabarcolumn="nvrea"
 		  			 filter="com.redhat.rhn.frontend.taglibs.list.filters.PackageFilter"
 		  			>
-		  		
+
 		  		<rl:decorator name="ElaborationDecorator"/>
 		  		<rl:decorator name="PageSizeDecorator"/>
-		  		
+
 				<rl:selectablecolumn value="${current.selectionKey}"
 					selected="${current.selected}"/>
-		  		
-		  		
+
+
                  <rl:column sortable="true"
                                    bound="false"
                            headerkey="download.jsp.package"
@@ -71,8 +71,8 @@
                         ${current.provider}
                 </rl:column>
 
-						
-				
+
+
 			  </rl:list>
 
 

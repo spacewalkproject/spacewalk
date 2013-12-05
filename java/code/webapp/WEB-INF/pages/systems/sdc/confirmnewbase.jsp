@@ -28,7 +28,7 @@
                 </ul>
             </c:otherwise>
         </c:choose>
-        
+
 
         <bean:message key="sdc.channels.confirmNewBase.toBeSubscribedTo"/>
         <c:choose>
@@ -44,7 +44,7 @@
                 </ul>
             </c:otherwise>
         </c:choose>
-        
+
 
         <bean:message key="sdc.channels.confirmNewBase.otherChannelsWarning"/>
         &nbsp;

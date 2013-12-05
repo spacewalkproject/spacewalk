@@ -36,16 +36,16 @@
                 <a href="/network/systems/groups/details.pxt?sgid=${current.id}">
                 <c:out value="${current.name}"/></a>
             </rl:column>
-        	
+
         	<rl:column headerkey="grouplist.jsp.systems">
                 <a href="/network/systems/groups/details.pxt?sgid=${current.id}">
                 <c:out value="${current.serverCount}"/></a>
         	</rl:column>
- 		
+
   		</rl:list>
 
 		  <a href="/rhn/systems/SystemGroupList.do">
   			<div class="btn btn-default spacewalk-btn-margin-vertical"><i class="spacewalk-icon-system-groups"></i><bean:message key="yourrhn.jsp.allgroups" /></div>
   		</a>
-  		
+
 	</rl:listset>

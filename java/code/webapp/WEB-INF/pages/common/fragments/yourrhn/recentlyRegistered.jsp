@@ -28,7 +28,7 @@
 		<a href="/rhn/systems/details/Overview.do?sid=${current.id}">
 		<c:out value="${current.serverName}"/></a>
 		</rl:column>
-		
+
 		<rl:column bound="false"
 		           headerkey="systemlist.jsp.channel"
 		           >
@@ -43,13 +43,13 @@
 	        	</c:otherwise>
 	        </c:choose>
 		</rl:column>
-	
+
 		<rl:column bound="false"
 		           headerkey="registeredlist.jsp.date"
 		           >
 			<fmt:formatDate value="${current.created}" type="both" dateStyle="short" timeStyle="long"/>
 		</rl:column>
-	
+
 		<rl:column bound="false"
 		           headerkey="registeredlist.jsp.user"
 		           >
@@ -63,7 +63,7 @@
 	            </c:otherwise>
 	          </c:choose>
 		</rl:column>
-	
+
 		<rl:column bound="true"
 		           headerkey="systemlist.jsp.entitlement"
 		           attr="entitlementLevel"/>

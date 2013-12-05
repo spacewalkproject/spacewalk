@@ -35,7 +35,7 @@
          filter="com.redhat.rhn.frontend.action.multiorg.UserListFilter"
          emptykey="org.jsp.noUsers">
 
-	<!-- Username column -->		
+	<!-- Username column -->
 	<rl:column bound="false"
 	           sortable="true"
 	           headerkey="username.nopunc.displayname"
@@ -47,7 +47,7 @@
 	      <c:otherwise>
 	        <c:out value="${current.login}" />
 	      </c:otherwise>
-		</c:choose>	
+		</c:choose>
 	</rl:column>
 	<rl:column bound="false"
 	           sortable="false"
@@ -91,7 +91,7 @@
 	      </c:otherwise>
 		</c:choose>
 	</rl:column>
-	
+
 </rl:list>
 
 </rl:listset>

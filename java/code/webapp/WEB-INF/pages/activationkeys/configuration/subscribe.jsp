@@ -24,7 +24,7 @@
 		</p>
 		<noscript>
 			<p><bean:message key="common.config.rank.jsp.warning.noscript"/></p>
-		</noscript>	
+		</noscript>
 
 
 		<c:set var="pageList" value="${requestScope.all}" />
@@ -55,26 +55,26 @@
 		        <rl:column headerkey="sdc.config.subscriptions.jsp.files"
 		        attr="filesAndDirsDisplayString" bound="true"/>
 			</rl:list>
-		 			
+
 		<c:if test="${not empty requestScope.all}">
 		<div class="text-right">
 		   <rhn:submitted/>
 		   <hr/>
-			
+
 		    <input type="submit"
 		    	name ="dispatch"
 		    	class="btn btn-success"
-			    value='<bean:message key="sdc.config.subscriptions.jsp.continue"/>'/>		
+			    value='<bean:message key="sdc.config.subscriptions.jsp.continue"/>'/>
 		</div>
-		</c:if> 	
+		</c:if>
 		</c:when>
 		<c:otherwise>
 			<p><strong><bean:message key="activation-keys.config.subscriptions.jsp.noChannels"
 						arg0="/rhn/activationkeys/configuration/List.do?tid=${param.tid}"/>
 			</strong></p>
 		</c:otherwise>
-		</c:choose>	
-		</rl:listset>		
+		</c:choose>
+		</rl:listset>
 	</div>
 </div>
 

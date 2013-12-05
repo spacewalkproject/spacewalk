@@ -54,7 +54,7 @@
          filter="com.redhat.rhn.frontend.action.multiorg.UserListFilter"
          emptykey="org.jsp.noUsers">
 
-	<!-- Organization name column -->		
+	<!-- Organization name column -->
 	<rl:column bound="false"
 	           sortable="true"
 	           headerkey="username.nopunc.displayname"
@@ -67,13 +67,13 @@
 	  ${current.login}
 	      </c:otherwise>
 		</c:choose>
-		
+
 	</rl:column>
 	<rl:column bound="false"
 	           headerkey="multiorg.jsp.email"
 			>
 		<c:out value="${current.address}" />
-	</rl:column>	
+	</rl:column>
 	<rl:column bound="false"
 	           sortable="false"
 	           headerkey="realname.displayname"
@@ -92,7 +92,7 @@
 	        <img src="/img/rhn-listicon-unchecked_immutable.gif">
 	      </c:otherwise>
 		</c:choose>
-		
+
 	</rl:column>
 </rl:list>
 

@@ -5,7 +5,7 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 
-	
+
 
 <rl:list dataset="pageList"
 		name="groupList"
@@ -43,7 +43,7 @@
 			      </c:choose>
 
 			    <c:out value="</a>"  escapeXml="false" />
-		</rl:column>		
+		</rl:column>
 
 
        <%@ include file="monitoring_status_groups.jspf" %>
@@ -57,8 +57,8 @@
 			<c:out value="<a href=\"/network/systems/groups/details.pxt?sgid=${current.id}\">" escapeXml="false" />
 			<c:out value="${current.name}" escapeXml="true" />
 			<c:out value="</a>" escapeXml="false" />
-		</rl:column>	
-		
+		</rl:column>
+
 
 		<!--Systems Column -->
 		<rl:column sortable="true"
@@ -75,7 +75,7 @@
 						<c:out value="<a href=\"/rhn/groups/ListRemoveSystems.do?sgid=${current.id}\">${current.serverCount}</a>" escapeXml="false" />
 		        	</c:otherwise>
 		        </c:choose>
-		</rl:column>			
+		</rl:column>
 
 
     	   <!--USE in SSM  Column -->
@@ -85,13 +85,13 @@
 		           styleclass="center"
 		           headerclass="center">
 
-  			
-  					<c:out value="<a class=\"link-button\" href=\"/network/systems/ssm/work_with_group.pxt?sgid=${current.id}&amp;pxt_trap=rhn:work_with_group_cb\">
-  				${rhn:localize('grouplist.jsp.use')}</a>"  escapeXml="false" />	
-  				
-		</rl:column>	
 
-		
+  					<c:out value="<a class=\"link-button\" href=\"/network/systems/ssm/work_with_group.pxt?sgid=${current.id}&amp;pxt_trap=rhn:work_with_group_cb\">
+  				${rhn:localize('grouplist.jsp.use')}</a>"  escapeXml="false" />
+
+		</rl:column>
+
+
 
 </rl:list>
 <rl:csv dataset="pageList"
@@ -101,5 +101,5 @@
   <hr />
 	<input type="submit" name="union" value="${rhn:localize('grouplist.jsp.union')}" />
 	<input type="submit" name="intersection" value="${rhn:localize('grouplist.jsp.intersection')}" />
-</div>	
+</div>
 	<rhn:submitted/>

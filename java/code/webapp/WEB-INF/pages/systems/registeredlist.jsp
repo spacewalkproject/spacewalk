@@ -28,8 +28,8 @@
    				<c:otherwise>
 					<option value="${option.value}">${option.label}</option>
 				</c:otherwise>
-			</c:choose>		
-		</c:forEach>  		
+			</c:choose>
+		</c:forEach>
   </select>
 
   <html:submit>
@@ -43,13 +43,13 @@
 		decorator="SelectableDecorator"
 		emptykey="nosystems.message"
 		alphabarcolumn="name"
-		filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemOverviewFilter"	
+		filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemOverviewFilter"
 		>
-		
+
 	 	<rl:decorator name="ElaborationDecorator"/>
    	    <rl:decorator name="SystemIconDecorator"/>
 		<rl:decorator name="PageSizeDecorator"/>
-		
+
 	 	<rl:selectablecolumn value="${current.id}"
 	 						selected="${current.selected}"
 	 						disabled="${not current.selectable}"/>
@@ -75,7 +75,7 @@
 		           sortattr="channelLabels" >
 			<%@ include file="/WEB-INF/pages/common/fragments/channel/channel_list_fragment.jspf" %>
 		</rl:column>
-		
+
 		<rl:column sortable="true"
 				   bound="false"
 		           headerkey="registeredlist.jsp.date"
@@ -83,7 +83,7 @@
 		           defaultsort="desc">
 			  <fmt:formatDate value="${current.created}" type="both" dateStyle="short" timeStyle="long"/>
 		</rl:column>
-			
+
 		<rl:column sortable="true"
 				   bound="false"
 		           headerkey="registeredlist.jsp.user"
@@ -98,13 +98,13 @@
 	        </c:otherwise>
 	      </c:choose>
 		</rl:column>
-		           		
+
 		<!-- Entitlement Column -->
 		<rl:column sortable="false"
 				   bound="false"
 		           headerkey="systemlist.jsp.entitlement">
                       <c:out value="${current.entitlementLevel}" escapeXml="false"/>
-		</rl:column>							 						
+		</rl:column>
 	</rl:list>
 </rl:listset>
 </body>

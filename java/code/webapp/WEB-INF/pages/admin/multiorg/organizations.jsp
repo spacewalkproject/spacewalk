@@ -24,7 +24,7 @@
          filter="com.redhat.rhn.frontend.action.multiorg.OrgListFilter"
          emptykey="orglist.jsp.noOrgs">
 
-	<!-- Organization name column -->		
+	<!-- Organization name column -->
 	<rl:column bound="false"
 	           sortable="true"
 	           headerkey="org.nopunc.displayname"

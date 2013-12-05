@@ -49,11 +49,11 @@
 		</table>
 		<!-- Adding recent events -->
 		<h2><bean:message key="sdc.config.header.recent-events"/></h2>
-		
+
 		<table class="details">
 		  <tr>
 		    <th><bean:message key="sdc.config.last-config.deployment"/>:</th>
-		
+
 		    <td><c:if test="${requestScope.deploymentTimeMessage}">
 			    ${requestScope.deploymentTimeMessage}
 		        <br /><br />
@@ -64,17 +64,17 @@
 		  <tr>
 		    <th><bean:message key="sdc.config.last-rhn.comparison"/>:</th>
 		    <td>${requestScope.diffTimeMessage}
-		
+
 		        ${requestScope.diffActionMessage}
-		
+
 		        <c:if test="${not empty requestScope.diffActionMessage}">
 			        ${requestScope.diffDetailsMessage}
 		        </c:if>
 		    </td>
-		
+
 		  </tr>
-		</table>		
-		
+		</table>
+
 	</td>
 	<td style="width: 45%">
 	    <h2><bean:message key="sdc.config.header.actions"/></h2>
@@ -106,7 +106,7 @@
 			<br />
 	   </rhn:require>
 		<rhn:require mixins="com.redhat.rhn.common.security.acl.SystemAclHandler"
-													 acl="client_capable(configfiles.diff)">	   			
+													 acl="client_capable(configfiles.diff)">
 			<table cellspacing="0" cellpadding="0" align="center" class="half-table">
 			    <thead>
 			    <tr class="list-row-odd">
@@ -125,7 +125,7 @@
 			    </tr>
 			</table>
 			<br />
-		</rhn:require>	
+		</rhn:require>
 			<table cellspacing="0" cellpadding="0" align="center" class="half-table">
 			    <thead>
 				    <tr class="list-row-odd">
@@ -163,7 +163,7 @@
 	            <p><bean:message key="system.sdc.missing.config_deploy2"
 	            		arg0="/rhn/configuration/system/TargetSystems.do"
 	            		arg1="${rhn:localize('targetsystems.jsp.toolbar')}"
-	            		arg2="${rhn:localize('targetsystems.jsp.enable')}"/></p>	            		
+	            		arg2="${rhn:localize('targetsystems.jsp.enable')}"/></p>
 			</c:otherwise>
 		</c:choose>
 	 </td>

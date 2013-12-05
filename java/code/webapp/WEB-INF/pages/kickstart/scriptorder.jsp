@@ -11,8 +11,8 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
 
-        
-        
+
+
 <rhn:dialogmenu mindepth="0" maxdepth="1"
     definition="/WEB-INF/nav/kickstart_details.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
@@ -23,11 +23,11 @@
   <p>
     <bean:message key="kickstartscript.order.summary"/>
   </p>
-  
+
     <html:form method="post" action="/kickstart/KickstartScriptOrder.do">
       <rhn:csrf />
       <rhn:submitted />
-      
+
       <noscript>
           <p><bean:message key="kickstartscript.order.noscript"/></p>
       </noscript>

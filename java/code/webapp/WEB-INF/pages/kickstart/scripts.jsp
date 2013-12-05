@@ -41,7 +41,7 @@
     <p>
     <bean:message key="kickstartscript.jsp.summary2"/>
     </p>
-    
+
     <rl:listset name="kickstartScriptsSet">
         <rhn:csrf />
         <rl:list dataset="kickstart_scripts"
@@ -49,13 +49,13 @@
                 name="kickstartPreScripts"
                 styleclass="list"
                 emptykey="kickstartscript.jsp.noscripts">
-                
+
             <rl:column bound="false"
                     sortable="false"
                     headerkey="kickstartscript.jsp.type">
                 ${current.prettyScriptType}
             </rl:column>
-                
+
             <rl:column bound="false"
                     sortable="false"
                     headerkey="kickstartscript.jsp.scriptname">
@@ -68,7 +68,7 @@
                 <c:out value="${current.scriptName}" escapeXml="true" />
                 </c:if>
             </rl:column>
-                
+
             <rl:column bound="false"
                     sortable="false"
                     headerkey="kickstartscript.jsp.language">

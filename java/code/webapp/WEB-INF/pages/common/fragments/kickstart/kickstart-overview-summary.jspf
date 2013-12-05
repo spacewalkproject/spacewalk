@@ -12,7 +12,7 @@
 				headerkey="kickstartoverview.jsp.kickstartsummary">
 		${current.name}
 	</rl:column>
-	
+
 	<rl:column bound="false"
 				sortable="false"
 				headerkey="emptyspace.jsp"

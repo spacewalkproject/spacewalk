@@ -12,11 +12,11 @@
 			<i class="fa spacewalk-icon-system-groups" title="<bean:message key='toolbar.work.with.group'/>"></i>
      			<bean:message key="toolbar.work.with.group"/>
      		</a>
-     	    <a href="/network/systems/groups/delete_confirm.pxt?sgid=${systemgroup.id}">	
+     	    <a href="/network/systems/groups/delete_confirm.pxt?sgid=${systemgroup.id}">
 				<i class="fa fa-trash-o" title="<bean:message key='toolbar.delete.systemgroup'/>" ></i>
 				<bean:message key="toolbar.delete.systemgroup"/>
-			</a>			
-				
+			</a>
+
 		</span>
 	</div>
         <h1>

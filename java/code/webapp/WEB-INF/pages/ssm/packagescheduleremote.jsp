@@ -63,7 +63,7 @@
           <html:submit>
               <bean:message key="scheduleremote.jsp.schedulepackageremoval"/>
           </html:submit>
-      </c:if> 
+      </c:if>
       <c:if test="${param.mode == 'upgrade'}">
           <html:submit>
               <bean:message key="scheduleremote.jsp.schedulepackageupgrade"/>

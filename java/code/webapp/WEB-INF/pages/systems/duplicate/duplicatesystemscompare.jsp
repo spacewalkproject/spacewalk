@@ -27,15 +27,15 @@
 		toggleElement(document.getElementById(linkId + 'Show'));
 		toggleElement(document.getElementById(linkId + 'Hide'));
 	}
-	
+
 	function handle_delete(div_del_id, div_confirm_id, form) {
 	    var div_del = document.getElementById(div_del_id);
-	    var div_confirm = document.getElementById(div_confirm_id);	
+	    var div_confirm = document.getElementById(div_confirm_id);
 	    div_del.style.display = 'none';
 		div_confirm.style.display = '';
 		return false;
-	}	
-	
+	}
+
 </script>
 </head>
 <body>
@@ -52,8 +52,8 @@
 		<p><bean:message key="duplicate.compares.jsp.message" arg0="${requestScope.maxLimit}"/>.</p>
 <rl:list
 	emptykey="nosystems.message"
-		alphabarcolumn="name"	
-		filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemOverviewFilter"	
+		alphabarcolumn="name"
+		filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemOverviewFilter"
 	>
 	<rl:decorator name="SelectableDecorator"/>
 	<rl:decorator name="PageSizeDecorator"/>
@@ -120,7 +120,7 @@
 		<c:set var ="key" value="row.macaddress"/>
 		<c:set var ="items_list" value="${requestScope.systems.macAddresses}"/>
 		<c:set var ="href" value=""/>
-		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list-list.jspf" %>		
+		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list-list.jspf" %>
 	</tr>
 	<tr class="list-row-odd" id = "ipAddressRow">
 		<c:set var ="key" value="row.ip"/>
@@ -158,7 +158,7 @@
 		<c:set var ="href" value=""/>
 		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list.jspf" %>
 	</tr>
-	
+
 	<tr class="list-row-odd" id = "activationKeysRow">
 		<c:set var ="key" value="Activation Keys"/>
 		<c:set var ="items_list" value="${requestScope.systems.activationKeys}"/>
@@ -214,7 +214,7 @@
 		<c:set var ="href" value=""/>
 		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list-list.jspf" %>
 	</tr>
-	</tbody>	
+	</tbody>
 </table>
 </c:when>
 <c:otherwise><p><bean:message key = "nosystems.message"/></p></c:otherwise>

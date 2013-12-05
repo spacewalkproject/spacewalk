@@ -38,15 +38,15 @@ function setStep(stepName) {
 			<rl:decorator name = "PageSizeDecorator"/>
         	<rl:radiocolumn value="${current.cobblerId}"/>
          	<rl:column headerkey="kickstartranges.jsp.profile" filterattr="label"  sortable="true" sortattr="label">
-         		<a href="${current.cobblerUrl}">${fn:escapeXml(current.label)}</a>	
+         		<a href="${current.cobblerUrl}">${fn:escapeXml(current.label)}</a>
          	</rl:column>
          	<rl:column headerkey="kickstart.channel.label.jsp" bound="true" attr="channelLabel" sortable="true" sortattr="channelLabel"/>
          	<rl:column headerkey="kickstart.channel.virtCpu.jsp" bound="true" attr="virtCpus"/>
-         	<rl:column headerkey="kickstart.channel.virtDisk.jsp" bound="true" attr="virtSpace"/>         	
+         	<rl:column headerkey="kickstart.channel.virtDisk.jsp" bound="true" attr="virtSpace"/>
          	<rl:column headerkey="kickstart.channel.virtMemory.jsp" bound="true" attr="virtMemory"/>
          	<rl:column headerkey="kickstart.channel.virtBridge.jsp" bound="true" attr="virtBridge"/>
     </rl:list>
-	
+
 	<h2><bean:message key="virtualization.provision.first.jsp.header2" /></h2>
     <table class="details">
       <tr>

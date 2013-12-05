@@ -15,29 +15,29 @@
 		hidepagenums="true"
 		title="${rhn:localize('yourrhn.jsp.criticalsystems')}"
 		>
-		
+
 		<rl:column
 			headerkey="probesuitesystemsedit.jsp.systemname"
 			headerclass="row-2">
 			<a href="/rhn/systems/details/Overview.do?sid=${current.id}">
 			<c:out value="${current.serverName}"/></a>
 		</rl:column>
-	
+
 		<rl:column headerkey="yourrhn.jsp.allupdates"
     				headerclass="row-2">
-    		${current.securityErrata + current.bugErrata + current.enhancementErrata}	
+    		${current.securityErrata + current.bugErrata + current.enhancementErrata}
     	</rl:column>
-		
+
 		<%@ include file="/WEB-INF/pages/common/fragments/systems/monitoring_status_systems.jspf" %>
-		
+
    		<rl:column headerkey="yourrhn.jsp.criticalsystems.securityerrata"
     			headerclass="row-2 text-align: center;">
-   			<i class="fa fa-lock" title="<bean:message key='errata-legend.jsp.security'/>"></i>${current.securityErrata}		
+   			<i class="fa fa-lock" title="<bean:message key='errata-legend.jsp.security'/>"></i>${current.securityErrata}
     	</rl:column>
 
     	<rl:column headerkey="yourrhn.jsp.criticalsystems.bugfixerrata"
     			headerclass="row-2 text-align: center;">
-   			<i class="fa fa-bug" title="<bean:message key='errata-legend.jsp.bugfix'/>"></i>${current.bugErrata}		
+   			<i class="fa fa-bug" title="<bean:message key='errata-legend.jsp.bugfix'/>"></i>${current.bugErrata}
     	</rl:column>
 
     	<rl:column headerkey="yourrhn.jsp.criticalsystems.enhancementerrata"

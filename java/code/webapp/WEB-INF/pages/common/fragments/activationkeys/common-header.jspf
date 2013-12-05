@@ -6,7 +6,7 @@
 
 			deletionUrl="/rhn/activationkeys/Delete.do?tid=${param.tid}"
  			deletionType="activationkeys"
- 			deletionAcl = "user_role(activation_key_admin)"			
+ 			deletionAcl = "user_role(activation_key_admin)"
 			>
 <c:out value="${requestScope.description}"/>
 </rhn:toolbar>

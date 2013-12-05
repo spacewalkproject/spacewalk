@@ -8,7 +8,7 @@
 
 <html>
 <body>
-<rhn:toolbar base="h1" icon="spacewalk-icon-manage-configuration-file" 
+<rhn:toolbar base="h1" icon="spacewalk-icon-manage-configuration-file"
  helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-files-central">
   <bean:message key="globalfilelist.jsp.toolbar"/>
 </rhn:toolbar>

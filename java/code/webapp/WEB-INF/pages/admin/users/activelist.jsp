@@ -22,7 +22,7 @@
 <rhn:csrf />
 <rhn:submitted />
 
-	
+
 <!-- Start of active users list -->
 <rl:list dataset="pageList"
          width="100%"
@@ -39,7 +39,7 @@
 	           filterattr="login">
 		<c:out value="<a href=\"/rhn/users/UserDetails.do?uid=${current.id}\">${current.userLogin}</a>" escapeXml="false" />
 	</rl:column>
-	
+
 	<!-- Real name column -->
 	<rl:column bound="false"
 	           sortable="true"
@@ -47,7 +47,7 @@
 	           sortattr="userLastName">
 		<c:out value="${current.userLastName}, ${current.userFirstName}" />
 	</rl:column>
-	
+
 	<!--  Roles column -->
 	<rl:column attr="roleNames"
 	           bound="true"

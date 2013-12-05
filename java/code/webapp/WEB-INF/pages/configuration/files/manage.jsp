@@ -23,7 +23,7 @@
                      mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
 	 	  <rhn:set value="${current.id}"/>
 	 	</rhn:require>
-	 	
+
 		<rhn:column header="manage.jsp.name">
 			<a href="/rhn/configuration/file/FileDetails.do?crid=${current.id}&amp;cfid=${file.id}">
 			  <cfg:file nolink="true" id="${file.id}" revisionId="${current.id}"  path="${file.configFileName.path}" type="${file.latestConfigRevision.configFileType.label}" />
@@ -31,14 +31,14 @@
 			                arg0="${current.revisionNumber}"/>
 			</a>
       	</rhn:column>
-      	
+
       	<rhn:require acl="is_file()"
       	             mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
           <rhn:column header="manage.jsp.size">
       	    ${current.sizeDisplay}
           </rhn:column>
       	</rhn:require>
-      	
+
       	<rhn:column header="manage.jsp.creation">
       	    ${current.createdDisplay}
       	</rhn:column>

@@ -20,7 +20,7 @@
 <rl:listset name="fileSet">
     <rhn:csrf />
     <rhn:submitted />
-		
+
 	<!-- Start of Files list -->
 	<rl:list decorator="SelectableDecorator"
              width="100%"
@@ -35,7 +35,7 @@
 		           headerkey="sdc.config.file_list.name"
 		           sortattr="path">
             <c:choose>
-               <c:when test="${current.localRevision != null}">					
+               <c:when test="${current.localRevision != null}">
           			<cfg:file path = "${current.path}"
 										type="${current.localConfigFileType}" nolink="true"/>
                </c:when>
@@ -47,9 +47,9 @@
 		</rl:column>
 
 		<c:set var="fileUrl" value="${cfg:fileUrl(current.configFileId)}"/>
-		<c:set var="compareUrl" value="${cfg:fileCompareUrl(current.configFileId)}"/>		
+		<c:set var="compareUrl" value="${cfg:fileCompareUrl(current.configFileId)}"/>
 
-		
+
 		<!-- Actions -->
 		<rl:column bound="false"
 		           headerkey="sdc.config.file_list.actions"
@@ -79,9 +79,9 @@
    	       		<c:when test="${current.localRevision != null}">
 		       		<c:set var = "revisionLook">
 				       		<bean:message key="sdcconfigfiles.jsp.filerev"
-				       					arg0="${current.localRevision}"/>		
+				       					arg0="${current.localRevision}"/>
 		       		</c:set>
-		       		
+
 					<cfg:file path ="${revisionLook}"
 							type ="${current.localConfigFileType}"
 							id = "${current.localConfigFileId}"
@@ -101,10 +101,10 @@
 		<rl:column bound="false"
 		           headerkey="sdc.config.file_list.current_revision"
 					>
-				
+
 	       		<c:set var = "revisionLook">
 			       		<bean:message key="sdcconfigfiles.jsp.filerev"
-			       					arg0="${current.configRevision}"/>		
+			       					arg0="${current.configRevision}"/>
 	       		</c:set>
 			<c:set var="display"><cfg:file path ="${revisionLook}"
 						type ="${current.configFileType}"
@@ -112,14 +112,14 @@
 						revisionId = "${current.configRevisionId}"
 						/>
 	       		</c:set>
-		       		
+
 	       		<c:choose>
    		       		<c:when test="${current.localRevision != null}">
-			       		<span class="overridden-file">${display}</span>	
+			       		<span class="overridden-file">${display}</span>
 			       	</c:when>
 					<c:otherwise>${display}</c:otherwise>
-		       	</c:choose>		
-		</rl:column>		
+		       	</c:choose>
+		</rl:column>
 	</rl:list>
 	<c:import url="/WEB-INF/pages/common/fragments/configuration/sdc/viewmodifyfileactions.jspf"/>
 </rl:listset>

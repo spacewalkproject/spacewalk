@@ -3,7 +3,7 @@
 		<c:forEach items="${items_list}" var="item"  varStatus="loop">
 			<c:choose>
 				<c:when test ="${loop.count % 2 == 0}">
-					<c:set var ="style_class" value="list-column-even"/>		
+					<c:set var ="style_class" value="list-column-even"/>
 				</c:when>
 				<c:otherwise>
 					<c:set var ="style_class" value="list-column-odd"/>
@@ -15,7 +15,7 @@
 			<c:if test = "${loop.last}">
 				<c:set var ="style_class" value="${style_class} last-column"/>
 			</c:if>
-			
+
 			<td class="${style_class} ">
 	  		<c:choose>
 		  				<c:when test="${empty item.value}">

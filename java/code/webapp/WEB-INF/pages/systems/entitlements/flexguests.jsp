@@ -100,8 +100,8 @@
 				</c:otherwise>
 			</c:choose>
 
-	</rl:column>	
-	
+	</rl:column>
+
 	<rl:column headerkey="Registered">
 			${current.registeredString}
 	</rl:column>

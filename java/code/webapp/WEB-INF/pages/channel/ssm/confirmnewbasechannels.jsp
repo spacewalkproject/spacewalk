@@ -131,7 +131,7 @@
             </rl:list>
         </rl:listset>
 
-        
+
 
         <html:form method="post" action="/channel/ssm/BaseChannelSubscribe.do">
             <div class="text-right">
@@ -151,7 +151,7 @@
             </div>
         </html:form>
 
-        
+
         <span class="small-text"><bean:message key="basesub.jsp.confirm.fasTrackBetaNote"/></span>
 
     </body>

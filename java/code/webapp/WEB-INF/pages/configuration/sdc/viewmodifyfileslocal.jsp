@@ -36,7 +36,7 @@
 		     <cfg:file path="${current.path}"
 				type ="${current.localConfigFileType}" nolink = "true"/>
 		</rl:column>
-		
+
 		<!-- Actions -->
 		<rl:column bound="false"
 		           headerkey="sdc.config.file_list.actions">
@@ -49,7 +49,7 @@
 	<rl:column bound="false"
 	           headerkey="sdc.config.file_list.overrides"
        				>
-       		<c:choose>       		
+       		<c:choose>
    	       		<c:when test="${current.configRevision != null}">
 					<c:set var="channelDisplay"><cfg:channel id = "${current.configChannelId}"
 							name ="${current.configChannelName}"
@@ -74,13 +74,13 @@
 					>
 		       		<c:set var = "revisionLook">
 				       		<bean:message key="sdcconfigfiles.jsp.filerev"
-				       					arg0="${current.localRevision}"/>		
+				       					arg0="${current.localRevision}"/>
 		       		</c:set>
 					<cfg:file path ="${revisionLook}"
 							type ="${current.localConfigFileType}"
 							id = "${current.localConfigFileId}"
 							revisionId = "${current.localRevisionId}"
-							/>		       		
+							/>
 		</rl:column>
 	</rl:list>
 	<br>

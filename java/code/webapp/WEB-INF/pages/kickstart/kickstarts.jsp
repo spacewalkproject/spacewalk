@@ -25,7 +25,7 @@
       <rhn:submitted />
 	<rl:list dataset="pageList" name="ksList" emptykey="kickstart.jsp.nokickstarts"
       			alphabarcolumn="label"
-                filter="com.redhat.rhn.frontend.action.kickstart.KickstartProfileFilter">      			
+                filter="com.redhat.rhn.frontend.action.kickstart.KickstartProfileFilter">
         	<rl:decorator name="ElaborationDecorator"/>
       		<rl:decorator name="PageSizeDecorator"/>
 			<rl:column
@@ -39,7 +39,7 @@
           				</c:when>
           				<c:when test="${current.cobbler}">
           					<c:out value="${current.label}" escapeXml="true" />
-          				</c:when>          				
+          				</c:when>
           				<c:otherwise>
           					<a href="/rhn/kickstart/KickstartDetailsEdit.do?ksid=${current.id}"><c:out value="${current.label}" escapeXml="true" /></a>
           				</c:otherwise>
@@ -59,7 +59,7 @@
       		</rl:column>
                 <rl:column headerkey="kickstart.distro.label.jsp" sortattr="treeLabel">
                     <c:out value="${current.treeLabel}"/>
-                </rl:column>      		
+                </rl:column>
             <rl:column headerkey="kickstart.distro.sw_managed.jsp" sortattr="cobbler">
             	<c:choose>
                     <c:when test="${current.cobbler}">

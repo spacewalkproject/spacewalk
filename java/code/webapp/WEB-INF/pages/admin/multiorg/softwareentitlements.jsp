@@ -53,7 +53,7 @@
             <c:choose>
             	<c:when test="${empty current.total or current.total == 0}">
             		<bean:message key="softwareentitlements.noentitlements"/>
-				</c:when>            		
+				</c:when>
             	<c:otherwise>
           				${current.available} / ${current.total}
             	</c:otherwise>
@@ -66,10 +66,10 @@
             <c:choose>
             	<c:when test="${empty current.allocated or current.allocated == 0}">
             		<bean:message key="None Allocated"/>
-            	</c:when>	
+            	</c:when>
             	<c:otherwise>
             	<bean:message key="softwareentitlements.usagedata" arg0="${current.used}" arg1="${current.allocated}" arg2="${current.ratio}"/>
-            	</c:otherwise>            	
+            	</c:otherwise>
             </c:choose>
         </rl:column>
         </c:if>
@@ -80,7 +80,7 @@
             <c:choose>
             	<c:when test="${empty current.totalFlex or current.totalFlex == 0}">
             		<bean:message key="softwareentitlements.noentitlements"/>
-				</c:when>            		
+				</c:when>
             	<c:otherwise>
           				${current.availableFlex} / ${current.totalFlex}
             	</c:otherwise>
@@ -92,13 +92,13 @@
 			headertext="${rhn:localize('Flex Usage')} <br/> (${rhn:localize('Used/Allotted')})**"
             styleclass="${usagestyle}">
             <c:choose>
-            	
+
             	<c:when test="${empty current.allocatedFlex or current.allocatedFlex == 0}">
             		<bean:message key="None Allocated"/>
             	</c:when>
             	<c:otherwise>
           <bean:message key="softwareentitlements.usagedata" arg0="${current.usedFlex}" arg1="${current.allocatedFlex}" arg2="${current.flexRatio}"/>
-            	</c:otherwise>            	
+            	</c:otherwise>
             </c:choose>
         </rl:column>
         </c:if>

@@ -25,7 +25,7 @@
 			width="100%"
          	styleclass="list"
          	emptykey="erratalist.jsp.noerrata">
-         	
+
     <rl:decorator name="PageSizeDecorator"/>
     <rl:decorator name="ElaborationDecorator"/>
 

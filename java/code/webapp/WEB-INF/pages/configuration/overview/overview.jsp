@@ -43,7 +43,7 @@
       <h4><bean:message key="configoverview.jsp.modconfig"/></h4>
     </div>
     <div class="panel-body">
-     
+
       <rhn:list pageList="${requestScope.recentFiles}" noDataText="configoverview.jsp.noFiles">
         <rhn:listdisplay>
           <rhn:column header="configoverview.jsp.filename"
@@ -91,7 +91,7 @@
         </rhn:listdisplay>
       </rhn:list>
     </div>
-  </div>  
+  </div>
 
   <div class="panel panel-default">
     <div class="panel-heading">

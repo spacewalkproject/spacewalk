@@ -37,7 +37,7 @@
 		                sortattr="updateDateObj"
 	                	styleclass="text-align: center;">
 			            ${current.updateDate}
-			        </rl:column>	                	
+			        </rl:column>
                 </c:if>
                 <c:if test="${not displayCves}">
 	                  <rl:column headerkey="erratalist.jsp.updated"
@@ -45,7 +45,7 @@
 		                sortattr="updateDateObj"
 	               		styleclass="text-align: center;">
 			            ${current.updateDate}
-			        </rl:column>	               		
+			        </rl:column>
                 </c:if>
 
 
