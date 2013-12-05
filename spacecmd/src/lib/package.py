@@ -103,14 +103,14 @@ def do_package_search(self, args, doreturn = False):
         self.help_package_search()
         return
 
-    fields = ('name', 'epoch', 'version', 'release',
-              'arch', 'description', 'summary')
+    fields = ('name:', 'epoch:', 'version:', 'release:',
+              'arch:', 'description:', 'summary:')
 
     packages = []
     advanced = False
 
     for f in fields:
-        if re.match('%s:' % f, args):
+        if args.find(f) != -1:
             logging.debug('Using advanced search')
             advanced = True
             break
