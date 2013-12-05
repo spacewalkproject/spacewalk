@@ -150,7 +150,7 @@ public class IndexHandler {
                 retry = false;
                 List<Result> hits = indexManager.search(indexName, query, lang,
                         isFineGrained);
-                if (indexName.compareTo("package") == 0) {
+                if (indexName.equals("package") || indexName.equals("errata")) {
                     return screenHits(sessionId, indexName, hits);
                 }
                 return hits;

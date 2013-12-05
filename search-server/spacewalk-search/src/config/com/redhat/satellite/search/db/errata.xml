@@ -46,13 +46,13 @@
         from    rhnErrata e,
                 rhnChannelErrata ce,
                 rhnAvailableChannels ac,
-                pxrsessions ps,
+                pxtsessions ps,
                 web_contact wc
         where   e.id = ce.errata_id and
                 ce.channel_id = ac.channel_id and
                 ac.org_id = wc.org_id and
                 ps.web_user_id = wc.id and
-                ps.id = #{sessionId}
+                ps.id = #{session_id}
                 and e.id IN
                  <foreach collection="id_list" item="item" separator="," close=")" open="(">
                     #{item}
