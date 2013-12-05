@@ -44,7 +44,7 @@
                    filterattr="name">
 		    <c:choose>
 		    	<c:when test = "${not empty requestScope.accessMap[current.id]}">
-		    		<a href="/network/systems/groups/details.pxt?sgid=${current.id}">${current.name}</a>
+		    		<a href="/rhn/groups/GroupDetail.do?sgid=${current.id}">${current.name}</a>
 		    	</c:when>
 		    	<c:otherwise>
 		    		${current.name}

@@ -32,7 +32,7 @@
     <var name="sgid" />
   </formvars>
   <column name="System Group" label="group_name" width="55%">
-    <url>/network/systems/groups/details.pxt?sgid={column:id}</url>
+    <url>/rhn/groups/GroupDetail.do?sgid={column:id}</url>
   </column>
   <column name="Add" label="add_to_group_radio" width="15%" align="center" />
   <column name="Remove" label="remove_from_group_radio" width="15%" align="center" />

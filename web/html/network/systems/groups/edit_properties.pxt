@@ -43,7 +43,7 @@
 
       {admin_server_group_formvars}
       <pxt-formvar>
-      <input type="hidden" name="redirect_to" value="/network/systems/groups/details.pxt?sgid={formvar:sgid}" />
+      <input type="hidden" name="redirect_to" value="/rhn/groups/GroupDetail.do?sgid={formvar:sgid}" />
       </pxt-formvar>
 </rhn-admin-server-group-edit-form>
 

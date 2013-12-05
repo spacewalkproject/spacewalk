@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <rhn-navi-tree label="system_group_detail" invisible="1" formvar="sgid" title-depth="1">
   <rhn-tab name="Details">
-    <rhn-tab-url>/network/systems/groups/details.pxt</rhn-tab-url>
-    <rhn-tab-url>/network/systems/groups/delete_confirm.pxt</rhn-tab-url>
+    <rhn-tab-url>/rhn/groups/GroupDetail.do</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Systems">
     <rhn-tab-url>/rhn/groups/ListRemoveSystems.do</rhn-tab-url>

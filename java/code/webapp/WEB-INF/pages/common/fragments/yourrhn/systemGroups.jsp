@@ -33,12 +33,12 @@
         	<%@ include file="/WEB-INF/pages/common/fragments/systems/monitoring_status_groups.jspf" %>
 
 			<rl:column headerkey="yourrhn.jsp.systemgroups">
-                <a href="/network/systems/groups/details.pxt?sgid=${current.id}">
+                <a href="/rhn/groups/GroupDetail.do?sgid=${current.id}">
                 <c:out value="${current.name}"/></a>
             </rl:column>
 
         	<rl:column headerkey="grouplist.jsp.systems">
-                <a href="/network/systems/groups/details.pxt?sgid=${current.id}">
+                <a href="/rhn/groups/GroupDetail.do?sgid=${current.id}">
                 <c:out value="${current.serverCount}"/></a>
         	</rl:column>
 

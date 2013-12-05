@@ -31,7 +31,7 @@
 
   <column name="Entitlement" label="entitlement_level" width="15%" align="center" />
 
-  <action name="Apply Errata" label="confirm_errata_application" url="/network/systems/groups/details.pxt" />
+  <action name="Apply Errata" label="confirm_errata_application" url="/rhn/groups/GroupDetail.do" />
 </rhn-listview>
 
   </grail-canvas-template>

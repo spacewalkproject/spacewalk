@@ -153,7 +153,7 @@ sub comparison_to_snapshot_provider {
   foreach my $group_name (sort {uc $a cmp uc $b} keys %all_groups) {
 
     my $group = $all_groups{$group_name};
-    my $url = PXT::HTML->link('/network/systems/groups/details.pxt?sgid=' . $group->{ID},
+    my $url = PXT::HTML->link('/rhn/groups/GroupDetail.do?sgid=' . $group->{ID},
 			      $group_name,
 			     );
 

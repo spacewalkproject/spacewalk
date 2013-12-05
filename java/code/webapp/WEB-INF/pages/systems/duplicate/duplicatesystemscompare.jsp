@@ -137,7 +137,7 @@
 	<tr class="list-row-odd"  id = "systemGroupsRow">
 		<c:set var ="key" value="System Groups"/>
 		<c:set var ="items_list" value="${requestScope.systems.systemGroups}"/>
-		<c:set var ="href" value="/network/systems/groups/details.pxt?sgid="/>
+		<c:set var ="href" value="/rhn/groups/GroupDetail.do?sgid="/>
 		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list-list.jspf" %>
 	</tr>
 	<tr>

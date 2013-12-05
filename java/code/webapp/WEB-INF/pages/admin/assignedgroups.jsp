@@ -35,7 +35,7 @@
 					headerkey="assignedgroups.jsp.group"
 					sortattr="name">
 
-		<c:out value="<a href=\"/network/systems/groups/details.pxt?sgid=${current.id}\">${current.name}</a>" escapeXml="false" />
+		<c:out value="<a href=\"/rhn/groups/GroupDetail.do?sgid=${current.id}\">${current.name}</a>" escapeXml="false" />
 	    </rl:column>
 
 		<rl:column sortable="true"
