@@ -14,9 +14,9 @@
  */
 package com.redhat.rhn.frontend.action.kickstart.ssm;
 
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.common.validator.ValidatorError;
-import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.server.Server;
@@ -77,9 +77,10 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
         }
 
         if (context.wasDispatched("kickstart.schedule.button2.jsp")) {
-            int result = schedule(request, form, context).size();
+            ScheduleActionResult result = schedule(request, form, context);
 
-            saveSuccessMessage(context, "ssm.provision.scheduled", result);
+            saveSuccessMessage(context, "ssm.provision.scheduled",
+                result);
             return mapping.findForward("success");
         }
 
@@ -98,17 +99,31 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
      * Saves a success message in the Struts delegate.
      * @param context current request context
      * @param message message to save
-     * @param count number of saved servers
+     * @param result a result object
      */
-    private void saveSuccessMessage(RequestContext context, String message, int count) {
+    private void saveSuccessMessage(RequestContext context, String message,
+        ScheduleActionResult result) {
+        String errorString = "";
+        List<ValidatorError> errors = result.getErrors();
+        if (!errors.isEmpty()) {
+            LocalizationService ls = LocalizationService.getInstance();
+            errorString = " " +
+                ls.getPlainText("ssm.provision.errors", errors.size()) +
+                "<ul>";
+            for (ValidatorError error : errors) {
+                errorString += "<li>" + error.getLocalizedMessage() + "</li>";
+            }
+            errorString += "</ul>";
+        }
+
         ActionMessages msg = new ActionMessages();
-        String[] params = {count + ""};
+        String[] params = {result.getSuccessCount() + "", errorString};
         msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(message, params));
         getStrutsDelegate().saveMessages(context.getRequest(), msg);
     }
 
-    private List<Action> schedule(HttpServletRequest request, ActionForm form,
-                                            RequestContext context) {
+    private ScheduleActionResult schedule(HttpServletRequest request, ActionForm form,
+        RequestContext context) {
         SSMScheduleCommand com  = null;
         User user = context.getLoggedInUser();
 
@@ -171,7 +186,7 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
                             dynaForm.getString(
                                     ScheduleKickstartWizardAction.NETWORK_INTERFACE));
         List<ValidatorError> errors = com.store();
-        return com.getScheduledActions();
+        return new ScheduleActionResult(com.getScheduledActions().size(), errors);
     }
 
 

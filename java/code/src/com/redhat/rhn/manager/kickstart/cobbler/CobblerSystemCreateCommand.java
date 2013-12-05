@@ -283,7 +283,8 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
             if (e.getCause() != null && e.getCause().getMessage() != null &&
                     e.getCause().getMessage().contains("IP address duplicated")) {
                 return new ValidatorError(
-                        "frontend.actions.systems.virt.duplicateipaddressvalue");
+                    "frontend.actions.systems.virt.duplicateipaddressvalue",
+                    server.getName());
             }
             throw e;
         }
@@ -341,7 +342,8 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
             if (e.getCause() != null && e.getCause().getMessage() != null &&
                     e.getCause().getMessage().contains("IP address duplicated")) {
                 return new ValidatorError(
-                        "frontend.actions.systems.virt.duplicateipaddressvalue");
+                    "frontend.actions.systems.virt.duplicateipaddressvalue",
+                    server.getName());
             }
             throw e;
         }
