@@ -71,7 +71,7 @@
          and ps.id = #{session_id}
          and p.id IN
        <foreach collection="id_list" item="item" separator="," close=")" open="(">
-         #{id_item}
+         #{item}
       </foreach>
    </select>
 </mapper>
