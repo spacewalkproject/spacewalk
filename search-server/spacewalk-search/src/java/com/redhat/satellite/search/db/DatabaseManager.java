@@ -37,7 +37,7 @@ import org.apache.log4j.Logger;
 public class DatabaseManager {
 
     private SqlSessionFactory sessionFactory = null;
-    private boolean isOracle;
+    private static boolean isOracle;
     private static Logger log = Logger.getLogger(DatabaseManager.class);
 
 
@@ -116,5 +116,9 @@ public class DatabaseManager {
      */
     public WriteQuery getWriterQuery(String name) {
         return new WriteQuery(sessionFactory.openSession(), name);
+    }
+
+    public static boolean isOracle() {
+        return isOracle;
     }
 }

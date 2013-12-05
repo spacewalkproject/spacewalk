@@ -19,6 +19,7 @@
 						<property name="jdbcUrl" value="${search.connection.driver_proto}:${db_name}"/>
 						<property name="user" value="${db_user}"/>
 						<property name="password" value="${db_password}"/>
+                        <property name="connectionCustomizerClassName" value="com.redhat.satellite.search.config.translator.RhnConnectionCustomizer" />
 					</dataSource>
 				</environment>
 		</environments>
