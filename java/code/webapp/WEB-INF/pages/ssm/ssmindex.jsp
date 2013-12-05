@@ -24,7 +24,7 @@
         <bean:message key="ssm.overview.systems.list"/>
     </div>
     <div class="panel-heading">
-        <rhn:icon type="header-errata" title="Errata" />
+        <rhn:icon type="header-errata" title="<bean:message key='ssm.overview.errata'/>" />
         <bean:message key="ssm.overview.errata"/>
     </div>
     <div class="panel-body">
