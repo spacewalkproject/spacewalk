@@ -5261,6 +5261,48 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="systemgroup.systems.remove">
           <source>Remove Systems</source>
         </trans-unit>
+        <trans-unit id="systemgroup.details.status">
+          <source>System Group Status</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.updates">
+          <source>Updates:</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.criticalupdates">
+          <source>critical updates available</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.someupdates">
+          <source>updates available</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.noupdates">
+          <source>No applicable errata</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.none">
+          <source>(none)</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.properties">
+          <source>System Group Properties</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.editproperties">
+          <source>Edit These Properties</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.admins">
+          <source>Admins:</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.manageadmins">
+          <source>Edit group administrators</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.systems">
+          <source>Systems:</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.name">
+          <source>Name:</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.description">
+          <source>Description:</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.admincount">
+          <source>group administrator(s)</source>
+        </trans-unit>
       </group>
       <group>
         <context-group name="ctx">

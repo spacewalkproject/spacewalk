@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.system;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.LookupException;
@@ -423,5 +424,22 @@ public class ServerGroupManager {
      */
     public List<Long> listInactiveServers(ServerGroup sg, Long threshold) {
         return ServerGroupFactory.listInactiveServerIds(sg, threshold);
+    }
+
+    /**
+     * Returns counts of applicable errata to given server group.
+     * @param user the user to get org from
+     * @param group the server group object to get counts
+     * @return map with counts of security, bugfix and enhancement errata
+     */
+    public Map errataCounts(User user, ServerGroup group) {
+        SelectMode m = ModeFactory.getMode("SystemGroup_queries", "group_errata_counts");
+        Map params = new HashMap();
+        params.put("org_id", user.getOrg().getId());
+        params.put("sgid", group.getId());
+
+        DataResult result = m.execute(params);
+
+        return (Map) result.get(0);
     }
 }

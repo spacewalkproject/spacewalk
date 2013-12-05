@@ -60,4 +60,15 @@ public class ManagedServerGroup extends ServerGroup {
     protected void setAssociatedAdmins(Set newUsers) {
         this.associatedAdmins = newUsers;
     }
+
+    /**
+     * returns count of associated users for this group
+     * without permission check (we need this count for
+     * displaying to associated users which aren't system group
+     * admins - not the same thing!)
+     * @return count of associated users
+     */
+    public int getAssociatedAdminsCount() {
+        return getAssociatedAdmins().size();
+    }
 }

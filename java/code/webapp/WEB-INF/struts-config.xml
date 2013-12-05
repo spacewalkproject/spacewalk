@@ -3881,6 +3881,15 @@
      </action>
 
 
+     <action path="/groups/GroupDetail"
+             scope="request"
+             type="com.redhat.rhn.frontend.action.groups.GroupDetailAction"
+             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+             <set-property property="postRequiredIfSubmitted" value="true" />
+             <forward name="default"
+                      path="/WEB-INF/pages/groups/detail.jsp" />
+     </action>
+
      <action path="/groups/ListRemoveSystems"
              scope="request"
              type="com.redhat.rhn.frontend.action.groups.ListRemoveSystemsAction"

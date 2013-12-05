@@ -132,4 +132,13 @@ ORDER BY UPPER(SG.name), SG.id
   </query>
 </mode>
 
+<mode name="group_errata_counts">
+  <query params="sgid, org_id">
+SELECT  SECURITY_ERRATA as se, BUG_ERRATA as be, ENHANCEMENT_ERRATA as ee
+  FROM  rhnServerGroupOverview
+ WHERE  org_id = :org_id
+   AND  group_id = :sgid
+  </query>
+</mode>
+
 </datasource_modes>
