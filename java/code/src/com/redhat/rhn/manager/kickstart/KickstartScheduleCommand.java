@@ -1079,11 +1079,13 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                         log.debug("    Subscribed: " + cid);
                     }
                     catch (PermissionException pe) {
-                        return new ValidatorError("kickstart.schedule.cantsubscribe");
+                        return new ValidatorError("kickstart.schedule.cantsubscribe",
+                            hostServer.getName());
                     }
                     catch (Exception e) {
                         return new ValidatorError(
-                                "kickstart.schedule.cantsubscribe.channel", c.getName());
+                            "kickstart.schedule.cantsubscribe.channel", c.getName(),
+                            hostServer.getName());
                     }
                 }
                 return null;
@@ -1164,6 +1166,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                 Object[] args = new Object[2];
                 args[0] = UP2DATE_VERSION;
                 args[1] = up2dateversion;
+                args[2] = hostServer.getName();
                 return new ValidatorError("kickstart.schedule.noup2dateinchannel", args);
             }
             Package p = PackageFactory.lookupByIdAndUser(packageId, this.user);

@@ -5761,7 +5761,7 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       </trans-unit>
       <trans-unit id="kickstart.schedule.nobasechannel">
-        <source>System {0} cannot be kickstarted because it does not have a base channel.</source>
+        <source>System &lt;strong&gt;{0}&lt;/strong&gt; cannot be kickstarted because it does not have a base channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
@@ -5779,19 +5779,19 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       </trans-unit>
       <trans-unit id="kickstart.schedule.cantsubscribe">
-        <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
+        <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for &lt;strong&gt;{0}&lt;/strong&gt;'s current base channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="kickstart.schedule.cantsubscribe.channel">
-        <source>You have no remaining subscriptions to the channel {0} for this system's current base channel.</source>
+        <source>You have no remaining subscriptions to the channel {0} for &lt;strong&gt;{1}&lt;/strong&gt;'s current base channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="kickstart.schedule.noup2date">
-        <source>A kickstart was not scheduled for {1} ({0}) because the package profile did not contain the 'up2date' package. An update of that system's package profile may be required.</source>
+        <source>A kickstart was not scheduled for &lt;strong&gt;{1}&lt;/strong&gt; ({0}) because the package profile did not contain the 'up2date' package. An update of that system's package profile may be required.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
@@ -5821,7 +5821,7 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       </trans-unit>
       <trans-unit id="kickstart.schedule.noup2dateinchannel">
-        <source>We require version {0} or greater of up2date in order to kickstart a system.  This system has {1} installed but we could not find a version of up2date in this system's channels to upgrade it to the required version or above.</source>
+        <source>We require version {0} or greater of up2date in order to kickstart a system. &lt;strong&gt;{2}&lt;/strong&gt; has {1} installed but we could not find a version of up2date in this system's channels to upgrade it to the required version or above.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
@@ -7290,7 +7290,7 @@ Follow this url to see the full list of inactive systems:
         <source>MAC Addresses must be unique. This MAC Address has already been recorded. Please choose a different MAC Address.</source>
       </trans-unit>
       <trans-unit id="frontend.actions.systems.virt.duplicateipaddressvalue">
-        <source>IP Addresses must be unique. This IP Address has already been recorded. Please choose a different IP Address.</source>
+        <source>IP Addresses must be unique, and IP Address for &lt;strong&gt;{0}&lt;/strong&gt; has already been recorded. Please choose a different IP Address.</source>
       </trans-unit>
       <trans-unit id="frontend.actions.systems.virt.invalidregexp">
         <source>Guest name can only contain alphanumeric characters, hyphens ('-'), periods ('.') and underscores ('_')</source>
@@ -7685,8 +7685,14 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="edit.channel.repo.clientcertmissing">
         <source>Please set SSL Client Certificate, if you've set SSL Client Key.</source>
       </trans-unit>
+      <trans-unit id="ssm.provision.errors">
+        <source>Skipped {0} system(s):</source>
+      </trans-unit>
+      <trans-unit id="ssm.provision.records.created">
+        <source>Successfully created records for {0} system(s).{1}</source>
+      </trans-unit>
       <trans-unit id="ssm.provision.scheduled">
-        <source>Successfully scheduled {0} system(s) for provisioning.</source>
+        <source>Successfully scheduled {0} system(s) for provisioning.{1}</source>
       </trans-unit>
       <trans-unit id="ssm.package.install.operationname">
         <source>Schedule Package Installations</source>
