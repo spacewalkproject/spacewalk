@@ -303,6 +303,21 @@
             <required>false</required>
         </attribute>
     </tag>
+
+    <tag>
+        <name>icon</name>
+        <tag-class>com.redhat.rhn.frontend.taglibs.IconTag</tag-class>
+        <body-content>JSP</body-content>
+        <attribute>
+        <name>type</name>
+            <required>true</required>
+        </attribute>
+        <attribute>
+        <name>title</name>
+            <required>false</required>
+        </attribute>
+    </tag>
+
     <tag>
         <name>list</name>
         <tag-class>com.redhat.rhn.frontend.taglibs.ListTag</tag-class>
