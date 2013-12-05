@@ -603,6 +603,7 @@ public class ListDisplayTag extends ListDisplayTagBase {
         String styleClass = "btn btn-default btn-xs";
         HtmlTag iconTag = new HtmlTag("i");
         iconTag.setAttribute("class", "fa " + icon);
+        iconTag.addBody("");
         ret.addBody(iconTag);
 
         if (!active) {
