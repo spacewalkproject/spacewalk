@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.6
+Version: 2.1.7
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -186,6 +186,22 @@ fi
 %attr(755, root, root) %{_var}/lib/rhn/search/indexes/docs
 
 %changelog
+* Fri Dec 06 2013 Tomas Lestach <tlestach@redhat.com> 2.1.7-1
+- 1023669 - have unique id for SnapshotTag
+- 1023669 - remove unused logger
+- 1023669 - start using verifyServerVisibility
+- 1023669 - start using errata visibility
+- 1023669 - fix list iterations as query parameters
+- 1023669 - add connection customizer
+- 1023669 - introduce C3P0DataSourceFactory
+- 1023669 - link cglib-node and objectweb-asm for DelteIndexes
+- 1023669 - require and link c3p0
+- 1023669 - require and link cglib-nodep and objectweb-asm
+- 1023669 - replace ibatis jar with mybatis
+- 1023669 - adapt code for mybatis
+- 1023669 - migrate to mybatis
+- 1023669 - remove original setSessionTimeZone
+
 * Fri Nov 15 2013 Tomas Lestach <tlestach@redhat.com> 2.1.6-1
 - Fix custom info value index removal in advanced search
 
