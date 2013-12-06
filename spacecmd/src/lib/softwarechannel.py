@@ -1621,4 +1621,31 @@ def do_softwarechannel_setsyncschedule(self, args):
 
     self.client.channel.software.syncRepo(self.session, channel, schedule)
 
+####################
+
+def help_softwarechannel_addrepo(self):
+    print 'softwarechannel_addrepo: Add a repo to a software channel'
+    print 'usage: softwarechannel_addrepo CHANNEL REPO'
+
+def complete_softwarechannel_addrepo(self, text, line, beg, end):
+    parts = line.split(' ')
+
+    if len(parts) == 2:
+        return tab_completer(self.do_softwarechannel_list('', True),
+                                  text)
+    elif len(parts) == 3:
+        return tab_completer(self.do_repo_list('', True), text)
+
+def do_softwarechannel_addrepo(self, args):
+    (args, options) = parse_arguments(args)
+
+    if len(args) < 2:
+        self.help_softwarechannel_addrepo()
+        return
+
+    channel = args[0]
+    repo = args[1]
+
+    self.client.channel.software.associateRepo(self.session, channel, repo)
+
 # vim:ts=4:expandtab:
