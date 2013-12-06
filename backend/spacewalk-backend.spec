@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.37
+Version: 2.1.38
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -628,6 +628,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Thu Dec 05 2013 Aron Parsons <aronparsons@gmail.com> 2.1.38-1
+- detect RDO instances as QEMU guests
+
 * Fri Nov 29 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.37-1
 - convert empty uuid to None
 
