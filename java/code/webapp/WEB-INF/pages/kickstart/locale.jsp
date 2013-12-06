@@ -16,10 +16,10 @@
             <html:hidden property="ksid" value="${ksdata.id}"/>
             <html:hidden property="submitted" value="true"/>
                 <div class="form-group">
-                    <label class="col-lg-3 control-label">
+                    <label class="col-md-3 control-label">
                         <bean:message key="kickstart.locale.jsp.timezone" />
                     </label>
-                    <div class="col-lg-6">
+                    <div class="col-md-6">
                         <html:select property="timezone" styleClass="form-control">
                             <html:options collection="timezones"
                                           property="value"
@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-lg-offset-3 col-lg-6">
+                    <div class="col-md-offset-3 col-md-6">
                         <div class="checkbox">
                             <label>
                                 <html:checkbox property="use_utc"/>
@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-lg-offset-3 col-lg-6">
+                    <div class="col-md-offset-3 col-md-6">
                         <html:submit styleClass="btn btn-success">
                             <bean:message key="kickstart.locale.jsp.updatekickstart"/>
                         </html:submit>
