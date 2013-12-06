@@ -36,6 +36,7 @@ public class IndexSnapshotTagsTask extends GenericIndexTask {
             throws ClassCastException {
         SnapshotTag sTag = (SnapshotTag)data;
         Map<String, String> attrs = new HashMap<String, String>();
+        attrs.put("uniqId", sTag.getUniqId());
         attrs.put("snapshotId", new Long(sTag.getSnapshotId()).toString());
         attrs.put("tagNameId", new Long(sTag.getTagNameId()).toString());
         attrs.put("serverId", new Long(sTag.getServerId()).toString());
@@ -98,9 +99,9 @@ public class IndexSnapshotTagsTask extends GenericIndexTask {
      * {@inheritDoc}
      */
     public String getUniqueFieldId() {
-        return "tagNameId";
+        return "uniqId";
     }
-    
+
     /**
      * {@inheritDoc}
      */

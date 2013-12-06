@@ -20,7 +20,6 @@ package com.redhat.satellite.search.db.models;
  * @version $Rev$
  */
 public class SnapshotTag extends GenericRecord {
-    private long id;
     private long snapshotId;
     private long tagNameId;
     private long serverId;
@@ -28,18 +27,19 @@ public class SnapshotTag extends GenericRecord {
     private String name;
     private String created;
     private String modified;
-    /**
-     * @return the id
-     */
-    public long getId() {
-        return id;
-    }
-    /**
-     * @param idIn the id to set
-     */
-    public void setId(long idIn) {
-        this.id = idIn;
-    }
+
+   private String makeUniqId(long serverIdIn, long snapshotdIn) {
+       return serverIdIn + "-" + snapshotdIn;
+   }
+
+   /**
+    *
+    * @return uniqId
+    */
+   public String getUniqId() {
+       return makeUniqId(serverId, snapshotId);
+   }
+
     /**
      * @return the snapshotId
      */
@@ -124,5 +124,4 @@ public class SnapshotTag extends GenericRecord {
     public void setModified(String modifiedIn) {
         this.modified = modifiedIn;
     }
-
 }
