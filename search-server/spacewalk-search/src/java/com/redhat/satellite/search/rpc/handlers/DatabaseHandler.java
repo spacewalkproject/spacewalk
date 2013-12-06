@@ -22,8 +22,6 @@ import com.redhat.satellite.search.index.Result;
 import com.redhat.satellite.search.index.QueryParseException;
 import com.redhat.satellite.search.scheduler.ScheduleManager;
 
-import com.ibatis.sqlmap.client.SqlMapException;
-
 import org.apache.log4j.Logger;
 
 import redstone.xmlrpc.XmlRpcFault;
@@ -93,11 +91,6 @@ public class DatabaseHandler {
             log.info("Returned " + hits.size() + " records");
             return hits;
         }
-        catch (SqlMapException e) {
-            log.warn("Caught SqlMapException: " + e.getMessage());
-            e.printStackTrace();
-            throw new XmlRpcFault(IndexHandler.DB_ERROR, e.getMessage());
-        }
         catch (SQLException e) {
             log.warn("Caught SQLException: " + e.getMessage());
             e.printStackTrace();
@@ -161,7 +154,7 @@ public class DatabaseHandler {
      */
     private List<Result> runQuery(Long sessionId, String namespace, String queryName,
             Map<String, Object> args)
-        throws SQLException, SqlMapException {
+        throws SQLException {
         // Look up Query in DB
         args.put("sessionId", sessionId);
         Query<Result> query = databaseManager.getQuery(queryName);

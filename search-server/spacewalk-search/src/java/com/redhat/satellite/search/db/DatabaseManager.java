@@ -22,11 +22,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Properties;
-import com.ibatis.sqlmap.client.SqlMapClient;
-import com.ibatis.sqlmap.client.SqlMapClientBuilder;
+
 import com.redhat.satellite.search.config.Configuration;
 import com.redhat.satellite.search.config.ConfigException;
 
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.log4j.Logger;
 
 /**
@@ -35,7 +36,7 @@ import org.apache.log4j.Logger;
  */
 public class DatabaseManager {
 
-    private SqlMapClient client = null;
+    private SqlSessionFactory sessionFactory = null;
     private boolean isOracle;
     private static Logger log = Logger.getLogger(DatabaseManager.class);
 
@@ -95,7 +96,7 @@ public class DatabaseManager {
             }
         }
 
-        client = SqlMapClientBuilder.buildSqlMapClient(reader, overrides);
+        sessionFactory = new SqlSessionFactoryBuilder(). build(reader, overrides);
     }
 
     /**
@@ -105,7 +106,7 @@ public class DatabaseManager {
      * @return query object
      */
     public <T> Query<T> getQuery(String name) {
-        return new Query<T>(client.openSession(), name);
+        return new Query<T>(sessionFactory.openSession(), name);
     }
 
     /**
@@ -114,14 +115,6 @@ public class DatabaseManager {
      * @return query object
      */
     public WriteQuery getWriterQuery(String name) {
-        return new WriteQuery(client.openSession(), name);
-    }
-
-    /**
-     * Opens a direct DB connection
-     * @return connection object
-     */
-    public Connection getConnection() {
-        return new Connection(client.openSession());
+        return new WriteQuery(sessionFactory.openSession(), name);
     }
 }

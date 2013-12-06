@@ -14,7 +14,6 @@
  */
 package com.redhat.satellite.search.scheduler.tasks;
 
-import com.ibatis.sqlmap.client.SqlMapException;
 import com.redhat.satellite.search.db.DatabaseManager;
 import com.redhat.satellite.search.db.Query;
 import com.redhat.satellite.search.db.WriteQuery;
@@ -223,13 +222,6 @@ public abstract class GenericIndexTask implements Job {
             }
             uniqField = getUniqueFieldId();
             indexName = getIndexName();
-        }
-        catch (SqlMapException e) {
-            e.printStackTrace();
-            log.info("Error with 'getQueryAllIds()' on " +
-                    super.getClass().toString());
-            //just print the warning so we know and skip this method.
-            return 0;
         }
         finally {
             if (query != null) {

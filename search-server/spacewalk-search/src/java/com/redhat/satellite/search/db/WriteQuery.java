@@ -15,43 +15,38 @@
 
 package com.redhat.satellite.search.db;
 
-import com.ibatis.sqlmap.client.SqlMapSession;
+import org.apache.ibatis.session.SqlSession;
 
 import java.sql.SQLException;
 
 /**
  * Query for writing (insert, update, delete) to a database
- * 
+ *
  * @version $Rev$
  */
 public class WriteQuery {
-    
-    private SqlMapSession session;
+
+    private SqlSession session;
     private String queryName;
 
-    WriteQuery(SqlMapSession sessionIn, String queryNameIn) {
+    WriteQuery(SqlSession sessionIn, String queryNameIn) {
         session = sessionIn;
         queryName = queryNameIn;
     }
-    
+
     /**
      * Close query and all associated resources
      * @throws SQLException something bad happened
      */
     public void close() throws SQLException {
         try {
-            try {
-                session.commitTransaction();
-            }
-            catch (SQLException e) {
-                session.endTransaction();
-            }
+            session.commit();
         }
         finally {
             session.close();
         }
-    }    
-    
+    }
+
     /**
      * Execute update query
      * @param param query param
@@ -61,22 +56,22 @@ public class WriteQuery {
     public int update(Object param) throws SQLException {
         return session.update(queryName, param);
     }
-    
+
     /**
      * Execute delete query
      * @param param query param
      * @return number of rows updated
      * @throws SQLException something bad happened
-     */    
+     */
     public int delete(Object param) throws SQLException {
         return session.delete(queryName, param);
     }
-    
+
     /**
      * Execute insert query
      * @param param query param
      * @throws SQLException something bad happened
-     */    
+     */
     public void insert(Object param) throws SQLException {
         session.insert(queryName, param);
     }

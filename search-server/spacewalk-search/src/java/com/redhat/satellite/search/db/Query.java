@@ -15,7 +15,7 @@
 
 package com.redhat.satellite.search.db;
 
-import com.ibatis.sqlmap.client.SqlMapSession;
+import org.apache.ibatis.session.SqlSession;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,10 +29,10 @@ import java.util.List;
  */
 public class Query<T> {
 
-    private SqlMapSession session;
+    private SqlSession session;
     private String queryName;
 
-    Query(SqlMapSession sessionIn, String queryNameIn) {
+    Query(SqlSession sessionIn, String queryNameIn) {
         session = sessionIn;
         queryName = queryNameIn;
     }
@@ -43,12 +43,7 @@ public class Query<T> {
      */
     public void close() throws SQLException {
         try {
-            try {
-                session.commitTransaction();
-            }
-            catch (SQLException e) {
-                session.endTransaction();
-            }
+            session.commit();
         }
         finally {
             session.close();
@@ -63,7 +58,7 @@ public class Query<T> {
      */
     @SuppressWarnings("unchecked")
     public List<T> loadList(Object param) throws SQLException {
-        List r = session.queryForList(queryName, param);
+        List r = session.selectList(queryName, param);
         List<Object> results = r;
         List<T> retval = new ArrayList<T>(results.size());
         for (Object item : results) {
@@ -80,7 +75,7 @@ public class Query<T> {
      */
     @SuppressWarnings("unchecked")
     public T load(Object param) throws SQLException {
-        return (T)session.queryForObject(queryName, param);
+        return (T)session.selectOne(queryName, param);
     }
 
     /**
@@ -90,6 +85,6 @@ public class Query<T> {
      */
     @SuppressWarnings("unchecked")
     public T load() throws SQLException {
-        return (T)session.queryForObject(queryName);
+        return (T)session.selectOne(queryName);
     }
 }
