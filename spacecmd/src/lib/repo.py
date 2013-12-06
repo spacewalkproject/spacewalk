@@ -100,7 +100,9 @@ def help_repo_addfilters(self):
     print 'usage: repo_addfilters repo <filter ...>'
 
 def complete_repo_addfilters(self, text, line, beg, end):
-    return tab_completer(self.do_repo_add('', True), text)
+    if len(line.split(' ')) <= 2:
+        return tab_completer(self.do_repo_list('', True),
+                                  text)
 
 def do_repo_addfilters(self, args):
     # arguments can start with -, so don't parse arguments in the normal way
