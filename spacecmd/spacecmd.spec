@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.1.17
+Version:     2.1.18
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -64,6 +64,13 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Dec 05 2013 Aron Parsons <aronparsons@gmail.com> 2.1.18-1
+- spacecmd: print repos in softwarechannel_getdetails
+- spacecmd: add softwarechannel_listrepos
+- spacecmd: add softwarechannel_removerepo
+- spacecmd: add softwarechannel_addrepo
+- spacecmd: fix tab completion for repo_addfilters
+
 * Thu Dec 05 2013 Milan Zazrivec <mzazrivec@redhat.com> 2.1.17-1
 - package search: make sure the lucene search syntax works
 
