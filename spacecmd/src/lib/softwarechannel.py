@@ -1651,7 +1651,7 @@ def do_softwarechannel_addrepo(self, args):
 ####################
 
 def help_softwarechannel_removerepo(self):
-    print 'softwarechannel_removerepo: Add a repo to a software channel'
+    print 'softwarechannel_removerepo: Remove a repo from a software channel'
     print 'usage: softwarechannel_removerepo CHANNEL REPO'
 
 def complete_softwarechannel_removerepo(self, text, line, beg, end):
@@ -1681,5 +1681,25 @@ def do_softwarechannel_removerepo(self, args):
     repo = args[1]
 
     self.client.channel.software.disassociateRepo(self.session, channel, repo)
+
+####################
+
+def help_softwarechannel_listrepos(self):
+    print 'softwarechannel_listrepos: List the repos for a software channel'
+    print 'usage: softwarechannel_listrepos CHANNEL'
+
+def complete_softwarechannel_listrepos(self, text, line, beg, end):
+    parts = line.split(' ')
+
+    return tab_completer(self.do_softwarechannel_list('', True), text)
+
+def do_softwarechannel_listrepos(self, args):
+    (args, options) = parse_arguments(args)
+
+    details = self.client.channel.software.getDetails(self.session, args[0])
+    repos = [r.get('label') for r in details.get('contentSources')]
+
+    if len(repos):
+        print '\n'.join(sorted(repos))
 
 # vim:ts=4:expandtab:
