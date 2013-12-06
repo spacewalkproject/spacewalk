@@ -17,6 +17,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
 #Requires: apache-ibatis-sqlmap
+Requires: cglib
 Requires: doc-indexes
 Requires: jakarta-commons-cli
 Requires: jakarta-commons-codec
@@ -35,6 +36,7 @@ Requires: jakarta-oro
 Requires: oro
 %endif
 #Requires: lucene
+Requires: objectweb-asm
 Requires: quartz < 2.0
 Conflicts: quartz >= 2.0
 Requires: redstone-xmlrpc
