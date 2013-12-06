@@ -21,13 +21,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.lang.reflect.Method;
 import java.util.Properties;
-import java.util.TimeZone;
-
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
-import com.ibatis.sqlmap.client.SqlMapSession;
 import com.redhat.satellite.search.config.Configuration;
 import com.redhat.satellite.search.config.ConfigException;
 
@@ -109,7 +105,7 @@ public class DatabaseManager {
      * @return query object
      */
     public <T> Query<T> getQuery(String name) {
-        return new Query<T>(openSession(), name);
+        return new Query<T>(client.openSession(), name);
     }
 
     /**
@@ -118,8 +114,7 @@ public class DatabaseManager {
      * @return query object
      */
     public WriteQuery getWriterQuery(String name) {
-        SqlMapSession session = openSession();
-        return new WriteQuery(session, name);
+        return new WriteQuery(client.openSession(), name);
     }
 
     /**
@@ -127,32 +122,6 @@ public class DatabaseManager {
      * @return connection object
      */
     public Connection getConnection() {
-        return new Connection(openSession());
-    }
-
-    private SqlMapSession openSession() {
-        SqlMapSession session = client.openSession();
-        setSessionTimeZone();
-        return session;
-    }
-
-    public void setSessionTimeZone() {
-        if (isOracle) {
-            try {
-                java.sql.Connection proxyConn = client.getDataSource().getConnection();
-                // this is a trick, how to get OracleConnection from the Proxy object
-                java.sql.Connection oraConn = proxyConn.createStatement().getConnection();
-                Method setSessionTimeZoneMethod = Class.forName(
-                        "oracle.jdbc.driver.OracleConnection").getMethod(
-                        "setSessionTimeZone", String.class);
-                        if (setSessionTimeZoneMethod != null) {
-                            setSessionTimeZoneMethod.invoke(oraConn, TimeZone.getDefault().getID());
-                        }
-            }
-            catch (Exception e) {
-                log.warn("Unable to set session timezone.");
-                e.printStackTrace();
-            }
-        }
+        return new Connection(client.openSession());
     }
 }
