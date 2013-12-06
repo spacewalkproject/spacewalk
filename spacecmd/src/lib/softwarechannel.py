@@ -370,6 +370,13 @@ def do_softwarechannel_details(self, args):
             for tree in trees:
                 print tree.get('label')
 
+        if details.get('contentSources'):
+            print
+            print 'Repos'
+            print '-----'
+            for repo in details.get('contentSources'):
+                print repo.get('label')
+
 ####################
 
 def help_softwarechannel_listerrata(self):
