@@ -7,17 +7,29 @@ GLADES		= gui.glade progress.glade rh_register.glade
 PUPLET_SS       = puplet-screenshot.png
 KEYS		= RHNS-CA-CERT
 
+# Distro
+RHEL		= $(shell rpm --eval 0%{?rhel})
+FEDORA		= $(shell rpm --eval 0%{?fedora})
+
 # Directories for installation
 RHNSHARE_DIR	= $(PREFIX)/usr/share/rhn
 PIXMAP_DIR	= $(PREFIX)/usr/share/pixmaps
 PNG16_DIR	= $(PREFIX)/usr/share/icons/hicolor/16x16/apps
+PNG22_DIR	= $(PREFIX)/usr/share/icons/hicolor/22x22/apps
 PNG24_DIR	= $(PREFIX)/usr/share/icons/hicolor/24x24/apps
 PNG32_DIR	= $(PREFIX)/usr/share/icons/hicolor/32x32/apps
 PNG48_DIR	= $(PREFIX)/usr/share/icons/hicolor/48x48/apps
+PNG256_DIR	= $(PREFIX)/usr/share/icons/hicolor/256x256/apps
 # all dirs
+ifeq ($(shell test $(RHEL) -ge 7 -o $(FEDORA) -ge 18 && echo "newicons"), newicons)
+DIRS		= $(PIXMAP_DIR) \
+		  $(PNG16_DIR) $(PNG22_DIR) $(PNG24_DIR) $(PNG32_DIR) $(PNG48_DIR) $(PNG256_DIR) \
+		  $(RHNSHARE_DIR) $(RHNSHARE_DIR)/up2date_client
+else
 DIRS		= $(PIXMAP_DIR) \
 		  $(PNG16_DIR) $(PNG24_DIR) $(PNG32_DIR) $(PNG48_DIR) \
-		  $(RHNSHARE_DIR) $(RHNSHARE_DIR)/up2date_client \
+		  $(RHNSHARE_DIR) $(RHNSHARE_DIR)/up2date_client
+endif
 
 # INSTALL scripts 
 INSTALL         = install -p --verbose 
@@ -56,11 +68,20 @@ install:: $(DIRS)
 	
 	$(INSTALL_DATA) $(GLADES) $(RHNSHARE_DIR)/up2date_client
 
-	# install the hicolor theme icons for up2date
-	$(INSTALL_DATA) up2date-icons/16x16/up2date.png $(PNG16_DIR)/ 
-	$(INSTALL_DATA) up2date-icons/24x24/up2date.png $(PNG24_DIR)/ 
-	$(INSTALL_DATA) up2date-icons/32x32/up2date.png $(PNG32_DIR)/ 
-	$(INSTALL_DATA) up2date-icons/48x48/up2date.png $(PNG48_DIR)/ 
+# install the hicolor theme icons for up2date
+ifeq ($(shell test $(RHEL) -ge 7 -o $(FEDORA) -ge 18 && echo "newicons"), newicons)
+	$(INSTALL_DATA) up2date-icons-new/16x16/up2date.png $(PNG16_DIR)/
+	$(INSTALL_DATA) up2date-icons-new/22x22/up2date.png $(PNG22_DIR)/
+	$(INSTALL_DATA) up2date-icons-new/24x24/up2date.png $(PNG24_DIR)/
+	$(INSTALL_DATA) up2date-icons-new/32x32/up2date.png $(PNG32_DIR)/
+	$(INSTALL_DATA) up2date-icons-new/48x48/up2date.png $(PNG48_DIR)/
+	$(INSTALL_DATA) up2date-icons-new/256x256/up2date.png $(PNG256_DIR)/
+else
+	$(INSTALL_DATA) up2date-icons/16x16/up2date.png $(PNG16_DIR)/
+	$(INSTALL_DATA) up2date-icons/24x24/up2date.png $(PNG24_DIR)/
+	$(INSTALL_DATA) up2date-icons/32x32/up2date.png $(PNG32_DIR)/
+	$(INSTALL_DATA) up2date-icons/48x48/up2date.png $(PNG48_DIR)/
+endif
 
 	# this is lame and should be dealt with in the code
 	sed -i -e "s|@@logo@@|$(LOGO)|g" \
