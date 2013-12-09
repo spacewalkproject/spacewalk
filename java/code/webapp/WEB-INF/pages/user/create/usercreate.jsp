@@ -192,7 +192,7 @@
 
 </c:if>
 
-<div class="text-right">
+<div class="text-center">
   <html:submit styleClass="btn btn-success">
     <bean:message key="usercreate.jsp.createlogin"/>
   </html:submit>
