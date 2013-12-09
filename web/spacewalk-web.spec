@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.39
+Version: 2.1.40
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Dec 09 2013 Jan Dobes 2.1.40-1
+- system group details - linking + cleanup
+
 * Wed Dec 04 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.39-1
 - bootstrap tuning
 
