@@ -45,8 +45,8 @@
                             />
                         </c:when>
                         <c:when test="${enabledForOtherOrg}">
-                            <input type="submit" disabled="disabled" value="${rhn:localize('disable')}"
-                                class="btn btn-default"
+                            <input type="submit" disabled value="${rhn:localize('disable')}"
+                                class="btn"
                             />
                         </c:when>
                     </c:choose>
