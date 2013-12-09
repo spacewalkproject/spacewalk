@@ -91,7 +91,7 @@
                       onclick="showImages();"
                       value="${rhn:localize('images.jsp.cancel')}" />
                <html:submit property="dispatch"
-                            styleClass="btn btn-success"
+                            styleClass="${(empty sessionScope.imagesList)? 'btn' : 'btn-success'}"
                             disabled="${empty sessionScope.imagesList}">
                    <bean:message key="images.jsp.dispatch" />
                </html:submit>

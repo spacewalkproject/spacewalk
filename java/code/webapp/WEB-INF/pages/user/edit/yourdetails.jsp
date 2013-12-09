@@ -34,10 +34,16 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-offset-3 col-lg-6">
-                            <button type="submit"
-                                    class="btn btn-success"
-                                    value="<bean:message key='message.Update'/>"
-                                <c:if test="${empty mailableAddress}">disabled="disabled"</c:if> >
+                            <button type="submit" value="<bean:message key='message.Update'/>"
+                                <c:choose>
+                                   <c:when test="${empty mailableAddress}">
+                                       disabled class="btn"
+                                   </c:when>
+                                   <c:otherwise>
+                                       class="btn btn-success"
+                                    </c:otherwise>
+                                </c:choose>
+                            >
                                 <bean:message key="message.Update"/>
                             </button>
                         </div>

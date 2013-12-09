@@ -19,9 +19,16 @@
         <%@ include file="tree-form.jspf" %>
         <div class="form-group">
             <div class="col-lg-offset-3 col-lg-6">
-                <button <c:if test="${requestScope.hidesubmit == 'true'}">disabled="disabled"</c:if>
-                        type="submit"
-                        class="btn btn-success">
+                <button type="submit"
+                   <c:choose>
+                      <c:when test="${requestScope.hidesubmit == 'true'}">
+                          disabled class="btn"
+                      </c:when>
+                      <c:otherwise>
+                          class="btn btn-success"
+                      </c:otherwise>
+                   </c:choose>
+                >
                     <bean:message key="createtree.jsp.submit"/>
                 </button>
             </div>

@@ -161,7 +161,7 @@
                                 </html:submit>
                             </c:when>
                             <c:otherwise>
-                                <html:submit property="delete_button" disabled="true" styleClass="btn btn-success">
+                                <html:submit property="delete_button" disabled styleClass="btn">
                                     <bean:message key="channel.delete.jsp.channelheader"/>
                                 </html:submit>
                             </c:otherwise>

@@ -78,7 +78,7 @@
                                     </button>
                                 </c:when>
                                 <c:otherwise>
-                                    <button type="button" class="btn btn-success" disabled="disabled">
+                                    <button type="button" class="btn" disabled>
                                         <bean:message key="button.update"/>
                                     </button>
                                 </c:otherwise>
