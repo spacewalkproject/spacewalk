@@ -587,16 +587,9 @@ public class ListTagUtil {
                 ListTagUtil.write(pageContext, "\" value=\"");
                 ListTagUtil.write(pageContext, linkData[2]);
             }
+            ListTagUtil.write(pageContext, "\" title=\"");
+            ListTagUtil.write(pageContext, linkData[3]);
             ListTagUtil.write(pageContext, "\"></button>");
-
-            /*
-            if (linkData[1] = null) {
-            ListTagUtil.write(pageContext, "<input type=\"hidden\" name=\"");
-            ListTagUtil.write(pageContext, linkData[1]);
-            ListTagUtil.write(pageContext, "\" value=\"");
-            ListTagUtil.write(pageContext, linkData[2]);
-            ListTagUtil.write(pageContext, "\" />");
-           */
         }
         ListTagUtil.write(pageContext, "</div>");
     }
