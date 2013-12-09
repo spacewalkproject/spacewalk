@@ -1,27 +1,27 @@
 <html:hidden property="refreshForm" styleId="refreshForm" value="false"/>
 <div class="form-group">
-    <label class="col-lg-3 control-label">
+    <label class="col-md-3 control-label">
         <rhn:required-field key="tree-form.jspf.label"/>:
     </label>
-    <div class="col-lg-6">
+    <div class="col-md-6">
         <html:text property="label" maxlength="64" size="64" styleClass="form-control"/>
     </div>
 </div>
 
 <div class="form-group">
-    <label class="col-lg-3 control-label">
+    <label class="col-md-3 control-label">
         <rhn:required-field key="tree-form.jspf.location"/>:
     </label>
-    <div class="col-lg-6">
+    <div class="col-md-6">
         <html:text property="basepath" maxlength="256" size="64" styleClass="form-control"/>
     </div>
 </div>
 
 <div class="form-group">
-    <label class="col-lg-3 control-label">
+    <label class="col-md-3 control-label">
         <rhn:required-field key="softwareedit.jsp.basechannel"/>:
     </label>
-    <div class="col-lg-6">
+    <div class="col-md-6">
         <c:if test="${requestScope.nochannels != 'true'}">
             <html:select property="channelid" onchange="refresh('treeEditForm');" styleClass="form-control">
                 <html:options collection="channels" property="value" labelProperty="label" />
@@ -35,10 +35,10 @@
 
 <c:if test="${requestScope.nochannels != 'true'}">
     <div class="form-group">
-        <label class="col-lg-3 control-label">
+        <label class="col-md-3 control-label">
             <rhn:required-field key="tree-form.jspf.installer"/>:
         </label>
-        <div class="col-lg-6">
+        <div class="col-md-6">
             <c:choose>
                 <c:when test="${requestScope.noinstalltypes == 'true'}">
                     <bean:message key="tree-form.jspf.noinstalltypes" />
@@ -55,19 +55,19 @@
     </div>
 
     <div class="form-group">
-        <label class="col-lg-3 control-label">
+        <label class="col-md-3 control-label">
             <bean:message key="kickstartdetails.jsp.kernel_options"/>:
         </label>
-        <div class="col-lg-6">
+        <div class="col-md-6">
             <html:text property="kernelopts" maxlength="256" size="64" styleClass="form-control"/>
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-lg-3 control-label">
+        <label class="col-md-3 control-label">
             <bean:message key="kickstartdetails.jsp.post_kernel_options"/>:
         </label>
-        <div class="col-lg-6">
+        <div class="col-md-6">
             <html:text property="postkernelopts" maxlength="256" size="64" styleClass="form-control"/>
         </div>
     </div>
