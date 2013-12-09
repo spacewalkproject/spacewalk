@@ -19,10 +19,10 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 
 
 /**
- * LoginExpiredSatTestCase
+ * LoginExpiredTest
  * @version $Rev$
  */
-public class LoginExpiredSatTestCase extends RhnMockStrutsTestCase {
+public class LoginExpiredTest extends RhnMockStrutsTestCase {
 
     public void testExpiredSatCert() throws Exception {
         CertificateManagerTest.expireSatelliteCertificate();
