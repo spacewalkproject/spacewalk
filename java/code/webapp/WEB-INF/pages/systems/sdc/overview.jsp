@@ -27,10 +27,10 @@
           <c:when test="${hasUpdates}">
               <c:choose>
                   <c:when test="${criticalErrataCount > 0}">
-                      <i class="fa fa-exclamation-circle fa-1-5x text-danger"></i>
+                      <rhn:icon type="system-crit" />
                   </c:when>
                   <c:otherwise>
-                      <i class="fa fa-exclamation-triangle fa-1-5x text-warning"></i>
+                      <rhn:icon type="system-warn" />
                   </c:otherwise>
               </c:choose>
 
@@ -48,7 +48,7 @@
           </c:when>
 
           <c:otherwise>
-           <i class="fa fa-check-circle fa-1-5x text-success"></i> <bean:message key="sdc.details.overview.updated"/>
+           <rhn:icon type="system-ok" /> <bean:message key="sdc.details.overview.updated"/>
           </c:otherwise>
         </c:choose>
 

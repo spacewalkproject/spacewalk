@@ -26,17 +26,17 @@
     <td>
       <div class="system-status">
       <c:if test="${errata_counts['se'] > 0}">
-        <i class="fa fa-exclamation-circle fa-1-5x text-danger"></i>
+        <rhn:icon type="system-crit" />
         <span class="system-status-critical-updates"><bean:message key="systemgroup.details.criticalupdates"/></span>
         <a class="btn btn-danger" href="/network/systems/groups/errata_list.pxt?sgid=${id}">${errata_counts['se']} <i class="fa fa-arrow-right"></i></a>
       </c:if>
       <c:if test="${(errata_counts['se'] == 0) && ((errata_counts['be'] > 0) || (errata_counts['ee'] > 0))}">
-        <i class="fa fa-exclamation-triangle fa-1-5x text-warning"></i>
+        <rhn:icon type="system-warn" />
         <span class="system-status-updates"><bean:message key="systemgroup.details.someupdates"/></span>
         <a class="btn btn-warning" href="/network/systems/groups/errata_list.pxt?sgid=${id}"><i class="fa fa-arrow-right"></i></a>
       </c:if>
       <c:if test="${(errata_counts['se'] == 0) && (errata_counts['be'] == 0) && (errata_counts['ee'] == 0)}">
-        <i class="fa fa-check-circle fa-1-5x text-success"></i>
+        <rhn:icon type="system-ok" />
         <span class="system-status-up-to-date"><bean:message key="systemgroup.details.noupdates"/></span>
       </c:if>
       </div>

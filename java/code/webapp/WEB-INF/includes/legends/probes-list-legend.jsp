@@ -3,19 +3,19 @@
 <div class="sideleg">
   <h4><bean:message key="probes-list-legend.jsp.title"/></h4>
   <ul>
-  <li><i class="fa fa-1-5x spacewalk-icon-health text-success"></i>
+  <li><rhn:icon type="monitoring-ok" />
     <bean:message key="probes-list-legend.jsp.ok"/>
   </li>
-  <li><i class="fa fa-1-5x spacewalk-icon-health text-warning"></i>
+  <li><rhn:icon type="monitoring-warn" />
     <bean:message key="probes-list-legend.jsp.warning"/>
   </li>
-  <li><i class="fa fa-1-5x spacewalk-icon-health text-danger"></i>
+  <li><rhn:icon type="monitoring-crit" />
     <bean:message key="probes-list-legend.jsp.critical"/>
   </li>
-  <li><i class="fa fa-1-5x spacewalk-icon-health-unknown"></i>
+  <li><rhn:icon type="monitoring-unknown" />
     <bean:message key="probes-list-legend.jsp.unknown"/>
   </li>
-  <li><i class="fa fa-1-5x spacewalk-icon-health-pending"></i>
+  <li><rhn:icon type="monitoring-pending" />
     <bean:message key="probes-list-legend.jsp.pending"/>
   </li>
   </ul>

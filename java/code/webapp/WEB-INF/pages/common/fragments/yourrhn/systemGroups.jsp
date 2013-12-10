@@ -24,7 +24,7 @@
 					<i class="fa fa-exclamation-circle fa-1-5x text-warning" title="<bean:message key='grouplist.jsp.updates'/>"></i>
 	    	    		</c:when>
 	        			<c:otherwise>
-	          			<i class="fa fa-check-circle fa-1-5x text-success" title="<bean:message key='grouplist.jsp.noerrata'/>"></i>
+	          			<rhn:icon type="system-ok" title="<bean:message key='grouplist.jsp.noerrata'/>" />
 		        		</c:otherwise>
 	   				</c:choose>
 	   			</a>
