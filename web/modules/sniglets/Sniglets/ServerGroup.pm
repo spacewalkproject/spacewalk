@@ -64,20 +64,20 @@ sub system_group_status_interface {
 
   if (not ($counts->{SECURITY_ERRATA} or $counts->{BUG_ERRATA} or $counts->{ENHANCEMENT_ERRATA})) {
 
-    $subst->{icon} = '<i class="fa fa-check-circle fa-1-5x text-success"></i>';
+    $subst->{icon} = PXT::HTML->icon(-type => 'system-ok');
     $subst->{status_str} = 'No applicable errata';
     $subst->{status_class} = 'system-status-up-to-date';
   }
   elsif ($counts->{SECURITY_ERRATA}) {
 
-    $subst->{icon} = '<i class="fa fa-exclamation-circle fa-1-5x text-danger"></i>';
+    $subst->{icon} = PXT::HTML->icon(-type => 'system-crit');
     $subst->{status_str} = $counts->{SECURITY_ERRATA} . ' critical updates available';
     $subst->{message} = "(<a href=\"/network/systems/groups/errata_list.pxt?sgid=" . $sgid . "\">more info</a>)";;
     $subst->{status_class} = 'system-status-critical-updates';
   }
   else {
 
-    $subst->{icon} = '<i class="fa fa-exclamation-triangle fa-1-5x text-warning"></i>';
+    $subst->{icon} = PXT::HTML->icon(-type => 'system-warn');
     $subst->{status_str} = ' updates available';
     $subst->{message} = "(<a href=\"/network/systems/groups/errata_list.pxt?sgid=" . $sgid . "\">more info</a>)";
     $subst->{status_class} = 'system-status-updates';

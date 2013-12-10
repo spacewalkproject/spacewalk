@@ -218,7 +218,7 @@ sub system_status_info {
   $ret->{$_} = '' foreach (qw/image status_str status_class message link/);
 
   if (not $data->{IS_ENTITLED}) {
-    $ret->{icon} = 'fa fa-1-5x spacewalk-icon-Unentitled';
+    $ret->{icon} = 'system-unentitled';
     $ret->{status_str} = 'System not entitled';
     $ret->{status_class} = 'system-status-unentitled';
 
@@ -228,7 +228,7 @@ sub system_status_info {
     }
   }
   elsif ($data->{LAST_CHECKIN_DAYS_AGO} > PXT::Config->get('system_checkin_threshold')) {
-    $ret->{icon} = 'spacewalk-icon-unknown-system';
+    $ret->{icon} = 'system-unknown';
     $ret->{status_str} = 'System not checking in with R H N';
     $ret->{status_class} = 'system-status-awol';
     $ret->{message} = 'more info';
@@ -236,40 +236,40 @@ sub system_status_info {
 						    -href => 's1-sm-systems.html#S3-SM-SYSTEM-LIST-INACT');
   }
   elsif ($data->{KICKSTART_SESSION_ID}) {
-    $ret->{icon} = 'fa fa-rocket fa-1-5x';
+    $ret->{icon} = 'system-kickstarting';
     $ret->{status_str} = 'Kickstart in progress';
     $ret->{status_class} = 'system-status-kickstart';
     $ret->{message} = 'view progress';
     $ret->{link} = "/rhn/systems/details/kickstart/SessionStatus.do?sid=${sid}";
   }
   elsif (not ($errata_count or $data->{OUTDATED_PACKAGES}) and not $package_actions_count) {
-    $ret->{icon} = 'fa fa-check-circle fa-1-5x text-success';
+    $ret->{icon} = 'system-ok';
     $ret->{status_str} = 'System is up to date';
     $ret->{status_class} = 'system-status-up-to-date';
   }
   elsif ($errata_count and not RHN::Server->unscheduled_errata($sid, $user->id)) {
-    $ret->{icon} = 'fa fa-clock-o fa-1-5x';
+    $ret->{icon} = 'action-pending';
     $ret->{status_str} = 'All updates scheduled';
     $ret->{status_class} = 'system-status-updates-scheduled';
     $ret->{message} = 'view actions';
     $ret->{link} = "/network/systems/details/history/pending.pxt?sid=${sid}";
   }
   elsif ($actions_count) {
-    $ret->{icon} = 'fa fa-clock-o fa-1-5x';
+    $ret->{icon} = 'action-pending';
     $ret->{status_class} = 'system-status-updates-scheduled';
     $ret->{status_str} = 'Actions scheduled';
     $ret->{message} = 'view actions';
     $ret->{link} = "/network/systems/details/history/pending.pxt?sid=${sid}";
   }
   elsif ($data->{SECURITY_ERRATA}) {
-    $ret->{icon} = 'fa fa-exclamation-circle fa-1-5x text-danger';
+    $ret->{icon} = 'system-crit';
     $ret->{status_str} = 'Critical updates available';
     $ret->{status_class} = 'system-status-critical-updates';
     $ret->{message} = 'update now';
     $ret->{link} = "/rhn/systems/details/ErrataConfirm.do?all=true&amp;sid=${sid}";
   }
   elsif ($data->{OUTDATED_PACKAGES}) {
-    $ret->{icon} = 'fa fa-exclamation-triangle fa-1-5x text-warning';
+    $ret->{icon} = 'system-warn';
     $ret->{status_str} = 'Updates available';
     $ret->{status_class} = 'system-status-updates';
     $ret->{message} = "more info";

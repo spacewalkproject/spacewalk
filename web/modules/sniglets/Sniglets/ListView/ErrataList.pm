@@ -24,6 +24,7 @@ use RHN::Server;
 use RHN::Channel;
 use RHN::ChannelEditor;
 use RHN::SearchTypes;
+use PXT::HTML;
 use PXT::Utils;
 use RHN::Exception qw/throw/;
 
@@ -170,11 +171,11 @@ sub row_callback {
   my $row = shift;
   my $pxt = shift;
 
-  my %adv_icon = ('Bug Fix Advisory' => '<i class="fa fa-bug fa-1-5x"></i>',
-                  'Product Enhancement Advisory' => '<i class="fa fa-1-5x spacewalk-icon-enhancement"></i>',
-                  'Security Advisory' => '<i class="fa fa-shield fa-1-5x"></i>');
+  my %adv_icon = ('Bug Fix Advisory' => 'errata-bugfix',
+                  'Product Enhancement Advisory' => 'errata-enhance',
+                  'Security Advisory' => 'errata-security');
   if (exists $row->{ADVISORY_TYPE}) {
-    $row->{ADVISORY_ICON} = $adv_icon{$row->{ADVISORY_TYPE}};
+    $row->{ADVISORY_ICON} = PXT::HTML->icon(-type => $adv_icon{$row->{ADVISORY_TYPE}});
   }
 
   if (exists $row->{ADVISORY_LAST_UPDATED}) {

@@ -70,27 +70,28 @@ sub _register_modes {
 }
 
 
-my %history_type_icons = ('packages.refresh_list' => 'spacewalk-icon-packages',
-			  'packages.delta' => 'spacewalk-icon-packages',
-			  'packages.update' => 'spacewalk-icon-packages',
-			  'packages.remove' => 'spacewalk-icon-packages',
-			  'packages.runTransaction' => 'spacewalk-icon-packages',
-			  'up2date_config.get' => 'fa-cog',
-			  'up2date_config.update' => 'fa-cog',
-			  'rollback.config' => 'fa-cog',
-			  'rollback.listTransactions' => 'spacewalk-icon-packages', # bad icon for this
-			  'errata.update' => 'spacewalk-icon-patches',
-			  'hardware.refresh_list' => 'fa-desktop', # bad icon for this
-			  'reboot.reboot' => 'fa-desktop', # bad icon for this
-			  'configfiles.upload' => 'fa-desktop',
-			  'configfiles.deploy' => 'fa-desktop',
-			  'configfiles.verify' => 'fa-desktop',
-			  'configfiles.diff' => 'fa-desktop',
-			 );
+my %history_type_icons = (
+        'packages.refresh_list' => 'event-type-package',
+        'packages.delta'        => 'event-type-package',
+        'packages.update'       => 'event-type-package',
+        'packages.remove'       => 'event-type-package',
+        'packages.runTransaction' => 'event-type-package',
+        'up2date_config.get'    => 'event-type-preferences',
+        'up2date_config.update' => 'event-type-preferences',
+        'rollback.config'       => 'event-type-preferences',
+        'rollback.listTransactions' => 'event-type-package',    # bad icon for this
+        'errata.update'         => 'event-type-errata',
+        'hardware.refresh_list' => 'event-type-system',         # bad icon for this
+        'reboot.reboot'         => 'event-type-system',         # bad icon for this
+        'configfiles.upload'    => 'event-type-system',
+        'configfiles.deploy'    => 'event-type-system',
+        'configfiles.verify'    => 'event-type-system',
+        'configfiles.diff'      => 'event-type-system',
+ );
 
-my %history_status_icons = ('Completed' => 'fa-check-circle-o fa-1-5x text-success',
-                            'Failed' => 'fa-times-circle-o fa-1-5x text-danger',
-                            'Picked Up' => 'fa-exchange fa-1-5x text-info',
+my %history_status_icons = ('Completed' => 'actions-ok',
+                            'Failed'    => 'actions-failed',
+                            'Picked Up' => 'actions-running',
                            );
 
 sub system_history_provider {
@@ -117,24 +118,25 @@ sub system_history_provider {
     if (defined $event->{HISTORY_TYPE}) {
 
       if ($history_type_icons{$event->{HISTORY_TYPE}}) {
-	$event->{HISTORY_TYPE} = sprintf(qq{<i class="fa %s" title="%s"></i>},
-                                        $history_type_icons{$event->{HISTORY_TYPE}},
-                                        $event->{HISTORY_TYPE_NAME});
+	$event->{HISTORY_TYPE} = PXT::HTML->icon(
+                                -type => $history_type_icons{$event->{HISTORY_TYPE}},
+                                -title => $event->{HISTORY_TYPE_NAME});
       }
       else {
 	PXT::Debug->log(2,"no icon for scheduled action type?!  type:  " . $event->{HISTORY_TYPE});
-	$event->{HISTORY_TYPE} = qq{<i class="fa fa-desktop" title="System Event"></i>};
+	$event->{HISTORY_TYPE} = PXT::HTML->icon(-type => "event-type-system",
+                                                 -title => "System Event");
       }
     }
     else {
-      $event->{HISTORY_TYPE} = qq{<i class="fa fa-desktop" title="System Event"></i>};
+      $event->{HISTORY_TYPE} = PXT::HTML->icon(-type => "event-type-system",
+                                               -title => "System Event");
     }
 
     if (defined $event->{HISTORY_STATUS}) {
-
-      $event->{HISTORY_STATUS} = sprintf(qq{<i class="fa %s" title="%s"></i>},
-                                        $history_status_icons{$event->{HISTORY_STATUS}},
-                                        $event->{HISTORY_STATUS});
+      $event->{HISTORY_STATUS} = PXT::HTML->icon(
+                             -type => $history_status_icons{$event->{HISTORY_STATUS}},
+                             -title => $event->{HISTORY_STATUS});
     }
     else {
       $event->{HISTORY_STATUS} = '<span class="no-details">(n/a)</span>';

@@ -26,6 +26,7 @@ use RHN::ErrataTmp;
 use RHN::DataSource::Package;
 use RHN::DataSource;
 use RHN::DataSource::Simple;
+use PXT::HTML;
 use PXT::Utils;
 use RHN::Scheduler;
 use RHN::Manifest;
@@ -1382,9 +1383,9 @@ sub package_install_remote_command_cb {
   return 1;
 }
 
-my %adv_icon = ('Bug Fix Advisory' => '<i class="fa fa-bug fa-1-5x"></i>',
-		 'Product Enhancement Advisory' => '<i class="fa fa-1-5x spacewalk-icon-enhancement"></i>',
-		 'Security Advisory' => '<i class="fa fa-shield fa-1-5x"></i>');
+my %adv_icon = ('Bug Fix Advisory' => 'errata-bugfix',
+		 'Product Enhancement Advisory' => 'errata-enhance',
+		 'Security Advisory' => 'errata-security');
 
 sub system_upgradable_package_provider {
   my $self = shift;
@@ -1458,7 +1459,8 @@ sub system_upgradable_package_provider {
     foreach my $adv (@{$row->{ERRATA_ADVISORY}}) {
       my $adv_id = shift @{$row->{ERRATA_ID}};
       my $adv_type = shift @adv_types;
-      push @errata, sprintf('%s<a href="/rhn/errata/details/Details.do?eid=%s">%s</a>', $adv_icon{$adv_type}, $adv_id, $adv);
+      push @errata, sprintf('%s<a href="/rhn/errata/details/Details.do?eid=%s">%s</a>',
+                PXT::HTML->icon(-type => $adv_icon{$adv_type}), $adv_id, $adv);
     }
 
     $row->{RELATED_ERRATA} = join("<br />\n", @errata);
@@ -1480,7 +1482,7 @@ sub obsoleting_packages_provider {
     my $adv_type = $row->{ADVISORY_TYPE};
     my $adv_id = $row->{ERRATA_ID};
 
-    $row->{RELATED_ERRATA} = defined $adv_id ? sprintf('%s<a href="/rhn/errata/details/Details.do?eid=%s">%s</a>', $adv_icon{$adv_type}, $adv_id, $adv) : '';
+    $row->{RELATED_ERRATA} = defined $adv_id ? sprintf('%s<a href="/rhn/errata/details/Details.do?eid=%s">%s</a>', PXT::HTML->icon(-type => $adv_icon{$adv_type}), $adv_id, $adv) : '';
   }
 
   return (%ret);
