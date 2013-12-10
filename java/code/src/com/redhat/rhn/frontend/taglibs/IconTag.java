@@ -103,28 +103,37 @@ public class IconTag extends TagSupport {
         return title;
     }
 
+    /**
+     * Return just the HTML
+     * @return String that contains generated HTML
+     */
+    public String renderStartTag() {
+        if (!icons.containsKey(type)) {
+            throw new IllegalArgumentException("Unknown icon type: \"" + type + "\".");
+        }
+
+        StringBuilder result = new StringBuilder();
+        result.append("<i class=\"" + icons.get(type) + "\"");
+        if (title != null) {
+            result.append(" title=\"" + title + "\"");
+        }
+        result.append("></i>");
+
+        return result.toString();
+    }
+
     /** {@inheritDoc}
      * @throws JspException
      */
     public int doStartTag() throws JspException {
-
         if (!icons.containsKey(type)) {
             throw new IllegalArgumentException("Unknown icon type: \"" + type + "\".");
         }
 
         JspWriter out = null;
-
         try {
             out = pageContext.getOut();
-
-            StringBuilder result = new StringBuilder();
-
-            result.append("<i class=\"" + icons.get(type) + "\"");
-            if (title != null) {
-                result.append(" title=\"" + title + "\"");
-            }
-            result.append("></i>");
-
+            String result = renderStartTag();
             out.print(result);
         }
         catch (IOException ioe) {
