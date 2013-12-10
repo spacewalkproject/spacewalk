@@ -18,6 +18,7 @@ import com.redhat.rhn.common.util.Asserts;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
+import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
@@ -547,6 +548,15 @@ public class RhnSetDecl {
      */
     public static RhnSetDecl setForChannelManagers(Channel chan) {
         return make("managers_for_channel" + chan.getId(), SetCleanup.NOOP);
+    }
+
+    /**
+     * get the set for system group admins
+     * @param sysgroup channel passed in
+     * @return the Set descl
+     */
+    public static RhnSetDecl setForSystemGroupAdmins(ManagedServerGroup sysgroup) {
+        return make("system_group_admins" + sysgroup.getId(), SetCleanup.NOOP);
     }
 
     public static final RhnSetDecl SYSTEM_NOTES = make("systems_notes",

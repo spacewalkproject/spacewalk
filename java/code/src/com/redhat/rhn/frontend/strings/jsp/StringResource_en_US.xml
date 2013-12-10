@@ -5240,6 +5240,15 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="systems.groups.jsp.add">
           <source>Join Selected Groups</source>
         </trans-unit>
+        <trans-unit id="systemgroup.admins.title">
+          <source>Group Administrators</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.admins.summary">
+          <source>Checked users may administer the systems in this group.  Org Admins may always administer all systems. System Group Admins are marked with (*) and may modify all aspects of system groups assigned to them.</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.admins.updated">
+          <source>Admin list for system group &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
+        </trans-unit>
         <trans-unit id="systemgroup.target-systems.summary">
           <source>The following are systems that may be added to this group.</source>
         </trans-unit>

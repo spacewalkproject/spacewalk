@@ -28,6 +28,7 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.Address;
 import com.redhat.rhn.domain.user.RhnTimeZone;
@@ -42,6 +43,7 @@ import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.taglibs.list.decorators.PageSizeDecorator;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.SatManager;
+import com.redhat.rhn.manager.system.ServerGroupManager;
 
 import org.apache.log4j.Logger;
 
@@ -232,10 +234,10 @@ public class UserManager extends BaseManager {
 
     /**
      * Revokes permission from the given User to the ServerGroup whose id is sgid.
-     * @param usr User who no longer needs permission
+     * @param uid Id of user who no longer needs permission
      * @param sgid ServerGroup ID
      */
-    public static void revokeServerGroupPermission(final User usr,
+    public static void revokeServerGroupPermission(final Long uid,
             final long sgid) {
         SelectMode sm = ModeFactory.getMode("User_queries",
                 "check_server_group_permissions_for_revoke");
@@ -243,16 +245,48 @@ public class UserManager extends BaseManager {
                 "remove_server_group_permissions");
 
         Map params = new HashMap();
-        params.put("user_id", usr.getId());
+        params.put("user_id", uid);
         params.put("server_group_id", new Long(sgid));
 
         DataResult dr = sm.execute(params);
         for (Iterator itr = dr.iterator(); itr.hasNext();) {
             Map row = (Map)itr.next();
-            long uid = ((Long)row.get("user_id")).longValue();
-            if (uid == usr.getId().longValue()) {
+            long ruid = ((Long)row.get("user_id")).longValue();
+            if (ruid == uid.longValue()) {
                 m.execute(params, new HashMap());
             }
+        }
+    }
+
+    /**
+     * Revokes permission from the given User to the ServerGroup whose id is sgid.
+     * @param usr User who no longer needs permission
+     * @param sgid ServerGroup ID
+     */
+    public static void revokeServerGroupPermission(final User usr,
+            final long sgid) {
+        revokeServerGroupPermission(usr.getId(), sgid);
+    }
+
+    /**
+     * Grants the given User permission to the ServerGroup whose id is sgid.
+     * @param uid Id of user who needs permission
+     * @param sgid ServerGroup ID
+     */
+    public static void grantServerGroupPermission(final Long uid,
+            final long sgid) {
+        SelectMode sm = ModeFactory.getMode("User_queries",
+                "check_server_group_permissions");
+        CallableMode m = ModeFactory.getCallableMode("User_queries",
+                "set_server_group_permissions");
+
+        Map params = new HashMap();
+        params.put("user_id", uid);
+        params.put("server_group_id", new Long(sgid));
+
+        DataResult dr = sm.execute(params);
+        if (dr.size() > 0) {
+            m.execute(params, new HashMap());
         }
     }
 
@@ -263,19 +297,7 @@ public class UserManager extends BaseManager {
      */
     public static void grantServerGroupPermission(final User usr,
             final long sgid) {
-        SelectMode sm = ModeFactory.getMode("User_queries",
-                "check_server_group_permissions");
-        CallableMode m = ModeFactory.getCallableMode("User_queries",
-                "set_server_group_permissions");
-
-        Map params = new HashMap();
-        params.put("user_id", usr.getId());
-        params.put("server_group_id", new Long(sgid));
-
-        DataResult dr = sm.execute(params);
-        if (dr.size() > 0) {
-            m.execute(params, new HashMap());
-        }
+        grantServerGroupPermission(usr.getId(), sgid);
     }
 
     /**
@@ -512,6 +534,20 @@ public class UserManager extends BaseManager {
         }
 
         return UserFactory.lookupById(user, uid);
+    }
+
+    /**
+     * Check role for the specified user.
+     * @param uid The id of the user to lookup.
+     * @param label Role to check.
+     * @return the specified user.
+     */
+    public static boolean hasRole(Long uid, Role label) {
+        if (uid == null) {
+            return false;
+        }
+
+        return UserFactory.lookupById(uid).hasRole(label);
     }
 
     /**
@@ -793,6 +829,19 @@ public class UserManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("set_label", label);
         return makeDataResult(params, new HashMap(), pc, m);
+    }
+
+    /**
+     * can a system group be administered by user?
+     * @param user User
+     * @param group SystemGroup
+     * @return true if user can administer system group
+     */
+    public static boolean canAdministerSystemGroup(User user, ManagedServerGroup group) {
+        return (user != null &&
+                group != null &&
+                ServerGroupManager.getInstance().canAccess(user, group) &&
+                user.hasRole(RoleFactory.SYSTEM_GROUP_ADMIN));
     }
 
     /**

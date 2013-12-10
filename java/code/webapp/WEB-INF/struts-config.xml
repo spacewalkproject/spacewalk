@@ -3866,6 +3866,21 @@
                       redirect="true" />
      </action>
 
+
+     <action path="/groups/AdminList"
+             scope="request"
+             type="com.redhat.rhn.frontend.action.groups.AdminListAction"
+             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+             <set-property property="postRequiredIfSubmitted" value="true" />
+             <set-property property="acls"
+                      value="user_role(system_group_admin)"/>
+             <forward name="default"
+                      path="/WEB-INF/pages/groups/adminlist.jsp" />
+             <forward name="submitted"
+                      path="/groups/AdminList.do"
+                      redirect="true" />
+     </action>
+
      <action path="/groups/AddSystems"
              scope="request"
              type="com.redhat.rhn.frontend.action.groups.AddSystemsAction"
