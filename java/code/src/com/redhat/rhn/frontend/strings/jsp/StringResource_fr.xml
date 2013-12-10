@@ -6060,7 +6060,7 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
       </group>
       <group>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/groups/CreateGroup.do</context>
+          <context context-type="sourcefile">/rhn/groups/EditGroup.do</context>
         </context-group>
         <trans-unit id="systemgroup.create.header">
           <source>Create System Group</source>

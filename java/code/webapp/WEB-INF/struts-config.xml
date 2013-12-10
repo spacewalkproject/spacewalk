@@ -1165,7 +1165,7 @@
       <form-property name="submitted"   type="java.lang.Boolean" />
     </form-bean>
 
-    <form-bean name="createSystemGroupForm"
+    <form-bean name="editSystemGroupForm"
       type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
       <form-property name="name" type="java.lang.String" />
       <form-property name="description" type="java.lang.String" />
@@ -3917,20 +3917,18 @@
                       redirect="true" />
      </action>
 
-     <action path="/groups/CreateGroup"
+     <action path="/groups/EditGroup"
              scope="request"
-             type="com.redhat.rhn.frontend.action.groups.CreateGroupAction"
-             input="/WEB-INF/pages/groups/create.jsp"
-             parameter="dispatch"
-             name="createSystemGroupForm"
+             type="com.redhat.rhn.frontend.action.groups.EditGroupAction"
+             name="editSystemGroupForm"
              className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+             <set-property property="acls"
+                      value="user_role(system_group_admin)"/>
              <set-property property="postRequiredIfSubmitted" value="true" />
              <forward name="default"
-                      path="/WEB-INF/pages/groups/create.jsp" />
-             <forward name="error"
-                      path="/WEB-INF/pages/groups/create.jsp" />
+                      path="/WEB-INF/pages/groups/edit.jsp" />
              <forward name="success"
-                      path="/systems/SystemGroupList.do"
+                      path="/groups/GroupDetail.do"
                       redirect="true" />
      </action>
 

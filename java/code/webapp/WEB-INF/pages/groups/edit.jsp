@@ -7,23 +7,29 @@
     <body>
         <h1>
             <i class="fa spacewalk-icon-system-groups" title="system group"></i>
-            <bean:message key="systemgroup.create.header"/>
-            <a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-group-creation" target="_blank" class="help-title">
-                <i class="fa fa-question-circle" title="Help Icon"></i>
-            </a>
+            <c:choose>
+                <c:when test='${empty param.sgid}'>
+                    <bean:message key="systemgroup.create.header"/>
+                </c:when>
+                <c:otherwise>
+                    <bean:message key="systemgroup.edit.header"/>
+                </c:otherwise>
+            </c:choose>
         </h1>
-        <p><bean:message key="systemgroup.create.summary"/></p>
-        <c:if test="${not empty emptynameordesc}">
-            <div class="local-alert"><bean:message key="systemgroup.create.requirements"/><br /></div>
-        </c:if>
-        <c:if test="${not empty alreadyexists}">
-            <div class="local-alert"><bean:message key="systemgroup.create.alreadyexists"/><br /></div>
-        </c:if>
+        <p>
+            <c:choose>
+                <c:when test='${empty param.sgid}'>
+                    <bean:message key="systemgroup.create.summary"/>
+                </c:when>
+                <c:otherwise>
+                    <bean:message key="systemgroup.edit.summary"/>
+                </c:otherwise>
+            </c:choose>
+        </p>
         <html:form method="post"
-                   action="/groups/CreateGroup.do"
+                   action="/groups/EditGroup.do"
                    styleClass="form-horizontal">
             <rhn:csrf />
-            <html:hidden property="submitted" value="true"/>
 
             <div class="form-group">
                 <label class="col-lg-3 control-label" for="name">
@@ -57,11 +63,24 @@
 
             <div class="form-group">
                 <div class="col-lg-offset-3 col-lg-6">
-                    <html:submit styleClass="btn btn-success">
-                        <bean:message key="systemgroup.create.creategroup"/>
-                    </html:submit>
+                    <c:choose>
+                        <c:when test='${empty param.sgid}'>
+                            <html:submit property="create_button" styleClass="btn btn-success">
+                                <bean:message key="systemgroup.create.creategroup"/>
+                            </html:submit>
+                        </c:when>
+                        <c:otherwise>
+                            <html:submit property="edit_button" styleClass="btn btn-success">
+                                <bean:message key="systemgroup.edit.editgroup"/>
+                            </html:submit>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
+            <html:hidden property="submitted" value="true" />
+            <c:if test='${not empty param.sgid}'>
+                <html:hidden property="sgid" value="${param.sgid}" />
+            </c:if>
         </html:form>
     </body>
 </html>
