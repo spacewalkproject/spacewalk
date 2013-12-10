@@ -16,6 +16,8 @@ package com.redhat.rhn.common.conf;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.redhat.rhn.domain.kickstart.KickstartData;
+
 import java.io.File;
 
 /**
@@ -358,10 +360,15 @@ public class ConfigDefaults {
     }
 
     /**
-     * Returns the defualt VirtMemory Size in MBs
+     * Returns the default VirtMemory Size in MBs
+     * @param data the kickstart data, so we can tell if it's RHEL 7
      * @return the memory size
      */
-    public int getDefaultVirtMemorySize() {
+    public int getDefaultVirtMemorySize(KickstartData data) {
+        // RHEL 7 requires at least 768 MB of ram to install
+        if (data.isRhel7OrGreater()) {
+            return Config.get().getInt(VIRT_MEM, 768);
+        }
         return Config.get().getInt(VIRT_MEM, 512);
     }
 

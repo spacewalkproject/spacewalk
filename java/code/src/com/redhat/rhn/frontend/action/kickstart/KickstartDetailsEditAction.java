@@ -157,7 +157,8 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
                form.set(VIRT_BRIDGE, data.getDefaultVirtBridge());
                form.set(VIRT_CPU, ConfigDefaults.get().getDefaultVirtCpus());
                form.set(VIRT_DISK_SIZE, ConfigDefaults.get().getDefaultVirtDiskSize());
-               form.set(VIRT_MEMORY, ConfigDefaults.get().getDefaultVirtMemorySize());
+               form.set(VIRT_MEMORY, ConfigDefaults.get()
+                       .getDefaultVirtMemorySize(data));
            }
            else {
                setFormValueOrDefault(form, VIRT_BRIDGE, prof.getVirtBridge(),
@@ -167,7 +168,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
                setFormValueOrDefault(form, VIRT_DISK_SIZE, prof.getVirtFileSize(),
                        ConfigDefaults.get().getDefaultVirtDiskSize());
                setFormValueOrDefault(form, VIRT_MEMORY, prof.getVirtRam(),
-                       ConfigDefaults.get().getDefaultVirtMemorySize());
+                       ConfigDefaults.get().getDefaultVirtMemorySize(data));
            }
            ctx.getRequest().setAttribute(IS_VIRT, Boolean.TRUE);
         }
@@ -285,9 +286,15 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
      * @param ksdata the kickstart data
      * @param form the form
      * @param user the user
+     * @throws ValidatorException if there is not enough ram
      */
-    public static void processCobblerFormValues(KickstartData ksdata,
-                                            DynaActionForm form, User user) {
+    public static void processCobblerFormValues(KickstartData ksdata, DynaActionForm form,
+            User user) throws ValidatorException {
+        int virtMemory = (Integer) form.get(VIRT_MEMORY);
+        if (ksdata.isRhel7OrGreater() && virtMemory < 768) {
+            ValidatorException.raiseException("kickstart.cobbler.profile.notenoughmemory");
+        }
+
         CobblerProfileEditCommand cmd = new CobblerProfileEditCommand(ksdata, user);
 
         cmd.setKernelOptions(StringUtils.defaultString(form.getString(KERNEL_OPTIONS)));
@@ -302,7 +309,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
         }
 
         if (KickstartDetailsEditAction.canSaveVirtOptions(ksdata, form)) {
-            prof.setVirtRam((Integer) form.get(VIRT_MEMORY));
+            prof.setVirtRam(virtMemory);
             prof.setVirtCpus((Integer) form.get(VIRT_CPU));
             prof.setVirtFileSize((Integer) form.get(VIRT_DISK_SIZE));
             prof.setVirtBridge(form.getString(VIRT_BRIDGE));

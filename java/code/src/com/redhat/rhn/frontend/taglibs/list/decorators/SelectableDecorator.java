@@ -65,6 +65,9 @@ public class SelectableDecorator extends BaseListDecorator {
         renderSelectedCaption(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onFooterExtraAddons() throws JspException {
         renderSelectButtons();
