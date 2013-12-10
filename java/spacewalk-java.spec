@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.92
+Version: 2.1.93
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Dec 10 2013 Stephen Herr <sherr@redhat.com> 2.1.93-1
+- 1039193 - Increase default ram to 768 for RHEL 7
+
 * Tue Dec 10 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.92-1
 - bootstrap tuning: use new icon tag
 - use static code for icons map in IconTag + typo and documentation fix
