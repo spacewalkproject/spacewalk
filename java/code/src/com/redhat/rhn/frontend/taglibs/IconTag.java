@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2013 Red Hat, Inc.
+ * Copyright (c) 2013 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -26,9 +26,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 /**
  * Tag to easy display the icons
  * <pre>
- * &lt;rhn:icon type="$type"&gt;
- *     &lt;c:out escapeXml="false" value="${message}" /&gt;
- * &lt;/rhn:messages&gt;
+ * &lt;rhn:icon type="$type" title="$title"/&gt;
  * </pre>
  * @version $Rev$
  */
@@ -37,6 +35,32 @@ public class IconTag extends TagSupport {
     private String type;
     private String title;
     private static Map<String, String> icons;
+
+    static {
+        icons = new HashMap<String, String>();
+        icons.put("system-ok", "fa fa-check-circle fa-1-5x text-success");
+        icons.put("system-crit", "fa fa-exclamation-circle fa-1-5x text-danger");
+        icons.put("system-warn", "fa fa-exclamation-triangle fa-1-5x text-warning");
+        icons.put("system-unknown", "fa fa-1-5x spacewalk-icon-unknown-system");
+        icons.put("system-locked", "fa fa-1-5x spacewalk-icon-locked-system");
+        icons.put("system-kickstarting", "fa fa-rocket fa-1-5x");
+        icons.put("system-unentitled", "fa fa-1-5x spacewalk-icon-Unentitled");
+        icons.put("system-virt-host", "fa fa-1-5x spacewalk-icon-virtual-host");
+        icons.put("system-virt-guest", "fa fa-1-5x spacewalk-icon-virtual-guest");
+        icons.put("system-physical", "fa fa-desktop fa-1-5x");
+        icons.put("actions-pending", "fa fa-clock-o fa-1-5x");
+        icons.put("actions-ok", "fa fa-check-circle-o fa-1-5x text-success");
+        icons.put("actions-failed", "fa fa-times-circle-o fa-1-5x text-danger");
+        icons.put("errata-security", "fa fa-shield fa-1-5x");
+        icons.put("errata-bugfix", "fa fa-bug fa-1-5x");
+        icons.put("errata-enhance", "fa fa-1-5x spacewalk-icon-enhancement");
+        icons.put("monitoring-status", "fa fa-1-5x spacewalk-icon-monitoring-status");
+        icons.put("monitoring-ok", "fa fa-1-5x spacewalk-icon-health text-success");
+        icons.put("monitoring-warn", "fa fa-1-5x spacewalk-icon-health text-warning");
+        icons.put("monitoring-crit", "fa fa-1-5x spacewalk-icon-health text-danger");
+        icons.put("monitoring-unknown", "fa fa-1-5x spacewalk-icon-health-unknown");
+        icons.put("monitoring-pending", "fa fa-1-5x spacewalk-icon-health-pending");
+    }
 
     /**
      * Constructor for Icon tag.
@@ -79,40 +103,10 @@ public class IconTag extends TagSupport {
         return title;
     }
 
-    private void setUpSingleton() {
-        if (icons == null) {
-            icons = new HashMap<String, String>();
-            icons.put("system-ok", "fa fa-check-circle fa-1-5x text-success");
-            icons.put("system-crit", "fa fa-exclamation-circle fa-1-5x text-danger");
-            icons.put("system-warn", "fa fa-exclamation-triangle fa-1-5x text-warning");
-            icons.put("system-unknown", "fa fa-1-5x spacewalk-icon-unknown-system");
-            icons.put("system-locked", "fa fa-1-5x spacewalk-icon-locked-system");
-            icons.put("system-kickstarting", "fa fa-rocket fa-1-5x");
-            icons.put("system-unentitled", "fa fa-1-5x spacewalk-icon-Unentitled");
-            icons.put("system-virt-host", "fa fa-1-5x spacewalk-icon-virtual-host");
-            icons.put("system-virt-guest", "fa fa-1-5x spacewalk-icon-virtual-guest");
-            icons.put("system-physical", "fa fa-desktop fa-1-5x");
-            icons.put("actions-pending", "fa fa-clock-o fa-1-5x");
-            icons.put("actions-ok", "fa fa-check-circle-o fa-1-5x text-success");
-            icons.put("action-failed", "fa fa-times-circle-o fa-1-5x text-danger");
-            icons.put("errata-security", "fa fa-shield fa-1-5x");
-            icons.put("errata-bugfix", "fa fa-bug fa-1-5x");
-            icons.put("errata-enhance", "fa fa-1-5x spacewalk-icon-enhancement");
-            icons.put("monitoring-status", "fa fa-1-5x spacewalk-icon-monitoring-status");
-            icons.put("monitoring-ok", "fa fa-1-5x spacewalk-icon-health text-success");
-            icons.put("monitoring-warn", "fa fa-1-5x spacewalk-icon-health text-warning");
-            icons.put("monitoring-crit", "fa fa-1-5x spacewalk-icon-health text-danger");
-            icons.put("monitoring-unknown", "fa fa-1-5x spacewalk-icon-health-unknown");
-            icons.put("monitoring-pending", "fa fa-1-5x spacewalk-icon-health-pending");
-        }
-    }
-
     /** {@inheritDoc}
      * @throws JspException
      */
     public int doStartTag() throws JspException {
-
-        setUpSingleton();
 
         if (!icons.containsKey(type)) {
             throw new IllegalArgumentException("Unknown icon type: \"" + type + "\".");
