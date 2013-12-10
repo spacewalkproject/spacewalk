@@ -55,7 +55,7 @@
 
       <rhn:require acl="user_role(org_admin) or user_role(system_group_admin)">
       <br />
-      <a href="/network/systems/groups/admin_list.pxt?sgid=${id}"><bean:message key="systemgroup.details.manageadmins"/></a>
+      <a href="/rhn/groups/AdminList.do?sgid=${id}"><bean:message key="systemgroup.details.manageadmins"/></a>
       </rhn:require>
     </td>
   </tr>
