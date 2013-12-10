@@ -42,6 +42,7 @@ sub register_tags {
   $pxt->register_tag("rhn-refresh-redirect", \&rhn_refresh_redirect);
   $pxt->register_tag("rhn-autorefresh-widget", \&rhn_autorefresh_widget);
   $pxt->register_tag("rhn-return-link", \&return_link);
+  $pxt->register_tag("rhn-icon", \&rhn_icon);
 }
 
 
@@ -334,4 +335,11 @@ sub return_link {
   return PXT::Utils->perform_substitutions($params{__block__}, \%subst);
 }
 
+sub rhn_icon {
+  my $pxt = shift;
+  my %params = validate(@_, {'type' => 1, 'title' => 0});
+
+  %params = map {("-$_" => $params{$_})} keys %params;
+  return PXT::HTML->icon(%params);
+}
 1;

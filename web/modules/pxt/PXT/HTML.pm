@@ -508,22 +508,50 @@ sub img {
   return qq{<img $inner_str />};
 }
 
+my %rhn_icons = (
+    "item-add"          => "fa fa-plus",
+    "item-del"          => "fa fa-trash-o",
+    "system-ok"         => "fa fa-check-circle fa-1-5x text-success",
+    "system-crit"       => "fa fa-exclamation-circle fa-1-5x text-danger",
+    "system-warn"       => "fa fa-exclamation-triangle fa-1-5x text-warning",
+    "system-unknown"    => "fa fa-1-5x spacewalk-icon-unknown-system",
+    "system-locked"     => "fa fa-1-5x spacewalk-icon-locked-system",
+    "system-kickstarting" => "fa fa-rocket fa-1-5x",
+    "system-unentitled" => "fa fa-1-5x spacewalk-icon-Unentitled",
+    "system-virt-host"  => "fa fa-1-5x spacewalk-icon-virtual-host",
+    "system-virt-guest" => "fa fa-1-5x spacewalk-icon-virtual-guest",
+    "system-physical"   => "fa fa-desktop fa-1-5x",
+    "action-pending"   => "fa fa-clock-o fa-1-5x",
+    "action-ok"        => "fa fa-check-circle-o fa-1-5x text-success",
+    "action-failed"    => "fa fa-times-circle-o fa-1-5x text-danger",
+    "action-running"   => "fa fa-exchange fa-1-5x text-info",
+    "event-type-package" => "fa spacewalk-icon-packages",
+    "event-type-errata" => "fa spacewalk-icon-patches",
+    "event-type-preferences" => "fa fa-cog",
+    "event-type-system" => "fa fa-desktop",
+    "errata-security"   => "fa fa-shield fa-1-5x",
+    "errata-bugfix"     => "fa fa-bug fa-1-5x",
+    "errata-enhance"    => "fa fa-1-5x spacewalk-icon-enhancement",
+    "monitoring-status" => "fa fa-1-5x spacewalk-icon-monitoring-status",
+    "monitoring-ok"     => "fa fa-1-5x spacewalk-icon-health text-success",
+    "monitoring-warn"   => "fa fa-1-5x spacewalk-icon-health text-warning",
+    "monitoring-crit"   => "fa fa-1-5x spacewalk-icon-health text-danger",
+    "monitoring-unknown" => "fa fa-1-5x spacewalk-icon-health-unknown",
+    "monitoring-pending" => "fa fa-1-5x spacewalk-icon-health-pending",
+        );
+
 sub icon {
   my $class = shift;
   my %params = @_;
 
-  if (not exists $params{-class}) {
-    die "classless icon";
-  }
+  die "empty icon type" if not exists $params{-type};
+  die qq{unknown icon type: "$params{-type}".} if not exists $rhn_icons{$params{-type}};
 
-  my @inner;
-  for my $attr (qw/class title/) {
-    next unless exists $params{"-$attr"};
-    push @inner, sprintf(qq{$attr="$params{-$attr}"});
-  }
+  my $icon = qq{<i class="$rhn_icons{$params{-type}}"};
+  $icon .= qq{ title="$params{-title}"};
+  $icon .= qq{></i>};
 
-  my $inner_str = join(" ", @inner);
-  return qq{<i $inner_str></i>};
+  return $icon;
 }
 
 1;
