@@ -39,6 +39,7 @@ import com.redhat.rhn.domain.errata.ErrataFile;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.channel.manage.PublishErrataHelper;
 import com.redhat.rhn.frontend.dto.ChannelOverview;
@@ -348,6 +349,18 @@ public class ErrataManager extends BaseManager {
      */
     public static DataResult relevantErrata(User user) {
         return ErrataManager.getRelevantErrata(user, false);
+    }
+
+    /** Returns errata relevant to given server group.
+     * @param serverGroup Server group.
+     * @return Relevant errata for ...
+     */
+    public static DataResult relevantErrata(ManagedServerGroup serverGroup) {
+        SelectMode m = ModeFactory.getMode("Errata_queries", "relevant_to_server_group");
+        Map params = new HashMap();
+        params.put("sgid", serverGroup.getId());
+        DataResult res = makeDataResultNoPagination(params, null, m);
+        return res;
     }
 
     /**

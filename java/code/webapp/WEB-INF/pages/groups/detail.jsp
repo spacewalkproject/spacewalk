@@ -28,12 +28,12 @@
       <c:if test="${errata_counts['se'] > 0}">
         <rhn:icon type="system-crit" />
         <span class="system-status-critical-updates"><bean:message key="systemgroup.details.criticalupdates"/></span>
-        <a class="btn btn-danger" href="/network/systems/groups/errata_list.pxt?sgid=${id}">${errata_counts['se']} <rhn:icon type="nav-right" /></a>
+        <a class="btn btn-danger" href="/rhn/groups/ListErrata.do?sgid=${id}">${errata_counts['se']} <rhn:icon type="nav-right" /></a>
       </c:if>
       <c:if test="${(errata_counts['se'] == 0) && ((errata_counts['be'] > 0) || (errata_counts['ee'] > 0))}">
         <rhn:icon type="system-warn" />
         <span class="system-status-updates"><bean:message key="systemgroup.details.someupdates"/></span>
-        <a class="btn btn-warning" href="/network/systems/groups/errata_list.pxt?sgid=${id}"><rhn:icon type="nav-right" /></a>
+        <a class="btn btn-warning" href="/rhn/groups/ListErrata.do?sgid=${id}"><rhn:icon type="nav-right" /></a>
       </c:if>
       <c:if test="${(errata_counts['se'] == 0) && (errata_counts['be'] == 0) && (errata_counts['ee'] == 0)}">
         <rhn:icon type="system-ok" />

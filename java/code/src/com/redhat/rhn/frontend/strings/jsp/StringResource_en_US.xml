@@ -5249,6 +5249,12 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="systemgroup.admins.updated">
           <source>Admin list for system group &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
         </trans-unit>
+        <trans-unit id="systemgroup.erratalist.title">
+          <source>Relevant Errata </source>
+        </trans-unit>
+        <trans-unit id="systemgroup.erratalist.summary">
+          <source>The following errata apply to one or more of the systems in this group.</source>
+        </trans-unit>
         <trans-unit id="systemgroup.target-systems.summary">
           <source>The following are systems that may be added to this group.</source>
         </trans-unit>

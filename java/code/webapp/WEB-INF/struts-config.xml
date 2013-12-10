@@ -3917,6 +3917,14 @@
                       redirect="true" />
      </action>
 
+     <action path="/groups/ListErrata"
+             scope="request"
+             type="com.redhat.rhn.frontend.action.groups.ErrataListAction"
+             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+             <forward name="default"
+                      path="/WEB-INF/pages/groups/erratalist.jsp" />
+     </action>
+
      <action path="/groups/EditGroup"
              scope="request"
              type="com.redhat.rhn.frontend.action.groups.EditGroupAction"

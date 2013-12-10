@@ -15,7 +15,7 @@
                  emptykey="yourrhn.jsp.systemgroups.none">
 
         	<rl:column headerkey="grouplist.jsp.status">
-            	<a href="/network/systems/groups/errata_list.pxt?sgid=${current.id}">
+                <a href="/rhn/groups/ListErrata.do?sgid=${current.id}">
 		      		<c:choose>
                                         <c:when test="${current.mostSevereErrata == 'Security Advisory'}">
                                         <rhn:icon type="system-crit" title="<bean:message key='grouplist.jsp.security' />" />

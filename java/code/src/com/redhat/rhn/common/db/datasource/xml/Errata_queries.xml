@@ -120,6 +120,29 @@ SELECT DISTINCT E.id, E.update_date, E.synopsis as advisory_synopsis
   <elaborator name="errata_overview" />
 </mode>
 
+<mode name="relevant_to_server_group" class="com.redhat.rhn.frontend.dto.ErrataOverview">
+  <query params="sgid">
+SELECT DISTINCT E.id, E.advisory, E.advisory_name, E.advisory_type, E.synopsis AS ADVISORY_SYNOPSIS,
+     E.update_date,
+     (SELECT COUNT(Distinct SGM2.server_id)
+       FROM rhnServerNeededErrataCache SNEC,
+            rhnServerGroupMembers SGM2
+       WHERE SNEC.errata_id = E.id
+       AND SNEC.server_id = SGM2.server_id
+       AND SGM2.server_group_id = :sgid) AS AFFECTED_SYSTEM_COUNT
+  FROM rhnErrata E,
+       rhnServerNeededErrataCache SNEC,
+       rhnServerGroupMembers SGM,
+       rhnServerFeaturesView SFV
+ WHERE SGM.server_id = SNEC.server_id
+   AND SNEC.errata_id = E.id
+   AND SFV.server_id = SGM.server_id
+   AND SFV.label = 'ftr_system_grouping'
+   AND SGM.server_group_id = :sgid
+ORDER BY E.update_date DESC, E.id
+  </query>
+</mode>
+
 <mode name="relevant_to_system" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="user_id, sid">
 SELECT DISTINCT E.id, E.update_date,
