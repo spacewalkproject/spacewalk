@@ -19,7 +19,7 @@
 
 <rhn-snapshot-details>
 <h2>
-<i class="fa spacewalk-icon-snapshot-rollback" title="rollback"></i>
+<rhn-icon type="header-snapshot-rollback" title="rollback"/>
 Rollback to 
 {snapshot_created}
 Snapshot</h2>
@@ -79,7 +79,7 @@ and the following items will be changed to match the pre-snapshot values:
 
 <pxt-formvar>
 <span class="up-arrow">
-<i class="fa fa-caret-up" title="Go up"></i>
+<rhn-icon type="nav-up" title="Go up"/>
 <a href="/network/systems/details/history/snapshots/index.pxt?sid={formvar:sid}">Return to snapshot list</a></span>
 </pxt-formvar>
 

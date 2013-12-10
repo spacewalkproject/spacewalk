@@ -8,7 +8,7 @@
   <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
 
 
-    <h1><i class="fa spacewalk-icon-system-groups" title="system set"></i> System Set Manager <rhn-help href="s1-sm-systems.jsp#s2-sm-ssm" /></h1>
+    <h1><rhn-icon type="header-system-groups" title="system set"/> System Set Manager <rhn-help href="s1-sm-systems.jsp#s2-sm-ssm" /></h1>
 
     <rhn-navi-nav prefix="system_set_manager" depth="0"
     file="/nav/ssm.xml" style="contentnav" />

@@ -17,7 +17,7 @@
     </div>
 
     <h2>
-      <i class="fa spacewalk-icon-patchset-install"></i>
+      <rhn-icon type="header-errata-set-add"/>
       Confirm Patchset Addition
     </h2>
 

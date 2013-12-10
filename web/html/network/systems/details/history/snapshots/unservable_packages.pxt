@@ -20,7 +20,7 @@
 
 
 <h2>
-<i class="fa fa-camera"></i>
+<rhn-icon type="header-snapshot"/>
 <rhn-snapshot-details>
 {snapshot_created}
 </rhn-snapshot-details>

@@ -21,7 +21,7 @@
 
 
 <h2>
-<i class="fa fa-camera" title="snapshot"></i>
+<rhn-icon type="header-snapshot" title="snapshot"/>
 <rhn-snapshot-details>
 {snapshot_created}
 </rhn-snapshot-details>

@@ -15,7 +15,7 @@
     <rhn-navi-nav prefix="system_details" depth="0" file="/nav/system_detail.xml" style="contentnav" />
 
     <h2>
-      <i class="fa spacewalk-icon-packages" title="package"></i>
+      <rhn-icon type="header-package" title="package"/>
 	Dependency Failures
     </h2>
 

@@ -3,24 +3,25 @@
 <pxt-passthrough>
 
 <pxt-use class="Sniglets::Users" />
+<pxt-use class="Sniglets::HTML" />
 
 <div class="sideleg">
   <h4>System Legend</h4>
   <ul>
-  <li><i class="fa fa-check-circle fa-1-5x text-success"></i>OK</li>
-  <li><i class="fa fa-exclamation-circle fa-1-5x text-danger"></i>Critical</li>
-  <li><i class="fa fa-exclamation-triangle fa-1-5x text-warning"></i></i>Warning</li>
-  <li><i class="spacewalk-icon-unknown-system"></i>Unknown</li>
+  <li><rhn-icon type="system-ok"/>OK</li>
+  <li><rhn-icon type="system-crit"/>Critical</li>
+  <li><rhn-icon type="system-warn"/>Warning</li>
+  <li><rhn-icon type="system-unknown"/>Unknown</li>
 <rhn-require acl="org_entitlement(sw_mgr_enterprise)">
-  <li><i class="fa fa-1-5x spacewalk-icon-locked-system"></i></i>Locked</li>
+  <li><rhn-icon type="system-locked"/>Locked</li>
 </rhn-require>
 <rhn-require acl="org_entitlement(rhn_provisioning)">
-  <li><i class="fa fa-rocket fa-1-5x"></i>Kickstarting</li>
+  <li><rhn-icon type="system-kickstarting"/>Kickstarting</li>
 </rhn-require>
-  <li><i class="fa fa-clock-o fa-1-5x"></i>Pending Actions</li>
-  <li><i class="fa fa-1-5x spacewalk-icon-Unentitled"></i>Unentitled</li>
+  <li><rhn-icon type="action-pending"/>Pending Actions</li>
+  <li><rhn-icon type="system-unentitled"/>Unentitled</li>
 <rhn-require acl="org_entitlement(rhn_monitor)">
-  <li><i class="fa fa-1-5x spacewalk-icon-monitoring-status"></i>Monitoring Status</li>
+  <li><rhn-icon type="monitoring-status"/>Monitoring Status</li>
 </rhn-require>
   </ul>
 </div>

@@ -10,7 +10,7 @@
   </grail-canvas-replacement>
 
   <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
-    <rhn-toolbar base="h1" icon="fa-desktop" help-url="s1-sm-monitor.jsp#s2-sm-monitor-scout">
+    <rhn-toolbar base="h1" icon="header-system" help-url="s1-sm-monitor.jsp#s2-sm-monitor-scout">
 	Update Scout Configuration 
     </rhn-toolbar>
 

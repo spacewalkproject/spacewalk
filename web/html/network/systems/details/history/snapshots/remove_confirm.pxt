@@ -17,7 +17,7 @@
 
 
     <h2>
-      <i class="fa fa-camera"></i>
+      <rhn-icon type="header-snapshot"/>
       Confirm Snapshot Tag Removal
     </h2>
 

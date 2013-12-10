@@ -16,7 +16,7 @@
     </div>
 
     <h2>
-      <i class="fa spacewalk-icon-packages" title="package"></i>
+      <rhn-icon type="header-package" title="package"/>
       Compare Packages
     </h2>
 

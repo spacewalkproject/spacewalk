@@ -17,7 +17,7 @@
     </div>
 
     <h2>
-      <i class="fa spacewalk-icon-patches"></i>
+      <rhn-icon type="header-errata"/>
       Clone Errata
     </h2>
 

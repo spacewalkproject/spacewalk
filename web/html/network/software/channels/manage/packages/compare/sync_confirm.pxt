@@ -16,7 +16,7 @@
     </div>
 
     <h2>
-      <i class="fa spacewalk-icon-packages"></i>
+      <rhn-icon type="event-type-package"/>
       Confirm Package Sync
     </h2>
 

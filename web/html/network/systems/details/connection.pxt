@@ -16,7 +16,7 @@
 
     <pxt-include-late file="/network/components/message_queues/local.pxi"/>
 
-    <h2><i class="fa spacewalk-icon-proxy"></i>Connection Path</h2>
+    <h2><rhn-icon type="header-proxy"/>Connection Path</h2>
 
     <div class="page-summary">
       <p>

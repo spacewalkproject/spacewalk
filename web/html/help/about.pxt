@@ -5,7 +5,7 @@
 
   <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
 
-<h1><i class="fa fa-info-circle text-primary" title="information"></i> About <pxt-config var="product_name"/></h1>
+<h1><rhn-icon type="header-info" title="information"/> About <pxt-config var="product_name"/></h1>
 
     <p>
 <pxt-config var="product_name"/> allows administrators to efficiently manage the systems on their

@@ -17,7 +17,7 @@
     </div>
 
     <h2>
-      <i class="fa spacewalk-icon-patch-remove"></i>
+      <rhn-icon type="header-errata-del"/>
       Confirm Patch Removal
     </h2>
 

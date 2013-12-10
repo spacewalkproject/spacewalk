@@ -8,7 +8,7 @@
   <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
 
 <rhn-package-details>
-    <h1><i class="fa spacewalk-icon-packages" title="package"></i> {package_nvre}.{package_arch_label}.{package_arch_type_label} <rhn-help href="s1-sm-channels-packages.jsp" /></h1>
+    <h1><rhn-icon type="header-package" title="package"/> {package_nvre}.{package_arch_label}.{package_arch_type_label} <rhn-help href="s1-sm-channels-packages.jsp" /></h1>
 </rhn-package-details>
 
     <rhn-navi-nav prefix="package_details" depth="0" file="/nav/package_detail.xml" style="contentnav" />

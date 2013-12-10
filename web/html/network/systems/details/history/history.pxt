@@ -25,7 +25,7 @@
 
 
     <h2>
-      <i class="fa fa-suitcase" title="event"></i>
+      <rhn-icon type="header-event-history" title="event"/>
       System History
     </h2>
 

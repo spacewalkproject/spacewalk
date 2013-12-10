@@ -11,7 +11,7 @@
 <pxt-include file="/network/software/channels/manage/manage_channels_header.pxi" />
 
     <h2>
-      <i class="fa spacewalk-icon-patches"></i> Patches
+      <rhn-icon type="event-type-errata"/> Patches
     </h2>
 
     <pxt-formvar>

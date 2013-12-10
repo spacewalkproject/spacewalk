@@ -35,16 +35,16 @@
             <rhn-display-login>
             <ul class="nav nav-pills">
               <li>
-                <a href="/rhn/account/UserDetails.do"><i class="fa fa-user"></i>[login]</a>
+                <a href="/rhn/account/UserDetails.do"><rhn-icon type="header-user"/>[login]</a>
               </li>
               <li class="hidden-sm hidden-xs hidden-md">
-                  <span class="spacewalk-header-non-link"><i class="fa fa-sitemap"></i>[org]</span>
+                  <span class="spacewalk-header-non-link"><rhn-icon type="header-sitemap"/>[org]</span>
               </li>
               <li>
-                <a href="/rhn/account/UserPreferences.do"><i class="fa fa-cogs"></i></a>
+                <a href="/rhn/account/UserPreferences.do"><rhn-icon type="header-preferences"/></a>
               </li>
               <li>
-                <a href="/rhn/Logout.do"><i class="fa fa-sign-out"></i></a>
+                <a href="/rhn/Logout.do"><rhn-icon type="header-signout"/></a>
               </li>
             </ul>
             </rhn-display-login>
@@ -66,7 +66,7 @@
               <div class="form-group">
                 <input type="hidden" name="submitted" value="true" />
                 <button type="submit" class="btn btn-info input-sm">
-                  <i class="fa fa-search"></i>
+                  <rhn-icon type="header-search"/>
                 </button>
               </div>
             </form>

@@ -14,7 +14,7 @@
 <pxt-formvar>
 <rhn-pathinfo-list-mode type="system">
     <div class="spacewalk-toolbar-h1"><div class="spacewalk-toolbar"></div>
-    <h1><i class="fa fa-desktop"></i> {pinfo_list_name} <rhn-help href="s1-sm-systems.jsp#s2-sm-system-list" /></h1>
+    <h1><rhn-icon type="header-system"/> {pinfo_list_name} <rhn-help href="s1-sm-systems.jsp#s2-sm-system-list" /></h1>
     </div>
 <rhn-listview class="Sniglets::ListView::SystemList" mode="{pinfo_list_mode}" alphabar_column="name">
   <formvars>

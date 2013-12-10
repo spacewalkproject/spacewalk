@@ -16,7 +16,7 @@
     <rhn-navi-nav prefix="system_details" depth="0" file="/nav/system_detail.xml" style="contentnav" />
 
     <h2>
-      <i class="fa fa-suitcase" title="event"></i>
+      <rhn-icon type="header-event-history"/>
       System History Event
     </h2>
 
@@ -58,7 +58,7 @@
 
 <pxt-formvar>
 <div class="up-arrow">
-<i class="fa fa-caret-up" title="Go up"></i>
+<rhn-icon type="nav-up" title="Go up"/>
 <a href="/network/systems/details/history/history.pxt?sid={formvar:sid}">Return to history list for <rhn-server-name /></a></div>
 </pxt-formvar>
 

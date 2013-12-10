@@ -18,7 +18,7 @@
       <p>The channel <strong>{channel_name}</strong> has the following packages in common with <strong><rhn-errata-advisory/></strong>.  If the version of the package from the erratum is newer than the one in your channel, you will have the opportunity to update the channel when you publish this erratum.</p>
     </div>
 
-    <h2><i class="fa spacewalk-icon-packages"></i>&#160;Packages</h2>
+    <h2><rhn-icon type="header-package"/>&#160;Packages</h2>
 
 <pxt-include-late file="/network/components/message_queues/local.pxi" />
 

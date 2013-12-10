@@ -15,7 +15,7 @@
 
     <pxt-include-late file="/network/components/message_queues/local.pxi"/>
 
-    <h2><i class="fa spacewalk-icon-proxy"></i>Proxy</h2>
+    <h2><rhn-icon type="header-proxy"/>Proxy</h2>
 
       <rhn-proxy-entitlement-form>
         <div class="page-summary">

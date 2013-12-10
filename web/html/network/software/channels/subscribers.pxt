@@ -10,7 +10,7 @@
   <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
 
 <rhn-channel-details>
-    <h1><i class="fa spacewalk-icon-software-channels"></i> {channel_name} <rhn-help href="s1-sm-channels-packages.jsp#s3-sm-channel-details" /></h1>
+    <h1><rhn-icon type="header-channel"/> {channel_name} <rhn-help href="s1-sm-channels-packages.jsp#s3-sm-channel-details" /></h1>
 
 <rhn-require acl_mixins="RHN::Access::Channel" acl="channel_eoled()">
 <p class="local-alert">As of {channel_eol}, this channel has reached its end of life.</p>

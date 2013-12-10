@@ -18,7 +18,7 @@
 
 <pxt-include-late file="/network/components/message_queues/local.pxi" />
 
-<h2><i class="fa fa-camera" title="snapshot"></i> System Snapshots</h2>
+<h2><rhn-icon type="header-snapshot" title="snapshot"/> System Snapshots</h2>
 
 
 <div class="page-summary">

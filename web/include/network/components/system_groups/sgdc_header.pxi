@@ -7,12 +7,12 @@
 <pxt-formvar>
 
   <rhn-toolbar base="h1"
-               icon="fa spacewalk-icon-system-groups"
+               icon="header-system-groups"
                alt="system group"
                help-url="s1-sm-systems.jsp#s2-sm-system-group-list"
                misc-url="/network/systems/ssm/work_with_group.pxt?sgid={formvar:sgid}&amp;pxt_trap=rhn:work_with_group_cb"
                misc-alt="work with group"
-               misc-icon="fa spacewalk-icon-system-groups"
+               misc-icon="header-system-groups"
                misc-text="work with group"
                deletion-type="group"
                deletion-url="delete_confirm.pxt?sgid={formvar:sgid}"
