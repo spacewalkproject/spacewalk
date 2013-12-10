@@ -21,12 +21,14 @@ package com.redhat.rhn.frontend.taglibs.list;
  */
 
 public enum ListCommand {
-    RENDER ("__render__"),
+    ENUMERATE ("__enum__"),
     TBL_HEADING ("__tbl_heading__"),
     TBL_ADDONS ("__tbl_addons__"),
-    TBL_FOOTER ("__tbl__footer__"),
     COL_HEADER ("__col_header__"),
-    ENUMERATE ("__enum__");
+    BEFORE_RENDER ("__tbl__before_render__"),
+    RENDER ("__render__"),
+    AFTER_RENDER ("__tbl__after_render__"),
+    TBL_FOOTER("__tbl_footer__");
 
     private String _cmd;
 

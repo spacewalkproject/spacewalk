@@ -90,7 +90,7 @@ public class SpanTag extends TagSupport {
         if (cmd.equals(ListCommand.TBL_ADDONS) && role.equals("header")) {
             renderHeader(parent);
         }
-        else if (cmd.equals(ListCommand.TBL_FOOTER) && role.equals("footer")) {
+        else if (cmd.equals(ListCommand.BEFORE_RENDER) && role.equals("footer")) {
             renderFooter(parent);
         }
         return TagSupport.EVAL_PAGE;

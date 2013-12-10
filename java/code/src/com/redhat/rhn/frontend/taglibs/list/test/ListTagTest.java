@@ -22,6 +22,7 @@ import com.redhat.rhn.frontend.taglibs.list.ListSetTag;
 import com.redhat.rhn.frontend.taglibs.list.ListTag;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.RhnMockJspWriter;
+import java.io.Writer;
 
 import org.jmock.Mock;
 import org.jmock.cglib.MockObjectTestCase;
@@ -103,17 +104,27 @@ public class ListTagTest extends MockObjectTestCase {
             .with(eq("current"), isA(Object.class));
         mcontext.expects(atLeastOnce()).method("getAttribute")
             .with(eq("current")).will(returnValue(null));
+        mcontext.expects(atLeastOnce()).method("pushBody")
+            .with(isA(Writer.class));
+        mcontext.expects(atLeastOnce()).method("popBody")
+            .withNoArguments();
         mreq.expects(atLeastOnce()).method("getParameter")
             .with(stringContains("PAGE_SIZE_LABEL_SELECTED")).will(returnValue(null));
         Stub[] cmdValues = {
                 returnValue(ListCommand.ENUMERATE), // listtag asking
                 returnValue(ListCommand.ENUMERATE), // columntag asking
+                returnValue(ListCommand.TBL_HEADING), // listtag asking
+                returnValue(ListCommand.TBL_HEADING), // columntag asking
                 returnValue(ListCommand.TBL_ADDONS), // listtag asking
                 returnValue(ListCommand.TBL_ADDONS), // columntag asking
                 returnValue(ListCommand.COL_HEADER), // listtag asking
                 returnValue(ListCommand.COL_HEADER), // columntag asking
+                returnValue(ListCommand.BEFORE_RENDER), // listtag asking
+                returnValue(ListCommand.BEFORE_RENDER), // columntag asking
                 returnValue(ListCommand.RENDER),    // listtag asking
                 returnValue(ListCommand.RENDER),    // columntag asking
+                returnValue(ListCommand.AFTER_RENDER), // listtag asking
+                returnValue(ListCommand.AFTER_RENDER), // columntag asking
                 returnValue(ListCommand.TBL_FOOTER), // listtag asking
                 returnValue(ListCommand.TBL_FOOTER) // columntag asking
                 };

@@ -62,11 +62,6 @@ public class ListTag extends BodyTagSupport {
             "backward", "forward", "allForward" };
     private static final String HIDDEN_TEXT = "<input type=\"hidden\" " +
                                                 "name=\"%s\" value=\"%s\"/>";
-    private boolean haveColsEnumerated = false;
-    private boolean haveTblHeadingRendered = false;
-    private boolean haveTblAddonsRendered = false;
-    private boolean haveTblFootersRendered = false;
-    private boolean haveColHeadersRendered = false;
 
     private int columnCount;
     private int pageSize = -1;
@@ -430,6 +425,9 @@ public class ListTag extends BodyTagSupport {
     }
 
     private void doAfterBodyRenderTopAddons() throws JspException {
+        ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
+            ListCommand.TBL_ADDONS);
+
         setupManipulator();
         manip.sort();
         pageData = manip.getPage();
@@ -568,8 +566,7 @@ public class ListTag extends BodyTagSupport {
         manip.bindPaginationInfo();
         request.setAttribute("dataSize", String
                .valueOf(pageData.size() + 1));
-        ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
-            ListCommand.TBL_ADDONS);
+        
         if (pageData != null && pageData.size() > 0) {
             iterator = pageData.iterator();
         }
@@ -578,9 +575,12 @@ public class ListTag extends BodyTagSupport {
         }
     }
 
-    private int doAfterBodyRenderFooter() throws JspException {
+    private int doAfterBodyRenderBeforeData() throws JspException {
         ListTagUtil.write(pageContext, "</tr>");
         ListTagUtil.write(pageContext, "</thead>");
+
+        ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
+                ListCommand.BEFORE_RENDER);
 
         if (manip.isListEmpty()) {
             renderEmptyList();
@@ -592,8 +592,22 @@ public class ListTag extends BodyTagSupport {
 
             return BodyTagSupport.SKIP_BODY;
         }
+        ListTagUtil.write(pageContext, "<tbody>");
+
+        // render first row. The rest will be rendered in subsequent
+        // calls to doAfterBody
+        return doAfterBodyRenderData();
+    }
+
+    private int doAfterBodyRenderData() throws JspException {
+        // if there was a previous object, close its row
+        if (currentObject != null) {
+            ListTagUtil.write(pageContext, "</tr>");
+        }
+
         ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
                 ListCommand.RENDER);
+
         if (iterator.hasNext()) {
             Object obj = iterator.next();
             if (RhnListTagFunctions.isExpandable(obj)) {
@@ -604,32 +618,43 @@ public class ListTag extends BodyTagSupport {
         else {
             currentObject = null;
         }
-        if (currentObject == null) {
-            ListTagUtil.write(pageContext, "</tbody>");
-            ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
-                    ListCommand.TBL_FOOTER);
-        }
-        else {
+
+        if (currentObject != null) {
             ListTagUtil.write(pageContext, "<tr");
             renderRowClassAndId();
 
             ListTagUtil.write(pageContext, ">");
             pageContext.setAttribute(rowName, currentObject);
         }
+        else  {
+            return doAfterBodyRenderAfterData();
+        }
+        return BodyTagSupport.EVAL_BODY_AGAIN;
+    }
+
+    private int doAfterBodyRenderAfterData() throws JspException {
+        ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
+                ListCommand.AFTER_RENDER);
+        ListTagUtil.write(pageContext, "</tr>");
+        ListTagUtil.write(pageContext, "</tbody>");
         return BodyTagSupport.EVAL_BODY_AGAIN;
     }
 
     private void doAfterBodyRenderColHeaders() throws JspException {
         startTable();
+        ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
+                ListCommand.COL_HEADER);
+
         ListTagUtil.write(pageContext, "<thead>");
         // open the row tag for the column header th's
         ListTagUtil.write(pageContext, "<tr>");
-        ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
-                ListCommand.COL_HEADER);
     }
 
     private int doAfterBodyRenderFooterAddons() throws JspException {
         ListTagUtil.write(pageContext, "</table>");
+        ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
+                ListCommand.TBL_FOOTER);
+
         // as the footer addons are populated with decorators, we don't
         // know if there will be content or not, but we want to avoid
         // writing the tfoot tag at all if there is none, so we push a
@@ -735,6 +760,9 @@ public class ListTag extends BodyTagSupport {
     }
 
     private void doAfterBodyRenderListBegin() throws JspException {
+        ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
+                ListCommand.TBL_HEADING);
+
         ListTagUtil.write(pageContext, "<!-- START LIST " + getUniqueName() + " -->");
 
         String listId = (getStyleId() != null) ? getStyleId() : getUniqueName();
@@ -748,8 +776,6 @@ public class ListTag extends BodyTagSupport {
             ListTagUtil.write(pageContext, " " + styleClass);
         }
         ListTagUtil.write(pageContext, "\" id=\"" + listId + "\">");
-        ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
-                ListCommand.TBL_HEADING);
     }
 
     /**
@@ -759,29 +785,16 @@ public class ListTag extends BodyTagSupport {
     public int doAfterBody() throws JspException {
         int retval = BodyTagSupport.EVAL_BODY_AGAIN;
 
-        ListCommand cmd = ListTagUtil.getCurrentCommand(this, pageContext);
+        ListCommand nextCmd = getNextCommand();
 
-        if (cmd.equals(ListCommand.COL_HEADER)) {
-            ListTagUtil.write(pageContext, "</tr>");
-        }
-
-        setState();
-
-        if (haveColsEnumerated && !haveTblHeadingRendered) {
-            doAfterBodyRenderListBegin();
-        }
-        else if (haveColsEnumerated && !haveTblAddonsRendered) {
-            doAfterBodyRenderTopAddons();
-        }
-        if (haveColsEnumerated && haveTblAddonsRendered &&
-                            !haveColHeadersRendered) {
-            doAfterBodyRenderColHeaders();
-        }
-        if (haveColHeadersRendered && !haveTblFootersRendered) {
-            retval = doAfterBodyRenderFooter();
-        }
-        else if (haveTblFootersRendered) {
-            retval = doAfterBodyRenderFooterAddons();
+        switch (nextCmd) {
+            case TBL_HEADING:    doAfterBodyRenderListBegin(); break;
+            case TBL_ADDONS:     doAfterBodyRenderTopAddons(); break;
+            case COL_HEADER:     doAfterBodyRenderColHeaders(); break;
+            case BEFORE_RENDER:  retval = doAfterBodyRenderBeforeData(); break;
+            case RENDER:         retval = doAfterBodyRenderData(); break;
+            case AFTER_RENDER:   retval = doAfterBodyRenderAfterData(); break;
+            case TBL_FOOTER:     retval = doAfterBodyRenderFooterAddons(); break;
         }
         return retval;
     }
@@ -930,11 +943,6 @@ public class ListTag extends BodyTagSupport {
         pageSize = -1;
         rowName = "current";
         filter = null;
-        haveColsEnumerated = false;
-        haveColHeadersRendered = false;
-        haveTblAddonsRendered = false;
-        haveTblFootersRendered = false;
-        haveTblHeadingRendered = false;
         getDecorators().clear();
         decorators = null;
         decoratorName = null;
@@ -1000,22 +1008,17 @@ public class ListTag extends BodyTagSupport {
         ListTagUtil.write(pageContext, ">");
     }
 
-    private void setState() {
+    private ListCommand getNextCommand() {
         ListCommand cmd = ListTagUtil.getCurrentCommand(this, pageContext);
-        if (cmd.equals(ListCommand.ENUMERATE)) {
-            haveColsEnumerated = true;
-        }
-        else if (cmd.equals(ListCommand.TBL_HEADING)) {
-            haveTblHeadingRendered = true;
-        }
-        else if (cmd.equals(ListCommand.TBL_ADDONS)) {
-            haveTblAddonsRendered = true;
-        }
-        else if (cmd.equals(ListCommand.COL_HEADER)) {
-            haveColHeadersRendered = true;
-        }
-        else if (cmd.equals(ListCommand.TBL_FOOTER)) {
-            haveTblFootersRendered = true;
+        switch (cmd) {
+            case ENUMERATE:     return ListCommand.TBL_HEADING;
+            case TBL_HEADING:   return ListCommand.TBL_ADDONS;
+            case TBL_ADDONS:    return ListCommand.COL_HEADER;
+            case COL_HEADER:    return ListCommand.BEFORE_RENDER;
+            case BEFORE_RENDER: return ListCommand.RENDER;
+            case RENDER:        return ListCommand.RENDER;
+            case AFTER_RENDER: return ListCommand.TBL_FOOTER;
+            default:             return null;
         }
     }
 
