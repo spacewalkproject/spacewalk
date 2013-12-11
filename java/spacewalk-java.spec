@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.95
+Version: 2.1.96
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Dec 11 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.96-1
+- allow channel administrator to view Channel > Managers page
+
 * Wed Dec 11 2013 Milan Zazrivec <mzazrivec@redhat.com> 2.1.95-1
 - 1040540 - have package search return all matching results
 - use rhn:toolbar in 'Show Tomcat Logs' page
