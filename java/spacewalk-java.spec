@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.94
+Version: 2.1.95
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Dec 11 2013 Milan Zazrivec <mzazrivec@redhat.com> 2.1.95-1
+- 1040540 - have package search return all matching results
+- use rhn:toolbar in 'Show Tomcat Logs' page
+
 * Wed Dec 11 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.94-1
 - use new icon aliases in rhn:toolbar tag
 - adding new icon definitions
