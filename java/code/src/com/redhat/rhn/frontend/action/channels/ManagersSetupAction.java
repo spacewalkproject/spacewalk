@@ -85,9 +85,9 @@ public class ManagersSetupAction extends RhnAction implements Listable {
             // remove channel managers
             for (Iterator<Long> iter = helper.getRemovedKeys().iterator();
                     iter.hasNext();) {
-                User u = UserManager.lookupUser(user, iter.next());
-                if (!u.hasRole(RoleFactory.CHANNEL_ADMIN)) {
-                    UserManager.removeChannelPerm(u, currentChan.getId(),
+                Long uid = iter.next();
+                if (!UserManager.hasRole(uid, RoleFactory.CHANNEL_ADMIN)) {
+                    user.getOrg().removeChannelPermissions(uid, currentChan.getId(),
                             ChannelManager.QRY_ROLE_MANAGE);
                 }
                 updated++;
@@ -95,11 +95,11 @@ public class ManagersSetupAction extends RhnAction implements Listable {
 
             // add channel managers
             for (Iterator<Long> iter = helper.getAddedKeys().iterator(); iter.hasNext();) {
-                User u = UserManager.lookupUser(user, iter.next());
-                if (!u.hasRole(RoleFactory.CHANNEL_ADMIN)) {
-                    UserManager.removeChannelPerm(u, currentChan.getId(),
+                Long uid = iter.next();
+                if (!UserManager.hasRole(uid, RoleFactory.CHANNEL_ADMIN)) {
+                    user.getOrg().removeChannelPermissions(uid, currentChan.getId(),
                             ChannelManager.QRY_ROLE_MANAGE);
-                    UserManager.addChannelPerm(u, currentChan.getId(),
+                    user.getOrg().resetChannelPermissions(uid, currentChan.getId(),
                             ChannelManager.QRY_ROLE_MANAGE);
                 }
                 updated++;
@@ -123,8 +123,7 @@ public class ManagersSetupAction extends RhnAction implements Listable {
         User currentUser = context.getCurrentUser();
         List<UserOverview> userList = UserManager.activeInOrg2(currentUser);
         for (UserOverview uo : userList) {
-            User u = UserManager.lookupUser(currentUser, uo.getId());
-            uo.setDisabled(u.hasRole(RoleFactory.CHANNEL_ADMIN));
+            uo.setDisabled(UserManager.hasRole(uo.getId(), RoleFactory.CHANNEL_ADMIN));
         }
         return userList;
     }
