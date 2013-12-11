@@ -5,7 +5,7 @@
 
 <html>
     <body>
-        <rhn:toolbar base="h1" icon="fa-user" imgAlt="users.jsp.imgAlt"
+        <rhn:toolbar base="h1" icon="header-user" imgAlt="users.jsp.imgAlt"
                      helpUrl="/rhn/help/reference/en-US/s1-sm-your-rhn.jsp#s2-sm-your-rhn-account">
             <bean:message key="credentials.jsp.delete.dispatch" />
         </rhn:toolbar>

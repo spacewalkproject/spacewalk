@@ -603,7 +603,7 @@ public class ToolbarTag extends TagSupport {
 
             String create = "toolbar.create." + getCreationType();
             return renderActionLink(getCreationUrl(), create,
-                                    create, "fa-plus", null);
+                                    create, "item-add", null);
         }
         return "";
     }
@@ -614,7 +614,7 @@ public class ToolbarTag extends TagSupport {
 
             String clone = "toolbar.clone." + getCloneType();
             return renderActionLink(getCloneUrl(), clone,
-                                    clone, "fa-files-o", null);
+                                    clone, "item-clone", null);
         }
         return "";
     }
@@ -624,7 +624,7 @@ public class ToolbarTag extends TagSupport {
                 assertNotEmpty(getDeletionUrl())) {
 
             String del = "toolbar.delete." + getDeletionType();
-            return renderActionLink(getDeletionUrl(), del, del, "fa-trash-o", null);
+            return renderActionLink(getDeletionUrl(), del, del, "item-del", null);
         }
         return "";
     }

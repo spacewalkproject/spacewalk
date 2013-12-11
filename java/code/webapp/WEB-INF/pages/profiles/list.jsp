@@ -8,7 +8,7 @@
 <html>
 <body>
 <rhn:toolbar base="h1"
-    icon="spacewalk-icon-packages"
+    icon="header-package"
 	imgAlt="profile.list.header.alt">
 	<bean:message key="profile.list.header" />
 </rhn:toolbar>

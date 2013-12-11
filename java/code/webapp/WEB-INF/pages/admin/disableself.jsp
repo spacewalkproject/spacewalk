@@ -5,7 +5,7 @@
 
 <html>
     <body>
-        <rhn:toolbar base="h1" icon="fa-user" imgAlt="users.jsp.imgAlt">
+        <rhn:toolbar base="h1" icon="header-user" imgAlt="users.jsp.imgAlt">
             <bean:message key="disableself.jsp.account_deactivation" />
         </rhn:toolbar>
         <form method="post" name="rhn_list" action="/rhn/account/AccountDeactivationSubmit.do">

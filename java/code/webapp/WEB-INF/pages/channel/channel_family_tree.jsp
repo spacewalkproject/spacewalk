@@ -10,7 +10,7 @@
 </head>
 
 <body onLoad="onLoadStuff(3); showAllRows();">
-<rhn:toolbar base="h1" icon="spacewalk-icon-software-channels" imgAlt="channels.jsp.alt">
+<rhn:toolbar base="h1" icon="header-channel" imgAlt="channels.jsp.alt">
 	${requestScope.familyName}
 </rhn:toolbar>
 

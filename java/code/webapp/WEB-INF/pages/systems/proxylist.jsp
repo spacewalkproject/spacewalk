@@ -10,7 +10,7 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-<rhn:toolbar base="h1" icon="fa-desktop" imgAlt="system.common.systemAlt"
+<rhn:toolbar base="h1" icon="header-system" imgAlt="system.common.systemAlt"
  helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-list-proxy">
   <bean:message key="proxylist.jsp.header"/>
 </rhn:toolbar>

@@ -88,7 +88,7 @@
 					    <rhn:require acl="user_role(org_admin)">
 					      <a href="/rhn/users/UserDetails.do?uid=${summary.mostRecentMod.configFile.latestConfigRevision.changedBy.id}">
 					    </rhn:require>
-					    <i class="fa fa-user" title="<bean:message key='user.common.userAlt' />"></i>
+					    <rhn:icon type="header-user" title="<bean:message key='user.common.userAlt' />" />
 					    <c:out value="${summary.mostRecentMod.configFile.latestConfigRevision.changedBy.login}" />
 					    <rhn:require acl="user_role(org_admin)">
 					      </a>

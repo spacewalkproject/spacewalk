@@ -17,7 +17,7 @@ function showFiltered() {
 </head>
 
 <body onLoad="onLoadStuff(3); showFiltered();">
-<rhn:toolbar base="h1" icon="spacewalk-icon-software-channels">
+<rhn:toolbar base="h1" icon="header-channel">
   <bean:message key="channel.nav.popular"/>
 </rhn:toolbar>
 

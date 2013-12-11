@@ -16,7 +16,7 @@
   <div class="toolbar">
     <span class="toolbar">
       <a href="/rhn/systems/details/DeleteCustomData.do?sid=${sid}&cikid=${cikid}">
-        <i class="fa fa-trash-o" title="delete value"></i>delete value
+        <rhn:icon type="item-del" title="delete value" />delete value
       </a>
     </span>
   </div>

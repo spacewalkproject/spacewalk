@@ -9,7 +9,7 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-<rhn:toolbar base="h1" icon="fa-desktop"
+<rhn:toolbar base="h1" icon="header-system"
  helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-list-virtual">
   <bean:message key="virtuallist.jsp.toolbar"/>
 </rhn:toolbar>

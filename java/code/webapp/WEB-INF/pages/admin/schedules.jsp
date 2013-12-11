@@ -9,7 +9,7 @@
 <html>
 <body>
 
-<rhn:toolbar base="h1" icon="fa-tachometer"
+<rhn:toolbar base="h1" icon="header-taskomatic"
              imgAlt="channels.overview.toolbar.imgAlt"
              creationUrl="/rhn/admin/ScheduleDetail.do"
              creationType="schedule"

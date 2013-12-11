@@ -7,7 +7,7 @@
 
 <html>
 <body>
-<rhn:toolbar base="h1" icon="fa-rocket"
+<rhn:toolbar base="h1" icon="header-kickstart"
                creationUrl="/rhn/kickstart/CreateProfileWizard.do"
                creationType="kickstart"
                imgAlt="kickstarts.alt.img"

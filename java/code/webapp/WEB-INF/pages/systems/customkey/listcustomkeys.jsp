@@ -8,7 +8,7 @@
 <html:html >
 <body>
 
-    <rhn:toolbar base="h1" icon="fa-key"
+    <rhn:toolbar base="h1" icon="header-activation-key"
                 creationUrl="/rhn/systems/customdata/CreateCustomKey.do"
                 creationType="customkey">
         <bean:message key="system.jsp.customkey.title"/>

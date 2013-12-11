@@ -12,7 +12,7 @@
         <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
         <c:if test="${is_suite_probe}">
-            <rhn:toolbar base="h2" icon="fa-desktop"
+            <rhn:toolbar base="h2" icon="header-system"
                          miscAlt="probedetails.jsp.editsuiteprobe"
                          miscIcon="fa-copy"
                          miscUrl="/rhn/monitoring/config/ProbeSuiteProbeEdit.do?suite_id=${probe.templateProbe.probeSuite.id}&amp;probe_id=${probe.templateProbe.id}"
@@ -23,7 +23,7 @@
             </rhn:toolbar>
         </c:if>
         <c:if test="${not is_suite_probe}">
-            <rhn:toolbar base="h2" icon="fa-desktop"
+            <rhn:toolbar base="h2" icon="header-system"
                          deletionUrl="/rhn/systems/details/probes/ProbeDelete.do?probe_id=${probe.id}&amp;sid=${system.id}"
                          deletionType="probe"
                          miscAlt="probedetails.jsp.editthisprobe"

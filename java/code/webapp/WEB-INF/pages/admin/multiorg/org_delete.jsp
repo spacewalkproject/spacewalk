@@ -6,7 +6,7 @@
 
 <html>
     <body>
-        <rhn:toolbar base="h1" icon="fa-group">
+        <rhn:toolbar base="h1" icon="header-organisation">
             <bean:message key="orgdelete.jsp.header1" arg0="${orgName}"/>
         </rhn:toolbar>
         <rhn:dialogmenu mindepth="0" maxdepth="1"

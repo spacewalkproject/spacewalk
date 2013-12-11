@@ -7,7 +7,7 @@
 
 <html>
 <body>
-<rhn:toolbar base="h1" icon="fa-info-circle">
+<rhn:toolbar base="h1" icon="header-info">
   <bean:message key="probes.jsp.toolbar"/>
 </rhn:toolbar>
 

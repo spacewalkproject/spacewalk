@@ -13,7 +13,7 @@
     </script>
 </head>
 <body>
-  <rhn:toolbar base="h1" icon="spacewalk-icon-software-channels"
+  <rhn:toolbar base="h1" icon="header-channel"
                miscUrl="${url}"
                miscAcl="user_role(org_admin)"
                miscText="${text}"

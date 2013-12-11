@@ -5,7 +5,7 @@
 
 <html:html>
     <body>
-        <rhn:toolbar base="h1" icon="fa-info-circle" imgAlt="info.alt.img">
+        <rhn:toolbar base="h1" icon="header-info" imgAlt="info.alt.img">
             <bean:message key="keycreate.jsp.toolbar"/>
         </rhn:toolbar>
         <bean:message key="keycreate.jsp.summary"/>

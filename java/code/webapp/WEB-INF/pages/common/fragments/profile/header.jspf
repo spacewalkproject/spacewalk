@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <rhn:toolbar base="h1"
-    icon="spacewalk-icon-packages"
+    icon="header-package"
 	imgAlt="profile.list.header.alt"
 	deletionUrl="/rhn/profiles/Delete.do?prid=${param.prid}"
 	deletionType="profile">

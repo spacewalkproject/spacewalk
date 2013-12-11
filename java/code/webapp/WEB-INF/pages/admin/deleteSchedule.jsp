@@ -5,7 +5,7 @@
 
 <html>
 <body>
-<rhn:toolbar base="h1" icon="spacewalk-icon-software-channels">
+<rhn:toolbar base="h1" icon="header-channel">
     <bean:message key="schedule.edit.jsp.toolbar" arg0="${schedulename}"/>
 </rhn:toolbar>
 

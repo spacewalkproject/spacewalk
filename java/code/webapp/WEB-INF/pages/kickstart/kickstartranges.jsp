@@ -7,7 +7,7 @@
 
 <html:html >
 <body>
-<rhn:toolbar base="h1" icon="fa-rocket" imgAlt="kickstarts.alt.img">
+<rhn:toolbar base="h1" icon="header-kickstart" imgAlt="kickstarts.alt.img">
   <bean:message key="kickstartranges.jsp.toolbar"/>
 </rhn:toolbar>
 

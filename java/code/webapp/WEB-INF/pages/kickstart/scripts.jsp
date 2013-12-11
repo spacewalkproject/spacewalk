@@ -8,7 +8,7 @@
 <html:html >
 <body>
 <c:if test="${! empty kickstart_scripts}">
-    <rhn:toolbar base="h1" icon="fa-rocket"
+    <rhn:toolbar base="h1" icon="header-kickstart"
                creationUrl="/rhn/kickstart/KickstartScriptCreate.do?ksid=${ksdata.id}"
                creationType="kickstartscript"
                miscUrl="/rhn/kickstart/KickstartScriptOrder.do?ksid=${ksdata.id}"

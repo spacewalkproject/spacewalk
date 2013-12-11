@@ -36,7 +36,7 @@
                     style="text-align: center;">
         <c:choose>
             <c:when test="${current.userName != ''}">
-                <i class="fa fa-user" title="<bean:message key='yourrhn.jsp.user.alt'/>"></i>
+                <rhn:icon type="header-user" title="<bean:message key='yourrhn.jsp.user.alt'/>" />
                 ${current.userName}
             </c:when>
             <c:otherwise>

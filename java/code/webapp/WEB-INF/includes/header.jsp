@@ -29,7 +29,7 @@
       </ul>
       <ul class="nav nav-pills">
         <li>
-          <a href="/rhn/account/UserDetails.do"><i class="fa fa-user"></i><c:out escapeXml="true" value="${requestScope.session.user.login}" /></a>
+          <a href="/rhn/account/UserDetails.do"><rhn:icon type="header-user" /><c:out escapeXml="true" value="${requestScope.session.user.login}" /></a>
         </li>
         <li class="hidden-sm hidden-xs hidden-md">
           <span class="spacewalk-header-non-link"><i class="fa fa-sitemap"></i><c:out escapeXml="true" value="${requestScope.session.user.org.name}" /></span>

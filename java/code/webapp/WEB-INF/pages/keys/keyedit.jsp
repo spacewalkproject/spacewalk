@@ -6,7 +6,7 @@
 
 <html>
     <body>
-        <rhn:toolbar base="h1" icon="fa-info-circle" imgAlt="system.common.kickstartAlt"
+        <rhn:toolbar base="h1" icon="header-info" imgAlt="system.common.kickstartAlt"
                      deletionUrl="/rhn/keys/CryptoKeyDelete.do?key_id=${cryptoKey.id}"
                      deletionType="CryptoKeyDelete">
             <bean:message key="keyedit.jsp.toolbar"/>

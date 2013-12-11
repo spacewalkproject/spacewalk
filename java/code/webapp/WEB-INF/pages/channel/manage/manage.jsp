@@ -6,7 +6,7 @@
 
 <html>
 <body>
-<rhn:toolbar base="h1" icon="spacewalk-icon-software-channels"
+<rhn:toolbar base="h1" icon="header-channel"
              imgAlt="channels.overview.toolbar.imgAlt"
              creationUrl="/rhn/channels/manage/Edit.do"
              creationType="channel"

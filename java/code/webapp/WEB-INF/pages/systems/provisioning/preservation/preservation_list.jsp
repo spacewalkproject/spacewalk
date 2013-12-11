@@ -5,7 +5,7 @@
 
 <html:html >
 <body>
-<rhn:toolbar base="h1" icon="fa-rocket"
+<rhn:toolbar base="h1" icon="header-kickstart"
     imgAlt="system.common.kickstartAlt"
     creationUrl="PreservationListCreate.do"
     creationType="filelist">

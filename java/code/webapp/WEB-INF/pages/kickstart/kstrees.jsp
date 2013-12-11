@@ -7,10 +7,10 @@
 <html>
 <body>
 
-<rhn:toolbar base="h1" miscIcon="fa-plus"
+<rhn:toolbar base="h1" miscIcon="item-add"
     miscText="kickstart.kickstartable_distro_create_new.jsp"
     miscUrl="TreeCreate.do"
-    icon="fa-rocket"
+    icon="header-kickstart"
     iconAlt="kickstarts.alt.img">
 <bean:message key="kickstart.kickstartable_distributions.jsp" />
 </rhn:toolbar>

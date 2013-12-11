@@ -39,7 +39,7 @@
         <button type="submit"
                name="dispatch"
                class="btn btn-default">
-           <i class="fa fa-trash-o"></i> <bean:message key="erratalist.jsp.deleteerrata"/>
+           <rhn:icon type="item-del" /> <bean:message key="erratalist.jsp.deleteerrata"/>
         </button>
     </div>
 

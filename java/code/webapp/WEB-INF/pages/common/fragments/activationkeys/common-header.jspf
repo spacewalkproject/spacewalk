@@ -1,6 +1,6 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
-<rhn:toolbar base="h1" icon="fa-key"
+<rhn:toolbar base="h1" icon="header-activation-key"
 			imgAlt="activation-keys.common.alt"
 			helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-systems-activation-keys"
 

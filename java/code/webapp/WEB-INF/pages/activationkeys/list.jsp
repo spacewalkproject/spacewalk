@@ -9,7 +9,7 @@
     <meta name="name" value="activationkeys.jsp.header" />
 </head>
 <body>
-<rhn:toolbar base="h1" icon="fa-key"
+<rhn:toolbar base="h1" icon="header-activation-key"
 			imgAlt="activation-keys.common.alt"
 			creationUrl="/rhn/activationkeys/Create.do"
  			creationType="activationkeys"

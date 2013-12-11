@@ -6,7 +6,7 @@
 
 <html>
 <body>
-<rhn:toolbar base="h1" icon="fa-group"
+<rhn:toolbar base="h1" icon="header-organisation"
      creationUrl="/rhn/admin/multiorg/OrgCreate.do"
      creationType="org">
   <bean:message key="organizations.jsp.toolbar"/>

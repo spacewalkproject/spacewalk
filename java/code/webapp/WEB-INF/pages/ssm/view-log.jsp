@@ -8,7 +8,7 @@
 <html>
 <body>
 <rhn:toolbar base="h1"
-    icon="spacewalk-icon-system-groups"
+    icon="header-system-groups"
 	imgAlt="ssm.jsp.imgAlt"
 	helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-ssm">
 	<bean:message key="ssm.jsp.header" />

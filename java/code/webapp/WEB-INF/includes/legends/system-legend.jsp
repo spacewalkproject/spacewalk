@@ -14,7 +14,7 @@
   <rhn:require acl="org_entitlement(rhn_provisioning)">
     <li><rhn:icon type="system-kickstarting" /><bean:message key="system-legend.jsp.kickstarting"/></li>
   </rhn:require>
-  <li><rhn:icon type="actions-pending" /><bean:message key="system-legend.jsp.pending"/></li>
+  <li><rhn:icon type="action-pending" /><bean:message key="system-legend.jsp.pending"/></li>
   <li><rhn:icon type="system-unentitled" /><bean:message key="system-legend.jsp.unentitled"/></li>
   <rhn:require acl="org_entitlement(rhn_monitor)">
   <li><rhn:icon type="monitoring-status" /><bean:message key="system-legend.jsp.monitoring"/></li>

@@ -11,7 +11,7 @@
 	</c:if>
 </head>
 <body  <c:if test="${requestScope.restart == 'true'}">onload="checkConnection(${requestScope.restartDelay})"</c:if> >
-    <rhn:toolbar base="h1" icon="fa-info-circle" imgAlt="info.alt.img">
+    <rhn:toolbar base="h1" icon="header-info" imgAlt="info.alt.img">
       <bean:message key="restart.jsp.toolbar"/>
     </rhn:toolbar>
     <p>

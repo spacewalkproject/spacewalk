@@ -35,7 +35,7 @@
 		</c:if>
 	</c:when>
 	<c:otherwise>
-		<rhn:toolbar base="h1" icon="spacewalk-icon-Software-Channel-Management"
+		<rhn:toolbar base="h1" icon="header-configuration"
 			imgAlt="config.common.globalAlt"
 			helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#config-config-channels-channel-details">
 			<bean:message key="channelOverview.jsp.newToolbar" />

@@ -15,7 +15,7 @@
 	</div>
 </c:if>
 
-<rhn:toolbar base="h1" icon="fa-rocket" imgAlt="system.common.kickstartAlt">
+<rhn:toolbar base="h1" icon="header-kickstart" imgAlt="system.common.kickstartAlt">
   <bean:message key="distro-delete.jsp.header1" arg0="${kstree.label}"/>
 </rhn:toolbar>
 

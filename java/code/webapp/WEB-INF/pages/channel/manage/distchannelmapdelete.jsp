@@ -5,7 +5,7 @@
 
 <html:html >
 <body>
-  <rhn:toolbar base="h1" icon="fa-retweet" iconAlt="info.alt.img">
+  <rhn:toolbar base="h1" icon="header-channel-mapping" iconAlt="info.alt.img">
     <bean:message key="distchannelmap.jsp.delete"/>
   </rhn:toolbar>
   <h2><bean:message key="distchannelmap.jsp.delete"/></h2>

@@ -5,7 +5,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <html:html>
     <body>
-        <rhn:toolbar base="h1" icon="fa-info-circle">
+        <rhn:toolbar base="h1" icon="header-info">
             <bean:message key="iss.confirmmasterremove.jsp.toolbar" />
         </rhn:toolbar>
         <p><bean:message key="iss.confirmmasterremove.jsp.areyousure" /></p>

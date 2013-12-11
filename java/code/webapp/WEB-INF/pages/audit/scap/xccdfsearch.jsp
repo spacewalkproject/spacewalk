@@ -20,7 +20,7 @@
         </script>
     </head>
     <body>
-        <rhn:toolbar base="h1" icon="fa-search">
+        <rhn:toolbar base="h1" icon="header-search">
             <bean:message key="scapsearch.jsp.toolbar"/>
         </rhn:toolbar>
         <p><bean:message key="scapsearch.jsp.summary"/></p>

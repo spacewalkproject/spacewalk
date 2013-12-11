@@ -6,7 +6,7 @@
 
 <html>
 <body>
-<rhn:toolbar base="h1" icon="fa-info-circle"
+<rhn:toolbar base="h1" icon="header-info"
                creationUrl="CobblerSnippetCreate.do"
                creationType="snippets"
                iconAlt="info.alt.img">

@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<rhn:toolbar base="h1" icon="fa-retweet"
+<rhn:toolbar base="h1" icon="header-channel-mapping"
                creationUrl="DistChannelMapEdit.do"
                creationType="distchannelmap"
                iconAlt="info.alt.img">

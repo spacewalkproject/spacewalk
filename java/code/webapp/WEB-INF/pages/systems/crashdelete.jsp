@@ -11,7 +11,7 @@
 
     <br/>
 
-    <rhn:toolbar base="h2" icon="spacewalk-icon-bug-ex" iconAlt="info.alt.img">
+    <rhn:toolbar base="h2" icon="header-crash" iconAlt="info.alt.img">
         ${fn:escapeXml(crash.crash)}
     </rhn:toolbar>
 

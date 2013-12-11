@@ -10,7 +10,7 @@
     <meta name="page-decorator" content="none"/>
 </head>
 <body>
-<rhn:toolbar base="h1" icon="fa-desktop" imgAlt="overview.jsp.alt">
+<rhn:toolbar base="h1" icon="header-system" imgAlt="overview.jsp.alt">
   <bean:message key="systementitlements.jsp.header"/>
 </rhn:toolbar>
 

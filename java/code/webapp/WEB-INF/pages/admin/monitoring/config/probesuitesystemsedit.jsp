@@ -7,7 +7,7 @@
 <html>
 <body>
 
-  <rhn:toolbar base="h1" icon="spacewalk-icon-system-groups"
+  <rhn:toolbar base="h1" icon="header-system-groups"
 	           helpUrl="/rhn/help/reference/en-US/s1-sm-monitor.jsp#s2-sm-monitor-psuites">
     <bean:message key="probesuitesystemsedit.jsp.header1" arg0="${probeSuite.suiteName}" />
   </rhn:toolbar>

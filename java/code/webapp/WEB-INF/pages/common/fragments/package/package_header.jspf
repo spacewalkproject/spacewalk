@@ -1,6 +1,6 @@
 
 
-<rhn:toolbar base="h1" icon="spacewalk-icon-packages" imgAlt="package.jsp.alt">
+<rhn:toolbar base="h1" icon="header-package" imgAlt="package.jsp.alt">
 	<c:out value="${package_name}" escapeXml="true"/><a href="/rhn/help/reference/en-US/s1-sm-channels-packages.jsp" target="_blank" class="help-title"><i class="fa fa-question-circle" title="Help Icon"></i></a>
 </rhn:toolbar>
 

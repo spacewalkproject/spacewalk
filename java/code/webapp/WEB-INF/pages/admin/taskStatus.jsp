@@ -6,7 +6,7 @@
 
 <html>
 <body>
-<rhn:toolbar base="h1" icon="fa-tachometer"
+<rhn:toolbar base="h1" icon="header-taskomatic"
 	           helpUrl="">
     <bean:message key="task.status.title"/>
   </rhn:toolbar>

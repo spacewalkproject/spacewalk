@@ -7,7 +7,7 @@
 
 <html>
 <body>
-<rhn:toolbar base="h1" icon="fa-info-circle"
+<rhn:toolbar base="h1" icon="header-info"
                creationUrl="CryptoKeyCreate.do"
                creationType="keys"
                imgAlt="info.alt.img">

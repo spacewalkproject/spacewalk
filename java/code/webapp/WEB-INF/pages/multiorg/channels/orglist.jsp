@@ -9,7 +9,7 @@
     <meta name="name" value="activationkeys.jsp.header" />
 </head>
 <body>
-<rhn:toolbar base="h1" icon="spacewalk-icon-software-channels"
+<rhn:toolbar base="h1" icon="header-channel"
              deletionUrl="/rhn/channels/manage/Delete.do?cid=${param.cid}"
              deletionAcl="user_role(channel_admin); formvar_exists(cid)"
              deletionType="software.channel">

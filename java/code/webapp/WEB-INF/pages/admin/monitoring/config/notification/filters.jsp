@@ -7,7 +7,7 @@
 
 <html>
 <body>
-<rhn:toolbar base="h1" icon="spacewalk-icon-system-groups"
+<rhn:toolbar base="h1" icon="header-system-groups"
 	           creationUrl="FilterCreate.do"
                creationType="filter"
                helpUrl="/rhn/help/reference/en-US/s1-sm-monitor.jsp#s2-sm-monitor-notif">

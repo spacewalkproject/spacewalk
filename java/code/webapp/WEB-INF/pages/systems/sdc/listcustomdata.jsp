@@ -7,7 +7,7 @@
   <body>
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-    <rhn:toolbar base="h2" icon="fa-info-circle"
+    <rhn:toolbar base="h2" icon="header-info"
       creationUrl="/rhn/systems/details/CreateCustomData.do?sid=${system.id}"
       creationType="customdata">
       <bean:message key="sdc.details.customdata.header"/>

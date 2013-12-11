@@ -13,8 +13,7 @@
         <div class="toolbar">
             <span class="toolbar">
                 <a href="/rhn/systems/details/SoftwareCrashDelete.do?crid=${crid}&sid=${sid}">
-                    <i class="fa fa-trash-o"
-                       title="<bean:message key="toolbar.delete.crash"/>" ></i>
+                    <rhn:icon type="item-del" title="<bean:message key='toolbar.delete.crash'/>" />
                     <bean:message key="toolbar.delete.crash"/>
                 </a>
             </span>

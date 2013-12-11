@@ -6,7 +6,7 @@
 
 <html>
     <body>
-        <rhn:toolbar base="h1" icon="spacewalk-icon-software-channels"
+        <rhn:toolbar base="h1" icon="header-channel"
                      deletionUrl="/rhn/admin/DeleteSchedule.do?schid=${param.schid}"
                      deletionAcl="user_role(satellite_admin); formvar_exists(schid)"
                      deletionType="schedule">

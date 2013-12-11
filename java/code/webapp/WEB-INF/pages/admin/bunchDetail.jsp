@@ -9,7 +9,7 @@
 <html>
 <body>
 
-<rhn:toolbar base="h1" icon="fa-tachometer">
+<rhn:toolbar base="h1" icon="header-taskomatic">
     <bean:message key="bunch.edit.jsp.toolbar" arg0="${label}"/>
 </rhn:toolbar>
 

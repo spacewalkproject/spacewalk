@@ -5,7 +5,7 @@
 
 <html>
     <body>
-        <rhn:toolbar base="h1" icon="fa-user" imgAlt="users.jsp.imgAlt">
+        <rhn:toolbar base="h1" icon="header-user" imgAlt="users.jsp.imgAlt">
             <c:out escapeXml="true" value="${targetuser.login}" />
         </rhn:toolbar>
         <form method="POST" action="/rhn/users/DisableUserSubmit.do?uid=${param.uid}">

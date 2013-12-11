@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<rhn:toolbar base="h1" icon="fa-cog" imgAlt="config.jsp.imgAlt"
+<rhn:toolbar base="h1" icon="header-configuration" imgAlt="config.jsp.imgAlt"
  helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-overview" >
   <bean:message key="configoverview.jsp.toolbar"/>
 </rhn:toolbar>
@@ -118,7 +118,7 @@
           <rhn:column header="configoverview.jsp.scheduledBy"
                       url="/rhn/users/UserDetails.do?uid=${current.scheduledById}"
                       renderUrl="${requestScope.is_admin}">
-            <i class="fa fa-user" title="<bean:message key="user.common.userAlt" />"></i>
+            <rhn:icon type="header-user" title="<bean:message key='user.common.userAlt' />" />
             ${fn:escapeXml(current.scheduledByName)}
           </rhn:column>
 

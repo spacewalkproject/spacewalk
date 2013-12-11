@@ -9,7 +9,7 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-<rhn:toolbar base="h1" icon="spacewalk-icon-patches" iconAlt="errata.common.errataAlt"
+<rhn:toolbar base="h1" icon="header-errata" iconAlt="errata.common.errataAlt"
  helpUrl="/rhn/help/getting-started/en-US/chap-Getting_Started_Guide-Errata_Management.jsp"
  creationUrl="/rhn/errata/manage/Create.do"
  creationType="erratum">

@@ -9,7 +9,7 @@
   <script src="/javascript/iso_download.js" type="text/javascript"> </script>
 </head>
 <body>
-<rhn:toolbar base="h1" icon="spacewalk-icon-software-channels"  imgAlt="common.download.channelAlt">
+<rhn:toolbar base="h1" icon="header-channel"  imgAlt="common.download.channelAlt">
 <c:choose>
   <c:when test="${empty channel}">
     <decorator:getProperty property="meta.name" />

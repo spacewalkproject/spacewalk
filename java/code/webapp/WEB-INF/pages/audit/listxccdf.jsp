@@ -13,7 +13,7 @@
 
 <body>
 
-<rhn:toolbar base="h1" icon="fa-desktop" imgAlt="audit.jsp.alt">
+<rhn:toolbar base="h1" icon="header-system" imgAlt="audit.jsp.alt">
   <bean:message key="system.audit.listscap.jsp.overview"/>
 </rhn:toolbar>
 

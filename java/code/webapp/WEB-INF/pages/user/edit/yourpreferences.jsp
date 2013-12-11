@@ -8,7 +8,7 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-<rhn:toolbar base="h1" icon="spacewalk-icon-manage-configuration-files"
+<rhn:toolbar base="h1" icon="header-preferences"
  helpUrl="/rhn/help/reference/en-US/s1-sm-your-rhn.jsp#s2-sm-your-rhn-prefs">
 <bean:message key="Your Preferences"/>
 </rhn:toolbar>

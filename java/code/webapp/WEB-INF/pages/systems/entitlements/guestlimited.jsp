@@ -14,7 +14,7 @@
   </head>
 
   <body>
-    <rhn:toolbar base="h1" icon="fa-desktop">
+    <rhn:toolbar base="h1" icon="header-system">
       <bean:message key="virtualentitlements.toolbar" />
     </rhn:toolbar>
     <rhn:dialogmenu mindepth="0"

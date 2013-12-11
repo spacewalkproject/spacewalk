@@ -6,7 +6,7 @@
 <html:xhtml/>
 <html>
 <body>
-<rhn:toolbar base="h1" icon="fa-rocket"
+<rhn:toolbar base="h1" icon="header-kickstart"
              imgAlt="system.common.kickstartAlt">
     <bean:message key="preservation_list.jsp.toolbar"/>
 </rhn:toolbar>

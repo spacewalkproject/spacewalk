@@ -7,14 +7,14 @@
     <body>
         <c:choose>
             <c:when test="${requestScope.sid > 0}">
-                <rhn:toolbar base="h1" icon="fa-info-circle"
+                <rhn:toolbar base="h1" icon="header-info"
                              deletionUrl="/rhn/admin/iss/RemoveSlaveConfirm.do?sid=${requestScope.sid}"
                              deletionType="slave" deletionAcl="user_role(satellite_admin)">
                     <bean:message key="iss.editslave.jsp.toolbar" />
                 </rhn:toolbar>
             </c:when>
             <c:otherwise>
-                <rhn:toolbar base="h1" icon="fa-info-circle">
+                <rhn:toolbar base="h1" icon="header-info">
                     <bean:message key="iss.editslave.jsp.toolbar" />
                 </rhn:toolbar>
             </c:otherwise>
