@@ -22,7 +22,7 @@ editAreaLoader.init({
 <body>
 
    <rhn:require acl="user_role(satellite_admin)"/>
-   <h1><i class="fa fa-list"></i> Tomcat</h1>
+   <rhn:toolbar base="h1" icon="header-list">Tomcat</rhn:toolbar>
    <form action="/rhn/admin/Catalina.do">
      <rhn:csrf />
      <div class="panel panel-default">

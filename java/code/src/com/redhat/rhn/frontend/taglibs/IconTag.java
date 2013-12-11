@@ -58,6 +58,7 @@ public class IconTag extends TagSupport {
         icons.put("header-errata", "fa spacewalk-icon-patches");
         icons.put("header-globe", "fa fa-globe");
         icons.put("header-info", "fa fa-info-circle");
+        icons.put("header-list", "fa fa-list");
         icons.put("header-kickstart", "fa fa-rocket");
         icons.put("header-organisation", "fa fa-group");
         icons.put("header-package", "fa spacewalk-icon-packages");
