@@ -17,7 +17,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
 #Requires: apache-ibatis-sqlmap
-Requires: c3p0
+Requires: c3p0 >= 0.9.1
 Requires: cglib
 Requires: doc-indexes
 Requires: jakarta-commons-cli
@@ -47,7 +47,7 @@ Requires: simple-core
 Obsoletes: rhn-search < 5.3.0
 BuildRequires: ant
 #BuildRequires: apache-ibatis-sqlmap
-BuildRequires: c3p0
+BuildRequires: c3p0 >= 0.9.1
 BuildRequires: jakarta-commons-cli
 BuildRequires: jakarta-commons-codec
 BuildRequires: jakarta-commons-httpclient
