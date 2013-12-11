@@ -115,3 +115,40 @@ function formFocus(form, name) {
   }
 }
 
+// Humanizes all the time elements with the human class
+$(document).on("ready", function() {
+  $("time.human-from, time.human-calendar").each(function (index) {
+    var datetime = $(this).attr('datetime');
+    if (datetime == undefined) {
+      // if the attribute is not set, the content
+      // should be a valid date
+      datetime = $(this).html();
+    }
+    var parsed = moment(datetime);
+    if (parsed.isValid()) {
+      var originalContent = $(this).html();
+      if ($(this).hasClass("human-from")) {
+        var ref = $(this).attr("data-reference-date");
+        if (ref) {
+          var refParsed = moment(ref);
+          if (refParsed.isValid()) {
+            $(this).html(parsed.from(refParsed));
+          }
+        }
+        else {
+          $(this).html(parsed.fromNow());
+        }
+      }
+      if ($(this).hasClass("human-calendar")) {
+        $(this).html(parsed.calendar());
+      }
+      // if the original did not had a datetime attribute, add it
+      var datetimeAttr = $(this).attr('datetime');
+      if (datetimeAttr == undefined) {
+        $(this).attr('datetime', datetime);
+      }
+      // add a tooltip
+      $(this).wrap('<a href="#" data-toggle="tooltip" title="' + originalContent + '"></a>');
+    }
+  });
+});
