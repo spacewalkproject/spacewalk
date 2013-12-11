@@ -54,6 +54,16 @@
         </attribute>
     </tag>
     <tag>
+        <name>datepicker</name>
+        <tag-class>com.redhat.rhn.frontend.taglibs.DateTimePickerTag</tag-class>
+        <attribute>
+            <name>data</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>com.redhat.rhn.common.util.DatePicker</type>
+        </attribute>
+    </tag>
+    <tag>
         <name>menu</name>
         <tag-class>com.redhat.rhn.frontend.taglibs.NavMenuTag</tag-class>
         <body-content>JSP</body-content>

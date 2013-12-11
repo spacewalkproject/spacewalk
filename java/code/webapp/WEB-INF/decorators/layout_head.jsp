@@ -37,6 +37,8 @@
     <rhn:require acl="not is(development_environment)">
       <link rel="stylesheet" href="/css/spacewalk.css" />
     </rhn:require>
+    <link rel="stylesheet" href="/css/jquery.timepicker.css" />
+    <link rel="stylesheet" href="/css/bootstrap-datepicker.css" />
 
     <script src="/javascript/jquery.js"></script>
     <script src="/javascript/bootstrap.js"></script>
@@ -46,3 +48,5 @@
     <script src="/rhn/dwr/engine.js"></script>
     <script src="/rhn/dwr/util.js"></script>
     <script src="/rhn/dwr/interface/DWRItemSelector.js"></script>
+    <script src="/javascript/jquery.timepicker.js"></script>
+    <script src="/javascript/bootstrap-datepicker.js"></script>

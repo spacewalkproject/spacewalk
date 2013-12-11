@@ -212,6 +212,13 @@ public class DatePicker {
     }
 
     /**
+     * @return The hour in 24 hour format (0 to 23)
+     */
+    public Integer getHourOfDay() {
+        return cal.get(Calendar.HOUR_OF_DAY);
+    }
+
+    /**
      * Return the minute, a number from 0 to 59.
      * @return the minute, a number from 0 to 59.
      */
@@ -569,5 +576,12 @@ public class DatePicker {
      */
     public boolean getDisableTime() {
         return this.disableTime;
+    }
+
+    /**
+     * @return locale for this picker
+     */
+    public Locale getLocale() {
+        return this.locale;
     }
 }
