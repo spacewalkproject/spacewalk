@@ -1,4 +1,5 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 
 <div class="sideleg">
   <h4><bean:message key="probes-list-legend.jsp.title"/></h4>
