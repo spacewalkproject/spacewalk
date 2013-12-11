@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.7
+Version: 2.1.8
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -186,6 +186,9 @@ fi
 %attr(755, root, root) %{_var}/lib/rhn/search/indexes/docs
 
 %changelog
+* Wed Dec 11 2013 Milan Zazrivec <mzazrivec@redhat.com> 2.1.8-1
+- 1040540 - have package search return all matching results
+
 * Fri Dec 06 2013 Tomas Lestach <tlestach@redhat.com> 2.1.7-1
 - 1023669 - have unique id for SnapshotTag
 - 1023669 - remove unused logger
