@@ -89,7 +89,7 @@ public class IndexManager {
      * @param config application config
      */
     public IndexManager(Configuration config) {
-        maxHits = config.getInt("search.max_hits_returned", 50);
+        maxHits = config.getInt("search.max_hits_returned", 0);
         indexWorkDir = config.getString("search.index_work_dir", null);
         if (indexWorkDir == null) {
             throw new IllegalArgumentException(
@@ -533,7 +533,7 @@ public class IndexManager {
             if (pr != null) {
                 retval.add(pr);
             }
-            if (x == maxHits) {
+            if (maxHits > 0 && x == maxHits) {
                 break;
             }
         }

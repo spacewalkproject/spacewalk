@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2013 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -298,6 +298,21 @@ public class PackageFactory extends HibernateFactory {
         return packs.get(packs.size() - 1);
     }
 
+    private static List composePackageSearchResults(String queryName, Map params,
+        List pids) {
+        List results = new ArrayList();
+        int limit = 1000;       // ORA-01795
+
+        for (int n = 0; n < pids.size(); n += limit) {
+            int chunkSize = (pids.size() > n + limit) ? n + limit : pids.size();
+            List chunk = pids.subList(n, chunkSize);
+            params.put("pids", chunk);
+            results.addAll(singleton.listObjectsByNamedQuery(queryName, params));
+        }
+
+        return results;
+    }
+
     /**
      * Returns PackageOverviews from a search.
      * @param pids List of package ids returned from search server.
@@ -318,19 +333,17 @@ public class PackageFactory extends HibernateFactory {
             boolean relevantFlag) {
         List results = null;
         Map params = new HashMap();
-        params.put("pids", pids);
         if (archLabels != null && !archLabels.isEmpty()) {
             params.put("channel_arch_labels", archLabels);
-            results = singleton.listObjectsByNamedQuery("Package.searchByIdAndArches",
-                    params);
+            results = composePackageSearchResults("Package.searchByIdAndArches",
+                      params, pids);
         }
         else if (relevantFlag) {
-            results =
-                singleton.listObjectsByNamedQuery("Package.relevantSearchById", params);
+            results = composePackageSearchResults("Package.relevantSearchById",
+                      params, pids);
         }
         else {
-            results =
-                singleton.listObjectsByNamedQuery("Package.searchById", params);
+            results = composePackageSearchResults("Package.searchById", params, pids);
         }
         List<PackageOverview> realResults = new ArrayList<PackageOverview>();
         for (Object result : results) {
