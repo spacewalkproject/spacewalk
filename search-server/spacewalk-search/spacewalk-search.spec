@@ -37,7 +37,11 @@ Requires: jakarta-oro
 Requires: oro
 %endif
 #Requires: lucene
+%if 0%{?fedora}
 Requires: objectweb-asm
+%else
+Requires: asm
+%endif
 Requires: quartz < 2.0
 Conflicts: quartz >= 2.0
 Requires: redstone-xmlrpc
