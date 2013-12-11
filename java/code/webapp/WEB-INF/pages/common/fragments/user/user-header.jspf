@@ -6,12 +6,12 @@
 <c:if test="${not targetuser.disabled}">
    <c:set var="url" value="/rhn/users/DisableUser.do?uid=${param.uid}" />
    <c:set var="text" value="userdetails.jsp.disable" />
-   <c:set var="icon" value="fa-minus-circle" />
+   <c:set var="icon" value="item-ssm-del" />
 </c:if>
 <c:if test="${targetuser.disabled}">
    <c:set var="url" value="/rhn/users/EnableUser.do?uid=${param.uid}" />
    <c:set var="text" value="userdetails.jsp.enable" />
-   <c:set var="icon" value="fa-plus-circle" />
+   <c:set var="icon" value="item-ssm-add" />
 </c:if>
 
 <rhn:toolbar base="h1" icon="header-user"
