@@ -37,7 +37,7 @@
                            bound="false"
                            headerkey="systemlist.jsp.system"
                            sortattr="name" >
-		    <i class="fa fa-desktop" title="<bean:message key='systemlist.jsp.nonvirt'/>"></i>
+		    <rhn:icon type="header-system-physical" title="<bean:message key='systemlist.jsp.nonvirt' />" />
                     <c:out value="<a href=\"/rhn/systems/details/Overview.do?sid=${current.id}\">"  escapeXml="false" />
 		    <c:choose>
                         <c:when test="${empty current.name}">
@@ -64,10 +64,10 @@
                            </c:choose>
                            <c:choose>
                              <c:when test="${current.critical >= 10}">
-                               <i class="fa fa-exclamation-circle text-danger"></i>
+                               <rhn:icon type="system-crit" />
                              </c:when>
                              <c:when test="${current.critical >= 5}">
-                               <i class="fa fa-warning text-warning"></i>
+                               <rhn:icon type="system-warn" />
                              </c:when>
                            </c:choose>
 		</rl:column>
@@ -86,10 +86,10 @@
                            </c:choose>
                            <c:choose>
                              <c:when test="${current.important >= 15}">
-                               <i class="fa fa-exclamation-circle text-danger"></i>
+                               <rhn:icon type="system-crit" />
                              </c:when>
                              <c:when test="${current.important >= 10}">
-                               <i class="fa fa-warning text-warning"></i>
+                               <rhn:icon type="system-warn" />
                              </c:when>
                            </c:choose>
 		</rl:column>
@@ -108,10 +108,10 @@
                            </c:choose>
                            <c:choose>
                              <c:when test="${current.moderate >= 20}">
-                               <i class="fa fa-exclamation-circle text-danger"></i>
+                               <rhn:icon type="system-crit" />
                              </c:when>
                              <c:when test="${current.moderate >= 15}">
-                               <i class="fa fa-warning text-warning"></i>
+                               <rhn:icon type="system-warn" />
                              </c:when>
                            </c:choose>
 		</rl:column>
@@ -130,10 +130,10 @@
                            </c:choose>
                            <c:choose>
                              <c:when test="${current.low >= 25}">
-                               <i class="fa fa-exclamation-circle text-danger"></i>
+                               <rhn:icon type="system-crit" />
                              </c:when>
                              <c:when test="${current.low >= 20}">
-                               <i class="fa fa-warning text-warning"></i>
+                               <rhn:icon type="system-warn" />
                              </c:when>
                            </c:choose>
 		</rl:column>

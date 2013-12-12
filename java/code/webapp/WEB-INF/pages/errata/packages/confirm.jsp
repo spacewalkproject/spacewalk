@@ -18,7 +18,7 @@
   <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/manage_errata.xml"
                   renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
-  <h2><i class="fa spacewalk-icon-packages"></i>
+  <h2><rhn:icon type="header-package" />
       <bean:message key="errata.edit.packages.confirm.confirmpackageaddition"/></h2>
 
   <p><bean:message key="errata.edit.packages.confirm.instructions"/></p>

@@ -27,7 +27,7 @@
                                    name="search_string" value="${search_string}" accesskey="4"/>
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-default">
-                                <i class="fa fa-search"></i>
+                                <rhn:icon type="header-search" />
                             </button>
                         </span>
                     </div>

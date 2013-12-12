@@ -26,7 +26,7 @@
 		<rl:column headerkey="system.audit.xccdfdeleteconfirm.jsp.deletable">
 			<c:choose>
 				<c:when test="${current.deletable}">
-					<i class="fa fa-check"></i>
+					<rhn:icon type="item-enabled" />
 				</c:when>
 				<c:otherwise>
 					<img src="/img/rhn-listicon-unchecked_immutable.gif">

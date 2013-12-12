@@ -10,7 +10,7 @@
 </head>
 <body>
 
-    <h1><i class="fa fa-info-circle"></i><bean:message key="help.jsp.helpdesk"/></h1>
+    <h1><rhn:icon type="header-info" /><bean:message key="help.jsp.helpdesk"/></h1>
 
     <ul id="help-url-list">
 

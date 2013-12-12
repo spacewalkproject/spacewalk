@@ -42,7 +42,7 @@
 
 				<rhn:column header="system.common.systemName"
 					url="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">
-					<i class="fa fa-desktop"></i>
+					<rhn:icon type="header-system-physical" />
 					${fn:escapeXml(current.name)}
 		      	</rhn:column>
 

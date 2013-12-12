@@ -7,7 +7,7 @@
     <body>
         <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
         <h2>
-            <i class="fa spacewalk-icon-software-channels" title="channel"></i>
+            <rhn:icon type="header-channel" title="channel" />
             <bean:message key="sdc.channels.confirmNewBase.header.confirm"/>
         </h2>
 

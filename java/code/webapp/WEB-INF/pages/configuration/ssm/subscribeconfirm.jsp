@@ -47,7 +47,7 @@
              headerkey="system.common.systemName"
              attr="name">
     <a href="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">
-      <i class="fa fa-desktop" title="<bean:message key='system.common.systemAlt' />"></i>
+      <rhn:icon type="header-system-physical" title="<bean:message key='system.common.systemAlt' />" />
       ${current.name}
     </a>
   </rl:column>

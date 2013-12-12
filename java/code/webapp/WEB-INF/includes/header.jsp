@@ -32,13 +32,13 @@
           <a href="/rhn/account/UserDetails.do"><rhn:icon type="header-user" /><c:out escapeXml="true" value="${requestScope.session.user.login}" /></a>
         </li>
         <li class="hidden-sm hidden-xs hidden-md">
-          <span class="spacewalk-header-non-link"><i class="fa fa-sitemap"></i><c:out escapeXml="true" value="${requestScope.session.user.org.name}" /></span>
+          <span class="spacewalk-header-non-link"><rhn:icon type="header-sitemap" /><c:out escapeXml="true" value="${requestScope.session.user.org.name}" /></span>
         </li>
         <li>
-          <a href="/rhn/account/UserPreferences.do"><i class="fa fa-cogs" title="<bean:message key='header.jsp.preferences' />"></i></a>
+          <a href="/rhn/account/UserPreferences.do"><rhn:icon type="header-preferences" title="<bean:message key='header.jsp.preferences' />" /></a>
         </li>
         <li>
-          <html:link forward="logout"><i class="fa fa-sign-out" title="<bean:message key='header.jsp.signout' />"></i></html:link>
+          <html:link forward="logout"><rhn:icon type="header-signout" title="<bean:message key='header.jsp.signout' />" /></html:link>
         </li>
       </ul>
 
@@ -59,7 +59,7 @@
         <div class="form-group">
           <input type="hidden" name="submitted" value="true" />
           <button type="submit" class="btn btn-info input-sm">
-            <i class="fa fa-search"></i>
+            <rhn:icon type="header-search" />
           </button>
         </div>
       </form>

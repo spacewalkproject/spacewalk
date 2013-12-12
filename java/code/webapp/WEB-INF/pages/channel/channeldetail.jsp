@@ -41,7 +41,7 @@
                         </c:if>
                         <c:if test="${!empty channel.parentChannel}">
                             <a class="btn btn-info" href="/rhn/channels/ChannelDetail.do?cid=${channel.parentChannel.id}">
-                                <c:out value="${channel.parentChannel.name}" /> <i class="fa fa-arrow-right"></i>
+                                <c:out value="${channel.parentChannel.name}" /> <rhn:icon type="nav-right" />
                             </a>
                         </c:if>
                     </div>
@@ -146,7 +146,7 @@
                     </label>
                     <div class="col-lg-6">
                         <a class="btn btn-info" href="/rhn/channels/ChannelPackages.do?cid=${channel.id}">
-                            ${pack_size} <i class="fa fa-arrow-right"></i>
+                            ${pack_size} <rhn:icon type="nav-right" />
                         </a>
                     </div>
                 </div>
@@ -193,7 +193,7 @@
                     </label>
                     <div class="col-lg-6">
                         <a class="btn btn-info" href="/rhn/channels/ChannelSubscribers.do?cid=${channel.id}">
-                            ${systems_subscribed} <i class="fa fa-arrow-right"></i>
+                            ${systems_subscribed} <rhn:icon type="nav-right" />
                         </a>
                     </div>
                 </div>

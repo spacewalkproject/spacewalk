@@ -17,7 +17,7 @@
     <li class="${warningClass}"><a href="/rhn/monitoring/ProbeList.do?state=WARNING"><i class="fa fa-exclamation-triangle text-warning"></i><bean:message key="Warning"/><span class="badge">${warningCount}</span></a></li>
     <li class="${unknownClass}"><a href="/rhn/monitoring/ProbeList.do?state=UNKNOWN"><i class="fa fa-question-circle text-info"></i><bean:message key="Unknown"/><span class="badge">${unknownCount}</span></a></li>
     <li class="${pendingClass}"><a href="/rhn/monitoring/ProbeList.do?state=PENDING"><i class="fa fa-clock-o text-info"></i><bean:message key="Pending"/><span class="badge">${pendingCount}</span></a></li>
-    <li class="${okClass}"><a href="/rhn/monitoring/ProbeList.do?state=OK"><i class="fa fa-check text-success"></i><bean:message key="OK"/><span class="badge">${okCount}</span></a></li>
+    <li class="${okClass}"><a href="/rhn/monitoring/ProbeList.do?state=OK"><rhn:icon type="item-enabled" /><bean:message key="OK"/><span class="badge">${okCount}</span></a></li>
     <li class="${allClass}"><a href="/rhn/monitoring/ProbeList.do"><bean:message key="All"/><span class="badge">${allCount}</span></a></li>
   </ul>
 </div>

@@ -15,11 +15,11 @@
     <div class="panel-body">
         <c:choose>
           <c:when test="${unentitled}">
-            <i class="spacewalk-icon-Unentitled"></i> <bean:message key="sdc.details.overview.unentitled" arg0="/rhn/systems/details/Edit.do?sid=${system.id}"/>
+            <rhn:icon type="system-unentitled" /> <bean:message key="sdc.details.overview.unentitled" arg0="/rhn/systems/details/Edit.do?sid=${system.id}"/>
           </c:when>
 
           <c:when test="${systemInactive}">
-            <i class="spacewalk-icon-unknown-system"/></i> <bean:message key="sdc.details.overview.inactive1"/>
+            <rhn:icon type="system-unknown" /> <bean:message key="sdc.details.overview.inactive1"/>
             <c:if test="${documentation == 'true'}">
               <bean:message key="sdc.details.overview.inactive2" arg0="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-list"/>
             </c:if>
@@ -80,7 +80,7 @@
                     <i class="fa fa-circle text-danger"></i>
                   </c:when>
                   <c:otherwise>
-                    <i class="fa fa-warning text-warning"></i>
+                    <rhn:icon type="system-warn" />
                   </c:otherwise>
                 </c:choose>
                 <a href="/rhn/systems/details/probes/ProbeDetails.do?sid=${system.id}&probe_id=${probe.id}">${probe.description}</a><br/>
@@ -195,7 +195,7 @@
             <td>
             <c:choose>
               <c:when test="${serverLock != null}">
-              <i class="fa fa-lock"></i>
+              <rhn:icon type="errata-security" />
               <bean:message key="sdc.details.overview.locked"
                             arg0="${serverLock.locker.login}"
                             arg1="${serverLock.reason}" /><br/>

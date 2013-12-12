@@ -13,7 +13,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
   <div class="toolbar-h2">
     <div class="toolbar"></div>
-      <i class="fa fa-warning text-warning" title=""></i>
+      <rhn:icon type="system-warn" title="" />
       <bean:message key="system.jsp.customdata.deletetitle"/>
     </div>
 

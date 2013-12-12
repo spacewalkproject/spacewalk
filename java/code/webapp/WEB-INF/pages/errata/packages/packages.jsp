@@ -19,7 +19,7 @@
                   renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
   <h2>
-    <i class="fa spacewalk-icon-packages" title="<bean:message key='errata.common.packageAlt' />"></i>
+    <rhn:icon type="header-package" title="<bean:message key='errata.common.packageAlt' />" />
     <bean:message key="errata.edit.packages.erratapackages"/>
   </h2>
 

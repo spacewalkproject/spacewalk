@@ -39,13 +39,13 @@
 
                 <rl:column headerkey="erratalist.jsp.type" styleclass="text-align: center;" bound="false">
                     <c:if test="${current.securityAdvisory}">
-                        <i class="fa fa-lock"></i>
+                        <rhn:icon type="errata-security" />
                     </c:if>
                     <c:if test="${current.bugFix}">
-                        <i class="fa fa-bug"></i>
+                        <rhn:icon type="errata-bugfix" />
                     </c:if>
                     <c:if test="${current.productEnhancement}">
-                        <i class="fa  spacewalk-icon-enhancement"></i>
+                        <rhn:icon type="errata-enhance" />
                     </c:if>
                 </rl:column>
 

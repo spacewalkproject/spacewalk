@@ -33,7 +33,7 @@
                      button="unsubscribeconfirm.jsp.confirm">
       <rhn:column header="unsubscribeconfirm.jsp.system"
                   url="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">
-        <i class="fa fa-desktop" title="<bean:message key='system.common.systemAlt' />"></i>
+        <rhn:icon type="header-system-physical" title="<bean:message key='system.common.systemAlt' />" />
         ${current.name}
       </rhn:column>
 

@@ -72,7 +72,7 @@
                             <bean:message key="org.active.users.jsp"/>:
                         </label>
                         <div class="col-lg-6">
-                            <a class="btn btn-default btn-sm" href="/rhn/admin/multiorg/OrgUsers.do?oid=${param.oid}"><i class="fa fa-group"></i><bean:write name="orgDetailsForm" property="users"/></a>
+                            <a class="btn btn-default btn-sm" href="/rhn/admin/multiorg/OrgUsers.do?oid=${param.oid}"><rhn:icon type="header-organisation" /><bean:write name="orgDetailsForm" property="users"/></a>
                         </div>
                     </div>
                     <div class="form-group">

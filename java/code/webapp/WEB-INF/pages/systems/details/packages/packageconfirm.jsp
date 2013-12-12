@@ -11,7 +11,7 @@
 
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
     <h2>
-      <i class="fa spacewalk-icon-packages"></i>
+      <rhn:icon type="header-package" />
       <bean:message key="${requestScope.header}" />
     </h2>
     <rhn:systemtimemessage server="${requestScope.system}" />

@@ -9,7 +9,7 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
 <h2>
-  <i class="fa spacewalk-icon-manage-configuration-files" title="<bean:message key="ssmdiff.jsp.imgAlt" />"></i>
+  <rhn:icon type="header-configuration" title="<bean:message key='ssmdiff.jsp.imgAlt' />" />
   <bean:message key="diffsystems.jsp.header" />
 </h2>
 
@@ -31,7 +31,7 @@
     <rhn:listdisplay filterBy="system.common.systemName">
       <rhn:column header="system.common.systemName"
                   url="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">
-        <i class="fa fa-desktop" title="<bean:message key='system.common.systemAlt' />"></i>
+        <rhn:icon type="header-system-physical" title="<bean:message key='system.common.systemAlt' />" />
         ${fn:escapeXml(current.name)}
       </rhn:column>
 

@@ -15,7 +15,7 @@
  <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_header.jspf" %>
 <BR>
   <h2>
-      <i class="fa fa-desktop" title="system"></i>
+      <rhn:icon type="header-system-physical" title="system" />
           <bean:message key="channeltarget.jsp.header1"/>
     </h2>
 

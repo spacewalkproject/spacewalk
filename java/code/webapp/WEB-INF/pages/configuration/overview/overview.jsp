@@ -73,7 +73,7 @@
             </c:if>
 
             <c:if test="${current.configChannelType == 'local_override'}">
-              <i class="fa fa-desktop"></i>
+              <rhn:icon type="header-system-physical" />
               ${current.channelNameDisplay}
             </c:if>
 
@@ -102,7 +102,7 @@
         <rhn:listdisplay>
           <rhn:column header="configoverview.jsp.system"
                       url="/rhn/systems/details/configuration/Overview.do?sid=${current.serverId}">
-            <i class="fa fa-desktop"></i>
+            <rhn:icon type="header-system-physical" />
             ${fn:escapeXml(current.serverName)}
           </rhn:column>
 

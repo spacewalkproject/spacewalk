@@ -26,12 +26,12 @@
     <rhn:column header="comparechannel.jsp.channel"
                 url="/rhn/configuration/ChannelOverview.do?ccid=${current.id}">
         <c:if test="${current.type == 'normal'}">
-    	  <i class="fa spacewalk-icon-software-channels" title="<bean:message key="config.common.globalAlt" />"></i>
+          <rhn:icon type="header-channel" title="<bean:message key='config.common.globalAlt' />" />
           ${current.name}
         </c:if>
 
         <c:if test="${current.type == 'local_override'}">
-          <i class="fa fa-desktop" title="<bean:message key="config.common.localAlt" />"></i>
+          <rhn:icon type="header-system-physical" title="<bean:message key='config.common.localAlt' />" />
           ${current.name}
         </c:if>
 

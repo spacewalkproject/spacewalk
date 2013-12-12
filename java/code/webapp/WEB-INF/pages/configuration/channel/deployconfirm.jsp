@@ -61,7 +61,7 @@
 		styleclass="list" emptykey="deployconfirm.jsp.noSystems" width="100%"
 		filter="com.redhat.rhn.frontend.action.configuration.ConfigSystemFilter" >
 		<rl:column headerkey="system.common.systemName" sortable="true" sortattr="name">
-			<i class="fa fa-desktop" title="<bean:message key="system.common.systemAlt"/>"></i>
+			<rhn:icon type="header-system-physical" title="<bean:message key='system.common.systemAlt' />" />
 			<a href="/rhn/systems/details/configuration/Overview.do?system_detail_navi_node=selected_configfiles&sid=${current.id}">
 			 ${fn:escapeXml(current.name)}
 			</a>

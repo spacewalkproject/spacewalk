@@ -17,7 +17,7 @@
 
 <br/>
 <h2>
-  <i class="fa spacewalk-icon-packages"></i>
+  <rhn:icon type="header-package" />
   <bean:message key="confirmprivate.jsp.title"/>
 </h2>
 <p><bean:message key="confirmprotected.jsp.confirmmsg"/></p>

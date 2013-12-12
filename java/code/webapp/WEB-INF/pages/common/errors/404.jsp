@@ -11,7 +11,7 @@
     <c:set var="escapedUrl" value="${fn:escapeXml(errorUrl)}"/>
 
     <h1>
-      <i class="fa fa-warning text-warning" title="<bean:message key='500.jsp.imgAlt' />"></i>
+      <rhn:icon type="system-warn" title="<bean:message key='500.jsp.imgAlt' />" />
       <bean:message key="404.jsp.title"/>
     </h1>
     <p><bean:message key="404.jsp.summary" arg0="${escapedUrl}"/></p>

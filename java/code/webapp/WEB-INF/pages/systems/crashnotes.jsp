@@ -15,12 +15,12 @@
         <div class="toolbar">
             <span class="toolbar">
                 <a href="/rhn/systems/details/EditCrashNote.do?crid=${crid}&sid=${sid}">
-                    <i class="fa fa-plus-circle text-success" title="<bean:message key='toolbar.create.crashnote'/>"></i>
+                    <rhn:icon type="item-ssm-add" title="<bean:message key='toolbar.create.crashnote' />" />
                     <bean:message key="toolbar.create.crashnote"/>
                 </a>
                 |
                 <a href="/rhn/systems/details/SoftwareCrashDelete.do?crid=${crid}&sid=${sid}">
-                    <i class="fa fa-minus-circle text-danger" title="<bean:message key='toolbar.delete.crash'/>"></i>
+                    <rhn:icon type="item-ssm-del" title="<bean:message key='toolbar.delete.crash' />" />
                     <bean:message key="toolbar.delete.crash"/>
                 </a>
 

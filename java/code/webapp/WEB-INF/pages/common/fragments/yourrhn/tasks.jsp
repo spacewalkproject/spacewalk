@@ -18,7 +18,7 @@
       <rhn:require acl="not user_role(satellite_admin)">
         <rhn:require acl="user_role(org_admin)">
         <li class="list-group-item">
-            <i class="fa fa-caret-right"></i> <a
+            <rhn:icon type="nav-bullet" /> <a
               href="/rhn/systems/SystemEntitlements.do"> <bean:message
                   key="yourrhn.jsp.tasks.subscriptions" />
             </a>
@@ -29,7 +29,7 @@
       <rhn:require acl="user_role(satellite_admin)">
         <rhn:require acl="user_role(org_admin)">
           <li class="list-group-item">
-          <i class="fa fa-caret-right"></i> <bean:message
+          <rhn:icon type="nav-bullet" /> <bean:message
                 key="yourrhn.jsp.task.manage_subscriptions" /> <br>
               &ensp; &ensp;<a href="/rhn/systems/SystemEntitlements.do">
                 <bean:message key="header.jsp.my_organization" />
@@ -42,7 +42,7 @@
 
       <rhn:require acl="user_role(satellite_admin)">
         <rhn:require acl="not user_role(org_admin)">
-          <li class="list-group-item"><i class="fa fa-caret-right"></i> <a
+          <li class="list-group-item"><rhn:icon type="nav-bullet" /> <a
               href="/rhn/admin/multiorg/SoftwareEntitlements.do"> <bean:message
                   key="yourrhn.jsp.tasks.subscriptions" />
             </a>
@@ -52,7 +52,7 @@
 
       <c:if test="${documentation == 'true'}">
         <li class="list-group-item">
-        <i class="fa fa-caret-right"></i> <a
+        <rhn:icon type="nav-bullet" /> <a
             href="/rhn/help/client-config/en-US/index.jsp"> <bean:message
                 key="yourrhn.jsp.tasks.registersystem" />
           </a>
@@ -62,7 +62,7 @@
       <rhn:require
         acl="org_entitlement(sw_mgr_enterprise); user_role(activation_key_admin)">
         <li class="list-group-item">
-        <i class="fa fa-caret-right"></i> <a
+        <rhn:icon type="nav-bullet" /> <a
             href="/rhn/activationkeys/List.do"> <bean:message
                 key="yourrhn.jsp.tasks.activationkeys" />
           </a>
@@ -73,14 +73,14 @@
       <rhn:require
         acl="org_entitlement(rhn_provisioning); user_role(config_admin)">
         <li class="list-group-item">
-          <i class="fa fa-caret-right"></i> <a
+          <rhn:icon type="nav-bullet" /> <a
             href="/rhn/kickstart/KickstartOverview.do"> <bean:message
                 key="yourrhn.jsp.tasks.kickstart" />
           </a>
         </li>
 
         <li class="list-group-item">
-          <i class="fa fa-caret-right"></i> <a
+          <rhn:icon type="nav-bullet" /> <a
             href="/rhn/configuration/file/GlobalConfigFileList.do">
               <bean:message key="yourrhn.jsp.tasks.configuration" />
           </a>
@@ -89,7 +89,7 @@
         <rhn:require acl="show_monitoring();"
           mixins="com.redhat.rhn.common.security.acl.MonitoringAclHandler">
           <li class="list-group-item">
-            <i class="fa fa-caret-right"></i> <a
+            <rhn:icon type="nav-bullet" /> <a
               href="/rhn/monitoring/ProbeList.do"> <bean:message
                   key="yourrhn.jsp.tasks.monitoring" />
             </a>
@@ -98,7 +98,7 @@
 
         <rhn:require acl="user_role(satellite_admin)">
           <li class="list-group-item">
-            <i class="fa fa-caret-right"></i> <a
+            <rhn:icon type="nav-bullet" /> <a
               href="/rhn/admin/multiorg/Organizations.do"> <bean:message
                   key="yourrhn.jsp.tasks.manage_sat_orgs" />
             </a>
@@ -109,7 +109,7 @@
 
       <rhn:require acl="user_role(satellite_admin)">
         <li class="list-group-item">
-          <i class="fa fa-caret-right"></i> <a
+          <rhn:icon type="nav-bullet" /> <a
             href="/rhn/admin/config/GeneralConfig.do"> <bean:message
                 key="yourrhn.jsp.tasks.config_sat" />
           </a>

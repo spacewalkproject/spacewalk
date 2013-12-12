@@ -28,7 +28,7 @@ function setContinue() {
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 <br />
 <h2>
-  <i class="fa fa-rocket" title="<bean:message key='system.common.kickstartAlt' />"></i>
+  <rhn:icon type="header-kickstart" title="<bean:message key='system.common.kickstartAlt' />" />
   <bean:message key="kickstart.schedule.heading1.jsp" />
 </h2>
 

@@ -16,7 +16,7 @@
     <p>
       <c:set var="beanarg" scope="request">
         <a href="/rhn/systems/details/configuration/Overview.do?sid=${system.id}"
-          <i class="fa fa-desktop" title="<bean:message key='system.common.systemAlt' />"></i>
+          <rhn:icon type="header-system-physical" title="<bean:message key='system.common.systemAlt' />" />
           ${system.name}
         </a>
       </c:set>
@@ -34,7 +34,7 @@
     <rhn:listdisplay filterBy="config.common.configChannel">
       <rhn:column header="config.common.configChannel"
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.id}">
-        <i class="fa spacewalk-icon-software-channels" title="<bean:message key="config.common.globalAlt" />"></i>
+        <rhn:icon type="header-channel" title="<bean:message key='config.common.globalAlt' />" />
         ${current.name}
       </rhn:column>
 

@@ -40,7 +40,7 @@
             <rl:column headertext="${rhn:localize('kickstart.distro.is-valid.jsp')}?*" sortattr="valid">
             	<c:choose>
                     <c:when test="${current.valid}">
-                    	<i class="fa fa-check text-success"></i>
+                    <rhn:icon type="item-enabled" />
                     </c:when>
 					<c:otherwise>
 						<i class="fa fa-times-circle text-danger"></i>

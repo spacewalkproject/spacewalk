@@ -13,7 +13,7 @@
 
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-<h2><i class="fa spacewalk-icon-patches"></i><bean:message key="errataconfirm.jsp.header"/></h2>
+<h2><rhn:icon type="header-errata" /><bean:message key="errataconfirm.jsp.header"/></h2>
 
 <rhn:systemtimemessage server="${system}" />
 
@@ -31,13 +31,13 @@
 
     <rl:column headerkey="erratalist.jsp.type" styleclass="text-align: center;">
       <c:if test="${current.securityAdvisory}">
-        <i class="fa fa-lock"></i>
+        <rhn:icon type="errata-security" />
       </c:if>
       <c:if test="${current.bugFix}">
-        <i class="fa fa-bug"></i>
+        <rhn:icon type="errata-bugfix" />
       </c:if>
       <c:if test="${current.productEnhancement}">
-        <i class="fa  spacewalk-icon-enhancement"></i>
+        <rhn:icon type="errata-enhance" />
       </c:if>
     </rl:column>
 

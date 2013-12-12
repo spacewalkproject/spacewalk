@@ -41,11 +41,11 @@
               <i><bean:message key="sdcimportconfirm.jsp.new" /></i>
             </c:when>
             <c:when test="${current.configChannelType == 'normal'}">
-              <i class="fa spacewalk-icon-software-channels" title="<bean:message key="config.common.globalAlt" />"></i>
+              <rhn:icon type="header-channel" title="<bean:message key='config.common.globalAlt' />" />
     	      ${current.channelNameDisplay}
             </c:when>
             <c:when test="${current.configChannelType == 'local_override'}">
-              <i class="fa fa-desktop" title="<bean:message key="config.common.localAlt" />"></i>
+              <rhn:icon type="header-system-physical" title="<bean:message key='config.common.localAlt' />" />
               ${current.channelNameDisplay}
             </c:when>
             <c:otherwise>

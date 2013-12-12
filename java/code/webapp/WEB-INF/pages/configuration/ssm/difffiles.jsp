@@ -8,7 +8,7 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
 <h2>
-  <i class="fa spacewalk-icon-manage-configuration-files" title="<bean:message key="ssmdiff.jsp.imgAlt" />"></i>
+  <rhn:icon type="header-configuration" title="<bean:message key='ssmdiff.jsp.imgAlt' />" />
   <bean:message key="difffiles.jsp.header" />
 </h2>
 
@@ -53,12 +53,12 @@
       <rhn:column header="config.common.configChannel"
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.configChannelId}">
         <c:if test="${current.configChannelType == 'normal'}">
-    	  <i class="fa spacewalk-icon-software-channels" title="<bean:message key="config.common.globalAlt" />"></i>
+          <rhn:icon type="header-channel" title="<bean:message key='config.common.globalAlt' />" />
           ${current.channelNameDisplay}
         </c:if>
 
         <c:if test="${current.configChannelType == 'local_override'}">
-          <i class="fa fa-desktop" title="<bean:message key="config.common.localAlt" />"></i>
+          <rhn:icon type="header-system-physical" title="<bean:message key='config.common.localAlt' />" />
           ${current.channelNameDisplay}
         </c:if>
 

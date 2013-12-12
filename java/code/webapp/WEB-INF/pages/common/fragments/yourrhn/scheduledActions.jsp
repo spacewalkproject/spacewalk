@@ -26,7 +26,7 @@
                 <i class="fa fa-times-circle-o text-danger" title="<bean:message key='yourrhn.jsp.actions.failed'/>"></i>
             </c:when>
             <c:otherwise>
-                <i class="spacewalk-icon-unknown-system" title="<bean:message key='yourrhn.jsp.actions.unknown'/>"></i>
+                <rhn:icon type="system-unknown" title="<bean:message key='yourrhn.jsp.actions.unknown' />" />
             </c:otherwise>
         </c:choose>
       <a href="/rhn/schedule/ActionDetails.do?aid=${current.id}"><c:out value="${current.actionName}" /></a>

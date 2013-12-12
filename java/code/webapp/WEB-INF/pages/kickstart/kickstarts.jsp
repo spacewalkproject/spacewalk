@@ -51,7 +51,7 @@
 		</rl:column>
       		<rl:column  bound="false" headerkey="kickstart.jsp.active"  sortattr="active">
 	      		<c:if test="${current.active}">
-	            <i class="fa fa-check text-success" title="<bean:message key='kickstart.jsp.active'/>"></i>
+	            <rhn:icon type="item-enabled" title="<bean:message key='kickstart.jsp.active' />" />
 	          </c:if>
 	         <c:if test="${not current.active}">
 	            <i class="fa fa-times-circle text-danger" title="<bean:message key='kickstart.jsp.inactive'/>"></i>
@@ -66,7 +66,7 @@
                     	<i class="fa fa-times-circle text-danger"></i>
                     </c:when>
 					<c:otherwise>
-						<i class="fa fa-check text-success"></i>
+						<rhn:icon type="item-enabled" />
                 	</c:otherwise>
                 </c:choose>
             </rl:column>

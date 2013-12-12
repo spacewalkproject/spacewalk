@@ -12,7 +12,7 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/channel/manage/manage_channel_header.jspf" %>
      <h2>
-      <i class="fa spacewalk-icon-patches" title="erratum"></i> <bean:message key="header.jsp.errata.sync"/>
+      <rhn:icon type="header-errata" title="erratum" /> <bean:message key="header.jsp.errata.sync"/>
     </h2>
 
   <bean:message key="channel.jsp.errata.sync.message"/>
@@ -42,13 +42,13 @@
                            headerclass="thin-column"
                            sortattr="advisoryType">
                         <c:if test="${current.advisoryType == 'Product Enhancement Advisory'}">
-				 <i class="fa  spacewalk-icon-enhancement" title="Product Enhancement Advisory"></i>
+				 <rhn:icon type="errata-enhance" title="Product Enhancement Advisory" />
                         </c:if>
                        <c:if test="${current.advisoryType == 'Security Advisory'}">
-				 <i class="fa fa-lock" title="Security Advisory"></i>
+				 <rhn:icon type="errata-security" title="Security Advisory" />
                         </c:if>
                        <c:if test="${current.advisoryType == 'Bug Fix Advisory'}">
-				  <i class="fa fa-bug" title="Bug Fix Advisory"></i>
+				  <rhn:icon type="errata-bugfix" title="Bug Fix Advisory" />
                         </c:if>
 
                 </rl:column>

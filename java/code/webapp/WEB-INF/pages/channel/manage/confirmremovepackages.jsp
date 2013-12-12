@@ -14,7 +14,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/channel/manage/manage_channel_header.jspf" %>
 <BR>
     <h2>
-      <i class="fa spacewalk-icon-packages"></i>
+      <rhn:icon type="header-package" />
       Confirm Package Removal
     </h2>
 <bean:message key="channel.jsp.package.remove"/>

@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-default btn-sm">
-                                        <i class="fa fa-search"></i>
+                                        <rhn:icon type="header-search" />
                                         <bean:message key="button.search"/>
                                     </button>
                                 </div>

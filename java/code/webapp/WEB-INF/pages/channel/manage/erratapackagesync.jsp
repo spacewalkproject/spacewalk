@@ -14,7 +14,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/channel/manage/manage_channel_header.jspf" %>
 <BR>
 
-<h2><i class="fa spacewalk-icon-packages"></i> <bean:message key="header.jsp.errata.sync.packagepush"/></h2>
+<h2><rhn:icon type="header-package" /> <bean:message key="header.jsp.errata.sync.packagepush"/></h2>
 
   <bean:message key="channel.jsp.errata.sync.packages.message"/>
 

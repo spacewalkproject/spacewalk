@@ -4,7 +4,7 @@
 <html>
 <body>
 
-<h1><i class="fa fa-warning text-warning"></i><bean:message key="baddownload.jsp.title"/></h1>
+<h1><rhn:icon type="system-warn" /><bean:message key="baddownload.jsp.title"/></h1>
 
 <p><bean:message key="baddownload.jsp.summary"/></p>
     <ol>

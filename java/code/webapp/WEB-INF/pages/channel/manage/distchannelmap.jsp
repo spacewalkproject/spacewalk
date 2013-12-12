@@ -69,10 +69,10 @@
                    >
                    <c:choose>
                      <c:when test="${current.org != null}">
-                       <i class="fa fa-check text-success"></i>
+                       <rhn:icon type="item-enabled" />
                      </c:when>
                      <c:otherwise>
-                       <i class="fa fa-circle-o"></i>
+                       <rhn:icon type="item-disabled" />
                      </c:otherwise>
                    </c:choose>
                 </rl:column>

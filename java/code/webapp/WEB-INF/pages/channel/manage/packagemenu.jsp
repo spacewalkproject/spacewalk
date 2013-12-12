@@ -13,7 +13,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/channel/manage/manage_channel_header.jspf" %>
 
     <h2>
-      <i class="fa spacewalk-icon-packages" title="package"></i> Packages
+      <rhn:icon type="header-package" title="package" /> Packages
     </h2>
 
     <ul>

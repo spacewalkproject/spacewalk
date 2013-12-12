@@ -76,19 +76,19 @@
              <td>
                 <div class="checkbox">
                   <html:checkbox property="errata_type_bug">
-                    <i class="fa fa-bug"></i>
+                    <rhn:icon type="errata-bugfix" />
                         <bean:message key="erratalist.jsp.bugadvisory"/>
                   </html:checkbox>
                 </div>
                 <div class="checkbox">
                 <html:checkbox property="errata_type_security">
-                    <i class="fa fa-lock"></i>
+                    <rhn:icon type="errata-security" />
                     <bean:message key="erratalist.jsp.securityadvisory"/>
                 </html:checkbox>
                 </div>
                 <div class="checkbox">
                 <html:checkbox property="errata_type_enhancement">
-                    <i class="fa  spacewalk-icon-enhancement"></i>
+                    <rhn:icon type="errata-enhance" />
                     <bean:message key="erratalist.jsp.productenhancementadvisory"/>
                 </html:checkbox>
                 </div>
@@ -142,7 +142,7 @@
             </td>
             <td>
               <button type="submit" class="btn btn-success btn-sm">
-                <i class="fa fa-search"></i>
+                <rhn:icon type="header-search" />
                 <bean:message key="button.search"/>
             </button>
             </td>
@@ -167,13 +167,13 @@
       <rl:column bound="false" sortable="true" sortattr="securityAdvisory"
         headerkey="erratalist.jsp.type">
 		<c:if test="${current.securityAdvisory}">
-		  <i class="fa fa-lock"></i>
+		  <rhn:icon type="errata-security" />
 		</c:if>
 		<c:if test="${current.bugFix}">
-		  <i class="fa fa-bug"></i>
+		  <rhn:icon type="errata-bugfix" />
 		</c:if>
 		<c:if test="${current.productEnhancement}">
-		  <i class="fa  spacewalk-icon-enhancement"></i>
+		  <rhn:icon type="errata-enhance" />
 		</c:if>
       </rl:column>
 

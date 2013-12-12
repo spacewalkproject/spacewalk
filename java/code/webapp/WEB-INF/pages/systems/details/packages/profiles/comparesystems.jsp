@@ -11,7 +11,7 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-<h2><i class="fa spacewalk-icon-packages"></i>
+<h2><rhn:icon type="header-package" />
     <bean:message key="compare.jsp.compareto" arg0="${fn:escapeXml(requestScope.systemname)}" />
 </h2>
 

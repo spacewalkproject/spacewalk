@@ -10,7 +10,7 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
 <h2>
-  <i class="fa fa-rocket" title="<bean:message key='system.common.kickstartAlt' />"></i>
+  <rhn:icon type="header-kickstart" title="<bean:message key='system.common.kickstartAlt' />" />
   <bean:message key="kickstart.schedule.heading1.jsp" />
 </h2>
 
@@ -53,7 +53,7 @@
 		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/proxy-options.jspf" %>
 		<br/>
 
-<h2><i class="fa fa-rocket"></i><bean:message key="kickstart.schedule.heading4.jsp" /></h2>
+<h2><rhn:icon type="header-kickstart" /><bean:message key="kickstart.schedule.heading4.jsp" /></h2>
 		<table class="details">
 		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/network-options.jspf" %>
       <tr>

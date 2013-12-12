@@ -9,7 +9,7 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
 <h2>
-  <i class="fa spacewalk-icon-manage-configuration-files" title="<bean:message key="ssmdiff.jsp.imgAlt" />"></i>
+  <rhn:icon type="header-configuration" title="<bean:message key='ssmdiff.jsp.imgAlt' />" />
   <bean:message key="ssmchannelsystems.jsp.header" />
 </h2>
 
@@ -33,7 +33,7 @@
     <rhn:listdisplay filterBy="ssmchannelsystems.jsp.system">
       <rhn:column header="ssmchannelsystems.jsp.system"
                   url="/rhn/systems/details/configuration/Overview.do?system_detail_navi_node=selected_configfiles&sid=${current.id}">
-        <i class="fa fa-desktop" title="<bean:message key='system.common.systemAlt' />"></i>
+        <rhn:icon type="header-system-physical" title="<bean:message key='system.common.systemAlt' />" />
         ${current.name}
       </rhn:column>
 

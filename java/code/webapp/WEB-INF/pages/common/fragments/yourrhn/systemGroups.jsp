@@ -18,13 +18,13 @@
             	<a href="/network/systems/groups/errata_list.pxt?sgid=${current.id}">
 		      		<c:choose>
                                         <c:when test="${current.mostSevereErrata == 'Security Advisory'}">
-				<i class="fa fa-exclamation-triangle fa-1-5x text-danger" title="<bean:message key='grouplist.jsp.security'/>"></i>
+                                        <rhn:icon type="system-crit" title="<bean:message key='grouplist.jsp.security' />" />
 	        			</c:when>
                                         <c:when test="${current.mostSevereErrata == 'Bug Fix Advisory' or current.mostSevereErrata == 'Product Enhancement Advisory'}">
-					<i class="fa fa-exclamation-circle fa-1-5x text-warning" title="<bean:message key='grouplist.jsp.updates'/>"></i>
+                                        <rhn:icon type="system-warn" title="<bean:message key='grouplist.jsp.updates' />" />
 	    	    		</c:when>
 	        			<c:otherwise>
-	          			<rhn:icon type="system-ok" title="<bean:message key='grouplist.jsp.noerrata'/>" />
+                                        <rhn:icon type="system-ok" title="<bean:message key='grouplist.jsp.noerrata'/>" />
 		        		</c:otherwise>
 	   				</c:choose>
 	   			</a>
@@ -45,7 +45,7 @@
   		</rl:list>
 
 		  <a href="/rhn/systems/SystemGroupList.do">
-  			<div class="btn btn-default spacewalk-btn-margin-vertical"><i class="spacewalk-icon-system-groups"></i><bean:message key="yourrhn.jsp.allgroups" /></div>
+                        <div class="btn btn-default spacewalk-btn-margin-vertical"><rhn:icon type="header-system-groups" /><bean:message key="yourrhn.jsp.allgroups" /></div>
   		</a>
 
 	</rl:listset>

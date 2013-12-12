@@ -49,7 +49,7 @@
                 <rl:column headerkey="systemlist.jsp.system" bound="false" sortattr="name" sortable="true">
                     <c:choose>
                         <c:when test="${current.locked > 0}">
-                            <i class="fa fa-lock"></i>
+                            <rhn:icon type="errata-security" />
                             <a href="/rhn/systems/details/Overview.do?sid=${current.id}">${current.name}</a>
                         </c:when>
                         <c:otherwise>

@@ -20,7 +20,7 @@
       </a>
     </span>
   </div>
-  <i class="fa fa-info-circle"></i>
+  <rhn:icon type="header-info" />
   <bean:message key="system.jsp.customkey.updatetitle"/>
 </div>
 

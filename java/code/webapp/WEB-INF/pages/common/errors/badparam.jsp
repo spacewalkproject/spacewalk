@@ -6,7 +6,7 @@
 
 <rhn:require acl="user_authenticated()">
 
-<h1><i class="fa fa-warning text-warning"></i><bean:message key="badparam.jsp.title"/></h1>
+<h1><rhn:icon type="system-warn" /><bean:message key="badparam.jsp.title"/></h1>
 
 <p><bean:message key="badparam.jsp.summary"/></p>
     <ol>

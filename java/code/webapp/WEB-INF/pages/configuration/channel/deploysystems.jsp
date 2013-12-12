@@ -30,7 +30,7 @@
 
 			<rhn:column header="system.common.systemName">
               <a href="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">
-                <i class="fa fa-desktop" title="<bean:message key='system.common.systemAlt' />"></i>
+                <rhn:icon type="header-system-physical" title="<bean:message key='system.common.systemAlt' />" />
                 <c:out value="${current.name}" />
               </a>
 			</rhn:column>

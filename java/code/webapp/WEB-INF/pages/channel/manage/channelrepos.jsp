@@ -14,7 +14,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/channel/manage/manage_channel_header.jspf" %>
 <BR>
 
-<h2><i class="fa spacewalk-icon-packages"></i> <bean:message key="repos.jsp.channel.repos"/></h2>
+<h2><rhn:icon type="header-package" /> <bean:message key="repos.jsp.channel.repos"/></h2>
 
 <rl:listset name="packageSet">
 <rhn:csrf />
