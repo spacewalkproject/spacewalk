@@ -35,7 +35,7 @@
                              icon="${fileIcon}"
                              helpUrl="${helpUrl}"
                              miscUrl="${downloadUrl}"
-                             miscIcon="icon-download-alt"
+                             miscIcon="item-download"
                              miscText="filedetails.header.jspf.download">
 					${toolbarText}
 				</rhn:toolbar>
@@ -47,7 +47,7 @@
 					deletionType="configfile"
 					deletionAcl="config_channel_editable(${channel.id})"
 					miscUrl="${downloadUrl}"
-					miscIcon="icon-download-alt"
+					miscIcon="item-download"
 					miscText="filedetails.header.jspf.download"
 					aclMixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
 					${toolbarText}

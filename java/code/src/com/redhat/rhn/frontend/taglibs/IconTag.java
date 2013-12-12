@@ -77,6 +77,7 @@ public class IconTag extends TagSupport {
         icons.put("item-add", "fa fa-plus");
         icons.put("item-clone", "fa fa-files-o");
         icons.put("item-del", "fa fa-trash-o");
+        icons.put("item-download", "fa fa-download");
         icons.put("item-ssm-add", "fa fa-plus-circle");
         icons.put("item-ssm-del", "fa fa-minus-circle");
         icons.put("monitoring-crit", "fa fa-1-5x spacewalk-icon-health text-danger");
