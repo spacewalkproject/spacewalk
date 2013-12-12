@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.1.12
+Version: 2.1.13
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -361,6 +361,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Thu Dec 12 2013 Milan Zazrivec <mzazrivec@redhat.com> 2.1.13-1
+- 1038694 - remove text from registration screen
+- 1038694 - new error icon in gnome3
+
 * Mon Dec 09 2013 Milan Zazrivec <mzazrivec@redhat.com> 2.1.12-1
 - 1037778 - new registration icons
 
