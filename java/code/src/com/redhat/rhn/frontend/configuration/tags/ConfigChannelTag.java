@@ -126,7 +126,6 @@ public class ConfigChannelTag extends TagSupport {
         }
         else {
             i.setType("sandbox");
-            i.setTitle(type);
         }
         String result = i.renderStartTag();
         i.release();
