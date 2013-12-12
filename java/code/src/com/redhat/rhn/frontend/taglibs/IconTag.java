@@ -52,6 +52,8 @@ public class IconTag extends TagSupport {
         icons.put("header-action", "fa-clock-o");
         icons.put("header-activation-key", "fa fa-key");
         icons.put("header-channel", "fa spacewalk-icon-software-channels");
+        icons.put("header-channel-configuration",
+                "fa spacewalk-icon-Software-Channel-Management");
         icons.put("header-channel-mapping", "fa fa-retweet");
         icons.put("header-configuration", "fa spacewalk-icon-manage-configuration-files");
         icons.put("header-crash", "spacewalk-icon-bug-ex");

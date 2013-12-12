@@ -11,7 +11,9 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-<h2><bean:message key="sdccreatefile.jsp.header"/></h2>
+<rhn:toolbar base="h2" icon="header-configuration">
+  <bean:message key="sdccreatefile.jsp.header"/>
+</rhn:toolbar>
 
   <div class="page-summary">
     <p>

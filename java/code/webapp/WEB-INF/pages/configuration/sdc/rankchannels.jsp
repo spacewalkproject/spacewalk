@@ -14,11 +14,9 @@
                     action="/systems/details/configuration/RankChannels.do?sid=${param.sid}">
             <rhn:csrf />
             <rhn:submitted />
-            <h2>
-                <img src="${cfg:channelHeaderIcon('central')}"
-                     alt="${cfg:channelAlt('central')}"/>
+            <rhn:toolbar base="h2" icon="header-channel-configuration">
                 <bean:message key="sdc.config.rank.jsp.header"/>
-            </h2>
+            </rhn:toolbar>
             <c:if test="${not empty param.wizard_mode}">
                 <h3><bean:message key="ssm.config.rank.jsp.step"/></h3>
                 <input type="hidden" name="wizard_mode" value="true"/>

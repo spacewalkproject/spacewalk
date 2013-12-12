@@ -12,9 +12,9 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-<h2><img src="${cfg:channelHeaderIcon('central')}"
-					alt="${cfg:channelAlt('central')}"/>
-<bean:message key="sdc.configlist.jsp.header"/></h2>
+<rhn:toolbar base="h2" icon="header-channel-configuration">
+  <bean:message key="sdc.configlist.jsp.header"/>
+</rhn:toolbar>
   <div class="page-summary">
     <p><bean:message key="sdc.configlist.jsp.para1"/></p>
   </div>

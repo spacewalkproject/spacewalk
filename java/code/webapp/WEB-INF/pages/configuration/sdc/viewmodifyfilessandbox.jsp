@@ -9,8 +9,9 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
-<h2><img class="h2-image" src="${cfg:channelHeaderIcon('sandbox')}"/>
-<bean:message key="sdc.config.header.overview"/></h2>
+<rhn:toolbar base="h2" icon="header-configuration">
+  <bean:message key="sdc.config.header.overview"/>
+</rhn:toolbar>
 <p><bean:message key="sdc.config.file_list.sandbox_description"
 				arg0="${fn:escapeXml(requestScope.system.name)}"
 				arg1="${rhn:localize('sdc.config.file_list.copy_to_global')}"/></p>

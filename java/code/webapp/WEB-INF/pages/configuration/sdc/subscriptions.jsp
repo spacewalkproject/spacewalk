@@ -11,9 +11,9 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-<h2> <img src="${cfg:channelHeaderIcon('central')}"
-					alt="${cfg:channelAlt('central')}"/>
-			<bean:message key="sdc.config.subscriptions.jsp.header"/></h2>
+<rhn:toolbar base="h2" icon="header-channel-configuration">
+			<bean:message key="sdc.config.subscriptions.jsp.header"/>
+</rhn:toolbar>
 <h3><bean:message key="ssm.config.subscribe.jsp.step"/></h3>
 <p><bean:message key="sdc.config.subscriptions.jsp.para1" /></p>
 <noscript>

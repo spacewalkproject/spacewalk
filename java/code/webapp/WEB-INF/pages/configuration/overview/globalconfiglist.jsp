@@ -9,7 +9,7 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-<rhn:toolbar base="h1" icon="header-configuration"
+<rhn:toolbar base="h1" icon="header-channel-configuration"
  helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-files-central"
  creationUrl="/rhn/configuration/ChannelCreate.do?editing=true"
  creationType="configchannel"
