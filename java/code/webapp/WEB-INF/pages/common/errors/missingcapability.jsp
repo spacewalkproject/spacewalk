@@ -7,7 +7,7 @@
 <rhn:require acl="user_authenticated()">
 
 <h1>
-  <i class="fa fa-warning text-warning" title="${rhn:localize('error.common.errorAlt')}"></i>
+  <rhn:icon type="system-warn" />
   <bean:message key="missing_capabilities.jsp.header"/>
 </h1>
 <p><bean:message key="missing_capabilities.jsp.title"/></p>

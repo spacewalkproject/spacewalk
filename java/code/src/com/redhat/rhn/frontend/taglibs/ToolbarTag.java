@@ -551,20 +551,11 @@ public class ToolbarTag extends TagSupport {
             tag.setAttribute("href", getHelpUrl());
             tag.setAttribute("target", "_blank");
 
-            HtmlTag stack = new HtmlTag("span");
-            stack.setAttribute("class", "fa-stack");
+            HtmlTag help = new HtmlTag("i");
+            help.setAttribute("class", "fa fa-question-circle");
 
-            HtmlTag iBack = new HtmlTag("i");
-            iBack.setAttribute("class", "fa fa-circle fa-stack-1x");
-            HtmlTag iFront = new HtmlTag("i");
-            iFront.setAttribute("class", "fa fa-question fa-stack-1x fa-inverse");
-
-            stack.addBody(iBack.renderOpenTag());
-            stack.addBody(iBack.renderCloseTag());
-            stack.addBody(iFront.renderOpenTag());
-            stack.addBody(iFront.renderCloseTag());
-
-            tag.addBody(stack);
+            tag.addBody(help.renderOpenTag());
+            tag.addBody(help.renderCloseTag());
             return tag.render();
         }
         return "";
@@ -634,7 +625,7 @@ public class ToolbarTag extends TagSupport {
                 assertNotEmpty(getUploadUrl())) {
 
             String del = "toolbar.upload." + getUploadType();
-            return renderActionLink(getUploadUrl(), del, del, "fa-upload", null);
+            return renderActionLink(getUploadUrl(), del, del, "item-upload", null);
         }
         return "";
     }

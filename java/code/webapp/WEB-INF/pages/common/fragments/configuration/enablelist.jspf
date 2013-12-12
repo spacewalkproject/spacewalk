@@ -5,7 +5,7 @@
 
 <rhn:column header="system.common.systemName"
             url="/rhn/systems/details/Overview.do?sid=${current.id}">
-  <i class="fa fa-desktop"></i>
+  <rhn:icon type="header-system" />
   ${fn:escapeXml(current.name)}
 </rhn:column>
 

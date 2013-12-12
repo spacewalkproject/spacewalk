@@ -9,7 +9,7 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_header.jspf" %>
 
-  <h2><i class="spacewalk-icon-packages"></i> <bean:message key="systemlist.jsp.packages"/></h2>
+  <h2><rhn:icon type="header-package" /> <bean:message key="systemlist.jsp.packages"/></h2>
     <bean:message key="package.jsp.list"/>
 
     <rl:listset name="packageSet">

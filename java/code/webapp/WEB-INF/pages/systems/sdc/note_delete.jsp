@@ -7,7 +7,7 @@
   <body>
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
     <h2>
-      <i class="fa spacewalk-icon-note-pin" title=""></i><bean:message key="sdc.details.notes.delete.header"/>
+      <rhn:icon type="header-note" title="" /><bean:message key="sdc.details.notes.delete.header"/>
    </h2>
     <div class="page-summary">
       <p><bean:message key="sdc.details.notes.delete.confirm"/></p>

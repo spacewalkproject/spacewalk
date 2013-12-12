@@ -58,8 +58,7 @@
     </span>
     <span>
       <a href="/rhn/configuration/file/DownloadDiff.do?cfid=${file.id}&amp;crid=${revision.id}&amp;ocrid=${orevision.id}">
-        <i class="fa fa-download"
-           aria-hidden='true'></i>
+        <rhn:icon type="item-download" title='<bean:message key="diff.jsp.downloadAlt" />' />
         <bean:message key="diff.jsp.download" />
       </a>
     </span>

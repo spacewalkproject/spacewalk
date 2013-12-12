@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <c:if test="${errata.securityAdvisory}">
-     <rhn:toolbar base="h1" icon="fa-lock"
+     <rhn:toolbar base="h1" icon="errata-security"
      						iconAlt="errata-legend.jsp.security"
 						helpUrl="/rhn/help/reference/en-US/s1-sm-errata.jsp#s3-sm-errata-details">
 	   <c:if test="${empty errata}">
@@ -16,7 +16,7 @@
 	 </rhn:toolbar>
  </c:if>
  <c:if test="${errata.bugFix}">
-     <rhn:toolbar base="h1" icon="fa-bug"
+     <rhn:toolbar base="h1" icon="errata-bugfix"
      						iconAlt="errata-legend.jsp.bugfix"
 						helpUrl="/rhn/help/reference/en-US/s1-sm-errata.jsp">
 	   <c:if test="${empty errata}">
@@ -28,7 +28,7 @@
 	 </rhn:toolbar>
  </c:if>
  <c:if test="${errata.productEnhancement}">
-     <rhn:toolbar base="h1" icon=" spacewalk-icon-enhancement"
+     <rhn:toolbar base="h1" icon="errata-enhance"
      						iconAlt="errata-legend.jsp.enhancement"
 						helpUrl="/rhn/help/reference/en-US/s1-sm-errata.jsp">
 	   <c:if test="${empty errata}">

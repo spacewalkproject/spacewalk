@@ -16,7 +16,7 @@
     </tr>
     <tr>
         <td>
-            <i class="fa fa-desktop"></i>
+            <rhn:icon type="header-system" />
         </td>
         <td>
           <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">

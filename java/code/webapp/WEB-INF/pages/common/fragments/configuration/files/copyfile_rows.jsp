@@ -31,7 +31,7 @@
             <rhn:icon type="header-system-physical" title="<bean:message key='config.common.localAlt' />" />
           </c:when>
           <c:otherwise>
-            <i class="fa spacewalk-icon-sandbox" title="<bean:message key="config.common.sandboxAlt" />"></i>
+            <rhn:icon type="header-sandbox" title="<bean:message key='config.common.sandboxAlt' />" />
           </c:otherwise>
         </c:choose>
         ${current.nameDisplay}

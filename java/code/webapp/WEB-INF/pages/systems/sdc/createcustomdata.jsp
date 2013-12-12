@@ -10,7 +10,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <div class="toolbar-h2">
-  <i class="fa fa-info-circle text-primary" title=""></i>
+  <rhn:icon type="header-info" title="" />
   <bean:message key="system.jsp.customkey.updatetitle"/>
 </div>
 

@@ -8,13 +8,13 @@
         <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
         <c:choose>
             <c:when test="${empty param.nid}">
-                <rhn:toolbar base="h2" icon="spacewalk-icon-note-pin">
+                <rhn:toolbar base="h2" icon="header-note">
                     <bean:message key="sdc.details.notes.header"/>
                 </rhn:toolbar>
                 <c:set var="urlParam" scope="request" value="sid=${system.id}"/>
             </c:when>
             <c:otherwise>
-                <rhn:toolbar base="h2" icon="spacewalk-icon-note-pin"
+                <rhn:toolbar base="h2" icon="header-note"
                              deletionUrl="/rhn/systems/details/DeleteNote.do?sid=${system.id}&nid=${n.id}"
                              deletionType="note">
                     <bean:message key="sdc.details.notes.header"/>

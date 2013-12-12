@@ -36,7 +36,7 @@
         </c:if>
 
         <c:if test="${current.type == 'server_import'}">
-          <i class="fa spacewalk-icon-sandbox" title="<bean:message key="config.common.sandboxAlt" />"></i>
+          <rhn:icon type="header-sandbox" title="<bean:message key='config.common.sandboxAlt' />" />
           ${current.name}
         </c:if>
     </rhn:column>

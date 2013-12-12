@@ -14,7 +14,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <h2>
-  <i class="fa spacewalk-icon-bug-ex" title="<bean:message key='crashes.jsp.crashes' />"></i>
+  <rhn:icon type="header-crash" title="<bean:message key='crashes.jsp.crashes' />" />
   <bean:message key="crashes.jsp.crashes"/>
 </h2>
 

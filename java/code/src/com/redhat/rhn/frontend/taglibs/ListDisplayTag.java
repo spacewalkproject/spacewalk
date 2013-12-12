@@ -585,13 +585,13 @@ public class ListDisplayTag extends ListDisplayTagBase {
 
         if (canGoForward || canGoBack) {
             out.append(renderPaginationButton(FIRST,
-                    "fa-fast-backward", " |&lt; ", canGoBack));
-            out.append(renderPaginationButton(PREV, "fa-backward",
+                    "fa-angle-double-left", " |&lt; ", canGoBack));
+            out.append(renderPaginationButton(PREV, "fa-angle-left",
                     " &lt; ", canGoBack));
-            out.append(renderPaginationButton(NEXT, "fa-forward",
+            out.append(renderPaginationButton(NEXT, "fa-angle-right",
                     " &gt; ", canGoForward));
             out.append(renderPaginationButton(LAST,
-                    "fa-fast-forward", " &gt;| ", canGoForward));
+                    "fa-angle-double-right", " &gt;| ", canGoForward));
         }
         out.append("</div>\n");
     }

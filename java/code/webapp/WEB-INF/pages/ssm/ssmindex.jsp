@@ -17,21 +17,21 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <i class="fa fa-desktop fa-fw" title="<bean:message key="ssm.overview.systems" />"></i>
+        <rhn:icon type="header-system" title="<bean:message key='ssm.overview.systems' />" />
         <bean:message key="ssm.overview.systems"/>
     </div>
     <div class="panel-body">
         <bean:message key="ssm.overview.systems.list"/>
     </div>
     <div class="panel-heading">
-        <i class="fa spacewalk-icon-patches fa-fw" title="Errata"></i>
+        <rhn:icon type="header-errata" title="Errata" />
         <bean:message key="ssm.overview.errata"/>
     </div>
     <div class="panel-body">
         <bean:message key="ssm.overview.errata.schedule"/>
     </div>
     <div class="panel-heading">
-        <i class="fa spacewalk-icon-packages fa-fw" title="<bean:message key='ssm.overview.packages'/>"></i>
+        <rhn:icon type="header-package" title="<bean:message key='ssm.overview.packages' />" />
         <bean:message key="ssm.overview.packages"/>
     </div>
     <div class="panel-body">
@@ -39,7 +39,7 @@
     </div>
     <rhn:require acl="is(enable_solaris_support)">
         <div class="panel-heading">
-            <i class="fa spacewalk-icon-patches fa-fw" title="<bean:message key='ssm.overview.patches'/>"></i>
+            <rhn:icon type="header-errata" title="<bean:message key='ssm.overview.patches' />" />
             <bean:message key="ssm.overview.patches"/>
         </div>
         <div class="panel-body">
@@ -47,7 +47,7 @@
             <bean:message key="ssm.overview.patches.patches"/>
         </div>
         <div class="panel-heading">
-            <i class="fa spacewalk-icon-patch-set fa-fw" title="<bean:message key='ssm.overview.patch.clusters'/>"></i>
+            <rhn:icon type="header-errata-set" title="<bean:message key='ssm.overview.patch.clusters' />" />
             <bean:message key="ssm.overview.patch.clusters"/>
         </div>
         <div class="panel-body">
@@ -56,7 +56,7 @@
     </rhn:require>
     <rhn:require acl="user_role(org_admin)">
         <div class="panel-heading">
-            <i class="fa spacewalk-icon-system-groups fa-fw" title="<bean:message key='ssm.overview.groups'/>"></i>
+            <rhn:icon type="header-system-groups" title="<bean:message key='ssm.overview.groups' />" />
             <bean:message key="ssm.overview.groups"/>
         </div>
         <div class="panel-body">
@@ -64,7 +64,7 @@
         </div>
     </rhn:require>
     <div class="panel-heading">
-        <i class="fa spacewalk-icon-software-channels fa-fw" title="<bean:message key='ssm.overview.channels'/>"></i>
+        <rhn:icon type="header-channel" title="<bean:message key='ssm.overview.channels' />" />
         <bean:message key="ssm.overview.channels"/>
     </div>
     <div class="panel-body">
@@ -78,7 +78,7 @@
     </div>
     <rhn:require acl="org_entitlement(rhn_provisioning);">
         <div class="panel-heading">
-            <i class="fa fa-rocket fa-fw" title="<bean:message key='ssm.overview.provisioning'/>"></i>
+            <rhn:icon type="header-kickstart" title="<bean:message key='ssm.overview.provisioning' />" />
             <bean:message key="ssm.overview.provisioning"/>
         </div>
         <div class="panel-body">
@@ -90,7 +90,7 @@
         </div>
     </rhn:require>
     <div class="panel-heading">
-        <i class="fa fa-suitcase fa-fw" title="<bean:message key='ssm.overview.misc'/>"></i>
+        <rhn:icon type="header-event-history" title="<bean:message key='ssm.overview.misc' />" />
         <bean:message key="ssm.overview.misc"/>
     </div>
     <div class="panel-body">

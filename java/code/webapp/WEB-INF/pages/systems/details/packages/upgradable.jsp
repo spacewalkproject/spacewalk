@@ -11,7 +11,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
   <h2>
-    <i class="fa spacewalk-icon-package-upgrade" title="<bean:message key='errata.common.upgradepackageAlt' />"></i>
+    <rhn:icon type="header-package-upgrade" title="<bean:message key='errata.common.upgradepackageAlt' />" />
     <bean:message key="upgradable.jsp.header" />
   </h2>
   <div class="page-summary">

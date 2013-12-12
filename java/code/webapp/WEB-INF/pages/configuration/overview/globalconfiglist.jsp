@@ -29,7 +29,7 @@
     <rhn:listdisplay filterBy="globalconfiglist.jsp.name">
       <rhn:column header="globalconfiglist.jsp.name"
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.id}">
-        <i class="spacewalk-icon-software-channels" title="<bean:message key='config.common.globalAlt'/>"></i>
+        <rhn:icon type="header-channel" title="<bean:message key='config.common.globalAlt' />" />
         ${current.name}
       </rhn:column>
 

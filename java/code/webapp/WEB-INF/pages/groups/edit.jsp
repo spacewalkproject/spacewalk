@@ -6,7 +6,7 @@
 <html>
     <body>
         <h1>
-            <i class="fa spacewalk-icon-system-groups" title="system group"></i>
+            <rhn:icon type="header-system-groups" title="system group" />
             <c:choose>
                 <c:when test='${empty param.sgid}'>
                     <bean:message key="systemgroup.create.header"/>

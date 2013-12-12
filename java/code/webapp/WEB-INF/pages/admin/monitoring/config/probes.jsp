@@ -9,7 +9,7 @@
 
 <html>
 <body>
-<rhn:toolbar base="h1" icon="fa-cog"
+<rhn:toolbar base="h1" icon="header-monitoring"
 	creationUrl="ProbeSuiteProbeCreate.do?suite_id=${suite_id}"
 	creationType="probe"
 	helpUrl="/rhn/help/reference/en-US/s1-sm-monitor.jsp#s2-sm-monitor-psuites">

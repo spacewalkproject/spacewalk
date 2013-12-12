@@ -17,13 +17,13 @@
     <rhn:column header="schedulesync.jsp.action">
         <c:choose>
             <c:when test="${current.actionStatusId == 0 || current.actionStatusId == 1}">
-                <i class="fa fa-clock-o" title="<bean:message key='yourrhn.jsp.actions.pending'/>"></i>
+                <rhn:icon type="action-pending" title="<bean:message key='yourrhn.jsp.actions.pending' />" />
             </c:when>
             <c:when test="${current.actionStatusId == 2}">
-                <i class="fa fa-check-circle-o text-success" title="<bean:message key='yourrhn.jsp.actions.completed'/>"></i>
+                <rhn:icon type="action-ok" title="<bean:message key='yourrhn.jsp.actions.completed' />" />
             </c:when>
             <c:when test="${current.actionStatusId == 3}">
-                <i class="fa fa-times-circle-o text-danger" title="<bean:message key='yourrhn.jsp.actions.failed'/>"></i>
+                <rhn:icon type="action-failed" title="<bean:message key='yourrhn.jsp.actions.failed' />" />
             </c:when>
             <c:otherwise>
                 <rhn:icon type="system-unknown" title="<bean:message key='yourrhn.jsp.actions.unknown' />" />

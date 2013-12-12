@@ -36,13 +36,13 @@
                 url="/rhn/configuration/file/FileDetails.do?cfid=${current.configFileId}&amp;crid=${current.configRevisionId}">
         <c:choose>
           <c:when test="${current.configFileType == 'file'}">
-            <i class="fa fa-file-text-o" title="<bean:message key="config.common.fileAlt" />"></i>
+            <rhn:icon type="header-file" title="<bean:message key='config.common.fileAlt' />" />
           </c:when>
           <c:when test="${current.configFileType == 'directory'}">
-            <i class="fa fa-folder-open-o" title="<bean:message key="config.common.dirAlt" />"></i>
+            <rhn:icon type="header-folder" title="<bean:message key='config.common.dirAlt' />" />
           </c:when>
           <c:otherwise>
-            <i class="fa spacewalk-icon-listicon-cfg-symlink" title="<bean:message key="config.common.symlinkAlt" />"></i>
+            <rhn:icon type="header-symlink" title="<bean:message key='config.common.symlinkAlt' />" />
           </c:otherwise>
         </c:choose>
         <bean:message key="comparecopy.jsp.revnum" arg0="${current.configRevision}" />

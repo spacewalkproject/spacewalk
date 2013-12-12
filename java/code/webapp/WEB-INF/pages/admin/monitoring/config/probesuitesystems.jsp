@@ -32,19 +32,19 @@
         <rhn:set value="${current.id}" />
         <rhn:column header="probesuitesystems.jsp.state">
             <c:if test="${current.status == 'UNKNOWN'}">
-              <i class="fa spacewalk-icon-monitoring-unknown" title="<bean:message key='monitoring.status.unknown'/>"></i>
+              <rhn:icon type="monitoring-unknown" title="<bean:message key='monitoring.status.unknown' />" />
             </c:if>
             <c:if test="${current.status == 'OK'}">
-              <i class="fa spacewalk-icon-monitoring-ok" title="<bean:message key='monitoring.status.ok'/>"></i>
+              <rhn:icon type="monitoring-ok" title="<bean:message key='monitoring.status.ok' />" />
             </c:if>
             <c:if test="${current.status == 'WARNING'}">
-              <i class="fa spacewalk-icon-monitoring-warning" title="<bean:message key='monitoring.status.warn'/>"></i>
+              <rhn:icon type="monitoring-warn" title="<bean:message key='monitoring.status.warn' />" />
             </c:if>
             <c:if test="${current.status == 'PENDING'}">
-              <i class="fa spacewalk-icon-monitoring-pending" title="<bean:message key='monitoring.status.pending'/>"></i>
+              <rhn:icon type="monitoring-pending" title="<bean:message key='monitoring.status.pending' />" />
             </c:if>
             <c:if test="${current.status == 'CRITICAL'}">
-              <i class="fa spacewalk-icon-monitoring-down" title="<bean:message key='monitoring.status.critical'/>"></i>
+              <rhn:icon type="monitoring-crit" title="<bean:message key='monitoring.status.critical' />" />
             </c:if>
         </rhn:column>
         <rhn:column header="probesuitesystems.jsp.system">

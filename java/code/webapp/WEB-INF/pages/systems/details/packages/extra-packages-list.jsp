@@ -15,7 +15,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <h2>
-  <i class="fa spacewalk-icon-package-extra"></i>
+  <rhn:icon type="header-package-extra" />
   <bean:message key="packagelist.jsp.extrapackages" />
 </h2>
 

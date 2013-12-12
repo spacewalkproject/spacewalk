@@ -9,7 +9,7 @@
 <script type="text/javascript" src="/javascript/highlander.js"></script>
 </head>
 <body>
-    <h1><i class="icon-question-sign" title="Help"></i><bean:message key="help.jsp.chat"/></h1>
+    <h1><rhn:icon type="header-help" title="Help" /><bean:message key="help.jsp.chat"/></h1>
     <p><bean:message key="help.jsp.chatinfo"/></p>
     <p><bean:message key="help.jsp.chatlink"/></p>
 </body>

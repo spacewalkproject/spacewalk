@@ -21,7 +21,7 @@
     </div>
 
     <h2>
-      <i class="fa spacewalk-icon-patch-set"></i>
+      <rhn:icon type="header-errata-set" />
       <bean:message key="channel.manage.patchset.title"/>
 
     </h2>

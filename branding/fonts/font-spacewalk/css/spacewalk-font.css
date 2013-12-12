@@ -122,7 +122,7 @@
 .spacewalk-icon-manage-autoinstallations:before {
 	content: "\e620";
 }
-.spacewalk-icon-Software-Channel-Management:before {
+.spacewalk-icon-software-channel-management:before {
 	content: "\e621";
 }
 .spacewalk-icon-manage-configuration-files:before {
@@ -161,7 +161,7 @@
 .spacewalk-icon-system-groups:before {
 	content: "\e62e";
 }
-.spacewalk-icon-Unentitled:before {
+.spacewalk-icon-unentitled:before {
 	content: "\e62f";
 }
 .spacewalk-icon-enhancement:before {

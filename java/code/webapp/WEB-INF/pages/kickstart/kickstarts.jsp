@@ -50,24 +50,24 @@
 		          </c:if>
 		</rl:column>
       		<rl:column  bound="false" headerkey="kickstart.jsp.active"  sortattr="active">
-	      		<c:if test="${current.active}">
-	            <rhn:icon type="item-enabled" title="<bean:message key='kickstart.jsp.active' />" />
-	          </c:if>
-	         <c:if test="${not current.active}">
-	            <i class="fa fa-times-circle text-danger" title="<bean:message key='kickstart.jsp.inactive'/>"></i>
-	          </c:if>
+                <c:if test="${current.active}">
+                    <rhn:icon type="item-enabled" title="<bean:message key='kickstart.jsp.active' />" />
+                </c:if>
+                <c:if test="${not current.active}">
+                    <rhn:icon type="item-disabled" title="<bean:message key='kickstart.jsp.inactive' />" />
+                </c:if>
       		</rl:column>
                 <rl:column headerkey="kickstart.distro.label.jsp" sortattr="treeLabel">
                     <c:out value="${current.treeLabel}"/>
                 </rl:column>
-            <rl:column headerkey="kickstart.distro.sw_managed.jsp" sortattr="cobbler">
+                <rl:column headerkey="kickstart.distro.sw_managed.jsp" sortattr="cobbler">
             	<c:choose>
                     <c:when test="${current.cobbler}">
-                    	<i class="fa fa-times-circle text-danger"></i>
+                        <rhn:icon type="item-disabled" />
                     </c:when>
-					<c:otherwise>
-						<rhn:icon type="item-enabled" />
-                	</c:otherwise>
+                    <c:otherwise>
+                        <rhn:icon type="item-enabled" />
+                    </c:otherwise>
                 </c:choose>
             </rl:column>
          </rl:list>

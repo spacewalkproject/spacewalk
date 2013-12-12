@@ -13,7 +13,7 @@
 <p><bean:message key="channelManagementPerms.summary" /></p>
 
 <p>
-(<span class="ok-explanation"><i class="icon-ok" title="Permission granted"></i></span>
+(<rhn:icon type="item-enabled" />
 <bean:message key="channelManagementPerms.granted" />)
 </p>
 

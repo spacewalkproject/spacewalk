@@ -14,7 +14,7 @@
 
 
 <div class="page-summary">
-	<h2><i class="icon-desktop"></i>
+	<h2><rhn:icon type="header-system" />
 	<bean:message key="Systems"/>
 	</h2>
     <p>

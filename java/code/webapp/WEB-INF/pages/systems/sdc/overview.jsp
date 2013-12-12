@@ -55,7 +55,7 @@
         <c:if test="${rebootRequired}">
           <div class="systeminfo">
             <div class="systeminfo-full">
-              <i class="fa fa-refresh text-primary"></i><bean:message key="sdc.details.overview.requires_reboot"/>
+              <rhn:icon type="system-reboot" /><bean:message key="sdc.details.overview.requires_reboot"/>
               <bean:message key="sdc.details.overview.schedulereboot" arg0="/network/systems/details/reboot_confirm.pxt?sid=${system.id}"/>
             </div>
           </div>
@@ -66,10 +66,10 @@
             <div class="col-md-6">
               <c:choose>
                 <c:when test="${probeList[0].state == 'CRITICAL'}">
-                  <i class="fa spacewalk-icon-monitoring-down"></i>  <bean:message key="sdc.details.overview.probes.critical" arg0="/rhn/help/reference/en-US/s1-sm-monitor.jsp"/>
+                  <rhn:icon type="monitoring-crit" />  <bean:message key="sdc.details.overview.probes.critical" arg0="/rhn/help/reference/en-US/s1-sm-monitor.jsp"/>
                 </c:when>
                 <c:otherwise>
-                  <i class="fa spacewalk-icon-monitoring-warning"></i>  <bean:message key="sdc.details.overview.probes.warning" arg0="/rhn/help/reference/en-US/s1-sm-monitor.jsp"/>
+                  <rhn:icon type="monitoring-warn" />  <bean:message key="sdc.details.overview.probes.warning" arg0="/rhn/help/reference/en-US/s1-sm-monitor.jsp"/>
                 </c:otherwise>
               </c:choose>
             </div>
@@ -77,10 +77,10 @@
               <c:forEach items="${probeList}" var="probe">
                 <c:choose>
                   <c:when test="${probe.state == 'CRITICAL'}">
-                    <i class="fa fa-circle text-danger"></i>
+                    <rhn:icon type="monitoring-crit" />
                   </c:when>
                   <c:otherwise>
-                    <rhn:icon type="system-warn" />
+                    <rhn:icon type="monitoring-warn" />
                   </c:otherwise>
                 </c:choose>
                 <a href="/rhn/systems/details/probes/ProbeDetails.do?sid=${system.id}&probe_id=${probe.id}">${probe.description}</a><br/>
@@ -195,14 +195,14 @@
             <td>
             <c:choose>
               <c:when test="${serverLock != null}">
-              <rhn:icon type="errata-security" />
+              <rhn:icon type="system-locked" />
               <bean:message key="sdc.details.overview.locked"
                             arg0="${serverLock.locker.login}"
                             arg1="${serverLock.reason}" /><br/>
               <bean:message key="sdc.details.overview.unlock" arg0="/rhn/systems/details/Overview.do?sid=${system.id}&amp;lock=0"/>
               </c:when>
               <c:otherwise>
-                  <i class="fa fa-unlock"></i>
+                  <rhn:icon type="system-physical" />
                   <bean:message key="sdc.details.overview.unlocked"/><br/>
                   <bean:message key="sdc.details.overview.lock" arg0="/rhn/systems/details/Overview.do?sid=${system.id}&amp;lock=1"/>
               </c:otherwise>

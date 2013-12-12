@@ -50,7 +50,7 @@ function enableBondStaticIpAddress() {
   <body>
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-<h2><i class="fa fa-rocket"></i><bean:message key="kickstart.schedule.heading4.jsp" /></h2>
+<h2><rhn:icon type="header-kickstart" /><bean:message key="kickstart.schedule.heading4.jsp" /></h2>
 <c:set var="form" value="${kickstartScheduleWizardForm.map}"/>
 <html:form method="POST" action="${actionUrl}">
 <rhn:csrf />

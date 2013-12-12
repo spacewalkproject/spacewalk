@@ -17,7 +17,7 @@
  </rhn:require>
 
     <h2>
-      <i class="fa fa-desktop" title="system"></i>
+      <rhn:icon type="header-system" title="system" />
       <bean:message key="${param.title_key}"/>
     </h2>
     <p>

@@ -32,10 +32,10 @@
 
 	              <c:choose>
 			        <c:when test="${current.mostSevereErrata == 'Security Advisory'}">
-			          <i class="fa fa-exclamation-circle text-danger" title="<bean:message key='grouplist.jsp.security'/>"></i>
+			          <rhn:icon type="system-crit" title="<bean:message key='grouplist.jsp.security' />" />
 			        </c:when>
 			        <c:when test="${current.mostSevereErrata == 'Bug Fix Advisory' or current.mostSevereErrata == 'Product Enhancement Advisory'}">
-			          <i class="fa fa-warning text-warning" title="<bean:message key='grouplist.jsp.updates'/>"></i>
+			          <rhn:icon type="system-warn" title="<bean:message key='grouplist.jsp.updates' />" />
 			        </c:when>
 			        <c:otherwise>
 			          <rhn:icon type="system-ok" title="<bean:message key='grouplist.jsp.noerrata'/>" />

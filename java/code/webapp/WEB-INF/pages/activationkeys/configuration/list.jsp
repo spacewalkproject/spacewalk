@@ -11,7 +11,7 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/activationkeys/common-header.jspf" %>
-<h2><i class="spacewalk-icon-software-channels"></i>
+<h2><rhn:icon type="header-channel" />
 <bean:message key="sdc.configlist.jsp.header"/></h2>
 <div class="panel panel-default">
 	<div class="panel-body">

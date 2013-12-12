@@ -16,7 +16,7 @@
       <c:when test="${requestScope.loadAsync == true}">
         <div id="images-content">
           <div style="padding: 1em;">
-            <i class="fa fa-spinner fa-spin"></i>
+            <rhn:icon type="header-reloading" />
             <span style="padding-left: 0.3em;">Loading ...</span>
           </div>
           <script type="text/javascript">

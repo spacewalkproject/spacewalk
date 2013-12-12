@@ -68,7 +68,7 @@
 
  		<c:if test="${requestScope.showApplyErrata == 'false'}">
   			<rl:column headerkey="emptyspace.jsp"  styleclass="text-align: center;">
-    			<i class="fa fa-clock-o"></i>
+                        <rhn:icon type="action-pending" />
             </rl:column>
  		</c:if>
 

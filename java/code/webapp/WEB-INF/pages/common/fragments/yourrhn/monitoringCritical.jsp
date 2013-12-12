@@ -17,7 +17,7 @@
              		 reflinkkey="yourrhn.jsp.allcriticalprobes"
              		 reflinkkeyarg0="${requestScope.criticalReflinkkeyarg0}">
 				<rl:column headerkey="yourrhn.jsp.criticalprobes">
-		    		<i class="fa spacewalk-icon-monitoring-down"></i>
+                                <rhn:icon type="monitoring-crit" />
     				<c:out value="${current.description}"/>
 				</rl:column>
 				<rl:column headerkey="yourrhn.jsp.systems">

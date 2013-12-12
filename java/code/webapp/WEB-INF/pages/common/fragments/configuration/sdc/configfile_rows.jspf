@@ -5,13 +5,13 @@
        <rhn:column header="sdcconfigfiles.jsp.filename">
 			<c:choose>
               <c:when test="${current.configFileType == 'file'}">
-                <i class="fa fa-file-text-o" title="<bean:message key="config.common.fileAlt" />"></i> ${current.path}
+                <rhn:icon type="header-file" title="<bean:message key='config.common.fileAlt' />"/> ${current.path}
               </c:when>
               <c:when test="${current.configFileType == 'directory'}">
-                <i class="fa fa-folder-open-o" title="<bean:message key="config.common.dirAlt" />"></i> ${current.path}
+                <rhn:icon type="header-folder" title="<bean:message key='config.common.dirAlt' />"/> ${current.path}
               </c:when>
               <c:otherwise>
-                <i class="fa spacewalk-icon-listicon-cfg-symlink" title="<bean:message key="config.common.symlinkAlt" />"></i> ${current.path}
+                <rhn:icon type="header-symlink" title="<bean:message key='config.common.symlinkAlt' />"/> ${current.path}
               </c:otherwise>
             </c:choose>
       	</rhn:column>
@@ -25,13 +25,13 @@
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.configChannelId}">
           <c:choose>
             <c:when test="${current.configChannelType == 'normal'}">
-              <i class="fa spacewalk-icon-software-channels" title="<bean:message key="config.common.globalAlt" />"></i>
+              <rhn:icon type="header-channel" title="<bean:message key='config.common.globalAlt' />"/>
             </c:when>
             <c:when test="${current.configChannelType == 'local_override'}">
-              <i class="fa fa-desktop" title="<bean:message key="config.common.localAlt" />"></i>
+              <rhn:icon type="header-system" title="<bean:message key='config.common.localAlt' />"/>
             </c:when>
             <c:otherwise>
-              <i class="fa spacewalk-icon-sandbox" title="<bean:message key="config.common.sandboxAlt" />"></i>
+              <rhn:icon type="header-sandbox" title="<bean:message key='config.common.sandboxAlt' />"/>
             </c:otherwise>
           </c:choose>
           ${current.channelNameDisplay}

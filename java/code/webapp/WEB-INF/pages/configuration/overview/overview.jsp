@@ -50,15 +50,15 @@
                       url="/rhn/configuration/file/FileDetails.do?cfid=${current.id}">
             <c:choose>
               <c:when test="${current.type == 'file'}">
-                <i class="fa fa-file-text-o"></i>
+                <rhn:icon type="header-file" />
                 ${fn:escapeXml(current.path)}
               </c:when>
               <c:when test="${current.type == 'directory'}">
-                <i class="fa fa-folder"></i>
+                <rhn:icon type="header-folder" />
                 ${fn:escapeXml(current.path)}
               </c:when>
               <c:otherwise>
-                <i class="fa fa-list-alt"></i>
+                <rhn:icon type="header-symlink" />
                 ${fn:escapeXml(current.path)}
               </c:otherwise>
             </c:choose>
@@ -68,17 +68,17 @@
                       url="/rhn/configuration/ChannelOverview.do?ccid=${current.configChannelId}">
 
             <c:if test="${current.configChannelType == 'normal'}">
-          	  <i class="spacewalk-icon-software-channels"></i>
+              <rhn:icon type="header-channel" />
               ${current.channelNameDisplay}
             </c:if>
 
             <c:if test="${current.configChannelType == 'local_override'}">
-              <rhn:icon type="header-system-physical" />
+              <rhn:icon type="header-system" />
               ${current.channelNameDisplay}
             </c:if>
 
             <c:if test="${current.configChannelType == 'server_import'}">
-              <i class="fa fa-flask"></i>
+              <rhn:icon type="header-sandbox" />
               ${current.channelNameDisplay}
             </c:if>
 

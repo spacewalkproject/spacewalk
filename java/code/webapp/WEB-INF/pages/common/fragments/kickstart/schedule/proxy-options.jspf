@@ -15,7 +15,7 @@ function clearChecked(radioGroup) {
 
         <c:if test="${not empty proxies}">
         <h2>
-          <i class="fa spacewalk-icon-proxy" title="<bean:message key='system.common.proxyAlt' />"></i>
+          <rhn:icon type="header-proxy" title="<bean:message key='system.common.proxyAlt' />" />
           <bean:message key="kickstart.schedule.heading.proxy.jsp"/>
         </h2>
         <c:choose>

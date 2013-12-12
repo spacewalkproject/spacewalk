@@ -19,7 +19,7 @@
                            domainClass="systems">
 	        <rhn:column header="probesuitesystemsedit.jsp.systemname"
               url="/rhn/systems/details/Overview.do?sid=${current.id}">
-	          <i class="fa fa-question-circle"></i>
+	          <rhn:icon type="system-unknown" />
 		      <c:out value="${current.name}" escapeXml="true" />
 	        </rhn:column>
 

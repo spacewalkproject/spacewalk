@@ -13,8 +13,7 @@
 <p><bean:message key="channelperms.jsp.summary"/></p>
 
 <p>
-
-(<span class="ok-explanation"><i class="icon-ok" title="<bean:message key='channelperms.jsp.permGranted.short'/>"></i></span>
+(<rhn:icon type="item-enabled" title="<bean:message key='channelperms.jsp.permGranted.short'/>" />
 <bean:message key="channelperms.jsp.permGranted" />)
 </p>
 

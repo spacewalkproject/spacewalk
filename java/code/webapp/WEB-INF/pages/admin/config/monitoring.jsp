@@ -5,7 +5,7 @@
 
 <html>
     <body>
-        <rhn:toolbar base="h1" icon="fa-cog"
+        <rhn:toolbar base="h1" icon="header-info"
                      helpUrl="">
             <bean:message key="generalconfig.jsp.header1"/>
         </rhn:toolbar>

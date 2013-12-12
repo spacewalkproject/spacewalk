@@ -15,7 +15,7 @@
 
   <div class="page-summary">
     <c:set var="beanarg" scope="request">
-      <i class="fa fa-file-text-o" title="<bean:message key='config.common.fileAlt' />"></i>
+      <rhn:icon type="header-file" title="<bean:message key='config.common.fileAlt' />" />
       ${fn:escapeXml(requestScope.filepath)}
     </c:set>
     <p>

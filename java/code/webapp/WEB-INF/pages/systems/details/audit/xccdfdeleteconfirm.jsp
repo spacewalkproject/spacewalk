@@ -29,7 +29,7 @@
 					<rhn:icon type="item-enabled" />
 				</c:when>
 				<c:otherwise>
-					<img src="/img/rhn-listicon-unchecked_immutable.gif">
+					<rhn:icon type="item-disabled" />
 				</c:otherwise>
 			</c:choose>
 		</rl:column>

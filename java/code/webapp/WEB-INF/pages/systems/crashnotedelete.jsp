@@ -18,7 +18,7 @@
                 </a>
             </span>
         </div>
-        <i class="fa spacewalk-icon-bug-ex" title="<bean:message key='info.alt.img'/>"></i>
+        <rhn:icon type="header-crash" title="<bean:message key='info.alt.img' />" />
         ${fn:escapeXml(crash.crash)}
     </div>
 

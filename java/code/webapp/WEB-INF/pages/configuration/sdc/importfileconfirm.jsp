@@ -49,7 +49,7 @@
               ${current.channelNameDisplay}
             </c:when>
             <c:otherwise>
-              <i class="fa spacewalk-icon-sandbox" title="<bean:message key="config.common.sandboxAlt" />"></i>
+              <rhn:icon type="header-sandbox" title="<bean:message key='config.common.sandboxAlt' />" />
               ${current.channelNameDisplay}
             </c:otherwise>
           </c:choose>
@@ -70,7 +70,7 @@
           <th><bean:message key="sdcimportconfirm.jsp.usedate"/></th>
         </tr>
         <tr>
-          <th><i class="fa spacewalk-icon-schedule" title="<bean:message key='syncprofile.jsp.selection'/>"></i>
+          <th><rhn:icon type="header-schedule" title="<bean:message key='syncprofile.jsp.selection' />" />
           </th>
           <td>
             <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">

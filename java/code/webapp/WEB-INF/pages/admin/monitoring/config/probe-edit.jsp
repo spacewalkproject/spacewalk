@@ -20,7 +20,7 @@
             }
             //-->
         </script>
-        <rhn:toolbar base="h1" icon="fa-cog"
+        <rhn:toolbar base="h1" icon="header-monitoring"
                      helpUrl="/rhn/help/reference/en-US/s1-sm-monitor.jsp#s2-sm-monitor-psuites">
             <bean:message key="probe-edit.jsp.header1"
                           arg0="${probe.description}"
