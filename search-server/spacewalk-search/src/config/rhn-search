@@ -77,7 +77,7 @@ unlock() {
 removeindex() {
     JAVA_LIBRARY_PATH='-Djava.library.path=/usr/lib/oracle/11.2/client/lib:/usr/lib/oracle/11.2/client64/lib:/usr/lib/gcj/postgresql-jdbc:/usr/lib64/gcj/postgresql-jdbc'
     SEARCH_CLASS_PATH=`build-classpath-directory /usr/share/rhn/search/lib /usr/share/java/ojdbc14.jar /usr/share/java/postgresql-jdbc.jar /usr/share/java/cglib-nodep.jar /usr/share/java/objectweb-asm/asm.jar`
-    CLASSPATH=${SEARCH_CLASS_PATH} java $JAVA_LIBRARY_PATH com.redhat.satellite.search.DeleteIndexes
+    CLASSPATH=${SEARCH_CLASS_PATH} java $JAVA_LIBRARY_PATH com.redhat.satellite.search.DeleteIndexes > /dev/null
 }
 
 # Do not modify anything beyond this point
