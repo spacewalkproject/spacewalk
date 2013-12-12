@@ -20,7 +20,6 @@ Removes a channel from an Red Hat Satellite or Spacewalk server.
         <command>spacewalk-remove-channel</command>
         <arg>options <replaceable>...</replaceable></arg>
         <arg>-c<replaceable>CHANNEL_LABEL</replaceable></arg>
-        <arg>--mount-point=<replaceable>CHANNEL_LABEL</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
          <arg>-u</arg> <arg>--unsubscribe</arg>
@@ -37,6 +36,9 @@ Removes a channel from an Red Hat Satellite or Spacewalk server.
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>--force</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-p</arg> <arg>--skip-packages</arg>
     </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
@@ -80,8 +82,7 @@ Removes a channel from an Red Hat Satellite or Spacewalk server.
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-c<replaceable>CHANNEL</replaceable>,
-            --channel=<replaceable>CHANNEL</replaceable></term>
+        <term>-c<replaceable>CHANNEL</replaceable>, --channel=<replaceable>CHANNEL</replaceable></term>
         <listitem>
             <para>Delete the channel with the specified label.  May be used multiple times to specify multiple channels.</para>
         </listitem>
@@ -95,7 +96,7 @@ Removes a channel from an Red Hat Satellite or Spacewalk server.
     <varlistentry>
         <term>-p, --skip-packages</term>
         <listitem>
-            <para>Do not remove the package metadata or the files from the filesystem.</para>
+            <para>Do not remove the package metadata or the files from the filesystem. (Not Recommended)</para>
         </listitem>
     </varlistentry>
     <varlistentry>
