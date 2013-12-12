@@ -15,6 +15,7 @@ Patch1: lvm_storage.patch
 Patch2: koan_no_selinux_set.patch
 Patch3: buildiso.patch
 Patch4: koan-rhel7-virtinst.patch
+Patch5: koan-extra-options.patch
 Group: Applications/System
 Requires: python >= 2.3
 
@@ -109,6 +110,7 @@ a XMLRPC API for integration with other applications.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 %{__python} setup.py build 
