@@ -83,6 +83,11 @@ else
 	$(INSTALL_DATA) up2date-icons/48x48/up2date.png $(PNG48_DIR)/
 endif
 
+ifeq ($(shell test $(RHEL) -ge 7 -o $(FEDORA) -ge 18 && echo "newerror"), newerror)
+	sed -i -e "s|gtk-dialog-error|dialog-error|g" \
+		$(RHNSHARE_DIR)/up2date_client/rh_register.glade
+endif
+
 	# this is lame and should be dealt with in the code
 	sed -i -e "s|@@logo@@|$(LOGO)|g" \
 		$(RHNSHARE_DIR)/up2date_client/*glade
