@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.8
+Version: 2.1.9
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -190,6 +190,11 @@ fi
 %attr(755, root, root) %{_var}/lib/rhn/search/indexes/docs
 
 %changelog
+* Thu Dec 12 2013 Tomas Lestach <tlestach@redhat.com> 2.1.9-1
+- do not let cleanindex log into the console
+- there're no objectweb-asm on rhel5
+- let spacewalk-search require c3p0 >= 0.9.1
+
 * Wed Dec 11 2013 Milan Zazrivec <mzazrivec@redhat.com> 2.1.8-1
 - 1040540 - have package search return all matching results
 
