@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 20%{?dist}
+Release: 21%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -464,6 +464,10 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Thu Dec 12 2013 Stephen Herr <sherr@redhat.com> 2.0.11-21
+- 1042381 - Add extra options to koan for virt-install
+- 1042363 - make koan virt guest installs work on newer operating systems
+
 * Fri Jul 05 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.11-20
 - polishing cobbler20 dependencies for fedora19
 
