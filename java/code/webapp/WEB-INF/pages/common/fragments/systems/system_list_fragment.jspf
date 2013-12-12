@@ -4,7 +4,7 @@
                       <rhn:icon type="system-virt-guest" title="<bean:message key='systemlist.jsp.virtguest'/>" />
 						        </c:when>
 						        <c:when test="${current.virtualHost && empty nosystemicons}">
-                      <rhn:icon type="system-virtual-host" title="<bean:message key='systemlist.jsp.virthost'/>" />
+                      <rhn:icon type="system-virt-host" title="<bean:message key='systemlist.jsp.virthost'/>" />
 						        </c:when>
 						        <c:otherwise>
                     <rhn:icon type="system-physical" title="<bean:message key='systemlist.jsp.nonvirt'/>" />
