@@ -103,6 +103,7 @@ public class IconTag extends TagSupport {
         icons.put("nav-bullet", "fa fa-caret-right");
         icons.put("nav-right", "fa fa-arrow-right");
         icons.put("nav-up", "fa fa-caret-up");
+        icons.put("sandbox", "fa spacewalk-icon-sandbox");
         icons.put("system-crit", "fa fa-exclamation-circle fa-1-5x text-danger");
         icons.put("system-kickstarting", "fa fa-rocket fa-1-5x");
         icons.put("system-locked", "fa fa-1-5x spacewalk-icon-locked-system");

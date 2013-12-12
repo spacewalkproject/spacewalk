@@ -14,17 +14,14 @@
  */
 package com.redhat.rhn.frontend.configuration.tags;
 
-import com.redhat.rhn.domain.config.ConfigChannelType;
+import com.redhat.rhn.frontend.taglibs.IconTag;
 
-import org.apache.log4j.Logger;
-
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 import javax.servlet.jsp.tagext.TagSupport;
-
 
 /**
  * ConfigChannelTag
@@ -39,20 +36,6 @@ public class ConfigChannelTag extends TagSupport {
     private String name;
     private String type;
     private boolean nolink;
-    private static final Logger LOG = Logger.getLogger(ConfigChannelTag.class);
-    private static final Map ICON_PATH_RETRIEVER = new HashMap();
-
-    public static final String CENTRAL_ALT_KEY = "config.common.globalAlt";
-    public static final String LOCAL_ALT_KEY = "config.common.localAlt";
-    public static final String SANDBOX_ALT_KEY = "config.common.sandboxAlt";
-
-    public static final String CENTRAL_LIST_ICON = "/img/rhn-listicon-channel.gif";
-    public static final String LOCAL_LIST_ICON = "/img/rhn-listicon-system.gif";
-    public static final String SANDBOX_LIST_ICON = "/img/rhn-listicon-sandbox.gif";
-
-    public static final String CENTRAL_HEADER_ICON = "/img/rhn-config_central.gif";
-    public static final String LOCAL_HEADER_ICON = "/img/rhn-config_system.gif";
-    public static final String SANDBOX_HEADER_ICON = "/img/rhn-config_sandbox.gif";
 
     public static final String CHANNEL_URL =
                                         "/rhn/configuration/ChannelOverview.do";
@@ -67,16 +50,23 @@ public class ConfigChannelTag extends TagSupport {
      * {@inheritDoc}
      */
     public int doEndTag() throws JspException {
+        StringBuilder result = new StringBuilder();
         if (nolink || id == null) {
             writeIcon();
-            ConfigTagHelper.write("&nbsp;" + name, pageContext);
+            result.append(name);
         }
         else {
-            ConfigTagHelper.write("<a href=\"" +
-                        ConfigChannelTag.makeConfigChannelUrl(id) +
-                        "\">", pageContext);
-            writeIcon();
-            ConfigTagHelper.write("&nbsp;" + name + "</a>", pageContext);
+            result.append("<a href=\"" +
+                        ConfigChannelTag.makeConfigChannelUrl(id) + "\">");
+            result.append(writeIcon());
+            result.append(name + "</a>");
+        }
+        JspWriter writer = pageContext.getOut();
+        try {
+            writer.write(result.toString());
+        }
+        catch (IOException e) {
+            throw new JspException(e);
         }
         return BodyTagSupport.SKIP_BODY;
     }
@@ -118,78 +108,30 @@ public class ConfigChannelTag extends TagSupport {
     }
 
     /**
-     * Checks to see if no invalid values are specified
-     */
-    private boolean checkType() {
-        try {
-            ConfigChannelType.lookup(type);
-            return true;
-        }
-        catch (IllegalArgumentException ie) {
-            LOG.warn(ie.getMessage());
-            return false;
-        }
-
-
-    }
-
-
-    /**
      * @param value the value to set
      */
     public void setName(String value) {
         this.name = value;
     }
 
-    private void writeIcon() throws JspException {
-        if (checkType()) {
-            Map iconMap = getIconMap();
-
-            String imgPath = (String)iconMap.get("LIST_" + type.toUpperCase());
-            String altKey = (String)iconMap.get("KEY_" + type.toUpperCase());
-            ConfigTagHelper.writeIcon(imgPath, altKey, pageContext);
+    private String writeIcon() throws JspException {
+        IconTag i = new IconTag();
+        i.setParent(getParent());
+        i.setPageContext(pageContext);
+        if (type.equals("central") || type.equals("global")) {
+            i.setType("header-channel-configuration");
+        }
+        else if (type.equals("local_override")) {
+            i.setType("header-system");
         }
         else {
-            ConfigTagHelper.writeErrorIcon(pageContext);
+            i.setType("sandbox");
+            i.setTitle(type);
         }
-
+        String result = i.renderStartTag();
+        i.release();
+        return result;
     }
-
-    private static Map getIconMap() {
-        if (ICON_PATH_RETRIEVER.isEmpty()) {
-            ICON_PATH_RETRIEVER.put("LIST_LOCAL_OVERRIDE", LOCAL_LIST_ICON);
-            ICON_PATH_RETRIEVER.put("HEADER_LOCAL_OVERRIDE", LOCAL_HEADER_ICON);
-            ICON_PATH_RETRIEVER.put("KEY_LOCAL_OVERRIDE", LOCAL_ALT_KEY);
-
-            ICON_PATH_RETRIEVER.put("LIST_LOCAL", LOCAL_LIST_ICON);
-            ICON_PATH_RETRIEVER.put("HEADER_LOCAL", LOCAL_HEADER_ICON);
-            ICON_PATH_RETRIEVER.put("KEY_LOCAL", LOCAL_ALT_KEY);
-
-
-            ICON_PATH_RETRIEVER.put("LIST_NORMAL", CENTRAL_LIST_ICON);
-            ICON_PATH_RETRIEVER.put("HEADER_NORMAL", CENTRAL_HEADER_ICON);
-            ICON_PATH_RETRIEVER.put("KEY_NORMAL", CENTRAL_ALT_KEY);
-
-            ICON_PATH_RETRIEVER.put("LIST_CENTRAL", CENTRAL_LIST_ICON);
-            ICON_PATH_RETRIEVER.put("HEADER_CENTRAL", CENTRAL_HEADER_ICON);
-            ICON_PATH_RETRIEVER.put("KEY_CENTRAL", CENTRAL_ALT_KEY);
-
-            ICON_PATH_RETRIEVER.put("LIST_GLOBAL", CENTRAL_LIST_ICON);
-            ICON_PATH_RETRIEVER.put("HEADER_GLOBAL", CENTRAL_HEADER_ICON);
-            ICON_PATH_RETRIEVER.put("KEY_GLOBAL", CENTRAL_ALT_KEY);
-
-            ICON_PATH_RETRIEVER.put("LIST_SERVER_IMPORT", SANDBOX_LIST_ICON);
-            ICON_PATH_RETRIEVER.put("HEADER_SERVER_IMPORT", SANDBOX_HEADER_ICON);
-            ICON_PATH_RETRIEVER.put("KEY_SERVER_IMPORT", SANDBOX_ALT_KEY);
-
-            ICON_PATH_RETRIEVER.put("LIST_SANDBOX", SANDBOX_LIST_ICON);
-            ICON_PATH_RETRIEVER.put("HEADER_SANDBOX", SANDBOX_HEADER_ICON);
-            ICON_PATH_RETRIEVER.put("KEY_SANDBOX", SANDBOX_ALT_KEY);
-        }
-
-        return ICON_PATH_RETRIEVER;
-    }
-
 
     /**
      * Returns the URL to view a config channel
@@ -203,44 +145,5 @@ public class ConfigChannelTag extends TagSupport {
      */
     public static String makeConfigChannelUrl(String ccId) {
         return CHANNEL_URL + "?ccid=" + ccId;
-    }
-
-    /**
-     * Returns the Header icon image path  for a given channel type
-     * This method is public static because
-     * EL functions defined in a TLD file,
-     * need to be public static methods..
-     * @param type the config channel type
-     * @return the image path
-     */
-    public static final String getHeaderIconFor(String type) {
-        Map map = getIconMap();
-        return (String) map.get("HEADER_" + type.toUpperCase());
-    }
-
-    /**
-     * Returns the list icon image path  for a given channel type
-     * This method is public static because
-     * EL functions defined in a TLD file,
-     * need to be public static methods..
-     * @param type the config channel type
-     * @return the image path
-     */
-    public static final String getListIconFor(String type) {
-        Map map = getIconMap();
-        return (String) map.get("LIST_" + type.toUpperCase());
-    }
-
-    /**
-     * Returns the Header alt key  for a given channel type
-     * This method is public static because
-     * EL functions defined in a TLD file,
-     * need to be public static methods..
-     * @param type the config channel type
-     * @return the alt key
-     */
-    public static final String getAltKeyFor(String type) {
-        Map map = getIconMap();
-        return (String) map.get("KEY_" + type.toUpperCase());
     }
 }
