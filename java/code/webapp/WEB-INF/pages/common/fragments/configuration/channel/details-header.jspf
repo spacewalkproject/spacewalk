@@ -7,7 +7,7 @@
 <c:choose>
 	<c:when test='${channel != null}'>
 		<c:if test="${channel.globalChannel}">
-		  <rhn:toolbar base="h1" icon="spacewalk-icon-channels-config"
+		  <rhn:toolbar base="h1" icon="header-configuration"
 			iconAlt="config.common.globalAlt"
 			helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#config-config-channels-channel-details"
 			deletionUrl="/rhn/configuration/DeleteChannel.do?ccid=${ccid}"

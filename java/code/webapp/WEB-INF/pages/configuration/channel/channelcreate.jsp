@@ -8,7 +8,7 @@
 
 <html>
     <body>
-        <rhn:toolbar base="h1" icon="spacewalk-icon-channels-config"
+        <rhn:toolbar base="h1" icon="header-configuration"
                      iconAlt="config.common.globalAlt"
                      helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-channels">
             <bean:message key="channelOverview.jsp.newToolbar" />
