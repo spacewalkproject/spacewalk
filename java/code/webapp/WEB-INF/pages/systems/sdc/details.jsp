@@ -88,18 +88,22 @@
                                     <bean:message key="sdc.details.edit.notifications.unentitled"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <label for="receive_notifications">
-                                        <html:checkbox property="receive_notifications" styleId="receive_notifications"/>
-                                        <bean:message key="sdc.details.edit.updates"/>
-                            </label>
-                            <label for="summary">
-                                <html:checkbox property="include_in_daily_summary" styleId="summary"/>
-                                <bean:message key="sdc.details.edit.summary"/>
-                            </label>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-            </div>
+                                    <div class="checkbox">
+                                        <label for="receive_notifications">
+                                            <html:checkbox property="receive_notifications" styleId="receive_notifications"/>
+                                            <strong><bean:message key="sdc.details.edit.updates"/></strong>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label for="summary">
+                                            <html:checkbox property="include_in_daily_summary" styleId="summary"/>
+                                            <strong><bean:message key="sdc.details.edit.summary"/></strong>
+                                        </label>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                    </div>
 
             <div class="form-group">
                 <label class="col-lg-3 control-label" for="autoerrataupdate">
