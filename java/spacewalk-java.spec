@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.97
+Version: 2.1.98
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Dec 12 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.98-1
+- replaced icons with icon tag
+- system group edit properties - linking + cleanup
+- alter system group create page to do editing
+- use rhn:toolbar tag instead of creating html inside .jsp + unify icons
+- fix icons on config file details page
+- icon for file download
+- unify configuration management icons
+
 * Wed Dec 11 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.97-1
 - use new icon aliases in more places
 
