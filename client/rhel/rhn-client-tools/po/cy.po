@@ -1526,12 +1526,7 @@ msgid ""
 "Red Hat Satellite or Red Hat Network Classic.\n"
 "\n"
 "To keep your system updated, secure, and supported, please register this "
-"system at your earliest convenience.\n"
-"\n"
-"You may access the RHN registration tool by running <b>RHN Registration</b> "
-"in the <b>System > Administration</b> menu.\n"
-"You may access the software update tool by running <b>Software Update</b> in "
-"the <b>System > Administration</b> menu."
+"system at your earliest convenience."
 msgstr ""
 
 #: ../data/rh_register.glade.h:10
@@ -1887,13 +1882,7 @@ msgstr ""
 #: ../data/rh_register.glade.h:96
 msgid ""
 "You won't be able to receive software updates, including security updates, "
-"for this system.\n"
-"\n"
-"You may access the RHN registration tool by running <b>RHN Registration</b> "
-"or <b>Red Hat Subscription Manager</b> in the <b>System > Administration</b> "
-"menu.\n"
-"You may access the software update tool by running <b>Software Update</b> in "
-"the <b>System > Administration</b> menu."
+"for this system."
 msgstr ""
 
 #: ../data/rh_register.glade.h:100
