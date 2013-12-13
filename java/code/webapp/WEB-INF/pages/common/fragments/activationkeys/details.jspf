@@ -13,7 +13,7 @@
 
         <div class="form-group">
             <label class="col-lg-3 control-label" for="description">
-                <bean:message key="kickstart.activationkeys.jsp.description"/>
+                <bean:message key="kickstart.activationkeys.jsp.description"/>:
             </label>
             <div class="col-lg-6">
                 <html:text property="description" styleClass="form-control" styleId="description"/><br/>
