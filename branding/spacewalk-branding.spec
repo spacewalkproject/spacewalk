@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.1.13
+Version:    2.1.14
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -82,6 +82,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Dec 13 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.14-1
+- replaced icons with icon tag
+- updated pxt pages to use <rhn-icon> tag
+
 * Wed Dec 04 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.13-1
 - bootstrap tuning
 
