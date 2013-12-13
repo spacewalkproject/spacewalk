@@ -94,7 +94,7 @@ def manipulate_child_channels(self, args, remove=False):
 
     print 'Systems'
     print '-------'
-    print '\n'.join(sorted(systems))
+    print '\n'.join(sorted([str(x) for x in systems]))
     print
 
     if remove:
