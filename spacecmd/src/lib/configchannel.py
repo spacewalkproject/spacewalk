@@ -267,7 +267,7 @@ def do_configchannel_backup(self, args):
             fh.write( 'md5 = %s\n' % details.get('md5') )
             fh.write( 'binary = %s\n' % details.get('binary') )
             of = open( dumpfile, 'w' )
-            of.write( details.get('contents') )
+            of.write( details.get('contents') or '' )
             of.close()
 
         fh.write( '\n' )
