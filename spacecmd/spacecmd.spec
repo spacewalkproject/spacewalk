@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.1.19
+Version:     2.1.20
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -64,6 +64,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Dec 13 2013 Milan Zazrivec <mzazrivec@redhat.com> 2.1.20-1
+- 1009841 - don't attempt to write out 'None'
+
 * Fri Dec 13 2013 Milan Zazrivec <mzazrivec@redhat.com> 2.1.19-1
 - 960984 - fix system listing when identified by system id
 
