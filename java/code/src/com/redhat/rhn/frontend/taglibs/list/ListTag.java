@@ -566,7 +566,7 @@ public class ListTag extends BodyTagSupport {
         manip.bindPaginationInfo();
         request.setAttribute("dataSize", String
                .valueOf(pageData.size() + 1));
-        
+
         if (pageData != null && pageData.size() > 0) {
             iterator = pageData.iterator();
         }
