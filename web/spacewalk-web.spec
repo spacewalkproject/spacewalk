@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.41
+Version: 2.1.42
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Dec 13 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.42-1
+- replaced icons with icon tag
+- system group edit properties - linking + cleanup
+
 * Wed Dec 11 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.41-1
 - updated pxt pages to use <rhn-icon> tag
 - updated perl modules to use PXT::HTML->icon()
