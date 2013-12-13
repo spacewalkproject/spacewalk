@@ -23,11 +23,49 @@ package com.redhat.rhn.frontend.html;
 
 public class HtmlTag extends BaseTag {
 
+    private static final String[] VOID_ELEMENTS = new String[] {
+        "area", "base", "br", "col", "command", "embed", "hr", "img",
+        "input", "keygen", "link", "meta", "param", "source", "track", "wbr"};
+
     /**
      * Public constructor
      * @param tagIn the name of the tag
      */
     public HtmlTag(String tagIn) {
         super(tagIn, true);
+    }
+
+    /**
+     * @return Whether the tag name belongs to the list of HTML5
+     * void elements.
+     * @see http://www.w3.org/TR/html-markup/syntax.html#syntax-elements
+     */
+    public boolean isVoidElement() {
+        for (String voidElem : VOID_ELEMENTS) {
+            if (getTag().equals(voidElem)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String render() {
+        StringBuilder ret = new StringBuilder();
+        ret.append(renderOpenTag());
+        if (isVoidElement()) {
+          ret.deleteCharAt(ret.length() - 1);
+          ret.append(">");
+        }
+        else {
+          if (hasBody() ) {
+              ret.append(renderBody());
+          }
+          ret.append(renderCloseTag());
+        }
+        return ret.toString();
     }
 }

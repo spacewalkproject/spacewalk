@@ -48,6 +48,13 @@ public abstract class BaseTag {
     }
 
     /**
+     * @return the tag name
+     */
+    public String getTag() {
+        return tag;
+    }
+
+    /**
      * set an attribute of the html tag
      * @param name the attribute name
      * @param value the attribute value
