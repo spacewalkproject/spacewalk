@@ -8,7 +8,7 @@
 <div class="spacewalk-toolbar-h1">
 	<div class="spacewalk-toolbar">
 		<span class="spacewalk-toolbar">
-			<a href="/network/systems/ssm/work_with_group.pxt?sgid=${systemgroup.id}&pxt_trap=rhn:work_with_group_cb">
+			<a href="/network/systems/ssm/work_with_group.pxt?sgid=${systemgroup.id}&amp;pxt_trap=rhn:work_with_group_cb">
 			<rhn:icon type="header-system-groups" title="<bean:message key='toolbar.work.with.group' />" />
      			<bean:message key="toolbar.work.with.group"/>
      		</a>
