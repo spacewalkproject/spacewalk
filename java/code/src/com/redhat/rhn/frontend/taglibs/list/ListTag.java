@@ -795,6 +795,7 @@ public class ListTag extends BodyTagSupport {
             case RENDER:         retval = doAfterBodyRenderData(); break;
             case AFTER_RENDER:   retval = doAfterBodyRenderAfterData(); break;
             case TBL_FOOTER:     retval = doAfterBodyRenderFooterAddons(); break;
+            default: break;
         }
         return retval;
     }

@@ -97,17 +97,16 @@ public class AddressTagTest extends RhnBaseTestCase {
                 "Fax: 650-555-1212<br>" +
                 "</address>" +
                 "<p>" +
-                "<a class=\"btn btn-primary\" href=\"/EditAddress.do?type=M&amp;uid=" + uid + "\">" +
-                "Edit this address</a>" +
-                "</p>";
+                "<a class=\"btn btn-primary\" href=\"/EditAddress.do?type=M&amp;uid=" +
+                uid + "\">" + "Edit this address</a>" + "</p>";
     }
 
     private String getEmptyReturnValue(HttpServletRequest req, Long uid) {
         return "<strong>Mailing Address</strong>" +
                 "<div class=\"alert alert-info\">Address not filled out</div>" +
                 "<p>" +
-                "<a class=\"btn btn-primary\" href=\"/EditAddress.do?type=M&amp;uid=" + uid + "\">Add this address</a>" +
-                "</p>";
+                "<a class=\"btn btn-primary\" href=\"/EditAddress.do?type=M&amp;uid=" +
+                uid + "\">Add this address</a>" + "</p>";
     }
 
 }
