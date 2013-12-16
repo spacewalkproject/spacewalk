@@ -61,6 +61,8 @@ public class NoteListAction extends RhnListAction {
         request.setAttribute("sid", sid);
         request.setAttribute("system", s);
 
+        SdcHelper.ssmCheck(request, s.getId(), user);
+
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 }
