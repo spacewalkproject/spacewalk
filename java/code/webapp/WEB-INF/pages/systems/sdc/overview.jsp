@@ -15,7 +15,7 @@
     <div class="panel-body">
       <c:choose>
         <c:when test="${unentitled}">
-          <rhn:icon type="system-unentitled"> <bean:message key="sdc.details.overview.unentitled" arg0="/rhn/systems/details/Edit.do?sid=${system.id}"/>
+          <rhn:icon type="system-unentitled" /> <bean:message key="sdc.details.overview.unentitled" arg0="/rhn/systems/details/Edit.do?sid=${system.id}"/>
         </c:when>
         <c:when test="${systemInactive}">
           <rhn:icon type="system-unknown" /> <bean:message key="sdc.details.overview.inactive1"/>
