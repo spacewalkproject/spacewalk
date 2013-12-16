@@ -95,6 +95,8 @@ public class SystemHardwareAction extends RhnAction {
 
         setupForm(request, cpu, server, form);
 
+        SdcHelper.ssmCheck(request, server.getId(), user);
+
         return getStrutsDelegate().forwardParams(
                 mapping.findForward(fwd), params);
     }
