@@ -125,7 +125,7 @@ public class ConfigChannelTag extends TagSupport {
             i.setType("header-system");
         }
         else {
-            i.setType("sandbox");
+            i.setType("header-sandbox");
         }
         String result = i.renderStartTag();
         i.release();

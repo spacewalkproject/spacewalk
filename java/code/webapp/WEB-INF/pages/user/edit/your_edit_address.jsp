@@ -7,7 +7,7 @@
         <meta name="page-decorator" content="none" />
     </head>
     <body>
-        <rhn:toolbar base="h1" icon="icon-user" imgAlt="user.common.userAlt">
+        <rhn:toolbar base="h1" icon="header-user" imgAlt="user.common.userAlt">
             <bean:message key="Addresses"/>
         </rhn:toolbar>
         <div class="panel panel-default">
