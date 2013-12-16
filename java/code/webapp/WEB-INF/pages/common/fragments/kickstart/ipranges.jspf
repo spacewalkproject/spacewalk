@@ -3,86 +3,103 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 
-<h2><bean:message key="kickstartips.jsp.baremetal"/></h2>
-<bean:message key="kickstartips.jsp.baremetal_summary"/>
-<p>${url}</p>
-<span class="help-block">
-    <bean:message key="kickstartips.jsp.resource"/>
-</span>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2><bean:message key="kickstartips.jsp.baremetal"/></h2>
+    </div>
+    <div class="panel-body">
+        <bean:message key="kickstartips.jsp.baremetal_summary"/>
+        <p>${url}</p>
+        <span class="help-block">
+            <bean:message key="kickstartips.jsp.resource"/>
+        </span>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2><bean:message key="kickstartips.jsp.baremetal2"/></h2>
+    </div>
+    <div class="panel-body">
+        <p><bean:message key="kickstartips.jsp.baremetal_summary2"/></p>
+        <p>${urlRange}</p>
+        <span class="help-block">
+            <bean:message key="kickstartips.jsp.tip"/>
+        </span>
+    </div>
+</div>
 
-<h2><bean:message key="kickstartips.jsp.baremetal2"/></h2>
-<p><bean:message key="kickstartips.jsp.baremetal_summary2"/></p>
-<p>${urlRange}</p>
-<span class="help-block">
-    <bean:message key="kickstartips.jsp.tip"/>
-</span>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2><bean:message key="kickstartips.jsp.ranges"/></h2>
+    </div>
+    <div class="panel-body">
+        <p><bean:message key="kickstartips.jsp.ranges_summary"/></p>
 
-<h2><bean:message key="kickstartips.jsp.ranges"/></h2>
-<p><bean:message key="kickstartips.jsp.ranges_summary"/></p>
+        <html:form method="post" styleClass="form-horizontal" action="${param.range_edit_url}">
+            <c:forEach items="${ranges}" var="ip_range">
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">
+                        <bean:message key="kickstartips.jsp.label" />:
+                    </label>
+                    <div class="col-lg-8">
+                        <div class="input-group">
+                            <input type="text" disabled="" class="form-control" value="${ip_range.range}" name="dummy">
+                            <span class="input-group-btn">
+                                <a class="btn btn-default" 
+                                   href="${param.range_delete_url}?ksid=${ksdata.id}&min=${ip_range.min.number}&max=${ip_range.max.number}">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+            
+            <rhn:csrf />
+            <div class="form-group">
+                <div class="row">
+                    <label class="col-lg-2 control-label">
+                        <bean:message key="kickstartips.jsp.label" />:
+                    </label>
+                    <fieldset class="col-md-8">
+                        
+                            <html:text styleClass="input-ip-range" property="octet1a" maxlength="3" size="3" />
+                            <span class="dot-ip-range">.</span>
+                        
+                            <html:text styleClass="input-ip-range" property="octet1b" maxlength="3" size="3" />
+                            <span class="dot-ip-range">.</span>
+                        
+                            <html:text styleClass="input-ip-range" property="octet1c" maxlength="3" size="3" />
+                            <span class="dot-ip-range">.</span>
+                        
+                            <html:text styleClass="input-ip-range" property="octet1d" maxlength="3" size="3" />
+                            <span class="dash-ip-range"> - </span>
 
-<html:form method="post" styleClass="form-horizontal" action="${param.range_edit_url}">
-    <c:forEach items="${ranges}" var="ip_range">
-        <div class="form-group">
-            <label class="col-lg-2 control-label">
-                <bean:message key="kickstartips.jsp.label" />:
-            </label>
-            <div class="col-lg-8">
-                <div class="input-group">
-                    <input type="text" disabled="" class="form-control" value="${ip_range.range}" name="dummy">
-                    <span class="input-group-btn">
-                        <a class="btn btn-default" 
-                           href="${param.range_delete_url}?ksid=${ksdata.id}&min=${ip_range.min.number}&max=${ip_range.max.number}">
-                            <i class="fa fa-trash-o"></i>
-                        </a>
-                    </span>
+                            <html:text styleClass="input-ip-range" property="octet2a" maxlength="3" size="3" />
+                            <span class="dot-ip-range">.</span>
+                        
+                            <html:text styleClass="input-ip-range" property="octet2b" maxlength="3" size="3" />
+                            <span class="dot-ip-range">.</span>
+                        
+                            <html:text styleClass="input-ip-range" property="octet2c" maxlength="3" size="3" />
+                            <span class="dot-ip-range">.</span>
+                        
+                            <html:text styleClass="input-ip-range" property="octet2d" maxlength="3" size="3" />
+                        
+                    </fieldset>
                 </div>
             </div>
-        </div>
-    </c:forEach>
-    
-    <rhn:csrf />
-    <div class="form-group">
-        <div class="row">
-            <label class="col-lg-2 control-label">
-                <bean:message key="kickstartips.jsp.label" />:
-            </label>
-            <fieldset class="col-md-8">
                 
-                    <html:text styleClass="input-ip-range" property="octet1a" maxlength="3" size="3" />
-                    <span class="dot-ip-range">.</span>
-                
-                    <html:text styleClass="input-ip-range" property="octet1b" maxlength="3" size="3" />
-                    <span class="dot-ip-range">.</span>
-                
-                    <html:text styleClass="input-ip-range" property="octet1c" maxlength="3" size="3" />
-                    <span class="dot-ip-range">.</span>
-                
-                    <html:text styleClass="input-ip-range" property="octet1d" maxlength="3" size="3" />
-                    <span class="dash-ip-range"> - </span>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-8">
+                    <html:submit styleClass="btn btn-success">
+                        <bean:message key="kickstartips.jsp.addrange"/>
+                    </html:submit>
+                </div>
+            </div>
+            <html:hidden property="ksid" value="${ksdata.id}"/>
+            <html:hidden property="submitted" value="true"/>
+        </html:form>
 
-                    <html:text styleClass="input-ip-range" property="octet2a" maxlength="3" size="3" />
-                    <span class="dot-ip-range">.</span>
-                
-                    <html:text styleClass="input-ip-range" property="octet2b" maxlength="3" size="3" />
-                    <span class="dot-ip-range">.</span>
-                
-                    <html:text styleClass="input-ip-range" property="octet2c" maxlength="3" size="3" />
-                    <span class="dot-ip-range">.</span>
-                
-                    <html:text styleClass="input-ip-range" property="octet2d" maxlength="3" size="3" />
-                
-            </fieldset>
-        </div>
     </div>
-        
-    <div class="form-group">
-        <div class="col-lg-offset-2 col-lg-8">
-            <html:submit styleClass="btn btn-success">
-                <bean:message key="kickstartips.jsp.addrange"/>
-            </html:submit>
-        </div>
-    </div>
-    <html:hidden property="ksid" value="${ksdata.id}"/>
-    <html:hidden property="submitted" value="true"/>
-</html:form>
-
+</div>
