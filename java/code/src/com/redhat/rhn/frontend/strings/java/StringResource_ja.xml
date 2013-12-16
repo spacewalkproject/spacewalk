@@ -1785,11 +1785,11 @@
         <target>フィルターする: </target>
       </trans-unit>
       <trans-unit id="message.range">
-        <source>&lt;span id="list_min" &gt;{0}&lt;/span&gt; - &lt;span id="list_max"&gt;{1}&lt;/span&gt; of &lt;span id="list_total"&gt;{2}&lt;/span&gt;</source>
+        <source>{0} - {1} of {2}</source>
         <context-group name="ctx">
           <context context-type="sourcefile">on any listview page with a set.  1 - 5 of 120</context>
         </context-group>
-        <target>&lt;span id="list_min" &gt;{0}&lt;/span&gt; - &lt;span id="list_max"&gt;{1}&lt;/span&gt; のうち &lt;span id="list_total"&gt;{2}&lt;/span&gt;</target>
+        <target>{0} - {1} のうち {2}</target>
       </trans-unit>
       <trans-unit id="message.range.withtypedescription">
         <source>&lt;span&gt;{0}&lt;/span&gt; - &lt;span&gt;{1}&lt;/span&gt; of &lt;span&gt;{2}&lt;/span&gt;
