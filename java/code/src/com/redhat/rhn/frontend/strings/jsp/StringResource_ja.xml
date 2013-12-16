@@ -5056,8 +5056,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>エラータ</target>
         </trans-unit>
         <trans-unit id="ssm.overview.errata.schedule">
-          <source>&lt;a href="/network/systems/ssm/errata/index.pxt?pxt:trap=rhn:empty_set&amp;set_label=errata_list"&gt;Schedule errata updates&lt;/a&gt; relevant to selected systems</source>
-          <target>選択しているシステムに関連した &lt;a href="/network/systems/ssm/errata/index.pxt?pxt:trap=rhn:empty_set&amp;set_label=errata_list"&gt;エラータの更新をスケジュール&lt;/a&gt; します </target>
+          <source>&lt;a href="/rhn/systems/ssm/ListPatches.do"&gt;Schedule errata updates&lt;/a&gt; relevant to selected systems</source>
+          <target>選択しているシステムに関連した &lt;a href="/rhn/systems/ssm/ListPatches.do"&gt;エラータの更新をスケジュール&lt;/a&gt; します </target>
         </trans-unit>
         <trans-unit id="ssm.overview.packages">
           <source>Packages</source>

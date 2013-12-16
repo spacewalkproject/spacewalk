@@ -334,7 +334,7 @@ sub server_set_errata_set_actions_cb {
 
   $pxt->push_message(site_info => "Errata updates scheduled.");
 
-  $pxt->redirect('/network/systems/ssm/errata/index.pxt');
+  $pxt->redirect('/rhn/systems/ssm/ListPatches.do');
 }
 
 

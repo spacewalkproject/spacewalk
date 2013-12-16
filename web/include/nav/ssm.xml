@@ -5,12 +5,8 @@
 		<rhn-tab-url>/rhn/systems/ssm/ListSystems.do</rhn-tab-url>
 	</rhn-tab>
 
-	<rhn-tab name="Errata"
-                 on-click="Sniglets::Lists->navi_empty_set"
-                 node-id="system_errata_list">
-		<rhn-tab-url>/network/systems/ssm/errata/index.pxt</rhn-tab-url>
-		<rhn-tab-url>/network/systems/ssm/errata/systems_affected.pxt</rhn-tab-url>
-		<rhn-tab-url>/network/systems/ssm/errata/apply_errata_confirm.pxt</rhn-tab-url>
+	<rhn-tab name="Errata">
+		<rhn-tab-url>/rhn/systems/ssm/ListPatches.do</rhn-tab-url>
 	</rhn-tab>
 
 	<rhn-tab name="Packages">

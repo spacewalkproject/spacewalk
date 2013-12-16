@@ -5051,8 +5051,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>勘誤</target>
         </trans-unit>
         <trans-unit id="ssm.overview.errata.schedule">
-          <source>&lt;a href="/network/systems/ssm/errata/index.pxt?pxt:trap=rhn:empty_set&amp;set_label=errata_list"&gt;Schedule errata updates&lt;/a&gt; relevant to selected systems</source>
-          <target>為與已選擇之系統相關的勘誤更新&lt;a href="/network/systems/ssm/errata/index.pxt?pxt:trap=rhn:empty_set&amp;set_label=errata_list"&gt;進行排程&lt;/a&gt;</target>
+          <source>&lt;a href="/rhn/systems/ssm/ListPatches.do"&gt;Schedule errata updates&lt;/a&gt; relevant to selected systems</source>
+          <target>為與已選擇之系統相關的勘誤更新&lt;a href="/rhn/systems/ssm/ListPatches.do"&gt;進行排程&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.packages">
           <source>Packages</source>

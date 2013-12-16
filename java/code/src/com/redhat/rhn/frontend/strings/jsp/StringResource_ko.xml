@@ -5053,8 +5053,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>에라타 </target>
         </trans-unit>
         <trans-unit id="ssm.overview.errata.schedule">
-          <source>&lt;a href="/network/systems/ssm/errata/index.pxt?pxt:trap=rhn:empty_set&amp;set_label=errata_list"&gt;Schedule errata updates&lt;/a&gt; relevant to selected systems</source>
-          <target>선택한 시스템에 관련된 &lt;a href="/network/systems/ssm/errata/index.pxt?pxt:trap=rhn:empty_set&amp;set_label=errata_list"&gt;에라타 업데이트 스케줄&lt;/a&gt;</target>
+          <source>&lt;a href="/rhn/systems/ssm/ListPatches.do"&gt;Schedule errata updates&lt;/a&gt; relevant to selected systems</source>
+          <target>선택한 시스템에 관련된 &lt;a href="/rhn/systems/ssm/ListPatches.do"&gt;에라타 업데이트 스케줄&lt;/a&gt;</target>
         </trans-unit>
         <trans-unit id="ssm.overview.packages">
           <source>Packages</source>

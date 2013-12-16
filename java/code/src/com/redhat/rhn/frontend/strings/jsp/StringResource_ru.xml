@@ -5051,8 +5051,8 @@ value for this entitlement, excluding the default organization's consumption.</s
           <target>Исправления</target>
         </trans-unit>
         <trans-unit id="ssm.overview.errata.schedule">
-          <source>&lt;a href="/network/systems/ssm/errata/index.pxt?pxt:trap=rhn:empty_set&amp;set_label=errata_list"&gt;Schedule errata updates&lt;/a&gt; relevant to selected systems</source>
-          <target>&lt;a href="/network/systems/ssm/errata/index.pxt?pxt:trap=rhn:empty_set&amp;set_label=errata_list"&gt;Настройка установки исправлений&lt;/a&gt; в выбранных системах.</target>
+          <source>&lt;a href="/rhn/systems/ssm/ListPatches.do"&gt;Schedule errata updates&lt;/a&gt; relevant to selected systems</source>
+          <target>&lt;a href="/rhn/systems/ssm/ListPatches.do"&gt;Настройка установки исправлений&lt;/a&gt; в выбранных системах.</target>
         </trans-unit>
         <trans-unit id="ssm.overview.packages">
           <source>Packages</source>
