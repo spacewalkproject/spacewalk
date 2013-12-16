@@ -1,4 +1,4 @@
-<rhn:toolbar base="h1" icon="spacewalk-icon-schedule-computer"
+<rhn:toolbar base="h1" icon="header-schedule"
              iconAlt="action.common.scheduleAlt"
              helpUrl="/rhn/help/reference/en-US/s1-sm-actions.jsp">
   ${requestScope.actionname}
