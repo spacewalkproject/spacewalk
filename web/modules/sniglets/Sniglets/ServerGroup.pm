@@ -72,14 +72,14 @@ sub system_group_status_interface {
 
     $subst->{icon} = PXT::HTML->icon(-type => 'system-crit');
     $subst->{status_str} = $counts->{SECURITY_ERRATA} . ' critical updates available';
-    $subst->{message} = "(<a href=\"/network/systems/groups/errata_list.pxt?sgid=" . $sgid . "\">more info</a>)";;
+    $subst->{message} = "(<a href=\"/rhn/groups/ListErrata.do?sgid=" . $sgid . "\">more info</a>)";;
     $subst->{status_class} = 'system-status-critical-updates';
   }
   else {
 
     $subst->{icon} = PXT::HTML->icon(-type => 'system-warn');
     $subst->{status_str} = ' updates available';
-    $subst->{message} = "(<a href=\"/network/systems/groups/errata_list.pxt?sgid=" . $sgid . "\">more info</a>)";
+    $subst->{message} = "(<a href=\"/rhn/groups/ListErrata.do?sgid=" . $sgid . "\">more info</a>)";
     $subst->{status_class} = 'system-status-updates';
   }
 

@@ -9,10 +9,8 @@
   <rhn-tab name="Target Systems" acl="user_role(system_group_admin)">
     <rhn-tab-url>/rhn/groups/AddSystems.do</rhn-tab-url>
   </rhn-tab>
-  <rhn-tab name="Errata" on-click="Sniglets::Lists->navi_empty_set" node-id="system_group_errata_list">
-    <rhn-tab-url>/network/systems/groups/errata_list.pxt</rhn-tab-url>
-    <rhn-tab-url>/network/systems/groups/systems_affected_by_errata.pxt</rhn-tab-url>
-    <rhn-tab-url>/network/systems/groups/apply_errata_confirm.pxt</rhn-tab-url>
+  <rhn-tab name="Errata">
+    <rhn-tab-url>/rhn/groups/ListErrata.do</rhn-tab-url>
   </rhn-tab>
 
   <rhn-tab name="Admins" url="/rhn/groups/AdminList.do" acl="user_role(system_group_admin)" />
