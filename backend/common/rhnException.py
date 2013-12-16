@@ -172,7 +172,7 @@ maximum membership exceeded"),
      700: _("Maximum username length violation"),
      701: _("Maximum password length violation"),
 
-     800: _("System Name cannot be less than 3 characters"),
+     800: _("System Name cannot be less than 1 character"),
 
      # 1000-1999: Proxy specific errors:
      # issued by a Proxy to the client

@@ -224,7 +224,7 @@ class Registration(rhnHandler):
 
         if profile_name is not None and not \
            rhnFlags.test("re_registration_token") and \
-           len(profile_name) < 3:
+           len(profile_name) < 1:
            raise rhnFault(800)
 
         # log entry point
