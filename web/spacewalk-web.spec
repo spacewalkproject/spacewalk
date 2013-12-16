@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.42
+Version: 2.1.43
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Dec 16 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.43-1
+- Remove groups/errata_list.pxt
+- fixed icon names
+
 * Fri Dec 13 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.42-1
 - replaced icons with icon tag
 - system group edit properties - linking + cleanup
