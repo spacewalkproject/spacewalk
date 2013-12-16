@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.99
+Version: 2.1.100
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Dec 16 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.100-1
+- more icon fixes
+- Rewrite of errata_list.pxt to Java
+- call ssm check on system - software crashes, notes, migrate and hardware pages
+- bootstrap fixes
+
 * Fri Dec 13 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.99-1
 - replaced icons with icon tag
 - simplify logic in cfg:channel tag
