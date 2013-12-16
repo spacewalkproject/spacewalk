@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.1.14
+Version:    2.1.15
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -82,6 +82,12 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Dec 16 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.15-1
+- making help links disappear
+- colour added to the counter in SSM
+- Links inside a alert-info have a darker blue than the text shown and have
+  underline. It is necessary to distinguish the link over the general text
+
 * Fri Dec 13 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.14-1
 - replaced icons with icon tag
 - updated pxt pages to use <rhn-icon> tag
