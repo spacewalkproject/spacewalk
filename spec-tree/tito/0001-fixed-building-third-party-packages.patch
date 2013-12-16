@@ -1,0 +1,52 @@
+From 01b9c0b0010a78c0ed203449eacfe44c1d229ba6 Mon Sep 17 00:00:00 2001
+From: Michael Mraka <michael.mraka@redhat.com>
+Date: Mon, 16 Dec 2013 10:41:42 +0100
+Subject: [PATCH] fixed building third party packages
+
+do not try to upload files which are not on the disk but in look-aside cache
+
+fixing
+Error running command: rhpkg new-sources /var/tmp/rpmbuild-cobbler-e8869ff6bebf4ac2f981405ebf4c52c9e993db8fDkxF2Y/SOURCES/cobbler-2.0.7/cobbler-2.0.7.tar.gz
+Status code: 256
+Command output: Could not execute new_sources: Path does not exist or is not a file: /var/tmp/rpmbuild-cobbler-e8869ff6bebf4ac2f981405ebf4c52c9e993db8fDkxF2Y/SOURCES/cobbler-2.0.7/cobbler-2.0.7.tar.gz
+Traceback (most recent call last):
+  File "/usr/bin/tito", line 23, in <module>
+    CLI().main(sys.argv[1:])
+  File "/usr/lib/python2.6/site-packages/tito/cli.py", line 94, in main
+    return module.main(argv)
+  File "/usr/lib/python2.6/site-packages/tito/cli.py", line 639, in main
+    scratch=self.options.scratch)
+  File "/usr/lib/python2.6/site-packages/tito/release.py", line 490, in release
+    self._git_release()
+  File "/usr/lib/python2.6/site-packages/tito/release.py", line 512, in _git_release
+    self._git_upload_sources(project_checkout)
+  File "/usr/lib/python2.6/site-packages/tito/release.py", line 685, in _git_upload_sources
+    output = run_command(cmd)
+  File "/usr/lib/python2.6/site-packages/tito/common.py", line 228, in run_command
+    raise RunCommandException("Error running command", command, status, output)
+tito.exception.RunCommandException: Error running command
+---
+ src/tito/builder.py |    6 ++++--
+ 1 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/src/tito/builder.py b/src/tito/builder.py
+index 4442028..ac47a12 100644
+--- a/src/tito/builder.py
++++ b/src/tito/builder.py
+@@ -487,9 +487,11 @@ class NoTgzBuilder(Builder):
+         self.ran_tgz = True
+ 
+         debug("Scanning for sources.")
+-        cmd = "/usr/bin/spectool --list-files '%s' | awk '{print $2}' |xargs -l1 --no-run-if-empty basename " % self.spec_file
++        cmd = "/usr/bin/spectool --list-files --sources '%s' | awk '{print $2}' |xargs -l1 --no-run-if-empty basename " % self.spec_file
+         result = run_command(cmd)
+-        self.sources = map(lambda x: os.path.join(self.rpmbuild_gitcopy, x), result.split("\n"))
++        self.sources = [os.path.join(self.rpmbuild_gitcopy, x)
++                        for x in result.split("\n")
++                        if os.path.exists(os.path.join(self.rpmbuild_gitcopy, x))]
+         debug("  Sources: %s" % self.sources)
+ 
+     def _get_rpmbuild_dir_options(self):
+-- 
+1.7.1
+
