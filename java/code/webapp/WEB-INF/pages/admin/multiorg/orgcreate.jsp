@@ -5,7 +5,7 @@
 
 <html>
     <body>
-        <rhn:toolbar base="h1" icon="icon-info-sign">
+        <rhn:toolbar base="h1" icon="header-organisation">
             <bean:message key="orgcreate.jsp.title"/>
         </rhn:toolbar>
 

@@ -17,7 +17,7 @@
 
 <br/>
 <h2>
-  <img src="/img/rhn-icon-packages.gif" />
+  <rhn:icon type="header-errata" />
   <bean:message key="confirmprivate.jsp.title"/>
 </h2>
 <p><bean:message key="confirmprivate.jsp.confirmmsg"/></p>

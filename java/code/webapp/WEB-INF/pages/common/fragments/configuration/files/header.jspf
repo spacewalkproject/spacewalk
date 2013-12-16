@@ -24,7 +24,7 @@
 </c:set>
 
 <c:if test="${revision.symlink}">
-	<c:set var="fileIcon" scope="request" value="icon-link" />
+	<c:set var="fileIcon" scope="request" value="header-symlink" />
 </c:if>
 
 <c:choose>

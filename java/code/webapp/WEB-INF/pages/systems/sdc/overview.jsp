@@ -64,10 +64,10 @@
           <div class="col-md-6">
             <c:choose>
               <c:when test="${probeList[0].state == 'CRITICAL'}">
-                <i class="fa spacewalk-icon-monitoring-down"></i>  <bean:message key="sdc.details.overview.probes.critical" arg0="/rhn/help/reference/en-US/s1-sm-monitor.jsp"/>
+                <rhn:icon type="monitoring-crit" />  <bean:message key="sdc.details.overview.probes.critical" arg0="/rhn/help/reference/en-US/s1-sm-monitor.jsp"/>
               </c:when>
               <c:otherwise>
-                <i class="fa spacewalk-icon-monitoring-warning"></i>  <bean:message key="sdc.details.overview.probes.warning" arg0="/rhn/help/reference/en-US/s1-sm-monitor.jsp"/>
+                <rhn:icon type="monitoring-warn" />  <bean:message key="sdc.details.overview.probes.warning" arg0="/rhn/help/reference/en-US/s1-sm-monitor.jsp"/>
               </c:otherwise>
             </c:choose>
           </div>

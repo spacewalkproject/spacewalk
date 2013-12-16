@@ -10,7 +10,7 @@
   <td>
     <c:choose>
       <c:when test="${channel.configChannelType.label == 'normal'}">
-        <rhn:icon type="header-software-channel" title="<bean:message key='config.common.globalAlt' />"/>
+        <rhn:icon type="header-channel-configuration" title="<bean:message key='config.common.globalAlt' />"/>
       </c:when>
       <c:when test="${channel.configChannelType.label == 'local_override'}">
         <rhn:icon type="header-system" title="<bean:message key='config.common.localAlt' />"/>

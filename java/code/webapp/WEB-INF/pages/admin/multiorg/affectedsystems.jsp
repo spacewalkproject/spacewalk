@@ -8,7 +8,7 @@
 <body>
 <rhn:toolbar
    base="h1"
-   icon="icon-group"
+   icon="header-organisation"
    miscUrl="${url}"
    miscAcl="user_role(org_admin)"
    miscText="${text}"

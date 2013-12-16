@@ -6,7 +6,7 @@
 <html>
 <body>
 
-<rhn:toolbar base="h1" img="/img/rhn-icon-info.gif">
+<rhn:toolbar base="h1" icon="header-info">
   <bean:message key="###JSPNAME###.toolbar"/>
 </rhn:toolbar>
 

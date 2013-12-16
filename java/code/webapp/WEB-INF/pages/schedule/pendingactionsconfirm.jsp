@@ -7,7 +7,7 @@
 
 <html>
 <body>
-<rhn:toolbar base="h1" icon="icon-time"
+<rhn:toolbar base="h1" icon="header-action"
   			   imgAlt="actions.jsp.imgAlt"
                helpUrl="/rhn/help/reference/en-US/s1-sm-actions.jsp#s2-sm-action-pend">
     <bean:message key="pendingactions.jsp.confirm_cancel_actions"/>

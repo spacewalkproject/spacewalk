@@ -112,7 +112,7 @@
 <tr class="list-row-odd">
   <td>
     <c:if test="${created}">
-      <img src="/img/rhn-listicon-ok.gif"/>
+      <rhn:icon type="system-ok" />
     </c:if>
   </td>
   <td style="text-align: left;">
@@ -122,7 +122,7 @@
 <tr class="list-row-even">
   <td>
     <c:if test="${restarted}">
-      <img src="/img/rhn-listicon-ok.gif"/>
+      <rhn:icon type="system-ok" />
     </c:if>
   </td>
   <td style="text-align: left;">
@@ -132,7 +132,7 @@
 <tr class="list-row-odd">
   <td>
     <c:if test="${registered}">
-      <img src="/img/rhn-listicon-ok.gif"/>
+      <rhn:icon type="system-ok" />
     </c:if>
   </td>
   <td style="text-align: left;">
@@ -143,7 +143,7 @@
   <tr class="list-row-even">
     <td>
       <c:if test="${package_synch_scheduled}">
-        <img src="/img/rhn-listicon-ok.gif"/>
+        <rhn:icon type="system-ok" />
       </c:if>
     </td>
     <td style="text-align: left;">
@@ -164,7 +164,7 @@
 <tr class="${nextstyle1}">
   <td>
     <c:if test="${configuration_deploy}">
-      <img src="/img/rhn-listicon-ok.gif"/>
+      <rhn:icon type="system-ok" />
     </c:if>
   </td>
   <td style="text-align: left;">
@@ -175,7 +175,7 @@
   <tr class="${nextstyle2}">
     <td>
       <c:if test="${complete}">
-        <img src="/img/rhn-listicon-ok.gif"/>
+        <rhn:icon type="system-ok" />
       </c:if>
     </td>
     <td style="text-align: left;">
@@ -186,7 +186,7 @@
 <c:if test="${failed}">
   <tr class="${nextstyle1}">
     <td>
-        <img src="/img/rhn-listicon-error.gif"/>
+        <rhn:icon type="system-crit" />
 
     </td>
     <td style="text-align: left;">

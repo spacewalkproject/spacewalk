@@ -12,7 +12,7 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/channel/manage/manage_channel_header.jspf" %>
      <h2>
-      <img src="/img/rhn-icon-errata.gif" alt="erratum" /> <bean:message key="header.jsp.errata"/>
+      <rhn:icon type="header-errata" title="erratum" /> <bean:message key="header.jsp.errata"/>
     </h2>
 
   <bean:message key="channel.jsp.errata.remove.message"/>
@@ -42,13 +42,13 @@
                            headerclass="thin-column"
                            sortattr="advisoryType">
                         <c:if test="${current.advisoryType == 'Product Enhancement Advisory'}">
-				 <img src="/img/wrh-product.gif" alt="Product Enhancement Advisory" title="Product Enhancement Advisory" />
+                                 <rhn:icon type="errata-enhance" title="Product Enhancement Advisory" />
                         </c:if>
                        <c:if test="${current.advisoryType == 'Security Advisory'}">
-				 <img src="/img/wrh-security.gif" alt="Security Advisory" title="Security Advisory" />
+                                 <rhn:icon type="errata-security" title="Security Advisory" />
                         </c:if>
                        <c:if test="${current.advisoryType == 'Bug Fix Advisory'}">
-				  <img src="/img/wrh-bug.gif" alt="Bug Fix Advisory" title="Bug Fix Advisory" />
+                                 <rhn:icon type="errata-bugfix" title="Bug Fix Advisory" />
                         </c:if>
 
                 </rl:column>
