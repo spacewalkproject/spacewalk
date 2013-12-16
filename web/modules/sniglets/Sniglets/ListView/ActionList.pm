@@ -89,9 +89,9 @@ my %history_type_icons = (
         'configfiles.diff'      => 'event-type-system',
  );
 
-my %history_status_icons = ('Completed' => 'actions-ok',
-                            'Failed'    => 'actions-failed',
-                            'Picked Up' => 'actions-running',
+my %history_status_icons = ('Completed' => 'action-ok',
+                            'Failed'    => 'action-failed',
+                            'Picked Up' => 'action-running',
                            );
 
 sub system_history_provider {
