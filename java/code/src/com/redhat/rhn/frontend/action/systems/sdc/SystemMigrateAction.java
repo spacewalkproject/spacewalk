@@ -143,6 +143,7 @@ public class SystemMigrateAction extends RhnAction {
             Org fromOrg = s.getOrg();
             setupPageAndFormValues(rctx.getRequest(), daForm, user, s, fromOrg,
                     trustedOrgCount);
+            SdcHelper.ssmCheck(request, s.getId(), user);
         }
 
         return mapping.findForward(forwardName);
