@@ -18,6 +18,7 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.systems.sdc.SdcHelper;
 import com.redhat.rhn.frontend.dto.SoftwareCrashDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -64,6 +65,8 @@ public class SoftwareCrashesAction extends RhnAction implements Listable {
        if (helper.isDispatched()) {
            return handleSubmit(mapping, context, server);
        }
+
+       SdcHelper.ssmCheck(request, server.getId(), context.getLoggedInUser());
 
        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
    }
