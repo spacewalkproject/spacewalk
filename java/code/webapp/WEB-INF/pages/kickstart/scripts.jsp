@@ -20,7 +20,7 @@
     </rhn:toolbar>
 </c:if>
 <c:if test="${empty kickstart_scripts}">
-    <rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif"
+    <rhn:toolbar base="h1" icon="header-kickstart"
                creationUrl="/rhn/kickstart/KickstartScriptCreate.do?ksid=${ksdata.id}"
                creationType="kickstartscript"
                imgAlt="kickstarts.alt.img">
