@@ -49,7 +49,7 @@ public class IconTag extends TagSupport {
         icons.put("event-type-package", "fa spacewalk-icon-packages");
         icons.put("event-type-preferences", "fa fa-cog");
         icons.put("event-type-system", "fa fa-desktop");
-        icons.put("header-action", "fa-clock-o");
+        icons.put("header-action", "fa fa-clock-o");
         icons.put("header-activation-key", "fa fa-key");
         icons.put("header-channel", "fa spacewalk-icon-software-channels");
         icons.put("header-channel-configuration",
