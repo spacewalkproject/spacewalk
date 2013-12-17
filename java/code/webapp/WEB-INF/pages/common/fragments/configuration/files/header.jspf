@@ -14,8 +14,8 @@
 <c:set var="helpUrl" scope="request" value="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-files-local" />
 <c:set var="downloadUrl" scope="request" value="/rhn/configuration/file/FileDownload.do?crid=${revision.id}&amp;cfid=${file.id}" />
 <c:set var="deleteUrl" scope="request" value="/rhn/configuration/file/DeleteRevision.do?crid=${revision.id}&amp;cfid=${file.id}" />
-<c:set var="fileIcon" scope="request" value="header-configuration" />
-<c:set var="dirIcon" scope="request" value="header-configuration" />
+<c:set var="fileIcon" scope="request" value="file-file" />
+<c:set var="dirIcon" scope="request" value="file-directory" />
 <c:set var="toolbarText" scope="request">
   <bean:message key="filedetails.header.jspf.label"
                 arg0="${fn:escapeXml(file.configFileName.path)}" arg1="${revision.revision}"
