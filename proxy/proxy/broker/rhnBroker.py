@@ -175,7 +175,9 @@ class BrokerHandler(SharedHandler):
         # do that for us
 
         # Add/modify the X-RHN-IP-Path header.
-        ip_path = _oto['X-RHN-IP-Path']
+        ip_path = None
+        if 'X-RHN-IP-Path' in _oto:
+            ip_path = _oto['X-RHN-IP-Path']
         log_debug(4, "X-RHN-IP-Path is: %s" % repr(ip_path))
         client_ip = self.req.connection.remote_ip
         if ip_path is None:
@@ -185,10 +187,15 @@ class BrokerHandler(SharedHandler):
         _oto['X-RHN-IP-Path'] = ip_path
 
         # NOTE: X-RHN-Proxy-Auth described in broker/rhnProxyAuth.py
-        log_debug(5, 'X-RHN-Proxy-Auth currently set to: %s' % repr(_oto['X-RHN-Proxy-Auth']))
+        if 'X-RHN-Proxy-Auth' in _oto:
+            log_debug(5, 'X-RHN-Proxy-Auth currently set to: %s' % repr(_oto['X-RHN-Proxy-Auth']))
+        else:
+            log_debug(5, 'X-RHN-Proxy-Auth is not set'
 
         if self.req.headers_in.has_key('X-RHN-Proxy-Auth'):
-            tokens = _oto['X-RHN-Proxy-Auth'].split(',')
+            tokens = []
+            if 'X-RHN-Proxy-Auth' in _oto:
+                tokens = _oto['X-RHN-Proxy-Auth'].split(',')
             log_debug(5, 'Tokens: %s' % tokens)
 
         # GETs: authenticate user, and service local GETs.
