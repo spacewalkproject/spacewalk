@@ -52,7 +52,7 @@ public class ConfigChannelTag extends TagSupport {
     public int doEndTag() throws JspException {
         StringBuilder result = new StringBuilder();
         if (nolink || id == null) {
-            writeIcon();
+            result.append(writeIcon());
             result.append(name);
         }
         else {
