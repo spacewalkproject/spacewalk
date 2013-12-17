@@ -23,3 +23,7 @@ blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient sm
 [spacewalk-nightly-fedora19]
 disttag = .fc19
 blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm apt-spacewalk python-hwdata oracle-rhnsat-selinux mod_perl nodejs-less nodejs scons v8 gyp http-parser libuv c-ares19 nodejs-packaging
+
+[spacewalk-nightly-fedora20]
+disttag = .fc20
+blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm apt-spacewalk python-hwdata oracle-rhnsat-selinux mod_perl nodejs-less nodejs scons v8 gyp http-parser libuv c-ares19 nodejs-packaging
