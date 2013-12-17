@@ -21,12 +21,14 @@
                         <label class="col-lg-3 control-label"><bean:message key="userdetails.jsp.adminRoles"/>:</label>
                         <div class="col-lg-6">
                             <c:forEach items="${adminRoles}" var="role">
-                                <label>
-                                    <input type="checkbox" name="role_${role.value}"
-                                           <c:if test="${role.selected}">checked="true"</c:if>
-                                           <c:if test="${role.disabled}">disabled="true"</c:if>/>
-                                    ${role.name}
-                                </label>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="role_${role.value}"
+                                               <c:if test="${role.selected}">checked="true"</c:if>
+                                               <c:if test="${role.disabled}">disabled="true"</c:if>/>
+                                        ${role.name}
+                                    </label>
+                                </div>
                             </c:forEach>
                         </div>
                     </div>
@@ -36,16 +38,19 @@
                         </label>
                         <div class="col-lg-6">
                             <c:forEach items="${regularRoles}" var="role">
-                                <label>
-                                    <input type="checkbox" name="role_${role.value}"
-                                           <c:if test="${role.selected}">checked="true"</c:if>
-                                           <c:if test="${role.disabled}">disabled="true"</c:if>/>
-                                    ${role.name}
-                                </label>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="role_${role.value}"
+                                               <c:if test="${role.selected}">checked="true"</c:if>
+                                               <c:if test="${role.disabled}">disabled="true"</c:if>/>
+                                        ${role.name}
+                                    </label>
+                                </div>
                             </c:forEach>
                             <c:if test="${orgAdmin}">
-
-                                <bean:message key="userdetails.jsp.grantedByOrgAdmin"/>
+                                <p class="form-control-static">
+                                    <small><bean:message key="userdetails.jsp.grantedByOrgAdmin"/></small>
+                                </p>
                             </c:if>
                         </div>
                     </div>
@@ -53,18 +58,22 @@
                         <label class="col-lg-3 control-label">
                             <bean:message key="created.displayname"/>
                         </label>
-                        <label class="col-lg-6">
-                            ${created}
-                        </label>
+                        <div class="col-lg-6">
+                            <p class="form-control-static">
+                                ${created}
+                            </p>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-lg-3 control-label">
                             <bean:message key="last_sign_in.displayname"/>
                         </label>
-                        <label class="col-lg-6">
-                            ${lastLoggedIn}
-                        </label>
+                        <div class="col-lg-6">
+                             <p class="form-control-static">
+                                 ${lastLoggedIn}
+                             </p>
+                        </div>
                     </div>
 
                     <input type="hidden" name="disabledRoles" value="${disabledRoles}"/>
