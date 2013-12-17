@@ -12,7 +12,7 @@
 			<rhn:icon type="header-system-groups" title="<bean:message key='toolbar.work.with.group' />" />
      			<bean:message key="toolbar.work.with.group"/>
      		</a>
-     	    <a href="/network/systems/groups/delete_confirm.pxt?sgid=${systemgroup.id}">
+                        <a href="/rhn/groups/Delete.do?sgid=${systemgroup.id}">
 				<rhn:icon type="item-del" title="<bean:message key='toolbar.delete.systemgroup'/>" />
 				<bean:message key="toolbar.delete.systemgroup"/>
 			</a>

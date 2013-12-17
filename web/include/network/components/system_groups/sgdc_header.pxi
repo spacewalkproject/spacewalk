@@ -15,7 +15,7 @@
                misc-icon="header-system-groups"
                misc-text="work with group"
                deletion-type="group"
-               deletion-url="delete_confirm.pxt?sgid={formvar:sgid}"
+               deletion-url="/rhn/groups/Delete.do?sgid={formvar:sgid}"
                deletion-acl="user_role(system_group_admin)">
 	<rhn-server-group-name />
   </rhn-toolbar>
