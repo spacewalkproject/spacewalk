@@ -5318,6 +5318,21 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="systemgroup.details.admincount">
           <source>group administrator(s)</source>
         </trans-unit>
+        <trans-unit id="systemgroup.delete.title">
+          <source>System Group Deletion Confirmation</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.delete.subtitle">
+          <source>This will delete the following System Group: {1}{0}{2}</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.delete.summary">
+          <source>Note that this will only delete the system group itself, {0}not{1} any current systems that happen to be members.</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.delete.confirm">
+          <source>Confirm Deletion</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.delete.deleted">
+          <source>System group "{0}" deleted.</source>
+        </trans-unit>
       </group>
       <group>
         <context-group name="ctx">

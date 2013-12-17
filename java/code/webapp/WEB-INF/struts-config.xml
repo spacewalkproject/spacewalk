@@ -1165,6 +1165,12 @@
       <form-property name="submitted"   type="java.lang.Boolean" />
     </form-bean>
 
+    <form-bean name="deleteSystemGroupForm"
+      type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
+      <form-property name="sgid" type="java.lang.Long" />
+      <form-property name="submitted"   type="java.lang.Boolean" />
+    </form-bean>
+
     <form-bean name="editSystemGroupForm"
       type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
       <form-property name="name" type="java.lang.String" />
@@ -3939,6 +3945,21 @@
                       path="/groups/GroupDetail.do"
                       redirect="true" />
      </action>
+
+    <action path="/groups/Delete"
+        scope="request"
+        name="deleteSystemGroupForm"
+        input="/WEB-INF/pages/groups/delete.jsp"
+        type="com.redhat.rhn.frontend.action.token.DeleteGroupAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        >
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <set-property property="acls" value="user_role(system_group_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/groups/delete.jsp"/>
+        <forward name="success" redirect = "true"
+                 path="/systems/SystemGroupList.do"/>
+    </action>
 
      <action path="/systems/details/configuration/ViewModifyCentralPaths"
          scope="request"
