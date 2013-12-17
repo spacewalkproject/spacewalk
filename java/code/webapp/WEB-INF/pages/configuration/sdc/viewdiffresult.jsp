@@ -4,14 +4,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <head>
     <meta name="name" value="sdc.config.jsp.header" />
 </head>
 <body>
 <c:set var="revisionBean" value="${requestScope.revisionBean}"/>
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
-<h2><img class="h2-image" src="${cfg:systemHeaderIcon()}"/>
-<bean:message key="sdc.config.header.diff_result"/></h2>
+<rhn:toolbar base="h2" icon="header-configuration">
+<bean:message key="sdc.config.header.diff_result"/>
+</rhn:toolbar>
 <p>
 
 <c:set var="path"
@@ -42,10 +44,7 @@
          type = "${channel.configChannelType.label}"
 		/></strong></c:set>
 
-<c:set var="systemValue"><strong><cfg:system
-		 name = "${requestScope.system.name}"
-		 id = "${requestScope.system.id}"
-		/></strong></c:set>
+<c:set var="systemValue"><strong><a href="/rhn/systems/details/configuration/Overview.do?sid=${current.id}"><rhn:icon type="header-system" /> ${fn:escapeXml(current.name)} </a></strong></c:set>
 
 
 <table class="details">

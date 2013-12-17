@@ -63,26 +63,6 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
-    <tag>
-        <name>system</name>
-        <tag-class>com.redhat.rhn.frontend.configuration.tags.ConfigSystemTag</tag-class>
-        <body-content>empty</body-content>
-        <attribute>
-			<name>id</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-			<name>name</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-			<name>nolink</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-    </tag>
 
 	<function>
 		  <name>channelUrl</name>
@@ -138,21 +118,5 @@
 		  <name>fileAlt</name>
 		  <function-class>com.redhat.rhn.frontend.configuration.tags.ConfigFileTag</function-class>
 		  <function-signature>java.lang.String getAltKeyFor(java.lang.String)</function-signature>
-	</function>				
-	
-	<function>
-		  <name>systemHeaderIcon</name>
-		  <function-class>com.redhat.rhn.frontend.configuration.tags.ConfigSystemTag</function-class>
-		  <function-signature>java.lang.String getHeaderIconFor()</function-signature>
 	</function>
-	<function>
-		  <name>systemListIcon</name>
-		  <function-class>com.redhat.rhn.frontend.configuration.tags.ConfigSystemTag</function-class>
-		  <function-signature>java.lang.String getListIconFor()</function-signature>
-	</function>	
-	<function>
-		  <name>systemAlt</name>
-		  <function-class>com.redhat.rhn.frontend.configuration.tags.ConfigSystemTag</function-class>
-		  <function-signature>java.lang.String getAltKeyFor()</function-signature>
-	</function>				
 </taglib>

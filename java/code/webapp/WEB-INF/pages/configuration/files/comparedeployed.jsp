@@ -29,7 +29,7 @@
     <rhn:set value="${current.id}"/>
 
     <rhn:column header="system.common.systemName">
-      <cfg:system id="${current.id}" name="${current.name}" />
+      <a href="/rhn/systems/details/configuration/Overview.do?sid=${current.id}"><rhn:icon type="header-system" /> ${fn:escapeXml(current.name)} </a>
     </rhn:column>
 
     <rhn:column header="comparedeployed.jsp.deployed">

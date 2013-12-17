@@ -3,6 +3,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/config-managment" prefix="cfg" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <c:set var="beanarg" scope="request">
   <cfg:channel id="${channel.id}"
@@ -25,7 +26,7 @@
 		<rhn:listdisplay filterBy="system.common.systemName" set="${requestScope.set}">
       		<rhn:set value="${current.id}" disabled="${not current.selectable}"/>
 			<rhn:column header="globaldeploy.jsp.systemName-header">
-        	  <cfg:system id="${current.id}" name="${current.name}" /><c:if test="${not current.deployable}">*</c:if>
+        	  <a href="/rhn/systems/details/configuration/Overview.do?sid=${current.id}"><rhn:icon type="header-system" /> ${fn:escapeXml(current.name)} </a><c:if test="${not current.deployable}">*</c:if>
     		</rhn:column>
 
 			<rhn:column header="globaldeploy.jsp.overridden-header">
