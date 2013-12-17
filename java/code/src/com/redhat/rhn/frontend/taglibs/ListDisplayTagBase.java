@@ -303,7 +303,7 @@ public class ListDisplayTagBase extends BodyTagSupport {
         HtmlTag tag = new HtmlTag("div");
         tag.setAttribute("class", "spacewalk-filter-input input-group");
 
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
 
         HtmlTag input = new HtmlTag("input");
         input.setAttribute("type", "text");
