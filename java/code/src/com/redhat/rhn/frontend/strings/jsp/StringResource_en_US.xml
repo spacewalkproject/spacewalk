@@ -14457,7 +14457,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>Overridden By</source>
         </trans-unit>
         <trans-unit id="sdc.config.file_list.revision_from">
-          <source>&lt;a href="{0}"&gt;&lt;img src ="{1}" alt="{2}"/&gt;Revision {3}&lt;/a&gt; from {4}</source>
+          <source>&lt;a href="{0}"&gt;Revision {1}&lt;/a&gt; from {2}</source>
         </trans-unit>
         <trans-unit id="sdc.config.file_list.revision">
           <source>&lt;a href="{0}"&gt;Revision {1}&lt;/a&gt;</source>

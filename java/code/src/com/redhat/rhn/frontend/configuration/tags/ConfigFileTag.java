@@ -14,13 +14,14 @@
  */
 package com.redhat.rhn.frontend.configuration.tags;
 
-import com.redhat.rhn.domain.config.ConfigFileType;
+import java.io.IOException;
+
+import com.redhat.rhn.frontend.taglibs.IconTag;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 import javax.servlet.jsp.tagext.TagSupport;
 
@@ -36,26 +37,9 @@ public class ConfigFileTag extends TagSupport {
      */
     private static final long serialVersionUID = 1582063245840138731L;
 
-    private static final Logger LOG = Logger.getLogger(ConfigFileTag.class);
-
-    public static final String DIR_ALT_KEY = "config.common.dirAlt";
-    public static final String FILE_ALT_KEY = "config.common.fileAlt";
-    public static final String SYMLINK_ALT_KEY = "config.common.symlinkAlt";
-
-
-    public static final String DIR_LIST_ICON = "/img/rhn-listicon-cfg_folder.gif";
-    public static final String FILE_LIST_ICON = "/img/rhn-listicon-cfg_file.gif";
-    public static final String SYMLINK_LIST_ICON = "/img/rhn-listicon-cfg_symlink.gif";
-
-
-    public static final String DIR_HEADER_ICON = "/img/folder-config.png";
-    public static final String FILE_HEADER_ICON = "/img/file-config.png";
-    public static final String SYMLINK_HEADER_ICON = "/img/link-config.png";
-
-
     public static final String FILE_URL = "/rhn/configuration/file/FileDetails.do";
     public static final String FILE_COMPARE_URL =
-                                    "/rhn/configuration/file/CompareRevision.do";
+                                        "/rhn/configuration/file/CompareRevision.do";
 
     /**
      * <cfg:file id=""  value="" type="file|dir" revision="" nolink="">
@@ -71,9 +55,10 @@ public class ConfigFileTag extends TagSupport {
       */
      @Override
     public int doEndTag() throws JspException {
+         StringBuilder result = new StringBuilder();
          if (nolink  || id == null) {
-             writeIcon();
-             ConfigTagHelper.write(StringEscapeUtils.escapeXml(path), pageContext);
+             result.append(writeIcon());
+             result.append(StringEscapeUtils.escapeXml(path));
          }
          else {
              String url;
@@ -84,9 +69,16 @@ public class ConfigFileTag extends TagSupport {
                  url = makeConfigFileUrl(id);
              }
 
-             ConfigTagHelper.write("<a href=\"" + url + "\">", pageContext);
-             writeIcon();
-             ConfigTagHelper.write(StringEscapeUtils.escapeXml(path) + "</a>", pageContext);
+             result.append("<a href=\"" + url + "\">");
+             result.append(writeIcon());
+             result.append(StringEscapeUtils.escapeXml(path) + "</a>");
+         }
+         JspWriter writer = pageContext.getOut();
+         try {
+             writer.write(result.toString());
+         }
+         catch (IOException e) {
+             throw new JspException(e);
          }
          return BodyTagSupport.SKIP_BODY;
      }
@@ -104,7 +96,6 @@ public class ConfigFileTag extends TagSupport {
          super.release();
      }
 
-
      /**
       * @param val the id to set
       */
@@ -113,7 +104,6 @@ public class ConfigFileTag extends TagSupport {
          this.id = val;
      }
 
-
      /**
       * @param isNoLink the nolink to set
       */
@@ -121,14 +111,12 @@ public class ConfigFileTag extends TagSupport {
          this.nolink = Boolean.TRUE.toString().equalsIgnoreCase(isNoLink);
      }
 
-
      /**
       * @param tp the type to set
       */
      public void setType(String tp) {
          this.type = tp;
      }
-
 
      /**
       * @param value the value to set
@@ -144,44 +132,23 @@ public class ConfigFileTag extends TagSupport {
          this.revisionId = rev;
      }
 
-     private void writeIcon() throws JspException {
-         if (checkType()) {
-             if ("dir".equalsIgnoreCase(type) ||
-                     "directory".equalsIgnoreCase(type) ||
-                     "folder".equalsIgnoreCase(type)) {
-                 ConfigTagHelper.writeIcon(DIR_LIST_ICON, DIR_ALT_KEY, pageContext);
-             }
-             else if ("symlink".equalsIgnoreCase(type)) {
-                 ConfigTagHelper.writeIcon(SYMLINK_LIST_ICON, SYMLINK_ALT_KEY, pageContext);
-             }
-             else {
-                 ConfigTagHelper.writeIcon(FILE_LIST_ICON,
-                                             FILE_ALT_KEY, pageContext);
-             }
+     private String writeIcon() throws JspException {
+         IconTag i = new IconTag();
+         i.setParent(getParent());
+         i.setPageContext(pageContext);
+         if ("dir".equalsIgnoreCase(type) || "directory".equalsIgnoreCase(type) ||
+                 "folder".equalsIgnoreCase(type)) {
+             i.setType("file-directory");
+         }
+         else if ("symlink".equalsIgnoreCase(type)) {
+             i.setType("file-symlink");
          }
          else {
-             ConfigTagHelper.writeErrorIcon(pageContext);
+             i.setType("file-file");
          }
-     }
-
-     /**
-      * Checks to see if no invalid values are specified
-      */
-     private boolean checkType() {
-         if ((StringUtils.isBlank(id) && StringUtils.isBlank(path)) ||
-             (StringUtils.isBlank(type))) {
-             return false;
-         }
-         try {
-             ConfigFileType.lookup(type);
-             return true;
-         }
-         catch (IllegalArgumentException ie) {
-             String message = String.format("Error encoountered when " +
-                                                     "handling -> %s  -  %s", id, path);
-             LOG.warn(message + "\n" + ie.toString(), ie);
-             return false;
-         }
+         String result = i.renderStartTag();
+         i.release();
+         return result;
      }
 
      /**
@@ -228,69 +195,4 @@ public class ConfigFileTag extends TagSupport {
         return FILE_COMPARE_URL + "?cfid=" + fileId;
     }
 
-    /**
-      * Returns the Header icon image path for given config file type (file|dir)
-      * This method is public static because
-      * EL functions defined in a TLD file,
-      * need to be public static methods..
-      *
-      * @param type (file|dir)
-      * @return the image path
-      */
-     public static final String getHeaderIconFor(String type) {
-
-         if ("dir".equalsIgnoreCase(type) ||
-                 "directory".equalsIgnoreCase(type) ||
-                 "folder".equalsIgnoreCase(type)) {
-             return DIR_HEADER_ICON;
-         }
-         else if ("symlink".equalsIgnoreCase(type) ||
-                 "link".equalsIgnoreCase(type)) {
-             return SYMLINK_HEADER_ICON;
-         }
-         return FILE_HEADER_ICON;
-     }
-
-     /**
-      * Returns the Header icon image path for given config file type (file|dir|symlink)
-      * This method is public static because
-      * EL functions defined in a TLD file,
-      * need to be public static methods..
-      *
-      * @param type (file|dir)
-      * @return the image path
-      */
-     public static final String getListIconFor(String type) {
-
-         if ("dir".equalsIgnoreCase(type) ||
-                 "directory".equalsIgnoreCase(type) ||
-                 "folder".equalsIgnoreCase(type)) {
-             return DIR_LIST_ICON;
-         }
-         else if ("symlink".equalsIgnoreCase(type)) {
-             return SYMLINK_LIST_ICON;
-         }
-         return FILE_LIST_ICON;
-     }
-
-
-     /**
-      * Returns the Header alt key  for a given config file type (file|dir|symlink)
-      * This method is public static because
-      * EL functions defined in a TLD file,
-      * need to be public static methods..
-      * @param type (file|dir)
-      * @return the alt key
-      */
-     public static final String getAltKeyFor(String type) {
-         if ("dir".equalsIgnoreCase(type) ||
-                 "directory".equalsIgnoreCase(type) ||
-                 "folder".equalsIgnoreCase(type)) {
-             return DIR_ALT_KEY;
-         }
-         else if ("symlink".equalsIgnoreCase(type)) {
-             return SYMLINK_ALT_KEY;
-         }
-         return FILE_ALT_KEY;
-     }
 }
