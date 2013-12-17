@@ -32,7 +32,7 @@
         <li class="list-group-item">
             <div class="row">
                 <div class="col-sm-2">
-                    <rhn:icon type="header-errata" title='<bean:message key="ssm.overview.errata'/>" />
+                    <rhn:icon type="header-errata" title="<bean:message key='ssm.overview.errata'/>" />
                     <bean:message key="ssm.overview.errata"/>
                 </div>
                 <div class="col-sm-10">
