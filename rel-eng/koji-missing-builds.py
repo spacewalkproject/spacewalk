@@ -36,7 +36,8 @@ distmap = {'rhel6':'.el6',
            'rhel5':'.el5',
            'rhel4':'.el4',
            'fedora18':'.fc18',
-           'fedora19':'.fc19'}
+           'fedora19':'.fc19',
+           'fedora20':'.fc20'}
 
 distsuffix = ''
 tag = args[0]
