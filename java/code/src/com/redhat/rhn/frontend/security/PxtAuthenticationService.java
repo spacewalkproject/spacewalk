@@ -21,15 +21,14 @@ import com.redhat.rhn.frontend.servlets.PxtSessionDelegate;
 
 import org.apache.commons.collections.set.UnmodifiableSet;
 import org.apache.commons.lang.StringUtils;
-
 import java.io.IOException;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * PxtAuthenticationService
@@ -203,24 +202,29 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
         try {
             StringBuffer redirectURI = new StringBuffer(request.getRequestURI());
             String params = ServletUtils.requestParamsToQueryString(request);
-            String requestMethod = request.getMethod();
             // don't want to put the ? in the url if there are no params
             if (!StringUtils.isEmpty(params)) {
                 redirectURI.append("?");
-                redirectURI.append(ServletUtils.requestParamsToQueryString(request));
+                redirectURI.append(params);
             }
-
+            String urlBounce = redirectURI.toString();
             if (redirectURI.length() > MAX_URL_LENGTH) {
-                request.setAttribute("url_bounce", LoginAction.DEFAULT_URL_BOUNCE);
-            }
-            else {
-                request.setAttribute("url_bounce", redirectURI.toString());
+                urlBounce = LoginAction.DEFAULT_URL_BOUNCE;
             }
 
-            request.setAttribute("request_method", requestMethod);
+            HttpSession hs = request.getSession();
+            if (hs != null) {
+                hs.setAttribute("url_bounce", urlBounce);
+                hs.setAttribute("request_method", request.getMethod());
+            }
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/ReLogin.do");
-            dispatcher.forward(request, response);
+            // in case of logout, let's redirect to Login2.go
+            // not to be immediately logged in via Kerberos ticket
+            if (urlBounce.equals("/rhn/")) {
+                response.sendRedirect("/rhn/Login2.do");
+                return;
+            }
+            response.sendRedirect("/rhn/Login.do");
         }
         catch (IOException e) {
             throw new ServletException(e);

@@ -23,7 +23,6 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
-import com.redhat.rhn.frontend.servlets.PxtSessionDelegateFactory;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.acl.AclManager;
@@ -38,14 +37,13 @@ import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * LoginSetupAction
@@ -113,30 +111,6 @@ public class LoginSetupAction extends RhnAction {
             return mapping.findForward("loggedin");
         }
 
-        // ok handle the case where we're doing the ReLogin page
-        String urlBounce = (String) request.getAttribute("url_bounce");
-        String requestMethod = (String) request.getAttribute("request_method");
-
-        if (!StringUtils.isEmpty(urlBounce)) {
-
-            if (log.isDebugEnabled()) {
-                log.debug("request.getAttribute(url_bounce): " + urlBounce);
-            }
-
-            DynaActionForm f = (DynaActionForm)form;
-            f.set("url_bounce", urlBounce);
-        }
-
-        if (!StringUtils.isEmpty(requestMethod)) {
-
-            if (log.isDebugEnabled()) {
-                log.debug("request.getAttribute(request_method): " + requestMethod);
-            }
-
-            DynaActionForm f = (DynaActionForm)form;
-            f.set("request_method", requestMethod);
-        }
-
         String remoteUserString = request.getRemoteUser();
         if (remoteUserString != null) {
 
@@ -195,19 +169,25 @@ public class LoginSetupAction extends RhnAction {
                 }
             }
             if (remoteUser != null) {
-                remoteUser.setLastLoggedIn(new Date());
-                UserManager.storeUser(remoteUser);
-
-                PxtSessionDelegateFactory.getInstance().newPxtSessionDelegate().
-                    updateWebUserId(request, response, remoteUser.getId());
                 if (remoteUser.getPassword().equals(DEFAULT_KERB_USER_PASSWORD)) {
                     createMessage(request, "message.kerbuserlogged",
                             new String [] {remoteUserString});
+                }
+                if (LoginAction.successfulLogin(request, response, remoteUser)) {
+                    return null;
                 }
                 return mapping.findForward("loggedin");
             }
         }
 
+        // store url_bounce set by pxt pages
+        String urlBounce = request.getParameter("url_bounce");
+        if (!StringUtils.isBlank(urlBounce)) {
+            HttpSession hs = request.getSession();
+            if (hs != null) {
+                hs.setAttribute("url_bounce", urlBounce);
+            }
+        }
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 

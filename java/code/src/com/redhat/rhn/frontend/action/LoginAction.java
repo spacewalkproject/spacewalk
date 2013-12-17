@@ -14,19 +14,17 @@
  */
 package com.redhat.rhn.frontend.action;
 
-import com.redhat.rhn.common.db.ConstraintViolationException;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
-import com.redhat.rhn.frontend.servlets.PxtSessionDelegate;
 import com.redhat.rhn.frontend.servlets.PxtSessionDelegateFactory;
-import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.satellite.CertificateManager;
 import com.redhat.rhn.manager.user.UserManager;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.StopWatch;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
@@ -38,10 +36,12 @@ import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.security.auth.login.LoginException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * LoginAction
@@ -51,20 +51,6 @@ public class LoginAction extends RhnAction {
 
     private static Logger log = Logger.getLogger(LoginAction.class);
     public static final String DEFAULT_URL_BOUNCE = "/rhn/YourRhn.do";
-
-    // It is OK to maintain a PxtSessionDelegate instance because PxtSessionDelegate
-    // objects do not maintain client state.
-    private PxtSessionDelegate pxtDelegate;
-
-    /**
-     * Initialize the action.
-     */
-    public LoginAction() {
-        PxtSessionDelegateFactory pxtDelegateFactory =
-            PxtSessionDelegateFactory.getInstance();
-
-        pxtDelegate = pxtDelegateFactory.newPxtSessionDelegate();
-    }
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -92,96 +78,87 @@ public class LoginAction extends RhnAction {
             addErrors(request, errors);
             return mapping.findForward("failure");
         }
-        String username = (String) f.get("username");
-        String password = (String) f.get("password");
-        String urlBounce = (String) f.get("url_bounce");
-        String requestMethod = (String) f.get("request_method");
 
         ActionErrors e = new ActionErrors();
-        User user = loginUser(username, password, request, response, e);
-        RequestContext ctx = new RequestContext(request);
+        User user = loginUser((String) f.get("username"), (String) f.get("password"),
+                request, response, e);
 
         if (e.isEmpty()) {
-            if (urlBounce == null || urlBounce.trim().equals("") ||
-                    urlBounce.equals("/rhn/")) {
-                if (log.isDebugEnabled()) {
-                    log.debug("2 - url bounce is empty using [" + DEFAULT_URL_BOUNCE + "]");
-                }
-                urlBounce = DEFAULT_URL_BOUNCE;
-            }
-            if (requestMethod.equals("POST")) {
-                if (log.isDebugEnabled()) {
-                    log.debug("2 - POST method used, using default url bounce [" +
-                        DEFAULT_URL_BOUNCE + "]");
-                }
-                urlBounce = DEFAULT_URL_BOUNCE;
-            }
-            if (urlBounce.trim().endsWith("Logout.do")) {
-                if (log.isDebugEnabled()) {
-                    log.debug(" - handling special case of url_bounce=Logout.do");
-                }
-                urlBounce = DEFAULT_URL_BOUNCE;
-            }
-            if (!urlBounce.trim().startsWith("/")) {
-                if (log.isDebugEnabled()) {
-                    log.debug("2 - url bounce is not local using [" +
-                                         DEFAULT_URL_BOUNCE + "]");
-                }
-                urlBounce = DEFAULT_URL_BOUNCE;
-            }
-            if (user != null) {
-                try {
-                    publishUpdateErrataCacheEvent(user.getOrg());
-                }
-                catch (ConstraintViolationException ex) {
-                    log.error(ex);
-                    User loggedInUser = ctx.getLoggedInUser();
-                    if (loggedInUser != null) {
-                        request.setAttribute("loggedInUser", loggedInUser.getLogin());
-                    }
-                    ret = mapping.findForward("error");
-                    return ret;
-                }
-
-            }
-
-            if (log.isDebugEnabled()) {
-                log.debug("5 - redirecting to [" + urlBounce + "]");
-            }
-            if (user != null) {
-                pxtDelegate.updateWebUserId(request, response, user.getId());
-
-                try {
-                    response.sendRedirect(urlBounce);
-                    return null;
-                }
-                catch (IOException ioe) {
-                    throw new RuntimeException(
-                            "Exception while trying to redirect: " + ioe);
-                }
-            }
+            successfulLogin(request, response, user);
         }
         else {
-            if (log.isDebugEnabled()) {
-                log.debug("6 - forwarding to failure");
-            }
-
             performGracePeriodCheck(request);
-
             addErrors(request, e);
-            request.setAttribute("url_bounce", urlBounce);
             ret = mapping.findForward("failure");
         }
-        if (log.isDebugEnabled()) {
-            log.debug("7 - returning");
-        }
+
         return ret;
+    }
+
+    /** static method shared by LoginAction and LoginSetupAction
+     * @param request actual request
+     * @param response actual reponse
+     * @param user logged in user
+     * @return returns true, if redirect
+     */
+    public static boolean successfulLogin(HttpServletRequest request,
+            HttpServletResponse response, User user) {
+        // set last logged in
+        user.setLastLoggedIn(new Date());
+        UserManager.storeUser(user);
+        // update session with actual user
+        PxtSessionDelegateFactory.getInstance().newPxtSessionDelegate().
+            updateWebUserId(request, response, user.getId());
+
+        publishUpdateErrataCacheEvent(user.getOrg());
+        // redirect, if url_bounce set
+        HttpSession ws = request.getSession(false);
+        if (ws != null) {
+            String urlBounce = LoginAction.updateUrlBounce(
+                    (String) ws.getAttribute("url_bounce"),
+                    (String) ws.getAttribute("request_method"));
+            try {
+                if (urlBounce != null) {
+                    log.info("redirect: " + urlBounce);
+                    response.sendRedirect(urlBounce);
+                    return true;
+                }
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * update url_bounce
+     * @param urlBounce url_bounce
+     * @param requestMethod request method
+     * @return updated url_bounce
+     */
+    public static String updateUrlBounce(String urlBounce, String requestMethod) {
+        if (StringUtils.isBlank(urlBounce)) {
+            urlBounce = DEFAULT_URL_BOUNCE;
+        }
+        else {
+            String urlBounceTrimmed = urlBounce.trim();
+            if (urlBounceTrimmed.equals("/rhn/") ||
+                    urlBounceTrimmed.endsWith("Logout.do") ||
+                    !urlBounceTrimmed.startsWith("/")) {
+                urlBounce = DEFAULT_URL_BOUNCE;
+            }
+        }
+        if (requestMethod != null && requestMethod.equals("POST")) {
+            urlBounce = DEFAULT_URL_BOUNCE;
+        }
+        return urlBounce;
     }
 
     /**
      * @param orgIn
      */
-    private void publishUpdateErrataCacheEvent(Org orgIn) {
+    private static void publishUpdateErrataCacheEvent(Org orgIn) {
         StopWatch sw = new StopWatch();
         if (log.isDebugEnabled()) {
             log.debug("Updating errata cache");

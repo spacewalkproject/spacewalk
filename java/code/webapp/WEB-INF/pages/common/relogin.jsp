@@ -25,8 +25,6 @@
       <html:form styleId="loginForm" styleClass="form-horizontal col-md-6 col-md-offset-3 text-left" action="/ReLoginSubmit">
         <rhn:csrf />
         <%@ include file="/WEB-INF/pages/common/fragments/login_form.jspf" %>
-        <html:hidden property="url_bounce" />
-        <html:hidden property="request_method" />
       </html:form>
 
       <c:set var="legal_note" scope="page" value="${rhn:getConfig('java.legal_note')}" />
