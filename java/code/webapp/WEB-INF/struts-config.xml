@@ -3944,6 +3944,17 @@
                       path="/WEB-INF/pages/groups/erratalist.jsp" />
      </action>
 
+     <action path="/groups/SystemsAffected"
+             scope="request"
+             type="com.redhat.rhn.frontend.action.groups.ErrataSystemsAffectedAction"
+             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+             <set-property property="postRequiredIfSubmitted" value="true" />
+             <forward name="default"
+                      path="/WEB-INF/pages/groups/erratasystemsaffected.jsp" />
+             <forward name="confirm"
+                      path="/errata/details/SystemsAffectedSubmit.do" />
+     </action>
+
      <action path="/groups/EditGroup"
              scope="request"
              type="com.redhat.rhn.frontend.action.groups.EditGroupAction"

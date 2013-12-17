@@ -951,6 +951,33 @@ SELECT  E.id, E.advisory, E.advisory_name, E.advisory_type, E.update_date, E.syn
 ORDER BY  E.update_date DESC
 </query>
 
+<mode name="in_group_and_affected_by_errata" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="eid, user_id, sgid">
+  SELECT S.ID, S.name,
+         (SELECT 1
+            FROM rhnServerFeaturesView SFV
+           WHERE SFV.server_id = S.id
+             AND SFV.label = 'ftr_system_grouping') AS selectable
+    FROM rhnServer S, rhnServerGroupMembers SGM
+   WHERE EXISTS (SELECT 1
+                   FROM rhnServerNeededErrataCache SNEC, rhnUserServerPerms USP
+                  WHERE SNEC.errata_id = :eid
+                    AND USP.user_id = :user_id
+                    AND SNEC.server_id = USP.server_id
+                    AND USP.server_id = S.id)
+    AND SGM.server_group_id = :sgid
+    AND SGM.server_id = S.id
+    AND EXISTS (SELECT 1 FROM rhnServerFeaturesView SFV
+                 WHERE SFV.server_id = S.id
+                   AND SFV.label = 'ftr_system_grouping')
+ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+  <elaborator name="entitlements" />
+  <elaborator name="is_virtual_guest" />
+  <elaborator name="is_virtual_host" />
+</mode>
+
 <mode name="in_set_and_affected_by_errata" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="eid, user_id">
   SELECT S.ID, S.name,

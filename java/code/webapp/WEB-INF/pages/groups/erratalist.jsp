@@ -52,7 +52,7 @@
         </rl:column>
         <rl:column headerkey="erratalist.jsp.systems"
                    styleclass="text-align: center;">
-            <a href="/network/systems/groups/systems_affected_by_errata.pxt?sgid=${systemgroup.id}&amp;eid=${current.id}">${current.affectedSystemCount}</a>
+            <a href="/rhn/groups/SystemsAffected.do?sgid=${systemgroup.id}&amp;eid=${current.id}">${current.affectedSystemCount}</a>
         </rl:column>
         <c:if test="${displayCves}">
             <rl:column headerkey="erratalist.jsp.updated"
