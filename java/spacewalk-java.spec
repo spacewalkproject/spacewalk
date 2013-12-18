@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.102
+Version: 2.1.103
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Dec 18 2013 Stephen Herr <sherr@redhat.com> 2.1.103-1
+- 1039193 - fixing null pointer exception
+- fix package according to the fs path
+- fix CSVTag so it uses IconTag
+- fix ListDisplayTag so it uses IconTag
+- removing dead code, exception is thrown within lookupAndBindServerGroup
+- removing dead code, exception is thrown within lookupAndBindServerGroup
+
 * Tue Dec 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.102-1
 - delete ConfigSystemTag as these things are easily handled in jsp
 - Local variables need not to be synchronized
