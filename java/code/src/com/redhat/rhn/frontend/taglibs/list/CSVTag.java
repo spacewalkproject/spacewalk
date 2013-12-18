@@ -19,6 +19,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.frontend.action.CSVDownloadAction;
 import com.redhat.rhn.frontend.dto.SystemSearchPartialResult;
 import com.redhat.rhn.frontend.dto.SystemSearchResult;
+import com.redhat.rhn.frontend.taglibs.IconTag;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 
 import java.util.HashMap;
@@ -196,10 +197,15 @@ public class CSVTag extends BodyTagSupport {
     private void renderExport() throws JspException {
         StringBuffer page = new StringBuffer(CSV_DOWNLOAD_URI);
         page.append("?" + makeCSVRequestParams());
+        IconTag i = new IconTag();
+        i.setParent(getParent());
+        i.setPageContext(pageContext);
+        i.setType("item-download-csv");
         String exportLink = new String("<div class=\"spacewalk-csv-download\"><a href=\"" +
-                page + "\"><i class=\"spacewalk-icon-download-csv\"></i>" +
+                page + "\">" + i.renderStartTag() +
                 LocalizationService.getInstance().getMessage(
                         "listdisplay.csv") + "</a></div>");
+        i.release();
         ListTagUtil.write(pageContext, exportLink);
     }
 
