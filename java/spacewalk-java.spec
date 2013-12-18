@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.104
+Version: 2.1.105
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Dec 18 2013 Stephen Herr <sherr@redhat.com> 2.1.105-1
+- 1044547 - kickstarts to RHEL 7 don't work because of missing rpms
+
 * Wed Dec 18 2013 Stephen Herr <sherr@redhat.com> 2.1.104-1
 - 1039193 - fix checkstyle
 
