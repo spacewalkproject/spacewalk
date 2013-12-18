@@ -293,7 +293,8 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
         if (KickstartDetailsEditAction.canSaveVirtOptions(ksdata, form)) {
             int virtMemory = (Integer) form.get(VIRT_MEMORY);
             if (ksdata.isRhel7OrGreater() && virtMemory < 768) {
-                ValidatorException.raiseException("kickstart.cobbler.profile.notenoughmemory");
+                ValidatorException
+                        .raiseException("kickstart.cobbler.profile.notenoughmemory");
             }
         }
 
