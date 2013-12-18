@@ -458,10 +458,15 @@ public class ListDisplayTag extends ListDisplayTagBase {
         if (request.getQueryString() != null) {
             page.append("&" + request.getQueryString());
         }
+        IconTag i = new IconTag();
+        i.setParent(getParent());
+        i.setPageContext(pageContext);
+        i.setType("item-download-csv");
         out.println("<div class=\"spacewalk-csv-download\"><a href=\"" + page +
-              "\"><i class=\"spacewalk-icon-download-csv\"></i>" +
+              "\">" + i.renderStartTag() +
               LocalizationService.getInstance().getMessage("listdisplay.csv") +
               "</a></div>");
+        i.release();
     }
 
     private void renderBoundsVariables(Writer out) throws IOException {
