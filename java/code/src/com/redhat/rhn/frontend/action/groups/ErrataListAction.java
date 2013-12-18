@@ -15,7 +15,6 @@
 package com.redhat.rhn.frontend.action.groups;
 
 import com.redhat.rhn.domain.server.ManagedServerGroup;
-import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
@@ -46,10 +45,6 @@ public class ErrataListAction extends RhnAction implements Listable {
 
         RequestContext requestContext = new RequestContext(request);
         ManagedServerGroup serverGroup = requestContext.lookupAndBindServerGroup();
-        if (serverGroup == null) {
-            throw new BadParameterException("Invalid " + RequestContext.SERVER_GROUP_ID +
-                                            " parameter:" + serverGroup.getId());
-        }
 
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
