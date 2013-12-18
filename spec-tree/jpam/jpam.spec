@@ -27,7 +27,9 @@ Requires: %jpackage_run_jars
 BuildRequires: %jpackage_jars
 BuildRequires: gcc make
 BuildRequires: pam-devel
+%if 0%{?fedora} && 0%{?fedora} < 20
 BuildRequires: ant-nodeps
+%endif
 BuildRequires: java-devel >= 1.6.0
 
 # ia64 doesnt have a new enough java.
