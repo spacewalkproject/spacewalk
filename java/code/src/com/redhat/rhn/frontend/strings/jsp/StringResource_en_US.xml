@@ -11552,6 +11552,75 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>scheduled action</source>
         </trans-unit>
       </group>
+      <!-- System event hisotry -->
+      <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">System Eevents Pages</context>
+        </context-group>
+        <trans-unit id="system.event.history.header">
+          <source>System History</source>
+        </trans-unit>
+        <trans-unit id="system.event.history.headerSummary">
+          <source>The following history events have been noted for this system.</source>
+        </trans-unit>
+        <trans-unit id="system.event.history.headerNoPending">
+          <source>Please note that this system has no pending events.</source>
+        </trans-unit>
+        <trans-unit id="system.event.history.headerPending">
+          <source>Please note that this system has &lt;a href="{0}"&gt;{1} pending event(s)&lt;/a&gt;.</source>
+        </trans-unit>
+        <trans-unit id="system.event.history.noevent">
+          <source>No event history for this system.</source>
+        </trans-unit>
+        <trans-unit id="system.event.history.locked">
+          <source>However, because this system is currently &lt;strong&gt;locked&lt;/strong&gt;, no system-changing events will be executed until the system is &lt;a href="{0}"&gt;unlocked&lt;/a&gt;.</source>
+        </trans-unit>
+        <trans-unit id="system.event.history.type">
+          <source>Type</source>
+        </trans-unit>
+        <trans-unit id="system.event.history.status">
+          <source>Status</source>
+        </trans-unit>
+        <trans-unit id="system.event.history.summary">
+          <source>Summary</source>
+        </trans-unit>
+        <trans-unit id="system.event.history.time">
+          <source>Time</source>
+        </trans-unit>
+      </group>
+      <!-- System event history legend -->
+      <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">System Eevents Pages Legend</context>
+        </context-group>
+        <trans-unit id="system-history-legend.jsp.type.title">
+          <source>Event Type Legend</source>
+        </trans-unit>
+        <trans-unit id="system-history-legend.jsp.type.package">
+          <source>Package Event</source>
+         </trans-unit>
+         <trans-unit id="system-history-legend.jsp.type.errata">
+           <source>Errata Event</source>
+        </trans-unit>
+        <trans-unit id="system-history-legend.jsp.type.preferences">
+          <source>Preferences Event</source>
+        </trans-unit>
+        <trans-unit id="system-history-legend.jsp.type.system">
+          <source>System Event</source>
+        </trans-unit>
+        <trans-unit id="system-hisotry-legend.jsp.status.title">
+          <source>Event Status Legend</source>
+        </trans-unit>
+        <trans-unit id="system-history-legend.status.jsp.ok">
+          <source>Complete</source>
+        </trans-unit>
+        <trans-unit id="system-history-legend.jsp.status.failed">
+          <source>Failure</source>
+        </trans-unit>
+        <trans-unit id="system-history-legend.jsp.status.running">
+          <source>Activity Occuring</source>
+        </trans-unit>
+      </group>
       <!-- Configuration Common -->
       <group>
         <context-group name="ctx">

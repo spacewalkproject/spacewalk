@@ -58,7 +58,7 @@
         <rl:decorator name="PageSizeDecorator"/>
 
         <rl:column headerkey="ssm.operations.viewlog.servers" bound="false">
-            <a href="/network/systems/details/history/history.pxt?sid=${current.id}"><c:out
+            <a href="/rhn/systems/details/history/History.do?sid=${current.id}"><c:out
                     value="${current.name}"/></a>
         </rl:column>
 

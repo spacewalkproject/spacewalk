@@ -2057,4 +2057,59 @@ select s.id as id,
   <elaborator name="is_virtual_host" />
 </mode>
 
+<mode name="system_events_history"
+  class="com.redhat.rhn.frontend.dto.SystemEventDto">
+  <query params="sid">
+select event_id as id,
+       to_char(created, 'YYYY-MM-DD HH24:MI:SS') created,
+       to_char(picked_up, 'YYYY-MM-DD HH24:MI:SS') picked_up,
+       to_char(completed, 'YYYY-MM-DD HH24:MI:SS') completed,
+       summary,
+       history_type,
+       history_type_name,
+       history_status
+  from (select SH.id event_id,
+               SH.summary summary,
+               to_timestamp(NULL, NULL) as created,
+               to_timestamp(NULL, NULL) as picked_up,
+               SH.created as completed,  -- view this as the "completed" date for sorting reasons
+               NULL as history_status,
+               NULL as history_type,
+               NULL as history_type_name
+          from rhnServerHistory SH
+         where SH.server_id = :sid
+         union
+        select SA.action_id event_id,
+               AType.name || ' scheduled by ' || NVL(U.login, '(none)') as summary,
+               SA.created,
+               SA.pickup_time as picked_up,
+               SA.completion_time as completed,
+               AStat.name as history_status,
+               AType.label as history_type,
+               AType.name as history_type_name
+          from rhnActionType AType,
+               rhnActionStatus AStat,
+               rhnAction A
+     left join web_contact U
+            on U.id = A.scheduler,
+               rhnServerAction SA
+         where SA.server_id = :sid
+           and SA.action_id = A.id
+           and ATYPE.id = A.action_type
+           and AStat.id = SA.status
+           and AStat.id IN (1, 2, 3)
+       ) X
+order by completed desc, picked_up desc, created desc, event_id desc
+  </query>
+</mode>
+
+<mode name="system_events_history_count_pending">
+  <query params="sid">
+select count(action_id)
+  from rhnServerAction
+ where server_id = :sid
+   and status = 0
+  </query>
+</mode>
+
 </datasource_modes>

@@ -3542,6 +3542,14 @@
                  path="/systems/Overview.do" redirect="true"/>
     </action>
 
+    <action path="/systems/details/history/History"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.systems.sdc.SystemHistoryAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/history.jsp"/>
+    </action>
+
     <!--System Details SSM Configuration -->
         <action path="/systems/ssm/DeleteConfirm"
         scope="request"

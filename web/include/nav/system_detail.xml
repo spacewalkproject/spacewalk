@@ -194,7 +194,7 @@
       <rhn-tab-url>/network/systems/details/history/pending.pxt</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="History">
-      <rhn-tab-url>/network/systems/details/history/history.pxt</rhn-tab-url>
+      <rhn-tab-url>/rhn/systems/details/history/History.do</rhn-tab-url>
     </rhn-tab>
   </rhn-tab>
 </rhn-navi-tree>

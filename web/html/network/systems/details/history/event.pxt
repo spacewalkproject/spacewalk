@@ -59,7 +59,7 @@
 <pxt-formvar>
 <div class="up-arrow">
 <rhn-icon type="nav-up" title="Go up"/>
-<a href="/network/systems/details/history/history.pxt?sid={formvar:sid}">Return to history list for <rhn-server-name /></a></div>
+<a href="/rhn/systems/details/history/History.do?sid={formvar:sid}">Return to history list for <rhn-server-name /></a></div>
 </pxt-formvar>
 
 
