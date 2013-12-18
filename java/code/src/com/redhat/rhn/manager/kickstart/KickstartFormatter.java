@@ -575,6 +575,15 @@ public class KickstartFormatter {
           buf.append("@ Network Support" + NEWLINE);
           buf.append("openssh-server" + NEWLINE);
         }
+
+        // packages necessary for RHEL 7
+        if (this.ksdata.isRhel7()) {
+            buf.append("perl");
+            buf.append("wget");
+            buf.append("rhn-setup");
+            buf.append("rhn-check");
+            buf.append("rhn-client-tools");
+        }
         return buf.toString();
     }
 
