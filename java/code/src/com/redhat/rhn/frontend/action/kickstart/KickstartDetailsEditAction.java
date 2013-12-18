@@ -290,9 +290,11 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
      */
     public static void processCobblerFormValues(KickstartData ksdata, DynaActionForm form,
             User user) throws ValidatorException {
-        int virtMemory = (Integer) form.get(VIRT_MEMORY);
-        if (ksdata.isRhel7OrGreater() && virtMemory < 768) {
-            ValidatorException.raiseException("kickstart.cobbler.profile.notenoughmemory");
+        if (KickstartDetailsEditAction.canSaveVirtOptions(ksdata, form)) {
+            int virtMemory = (Integer) form.get(VIRT_MEMORY);
+            if (ksdata.isRhel7OrGreater() && virtMemory < 768) {
+                ValidatorException.raiseException("kickstart.cobbler.profile.notenoughmemory");
+            }
         }
 
         CobblerProfileEditCommand cmd = new CobblerProfileEditCommand(ksdata, user);
@@ -309,7 +311,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
         }
 
         if (KickstartDetailsEditAction.canSaveVirtOptions(ksdata, form)) {
-            prof.setVirtRam(virtMemory);
+            prof.setVirtRam((Integer) form.get(VIRT_MEMORY));
             prof.setVirtCpus((Integer) form.get(VIRT_CPU));
             prof.setVirtFileSize((Integer) form.get(VIRT_DISK_SIZE));
             prof.setVirtBridge(form.getString(VIRT_BRIDGE));
