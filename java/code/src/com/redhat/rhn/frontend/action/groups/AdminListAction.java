@@ -18,7 +18,6 @@ import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.dto.UserOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -57,12 +56,6 @@ public class AdminListAction extends RhnAction implements Listable {
         RequestContext requestContext = new RequestContext(request);
         ManagedServerGroup serverGroup = requestContext.lookupAndBindServerGroup();
         User user = requestContext.getCurrentUser();
-
-        if (serverGroup == null) {
-             throw new BadParameterException("Invalid " + RequestContext.SERVER_GROUP_ID +
-                                             " parameter:" + serverGroup.getId());
-        }
-
 
         ListRhnSetHelper helper = new ListRhnSetHelper(this, request,
                 RhnSetDecl.setForSystemGroupAdmins(serverGroup));
