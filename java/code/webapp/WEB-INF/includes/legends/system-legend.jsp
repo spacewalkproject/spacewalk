@@ -5,8 +5,8 @@
   <h4><bean:message key="system-legend.jsp.title"/></h4>
   <ul>
   <li><rhn:icon type="system-ok" /><bean:message key="system-legend.jsp.fully"/></li>
-  <li><rhn:icon type="system-crit" /><bean:message key="system-legend.jsp.critical"/></li>
   <li><rhn:icon type="system-warn" /><bean:message key="system-legend.jsp.updates"/></li>
+   <li><rhn:icon type="system-crit" /><bean:message key="system-legend.jsp.critical"/></li>
   <li><rhn:icon type="system-unknown" /><bean:message key="system-legend.jsp.notcheckingin"/></li>
   <rhn:require acl="org_entitlement(sw_mgr_enterprise)">
     <li><rhn:icon type="system-locked" /><bean:message key="system-legend.jsp.locked"/></li>
