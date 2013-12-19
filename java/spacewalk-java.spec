@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.105
+Version: 2.1.106
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Dec 19 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.106-1
+- updated references to new java WorkWithGroup page
+- work_with_group.pxt rewritten to java
+- change order of system ok/warn/crit in legends
+- rewrite system event history page to java
+- give icons title in rhn:toolbar tag
+
 * Wed Dec 18 2013 Stephen Herr <sherr@redhat.com> 2.1.105-1
 - 1044547 - kickstarts to RHEL 7 don't work because of missing rpms
 
