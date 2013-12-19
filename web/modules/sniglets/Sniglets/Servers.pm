@@ -62,7 +62,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-proxy-entitlement-form' => \&proxy_entitlement_form);
 
-  $pxt->register_tag('rhn-system-pending-actions-count' => \&system_pending_actions_count);
   $pxt->register_tag('rhn-system-activation-key-form' => \&system_activation_key_form);
 
   $pxt->register_tag('rhn-remote-command-form' => \&remote_command_form);
@@ -82,28 +81,6 @@ sub register_callbacks {
 
   $pxt->register_callback('rhn:remote-command-cb' => \&remote_command_cb);
   $pxt->register_callback('rhn:package-action-command-cb' => \&package_action_command_cb);
-}
-
-sub system_pending_actions_count {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-  my $sid = $pxt->param('sid');
-  die 'no server id' unless $sid;
-
-  my $count = RHN::Server->system_pending_actions_count($sid);
-  my $plural;
-
-  if ($count > 1) {
-    $plural = 1;
-  }
-  elsif ($count eq 0) {
-    return "no pending events";
-  }
-
-  return PXT::HTML->link("/network/systems/details/history/pending.pxt?sid=$sid",
-			 "$count pending event" . ($plural ? 's' : ''));
 }
 
 # like rhn-require, only shows block if a server's version of up2date is >= required version

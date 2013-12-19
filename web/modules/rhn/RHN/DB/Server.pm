@@ -457,29 +457,6 @@ EOS
   return $ret;
 }
 
-sub system_pending_actions_count {
-  my $class = shift;
-  my $server_id = shift;
-
-  my $query = <<EOQ;
-SELECT COUNT(action_id)
-  FROM rhnServerAction
- WHERE server_id = :server_id
-   AND status = 0
-EOQ
-
-  my $dbh = RHN::DB->connect();
-  my $sth = $dbh->prepare($query);
-  $sth->execute_h(server_id => $server_id);
-
-  my ($count) = $sth->fetchrow;
-  $sth->finish;
-
-  return $count;
-}
-
-
-
 sub server_event_simple_action {
   my $class = shift;
   my $sid = shift;
