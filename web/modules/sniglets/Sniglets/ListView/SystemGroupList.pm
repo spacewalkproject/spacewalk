@@ -90,7 +90,7 @@ sub row_callback {
     $row->{MONITORING_ICON} = PXT::HTML->link("/network/systems/groups/probe_list.pxt?sgid=" . $row->{ID}, $image);
   }
 
-  my $use_group_btn = PXT::HTML->link(sprintf("/network/systems/ssm/work_with_group.pxt?sgid=%d&amp;pxt_trap=rhn:work_with_group_cb", $row->{ID}),
+  my $use_group_btn = PXT::HTML->link(sprintf("/rhn/systems/WorkWithGroup.do?sgid=%d", $row->{ID}),
 						  '<img src="/img/button-use_group.gif" border="0" valign="middle" alt="Work with '
 						  .$row->{GROUP_NAME}.' Group" title="Work with '
 						  .$row->{GROUP_NAME}.' Group" />');

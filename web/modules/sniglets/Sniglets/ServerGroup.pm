@@ -47,8 +47,6 @@ sub register_callbacks {
   $pxt->register_callback('rhn:server_group_delete_cb' => \&delete_server_group_cb);
 
   $pxt->register_callback('rhn:alter_system_group_membership_cb' => \&alter_system_group_membership_cb);
-
-  $pxt->register_callback('rhn:work_with_group_cb' => \&work_with_group_cb );
 }
 
 sub system_group_status_interface {
@@ -385,16 +383,6 @@ sub admin_server_group_edit_cb {
     }
   }
 
-}
-
-sub work_with_group_cb {
-  my $pxt = shift;
-
-  PXT::Debug->log(7, "working with group " . $pxt->param('sgid'));
-
-  RHN::Set->copy_from_group($pxt->user->id, "system_list", $pxt->param('sgid'));
-
-  $pxt->redirect("/rhn/systems/ssm/ListSystems.do");
 }
 
 1;

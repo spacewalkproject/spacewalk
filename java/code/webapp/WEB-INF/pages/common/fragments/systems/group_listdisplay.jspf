@@ -86,7 +86,7 @@
 		           headerclass="center">
 
 
-  					<c:out value="<a class=\"link-button\" href=\"/network/systems/ssm/work_with_group.pxt?sgid=${current.id}&amp;pxt_trap=rhn:work_with_group_cb\">
+                                <c:out value="<a class=\"link-button\" href=\"/rhn/systems/WorkWithGroup.do?sgid=${current.id}\">
   				${rhn:localize('grouplist.jsp.use')}</a>"  escapeXml="false" />
 
 		</rl:column>
