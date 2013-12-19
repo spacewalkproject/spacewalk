@@ -3054,6 +3054,13 @@
                    path="/WEB-INF/pages/systems/systemsearch.jsp"/>
     </action>
 
+    <action path="/systems/WorkWithGroup"
+            scope="request"
+            type="com.redhat.rhn.frontend.action.systems.WorkWithGroupAction">
+            <forward name="default"
+                     path="/systems/ssm/ListSystems.do" redirect="true" />
+    </action>
+
     <action path="/systems/details/audit/ListScap"
         scope="request"
         input="/WEB-INF/pages/systems/details/audit/listscap.jsp"
