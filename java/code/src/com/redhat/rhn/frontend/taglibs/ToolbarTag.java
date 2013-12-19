@@ -670,6 +670,7 @@ public class ToolbarTag extends TagSupport {
             i.setPageContext(pageContext);
             i.setParent(getParent());
             i.setType(iconName);
+            i.setTitle(alt);
             a.addBody(i.renderStartTag());
             i.release();
         }
