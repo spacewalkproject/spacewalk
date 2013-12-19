@@ -58,7 +58,9 @@ Group:		Development/Java
 BuildRequires:	jpackage-utils >= 0:1.6
 BuildRequires:	glibc-devel
 BuildRequires:	ant >= 0:1.6.1
+%if 0%{?fedora} && 0%{?fedora} < 20
 BuildRequires:	ant-nodeps >= 0:1.6.1
+%endif
 BuildRequires:	ant-junit
 BuildRequires:	xerces-j2
 BuildRequires:	xml-commons-apis
