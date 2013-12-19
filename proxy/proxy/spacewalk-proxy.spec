@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.1.12
+Version: 2.1.13
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -312,6 +312,9 @@ fi
 
 
 %changelog
+* Thu Dec 19 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.13-1
+- Fixed client registration via proxy
+
 * Tue Oct 01 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.12-1
 - fixed pylint deprecated-lambda warning
 
