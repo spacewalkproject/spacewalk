@@ -17,7 +17,7 @@
 
 	<rhn:column header="system.common.systemName"
 	  url="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">
-	  <rhn:icon type="header-system" title="" /> ${current.name}
+	  <rhn:icon type="header-system" /> ${current.name}
     </rhn:column>
 
     <rhn:column header="summary.jsp.error">

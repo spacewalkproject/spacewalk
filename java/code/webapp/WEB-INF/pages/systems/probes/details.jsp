@@ -126,7 +126,7 @@
         <c:if test="${requestScope.show_graph}">
             <h2><bean:message key="probedetails.jsp.graph"/></h2>
             <img src="/rhn/systems/details/probes/ProbeGraph.do?${requestScope.l10ned_selected_metrics_string}${requestScope.selected_metrics_string}startts=${requestScope.startts}&amp;endts=${requestScope.endts}&amp;sid=${system.id}&amp;probe_id=${probe.id}"/>
-            <br><a href="/rhn/systems/details/probes/ProbeGraph.do?lde=1&${requestScope.l10ned_selected_metrics_string}${requestScope.selected_metrics_string}startts=${requestScope.startts}&amp;endts=${requestScope.endts}&amp;sid=${system.id}&amp;probe_id=${probe.id}"><rhn:icon type="item-download-csv" title="" /><bean:message key="listdisplay.csv"/></a>
+            <br><a href="/rhn/systems/details/probes/ProbeGraph.do?lde=1&${requestScope.l10ned_selected_metrics_string}${requestScope.selected_metrics_string}startts=${requestScope.startts}&amp;endts=${requestScope.endts}&amp;sid=${system.id}&amp;probe_id=${probe.id}"><rhn:icon type="item-download-csv" /><bean:message key="listdisplay.csv"/></a>
             </c:if>
             <c:if test="${requestScope.show_log}">
             <h2><bean:message key="probedetails.jsp.eventlog"/></h2>
