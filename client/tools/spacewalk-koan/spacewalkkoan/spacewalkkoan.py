@@ -161,7 +161,10 @@ def initiate(kickstart_host, base, extra_append, static_device=None, system_reco
         k.kopts_override      = None
         k.use_kexec           = None
         k.embed_kickstart     =  None
-        k.grubby_copy_default = 0
+        if hasattr(k, 'no_copy_default'):
+            k.no_copy_default = 1
+        else: # older koan
+            k.grubby_copy_default = 0
         if static_device:
             k.embed_kickstart = 1
         k.run()
@@ -239,7 +242,10 @@ def initiate_guest(kickstart_host, cobbler_system_name, virt_type, name, mem_kb,
         k.add_reinstall_entry = None
         k.kopts_override      = None
         k.virt_auto_boot      = None
-        k.grubby_copy_default = 0
+        if hasattr(k, 'no_copy_default'):
+            k.no_copy_default = 1
+        else: # older koan
+            k.grubby_copy_default = 0
         k.run()
 
         # refresh current virtualization state on the server
