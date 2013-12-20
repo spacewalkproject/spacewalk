@@ -355,6 +355,10 @@ class UpstreamServer(SocketServer.TCPServer):
             if jabber_id is None:
                 # Not even online
                 continue
+            server_id = row['server_id']
+            if server_id and __reboot_in_progress(server_id):
+                # don't call when a reboot is in progress
+                continue
 
             if not self.jabber_connection.jid_available(jabber_id):
                 log_debug(4, "Node %s not available for notifications" %
@@ -406,6 +410,23 @@ def bind_server(start_port=1290):
                 raise
             port = port + 1
     return None
+
+def __reboot_in_progress(server_id):
+    """check for a reboot action for this server in status Picked Up"""
+    h = rhnSQL.prepare("""
+        select 1
+          from rhnServerAction sa
+          join rhnAction a on sa.action_id = a.id
+          join rhnActionType at on a.action_type = at.id
+         where sa.server_id = :server_id
+           and sa.status = 1 -- Picked Up
+    """)
+    h.execute(server_id = server_id)
+    ret = h.fetchone_dict() or None
+    if ret:
+        return True
+    return False
+
 
 if __name__ == '__main__':
     sys.exit(main() or 0)
