@@ -16,7 +16,7 @@
   <div class="toolbar">
     <span class="toolbar">
       <a href="/rhn/systems/details/DeleteCustomData.do?sid=${sid}&cikid=${cikid}">
-        <rhn:icon type="item-del" title="delete value" />delete value
+        <rhn:icon type="item-del" title="toolbar.delete.customdata" /><bean:message key="toolbar.delete.customdata" />
       </a>
     </span>
   </div>

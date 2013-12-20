@@ -32,10 +32,10 @@
                 <rl:column bound="false" headerkey="iss.master.isDefault"
                            styleclass="center" headerclass="center">
                     <c:if test="${current.defaultMaster}">
-                        <rhn:icon type="item-enabled" title="<bean:message key='iss.master.isDefault' />" />
+                        <rhn:icon type="item-enabled" title="iss.master.isDefault" />
                     </c:if>
                     <c:if test="${not current.defaultMaster}">
-                        <rhn:icon type="item-disabled" title="<bean:message key='iss.master.notDefault' />" />
+                        <rhn:icon type="item-disabled" title="iss.master.notDefault" />
                     </c:if>
                 </rl:column>
                 <rl:column headerkey="iss.num.master.orgs" styleclass="center" headerclass="center">

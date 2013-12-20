@@ -28,7 +28,7 @@
 
       <rhn:column header="localfilelist.jsp.system"
                   url="/rhn/systems/details/configuration/Overview.do?sid=${current.serverId}">
-         <rhn:icon type="header-system-physical" title="<bean:message key='system.common.systemAlt' />" />
+         <rhn:icon type="header-system-physical" title="system.common.systemAlt" />
     	  ${current.serverName}
       </rhn:column>
     </rhn:listdisplay>

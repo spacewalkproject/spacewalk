@@ -9,7 +9,7 @@
       <rhn:set value="${current.id}"/>
 
       <rhn:column header="ssmdiff.jsp.filename">
-        <rhn:icon type="header-file" title="<bean:message key='config.common.fileAlt' />" />
+        <rhn:icon type="header-file" title="config.common.fileAlt" />
         ${current.path}
       </rhn:column>
 

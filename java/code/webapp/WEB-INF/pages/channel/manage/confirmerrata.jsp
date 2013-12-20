@@ -24,19 +24,19 @@
 						<h2>Errata Summary:</h2>
 						<table class="details">
 							<tr>
-									<th><rhn:icon type="errata-bugfix" title="<bean:message key='erratalist.jsp.bugadvisory' />" />
+									<th><rhn:icon type="errata-bugfix" title="erratalist.jsp.bugadvisory" />
 										Bug Fix Advisory:
 									</th>
 									<td>${bug_count}</td>
 							</tr>
 							<tr>
-									<th><rhn:icon type="errata-enhance" title="<bean:message key='erratalist.jsp.productenhancementadvisory' />" />
+									<th><rhn:icon type="errata-enhance" title="erratalist.jsp.productenhancementadvisory" />
 										Product Enhancement Advisory:
 									</th>
 									<td>${enhance_count}</td>
 							</tr>
 							<tr>
-									<th><rhn:icon type="errata-security" title="<bean:message key='erratalist.jsp.securityadvisory' />" />
+									<th><rhn:icon type="errata-security" title="erratalist.jsp.securityadvisory" />
 										Security Advisory:
 									</th>
 									<td>${secure_count}</td>

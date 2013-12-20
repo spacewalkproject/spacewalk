@@ -13,12 +13,12 @@
         <div class="toolbar">
             <span class="toolbar">
                 <a href="/rhn/systems/details/SoftwareCrashDelete.do?crid=${crid}&sid=${sid}">
-                    <rhn:icon type="item-del" title="<bean:message key='toolbar.delete.crash'/>" />
+                    <rhn:icon type="item-del" title="toolbar.delete.crash" />
                     <bean:message key="toolbar.delete.crash"/>
                 </a>
             </span>
         </div>
-        <rhn:icon type="header-crash" title="<bean:message key='info.alt.img' />" />
+        <rhn:icon type="header-crash" title="info.alt.img" />
         ${fn:escapeXml(crash.crash)}
     </div>
 

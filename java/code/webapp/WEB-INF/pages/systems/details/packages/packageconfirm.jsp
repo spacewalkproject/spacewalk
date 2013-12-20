@@ -53,7 +53,7 @@
             <th><bean:message key="confirm.jsp.than"/></th>
           </tr>
           <tr>
-            <th><rhn:icon type="header-schedule" title="<bean:message key='confirm.jsp.selection' />" />
+            <th><rhn:icon type="header-schedule" title="confirm.jsp.selection" />
             </th>
             <td>
               <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">

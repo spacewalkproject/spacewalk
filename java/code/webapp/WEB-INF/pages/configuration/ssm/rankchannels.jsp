@@ -13,7 +13,7 @@
     <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
 
 <h2>
-  <rhn:icon type="header-configuration" title="<bean:message key='config.common.channelsAlt' />" />
+  <rhn:icon type="header-configuration" title="config.common.channelsAlt" />
   <bean:message key="ssm.config.rank.jsp.header" />
 </h2>
 <h3><bean:message key="ssm.config.rank.jsp.step"/></h3>

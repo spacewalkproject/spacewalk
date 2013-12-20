@@ -24,7 +24,7 @@
     <c:choose>
       <c:when test="${invalid_channel}">
         <tr><td>
-          <rhn:icon type="system-warn" title="<bean:message key='error.common.errorAlt' />" />
+          <rhn:icon type="system-warn" title="error.common.errorAlt" />
           <bean:message key="kickstartdownload.jsp.invalidchannel"/>
         </td></tr>
       </c:when>

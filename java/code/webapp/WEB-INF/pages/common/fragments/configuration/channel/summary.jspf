@@ -49,7 +49,7 @@
 				<c:choose>
 					<c:when test="${summary.numSystems > 0}">
 						<td>
-						  <rhn:icon type="header-system" title="<bean:message key='system.common.systemAlt' />" />
+						  <rhn:icon type="header-system" title="system.common.systemAlt" />
 						  <a href="/rhn/systems/details/configuration/Overview.do?&amp;sid=${summary.mostRecentSystem.id}">
 						    <c:out value="${summary.mostRecentSystem.name}" />
 						  </a><br />
@@ -68,13 +68,13 @@
 				<c:when test="${summary.numFiles + summary.numDirs + summary.numSymlinks > 0}">
 					<c:choose>
 						<c:when test="${summary.mostRecentMod.configFile.latestConfigRevision.directory}">
-							<rhn:icon type="header-folder" title="<bean:message key='config.common.dirAlt' />" />
+							<rhn:icon type="header-folder" title="config.common.dirAlt" />
 						</c:when>
 						<c:when test="${summary.mostRecentMod.configFile.latestConfigRevision.symlink}">
-							<rhn:icon type="header-symlink" title="<bean:message key='config.common.symlinkAlt' />" />
+							<rhn:icon type="header-symlink" title="config.common.symlinkAlt" />
 						</c:when>
 						<c:otherwise>
-							<rhn:icon type="header-file" title="<bean:message key='config.common.fileAlt' />" />
+							<rhn:icon type="header-file" title="config.common.fileAlt" />
 						</c:otherwise>
 					</c:choose>
 					<a href="/rhn/configuration/file/FileDetails.do?cfid=${summary.mostRecentMod.configFile.id}">
@@ -88,7 +88,7 @@
 					    <rhn:require acl="user_role(org_admin)">
 					      <a href="/rhn/users/UserDetails.do?uid=${summary.mostRecentMod.configFile.latestConfigRevision.changedBy.id}">
 					    </rhn:require>
-					    <rhn:icon type="header-user" title="<bean:message key='user.common.userAlt' />" />
+					    <rhn:icon type="header-user" title="user.common.userAlt" />
 					    <c:out value="${summary.mostRecentMod.configFile.latestConfigRevision.changedBy.login}" />
 					    <rhn:require acl="user_role(org_admin)">
 					      </a>

@@ -9,7 +9,7 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
 <h2>
-  <rhn:icon type="header-configuration" title="<bean:message key='ssmdiff.jsp.imgAlt' />" />
+  <rhn:icon type="header-configuration" title="ssmdiff.jsp.imgAlt" />
   <bean:message key="ssmchannelsystems.jsp.header" />
 </h2>
 
@@ -33,7 +33,7 @@
     <rhn:listdisplay filterBy="ssmchannelsystems.jsp.system">
       <rhn:column header="ssmchannelsystems.jsp.system"
                   url="/rhn/systems/details/configuration/Overview.do?system_detail_navi_node=selected_configfiles&sid=${current.id}">
-        <rhn:icon type="header-system-physical" title="<bean:message key='system.common.systemAlt' />" />
+        <rhn:icon type="header-system-physical" title="system.common.systemAlt" />
         ${current.name}
       </rhn:column>
 

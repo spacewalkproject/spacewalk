@@ -29,7 +29,7 @@
     <rhn:listdisplay filterBy="globalconfiglist.jsp.name">
       <rhn:column header="globalconfiglist.jsp.name"
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.id}">
-        <rhn:icon type="header-channel" title="<bean:message key='config.common.globalAlt' />" />
+        <rhn:icon type="header-channel" title="config.common.globalAlt" />
         ${current.name}
       </rhn:column>
 

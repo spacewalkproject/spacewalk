@@ -8,10 +8,10 @@
 
     <rhn:column header="summary.jsp.status">
       <c:if test="${current.success}">
-        <rhn:icon type="action-ok" title="<bean:message key='summary.jsp.okAlt' />" />
+        <rhn:icon type="action-ok" title="summary.jsp.okAlt" />
       </c:if>
       <c:if test="${!current.success}">
-        <rhn:icon type="action-failed" title="<bean:message key='summary.jsp.errorAlt' />" />
+        <rhn:icon type="action-failed" title="summary.jsp.errorAlt" />
       </c:if>
     </rhn:column>
 

@@ -5,13 +5,13 @@
        <rhn:column header="sdcconfigfiles.jsp.filename">
 			<c:choose>
               <c:when test="${current.configFileType == 'file'}">
-                <rhn:icon type="header-file" title="<bean:message key='config.common.fileAlt' />"/> ${current.path}
+                <rhn:icon type="header-file" title="config.common.fileAlt" /> ${current.path}
               </c:when>
               <c:when test="${current.configFileType == 'directory'}">
-                <rhn:icon type="header-folder" title="<bean:message key='config.common.dirAlt' />"/> ${current.path}
+                <rhn:icon type="header-folder" title="config.common.dirAlt" /> ${current.path}
               </c:when>
               <c:otherwise>
-                <rhn:icon type="header-symlink" title="<bean:message key='config.common.symlinkAlt' />"/> ${current.path}
+                <rhn:icon type="header-symlink" title="config.common.symlinkAlt" /> ${current.path}
               </c:otherwise>
             </c:choose>
       	</rhn:column>
@@ -25,13 +25,13 @@
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.configChannelId}">
           <c:choose>
             <c:when test="${current.configChannelType == 'normal'}">
-              <rhn:icon type="header-channel" title="<bean:message key='config.common.globalAlt' />"/>
+              <rhn:icon type="header-channel" title="config.common.globalAlt" />
             </c:when>
             <c:when test="${current.configChannelType == 'local_override'}">
-              <rhn:icon type="header-system" title="<bean:message key='config.common.localAlt' />"/>
+              <rhn:icon type="header-system" title="config.common.localAlt" />
             </c:when>
             <c:otherwise>
-              <rhn:icon type="header-sandbox" title="<bean:message key='config.common.sandboxAlt' />"/>
+              <rhn:icon type="header-sandbox" title="config.common.sandboxAlt" />
             </c:otherwise>
           </c:choose>
           ${current.channelNameDisplay}

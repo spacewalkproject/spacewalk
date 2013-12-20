@@ -17,7 +17,7 @@
   <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/manage_errata.xml"
                   renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
-  <h2><rhn:icon type="header-package" title="<bean:message key='errata.common.packageAlt' />" />
+  <h2><rhn:icon type="header-package" title="errata.common.packageAlt" />
       <bean:message key="errata.edit.packages.list.erratapackages"/></h2>
 
   <p><bean:message key="errata.edit.packages.list.instructions"/></p>

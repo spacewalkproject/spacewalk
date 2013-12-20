@@ -13,7 +13,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/channel/manage/manage_channel_header.jspf" %>
 
     <h2>
-      <rhn:icon type="header-package" title="package" /> Packages
+      <rhn:icon type="header-package" title="package.jsp.alt" /> <bean:message key="package.jsp.menu.packages" />
     </h2>
 
     <ul>

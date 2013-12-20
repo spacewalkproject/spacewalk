@@ -9,11 +9,11 @@
 	<div class="spacewalk-toolbar">
 		<span class="spacewalk-toolbar">
 			<a href="/rhn/systems/WorkWithGroup.do?sgid=${systemgroup.id}">
-			<rhn:icon type="header-system-groups" title="<bean:message key='toolbar.work.with.group' />" />
+			<rhn:icon type="header-system-groups" title="toolbar.work.with.group" />
      			<bean:message key="toolbar.work.with.group"/>
      		</a>
                         <a href="/rhn/groups/Delete.do?sgid=${systemgroup.id}">
-				<rhn:icon type="item-del" title="<bean:message key='toolbar.delete.systemgroup'/>" />
+				<rhn:icon type="item-del" title="toolbar.delete.systemgroup" />
 				<bean:message key="toolbar.delete.systemgroup"/>
 			</a>
 
@@ -21,7 +21,7 @@
 	</div>
         <h1>
 
-	<rhn:icon type="header-system-groups" title="system groups" />
+        <rhn:icon type="header-system-groups" title="system.common.groupAlt" />
 
 	<c:if test="${empty systemgroup}">
 		<decorator:getProperty property="meta.name" />

@@ -18,13 +18,13 @@
                 <a href="/rhn/groups/ListErrata.do?sgid=${current.id}">
 		      		<c:choose>
                                         <c:when test="${current.mostSevereErrata == 'Security Advisory'}">
-                                        <rhn:icon type="system-crit" title="<bean:message key='grouplist.jsp.security' />" />
+                                        <rhn:icon type="system-crit" title="grouplist.jsp.security" />
 	        			</c:when>
                                         <c:when test="${current.mostSevereErrata == 'Bug Fix Advisory' or current.mostSevereErrata == 'Product Enhancement Advisory'}">
-                                        <rhn:icon type="system-warn" title="<bean:message key='grouplist.jsp.updates' />" />
+                                        <rhn:icon type="system-warn" title="grouplist.jsp.updates" />
 	    	    		</c:when>
 	        			<c:otherwise>
-                                        <rhn:icon type="system-ok" title="<bean:message key='grouplist.jsp.noerrata'/>" />
+                                        <rhn:icon type="system-ok" title="grouplist.jsp.noerrata" />
 		        		</c:otherwise>
 	   				</c:choose>
 	   			</a>

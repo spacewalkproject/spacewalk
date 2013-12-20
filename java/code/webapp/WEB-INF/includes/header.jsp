@@ -35,10 +35,10 @@
           <span class="spacewalk-header-non-link"><rhn:icon type="header-sitemap" /><c:out escapeXml="true" value="${requestScope.session.user.org.name}" /></span>
         </li>
         <li>
-          <a href="/rhn/account/UserPreferences.do"><rhn:icon type="header-preferences" title="<bean:message key='header.jsp.preferences' />" /></a>
+          <a href="/rhn/account/UserPreferences.do"><rhn:icon type="header-preferences" title="header.jsp.preferences" /></a>
         </li>
         <li>
-          <html:link forward="logout"><rhn:icon type="header-signout" title="<bean:message key='header.jsp.signout' />" /></html:link>
+          <html:link forward="logout"><rhn:icon type="header-signout" title="header.jsp.signout" /></html:link>
         </li>
       </ul>
 

@@ -10,7 +10,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <h2>
-  <rhn:icon type="header-package" title="<bean:message key='errata.common.packageAlt' />" />
+  <rhn:icon type="header-package" title="errata.common.packageAlt" />
   <bean:message key="profile.jsp.comparetostoredprofile"/>
 </h2>
 
@@ -35,7 +35,7 @@
         </p>
     </div>
     <h2>
-      <rhn:icon type="header-package" title="<bean:message key='errata.common.packageAlt' />" />
+      <rhn:icon type="header-package" title="errata.common.packageAlt" />
       <bean:message key="profile.jsp.comparetosystem"/>
     </h2>
     <div class="page-summary">

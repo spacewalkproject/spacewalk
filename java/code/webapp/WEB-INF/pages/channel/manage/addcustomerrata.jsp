@@ -94,13 +94,13 @@
 			           styleclass="center"
 		           	   headerclass="thin-column">
 							        <c:if test="${current.securityAdvisory}">
-							            <rhn:icon type="errata-security" title="<bean:message key='erratalist.jsp.securityadvisory' />" />
+							            <rhn:icon type="errata-security" title="erratalist.jsp.securityadvisory" />
 							        </c:if>
 							        <c:if test="${current.bugFix}">
-							            <rhn:icon type="errata-bugfix" title="<bean:message key='erratalist.jsp.bugadvisory' />" />
+							            <rhn:icon type="errata-bugfix" title="erratalist.jsp.bugadvisory" />
 							        </c:if>
 							        <c:if test="${current.productEnhancement}">
-							            <rhn:icon type="errata-enhance" title="<bean:message key='erratalist.jsp.productenhancementadvisory' />" />
+							            <rhn:icon type="errata-enhance" title="erratalist.jsp.productenhancementadvisory" />
 							        </c:if>
 				</rl:column>
 

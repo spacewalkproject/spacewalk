@@ -7,7 +7,7 @@
 <rhn:require acl="user_authenticated()">
 
 <h1>
-  <rhn:icon type="system-warn" title="<bean:message key='error.common.errorAlt' />" />
+  <rhn:icon type="system-warn" title="error.common.errorAlt" />
   ${error.localizedTitle}
 </h1>
 

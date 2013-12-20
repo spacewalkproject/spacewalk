@@ -14,7 +14,7 @@
 
 
 <div class="page-summary">
-	<h2><rhn:icon type="header-system-groups" title="system group" />
+        <h2><rhn:icon type="header-system-groups" title="system.common.groupAlt" />
 	<bean:message key="${param.title_key}"/>
 	</h2>
     <p>

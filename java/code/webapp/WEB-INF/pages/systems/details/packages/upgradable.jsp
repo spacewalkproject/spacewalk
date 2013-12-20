@@ -11,7 +11,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
   <h2>
-    <rhn:icon type="header-package-upgrade" title="<bean:message key='errata.common.upgradepackageAlt' />" />
+    <rhn:icon type="header-package-upgrade" title="errata.common.upgradepackageAlt" />
     <bean:message key="upgradable.jsp.header" />
   </h2>
   <div class="page-summary">
@@ -53,13 +53,13 @@
       <c:forEach items="${current.errata}" var="errata">
         <c:if test="${not empty errata.advisory}">
           <c:if test="${errata.type == 'Security Advisory'}">
-            <rhn:icon type="errata-security" title="<bean:message key='erratalist.jsp.securityadvisory' />" />
+            <rhn:icon type="errata-security" title="erratalist.jsp.securityadvisory" />
           </c:if>
           <c:if test="${errata.type == 'Bug Fix Advisory'}">
-            <rhn:icon type="errata-bugfix" title="<bean:message key='erratalist.jsp.bugadvisory' />" />
+            <rhn:icon type="errata-bugfix" title="erratalist.jsp.bugadvisory" />
           </c:if>
           <c:if test="${errata.type == 'Product Enhancement Advisory'}">
-            <rhn:icon type="errata-enhance" title="<bean:message key='erratalist.jsp.productenhancementadvisory' />" />
+            <rhn:icon type="errata-enhance" title="erratalist.jsp.productenhancementadvisory" />
           </c:if>
           <a href="/rhn/errata/details/Details.do?eid=${errata.id}">${errata.advisory}</a><br/>
         </c:if>

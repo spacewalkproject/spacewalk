@@ -6,7 +6,7 @@
 <html>
     <body>
         <h1>
-            <rhn:icon type="header-system-groups" title="system group" />
+            <rhn:icon type="header-system-groups" title="system.common.groupAlt" />
             <c:choose>
                 <c:when test='${empty param.sgid}'>
                     <bean:message key="systemgroup.create.header"/>

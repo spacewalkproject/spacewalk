@@ -13,19 +13,19 @@
 		    <c:out value="<a href=\"/rhn/systems/details/probes/ProbesList.do?sid=${current.id}\">"  escapeXml="false"/>
 
             <c:if test="${current.monitoringStatus == 'CRITICAL'}">
-                <rhn:icon type="monitoring-crit" title="<bean:message key='systemlist.jsp.probecritical' />" />
+                <rhn:icon type="monitoring-crit" title="systemlist.jsp.probecritical" />
             </c:if>
             <c:if test="${current.monitoringStatus == 'WARNING'}">
-                <rhn:icon type="monitoring-warn" title="<bean:message key='systemlist.jsp.probewarning' />" />
+                <rhn:icon type="monitoring-warn" title="systemlist.jsp.probewarning" />
             </c:if>
             <c:if test="${current.monitoringStatus == 'UNKNOWN'}">
-                <rhn:icon type="monitoring-unknown" title="<bean:message key='systemlist.jsp.probeunknown' />" />
+                <rhn:icon type="monitoring-unknown" title="systemlist.jsp.probeunknown" />
             </c:if>
             <c:if test="${current.monitoringStatus == 'PENDING'}">
-                <rhn:icon type="monitoring-pending" title="<bean:message key='systemlist.jsp.probepending' />" />
+                <rhn:icon type="monitoring-pending" title="systemlist.jsp.probepending" />
             </c:if>
             <c:if test="${current.monitoringStatus == 'OK'}">
-                <rhn:icon type="monitoring-ok" title="<bean:message key='systemlist.jsp.probeok' />" />
+                <rhn:icon type="monitoring-ok" title="systemlist.jsp.probeok" />
             </c:if>
              <c:out value="</a>"  escapeXml="false"/>
         </rl:column>

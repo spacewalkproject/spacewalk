@@ -32,17 +32,17 @@
 
    		<rl:column headerkey="yourrhn.jsp.criticalsystems.securityerrata"
     			headerclass="row-2 text-align: center;">
-                        <rhn:icon type="errata-security" title="<bean:message key='errata-legend.jsp.security' />" />${current.securityErrata}
+                        <rhn:icon type="errata-security" title="errata-legend.jsp.security" />${current.securityErrata}
     	</rl:column>
 
     	<rl:column headerkey="yourrhn.jsp.criticalsystems.bugfixerrata"
     			headerclass="row-2 text-align: center;">
-                        <rhn:icon type="errata-bugfix" title="<bean:message key='errata-legend.jsp.bugfix' />" />${current.bugErrata}
+                        <rhn:icon type="errata-bugfix" title="errata-legend.jsp.bugfix" />${current.bugErrata}
     	</rl:column>
 
     	<rl:column headerkey="yourrhn.jsp.criticalsystems.enhancementerrata"
     			headerclass="row-2 text-align: center;">
-			<rhn:icon type="errata-enhance" title="<bean:message key='errata-legend.jsp.enhancement' />" />${current.enhancementErrata}
+			<rhn:icon type="errata-enhance" title="errata-legend.jsp.enhancement" />${current.enhancementErrata}
     	</rl:column>
 
 	</rl:list>

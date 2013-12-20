@@ -61,7 +61,7 @@
 		styleclass="list" emptykey="deployconfirm.jsp.noSystems" width="100%"
 		filter="com.redhat.rhn.frontend.action.configuration.ConfigSystemFilter" >
 		<rl:column headerkey="system.common.systemName" sortable="true" sortattr="name">
-			<rhn:icon type="header-system-physical" title="<bean:message key='system.common.systemAlt' />" />
+			<rhn:icon type="header-system-physical" title="system.common.systemAlt" />
 			<a href="/rhn/systems/details/configuration/Overview.do?system_detail_navi_node=selected_configfiles&sid=${current.id}">
 			 ${fn:escapeXml(current.name)}
 			</a>
@@ -82,7 +82,7 @@
 	        <th><bean:message key="deployconfirm.jsp.usedate"/></th>
 	    </tr>
 	    <tr>
-	        <th><rhn:icon type="header-schedule" title="<bean:message key='syncprofile.jsp.selection' />" />
+	        <th><rhn:icon type="header-schedule" title="syncprofile.jsp.selection" />
 	        </th>
 	        <td>
 	          <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">

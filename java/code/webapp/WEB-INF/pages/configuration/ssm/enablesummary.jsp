@@ -9,7 +9,7 @@
 
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
 <h2>
-  <rhn:icon type="header-configuration" title="<bean:message key='ssmdiff.jsp.imgAlt' />" />
+  <rhn:icon type="header-configuration" title="ssmdiff.jsp.imgAlt" />
   <bean:message key="summary.jsp.toolbar"/>
 </h2>
 

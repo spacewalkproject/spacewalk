@@ -7,7 +7,7 @@
     <body>
         <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
         <h2>
-            <rhn:icon type="header-channel" title="channel" />
+            <rhn:icon type="header-channel" title="common.download.channelAlt" />
             <bean:message key="sdc.channels.confirmNewBase.header.confirm"/>
         </h2>
 

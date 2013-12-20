@@ -17,16 +17,16 @@
     <rhn:column header="schedulesync.jsp.action">
         <c:choose>
             <c:when test="${current.actionStatusId == 0 || current.actionStatusId == 1}">
-                <rhn:icon type="action-pending" title="<bean:message key='yourrhn.jsp.actions.pending' />" />
+                <rhn:icon type="action-pending" title="yourrhn.jsp.actions.pending" />
             </c:when>
             <c:when test="${current.actionStatusId == 2}">
-                <rhn:icon type="action-ok" title="<bean:message key='yourrhn.jsp.actions.completed' />" />
+                <rhn:icon type="action-ok" title="yourrhn.jsp.actions.completed" />
             </c:when>
             <c:when test="${current.actionStatusId == 3}">
-                <rhn:icon type="action-failed" title="<bean:message key='yourrhn.jsp.actions.failed' />" />
+                <rhn:icon type="action-failed" title="yourrhn.jsp.actions.failed" />
             </c:when>
             <c:otherwise>
-                <rhn:icon type="system-unknown" title="<bean:message key='yourrhn.jsp.actions.unknown' />" />
+                <rhn:icon type="system-unknown" title="yourrhn.jsp.actions.unknown" />
             </c:otherwise>
         </c:choose>
       <a href="/rhn/schedule/ActionDetails.do?aid=${current.id}"><c:out value="${current.actionName}" /></a>
@@ -36,7 +36,7 @@
                     style="text-align: center;">
         <c:choose>
             <c:when test="${current.userName != ''}">
-                <rhn:icon type="header-user" title="<bean:message key='yourrhn.jsp.user.alt'/>" />
+                <rhn:icon type="header-user" title="yourrhn.jsp.user.alt" />
                 ${current.userName}
             </c:when>
             <c:otherwise>

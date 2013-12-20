@@ -9,13 +9,13 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
 <h2>
-  <rhn:icon type="header-configuration" title="<bean:message key='ssmdiff.jsp.imgAlt' />" />
+  <rhn:icon type="header-configuration" title="ssmdiff.jsp.imgAlt" />
   <bean:message key="diffsystems.jsp.header" />
 </h2>
 
   <div class="page-summary">
     <c:set var="beanarg" scope="request">
-      <rhn:icon type="header-file" title="<bean:message key='config.common.fileAlt' />" />
+      <rhn:icon type="header-file" title="config.common.fileAlt" />
       ${fn:escapeXml(requestScope.filepath)}
     </c:set>
     <p>
@@ -31,7 +31,7 @@
     <rhn:listdisplay filterBy="system.common.systemName">
       <rhn:column header="system.common.systemName"
                   url="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">
-        <rhn:icon type="header-system-physical" title="<bean:message key='system.common.systemAlt' />" />
+        <rhn:icon type="header-system-physical" title="system.common.systemAlt" />
         ${fn:escapeXml(current.name)}
       </rhn:column>
 

@@ -8,7 +8,7 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
 <h2>
-  <rhn:icon type="header-configuration" title="<bean:message key='ssmdiff.jsp.imgAlt' />" />
+  <rhn:icon type="header-configuration" title="ssmdiff.jsp.imgAlt" />
   <bean:message key="difffiles.jsp.header" />
 </h2>
 
@@ -32,15 +32,15 @@
       <rhn:column header="difffiles.jsp.filename">
         <c:choose>
           <c:when test="${current.configFileType == 'file'}">
-            <rhn:icon type="header-file" title="<bean:message key='config.common.fileAlt' />" />
+            <rhn:icon type="header-file" title="config.common.fileAlt" />
             <c:out value="${current.path}" />
           </c:when>
           <c:when test="${current.configFileType == 'directory'}">
-            <rhn:icon type="header-folder" title="<bean:message key='config.common.dirAlt' />" />
+            <rhn:icon type="header-folder" title="config.common.dirAlt" />
             <c:out value="${current.path}" />
           </c:when>
           <c:otherwise>
-            <rhn:icon type="header-symlink" title="<bean:message key='config.common.symlinkAlt' />" />
+            <rhn:icon type="header-symlink" title="config.common.symlinkAlt" />
           </c:otherwise>
         </c:choose>
       </rhn:column>
@@ -53,12 +53,12 @@
       <rhn:column header="config.common.configChannel"
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.configChannelId}">
         <c:if test="${current.configChannelType == 'normal'}">
-          <rhn:icon type="header-channel" title="<bean:message key='config.common.globalAlt' />" />
+          <rhn:icon type="header-channel" title="config.common.globalAlt" />
           ${current.channelNameDisplay}
         </c:if>
 
         <c:if test="${current.configChannelType == 'local_override'}">
-          <rhn:icon type="header-system-physical" title="<bean:message key='config.common.localAlt' />" />
+          <rhn:icon type="header-system-physical" title="config.common.localAlt" />
           ${current.channelNameDisplay}
         </c:if>
 

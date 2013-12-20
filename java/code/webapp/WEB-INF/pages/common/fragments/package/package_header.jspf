@@ -1,7 +1,7 @@
 
 
 <rhn:toolbar base="h1" icon="header-package" imgAlt="package.jsp.alt">
-	<c:out value="${package_name}" escapeXml="true"/><a href="/rhn/help/reference/en-US/s1-sm-channels-packages.jsp" target="_blank" class="help-title"><rhn:icon type="header-help" title="Help Icon" /></a>
+    <c:out value="${package_name}" escapeXml="true"/><a href="/rhn/help/reference/en-US/s1-sm-channels-packages.jsp" target="_blank" class="help-title"><rhn:icon type="header-help" title="toolbar.jsp.helpicon.alt" /></a>
 </rhn:toolbar>
 
 

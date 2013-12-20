@@ -12,7 +12,7 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/channel/manage/manage_channel_header.jspf" %>
      <h2>
-      <rhn:icon type="header-errata" title="erratum"/> <bean:message key="header.jsp.errata"/>
+      <rhn:icon type="header-errata" title="errata.common.errataAlt"/> <bean:message key="header.jsp.errata"/>
     </h2>
 
 <ul>

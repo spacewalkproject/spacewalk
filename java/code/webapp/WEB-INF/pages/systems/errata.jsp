@@ -25,7 +25,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <h2>
-  <rhn:icon type="header-errata" title="<bean:message key='errata.common.errataAlt' />" />
+  <rhn:icon type="header-errata" title="errata.common.errataAlt" />
   <bean:message key="errata.jsp.header"/>
 </h2>
 

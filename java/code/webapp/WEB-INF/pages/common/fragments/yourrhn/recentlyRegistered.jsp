@@ -55,7 +55,7 @@
 		           >
 	          <c:choose>
 	            <c:when test="${current.creatorName != null}">
-	               <rhn:icon type="header-user" title="<bean:message key='yourrhn.jsp.user.alt'/>" />
+	               <rhn:icon type="header-user" title="yourrhn.jsp.user.alt" />
 	              <c:out value="${current.creatorName}"/>
 	        </c:when>
 		    <c:otherwise>

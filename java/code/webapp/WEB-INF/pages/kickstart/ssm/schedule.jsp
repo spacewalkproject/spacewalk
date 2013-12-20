@@ -10,7 +10,7 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
 <h2>
-  <rhn:icon type="header-kickstart" title="<bean:message key='system.common.kickstartAlt' />" />
+  <rhn:icon type="header-kickstart" title="system.common.kickstartAlt" />
   <bean:message key="kickstart.schedule.heading1.jsp" />
 </h2>
 

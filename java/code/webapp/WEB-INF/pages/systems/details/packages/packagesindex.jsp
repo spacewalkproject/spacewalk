@@ -13,7 +13,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <h2>
-  <rhn:icon type="header-package" title="<bean:message key='errata.common.packageAlt' />" />
+  <rhn:icon type="header-package" title="errata.common.packageAlt" />
   <bean:message key="packagesindex.jsp.header"/>
 </h2>
 

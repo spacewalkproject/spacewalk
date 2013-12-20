@@ -27,7 +27,7 @@
     <rhn:listdisplay filterBy="system.common.systemName">
       <rhn:column header="system.common.systemName"
                   url="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">
-        <rhn:icon type="header-system-physical" title="<bean:message key='system.common.systemAlt' />" />
+        <rhn:icon type="header-system-physical" title="system.common.systemAlt" />
         <c:out value="${current.name}" />
       </rhn:column>
 

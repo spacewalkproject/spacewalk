@@ -8,7 +8,7 @@
 <body>
   <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
   <h2>
-    <rhn:icon type="header-channel" title="channel" />
+    <rhn:icon type="header-channel" title="common.download.channelAlt" />
     <bean:message key="sdc.channels.edit.header2"/>
   </h2>
   <html:form method="post" action="/systems/details/SystemChannels.do?sid=${system.id}">

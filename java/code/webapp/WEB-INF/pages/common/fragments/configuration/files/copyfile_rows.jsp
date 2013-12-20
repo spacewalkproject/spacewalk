@@ -25,13 +25,13 @@
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.id}">
         <c:choose>
           <c:when test="${requestScope.type == 'central'}">
-            <rhn:icon type="header-channel" title="<bean:message key='config.common.globalAlt' />" />
+            <rhn:icon type="header-channel" title="config.common.globalAlt" />
           </c:when>
           <c:when test="${requestScope.type == 'local'}">
-            <rhn:icon type="header-system-physical" title="<bean:message key='config.common.localAlt' />" />
+            <rhn:icon type="header-system-physical" title="config.common.localAlt" />
           </c:when>
           <c:otherwise>
-            <rhn:icon type="header-sandbox" title="<bean:message key='config.common.sandboxAlt' />" />
+            <rhn:icon type="header-sandbox" title="config.common.sandboxAlt" />
           </c:otherwise>
         </c:choose>
         ${current.nameDisplay}

@@ -5,18 +5,18 @@
                    headerkey="probedetails.jsp.state"
                    headerclass="thin-column">
         <c:if test="${current.stateString == 'UNKNOWN'}">
-          <rhn:icon type="monitoring-unknown" title="<bean:message key='monitoring.status.unknown' />" />
+          <rhn:icon type="monitoring-unknown" title="monitoring.status.unknown" />
         </c:if>
         <c:if test="${current.stateString == 'OK'}">
-          <rhn:icon type="monitoring-ok" title="<bean:message key='monitoring.status.ok' />" />
+          <rhn:icon type="monitoring-ok" title="monitoring.status.ok" />
         </c:if>
         <c:if test="${current.stateString == 'WARNING'}">
-          <rhn:icon type="monitoring-warn" title="<bean:message key='monitoring.status.warn' />" />
+          <rhn:icon type="monitoring-warn" title="monitoring.status.warn" />
         </c:if>
         <c:if test="${current.stateString == 'PENDING'}">
-          <rhn:icon type="monitoring-pending" title="<bean:message key='monitoring.status.pending' />" />
+          <rhn:icon type="monitoring-pending" title="monitoring.status.pending" />
         </c:if>
         <c:if test="${current.stateString == 'CRITICAL'}">
-          <rhn:icon type="monitoring-crit" title="<bean:message key='monitoring.status.critical' />" />
+          <rhn:icon type="monitoring-crit" title="monitoring.status.critical" />
         </c:if>
    </rl:column>

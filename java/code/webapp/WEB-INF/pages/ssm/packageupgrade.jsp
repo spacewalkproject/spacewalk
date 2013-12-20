@@ -53,13 +53,13 @@
         <rl:column headerkey="ssm.package.upgrade.select.advisory" bound="false">
             <c:if test="${not empty current.advisory}">
               <c:if test="${current.advisoryType == 'Security Advisory'}">
-                <rhn:icon type="errata-security" title="<bean:message key='erratalist.jsp.securityadvisory' />" />
+                <rhn:icon type="errata-security" title="erratalist.jsp.securityadvisory" />
               </c:if>
               <c:if test="${current.advisoryType == 'Bug Fix Advisory'}">
-                <rhn:icon type="errata-bugfix" title="<bean:message key='erratalist.jsp.bugadvisory' />" />
+                <rhn:icon type="errata-bugfix" title="erratalist.jsp.bugadvisory" />
               </c:if>
               <c:if test="${current.advisoryType == 'Product Enhancement Advisory'}">
-                <rhn:icon type="errata-enhance" title="<bean:message key='erratalist.jsp.productenhancementadvisory' />" />
+                <rhn:icon type="errata-enhance" title="erratalist.jsp.productenhancementadvisory" />
               </c:if>
               <a href="/rhn/errata/details/Details.do?eid=${current.advisoryId}">${current.advisory}</a><br/>
             </c:if>

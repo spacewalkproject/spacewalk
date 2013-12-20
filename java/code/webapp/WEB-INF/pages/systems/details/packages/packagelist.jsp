@@ -12,7 +12,7 @@
 
 <rhn:require acl="not system_feature(ftr_package_remove)">
 	<h2>
-		<rhn:icon type="header-package-del" title="<bean:message key='errata.common.deletepackageAlt' />" />
+		<rhn:icon type="header-package-del" title="errata.common.deletepackageAlt" />
 		<bean:message key="packagelist.jsp.installedpackages" />
 	</h2>
 	<div class="page-summary">
@@ -23,7 +23,7 @@
 </rhn:require>
 <rhn:require acl="system_feature(ftr_package_remove)">
 	<h2>
-		<rhn:icon type="header-package-del" title="<bean:message key='errata.common.deletepackageAlt' />" />
+		<rhn:icon type="header-package-del" title="errata.common.deletepackageAlt" />
 		<bean:message key="packagelist.jsp.removablepackages" />
 	</h2>
 	<div class="page-summary">

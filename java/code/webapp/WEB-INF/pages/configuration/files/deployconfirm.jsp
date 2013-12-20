@@ -45,7 +45,7 @@
 			<th><bean:message key="deploy.jsp.usedate" /></th>
 		</tr>
 		<tr>
-			<th><rhn:icon type="header-schedule" title="<bean:message key='deploy.jsp.selection' />" /></th>
+			<th><rhn:icon type="header-schedule" title="deploy.jsp.selection" /></th>
 			<td><jsp:include
 				page="/WEB-INF/pages/common/fragments/date-picker.jsp" flush="">
 				<jsp:param name="widget" value="date" />

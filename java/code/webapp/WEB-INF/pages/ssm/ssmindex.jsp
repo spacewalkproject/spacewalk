@@ -21,7 +21,7 @@
         <li class="list-group-item">
             <div class="row">
                 <div class="col-sm-2">
-                    <rhn:icon type="header-system" title="<bean:message key='ssm.overview.systems' />" />
+                    <rhn:icon type="header-system" title="ssm.overview.systems" />
                     <bean:message key="ssm.overview.systems"/>
                 </div>
                 <div class="col-sm-10">
@@ -32,7 +32,7 @@
         <li class="list-group-item">
             <div class="row">
                 <div class="col-sm-2">
-                    <rhn:icon type="header-errata" title="<bean:message key='ssm.overview.errata'/>" />
+                    <rhn:icon type="header-errata" title="ssm.overview.errata" />
                     <bean:message key="ssm.overview.errata"/>
                 </div>
                 <div class="col-sm-10">
@@ -43,7 +43,7 @@
         <li class="list-group-item">
             <div class="row">
                 <div class="col-sm-2">
-                  <rhn:icon type="header-package" title="<bean:message key='ssm.overview.packages' />" />
+                  <rhn:icon type="header-package" title="ssm.overview.packages" />
                     <bean:message key="ssm.overview.packages"/>
                 </div>
                 <div class="col-sm-10">
@@ -55,7 +55,7 @@
             <li class="list-group-item">
                 <div class="row">
                     <div class="col-sm-2">
-                      <rhn:icon type="header-errata" title="<bean:message key='ssm.overview.patches' />" />
+                      <rhn:icon type="header-errata" title="ssm.overview.patches" />
                         <bean:message key="ssm.overview.patches"/>
                     </div>
                     <div class="col-sm-10">
@@ -67,7 +67,7 @@
             <li class="list-group-item">
                 <div class="row">
                     <div class="col-sm-2">
-                      <rhn:icon type="header-errata-set" title="<bean:message key='ssm.overview.patch.clusters' />" />
+                      <rhn:icon type="header-errata-set" title="ssm.overview.patch.clusters" />
                         <bean:message key="ssm.overview.patch.clusters"/>
                     </div>
                     <div class="col-sm-10">
@@ -80,7 +80,7 @@
             <li class="list-group-item">
                 <div class="row">
                     <div class="col-sm-2">
-                      <rhn:icon type="header-system-groups" title="<bean:message key='ssm.overview.groups' />" />
+                      <rhn:icon type="header-system-groups" title="ssm.overview.groups" />
                         <bean:message key="ssm.overview.groups"/>
                     </div>
                     <div class="col-sm-10">
@@ -92,7 +92,7 @@
         <li class="list-group-item">
             <div class="row">
                 <div class="col-sm-2">
-                  <rhn:icon type="header-channel" title="<bean:message key='ssm.overview.channels' />" />
+                  <rhn:icon type="header-channel" title="ssm.overview.channels" />
                     <bean:message key="ssm.overview.channels"/>
                 </div>
                 <div class="col-sm-10">
@@ -110,7 +110,7 @@
             <li class="list-group-item">
                 <div class="row">
                     <div class="col-sm-2">
-                      <rhn:icon type="header-kickstart" title="<bean:message key='ssm.overview.provisioning' />" />
+                      <rhn:icon type="header-kickstart" title="ssm.overview.provisioning" />
                         <bean:message key="ssm.overview.provisioning"/>
                     </div>
                     <div class="col-sm-10">
@@ -126,7 +126,7 @@
         <li class="list-group-item">
             <div class="row">
                 <div class="col-sm-2">
-                  <rhn:icon type="header-event-history" title="<bean:message key='ssm.overview.misc' />" />
+                  <rhn:icon type="header-event-history" title="ssm.overview.misc" />
                     <bean:message key="ssm.overview.misc"/>
                 </div>
                 <div class="col-sm-10">

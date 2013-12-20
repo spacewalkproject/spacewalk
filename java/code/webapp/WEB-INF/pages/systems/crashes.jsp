@@ -14,7 +14,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <h2>
-  <rhn:icon type="header-crash" title="<bean:message key='crashes.jsp.crashes' />" />
+  <rhn:icon type="header-crash" title="crashes.jsp.crashes" />
   <bean:message key="crashes.jsp.crashes"/>
 </h2>
 

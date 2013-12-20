@@ -15,18 +15,18 @@
         <div class="toolbar">
             <span class="toolbar">
                 <a href="/rhn/systems/details/EditCrashNote.do?crid=${crid}&sid=${sid}">
-                    <rhn:icon type="item-ssm-add" title="<bean:message key='toolbar.create.crashnote' />" />
+                    <rhn:icon type="item-ssm-add" title="toolbar.create.crashnote" />
                     <bean:message key="toolbar.create.crashnote"/>
                 </a>
                 |
                 <a href="/rhn/systems/details/SoftwareCrashDelete.do?crid=${crid}&sid=${sid}">
-                    <rhn:icon type="item-ssm-del" title="<bean:message key='toolbar.delete.crash' />" />
+                    <rhn:icon type="item-ssm-del" title="toolbar.delete.crash" />
                     <bean:message key="toolbar.delete.crash"/>
                 </a>
 
             </span>
         </div>
-        <rhn:icon type="header-crash" title="<bean:message key='info.alt.img' />" />
+        <rhn:icon type="header-crash" title="info.alt.img" />
         ${fn:escapeXml(crash.crash)}
     </div>
 

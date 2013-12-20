@@ -15,20 +15,20 @@
                 <c:choose>
                     <c:when test="${not empty param.cnid}">
                         <a href="/rhn/systems/details/DeleteCrashNote.do?sid=${sid}&crid=${crid}&cnid=${cnid}">
-                            <rhn:icon type="item-del" title="<bean:message key='toolbar.delete.note'/>" />
+                            <rhn:icon type="item-del" title="toolbar.delete.note" />
                             <bean:message key="toolbar.delete.note"/>
                         </a>
                         |
                     </c:when>
                 </c:choose>
                 <a href="/rhn/systems/details/SoftwareCrashDelete.do?crid=${crid}&sid=${sid}">
-                    <rhn:icon type="item-del" title="<bean:message key='toolbar.delete.crash'/>" />
+                    <rhn:icon type="item-del" title="toolbar.delete.crash" />
                     <bean:message key="toolbar.delete.crash"/>
                 </a>
 
             </span>
         </div>
-        <rhn:icon type="header-crash" title="<bean:message key='info.alt.img' />" />
+        <rhn:icon type="header-crash" title="info.alt.img" />
         ${fn:escapeXml(crash.crash)}
     </div>
 

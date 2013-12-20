@@ -27,7 +27,7 @@ function setStep(stepName) {
 
 <br />
 <h2>
-  <rhn:icon type="header-kickstart" title="<bean:message key='system.common.kickstartAlt' />" />
+  <rhn:icon type="header-kickstart" title="system.common.kickstartAlt" />
   <bean:message key="kickstart.schedule.heading1.jsp" />
 </h2>
 

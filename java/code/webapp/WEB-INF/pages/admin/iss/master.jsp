@@ -39,19 +39,19 @@
                 <rl:column bound="false" headerkey="iss.slave.isEnabled"
                            sortattr="enabled" styleclass="center" headerclass="center">
                     <c:if test="${current.enabled == 'Y'}">
-                        <rhn:icon type="item-enabled" title="<bean:message key='iss.slave.enabled' />" />
+                        <rhn:icon type="item-enabled" title="iss.slave.enabled" />
                     </c:if>
                     <c:if test="${current.enabled != 'Y'}">
-                        <rhn:icon type="item-disabled" title="<bean:message key='iss.slave.disabled' />" />
+                        <rhn:icon type="item-disabled" title="iss.slave.disabled" />
                     </c:if>
                 </rl:column>
                 <rl:column bound="false" headerkey="iss.slave.toAll"
                            sortattr="allOrgs" styleclass="center" headerclass="center">
                     <c:if test="${current.allowAllOrgs == 'Y'}">
-                        <rhn:icon type="item-enabled" title="<bean:message key='iss.slave.all' />" />
+                        <rhn:icon type="item-enabled" title="iss.slave.all" />
                     </c:if>
                     <c:if test="${current.allowAllOrgs != 'Y'}">
-                        <rhn:icon type="item-disabled" title="<bean:message key='iss.slave.notAll' />" />
+                        <rhn:icon type="item-disabled" title="iss.slave.notAll" />
                     </c:if>
                 </rl:column>
                 <rl:column bound="false" headerkey="iss.slave.num-orgs-allowed"

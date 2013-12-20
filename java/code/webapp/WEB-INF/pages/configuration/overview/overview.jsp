@@ -118,7 +118,7 @@
           <rhn:column header="configoverview.jsp.scheduledBy"
                       url="/rhn/users/UserDetails.do?uid=${current.scheduledById}"
                       renderUrl="${requestScope.is_admin}">
-            <rhn:icon type="header-user" title="<bean:message key='user.common.userAlt' />" />
+            <rhn:icon type="header-user" title="user.common.userAlt" />
             ${fn:escapeXml(current.scheduledByName)}
           </rhn:column>
 

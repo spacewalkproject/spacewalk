@@ -10,13 +10,13 @@
   <td>
     <c:choose>
       <c:when test="${channel.configChannelType.label == 'normal'}">
-        <rhn:icon type="header-channel-configuration" title="<bean:message key='config.common.globalAlt' />"/>
+        <rhn:icon type="header-channel-configuration" title="config.common.globalAlt" />
       </c:when>
       <c:when test="${channel.configChannelType.label == 'local_override'}">
-        <rhn:icon type="header-system" title="<bean:message key='config.common.localAlt' />"/>
+        <rhn:icon type="header-system" title="config.common.localAlt" />
       </c:when>
       <c:otherwise>
-        <rhn:icon type="header-sandbox" title="<bean:message key='config.common.sandboxAlt' />" />
+        <rhn:icon type="header-sandbox" title="config.common.sandboxAlt" />
       </c:otherwise>
     </c:choose>
 
@@ -49,7 +49,7 @@
     	    * the login of the user
     	   --%>
     	  <c:set var="beanarg" scope="request">
-    	    <rhn:icon type="header-user" title="<bean:message key='user.common.userAlt' />" />
+    	    <rhn:icon type="header-user" title="user.common.userAlt" />
     	    <rhn:require acl="user_role(org_admin)">
     	      <a href="/rhn/users/UserDetails.do?uid=${lastUserId}">
     	    </rhn:require>
