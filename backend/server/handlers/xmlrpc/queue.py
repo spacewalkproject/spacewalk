@@ -105,7 +105,7 @@ class Queue(rhnHandler):
             server from the status dictionary passed on queue checkin.
 
             Record last running kernel and uptime.  Only update
-            last_boot if it has changed by more than five minutes. We
+            last_boot if it has changed by more than five seconds. We
             don't know the timezone the server is in. or even if its
             clock is right, but we do know it can properly track seconds
              since it rebooted, and use our own clocks to keep proper
@@ -133,11 +133,30 @@ class Queue(rhnHandler):
                     pass
                 else:
                     last_boot = time.time() - uptime
-                    if abs(last_boot-self.server.server["last_boot"]) > 60*5:
+                    if abs(last_boot-self.server.server["last_boot"]) > 5:
                         self.server.server["last_boot"] = last_boot
+                        self.__set_reboot_action_to_succcess()
 
         # this is smart enough to do a NOOP if nothing changed.
         self.server.server.save()
+
+
+    def __set_reboot_action_to_succcess(self):
+        h = rhnSQL.prepare("""
+            update rhnServerAction
+            set status = 2
+            where server_id = :server_id
+            and action_id in (
+                    select sa.action_id
+                    from rhnServerAction sa
+                    join rhnAction a on sa.action_id = a.id
+                    join rhnActionType at on a.action_type = at.id
+                   where sa.server_id = :server_id
+                     and sa.status = 1
+                     and at.label = 'reboot.reboot'
+            )
+        """)
+        h.execute(server_id=self.server_id)
 
     def __should_snapshot(self):
         log_debug(4, self.server_id, "determining whether to snapshot...")
@@ -223,7 +242,7 @@ class Queue(rhnHandler):
         self.auth_system(system_id)
         log_debug(3, "Checking for future actions within %d hours" % time_window)
         result = []
-        if self._future_actions_enabled():
+        if self._future_actions_enabled() and not self.__reboot_in_progress():
             h = rhnSQL.prepare(self._query_queue_future)
             h.execute(server_id=self.server_id, time_window=time_window)
             action = h.fetchone_dict()
@@ -277,6 +296,11 @@ class Queue(rhnHandler):
 
         server_locked = self.server.server_locked()
         log_debug(3, "Server locked", server_locked)
+
+        if self.__reboot_in_progress():
+            log_debug(3, "Server reboot in progress", self.server_id)
+            rhnSQL.commit()
+            return ""
 
         ret = {}
         # get the action. Status codes are currently:
@@ -456,6 +480,10 @@ class Queue(rhnHandler):
         if status == 3:
             # Failed action - invalidate children
             self._invalidate_child_actions(action_id)
+        elif action_type == 'reboot.reboot':
+            # reboot action should stay as pickup
+            rhnSQL.commit()
+            return 0
         elif status == 2 and trigger_snapshot and self.__should_snapshot():
             # if action status is 'Completed', snapshot if allowed and if needed
             self.server.take_snapshot("Scheduled action completion:  %s" % row['name'])
@@ -537,6 +565,23 @@ class Queue(rhnHandler):
         return data["id"]
 
     ### PRIVATE methods
+
+    def __reboot_in_progress(self):
+        """check for a reboot action for this server in status Picked Up"""
+        log_debug(4, self.server_id)
+        h = rhnSQL.prepare("""
+            select 1
+              from rhnServerAction sa
+              join rhnAction a on sa.action_id = a.id
+              join rhnActionType at on a.action_type = at.id
+             where sa.server_id = :server_id
+               and sa.status = 1 -- Picked Up
+        """)
+        h.execute(server_id = self.server_id)
+        ret = h.fetchone_dict() or None
+        if ret:
+            return True
+        return False
 
     def __update_action(self, action_id, status,
                            resultCode = None, message = ""):
