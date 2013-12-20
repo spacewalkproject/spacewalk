@@ -651,13 +651,13 @@ public class ToolbarTag extends TagSupport {
             return "";
         }
 
-        alt = LocalizationService.getInstance().getMessage(alt);
         text = LocalizationService.getInstance().getMessage(text);
 
         HtmlTag a = new HtmlTag("a");
         a.setAttribute("href", url);
 
         if (assertNotEmpty(imgName)) {
+            alt = LocalizationService.getInstance().getMessage(alt);
             HtmlTag imgTag = new HtmlTag("img");
             imgTag.setAttribute("src", "/img/" + imgName);
             imgTag.setAttribute("alt", alt);

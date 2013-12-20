@@ -15,6 +15,8 @@
 
 package com.redhat.rhn.frontend.taglibs;
 
+import com.redhat.rhn.common.localization.LocalizationService;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +24,8 @@ import java.util.Map;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
+
+import org.apache.commons.lang.StringEscapeUtils;
 
 /**
  * Tag to easy display the icons
@@ -179,7 +183,7 @@ public class IconTag extends TagSupport {
      * @return The title of the icon
      */
     public String getTitle() {
-        return title;
+        return LocalizationService.getInstance().getMessage(title);
     }
 
     /**
@@ -194,7 +198,8 @@ public class IconTag extends TagSupport {
         StringBuilder result = new StringBuilder();
         result.append("<i class=\"" + icons.get(type) + "\"");
         if (title != null) {
-            result.append(" title=\"" + title + "\"");
+            result.append(" title=\"" +
+                StringEscapeUtils.escapeHtml(this.getTitle()) + "\"");
         }
         result.append("></i>");
 
