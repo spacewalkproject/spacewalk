@@ -297,4 +297,43 @@ def do_package_listerrata(self, args):
         if len(errata):
             print '\n'.join(sorted([ e.get('advisory') for e in errata ]))
 
+####################
+
+def help_package_listdependencies(self):
+    print 'package_listdependencies: List the dependencies for a package'
+    print 'usage: package_listdependencies PACKAGE'
+
+def do_package_listdependencies(self, args):
+    (args, options) = parse_arguments(args)
+
+    if not len(args):
+        self.help_package_listdependencies()
+        return
+
+    packages = []
+    for package in args:
+        packages.extend(self.do_package_search(' '.join(args), True))
+
+    if not len(packages):
+        logging.warning('No packages found')
+        return
+
+    add_separator = False
+
+    for package in packages:
+        if add_separator: print self.SEPARATOR
+        add_separator = True
+
+        package_id = self.get_package_id(package)
+
+        if not package_id:
+            logging.warning('%s is not a valid package' % package)
+            continue
+
+        package_id = int(package_id)
+        pkgdeps = self.client.packages.list_dependencies(self.session, package_id)
+        for dep in pkgdeps:
+            print 'Package Name: %s' % package
+            print 'Dependency: %s Type: %s Modifier: %s' % (dep['dependency'], dep['dependency_type'], dep['dependency_modifier'])
+
 # vim:ts=4:expandtab:
