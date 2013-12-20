@@ -28,6 +28,7 @@ from difflib  import unified_diff
 from tempfile import mkstemp
 from textwrap import wrap
 import rpm
+import string
 from spacecmd.optionparser import SpacecmdOptionParser
 
 try:
@@ -725,19 +726,19 @@ def diff( source_data, target_data, source_channel, target_channel ):
     return unified_diff( source_data, target_data, source_channel, target_channel )
 
 def file_needs_b64_enc(self, contents):
+    """Used to check if files (config files primarily) need base64 encoding
+    in order to work properly via the API"""
 
-    # Used to check if files (config files primarily) need base64 encoding
-    # in order to work properly via the API
-
-    # Files with trailing newlines, which the API strips from files
-    # uploaded as text, to avoid this we upload them as base64 encoded
-    if contents != contents.rstrip():
-        logging.info("trailing newlines detected, uploading as binary")
+    if "\0" in contents:
         return True
 
-    # TODO : Add other exceptions here, e.g those containing characters which
-    # are valid ascii but not valid XML (e.g the escape character)
+    if not contents: # zero length
+        return False
 
-    return False
+    text_characters = "".join(map(chr, range(32, 127)) + list("\n\r\t\b"))
+    _null_trans = string.maketrans("", "")
+
+    # More than 30% non-text characters -> considered a binary file
+    return float(len(contents.translate(_null_trans, text_characters))) / len(contents) > 0.3
 
 # vim:ts=4:expandtab:
