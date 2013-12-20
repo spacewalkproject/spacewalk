@@ -12,6 +12,7 @@ import getopt
 import sys
 import getpass
 from xmlrpclib import Server
+from xmlrpclib import Fault
 import string
 import os
 from os import path
@@ -170,7 +171,12 @@ def main():
    client = Server(proto + "://" + server + "/rpc/api")
    if clone and client.api.getVersion() < 5.1:
       print "--clone cannot be used with a Satellite version older than 5.1"
-   auth = client.auth.login(user, password)
+   try:
+      auth = client.auth.login(user, password)
+   except Fault:
+      excInfo = sys.exc_info()[1]
+      print "\n %s " % excInfo.faultString
+      sys.exit(1)
 
    skiplist = []
    if options.skiplist:
