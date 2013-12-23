@@ -3965,7 +3965,7 @@
         scope="request"
         name="deleteSystemGroupForm"
         input="/WEB-INF/pages/groups/delete.jsp"
-        type="com.redhat.rhn.frontend.action.token.DeleteGroupAction"
+        type="com.redhat.rhn.frontend.action.groups.DeleteGroupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
         >
         <set-property property="postRequiredIfSubmitted" value="true" />
