@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.106
+Version: 2.1.107
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Dec 23 2013 Milan Zazrivec <mzazrivec@redhat.com> 2.1.107-1
+- Remove extraneous character from query
+- Fix action type
+- fix icon name
+- Use new rhn:icon internationalization/localization
+- Perform localization inside rhn:icon tag
+
 * Thu Dec 19 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.106-1
 - updated references to new java WorkWithGroup page
 - work_with_group.pxt rewritten to java
