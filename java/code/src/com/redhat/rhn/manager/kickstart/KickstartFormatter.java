@@ -578,11 +578,11 @@ public class KickstartFormatter {
 
         // packages necessary for RHEL 7
         if (this.ksdata.isRhel7()) {
-            buf.append("perl");
-            buf.append("wget");
-            buf.append("rhn-setup");
-            buf.append("rhn-check");
-            buf.append("rhn-client-tools");
+            buf.append("perl" + NEWLINE);
+            buf.append("wget" + NEWLINE);
+            buf.append("rhn-setup" + NEWLINE);
+            buf.append("rhn-check" + NEWLINE);
+            buf.append("rhn-client-tools" + NEWLINE);
         }
         return buf.toString();
     }
