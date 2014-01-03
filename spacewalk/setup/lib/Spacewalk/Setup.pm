@@ -951,6 +951,12 @@ sub postgresql_setup_db {
 
     if (is_embedded_db($opts)) {
       postgresql_start();
+    } else {
+      system('sed',
+             '-i',
+             '-e',
+             's/^\\(SERVICES=.*postgresql.*\$\\)/# \\1/g',
+             '/etc/rhn/service-list');
     }
     postgresql_setup_embedded_db($opts, $answers);
 
