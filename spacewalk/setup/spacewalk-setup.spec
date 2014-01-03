@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.1.6
+Version:        2.1.7
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -103,6 +103,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Jan 03 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.1.7-1
+- 964323 - external PG: remove postgresql from spacewalk services
+
 * Mon Oct 07 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.6-1
 - setting up configuration for editarea for apache >= 2.4
 
