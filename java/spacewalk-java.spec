@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.108
+Version: 2.1.109
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -785,6 +785,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jan 06 2014 Tomas Lestach <tlestach@redhat.com> 2.1.109-1
+- 1048090 - Revert "add package ID to array returned by system.listPackages API
+  call"
+
 * Fri Jan 03 2014 Tomas Lestach <tlestach@redhat.com> 2.1.108-1
 - store url_bounce and request_method to session and re-use common login parts
 - support logins using Kerberos ticket
