@@ -492,6 +492,17 @@ sub render_formvars {
 
 sub render_alphabar {
   my $self = shift;
+  my $pxt = shift;
+  my $content = shift;
+
+  # if there is no alphabar we still need the div there
+  my $template = $self->style->alphabar();
+  $template =~ s/\{alphabar_content\}/$content/;
+  return $template;
+}
+
+sub render_alphabar_content {
+  my $self = shift;
   my $alphabar = shift;
   my $pagesize = shift;
   my $url = shift;
@@ -511,19 +522,15 @@ sub render_alphabar {
 
       my $varstring = join('&amp;', map { "$_=" . PXT::Utils->escapeURI($vars->{$_}) } keys %{$vars});
 
-      push @ret, qq{<A HREF="$url?$varstring" class="list-alphabar-enabled">$alpha</A>};
+      push @ret, qq{<li><a href="$url?$varstring">$alpha</a></li>\n};
     }
     else {
-      push @ret, qq {<span class="list-alphabar-disabled">$alpha</span>};
+      push @ret, qq {<li class="disabled"><a href="#">$alpha</a></li>\n};
     }
   }
 
-  my $bar = qq(<div align="center"><strong>\n) . join("", @ret) . qq(\n</strong></div>\n<br />\n);
-
-  my $html = $self->style->alphabar;
-  $html =~ s/\{alphabar\}/$bar/;
-
-  return $html;
+  my $bar = qq(<ul class="spacewalk-alphabar pagination pagination-sm">\n) . join("", @ret) . qq(\n</ul>\n);
+  return $bar;
 }
 
 sub render_filterbox {
@@ -536,10 +543,12 @@ sub render_filterbox {
 
   throw "No 'sort_by' column for mode '" . $self->mode->{__name__} . "'\n" unless defined $filter_by;
 
-  $ret .= q{<div class="filter-input">};
-  $ret .= sprintf('Filter by %s: ', $filter_by->name);
+  $ret .= q{<div class="spacewalk-list-filter">};
+  $ret .= q{<div class="input-group input-group-sm">};
+
   if ($self->filter_type eq 'text') {
-    $ret .= PXT::HTML->text(-name => 'filter_value', -value => PXT::Utils->escapeHTML($self->filter_string || ''), -size => 12);
+    $ret .= PXT::HTML->text(-name => 'filter_value', -value => PXT::Utils->escapeHTML($self->filter_string || ''),
+                            -placeholder => sprintf('Filter by %s: ', $filter_by->name));
     $ret .= PXT::HTML->hidden(-name => 'prev_filter_value', -value => PXT::Utils->escapeHTML($self->filter_string || ''));
   }
   elsif ($self->filter_type eq 'select') {
@@ -554,8 +563,12 @@ sub render_filterbox {
     throw "Unknown filter type: '" . $self->filter_type . "'";
   }
 
-  $ret .= " ";
-  $ret .= PXT::HTML->submit_image(-src => '/img/button-go.gif', -alt => "Filter", -name => "filter_list");
+  $ret .= q{<div class="input-group-btn">};
+  $ret .= PXT::HTML->button(PXT::HTML->icon(-type => 'header-filter') , -type => 'submit', -name => "filter_list",
+                            -class => "btn btn-default spacewalk-button-filter");
+  $ret .= q{</div>};
+
+  $ret .= q{</div>};
   $ret .= q{</div>};
 
   return $ret;
@@ -595,26 +608,6 @@ sub render_select_buttons {
   }
 
   $block = PXT::Utils->perform_substitutions($block, {control_area => $button_str});
-  return $block;
-}
-
-sub render_set_info {
-  my $self = shift;
-  my $pxt = shift;
-  my $block = shift;
-  my $pos = shift;
-
-  my $subst = { };
-
-  if ($self->allow_selections($pxt) and $self->{__set__}) {
-    my $num_contents = scalar $self->{__set__}->contents;
-    $subst->{set_string} = sprintf('<span id="pagination_selcount_%s">(%s selected)</span>', $pos, $num_contents);
-  }
-  else {
-    $subst->{set_string} = '';
-  }
-
-  $block = PXT::Utils->perform_substitutions($block, $subst);
   return $block;
 }
 
@@ -674,10 +667,10 @@ sub render_pagination_buttons {
 
   # show buttons
   if ($lower != '1' || ($upper != $total)) {
-    $back_buttons_str = $self->render_pagination_button("First", "/img/list-allbackward$back_status_str.gif", " |&lt; ", $back_status);
-    $back_buttons_str .= $self->render_pagination_button("Prev", "/img/list-backward$back_status_str.gif", " &lt; ", $back_status);
-    $forward_buttons_str = $self->render_pagination_button("Next", "/img/list-forward$forward_status_str.gif", " &gt; ", $forward_status);
-    $forward_buttons_str .= $self->render_pagination_button("Last", "/img/list-allforward$forward_status_str.gif", " &gt;| ", $forward_status);
+    $back_buttons_str = $self->render_pagination_button("First", "fa fa-fast-backward", " |&lt; ", $back_status);
+    $back_buttons_str .= $self->render_pagination_button("Prev", "fa fa-backward", " &lt; ", $back_status);
+    $forward_buttons_str = $self->render_pagination_button("Next", "fa fa-forward", " &gt; ", $forward_status);
+    $forward_buttons_str .= $self->render_pagination_button("Last", "fa fa-fast-forward", " &gt;| ", $forward_status);
   }
 
   my %subst;
@@ -693,23 +686,22 @@ sub render_pagination_buttons {
 sub render_pagination_button {
   my $self = shift;
   my $name = shift;
-  my $img_file = shift;
+  my $icon_class = shift;
   my $text = shift;
   my $is_active = shift;
 
   my $ret = '';
 
-  if ($is_active) {
-    $ret = <<EOH
-<input type="image" src="$img_file" border="0" name="$name" value="$text" class="list-nextprev-active" />
-EOH
-  }
-  else {
-    $ret = <<EOH
-<img src="$img_file" border="0" alt="$text" title="$text" class="list-nextprev-inactive" />
-EOH
+  my $disabled = '';
+  unless ($is_active) {
+    $disabled = ' disabled';
   }
 
+  $ret = <<EOH;
+<button class="btn btn-default btn-xs" type="submit" name="$name" value="$text"$disabled>
+<i class="$icon_class" title="$text"></i>
+</button>
+EOH
   return $ret;
 }
 
@@ -750,7 +742,7 @@ sub render_rows_header {
 
   chomp($col_str);
 
-  my $header = $self->style->header;
+  my $header = $self->style->table_header;
 
   $header =~ s/\{header_row\}/$col_str/g;
 
@@ -766,7 +758,7 @@ sub render_rows_footer {
     $numcols++;
   }
 
-  my $footer = $self->style->footer;
+  my $footer = $self->style->table_footer;
   $footer =~ s/\{numcols\}/$numcols/g;
 
   return $footer;
@@ -865,6 +857,18 @@ sub render_checkbox {
   return $checkbox_template;
 }
 
+sub render_pagination {
+  my $self = shift;
+  my $pxt = shift;
+
+  my $template = $self->style->pagination;
+
+  $template = $self->render_pagination_buttons($pxt, $template);
+  $template = $self->render_pagination_formvars($pxt, $template);
+  $template = $self->render_page_info($pxt, $template);
+  return $template;
+}
+
 sub render_empty_list_message {
   my $self = shift;
 
@@ -940,21 +944,43 @@ sub render {
 
     if ($self->filter_string) {
       $ret .= PXT::HTML->form_start(-name => 'rhn_list', -method => "POST", -action => $pxt->uri) . "\n";
-      $ret .= $self->render_filterbox($pxt) . '<br />';
+
+      my $template = $self->style->header();
+      $template =~ s/\{alphabar\}//;
+      $template =~ s/\{pagination\}//;
+      my $filterbox = $self->render_filterbox($pxt);
+      $template =~ s/\{control_area\}/$filterbox/;
+
+      $ret .= $template;
       $ret .= $self->render_empty_list_message();
       $ret .= $self->render_formvars($pxt);
       $ret .= PXT::HTML->hidden(-name => "pxt:trap", -value => $self->trap());
       $ret .= PXT::HTML->hidden(-name => "list_mode", -value => $mode->{__name__});
 
       if ($self->{__set__}) {
-	$ret .= PXT::HTML->hidden(-name => "list_set_label", -value => $self->{__set__}->label);
+        $ret .= PXT::HTML->hidden(-name => "list_set_label", -value => $self->{__set__}->label);
       }
+      $ret .= $self->style->footer;
+
+      $ret =~ s/\{alphabar\}//;
+      $ret =~ s/\{pagination\}//;
+      $ret =~ s/\{control_area\}//;
 
       $ret .= PXT::HTML->form_end;
       return $ret;
     }
     else {
-      return $self->render_empty_list_message();
+      my $template = $self->style->header();
+
+      $ret .= $template;
+      $ret .= $self->render_empty_list_message();
+      $ret .= $self->style->footer;
+
+      $ret =~ s/\{alphabar\}//g;
+      $ret =~ s/\{pagination\}//g;
+      $ret =~ s/\{control_area\}//g;
+
+      return $ret;
     }
   }
 
@@ -964,15 +990,13 @@ sub render {
 
   my $filter = '&#160;';
 
-
-
-  my $alphabar;
+  my $alphabar_content;
   if (exists $results{alphabar} && defined $results{alphabar}) {
-    $alphabar = "&#160;";
+    $alphabar_content = "&#160;";
 
     if (scalar @{$results{all_ids}} > $pxt->user->preferred_page_size) {
 
-      $alphabar = $self->render_alphabar($results{alphabar},
+      $alphabar_content = $self->render_alphabar_content($results{alphabar},
 					 $pxt->user->preferred_page_size,
 					 $pxt->uri,
 					 $self->formvars($pxt));
@@ -982,20 +1006,17 @@ sub render {
     $filter = $self->render_filterbox($pxt);
   }
 
-  $ret .= $alphabar if $alphabar;
-
   $ret .= PXT::HTML->form_start(-name => 'rhn_list', -method => "POST", -action => $pxt->uri) . "\n";
 
-  my $pagination = $self->style->pagination;
+  my $header .= $self->style->header;
+  my $pagination = $self->render_pagination($pxt);
+  my $alphabar = $self->render_alphabar($pxt, $alphabar_content);
+  $header =~ s/\{alphabar\}/$alphabar/;
 
-  $pagination = $self->render_pagination_buttons($pxt, $pagination);
-  $pagination = $self->render_pagination_formvars($pxt, $pagination);
-  $pagination = $self->render_set_info($pxt, $pagination, 'top');
-  $pagination = $self->render_page_info($pxt, $pagination);
-  $pagination =~ s/\{control_area\}/$filter/;
+  $header =~ s/\{pagination\}/$pagination/;
+  $header =~ s/\{control_area\}/$filter/;
 
-  $ret .= $pagination;
-
+  $ret .= $header;
   $ret .= $self->render_rows_header(\%acl_failures);
 
   $self->init_row_counter();
@@ -1170,17 +1191,10 @@ sub render {
 
   $ret .= $self->render_rows_footer();
 
-  $pagination = $self->style->pagination;
-
-  $pagination = $self->render_pagination_buttons($pxt, $pagination);
-  $pagination = $self->render_set_info($pxt, $pagination, 'bottom');
-  $pagination = $self->render_page_info($pxt, $pagination);
-
-  $pagination = $self->render_select_buttons($pxt, $pagination,  $acl_failures{'Select'});
-
-  $pagination =~ s/\{hidden_vars\}//;
-
-  $ret .= $pagination;
+  my $footer = $self->style->footer;
+  $footer =~ s/\{pagination\}/$pagination/;
+  $footer = $self->render_select_buttons($pxt, $footer,  $acl_failures{'Select'});
+  $ret .= $footer;
 
   $ret .= PXT::HTML->hidden(-name => "pxt:trap", -value => $self->trap());
   $ret .= PXT::HTML->hidden(-name => "list_mode", -value => $mode->{__name__});

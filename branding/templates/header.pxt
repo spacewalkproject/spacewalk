@@ -21,6 +21,10 @@
     <script src="/javascript/bootstrap.js"></script>
     <script src="/javascript/spacewalk-essentials.js"></script>
     <script src="/javascript/spacewalk-checkall.js"></script>
+
+    <script src="/rhn/dwr/engine.js"></script>
+    <script src="/rhn/dwr/util.js"></script>
+    <script src="/rhn/dwr/interface/DWRItemSelector.js"></script>
   </head>
 </pxt-passthrough>
 

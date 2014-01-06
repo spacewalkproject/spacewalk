@@ -119,6 +119,7 @@ sub hidden {
 #text(
 #	-name => foo,
 #	-value => foo,
+# -placeholder => foo,
 #	-maxlength => 30,
 #	-size => 15);
 sub text{
@@ -129,7 +130,7 @@ sub text{
     $class->_spew("->text no name given, defaulting to " . $e{-name});
   }
 
-  return $class->_format(\%e,"input type=\"text\"");
+  return $class->_format(\%e,"input class=\"form-control\" type=\"text\"");
 }
 
 #file(
@@ -451,6 +452,26 @@ sub link {
   return sprintf qq{<a href="%s"$css_class$target>%s</a>}, $url, $label;
 }
 
+sub button {
+  my $class = shift;
+  my $text = shift;
+  my %params = @_;
+
+  if (not exists $params{-name}) {
+    die "nameless button";
+  }
+
+  my @inner;
+  for my $attr (qw/value type name class/) {
+    next unless exists $params{"-$attr"};
+    push @inner, sprintf(qq{$attr="$params{-$attr}"});
+  }
+
+  my $inner_str = join(" ", @inner);
+
+  return qq{<button $inner_str>$text</button>};
+}
+
 sub link2 {
   my $class = shift;
   my %params = validate(@_, { url => 1, text => 0, css => 0, target => 0, params => 0 });
@@ -527,6 +548,7 @@ my %rhn_icons = (
     "header-errata-set" => "fa spacewalk-icon-patch-set",
     "header-errata-set-add" => "fa pacewalk-icon-patchset-install",
     "header-event-history" => "fa fa-suitcase",
+    "header-filter"     => "fa fa-eye",
     "header-help"       => "fa fa-question-circle",
     "header-info"       => "fa fa-info-circle text-primary",
     "header-package"    => "fa spacewalk-icon-packages",

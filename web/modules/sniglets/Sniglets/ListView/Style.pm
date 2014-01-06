@@ -35,7 +35,7 @@ sub header_column {
   my $self = shift;
 
   my $ret = <<EOQ;
-    <th{attr_string}>{column_name}</th>
+    <th>{column_name}</th>
 EOQ
 
   return $ret;
@@ -45,16 +45,34 @@ sub header {
   my $self = shift;
 
   my $ret =<<EOQ;
-<div class="panel panel-default">
-<table class="table table-striped">
-<!-- Begin Header Row -->
-  <thead>
-  <tr>
-{header_row}
-  </tr>
-  </thead>
-<!-- End Header Row -->
+<div class="spacewalk-list">
+  <div class="spacewalk-list-top-addons">
+    {alphabar}
+    {pagination}
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="spacewalk-list-head-addons">
+        {control_area}
+      </div>
+    </div>
+EOQ
 
+  return $ret;
+}
+
+sub table_header {
+  my $self = shift;
+
+  my $ret =<<EOQ;
+    <table class="table table-striped">
+      <!-- Begin Header Row -->
+      <thead>
+        <tr>
+          {header_row}
+        </tr>
+      </thead>
+      <!-- End Header Row -->
 EOQ
 
   return $ret;
@@ -75,11 +93,29 @@ EOQ
   return $ret;
 }
 
+sub table_footer {
+  my $self = shift;
+
+  my $ret =<<EOQ;
+    </table>
+EOQ
+  return $ret;
+}
+
 sub footer {
   my $self = shift;
 
   my $ret =<<EOQ;
-</table>
+    <div class="panel-footer">
+      <div class="spacewalk-list-footer-addons">
+      {control_area}
+      </div>
+    </div>
+  </div>
+  <div class="spacewalk-list-bottom-addons">
+    {pagination}
+  </div>
+
 </div>
 EOQ
 
@@ -90,16 +126,14 @@ sub pagination {
   my $self = shift;
 
   my $ret =<<EOQ;
+  <div class="spacewalk-list-pagination">
   <!-- Begin Pagination Buttons -->
-  <table width="100%" class="list-pagination" align="center">
-    <tr>
-      <td valign="center" width="90%">{control_area}</td>
-      <td valign="center" class="list-infotext"><strong>{current_lower}</strong> - <strong>{current_upper}</strong> of <strong>{total} {set_string}</strong> &#160;</td>
-      <td valign="center" class="list-navbuttons">{back_buttons_str} {forward_buttons_str}</td>
-    </tr>
-  </table>
-
+  <span id="list_min">{current_lower}</span> - <span id="list_max">{current_upper}</span> of <span id="list_total">{total}</span>
+  <div class="spacewalk-list-pagination-btns btn-group">
+    {back_buttons_str} {forward_buttons_str}
+  </div>
   {hidden_vars}
+  </div>
   <!-- End Pagination Buttons -->
 EOQ
 
@@ -135,7 +169,7 @@ sub column {
   my $self = shift;
 
   my $ret =<<EOQ;
-    <td{width_str}{align_str}{nowrap_str}{class_str}>
+    <td>
       {col_data}
     </td>
 EOQ
@@ -159,7 +193,9 @@ sub empty_list_wrapper {
   my $self = shift;
 
   my $ret =<<EOQ;
-    <div class="list-empty-message">{empty_list_message}</div>
+    <div class="panel-body">
+      <div class="list-empty-message">{empty_list_message}</div>
+    </div>
 EOQ
 
   return $ret;
@@ -169,11 +205,9 @@ sub alphabar {
   my $self = shift;
 
   my $ret =<<EOQ;
-<table width="100%" cellspacing="0" cellpadding="1">
-  <tr valign="top">
-    <td class="list-alphabar">{alphabar}</td>
-  </tr>
-</table>
+  <div class="spacewalk-list-alphabar">
+    {alphabar_content}
+  </div>
 EOQ
 
   return $ret;
@@ -325,11 +359,31 @@ EOQ
   return $ret;
 }
 
+sub table_footer {
+  my $self = shift;
+
+  my $ret =<<EOQ;
+    </table>
+EOQ
+  return $ret;
+}
+
 sub footer {
   my $self = shift;
 
   my $ret =<<EOQ;
-</table>
+  </div>
+  <div class="panel-footer">
+    <div class="spacewalk-list-footer-addons">
+    {control_area}
+    </div>
+  </div>
+
+  <div class="spacewalk-list-bottom-addons">
+    {pagination}
+  </div>
+
+</div>
 EOQ
 
   return $ret;
