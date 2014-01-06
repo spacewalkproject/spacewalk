@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 2.1.4
+Version: 2.1.5
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -104,6 +104,9 @@ chgrp apache /etc/rhn /etc/rhn/rhn.conf /etc/rhn/cluster.ini 2> /dev/null || :
 chmod o-rwx /etc/rhn/rhn.conf* /etc/rhn/cluster.ini* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
 
 %changelog
+* Mon Jan 06 2014 Tomas Lestach <tlestach@redhat.com> 2.1.5-1
+- rewrite Login2.do to Login.do page
+
 * Thu Dec 19 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.4-1
 - updated links to system group delete page
 
