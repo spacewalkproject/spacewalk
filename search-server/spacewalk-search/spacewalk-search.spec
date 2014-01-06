@@ -38,6 +38,7 @@ Requires: oro
 %endif
 #Requires: lucene
 %if 0%{?fedora}
+Requires: mchange-commons
 Requires: objectweb-asm
 %else
 Requires: asm
