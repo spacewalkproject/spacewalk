@@ -1371,7 +1371,6 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype
      *      #array()
      *          #struct("package")
-     *                 #prop("int", "id")
      *                 #prop("string", "name")
      *                 #prop("string", "version")
      *                 #prop("string", "release")

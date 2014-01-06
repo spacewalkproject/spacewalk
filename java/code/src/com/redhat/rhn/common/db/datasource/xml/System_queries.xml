@@ -1446,8 +1446,7 @@ SELECT PN.name,
        PE.release,
        coalesce(PE.epoch, ' ') as epoch,
        PA.name as arch,
-       SP.installtime,
-       PN.id
+       SP.installtime
   FROM rhnServerPackage SP inner join
        rhnPackageName PN on PN.id = SP.name_id inner join
        rhnPackageEVR PE on PE.id = SP.evr_id left join
