@@ -2821,19 +2821,16 @@ def do_system_syncpackages(self, args):
     # get package IDs
     packages = self.client.system.listPackages(self.session, source_id)
 
-    if self.check_api_version('10.16'):
-        package_ids = [p.get('id') for p in packages]
-    else:
-        package_names = build_package_names(packages)
+    package_names = build_package_names(packages)
 
-        package_ids = []
+    package_ids = []
 
-        for name in package_names:
-            pkg_id = self.get_package_id(name)
+    for name in package_names:
+        pkg_id = self.get_package_id(name)
 
-            # filter out invalid package IDs
-            if pkg_id:
-                package_ids.append(pkg_id)
+        # filter out invalid package IDs
+        if pkg_id:
+            package_ids.append(pkg_id)
 
     self.client.system.scheduleSyncPackagesWithSystem(self.session,
                                                       target_id,
