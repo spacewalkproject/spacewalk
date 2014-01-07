@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.109
+Version: 2.1.110
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -787,6 +787,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jan 07 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.110-1
+- .project file was not accidentally committed
+- there's not ant-nodeps on fc20
+
 * Mon Jan 06 2014 Tomas Lestach <tlestach@redhat.com> 2.1.109-1
 - 1048090 - Revert "add package ID to array returned by system.listPackages API
   call"
