@@ -28,7 +28,11 @@ Source0:        %{name}-%{version}.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  ant
 BuildRequires:  java-devel
+%if 0%{?fedora} >= 20
+BuildRequires: javapackages-tools
+%else
 BuildRequires:  jpackage-utils >= 1.6
+%endif
 BuildRequires:  simple-xml
 BuildArch:      noarch
 Provides:       java(com.suse.studio:susestudio-java-client) == %{version}
