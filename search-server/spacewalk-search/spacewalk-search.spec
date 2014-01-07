@@ -29,7 +29,11 @@ Requires: apache-commons-logging
 %else
 Requires: jakarta-commons-logging
 %endif
+%if 0%{?fedora} >= 20
+Requires: javapackages-tools
+%else
 Requires: jpackage-utils >= 0:1.5
+%endif
 Requires: log4j
 %if 0%{?fedora} >= 16
 Requires: jakarta-oro
