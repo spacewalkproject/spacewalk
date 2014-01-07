@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2013 Red Hat, Inc.
+ * Copyright (c) 2013--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -64,11 +64,12 @@ public class AdminListAction extends RhnAction implements Listable {
                 preselected.add(item.getId());
         }
         helper.preSelect(preselected);
+        helper.execute();
 
         Map params = makeParamMap(request);
         params.put(RequestContext.SERVER_GROUP_ID, serverGroup.getId());
 
-        if (requestContext.isSubmitted()) {
+        if (helper.isDispatched()) {
             // make sure the user has enough perms
             if (!UserManager.canAdministerSystemGroup(user, serverGroup)) {
                 throw new PermissionCheckFailureException();
@@ -102,7 +103,6 @@ public class AdminListAction extends RhnAction implements Listable {
                     mapping.findForward("submitted"), params);
         }
 
-        helper.execute();
 
         return StrutsDelegate.getInstance().forwardParams(
                 mapping.findForward("default"), params);

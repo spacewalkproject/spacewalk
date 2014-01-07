@@ -60,10 +60,11 @@
 
     </rl:list>
 
+    <hr />
     <div class="text-right">
-        <hr />
-        <input type="submit" name="confirm"
-                value="<bean:message key='message.Update'/>" />
+        <html:submit property="dispatch">
+            <bean:message key="message.Update" />
+        </html:submit>
     </div>
     <rhn:submitted/>
 
