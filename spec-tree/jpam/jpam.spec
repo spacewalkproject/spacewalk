@@ -20,7 +20,7 @@ Patch2: jpam-0.4-ppc.patch
 Patch3: jpam-0.4-no_checkstyle.patch
 Patch4: jpam-0.4-no-password-prompt.patch
 Version: 0.4
-Release: 22%{?dist}
+Release: 23%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 Requires: %jpackage_run_jars
@@ -104,6 +104,10 @@ fi
 %{_javadocdir}/%{name}-%{version}
 
 %changelog
+* Tue Jan 07 2014 Michael Mraka <michael.mraka@redhat.com> 0.4-23
+- there's not ant-nodeps on fc20
+- replace legacy name of Tagger with new one
+
 * Fri Mar 15 2013 Michael Mraka <michael.mraka@redhat.com> 0.4-22
 - fixed builder definition
 
