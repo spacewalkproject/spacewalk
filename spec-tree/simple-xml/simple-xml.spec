@@ -38,7 +38,11 @@ BuildRequires:  bea-stax
 BuildRequires:  bea-stax-api
 %endif
 BuildRequires:  java-devel
+%if 0%{?fedora} >= 20
+BuildRequires: javapackages-tools
+%else
 BuildRequires:  jpackage-utils >= 1.6
+%endif
 BuildRequires:  xpp3
 BuildArch:      noarch
 Provides:       java(org.simpleframework:simple-xml) == 2.6.3
