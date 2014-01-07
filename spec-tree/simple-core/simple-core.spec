@@ -8,8 +8,9 @@ URL:	 	http://www.simpleframework.org
 Source0:	simple-core-%{version}.tar.gz	
 BuildRoot:	%{_tmppath}/%{origname}-%{version}-%{release}-buildroot
 
-BuildRequires:	ant
-Requires: 	java >= 1.5	
+BuildRequires:  ant
+BuildRequires:  java >= 1.5
+Requires:       java >= 1.5
 
 %description
 The core API consists of a simple.http package and various sub-packages, it also contains various utilities. This is all that is required to develop HTTP services. 
