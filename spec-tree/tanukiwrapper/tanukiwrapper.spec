@@ -39,7 +39,7 @@
 
 Name:		tanukiwrapper
 Version:	3.2.3
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Java Service Wrapper
 Epoch:		0
 License:	BSD
@@ -220,6 +220,10 @@ fi
 %endif
 
 %changelog
+* Tue Jan 07 2014 Tomas Lestach <tlestach@redhat.com> 3.2.3-12
+- jpackage-utils were replaced with javapackages-tools in fc20
+- there's not ant-nodeps on fc20
+
 * Wed Mar 20 2013 Tomas Lestach <tlestach@redhat.com> 3.2.3-11
 - Revert "set fuzz=1 for tanukiwrapper patch application"
 
