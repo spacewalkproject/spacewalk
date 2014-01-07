@@ -20,7 +20,7 @@
 Name:           simple-xml
 Summary:        An XML serialization framework for Java
 Version:        2.6.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 %if 0%{?suse_version}
 License:        Apache-2.0
 Group:          Development/Libraries/Java
@@ -97,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_javadocdir}/%{name}
 
 %changelog
+* Tue Jan 07 2014 Tomas Lestach <tlestach@redhat.com> 2.6.8-2
+- add tito.props to simple-xml directory
+
 * Tue Jan 07 2014 Tomas Lestach <tlestach@redhat.com> 2.6.8-1
 - jpackage-utils were replaced with javapackages-tools in fc20
 
