@@ -1,6 +1,6 @@
 Name:		simple-core		
 Version:	3.1.3
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Embeddable Java HTTP engine capable of handling large loads
 Group:	 	Development/Libraries	
 License:	GNU
@@ -59,6 +59,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadocdir}/*
 
 %changelog
+* Tue Jan 07 2014 Tomas Lestach <tlestach@redhat.com> 3.1.3-4
+- let simple-core buildrequire javapackages-tools on fc20
+- let simple-core buildrequire java
+
 * Fri Jan 18 2013 Michael Mraka <michael.mraka@redhat.com> 3.1.3-3
 - rebuild simple-core from git
 
