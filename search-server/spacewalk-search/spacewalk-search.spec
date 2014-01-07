@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.10
+Version: 2.1.11
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -195,6 +195,9 @@ fi
 %attr(755, root, root) %{_var}/lib/rhn/search/indexes/docs
 
 %changelog
+* Tue Jan 07 2014 Tomas Lestach <tlestach@redhat.com> 2.1.11-1
+- jpackage-utils were replaced with javapackages-tools in fc20
+
 * Mon Jan 06 2014 Tomas Lestach <tlestach@redhat.com> 2.1.10-1
 - fix rhn-search on fedoras
 
