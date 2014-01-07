@@ -9,7 +9,11 @@ URL: http://stringtree.org/stringtree-json.html
 Source0: %{base_package}-%{version}-src.zip
 Patch0: stringtree-2.0.9-build-xml.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
+%if 0%{?fedora} >= 20
+BuildRequires: javapackages-tools
+%else
 BuildRequires: jpackage-utils >= 0:1.5
+%endif
 BuildRequires: ant
 BuildRequires: unzip
 BuildArch: noarch
