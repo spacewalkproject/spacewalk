@@ -9,7 +9,11 @@ Source0: %{name}-%{version}.tar.gz
 Patch0: build-classpath.patch
 Patch1: fault_serialization.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
+%if 0%{?fedora} >= 20
+BuildRequires: javapackages-tools
+%else
 BuildRequires: jpackage-utils >= 0:1.5
+%endif
 %if 0%{?rhel} <= 5
 BuildRequires: servletapi5
 Requires: servletapi5
