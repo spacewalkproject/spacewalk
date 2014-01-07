@@ -55,18 +55,21 @@ Patch5:         %{name}-Makefile-sparc-sparc64.patch
 Patch6:		%{name}-nosun-jvm-64.patch
 Patch7:     %{name}-compilewithfpic.patch
 Group:		Development/Java
-BuildRequires:	jpackage-utils >= 0:1.6
+%if 0%{?fedora} >= 20
+BuildRequires: javapackages-tools
+Requires:      javapackages-tools
+%else
+BuildRequires:	ant-nodeps >= 0:1.6.1
+BuildRequires:  jpackage-utils >= 0:1.6
+Requires:       jpackage-utils >= 0:1.6
+%endif
 BuildRequires:	glibc-devel
 BuildRequires:	ant >= 0:1.6.1
-%if 0%{?fedora} && 0%{?fedora} < 20
-BuildRequires:	ant-nodeps >= 0:1.6.1
-%endif
 BuildRequires:	ant-junit
 BuildRequires:	xerces-j2
 BuildRequires:	xml-commons-apis
 BuildRequires:	%{__perl}
 BuildRequires:	java-javadoc
-Requires:	jpackage-utils >= 0:1.6
 Obsoletes:	%{name}-demo < 0:3.1.2-2jpp
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
