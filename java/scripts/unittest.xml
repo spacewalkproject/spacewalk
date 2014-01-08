@@ -6,7 +6,7 @@
   <property name="test-jar" location="/usr/share/rhn/lib/rhn-test.jar"/>
   <property name="tmpdir" value="${java.io.tmpdir}/spacewalk-test" />
 
-  <property name="tomcat" value="tomcat5" />
+  <available file="/usr/share/java/tomcat5" type="dir" property="tomcat" value="tomcat5" />
   <available file="/usr/share/java/tomcat6" type="dir" property="tomcat" value="tomcat6" />
   <available file="/usr/share/java/tomcat" type="dir" property="tomcat" value="tomcat" />
   <echo message="Detected: ${tomcat}" />
