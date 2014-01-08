@@ -20,7 +20,7 @@ Patch2: jpam-0.4-ppc.patch
 Patch3: jpam-0.4-no_checkstyle.patch
 Patch4: jpam-0.4-no-password-prompt.patch
 Version: 0.4
-Release: 24%{?dist}
+Release: 25%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 Requires: %jpackage_run_jars
@@ -109,6 +109,9 @@ fi
 %{_javadocdir}/%{name}-%{version}
 
 %changelog
+* Wed Jan 08 2014 Tomas Lestach <tlestach@redhat.com> 0.4-25
+- differenciate only between actual and older fedora
+
 * Wed Jan 08 2014 Tomas Lestach <tlestach@redhat.com> 0.4-24
 - let jpam buildrequire ant
 - let jpam build/require javapackages-tools on fc20
