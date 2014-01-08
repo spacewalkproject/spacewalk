@@ -22,6 +22,9 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires:   java
 BuildRequires:   java-devel >= 1.5.0
 BuildRequires:   ant
+%if 0%{?fedora} >= 20
+BuildRequires: javapackages-tools
+%endif
 
 %description
 DWR is a Java library that enables Java on the server and JavaScript
