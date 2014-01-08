@@ -110,10 +110,12 @@ Requires: spacewalk-java-lib
 Requires: spacewalk-java-jdbc
 Requires: spacewalk-branding
 %if 0%{?fedora} >= 20
+BuildRequires: apache-commons-validator
 BuildRequires: mvn(ant-contrib:ant-contrib)
 BuildRequires: javapackages-tools
 Requires:      javapackages-tools
 %else
+BuildRequires: jakarta-commons-validator
 BuildRequires: ant-contrib
 BuildRequires: jpackage-utils
 Requires:      jpackage-utils
@@ -121,11 +123,13 @@ Requires:      jpackage-utils
 Requires: cobbler >= 2.0.0
 Requires: dojo
 %if 0%{?fedora}
-Requires: apache-commons-io
-Requires: apache-commons-logging
+Requires:       apache-commons-io
+BuildRequires:  apache-commons-logging
+Requires:       apache-commons-logging
 %else
-Requires: jakarta-commons-io
-Requires: jakarta-commons-logging
+Requires:       jakarta-commons-io
+BuildRequires:  jakarta-commons-logging
+Requires:       jakarta-commons-logging
 %endif
 BuildRequires: ant
 BuildRequires: ant-apache-regexp
@@ -165,13 +169,11 @@ BuildRequires: javassist
 BuildRequires: hibernate3 = 0:3.2.4
 %endif
 BuildRequires: jaf
-BuildRequires: jakarta-commons-cli
 BuildRequires: jakarta-commons-codec
 BuildRequires: jakarta-commons-collections
 BuildRequires: jakarta-commons-discovery
 BuildRequires: jakarta-commons-el
 BuildRequires: jakarta-commons-fileupload
-BuildRequires: jakarta-commons-validator
 BuildRequires: jakarta-taglibs-standard
 BuildRequires: jcommon
 BuildRequires: jdom
@@ -207,8 +209,10 @@ BuildRequires: postgresql-jdbc
 %if 0%{?fedora}
 # spelling checker is only for Fedoras (no aspell in RHEL6)
 BuildRequires: aspell aspell-en libxslt
+BuildRequires: apache-commons-cli
 BuildRequires: apache-commons-io
 %else
+BuildRequires: jakarta-commons-cli
 BuildRequires: jakarta-commons-io
 %endif
 Obsoletes: rhn-java < 5.3.0
