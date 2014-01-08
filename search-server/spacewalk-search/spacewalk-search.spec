@@ -30,6 +30,7 @@ Requires: apache-commons-logging
 Requires: jakarta-commons-logging
 %endif
 %if 0%{?fedora} >= 20
+BuildRequires: javapackages-tools
 Requires: javapackages-tools
 %else
 Requires: jpackage-utils >= 0:1.5
