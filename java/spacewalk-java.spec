@@ -109,7 +109,13 @@ Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
 Requires: spacewalk-java-jdbc
 Requires: spacewalk-branding
-Requires: jpackage-utils >= 0:1.5
+%if 0%{?fedora} >= 20
+BuildRequires: javapackages-tools
+Requires:      javapackages-tools
+%else
+BuildRequires: jpackage-utils
+Requires:      jpackage-utils
+%endif
 Requires: cobbler >= 2.0.0
 Requires: dojo
 %if 0%{?fedora}
@@ -188,7 +194,6 @@ BuildRequires: struts >= 0:1.3.0
 BuildRequires: struts-taglib >= 0:1.3.0
 BuildRequires: tomcat >= 7
 BuildRequires: tomcat-lib >= 7
-BuildRequires: jpackage-utils
 %else
 BuildRequires: struts >= 0:1.3.0
 BuildRequires: struts-taglib >= 0:1.3.0
