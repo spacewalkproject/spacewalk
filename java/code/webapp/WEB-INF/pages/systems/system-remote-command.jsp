@@ -66,10 +66,7 @@
                                       rows="8" wrap="off" style="width: 100%;">${formData.scriptBody}</textarea>
                         </div>
                     </div>
-                    <jsp:include page="/WEB-INF/pages/common/fragments/datepicker-with-label.jsp">
-                        <jsp:param name="widget" value="date" />
-                        <jsp:param name="label_text" value="ssm.operations.provisioning.remotecommand.form.date.label" />
-                    </jsp:include>
+                    <jsp:include page="/WEB-INF/pages/common/fragments/schedule-options.jspf"/>
                     <div class="form-group">
                         <div class="col-lg-offset-3 col-lg-6">
                             <button type="submit" name="schedule" class="btn btn-success"
@@ -80,7 +77,6 @@
                     </div>
                     <input type="hidden" name="sid" value="${system.id}" />
                     <input type="hidden" name="submitted" value="true" />
-                    <input type="hidden" name="use_date" value="true" />
                 </form>
             </div>
         </div>
