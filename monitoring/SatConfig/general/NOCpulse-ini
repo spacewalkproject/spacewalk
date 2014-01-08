@@ -132,6 +132,8 @@ $ini->disconnect();
 
 =pod
 
+=encoding utf8
+
 =head1 NAME
 
 NOCpulse-ini - Show content of monitoring config file NOCpulse.ini and allow you to edit it.

@@ -23,7 +23,12 @@ to make a monitoring work.
 %setup -q
 
 %build
-pod2man --section=8 NOCpulse-ini NOCpulse-ini.8
+%if  0%{?rhel} && 0%{?rhel} < 6
+%define pod2man pod2man
+%else
+%define pod2man pod2man --utf8
+%endif
+%{pod2man} --section=8 NOCpulse-ini NOCpulse-ini.8
 
 %install
 rm -rf $RPM_BUILD_ROOT
