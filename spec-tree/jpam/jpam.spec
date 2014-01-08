@@ -29,6 +29,9 @@ BuildRequires: gcc make
 BuildRequires: pam-devel
 %if 0%{?fedora} && 0%{?fedora} < 20
 BuildRequires: ant-nodeps
+%else
+BuildRequires: javapackages-tools
+Requires:      javapackages-tools
 %endif
 BuildRequires: java-devel >= 1.6.0
 
