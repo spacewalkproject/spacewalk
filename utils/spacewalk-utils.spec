@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.1.22
+Version:	2.1.23
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed Jan 08 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.23-1
+- fixed man page encoding
+
 * Tue Nov 12 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.22-1
 - Added Oracle Linux channels for UEKR3, as well as Spacewalk 2.0 Server/Client
   for OL6 and Client for OL5
