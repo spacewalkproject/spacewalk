@@ -5,7 +5,7 @@ Requires: apache-commons-io
 %define jpackage_run_jars antlr jakarta-commons-beanutils jakarta-commons-collections jakarta-commons-logging regexp
 %endif
 
-%define jpackage_build_jars checkstyle junit
+%define jpackage_build_jars checkstyle junit ant
 %define jpackage_jars %jpackage_run_jars %jpackage_build_jars
 
 Summary: A JNI Wrapper for the Unix pam(8) subsystem and a JAAS bridge
