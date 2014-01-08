@@ -1,6 +1,6 @@
 Name:       dwr
 Version:    3.0rc2
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Direct Web Remoting
 Group:      Development/Libraries/Java
 License:    Apache Software License v2
@@ -51,6 +51,9 @@ install -m 644 ./target/ant/dwr.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version
 
 
 %changelog
+* Wed Jan 08 2014 Tomas Lestach <tlestach@redhat.com> 3.0rc2-5
+- let dwr buildrequire javapackages-tools on fc20
+
 * Mon Apr 08 2013 Jan Pazdziora 3.0rc2-4
 - patch for the "A server error has occurred" issue (DWR-467)
 
