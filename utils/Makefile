@@ -12,6 +12,7 @@ SCRIPTS = sw-system-snapshot migrate-system-profile spacewalk-api apply_errata \
 CONFIGS = spacewalk-common-channels.ini
 
 DOCBOOK = $(wildcard /usr/bin/docbook2man)
+POD2MAN = pod2man --utf8
 
 SGMLS	= $(wildcard *.sgml)
 MANS	= $(patsubst %.sgml,%.8,$(SGMLS) )
@@ -32,9 +33,9 @@ install :: $(SCRIPTS) $(PREFIX)/$(BINDIR)
 ifneq ($(DOCBOOK),)
 # install man pages
 all	:: $(MANS)
-	pod2man --section=8 spacewalk-api spacewalk-api.8
-	pod2man --section=8 delete-old-systems-interactive delete-old-systems-interactive.8
-	pod2man --section=8 spacewalk-dump-schema spacewalk-dump-schema.8
+	$(POD2MAN) --section=8 spacewalk-api spacewalk-api.8
+	$(POD2MAN) --section=8 delete-old-systems-interactive delete-old-systems-interactive.8
+	$(POD2MAN) --section=8 spacewalk-dump-schema spacewalk-dump-schema.8
 install :: $(MANS) $(PREFIX)/$(MANDIR)
 	$(INSTALL_DATA) $(MANS) spacewalk-api.8* delete-old-systems-interactive.8 spacewalk-dump-schema.8* $(PREFIX)/$(MANDIR)/man8
 install :: $(CONFIGS) $(PREFIX)/$(CONFDIR)

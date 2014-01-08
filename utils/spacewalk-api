@@ -87,6 +87,8 @@ if ($login) {
 
 =pod
 
+=encoding utf8
+
 =head1 NAME
 
 spacewalk-api - Call Spacawalk API from command line.
