@@ -18,10 +18,7 @@
 <c:set var="notSelectable" value="True" />
 <%@ include file="/WEB-INF/pages/ssm/systems/errata-list-fragment.jspf" %>
 
-    <jsp:include page="/WEB-INF/pages/common/fragments/datepicker-with-label.jsp">
-        <jsp:param name="widget" value="date" />
-        <jsp:param name="label_text" value="schedule.jsp.at" />
-    </jsp:include>
+    <jsp:include page="/WEB-INF/pages/common/fragments/schedule-options.jspf"/>
     <div class="text-right">
         <hr />
         <html:submit styleClass="btn btn-success" property="dispatch">

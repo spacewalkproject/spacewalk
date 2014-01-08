@@ -1,0 +1,15 @@
+<%@ page pageEncoding="iso-8859-1" contentType="text/html;charset=utf-8" %>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+
+<div class="form-group">
+    <label class="col-sm-3 control-label">
+        <bean:message key="schedule.jsp.at"/>
+    </label>
+    <div class="col-sm-6">
+        <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
+            <jsp:param name="widget" value="date"/>
+        </jsp:include>
+    </div>
+</div>
+<input type="hidden" name="use_date" value="true" />

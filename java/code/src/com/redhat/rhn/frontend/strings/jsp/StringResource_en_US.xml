@@ -7768,7 +7768,7 @@ organization management tools if you choose to remove this role from your login.
         </context-group>
       </trans-unit>
       <trans-unit id="applyerrata.disclaimer">
-        <source>If you are &lt;strong&gt;certain&lt;/strong&gt; you wish to do this, you may apply the errata as soon as possible, or no earlier than a specified time:</source>
+        <source>If you are &lt;strong&gt;certain&lt;/strong&gt; you wish to do this, you may schedule to apply the errata below.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
         </context-group>
@@ -15095,9 +15095,6 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="ssm.operations.provisioning.remotecommand.form.script_body.label">
           <source>Script</source>
-        </trans-unit>
-        <trans-unit id="ssm.operations.provisioning.remotecommand.form.date.label">
-          <source>Schedule no sooner than</source>
         </trans-unit>
         <trans-unit id="ssm.operations.provisioning.remotecommand.form.chain_id.new">
           <source>New...</source>

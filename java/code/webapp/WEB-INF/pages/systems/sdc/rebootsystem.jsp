@@ -29,22 +29,13 @@
                     <rhn:submitted />
 
                     <div class="form-group">
-                        <div class="col-lg-offset-3 col-lg-6">
-                            <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
-                                <jsp:param name="widget" value="date"/>
-                            </jsp:include>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
+                        <jsp:include page="/WEB-INF/pages/common/fragments/schedule-options.jspf"/>
                         <div class="col-lg-offset-3 col-lg-6">
                             <html:submit styleClass="btn btn-danger">
                                 <bean:message key="reboot.jsp.confirm"/>
                             </html:submit>
                         </div>
                     </div>
-
-                    <input type="hidden" name="use_date" value="true" />
                 </form>
             </div>
         </div>

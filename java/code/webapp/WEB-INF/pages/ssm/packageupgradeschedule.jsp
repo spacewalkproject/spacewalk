@@ -53,16 +53,7 @@
     </rl:list>
 
     <div class="form-horizontal">
-        <div class="form-group">
-            <label class="col-lg-3 control-label">
-                <bean:message key="schedule.jsp.at"/>
-            </label>
-            <div class="col-lg-6">
-                <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
-                    <jsp:param name="widget" value="date"/>
-                </jsp:include>
-            </div>
-        </div>
+       <jsp:include page="/WEB-INF/pages/common/fragments/schedule-options.jspf"/>
        <div class="form-group">
             <div class="col-lg-offset-3 col-lg-6">
                 <input type="submit"
@@ -77,7 +68,6 @@
 
     <input type="hidden" name="packagesDecl" value="${requestScope.packagesDecl}" />
     <input type="hidden" name="mode" value="${param.mode}" />
-    <input type="hidden" name="use_date" value="true" />
 
 </rl:listset>
 

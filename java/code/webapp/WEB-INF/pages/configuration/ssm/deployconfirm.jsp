@@ -31,10 +31,7 @@
 
   <c:if test="${not empty requestScope.pageList}">
     <p><bean:message key="deployconfirm.jsp.widgetsummary" /></p>
-    <jsp:include page="/WEB-INF/pages/common/fragments/datepicker-with-label.jsp">
-      <jsp:param name="widget" value="date" />
-      <jsp:param name="label_text" value="deployconfirm.jsp.usedate" />
-    </jsp:include>
+    <jsp:include page="/WEB-INF/pages/common/fragments/schedule-options.jspf"/>
     <div class="text-right">
       <hr />
       <html:submit styleClass="btn btn-default" property="dispatch">
