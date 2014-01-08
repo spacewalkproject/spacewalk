@@ -190,7 +190,7 @@ class BrokerHandler(SharedHandler):
         if 'X-RHN-Proxy-Auth' in _oto:
             log_debug(5, 'X-RHN-Proxy-Auth currently set to: %s' % repr(_oto['X-RHN-Proxy-Auth']))
         else:
-            log_debug(5, 'X-RHN-Proxy-Auth is not set'
+            log_debug(5, 'X-RHN-Proxy-Auth is not set')
 
         if self.req.headers_in.has_key('X-RHN-Proxy-Auth'):
             tokens = []
