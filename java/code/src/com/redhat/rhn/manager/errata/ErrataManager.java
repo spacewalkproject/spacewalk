@@ -354,14 +354,13 @@ public class ErrataManager extends BaseManager {
 
     /** Returns errata relevant to given server group.
      * @param serverGroup Server group.
-     * @return Relevant errata for ...
+     * @return Relevant errata for server group.
      */
     public static DataResult relevantErrata(ManagedServerGroup serverGroup) {
         SelectMode m = ModeFactory.getMode("Errata_queries", "relevant_to_server_group");
         Map params = new HashMap();
         params.put("sgid", serverGroup.getId());
-        DataResult res = makeDataResultNoPagination(params, null, m);
-        return res;
+        return makeDataResultNoPagination(params, null, m);
     }
 
     /**
