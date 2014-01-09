@@ -42,7 +42,11 @@ from rhn_bootstrap_strings import \
 from sslToolConfig import CA_CRT_NAME, CA_CRT_RPM_NAME
 from spacewalk.common.fileutils import rotateFile, cleanupAbsPath
 from spacewalk.common.checksum  import getFileChecksum
-from spacewalk.common.rhnConfig import PRODUCT_NAME
+
+try:
+    from spacewalk.common.rhnConfig import PRODUCT_NAME
+except:
+    PRODUCT_NAME = 'RHN Satellite'
 
 ## GLOBALS
 if os.path.exists('/usr/share/rhn/proxy') \
