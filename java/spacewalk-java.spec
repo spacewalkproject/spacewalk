@@ -660,7 +660,7 @@ fi
 %{jardir}/hibernate3*
 %if 0%{?fedora}
 %{jardir}/ehcache-core.jar
-%{jardir}/hibernate_hibernate-commons-annotations.jar
+%{jardir}/*_hibernate-commons-annotations.jar
 %{jardir}/hibernate-jpa-2.0-api.jar
 %{jardir}/javassist.jar
 %{jardir}/slf4j_api.jar
