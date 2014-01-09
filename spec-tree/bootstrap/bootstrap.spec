@@ -63,4 +63,8 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Jan 09 2014 Michael Mraka <michael.mraka@redhat.com> 3.0.0-1
+- initial packaging of twitter bootstrap framework
+
+
 
