@@ -54,7 +54,10 @@ public class LoginActionTest extends RhnBaseTestCase {
 
         RequestContext requestContext = new RequestContext(request);
 
-        request.setSession(new MockHttpSession());
+        MockHttpSession mockSession = new MockHttpSession();
+        mockSession.setupGetAttribute("url_bounce", null);
+        mockSession.setupGetAttribute("request_method", "GET");
+        request.setSession(mockSession);
         request.setupServerName("mymachine.rhndev.redhat.com");
         WebSession s = requestContext.getWebSession();
         request.addCookie(pcm.createPxtCookie(s.getId(), request, 10));
