@@ -117,6 +117,7 @@ Requires:      javapackages-tools
 %else
 BuildRequires: jakarta-commons-validator
 BuildRequires: ant-contrib
+BuildRequires: ant-nodeps
 BuildRequires: jpackage-utils
 Requires:      jpackage-utils
 %endif
@@ -135,9 +136,6 @@ BuildRequires: ant
 BuildRequires: ant-apache-regexp
 BuildRequires: java-devel >= 1:1.6.0
 BuildRequires: ant-junit
-%if 0%{?fedora} && 0%{?fedora} < 20
-BuildRequires: ant-nodeps
-%endif
 BuildRequires: antlr >= 0:2.7.6
 BuildRequires: jpam
 BuildRequires: tanukiwrapper
