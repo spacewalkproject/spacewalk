@@ -18,6 +18,7 @@ of the most popular front-end frameworks and open source projects in the world.
 
 %package less
 Summary:        .less files for bootstrap framework customization.
+Group:          Applications/Internet
 Requires: %{name} = %{version}-%{release}
 
 %description less
