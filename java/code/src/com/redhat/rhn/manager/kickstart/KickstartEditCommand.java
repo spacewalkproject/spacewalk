@@ -348,7 +348,7 @@ public class KickstartEditCommand extends BaseKickstartCommand {
         retval = retval.replaceAll(
                 getBaseLabel(this.ksdata.getTree().getChannel()), "");
         logger.debug("retval after replace: " + retval);
-        int hyphen = retval.indexOf("-");
+        int hyphen = retval.indexOf('-');
         if (hyphen >= 0) {
             retval = retval.substring(hyphen + 1, retval.length());
         }

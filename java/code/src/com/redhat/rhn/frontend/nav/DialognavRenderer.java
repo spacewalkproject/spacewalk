@@ -112,7 +112,7 @@ public class DialognavRenderer extends Renderable {
         String allowedFormVars = treeIndex.getTree().getFormvar();
         if (allowedFormVars != null) {
             StringBuffer formVars;
-            if (href.indexOf("?") == -1) {
+            if (href.indexOf('?') == -1) {
                 formVars = new StringBuffer("?");
             }
             else {

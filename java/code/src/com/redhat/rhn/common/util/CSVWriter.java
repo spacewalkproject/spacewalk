@@ -221,7 +221,7 @@ public class CSVWriter extends BufferedWriter implements ExportWriter {
      */
     public void write(String s) throws IOException {
         // If the string does not contain a comma, just write it out
-        if (s.indexOf(separatorChar) == -1 && s.indexOf("\"") == -1) {
+        if (s.indexOf(separatorChar) == -1 && s.indexOf('"') == -1) {
             super.write(s);
             return;
         }
@@ -232,7 +232,7 @@ public class CSVWriter extends BufferedWriter implements ExportWriter {
         super.write("\"");
         int from = 0;
         for (;;) {
-            int to = s.indexOf("\"", from);
+            int to = s.indexOf('"', from);
             if (to == -1) {
                 super.write(s, from, s.length() - from);
                 break;

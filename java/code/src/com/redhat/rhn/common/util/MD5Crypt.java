@@ -60,7 +60,7 @@ public class MD5Crypt {
             salt = salt.substring(prefix.length());
         }
 
-        int end = salt.indexOf("$");
+        int end = salt.indexOf('$');
         if (end != -1) {
             salt = salt.substring(0, end);
         }

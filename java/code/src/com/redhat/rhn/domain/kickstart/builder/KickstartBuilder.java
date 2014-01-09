@@ -130,7 +130,7 @@ public class KickstartBuilder {
             }
 
             // Split the first word from the rest of the line:
-            int firstSpaceIndex = currentLine.indexOf(" ");
+            int firstSpaceIndex = currentLine.indexOf(' ');
             String firstWord = currentLine;
             String restOfLine = "";
             if (firstSpaceIndex != -1) {

@@ -140,7 +140,7 @@ public class LocalizationService {
         for (Enumeration locales = new StringTokenizer(rawLocales, ","); locales
                 .hasMoreElements();) {
             String locale = (String) locales.nextElement();
-            if (locale.indexOf("_") > -1) {
+            if (locale.indexOf('_') > -1) {
                 compoundLocales.add(locale);
             }
             LocaleInfo li = new LocaleInfo(locale);

@@ -700,7 +700,7 @@ public class ListTagUtil {
     private static String makePageLink(HttpServletRequest request,
             String listName, String page) {
         String url = makeNonPagedLink(request, listName);
-        if (url.indexOf("?") == -1) {
+        if (url.indexOf('?') == -1) {
             url += "?";
         }
         else {

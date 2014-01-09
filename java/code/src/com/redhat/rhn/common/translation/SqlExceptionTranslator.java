@@ -70,8 +70,8 @@ public class SqlExceptionTranslator extends Translations {
         String msg = e.getMessage();
         switch(code) {
             case 1:
-                int ind = msg.indexOf("(") + 1;
-                String desc = msg.substring(ind, msg.indexOf(")", ind));
+                int ind = msg.indexOf('(') + 1;
+                String desc = msg.substring(ind, msg.indexOf(')', ind));
                 return new ConstraintViolationException(
                              ExceptionConstants.VALUE_TOO_LARGE, desc, msg, e);
             case 1401:

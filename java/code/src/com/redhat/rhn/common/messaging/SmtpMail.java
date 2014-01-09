@@ -271,7 +271,7 @@ public class SmtpMail implements Mail {
         log.debug("verifyAddress called ...");
         boolean retval = true;
         String domain = addr.getAddress();
-        int domainStart = domain.indexOf("@");
+        int domainStart = domain.indexOf('@');
         if (domainStart > -1 && domainStart + 1 < domain.length()) {
             domain = domain.substring(domainStart + 1);
 

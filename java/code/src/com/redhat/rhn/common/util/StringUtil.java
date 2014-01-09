@@ -427,7 +427,7 @@ public class StringUtil {
      * @return position of last char of URL, returns -1 when entire String is URL
      */
     private static int findEndOfUrl(String entireToken) {
-        int space = entireToken.indexOf(" ");
+        int space = entireToken.indexOf(' ');
         int line = entireToken.indexOf("<br/>");
         int tag = entireToken.indexOf("&lt;");
         int end = -1;

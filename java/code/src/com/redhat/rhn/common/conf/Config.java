@@ -189,7 +189,7 @@ public class Config {
             return null;
         }
 
-        int lastDot = value.lastIndexOf(".");
+        int lastDot = value.lastIndexOf('.');
         String ns = "";
         String property = value;
         if (lastDot > 0) {

@@ -93,7 +93,7 @@ public class StateChangeData extends BaseDto {
         if (data == null) {
             return null;
         }
-        String message = data.substring(data.indexOf(" ") + 1);
+        String message = data.substring(data.indexOf(' ') + 1);
         return message;
     }
 
@@ -105,7 +105,7 @@ public class StateChangeData extends BaseDto {
         if (htmlifiedData == null) {
                 return null;
             }
-            String message = htmlifiedData.substring(htmlifiedData.indexOf(" ") + 1);
+            String message = htmlifiedData.substring(htmlifiedData.indexOf(' ') + 1);
             return message;
     }
 
