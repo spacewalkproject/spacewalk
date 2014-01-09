@@ -1105,6 +1105,7 @@ ORDER BY SP.position
   <query params="org_id, aid, user_id">
   SELECT  S.id,
           S.name as SERVER_NAME,
+          SA.result_msg AS MESSAGE,
     A.earliest_action AS DISPLAY_DATE
     FROM  rhnAction A,
           rhnServer S,
@@ -1152,6 +1153,7 @@ ORDER BY  UPPER(COALESCE(S.name, '(none)')), S.ID
 <mode name="systems_completed_action" class="com.redhat.rhn.frontend.dto.ActionedSystem">
   <query params="org_id, aid, user_id">
   SELECT  S.id, S.name,
+          SA.result_msg AS MESSAGE,
           SA.COMPLETION_TIME AS DISPLAY_DATE
     FROM  rhnServer S, rhnServerAction SA
    WHERE  S.org_id = :org_id
