@@ -122,16 +122,13 @@ public class PxtAuthenticationServiceTest extends AuthenticationServiceAbstractT
     }
 
     private void runRedirectToLoginTest() throws Exception {
-        mockRequest.expects(atLeastOnce()).method("getRequestDispatcher").will(
-                returnValue(mockDispatcher.proxy()));
-
         service.redirectToLogin(getRequest(), getResponse());
     }
 
     protected void setUpRedirectToLogin() {
         super.setUpRedirectToLogin();
 
-        mockDispatcher.stubs().method("forward").withAnyArguments();
+        mockResponse.stubs().method("sendRedirect").will(returnValue(null));
     }
 
     /**
@@ -140,9 +137,8 @@ public class PxtAuthenticationServiceTest extends AuthenticationServiceAbstractT
     public final void testRedirectoToLoginForwardsRequest() throws Exception {
         setUpRedirectToLogin();
 
-        mockDispatcher.expects(once()).method("forward").with(
-                new Constraint[] {eq(getRequest()),
-                        eq(mockResponse.proxy())});
+        mockResponse.expects(once()).method("sendRedirect").with(
+                new Constraint[] {eq("/rhn/Login.do")}).will(returnValue(null));
 
         mockRequest.stubs().method("getParameterNames").will(
                 returnValue(new Vector().elements()));
@@ -162,8 +158,8 @@ public class PxtAuthenticationServiceTest extends AuthenticationServiceAbstractT
         String redirectUri = createRequestURIWithParams(requestParamNames,
                 requestParamValues);
 
-        mockRequest.expects(atLeastOnce()).method("setAttribute").with(
-                new Constraint[] {eq("url_bounce"), eq(redirectUri)});
+        mockResponse.expects(once()).method("sendRedirect").with(
+                new Constraint[] {eq("/rhn/Login.do")}).will(returnValue(null));
 
         runRedirectToLoginTest();
     }

@@ -128,6 +128,9 @@ public abstract class AuthenticationServiceAbstractTestCase extends MockObjectTe
         mockRequest.stubs().method("getMethod")
                 .will(returnValue(new String("POST")));
 
+        mockRequest.stubs().method("getSession")
+        .will(returnValue(null));
+
         mockRequest.stubs().method("setAttribute");
     }
 
