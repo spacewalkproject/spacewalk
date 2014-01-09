@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.1.15
+Version:    2.1.16
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -84,6 +84,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Jan 09 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.16-1
+- use packaged upstream bootstrap .less files
+
 * Mon Dec 16 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.15-1
 - making help links disappear
 - colour added to the counter in SSM
