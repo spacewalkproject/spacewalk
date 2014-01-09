@@ -1,6 +1,6 @@
 Name:           bootstrap
 Version:        3.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.
 
 Group:          Applications/Internet
@@ -64,6 +64,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Jan 09 2014 Michael Mraka <michael.mraka@redhat.com> 3.0.0-2
+- koji build needs Group specified
+
 * Thu Jan 09 2014 Michael Mraka <michael.mraka@redhat.com> 3.0.0-1
 - initial packaging of twitter bootstrap framework
 
