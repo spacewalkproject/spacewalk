@@ -110,9 +110,11 @@ Requires: spacewalk-java-lib
 Requires: spacewalk-java-jdbc
 Requires: spacewalk-branding
 %if 0%{?fedora} >= 20
+BuildRequires: mvn(ant-contrib:ant-contrib)
 BuildRequires: javapackages-tools
 Requires:      javapackages-tools
 %else
+BuildRequires: ant-contrib
 BuildRequires: jpackage-utils
 Requires:      jpackage-utils
 %endif
@@ -128,7 +130,6 @@ Requires: jakarta-commons-logging
 BuildRequires: ant
 BuildRequires: ant-apache-regexp
 BuildRequires: java-devel >= 1:1.6.0
-BuildRequires: ant-contrib
 BuildRequires: ant-junit
 %if 0%{?fedora} && 0%{?fedora} < 20
 BuildRequires: ant-nodeps
