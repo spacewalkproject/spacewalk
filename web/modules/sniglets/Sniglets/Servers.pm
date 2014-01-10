@@ -272,27 +272,27 @@ sub system_monitoring_info {
   return $ret unless defined $data->{MONITORING_STATUS};
 
   if ($data->{MONITORING_STATUS} eq "CRITICAL") {
-    $ret->{image} = '/img/rhn-mon-down.gif';
+    $ret->{icon} = 'monitoring-crit';
     $ret->{status_str} = 'Critical probes';
     $ret->{system_link} = "/network/systems/details/probes/index.pxt?sid=${sid}";
   }
   elsif ($data->{MONITORING_STATUS} eq "WARNING") {
-    $ret->{image} = '/img/rhn-mon-warning.gif';
+    $ret->{icon} = 'monitoring-warn';
     $ret->{status_str} = 'Warning probes';
     $ret->{system_link} = "/network/systems/details/probes/index.pxt?sid=${sid}";
   }
   elsif ($data->{MONITORING_STATUS} eq "UNKNOWN") {
-    $ret->{image} = '/img/rhn-mon-unknown.gif';
+    $ret->{icon} = 'monitoring-unknown';
     $ret->{status_str} = 'Unknown probes';
     $ret->{system_link} = "/network/systems/details/probes/index.pxt?sid=${sid}";
   }
   elsif ($data->{MONITORING_STATUS} eq "PENDING") {
-    $ret->{image} = '/img/rhn-mon-pending.gif';
+    $ret->{icon} = 'monitoring-pending';
     $ret->{status_str} = 'Pending probes';
     $ret->{system_link} = "/network/systems/details/probes/index.pxt?sid=${sid}";
   }
   elsif ($data->{MONITORING_STATUS} eq "OK") {
-    $ret->{image} = '/img/rhn-mon-ok.gif';
+    $ret->{icon} = 'monitoring-ok';
     $ret->{status_str} = 'OK';
     $ret->{system_link} = "/network/systems/details/probes/index.pxt?sid=${sid}";
   }
