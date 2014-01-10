@@ -14,7 +14,7 @@
         <c:if test="${is_suite_probe}">
             <rhn:toolbar base="h2" icon="header-system"
                          miscAlt="probedetails.jsp.editsuiteprobe"
-                         miscIcon="fa-copy"
+                         miscIcon="item-clone"
                          miscUrl="/rhn/monitoring/config/ProbeSuiteProbeEdit.do?suite_id=${probe.templateProbe.probeSuite.id}&amp;probe_id=${probe.templateProbe.id}"
                          miscText="probedetails.jsp.editsuiteprobe"
                          creationUrl="/rhn/systems/details/probes/ProbeCreate.do?sid=${system.id}"
@@ -27,7 +27,7 @@
                          deletionUrl="/rhn/systems/details/probes/ProbeDelete.do?probe_id=${probe.id}&amp;sid=${system.id}"
                          deletionType="probe"
                          miscAlt="probedetails.jsp.editthisprobe"
-                         miscIcon="fa-copy"
+                         miscIcon="item-clone"
                          miscUrl="ProbeEdit.do?probe_id=${probe.id}&amp;sid=${system.id}"
                          miscText="probedetails.jsp.editthisprobe"
                          creationUrl="/rhn/systems/details/probes/ProbeCreate.do?sid=${system.id}"
