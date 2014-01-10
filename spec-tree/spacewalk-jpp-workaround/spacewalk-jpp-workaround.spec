@@ -1,5 +1,5 @@
 Name:		spacewalk-jpp-workaround
-Version:	1.0.4
+Version:	1.0.5
 Release:	1%{?dist}
 Summary:	Workaround package to fulfill jpackage broken dependencies
 
@@ -62,6 +62,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jan 10 2014 Tomas Lestach <tlestach@redhat.com> 1.0.5-1
+- introduce commons-logging workaround for fc20
+
 * Fri Jul 13 2012 Tomas Lestach <tlestach@redhat.com> 1.0.4-1
 - let the workaround package require fedora struts to ensure the struts-*
   provides
