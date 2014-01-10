@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.112
+Version: 2.1.113
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -795,6 +795,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jan 10 2014 Tomas Lestach <tlestach@redhat.com> 2.1.113-1
+- fix PxtAuthenticationServiceTest
+- Protected field in final class makes no sense
+- Avoiding instantiating Boolean objects
+- Eliminate unused private fields
+
 * Fri Jan 10 2014 Tomas Lestach <tlestach@redhat.com> 2.1.112-1
 - 1013712 - return server action message within schedule.listInProgressSystems
   and schedule.listCompletedSystems API calls
