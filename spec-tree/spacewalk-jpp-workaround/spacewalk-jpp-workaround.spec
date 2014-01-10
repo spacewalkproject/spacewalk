@@ -35,6 +35,11 @@ Provides:   struts-tiles = 1.3.10
 Requires:   struts >= 1.3.10
 %endif
 
+%if 0%{?fedora} >= 20
+Provides:   jakarta-commons-logging = 1.1.3
+Requires:   apache-commons-logging
+%endif
+
 %description
 This package fulfills jpackage missing msv-msv dependency.
 
