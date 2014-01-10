@@ -255,4 +255,11 @@ public class RhnMockHttpServletRequest extends MockHttpServletRequest {
     public void setMethod(String methodIn) {
         this.method = methodIn;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getRemoteUser() {
+        return null;
+    }
 }

@@ -74,7 +74,7 @@ public class LoginSetupActionTest extends RhnMockStrutsTestCase {
         ActionForward rc = action.execute(mapping, form, req, resp);
 
         // verify
-        String bounce = (String) form.get("url_bounce");
+        String bounce = (String) req.getAttribute("url_bounce");
 
         assertNotNull(bounce);
         assertEquals(bounce, "/rhn/UserDetails.do?sid=1");
