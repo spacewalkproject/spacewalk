@@ -904,10 +904,9 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         h = rhnSQL.prepare(self._query_compare_packages)
         for pid in chunk:
-            p_timestamp = package_collection.get_package_timestamp(pid)
-            l_timestamp = rhnLib.timestamp(p_timestamp)
-            package = package_collection.get_package(pid, p_timestamp)
+            package = package_collection.get_package(pid)
             assert package is not None
+            l_timestamp = rhnLib.timestamp(package['last_modified'])
 
             if package['org_id'] is not None:
                 package['org_id'] = OPTIONS.orgid  or DEFAULT_ORG
@@ -1078,8 +1077,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
             for pid in pids:
                 # XXX Catch errors
-                timestamp = short_package_collection.get_package_timestamp(pid)
-                if not package_collection.has_package(pid, timestamp):
+                if not package_collection.has_package(pid):
                     # not in the cache
                     mp.append(pid)
 
@@ -1169,7 +1167,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 # Nothing to see here
                 continue
             missing_sps[channel] = [sp_id for (sp_id, timestamp) in sps
-                                          if not sp_collection.has_package(sp_id, timestamp)]
+                                          if not sp_collection.has_package(sp_id)]
         return missing_sps
 
     _query_compare_source_packages = """
@@ -1188,7 +1186,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         sql_params = ['package_id', 'checksum', 'checksum_type']
         h = rhnSQL.prepare(self._query_compare_source_packages)
         for pid, timestamp in chunk:
-            package = package_collection.get_package(pid, timestamp)
+            package = package_collection.get_package(pid)
             assert package is not None
 
             params = {}
@@ -1608,8 +1606,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         uq_packages = {}
         for chn, package_ids in self._channel_packages_full.items():
             for pid in package_ids:
-                timestamp = short_package_collection.get_package_timestamp(pid)
-                package = short_package_collection.get_package(pid, timestamp)
+                package = short_package_collection.get_package(pid)
                 if not package:
                     continue
                 assert package is not None
@@ -1646,8 +1643,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             package_collection = sync_handlers.PackageCollection()
         batch = []
         for pid in chunk:
-            timestamp = short_package_collection.get_package_timestamp(pid)
-            package = package_collection.get_package(pid, timestamp)
+            package = package_collection.get_package(pid)
             if package is None:
                 # not in the cache
                 raise Exception(_("Package Not Found in Cache, Clear the Cache to \
@@ -1681,13 +1677,11 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         packages = []
         # remove packages which are not in the export (e.g. archs we are not syncing)
         for pid in pids:
-            try:
-                timestamp = sp_coll.get_package_timestamp(pid)
-            except KeyError:
+            if not sp_coll.has_package(pid):
                 # Package not found, go on - may be part of a channel we don't
                 # sync
                 continue
-            package = sp_coll.get_package(pid, timestamp)
+            package = sp_coll.get_package(pid)
 
             packages.append(package)
 
@@ -1711,8 +1705,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             if errata_file['file_type'] == 'RPM' and \
                     errata_file_package is not None:
                 try:
-                    timestamp = sp_coll.get_package_timestamp(errata_file_package)
-                    package = sp_coll.get_package(errata_file_package, timestamp)
+                    package = sp_coll.get_package(errata_file_package)
                 except KeyError:
                     package = None
                 errata_file['pkgobj'] = package
@@ -1742,8 +1735,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
         #count size of missing packages
         for package_id, path in missing_fs_packages:
-            timestamp = short_package_collection.get_package_timestamp(package_id)
-            package = package_collection.get_package(package_id, timestamp)
+            package = package_collection.get_package(package_id)
             total_size = total_size+package['package_size']
             queue.put((package_id, path))
 
@@ -1869,8 +1861,8 @@ class ThreadDownload(threading.Thread):
         while not self.queue.empty():
             #grabs host from queue
             (package_id, path) = self.queue.get()
-            timestamp = self.short_package_collection.get_package_timestamp(package_id)
-            package = self.package_collection.get_package(package_id, timestamp)
+            package = self.package_collection.get_package(package_id)
+            last_modified = package['last_modified']
             checksum_type = package['checksum_type']
             checksum = package['checksum']
             package_size = package['package_size']
@@ -1886,8 +1878,8 @@ class ThreadDownload(threading.Thread):
             package['path'] = path
             self.package_collection.add_item(package)
 
-            errcode = self.syncer._verify_file(path, rhnLib.timestamp(timestamp), package_size,
-                                            checksum_type, checksum)
+            errcode = self.syncer._verify_file(path, rhnLib.timestamp(last_modified),
+                                            package_size, checksum_type, checksum)
             if errcode == 0:
                 # file is already there
                 # do not count this size to time estimate

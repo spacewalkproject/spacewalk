@@ -255,7 +255,6 @@ class ShortPackageCollection:
     def __init__(self):
         self.__dict__ = self._shared_state
         if not self._shared_state.keys():
-            self._packages_hash = {}
             self._cache = None
             self._init_cache()
 
@@ -264,26 +263,15 @@ class ShortPackageCollection:
 
     def add_item(self, package):
         """Stores a package in the collection"""
-        package_id = package['package_id']
-        timestamp = package['last_modified']
-        last_modified = _to_timestamp(timestamp)
-        self._packages_hash[package_id] = last_modified
-        self._cache.cache_set(package_id, package, timestamp=last_modified)
+        self._cache.cache_set(package['package_id'], package)
 
-    def get_package_timestamp(self, package_id):
-        """Returns the package's timestamp"""
-        if not self._packages_hash.has_key(package_id):
-            raise KeyError("Package %s could not be found" % package_id)
-        return self._packages_hash[package_id]
+    def get_package(self, package_id):
+        """Return the package with the specified id from the collection"""
+        return self._cache.cache_get(package_id)
 
-    def get_package(self, package_id, timestamp):
-        """Return the package with the specified id and timestamp from the
-        collection"""
-        return self._cache.cache_get(package_id, timestamp=timestamp)
-
-    def has_package(self, package_id, timestamp):
+    def has_package(self, package_id):
         """Returns true if the package exists in the collection"""
-        return self._cache.cache_has_key(package_id, timestamp=timestamp)
+        return self._cache.cache_has_key(package_id)
 
     def reset(self):
         """Reset the collection"""
