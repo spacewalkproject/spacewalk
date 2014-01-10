@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.110
+Version: 2.1.111
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -787,6 +787,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jan 10 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.111-1
+- 1051230 - fixed icon name
+- String.indexOf(char) is faster than String.indexOf(String).
+- fix RequestContextTest.testGetLoggedInUser unit test
+- fix LoginActionTest.testPerformValidUsername unit test
+- Rewrite groups/systems_affected_by_errata.pxt to java
+
 * Tue Jan 07 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.110-1
 - .project file was not accidentally committed
 - there's not ant-nodeps on fc20
