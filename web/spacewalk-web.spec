@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.45
+Version: 2.1.46
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Jan 10 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.46-1
+- Deleting obsoleted perl pages
+- removed dead js file
+
 * Thu Jan 09 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.45-1
 - use packaged upstream bootstrap js files
 
