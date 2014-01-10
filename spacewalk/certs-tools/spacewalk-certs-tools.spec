@@ -2,7 +2,7 @@ Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.4
+Version: 2.1.5
 Release: 1%{?dist}
 URL:      https://fedorahosted.org/spacewalk 
 Source0:  https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -57,6 +57,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/www/html/pub/bootstrap/client_config_update.py*
 
 %changelog
+* Fri Jan 10 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.5-1
+- 1040682 - older Proxies don't implement PRODUCT_NAME
+
 * Mon Oct 14 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.4-1
 - cleaning up old svn Ids
 
