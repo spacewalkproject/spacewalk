@@ -29,7 +29,6 @@ import org.apache.log4j.Logger;
  */
 public class UserGroupFactory extends HibernateFactory {
 
-    private static UserGroupFactory singleton = new UserGroupFactory();
     private static Logger log = Logger.getLogger(UserGroupFactory.class);
 
     private UserGroupFactory() {

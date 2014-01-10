@@ -37,7 +37,6 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
 
     private Long id;
     private String name;
-    private Long depth;
     private Long channelArchId;
     private Long currentMembers;
     private Long availableMembers;
@@ -240,13 +239,6 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
             return 1L;
         } //if it's a child the depth is 2
         return 2L;
-    }
-
-    /**
-     * @param depthIn The depth to set.
-     */
-    public void setDepth(Long depthIn) {
-        this.depth = depthIn;
     }
 
     /**

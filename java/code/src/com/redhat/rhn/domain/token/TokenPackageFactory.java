@@ -30,7 +30,6 @@ import java.util.List;
  */
 public class TokenPackageFactory extends HibernateFactory {
 
-    private static TokenPackageFactory singleton = new TokenPackageFactory();
     private static Logger log = Logger.getLogger(TokenPackageFactory.class);
 
     /**

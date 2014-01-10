@@ -21,7 +21,6 @@ import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.manager.errata.ErrataManager;
-import org.apache.log4j.Logger;
 
 /**
  * NewCloneErrataAction
@@ -29,8 +28,6 @@ import org.apache.log4j.Logger;
  */
 public class NewCloneErrataAction
 extends AbstractDatabaseAction {
-
-    private static Logger log = Logger.getLogger(NewCloneErrataAction.class);
 
     /**
      * {@inheritDoc}

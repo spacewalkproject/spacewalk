@@ -29,15 +29,11 @@ import com.redhat.rhn.manager.BaseManager;
 
 import java.io.File;
 
-import org.apache.log4j.Logger;
-
 /**
  * CrashManager
  * @version $Rev$
  */
 public class CrashManager extends BaseManager {
-
-    private static Logger log = Logger.getLogger(CrashManager.class);
 
     /**
      * Lookup Crash by its ID and User.

@@ -42,8 +42,6 @@ import com.redhat.rhn.manager.system.CrashManager;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 
-import org.apache.log4j.Logger;
-
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -61,7 +59,6 @@ import java.util.Map;
  */
 public class CrashHandler extends BaseHandler {
 
-    private static Logger log = Logger.getLogger(CrashHandler.class);
     private static float freeMemCoeff = 0.9f;
 
     private CrashCount getCrashCount(Server serverIn) {

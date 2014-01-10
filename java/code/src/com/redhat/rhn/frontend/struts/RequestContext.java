@@ -42,7 +42,6 @@ import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -60,9 +59,6 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Rev$
  */
 public class RequestContext {
-
-    private static final Logger LOG = Logger.getLogger(RequestContext.class);
-
 
     // Request IDs go here.
     public static final String LABEL = "label";

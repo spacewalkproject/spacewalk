@@ -33,7 +33,6 @@ import java.util.Map;
  */
 public class LoggingFactory extends HibernateFactory {
 
-    private static LoggingFactory singleton = new LoggingFactory();
     private static Logger log = Logger.getLogger(LoggingFactory.class);
     public static final String SETUP_LOG_USER = "SETUP";
 

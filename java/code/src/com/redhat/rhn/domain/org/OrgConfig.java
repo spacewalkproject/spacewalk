@@ -27,7 +27,6 @@ public class OrgConfig extends BaseDomainHelper {
     protected static Logger log = Logger.getLogger(OrgConfig.class);
 
     private Long orgId;
-    private Org org;
     private boolean stagingContentEnabled;
     private boolean crashReportingEnabled;
     private boolean crashfileUploadEnabled;

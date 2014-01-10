@@ -60,7 +60,6 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
     private String guestName;
     private Long memoryAllocation;
     private Long virtualCpus;
-    private String storageType;
     private Long localStorage;
     private String filePath;
     private String virtBridge;
@@ -269,14 +268,6 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
      */
     public void setVirtualCpus(Long virtualCpusIn) {
         this.virtualCpus = virtualCpusIn;
-    }
-
-
-    /**
-     * @param storageTypeIn the storageType to set.
-     */
-    public void setStorageType(String storageTypeIn) {
-        this.storageType = storageTypeIn;
     }
 
     /**

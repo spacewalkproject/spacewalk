@@ -31,7 +31,6 @@ import java.sql.Types;
  */
 public class ChecksumFactory extends HibernateFactory {
 
-    private static ChecksumFactory singleton = new ChecksumFactory();
     private static Logger log = Logger.getLogger(ChecksumFactory.class);
 
     /**

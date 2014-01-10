@@ -27,7 +27,6 @@ import com.redhat.rhn.manager.system.SystemManager;
  * ExtraPackagesListAction
  */
 public class ExtraPackagesListAction extends BaseSystemPackagesAction {
-    private static final String LIST_NAME = "extraPackageList";
     public static final String DATA_SET = "extras";
 
     @Override

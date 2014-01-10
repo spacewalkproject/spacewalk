@@ -84,8 +84,6 @@ public class OverviewAction extends RhnAction {
 
     private static final String DEPLOY_FILES_URL =
                         "/rhn/systems/details/configuration/DeployFile.do";
-    private static final String COMPARE_FILES_URL =
-                            "/rhn/systems/details/configuration/DiffFile.do";
 
     private static final String ACTION_DETAILS_URL =
                                 "/network/systems/details/history/event.pxt";
