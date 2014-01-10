@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.111
+Version: 2.1.112
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -795,6 +795,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jan 10 2014 Tomas Lestach <tlestach@redhat.com> 2.1.112-1
+- 1013712 - return server action message within schedule.listInProgressSystems
+  and schedule.listCompletedSystems API calls
+- fix linking of hibernate-commons-annotations
+- ant-nodpes is buildrequired on rhels
+- differentiate between apache- and jakarta- buildrequires on fedora and rhel
+- buildrequire mvn(ant-contrib:ant-contrib) on fc20
+- build/require javapackages-tools on fc20
+
 * Fri Jan 10 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.111-1
 - 1051230 - fixed icon name
 - String.indexOf(char) is faster than String.indexOf(String).
