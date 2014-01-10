@@ -251,7 +251,7 @@ public class SchemaParser {
                 optional = Boolean.TRUE;
             }
             else {
-                optional = new Boolean(value);
+                optional = Boolean.valueOf(value);
             }
         }
         return optional;
