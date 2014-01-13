@@ -242,8 +242,23 @@
     <description>Spacewalk Server Non-installable Packages</description>
     <uservisible>false</uservisible>
     <packagelist>
+       <packagereq type="optional">bootstrap-less</packagereq>
+       <packagereq type="optional">c-ares19-devel</packagereq>
+       <packagereq type="optional">c-ares19</packagereq>
        <packagereq type="optional">cobbler-web</packagereq>
+       <packagereq type="optional">gyp</packagereq>
+       <packagereq type="optional">http-parser-devel</packagereq>
+       <packagereq type="optional">http-parser</packagereq>
        <packagereq type="optional">koan</packagereq>
+       <packagereq type="optional">libuv-devel</packagereq>
+       <packagereq type="optional">libuv</packagereq>
+       <packagereq type="optional">nodejs-devel</packagereq>
+       <packagereq type="optional">nodejs-docs</packagereq>
+       <packagereq type="optional">nodejs-less</packagereq>
+       <packagereq type="optional">nodejs-packaging</packagereq>
+       <packagereq type="optional">nodejs</packagereq>
+       <packagereq type="optional">v8-devel</packagereq>
+       <packagereq type="optional">v8</packagereq>
     </packagelist>
   </group>
 </comps>

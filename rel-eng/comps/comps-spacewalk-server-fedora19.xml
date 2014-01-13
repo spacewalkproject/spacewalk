@@ -170,8 +170,10 @@
     <description>Spacewalk Server Non-installable Packages</description>
     <uservisible>false</uservisible>
     <packagelist>
+       <packagereq type="optional">bootstrap-less</packagereq>
        <packagereq type="optional">cobbler-web</packagereq>
        <packagereq type="optional">koan</packagereq>
+       <packagereq type="optional">tito</packagereq>
     </packagelist>
   </group>
 </comps>
