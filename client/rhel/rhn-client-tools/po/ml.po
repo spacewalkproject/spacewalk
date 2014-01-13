@@ -303,8 +303,8 @@ msgid "Getting list of packages installed on the system"
 msgstr "സിസ്റ്റത്തില്‍ ഇന്‍സ്റ്റോള്‍ ചെയ്ത പാക്കേജുകളുടെ ലിസ്റ്റ് ലഭ്യമാകുന്നു"
 
 #: ../src/up2date_client/rhnreg_constants.py:14
-msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
-msgstr "Copyright © 2006--2010 Red Hat, Inc. എല്ലാ അവകാശങ്ങളും സ്വന്തമാണു്."
+msgid "Copyright © 2006--2014 Red Hat, Inc. All rights reserved."
+msgstr "Copyright © 2006--2014 Red Hat, Inc. എല്ലാ അവകാശങ്ങളും സ്വന്തമാണു്."
 
 #. Satellite URL Window
 #: ../src/up2date_client/rhnreg_constants.py:17
@@ -1297,7 +1297,7 @@ msgstr "gui തുറക്കുവാന്‍ അസാധ്യം. `up2date
 #, python-format
 msgid ""
 "%%prog (Spacewalk Client Tools) %s\n"
-"Copyright (C) 1999--2012 Red Hat, Inc.\n"
+"Copyright (C) 1999--2014 Red Hat, Inc.\n"
 "Licensed under the terms of the GPLv2."
 msgstr ""
 

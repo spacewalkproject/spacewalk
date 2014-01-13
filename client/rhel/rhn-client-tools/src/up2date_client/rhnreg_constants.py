@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # String constants for the RHN Register TUI/GUI.
-# Copyright (c) 2000--2012 Red Hat, Inc.
+# Copyright (c) 2000--2014 Red Hat, Inc.
 #
 # Author:
 #       James Slagle <jslagle@redhat.com>
@@ -11,7 +11,7 @@ import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
 _ = t.ugettext
 
-COPYRIGHT_TEXT        = _(u"Copyright © 2006--2010 Red Hat, Inc. All rights reserved.")
+COPYRIGHT_TEXT        = _(u"Copyright © 2006--2014 Red Hat, Inc. All rights reserved.")
 
 # Satellite URL Window
 SATELLITE_URL_WINDOW  = _("Enter your Red Hat Satellite URL.")

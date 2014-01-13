@@ -324,8 +324,8 @@ msgid "Getting list of packages installed on the system"
 msgstr "Obteniendo lista de paquetes instalados en el sistema"
 
 #: ../src/up2date_client/rhnreg_constants.py:14
-msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
-msgstr "Copyright © 2006--2010 Red Hat, Inc. Todos los derechos reservados."
+msgid "Copyright © 2006--2014 Red Hat, Inc. All rights reserved."
+msgstr "Copyright © 2006--2014 Red Hat, Inc. Todos los derechos reservados."
 
 #. Satellite URL Window
 #: ../src/up2date_client/rhnreg_constants.py:17
@@ -1388,7 +1388,7 @@ msgstr "No se puede usar modo gráfico. Pruebe con `up2date --nox`"
 #, fuzzy, python-format
 msgid ""
 "%%prog (Spacewalk Client Tools) %s\n"
-"Copyright (C) 1999--2012 Red Hat, Inc.\n"
+"Copyright (C) 1999--2014 Red Hat, Inc.\n"
 "Licensed under the terms of the GPLv2."
 msgstr ""
 "% %prog (Herramientas Clientes Red Hat Network) %s Copyright (C) 1999-2012 "

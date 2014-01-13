@@ -303,8 +303,8 @@ msgid "Getting list of packages installed on the system"
 msgstr "కంప్యూటరులో సంస్థాపించబడ్డ ప్యాకేజీల జాబితాను పొందుతోంది"
 
 #: ../src/up2date_client/rhnreg_constants.py:14
-msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
-msgstr "కాపీరైట్ Â© 2006--2010  Red Hat, Inc. అన్ని హక్కులూ కేటాయించబడ్డాయి."
+msgid "Copyright © 2006--2014 Red Hat, Inc. All rights reserved."
+msgstr "కాపీరైట్ Â© 2006--2014  Red Hat, Inc. అన్ని హక్కులూ కేటాయించబడ్డాయి."
 
 #. Satellite URL Window
 #: ../src/up2date_client/rhnreg_constants.py:17
@@ -1280,7 +1280,7 @@ msgstr "గుయ్ తెరవటానికి కుదరదు. `up2date
 #, python-format
 msgid ""
 "%%prog (Spacewalk Client Tools) %s\n"
-"Copyright (C) 1999--2012 Red Hat, Inc.\n"
+"Copyright (C) 1999--2014 Red Hat, Inc.\n"
 "Licensed under the terms of the GPLv2."
 msgstr ""
 

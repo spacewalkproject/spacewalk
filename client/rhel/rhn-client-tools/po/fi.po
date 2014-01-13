@@ -296,8 +296,8 @@ msgid "Getting list of packages installed on the system"
 msgstr "Muodostetaan luetteloa järjestelmään asennetuista paketeista"
 
 #: ../src/up2date_client/rhnreg_constants.py:14
-msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
-msgstr "Copyright © 2006--2010 Red Hat, Inc. Kaikki oikeudet pidätetään."
+msgid "Copyright © 2006--2014 Red Hat, Inc. All rights reserved."
+msgstr "Copyright © 2006--2014 Red Hat, Inc. Kaikki oikeudet pidätetään."
 
 #. Satellite URL Window
 #: ../src/up2date_client/rhnreg_constants.py:17
@@ -1161,7 +1161,7 @@ msgstr "Ei voida käyttää graafista tilaa. Kokeile `up2date --nox`"
 #, python-format
 msgid ""
 "%%prog (Spacewalk Client Tools) %s\n"
-"Copyright (C) 1999--2012 Red Hat, Inc.\n"
+"Copyright (C) 1999--2014 Red Hat, Inc.\n"
 "Licensed under the terms of the GPLv2."
 msgstr ""
 

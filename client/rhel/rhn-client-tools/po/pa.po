@@ -308,8 +308,8 @@ msgid "Getting list of packages installed on the system"
 msgstr "ਸਿਸਟਮ ਤੇ ਇੰਸਟਾਲ ਪੈਕੇਜਾਂ ਦੀ ਸੂਚੀ ਪਰਾਪਤ ਕਰ ਰਿਹਾ ਹੈ"
 
 #: ../src/up2date_client/rhnreg_constants.py:14
-msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
-msgstr "ਕਾਪੀਰਾਈਟ © 2006--2010 Red Hat, Inc. ਸਾਰੇ ਹੱਕ ਰਾਖਵੇਂ ਹਨ।"
+msgid "Copyright © 2006--2014 Red Hat, Inc. All rights reserved."
+msgstr "ਕਾਪੀਰਾਈਟ © 2006--2014 Red Hat, Inc. ਸਾਰੇ ਹੱਕ ਰਾਖਵੇਂ ਹਨ।"
 
 #. Satellite URL Window
 #: ../src/up2date_client/rhnreg_constants.py:17
@@ -1284,7 +1284,7 @@ msgstr "gui ਖੋਲਣ ਵਿੱਚ ਅਸਫਲ ਹੈ। `up2date --nox` ਨ
 #, python-format
 msgid ""
 "%%prog (Spacewalk Client Tools) %s\n"
-"Copyright (C) 1999--2012 Red Hat, Inc.\n"
+"Copyright (C) 1999--2014 Red Hat, Inc.\n"
 "Licensed under the terms of the GPLv2."
 msgstr ""
 

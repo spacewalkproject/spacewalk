@@ -305,8 +305,8 @@ msgid "Getting list of packages installed on the system"
 msgstr "正在获取安装在您的系统上的软件包列表"
 
 #: ../src/up2date_client/rhnreg_constants.py:14
-msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
-msgstr "Copyright © 2006--2010 红帽公司，版权所有。"
+msgid "Copyright © 2006--2014 Red Hat, Inc. All rights reserved."
+msgstr "Copyright © 2006--2014 红帽公司，版权所有。"
 
 #. Satellite URL Window
 #: ../src/up2date_client/rhnreg_constants.py:17
@@ -1249,7 +1249,7 @@ msgstr "无法打开 gui，请尝试“up2date --nox”"
 #, python-format
 msgid ""
 "%%prog (Spacewalk Client Tools) %s\n"
-"Copyright (C) 1999--2012 Red Hat, Inc.\n"
+"Copyright (C) 1999--2014 Red Hat, Inc.\n"
 "Licensed under the terms of the GPLv2."
 msgstr ""
 
