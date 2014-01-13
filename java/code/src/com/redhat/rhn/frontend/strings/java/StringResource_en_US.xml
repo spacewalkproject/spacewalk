@@ -994,6 +994,12 @@
           <context context-type="sourcefile">Login or Logout</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="account.user.wrong_org">
+        <source>Account {0} isn't available in the organization configured for external authenticated users.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Login or Logout</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="user.enable">
         <source>Reactivated user &lt;strong&gt;{0}&lt;/strong&gt;.</source>
         <context-group name="ctx">
@@ -5227,7 +5233,7 @@ user before attempting to deactivate their account.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="message.kerbuserlogged">
-        <source>You've logged as &lt;strong&gt;{0}&lt;/strong&gt; using the Kerberos ticket. To be able to login using this account without Kerberos ticket, please set your password on &lt;a href="/rhn/account/UserDetails.do"&gt;&lt;strong&gt;{0} user page&lt;/strong&gt;&lt;/a&gt;.</source>
+        <source>You've logged as externally authenticated &lt;strong&gt;{0}&lt;/strong&gt; user. To be able to login using this account with login and password, please set your password on &lt;a href="/rhn/account/UserDetails.do"&gt;&lt;strong&gt;{0} user page&lt;/strong&gt;&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
@@ -6809,6 +6815,18 @@ Follow this url to see the full list of inactive systems:
         <source>Entitlement modification must be a valid number for {0}.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="message.ext_auth_disable">
+        <source>Disable external authentication</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgDetails</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="message.ext_auth_updated">
+        <source>External Authentication was successfully updated.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgDetails</context>
         </context-group>
       </trans-unit>
       <trans-unit id="message.org_name_updated">

@@ -14,11 +14,11 @@
  */
 package com.redhat.rhn.frontend.action;
 
-import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.LookupException;
+import com.redhat.rhn.domain.common.SatConfigFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
@@ -121,6 +121,9 @@ public class LoginSetupAction extends RhnAction {
             String email = decodeFromIso88591(
                     (String) request.getAttribute("REMOTE_USER_EMAIL"), null);
 
+            Long defaultOrgId = SatConfigFactory.getSatConfigLongValue(
+                    SatConfigFactory.ORG_ID_FOR_EXT_AUTH);
+
             User remoteUser = null;
             try {
                 log.info("REMOTE_USER_CUSTOM_N: " +
@@ -136,21 +139,27 @@ public class LoginSetupAction extends RhnAction {
                     createErrorMessage(request, "account.user.disabled", remoteUserString);
                     remoteUser = null;
                 }
-                else {
+                else if (!remoteUser.getOrg().getId().equals(defaultOrgId)) {
+                    createErrorMessage(request, "account.user.wrong_org", remoteUserString);
+                    remoteUser = null;
+                }
+                if (remoteUser != null) {
                     UpdateUserCommand updateCmd = new UpdateUserCommand(remoteUser);
                     updateCmd.setFirstNames(firstname);
                     updateCmd.setLastName(lastname);
                     updateCmd.setEmail(email);
                     updateCmd.updateUser();
-                    log.warn("Kerberos login " + remoteUserString + " (" + firstname + " " +
+                    log.warn("Externally authenticated login " + remoteUserString + " (" + firstname + " " +
                             lastname + ")");
                 }
             }
             catch (LookupException le) {
-                Long defaultOrgId = ConfigDefaults.get().getIpaDefaultUserOrgId();
-                Org defaultOrg = OrgFactory.lookupById(defaultOrgId);
+                Org defaultOrg = null;
+                if (defaultOrgId != null) {
+                    defaultOrg = OrgFactory.lookupById(defaultOrgId);
+                }
                 if (defaultOrg == null) {
-                    log.warn("Cannot find organization with id: " + defaultOrgId);
+                    log.error("Cannot find organization with id: " + defaultOrgId);
                 }
                 else {
                     CreateUserCommand createCmd = new CreateUserCommand();
@@ -164,7 +173,7 @@ public class LoginSetupAction extends RhnAction {
                     createCmd.validate();
                     createCmd.storeNewUser();
                     remoteUser = createCmd.getUser();
-                    log.warn("Kerberos login " + remoteUserString + " (" + firstname + " " +
+                    log.warn("Externally authenticated login " + remoteUserString + " (" + firstname + " " +
                             lastname + ") created.");
                 }
             }

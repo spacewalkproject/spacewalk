@@ -9,4 +9,28 @@
   </query>
 </mode>
 
+<mode name="get_satconfig_value">
+  <query params="key">
+    SELECT value
+    FROM rhnConfiguration
+    WHERE key = :key
+  </query>
+</mode>
+
+<write-mode name="set_satconfig_value">
+  <query params="key, value">
+    UPDATE rhnConfiguration
+    SET value = :value
+    WHERE key = :key
+   </query>
+</write-mode>
+
+<write-mode name="reset_satconfig_default_value">
+  <query params="key">
+    UPDATE rhnConfiguration
+    SET value = default_value
+    WHERE key = :key
+   </query>
+</write-mode>
+
 </datasource_modes>

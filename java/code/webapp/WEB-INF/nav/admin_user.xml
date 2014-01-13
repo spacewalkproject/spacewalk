@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<rhn-navi-tree label="admin_user" invisible="1" formvar="uid" title-depth="1">
+  <rhn-tab name="Users" acl="user_role(satellite_admin)">
+    <rhn-tab-url>/rhn/admin/multiorg/Users.do</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="External Authentication" acl="user_role(satellite_admin)">
+    <rhn-tab-url>/rhn/admin/multiorg/ExternalAuthentication.do</rhn-tab-url>
+  </rhn-tab>
+</rhn-navi-tree>

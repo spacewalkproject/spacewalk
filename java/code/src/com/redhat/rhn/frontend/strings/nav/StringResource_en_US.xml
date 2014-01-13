@@ -581,6 +581,12 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="External Authentication">
+        <source>External Authentication</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Master Setup">
         <source>Master Setup</source>
         <context-group name="ctx">

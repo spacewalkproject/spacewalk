@@ -317,6 +317,10 @@
             <form-property name="refersTo" type="java.lang.String"/>
             <form-property name="notes" type="java.lang.String"/>
         </form-bean>
+        <form-bean name="extAuthForm"
+                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+            <form-property name="to_org" type="java.lang.String"/>
+        </form-bean>
         <form-bean name="packageSearchForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="search_string" type="java.lang.String"/>
@@ -5621,6 +5625,21 @@
                path="/admin/multiorg/OrgConfigDetails.do" redirect="true" />
       <forward name="error"
                path="/WEB-INF/pages/admin/multiorg/configuration.jsp" />
+    </action>
+
+    <action path="/admin/multiorg/ExternalAuthentication"
+        scope="request"
+        name="extAuthForm"
+        input="/WEB-INF/pages/admin/multiorg/extauth.jsp"
+        type="com.redhat.rhn.frontend.action.multiorg.ExtAuthenticationAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <set-property property="postRequiredIfSubmitted" value="true" />
+      <set-property property="acls" value="user_role(satellite_admin)"/>
+      <forward name="default" path="/WEB-INF/pages/admin/multiorg/extauth.jsp" />
+      <forward name="success"
+               path="/admin/multiorg/ExternalAuthentication.do" redirect="true" />
+      <forward name="error"
+               path="/WEB-INF/pages/admin/multiorg/extauth.jsp" />
     </action>
 
     <action path="/multiorg/channels/OrgList"

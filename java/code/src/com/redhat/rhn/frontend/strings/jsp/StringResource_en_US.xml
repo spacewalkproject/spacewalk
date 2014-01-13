@@ -3306,6 +3306,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/Users.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="org.allusers.title1">
+        <source>Users Across @@PRODUCT_NAME@@ - External Authentication</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/Users.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="orgdetails.jsp.header">
         <source>Organization Details</source>
         <context-group name="ctx">

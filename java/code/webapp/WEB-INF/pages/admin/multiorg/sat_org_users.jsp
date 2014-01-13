@@ -16,6 +16,8 @@
  <bean:message key="org.allusers.title" />
 </rhn:toolbar>
 
+<rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/admin_user.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
+
 <div class="page-summary">
 <p>
    <bean:message key="org.allusers.summary" arg0="${orgName}" />
