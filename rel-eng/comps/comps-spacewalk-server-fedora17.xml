@@ -19,6 +19,7 @@
        <packagereq type="default">rhn-client-tools</packagereq>
        <packagereq type="default">yum-rhn-plugin</packagereq>
 
+       <packagereq type="default">bootstrap</packagereq>
        <packagereq type="default">cobbler2</packagereq>
        <packagereq type="default">cobbler20</packagereq>
        <packagereq type="default">cobbler-epel</packagereq>
