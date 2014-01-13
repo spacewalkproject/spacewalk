@@ -1,6 +1,6 @@
 Name:           bootstrap
 Version:        3.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.
 
 Group:          Applications/Internet
@@ -68,6 +68,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Jan 13 2014 Michael Mraka <michael.mraka@redhat.com> 3.0.0-3
+- allow to use .less files in development mode
+
 * Thu Jan 09 2014 Michael Mraka <michael.mraka@redhat.com> 3.0.0-2
 - koji build needs Group specified
 
