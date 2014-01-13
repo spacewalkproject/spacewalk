@@ -20,6 +20,7 @@
        <packagereq type="default">yum-rhn-plugin</packagereq>
 
        <packagereq type="default">bootstrap</packagereq>
+       <packagereq type="optional">bootstrap-less</packagereq>
        <packagereq type="default">cobbler2</packagereq>
        <packagereq type="default">cobbler20</packagereq>
        <packagereq type="default">cobbler-epel</packagereq>
@@ -170,9 +171,9 @@
     <description>Spacewalk Server Non-installable Packages</description>
     <uservisible>false</uservisible>
     <packagelist>
-       <packagereq type="optional">bootstrap-less</packagereq>
        <packagereq type="optional">cobbler-web</packagereq>
        <packagereq type="optional">koan</packagereq>
+       <packagereq type="optional">nodejs-less</packagereq>
        <packagereq type="optional">tito</packagereq>
     </packagelist>
   </group>
