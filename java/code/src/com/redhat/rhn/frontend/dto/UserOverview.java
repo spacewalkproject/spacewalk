@@ -42,6 +42,7 @@ public class UserOverview extends BaseDto {
     private String changedByFirstName;
     private String changedByLastName;
     private String email;
+    private boolean selectable;
 
     /**
      * @return Returns the email address
@@ -314,6 +315,20 @@ public class UserOverview extends BaseDto {
      */
     public void setOrgId(Long orgIdIn) {
         this.orgId = orgIdIn;
+    }
+
+    /**
+     * @param selectableIn Whether a user is selectable
+     */
+    public void setSelectable(boolean selectableIn) {
+        selectable = selectableIn;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isSelectable() {
+        return selectable;
     }
 }
 
