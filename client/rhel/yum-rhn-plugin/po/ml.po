@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-17 10:24+0200\n"
+"POT-Creation-Date: 2014-01-13 13:38+0100\n"
 "PO-Revision-Date: 2012-10-30 10:38+0000\n"
 "Last-Translator: adelton <jpx-tx@adelton.com>\n"
 "Language-Team: Malayalam <discuss@lists.smc.org.in>\n"
@@ -40,7 +40,7 @@ msgstr ""
 
 #: ../rhnplugin.py:88
 #, fuzzy
-msgid "There was an error parsing the Red Hat Proxy settings."
+msgid "There was an error parsing the Red Hat Satellite Proxy settings."
 msgstr "RHN പ്രോക്സി ക്രമീകരണങ്ങള്‍ പാഴ്സ് ചെയ്യുന്നതില്‍ പിഴവുകളില്ല."
 
 #: ../rhnplugin.py:100
@@ -81,19 +81,19 @@ msgstr ""
 msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr ""
 
-#: ../rhnplugin.py:283
+#: ../rhnplugin.py:284
 msgid "Package profile information could not be sent."
 msgstr "പാക്കേജിനുള്ള പ്രൊഫൈല്‍ വിവരം അയയ്ക്കുവാന്‍ സാധ്യമായില്ല."
 
-#: ../rhnplugin.py:291
+#: ../rhnplugin.py:292
 msgid "Error Message:"
 msgstr "പിശക് സന്ദേശം:"
 
-#: ../rhnplugin.py:292
+#: ../rhnplugin.py:293
 msgid "Please run rhn_register as root on this client"
 msgstr "ദയവായി ഈ ക്ലയന്റില്‍ rhn_register റൂട്ടായി പ്രവര്‍ത്തിപ്പിയ്ക്കുക"
 
-#: ../rhnplugin.py:373
+#: ../rhnplugin.py:372
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "RHN-ലേക്ക് പ്രവേശിക്കുന്നതിനുളള വിവരം ലഭ്യമല്ല: %s"

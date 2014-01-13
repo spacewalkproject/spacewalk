@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-17 10:24+0200\n"
+"POT-Creation-Date: 2014-01-13 13:38+0100\n"
 "PO-Revision-Date: 2012-10-30 10:38+0000\n"
 "Last-Translator: adelton <jpx-tx@adelton.com>\n"
 "Language-Team: Gujarati <trans-gu@lists.fedoraproject.org>\n"
@@ -41,7 +41,7 @@ msgstr ""
 
 #: ../rhnplugin.py:88
 #, fuzzy
-msgid "There was an error parsing the Red Hat Proxy settings."
+msgid "There was an error parsing the Red Hat Satellite Proxy settings."
 msgstr "RHN પ્રોક્સી સુયોજનોનું પદચ્છેદન કરવામાં ભૂલ હતી."
 
 #: ../rhnplugin.py:100
@@ -82,19 +82,19 @@ msgstr ""
 msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr ""
 
-#: ../rhnplugin.py:283
+#: ../rhnplugin.py:284
 msgid "Package profile information could not be sent."
 msgstr "પેકેજ રૂપરેખા જાણકારી મોકલી શક્યા નહિં."
 
-#: ../rhnplugin.py:291
+#: ../rhnplugin.py:292
 msgid "Error Message:"
 msgstr "ભૂલ સંદેશો:"
 
-#: ../rhnplugin.py:292
+#: ../rhnplugin.py:293
 msgid "Please run rhn_register as root on this client"
 msgstr "મહેરબાની કરીને આ ક્લાયન્ટ પર રુટ તરીકે rhn_register ને ચલાવો"
 
-#: ../rhnplugin.py:373
+#: ../rhnplugin.py:372
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "RHN માટેની ગુમ થયેલ પ્રવેશ જાણકારી: %s"

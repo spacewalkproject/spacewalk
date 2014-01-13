@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-17 10:24+0200\n"
+"POT-Creation-Date: 2014-01-13 13:38+0100\n"
 "PO-Revision-Date: 2013-01-02 10:31+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -42,7 +42,7 @@ msgstr ""
 
 #: ../rhnplugin.py:88
 #, fuzzy
-msgid "There was an error parsing the Red Hat Proxy settings."
+msgid "There was an error parsing the Red Hat Satellite Proxy settings."
 msgstr "Під час спроби обробки параметрів проксі-сервера RHN сталася помилка."
 
 #: ../rhnplugin.py:100
@@ -88,21 +88,21 @@ msgstr ""
 msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr "Ця система оновлюється за програмою RHN Classic або RHN Satellite."
 
-#: ../rhnplugin.py:283
+#: ../rhnplugin.py:284
 msgid "Package profile information could not be sent."
 msgstr "Не вдалося надіслати дані щодо профілю пакунків."
 
-#: ../rhnplugin.py:291
+#: ../rhnplugin.py:292
 msgid "Error Message:"
 msgstr "Повідомлення про помилку:"
 
-#: ../rhnplugin.py:292
+#: ../rhnplugin.py:293
 msgid "Please run rhn_register as root on this client"
 msgstr ""
 "Будь ласка, запустіть для цієї клієнтської системи rhn_register від імені "
 "адміністратора (root)"
 
-#: ../rhnplugin.py:373
+#: ../rhnplugin.py:372
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "Не вказано потрібних даних для входу до системи RHN: %s"

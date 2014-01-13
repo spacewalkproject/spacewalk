@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-17 10:24+0200\n"
+"POT-Creation-Date: 2014-01-13 13:38+0100\n"
 "PO-Revision-Date: 2012-10-30 10:38+0000\n"
 "Last-Translator: adelton <jpx-tx@adelton.com>\n"
 "Language-Team: Kannada (http://www.transifex.com/projects/p/fedora/language/"
@@ -43,7 +43,7 @@ msgstr ""
 
 #: ../rhnplugin.py:88
 #, fuzzy
-msgid "There was an error parsing the Red Hat Proxy settings."
+msgid "There was an error parsing the Red Hat Satellite Proxy settings."
 msgstr "RHN ನ ಪ್ರಾಕ್ಸಿ ಹೊಂದಾಣಿಕೆಗಳನ್ನು ವಿಶ್ಲೇಷಿಸುವಲ್ಲಿ ದೋಷ ಉಂಟಾಗಿದೆ."
 
 #: ../rhnplugin.py:100
@@ -84,19 +84,19 @@ msgstr ""
 msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr ""
 
-#: ../rhnplugin.py:283
+#: ../rhnplugin.py:284
 msgid "Package profile information could not be sent."
 msgstr "ಪ್ಯಾಕೆಜಿನ ಮಾಹಿತಿ ಪರಿಚಯವನ್ನು ಕಳುಹಿಸಲಾಗಿಲ್ಲ."
 
-#: ../rhnplugin.py:291
+#: ../rhnplugin.py:292
 msgid "Error Message:"
 msgstr "ದೋಷ ಸಂದೇಶ:"
 
-#: ../rhnplugin.py:292
+#: ../rhnplugin.py:293
 msgid "Please run rhn_register as root on this client"
 msgstr "ಈ ಕ್ಲೈಂಟ್‌ನಲ್ಲಿ ನಿರ್ವಾಹಕರಾಗಿ rhn_register ಅನ್ನು ಚಲಾಯಿಸಿ"
 
-#: ../rhnplugin.py:373
+#: ../rhnplugin.py:372
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "RHNಗೆ ಬೇಕಾದ ಈ ಪ್ರವೇಶ ಮಾಹಿತಿ ಕಾಣೆಯಾಗಿದೆ: %s"

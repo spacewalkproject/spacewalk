@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-17 10:24+0200\n"
+"POT-Creation-Date: 2014-01-13 13:38+0100\n"
 "PO-Revision-Date: 2012-12-04 13:33+0000\n"
 "Last-Translator: Zoltan Hoppár <hopparz@gmail.com>\n"
 "Language-Team: Hungarian <trans-hu@lists.fedoraproject.org>\n"
@@ -42,7 +42,7 @@ msgstr ""
 
 #: ../rhnplugin.py:88
 #, fuzzy
-msgid "There was an error parsing the Red Hat Proxy settings."
+msgid "There was an error parsing the Red Hat Satellite Proxy settings."
 msgstr "Hiba történt az RHN proxy beállítások értelmezésekor."
 
 #: ../rhnplugin.py:100
@@ -91,19 +91,19 @@ msgstr ""
 "Ez a rendszer frissítéseket kap az RHN Classic vagy az RHN Satellite "
 "szolgáltatástól."
 
-#: ../rhnplugin.py:283
+#: ../rhnplugin.py:284
 msgid "Package profile information could not be sent."
 msgstr "Csomag profil információja nem küldhető el."
 
-#: ../rhnplugin.py:291
+#: ../rhnplugin.py:292
 msgid "Error Message:"
 msgstr "Hibaüzenet:"
 
-#: ../rhnplugin.py:292
+#: ../rhnplugin.py:293
 msgid "Please run rhn_register as root on this client"
 msgstr "Kérem futtassa az rhn_register parancsot root-ként ezen a kliensen"
 
-#: ../rhnplugin.py:373
+#: ../rhnplugin.py:372
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "Hiányzó szükséges login információ az RHN eléréséhez: %s"
