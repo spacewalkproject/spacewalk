@@ -4413,8 +4413,11 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="ssm.overview.misc.entitlements">
           <source>&lt;a href="/rhn/systems/ssm/misc/Index.do#entitle"&gt;Add or Remove&lt;/a&gt; Add-On Entitlements</source>
         </trans-unit>
-        <trans-unit id="ssm.overview.misc.deletereboot">
-          <source>&lt;a href="/rhn/systems/ssm/DeleteConfirm.do"&gt;Delete&lt;/a&gt; / &lt;a href="/rhn/systems/ssm/misc/RebootSystem.do"&gt;Reboot&lt;/a&gt; systems</source>
+        <trans-unit id="ssm.overview.misc.delete">
+          <source>&lt;a href="/rhn/systems/ssm/DeleteConfirm.do"&gt;Delete&lt;/a&gt; systems from @@PRODUCT_NAME@@</source>
+        </trans-unit>
+        <trans-unit id="ssm.overview.misc.reboot">
+          <source>&lt;a href="/rhn/systems/ssm/misc/RebootSystem.do"&gt;Reboot&lt;/a&gt; systems</source>
         </trans-unit>
         <trans-unit id="ssm.overview.misc.migrate">
           <source>&lt;a href="/rhn/systems/ssm/MigrateSystems.do"&gt;Migrate&lt;/a&gt; systems to another organization</source>
