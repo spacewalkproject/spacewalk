@@ -57,17 +57,17 @@ public class AdminListAction extends RhnAction implements Listable {
         ManagedServerGroup serverGroup = requestContext.lookupAndBindServerGroup();
         User user = requestContext.getCurrentUser();
 
+        Map params = makeParamMap(request);
+        params.put(RequestContext.SERVER_GROUP_ID, serverGroup.getId());
+
         ListRhnSetHelper helper = new ListRhnSetHelper(this, request,
-                RhnSetDecl.setForSystemGroupAdmins(serverGroup));
+                RhnSetDecl.setForSystemGroupAdmins(serverGroup), params);
         Set<Long> preselected = new HashSet<Long>();
         for (User item : (List<User>) ServerGroupFactory.listAdministrators(serverGroup)) {
                 preselected.add(item.getId());
         }
         helper.preSelect(preselected);
         helper.execute();
-
-        Map params = makeParamMap(request);
-        params.put(RequestContext.SERVER_GROUP_ID, serverGroup.getId());
 
         if (helper.isDispatched()) {
             // make sure the user has enough perms

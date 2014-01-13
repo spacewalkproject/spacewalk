@@ -21,8 +21,6 @@
 
 <rl:listset name="groupAdmins">
     <rhn:csrf />
-    <input type="hidden" name="sgid" value="${systemgroup.id}" />
-
     <rl:list>
 
         <rl:decorator name="SelectableDecorator"/>
