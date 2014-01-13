@@ -255,6 +255,8 @@ rhn_snmp_alert                 :: rhn_sat_cluster
 rhn_units                      :: rhn_quanta
 rhn_url_probe                  :: rhn_probe 
 rhn_url_probe_step             :: rhn_url_probe 
+rhnActionChain                 :: web_contact
+rhnActionChainEntry            :: rhnActionChain rhnAction rhnServer
 suseCredentials                :: suseCredentialsType web_contact
 time_series_data               :: time_series_purge
 time_series_purge              :: rhn_probe
