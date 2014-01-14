@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.action.ActionChainEntry" table="rhnActionChainEntry">
+        <id name="id" column="action_id">
+            <generator class="foreign">
+                <param name="property">action</param>
+            </generator>
+        </id>
+
+        <property name="sortOrder" column="sort_order" type="int"/>
+        <property name="created" column="created" type="date" insert="false" update="false"/>
+        <property name="modified" column="modified" type="date" insert="false" update="false"/>
+
+        <one-to-one name="action" constrained="true"/>
+        <many-to-one name="actionChain" column="actionchain_id" not-null="true" class="com.redhat.rhn.domain.action.ActionChain"/>
+        <many-to-one name="server" column="server_id" not-null="true" class="com.redhat.rhn.domain.server.Server"/>
+    </class>
+
+    <query name="ActionChainEntry.getGroups">
+        <![CDATA[
+            SELECT
+                new com.redhat.rhn.domain.action.ActionChainEntryGroup(
+                    entry.sortOrder,
+                    MIN(entry.id),
+                    COUNT(entry)
+                )
+                FROM ActionChainEntry entry
+                WHERE entry.actionChain.id = :id
+                GROUP BY entry.sortOrder
+                ORDER BY entry.sortOrder ASC
+        ]]>
+    </query>
+
+    <query name="ActionChainEntry.getActionChainEntries">
+        <![CDATA[
+            SELECT entry
+                FROM ActionChainEntry entry
+                WHERE entry.actionChain.id = :id
+                    AND entry.sortOrder = :sortOrder
+                ORDER BY entry.server.name ASC
+        ]]>
+    </query>
+</hibernate-mapping>
