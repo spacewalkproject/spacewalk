@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.1.14
+Version: 2.1.15
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -312,6 +312,9 @@ fi
 
 
 %changelog
+* Tue Jan 14 2014 Matej Kollar <mkollar@redhat.com> 2.1.15-1
+- Updating the copyright years info
+
 * Wed Jan 08 2014 Stephen Herr <sherr@redhat.com> 2.1.14-1
 - Fixing typo in 70e86d8d47
 
