@@ -79,7 +79,6 @@ public final class ErrataSystemsAffectedAction extends BaseListAction {
     }
 
     /** {@inheritDoc} */
-    @Override
     public List getResult(RequestContext context) {
         ManagedServerGroup group = context.lookupAndBindServerGroup();
         Errata erratum = context.lookupErratum();
