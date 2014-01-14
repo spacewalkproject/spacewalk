@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.113
+Version: 2.1.114
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -795,6 +795,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jan 14 2014 Matej Kollar <mkollar@redhat.com> 2.1.114-1
+- bump java API version
+- update LICENSE, allow Copyright (c) to start in 2013
+- removing @Override annotation from method that isn't overriden
+- KickstartDetailsEdit.do formatting broken since dac19190
+- Updating the copyright years info
+- fix LoginSetupActionTest
+- add missing strings + clean old one
+
 * Fri Jan 10 2014 Tomas Lestach <tlestach@redhat.com> 2.1.113-1
 - fix PxtAuthenticationServiceTest
 - Protected field in final class makes no sense
