@@ -22,13 +22,20 @@ import time
 import unittest
 from spacewalk.server import rhnSQL, rhnChannel
 
-DB = 'rhnuser/rhnuser@webdev'
+import misc_functions
 
+DB_SETTINGS = misc_functions.db_settings("oracle")
 
 class Tests(unittest.TestCase):
 
     def setUp(self):
-        rhnSQL.initDB(DB)
+        rhnSQL.initDB(
+            backend  = "oracle",
+            username = DB_SETTINGS["user"],
+            password = DB_SETTINGS["password"],
+            database = DB_SETTINGS["database"]
+        )
+        rhnSQL.clear_log_id()
 
     def tearDown(self):
         # Roll back any unsaved data
@@ -129,7 +136,22 @@ class Tests(unittest.TestCase):
 
     def test_list_channels_1(self):
         """Tests rhnChannel.list_channels"""
-        channels =  rhnChannel.list_channels(pattern="redhat-%")
+
+        # create some channel
+        cf = rhnChannel.ChannelFamily()
+        cf.load_from_dict(self._new_channel_family_dict())
+        cf.save()
+
+        label = cf.get_label()
+        vdict = self._new_channel_dict(label=label, channel_family=label)
+
+        c = rhnChannel.Channel()
+        for k, v in vdict.items():
+            method = getattr(c, "set_" + k)
+            method(v)
+        c.save()
+
+        channels =  rhnChannel.list_channels(pattern="rhn-unittest-%")
         self.failUnless(len(channels) > 0)
 
     def _new_channel_dict(self, **kwargs):
@@ -146,7 +168,7 @@ class Tests(unittest.TestCase):
         if kwargs.has_key('org_id'):
             org_id = kwargs['org_id']
         else:
-            org_id = 'rhn-noc'
+            org_id = misc_functions.create_new_org()
 
         vdict = {
             'label'             : label,
