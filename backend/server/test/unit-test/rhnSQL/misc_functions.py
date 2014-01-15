@@ -255,6 +255,10 @@ def create_activation_key(org_id=None, user_id=None, groups=None,
     if channels is None:
         channels = ['rhel-i386-as-3-beta', 'rhel-i386-as-2.1-beta']
 
+    # ensure channels are created
+    for channel in channels:
+        add_channel(channel)
+
     if entitlement_level is None:
         entitlement_level = 'provisioning_entitled'
 
@@ -296,3 +300,104 @@ def db_settings(backend):
         settings['host'] = config.get(backend, 'host')
 
     return settings
+
+def find_or_create_arch_type(name, label):
+    lookup = """
+       SELECT id from rhnArchType
+        WHERE label='%s' AND name = '%s'
+    """ % (label, name)
+    h = rhnSQL.prepare(lookup)
+    h.execute()
+    row = h.fetchone_dict()
+    if row:
+        return row['id']
+
+    query_create = """
+       INSERT INTO  rhnArchType
+              (id, label, name)
+       VALUES (sequence_nextval('rhn_archtype_id_seq'), :label, :name)
+
+    """
+    h = rhnSQL.prepare(query_create)
+    try:
+        h.execute(
+            label = label,
+            name  = name
+        )
+        rhnSQL.commit()
+    except rhnSQL.SQLError, e:
+        # if we're here that means we're voilating something
+        raise
+
+    return find_or_create_arch_type(name, label)
+
+def find_or_create_channel_arch(name, label):
+    lookup = """
+       SELECT id from rhnChannelArch
+        WHERE label='%s' AND name = '%s'
+    """ % (label, name)
+    h = rhnSQL.prepare(lookup)
+    h.execute()
+    row = h.fetchone_dict()
+    if row:
+        return row['id']
+
+    query_create = """
+       INSERT INTO  rhnChannelArch
+              (id, arch_type_id, label, name)
+       VALUES (sequence_nextval('rhn_channel_arch_id_seq'), :arch_type_id, :label, :name)
+
+    """
+    arch_type_id = find_or_create_arch_type(name = name, label = label)
+    h = rhnSQL.prepare(query_create)
+    try:
+        h.execute(
+            arch_type_id = arch_type_id,
+            label        = label,
+            name         = name
+        )
+        rhnSQL.commit()
+    except rhnSQL.SQLError, e:
+        # if we're here that means we're voilating something
+        raise
+
+    return find_or_create_channel_arch(name, label)
+
+
+def add_channel(label):
+    lookup = """
+       SELECT 1 from rhnChannel
+        WHERE label='%s'
+    """ % label
+    h = rhnSQL.prepare(lookup)
+    h.execute()
+    row = h.fetchone_dict()
+    if row:
+        return
+
+    query_create = """
+       INSERT INTO  rhnChannel
+              (id, label, name, channel_arch_id, basedir, summary)
+       VALUES (sequence_nextval('rhn_channel_id_seq'), :label, :name, :channel_arch_id, :basedir, :summary)
+
+    """
+
+    channel_arch_id = find_or_create_channel_arch(
+        name  = "fake_itanium",
+        label = "Fake itanium"
+    )
+
+    h = rhnSQL.prepare(query_create)
+    try:
+
+        h.execute(
+            label           = label,
+            name            = "Name for label %s" % label,
+            channel_arch_id = channel_arch_id,
+            basedir         = 'basedir',
+            summary         = 'summary'
+        )
+        rhnSQL.commit()
+    except rhnSQL.SQLError, e:
+        # if we're here that means we're voilating something
+        raise
