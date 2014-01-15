@@ -13,10 +13,16 @@
         <rl:decorator name="SelectableDecorator"/>
         <rl:decorator name="PageSizeDecorator"/>
 
+        <c:if test='${not current.disabled}'>
         <rl:selectablecolumn value="${current.id}"
-            selected="${current.selected}"
-            disabled="${current.disabled}">
+            selected="${current.selected}">
         </rl:selectablecolumn>
+        </c:if>
+        <c:if test='${current.disabled}'>
+            <rl:column>
+                <input type="checkbox" disabled="1" checked="1" />
+            </rl:column>
+        </c:if>
 
          <rl:column sortable="true"
             bound="false"
