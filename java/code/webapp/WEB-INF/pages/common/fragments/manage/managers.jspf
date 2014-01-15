@@ -7,7 +7,6 @@
 
 <rl:listset name="managerSet">
     <rhn:csrf />
-    <input type="hidden" name="cid" value="${cid}" />
 
     <rl:list>
 

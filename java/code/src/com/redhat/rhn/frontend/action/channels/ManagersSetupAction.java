@@ -66,14 +66,14 @@ public class ManagersSetupAction extends RhnAction implements Listable {
         request.setAttribute("channel_name", currentChan.getName());
         request.setAttribute(RequestContext.CID, cid);
 
+        Map params = makeParamMap(request);
+        params.put(RequestContext.CID, cid);
+
         ListRhnSetHelper helper = new ListRhnSetHelper(this, request,
-                RhnSetDecl.setForChannelManagers(currentChan));
+                RhnSetDecl.setForChannelManagers(currentChan), params);
         helper.preSelect(new HashSet<Long>(ChannelManager
                 .listChannelManagerIdsForChannel(user.getOrg(), currentChan)));
         helper.execute();
-
-        Map params = makeParamMap(request);
-        params.put(RequestContext.CID, cid);
 
         if (helper.isDispatched()) {
             // make sure the user has enough rights to change channel managers
