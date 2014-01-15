@@ -25,8 +25,8 @@ from spacewalk.server import rhnSQL, rhnServer, rhnChannel
 from spacewalk.server.xmlrpc import registration
 
 import misc_functions
+DB_SETTINGS = misc_functions.db_settings("oracle")
 
-DB = 'rhnuser/rhnuser@webdev'
 
 
 class Tests(unittest.TestCase):
@@ -38,7 +38,12 @@ class Tests(unittest.TestCase):
 
     def setUp(self):
         initCFG("server.xmlrpc")
-        rhnSQL.initDB(DB)
+        rhnSQL.initDB(
+            backend  = "oracle",
+            username = DB_SETTINGS["user"],
+            password = DB_SETTINGS["password"],
+            database = DB_SETTINGS["database"]
+        )
 
     def tearDown(self):
         # Roll back any unsaved data
