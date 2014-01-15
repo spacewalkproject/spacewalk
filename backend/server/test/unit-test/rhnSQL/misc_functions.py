@@ -103,13 +103,73 @@ def create_new_user(org_id=None, username=None, password=None, roles=None):
     if roles is None:
         roles = []
 
-    u = rhnUser.User(username, password)
-    u.set_org_id(org_id)
-    u.save()
-    # The password is scrambled now - re-set it
-    u.contact['password'] = password
-    u.save()
-    user_id = u.getid()
+    login             = username
+    oracle_contact_id = None
+    prefix            = "Mr."
+    first_names       = "First Name %3.f" % time.time()
+    last_name         = "Last Name %3.f" % time.time()
+    genqual           = None
+    parent_company    = None
+    company           = "ACME"
+    title             = ""
+    phone             = ""
+    fax               = ""
+    email             = "%s@example.com" % username
+    pin               = 0
+    first_names_ol    = " "
+    last_name_ol      = " "
+    address1          = " "
+    address2          = " "
+    address3          = " "
+    city              = " "
+    state             = " "
+    zip_code          = " "
+    country           = " "
+    alt_first_names   = None
+    alt_last_name     = None
+    contact_call      = "N"
+    contact_mail      = "N"
+    contact_email     = "N"
+    contact_fax       = "N"
+
+    f = rhnSQL.Function('create_new_user', rhnSQL.types.NUMBER())
+    ret = f(
+        org_id,
+        login,
+        password,
+        oracle_contact_id,
+        prefix,
+        first_names,
+        last_name,
+        genqual,
+        parent_company,
+        company,
+        title,
+        phone,
+        fax,
+        email,
+        pin,
+        first_names_ol,
+        last_name_ol,
+        address1,
+        address2,
+        address3,
+        city,
+        state,
+        zip_code,
+        country,
+        alt_first_names,
+        alt_last_name,
+        contact_call,
+        contact_mail,
+        contact_email,
+        contact_fax
+    )
+
+    u = rhnUser.search(username)
+
+    if u is None:
+      raise Exception("Couldn't create the new user - user not found")
 
     # Set roles
     h = rhnSQL.prepare("""
@@ -128,8 +188,6 @@ def create_new_user(org_id=None, username=None, password=None, roles=None):
 
         user_group_id = row['id']
         create_ugm(user_id, user_group_id)
-
-    rhnSQL.commit()
 
     return u
 
