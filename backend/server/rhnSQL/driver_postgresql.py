@@ -46,11 +46,7 @@ def convert_named_query_params(query):
     existing queries intact we'll convert them when provided to the
     postgresql driver.
 
-    RETURNS: tuple with:
-        - the new query with parameters replaced
-        - hash of each named parameter to an ordered list of the positions
-          where it was used.
-        - number of arguments found and replaced
+    RETURNS: the new query with parameters replaced
     """
     log_debug(6, "Converting query for PostgreSQL: %s" % query)
     new_query = re.sub(r'(\W):(\w+)', r'\1%(\2)s', query.replace('%', '%%'))
