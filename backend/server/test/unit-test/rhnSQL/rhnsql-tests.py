@@ -67,7 +67,3 @@ class RhnSQLTests(unittest.TestCase):
         self.assertEquals(2, len(param_index.keys()))
         self.assertEquals([1], param_index['id'])
         self.assertEquals([2], param_index['name'])
-
-
-
-
