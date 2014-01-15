@@ -23,7 +23,7 @@ import os
 import sys
 
 _topdir = os.path.dirname(sys.argv[0])
-_basedir = os.path.abspath(_topdir + '/../../..')
+_basedir = os.path.abspath(_topdir + '/../..')
 if _basedir not in sys.path:
     sys.path.append(_basedir)
 
