@@ -46,7 +46,7 @@ class Tests1(unittest.TestCase):
     def test_exception_procedure_1(self):
         "Tests exceptions raised by procedure calls"
         p = rhnSQL.Procedure("rhn_channel.subscribe_server")
-        self.assertRaises(rhnSQL.SQLSchemaError, p, 1000102174, 33)
+        self.assertRaises(rhnSQL.SQLError, p, 1000102174, 33)
 
     def test_function_1(self):
         "Tests function calls"
