@@ -111,6 +111,10 @@ def initDB(backend=None, host=None, port=None, username=None,
 #        raise  # pass on, we know those ones
 #    except (KeyboardInterrupt, SystemExit):
 #        raise
+    except SQLConnectError, e:
+        global __DB
+        del __DB
+        raise e
     except:
         raise
         #e_type, e_value = sys.exc_info()[:2]
