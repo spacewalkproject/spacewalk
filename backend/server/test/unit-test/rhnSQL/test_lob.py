@@ -7,11 +7,18 @@
 import unittest
 from spacewalk.server import rhnSQL
 
-DB = 'rhnuser/rhnuser@webdev'
+import misc_functions
+
+DB_SETTINGS = misc_functions.db_settings("oracle")
 
 class ExceptionsTest(unittest.TestCase):
     def setUp(self):
-        rhnSQL.initDB(DB)
+        rhnSQL.initDB(
+            backend  = "oracle",
+            username = DB_SETTINGS["user"],
+            password = DB_SETTINGS["password"],
+            database = DB_SETTINGS["database"]
+        )
         self._cleanup()
 
         rhnSQL.execute("create table misatestlob (id int, val blob)")
