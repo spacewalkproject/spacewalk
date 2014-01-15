@@ -105,7 +105,10 @@ class CallableObj:
 
 def create_new_org(username, password):
     f = rhnSQL.Procedure('create_new_org')
-    ncl = rhnSQL.types.NUMBER
-    ret = f(username, password, None, None, 'P', ncl(), ncl(), ncl())
-    org_id = ret[-3]
-    return int(org_id)
+
+    username = rhnSQL.types.STRING(username)
+    password = rhnSQL.types.STRING(password)
+    ncl      = rhnSQL.types.NUMBER
+
+    ret = f(username, password, ncl())
+    return int(ret[2])
