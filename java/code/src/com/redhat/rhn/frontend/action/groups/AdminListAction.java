@@ -22,10 +22,9 @@ import com.redhat.rhn.frontend.dto.UserOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.struts.action.ActionForm;
@@ -60,11 +59,12 @@ public class AdminListAction extends RhnAction implements Listable {
         Map params = makeParamMap(request);
         params.put(RequestContext.SERVER_GROUP_ID, serverGroup.getId());
 
-        ListRhnSetHelper helper = new ListRhnSetHelper(this, request,
-                RhnSetDecl.setForSystemGroupAdmins(serverGroup), params);
-        Set<Long> preselected = new HashSet<Long>();
+        ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
+        helper.ignoreEmptySelection();
+
+        Set<String> preselected = new HashSet<String>();
         for (User item : (List<User>) ServerGroupFactory.listAdministrators(serverGroup)) {
-                preselected.add(item.getId());
+                preselected.add(item.getId().toString());
         }
         helper.preSelect(preselected);
         helper.execute();
@@ -77,9 +77,9 @@ public class AdminListAction extends RhnAction implements Listable {
 
             long updated = 0;
             // remove admins
-            for (Iterator<Long> iter = helper.getRemovedKeys().iterator();
+            for (Iterator<String> iter = helper.getRemovedKeys().iterator();
                     iter.hasNext();) {
-                Long uid = iter.next();
+                Long uid = Long.valueOf(iter.next());
                 if (!UserManager.hasRole(uid, RoleFactory.ORG_ADMIN)) {
                     UserManager.revokeServerGroupPermission(uid, serverGroup.getId());
                 }
@@ -87,8 +87,9 @@ public class AdminListAction extends RhnAction implements Listable {
             }
 
             // add group admins
-            for (Iterator<Long> iter = helper.getAddedKeys().iterator(); iter.hasNext();) {
-                Long uid = iter.next();
+            for (Iterator<String> iter = helper.getAddedKeys().iterator();
+                    iter.hasNext();) {
+                Long uid = Long.valueOf(iter.next());
                 if (!UserManager.hasRole(uid, RoleFactory.ORG_ADMIN)) {
                     UserManager.revokeServerGroupPermission(uid, serverGroup.getId());
                     UserManager.grantServerGroupPermission(uid, serverGroup.getId());
@@ -113,6 +114,7 @@ public class AdminListAction extends RhnAction implements Listable {
         User currentUser = context.getCurrentUser();
         List<UserOverview> userList = UserManager.activeInOrg2(currentUser);
         for (UserOverview uo : userList) {
+            uo.setSelectable(true);
             if (UserManager.hasRole(uo.getId(), RoleFactory.ORG_ADMIN)) {
                 uo.setDisabled(true);
             }
