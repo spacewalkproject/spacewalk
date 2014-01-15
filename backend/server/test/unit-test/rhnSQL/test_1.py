@@ -58,8 +58,7 @@ class Tests1(unittest.TestCase):
     def _run_stproc(self):
         p = rhnSQL.Procedure("create_new_org")
         username = password = "unittest-%.3f" % time.time()
-        args = (username, password, None, None, 'P', rhnSQL.types.NUMBER(),
-            rhnSQL.types.NUMBER(), rhnSQL.types.NUMBER())
+        args = (username, password, rhnSQL.types.NUMBER())
         return apply(p, args), args
 
     def test_procedure_1(self):
@@ -68,12 +67,7 @@ class Tests1(unittest.TestCase):
         self.assertEqual(len(args), len(ret))
         self.assertEqual(args[0], ret[0])
         self.assertEqual(args[1], ret[1])
-        self.assertEqual(args[2], ret[2])
-        self.assertEqual(args[3], ret[3])
-        self.assertEqual(args[4], ret[4])
-        self.assertNotEqual(args[5], None)
-        self.assertNotEqual(args[6], None)
-        self.assertNotEqual(args[7], None)
+        self.failUnless(isinstance(ret[2], types.FloatType))
 
     def test_procedure_2(self):
         """Run the same stored procedure twice. This should excerise the
