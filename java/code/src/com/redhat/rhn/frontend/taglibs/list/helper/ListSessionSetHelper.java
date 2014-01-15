@@ -118,14 +118,14 @@ public class ListSessionSetHelper extends ListSetHelper {
     /** {@inheritDoc} */
     public Collection getAddedKeys() {
         Set preSelected = getPreSelected();
-        Collection result = CollectionUtils.subtract(preSelected, set);
+        Collection result = CollectionUtils.subtract(set, preSelected);
         return result;
     }
 
     /** {@inheritDoc} */
     public Collection getRemovedKeys() {
         Set preSelected = getPreSelected();
-        Collection result = CollectionUtils.subtract(set, preSelected);
+        Collection result = CollectionUtils.subtract(preSelected, set);
         return result;
     }
 
