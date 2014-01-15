@@ -99,17 +99,30 @@ class Tests1(unittest.TestCase):
 
     def test_execute_rowcount(self):
         """Tests row counts"""
-        # XXX
         table_name = "misatest"
-        rhnSQL.execute("delete from misatest")
-        ret = rhnSQL.execute("insert into misatest values (1, 1)")
-        self.assertEqual(ret, 1)
-        ret = rhnSQL.execute("insert into misatest values (2, 2)")
-        self.assertEqual(ret, 1)
+        try:
+          tables = self._list_tables()
+          if not table_name in tables:
+            rhnSQL.execute("create table %s (id int, value int)" % table_name)
+          else:
+            rhnSQL.execute("delete from %s" % table_name)
 
-        ret = rhnSQL.execute("delete from misatest")
-        self.assertEqual(ret, 2)
-        rhnSQL.commit()
+          insert_statement = rhnSQL.Statement(
+              "insert into %s values (:item_id, :value)" % table_name
+          )
+          h = rhnSQL.prepare(insert_statement)
+          ret = h.execute(item_id = 1, value = 2)
+          self.assertEqual(ret, 1)
+          ret = h.execute(item_id = 2, value = 2)
+          self.assertEqual(ret, 1)
+
+          delete_statement = rhnSQL.Statement("delete from %s" % table_name)
+          h = rhnSQL.prepare(delete_statement)
+          ret = h.execute()
+          self.assertEqual(ret, 2)
+          rhnSQL.commit()
+        finally:
+          rhnSQL.execute("drop table %s" % table_name)
 
     def _list_tables(self):
         h = rhnSQL.prepare("select table_name from user_tables")
