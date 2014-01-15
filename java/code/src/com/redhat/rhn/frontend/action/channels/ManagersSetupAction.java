@@ -23,11 +23,10 @@ import com.redhat.rhn.frontend.dto.UserOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.manager.channel.ChannelManager;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.struts.action.ActionForm;
@@ -38,6 +37,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -69,10 +69,15 @@ public class ManagersSetupAction extends RhnAction implements Listable {
         Map params = makeParamMap(request);
         params.put(RequestContext.CID, cid);
 
-        ListRhnSetHelper helper = new ListRhnSetHelper(this, request,
-                RhnSetDecl.setForChannelManagers(currentChan), params);
-        helper.preSelect(new HashSet<Long>(ChannelManager
-                .listChannelManagerIdsForChannel(user.getOrg(), currentChan)));
+        ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
+        helper.ignoreEmptySelection();
+
+        Set<String> preselected = new HashSet<String>();
+        for (Long uid : ChannelManager.listChannelManagerIdsForChannel(
+                                                user.getOrg(), currentChan)) {
+            preselected.add(uid.toString());
+        }
+        helper.preSelect(preselected);
         helper.execute();
 
         if (helper.isDispatched()) {
@@ -84,9 +89,9 @@ public class ManagersSetupAction extends RhnAction implements Listable {
 
             long updated = 0;
             // remove channel managers
-            for (Iterator<Long> iter = helper.getRemovedKeys().iterator();
+            for (Iterator<String> iter = helper.getRemovedKeys().iterator();
                     iter.hasNext();) {
-                Long uid = iter.next();
+                Long uid = Long.valueOf(iter.next());
                 if (!UserManager.hasRole(uid, RoleFactory.CHANNEL_ADMIN)) {
                     user.getOrg().removeChannelPermissions(uid, currentChan.getId(),
                             ChannelManager.QRY_ROLE_MANAGE);
@@ -95,8 +100,9 @@ public class ManagersSetupAction extends RhnAction implements Listable {
             }
 
             // add channel managers
-            for (Iterator<Long> iter = helper.getAddedKeys().iterator(); iter.hasNext();) {
-                Long uid = iter.next();
+            for (Iterator<String> iter = helper.getAddedKeys().iterator();
+                    iter.hasNext();) {
+                Long uid = Long.valueOf(iter.next());
                 if (!UserManager.hasRole(uid, RoleFactory.CHANNEL_ADMIN)) {
                     user.getOrg().removeChannelPermissions(uid, currentChan.getId(),
                             ChannelManager.QRY_ROLE_MANAGE);
@@ -123,6 +129,7 @@ public class ManagersSetupAction extends RhnAction implements Listable {
         User currentUser = context.getCurrentUser();
         List<UserOverview> userList = UserManager.activeInOrg2(currentUser);
         for (UserOverview uo : userList) {
+            uo.setSelectable(true);
             uo.setDisabled(UserManager.hasRole(uo.getId(), RoleFactory.CHANNEL_ADMIN));
         }
         return userList;
