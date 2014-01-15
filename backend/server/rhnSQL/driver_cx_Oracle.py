@@ -316,9 +316,10 @@ class Procedure(sql_base.Procedure):
 
     def _munge_arg(self, val):
         for sqltype, db_specific_type in self._type_mapping:
-            var = self.proc.var(db_specific_type, val.size)
-            var.setvalue(0, val.get_value())
-            return var
+            if isinstance(val, sqltype):
+              var = self.cursor.var(db_specific_type, val.size)
+              var.setvalue(0, val.get_value())
+              return var
 
         # XXX
         return val.get_value()
