@@ -11,14 +11,22 @@ import time
 import types
 from spacewalk.server import rhnSQL
 
-DB = 'rhnuser/rhnuser@webdev'
+import misc_functions
+
+DB_SETTINGS = misc_functions.db_settings("oracle")
 
 class Tests1(unittest.TestCase):
 
     def setUp(self):
         self.table_name = "misatest_%d" % os.getpid()
-        rhnSQL.initDB(DB)
+        rhnSQL.initDB(
+            backend  = "oracle",
+            username = DB_SETTINGS["user"],
+            password = DB_SETTINGS["password"],
+            database = DB_SETTINGS["database"]
+        )
         self._cleanup()
+        rhnSQL.clear_log_id()
 
         rhnSQL.execute("create table %s (id int, val varchar2(10))" %
             self.table_name)
