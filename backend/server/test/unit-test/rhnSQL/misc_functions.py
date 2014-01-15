@@ -23,6 +23,7 @@ import time
 import types
 
 from ConfigParser import ConfigParser
+from spacewalk.common.rhnConfig import CFG
 from spacewalk.server import rhnSQL, rhnUser
 
 # Add backend/server/test/attic directory to PYTHONPATH
@@ -89,7 +90,7 @@ def build_server_group_params(**kwargs):
     params.update(kwargs)
     return params
 
-def create_new_user(org_id=None, username=None, password=None, roles=None):
+def create_new_user(org_id=None, username=None, password=None, roles=None, encrypt_password = False):
     "Create a new user"
     if org_id is None:
         org_id = create_new_org()
@@ -100,6 +101,8 @@ def create_new_user(org_id=None, username=None, password=None, roles=None):
         username = "unittest-user-%.3f" % time.time()
     if password is None:
         password = "unittest-password-%.3f" % time.time()
+    if encrypt_password:
+        password = rhnUser.encrypt_password(password)
     if roles is None:
         roles = []
 
@@ -166,6 +169,17 @@ def create_new_user(org_id=None, username=None, password=None, roles=None):
         contact_fax
     )
 
+    # update old_password for web_contact, this is required to pass
+    # password validation checks when passwords are not encrypted.
+    if not encrypt_password:
+        h = rhnSQL.prepare("""
+            UPDATE web_contact
+            SET old_password = :old_password
+            WHERE id = :id
+        """)
+        h.execute(old_password = password, id = ret)
+        rhnSQL.commit()
+
     u = rhnUser.search(username)
 
     if u is None:
@@ -187,7 +201,7 @@ def create_new_user(org_id=None, username=None, password=None, roles=None):
             raise InvalidRoleError(org_id, role)
 
         user_group_id = row['id']
-        create_ugm(user_id, user_group_id)
+        create_ugm(u.getid(), user_group_id)
 
     return u
 
