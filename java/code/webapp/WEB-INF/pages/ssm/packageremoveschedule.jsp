@@ -47,46 +47,29 @@
 
     </rl:list>
 
-    <div class="text-right">
-
-        <div align="left">
-            <p><bean:message key="installconfirm.jsp.widgetsummary"/></p>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="col-lg-3 control-label">
+                <bean:message key="schedule.jsp.at"/>
+            </label>
+            <div class="col-lg-6">
+                <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
+                    <jsp:param name="widget" value="date"/>
+                </jsp:include>
+            </div>
         </div>
-
-        <table class="schedule-action-interface" align="center">
-
-            <tr>
-                <td><input type="radio" name="use_date" value="false" checked="checked"/>
-                </td>
-                <th><bean:message key="confirm.jsp.now"/></th>
-            </tr>
-            <tr>
-                <td><input type="radio" name="use_date" value="true"/></td>
-                <th><bean:message key="confirm.jsp.than"/></th>
-            </tr>
-            <tr>
-                <th><rhn:icon type="header-schedule" title="confirm.jsp.selection" />
-                </th>
-                <td>
-                    <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
-                        <jsp:param name="widget" value="date"/>
-                    </jsp:include>
-                </td>
-            </tr>
-        </table>
-
-        <hr/>
-        <input type="submit"
-               name="dispatch"
-               value='<bean:message key="removeconfirm.jsp.runremotecommand"/>'/>
-        <input type="submit"
-               name="dispatch"
-               value='<bean:message key="installconfirm.jsp.confirm"/>'/>
+        <div class="form-group">
+            <div class="col-lg-offset-3 col-lg-6">
+                <input type="submit" name="dispatch" class="btn btn-success"
+                       value='<bean:message key="removeconfirm.jsp.runremotecommand"/>'/>
+                <input type="submit" name="dispatch" class="btn btn-success"
+                       value='<bean:message key="installconfirm.jsp.confirm"/>'/>
+            </div>
+        </div>
+        <input type="hidden" name="packagesDecl" value="${requestScope.packagesDecl}" />
+        <input type="hidden" name="mode" value="${param.mode}" />
+        <input type="hidden" name="use_date" value="true" />
     </div>
-
-    <input type="hidden" name="packagesDecl" value="${requestScope.packagesDecl}" />
-    <input type="hidden" name="mode" value="${param.mode}" />
-
 </rl:listset>
 
 </body>

@@ -6240,6 +6240,12 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/systems/details/packages/ScheduleRemoteCommand.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="schedule.jsp.at">
+        <source>Schedule no sooner than a specified time:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/packages/ScheduleRemoteCommand.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="scheduleremote.jsp.schedulepackageremoval">
         <source>Confirm Remote Command and Schedule Package Removal</source>
         <context-group name="ctx">
