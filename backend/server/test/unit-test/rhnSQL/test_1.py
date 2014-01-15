@@ -50,10 +50,10 @@ class Tests1(unittest.TestCase):
 
     def test_function_1(self):
         "Tests function calls"
-        p = rhnSQL.Function("rhn_entitlements.get_server_entitlement",
-            rhnSQL.types.STRING())
-        ret = p(1000102174)
-        self.failUnless(isinstance(ret, types.StringType))
+        p = rhnSQL.Function("logging.get_log_id",
+            rhnSQL.types.NUMBER())
+        ret = p()
+        self.failUnless(isinstance(ret, types.FloatType))
 
     def _run_stproc(self):
         p = rhnSQL.Procedure("create_new_org")
