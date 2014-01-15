@@ -20,10 +20,8 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.UserOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
-import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.manager.user.UserManager;
 
@@ -34,7 +32,6 @@ import org.apache.struts.action.ActionMapping;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,23 +40,18 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * AdminListAction
  */
-public class AdminListAction extends RhnAction implements Listable {
+public class AdminListAction extends BaseListAction {
 
+    private ManagedServerGroup serverGroup;
+    private User user;
 
-    /** {@inheritDoc} */
-    public ActionForward execute(ActionMapping mapping,
-                                  ActionForm formIn,
-                                  HttpServletRequest request,
-                                  HttpServletResponse response) {
-
+    protected void setup(HttpServletRequest request) {
         RequestContext requestContext = new RequestContext(request);
-        ManagedServerGroup serverGroup = requestContext.lookupAndBindServerGroup();
-        User user = requestContext.getCurrentUser();
+        serverGroup = requestContext.lookupAndBindServerGroup();
+        user = requestContext.getCurrentUser();
+    }
 
-        Map params = makeParamMap(request);
-        params.put(RequestContext.SERVER_GROUP_ID, serverGroup.getId());
-
-        ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
+    protected void processHelper(ListSessionSetHelper helper) {
         helper.ignoreEmptySelection();
 
         Set<String> preselected = new HashSet<String>();
@@ -67,52 +59,52 @@ public class AdminListAction extends RhnAction implements Listable {
                 preselected.add(item.getId().toString());
         }
         helper.preSelect(preselected);
-        helper.execute();
+    }
 
-        if (helper.isDispatched()) {
-            // make sure the user has enough perms
-            if (!UserManager.canAdministerSystemGroup(user, serverGroup)) {
-                throw new PermissionCheckFailureException();
-            }
+    /** {@inheritDoc} */
+    protected ActionForward handleDispatch(
+            ListSessionSetHelper helper,
+            ActionMapping mapping,
+            ActionForm formIn, HttpServletRequest request,
+            HttpServletResponse response) {
 
-            long updated = 0;
-            // remove admins
-            for (Iterator<String> iter = helper.getRemovedKeys().iterator();
-                    iter.hasNext();) {
-                Long uid = Long.valueOf(iter.next());
-                if (!UserManager.hasRole(uid, RoleFactory.ORG_ADMIN)) {
-                    UserManager.revokeServerGroupPermission(uid, serverGroup.getId());
-                }
-                updated++;
-            }
-
-            // add group admins
-            for (Iterator<String> iter = helper.getAddedKeys().iterator();
-                    iter.hasNext();) {
-                Long uid = Long.valueOf(iter.next());
-                if (!UserManager.hasRole(uid, RoleFactory.ORG_ADMIN)) {
-                    UserManager.revokeServerGroupPermission(uid, serverGroup.getId());
-                    UserManager.grantServerGroupPermission(uid, serverGroup.getId());
-                }
-                updated++;
-            }
-            if (updated > 0) {
-                createSuccessMessage(request, "systemgroup.admins.updated",
-                        serverGroup.getName());
-            }
-            return StrutsDelegate.getInstance().forwardParams(
-                    mapping.findForward("submitted"), params);
+        // make sure the user has enough perms
+        if (!UserManager.canAdministerSystemGroup(user, serverGroup)) {
+            throw new PermissionCheckFailureException();
         }
 
+        long updated = 0;
+        // remove admins
+        for (Iterator<String> iter = helper.getRemovedKeys().iterator();
+                iter.hasNext();) {
+            Long uid = Long.valueOf(iter.next());
+            if (!UserManager.hasRole(uid, RoleFactory.ORG_ADMIN)) {
+                UserManager.revokeServerGroupPermission(uid, serverGroup.getId());
+            }
+            updated++;
+        }
 
+        // add group admins
+        for (Iterator<String> iter = helper.getAddedKeys().iterator();
+                iter.hasNext();) {
+            Long uid = Long.valueOf(iter.next());
+            if (!UserManager.hasRole(uid, RoleFactory.ORG_ADMIN)) {
+                UserManager.revokeServerGroupPermission(uid, serverGroup.getId());
+                UserManager.grantServerGroupPermission(uid, serverGroup.getId());
+            }
+            updated++;
+        }
+        if (updated > 0) {
+            createSuccessMessage(request, "systemgroup.admins.updated",
+                    serverGroup.getName());
+        }
         return StrutsDelegate.getInstance().forwardParams(
-                mapping.findForward("default"), params);
+                mapping.findForward("submitted"), getParamsMap(request));
     }
 
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
-        User currentUser = context.getCurrentUser();
-        List<UserOverview> userList = UserManager.activeInOrg2(currentUser);
+        List<UserOverview> userList = UserManager.activeInOrg2(user);
         for (UserOverview uo : userList) {
             uo.setSelectable(true);
             if (UserManager.hasRole(uo.getId(), RoleFactory.ORG_ADMIN)) {
