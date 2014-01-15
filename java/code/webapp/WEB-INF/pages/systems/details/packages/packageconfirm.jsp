@@ -37,60 +37,47 @@
 	</rl:list>
 
 <c:if test="${not empty requestScope.pageList}">
-      <div class="text-right">
-        <div align="left">
-          <p><bean:message key="${widgetSummary}"/></p>
-        </div>
-
-        <table class="schedule-action-interface" align="center">
-
-          <tr>
-            <td><input type="radio" name="use_date" value="false" checked="checked" /></td>
-            <th><bean:message key="confirm.jsp.now"/></th>
-          </tr>
-          <tr>
-            <td><input type="radio" name="use_date" value="true"/></td>
-            <th><bean:message key="confirm.jsp.than"/></th>
-          </tr>
-          <tr>
-            <th><rhn:icon type="header-schedule" title="confirm.jsp.selection" />
-            </th>
-            <td>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="col-lg-3 control-label">
+                <bean:message key="schedule.jsp.at"/>
+            </label>
+            <div class="col-lg-6">
               <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
                 <jsp:param name="widget" value="date"/>
               </jsp:include>
-            </td>
-          </tr>
-        </table>
-
-        <hr />
-      <c:if test="${not empty requestScope.enableRemoteCommand}">
-        <rhn:require mixins="com.redhat.rhn.common.security.acl.SystemAclHandler" acl="system_feature(ftr_remote_command); client_capable(script.run)">
-        <c:choose>
-        	<c:when test="${requestScope.mode == 'remove'}">
-		<input type="submit"
-		    	name ="dispatch"
-			    value='<bean:message key="removeconfirm.jsp.runremotecommand"/>'/>
-        	</c:when>
-        	<c:when test="${requestScope.mode == 'install'}">
-		<input type="submit"
-		    	name ="dispatch"
-			    value='<bean:message key="installconfirm.jsp.runremotecommand"/>'/>
-        	</c:when>
-        	<c:otherwise>
-		<input type="submit"
-		    	name ="dispatch"
-			    value='<bean:message key="upgradeconfirm.jsp.runremotecommand"/>'/>
-        	</c:otherwise>
-        </c:choose>
-        </rhn:require>
-      </c:if>
-		    <input type="submit"
-		    	name ="dispatch"
-			    value='<bean:message key="installconfirm.jsp.confirm"/>'/>
-      </div>
-
-      <input type="hidden" name="sid" value="${param.sid}" /></c:if>
+                <span class="help-block"><bean:message key="${widgetSummary}"/></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-3 col-lg-6">
+                <c:if test="${not empty requestScope.enableRemoteCommand}">
+                    <rhn:require mixins="com.redhat.rhn.common.security.acl.SystemAclHandler"
+                                 acl="system_feature(ftr_remote_command); client_capable(script.run)">
+                        <c:choose>
+                            <c:when test="${requestScope.mode == 'remove'}">
+                                <input type="submit" name ="dispatch"
+                                       value='<bean:message key="removeconfirm.jsp.runremotecommand"/>'/>
+                            </c:when>
+                            <c:when test="${requestScope.mode == 'install'}">
+                                <input type="submit" name ="dispatch"
+                                       value='<bean:message key="installconfirm.jsp.runremotecommand"/>'/>
+                            </c:when>
+                            <c:otherwise>
+                                <input type="submit" name ="dispatch"
+                                       value='<bean:message key="upgradeconfirm.jsp.runremotecommand"/>'/>
+                            </c:otherwise>
+                        </c:choose>
+                    </rhn:require>
+                </c:if>
+                <input type="submit" name ="dispatch"
+                       value='<bean:message key="installconfirm.jsp.confirm"/>'/>
+                <input type="hidden" name="sid" value="${param.sid}" />
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="use_date" value="true" />
+</c:if>
 
 </rl:listset>
 </body>
