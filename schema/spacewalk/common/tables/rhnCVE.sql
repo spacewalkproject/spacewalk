@@ -19,7 +19,7 @@ CREATE TABLE rhnCVE
     id    NUMBER NOT NULL
               CONSTRAINT rhn_cve_id_pk PRIMARY KEY
               USING INDEX TABLESPACE [[2m_tbs]],
-    name  VARCHAR2(13) NOT NULL
+    name  VARCHAR2(20) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;
