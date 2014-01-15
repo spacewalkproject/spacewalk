@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2013 Red Hat, Inc.
+ * Copyright (c) 2013--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -70,11 +70,12 @@ public class ManagersSetupAction extends RhnAction implements Listable {
                 RhnSetDecl.setForChannelManagers(currentChan));
         helper.preSelect(new HashSet<Long>(ChannelManager
                 .listChannelManagerIdsForChannel(user.getOrg(), currentChan)));
+        helper.execute();
 
         Map params = makeParamMap(request);
         params.put(RequestContext.CID, cid);
 
-        if (requestContext.isSubmitted()) {
+        if (helper.isDispatched()) {
             // make sure the user has enough rights to change channel managers
             if (!(UserManager.verifyChannelAdmin(user, currentChan) ||
                     user.hasRole(RoleFactory.CHANNEL_ADMIN))) {
@@ -112,7 +113,6 @@ public class ManagersSetupAction extends RhnAction implements Listable {
                     mapping.findForward("submitted"), params);
         }
 
-        helper.execute();
 
         return StrutsDelegate.getInstance().forwardParams(
                 mapping.findForward("default"), params);
