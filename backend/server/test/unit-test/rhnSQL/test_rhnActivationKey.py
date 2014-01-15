@@ -17,20 +17,33 @@
 #
 #
 
+import os
 import sys
 import time
 import unittest
-from spacewalk.server import rhnSQL, rhnActivationKey
+from spacewalk.server import rhnSQL
+
+sys.path.insert(
+    0,
+    os.path.abspath(os.path.dirname(os.path.abspath(__file__) + "/../../../attic/"))
+)
+import rhnActivationKey
 
 import misc_functions
 
-DB = 'rhnuser/rhnuser@webdev'
+DB_SETTINGS = misc_functions.db_settings("oracle")
 
 
 class Tests(unittest.TestCase):
 
     def setUp(self):
-        rhnSQL.initDB(DB)
+        rhnSQL.initDB(
+            backend  = "oracle",
+            username = DB_SETTINGS["user"],
+            password = DB_SETTINGS["password"],
+            database = DB_SETTINGS["database"]
+        )
+        rhnSQL.clear_log_id()
 
     def tearDown(self):
         # Roll back any unsaved data
