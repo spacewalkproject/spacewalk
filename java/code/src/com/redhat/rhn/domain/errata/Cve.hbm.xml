@@ -11,7 +11,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">rhn_cve_id_seq</param>
             </generator>
         </id>
-        <property name="name" column="name" type="string" length="13" />
+        <property name="name" column="name" type="string" length="20" />
     </class>
     <query name="Cve.lookupByName">
         <![CDATA[from com.redhat.rhn.domain.errata.Cve as cve
