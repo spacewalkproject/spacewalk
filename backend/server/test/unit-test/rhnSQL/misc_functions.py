@@ -17,9 +17,20 @@
 #
 #
 
+import os
+import sys
 import time
 import types
-from spacewalk.server import rhnSQL, rhnServerGroup, rhnUser, rhnActivationKey
+
+from ConfigParser import ConfigParser
+from spacewalk.server import rhnSQL, rhnUser
+
+# Add backend/server/test/attic directory to PYTHONPATH
+sys.path.insert(
+    0,
+    os.path.abspath(os.path.dirname(os.path.abspath(__file__) + "/../../../attic/"))
+)
+import rhnActivationKey, rhnServerGroup
 
 def create_new_org():
     "Create a brand new org; return the new org id"
@@ -190,3 +201,26 @@ def create_activation_key(org_id=None, user_id=None, groups=None,
     rhnSQL.commit()
 
     return a
+
+def db_settings(backend):
+    """
+    Parses the contents of the db_settings.ini file and returns the connection
+    settings of the required backend inside of a dictionary with the following
+    keys:
+      * user
+      * password
+      * database
+      * host (returned only by PostgreSQL backend)
+    """
+    settings = {}
+
+    config = ConfigParser()
+    config.read(os.path.dirname(os.path.abspath(__file__)) + "/db_settings.ini")
+
+    settings['user']     = config.get(backend, 'user')
+    settings['password'] = config.get(backend, 'password')
+    settings['database'] = config.get(backend, 'database')
+    if backend == 'postgresql':
+        settings['host'] = config.get(backend, 'host')
+
+    return settings
