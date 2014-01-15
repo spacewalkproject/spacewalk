@@ -4,9 +4,6 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 
 <html>
-<head>
-    <meta name="page-decorator" content="none" />
-</head>
 <body>
 
 <%@ include file="/WEB-INF/pages/common/fragments/groups/header.jspf" %>
