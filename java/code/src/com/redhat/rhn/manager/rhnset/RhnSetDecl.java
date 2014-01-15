@@ -541,24 +541,6 @@ public class RhnSetDecl {
         return make("crashes_for_system" + serv.getId(), SetCleanup.NOOP);
     }
 
-    /**
-     * get the set for channel managers
-     * @param chan channel passed in
-     * @return the Set descl
-     */
-    public static RhnSetDecl setForChannelManagers(Channel chan) {
-        return make("managers_for_channel" + chan.getId(), SetCleanup.NOOP);
-    }
-
-    /**
-     * get the set for system group admins
-     * @param sysgroup channel passed in
-     * @return the Set descl
-     */
-    public static RhnSetDecl setForSystemGroupAdmins(ManagedServerGroup sysgroup) {
-        return make("system_group_admins" + sysgroup.getId(), SetCleanup.NOOP);
-    }
-
     public static final RhnSetDecl SYSTEM_NOTES = make("systems_notes",
             SetCleanup.NOOP);
 
