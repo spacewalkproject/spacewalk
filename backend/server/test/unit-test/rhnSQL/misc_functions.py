@@ -229,8 +229,25 @@ class InvalidRoleError(Exception):
     pass
 
 
+def get_server_arch_id(architecture):
+    lookup = """
+        SELECT id
+        FROM rhnServerArch
+        WHERE label = :architecture
+    """
+    h = rhnSQL.prepare(lookup)
+    h.execute(
+        architecture = architecture
+    )
+    row = h.fetchone_dict()
+
+    if row:
+        return row['id']
+    else:
+        return None
+
 def create_activation_key(org_id=None, user_id=None, groups=None,
-        channels=None, entitlement_level=None, note=None, server_id=None):
+        channels=None, entitlement_level=None, note=None, server_id=None, release=None):
     if org_id is None:
         need_user = 1
         org_id = create_new_org()
@@ -255,9 +272,25 @@ def create_activation_key(org_id=None, user_id=None, groups=None,
     if channels is None:
         channels = ['rhel-i386-as-3-beta', 'rhel-i386-as-2.1-beta']
 
+    channel_arch_id = find_or_create_channel_arch(
+        name  = "channel - test",
+        label = "test"
+    )
+
     # ensure channels are created
-    for channel in channels:
-        add_channel(channel)
+    for channel_label in channels:
+        channel = add_channel(
+            label           = channel_label,
+            org_id          = org_id,
+            channel_arch_id = channel_arch_id
+        )
+        populate_rhn_dist_channel_map(
+            channel_id      = channel['id'],
+            channel_arch_id = channel_arch_id,
+            org_id          = org_id,
+            release         = release
+        )
+
 
     if entitlement_level is None:
         entitlement_level = 'provisioning_entitled'
@@ -300,6 +333,45 @@ def db_settings(backend):
         settings['host'] = config.get(backend, 'host')
 
     return settings
+
+def grant_entitlements(org_id, entitlement, quantity):
+    activate_system_entitlement = rhnSQL.Procedure(
+        "rhn_entitlements.activate_system_entitlement")
+
+    activate_system_entitlement(org_id, entitlement, quantity)
+
+def grant_channel_family_entitlements(org_id, channel_family, quantity):
+    """
+    Check to see if org has a channelfamily associated with it.
+    If not, Create one.
+    """
+    _lookup_chfam = """
+       SELECT 1 from rhnChannelFamily
+        WHERE label='%s'
+    """ % channel_family
+    h = rhnSQL.prepare(_lookup_chfam)
+    row = h.execute()
+    # some extra check for upgrades
+    if row:
+        # Already exists, move on
+        return
+    _query_create_chfam = """
+       INSERT INTO  rhnChannelFamily
+              (id, name, label, org_id, product_url)
+       VALUES (sequence_nextval('rhn_channel_family_id_seq'), :name, :label, :org, :url)
+
+    """
+    h = rhnSQL.prepare(_query_create_chfam)
+    try:
+        h.execute(
+            name  = 'Private Channel Family %s' % channel_family,
+            label = channel_family,
+            org   = org_id,
+            url   = '%s url' % channel_family
+        )
+    except rhnSQL.SQLError, e:
+        # if we're here that means we're voilating something
+        raise
 
 def find_or_create_arch_type(name, label):
     lookup = """
@@ -364,40 +436,108 @@ def find_or_create_channel_arch(name, label):
     return find_or_create_channel_arch(name, label)
 
 
-def add_channel(label):
+def add_channel(label, org_id, channel_arch_id):
     lookup = """
-       SELECT 1 from rhnChannel
-        WHERE label='%s'
-    """ % label
+       SELECT * from rhnChannel
+        WHERE label = :label
+    """
+
     h = rhnSQL.prepare(lookup)
-    h.execute()
+    h.execute(label = label)
     row = h.fetchone_dict()
+
     if row:
-        return
+        if row['org_id'] != org_id or row['channel_arch_id'] != channel_arch_id:
+            delete = "DELETE FROM rhnChannel WHERE id = :id"
+            h = rhnSQL.prepare(delete)
+            h.execute(id = row['id'])
+            rhnSQL.commit()
+        else:
+            return row
 
     query_create = """
        INSERT INTO  rhnChannel
-              (id, label, name, channel_arch_id, basedir, summary)
-       VALUES (sequence_nextval('rhn_channel_id_seq'), :label, :name, :channel_arch_id, :basedir, :summary)
+              (id, label, org_id, name, channel_arch_id, basedir, summary)
+       VALUES (sequence_nextval('rhn_channel_id_seq'), :label, :org_id, :name, :channel_arch_id, :basedir, :summary)
 
     """
 
-    channel_arch_id = find_or_create_channel_arch(
-        name  = "fake_itanium",
-        label = "Fake itanium"
-    )
-
     h = rhnSQL.prepare(query_create)
     try:
-
         h.execute(
             label           = label,
+            org_id          = org_id,
             name            = "Name for label %s" % label,
             channel_arch_id = channel_arch_id,
             basedir         = 'basedir',
             summary         = 'summary'
         )
         rhnSQL.commit()
+
+        h = rhnSQL.prepare(lookup)
+        h.execute(label = label)
+        return h.fetchone_dict()
     except rhnSQL.SQLError, e:
         # if we're here that means we're voilating something
         raise
+
+def populate_rhn_dist_channel_map(channel_id, channel_arch_id, org_id, release):
+    if not release:
+        release = 'unit test'
+
+    lookup = """
+        SELECT 1 FROM rhnDistChannelMap
+            WHERE release = :release AND
+                channel_arch_id  = :channel_arch_id AND
+                org_id = :org_id
+    """
+
+    h = rhnSQL.prepare(lookup)
+    h.execute(
+        release         = release,
+        channel_arch_id = channel_arch_id,
+        org_id          = org_id
+    )
+    if h.fetchone_dict():
+        return
+
+    query_create = """
+       INSERT INTO rhnDistChannelMap
+              (os, release, channel_arch_id, channel_id, org_id)
+       VALUES (:os, :release, :channel_arch_id, :channel_id, :org_id)
+    """
+
+    h = rhnSQL.prepare(query_create)
+    h.execute(
+        os              = "TestOS",
+        release         = release,
+        channel_arch_id = channel_arch_id,
+        channel_id      = channel_id,
+        org_id          = org_id
+    )
+    rhnSQL.commit()
+
+def add_channel_to_server(channel_id, server_id):
+    lookup = """
+        SELECT 1 FROM rhnServerChannel
+            WHERE server_id = :server_id AND
+                  channel_id = :channel_id
+    """
+
+    h = rhnSQL.prepare(lookup)
+    row = h.execute(server_id = server_id, channel_id = channel_id)
+    if row:
+        return
+
+    query_create = """
+       INSERT INTO rhnServerChannel
+              (server_id, channel_id)
+       VALUES (:server_id, :channel_id)
+    """
+
+    h = rhnSQL.prepare(query_create)
+    h.execute(
+        channel_id = channel_id,
+        server_id  = server_id
+    )
+    rhnSQL.commit()
