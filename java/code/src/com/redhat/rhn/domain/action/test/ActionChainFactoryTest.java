@@ -69,13 +69,7 @@ public class ActionChainFactoryTest extends BaseTestCaseWithUser {
 
         ActionChainFactory.delete(actionChain);
 
-        try {
-            ActionChainFactory.getActionChain(actionChain.getId());
-            fail();
-        }
-        catch (ObjectNotFoundException e) {
-            // correct
-        }
+        assertDeleted(actionChain);
     }
 
     /**
@@ -253,14 +247,7 @@ public class ActionChainFactoryTest extends BaseTestCaseWithUser {
 
         ActionChainFactory.schedule(actionChain, new Date());
 
-        // check action chain does not exist anymore
-        try {
-            ActionChainFactory.getActionChain(actionChain.getId());
-            fail();
-        }
-        catch (ObjectNotFoundException e) {
-            // correct
-        }
+        assertDeleted(actionChain);
 
         // check actions are scheduled in correct order
         for (ActionChainEntry entry : actionChain.getEntries()) {
@@ -275,6 +262,20 @@ public class ActionChainFactoryTest extends BaseTestCaseWithUser {
         // check ServerAction objects have been created
         for (ActionChainEntry entry : actionChain.getEntries()) {
             assertNotEmpty(entry.getAction().getServerActions());
+        }
+    }
+
+    /**
+     * Checks that an Action Chain does not exist anymore.
+     * @param actionChain the Action Chain to check
+     */
+    public static void assertDeleted(ActionChain actionChain) {
+        try {
+            ActionChainFactory.getActionChain(actionChain.getId());
+            fail();
+        }
+        catch (ObjectNotFoundException e) {
+            // correct
         }
     }
 }
