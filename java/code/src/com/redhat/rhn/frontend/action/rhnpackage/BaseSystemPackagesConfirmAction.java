@@ -218,28 +218,36 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
 
         ActionMessages msgs = new ActionMessages();
 
-        /**
-         * If there was only one action archived, display the "action" archived
-         * message, else display the "actions" archived message.
-         */
-        if (numPackages == 1) {
-            msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                     new ActionMessage(getMessageKeyForOne(),
-                             LocalizationService.getInstance()
+        if (actionChain == null) {
+            /**
+             * If there was only one action archived, display the "action" archived
+             * message, else display the "actions" archived message.
+             */
+            if (numPackages == 1) {
+                msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                         new ActionMessage(getMessageKeyForOne(),
+                                 LocalizationService.getInstance()
+                                     .formatNumber(numPackages),
+                                 pa.getId().toString(),
+                                 sid.toString(),
+                                 StringUtil.htmlifyText(server.getName())));
+            }
+            else {
+                msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                         new ActionMessage(getMessageKeyForMany(),
+                                 LocalizationService.getInstance()
                                  .formatNumber(numPackages),
                              pa.getId().toString(),
                              sid.toString(),
                              StringUtil.htmlifyText(server.getName())));
+            }
         }
         else {
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                     new ActionMessage(getMessageKeyForMany(),
-                             LocalizationService.getInstance()
-                             .formatNumber(numPackages),
-                         pa.getId().toString(),
-                         sid.toString(),
-                         StringUtil.htmlifyText(server.getName())));
+                new ActionMessage("message.addedtoactionchain", actionChain.getId(),
+                    StringUtil.htmlifyText(actionChain.getLabel())));
         }
+
         strutsDelegate.saveMessages(request, msgs);
         Map params = new HashMap();
         processParamMap(formIn, request, params);
