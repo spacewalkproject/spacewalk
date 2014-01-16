@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.1.18
+Version:    2.1.19
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -84,6 +84,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Jan 16 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.19-1
+- Fix to use .less files in development mode (2)
+
 * Tue Jan 14 2014 Matej Kollar <mkollar@redhat.com> 2.1.18-1
 - Fix to use .less files in development mode
 
