@@ -22,7 +22,7 @@
   </div>
 
   <div class="createfragment">
-    <html:form action="/systems/details/configuration/addfiles/CreateFile.do?sid=${system.id}">
+    <html:form styleClass="form-horizontal" action="/systems/details/configuration/addfiles/CreateFile.do?sid=${system.id}">
       <rhn:csrf />
       <rhn:submitted />
       <%@ include file="/WEB-INF/pages/common/fragments/configuration/channel/create.jspf" %>
