@@ -20,13 +20,14 @@ BuildArch: noarch
 Requires: c3p0 >= 0.9.1
 Requires: cglib
 Requires: doc-indexes
-Requires: jakarta-commons-cli
 Requires: jakarta-commons-codec
 Requires: jakarta-commons-httpclient
 Requires: jakarta-commons-lang >= 0:2.1
 %if 0%{?fedora}
+Requires: apache-commons-cli
 Requires: apache-commons-logging
 %else
+Requires: jakarta-commons-cli
 Requires: jakarta-commons-logging
 %endif
 %if 0%{?fedora} >= 20
@@ -58,13 +59,14 @@ Obsoletes: rhn-search < 5.3.0
 BuildRequires: ant
 #BuildRequires: apache-ibatis-sqlmap
 BuildRequires: c3p0 >= 0.9.1
-BuildRequires: jakarta-commons-cli
 BuildRequires: jakarta-commons-codec
 BuildRequires: jakarta-commons-httpclient
 BuildRequires: jakarta-commons-lang >= 0:2.1
 %if 0%{?fedora}
+BuildRequires: apache-commons-cli
 BuildRequires: apache-commons-logging
 %else
+BuildRequires: jakarta-commons-cli
 BuildRequires: jakarta-commons-logging
 %endif
 BuildRequires: java-devel >= 1.6.0
