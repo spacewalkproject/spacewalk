@@ -66,7 +66,6 @@ Requires: java-devel >= 1:1.6.0
 Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-codec
 Requires: jakarta-commons-discovery
-Requires: jakarta-commons-cli
 Requires: jakarta-commons-el
 Requires: jakarta-commons-fileupload
 Requires: jakarta-taglibs-standard
@@ -207,9 +206,11 @@ BuildRequires: postgresql-jdbc
 %if 0%{?fedora}
 # spelling checker is only for Fedoras (no aspell in RHEL6)
 BuildRequires: aspell aspell-en libxslt
+Requires:      apache-commons-cli
 BuildRequires: apache-commons-cli
 BuildRequires: apache-commons-io
 %else
+Requires:      jakarta-commons-cli
 BuildRequires: jakarta-commons-cli
 BuildRequires: jakarta-commons-io
 %endif
@@ -337,12 +338,13 @@ Requires: hibernate3 >= 0:3.2.4
 Requires: java >= 0:1.6.0
 Requires: java-devel >= 0:1.6.0
 Requires: jakarta-commons-lang >= 0:2.1
-Requires: jakarta-commons-cli
 Requires: jakarta-commons-codec
 Requires: jakarta-commons-dbcp
 %if 0%{?fedora}
+Requires: apache-commons-cli
 Requires: apache-commons-logging
 %else
+Requires: jakarta-commons-cli
 Requires: jakarta-commons-logging
 %endif
 Requires: jakarta-taglibs-standard
