@@ -274,27 +274,27 @@ sub system_monitoring_info {
   if ($data->{MONITORING_STATUS} eq "CRITICAL") {
     $ret->{icon} = 'monitoring-crit';
     $ret->{status_str} = 'Critical probes';
-    $ret->{system_link} = "/network/systems/details/probes/index.pxt?sid=${sid}";
+    $ret->{system_link} = "/rhn/systems/details/probes/ProbesList.do?sid=${sid}";
   }
   elsif ($data->{MONITORING_STATUS} eq "WARNING") {
     $ret->{icon} = 'monitoring-warn';
     $ret->{status_str} = 'Warning probes';
-    $ret->{system_link} = "/network/systems/details/probes/index.pxt?sid=${sid}";
+    $ret->{system_link} = "/rhn/systems/details/probes/ProbesList.do?sid=${sid}";
   }
   elsif ($data->{MONITORING_STATUS} eq "UNKNOWN") {
     $ret->{icon} = 'monitoring-unknown';
     $ret->{status_str} = 'Unknown probes';
-    $ret->{system_link} = "/network/systems/details/probes/index.pxt?sid=${sid}";
+    $ret->{system_link} = "/rhn/systems/details/probes/ProbesList.do?sid=${sid}";
   }
   elsif ($data->{MONITORING_STATUS} eq "PENDING") {
     $ret->{icon} = 'monitoring-pending';
     $ret->{status_str} = 'Pending probes';
-    $ret->{system_link} = "/network/systems/details/probes/index.pxt?sid=${sid}";
+    $ret->{system_link} = "/rhn/systems/details/probes/ProbesList.do?sid=${sid}";
   }
   elsif ($data->{MONITORING_STATUS} eq "OK") {
     $ret->{icon} = 'monitoring-ok';
     $ret->{status_str} = 'OK';
-    $ret->{system_link} = "/network/systems/details/probes/index.pxt?sid=${sid}";
+    $ret->{system_link} = "/rhn/systems/details/probes/ProbesList.do?sid=${sid}";
   }
 
   return $ret;
