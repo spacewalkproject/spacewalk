@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.117
+Version: 2.1.118
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jan 16 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.118-1
+- %%attr() mode not applicaple to symlink
+- fixed conflict with apache-commons-validator
+- resolve conflict between {apache,jakarta}-commons-cli on Fedora 20
+
 * Thu Jan 16 2014 Tomas Lestach <tlestach@redhat.com> 2.1.117-1
 - remove unused method
 - create external authentication page
