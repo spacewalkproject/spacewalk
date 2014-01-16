@@ -4,7 +4,7 @@
   <rhn-tab name="Details" url="/rhn/systems/details/Overview.do">
     <rhn-tab name="Overview">
 	  <rhn-tab-url>/rhn/systems/details/Overview.do</rhn-tab-url>
-	  <rhn-tab-url>/network/systems/details/reboot_confirm.pxt</rhn-tab-url>
+          <rhn-tab-url>/rhn/systems/details/RebootSystem.do</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="Properties" url="/rhn/systems/details/Edit.do" />
     <rhn-tab name="Remote Command" acl="system_feature(ftr_remote_command)">

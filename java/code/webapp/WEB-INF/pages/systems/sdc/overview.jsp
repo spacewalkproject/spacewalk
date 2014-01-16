@@ -54,7 +54,7 @@
         <div class="systeminfo">
           <div class="systeminfo-full">
             <rhn:icon type="system-reboot" /><bean:message key="sdc.details.overview.requires_reboot"/>
-            <bean:message key="sdc.details.overview.schedulereboot" arg0="/network/systems/details/reboot_confirm.pxt?sid=${system.id}"/>
+            <bean:message key="sdc.details.overview.schedulereboot" arg0="/rhn/systems/details/RebootSystem.do?sid=${system.id}"/>
           </div>
         </div>
       </c:if>
@@ -255,7 +255,7 @@
             <td><fmt:formatDate value="${system.lastBootAsDate}" type="both" dateStyle="short" timeStyle="long"/><br/>
                   <rhn:require acl="system_feature(ftr_reboot)"
                        mixins="com.redhat.rhn.common.security.acl.SystemAclHandler">
-                <bean:message key="sdc.details.overview.schedulereboot" arg0="/network/systems/details/reboot_confirm.pxt?sid=${system.id}"/>
+                <bean:message key="sdc.details.overview.schedulereboot" arg0="/rhn/systems/details/RebootSystem.do?sid=${system.id}"/>
                   </rhn:require>
             </td>
           </tr>

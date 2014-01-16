@@ -5130,6 +5130,30 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="reboot.jsp.header">
+        <source>System Reboot Confirmation</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/RebootSystem</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="reboot.jsp.summary">
+        <source>This will schedule a reboot of this system.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/RebootSystem</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="reboot.jsp.widgetsummary">
+        <source>If you are &lt;strong&gt;certain&lt;/strong&gt; you wish to do this, you may schedule the reboot to take place after a specified time:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/RebootSystem</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="reboot.jsp.confirm">
+        <source>Reboot system</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/RebootSystem</context>
+        </context-group>
+      </trans-unit>
       <!--- System Duplicates pages -->
       <group>
         <context-group name="ctx">

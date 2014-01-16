@@ -3063,6 +3063,19 @@
                      path="/systems/ssm/ListSystems.do" redirect="true" />
     </action>
 
+    <action path="/systems/details/RebootSystem"
+            scope="request"
+            name="datePickerForm"
+            input="/WEB-INF/pages/systems/sdc/rebootsystem.jsp"
+            type="com.redhat.rhn.frontend.action.systems.sdc.SystemRebootAction"
+            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true"/>
+        <forward name="confirm"
+                 path="/WEB-INF/pages/systems/sdc/overview.jsp" />
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/rebootsystem.jsp" />
+    </action>
+
     <action path="/systems/details/audit/ListScap"
         scope="request"
         input="/WEB-INF/pages/systems/details/audit/listscap.jsp"
