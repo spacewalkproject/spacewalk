@@ -1,6 +1,6 @@
 Name:           bootstrap
 Version:        3.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.
 
 Group:          Applications/Internet
@@ -68,6 +68,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Jan 16 2014 Michael Mraka <michael.mraka@redhat.com> 3.0.0-4
+- Fix to use .less files in development mode (2)
+
 * Mon Jan 13 2014 Michael Mraka <michael.mraka@redhat.com> 3.0.0-3
 - allow to use .less files in development mode
 
