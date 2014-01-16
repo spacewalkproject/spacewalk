@@ -3174,9 +3174,6 @@
         <forward name="confirm"
                  path="/systems/details/packages/Packages.do"
                  redirect="true" />
-        <forward name="remotecmd"
-                 path="/systems/details/packages/ScheduleRemoteCommand.do"
-                 redirect="true" />
     </action>
 
     <action path="/systems/details/packages/VerifyPackages"
@@ -3247,9 +3244,6 @@
         <forward name="confirm"
                  path="/systems/details/packages/Packages.do"
                  redirect="true" />
-        <forward name="remotecmd"
-                 path="/systems/details/packages/ScheduleRemoteCommand.do"
-                 redirect="true" />
     </action>
 
     <action path="/systems/details/packages/RemoveExtraConfirm"
@@ -3263,9 +3257,6 @@
                  path="/WEB-INF/pages/systems/details/packages/packageconfirm.jsp"/>
         <forward name="confirm"
                  path="/systems/details/packages/Packages.do"
-                 redirect="true" />
-        <forward name="remotecmd"
-                 path="/systems/details/packages/ScheduleRemoteCommand.do"
                  redirect="true" />
     </action>
 
@@ -3295,31 +3286,7 @@
          <forward name="confirm"
                   path="/systems/details/packages/Packages.do"
                   redirect="true"/>
-        <forward name="remotecmd"
-                 path="/systems/details/packages/ScheduleRemoteCommand.do"
-                 redirect="true" />
     </action>
-
-    <action path="/systems/details/packages/ScheduleRemoteCommand"
-        scope="request"
-        name="scheduleRemoteCmdForm"
-        input="/WEB-INF/pages/systems/details/packages/scheduleremote.jsp"
-        type="com.redhat.rhn.frontend.action.rhnpackage.ScheduleRemoteCommand"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="postRequiredIfSubmitted" value="true" />
-        <forward name="default"
-                 path="/WEB-INF/pages/systems/details/packages/scheduleremote.jsp"/>
-        <forward name="removal"
-                 path="/systems/details/packages/PackageList.do"
-                 redirect="true" />
-        <forward name="upgrade"
-                 path="/systems/details/packages/UpgradableList.do"
-                 redirect="true" />
-        <forward name="install"
-                 path="/systems/details/packages/PackageList.do"
-                 redirect="true" />
-    </action>
-
 
     <action path="/systems/details/packages/patchsets/PatchSetList"
         scope="request"

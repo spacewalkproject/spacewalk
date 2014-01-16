@@ -30,7 +30,6 @@ import java.util.Map;
  * @version $Rev$
  */
 public class InstallConfirmSetupAction extends BaseSystemPackagesConfirmAction {
-    public static final String PACKAGE_INSTALL = "install";
 
     private static final InstallPackageSetupAction DECL_ACTION =
                                                 new InstallPackageSetupAction();
@@ -40,14 +39,6 @@ public class InstallConfirmSetupAction extends BaseSystemPackagesConfirmAction {
      */
     protected String getDecl(Long sid) {
         return DECL_ACTION.getDecl(sid);
-    }
-
-
-    /**
-     * {@inheritDoc}
-     **/
-    protected String getRemoteMode() {
-        return PACKAGE_INSTALL;
     }
 
     /**

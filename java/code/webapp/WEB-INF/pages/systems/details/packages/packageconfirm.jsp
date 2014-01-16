@@ -40,25 +40,6 @@
         <jsp:include page="/WEB-INF/pages/common/fragments/schedule-options.jspf"/>
         <div class="form-group">
             <div class="col-lg-offset-3 col-lg-6">
-                <c:if test="${not empty requestScope.enableRemoteCommand}">
-                    <rhn:require mixins="com.redhat.rhn.common.security.acl.SystemAclHandler"
-                                 acl="system_feature(ftr_remote_command); client_capable(script.run)">
-                        <c:choose>
-                            <c:when test="${requestScope.mode == 'remove'}">
-                                <input type="submit" name ="dispatch"
-                                       value='<bean:message key="removeconfirm.jsp.runremotecommand"/>'/>
-                            </c:when>
-                            <c:when test="${requestScope.mode == 'install'}">
-                                <input type="submit" name ="dispatch"
-                                       value='<bean:message key="installconfirm.jsp.runremotecommand"/>'/>
-                            </c:when>
-                            <c:otherwise>
-                                <input type="submit" name ="dispatch"
-                                       value='<bean:message key="upgradeconfirm.jsp.runremotecommand"/>'/>
-                            </c:otherwise>
-                        </c:choose>
-                    </rhn:require>
-                </c:if>
                 <input type="submit" name ="dispatch"
                        value='<bean:message key="installconfirm.jsp.confirm"/>'/>
                 <input type="hidden" name="sid" value="${param.sid}" />
