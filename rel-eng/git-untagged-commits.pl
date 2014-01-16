@@ -35,7 +35,7 @@ for my $file (@files) {
 	my $name = File::Basename::basename($file);
 	my ($version, $dir) = split /\s/, $line;
 	my @changes =
-		grep { not /^\S+\s([Bb]umping package versions for|All the NoTgzBuilders are now|%defattr is not needed since rpm 4\.4|Purging %changelog entries|replace legacy name of Tagger with new one)/ }
+		grep { not /^\S+\s([Bb]umping package versions for|%defattr is not needed since rpm 4\.4|Purging %changelog entries|replace legacy name of Tagger with new one|fixed tito build warning)/ }
 		`git log --pretty=format:'%h %s (%ae)' $name-$version..HEAD -- $cdup$dir`;
 	if (@changes) {
 		print "$name-$version..HEAD:\n";
