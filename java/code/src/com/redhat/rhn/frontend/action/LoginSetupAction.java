@@ -149,8 +149,8 @@ public class LoginSetupAction extends RhnAction {
                     updateCmd.setLastName(lastname);
                     updateCmd.setEmail(email);
                     updateCmd.updateUser();
-                    log.warn("Externally authenticated login " + remoteUserString + " (" + firstname + " " +
-                            lastname + ")");
+                    log.warn("Externally authenticated login " + remoteUserString +
+                                 " (" + firstname + " " + lastname + ")");
                 }
             }
             catch (LookupException le) {
@@ -173,8 +173,8 @@ public class LoginSetupAction extends RhnAction {
                     createCmd.validate();
                     createCmd.storeNewUser();
                     remoteUser = createCmd.getUser();
-                    log.warn("Externally authenticated login " + remoteUserString + " (" + firstname + " " +
-                            lastname + ") created.");
+                    log.warn("Externally authenticated login " + remoteUserString +
+                                 " (" + firstname + " " + lastname + ") created.");
                 }
             }
             if (remoteUser != null) {
