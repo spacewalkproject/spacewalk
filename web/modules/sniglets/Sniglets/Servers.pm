@@ -168,7 +168,7 @@ sub system_locked_info {
 
   my $ret = {};
   if ($data->{LOCKED}) {
-    $ret->{icon} = 'fa fa-1-5x spacewalk-icon-locked-system';
+    $ret->{icon} = 'system-locked';
     $ret->{status_str} = 'System locked';
     $ret->{status_class} = 'system-status-locked';
     $ret->{message} = 'more info';
