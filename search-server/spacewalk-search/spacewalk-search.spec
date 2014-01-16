@@ -189,13 +189,13 @@ fi
 %else
 %attr(755, root, root) %{_initrddir}/rhn-search
 %endif
-%attr(755, root, root) %{_bindir}/rhnsearchd
+%{_bindir}/rhnsearchd
 %{_prefix}/share/rhn/config-defaults/rhn_search.conf
 %{_prefix}/share/rhn/config-defaults/rhn_search_daemon.conf
 %{_sysconfdir}/logrotate.d/rhn-search
 %dir %attr(755, root, root) %{_var}/lib/rhn/search
 %dir %attr(755, root, root) %{_var}/lib/rhn/search/indexes
-%attr(755, root, root) %{_var}/lib/rhn/search/indexes/docs
+%{_var}/lib/rhn/search/indexes/docs
 
 %changelog
 * Wed Jan 08 2014 Tomas Lestach <tlestach@redhat.com> 2.1.12-1
