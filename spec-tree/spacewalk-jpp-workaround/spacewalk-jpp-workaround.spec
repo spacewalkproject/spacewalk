@@ -1,5 +1,5 @@
 Name:		spacewalk-jpp-workaround
-Version:	1.0.5
+Version:	2.1.0
 Release:	1%{?dist}
 Summary:	Workaround package to fulfill jpackage broken dependencies
 
@@ -38,6 +38,7 @@ Requires:   struts >= 1.3.10
 %if 0%{?fedora} >= 20
 Provides:   jakarta-commons-logging = 1.1.3
 Requires:   apache-commons-logging
+Obsoletes:  jpackage-utils >= 5.0.0
 %endif
 
 %description
