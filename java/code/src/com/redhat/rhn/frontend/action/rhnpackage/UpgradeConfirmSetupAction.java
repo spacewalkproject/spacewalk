@@ -14,9 +14,10 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage;
 
+import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.action.ActionChainManager;
 
 import org.apache.struts.action.ActionForm;
 
@@ -53,12 +54,15 @@ public class UpgradeConfirmSetupAction extends BaseSystemPackagesConfirmAction {
         return "message.packageupgrade";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected PackageAction schedulePackageAction(ActionForm formIn,
-            RequestContext context, List<Map<String, Long>> pkgs, Date earliest) {
-        return ActionManager.schedulePackageUpgrade(context.getCurrentUser(),
-                                                context.lookupAndBindServer(),
-                                                pkgs, earliest);
+        RequestContext context, List<Map<String, Long>> pkgs, Date earliest,
+        ActionChain actionChain) {
+        return ActionChainManager.schedulePackageUpgrade(context.getCurrentUser(),
+            context.lookupAndBindServer(), pkgs, earliest, actionChain);
 
     }
 

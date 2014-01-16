@@ -18,10 +18,12 @@ package com.redhat.rhn.frontend.action.rhnpackage;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.common.util.StringUtil;
+import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
+import com.redhat.rhn.frontend.struts.ActionChainHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -109,8 +111,10 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
         DynaActionForm dynaForm = (DynaActionForm) formIn;
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
                 "date", DatePicker.YEAR_RANGE_POSITIVE);
-
         request.setAttribute("date", picker);
+
+        ActionChainHelper.prepopulateActionChains(request);
+
         request.setAttribute("system", server);
         requestContext.copyParamToAttributes(RequestContext.SID);
         request.setAttribute(ListTagHelper.PARENT_URL,
@@ -197,10 +201,15 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
         Server server = SystemManager.lookupByIdAndUser(sid, user);
 
         //The earliest time to perform the action.
-        Date earliest = getStrutsDelegate().readDatePicker((DynaActionForm)formIn,
-                "date", DatePicker.YEAR_RANGE_POSITIVE);
+        DynaActionForm dynaActionForm = (DynaActionForm)formIn;
+        Date earliest = getStrutsDelegate().readDatePicker(dynaActionForm, "date",
+            DatePicker.YEAR_RANGE_POSITIVE);
 
-        PackageAction pa = schedulePackageAction(formIn, requestContext, data, earliest);
+        //The action chain to append this action to, if any
+        ActionChain actionChain = ActionChainHelper.readActionChain(dynaActionForm, user);
+
+        PackageAction pa = schedulePackageAction(formIn, requestContext, data, earliest,
+            actionChain);
 
         //Remove the actions from the users set
         SessionSetHelper.obliterate(request, getDecl(sid));
@@ -303,11 +312,11 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
      * @param context the request context
      * @param pkgs the list of packages
      * @param earliest the earliest date to perform the action
+     * @param actionChain the action chain to add the action to or null
      * @return the schedule package action
      */
     protected abstract PackageAction schedulePackageAction(ActionForm formIn,
-                                                           RequestContext context,
-                                                           List<Map<String, Long>> pkgs,
-                                                           Date earliest);
+        RequestContext context, List<Map<String, Long>> pkgs, Date earliest,
+        ActionChain actionChain);
 
 }

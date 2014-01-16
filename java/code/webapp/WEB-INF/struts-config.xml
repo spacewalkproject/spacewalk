@@ -1149,6 +1149,7 @@
       <form-property name="date_minute"  type="java.lang.Integer"/>
       <form-property name="date_am_pm"  type="java.lang.Integer"/>
       <form-property name="submitted"   type="java.lang.Boolean" />
+      <form-property name="action_chain"   type="java.lang.String" />
     </form-bean>
 
     <form-bean name="deleteSystemGroupForm"

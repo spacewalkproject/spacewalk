@@ -1457,6 +1457,40 @@ public class ActionManager extends BaseManager {
 
     private static Action scheduleAction(User scheduler, ActionType type, String name,
             Date earliestAction, Set<Long> serverIds) {
+        Action action = createAction(scheduler, type, name, earliestAction);
+        scheduleForExecution(action, serverIds);
+
+        return action;
+    }
+
+    /**
+     * Schedules an action for execution on one or more servers (adding rows to
+     * rhnServerAction)
+     * @param action the action
+     * @param serverIds server IDs
+     */
+    public static void scheduleForExecution(Action action, Set<Long> serverIds) {
+        Map params = new HashMap();
+        params.put("status_id", ActionFactory.STATUS_QUEUED.getId());
+        params.put("tries", REMAINING_TRIES);
+        params.put("parent_id", action.getId());
+
+        WriteMode m = ModeFactory.getWriteMode("Action_queries", "insert_server_actions");
+        List<Long> sidList = new ArrayList<Long>();
+        sidList.addAll(serverIds);
+        m.executeUpdate(params, sidList);
+    }
+
+    /**
+     * Creates, saves and returns a new Action
+     * @param user the user who created this action
+     * @param type the action type
+     * @param name the action name
+     * @param earliestAction the earliest execution date
+     * @return a saved Action
+     */
+    public static Action createAction(User user, ActionType type, String name,
+        Date earliestAction) {
         /**
          * We have to relookup the type here, because most likely a static final variable
          *  was passed in.  If we use this and the .reload() gets called below
@@ -1464,28 +1498,10 @@ public class ActionManager extends BaseManager {
          *  will be different than the final static variable
          *  sometimes hibernate is no fun
          */
-        type = ActionFactory.lookupActionTypeByLabel(type.getLabel());
-        Action action = createScheduledAction(scheduler, type, name, earliestAction);
+        ActionType lookedUpType = ActionFactory.lookupActionTypeByLabel(type.getLabel());
+        Action action = createScheduledAction(user, lookedUpType, name, earliestAction);
         ActionFactory.save(action);
         ActionFactory.getSession().flush();
-        //ActionFactory.getSession().refresh(action);
-
-
-        Map params = new HashMap();
-        params.put("status_id", ActionFactory.STATUS_QUEUED.getId());
-        params.put("tries", REMAINING_TRIES);
-        params.put("parent_id", action.getId());
-        //params.put("sid", sid);
-
-        WriteMode m = ModeFactory.getWriteMode("Action_queries",
-                "insert_server_actions");
-        List<Long> sidList = new ArrayList<Long>();
-        sidList.addAll(serverIds);
-        m.executeUpdate(params,  sidList);
-
-
-        //action.addServerAction(sa);
-
         return action;
     }
 
@@ -1765,35 +1781,30 @@ public class ActionManager extends BaseManager {
             Date earliestAction,
             Set<Long> serverIds) {
 
-        String name = "";
-        if (type.equals(ActionFactory.TYPE_PACKAGES_REMOVE) ||
-                type.equals(ActionFactory.TYPE_SOLARISPKGS_REMOVE)) {
-            name = "Package Removal";
-        }
-        else if (type.equals(ActionFactory.TYPE_PACKAGES_UPDATE) ||
-                type.equals(ActionFactory.TYPE_SOLARISPKGS_INSTALL)) {
-            name = "Package Install";
-        }
-        else if (type.equals(ActionFactory.TYPE_PACKAGES_VERIFY)) {
-            name = "Package Verify";
-        }
-        else if (type.equals(ActionFactory.TYPE_PACKAGES_REFRESH_LIST)) {
-            name = "Package List Refresh";
-        }
-        else if (type.equals(ActionFactory.TYPE_PACKAGES_DELTA)) {
-            name = "Package Synchronization";
-        }
+        String name = getActionName(type);
 
         Action action = scheduleAction(scheduler, type, name, earliestAction, serverIds);
         ActionFactory.save(action);
 
-        if (pkgs != null) {
+        addPackageActionDetails(action, pkgs);
+
+        return action;
+    }
+
+    /**
+     * Adds package details to an Action
+     * @param action the action
+     * @param packages A list of maps containing keys 'name_id', 'evr_id' and
+     *            optional 'arch_id' with Long values.
+     */
+    public static void addPackageActionDetails(Action action, List packages) {
+        if (packages != null) {
             // for each item in the set create a package action detail
             // I'm using datasource to insert the records instead of
             // hibernate. It seems terribly inefficient to lookup a
             // packagename and packageevr object to insert the ids into the
             // correct table if I already have the ids.
-            for (Iterator itr = pkgs.iterator(); itr.hasNext();) {
+            for (Iterator itr = packages.iterator(); itr.hasNext();) {
                 Map rse = (Map) itr.next();
                 Map params = new HashMap();
                 Long nameId = (Long) rse.get("name_id");
@@ -1821,8 +1832,33 @@ public class ActionManager extends BaseManager {
                 m.executeUpdate(params);
             }
         }
+    }
 
-        return action;
+    /**
+     * Returns a name string from an Action type
+     * @param type the type
+     * @return a name
+     */
+    public static String getActionName(ActionType type) {
+        String name = "";
+        if (type.equals(ActionFactory.TYPE_PACKAGES_REMOVE) ||
+                type.equals(ActionFactory.TYPE_SOLARISPKGS_REMOVE)) {
+            name = "Package Removal";
+        }
+        else if (type.equals(ActionFactory.TYPE_PACKAGES_UPDATE) ||
+                type.equals(ActionFactory.TYPE_SOLARISPKGS_INSTALL)) {
+            name = "Package Install";
+        }
+        else if (type.equals(ActionFactory.TYPE_PACKAGES_VERIFY)) {
+            name = "Package Verify";
+        }
+        else if (type.equals(ActionFactory.TYPE_PACKAGES_REFRESH_LIST)) {
+            name = "Package List Refresh";
+        }
+        else if (type.equals(ActionFactory.TYPE_PACKAGES_DELTA)) {
+            name = "Package Synchronization";
+        }
+        return name;
     }
 
     /**
