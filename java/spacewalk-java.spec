@@ -473,7 +473,9 @@ ln -s -f %{_javadir}/hibernate3/hibernate-ehcache.jar $RPM_BUILD_ROOT%{_javadir}
 # on Fedora 19 some jars are named differently
 %if 0%{?fedora} && 0%{?fedora} > 18
 mkdir -p $RPM_BUILD_ROOT%{_javadir}
+%if 0%{?fedora} < 20
 ln -s -f %{_javadir}/apache-commons-validator.jar $RPM_BUILD_ROOT%{_javadir}/commons-validator.jar
+%endif
 ln -s -f %{_javadir}/mchange-commons-java.jar $RPM_BUILD_ROOT%{_javadir}/mchange-commons.jar
 ln -s -f %{_javadir}/jboss-logging/jboss-logging.jar $RPM_BUILD_ROOT%{_javadir}/jboss-logging.jar
 %endif
@@ -674,7 +676,9 @@ fi
 %{_javadir}/hibernate3/hibernate-ehcache-3.jar
 %endif
 %if 0%{?fedora} && 0%{?fedora} > 18
+%if 0%{?fedora} < 20
 %{_javadir}/commons-validator.jar
+%endif
 %{_javadir}/mchange-commons.jar
 %{_javadir}/jboss-logging.jar
 %{jardir}/jboss-loggingjboss-logging.jar
