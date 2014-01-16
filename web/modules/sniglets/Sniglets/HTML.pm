@@ -43,6 +43,7 @@ sub register_tags {
   $pxt->register_tag("rhn-autorefresh-widget", \&rhn_autorefresh_widget);
   $pxt->register_tag("rhn-return-link", \&return_link);
   $pxt->register_tag("rhn-icon", \&rhn_icon);
+  $pxt->register_tag("rhn-date", \&rhn_date);
 }
 
 
@@ -344,5 +345,22 @@ sub rhn_icon {
 
   %params = map {("-$_" => $params{$_})} keys %params;
   return PXT::HTML->icon(%params);
+}
+
+sub rhn_date {
+  my $pxt = shift;
+  my %params = validate(@_, {'humanStyle' => 0, '__block__' => 0});
+
+  %params = map {("-$_" => $params{$_})} keys %params;
+
+  my $datetime = $params{-__block__};
+  $datetime =~ s/^\s+//;
+  $datetime =~ s/\s+$//;
+
+  my $formatted = $pxt->user->convert_time($datetime);
+
+  $params{-value} .= $datetime;
+  $params{-formatted} .= $formatted;
+  return PXT::HTML->date(%params);
 }
 1;

@@ -600,4 +600,33 @@ sub icon {
   return $icon;
 }
 
+#date(
+# -value => iso_formatted_date,
+# -formatted => date_in_user_format
+# -humanStyle => true|false|1|0 whether to show the date
+#           in a natural language format too
+# );
+sub date {
+  my $class = shift;
+  my %params = @_;
+
+  my $cssclass = "";
+  die "empty value attribute" if not exists $params{-value};
+  my $formatted = $params{-value};
+  if (exists $params{-formatted}) {
+    $formatted = $params{-formatted};
+  }
+
+  if (exists $params{-humanStyle} && ($params{-humanStyle} eq "from")) {
+    $cssclass = " class=\"human-from\"";
+  }
+  elsif (exists $params{-humanStyle} && ($params{-humanStyle} eq "calendar")) {
+    $cssclass = " class=\"human-calendar\"";
+  }
+
+  my $date = qq{<time$cssclass datetime=\"$params{-value}\">$formatted</time>};
+
+  return $date;
+}
+
 1;

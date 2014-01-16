@@ -811,6 +811,17 @@ sub render_action_items {
   return $ret;
 }
 
+sub render_date {
+  my $self = shift;
+  my $pxt = shift;
+  my $col = shift;
+  my $datetime = shift;
+  my $formatted = shift;
+  return PXT::HTML->date(-value => $datetime,
+                         -formatted => $formatted,
+                         -humanStyle => $col->is_date());
+}
+
 sub render_url {
   my $self = shift;
   my $pxt = shift;
@@ -1131,7 +1142,9 @@ sub render {
 	my $col_data = defined $row->{uc $label} ? $row->{uc $label} : '';
 
 	if ($col->is_date()) {
-	  $col_data = $pxt->user->convert_time($col_data);
+    my $formatted = $pxt->user->convert_time($col_data);
+    my $isotime = $pxt->user->convert_time($col_data, "%FT%T%z");
+    $col_data = $self->render_date($pxt, $col, $isotime, $formatted);
 	}
 
 

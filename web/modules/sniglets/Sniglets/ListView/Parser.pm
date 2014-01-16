@@ -125,7 +125,7 @@ sub process_column {
   my $nowrap = $xml_node->getAttribute('nowrap') || '';
   my $acl = $xml_node->getAttribute('acl') || '';
   my $htmlify = $xml_node->getAttribute('htmlify') ? 1 : 0;
-  my $is_date = $xml_node->getAttribute('is_date') ? 1 : 0;
+  my $is_date = $xml_node->getAttribute('is_date') || 0;
 
   my $column = new Sniglets::ListView::ParsedColumn name => $name, label => $label;
   $column->sort_by($sort_by);
