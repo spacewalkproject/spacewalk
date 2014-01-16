@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.1.24
+Version:	2.1.25
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,13 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Jan 16 2014 Matej Kollar <mkollar@redhat.com> 2.1.25-1
+- Changed gpg keys so they match reality.
+- Removing unsupported Fedora 17
+- Adding Fedora 20 to spacewalk-common-channels
+- adding 2.1 repositories to spacewalk-common-channels
+- remove openSUSE 12.2 and add openSUSE 13.1 channels
+
 * Tue Jan 14 2014 Matej Kollar <mkollar@redhat.com> 2.1.24-1
 - Updating the copyright years info
 
