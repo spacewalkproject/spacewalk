@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.116
+Version: 2.1.117
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -795,6 +795,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jan 16 2014 Tomas Lestach <tlestach@redhat.com> 2.1.117-1
+- remove unused method
+- create external authentication page
+- removed unused import
+
 * Wed Jan 15 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.116-1
 - removed unused methods
 - selectable doesn't work properly with ListRhnSetHelper
