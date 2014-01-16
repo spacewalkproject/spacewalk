@@ -777,8 +777,8 @@ fi
 %else
 %attr(755, root, root) %{_initrddir}/taskomatic
 %endif
-%attr(755, root, root) %{_bindir}/taskomaticd
-%attr(755, root, root) %{_datadir}/rhn/lib/spacewalk-asm.jar
+%{_bindir}/taskomaticd
+%{_datadir}/rhn/lib/spacewalk-asm.jar
 
 
 %files config
