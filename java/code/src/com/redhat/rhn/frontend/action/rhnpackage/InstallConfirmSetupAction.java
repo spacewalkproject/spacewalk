@@ -14,9 +14,10 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage;
 
+import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.action.ActionChainManager;
 
 import org.apache.struts.action.ActionForm;
 
@@ -74,13 +75,12 @@ public class InstallConfirmSetupAction extends BaseSystemPackagesConfirmAction {
     /**
      * {@inheritDoc}
      */
+    @Override
     protected PackageAction schedulePackageAction(ActionForm formIn,
-                                                           RequestContext context,
-                                                           List<Map<String, Long>> pkgs,
-                                                           Date earliest) {
-        return ActionManager.schedulePackageInstall(context.getCurrentUser(),
-                                                    context.lookupAndBindServer(),
-                                                    pkgs, earliest);
+        RequestContext context, List<Map<String, Long>> pkgs, Date earliest,
+        ActionChain actionChain) {
+        return ActionChainManager.schedulePackageInstall(context.getCurrentUser(),
+            context.lookupAndBindServer(), pkgs, earliest, actionChain);
     }
 
 
