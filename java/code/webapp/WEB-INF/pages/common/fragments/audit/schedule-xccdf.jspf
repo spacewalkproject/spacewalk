@@ -1,45 +1,56 @@
-
 <c:if test="${empty readonly}">
-	<c:set var="readonly" value="false"/>
+    <c:set var="readonly" value="false"/>
 </c:if>
-
 <rhn:csrf/>
-<table class="details">
-<tr>
-	<th><bean:message key="system.audit.schedulexccdf.jsp.command"/>:</th>
-	<td>/usr/bin/oscap xccdf eval</td>
-</tr>
-<tr>
-	<th><bean:message key="system.audit.schedulexccdf.jsp.arguments"/>:</th>
-	<td>
-		<html:text property="params" maxlength="2048" size="60" styleId="params"
-			readonly="${readonly}"/>
-	</td>
-</tr>
-<tr>
-	<th><bean:message key="system.audit.schedulexccdf.jsp.path"/><span class="required-form-field">*</span>:</th>
-	<td>
-		<html:text property="path" size="60" styleId="path"
-			readonly="${readonly}"/>
-	</td>
-</tr>
-<tr>
-	<th><bean:message key="scheduleremote.jsp.nosoonerthan"/>:</th>
-	<td>
-		<c:choose>
-			<c:when test="${readonly == 'true'}">
-				<c:out value="${localizedDate}"/>
-				<html:hidden property="use_date" value="true" />
-				<%@ include file="/WEB-INF/pages/common/fragments/date-picker-hidden.jspf" %>
-			</c:when>
-			<c:otherwise>
-				<jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
-					<jsp:param name="widget" value="date"/>
-				</jsp:include>
-			</c:otherwise>
-		</c:choose>
-	</td>
-</tr>
-</table>
-
+<div class="form-group">
+    <label class="col-md-3 control-label">
+        <bean:message key="system.audit.schedulexccdf.jsp.command"/>:
+    </label>
+    <div class="col-md-6">
+        <div class="form-control">
+            /usr/bin/oscap xccdf eval
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-md-3 control-label">
+        <bean:message key="system.audit.schedulexccdf.jsp.arguments"/>:
+    </label>
+    <div class="col-md-6">
+        <html:text property="params" maxlength="2048" size="60" styleId="params" styleClass="form-control" readonly="${readonly}"/>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-md-3 control-label">
+        <bean:message key="system.audit.schedulexccdf.jsp.path"/>
+        <span class="required-form-field">*</span>:
+    </label>
+    <div class="col-md-6">
+        <html:text property="path" size="60" styleId="path" styleClass="form-control" readonly="${readonly}"/>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-md-3 control-label">
+        <bean:message key="scheduleremote.jsp.nosoonerthan"/>:
+    </label>
+    <div class="col-md-6">
+        <c:choose>
+            <c:when test="${readonly == 'true'}">
+                <c:out value="${localizedDate}"/>
+                <html:hidden property="use_date" value="true" />
+                <%@ include file="/WEB-INF/pages/common/fragments/date-picker-hidden.jspf" %>
+            </c:when>
+            <c:otherwise>
+                <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
+                    <jsp:param name="widget" value="date"/>
+                </jsp:include>
+            </c:otherwise>
+        </c:choose>        
+        <span class="help-block">
+            <rhn:tooltip>
+                <bean:message key="system.audit.schedulexccdf.jsp.tooltip"/>
+            </rhn:tooltip>
+        </span>
+    </div>
+</div>
 <html:hidden property="submitted" value="true" />

@@ -5,36 +5,26 @@
 
 
 <html>
-
 <body>
-
-<%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
-
-<h2><bean:message key="system.audit.schedulexccdf.jsp.schedule"/></h2>
-
-<c:choose>
-	<c:when test="${not requestScope.scapEnabled}">
-		<p><bean:message key="system.audit.listscap.jsp.missing"
-			arg0="${requiredPackage}"/></p>
-	</c:when>
-	<c:otherwise>
-		<html:form method="post" action="/systems/details/audit/ScheduleXccdf.do">
-
-			<%@ include file="/WEB-INF/pages/common/fragments/audit/schedule-xccdf.jspf" %>
-
-			<html:hidden property="sid" value="${param.sid}"/>
-			<div class="text-right">
-				</hr>
-				<html:submit property="schedule_button">
-				<bean:message key="system.audit.schedulexccdf.jsp.button"/>
-				</html:submit>
-			</div>
-		</html:form>
-		<rhn:tooltip>
-			<bean:message key="system.audit.schedulexccdf.jsp.tooltip"/>
-		</rhn:tooltip>
-	</c:otherwise>
-</c:choose>
-
+    <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
+    <h2><bean:message key="system.audit.schedulexccdf.jsp.schedule"/></h2>
+    <c:choose>
+        <c:when test="${not requestScope.scapEnabled}">
+            <p><bean:message key="system.audit.listscap.jsp.missing" arg0="${requiredPackage}"/></p>
+        </c:when>
+        <c:otherwise>
+            <html:form method="post" styleClass="form-horizontal" action="/systems/details/audit/ScheduleXccdf.do">
+                <%@ include file="/WEB-INF/pages/common/fragments/audit/schedule-xccdf.jspf" %>
+                <html:hidden property="sid" value="${param.sid}"/>
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-6">
+                        <html:submit property="schedule_button" styleClass="btn btn-success">
+                            <bean:message key="system.audit.schedulexccdf.jsp.button"/>
+                        </html:submit>
+                    </div>
+                </div>
+            </html:form>
+        </c:otherwise>
+    </c:choose>
 </body>
 </html>
