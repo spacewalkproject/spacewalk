@@ -32,12 +32,6 @@ import java.util.Map;
 public class UpgradeConfirmSetupAction extends BaseSystemPackagesConfirmAction {
     private static final UpgradableListSetupAction DECL_ACTION =
                                                     new UpgradableListSetupAction();
-    private static final String PACKAGE_UPGRADE = "upgrade";
-
-    @Override
-    protected String getRemoteMode() {
-        return PACKAGE_UPGRADE;
-    }
 
     @Override
     protected String getDecl(Long sid) {
