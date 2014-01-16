@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.1.31
+Version:        2.1.32
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Jan 16 2014 Matej Kollar <mkollar@redhat.com> 2.1.32-1
+- Changed gpg keys so they match reality.
+
 * Wed Jan 15 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.1.31-1
 - 1053591 - refresh_newest_package: lock rhnChannel at the beginning
 
