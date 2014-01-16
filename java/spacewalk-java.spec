@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.118
+Version: 2.1.119
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jan 16 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.119-1
+- checkstyle fixes
+- avoid reassigning parameters in StringUtil
+
 * Thu Jan 16 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.118-1
 - %%attr() mode not applicaple to symlink
 - fixed conflict with apache-commons-validator
