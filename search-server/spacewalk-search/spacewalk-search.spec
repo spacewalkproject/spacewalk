@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.12
+Version: 2.1.13
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -198,6 +198,10 @@ fi
 %{_var}/lib/rhn/search/indexes/docs
 
 %changelog
+* Thu Jan 16 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.13-1
+- %%attr() mode not applicaple to symlink
+- resolve conflict between {apache,jakarta}-commons-cli on Fedora 20
+
 * Wed Jan 08 2014 Tomas Lestach <tlestach@redhat.com> 2.1.12-1
 - let spacewalk-search buildrequire javapackages-tools
 
