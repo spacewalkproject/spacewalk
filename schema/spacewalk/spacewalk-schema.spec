@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.1.32
+Version:        2.1.33
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Jan 16 2014 Tomas Lestach <tlestach@redhat.com> 2.1.33-1
+- Tables to have mapping from external groups to internal roles
+  (rhnUserGroupType).
+- introduce 1st configuration key
+- introduce rhnConfiguration table
+
 * Thu Jan 16 2014 Matej Kollar <mkollar@redhat.com> 2.1.32-1
 - Changed gpg keys so they match reality.
 
