@@ -71,8 +71,6 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:reboot_server_cb' => \&reboot_server_cb);
-
   $pxt->register_callback('rhn:server_prefs_form_cb' => \&server_prefs_form_cb);
 
   $pxt->register_callback('rhn:ssm_change_system_prefs_cb' => \&ssm_change_system_prefs_cb);
@@ -311,30 +309,6 @@ sub server_history_event_details {
   return PXT::Utils->perform_substitutions($params{__block__}, $event->render($pxt->user));
 
   return $params{__block__};
-}
-
-sub reboot_server_cb {
-  my $pxt = shift;
-  my $sid = $pxt->param('sid');
-  die "no server id" unless $sid;
-
-  my $server = RHN::Server->lookup(-id => $sid);
-  die "no server obj" unless $server;
-
-  my $earliest_date = Sniglets::ServerActions->parse_date_pickbox($pxt);
-  my $action_id = RHN::Scheduler->schedule_reboot(-org_id => $pxt->user->org_id,
-						  -user_id => $pxt->user->id,
-						  -earliest => $earliest_date,
-						  -server_id => $sid);
-
-
-  my $pretty_earliest_date = $pxt->user->convert_time($earliest_date);
-#  my $message = sprintf(<<EOM, $server->name, $server->name, $action_id);
-#Reboot scheduled for system <strong>%s</strong> for $pretty_earliest_date.  To cancel the reboot, remove <strong>%s</strong> from <a href="/rhn/schedule/InProgressSystems.do?aid=%d"><strong>the list of systems to be rebooted</strong></a>.
-#EOM
-#
-#  $pxt->push_message(site_info => $message);
-  $pxt->redirect("/rhn/systems/details/Overview.do?sid=$sid&message=system.reboot.scheduled&messagep1=" . $server->name . "&messagep2=" . $pretty_earliest_date . "&messagep3=" . $action_id);
 }
 
 my @user_server_prefs = ( { name => 'receive_notifications',

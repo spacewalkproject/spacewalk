@@ -175,28 +175,6 @@ EOQ
   }
 }
 
-
-sub schedule_reboot {
-  my $class = shift;
-  my %params = @_;
-
-  my ($org_id, $user_id, $server_set, $server_id, $earliest, $prerequisite, $transaction) =
-    map { $params{"-" . $_} } qw/org_id user_id server_set server_id earliest prerequisite transaction/;
-
-  my ($action_id, $stat_id) = $class->make_base_action(-org_id => $org_id,
-						       -user_id => $user_id,
-						       -type_label => 'reboot.reboot',
-						       -earliest => $earliest,
-						       -prerequisite => $prerequisite,
-						       -transaction => $transaction);
-
-  $class->add_servers_to_action($action_id, $stat_id, $user_id, $server_set, $server_id);
-
-  osa_wakeup_tickle();
-
-  return $action_id;
-}
-
 sub sscd_schedule_reboot {
   my $class = shift;
   my %params = @_;
