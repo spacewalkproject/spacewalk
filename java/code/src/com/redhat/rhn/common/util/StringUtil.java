@@ -31,6 +31,7 @@ import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -114,8 +115,8 @@ public class StringUtil {
      * @param str The string to convert
      * @return The converted string
      */
-    public static String beanify(String str) {
-        str = str.trim();
+    public static String beanify(String strIn) {
+        String str = strIn.trim();
         StringBuffer result = new StringBuffer(str.length());
         boolean wasWhitespace = false;
 
@@ -143,8 +144,8 @@ public class StringUtil {
      * @param str The string to convert
      * @return The converted string
      */
-    public static String debeanify(String str) {
-        str = str.trim();
+    public static String debeanify(String strIn) {
+        String str = strIn.trim();
         StringBuffer result = new StringBuffer(str.length());
 
         for (int i = 0; i < str.length(); i++) {
@@ -163,8 +164,8 @@ public class StringUtil {
      * @param str The string to convert.
      * @return The converted string.
      */
-    public static String classify(String str) {
-        str = str.trim();
+    public static String classify(String strIn) {
+        String str = strIn.trim();
         StringBuffer result = new StringBuffer(str.length());
         boolean wasWhitespace = false;
 
@@ -268,13 +269,13 @@ public class StringUtil {
      * @param length length of random password
      * @return String new random password
      */
-    public static String makeRandomPassword(int length) {
-        if (length < 5) {
+    public static String makeRandomPassword(int lengthIn) {
+        if (lengthIn < 5) {
             throw new IllegalArgumentException("Length too short");
         }
-        StringBuffer sb = new StringBuffer(length);
+        StringBuffer sb = new StringBuffer(lengthIn);
         Random rand = new Random();
-
+        int length = lengthIn;
         while (length-- > 5) {
             sb.append((char) ('A' + rand.nextInt(26)));
         }
@@ -808,13 +809,7 @@ public class StringUtil {
      * @return the full path with no duplicate '/'s
      */
     public static String addPath(String originalPath, String toAdd) {
-        if (originalPath.charAt(originalPath.length() - 1) != '/') {
-            originalPath = originalPath + "/";
-        }
-        if (toAdd.charAt(0) == '/') {
-            toAdd = toAdd.substring(1);
-        }
-        return originalPath + toAdd;
+        return FilenameUtils.normalize(originalPath + toAdd);
     }
 
     /**
