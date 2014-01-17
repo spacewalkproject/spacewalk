@@ -15,12 +15,17 @@
 package com.redhat.rhn.frontend.action.errata;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.ActionChain;
+import com.redhat.rhn.domain.action.ActionChainFactory;
 import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
 import com.redhat.rhn.frontend.dto.SystemOverview;
+import com.redhat.rhn.frontend.struts.ActionChainHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListDispatchAction;
@@ -94,16 +99,27 @@ public class ErrataConfirmAction extends RhnListDispatchAction {
                 SetLabels.AFFECTED_SYSTEMS_LIST, currentErrata.getId(), null);
 
         if (!systems.isEmpty()) {
-             Action update = ActionManager.createErrataAction(user, currentErrata);
-             for (int i = 0; i < systems.size(); i++) {
-                 ActionManager.addServerToAction(new Long(((SystemOverview)systems.get(i))
-                         .getId().longValue()), update);
-             }
+             ActionChain actionChain = ActionChainHelper.readActionChain(form, user);
+             if (actionChain == null) {
+                 Action update = ActionManager.createErrataAction(user, currentErrata);
+                 for (int i = 0; i < systems.size(); i++) {
+                     ActionManager.addServerToAction(
+                         new Long(((SystemOverview) systems.get(i)).getId().longValue()),
+                         update);
+                 }
 
-             update.setEarliestAction(getStrutsDelegate().readDatePicker(form, "date",
+                 update.setEarliestAction(getStrutsDelegate().readDatePicker(form, "date",
                      DatePicker.YEAR_RANGE_POSITIVE));
-
-             ActionManager.storeAction(update);
+             }
+             else {
+                 int sortOrder = ActionChainFactory.getNextSortOrderValue(actionChain);
+                 for (int i = 0; i < systems.size(); i++) {
+                     Action update = ActionManager.createErrataAction(user, currentErrata);
+                     ActionManager.storeAction(update);
+                     ActionChainFactory.queueActionChainEntry(update, actionChain,
+                         ((SystemOverview) systems.get(i)).getId(), sortOrder);
+                 }
+             }
 
              ActionMessages msg = new ActionMessages();
              Object[] args = new Object[3];
