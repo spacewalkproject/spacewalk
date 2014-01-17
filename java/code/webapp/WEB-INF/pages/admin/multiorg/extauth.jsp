@@ -5,20 +5,12 @@
 
 <html:html>
     <head>
-        <script language="javascript" type="text/javascript">
-function modifyUploadCheckbox(checkbox) {
-    if (checkbox.checked == false) {
-        document.getElementById("crashfile_upload_enabled").disabled = true;
-    } else {
-        document.getElementById("crashfile_upload_enabled").disabled = false;
-    }
-}
-        </script>
+        <meta name="page-decorator" content="none" />
     </head>
     <body>
     <rhn:toolbar base="h1" icon="header-organisation"
                  miscUrl="${url}"
-                 miscAcl="user_role(org_admin)"
+                 miscAcl="user_role(sat_admin)"
                  miscText="${text}"
                  miscImg="${img}"
                  miscAlt="${text}"
@@ -26,7 +18,7 @@ function modifyUploadCheckbox(checkbox) {
         <bean:message key="org.allusers.title1" />
     </rhn:toolbar>
 
-    <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/admin_user.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
+    <rhn:dialogmenu mindepth="0" maxdepth="2" definition="/WEB-INF/nav/admin_user.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 
     <div class="panel-body">

@@ -16,10 +16,15 @@ package com.redhat.rhn.domain.org.usergroup;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.Role;
-
+import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.user.User;
 import org.apache.log4j.Logger;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * UserGroupFactory - the singleton class used to fetch and store
@@ -29,6 +34,7 @@ import org.apache.log4j.Logger;
  */
 public class UserGroupFactory extends HibernateFactory {
 
+    private static UserGroupFactory singleton = new UserGroupFactory();
     private static Logger log = Logger.getLogger(UserGroupFactory.class);
 
     private UserGroupFactory() {
@@ -69,6 +75,20 @@ public class UserGroupFactory extends HibernateFactory {
         retval.setOrgId(org.getId());
         retval.setRole(role);
         return retval;
+    }
+
+    /**
+     * Returns the complete list of UserExtGroup
+     * @param user needs to be satellite admin
+     * @return UserExtGroup list
+     */
+    public static List<UserExtGroup> listExtAuthGroups(User user) {
+        if (!user.getRoles().contains(RoleFactory.SAT_ADMIN)) {
+            throw new PermissionException("Satellite admin role required " +
+                    "to access extauth groups");
+        }
+        return singleton.listObjectsByNamedQuery(
+                "UserExtGroup.listAll", new HashMap());
     }
 }
 

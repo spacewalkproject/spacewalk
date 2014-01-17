@@ -587,6 +587,12 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Group Role Mapping">
+        <source>Group Role Mapping</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Master Setup">
         <source>Master Setup</source>
         <context-group name="ctx">

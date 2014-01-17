@@ -1657,6 +1657,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/ActiveList</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="extauth.jsp.noGroups">
+        <source>No external groups.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/ActiveList</context>
+        </context-group>
+      </trans-unit>
       <!-- disabledlist.jsp -->
       <trans-unit id="disabledlist.jsp.title">
         <source>Deactivated Users</source>
@@ -5089,6 +5095,12 @@ value for this entitlement, excluding the default organization's consumption.</s
       </trans-unit>
       <trans-unit id="grouplist.jsp.name">
         <source>Group Name</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="extgrouplist.jsp.name">
+        <source>External Group Name</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
         </context-group>

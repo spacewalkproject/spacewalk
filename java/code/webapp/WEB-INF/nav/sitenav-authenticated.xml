@@ -286,6 +286,7 @@
         <rhn-tab-url>/rhn/admin/multiorg/SatRoleConfirm.do</rhn-tab-url>
         <rhn-tab name="External Authentication" acl="user_role(satellite_admin)">
             <rhn-tab-url>/rhn/admin/multiorg/ExternalAuthentication.do</rhn-tab-url>
+            <rhn-tab-url>/rhn/admin/multiorg/ExtAuthRoleMapping.do</rhn-tab-url>
         </rhn-tab>
     </rhn-tab>
 

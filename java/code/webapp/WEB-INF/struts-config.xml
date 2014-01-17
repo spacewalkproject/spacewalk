@@ -5686,8 +5686,18 @@
       <forward name="default" path="/WEB-INF/pages/admin/multiorg/extauth.jsp" />
       <forward name="success"
                path="/admin/multiorg/ExternalAuthentication.do" redirect="true" />
-      <forward name="error"
-               path="/WEB-INF/pages/admin/multiorg/extauth.jsp" />
+    </action>
+
+    <action path="/admin/multiorg/ExtAuthRoleMapping"
+        scope="request"
+        input="/WEB-INF/pages/admin/multiorg/extauthroles.jsp"
+        type="com.redhat.rhn.frontend.action.multiorg.ExtAuthRoleMappingAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <set-property property="postRequiredIfSubmitted" value="true" />
+      <set-property property="acls" value="user_role(satellite_admin)"/>
+      <forward name="default" path="/WEB-INF/pages/admin/multiorg/extauthroles.jsp" />
+      <forward name="success"
+               path="/admin/multiorg/EExtAuthRoleMapping.do" redirect="true" />
     </action>
 
     <action path="/multiorg/channels/OrgList"

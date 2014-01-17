@@ -2349,6 +2349,12 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="toolbar.create.extgroup">
+        <source>create new external group</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="toolbar.create.probe">
         <source>create new probe</source>
         <context-group name="ctx">
