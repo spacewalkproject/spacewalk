@@ -21,7 +21,8 @@ This is the normal family, which can be used alongside the Roboto Condensed fami
 and the Roboto Slab family.
 
 %package condensed
-Summary:       Roboto Condensed font
+Summary:        Roboto Condensed font
+Group:          Application/Internet
 
 %description condensed
 Roboto has a dual nature. It has a mechanical skeleton and the forms are largely
