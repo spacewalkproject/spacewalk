@@ -1256,6 +1256,7 @@
         <form-property name="lbl" type="java.lang.String" />
         <form-property name="timeout" type="java.lang.Long" />
         <form-property name="submitted" type="java.lang.Boolean" />
+        <!-- fields needed by datePicker -->
         <form-property name="use_date" type="java.lang.Boolean"/>
         <form-property name="date_year" type="java.lang.Integer"/>
         <form-property name="date_month" type="java.lang.Integer"/>
@@ -1263,6 +1264,7 @@
         <form-property name="date_hour" type="java.lang.Integer"/>
         <form-property name="date_minute" type="java.lang.Integer"/>
         <form-property name="date_am_pm" type="java.lang.Integer"/>
+        <form-property name="action_chain"   type="java.lang.String" />
     </form-bean>
 
     <form-bean name="SSMPatchListForm" type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">

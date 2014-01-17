@@ -20,8 +20,12 @@ import com.redhat.rhn.domain.action.ActionChainFactory;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.ActionType;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
+import com.redhat.rhn.domain.action.script.ScriptActionDetails;
+import com.redhat.rhn.domain.action.script.ScriptRunAction;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.MissingCapabilityException;
+import com.redhat.rhn.manager.MissingEntitlementException;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -170,6 +174,37 @@ public class ActionChainManager {
         return result;
     }
 
+    /**
+     * Schedules script actions for the given servers
+     * @param scheduler User scheduling the action
+     * @param sids Servers for which the action affects
+     * @param script The set of packages to be removed
+     * @param name Name of Script action
+     * @param earliest Earliest occurrence of the script
+     * @param actionChain the action chain or null
+     * @return Scheduled ScriptRunAction(s)
+     * @throws MissingCapabilityException if any server in the list is missing
+     *             script.run schedule fails
+     * @throws MissingEntitlementException if any server in the list is missing
+     *             Provisioning schedule fails
+     * @see com.redhat.rhn.manager.action.ActionManager#scheduleScriptRun
+     */
+    public static Set<Action> scheduleScriptRuns(User scheduler, List<Long> sids,
+        String name, ScriptActionDetails script, Date earliest, ActionChain actionChain) {
+
+        ActionManager.checkScriptingOnServers(sids);
+
+        Set<Long> sidSet = new HashSet<Long>();
+        sidSet.addAll(sids);
+
+        Set<Action> result = scheduleAction(scheduler,
+                ActionFactory.TYPE_SCRIPT_RUN, name, earliest, actionChain, sidSet);
+        for (Action action : result) {
+            ((ScriptRunAction)action).setScriptActionDetails(script);
+            ActionFactory.save(action);
+        }
+        return result;
+    }
 
     /**
      * Schedules generic actions on multiple servers.

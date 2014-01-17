@@ -1417,6 +1417,25 @@ public class ActionManager extends BaseManager {
     public static ScriptRunAction scheduleScriptRun(User scheduler, List<Long> sids,
             String name, ScriptActionDetails script, Date earliest) {
 
+        checkScriptingOnServers(sids);
+
+        Set<Long> sidSet = new HashSet<Long>();
+        sidSet.addAll(sids);
+        ScriptRunAction sra = (ScriptRunAction) scheduleAction(scheduler,
+                ActionFactory.TYPE_SCRIPT_RUN, name, earliest, sidSet);
+        sra.setScriptActionDetails(script);
+        ActionFactory.save(sra);
+        return sra;
+    }
+
+    /**
+     * Checks that ScriptRunActions can be run on the servers with specified
+     * IDs.
+     * @param sids servers' ids
+     * @throws MissingCapabilityException if scripts cannot be run
+     */
+    public static void checkScriptingOnServers(List<Long> sids)
+        throws MissingCapabilityException {
         for (Long sid : sids) {
             if (!SystemManager.clientCapable(sid, "script.run")) {
                 throw new MissingCapabilityException("script.run", sid);
@@ -1424,19 +1443,9 @@ public class ActionManager extends BaseManager {
 
             if (!SystemManager.hasEntitlement(sid, EntitlementManager.PROVISIONING)) {
                 throw new MissingEntitlementException(
-                        EntitlementManager.PROVISIONING.getHumanReadableLabel());
+                    EntitlementManager.PROVISIONING.getHumanReadableLabel());
             }
         }
-
-        Set<Long> sidSet = new HashSet<Long>();
-        sidSet.addAll(sids);
-
-        // Only execute if all servers have capability script.run and Provisioning
-        ScriptRunAction sra = (ScriptRunAction) scheduleAction(scheduler,
-                ActionFactory.TYPE_SCRIPT_RUN, name, earliest, sidSet);
-        sra.setScriptActionDetails(script);
-        ActionFactory.save(sra);
-        return sra;
     }
 
     /**

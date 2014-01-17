@@ -19,6 +19,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,12 +36,15 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.common.util.StringUtil.ScriptCheckResult;
-import com.redhat.rhn.domain.action.script.ScriptRunAction;
+import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.ActionChainHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.manager.action.ActionChainManager;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -221,11 +225,12 @@ public class SystemRemoteCommandAction extends RhnAction {
      * @param server
      * @return Script action details.
      */
-    private ScriptRunAction scheduleScript(DynaActionForm form,
+    private Set<Action> scheduleScript(DynaActionForm form,
                                 User user,
                                 Server server) {
         Date scheduleDate = getStrutsDelegate().readDatePicker(
                 form, "date", DatePicker.YEAR_RANGE_POSITIVE);
+        ActionChain actionChain = ActionChainHelper.readActionChain(form, user);
         List<Long> servers = new ArrayList<Long>();
         servers.add(server.getId());
         String label = StringUtil.nullIfEmpty(form.getString("lbl"));
@@ -233,7 +238,7 @@ public class SystemRemoteCommandAction extends RhnAction {
                          .getInstance()
                          .getMessage("ssm.overview.provisioning.remotecommand.staticname");
 
-        return ActionManager.scheduleScriptRun(
+        return ActionChainManager.scheduleScriptRuns(
                 user,
                 servers,
                 (label != null ? label : MessageFormat.format(msg, server.getName())),
@@ -242,7 +247,7 @@ public class SystemRemoteCommandAction extends RhnAction {
                         form.get(FormData.TIMEOUT) == null ?
                                  FormData.DEFAULT_TIMEOUT :
                                  (Long) form.get(FormData.TIMEOUT),
-                        form.getString(FormData.SCRIPT)), scheduleDate);
+                        form.getString(FormData.SCRIPT)), scheduleDate, actionChain);
     }
 
 
@@ -288,7 +293,8 @@ public class SystemRemoteCommandAction extends RhnAction {
         if (form.get(RhnAction.SUBMITTED) != null) {
             if (this.validate(form, errorMessages)) {
                 try {
-                    ScriptRunAction action = this.scheduleScript(form, user, server);
+                    Action action = this.scheduleScript(form, user, server).iterator()
+                        .next();
                     infoMessages.add(ActionMessages.GLOBAL_MESSAGE,
                                  new ActionMessage("ssm.overview.provisioning" +
                                                    ".remotecommand.succeed",
@@ -313,6 +319,7 @@ public class SystemRemoteCommandAction extends RhnAction {
         // End the page
         request.setAttribute("date", this.getStrutsDelegate().prepopulateDatePicker(
                 request, form, "date", DatePicker.YEAR_RANGE_POSITIVE));
+        ActionChainHelper.prepopulateActionChains(request);
         request.setAttribute("system", server);
 
         this.getStrutsDelegate().saveMessages(request, errorMessages);
