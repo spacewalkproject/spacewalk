@@ -24,7 +24,8 @@ BuildRequires: java-devel >= 1.5.0
 BuildRequires: nodejs-less
 BuildRequires: bootstrap-less <= 3.0.0
 Requires:   httpd
-Requires: bootstrap <= 3.0.0
+Requires:   bootstrap <= 3.0.0
+Requires:   font-awesome >= 4.0.0
 
 %description
 Spacewalk specific branding, CSS, and images.
