@@ -18,24 +18,24 @@ Tag Systems
 </h2>
 
 
-<pxt-form method="POST">
-
-<div class="page-summary">
-<p>You may tag the most recent snapshots for the selected systems.</p>
-<table class="details">
-  <tr>
-    <th>Tag name:</th>
-    <td><input type="text" name="tag" size="30" maxlength="256" /></td>
-  </tr>
-</table>
+<pxt-form method="POST" class="form-horizontal">
+<div class="form-group">
+    <label class="col-md-3 control-label">
+        Tag name:
+    </label>
+    <div class="col-md-6">
+        <input type="text" name="tag" size="30" maxlength="256" class="form-control"/>
+        <span class="help-block">
+            You may tag the most recent snapshots for the selected systems.
+        </span>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-md-offset-3 col-md-6">
+        <input type="submit" value="Tag Current Snapshots" class="btn btn-success" />
+    </div>
+</div>
 <input type="hidden" name="pxt:trap" value="rhn:add_system_tag_bulk_cb" />
-</div>
-
-<div align="right">
-<hr />
-<input type="submit" value="Tag Current Snapshots" />
-</div>
-
 </pxt-form>
 
 <div class="page-summary">
