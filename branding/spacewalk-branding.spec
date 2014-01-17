@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.1.19
+Version:    2.1.20
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -86,6 +86,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Jan 17 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.20-1
+- Roboto font has been moved to separate package
+- font-awesome has been moved to separate package
+
 * Thu Jan 16 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.19-1
 - Fix to use .less files in development mode (2)
 
