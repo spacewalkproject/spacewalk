@@ -112,7 +112,7 @@ public class StringUtil {
     /**
      * Convert the passed in string to a valid java method name. This basically
      * capitalizes each word and removes all word delimiters.
-     * @param str The string to convert
+     * @param strIn The string to convert
      * @return The converted string
      */
     public static String beanify(String strIn) {
@@ -141,7 +141,7 @@ public class StringUtil {
      *
      * For example: someFieldName -> some_field_name
      *
-     * @param str The string to convert
+     * @param strIn The string to convert
      * @return The converted string
      */
     public static String debeanify(String strIn) {
@@ -161,7 +161,7 @@ public class StringUtil {
     /**
      * Converts the passed in string to a valid java Class name. This basically
      * capitalizes each word and removes all word delimiters.
-     * @param str The string to convert.
+     * @param strIn The string to convert.
      * @return The converted string.
      */
     public static String classify(String strIn) {
@@ -266,7 +266,7 @@ public class StringUtil {
 
     /**
      * Create a random password of the specified length
-     * @param length length of random password
+     * @param lengthIn length of random password
      * @return String new random password
      */
     public static String makeRandomPassword(int lengthIn) {
