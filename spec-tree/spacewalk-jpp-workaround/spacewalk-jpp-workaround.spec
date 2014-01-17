@@ -1,5 +1,5 @@
 Name:		spacewalk-jpp-workaround
-Version:	2.1.1
+Version:	2.1.2
 Release:	1%{?dist}
 Summary:	Workaround package to fulfill jpackage broken dependencies
 
@@ -65,6 +65,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jan 17 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.2-1
+- obsoleted package should be also provided
+
 * Thu Jan 16 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.1-1
 - fixed tito build warning
 - jpackage-utils were replaced with javapackages-tools in fc20
