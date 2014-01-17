@@ -123,30 +123,39 @@ public class ErrataConfirmSetupAction extends RhnAction implements Listable {
         Set<Long> errataList = set.getElementValues();
         if (server != null && !errataList.isEmpty()) {
             Date earliest = getStrutsDelegate().readDatePicker(form, "date",
-                    DatePicker.YEAR_RANGE_POSITIVE);
+                DatePicker.YEAR_RANGE_POSITIVE);
             ActionChain actionChain = ActionChainHelper.readActionChain(form, user);
             List<Long> serverIds = Arrays.asList(server.getId());
             List<Long> errataIds = new ArrayList<Long>(errataList);
             ErrataManager.applyErrata(user, errataIds, earliest, actionChain, serverIds);
 
-             ActionMessages msg = new ActionMessages();
-             Object[] args = new Object[3];
-             args[0] = new Long(errataList.size());
-             args[1] = server.getName();
-             args[2] = server.getId().toString();
+            ActionMessages msg = new ActionMessages();
+            Object[] args = null;
+            String messageKey = null;
 
-             StringBuffer messageKey = new StringBuffer("errata.schedule");
-             if (errataList.size() != 1) {
-                 messageKey = messageKey.append(".plural");
-             }
+            if (actionChain == null) {
+                messageKey = "errata.schedule";
+                if (errataList.size() != 1) {
+                    messageKey += ".plural";
+                }
+                args = new Object[3];
+                args[0] = new Long(errataList.size());
+                args[1] = server.getName();
+                args[2] = server.getId().toString();
+            }
+            else {
+                messageKey = "message.addedtoactionchain";
+                args = new Object[2];
+                args[0] = actionChain.getId();
+                args[1] = actionChain.getLabel();
+            }
 
-             msg.add(ActionMessages.GLOBAL_MESSAGE,
-                     new ActionMessage(messageKey.toString(), args));
-             strutsDelegate.saveMessages(request, msg);
-             hparams.put("sid", sid);
+            msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(messageKey, args));
+            strutsDelegate.saveMessages(request, msg);
+            hparams.put("sid", sid);
 
-             ErrataSetupAction.getSetDecl(sid).clear(user);
-             return strutsDelegate.forwardParams(mapping.findForward("confirmed"), hparams);
+            ErrataSetupAction.getSetDecl(sid).clear(user);
+            return strutsDelegate.forwardParams(mapping.findForward("confirmed"), hparams);
         }
         /*
          * Everything is not ok.
