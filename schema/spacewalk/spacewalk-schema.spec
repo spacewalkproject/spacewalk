@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.1.34
+Version:        2.1.35
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Jan 17 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.1.35-1
+- 'is' followed by 'declare' is rarely needed
+
 * Fri Jan 17 2014 Tomas Lestach <tlestach@redhat.com> 2.1.34-1
 - rename the schema files to have the proper naming
 
