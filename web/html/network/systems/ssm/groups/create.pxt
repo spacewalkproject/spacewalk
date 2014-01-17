@@ -22,31 +22,33 @@ into the new group.</p>
     </div>
 
 
-<pxt-form method="post">
+<pxt-form method="post" class="form-horizontal">
 <pxt-include-late file="/network/components/message_queues/local.pxi" />
-<table class="details" align="center">
-  <tr>
-    <th>Name<span class="required-form-field">*</span>:</th>
-    <td><input type="text" size="30" name="name" value="" /></td>
-  </tr>
-  <tr>
-    <th>Description<span class="required-form-field">*</span>:</th>
-    <td><textarea rows="4" cols="40" name="description">Enter your description here</textarea></td>
-  </tr>
-</table>
-
-<input type="hidden" name="import_ssm" value="yes" />
-<input type="hidden" name="redirect_to" value="/network/systems/ssm/groups/index.pxt" />
-<input type="hidden" name="pxt:trap"
-value="rhn:server_group_create_cb" />
-
-<div align="right">
-<hr />
-<input type="submit" name="make_group" value="Create Group" />
+<div class="form-group">
+    <label class="col-md-3 control-label">
+        Name<span class="required-form-field">*</span>:
+    </label>
+    <div class="col-md-6">
+        <input type="text" size="30" name="name" value="" class="form-control"/>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-md-3 control-label">
+        Description<span class="required-form-field">*</span>:
+    </label>
+    <div class="col-md-6">
+        <textarea rows="4" cols="40" name="description" class="form-control" placeholder="Enter your description here"></textarea>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-md-offset-3 col-md-6">
+        <input type="hidden" name="import_ssm" value="yes" />
+        <input type="hidden" name="redirect_to" value="/network/systems/ssm/groups/index.pxt" />
+        <input type="hidden" name="pxt:trap" value="rhn:server_group_create_cb" />
+        <input type="submit" name="make_group" value="Create Group" class="btn btn-success" />
+    </div>
 </div>
 </pxt-form>
-
-
   </grail-canvas-template>
 
 </pxt-passthrough>
