@@ -1,6 +1,6 @@
 Name:           roboto
 Version:        1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Roboto font
 
 Group:          Application/Internet
@@ -61,6 +61,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Jan 17 2014 Michael Mraka <michael.mraka@redhat.com> 1.2-2
+- koji build needs Group specified
+
 * Fri Jan 17 2014 Michael Mraka <michael.mraka@redhat.com> 1.2-1
 - initial build of roboto package
 
