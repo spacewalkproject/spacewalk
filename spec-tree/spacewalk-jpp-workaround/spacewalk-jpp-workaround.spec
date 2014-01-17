@@ -39,6 +39,8 @@ Requires:   struts >= 1.3.10
 Provides:   jakarta-commons-logging = 1.1.3
 Requires:   apache-commons-logging
 Obsoletes:  jpackage-utils >= 5.0.0
+Requires:   javapackages-tools
+Provides:   jpackage-utils
 %endif
 
 %description
