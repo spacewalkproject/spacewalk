@@ -61,4 +61,7 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Jan 17 2014 Michael Mraka <michael.mraka@redhat.com> 4.0.3-1
+- initial build of font-awesome package
+
 
