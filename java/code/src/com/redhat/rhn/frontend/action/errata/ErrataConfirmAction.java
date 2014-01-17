@@ -100,6 +100,10 @@ public class ErrataConfirmAction extends RhnListDispatchAction {
 
         if (!systems.isEmpty()) {
              ActionChain actionChain = ActionChainHelper.readActionChain(form, user);
+             ActionMessages msg = new ActionMessages();
+             Object[] args = null;
+             String messageKey = null;
+
              if (actionChain == null) {
                  Action update = ActionManager.createErrataAction(user, currentErrata);
                  for (int i = 0; i < systems.size(); i++) {
@@ -110,6 +114,16 @@ public class ErrataConfirmAction extends RhnListDispatchAction {
 
                  update.setEarliestAction(getStrutsDelegate().readDatePicker(form, "date",
                      DatePicker.YEAR_RANGE_POSITIVE));
+                 ActionManager.storeAction(update);
+
+                 messageKey = "errataconfirm.schedule";
+                 if (systems.size() != 1) {
+                     messageKey += ".plural";
+                 }
+                 args =  new Object[3];
+                 args[0] = currentErrata.getAdvisoryName();
+                 args[1] = new Long(systems.size());
+                 args[2] = currentErrata.getId().toString();
              }
              else {
                  int sortOrder = ActionChainFactory.getNextSortOrderValue(actionChain);
@@ -119,20 +133,14 @@ public class ErrataConfirmAction extends RhnListDispatchAction {
                      ActionChainFactory.queueActionChainEntry(update, actionChain,
                          ((SystemOverview) systems.get(i)).getId(), sortOrder);
                  }
+
+                 messageKey = "message.addedtoactionchain";
+                 args =  new Object[2];
+                 args[0] = actionChain.getId();
+                 args[1] = actionChain.getLabel();
              }
 
-             ActionMessages msg = new ActionMessages();
-             Object[] args = new Object[3];
-             args[0] = currentErrata.getAdvisoryName();
-             args[1] = new Long(systems.size());
-             args[2] = currentErrata.getId().toString();
-             StringBuffer messageKey = new StringBuffer("errataconfirm.schedule");
-             if (systems.size() != 1) {
-                 messageKey = messageKey.append(".plural");
-             }
-
-             msg.add(ActionMessages.GLOBAL_MESSAGE,
-                     new ActionMessage(messageKey.toString(), args));
+             msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(messageKey, args));
              strutsDelegate.saveMessages(request, msg);
              return mapping.findForward("confirmed");
         }
