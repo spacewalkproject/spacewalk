@@ -60,4 +60,7 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Jan 17 2014 Michael Mraka <michael.mraka@redhat.com> 1.2-1
+- initial build of roboto package
+
 
