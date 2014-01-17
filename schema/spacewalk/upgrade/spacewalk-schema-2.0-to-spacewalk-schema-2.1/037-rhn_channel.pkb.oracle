@@ -1102,7 +1102,6 @@ IS
     is
     -- procedure refreshes rows for name_id = package_name_id_in or
     -- all rows if package_name_id_in is null
-    declare
         channel_lm timestamp with local time zone;
     begin
         select last_modified
