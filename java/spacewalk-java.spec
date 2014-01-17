@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.119
+Version: 2.1.120
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jan 17 2014 Tomas Lestach <tlestach@redhat.com> 2.1.120-1
+- fix checkstyle
+
 * Thu Jan 16 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.119-1
 - checkstyle fixes
 - avoid reassigning parameters in StringUtil
