@@ -293,16 +293,22 @@ public class SystemRemoteCommandAction extends RhnAction {
         if (form.get(RhnAction.SUBMITTED) != null) {
             if (this.validate(form, errorMessages)) {
                 try {
-                    Action action = this.scheduleScript(form, user, server).iterator()
-                        .next();
-                    infoMessages.add(ActionMessages.GLOBAL_MESSAGE,
-                                 new ActionMessage("ssm.overview.provisioning" +
-                                                   ".remotecommand.succeed",
-                                 server.getId().toString(),
-                                 action.getId().toString(),
-                                 LocalizationService
-                                     .getInstance()
-                                     .formatDate(action.getEarliestAction())));
+                    Set<Action> actions = this.scheduleScript(form, user, server);
+                    ActionChain actionChain = ActionChainHelper.readActionChain(form, user);
+
+                    if (actionChain == null) {
+                        Action action = actions.iterator().next();
+                        infoMessages.add(ActionMessages.GLOBAL_MESSAGE,
+                            new ActionMessage("ssm.overview.provisioning"
+                                + ".remotecommand.succeed", server.getId().toString(),
+                                action.getId().toString(), LocalizationService
+                                    .getInstance().formatDate(action.getEarliestAction())));
+                    }
+                    else {
+                        infoMessages.add(ActionMessages.GLOBAL_MESSAGE,
+                            new ActionMessage("message.addedtoactionchain",
+                                actionChain.getId(), actionChain.getLabel()));
+                    }
                 }
                 catch (Exception ex) {
                     errorMessages.add(ActionMessages.GLOBAL_MESSAGE,
