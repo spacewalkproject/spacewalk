@@ -8237,6 +8237,9 @@ Please note that some manual configuration of these scripts may still be require
         <trans-unit id="cobbler.jsp.sync">
           <source>Run Cobbler Sync</source>
         </trans-unit>
+        <trans-unit id="cobbler.jsp.xmlrpc.fail">
+          <source>Cobbler command failed: {0}</source>
+        </trans-unit>
         <trans-unit id="cobbler.jsp.synced">
           <source>Cobbler Sync action was successfully executed. Look at /var/log/cobbler/*.log for more information</source>
         </trans-unit>

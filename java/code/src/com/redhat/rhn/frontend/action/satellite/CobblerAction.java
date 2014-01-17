@@ -35,22 +35,36 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class CobblerAction extends RhnAction {
-    /** {@inheritDoc} */
+    /** {@inheritDoc}
+     * @param mapping
+     * @param formIn
+     * @param request
+     * @param response
+     * @return  */
     @Override
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
         RequestContext ctx = new RequestContext(request);
+        ActionErrors errors = new ActionErrors();
 
         if (ctx.isSubmitted()) {
-            CobblerSyncCommand cmd = new CobblerSyncCommand(ctx.getLoggedInUser());
-            ValidatorError ve = cmd.store();
+            ValidatorError ve;
+            try {
+                ve = new CobblerSyncCommand(ctx.getLoggedInUser()).store();
+            } catch (Exception ex) {
+                this.getStrutsDelegate().addError(errors,
+                                                  "cobbler.jsp.xmlrpc.fail",
+                                                  ex.getLocalizedMessage());
+                this.getStrutsDelegate().saveMessages(request, errors);
+                return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+            }
+
             if (ve == null) {
                 addMessage(request, "cobbler.jsp.synced");
             }
             else {
-                ActionErrors errors = new ActionErrors();
                 getStrutsDelegate().addError(errors, ve.getKey(), ve.getValues());
                 getStrutsDelegate().saveMessages(request, errors);
             }
