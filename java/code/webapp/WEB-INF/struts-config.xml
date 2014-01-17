@@ -500,17 +500,6 @@
             <form-property name="date_am_pm"  type="java.lang.Integer"/>
         </form-bean>
 
-        <form-bean name="applyErrataConfirmForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="use_date"  type="java.lang.Boolean"/>
-            <form-property name="date_year"  type="java.lang.Integer"/>
-            <form-property name="date_month"  type="java.lang.Integer"/>
-            <form-property name="date_day"  type="java.lang.Integer"/>
-            <form-property name="date_hour"  type="java.lang.Integer"/>
-            <form-property name="date_minute"  type="java.lang.Integer"/>
-            <form-property name="date_am_pm"  type="java.lang.Integer"/>
-        </form-bean>
-
         <form-bean name="methodEditForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="name"  type="java.lang.String"/>
@@ -2232,7 +2221,7 @@
     <action path="/errata/details/ErrataConfirm"
         scope="request"
         input="/WEB-INF/pages/admin/errata/confirm.jsp"
-        name="applyErrataConfirmForm"
+        name="datePickerForm"
         type="com.redhat.rhn.frontend.action.errata.ErrataConfirmSetupAction">
         <forward name="default"
             path="/WEB-INF/pages/admin/errata/confirm.jsp" />
@@ -2241,7 +2230,7 @@
      <action path="/errata/details/ErrataConfirmSubmit"
          scope="request"
          input="/WEB-INF/pages/admin/errata/confirm.jsp"
-         name="applyErrataConfirmForm"
+         name="datePickerForm"
          type="com.redhat.rhn.frontend.action.errata.ErrataConfirmAction"
          parameter="dispatch"
          className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -3469,7 +3458,7 @@
     <action path="/systems/details/ErrataConfirm"
         scope="request"
         input="/WEB-INF/pages/systems/errataconfirm.jsp"
-        name="applyErrataConfirmForm"
+        name="datePickerForm"
         type="com.redhat.rhn.frontend.action.systems.ErrataConfirmSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />

@@ -15,9 +15,11 @@
 package com.redhat.rhn.frontend.action.systems;
 
 import com.redhat.rhn.common.util.DatePicker;
+import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.ActionChainHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -81,6 +83,9 @@ public class ErrataConfirmSetupAction extends RhnAction implements Listable {
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request,
                 (DynaActionForm)formIn, "date", DatePicker.YEAR_RANGE_POSITIVE);
 
+        //Setup the Action Chain widget
+        ActionChainHelper.prepopulateActionChains(request);
+
         request.setAttribute("date", picker);
         request.setAttribute("system", server);
 
@@ -119,9 +124,10 @@ public class ErrataConfirmSetupAction extends RhnAction implements Listable {
         if (server != null && !errataList.isEmpty()) {
             Date earliest = getStrutsDelegate().readDatePicker(form, "date",
                     DatePicker.YEAR_RANGE_POSITIVE);
+            ActionChain actionChain = ActionChainHelper.readActionChain(form, user);
             List<Long> serverIds = Arrays.asList(server.getId());
             List<Long> errataIds = new ArrayList<Long>(errataList);
-            ErrataManager.applyErrata(user, errataIds, earliest, serverIds);
+            ErrataManager.applyErrata(user, errataIds, earliest, actionChain, serverIds);
 
              ActionMessages msg = new ActionMessages();
              Object[] args = new Object[3];
