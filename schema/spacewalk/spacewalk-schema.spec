@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.1.35
+Version:        2.1.36
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Jan 17 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.36-1
+- increase length of rhnCVE name column
+
 * Fri Jan 17 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.1.35-1
 - 'is' followed by 'declare' is rarely needed
 
