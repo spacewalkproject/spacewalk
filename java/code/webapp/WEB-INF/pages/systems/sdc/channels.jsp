@@ -11,21 +11,26 @@
     <rhn:icon type="header-channel" title="common.download.channelAlt" />
     <bean:message key="sdc.channels.edit.header2"/>
   </h2>
-  <html:form method="post" action="/systems/details/SystemChannels.do?sid=${system.id}">
+  <html:form method="post" styleClass="form-horizontal" action="/systems/details/SystemChannels.do?sid=${system.id}">
     <rhn:csrf />
     <html:hidden property="submitted" value="true"/>
-      <div class="page-summary">
-        <p>
-          <bean:message key="sdc.channels.edit.summary"/>
-        </p>
-      </div>
+      <p><bean:message key="sdc.channels.edit.summary"/></p>
       <c:choose>
         <c:when test="${system.baseChannel == null}">
-          <bean:message key="sdc.channels.edit.nobasechannel"/>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-6">
+                    <div class="alert alert-warning">
+                        <bean:message key="sdc.channels.edit.nobasechannel"/>
+                    </div>
+                </div>
+            </div>
         </c:when>
         <c:otherwise>
-          <ul class="list-channel">
-            <li><a href="/rhn/channels/ChannelDetail.do?cid=${system.baseChannel.id}">${system.baseChannel.name}</a>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-6">
+          <ul class="list-group">
+            <li class="list-group-item">
+                <a class="btn btn-info" href="/rhn/channels/ChannelDetail.do?cid=${system.baseChannel.id}">${system.baseChannel.name}</a>
               <ul>
                 <c:forEach items="${avail_child_channels}" var="channel">
                   <c:choose>
@@ -43,7 +48,7 @@
                     <c:if test="${not channel.subscribed}">
                       <input ${disabledChannel} name="child_channel" value="${channel.id}" type="checkbox" id="unchecked">
                     </c:if>
-                    <a href="/rhn/channels/ChannelDetail.do?cid=${channel.id}">${channel.name}</a>
+                    <a class="btn btn-info" href="/rhn/channels/ChannelDetail.do?cid=${channel.id}">${channel.name}</a>
                     <c:if test="${system.virtualGuest}">
                       <c:if test="${not channel.freeForGuests}">
                         <span class="asterisk">*&nbsp;</span>
@@ -81,84 +86,97 @@
               </ul>
             </li>
           </ul>
+                </div>
+            </div>
         </c:otherwise>
       </c:choose>
       <c:if test="${pageScope.display_asterisk}">
         <c:if test="${not empty system.virtualInstance.hostSystem.id}">
-          <span class="asterisk">*&nbsp;</span><bean:message key="sdc.channels.edit.virtsubwarning" arg0="${system.virtualInstance.hostSystem.id}"
-            arg1="${system.virtualInstance.hostSystem.name}"/>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-6">
+                    <span class="asterisk">*&nbsp;</span>
+                    <span class="help-block">
+                        <bean:message key="sdc.channels.edit.virtsubwarning"
+                                      arg0="${system.virtualInstance.hostSystem.id}"
+                                      arg1="${system.virtualInstance.hostSystem.name}"/>
+                    </span>
+                </div>
+            </div>
         </c:if>
         <c:if test="${empty system.virtualInstance.hostSystem.id}">
-          <span class="asterisk">*&nbsp;</span><bean:message key="sdc.channels.edit.virtsubwarning_nohost"/>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-6">
+                    <span class="asterisk">*&nbsp;</span>
+                    <span class="help-block">
+                        <bean:message key="sdc.channels.edit.virtsubwarning_nohost"/>
+                    </span>
+                </div>
+            </div>
         </c:if>
       </c:if>
-      <hr/>
-      <div class="text-right">
-        <html:submit property="dispatch">
-          <bean:message key="sdc.channels.edit.update_sub"/>
-        </html:submit>
+      <div class="form-group">
+          <div class="col-md-offset-3 col-md-6">
+              <html:submit property="dispatch" styleClass="form-horizontal">
+                  <bean:message key="sdc.channels.edit.update_sub"/>
+              </html:submit>
+          </div>
       </div>
+
       <rhn:require acl="not system_is_proxy(); not system_is_satellite()" mixins="com.redhat.rhn.common.security.acl.SystemAclHandler">
 
-        <h2>
+      <h2>
           <rhn:icon type="header-channel" />
           <bean:message key="sdc.channels.edit.base_software_channel"/>
-        </h2>
+      </h2>
+      <p>
+          <bean:message key="sdc.channels.edit.summary2"/>
+      </p>
 
-
-        <div class="page-summary">
-          <p>
-            <bean:message key="sdc.channels.edit.summary2"/>
-
-          <select name="new_base_channel_id" size="${fn:length(base_channels)+fn:length(custom_base_channels)+3}">
-            <option value="-1"
-            	<c:if test="${current_base_channel_id == -1}">
-            		selected="selected"
-            	</c:if>  >
-            	<bean:message key="sdc.channels.edit.no_base_channel"/></option>
-            <c:if test="${not empty custom_base_channels}">
-              <optgroup label='<bean:message key="basesub.jsp.rhn-channels"/>'>
-            </c:if>
-            <c:forEach items="${base_channels}" var="chan">
-              <c:choose>
-                <c:when test="${current_base_channel_id == chan.id}">
-                  <option value="${chan.id}" selected="selected"><c:out value="${chan.name}" /></option>
-                </c:when>
-                <c:otherwise>
-                  <option value="${chan.id}"><c:out value="${chan.name}" /></option>
-                </c:otherwise>
-              </c:choose>
-            </c:forEach>
-            <c:if test="${not empty custom_base_channels}">
-              </optgroup>
-            </c:if>
-            <c:if test="${not empty custom_base_channels}">
-              <optgroup label='<bean:message key="basesub.jsp.custom-channels"/>'>
-                <c:forEach items="${custom_base_channels}" var="chan">
-                  <c:choose>
-                    <c:when test="${current_base_channel_id == chan.id}">
-                      <option value="${chan.id}" selected="selected"><c:out value="${chan.name}" /></option>
-                    </c:when>
-                    <c:otherwise>
-                      <option value="${chan.id}"><c:out value="${chan.name}" /></option>
-                    </c:otherwise>
-                  </c:choose>
-                </c:forEach>
-              </optgroup>
-            </c:if>
-          </select>
-
-          <hr/>
-          <div class="text-right">
-            <html:submit property="dispatch">
-              <bean:message key="sdc.channels.edit.confirm_update_base"/>
-            </html:submit>
+      <div class="form-group">
+          <div class="col-md-offset-3 col-md-6">
+              <select class="form-control" name="new_base_channel_id" size="${fn:length(base_channels)+fn:length(custom_base_channels)+3}">
+                  <option value="-1" <c:if test="${current_base_channel_id == -1}">selected="selected"</c:if> />
+                  <bean:message key="sdc.channels.edit.no_base_channel"/></option>
+                  <c:if test="${not empty custom_base_channels}">
+                      <optgroup label='<bean:message key="basesub.jsp.rhn-channels"/>'>
+                  </c:if>
+                  <c:forEach items="${base_channels}" var="chan">
+                      <c:choose>
+                          <c:when test="${current_base_channel_id == chan.id}">
+                              <option value="${chan.id}" selected="selected"><c:out value="${chan.name}" /></option>
+                          </c:when>
+                          <c:otherwise>
+                              <option value="${chan.id}"><c:out value="${chan.name}" /></option>
+                          </c:otherwise>
+                      </c:choose>
+                  </c:forEach>
+                  <c:if test="${not empty custom_base_channels}">
+                      </optgroup>
+                  </c:if>
+                  <c:if test="${not empty custom_base_channels}">
+                      <optgroup label='<bean:message key="basesub.jsp.custom-channels"/>'>
+                          <c:forEach items="${custom_base_channels}" var="chan">
+                              <c:choose>
+                                  <c:when test="${current_base_channel_id == chan.id}">
+                                      <option value="${chan.id}" selected="selected"><c:out value="${chan.name}" /></option>
+                                  </c:when>
+                                  <c:otherwise>
+                                      <option value="${chan.id}"><c:out value="${chan.name}" /></option>
+                                  </c:otherwise>
+                              </c:choose>
+                          </c:forEach>
+                      </optgroup>
+                  </c:if>
+              </select>
+              <span class="help-block">
+                  <bean:message key="sdc.channels.edit.fastrackBetaWarning"/>
+              </span>
           </div>
-
-          <span class="small-text">
-            <bean:message key="sdc.channels.edit.fastrackBetaWarning"/>
-          </span>
-        </div>
+          <div class="col-md-offset-3 col-md-6">
+              <html:submit property="dispatch" styleClass="btn btn-success">
+                  <bean:message key="sdc.channels.edit.confirm_update_base"/>
+              </html:submit>
+          </div>
       </rhn:require>
   </html:form>
 </body>
