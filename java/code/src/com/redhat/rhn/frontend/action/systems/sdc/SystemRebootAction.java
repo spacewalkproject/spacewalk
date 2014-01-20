@@ -16,12 +16,15 @@ package com.redhat.rhn.frontend.action.systems.sdc;
 
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.ActionChainHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.manager.action.ActionChainManager;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -59,9 +62,11 @@ public class SystemRebootAction extends RhnAction {
         Server server = SystemManager.lookupByIdAndUser(sid, user);
 
         if (isSubmitted(form)) {
-            Date earliest = getStrutsDelegate().readDatePicker((DynaActionForm) formIn,
-                "date", DatePicker.YEAR_RANGE_POSITIVE);
-            Action action = ActionManager.scheduleRebootAction(user, server, earliest);
+            Date earliest = getStrutsDelegate().readDatePicker(form, "date",
+                DatePicker.YEAR_RANGE_POSITIVE);
+            ActionChain actionChain = ActionChainHelper.readActionChain(form, user);
+            Action action = ActionChainManager.scheduleRebootAction(user, server, earliest,
+                actionChain);
             ActionFactory.save(action);
 
             String[] messageParams = new String[3];
@@ -78,6 +83,8 @@ public class SystemRebootAction extends RhnAction {
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, form,
             "date", DatePicker.YEAR_RANGE_POSITIVE);
         request.setAttribute("date", picker);
+        ActionChainHelper.prepopulateActionChains(request);
+
         request.setAttribute(RequestContext.SID, sid);
         request.setAttribute("system", server);
 
