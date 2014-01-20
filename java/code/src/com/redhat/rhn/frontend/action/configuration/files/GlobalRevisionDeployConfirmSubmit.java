@@ -121,7 +121,7 @@ public class GlobalRevisionDeployConfirmSubmit extends RhnListDispatchAction {
         //create the message
         if (successes > 0) {
             RhnSetManager.remove(systems);
-            createSuccessMessage(successes, request, "deployconfirm.jsp");
+            createSuccessMessage(successes, request, actionChain, "deployconfirm.jsp");
             Map params = makeParamMap(form, request);
             return getStrutsDelegate().forwardParams(
                     mapping.findForward("success"), params);
@@ -142,15 +142,22 @@ public class GlobalRevisionDeployConfirmSubmit extends RhnListDispatchAction {
     }
 
     private void createSuccessMessage(int successes, HttpServletRequest request,
-            String prefix) {
+            ActionChain actionChain, String prefix) {
         ActionMessages msg = new ActionMessages();
-        if (successes == 1) {
-            msg.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage(prefix + ".success"));
+
+        if (actionChain == null) {
+            if (successes == 1) {
+                msg.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage(prefix + ".success"));
+            }
+            else {
+                msg.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage(prefix + ".successes", new Integer(successes)));
+            }
         }
         else {
-            msg.add(ActionMessages.GLOBAL_MESSAGE,
-                new ActionMessage(prefix + ".successes", new Integer(successes)));
+            msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                "message.addedtoactionchain", actionChain.getId(), actionChain.getLabel()));
         }
         getStrutsDelegate().saveMessages(request, msg);
     }
