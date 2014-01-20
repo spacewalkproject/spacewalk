@@ -28,6 +28,7 @@
        <packagereq type="default">cx_Oracle</packagereq>
        <packagereq type="default">dwr</packagereq>
        <packagereq type="default">eventReceivers</packagereq>
+       <packagereq type="default">font-awesome</packagereq>
        <packagereq type="optional">heirloom-pkgtools</packagereq>
        <packagereq type="default">jpam</packagereq>
        <packagereq type="default">MessageQueue</packagereq>
@@ -66,6 +67,7 @@
        <packagereq type="default">quartz-oracle</packagereq>
        <packagereq type="default">redstone-xmlrpc</packagereq>
        <packagereq type="default">rhnpush</packagereq>
+       <packagereq type="default">roboto</packagereq>
        <packagereq type="default">SatConfig-bootstrap</packagereq>
        <packagereq type="default">SatConfig-bootstrap-server</packagereq>
        <packagereq type="default">SatConfig-cluster</packagereq>
