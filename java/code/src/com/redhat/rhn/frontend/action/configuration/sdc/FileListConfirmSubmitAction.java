@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.configuration.sdc;
 
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.ActionType;
 import com.redhat.rhn.domain.action.config.ConfigAction;
@@ -25,9 +26,11 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.ActionChainHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListDispatchAction;
+import com.redhat.rhn.manager.action.ActionChainManager;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
@@ -168,14 +171,17 @@ public class FileListConfirmSubmitAction extends RhnListDispatchAction {
         //create the action
         Date earliest = getStrutsDelegate().readDatePicker((DynaActionForm)form,
                 "date", DatePicker.YEAR_RANGE_POSITIVE);
-        ConfigAction action = (ConfigAction)ActionManager.createConfigAction(user,
-                revisions, servers, type, earliest);
+        ActionChain actionChain = ActionChainHelper.readActionChain((DynaActionForm) form,
+            user);
+        Set<Action> actions = ActionChainManager.createConfigActions(user,
+                revisions, servers, type, earliest, actionChain);
 
         //clean-up the set we just worked with
         RhnSetManager.remove(set);
 
         //create a success message
-        if (action != null) {
+        if (!actions.isEmpty()) {
+            ConfigAction action = (ConfigAction)actions.iterator().next();
             createSuccessMessage(action, action.getConfigRevisionActions().size(),
                     successKey, request);
         }

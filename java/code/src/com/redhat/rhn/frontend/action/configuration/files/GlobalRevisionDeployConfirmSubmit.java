@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.configuration.files;
 
 import com.redhat.rhn.common.util.DatePicker;
+import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.ActionType;
 import com.redhat.rhn.domain.config.ConfigRevision;
@@ -22,8 +23,10 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.configuration.ConfigActionHelper;
+import com.redhat.rhn.frontend.struts.ActionChainHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnListDispatchAction;
+import com.redhat.rhn.manager.action.ActionChainManager;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
@@ -90,6 +93,8 @@ public class GlobalRevisionDeployConfirmSubmit extends RhnListDispatchAction {
         int successes = 0;
 
         Date earliest = getEarliestAction(form);
+        ActionChain actionChain = ActionChainHelper.readActionChain((DynaActionForm) form,
+            user);
 
         //create the set needed for the action
         Set revisions = new HashSet();
@@ -107,8 +112,8 @@ public class GlobalRevisionDeployConfirmSubmit extends RhnListDispatchAction {
             servers.add(sid);
             //created the action.  One action per server.
             if (revisions.size() > 0 &&
-                    ActionManager.createConfigAction(
-                            user, revisions, servers, deploy, earliest) != null) {
+                !ActionChainManager.createConfigActions(user, revisions, servers, deploy,
+                    earliest, actionChain).isEmpty()) {
                 successes++;
             }
         }

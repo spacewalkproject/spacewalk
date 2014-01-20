@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.ActionChainFactory;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.ActionType;
+import com.redhat.rhn.domain.action.config.ConfigAction;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 import com.redhat.rhn.domain.action.script.ScriptRunAction;
@@ -26,7 +27,9 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.MissingCapabilityException;
 import com.redhat.rhn.manager.MissingEntitlementException;
+import com.redhat.rhn.manager.system.SystemManager;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -202,6 +205,63 @@ public class ActionChainManager {
         for (Action action : result) {
             ((ScriptRunAction)action).setScriptActionDetails(script);
             ActionFactory.save(action);
+        }
+        return result;
+    }
+
+    /**
+     * Create a Config Action.
+     * @param user The user scheduling the action.
+     * @param revisions A set of revision ids as Longs
+     * @param serverIds A set of server ids as Longs
+     * @param type The type of config action
+     * @param earliest The earliest time this action could execute.
+     * @param actionChain the action chain or null
+     * @return The created config action
+     * @see com.redhat.rhn.manager.action.ActionManager#createConfigAction
+     */
+    public static Set<Action> createConfigActions(User user, Collection<Long> revisions,
+        Collection<Long> serverIds, ActionType type, Date earliest,
+        ActionChain actionChain) {
+
+        List <Server> servers = SystemManager.hydrateServerFromIds(serverIds, user);
+        return createConfigActionForServers(user, revisions, servers, type, earliest,
+            actionChain);
+    }
+
+    /**
+     * Create a Config Action.
+     * @param user The user scheduling the action.
+     * @param revisions A set of revision ids as Longs
+     * @param servers A set of server objects
+     * @param type The type of config action
+     * @param earliest The earliest time this action could execute.
+     * @param actionChain the action chain or null
+     * @return The created config action
+     * @see com.redhat.rhn.manager.action.ActionManager#createConfigActionForServers
+     */
+    public static Set<Action> createConfigActionForServers(User user,
+        Collection<Long> revisions, Collection<Server> servers, ActionType type,
+        Date earliest, ActionChain actionChain) {
+        Set<Action> result = new HashSet<Action>();
+        if (actionChain == null) {
+            Action action = ActionManager.createConfigActionForServers(user, revisions,
+                servers, type, earliest);
+            if (action != null) {
+                result.add(action);
+            }
+        }
+        else {
+            for (Server server : servers) {
+                ConfigAction action = ActionManager
+                    .createConfigAction(user, type, earliest);
+                ActionManager.checkConfigActionOnServer(type, server);
+                ActionChainFactory.queueActionChainEntry(action, actionChain, server);
+                ActionManager.addConfigurationRevisionsToAction(user, revisions, action,
+                    server);
+                ActionFactory.save(action);
+                result.add(action);
+            }
         }
         return result;
     }
