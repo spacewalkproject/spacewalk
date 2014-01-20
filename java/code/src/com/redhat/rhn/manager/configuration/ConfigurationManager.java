@@ -25,6 +25,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigChannelType;
@@ -48,6 +49,7 @@ import com.redhat.rhn.frontend.dto.ConfigRevisionDto;
 import com.redhat.rhn.frontend.dto.ConfigSystemDto;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.BaseManager;
+import com.redhat.rhn.manager.action.ActionChainManager;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -2156,6 +2158,22 @@ public class ConfigurationManager extends BaseManager {
      * @return Map<String,Long> describing "success"|"override"|"failure"
      */
     public Map deployFiles(User usr, Set fileIds, Set systemIds, Date datePicked) {
+        return deployFiles(usr, fileIds, systemIds, datePicked, null);
+    }
+
+    /**
+     * Deploy revisions to systems, optionally in an Action Chain.
+     * For each system, make sure the specified revisions are all the top-priority
+     * files - if they're not, flag an error and continue.
+     * @param usr User requesting the deploy
+     * @param fileIds Revisions to be deployed
+     * @param systemIds Systems to deploy to
+     * @param datePicked Date to schedule the deploy for
+     * @param actionChain the action chain to add the action to or null
+     * @return Map<String,Long> describing "success"|"override"|"failure"
+     */
+    public Map deployFiles(User usr, Set fileIds, Set systemIds, Date datePicked,
+        ActionChain actionChain) {
 
         int revOverridden = 0;
         int revSucceeded = 0;
@@ -2184,9 +2202,8 @@ public class ConfigurationManager extends BaseManager {
                     revOverridden++;
                 }
             }
-            Action act = ActionManager.createConfigAction(
-                    usr, revs, system, ActionFactory.TYPE_CONFIGFILES_DEPLOY, datePicked);
-            ActionFactory.save(act);
+            ActionChainManager.createConfigActions(usr, revs, system,
+                ActionFactory.TYPE_CONFIGFILES_DEPLOY, datePicked, actionChain);
         }
 
         Map m = new HashMap();

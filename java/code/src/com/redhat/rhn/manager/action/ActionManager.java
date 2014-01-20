@@ -430,11 +430,7 @@ public class ActionManager extends BaseManager {
     public static Action createConfigActionForServers(User user,
             Map<Long, Collection<Long>> serverConfigMap, ActionType type, Date earliest) {
 
-        //create the action
-        ConfigAction a = (ConfigAction)ActionFactory.createAction(type, earliest);
-        a.setName(a.getActionType().getName());
-        a.setOrg(user.getOrg());
-        a.setSchedulerUser(user);
+        ConfigAction a = createConfigAction(user, type, earliest);
 
         ActionFactory.save(a);
         ActionFactory.getSession().flush();
@@ -468,13 +464,6 @@ public class ActionManager extends BaseManager {
         return a;
     }
 
-
-
-
-
-
-
-
     /**
      * Create a Config Action.
      * @param user The user scheduling the action.
@@ -488,7 +477,68 @@ public class ActionManager extends BaseManager {
             Collection<Long> revisions,
             Collection<Server> servers,
             ActionType type, Date earliest) {
-        //create the action
+        ConfigAction a = createConfigAction(user, type, earliest);
+        for (Server server : servers) {
+            checkConfigActionOnServer(type, server);
+            ActionFactory.addServerToAction(server.getId(), a);
+
+            //now that we made a server action, we must make config revision actions
+            //which depend on the server as well.
+            addConfigurationRevisionsToAction(user, revisions, a, server);
+        }
+        if (a.getServerActions().size() < 1) {
+            return null;
+        }
+        ActionFactory.save(a);
+        return a;
+    }
+
+    /**
+     * Adds configuration revisions to a ConfigurationAction object
+     * @param user the user scheduling the action
+     * @param revisions a set of revision ids as Longs
+     * @param configAction the action to add revisions to
+     * @param server a server object
+     */
+    public static void addConfigurationRevisionsToAction(User user,
+        Collection<Long> revisions, ConfigAction configAction, Server server) {
+        for (Long revId : revisions) {
+            try {
+                ConfigRevision rev = ConfigurationManager.getInstance()
+                    .lookupConfigRevision(user, revId);
+                ActionFactory.addConfigRevisionToAction(rev, server, configAction);
+            }
+            catch (LookupException e) {
+                log.error("Failed lookup for revision " + revId + "by user " +
+                    user.getId());
+            }
+        }
+    }
+
+    /**
+     * Checks that a server can be the target of a ConfigAction
+     * @param type type of ConfigAction
+     * @param server a server object
+     * @throws MissingCapabilityException if server does not have needed capabilities
+     */
+    public static void checkConfigActionOnServer(ActionType type, Server server) {
+        if (ActionFactory.TYPE_CONFIGFILES_DEPLOY.equals(type) &&
+                !SystemManager.clientCapable(server.getId(),
+                        SystemManager.CAP_CONFIGFILES_DEPLOY)) {
+            throw new MissingCapabilityException(
+                    SystemManager.CAP_CONFIGFILES_DEPLOY, server);
+        }
+    }
+
+    /**
+     * Returns a new ConfigAction object
+     * @param user the user scheduling the action
+     * @param type type of ConfigAction
+     * @param earliest earliest action scheduling date
+     * @return a ConfigAction
+     */
+    public static ConfigAction createConfigAction(User user, ActionType type,
+        Date earliest) {
         ConfigAction a = (ConfigAction)ActionFactory.createAction(type, earliest);
 
         /** This is not localized, because the perl that prints this when the action is
@@ -499,37 +549,8 @@ public class ActionManager extends BaseManager {
         a.setName(a.getActionType().getName());
         a.setOrg(user.getOrg());
         a.setSchedulerUser(user);
-        for (Server server : servers) {
-            if (ActionFactory.TYPE_CONFIGFILES_DEPLOY.equals(type) &&
-                    !SystemManager.clientCapable(server.getId(),
-                            SystemManager.CAP_CONFIGFILES_DEPLOY)) {
-                throw new MissingCapabilityException(
-                        SystemManager.CAP_CONFIGFILES_DEPLOY, server);
-            }
-            ActionFactory.addServerToAction(server.getId(), a);
-
-            //now that we made a server action, we must make config revision actions
-            //which depend on the server as well.
-            for (Long revId : revisions) {
-                try {
-                    ConfigRevision rev = ConfigurationManager.getInstance()
-                            .lookupConfigRevision(user, revId);
-                    ActionFactory.addConfigRevisionToAction(rev, server, a);
-                }
-                catch (LookupException e) {
-                    log.error("Failed lookup for revision " + revId +
-                            "by user " + user.getId());
-                } //catch
-            }
-        }
-        if (a.getServerActions().size() < 1) {
-            return null;
-        }
-        ActionFactory.save(a);
         return a;
     }
-
-
 
     /**
      * Create a Config Action.
