@@ -21,10 +21,12 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
+
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * UserGroupFactory - the singleton class used to fetch and store
@@ -89,6 +91,38 @@ public class UserGroupFactory extends HibernateFactory {
         }
         return singleton.listObjectsByNamedQuery(
                 "UserExtGroup.listAll", new HashMap());
+    }
+
+    /**
+     * lookup function to search for external groups
+     * @param gidIn external group id
+     * @return external group object
+     */
+    public static UserExtGroup lookupExtGroupById(Long gidIn) {
+        Map<String, Long> params = new HashMap();
+        params.put("gid", gidIn);
+        return (UserExtGroup) singleton.lookupObjectByNamedQuery(
+                "UserExtGroup.lookupById", params);
+    }
+
+    /**
+     * save UserExtGroup object
+     * @param extGroup external group
+     */
+    public static void save(UserExtGroup extGroup) {
+        singleton.saveObject(extGroup);
+    }
+
+    /**
+     * lookup function to search for external groups
+     * @param labelIn external group label
+     * @return external group object
+     */
+    public static UserExtGroup lookupExtGroupByLabel(String labelIn) {
+        Map<String, String> params = new HashMap();
+        params.put("label", labelIn);
+        return (UserExtGroup) singleton.lookupObjectByNamedQuery(
+                "UserExtGroup.lookupByLabel", params);
     }
 }
 

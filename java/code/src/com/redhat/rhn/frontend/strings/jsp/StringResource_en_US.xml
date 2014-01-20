@@ -68,6 +68,12 @@
       </group>
       <!-- Generic buttons. The intent is that these can be reused across multiple pages.-->
       <group>
+        <trans-unit id="button.create">
+          <source>Create</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/profiles/Details</context>
+          </context-group>
+        </trans-unit>
         <trans-unit id="button.update">
           <source>Update</source>
           <context-group name="ctx">
@@ -8409,6 +8415,27 @@ Please note that some manual configuration of these scripts may still be require
       </trans-unit>
       <trans-unit id="org.specific">
         <source>Organization Specific</source>
+      </trans-unit>
+      <trans-unit id="extgroup.jsp.header">
+        <source>External Group to Roles Mapping</source>
+      </trans-unit>
+      <trans-unit id="extgroups.jsp.header">
+        <source>External Groups</source>
+      </trans-unit>
+      <trans-unit id="extgroups.jsp.summary">
+        <source>Externally authenticated users may have set external (e.g. LDAP) groups. According to these groups the user will get assigned additional @@PRODUCT_NAME@@ roles.</source>
+      </trans-unit>
+      <trans-unit id="extgroup.jsp.summary">
+        <source>Define what @@PRODUCT_NAME@@ roles shall be assigned to externally authenticated users with specified group set.</source>
+      </trans-unit>
+      <trans-unit id="extgroup.jsp.create">
+        <source>Create New External Group</source>
+      </trans-unit>
+      <trans-unit id="extgroup.jsp.update">
+        <source>Update External Group - {0}</source>
+      </trans-unit>
+      <trans-unit id="extgroup.jsp.delete">
+        <source>Delete External Group</source>
       </trans-unit>
       <trans-unit id="distchannelmap.jsp.create">
         <source>Create New Distribution Channel Map</source>

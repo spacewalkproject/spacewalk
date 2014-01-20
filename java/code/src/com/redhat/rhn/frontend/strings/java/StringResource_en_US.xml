@@ -6830,10 +6830,16 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       </trans-unit>
       <trans-unit id="message.ext_auth_updated">
-        <source>External Authentication was successfully updated.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgDetails</context>
-        </context-group>
+        <source>External Authentication settings were successfully updated.</source>
+      </trans-unit>
+      <trans-unit id="message.extgroup.created">
+        <source>External Authentication Group '{0}' was successfully created.</source>
+      </trans-unit>
+      <trans-unit id="message.extgroup.updated">
+        <source>External Authentication Group '{0}' was successfully updated.</source>
+      </trans-unit>
+      <trans-unit id="extgrouplabel.already.exists">
+        <source>External Authentication Group name '{0}' is already used. Please choose another one.</source>
       </trans-unit>
       <trans-unit id="message.org_name_updated">
         <source>Organization {0} was successfully updated.</source>

@@ -22,7 +22,7 @@
     <h4><bean:message key="extgroup.jsp.header"/></h4>
 </div>
 <div class="panel-body">
-    <p><bean:message key="extgroup.jsp.summary"/></p>
+    <p><bean:message key="extgroups.jsp.summary"/></p>
 </div>
 
 <rl:listset name="groupRolesSet">
@@ -38,7 +38,7 @@
                headerkey="extgrouplist.jsp.name"
                attr="label"
                filterattr="label">
-        <c:out value="<a href=\"/rhn/admin/multiorg/ExtGroupDetails.do?uid=${current.id}\">${current.label}</a>" escapeXml="false" />
+        <c:out value="<a href=\"/rhn/admin/multiorg/ExtGroupDetails.do?gid=${current.id}\">${current.label}</a>" escapeXml="false" />
     </rl:column>
 
     <rl:column attr="roleNames"

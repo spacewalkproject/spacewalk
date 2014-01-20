@@ -629,7 +629,7 @@ public class RequestContext {
         String param = req.getParameter(paramId);
 
         if (param != null) {
-            req.setAttribute(paramId, req.getParameter(paramId));
+            req.setAttribute(paramId, param);
         }
     }
 

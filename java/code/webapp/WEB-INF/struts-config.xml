@@ -321,6 +321,13 @@
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="to_org" type="java.lang.String"/>
         </form-bean>
+        <form-bean name="extGroupForm"
+                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+            <form-property name="extGroupLabel" type="java.lang.String"/>
+            <form-property name="role_satellite_admin" type="java.lang.Boolean"/>
+            <form-property name="role_org_admin" type="java.lang.Boolean"/>
+            <form-property name="selected_regular_roles" type="java.lang.String"/>
+        </form-bean>
         <form-bean name="packageSearchForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="search_string" type="java.lang.String"/>
@@ -5698,6 +5705,19 @@
       <forward name="default" path="/WEB-INF/pages/admin/multiorg/extauthroles.jsp" />
       <forward name="success"
                path="/admin/multiorg/EExtAuthRoleMapping.do" redirect="true" />
+    </action>
+
+    <action path="/admin/multiorg/ExtGroupDetails"
+        scope="request"
+        name="extGroupForm"
+        input="/WEB-INF/pages/admin/multiorg/extgroup_detail.jsp"
+        type="com.redhat.rhn.frontend.action.multiorg.ExtGroupDetailAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <set-property property="postRequiredIfSubmitted" value="true" />
+      <set-property property="acls" value="user_role(satellite_admin)"/>
+      <forward name="default" path="/WEB-INF/pages/admin/multiorg/extgroup_detail.jsp" />
+      <forward name="success"
+               path="/admin/multiorg/ExtAuthRoleMapping.do" redirect="true" />
     </action>
 
     <action path="/multiorg/channels/OrgList"

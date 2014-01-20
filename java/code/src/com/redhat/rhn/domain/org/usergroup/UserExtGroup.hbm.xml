@@ -24,7 +24,15 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </class>
 
     <query name="UserExtGroup.listAll">
-        <![CDATA[FROM com.redhat.rhn.domain.org.usergroup.UserExtGroup]]>
+        <![CDATA[FROM com.redhat.rhn.domain.org.usergroup.UserExtGroup ORDER BY label]]>
+    </query>
+
+    <query name="UserExtGroup.lookupById">
+        <![CDATA[FROM com.redhat.rhn.domain.org.usergroup.UserExtGroup WHERE id = :gid]]>
+    </query>
+
+    <query name="UserExtGroup.lookupByLabel">
+        <![CDATA[FROM com.redhat.rhn.domain.org.usergroup.UserExtGroup WHERE label = :label]]>
     </query>
 
 </hibernate-mapping>

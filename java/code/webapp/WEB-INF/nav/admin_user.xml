@@ -11,6 +11,7 @@
     </rhn-tab>
     <rhn-tab name="Group Role Mapping" acl="user_role(satellite_admin)">
       <rhn-tab-url>/rhn/admin/multiorg/ExtAuthRoleMapping.do</rhn-tab-url>
+      <rhn-tab-url>/rhn/admin/multiorg/ExtGroupDetails.do</rhn-tab-url>
     </rhn-tab>
   </rhn-tab>
 </rhn-navi-tree>
