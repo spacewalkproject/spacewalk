@@ -115,7 +115,7 @@ public class FileListConfirmSubmitAction extends RhnListDispatchAction {
         //Create a success message
         if (upload != null) {
             createSuccessMessage(upload, upload.getRhnActionConfigFileName().size(),
-                    "config.import.success", request);
+                    "config.import.success", request, null);
         }
 
         return getStrutsDelegate().forwardParam(
@@ -183,7 +183,7 @@ public class FileListConfirmSubmitAction extends RhnListDispatchAction {
         if (!actions.isEmpty()) {
             ConfigAction action = (ConfigAction)actions.iterator().next();
             createSuccessMessage(action, action.getConfigRevisionActions().size(),
-                    successKey, request);
+                    successKey, request, actionChain);
         }
 
         //success, go to the config file manage page
@@ -203,13 +203,20 @@ public class FileListConfirmSubmitAction extends RhnListDispatchAction {
     }
 
     private void createSuccessMessage(Action action, int successes,
-            String transKey, HttpServletRequest request) {
+            String transKey, HttpServletRequest request, ActionChain actionChain) {
         ActionMessages msgs = new ActionMessages();
-        Object[] params = new Object[2];
-        params[0] = new Long(successes);
-        params[1] = "/rhn/schedule/ActionDetails.do?aid=" + action.getId();
-        msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                new ActionMessage(transKey, params));
+
+        if (actionChain == null) {
+            Object[] params = new Object[2];
+            params[0] = new Long(successes);
+            params[1] = "/rhn/schedule/ActionDetails.do?aid=" + action.getId();
+            msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage(transKey, params));
+        }
+        else {
+            msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                "message.addedtoactionchain", actionChain.getId(), actionChain.getLabel()));
+        }
         getStrutsDelegate().saveMessages(request, msgs);
     }
 
