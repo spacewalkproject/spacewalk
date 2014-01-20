@@ -69,11 +69,19 @@ public class SystemRebootAction extends RhnAction {
                 actionChain);
             ActionFactory.save(action);
 
-            String[] messageParams = new String[3];
-            messageParams[0] = server.getName();
-            messageParams[1] = earliest.toString();
-            messageParams[2] = action.getId().toString();
-            createMessage(request, "system.reboot.scheduled", messageParams);
+            if (actionChain == null) {
+                String[] messageParams = new String[3];
+                messageParams[0] = server.getName();
+                messageParams[1] = earliest.toString();
+                messageParams[2] = action.getId().toString();
+                createMessage(request, "system.reboot.scheduled", messageParams);
+            }
+            else {
+                String[] messageParams = new String[2];
+                messageParams[0] = actionChain.getId().toString();
+                messageParams[1] = actionChain.getLabel();
+                createMessage(request, "message.addedtoactionchain", messageParams);
+            }
 
             // goes to sdc/overview.jsp
             params.put(RequestContext.SID, sid);
