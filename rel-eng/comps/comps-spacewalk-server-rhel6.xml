@@ -29,6 +29,7 @@
        <packagereq type="default">dwr</packagereq>
        <packagereq type="default">eventReceivers</packagereq>
        <packagereq type="default">font-awesome</packagereq>
+       <packagereq type="optional">font-awesome-devel</packagereq>
        <packagereq type="optional">heirloom-pkgtools</packagereq>
        <packagereq type="default">jpam</packagereq>
        <packagereq type="default">MessageQueue</packagereq>
@@ -70,6 +71,7 @@
        <packagereq type="default">redstone-xmlrpc</packagereq>
        <packagereq type="default">rhnpush</packagereq>
        <packagereq type="default">roboto</packagereq>
+       <packagereq type="optional">roboto-condensed</packagereq>
        <packagereq type="default">SatConfig-bootstrap</packagereq>
        <packagereq type="default">SatConfig-bootstrap-server</packagereq>
        <packagereq type="default">SatConfig-cluster</packagereq>
