@@ -241,11 +241,12 @@ public class UpdateInfoWriter extends RepomdWriter {
         iter = erratum.getCves().iterator();
         while (iter.hasNext()) {
             Cve cve = (Cve) iter.next();
+            String cveid = sanitize(0L, cve.getName());
 
             SimpleAttributesImpl attr = new SimpleAttributesImpl();
             attr.addAttribute("href",
-                    "http://www.cve.mitre.org/cgi-bin/cvename.cgi?name=" + cve);
-            attr.addAttribute("id", sanitize(0L, cve.getName()));
+                    "http://www.cve.mitre.org/cgi-bin/cvename.cgi?name=" + cveid);
+            attr.addAttribute("id", cveid);
             attr.addAttribute("type", "cve");
             handler.startElement("reference", attr);
             handler.endElement("reference");
