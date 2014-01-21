@@ -58,7 +58,7 @@
         </div>
         <div class="form-group">
           <input type="hidden" name="submitted" value="true" />
-          <button type="submit" class="btn btn-info input-sm">
+          <button type="submit" class="btn btn-info input-sm" id="search-btn">
             <rhn:icon type="header-search" />
           </button>
         </div>
