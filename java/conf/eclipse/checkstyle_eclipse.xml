@@ -37,10 +37,6 @@ test
 <property name="scope" value="public"/>
 <property name="allowUndeclaredRTE" value="true"/>
 </module>
-<module name="JavadocType">
-<property name="scope" value="package"/>
-<property name="versionFormat" value="\$Rev.*\$"/>
-</module>
 <module name="ConstantName">
 </module>
 <module name="LocalFinalVariableName">
