@@ -28,7 +28,6 @@ import java.util.Map;
 
 /**
  * Tests Image.
- * @version $Rev$
  */
 public class ImageTest extends BaseTestCaseWithUser {
 

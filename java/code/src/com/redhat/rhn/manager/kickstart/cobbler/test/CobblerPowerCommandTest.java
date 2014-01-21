@@ -30,7 +30,6 @@ import org.cobbler.test.MockConnection;
 
 /**
  * Tests Cobbler command to manage power on a system.
- * @version $Rev$
  */
 public class CobblerPowerCommandTest extends BaseTestCaseWithUser {
 

@@ -43,7 +43,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Powers on, off and reboots multiple systems.
  * @author Silvio Moioli <smoioli@suse.de>
- * @version $Rev$
  */
 public class PowerManagementOperationsAction extends RhnAction implements Listable {
 

@@ -34,7 +34,6 @@ import java.util.Map;
 
 /**
  * Tests the Power Management action.
- * @version $Rev$
  */
 public class PowerManagementActionTest extends RhnMockStrutsTestCase {
 

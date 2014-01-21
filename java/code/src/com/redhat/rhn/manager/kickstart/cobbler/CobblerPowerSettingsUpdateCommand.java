@@ -30,7 +30,6 @@ import java.io.IOException;
 
 /**
  * Changes power management settings for a server.
- * @version $Rev$
  */
 public class CobblerPowerSettingsUpdateCommand extends CobblerCommand {
 

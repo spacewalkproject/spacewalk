@@ -20,7 +20,6 @@ import java.util.List;
 
 /**
  * Tests SsmPowerManagementAction.
- * @version $Rev$
  */
 public class SsmPowerManagementActionTest extends BaseTestCaseWithUser {
 

@@ -31,7 +31,6 @@ import java.util.Map;
 
 /**
  * Tests SystemRecord.
- * @version $Rev$
  */
 public class SystemRecordTest extends BaseTestCaseWithUser {
 

@@ -38,7 +38,6 @@ import java.util.Set;
 /**
  * Tests PowerManagementConfigurationAction
  * @author Silvio Moioli <smoioli@suse.de>
- * @version $Rev$
  */
 public class PowerManagementConfigurationActionTest extends RhnMockStrutsTestCase {
     private CobblerConnection connection;

@@ -34,8 +34,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Saves power settings and boots machines.
- *
- * @version $Rev$
  */
 public class PowerManagementAction extends RhnAction {
 
