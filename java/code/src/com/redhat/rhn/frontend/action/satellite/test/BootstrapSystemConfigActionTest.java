@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Tests BootstrapSystemConfigAction.
- * @version $Rev$
  */
 public class BootstrapSystemConfigActionTest extends RhnMockStrutsTestCase {
 

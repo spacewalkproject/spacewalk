@@ -30,7 +30,6 @@ import java.util.List;
 
 /**
  * Creates multiple Cobbler system records.
- * @version $Rev$
  */
 public class SSMCreateRecordCommand {
 

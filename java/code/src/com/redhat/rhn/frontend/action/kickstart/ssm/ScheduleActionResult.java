@@ -20,7 +20,6 @@ import java.util.List;
 
 /**
  * Encapsulates results of an SSM schedule action.
- * @version $Rev$
  */
 public class ScheduleActionResult {
 

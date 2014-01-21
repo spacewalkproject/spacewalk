@@ -18,8 +18,6 @@ import com.redhat.rhn.manager.entitlement.EntitlementManager;
 
 /**
  * The Class BootstrapEntitlement.
- *
- * @version $Rev$
  */
 public class BootstrapEntitlement extends Entitlement {
 

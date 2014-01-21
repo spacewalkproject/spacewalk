@@ -39,7 +39,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Enables or disable bare-metal system bootstrap image as default PXE booting
  * option.
- * @version $Rev$
  */
 public class BootstrapSystemConfigAction extends RhnAction {
     /** Submit input value */

@@ -37,8 +37,6 @@ import java.util.Set;
 /**
  * Configures a Cobbler system, profile and distro to serve a default PXE image
  * for automatic bare-metal server registration.
- *
- * @version $Rev$
  */
 public class CobblerEnableBootstrapCommand extends CobblerCommand {
 

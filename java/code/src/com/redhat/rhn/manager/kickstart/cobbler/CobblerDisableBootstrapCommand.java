@@ -31,8 +31,6 @@ import java.util.List;
 
 /**
  * Reverses CobblerEnableBootstrapCommand
- *
- * @version $Rev$
  */
 public class CobblerDisableBootstrapCommand extends CobblerCommand {
 

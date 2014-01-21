@@ -46,7 +46,6 @@ import java.util.Set;
 
 /**
  * Tests SsmKSScheduleAction.
- * @version $Rev$
  */
 public class SsmKSScheduleActionTest extends RhnMockStrutsTestCase {
 

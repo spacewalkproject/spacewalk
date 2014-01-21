@@ -35,7 +35,6 @@ import java.util.Set;
 
 /**
  * Tests Cobbler default PXE configuration for bare-metal server registration.
- * @version $Rev$
  */
 public class CobblerEnableBootstrapCommandTest extends BaseTestCaseWithUser {
 
