@@ -35,7 +35,6 @@ import java.util.List;
 
 /**
  * @author Silvio Moioli <smoioli@suse.de>
- * @version $Rev$
  */
 public class SsmPowerManagementAction extends AbstractDatabaseAction {
 

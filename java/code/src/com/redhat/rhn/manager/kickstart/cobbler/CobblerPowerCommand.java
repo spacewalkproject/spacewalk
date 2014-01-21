@@ -31,7 +31,6 @@ import java.util.Date;
 
 /**
  * Powers on a system.
- * @version $Rev$
  */
 public class CobblerPowerCommand extends CobblerCommand {
 

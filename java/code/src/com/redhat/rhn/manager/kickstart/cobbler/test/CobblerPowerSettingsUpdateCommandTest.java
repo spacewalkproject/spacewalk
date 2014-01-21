@@ -26,7 +26,6 @@ import org.cobbler.SystemRecord;
 
 /**
  * Tests Cobbler command to update power management settings for a system.
- * @version $Rev$
  */
 public class CobblerPowerSettingsUpdateCommandTest extends BaseTestCaseWithUser {
 

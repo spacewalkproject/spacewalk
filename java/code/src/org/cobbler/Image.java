@@ -24,7 +24,6 @@ import java.util.Map;
 
 /**
  * Encapsulates an Image object in Cobbler.
- * @version $Rev$
  */
 public class Image extends CobblerObject {
 

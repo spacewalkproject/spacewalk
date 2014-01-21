@@ -48,7 +48,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Changes power management configuration in SSM for multiple systems at once.
  * @author Silvio Moioli <smoioli@suse.de>
- * @version $Rev$
  */
 public class PowerManagementConfigurationAction extends RhnAction implements Listable {
 
