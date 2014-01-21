@@ -3,6 +3,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page language="java" import="com.redhat.rhn.frontend.action.systems.SystemRemoteCommandAction.FormData"%>
 
 
@@ -13,7 +14,7 @@
         <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4><bean:message key="ssm.overview.provisioning.remotecommand.header" arg0="${system.name}"/></h4>
+                <h4><bean:message key="ssm.overview.provisioning.remotecommand.header" arg0="${fn:escapeXml(system.name)}"/></h4>
             </div>
             <div class="panel-body">
                 <form name="remoteCommandForm" action="/rhn/systems/details/SystemRemoteCommand.do" method="post" class="form-horizontal" role="form">
