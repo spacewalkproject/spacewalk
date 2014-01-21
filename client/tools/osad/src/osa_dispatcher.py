@@ -356,7 +356,7 @@ class UpstreamServer(SocketServer.TCPServer):
                 # Not even online
                 continue
             server_id = row['server_id']
-            if server_id and __reboot_in_progress(server_id):
+            if server_id and reboot_in_progress(server_id):
                 # don't call when a reboot is in progress
                 continue
 
@@ -411,7 +411,7 @@ def bind_server(start_port=1290):
             port = port + 1
     return None
 
-def __reboot_in_progress(server_id):
+def reboot_in_progress(server_id):
     """check for a reboot action for this server in status Picked Up"""
     h = rhnSQL.prepare("""
         select 1
