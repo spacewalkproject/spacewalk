@@ -1,7 +1,7 @@
 Summary: Spacewalk packages yum repository configuration
 Name: spacewalk-repo
 Version: 2.1.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2
 Group: System Environment/Base
 # This src.rpm is cannonical upstream
@@ -96,6 +96,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-client-nightly.repo
 
 %changelog
+* Wed Jan 22 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.0-2
+- make spacewalk*.repo on Fedora more generic
+
 * Thu Jul 18 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.0-1
 - Bumping package versions for 2.1.
 
