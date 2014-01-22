@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -25,9 +25,11 @@ import org.apache.log4j.Logger;
 import org.hibernate.EntityMode;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
+import org.hibernate.LockMode;
 import org.hibernate.MappingException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Version;
 import org.hibernate.metadata.ClassMetadata;
 
 import java.io.ByteArrayOutputStream;
@@ -383,6 +385,37 @@ public abstract class HibernateFactory {
 
         return retval;
     }
+
+    /**
+     * Return a locked persistent instance of the given entity class with
+     * the given identifier, or null if there is no such persistent instance.
+     * (If the instance, or a proxy for the instance, is already associated
+     * with the session, return that instance or proxy.)
+     * @param clazz a persistent class
+     * @param id an identifier
+     * @return Object persistent instance or null
+     */
+    protected Object lockObject(Class clazz, Serializable id) {
+        Object retval = null;
+        Session session = null;
+
+        try {
+            session = HibernateFactory.getSession();
+            String hVersion = HibernateFactory.getHibernateVersion().substring(0, 3);
+
+            retval = session.get(clazz, id, LockMode.UPGRADE);
+        }
+        catch (MappingException me) {
+            getLogger().error("Mapping not found for " + clazz.getName(), me);
+
+        }
+        catch (HibernateException he) {
+            getLogger().error("Hibernate exception: " + he.toString());
+        }
+
+        return retval;
+    }
+
 
     /**
      * Util to reload an object using Hibernate
