@@ -92,6 +92,7 @@ mkdir -p $DIR/rhn-logs
 mkdir -p $DIR/kickstarts
 mkdir -p $DIR/database
 mkdir -p $DIR/cobbler-lib
+mkdir -p $DIR/tasko
 
 echo "    * copying configuration information"
 cp -fapRd /etc/httpd/conf* $DIR/conf/httpd
@@ -239,6 +240,11 @@ if [ -f /var/log/audit/audit.log ] ; then
 	echo "    * copying audit.log"
 	mkdir -p $DIR/audit-log
 	cp -fa /var/log/audit/audit.log $DIR/audit-log
+fi
+
+if [ -d /var/log/rhn/tasko/sat ] ; then
+        echo "    * copying tasko/sat"
+        cp -fa /var/log/rhn/tasko/sat $DIR/tasko
 fi
 
 echo "    * timestamping"
