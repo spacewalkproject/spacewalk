@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2014 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -553,87 +553,8 @@ sub setup_tomcat {
   my $opts = shift;
   my $answers = shift;
 
-  my ($tomcatvol, $tomcatdir, $tomcatname);
-
-  for my $conf_glob ("/etc/sysconfig/tomcat{5,6,}", "/etc/tomcat*/tomcat*.conf") {
-  my ($conf_vol, $conf_dir, $conf_file) = File::Spec->splitpath($conf_glob);
-  my ($tomcatconf_content_orig, $tomcatconf_content);
-  my @tomcat_confs = grep { -f $_ } glob($conf_glob);
-  if (@tomcat_confs < 1) {
-    die "Couldn't find tomcat config file ($conf_glob).\n";
-  } elsif (@tomcat_confs > 1) {
-    die "Multiple tomcat config files found:\n  @tomcat_confs\nNot sure which tomcat to use.\n";
-  }
-
-  my $tomcatfile = $tomcat_confs[0];
-  ($tomcatvol, $tomcatdir, $tomcatname) = File::Spec->splitpath($tomcatfile);
-
-  {
-    open FILE, '<', $tomcatfile
-      or die "Error opening [$tomcatfile]: $!\n";
-    local $/ = undef;
-    $tomcatconf_content = <FILE>;
-    $tomcatconf_content_orig = $tomcatconf_content;
-    close FILE;
-  }
-
-  for my $file (glob Spacewalk::Setup::SHARED_DIR . "/$conf_file.[0-9]") {
-    open FILE, '<', $file or die "Error reading [$file]: $!\n";
-    my $regexp = <FILE>;
-    chomp $regexp;
-
-    my $content;
-    {
-      local $/ = undef;
-      $content = <FILE>;
-    }
-    close FILE;
-    defined($content) or $content = '';
-    $tomcatconf_content =~ s!$regexp!$content!gm or $tomcatconf_content .= $content;
-  }
-
-  if ($tomcatconf_content ne $tomcatconf_content_orig) {
-    Spacewalk::Setup::backup_file($tomcatdir, $tomcatname);
-
-    open FILE, '>', $tomcatfile
-      or die "Error opening [$tomcatfile]: $!\n";
-    chmod 0644, $tomcatfile;
-    print FILE $tomcatconf_content;
-    close FILE;
-  }
-}
-
-  my $serverxmlfile = "$tomcatdir/server.xml";
-  {
-    local $/ = undef;
-    local *FILE;
-    open FILE, '<', $serverxmlfile
-      or die "Error opening [$serverxmlfile]: $!\n";
-    my $serverxml_content_orig = <FILE>;
-    close FILE;
-
-    my $template = Spacewalk::Setup::SHARED_DIR . '/server.xml.xsl';
-    my $serverxml_content = qx{/usr/bin/xsltproc $template $serverxmlfile};
-    die "There was an error running xsltproc\n" if $?;
-    if ($serverxml_content ne $serverxml_content_orig) {
-      Spacewalk::Setup::backup_file($serverxmlfile =~ m!^(.+)/(.+)$!);
-
-      open FILE, '>', $serverxmlfile
-        or die "Error opening [$serverxmlfile]: $!\n";
-      chmod 0644, $serverxmlfile;
-      print FILE $serverxml_content;
-      close FILE;
-    }
-  }
-
-  my $web_patch = Spacewalk::Setup::SHARED_DIR."/web.xml.patch";
-  my $command = "patch --silent --directory=$tomcatdir --forward -p1 --input=$web_patch";
-  system($command." --dry-run");
-  if (not $?){
-      Spacewalk::Setup::backup_file($tomcatdir, 'web.xml');
-
-      system($command);
-  }
+  Spacewalk::Setup::system_or_exit(['/usr/bin/spacewalk-setup-tomcat', ''], 43,
+	       'Could not setup tomcat.');
   return;
 }
 

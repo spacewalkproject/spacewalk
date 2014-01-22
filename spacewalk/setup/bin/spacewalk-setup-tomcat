@@ -1,0 +1,186 @@
+#!/usr/bin/perl
+#
+# Copyright (c) 2014 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+
+use strict;
+use Spacewalk::Setup;
+use File::Spec;
+
+use constant ORACLE_LDCONF    => "/etc/ld.so.conf.d/oracle-instantclient-11.2.conf";
+use constant TOMCAT_PAM_LDAP  => "/lib{64,}/security/pam_ldap.so";
+use constant TOMCAT_JAVA_OPTS =>
+        File::Spec->catfile(Spacewalk::Setup::SHARED_DIR, "tomcat.java_opts");
+
+sub java_opts {
+  my $ret = '';
+  if (-r TOMCAT_JAVA_OPTS) {
+    open F, '<', TOMCAT_JAVA_OPTS
+                 or die "Error reading [" + TOMCAT_JAVA_OPTS + "]: $!\n";
+    $ret = <F>;
+    close(F);
+    chomp($ret);
+    $ret = qq{JAVA_OPTS="$ret"\n};
+  }
+  return $ret;
+}
+
+sub ld_preload {
+  # To address bug 623115/627859, we need to override the ldap_* symbols
+  # in libclntsh.so* upon tomcat* startup with those from standard library.
+  my $ret = '';
+  if (-r ORACLE_LDCONF) {
+    for my $lib (glob TOMCAT_PAM_LDAP) {
+      if (-f $lib) {
+        my $out = qx{ldd $lib 2> /dev/null};
+        $ret = "LD_PRELOAD=$1\n" if $out =~ /^\s+libldap\S+\s+=>\s+(\S+)/m;
+        last;
+      }
+    }
+  }
+  return $ret;
+}
+
+sub ld_library_path {
+  my $ret = '';
+  if (-r ORACLE_LDCONF) {
+    open F, '<', ORACLE_LDCONF
+                 or die "Error reading [" + ORACLE_LDCONF + "]: $!\n";
+    $ret = "LD_LIBRARY_PATH=" . <F>;
+    close(F);
+  }
+  return $ret;
+}
+
+sub setup_tomcat {
+  my %macros = (JAVA_OPTS       => java_opts(),
+                LD_PRELOAD      => ld_preload(),
+                LD_LIBRARY_PATH => ld_library_path(),
+                );
+
+  my ($tomcatvol, $tomcatdir, $tomcatname);
+
+  for my $conf_glob ("/etc/sysconfig/tomcat{5,6,}", "/etc/tomcat*/tomcat*.conf") {
+    my ($conf_vol, $conf_dir, $conf_file) = File::Spec->splitpath($conf_glob);
+    my ($tomcatconf_content_orig, $tomcatconf_content);
+    my @tomcat_confs = grep { -f $_ } glob($conf_glob);
+    if (@tomcat_confs < 1) {
+      die "Couldn't find tomcat config file ($conf_glob).\n";
+    } elsif (@tomcat_confs > 1) {
+      die "Multiple tomcat config files found:\n  @tomcat_confs\nNot sure which tomcat to use.\n";
+    }
+
+    my $tomcatfile = $tomcat_confs[0];
+    ($tomcatvol, $tomcatdir, $tomcatname) = File::Spec->splitpath($tomcatfile);
+
+    {
+      open FILE, '<', $tomcatfile
+        or die "Error opening [$tomcatfile]: $!\n";
+      local $/ = undef;
+      $tomcatconf_content = <FILE>;
+      $tomcatconf_content_orig = $tomcatconf_content;
+      close FILE;
+    }
+
+    for my $file (glob Spacewalk::Setup::SHARED_DIR . "/$conf_file.[0-9]") {
+      open FILE, '<', $file or die "Error reading [$file]: $!\n";
+      my $regexp = <FILE>;
+      chomp $regexp;
+
+      my $content;
+      {
+        local $/ = undef;
+        $content = <FILE>;
+      }
+      close FILE;
+      if (defined($content)) {
+        for my $key (keys %macros) {
+          $content =~ s/\@$key\@(\n)?/$macros{$key}/;
+        }
+      } else {
+        $content = '';
+      }
+      $tomcatconf_content =~ s!$regexp!$content!gm or $tomcatconf_content .= $content;
+    }
+
+    if ($tomcatconf_content ne $tomcatconf_content_orig) {
+      Spacewalk::Setup::backup_file($tomcatdir, $tomcatname);
+
+      open FILE, '>', $tomcatfile
+        or die "Error opening [$tomcatfile]: $!\n";
+      chmod 0644, $tomcatfile;
+      print FILE $tomcatconf_content;
+      close FILE;
+    }
+  }
+
+  my $serverxmlfile = "$tomcatdir/server.xml";
+  {
+    local $/ = undef;
+    local *FILE;
+    open FILE, '<', $serverxmlfile
+      or die "Error opening [$serverxmlfile]: $!\n";
+    my $serverxml_content_orig = <FILE>;
+    close FILE;
+
+    my $template = Spacewalk::Setup::SHARED_DIR . '/server.xml.xsl';
+    my $serverxml_content = qx{/usr/bin/xsltproc $template $serverxmlfile};
+    die "There was an error running xsltproc\n" if $?;
+    if ($serverxml_content ne $serverxml_content_orig) {
+      Spacewalk::Setup::backup_file($serverxmlfile =~ m!^(.+)/(.+)$!);
+
+      open FILE, '>', $serverxmlfile
+        or die "Error opening [$serverxmlfile]: $!\n";
+      chmod 0644, $serverxmlfile;
+      print FILE $serverxml_content;
+      close FILE;
+    }
+  }
+
+  my $web_patch = Spacewalk::Setup::SHARED_DIR."/web.xml.patch";
+  my $command = "patch --silent --directory=$tomcatdir --forward -p1 --input=$web_patch";
+  system($command." --dry-run");
+  if (not $?){
+      Spacewalk::Setup::backup_file($tomcatdir, 'web.xml');
+
+      system($command);
+  }
+  return;
+}
+
+setup_tomcat();
+
+=head1 NAME
+
+spacewalk-setup-tomcat - utility for configuring tomcat service to work with
+Spacewalk / Satellite
+
+=head1 SYNOPSIS
+
+B<spacewalk-setup-tomcat>
+
+=head1 DESCRIPTION
+
+B<spacewalk-setup-tomcat> is a utility for configuring tomcat to work
+with Spacewalk / Satellite. The script modifies existing tomcat configuration,
+especially LD_LIBRARY_PATH, LD_PRELOAD and JAVA_OPTS variables, to work with
+specified database backend.
+
+Ordinarily, spacewalk-setup-tomcat is called by spacewalk-setup(1) during
+initial Spacewalk / Satellite configuration or upgrade.
+
+=head1 SEE ALSO
+
+B<spacewalk-setup>(1) - Spacewalk setup program
+
+=cut
