@@ -40,7 +40,7 @@ public class UserCredentialsEditAction extends RhnAction {
     private static final String PARAM_USER = "studio_user";
     private static final String PARAM_KEY = "studio_key";
     private static final String PARAM_URL = "studio_url";
-    private static final String DEFAULT_URL = "http://susestudio.com";
+    private static final String DEFAULT_URL = "https://susestudio.com";
 
     /** {@inheritDoc} */
     @Override
