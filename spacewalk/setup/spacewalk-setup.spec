@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.1.8
+Version:        2.1.9
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -105,6 +105,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Jan 22 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.9-1
+- modified tomcat setup to work also on Fedora 20
+
 * Tue Jan 14 2014 Matej Kollar <mkollar@redhat.com> 2.1.8-1
 - Updating the copyright years info
 
