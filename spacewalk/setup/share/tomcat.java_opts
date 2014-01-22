@@ -1,1 +1,1 @@
--ea -Xms256m -Xmx256m -Djava.awt.headless=true -Dorg.xml.sax.driver=org.apache.xerces.parsers.SAXParser -Dorg.apache.tomcat.util.http.Parameters.MAX_COUNT=1024 -XX:MaxNewSize=256 -XX:-UseConcMarkSweepGC
+-ea -Xms256m -Xmx256m -Djava.awt.headless=true -Dorg.xml.sax.driver=org.apache.xerces.parsers.SAXParser -Dorg.apache.tomcat.util.http.Parameters.MAX_COUNT=1024 -XX:MaxNewSize=256 -XX:-UseConcMarkSweepGC -Dnet.sf.ehcache.skipUpdateCheck=true
