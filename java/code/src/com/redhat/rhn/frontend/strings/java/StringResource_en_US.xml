@@ -326,6 +326,12 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Action Chains">
+        <source>Action Chains</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="cant have spaces">
         <source>do spaces work?</source>
         <context-group name="ctx">

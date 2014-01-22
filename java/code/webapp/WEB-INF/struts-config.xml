@@ -1965,6 +1965,12 @@
         <forward name="success" path="/schedule/ArchivedActions.do" redirect="true"/>
     </action>
 
+    <action path="/schedule/ActionChains" scope="request"
+        input="/WEB-INF/pages/schedule/actionchains.jsp"
+        type="com.redhat.rhn.frontend.action.schedule.ActionChainListAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/schedule/actionchains.jsp"/>
+    </action>
 
      <action path="/schedule/PackageList"
         scope="request"
