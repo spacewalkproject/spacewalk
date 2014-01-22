@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 b89b116bf39a095c05c4ae0f9813fd43f0437132
+-- oracle equivalent source sha1 e6fa92f40cfb0ac1645f53ecad5f2a8f99a616f7
 --
 -- Copyright (c) 2008--2013 Red Hat, Inc.
 --
@@ -1124,15 +1124,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
     as $$
     -- procedure refreshes rows for name_id = package_name_id_in or
     -- all rows if package_name_id_in is null
-    declare
-        channel_lm timestamptz;
     begin
-        select last_modified
-          into channel_lm
-          from rhnChannel
-         where id = channel_id_in
-           for update;
-
         delete from rhnChannelNewestPackage
               where channel_id = channel_id_in
                 and (package_name_id_in is null

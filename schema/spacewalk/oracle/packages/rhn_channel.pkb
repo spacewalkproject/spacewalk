@@ -1102,15 +1102,7 @@ IS
     is
     -- procedure refreshes rows for name_id = package_name_id_in or
     -- all rows if package_name_id_in is null
-    declare
-        channel_lm timestamp with local time zone;
     begin
-        select last_modified
-          into channel_lm
-          from rhnChannel
-         where id = channel_id_in
-           for update;
-
         delete from rhnChannelNewestPackage
               where channel_id = channel_id_in
                 and (package_name_id_in is null
