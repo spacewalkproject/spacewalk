@@ -1,3 +1,2 @@
 [buildconfig]
 builder = spacewalkx.builderx.NoTgzBuilder
-tagger = tito.tagger.ReleaseTagger
