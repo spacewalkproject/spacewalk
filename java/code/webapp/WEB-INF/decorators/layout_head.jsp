@@ -40,8 +40,12 @@
     <link rel="stylesheet" href="/css/jquery.timepicker.css" />
     <link rel="stylesheet" href="/css/bootstrap-datepicker.css" />
 
+    <link rel="stylesheet" href="/javascript/select2/select2.css" />
+    <link rel="stylesheet" href="/javascript/select2/select2-bootstrap.css" />
+
     <script src="/javascript/jquery.js"></script>
     <script src="/javascript/bootstrap.js"></script>
+    <script src="/javascript/select2/select2.js"></script>
     <script src="/javascript/spacewalk-essentials.js"></script>
     <script src="/javascript/spacewalk-checkall.js"></script>
 

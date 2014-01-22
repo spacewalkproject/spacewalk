@@ -123,6 +123,31 @@
           <context context-type="sourcefile">None.  Test message</context>
         </context-group>
       </trans-unit>
+      <!-- schedule-options.jspf -->
+      <trans-unit id="schedule-options.date">
+        <source>Schedule action for no sooner than:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">schedule-options.jspf</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="schedule-options.selection">
+        <source>Date Selection</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">schedule-options.jspf</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="schedule-options.action-chain">
+        <source>Add to Action Chain:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">schedule-options.jspf</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="schedule-options.placeholder">
+        <source>new action chain</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">schedule-options.jspf</context>
+        </context-group>
+      </trans-unit>
       <!--# Struts Validator Error Messages-->
       <trans-unit id="errors.suffix">
         <source>&lt;/li&gt;</source>
