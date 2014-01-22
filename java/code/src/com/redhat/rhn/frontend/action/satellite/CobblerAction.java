@@ -53,7 +53,8 @@ public class CobblerAction extends RhnAction {
             ValidatorError ve;
             try {
                 ve = new CobblerSyncCommand(ctx.getLoggedInUser()).store();
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 this.getStrutsDelegate().addError(errors,
                                                   "cobbler.jsp.xmlrpc.fail",
                                                   ex.getLocalizedMessage());
