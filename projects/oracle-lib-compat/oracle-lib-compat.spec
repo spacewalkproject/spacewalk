@@ -81,18 +81,6 @@ echo 'diag_adr_enabled = off' > $RPM_BUILD_ROOT/usr/lib/oracle/11.2/client/lib/n
 mkdir -p $RPM_BUILD_ROOT/%{_javadir}
 ln -s ../../%{_lib}/oracle/%{icdir}/client/lib/ojdbc6.jar $RPM_BUILD_ROOT/%{_javadir}/ojdbc14.jar
 
-%if 0%{?rhel} && 0%{?rhel} < 6
-%define tomcatname tomcat5
-%else
-%if 0%{?fedora}
-%define tomcatname tomcat
-%else
-%define tomcatname tomcat6
-%endif
-%endif
-install -d $RPM_BUILD_ROOT%{_datadir}/%{tomcatname}/bin
-install tomcat-setenv.sh $RPM_BUILD_ROOT%{_datadir}/%{tomcatname}/bin/setenv.sh
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -107,7 +95,6 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/ld.so.conf.d/oracle-instantclient-%{icdir}.conf
 %config(noreplace) %{_sysconfdir}/ld.so.conf.d/oracle-xe.conf
 %{_javadir}/ojdbc14.jar
-%{_datadir}/%{tomcatname}/bin/setenv.sh
 
 %post
 ldconfig
