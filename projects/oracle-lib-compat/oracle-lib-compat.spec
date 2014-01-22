@@ -1,5 +1,5 @@
 Name:           oracle-lib-compat
-Version:        11.2.0.8
+Version:        11.2.0.9
 Release:        1%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install
 Group:          Applications/Multimedia
@@ -105,6 +105,10 @@ find %{_prefix}/lib/oracle/%{icdir} \
         | xargs execstack -c
 
 %changelog
+* Wed Jan 22 2014 Michael Mraka <michael.mraka@redhat.com> 11.2.0.9-1
+- LD_PRELOAD setup has been moved to spacewalk-setup-tomcat
+- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
+
 * Tue Dec 04 2012 Jan Pazdziora 11.2.0.8-1
 - On Fedoras, start to use tomcat >= 7.
 
