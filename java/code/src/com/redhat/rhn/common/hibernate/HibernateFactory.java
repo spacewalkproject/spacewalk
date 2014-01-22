@@ -29,7 +29,6 @@ import org.hibernate.LockMode;
 import org.hibernate.MappingException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Version;
 import org.hibernate.metadata.ClassMetadata;
 
 import java.io.ByteArrayOutputStream;
@@ -401,7 +400,6 @@ public abstract class HibernateFactory {
 
         try {
             session = HibernateFactory.getSession();
-            String hVersion = HibernateFactory.getHibernateVersion().substring(0, 3);
 
             retval = session.get(clazz, id, LockMode.UPGRADE);
         }
