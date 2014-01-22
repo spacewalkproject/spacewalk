@@ -65,6 +65,10 @@ public class RhnSetDecl {
     public static final RhnSetDecl ACTIONS_UNSCHEDULE = make(
             "unscheduleaction", SetCleanup.UNOWNED_SERVERS);
 
+    // set of Action Chains by id
+    public static final RhnSetDecl ACTION_CHAINS = make(
+            "action_chains", SetCleanup.NOOP);
+
     // set of channels by channel_id
     public static final RhnSetDecl CHANNELS_FOR_ERRATA = make(
             "channels_for_errata", SetCleanup.UNOWNED_CHANNELS);

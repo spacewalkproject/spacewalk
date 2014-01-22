@@ -2264,6 +2264,62 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/schedule/ArchivedActions</context>
         </context-group>
       </trans-unit>
+      <!-- actionchains.jsp -->
+      <trans-unit id="actionchains.jsp.title">
+        <source>Action Chain List</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChains</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchains.jsp.summary">
+        <source>Below is a list of all Action Chains available to the current user. Click on a label to view or edit it.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChains</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchains.jsp.summarydetail">
+        <source>
+            You can create a new Action Chain by scheduling any supported operation, such as
+            &lt;a href=&quot;/rhn/ssm/PackageInstall.do&quot;&gt;installing&lt;/a&gt; or
+            &lt;a href=&quot;/rhn/ssm/PackageUpgrade.do&quot;&gt;upgrading&lt;/a&gt; a package, running a
+            &lt;a href=&quot;/rhn/systems/ssm/provisioning/RemoteCommand.do&quot;&gt;remote command&lt;/a&gt; or
+            &lt;a href=&quot;/rhn/systems/ssm/config/Deploy.do&quot;&gt;deploying a configuration file&lt;/a&gt;.
+            Both System Set Manager and single system actions are supported.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChains</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchains.jsp.label">
+        <source>Label</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChains</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchains.jsp.created">
+        <source>Created</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChains</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchains.jsp.modified">
+        <source>Modified</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChains</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchains.jsp.delete">
+        <source>Delete Action Chains</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChains</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchains.jsp.empty">
+        <source>No Action Chains found.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChains</context>
+        </context-group>
+      </trans-unit>
       <!-- packagelist.jsp -->
       <trans-unit id="packagelist.jsp.header.packages">
         <source>Packages</source>
