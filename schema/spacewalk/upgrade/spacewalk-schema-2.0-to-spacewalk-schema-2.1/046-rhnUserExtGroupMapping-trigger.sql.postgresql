@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 7209f810f513f6a5c97bd1ec2ddd7af1199f61b1
+-- oracle equivalent source sha1 d32daad719c4e7a830430dbcfc6aaf215268d579
 --
 -- Copyright (c) 2014 Red Hat, Inc.
 --
@@ -17,6 +17,9 @@
 create or replace function rhn_userextgrmap_mod_trig_fun() returns trigger as
 $$
 begin
+        if new.id is null then
+            new.id := nextval('rhn_userextgroupmap_seq');
+        end if;
         new.modified := current_timestamp;
         return new;
 end;

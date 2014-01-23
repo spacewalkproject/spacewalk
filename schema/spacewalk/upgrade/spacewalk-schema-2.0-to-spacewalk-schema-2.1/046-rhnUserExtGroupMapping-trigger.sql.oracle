@@ -18,6 +18,9 @@ rhn_userextgrmap_mod_trig
 before insert or update on rhnUserExtGroupMapping
 for each row
 begin
+         if :new.id is null then
+             select rhn_userextgroupmap_seq.nextval into :new.id from dual;
+         end if;
         :new.modified := current_timestamp;
 end;
 /
