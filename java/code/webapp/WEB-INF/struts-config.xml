@@ -4002,6 +4002,14 @@
                  path="/systems/SystemGroupList.do"/>
     </action>
 
+    <action path="/groups/ProbesList"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.groups.ProbesListAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/groups/probes.jsp"/>
+    </action>
+
      <action path="/systems/details/configuration/ViewModifyCentralPaths"
          scope="request"
          type="com.redhat.rhn.frontend.action.configuration.sdc.ViewModifyPathsAction"

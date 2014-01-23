@@ -319,6 +319,31 @@ ORDER BY p.description]]>
   </query>
 </mode>
 
+<mode name="system_groups_probes" class="com.redhat.rhn.frontend.dto.monitoring.ServerProbeDto">
+  <query params="group_id">
+SELECT  S.id server_id,
+        S.name server_name,
+        P.recid id,
+        P.description,
+        PS.state,
+        PS.output,
+        PS.last_check last_check
+  FROM  rhnServer S, rhn_probe P, rhn_probe_state PS
+ WHERE  P.recid = PS.probe_id
+   AND  S.id = (SELECT host_id from rhn_check_probe where probe_id = P.recid)
+<!-- In group -->
+   AND  exists (SELECT 1 from rhnServerGroupMembership SGM
+                     WHERE SGM.server_id = s.ID
+                     AND SGM.group_id = :group_id)
+<!-- Entitled -->
+   AND  EXISTS (SELECT 1 FROM rhnServerFeaturesView SFV
+                 WHERE SFV.server_id = S.id
+                   AND SFV.label = 'ftr_system_grouping')
+   AND  P.probe_type = 'check'
+ORDER BY server_name, P.description
+  </query>
+</mode>
+
 <mode name="probes_in_server_with_alerts" class="com.redhat.rhn.frontend.dto.monitoring.ServerProbeDto">
   <query params="sid"><![CDATA[
 SELECT p.recid id, p.description,

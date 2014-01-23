@@ -7,7 +7,7 @@
 		           styleclass="center"
 		           headerclass="thin-column">
 
-			<c:out value="<a href=\"/network/systems/groups/probe_list.pxt?sgid=${current.id}\">" escapeXml="false" />
+			<c:out value="<a href=\"/rhn/groups/ProbesList.do?sgid=${current.id}\">" escapeXml="false" />
 
             <c:if test="${current.monitoringStatus == 'CRITICAL'}">
                 <rhn:icon type="monitoring-crit" title="systemlist.jsp.probecritical" />

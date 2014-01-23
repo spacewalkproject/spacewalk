@@ -15,6 +15,8 @@
 
   <rhn-tab name="Admins" url="/rhn/groups/AdminList.do" acl="user_role(system_group_admin)" />
 
-  <rhn-tab name="Probes" url="/network/systems/groups/probe_list.pxt" acl="org_entitlement(rhn_monitor)" />
+  <rhn-tab name="Probes" acl="org_entitlement(rhn_monitor)">
+    <rhn-tab-url>/rhn/groups/ProbesList.do</rhn-tab-url>
+  </rhn-tab> 
 
 </rhn-navi-tree>

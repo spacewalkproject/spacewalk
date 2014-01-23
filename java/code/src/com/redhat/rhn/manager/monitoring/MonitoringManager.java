@@ -37,6 +37,7 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
+import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.monitoring.ServerProbeDto;
@@ -622,6 +623,25 @@ public class MonitoringManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Monitoring_queries", "probes_in_server");
         Map params = new HashMap();
         params.put("sid", serverIn.getId());
+        Map elabParams = new HashMap();
+        return makeDataResultNoPagination(params, elabParams, m);
+
+    }
+
+    /**
+     * Get the Probes running against a system group.
+     *
+     * @param currentUser  who is requesting the probes
+     * @param sg group who's probes you want to see
+     * @param pc for pagnation.  Null if you want them all.
+     * @return DataResult of ServerProbeDto objects
+     */
+    public DataResult<ServerProbeDto> probesForSystemGroup(User currentUser,
+            ServerGroup sg, PageControl pc) {
+
+        SelectMode m = ModeFactory.getMode("Monitoring_queries", "system_groups_probes");
+        Map params = new HashMap();
+        params.put("group_id", sg.getId());
         Map elabParams = new HashMap();
         return makeDataResultNoPagination(params, elabParams, m);
 

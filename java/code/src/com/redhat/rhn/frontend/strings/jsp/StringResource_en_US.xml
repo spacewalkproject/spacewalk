@@ -7661,6 +7661,12 @@ organization management tools if you choose to remove this role from your login.
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbesList.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="probes.groups.jsp.summary">
+        <source>This list shows the Probes that are assigned to systems in this system group.  This list includes individual System Probes as well as Probes that are part of Probe Suites used by this System.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/groups/ProbesList.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="probes.index.jsp.description">
         <source>Probe Description</source>
         <context-group name="ctx">
@@ -7708,6 +7714,12 @@ organization management tools if you choose to remove this role from your login.
         <source>No probes assigned to this system.  Click the "create new probe" link above to add a Probe to this system.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbesList.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="probes.groups.jsp.noprobes">
+        <source>No probes assigned to this system group.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/groups/ProbesList.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="probes.index.jsp.toolbar">
