@@ -80,7 +80,12 @@ public class DeleteCustomDataAction extends RhnAction {
             request.setAttribute(CIKID_PARAM, cikid);
             request.setAttribute(LABEL_PARAM, cdv.getKey().getLabel());
             request.setAttribute(DESC_PARAM, cdv.getValue());
-            request.setAttribute(CREATOR_PARAM, cdv.getCreator().getLogin());
+            if (cdv.getCreator() != null) {
+                request.setAttribute(CREATOR_PARAM, cdv.getCreator().getLogin());
+            }
+            else {
+                request.setAttribute(CREATOR_PARAM, "");
+            }
             request.setAttribute(CREATED_PARAM, cdv.getCreated());
             if (cdv.getLastModifier() != null) {
                 request.setAttribute(LAST_MODIFIER_PARAM, cdv.getLastModifier().getLogin());
