@@ -226,6 +226,7 @@ class Packages:
             }
             try:
                 h.execute_bulk(package_data)
+                rhnSQL.commit()
             except rhnSQL.SQLSchemaError, e:
                 # LOOKUP_PACKAGE_ARCH failed
                 if e.errno == 20243:
