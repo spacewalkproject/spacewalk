@@ -994,7 +994,7 @@ public class SystemHandler extends BaseHandler {
      * with the given name are installed on the server.
      */
     private List packagesToCheck(Server server, String name) throws NoSuchPackageException {
-        DataResult installed = SystemManager.installedPackages(server.getId());
+        DataResult installed = SystemManager.installedPackages(server.getId(), false);
 
         List toCheck = new ArrayList();
         // Get a list of packages with matching name
@@ -1086,7 +1086,7 @@ public class SystemHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
-        DataResult packages = SystemManager.installedPackages(server.getId());
+        DataResult packages = SystemManager.installedPackages(server.getId(), false);
 
         /*
          * Loop through the packages for this system and check each attribute. Use
@@ -1400,7 +1400,7 @@ public class SystemHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
-        DataResult dr = SystemManager.installedPackages(server.getId());
+        DataResult dr = SystemManager.installedPackages(server.getId(), false);
         return dr.toArray();
     }
 
