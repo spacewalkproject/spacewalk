@@ -105,6 +105,8 @@ def _process_params(args, filename, results_dir=None):
             '--fetch-remote-resources': 0,
             '--datastream-id': 1,
             '--xccdf-id': 1,
+            '--tailoring-id': 1,
+            '--tailoring-file': 1,
             }
         args = args.split(' ')
         i = 0

@@ -34,7 +34,18 @@ Authors:
         </xsl:attribute>
 
         <xsl:variable name="profileId" select="cdf:TestResult[1]/cdf:profile/@idref"/>
-        <xsl:apply-templates select="cdf:Profile[@id = $profileId]"/>
+        <xsl:choose>
+            <xsl:when test="cdf:Profile[@id = $profileId]">
+                <xsl:apply-templates select="cdf:Profile[@id = $profileId]"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <profile title="Tailored profile">
+                    <xsl:attribute name="id">
+                         <xsl:value-of select="$profileId"/>
+                    </xsl:attribute>
+                </profile>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:apply-templates select="cdf:TestResult[1]"/>
     </xsl:template>
 
