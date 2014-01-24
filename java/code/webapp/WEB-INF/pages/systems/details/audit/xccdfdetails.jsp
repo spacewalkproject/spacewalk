@@ -16,18 +16,20 @@
   <c:choose>
     <c:when test="${not empty testResult.comparableId}">
       <a href="/rhn/audit/scap/DiffSubmit.do?first=${testResult.comparableId}&second=${testResult.id}&view=changed">
-         <c:when test="${testResult.diffIcon == 'checked'}" >
+        <c:choose>
+          <c:when test="${testResult.diffIcon == 'checked'}" >
             <rhn:icon type="system-ok" title="scapdiff.jsp.i.checked" />
-         </c:when>
-         <c:when test="${testResult.diffIcon == 'alert'}" >
+          </c:when>
+          <c:when test="${testResult.diffIcon == 'alert'}" >
             <rhn:icon type="system-warn" title="scapdiff.jsp.i.alert" />
-         </c:when>
-         <c:when test="${testResult.diffIcon == 'error'}" >
+          </c:when>
+          <c:when test="${testResult.diffIcon == 'error'}" >
             <rhn:icon type="system-crit" title="scapdiff.jsp.i.error" />
-         </c:when>
-         <c:otherwise>
+          </c:when>
+          <c:otherwise>
             <rhn:icon type="system-unknown" title="system.audit.xccdfdetails.jsp.nodiff" />
-         </c:otherwise>
+          </c:otherwise>
+        </c:choose>
         <bean:message key="system.audit.xccdfdetails.jsp.diff"/>
       </a>
     </c:when>
