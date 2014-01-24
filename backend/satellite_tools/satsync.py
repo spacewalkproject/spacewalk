@@ -1077,7 +1077,10 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
             for pid in pids:
                 # XXX Catch errors
-                if not package_collection.has_package(pid):
+                if (not package_collection.has_package(pid)
+                    or package_collection.get_package(pid)['last_modified']
+                        != short_package_collection.get_package(pid)
+                        ['last_modified']):
                     # not in the cache
                     mp.append(pid)
 
@@ -1644,7 +1647,9 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         batch = []
         for pid in chunk:
             package = package_collection.get_package(pid)
-            if package is None:
+            if (package is None or package['last_modified']
+                    != short_package_collection.get_package(pid)
+                    ['last_modified']):
                 # not in the cache
                 raise Exception(_("Package Not Found in Cache, Clear the Cache to \
 		                 Regenerate it."))
@@ -1704,10 +1709,9 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             errata_file_source_package = errata_file.get('source-package')
             if errata_file['file_type'] == 'RPM' and \
                     errata_file_package is not None:
-                try:
+                package = None
+                if sp_coll.has_package(errata_file_package):
                     package = sp_coll.get_package(errata_file_package)
-                except KeyError:
-                    package = None
                 errata_file['pkgobj'] = package
             elif errata_file['file_type'] == 'SRPM' and \
                     errata_file_source_package is not None:
