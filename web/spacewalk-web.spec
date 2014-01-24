@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.49
+Version: 2.1.50
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,12 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Jan 24 2014 Jan Dobes 2.1.50-1
+- delete old pages
+- porting system group monitoring probes page to java
+- remove unused perl code after porting reboot_confirm.pxt to java
+- port reboot_confirm.pxt from perl to java
+
 * Thu Jan 16 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.49-1
 - 1053787 - fixed icon name
 - 1053787 - point links to new java ProbesList pages
