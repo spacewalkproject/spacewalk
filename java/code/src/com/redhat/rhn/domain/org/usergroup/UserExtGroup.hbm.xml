@@ -17,9 +17,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="modified" column="modified" type="timestamp"
             insert="false" update="false" />
 
-        <set name="roles" lazy="true" table="rhnUserExtGroupMapping" cascade="all">
+        <set name="roles" lazy="true" table="rhnUserExtGroupMapping" outer-join="false">
             <key column="ext_group_id"/>
-            <many-to-many class="com.redhat.rhn.domain.role.RoleImpl" column="int_group_type_id"/>
+            <many-to-many class="com.redhat.rhn.domain.role.RoleImpl" column="int_group_type_id" outer-join="false"/>
         </set>
     </class>
 

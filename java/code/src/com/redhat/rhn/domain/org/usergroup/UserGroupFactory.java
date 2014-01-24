@@ -114,6 +114,14 @@ public class UserGroupFactory extends HibernateFactory {
     }
 
     /**
+     * delete UserExtGroup object
+     * @param extGroup external group
+     */
+    public static void delete(UserExtGroup extGroup) {
+        singleton.removeObject(extGroup);
+    }
+
+    /**
      * lookup function to search for external groups
      * @param labelIn external group label
      * @return external group object

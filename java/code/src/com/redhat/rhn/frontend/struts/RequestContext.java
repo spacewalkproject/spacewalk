@@ -494,6 +494,22 @@ public class RequestContext {
     }
 
     /**
+     * Get the parameter <code>paramName</code> from the request
+     * A BadParameterException is thrown if the
+     * parameter is not present in the request or is empty
+     * @param paramName the name of the parameter
+     * @return the parameter value converted to a <code>Long</code>
+     */
+    public Long getRequiredParamAsLong(String paramName) {
+        Long p = getParamAsLong(paramName);
+        if (p == null) {
+            throw new BadParameterException("The parameter " + paramName +
+            " is required.");
+        }
+        return p;
+    }
+
+    /**
      * If this current Request includes a parameter to indicate the User is attempting
      * to produce an export of viewable data then return true.
      *

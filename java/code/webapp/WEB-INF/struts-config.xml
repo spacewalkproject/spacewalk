@@ -328,6 +328,10 @@
             <form-property name="role_org_admin" type="java.lang.Boolean"/>
             <form-property name="selected_regular_roles" type="java.lang.String"/>
         </form-bean>
+        <form-bean name="extGroupDeleteForm"
+                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+            <form-property name="submitted" type="java.lang.Boolean"/>
+        </form-bean>
         <form-bean name="packageSearchForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="search_string" type="java.lang.String"/>
@@ -5716,6 +5720,19 @@
       <set-property property="postRequiredIfSubmitted" value="true" />
       <set-property property="acls" value="user_role(satellite_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/multiorg/extgroup_detail.jsp" />
+      <forward name="success"
+               path="/admin/multiorg/ExtAuthRoleMapping.do" redirect="true" />
+    </action>
+
+    <action path="/admin/multiorg/ExtGroupDelete"
+        scope="request"
+        name="extGroupDeleteForm"
+        input="/WEB-INF/pages/admin/multiorg/extgroup_delete.jsp"
+        type="com.redhat.rhn.frontend.action.multiorg.ExtGroupDeleteAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <set-property property="postRequiredIfSubmitted" value="true" />
+      <set-property property="acls" value="user_role(satellite_admin)"/>
+      <forward name="default" path="/WEB-INF/pages/admin/multiorg/extgroup_delete.jsp" />
       <forward name="success"
                path="/admin/multiorg/ExtAuthRoleMapping.do" redirect="true" />
     </action>

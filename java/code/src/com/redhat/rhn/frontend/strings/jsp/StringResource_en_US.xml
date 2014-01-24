@@ -8435,7 +8435,10 @@ Please note that some manual configuration of these scripts may still be require
         <source>Update External Group - {0}</source>
       </trans-unit>
       <trans-unit id="extgroup.jsp.delete">
-        <source>Delete External Group</source>
+        <source>Delete External Group - {0}</source>
+      </trans-unit>
+      <trans-unit id="extgroup.jsp.delete.summary">
+        <source>Following External Group will be deleted.</source>
       </trans-unit>
       <trans-unit id="distchannelmap.jsp.create">
         <source>Create New Distribution Channel Map</source>

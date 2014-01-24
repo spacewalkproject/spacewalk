@@ -88,18 +88,19 @@ public class ExtGroupDetailAction extends RhnAction {
             if (extGroup == null) {
                 extGroup = new UserExtGroup();
             }
-            else {
-                if (!label.equals(extGroup.getLabel())) {
-                    if (UserGroupFactory.lookupExtGroupByLabel(label) != null) {
-                        createErrorMessage(request, "extgrouplabel.already.exists", label);
-                        setupRoles(request, user, extGroup);
-                        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
-                    }
+
+            if (!label.equals(extGroup.getLabel())) {
+                if (UserGroupFactory.lookupExtGroupByLabel(label) != null) {
+                    createErrorMessage(request, "extgrouplabel.already.exists", label);
+                    setupRoles(request, user, extGroup);
+                    return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
                 }
-                extGroup.setLabel(label);
-                extGroup.setRoles(roles);
-                UserGroupFactory.save(extGroup);
             }
+
+            extGroup.setLabel(label);
+            extGroup.setRoles(roles);
+            UserGroupFactory.save(extGroup);
+
 
             if (gid == null) {
                 createSuccessMessage(request, "message.extgroup.created", label);
