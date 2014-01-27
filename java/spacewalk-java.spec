@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.131
+Version: 2.1.132
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jan 27 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.132-1
+- Implement rhn:formatDate that uses moment.js on the client side. It supports
+  also most of fmt:formatDate options.
+
 * Mon Jan 27 2014 Tomas Lestach <tlestach@redhat.com> 2.1.131-1
 - renumber taskomatic classpath entries
 
