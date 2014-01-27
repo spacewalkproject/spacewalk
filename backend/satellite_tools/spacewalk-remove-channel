@@ -297,8 +297,11 @@ def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0, skip_chan
         _delete_srpms(srpms_ids)
         _delete_rpms(rpms_ids)
 
+    _delete_ks_files(channelLabels)
+
     if not justdb and not skip_packages:
         _delete_files(rpms_paths + srpms_paths)
+
 
     # Get the channel ids
     h = rhnSQL.prepare("""
@@ -540,6 +543,26 @@ def _get_package_paths(package_ids, sources=0):
 
     return pdict.keys()
 
+def _delete_ks_files(channel_lables):
+    sql = """
+        select kt.base_path
+        from rhnChannel c
+        left join  rhnKickstartableTree kt on c.id = kt.channel_id
+        where c.label in (%s);
+    """
+
+    params, bind_params = _bind_many(channel_lables)
+    bind_params = string.join(bind_params, ', ')
+    h = rhnSQL.prepare(sql % (bind_params))
+    h.execute(**params)
+    list = h.fetchall_dict()
+
+    for map in list:
+        path = os.path.join(CFG.MOUNT_POINT, str(map['base_path']))
+        if not os.path.exists(path):
+            log_debug(1, "Not removing %s: no such file" % path)
+            continue
+        shutil.rmtree(path)
 
 
 def releaseLOCK():
