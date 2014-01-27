@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.1.20
+Version:    2.1.21
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -86,6 +86,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Jan 27 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.21-1
+- Add a rhn-date tag
+
 * Fri Jan 17 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.20-1
 - Roboto font has been moved to separate package
 - font-awesome has been moved to separate package
