@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.1.11
+Version:        2.1.12
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -105,6 +105,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Jan 27 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.12-1
+- preserve standard library path
+
 * Fri Jan 24 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.11-1
 - add oracle library path directly to commandline
 
