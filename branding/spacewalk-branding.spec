@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.1.21
+Version:    2.1.22
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -86,6 +86,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Jan 27 2014 Matej Kollar <mkollar@redhat.com> 2.1.22-1
+- New less file added to style Inputs. New less file added for the minor fixes
+  of TB3 for spacewalk layout
+
 * Mon Jan 27 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.21-1
 - Add a rhn-date tag
 
