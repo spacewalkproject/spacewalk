@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.132
+Version: 2.1.133
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jan 27 2014 Matej Kollar <mkollar@redhat.com> 2.1.133-1
+- Unstyled Systems/Software/Channels
+- Fixed unstyled form for XCCDF scaner on SSM and single system
+- Fixed scattered form for Systems/Conf/AddFiles/CreateFile
+- Fixed unstyled form: Systems/Software/Pkgs/Profiles/CreateNewProfile
+- give search button an id
+- Make sure that all form fields are correctly aligned
+- Panels added in the html of ipranges.jspf
+- re-organized the HTML to display the in-range inputs correctly
+
 * Mon Jan 27 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.132-1
 - Implement rhn:formatDate that uses moment.js on the client side. It supports
   also most of fmt:formatDate options.
