@@ -150,4 +150,12 @@ public class ActionFormatter {
         return null;
     }
 
+    /**
+     * Returns a localized string that represents objects (packages, errata,
+     * etc.) related to the Action.
+     * @return a descriptive string
+     */
+    public String getRelatedObjectDescription() {
+        return null;
+    }
 }

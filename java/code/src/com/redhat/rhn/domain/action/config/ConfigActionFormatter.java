@@ -15,14 +15,18 @@
 package com.redhat.rhn.domain.action.config;
 
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.action.ActionFormatter;
 import com.redhat.rhn.domain.config.ConfigFile;
+import com.redhat.rhn.domain.config.ConfigFileName;
 import com.redhat.rhn.domain.config.ConfigRevision;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -84,4 +88,34 @@ public class ConfigActionFormatter extends ActionFormatter {
         return buffy.toString();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getRelatedObjectDescription() {
+        Set<ConfigRevisionAction> revisionActions = ((ConfigAction) getAction())
+            .getConfigRevisionActions();
+        List<String> result = new LinkedList<String>();
+        if (revisionActions != null) {
+            for (ConfigRevisionAction revisionAction : revisionActions) {
+                ConfigRevision revision = revisionAction.getConfigRevision();
+                if (revision != null) {
+                    ConfigFile configFile = revision.getConfigFile();
+                    if (configFile != null) {
+                        ConfigFileName configFileName = configFile.getConfigFileName();
+                        if (configFileName != null) {
+                            result.add(
+                                "<a href=\"/rhn/configuration/file/FileDetails.do?cfid=" +
+                                revision.getId().toString() +
+                                "\">" +
+                                StringEscapeUtils.escapeHtml(configFileName.getPath()) +
+                                "</a>"
+                            );
+                        }
+                    }
+                }
+            }
+        }
+        return StringUtil.join(", ", result);
+    }
 }
