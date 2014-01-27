@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.50
+Version: 2.1.51
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Jan 27 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.51-1
+- Add a rhn-date tag
+- Implement rhn:formatDate that uses moment.js on the client side. It supports
+  also most of fmt:formatDate options.
+
 * Fri Jan 24 2014 Jan Dobes 2.1.50-1
 - delete old pages
 - porting system group monitoring probes page to java
