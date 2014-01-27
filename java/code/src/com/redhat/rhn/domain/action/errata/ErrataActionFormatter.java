@@ -18,6 +18,10 @@ import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.action.ActionFormatter;
 import com.redhat.rhn.domain.errata.Errata;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -69,5 +73,24 @@ public class ErrataActionFormatter extends ActionFormatter {
         return retval.toString();
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getRelatedObjectDescription() {
+        Set<Errata> allErrata = ((ErrataAction) this.getAction()).getErrata();
+        List<String> result = new LinkedList<String>();
+        if (allErrata != null) {
+            for (Errata errata : allErrata) {
+                result.add(
+                    "<a href=\"/rhn/errata/details/Details.do?eid=" +
+                    errata.getId().toString() +
+                    "\">" +
+                    StringEscapeUtils.escapeHtml(errata.getAdvisory()) +
+                    "</a>"
+                );
+            }
+        }
+        return StringUtil.join(", ", result);
+    }
 }
