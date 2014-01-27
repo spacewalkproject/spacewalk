@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.129
+Version: 2.1.130
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jan 27 2014 Tomas Lestach <tlestach@redhat.com> 2.1.130-1
+- enhance taskomatic link path to link hibernate-commons-annotations.jar on
+  fc20
+
 * Fri Jan 24 2014 Jan Dobes 2.1.129-1
 - porting system group monitoring probes page to java
 
