@@ -54,7 +54,7 @@ public class ProbesListAction extends RhnAction implements Listable {
 
         return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
-    @Override
+
     public List getResult(RequestContext context) {
         ManagedServerGroup serverGroup = context.lookupAndBindServerGroup();
         return MonitoringManager.getInstance().
