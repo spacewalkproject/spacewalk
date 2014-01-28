@@ -1,0 +1,84 @@
+--- dist/pwstrength-bootstrap-1.0.2.js	2014-01-27 10:20:54.927264579 +0100
++++ dist/pwstrength-bootstrap-1.0.2.js	2014-01-28 09:47:16.720675185 +0100
+@@ -47,7 +47,7 @@ try {
+     };
+
+     validation.wordSimilarToUsername = function (options, word, score) {
+-        var username = $(options.common.usernameField).val();
++        var username = $(options.common.usernameField).val() || $(options.common.usernameField).text();
+         if (username && word.toLowerCase().match(username.toLowerCase())) {
+             options.instances.errors.push(options.ui.spanError(options, "same_as_username"));
+             return score;
+@@ -288,7 +288,7 @@ var ui = {};
+
+     ui.initProgressBar = function (options, $el) {
+         var $container = ui.getContainer(options, $el),
+-            progressbar = "<div class='progress'><div class='";
++            progressbar = "<div class='progress progress-pwstrength'><div class='";
+
+         if (!options.ui.bootstrap2) {
+             progressbar += "progress-";
+@@ -296,9 +296,9 @@ var ui = {};
+         progressbar += "bar'></div></div>";
+
+         if (options.ui.viewports.progress) {
+-            $container.find(options.ui.viewports.progress).append(progressbar);
++            $container.append(progressbar);
+         } else {
+-            $(progressbar).insertAfter($el);
++            $(progressbar).insertAfter('#desiredpassword-input-group');
+         }
+     };
+
+@@ -312,7 +312,7 @@ var ui = {};
+     };
+
+     ui.initVerdict = function (options, $el) {
+-        ui.initHelper(options, $el, "<span class='password-verdict'></span>",
++        ui.initHelper(options, $el, "<span class='password-verdict' style='display:none'></span>",
+                         options.ui.viewports.verdict);
+     };
+
+@@ -334,7 +334,7 @@ var ui = {};
+         if (options.ui.showErrors) {
+             html += "<div><ul class='error-list'>";
+             $.each(options.instances.errors, function (idx, err) {
+-                html += "<li>" + err + "</li>";
++                html += err;
+             });
+             html += "</ul></div>";
+         }
+@@ -343,7 +343,7 @@ var ui = {};
+         $el.popover({
+             html: true,
+             placement: placement,
+-            trigger: "manual",
++            trigger: "focus",
+             content: html
+         });
+         $el.popover("show");
+@@ -364,7 +364,7 @@ var ui = {};
+
+     ui.updateProgressBar = function (options, $el, cssClass, percentage) {
+         var $progressbar = ui.getUIElements(options, $el).$progressbar,
+-            $bar = $progressbar.find(".progress-bar"),
++            $bar = $(".progress-bar"),
+             cssPrefix = "progress-";
+
+         if (options.ui.bootstrap2) {
+@@ -388,7 +388,7 @@ var ui = {};
+         var $errors = ui.getUIElements(options, $el).$errors,
+             html = "";
+         $.each(options.instances.errors, function (idx, err) {
+-            html += "<li>" + err + "</li>";
++            html += err;
+         });
+         $errors.html(html);
+     };
+@@ -542,4 +542,4 @@ var methods = {};
+         return result;
+     };
+ }(jQuery, methods));
+-}(jQuery));
+\ No newline at end of file
++}(jQuery));
