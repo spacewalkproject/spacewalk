@@ -46,7 +46,6 @@
               <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
                 <jsp:param name="widget" value="date"/>
               </jsp:include>
-                <span class="help-block"><bean:message key="${widgetSummary}"/></span>
             </div>
         </div>
         <div class="form-group">
