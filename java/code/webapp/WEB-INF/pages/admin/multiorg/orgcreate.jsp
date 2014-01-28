@@ -38,7 +38,7 @@
                 <div class="col-lg-6">
                     <html:text property="login" size="15"
                                styleClass="form-control"
-                               maxlength="45" styleId="login" />
+                               maxlength="45" styleId="loginname" />
                     <span class="help-block">
                         <strong><bean:message key="tip" /></strong>
                         <bean:message key="org.login.tip" arg0="${rhn:getConfig('java.min_user_len')}" /><br/>
@@ -53,11 +53,16 @@
                     <span name="password-asterisk" class="required-form-field">*</span>:
                 </label>
                 <div class="col-lg-6">
-                    <html:password property="desiredpassword"
-                                   size="15"
-                                   styleClass="form-control"
-                                   maxlength="32"
-                                   styleId="desiredpass" />
+                    <div id="desiredpassword-input-group" class="input-group">
+                        <html:password property="desiredpassword"
+                                       size="15"
+                                       styleClass="form-control"
+                                       maxlength="32"
+                                       styleId="desiredpass" />
+                        <span class="input-group-addon">
+                            <i class="fa fa-times-circle text-danger fa-1-5x" id="desiredtick"></i>
+                        </span>
+                    </div>
                 </div>
             </div>
 
@@ -67,9 +72,24 @@
                     <span name="password-asterisk" class="required-form-field">*</span>:
                 </label>
                 <div class="col-lg-6">
-                    <html:password property="desiredpasswordConfirm" size="15"
-                                   styleClass="form-control"
-                                   maxlength="32" styleId="confirmpass"/>
+                    <div class="input-group">
+                        <html:password property="desiredpasswordConfirm" size="15"
+                                       styleClass="form-control"
+                                       onkeyup="updateTickIcon()"
+                                       maxlength="32" styleId="confirmpass"/>
+                        <span class="input-group-addon">
+                            <i class="fa fa-times-circle text-danger fa-1-5x" id="confirmtick"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <script type="text/javascript" src="/javascript/pwstrength-bootstrap-1.0.2.js"></script>
+            <script type="text/javascript" src="/javascript/spacewalk-pwstrength-handler.js"></script>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Password strength:</label>
+                <div class="col-lg-6" id="pwstrenghtfield">
+                  <!-- progress-bar will attach to this container -->
                 </div>
             </div>
 
@@ -168,6 +188,6 @@
                 }
             }
         </script>
+
     </body>
 </html>
-

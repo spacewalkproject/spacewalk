@@ -2,7 +2,7 @@
 
 <div class="form-group">
     <label class="col-lg-3 control-label"><bean:message key="username.displayname"/></label>
-    <div class="col-lg-6"><c:out escapeXml="true" value="${user.login}" /></div>
+    <div id="loginname" class="col-lg-6 form-control-static"><c:out escapeXml="true" value="${user.login}" /></div>
 </div>
 
 <div class="form-group">
@@ -47,14 +47,33 @@
 <div class="form-group">
     <label class="col-lg-3 control-label"><bean:message key="password.displayname"/></label>
     <div class="col-lg-6">
-        <html:password property="desiredpassword" styleClass="form-control" maxlength="${passwordLength}"/>
+        <div id="desiredpassword-input-group" class="input-group">
+            <html:password property="desiredpassword" styleClass="form-control" maxlength="${passwordLength}"/>
+            <span class="input-group-addon">
+                <i class="fa fa-check-circle text-success fa-1-5x" id="desiredtick"></i>
+            </span>
+        </div>
     </div>
 </div>
 
 <div class="form-group">
     <label class="col-lg-3 control-label"><bean:message key="confirmpass.displayname"/></label>
     <div class="col-lg-6">
-        <html:password property="desiredpasswordConfirm" styleClass="form-control" maxlength="${passwordLength}"/>
+        <div class="input-group">
+            <html:password property="desiredpasswordConfirm" styleClass="form-control" onkeyup="updateTickIcon()" maxlength="${passwordLength}" styleId="confirmpass"/>
+            <span class="input-group-addon">
+                <i class="fa fa-check-circle text-success fa-1-5x" id="confirmtick"></i>
+            </span>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/javascript/pwstrength-bootstrap-1.0.2.js"></script>
+<script type="text/javascript" src="/javascript/spacewalk-pwstrength-handler.js"></script>
+<div class="form-group">
+    <label class="col-lg-3 control-label">Password strength:</label>
+    <div class="col-lg-6" id="pwstrenghtfield">
+      <!-- progress-bar will attach to this container -->
     </div>
 </div>
 

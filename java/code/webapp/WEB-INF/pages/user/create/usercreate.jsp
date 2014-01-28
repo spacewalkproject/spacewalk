@@ -43,21 +43,41 @@
               <tr>
                 <td><label for="login"><rhn:required-field key="desiredlogin"/>:</label></td>
                 <td>
-                  <html:text property="login" styleClass="form-control" maxlength="${loginLength}" styleId="login"/>
+                  <html:text property="login" styleClass="form-control" maxlength="${loginLength}" styleId="loginname"/>
                 </td>
               </tr>
               <tr>
                 <td><label for="desiredpass"><bean:message key="desiredpass" /><span name="password-asterisk"
                       class="required-form-field">*</span>:</td></label>
                 <td>
-                  <html:password property="desiredpassword" styleClass="form-control" size="15" maxlength="${passwordLength}"/>
+                  <div id="desiredpassword-input-group" class="input-group">
+                      <html:password property="desiredpassword" styleClass="form-control" size="15" maxlength="${passwordLength}"/>
+                      <span class="input-group-addon">
+                          <i class="fa fa-times-circle text-danger fa-1-5x" id="desiredtick"></i>
+                      </span>
+                  </div>
                 </td>
               </tr>
               <tr>
                 <td><label for="confirmpass"><bean:message key="confirmpass" /><span name="password-asterisk"
                       class="required-form-field">*</span>:</label></td>
                 <td>
-                  <html:password styleClass="form-control" property="desiredpasswordConfirm" size="15" maxlength="${passwordLength}" styleId="confirmpass"/>
+                  <div class="input-group">
+                      <html:password styleClass="form-control" property="desiredpasswordConfirm" onkeyup="updateTickIcon()" size="15" maxlength="${passwordLength}" styleId="confirmpass"/>
+                      <span class="input-group-addon">
+                          <i class="fa fa-times-circle text-danger fa-1-5x" id="confirmtick"></i>
+                      </span>
+                  </div>
+                </td>
+              </tr>
+              <script type="text/javascript" src="/javascript/pwstrength-bootstrap-1.0.2.js"></script>
+              <script type="text/javascript" src="/javascript/spacewalk-pwstrength-handler.js"></script>
+              <tr>
+                <td><label>Password strength:</label></td>
+                <td>
+                    <div id="pwstrenghtfield">
+                      <!-- progress-bar will attach to this container -->
+                    </div>
                 </td>
               </tr>
               <c:if test="${displaypam == 'true' && account_type != 'create_sat'}">
