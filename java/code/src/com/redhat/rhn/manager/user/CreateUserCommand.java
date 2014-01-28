@@ -21,6 +21,7 @@ import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.validator.ParsedConstraint;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.Address;
 import com.redhat.rhn.domain.user.User;
@@ -31,6 +32,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.regex.Pattern;
 
@@ -48,6 +50,7 @@ public class CreateUserCommand {
     private Address addr;
     private boolean makeOrgAdmin;
     private boolean makeSatAdmin;
+    private Set<Role> roles;
 
     private List<ValidatorError> errors;
     private List<ValidatorError> passwordErrors;
@@ -136,6 +139,11 @@ public class CreateUserCommand {
             user.addRole(RoleFactory.SAT_ADMIN);
         }
         user.setUsePamAuthentication(usePam); //set it back
+        if (roles != null) {
+            for (Role role : roles) {
+                user.addRole(role);
+            }
+        }
         UserManager.storeUser(user); //save the user via hibernate
     }
 
@@ -379,5 +387,21 @@ public class CreateUserCommand {
      */
     public void setMakeSatAdmin(boolean val) {
         this.makeSatAdmin = val;
+    }
+
+
+    /**
+     * @return Returns the roles.
+     */
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+
+    /**
+     * @param rolesIn The roles to set.
+     */
+    public void setRoles(Set<Role> rolesIn) {
+        roles = rolesIn;
     }
 }

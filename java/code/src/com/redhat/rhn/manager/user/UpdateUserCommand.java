@@ -16,6 +16,7 @@ package com.redhat.rhn.manager.user;
 
 import com.redhat.rhn.common.conf.UserDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.user.User;
 
 import org.apache.commons.lang.StringUtils;
@@ -23,6 +24,7 @@ import org.apache.commons.lang.StringUtils;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import javax.mail.internet.AddressException;
@@ -46,7 +48,10 @@ public class UpdateUserCommand {
     private boolean prefixChanged = false;
     private boolean firstNamesChanged = false;
     private boolean lastNameChanged = false;
+    private boolean rolesChanged = false;
     private boolean needsUpdate = false;
+    private Set<Role> roles;
+
 
     /**
      * Constructor
@@ -111,6 +116,12 @@ public class UpdateUserCommand {
 
         if (unencryptedPasswordChanged) {
             user.setPassword(unencryptedPassword);
+        }
+
+        if (rolesChanged) {
+            for (Role role : roles) {
+                user.addRole(role);
+            }
         }
     }
 
@@ -236,6 +247,26 @@ public class UpdateUserCommand {
             lastNameChanged = true;
             needsUpdate = true;
             lastName = lastNameIn;
+        }
+    }
+
+
+    /**
+     * @return Returns the roles.
+     */
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+
+    /**
+     * @param rolesIn The roles to set.
+     */
+    public void setRoles(Set<Role> rolesIn) {
+        if (!rolesIn.equals(user.getRoles())) {
+            rolesChanged = true;
+            needsUpdate = true;
+            roles = rolesIn;
         }
     }
 }

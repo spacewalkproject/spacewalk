@@ -21,6 +21,9 @@ import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.common.SatConfigFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
+import com.redhat.rhn.domain.org.usergroup.UserExtGroup;
+import com.redhat.rhn.domain.org.usergroup.UserGroupFactory;
+import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -40,6 +43,8 @@ import org.apache.struts.action.ActionMapping;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -125,15 +130,25 @@ public class LoginSetupAction extends RhnAction {
                     SatConfigFactory.ORG_ID_FOR_EXT_AUTH);
 
             User remoteUser = null;
-            try {
-                log.info("REMOTE_USER_CUSTOM_N: " +
-                        request.getAttribute("REMOTE_USER_CUSTOM_N"));
-                log.info("REMOTE_USER_GECOS: " +
-                        request.getAttribute("REMOTE_USER_GECOS"));
-                log.info("REMOTE_USER_GROUPS: " +
-                        request.getAttribute("REMOTE_USER_GROUPS"));
+            Set<Role> roles = getRolesFromExtGroups(request);
 
-                remoteUser = UserFactory.lookupByLogin(remoteUserString);
+            log.info("REMOTE_USER_CUSTOM_N: " +
+                    request.getAttribute("REMOTE_USER_CUSTOM_N"));
+            log.info("REMOTE_USER_GECOS: " +
+                    request.getAttribute("REMOTE_USER_GECOS"));
+            log.warn("REMOTE_USER_GROUPS: " +
+                    request.getAttribute("REMOTE_USER_GROUPS"));
+            log.info("REMOTE_USER_GROUP_1: " +
+                    request.getAttribute("REMOTE_USER_GROUP_1"));
+            log.info("REMOTE_USER_GROUP_2: " +
+                    request.getAttribute("REMOTE_USER_GROUP_2"));
+            log.info("REMOTE_USER_GROUP_3: " +
+                    request.getAttribute("REMOTE_USER_GROUP_3"));
+            log.info("REMOTE_USER_GROUP_N: " +
+                    request.getAttribute("REMOTE_USER_GROUP_N"));
+
+                try {
+                    remoteUser = UserFactory.lookupByLogin(remoteUserString);
 
                 if (remoteUser.isDisabled()) {
                     createErrorMessage(request, "account.user.disabled", remoteUserString);
@@ -144,6 +159,7 @@ public class LoginSetupAction extends RhnAction {
                     updateCmd.setFirstNames(firstname);
                     updateCmd.setLastName(lastname);
                     updateCmd.setEmail(email);
+                    updateCmd.setRoles(roles);
                     updateCmd.updateUser();
                     log.warn("Externally authenticated login " + remoteUserString +
                                  " (" + firstname + " " + lastname + ")");
@@ -166,6 +182,7 @@ public class LoginSetupAction extends RhnAction {
                     createCmd.setLastName(lastname);
                     createCmd.setEmail(email);
                     createCmd.setOrg(defaultOrg);
+                    createCmd.setRoles(roles);
                     createCmd.validate();
                     createCmd.storeNewUser();
                     remoteUser = createCmd.getUser();
@@ -194,6 +211,38 @@ public class LoginSetupAction extends RhnAction {
             }
         }
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    }
+
+    private Set<Role> getRolesFromExtGroups(HttpServletRequest requestIn) {
+        Set<Role> roles = new HashSet<Role>();
+        Long nGroups = null;
+        String nGroupsStr = (String) requestIn.getAttribute("REMOTE_USER_GROUP_N");
+        if (nGroupsStr != null) {
+            try {
+                nGroups = Long.parseLong(nGroupsStr);
+            }
+            catch (NumberFormatException nfe) {
+             // do nothing, nGroups stays null
+            }
+        }
+        if (nGroups == null) {
+            log.warn("REMOTE_USER_GROUP_N not set!");
+            return roles;
+        }
+        for (int i = 1; i <= nGroups; i++) {
+            String extGroupName = (String) requestIn.getAttribute("REMOTE_USER_GROUP_" + i);
+            if (extGroupName == null) {
+                log.warn("REMOTE_USER_GROUP_" + i + " not set!");
+                continue;
+            }
+            UserExtGroup extGroup = UserGroupFactory.lookupExtGroupByLabel(extGroupName);
+            if (extGroup == null) {
+                log.warn("No mapping defined for external group '" + extGroupName + "'.");
+                continue;
+            }
+            roles.addAll(extGroup.getRoles());
+        }
+        return roles;
     }
 
     private String decodeFromIso88591(String string, String defaultString) {
