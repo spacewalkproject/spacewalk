@@ -1,6 +1,6 @@
 Summary: Spacewalk packages yum repository configuration
 Name: spacewalk-repo
-Version: 2.1.1
+Version: 2.1.2
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -96,6 +96,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-client-nightly.repo
 
 %changelog
+* Tue Jan 28 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.2-1
+- fixed variable quoting
+
 * Wed Jan 22 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.1-1
 - reverted tagger to VersionTagger
 
