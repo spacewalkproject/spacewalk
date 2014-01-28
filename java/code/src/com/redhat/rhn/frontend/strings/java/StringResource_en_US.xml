@@ -994,12 +994,6 @@
           <context context-type="sourcefile">Login or Logout</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="account.user.wrong_org">
-        <source>Account {0} isn't available in the organization configured for external authenticated users.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Login or Logout</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="user.enable">
         <source>Reactivated user &lt;strong&gt;{0}&lt;/strong&gt;.</source>
         <context-group name="ctx">

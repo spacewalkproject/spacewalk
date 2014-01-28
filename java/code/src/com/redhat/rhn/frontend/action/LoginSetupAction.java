@@ -139,10 +139,6 @@ public class LoginSetupAction extends RhnAction {
                     createErrorMessage(request, "account.user.disabled", remoteUserString);
                     remoteUser = null;
                 }
-                else if (!remoteUser.getOrg().getId().equals(defaultOrgId)) {
-                    createErrorMessage(request, "account.user.wrong_org", remoteUserString);
-                    remoteUser = null;
-                }
                 if (remoteUser != null) {
                     UpdateUserCommand updateCmd = new UpdateUserCommand(remoteUser);
                     updateCmd.setFirstNames(firstname);
