@@ -365,9 +365,9 @@ public class ConfigDefaults {
      * @return the memory size
      */
     public int getDefaultVirtMemorySize(KickstartData data) {
-        // RHEL 7 requires at least 768 MB of ram to install
+        // RHEL 7 requires at least 1024 MB of ram to install
         if (data.isRhel7OrGreater()) {
-            return Config.get().getInt(VIRT_MEM, 768);
+            return Config.get().getInt(VIRT_MEM, 1024);
         }
         return Config.get().getInt(VIRT_MEM, 512);
     }

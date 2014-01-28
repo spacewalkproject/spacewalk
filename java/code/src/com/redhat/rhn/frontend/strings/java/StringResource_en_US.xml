@@ -7674,7 +7674,7 @@ Follow this url to see the full list of inactive systems:
         <source>Crash Note was successfully updated.</source>
       </trans-unit>
       <trans-unit id="kickstart.cobbler.profile.notenoughmemory">
-        <source>Red Hat Enterprise Linux 7 and higher guests require at least 768 MB of memory.</source>
+        <source>Red Hat Enterprise Linux 7 and higher guests require at least 1024 MB of memory.</source>
       </trans-unit>
       <trans-unit id="kickstart.cobbler.profile.invalidvirt">
         <source>Para-Virtualization is unsupported with the selected kickstart tree or distribution.</source>
