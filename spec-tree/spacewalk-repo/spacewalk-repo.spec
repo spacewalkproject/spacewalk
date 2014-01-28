@@ -34,7 +34,7 @@ rm -rf $RPM_BUILD_ROOT
 # some sane default value
 %define reposubdir      RHEL/%{rhel}
 # redefine on fedora
-%{?fedora: %define reposubdir      Fedora/\$releasever}
+%{?fedora: %define reposubdir      Fedora/\\\$releasever}
 
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
 cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk.repo <<REPO
