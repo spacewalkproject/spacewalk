@@ -105,3 +105,28 @@ th.descSort a:after {
 	content: "  \f161";
 	font-family: 'FontAwesome';
 }
+
+.list-row-even td.sortedCol {
+	background-color: #d9edf7;
+}
+
+.list-row-odd td.sortedCol {
+background-color: darken(#d9edf7, 3%) !important;
+}
+
+.list-row-even:hover td {
+ background-color: darken(@gray-lighter, 10%);
+}
+
+.list-row-odd:hover td  {
+	background-color: darken(@gray-lighter, 13%) !important;
+}
+
+.list-row-even:hover td.sortedCol {
+	background-color: darken(#d9edf7, 10%) !important;
+}
+
+.list-row-odd:hover td.sortedCol  {
+	background-color: darken(#d9edf7, 13%) !important;
+}
+
