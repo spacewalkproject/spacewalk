@@ -98,6 +98,18 @@ Removes a channel from an Red Hat Satellite or Spacewalk server.
             <para>Do not remove the package metadata or the files from the filesystem.</para>
         </listitem>
     </varlistentry>
+    <varlistentry>
+        <term>--skip-kickstart-trees</term>
+        <listitem>
+            <para>Do not remove kickstart trees from the filesystem.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--skip-channels</term>
+        <listitem>
+            <para>Remove only packages from channel not the channel itself.</para>
+        </listitem>
+    </varlistentry>
 </variablelist>
 </RefSect1>
 
