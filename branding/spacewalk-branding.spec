@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.1.22
+Version:    2.1.23
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -86,6 +86,11 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Jan 29 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.23-1
+- add sort order icons and alphaResult icon
+- adding custom styles
+- removing old spacewalk css
+
 * Mon Jan 27 2014 Matej Kollar <mkollar@redhat.com> 2.1.22-1
 - New less file added to style Inputs. New less file added for the minor fixes
   of TB3 for spacewalk layout
