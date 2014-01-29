@@ -46,7 +46,8 @@
                bound="false"
                sortattr="nvre"
                sortable="true"
-               filterattr="nvre">${current.nvre}</rl:column>
+               filterattr="nvre"
+               defaultsort="asc">${current.nvre}</rl:column>
     <rl:column headerkey="packagelist.jsp.packagearch"
                bound="false">
       <c:choose>
