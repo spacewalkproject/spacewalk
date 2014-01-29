@@ -50,7 +50,7 @@
                 <rl:column headerkey="systemlist.jsp.system" bound="false" sortattr="name" sortable="true">
                     <c:choose>
                         <c:when test="${current.locked > 0}">
-                            <rhn:icon type="errata-security" />
+                            <rhn:icon type="system-locked" />
                             <a href="/rhn/systems/details/Overview.do?sid=${current.id}">${fn:escapeXml(current.name)}</a>
                         </c:when>
                         <c:otherwise>
