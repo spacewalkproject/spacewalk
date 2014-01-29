@@ -4428,6 +4428,9 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="ssm.overview.misc.migrate">
           <source>&lt;a href="/rhn/systems/ssm/MigrateSystems.do"&gt;Migrate&lt;/a&gt; systems to another organization</source>
         </trans-unit>
+        <trans-unit id="ssm.overview.misc.lock">
+          <source>&lt;a href="/rhn/systems/ssm/misc/LockUnlockSystem.do"&gt;Lock/unlock&lt;/a&gt; systems</source>
+        </trans-unit>
         <trans-unit id="ssm.overview.misc.scap">
           <source>&lt;a href="/rhn/systems/ssm/audit/ScheduleXccdf.do"&gt;Audit&lt;/a&gt; systems with OpenSCAP</source>
         </trans-unit>

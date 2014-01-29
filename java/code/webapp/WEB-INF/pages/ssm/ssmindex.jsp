@@ -141,6 +141,7 @@
                         <li><bean:message key="ssm.overview.misc.delete"/></li>
                         <li><bean:message key="ssm.overview.misc.reboot"/></li>
                         <li><bean:message key="ssm.overview.misc.migrate"/></li>
+                        <li><bean:message key="ssm.overview.misc.lock"/></li>
                         <li><bean:message key="ssm.overview.misc.scap"/></li>
                     </ul>
                 </div>
