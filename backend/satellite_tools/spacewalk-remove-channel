@@ -546,7 +546,7 @@ def _get_package_paths(package_ids, sources=0):
 
     return pdict.keys()
 
-def _delete_ks_files(channel_lables):
+def _delete_ks_files(channel_labels):
     sql = """
         select kt.base_path
         from rhnChannel c
@@ -554,7 +554,7 @@ def _delete_ks_files(channel_lables):
         where c.label in (%s);
     """
 
-    params, bind_params = _bind_many(channel_lables)
+    params, bind_params = _bind_many(channel_labels)
     bind_params = string.join(bind_params, ', ')
     h = rhnSQL.prepare(sql % (bind_params))
     h.execute(**params)
