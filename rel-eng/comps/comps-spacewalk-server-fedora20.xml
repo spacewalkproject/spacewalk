@@ -64,6 +64,7 @@
        <packagereq type="default">perl-Satcon</packagereq>
        <packagereq type="default">ProgAGoGo</packagereq>
        <packagereq type="default">python-gzipstream</packagereq>
+       <packagereq type="default">pwstrength-bootstrap</packagereq>
        <packagereq type="default">quartz</packagereq>
        <packagereq type="default">quartz-oracle</packagereq>
        <packagereq type="default">redstone-xmlrpc</packagereq>
