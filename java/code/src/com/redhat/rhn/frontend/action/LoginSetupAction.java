@@ -195,7 +195,7 @@ public class LoginSetupAction extends RhnAction {
                     createMessage(request, "message.kerbuserlogged",
                             new String [] {remoteUserString});
                 }
-                if (LoginAction.successfulLogin(request, response, remoteUser)) {
+                if (LoginHelper.successfulLogin(request, response, remoteUser)) {
                     return null;
                 }
                 return mapping.findForward("loggedin");

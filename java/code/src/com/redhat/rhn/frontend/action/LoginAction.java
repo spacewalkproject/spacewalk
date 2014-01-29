@@ -14,18 +14,13 @@
  */
 package com.redhat.rhn.frontend.action;
 
-import com.redhat.rhn.common.messaging.MessageQueue;
-import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
-import com.redhat.rhn.frontend.servlets.PxtSessionDelegateFactory;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.satellite.CertificateManager;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.StopWatch;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -35,13 +30,9 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
-import java.io.IOException;
-import java.util.Date;
-
 import javax.security.auth.login.LoginException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * LoginAction
@@ -84,7 +75,7 @@ public class LoginAction extends RhnAction {
                 request, response, e);
 
         if (e.isEmpty()) {
-            successfulLogin(request, response, user);
+            LoginHelper.successfulLogin(request, response, user);
         }
         else {
             performGracePeriodCheck(request);
@@ -93,42 +84,6 @@ public class LoginAction extends RhnAction {
         }
 
         return ret;
-    }
-
-    /** static method shared by LoginAction and LoginSetupAction
-     * @param request actual request
-     * @param response actual reponse
-     * @param user logged in user
-     * @return returns true, if redirect
-     */
-    public static boolean successfulLogin(HttpServletRequest request,
-            HttpServletResponse response, User user) {
-        // set last logged in
-        user.setLastLoggedIn(new Date());
-        UserManager.storeUser(user);
-        // update session with actual user
-        PxtSessionDelegateFactory.getInstance().newPxtSessionDelegate().
-            updateWebUserId(request, response, user.getId());
-
-        publishUpdateErrataCacheEvent(user.getOrg());
-        // redirect, if url_bounce set
-        HttpSession ws = request.getSession(false);
-        if (ws != null) {
-            String urlBounce = LoginAction.updateUrlBounce(
-                    (String) ws.getAttribute("url_bounce"),
-                    (String) ws.getAttribute("request_method"));
-            try {
-                if (urlBounce != null) {
-                    log.info("redirect: " + urlBounce);
-                    response.sendRedirect(urlBounce);
-                    return true;
-                }
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
     }
 
     /**
@@ -153,28 +108,6 @@ public class LoginAction extends RhnAction {
             urlBounce = DEFAULT_URL_BOUNCE;
         }
         return urlBounce;
-    }
-
-    /**
-     * @param orgIn
-     */
-    private static void publishUpdateErrataCacheEvent(Org orgIn) {
-        StopWatch sw = new StopWatch();
-        if (log.isDebugEnabled()) {
-            log.debug("Updating errata cache");
-            sw.start();
-        }
-
-        UpdateErrataCacheEvent uece = new
-            UpdateErrataCacheEvent(UpdateErrataCacheEvent.TYPE_ORG);
-        uece.setOrgId(orgIn.getId());
-        MessageQueue.publish(uece);
-
-        if (log.isDebugEnabled()) {
-            sw.stop();
-            log.debug("Finished Updating errata cache. Took [" +
-                    sw.getTime() + "]");
-        }
     }
 
     /**
