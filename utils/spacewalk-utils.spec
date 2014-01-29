@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.1.25
+Version:	2.1.26
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed Jan 29 2014 Tomas Kasparek <tkasparek@redhat.com> 2.1.26-1
+- adding postgresql92-postgresql to possible db service names
+
 * Thu Jan 16 2014 Matej Kollar <mkollar@redhat.com> 2.1.25-1
 - Changed gpg keys so they match reality.
 - Removing unsupported Fedora 17
