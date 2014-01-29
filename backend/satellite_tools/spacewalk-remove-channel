@@ -49,6 +49,8 @@ options_table = [
                  help="Remove the channel packages from any other channels too (Not Recommended)"),
     Option("-p", "--skip-packages", action="store_true",
            help="Do not remove package metadata or packages from the filesystem (Not Recommended)"),
+    Option(      "--skip-kickstart-trees", action="store_true",
+           help="Do not remove kickstart trees from the filesystem (Not Recommended)."),
     Option(      "--skip-channels", action="store_true",
            help="Remove only packages from channel not the channel itself."),
 ]
@@ -297,7 +299,8 @@ def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0, skip_chan
         _delete_srpms(srpms_ids)
         _delete_rpms(rpms_ids)
 
-    _delete_ks_files(channelLabels)
+    if not skip_kickstart_trees:
+        _delete_ks_files(channelLabels)
 
     if not justdb and not skip_packages:
         _delete_files(rpms_paths + srpms_paths)
