@@ -70,16 +70,24 @@ public class LoginAction extends RhnAction {
             return mapping.findForward("failure");
         }
 
-        ActionErrors e = new ActionErrors();
-        User user = loginUser((String) f.get("username"), (String) f.get("password"),
-                request, response, e);
+        ActionMessages messages = new ActionMessages();
+        User user = LoginHelper.checkExternalAuthentication(request, messages, errors);
+        // save stores msgs into the session (works for redirect)
+        saveMessages(request, messages);
+        addErrors(request, errors);
+        errors.clear();
 
-        if (e.isEmpty()) {
+        if (user == null) {
+            user = loginUser((String) f.get("username"), (String) f.get("password"),
+                    request, response, errors);
+        }
+
+        if (errors.isEmpty()) {
             LoginHelper.successfulLogin(request, response, user);
         }
         else {
             performGracePeriodCheck(request);
-            addErrors(request, e);
+            addErrors(request, errors);
             ret = mapping.findForward("failure");
         }
 

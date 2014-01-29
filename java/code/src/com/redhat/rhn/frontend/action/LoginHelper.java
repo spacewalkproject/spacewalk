@@ -14,18 +14,33 @@
  */
 package com.redhat.rhn.frontend.action;
 
+import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.messaging.MessageQueue;
+import com.redhat.rhn.domain.common.SatConfigFactory;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.org.OrgFactory;
+import com.redhat.rhn.domain.org.usergroup.UserExtGroup;
+import com.redhat.rhn.domain.org.usergroup.UserGroupFactory;
+import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
 import com.redhat.rhn.frontend.servlets.PxtSessionDelegateFactory;
+import com.redhat.rhn.manager.user.CreateUserCommand;
+import com.redhat.rhn.manager.user.UpdateUserCommand;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.commons.lang.time.StopWatch;
 import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,6 +54,140 @@ import javax.servlet.http.HttpSession;
 public class LoginHelper {
 
     private static Logger log = Logger.getLogger(LoginHelper.class);
+    private static final String DEFAULT_KERB_USER_PASSWORD = "0";
+
+    /**
+     * Utility classes can't be instantiated.
+     */
+    private LoginHelper() {
+    }
+
+    /**
+     * check whether we can login an externally authenticated user
+     * @param request request
+     * @param messages messages
+     * @param errors errors
+     * @return user, if externally authenticated
+     */
+    public static User checkExternalAuthentication(HttpServletRequest request,
+            ActionMessages messages,
+            ActionErrors errors) {
+        String remoteUserString = request.getRemoteUser();
+        User remoteUser = null;
+        if (remoteUserString != null) {
+
+            String firstname = decodeFromIso88591(
+                    (String) request.getAttribute("REMOTE_USER_FIRSTNAME"), "");
+            String lastname = decodeFromIso88591(
+                    (String) request.getAttribute("REMOTE_USER_LASTNAME"), "");
+            String email = decodeFromIso88591(
+                    (String) request.getAttribute("REMOTE_USER_EMAIL"), null);
+
+            Long defaultOrgId = SatConfigFactory.getSatConfigLongValue(
+                    SatConfigFactory.ORG_ID_FOR_EXT_AUTH);
+
+            Set<Role> roles = getRolesFromExtGroups(request);
+
+            log.warn("REMOTE_USER_ORGUNIT: " +
+                    request.getAttribute("REMOTE_USER_ORGUNIT"));
+            log.warn("REMOTE_USER_GROUPS: " +
+                    request.getAttribute("REMOTE_USER_GROUPS"));
+
+                try {
+                    remoteUser = UserFactory.lookupByLogin(remoteUserString);
+
+                if (remoteUser.isDisabled()) {
+                    errors.add(ActionMessages.GLOBAL_MESSAGE,
+                            new ActionMessage("account.user.disabled",
+                                    new String[] {remoteUserString}));
+                    remoteUser = null;
+                }
+                if (remoteUser != null) {
+                    UpdateUserCommand updateCmd = new UpdateUserCommand(remoteUser);
+                    updateCmd.setFirstNames(firstname);
+                    updateCmd.setLastName(lastname);
+                    updateCmd.setEmail(email);
+                    updateCmd.setRoles(roles);
+                    updateCmd.updateUser();
+                    log.warn("Externally authenticated login " + remoteUserString +
+                                 " (" + firstname + " " + lastname + ")");
+                }
+            }
+            catch (LookupException le) {
+                Org defaultOrg = null;
+                if (defaultOrgId != null) {
+                    defaultOrg = OrgFactory.lookupById(defaultOrgId);
+                }
+                if (defaultOrg == null) {
+                    log.error("Cannot find organization with id: " + defaultOrgId);
+                }
+                else {
+                    CreateUserCommand createCmd = new CreateUserCommand();
+                    createCmd.setLogin(remoteUserString);
+                    // set a password, that cannot really be used
+                    createCmd.setRawPassword(DEFAULT_KERB_USER_PASSWORD);
+                    createCmd.setFirstNames(firstname);
+                    createCmd.setLastName(lastname);
+                    createCmd.setEmail(email);
+                    createCmd.setOrg(defaultOrg);
+                    createCmd.setRoles(roles);
+                    createCmd.validate();
+                    createCmd.storeNewUser();
+                    remoteUser = createCmd.getUser();
+                    log.warn("Externally authenticated login " + remoteUserString +
+                                 " (" + firstname + " " + lastname + ") created.");
+                }
+                if (remoteUser.getPassword().equals(DEFAULT_KERB_USER_PASSWORD)) {
+                    messages.add(ActionMessages.GLOBAL_MESSAGE,
+                            new ActionMessage("message.kerbuserlogged",
+                                    new String[] {remoteUserString}));
+                }
+            }
+        }
+        return remoteUser;
+    }
+
+    private static String decodeFromIso88591(String string, String defaultString) {
+        try {
+            return new String(string.getBytes("ISO8859-1"), "UTF-8");
+        }
+        catch (UnsupportedEncodingException e) {
+            log.warn("Unable to decode: " + string);
+            return defaultString;
+        }
+    }
+
+    private static Set<Role> getRolesFromExtGroups(HttpServletRequest requestIn) {
+        Set<Role> roles = new HashSet<Role>();
+        Long nGroups = null;
+        String nGroupsStr = (String) requestIn.getAttribute("REMOTE_USER_GROUP_N");
+        if (nGroupsStr != null) {
+            try {
+                nGroups = Long.parseLong(nGroupsStr);
+            }
+            catch (NumberFormatException nfe) {
+                // do nothing, nGroups stays null
+            }
+        }
+        if (nGroups == null) {
+            log.warn("REMOTE_USER_GROUP_N not set!");
+            return roles;
+        }
+        for (int i = 1; i <= nGroups; i++) {
+            String extGroupName = (String) requestIn.getAttribute("REMOTE_USER_GROUP_" + i);
+            if (extGroupName == null) {
+                log.warn("REMOTE_USER_GROUP_" + i + " not set!");
+                continue;
+            }
+            UserExtGroup extGroup = UserGroupFactory.lookupExtGroupByLabel(extGroupName);
+            if (extGroup == null) {
+                log.warn("No mapping defined for external group '" + extGroupName + "'.");
+                continue;
+            }
+            roles.addAll(extGroup.getRoles());
+        }
+        return roles;
+    }
 
     /** static method shared by LoginAction and LoginSetupAction
      * @param request actual request
