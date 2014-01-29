@@ -11,10 +11,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import sys
@@ -35,11 +35,11 @@ from spacewalk.server import rhnSQL
 from spacewalk.server.rhnPackage import unlink_package_file
 
 options_table = [
-    Option("-v", "--verbose",       action="count", 
+    Option("-v", "--verbose",       action="count",
            help="Increase verbosity"),
     Option("-l", "--list",          action="store_true",
            help="List defined channels and exit"),
-    Option("-c", "--channel",       action="append", 
+    Option("-c", "--channel",       action="append",
            help="Delete this channel (can be present multiple times)"),
     Option("-u", "--unsubscribe",   action="store_true",
            help="Unsubscribe systems registered to the specified channels"),
@@ -157,7 +157,7 @@ def main():
 def __serverCheck(labels, unsubscribe):
     sql = """
         select distinct S.org_id, S.id, S.name
-        from rhnChannel c inner join 
+        from rhnChannel c inner join
              rhnServerChannel sc on c.id = sc.channel_id inner join
              rhnServer s on s.id = sc.server_id
         where c.label in (%s)
@@ -187,13 +187,13 @@ def __serverCheck(labels, unsubscribe):
         print str(map['id']).ljust(14),
         print(map['name'])
 
-    return len(list) 
+    return len(list)
 
 
 def __unsubscribeServers(labels):
     sql = """
         select distinct sc.server_id as server_id, C.id as channel_id, c.parent_channel, c.label
-        from rhnChannel c inner join 
+        from rhnChannel c inner join
              rhnServerChannel sc on c.id = sc.channel_id
         where c.label in (%s) order by C.parent_channel
     """
@@ -231,7 +231,7 @@ def __unsubscribeServers(labels):
 def __kickstartCheck(labels):
     sql = """
         select K.org_id, K.label
-        from rhnKSData K inner join 
+        from rhnKSData K inner join
              rhnKickstartDefaults KD on KD.kickstart_id = K.id inner join
              rhnKickstartableTree KT on KT.id = KD.kstree_id inner join
              rhnChannel c on c.id = KT.channel_id
@@ -250,7 +250,7 @@ def __kickstartCheck(labels):
           "Please remove these or change their associated base channel.\n")
     print('org_id'.ljust(8)),
     print('label')
-    print("-"*20) 
+    print("-"*20)
     for map in list:
         print str(map['org_id']).ljust(8),
         print(map['label'])
@@ -260,7 +260,7 @@ def __kickstartCheck(labels):
 
 def __listChannels():
     sql = """
-        select c1.label, c2.label parent_channel 
+        select c1.label, c2.label parent_channel
         from rhnChannel c1 left outer join rhnChannel c2 on c1.parent_channel = c2.id
         order by c2.label desc, c1.label asc
     """
@@ -286,7 +286,7 @@ def __listChannels():
 def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0, skip_channels=0):
     # Get the package ids
     if not channelLabels:
-        return 
+        return
 
     rpms_ids = list_packages(channelLabels, force=force, sources=0)
     rpms_paths = _get_package_paths(rpms_ids, sources=0)
@@ -302,9 +302,9 @@ def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0, skip_chan
 
     # Get the channel ids
     h = rhnSQL.prepare("""
-        select id, parent_channel 
-        from rhnChannel 
-        where label = :label 
+        select id, parent_channel
+        from rhnChannel
+        where label = :label
         order by parent_channel""")
     channel_ids = []
     for label in channelLabels:
@@ -327,7 +327,7 @@ def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0, skip_chan
     ]
     query = """
         delete from %(table_2)s where %(link_field)s in (
-            select id 
+            select id
               from %(table_1)s
              where %(channel_field)s = :channel_id
         )
@@ -459,7 +459,7 @@ def _delete_srpms(srcPackageIds):
 def _delete_rpms(packageIds):
     if not packageIds:
         return
-    group = 300 
+    group = 300
     toDel = packageIds[:]
     print "Deleting package metadata (" + str(len(toDel)) + "):"
     pb = ProgressBar(prompt='Removing:         ', endTag=' - complete',
@@ -476,14 +476,14 @@ def _delete_rpms(packageIds):
 def _delete_rpm_group(packageIds):
 
     references = [
-        'rhnChannelPackage', 
-        'rhnErrataPackage', 
-        'rhnErrataPackageTMP', 
-        'rhnPackageChangelogRec', 
-        'rhnPackageConflicts', 
-        'rhnPackageFile', 
-        'rhnPackageObsoletes', 
-        'rhnPackageProvides', 
+        'rhnChannelPackage',
+        'rhnErrataPackage',
+        'rhnErrataPackageTMP',
+        'rhnPackageChangelogRec',
+        'rhnPackageConflicts',
+        'rhnPackageFile',
+        'rhnPackageObsoletes',
+        'rhnPackageProvides',
         'rhnPackageRequires',
         'rhnPackageRecommends',
         'rhnPackageSuggests',
