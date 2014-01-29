@@ -11,6 +11,7 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
@@ -50,7 +51,7 @@
                     <c:choose>
                         <c:when test="${current.locked > 0}">
                             <rhn:icon type="errata-security" />
-                            <a href="/rhn/systems/details/Overview.do?sid=${current.id}">${current.name}</a>
+                            <a href="/rhn/systems/details/Overview.do?sid=${current.id}">${fn:escapeXml(current.name)}</a>
                         </c:when>
                         <c:otherwise>
                             <%@ include file="/WEB-INF/pages/common/fragments/systems/system_list_fragment.jspf" %>
