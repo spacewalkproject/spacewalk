@@ -27,9 +27,10 @@ sub java_opts {
   if (-r TOMCAT_JAVA_OPTS) {
     open F, '<', TOMCAT_JAVA_OPTS
                  or die "Error reading [" + TOMCAT_JAVA_OPTS + "]: $!\n";
-    $ret = <F>;
-    close(F);
+    $ret = join("", <F>);
     chomp($ret);
+    $ret =~ s/\n/ /gm;
+    close(F);
     $ret .= ld_library_path();
     $ret = qq{JAVA_OPTS="$ret"\n};
   }

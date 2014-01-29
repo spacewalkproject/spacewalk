@@ -1,0 +1,1 @@
+-Dcatalina.ext.dirs=/usr/share/tomcat5/shared/lib:/usr/share/tomcat5/common/lib -Djavax.sql.DataSource.Factory=org.apache.commons.dbcp.BasicDataSourceFactory
