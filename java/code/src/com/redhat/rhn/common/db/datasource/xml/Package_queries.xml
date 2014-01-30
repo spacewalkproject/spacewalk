@@ -773,7 +773,10 @@ SELECT  distinct pn.name AS NAME,
         pn.name || '-' || evr_t_as_vre_simple(full_list.evr) AS NVRE,
         pn.name || '-' || evr_t_as_vre_simple(full_list.evr) || '.' || full_list.arch_label AS NVREA,
         pn.id || '|' || lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) || '|' || full_list.arch_id AS ID_COMBO,
-        full_list.arch_label as ARCH
+        full_list.arch_label as ARCH,
+        pn.id name_id,
+        full_list.arch_id,
+        lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) evr_id
   FROM  (
          SELECT  p.name_id name_id, max(pe.evr) evr,
                  pa.label as arch_label, pa.id as arch_id
