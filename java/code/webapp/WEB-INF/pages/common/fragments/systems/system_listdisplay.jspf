@@ -23,7 +23,9 @@
         <rl:decorator name="ElaborationDecorator"/>
         <rl:decorator name="SystemIconDecorator"/>
         <rl:decorator name="PageSizeDecorator"/>
-        <rl:decorator name="AddToSsmDecorator" />
+        <c:if test = "${empty noAddToSsm}">
+          <rl:decorator name="AddToSsmDecorator" />
+        </c:if>
 
 		<c:if test = "${empty notSelectable}">
 	 	<rl:decorator name="SelectableDecorator"/>
