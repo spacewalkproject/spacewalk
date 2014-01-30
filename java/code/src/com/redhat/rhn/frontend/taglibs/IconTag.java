@@ -128,6 +128,10 @@ public class IconTag extends TagSupport {
         icons.put("monitoring-warn",
                   "fa fa-1-5x spacewalk-icon-monitoring-warning text-warning");
         icons.put("nav-bullet", "fa fa-caret-right");
+        icons.put("nav-page-first", "fa fa-angle-double-left");
+        icons.put("nav-page-last", "fa fa-angle-double-right");
+        icons.put("nav-page-next", "fa fa-angle-right");
+        icons.put("nav-page-prev", "fa fa-angle-left");
         icons.put("nav-right", "fa fa-arrow-right");
         icons.put("nav-up", "fa fa-caret-up");
         icons.put("sort-down", "fa fa-arrow-circle-down");

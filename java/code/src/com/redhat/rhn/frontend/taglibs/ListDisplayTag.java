@@ -590,13 +590,13 @@ public class ListDisplayTag extends ListDisplayTagBase {
 
         if (canGoForward || canGoBack) {
             out.append(renderPaginationButton(FIRST,
-                    "fa-angle-double-left", " |&lt; ", canGoBack));
-            out.append(renderPaginationButton(PREV, "fa-angle-left",
+                    "nav-page-first", " |&lt; ", canGoBack));
+            out.append(renderPaginationButton(PREV, "nav-page-prev",
                     " &lt; ", canGoBack));
-            out.append(renderPaginationButton(NEXT, "fa-angle-right",
+            out.append(renderPaginationButton(NEXT, "nav-page-next",
                     " &gt; ", canGoForward));
             out.append(renderPaginationButton(LAST,
-                    "fa-angle-double-right", " &gt;| ", canGoForward));
+                    "nav-page-last", " &gt;| ", canGoForward));
         }
         out.append("</div>\n");
     }
@@ -606,10 +606,8 @@ public class ListDisplayTag extends ListDisplayTagBase {
         HtmlTag ret = new HtmlTag("button");
         ret.setAttribute("name", name);
         String styleClass = "btn btn-default btn-xs";
-        HtmlTag iconTag = new HtmlTag("i");
-        iconTag.setAttribute("class", "fa " + icon);
-        iconTag.addBody("");
-        ret.addBody(iconTag);
+        IconTag iconTag = new IconTag(icon);
+        ret.addBody(iconTag.render());
 
         if (!active) {
             styleClass += " disabled";
