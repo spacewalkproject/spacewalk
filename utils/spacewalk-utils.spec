@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.1.26
+Version:	2.1.27
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Jan 30 2014 Stephen Herr <sherr@redhat.com> 2.1.27-1
+- 1059910 - create api for channel errata syncing, have clone-by-date call it
+
 * Wed Jan 29 2014 Tomas Kasparek <tkasparek@redhat.com> 2.1.26-1
 - adding postgresql92-postgresql to possible db service names
 
