@@ -60,31 +60,35 @@ function movePrevious() {
     <html:hidden property="virtualizationTypeLabel" />
     <html:hidden property="kstreeId" />
     <html:hidden property="kstreeUpdateType" />
-    <h1><bean:message key="kickstart.jsp.create.wizard.step.two"/></h1>
-    <table class="details" width="80%">
-        <tr>
-            <td colspan="2"><bean:message key="kickstart.jsp.create.wizard.second.heading1" /></td>
-        </tr>
-        <tr>
-            <th width="10%"><bean:message key="kickstart.jsp.create.wizard.default.download.location.label" />:</th>
-            <td>
-                <html:radio styleId="wizard-defaultdownloadon" property="defaultDownload" value="true" onclick="disableCtl('wizard-userdefdload');"><bean:write name="kickstartCreateWizardForm" property="defaultDownloadLocation" /></html:radio>
-            </td>
-       </tr>
-       <tr>
-            <th width="10%"><bean:message key="kickstart.jsp.create.wizard.custom.download.location.label" />:</th>
-            <td>
-                <html:radio styleId="wizard-defaultdownloadoff" property="defaultDownload" value="false" onclick="enableCtl('wizard-userdefdload');"><html:text property="userDefinedDownload" styleId="wizard-userdefdload" size="50" maxlength="512" /></html:radio>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" align="right">
-                <input type="button" value="<bean:message key='wizard.jsp.previous.step'/>" onclick="movePrevious();" />
-                &nbsp;&nbsp;
-                <input type="button" value="<bean:message key='wizard.jsp.next.step'/>" onclick="moveNext();" />
-            </td>
-        </tr>
-    </table>
+    <rhn:toolbar base="h1" icon="header-kickstart"><bean:message key="kickstart.jsp.create.wizard.step.two"/></rhn:toolbar>
+    <p><bean:message key="kickstart.jsp.create.wizard.second.heading1" /></p>
+    <div class="panel panel-default">
+      <ul class="list-group">
+        <div class="row">
+          <div class="col-sm-2">
+            <bean:message key="kickstart.jsp.create.wizard.default.download.location.label" />:
+          </div>
+          <div class="col-sm-10">
+            <html:radio styleId="wizard-defaultdownloadon" property="defaultDownload" value="true" onclick="disableCtl('wizard-userdefdload');"><bean:write name="kickstartCreateWizardForm" property="defaultDownloadLocation" /></html:radio>
+          </div>
+        </div>
+      </ul>
+      <ul class="list-group">
+        <div class="row">
+          <div class="col-sm-2">
+            <bean:message key="kickstart.jsp.create.wizard.custom.download.location.label" />:
+          </div>
+          <div class="col-sm-10">
+            <html:radio styleId="wizard-defaultdownloadoff" property="defaultDownload" value="false" onclick="enableCtl('wizard-userdefdload');"><html:text property="userDefinedDownload" styleId="wizard-userdefdload" size="50" maxlength="512" /></html:radio>
+          </div>
+        </div>
+      </ul>
+    </div>
+    <div align="right">
+      <input type="button" value="<bean:message key='wizard.jsp.previous.step'/>" onclick="movePrevious();" class="btn btn-default"/>
+    &nbsp;&nbsp;
+      <input type="button" value="<bean:message key='wizard.jsp.next.step'/>" onclick="moveNext();" class="btn btn-default"/>
+    </div>
   </html:form>
 </div>
 </body>
