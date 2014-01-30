@@ -62,7 +62,7 @@ function clickNewestTree() {
         <html:hidden property="wizardStep" styleId="wizard-curstep" />
         <html:hidden property="nextStep" styleId="wizard-nextstep" />
         <html:hidden property="previousChannelId" />
-        <h1><bean:message key="kickstart.jsp.create.wizard.step.one"/></h1>
+        <rhn:toolbar base="h1" icon="header-kickstart"><bean:message key="kickstart.jsp.create.wizard.step.one"/></rhn:toolbar>
         <p><bean:message key="kickstart.jsp.create.wizard.first.heading1" /></p>
 
         <div class="form-group">
