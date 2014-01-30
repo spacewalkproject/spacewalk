@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.135
+Version: 2.1.136
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jan 30 2014 Matej Kollar <mkollar@redhat.com> 2.1.136-1
+- Fixed ssm reboot scheduling.
+- Sometimes we don't want "add to ssm" option...
+- add message about system lock/unlock into ssm index
+- use icon for locked system
+- 1009396 - escape system name for ssm lock/unlock page
+- add defaultsort for extra packages page
+- add defaultSort for packages list/remove
+- add defaultSort to package list
+
 * Tue Jan 28 2014 Stephen Herr <sherr@redhat.com> 2.1.135-1
 - 1058761 - Update RHEL 7 VM memory requirements to 1024 MB
 - rendering the password strength meter
