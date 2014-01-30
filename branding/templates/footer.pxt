@@ -3,7 +3,7 @@
 <pxt-passthrough>
 <pxt-use class="Sniglets::Users" />
 <div>
-  Copyright &#169; 2002&#x2012;13 Red Hat, Inc. All rights reserved.
+  Copyright &#169; 2002&#x2012;14 Red Hat, Inc. All rights reserved.
   <a href="https://www.redhat.com/legal/privacy_statement.html">Privacy statement</a>
   : <a href="http://www.redhat.com/legal/legal_statement.html">Legal statement</a>
   : <a href="http://www.redhat.com/">redhat.com</a>
