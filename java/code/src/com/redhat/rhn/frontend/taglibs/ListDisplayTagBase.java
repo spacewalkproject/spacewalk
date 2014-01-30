@@ -331,10 +331,8 @@ public class ListDisplayTagBase extends BodyTagSupport {
         btn.setAttribute("name", FILTER_DISPATCH);
         btn.setAttribute("value", ls.getMessage(RequestContext.FILTER_KEY));
 
-        HtmlTag icon = new HtmlTag("i");
-        icon.setAttribute("class", "fa fa-eye");
-        icon.addBody(" ");
-        btn.addBody(icon);
+        IconTag icon = new IconTag("item-search");
+        btn.addBody(icon.render());
 
         btnSpan.addBody(btn);
 
