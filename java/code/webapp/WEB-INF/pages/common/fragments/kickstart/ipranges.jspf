@@ -54,7 +54,7 @@
                     </div>
                 </div>
             </c:forEach>
-            
+
             <rhn:csrf />
             <div class="form-group">
                 <div class="row">
@@ -62,30 +62,21 @@
                         <bean:message key="kickstartips.jsp.label" />:
                     </label>
                     <fieldset class="col-md-8">
-                        
-                            <html:text styleClass="input-ip-range" property="octet1a" maxlength="3" size="3" />
-                            <span class="dot-ip-range">.</span>
-                        
-                            <html:text styleClass="input-ip-range" property="octet1b" maxlength="3" size="3" />
-                            <span class="dot-ip-range">.</span>
-                        
-                            <html:text styleClass="input-ip-range" property="octet1c" maxlength="3" size="3" />
-                            <span class="dot-ip-range">.</span>
-                        
-                            <html:text styleClass="input-ip-range" property="octet1d" maxlength="3" size="3" />
-                            <span class="dash-ip-range"> - </span>
-
-                            <html:text styleClass="input-ip-range" property="octet2a" maxlength="3" size="3" />
-                            <span class="dot-ip-range">.</span>
-                        
-                            <html:text styleClass="input-ip-range" property="octet2b" maxlength="3" size="3" />
-                            <span class="dot-ip-range">.</span>
-                        
-                            <html:text styleClass="input-ip-range" property="octet2c" maxlength="3" size="3" />
-                            <span class="dot-ip-range">.</span>
-                        
-                            <html:text styleClass="input-ip-range" property="octet2d" maxlength="3" size="3" />
-                        
+                            <html:text styleClass="input-ip-range" property="octet1a" maxlength="3" size="3"
+                            /><span class="dot-ip-range">.</span
+                            ><html:text styleClass="input-ip-range" property="octet1b" maxlength="3" size="3"
+                            /><span class="dot-ip-range">.</span
+                            ><html:text styleClass="input-ip-range" property="octet1c" maxlength="3" size="3"
+                            /><span class="dot-ip-range">.</span
+                            ><html:text styleClass="input-ip-range" property="octet1d" maxlength="3" size="3"
+                            /><span class="dash-ip-range"> - </span
+                            ><html:text styleClass="input-ip-range" property="octet2a" maxlength="3" size="3"
+                            /><span class="dot-ip-range">.</span
+                            ><html:text styleClass="input-ip-range" property="octet2b" maxlength="3" size="3"
+                            /><span class="dot-ip-range">.</span
+                            ><html:text styleClass="input-ip-range" property="octet2c" maxlength="3" size="3"
+                            /><span class="dot-ip-range">.</span
+                            ><html:text styleClass="input-ip-range" property="octet2d" maxlength="3" size="3" />
                     </fieldset>
                 </div>
             </div>
