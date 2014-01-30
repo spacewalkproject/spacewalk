@@ -197,15 +197,11 @@ public class CSVTag extends BodyTagSupport {
     private void renderExport() throws JspException {
         StringBuffer page = new StringBuffer(CSV_DOWNLOAD_URI);
         page.append("?" + makeCSVRequestParams());
-        IconTag i = new IconTag();
-        i.setParent(getParent());
-        i.setPageContext(pageContext);
-        i.setType("item-download-csv");
+        IconTag i = new IconTag("item-download-csv");
         String exportLink = new String("<div class=\"spacewalk-csv-download\"><a href=\"" +
-                page + "\">" + i.renderStartTag() +
+                page + "\">" + i.render() +
                 LocalizationService.getInstance().getMessage(
                         "listdisplay.csv") + "</a></div>");
-        i.release();
         ListTagUtil.write(pageContext, exportLink);
     }
 

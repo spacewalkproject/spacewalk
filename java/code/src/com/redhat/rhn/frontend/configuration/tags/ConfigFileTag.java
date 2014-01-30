@@ -134,8 +134,6 @@ public class ConfigFileTag extends TagSupport {
 
      private String writeIcon() throws JspException {
          IconTag i = new IconTag();
-         i.setParent(getParent());
-         i.setPageContext(pageContext);
          if ("dir".equalsIgnoreCase(type) || "directory".equalsIgnoreCase(type) ||
                  "folder".equalsIgnoreCase(type)) {
              i.setType("file-directory");

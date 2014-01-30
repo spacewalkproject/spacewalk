@@ -116,8 +116,6 @@ public class ConfigChannelTag extends TagSupport {
 
     private String writeIcon() throws JspException {
         IconTag i = new IconTag();
-        i.setParent(getParent());
-        i.setPageContext(pageContext);
         if (type.equals("central") || type.equals("global")) {
             i.setType("header-channel-configuration");
         }

@@ -575,12 +575,8 @@ public class ToolbarTag extends TagSupport {
 
     private String renderIcon() {
         if (assertNotEmpty(getIcon())) {
-            IconTag i = new IconTag();
-            i.setPageContext(pageContext);
-            i.setParent(getParent());
-            i.setType(getIcon());
-            String result = i.renderStartTag();
-            i.release();
+            IconTag i = new IconTag(getIcon());
+            String result = i.render();
             return result;
         }
         return "";
@@ -664,13 +660,8 @@ public class ToolbarTag extends TagSupport {
         }
 
         if (assertNotEmpty(iconName)) {
-            IconTag i = new IconTag();
-            i.setPageContext(pageContext);
-            i.setParent(getParent());
-            i.setType(iconName);
-            i.setTitle(alt);
-            a.addBody(i.renderStartTag());
-            i.release();
+            IconTag i = new IconTag(iconName, alt);
+            a.addBody(i.render());
         }
 
         a.addBody(text);
