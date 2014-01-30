@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.action.ActionChainFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
+import com.redhat.rhn.frontend.dto.UpgradablePackageListItem;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.manager.action.ActionChainManager;
 import com.redhat.rhn.manager.action.ActionManager;
@@ -80,7 +81,8 @@ public class ActionChainHandler extends BaseHandler {
             if (pkgContainer instanceof Map) {
                 pkgData = (Map) pkgContainer;
                 System.err.println("pkgdata (hash)> " + pkgData);
-            } else if (pkgContainer instanceof PackageListItem){
+            } else if ((pkgContainer instanceof PackageListItem) ||
+                       (pkgContainer instanceof UpgradablePackageListItem)) {
                 PackageListItem pi = (PackageListItem) pkgContainer;
                 pkgData = new HashMap<String, String>();
                 pkgData.put("version", pi.getVersion());
@@ -89,10 +91,7 @@ public class ActionChainHandler extends BaseHandler {
                 pkgData.put("evrid", pi.getEvrId());
                 pkgData.put("archid", pi.getArchId());
                 pkgData.put("nameid", pi.getNameId());
-                System.err.println("pkgdata (bean)> " + pkgData);
             } else {
-                // Or raise something?
-                System.err.println("yeee???");
                 return packages;
             }
 
@@ -195,12 +194,13 @@ public class ActionChainHandler extends BaseHandler {
         Collector c = new Collector(sk, serverId, chainName);
         List<Map<String, Long>> selectedPackages = this.selectPackages(
                 PackageManager.systemAvailablePackages((long) serverId, null), packages, c);
-        System.err.println("SELECTED> " + selectedPackages);
-        /**
-        ActionChainManager.schedulePackageInstall(c.getUser(), c.getServer(), null,
-                                             new Date(), c.getChain());
-        */
-        return 1;
+        if (!selectedPackages.isEmpty()) {
+            ActionChainManager.schedulePackageInstall(c.getUser(), c.getServer(),
+                                                 selectedPackages,new Date(), c.getChain());
+            return 1;
+        }
+
+        return -1;
     }
 
 
@@ -231,7 +231,7 @@ public class ActionChainHandler extends BaseHandler {
                                 String chainName) {
         Collector c = new Collector(sk, serverId, chainName);
         List<Map<String, Long>> selectedPackages = this.selectPackages(
-                SystemManager.installedPackages((long) serverId, true), packages, c);
+                PackageManager.systemPackageList((long) serverId, null), packages, c);
         if (!selectedPackages.isEmpty()) {
             ActionChainManager.schedulePackageVerify(c.getUser(), c.getServer(),
                                                 selectedPackages, new Date(), c.getChain());
@@ -268,16 +268,13 @@ public class ActionChainHandler extends BaseHandler {
                                  String chainName) {
         Collector c = new Collector(sk, serverId, chainName);
         List<Map<String, Long>> selectedPackages = this.selectPackages(
-                SystemManager.allInstallablePackages((long) serverId), packages, c);
+                PackageManager.upgradable((long) serverId, null), packages, c);
         if (!selectedPackages.isEmpty()) {
-            System.err.println("UPGRADE> " + selectedPackages);
-            //ActionManager.schedulePackageUpgrade(c.getUser(), c.getServer(),
-            //                                     selectedPackages,new Date(), c.getChain());
+            ActionChainManager.schedulePackageUpgrade(c.getUser(), c.getServer(),
+                                                 selectedPackages,new Date(), c.getChain());
             return 1;
         }
 
-        System.err.println("Shite");
-
-        return 0;
+        return -1;
     }
 }
