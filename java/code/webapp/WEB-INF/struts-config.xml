@@ -1132,6 +1132,17 @@
       <form-property name="submitted" type="java.lang.Boolean"/>
     </form-bean>
 
+    <form-bean name="ssmRebootForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
+      <form-property name="submitted" type="java.lang.Boolean"/>
+      <form-property name="date_year"  type="java.lang.Integer"/>
+      <form-property name="date_month"  type="java.lang.Integer"/>
+      <form-property name="date_day"  type="java.lang.Integer"/>
+      <form-property name="date_hour"  type="java.lang.Integer"/>
+      <form-property name="date_minute"  type="java.lang.Integer"/>
+      <form-property name="date_am_pm"  type="java.lang.Integer"/>
+    </form-bean>
+
     <form-bean name="ssmMigrateForm"
                type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
       <form-property name="org" type="java.lang.String"/>
@@ -5257,12 +5268,28 @@
             scope="request"
             input="/WEB-INF/pages/ssm/systems/misc/reboot-system.jsp"
             type="com.redhat.rhn.frontend.action.ssm.RebootSystemAction"
-            name="ssmPreferencesForm"
+            name="ssmRebootForm"
             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <forward name="confirm"
-                 path="/WEB-INF/pages/ssm/systems/misc/index.jsp" />
+        <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
                  path="/WEB-INF/pages/ssm/systems/misc/reboot-system.jsp" />
+        <forward name="confirm"
+                 path="/systems/ssm/misc/RebootSystemConfirm.do"
+                 redirect="true" />
+    </action>
+
+    <action path="/systems/ssm/misc/RebootSystemConfirm"
+            scope="request"
+            input="/WEB-INF/pages/ssm/systems/misc/reboot-system-confirm.jsp"
+            type="com.redhat.rhn.frontend.action.ssm.RebootSystemConfirmAction"
+            name="ssmRebootForm"
+            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/systems/misc/reboot-system-confirm.jsp" />
+        <forward name="confirm"
+                 path="/systems/ssm/misc/RebootSystem.do"
+                 redirect="true" />
     </action>
 
         <action path="/systems/ssm/misc/Index"

@@ -4658,11 +4658,20 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="ssm.misc.reboot.operationname">
           <source>Schedule Systems Reboot</source>
         </trans-unit>
-        <trans-unit id="ssm.misc.reboot.message.success.default">
-          <source>Systems reboot has been scheduled.</source>
+        <trans-unit id="ssm.misc.reboot.message.success.singular">
+          <source>{0} system reboot has been scheduled.</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.reboot.message.success.plural">
+          <source>{0} systems reboot has been scheduled.</source>
         </trans-unit>
         <trans-unit id="ssm.misc.reboot.message.error.noselect">
           <source>Please select at least one system for reboot.</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.reboot.no-system">
+          <source>There are no selected systems.</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.reboot.confirm">
+          <source>Confirm</source>
         </trans-unit>
         <trans-unit id="ssm.misc.lockunlock.tabtitle">
           <source>Lock/Unlock</source>
