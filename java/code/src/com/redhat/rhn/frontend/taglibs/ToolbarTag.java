@@ -551,11 +551,9 @@ public class ToolbarTag extends TagSupport {
             tag.setAttribute("href", getHelpUrl());
             tag.setAttribute("target", "_blank");
 
-            HtmlTag help = new HtmlTag("i");
-            help.setAttribute("class", "fa fa-question-circle");
+            IconTag help = new IconTag("header-help");
 
-            tag.addBody(help.renderOpenTag());
-            tag.addBody(help.renderCloseTag());
+            tag.addBody(help.render());
             return tag.render();
         }
         return "";
