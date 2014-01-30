@@ -71,6 +71,9 @@ Utility for cloning errata by date.
         <arg>-g</arg><arg>--background</arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>-n</arg><arg>--no-errata-sync</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>-h</arg><arg>--help</arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -206,6 +209,15 @@ Utility for cloning errata by date.
             </para>
             <para>
                 Note:  This option is global across all destination channels. To specify per channel removelists, you must use a configuration file.  See --sample-config for an example.
+            </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-n --no-errata-sync</term>
+        <listitem>
+            <para>Do not automatically sychronize the package list of cloned errata with their originals. This may make spacewalk-clone-by-date have unexpected results if the original errata have been updated (e.g.: syncing another architecture for a channel) since the cloned errata were created. If omitted we will synchronize the cloned errata with the originals to ensure the expected packages are included (default).
+            </para>
+	    <para>Errata clones do not necessarily get out-of-sync by satellite-syncing new architectures of existing channels. Another example would be if the errata contains some packages in one channel (say the base channel) and additional packages in another channel (say a child channel). Or it may be due to simply adding or removing packages from a custom errata that you have already created a clone of. Since cloned errata are not automatically updated when the original errata are, over time they may become out-of-sync are require synchronization in order for associating the cloned errata with a cloned channel to have the normally expected effect.
             </para>
         </listitem>
     </varlistentry>

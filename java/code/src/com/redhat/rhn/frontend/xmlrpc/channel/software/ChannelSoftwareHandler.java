@@ -30,6 +30,7 @@ import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.channel.ContentSourceFilter;
 import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
 import com.redhat.rhn.domain.channel.NewChannelHelper;
+import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.org.Org;
@@ -41,6 +42,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
+import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.DuplicateChannelLabelException;
@@ -97,6 +99,103 @@ import java.util.Set;
 public class ChannelSoftwareHandler extends BaseHandler {
 
     private static Logger log = Logger.getLogger(ChannelSoftwareHandler.class);
+
+    /**
+     * If you have satellite-synced a new channel then Red Hat Errata
+     * will have been updated with the packages that are in the newly synced
+     * channel. A cloned erratum will not have been automatically updated
+     * however. If you cloned a channel that includes those cloned errata and
+     * should include the new packages, they will not be included when they
+     * should. This method lists the errata that will be updated if you run the
+     * syncErrata method.
+     * @param sessionKey WebSession containing User information.
+     * @param channelLabel Label of cloned channel to check
+     * @return List of errata that are missing packages
+     *
+     * @xmlrpc.doc If you have satellite-synced a new channel then Red Hat
+     * Errata will have been updated with the packages that are in the newly
+     * synced channel. A cloned erratum will not have been automatically updated
+     * however. If you cloned a channel that includes those cloned errata and
+     * should include the new packages, they will not be included when they
+     * should. This method lists the errata that will be updated if you run the
+     * syncErrata method.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to update")
+     * @xmlrpc.returntype
+     *      #array()
+     *          $ErrataOverviewSerializer
+     *      #array_end()
+     */
+    public List<ErrataOverview> listErrataNeedingSync(String sessionKey,
+                String channelLabel) {
+        User user = getLoggedInUser(sessionKey);
+        Channel channel = lookupChannelByLabel(user, channelLabel);
+
+	return ChannelManager.listErrataNeedingResync(channel, user);
+    }
+
+    /**
+     * If you have satellite-synced a new channel then Red Hat Errata
+     * will have been updated with the packages that are in the newly synced
+     * channel. A cloned erratum will not have been automatically updated
+     * however. If you cloned a channel that includes those cloned errata and
+     * should include the new packages, they will not be included when they
+     * should. This method updates all the errata in the given cloned channel
+     * with packages that have recently been added, and ensures that all the
+     * packages you expect are in the channel.
+     * @param sessionKey WebSession containing User information.
+     * @param channelLabel Label of cloned channel to update
+     * @return Returns 1 if successfull, FaultException otherwise
+     * @throws NoSuchChannelException thrown if no channel is found.
+     *
+     * @xmlrpc.doc If you have satellite-synced a new channel then Red Hat
+     * Errata will have been updated with the packages that are in the newly
+     * synced channel. A cloned erratum will not have been automatically updated
+     * however. If you cloned a channel that includes those cloned errata and
+     * should include the new packages, they will not be included when they
+     * should. This method updates all the errata in the given cloned channel
+     * with packages that have recently been added, and ensures that all the
+     * packages you expect are in the channel.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to update")
+     * @xmlrpc.returntype  #return_int_success()
+     */
+    public Integer syncErrata(String sessionKey, String channelLabel) {
+        User user = getLoggedInUser(sessionKey);
+        Channel channel = lookupChannelByLabel(user, channelLabel);
+        //Verify permissions
+        if (!(UserManager.verifyChannelAdmin(user, channel) ||
+              user.hasRole(RoleFactory.CHANNEL_ADMIN))) {
+            throw new PermissionCheckFailureException();
+        }
+
+        List<ErrataOverview> errata = ChannelManager.listErrataNeedingResync(channel, user);
+        List<Long> eids = new ArrayList<Long>();
+        for (ErrataOverview e : errata) {
+            eids.add(e.getId());
+        }
+
+        List<PackageOverview> packages = ChannelManager
+                .listErrataPackagesForResync(channel, user);
+        List<Long> pids = new ArrayList<Long>();
+        for (PackageOverview p : packages) {
+            pids.add(p.getId());
+        }
+
+        ChannelEditor.getInstance().addPackages(user, channel, pids);
+
+        for (Long eid : eids) {
+            Errata e = ErrataManager.lookupErrata(eid, user);
+            if (e.isPublished() && e.isCloned()) {
+                ErrataFactory.syncErrataDetails((PublishedClonedErrata) e);
+            }
+            else {
+                log.fatal("Tried to sync errata with id " + eid +
+                        " But it was not published or was not cloned");
+            }
+        }
+        return 1;
+    }
 
     /**
      * Lists the packages with the latest version (including release and epoch)

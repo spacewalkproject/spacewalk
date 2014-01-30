@@ -2584,6 +2584,28 @@ public class ChannelManager extends BaseManager {
      * List errata packages that need to be resynced
      * @param c the channel to look for packages in
      * @param user the user doing it
+     * @return the list of PackageOverview objects
+     */
+    public static List listErrataPackagesForResync(Channel c, User user) {
+        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+            throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
+        }
+
+        if (c.isCloned()) {
+            Map params = new HashMap();
+            params.put("cid", c.getId());
+            params.put("ocid", c.getOriginal().getId());
+            SelectMode m = ModeFactory.getMode("Errata_queries",
+                    "list_packages_needing_sync");
+            return m.execute(params);
+        }
+        return Collections.EMPTY_LIST;
+    }
+
+    /**
+     * List errata packages that need to be resynced
+     * @param c the channel to look for packages in
+     * @param user the user doing it
      * @param setLabel the set of errata to base the package off of
      * @return the list of PackageOverview objects
      */

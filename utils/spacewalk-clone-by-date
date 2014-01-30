@@ -43,6 +43,7 @@ SAMPLE_CONFIG = """
  "skip_depsolve":false,
  "security_only":false,
  "use_update_date":false,
+ "no_errata_sync":false,
  "blacklist": {
                  "ALL":["sendmail"],
                  "my-rhel5-x86_64-clone":["emacs"],
@@ -87,7 +88,7 @@ def merge_config(options):
     #   add it to options
     overwrite = ["username", "password", "blacklist", "removelist", "channels",
                  "server", "assumeyes", "to_date", "skip_depsolve",
-                 "security_only", "use_update_date"]
+                 "security_only", "use_update_date", "no_errata_sync"]
     for key in overwrite:
         if config.has_key(key) and not getattr(options, key):
             setattr(options, key, config[key])
@@ -156,6 +157,7 @@ def parse_args():
             + "original parent and destination parent of child "
             + "channels cloned this session.")
     parser.add_option("-z", "--use-update-date", dest="use_update_date", action='store_true', help="While cloning errata by date, clone all errata that have last been updated on or before the date provided by to_date. If omitted will use issue date of errata (default).")
+    parser.add_option("-n", "--no-errata-sync", dest="no_errata_sync", action='store_true', help="Do not automatically sychronize the package list of cloned errata with their originals. This may make spacewalk-clone-by-date have unexpected results if the original errata have been updated (e.g.: syncing another architecture for a channel) since the cloned errata were created. If omitted we will synchronize the cloned errata with the originals to ensure the expected packages are included (default).")
 
     (options, args) = parser.parse_args()
 
