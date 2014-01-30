@@ -147,11 +147,28 @@ public class IconTag extends TagSupport {
 
     /**
      * Constructor for Icon tag.
+     * @param typeIn the type of the icon
+     * @param titleIn the title of the icon
+     */
+    public IconTag(String typeIn, String titleIn) {
+        super();
+        type = typeIn;
+        title = titleIn;
+    }
+
+    /**
+     * Constructor for Icon tag.
+     * @param typeIn the type of the icon
+     */
+    public IconTag(String typeIn) {
+        this(typeIn, (String) null);
+    }
+
+    /**
+     * Constructor for Icon tag.
      */
     public IconTag() {
-        super();
-        type = null;
-        title = null;
+        this((String) null, (String) null);
     }
 
     /**
@@ -184,6 +201,16 @@ public class IconTag extends TagSupport {
      */
     public String getTitle() {
         return LocalizationService.getInstance().getMessage(title);
+    }
+
+    /**
+     * Return just the HTML
+     * @return String that contains generated HTML
+     */
+    public String render() {
+        String result = renderStartTag();
+        release();
+        return result;
     }
 
     /**

@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.SystemCurrency;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.html.HtmlTag;
+import com.redhat.rhn.frontend.taglibs.IconTag;
 import com.redhat.rhn.manager.system.SystemManager;
 
 /**
@@ -55,16 +56,14 @@ public class SystemListHelper {
      */
     public static void setSystemStatusDisplay(User user, SystemOverview next,
                                               boolean makeLinks) {
-
-        String message;
         HtmlTag url = new HtmlTag("a");
-        HtmlTag i = new HtmlTag("i");
+        IconTag i = new IconTag();
+
         LocalizationService ls = LocalizationService.getInstance();
         if (next.getEntitlement() == null ||
             next.getEntitlement().isEmpty()) {
-            message = ls.getMessage("systemlist.jsp.unentitled");
-            i.setAttribute("class", "spacewalk-icon-unknown-system");
-            i.setAttribute("title", message);
+            i.setType("system-unknown");
+            i.setTitle("systemlist.jsp.unentitled");
             if (user.hasRole(RoleFactory.ORG_ADMIN)) {
                 url.setAttribute("href", "/rhn/systems/details/Edit.do?sid=" +
                     next.getId());
@@ -74,9 +73,8 @@ public class SystemListHelper {
             //status = "awol";
             url.setAttribute("href",
                     "/rhn/help/reference/en-US/s1-sm-systems.jsp");
-            message = ls.getMessage("systemlist.jsp.notcheckingin");
-            i.setAttribute("class", "spacewalk-icon-unknown-system");
-            i.setAttribute("title", message);
+            i.setType("system-unknown");
+            i.setTitle("systemlist.jsp.notcheckingin");
             if (makeLinks) {
                 makeLinks = ConfigDefaults.get().isDocAvailable();
             }
@@ -87,9 +85,8 @@ public class SystemListHelper {
             url.setAttribute("href",
                     "/rhn/systems/details/kickstart/SessionStatus.do?sid=" +
                     next.getId());
-            message = ls.getMessage("systemlist.jsp.kickstart");
-            i.setAttribute("class", "fa fa-rocket");
-            i.setAttribute("title", message);
+            i.setType("system-kickstarting");
+            i.setTitle("systemlist.jsp.kickstart");
         }
         else if (next.getEnhancementErrata() + next.getBugErrata() +
                      next.getSecurityErrata() > 0 &&
@@ -99,18 +96,16 @@ public class SystemListHelper {
             url.setAttribute("href",
                     "/network/systems/details/history/pending.pxt?sid=" +
                     next.getId());
-            message = ls.getMessage("systemlist.jsp.updatesscheduled");
-            i.setAttribute("class", "fa fa-clock-o");
-            i.setAttribute("title", message);
+            i.setType("action-pending");
+            i.setTitle("systemlist.jsp.updatesscheduled");
         }
         else if (SystemManager.countActions(new Long(next.getId().longValue())) > 0) {
             //status = "actions scheduled";
             url.setAttribute("href",
                     "/network/systems/details/history/pending.pxt?sid=" +
                     next.getId());
-            message = ls.getMessage("systemlist.jsp.actionsscheduled");
-            i.setAttribute("class", "fa fa-clock-o");
-            i.setAttribute("title", message);
+            i.setType("action-pending");
+            i.setTitle("systemlist.jsp.actionsscheduled");
         }
         else if ((next.getEnhancementErrata() + next.getBugErrata() +
                   next.getSecurityErrata()) == 0 &&
@@ -119,10 +114,8 @@ public class SystemListHelper {
                      new Long(next.getId().longValue())) == 0) {
 
             //status = "up2date";
-            message = ls.getMessage("systemlist.jsp.up2date");
-            i.setAttribute("class", "fa fa-check-circle fa-1-5x text-success");
-            i.setAttribute("title", message);
-            //i.setAttribute("alt", message);
+            i.setType("system-ok");
+            i.setTitle("systemlist.jsp.up2date");
         }
         else if (next.getSecurityErrata().intValue() > 0) {
             //status = "critical";
@@ -130,25 +123,22 @@ public class SystemListHelper {
                     "/rhn/systems/details/ErrataList.do?sid=" +
                     next.getId() + "&type=" +
                     LocalizationService.getInstance().getMessage(ErrataSetupAction.SECUR));
-            message = ls.getMessage("systemlist.jsp.critical");
-            i.setAttribute("class", "fa fa-exclamation-circle fa-1-5x text-danger");
-            i.setAttribute("title", message);
+            i.setType("system-crit");
+            i.setTitle("systemlist.jsp.critical");
         }
         else if (next.getOutdatedPackages().intValue() > 0) {
             //status = "updates";
             url.setAttribute("href",
                     "/rhn/systems/details/packages/UpgradableList.do?sid=" +
                     next.getId());
-            message = ls.getMessage("systemlist.jsp.updates");
-            i.setAttribute("class", "fa fa-exclamation-triangle fa-1-5x text-warning");
-            i.setAttribute("title", message);
+            i.setType("system-warn");
+            i.setTitle("systemlist.jsp.updates");
         }
 
-        url.addBody(i.renderOpenTag());
-        url.addBody(i.renderCloseTag());
         String statusDisplay;
 
         if (makeLinks) {
+            url.addBody(i.render());
             statusDisplay = url.render();
         }
         else {
@@ -157,19 +147,16 @@ public class SystemListHelper {
 
         if (next.getLocked().intValue() == 1) {
             HtmlTag lockedUrl = new HtmlTag("a");
-            HtmlTag lockedIcon = new HtmlTag("i");
 
             //status = "locked";
             lockedUrl.setAttribute("href",
                     "/rhn/help/reference/en-US/s1-sm-systems.jsp");
-            message = ls.getMessage("systemlist.jsp.locked");
-            lockedIcon.setAttribute("class", "fa spacewalk-icon-locked-system");
-            lockedIcon.setAttribute("title", message);
+            IconTag lockedIcon = new IconTag("system-locked", "systemlist.jsp.locked");
             if (makeLinks) {
                 makeLinks = ConfigDefaults.get().isDocAvailable();
             }
             if (makeLinks) {
-                lockedUrl.addBody(lockedIcon);
+                lockedUrl.addBody(lockedIcon.render());
                 statusDisplay = statusDisplay + lockedUrl.render();
             }
             else {
