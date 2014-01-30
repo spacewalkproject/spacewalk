@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.xmlrpc.chain;
 
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.action.ActionChain;
+import com.redhat.rhn.domain.action.ActionChainEntry;
 import com.redhat.rhn.domain.action.ActionChainFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
@@ -125,10 +126,74 @@ public class ActionChainHandler extends BaseHandler {
         return packages;
     }
 
-    // Action chain
-    public Object[] listChains(String sk) {
-        //ActionChainFactory.getActionChains()
-        return null;
+    /**
+     * List currently available action chains.
+     * 
+     * @param sk Session key (token)
+     * @return list of action chains.
+     * 
+     * @xmlrpc.doc List currently available action chains.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.returntype
+     *    #array()
+     *       #struct("chain")
+     *          #prop_desc("string", "name", "Name of an Action Chain")
+     *          #prop_desc("string", "entrycount", "Number of entries in the Action Chain")
+     *       #struct_end()
+     *    #array_end()
+     */
+    public List<Map<String, String>> listChains(String sk) {
+        List<Map<String, String>> chains = new ArrayList<Map<String, String>>();
+        for (ActionChain actionChain : ActionChainFactory.getActionChains()) {
+            Map<String, String> info = new HashMap<String, String>();
+            info.put("name", actionChain.getLabel());
+            info.put("entrycount", (actionChain.getEntries() != null ? 
+                                    actionChain.getEntries().size() : 0) + "");
+            chains.add(info);
+        }
+
+        return chains;
+    }
+    
+    /**
+     * List all actions in the particular Action Chain.
+     * 
+     * @param sk
+     * @param chainName
+     * @return List of entries in the particular action chain, if any.
+     * 
+     * @xmlrpc.doc List all actions in the particular Action Chain.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "chainName")
+     * @xmlrpc.returntype
+     *    #array()
+     *       #struct("entry")
+     *          #prop_desc("string", "name", "Name of an Action")
+     *          #prop_desc("string", "created", "Created date/time")
+     *          #prop_desc("string", "earliest", "Earliest scheduled date/time")
+     *          #prop_desc("string", "type", "Type of the action")
+     *          #prop_desc("string", "modified", "Modified date/time")
+     *          #prop_desc("string", "cuid", "Creator UID")
+     *       #struct_end()
+     *    #array_end()
+     */
+    public List<Map<String, Object>> chainActions(String sk, String chainName) {
+        List<Map<String, Object>> entries = new ArrayList<Map<String, Object>>();
+        ActionChain chain = ActionChainFactory.getActionChain(chainName);
+        if (chain != null && chain.getEntries() != null && !chain.getEntries().isEmpty()) {
+            for (ActionChainEntry entry : chain.getEntries()) {
+                Map<String, Object> info = new HashMap<String, Object>();
+                info.put("name", entry.getAction().getName());
+                info.put("created", entry.getAction().getCreated());
+                info.put("earliest", entry.getAction().getEarliestAction());
+                info.put("type", entry.getAction().getActionType().getName());
+                info.put("modified", entry.getAction().getModified());
+                info.put("cuid", entry.getAction().getSchedulerUser().getLogin());
+                entries.add(info);
+            }
+        }
+
+        return entries;
     }
 
     /**
