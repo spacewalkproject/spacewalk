@@ -62,6 +62,7 @@ public abstract class BaseListAction extends RhnAction implements Listable {
     }
 
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
@@ -80,14 +81,11 @@ public abstract class BaseListAction extends RhnAction implements Listable {
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
-    protected  ActionForward handleDispatch(
+    protected abstract ActionForward handleDispatch(
             ListSessionSetHelper helper,
             ActionMapping mapping,
             ActionForm formIn, HttpServletRequest request,
-            HttpServletResponse response) {
-
-        return null;
-    }
+            HttpServletResponse response);
 
     protected void processHelper(ListSessionSetHelper helper) {
         helper.setDataSetName(getDataSetName());
