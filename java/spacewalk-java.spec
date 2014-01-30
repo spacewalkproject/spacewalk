@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.136
+Version: 2.1.137
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jan 30 2014 Stephen Herr <sherr@redhat.com> 2.1.137-1
+- 1059910 - create api for channel errata syncing, have clone-by-date call it
+- fix style on kickstart profile creation wizard + use rhn:toolbar
+- use rhn:toolbar for page headers
+- update copyright year in page footer in java
+- Removing unaesthetic spaces around dots in IPv4 address
+- Small code cleanup
+
 * Thu Jan 30 2014 Matej Kollar <mkollar@redhat.com> 2.1.136-1
 - Fixed ssm reboot scheduling.
 - Sometimes we don't want "add to ssm" option...
