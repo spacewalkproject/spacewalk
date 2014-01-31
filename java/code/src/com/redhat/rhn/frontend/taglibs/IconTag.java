@@ -139,12 +139,12 @@ public class IconTag extends TagSupport {
         icons.put("sort-up", "fa fa-arrow-circle-up");
         icons.put("system-crit", "fa fa-exclamation-circle fa-1-5x text-danger");
         icons.put("system-kickstarting", "fa fa-rocket fa-1-5x");
-        icons.put("system-locked", "fa fa-1-5x spacewalk-icon-locked-system");
+        icons.put("system-locked", "fa fa-lock fa-1-5x");
         icons.put("system-ok", "fa fa-check-circle fa-1-5x text-success");
         icons.put("system-physical", "fa fa-desktop fa-1-5x");
         icons.put("system-reboot", "fa fa-refresh");
-        icons.put("system-unentitled", "fa fa-1-5x spacewalk-icon-unentitled");
-        icons.put("system-unknown", "fa fa-1-5x spacewalk-icon-unknown-system");
+        icons.put("system-unentitled", "fa fa-times-circle fa-1-5x");
+        icons.put("system-unknown", "fa fa-question-circle fa-1-5x");
         icons.put("system-virt-guest", "fa fa-1-5x spacewalk-icon-virtual-guest");
         icons.put("system-virt-host", "fa fa-1-5x spacewalk-icon-virtual-host");
         icons.put("system-warn", "fa fa-exclamation-triangle fa-1-5x text-warning");
