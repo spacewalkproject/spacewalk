@@ -75,7 +75,7 @@ public class IconTag extends TagSupport {
         icons.put("header-file", "fa fa-file-text-o");
         icons.put("header-folder", "fa fa-folder-open-o");
         icons.put("header-globe", "fa fa-globe");
-        icons.put("header-help", "fa fa-question-circle");
+        icons.put("header-help", "fa fa-question-circle spacewalk-help-link");
         icons.put("header-info", "fa fa-info-circle");
         icons.put("header-kickstart", "fa fa-rocket");
         icons.put("header-list", "fa fa-list");

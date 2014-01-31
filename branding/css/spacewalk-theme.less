@@ -424,17 +424,8 @@ aside .nav > li > a {
 }
 
 /* question symbol for help pop up*/
-h1 .fa-stack .fa-question {
-	font-size: .6em;
-}
-h1 .fa-stack {
-	width: 1em;
-	height: 1em;
-	line-height: .7em;
-}
-.fa-stack .fa-circle {
-	font-size: .7em;
-	color: @spacewalk-blue;
+.spacewalk-help-link {
+	vertical-align: top;
 }
 
 // Panels: reseting default margins and paddings in H tags
@@ -719,7 +710,10 @@ ul.nav.nav-tabs:last-child {
 	text-decoration: underline;
 }
 
-.fa-question-circle {
+/* help links are hidden in spacewalk
+ * remove this if your product support local help pages
+ */
+.spacewalk-help-link {
 	display: none;
 }
 
