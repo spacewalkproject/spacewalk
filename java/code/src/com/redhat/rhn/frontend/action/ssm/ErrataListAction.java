@@ -183,13 +183,12 @@ public class ErrataListAction extends RhnAction implements Listable {
                     systemOverview.setChannelId(server.getBaseChannel().getId());
                     systemOverview.setChannelLabels(server.getBaseChannel().getName());
 
-                    List entitlement = new ArrayList();
-                    for (Iterator<Entitlement> itr = server.getEntitlements().iterator();
-                            itr.hasNext();) {
-                        entitlement.add(itr.next().getLabel());
+                    List<String> entitlements = new ArrayList<String>();
+                    for (Entitlement e : server.getEntitlements()) {
+                        entitlements.add(e.getLabel());
                     }
 
-                    systemOverview.setEntitlement(entitlement);
+                    systemOverview.setEntitlement(entitlements);
                 }
             }
         }
