@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.46
+Version: 2.1.47
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -628,6 +628,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Fri Jan 31 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.47-1
+- 1058431 - don't remove files referenced from other distributions/trees
+- 1058431 - propagate --skip-kickstart-trees to delete_channels()
+
 * Wed Jan 29 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.46-1
 - fixed man page for spacewalk-remove-channel
 - added option to skip kickstart trees removal
