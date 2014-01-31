@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.137
+Version: 2.1.138
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jan 31 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.138-1
+- reuse IconTag for help links, item search and pagination icons
+- re-style kickstart creation wizard, 1st form
+
 * Thu Jan 30 2014 Stephen Herr <sherr@redhat.com> 2.1.137-1
 - 1059910 - create api for channel errata syncing, have clone-by-date call it
 - fix style on kickstart profile creation wizard + use rhn:toolbar
