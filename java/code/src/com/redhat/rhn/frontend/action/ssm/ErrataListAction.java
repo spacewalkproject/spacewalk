@@ -46,8 +46,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
 /**
@@ -81,54 +79,55 @@ public class ErrataListAction extends RhnAction implements Listable {
                                  HttpServletResponse response)
             throws Exception {
         RequestContext requestContext = new RequestContext(request);
-        User user = requestContext.getLoggedInUser();
         DynaActionForm form = (DynaActionForm) actionForm;
-        ActionMessages actionMessages = new ActionMessages();
-
-        String forwardId = RhnHelper.DEFAULT_FORWARD;
 
         ListRhnSetHelper setHelper = this.bindDatasets(request);
 
         if (setHelper.isDispatched()) {
             if (requestContext.wasDispatched("errata.jsp.apply")) {
-                List<SystemOverview> srv = SystemManager.inSet(user, SetLabels.SYSTEM_LIST);
-                List<Long> serverIds = new ArrayList<Long>(srv.size());
-                for (SystemOverview s : srv) {
-                    serverIds.add(s.getId());
-                }
-
-                RhnSet packages = setHelper.getSet();
-                List<Long> errataIds = new ArrayList<Long>(packages.size());
-                errataIds.addAll(packages.getElementValues());
-
-                Date scheduleDate = this.getStrutsDelegate().readDatePicker(
-                        form, "date", DatePicker.YEAR_RANGE_POSITIVE);
-
-                MessageQueue.publish(new SsmErrataEvent(
-                        user.getId(),
-                        scheduleDate,
-                        errataIds,
-                        serverIds)
-                );
-                actionMessages.add(
-                        ActionMessages.GLOBAL_MESSAGE,
-                        new ActionMessage("ssm.errata.message.scheduled",
-                                          LocalizationService.getInstance().formatDate(
-                        scheduleDate, request.getLocale())));
-                forwardId = "confirm";
+                return handleConfirm(mapping, form, requestContext, setHelper, request);
             }
         }
 
-        this.getStrutsDelegate().saveMessages(request, actionMessages);
-
-        request.setAttribute("date", this.getStrutsDelegate().prepopulateDatePicker(
-                request, form, "date", DatePicker.YEAR_RANGE_POSITIVE));
+        getStrutsDelegate().prepopulateDatePicker(
+                request, form, "date", DatePicker.YEAR_RANGE_POSITIVE);
         request.setAttribute("parentUrl", request.getRequestURI());
         request.setAttribute(SELECTOR, request.getParameter(SELECTOR));
 
-        return mapping.findForward(forwardId);
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
+    private ActionForward handleConfirm(ActionMapping mapping,
+            DynaActionForm form,
+            RequestContext context,
+            ListRhnSetHelper helper,
+            HttpServletRequest request) {
+        User user = context.getLoggedInUser();
+
+        List<SystemOverview> srv = SystemManager.inSet(user, SetLabels.SYSTEM_LIST);
+        List<Long> serverIds = new ArrayList<Long>(srv.size());
+        for (SystemOverview s : srv) {
+            serverIds.add(s.getId());
+        }
+
+        RhnSet packages = helper.getSet();
+        List<Long> errataIds = new ArrayList<Long>(packages.size());
+        errataIds.addAll(packages.getElementValues());
+
+        Date scheduleDate = this.getStrutsDelegate().readDatePicker(
+                form, "date", DatePicker.YEAR_RANGE_POSITIVE);
+
+        MessageQueue.publish(new SsmErrataEvent(
+                user.getId(),
+                scheduleDate,
+                errataIds,
+                serverIds)
+        );
+        createMessage(request, "ssm.errata.message.scheduled",
+                new String[] {LocalizationService.getInstance().formatDate(
+                        scheduleDate, request.getLocale())});
+        return mapping.findForward("confirm");
+    }
 
     private ListRhnSetHelper bindDatasets(HttpServletRequest request) {
         request.setAttribute(ErrataListAction.MULTIBIND,
