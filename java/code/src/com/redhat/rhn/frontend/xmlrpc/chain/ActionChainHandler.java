@@ -129,11 +129,9 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * List currently available action chains.
      * 
-     * @param sk Session key (token)
      * @return list of action chains.
      * 
      * @xmlrpc.doc List currently available action chains.
-     * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype
      *    #array()
      *       #struct("chain")
@@ -142,7 +140,7 @@ public class ActionChainHandler extends BaseHandler {
      *       #struct_end()
      *    #array_end()
      */
-    public List<Map<String, String>> listChains(String sk) {
+    public List<Map<String, String>> listChains() {
         List<Map<String, String>> chains = new ArrayList<Map<String, String>>();
         for (ActionChain actionChain : ActionChainFactory.getActionChains()) {
             Map<String, String> info = new HashMap<String, String>();
@@ -158,12 +156,10 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * List all actions in the particular Action Chain.
      * 
-     * @param sk
      * @param chainName
      * @return List of entries in the particular action chain, if any.
      * 
      * @xmlrpc.doc List all actions in the particular Action Chain.
-     * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "chainName")
      * @xmlrpc.returntype
      *    #array()
@@ -177,7 +173,7 @@ public class ActionChainHandler extends BaseHandler {
      *       #struct_end()
      *    #array_end()
      */
-    public List<Map<String, Object>> chainActions(String sk, String chainName) {
+    public List<Map<String, Object>> chainActions(String chainName) {
         List<Map<String, Object>> entries = new ArrayList<Map<String, Object>>();
         ActionChain chain = ActionChainFactory.getActionChain(chainName);
         if (chain != null && chain.getEntries() != null && !chain.getEntries().isEmpty()) {
@@ -194,6 +190,73 @@ public class ActionChainHandler extends BaseHandler {
         }
 
         return entries;
+    }
+
+    /**
+     * Remove an action from an Action Chain.
+     * 
+     * @param chainName
+     * @param actionNames
+     * @return State of the action result. Negative is false.
+     *         Positive: number of successfully deleted entries.
+     * 
+     * @xmlrpc.doc List all actions in the particular Action Chain.
+     * @xmlrpc.param #param("string", "chainName")
+     * @xmlrpc.param
+     *    #array()
+     *       #param("string", "actionName")
+     *    #array_end()
+     * @xmlrpc.returntype #int
+     */
+    public int removeActions(String chainName, List<String> actionNames) {
+        int d = 0;
+        ActionChain chain = ActionChainFactory.getActionChain(chainName);
+        if (chain != null && !chain.getEntries().isEmpty()) {
+            List<ActionChainEntry> entriesToDelete = new ArrayList<ActionChainEntry>();
+            for (ActionChainEntry entry : chain.getEntries()) {
+                for (String actionName : actionNames) {
+                    if (entry.getAction().getName().equals(actionName)) {
+                        entriesToDelete.add(entry);
+                        //d += chain.getEntries().remove(entry) ? 1 : 0;
+                    }
+                }
+            }
+
+            if (!entriesToDelete.isEmpty()) {
+                for (ActionChainEntry entry : entriesToDelete) {
+                    chain.getEntries().remove(entry);
+                }
+            }
+        }
+
+        return d > 0 ? d : -1;
+    }
+
+    /**
+     * Remove Action Chains.
+     *
+     * @param chainNames
+     * @return State of the action result. Negative is false.
+     *         Positive: number of successfully deleted entries.
+     *
+     * @xmlrpc.doc List all actions in the particular Action Chain.
+     * @xmlrpc.param
+     *    #array()
+     *       #param("string", "chainName")
+     *    #array_end()
+     * @xmlrpc.returntype #int
+     */
+    public int removeChains(List<String> chainNames) {
+        int d = 0;
+        for (String chainName : chainNames) {
+            ActionChain chain = ActionChainFactory.getActionChain(chainName);
+            if (chain != null) {
+                ActionChainFactory.delete(chain);
+                d++;
+            }
+        }
+
+        return d > 0 ? d : -1;
     }
 
     /**
