@@ -46,5 +46,13 @@
                 <param name="class" value="com.redhat.rhn.frontend.action.renderers.ImagesRenderer" />
                 <include method="renderAsync" />
           </create>
+          <create creator="new" javascript="ActionChainEntriesRenderer">
+                <param name="class" value="com.redhat.rhn.frontend.action.renderers.ActionChainEntryRenderer" />
+                <include method="renderAsync" />
+          </create>
+          <create creator="new" javascript="ActionChainSaveAction">
+                <param name="class" value="com.redhat.rhn.frontend.action.schedule.ActionChainSaveAction" />
+                <include method="save" />
+          </create>
 	</allow>
 </dwr>
