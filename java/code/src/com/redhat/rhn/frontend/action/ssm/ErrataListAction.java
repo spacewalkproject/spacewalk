@@ -34,13 +34,15 @@ import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -90,17 +92,14 @@ public class ErrataListAction extends RhnAction implements Listable {
         if (setHelper.isDispatched()) {
             if (requestContext.wasDispatched("errata.jsp.apply")) {
                 List<SystemOverview> srv = SystemManager.inSet(user, SetLabels.SYSTEM_LIST);
-                List<Long> serverIds = new ArrayList<Long>();
-                for (int i = 0; i < srv.size(); i++) {
-                    serverIds.add(srv.get(i).getId());
+                List<Long> serverIds = new ArrayList<Long>(srv.size());
+                for (SystemOverview s : srv) {
+                    serverIds.add(s.getId());
                 }
 
                 RhnSet packages = setHelper.getSet();
-                List<Long> errataIds = new ArrayList<Long>();
-                Iterator<Long> iter = packages.getElementValues().iterator();
-                while (iter.hasNext()) {
-                    errataIds.add(iter.next());
-                }
+                List<Long> errataIds = new ArrayList<Long>(packages.size());
+                errataIds.addAll(packages.getElementValues());
 
                 Date scheduleDate = this.getStrutsDelegate().readDatePicker(
                         form, "date", DatePicker.YEAR_RANGE_POSITIVE);
