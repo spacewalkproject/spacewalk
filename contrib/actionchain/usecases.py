@@ -86,6 +86,39 @@ class ScenarioRunner(SMConnect):
             for data in self.client.actionchains.chainActions(self.token, chain.get("name")):
                 print "\t", data
 
+    def example_03(self):
+        """
+        Remove action entries in the action chain.
+        """
+        self.client.actionchains.addPackageInstall(
+            self.token, 1000010000,
+            [
+                {
+                    "name" : "alsa-lib",
+                    # "version" : "1.0.22",
+                    },
+                ],
+            "Test Chain")
+
+        # Test Chain must be there
+        for chain in self.client.actionchains.listChains():
+            print "Chain:", chain.get("name")
+
+        # List actions
+        for data in self.client.actionchains.chainActions("Test Chain"):
+            print "\t", data
+
+        self.client.actionchains.removeActions("Test Chain", ["Package Install"])
+
+        # List actions (should be empty)
+        print "After deletion:", self.client.actionchains.chainActions("Test Chain")
+
+        # Remove the chain itself:
+        self.client.actionchains.removeChains(["Test Chain",])
+
+        # Test Chain must be no longer there
+        for chain in self.client.actionchains.listChains():
+            print "Chain:", chain.get("name")
 
 
 if __name__ == "__main__":
@@ -94,4 +127,4 @@ if __name__ == "__main__":
     password = "admin"
 
     sr = ScenarioRunner(host, user, password)
-    sr.example_02()
+    sr.example_03()
