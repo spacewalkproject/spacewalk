@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.1.23
+Version:    2.1.24
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -86,6 +86,13 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Jan 31 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.24-1
+- add special class to help links
+- Revert "bootstrap tuning - style submit buttons"
+- style table for system comparsion
+- update copyright year in perl footer
+- highlight column by which is list sorted and hovered row
+
 * Wed Jan 29 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.23-1
 - add sort order icons and alphaResult icon
 - adding custom styles
