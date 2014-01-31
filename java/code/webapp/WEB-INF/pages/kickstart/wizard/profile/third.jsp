@@ -46,27 +46,35 @@ function movePrevious() {
     <html:hidden property="defaultDownload" />
     <html:hidden property="userDefinedDownload" />
     <html:hidden property="kstreeUpdateType" />
-    <h1><bean:message key="kickstart.jsp.create.wizard.step.three"/></h1>
-    <table class="details" width="80%">
-        <tr>
-            <td colspan="2"><bean:message key="kickstart.jsp.create.wizard.third.heading1" /></td>
-        </tr>
-        <tr>
-            <th width="14%"><rhn:required-field key="kickstart.root.password.jsp.label"/>:</th>
-            <td><html:password property="rootPassword" /></td>
-        </tr>
-        <tr>
-        	<th width="14%"><rhn:required-field key="kickstart.root.password.verify.jsp.label"/>:</th>
-        	<td valign="bottom"><html:password property="rootPasswordConfirm" /></td>
-        </tr>
-        <tr>
-            <td colspan="2" align="right">
-                <input type="button" value="<bean:message key='wizard.jsp.previous.step'/>" onclick="movePrevious();" />
-                &nbsp;&nbsp;
-                <input type="submit" value="<bean:message key='wizard.jsp.finish.step'/>" onclick="moveNext();" />
-            </td>
-        </tr>
-    </table>
+    <rhn:toolbar base="h1" icon="header-kickstart"><bean:message key="kickstart.jsp.create.wizard.step.three"/></rhn:toolbar>
+    <p><bean:message key="kickstart.jsp.create.wizard.third.heading1" /></p>
+    <div class="panel panel-default">
+      <ul class="list-group">
+        <div class="row">
+          <div class="col-sm-2">
+            <rhn:required-field key="kickstart.root.password.jsp.label"/>:
+          </div>
+          <div class="col-sm-10">
+            <html:password property="rootPassword" />
+          </div>
+        </div>
+      </ul>
+      <ul class="list-group">
+        <div class="row">
+          <div class="col-sm-2">
+          	<rhn:required-field key="kickstart.root.password.verify.jsp.label"/>:
+          </div>
+          <div class="col-sm-10">
+          	<html:password property="rootPasswordConfirm" />
+          </div>
+        </div>
+      </ul>
+    </div>
+    <div align="right">
+      <input type="button" value="<bean:message key='wizard.jsp.previous.step'/>" onclick="movePrevious();" class="btn btn-default" />
+      &nbsp;&nbsp;
+      <input type="submit" value="<bean:message key='wizard.jsp.finish.step'/>" onclick="moveNext();" class="btn btn-default" />
+    </div>
   </html:form>
   </html>
 </div>
