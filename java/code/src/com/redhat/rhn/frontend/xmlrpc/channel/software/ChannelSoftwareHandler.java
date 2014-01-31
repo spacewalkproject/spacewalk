@@ -131,7 +131,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         User user = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(user, channelLabel);
 
-	return ChannelManager.listErrataNeedingResync(channel, user);
+        return ChannelManager.listErrataNeedingResync(channel, user);
     }
 
     /**
