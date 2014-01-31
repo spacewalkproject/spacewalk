@@ -149,12 +149,14 @@ public class LoginHelper {
 
     private static String decodeFromIso88591(String string, String defaultString) {
         try {
-            return new String(string.getBytes("ISO8859-1"), "UTF-8");
+            if (string != null) {
+                return new String(string.getBytes("ISO8859-1"), "UTF-8");
+            }
         }
         catch (UnsupportedEncodingException e) {
             log.warn("Unable to decode: " + string);
-            return defaultString;
         }
+        return defaultString;
     }
 
     private static Set<Role> getRolesFromExtGroups(HttpServletRequest requestIn) {
