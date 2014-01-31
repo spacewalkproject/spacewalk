@@ -226,7 +226,9 @@
     <rhn-tab name="Failed Actions" url="/rhn/schedule/FailedActions.do"/>
     <rhn-tab name="Completed Actions" url="/rhn/schedule/CompletedActions.do"/>
     <rhn-tab name="Archived Actions" url="/rhn/schedule/ArchivedActions.do"/>
-    <rhn-tab name="Action Chains" url="/rhn/schedule/ActionChains.do"/>
+    <rhn-tab name="Action Chains" url="/rhn/schedule/ActionChains.do">
+      <rhn-tab-url>/rhn/schedule/ActionChain.do</rhn-tab-url>
+    </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Users" url="/rhn/users/ActiveList.do" acl="user_role(org_admin)" active-image="tab-users-selected.gif" inactive-image="tab-users.gif">
     <rhn-tab name="User List" acl="user_role(org_admin)" url="/rhn/users/ActiveList.do">

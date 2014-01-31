@@ -1978,6 +1978,16 @@
         <forward name="default" path="/WEB-INF/pages/schedule/actionchains.jsp"/>
     </action>
 
+    <action path="/schedule/ActionChain" scope="request"
+        name="datePickerForm"
+        input="/WEB-INF/pages/schedule/actionchain.jsp"
+        type="com.redhat.rhn.frontend.action.schedule.ActionChainEditAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default" path="/WEB-INF/pages/schedule/actionchain.jsp"/>
+        <forward name="to_list" path="/schedule/ActionChains.do" redirect="true"/>
+    </action>
+
      <action path="/schedule/PackageList"
         scope="request"
         input="/WEB-INF/pages/schedule/packagelist.jsp"

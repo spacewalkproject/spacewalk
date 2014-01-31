@@ -2320,6 +2320,188 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/schedule/ActionChains</context>
         </context-group>
       </trans-unit>
+      <!-- actionchain.jsp -->
+      <trans-unit id="actionchain.jsp.title">
+        <source>Action Chain</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.summary">
+        <source>Below is a list of Actions in this Action Chain. You can change the order by &lt;em&gt;drag and drop&lt;/em&gt;.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.summarydetail">
+        <source>
+            You add Actions to this Action Chain by scheduling any supported operation, such as
+            &lt;a href=&quot;/rhn/ssm/PackageInstall.do&quot;&gt;installing&lt;/a&gt; or
+            &lt;a href=&quot;/rhn/ssm/PackageUpgrade.do&quot;&gt;upgrading&lt;/a&gt; a package, running a
+            &lt;a href=&quot;/rhn/systems/ssm/provisioning/RemoteCommand.do&quot;&gt;remote command&lt;/a&gt; or
+            &lt;a href=&quot;/rhn/systems/ssm/config/Deploy.do&quot;&gt;deploying a configuration file&lt;/a&gt;.
+            Both System Set Manager and single system actions are supported.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.action">
+        <source>Action</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.delete">
+        <source>Delete</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.on">
+        <source>on</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.system">
+        <source>system</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.systems">
+        <source>systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.deletesystem">
+        <source>delete system</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.packages.update">
+        <source>Install or update {0} on</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.packages.remove">
+        <source>Remove {0} from</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.packages.verify">
+        <source>Verify {0} on</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.errata.update">
+        <source>Apply errata {0} on</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.script.run">
+        <source>Run a remote command on</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.reboot.reboot">
+        <source>Reboot</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.configfiles.deploy">
+        <source>Deploy {0} to</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.modaltitle">
+        <source>Delete Action Chain?</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.modalbody">
+        <source>All Actions in this Action Chain will also be deleted. Are you sure?</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.deleted">
+        <source>Action Chain {0} deleted.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.save">
+        <source>Save</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.cancel">
+        <source>Cancel Discarding all Changes</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.saved">
+        <source>Changes saved.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.labelexists">
+        <source>Could not save the Action Chain, a chain with the same label already exists.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.schedulesummary">
+        <source>This Action Chain can be scheduled for execution below:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.edit">
+        <source>Edit</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.schedule">
+        <source>Schedule</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.saveandschedule">
+        <source>Save and Schedule</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.stayorleave">
+        <source>You made some changes in this Action Chain and they are not saved yet.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actionchain.jsp.scheduled">
+        <source>Action Chain {0} has been scheduled for execution.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionChain</context>
+        </context-group>
+      </trans-unit>
       <!-- packagelist.jsp -->
       <trans-unit id="packagelist.jsp.header.packages">
         <source>Packages</source>
