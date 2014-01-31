@@ -148,7 +148,8 @@ def main():
     try:
         delete_channels(channels.keys(), force=options.force,
                         justdb=options.justdb, skip_packages=options.skip_packages,
-                        skip_channels=options.skip_channels)
+                        skip_channels=options.skip_channels,
+                        skip_kickstart_trees=options.skip_kickstart_trees)
     except:
         rhnSQL.rollback()
         raise
@@ -285,7 +286,8 @@ def __listChannels():
     return labels, parents
 
 
-def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0, skip_channels=0):
+def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0, skip_channels=0,
+                    skip_kickstart_trees=0):
     # Get the package ids
     if not channelLabels:
         return
