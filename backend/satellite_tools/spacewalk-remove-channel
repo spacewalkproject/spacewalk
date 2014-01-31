@@ -551,16 +551,23 @@ def _get_package_paths(package_ids, sources=0):
 def _delete_ks_files(channel_labels):
     sql = """
         select kt.base_path
-        from rhnChannel c
-        left join  rhnKickstartableTree kt on c.id = kt.channel_id
-        where c.label in (%s);
+          from rhnChannel c
+          join rhnKickstartableTree kt on c.id = kt.channel_id
+         where c.label in (%s) and not exists (
+                select 1
+                  from rhnKickstartableTree ktx
+                  join rhnChannel cx on cx.id = ktx.channel_id
+                 where replace(ktx.base_path, :mnt_point, '') =
+                       replace(kt.base_path, :mnt_point, '')
+                   and cx.label not in (%s));
     """
 
     params, bind_params = _bind_many(channel_labels)
+    params['mnt_point'] = CFG.MOUNT_POINT + '/'
     bind_params = string.join(bind_params, ', ')
-    h = rhnSQL.prepare(sql % (bind_params))
+    h = rhnSQL.prepare(sql % (bind_params, bind_params))
     h.execute(**params)
-    list = h.fetchall_dict()
+    list = h.fetchall_dict() or []
 
     for map in list:
         path = os.path.join(CFG.MOUNT_POINT, str(map['base_path']))
