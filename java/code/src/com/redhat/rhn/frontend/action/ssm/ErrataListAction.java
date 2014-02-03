@@ -110,9 +110,9 @@ public class ErrataListAction extends RhnAction implements Listable {
             serverIds.add(s.getId());
         }
 
-        RhnSet packages = helper.getSet();
-        List<Long> errataIds = new ArrayList<Long>(packages.size());
-        errataIds.addAll(packages.getElementValues());
+        RhnSet erratas = helper.getSet();
+        List<Long> errataIds = new ArrayList<Long>(erratas.size());
+        errataIds.addAll(erratas.getElementValues());
 
         Date scheduleDate = this.getStrutsDelegate().readDatePicker(
                 form, "date", DatePicker.YEAR_RANGE_POSITIVE);
