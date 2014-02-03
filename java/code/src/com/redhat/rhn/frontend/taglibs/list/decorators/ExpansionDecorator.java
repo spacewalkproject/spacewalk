@@ -63,6 +63,7 @@ public class ExpansionDecorator extends BaseListDecorator {
     public void afterList() throws JspException {
         ListTag list = getCurrentList();
         ListTagUtil.write(pageContext, String.format(LOAD_SCRIPT,
-                            list.getColumnCount(), list.getStyleId(), listName, listName));
+                            list.getColumnCount(), list.getStyleId() + "_exp",
+                            listName, listName));
     }
 }
