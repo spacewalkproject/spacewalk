@@ -16,7 +16,7 @@
                 <bean:message key="kickstart.activationkeys.jsp.description"/>:
             </label>
             <div class="col-lg-6">
-                <html:text property="description" styleClass="form-control" styleId="description"/><br/>
+                <html:text property="description" styleClass="form-control" styleId="description"/>
                 <span class="help-block">
                     <bean:message key="activation-key.jsp.edit-description-tooltip"
                                   arg0 = "${requestScope.blankDescription}"/>
@@ -97,23 +97,26 @@
         </div>
         <c:if test="${not requestScope.create}">
             <div class="form-group">
-                <div class="col-lg-offset-3 col-lg-6">
+                <label class="col-lg-3 control-label">
+                    <bean:message key="activation-key.jsp.enable-config-auto-deploy"/>:
+                </label>
+                <div class="col-lg-6">
                     <rhn:require acl="token_has_entitlement(provisioning_entitled)"
                                  mixins="com.redhat.rhn.common.security.acl.ActivationKeyAclHandler">
-                        <label>
+                        <div class="checkbox">
                             <html:checkbox property="autoDeploy" styleId="enable-config-auto-deploy" />
-                            <bean:message key="activation-key.jsp.enable-config-auto-deploy"/>
-                        </label>
+                            <br/>
+                        </div>
                         <span class="help-block">
                             <bean:message key="activation-key.jsp.config-auto-deploy-tooltip"/>
                         </span>
                     </rhn:require>
                     <rhn:require acl="not token_has_entitlement(provisioning_entitled)"
                                  mixins="com.redhat.rhn.common.security.acl.ActivationKeyAclHandler">
-                        <label>
+                        <div class="checkbox">
                             <input type=checkbox disabled=true/>
-                            <bean:message key="activation-key.jsp.enable-config-auto-deploy"/>
-                        </label>
+                            <br/>
+                        </div>
                         <span class="help-block">
                             <bean:message key="activation-key.jsp.disabled-config-auto-deploy-tooltip"
                                           arg0="${rhn:localize('provisioning_entitled')}"
@@ -124,10 +127,12 @@
             </div>
         </c:if>
         <div class="form-group">
-            <div class="col-lg-offset-3 col-lg-6">
+            <label class="col-lg-3 control-label">
+                <bean:message key="activation-key.jsp.universal-default"/>:
+            </label>
+            <div class="col-lg-6">
                 <div class="checkbox">
-                    <html:checkbox property="universal" styleId="universal" />
-                    <bean:message key="activation-key.jsp.universal-default"/>
+                    <html:checkbox property="universal" styleId="universal" /><br/>
                 </div>
                 <span class="help-block">
                     <rhn:tooltip key="activation-key.jsp.edit.universal-default-tooltip"/>
