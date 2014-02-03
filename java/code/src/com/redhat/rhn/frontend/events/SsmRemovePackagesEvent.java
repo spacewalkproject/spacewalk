@@ -18,8 +18,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import com.redhat.rhn.domain.action.script.ScriptActionDetails;
-
 /**
  * Event fired to carry the information necessary to remove packages from servers in the
  * SSM.
@@ -37,28 +35,11 @@ public class SsmRemovePackagesEvent extends SsmPackageEvent {
      * @param userIdIn    ID of user scheduling this action.
      * @param earliestIn  Earliest data action can be picked up.
      * @param resultIn    Complex map of which packages we're removing from which servers.
-     * @param detailsIn   optional remote-command to execute before or after the install
-     * @param beforeIn    optional boolean - true if details should be executed BEFORE the
-     *                    install, false if AFTER
      */
-    public SsmRemovePackagesEvent(Long userIdIn,
-                                  Date earliestIn,
-                                  List<Map> resultIn,
-                                  ScriptActionDetails detailsIn,
-                                  boolean beforeIn) {
-        super(userIdIn, earliestIn, detailsIn, beforeIn);
+    public SsmRemovePackagesEvent(Long userIdIn, Date earliestIn,
+        List<Map> resultIn) {
+        super(userIdIn, earliestIn);
         result = resultIn;
-    }
-
-    /**
-     * Creates a new SSM remove packages event.
-     *
-     * @param userIdIn    ID of user scheduling this action.
-     * @param earliestIn  Earliest data action can be picked up.
-     * @param resultIn    Complex map of which packages we're removing from which servers.
-     */
-    public SsmRemovePackagesEvent(Long userIdIn, Date earliestIn, List<Map> resultIn) {
-        this(userIdIn, earliestIn, resultIn, null, false);
     }
 
     /** {@inheritDoc} */

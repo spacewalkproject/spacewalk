@@ -99,17 +99,6 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
                 strutsDelegate.saveMessages(request, msgs);
                 return actionMapping.findForward("confirm");
             }
-            else if (requestContext.wasDispatched("installconfirm.jsp.runremotecommand")) {
-                // Need to allow the user to specify a remote-cmd, either
-                // before or after the package-install
-                params.put("packagesDecl", packagesDecl);
-                DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, f,
-                        "date", DatePicker.YEAR_RANGE_POSITIVE);
-                picker.writeToMap(params);
-
-                return strutsDelegate.forwardParams(actionMapping.findForward("remote"),
-                        params);
-            }
         }
 
         // Determine number of packages for summary text to user

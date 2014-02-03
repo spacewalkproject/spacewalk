@@ -52,8 +52,6 @@
         <div class="form-group">
             <div class="col-lg-offset-3 col-lg-6">
                 <input type="submit" name="dispatch" class="btn btn-success"
-                       value='<bean:message key="removeconfirm.jsp.runremotecommand"/>'/>
-                <input type="submit" name="dispatch" class="btn btn-success"
                        value='<bean:message key="installconfirm.jsp.confirm"/>'/>
             </div>
         </div>

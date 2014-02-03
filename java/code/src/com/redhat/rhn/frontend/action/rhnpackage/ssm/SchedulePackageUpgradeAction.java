@@ -84,15 +84,6 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
             if (requestContext.wasDispatched("installconfirm.jsp.confirm")) {
                 return executePackageAction(actionMapping, actionForm, request, response);
             }
-            else if (requestContext.wasDispatched("upgradeconfirm.jsp.runremotecommand")) {
-                StrutsDelegate strutsDelegate = getStrutsDelegate();
-                params.put("packagesDecl", packagesDecl);
-                DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, f,
-                        "date", DatePicker.YEAR_RANGE_POSITIVE);
-                picker.writeToMap(params);
-                return strutsDelegate.forwardParams(actionMapping.findForward("remote"),
-                        params);
-            }
         }
 
         // Pre-populate the date picker

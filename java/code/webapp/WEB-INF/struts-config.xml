@@ -399,29 +399,6 @@
             <form-property name="MDOM"  type="java.lang.String"/>
         </form-bean>
 
-        <form-bean name="scheduleRemoteCmdForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="run_script" type="java.lang.String"/>
-            <form-property name="username" type="java.lang.String"/>
-            <form-property name="group" type="java.lang.String"/>
-            <form-property name="timeout" type="java.lang.Long"/>
-            <form-property name="script" type="java.lang.String"/>
-            <form-property name="session_set_label" type="java.lang.String"/>
-            <form-property name="submitted"  type="java.lang.Boolean"/>
-            <form-property name="mode" type="java.lang.String"/>
-            <!-- fields needed by datePicker -->
-            <form-property name="use_date"  type="java.lang.Boolean"/>
-            <form-property name="date_year"  type="java.lang.Integer"/>
-            <form-property name="date_month"  type="java.lang.Integer"/>
-            <form-property name="date_day"  type="java.lang.Integer"/>
-            <form-property name="date_hour"  type="java.lang.Integer"/>
-            <form-property name="date_minute"  type="java.lang.Integer"/>
-            <form-property name="date_am_pm"  type="java.lang.Integer"/>
-            <form-property name="no_scrub" type="java.lang.String"
-                             initial="run_script, script"/>
-
-        </form-bean>
-
         <form-bean name="errataPublishForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property type="java.lang.Long" name="eid"/>
@@ -8405,21 +8382,6 @@
        <set-property property="postRequiredIfSubmitted" value="true" />
        <forward name="default"
                 path="/WEB-INF/pages/ssm/packageinstallschedule.jsp" />
-       <forward name="remote"
-                path="/ssm/PackageScheduleRemoteCommand.do" redirect="true"/>
-       <forward name="confirm"
-                path="/ssm/ViewLog.do" redirect="true"/>
-    </action>
-
-    <action path="/ssm/PackageScheduleRemoteCommand"
-        scope="request"
-        name="scheduleRemoteCmdForm"
-        input="/WEB-INF/pages/ssm/packagescheduleremote.jsp"
-        type="com.redhat.rhn.frontend.action.rhnpackage.ssm.ScheduleRemoteCommand"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-       <set-property property="postRequiredIfSubmitted" value="true" />
-       <forward name="default"
-                path="/WEB-INF/pages/ssm/packagescheduleremote.jsp" />
        <forward name="confirm"
                 path="/ssm/ViewLog.do" redirect="true"/>
     </action>
@@ -8446,8 +8408,6 @@
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
                  path="/WEB-INF/pages/ssm/packageremoveschedule.jsp" />
-       <forward name="remote"
-                path="/ssm/PackageScheduleRemoteCommand.do" redirect="true"/>
         <forward name="confirm"
                  path="/ssm/ViewLog.do" redirect="true"/>
      </action>
@@ -8474,8 +8434,6 @@
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
                  path="/WEB-INF/pages/ssm/packageupgradeschedule.jsp" />
-        <forward name="remote"
-                 path="/ssm/PackageScheduleRemoteCommand.do" redirect="true"/>
         <forward name="confirm"
                  path="/ssm/ViewLog.do" redirect="true"/>
      </action>

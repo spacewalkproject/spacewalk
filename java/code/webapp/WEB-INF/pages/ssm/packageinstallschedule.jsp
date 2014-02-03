@@ -44,9 +44,6 @@
             <div class="col-lg-offset-3 col-lg-6">
                 <input type="submit"
                        name="dispatch"
-                       value='<bean:message key="installconfirm.jsp.runremotecommand"/>'/>
-                <input type="submit"
-                       name="dispatch"
                        value='<bean:message key="installconfirm.jsp.confirm"/>'/>
             </div>
         </div>
