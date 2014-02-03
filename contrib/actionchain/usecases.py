@@ -90,8 +90,8 @@ class ScenarioRunner(SMConnect):
         """
         Remove action entries in the action chain.
         """
-        self.client.actionchains.addPackageInstall(
-            self.token, 1000010000,
+        self.client.actionchains.addPackageRemoval(
+            self.token, "pig", "",
             [
                 {
                     "name" : "alsa-lib",
