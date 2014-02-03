@@ -694,6 +694,19 @@ public class ListTagUtil {
 
     }
 
+    /**
+     * Renders the hidden input for filter to work
+     * @param pageContext caller's page context
+     * @param uniqueName name of the list
+     * @throws JspException if something bad happens writing to the page
+     */
+    public static void renderFilterSubmit(PageContext pageContext,
+            String uniqueName) throws JspException {
+        String filterName = makeFilterNameByLabel(uniqueName);
+        String result = (String.format("<input type=\"hidden\" name=\"%s\" ", filterName));
+        ListTagUtil.write(pageContext, result);
+    }
+
     private static String makePageLink(HttpServletRequest request,
             String listName, String page) {
         String url = makeNonPagedLink(request, listName);

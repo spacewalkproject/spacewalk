@@ -451,6 +451,9 @@ public class ListTag extends BodyTagSupport {
                 dec.beforeTopPagination();
             }
         }
+        if (filter != null && manip.getUnfilteredDataSize() !=  0) {
+            ListTagUtil.renderFilterSubmit(pageContext, getUniqueName());
+        }
         renderTopPaginationControls();
         pageContext.popBody();
 
