@@ -4446,9 +4446,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="ssm.overview.misc.scap">
           <source>&lt;a href="/rhn/systems/ssm/audit/ScheduleXccdf.do"&gt;Audit&lt;/a&gt; systems with OpenSCAP</source>
         </trans-unit>
-        <trans-unit id="ssm.errata.serverlist.return">
-          <source>Back to errata</source>
-        </trans-unit>
         <trans-unit id="ssm.errata.message.scheduled">
           <source>Errata updates &lt;a href="/rhn/schedule/PendingActions.do"&gt;scheduled&lt;/a&gt; at {0}.</source>
         </trans-unit>
@@ -15120,6 +15117,12 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="ssm.patches.list.summary">
           <source>The errata below apply to one or more of your selected systems.</source>
+        </trans-unit>
+        <trans-unit id="ssm.errata-relevant-systems.title">
+          <source>Systems in System Set Manager Affected By {0} - {1}</source>
+        </trans-unit>
+        <trans-unit id="ssm.errata-relevant-systems.summary">
+          <source>Below is a list of the systems in the system set manager which are affected by this erratum.</source>
         </trans-unit>
       </group>
       <trans-unit id="ssm.operations.actionchaindetails.schedulesuccess">

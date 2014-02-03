@@ -82,7 +82,7 @@
                 </rl:column>
 
                 <rl:column headerkey="errata.jsp.affected" bound="false" sortattr="affectedSystemCount" sortable="true">
-                    <a href="/rhn/systems/ssm/ListPatches.do?<%=ErrataListAction.RP_AFFECTED_SYSTEMS%>=${current.id}">${current.affectedSystemCount}</a>
+                    <a href="/rhn/systems/ssm/ErrataSystemsAffected.do?eid=${current.id}">${current.affectedSystemCount}</a>
                 </rl:column>
 
                 <rl:column headerkey="erratalist.jsp.updated" bound="false" sortattr="updateDateObj"

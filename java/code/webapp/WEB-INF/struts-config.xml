@@ -3646,6 +3646,17 @@
                  path="/systems/ssm/ListSystems.do" redirect="true"/>
      </action>
 
+    <action path="/systems/ssm/ErrataSystemsAffected"
+        scope="request"
+        name="SSMPatchListForm"
+        input="/WEB-INF/pages/ssm/systems/ssm-errata-systems-affected.jsp"
+        type="com.redhat.rhn.frontend.action.ssm.ErrataSystemsAffectedListAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/systems/ssm-errata-systems-affected.jsp" />
+    </action>
+
     <action path="/systems/ssm/ListPatches"
         scope="request"
         name="SSMPatchListForm"

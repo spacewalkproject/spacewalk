@@ -171,7 +171,7 @@ public class ErrataListAction extends RhnAction implements Listable {
                     Long.parseLong(
                             context.getRequest().getParameter(
                                     ErrataListAction.RP_AFFECTED_SYSTEMS)
-                    )
+                    ), null
             );
             if (systems != null) {
                 for (int i = 0; i < systems.size(); i++) {

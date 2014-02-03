@@ -783,14 +783,16 @@ public class ErrataManager extends BaseManager {
      *
      * @param user Logged-in user.
      * @param eid Errata ID.
+     * @param pc PageControl
      * @return systems Affected by current errata, that are in the set of SSM.
      */
-    public static List<SystemOverview> systemsAffectedInSet(User user, Long eid) {
+    public static DataResult<SystemOverview> systemsAffectedInSet(User user, Long eid,
+            PageControl pc) {
         Map params = new HashMap();
         params.put("eid", eid);
         params.put("user_id", user.getId());
-        return ModeFactory.getMode("Errata_queries",
-                                   "in_set_and_affected_by_errata").execute(params);
+        return makeDataResult(params, Collections.EMPTY_MAP, pc,
+                ModeFactory.getMode("Errata_queries", "in_set_and_affected_by_errata"));
     }
 
     /**
