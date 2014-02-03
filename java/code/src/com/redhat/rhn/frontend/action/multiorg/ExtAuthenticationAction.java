@@ -51,17 +51,18 @@ public class ExtAuthenticationAction extends RhnAction {
         RequestContext ctx = new RequestContext(request);
 
         if (ctx.isSubmitted()) {
+            Boolean useOu = (Boolean) daForm.get("use_ou");
+            // store the value
+            SatConfigFactory.setSatConfigBooleanValue(
+                    SatConfigFactory.EXT_AUTH_USE_ORGUNIT, useOu);
 
             String toOrgString = daForm.getString("to_org");
-            if (!StringUtils.isBlank(toOrgString)) {
+            if (!StringUtils.isEmpty(toOrgString)) {
                 // just check the org id is valid
                 OrgFactory.lookupById(Long.parseLong(toOrgString));
             }
-            else {
-                toOrgString = null;
-            }
             // store the value
-            SatConfigFactory.setSatConfigValue(SatConfigFactory.ORG_ID_FOR_EXT_AUTH,
+            SatConfigFactory.setSatConfigValue(SatConfigFactory.EXT_AUTH_DEFAULT_ORGID,
                     toOrgString);
 
             createSuccessMessage(request, "message.ext_auth_updated", null);
@@ -76,6 +77,11 @@ public class ExtAuthenticationAction extends RhnAction {
     private void setupForm(HttpServletRequest request, DynaActionForm form) {
         RequestContext ctx = new RequestContext(request);
         User user = ctx.getCurrentUser();
+
+        Boolean useOrgUnit = SatConfigFactory.getSatConfigBooleanValue(
+                SatConfigFactory.EXT_AUTH_USE_ORGUNIT);
+        form.set("use_ou", useOrgUnit);
+
         DataList<OrgDto> dr = OrgManager.activeOrgs(user);
 
         List <LabelValueBean> orgs = new LinkedList<LabelValueBean>();
@@ -88,7 +94,7 @@ public class ExtAuthenticationAction extends RhnAction {
         request.setAttribute("orgs", orgs);
 
         Long actOrgId = SatConfigFactory.getSatConfigLongValue(
-                SatConfigFactory.ORG_ID_FOR_EXT_AUTH);
+                SatConfigFactory.EXT_AUTH_DEFAULT_ORGID);
         if (actOrgId != null) {
             form.set("to_org", actOrgId.toString());
         }

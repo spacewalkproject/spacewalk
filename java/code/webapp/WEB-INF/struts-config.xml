@@ -320,6 +320,7 @@
         <form-bean name="extAuthForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="to_org" type="java.lang.String"/>
+            <form-property name="use_ou" type="java.lang.Boolean"/>
         </form-bean>
         <form-bean name="extGroupForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">

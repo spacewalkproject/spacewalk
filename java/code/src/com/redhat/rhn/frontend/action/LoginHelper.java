@@ -83,13 +83,8 @@ public class LoginHelper {
             String email = decodeFromIso88591(
                     (String) request.getAttribute("REMOTE_USER_EMAIL"), null);
 
-            Long defaultOrgId = SatConfigFactory.getSatConfigLongValue(
-                    SatConfigFactory.ORG_ID_FOR_EXT_AUTH);
-
             Set<Role> roles = getRolesFromExtGroups(request);
 
-            log.warn("REMOTE_USER_ORGUNIT: " +
-                    request.getAttribute("REMOTE_USER_ORGUNIT"));
             log.warn("REMOTE_USER_GROUPS: " +
                     request.getAttribute("REMOTE_USER_GROUPS"));
 
@@ -114,14 +109,28 @@ public class LoginHelper {
                 }
             }
             catch (LookupException le) {
-                Org defaultOrg = null;
-                if (defaultOrgId != null) {
-                    defaultOrg = OrgFactory.lookupById(defaultOrgId);
+                Org newUserOrg = null;
+                Boolean useOrgUnit = SatConfigFactory.getSatConfigBooleanValue(
+                        SatConfigFactory.EXT_AUTH_USE_ORGUNIT);
+                if (useOrgUnit) {
+                    String orgUnitString =
+                            (String) request.getAttribute("REMOTE_USER_ORGUNIT");
+                    newUserOrg = OrgFactory.lookupByName(orgUnitString);
+                    if (newUserOrg == null) {
+                        log.error("Cannot find organization with name: " + orgUnitString);
+                    }
                 }
-                if (defaultOrg == null) {
-                    log.error("Cannot find organization with id: " + defaultOrgId);
+                if (newUserOrg == null) {
+                    Long defaultOrgId = SatConfigFactory.getSatConfigLongValue(
+                            SatConfigFactory.EXT_AUTH_DEFAULT_ORGID);
+                    if (defaultOrgId != null) {
+                        newUserOrg = OrgFactory.lookupById(defaultOrgId);
+                        if (newUserOrg == null) {
+                            log.error("Cannot find organization with id: " + defaultOrgId);
+                        }
+                    }
                 }
-                else {
+                if (newUserOrg != null) {
                     CreateUserCommand createCmd = new CreateUserCommand();
                     createCmd.setLogin(remoteUserString);
                     // set a password, that cannot really be used
@@ -129,15 +138,17 @@ public class LoginHelper {
                     createCmd.setFirstNames(firstname);
                     createCmd.setLastName(lastname);
                     createCmd.setEmail(email);
-                    createCmd.setOrg(defaultOrg);
+                    createCmd.setOrg(newUserOrg);
                     createCmd.setRoles(roles);
                     createCmd.validate();
                     createCmd.storeNewUser();
                     remoteUser = createCmd.getUser();
                     log.warn("Externally authenticated login " + remoteUserString +
-                                 " (" + firstname + " " + lastname + ") created.");
+                            " (" + firstname + " " + lastname + ") created in " +
+                            newUserOrg.getName() + ".");
                 }
-                if (remoteUser.getPassword().equals(DEFAULT_KERB_USER_PASSWORD)) {
+                if (remoteUser != null &&
+                        remoteUser.getPassword().equals(DEFAULT_KERB_USER_PASSWORD)) {
                     messages.add(ActionMessages.GLOBAL_MESSAGE,
                             new ActionMessage("message.kerbuserlogged",
                                     new String[] {remoteUserString}));

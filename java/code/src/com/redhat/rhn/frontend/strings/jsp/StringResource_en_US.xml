@@ -19901,6 +19901,36 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/manage/ConfirmPrivate.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="extauth.org.message">
+        <source>Even externally authenticated users need to be created within @@PRODUCT_NAME@@. You may specify, in what organization new users shall be created. An option is to use the Org. Unit set on IPA server that has to match the organization name. Another option is to set a default organization, where all the newly created users will be created.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/ExternalAuthentication.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="extauth.org.useou">
+        <source>Use organization unit name passed from IPA</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/ExternalAuthentication.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="extauth.org.default">
+        <source>Default organization</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/ExternalAuthentication.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="extauth.org.default.help">
+        <source>Used in case organization unit name passed from IPA isn't found or is disabled.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/ExternalAuthentication.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="extauth.user.create">
+        <source>New user creation</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/ExternalAuthentication.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="bunch.edit.jsp.toolbar">
         <source>Bunch {0}</source>
         <context-group name="ctx">

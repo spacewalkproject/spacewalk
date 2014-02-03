@@ -20,6 +20,8 @@ import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
@@ -35,7 +37,8 @@ public class SatConfigFactory extends HibernateFactory {
     private static SatConfigFactory singleton = new SatConfigFactory();
     private static Logger log = Logger.getLogger(CommonFactory.class);
 
-    public static  final String ORG_ID_FOR_EXT_AUTH = "orgid_for_ext_authentications";
+    public static  final String EXT_AUTH_DEFAULT_ORGID = "extauth_default_orgid";
+    public static  final String EXT_AUTH_USE_ORGUNIT = "extauth_use_orgunit";
 
     private SatConfigFactory() {
         super();
@@ -44,6 +47,15 @@ public class SatConfigFactory extends HibernateFactory {
     @Override
     protected Logger getLogger() {
         return log;
+    }
+
+    /**
+     * return satellite configuration boolean value for a specified key
+     * @param key key
+     * @return value boolean value
+     */
+    public static boolean getSatConfigBooleanValue(String key) {
+        return BooleanUtils.toBoolean(getSatConfigValue(key));
     }
 
     /**
@@ -91,10 +103,29 @@ public class SatConfigFactory extends HibernateFactory {
     public static void setSatConfigValue(String key, String value) {
         Map params = new HashMap();
         params.put("key", key);
-        params.put("value", value);
+        if (StringUtils.isEmpty(value)) {
+            params.put("value", null);
+        }
+        else {
+            params.put("value", value);
+        }
         WriteMode m = ModeFactory.getWriteMode("util_queries",
             "set_satconfig_value");
         m.executeUpdate(params);
+    }
+
+    /**
+     * set a satellite configuration value for a specified key
+     * @param key key
+     * @param value value
+     */
+    public static void setSatConfigBooleanValue(String key, Boolean value) {
+        if (value == null) {
+            setSatConfigValue(key, Boolean.FALSE.toString());
+        }
+        else {
+            setSatConfigValue(key, value.toString());
+        }
     }
 
     /**
