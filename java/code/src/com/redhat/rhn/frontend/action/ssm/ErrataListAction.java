@@ -18,9 +18,7 @@ package com.redhat.rhn.frontend.action.ssm;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.util.DatePicker;
-import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
 import com.redhat.rhn.frontend.dto.SystemOverview;
@@ -29,7 +27,6 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
@@ -37,7 +34,6 @@ import com.redhat.rhn.manager.system.SystemManager;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,13 +49,7 @@ import org.apache.struts.action.DynaActionForm;
  * @author bo
  */
 public class ErrataListAction extends RhnAction implements Listable {
-    //public static final String LIST_NAME = "errataList";
-    public static final String SELECTOR = "type";
-    public static final String RP_AFFECTED_SYSTEMS = "afs"; // Request param
-    private static final String MULTIBIND = "_bind_." +
-                                            ErrataListAction.class.getCanonicalName();
-    private static final String MULTIBIND_SUMMARY = "summaryList";
-    private static final String MULTIBIND_DETAILS = "detailsList";
+    public static final String LIST_NAME = "errataList";
 
     /**
      * Entry-point caller.
@@ -92,7 +82,6 @@ public class ErrataListAction extends RhnAction implements Listable {
         getStrutsDelegate().prepopulateDatePicker(
                 request, form, "date", DatePicker.YEAR_RANGE_POSITIVE);
         request.setAttribute("parentUrl", request.getRequestURI());
-        request.setAttribute(SELECTOR, request.getParameter(SELECTOR));
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
@@ -130,67 +119,24 @@ public class ErrataListAction extends RhnAction implements Listable {
     }
 
     private ListRhnSetHelper bindDatasets(HttpServletRequest request) {
-        request.setAttribute(ErrataListAction.MULTIBIND,
-                             ErrataListAction.MULTIBIND_SUMMARY);
         ListRhnSetHelper shlp = new ListRhnSetHelper(this,
-                request, ErrataListAction.getSetDecl(0L));
-        shlp.setListName((String) request.getAttribute(ErrataListAction.MULTIBIND));
+                request, ErrataListAction.getSetDecl());
+        shlp.setListName(LIST_NAME);
         shlp.setParentUrl(request.getRequestURI());
         shlp.execute();
-
-        if (request.getParameter(ErrataListAction.RP_AFFECTED_SYSTEMS) != null) {
-            request.setAttribute(ErrataListAction.MULTIBIND,
-                                 ErrataListAction.MULTIBIND_DETAILS);
-            ListSessionSetHelper h = new ListSessionSetHelper(this, request, new HashMap());
-            h.setDataSetName((String) request.getAttribute(ErrataListAction.MULTIBIND));
-            h.execute();
-        }
 
         return shlp;
     }
 
-
     /**
      * @return Returns RhnSetDecl.ERRATA
      */
-    static RhnSetDecl getSetDecl(Long sid) {
-        return RhnSetDecl.ERRATA.createCustom(sid);
+    private static RhnSetDecl getSetDecl() {
+        return RhnSetDecl.ERRATA;
     }
 
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
-        List<SystemOverview> systems = null;
-        if (context.getRequest().getAttribute(ErrataListAction.MULTIBIND)
-                .equals(ErrataListAction.MULTIBIND_SUMMARY)) {
-            systems = ErrataManager.relevantErrataToSystemSet(context.getLoggedInUser());
-        }
-        else if (context.getRequest().getAttribute(ErrataListAction.MULTIBIND)
-                .equals(ErrataListAction.MULTIBIND_DETAILS)) {
-            systems = ErrataManager.systemsAffectedInSet(
-                    context.getCurrentUser(),
-                    Long.parseLong(
-                            context.getRequest().getParameter(
-                                    ErrataListAction.RP_AFFECTED_SYSTEMS)
-                    ), null
-            );
-            if (systems != null) {
-                for (int i = 0; i < systems.size(); i++) {
-                    SystemOverview systemOverview = systems.get(i);
-                    Server server = SystemManager.lookupByIdAndUser(systemOverview.getId(),
-                                                                context.getLoggedInUser());
-                    systemOverview.setChannelId(server.getBaseChannel().getId());
-                    systemOverview.setChannelLabels(server.getBaseChannel().getName());
-
-                    List<String> entitlements = new ArrayList<String>();
-                    for (Entitlement e : server.getEntitlements()) {
-                        entitlements.add(e.getLabel());
-                    }
-
-                    systemOverview.setEntitlement(entitlements);
-                }
-            }
-        }
-
-        return systems;
+        return ErrataManager.relevantErrataToSystemSet(context.getLoggedInUser());
     }
 }
