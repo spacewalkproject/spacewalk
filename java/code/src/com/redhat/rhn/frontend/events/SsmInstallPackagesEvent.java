@@ -17,8 +17,6 @@ package com.redhat.rhn.frontend.events;
 import java.util.Date;
 import java.util.Set;
 
-import com.redhat.rhn.domain.action.script.ScriptActionDetails;
-
 /**
  * Event fired to carry the information necessary to schedule package installations on
  * systems in the SSM.
@@ -37,17 +35,10 @@ public class SsmInstallPackagesEvent extends SsmPackageEvent {
      * @param packagesIn set of package IDs being installed; cannot be <code>null</code>
      * @param channelIdIn identifies the channel the packages are installed from; cannot
      *            be <code>null</code>
-     * @param detailsIn optional remote-command to execute before or after the install
-     * @param beforeIn optional boolean - true if details should be executed BEFORE the
-     *            install, false if AFTER
      */
-    public SsmInstallPackagesEvent(Long userIdIn,
-                                   Date earliestIn,
-                                   Set<String> packagesIn,
-                                   Long channelIdIn,
-                                   ScriptActionDetails detailsIn,
-                                   boolean beforeIn) {
-        super(userIdIn, earliestIn, detailsIn, beforeIn);
+    public SsmInstallPackagesEvent(Long userIdIn, Date earliestIn,
+        Set<String> packagesIn, Long channelIdIn) {
+        super(userIdIn, earliestIn);
         if (packagesIn == null) {
             throw new IllegalArgumentException("packagesIn cannot be null");
         }
@@ -57,23 +48,6 @@ public class SsmInstallPackagesEvent extends SsmPackageEvent {
         }
         this.packages = packagesIn;
         this.channelId = channelIdIn;
-    }
-
-    /**
-     * Creates a new event to install a set of packages on systems in the SSM.
-     *
-     * @param userIdIn user making the changes; cannot be <code>null</code>
-     * @param earliestIn earliest time to perform the installation; can be
-     *            <code>null</code>
-     * @param packagesIn set of package IDs being installed; cannot be <code>null</code>
-     * @param channelIdIn identifies the channel the packages are installed from; cannot
-     *            be <code>null</code>
-     */
-    public SsmInstallPackagesEvent(Long userIdIn,
-                                   Date earliestIn,
-                                   Set<String> packagesIn,
-                                   Long channelIdIn) {
-        this(userIdIn, earliestIn, packagesIn, channelIdIn, null, false);
     }
 
     /**
