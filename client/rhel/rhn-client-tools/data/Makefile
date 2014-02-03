@@ -86,6 +86,8 @@ endif
 ifeq ($(shell test $(RHEL) -ge 7 -o $(FEDORA) -ge 18 && echo "newerror"), newerror)
 	sed -i -e "s|gtk-dialog-error|dialog-error|g" \
 		$(RHNSHARE_DIR)/up2date_client/rh_register.glade
+	sed -i -e "s|gtk-dialog-info|dialog-information|g" \
+		$(RHNSHARE_DIR)/up2date_client/rh_register.glade
 endif
 
 	# this is lame and should be dealt with in the code
