@@ -49,16 +49,16 @@ export pluginconf='/etc/yum/pluginconf.d/rhnplugin.conf'
 if [ $1 -gt 1 ] && [ -f /etc/sysconfig/rhn/systemid ] && [ -f "$pluginconf" ]; then
     if grep -q '^[[:space:]]*enabled[[:space:]]*=[[:space:]]*1[[:space:]]*$' \
        "$pluginconf"; then
-        touch /var/tmp/enable-yum-rhn-plugin
+        echo "1" > /etc/enable-yum-rhn-plugin
     fi
 fi
 
 %post
 # 682820 - re-enable yum-rhn-plugin after package upgrade if the system is already registered
 export pluginconf='/etc/yum/pluginconf.d/rhnplugin.conf'
-if [ $1 -gt 1 ] && [ -f "$pluginconf" ] && [ -f "/var/tmp/enable-yum-rhn-plugin" ]; then
+if [ $1 -gt 1 ] && [ -f "$pluginconf" ] && [ -f "/etc/enable-yum-rhn-plugin" ]; then
     sed -i '/\[main]/,/^$/{/enabled/s/0/1/}' "$pluginconf"
-    rm -f /var/tmp/enable-yum-rhn-plugin
+    rm -f /etc/enable-yum-rhn-plugin
 fi
 
 %files -f %{name}.lang
