@@ -18,12 +18,12 @@
                        method="POST">
                 <rhn:csrf />
                 <div class="form-group">
-                    <div class="col-lg-offset-3 col-lg-6">
+                    <label class="col-lg-3 control-label" for="is_monitoring_scout">
+                         <bean:message key="general.jsp.monitoring_scout"/>
+                    </label>
+                    <div class="col-lg-6">
                         <div class="checkbox">
-                            <label for="is_monitoring_scout" class="control-label">
-                                <html:checkbox property="is_monitoring_scout" styleId="is_monitoring_scout" />
-                                <bean:message key="general.jsp.monitoring_scout"/>
-                            </label>
+                            <html:checkbox property="is_monitoring_scout" styleId="is_monitoring_scout" />
                         </div>
                     </div>
                 </div>
