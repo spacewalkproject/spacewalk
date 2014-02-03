@@ -639,7 +639,6 @@ public class ListTag extends BodyTagSupport {
     private int doAfterBodyRenderAfterData() throws JspException {
         ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
                 ListCommand.AFTER_RENDER);
-        ListTagUtil.write(pageContext, "</tr>");
         ListTagUtil.write(pageContext, "</tbody>");
         return BodyTagSupport.EVAL_BODY_AGAIN;
     }
