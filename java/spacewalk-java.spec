@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.141
+Version: 2.1.142
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Feb 04 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.142-1
+- swapping struts tag with input html to allow the use of the placeholder
+- perform password validation within the java class
+- removing obsolete code related to PLACEHOLDER_PASSWORD
+
 * Mon Feb 03 2014 Tomas Lestach <tlestach@redhat.com> 2.1.141-1
 - enable creating externally authenticated users in organization according to
   REMOTE_USER_ORGUNIT
