@@ -48,7 +48,7 @@
     <label class="col-lg-3 control-label"><bean:message key="password.displayname"/></label>
     <div class="col-lg-6">
         <div id="desiredpassword-input-group" class="input-group">
-            <html:password property="desiredpassword" styleClass="form-control" maxlength="${passwordLength}"/>
+            <input type="password" name="desiredpassword" class="form-control" size="15" maxlength="${passwordLength}" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;"/>
             <span class="input-group-addon">
                 <i class="fa fa-check-circle text-success fa-1-5x" id="desiredtick"></i>
             </span>
@@ -60,7 +60,7 @@
     <label class="col-lg-3 control-label"><bean:message key="confirmpass.displayname"/></label>
     <div class="col-lg-6">
         <div class="input-group">
-            <html:password property="desiredpasswordConfirm" styleClass="form-control" onkeyup="updateTickIcon()" maxlength="${passwordLength}" styleId="confirmpass"/>
+            <input id="confirmpass" type="password" name="desiredpasswordConfirm" class="form-control" size="15" maxlength="${passwordLength}" onkeyup="updateTickIcon()" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;"/>
             <span class="input-group-addon">
                 <i class="fa fa-check-circle text-success fa-1-5x" id="confirmtick"></i>
             </span>
