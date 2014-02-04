@@ -36,28 +36,43 @@
             </rhn:toolbar>
         </c:if>
 
-        <ul class="list-group">
-            <li class="list-group-item">
-                <strong><bean:message key="probedetails.jsp.probe" /></strong><br/>
-                ${probe.description}
-            </li>
-            <li class="list-group-item">
-                <strong><bean:message key="probeedit.jsp.satclusterdesc" /></strong><br/>
-                ${probe.satCluster.description}
-            </li>
-            <li class="list-group-item">
-                <strong><bean:message key="probedetails.jsp.status" /></strong><br/>
-                <span class=${status_class}>${status}</span>
-            </li>
-            <li class="list-group-item">
-                <strong><bean:message key="probedetails.jsp.last_update" /></strong><br/>
-                <fmt:formatDate value="${probe.state.lastCheck}" type="both" dateStyle="short" timeStyle="long"/>
-            </li>
-        </ul>
-
         <html:form action="/systems/details/probes/ProbeDetails"
                    styleClass="form-horizontal"
                    method="get">
+
+            <div class="form-group">
+                <label class="col-lg-3 text-right">
+                        <bean:message key="probedetails.jsp.probe" />
+                </label>
+                <div class="col-lg-6">
+                        ${probe.description}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 text-right">
+                        <bean:message key="probeedit.jsp.satclusterdesc" />
+                </label>
+                <div class="col-lg-6">
+                        ${probe.satCluster.description}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 text-right">
+                        <bean:message key="probedetails.jsp.status" />
+                </label>
+                <div class="col-lg-6">
+                        <span class=${status_class}>${status}</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 text-right">
+                        <bean:message key="probedetails.jsp.last_update" />
+                </label>
+                <div class="col-lg-6">
+                        <fmt:formatDate value="${probe.state.lastCheck}" type="both" dateStyle="short" timeStyle="long"/>
+                </div>
+            </div>
+
             <!-- For some reason we cant render date picker during export. -->
             <c:if test="${param.lde != 1}">
                 <div class="form-group">
@@ -99,7 +114,7 @@
                         <bean:message key="probedetails.jsp.show_graph" />
                     </label>
                     <div class="col-lg-6">
-                        <html:checkbox property="show_graph" />
+                        <span class="checkbox"><html:checkbox property="show_graph" /></span>
                     </div>
                 </div>
             </c:if>
@@ -108,7 +123,7 @@
                     <bean:message key="probedetails.jsp.show_event_log" />
                 </label>
                 <div class="col-lg-6">
-                    <html:checkbox property="show_log" />
+                    <span class="checkbox"><html:checkbox property="show_log" styleClass="checkbox" /></span>
                 </div>
             </div>
             <div class="form-group">
