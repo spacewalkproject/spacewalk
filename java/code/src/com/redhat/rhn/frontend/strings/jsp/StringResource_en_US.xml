@@ -5316,7 +5316,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <source>The following errata apply to one or more of the systems in this group.</source>
         </trans-unit>
         <trans-unit id="systemgroup.errata-systems-affected.title">
-          <source>Systems Addected By {0} - {1}</source>
+          <source>Systems Affected By {0} - {1}</source>
         </trans-unit>
         <trans-unit id="systemgroup.errata-systems-affected.summary">
           <source>Below is a list of the systems in the {0} group which are affected by this erratum.</source>
