@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.1.24
+Version:    2.1.25
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -86,6 +86,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Feb 04 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.25-1
+- help links are already hidden via spacewalk-help-link class
+- move toolbar items right for all header levels
+
 * Fri Jan 31 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.24-1
 - add special class to help links
 - Revert "bootstrap tuning - style submit buttons"
