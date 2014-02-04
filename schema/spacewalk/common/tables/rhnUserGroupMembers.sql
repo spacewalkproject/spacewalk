@@ -23,6 +23,10 @@ CREATE TABLE rhnUserGroupMembers
     user_group_id  NUMBER NOT NULL
                        CONSTRAINT rhn_ugmembers_ugid_fk
                            REFERENCES rhnUserGroup (id),
+    temporary      CHAR(1)
+                        DEFAULT ('N') NOT NULL
+                        CONSTRAINT rhn_ugmembers_t_ck
+                            CHECK (temporary in ('Y', 'N')),
     created        timestamp with local time zone
                        DEFAULT (current_timestamp) NOT NULL,
     modified       timestamp with local time zone
@@ -31,8 +35,8 @@ CREATE TABLE rhnUserGroupMembers
 ENABLE ROW MOVEMENT
 ;
 
-CREATE UNIQUE INDEX rhn_ugmembers_uid_ugid_uq
-    ON rhnUserGroupMembers (user_id, user_group_id)
+CREATE UNIQUE INDEX rhn_ugmembers_uid_ugid_temp_uq
+    ON rhnUserGroupMembers (user_id, user_group_id, temporary)
     TABLESPACE [[8m_tbs]];
 
 CREATE INDEX rhn_ugmembers_ugid_idx
