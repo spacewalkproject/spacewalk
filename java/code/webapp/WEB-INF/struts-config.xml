@@ -3670,6 +3670,20 @@
                  path="/WEB-INF/pages/ssm/ssmindex.jsp" />
     </action>
 
+    <action path="/systems/ssm/ListPatchesConfirm"
+        scope="request"
+        name="SSMPatchListForm"
+        input="/WEB-INF/pages/ssm/systems/ssm-errata.jsp"
+        type="com.redhat.rhn.frontend.action.ssm.ErrataListConfirmAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/systems/ssm-errata-confirm.jsp" />
+        <forward name="confirm"
+                 path="/systems/ssm/ListPatches.do"
+                 redirect="true" />
+    </action>
+
     <action path="/systems/ssm/MigrateSystems"
         scope="request"
         input="/WEB-INF/pages/ssm/systems/ssmdeleteconfirm.jsp"

@@ -15124,6 +15124,12 @@ any of these revisions.  Are you sure you want to do this?</source>
         <trans-unit id="ssm.errata-relevant-systems.summary">
           <source>Below is a list of the systems in the system set manager which are affected by this erratum.</source>
         </trans-unit>
+        <trans-unit id="ssm.errata-apply-confirm.title">
+          <source>Relevant Errata Confirm</source>
+        </trans-unit>
+        <trans-unit id="ssm.errata-apply-confirm.summary">
+          <source>The errata below will be applied to listed systems.</source>
+        </trans-unit>
       </group>
       <trans-unit id="ssm.operations.actionchaindetails.schedulesuccess">
         <source>Action chain "{0}" has been successfully scheduled at "{1}".</source>
