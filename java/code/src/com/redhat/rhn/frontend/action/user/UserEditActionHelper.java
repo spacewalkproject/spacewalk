@@ -14,8 +14,11 @@
  */
 package com.redhat.rhn.frontend.action.user;
 
+import java.util.regex.Pattern;
+
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.conf.UserDefaults;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -53,11 +56,26 @@ public abstract class UserEditActionHelper extends RhnAction {
                     new ActionMessage("error.password_mismatch"));
         }
 
-        //Make sure password is not the placeholder
-        if (!UserActionHelper.PLACEHOLDER_PASSWORD.equals(
-                form.get(UserActionHelper.DESIRED_PASS))) {
+        //Make sure password is not empty
+        if (!pw.isEmpty()) {
+            // Validate the password
+            if (pw.length() < UserDefaults.get().getMinPasswordLength()) {
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("error.minpassword",
+                                UserDefaults.get().getMinPasswordLength()));
+            }
+            if (Pattern.compile("[\\t\\n]").matcher(pw).find()) {
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("error.invalidpasswordcharacters"));
+            }
+            if (pw.length() > UserDefaults.get().getMaxPasswordLength()) {
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("error.maxpassword",
+                                targetUser.getPassword()));
+            }
+
+            //Set the password only if there are no errors at all
             if (errors.isEmpty()) {
-                //Set the password only if there are no errors at all
                 targetUser.setPassword(pw);
             }
         }
