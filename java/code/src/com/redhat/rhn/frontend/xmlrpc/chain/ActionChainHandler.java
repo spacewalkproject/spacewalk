@@ -112,7 +112,44 @@ public class ActionChainHandler extends BaseHandler {
     }
 
     /**
+     * Select wanted packages.
+     *
+     * @param allPackages
+     * @param userPackages
+     * @return 
+     */
+    private List<Map> selectPackages(List allPackages, List<Integer> userPackages) {
+        List<Map> selected = new ArrayList<Map>();
+        for (Object pkgContainer : allPackages) {
+            if ((pkgContainer instanceof PackageListItem) ||
+                (pkgContainer instanceof UpgradablePackageListItem)) {
+                Map pkgData = this.getPkgData((PackageListItem) pkgContainer);
+                for (Integer pkgId : userPackages) {
+                    if (((Long) pkgData.get("id")) == (long) pkgId) {
+                        selected.add(pkgData);
+                    }
+                }
+            }
+        }
+
+        return selected;
+    }
+    
+    private Map<String, String> getPkgData(PackageListItem pi) {
+        Map pkgData = new HashMap<String, String>();
+        pkgData.put("id", pi.getId());
+        pkgData.put("version", pi.getVersion());
+        pkgData.put("release", pi.getRelease());
+        pkgData.put("name", pi.getName());
+        pkgData.put("evrid", pi.getEvrId());
+        pkgData.put("archid", pi.getArchId());
+        pkgData.put("nameid", pi.getNameId());
+        return pkgData;
+    }
+
+    /**
      * Selects the packages by the list of names.
+     *
      * @param allPackages
      * @param userPackages
      * @return
@@ -120,21 +157,14 @@ public class ActionChainHandler extends BaseHandler {
     private List<Map<String, Long>> selectPackages(List allPackages,
                                                    List<Map<String, String>> userPackages,
                                                    Collector c) {
-        List<Map<String, Long>> packages = new ArrayList();
+        List<Map<String, Long>> packages = new ArrayList<Map<String, Long>>();
         for (Object pkgContainer : allPackages) {
             Map pkgData;
             if (pkgContainer instanceof Map) {
                 pkgData = (Map) pkgContainer;
             } else if ((pkgContainer instanceof PackageListItem) ||
                        (pkgContainer instanceof UpgradablePackageListItem)) {
-                PackageListItem pi = (PackageListItem) pkgContainer;
-                pkgData = new HashMap<String, String>();
-                pkgData.put("version", pi.getVersion());
-                pkgData.put("release", pi.getRelease());
-                pkgData.put("name", pi.getName());
-                pkgData.put("evrid", pi.getEvrId());
-                pkgData.put("archid", pi.getArchId());
-                pkgData.put("nameid", pi.getNameId());
+                pkgData = this.getPkgData((PackageListItem) pkgContainer);
             } else {
                 return packages;
             }
@@ -332,7 +362,7 @@ public class ActionChainHandler extends BaseHandler {
         if (c.getServer() == null) {
             return -1;
         }
-
+        
         List<Map<String, Long>> selectedPackages = this.selectPackages(
                 SystemManager.installedPackages(c.getServer().getId(), true), packages, c);
         if (!selectedPackages.isEmpty()) {
@@ -344,6 +374,29 @@ public class ActionChainHandler extends BaseHandler {
         return -1;
     }
 
+    /**
+     * Add Action Chain package removal.
+     * 
+     * @param sk
+     * @param serverId
+     * @param packages
+     * @param chainName
+     * @return 
+     */
+    public int addPackageInstall(String sk, Integer serverId,
+                                 List<Integer> packages, String chainName) {
+        Collector c = new Collector(sk, serverId, chainName);
+        List<Map> selectedPackages = this.selectPackages(
+                PackageManager.systemAvailablePackages(c.getServer().getId(), null), packages);
+        if (!selectedPackages.isEmpty()) {
+            ActionChainManager.schedulePackageInstall(c.getUser(), c.getServer(), packages,
+                                                 new Date(), c.getChain());
+            return 1;
+        }
+
+        return -1;
+    }
+    
     /**
      * Adds an action to install desired packages on the system.
      * @param sk Session key (token)

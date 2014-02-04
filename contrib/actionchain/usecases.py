@@ -121,10 +121,14 @@ class ScenarioRunner(SMConnect):
             print "Chain:", chain.get("name")
 
 
+    def example_04(self):
+        self.client.actionchains.addPackageInstall(self.token, 1000010000, [581,], "Test Chain")
+        
+
 if __name__ == "__main__":
     host = "pig.suse.de"
     user = "admin"
     password = "admin"
 
     sr = ScenarioRunner(host, user, password)
-    sr.example_03()
+    sr.example_04()
