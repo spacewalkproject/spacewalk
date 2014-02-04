@@ -15,25 +15,16 @@
 
 package com.redhat.rhn.frontend.action.ssm;
 
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.messaging.MessageQueue;
-import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.SetLabels;
-import com.redhat.rhn.frontend.dto.SystemOverview;
-import com.redhat.rhn.frontend.events.SsmErrataEvent;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +33,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
 
 /**
  *
@@ -69,63 +59,29 @@ public class ErrataListAction extends RhnAction implements Listable {
                                  HttpServletResponse response)
             throws Exception {
         RequestContext requestContext = new RequestContext(request);
-        DynaActionForm form = (DynaActionForm) actionForm;
 
-        ListRhnSetHelper setHelper = this.bindDatasets(request);
+        ListSessionSetHelper helper = new ListSessionSetHelper(this, request);
+        helper.setListName(LIST_NAME);
+        helper.execute();
 
-        if (setHelper.isDispatched()) {
-            if (requestContext.wasDispatched("errata.jsp.apply")) {
-                return handleConfirm(mapping, form, requestContext, setHelper, request);
-            }
+        if (helper.isDispatched() && requestContext.wasDispatched("errata.jsp.apply")) {
+            return handleConfirm(mapping, requestContext, helper);
         }
 
-        getStrutsDelegate().prepopulateDatePicker(
-                request, form, "date", DatePicker.YEAR_RANGE_POSITIVE);
-        request.setAttribute("parentUrl", request.getRequestURI());
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     private ActionForward handleConfirm(ActionMapping mapping,
-            DynaActionForm form,
             RequestContext context,
-            ListRhnSetHelper helper,
-            HttpServletRequest request) {
-        User user = context.getLoggedInUser();
-
-        List<SystemOverview> srv = SystemManager.inSet(user, SetLabels.SYSTEM_LIST);
-        List<Long> serverIds = new ArrayList<Long>(srv.size());
-        for (SystemOverview s : srv) {
-            serverIds.add(s.getId());
+            ListSessionSetHelper helper) {
+        RhnSet set = getSetDecl().get(context.getCurrentUser());
+        set.clear();
+        for (String item : helper.getSet()) {
+            set.addElement(item);
         }
-
-        RhnSet erratas = helper.getSet();
-        List<Long> errataIds = new ArrayList<Long>(erratas.size());
-        errataIds.addAll(erratas.getElementValues());
-
-        Date scheduleDate = this.getStrutsDelegate().readDatePicker(
-                form, "date", DatePicker.YEAR_RANGE_POSITIVE);
-
-        MessageQueue.publish(new SsmErrataEvent(
-                user.getId(),
-                scheduleDate,
-                errataIds,
-                serverIds)
-        );
-        createMessage(request, "ssm.errata.message.scheduled",
-                new String[] {LocalizationService.getInstance().formatDate(
-                        scheduleDate, request.getLocale())});
+        RhnSetManager.store(set);
         return mapping.findForward("confirm");
-    }
-
-    private ListRhnSetHelper bindDatasets(HttpServletRequest request) {
-        ListRhnSetHelper shlp = new ListRhnSetHelper(this,
-                request, ErrataListAction.getSetDecl());
-        shlp.setListName(LIST_NAME);
-        shlp.setParentUrl(request.getRequestURI());
-        shlp.execute();
-
-        return shlp;
     }
 
     /**

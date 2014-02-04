@@ -90,21 +90,6 @@
 
             </rl:list>
 
-            <div align="left">
-                <!--
-                <p><bean:message key="installconfirm.jsp.widgetsummary"/></p>
-                -->
-                <table class="details" align="center">
-                    <tr>
-                        <th><label for="radio_use_date_now"><bean:message key="scheduleremote.jsp.nosoonerthan"/></label></th>
-                        <td>
-                            <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
-                                <jsp:param name="widget" value="date"/>
-                            </jsp:include><br/>
-                        </td>
-                    </tr>
-                </table>
-            </div>
             <div class="text-right">
                 <hr />
                 <html:submit property="dispatch">

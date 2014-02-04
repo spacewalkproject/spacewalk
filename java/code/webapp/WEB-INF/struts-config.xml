@@ -3667,7 +3667,8 @@
         <forward name="default"
                  path="/WEB-INF/pages/ssm/systems/ssm-errata.jsp" />
         <forward name="confirm"
-                 path="/WEB-INF/pages/ssm/ssmindex.jsp" />
+                 path="/systems/ssm/ListPatchesConfirm.do"
+                 redirect="true" />
     </action>
 
     <action path="/systems/ssm/ListPatchesConfirm"
