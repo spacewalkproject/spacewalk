@@ -44,8 +44,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -295,15 +297,10 @@ public class PackageSearchAction extends RhnAction {
     private List<PackageOverview> removeDuplicateNames(List<PackageOverview> pkgs) {
 
         List<PackageOverview> result = new ArrayList<PackageOverview>();
+        Set<String> addedNames = new HashSet<String>();
         for (PackageOverview pkgOver : pkgs) {
-            boolean addPkg = true;
-            for (PackageOverview temp : result) {
-                if (StringUtils.equals(temp.getPackageName(), pkgOver.getPackageName())) {
-                    addPkg = false;
-                    break;
-                }
-            }
-            if (addPkg) {
+            if (!addedNames.contains(pkgOver.getPackageName())) {
+                addedNames.add(pkgOver.getPackageName());
                 result.add(pkgOver);
             }
         }
@@ -311,10 +308,10 @@ public class PackageSearchAction extends RhnAction {
     }
 
     /**
-     * Since the search server does not carry channel information, we do any channel
-     * filtering in the Java stack. This method will return a new list of packages that
-     * containing packages that are present in the given channel; others returned from
-     * the search will be removed.
+     * Since the search server does not carry channel information, we do any
+     * channel filtering in the Java stack. This method will return a new list
+     * containing packages that are present in the given channel; others
+     * returned from the search will be removed.
      *
      * @param user      user making the request
      * @param channelId channel against which the filter should be run
@@ -328,20 +325,16 @@ public class PackageSearchAction extends RhnAction {
         Channel channel = ChannelManager.lookupByIdAndUser(channelId, user);
         List<PackageDto> allPackagesList = ChannelManager.listAllPackages(channel);
 
-        // Convert the package list into a map for quicker lookup
-        Map<String, String> packageNamesMap =
-            new HashMap<String, String>(allPackagesList.size());
-
+        // Convert the package list into a set for quicker lookup
+        Set<String> packageNameSet = new HashSet<String>();
         for (PackageDto dto : allPackagesList) {
-            String name = dto.getName();
-            packageNamesMap.put(name, name);
+            packageNameSet.add(dto.getName());
         }
 
         // Iterate results and remove if not in the channel
         List<PackageOverview> newResult = new ArrayList<PackageOverview>();
         for (PackageOverview pkg : pkgs) {
-            String packageName = pkg.getPackageName();
-            if (packageNamesMap.get(packageName) != null) {
+            if (packageNameSet.contains(pkg.getPackageName())) {
                 newResult.add(pkg);
             }
         }
