@@ -32,9 +32,6 @@ public class UserActionHelper {
     private UserActionHelper() {
     }
 
-    /** placeholder string, package protected; so we don't transmit
-     * the actual pw but the form doesn't look empty */
-    static final String PLACEHOLDER_PASSWORD = "******";
     public static final String DESIRED_PASS = "desiredpassword";
     public static final String DESIRED_PASS_CONFIRM = "desiredpasswordConfirm";
 

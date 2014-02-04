@@ -77,10 +77,6 @@ public class UserEditSetupAction extends RhnAction {
         form.set("lastName", targetUser.getLastName());
         form.set("title", targetUser.getTitle());
         form.set("prefix", targetUser.getPrefix());
-        form.set(UserActionHelper.DESIRED_PASS,
-                UserActionHelper.PLACEHOLDER_PASSWORD);
-        form.set(UserActionHelper.DESIRED_PASS_CONFIRM,
-                UserActionHelper.PLACEHOLDER_PASSWORD);
         request.setAttribute("user", targetUser);
         request.setAttribute("mailableAddress", targetUser.getEmail());
 
