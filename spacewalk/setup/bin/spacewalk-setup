@@ -50,6 +50,10 @@ my $product_name = $answers{'product_name'} || 'Spacewalk';
 
 $answers{hostname} ||= Sys::Hostname::hostname;
 
+if ( not defined $opts{"clear-db"} and $answers{"clear-db"} =~ /Y/i ){
+    $opts{'clear-db'} = 1;
+}
+
 # Skip the logfile init, normally just used when called from install.pl,
 # which already did this.
 if (not $opts{"skip-logfile-init"}) {
