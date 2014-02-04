@@ -215,8 +215,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                             com.redhat.rhn.domain.channel.Channel as c,
                             com.redhat.rhn.domain.server.Server as s
                       where p.id IN (:pids)
+                        and c IN elements (p.channels)
                         and c IN elements (s.channels)
-                        and p IN elements (c.packages)
                       ]]>
     </query>
 
