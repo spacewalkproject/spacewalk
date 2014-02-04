@@ -1139,7 +1139,7 @@ public class ErrataManager extends BaseManager {
 
 
     /**
-     * lookup errata that are in the set "errata_list"
+     * Lookup errata that are in the set
      * @param user the user to search the set for
      * @param setLabel the set label
      * @return list of Errata Overview Objects
@@ -1149,9 +1149,11 @@ public class ErrataManager extends BaseManager {
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("set", setLabel);
+        Map elabParams = new HashMap();
+        elabParams.put("user_id", user.getId());
         SelectMode m = ModeFactory.getMode(
                 "Errata_queries", "errata_list_in_set");
-        return m.execute(params);
+        return  makeDataResult(params, elabParams, null, m);
 
     }
 
