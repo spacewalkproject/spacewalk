@@ -8,7 +8,6 @@ function setupPasswordStrengthMeter() {
         onKeyUp: function (evt) {
             $('input[name="desiredpassword"]').popover('show');
             //when there are no errors the popover disappears
-            var desiredpassval = $.trim($('input[name="desiredpassword"]').val());
             if ($('ul.error-list').is(':empty')) {
                 $('input[name="desiredpassword"]').popover('destroy');
             }
@@ -57,7 +56,9 @@ function setupPasswordStrengthMeter() {
 // check if confirm password input field matches with password input field
 // swap icons in the input-group-addon
 function updateTickIcon() {
-    var desiredpassval = $.trim($('input[name="desiredpassword"]').val());
+    var desiredpassVal = $.trim($('input[name="desiredpassword"]').val());
+    var desiredpassConfirmVal = $.trim($('#confirmpass').val());
+    var placeholderAttr = $('input[name="desiredpassword"]').attr('placeholder');
     function success(element) {
         element.removeClass("fa-times-circle text-danger");
         element.addClass("fa-check-circle text-success");
@@ -66,17 +67,31 @@ function updateTickIcon() {
         element.removeClass("fa-check-circle text-success");
         element.addClass("fa-times-circle text-danger");
     }
-    if (desiredpassval.length < 5 && $("#desiredtick").hasClass("text-success")) {
-        danger($("#desiredtick"));
-    }
-    else if (desiredpassval.length >= 5 && $("#desiredtick").hasClass("text-danger")) {
+
+    // on the edit user page
+    if ((typeof placeholderAttr !== 'undefined' && placeholderAttr !== false)) {
+        // icons are green
         success($("#desiredtick"));
-    }
-    if ($("#confirmpass").val() == desiredpassval && desiredpassval.length >= 5) {
         success($("#confirmtick"));
+        if (desiredpassVal.length > 0 && desiredpassVal.length < 5) {
+            danger($("#desiredtick"));
+            danger($("#confirmtick"));
+        }
+        else if (desiredpassVal != desiredpassConfirmVal) {
+            danger($("#confirmtick"));
+        }
     }
-    else if ($("#confirmtick").hasClass("text-success")) {
+    // on create user pages
+    else {
+        // icons are red
+        danger($("#desiredtick"));
         danger($("#confirmtick"));
+        if (desiredpassVal.length >= 5) {
+            success($("#desiredtick"));
+        }
+        if (desiredpassVal == desiredpassConfirmVal && desiredpassVal.length >= 5) {
+            success($("#confirmtick"));
+        }
     }
 }
 
