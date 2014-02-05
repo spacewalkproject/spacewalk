@@ -21,7 +21,7 @@
                     <rhn:csrf />
                     <div class="form-group">
                         <label for="hostname" class="col-lg-3 control-label">
-                            <rhn:required-field key="bootstrap.jsp.hostname"/>:
+                            <rhn:required-field key="bootstrap.jsp.hostname"/>
                         </label>
                         <div class="col-lg-6">
                             <html:text size="32" property="hostname" styleId="hostname" styleClass="form-control" />
@@ -29,49 +29,49 @@
                     </div>
                     <div class="form-group">
                         <label class="col-lg-3 control-label" for="ssl-cert">
-                            <rhn:required-field key="bootstrap.jsp.ssl-cert"/>:
+                            <rhn:required-field key="bootstrap.jsp.ssl-cert"/>
                         </label>
                         <div class="col-lg-6">
                             <html:text size="32" property="ssl-cert" styleId="ssl-cert" styleClass="form-control" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-lg-offset-3 col-lg-6">
+                        <label class="col-lg-3 control-label" for="ssl">
+                            <bean:message key="bootstrap.jsp.ssl"/>
+                        </label>
+                        <div class="col-lg-6">
                             <div class="checkbox">
-                                <label>
                                     <html:checkbox property="ssl" styleId="ssl" />
-                                    <bean:message key="bootstrap.jsp.ssl"/>
-                                </label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-lg-offset-3 col-lg-6">
+                        <label class="col-lg-3 control-label" for="gpg">
+                            <bean:message key="bootstrap.jsp.gpg"/>
+                        </label>
+                        <div class="col-lg-6">
                             <div class="checkbox">
-                                <label>
                                     <html:checkbox property="gpg" styleId="gpg" />
-                                    <bean:message key="bootstrap.jsp.gpg"/>
-                                </label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-lg-offset-3 col-lg-6">
+                        <label class="col-lg-3 control-label" for="allow-config-actions">
+                            <bean:message key="bootstrap.jsp.allow-config-actions"/>
+                        </label>
+                        <div class="col-lg-6">
                             <div class="checkbox">
-                                <label>
                                     <html:checkbox property="allow-config-actions" styleId="allow-config-actions"/>
-                                    <bean:message key="bootstrap.jsp.allow-config-actions"/>
-                                </label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-lg-offset-3 col-lg-6">
+                        <label class="col-lg-3 control-label" for="allow-remote-commands">
+                            <bean:message key="bootstrap.jsp.allow-remote-commands"/>
+                        </label>
+                        <div class="col-lg-6">
                             <div class="checkbox">
-                                <label>
                                     <html:checkbox property="allow-remote-commands" styleId="allow-remote-commands" />
-                                    <bean:message key="bootstrap.jsp.allow-remote-commands"/>
-                                </label>
                             </div>
                         </div>
                     </div>
