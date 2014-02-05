@@ -39,14 +39,14 @@
                 <label class="col-lg-3 control-label">
                     <bean:message key="probeedit.jsp.probecommand" />
                 </label>
-                <div class="col-lg-6">${probe.command.description}</div>
+                <div class="col-lg-6 text">${probe.command.description}</div>
             </div>
             <c:if test='${not empty probe.command.systemRequirements}'>
                 <div class="form-group">
                     <label class="col-lg-3 control-label">
                         <bean:message key="probeedit.jsp.commandrequirements" />
                     </label>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 text">
                         <bean:message key="${probe.command.systemRequirements}"/>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                     <label class="col-lg-3 control-label">
                         <bean:message key="probeedit.jsp.versionsupport" />
                     </label>
-                    <div class="col-lg-6">${probe.command.versionSupport}</div>
+                    <div class="col-lg-6 text">${probe.command.versionSupport}</div>
                 </div>
             </c:if>
             <div class="form-group">
@@ -76,9 +76,11 @@
                     <bean:message key="probeedit.jsp.notification" />
                 </label>
                 <div class="col-lg-6">
+                    <div class="checkbox">
                     <html:checkbox onclick="refreshNotifFields()"
                                    property="notification"
                                    styleId="notification"/>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
