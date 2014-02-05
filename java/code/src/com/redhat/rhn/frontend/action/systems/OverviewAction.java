@@ -33,6 +33,9 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * OverviewAction
  * @version $Rev$
@@ -45,7 +48,8 @@ public class OverviewAction extends RhnListAction {
     private static final String[] ALLOWED_REDIRECTS = { "/rhn/", "/network/" };
 
     //
-    // Only follow redirects if they're "inside" the app
+    // Only follow redirects if they're "inside" the app (close open-redirecting)
+    // Make sure to ignore anything after a <CR><LF> in the string (close header-injection)
     //
     private String getLegalReturnUrl(String proposedRedirect) {
         if (proposedRedirect == null) {
@@ -54,7 +58,10 @@ public class OverviewAction extends RhnListAction {
 
         for (String dest : ALLOWED_REDIRECTS) {
             if (proposedRedirect.startsWith(dest)) {
-                return proposedRedirect;
+                // Punt if any control-characters found
+                Matcher m = Pattern.compile("\\p{Cntrl}").matcher(proposedRedirect);
+                boolean ctrlFound = m.find();
+                return ctrlFound ? null : proposedRedirect;
             }
         }
         return null;
