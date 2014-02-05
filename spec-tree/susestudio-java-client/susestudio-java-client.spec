@@ -1,7 +1,7 @@
 #
 # spec file for package susestudio-java-client
 #
-# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuremberg, Germany.
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuremberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -12,14 +12,11 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via http://bugs.opensuse.org/
-#
-
 %define third_party_jars simple-xml
 
 Name:           susestudio-java-client
 Summary:        Java client library for SUSE Studio
-Version:        0.1.2
+Version:        0.1.4
 Release:        2%{?dist}
 License:        MIT
 Group:          Development/Libraries/Java
@@ -46,7 +43,7 @@ rm lib/*.jar
 build-jar-repository -p lib/ %third_party_jars
 
 %build
-ant -Dant.build.javac.source=1.5 -Dant.build.javac.target=1.5
+ant -Dant.build.javac.source=1.5 -Dant.build.javac.target=1.5 dist-jar
 
 %install
 install -d -m 0755 $RPM_BUILD_ROOT%{_javadir}
