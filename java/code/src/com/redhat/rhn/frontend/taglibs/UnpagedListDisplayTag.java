@@ -291,6 +291,8 @@ public class UnpagedListDisplayTag extends ListDisplayTagBase {
 
 
             out.println(">");
+            out.println("<thead>");
+            out.println("<tr>");
 
             if (getIterator() != null && getIterator().hasNext()) {
                 // Push a new BodyContent writer onto the stack so that
