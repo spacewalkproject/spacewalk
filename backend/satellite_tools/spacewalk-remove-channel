@@ -65,16 +65,6 @@ def main():
         sys.stderr.write('ERROR: must be root to execute\n')
         sys.exit(8)
 
-    for command in ['spacewalk-remove-channel', 'satellite-sync',
-                    'spacewalk-repo-sync']:
-        try:
-            LOCK.append(rhnLockfile.Lockfile(
-                                os.path.join(LOCK_DIR, "%s.pid" % command)))
-        except rhnLockfile.LockfileLockedException:
-            print("ERROR: An instance of %s is running, exiting." % command)
-            sys.exit(-1)
-
-
     global options_table
     parser = OptionParser(option_list=options_table)
 
@@ -88,6 +78,16 @@ def main():
     if not (options.channel or options.list):
         sys.stderr.write("Nothing to do\n")
         sys.exit(0)
+
+    if  not options.list:
+        for command in ['spacewalk-remove-channel', 'satellite-sync',
+                    'spacewalk-repo-sync']:
+            try:
+                LOCK.append(rhnLockfile.Lockfile(
+                                os.path.join(LOCK_DIR, "%s.pid" % command)))
+            except rhnLockfile.LockfileLockedException:
+                print("ERROR: An instance of %s is running, exiting." % command)
+                sys.exit(-1)
 
     initCFG('server')
     initLOG("stdout", options.verbose or 0)
