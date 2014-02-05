@@ -40,10 +40,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <key column="web_user_id"/>
             <one-to-many class="com.redhat.rhn.domain.user.AddressImpl" />
         </set>
-        <set name="usergroups" outer-join="false" table="rhnUserGroupMembers">
-            <key column="user_id" />
-            <many-to-many column="user_group_id" outer-join="false"
-                class="com.redhat.rhn.domain.org.usergroup.UserGroupImpl" />
+        <set name="groupMembers" lazy="true" inverse="true" cascade="delete">
+            <key column="user_id"/>
+            <one-to-many class="com.redhat.rhn.domain.org.usergroup.UserGroupMembers"/>
         </set>
         <set name="notificationMethods" table="rhn_contact_methods" lazy="true"
 			inverse="true" cascade="none">
@@ -104,10 +103,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             select u
             from com.redhat.rhn.domain.user.legacy.UserImpl as u
             where exists (
-                from com.redhat.rhn.domain.org.usergroup.UserGroupImpl as ug
-                    where ug.orgId = :org_id and
-                        ug.role.label = 'org_admin' and
-                        ug in elements(u.usergroups))
+                from com.redhat.rhn.domain.org.usergroup.UserGroupMembers ugm
+                    where ugm.userGroup.orgId = :org_id and
+                        ugm.userGroup.role.label = 'org_admin' and
+                        ugm in elements(u.groupMembers))
         ]]>
     </query>
     <sql-query name="User.findRandomOrgAdmin">

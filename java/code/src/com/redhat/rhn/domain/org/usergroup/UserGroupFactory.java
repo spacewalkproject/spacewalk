@@ -132,5 +132,21 @@ public class UserGroupFactory extends HibernateFactory {
         return (UserExtGroup) singleton.lookupObjectByNamedQuery(
                 "UserExtGroup.lookupByLabel", params);
     }
+
+    /**
+     * save UserGroupMembers object
+     * @param ugmIn user group member
+     */
+    public static void save(UserGroupMembers ugmIn) {
+        singleton.saveObject(ugmIn);
+    }
+
+    /**
+     * delete UserGroupMembers object
+     * @param ugmIn group members entry
+     */
+    public static void delete(UserGroupMembers ugmIn) {
+        singleton.removeObject(ugmIn);
+    }
 }
 
