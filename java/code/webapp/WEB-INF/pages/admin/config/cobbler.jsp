@@ -25,11 +25,11 @@
         </div>
         <div class="panel-body">
             <form action="/rhn/admin/config/Cobbler.do" method="POST">
-                <div class="row">
-                    <div class="col-md-2 text-right">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">
                         <bean:message key="cobbler.jsp.sync"/>
-                    </div>
-                    <div class="col-md-10">
+                    </label>
+                    <div class="col-lg-6">
                         <input type="submit" class="btn btn-default" name="cobbler_sync" value="${rhn:localize('update')}" />
                         <rhn:csrf />
                         <rhn:submitted/>
