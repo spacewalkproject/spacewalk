@@ -61,12 +61,12 @@
                        sortable="false"
                        headerkey="entitlementorgs.proposed_total">
                 <div class="row">
-                    <div class="col-lg-1">
+                    <div class="col-lg-6">
                         <div class="input-group">
-                            <span class="input-group-btn">
-                                <html:text property="newCount_${current.orgid}" size="5" value="${current.total}"
+                            <html:text property="newCount_${current.orgid}" size="5" value="${current.total}"
                                            styleClass="form-control"
                                            onkeydown="return blockEnter(event)" />
+                            <span class="input-group-btn">
                                 <html:submit styleClass="btn btn-info" onclick="this.form.orgClicked.value = '${current.orgid}'">
                                     <bean:message key="entitlementorgs.update"/>
                                 </html:submit>
@@ -99,7 +99,7 @@
                 <bean:message key="entitlementorgs.total_allocated"/>:
             </label>
             <div class="col-lg-6">
-                <div class="well well-sm">
+                <div class="text">
                     ${maxEnt}
                 </div>
                 <span class="help-block">
@@ -112,7 +112,7 @@
                 <bean:message key="entitlementorgs.total_inuse"/>:
             </label>
             <div class="col-lg-6">
-                <div class="well well-sm">
+                <div class="text">
                     ${curEnt}
                 </div>
             </div>
@@ -122,7 +122,7 @@
                 <bean:message key="entitlementorgs.total_orguse"/>:
             </label>
             <div class="col-lg-6">
-                <div class="well well-sm">
+                <div class="text">
                     <bean:message key="entitlementorgs.total_orgusedata"
                                   arg0="${alloc}" arg1="${orgsnum}" arg2="${ratio}"/>
                 </div>
