@@ -697,10 +697,24 @@ public class SystemHandler extends BaseHandler {
                 m.put("id", server.getId());
                 m.put("name", server.getName());
                 m.put("last_checkin", convertLocalToUtc(server.getLastCheckin()));
-                m.put("ram", server.getRam());
-                m.put("swap", server.getSwap());
-                m.put("cpu_info", server.getCpu());
-                m.put("dmi_info", server.getDmi());
+
+                m.put("ram", new Long(server.getRam()));
+                m.put("swap", new Long(server.getSwap()));
+
+                CPU cpu = server.getCpu();
+                if (cpu == null) {
+                  m.put("cpu_info", new HashMap<String, String>());
+                } else {
+                  m.put("cpu_info", cpu);
+                }
+
+                Dmi dmi = server.getDmi();
+                if (dmi == null) {
+                  m.put("dmi_info", new HashMap<String, String>());
+                } else {
+                  m.put("dmi_info", dmi);
+                }
+
                 m.put("network_devices",
                         new ArrayList<NetworkInterface>(server
                                 .getNetworkInterfaces()));
