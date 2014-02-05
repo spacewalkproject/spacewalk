@@ -53,8 +53,20 @@ import com.redhat.rhn.manager.session.SessionManager;
  * @version $Rev$
  */
 public class BaseHandler implements XmlRpcInvocationHandler {
+    public static final int VALID = 1;
+    public static final int INVALID = 0;
 
     private static Logger log = Logger.getLogger(BaseHandler.class);
+    
+    /**
+     * Converts true/false to int output for XML-RPC protocol.
+     * 
+     * @param value
+     * @return 
+     */
+    public final int bool(Boolean value) {
+        return value ? BaseHandler.VALID : BaseHandler.INVALID;
+    }
 
     protected boolean providesAuthentication() {
         return false;

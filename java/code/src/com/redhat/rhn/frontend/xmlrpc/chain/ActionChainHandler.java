@@ -59,9 +59,25 @@ public class ActionChainHandler extends BaseHandler {
         public Collector(String sessionToken,
                          Integer serverId,
                          String chain) {
-            this.user = ActionChainHandler.getLoggedInUser(sessionToken);
-            this.server = SystemManager.lookupByIdAndUser((long) serverId, user);
-            this.chain = ActionChainFactory.getOrCreateActionChain(chain, this.user);
+            if (StringUtil.nullOrValue(sessionToken) == null) {
+                this.user = null;
+            } else {
+                this.user = ActionChainHandler.getLoggedInUser(sessionToken);
+            }
+
+            Server server;
+            try {
+                server = SystemManager.lookupByIdAndUser((long) serverId, user);
+            } catch (Exception ex) {
+                server = null;
+            }
+            this.server = server;
+
+            if (StringUtil.nullOrValue(chain) == null) {
+                this.chain = null;
+            } else {
+                this.chain = ActionChainFactory.getOrCreateActionChain(chain, this.user);
+            }
         }
         
         private String str(String value) {
@@ -76,7 +92,10 @@ public class ActionChainHandler extends BaseHandler {
          * @param servername
          * @param chain 
          */
-        public Collector(String sessionToken, String servername, String ip, String chain) {
+        public Collector(String sessionToken,
+                         String servername,
+                         String ip,
+                         String chain) {
             ip = this.str(ip);
             servername = this.str(servername).toLowerCase();
             boolean found = false;
@@ -106,9 +125,33 @@ public class ActionChainHandler extends BaseHandler {
             }
         }
 
+        /**
+         * Get the chain.
+         * @return 
+         */
         ActionChain getChain() {return chain;}
+
+        /**
+         * Get the server.
+         * @return 
+         */
         Server getServer() {return server;}
+
+        /**
+         * Get the user.
+         * @return 
+         */
         User getUser() {return user;}
+
+        /**
+         * Verifies if the collector is valid.
+         * @return 
+         */
+        boolean isValid() {
+            return this.getServer() != null &&
+                   this.getUser() != null &&
+                   this.getChain() != null;
+        }
     }
 
     /**
@@ -118,7 +161,8 @@ public class ActionChainHandler extends BaseHandler {
      * @param userPackages
      * @return 
      */
-    private List<Map> selectPackages(List allPackages, List<Integer> userPackages) {
+    private List<Map> selectPackages(List allPackages,
+                                     List<Integer> userPackages) {
         List<Map> selected = new ArrayList<Map>();
         for (Object pkgContainer : allPackages) {
             if ((pkgContainer instanceof PackageListItem) ||
@@ -228,10 +272,10 @@ public class ActionChainHandler extends BaseHandler {
 
     /**
      * List all actions in the particular Action Chain.
-     * 
+     *
      * @param chainName
      * @return List of entries in the particular action chain, if any.
-     * 
+     *
      * @xmlrpc.doc List all actions in the particular Action Chain.
      * @xmlrpc.param #param("string", "chainName")
      * @xmlrpc.returntype
@@ -248,6 +292,10 @@ public class ActionChainHandler extends BaseHandler {
      */
     public List<Map<String, Object>> chainActions(String chainName) {
         List<Map<String, Object>> entries = new ArrayList<Map<String, Object>>();
+        if (StringUtil.nullOrValue(chainName) == null) {
+            return entries;
+        }
+
         ActionChain chain = ActionChainFactory.getActionChain(chainName);
         if (chain != null && chain.getEntries() != null && !chain.getEntries().isEmpty()) {
             for (ActionChainEntry entry : chain.getEntries()) {
@@ -281,7 +329,12 @@ public class ActionChainHandler extends BaseHandler {
      *    #array_end()
      * @xmlrpc.returntype #int
      */
-    public int removeActions(String chainName, List<String> actionNames) {
+    public int removeActions(String chainName,
+                             List<String> actionNames) {
+        if (StringUtil.nullOrValue(chainName) == null || actionNames.isEmpty()) {
+            return BaseHandler.INVALID;
+        }
+
         int d = 0;
         ActionChain chain = ActionChainFactory.getActionChain(chainName);
         if (chain != null && !chain.getEntries().isEmpty()) {
@@ -301,7 +354,7 @@ public class ActionChainHandler extends BaseHandler {
             }
         }
 
-        return d > 0 ? d : -1;
+        return d > 0 ? d : this.bool(Boolean.FALSE);
     }
 
     /**
@@ -319,6 +372,10 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.returntype #int
      */
     public int removeChains(List<String> chainNames) {
+        if (chainNames.isEmpty()) {
+            return BaseHandler.INVALID;
+        }
+
         int d = 0;
         for (String chainName : chainNames) {
             ActionChain chain = ActionChainFactory.getActionChain(chainName);
@@ -328,7 +385,34 @@ public class ActionChainHandler extends BaseHandler {
             }
         }
 
-        return d > 0 ? d : -1;
+        return d > 0 ? d : BaseHandler.INVALID;
+    }
+    
+    /**
+     * Add system reboot.
+     * @param sk Session key (token)
+     * @param serverId Server ID.
+     * @param chainName Name of the action chain
+     * @return list of action ids, exception thrown otherwise
+     *
+     * @xmlrpc.doc Adds an action to verify installed packages on the system.
+     *             Server IP and/or name is required. Both name and IP cannot be empty.
+     *             Server name should be exact, without the domain name.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param("string", "chainName")
+     * @xmlrpc.returntype #int
+     */
+    public int addSystemReboot(String sk, Integer serverId, String chainName) {
+        Collector c = new Collector(sk, serverId, chainName);
+        if (!c.isValid()) {
+            return BaseHandler.INVALID;
+        }
+
+        return this.bool(ActionManager.scheduleRebootAction(c.getUser(),
+                                                            c.getServer(),
+                                                            new Date(),
+                                                            c.getChain()) != null);
     }
 
     /**
@@ -356,19 +440,63 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "chainName")
      * @xmlrpc.returntype #int
      */
-    public int addPackageRemoval(String sk, String serverName, String serverIp,
-                                 List<Map<String, String>> packages, String chainName) {
+    public int addPackageRemoval(String sk,
+                                 String serverName,
+                                 String serverIp,
+                                 List<Map<String, String>> packages,
+                                 String chainName) {
         Collector c = new Collector(sk, serverName, serverIp, chainName);
         if (c.getServer() == null) {
-            return -1;
+            return BaseHandler.INVALID;
         }
         
         List<Map<String, Long>> selectedPackages = this.selectPackages(
-                SystemManager.installedPackages(c.getServer().getId(), true), packages, c);
+            SystemManager.installedPackages(c.getServer().getId(), true), packages, c);
         if (!selectedPackages.isEmpty()) {
-            ActionChainManager.schedulePackageRemoval(c.getUser(), c.getServer(),
-                                                 selectedPackages,new Date(), c.getChain());
-            return 1;
+            return this.bool(ActionManager.schedulePackageRemoval(c.getUser(),
+        }
+
+        return BaseHandler.INVALID;
+    }
+    
+    /**
+     * Adds an action to remove installed packages on the system.
+     * @param sk Session key (token)
+     * @param serverId System ID
+     * @param packages List of packages
+     * @param chainName Name of the action chain
+     * @return list of action ids, exception thrown otherwise
+     *
+     * @xmlrpc.doc Adds an action to verify installed packages on the system.
+     *             Server IP and/or name is required. Both name and IP cannot be empty.
+     *             Server name should be exact, without the domain name.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param
+     *    #array()
+     *       #struct("packages")
+     *          #prop_desc("string", "name", "Package name")
+     *          #prop_desc("string", "version", "Package version")
+     *       #struct_end()
+     *    #array_end()
+     * @xmlrpc.param #param("string", "chainName")
+     * @xmlrpc.returntype #int
+     */
+    public int addPackageRemoval(String sk,
+                                 Integer serverId,
+                                 List<Map<String, String>> packages,
+                                 String chainName) {
+        if (StringUtil.nullOrValue(chainName) == null ||
+            packages.isEmpty() ||
+            StringUtil.nullOrValue(sk) == null) {
+            return -1;
+        }
+
+        Collector c = new Collector(sk, serverId, chainName);
+        List<Map<String, Long>> selectedPackages = this.selectPackages(
+            SystemManager.installedPackages(c.getServer().getId(), true), packages, c);
+        if (!selectedPackages.isEmpty()) {
+            return this.bool(ActionManager.schedulePackageRemoval(c.getUser(),
         }
 
         return -1;
@@ -383,18 +511,22 @@ public class ActionChainHandler extends BaseHandler {
      * @param chainName
      * @return 
      */
-    public int addPackageInstall(String sk, Integer serverId,
-                                 List<Integer> packages, String chainName) {
+    public int addPackageInstall(String sk,
+                                 Integer serverId,
+                                 List<Integer> packages,
+                                 String chainName) {
         Collector c = new Collector(sk, serverId, chainName);
-        List<Map> selectedPackages = this.selectPackages(
-                PackageManager.systemAvailablePackages(c.getServer().getId(), null), packages);
-        if (!selectedPackages.isEmpty()) {
-            ActionChainManager.schedulePackageInstall(c.getUser(), c.getServer(), packages,
-                                                 new Date(), c.getChain());
-            return 1;
+        if (!c.isValid()) {
+            return BaseHandler.INVALID;
         }
 
-        return -1;
+        List<Map> selectedPackages = this.selectPackages(
+            PackageManager.systemAvailablePackages(c.getServer().getId(), null), packages);
+        if (!selectedPackages.isEmpty()) {
+            return this.bool(ActionManager.schedulePackageInstall(c.getUser(),
+        }
+
+        return BaseHandler.INVALID;
     }
     
     /**
@@ -420,24 +552,23 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.returntype #int
      */
     public int addPackageInstall(String sk,
-                                 String serverName, String serverIp,
+                                 String serverName,
+                                 String serverIp,
                                  List<Map<String, String>> packages,
                                  String chainName) {
         Collector c = new Collector(sk, serverName, serverIp, chainName);
         if (c.getServer() == null) {
-            return -1;
+            return BaseHandler.INVALID;
         }
 
         List<Map<String, Long>> selectedPackages = this.selectPackages(
                 PackageManager.systemAvailablePackages(
                         c.getServer().getId(), null), packages, c);
         if (!selectedPackages.isEmpty()) {
-            ActionChainManager.schedulePackageInstall(c.getUser(), c.getServer(),
-                                                 selectedPackages,new Date(), c.getChain());
-            return 1;
+            return this.bool(ActionManager.schedulePackageInstall(c.getUser(),
         }
 
-        return -1;
+        return BaseHandler.INVALID;
     }
 
 
@@ -469,18 +600,16 @@ public class ActionChainHandler extends BaseHandler {
                                 String chainName) {
         Collector c = new Collector(sk, serverName, serverIp, chainName);
         if (c.getServer() == null) {
-            return -1;
+            return BaseHandler.INVALID;
         }
 
         List<Map<String, Long>> selectedPackages = this.selectPackages(
                 PackageManager.systemPackageList(c.getServer().getId(), null), packages, c);
         if (!selectedPackages.isEmpty()) {
-            ActionChainManager.schedulePackageVerify(c.getUser(), c.getServer(),
-                                                selectedPackages, new Date(), c.getChain());
-            return 1;
+            return this.bool(ActionManager.schedulePackageVerify(c.getUser(), 
         }
 
-        return 0;
+        return BaseHandler.INVALID;
     }
 
     /**
@@ -506,22 +635,21 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.returntype #int
      */
     public int addPackageUpgrade(String sk,
-                                 String serverName, String serverIp,
+                                 String serverName,
+                                 String serverIp,
                                  List<Map<String, String>> packages,
                                  String chainName) {
         Collector c = new Collector(sk, serverName, serverIp, chainName);
         if (c.getServer() == null) {
-            return -1;
+            return BaseHandler.INVALID;
         }
 
         List<Map<String, Long>> selectedPackages = this.selectPackages(
                 PackageManager.upgradable(c.getServer().getId(), null), packages, c);
         if (!selectedPackages.isEmpty()) {
-            ActionChainManager.schedulePackageUpgrade(c.getUser(), c.getServer(),
-                                                 selectedPackages,new Date(), c.getChain());
-            return 1;
+            return this.bool(ActionManager.schedulePackageUpgrade(c.getUser(),
         }
 
-        return -1;
+        return BaseHandler.INVALID;
     }
 }
