@@ -32,6 +32,7 @@ import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
+import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.events.SsmErrataEvent;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -48,7 +49,7 @@ import com.redhat.rhn.manager.system.SystemManager;
  * Confirm application of errata to systems in SSM.
  */
 public class ErrataListConfirmAction extends RhnAction implements
-        Listable {
+        Listable<ErrataOverview> {
     /** {@inheritDoc} */
     @Override
     public ActionForward execute(ActionMapping mapping,
@@ -115,7 +116,7 @@ public class ErrataListConfirmAction extends RhnAction implements
     }
 
     /** {@inheritDoc} */
-    public List getResult(RequestContext context) {
+    public List<ErrataOverview> getResult(RequestContext context) {
         return ErrataManager.lookupErrataListFromSet(context.getCurrentUser(),
                 getSetDecl().getLabel());
     }
