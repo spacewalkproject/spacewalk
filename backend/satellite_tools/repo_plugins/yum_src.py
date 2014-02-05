@@ -170,6 +170,9 @@ class ContentSource(object):
         if filters:
             pkglist = self._filter_packages(pkglist, filters)
             pkglist = self._get_package_dependencies(self.sack, pkglist)
+
+            # do not pull in dependencies if they're explicitly excluded
+            pkglist = self._filter_packages(pkglist, filters, True)
             self.num_excluded = self.num_packages - len(pkglist)
         to_return = []
         for pack in pkglist:
@@ -186,7 +189,7 @@ class ContentSource(object):
             to_return.append(new_pack)
         return to_return
 
-    def _filter_packages(self, packages, filters):
+    def _filter_packages(self, packages, filters, exclude_only = False):
         """ implement include / exclude logic
             filters are: [ ('+', includelist1), ('-', excludelist1),
                            ('+', includelist2), ... ]
@@ -196,7 +199,7 @@ class ContentSource(object):
 
         selected = []
         excluded = []
-        if filters[0][0] == '-':
+        if exclude_only or filters[0][0] == '-':
             # first filter is exclude, start with full package list
             # and then exclude from it
             selected = packages
@@ -206,14 +209,15 @@ class ContentSource(object):
         for filter_item in filters:
             sense, pkg_list = filter_item
             if sense == '+':
-                # include
-                exactmatch, matched, _unmatched = yum.packages.parsePackages(
-                                                        excluded, pkg_list)
-                allmatched = yum.misc.unique(exactmatch + matched)
-                selected = yum.misc.unique(selected + allmatched)
-                for pkg in allmatched:
-                    if pkg in excluded:
-                        excluded.remove(pkg)
+                if not exclude_only:
+                    # include
+                    exactmatch, matched, _unmatched = yum.packages.parsePackages(
+                                                            excluded, pkg_list)
+                    allmatched = yum.misc.unique(exactmatch + matched)
+                    selected = yum.misc.unique(selected + allmatched)
+                    for pkg in allmatched:
+                        if pkg in excluded:
+                            excluded.remove(pkg)
             elif sense == '-':
                 # exclude
                 exactmatch, matched, _unmatched = yum.packages.parsePackages(
