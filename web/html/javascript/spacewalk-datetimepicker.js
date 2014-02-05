@@ -14,7 +14,8 @@ function setupDatePicker(name, value) {
     });
 
     // initialize the time picker
-    $('#' + name + '_timepicker_widget_input').timepicker();
+    var timeFmt = $('#' + name + '_timepicker_widget_input_addon').attr('data-time-format');
+    $('#' + name + '_timepicker_widget_input').timepicker({ 'timeFormat': timeFmt });
 
     // make the addon clickable
     $('#' + name + '_timepicker_widget_input_addon').click(function() {

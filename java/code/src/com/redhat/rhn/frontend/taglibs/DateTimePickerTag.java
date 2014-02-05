@@ -125,6 +125,39 @@ public class DateTimePickerTag extends TagSupport {
     }
 
     /**
+     * The time picker uses the PHP time format
+     *
+     * @param format a standard format like the one described in
+     *   http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+     * @return a format like the one described in
+     *   http://php.net/manual/en/function.date.php
+     *
+     */
+    private String toPhpTimeFormat(String format) {
+        String ret = format.replaceAll("(a)+", "a");
+        ret = ret.replaceAll("(H)\\1+", "H");
+        ret = ret.replaceAll("(H)", "G");
+
+        // k (0-24) not supported, convert to the 0-23 format
+        ret = ret.replaceAll("(k)\\1+", "H");
+        ret = ret.replaceAll("(k)", "G");
+        // K (0-11) not supported, convert to the 1-12 format
+        ret = ret.replaceAll("(k)\\1+", "h");
+        ret = ret.replaceAll("(k)", "g");
+
+        ret = ret.replaceAll("(h)\\1+", "h");
+        ret = ret.replaceAll("(h)", "g");
+        ret = ret.replaceAll("(m)+", "i");
+        ret = ret.replaceAll("(s)+", "s");
+
+        // ignore others
+        ret = ret.replaceAll("(z)+", "");
+        ret = ret.replaceAll("(Z)+", "");
+        ret = ret.replaceAll("(X)+", "");
+        return ret;
+    }
+
+    /**
      * Convert day java.util.Calendar constants
      * (for which we can't assume a fixed value)
      * to an index usable by the javascript picker.
@@ -159,15 +192,18 @@ public class DateTimePickerTag extends TagSupport {
 
         HtmlTag dateAddon = createInputAddonTag("date", "fa fa-calendar");
 
-        SimpleDateFormat fmt = (SimpleDateFormat)
+        SimpleDateFormat dateFmt = (SimpleDateFormat)
                 DateFormat.getDateInstance(DateFormat.SHORT, data.getLocale());
+        SimpleDateFormat timeFmt = (SimpleDateFormat)
+                DateFormat.getTimeInstance(DateFormat.SHORT, data.getLocale());
 
         HtmlTag dateInput = new HtmlTag("input");
         dateInput.setAttribute("data-provide", "date-picker");
         dateInput.setAttribute("data-date-today-highlight", "true");
         dateInput.setAttribute("data-date-autoclose", "true");
         dateInput.setAttribute("data-date-language", data.getLocale().toString());
-        dateInput.setAttribute("data-date-format", toWeirdDateFormat(fmt.toPattern()));
+        dateInput.setAttribute("data-date-format",
+                toWeirdDateFormat(dateFmt.toPattern()));
         dateInput.setAttribute("type", "text");
         dateInput.setAttribute("class", "form-control");
         dateInput.setAttribute("id", data.getName() + "_datepicker_widget_input");
@@ -179,9 +215,10 @@ public class DateTimePickerTag extends TagSupport {
         HtmlTag timeAddon = createInputAddonTag("time", "fa fa-clock-o");
 
         HtmlTag timeInput = new HtmlTag("input");
-        //dateInput.setAttribute("value", data.getDate().toString());
         timeInput.setAttribute("type", "text");
         timeInput.setAttribute("class", "form-control");
+        timeInput.setAttribute("data-time-format",
+                toPhpTimeFormat(timeFmt.toPattern()));
         timeInput.setAttribute("id", data.getName() + "_timepicker_widget_input");
 
         HtmlTag tzAddon = new HtmlTag("span");
