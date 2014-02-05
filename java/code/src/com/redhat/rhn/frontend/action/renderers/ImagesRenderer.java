@@ -15,7 +15,6 @@
 
 package com.redhat.rhn.frontend.action.renderers;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +33,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.suse.studio.client.SUSEStudio;
+import com.suse.studio.client.exception.SUSEStudioException;
 import com.suse.studio.client.model.Appliance;
 import com.suse.studio.client.model.Build;
 
@@ -83,7 +83,7 @@ public class ImagesRenderer extends BaseFragmentRenderer {
                 throw re;
             }
         }
-        catch (IOException e) {
+        catch (SUSEStudioException e) {
             logger.error(e.getMessage());
             request.setAttribute(ATTRIB_ERROR_MSG, "images.message.error.connection");
         }
@@ -95,7 +95,7 @@ public class ImagesRenderer extends BaseFragmentRenderer {
      * @return list of {@link Image} objects
      */
     private List<Image> getImages(User user, HttpServletRequest request)
-            throws IOException {
+            throws SUSEStudioException {
         List<Appliance> appliances = new ArrayList<Appliance>();
 
         // Lookup credentials and url
