@@ -41,34 +41,34 @@
                    method="get">
 
             <div class="form-group">
-                <label class="col-lg-3 text-right">
+                <label class="col-lg-3 control-label">
                         <bean:message key="probedetails.jsp.probe" />
                 </label>
-                <div class="col-lg-6">
+                <div class="col-lg-6 text">
                         ${probe.description}
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-3 text-right">
+                <label class="col-lg-3 control-label">
                         <bean:message key="probeedit.jsp.satclusterdesc" />
                 </label>
-                <div class="col-lg-6">
+                <div class="col-lg-6 text">
                         ${probe.satCluster.description}
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-3 text-right">
+                <label class="col-lg-3 control-label">
                         <bean:message key="probedetails.jsp.status" />
                 </label>
-                <div class="col-lg-6">
+                <div class="col-lg-6 text">
                         <span class=${status_class}>${status}</span>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-3 text-right">
+                <label class="col-lg-3 control-label">
                         <bean:message key="probedetails.jsp.last_update" />
                 </label>
-                <div class="col-lg-6">
+                <div class="col-lg-6 text">
                         <fmt:formatDate value="${probe.state.lastCheck}" type="both" dateStyle="short" timeStyle="long"/>
                 </div>
             </div>
