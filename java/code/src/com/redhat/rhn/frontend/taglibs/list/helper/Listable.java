@@ -26,8 +26,9 @@ import java.util.List;
  * <p/>
  * See the Spacewalk wiki for more information on how to work with ListTag 3.0.
  * @version $Rev$
+ * @param <T> Type of objects to be listed.
  */
-public interface Listable {
+public interface Listable<T> {
 
     /**
      * Returns the data to display on the web page.
@@ -36,5 +37,5 @@ public interface Listable {
      * @return a List of {@link com.redhat.rhn.frontend.struts.Selectable} or
      *         {@link com.redhat.rhn.domain.Identifiable} objects.
      */
-    List getResult(RequestContext context);
+    List<T> getResult(RequestContext context);
 }
