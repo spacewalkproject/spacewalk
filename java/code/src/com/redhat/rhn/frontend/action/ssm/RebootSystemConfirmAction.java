@@ -30,6 +30,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.events.SsmSystemRebootEvent;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -43,7 +44,8 @@ import com.redhat.rhn.manager.system.SystemManager;
 /**
  * Confirm reboot of given systems
  */
-public class RebootSystemConfirmAction extends RhnAction implements Listable {
+public class RebootSystemConfirmAction extends RhnAction
+    implements Listable<SystemOverview> {
 
     /** {@inheritDoc} */
     @Override
@@ -107,8 +109,7 @@ public class RebootSystemConfirmAction extends RhnAction implements Listable {
     }
 
     /** {@inheritDoc} */
-    @SuppressWarnings("rawtypes")
-    public List getResult(RequestContext context) {
+    public List<SystemOverview> getResult(RequestContext context) {
         return SystemManager.inSet(context.getCurrentUser(),
               getSetDecl().getLabel());
     }

@@ -43,7 +43,7 @@ import com.redhat.rhn.manager.system.SystemManager;
  */
 public class RebootSystemAction
         extends RhnListAction
-        implements Listable {
+        implements Listable<SystemOverview> {
 
     /** {@inheritDoc} */
     @Override
@@ -87,8 +87,7 @@ public class RebootSystemAction
      * @param context Request context.
      * @return List of SystemOverview objects.
      */
-    @SuppressWarnings("rawtypes")
-    public List getResult(RequestContext context) {
+    public List<SystemOverview> getResult(RequestContext context) {
         List<SystemOverview> systems = SystemManager.inSet(context.getCurrentUser(),
                 RhnSetDecl.SYSTEMS.getLabel());
         for (SystemOverview systemOverview : systems) {
