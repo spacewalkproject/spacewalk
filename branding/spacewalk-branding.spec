@@ -27,6 +27,7 @@ Requires:   httpd
 Requires:   bootstrap <= 3.0.0
 Requires:   font-awesome >= 4.0.0
 Requires:   roboto >= 1.2
+Requires: pwstrength-bootstrap
 
 %description
 Spacewalk specific branding, CSS, and images.
