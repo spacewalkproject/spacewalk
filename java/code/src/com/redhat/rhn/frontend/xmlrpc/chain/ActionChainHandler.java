@@ -26,7 +26,6 @@ import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.UpgradablePackageListItem;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.manager.action.ActionChainManager;
-import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -42,6 +41,8 @@ import java.util.Map;
  * @author bo
  */
 public class ActionChainHandler extends BaseHandler {
+    private static final String[] comboKeys = new String[]{"evrid", "archid", "nameid"};
+
     /**
      * Parameters collector.
      */
@@ -161,16 +162,20 @@ public class ActionChainHandler extends BaseHandler {
      * @param userPackages
      * @return 
      */
-    private List<Map> selectPackages(List allPackages,
+    private List<Map<String, Long>> selectPackages(List allPackages,
                                      List<Integer> userPackages) {
-        List<Map> selected = new ArrayList<Map>();
+        List<Map<String, Long>> selected = new ArrayList<Map<String, Long>>();
         for (Object pkgContainer : allPackages) {
             if ((pkgContainer instanceof PackageListItem) ||
                 (pkgContainer instanceof UpgradablePackageListItem)) {
                 Map pkgData = this.getPkgData((PackageListItem) pkgContainer);
                 for (Integer pkgId : userPackages) {
                     if (((Long) pkgData.get("id")) == (long) pkgId) {
-                        selected.add(pkgData);
+                        Map<String, Long> pkgCombo = new HashMap<String, Long>();
+                        for (String key : ActionChainHandler.comboKeys) {
+                            pkgCombo.put(key, (Long) pkgData.get(key));
+                        }
+                        selected.add(pkgCombo);
                     }
                 }
             }
@@ -179,7 +184,7 @@ public class ActionChainHandler extends BaseHandler {
         return selected;
     }
     
-    private Map<String, String> getPkgData(PackageListItem pi) {
+    private Map<String, Object> getPkgData(PackageListItem pi) {
         Map pkgData = new HashMap<String, String>();
         pkgData.put("id", pi.getId());
         pkgData.put("version", pi.getVersion());
@@ -409,7 +414,7 @@ public class ActionChainHandler extends BaseHandler {
             return BaseHandler.INVALID;
         }
 
-        return this.bool(ActionManager.scheduleRebootAction(c.getUser(),
+        return this.bool(ActionChainManager.scheduleRebootAction(c.getUser(),
                                                             c.getServer(),
                                                             new Date(),
                                                             c.getChain()) != null);
@@ -453,7 +458,9 @@ public class ActionChainHandler extends BaseHandler {
         List<Map<String, Long>> selectedPackages = this.selectPackages(
             SystemManager.installedPackages(c.getServer().getId(), true), packages, c);
         if (!selectedPackages.isEmpty()) {
-            return this.bool(ActionManager.schedulePackageRemoval(c.getUser(),
+            return this.bool(ActionChainManager.schedulePackageRemoval(
+                c.getUser(), c.getServer(), selectedPackages,
+                new Date(), c.getChain()) != null);
         }
 
         return BaseHandler.INVALID;
@@ -496,7 +503,9 @@ public class ActionChainHandler extends BaseHandler {
         List<Map<String, Long>> selectedPackages = this.selectPackages(
             SystemManager.installedPackages(c.getServer().getId(), true), packages, c);
         if (!selectedPackages.isEmpty()) {
-            return this.bool(ActionManager.schedulePackageRemoval(c.getUser(),
+            return this.bool(ActionChainManager.schedulePackageRemoval(
+                c.getUser(), c.getServer(), selectedPackages,
+                new Date(), c.getChain()) != null);
         }
 
         return -1;
@@ -520,10 +529,12 @@ public class ActionChainHandler extends BaseHandler {
             return BaseHandler.INVALID;
         }
 
-        List<Map> selectedPackages = this.selectPackages(
+        List<Map<String, Long>> selectedPackages = this.selectPackages(
             PackageManager.systemAvailablePackages(c.getServer().getId(), null), packages);
         if (!selectedPackages.isEmpty()) {
-            return this.bool(ActionManager.schedulePackageInstall(c.getUser(),
+            return this.bool(ActionChainManager.schedulePackageInstall(
+                c.getUser(), c.getServer(), selectedPackages,
+                new Date(), c.getChain()) != null);
         }
 
         return BaseHandler.INVALID;
@@ -565,7 +576,9 @@ public class ActionChainHandler extends BaseHandler {
                 PackageManager.systemAvailablePackages(
                         c.getServer().getId(), null), packages, c);
         if (!selectedPackages.isEmpty()) {
-            return this.bool(ActionManager.schedulePackageInstall(c.getUser(),
+            return this.bool(ActionChainManager.schedulePackageInstall(
+                c.getUser(), c.getServer(), selectedPackages,
+                new Date(), c.getChain()) != null);
         }
 
         return BaseHandler.INVALID;
@@ -606,7 +619,9 @@ public class ActionChainHandler extends BaseHandler {
         List<Map<String, Long>> selectedPackages = this.selectPackages(
                 PackageManager.systemPackageList(c.getServer().getId(), null), packages, c);
         if (!selectedPackages.isEmpty()) {
-            return this.bool(ActionManager.schedulePackageVerify(c.getUser(), 
+            return this.bool(ActionChainManager.schedulePackageVerify(
+                c.getUser(), c.getServer(), selectedPackages,
+                new Date(), c.getChain()) != null);
         }
 
         return BaseHandler.INVALID;
@@ -647,7 +662,9 @@ public class ActionChainHandler extends BaseHandler {
         List<Map<String, Long>> selectedPackages = this.selectPackages(
                 PackageManager.upgradable(c.getServer().getId(), null), packages, c);
         if (!selectedPackages.isEmpty()) {
-            return this.bool(ActionManager.schedulePackageUpgrade(c.getUser(),
+            return this.bool(ActionChainManager.schedulePackageUpgrade(
+                c.getUser(), c.getServer(), selectedPackages,
+                new Date(), c.getChain()) != null);
         }
 
         return BaseHandler.INVALID;
