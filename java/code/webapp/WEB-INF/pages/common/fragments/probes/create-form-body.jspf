@@ -68,7 +68,9 @@ function refreshNotifFields() {
             <bean:message key="probeedit.jsp.commandrequirements" />
         </label>
         <div class="col-lg-6">
+            <div class="text">
             <bean:message key="${command.systemRequirements}"/>
+            </div>
         </div>
     </div>
 </c:if>
@@ -78,7 +80,9 @@ function refreshNotifFields() {
         <label class="col-lg-3 control-label">
             <bean:message key="probeedit.jsp.versionsupport" />
         </label>
-        <div class="col-lg-6">${command.versionSupport}</div>
+        <div class="col-lg-6">
+            <div class="text">${command.versionSupport}</div>
+        </div>
     </div>
 </c:if>
 
@@ -96,7 +100,9 @@ function refreshNotifFields() {
         <bean:message key="probeedit.jsp.notification" />
     </label>
     <div class="col-lg-6">
+        <div class="checkbox">
         <html:checkbox onclick="refreshNotifFields()" property="notification" styleId="notif"/>
+        </div>
     </div>
 </div>
 

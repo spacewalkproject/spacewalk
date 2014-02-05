@@ -4,15 +4,21 @@
     <div class="form-group">
         <label class="col-lg-3 control-label">
             <c:if test="${not empty field.label}">
-                <bean:message key="${field.label}" />
-                <c:if test="${field.mandatory}"><span class="required-form-field">*</span></c:if>:
+                <c:choose>
+                    <c:when test="${field.mandatory}">
+                        <rhn:required-field key="${field.label}"/>:
+                    </c:when>
+                    <c:otherwise>
+                        <bean:message key="${field.label}" />
+                    </c:otherwise>
+                </c:choose>
             </c:if>
         </label>
         <c:choose>
             <c:when test="${empty field.threshold}">
             </c:when>
             <c:otherwise>
-                <div class="col-lg-2"><bean:message key="${field.threshold}"/></div>
+                <div class="col-lg-2 text"><bean:message key="${field.threshold}"/></div>
             </c:otherwise>
         </c:choose>
         <c:choose>
@@ -37,7 +43,7 @@
             </c:when>
         </c:choose>
         <c:if test="${not empty field.unit}">
-            <label class="col-lg-2"><bean:message key="${field.unit}"/></label>
+            <span class="col-lg-2 text"><bean:message key="${field.unit}"/></span>
         </c:if>
     </div>
 </c:forEach>
