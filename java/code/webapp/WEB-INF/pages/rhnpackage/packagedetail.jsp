@@ -49,9 +49,9 @@
                     </label>
                     <div class="col-lg-6">
                         <c:forEach items="${pack.channels}" var="channel">
-                            <a class="btn btn-info" href="/rhn/channels/ChannelDetail.do?cid=${channel.id}">
+                            <a href="/rhn/channels/ChannelDetail.do?cid=${channel.id}">
                                 ${channel.name}
-                            </a>
+                            </a><br/>
                         </c:forEach>
                     </div>
                 </div>
@@ -308,7 +308,7 @@
                     </label>
                     <div class="col-lg-6">
                         <c:forEach items="${erratum}" var="tmpErrata">
-                            <a class="btn btn-info" href="/rhn/errata/details/Details.do?eid=${tmpErrata.id}"><c:out value="${tmpErrata.advisory}" /></a>
+                            <a href="/rhn/errata/details/Details.do?eid=${tmpErrata.id}"><c:out value="${tmpErrata.advisory}" /></a></br>
                         </c:forEach>
                         <c:if test="${erratumEmpty == true}">
                             <bean:message key="package.jsp.errataunavailable" />
