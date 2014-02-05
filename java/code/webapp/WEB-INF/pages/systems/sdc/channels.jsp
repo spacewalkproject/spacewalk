@@ -107,7 +107,7 @@
         </c:if>
       </c:if>
       <div class="form-group">
-              <html:submit property="dispatch" styleClass="form-horizontal float-right">
+              <html:submit property="dispatch" styleClass="form-horizontal pull-right">
                   <bean:message key="sdc.channels.edit.update_sub"/>
               </html:submit>
       </div>
@@ -165,7 +165,7 @@
                   <bean:message key="sdc.channels.edit.fastrackBetaWarning"/>
               </span>
           </div>
-              <html:submit property="dispatch" styleClass="btn btn-success float-right">
+              <html:submit property="dispatch" styleClass="btn btn-success pull-right">
                   <bean:message key="sdc.channels.edit.confirm_update_base"/>
               </html:submit>
       </rhn:require>
