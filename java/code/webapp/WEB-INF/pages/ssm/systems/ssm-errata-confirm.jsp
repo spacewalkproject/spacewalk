@@ -14,6 +14,8 @@
   <rl:listset name="errataSet" legend="errata">
     <rhn:csrf />
     <rhn:submitted />
+
+<c:set var="notSelectable" value="True" />
 <%@ include file="/WEB-INF/pages/ssm/systems/errata-list-fragment.jspf" %>
 
     <table class="details" align="center">

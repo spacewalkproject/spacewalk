@@ -6,60 +6,66 @@
 
 <rl:list name="errataList" styleclass="list"
          emptykey="erratalist.jsp.norelevanterrata" alphabarcolumn="advisorySynopsis">
-    <rl:decorator name="ElaborationDecorator"/>
-    <rl:decorator name="PageSizeDecorator"/>
+  <rl:decorator name="ElaborationDecorator" />
+  <rl:decorator name="PageSizeDecorator" />
 
-    <rl:column headerkey="erratalist.jsp.type" styleclass="text-align: center;" bound="false">
-        <c:if test="${current.securityAdvisory}">
-            <rhn:icon type="errata-security" />
-        </c:if>
-        <c:if test="${current.bugFix}">
-            <rhn:icon type="errata-bugfix" />
-        </c:if>
-        <c:if test="${current.productEnhancement}">
-            <rhn:icon type="errata-enhance" />
-        </c:if>
-    </rl:column>
+  <c:if test="${empty notSelectable}">
+    <rl:decorator name="SelectableDecorator" />
+    <rl:selectablecolumn value="${current.id}" selected="${current.selected}"
+                         disabled="${not current.selectable}" styleclass="first-column" />
+  </c:if>
 
-    <rl:column headerkey="erratalist.jsp.advisory" bound="false" sortattr="advisoryName" sortable="true">
-        <a href="/rhn/errata/details/Details.do?eid=${current.id}">${current.advisoryName}</a>
-    </rl:column>
+  <rl:column headerkey="erratalist.jsp.type" styleclass="text-align: center;" bound="false">
+    <c:if test="${current.securityAdvisory}">
+      <rhn:icon type="errata-security" />
+    </c:if>
+    <c:if test="${current.bugFix}">
+      <rhn:icon type="errata-bugfix" />
+    </c:if>
+    <c:if test="${current.productEnhancement}">
+      <rhn:icon type="errata-enhance" />
+    </c:if>
+  </rl:column>
 
-    <rl:column headerkey="erratalist.jsp.synopsis" bound="false" sortattr="advisorySynopsis"
-               sortable="true" filterattr="advisorySynopsis">
-        ${current.advisorySynopsis}
-    </rl:column>
+  <rl:column headerkey="erratalist.jsp.advisory" bound="false" sortattr="advisoryName" sortable="true">
+    <a href="/rhn/errata/details/Details.do?eid=${current.id}">${current.advisoryName}</a>
+  </rl:column>
 
-    <rl:column headerkey="errata.jsp.status" bound="false" sortattr="currentStatusAndActionId[0]" sortable="true">
-        <c:if test="${not empty current.status}">
-            <c:if test="${current.currentStatusAndActionId[0] == 'Queued'}">
-                <a href="/rhn/schedule/ActionDetails.do?aid=${current.currentStatusAndActionId[1]}">
-                    <bean:message key="affectedsystems.jsp.pending"/>
-                </a>
-            </c:if>
-            <c:if test="${current.currentStatusAndActionId[0] == 'Failed'}">
-                <a href="/network/systems/details/history/event.pxt?sid=${param.sid}&hid=${current.currentStatusAndActionId[1]}">
-                    <bean:message key="actions.jsp.failed"/>
-                </a>
-            </c:if>
-            <c:if test="${current.currentStatusAndActionId[0] == 'Picked Up'}">
-                <a href="/network/systems/details/history/event.pxt?sid=${param.sid}&hid=${current.currentStatusAndActionId[1]}">
-                    <bean:message key="actions.jsp.pickedup"/>
-                </a>
-            </c:if>
-        </c:if>
-        <c:if test="${empty current.status}">
-            <bean:message key="affectedsystems.jsp.none"/>
-        </c:if>
-    </rl:column>
+  <rl:column headerkey="erratalist.jsp.synopsis" bound="false" sortattr="advisorySynopsis"
+             sortable="true" filterattr="advisorySynopsis">
+    ${current.advisorySynopsis}
+  </rl:column>
 
-    <rl:column headerkey="errata.jsp.affected" bound="false" sortattr="affectedSystemCount" sortable="true">
-        <a href="/rhn/systems/ssm/ErrataSystemsAffected.do?eid=${current.id}">${current.affectedSystemCount}</a>
-    </rl:column>
+  <rl:column headerkey="errata.jsp.status" bound="false" sortattr="currentStatusAndActionId[0]" sortable="true">
+    <c:if test="${not empty current.status}">
+      <c:if test="${current.currentStatusAndActionId[0] == 'Queued'}">
+        <a href="/rhn/schedule/ActionDetails.do?aid=${current.currentStatusAndActionId[1]}">
+            <bean:message key="affectedsystems.jsp.pending" />
+        </a>
+      </c:if>
+      <c:if test="${current.currentStatusAndActionId[0] == 'Failed'}">
+        <a href="/network/systems/details/history/event.pxt?sid=${param.sid}&hid=${current.currentStatusAndActionId[1]}">
+          <bean:message key="actions.jsp.failed" />
+        </a>
+      </c:if>
+      <c:if test="${current.currentStatusAndActionId[0] == 'Picked Up'}">
+        <a href="/network/systems/details/history/event.pxt?sid=${param.sid}&hid=${current.currentStatusAndActionId[1]}">
+          <bean:message key="actions.jsp.pickedup" />
+        </a>
+      </c:if>
+    </c:if>
+    <c:if test="${empty current.status}">
+      <bean:message key="affectedsystems.jsp.none" />
+    </c:if>
+  </rl:column>
 
-    <rl:column headerkey="erratalist.jsp.updated" bound="false" sortattr="updateDateObj"
-               sortable="true" defaultsort="desc" styleclass="last-column">
-        ${current.updateDate}
-    </rl:column>
+  <rl:column headerkey="errata.jsp.affected" bound="false" sortattr="affectedSystemCount" sortable="true">
+    <a href="/rhn/systems/ssm/ErrataSystemsAffected.do?eid=${current.id}">${current.affectedSystemCount}</a>
+  </rl:column>
+
+  <rl:column headerkey="erratalist.jsp.updated" bound="false" sortattr="updateDateObj"
+             sortable="true" defaultsort="desc" styleclass="last-column">
+    ${current.updateDate}
+  </rl:column>
 
 </rl:list>
