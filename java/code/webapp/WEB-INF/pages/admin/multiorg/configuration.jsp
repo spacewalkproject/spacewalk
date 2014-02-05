@@ -60,20 +60,25 @@ function modifyUploadCheckbox(checkbox) {
             <rhn:submitted/>
             <input type="hidden" name="oid" value="${param.oid}"/>
             <div class="form-group">
-                <div class="col-lg-offset-3 col-lg-6">
-                    <label>
+                <label class="col-lg-3 control-label">
+                    <bean:message key="org-config.staging-content.jsp"/>
+                </label>
+                <div class="col-lg-6">
+                    <div class="checkbox">
                         <input type="checkbox" name="staging_content_enabled"
                                value="enabled" id="staging_content_enabled"
                                <c:if test = "${org.orgConfig.stagingContentEnabled}">
                                    checked="checked"
                                </c:if>/>
-                        <bean:message key="org-config.staging-content.jsp"/>
-                    </label>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-lg-offset-3 col-lg-6">
-                    <label>
+                <label class="col-lg-3 control-label">
+                    <bean:message key="org-config.crash-reporting.jsp"/>
+                </label>
+                <div class="col-lg-6">
+                    <div class="checkbox">
                         <input type="checkbox"
                                name="crash_reporting_enabled"
                                value="enabled"
@@ -82,13 +87,15 @@ function modifyUploadCheckbox(checkbox) {
                                <c:if test = "${org.orgConfig.crashReportingEnabled}">
                                    checked="checked"
                                </c:if>/>
-                        <bean:message key="org-config.crash-reporting.jsp"/>
-                    </label>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-lg-offset-3 col-lg-6">
-                    <label>
+                <label class="col-lg-3 control-label">
+                    <bean:message key="org-config.crashfile-upload.jsp"/>
+                </label>
+                <div class="col-lg-6">
+                    <div class="checkbox">
                         <input type="checkbox"
                                name="crashfile_upload_enabled"
                                value="enabled"
@@ -99,8 +106,7 @@ function modifyUploadCheckbox(checkbox) {
                                <c:if test = "${org.orgConfig.crashfileUploadEnabled}">
                                    checked="checked"
                                </c:if>/>
-                        <bean:message key="org-config.crashfile-upload.jsp"/>
-                    </label>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -116,8 +122,11 @@ function modifyUploadCheckbox(checkbox) {
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-lg-offset-3 col-lg-6">
-                    <label>
+                <label class="col-lg-3 control-label">
+                    <bean:message key="org-config.scapfile-upload.jsp"/>
+                </label>
+                <div class="col-lg-6">
+                    <div class="checkbox">
                         <input type="checkbox"
                                name="scapfile_upload_enabled"
                                value="enabled"
@@ -125,8 +134,7 @@ function modifyUploadCheckbox(checkbox) {
                                <c:if test = "${org.orgConfig.scapfileUploadEnabled}">
                                    checked="checked"
                                </c:if>/>
-                        <bean:message key="org-config.scapfile-upload.jsp"/>
-                    </label>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -142,8 +150,11 @@ function modifyUploadCheckbox(checkbox) {
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-lg-offset-3 col-lg-6">
-                    <label>
+                <label class="col-lg-3 control-label">
+                    <bean:message key="org-config.scap-retention"/>
+                </label>
+                <div class="col-lg-6">
+                    <div class="checkbox">
                         <input type="checkbox"
                                name="scap_retention_set"
                                value="on"
@@ -152,8 +163,7 @@ function modifyUploadCheckbox(checkbox) {
                                <c:if test = "${org.orgConfig.scapRetentionPeriodDays != null}">
                                    checked="checked"
                                </c:if>/>
-                        <bean:message key="org-config.scap-retention"/>
-                    </label>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
