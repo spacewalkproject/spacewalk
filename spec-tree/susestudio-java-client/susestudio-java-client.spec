@@ -17,7 +17,7 @@
 Name:           susestudio-java-client
 Summary:        Java client library for SUSE Studio
 Version:        0.1.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        MIT
 Group:          Development/Libraries/Java
 Url:            https://github.com/susestudio/susestudio-lib-java
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}/*.jar
 
 %changelog
+* Wed Feb 05 2014 Michael Mraka <michael.mraka@redhat.com> 0.1.4-2
+- source file is named differently
+
 * Wed Feb 05 2014 Michael Mraka <michael.mraka@redhat.com> 0.1.4-1
 - Update susestudio-java-client spec file for building version 0.1.4
 
