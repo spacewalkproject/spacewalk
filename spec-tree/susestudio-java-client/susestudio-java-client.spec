@@ -17,7 +17,7 @@
 Name:           susestudio-java-client
 Summary:        Java client library for SUSE Studio
 Version:        0.1.4
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        MIT
 Group:          Development/Libraries/Java
 Url:            https://github.com/susestudio/susestudio-lib-java
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}/*.jar
 
 %changelog
+* Wed Feb 05 2014 Michael Mraka <michael.mraka@redhat.com> 0.1.4-1
+- Update susestudio-java-client spec file for building version 0.1.4
+
 * Tue Jan 07 2014 Tomas Lestach <tlestach@redhat.com> 0.1.2-2
 - jpackage-utils were replaced with javapackages-tools in fc20
 
