@@ -165,6 +165,7 @@ public class DateTimePickerTag extends TagSupport {
         HtmlTag dateInput = new HtmlTag("input");
         dateInput.setAttribute("data-provide", "date-picker");
         dateInput.setAttribute("data-date-today-highlight", "true");
+        dateInput.setAttribute("data-date-autoclose", "true");
         dateInput.setAttribute("data-date-language", data.getLocale().toString());
         dateInput.setAttribute("data-date-format", toWeirdDateFormat(fmt.toPattern()));
         dateInput.setAttribute("type", "text");
