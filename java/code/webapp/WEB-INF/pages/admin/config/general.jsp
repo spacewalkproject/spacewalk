@@ -90,35 +90,43 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-lg-offset-3 col-lg-6">
-                            <label for="ssl_available">
+                        <label class="col-lg-3 control-label" for="web|ssl_available">
+                            <bean:message key="general.jsp.defaultTo_ssl"/>
+                        </label>
+                        <div class="col-lg-6">
+                            <div class="checkbox">
                                 <html:checkbox property="web|ssl_available" styleId="ssl_available" />
-                                <bean:message key="general.jsp.defaultTo_ssl"/>
-                            </label>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-lg-offset-3 col-lg-6">
-                            <label for="solaris">
+                        <label class="col-lg-3 control-label" for="web|enable_solaris_support">
+                            <bean:message key="general.jsp.solaris"/>
+                        </label>
+                        <div class="col-lg-6">
+                            <div class="checkbox">
                                 <html:checkbox property="web|enable_solaris_support" styleId="solaris" />
-                                <bean:message key="general.jsp.solaris"/>
-                            </label>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-lg-offset-3 col-lg-6">
-                            <label for="disconnected">
+                        <label class="col-lg-3 control-label" for="disconnected">
+                            <bean:message key="general.jsp.disconnected"/>
+                        </label>
+                        <div class="col-lg-6">
+                            <div class="checkbox">
                                 <html:checkbox property="disconnected" styleId="disconnected" />
-                                <bean:message key="general.jsp.disconnected"/>
-                            </label>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-lg-offset-3 col-lg-6">
-                            <label for="is_monitoring_backend">
+                        <label class="col-lg-3 control-label" for="web|is_monitoring_backend">
+                            <bean:message key="general.jsp.monitoring_backend"/>
+                        </label>
+                        <div class="col-lg-6">
+                            <div class="checkbox">
                                 <html:checkbox property="web|is_monitoring_backend" styleId="is_monitoring_backend" />
-                                <bean:message key="general.jsp.monitoring_backend"/>
-                            </label>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
