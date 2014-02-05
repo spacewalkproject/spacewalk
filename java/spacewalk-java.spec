@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.144
+Version: 2.1.145
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Feb 05 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.145-1
+- page layout fixes
+- Generalized code so it can be used both with and without selectable column
+- Generification of Listable
+
 * Tue Feb 04 2014 Stephen Herr <sherr@redhat.com> 2.1.144-1
 - 1061425 - Improve package search performance
 - 1061425 - query performance improvement for package search
