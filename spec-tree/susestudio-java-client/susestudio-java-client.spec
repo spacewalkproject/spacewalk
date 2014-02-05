@@ -21,7 +21,7 @@ Release:        1%{?dist}
 License:        MIT
 Group:          Development/Libraries/Java
 Url:            https://github.com/susestudio/susestudio-lib-java
-Source0:        %{name}-%{version}.tar.bz2
+Source0:        https://github.com/susestudio/susestudio-lib-java/archive/v%{version}.tar.gz#/susestudio-lib-java-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  ant
 BuildRequires:  java-devel
@@ -38,7 +38,7 @@ Provides:       java(com.suse.studio:susestudio-java-client) == %{version}
 A Java client library for accessing SUSE Studio via its REST API.
 
 %prep
-%setup
+%setup -n susestudio-lib-java-%{version}
 rm lib/*.jar
 build-jar-repository -p lib/ %third_party_jars
 
