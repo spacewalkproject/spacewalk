@@ -165,5 +165,14 @@ public class TaskConstants {
 
     public static final String MODE_NAME = "Task_queries";
 
+    public static final String TASK_QUERY_LOOKUP_REBOOT_ACTION_CLEANUP =
+        "lookup_reboot_action_cleanup";
+
+    public static final String TASK_QUERY_LOOKUP_CHILD_ACTION =
+        "lookup_child_action";
+
+    public static final String TASK_QUERY_LOOKUP_KICKSTART_SESSION_ID =
+        "lookup_kickstart_session_id";
+
     private TaskConstants() { }
 }
