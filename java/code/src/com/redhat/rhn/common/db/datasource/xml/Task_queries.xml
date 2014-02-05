@@ -630,4 +630,40 @@ where snc.errata_id = :errata_id
   </query>
 </write-mode>
 
+<mode name="lookup_reboot_action_cleanup">
+    <query params="threshold">
+select sa.action_id, sa.server_id
+  from rhnServerAction sa
+  join rhnAction a on sa.action_id = a.id
+  join rhnActionType at on a.action_type = at.id
+ where sa.status = 1
+   and at.label = 'reboot.reboot'
+   and pickup_time + numtodsinterval(:threshold, 'hour') &lt; current_timestamp
+    </query>
+</mode>
+
+<mode name="lookup_child_action">
+    <query params="server_id, action_id">
+    select a.id
+      from rhnAction a
+      join rhnServerAction sa
+        on sa.action_id = a.id
+     where prerequisite = :action_id
+       and sa.server_id = :server_id
+    </query>
+</mode>
+
+<mode name="lookup_kickstart_session_id">
+    <query params="server_id, action_id">
+    select ks.id
+      from rhnKickstartSession ks
+     where (
+             (ks.old_server_id = :server_id and ks.new_server_id is NULL)
+             or ks.new_server_id = :server_id
+             or ks.host_server_id = :server_id
+           )
+       and ks.action_id = :action_id
+    </query>
+</mode>
+
 </datasource_modes>
