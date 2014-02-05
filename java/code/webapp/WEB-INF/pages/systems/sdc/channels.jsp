@@ -18,19 +18,16 @@
       <c:choose>
         <c:when test="${system.baseChannel == null}">
             <div class="form-group">
-                <div class="col-md-offset-3 col-md-6">
                     <div class="alert alert-warning">
                         <bean:message key="sdc.channels.edit.nobasechannel"/>
                     </div>
-                </div>
             </div>
         </c:when>
         <c:otherwise>
             <div class="form-group">
-                <div class="col-md-offset-3 col-md-6">
           <ul class="list-group">
             <li class="list-group-item">
-                <a class="btn btn-info" href="/rhn/channels/ChannelDetail.do?cid=${system.baseChannel.id}">${system.baseChannel.name}</a>
+                <a href="/rhn/channels/ChannelDetail.do?cid=${system.baseChannel.id}">${system.baseChannel.name}</a>
               <ul>
                 <c:forEach items="${avail_child_channels}" var="channel">
                   <c:choose>
@@ -48,7 +45,7 @@
                     <c:if test="${not channel.subscribed}">
                       <input ${disabledChannel} name="child_channel" value="${channel.id}" type="checkbox" id="unchecked">
                     </c:if>
-                    <a class="btn btn-info" href="/rhn/channels/ChannelDetail.do?cid=${channel.id}">${channel.name}</a>
+                    <a href="/rhn/channels/ChannelDetail.do?cid=${channel.id}">${channel.name}</a>
                     <c:if test="${system.virtualGuest}">
                       <c:if test="${not channel.freeForGuests}">
                         <span class="asterisk">*&nbsp;</span>
@@ -86,40 +83,33 @@
               </ul>
             </li>
           </ul>
-                </div>
             </div>
         </c:otherwise>
       </c:choose>
       <c:if test="${pageScope.display_asterisk}">
         <c:if test="${not empty system.virtualInstance.hostSystem.id}">
             <div class="form-group">
-                <div class="col-md-offset-3 col-md-6">
-                    <span class="asterisk">*&nbsp;</span>
                     <span class="help-block">
+                        <span class="asterisk">*&nbsp;</span>
                         <bean:message key="sdc.channels.edit.virtsubwarning"
                                       arg0="${system.virtualInstance.hostSystem.id}"
                                       arg1="${system.virtualInstance.hostSystem.name}"/>
                     </span>
-                </div>
             </div>
         </c:if>
         <c:if test="${empty system.virtualInstance.hostSystem.id}">
             <div class="form-group">
-                <div class="col-md-offset-3 col-md-6">
-                    <span class="asterisk">*&nbsp;</span>
                     <span class="help-block">
+                        <span class="asterisk">*&nbsp;</span>
                         <bean:message key="sdc.channels.edit.virtsubwarning_nohost"/>
                     </span>
-                </div>
             </div>
         </c:if>
       </c:if>
       <div class="form-group">
-          <div class="col-md-offset-3 col-md-6">
-              <html:submit property="dispatch" styleClass="form-horizontal">
+              <html:submit property="dispatch" styleClass="form-horizontal float-right">
                   <bean:message key="sdc.channels.edit.update_sub"/>
               </html:submit>
-          </div>
       </div>
 
       <rhn:require acl="not system_is_proxy(); not system_is_satellite()" mixins="com.redhat.rhn.common.security.acl.SystemAclHandler">
@@ -168,15 +158,16 @@
                       </optgroup>
                   </c:if>
               </select>
+            </div>
+          </div>
+           <div class="form-group">
               <span class="help-block">
                   <bean:message key="sdc.channels.edit.fastrackBetaWarning"/>
               </span>
           </div>
-          <div class="col-md-offset-3 col-md-6">
-              <html:submit property="dispatch" styleClass="btn btn-success">
+              <html:submit property="dispatch" styleClass="btn btn-success float-right">
                   <bean:message key="sdc.channels.edit.confirm_update_base"/>
               </html:submit>
-          </div>
       </rhn:require>
   </html:form>
 </body>
