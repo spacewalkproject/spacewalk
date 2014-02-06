@@ -30,6 +30,7 @@ import com.redhat.rhn.manager.user.CreateUserCommand;
 import com.redhat.rhn.manager.user.UpdateUserCommand;
 import com.redhat.rhn.manager.user.UserManager;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.StopWatch;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
@@ -99,9 +100,15 @@ public class LoginHelper {
                 }
                 if (remoteUser != null) {
                     UpdateUserCommand updateCmd = new UpdateUserCommand(remoteUser);
-                    updateCmd.setFirstNames(firstname);
-                    updateCmd.setLastName(lastname);
-                    updateCmd.setEmail(email);
+                    if (!StringUtils.isEmpty(firstname)) {
+                        updateCmd.setFirstNames(firstname);
+                    }
+                    if (!StringUtils.isEmpty(lastname)) {
+                        updateCmd.setLastName(lastname);
+                    }
+                    if (!StringUtils.isEmpty(email)) {
+                        updateCmd.setEmail(email);
+                    }
                     updateCmd.setRoles(roles);
                     updateCmd.updateUser();
                     log.warn("Externally authenticated login " + remoteUserString +
