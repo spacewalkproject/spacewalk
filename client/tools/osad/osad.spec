@@ -17,7 +17,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.32
+Version: 5.11.33
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -388,6 +388,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Thu Feb 06 2014 Jan Dobes 5.11.33-1
+- 1056515 - adapting to different logrotate version in fedora and rhel
+
 * Mon Nov 11 2013 Milan Zazrivec <mzazrivec@redhat.com> 5.11.32-1
 - remove extraneous 'except'
 
