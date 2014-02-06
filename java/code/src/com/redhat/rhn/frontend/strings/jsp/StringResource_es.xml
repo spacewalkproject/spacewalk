@@ -5401,11 +5401,11 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
         <target>Icono de Sistema</target>
       </trans-unit>
       <trans-unit id="overview.jsp.systems">
-        <source>&lt;a href="/rhn/systems/Overview.do?showgroups=true"&gt; &lt;div class="btn btn-default spacewalk-btn-margin-vertical"&gt; &lt;i class="spacewalk-icon-system-groups"&gt; &lt;/i&gt; View System Groups &lt;/div&gt; &lt;/a&gt;</source>
+        <source>View System Groups </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Overview</context>
         </context-group>
-        <target>&lt;a href="/rhn/systems/Overview.do?showgroups=true"&gt; &lt;div class="btn btn-default spacewalk-btn-margin-vertical"&gt; &lt;i class="spacewalk-icon-system-groups"&gt; &lt;/i&gt; Ver grupos de sistemas &lt;/div&gt; &lt;/a&gt;</target>
+        <target>Ver grupos de sistemas </target>
       </trans-unit>
       <trans-unit id="overview.jsp.groups">
         <source>System Groups (&lt;a href="/rhn/systems/Overview.do?showgroups=false"&gt;View Systems&lt;/a&gt;)</source>
