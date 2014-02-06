@@ -22,10 +22,12 @@ import java.util.Map;
 import java.util.Set;
 
 import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
 import com.redhat.rhn.frontend.dto.EssentialServerDto;
 import com.redhat.rhn.frontend.dto.PackageListItem;
+import com.redhat.rhn.manager.action.ActionChainManager;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -54,7 +56,7 @@ public class SsmInstallPackagesAction extends SsmPackagesAction {
     }
 
     protected List<Action> doSchedule(SsmPackageEvent event, User user, List<Long> sids,
-                    Date earliest) {
+                    Date earliest, ActionChain actionChain) {
         SsmInstallPackagesEvent sipe = (SsmInstallPackagesEvent) event;
 
         Set<String> data = sipe.getPackages();
@@ -68,10 +70,8 @@ public class SsmInstallPackagesAction extends SsmPackagesAction {
         List<Map<String, Long>> packageListData = PackageListItem
                         .toKeyMaps(pkgListItems);
 
-        List<Action> pkgActions = ActionManager.schedulePackageInstall(user, sids,
-                        packageListData, earliest);
-
-        return pkgActions;
+        return ActionChainManager.schedulePackageInstall(user, sids, packageListData,
+            earliest, actionChain);
     }
 
 }

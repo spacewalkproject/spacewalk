@@ -15,15 +15,15 @@
 package com.redhat.rhn.frontend.action.rhnpackage.ssm;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
-
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.util.DatePicker;
+import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
-
 import com.redhat.rhn.frontend.events.SsmRemovePackagesEvent;
+import com.redhat.rhn.frontend.struts.ActionChainHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
@@ -37,7 +37,6 @@ import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.log4j.Logger;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -90,8 +89,10 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
         DynaActionForm dynaForm = (DynaActionForm) actionForm;
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
             "date", DatePicker.YEAR_RANGE_POSITIVE);
-
         request.setAttribute("date", picker);
+
+        // Pre-populate the Action Chain selector
+        ActionChainHelper.prepopulateActionChains(request);
 
         return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
 
@@ -157,8 +158,12 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
         StrutsDelegate strutsDelegate = getStrutsDelegate();
         User user = context.getCurrentUser();
         // Load the date selected by the user
-        Date earliest = getStrutsDelegate().readDatePicker((DynaActionForm) formIn,
-            "date", DatePicker.YEAR_RANGE_POSITIVE);
+        DynaActionForm form = (DynaActionForm) formIn;
+        Date earliest = getStrutsDelegate().readDatePicker(form, "date",
+            DatePicker.YEAR_RANGE_POSITIVE);
+
+        // Load the Action Chain, if any
+        ActionChain actionChain = ActionChainHelper.readActionChain(form, user);
 
         // Parse through all of the results
         DataResult result = getResult(context, true);
@@ -166,7 +171,7 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
 
         log.debug("Publishing schedule package remove event to message queue.");
         SsmRemovePackagesEvent event = new SsmRemovePackagesEvent(user.getId(), earliest,
-                result);
+            actionChain, result);
         MessageQueue.publish(event);
 
         log.debug("Clearing set.");

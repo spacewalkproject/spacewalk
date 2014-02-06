@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.events;
 
+import com.redhat.rhn.domain.action.ActionChain;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +35,7 @@ public class SsmUpgradePackagesEvent extends SsmPackageEvent {
      *
      * @param userIdIn ID of user scheduling this action.
      * @param earliestIn Earliest data action can be picked up.
+     * @param actionChainIn the selected Action Chain or null
      * @param sysPackageSetIn Complex map of:
      *          system id-> List
      *                          Map
@@ -42,8 +45,9 @@ public class SsmUpgradePackagesEvent extends SsmPackageEvent {
      */
     public SsmUpgradePackagesEvent(Long userIdIn,
                                    Date earliestIn,
+                                   ActionChain actionChainIn,
                                    Map<Long, List<Map<String, Long>>> sysPackageSetIn) {
-        super(userIdIn, earliestIn);
+        super(userIdIn, earliestIn, actionChainIn);
         if (sysPackageSetIn == null) {
             throw new IllegalArgumentException("sysPackageSetIn cannot be null");
         }

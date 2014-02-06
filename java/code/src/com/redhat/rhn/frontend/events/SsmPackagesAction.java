@@ -22,6 +22,8 @@ import org.apache.commons.logging.LogFactory;
 
 import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.ActionChain;
+import com.redhat.rhn.domain.action.ActionChainFactory;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 import com.redhat.rhn.domain.action.script.ScriptRunAction;
 import com.redhat.rhn.domain.server.ServerFactory;
@@ -104,13 +106,15 @@ public abstract class SsmPackagesAction extends AbstractDatabaseAction {
 
         log.debug("Scheduling package actions.");
         Date earliest = event.getEarliest();
+        ActionChain actionChain = ActionChainFactory.getActionChain(event
+            .getActionChainId());
 
         List<Long> sids = getAffectedServers(event, user);
 
 
         log.debug("Scheduling actions.");
 
-        doSchedule(event, user, sids, earliest);
+        doSchedule(event, user, sids, earliest, actionChain);
 
         log.debug("Done scheduling package actions.");
 
@@ -121,9 +125,6 @@ public abstract class SsmPackagesAction extends AbstractDatabaseAction {
     protected abstract List<Long> getAffectedServers(SsmPackageEvent event, User u);
 
 
-    protected abstract List<Action> doSchedule(SsmPackageEvent event,
-                    User user,
-                    List<Long> sid,
-                    Date earliest);
-
+    protected abstract List<Action> doSchedule(SsmPackageEvent event, User user,
+        List<Long> sid, Date earliest, ActionChain actionChain);
 }

@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.events;
 
 import com.redhat.rhn.common.messaging.EventMessage;
+import com.redhat.rhn.domain.action.ActionChain;
 
 import java.util.Date;
 
@@ -29,6 +30,7 @@ public abstract class SsmPackageEvent implements EventMessage {
 
     protected Long                userId;
     protected Date                earliest;
+    protected Long                actionChainId;
 
     /**
      * Creates a new event to install a set of packages on systems in the SSM.
@@ -36,9 +38,9 @@ public abstract class SsmPackageEvent implements EventMessage {
      * @param userIdIn user making the changes; cannot be <code>null</code>
      * @param earliestIn earliest time to perform the installation; can be
      *            <code>null</code>
+     * @param actionChainIn the selected Action Chain or null
      */
-    public SsmPackageEvent(Long userIdIn,
-                           Date earliestIn) {
+    public SsmPackageEvent(Long userIdIn, Date earliestIn, ActionChain actionChainIn) {
 
         if (userIdIn == null) {
             throw new IllegalArgumentException("userIdIn cannot be null");
@@ -46,6 +48,9 @@ public abstract class SsmPackageEvent implements EventMessage {
 
         this.userId = userIdIn;
         this.earliest = earliestIn;
+        if (actionChainIn != null) {
+            this.actionChainId = actionChainIn.getId();
+        }
     }
 
     /**
@@ -60,6 +65,14 @@ public abstract class SsmPackageEvent implements EventMessage {
      */
     public Date getEarliest() {
         return earliest;
+    }
+
+    /**
+     * Gets the Action Chain ID
+     * @return the Action Chain ID or null
+     */
+    public Long getActionChainId() {
+        return actionChainId;
     }
 
     /** {@inheritDoc} */

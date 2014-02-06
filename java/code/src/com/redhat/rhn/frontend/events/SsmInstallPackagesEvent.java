@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.events;
 
+import com.redhat.rhn.domain.action.ActionChain;
+
 import java.util.Date;
 import java.util.Set;
 
@@ -32,13 +34,14 @@ public class SsmInstallPackagesEvent extends SsmPackageEvent {
      * @param userIdIn user making the changes; cannot be <code>null</code>
      * @param earliestIn earliest time to perform the installation; can be
      *            <code>null</code>
+     * @param actionChainIn the selected Action Chain or null
      * @param packagesIn set of package IDs being installed; cannot be <code>null</code>
      * @param channelIdIn identifies the channel the packages are installed from; cannot
      *            be <code>null</code>
      */
     public SsmInstallPackagesEvent(Long userIdIn, Date earliestIn,
-        Set<String> packagesIn, Long channelIdIn) {
-        super(userIdIn, earliestIn);
+        ActionChain actionChainIn, Set<String> packagesIn, Long channelIdIn) {
+        super(userIdIn, earliestIn, actionChainIn);
         if (packagesIn == null) {
             throw new IllegalArgumentException("packagesIn cannot be null");
         }

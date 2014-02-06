@@ -20,7 +20,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.action.ActionChainManager;
 import com.redhat.rhn.manager.action.ActionManager;
 
 /**
@@ -41,16 +43,14 @@ public class SsmUpgradePackagesAction extends SsmPackagesAction {
        return sids;
     }
 
-    protected List<Action> doSchedule(SsmPackageEvent event,
-                                      User user,
-                                      List<Long> sids,
-                                      Date earliest) {
+    protected List<Action> doSchedule(SsmPackageEvent event, User user, List<Long> sids,
+        Date earliest, ActionChain actionChain) {
 
         SsmUpgradePackagesEvent supe = (SsmUpgradePackagesEvent) event;
         Map<Long, List<Map<String, Long>>> packageListItems = supe.getSysPackageSet();
 
-        return ActionManager.schedulePackageUpgrades(user, packageListItems, earliest);
-
+        return ActionChainManager.schedulePackageUpgrades(user, packageListItems, earliest,
+            actionChain);
     }
 
 }

@@ -1266,79 +1266,6 @@ public class ActionManager extends BaseManager {
     }
 
     /**
-     * Schedules one or more package removal actions on one or more servers.
-     *
-     * @param scheduler      user scheduling the action.
-     * @param serverIds      servers from which to remove the packages
-     * @param pkgs           list of packages to be removed.
-     * @param earliestAction date of earliest action to be executed
-     * @return List of actions (can be more than one, if mix of Solaris/Rhel servers)
-     */
-    public static List<Action> schedulePackageRemoval(User scheduler,
-            Collection<Long> serverIds, List<Map<String, Long>> pkgs, Date earliestAction) {
-
-        List<Action> actions = new ArrayList<Action>();
-        Action anAction;
-
-        // Different handling for package removal on solaris v. rhel, so split out
-        // the servers first in case the list is mixed.
-        Set<Long> rhelServers = new HashSet<Long>();
-        rhelServers.addAll(ServerFactory.listLinuxSystems(serverIds));
-        Set<Long> solarisServers = new HashSet<Long>();
-        solarisServers.addAll(ServerFactory.listSolarisSystems(serverIds));
-
-        // Since the solaris v. rhel distinction results in a different action type,
-        // we'll end up with 2 actions created if the server list is mixed
-        if (!rhelServers.isEmpty()) {
-            anAction = schedulePackageAction(scheduler, pkgs,
-                    ActionFactory.TYPE_PACKAGES_REMOVE, earliestAction, rhelServers);
-            actions.add(anAction);
-        }
-
-        if (!solarisServers.isEmpty()) {
-            anAction = schedulePackageAction(scheduler, pkgs,
-                    ActionFactory.TYPE_SOLARISPKGS_REMOVE, earliestAction, solarisServers);
-            actions.add(anAction);
-        }
-        return actions;
-    }
-
-    /**
-     * Schedules one or more package upgrade actions for the given servers.
-     * Note: package upgrade = package install
-     * @param scheduler User scheduling the action.
-     * @param sysPkgMapping  The set of packages to be upgraded.
-     * @param earliestAction Date of earliest action to be executed
-     * @return actions       list of all scheduled upgrades
-     */
-    public static List<Action> schedulePackageUpgrades(User scheduler,
-            Map<Long, List<Map<String, Long>>> sysPkgMapping, Date earliestAction) {
-        List<Action> actions = new ArrayList<Action>();
-
-        for (Long sid : sysPkgMapping.keySet()) {
-            List<Long> ids = new ArrayList<Long>();
-            ids.add(sid);
-            actions.addAll(schedulePackageInstall(scheduler, ids, sysPkgMapping.get(sid),
-                    earliestAction));
-        }
-        return actions;
-    }
-
-    /**
-     * Schedules one or more package upgrade actions for the given server.
-     * Note: package upgrade = package install
-     * @param scheduler User scheduling the action.
-     * @param srvr Server for which the action affects.
-     * @param pkgs The set of packages to be removed.
-     * @param earliestAction Date of earliest action to be executed
-     * @return Currently scheduled PackageAction
-     */
-    public static PackageAction schedulePackageUpgrade(User scheduler,
-            Server srvr, List<Map<String, Long>> pkgs, Date earliestAction) {
-        return schedulePackageInstall(scheduler, srvr, pkgs, earliestAction);
-    }
-
-    /**
      * Schedules one or more package installation actions for the given server.
      * @param scheduler User scheduling the action.
      * @param srvr Server for which the action affects.
@@ -1354,43 +1281,6 @@ public class ActionManager extends BaseManager {
         }
         return (PackageAction) schedulePackageAction(scheduler, pkgs,
                 ActionFactory.TYPE_SOLARISPKGS_INSTALL, earliestAction, srvr);
-    }
-
-    /**
-     * Schedules one or more package installation actions on one or more servers.
-     * @param scheduler      user scheduling the action.
-     * @param serverIds        server ids for which the packages should be installed
-     * @param pkgs           set of packages to be removed.
-     * @param earliestAction date of earliest action to be executed
-     * @return TODO
-     */
-    public static List<Action> schedulePackageInstall(User scheduler,
-            Collection<Long> serverIds, List pkgs, Date earliestAction) {
-
-        List<Action> actions = new ArrayList<Action>();
-        Action anAction;
-
-        // Different handling for package installs on solaris v. rhel, so split out
-        // the servers first in case the list is mixed.
-        Set<Long> rhelServers = new HashSet<Long>();
-        rhelServers.addAll(ServerFactory.listLinuxSystems(serverIds));
-        Set<Long> solarisServers = new HashSet<Long>();
-        solarisServers.addAll(ServerFactory.listSolarisSystems(serverIds));
-
-        // Since the solaris v. rhel distinction results in a different action type,
-        // we'll end up with 2 actions created if the server list is mixed
-        if (!rhelServers.isEmpty()) {
-            anAction = schedulePackageAction(scheduler, pkgs,
-                    ActionFactory.TYPE_PACKAGES_UPDATE, earliestAction, rhelServers);
-            actions.add(anAction);
-        }
-
-        if (!solarisServers.isEmpty()) {
-            anAction = schedulePackageAction(scheduler, pkgs,
-                    ActionFactory.TYPE_SOLARISPKGS_INSTALL, earliestAction, solarisServers);
-            actions.add(anAction);
-        }
-        return actions;
     }
 
     /**
