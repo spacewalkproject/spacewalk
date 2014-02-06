@@ -704,14 +704,16 @@ public class SystemHandler extends BaseHandler {
                 CPU cpu = server.getCpu();
                 if (cpu == null) {
                   m.put("cpu_info", new HashMap<String, String>());
-                } else {
+                }
+                else {
                   m.put("cpu_info", cpu);
                 }
 
                 Dmi dmi = server.getDmi();
                 if (dmi == null) {
                   m.put("dmi_info", new HashMap<String, String>());
-                } else {
+                }
+                else {
                   m.put("dmi_info", dmi);
                 }
 
