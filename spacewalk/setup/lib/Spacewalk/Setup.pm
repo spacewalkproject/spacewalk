@@ -1283,7 +1283,6 @@ sub oracle_setup_db {
     oracle_check_for_users_and_groups($opts);
 
     print loc("* Setting up database.\n");
-    oracle_setup_embedded_db($opts, $answers);
     oracle_setup_db_connection($opts, $answers);
     oracle_test_db_settings($opts, $answers);
     write_rhn_conf($answers, 'db-backend', 'db-name', 'db-user', 'db-password');
@@ -1300,95 +1299,6 @@ sub oracle_check_for_users_and_groups {
         check_users_exist(@required_users);
         check_groups_exist(@required_groups);
     }
-}
-
-sub oracle_setup_embedded_db {
-    my $opts = shift;
-    my $answers = shift;
-
-    if (not is_embedded_db($opts)) {
-        return 0;
-    } else {
-        $answers->{'db-user'} = 'rhnsat' if not defined $answers->{'db-user'};
-        $answers->{'db-password'} = 'rhnsat' if not defined $answers->{'db-password'};
-        $answers->{'db-name'} = 'rhnsat.world';
-        $answers->{'db-host'} = 'localhost';
-        $answers->{'db-port'} = 1521;
-    }
-
-
-    if ($opts->{'upgrade'}) {
-        printf loc(<<EOQ, DB_UPGRADE_LOG_FILE);
-** Database: Upgrading the database server to latest Oracle 10g:
-** Database: This is a long process that is logged in:
-** Database: %s
-EOQ
-        print_progress(-init_message => "*** Progress: #",
-                   -log_file_name => DB_UPGRADE_LOG_FILE,
-                   -log_file_size => DB_UPGRADE_LOG_SIZE,
-                   -err_message => "Could not upgrade database.\n",
-                   -err_code => 15,
-                   -system_opts => ['/sbin/runuser', 'oracle', '-c',
-                                    SHARED_DIR . '/oracle/upgrade-db.sh' .
-                                    " --user $answers->{'db-user'}"]);
-
-        system_or_exit(['service', 'oracle', 'restart'], 41,
-                       'Could not restart oracle service');
-
-        return 0;
-    }
-
-    if ($opts->{"skip-db-install"} || $opts->{"upgrade"}) {
-        print loc("** Database: Embedded database installation SKIPPED.\n");
-
-        return 0;
-    }
-
-    if (-d "/rhnsat/data") {
-        my $shared_dir = SHARED_DIR;
-        print loc(<<EOQ);
-The embedded database appears to be already installed. Either rerun
-this script with the --skip-db-install option, or use the
-'$shared_dir/oracle/remove-db.sh' script to remove the embedded database and try
-again.
-EOQ
-
-        exit 13;
-    }
-
-    if (not $opts->{"skip-db-diskspace-check"}) {
-        system_or_exit(['python', SHARED_DIR .
-            '/embedded_diskspace_check.py'], 14,
-            'There is not enough space available for the embedded database.');
-    }
-    else {
-        print loc("** Database: Embedded database diskspace check SKIPPED!\n");
-    }
-
-    printf loc(<<EOQ, DB_INSTALL_LOG_FILE);
-** Database: Installing the database:
-** Database: This is a long process that is logged in:
-** Database:   %s
-EOQ
-
-    if (have_selinux()) {
-      local *X; open X, '>', DB_INSTALL_LOG_FILE and close X;
-      system('/sbin/restorecon', DB_INSTALL_LOG_FILE);
-    }
-    print_progress(-init_message => "*** Progress: #",
-        -log_file_name => DB_INSTALL_LOG_FILE,
-		-log_file_size => DB_INSTALL_LOG_SIZE,
-		-err_message => "Could not install database.\n",
-		-err_code => 15,
-		-system_opts => [ SHARED_DIR . "/oracle/install-db.sh",
-                        "--user", $answers->{'db-user'}, "--password", $answers->{'db-password'}]);
-
-    print loc("** Database: Installation complete.\n");
-
-    sleep(5); # We need to sleep because sometimes the database doesn't
-            # come back up fast enough.
-
-    return 1;
 }
 
 sub oracle_setup_db_connection {
