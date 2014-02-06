@@ -24,9 +24,10 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
-import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.action.ActionChainManager;
 
 /**
  * Handles removing packages from servers in the SSM.
@@ -51,10 +52,8 @@ public class SsmRemovePackagesAction extends SsmPackagesAction {
         return sids;
     }
 
-    protected List<Action> doSchedule(SsmPackageEvent event,
-                                      User user,
-                                      List<Long> sids,
-                                      Date earliest) {
+    protected List<Action> doSchedule(SsmPackageEvent event, User user, List<Long> sids,
+        Date earliest, ActionChain actionChain) {
 
         SsmRemovePackagesEvent srpe = (SsmRemovePackagesEvent) event;
 
@@ -109,8 +108,8 @@ public class SsmRemovePackagesAction extends SsmPackagesAction {
                 .toKeyMaps(allPackagesList);
 
         log.debug("Scheduling package removals.");
-        List<Action> actions = ActionManager.schedulePackageRemoval(user, allServerIds,
-                packageListData, earliest);
+        List<Action> actions = ActionChainManager.schedulePackageRemoval(user,
+            allServerIds, packageListData, earliest, actionChain);
 
         log.debug("Done.");
         return actions;

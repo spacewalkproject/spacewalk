@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.events;
 
+import com.redhat.rhn.domain.action.ActionChain;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -34,11 +36,12 @@ public class SsmRemovePackagesEvent extends SsmPackageEvent {
      *
      * @param userIdIn    ID of user scheduling this action.
      * @param earliestIn  Earliest data action can be picked up.
+     * @param actionChainIn the selected Action Chain or null.
      * @param resultIn    Complex map of which packages we're removing from which servers.
      */
     public SsmRemovePackagesEvent(Long userIdIn, Date earliestIn,
-        List<Map> resultIn) {
-        super(userIdIn, earliestIn);
+        ActionChain actionChainIn, List<Map> resultIn) {
+        super(userIdIn, earliestIn, actionChainIn);
         result = resultIn;
     }
 

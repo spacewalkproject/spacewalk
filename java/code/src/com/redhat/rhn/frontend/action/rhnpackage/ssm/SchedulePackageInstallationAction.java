@@ -33,9 +33,11 @@ import org.apache.struts.action.DynaActionForm;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.util.DatePicker;
+import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
 import com.redhat.rhn.frontend.events.SsmInstallPackagesEvent;
+import com.redhat.rhn.frontend.struts.ActionChainHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
@@ -81,6 +83,7 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
                 Date earliest = getStrutsDelegate()
                         .readDatePicker((DynaActionForm) actionForm, "date",
                                 DatePicker.YEAR_RANGE_POSITIVE);
+                ActionChain actionChain = ActionChainHelper.readActionChain(f, user);
                 Long cid = requestContext.getRequiredParam(RequestContext.CID);
                 Set<String> data = SessionSetHelper.lookupAndBind(request, packagesDecl);
                 // Remove the packages from session once we have the above handle on
@@ -89,7 +92,7 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
 
                 // Fire off the request on the message queue
                 SsmInstallPackagesEvent event = new SsmInstallPackagesEvent(user.getId(),
-                        earliest, data, cid);
+                        earliest, actionChain, data, cid);
                 MessageQueue.publish(event);
 
                 ActionMessages msgs = new ActionMessages();
@@ -110,8 +113,10 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
         DynaActionForm dynaForm = (DynaActionForm) actionForm;
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
                 "date", DatePicker.YEAR_RANGE_POSITIVE);
-
         request.setAttribute("date", picker);
+
+        // Pre-populate the Action Chain selector
+        ActionChainHelper.prepopulateActionChains(request);
 
         return strutsDelegate.forwardParams(
                 actionMapping.findForward(RhnHelper.DEFAULT_FORWARD), params);

@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.rhnpackage.ssm;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.util.DatePicker;
+import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
@@ -24,6 +25,7 @@ import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.events.SsmUpgradePackagesEvent;
+import com.redhat.rhn.frontend.struts.ActionChainHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -90,8 +92,10 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
         DynaActionForm dynaForm = (DynaActionForm) actionForm;
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
             "date", DatePicker.YEAR_RANGE_POSITIVE);
-
         request.setAttribute("date", picker);
+
+        // Pre-populate the Action Chain selector
+        ActionChainHelper.prepopulateActionChains(request);
 
         return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
@@ -178,8 +182,12 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
         User user = context.getCurrentUser();
 
         // Load the date selected by the user
-        Date earliest = getStrutsDelegate().readDatePicker((DynaActionForm) formIn,
-            "date", DatePicker.YEAR_RANGE_POSITIVE);
+        DynaActionForm form = (DynaActionForm) formIn;
+        Date earliest = getStrutsDelegate().readDatePicker(form, "date",
+            DatePicker.YEAR_RANGE_POSITIVE);
+
+        // Load the Action Chain, if any
+        ActionChain actionChain = ActionChainHelper.readActionChain(form, user);
 
         log.debug("Getting package upgrade data.");
         List<Map> result =  getResult(context);
@@ -205,7 +213,7 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
 
         log.debug("Publishing schedule package upgrade event to message queue.");
         SsmUpgradePackagesEvent event = new SsmUpgradePackagesEvent(user.getId(), earliest,
-                sysPackageSet);
+            actionChain, sysPackageSet);
         MessageQueue.publish(event);
 
         // Remove the packages from session and the DB
