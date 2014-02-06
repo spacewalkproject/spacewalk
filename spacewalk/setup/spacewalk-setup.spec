@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.1.13
+Version:        2.1.14
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -107,6 +107,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Feb 06 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.14-1
+- removed embedded oracle code
+
 * Wed Jan 29 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.13-1
 - fixed typo in library path
 - tomcat on RHEL5 and RHEL6 needs more parameters
