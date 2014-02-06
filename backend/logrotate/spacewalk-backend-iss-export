@@ -8,4 +8,5 @@
     compress
     notifempty
     missingok
+#LOGROTATE-3.8#    su root apache
 }

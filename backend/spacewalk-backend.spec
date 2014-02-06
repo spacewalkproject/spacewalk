@@ -279,6 +279,10 @@ export PYTHON_MODULE_VERSION=%{version}
 
 %find_lang %{name}-server
 
+%if 0%{?fedora} || 0%{?rhel} > 6
+sed -i 's/#LOGROTATE-3.8#//' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/spacewalk-backend-*
+%endif
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
