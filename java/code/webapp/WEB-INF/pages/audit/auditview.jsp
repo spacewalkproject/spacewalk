@@ -7,7 +7,6 @@
 
 <html>
 <head>
-    <meta name="page-decorator" content="none" />
 
     <style type="text/css">
         .fixedwidth { font-family: Courier, Monospace; }

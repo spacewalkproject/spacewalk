@@ -6,7 +6,6 @@
 
 <html>
 <head>
-    <meta name="page-decorator" content="none" />
 </head>
 <body>
 <h2><bean:message key="erratalist.jsp.deleteerrata" /></h2>

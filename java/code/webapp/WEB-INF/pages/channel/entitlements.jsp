@@ -8,7 +8,6 @@
 
 <html>
 <head>
-    <meta name="page-decorator" content="none" />
 </head>
 <body>
 <rhn:toolbar base="h1" icon="header-channel"

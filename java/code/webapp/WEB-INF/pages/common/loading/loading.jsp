@@ -6,7 +6,6 @@
 <html>
 <head>
 
-    <meta name="page-decorator" content="none" />
 </head>
 <body>
 <table border="0" cellpadding="0" cellspacing="0" width="408">

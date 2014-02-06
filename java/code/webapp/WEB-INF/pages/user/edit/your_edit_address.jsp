@@ -4,7 +4,6 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <html>
     <head>
-        <meta name="page-decorator" content="none" />
     </head>
     <body>
         <rhn:toolbar base="h1" icon="header-user" imgAlt="user.common.userAlt">

@@ -7,7 +7,6 @@
 
 <html>
 <head>
-    <meta name="page-decorator" content="none" />
     <!-- disables the enter key from submitting the form -->
     <script type="text/javascript" language="JavaScript">
       $(document).ready(function() {

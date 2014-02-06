@@ -6,7 +6,6 @@
 
 <html>
 <head>
-    <meta name="page-decorator" content="none" />
 </head>
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>

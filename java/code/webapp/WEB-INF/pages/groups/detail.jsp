@@ -5,7 +5,6 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <html>
 <head>
-    <meta name="page-decorator" content="none" />
 </head>
 <body>
 

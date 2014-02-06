@@ -8,7 +8,6 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c-rt" %>
 <html>
 <head>
-    <meta name="page-decorator" content="none" />
 </head>
 <body>
 <rhn:toolbar base="h1" icon="header-system" imgAlt="system.common.systemAlt"

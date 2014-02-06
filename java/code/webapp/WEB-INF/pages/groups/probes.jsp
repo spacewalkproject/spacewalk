@@ -9,7 +9,6 @@
 <html:xhtml/>
 <html>
 <head>
-  <meta name="page-decorator" content="none" />
 </head>
 <body>
 

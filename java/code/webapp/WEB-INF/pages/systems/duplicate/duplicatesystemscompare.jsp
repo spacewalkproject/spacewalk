@@ -7,7 +7,6 @@
 
 <html>
 <head>
-<meta name="page-decorator" content="none" />
 <script type="text/javascript">
 
 	function toggleElement(row) {
