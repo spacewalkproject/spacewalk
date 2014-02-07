@@ -451,7 +451,7 @@ public class ActionChainHandler extends BaseHandler {
                                  List<Map<String, String>> packages,
                                  String chainName) {
         Collector c = new Collector(sk, serverName, serverIp, chainName);
-        if (c.getServer() == null) {
+        if (!c.isValid()) {
             return BaseHandler.INVALID;
         }
         
@@ -493,13 +493,11 @@ public class ActionChainHandler extends BaseHandler {
                                  Integer serverId,
                                  List<Map<String, String>> packages,
                                  String chainName) {
-        if (StringUtil.nullOrValue(chainName) == null ||
-            packages.isEmpty() ||
-            StringUtil.nullOrValue(sk) == null) {
-            return -1;
+        Collector c = new Collector(sk, serverId, chainName);
+        if (!c.isValid()) {
+            return BaseHandler.INVALID;
         }
 
-        Collector c = new Collector(sk, serverId, chainName);
         List<Map<String, Long>> selectedPackages = this.selectPackages(
             SystemManager.installedPackages(c.getServer().getId(), true), packages, c);
         if (!selectedPackages.isEmpty()) {
@@ -508,7 +506,7 @@ public class ActionChainHandler extends BaseHandler {
                 new Date(), c.getChain()) != null);
         }
 
-        return -1;
+        return BaseHandler.INVALID;
     }
 
     /**
@@ -568,7 +566,7 @@ public class ActionChainHandler extends BaseHandler {
                                  List<Map<String, String>> packages,
                                  String chainName) {
         Collector c = new Collector(sk, serverName, serverIp, chainName);
-        if (c.getServer() == null) {
+        if (!c.isValid()) {
             return BaseHandler.INVALID;
         }
 
@@ -592,11 +590,12 @@ public class ActionChainHandler extends BaseHandler {
      * @param serverIp IP address.
      * @param packages List of packages
      * @param chainName Name of the action chain
-     * @return list of action ids, exception thrown otherwise
+     * @return True or false in XML-RPC representation (1 or 0 respectively)
      *
      * @xmlrpc.doc Adds an action to verify installed packages on the system.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param("string", "serverName")
+     * @xmlrpc.param #param("string", "serverId")
      * @xmlrpc.param
      *    #array()
      *       #struct("packages")
@@ -612,7 +611,7 @@ public class ActionChainHandler extends BaseHandler {
                                 List<Map<String, String>> packages,
                                 String chainName) {
         Collector c = new Collector(sk, serverName, serverIp, chainName);
-        if (c.getServer() == null) {
+        if (!c.isValid()) {
             return BaseHandler.INVALID;
         }
 
@@ -622,6 +621,46 @@ public class ActionChainHandler extends BaseHandler {
             return this.bool(ActionChainManager.schedulePackageVerify(
                 c.getUser(), c.getServer(), selectedPackages,
                 new Date(), c.getChain()) != null);
+        }
+
+        return BaseHandler.INVALID;
+    }
+
+    /**
+     * Adds an action to verify installed packages on the system.
+     * @param sk Session key (token)
+     * @param serverId System ID
+     * @param packages List of packages
+     * @param chainName Name of the action chain
+     * @return True or false in XML-RPC representation (1 or 0 respectively)
+     *
+     * @xmlrpc.doc Adds an action to verify installed packages on the system.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param
+     *    #array()
+     *       #struct("packages")
+     *          #prop_desc("string", "name", "Package name")
+     *          #prop_desc("string", "version", "Package version")
+     *       #struct_end()
+     *    #array_end()
+     * @xmlrpc.param #param("string", "chainName")
+     * @xmlrpc.returntype #int
+     */
+    public int addPackageVerify(String sk,
+                                Integer serverId,
+                                List<Integer> packages,
+                                String chainName) {
+        Collector c = new Collector(sk, serverId, chainName);
+        if (!c.isValid()) {
+            return BaseHandler.INVALID;
+        }
+        List<Map<String, Long>> selectedPackages = this.selectPackages(
+                PackageManager.systemPackageList(c.getServer().getId(), null), packages);
+        if (!selectedPackages.isEmpty()) {
+            return this.bool(ActionChainManager.schedulePackageVerify(
+                c.getUser(), c.getServer(), selectedPackages,
+                new Date(), c.getChain()) != null);            
         }
 
         return BaseHandler.INVALID;
@@ -638,7 +677,8 @@ public class ActionChainHandler extends BaseHandler {
      *
      * @xmlrpc.doc Adds an action to verify installed packages on the system.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param("string", "serverName")
+     * @xmlrpc.param #param("string", "serverIp")
      * @xmlrpc.param
      *    #array()
      *       #struct("packages")
@@ -661,6 +701,47 @@ public class ActionChainHandler extends BaseHandler {
 
         List<Map<String, Long>> selectedPackages = this.selectPackages(
                 PackageManager.upgradable(c.getServer().getId(), null), packages, c);
+        if (!selectedPackages.isEmpty()) {
+            return this.bool(ActionChainManager.schedulePackageUpgrade(
+                c.getUser(), c.getServer(), selectedPackages,
+                new Date(), c.getChain()) != null);
+        }
+
+        return BaseHandler.INVALID;
+    }
+
+    /**
+     * Adds an action to upgrade installed packages on the system.
+     * @param sk Session key (token)
+     * @param serverId System ID
+     * @param packages List of packages
+     * @param chainName Name of the action chain
+     * @return list of action ids, exception thrown otherwise
+     *
+     * @xmlrpc.doc Adds an action to verify installed packages on the system.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param
+     *    #array()
+     *       #struct("packages")
+     *          #prop_desc("string", "name", "Package name")
+     *          #prop_desc("string", "version", "Package version")
+     *       #struct_end()
+     *    #array_end()
+     * @xmlrpc.param #param("string", "chainName")
+     * @xmlrpc.returntype #int
+     */
+    public int addPackageUpgrade(String sk,
+                                 Integer serverId,
+                                 List<Integer> packages,
+                                 String chainName) {
+        Collector c = new Collector(sk, serverId, chainName);
+        if (!c.isValid()) {
+            return BaseHandler.INVALID;
+        }
+
+        List<Map<String, Long>> selectedPackages = this.selectPackages(
+                PackageManager.upgradable(c.getServer().getId(), null), packages);
         if (!selectedPackages.isEmpty()) {
             return this.bool(ActionChainManager.schedulePackageUpgrade(
                 c.getUser(), c.getServer(), selectedPackages,
