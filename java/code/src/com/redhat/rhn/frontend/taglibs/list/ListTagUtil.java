@@ -703,7 +703,7 @@ public class ListTagUtil {
     public static void renderFilterSubmit(PageContext pageContext,
             String uniqueName) throws JspException {
         String filterName = makeFilterNameByLabel(uniqueName);
-        String result = (String.format("<input type=\"hidden\" name=\"%s\" ", filterName));
+        String result = (String.format("<input type=\"hidden\" name=\"%s\">", filterName));
         ListTagUtil.write(pageContext, result);
     }
 
