@@ -159,23 +159,12 @@ public class DateTimePickerTag extends TagSupport {
 
     /**
      * Convert day java.util.Calendar constants
-     * (for which we can't assume a fixed value)
      * to an index usable by the javascript picker.
      *
-     * @return the equivalent index for the javascript
-     * picker
+     * @return the equivalent index for the javascript picker
      */
-    private int getJavascriptPickerDayIndex(int calIndex) throws IllegalArgumentException {
-        switch (calIndex) {
-            case Calendar.SUNDAY:    return 0;
-            case Calendar.MONDAY:    return 1;
-            case Calendar.TUESDAY:   return 2;
-            case Calendar.WEDNESDAY: return 3;
-            case Calendar.THURSDAY:  return 4;
-            case Calendar.FRIDAY:    return 5;
-            case Calendar.SATURDAY:  return 6;
-            default: throw new IllegalArgumentException("Invalid day " + calIndex);
-        }
+    private String getJavascriptPickerDayIndex(int calIndex) {
+        return String.valueOf(calIndex - 1);
     }
 
     private void writePickerHtml(Writer out) throws IOException {
@@ -208,9 +197,9 @@ public class DateTimePickerTag extends TagSupport {
         dateInput.setAttribute("class", "form-control");
         dateInput.setAttribute("id", data.getName() + "_datepicker_widget_input");
 
-        int firstDay = getJavascriptPickerDayIndex(
+        String firstDay = getJavascriptPickerDayIndex(
                 data.getCalendar().getFirstDayOfWeek());
-        dateInput.setAttribute("data-date-week-start", String.valueOf(firstDay));
+        dateInput.setAttribute("data-date-week-start", firstDay);
 
         HtmlTag timeAddon = createInputAddonTag("time", "fa fa-clock-o");
 
