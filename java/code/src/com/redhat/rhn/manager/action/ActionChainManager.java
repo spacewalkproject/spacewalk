@@ -230,15 +230,14 @@ public class ActionChainManager {
     }
 
     /**
-     * Create a Config Action.
-     * @param user The user scheduling the action.
-     * @param revisions A set of revision ids as Longs
-     * @param serverIds A set of server ids as Longs
-     * @param type The type of config action
-     * @param earliest The earliest time this action could execute.
+     * Creates configuration actions
+     * @param user the user scheduling actions
+     * @param revisions a set of revision ids as Longs
+     * @param serverIds a set of server ids as Longs
+     * @param type the type of configuration action
+     * @param earliest the earliest execution date
      * @param actionChain the action chain or null
-     * @return The created config action
-     * @see com.redhat.rhn.manager.action.ActionManager#createConfigAction
+     * @return scheduled actions
      */
     public static Set<Action> createConfigActions(User user, Collection<Long> revisions,
         Collection<Long> serverIds, ActionType type, Date earliest,
@@ -251,14 +250,13 @@ public class ActionChainManager {
 
     /**
      * Create a Config Action.
-     * @param user The user scheduling the action.
-     * @param revisions A set of revision ids as Longs
-     * @param servers A set of server objects
-     * @param type The type of config action
-     * @param earliest The earliest time this action could execute.
+     * @param user the user scheduling actions
+     * @param revisions a set of revision ids as Longs
+     * @param servers a set of server objects
+     * @param type the type of configuration action
+     * @param earliest the earliest execution date
      * @param actionChain the action chain or null
-     * @return The created config action
-     * @see com.redhat.rhn.manager.action.ActionManager#createConfigActionForServers
+     * @return scheduled actions
      */
     public static Set<Action> createConfigActionForServers(User user,
         Collection<Long> revisions, Collection<Server> servers, ActionType type,
@@ -279,6 +277,53 @@ public class ActionChainManager {
                 ActionChainFactory.queueActionChainEntry(action, actionChain, server);
                 ActionManager.addConfigurationRevisionsToAction(user, revisions, action,
                     server);
+                ActionFactory.save(action);
+                result.add(action);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Create a Config Action.
+     * @param user the user scheduling actions
+     * @param revisions maps servers to multiple revision ids as Longs
+     * @param servers a set of server objects
+     * @param type the type of configuration action
+     * @param earliest the earliest execution date
+     * @param actionChain the action chain or null
+     * @return scheduled actions
+     */
+    public static Set<Action> createConfigActionForServers(User user,
+        Map<Server, Collection<Long>> revisions, Collection<Server> servers,
+        ActionType type, Date earliest, ActionChain actionChain) {
+        Set<Action> result = new HashSet<Action>();
+        if (actionChain == null) {
+            ConfigAction action = ActionManager.createConfigAction(user, type, earliest);
+            ActionFactory.save(action);
+
+            for (Server server : servers) {
+                ActionManager.checkConfigActionOnServer(type, server);
+                ActionFactory.addServerToAction(server.getId(), action);
+
+                ActionManager.addConfigurationRevisionsToAction(user,
+                    revisions.get(server), action, server);
+                ActionFactory.save(action);
+                result.add(action);
+            }
+        }
+        else {
+            int sortOrder = ActionChainFactory.getNextSortOrderValue(actionChain);
+            for (Server server : servers) {
+                ConfigAction action = ActionManager
+                    .createConfigAction(user, type, earliest);
+                ActionFactory.save(action);
+                result.add(action);
+                ActionManager.checkConfigActionOnServer(type, server);
+                ActionChainFactory.queueActionChainEntry(action, actionChain, server,
+                    sortOrder);
+                ActionManager.addConfigurationRevisionsToAction(user,
+                    revisions.get(server), action, server);
                 ActionFactory.save(action);
                 result.add(action);
             }

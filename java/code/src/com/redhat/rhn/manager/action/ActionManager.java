@@ -59,7 +59,6 @@ import com.redhat.rhn.domain.rhnpackage.PatchSet;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageMetadata;
 import com.redhat.rhn.frontend.listview.PageControl;
@@ -413,55 +412,6 @@ public class ActionManager extends BaseManager {
         //later than now.
         return createConfigAction(user, revisions, serverIds,
                 ActionFactory.TYPE_CONFIGFILES_DIFF, new Date());
-    }
-
-
-
-
-    /**
-     *
-     * Create a Config Action.
-     * @param user The user scheduling the action.
-     * @param serverConfigMap A map of server ids -> Collections of revision ids
-     * @param type The type of config action
-     * @param earliest The earliest time this action could execute.
-     * @return The created config action
-     */
-    public static Action createConfigActionForServers(User user,
-            Map<Long, Collection<Long>> serverConfigMap, ActionType type, Date earliest) {
-
-        ConfigAction a = createConfigAction(user, type, earliest);
-
-        ActionFactory.save(a);
-        ActionFactory.getSession().flush();
-
-
-        for (Long sid : serverConfigMap.keySet()) {
-            if (ActionFactory.TYPE_CONFIGFILES_DEPLOY.equals(type) &&
-                    !SystemManager.clientCapable(sid,
-                            SystemManager.CAP_CONFIGFILES_DEPLOY)) {
-                throw new MissingCapabilityException(SystemManager.CAP_CONFIGFILES_DEPLOY,
-                        ServerFactory.lookupById(sid));
-            }
-            ActionFactory.addServerToAction(sid, a);
-            //now that we made a server action, we must make config revision actions
-            //which depend on the server as well.
-            for (Long revId : serverConfigMap.get(sid)) {
-                WriteMode m = ModeFactory.getWriteMode("Action_queries",
-                        "add_config_rev_to_action");
-                Map params = new HashMap();
-                params.put("sid", sid);
-                params.put("aid", a.getId());
-                params.put("crid", revId);
-                m.executeUpdate(params);
-            }
-        }
-        if (a.getServerActions().size() < 1) {
-            return null;
-        }
-        ActionFactory.save(a);
-        ActionFactory.getSession().refresh(a);
-        return a;
     }
 
     /**
