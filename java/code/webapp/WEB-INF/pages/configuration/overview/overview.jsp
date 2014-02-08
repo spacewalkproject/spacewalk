@@ -37,60 +37,52 @@
     </div>
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4><bean:message key="configoverview.jsp.modconfig"/></h4>
-    </div>
-    <div class="panel-body">
+  <rhn:list pageList="${requestScope.recentFiles}" noDataText="configoverview.jsp.noFiles">
+    <rhn:listdisplay title="configoverview.jsp.modconfig">
+      <rhn:column header="configoverview.jsp.filename"
+                  url="/rhn/configuration/file/FileDetails.do?cfid=${current.id}">
+        <c:choose>
+          <c:when test="${current.type == 'file'}">
+            <rhn:icon type="header-file" />
+            ${fn:escapeXml(current.path)}
+          </c:when>
+          <c:when test="${current.type == 'directory'}">
+            <rhn:icon type="header-folder" />
+            ${fn:escapeXml(current.path)}
+          </c:when>
+          <c:otherwise>
+            <rhn:icon type="header-symlink" />
+            ${fn:escapeXml(current.path)}
+          </c:otherwise>
+        </c:choose>
+      </rhn:column>
 
-      <rhn:list pageList="${requestScope.recentFiles}" noDataText="configoverview.jsp.noFiles">
-        <rhn:listdisplay>
-          <rhn:column header="configoverview.jsp.filename"
-                      url="/rhn/configuration/file/FileDetails.do?cfid=${current.id}">
-            <c:choose>
-              <c:when test="${current.type == 'file'}">
-                <rhn:icon type="header-file" />
-                ${fn:escapeXml(current.path)}
-              </c:when>
-              <c:when test="${current.type == 'directory'}">
-                <rhn:icon type="header-folder" />
-                ${fn:escapeXml(current.path)}
-              </c:when>
-              <c:otherwise>
-                <rhn:icon type="header-symlink" />
-                ${fn:escapeXml(current.path)}
-              </c:otherwise>
-            </c:choose>
-          </rhn:column>
+      <rhn:column header="config.common.configChannel"
+                  url="/rhn/configuration/ChannelOverview.do?ccid=${current.configChannelId}">
 
-          <rhn:column header="config.common.configChannel"
-                      url="/rhn/configuration/ChannelOverview.do?ccid=${current.configChannelId}">
+        <c:if test="${current.configChannelType == 'normal'}">
+          <rhn:icon type="header-channel" />
+          ${current.channelNameDisplay}
+        </c:if>
 
-            <c:if test="${current.configChannelType == 'normal'}">
-              <rhn:icon type="header-channel" />
-              ${current.channelNameDisplay}
-            </c:if>
+        <c:if test="${current.configChannelType == 'local_override'}">
+          <rhn:icon type="header-system" />
+          ${current.channelNameDisplay}
+        </c:if>
 
-            <c:if test="${current.configChannelType == 'local_override'}">
-              <rhn:icon type="header-system" />
-              ${current.channelNameDisplay}
-            </c:if>
+        <c:if test="${current.configChannelType == 'server_import'}">
+          <rhn:icon type="header-sandbox" />
+          ${current.channelNameDisplay}
+        </c:if>
 
-            <c:if test="${current.configChannelType == 'server_import'}">
-              <rhn:icon type="header-sandbox" />
-              ${current.channelNameDisplay}
-            </c:if>
+      </rhn:column>
 
-          </rhn:column>
+      <rhn:column header="configoverview.jsp.modified">
+        ${current.modifiedDisplay}
+      </rhn:column>
 
-          <rhn:column header="configoverview.jsp.modified">
-            ${current.modifiedDisplay}
-          </rhn:column>
-
-        </rhn:listdisplay>
-      </rhn:list>
-    </div>
-  </div>
+    </rhn:listdisplay>
+  </rhn:list>
 
   <div class="panel panel-default">
     <div class="panel-heading">
