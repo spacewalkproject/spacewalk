@@ -29,12 +29,14 @@ import org.apache.struts.action.DynaActionForm;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.util.DatePicker;
+import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.events.SsmErrataEvent;
+import com.redhat.rhn.frontend.struts.ActionChainHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -70,6 +72,8 @@ public class ErrataListConfirmAction extends RhnAction implements
         getStrutsDelegate().prepopulateDatePicker(request,
                 (DynaActionForm) formIn, "date", DatePicker.YEAR_RANGE_POSITIVE);
 
+        ActionChainHelper.prepopulateActionChains(request);
+
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
@@ -82,6 +86,7 @@ public class ErrataListConfirmAction extends RhnAction implements
 
         Date earliest = getStrutsDelegate().readDatePicker(formIn,
                 "date", DatePicker.YEAR_RANGE_POSITIVE);
+        ActionChain actionChain = ActionChainHelper.readActionChain(formIn, user);
 
         List<SystemOverview> systems = SystemManager.inSet(user, SetLabels.SYSTEM_LIST);
         List<Long> serverIds = new ArrayList<Long>(systems.size());
@@ -96,6 +101,7 @@ public class ErrataListConfirmAction extends RhnAction implements
         MessageQueue.publish(new SsmErrataEvent(
                 user.getId(),
                 earliest,
+                actionChain,
                 errataIds,
                 serverIds)
         );

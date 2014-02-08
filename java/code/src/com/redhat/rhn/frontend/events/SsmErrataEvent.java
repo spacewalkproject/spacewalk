@@ -15,6 +15,8 @@
 package com.redhat.rhn.frontend.events;
 
 import com.redhat.rhn.common.messaging.EventMessage;
+import com.redhat.rhn.domain.action.ActionChain;
+
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +29,7 @@ import java.util.List;
 public class SsmErrataEvent implements EventMessage {
     private final Long userId;
     private final Date earliest;
+    private final Long actionChainId;
     private final List<Long> errataIds;
     private final List<Long> serverIds;
 
@@ -35,11 +38,13 @@ public class SsmErrataEvent implements EventMessage {
      *
      * @param uid User ID
      * @param scheduleDate Earliest possible schedule.
+     * @param actionChain the selected Action Chain or null
      * @param errataList List of erratas (ID)
      * @param serverList List of relevant servers (ID)
      */
     public SsmErrataEvent(Long uid,
                           Date scheduleDate,
+                          ActionChain actionChain,
                           List<Long> errataList,
                           List<Long> serverList) {
         if (uid == null) {
@@ -54,6 +59,12 @@ public class SsmErrataEvent implements EventMessage {
 
         this.userId = uid;
         this.earliest = scheduleDate;
+        if (actionChain != null) {
+            this.actionChainId = actionChain.getId();
+        }
+        else {
+            this.actionChainId = null;
+        }
         this.errataIds = errataList;
         this.serverIds = serverList;
     }
@@ -75,6 +86,15 @@ public class SsmErrataEvent implements EventMessage {
      */
     public Date getEarliest() {
         return earliest;
+    }
+
+    /**
+     * Gets the action chain id.
+     *
+     * @return the action chain id
+     */
+    public Long getActionChainId() {
+        return actionChainId;
     }
 
     /**
