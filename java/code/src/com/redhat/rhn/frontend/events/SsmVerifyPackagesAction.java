@@ -16,11 +16,13 @@ package com.redhat.rhn.frontend.events;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.messaging.EventMessage;
+import com.redhat.rhn.domain.action.ActionChain;
+import com.redhat.rhn.domain.action.ActionChainFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.PackageListItem;
-import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.action.ActionChainManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -69,6 +71,8 @@ public class SsmVerifyPackagesAction extends AbstractDatabaseAction {
     private void scheduleVerifications(SsmVerifyPackagesEvent event, User user) {
 
         Date earliest = event.getEarliest();
+        ActionChain actionChain = ActionChainFactory.getActionChain(
+            event.getActionChainId());
         DataResult result = event.getResult();
 
         // Loop over each server that will have packages upgraded
@@ -95,8 +99,9 @@ public class SsmVerifyPackagesAction extends AbstractDatabaseAction {
             // Convert to list of maps for the action call
             List<Map<String, Long>> packageListData = PackageListItem.toKeyMaps(items);
 
-            // Create the action
-            ActionManager.schedulePackageVerify(user, server, packageListData, earliest);
+            // Create the action(s)
+            ActionChainManager.schedulePackageVerify(user, server, packageListData,
+                earliest, actionChain);
         }
 
     }
