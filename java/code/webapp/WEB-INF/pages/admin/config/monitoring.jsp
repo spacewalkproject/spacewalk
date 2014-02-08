@@ -4,6 +4,28 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 
 <html>
+    <head>
+        <script type="text/javascript">
+         /*
+          * Config option value and help are already
+          * concatenated. Split them to display the help
+          * in the form correctly.
+          */
+          $(function() {
+            var textMixedWithHelp = /^(.+)\((.+)\)\s*$/;
+            $('label').each(function(idx, lbl) {
+              var match = textMixedWithHelp.exec($(lbl).html());
+              var input = $(lbl).attr('for');
+              if (match != null && input != undefined) {
+                $("[name='" + input + "']").after(
+                  '<span class="help-block">' + match[2] + '</span>'
+                );
+                $(lbl).html(match[1]);
+              }
+            });
+          });
+        </script>
+    </head>
     <body>
         <rhn:toolbar base="h1" icon="header-info"
                      helpUrl="">
