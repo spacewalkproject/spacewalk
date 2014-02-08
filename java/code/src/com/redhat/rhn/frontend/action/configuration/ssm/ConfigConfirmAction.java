@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.listview.PageControl;
+import com.redhat.rhn.frontend.struts.ActionChainHelper;
 import com.redhat.rhn.frontend.struts.BaseListAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
@@ -67,5 +68,6 @@ public class ConfigConfirmAction extends BaseListAction {
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(ctxt.getRequest(),
                 dynaForm, "date", DatePicker.YEAR_RANGE_POSITIVE);
         ctxt.getRequest().setAttribute("date", picker);
+        ActionChainHelper.prepopulateActionChains(ctxt.getRequest());
     }
 }
