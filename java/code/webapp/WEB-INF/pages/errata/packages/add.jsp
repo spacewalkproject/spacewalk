@@ -35,27 +35,28 @@
 
     <rl:listset name="groupSet">
 
-    <rhn:csrf />
-
-
-
-
-  <p>
-      <bean:message key="errata.edit.packages.add.viewlabel"/>
-      <select name="view_channel">
-          <c:forEach items="${viewoptions}" var="option">
-              <option value="<c:out value="${option.value}"/>"
-                      <c:if test="${option.value == param.view_channel}">selected="1"</c:if>>
-                  <c:out value="${option.label}"/>
-              </option>
-          </c:forEach>
-      </select>
-      <html:submit property="view_clicked">
-          <bean:message key="errata.edit.packages.add.viewsubmit"/>
-      </html:submit>
-  </p>
-
-
+        <rhn:csrf />
+        <p>
+        <div class="row-0">
+            <div class="col-xs-12 col-lg-6">
+                <div class="input-group">
+                    <select class="form-control" name="view_channel">
+                        <c:forEach items="${viewoptions}" var="option">
+                            <option value="<c:out value="${option.value}"/>"
+                                    <c:if test="${option.value == param.view_channel}">selected="1"</c:if>>
+                                <c:out value="${option.label}"/>
+                            </option>
+                        </c:forEach>
+                    </select>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit" name="view_clicked">
+                            <i class="fa fa-filter"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        </p>
 
         <input type="hidden" name="eid" value="<c:out value="${param.eid}"/>" />
 
@@ -95,10 +96,9 @@
 
         <div class="text-right">
             <rhn:submitted/>
-            <hr/>
-            <input type="submit"
-                   name="dispatch"
-                   value='<bean:message key="errata.edit.packages.add.addpackages"/>'/>
+            <button type="submit" name="dispatch" class="btn btn-primary" value="<bean:message key='errata.edit.packages.add.addpackages'/>">
+                <bean:message key="errata.edit.packages.add.addpackages"/>
+            </button>
         </div>
 
     </rl:listset>
