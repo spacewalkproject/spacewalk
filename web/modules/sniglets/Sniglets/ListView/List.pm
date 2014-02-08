@@ -667,10 +667,10 @@ sub render_pagination_buttons {
 
   # show buttons
   if ($lower != '1' || ($upper != $total)) {
-    $back_buttons_str = $self->render_pagination_button("First", "fa fa-fast-backward", " |&lt; ", $back_status);
-    $back_buttons_str .= $self->render_pagination_button("Prev", "fa fa-backward", " &lt; ", $back_status);
-    $forward_buttons_str = $self->render_pagination_button("Next", "fa fa-forward", " &gt; ", $forward_status);
-    $forward_buttons_str .= $self->render_pagination_button("Last", "fa fa-fast-forward", " &gt;| ", $forward_status);
+    $back_buttons_str = $self->render_pagination_button("First", "fa fa-angle-double-left", " |&lt; ", $back_status);
+    $back_buttons_str .= $self->render_pagination_button("Prev", "fa fa-angle-left", " &lt; ", $back_status);
+    $forward_buttons_str = $self->render_pagination_button("Next", "fa fa-angle-right", " &gt; ", $forward_status);
+    $forward_buttons_str .= $self->render_pagination_button("Last", "fa fa-angle-double-right", " &gt;| ", $forward_status);
   }
 
   my %subst;
