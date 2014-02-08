@@ -1071,17 +1071,6 @@
       <form-property name="submitted" type="java.lang.Boolean"/>
     </form-bean>
 
-    <form-bean name="ssmRebootForm"
-               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
-      <form-property name="submitted" type="java.lang.Boolean"/>
-      <form-property name="date_year"  type="java.lang.Integer"/>
-      <form-property name="date_month"  type="java.lang.Integer"/>
-      <form-property name="date_day"  type="java.lang.Integer"/>
-      <form-property name="date_hour"  type="java.lang.Integer"/>
-      <form-property name="date_minute"  type="java.lang.Integer"/>
-      <form-property name="date_am_pm"  type="java.lang.Integer"/>
-    </form-bean>
-
     <form-bean name="ssmMigrateForm"
                type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
       <form-property name="org" type="java.lang.String"/>
@@ -5239,7 +5228,7 @@
             scope="request"
             input="/WEB-INF/pages/ssm/systems/misc/reboot-system.jsp"
             type="com.redhat.rhn.frontend.action.ssm.RebootSystemAction"
-            name="ssmRebootForm"
+            name="datePickerForm"
             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
@@ -5253,7 +5242,7 @@
             scope="request"
             input="/WEB-INF/pages/ssm/systems/misc/reboot-system-confirm.jsp"
             type="com.redhat.rhn.frontend.action.ssm.RebootSystemConfirmAction"
-            name="ssmRebootForm"
+            name="datePickerForm"
             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"

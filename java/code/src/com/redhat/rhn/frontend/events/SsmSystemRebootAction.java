@@ -16,17 +16,18 @@
 package com.redhat.rhn.frontend.events;
 
 import com.redhat.rhn.common.messaging.EventMessage;
+import com.redhat.rhn.domain.action.ActionChain;
+import com.redhat.rhn.domain.action.ActionChainFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
-import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.action.ActionChainManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
-import com.redhat.rhn.manager.system.SystemManager;
+
 import org.apache.log4j.Logger;
 
 /**
  * System Reboot action in the SSM/Miscellaneous.
- *
  * @author Bo Maryniuk <bo@suse.de>
  */
 public class SsmSystemRebootAction extends AbstractDatabaseAction {
@@ -37,28 +38,13 @@ public class SsmSystemRebootAction extends AbstractDatabaseAction {
         SsmSystemRebootAction.log.debug("Scheduling systems reboot in SSM.");
         SsmSystemRebootEvent event = (SsmSystemRebootEvent) msg;
         User user = UserFactory.lookupById(event.getUserId());
+        ActionChain actionChain = ActionChainFactory.getActionChain(event
+            .getActionChainId());
 
-        try {
-            for (int i = 0; i < event.getServerIds().size(); i++) {
-                ActionManager.scheduleReboot(
-                        user,
-                        SystemManager.lookupByIdAndUser(event.getServerIds().get(i), user),
-                        event.getEarliest());
-            }
-        }
-        catch (Exception e) {
-            SsmSystemRebootAction.log.error("Error scheduling systems reboot" +
-                                            " in SSM for the event: " + event, e);
-        }
-        finally {
-            SsmOperationManager.completeOperation(
-                user,
-                SsmOperationManager.createOperation(
-                    user,
-                    "ssm.misc.reboot.operationname",
-                    RhnSetDecl.SSM_SYSTEMS_REBOOT.getLabel()
-                )
-            );
-        }
+        ActionChainManager.scheduleRebootAction(user, event.getServerIds(),
+            event.getEarliest(), actionChain);
+        SsmOperationManager.completeOperation(user,
+            SsmOperationManager.createOperation(user, "ssm.misc.reboot.operationname",
+                RhnSetDecl.SSM_SYSTEMS_REBOOT.getLabel()));
     }
 }

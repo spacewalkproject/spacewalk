@@ -16,8 +16,10 @@
 package com.redhat.rhn.frontend.events;
 
 import com.redhat.rhn.common.messaging.EventMessage;
+import com.redhat.rhn.domain.action.ActionChain;
+
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 /**
  * SSM System Reboot scheduling event.
@@ -27,19 +29,21 @@ import java.util.List;
 public class SsmSystemRebootEvent implements EventMessage {
     private final Long userId;
     private final Date earliest;
-    private final List<Long> serverIds;
-
+    private final Long actionChainId;
+    private final Set<Long> serverIds;
 
     /**
      * Constructor.
      *
      * @param uid User ID
      * @param scheduleDate Earliest possible schedule date.
+     * @param actionChain the selected Action Chain or null
      * @param servers List of server IDs.
      */
     public SsmSystemRebootEvent(Long uid,
                                 Date scheduleDate,
-                                List<Long> servers) {
+                                ActionChain actionChain,
+                                Set<Long> servers) {
         if (uid == null) {
             throw new IllegalArgumentException("User ID cannot be null.");
         }
@@ -52,6 +56,12 @@ public class SsmSystemRebootEvent implements EventMessage {
 
         this.userId = uid;
         this.earliest = scheduleDate;
+        if (actionChain != null) {
+            this.actionChainId = actionChain.getId();
+        }
+        else {
+            this.actionChainId = null;
+        }
         this.serverIds = servers;
     }
 
@@ -71,7 +81,7 @@ public class SsmSystemRebootEvent implements EventMessage {
      *
      * @return List of server IDs
      */
-    public List<Long> getServerIds() {
+    public Set<Long> getServerIds() {
         return serverIds;
     }
 
@@ -85,6 +95,14 @@ public class SsmSystemRebootEvent implements EventMessage {
         return earliest;
     }
 
+    /**
+     * Gets the action chain id.
+     *
+     * @return the action chain id
+     */
+    public Long getActionChainId() {
+        return actionChainId;
+    }
 
     /**
      * Convert this object to the java.lang.String

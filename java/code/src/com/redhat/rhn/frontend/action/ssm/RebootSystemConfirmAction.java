@@ -29,9 +29,12 @@ import org.apache.struts.action.DynaActionForm;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.util.DatePicker;
+import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.events.SsmSystemRebootEvent;
+import com.redhat.rhn.frontend.struts.ActionChainHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -66,6 +69,7 @@ public class RebootSystemConfirmAction extends RhnAction
 
         getStrutsDelegate().prepopulateDatePicker(request,
                 (DynaActionForm) formIn, "date", DatePicker.YEAR_RANGE_POSITIVE);
+        ActionChainHelper.prepopulateActionChains(request);
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
@@ -81,16 +85,15 @@ public class RebootSystemConfirmAction extends RhnAction
             HttpServletRequest request) {
 
         RequestContext context = new RequestContext(request);
-        RhnSet set = getSetDecl().get(context.getCurrentUser());
-        List<Long> systemsToReboot = new ArrayList<Long>();
-        systemsToReboot.addAll(set.getElementValues());
+        User user = context.getCurrentUser();
+        RhnSet set = getSetDecl().get(user);
 
         Date earliest = getStrutsDelegate().readDatePicker(formIn,
                 "date", DatePicker.YEAR_RANGE_POSITIVE);
+        ActionChain actionChain = ActionChainHelper.readActionChain(formIn, user);
 
-        MessageQueue.publish(new SsmSystemRebootEvent(
-                context.getCurrentUser().getId(),
-                earliest, systemsToReboot));
+        MessageQueue.publish(new SsmSystemRebootEvent(user.getId(), earliest, actionChain,
+            set.getElementValues()));
 
         int n = set.size();
         if (n == 1) {

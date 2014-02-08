@@ -333,20 +333,33 @@ public class ActionChainManager {
 
     /**
      * Schedule a RebootAction against a system
-     * @param scheduler User scheduling the action.
-     * @param srvr Server for which the action affects.
-     * @param earliestAction Date run the Action
+     * @param user the user scheduling actions
+     * @param server the affected server
+     * @param earliest the earliest execution date
      * @param actionChain the action chain or null
-     * @return a scheduled reboot action
-     * @see com.redhat.rhn.manager.action.ActionManager#scheduleRebootAction
+     * @return scheduled actions
      */
-    public static Action scheduleRebootAction(User scheduler, Server srvr,
-        Date earliestAction, ActionChain actionChain) {
+    public static Action scheduleRebootAction(User user, Server server, Date earliest,
+        ActionChain actionChain) {
         Set<Long> serverIds = new HashSet<Long>();
-        serverIds.add(srvr.getId());
-        Set<Action> actions = scheduleAction(scheduler, ActionFactory.TYPE_REBOOT,
-            ActionFactory.TYPE_REBOOT.getName(), earliestAction, actionChain, serverIds);
+        serverIds.add(server.getId());
+        Set<Action> actions = scheduleRebootAction(user, serverIds, earliest, actionChain);
         return actions.iterator().next();
+    }
+
+    /**
+     * Schedules RebootActions against multiple systems
+     * @param user the user scheduling actions
+     * @param serverIds the affected servers' IDs
+     * @param earliest the earliest execution date
+     * @param actionChain the action chain or null
+     * @return scheduled actions
+     */
+    public static Set<Action> scheduleRebootAction(User user, Set<Long> serverIds,
+        Date earliest, ActionChain actionChain) {
+        Set<Action> actions = scheduleAction(user, ActionFactory.TYPE_REBOOT,
+            ActionFactory.TYPE_REBOOT.getName(), earliest, actionChain, serverIds);
+        return actions;
     }
 
     /**
