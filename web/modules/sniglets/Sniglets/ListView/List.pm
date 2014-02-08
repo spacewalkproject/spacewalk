@@ -511,7 +511,7 @@ sub render_alphabar_content {
   my @ret;
   my @attr;
 
-  foreach my $alpha ('A' .. 'Z', '0' .. '9') {
+  foreach my $alpha ('0' .. '9', 'A' .. 'Z') {
 
     if (exists $alphabar->{$alpha}) {
       my $base = $alphabar->{$alpha};
