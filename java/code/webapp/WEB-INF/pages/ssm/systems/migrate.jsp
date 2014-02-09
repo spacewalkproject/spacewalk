@@ -19,30 +19,30 @@
 
   <c:choose>
   <c:when test="${trustedOrgs == 0}">
-    <strong><bean:message key="ssm.migrate.systems.notrust"/></strong>
+    <p class="bg-warning"><bean:message key="ssm.migrate.systems.notrust"/></p>
   </c:when>
   <c:otherwise>
-  <html:form method="post" action="/systems/ssm/MigrateSystems.do">
+  <html:form styleClass="form-inline" method="post" action="/systems/ssm/MigrateSystems.do">
     <rhn:csrf />
     <rhn:submitted />
-    <table class="details">
-      <tr>
-        <th>
-          <bean:message key="ssm.migrate.systems.org"/>
-        </th>
-        <td>
-          <html:select property="org">
-            <html:option value="">-- None --</html:option>
-            <c:forEach var="o" items="${orgs}">
-              <html:option value="${o.name}">${o.name}</html:option>
-            </c:forEach>
-          </html:select>
-        </td>
-        <td class="text-right">
-          <input type ="submit" name="dispatch" value="${rhn:localize('ssm.migrate.systems.confirmbutton')}"/>
-        </td>
-      </tr>
-    </table>
+    <div class="form-group">
+      <label>
+        <bean:message key="ssm.migrate.systems.org"/>
+      </label>
+    </div>
+    <div class="form-group">
+      <html:select styleClass="form-control" property="org">
+        <html:option value="">-- None --</html:option>
+        <c:forEach var="o" items="${orgs}">
+          <html:option value="${o.name}">${o.name}</html:option>
+        </c:forEach>
+      </html:select>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-success" type ="submit" name="dispatch" value="${rhn:localize('ssm.migrate.systems.confirmbutton')}">
+          ${rhn:localize('ssm.migrate.systems.confirmbutton')}
+      </button>
+    </div>
   </html:form>
   </c:otherwise>
   </c:choose>
