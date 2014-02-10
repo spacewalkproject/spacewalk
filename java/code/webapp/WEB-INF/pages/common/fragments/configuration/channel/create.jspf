@@ -32,20 +32,12 @@
                         <bean:message key="addfiles.jsp.type.text" />
                     </label>
                 </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-lg-offset-3 col-lg-6">
                 <div class="checkbox">
                     <label>
                         <html:radio property="filetype" value="directory" styleId="dir_radio" />
                         <bean:message key="addfiles.jsp.type.directory" />
                     </label>
                 </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-lg-offset-3 col-lg-6">
                 <div class="checkbox">
                     <label>
 			<html:radio property="filetype" value="symlink" styleId="symlink_radio" />
