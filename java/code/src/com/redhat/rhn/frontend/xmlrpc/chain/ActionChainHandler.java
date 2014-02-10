@@ -37,11 +37,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
+ * @xmlrpc.namespace actionchains
+ * @xmlrpc.doc Provides the namespace for the Action Chain methods.
  * @author bo
  */
 public class ActionChainHandler extends BaseHandler {
-    private static final String[] comboKeys = new String[]{"evrid", "archid", "nameid"};
+    private static final String[] COMBO_KEYS = new String[]{"evrid", "archid", "nameid"};
 
     /**
      * Parameters collector.
@@ -59,25 +60,29 @@ public class ActionChainHandler extends BaseHandler {
          */
         public Collector(String sessionToken,
                          Integer serverId,
-                         String chain) {
+                         String chainName) {
             if (StringUtil.nullOrValue(sessionToken) == null) {
                 this.user = null;
-            } else {
+            }
+            else {
                 this.user = ActionChainHandler.getLoggedInUser(sessionToken);
             }
 
-            Server server;
+            Server system;
             try {
-                server = SystemManager.lookupByIdAndUser((long) serverId, user);
-            } catch (Exception ex) {
-                server = null;
+                system = SystemManager.lookupByIdAndUser((long) serverId, user);
             }
-            this.server = server;
+            catch (Exception ex) {
+                system = null;
+            }
+            this.server = system;
 
-            if (StringUtil.nullOrValue(chain) == null) {
+            if (StringUtil.nullOrValue(chainName) == null) {
                 this.chain = null;
-            } else {
-                this.chain = ActionChainFactory.getOrCreateActionChain(chain, this.user);
+            }
+            else {
+                this.chain = ActionChainFactory.getOrCreateActionChain(
+                    chainName, this.user);
             }
         }
 
@@ -96,16 +101,17 @@ public class ActionChainHandler extends BaseHandler {
         public Collector(String sessionToken,
                          String servername,
                          String ip,
-                         String chain) {
+                         String chainName) {
             ip = this.str(ip);
             servername = this.str(servername).toLowerCase();
             boolean found = false;
             this.user = ActionChainHandler.getLoggedInUser(sessionToken);
-            this.chain = ActionChainFactory.getOrCreateActionChain(chain, this.user);
+            this.chain = ActionChainFactory.getOrCreateActionChain(chainName, this.user);
             Server system = null;
             if (servername.isEmpty() && ip.isEmpty()) {
                 this.server = system;
-            } else {
+            }
+            else {
                 for (Iterator it = SystemManager.systemList(
                         this.user, null).iterator(); it.hasNext();) {
                     system = SystemManager.lookupByIdAndUser(
@@ -128,25 +134,25 @@ public class ActionChainHandler extends BaseHandler {
 
         /**
          * Get the chain.
-         * @return
+         * @return chain
          */
-        ActionChain getChain() {return chain;}
+        ActionChain getChain() { return chain; }
 
         /**
          * Get the server.
-         * @return
+         * @return server
          */
-        Server getServer() {return server;}
+        Server getServer() { return server; }
 
         /**
          * Get the user.
-         * @return
+         * @return user
          */
-        User getUser() {return user;}
+        User getUser() { return user; }
 
         /**
          * Verifies if the collector is valid.
-         * @return
+         * @return boolean
          */
         boolean isValid() {
             return this.getServer() != null &&
@@ -160,7 +166,7 @@ public class ActionChainHandler extends BaseHandler {
      *
      * @param allPackages
      * @param userPackages
-     * @return
+     * @return selectedPackages
      */
     private List<Map<String, Long>> selectPackages(List allPackages,
                                      List<Integer> userPackages) {
@@ -172,7 +178,7 @@ public class ActionChainHandler extends BaseHandler {
                 for (Integer pkgId : userPackages) {
                     if (((Long) pkgData.get("id")) == (long) pkgId) {
                         Map<String, Long> pkgCombo = new HashMap<String, Long>();
-                        for (String key : ActionChainHandler.comboKeys) {
+                        for (String key : ActionChainHandler.COMBO_KEYS) {
                             pkgCombo.put(key, (Long) pkgData.get(key));
                         }
                         selected.add(pkgCombo);
@@ -184,6 +190,12 @@ public class ActionChainHandler extends BaseHandler {
         return selected;
     }
 
+    /**
+     * Set the package data into a map from the package list item for transformation.
+     *
+     * @param pi
+     * @return map
+     */
     private Map<String, Object> getPkgData(PackageListItem pi) {
         Map pkgData = new HashMap<String, String>();
         pkgData.put("id", pi.getId());
@@ -193,6 +205,7 @@ public class ActionChainHandler extends BaseHandler {
         pkgData.put("evrid", pi.getEvrId());
         pkgData.put("archid", pi.getArchId());
         pkgData.put("nameid", pi.getNameId());
+
         return pkgData;
     }
 
@@ -201,7 +214,7 @@ public class ActionChainHandler extends BaseHandler {
      *
      * @param allPackages
      * @param userPackages
-     * @return
+     * @return selectedPackages
      */
     private List<Map<String, Long>> selectPackages(List allPackages,
                                                    List<Map<String, String>> userPackages,
@@ -211,10 +224,12 @@ public class ActionChainHandler extends BaseHandler {
             Map pkgData;
             if (pkgContainer instanceof Map) {
                 pkgData = (Map) pkgContainer;
-            } else if ((pkgContainer instanceof PackageListItem) ||
+            }
+            else if ((pkgContainer instanceof PackageListItem) ||
                        (pkgContainer instanceof UpgradablePackageListItem)) {
                 pkgData = this.getPkgData((PackageListItem) pkgContainer);
-            } else {
+            }
+            else {
                 return packages;
             }
 
@@ -225,13 +240,17 @@ public class ActionChainHandler extends BaseHandler {
                     continue;
                 }
 
-                String userPackageVersion = StringUtil.nullOrValue(userPkgData.get("version"));
-                if (userPackageVersion != null && !userPackageVersion.equals(pkgData.get("version"))) {
+                String userPackageVersion = StringUtil.nullOrValue(
+                    userPkgData.get("version"));
+                if (userPackageVersion != null &&
+                    !userPackageVersion.equals(pkgData.get("version"))) {
                     continue;
                 }
 
-                String userPackageRelease = StringUtil.nullOrValue(userPkgData.get("release"));
-                if (userPackageRelease != null && !userPackageRelease.equals(pkgData.get("release"))) {
+                String userPackageRelease = StringUtil.nullOrValue(
+                    userPkgData.get("release"));
+                if (userPackageRelease != null &&
+                    !userPackageRelease.equals(pkgData.get("release"))) {
                     continue;
                 }
 
@@ -239,7 +258,8 @@ public class ActionChainHandler extends BaseHandler {
                 container.put("arch_id", (Long) pkgData.get("archid"));
                 container.put("name_id", (Long) pkgData.get("nameid"));
 
-                if (pkgData.get("name").toString().toLowerCase().contains(pkgName.toLowerCase())) {
+                if (pkgData.get("name").toString().toLowerCase().contains(
+                    pkgName.toLowerCase())) {
                     packages.add(container);
                 }
             }
@@ -278,7 +298,7 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * List all actions in the particular Action Chain.
      *
-     * @param chainName
+     * @param chainName The label of the Action Chain.
      * @return List of entries in the particular action chain, if any.
      *
      * @xmlrpc.doc List all actions in the particular Action Chain.
@@ -321,8 +341,8 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * Remove an action from an Action Chain.
      *
-     * @param chainName
-     * @param actionNames
+     * @param chainName The label of the Action Chain.
+     * @param actionNames List of action names.
      * @return State of the action result. Negative is false.
      *         Positive: number of successfully deleted entries.
      *
@@ -365,7 +385,7 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * Remove Action Chains.
      *
-     * @param chainNames
+     * @param chainNames List of action names.
      * @return State of the action result. Negative is false.
      *         Positive: number of successfully deleted entries.
      *
@@ -512,11 +532,11 @@ public class ActionChainHandler extends BaseHandler {
     /**
      * Add Action Chain package removal.
      *
-     * @param sk
-     * @param serverId
-     * @param packages
-     * @param chainName
-     * @return
+     * @param sk Session key (token)
+     * @param serverId System ID.
+     * @param packages List of packages.
+     * @param chainName Name (label) of the Action Chain.
+     * @return True or false in XML-RPC representation: 1 or 0 respectively.
      */
     public int addPackageInstall(String sk,
                                  Integer serverId,
