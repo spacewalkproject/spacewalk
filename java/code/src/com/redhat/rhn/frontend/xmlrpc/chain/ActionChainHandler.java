@@ -19,6 +19,7 @@ import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.ActionChainEntry;
 import com.redhat.rhn.domain.action.ActionChainFactory;
+import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
@@ -26,8 +27,10 @@ import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.UpgradablePackageListItem;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.manager.action.ActionChainManager;
+import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.SystemManager;
+import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,6 +38,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import javax.xml.bind.DatatypeConverter;
 
 /**
  * @xmlrpc.namespace actionchains
@@ -762,5 +766,59 @@ public class ActionChainHandler extends BaseHandler {
         }
 
         return BaseHandler.INVALID;
+    }
+
+    /**
+     * Add a remote command as a script.
+     *
+     * @param sk Session key (token)
+     * @param serverId System ID
+     * @param uid User ID on the remote system.
+     * @param scriptBody Base64 encoded script.
+     * @param gid Group ID on the remote system.
+     * @param timeout Timeout
+     * @return True or false in XML-RPC representation (1 or 0 respectively)
+     *
+     * @xmlrpc.doc Add a remote command as a script.
+     *             NOTE: The script body must be Base64 encoded!
+     *
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param("string", "uid", "User ID on the particular system")
+     * @xmlrpc.param #param("string", "gid", "Group ID on the particular system")
+     * @xmlrpc.param #param("int", "timeout", "Timeout cannot exceed 1200 seconds")
+     * @xmlrpc.param #param("string", "scriptBodyBase64", "Base64 encoded script body")
+     * @xmlrpc.returntype #int
+     */
+    public int addRemoteCommand(String sk,
+                                Integer serverId,
+                                String uid,
+                                String gid,
+                                Integer timeout,
+                                String scriptBody) {
+        Collector c = new Collector(sk, serverId, scriptBody);
+
+        List<Long> systems = new ArrayList<Long>();
+        systems.add((long) serverId);
+
+        if (timeout > 1200) {
+            timeout = 1200;
+        }
+
+        if (timeout < 1) {
+            timeout = 120;
+        }
+
+        ScriptActionDetails script = ActionManager.createScript(uid, gid, (long) timeout,
+            new String(DatatypeConverter.parseBase64Binary(scriptBody)));
+
+        Date date = new Date();
+
+        return this.bool(ActionChainManager.scheduleScriptRuns(
+            c.getUser(), systems,
+            String.format("Remote Script at %s",
+                          SimpleDateFormat.getDateInstance(
+                              SimpleDateFormat.MEDIUM).format(date)),
+            script, date, c.getChain()) != null);
     }
 }
