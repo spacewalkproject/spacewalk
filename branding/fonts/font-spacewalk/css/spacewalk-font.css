@@ -194,3 +194,6 @@
 .spacewalk-icon-unknown-system:before {
 	content: "\e633";
 }
+.spacewalk-icon-bare-metal:before {
+	content: "\e623";
+}
