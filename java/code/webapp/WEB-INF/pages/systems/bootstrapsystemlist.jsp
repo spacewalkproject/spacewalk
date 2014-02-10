@@ -9,7 +9,7 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-  <rhn:toolbar base="h1" icon="fa-square-o" imgAlt="system.common.systemAlt"
+  <rhn:toolbar base="h1" icon="system-bare-metal" imgAlt="system.common.systemAlt"
       helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-list-baremetal">
       <bean:message key="bootstrapsystemlist.jsp.header"/>
   </rhn:toolbar>

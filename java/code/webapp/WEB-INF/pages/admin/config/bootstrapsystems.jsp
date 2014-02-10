@@ -5,7 +5,7 @@
 
 <html:html xhtml="true">
   <body>
-    <rhn:toolbar base="h1" img="/img/rhn-icon-info.gif" imgAlt="info.alt.img">
+    <rhn:toolbar base="h1" icon="system-bare-metal" >
       <bean:message key="bootstrapsystems.jsp.toolbar"/>
     </rhn:toolbar>
 

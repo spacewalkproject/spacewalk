@@ -21,7 +21,7 @@
 
 <c:choose>
     <c:when test="${system.bootstrap}">
-        <c:set var="systemIcon" value="fa-square-o"/>
+        <c:set var="systemIcon" value="system-bare-metal"/>
     </c:when>
     <c:when test="${system.virtualGuest}">
         <c:set var="systemIcon" value="header-system-virt-guest"/>

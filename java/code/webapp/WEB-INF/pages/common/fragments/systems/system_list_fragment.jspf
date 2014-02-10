@@ -1,7 +1,7 @@
                       <c:out value="<a href=\"/rhn/systems/details/Overview.do?sid=${current.id}\">"  escapeXml="false" />
 						<c:choose>
                     <c:when test="${current.bootstrap && empty nosystemicons}">
-                      <i class="fa fa-square-o" title="<bean:message key="systemlist.jsp.bootstrap"/>"></i>
+                      <rhn:icon type="system-bare-metal" title="<bean:message key='systemlist.jsp.bootstrap'/>" />
                     </c:when>
 						<c:when test="${current.virtualGuest && empty nosystemicons}">
                       <rhn:icon type="system-virt-guest" title="<bean:message key='systemlist.jsp.virtguest'/>" />
