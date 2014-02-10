@@ -134,7 +134,9 @@
        </div>
        <div class="form-group">
            <div class="col-lg-offset-3 col-lg-6">
-               <strong><bean:message key="filedetails.jsp.tip.ownership" /></strong>
+               <span class="help-block">
+                   <bean:message key="filedetails.jsp.tip.ownership" />
+               </span>
            </div>
        </div>
        <div class="form-group">
