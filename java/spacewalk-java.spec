@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.146
+Version: 2.1.147
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Feb 10 2014 Tomas Kasparek <tkasparek@redhat.com> 2.1.147-1
+- style ProbeEdit page
+- updating susestudio-java-client to 1.4
+- remove <meta name="page-decorator" content="none" />
+- remove html formatting in other languages
+- remove html formatting from StringResources
+- fix checkstyle
+
 * Thu Feb 06 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.146-1
 - patch to handle systems registered with the --nohardware flag
 - Patch code to build against susestudio-java-client version 0.1.4
