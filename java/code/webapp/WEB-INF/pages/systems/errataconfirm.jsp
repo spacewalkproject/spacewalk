@@ -11,15 +11,15 @@
     <body>
         <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
         <h2>
-            <rhn:icon type="header-errata" /><bean:message key="errataconfirm.jsp.header"/>
+            <rhn:icon type="header-errata" /><bean:message key="errataconfirm.jsp.header" />
         </h2>
         <rhn:systemtimemessage server="${system}" />
         <rl:listset name="erratConfirmListSet">
             <rhn:csrf />
             <rhn:submitted />
             <rl:list width="100%" styleclass="list" emptykey="erratalist.jsp.noerrata">
-                <rl:decorator name="PageSizeDecorator"/>
-                <rl:decorator name="ElaborationDecorator"/>
+                <rl:decorator name="PageSizeDecorator" />
+                <rl:decorator name="ElaborationDecorator" />
                 <rl:column headerkey="erratalist.jsp.type" styleclass="text-align: center;">
                     <c:if test="${current.securityAdvisory}">
                         <rhn:icon type="errata-security" />
@@ -42,23 +42,23 @@
             <div class="form-horizontal">
                 <div class="form-group">
                     <label class="col-md-3 control-label">
-                        <bean:message key="schedule.jsp.at"/>:
+                        <bean:message key="schedule.jsp.at" />:
                     </label>
                     <div class="col-md-6">
                         <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
-                            <jsp:param name="widget" value="date"/>
+                            <jsp:param name="widget" value="date" />
                         </jsp:include>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-3 col-md-6">
                         <html:submit property="dispatch">
-                            <bean:message key="errataconfirm.jsp.confirm"/>
+                            <bean:message key="errataconfirm.jsp.confirm" />
                         </html:submit>
                     </div>
                 </div>
             </div>
-            <html:hidden property="sid" value="${param.sid}"/>
+            <html:hidden property="sid" value="${param.sid}" />
             <input type="hidden" name="use_date" value="true">
         </rl:listset>
     </body>
