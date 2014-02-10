@@ -339,19 +339,16 @@ public class ActionChainHandler extends BaseHandler {
     }
 
     /**
-     * Remove an action from an Action Chain.
+     * Remove actions from an Action Chain.
      *
      * @param chainName The label of the Action Chain.
      * @param actionNames List of action names.
      * @return State of the action result. Negative is false.
      *         Positive: number of successfully deleted entries.
      *
-     * @xmlrpc.doc List all actions in the particular Action Chain.
+     * @xmlrpc.doc Remove actions from an Action Chain.
      * @xmlrpc.param #param("string", "chainName")
-     * @xmlrpc.param
-     *    #array()
-     *       #param("string", "actionName")
-     *    #array_end()
+     * @xmlrpc.param #array_single("string", "actionName")
      * @xmlrpc.returntype #int
      */
     public int removeActions(String chainName,
@@ -383,17 +380,14 @@ public class ActionChainHandler extends BaseHandler {
     }
 
     /**
-     * Remove Action Chains.
+     * Remove Action Chains by label.
      *
      * @param chainNames List of action names.
      * @return State of the action result. Negative is false.
      *         Positive: number of successfully deleted entries.
      *
-     * @xmlrpc.doc List all actions in the particular Action Chain.
-     * @xmlrpc.param
-     *    #array()
-     *       #param("string", "chainName")
-     *    #array_end()
+     * @xmlrpc.doc Remove action chains by label.
+     * @xmlrpc.param #array_single("string", "chainLabels")
      * @xmlrpc.returntype #int
      */
     public int removeChains(List<String> chainNames) {
@@ -414,15 +408,14 @@ public class ActionChainHandler extends BaseHandler {
     }
 
     /**
-     * Add system reboot.
+     * Schedule system reboot.
+     *
      * @param sk Session key (token)
      * @param serverId Server ID.
      * @param chainName Name of the action chain
      * @return list of action ids, exception thrown otherwise
      *
-     * @xmlrpc.doc Adds an action to verify installed packages on the system.
-     *             Server IP and/or name is required. Both name and IP cannot be empty.
-     *             Server name should be exact, without the domain name.
+     * @xmlrpc.doc Schedule system reboot.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #param("string", "chainName")
@@ -442,6 +435,7 @@ public class ActionChainHandler extends BaseHandler {
 
     /**
      * Adds an action to remove installed packages on the system.
+     *
      * @param sk Session key (token)
      * @param serverName Name of the server (without the domain name)
      * @param serverIp IP address.
@@ -449,7 +443,7 @@ public class ActionChainHandler extends BaseHandler {
      * @param chainName Name of the action chain
      * @return list of action ids, exception thrown otherwise
      *
-     * @xmlrpc.doc Adds an action to verify installed packages on the system.
+     * @xmlrpc.doc Adds an action to remove installed packages on the system.
      *             Server IP and/or name is required. Both name and IP cannot be empty.
      *             Server name should be exact, without the domain name.
      * @xmlrpc.param #param("string", "sessionKey")
@@ -488,15 +482,14 @@ public class ActionChainHandler extends BaseHandler {
 
     /**
      * Adds an action to remove installed packages on the system.
+     *
      * @param sk Session key (token)
      * @param serverId System ID
      * @param packages List of packages
      * @param chainName Name of the action chain
      * @return list of action ids, exception thrown otherwise
      *
-     * @xmlrpc.doc Adds an action to verify installed packages on the system.
-     *             Server IP and/or name is required. Both name and IP cannot be empty.
-     *             Server name should be exact, without the domain name.
+     * @xmlrpc.doc Adds an action to remove installed packages on the system.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param
@@ -530,13 +523,20 @@ public class ActionChainHandler extends BaseHandler {
     }
 
     /**
-     * Add Action Chain package removal.
+     * Schedule package installation to an Action Chain.
      *
      * @param sk Session key (token)
      * @param serverId System ID.
      * @param packages List of packages.
      * @param chainName Name (label) of the Action Chain.
      * @return True or false in XML-RPC representation: 1 or 0 respectively.
+     *
+     * @xmlrpc.doc Schedule package installation to an Action Chain.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #array_single("int", "Package ID")
+     * @xmlrpc.param #param("string", "chainName")
+     * @xmlrpc.returntype #int
      */
     public int addPackageInstall(String sk,
                                  Integer serverId,
@@ -559,7 +559,8 @@ public class ActionChainHandler extends BaseHandler {
     }
 
     /**
-     * Adds an action to install desired packages on the system.
+     * Schedule an action to install desired packages on the system.
+     *
      * @param sk Session key (token)
      * @param serverName Name of the server (without the domain name)
      * @param serverIp IP address.
@@ -567,7 +568,7 @@ public class ActionChainHandler extends BaseHandler {
      * @param chainName Name of the action chain
      * @return list of action ids, exception thrown otherwise
      *
-     * @xmlrpc.doc Adds an action to verify installed packages on the system.
+     * @xmlrpc.doc Schedule an action to install desired packages on the system.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param
@@ -605,17 +606,18 @@ public class ActionChainHandler extends BaseHandler {
 
     /**
      * Adds an action to verify installed packages on the system.
+     *
      * @param sk Session key (token)
      * @param serverName Name of the server (without the domain name)
      * @param serverIp IP address.
-     * @param packages List of packages
-     * @param chainName Name of the action chain
-     * @return True or false in XML-RPC representation (1 or 0 respectively)
+     * @param packages List of packages.
+     * @param chainName Name of the action chain.
+     * @return True or false in XML-RPC representation (1 or 0 respectively).
      *
      * @xmlrpc.doc Adds an action to verify installed packages on the system.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "serverName")
-     * @xmlrpc.param #param("string", "serverId")
+     * @xmlrpc.param #param("string", "serverIp")
      * @xmlrpc.param
      *    #array()
      *       #struct("packages")
@@ -648,6 +650,7 @@ public class ActionChainHandler extends BaseHandler {
 
     /**
      * Adds an action to verify installed packages on the system.
+     *
      * @param sk Session key (token)
      * @param serverId System ID
      * @param packages List of packages
@@ -657,13 +660,7 @@ public class ActionChainHandler extends BaseHandler {
      * @xmlrpc.doc Adds an action to verify installed packages on the system.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
-     * @xmlrpc.param
-     *    #array()
-     *       #struct("packages")
-     *          #prop_desc("string", "name", "Package name")
-     *          #prop_desc("string", "version", "Package version")
-     *       #struct_end()
-     *    #array_end()
+     * @xmlrpc.param #array_single("int", "packageId")
      * @xmlrpc.param #param("string", "chainName")
      * @xmlrpc.returntype #int
      */
@@ -688,14 +685,15 @@ public class ActionChainHandler extends BaseHandler {
 
     /**
      * Adds an action to upgrade installed packages on the system.
+     *
      * @param sk Session key (token)
      * @param serverName Name of the server (without the domain name)
      * @param serverIp IP address.
      * @param packages List of packages
      * @param chainName Name of the action chain
-     * @return list of action ids, exception thrown otherwise
+     * @return True or false in XML-RPC representation (1 or 0 respectively)
      *
-     * @xmlrpc.doc Adds an action to verify installed packages on the system.
+     * @xmlrpc.doc Adds an action to upgrade installed packages on the system.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "serverName")
      * @xmlrpc.param #param("string", "serverIp")
@@ -732,22 +730,17 @@ public class ActionChainHandler extends BaseHandler {
 
     /**
      * Adds an action to upgrade installed packages on the system.
+     *
      * @param sk Session key (token)
      * @param serverId System ID
      * @param packages List of packages
      * @param chainName Name of the action chain
-     * @return list of action ids, exception thrown otherwise
+     * @return True or false in XML-RPC representation (1 or 0 respectively)
      *
-     * @xmlrpc.doc Adds an action to verify installed packages on the system.
+     * @xmlrpc.doc Adds an action to upgrade installed packages on the system.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
-     * @xmlrpc.param
-     *    #array()
-     *       #struct("packages")
-     *          #prop_desc("string", "name", "Package name")
-     *          #prop_desc("string", "version", "Package version")
-     *       #struct_end()
-     *    #array_end()
+     * @xmlrpc.param #array_single("int", "packageId")
      * @xmlrpc.param #param("string", "chainName")
      * @xmlrpc.returntype #int
      */
