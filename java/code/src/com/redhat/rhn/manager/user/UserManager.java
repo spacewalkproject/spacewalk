@@ -993,4 +993,22 @@ public class UserManager extends BaseManager {
         UserFactory.getInstance().
                 setUserServerPreferenceValue(user, server, preferenceName, value);
     }
+
+    /**
+     * set temporary roles to the current set
+     * @param userIn affected user
+     * @param temporaryRolesIn temporary roles set
+     */
+    public static void resetTemporaryRoles(User userIn, Set<Role> temporaryRolesIn) {
+
+        Set<Role> currentRoles = userIn.getRoles();
+        for (Role role : userIn.getOrg().getRoles()) {
+            if (temporaryRolesIn.contains(role) && !currentRoles.contains(role)) {
+                userIn.addTemporaryRole(role);
+            }
+            else if (!temporaryRolesIn.contains(role) && currentRoles.contains(role)) {
+                userIn.removeTemporaryRole(role);
+            }
+        }
+    }
 }

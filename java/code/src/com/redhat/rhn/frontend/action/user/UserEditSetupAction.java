@@ -144,7 +144,7 @@ public class UserEditSetupAction extends RhnAction {
                 LocalizationService.getInstance().getMessage(currRole.getLabel());
             String uivalue = currRole.getLabel();
 
-            if (targetUser.hasRole(currRole)) {
+            if (targetUser.hasPermanentRole(currRole)) {
                 selected = true;
                 log.debug("1");
             }

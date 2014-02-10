@@ -227,6 +227,46 @@ public class UserImpl extends BaseDomainHelper implements User {
     }
 
     /** {@inheritDoc} */
+    public Set getTemporaryRoles() {
+        Set userRoles = new HashSet();
+        for (Iterator i = groupMembers.iterator(); i.hasNext();) {
+            UserGroupMembers ugm = (UserGroupMembers) i.next();
+            if (ugm.getTemporary()) {
+                userRoles.add(ugm.getUserGroup().getRole());
+            }
+        }
+
+        if (userRoles.contains(RoleFactory.ORG_ADMIN)) {
+            Set orgRoles = org.getRoles();
+            Set localImplied = new HashSet();
+            localImplied.addAll(UserFactory.IMPLIEDROLES);
+            localImplied.retainAll(orgRoles);
+            userRoles.addAll(localImplied);
+        }
+        return Collections.unmodifiableSet(userRoles);
+    }
+
+    /** {@inheritDoc} */
+    public Set getPermanentRoles() {
+        Set userRoles = new HashSet();
+        for (Iterator i = groupMembers.iterator(); i.hasNext();) {
+            UserGroupMembers ugm = (UserGroupMembers) i.next();
+            if (!ugm.getTemporary()) {
+                userRoles.add(ugm.getUserGroup().getRole());
+            }
+        }
+
+        if (userRoles.contains(RoleFactory.ORG_ADMIN)) {
+            Set orgRoles = org.getRoles();
+            Set localImplied = new HashSet();
+            localImplied.addAll(UserFactory.IMPLIEDROLES);
+            localImplied.retainAll(orgRoles);
+            userRoles.addAll(localImplied);
+        }
+        return Collections.unmodifiableSet(userRoles);
+    }
+
+    /** {@inheritDoc} */
     public boolean hasRole(Role label) {
         // We use checkRoleSet to get the correct logic for the
         // implied roles.
@@ -234,12 +274,32 @@ public class UserImpl extends BaseDomainHelper implements User {
     }
 
     /** {@inheritDoc} */
+    public boolean hasTemporaryRole(Role label) {
+        return getTemporaryRoles().contains(label);
+    }
+
+    /** {@inheritDoc} */
+    public boolean hasPermanentRole(Role label) {
+        return getPermanentRoles().contains(label);
+    }
+
+    /** {@inheritDoc} */
+    public void addTemporaryRole(Role label) {
+        addRole(label, true);
+    }
+
+    /** {@inheritDoc} */
     public void addRole(Role label) {
+        addRole(label, false);
+    }
+
+    /** {@inheritDoc} */
+    private void addRole(Role label, boolean temporary) {
         checkOrgAdmin();
         if (!this.getRoles().contains(label)) {
             UserGroup ug = org.getUserGroup(label);
             if (ug != null) {
-                UserGroupMembers ugm = new UserGroupMembers(this, ug);
+                UserGroupMembers ugm = new UserGroupMembers(this, ug, temporary);
                 groupMembers.add(ugm);
                 UserGroupFactory.save(ugm);
             }
@@ -250,14 +310,24 @@ public class UserImpl extends BaseDomainHelper implements User {
     }
 
     /** {@inheritDoc} */
+    public void removeTemporaryRole(Role label) {
+        removeRole(label, true);
+    }
+
+    /** {@inheritDoc} */
     public void removeRole(Role label) {
+        removeRole(label, false);
+    }
+
+    /** {@inheritDoc} */
+    private void removeRole(Role label, boolean temporary) {
         checkOrgAdmin();
         UserGroup ug = org.getUserGroup(label);
         if (ug != null) {
             for (Iterator<UserGroupMembers> ugmIter = groupMembers.iterator();
                     ugmIter.hasNext();) {
                 UserGroupMembers ugm = ugmIter.next();
-                if (ugm.getUserGroup().equals(ug)) {
+                if (ugm.getUserGroup().equals(ug) && ugm.getTemporary() == temporary) {
                     UserGroupFactory.delete(ugm);
                 }
             }

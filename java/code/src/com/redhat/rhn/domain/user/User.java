@@ -118,6 +118,12 @@ public interface User {
     Set<Role> getRoles();
 
     /**
+     * Gets the permanent roles assigned to this user.
+     * @return Set of permanent Roles that this user has
+     */
+    Set<Role> getPermanentRoles();
+
+    /**
     * Check to see if this user has the passed in label
     * in the Collection of Roles assigned to this user
     * @param label the label used to lookup
@@ -132,10 +138,22 @@ public interface User {
     void addRole(Role label);
 
     /**
-    * Remove a role to this User's Role Set.
+    * Add a temporaty role to this User's Role Set.
+    * @param label The label of the temporary Role you want to add.
+    */
+    void addTemporaryRole(Role label);
+
+    /**
+    * Remove a role from the User's Role Set.
     * @param label The label of the Role you want to remove.
     */
     void removeRole(Role label);
+
+    /**
+    * Remove a temporary role from the User's Role Set.
+    * @param label The label of the temporary Role you want to remove.
+    */
+    void removeTemporaryRole(Role label);
 
     /**
      * Authenticate the user
@@ -561,4 +579,12 @@ public interface User {
      * @param server Server to remove permission for.
      */
     void removeServer(Server server);
+
+    /**
+    * Check to see if this user has the passed in label
+    * in the Collection of permanent Roles assigned to this user
+    * @param label the label used to lookup
+    * @return if the user has the perm. role assigned or not.
+    */
+    boolean hasPermanentRole(Role label);
 }
