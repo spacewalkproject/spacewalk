@@ -37,7 +37,7 @@
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">
-                        <bean:message key="schedule.jsp.at" />:
+                        <bean:message key="schedule.jsp.at" />
                     </label>
                     <div class="col-md-6">
                         <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
