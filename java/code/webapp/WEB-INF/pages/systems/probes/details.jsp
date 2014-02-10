@@ -122,7 +122,7 @@
                     <bean:message key="probedetails.jsp.show_event_log" />
                 </label>
                 <div class="col-lg-6">
-                    <span class="checkbox"><html:checkbox property="show_log" styleClass="checkbox" /></span>
+                    <span class="checkbox"><html:checkbox property="show_log" /></span>
                 </div>
             </div>
             <div class="form-group">
