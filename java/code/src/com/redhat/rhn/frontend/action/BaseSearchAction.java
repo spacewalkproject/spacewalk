@@ -38,6 +38,7 @@ import redstone.xmlrpc.XmlRpcFault;
 
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.domain.rhnpackage.MissingArchitectureException;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
@@ -169,6 +170,10 @@ public abstract class BaseSearchAction extends RhnAction {
         catch (ValidatorException ve) {
             errors.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("packages.search.use_free_form"));
+        }
+        catch (MissingArchitectureException mae) {
+            errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                    "packages.search.need_one_arch"));
         }
 
         if (!errors.isEmpty()) {

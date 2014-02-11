@@ -33,6 +33,7 @@ import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.TokenPackage;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.BaseSearchAction;
+import com.redhat.rhn.frontend.action.channel.PackageSearchAction;
 import com.redhat.rhn.frontend.action.channel.PackageSearchHelper;
 import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.frontend.dto.PackageOverview;
@@ -316,8 +317,8 @@ public class PackagesSearchHandler extends BaseHandler {
         Long sessionId = session.getId();
         List<PackageOverview> pkgs = null;
         try {
-            pkgs = PackageSearchHelper.performSearch(sessionId, query, mode, null, false,
-                    true);
+            pkgs = PackageSearchHelper.performSearch(sessionId, query, mode, null, null,
+                            true, null, PackageSearchAction.WHERE_ALL);
         }
         catch (MalformedURLException e) {
             log.info("Caught Exception :" + e);

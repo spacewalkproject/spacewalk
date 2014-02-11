@@ -20,17 +20,18 @@ import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
+import com.redhat.rhn.domain.rhnpackage.PackageSource;
 import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.channel.PackageSearchAction;
 import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -78,7 +79,7 @@ public class PackageFactoryTest extends BaseTestCaseWithUser {
         testInstPack.setEvr(testPackage.getPackageEvr());
         testInstPack.setName(testPackage.getPackageName());
         testInstPack.setServer(testServer);
-        Set serverPackages = new HashSet();
+        Set<InstalledPackage> serverPackages = new HashSet<InstalledPackage>();
         serverPackages.add(testInstPack);
         testServer.setPackages(serverPackages);
 
@@ -92,13 +93,16 @@ public class PackageFactoryTest extends BaseTestCaseWithUser {
     }
 
     public void testPackageSearch() {
-        List pids = new ArrayList();
+        List<Long> pids = new ArrayList<Long>();
         pids.add(2125L);
         pids.add(2915L);
-        String[] arches = {"channel-ia32", "channel-ia64"};
+        List<String> arches = new ArrayList<String>();
+        arches.add("channel-ia32");
+        arches.add("channel-ia64");
 
         List<PackageOverview> results =
-            PackageFactory.packageSearch(pids, Arrays.asList(arches));
+                PackageFactory.packageSearch(pids, arches, user.getId(), null,
+                        PackageSearchAction.ARCHITECTURE);
         assertNotNull(results);
     }
 
@@ -118,7 +122,7 @@ public class PackageFactoryTest extends BaseTestCaseWithUser {
    public void testPackageSourceLookup() throws Exception {
        Package pack = PackageTest.createTestPackage(user.getOrg());
 
-       List list = PackageFactory.lookupPackageSources(pack);
+       List<PackageSource> list = PackageFactory.lookupPackageSources(pack);
        assertTrue(list.size() > 0);
 
    }

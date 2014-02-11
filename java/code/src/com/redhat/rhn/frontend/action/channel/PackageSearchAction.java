@@ -32,11 +32,8 @@ import org.apache.struts.action.DynaActionForm;
 
 import redstone.xmlrpc.XmlRpcFault;
 
-import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
-import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.BaseSearchAction;
-import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -62,11 +59,16 @@ public class PackageSearchAction extends BaseSearchAction {
         Long filterChannelId = null;
         boolean relevantFlag = false;
 
+        // Default to relevant channels if no search criteria was specified
+        if (searchCriteria == null || searchCriteria.equals("")) {
+            searchCriteria = RELEVANT;
+        }
+
         // Handle the radio button selection for channel filtering
         if (searchCriteria.equals(RELEVANT)) {
             relevantFlag = true;
         }
-        if (searchCriteria.equals(ARCHITECTURE)) {
+        else if (searchCriteria.equals(ARCHITECTURE)) {
             /* The search call will function as being scoped to architectures if the arch
                list isn't null. In order to actually get radio-button-like functionality
                we can't rely on the arch list coming in from the form to be null; the
@@ -102,8 +104,10 @@ public class PackageSearchAction extends BaseSearchAction {
         request.setAttribute(WHERE_CRITERIA, searchCriteria);
 
         if (!StringUtils.isBlank(searchString)) {
-            List<PackageOverview> results = performSearch(ctx, searchString, viewmode,
-                            fineGrained, selectedArches, filterChannelId, relevantFlag);
+            List<PackageOverview> results =
+                    performSearch(ctx, searchString, viewmode, fineGrained, selectedArches,
+                            filterChannelId, relevantFlag, searchCriteria);
+
             request.setAttribute(RequestContext.PAGE_LIST,
                     results != null ? results : Collections.emptyList());
         }
@@ -122,27 +126,22 @@ public class PackageSearchAction extends BaseSearchAction {
      * @param selectedArches do we care about specific arches?
      * @param filterChannelId do we care about a specific channel?
      * @param relevantFlag do we only care about 'relevant to registered profiles"?
+     * @param searchCriteria the type of search we are doing
      * @return list of package-overviews found
      * @throws XmlRpcFault bad communication with search server
      * @throws MalformedURLException possibly bad configuration for search server address
      */
     public List<PackageOverview> performSearch(RequestContext ctx, String searchString,
                     String viewmode, Boolean fineGrained, String[] selectedArches,
-                    Long filterChannelId, boolean relevantFlag)
+            Long filterChannelId, boolean relevantFlag, String searchCriteria)
            throws XmlRpcFault, MalformedURLException {
         List<PackageOverview> results =
-            PackageSearchHelper.performSearch(ctx.getWebSession().getId(),
-                                     searchString,
-                                     viewmode,
-                                     selectedArches, relevantFlag, fineGrained);
+                PackageSearchHelper.performSearch(ctx.getWebSession().getId(),
+                        searchString, viewmode, selectedArches, ctx.getLoggedInUser()
+                                .getId(), fineGrained, filterChannelId, searchCriteria);
 
         // Perform any post-search logic that wasn't done by the search server
         results = removeDuplicateNames(results);
-
-        if (filterChannelId != null) {
-            User user = ctx.getLoggedInUser();
-            results = filterByChannel(user, filterChannelId, results);
-        }
         return results;
     }
 
@@ -166,41 +165,6 @@ public class PackageSearchAction extends BaseSearchAction {
             }
         }
         return result;
-    }
-
-    /**
-     * Since the search server does not carry channel information, we do any
-     * channel filtering in the Java stack. This method will return a new list
-     * containing packages that are present in the given channel; others
-     * returned from the search will be removed.
-     *
-     * @param user      user making the request
-     * @param channelId channel against which the filter should be run
-     * @param pkgs      list of packages returned from the search query that should be
-     *                  filtered
-     * @return new list object with duplicates removed; does not change the list in place
-     */
-    private List<PackageOverview> filterByChannel(User user, Long channelId,
-                                                  List<PackageOverview> pkgs) {
-
-        Channel channel = ChannelManager.lookupByIdAndUser(channelId, user);
-        List<PackageDto> allPackagesList = ChannelManager.listAllPackages(channel);
-
-        // Convert the package list into a set for quicker lookup
-        Set<String> packageNameSet = new HashSet<String>();
-        for (PackageDto dto : allPackagesList) {
-            packageNameSet.add(dto.getName());
-        }
-
-        // Iterate results and remove if not in the channel
-        List<PackageOverview> newResult = new ArrayList<PackageOverview>();
-        for (PackageOverview pkg : pkgs) {
-            if (packageNameSet.contains(pkg.getPackageName())) {
-                newResult.add(pkg);
-            }
-        }
-
-        return newResult;
     }
 
     /**

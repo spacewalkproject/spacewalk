@@ -58,18 +58,16 @@
         FROM rhnPackage
    </select>
    <select id="verifyPackageVisibility" resultType="string">
-      select distinct p.id
-        from rhnPackage p,
-             rhnAvailableChannels ac,
-             rhnChannelPackage cp,
+      select cp.package_id
+        from rhnChannelPackage cp,
              pxtsessions ps,
-             web_contact wc
-       where cp.package_id = p.id
-         and ac.channel_id = cp.channel_id
-         and ac.org_id = wc.org_id
-         and ps.web_user_id = wc.id
+             rhnUserChannelFamilyPerms ucfp,
+             rhnChannelFamilyMembers cfm
+       where cfm.channel_id = cp.channel_id
+         and cfm.channel_family_id = ucfp.channel_family_id
+         and ucfp.user_id = ps.web_user_id
          and ps.id = #{session_id}
-         and p.id IN
+         and cp.package_id IN
        <foreach collection="id_list" item="item" separator="," close=")" open="(">
          #{item}
       </foreach>

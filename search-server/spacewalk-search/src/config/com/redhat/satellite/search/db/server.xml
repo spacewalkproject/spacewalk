@@ -83,12 +83,11 @@
         SELECT last_modified from rhnIndexerWork where object_type='server'
     </select>
 	<select id="verifyServerVisibility" resultType="string">
-        SELECT DISTINCT s.id
-        FROM rhnServer s
-            INNER JOIN rhnUserServerPerms usp ON s.id = usp.server_id
+        SELECT usp.server_id
+        FROM rhnUserServerPerms usp
             INNER JOIN pxtsessions ps ON ps.web_user_id = usp.user_id
         WHERE ps.id = #{session_id}
-        AND s.id IN
+        AND usp.server_id IN
 		 <foreach collection="id_list" item="item" separator="," close=")" open="(">
 		    #{item}
 		</foreach>

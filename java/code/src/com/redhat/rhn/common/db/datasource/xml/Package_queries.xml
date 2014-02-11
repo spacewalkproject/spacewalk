@@ -1910,4 +1910,80 @@ WHERE p.id IN (%s)
     </query>
 </mode>
 
+<mode name="searchByIdAndArches" class="com.redhat.rhn.frontend.dto.PackageOverview">
+  <query>
+    select max(p.id) as id
+      from rhnPackage p,
+           rhnChannel c,
+           rhnChannelPackage cp,
+           rhnChannelArch ca
+     where p.id = cp.package_id
+       and c.id = cp.channel_id
+       and c.channel_arch_id = ca.id
+       and ca.label IN (:channel_arch_labels)
+       and p.id IN (%s)
+  group by p.name_id
+  </query>
+  <elaborator name="package_summary" />
+</mode>
+
+<mode name="searchByIdInChannel" class="com.redhat.rhn.frontend.dto.PackageOverview">
+  <query params="cid">
+    select max(p.id) as id
+      from rhnPackage p,
+           rhnChannelPackage cp
+     where p.id = cp.package_id
+       and cp.channel_id = :cid
+       and p.id IN (%s)
+  group by p.name_id
+  </query>
+  <elaborator name="package_summary" />
+</mode>
+
+<mode name="relevantSearchById" class="com.redhat.rhn.frontend.dto.PackageOverview">
+  <query params="uid">
+    select max(p.id) as id
+      from rhnPackage p,
+           rhnChannelPackage cp,
+           rhnServerChannel sc,
+           rhnUserServerPerms usp
+     where p.id = cp.package_id
+       and sc.channel_id = cp.channel_id
+       and usp.server_id = sc.server_id
+       and usp.user_id = :uid
+       and p.id IN (%s)
+  group by p.name_id
+  </query>
+  <elaborator name="package_summary" />
+</mode>
+
+<query name="package_summary" params="">
+select p.id, pn.name as package_name, p.summary
+  from rhnPackage p,
+       rhnPackageName pn
+ where p.name_id = pn.id
+   and p.id in (%s)
+</query>
+
+<mode name="searchById" class="com.redhat.rhn.frontend.dto.PackageOverview">
+  <query>
+    select p.id, pn.name as package_name, p.summary, p.description, pe.epoch,
+           pe.version, pe.release, pa.label as package_arch, pp.name as provider
+      from rhnPackage p,
+           rhnPackageName pn,
+           rhnPackageArch pa,
+           rhnPackageEVR pe,
+           rhnPackageKeyAssociation pka,
+           rhnPackageKey pk,
+           rhnPackageProvider pp
+     where pn.id = p.name_id
+       and p.evr_id = pe.id
+       and p.package_arch_id = pa.id
+       and p.id = pka.package_id
+       and pk.id = pka.key_id
+       and pp.id = pk.provider_id
+       and p.id IN (%s)
+  </query>
+</mode>
+
 </datasource_modes>

@@ -765,17 +765,6 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         "5.0.0.9"));
     }
 
-    public void testPackageSearch() {
-        List ids = new ArrayList();
-        ids.add(824L); // firefox
-        ids.add(497L); // kernel
-        ids.add(545L); // gcc
-        List archlabels = new ArrayList();
-        archlabels.add("channel-ia32");
-        List<PackageOverview> pkgs = ChannelManager.packageSearch(ids, archlabels);
-        assertNotNull(pkgs);
-    }
-
     public void testFindCompatibleChildren() throws Exception {
         ProductName pn = ChannelFactoryTest.createProductName();
         Channel parent = ChannelFactoryTest.createBaseChannel(user);

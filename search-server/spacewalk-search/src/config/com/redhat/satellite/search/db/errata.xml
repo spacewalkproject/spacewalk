@@ -42,18 +42,16 @@
           FROM rhnErrata
     </select>
     <select id="verifyErrataVisibility" resultType="string">
-        select distinct e.id
-        from    rhnErrata e,
-                rhnChannelErrata ce,
-                rhnAvailableChannels ac,
-                pxtsessions ps,
-                web_contact wc
-        where   e.id = ce.errata_id and
-                ce.channel_id = ac.channel_id and
-                ac.org_id = wc.org_id and
-                ps.web_user_id = wc.id and
-                ps.id = #{session_id}
-                and e.id IN
+        select ce.errata_id
+          from rhnChannelErrata ce,
+               pxtsessions ps,
+               rhnUserChannelFamilyPerms ucfp,
+               rhnChannelFamilyMembers cfm
+         where cfm.channel_id = ce.channel_id
+           and cfm.channel_family_id = ucfp.channel_family_id
+           and ps.web_user_id = ucfp.user_id
+           and ps.id = #{session_id}
+           and ce.errata_id IN
                  <foreach collection="id_list" item="item" separator="," close=")" open="(">
                     #{item}
                 </foreach>

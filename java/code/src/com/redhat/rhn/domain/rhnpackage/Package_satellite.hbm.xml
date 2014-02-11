@@ -186,40 +186,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.rhnpackage.Package as p where p.packageName = :packageName]]>
     </query>
 
-    <query name="Package.searchByIdAndArches">
-            <![CDATA[select distinct p.packageName.id, p.packageName.name, p.summary,
-                        p.packageArch.label, p.description, p.packageEvr.epoch,
-                        p.packageEvr.version, p.packageEvr.release
-                       from com.redhat.rhn.domain.rhnpackage.Package as p,
-                            com.redhat.rhn.domain.channel.Channel as c
-                      where p.id IN (:pids)
-                        and c IN elements(p.channels)
-                        and c.channelArch.label IN (:channel_arch_labels)
-                      ]]>
-    </query>
-
-    <query name="Package.searchById">
-            <![CDATA[select distinct p.id, p.packageName.name, p.summary,
-                        p.packageArch.label, p.description, p.packageEvr.epoch,
-                        p.packageEvr.version, p.packageEvr.release
-                       from com.redhat.rhn.domain.rhnpackage.Package as p
-                      where p.id IN (:pids)
-                      ]]>
-    </query>
-
-    <query name="Package.relevantSearchById">
-            <![CDATA[select distinct p.packageName.id, p.packageName.name, p.summary,
-                        p.packageArch.label, p.description, p.packageEvr.epoch,
-                        p.packageEvr.version, p.packageEvr.release
-                       from com.redhat.rhn.domain.rhnpackage.Package as p,
-                            com.redhat.rhn.domain.channel.Channel as c,
-                            com.redhat.rhn.domain.server.Server as s
-                      where p.id IN (:pids)
-                        and c IN elements (p.channels)
-                        and c IN elements (s.channels)
-                      ]]>
-    </query>
-
     <query name="Package.listOrphans">
     	<![CDATA[ select p
     		from com.redhat.rhn.domain.rhnpackage.Package as p

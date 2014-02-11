@@ -45,7 +45,6 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
-import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
@@ -58,7 +57,6 @@ import com.redhat.rhn.frontend.dto.MultiOrgEntitlementsDto;
 import com.redhat.rhn.frontend.dto.OrgChannelFamily;
 import com.redhat.rhn.frontend.dto.OrgSoftwareEntitlementDto;
 import com.redhat.rhn.frontend.dto.PackageDto;
-import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
@@ -621,27 +619,6 @@ public class ChannelManager extends BaseManager {
 
         DataResult dr = makeDataResult(params, params, lc, m);
         return dr;
-    }
-    /**
-     * Returns a list of packages whose ids match those from the given list.
-     * @param pids The ids of the package list.
-     * @param archLabels Channel arch labels.
-     * @param relevantFlag if set will only return packages relevant to subscribed channels
-     * @return list of packages
-     */
-    public static List<PackageOverview> packageSearch(List pids, List archLabels,
-            boolean relevantFlag) {
-        return PackageFactory.packageSearch(pids, archLabels, relevantFlag);
-    }
-
-    /**
-     * Returns a list of packages whose ids match those from the given list.
-     * @param pids The ids of the package list.
-     * @param archLabels Channel arch labels.
-     * @return list of packages
-     */
-    public static List<PackageOverview> packageSearch(List pids, List archLabels) {
-        return PackageFactory.packageSearch(pids, archLabels);
     }
 
     /**

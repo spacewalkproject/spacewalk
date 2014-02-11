@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.rhnpackage;
 
+import com.redhat.rhn.common.db.datasource.CachedStatement;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
@@ -22,6 +23,7 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.channel.PackageSearchAction;
 import com.redhat.rhn.frontend.dto.BooleanWrapper;
 import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.manager.user.UserManager;
@@ -29,7 +31,6 @@ import com.redhat.rhn.manager.user.UserManager;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -298,69 +299,89 @@ public class PackageFactory extends HibernateFactory {
         return packs.get(packs.size() - 1);
     }
 
-    private static List composePackageSearchResults(String queryName, Map params,
-        List pids) {
-        List results = new ArrayList();
-        int limit = 1000;       // ORA-01795
-
-        for (int n = 0; n < pids.size(); n += limit) {
-            int chunkSize = (pids.size() > n + limit) ? n + limit : pids.size();
-            List chunk = pids.subList(n, chunkSize);
-            params.put("pids", chunk);
-            results.addAll(singleton.listObjectsByNamedQuery(queryName, params));
-        }
-
-        return results;
-    }
-
     /**
      * Returns PackageOverviews from a search.
      * @param pids List of package ids returned from search server.
      * @param archLabels List of channel arch labels.
+     * @param relevantUserId user id to filter by if relevant or architecture search
+     *   server the user can see is subscribed to
+     * @param filterChannelId channel id to filter by if channel search
+     * @param searchType type of search to do, one of "relevant", "channel",
+     *   "architecture", or "all"
      * @return PackageOverviews from a search.
      */
-    public static List<PackageOverview> packageSearch(List pids, List archLabels) {
-        return packageSearch(pids, archLabels, true);
-    }
-    /**
-     * Returns PackageOverviews from a search.
-     * @param pids List of package ids returned from search server.
-     * @param archLabels List of channel arch labels.
-     * @param relevantFlag if set will only return packages relevant to subscribed channels
-     * @return PackageOverviews from a search.
-     */
-    public static List<PackageOverview> packageSearch(List pids, List archLabels,
-            boolean relevantFlag) {
-        List results = null;
-        Map params = new HashMap();
-        if (archLabels != null && !archLabels.isEmpty()) {
-            params.put("channel_arch_labels", archLabels);
-            results = composePackageSearchResults("Package.searchByIdAndArches",
-                      params, pids);
+    public static List<PackageOverview> packageSearch(List<Long> pids,
+            List<String> archLabels, Long relevantUserId, Long filterChannelId,
+            String searchType) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        SelectMode m = null;
+
+        if (searchType.equals(PackageSearchAction.ARCHITECTURE)) {
+            if (!(archLabels != null && archLabels.size() > 0)) {
+                throw new MissingArchitectureException(
+                        "archLabels must not be null for architecture search!");
+            }
+
+            // This makes me very sad. PreparedSatement.setObject does not allow
+            // you to pass in Lists or Arrays. We can't manually convert archLabels
+            // to a string and use the regular infrastructure because it will
+            // escape the quotes between architectures. The only thing we can do
+            // is to get the SelectMode and manually insert the architecture types
+            // before we continue. If we can get PreparedStatement to accept Lists
+            // then all this hackishness can go away. NOTE: we know that we have to
+            // guard against sql injection in this case. Notice that the archLabels
+            // will all be enclosed in single quotes. Valid archLabels will only
+            // contain alphanumeric, '-', and "_" characters. We will simply
+            // check and enforce that constraint, and then even if someone injected
+            // something we would either end up throwing an error or it would be
+            // in a string, and therefore not dangerous.
+            m = ModeFactory.getMode("Package_queries", "searchByIdAndArches");
+            CachedStatement cs = m.getQuery();
+            String query = cs.getOrigQuery();
+            String archString = "'" + sanitizeArchLabel(archLabels.get(0)) + "'";
+            for (int i = 1; i < archLabels.size(); i++) {
+                archString += ", '" + sanitizeArchLabel(archLabels.get(i)) + "'";
+            }
+            query = query.replace(":channel_arch_labels", archString);
+            cs.setQuery(query);
+            m.setQuery(cs);
         }
-        else if (relevantFlag) {
-            results = composePackageSearchResults("Package.relevantSearchById",
-                      params, pids);
+        else if (searchType.equals(PackageSearchAction.RELEVANT)) {
+            if (relevantUserId == null) {
+                throw new IllegalArgumentException(
+                        "relevantUserId must not be null for relevant search!");
+            }
+            params.put("uid", relevantUserId);
+            m = ModeFactory.getMode("Package_queries", "relevantSearchById");
+        }
+        else if (searchType.equals(PackageSearchAction.CHANNEL)) {
+            if (filterChannelId == null) {
+                throw new IllegalArgumentException(
+                        "filterChannelId must not be null for channel search!");
+            }
+            params.put("cid", filterChannelId);
+            m = ModeFactory.getMode("Package_queries", "searchByIdInChannel");
         }
         else {
-            results = composePackageSearchResults("Package.searchById", params, pids);
-        }
-        List<PackageOverview> realResults = new ArrayList<PackageOverview>();
-        for (Object result : results) {
-            Object[] values = (Object[]) result;
-            PackageOverview po = new PackageOverview();
-            po.setId((Long) values[0]);
-            po.setPackageName((String) values[1]);
-            po.setSummary((String) values[2]);
-            po.setPackageArch((String)values[3]);
-            po.setDescription((String) values[4]);
-            po.setEpoch((String) values[5]);
-            po.setVersion((String) values[6]);
-            po.setRelease((String) values[7]);
-            realResults.add(po);
+            m = ModeFactory.getMode("Package_queries", "searchById");
         }
 
-        return realResults;
+        // SelectMode.execute will batch the size properly and CachedStatement.execute
+        // will create a comma separated string representation of the list of pids
+        DataResult result = m.execute(params, pids);
+        result.elaborate();
+        return result;
+    }
+
+    private static String sanitizeArchLabel(String archLabel) {
+        // ArchLabels can only contain alphanumeric, '-', or '_' in order to guard
+        // against sql injection. They will never contain anything else during the
+        // normal course of operation, throw an error if the regex doesn't match.
+        if (!archLabel.matches("^[a-zA-Z0-9\\-_]*$")) {
+            throw new IllegalArgumentException("The channel architecture " + archLabel +
+                    " is invalid! Possible sql injection attempt!");
+        }
+        return archLabel;
     }
 
     /**

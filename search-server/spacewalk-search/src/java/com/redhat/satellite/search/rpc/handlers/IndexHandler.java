@@ -30,9 +30,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import redstone.xmlrpc.XmlRpcFault;
 
@@ -223,12 +225,22 @@ public class IndexHandler {
             return hits;
         }
 
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("session_id", sessionId);
-        params.put("id_list", ids);
-
         try {
-           List<String> visible = query.loadList(params);
+           Set<String> visible = new HashSet<String>();
+
+           // we have to batch the visibility query in clause to no more
+           // than 1000 for oracle
+           final int batch_size = 1000;
+           for (int i = 0; i < ids.size(); i += batch_size) {
+               Map<String, Object> params = new HashMap<String, Object>();
+               params.put("session_id", sessionId);
+               // sub list includes the first index and excludes the last.
+               // so the proper last index of ids to pass to subList is ids.size()
+               params.put("id_list", ids.subList(i, (i + batch_size) <= ids.size() ? i +
+                       batch_size : ids.size()));
+               visible.addAll(query.loadList(params));
+           }
+
            if (log.isDebugEnabled()) {
                log.debug("results: " + visible);
            }

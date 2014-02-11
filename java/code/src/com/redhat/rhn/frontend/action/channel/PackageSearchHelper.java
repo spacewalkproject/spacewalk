@@ -19,10 +19,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -31,6 +31,7 @@ import redstone.xmlrpc.XmlRpcFault;
 
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.frontend.action.BaseSearchAction;
 import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.xmlrpc.SearchServerIndexException;
@@ -53,18 +54,21 @@ public class PackageSearchHelper {
      * @param searchString search string
      * @param mode mode as in name only, name description, name and summary, free form
      * @param selectedArches list of archs
-     * @param relevantFlag if set will force packages returned to be relevant to
-     *  subscribed channels
+     * @param relevantUserId user id to filter by if relevant or architecture search
+     *   server the user can see is subscribed to
      * @param fineGrained fine grained search
+     * @param filterChannelId channel id to filter by if channel search
+     * @param searchType type of search to do, one of "relevant", "channel",
+     *   "architecture", or "all"
      * @return List of PackageOverview objects
      * @throws XmlRpcFault bad communication with search server
      * @throws MalformedURLException possibly bad configuration for search server address
      * @throws SearchServerIndexException error executing query
      */
     public static List<PackageOverview> performSearch(Long sessionId, String searchString,
-            String mode, String[] selectedArches, boolean relevantFlag,
-            Boolean fineGrained)
-            throws XmlRpcFault, MalformedURLException, SearchServerIndexException {
+            String mode, String[] selectedArches, Long relevantUserId, Boolean fineGrained,
+            Long filterChannelId, String searchType) throws XmlRpcFault,
+            MalformedURLException, SearchServerIndexException {
 
         log.info("Performing pkg search: " + searchString + ", " + mode);
 
@@ -76,7 +80,7 @@ public class PackageSearchHelper {
         // call search server
         XmlRpcClient client = new XmlRpcClient(
                 ConfigDefaults.get().getSearchServerUrl(), true);
-        List args = new ArrayList();
+        List<Object> args = new ArrayList<Object>();
         args.add(sessionId);
         args.add("package");
         args.add(preprocessSearchString(searchString, mode, pkgArchLabels));
@@ -93,21 +97,20 @@ public class PackageSearchHelper {
 
         // need to make the search server results usable by database
         // so we can get the actual results we are to display to the user.
-        // also save the items into a Map for lookup later.
+        // also save the names into a Set for later.
 
         List<Long> pids = new ArrayList<Long>();
-        Map<String, Integer> lookupmap = new HashMap<String, Integer>();
-        // do it in reverse because the search server can return more than one
-        // record for a given package name, but that means if we don't go
-        // in reverse we risk getting the wrong rank in the lookupmap.
-        // for example, [{id:125,name:gtk},{id:127,name:gtk}{id:200,name:kernel}]
-        // if we go forward we end up with gtk:1 and kernel:2 but we wanted
-        // kernel:2, gtk:0.
-        for (int x = results.size() - 1; x >= 0; x--) {
-            Map item = (Map) results.get(x);
-            lookupmap.put((String)item.get("name"), x);
+        Set<String> names = new HashSet<String>();
+        for (Object itemObject : results) {
+            Map item = (Map) itemObject;
+            names.add((String) item.get("name"));
             Long pid = new Long((String)item.get("id"));
             pids.add(pid);
+        }
+
+        List<String> arList = null;
+        if (selectedArches != null) {
+            arList = Arrays.asList(selectedArches);
         }
 
         // The database does not maintain the order of the where clause.
@@ -115,46 +118,37 @@ public class PackageSearchHelper {
         // need to reorder the database results to match. This will lead
         // to a better user experience.
 
-        ArrayList<String> arList = null;
-        if (selectedArches != null) {
-            arList = new ArrayList<String>(Arrays.asList(selectedArches));
-        }
         List<PackageOverview> unsorted =
-            ChannelManager.packageSearch(pids, arList, relevantFlag);
-        List<PackageOverview> ordered = new LinkedList<PackageOverview>();
+                PackageFactory.packageSearch(pids, arList, relevantUserId, filterChannelId,
+                        searchType);
+        List<PackageOverview> ordered = new ArrayList<PackageOverview>();
 
-        // we need to use the package names to determine the mapping order
-        // because the id in PackageOverview is that of a PackageName while
-        // the id from the search server is the Package id.
+        Map<String, PackageOverview> nameToPackageMap =
+                new HashMap<String, PackageOverview>();
+        Set<String> alreadyAddedNames = new HashSet<String>();
+
+        // we need to be able to look up the PackageOverview by its name
         for (PackageOverview po : unsorted) {
-            Object objIdx = lookupmap.get(po.getPackageName());
-            if (objIdx == null) {
-                // We got an error looking up a package name, it is most likely caused
-                // by the search server giving us data which doesn't map into what is
-                // in our database.  This could happen if the search indexes are formed
-                // for a different database instance.
-                throw new SearchServerIndexException();
-            }
-            int idx = (Integer)objIdx;
-            if (ordered.isEmpty()) {
-                ordered.add(po);
-                continue;
-            }
+            nameToPackageMap.put(po.getPackageName(), po);
+        }
 
-            boolean added = false;
-            for (ListIterator itr = ordered.listIterator(); itr.hasNext();) {
-                PackageOverview curpo = (PackageOverview) itr.next();
-                int curidx = lookupmap.get(curpo.getPackageName());
-                if (idx <= curidx) {
-                    itr.previous();
-                    itr.add(po);
-                    added = true;
-                    break;
-                }
-            }
+        // We got an error looking up a package name, it is most likely caused
+        // by the search server giving us data which doesn't map into what is
+        // in our database.  This could happen if the search indexes are formed
+        // for a different database instance.
+        if (!names.containsAll(nameToPackageMap.keySet())) {
+            throw new SearchServerIndexException();
+        }
 
-            if (!added) {
-                ordered.add(po);
+        // Iterate through in the order that the search server returned, add packages
+        // to the return list in the order they appear in the search results.
+        for (Object resultObject : results) {
+            Map result = (Map) resultObject;
+            String name = (String) result.get("name");
+            if (!alreadyAddedNames.contains(name) &&
+                    nameToPackageMap.keySet().contains(name)) {
+                ordered.add(nameToPackageMap.get(name));
+                alreadyAddedNames.add(name);
             }
         }
 
