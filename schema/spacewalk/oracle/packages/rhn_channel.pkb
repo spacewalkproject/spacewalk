@@ -61,7 +61,13 @@ IS
         consenting_user         NUMBER;
         allowed                 number := 0;
         is_fve                  CHAR(1) := 'N';
+        update_lock             number;
     BEGIN
+        select 1
+          into update_lock
+          from rhnServer
+         where id = server_id_in
+           for update;
         if user_id_in is not null then
             allowed := rhn_channel.user_role_check(channel_id_in, user_id_in, 'subscribe');
         else
@@ -452,6 +458,7 @@ IS
         server_org_id_val       NUMBER;
         available_subscriptions NUMBER; 
         server_already_in_chan  BOOLEAN;
+        update_lock             number;
         cursor  channel_family_is_proxy(channel_family_id_in in number) is
                 select  1
                 from    rhnChannelFamily
@@ -476,6 +483,11 @@ IS
                         and c.id = sc.channel_id
                         and sc.server_id = server_id_in;
     BEGIN
+        select 1
+          into update_lock
+          from rhnServer
+         where id = server_id_in
+           for update;
         FOR child IN local_chk_server_parent_memb(server_id_in, channel_id_in)
         LOOP
             if unsubscribe_children_in = 1 then

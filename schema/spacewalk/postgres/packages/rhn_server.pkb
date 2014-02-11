@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 b6947eea546edc7a66c7b53d0b62dc734ce3ca8a
+-- oracle equivalent source sha1 07b6ab3867e4d4ebf772b6ee9731f83e33f4d7ae
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -789,7 +789,14 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
     create or replace function update_needed_cache(
         server_id_in in numeric
 	) returns void as $$
+    declare
+        update_lock numeric;
     begin
+      select 1
+        into update_lock
+        from rhnServer
+       where id = server_id_in
+         for update;
       delete from rhnServerNeededCache
         where server_id = server_id_in;
       insert into rhnServerNeededCache

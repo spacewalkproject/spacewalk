@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 e6fa92f40cfb0ac1645f53ecad5f2a8f99a616f7
+-- oracle equivalent source sha1 9a8f9788f4fdeeeee56995bb10c9cacc8cceb700
 --
 -- Copyright (c) 2008--2013 Red Hat, Inc.
 --
@@ -65,7 +65,13 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
         consenting_user         NUMERIC;
         allowed                 numeric;
         is_fve_char             char(1) := 'N';
+        update_lock             numeric;
     BEGIN
+        select 1
+          into update_lock
+          from rhnServer
+         where id = server_id_in
+           for update;
         if user_id_in is not null then
             allowed := rhn_channel.user_role_check(channel_id_in, user_id_in, 'subscribe');
         else
@@ -483,6 +489,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
         server_org_id_val       NUMERIC;
         available_subscriptions NUMERIC; 
         server_already_in_chan  BOOLEAN;
+        update_lock             numeric;
         channel_family_is_proxy cursor(channel_family_id_in numeric) for
                 select  1
                 from    rhnChannelFamily
@@ -495,6 +502,11 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
                     and label = 'rhn-satellite';
         child record;
     BEGIN
+        select 1
+          into update_lock
+          from rhnServer
+         where id = server_id_in
+           for update;
         -- In PostgreSQL recursion with opened cursors is not allowed so we use
         -- FOR IN SELECT form which is ok.
         FOR child IN select  c.id
