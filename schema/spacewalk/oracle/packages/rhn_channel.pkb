@@ -1221,6 +1221,7 @@ IS
                 select sc.server_id as id
                   from rhnServerChannel sc
                  where sc.channel_id = channel_id_in
+                 order by id asc
       ) loop
          rhn_server.update_needed_cache(server.id);
          commit;
