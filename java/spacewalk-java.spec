@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.147
+Version: 2.1.148
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,21 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Feb 11 2014 Grant Gainey <ggainey@redhat.com> 2.1.148-1
+- 1063915, CVE-2013-4415 - Fix XSS flaws in Spacewalk-search
+- 1063915, CVE-2013-4415 - Fix XSS in new-list-tag by escaping _LABEL_SELECTED
+- 1063915, CVE-2013-1871, Fix XSS in edit-address JSPs
+- 1063915, CVE-2013-1869, close header-injection hole
+- 1063915, CVE-2010-2236, Cleanse backticks from monitoring-probes where
+  appropriate
+- 1063915, CVE-2013-1869, Only follow internal return_urls
+- 1063915, CVE-2012-6149, Fix XSS in notes.jsp
+- Fix an ISE that could happen after clearing cookies (elaborator not bound)
+- Removed duplicate colons
+- Unified space before slash in void tags
+- Datepicker UI unification: Errata pages
+- use normal checkbox
+
 * Mon Feb 10 2014 Tomas Kasparek <tkasparek@redhat.com> 2.1.147-1
 - style ProbeEdit page
 - updating susestudio-java-client to 1.4
