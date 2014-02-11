@@ -41,7 +41,7 @@
         <hr />
         <input type="hidden" name="pxt:trap" value="rhn:contact-method-edit-cb" />
         <input type="hidden" name="redirect_to" value="index.pxt?uid={uid}" />
-        <input type="submit" name="update_method" value="Update Method" />
+        <input class="btn btn-default" type="submit" name="update_method" value="Update Method" />
         <pxt-hidden name="uid" />
         <pxt-hidden name="cmid" />
       </div>

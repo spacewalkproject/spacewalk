@@ -36,7 +36,7 @@
         <pxt-hidden name="cmid" />
         <input type="hidden" name="success_redirect" value="index.pxt?uid={formvar:uid}" />
         <input type="hidden" name="pxt:trap" value="rhn:contact-method-delete-cb" />
-        <input type="submit" name="delete_cm_confirm" value="Confirm Deletion" />
+        <input class="btn btn-default" type="submit" name="delete_cm_confirm" value="Confirm Deletion" />
       </pxt-form>
     </div>
 </rhn-if-method-dependencies>

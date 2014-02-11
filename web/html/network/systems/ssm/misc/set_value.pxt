@@ -48,7 +48,7 @@
 
 <div align="right">
 <hr />
-        <input type="submit" value="Set Values" />
+        <input class="btn btn-default" type="submit" value="Set Values" />
         <input type="hidden" name="cikid" value="{formvar:cikid}" />
 	<input type="hidden" name="pxt:trap" value="rhn:ssm_set_custom_values_cb" />
 </div>

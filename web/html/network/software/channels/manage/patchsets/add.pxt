@@ -25,7 +25,7 @@
     <pxt-form method="get">
 <pxt-formvar>
       View: <rhn-channel-select-options mode="channel_patchset_manager"/>
-      <input type="submit" value="View" />
+      <input class="btn btn-default" type="submit" value="View" />
       <input type="hidden" name="cid" value="{formvar:cid}" />
       <input type="hidden" name="pxt:trap" value="rhn:channel_view_cb" />
 </pxt-formvar>

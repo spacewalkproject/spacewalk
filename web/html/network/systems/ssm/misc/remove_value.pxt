@@ -38,7 +38,7 @@
 <pxt-form method="POST">
 <div align="right">
 <hr />
-        <input type="submit" value="Remove Values" />
+        <input class="btn btn-default" type="submit" value="Remove Values" />
         <input type="hidden" name="cikid" value="{formvar:cikid}" />
 	<input type="hidden" name="pxt:trap" value="rhn:ssm_remove_custom_values_cb" />
 </div>

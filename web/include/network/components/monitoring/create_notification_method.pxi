@@ -40,7 +40,7 @@
         <hr />
         <input type="hidden" name="pxt:trap" value="rhn:contact-method-create-cb" />
         <input type="hidden" name="redirect_to" value="index.pxt?uid={formvar:uid}" />
-        <input type="submit" name="create_method" value="Create Method" />
+        <input class="btn btn-default" type="submit" name="create_method" value="Create Method" />
         <pxt-hidden name="uid" />
       </div>
 
