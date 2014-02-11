@@ -8,7 +8,7 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
 
-following systems will get rebooted...
+<p><bean:message key="reboot.jsp.widgetsummary" /></p>
 <rl:listset name="systemListSet">
   <c:set var="notSelectable" value="True"/>
   <c:set var="noCsv" value="1" />
