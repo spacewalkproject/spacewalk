@@ -36,16 +36,19 @@ import org.apache.struts.action.DynaActionForm;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.common.util.StringUtil;
+import com.redhat.rhn.domain.action.ActionChain;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 import com.redhat.rhn.domain.server.Capability;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.SystemOverview;
+import com.redhat.rhn.frontend.struts.ActionChainHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
+import com.redhat.rhn.manager.action.ActionChainManager;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
@@ -185,6 +188,7 @@ public class ProvisioningRemoteCommand extends RhnAction implements Listable {
             User user = new RequestContext(request).getCurrentUser();
             Date scheduleDate = this.getStrutsDelegate()
                     .readDatePicker(form, "date", DatePicker.YEAR_RANGE_POSITIVE);
+            ActionChain actionChain = ActionChainHelper.readActionChain(form, user);
 
             boolean formValid = true;
             for (String fid : ProvisioningRemoteCommand.FORM_FIELD_IDS) {
@@ -235,11 +239,8 @@ public class ProvisioningRemoteCommand extends RhnAction implements Listable {
                                            request.getLocale(),
                                            form.getString("script_body"));
 
-                ActionManager.scheduleScriptRun(user,
-                                                serverIds,
-                                                label,
-                                                scriptActionDetails,
-                                                scheduleDate);
+                ActionChainManager.scheduleScriptRuns(user, serverIds, label,
+                    scriptActionDetails, scheduleDate, actionChain);
                 infoMessages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
                         "ssm.operations.provisioning.remotecommand.form.schedule.succeed",
                         label,
@@ -260,6 +261,7 @@ public class ProvisioningRemoteCommand extends RhnAction implements Listable {
         request.setAttribute(
                 "date", this.getStrutsDelegate().prepopulateDatePicker(
                                 request, form, "date", DatePicker.YEAR_RANGE_POSITIVE));
+        ActionChainHelper.prepopulateActionChains(request);
 
         ListHelper helper = new ListHelper(this, request);
         helper.setListName("systemList");
