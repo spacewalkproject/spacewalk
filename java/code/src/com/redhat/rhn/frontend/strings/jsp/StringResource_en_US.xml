@@ -15178,6 +15178,9 @@ any of these revisions.  Are you sure you want to do this?</source>
         <trans-unit id="ssm.operations.provisioning.remotecommand.form.schedule.succeed">
           <source>Task "{0}" has been scheduled successfully at {1}.</source>
         </trans-unit>
+        <trans-unit id="ssm.operations.provisioning.remotecommand.form.queue.succeed">
+          <source>Task "{0}" has been successfully added to Action Chain {1}.</source>
+        </trans-unit>
         <trans-unit id="ssm.operations.provisioning.remotecommand.form.script_label.title.default.body">
           <source>Run {0} Script on {1} {2} ({3}).</source>
         </trans-unit>

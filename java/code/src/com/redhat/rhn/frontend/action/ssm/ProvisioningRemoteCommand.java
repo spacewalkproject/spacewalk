@@ -241,10 +241,17 @@ public class ProvisioningRemoteCommand extends RhnAction implements Listable {
 
                 ActionChainManager.scheduleScriptRuns(user, serverIds, label,
                     scriptActionDetails, scheduleDate, actionChain);
-                infoMessages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+
+                if (actionChain == null) {
+                    infoMessages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
                         "ssm.operations.provisioning.remotecommand.form.schedule.succeed",
-                        label,
-                        LocalizationService.getInstance().formatDate(scheduleDate)));
+                        label, LocalizationService.getInstance().formatDate(scheduleDate)));
+                }
+                else {
+                    infoMessages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                        "ssm.operations.provisioning.remotecommand.form.queue.succeed",
+                        label, actionChain.getLabel()));
+                }
             }
             else {
                 formValues.setUid(form.getString("uid"))
