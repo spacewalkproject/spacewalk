@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.1.40
+Version:        2.1.41
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Feb 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.1.41-1
+- fix sha1 sums
+
 * Tue Feb 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.1.40-1
 - 1063821 - deadlock fix
 
