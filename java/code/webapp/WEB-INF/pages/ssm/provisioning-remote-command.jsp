@@ -77,7 +77,6 @@
                             alphabarcolumn="name"
                             filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemOverviewFilter">
 
-                            <rl:decorator name="ElaborationDecorator"/>
                             <rl:decorator name="SystemIconDecorator"/>
                             <rl:decorator name="PageSizeDecorator"/>
 
