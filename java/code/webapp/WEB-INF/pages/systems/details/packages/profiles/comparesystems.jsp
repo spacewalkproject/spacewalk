@@ -59,7 +59,7 @@
                 <div class="text-right">
                     <rhn:submitted/>
                     <hr />
-                    <html:submit property="dispatch">
+                    <html:submit styleClass="btn btn-default" property="dispatch">
                         <bean:message key="compare.jsp.syncpackageto" arg0="${fn:escapeXml(requestScope.systemname)}"/>
                     </html:submit>
                 </div>

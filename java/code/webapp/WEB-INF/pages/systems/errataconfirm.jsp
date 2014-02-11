@@ -46,7 +46,7 @@
                 </jsp:include>
                 <div class="form-group">
                     <div class="col-md-offset-3 col-md-6">
-                        <html:submit property="dispatch">
+                        <html:submit styleClass="btn btn-success" property="dispatch">
                             <bean:message key="errataconfirm.jsp.confirm" />
                         </html:submit>
                     </div>

@@ -57,7 +57,7 @@
 
       </rl:list>
       <p align="right">
-			<input type="submit" name="dispatch"  value="<bean:message key='channel.manage.patchset.delete'/>" >
+			<input class="btn btn-default" type="submit" name="dispatch"  value="<bean:message key='channel.manage.patchset.delete'/>" >
 	    </p>
 <rhn:submitted/>
 

@@ -33,7 +33,7 @@
 
     <div class="text-right">
       <hr />
-        <html:submit property="dispatch">
+        <html:submit styleClass="btn btn-success" property="dispatch">
           <bean:message key="install_patchset.jsp.installbutton" />
         </html:submit>
     </div>

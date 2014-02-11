@@ -103,7 +103,7 @@
         <html:optionsCollection name="actionOptions"/>
     </html:select>
 
-    <html:submit property="dispatch">
+    <html:submit styleClass="btn btn-default" property="dispatch">
         <bean:message key="virtualguestslist.jsp.applyaction"/>
     </html:submit>
 
@@ -115,7 +115,7 @@
         </html:select>
         <bean:message key="virtualguestslist.jsp.allocationtoequal"/>
         <html:text property="guestSettingValue"/>
-        <html:submit property="dispatch">
+        <html:submit styleClass="btn btn-default" property="dispatch">
             <bean:message key="virtualguestslist.jsp.applychanges"/>
         </html:submit>
     </div>

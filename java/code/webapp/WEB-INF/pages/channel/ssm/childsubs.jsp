@@ -68,7 +68,7 @@
         </c:forEach>
     </table>
 	<hr />
-	<div class="text-right"><html:submit property="dispatch"><bean:message key="ssmchildsubs.jsp.alter"/></html:submit></div>
+	<div class="text-right"><html:submit styleClass="btn btn-default" property="dispatch"><bean:message key="ssmchildsubs.jsp.alter"/></html:submit></div>
   </rl:listset>
 </body>
 </html>

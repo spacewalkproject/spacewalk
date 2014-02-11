@@ -73,8 +73,8 @@
                 </rl:column>
             </rl:list>
             <div class="text-right">
-                <input type="submit" name="dispatch" value='<bean:message key="ssm.misc.lockunlock.dispatch.lock"/>'/>
-                <input type="submit" name="dispatch" value='<bean:message key="ssm.misc.lockunlock.dispatch.unlock"/>'/>
+                <input class="btn btn-default" type="submit" name="dispatch" value='<bean:message key="ssm.misc.lockunlock.dispatch.lock"/>'/>
+                <input class="btn btn-default" type="submit" name="dispatch" value='<bean:message key="ssm.misc.lockunlock.dispatch.unlock"/>'/>
             </div>
         </rl:listset>
     </body>

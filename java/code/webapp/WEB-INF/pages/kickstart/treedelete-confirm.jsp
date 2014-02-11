@@ -44,7 +44,7 @@
           <c:otherwise>
             <bean:message key="distro-delete.jsp.summary1"/>
             <div style="text-align: right;">
-                    <html:submit>
+                    <html:submit styleClass="btn btn-default">
                         <bean:message key="distro-delete.jsp.confirmdelete"/>
                 </html:submit>
             </div>

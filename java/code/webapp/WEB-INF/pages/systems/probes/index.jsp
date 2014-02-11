@@ -81,7 +81,7 @@
   <div class="text-right">
     <hr/>
     <input type="hidden" name="sid" value="${sid}" />
-    <input type="submit" name="dispatch"
+    <input class="btn btn-default" type="submit" name="dispatch"
         value='<bean:message key="probdelete.jsp.deleteprobes"/>'/>
   </div>
  <rl:csv  exportColumns="id,description,stateString,stateOutputString"/>

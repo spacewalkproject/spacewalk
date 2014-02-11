@@ -40,7 +40,7 @@
 <input type="hidden" name="ksid" value="<c:out value="${param.ksid}"/>" />
 <input type="hidden" name="returnvisit" value="<c:out value="${param.returnvisit}"/>"/>
 <div class="text-right">
-  <html:submit property="dispatch">
+  <html:submit styleClass="btn btn-default" property="dispatch">
     <bean:message key="kickstart.cryptokeys.jsp.submit"/>
   </html:submit>
 </div>

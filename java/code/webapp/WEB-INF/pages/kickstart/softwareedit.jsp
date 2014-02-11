@@ -158,7 +158,7 @@ function clickNewestTree() {
           </tr>
          </c:if>
           <tr>
-            <td align="right" colspan="2"><html:submit><bean:message key="kickstartdetails.jsp.updatekickstart"/></html:submit></td>
+            <td align="right" colspan="2"><html:submit styleClass="btn btn-default"><bean:message key="kickstartdetails.jsp.updatekickstart"/></html:submit></td>
           </tr>
       </table>
       <html:hidden property="url" value="${kickstartSoftwareForm.map.url}"/>

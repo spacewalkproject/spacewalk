@@ -31,7 +31,7 @@
 		</c:forEach>
   </select>
 
-  <html:submit>
+  <html:submit styleClass="btn btn-default">
     <bean:message key="cloneerrata.jsp.view"/>
   </html:submit>
 <rhn:submitted/>

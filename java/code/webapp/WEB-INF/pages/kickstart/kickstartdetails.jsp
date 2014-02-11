@@ -75,7 +75,7 @@
       </div>
 
       <div class="form-group">
-          <div class="col-lg-6" align="right"><html:submit><bean:message key="kickstartdetails.jsp.updatekickstart"/></html:submit></div>
+          <div class="col-lg-6" align="right"><html:submit styleClass="btn btn-default"><bean:message key="kickstartdetails.jsp.updatekickstart"/></html:submit></div>
       </div>
     </html:form>
     </c:when>

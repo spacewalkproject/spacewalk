@@ -31,7 +31,7 @@
       <html:hidden property="submitted" value="true"/>
       <rhn:csrf />
         <div class="text-right">
-          <html:submit>
+          <html:submit styleClass="btn btn-default">
             <bean:message key="ssm.sw.systems.confirmbutton"/>
           </html:submit>
         </div>

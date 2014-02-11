@@ -46,8 +46,8 @@
 <c:if test="${not empty requestScope.pageList}">
 <hr />
 	<div class="text-right">
-		<html:submit property="dispatch"><bean:message key="deploy.jsp.deployallbutton" /></html:submit>
-		<html:submit property="dispatch"><bean:message key="deploy.jsp.deployselectedbutton" /></html:submit>
+		<html:submit styleClass="btn btn-default" property="dispatch"><bean:message key="deploy.jsp.deployallbutton" /></html:submit>
+		<html:submit styleClass="btn btn-default" property="dispatch"><bean:message key="deploy.jsp.deployselectedbutton" /></html:submit>
 	</div>
 </c:if>
 </html:form>

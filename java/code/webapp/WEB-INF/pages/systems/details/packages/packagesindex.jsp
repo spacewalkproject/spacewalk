@@ -55,7 +55,7 @@
     <rhn:submitted />
     <div class="text-right">
       <hr />
-      <html:submit property="dispatch">
+      <html:submit styleClass="btn btn-success" property="dispatch">
         <bean:message key="packagesindex.jsp.update"/>
       </html:submit>
     </div>

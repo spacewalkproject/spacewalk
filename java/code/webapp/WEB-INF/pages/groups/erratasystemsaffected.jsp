@@ -30,7 +30,7 @@
         <rhn:submitted />
         <hr />
         <div class="text-right">
-          <html:submit property="dispatch">
+          <html:submit styleClass="btn btn-default" property="dispatch">
             <bean:message key="affectedsystems.jsp.apply" />
           </html:submit>
        </div>

@@ -41,7 +41,7 @@
             <option value="${cluster.id}">${cluster.description}</option>
           </c:forEach>
         </select>&nbsp;
-        <html:submit property="dispatch">
+        <html:submit styleClass="btn btn-default" property="dispatch">
           <bean:message key="probesuitesystemsedit.jsp.addsystem"/>
         </html:submit>
       </div>

@@ -38,7 +38,7 @@
 		</rhn:list>
 		<hr />
 		<div class="text-right">
-			<html:submit property="dispatch"><bean:message key="deploysystems.jsp.deployconfirmbutton" /></html:submit>
+			<html:submit styleClass="btn btn-default" property="dispatch"><bean:message key="deploysystems.jsp.deployconfirmbutton" /></html:submit>
 		</div>
 	</div>
 </html:form>

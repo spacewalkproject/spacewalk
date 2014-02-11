@@ -32,7 +32,7 @@
   <c:if test="${not empty requestScope.pageList}">
     <div class="text-right">
       <hr />
-      <html:submit property="dispatch">
+      <html:submit styleClass="btn btn-default" property="dispatch">
         <bean:message key="diffconfirm.jsp.confirm" />
       </html:submit>
     </div>

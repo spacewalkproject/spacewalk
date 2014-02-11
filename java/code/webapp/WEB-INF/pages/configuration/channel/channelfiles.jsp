@@ -55,11 +55,11 @@
   <div class="text-right">
     <rhn:require acl="config_channel_editable(channel.id)"
                  mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-      <html:submit property="dispatch"><bean:message key="channelfiles.jsp.removeselected" /></html:submit>
+      <html:submit styleClass="btn btn-default" property="dispatch"><bean:message key="channelfiles.jsp.removeselected" /></html:submit>
     </rhn:require>
-    <html:submit property="dispatch"><bean:message key="channelfiles.jsp.copy2systems" /></html:submit>
+    <html:submit styleClass="btn btn-default" property="dispatch"><bean:message key="channelfiles.jsp.copy2systems" /></html:submit>
 	<rhn:require acl="user_role(config_admin)">
-      <html:submit property="dispatch"><bean:message key="channelfiles.jsp.copy2channels" /></html:submit>
+      <html:submit styleClass="btn btn-default" property="dispatch"><bean:message key="channelfiles.jsp.copy2channels" /></html:submit>
     </rhn:require>
   </div>
 </c:if>

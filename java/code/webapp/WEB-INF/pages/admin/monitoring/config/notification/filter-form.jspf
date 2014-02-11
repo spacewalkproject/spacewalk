@@ -202,7 +202,7 @@ function showDestination() {
     </tr>
     <tr>
       <td></td>
-      <td align="right"><html:submit><bean:message key="filtercreate.jsp.savefilter"/></html:submit></td>
+      <td align="right"><html:submit styleClass="btn btn-default"><bean:message key="filtercreate.jsp.savefilter"/></html:submit></td>
     </tr>
     </table>
 

@@ -54,7 +54,7 @@
           </tr>
           <tr>
             <td align="right" colspan="2">
-            <html:submit>
+            <html:submit styleClass="btn btn-default">
             <bean:message key="kickstart.scriptdelete.jsp.confirmdelete"/>
             </html:submit>
             </td>

@@ -37,10 +37,10 @@
 		<hr />
 		<input type="hidden" name="ksid" value="<c:out value="${param.ksid}"/>" />
 		<div class="text-right">
-		  <html:submit property="dispatch">
+		  <html:submit styleClass="btn btn-default" property="dispatch">
 		    <bean:message key="kickstart.packageprofile.jsp.clear"/>
 		  </html:submit>
-		  <html:submit property="dispatch">
+		  <html:submit styleClass="btn btn-success" property="dispatch">
 		    <bean:message key="kickstart.packageprofile.jsp.submit"/>
 		  </html:submit>
 

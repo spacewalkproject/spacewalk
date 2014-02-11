@@ -56,10 +56,10 @@
     <c:if test="${not empty pageList}">
     <div class="text-right">
         <hr />
-      <html:submit property="dispatch">
+      <html:submit styleClass="btn btn-default" property="dispatch">
         <bean:message key="probesuitesystems.jsp.detachsystem"/>
       </html:submit>
-      <html:submit property="dispatch">
+      <html:submit styleClass="btn btn-default" property="dispatch">
         <bean:message key="probesuitesystems.jsp.removesystem"/>
       </html:submit>
     </div>

@@ -16,7 +16,7 @@
       <rhn:csrf />
       <html:hidden property="submitted" value="true"/>
       <div class="text-right">
-        <html:submit property="button">
+        <html:submit property="button" styleClass="btn btn-default">
           <bean:message key="delete_confirm.jsp.button"/>
         </html:submit>
       </div>

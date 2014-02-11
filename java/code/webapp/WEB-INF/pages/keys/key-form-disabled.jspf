@@ -43,6 +43,6 @@
       <html:hidden property="description" />
       <html:hidden property="type" />
 
-      <td align="right"><html:submit><bean:message key="keydelete.jsp.deletekey"/></html:submit></td>
+      <td align="right"><html:submit styleClass="btn btn-default"><bean:message key="keydelete.jsp.deletekey"/></html:submit></td>
     </tr>
     </table>

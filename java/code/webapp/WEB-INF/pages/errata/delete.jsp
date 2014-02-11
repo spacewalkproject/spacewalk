@@ -42,7 +42,7 @@
     <rhn:csrf />
     <rhn:submitted />
     <input type="hidden" name="eid" value="<c:out value="${param.eid}"/>" />
-      <html:submit property="dispatch">
+      <html:submit styleClass="btn btn-default" property="dispatch">
         <bean:message key="delete.jsp.delete"/>
       </html:submit>
     </form>

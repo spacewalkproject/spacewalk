@@ -37,7 +37,7 @@
 
 
           <tr>
-            <td align="right" colspan="2"><html:submit><bean:message key="kickstart.variable.jsp.update"/></html:submit></td>
+            <td align="right" colspan="2"><html:submit styleClass="btn btn-default"><bean:message key="kickstart.variable.jsp.update"/></html:submit></td>
           </tr>
       </table>
       <input type="hidden" name="${param.name}" value = "${param.value}"/>

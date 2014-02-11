@@ -32,7 +32,7 @@
 	<c:otherwise>
 		<c:choose>
 			<c:when test="${deleting}">
-				<rhn:toolbar base="h1" img="/img/file-config.png" imgAlt="config.common.fileAlt"
+				<rhn:toolbar base="h1" icon="header-configuration" imgAlt="config.common.fileAlt"
 					helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-files-local"
 					miscUrl="/rhn/configuration/file/FileDownload.do?crid=${file.latestConfigRevision.id}&amp;cfid=${file.id}"
 					miscImg="action-download.gif"
@@ -45,7 +45,7 @@
 				</rhn:toolbar>
 			</c:when>
 			<c:otherwise>
-				<rhn:toolbar base="h1" img="/img/file-config.png" imgAlt="config.common.fileAlt"
+				<rhn:toolbar base="h1" icon="header-configuration" imgAlt="config.common.fileAlt"
 					helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-files-local"
 					deletionUrl="/rhn/configuration/file/DeleteFile.do?cfid=${file.id}"
 					deletionType="deletefile"

@@ -27,7 +27,7 @@
 
     <div class="text-right">
     <hr />
-        <html:submit><bean:message key="probdelete.jsp.deleteprobe"/></html:submit></td>
+        <html:submit styleClass="btn btn-default"><bean:message key="probdelete.jsp.deleteprobe"/></html:submit></td>
 
         <html:hidden property="sid" value="${param.sid}"/>
         <html:hidden property="probe_id" value="${probe.id}"/>

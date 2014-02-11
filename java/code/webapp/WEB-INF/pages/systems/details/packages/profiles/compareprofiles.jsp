@@ -59,7 +59,7 @@
                 <div class="text-right">
                     <rhn:submitted/>
                     <hr />
-                    <input type="submit" name="dispatch"
+                    <input class="btn btn-default" type="submit" name="dispatch"
                         value="<bean:message key="compare.jsp.syncpackageto" arg0="${requestScope.profilename}"/>" />
                 </div>
             </rhn:require>

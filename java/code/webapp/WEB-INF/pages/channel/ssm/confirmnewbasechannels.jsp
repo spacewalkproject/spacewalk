@@ -141,11 +141,11 @@
                 <html:hidden property="base_channel_ids" value="${base_channel_ids}"/>
                 <html:hidden property="new_base_channel_ids" value="${new_base_channel_ids}"/>
 
-                <html:submit property="dispatch">
+                <html:submit styleClass="btn btn-default" property="dispatch">
                     <bean:message key="basesub.jsp.confirm.cancel"/>
                 </html:submit>
 
-                <html:submit property="dispatch">
+                <html:submit styleClass="btn btn-default" property="dispatch">
                     <bean:message key="basesub.jsp.confirm.alter"/>
                 </html:submit>
             </div>

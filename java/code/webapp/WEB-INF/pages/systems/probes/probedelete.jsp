@@ -60,7 +60,7 @@
   <div class="text-right">
   <hr/>
     <html:hidden property="sid" value="${system.id}"/>
-    <html:submit property="dispatch">
+    <html:submit styleClass="btn btn-success" property="dispatch">
         <bean:message key="deleteconfirm.jsp.confirm"/>
     </html:submit>
   </div>

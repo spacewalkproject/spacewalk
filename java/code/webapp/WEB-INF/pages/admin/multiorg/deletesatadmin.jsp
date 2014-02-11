@@ -20,7 +20,7 @@
         <hr />
         <html:hidden property="uid" value="${param.uid}" />
         <html:hidden property="submitted" value="true" />
-        <html:submit>
+        <html:submit styleClass="btn btn-default">
 	        <bean:message key="confirm.displayname"/>
 	    </html:submit>
       </div>

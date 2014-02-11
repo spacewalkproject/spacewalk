@@ -58,11 +58,11 @@
                 <rhn:csrf />
                 <html:hidden property="submitted" value="true"/>
                 <html:hidden property="new_base_channel_id" value="${new_base_channel_id}"/>
-                <html:submit property="dispatch">
+                <html:submit styleClass="btn btn-default" property="dispatch">
                     <bean:message key="sdc.channels.confirmNewBase.cancel"/>
                 </html:submit>
 
-                <html:submit property="dispatch">
+                <html:submit styleClass="btn btn-success" property="dispatch">
                     <bean:message key="sdc.channels.confirmNewBase.modifyBaseSoftwareChannel"/>
                 </html:submit>
             </div>

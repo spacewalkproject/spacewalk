@@ -50,7 +50,7 @@
 			</option>
 		</c:forEach>
 	</select>
-	<html:submit property="show">
+	<html:submit styleClass="btn btn-default" property="show">
 		<bean:message key="system.errata.show"/>
 	</html:submit>
 	<br/>
@@ -140,7 +140,7 @@
 	<c:if test="${requestScope.showApplyErrata == 'true'}">
 		<div class="text-right">
     		<hr />
-    		<html:submit property="dispatch">
+    		<html:submit styleClass="btn btn-success" property="dispatch">
       			<bean:message key="errata.jsp.apply"/>
     		</html:submit>
 		</div>

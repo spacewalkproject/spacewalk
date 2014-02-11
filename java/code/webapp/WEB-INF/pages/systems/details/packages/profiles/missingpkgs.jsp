@@ -46,13 +46,13 @@
     <rhn:submitted/>
     <div class="text-right">
         <hr />
-        <html:submit property="dispatch">
+        <html:submit styleClass="btn btn-default" property="dispatch">
             <bean:message key="missingpkgs.jsp.selectnewpackageprofile" />
         </html:submit>
-        <html:submit property="dispatch">
+        <html:submit styleClass="btn btn-default" property="dispatch">
             <bean:message key="missingpkgs.jsp.removelistedpackagesfromsync" />
         </html:submit>
-        <html:submit property="dispatch">
+        <html:submit styleClass="btn btn-default" property="dispatch">
             <bean:message key="missingpkgs.jsp.subscribetochannels" />
         </html:submit>
     </div>

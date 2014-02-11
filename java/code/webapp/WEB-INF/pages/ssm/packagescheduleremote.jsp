@@ -60,17 +60,17 @@
   <div class="text-right">
     <hr />
       <c:if test="${param.mode == 'remove'}">
-          <html:submit>
+          <html:submit styleClass="btn btn-default">
               <bean:message key="scheduleremote.jsp.schedulepackageremoval"/>
           </html:submit>
       </c:if>
       <c:if test="${param.mode == 'upgrade'}">
-          <html:submit>
+          <html:submit styleClass="btn btn-default">
               <bean:message key="scheduleremote.jsp.schedulepackageupgrade"/>
           </html:submit>
       </c:if>
       <c:if test="${param.mode == 'install'}">
-          <html:submit>
+          <html:submit styleClass="btn btn-default">
               <bean:message key="scheduleremote.jsp.schedulepackageinstall"/>
           </html:submit>
       </c:if>

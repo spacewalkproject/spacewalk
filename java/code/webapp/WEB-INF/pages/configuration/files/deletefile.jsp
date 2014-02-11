@@ -33,7 +33,7 @@
 	</table>
 	<hr />
 	<div class="text-right">
-	  <html:submit><bean:message key="deletefile.jsp.submit" /></html:submit>
+	  <html:submit styleClass="btn btn-default"><bean:message key="deletefile.jsp.submit" /></html:submit>
 	</div>
 </html:form>
 

@@ -39,7 +39,7 @@
       <div class="submit-bar">
 	    <hr />
 		<div class="text-right">
-          <html:submit><bean:message key="filedetails.jsp.update" /></html:submit>
+          <html:submit styleClass="btn btn-default"><bean:message key="filedetails.jsp.update" /></html:submit>
 		</div>
       </div>
 	</rhn:require>

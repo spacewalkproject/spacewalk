@@ -116,7 +116,7 @@
 	  </p>
 <div class="text-right">
 <hr />
-<input type="submit" name="dispatch" value="${rhn:localize('kickstart.schedule.button2.jsp')}"/>
+<input class="btn btn-default" type="submit" name="dispatch" value="${rhn:localize('kickstart.schedule.button2.jsp')}"/>
 </div>
 
 <rhn:submitted/>

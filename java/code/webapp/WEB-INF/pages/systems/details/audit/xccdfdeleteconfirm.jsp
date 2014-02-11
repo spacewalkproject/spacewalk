@@ -36,7 +36,7 @@
 	</rl:list>
 
 	<p align="right">
-		<input type="submit" name="dispatch"  value="<bean:message key='confirm.jsp.confirm'/>">
+		<input class="btn btn-default" type="submit" name="dispatch"  value="<bean:message key='confirm.jsp.confirm'/>">
 	</p>
 </rl:listset>
 

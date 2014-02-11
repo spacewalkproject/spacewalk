@@ -107,7 +107,7 @@
         </c:if>
       </c:if>
       <div class="form-group">
-              <html:submit property="dispatch" styleClass="form-horizontal pull-right">
+              <html:submit property="dispatch" styleClass="btn btn-default form-horizontal pull-right">
                   <bean:message key="sdc.channels.edit.update_sub"/>
               </html:submit>
       </div>

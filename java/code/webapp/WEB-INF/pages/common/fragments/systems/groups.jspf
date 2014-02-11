@@ -62,7 +62,8 @@
 <div class="text-right">
    <rhn:submitted/>
    <hr/>
-    <input type="submit"
+    <input class="btn btn-default" 
+        type="submit"
     	name ="dispatch"
 	    value='<bean:message key="${param.action_key}"/>'/>
 </div>

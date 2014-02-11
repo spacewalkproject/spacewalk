@@ -47,7 +47,7 @@
         </tr>
         <tr>
           <td></td>
-          <td align="right"><html:submit><bean:message key="method-form.jspf.savemethod"/></html:submit></td>
+          <td align="right"><html:submit styleClass="btn btn-default"><bean:message key="method-form.jspf.savemethod"/></html:submit></td>
         </tr>
     </tr>
     </table>

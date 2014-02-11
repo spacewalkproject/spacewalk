@@ -24,7 +24,7 @@
   </div>
   <rhn:submitted />
   <div class="text-right">
-    <html:submit property="dispatch">
+    <html:submit styleClass="btn btn-success" property="dispatch">
       <bean:message key="ssm.misc.reboot.confirm" />
     </html:submit>
   </div>

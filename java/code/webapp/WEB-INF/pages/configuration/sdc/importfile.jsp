@@ -67,7 +67,7 @@
   </rhn:list>
   <div class="text-right">
       <hr />
-      <html:submit property="dispatch">
+      <html:submit styleClass="btn btn-default" property="dispatch">
           <bean:message key="sdcimportfile.jsp.button"/>
       </html:submit>
   </div>

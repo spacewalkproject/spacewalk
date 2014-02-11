@@ -48,7 +48,7 @@
 		<rhn:submitted/>
 
 		  	<p align="right">
-				<input type="submit" name="dispatch"  value="<bean:message key='ssmchildsubs.jsp.subscribe'/>" </input>
+				<input class="btn btn-default" type="submit" name="dispatch"  value="<bean:message key='ssmchildsubs.jsp.subscribe'/>" </input>
 			</p>
 
 

@@ -34,7 +34,7 @@
 
   <div align="right">
     <hr />
-    <input class="btn btn-default" type="submit" name="sscd_change_sys_prefs_conf" value="Confirm" />
+    <input class="btn btn-success" type="submit" name="sscd_change_sys_prefs_conf" value="Confirm" />
     <input type="hidden" name="pxt:trap" value="rhn:server_prefs_form_cb" />
   </div>
 

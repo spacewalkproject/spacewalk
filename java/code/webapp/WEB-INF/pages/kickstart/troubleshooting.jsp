@@ -57,7 +57,7 @@
         </tr>
 
         <tr>
-          <td align="right" colspan="2"><html:submit><bean:message key="kickstart.troubleshooting.jsp.updatekickstart"/></html:submit></td>
+          <td align="right" colspan="2"><html:submit styleClass="btn btn-default"><bean:message key="kickstart.troubleshooting.jsp.updatekickstart"/></html:submit></td>
         </tr>
       </table>
     <html:hidden property="ksid" value="${ksdata.id}"/>

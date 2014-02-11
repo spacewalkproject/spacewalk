@@ -70,7 +70,8 @@
     <div class="text-right">
         <rhn:submitted/>
         <hr/>
-        <input type="submit"
+        <input class="btn btn-success"
+               type="submit"
                name="dispatch"
                value='<bean:message key="ssm.package.upgrade.select.confirm"/>'/>
     </div>

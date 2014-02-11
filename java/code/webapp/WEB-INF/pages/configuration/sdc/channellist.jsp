@@ -56,7 +56,7 @@
     </rhn:listdisplay>
      <div class="text-right">
          <hr />
-         <html:submit property="dispatch">
+         <html:submit styleClass="btn btn-default" property="dispatch">
          <bean:message key="sdc.configlist.jsp.unsubscribe"/>
          </html:submit>
      </div>

@@ -15,7 +15,7 @@
   		</table>
   		<div class="text-right">
     		<hr />
-    		<html:submit property="dispatch">
+    		<html:submit styleClass="btn btn-default" property="dispatch">
         		<bean:message key="manage.jsp.uploadbutton"/>
     		</html:submit>
   		</div>

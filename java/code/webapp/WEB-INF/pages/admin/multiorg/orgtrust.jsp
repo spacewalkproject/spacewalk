@@ -54,7 +54,7 @@
    <hr/>
    <div class="text-right">
      <rhn:submitted/>
-     <input type="submit" name ="confirm" value="${rhn:localize('org.trust.modify')}" />
+     <input class="btn btn-default" type="submit" name ="confirm" value="${rhn:localize('org.trust.modify')}" />
    </div>
 </rl:listset>
 </body>

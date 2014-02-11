@@ -23,7 +23,7 @@
             <%@ include file="/WEB-INF/pages/common/fragments/systems/system_listdisplay.jspf" %>
             <hr />
             <div class="text-right">
-                <html:submit property="dispatch">
+                <html:submit styleClass="btn btn-default" property="dispatch">
                     <bean:message key="ssm.misc.reboot.operationname" />
                 </html:submit>
             </div>
