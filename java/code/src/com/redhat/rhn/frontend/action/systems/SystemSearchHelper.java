@@ -101,6 +101,48 @@ public class SystemSearchHelper {
 
     protected SystemSearchHelper() { }
 
+    public static final String[] OPT_GROUPS_TITLES = {"systemsearch.jsp.details",
+        "systemsearch.jsp.activity",
+        "systemsearch.jsp.hardware",
+        "systemsearch.jsp.devices",
+        "systemsearch.jsp.dmiinfo",
+        "systemsearch.jsp.networkinfo",
+        "systemsearch.jsp.packages",
+        "systemsearch.jsp.location"};
+
+    public static final String[][] OPT_GROUPS = {
+                    /* details */
+                    { SystemSearchHelper.NAME_AND_DESCRIPTION, SystemSearchHelper.ID,
+                                    SystemSearchHelper.CUSTOM_INFO,
+                                    SystemSearchHelper.SNAPSHOT_TAG,
+                                    SystemSearchHelper.RUNNING_KERNEL,
+                                    SystemSearchHelper.UUID },
+                    /* activity group */
+                    { SystemSearchHelper.CHECKIN, SystemSearchHelper.REGISTERED },
+                    /* hardware group */
+                    { SystemSearchHelper.CPU_MODEL, SystemSearchHelper.CPU_MHZ_LT,
+                                    SystemSearchHelper.CPU_MHZ_GT,
+                                    SystemSearchHelper.NUM_CPUS_LT,
+                                    SystemSearchHelper.NUM_CPUS_GT,
+                                    SystemSearchHelper.RAM_LT, SystemSearchHelper.RAM_GT },
+                    /* device group */
+                    { SystemSearchHelper.HW_DESCRIPTION, SystemSearchHelper.HW_DRIVER,
+                                    SystemSearchHelper.HW_DEVICE_ID,
+                                    SystemSearchHelper.HW_VENDOR_ID },
+                    /* dmiinfo */
+                    { SystemSearchHelper.DMI_SYSTEM, SystemSearchHelper.DMI_BIOS,
+                                    SystemSearchHelper.DMI_ASSET },
+                    /* network info */
+                    { SystemSearchHelper.HOSTNAME, SystemSearchHelper.IP,
+                                    SystemSearchHelper.IP6 },
+                    /* packages */
+                    { SystemSearchHelper.INSTALLED_PACKAGES,
+                                    SystemSearchHelper.NEEDED_PACKAGES },
+                    /* location */
+                    { SystemSearchHelper.LOC_ADDRESS, SystemSearchHelper.LOC_BUILDING,
+                                    SystemSearchHelper.LOC_ROOM,
+                                    SystemSearchHelper.LOC_RACK } };
+
     /**
      * Returns a DataResult of SystemSearchResults which are based on the user's search
      * criteria

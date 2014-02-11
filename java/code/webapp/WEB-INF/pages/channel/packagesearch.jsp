@@ -112,7 +112,6 @@
                     </label>
                 </div>
             </div>
-            <input type="hidden" name="submitted" value="true" />
         </html:form>
 
         <c:if test="${search_string != null && search_string != ''}">
@@ -151,14 +150,13 @@
                         name="searchResults"
                         exportColumns="packageName,summary"/>
                 <!-- there are two forms here, need to keep the formvars around for pagination -->
-                <input type="hidden" name="submitted" value="true" />
                 <html:hidden property="search_string" name="search_string" value="${search_string}" />
-                <input type="hidden" name="view_mode" value="${view_mode}" />
-                <input type="hidden" name="whereCriteria" value="${whereCriteria}" />
-                <input type="hidden" name="channel_filter" value="${channel_filter}" />
-                <input type="hidden" name="fineGrained" value="${fineGrained}" />
+                <html:hidden property="view_mode" value="${view_mode}" />
+                <html:hidden property="whereCriteria" value="${whereCriteria}" />
+                <html:hidden property="channel_filter" value="${channel_filter}" />
+                <html:hidden property="fineGrained" value="${fineGrained}" />
                 <c:forEach items="${requestScope.channel_arch}" var="item">
-                    <input type="hidden" name="channel_arch" value="${item}" />
+                    <html:hidden property="channel_arch" value="${item}" />
                 </c:forEach>
             </rl:listset>
         </c:if>

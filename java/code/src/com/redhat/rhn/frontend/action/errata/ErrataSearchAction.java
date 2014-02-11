@@ -14,168 +14,68 @@
  */
 package com.redhat.rhn.frontend.action.errata;
 
-import com.redhat.rhn.common.conf.ConfigDefaults;
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.util.DatePicker;
-import com.redhat.rhn.common.validator.ValidatorException;
-import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.frontend.action.common.DateRangePicker;
-import com.redhat.rhn.frontend.action.common.DateRangePicker.DatePickerResults;
-import com.redhat.rhn.frontend.dto.ErrataOverview;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
-import com.redhat.rhn.manager.errata.ErrataManager;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-import org.apache.struts.action.DynaActionForm;
-
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessages;
+import org.apache.struts.action.DynaActionForm;
 
 import redstone.xmlrpc.XmlRpcClient;
-import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcFault;
+
+import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.util.DatePicker;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.frontend.action.BaseSearchAction;
+import com.redhat.rhn.frontend.action.common.DateRangePicker;
+import com.redhat.rhn.frontend.action.common.DateRangePicker.DatePickerResults;
+import com.redhat.rhn.frontend.dto.ErrataOverview;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.manager.errata.ErrataManager;
 
 /**
  * SearchAction
  * @version $Rev$
  */
-public class ErrataSearchAction extends RhnAction {
+public class ErrataSearchAction extends BaseSearchAction {
 
-    private static Logger log = Logger.getLogger(ErrataSearchAction.class);
-    private static final String OPT_ADVISORY = "errata_search_by_advisory";
-    private static final String OPT_PKG_NAME = "errata_search_by_package_name";
-    private static final String OPT_CVE = "errata_search_by_cve";
-    private static final String OPT_ALL_FIELDS = "errata_search_by_all_fields";
-    public static final String FINE_GRAINED = "fineGrained";
-
-    /** {@inheritDoc} */
-    public ActionForward execute(ActionMapping mapping,
-                                 ActionForm formIn,
-                                 HttpServletRequest request,
-                                 HttpServletResponse response) {
-        ActionErrors errors = new ActionErrors();
-        DynaActionForm form = (DynaActionForm)formIn;
-        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-        Map forwardParams = makeParamMap(request);
-        String searchString = request.getParameter("search_string");
-        String viewMode = form.getString("view_mode");
-
-        try {
-            // handle setup, the submission setups the searchstring below
-            // and redirects to this page which then performs the search.
-            if (!isSubmitted(form)) {
-                setupForm(request, form);
-                return getStrutsDelegate().forwardParams(
-                        mapping.findForward(RhnHelper.DEFAULT_FORWARD),
-                        request.getParameterMap());
-            }
-        }
-        catch (XmlRpcException xre) {
-            log.error("Could not connect to search server.", xre);
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("packages.search.connection_error"));
-        }
-        catch (XmlRpcFault e) {
-            log.info("Caught Exception :" + e);
-            log.info("ErrorCode = " + e.getErrorCode());
-            e.printStackTrace();
-            if (e.getErrorCode() == 100) {
-                log.error("Invalid search query", e);
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                        new ActionMessage("packages.search.could_not_parse_query",
-                                          searchString));
-            }
-            else if (e.getErrorCode() == 200) {
-                log.error("Index files appear to be missing: ", e);
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                        new ActionMessage("packages.search.index_files_missing",
-                                          searchString));
-            }
-            else {
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("packages.search.could_not_execute_query",
-                                      searchString));
-            }
-        }
-        catch (MalformedURLException e) {
-            log.error("Could not connect to server.", e);
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("packages.search.connection_error"));
-        }
-        catch (ValidatorException ve) {
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("packages.search.use_free_form"));
-        }
-
-        // keep all params except submitted, in order for the new list
-        // tag pagination to work we need to pass along all the formvars it
-        // generated.
-        Enumeration paramNames = request.getParameterNames();
-        while (paramNames.hasMoreElements()) {
-            String name = (String) paramNames.nextElement();
-            if (!SUBMITTED.equals(name)) {
-                forwardParams.put(name, request.getParameter(name));
-            }
-        }
-
-        forwardParams.put("search_string", searchString);
-        forwardParams.put("view_mode", viewMode);
-        forwardParams.put(FINE_GRAINED, request.getParameter(FINE_GRAINED));
-
-        if (!errors.isEmpty()) {
-            addErrors(request, errors);
-            return getStrutsDelegate().forwardParams(
-                    mapping.findForward(RhnHelper.DEFAULT_FORWARD),
-                    forwardParams);
-        }
-
-        return getStrutsDelegate().forwardParams(
-                mapping.findForward("success"),
-                forwardParams);
-    }
-
-    private void setupForm(HttpServletRequest request, DynaActionForm form)
+    protected ActionForward doExecute(HttpServletRequest request, ActionMapping mapping,
+                    DynaActionForm form)
         throws MalformedURLException, XmlRpcFault {
         RequestContext ctx = new RequestContext(request);
 
-        String search = request.getParameter("search_string");
-        String viewmode = request.getParameter("view_mode");
-        String fineGrained = request.getParameter(FINE_GRAINED);
+        String search = form.getString(SEARCH_STR);
+
+        String viewmode = form.getString(VIEW_MODE);
+        Boolean fineGrained = (Boolean)form.get(FINE_GRAINED);
 
         List searchOptions = new ArrayList();
         // setup the option list for select box (view_mode).
-        addOption(searchOptions, "errata_search_by_all_fields", OPT_ALL_FIELDS);
-        addOption(searchOptions, "errata_search_by_advisory", OPT_ADVISORY);
-        addOption(searchOptions, "errata_search_by_package_name", OPT_PKG_NAME);
-        addOption(searchOptions, "errata_search_by_cve", OPT_CVE);
+        addOption(searchOptions, OPT_ALL_FIELDS, OPT_ALL_FIELDS);
+        addOption(searchOptions, OPT_ADVISORY, OPT_ADVISORY);
+        addOption(searchOptions, OPT_PKG_NAME, OPT_PKG_NAME);
+        addOption(searchOptions, OPT_CVE, OPT_CVE);
 
-        request.setAttribute("search_string", search);
-        request.setAttribute("view_mode", viewmode);
-        request.setAttribute("searchOptions", searchOptions);
+        request.setAttribute(SEARCH_STR, search);
+        request.setAttribute(VIEW_MODE, viewmode);
+        request.setAttribute(SEARCH_OPT, searchOptions);
         request.setAttribute(FINE_GRAINED, fineGrained);
 
         // Process the dates, default the start date to yesterday
@@ -218,7 +118,6 @@ public class ErrataSearchAction extends RhnAction {
             List results = performSearch(request, ctx.getWebSession().getId(),
                     search, viewmode, form);
 
-            log.warn("GET search: " + results);
             request.setAttribute(RequestContext.PAGE_LIST,
                     results != null ? results : Collections.EMPTY_LIST);
         }
@@ -231,43 +130,63 @@ public class ErrataSearchAction extends RhnAction {
                 log.debug("End Start Date = " + dates.getEnd().getDate());
             }
             request.setAttribute(RequestContext.PAGE_LIST, Collections.EMPTY_LIST);
-            Map paramMap = request.getParameterMap();
-            if (!paramMap.containsKey("optionIssueDateSearch")) {
-                form.set("optionIssueDateSearch", Boolean.FALSE);
-            }
-            if (!paramMap.containsKey("errata_type_bug")) {
-                form.set("errata_type_bug", Boolean.TRUE);
-            }
-            if (!paramMap.containsKey("errata_type_security")) {
-                form.set("errata_type_security", Boolean.TRUE);
-            }
-            if (!paramMap.containsKey("errata_type_enhancement")) {
-                form.set("errata_type_enhancement", Boolean.TRUE);
-            }
+
         }
         ActionMessages dateErrors = dates.getErrors();
         addErrors(request, dateErrors);
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     /**
-     * Utility function to create options for the dropdown.
-     * @param options list containing all options.
-     * @param key resource bundle key used as the display value.
-     * @param value value to be submitted with form.
+     * Make sure we have appropriate defaults no matter how we got here
+     * Set the defaults (where needed) back into the form so that the rest of the action
+     * can find them
+     * @param form where we expect values to be
      */
-    private void addOption(List options, String key, String value) {
-        LocalizationService ls = LocalizationService.getInstance();
-        Map selection = new HashMap();
-        selection.put("display", ls.getMessage(key));
-        selection.put("value", value);
-        options.add(selection);
+    protected void insureFormDefaults(HttpServletRequest request, DynaActionForm form) {
+        String viewmode = form.getString(VIEW_MODE);
+        if (viewmode.equals("")) { //first time viewing page
+            form.set(VIEW_MODE, "errata_search_by_all_fields");
+        }
+
+        Boolean fineGrained = (Boolean)form.get(FINE_GRAINED);
+        if (fineGrained == null) {
+            fineGrained = false;
+            form.set(FINE_GRAINED, fineGrained);
+        }
+
+        Boolean issueDateSrch = (Boolean)form.get(OPT_ISSUE_DATE);
+        if (issueDateSrch == null) {
+            form.set(OPT_ISSUE_DATE, Boolean.FALSE);
+        }
+
+        Boolean eTypeBug =
+            (form.get(ERRATA_BUG) == null ? Boolean.FALSE : (Boolean)form.get(ERRATA_BUG));
+        Boolean eTypeSec =
+            (form.get(ERRATA_SEC) == null ? Boolean.FALSE : (Boolean)form.get(ERRATA_SEC));
+        Boolean eTypeEnh =
+            (form.get(ERRATA_ENH) == null ? Boolean.FALSE : (Boolean)form.get(ERRATA_ENH));
+
+        // If no errata-type is set, set them all
+        if (!(eTypeBug || eTypeSec || eTypeEnh)) {
+            form.set(ERRATA_BUG, Boolean.TRUE);
+            form.set(ERRATA_SEC, Boolean.TRUE);
+            form.set(ERRATA_ENH, Boolean.TRUE);
+        }
+
+        Map m = form.getMap();
+        Set<String> keys = (Set<String>)m.keySet();
+        for (String key : keys) {
+            Object vObj = m.get(key);
+            request.setAttribute(key, vObj);
+        }
     }
 
-    private List performSearch(HttpServletRequest request, Long sessionId,
+    protected List performSearch(HttpServletRequest request, Long sessionId,
             String searchString, String mode, DynaActionForm formIn)
         throws XmlRpcFault, MalformedURLException {
 
-        log.info("Performing errata search");
+        log.debug("Performing errata search");
         RequestContext ctx = new RequestContext(request);
         Org org = ctx.getCurrentUser().getOrg();
         // call search server
@@ -323,10 +242,7 @@ public class ErrataSearchAction extends RhnAction {
             path = "db.search";
         }
         else {
-            Boolean fineGrained = (Boolean) formIn.get("fineGrained");
-            if (fineGrained == null) {
-                fineGrained = false;
-            }
+            Boolean fineGrained = (Boolean) formIn.get(FINE_GRAINED);
             args.add(fineGrained);
             // Tells search server to use the lucene index
             path = "index.search";
@@ -341,7 +257,7 @@ public class ErrataSearchAction extends RhnAction {
         }
 
         if (results.isEmpty()) {
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
 
         // need to make the search server results usable by database
@@ -475,15 +391,15 @@ public class ErrataSearchAction extends RhnAction {
             DynaActionForm formIn) {
         if (log.isDebugEnabled()) {
             log.debug("Filtering " + unfiltered.size() + " records based on Advisory type");
-            log.debug("BugFixes = " + formIn.get("errata_type_bug"));
-            log.debug("Security = " + formIn.get("errata_type_security"));
-            log.debug("Enhancement = " + formIn.get("errata_type_enhancement"));
+            log.debug("BugFixes = " + formIn.get(ERRATA_BUG));
+            log.debug("Security = " + formIn.get(ERRATA_SEC));
+            log.debug("Enhancement = " + formIn.get(ERRATA_ENH));
         }
         List<ErrataOverview> filteredByType = new ArrayList<ErrataOverview>();
         for (ErrataOverview eo : unfiltered) {
             Boolean type = null;
             if (eo.isBugFix()) {
-                type = (Boolean)formIn.get("errata_type_bug");
+                type = (Boolean)formIn.get(ERRATA_BUG);
                 if (type != null) {
                     if (type) {
                             filteredByType.add(eo);
@@ -491,7 +407,7 @@ public class ErrataSearchAction extends RhnAction {
                 }
             }
             if (eo.isSecurityAdvisory()) {
-                type = (Boolean)formIn.get("errata_type_security");
+                type = (Boolean)formIn.get(ERRATA_SEC);
                 if (type != null) {
                     if (type) {
                         filteredByType.add(eo);
@@ -499,7 +415,7 @@ public class ErrataSearchAction extends RhnAction {
                 }
             }
             if (eo.isProductEnhancement()) {
-                type = (Boolean)formIn.get("errata_type_enhancement");
+                type = (Boolean)formIn.get(ERRATA_ENH);
                 if (type != null) {
                     if (type) {
                         filteredByType.add(eo);
@@ -509,8 +425,6 @@ public class ErrataSearchAction extends RhnAction {
         }
         return filteredByType;
     }
-
-
 
     private List<ErrataOverview> fleshOutErrataOverview(List<Long> idsIn, Org org) {
         // Chunk the work to avoid issue with Oracle not liking
@@ -540,8 +454,6 @@ public class ErrataSearchAction extends RhnAction {
         return unsorted;
     }
 
-
-
     private String getDateString(Date date) {
         Calendar cal = Calendar.getInstance(TimeZone.getDefault());
         cal.setTime(date);
@@ -553,7 +465,7 @@ public class ErrataSearchAction extends RhnAction {
         return currentTime;
     }
 
-    private String preprocessSearchString(String searchstring, String mode) {
+    protected String preprocessSearchString(String searchstring, String mode) {
 
         StringBuffer buf = new StringBuffer(searchstring.length());
         String[] tokens = searchstring.split(" ");
@@ -613,12 +525,23 @@ public class ErrataSearchAction extends RhnAction {
     }
 
     private Boolean getOptionIssueDateSearch(HttpServletRequest request) {
-        String strDateSearch = request.getParameter("optionIssueDateSearch");
-        if ("on".equals(strDateSearch)) {
-            return true;
+        Object dateSrch = request.getAttribute(OPT_ISSUE_DATE);
+        if (dateSrch == null) {
+            return false;
         }
-        return false;
-    }
 
+        if (dateSrch instanceof Boolean) {
+            return (Boolean) dateSrch;
+        }
+        else if (dateSrch instanceof String) {
+            if ("on".equals(dateSrch)) {
+                return true;
+            }
+            return false;
+        }
+        else {
+            return false;
+        }
+    }
 
 }

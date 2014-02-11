@@ -150,7 +150,7 @@
          </table>
        </div> <!-- search choices group -->
    </div> <!-- search choices -->
-   <input type="hidden" name="submitted" value="true" />
+   <html:hidden property="submitted" value="true" />
   </html:form>
 
   <c:if test="${(search_string != null && search_string != '') || param.optionIssueDateSearch != null }">
@@ -194,14 +194,14 @@
         <c:when test="${view_mode == 'errata_search_by_advisory'}">
           <%--
               If this is a errata_search_by_advisory, we display the synopsis
-	          column, but call it Errata Advisory
-	      --%>
-	      <rl:column bound="false" sortable="true" sortattr="advisorySynopsis"
-	           headerkey="erratasearch.jsp.errata_advisory">
+              column, but call it Errata Advisory
+          --%>
+          <rl:column bound="false" sortable="true" sortattr="advisorySynopsis"
+               headerkey="erratasearch.jsp.errata_advisory">
             <rhn:highlight tag="strong" text="${search_string}">
               ${current.advisorySynopsis}
             </rhn:highlight>
-	      </rl:column>
+          </rl:column>
         </c:when>
         <c:when test="${view_mode == 'errata_search_by_package_name'}">
           <%--
@@ -256,27 +256,26 @@
             name="searchResults"
             exportColumns="advisoryType,advisoryName,advisorySynopsis,issueDate"/>
 
-    <!-- there are two forms here, need to keep the formvars around for pagination -->
-    <input type="hidden" name="submitted" value="true" />
-    <html:hidden property="search_string" name="search_string" value="${search_string}" />
-    <input type="hidden" name="view_mode" value="${view_mode}" />
-    <input type="hidden" name="errata_type_bug" value="<%= request.getParameter("errata_type_bug") %>" />
-    <input type="hidden" name="errata_type_security" value="<%= request.getParameter("errata_type_security") %>" />
-    <input type="hidden" name="errata_type_enhancement" value="<%= request.getParameter("errata_type_enhancement") %>" />
-    <input type="hidden" name="optionIssueDateSearch" value="<%= request.getParameter("optionIssueDateSearch") %>" />
-    <input type="hidden" name="start_year"  value="<%= request.getParameter("start_year") %>" />
-    <input type="hidden" name="start_month" value="<%= request.getParameter("start_month") %>" />
-    <input type="hidden" name="start_day"   value="<%= request.getParameter("start_day") %>" />
-    <input type="hidden" name="start_hour"  value="<%= request.getParameter("start_hour") %>" />
-    <input type="hidden" name="start_minute" value="<%= request.getParameter("start_minute") %>" />
-    <input type="hidden" name="start_am_pm" value="<%= request.getParameter("start_am_pm") %>" />
-    <input type="hidden" name="end_year" value="<%= request.getParameter("end_year") %>" />
-    <input type="hidden" name="end_month" value="<%= request.getParameter("end_month") %>" />
-    <input type="hidden" name="end_day" value="<%= request.getParameter("end_day") %>" />
-    <input type="hidden" name="end_hour" value="<%= request.getParameter("end_hour") %>" />
-    <input type="hidden" name="end_minute" value="<%= request.getParameter("end_minute") %>" />
-    <input type="hidden" name="end_am_pm" value="<%= request.getParameter("end_am_pm") %>" />
-    <input type="hidden" name="fineGrained" value="${fineGrained}" />
+    <!-- there are two forms here, need to keep the formvars around for pagination-->
+    <html:hidden property="search_string" value="${search_string}" />
+    <html:hidden property="view_mode" value="${view_mode}" />
+    <html:hidden property="errata_type_bug" value="${errata_type_bug}" />
+    <html:hidden property="errata_type_security" value="${errata_type_security}" />
+    <html:hidden property="errata_type_enhancement" value="${errata_type_enhancement}" />
+    <html:hidden property="optionIssueDateSearch" value="${optionIssueDateSearch}" />
+    <html:hidden property="start_year"  value="${start_year}" />
+    <html:hidden property="start_month" value="${start_month}" />
+    <html:hidden property="start_day"   value="${start_day}" />
+    <html:hidden property="start_hour"  value="${start_hour}" />
+    <html:hidden property="start_minute" value="${start_minute}" />
+    <html:hidden property="start_am_pm" value="${start_am_pm}" />
+    <html:hidden property="end_year" value="${end_year}" />
+    <html:hidden property="end_month" value="${end_month}" />
+    <html:hidden property="end_day" value="${end_day}" />
+    <html:hidden property="end_hour" value="${end_hour}" />
+    <html:hidden property="end_minute" value="${end_minute}" />
+    <html:hidden property="end_am_pm" value="${end_am_pm}" />
+    <html:hidden property="fineGrained" value="${fineGrained}" />
 
   </rl:listset>
 

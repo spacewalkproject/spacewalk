@@ -42,7 +42,9 @@
         </li>
       </ul>
 
-      <form name="form1" class="form-inline hidden-xs" role="form" action="/rhn/Search.do" method="get">
+      <form name="form1" class="form-inline hidden-xs" role="form" action="/rhn/Search.do">
+        <rhn:csrf />
+        <rhn:submitted />
         <div class="form-group">
           <select name="search_type" class="form-control input-sm">
             <rhn:require acl="org_entitlement(sw_mgr_enterprise)">
@@ -57,7 +59,6 @@
           <input type="search" class="form-control input-sm" name="search_string" maxlength="40" size="20" accesskey="4" autofocus="autofocus" placeholder="<bean:message key='button.search'/>" />
         </div>
         <div class="form-group">
-          <input type="hidden" name="submitted" value="true" />
           <button type="submit" class="btn btn-info input-sm" id="search-btn">
             <rhn:icon type="header-search" />
           </button>

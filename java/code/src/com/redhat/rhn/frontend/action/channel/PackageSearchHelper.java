@@ -14,14 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.channel;
 
-import com.redhat.rhn.common.conf.ConfigDefaults;
-import com.redhat.rhn.common.validator.ValidatorException;
-import com.redhat.rhn.frontend.dto.PackageOverview;
-import com.redhat.rhn.frontend.xmlrpc.SearchServerIndexException;
-import com.redhat.rhn.manager.channel.ChannelManager;
-
-import org.apache.log4j.Logger;
-
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,8 +24,17 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import redstone.xmlrpc.XmlRpcClient;
 import redstone.xmlrpc.XmlRpcFault;
+
+import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.frontend.action.BaseSearchAction;
+import com.redhat.rhn.frontend.dto.PackageOverview;
+import com.redhat.rhn.frontend.xmlrpc.SearchServerIndexException;
+import com.redhat.rhn.manager.channel.ChannelManager;
 
 /**
  * PackageSearchHelper
@@ -41,11 +42,6 @@ import redstone.xmlrpc.XmlRpcFault;
  */
 public class PackageSearchHelper {
     private static Logger log = Logger.getLogger(PackageSearchHelper.class);
-
-    public static final String OPT_FREE_FORM = "search_free_form";
-    public static final String OPT_NAME_AND_DESC = "search_name_and_description";
-    public static final String OPT_NAME_AND_SUMMARY = "search_name_and_summary";
-    public static final String OPT_NAME_ONLY = "search_name";
 
     private PackageSearchHelper() {
     }
@@ -92,7 +88,7 @@ public class PackageSearchHelper {
         }
 
         if (results.isEmpty()) {
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
 
         // need to make the search server results usable by database
@@ -169,7 +165,7 @@ public class PackageSearchHelper {
                                           String mode,
                                           List<String> arches) {
 
-        if (!OPT_FREE_FORM.equals(mode) && searchstring.indexOf(':') > 0) {
+        if (!BaseSearchAction.OPT_FREE_FORM.equals(mode) && searchstring.indexOf(':') > 0) {
             throw new ValidatorException("Can't use free form and field search.");
         }
 
@@ -199,15 +195,15 @@ public class PackageSearchHelper {
         String query = buf.toString().trim();
         // when searching the name field, we also want to include the filename
         // field in case the user passed in version number.
-        if (OPT_NAME_AND_SUMMARY.equals(mode)) {
+        if (BaseSearchAction.OPT_NAME_AND_SUMMARY.equals(mode)) {
             return "(name:(" + query + ")^2 summary:(" + query +
                    ") filename:(" + query + "))" + archBuf.toString();
         }
-        else if (OPT_NAME_AND_DESC.equals(mode)) {
+        else if (BaseSearchAction.OPT_NAME_AND_DESC.equals(mode)) {
             return "(name:(" + query + ")^2 description:(" + query +
                    ") filename:(" + query + "))" + archBuf.toString();
         }
-        else if (OPT_NAME_ONLY.equals(mode)) {
+        else if (BaseSearchAction.OPT_NAME_ONLY.equals(mode)) {
             return "(name:(" + query + ")^2 filename:(" + query + "))" +
                    archBuf.toString();
         }

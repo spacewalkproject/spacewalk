@@ -112,7 +112,7 @@
                             </td>
                         </tr>
                     </table>
-                    <input type="hidden" name="submitted" value="true"/>
+                    <html:hidden property="submitted" value="true"/>
                 </html:form>
             </div>
         </div>
@@ -140,24 +140,24 @@
                 </c:choose>
 
                 <!-- there are two forms here, need to keep the formvars around for pagination -->
-                <input type="hidden" name="submitted" value="true"/>
-                <input type="hidden" name="search_string" value="${search_string}"/>
-                <input type="hidden" name="whereToSearch" value="${param.whereToSearch}"/>
-                <input type="hidden" name="show_as" value="${param.show_as}"/>
-                <input type="hidden" name="result_filter" value="${param.result_filter}"/>
-                <input type="hidden" name="optionScanDateSearch" value="${param.optionScanDateSearch}"/>
-                <input type="hidden" name="start_year" value="${param.start_year}"/>
-                <input type="hidden" name="start_month" value="${param.start_month}"/>
-                <input type="hidden" name="start_day" value="${param.start_day}"/>
-                <input type="hidden" name="start_hour" value="${param.start_hour}"/>
-                <input type="hidden" name="start_minute" value="${param.start_minute}"/>
-                <input type="hidden" name="start_am_pm" value="${param.start_am_pm}"/>
-                <input type="hidden" name="end_year" value="${param.end_year}"/>
-                <input type="hidden" name="end_month" value="${param.end_month}"/>
-                <input type="hidden" name="end_day" value="${param.end_day}"/>
-                <input type="hidden" name="end_hour" value="${param.end_hour}"/>
-                <input type="hidden" name="end_minute" value="${param.end_minute}"/>
-                <input type="hidden" name="end_am_pm" value="${param.end_am_pm}"/>
+                <html:hidden property="submitted" value="true"/>
+                <html:hidden property="search_string" value="${search_string}"/>
+                <html:hidden property="whereToSearch" value="${param.whereToSearch}"/>
+                <html:hidden property="show_as" value="${param.show_as}"/>
+                <html:hidden property="result_filter" value="${param.result_filter}"/>
+                <html:hidden property="optionScanDateSearch" value="${param.optionScanDateSearch}"/>
+                <html:hidden property="start_year" value="${param.start_year}"/>
+                <html:hidden property="start_month" value="${param.start_month}"/>
+                <html:hidden property="start_day" value="${param.start_day}"/>
+                <html:hidden property="start_hour" value="${param.start_hour}"/>
+                <html:hidden property="start_minute" value="${param.start_minute}"/>
+                <html:hidden property="start_am_pm" value="${param.start_am_pm}"/>
+                <html:hidden property="end_year" value="${param.end_year}"/>
+                <html:hidden property="end_month" value="${param.end_month}"/>
+                <html:hidden property="end_day" value="${param.end_day}"/>
+                <html:hidden property="end_hour" value="${param.end_hour}"/>
+                <html:hidden property="end_minute" value="${param.end_minute}"/>
+                <html:hidden property="end_am_pm" value="${param.end_am_pm}"/>
             </rl:listset>
         </c:if>
     </body>

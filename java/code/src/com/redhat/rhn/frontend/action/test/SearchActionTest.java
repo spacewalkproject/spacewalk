@@ -36,15 +36,15 @@ public class SearchActionTest extends RhnMockStrutsTestCase {
         addRequestParameter("search_string", "test search");
         addRequestParameter("search_type", "systems");
         actionPerform();
-        assertTrue(getMockResponse().getStatusCode() == 302);
+        verifyForward("systems");
     }
 
     public void testErrataRedirect() throws Exception {
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         addRequestParameter("search_string", "test search");
-        addRequestParameter("search_type", "packages");
+        addRequestParameter("search_type", "errata");
         actionPerform();
-        assertTrue(getMockResponse().getStatusCode() == 302);
+        verifyForward("errata");
     }
 
     public void testPackageRedirect() throws Exception {
@@ -52,7 +52,15 @@ public class SearchActionTest extends RhnMockStrutsTestCase {
         addRequestParameter("search_string", "test search");
         addRequestParameter("search_type", "packages");
         actionPerform();
-        assertTrue(getMockResponse().getStatusCode() == 302);
+        verifyForward("packages");
+    }
+
+    public void testDocRedirect() throws Exception {
+        addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
+        addRequestParameter("search_string", "test search");
+        addRequestParameter("search_type", "docs");
+        actionPerform();
+        verifyForward("docs");
     }
 
     public void testFaultySubmit() throws Exception {

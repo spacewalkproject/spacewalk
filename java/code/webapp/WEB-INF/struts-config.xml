@@ -210,15 +210,14 @@
             <form-property name="filter_value" type="java.lang.String"/>
             <form-property name="prev_filter_value" type="java.lang.String"/>
         </form-bean>
-        <form-bean name="auditSearchForm"
+        <form-bean name="combinedSearchForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="machine" type="java.lang.String" />
-            <form-property name="startMilli" type="java.lang.Long" />
-            <form-property name="endMilli" type="java.lang.Long" />
-            <form-property name="autypes" type="java.lang.String[]" />
-            <form-property name="seqno" type="java.lang.Long" />
-            <form-property name="unreviewable" type="java.lang.Boolean" />
-            <form-property name="parseDates" type="java.lang.Boolean" />
+            <form-property name="no_scrub" type="java.lang.String" initial="search_string"/>
+            <!--  Multiple users -->
+            <form-property name="search_string" type="java.lang.String"/>
+            <form-property name="submitted" type="java.lang.Boolean" />
+            <form-property name="view_mode" type="java.lang.String" />
+            <form-property name="fineGrained" type="java.lang.Boolean" />
             <form-property name="start_year" type="java.lang.Integer" />
             <form-property name="start_month" type="java.lang.Integer" />
             <form-property name="start_day" type="java.lang.Integer" />
@@ -231,56 +230,42 @@
             <form-property name="end_hour" type="java.lang.Integer" />
             <form-property name="end_minute" type="java.lang.Integer" />
             <form-property name="end_am_pm" type="java.lang.Integer" />
-        </form-bean>
-        <form-bean name="xccdfSearchForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="search_string" type="java.lang.String"/>
-            <form-property name="whereToSearch" type="java.lang.String"/>
-            <form-property name="submitted" type="java.lang.Boolean" />
+            <form-property name="whereToSearch" type="java.lang.String" />
+            <!--  Base search form -->
+            <form-property name="search_type" type="java.lang.String" />
+            <!-- Audit -->
+            <form-property name="machine" type="java.lang.String" />
+            <form-property name="startMilli" type="java.lang.Long" />
+            <form-property name="endMilli" type="java.lang.Long" />
+            <form-property name="autypes" type="java.lang.String[]" />
+            <form-property name="seqno" type="java.lang.Long" />
+            <form-property name="unreviewable" type="java.lang.Boolean" />
+            <form-property name="parseDates" type="java.lang.Boolean" />
+            <!-- XCCDF -->
             <form-property name="result_filter" type="java.lang.String"/>
             <form-property name="show_as" type="java.lang.String"/>
             <form-property name="optionScanDateSearch" type="java.lang.Boolean" />
-            <form-property name="start_year" type="java.lang.Integer"/>
-            <form-property name="start_month" type="java.lang.Integer"/>
-            <form-property name="start_day" type="java.lang.Integer"/>
-            <form-property name="start_hour" type="java.lang.Integer"/>
-            <form-property name="start_minute" type="java.lang.Integer"/>
-            <form-property name="start_am_pm" type="java.lang.Integer"/>
-            <form-property name="end_year" type="java.lang.Integer"/>
-            <form-property name="end_month" type="java.lang.Integer"/>
-            <form-property name="end_day" type="java.lang.Integer"/>
-            <form-property name="end_hour" type="java.lang.Integer"/>
-            <form-property name="end_minute" type="java.lang.Integer"/>
-            <form-property name="end_am_pm" type="java.lang.Integer"/>
-        </form-bean>
-        <form-bean name="xccdfDiff"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="first" type="java.lang.Long"/>
-            <form-property name="second" type="java.lang.Long"/>
-        </form-bean>
-        <form-bean name="errataSearchForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="search_string" type="java.lang.String"/>
-            <form-property name="view_mode" type="java.lang.String"/>
-            <form-property name="submitted" type="java.lang.Boolean" />
+            <!--  Errata -->
             <form-property name="errata_type_bug" type="java.lang.Boolean" />
             <form-property name="errata_type_security" type="java.lang.Boolean" />
             <form-property name="errata_type_enhancement" type="java.lang.Boolean"/>
             <form-property name="optionIssueDateSearch" type="java.lang.Boolean" />
-            <form-property name="start_year"  type="java.lang.Integer"/>
-            <form-property name="start_month" type="java.lang.Integer"/>
-            <form-property name="start_day"   type="java.lang.Integer"/>
-            <form-property name="start_hour"  type="java.lang.Integer"/>
-            <form-property name="start_minute"  type="java.lang.Integer"/>
-            <form-property name="start_am_pm" type="java.lang.Integer"/>
-            <form-property name="end_year"    type="java.lang.Integer"/>
-            <form-property name="end_month"   type="java.lang.Integer"/>
-            <form-property name="end_day"     type="java.lang.Integer"/>
-            <form-property name="end_hour"    type="java.lang.Integer"/>
-            <form-property name="end_minute"  type="java.lang.Integer"/>
-            <form-property name="end_am_pm"   type="java.lang.Integer"/>
-            <form-property name="fineGrained" type="java.lang.Boolean"/>
+            <!--  Package -->
+            <form-property name="channel_arch" type="java.lang.String[]"/>
+            <form-property name="channel_filter" type="java.lang.String"/>
+            <form-property name="filter_value" type="java.lang.String"/>
+            <form-property name="prev_filter_value" type="java.lang.String"/>
+            <form-property name="relevant" type="java.lang.String" />
+            <form-property name="whereCriteria" type="java.lang.String" />
+            <!--  System -->
+            <form-property name="invert" type="java.lang.Boolean" />
+            <!--  Docs -->
+        </form-bean>
 
+        <form-bean name="xccdfDiff"
+                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+            <form-property name="first" type="java.lang.Long"/>
+            <form-property name="second" type="java.lang.Long"/>
         </form-bean>
         <form-bean name="errataCreateForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
@@ -332,44 +317,6 @@
         <form-bean name="extGroupDeleteForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="submitted" type="java.lang.Boolean"/>
-        </form-bean>
-        <form-bean name="packageSearchForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="search_string" type="java.lang.String"/>
-            <form-property name="view_mode" type="java.lang.String"/>
-            <form-property name="channel_arch" type="java.lang.String[]"/>
-            <form-property name="channel_filter" type="java.lang.String"/>
-            <form-property name="filter_value" type="java.lang.String"/>
-            <form-property name="prev_filter_value" type="java.lang.String"/>
-            <form-property name="relevant" type="java.lang.String" />
-            <form-property name="fineGrained" type="java.lang.Boolean" />
-            <form-property name="submitted" type="java.lang.Boolean" />
-        </form-bean>
-
-        <form-bean     name="systemSearchForm"
-                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-        <form-property name="search_string" type="java.lang.String" />
-        <form-property name="view_mode" type="java.lang.String" />
-        <form-property name="whereToSearch" type="java.lang.String" />
-        <form-property name="invert" type="java.lang.Boolean" />
-        <form-property name="fineGrained" type="java.lang.Boolean" />
-        <form-property name="submitted" type="java.lang.Boolean" />
-        <form-property name="no_scrub" type="java.lang.String"
-                        initial="search_string"/>
-        </form-bean>
-
-        <form-bean  name="docsSearchForm"
-                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-        <form-property name="search_string" type="java.lang.String" />
-        <form-property name="view_mode" type="java.lang.String" />
-        <form-property name="submitted" type="java.lang.Boolean" />
-        </form-bean>
-
-        <form-bean name="searchForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-        <form-property name="search_type" type="java.lang.String" />
-        <form-property name="search_string" type="java.lang.String" />
-        <form-property name="submitted" type="java.lang.Boolean" />
         </form-bean>
 
         <form-bean name="probeDetailsForm"
@@ -734,8 +681,8 @@
             <form-property name="submitted"  type="java.lang.Boolean"/>
             <form-property name="no_scrub" type="java.lang.String" initial="contents"/>
         </form-bean>
-        
-        
+
+
     <form-bean name="kickstartScriptOrderForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="preScripts" type="java.util.ArrayList"/>
@@ -1490,16 +1437,16 @@
     </action>
 
     <action path="/Search"
-        name="searchForm"
+        name="combinedSearchForm"
         scope="request"
         type="com.redhat.rhn.frontend.action.SearchAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <forward name="default" path="/YourRhn.do" />
+      <forward name="default" path="/YourRhn.do"/>
       <forward name="error" path="/YourRhn.do" />
-      <forward name="systems" path="/systems/Search.do" />
-      <forward name="errata"  path="/errata/Search.do" />
-      <forward name="packages" path="/channels/software/Search.do" />
-      <forward name="docs" path="/help/Search.do" />
+      <forward name="systems" path="/systems/Search.do" redirect="true" />
+      <forward name="errata"  path="/errata/Search.do" redirect="true" />
+      <forward name="packages" path="/channels/software/Search.do" redirect="true" />
+      <forward name="docs" path="/help/Search.do" redirect="true" />
     </action>
 
 
@@ -2075,7 +2022,7 @@
 
     <!-- ===== AUDIT ===== -->
     <action path="/audit/Search"
-        name="auditSearchForm"
+        name="combinedSearchForm"
         scope="request"
         input="/WEB-INF/pages/audit/auditsearch.jsp"
         type="com.redhat.rhn.frontend.action.audit.AuditSearchAction"
@@ -2107,12 +2054,11 @@
     </action>
 
     <action path="/audit/scap/Search"
-        name="xccdfSearchForm"
+        name="combinedSearchForm"
         scope="request"
         input="/WEB-INF/pages/audit/scap/xccdfsearch.jsp"
         type="com.redhat.rhn.frontend.action.audit.scap.XccdfSearchAction">
         <forward name="default" path="/WEB-INF/pages/audit/scap/xccdfsearch.jsp"/>
-        <forward name="success" path="/audit/scap/Search.do" redirect="true" />
     </action>
 
     <action path="/audit/scap/Diff"
@@ -2134,13 +2080,12 @@
 
     <!-- ===== ERRATA ===== -->
     <action path="/errata/Search"
-            name="errataSearchForm"
+            name="combinedSearchForm"
             scope="request"
             input="/WEB-INF/pages/errata/erratasearch.jsp"
             type="com.redhat.rhn.frontend.action.errata.ErrataSearchAction"
             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <forward name="default" path="/WEB-INF/pages/errata/erratasearch.jsp"/>
-      <forward name="success" path="/errata/Search.do" redirect="true" />
     </action>
 
     <action path="/errata/AllErrata"
@@ -2739,13 +2684,11 @@
 
     <action path="/channels/software/Search"
         scope="request"
-        name="packageSearchForm"
+        name="combinedSearchForm"
         input="/WEB-INF/pages/channel/packagesearch.jsp"
         type="com.redhat.rhn.frontend.action.channel.PackageSearchAction">
         <forward name="default"
                  path="/WEB-INF/pages/channel/packagesearch.jsp"/>
-        <forward name="success"
-                 path="/channels/software/Search.do" redirect="true"/>
     </action>
 
     <action path="/software/packages/NameOverview"
@@ -3065,18 +3008,17 @@
 
 
     <action path="/systems/Search"
-        name="systemSearchForm"
+        name="combinedSearchForm"
         scope="request"
         input="/WEB-INF/pages/systems/systemsearch.jsp"
-        type="com.redhat.rhn.frontend.action.systems.SystemSearchSetupAction"
+        type="com.redhat.rhn.frontend.action.systems.SystemSearchAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="org_entitlement(sw_mgr_enterprise)"/>
         <forward name="default"
                  path="/WEB-INF/pages/systems/systemsearch.jsp"/>
-        <forward name="success"
-                 path="/systems/Search.do" redirect="true"/>
-        <forward name="error"
-                   path="/WEB-INF/pages/systems/systemsearch.jsp"/>
+        <forward name="single"
+                 path="/systems/details/Overview.do"
+                 redirect="true" />
     </action>
 
     <action path="/systems/WorkWithGroup"
@@ -8316,14 +8258,12 @@
 
     <action path="/help/Search"
         scope="request"
-        name="docsSearchForm"
+        name="combinedSearchForm"
         input="/WEB-INF/pages/help/docsearch.jsp"
         type="com.redhat.rhn.frontend.action.help.DocSearchSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <forward name="default"
-                 path="/WEB-INF/pages/help/docsearch.jsp"/>
-        <forward name="success"
-                 path="/help/Search.do" redirect="true"/>
+        <forward name="default" path="/WEB-INF/pages/help/docsearch.jsp" />
+        <forward name="success" path="/help/Search.do" redirect="true"/>
     </action>
 
       <action path="/help/Chat"

@@ -14,12 +14,25 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.packages.search;
 
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
+import redstone.xmlrpc.XmlRpcFault;
+
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.session.WebSession;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.TokenPackage;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.BaseSearchAction;
 import com.redhat.rhn.frontend.action.channel.PackageSearchHelper;
 import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.frontend.dto.PackageOverview;
@@ -31,18 +44,6 @@ import com.redhat.rhn.frontend.xmlrpc.SearchServerQueryException;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.session.SessionManager;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import redstone.xmlrpc.XmlRpcFault;
 
 
 /**
@@ -75,7 +76,7 @@ public class PackagesSearchHandler extends BaseHandler {
      *  */
     public List<PackageOverview> name(String sessionKey, String name)
         throws FaultException {
-        return performSearch(sessionKey, name, PackageSearchHelper.OPT_NAME_ONLY);
+        return performSearch(sessionKey, name, BaseSearchAction.OPT_NAME_ONLY);
     }
 
     /**
@@ -98,7 +99,7 @@ public class PackagesSearchHandler extends BaseHandler {
      *  */
     public List<PackageOverview> nameAndDescription(String sessionKey, String query)
         throws FaultException {
-        return performSearch(sessionKey, query, PackageSearchHelper.OPT_NAME_AND_DESC);
+        return performSearch(sessionKey, query, BaseSearchAction.OPT_NAME_AND_DESC);
     }
 
     /**
@@ -121,7 +122,7 @@ public class PackagesSearchHandler extends BaseHandler {
      *  */
     public List<PackageOverview> nameAndSummary(String sessionKey, String query)
         throws FaultException {
-        return performSearch(sessionKey, query, PackageSearchHelper.OPT_NAME_AND_SUMMARY);
+        return performSearch(sessionKey, query, BaseSearchAction.OPT_NAME_AND_SUMMARY);
     }
     /**
      * Advanced method to search lucene indexes with a passed in query written in Lucene
@@ -156,7 +157,7 @@ public class PackagesSearchHandler extends BaseHandler {
     public List<PackageOverview> advanced(String sessionKey, String luceneQuery)
         throws FaultException {
 
-        return performSearch(sessionKey, luceneQuery, PackageSearchHelper.OPT_FREE_FORM);
+        return performSearch(sessionKey, luceneQuery, BaseSearchAction.OPT_FREE_FORM);
     }
 
 
@@ -202,7 +203,7 @@ public class PackagesSearchHandler extends BaseHandler {
             throw new InvalidChannelLabelException();
         }
         List<PackageOverview> pkgs = performSearch(sessionKey, luceneQuery,
-                PackageSearchHelper.OPT_FREE_FORM);
+                        BaseSearchAction.OPT_FREE_FORM);
         WebSession session = SessionManager.loadSession(sessionKey);
         User user = session.getUser();
         Channel channel = ChannelManager.lookupByLabelAndUser(channelLabel, user);
@@ -266,7 +267,7 @@ public class PackagesSearchHandler extends BaseHandler {
             throw new MethodInvalidParamException();
         }
         List<PackageOverview> pkgs = performSearch(sessionKey, luceneQuery,
-                PackageSearchHelper.OPT_FREE_FORM);
+                        BaseSearchAction.OPT_FREE_FORM);
         WebSession session = SessionManager.loadSession(sessionKey);
         User user = session.getUser();
         // Lookup what packages are in the activation key and filter

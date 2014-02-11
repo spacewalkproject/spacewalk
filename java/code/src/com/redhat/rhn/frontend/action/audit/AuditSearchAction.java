@@ -14,14 +14,19 @@
  */
 package com.redhat.rhn.frontend.action.audit;
 
-import com.redhat.rhn.common.util.DatePicker;
-import com.redhat.rhn.frontend.action.common.DateRangePicker;
-import com.redhat.rhn.frontend.dto.AuditReviewDto;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
-import com.redhat.rhn.manager.audit.AuditManager;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
@@ -32,20 +37,14 @@ import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 import org.stringtree.json.JSONWriter;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import com.redhat.rhn.common.util.DatePicker;
+import com.redhat.rhn.frontend.action.common.DateRangePicker;
+import com.redhat.rhn.frontend.dto.AuditReviewDto;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
+import com.redhat.rhn.manager.audit.AuditManager;
 
 /**
  * AuditSearchAction
@@ -165,15 +164,13 @@ public class AuditSearchAction extends RhnAction {
         Boolean parseDates, submitted, unrev;
         DateRangePicker.DatePickerResults dpresults;
         DynaActionForm dform = (DynaActionForm)form;
-        Enumeration paramNames;
         HttpSession session = request.getSession(true);
         JSONWriter jsonwr = new JSONWriter();
         List result = null;
         Long start, end, seqno, cacheSeqno;
-        Map forwardParams = makeParamMap(request);
         Map<String, String[]> typemap;
         RequestContext requestContext = new RequestContext(request);
-        String machine, str;
+        String machine;
         String[] autypes;
 
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
@@ -208,7 +205,7 @@ public class AuditSearchAction extends RhnAction {
             unrev = true;
             request.setAttribute("unreviewable", "true");
         }
-        else if (!submitted && request.getParameter("machine") != null) {
+        else if (!submitted && request.getAttribute("machine") != null) {
             log.debug("auto-submit!");
             // this is a click-through from the review list.
             // we skip the search dialog and return the default selection
@@ -277,14 +274,6 @@ public class AuditSearchAction extends RhnAction {
         // add any accumulated messages to be displayed
         addMessages(request, amsgs);
 
-        // set up parameters to forward
-        paramNames = request.getParameterNames();
-
-        while (paramNames.hasMoreElements()) {
-            str = (String) paramNames.nextElement();
-            forwardParams.put(str, request.getParameter(str));
-        }
-
         // either the search had no results, so we go back to the search form,
         // or this is what they asked for
         if (result == null) {
@@ -300,14 +289,10 @@ public class AuditSearchAction extends RhnAction {
                 request.setAttribute("endDisp", ">>");
             }
 
-            return getStrutsDelegate().forwardParams(
-                    mapping.findForward(RhnHelper.DEFAULT_FORWARD),
-                    forwardParams);
+            return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
 
-        return getStrutsDelegate().forwardParams(
-                mapping.findForward("view"),
-                forwardParams);
+        return mapping.findForward("view");
     }
 }
 

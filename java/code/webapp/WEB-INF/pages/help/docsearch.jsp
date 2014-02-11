@@ -61,7 +61,7 @@
       </div>
     </div>
 
-    <input type="hidden" name="submitted" value="true" />
+    <html:hidden property="submitted" value="true" />
   </html:form>
 
   <c:if test="${search_string != null && search_string != ''}">
@@ -75,11 +75,11 @@
              emptykey="docsearch.jsp.nopages" width="100%">
       <rl:decorator name="PageSizeDecorator"/>
       <rl:column bound="false" sortable="false" headerkey="docsearch.jsp.pagetitle">
-	 <a href="${current.url}">
-	     <rhn:highlight tag="strong" text="${search_string}">
-	         ${current.title}
-	     </rhn:highlight>
-	</a>
+     <a href="${current.url}">
+         <rhn:highlight tag="strong" text="${search_string}">
+             ${current.title}
+         </rhn:highlight>
+    </a>
       </rl:column>
       <rl:column bound="false" sortable="false" headerkey="docsearch.jsp.summary">
      <a href="${current.url}">
@@ -91,10 +91,10 @@
     </rl:list>
 
     <!-- there are two forms here, need to keep the formvars around for pagination -->
-    <input type="hidden" name="submitted" value="true" />
+    <html:hidden property="submitted" value="true" />
     <html:hidden property="search_string" name="search_string" value="${search_string}" />
-    <input type="hidden" name="view_mode" value="${view_mode}" />
-    <input type="hidden" name="relevant" value="${relevant}" />
+    <html:hidden property="view_mode" value="${view_mode}" />
+    <html:hidden property="relevant" value="${relevant}" />
 
   </rl:listset>
 

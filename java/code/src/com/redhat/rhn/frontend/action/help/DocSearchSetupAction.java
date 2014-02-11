@@ -14,158 +14,58 @@
  */
 package com.redhat.rhn.frontend.action.help;
 
-import com.redhat.rhn.common.conf.ConfigDefaults;
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.validator.ValidatorException;
-import com.redhat.rhn.common.validator.ValidatorWarning;
-import com.redhat.rhn.frontend.context.Context;
-import com.redhat.rhn.frontend.dto.HelpDocumentOverview;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-import org.apache.struts.action.DynaActionForm;
-
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.DynaActionForm;
 
 import redstone.xmlrpc.XmlRpcClient;
-import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcFault;
+
+import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.common.validator.ValidatorWarning;
+import com.redhat.rhn.frontend.action.BaseSearchAction;
+import com.redhat.rhn.frontend.context.Context;
+import com.redhat.rhn.frontend.dto.HelpDocumentOverview;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 
 /**
  * DocSearchSetupAction
  * @version $Rev$
  */
-public class DocSearchSetupAction extends RhnAction {
+public class DocSearchSetupAction extends BaseSearchAction {
     private static Logger log = Logger.getLogger(DocSearchSetupAction.class);
 
-    private static final String OPT_FREE_FORM = "search_free_form";
-    private static final String OPT_CONTENT_ONLY = "search_content";
-    private static final String OPT_TITLE_ONLY = "search_title";
-    private static final String OPT_CONTENT_TITLE = "search_content_title";
-
-    /** {@inheritDoc} */
-    @Override
-    public ActionForward execute(ActionMapping mapping, ActionForm formIn,
-            HttpServletRequest request, HttpServletResponse response) {
-
-        ActionErrors errors = new ActionErrors();
-        DynaActionForm form = (DynaActionForm)formIn;
-        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-        Map forwardParams = makeParamMap(request);
-        String searchString = request.getParameter("search_string");
-        String viewMode = form.getString("view_mode");
-
-        try {
-            // handle setup, the submission setups the searchstring below
-            // and redirects to this page which then performs the search.
-            if (!isSubmitted(form)) {
-                setupForm(request, form);
-                return getStrutsDelegate().forwardParams(
-                        mapping.findForward(RhnHelper.DEFAULT_FORWARD),
-                        request.getParameterMap());
-            }
-        }
-        catch (XmlRpcException xre) {
-            log.error("Could not connect to search server.", xre);
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("packages.search.connection_error"));
-        }
-        catch (XmlRpcFault e) {
-            log.info("Caught Exception :" + e);
-            log.info("ErrorCode = " + e.getErrorCode());
-            e.printStackTrace();
-            if (e.getErrorCode() == 100) {
-                log.error("Invalid search query", e);
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                        new ActionMessage("packages.search.could_not_parse_query",
-                                          searchString));
-            }
-            else if (e.getErrorCode() == 200) {
-                log.error("Index files appear to be missing: ", e);
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                        new ActionMessage("packages.search.index_files_missing",
-                                          searchString));
-            }
-            else {
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("packages.search.could_not_execute_query",
-                                      searchString));
-            }
-        }
-        catch (MalformedURLException e) {
-            log.error("Could not connect to server.", e);
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("packages.search.connection_error"));
-        }
-        catch (ValidatorException ve) {
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("packages.search.use_free_form"));
-        }
-
-        // keep all params except submitted, in order for the new list
-        // tag pagination to work we need to pass along all the formvars it
-        // generated.
-        Enumeration paramNames = request.getParameterNames();
-        while (paramNames.hasMoreElements()) {
-            String name = (String) paramNames.nextElement();
-            if (!SUBMITTED.equals(name)) {
-                forwardParams.put(name, request.getParameter(name));
-            }
-        }
-
-        forwardParams.put("search_string", searchString);
-        forwardParams.put("view_mode", viewMode);
-
-        if (!errors.isEmpty()) {
-            addErrors(request, errors);
-            return getStrutsDelegate().forwardParams(
-                    mapping.findForward(RhnHelper.DEFAULT_FORWARD),
-                    forwardParams);
-        }
-
-        return getStrutsDelegate().forwardParams(
-                mapping.findForward("success"),
-                forwardParams);
-    }
-
-    private void setupForm(HttpServletRequest request, DynaActionForm form)
+    protected ActionForward doExecute(HttpServletRequest request, ActionMapping mapping,
+                    DynaActionForm form)
         throws MalformedURLException, XmlRpcFault {
 
         RequestContext ctx = new RequestContext(request);
-        String searchString = form.getString("search_string");
-        String viewmode = form.getString("view_mode");
+        String searchString = form.getString(SEARCH_STR);
+        String viewmode = form.getString(VIEW_MODE);
 
-        List searchOptions = new ArrayList();
-
+        List<Map<String, String>> searchOptions = new ArrayList<Map<String, String>>();
         addOption(searchOptions, "docsearch.content_title", OPT_CONTENT_TITLE);
         addOption(searchOptions, "docsearch.free_form", OPT_FREE_FORM);
         addOption(searchOptions, "docsearch.content", OPT_CONTENT_ONLY);
         addOption(searchOptions, "docsearch.title", OPT_TITLE_ONLY);
 
-        request.setAttribute("search_string", searchString);
-        request.setAttribute("view_mode", viewmode);
-        request.setAttribute("searchOptions", searchOptions);
+        request.setAttribute(SEARCH_STR, searchString);
+        request.setAttribute(VIEW_MODE, viewmode);
+        request.setAttribute(SEARCH_OPT, searchOptions);
 
 
         if (!StringUtils.isBlank(searchString)) {
@@ -174,10 +74,16 @@ public class DocSearchSetupAction extends RhnAction {
                                          viewmode, request);
             log.debug("GET search: " + results);
             request.setAttribute(RequestContext.PAGE_LIST,
-                    results != null ? results : Collections.EMPTY_LIST);
+                    results != null ? results : Collections.emptyList());
         }
         else {
-            request.setAttribute(RequestContext.PAGE_LIST, Collections.EMPTY_LIST);
+            request.setAttribute(RequestContext.PAGE_LIST, Collections.emptyList());
+        }
+        if (isSubmitted(form)) {
+            return mapping.findForward("success");
+        }
+        else {
+            return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
     }
 
@@ -208,7 +114,7 @@ public class DocSearchSetupAction extends RhnAction {
             searchFreeForm = true;
         }
         args.add(searchFreeForm);
-        List results = Collections.EMPTY_LIST;
+        List results = Collections.emptyList();
         try {
             results = (List)client.invoke("index.search", args);
         }
@@ -237,7 +143,7 @@ public class DocSearchSetupAction extends RhnAction {
         }
 
         if (results.isEmpty()) {
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
 
         List<HelpDocumentOverview> docs = new ArrayList<HelpDocumentOverview>();
@@ -290,28 +196,15 @@ public class DocSearchSetupAction extends RhnAction {
            return "(content:(" + query + ") title:(" + query + "))";
        }
 
-
         // OPT_FREE_FORM send as is.
         return buf.toString();
     }
 
-    private void addOption(List options, String key, String value) {
-        addOption(options, key, value, false);
+    @Override
+    protected void insureFormDefaults(HttpServletRequest request, DynaActionForm form) {
+        String searchString = request.getParameter(SEARCH_STR);
+        String viewmode = request.getParameter(VIEW_MODE);
+
     }
 
-    /**
-     * Utility function to create options for the dropdown.
-     * @param options list containing all options.
-     * @param key resource bundle key used as the display value.
-     * @param value value to be submitted with form.
-     * @param flag Flag the item with an asterisk (*) indicating it is *not*
-     * synch'd
-     */
-    private void addOption(List options, String key, String value, boolean flag) {
-        LocalizationService ls = LocalizationService.getInstance();
-        Map selection = new HashMap();
-        selection.put("display", (flag ? "*" : "") + ls.getMessage(key));
-        selection.put("value", value);
-        options.add(selection);
-    }
 }

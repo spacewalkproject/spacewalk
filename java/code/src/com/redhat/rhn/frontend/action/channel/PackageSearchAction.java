@@ -15,173 +15,58 @@
 
 package com.redhat.rhn.frontend.action.channel;
 
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.validator.ValidatorException;
-import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.channel.ChannelArch;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.dto.PackageDto;
-import com.redhat.rhn.frontend.dto.PackageOverview;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
-import com.redhat.rhn.frontend.xmlrpc.SearchServerIndexException;
-import com.redhat.rhn.manager.channel.ChannelManager;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-import org.apache.struts.action.DynaActionForm;
-
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import redstone.xmlrpc.XmlRpcException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.DynaActionForm;
+
 import redstone.xmlrpc.XmlRpcFault;
+
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelArch;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.BaseSearchAction;
+import com.redhat.rhn.frontend.dto.PackageDto;
+import com.redhat.rhn.frontend.dto.PackageOverview;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.xmlrpc.SearchServerIndexException;
+import com.redhat.rhn.manager.channel.ChannelManager;
 
 /**
  * PackageSearchAction
  * @version $Rev$
  */
-public class PackageSearchAction extends RhnAction {
-    private static Logger log = Logger.getLogger(PackageSearchAction.class);
-    /** List of channel arches we don't really support any more. */
-    private static final String[] EXCLUDE_ARCH_LABELS = {"channel-sparc",
-                                                         "channel-alpha",
-                                                         "channel-iSeries",
-                                                         "channel-pSeries"};
-    public static final String WHERE_CRITERIA = "whereCriteria";
-    public static final String FINE_GRAINED = "fineGrained";
+public class PackageSearchAction extends BaseSearchAction {
 
-    /** {@inheritDoc} */
-    public ActionForward execute(ActionMapping mapping, ActionForm formIn,
-            HttpServletRequest request, HttpServletResponse response) {
-
-        ActionErrors errors = new ActionErrors();
-        DynaActionForm form = (DynaActionForm)formIn;
-        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-        Map forwardParams = makeParamMap(request);
-        String searchString = request.getParameter("search_string");
-        String viewMode = form.getString("view_mode");
-        String[] channelArches = form.getStrings("channel_arch");
-
-        try {
-            // handle setup, the submission setups the searchstring below
-            // and redirects to this page which then performs the search.
-            if (!isSubmitted(form)) {
-                setupForm(request, form);
-                return getStrutsDelegate().forwardParams(
-                        mapping.findForward(RhnHelper.DEFAULT_FORWARD),
-                        request.getParameterMap());
-            }
-        }
-        catch (XmlRpcException xre) {
-            log.error("Could not connect to search server.", xre);
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("packages.search.connection_error"));
-        }
-        catch (XmlRpcFault e) {
-            log.info("Caught Exception :" + e);
-            log.info("ErrorCode = " + e.getErrorCode());
-            e.printStackTrace();
-            if (e.getErrorCode() == 100) {
-                log.error("Invalid search query", e);
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                        new ActionMessage("packages.search.could_not_parse_query",
-                                          searchString));
-            }
-            else if (e.getErrorCode() == 200) {
-                log.error("Index files appear to be missing: ", e);
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                        new ActionMessage("packages.search.index_files_missing",
-                                          searchString));
-            }
-            else {
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("packages.search.could_not_execute_query",
-                                      searchString));
-            }
-        }
-        catch (MalformedURLException e) {
-            log.error("Could not connect to server.", e);
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("packages.search.connection_error"));
-        }
-        catch (ValidatorException ve) {
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("packages.search.use_free_form"));
-        }
-        catch (SearchServerIndexException se) {
-            log.error("Exception caught: " +  se.getMessage());
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("searchserver.index_out_of_sync_with_db"));
-        }
-
-        // keep all params except submitted, in order for the new list
-        // tag pagination to work we need to pass along all the formvars it
-        // generated.
-        Enumeration paramNames = request.getParameterNames();
-        while (paramNames.hasMoreElements()) {
-            String name = (String) paramNames.nextElement();
-            if (!SUBMITTED.equals(name)) {
-                forwardParams.put(name, request.getParameter(name));
-            }
-        }
-
-        forwardParams.put("search_string", searchString);
-        forwardParams.put("view_mode", viewMode);
-        forwardParams.put("channel_arch", channelArches);
-
-        if (!errors.isEmpty()) {
-            addErrors(request, errors);
-            return getStrutsDelegate().forwardParams(
-                    mapping.findForward(RhnHelper.DEFAULT_FORWARD),
-                    forwardParams);
-        }
-
-        return getStrutsDelegate().forwardParams(
-                mapping.findForward("success"),
-                forwardParams);
-    }
-
-    private void setupForm(HttpServletRequest request, DynaActionForm form)
+    protected ActionForward doExecute(HttpServletRequest request, ActionMapping mapping,
+                    DynaActionForm form)
         throws MalformedURLException, XmlRpcFault, SearchServerIndexException {
 
         RequestContext ctx = new RequestContext(request);
-        String searchString = form.getString("search_string");
-        String viewmode = form.getString("view_mode");
+        String searchString = form.getString(SEARCH_STR);
+        String viewmode = form.getString(VIEW_MODE);
         Boolean fineGrained = (Boolean) form.get(FINE_GRAINED);
-        String searchCriteria = request.getParameter(WHERE_CRITERIA);
+        String searchCriteria = form.getString(WHERE_CRITERIA);
         String[] selectedArches = null;
         Long filterChannelId = null;
         boolean relevantFlag = false;
 
-        // Default to relevant channels if no search criteria was specified
-        if (searchCriteria == null || searchCriteria.equals("")) {
-            searchCriteria = "relevant";
-        }
-
         // Handle the radio button selection for channel filtering
-        if (searchCriteria.equals("relevant")) {
+        if (searchCriteria.equals(RELEVANT)) {
             relevantFlag = true;
         }
-        if (searchCriteria.equals("architecture")) {
+        if (searchCriteria.equals(ARCHITECTURE)) {
             /* The search call will function as being scoped to architectures if the arch
                list isn't null. In order to actually get radio-button-like functionality
                we can't rely on the arch list coming in from the form to be null; the
@@ -189,100 +74,76 @@ public class PackageSearchAction extends RhnAction {
                push off retrieving the arches until we know we want to use them, we can
                get the desired functionality described by the UI.
               */
-            selectedArches = form.getStrings("channel_arch");
+            selectedArches = form.getStrings(CHANNEL_ARCH);
         }
-        else if (searchCriteria.equals("channel")) {
-            String sChannelId = form.getString("channel_filter");
+        else if (searchCriteria.equals(CHANNEL)) {
+            String sChannelId = form.getString(CHANNEL_FILTER);
             filterChannelId = Long.parseLong(sChannelId);
         }
 
-        if (viewmode.equals("")) { //first time viewing page
-            viewmode = PackageSearchHelper.OPT_NAME_AND_SUMMARY;
-        }
-
-        if (fineGrained == null) {
-            fineGrained = false;
-        }
-        if (PackageSearchHelper.OPT_FREE_FORM.equals(viewmode)) {
-            // adding a boolean of true to signify we want the results to be
-            // constrained to closer matches, this will force the Lucene Queries
-            // to use a "MUST" instead of the default "SHOULD".  It will not
-            // allow fuzzy matches as in spelling errors, but it will allow
-            // free form searches to do more advanced options
-            fineGrained = true;
-            form.set(FINE_GRAINED, fineGrained);
-        }
-
-        List searchOptions = new ArrayList();
-        // setup the option list for select box (view_mode).
-        addOption(searchOptions, "packages.search.free_form",
-                PackageSearchHelper.OPT_FREE_FORM);
-        addOption(searchOptions, "packages.search.name",
-                PackageSearchHelper.OPT_NAME_ONLY);
-        addOption(searchOptions, "packages.search.name_and_desc",
-                PackageSearchHelper.OPT_NAME_AND_DESC);
-        addOption(searchOptions, "packages.search.both",
-                PackageSearchHelper.OPT_NAME_AND_SUMMARY);
-
-        List channelArches = new ArrayList();
-        List<ChannelArch> arches = ChannelManager.getChannelArchitectures();
-        List<String> archLabels = ChannelManager.getSyncdChannelArches();
-        for (ChannelArch arch : arches) {
-            boolean exclude = false;
-            for (String s : EXCLUDE_ARCH_LABELS) {
-                if (arch.getLabel().equals(s)) {
-                    exclude = true;
-                    break;
-                }
-            }
-
-            if (!exclude) {
-                // if the label does *NOT* exist, this channel arch has no
-                // channels in the database. So we want to flag it.
-                addOption(channelArches, arch.getName(), arch.getLabel(),
-                        !archLabels.contains(arch.getLabel()));
-            }
-        }
+        List<Map<String, String>> searchOptions = buildSearchOptions();
+        List<Map<String, String>> channelArches = buildChannelArches();
 
         // Load list of available channels to select as filter
-        List allChannels =
-            ChannelManager.allChannelsTree(ctx.getLoggedInUser());
+        List allChannels = ChannelManager.allChannelsTree(ctx.getLoggedInUser());
 
-        request.setAttribute("search_string", searchString);
-        request.setAttribute("view_mode", viewmode);
-        request.setAttribute("searchOptions", searchOptions);
-        request.setAttribute("channelArches", channelArches);
-        request.setAttribute("channel_arch", selectedArches);
-        request.setAttribute("allChannels", allChannels);
-        request.setAttribute("channel_filter", form.getString("channel_filter"));
-        request.setAttribute("relevant", relevantFlag ? "yes" : "no");
-        request.setAttribute(FINE_GRAINED, fineGrained ? "yes" : "no");
+        request.setAttribute(SEARCH_STR, searchString);
+        request.setAttribute(VIEW_MODE, viewmode);
+        request.setAttribute(SEARCH_OPT, searchOptions);
+        request.setAttribute(CHANNEL_ARCHES, channelArches);
+        request.setAttribute(CHANNEL_ARCH, selectedArches);
+        request.setAttribute(ALL_CHANNELS, allChannels);
+        request.setAttribute(CHANNEL_FILTER,
+                        form.getString(CHANNEL_FILTER));
+        request.setAttribute(RELEVANT, relevantFlag ? "yes" : "no");
+        request.setAttribute(FINE_GRAINED, fineGrained);
 
         // Default where to search criteria
-        request.setAttribute("whereCriteria", searchCriteria);
+        request.setAttribute(WHERE_CRITERIA, searchCriteria);
 
         if (!StringUtils.isBlank(searchString)) {
-            List<PackageOverview> results =
-                PackageSearchHelper.performSearch(ctx.getWebSession().getId(),
-                                         searchString,
-                                         viewmode,
-                                         selectedArches, relevantFlag, fineGrained);
-
-            // Perform any post-search logic that wasn't done by the search server
-            results = removeDuplicateNames(results);
-
-            if (filterChannelId != null) {
-                User user = ctx.getLoggedInUser();
-                results = filterByChannel(user, filterChannelId, results);
-            }
-
-            log.warn("GET search: " + results);
+            List<PackageOverview> results = performSearch(ctx, searchString, viewmode,
+                            fineGrained, selectedArches, filterChannelId, relevantFlag);
             request.setAttribute(RequestContext.PAGE_LIST,
-                    results != null ? results : Collections.EMPTY_LIST);
+                    results != null ? results : Collections.emptyList());
         }
         else {
-            request.setAttribute(RequestContext.PAGE_LIST, Collections.EMPTY_LIST);
+            request.setAttribute(RequestContext.PAGE_LIST, Collections.emptyList());
         }
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    }
+
+    /**
+     * Actually do the package-search desired
+     * @param ctx incoming request context
+     * @param searchString string we're going to search on
+     * @param viewmode what kind-of search are we doing?
+     * @param fineGrained exact or fuzzy?
+     * @param selectedArches do we care about specific arches?
+     * @param filterChannelId do we care about a specific channel?
+     * @param relevantFlag do we only care about 'relevant to registered profiles"?
+     * @return list of package-overviews found
+     * @throws XmlRpcFault bad communication with search server
+     * @throws MalformedURLException possibly bad configuration for search server address
+     */
+    public List<PackageOverview> performSearch(RequestContext ctx, String searchString,
+                    String viewmode, Boolean fineGrained, String[] selectedArches,
+                    Long filterChannelId, boolean relevantFlag)
+           throws XmlRpcFault, MalformedURLException {
+        List<PackageOverview> results =
+            PackageSearchHelper.performSearch(ctx.getWebSession().getId(),
+                                     searchString,
+                                     viewmode,
+                                     selectedArches, relevantFlag, fineGrained);
+
+        // Perform any post-search logic that wasn't done by the search server
+        results = removeDuplicateNames(results);
+
+        if (filterChannelId != null) {
+            User user = ctx.getLoggedInUser();
+            results = filterByChannel(user, filterChannelId, results);
+        }
+        return results;
     }
 
     /**
@@ -342,23 +203,71 @@ public class PackageSearchAction extends RhnAction {
         return newResult;
     }
 
-    private void addOption(List options, String key, String value) {
-        addOption(options, key, value, false);
+    /**
+     * Make sure we have appropriate defaults no matter how we got here
+     * Set the defaults (where needed) back into the form so that the rest of the action
+     * can find them
+     * @param form where we expect values to end up
+     */
+    protected void insureFormDefaults(HttpServletRequest request,  DynaActionForm form) {
+        String searchCriteria = form.getString(WHERE_CRITERIA);
+        // Default to relevant channels if no search criteria was specified
+        if (searchCriteria == null || searchCriteria.equals("")) {
+            form.set(WHERE_CRITERIA, RELEVANT);
+        }
+
+        String viewmode = form.getString("view_mode");
+        if (viewmode.equals("")) { //first time viewing page
+            form.set(VIEW_MODE, OPT_NAME_AND_SUMMARY);
+        }
+
+        Boolean fineGrained = (Boolean) form.get(FINE_GRAINED);
+        if (fineGrained == null) {
+            fineGrained = false;
+        }
+        if (OPT_FREE_FORM.equals(viewmode)) {
+            // adding a boolean of true to signify we want the results to be
+            // constrained to closer matches, this will force the Lucene Queries
+            // to use a "MUST" instead of the default "SHOULD".  It will not
+            // allow fuzzy matches as in spelling errors, but it will allow
+            // free form searches to do more advanced options
+            fineGrained = true;
+        }
+        form.set(FINE_GRAINED, fineGrained);
     }
 
     /**
-     * Utility function to create options for the dropdown.
-     * @param options list containing all options.
-     * @param key resource bundle key used as the display value.
-     * @param value value to be submitted with form.
-     * @param flag Flag the item with an asterisk (*) indicating it is *not*
-     * synch'd
+     * Build the channel-arch-pulldown for all arches that are not in the 'excluded' list
+     * @return For each arch, a Map of localized display-name and value
      */
-    private void addOption(List options, String key, String value, boolean flag) {
-        LocalizationService ls = LocalizationService.getInstance();
-        Map selection = new HashMap();
-        selection.put("display", (flag ? "*" : "") + ls.getMessage(key));
-        selection.put("value", value);
-        options.add(selection);
+    private List<Map<String, String>> buildChannelArches() {
+        List<Map<String, String>> channelArches = new ArrayList<Map<String, String>>();
+        List<ChannelArch> arches = ChannelManager.getChannelArchitectures();
+        List<String> syncdLabels = ChannelManager.getSyncdChannelArches();
+        for (ChannelArch arch : arches) {
+            if (!EXCLUDED_ARCHES.contains(arch.getLabel())) {
+                // if the label does *NOT* exist, this channel arch has no
+                // channels in the database. So we want to flag it.
+                addOption(channelArches, arch.getName(), arch.getLabel(),
+                        !syncdLabels.contains(arch.getLabel()));
+            }
+        }
+        return channelArches;
     }
-}
+
+    /**
+     * Builds the package-search-option pulldown
+     * @return For each available option, a Map of localized display-name and value
+     */
+    private List<Map<String, String>> buildSearchOptions() {
+        List<Map<String, String>> searchOptions = new ArrayList<Map<String, String>>();
+        // setup the option list for select box (view_mode).
+        addOption(searchOptions, "packages.search.free_form", OPT_FREE_FORM);
+        addOption(searchOptions, "packages.search.name", OPT_NAME_ONLY);
+        addOption(searchOptions, "packages.search.name_and_desc", OPT_NAME_AND_DESC);
+        addOption(searchOptions, "packages.search.both", OPT_NAME_AND_SUMMARY);
+        return searchOptions;
+    }
+
+
+ }

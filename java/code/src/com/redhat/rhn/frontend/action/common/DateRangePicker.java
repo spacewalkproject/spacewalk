@@ -99,8 +99,11 @@ public class DateRangePicker {
         retval.setEnd(end);
         retval.setErrors(errors);
         if (isSubmitted) {
+            // Make sure we can handle either url-params or form-vars; form wins if both
             start.readMap(req.getParameterMap());
+            start.readMap(form.getMap());
             end.readMap(req.getParameterMap());
+            end.readMap(form.getMap());
             validateDates(errors, start, end);
         }
         else {

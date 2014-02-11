@@ -92,19 +92,19 @@
                     </html:checkbox>
                 </div>
             </div>
-            <input type="hidden" name="submitted" value="true"/>
+            <html:hidden property="submitted" value="true"/>
         </html:form>
 
         <c:if test="${search_string != null && search_string != ''}">
             <hr/>
             <rl:listset name="searchSet">
                 <rhn:csrf />
-                <input type="hidden" name="submitted" value="true"/>
+                <html:hidden property="submitted" value="true"/>
                 <html:hidden property="search_string" name="search_string" value="${search_string}" />
-                <input type="hidden" name="view_mode" value="${view_mode}" />
-                <input type="hidden" name="whereToSearch" value="${whereToSearch}" />
-                <input type="hidden" name="invert" value="${invert}" />
-                <input type="hidden" name="fineGrained" value="${fineGrained}" />
+                <html:hidden property="view_mode" value="${view_mode}" />
+                <html:hidden property="whereToSearch" value="${whereToSearch}" />
+                <html:hidden property="invert" value="${invert}" />
+                <html:hidden property="fineGrained" value="${fineGrained}" />
 
                 <rl:list name="pageList" dataset="searchResults"
                          emptykey="systemsearch.jsp.noresults" width="100%"

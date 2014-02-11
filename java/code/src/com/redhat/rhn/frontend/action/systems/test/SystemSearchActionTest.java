@@ -14,24 +14,24 @@
  */
 package com.redhat.rhn.frontend.action.systems.test;
 
+import org.apache.struts.action.DynaActionForm;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
-import com.redhat.rhn.frontend.action.systems.SystemSearchSetupAction;
+import com.redhat.rhn.frontend.action.BaseSearchAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 
-import org.apache.struts.action.DynaActionForm;
-
 /**
  * SystemSearchActionTest
  * @version $Rev: 1 $
  */
-public class SystemSearchSetupActionTest extends RhnMockStrutsTestCase {
+public class SystemSearchActionTest extends RhnMockStrutsTestCase {
 
     private Server s;
 
@@ -64,18 +64,18 @@ public class SystemSearchSetupActionTest extends RhnMockStrutsTestCase {
         s = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
-        addRequestParameter(SystemSearchSetupAction.SEARCH_STRING, "redhat");
-        addRequestParameter(SystemSearchSetupAction.WHERE_TO_SEARCH, "all");
-        addRequestParameter(SystemSearchSetupAction.VIEW_MODE,
+        addRequestParameter(BaseSearchAction.SEARCH_STR, "redhat");
+        addRequestParameter(BaseSearchAction.WHERE_TO_SEARCH, "all");
+        addRequestParameter(BaseSearchAction.VIEW_MODE,
         "systemsearch_name_and_description");
         actionPerform();
         verifyForward(RhnHelper.DEFAULT_FORWARD);
         DataResult dr = (DataResult) request.getAttribute(RequestContext.PAGE_LIST);
         assertNotNull(dr);
         assertFalse(dr.isEmpty());
-        assertNotNull(request.getAttribute(SystemSearchSetupAction.VIEW_MODE));
-        assertNotNull(request.getAttribute(SystemSearchSetupAction.WHERE_TO_SEARCH));
-        assertNotNull(request.getAttribute(SystemSearchSetupAction.SEARCH_STRING));
+        assertNotNull(request.getAttribute(BaseSearchAction.VIEW_MODE));
+        assertNotNull(request.getAttribute(BaseSearchAction.WHERE_TO_SEARCH));
+        assertNotNull(request.getAttribute(BaseSearchAction.SEARCH_STR));
     }
 
     /**
@@ -92,9 +92,9 @@ public class SystemSearchSetupActionTest extends RhnMockStrutsTestCase {
          * Will be marking this test to be skipped till a suitable test is implemented
          */
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
-        addRequestParameter(SystemSearchSetupAction.SEARCH_STRING, s.getName());
-        addRequestParameter(SystemSearchSetupAction.WHERE_TO_SEARCH, "all");
-        addRequestParameter(SystemSearchSetupAction.VIEW_MODE,
+        addRequestParameter(BaseSearchAction.SEARCH_STR, s.getName());
+        addRequestParameter(BaseSearchAction.WHERE_TO_SEARCH, "all");
+        addRequestParameter(BaseSearchAction.VIEW_MODE,
         "systemsearch_name_and_description");
         actionPerform();
         System.err.println("getMockResponse() = " + getMockResponse());
@@ -116,9 +116,9 @@ public class SystemSearchSetupActionTest extends RhnMockStrutsTestCase {
      */
     public void testQueryWithBadParameter() throws Exception {
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
-        addRequestParameter(SystemSearchSetupAction.SEARCH_STRING, s.getName());
-        addRequestParameter(SystemSearchSetupAction.WHERE_TO_SEARCH, "all");
-        addRequestParameter(SystemSearchSetupAction.VIEW_MODE,
+        addRequestParameter(BaseSearchAction.SEARCH_STR, s.getName());
+        addRequestParameter(BaseSearchAction.WHERE_TO_SEARCH, "all");
+        addRequestParameter(BaseSearchAction.VIEW_MODE,
         "all_your_systems_are_belong_to_us");
         actionPerform();
     }
@@ -126,15 +126,15 @@ public class SystemSearchSetupActionTest extends RhnMockStrutsTestCase {
     public void testNoSubmit() throws Exception {
         actionPerform();
         DynaActionForm formIn = (DynaActionForm) getActionForm();
-        assertNotNull(formIn.get(SystemSearchSetupAction.WHERE_TO_SEARCH));
-        assertNotNull(request.getAttribute(SystemSearchSetupAction.VIEW_MODE));
+        assertNotNull(formIn.get(BaseSearchAction.WHERE_TO_SEARCH));
+        assertNotNull(request.getAttribute(BaseSearchAction.VIEW_MODE));
     }
 
     public void testAlphaSubmitForNumericField() throws Exception {
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
-        addRequestParameter(SystemSearchSetupAction.SEARCH_STRING, "abc");
-        addRequestParameter(SystemSearchSetupAction.WHERE_TO_SEARCH, "all");
-        addRequestParameter(SystemSearchSetupAction.VIEW_MODE,
+        addRequestParameter(BaseSearchAction.SEARCH_STR, "abc");
+        addRequestParameter(BaseSearchAction.WHERE_TO_SEARCH, "all");
+        addRequestParameter(BaseSearchAction.VIEW_MODE,
                             "systemsearch_cpu_mhz_lt");
         actionPerform();
         verifyActionErrors(new String[] { "systemsearch.errors.numeric" });
@@ -142,12 +142,11 @@ public class SystemSearchSetupActionTest extends RhnMockStrutsTestCase {
 
     public void testSmallAlphaSubmitForNumericField() throws Exception {
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
-        addRequestParameter(SystemSearchSetupAction.SEARCH_STRING, "a");
-        addRequestParameter(SystemSearchSetupAction.WHERE_TO_SEARCH, "all");
-        addRequestParameter(SystemSearchSetupAction.VIEW_MODE,
+        addRequestParameter(BaseSearchAction.SEARCH_STR, "a");
+        addRequestParameter(BaseSearchAction.WHERE_TO_SEARCH, "all");
+        addRequestParameter(BaseSearchAction.VIEW_MODE,
                             "systemsearch_cpu_mhz_lt");
         actionPerform();
         verifyActionErrors(new String[] {"systemsearch.errors.numeric"});
     }
 }
-

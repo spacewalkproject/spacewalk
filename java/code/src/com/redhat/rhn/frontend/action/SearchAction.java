@@ -14,30 +14,24 @@
  */
 package com.redhat.rhn.frontend.action;
 
-import com.redhat.rhn.common.util.ServletUtils;
-import com.redhat.rhn.domain.org.OrgFactory;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.channel.PackageSearchAction;
-import com.redhat.rhn.frontend.action.common.BadParameterException;
-import com.redhat.rhn.frontend.action.errata.ErrataSearchAction;
-import com.redhat.rhn.frontend.action.systems.SystemSearchSetupAction;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.struts.RhnHelper;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.redhat.rhn.domain.org.OrgFactory;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.common.BadParameterException;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.struts.StrutsDelegate;
 
 /**
  * SearchAction
@@ -58,83 +52,23 @@ public class SearchAction extends RhnAction {
         DynaActionForm daForm = (DynaActionForm) formIn;
 
         if (isSubmitted(daForm)) {
-            String searchString = daForm.getString("search_string");
+            String searchString = daForm.getString(BaseSearchAction.SEARCH_STR);
             String searchType = daForm.getString("search_type");
 
             if (searchType == null) {
                 return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
             }
-            else if (searchType.equals("systems") &&
-                    (user.getOrg().getEntitlements().contains(
-                            OrgFactory.getEntitlementSwMgrPersonal()) ||
-                    user.getOrg().getEntitlements().contains(
-                            OrgFactory.getEntitlementEnterprise()))) {
-                Map attributes = new HashMap();
-                attributes.put(RhnAction.SUBMITTED, "true");
-                attributes.put(SystemSearchSetupAction.WHERE_TO_SEARCH, "all");
-                attributes.put(SystemSearchSetupAction.VIEW_MODE,
-                               "systemsearch_name_and_description");
-                attributes.put(SystemSearchSetupAction.SEARCH_STRING, searchString);
-                attributes.put(SystemSearchSetupAction.FINE_GRAINED, "on");
-                performRedirect("/systems/Search.do",
-                                request.getContextPath(),
-                                response,
-                                attributes);
-
-                return null;
+            else if (searchType.equals("systems") && systemSearchAllowed(user)) {
+                return doSystemSearch(mapping, request, searchString);
             }
             else if (searchType.equals("errata")) {
-                Map attributes = new HashMap();
-                attributes.put("view_mode", "errata_search_by_all_fields");
-                attributes.put(SystemSearchSetupAction.SEARCH_STRING, searchString);
-                attributes.put("optionIssueDateSearch", Boolean.FALSE);
-                attributes.put("errata_type_bug", Boolean.TRUE);
-                attributes.put("errata_type_security", Boolean.TRUE);
-                attributes.put("errata_type_enhancement", Boolean.TRUE);
-                attributes.put(ErrataSearchAction.FINE_GRAINED, "on");
-                performRedirect("/errata/Search.do",
-                                request.getContextPath(),
-                                response,
-                                attributes);
-
-                return null;
+                return doErrataSearch(mapping, request, searchString);
             }
             else if (searchType.equals("packages")) {
-                Map attributes = new HashMap();
-                attributes.put("view_mode", "search_name_and_summary");
-                attributes.put(SystemSearchSetupAction.SEARCH_STRING, searchString);
-                attributes.put(PackageSearchAction.WHERE_CRITERIA, "architecture");
-
-                // select all the arches to make a better search
-                List<String> defaultArches = new ArrayList<String>();
-                defaultArches.add("channel-ia32");
-                defaultArches.add("channel-ia64");
-                defaultArches.add("channel-x86_64");
-                defaultArches.add("channel-s390");
-                defaultArches.add("channel-s390x");
-                defaultArches.add("channel-ppc");
-                defaultArches.add("channel-sparc-sun-solaris");
-                defaultArches.add("channel-i386-sun-solaris");
-
-                attributes.put("channel_arch", defaultArches);
-                attributes.put(PackageSearchAction.FINE_GRAINED, "on");
-                performRedirect("/channels/software/Search.do",
-                                request.getContextPath(),
-                                response,
-                                attributes);
-
-                return null;
+                return doPackageSearch(mapping, request, searchString);
             }
             else if (searchType.equals("docs")) {
-                Map attributes = new HashMap();
-                attributes.put("view_mode", "search_content_title");
-                attributes.put(SystemSearchSetupAction.SEARCH_STRING, searchString);
-                performRedirect("/help/Search.do",
-                                request.getContextPath(),
-                                response,
-                                attributes);
-
-                return null;
+                return doDocsSearch(mapping, request, searchString);
             }
             else {
                 return mapping.findForward("error");
@@ -143,17 +77,60 @@ public class SearchAction extends RhnAction {
         return mapping.findForward("error");
     }
 
-    protected void performRedirect(String url,
-                                   String contextPath,
-                                   HttpServletResponse response,
-                                   Map attributes) {
-        try {
-            response.sendRedirect(
-                    ServletUtils.pathWithParams(contextPath + url, attributes));
-        }
-        catch (IOException ioe) {
-            throw new RuntimeException(
-                    "Exception while trying to redirect: " + ioe);
-        }
+    private ActionForward doErrataSearch(ActionMapping mapping, HttpServletRequest request,
+                    String searchString) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put(BaseSearchAction.VIEW_MODE, BaseSearchAction.OPT_ALL_FIELDS);
+        params.put(BaseSearchAction.SEARCH_STR, searchString);
+        params.put(BaseSearchAction.OPT_ISSUE_DATE, Boolean.FALSE);
+        params.put(BaseSearchAction.ERRATA_BUG, Boolean.TRUE);
+        params.put(BaseSearchAction.ERRATA_SEC, Boolean.TRUE);
+        params.put(BaseSearchAction.ERRATA_ENH, Boolean.TRUE);
+        params.put(BaseSearchAction.FINE_GRAINED, true);
+        return StrutsDelegate.getInstance().forwardParams(
+                        mapping.findForward("errata"), params);
+    }
+
+    private boolean systemSearchAllowed(User user) {
+        return user.getOrg().getEntitlements().contains(
+                OrgFactory.getEntitlementSwMgrPersonal()) ||
+        user.getOrg().getEntitlements().contains(
+                OrgFactory.getEntitlementEnterprise());
+    }
+
+    private ActionForward doSystemSearch(ActionMapping mapping, HttpServletRequest request,
+                    String searchString) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put(BaseSearchAction.WHERE_TO_SEARCH, BaseSearchAction.WHERE_ALL);
+        params.put(BaseSearchAction.VIEW_MODE,
+                        "systemsearch_name_and_description");
+        params.put(BaseSearchAction.SEARCH_STR, searchString);
+        params.put(BaseSearchAction.FINE_GRAINED, true);
+        return StrutsDelegate.getInstance().forwardParams(
+                        mapping.findForward("systems"), params);
+    }
+
+    private ActionForward doDocsSearch(ActionMapping mapping, HttpServletRequest request,
+                    String searchString) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put(BaseSearchAction.VIEW_MODE, "search_content_title");
+        params.put(BaseSearchAction.SEARCH_STR, searchString);
+        return StrutsDelegate.getInstance().forwardParams(
+                        mapping.findForward("docs"), params);
+    }
+
+    private ActionForward doPackageSearch(ActionMapping mapping,
+                    HttpServletRequest request, String searchString) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put(BaseSearchAction.VIEW_MODE,
+                        BaseSearchAction.OPT_NAME_AND_SUMMARY);
+        params.put(BaseSearchAction.SEARCH_STR, searchString);
+        params.put(BaseSearchAction.WHERE_CRITERIA, "architecture");
+        params.put(BaseSearchAction.CHANNEL_ARCH,
+                        BaseSearchAction.DEFAULT_ARCHES);
+        params.put(BaseSearchAction.FINE_GRAINED, true);
+
+        return StrutsDelegate.getInstance().forwardParams(
+                        mapping.findForward("packages"), params);
     }
 }

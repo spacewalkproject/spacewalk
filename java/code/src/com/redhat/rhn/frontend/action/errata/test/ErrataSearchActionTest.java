@@ -14,22 +14,24 @@
  */
 package com.redhat.rhn.frontend.action.errata.test;
 
-import com.redhat.rhn.domain.errata.Errata;
-import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
-import com.redhat.rhn.frontend.action.errata.ErrataSearchAction;
-import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.testing.ActionHelper;
-import com.redhat.rhn.testing.RhnBaseTestCase;
-import com.redhat.rhn.testing.UserTestUtils;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.struts.action.ActionForward;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
+import com.redhat.rhn.frontend.action.BaseSearchAction;
+import com.redhat.rhn.frontend.action.errata.ErrataSearchAction;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.testing.ActionHelper;
+import com.redhat.rhn.testing.RhnBaseTestCase;
+import com.redhat.rhn.testing.UserTestUtils;
 
 /**
- * ErrataPackagesSetupActionTest
+ * ErrataSearchActionTest
  * @version $Rev$
  */
 public class ErrataSearchActionTest extends RhnBaseTestCase {
@@ -42,22 +44,24 @@ public class ErrataSearchActionTest extends RhnBaseTestCase {
                     this.getClass().getSimpleName()));
         String name = e.getAdvisory();
 
-        ah.setUpAction(action, "success");
-        ah.getForm().set("view_mode", "errata_search_by_advisory");
+        ah.setUpAction(action, RhnHelper.DEFAULT_FORWARD);
+        ah.getForm().set(BaseSearchAction.VIEW_MODE, BaseSearchAction.OPT_ADVISORY);
         ah.getForm().set(RhnAction.SUBMITTED, Boolean.TRUE);
         // these are duplicated on PURPOSE! Because mockobjects SUCK ASS!
-        ah.getRequest().setupAddParameter("search_string", name);
-        ah.getRequest().setupAddParameter("search_string", name);
-        ah.getRequest().setupAddParameter("view_mode", "errata_search_by_advisory");
-        ah.getRequest().setupAddParameter("view_mode", "errata_search_by_advisory");
-        ah.getRequest().setupAddParameter("fineGrained", "on");
-        ah.getRequest().setupAddParameter("fineGrained", "on");
+        ah.getRequest().setupAddParameter(BaseSearchAction.SEARCH_STR, name);
+        ah.getRequest().setupAddParameter(BaseSearchAction.SEARCH_STR, name);
+        ah.getRequest().setupAddParameter(BaseSearchAction.VIEW_MODE,
+                        BaseSearchAction.OPT_ADVISORY);
+        ah.getRequest().setupAddParameter(BaseSearchAction.VIEW_MODE,
+                        BaseSearchAction.OPT_ADVISORY);
+        ah.getRequest().setupAddParameter(BaseSearchAction.FINE_GRAINED, "on");
+        ah.getRequest().setupAddParameter(BaseSearchAction.FINE_GRAINED, "on");
 
         // I *HATE* Mockobjects
         Map paramnames = new HashMap();
-        paramnames.put("search_string", name);
-        paramnames.put("view_mode", "errata_search_by_advisory");
-        paramnames.put("fineGrained", "on");
+        paramnames.put(BaseSearchAction.SEARCH_STR, name);
+        paramnames.put(BaseSearchAction.VIEW_MODE, BaseSearchAction.OPT_ADVISORY);
+        paramnames.put(BaseSearchAction.FINE_GRAINED, "on");
         paramnames.put(RhnAction.SUBMITTED, "true");
         ah.getRequest().setupGetParameterNames(
                 IteratorUtils.asEnumeration(paramnames.keySet().iterator()));
@@ -65,10 +69,6 @@ public class ErrataSearchActionTest extends RhnBaseTestCase {
         ah.setupClampListBounds();
 
         ActionForward af = ah.executeAction();
-
-        assertTrue(af.getPath().indexOf(name.replaceAll(" ", "+")) != -1);
-        assertTrue(af.getPath().indexOf("errata_search_by_advisory") != -1);
-
     }
 }
 
