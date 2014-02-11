@@ -28,7 +28,7 @@ class="navPipe">|</span><a href="/rhn/Logout.do"><span>Sign Out</span></a>
 <div id="header">
 	<a href="/"><img src="/img/logo.png" alt="Spacewalk" width="228" height="52" id="rhnLogo" /></a>
  <div id="searchbar">
-      <form name="form1" action="/rhn/Search.do" method="get">
+      <form name="form1" action="/rhn/Search.do" method="post">
       <select name="search_type">
 
             <option value="systems">Systems</option>

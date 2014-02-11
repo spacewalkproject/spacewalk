@@ -49,7 +49,7 @@
             </ul>
             </rhn-display-login>
 
-            <form name="form1" class="form-inline hidden-xs" role="form" action="/rhn/Search.do" method="get">
+            <form name="form1" class="form-inline hidden-xs" role="form" action="/rhn/Search.do" method="post">
               <div class="form-group">
                 <select name="search_type" class="form-control input-sm">
 
