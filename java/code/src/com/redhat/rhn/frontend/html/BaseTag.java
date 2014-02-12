@@ -103,17 +103,11 @@ public abstract class BaseTag {
      */
     public String render() {
         StringBuilder ret = new StringBuilder();
-        ret.append(renderOpenTag());
         if (!hasBody()) {
-            ret.deleteCharAt(ret.length() - 1);
-            if (spaceBeforeEndTag) {
-                ret.append(" />");
-            }
-            else {
-                ret.append("/>");
-            }
+            ret.append(renderOpenTag(true));
         }
         else {
+            ret.append(renderOpenTag(false));
             ret.append(renderBody());
             ret.append(renderCloseTag());
         }
@@ -121,10 +115,10 @@ public abstract class BaseTag {
     }
 
     /**
-     * render the open tag and attributes
+     * render the open or self closing tag and attributes
      * @return the open tag as a string
      */
-    public String renderOpenTag() {
+    protected String renderOpenTag(boolean selfClosing) {
         StringBuilder ret = new StringBuilder("<");
         ret.append(tag);
         for (String key : attribs.keySet()) {
@@ -134,8 +128,21 @@ public abstract class BaseTag {
             ret.append(attribs.get(key));
             ret.append("\"");
         }
-        ret.append(">");
+        if (selfClosing) {
+            ret.append((spaceBeforeEndTag ? " />" : "/>"));
+        }
+        else {
+            ret.append(">");
+        }
         return ret.toString();
+    }
+
+    /**
+     * render the open tag and attributes
+     * @return the open tag as a string
+     */
+    public String renderOpenTag() {
+        return renderOpenTag(false);
     }
 
     /**
