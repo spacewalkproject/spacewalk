@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.55
+Version: 2.1.56
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,14 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Feb 12 2014 Tomas Kasparek <tkasparek@redhat.com> 2.1.56-1
+- Fixes bar going from 0..9 A..Z on
+  /rhn/systems/details/packages/PackageList.do but A..Z 0..9 on
+  /rhn/systems/SystemEntitlements.do and
+  /network/systems/system_list/regular_in_channel_family.pxt
+- different set of pagination arrows on
+  /network/systems/system_list/regular_in_channel_family.pxt
+
 * Tue Feb 11 2014 Grant Gainey 2.1.55-1
 - 1063915, CVE-2013-4415 - Missed changing Search.do to post, perl-side
 
