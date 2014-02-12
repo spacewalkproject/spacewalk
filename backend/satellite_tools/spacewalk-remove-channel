@@ -559,7 +559,7 @@ def _delete_ks_files(channel_labels):
                   join rhnChannel cx on cx.id = ktx.channel_id
                  where replace(ktx.base_path, :mnt_point, '') =
                        replace(kt.base_path, :mnt_point, '')
-                   and cx.label not in (%s));
+                   and cx.label not in (%s))
     """
 
     params, bind_params = _bind_many(channel_labels)
