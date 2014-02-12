@@ -747,13 +747,7 @@ is
 
         procedure update_needed_cache(server_id_in in number)
         is
-          update_lock number;
         begin
-          select 1
-            into update_lock
-            from rhnServer
-           where id = server_id_in
-             for update;
           delete from rhnServerNeededCache
            where server_id = server_id_in;
           insert into rhnServerNeededCache
