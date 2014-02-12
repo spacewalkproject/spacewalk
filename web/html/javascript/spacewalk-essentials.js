@@ -184,6 +184,71 @@ $(document).on("ready", function() {
   });
 });
 
+/**
+ * Setups ACE editor in a textarea element
+ * textarea is a jQuery object
+ * mode is the language mode, if emmpty
+ * shows a select box to choose it.
+ */
+function setupTextareaEditor(textarea, mode) {
+  var editDiv = $('<div>', {
+      position: 'absolute',
+      width: textarea.width(),
+      height: textarea.height(),
+      'class': textarea.attr('class')
+  }).insertBefore(textarea);
+
+  var toolBar = $('<div></div>').insertBefore(editDiv[0]);
+  textarea.hide();
+
+  var editor = ace.edit(editDiv[0]);
+  editor.getSession().setValue(textarea.val());
+
+  editor.setTheme("ace/theme/monokai");
+
+  // before submitting the code, the textarea
+  // should be updated with the editor value
+  textarea.closest('form').submit(function () {
+      textarea.val(editor.getSession().getValue());
+  })
+
+  toolBar.addClass('ace_editor');
+  toolBar.css('width', editDiv.css('width'));
+  var modeSel = $('<select> \
+    <option selected value="sh">Shell</option> \
+    <option value="xml">XML</option> \
+    <option value="ruby">Ruby</option> \
+    <option value="python">Python</option> \
+    <option value="perl">perl</option> \
+    </select>');
+  modeSel.find('option').each(function() {
+  if ($(this).text() == mode)
+    $(this).attr('selected', 'selected');
+  });
+
+  toolBar.append(modeSel);
+  if (mode != "") {
+    editor.getSession().setMode("ace/mode/" + mode);
+    toolBar.hide();
+  }
+
+  modeSel.change(function () {
+    editor.getSession().setMode("ace/mode/" + $(this).val());
+  });
+
+}
+
+/**
+ * setups every textarea with data-editor attribute
+ * set to some language with an ACE editor
+ */
+$(function () {
+  $('textarea[data-editor]').each(function () {
+    var textarea = $(this);
+    var mode = textarea.data('editor');
+    setupTextareaEditor(textarea, mode);
+  });
+});
 // Disables the enter key from submitting the form
 function disableEnterKey() {
   $(window).keydown(function(event){
