@@ -1350,7 +1350,7 @@
             5 systems selected
           </context>
         </context-group>
-        <target>sistemas seleccionados</target>
+        <target>{0} sistemas seleccionados</target>
       </trans-unit>
       <!-- footer.jsp -->
       <trans-unit id="footer.jsp.copyright">
