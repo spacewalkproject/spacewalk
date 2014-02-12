@@ -224,6 +224,12 @@ insert into rhnTimezone
   (id, olson_name, display_name)
 values
   (sequence_nextval('rhn_timezone_id_seq'),
+   'Asia/Riyadh', 'Saudi Arabia');
+
+insert into rhnTimezone
+  (id, olson_name, display_name)
+values
+  (sequence_nextval('rhn_timezone_id_seq'),
    'Asia/Tehran', 'Iran');
 
 insert into rhnTimezone
