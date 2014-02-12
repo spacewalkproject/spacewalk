@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.1.41
+Version:        2.1.42
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Feb 12 2014 Tomas Kasparek <tkasparek@redhat.com> 2.1.42-1
+- Add missing GMT+3 timezone as Saudi Arabia
+
 * Tue Feb 11 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.1.41-1
 - fix sha1 sums
 
