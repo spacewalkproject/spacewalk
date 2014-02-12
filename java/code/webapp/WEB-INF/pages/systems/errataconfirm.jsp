@@ -40,16 +40,10 @@
                 <rl:column headerkey="erratalist.jsp.updated">${current.updateDate}</rl:column>
             </rl:list>
             <div class="form-horizontal">
-                <div class="form-group">
-                    <label class="col-md-3 control-label">
-                        <bean:message key="schedule.jsp.at" />
-                    </label>
-                    <div class="col-md-6">
-                        <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
-                            <jsp:param name="widget" value="date" />
-                        </jsp:include>
-                    </div>
-                </div>
+                <jsp:include page="/WEB-INF/pages/common/fragments/datepicker-with-label.jsp">
+                    <jsp:param name="widget" value="date" />
+                    <jsp:param name="label_text" value="schedule.jsp.at" />
+                </jsp:include>
                 <div class="form-group">
                     <div class="col-md-offset-3 col-md-6">
                         <html:submit property="dispatch">
@@ -58,6 +52,7 @@
                     </div>
                 </div>
             </div>
+
             <html:hidden property="sid" value="${param.sid}" />
             <input type="hidden" name="use_date" value="true">
         </rl:listset>
