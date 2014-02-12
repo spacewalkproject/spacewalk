@@ -33,7 +33,6 @@
 
   <rhn:csrf />
   <div class="row-0">
-    <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4><bean:message key="usercreate.login" /></h4>
@@ -102,8 +101,6 @@
             </table>
         </div>
       </div>
-    </div>
-    <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4><bean:message key="usercreate.accountInfo" /></h4>
@@ -113,14 +110,14 @@
             <tr>
               <td><label for="firstNames"><rhn:required-field key="usercreate.names"/>:</td></label>
               <td>
-                <html:select styleClass="form-control margin-bottom-xs" property="prefix">
+                <html:select styleClass="form-control margin-bottom-xs box-small" property="prefix">
                   <html:options collection="availablePrefixes"
                     property="value"
                     labelProperty="label" />
                 </html:select>
 
-                <html:text property="firstNames" size="15" styleClass="form-control margin-bottom-xs" maxlength="${firstNameLength}" styleId="firstNames"/>
-                <html:text property="lastName" size="15" styleClass="form-control margin-bottom-xs" maxlength="${lastNameLength}"/>
+                <html:text property="firstNames" size="15" styleClass="form-control margin-bottom-xs box-large" maxlength="${firstNameLength}" styleId="firstNames"/>
+                <html:text property="lastName" size="15" styleClass="form-control margin-bottom-xs box-large" maxlength="${lastNameLength}"/>
               </td>
             </tr>
 
@@ -137,7 +134,6 @@
           </table>
         </div>
       </div>
-    </div>
   </div>
 
 <c:if test="${account_type == 'into_org'}">
