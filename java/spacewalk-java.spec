@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.148
+Version: 2.1.149
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,29 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Feb 12 2014 Tomas Kasparek <tkasparek@redhat.com> 2.1.149-1
+- fix spanish translation for selected systems (string does not take a
+  parameter anymore)
+- Revert "fix spanish translation for selected systems (string does not take a
+  parameter anymore)"
+- Add missing GMT+3 timezone as Saudi Arabia
+- style CreateUser page so it resembles old look
+- /rhn/systems/details/configuration/addfiles/CreateFile.do?sid=... too much
+  space between radios due to wrong usage of form-group.
+- use help-block for help text in form
+- /rhn/systems/ssm/MigrateSystems.do popup menu (aka select) after 'Target
+  Orgenization' is not styled
+- Unstyled elements in /rhn/errata/manage/AddPackages.do?eid=...
+- panel inside a panel in rhn/configuration/Overview.do, just give a title to
+  the list, which is already a panel.
+- /rhn/admin/config/MonitoringConfig.do help texts ((e.g. 'redhat.com' for
+  myemail@…)) should be bellow input bars (see
+  /rhn/activationkeys/Edit.do?tid=1 how it should look like)
+- fix unclosed that broke the top pagination selected count for example
+  /rhn/systems/DuplicateIPList.do
+- fix spanish translation for selected systems (string does not take a
+  parameter anymore)
+
 * Tue Feb 11 2014 Grant Gainey <ggainey@redhat.com> 2.1.148-1
 - 1063915, CVE-2013-4415 - Fix XSS flaws in Spacewalk-search
 - 1063915, CVE-2013-4415 - Fix XSS in new-list-tag by escaping _LABEL_SELECTED
