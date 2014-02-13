@@ -273,57 +273,29 @@ public class DateTimePickerTag extends TagSupport {
         // generate i18n for the picker here
         DateFormatSymbols syms = data.getDateFormatSymbols();
         out.append("$.fn.datepicker.dates['" + data.getLocale() + "'] = {\n");
-        out.append("days: [ \n");
-        out.append(String.format("  '%s'", syms.getWeekdays()[Calendar.SUNDAY]));
-        out.append(String.format(",  '%s'", syms.getWeekdays()[Calendar.MONDAY]));
-        out.append(String.format(",  '%s'", syms.getWeekdays()[Calendar.TUESDAY]));
-        out.append(String.format(",  '%s'", syms.getWeekdays()[Calendar.WEDNESDAY]));
-        out.append(String.format(",  '%s'", syms.getWeekdays()[Calendar.THURSDAY]));
-        out.append(String.format(",  '%s'", syms.getWeekdays()[Calendar.FRIDAY]));
-        out.append(String.format(",  '%s'", syms.getWeekdays()[Calendar.SATURDAY]));
-        out.append("],\n");
-        out.append("daysShort: [ \n");
-        Writer buf = new StringWriter();
-        buf.append(String.format("  '%s'", syms.getShortWeekdays()[Calendar.SUNDAY]));
-        buf.append(String.format(",  '%s'", syms.getShortWeekdays()[Calendar.MONDAY]));
-        buf.append(String.format(",  '%s'", syms.getShortWeekdays()[Calendar.TUESDAY]));
-        buf.append(String.format(",  '%s'", syms.getShortWeekdays()[Calendar.WEDNESDAY]));
-        buf.append(String.format(",  '%s'", syms.getShortWeekdays()[Calendar.THURSDAY]));
-        buf.append(String.format(",  '%s'", syms.getShortWeekdays()[Calendar.FRIDAY]));
-        buf.append(String.format(",  '%s'", syms.getShortWeekdays()[Calendar.SATURDAY]));
-        out.append(buf.toString());
-        out.append("],\n");
-        out.append("daysMin: [ \n");
-        out.append(buf.toString());
-        out.append("],\n");
-        out.append("months: [ \n");
-        out.append(String.format("  '%s'", syms.getMonths()[Calendar.JANUARY]));
-        out.append(String.format(",  '%s'", syms.getMonths()[Calendar.FEBRUARY]));
-        out.append(String.format(",  '%s'", syms.getMonths()[Calendar.MARCH]));
-        out.append(String.format(",  '%s'", syms.getMonths()[Calendar.APRIL]));
-        out.append(String.format(",  '%s'", syms.getMonths()[Calendar.MAY]));
-        out.append(String.format(",  '%s'", syms.getMonths()[Calendar.JUNE]));
-        out.append(String.format(",  '%s'", syms.getMonths()[Calendar.JULY]));
-        out.append(String.format(",  '%s'", syms.getMonths()[Calendar.AUGUST]));
-        out.append(String.format(",  '%s'", syms.getMonths()[Calendar.SEPTEMBER]));
-        out.append(String.format(",  '%s'", syms.getMonths()[Calendar.OCTOBER]));
-        out.append(String.format(",  '%s'", syms.getMonths()[Calendar.NOVEMBER]));
-        out.append(String.format(",  '%s'", syms.getMonths()[Calendar.DECEMBER]));
-        out.append("],\n");
-        out.append("monthsShort: [ \n");
-        out.append(String.format("  '%s'", syms.getShortMonths()[Calendar.JANUARY]));
-        out.append(String.format(",  '%s'", syms.getShortMonths()[Calendar.FEBRUARY]));
-        out.append(String.format(",  '%s'", syms.getShortMonths()[Calendar.MARCH]));
-        out.append(String.format(",  '%s'", syms.getShortMonths()[Calendar.APRIL]));
-        out.append(String.format(",  '%s'", syms.getShortMonths()[Calendar.MAY]));
-        out.append(String.format(",  '%s'", syms.getShortMonths()[Calendar.JUNE]));
-        out.append(String.format(",  '%s'", syms.getShortMonths()[Calendar.JULY]));
-        out.append(String.format(",  '%s'", syms.getShortMonths()[Calendar.AUGUST]));
-        out.append(String.format(",  '%s'", syms.getShortMonths()[Calendar.SEPTEMBER]));
-        out.append(String.format(",  '%s'", syms.getShortMonths()[Calendar.OCTOBER]));
-        out.append(String.format(",  '%s'", syms.getShortMonths()[Calendar.NOVEMBER]));
-        out.append(String.format(",  '%s'", syms.getShortMonths()[Calendar.DECEMBER]));
-        out.append("]\n");
+
+        Writer names = new StringWriter();
+        Writer shortNames = new StringWriter();
+        String[] nameStrings = syms.getWeekdays();
+        String[] shortNameStrings = syms.getShortWeekdays();
+        for (int i = Calendar.SUNDAY; i <= Calendar.SATURDAY; i++) {
+            names.append(String.format(" '%s',", nameStrings[i]));
+            shortNames.append(String.format(" '%s',", shortNameStrings[i]));
+        }
+        out.append("days:      [" + names.toString() + "],\n");
+        out.append("daysShort: [" + shortNames.toString() + "],\n");
+        out.append("daysMin:   [" + shortNames.toString() + "],\n");
+
+        names = new StringWriter();
+        shortNames = new StringWriter();
+        nameStrings = syms.getMonths();
+        shortNameStrings = syms.getShortMonths();
+        for (int i = Calendar.JANUARY; i <= Calendar.DECEMBER; i++) {
+            names.append(String.format(" '%s',", nameStrings[i]));
+            shortNames.append(String.format(" '%s',", shortNameStrings[i]));
+        }
+        out.append("months:      [" + names.toString() + "],\n");
+        out.append("monthsShort: [" + shortNames.toString() + "],\n");
         out.append("};\n");
     }
 }
