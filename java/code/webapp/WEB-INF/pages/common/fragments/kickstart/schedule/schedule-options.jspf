@@ -17,16 +17,9 @@
           	</c:otherwise>
           </c:choose>
 
-          <table width="50%">
-            <tr>
-              <td><input type="radio" name="scheduleAsap" value="true" id="scheduleAsap" ${byAsap} /><bean:message key="kickstart.schedule.heading3.option1.jsp" /></td>
-            </tr>
-            <tr>
-              <td><input type="radio" name="scheduleAsap" value="false" id="scheduleDate" ${byDate} /><bean:message key="kickstart.schedule.heading3.option2.jsp" /><br /><br />
-                  <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
-                    <jsp:param name="widget" value="date"/>
-                  </jsp:include>
-              </td>
-            </tr>
-          </table>
+          <jsp:include page="/WEB-INF/pages/common/fragments/datepicker-with-label.jsp">
+              <jsp:param name="widget" value="date" />
+              <jsp:param name="label_text" value="kickstart.schedule.heading3.option2.jsp" />
+          </jsp:include>
+          <input type="hidden" name="scheduleAsap" value="false" />
           <hr />
