@@ -246,7 +246,9 @@ public class DateTimePickerTag extends TagSupport {
     }
 
     private void writePickerJavascript(Writer out) throws IOException {
-        writeJavascriptIncludes(out);
+        if (pageContext.getRequest().getAttribute(JS_INCLUDE_GUARD_ATTR) == null) {
+            writeJavascriptIncludes(out);
+        }
         out.append("<script type='text/javascript'>\n");
         out.append("  $(document).ready(function () {\n");
         out.append("    setupDatePicker('" + data.getName() + "', ");
@@ -254,22 +256,22 @@ public class DateTimePickerTag extends TagSupport {
                 data.getYear(), data.getMonth(), data.getDay(),
                 data.getHourOfDay(), data.getMinute()));
         out.append("  });\n");
+
+        if (pageContext.getRequest().getAttribute(JS_INCLUDE_GUARD_ATTR) == null) {
+            writeI18NMap(out);
+            pageContext.getRequest().setAttribute(JS_INCLUDE_GUARD_ATTR, true);
+        }
         out.append("</script>\n");
     }
 
     private void writeJavascriptIncludes(Writer out) throws IOException {
-        if (pageContext.getRequest().getAttribute(JS_INCLUDE_GUARD_ATTR) == null) {
-            writeI18NMap(out);
-            out.append("<script type='text/javascript' " +
+        out.append("<script type='text/javascript' " +
                     "src='/javascript/spacewalk-datetimepicker.js'></script>\n");
-            pageContext.getRequest().setAttribute(JS_INCLUDE_GUARD_ATTR, true);
-        }
     }
 
     private void writeI18NMap(Writer out) throws IOException {
         // generate i18n for the picker here
         DateFormatSymbols syms = data.getDateFormatSymbols();
-        out.append("<script type='text/javascript'>\n");
         out.append("$.fn.datepicker.dates['" + data.getLocale() + "'] = {\n");
         out.append("days: [ \n");
         out.append(String.format("  '%s'", syms.getWeekdays()[Calendar.SUNDAY]));
@@ -323,6 +325,5 @@ public class DateTimePickerTag extends TagSupport {
         out.append(String.format(",  '%s'", syms.getShortMonths()[Calendar.DECEMBER]));
         out.append("]\n");
         out.append("};\n");
-        out.append("</script>\n");
     }
 }
