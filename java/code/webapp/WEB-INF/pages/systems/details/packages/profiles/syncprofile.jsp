@@ -41,25 +41,10 @@
     </rl:list>
 
     <p><bean:message key="schedulesync.jsp.disclaimer" /></p>
-    <table class="schedule-action-interface" align="center">
-        <tr>
-            <td><input type="radio" name="use_date" value="false" checked="checked" /></td>
-            <th><bean:message key="confirm.jsp.now"/></th>
-        </tr>
-        <tr>
-            <td><input type="radio" name="use_date" value="true"/></td>
-            <th><bean:message key="confirm.jsp.than"/></th>
-        </tr>
-        <tr>
-            <th><rhn:icon type="header-schedule" title="confirm.jsp.selection" />
-            </th>
-            <td>
-                <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
-                <jsp:param name="widget" value="date"/>
-                </jsp:include>
-            </td>
-        </tr>
-    </table>
+    <jsp:include page="/WEB-INF/pages/common/fragments/datepicker-with-label.jsp">
+        <jsp:param name="widget" value="date" />
+        <jsp:param name="label_text" value="confirm.jsp.than" />
+    </jsp:include>
 
     <html:hidden property="sid" value="${param.sid}" />
     <html:hidden property="prid" value="${param.prid}" />
