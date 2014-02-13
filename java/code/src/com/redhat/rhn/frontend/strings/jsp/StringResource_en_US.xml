@@ -14834,9 +14834,6 @@ any of these revisions.  Are you sure you want to do this?</source>
         <trans-unit id="sdcimportconfirm.jsp.widgetsummary">
           <source>You may schedule this import action to take place as soon as possible, or for no sooner than a specified time</source>
         </trans-unit>
-        <trans-unit id="sdcimportconfirm.jsp.now">
-          <source>Schedule import action as soon as possible.</source>
-        </trans-unit>
         <trans-unit id="sdcimportconfirm.jsp.usedate">
           <source>Schedule import action for no sooner than:</source>
         </trans-unit>

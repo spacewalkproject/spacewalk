@@ -15590,10 +15590,6 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>You may schedule this import action to take place as soon as possible, or for no sooner than a specified time</source>
           <target>இந்த ஏற்றும் செயலை செய்ய, சீக்கீரமாக அல்லது குறிப்பிட்ட நேரத்திற்குள் திட்டமிடவும்</target>
         </trans-unit>
-        <trans-unit id="sdcimportconfirm.jsp.now">
-          <source>Schedule import action as soon as possible.</source>
-          <target>இறக்கும் செயலை எவ்வளவு சீக்கிரம் முடியுமோ அவ்வளவுக்குள் திட்டமிடவும்.</target>
-        </trans-unit>
         <trans-unit id="sdcimportconfirm.jsp.usedate">
           <source>Schedule import action for no sooner than:</source>
           <target>இறக்கும் செயல்களை அவரசமாக திட்டமிட வேண்டாம்:</target>

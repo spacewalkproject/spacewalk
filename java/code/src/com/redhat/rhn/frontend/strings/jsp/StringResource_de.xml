@@ -17159,10 +17159,6 @@ dieser Revisionen.  Möchten Sie dies wirklich tun?</target>
           <source>You may schedule this import action to take place as soon as possible, or for no sooner than a specified time</source>
           <target>Sie können Sie diese Import-Aktion für sobald wie möglich planen oder auch für nicht früher als zu einem bestimmten Zeitpunkt</target>
         </trans-unit>
-        <trans-unit id="sdcimportconfirm.jsp.now">
-          <source>Schedule import action as soon as possible.</source>
-          <target>Import-Aktion für sobald wie möglich planen.</target>
-        </trans-unit>
         <trans-unit id="sdcimportconfirm.jsp.usedate">
           <source>Schedule import action for no sooner than:</source>
           <target>Import-Aktion planen für nicht früher als:</target>
