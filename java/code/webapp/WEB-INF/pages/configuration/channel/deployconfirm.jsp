@@ -71,25 +71,10 @@
 	<c:if test="${not empty requestScope.selectedSystems && not empty requestScope.selectedFiles}">
 	<!--  Date picker  -->
 	<p><bean:message key="deployconfirm.jsp.widgetsummary" /></p>
-	<table class="schedule-action-interface" align="center">
-	    <tr>
-	        <td><input type="radio" name="use_date" checked="checked" value="false" /></td>
-	        <th><bean:message key="deployconfirm.jsp.now"/></th>
-	    </tr>
-	    <tr>
-	        <td><input type="radio" name="use_date" value="true" /></td>
-	        <th><bean:message key="deployconfirm.jsp.usedate"/></th>
-	    </tr>
-	    <tr>
-	        <th><rhn:icon type="header-schedule" title="syncprofile.jsp.selection" />
-	        </th>
-	        <td>
-	          <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
-	            <jsp:param name="widget" value="date"/>
-	          </jsp:include>
-	        </td>
-	    </tr>
-	</table>
+    <jsp:include page="/WEB-INF/pages/common/fragments/datepicker-with-label.jsp">
+        <jsp:param name="widget" value="date" />
+        <jsp:param name="label_text" value="deployconfirm.jsp.usedate" />
+    </jsp:include>
 	<!--  DoIt Button -->
 	<div class="text-right">
 		<html:submit property="dispatch">
