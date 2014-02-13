@@ -35,23 +35,10 @@
 	<c:if test="${not empty requestScope.pageList}">
 	<div>
 	<bean:message key="deploy.jsp.widgetsummary" /></p>
-	<table class="schedule-action-interface" align="center">
-		<tr>
-			<td><html:radio property="use_date" value="false" /></td>
-			<th><bean:message key="deploy.jsp.now" /></th>
-		</tr>
-		<tr>
-			<td><html:radio property="use_date" value="true" /></td>
-			<th><bean:message key="deploy.jsp.usedate" /></th>
-		</tr>
-		<tr>
-			<th><rhn:icon type="header-schedule" title="deploy.jsp.selection" /></th>
-			<td><jsp:include
-				page="/WEB-INF/pages/common/fragments/date-picker.jsp" flush="">
-				<jsp:param name="widget" value="date" />
-			</jsp:include></td>
-		</tr>
-	</table>
+        <jsp:include page="/WEB-INF/pages/common/fragments/datepicker-with-label.jsp">
+            <jsp:param name="widget" value="date" />
+            <jsp:param name="label_text" value="deploy.jsp.usedate" />
+        </jsp:include>
 	</div>
 	<hr />
 	<div class="text-right">
