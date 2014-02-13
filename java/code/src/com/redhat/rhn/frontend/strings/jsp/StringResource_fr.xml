@@ -17766,13 +17766,6 @@ pour abonner des systèmes aux canaux de logiciels durant le kickstart.&lt;/span
         </context-group>
         <target>Programmer le kickstart</target>
       </trans-unit>
-      <trans-unit id="kickstart.schedule.heading3.option1.jsp">
-        <source>Begin kickstart at the next system check in.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
-        </context-group>
-        <target>Commence le kickstart à la prochaine connexion du système.</target>
-      </trans-unit>
       <trans-unit id="kickstart.schedule.heading3.option2.jsp">
         <source>Schedule kickstart no sooner than:</source>
         <context-group name="ctx">

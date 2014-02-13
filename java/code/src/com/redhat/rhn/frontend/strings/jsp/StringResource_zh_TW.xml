@@ -17763,13 +17763,6 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
         <target>排程 Kickstart</target>
       </trans-unit>
-      <trans-unit id="kickstart.schedule.heading3.option1.jsp">
-        <source>Begin kickstart at the next system check in.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
-        </context-group>
-        <target>在下一次系統登入時，開始 kickstart。</target>
-      </trans-unit>
       <trans-unit id="kickstart.schedule.heading3.option2.jsp">
         <source>Schedule kickstart no sooner than:</source>
         <context-group name="ctx">

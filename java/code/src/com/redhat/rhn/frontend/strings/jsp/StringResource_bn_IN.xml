@@ -16188,13 +16188,6 @@ Kickstart করার সময় অনুগ্রহ করে সিস্ট
         </context-group>
         <target>Kickstart-র সময় নির্ধারণ করুন</target>
       </trans-unit>
-      <trans-unit id="kickstart.schedule.heading3.option1.jsp">
-        <source>Begin kickstart at the next system check in.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
-        </context-group>
-        <target>সিস্টেম পুনরায় সংযোগ করলে kickstart আরম্ভ করা হবে।</target>
-      </trans-unit>
       <trans-unit id="kickstart.schedule.heading3.option2.jsp">
         <source>Schedule kickstart no sooner than:</source>
         <context-group name="ctx">
