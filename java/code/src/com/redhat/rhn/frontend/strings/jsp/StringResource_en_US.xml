@@ -7000,12 +7000,6 @@ organization management tools if you choose to remove this role from your login.
           <context context-type="sourcefile">/rhn/systems/details/packages/profiles/SyncProfiles.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="syncprofile.jsp.now">
-        <source>Schedule action as soon as possible</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/profiles/SyncProfiles.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="missingpkgs.jsp.channels">
         <source>Channels</source>
         <context-group name="ctx">
