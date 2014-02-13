@@ -45,6 +45,10 @@ public class SidenavRenderer extends Renderable {
         if (!canRender(null, depth)) {
             return;
         }
+        if (depth > 1) {
+            HtmlTag li = new HtmlTag("li");
+            sb.append(li.renderOpenTag() + '\n');
+        }
 
         HtmlTag ul = new HtmlTag("ul");
         ul.setAttribute("class", "nav nav-pills nav-stacked");
@@ -104,6 +108,11 @@ public class SidenavRenderer extends Renderable {
 
         HtmlTag ul = new HtmlTag("ul");
         sb.append(ul.renderCloseTag() + "\n");
+
+        if (depth > 1) {
+            HtmlTag li = new HtmlTag("li");
+            sb.append(li.renderCloseTag() + '\n');
+        }
     }
 
     /** {@inheritDoc} */
