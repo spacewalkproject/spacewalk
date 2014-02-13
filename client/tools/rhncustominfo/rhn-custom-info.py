@@ -151,6 +151,9 @@ def verify_command_line():
     if not args and not options.list_values and not options.delete_values:
         system_exit(1, "You must provide key/value pairs to store")
 
+    if '' in map(lambda e : e.strip(), args):
+        system_exit(1, "Not valid value is provided for key/value pairs")
+
     if not args and options.delete_values:
         system_exit(1, "You must provide a key to delete")
 
