@@ -60,26 +60,10 @@
 
     <c:if test="${not empty requestScope.pageList}">
       <p><bean:message key="sdcimportconfirm.jsp.widgetsummary" /></p>
-      <table class="schedule-action-interface" align="center">
-        <tr>
-          <td><html:radio property="use_date" value="false" /></td>
-          <th><bean:message key="sdcimportconfirm.jsp.now"/></th>
-        </tr>
-        <tr>
-          <td><html:radio property="use_date" value="true" /></td>
-          <th><bean:message key="sdcimportconfirm.jsp.usedate"/></th>
-        </tr>
-        <tr>
-          <th><rhn:icon type="header-schedule" title="syncprofile.jsp.selection" />
-          </th>
-          <td>
-            <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
-              <jsp:param name="widget" value="date"/>
-            </jsp:include>
-          </td>
-        </tr>
-      </table>
-
+      <jsp:include page="/WEB-INF/pages/common/fragments/datepicker-with-label.jsp">
+        <jsp:param name="widget" value="date" />
+        <jsp:param name="label_text" value="sdcimportconfirm.jsp.usedate" />
+      </jsp:include>
       <div class="text-right">
         <hr />
           <html:submit property="dispatch">
