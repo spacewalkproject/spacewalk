@@ -16526,10 +16526,6 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
           <source>You may schedule configuration file deploy actions to occur for the time below. &lt;br/&gt; &lt;strong&gt;Note: The time below represents the earliest time the action could occur&lt;/strong&gt;.</source>
           <target>Puede programar una acción de implementación del archivo de configuración para la fecha y hora dada a continuación. &lt;br/&gt; &lt;strong&gt;Nota: la acción no ocurrirá antes de la fecha dada&lt;/strong&gt;.</target>
         </trans-unit>
-        <trans-unit id="deployconfirm.jsp.now">
-          <source>Schedule configuration file deploys as soon as possible.</source>
-          <target>Programar implementaciones de archivos de configuración tan pronto como sea posible.</target>
-        </trans-unit>
         <trans-unit id="deployconfirm.jsp.usedate">
           <source>Schedule configuration file deploys for no sooner than:</source>
           <target>Programar implementaciones de archivos de configuración no antes de:</target>

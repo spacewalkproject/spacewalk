@@ -16500,10 +16500,6 @@ Siete sicuri di voler fare questo?</target>
           <source>You may schedule configuration file deploy actions to occur for the time below. &lt;br/&gt; &lt;strong&gt;Note: The time below represents the earliest time the action could occur&lt;/strong&gt;.</source>
           <target>Potete programmare l'implementazione dei file di configurazione durante il periodo sotto riportato. &lt;br/&gt; &lt;strong&gt;Nota Bene: L'ora riportata qui di seguito rappresenta l'orario più prossimo entro il quale tale azione può essere eseguita&lt;/strong&gt;.</target>
         </trans-unit>
-        <trans-unit id="deployconfirm.jsp.now">
-          <source>Schedule configuration file deploys as soon as possible.</source>
-          <target>Programma implementazione del file di configurazione il prima possibile.</target>
-        </trans-unit>
         <trans-unit id="deployconfirm.jsp.usedate">
           <source>Schedule configuration file deploys for no sooner than:</source>
           <target>Programma implementazione del file di configurazione non prima di:</target>

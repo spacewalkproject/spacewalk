@@ -16517,10 +16517,6 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>You may schedule configuration file deploy actions to occur for the time below. &lt;br/&gt; &lt;strong&gt;Note: The time below represents the earliest time the action could occur&lt;/strong&gt;.</source>
           <target>아래에 있는 시간에 따라 설정 파일 배치 작업을 스케줄하실 수 있습니다. &lt;br/&gt; &lt;strong&gt;알림: 아래의 시간은 작업을 실행할 수 있는 가장 빠른 시간입니다&lt;/strong&gt;.</target>
         </trans-unit>
-        <trans-unit id="deployconfirm.jsp.now">
-          <source>Schedule configuration file deploys as soon as possible.</source>
-          <target>가능한 빨리 설정 파일 배치 작업을 스케줄하기.</target>
-        </trans-unit>
         <trans-unit id="deployconfirm.jsp.usedate">
           <source>Schedule configuration file deploys for no sooner than:</source>
           <target>최대한 빨리 설정 파일 배치 작업을 스케줄:</target>

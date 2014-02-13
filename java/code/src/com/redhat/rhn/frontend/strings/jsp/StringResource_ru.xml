@@ -16508,10 +16508,6 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>You may schedule configuration file deploy actions to occur for the time below. &lt;br/&gt; &lt;strong&gt;Note: The time below represents the earliest time the action could occur&lt;/strong&gt;.</source>
           <target>Ниже вы можете назначить время развертывания файлов.&lt;br/&gt; &lt;strong&gt;Примечание. Указанное значение определяет наиболее ранее время исполнения.&lt;/strong&gt;</target>
         </trans-unit>
-        <trans-unit id="deployconfirm.jsp.now">
-          <source>Schedule configuration file deploys as soon as possible.</source>
-          <target>Назначить применение файла конфигурации как можно раньше.</target>
-        </trans-unit>
         <trans-unit id="deployconfirm.jsp.usedate">
           <source>Schedule configuration file deploys for no sooner than:</source>
           <target>Назначить развертывание файла конфигурации не ранее:</target>

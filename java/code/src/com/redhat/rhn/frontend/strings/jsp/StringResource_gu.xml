@@ -14958,10 +14958,6 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>You may schedule configuration file deploy actions to occur for the time below. &lt;br/&gt; &lt;strong&gt;Note: The time below represents the earliest time the action could occur&lt;/strong&gt;.</source>
           <target>તમે નીચેના સમય માટે રૂપરેખાંકન ફાઈલ જમાવટ ક્રિયા સુનિશ્ચિત કરી શકશો. &lt;br/&gt; &lt;strong&gt;નોંધ: નીચેનો સમય ક્રિયા થવા માટેનો વહેલો સમય રજૂ કરે છે&lt;/strong&gt;.</target>
         </trans-unit>
-        <trans-unit id="deployconfirm.jsp.now">
-          <source>Schedule configuration file deploys as soon as possible.</source>
-          <target>રૂપરેખાંકન ફાઈલ જમાવટ શક્ય એટલી જલદી સુનિશ્ચિત કરો.</target>
-        </trans-unit>
         <trans-unit id="deployconfirm.jsp.usedate">
           <source>Schedule configuration file deploys for no sooner than:</source>
           <target>રૂપરેખાંકન ફાઈલ જમાવટો આનાં કરતાં જલદી નહિં હોય એમ સુનિશ્ચિત કરો:</target>
