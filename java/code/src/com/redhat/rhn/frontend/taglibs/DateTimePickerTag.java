@@ -91,12 +91,12 @@ public class DateTimePickerTag extends TagSupport {
 
     private HtmlTag createInputAddonTag(String type, String icon) {
         HtmlTag dateAddon = new HtmlTag("span");
-        dateAddon.setAttribute("class", "input-group-addon");
+        dateAddon.setAttribute("class", "input-group-addon text");
         dateAddon.setAttribute("id", data.getName() + "_" +
                 type + "picker_widget_input_addon");
-        HtmlTag dateAddonIcon = new HtmlTag("span");
-        dateAddonIcon.setAttribute("class", icon);
-        dateAddon.addBody(dateAddonIcon);
+        IconTag dateAddonIcon = new IconTag(icon);
+        dateAddon.addBody("&nbsp;");
+        dateAddon.addBody(dateAddonIcon.render());
         return dateAddon;
     }
 
@@ -169,17 +169,12 @@ public class DateTimePickerTag extends TagSupport {
 
     private void writePickerHtml(Writer out) throws IOException {
 
-        HtmlTag row = new HtmlTag("div");
-        row.setAttribute("class", "row-0");
-
-        HtmlTag col1 = new HtmlTag("div");
-        col1.setAttribute("class", "col-md-7");
-
         HtmlTag group = new HtmlTag("div");
         group.setAttribute("class", "input-group");
         group.setAttribute("id", data.getName() + "_datepicker_widget");
 
-        HtmlTag dateAddon = createInputAddonTag("date", "fa fa-calendar");
+        HtmlTag dateAddon = createInputAddonTag("date", "header-calendar");
+        group.addBody(dateAddon);
 
         SimpleDateFormat dateFmt = (SimpleDateFormat)
                 DateFormat.getDateInstance(DateFormat.SHORT, data.getLocale());
@@ -189,6 +184,7 @@ public class DateTimePickerTag extends TagSupport {
         HtmlTag dateInput = new HtmlTag("input");
         dateInput.setAttribute("data-provide", "date-picker");
         dateInput.setAttribute("data-date-today-highlight", "true");
+        dateInput.setAttribute("data-date-orientation", "top auto");
         dateInput.setAttribute("data-date-autoclose", "true");
         dateInput.setAttribute("data-date-language", data.getLocale().toString());
         dateInput.setAttribute("data-date-format",
@@ -196,43 +192,39 @@ public class DateTimePickerTag extends TagSupport {
         dateInput.setAttribute("type", "text");
         dateInput.setAttribute("class", "form-control");
         dateInput.setAttribute("id", data.getName() + "_datepicker_widget_input");
+        dateInput.setAttribute("size", "15");
 
         String firstDay = getJavascriptPickerDayIndex(
                 data.getCalendar().getFirstDayOfWeek());
         dateInput.setAttribute("data-date-week-start", firstDay);
 
-        HtmlTag timeAddon = createInputAddonTag("time", "fa fa-clock-o");
+        group.addBody(dateInput);
 
-        HtmlTag timeInput = new HtmlTag("input");
-        timeInput.setAttribute("type", "text");
-        timeInput.setAttribute("class", "form-control");
-        timeInput.setAttribute("data-time-format",
-                toPhpTimeFormat(timeFmt.toPattern()));
-        timeInput.setAttribute("id", data.getName() + "_timepicker_widget_input");
+        if (!data.getDisableTime()) {
+            HtmlTag timeAddon = createInputAddonTag("time", "header-clock");
+            group.addBody(timeAddon);
+
+            HtmlTag timeInput = new HtmlTag("input");
+            timeInput.setAttribute("type", "text");
+            timeInput.setAttribute("class", "form-control");
+            timeInput.setAttribute("data-time-format",
+                                         toPhpTimeFormat(timeFmt.toPattern()));
+            timeInput.setAttribute("id", data.getName() + "_timepicker_widget_input");
+            timeInput.setAttribute("size", "10");
+
+            group.addBody(timeInput);
+        }
 
         HtmlTag tzAddon = new HtmlTag("span");
         tzAddon.setAttribute("id", data.getName() + "_tz_input_addon");
-        tzAddon.setAttribute("class", "input-group-addon");
+        tzAddon.setAttribute("class", "input-group-addon text");
         tzAddon.addBody(
                 data.getCalendar().getTimeZone().getDisplayName(
                         false, TimeZone.SHORT, data.getLocale()));
 
-        HtmlTag col2 = new HtmlTag("div");
-        col2.setAttribute("class", "col-md-5");
+        group.addBody(tzAddon);
+        out.append(group.render());
 
-        group.addBody(dateAddon);
-        group.addBody(dateInput);
-        if (!data.getDisableTime()) {
-            group.addBody(timeAddon);
-            group.addBody(timeInput);
-            group.addBody(tzAddon);
-        }
-
-        col1.addBody(group);
-        row.addBody(col1);
-        row.addBody(col2);
-
-        out.append(row.render());
         // compatibility with the old struts form
         // these values are updated when the picker changes using javascript
         out.append(createHiddenInput("day").render());
