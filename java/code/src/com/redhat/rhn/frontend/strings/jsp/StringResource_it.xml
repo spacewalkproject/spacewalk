@@ -17177,10 +17177,6 @@ Siete sicuri di voler fare questo?</target>
           <source>You may schedule configuration actions for the time below.</source>
           <target>È possibile programmare azioni di configurazione per il periodo sotto riportato.</target>
         </trans-unit>
-        <trans-unit id="sdcconfigconfirm.jsp.now">
-          <source>Schedule configuration actions as soon as possible.</source>
-          <target>Programma le azioni di configurazione appena possibile.</target>
-        </trans-unit>
         <trans-unit id="sdcconfigconfirm.jsp.usedate">
           <source>Schedule configuration actions for no sooner than:</source>
           <target>Programma le azioni di configurazione non prima di:</target>
