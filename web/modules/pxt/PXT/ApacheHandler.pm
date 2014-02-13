@@ -26,6 +26,8 @@ use Apache2::ServerUtil ();
 use Apache2::Log ();
 use Apache2::RequestIO ();
 
+use APR::Request::Error;
+
 use BSD::Resource;
 use Carp;
 use Compress::Zlib;
@@ -313,7 +315,11 @@ sub initialize_pxt {
     $dbh->enable_profile;
   }
 
-  my $cookies = Apache2::Cookie->fetch;
+  #my $cookies = Apache2::Cookie->fetch;
+  my $req = APR::Request::Apache2->handle($r);
+  my $jar = eval {$req->jar()} || $@->jar;
+  my $cookies = $jar->cookie_class('Apache2::Cookie');
+
   my $request = new PXT::Request $r, undef, $cookies;
 
   my $apr;
