@@ -7588,13 +7588,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
         <target>Programma azione non prima di:</target>
       </trans-unit>
-      <trans-unit id="confirm.jsp.now">
-        <source>Schedule action as soon as possible</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/InstallConfirm.do</context>
-        </context-group>
-        <target>Programma azione appena possibile</target>
-      </trans-unit>
       <trans-unit id="installconfirm.jsp.confirm">
         <source>Confirm</source>
         <context-group name="ctx">

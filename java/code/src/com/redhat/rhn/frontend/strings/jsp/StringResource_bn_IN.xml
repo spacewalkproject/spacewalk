@@ -6875,13 +6875,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
         <target>উল্লিখিত সময়ের পরে কর্ম নির্ধারণ করুন:</target>
       </trans-unit>
-      <trans-unit id="confirm.jsp.now">
-        <source>Schedule action as soon as possible</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/InstallConfirm.do</context>
-        </context-group>
-        <target>কর্ম যথাশীঘ্র সময়ে সঞ্চালনের জন্য নির্ধারণ করুন</target>
-      </trans-unit>
       <trans-unit id="installconfirm.jsp.confirm">
         <source>Confirm</source>
         <context-group name="ctx">
