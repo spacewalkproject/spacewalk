@@ -14723,13 +14723,6 @@ You may grant provisioning entitlements _here_.
         </context-group>
         <target>Puede programar esta implementación para que se ejecute tan pronto como sea posible o para que se ejecute no antes de un tiempo especificado.</target>
       </trans-unit>
-      <trans-unit id="deploy.jsp.now">
-        <source>&lt;strong&gt;Schedule this file to be deployed as soon as possible&lt;/strong&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
-        </context-group>
-        <target>&lt;strong&gt;Programar para que este archivo sea implementado tan pronto como sea posible&lt;/strong&gt;</target>
-      </trans-unit>
       <trans-unit id="deploy.jsp.usedate">
         <source>&lt;strong&gt;Schedule this file to be deployed no earlier than:&lt;/strong&gt;</source>
         <context-group name="ctx">

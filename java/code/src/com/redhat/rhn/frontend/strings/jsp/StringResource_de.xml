@@ -14725,13 +14725,6 @@ You may grant provisioning entitlements _here_.
         </context-group>
         <target>Sie können diesen Einsatz für sobald wie möglich planen, oder für nicht früher als zu einem bestimmten Zeitpunkt</target>
       </trans-unit>
-      <trans-unit id="deploy.jsp.now">
-        <source>&lt;strong&gt;Schedule this file to be deployed as soon as possible&lt;/strong&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
-        </context-group>
-        <target>&lt;strong&gt;Einsatz dieser Datei für sobald wie möglich planen&lt;/strong&gt;</target>
-      </trans-unit>
       <trans-unit id="deploy.jsp.usedate">
         <source>&lt;strong&gt;Schedule this file to be deployed no earlier than:&lt;/strong&gt;</source>
         <context-group name="ctx">

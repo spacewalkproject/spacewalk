@@ -13174,13 +13174,6 @@ You may grant provisioning entitlements _here_.
         </context-group>
         <target>તમે આ જમાવટને શક્ય એટલું જલદી, અથવા સ્પષ્ટ થયેલ સમય કરતાં વહેલું નહિં બને તે માટે સુનિશ્ચિત કરી શકશો</target>
       </trans-unit>
-      <trans-unit id="deploy.jsp.now">
-        <source>&lt;strong&gt;Schedule this file to be deployed as soon as possible&lt;/strong&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
-        </context-group>
-        <target>&lt;strong&gt;આ ફાઈલને શક્ય એટલી જલદી જમાવાઈ જાય તે માટે સુનિશ્ચિત કરો&lt;/strong&gt;</target>
-      </trans-unit>
       <trans-unit id="deploy.jsp.usedate">
         <source>&lt;strong&gt;Schedule this file to be deployed no earlier than:&lt;/strong&gt;</source>
         <context-group name="ctx">

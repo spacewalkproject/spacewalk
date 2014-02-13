@@ -13173,13 +13173,6 @@ You may grant provisioning entitlements _here_.
         </context-group>
         <target>ਤੁਸੀਂ ਛੇਤੀ ਤੋਂ ਛੇਤੀ ਸ਼ਾਮਿਲ ਕਾਰਵਾਈ ਤਹਿ ਕਰ ਸਕਦੇ ਹੋ ਜਾਂ ਇੱਕ ਦਿੱਤੇ ਸਮੇਂ ਪਹਿਲਾਂ ਨਹੀਂ:</target>
       </trans-unit>
-      <trans-unit id="deploy.jsp.now">
-        <source>&lt;strong&gt;Schedule this file to be deployed as soon as possible&lt;/strong&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
-        </context-group>
-        <target>&lt;strong&gt;ਜਿੰਨਾ ਵੀ ਛੇਤੇ ਹੋਵੇ ਇਹ ਫਾਇਲ ਸ਼ਾਮਿਲ ਕਰਨ ਲਈ ਤਹਿ ਕਰੋ&lt;/strong&gt;</target>
-      </trans-unit>
       <trans-unit id="deploy.jsp.usedate">
         <source>&lt;strong&gt;Schedule this file to be deployed no earlier than:&lt;/strong&gt;</source>
         <context-group name="ctx">
