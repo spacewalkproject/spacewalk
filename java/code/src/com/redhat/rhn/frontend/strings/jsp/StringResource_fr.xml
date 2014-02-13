@@ -14712,11 +14712,11 @@ You may grant provisioning entitlements _here_.
         <target>Vous pouvez programmer ce déploiement pour qu'il commence le plus tôt possible ou à partir d'une date spécifiée.</target>
       </trans-unit>
       <trans-unit id="deploy.jsp.usedate">
-        <source>&lt;strong&gt;Schedule this file to be deployed no earlier than:&lt;/strong&gt;</source>
+        <source>Schedule this file to be deployed no earlier than:&lt;/strong&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
         </context-group>
-        <target>&lt;strong&gt;Programmer ce fichier pour qu'il ne soit pas déployé avant le :&lt;/strong&gt;</target>
+        <target>Programmer ce fichier pour qu'il ne soit pas déployé avant le :&lt;/strong&gt;</target>
       </trans-unit>
       <!-- regular -->
       <trans-unit id="deploy.jsp.header2">

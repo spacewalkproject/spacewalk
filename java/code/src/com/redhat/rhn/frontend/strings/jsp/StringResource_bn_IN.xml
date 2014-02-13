@@ -13160,11 +13160,11 @@ You may grant provisioning entitlements _here_.
         <target>স্থাপনার জন্য যথাশীঘ্র সময় নির্ধারণ করতে পারেন  অথবা কোনো নির্ধারিত সময়ের পশ্চাৎ সঞ্চালনের উদ্দেশ্যে চিহ্নিত করতে পারেন</target>
       </trans-unit>
       <trans-unit id="deploy.jsp.usedate">
-        <source>&lt;strong&gt;Schedule this file to be deployed no earlier than:&lt;/strong&gt;</source>
+        <source>Schedule this file to be deployed no earlier than:&lt;/strong&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
         </context-group>
-        <target>&lt;strong&gt;ফাইলটি চিহ্নিত সময়ের পরে স্থাপিত হবে:&lt;/strong&gt;</target>
+        <target>ফাইলটি চিহ্নিত সময়ের পরে স্থাপিত হবে:&lt;/strong&gt;</target>
       </trans-unit>
       <!-- regular -->
       <trans-unit id="deploy.jsp.header2">

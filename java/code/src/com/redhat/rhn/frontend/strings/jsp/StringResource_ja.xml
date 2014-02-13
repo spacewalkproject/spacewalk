@@ -14713,11 +14713,11 @@ You may grant provisioning entitlements _here_.
         <target>この配備をできるだけ早く実施するようスケジュールするか、または指定時間以降に実施するようスケジュールすることができます</target>
       </trans-unit>
       <trans-unit id="deploy.jsp.usedate">
-        <source>&lt;strong&gt;Schedule this file to be deployed no earlier than:&lt;/strong&gt;</source>
+        <source>Schedule this file to be deployed no earlier than:&lt;/strong&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
         </context-group>
-        <target>&lt;strong&gt;指定時刻以降にこのファイルが配備されるようスケジュール&lt;/strong&gt;</target>
+        <target>指定時刻以降にこのファイルが配備されるようスケジュール&lt;/strong&gt;</target>
       </trans-unit>
       <!-- regular -->
       <trans-unit id="deploy.jsp.header2">

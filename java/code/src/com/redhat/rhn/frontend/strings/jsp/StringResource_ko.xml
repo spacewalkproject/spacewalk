@@ -14703,11 +14703,11 @@ You may grant provisioning entitlements _here_.
         <target>&lt;strong&gt;확실히&lt;/strong&gt; 이 작업을 수행하시고자 하신다면, 동기화 작업이 최대한 빨리 실행되도록 스케쥴하거나, 또는 지정한 시간보다 빨리 실행되도록 스케줄하실 수 있습니다:</target>
       </trans-unit>
       <trans-unit id="deploy.jsp.usedate">
-        <source>&lt;strong&gt;Schedule this file to be deployed no earlier than:&lt;/strong&gt;</source>
+        <source>Schedule this file to be deployed no earlier than:&lt;/strong&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
         </context-group>
-        <target>&lt;strong&gt;보다 빨리 파일이 배치되도록 스케줄:&lt;/strong&gt;</target>
+        <target>보다 빨리 파일이 배치되도록 스케줄:&lt;/strong&gt;</target>
       </trans-unit>
       <!-- regular -->
       <trans-unit id="deploy.jsp.header2">

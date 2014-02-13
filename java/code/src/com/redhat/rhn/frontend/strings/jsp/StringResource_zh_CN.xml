@@ -14706,11 +14706,11 @@ You may grant provisioning entitlements _here_.
         <target>您可以马上或不早于一个特定的时间调度这个部署：</target>
       </trans-unit>
       <trans-unit id="deploy.jsp.usedate">
-        <source>&lt;strong&gt;Schedule this file to be deployed no earlier than:&lt;/strong&gt;</source>
+        <source>Schedule this file to be deployed no earlier than:&lt;/strong&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
         </context-group>
-        <target>&lt;strong&gt;调度这个文件的部署不早于：&lt;/strong&gt;</target>
+        <target>调度这个文件的部署不早于：&lt;/strong&gt;</target>
       </trans-unit>
       <!-- regular -->
       <trans-unit id="deploy.jsp.header2">

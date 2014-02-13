@@ -14708,11 +14708,11 @@ You may grant provisioning entitlements _here_.
         <target>您可以排程此建置作業，讓它儘早發生，或不早於特定時間</target>
       </trans-unit>
       <trans-unit id="deploy.jsp.usedate">
-        <source>&lt;strong&gt;Schedule this file to be deployed no earlier than:&lt;/strong&gt;</source>
+        <source>Schedule this file to be deployed no earlier than:&lt;/strong&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
         </context-group>
-        <target>&lt;strong&gt;將此檔案的建置動作排程在不早於：&lt;/strong&gt;</target>
+        <target>將此檔案的建置動作排程在不早於：&lt;/strong&gt;</target>
       </trans-unit>
       <!-- regular -->
       <trans-unit id="deploy.jsp.header2">
