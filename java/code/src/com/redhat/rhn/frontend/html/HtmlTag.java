@@ -15,6 +15,10 @@
 
 package com.redhat.rhn.frontend.html;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 
 /**
  * HtmlTag a simple class to render an html tag
@@ -23,9 +27,9 @@ package com.redhat.rhn.frontend.html;
 
 public class HtmlTag extends BaseTag {
 
-    private static final String[] VOID_ELEMENTS = new String[] {
+    private static final Set<String> VOID_ELEMENTS = new HashSet<String>(Arrays.asList(
         "area", "base", "br", "col", "command", "embed", "hr", "img",
-        "input", "keygen", "link", "meta", "param", "source", "track", "wbr"};
+        "input", "keygen", "link", "meta", "param", "source", "track", "wbr"));
 
     /**
      * Public constructor
@@ -40,13 +44,8 @@ public class HtmlTag extends BaseTag {
      * void elements.
      * @see http://www.w3.org/TR/html-markup/syntax.html#syntax-elements
      */
-    public boolean isVoidElement() {
-        for (String voidElem : VOID_ELEMENTS) {
-            if (getTag().equals(voidElem)) {
-                return true;
-            }
-        }
-        return false;
+    protected boolean isVoidElement() {
+        return VOID_ELEMENTS.contains(getTag());
     }
 
     /**
@@ -55,16 +54,18 @@ public class HtmlTag extends BaseTag {
     @Override
     public String render() {
         StringBuilder ret = new StringBuilder();
-        ret.append(renderOpenTag());
         if (isVoidElement()) {
-          ret.deleteCharAt(ret.length() - 1);
-          ret.append(">");
+            if (hasBody()) {
+                throw new IllegalArgumentException("Void html element <" + getTag() +
+                                               "> is not allowed to have contents.");
+            }
+
+            ret.append(renderOpenTag(true));
         }
         else {
-          if (hasBody() ) {
-              ret.append(renderBody());
-          }
-          ret.append(renderCloseTag());
+            ret.append(renderOpenTag(false));
+            ret.append(renderBody());
+            ret.append(renderCloseTag());
         }
         return ret.toString();
     }
