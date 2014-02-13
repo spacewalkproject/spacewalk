@@ -20,7 +20,7 @@
 
     <jsp:include page="/WEB-INF/pages/common/fragments/datepicker-with-label.jsp">
         <jsp:param name="widget" value="date" />
-        <jsp:param name="label_text" value="scheduleremote.jsp.nosoonerthan" />
+        <jsp:param name="label_text" value="schedule.jsp.at" />
     </jsp:include>
     <div class="text-right">
         <hr />
