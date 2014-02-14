@@ -20,6 +20,7 @@
        <packagereq type="default">yum-rhn-plugin</packagereq>
 
        <packagereq type="default">bootstrap</packagereq>
+       <packagereq type="default">bootstrap-datepicker</packagereq>
        <packagereq type="optional">bootstrap-less</packagereq>
        <packagereq type="default">cobbler2</packagereq>
        <packagereq type="default">cobbler20</packagereq>
@@ -32,6 +33,7 @@
        <packagereq type="optional">font-awesome-devel</packagereq>
        <packagereq type="optional">heirloom-pkgtools</packagereq>
        <packagereq type="default">jpam</packagereq>
+       <packagereq type="default">jquery-timepicker</packagereq>
        <packagereq type="default">MessageQueue</packagereq>
        <packagereq type="default">nocpulse-common</packagereq>
        <packagereq type="default">nocpulse-db-perl</packagereq>

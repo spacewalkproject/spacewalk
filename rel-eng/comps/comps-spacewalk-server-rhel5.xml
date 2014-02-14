@@ -23,6 +23,7 @@
        <packagereq type="default">bea-stax</packagereq>
        <packagereq type="default">bea-stax-api</packagereq>
        <packagereq type="default">bootstrap</packagereq>
+       <packagereq type="default">bootstrap-datepicker</packagereq>
        <packagereq type="optional">bootstrap-less</packagereq>
        <packagereq type="default">c3p0</packagereq>
        <packagereq type="default">cglib</packagereq>
@@ -57,6 +58,7 @@
        <packagereq type="default">jaxen-manual</packagereq>
        <packagereq type="default">jaxen-repolib</packagereq>
        <packagereq type="default">jpam</packagereq>
+       <packagereq type="default">jquery-timepicker</packagereq>
        <packagereq type="default">MessageQueue</packagereq>
        <packagereq type="default">msv</packagereq>
        <packagereq type="default">msv-demo</packagereq>
