@@ -1,6 +1,6 @@
 Name:           bootstrap-datepicker
 Version:        1.3.0
-Release:        0%{?dist}
+Release:        1%{?dist}
 Summary:        Bootstrap-datepicker provides a flexible datepicker widget in the Twitter bootstrap style.
 
 Group:          Applications/Internet
@@ -38,3 +38,6 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Feb 14 2014 Michael Mraka <michael.mraka@redhat.com> 1.3.0-1
+- initial build of bootstrap-datepicker
+
