@@ -4,7 +4,6 @@
 PREFIX		?=
 
 CONFIG		= up2date.config
-MACROS_CONFIG   = macros.up2date
 
 # Directories for installation
 PAMD_DIR	= $(PREFIX)/etc/pam.d
@@ -40,9 +39,6 @@ install:: all $(DIRS)
 
 	[ -f $(CONFIG_DIR)/up2date ] && true || \
 		$(INSTALL_DATA) $(CONFIG) $(CONFIG_DIR)/up2date
-
-	[ -f $(MACROS_DIR)/macros.up2date ] && true || \
-		$(INSTALL_DATA) $(MACROS_CONFIG) $(MACROS_DIR)/macros.up2date
 
 	$(INSTALL_DATA) up2date.logrotate $(LOGROTATE_DIR)/up2date
 
