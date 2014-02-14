@@ -22,6 +22,7 @@ style.
 
 %install
 rm -rf %{buildroot}
+install -d -m 755 %{buildroot}%{_var}/www/html/css
 install -d -m 755 %{buildroot}%{_var}/www/html/javascript
 install -m 644 js/bootstrap-datepicker.js %{buildroot}%{_var}/www/html/javascript/
 install -m 644 css/datepicker3.css %{buildroot}%{_var}/www/html/css/bootstrap-datepicker.css 
