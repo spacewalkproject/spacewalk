@@ -110,18 +110,18 @@ public class DateTimePickerTag extends TagSupport {
      * @return a format like the one described in
      *   http://bootstrap-datepicker.readthedocs.org/en/latest/options.html
      */
-    private String toWeirdDateFormat(String format) {
-        String ret = format.replaceAll("(M)\\1\\1\\1+", "MM");
-        ret = ret.replaceAll("MMM", "M");
-        ret = ret.replaceAll("MM", "mm");
-        ret = ret.replaceAll("M", "m");
-        ret = ret.replaceAll("(E)\\1\\1\\1+", "DD");
-        ret = ret.replaceAll("E+", "D");
-        ret = ret.replaceAll("(D)\\1+", "dd");
-        ret = ret.replaceAll("D", "d");
-        ret = ret.replaceAll("(y)\\1\\1\\1+", "yyyy");
-        ret = ret.replaceAll("y+", "yy");
-        return ret;
+    private String toDatepickerFormat(String format) {
+        return format
+            .replaceAll("(^|[^M])MM([^M]|$)", "$1mm$2")
+            .replaceAll("(^|[^M])M([^M]|$)", "$1m$2")
+            .replaceAll("MMMM+", "MM")
+            .replaceAll("MMM", "M")
+            .replaceAll("DD+", "dd")
+            .replaceAll("D", "d")
+            .replaceAll("EEEE+", "DD")
+            .replaceAll("E+", "D")
+            .replaceAll("(^|[^y])y{1,3}([^y]|$)", "$1yy$2")
+            .replaceAll("yyyy+", "yyyy");
     }
 
     /**
@@ -134,27 +134,24 @@ public class DateTimePickerTag extends TagSupport {
      *
      */
     private String toPhpTimeFormat(String format) {
-        String ret = format.replaceAll("(a)+", "a");
-        ret = ret.replaceAll("(H)\\1+", "H");
-        ret = ret.replaceAll("(H)", "G");
-
-        // k (0-24) not supported, convert to the 0-23 format
-        ret = ret.replaceAll("(k)\\1+", "H");
-        ret = ret.replaceAll("(k)", "G");
-        // K (0-11) not supported, convert to the 1-12 format
-        ret = ret.replaceAll("(k)\\1+", "h");
-        ret = ret.replaceAll("(k)", "g");
-
-        ret = ret.replaceAll("(h)\\1+", "h");
-        ret = ret.replaceAll("(h)", "g");
-        ret = ret.replaceAll("(m)+", "i");
-        ret = ret.replaceAll("(s)+", "s");
-
-        // ignore others
-        ret = ret.replaceAll("(z)+", "");
-        ret = ret.replaceAll("(Z)+", "");
-        ret = ret.replaceAll("(X)+", "");
-        return ret;
+        return format
+            .replaceAll("a+", "a")
+            .replaceAll("(^|[^H])H([^H]|$)", "$1G$2")
+            .replaceAll("HH+", "H")
+            .replaceAll("(^|[^h])h([^h]|$)", "$1g$2")
+            .replaceAll("hh+", "h")
+            // k (1-24) not supported, convert to the 0-23 format
+            .replaceAll("kk+", "H")
+            .replaceAll("k", "G")
+            // K (0-11) not supported, convert to the 1-12 format
+            .replaceAll("KK+", "h")
+            .replaceAll("K", "g")
+            .replaceAll("m+", "i")
+            .replaceAll("s+", "s")
+            // ignore others
+            .replaceAll("z+", "")
+            .replaceAll("Z+", "")
+            .replaceAll("X+", "");
     }
 
     /**
@@ -188,7 +185,7 @@ public class DateTimePickerTag extends TagSupport {
         dateInput.setAttribute("data-date-autoclose", "true");
         dateInput.setAttribute("data-date-language", data.getLocale().toString());
         dateInput.setAttribute("data-date-format",
-                toWeirdDateFormat(dateFmt.toPattern()));
+                toDatepickerFormat(dateFmt.toPattern()));
         dateInput.setAttribute("type", "text");
         dateInput.setAttribute("class", "form-control");
         dateInput.setAttribute("id", data.getName() + "_datepicker_widget_input");
