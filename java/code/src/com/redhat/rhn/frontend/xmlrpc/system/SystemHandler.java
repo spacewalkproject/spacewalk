@@ -1746,8 +1746,9 @@ public class SystemHandler extends BaseHandler {
         Set<String> keys = values.keySet();
         for (Iterator<String> itr = keys.iterator(); itr.hasNext();) {
             String label = itr.next();
-            if (org.hasCustomDataKey(label)) {
-                server.addCustomDataValue(label, values.get(label).toString(),
+            String value = StringUtils.trim(values.get(label));
+            if (org.hasCustomDataKey(label) && !value.isEmpty()) {
+                server.addCustomDataValue(label, values.get(label),
                         loggedInUser);
             }
             else {
