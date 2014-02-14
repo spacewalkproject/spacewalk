@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.150
+Version: 2.1.151
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Feb 14 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.151-1
+- fixed errors in date/time format conversions
+- Introduce a date-time picker.
+- Make the HtmlTag HTML5 compliant
+- Added tool to manipulate localization files (format, del, sed).
+- remove unused localization string
+- Schedule action unification
+- Separate datepicker and its label
+
 * Wed Feb 12 2014 Stephen Herr <sherr@redhat.com> 2.1.150-1
 - 1061425 - make package search faster
 - Non-existent icon
