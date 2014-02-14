@@ -4,7 +4,7 @@ Group: Applications/System
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
-Version: 5.4.21
+Version: 5.4.22
 Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Fri Feb 14 2014 Tomas Lestach <tlestach@redhat.com> 5.4.22-1
+- 1063808 - Custom info with empty value added
+
 * Fri Nov 29 2013 Michael Mraka <michael.mraka@redhat.com> 5.4.21-1
 - add the option -d to delete custom values
 
