@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.56
+Version: 2.1.57
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Feb 14 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.57-1
+- make the time format also localized
+- Introduce a date-time picker.
+
 * Wed Feb 12 2014 Tomas Kasparek <tkasparek@redhat.com> 2.1.56-1
 - Fixes bar going from 0..9 A..Z on
   /rhn/systems/details/packages/PackageList.do but A..Z 0..9 on
