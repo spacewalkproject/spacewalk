@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.1.14
+Version: 2.1.15
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -360,6 +360,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Feb 14 2014 Matej Kollar <mkollar@redhat.com> 2.1.15-1
+- 1061013 - remove unneeded rpm macros file
+- 1060742 - new information icon in gnome3
+
 * Tue Jan 14 2014 Matej Kollar <mkollar@redhat.com> 2.1.14-1
 - Updating the copyright years info
 - Update .po and .pot files for rhn-client-tools.
