@@ -156,11 +156,15 @@ IS
                 where   c.id = channel_id_in
             );
 
-            select 1
-              into update_lock
-              from rhnServerNeededCache
-             where server_id = server_id_in
-               for update;
+            begin
+                select 1
+                  into update_lock
+                  from rhnServerNeededCache
+                 where server_id = server_id_in
+                   for update;
+            exception WHEN no_data_found THEN
+                null;
+            end;
 
             UPDATE rhnServer SET channels_changed = current_timestamp WHERE id = server_id_in;
             INSERT INTO rhnServerChannel (server_id, channel_id, is_fve) VALUES (server_id_in, channel_id_in, is_fve);
