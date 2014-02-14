@@ -1,6 +1,6 @@
 Summary: Spacewalk support for yum
 Name: yum-rhn-plugin
-Version: 2.1.6
+Version: 2.1.7
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -70,6 +70,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Fri Feb 14 2014 Matej Kollar <mkollar@redhat.com> 2.1.7-1
+- 1043850 - avoid insecure use of /var/tmp
+
 * Tue Jan 14 2014 Matej Kollar <mkollar@redhat.com> 2.1.6-1
 - Update .po and .pot files for yum-rhn-plugin.
 
