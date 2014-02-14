@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 2.1.15
+Version: 2.1.16
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -360,6 +360,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Feb 14 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.1.16-1
+- 1061013 - remove up2date_config.rpmmacros client action
+- 1061013 - remove macros.up2date from package build
+
 * Fri Feb 14 2014 Matej Kollar <mkollar@redhat.com> 2.1.15-1
 - 1061013 - remove unneeded rpm macros file
 - 1060742 - new information icon in gnome3
