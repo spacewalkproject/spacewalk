@@ -300,21 +300,33 @@ def create_activation_key(org_id=None, user_id=None, groups=None,
 
     return a
 
-def db_settings(backend):
+def db_settings(backend=None):
     """
     Parses the contents of the db_settings.ini file and returns the connection
     settings of the required backend inside of a dictionary with the following
     keys:
+      * backend
       * user
       * password
       * database
       * host (returned only by PostgreSQL backend)
+
+    When backend is None the code looks for the value of the DATABASE environment
+    variable. If the environment variable is not set Postgresql is going to be
+    used as the default backend.
     """
+
+    if not backend and os.getenv("DATABASE"):
+        backend = os.getenv("DATABASE")
+    elif not backend:
+        backend = "postgresql"
+
     settings = {}
 
     config = ConfigParser()
     config.read(os.path.dirname(os.path.abspath(__file__)) + "/db_settings.ini")
 
+    settings['backend']  = backend
     settings['user']     = config.get(backend, 'user')
     settings['password'] = config.get(backend, 'password')
     settings['database'] = config.get(backend, 'database')
@@ -322,6 +334,20 @@ def db_settings(backend):
         settings['host'] = config.get(backend, 'host')
 
     return settings
+
+def setup_db_connection():
+    """
+    Fetches database configuration using db_settings and initializes the
+    database connection.
+    """
+
+    settings = db_settings()
+    rhnSQL.initDB(
+       backend  = settings['backend'],
+       username = settings["user"],
+       password = settings["password"],
+       database = settings["database"]
+    )
 
 def grant_entitlements(org_id, entitlement, quantity):
     activate_system_entitlement = rhnSQL.Procedure(
