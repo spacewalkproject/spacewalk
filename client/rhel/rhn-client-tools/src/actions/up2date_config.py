@@ -16,7 +16,6 @@ cfg = config.initUp2dateConfig()
 
 __rhnexport__ = [
     'update',
-    'rpmmacros',
     'get']
 
 argVerbose = 0
@@ -62,49 +61,6 @@ def get(cache_only=None):
         ret[k] = cfg[k]
     return (0, "configuration retrived", {'data' : ret})
 
-
-def rpmmacros(macroName, macroValue, cache_only):
-    if cache_only:
-        return (0, "no-ops for caching", {})
-    writeUp2dateMacro(macroName, macroValue)
-    return (0, "%s set to %s" % (macroName, macroValue), {})
-
-
-def writeUp2dateMacro(macroName, macroValue):
-
-    if os.access("/etc/rpm/macros.up2date", os.R_OK):
-        f = open("/etc/rpm/macros.up2date", "r")
-        lines = f.readlines()
-        f.close()
-    else:
-        lines = []
-    comment_r = re.compile("\s*#.*")
-    value_r = re.compile("%s.*" % macroName)
-    blank_r = re.compile("\s*")
-    newfile = []
-    for line in lines:
-        m = value_r.match(line)
-        if m:
-            continue
-
-        m = comment_r.match(line)
-        if m:
-            newfile.append(line)
-            continue
-
-        newfile.append(line)
-
-        # dont care about blank lines...
-
-    newfile.append("\n")
-    newfile.append("%s       %s" % (macroName, macroValue))
-
-
-    f = open("/etc/rpm/macros.up2date", "w")
-    for line in newfile:
-        f.write(line)
-    f.write("\n")
-    f.close()
 
 
 def main():
