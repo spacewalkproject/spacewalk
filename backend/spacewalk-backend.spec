@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.49
+Version: 2.1.50
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -632,6 +632,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Fri Feb 14 2014 Matej Kollar <mkollar@redhat.com> 2.1.50-1
+- query should not end with semicolon in oracle
+
 * Thu Feb 06 2014 Jan Dobes 2.1.49-1
 - 1056515 - adapting to different logrotate version in fedora and rhel
 - 870990 - sw-rm-ch -l when satellite-sync runs.
