@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.1.29
+Version:    2.1.30
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -89,6 +89,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Sat Feb 15 2014 Matej Kollar <mkollar@redhat.com> 2.1.30-1
+- Use jquery-timepicker-1.3.3
+
 * Fri Feb 14 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.29-1
 - datepicker needs bootstrap-datepicker and jquery-timepicker
 
