@@ -27,11 +27,6 @@ import com.redhat.rhn.FaultException;
 public class InvalidChannelLabelException extends FaultException {
 
     /**
-     * Label the user attempted to give the channel.
-     */
-    private String label;
-
-    /**
      * Indicates why the channel label is invalid.
      */
     private Reason reason;
