@@ -123,7 +123,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
 
     public static final String PACKAGE_TO_REMOVE = "rhn-kickstart-virtualization";
 
-    private User user;
     private KickstartData ksdata;
     protected String cobblerProfileLabel;
     protected boolean cobblerOnly;
