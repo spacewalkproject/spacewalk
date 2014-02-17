@@ -30,7 +30,6 @@ import java.util.Iterator;
  */
 public abstract class BaseFileListEditCommand extends BasePersistOperation {
 
-    protected User user;
     protected FileList list;
     protected String newLabel;
 
