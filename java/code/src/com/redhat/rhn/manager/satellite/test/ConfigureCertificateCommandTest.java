@@ -38,7 +38,7 @@ public class ConfigureCertificateCommandTest extends BaseTestCaseWithUser {
         Config.get().setString(ConfigDefaults.SATELLITE_PARENT,
                 "satellite.webqa.redhat.com");
         Config.get().setBoolean(ConfigDefaults.DISCONNECTED, "1");
-        user.addRole(RoleFactory.SAT_ADMIN);
+        user.addPermanentRole(RoleFactory.SAT_ADMIN);
         cmd = new ConfigureCertificateCommand(user) {
             protected Executor getExecutor() {
                 return new TestExecutor();
@@ -75,7 +75,7 @@ public class ConfigureCertificateCommandTest extends BaseTestCaseWithUser {
         Config.get().setString(ConfigDefaults.SATELLITE_PARENT,
                 "satellite.webqa.redhat.com");
         Config.get().setBoolean(ConfigDefaults.DISCONNECTED, "1");
-        user.addRole(RoleFactory.SAT_ADMIN);
+        user.addPermanentRole(RoleFactory.SAT_ADMIN);
         cmd = new ConfigureCertificateCommand(user) {
             protected Executor getExecutor() {
                 TestExecutor testExecutor = new TestExecutor();

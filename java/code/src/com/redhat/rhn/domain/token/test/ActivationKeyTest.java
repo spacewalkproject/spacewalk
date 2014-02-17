@@ -49,7 +49,7 @@ import java.util.List;
 public class ActivationKeyTest extends BaseTestCaseWithUser {
     public void setUp() throws Exception {
         super.setUp();
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
     }
     public void testKeyGeneration() throws Exception {
 

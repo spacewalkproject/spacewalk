@@ -36,7 +36,7 @@ public class KickstartFileSyncTaskTest extends RhnBaseTestCase {
     public void testTask() throws Exception {
 
         User user = UserTestUtils.createUserInOrgOne();
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
 
         KickstartData ks = KickstartDataTest.createTestKickstartData(user.getOrg());
         ks.setKickstartDefaults(KickstartDataTest.createDefaults(ks, user));

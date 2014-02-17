@@ -40,7 +40,7 @@ public class VisibleSystemsListActionTest extends RhnBaseTestCase {
 
 
         User user = ah.getUser();
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         TestUtils.saveAndFlush(user);
         ServerFactoryTest.createTestServer(user, true,
                         ServerConstants.getServerGroupTypeEnterpriseEntitled());

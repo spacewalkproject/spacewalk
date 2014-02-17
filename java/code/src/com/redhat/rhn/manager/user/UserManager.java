@@ -327,13 +327,13 @@ public class UserManager extends BaseManager {
         for (String removeLabel : rolesToRemove) {
             Role removeMe = RoleFactory.lookupByLabel(removeLabel);
             log.debug("Removing role: " + removeMe.getName());
-            usr.removeRole(removeMe);
+            usr.removePermanentRole(removeMe);
         }
 
         for (String addLabel : rolesToAdd) {
             Role r = RoleFactory.lookupByLabel(addLabel);
             log.debug("Adding role: " + r.getName());
-            usr.addRole(r);
+            usr.addPermanentRole(r);
         }
     }
 

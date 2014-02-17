@@ -64,7 +64,7 @@ public class ProbeDetailsActionTest extends RhnBaseTestCase {
         ah.setUpAction(action);
 
         user = ah.getUser();
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         s = ServerFactoryTest.createTestServer(user, true);
         UserTestUtils.addMonitoringScoutOrg(user);
         probe = MonitoringFactoryTest.createTestProbe(user);

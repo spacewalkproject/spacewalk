@@ -365,7 +365,7 @@ public class UserHandler extends BaseHandler {
         // Retrieve the role object corresponding to the role label passed in and
         // add to user
         Role r = RoleFactory.lookupByLabel(role);
-        target.addRole(r);
+        target.addPermanentRole(r);
         UserManager.storeUser(target);
         return 1;
     }
@@ -415,7 +415,7 @@ public class UserHandler extends BaseHandler {
         // Retrieve the role object corresponding to the role label passed in and
         // remove from user
         Role r = RoleFactory.lookupByLabel(role);
-        target.removeRole(r);
+        target.removePermanentRole(r);
 
         UserManager.storeUser(target);
         return 1;

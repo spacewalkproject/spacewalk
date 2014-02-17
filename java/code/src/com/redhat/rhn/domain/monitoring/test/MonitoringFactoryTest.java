@@ -142,7 +142,7 @@ public class MonitoringFactoryTest extends RhnBaseTestCase {
         }
 
         private static Probe createProbe(ProbeType pt, User u) {
-            u.addRole(RoleFactory.ORG_ADMIN);
+            u.addPermanentRole(RoleFactory.ORG_ADMIN);
             UserFactory.save(u);
             if (MonitoringConstants.getProbeTypeCheck().equals(pt)) {
                 ServerProbe retval = ServerProbe.newInstance();

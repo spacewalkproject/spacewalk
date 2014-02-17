@@ -38,7 +38,7 @@ public class KickstartSessionCommandCreateTest extends BaseKickstartCommandTestC
         // that we get both a one-time-key and the actual key associated with the KS
         // See BZ: 252980
         ActivationKeysTest.addKeysToKickstartData(user, ksdata);
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Profile p = ProfileManagerTest.createProfileWithServer(user);
         ksdata.getKickstartDefaults().setProfile(p);
         TestUtils.saveAndFlush(ksdata);

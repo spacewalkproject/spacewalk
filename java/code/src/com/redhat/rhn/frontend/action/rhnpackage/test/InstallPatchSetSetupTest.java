@@ -48,7 +48,7 @@ public class InstallPatchSetSetupTest extends RhnBaseTestCase {
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getCurrentUser();
 
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server system = ServerFactoryTest.createTestServer(user);
 
         ActionMapping mapping = new ActionMapping();

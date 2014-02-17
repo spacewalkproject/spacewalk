@@ -105,7 +105,7 @@ public class AffectedSystemsActionTest extends MockObjectTestCase {
         ah.setupProcessPagination();
 
         User user = ah.getUser();
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
 
         Errata errata = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
 

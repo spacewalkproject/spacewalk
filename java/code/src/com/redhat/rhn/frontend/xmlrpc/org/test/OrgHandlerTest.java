@@ -65,7 +65,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
-        admin.addRole(RoleFactory.SAT_ADMIN);
+        admin.addPermanentRole(RoleFactory.SAT_ADMIN);
         for (int i = 0; i < orgName.length; i++) {
             orgName[i] = "Test Org " + TestUtils.randomString();
         }

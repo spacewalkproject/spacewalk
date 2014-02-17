@@ -44,7 +44,7 @@ public class KickstartSessionTest extends BaseTestCaseWithUser {
 
     public void setUp() throws Exception {
         super.setUp();
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         k = KickstartDataTest.createKickstartWithOptions(user.getOrg());
         assertNotNull(k);
         Profile p  = ProfileTest.createTestProfile(user,

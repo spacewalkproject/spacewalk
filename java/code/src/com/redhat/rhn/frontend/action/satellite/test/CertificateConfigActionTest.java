@@ -33,7 +33,7 @@ public class CertificateConfigActionTest extends RhnPostMockStrutsTestCase {
     public void setUp() throws Exception {
         super.setUp();
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
-        user.addRole(RoleFactory.SAT_ADMIN);
+        user.addPermanentRole(RoleFactory.SAT_ADMIN);
         Config.get().setString("web.com.redhat.rhn.frontend." +
                 "action.satellite.CertificateConfigAction.command",
                 TestConfigureCertificateCommand.class.getName());

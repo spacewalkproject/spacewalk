@@ -64,7 +64,7 @@ public class ProvisionVirtualizationWizardActionTest extends RhnMockStrutsTestCa
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo("/systems/details/virtualization/ProvisionVirtualizationWizard");
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         s = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         s.addChannel(ChannelFactoryTest.createBaseChannel(user));

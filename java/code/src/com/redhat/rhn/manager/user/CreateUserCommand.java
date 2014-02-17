@@ -133,10 +133,10 @@ public class CreateUserCommand {
         boolean usePam = user.getUsePamAuthentication(); //save what we got from the form
         user = UserManager.createUser(user, org, addr);
         if (this.makeOrgAdmin) {
-            user.addRole(RoleFactory.ORG_ADMIN);
+            user.addPermanentRole(RoleFactory.ORG_ADMIN);
         }
         if (this.makeSatAdmin) {
-            user.addRole(RoleFactory.SAT_ADMIN);
+            user.addPermanentRole(RoleFactory.SAT_ADMIN);
         }
         user.setUsePamAuthentication(usePam); //set it back
         UserManager.resetTemporaryRoles(user, temporaryRoles);

@@ -35,7 +35,7 @@ import com.redhat.rhn.testing.TestUtils;
 public class CancelKickstartSessionOperationTest extends BaseTestCaseWithUser {
 
     public void testOperation() throws Exception {
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         KickstartData k = KickstartDataTest.createKickstartWithOptions(user.getOrg());
         KickstartSession ksession = KickstartSessionTest.createKickstartSession(k, user);
         Server s = ksession.getOldServer();

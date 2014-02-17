@@ -60,7 +60,7 @@ public class UserManagerTest extends RhnBaseTestCase {
     public void testListRolesAssignable() throws Exception {
         User user = UserTestUtils.findNewUser();
         assertTrue(UserManager.listRolesAssignableBy(user).isEmpty());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserManager.storeUser(user);
         assertTrue(UserManager.listRolesAssignableBy(user).
                                 contains(RoleFactory.CONFIG_ADMIN));
@@ -87,10 +87,10 @@ public class UserManagerTest extends RhnBaseTestCase {
     public void testLookup() {
         User admin = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        admin.addRole(RoleFactory.ORG_ADMIN);
+        admin.addPermanentRole(RoleFactory.ORG_ADMIN);
 
         User regular = UserTestUtils.createUser("testUser2", admin.getOrg().getId());
-        regular.removeRole(RoleFactory.ORG_ADMIN);
+        regular.removePermanentRole(RoleFactory.ORG_ADMIN);
 
         assertTrue(admin.hasRole(RoleFactory.ORG_ADMIN));
         assertTrue(!regular.hasRole(RoleFactory.ORG_ADMIN));
@@ -134,12 +134,12 @@ public class UserManagerTest extends RhnBaseTestCase {
         //Create test users
         User org1admin = UserTestUtils.createUser("orgAdmin1",
                                             UserTestUtils.createOrg("UMTOrg1"));
-        org1admin.addRole(RoleFactory.ORG_ADMIN);
+        org1admin.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserManager.storeUser(org1admin);
 
         User org1admin2 = UserTestUtils.createUser("orgAdmin2",
                                                   org1admin.getOrg().getId());
-        org1admin2.addRole(RoleFactory.ORG_ADMIN);
+        org1admin2.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserManager.storeUser(org1admin2);
 
         User org1normal = UserTestUtils.createUser("normaluser1",
@@ -149,7 +149,7 @@ public class UserManagerTest extends RhnBaseTestCase {
 
         User org2admin = UserTestUtils.createUser("orgAdmin2",
                                              UserTestUtils.createOrg("UMTOrg2"));
-        org2admin.addRole(RoleFactory.ORG_ADMIN);
+        org2admin.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserManager.storeUser(org2admin);
 
         try {
@@ -272,7 +272,7 @@ public class UserManagerTest extends RhnBaseTestCase {
         int numActive = 1;
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         PageControl pc = new PageControl();
         pc.setStart(1);
         pc.setPageSize(5);

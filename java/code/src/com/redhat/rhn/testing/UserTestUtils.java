@@ -166,7 +166,7 @@ public class UserTestUtils extends Assert {
      */
     public static User createUserInOrgOne() throws Exception {
         User retval = createUser("testUser", 1L);
-        retval.addRole(RoleFactory.ORG_ADMIN);
+        retval.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(retval);
         return retval;
     }
@@ -179,7 +179,7 @@ public class UserTestUtils extends Assert {
      */
     public static User createSatAdminInOrgOne() throws Exception {
         User retval = createUser("testUser", 1L);
-        retval.addRole(RoleFactory.SAT_ADMIN);
+        retval.addPermanentRole(RoleFactory.SAT_ADMIN);
         UserFactory.save(retval);
         return retval;
     }
@@ -196,7 +196,7 @@ public class UserTestUtils extends Assert {
         Long id = createUser(userName, orgName);
         User usr = UserFactory.lookupById(id);
         if (orgAdmin) {
-            usr.addRole(RoleFactory.ORG_ADMIN);
+            usr.addPermanentRole(RoleFactory.ORG_ADMIN);
             UserFactory.save(usr);
         }
         return usr;
@@ -279,7 +279,7 @@ public class UserTestUtils extends Assert {
     public static void addUserRole(User user, Role r) {
         Org o = user.getOrg();
         o.addRole(r);
-        user.addRole(r);
+        user.addPermanentRole(r);
     }
 
     /**

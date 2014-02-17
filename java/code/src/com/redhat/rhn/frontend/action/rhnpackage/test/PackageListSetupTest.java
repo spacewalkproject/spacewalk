@@ -32,7 +32,7 @@ import com.redhat.rhn.testing.UserTestUtils;
 public class PackageListSetupTest extends RhnMockStrutsTestCase {
 
     public void testExecute() throws Exception {
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
         Server server = ServerFactoryTest.createTestServer(user, true);
         PackageManagerTest.addPackageToSystemAndChannel(

@@ -74,7 +74,7 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
     public void setUp() throws Exception {
         super.setUp();
 
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         server = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         Channel c = ChannelFactoryTest.createTestChannel(server.getCreator());
@@ -337,7 +337,7 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
             Long otherServerId, Long profileId)
                     throws Exception {
         User user = server.getCreator();
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Channel c = server.getBaseChannel();
 
         KickstartScheduleCommand cmd = new

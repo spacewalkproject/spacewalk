@@ -37,7 +37,7 @@ import java.util.Iterator;
 public class KickstartActivationKeysTest extends BaseKickstartCommandTestCase {
 
     public void testActivationKeysForKickstart() throws Exception {
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
 
         String note = TestUtils.randomString() +
             " -- Java unit test activation key.";
@@ -74,7 +74,7 @@ public class KickstartActivationKeysTest extends BaseKickstartCommandTestCase {
 
         Long ksid = ksdata.getId();
 
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
 
         String note = TestUtils.randomString() +
             " -- Java unit test activation key.";

@@ -76,7 +76,7 @@ public class ProbeSuiteSystemsEditActionTest extends RhnBaseTestCase {
         sah.setupClampListBounds();
         sah.getRequest().setRequestURL("foo");
         // Setup the user and a System so we get one back
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserManager.storeUser(user);
         // Create a 2nd server that isn't in the suite
         Server serverNotInSuite = ServerFactoryTest.createTestServer(user, true,

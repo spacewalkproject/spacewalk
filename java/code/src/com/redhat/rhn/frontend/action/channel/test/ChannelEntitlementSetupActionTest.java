@@ -39,7 +39,7 @@ public class ChannelEntitlementSetupActionTest extends RhnBaseTestCase {
         sah.getRequest().setupAddParameter(RequestContext.FILTER_STRING, (String) null);
 
         User user = sah.getUser();
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         ChannelFactoryTest.createTestChannel(user);
 
         OrgFactory.save(user.getOrg());

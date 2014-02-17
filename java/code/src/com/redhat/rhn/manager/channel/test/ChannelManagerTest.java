@@ -267,7 +267,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
     public void testDeleteChannel() throws Exception {
         // thanks mmccune for the tip
         user.getOrg().addRole(RoleFactory.CHANNEL_ADMIN);
-        user.addRole(RoleFactory.CHANNEL_ADMIN);
+        user.addPermanentRole(RoleFactory.CHANNEL_ADMIN);
         TestUtils.saveAndFlush(user);
 
         Channel c = ChannelFactoryTest.createTestChannel(user);
@@ -585,7 +585,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
     }
 
     public void testChildrenAvailableToSet() throws Exception {
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         TestUtils.saveAndFlush(user);
 
         DataResult childChannels = ChannelManager.childrenAvailableToSet(user);
@@ -875,7 +875,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
 
     public void testListErrataNeedingResync() throws Exception {
 
-        user.addRole(RoleFactory.CHANNEL_ADMIN);
+        user.addPermanentRole(RoleFactory.CHANNEL_ADMIN);
         UserFactory.save(user);
 
         Channel ochan = ChannelFactoryTest.createTestChannel(user);
@@ -902,7 +902,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
 
     public void testListErrataPackagesForResync() throws Exception {
 
-        user.addRole(RoleFactory.CHANNEL_ADMIN);
+        user.addPermanentRole(RoleFactory.CHANNEL_ADMIN);
 
         Channel ochan = ChannelFactoryTest.createTestChannel(user);
         Channel cchan = ChannelFactoryTest.createTestClonedChannel(ochan, user);

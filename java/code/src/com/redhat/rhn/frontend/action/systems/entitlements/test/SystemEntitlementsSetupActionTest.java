@@ -181,8 +181,8 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
     }
 
     private void setupMonitoring() {
-        user.addRole(RoleFactory.MONITORING_ADMIN);
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.MONITORING_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         user.getOrg().getEntitlements().add(
             OrgFactory.lookupEntitlementByLabel("rhn_monitor"));
         Config.get().setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, "1");

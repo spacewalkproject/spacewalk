@@ -154,7 +154,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
     }
 
     public void testProfile() throws Exception {
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         KickstartData k = createKickstartWithProfile(user);
         assertNotNull(k.getKickstartDefaults().getProfile());
     }
@@ -188,7 +188,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
     }
 
     public void testLookupByLabel() throws Exception {
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         KickstartData k = createKickstartWithProfile(user);
         assertNotNull(KickstartFactory.lookupKickstartDataByLabelAndOrgId(k.getLabel(),
                 user.getOrg().getId()));

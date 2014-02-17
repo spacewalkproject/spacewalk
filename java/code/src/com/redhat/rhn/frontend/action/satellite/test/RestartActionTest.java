@@ -34,7 +34,7 @@ public class RestartActionTest extends RhnPostMockStrutsTestCase {
     public void setUp() throws Exception {
         super.setUp();
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
-        user.addRole(RoleFactory.SAT_ADMIN);
+        user.addPermanentRole(RoleFactory.SAT_ADMIN);
         setRequestPathInfo("/admin/config/Restart");
         Config.get().setString("web.com.redhat.rhn.frontend." +
                 "action.satellite.RestartAction.command",

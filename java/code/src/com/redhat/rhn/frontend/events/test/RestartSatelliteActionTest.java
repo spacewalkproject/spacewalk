@@ -27,7 +27,7 @@ public class RestartSatelliteActionTest extends BaseTestCaseWithUser {
     private TestRestartCommand command;
 
     public void testAction() throws Exception {
-        user.addRole(RoleFactory.SAT_ADMIN);
+        user.addPermanentRole(RoleFactory.SAT_ADMIN);
         command = new TestRestartCommand(user);
         RestartSatelliteEvent event = new RestartSatelliteEvent(user);
         RestartSatelliteAction action = new RestartSatelliteAction() {

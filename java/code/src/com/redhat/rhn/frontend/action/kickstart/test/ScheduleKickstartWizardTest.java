@@ -63,7 +63,7 @@ public class ScheduleKickstartWizardTest extends RhnMockStrutsTestCase {
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo("/systems/details/kickstart/ScheduleWizard");
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         s = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeProvisioningEntitled());
         NetworkInterface device = NetworkInterfaceTest.createTestNetworkInterface(s);

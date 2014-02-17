@@ -34,7 +34,7 @@ public class SlaveHandlerTest extends BaseHandlerTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
-        admin.addRole(RoleFactory.SAT_ADMIN);
+        admin.addPermanentRole(RoleFactory.SAT_ADMIN);
         slaveName = "testSlave" + TestUtils.randomString();
     }
 

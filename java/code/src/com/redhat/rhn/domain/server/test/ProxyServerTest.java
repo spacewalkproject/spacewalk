@@ -26,7 +26,7 @@ public class ProxyServerTest extends RhnBaseTestCase {
 
     public void testProxyServer() throws Exception {
         User user = UserTestUtils.findNewUser("testuser", "testorg");
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server server = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled(),
                 ServerFactoryTest.TYPE_SERVER_PROXY);

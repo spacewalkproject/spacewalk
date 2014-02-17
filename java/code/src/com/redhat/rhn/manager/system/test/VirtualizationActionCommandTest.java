@@ -46,7 +46,7 @@ public class VirtualizationActionCommandTest extends BaseTestCaseWithUser {
 
     public void testScheduleCommandSimple() throws Exception {
 
-        this.user.addRole(RoleFactory.ORG_ADMIN);
+        this.user.addPermanentRole(RoleFactory.ORG_ADMIN);
 
         Server server = ServerFactoryTest.createTestServer(this.user, true,
                             ServerConstants.getServerGroupTypeEnterpriseEntitled());

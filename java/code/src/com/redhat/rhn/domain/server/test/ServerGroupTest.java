@@ -65,7 +65,7 @@ public class ServerGroupTest extends RhnBaseTestCase {
      */
     public static void checkSysGroupAdminRole(User user) {
         if (!user.hasRole(RoleFactory.SYSTEM_GROUP_ADMIN)) {
-            user.addRole(RoleFactory.SYSTEM_GROUP_ADMIN);
+            user.addPermanentRole(RoleFactory.SYSTEM_GROUP_ADMIN);
         }
     }
 

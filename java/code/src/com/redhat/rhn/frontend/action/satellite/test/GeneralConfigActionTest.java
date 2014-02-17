@@ -43,7 +43,7 @@ public class GeneralConfigActionTest extends RhnPostMockStrutsTestCase {
 
     public void testNonSubmit() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
-        user.addRole(RoleFactory.SAT_ADMIN);
+        user.addPermanentRole(RoleFactory.SAT_ADMIN);
         setRequestPathInfo("/admin/config/GeneralConfig");
         Iterator i = GeneralConfigAction.ALLOWED_CONFIGS.iterator();
         Map originalConfigValues = new HashMap();
@@ -73,7 +73,7 @@ public class GeneralConfigActionTest extends RhnPostMockStrutsTestCase {
 
     public void testSubmit() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
-        user.addRole(RoleFactory.SAT_ADMIN);
+        user.addPermanentRole(RoleFactory.SAT_ADMIN);
         setRequestPathInfo("/admin/config/GeneralConfig");
         Config.get().setString("web.com.redhat.rhn.frontend." +
                 "action.satellite.GeneralConfigAction.command",

@@ -73,7 +73,8 @@ public class DeleteUserActionTest extends RhnBaseTestCase {
         //Null parameter
         request.getParameter("uid");
         request.setupAddParameter("uid", (String)null);
-        requestContext.getCurrentUser().addRole(RoleFactory.lookupByLabel("org_admin"));
+        requestContext.getCurrentUser().addPermanentRole(
+                RoleFactory.lookupByLabel("org_admin"));
         try {
             forward = action.execute(mapping, form, request, response);
             fail();
@@ -103,7 +104,7 @@ public class DeleteUserActionTest extends RhnBaseTestCase {
         failure.setPath("path");
         User usr = UserTestUtils.createUser("testUser",
                 requestContext.getCurrentUser().getOrg().getId());
-        usr.addRole(RoleFactory.lookupByLabel("org_admin"));
+        usr.addPermanentRole(RoleFactory.lookupByLabel("org_admin"));
         request.setupAddParameter("uid", usr.getId().toString());
         forward = action.execute(mapping, form, request, response);
         failure.setPath("path?uid=" + usr.getId());

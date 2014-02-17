@@ -249,7 +249,7 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
         Collection servers = new ArrayList();
         servers.add(server);
         ServerGroupManager manager = ServerGroupManager.getInstance();
-        user.addRole(RoleFactory.SYSTEM_GROUP_ADMIN);
+        user.addPermanentRole(RoleFactory.SYSTEM_GROUP_ADMIN);
         ManagedServerGroup sg1 = manager.create(user, "FooFooFOO", "Foo Description");
         manager.addServers(sg1, servers, user);
 
@@ -749,7 +749,7 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
          * We add the test channel to each of the servers.  This allows
          * us to test the compatibleWithServer method.
          */
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserManager.storeUser(user);
 
         Server srvr = createTestServer(user, true,
@@ -786,16 +786,16 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
         //The org admin user
         User admin = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        admin.addRole(RoleFactory.ORG_ADMIN);
+        admin.addPermanentRole(RoleFactory.ORG_ADMIN);
 
         //the non-orgadmin user who is a member of the group
         User regular =   UserTestUtils.createUser("testUser2", admin.getOrg().getId());
-        regular.removeRole(RoleFactory.ORG_ADMIN);
+        regular.removePermanentRole(RoleFactory.ORG_ADMIN);
 
         //a user who shouldn't be able to admin the system
         User nonGroupAdminUser = UserTestUtils.createUser(
                  "testUser3", admin.getOrg().getId());
-        nonGroupAdminUser.removeRole(RoleFactory.ORG_ADMIN);
+        nonGroupAdminUser.removePermanentRole(RoleFactory.ORG_ADMIN);
 
         ManagedServerGroup group = ServerGroupTestUtils.createManaged(admin);
 
@@ -921,7 +921,7 @@ public class ServerFactoryTest extends BaseTestCaseWithUser {
 
 
     public void testUnsubscribeFromAllChannels() throws Exception {
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         ChannelFactoryTest.createBaseChannel(user);
         Server serverIn = ServerFactoryTest.createTestServer(user);
 

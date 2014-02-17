@@ -52,7 +52,7 @@ public class MonitoringAclHandlerTest extends RhnBaseTestCase {
         c.setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, "1");
         assertFalse(acl.evalAcl(context, "show_monitoring()"));
 
-        user.addRole(RoleFactory.MONITORING_ADMIN);
+        user.addPermanentRole(RoleFactory.MONITORING_ADMIN);
         assertTrue(acl.evalAcl(context, "show_monitoring()"));
 
         c.setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, "0");

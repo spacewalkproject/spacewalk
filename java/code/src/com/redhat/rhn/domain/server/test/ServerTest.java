@@ -167,7 +167,7 @@ public class ServerTest extends BaseTestCaseWithUser {
 
 
     public void xxxtestServerWithVirtEntitlementIsVirtualHost() {
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server server = new VirtEntitledServer(user);
         server = (Server) TestUtils.saveAndReload(server);
         assertTrue(server.isVirtualHost());

@@ -1140,7 +1140,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         User nonGroupAdminUser = UserTestUtils.createUser(
                 "testUser3", admin.getOrg().getId());
-        nonGroupAdminUser.removeRole(RoleFactory.ORG_ADMIN);
+        nonGroupAdminUser.removePermanentRole(RoleFactory.ORG_ADMIN);
 
         List users = ServerFactory.listAdministrators(server);
 

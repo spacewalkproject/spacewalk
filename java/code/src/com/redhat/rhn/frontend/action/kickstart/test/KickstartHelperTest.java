@@ -47,7 +47,7 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
      */
     public void setUp() throws Exception {
         super.setUp();
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
         ksdata = KickstartDataTest.createKickstartWithOptions(user.getOrg());
         // ksdata = KickstartDataTest.createKickstartWithChannel(user.getOrg());
@@ -122,7 +122,7 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
 
 
     public void testKsSessionPathparse() throws Exception {
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         KickstartSession session =
             KickstartSessionTest.createKickstartSession(ksdata, user);
         KickstartFactory.saveKickstartSession(session);

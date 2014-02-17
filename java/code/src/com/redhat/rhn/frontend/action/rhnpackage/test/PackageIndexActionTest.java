@@ -37,7 +37,7 @@ public class PackageIndexActionTest extends RhnBaseTestCase {
         PackageIndexAction pia = new PackageIndexAction();
         ActionHelper ah = new ActionHelper();
         ah.setUpAction(pia);
-        ah.getUser().addRole(RoleFactory.ORG_ADMIN);
+        ah.getUser().addPermanentRole(RoleFactory.ORG_ADMIN);
 
         Server svr = ServerFactoryTest.createTestServer(ah.getUser(), true);
         ah.getRequest().setupAddParameter("sid", svr.getId().toString());

@@ -115,7 +115,7 @@ public class UserEditActionTest extends RhnBaseTestCase {
                 requestContext.getParamAsLong("uid"));
 
         //Give the user org admin role
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserManager.storeUser(user);
         ServerFactoryTest.createTestServer(user);
         UserTestUtils.assertOrgAdmin(user);
@@ -169,7 +169,7 @@ public class UserEditActionTest extends RhnBaseTestCase {
          */
         if (user.getOrg().numActiveOrgAdmins() < 2) {
             User otherAdmin = UserTestUtils.createUser("oadmin", user.getOrg().getId());
-            otherAdmin.addRole(RoleFactory.ORG_ADMIN);
+            otherAdmin.addPermanentRole(RoleFactory.ORG_ADMIN);
             UserManager.storeUser(otherAdmin);
         }
 
@@ -178,10 +178,10 @@ public class UserEditActionTest extends RhnBaseTestCase {
         ActionForward result = action.execute(mapping, form, request, response);
         //should get noaccess
         assertTrue(result.getName().equals("noaccess"));
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
 
         User user2 = UserTestUtils.createUser("foo", user.getOrg().getId());
-        user2.addRole(RoleFactory.ORG_ADMIN);
+        user2.addPermanentRole(RoleFactory.ORG_ADMIN);
         setupRoleParameters(request, user2);
 
         result = action.execute(mapping, form, request, response);

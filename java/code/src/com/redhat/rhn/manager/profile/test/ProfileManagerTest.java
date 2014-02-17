@@ -61,7 +61,7 @@ public class ProfileManagerTest extends BaseTestCaseWithUser {
         super.setUp();
 
         // Give our user ORG_ADMIN
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
     }
 

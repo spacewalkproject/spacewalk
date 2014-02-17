@@ -48,7 +48,7 @@ public class KickstartPackageProfileActionTest extends RhnMockStrutsTestCase {
     }
 
     public void testExecute() throws Exception {
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         setRequestPathInfo("/kickstart/KickstartPackageProfileEdit");
         actionPerform();
         assertNotNull(request.getParameter(RequestContext.KICKSTART_ID));
@@ -56,7 +56,7 @@ public class KickstartPackageProfileActionTest extends RhnMockStrutsTestCase {
 
     public void testSubmit() throws Exception {
         assertNull(ksdata.getKickstartDefaults().getProfile());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Profile p = ProfileManagerTest.createProfileWithServer(user);
         ksdata.getKickstartDefaults().setProfile(p);
         addDispatchCall(KickstartPackageProfileSetupAction.CLEAR_METHOD);

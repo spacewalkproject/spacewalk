@@ -73,7 +73,7 @@ public class OrgFactoryTest extends RhnBaseTestCase {
      */
     public void testAddRole() {
         User user = UserTestUtils.findNewUser("testuser", "testorg");
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         assertTrue(user.hasRole(RoleFactory.CHANNEL_ADMIN));
     }
 

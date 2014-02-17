@@ -33,7 +33,7 @@ public class TokenPackageTest extends BaseTestCaseWithUser {
 
     public void setUp() throws Exception {
         super.setUp();
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
     }
 
     public void testTokenPackage() throws Exception {

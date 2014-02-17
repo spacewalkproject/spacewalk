@@ -28,7 +28,7 @@ public class ConfigureBootstrapCommandTest extends BaseTestCaseWithUser {
     private ConfigureBootstrapCommand cmd;
 
     public void testCreateCommand() throws Exception {
-        user.addRole(RoleFactory.SAT_ADMIN);
+        user.addPermanentRole(RoleFactory.SAT_ADMIN);
         cmd = new ConfigureBootstrapCommand(user) {
             protected Executor getExecutor() {
                 return new TestExecutor();

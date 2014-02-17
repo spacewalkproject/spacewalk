@@ -656,7 +656,7 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
 
     public void testCountCentrallyManagedFiles() throws Exception {
         user.getOrg().addRole(RoleFactory.CONFIG_ADMIN);
-        user.addRole(RoleFactory.CONFIG_ADMIN);
+        user.addPermanentRole(RoleFactory.CONFIG_ADMIN);
         Server s = makeServerForChannelCountTests();
         ConfigFileCount actual = cm.countCentrallyManagedPaths(s, user);
 

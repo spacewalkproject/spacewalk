@@ -66,7 +66,7 @@ public class SatManager extends BaseManager {
      */
     public void grantSatAdminRoleTo(User assignee, User satAdmin) {
         ensureSatAdminRole(satAdmin);
-        assignee.addRole(RoleFactory.SAT_ADMIN);
+        assignee.addPermanentRole(RoleFactory.SAT_ADMIN);
     }
 
     /**
@@ -81,7 +81,7 @@ public class SatManager extends BaseManager {
                 ValidatorException.raiseException("satadmin.jsp.error.lastsatadmin",
                                                                 revokee.getLogin());
             }
-            revokee.removeRole(RoleFactory.SAT_ADMIN);
+            revokee.removePermanentRole(RoleFactory.SAT_ADMIN);
         }
     }
 

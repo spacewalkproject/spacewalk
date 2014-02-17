@@ -62,7 +62,7 @@ public class OrgSoftwareSubscriptionsActionTest extends RhnPostMockStrutsTestCas
 
     public void testExecute() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
-        user.addRole(RoleFactory.SAT_ADMIN);
+        user.addPermanentRole(RoleFactory.SAT_ADMIN);
         addRequestParameter(RequestContext.ORG_ID, user.getOrg().getId().toString());
         setRequestPathInfo("/admin/multiorg/OrgSoftwareSubscriptions");
         actionPerform();
@@ -74,7 +74,7 @@ public class OrgSoftwareSubscriptionsActionTest extends RhnPostMockStrutsTestCas
 
     public void testExecuteSubmit() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
-        user.addRole(RoleFactory.SAT_ADMIN);
+        user.addPermanentRole(RoleFactory.SAT_ADMIN);
         addRequestParameter(RequestContext.ORG_ID, user.getOrg().getId().toString());
         addRequestParameter(cfm.getId().toString(), "10");
         addRequestParameter("updateOrganizations", "1");

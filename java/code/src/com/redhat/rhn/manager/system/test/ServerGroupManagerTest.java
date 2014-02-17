@@ -58,7 +58,7 @@ public class ServerGroupManagerTest extends BaseTestCaseWithUser {
             //Great... No privilege won't let you create a server group.
         }
 
-        user.addRole(RoleFactory.SYSTEM_GROUP_ADMIN);
+        user.addPermanentRole(RoleFactory.SYSTEM_GROUP_ADMIN);
         ServerGroup sg = manager.create(user, NAME, DESCRIPTION);
         assertNotNull(sg);
         assertEquals(NAME, sg.getName());
@@ -66,7 +66,7 @@ public class ServerGroupManagerTest extends BaseTestCaseWithUser {
     }
 
     public void testAccess() throws Exception {
-        user.addRole(RoleFactory.SYSTEM_GROUP_ADMIN);
+        user.addPermanentRole(RoleFactory.SYSTEM_GROUP_ADMIN);
         ManagedServerGroup sg = manager.create(user, NAME, DESCRIPTION);
         assertTrue(manager.canAccess(user, sg));
 
@@ -81,12 +81,12 @@ public class ServerGroupManagerTest extends BaseTestCaseWithUser {
         assertFalse(manager.canAccess(newUser, sg));
 
         User orgAdmin = UserTestUtils.createUser("testDiffUser", user.getOrg().getId());
-        orgAdmin.addRole(RoleFactory.ORG_ADMIN);
+        orgAdmin.addPermanentRole(RoleFactory.ORG_ADMIN);
         assertTrue(manager.canAccess(orgAdmin, sg));
     }
 
     public void testRemove() throws Exception {
-        user.addRole(RoleFactory.SYSTEM_GROUP_ADMIN);
+        user.addPermanentRole(RoleFactory.SYSTEM_GROUP_ADMIN);
         ManagedServerGroup sg = manager.create(user, NAME, DESCRIPTION);
         sg = (ManagedServerGroup) reload(sg);
         User newUser = UserTestUtils.createUser("testDiffUser",
@@ -111,7 +111,7 @@ public class ServerGroupManagerTest extends BaseTestCaseWithUser {
         }
 
         manager.dissociateAdmins(sg, admins, user);
-        user.addRole(RoleFactory.SYSTEM_GROUP_ADMIN);
+        user.addPermanentRole(RoleFactory.SYSTEM_GROUP_ADMIN);
         try {
             manager.remove(newUser, sg);
             fail("Permission error. Can't remove if you don't have access");
@@ -132,7 +132,7 @@ public class ServerGroupManagerTest extends BaseTestCaseWithUser {
     }
 
     public void testListNoAssociatedAdmins() throws Exception {
-        user.addRole(RoleFactory.SYSTEM_GROUP_ADMIN);
+        user.addPermanentRole(RoleFactory.SYSTEM_GROUP_ADMIN);
         ServerGroup sg = manager.create(user, NAME, DESCRIPTION);
         TestUtils.flushAndEvict(sg);
         try {
@@ -142,7 +142,7 @@ public class ServerGroupManagerTest extends BaseTestCaseWithUser {
         catch (Exception e) {
           //passed
         }
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Collection groups = manager.listNoAdminGroups(user);
 
         int initSize = groups.size();
@@ -158,7 +158,7 @@ public class ServerGroupManagerTest extends BaseTestCaseWithUser {
     }
 
     public void testAddRemoveAdmins() {
-        user.addRole(RoleFactory.SYSTEM_GROUP_ADMIN);
+        user.addPermanentRole(RoleFactory.SYSTEM_GROUP_ADMIN);
         ManagedServerGroup sg = manager.create(user, NAME, DESCRIPTION);
         User newUser = UserTestUtils.
             createUser("testDiffUser", user.getOrg().getId());
@@ -172,7 +172,7 @@ public class ServerGroupManagerTest extends BaseTestCaseWithUser {
 
         User orgAdmin = UserTestUtils.createUser("testDiffUser",
                 user.getOrg().getId());
-        orgAdmin.addRole(RoleFactory.ORG_ADMIN);
+        orgAdmin.addPermanentRole(RoleFactory.ORG_ADMIN);
         List admins1 = new ArrayList();
         admins1.add(orgAdmin);
         manager.associateAdmins(sg, admins1, user);

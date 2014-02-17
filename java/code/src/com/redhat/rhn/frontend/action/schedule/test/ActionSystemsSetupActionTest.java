@@ -59,7 +59,7 @@ public class ActionSystemsSetupActionTest extends RhnBaseTestCase {
             //no op
         }
 
-        sah.getUser().addRole(RoleFactory.ORG_ADMIN);
+        sah.getUser().addPermanentRole(RoleFactory.ORG_ADMIN);
         Action a = ActionFactoryTest.createAction(sah.getUser(),
                 ActionFactory.TYPE_CONFIGFILES_DEPLOY);
         Server server = ServerFactoryTest.createTestServer(sah.getUser(), true);

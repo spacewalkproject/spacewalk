@@ -75,7 +75,7 @@ public class SatRoleConfirm extends RhnAction {
 
         DynaActionForm dynaForm = (DynaActionForm) formIn;
         if (isSubmitted(dynaForm)) {
-          u.removeRole(RoleFactory.SAT_ADMIN);
+          u.removePermanentRole(RoleFactory.SAT_ADMIN);
           retval = mapping.findForward("logout");
         }
         else {

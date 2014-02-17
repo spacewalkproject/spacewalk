@@ -31,7 +31,7 @@ public class KickstartFileDownloadCommandTest extends
         BaseKickstartCommandTestCase {
 
     public void testDownload() throws Exception {
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Channel c = ChannelFactoryTest.createTestChannel(user);
         ksdata.getKickstartDefaults().getKstree().setChannel(c);
         KickstartDataTest.addKickstartPackagesToChannel(c, true);

@@ -116,7 +116,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
     public void testSnapshotServer() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server server = ServerFactoryTest.createTestServer(user, true,
                             ServerConstants.getServerGroupTypeProvisioningEntitled());
         Long id = server.getId();
@@ -146,7 +146,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
     public void testDeleteServer() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server s = ServerFactoryTest.createTestServer(user, true);
         Long id = s.getId();
 
@@ -167,7 +167,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
     public void testDeleteVirtualServer() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server host = ServerTestUtils.createVirtHostWithGuests(user, 1);
         Server guest = (host.getGuests().iterator().next()).
             getGuestSystem();
@@ -191,7 +191,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
     public void testDeleteVirtualServerHostDeleted() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server host = ServerTestUtils.createVirtHostWithGuests(user, 1);
         Server guest = (host.getGuests().iterator().next()).
             getGuestSystem();
@@ -220,7 +220,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
     public void testSystemsNotInSg() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
 
         // Create a test server so we have one in the list.
         Server s = ServerFactoryTest.createTestServer(user, true);
@@ -250,7 +250,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
     public void testSystemList() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
 
         // Create a test server so we have one in the list.
         ServerFactoryTest.createTestServer(user, true);
@@ -270,7 +270,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         DataResult systems = SystemManager.systemsWithFeature(user, "ftr_probes", pc);
         int origCount = systems.size();
 
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         // Create a test server so we have one in the list.
         Server s = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeMonitoringEntitled());
@@ -291,7 +291,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
     public void testSystemsInGroup() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
 
         Server server = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
@@ -367,7 +367,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
     public void testUnscheduledErrata() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server server = ServerFactoryTest.createTestServer(user, true);
         PageControl pc = new PageControl();
         pc.setStart(1);
@@ -397,7 +397,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
     public void testEntitleServer() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server server = ServerTestUtils.createTestSystem(user);
         ChannelTestUtils.setupBaseChannelForVirtualization(user,
                 server.getBaseChannel());
@@ -475,7 +475,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
     public void testEntitleMaxMembers() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server server = ServerTestUtils.createTestSystem(user);
 
         UserTestUtils.addProvisioning(user.getOrg());
@@ -517,7 +517,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         // User and server
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server server = ServerTestUtils.createTestSystem(user);
         Channel[] children = ChannelTestUtils.setupBaseChannelForVirtualization(user,
                 server.getBaseChannel());
@@ -642,7 +642,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
          */
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server srvr = ServerFactoryTest.createTestServer(user, true,
                 ServerFactory.lookupServerGroupTypeByLabel("enterprise_entitled"));
 
@@ -678,7 +678,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
     public void testGetSsmSystemsSubscribedToChannel() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
 
         Server s = ServerTestUtils.createTestSystem(user);
@@ -699,7 +699,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
     public void testNoBaseChannelInSet() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
 
         // Get ourselves a system
@@ -739,7 +739,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
     public void testRegisteredList() throws Exception {
         User user = UserTestUtils.findNewUser(TestStatics.TESTUSER, TestStatics.TESTORG);
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server server = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         ServerGroup group = ServerGroupTest
@@ -753,7 +753,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
     public void testDeactivateProxy() throws Exception {
         User user = UserTestUtils.findNewUser(TestStatics.TESTUSER, TestStatics.TESTORG);
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server server = ServerFactoryTest.createTestProxyServer(user, true);
         assertTrue(server.isProxy());
         server = SystemManager.deactivateProxy(server);
@@ -859,7 +859,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
     public void testListCustomKeys() throws Exception {
         User admin = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        admin.addRole(RoleFactory.ORG_ADMIN);
+        admin.addPermanentRole(RoleFactory.ORG_ADMIN);
 
 
         CustomDataKey key = new CustomDataKey();
@@ -1094,7 +1094,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
     public void testListSystemsWithNeededPackage() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server server = ServerFactoryTest.createTestServer(user, true);
         PageControl pc = new PageControl();
         pc.setStart(1);

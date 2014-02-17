@@ -40,7 +40,7 @@ public class InProgressSystemsActionTest extends RhnBaseTestCase {
         ah.setupProcessPagination();
 
         User user = ah.getUser();
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
 
         Action a = ActionFactoryTest.createAction(user,
                 ActionFactory.TYPE_HARDWARE_REFRESH_LIST);

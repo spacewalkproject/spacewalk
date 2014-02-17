@@ -32,7 +32,7 @@ public class ProxyHandlerTest extends RhnBaseTestCase {
 
     public void testDeactivateProxyWithReload() throws Exception {
         User user = UserTestUtils.findNewUser("testuser", "testorg");
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server server = ServerFactoryTest.createTestProxyServer(user, true);
         assertTrue(server.isProxy());
         server = SystemManager.deactivateProxy(server);
@@ -44,7 +44,7 @@ public class ProxyHandlerTest extends RhnBaseTestCase {
         UserTestUtils.addProvisioning(user.getOrg());
         ProxyHandler ph = new ProxyHandler();
 
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server server = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled(),
                 ServerFactoryTest.TYPE_SERVER_NORMAL);
@@ -63,7 +63,7 @@ public class ProxyHandlerTest extends RhnBaseTestCase {
 
     public void testDeactivateProxy() throws Exception {
         User user = UserTestUtils.findNewUser("testuser", "testorg");
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server server = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled(),
                 ServerFactoryTest.TYPE_SERVER_PROXY);

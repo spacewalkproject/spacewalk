@@ -48,7 +48,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         super.setUp();
 
         user = UserTestUtils.createUserInOrgOne();
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         this.ksdata = KickstartDataTest.createKickstartWithDefaultKey(this.user.getOrg());
         this.ksdata.getTree().setBasePath("/tmp/opt/repo/f9-x86_64/");
 
@@ -150,7 +150,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
     }
 
     public void testLogin() throws Exception {
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
         user = (User) reload(user);
         CobblerLoginCommand cmd = new CobblerLoginCommand();

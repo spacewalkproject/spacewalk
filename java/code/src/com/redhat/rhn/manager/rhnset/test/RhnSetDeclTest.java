@@ -63,7 +63,7 @@ public class RhnSetDeclTest extends RhnBaseTestCase {
     }
 
     public void testGetUnownedSystems() throws Exception {
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
         Server s = ServerFactoryTest.createTestServer(user, true);
         testBadAndGoodIds(RhnSetDecl.PROBE_SUITE_SYSTEMS_EDIT,

@@ -39,7 +39,7 @@ public class OrgManagerTest extends RhnBaseTestCase {
         Org o = user.getOrg();
         // add satellite_admin since its not one of the implied roles
         o.addRole(RoleFactory.SAT_ADMIN);
-        user.addRole(RoleFactory.SAT_ADMIN);
+        user.addPermanentRole(RoleFactory.SAT_ADMIN);
         UserFactory.save(user);
 
         UserTestUtils.addManagement(o);

@@ -137,7 +137,7 @@ public class ServerTestUtils {
      */
     public static Server createVirtHostWithGuests(User user, int numberOfGuests)
         throws Exception {
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         TestUtils.saveAndFlush(user);
         Server s = createTestSystem(user);
 
@@ -186,7 +186,7 @@ public class ServerTestUtils {
     */
    public static Server createVirtPlatformHost(User user) throws Exception {
        Server s = createTestSystem(user);
-       user.addRole(RoleFactory.ORG_ADMIN);
+       user.addPermanentRole(RoleFactory.ORG_ADMIN);
        // Lets give the org/server virt.
        UserTestUtils.addVirtualizationPlatform(user.getOrg());
        ServerTestUtils.addVirtualization(user, s);

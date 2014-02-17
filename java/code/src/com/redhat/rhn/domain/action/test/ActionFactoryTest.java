@@ -459,7 +459,7 @@ public class ActionFactoryTest extends RhnBaseTestCase {
         // Here we specifically want to test the addition of the ServerAction details
         // objects.
         else if (type.equals(ActionFactory.TYPE_REBOOT)) {
-            usr.addRole(RoleFactory.ORG_ADMIN);
+            usr.addPermanentRole(RoleFactory.ORG_ADMIN);
             Server newS = ServerFactoryTest.createTestServer(usr, true);
             newA.addServerAction(ServerActionTest.createServerAction(newS, newA));
         }

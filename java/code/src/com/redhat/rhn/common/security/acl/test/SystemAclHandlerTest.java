@@ -64,7 +64,7 @@ public class SystemAclHandlerTest extends BaseTestCaseWithUser {
     }
 
     public void testSystemHasKickstartSession() throws Exception {
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         SystemAclHandler sah = new SystemAclHandler();
         Map ctx = new HashMap();
         ctx.put("sid", srvr.getId());

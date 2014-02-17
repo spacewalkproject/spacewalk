@@ -91,7 +91,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
         ActionFactoryTest.createAction(user1, ActionFactory.TYPE_REBOOT);
 
 
-        user1.addRole(RoleFactory.ORG_ADMIN);
+        user1.addPermanentRole(RoleFactory.ORG_ADMIN);
         // Here we have to commit the User because we added a Server
         // and need to update their rhnUserServerPerms table.  This should be
         // mapped to hibernate so we don't have to do these two manual commits!
@@ -109,7 +109,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
     public void testLookupAction() throws Exception {
         User user1 = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user1.addRole(RoleFactory.ORG_ADMIN);
+        user1.addPermanentRole(RoleFactory.ORG_ADMIN);
         Action a1 = ActionFactoryTest.createAction(user1, ActionFactory.TYPE_REBOOT);
         Long actionId = a1.getId();
 
@@ -125,7 +125,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
     public void testFailedActions() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Action parent = ActionFactoryTest.createAction(user, ActionFactory.TYPE_ERRATA);
         ServerAction child = ServerActionTest.createServerAction(ServerFactoryTest
                 .createTestServer(user), parent);
@@ -143,7 +143,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
     public void testPendingActions() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Action parent = ActionFactoryTest.createAction(user, ActionFactory.TYPE_ERRATA);
         ServerAction child = ServerActionTest.createServerAction(ServerFactoryTest
                 .createTestServer(user), parent);
@@ -223,7 +223,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
     public void testSimpleCancelActions() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
 
         Action parent = createActionWithServerActions(user, 1);
@@ -239,7 +239,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
     public void testCancelActionWithChildren() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
 
         Action parent = createActionWithServerActions(user, 1);
@@ -257,7 +257,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
     public void testCancelActionWithMultipleServerActions() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
 
         Action parent = createActionWithServerActions(user, 2);
@@ -273,7 +273,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
     public void testCancelActionWithParentFails() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
 
         Action parent = createActionWithServerActions(user, 1);
@@ -293,7 +293,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
     public void testComplexHierarchy() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
 
         Action parent1 = createActionWithServerActions(user, 3);
@@ -324,7 +324,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
         Session session = HibernateFactory.getSession();
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
 
         Action parentAction = createActionWithServerActions(user, 1);
@@ -364,7 +364,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
     public void testCompletedActions() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Action parent = ActionFactoryTest.createAction(user, ActionFactory.TYPE_ERRATA);
         ServerAction child = ServerActionTest.createServerAction(ServerFactoryTest
                 .createTestServer(user), parent);
@@ -382,7 +382,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
     public void testRecentlyScheduledActions() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Action parent = ActionFactoryTest.createAction(user, ActionFactory.TYPE_ERRATA);
         ServerAction child = ServerActionTest.createServerAction(ServerFactoryTest
                 .createTestServer(user), parent);
@@ -437,7 +437,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
         sa.setStatus(ActionFactory.STATUS_QUEUED);
         ActionFactory.save(a1);
         // Gotta be ORG_ADMIN to view failed systems
-        user1.addRole(RoleFactory.ORG_ADMIN);
+        user1.addPermanentRole(RoleFactory.ORG_ADMIN);
         // Here we have to commit the User because we added a Server
         // and need to update their rhnUserServerPerms table.  This should be
         // mapped to hibernate so we don't have to do these two manual commits!
@@ -461,7 +461,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
         sa.setStatus(ActionFactory.STATUS_FAILED);
         ActionFactory.save(a1);
         // Gotta be ORG_ADMIN to view failed systems
-        user1.addRole(RoleFactory.ORG_ADMIN);
+        user1.addPermanentRole(RoleFactory.ORG_ADMIN);
         // Here we have to commit the User because we added a Server
         // and need to update their rhnUserServerPerms table.  This should be
         // mapped to hibernate so we don't have to do these two manual commits!
@@ -501,7 +501,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
     public void testSchedulePackageRemoval() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         assertNotNull(user);
 
         Server srvr = ServerFactoryTest.createTestServer(user, true);
@@ -528,7 +528,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
     public void testSchedulePackageVerify() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         assertNotNull(user);
 
         Server srvr = ServerFactoryTest.createTestServer(user, true);
@@ -554,7 +554,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
     public void testScheduleSriptRun() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         assertNotNull(user);
 
         Server srvr = ServerFactoryTest.createTestServer(user, true,
@@ -584,7 +584,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
     public void testScheduleKickstart() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         assertNotNull(user);
 
         Server srvr = ServerFactoryTest.createTestServer(user, true);
@@ -615,7 +615,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
     public void testScheduleGuestKickstart() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         assertNotNull(user);
 
         Server srvr = ServerFactoryTest.createTestServer(user, true);
@@ -671,7 +671,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
     public void testSchedulePackageDelta() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
 
         Server srvr = ServerFactoryTest.createTestServer(user, true);
 

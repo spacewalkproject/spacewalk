@@ -47,11 +47,11 @@ public class UserEditSetupActionTest extends RhnBaseTestCase {
         user.setTitle("Test title");
         // Lets add some roles
         Iterator it = UserFactory.IMPLIEDROLES.iterator();
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         while (it.hasNext()) {
             Role cr = (Role) it.next();
             user.getOrg().addRole(cr);
-            user.addRole(cr);
+            user.addPermanentRole(cr);
         }
 
         setupExpectations(sah.getForm(), sah.getUser());

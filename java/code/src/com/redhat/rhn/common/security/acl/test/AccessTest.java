@@ -138,7 +138,7 @@ public class AccessTest extends BaseTestCaseWithUser {
     public void testUserRoleAcl() {
         Map context = new HashMap();
         User user = new MockUser();
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         context.put("user", user);
         boolean rc = acl.evalAcl(context, "user_role(org_admin)");
         assertTrue(rc);
@@ -148,7 +148,7 @@ public class AccessTest extends BaseTestCaseWithUser {
         Map context = new HashMap();
         User user =  UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        user.addRole(RoleFactory.CHANNEL_ADMIN);
+        user.addPermanentRole(RoleFactory.CHANNEL_ADMIN);
         context.put("user", user);
         boolean rc = acl.evalAcl(context, "user_can_manage_channels()");
         assertTrue(rc);
@@ -157,7 +157,7 @@ public class AccessTest extends BaseTestCaseWithUser {
     public void testUserRoleAclFalse() {
         Map context = new HashMap();
         User user = new MockUser();
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         context.put("user", user);
         boolean rc = acl.evalAcl(context, "user_role(channel_admin)");
         assertFalse(rc);
@@ -258,7 +258,7 @@ public class AccessTest extends BaseTestCaseWithUser {
             User user =  UserTestUtils.findNewUser("testUser",
                     "testOrg" + this.getClass().getSimpleName());
             context.put("user", user);
-            user.addRole(RoleFactory.CHANNEL_ADMIN);
+            user.addPermanentRole(RoleFactory.CHANNEL_ADMIN);
 
             Channel chan = ChannelFactoryTest.createBaseChannel(user);
             assertTrue(acl.evalAcl(context, "can_access_channel(" + chan.getId() + ")"));
@@ -313,7 +313,7 @@ public class AccessTest extends BaseTestCaseWithUser {
          * that isn't necessary for this Unit Test
          */
         @Override
-        public void addRole(Role label) {
+        public void addPermanentRole(Role label) {
             mockRoles.add(label);
         }
 

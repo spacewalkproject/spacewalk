@@ -83,7 +83,7 @@ public class FilterActionTest extends RhnBaseTestCase {
     private void setUpAction(Action actionIn, String forwardName) throws Exception {
         super.setUp();
         user = UserTestUtils.createUserInOrgOne();
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         filter = FilterTest.createTestFilter(user,
                 "filter" + TestUtils.randomString());
         // Create a test probe

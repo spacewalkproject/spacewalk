@@ -50,7 +50,7 @@ public class ProbeDeleteActionTest extends RhnBaseTestCase {
         ah.setUpAction(action, expectedFwd);
 
         user = ah.getUser();
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server s = ServerFactoryTest.createTestServer(user, true);
         UserTestUtils.addMonitoringScoutOrg(user);
         probe = MonitoringFactoryTest.createTestProbe(user);

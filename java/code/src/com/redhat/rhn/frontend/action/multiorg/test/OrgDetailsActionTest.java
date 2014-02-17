@@ -27,7 +27,7 @@ public class OrgDetailsActionTest extends RhnMockStrutsTestCase {
 
     public void testExecute() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
-        user.addRole(RoleFactory.SAT_ADMIN);
+        user.addPermanentRole(RoleFactory.SAT_ADMIN);
         addRequestParameter("oid", user.getOrg().getId().toString());
         setRequestPathInfo("/admin/multiorg/OrgDetails");
         actionPerform();

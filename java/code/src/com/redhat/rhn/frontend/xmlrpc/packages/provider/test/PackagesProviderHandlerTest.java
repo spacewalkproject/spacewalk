@@ -32,7 +32,7 @@ public class PackagesProviderHandlerTest extends BaseHandlerTestCase {
 
     public void testListKeys() throws Exception {
         String name = RandomStringUtils.randomAlphabetic(5);
-        admin.addRole(RoleFactory.SAT_ADMIN);
+        admin.addPermanentRole(RoleFactory.SAT_ADMIN);
         PackageProvider prov = new PackageProvider();
         prov.setName(name);
 
@@ -52,7 +52,7 @@ public class PackagesProviderHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testList() throws Exception {
-        admin.addRole(RoleFactory.SAT_ADMIN);
+        admin.addPermanentRole(RoleFactory.SAT_ADMIN);
         String name = RandomStringUtils.randomAlphabetic(5);
         PackageProvider prov = new PackageProvider();
         prov.setName(name);
@@ -66,7 +66,7 @@ public class PackagesProviderHandlerTest extends BaseHandlerTestCase {
 
 
     public void testAddKey() throws Exception {
-        admin.addRole(RoleFactory.SAT_ADMIN);
+        admin.addPermanentRole(RoleFactory.SAT_ADMIN);
 
         String provStr = RandomStringUtils.randomAlphabetic(5);
         String keyStr = RandomStringUtils.randomAlphabetic(5);

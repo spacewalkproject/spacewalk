@@ -27,7 +27,7 @@ import com.redhat.rhn.manager.kickstart.KickstartSessionUpdateCommand;
 public class KickstartSessionUpdateCommandTest extends BaseKickstartCommandTestCase {
 
     public void testUpdateSession() throws Exception {
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         KickstartSession session =
             KickstartSessionTest.createKickstartSession(ksdata, user);
         KickstartFactory.saveKickstartSession(session);

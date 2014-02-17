@@ -184,7 +184,7 @@ public class ProbeSuiteTest extends BaseTestCaseWithUser {
     public static void addTestServersToSuite(ProbeSuite probeSuite, User user)
         throws Exception {
 
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server[] svrs = new Server[5];
         for (int i  = 0; i < 5; i++) {
             Server s = ServerFactoryTest.createTestServer(user, true);

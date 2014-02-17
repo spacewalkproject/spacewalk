@@ -35,7 +35,7 @@ public class BootstrapConfigActionTest extends RhnPostMockStrutsTestCase {
     public void setUp() throws Exception {
         super.setUp();
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
-        user.addRole(RoleFactory.SAT_ADMIN);
+        user.addPermanentRole(RoleFactory.SAT_ADMIN);
         Config.get().setString("web.com.redhat.rhn.frontend." +
                 "action.satellite.BootstrapConfigAction.command",
                 TestConfigureBootstrapCommand.class.getName());

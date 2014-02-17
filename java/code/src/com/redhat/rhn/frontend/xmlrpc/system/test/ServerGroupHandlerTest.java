@@ -60,7 +60,7 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         catch (Exception e) {
             //duplicate check successful.
         }
-        regular.removeRole(RoleFactory.SYSTEM_GROUP_ADMIN);
+        regular.removePermanentRole(RoleFactory.SYSTEM_GROUP_ADMIN);
         try {
 
             handler.create(regularKey, NAME + "F", DESCRIPTION + "F");
@@ -75,7 +75,7 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
 
         ServerGroup group = handler.create(adminKey, NAME, DESCRIPTION);
         assertNotNull(manager.lookup(NAME, admin));
-        regular.addRole(RoleFactory.SYSTEM_GROUP_ADMIN);
+        regular.addPermanentRole(RoleFactory.SYSTEM_GROUP_ADMIN);
         String newDescription = DESCRIPTION + TestUtils.randomString();
         try {
             handler.update(regularKey, NAME, newDescription);
@@ -89,13 +89,13 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testListAdministrators() {
-        regular.addRole(RoleFactory.SYSTEM_GROUP_ADMIN);
+        regular.addPermanentRole(RoleFactory.SYSTEM_GROUP_ADMIN);
         ServerGroup group = handler.create(regularKey, NAME, DESCRIPTION);
         List admins = handler.listAdministrators(regularKey, group.getName());
         assertTrue(admins.contains(regular));
         assertTrue(admins.contains(admin));
         //now test on permissions
-        regular.removeRole(RoleFactory.SYSTEM_GROUP_ADMIN);
+        regular.removePermanentRole(RoleFactory.SYSTEM_GROUP_ADMIN);
         try {
             admins = handler.listAdministrators(regularKey, group.getName());
             fail("Should throw access / permission exception" +
@@ -126,7 +126,7 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         handler.addOrRemoveAdmins(adminKey, group.getName(),
                 Arrays.asList(new String []{regular.getLogin()}), true);
 
-        regular.addRole(RoleFactory.SYSTEM_GROUP_ADMIN);
+        regular.addPermanentRole(RoleFactory.SYSTEM_GROUP_ADMIN);
         handler.addOrRemoveAdmins(regularKey, group.getName(), logins, true);
         List admins = handler.listAdministrators(regularKey, group.getName());
         assertTrue(admins.contains(newbie));
@@ -147,7 +147,7 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         addOrRemoveAnAdmin(group, orgAdmin, false);
 
         User satAdmin = UserTestUtils.findNewUser("satAdmin", "newOrg", false);
-        satAdmin.addRole(RoleFactory.SAT_ADMIN);
+        satAdmin.addPermanentRole(RoleFactory.SAT_ADMIN);
         assertTrue(satAdmin.hasRole(RoleFactory.SAT_ADMIN));
         assertFalse(satAdmin.hasRole(RoleFactory.ORG_ADMIN));
 
@@ -218,7 +218,7 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         logins.add(unpriv.getLogin());
 
         handler.addOrRemoveAdmins(adminKey, group.getName(), logins, true);
-        regular.addRole(RoleFactory.SYSTEM_GROUP_ADMIN);
+        regular.addPermanentRole(RoleFactory.SYSTEM_GROUP_ADMIN);
 
         Server server1 = ServerFactoryTest.createTestServer(regular, true);
         Server server2 = ServerFactoryTest.createTestServer(regular, true);

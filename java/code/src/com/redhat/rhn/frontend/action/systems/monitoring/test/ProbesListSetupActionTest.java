@@ -80,7 +80,7 @@ public class ProbesListSetupActionTest extends RhnBaseTestCase {
         ProbesListSetupAction action = new ProbesListSetupAction();
         ActionHelper ah = new ActionHelper();
         ah.setUpAction(action);
-        ah.getUser().addRole(RoleFactory.ORG_ADMIN);
+        ah.getUser().addPermanentRole(RoleFactory.ORG_ADMIN);
         Server server = ServerFactoryTest.createTestServer(ah.getUser(), true);
         ah.getRequest().setupAddParameter("sid", server.getId().toString());
         ah.getRequest().setupAddParameter("sid", server.getId().toString());

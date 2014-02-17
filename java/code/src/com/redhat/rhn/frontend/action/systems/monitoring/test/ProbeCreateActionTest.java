@@ -77,7 +77,7 @@ public class ProbeCreateActionTest extends ProbeCreateTestCase {
 
     protected void modifyActionHelper(String forwardName) throws Exception {
         ah.setExpectedForward(forwardName);
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server s = ServerFactoryTest.createTestServer(user, true);
         HibernateFactory.getSession().flush();
         String id = s.getId().toString();

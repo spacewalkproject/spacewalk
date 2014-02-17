@@ -83,7 +83,7 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
         pc.setIndexData(false);
         pc.setStart(1);
 
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
 
         Server server = ServerFactoryTest.createTestServer(user, true);
         PackageManagerTest.addPackageToSystemAndChannel(
@@ -159,7 +159,7 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
         pc.setIndexData(false);
         pc.setStart(1);
 
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
 
         Server server = ServerFactoryTest.createTestServer(user, true);
 
@@ -335,7 +335,7 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
 
 
     public void testGetServerNeededUpdatePackageByName() throws Exception {
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server s = ServerFactoryTest.createTestServer(user);
         Channel c = ChannelFactoryTest.createTestChannel(user);
         addPackageToSystemAndChannel("some-test-package", s, c);
@@ -662,7 +662,7 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
         final int numPackagesToDelete = 50;
 
         // Setup
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
 
         Set<Long> doomedPackageIds = new HashSet<Long>(numPackagesToDelete);
         for (int ii = 0; ii < numPackagesToDelete; ii++) {

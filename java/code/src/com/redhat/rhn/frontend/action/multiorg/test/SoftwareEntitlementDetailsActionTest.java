@@ -30,7 +30,7 @@ public class SoftwareEntitlementDetailsActionTest extends RhnMockStrutsTestCase 
 
     public void testExecute() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
-        user.addRole(RoleFactory.SAT_ADMIN);
+        user.addPermanentRole(RoleFactory.SAT_ADMIN);
         TestUtils.saveAndFlush(user);
 
         Server s = ServerTestUtils.createTestSystem(user);

@@ -154,7 +154,7 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
 
         retval.put("package", p);
         retval.put("newpackage", newPackage);
-        userIn.addRole(RoleFactory.ORG_ADMIN);
+        userIn.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(userIn);
         TestUtils.flushAndEvict(userIn);
         int rows = ErrataCacheManager.insertNeededErrataCache(

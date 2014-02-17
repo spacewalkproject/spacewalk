@@ -39,7 +39,7 @@ public abstract class BaseSystemListActionTestCase extends RhnBaseTestCase {
         ah.setupProcessPagination();
 
         User user = ah.getUser();
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         // Create a server that can be put in the set. Note that the
         // server is not set up entirely right for subclasses, which would
         // only display servers with certain attributes, e.g. a satellite.
@@ -63,7 +63,7 @@ public abstract class BaseSystemListActionTestCase extends RhnBaseTestCase {
         ah.setupProcessPagination();
 
         User user = ah.getUser();
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserManager.storeUser(user);
         ah.getRequest().setupAddParameter("items_on_page", (String[])null);
         ah.getRequest().setupAddParameter("items_selected", (String[]) null);

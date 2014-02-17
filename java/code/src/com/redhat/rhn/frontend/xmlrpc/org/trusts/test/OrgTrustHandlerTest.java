@@ -51,7 +51,7 @@ public class OrgTrustHandlerTest extends BaseHandlerTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
-        admin.addRole(RoleFactory.SAT_ADMIN);
+        admin.addPermanentRole(RoleFactory.SAT_ADMIN);
         TestUtils.saveAndFlush(admin);
     }
 

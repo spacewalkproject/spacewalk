@@ -29,7 +29,7 @@ public class OrgSystemSubscriptionsActionTest extends RhnPostMockStrutsTestCase 
 
     public void testExecute() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
-        user.addRole(RoleFactory.SAT_ADMIN);
+        user.addPermanentRole(RoleFactory.SAT_ADMIN);
         setRequestPathInfo("/admin/multiorg/OrgSystemSubscriptions");
         addRequestParameter(RequestContext.ORG_ID, user.getOrg().getId().toString());
         actionPerform();
@@ -51,7 +51,7 @@ public class OrgSystemSubscriptionsActionTest extends RhnPostMockStrutsTestCase 
 
     public void testExecuteSubmit() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
-        user.addRole(RoleFactory.SAT_ADMIN);
+        user.addPermanentRole(RoleFactory.SAT_ADMIN);
         setRequestPathInfo("/admin/multiorg/OrgSystemSubscriptions");
         addRequestParameter(RequestContext.ORG_ID, user.getOrg().getId().toString());
         addRequestParameter(EntitlementManager.ENTERPRISE_ENTITLED,

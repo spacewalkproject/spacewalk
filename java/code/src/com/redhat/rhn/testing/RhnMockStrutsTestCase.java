@@ -72,7 +72,7 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
         request.setServerName("localhost");
         request.setMethod(HttpServletRequestSimulator.GET);
         user = UserTestUtils.findNewUser(TestStatics.TESTUSER, TestStatics.TESTORG);
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         addRequestParameter(RequestContext.USER_ID, user.getId().toString());
         WebSession s = requestContext.getWebSession();
         Cookie[] cookies = new Cookie[1];

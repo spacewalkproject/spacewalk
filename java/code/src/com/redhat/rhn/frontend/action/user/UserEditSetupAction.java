@@ -153,7 +153,7 @@ public class UserEditSetupAction extends RhnAction {
             // then tack on an extra string at the end
             // and disable the item in the UI.
             if (UserFactory.IMPLIEDROLES.contains(currRole) &&
-                    targetUser.hasRole(RoleFactory.ORG_ADMIN)) {
+                    targetUser.hasPermanentRole(RoleFactory.ORG_ADMIN)) {
                 StringBuffer sb = new StringBuffer();
                 sb.append(uilabel);
                 sb.append(" - [ ");
@@ -192,7 +192,7 @@ public class UserEditSetupAction extends RhnAction {
         }
 
         boolean hasOrgAdmin = false;
-        if (targetUser.hasRole(RoleFactory.ORG_ADMIN)) {
+        if (targetUser.hasPermanentRole(RoleFactory.ORG_ADMIN)) {
             hasOrgAdmin = true;
         }
 

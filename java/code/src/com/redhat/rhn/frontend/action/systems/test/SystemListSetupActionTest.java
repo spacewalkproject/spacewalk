@@ -52,7 +52,7 @@ public class SystemListSetupActionTest extends RhnMockStrutsTestCase {
     public void aTestSetStatusDisplay() throws Exception {
 
         SystemListSetupAction action = new SystemListSetupAction();
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Server server = ServerFactoryTest.createTestServer(user, true,
                 ServerFactory.lookupServerGroupTypeByLabel("sw_mgr_entitled"));
         Long sid = server.getId();

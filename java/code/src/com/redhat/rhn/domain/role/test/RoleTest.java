@@ -62,7 +62,7 @@ public class RoleTest extends RhnBaseTestCase {
         o1.addRole(RoleFactory.CHANNEL_ADMIN);
         o1 = OrgFactory.save(o1);
         assertFalse(usr.hasRole(RoleFactory.CHANNEL_ADMIN));
-        usr.addRole(RoleFactory.CHANNEL_ADMIN);
+        usr.addPermanentRole(RoleFactory.CHANNEL_ADMIN);
         assertTrue(usr.hasRole(RoleFactory.CHANNEL_ADMIN));
 
         UserFactory.save(usr);
@@ -82,7 +82,7 @@ public class RoleTest extends RhnBaseTestCase {
         assertFalse(usr.hasRole(RoleFactory.CHANNEL_ADMIN));
         boolean failed = false;
         try {
-            usr.addRole(RoleFactory.CHANNEL_ADMIN);
+            usr.addPermanentRole(RoleFactory.CHANNEL_ADMIN);
         }
         catch (IllegalArgumentException iae) {
             failed = true;
@@ -97,9 +97,9 @@ public class RoleTest extends RhnBaseTestCase {
         // Create a new user, add ORG_ADMIN to their roles
         User usr = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
-        usr.addRole(RoleFactory.ORG_ADMIN);
+        usr.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(usr);
-        usr.removeRole(RoleFactory.ORG_ADMIN);
+        usr.removePermanentRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(usr);
         User usr2 = UserFactory.lookupById(usr.getId());
         assertFalse(usr2.hasRole(RoleFactory.ORG_ADMIN));
@@ -117,7 +117,7 @@ public class RoleTest extends RhnBaseTestCase {
         // Add the CHANNEL_ADMIN role to the Org
         o1.addRole(RoleFactory.CHANNEL_ADMIN);
         o1 = OrgFactory.save(o1);
-        usr.addRole(RoleFactory.ORG_ADMIN);
+        usr.addPermanentRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(usr);
         // Now check to see if the user gets the implied CHANNEL_ADMIN role
         User usr2 = UserFactory.lookupById(usr.getId());

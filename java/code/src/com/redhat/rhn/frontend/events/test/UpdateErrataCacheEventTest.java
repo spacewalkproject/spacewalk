@@ -23,7 +23,7 @@ import com.redhat.rhn.testing.BaseTestCaseWithUser;
 public class UpdateErrataCacheEventTest extends BaseTestCaseWithUser {
 
     public void testUpdateCache() throws Exception {
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         for (int i = 0; i < 10; i++) {
             ErrataCacheManagerTest.createServerNeedintErrataCache(user);
         }

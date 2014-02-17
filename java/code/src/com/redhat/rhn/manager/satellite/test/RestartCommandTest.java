@@ -28,7 +28,7 @@ public class RestartCommandTest extends BaseTestCaseWithUser {
     private RestartCommand cmd;
 
     public void testCreateCommand() throws Exception {
-        user.addRole(RoleFactory.SAT_ADMIN);
+        user.addPermanentRole(RoleFactory.SAT_ADMIN);
         cmd = new RestartCommand(user) {
             protected Executor getExecutor() {
                 return new TestExecutor();

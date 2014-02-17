@@ -65,8 +65,8 @@ public class MonitoringConfigActionTest extends RhnBaseTestCase {
         ah = new ActionHelper();
         ah.setUpAction(action);
         User user = ah.getUser();
-        user.addRole(RoleFactory.MONITORING_ADMIN);
-        user.addRole(RoleFactory.SAT_ADMIN);
+        user.addPermanentRole(RoleFactory.MONITORING_ADMIN);
+        user.addPermanentRole(RoleFactory.SAT_ADMIN);
         Config.get().setString("web.com.redhat.rhn.frontend." +
                 "action.satellite.MonitoringConfigAction.command",
                 TestConfigureSatelliteCommand.class.getName());

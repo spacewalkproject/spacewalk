@@ -34,7 +34,7 @@ public class PackageListSetupActionTest extends RhnMockStrutsTestCase {
 
         setRequestPathInfo("/schedule/PackageList");
 
-        user.addRole(RoleFactory.ORG_ADMIN);
+        user.addPermanentRole(RoleFactory.ORG_ADMIN);
         Action a = ActionFactoryTest.createAction(user, ActionFactory.TYPE_ERRATA);
         Server server = ServerFactoryTest.createTestServer(user, true);
         ServerActionTest.createServerAction(server, a);

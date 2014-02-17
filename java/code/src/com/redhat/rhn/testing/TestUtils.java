@@ -184,7 +184,7 @@ public class TestUtils {
         catch (Exception e) {
             e.printStackTrace();
         }
-        u.removeRole(RoleFactory.ORG_ADMIN);
+        u.removePermanentRole(RoleFactory.ORG_ADMIN);
         Long userid = u.getId();
 
         RequestContext requestContext = new RequestContext(req);
