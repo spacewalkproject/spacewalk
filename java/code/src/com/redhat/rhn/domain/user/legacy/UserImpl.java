@@ -295,7 +295,7 @@ public class UserImpl extends BaseDomainHelper implements User {
 
     /** {@inheritDoc} */
     private void addRole(Role label, boolean temporary) {
-        checkOrgAdmin();
+        checkPermanentOrgAdmin();
         if (!this.getRoles().contains(label)) {
             UserGroup ug = org.getUserGroup(label);
             if (ug != null) {
@@ -321,7 +321,7 @@ public class UserImpl extends BaseDomainHelper implements User {
 
     /** {@inheritDoc} */
     private void removeRole(Role label, boolean temporary) {
-        checkOrgAdmin();
+        checkPermanentOrgAdmin();
         UserGroup ug = org.getUserGroup(label);
         if (ug != null) {
             for (Iterator<UserGroupMembers> ugmIter = groupMembers.iterator();
@@ -349,9 +349,9 @@ public class UserImpl extends BaseDomainHelper implements User {
         wasOrgAdmin = null;
     }
 
-    private void checkOrgAdmin() {
+    private void checkPermanentOrgAdmin() {
         if (wasOrgAdmin == null) {
-            wasOrgAdmin = Boolean.valueOf(hasRole(RoleFactory.ORG_ADMIN));
+            wasOrgAdmin = Boolean.valueOf(hasPermanentRole(RoleFactory.ORG_ADMIN));
         }
     }
 
