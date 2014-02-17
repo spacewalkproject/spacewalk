@@ -175,7 +175,7 @@ public class ErrataSearchAction extends BaseSearchAction {
         }
 
         Map m = form.getMap();
-        Set<String> keys = (Set<String>)m.keySet();
+        Set<String> keys = m.keySet();
         for (String key : keys) {
             Object vObj = m.get(key);
             request.setAttribute(key, vObj);
