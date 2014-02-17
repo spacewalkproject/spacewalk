@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.1.45
+Version:        2.1.46
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Feb 17 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.1.46-1
+- 1063821 - fix ORA-01422 error when removing a channel
+
 * Fri Feb 14 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.1.45-1
 - fix ORA-01403: no data found, when unsubscribing a system
 
