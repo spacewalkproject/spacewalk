@@ -105,7 +105,7 @@ public class UserServerPreferenceId implements Serializable {
         return new HashCodeBuilder().append(server)
                                     .append(user)
                                     .append(name)
-                                    .hashCode();
+                                    .toHashCode();
     }
 
 
