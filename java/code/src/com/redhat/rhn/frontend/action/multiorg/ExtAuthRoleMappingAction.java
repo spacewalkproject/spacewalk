@@ -43,7 +43,6 @@ public class ExtAuthRoleMappingAction extends RhnAction implements Listable {
     public ActionForward execute(ActionMapping mapping, ActionForm formIn,
             HttpServletRequest request, HttpServletResponse response) {
         DynaActionForm daForm = (DynaActionForm) formIn;
-        RequestContext ctx = new RequestContext(request);
 
         ListSessionSetHelper helper = new ListSessionSetHelper(this, request);
         helper.execute();
