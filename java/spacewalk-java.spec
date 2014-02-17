@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.152
+Version: 2.1.153
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,19 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Feb 17 2014 Matej Kollar <mkollar@redhat.com> 2.1.153-1
+- Remove unused context store
+- Use .toHashCode
+- removing unnecessary overriding attribute
+- removing unnecessary overriding attribute
+- removing unnecessary overriding attribute
+- removing unnecessary overriding attribute
+- removing unnecessary overriding attribute
+- remove unnecessary cast
+- remove unnecessary cast
+- remove unnecessary else statement
+- remove unnecessary else statement
+
 * Fri Feb 14 2014 Stephen Herr <sherr@redhat.com> 2.1.152-1
 - 1065483 - SSM package upgrades should not install packages if not an upgrade
 - Proper TB3 column class
