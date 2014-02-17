@@ -44,7 +44,6 @@ public class ConfigFileTag extends TagSupport {
     /**
      * <cfg:file id=""  value="" type="file|dir" revision="" nolink="">
      */
-     private String id;
      private String path;
      private String type;
      private boolean nolink;
