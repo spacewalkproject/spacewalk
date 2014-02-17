@@ -381,23 +381,23 @@ aside .nav > li > a {
 
 	/* ul-submenues */
 	/* first submenu */
-	ul>ul li {
+	ul > li ul li {
 	    padding: 0 0 0 1em !important;
 	    margin: 0;
 	    background: @spacewalk-list-first-submenu;
 	    border-bottom: 1px solid #ccc;
 	}
-	ul>ul li.active,
-	ul>ul li.active:hover,
-	ul>ul li.active a,
-	ul>ul li.active a:hover {
+	ul > li ul li.active,
+	ul > li ul li.active:hover,
+	ul > li ul li.active a,
+	ul > li ul li.active a:hover {
 		background: @spacewalk-list-first-submenu-active;
 		.glow-text-deleted;
 	}
-	ul>ul li:hover, ul>ul li a:hover {
+	ul > li ul li:hover, ul > li ul li a:hover {
 		background: @spacewalk-list-first-submenu-hover;
 	}
-	ul>ul li:last-child {
+	ul > li ul li:last-child {
 		border-bottom: 1px solid @spacewalk-list-first-submenu-last-line;
 	}
 	/* second submenu */
