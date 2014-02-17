@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 c11143025f1ed0730af16785aee42198b8e477c7
+-- oracle equivalent source sha1 c32b134834133c1642e86f58782416d79004b52b
 --
 -- Copyright (c) 2008--2013 Red Hat, Inc.
 --
@@ -149,7 +149,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
                 where   c.id = channel_id_in
             );
 
-            select 1
+            select min(1)
               into update_lock
               from rhnServerNeededCache
              where server_id = server_id_in
@@ -544,7 +544,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
           where   c.id = channel_id_in
       );
 
-        select 1
+        select min(1)
           into update_lock
           from rhnServerNeededCache
          where server_id = server_id_in
