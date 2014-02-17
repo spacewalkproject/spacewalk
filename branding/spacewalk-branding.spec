@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.1.30
+Version:    2.1.31
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -89,6 +89,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Feb 17 2014 Tomas Kasparek <tkasparek@redhat.com> 2.1.31-1
+- 1064573 - sidenav css should respect valid html constructions
+
 * Sat Feb 15 2014 Matej Kollar <mkollar@redhat.com> 2.1.30-1
 - Use jquery-timepicker-1.3.3
 
