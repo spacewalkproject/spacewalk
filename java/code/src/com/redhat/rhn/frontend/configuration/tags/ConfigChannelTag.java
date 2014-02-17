@@ -32,7 +32,6 @@ public class ConfigChannelTag extends TagSupport {
     /**
     * <cfg:channel id="" value="" type="" size="large|small" nolink="">
     */
-    private String id;
     private String name;
     private String type;
     private boolean nolink;
