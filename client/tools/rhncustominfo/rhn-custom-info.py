@@ -111,7 +111,7 @@ def system_exit(code, msgs=None):
 
 def parse_args():
     parser = OptionParser()
-    parser.set_usage("rhncustominfo [options] key1 value1 key2 value2 ...")
+    parser.set_usage("rhn-custom-info [options] key1 value1 key2 value2 ...")
     parser.add_option("-u", "--username",
                       action="store", type="string", dest="username",
                       help="your RHN username", metavar="RHN_LOGIN")
