@@ -26,7 +26,7 @@ rhn-custom-info [\fIoptions\fP] key1 value1 key2 value2 ...
 .SH DESCRIPTION
 
 .PP
-In RHN Classic, Red Hat  Satellite and Spacewalk you can define custom keys. And each 
+In RHN Classic, Red Hat  Satellite and Spacewalk you can define custom keys. And each
 registred machine can have this key and its own value.
 This values can be listed and edited from WebUI or from command line
 using \fBrhn-custom-info\fR.
@@ -47,6 +47,9 @@ Your password. If not enter it on command line, you will be promted.
 .IP "\fB-s URL\fR, \fB--server=URL\fR"
 Use the rhn api at URL. It should be in form http://hostname.of.your.server/rpc/api
 If you not enter it on command line it is parsed from /etc/sysconfig/rhn/up2date
+.br
+.IP "\fB-d Key-label\fR, \fB--delete-values=Key-label\fR"
+Delete one or multiple custom keys from the system.
 .br
 .IP "\fB-l\fR, \fB--list-values\fR"
 List the custom keys and values for the system.
@@ -69,5 +72,5 @@ Report bugs to <http://bugzilla.redhat.com>.
 Copyright \(co 1999-2010 Red Hat, Inc.
 
 .PP
-This is free software; see the source for copying conditions.  There is 
+This is free software; see the source for copying conditions.  There is
 NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
