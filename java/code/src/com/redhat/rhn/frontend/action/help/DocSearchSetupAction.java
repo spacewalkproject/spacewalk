@@ -82,9 +82,7 @@ public class DocSearchSetupAction extends BaseSearchAction {
         if (isSubmitted(form)) {
             return mapping.findForward("success");
         }
-        else {
-            return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
-        }
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     private List performSearch(Long sessionId, String searchString,
