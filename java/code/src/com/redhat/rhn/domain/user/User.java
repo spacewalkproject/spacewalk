@@ -587,4 +587,11 @@ public interface User {
     * @return if the user has the perm. role assigned or not.
     */
     boolean hasPermanentRole(Role label);
+
+
+    /**
+     * Gets the temporary roles assigned to this user.
+     * @return Set of temporary Roles that this user has
+     */
+    Set<Role> getTemporaryRoles();
 }

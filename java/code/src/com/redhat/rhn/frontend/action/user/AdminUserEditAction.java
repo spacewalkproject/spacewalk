@@ -146,7 +146,7 @@ public class AdminUserEditAction extends UserEditActionHelper {
         // Build a set of the users current role labels to help determine what we need
         // to add and remove:
         Set<String> existingRoles = new HashSet<String>();
-        for (Role r : targetUser.getRoles()) {
+        for (Role r : targetUser.getPermanentRoles()) {
             existingRoles.add(r.getLabel());
         }
 

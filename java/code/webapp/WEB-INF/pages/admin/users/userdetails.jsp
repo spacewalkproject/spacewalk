@@ -54,6 +54,18 @@
                             </c:if>
                         </div>
                     </div>
+                    <c:if test="${not empty temporaryRoles}">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">
+                                <bean:message key="userdetails.jsp.temporaryroles"/>
+                            </label>
+                            <div class="col-lg-6">
+                                <p class="form-control-static">
+                                    ${temporaryRoles}
+                                </p>
+                            </div>
+                        </div>
+                    </c:if>
                     <div class="form-group">
                         <label class="col-lg-3 control-label">
                             <bean:message key="created.displayname"/>

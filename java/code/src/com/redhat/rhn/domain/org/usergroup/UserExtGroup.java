@@ -16,6 +16,7 @@ package com.redhat.rhn.domain.org.usergroup;
 
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.role.Role;
+import com.redhat.rhn.manager.user.UserManager;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -90,15 +91,7 @@ public class UserExtGroup extends BaseDomainHelper implements Comparable {
      * @return roleNames string
      */
     public String getRoleNames() {
-        String roleNames = null;
-        for (Role role : roles) {
-            roleNames = (roleNames == null) ? role.getName() :
-                roleNames + ", " + role.getName();
-        }
-        if (roleNames == null) {
-            return "(normal user)";
-        }
-        return roleNames;
+        return UserManager.roleNames(roles);
     }
 
     /**

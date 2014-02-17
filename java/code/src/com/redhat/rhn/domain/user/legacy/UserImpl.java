@@ -296,7 +296,14 @@ public class UserImpl extends BaseDomainHelper implements User {
     /** {@inheritDoc} */
     private void addRole(Role label, boolean temporary) {
         checkPermanentOrgAdmin();
-        if (!this.getRoles().contains(label)) {
+        Set<Role> roles = new HashSet<Role>();
+        if (temporary) {
+            roles = this.getTemporaryRoles();
+        }
+        else {
+            roles = this.getPermanentRoles();
+        }
+        if (!roles.contains(label)) {
             UserGroup ug = org.getUserGroup(label);
             if (ug != null) {
                 UserGroupMembers ugm = new UserGroupMembers(this, ug, temporary);

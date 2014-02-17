@@ -135,7 +135,7 @@ public class UserHandler extends BaseHandler {
         List roles = new ArrayList(); //List of role labels to return
 
         //Loop through the target users roles and stick the labels into the ArrayList
-        Set roleObjects = target.getRoles();
+        Set roleObjects = target.getPermanentRoles();
         for (Iterator itr = roleObjects.iterator(); itr.hasNext();) {
             Role r = (Role) itr.next();
             roles.add(r.getLabel());
