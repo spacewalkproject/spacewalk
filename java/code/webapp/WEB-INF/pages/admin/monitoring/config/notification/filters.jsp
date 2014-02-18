@@ -26,7 +26,7 @@
     <rhn:dialogmenu mindepth="0" maxdepth="1"
     definition="/WEB-INF/nav/filters.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
-    <br>
+    <br />
 
     <rhn:list pageList="${requestScope.pageList}" noDataText="filters.jsp.nofilters">
       <%-- There is only one list, but we have to define the same columns

@@ -56,16 +56,16 @@
       <p>
         <bean:message key="physicalhosts.jsp.para2" />
       </p>
-      <br>
+      <br />
 
-      <strong><bean:message key="physicalhosts.jsp.guestsofknown" /></strong><br>
+      <strong><bean:message key="physicalhosts.jsp.guestsofknown" /></strong><br />
       <p>
           <ul>
             <li><bean:message key="physicalhosts.jsp.knownnote" /></li>
             <li><bean:message key="physicalhosts.jsp.note3" /></li>
           </ul>
       </p>
-      <strong><bean:message key="physicalhosts.jsp.guestsofunknown" /></strong><br>
+      <strong><bean:message key="physicalhosts.jsp.guestsofunknown" /></strong><br />
       <p>
           <bean:message key="physicalhosts.jsp.unknownnote" />
           <ul>
@@ -73,7 +73,7 @@
             <li><bean:message key="physicalhosts.jsp.note3" /></li>
           </ul>
       </p>
-      <strong><bean:message key="physicalhosts.jsp.guestsofnonredhat" /></strong><br>
+      <strong><bean:message key="physicalhosts.jsp.guestsofnonredhat" /></strong><br />
       <p>
           <bean:message key="physicalhosts.jsp.nonredhatnote" />
       </p>

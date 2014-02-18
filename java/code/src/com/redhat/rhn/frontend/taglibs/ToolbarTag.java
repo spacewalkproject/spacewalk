@@ -31,7 +31,7 @@ import com.redhat.rhn.manager.acl.AclManager;
  * &lt;rhn:toolbar base="h1" img="/img/somegraphic.gif"&gt;
  * </pre>
  * <p>
- * Basic Attributes:<br>
+ * Basic Attributes:<br />
  * <ul>
  * <li>base - base html tag for wrapping the toolbar.
  * <li>icon - name of the icon (css class) to be displayed to the left of the page title
@@ -41,7 +41,7 @@ import com.redhat.rhn.manager.acl.AclManager;
  * <li>helpUrl - link to the help pages.
  * </ul>
  * <P>
- * Action Attributes:<br>
+ * Action Attributes:<br />
  * <ul>
  * <li>create button
  *     <ul>

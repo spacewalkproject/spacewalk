@@ -18,7 +18,7 @@
 <c:if test="${changelog != null}">
 
    <c:forEach items="${changelog}" var="line">
-		${line}<br>
+		${line}<br />
    </c:forEach>
 </c:if>
 <c:if test="${changelog == null}">

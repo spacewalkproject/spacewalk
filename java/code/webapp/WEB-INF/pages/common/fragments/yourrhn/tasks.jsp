@@ -30,7 +30,7 @@
         <rhn:require acl="user_role(org_admin)">
           <li class="list-group-item">
           <rhn:icon type="nav-bullet" /> <bean:message
-                key="yourrhn.jsp.task.manage_subscriptions" /> <br>
+                key="yourrhn.jsp.task.manage_subscriptions" /> <br />
               &ensp; &ensp;<a href="/rhn/systems/SystemEntitlements.do">
                 <bean:message key="header.jsp.my_organization" />
             </a> <strong>|</strong> <a

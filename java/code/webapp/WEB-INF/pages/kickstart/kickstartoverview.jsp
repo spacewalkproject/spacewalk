@@ -29,7 +29,7 @@
   </div>
 </div>
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/currently-kickstarted-systems.jspf" %>
-<br><br>
+<br /><br />
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/systems-tobe-kickstarted.jspf" %>
 
 </rl:listset>

@@ -8,7 +8,7 @@
 
 <html:html >
 <body>
-<br>
+<br />
 
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 

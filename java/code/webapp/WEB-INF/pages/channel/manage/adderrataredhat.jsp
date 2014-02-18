@@ -30,7 +30,7 @@
 
 
 <table class="details" width="80%">
-	<tr><bean:message key="channel.manage.errata.redhatmsg" /><br><br></tr>
+	<tr><bean:message key="channel.manage.errata.redhatmsg" /><br /><br /></tr>
 
 	 <tr>
   		<th>Package Association:</th>
@@ -95,7 +95,7 @@
 
 
   </table>
-  <br><br>
+  <br /><br />
 
    <c:choose>
    		<c:when test="${pageList != null}">

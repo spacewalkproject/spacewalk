@@ -21,7 +21,7 @@
             </div>
             <div class="panel-body">
                 <bean:message key="reboot.jsp.summary" />
-                <br>
+                <br />
                 <bean:message key="reboot.jsp.widgetsummary"/>
 
                 <form action="/rhn/systems/details/RebootSystem.do?sid=${sid}" method="post" class="form-horizontal">

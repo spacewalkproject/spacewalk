@@ -36,7 +36,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * Displays a value in a human format (eg. 3 minutes ago)
  * <pre>
  *     &lt;rhn:human-value value="${bean.value}"&gt;
- * </pre> Outputs a human readable text for the value relative to now.<br>
+ * </pre> Outputs a human readable text for the value relative to now.<br />
  *
  */
 public class FormatDateTag extends TagSupport {

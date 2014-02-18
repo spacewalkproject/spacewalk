@@ -81,7 +81,7 @@
 							/>
 		</rl:column>
 	</rl:list>
-	<br>
+	<br />
 	<c:import url="/WEB-INF/pages/common/fragments/configuration/sdc/viewmodifyfileactions.jspf"/>
  </rl:listset>
 </body>

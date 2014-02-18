@@ -32,7 +32,7 @@ import org.apache.commons.lang.StringUtils;
  *     &lt;rhn:address type=MAILING&gt;
  * </pre>
  * This outputs a table row tag containing a Header column, address info
- * and a link to edit the address.<br>
+ * and a link to edit the address.<br />
  * <pre>
  *      Mailing:   444 Castro
  *                 Mountain View, CA 94043
@@ -178,10 +178,10 @@ public class AddressTag extends TagSupport {
                 result.append("<address>");
                 // Address 1 and 2
                 result.append(address.getAddress1());
-                result.append("<br>");
+                result.append("<br />");
                 if (StringUtils.isNotBlank(address.getAddress2())) {
                     result.append(address.getAddress2());
-                    result.append("<br>");
+                    result.append("<br />");
                 }
 
                 // City
@@ -193,18 +193,18 @@ public class AddressTag extends TagSupport {
 
                 result.append(" ");
                 result.append(address.getZip());
-                result.append("<br>");
+                result.append("<br />");
 
                 // Phones
                 result.append(ls.getMessage("phone"));
                 result.append(": ");
                 result.append(address.getPhone());
-                result.append("<br>");
+                result.append("<br />");
                 if (StringUtils.isNotBlank(address.getFax())) {
                     result.append(ls.getMessage("fax"));
                     result.append(": ");
                     result.append(address.getFax());
-                    result.append("<br>");
+                    result.append("<br />");
                 }
 
                 result.append("</address>");

@@ -213,7 +213,7 @@
               <rhn:highlight tag="strong" text="${search_string}">
                 <c:out value="${name}"/>
               </rhn:highlight>
-              <br>
+              <br />
             </c:forEach>
           </rl:column>
         </c:when>
@@ -241,7 +241,7 @@
                     ${cve.name}
                    </rhn:highlight>
                 </a>
-              <br>
+              <br />
             </c:forEach>
           </rl:column>
         </c:when>

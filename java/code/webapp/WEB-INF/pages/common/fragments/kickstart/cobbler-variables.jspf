@@ -11,7 +11,7 @@
     <c:if test= "${not empty param.summary}">
     	<p><bean:message key="${param.summary}"/></p>
     </c:if>
-  <br>
+  <br />
     <html:form method="post" action="${param.post_url}">
       <rhn:csrf />
       <table class="details">

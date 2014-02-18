@@ -77,7 +77,7 @@ public class ServerProbeDto extends CheckProbeDto {
     }
 
     /**
-     * Get a HTML friendly status string.  Replaces \n and \r\n with <br>
+     * Get a HTML friendly status string.  Replaces \n and \r\n with <br />
      * @return HTML friendly string
      */
     public String getStateOutputString() {

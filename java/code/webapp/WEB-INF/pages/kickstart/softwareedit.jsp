@@ -66,7 +66,7 @@ function clickNewestTree() {
                     property="value"
                     labelProperty="label" />
               </html:select>
-                <br><span class="small-text"><bean:message key="softwareedit.jsp.tip" /></span><br>
+                <br /><span class="small-text"><bean:message key="softwareedit.jsp.tip" /></span><br />
             </td>
           </tr>
           <tr>
@@ -83,10 +83,10 @@ function clickNewestTree() {
 					</c:forEach>
                     </c:when>
                     <c:otherwise>
-                      <br><b><bean:message key="softwareedit.jsp.nochildchannels" /></b><br>
+                      <br /><b><bean:message key="softwareedit.jsp.nochildchannels" /></b><br />
                     </c:otherwise>
                   </c:choose>
-                  <br><span class="small-text"><bean:message key="softwareedit.jsp.warning" arg0="${ksdata.id}"/></span><br>
+                  <br /><span class="small-text"><bean:message key="softwareedit.jsp.warning" arg0="${ksdata.id}"/></span><br />
               </td>
           </tr>
           <tr>

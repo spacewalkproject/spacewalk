@@ -35,7 +35,7 @@
     </rhn:column>
     <rhn:column header="packagelist.jsp.packagesaffected">
       <c:forEach var="item" items="${current.elabNvre}">
-        ${item}<br>
+        ${item}<br />
       </c:forEach>
     </rhn:column>
   </rhn:listdisplay>

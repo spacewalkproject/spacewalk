@@ -11,9 +11,9 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/channel/manage/manage_channel_header.jspf" %>
 
-<br><br>
+<br /><br />
 <bean:message key="channel.manage.errata.confirmmsg"/>
-<br><br>
+<br /><br />
  <rl:listset name="packageConfirm">
      <rhn:csrf />
      <rhn:submitted />
