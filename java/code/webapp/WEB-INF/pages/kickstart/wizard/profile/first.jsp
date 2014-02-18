@@ -56,18 +56,18 @@ function clickNewestTree() {
 </head>
 
 <body>
-    <html:form method="post" action="/kickstart/CreateProfileWizard.do" styleClass="form-horizontal">
-        <rhn:csrf />
-        <rhn:submitted />
-        <html:hidden property="wizardStep" styleId="wizard-curstep" />
-        <html:hidden property="nextStep" styleId="wizard-nextstep" />
-        <html:hidden property="previousChannelId" />
-        <rhn:toolbar base="h1" icon="header-kickstart"><bean:message key="kickstart.jsp.create.wizard.step.one"/></rhn:toolbar>
-        <p><bean:message key="kickstart.jsp.create.wizard.first.heading1" /></p>
+  <html:form method="post" action="/kickstart/CreateProfileWizard.do" styleClass="form-horizontal">
+    <rhn:csrf />
+    <rhn:submitted />
+    <html:hidden property="wizardStep" styleId="wizard-curstep" />
+    <html:hidden property="nextStep" styleId="wizard-nextstep" />
+    <html:hidden property="previousChannelId" />
+    <rhn:toolbar base="h1" icon="header-kickstart"><bean:message key="kickstart.jsp.create.wizard.step.one"/></rhn:toolbar>
+    <p><bean:message key="kickstart.jsp.create.wizard.first.heading1" /></p>
 
-        <div class="panel panel-default">
-      <ul class="list-group">
-        <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="form-group">
           <div class="col-sm-2">
             <rhn:required-field key="kickstart.jsp.create.wizard.kickstart.profile.label"/>:
           </div>
@@ -75,28 +75,24 @@ function clickNewestTree() {
             <html:text property="kickstartLabel" size="40" maxlength="80" styleClass="form-control"/>
           </div>
         </div>
-      </ul>
-      <ul class="list-group">
-        <div class="row">
-          <div class="col-sm-2">
-            <rhn:required-field key="softwareedit.jsp.basechannel"/>:
-          </div>
-          <div class="col-sm-10">
-            <c:choose>
-              <c:when test="${nochannels == null}">
-                <html:select property="currentChannelId" onchange="refresh();" styleClass="form-control">
-                  <html:optionsCollection property="channels" label="name" value="id" />
-                </html:select>
-              </c:when>
-              <c:otherwise>
-                <b><bean:message key="tree-form.jspf.nochannels" /></b>
-              </c:otherwise>
-            </c:choose>
-          </div>
+       <div class="form-group">
+         <div class="col-sm-2">
+           <rhn:required-field key="softwareedit.jsp.basechannel"/>:
+         </div>
+         <div class="col-sm-10">
+           <c:choose>
+             <c:when test="${nochannels == null}">
+               <html:select property="currentChannelId" onchange="refresh();" styleClass="form-control">
+                 <html:optionsCollection property="channels" label="name" value="id" />
+               </html:select>
+             </c:when>
+             <c:otherwise>
+               <b><bean:message key="tree-form.jspf.nochannels" /></b>
+             </c:otherwise>
+           </c:choose>
+         </div>
         </div>
-      </ul>
-      <ul class="list-group">
-        <div class="row">
+        <div class="form-group">
           <div class="col-sm-2">
             <rhn:required-field key="kickstart.jsp.create.wizard.kstree.label"/>:
           </div>
@@ -110,14 +106,14 @@ function clickNewestTree() {
                   <br />
                   <label>
                     <input type="checkbox" name="useNewestRHTree" value="0"
-                      onclick="toggleKSTree(this); clickNewestRHTree()" />
-                    <bean:message key="kickstart.jsp.create.wizard.kstree.always_new_RH"/>
+                    onclick="toggleKSTree(this); clickNewestRHTree()" />
+                  <bean:message key="kickstart.jsp.create.wizard.kstree.always_new_RH"/>
                   </label>
                 </c:if>
                 <br />
                 <label>
                   <input type="checkbox" name="useNewestTree" value="0"
-                    onclick="toggleKSTree(this); clickNewestTree()" />
+                  onclick="toggleKSTree(this); clickNewestTree()" />
                   <bean:message key="kickstart.jsp.create.wizard.kstree.always_new"/>
                 </label>
               </c:when>
@@ -127,9 +123,7 @@ function clickNewestTree() {
             </c:choose>
           </div>
         </div>
-      </ul>
-      <ul class="list-group">
-        <div class="row">
+        <div class="form-group">
           <div class="col-sm-2">
             <bean:message key="kickstart.jsp.create.wizard.virtualization.label" />
           </div>
@@ -139,13 +133,12 @@ function clickNewestTree() {
             </html:select>
           </div>
         </div>
-      </ul>
+      </div>
     </div>
-
-    <div align="right">
-     <input type="button" value="<bean:message key='wizard.jsp.next.step'/>" onclick="moveNext();" class="btn btn-default"/>
+    <div class="pull-right">
+      <button onclick="moveNext();" class="btn btn-primary"><bean:message key='wizard.jsp.next.step'/></button>
     </div>
-    </html:form>
+  </html:form>
 </body>
 </html:html>
 
