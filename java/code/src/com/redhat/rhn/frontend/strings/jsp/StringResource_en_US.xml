@@ -15082,7 +15082,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>Script does not contain shell definition.</source>
         </trans-unit>
         <trans-unit id="stringutil.scriptcheck.error.noscript">
-          <source>Script is does not seems like doing anything.</source>
+          <source>Script does not seem doing anything.</source>
         </trans-unit>
         <!-- Errata -->
         <trans-unit id="ssm.patches.list.header">
