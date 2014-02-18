@@ -27,7 +27,7 @@
     <html:hidden property="sid" value="${system.id}"/>
     <html:hidden property="submitted" value="true"/>
   </table>
-  <hr>
+  <hr />
   <div class="text-right"><html:submit><bean:message key="kickstart.session_cancel.jsp.cancel"/></html:submit></div>
 </html:form>
 </body>

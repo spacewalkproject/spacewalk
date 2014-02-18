@@ -20,7 +20,7 @@
                 <p>
                     <bean:message key="your_edit_address.jsp.summary" />
                 </p>
-                <hr>
+                <hr />
                 <html:form action="/account/EditAddressSubmit" styleClass="form-horizontal">
                     <rhn:csrf />
                     <%@ include file="/WEB-INF/pages/common/fragments/user/edit_address_form.jspf" %>

@@ -55,7 +55,7 @@
     <html:hidden property="suite_id" value="${probeSuite.id}"/>
     <c:if test="${not empty pageList}">
     <div class="text-right">
-        <hr>
+        <hr />
       <html:submit property="dispatch">
         <bean:message key="probesuitesystems.jsp.detachsystem"/>
       </html:submit>

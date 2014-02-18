@@ -52,7 +52,7 @@ function modifyUploadCheckbox(checkbox) {
       </div>
       <div class="panel-body">
         <p><bean:message key="orgconfig.jsp.description"/></p>
-        <hr>
+        <hr />
           <form method="post"
           class="form-horizontal"
           action="/rhn/admin/multiorg/OrgConfigDetails.do">

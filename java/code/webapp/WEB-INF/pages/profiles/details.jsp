@@ -15,7 +15,7 @@
         <bean:message key="profile.details.summary"/>
     </div>
 
-    <hr>
+    <hr />
 
     <table class="details">
         <tr>

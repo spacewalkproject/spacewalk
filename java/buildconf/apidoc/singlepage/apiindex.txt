@@ -4,4 +4,4 @@
     <li><a href="#${handler.name}">$handler.name</a></li>
 #end
 </ul>
-<hr>
+<hr />

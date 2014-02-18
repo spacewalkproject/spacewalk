@@ -35,7 +35,7 @@
     <html:hidden property="suite_id" value="${probeSuite.id}"/>
     <c:if test="${not empty pageList}">
       <div class="text-right">
-        <hr><bean:message key="probesuitesystemsedit.jsp.monscouttouse"/>
+        <hr /><bean:message key="probesuitesystemsedit.jsp.monscouttouse"/>
         <select name="satCluster">
           <c:forEach items="${satClusters}" var="cluster">
             <option value="${cluster.id}">${cluster.description}</option>
