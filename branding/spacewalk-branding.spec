@@ -27,7 +27,7 @@ Requires:      httpd
 Requires:      bootstrap <= 3.0.0
 Requires:      bootstrap-datepicker
 Requires:      font-awesome >= 4.0.0
-Requires:      jquery-timepicker <= 1.3.3
+Requires:      jquery-timepicker >= 1.3.2
 Requires:      roboto >= 1.2
 Requires:      pwstrength-bootstrap
 
