@@ -27,7 +27,7 @@
 
     <link rel="stylesheet" href="/fonts/font-awesome/css/font-awesome.css" />
     <link rel="stylesheet" href="/fonts/font-spacewalk/css/spacewalk-font.css" />
-    <meta name="viewport" content="initial-scale=1">
+    <meta name="viewport" content="initial-scale=1" />
 
     <rhn:require acl="is(development_environment)">
       <link rel="stylesheet/less" type="text/css" href="/css/spacewalk.less" />
