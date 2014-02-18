@@ -108,7 +108,7 @@ public class SsmRemovePackagesAction extends SsmPackagesAction {
                 .toKeyMaps(allPackagesList);
 
         log.debug("Scheduling package removals.");
-        List<Action> actions = ActionChainManager.schedulePackageRemoval(user,
+        List<Action> actions = ActionChainManager.schedulePackageRemovals(user,
             allServerIds, packageListData, earliest, actionChain);
 
         log.debug("Done.");

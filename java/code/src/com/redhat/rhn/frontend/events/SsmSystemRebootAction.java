@@ -41,7 +41,7 @@ public class SsmSystemRebootAction extends AbstractDatabaseAction {
         ActionChain actionChain = ActionChainFactory.getActionChain(event
             .getActionChainId());
 
-        ActionChainManager.scheduleRebootAction(user, event.getServerIds(),
+        ActionChainManager.scheduleRebootActions(user, event.getServerIds(),
             event.getEarliest(), actionChain);
         SsmOperationManager.completeOperation(user,
             SsmOperationManager.createOperation(user, "ssm.misc.reboot.operationname",

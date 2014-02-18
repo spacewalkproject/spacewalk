@@ -26,8 +26,6 @@ import com.redhat.rhn.domain.action.script.ScriptRunAction;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.manager.MissingCapabilityException;
-import com.redhat.rhn.manager.MissingEntitlementException;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import java.util.ArrayList;
@@ -56,77 +54,76 @@ public class ActionChainManager {
     }
 
     /**
-     * Schedules package installations.
-     * @param user the user
+     * Schedules s package installation on a server.
+     * @param user the user scheduling actions
      * @param server the server
      * @param packages the packages
      * @param earliest the earliest execution date
      * @param actionChain the action chain or null
-     * @return the package action
+     * @return scheduled action
      * @see com.redhat.rhn.manager.action.ActionManager#schedulePackageInstall
      */
     public static PackageAction schedulePackageInstall(User user, Server server,
         List<Map<String, Long>> packages, Date earliest, ActionChain actionChain) {
-
-        if (!server.isSolaris()) {
-            return (PackageAction) schedulePackageAction(user, packages,
-                ActionFactory.TYPE_PACKAGES_UPDATE, earliest, actionChain, server);
-        }
-        return (PackageAction) schedulePackageAction(user, packages,
-            ActionFactory.TYPE_SOLARISPKGS_INSTALL, earliest, actionChain, server);
+        return schedulePackageActionByOs(user, server, packages, earliest, actionChain,
+            null, ActionFactory.TYPE_PACKAGES_UPDATE,
+            ActionFactory.TYPE_SOLARISPKGS_INSTALL);
     }
 
-
     /**
-     * Schedules package removals.
-     * @param user the user
+     * Schedules s package removal on a server.
+     * @param user the user scheduling actions
      * @param server the server
      * @param packages the packages
      * @param earliest the earliest execution date
      * @param actionChain the action chain or null
-     * @return the package action
+     * @return scheduled action
      * @see com.redhat.rhn.manager.action.ActionManager#schedulePackageRemoval
      */
     public static PackageAction schedulePackageRemoval(User user, Server server,
         List<Map<String, Long>> packages, Date earliest, ActionChain actionChain) {
-        if (!server.isSolaris()) {
-            return (PackageAction) schedulePackageAction(user, packages,
-                ActionFactory.TYPE_PACKAGES_REMOVE, earliest, actionChain, server);
-        }
-        return (PackageAction) schedulePackageAction(user, packages,
-            ActionFactory.TYPE_SOLARISPKGS_REMOVE, earliest, actionChain, server);
+        return schedulePackageActionByOs(user, server, packages, earliest, actionChain,
+            null, ActionFactory.TYPE_PACKAGES_REMOVE,
+            ActionFactory.TYPE_SOLARISPKGS_REMOVE);
     }
 
     /**
-     * Schedules one or more package upgrade actions for the given servers.
+     * Schedules package upgrade(s) for the given servers.
      * Note: package upgrade = package install
-     * @param scheduler User scheduling the action.
-     * @param sysPkgMapping  The set of packages to be upgraded.
+     * @param user the user scheduling actions
+     * @param packageMaps maps system IDs to lists of "package maps"
      * @param earliestAction Date of earliest action to be executed
      * @param actionChain the action chain or null
-     * @return actions       list of all scheduled upgrades
+     * @return scheduled actions
+     * @see ActionManager#addPackageActionDetails(Action, List) for "package map"
      */
-    public static List<Action> schedulePackageUpgrades(User scheduler,
-            Map<Long, List<Map<String, Long>>> sysPkgMapping, Date earliestAction,
+    public static List<Action> schedulePackageUpgrades(User user,
+            Map<Long, List<Map<String, Long>>> packageMaps, Date earliestAction,
             ActionChain actionChain) {
         List<Action> actions = new ArrayList<Action>();
 
-        for (Long sid : sysPkgMapping.keySet()) {
-            Server server = SystemManager.lookupByIdAndUser(sid, scheduler);
-            actions.add(schedulePackageInstall(scheduler, server, sysPkgMapping.get(sid),
-                    earliestAction, actionChain));
+        Integer sortOrder = null;
+        if (actionChain != null) {
+            sortOrder = ActionChainFactory.getNextSortOrderValue(actionChain);
+        }
+        for (Long sid : packageMaps.keySet()) {
+            Server server = SystemManager.lookupByIdAndUser(sid, user);
+            actions.add(schedulePackageActionByOs(user, server, packageMaps.get(sid),
+                earliestAction, actionChain, sortOrder, ActionFactory.TYPE_PACKAGES_UPDATE,
+                ActionFactory.TYPE_SOLARISPKGS_INSTALL));
         }
         return actions;
     }
 
     /**
-     * Schedules package upgrades.
-     * @param user the user
+     * Schedules a package upgrade for the given server.
+     * @param user the user scheduling actions
      * @param server the server
-     * @param packages the packages
+     * @param packages a list of "package maps"
      * @param earliest the earliest execution date
      * @param actionChain the action chain or null
-     * @return the package action
+     * @return scheduled action
+     * @see ActionManager#addPackageActionDetails(Action, List) for "package map"
      */
     public static PackageAction schedulePackageUpgrade(User user, Server server,
         List<Map<String, Long>> packages, Date earliest, ActionChain actionChain) {
@@ -134,61 +131,66 @@ public class ActionChainManager {
     }
 
     /**
-     * Schedules package verifications.
-     * @param user the user
+     * Schedules a package verification for the given server.
+     * @param user the user scheduling actions
      * @param server the server
-     * @param packages the packages
+     * @param packages a list of "package maps"
      * @param earliest the earliest execution date
      * @param actionChain the action chain or null
-     * @return the package action
+     * @return scheduled action
      * @see com.redhat.rhn.manager.action.ActionManager#schedulePackageVerify
+     * @see ActionManager#addPackageActionDetails(Action, List) for "package map"
      */
     public static PackageAction schedulePackageVerify(User user, Server server,
         List<Map<String, Long>> packages, Date earliest, ActionChain actionChain) {
         return (PackageAction) schedulePackageAction(user, packages,
-            ActionFactory.TYPE_PACKAGES_VERIFY, earliest, actionChain, server);
+            ActionFactory.TYPE_PACKAGES_VERIFY, earliest, actionChain, null, server);
     }
 
 
     /**
-     * Schedules generic package actions on a single server.
-     * @param scheduler the scheduler
-     * @param packages the packages involved
+     * Schedules a generic package action on a single server.
+     * @param user the user scheduling actions
+     * @param packages a list of "package maps"
      * @param type the type
      * @param earliest the earliest execution date
      * @param actionChain the action chain or null
+     * @param sortOrder the sort order or null
      * @param server the server
-     * @return the action
+     * @return scheduled action
      * @see com.redhat.rhn.manager.action.ActionManager#schedulePackageAction
+     * @see ActionManager#addPackageActionDetails(Action, List) for "package map"
      */
-    private static Action schedulePackageAction(User scheduler,
+    private static Action schedulePackageAction(User user,
         List<Map<String, Long>> packages, ActionType type, Date earliest,
-        ActionChain actionChain, Server server) {
+        ActionChain actionChain, Integer sortOrder, Server server) {
         Set<Long> serverIds = new HashSet<Long>();
         serverIds.add(server.getId());
-        return schedulePackageAction(scheduler, packages, type, earliest, actionChain,
-            serverIds).iterator().next();
+        return schedulePackageActions(user, packages, type, earliest, actionChain,
+            sortOrder, serverIds).iterator().next();
     }
 
     /**
      * Schedules generic package actions on multiple servers.
-     * @param scheduler the scheduler
-     * @param packages the packages involved
+     * @param user the user scheduling actions
+     * @param packages a list of "package maps"
      * @param type the type
      * @param earliest the earliest execution date
      * @param actionChain the action chain or null
+     * @param sortOrder the sort order or null
      * @param servers the servers involved
-     * @return a set of actions
+     * @return scheduled actions
      * @see com.redhat.rhn.manager.action.ActionManager#schedulePackageAction
+     * @see ActionManager#addPackageActionDetails(Action, List) for "package map"
      */
-    private static Set<Action> schedulePackageAction(User scheduler,
+    private static Set<Action> schedulePackageActions(User user,
         List<Map<String, Long>> packages, ActionType type, Date earliestAction,
-        ActionChain actionChain, Set<Long> serverIds) {
+        ActionChain actionChain, Integer sortOrder, Set<Long> serverIds) {
 
         String name = ActionManager.getActionName(type);
 
-        Set<Action> result = scheduleAction(scheduler, type, name, earliestAction,
-            actionChain, serverIds);
+        Set<Action> result = scheduleActions(user, type, name, earliestAction,
+            actionChain, sortOrder, serverIds);
 
         for (Action action : result) {
             ActionManager.addPackageActionDetails(action, packages);
@@ -198,21 +200,22 @@ public class ActionChainManager {
     }
 
     /**
-     * Schedules script actions for the given servers
-     * @param scheduler User scheduling the action
-     * @param sids Servers for which the action affects
-     * @param script The set of packages to be removed
-     * @param name Name of Script action
-     * @param earliest Earliest occurrence of the script
+     * Schedules script actions for the given servers.
+     * @param user the user scheduling actions
+     * @param sids IDs of affected servers
+     * @param script detail object of the script to run
+     * @param name name of the script action
+     * @param earliest the earliest execution date
      * @param actionChain the action chain or null
-     * @return Scheduled ScriptRunAction(s)
-     * @throws MissingCapabilityException if any server in the list is missing
-     *             script.run schedule fails
-     * @throws MissingEntitlementException if any server in the list is missing
-     *             Provisioning schedule fails
+     * @return scheduled actions
+     * @throws com.redhat.rhn.manager.MissingCapabilityException if any server
+     *             in the list is missing script.run schedule fails
+     * @throws com.redhat.rhn.manager.MissingEntitlementException if any server
+     *             in the list is missing Provisioning schedule fails
      * @see com.redhat.rhn.manager.action.ActionManager#scheduleScriptRun
+     * @see ActionManager#addPackageActionDetails(Action, List) for "package map"
      */
-    public static Set<Action> scheduleScriptRuns(User scheduler, List<Long> sids,
+    public static Set<Action> scheduleScriptRuns(User user, List<Long> sids,
         String name, ScriptActionDetails script, Date earliest, ActionChain actionChain) {
 
         ActionManager.checkScriptingOnServers(sids);
@@ -220,8 +223,8 @@ public class ActionChainManager {
         Set<Long> sidSet = new HashSet<Long>();
         sidSet.addAll(sids);
 
-        Set<Action> result = scheduleAction(scheduler,
-                ActionFactory.TYPE_SCRIPT_RUN, name, earliest, actionChain, sidSet);
+        Set<Action> result = scheduleActions(user, ActionFactory.TYPE_SCRIPT_RUN, name,
+            earliest, actionChain, null, sidSet);
         for (Action action : result) {
             ((ScriptRunAction)action).setScriptActionDetails(script);
             ActionFactory.save(action);
@@ -230,10 +233,10 @@ public class ActionChainManager {
     }
 
     /**
-     * Creates configuration actions
+     * Creates configuration actions for the given server IDs.
      * @param user the user scheduling actions
-     * @param revisions a set of revision ids as Longs
-     * @param serverIds a set of server ids as Longs
+     * @param revisions a set of revision IDs
+     * @param serverIds a set of server IDs
      * @param type the type of configuration action
      * @param earliest the earliest execution date
      * @param actionChain the action chain or null
@@ -249,10 +252,10 @@ public class ActionChainManager {
     }
 
     /**
-     * Create a Config Action.
+     * Creates configuration actions for the given servers.
      * @param user the user scheduling actions
-     * @param revisions a set of revision ids as Longs
-     * @param servers a set of server objects
+     * @param revisions a set of revision IDs
+     * @param servers a set of servers
      * @param type the type of configuration action
      * @param earliest the earliest execution date
      * @param actionChain the action chain or null
@@ -285,9 +288,9 @@ public class ActionChainManager {
     }
 
     /**
-     * Create a Config Action.
+     * Creates configuration actions from server-revision maps.
      * @param user the user scheduling actions
-     * @param revisions maps servers to multiple revision ids as Longs
+     * @param revisions maps servers to multiple revision IDs
      * @param servers a set of server objects
      * @param type the type of configuration action
      * @param earliest the earliest execution date
@@ -332,7 +335,7 @@ public class ActionChainManager {
     }
 
     /**
-     * Schedule a RebootAction against a system
+     * Schedules a reboot action on a server.
      * @param user the user scheduling actions
      * @param server the affected server
      * @param earliest the earliest execution date
@@ -343,87 +346,90 @@ public class ActionChainManager {
         ActionChain actionChain) {
         Set<Long> serverIds = new HashSet<Long>();
         serverIds.add(server.getId());
-        Set<Action> actions = scheduleRebootAction(user, serverIds, earliest, actionChain);
+        Set<Action> actions = scheduleRebootActions(user, serverIds, earliest, actionChain);
         return actions.iterator().next();
     }
 
     /**
-     * Schedules RebootActions against multiple systems
+     * Schedules one or more reboot actions on multiple servers.
      * @param user the user scheduling actions
      * @param serverIds the affected servers' IDs
      * @param earliest the earliest execution date
      * @param actionChain the action chain or null
      * @return scheduled actions
      */
-    public static Set<Action> scheduleRebootAction(User user, Set<Long> serverIds,
+    public static Set<Action> scheduleRebootActions(User user, Set<Long> serverIds,
         Date earliest, ActionChain actionChain) {
-        Set<Action> actions = scheduleAction(user, ActionFactory.TYPE_REBOOT,
-            ActionFactory.TYPE_REBOOT.getName(), earliest, actionChain, serverIds);
+        Set<Action> actions = scheduleActions(user, ActionFactory.TYPE_REBOOT,
+            ActionFactory.TYPE_REBOOT.getName(), earliest, actionChain, null, serverIds);
         return actions;
     }
 
     /**
      * Schedules one or more package installation actions on one or more servers.
      * @param user the user scheduling actions
-     * @param serverIds server IDs for which the packages should be installed
-     * @param packages the packages involved
+     * @param serverIds the affected servers' IDs
+     * @param packages a list of "package maps"
      * @param earliest the earliest execution date
      * @param actionChain the action chain or null
      * @return scheduled actions
+     * @see ActionManager#addPackageActionDetails(Action, List) for "package map"
      */
-    public static List<Action> schedulePackageInstall(User user,
+    public static List<Action> schedulePackageInstalls(User user,
         Collection<Long> serverIds, List<Map<String, Long>> packages, Date earliest,
         ActionChain actionChain) {
 
-        return scheduleActionByOs(user, serverIds, packages, earliest, actionChain,
+        return schedulePackageActionsByOs(user, serverIds, packages, earliest, actionChain,
             ActionFactory.TYPE_PACKAGES_UPDATE, ActionFactory.TYPE_SOLARISPKGS_INSTALL);
     }
 
     /**
      * Schedules one or more package removal actions on one or more servers.
      * @param user the user scheduling actions
-     * @param serverIds server IDs for which the packages should be installed
-     * @param packages the packages involved
+     * @param serverIds the affected servers' IDs
+     * @param packages a list of "package maps"
      * @param earliest the earliest execution date
      * @param actionChain the action chain or null
      * @return scheduled actions
+     * @see ActionManager#addPackageActionDetails(Action, List) for "package map"
      */
-    public static List<Action> schedulePackageRemoval(User user,
+    public static List<Action> schedulePackageRemovals(User user,
         Collection<Long> serverIds, List<Map<String, Long>> packages, Date earliest,
         ActionChain actionChain) {
-        return scheduleActionByOs(user, serverIds, packages, earliest, actionChain,
+        return schedulePackageActionsByOs(user, serverIds, packages, earliest, actionChain,
             ActionFactory.TYPE_PACKAGES_REMOVE, ActionFactory.TYPE_SOLARISPKGS_REMOVE);
     }
 
     /**
      * Schedules generic actions on multiple servers.
-     *
-     * @param scheduler the scheduler
+     * @param user the user scheduling actions
      * @param type the type
      * @param name the name
      * @param earliest the earliest execution date
      * @param actionChain the action chain or null
-     * @param serverIds the server ids
-     * @return a set of actions
+     * @param sortOrder the sort order or null
+     * @param serverIds the affected servers' IDs
+     * @return scheduled actions
      * @see com.redhat.rhn.manager.action.ActionManager#scheduleAction
      */
-    private static Set<Action> scheduleAction(User scheduler, ActionType type, String name,
-        Date earliest, ActionChain actionChain, Set<Long> serverIds) {
+    private static Set<Action> scheduleActions(User user, ActionType type, String name,
+        Date earliest, ActionChain actionChain, Integer sortOrder, Set<Long> serverIds) {
         Set<Action> result = new HashSet<Action>();
 
         if (actionChain == null) {
-            Action action = ActionManager.createAction(scheduler, type, name,
-                earliest);
+            Action action = ActionManager.createAction(user, type, name, earliest);
             ActionManager.scheduleForExecution(action, serverIds);
             result.add(action);
         }
         else {
-            int sortOrder = ActionChainFactory.getNextSortOrderValue(actionChain);
+            Integer nextSortOrder = sortOrder;
+            if (sortOrder == null) {
+                nextSortOrder = ActionChainFactory.getNextSortOrderValue(actionChain);
+            }
             for (Long serverId : serverIds) {
-                Action action = ActionManager.createAction(scheduler, type, name,
-                    earliest);
+                Action action = ActionManager.createAction(user, type, name, earliest);
                 ActionChainFactory.queueActionChainEntry(action, actionChain, serverId,
-                    sortOrder);
+                    nextSortOrder);
                 result.add(action);
             }
         }
@@ -432,10 +438,34 @@ public class ActionChainManager {
     }
 
     /**
-     * Schedules actions differentiating their type among Linux and Solaris
+     * Schedules package actions differentiating their type among Linux and Solaris
      * servers.
      * @param user the user scheduling actions
-     * @param serverIds server IDs for which the packages should be installed
+     * @param server the server
+     * @param packages the packages
+     * @param earliest the earliest execution date
+     * @param actionChain the action chain or null
+     * @param sortOrder the sort order or null
+     * @param linuxActionType the action type to apply to Linux servers
+     * @param solarisActionType the action type to apply to Solaris servers
+     * @return scheduled action
+     */
+    private static PackageAction schedulePackageActionByOs(User user, Server server,
+        List<Map<String, Long>> packages, Date earliest, ActionChain actionChain,
+        Integer sortOrder, ActionType linuxActionType, ActionType solarisActionType) {
+        if (!server.isSolaris()) {
+            return (PackageAction) schedulePackageAction(user, packages, linuxActionType,
+                earliest, actionChain, sortOrder, server);
+        }
+        return (PackageAction) schedulePackageAction(user, packages, solarisActionType,
+            earliest, actionChain, sortOrder, server);
+    }
+
+    /**
+     * Schedules package actions differentiating their type among Linux and Solaris
+     * servers.
+     * @param user the user scheduling actions
+     * @param serverIds the affected servers' IDs
      * @param packages the packages involved
      * @param earliest the earliest execution date
      * @param actionChain the action chain or null
@@ -443,9 +473,9 @@ public class ActionChainManager {
      * @param solarisActionType the action type to apply to Solaris servers
      * @return scheduled actions
      */
-    private static List<Action> scheduleActionByOs(User user, Collection<Long> serverIds,
-        List<Map<String, Long>> packages, Date earliest, ActionChain actionChain,
-        ActionType linuxActionType, ActionType solarisActionType) {
+    private static List<Action> schedulePackageActionsByOs(User user,
+        Collection<Long> serverIds, List<Map<String, Long>> packages, Date earliest,
+        ActionChain actionChain, ActionType linuxActionType, ActionType solarisActionType) {
 
         List<Action> result = new LinkedList<Action>();
         Set<Long> rhelServers = new HashSet<Long>();
@@ -454,13 +484,13 @@ public class ActionChainManager {
         solarisServers.addAll(ServerFactory.listSolarisSystems(serverIds));
 
         if (!rhelServers.isEmpty()) {
-            result.addAll(schedulePackageAction(user, packages, linuxActionType, earliest,
-                actionChain, rhelServers));
+            result.addAll(schedulePackageActions(user, packages, linuxActionType, earliest,
+                actionChain, null, rhelServers));
         }
 
         if (!solarisServers.isEmpty()) {
-            result.addAll(schedulePackageAction(user, packages, solarisActionType,
-                earliest, actionChain, solarisServers));
+            result.addAll(schedulePackageActions(user, packages, solarisActionType,
+                earliest, actionChain, null, solarisServers));
         }
         return result;
     }

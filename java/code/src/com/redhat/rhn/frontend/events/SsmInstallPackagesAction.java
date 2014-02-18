@@ -70,7 +70,7 @@ public class SsmInstallPackagesAction extends SsmPackagesAction {
         List<Map<String, Long>> packageListData = PackageListItem
                         .toKeyMaps(pkgListItems);
 
-        return ActionChainManager.schedulePackageInstall(user, sids, packageListData,
+        return ActionChainManager.schedulePackageInstalls(user, sids, packageListData,
             earliest, actionChain);
     }
 
