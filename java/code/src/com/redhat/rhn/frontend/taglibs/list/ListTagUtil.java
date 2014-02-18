@@ -186,7 +186,7 @@ public class ListTagUtil {
             params.append("?");
         }
         else if (url.indexOf('?') != url.length() - 1) {
-            params.append("&amp;");
+            url += "&amp;";
         }
 
         for (Enumeration<String> en = request.getParameterNames(); en.hasMoreElements();) {
