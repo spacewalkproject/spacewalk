@@ -620,7 +620,7 @@ class RepoSync(object):
 
         insert_h = rhnSQL.prepare("""
             insert into rhnKSTreeFile (kstree_id, relative_filename, checksum_id, file_size, last_modified, created, modified)
-            values (:id, :path, lookup_checksum('sha256', :checksum), :size, epoch_seconds_to_timestamp_tz(:st_time), current_timestamp, current_timestamp)
+            values (:id, :path, lookup_checksum('sha256', :checksum), :st_size, epoch_seconds_to_timestamp_tz(:st_time), current_timestamp, current_timestamp)
             """)
         dirs = [ '' ]
         while len(dirs) > 0:
@@ -646,7 +646,7 @@ class RepoSync(object):
                     print "Retrieving %s" % d + s
                     plug.get_file(d + s, os.path.join(CFG.MOUNT_POINT, ks_path))
                 st = os.stat(local_path)
-                insert_h.execute(id = ks_id, path = d + s, checksum = getFileChecksum('sha256', local_path), size = st.st_size, st_time = st.st_mtime)
+                insert_h.execute(id = ks_id, path = d + s, checksum = getFileChecksum('sha256', local_path), st_size = st.st_size, st_time = st.st_mtime)
 
         rhnSQL.commit()
 
