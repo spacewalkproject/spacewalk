@@ -65,6 +65,11 @@ public class ExtAuthenticationAction extends RhnAction {
             SatConfigFactory.setSatConfigValue(SatConfigFactory.EXT_AUTH_DEFAULT_ORGID,
                     toOrgString);
 
+            Boolean keepRoles = (Boolean) daForm.get("keep_roles");
+            // store the value
+            SatConfigFactory.setSatConfigBooleanValue(
+                    SatConfigFactory.EXT_AUTH_KEEP_ROLES, keepRoles);
+
             createSuccessMessage(request, "message.ext_auth_updated", null);
             return mapping.findForward("success");
         }
@@ -101,5 +106,9 @@ public class ExtAuthenticationAction extends RhnAction {
         else {
             form.set("to_org", null);
         }
+
+        Boolean keepRoles = SatConfigFactory.getSatConfigBooleanValue(
+                SatConfigFactory.EXT_AUTH_KEEP_ROLES);
+        form.set("keep_roles", keepRoles);
     }
 }

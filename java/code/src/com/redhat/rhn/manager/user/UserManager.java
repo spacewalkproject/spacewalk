@@ -24,6 +24,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.security.user.StateChangeException;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.common.SatConfigFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.Role;
@@ -445,6 +446,11 @@ public class UserManager extends BaseManager {
             }
             else {
                 user.setLastLoggedIn(new Date());
+                if (!SatConfigFactory.getSatConfigBooleanValue(
+                        SatConfigFactory.EXT_AUTH_KEEP_ROLES)) {
+                    // delete all temporary roles
+                    UserManager.resetTemporaryRoles(user, new HashSet<Role>());
+                }
                 // need to disable OAI_SYNC during login
                 storeUser(user);
                 return user;

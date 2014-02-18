@@ -19907,6 +19907,12 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/ExternalAuthentication.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="extauth.roles.keep">
+        <source>Keep temporary roles granted due to external authentication configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/ExternalAuthentication.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="extauth.user.create">
         <source>New user creation</source>
         <context-group name="ctx">

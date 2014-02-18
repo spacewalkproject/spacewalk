@@ -55,6 +55,16 @@
             </span>
           </div>
         </div>
+        <div class="form-group">
+          <div class="col-md-3 control-label">
+            <bean:message key="extauth.roles.keep"/>
+          </div>
+          <div class="col-md-4">
+            <div class="checkbox">
+              <html:checkbox property="keep_roles"/>
+           </div>
+          </div>
+        </div>
       </div>
     </div>
     <hr/>
