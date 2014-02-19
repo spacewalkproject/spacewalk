@@ -2,7 +2,7 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
 <body>
@@ -28,7 +28,7 @@
         hiddenvars="${requestScope.newset}" >
         <rhn:set value="${current.id}" />
         <rhn:column header="probesuitesystems.jsp.system">
-            <a href="/rhn/systems/details/probes/ProbesList.do?sid=${current.id}">${current.name}</a>
+            <a href="/rhn/systems/details/probes/ProbesList.do?sid=${current.id}">${fn:escapeXml(current.name)}</a>
         </rhn:column>
       </rhn:listdisplay>
     </rhn:list>
