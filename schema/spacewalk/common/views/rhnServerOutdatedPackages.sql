@@ -19,6 +19,7 @@ rhnServerOutdatedPackages
     server_id,
     package_name_id,
     package_evr_id,    
+    package_arch_id,
     package_nvre,
     errata_id,
     errata_advisory
