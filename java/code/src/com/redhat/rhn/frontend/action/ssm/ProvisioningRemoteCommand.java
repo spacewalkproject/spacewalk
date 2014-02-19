@@ -24,6 +24,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -49,6 +50,7 @@ import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
+
 import java.util.Iterator;
 
 
@@ -316,10 +318,8 @@ public class ProvisioningRemoteCommand extends RhnAction implements Listable {
         }
 
         return MessageFormat.format(body,
-                                    scriptType,
-                                    servers.size(),
-                                    servers.size() > 1 ? plrl : sngl,
-                                    summary);
+                scriptType, servers.size(), servers.size() > 1 ? plrl : sngl,
+                StringEscapeUtils.escapeXml(summary.toString()));
     }
 
 
