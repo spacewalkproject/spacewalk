@@ -40,6 +40,12 @@ Removes a channel from an Red Hat Satellite or Spacewalk server.
     <cmdsynopsis>
         <arg>-p</arg> <arg>--skip-packages</arg>
     </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--skip-kickstart-trees</arg> 
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--skip-channels</arg> 
+    </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
 
