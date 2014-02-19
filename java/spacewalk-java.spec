@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.155
+Version: 2.1.156
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Feb 19 2014 Matej Kollar <mkollar@redhat.com> 2.1.156-1
+- 1009396 - escaping system name for
+  /rhn/monitoring/config/ProbeSuiteSystemsEdit.do
+- 1009396 - escaping system name for
+  /rhn/systems/ssm/provisioning/RemoteCommand.do
+
 * Tue Feb 18 2014 Matej Kollar <mkollar@redhat.com> 2.1.155-1
 - correct grammar
 - Fixing unclosed hr
