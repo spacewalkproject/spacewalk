@@ -109,6 +109,10 @@ receivers and get them enabled automatically.
 Summary: Handler for /XMLRPC
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
+%if 0%{?fedora} >= 20
+# temporary workaround for bug BZ#1067443
+Requires: rpm-python <= 4.11.1-7
+%endif
 Obsoletes: rhns-server-xmlrpc < 5.3.0
 Obsoletes: rhns-xmlrpc < 5.3.0
 Provides: rhns-server-xmlrpc = 1:%{version}-%{release}
