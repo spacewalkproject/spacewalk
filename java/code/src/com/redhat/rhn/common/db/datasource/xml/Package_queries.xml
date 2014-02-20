@@ -917,6 +917,10 @@ SELECT  n.id AS id,
     on latest_p.name_id = latest.package_name_id
    and latest_p.evr_id = latest_pe.id
    and latest_p.package_arch_id = latest.package_arch_id
+  join rhnChannelPackage cp
+    on cp.package_id = latest_p.id
+  join rhnServerChannel sc
+    on sc.channel_id = cp.channel_id and sc.server_id = :sid
   join rhnPackageUpgradeArchCompat puac
     on puac.package_arch_id = sp.package_arch_id
    and puac.package_upgrade_arch_id = latest.package_arch_id
