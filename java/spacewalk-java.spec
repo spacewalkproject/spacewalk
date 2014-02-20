@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.160
+Version: 2.1.161
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Feb 20 2014 Jan Dobes 2.1.161-1
+- fixing ISE in create repo form
+
 * Thu Feb 20 2014 Tomas Kasparek <tkasparek@redhat.com> 2.1.160-1
 - Styling unstyled submit buttons.
 - styling buttons. LocalizedSubmitTag can't access styleClass attribute. It is
