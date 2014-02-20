@@ -1,5 +1,6 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl"%>
@@ -34,13 +35,12 @@
             </rl:column>
 
             <rl:column sortable="true" bound="false"
-                headerkey="actionchains.jsp.created" sortattr="created">
-                <c:out value="${current.localizedCreated}" />
-            </rl:column>
-
-            <rl:column sortable="true" bound="false"
                 headerkey="actionchains.jsp.modified" sortattr="modified">
                 <c:out value="${current.localizedModified}" />
+            </rl:column>
+
+            <rl:column bound="false" headerkey="actionchains.jsp.entry_count">
+                <c:out value="${fn:length(current.entries)}" />
             </rl:column>
         </rl:list>
         <rhn:submitted />
