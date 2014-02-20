@@ -203,7 +203,7 @@ sub submit {
     $opts .= sprintf(" %s=\"%s\"",lc($1),$e{$_});
   }
 
-  return sprintf "<input type=\"submit\" $opts />";
+  return sprintf "<input type=\"submit\" $opts class=\"btn btn-default\"/>";
 }
 
 #submit(
