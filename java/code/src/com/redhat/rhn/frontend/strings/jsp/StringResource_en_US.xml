@@ -2296,14 +2296,14 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/schedule/ActionChains</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="actionchains.jsp.created">
-        <source>Created</source>
+      <trans-unit id="actionchains.jsp.modified">
+        <source>Last modified</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionChains</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="actionchains.jsp.modified">
-        <source>Modified</source>
+      <trans-unit id="actionchains.jsp.entry_count">
+        <source>Total Action Count</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionChains</context>
         </context-group>
