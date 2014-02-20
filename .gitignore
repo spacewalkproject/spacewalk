@@ -12,6 +12,7 @@ java/*.log.*
 java/buildconf/builder/config/local
 java/.classpath
 java/.externalToolBuilders
+java/.pmd
 java/.project
 java/.settings/*
 java/conf/eclipse/bin
