@@ -1361,6 +1361,16 @@
           <forward name="loggedin" path="/YourRhn.do" redirect="true"/>
     </action>
 
+    <action path="/Login401"
+            scope="request"
+            input="/WEB-INF/pages/common/login.jsp"
+            type="com.redhat.rhn.frontend.action.Login401SetupAction"
+            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+          <forward name="default" path="/WEB-INF/pages/common/login.jsp" />
+          <forward name="needuser" path="/newlogin/CreateFirstUser.do" redirect="true"/>
+          <forward name="loggedin" path="/YourRhn.do" redirect="true"/>
+    </action>
+
     <action path="/LoginSubmit"
         name="loginForm"
         scope="request"
