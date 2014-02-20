@@ -51,7 +51,7 @@ public class PackageNameOverviewAction extends RhnAction {
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
         RequestContext ctx = new RequestContext(request);
-        User user = ctx.getLoggedInUser();
+        User user = ctx.getCurrentUser();
 
         List dr = Collections.EMPTY_LIST;
         if (StringUtils.equals(subscribedChannels, "yes")) {

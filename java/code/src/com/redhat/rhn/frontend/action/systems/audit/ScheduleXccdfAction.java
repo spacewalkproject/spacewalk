@@ -60,7 +60,7 @@ public class ScheduleXccdfAction extends ScapSetupAction {
 
         if (isSubmitted(form)) {
             Long sid = context.getRequiredParam("sid");
-            User user = context.getLoggedInUser();
+            User user = context.getCurrentUser();
             Server server = SystemManager.lookupByIdAndUser(sid, user);
             ActionErrors errors = RhnValidationHelper.validateDynaActionForm(this, form);
 

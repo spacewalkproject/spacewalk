@@ -59,7 +59,7 @@ public class ChannelSetupAction extends RhnListAction {
         RequestContext requestContext = new RequestContext(request);
 
         //get the user and page control
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         PageControl pc = new PageControl();
 
         clampListBounds(pc, request, user);

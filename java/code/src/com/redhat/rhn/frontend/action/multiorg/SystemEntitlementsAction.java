@@ -44,7 +44,7 @@ public class SystemEntitlementsAction extends RhnAction {
             HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         RequestContext requestContext = new RequestContext(request);
-        User u = requestContext.getLoggedInUser();
+        User u = requestContext.getCurrentUser();
 
         List<SystemEntitlementsDto>result = OrgManager.allOrgsEntitlements();
 

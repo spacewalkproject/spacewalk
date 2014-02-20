@@ -50,7 +50,7 @@ public abstract class ActionSystemsSetupAction extends RhnListAction {
 
         Long aid = requestContext.getRequiredParam("aid");
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         PageControl pc = new PageControl();
         pc.setFilterColumn("earliest");
 

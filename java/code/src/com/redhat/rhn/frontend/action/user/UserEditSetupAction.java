@@ -64,8 +64,8 @@ public class UserEditSetupAction extends RhnAction {
                 uid == null) {
             throw new BadParameterException("Invalid uid for /rhn/users/");
         }
-        User loggedInUser = requestContext.getLoggedInUser();
-        User targetUser = UserManager.lookupUser(requestContext.getLoggedInUser(), uid);
+        User loggedInUser = requestContext.getCurrentUser();
+        User targetUser = UserManager.lookupUser(requestContext.getCurrentUser(), uid);
         request.setAttribute(RhnHelper.TARGET_USER, targetUser);
 
         if (targetUser == null) {

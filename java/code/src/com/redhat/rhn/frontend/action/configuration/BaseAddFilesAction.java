@@ -120,7 +120,7 @@ public abstract class BaseAddFilesAction extends RhnAction {
             RequestContext ctx = new RequestContext(req);
             ConfigRevision cr = ConfigFileBuilder.getInstance().create(
                                             cff.toData(),
-                                            ctx.getLoggedInUser(), channel);
+                                            ctx.getCurrentUser(), channel);
             if (cr != null) {
 
                 ConfigActionHelper.setupRequestAttributes(ctx, cr

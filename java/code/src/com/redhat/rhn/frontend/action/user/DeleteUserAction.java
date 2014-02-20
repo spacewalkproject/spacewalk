@@ -63,7 +63,7 @@ public class DeleteUserAction extends RhnAction {
             throw pex;
         }
         Long uid = requestContext.getRequiredParam("uid");
-        User loggedInUser = requestContext.getLoggedInUser();
+        User loggedInUser = requestContext.getCurrentUser();
         ActionErrors errors = new ActionErrors();
         if (loggedInUser.getId().equals(uid)) {
             errors.add(ActionMessages.GLOBAL_MESSAGE,

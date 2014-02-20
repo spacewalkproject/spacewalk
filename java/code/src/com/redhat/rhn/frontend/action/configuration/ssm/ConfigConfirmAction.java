@@ -36,14 +36,14 @@ public class ConfigConfirmAction extends BaseListAction {
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pcIn) {
-        User user = rctxIn.getLoggedInUser();
+        User user = rctxIn.getCurrentUser();
         String feature  = rctxIn.getRequest().getParameter("feature");
         return ConfigurationManager.getInstance().listSystemsForConfigAction(user, pcIn,
                                     feature);
     }
 
     protected void processRequestAttributes(RequestContext rctxIn) {
-        User user = rctxIn.getLoggedInUser();
+        User user = rctxIn.getCurrentUser();
         int size = RhnSetDecl.CONFIG_FILE_NAMES.get(user).size();
         rctxIn.getRequest().setAttribute("filenum", new Integer(size));
         super.processRequestAttributes(rctxIn);

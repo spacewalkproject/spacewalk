@@ -59,7 +59,7 @@ public class DisableUserSetupAction extends RhnAction {
         }
         Long uid = requestContext.getRequiredParam("uid");
 
-        User user = UserManager.lookupUser(requestContext.getLoggedInUser(), uid);
+        User user = UserManager.lookupUser(requestContext.getCurrentUser(), uid);
         request.setAttribute(RhnHelper.TARGET_USER, user);
 
         if (user.isDisabled()) {

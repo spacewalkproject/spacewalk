@@ -222,7 +222,7 @@ public class AssignedGroupsSetupAction extends RhnListAction {
         RequestContext requestContext = new RequestContext(request);
 
         DynaActionForm form = (DynaActionForm)formIn;
-        User user = UserManager.lookupUser(requestContext.getLoggedInUser(),
+        User user = UserManager.lookupUser(requestContext.getCurrentUser(),
                 requestContext.getParamAsLong("uid"));
         if (user == null) {
             throw new BadParameterException("Invalid uid");
@@ -262,7 +262,7 @@ public class AssignedGroupsSetupAction extends RhnListAction {
                                     HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        User user = UserManager.lookupUser(requestContext.getLoggedInUser(),
+        User user = UserManager.lookupUser(requestContext.getCurrentUser(),
                 requestContext.getParamAsLong("uid"));
         if (user == null) {
             throw new BadParameterException("Invalid uid");

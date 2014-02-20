@@ -74,7 +74,7 @@ public class ScheduleRemoteCommand extends RhnAction {
         DynaActionForm f = (DynaActionForm)form;
         RequestContext requestContext = new RequestContext(request);
         Long sid = requestContext.getRequiredParam("sid");
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         request.setAttribute("system", server);
 

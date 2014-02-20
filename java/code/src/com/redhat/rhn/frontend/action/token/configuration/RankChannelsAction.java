@@ -183,7 +183,7 @@ public class RankChannelsAction  extends RhnAction {
             return handleNoScript(mapping, formIn, request, response);
         }
 
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         DynaActionForm form = (DynaActionForm) formIn;
         ActivationKey key = context.lookupAndBindActivationKey();
 
@@ -232,7 +232,7 @@ public class RankChannelsAction  extends RhnAction {
 
         ActivationKey key = context.lookupAndBindActivationKey();
         for (ConfigChannel channel :
-                key.getConfigChannelsFor(context.getLoggedInUser())) {
+                key.getConfigChannelsFor(context.getCurrentUser())) {
             labelValues.add(lv(channel.getName(),
                                         channel.getId().toString()));
         }

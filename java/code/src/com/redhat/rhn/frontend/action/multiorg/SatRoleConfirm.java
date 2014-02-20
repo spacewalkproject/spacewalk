@@ -62,7 +62,7 @@ public class SatRoleConfirm extends RhnAction {
             return mapping.findForward("cancel");
         }
 
-        User u = UserManager.lookupUser(requestContext.getLoggedInUser(), uid);
+        User u = UserManager.lookupUser(requestContext.getCurrentUser(), uid);
 
         // just in case user bypasses user page using bookmarks
         if (SatManager.getActiveSatAdmins().size() == 1) {

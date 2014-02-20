@@ -57,7 +57,7 @@ public class ChannelOverviewAction extends RhnAction {
         DynaActionForm daForm = (DynaActionForm)form;
         Map params = makeParamMap(request);
         RequestContext  context = new RequestContext(request);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         ConfigurationManager manager = ConfigurationManager.getInstance();
         ConfigChannelCreationHelper helper = new ConfigChannelCreationHelper();
         ConfigChannel cc = findChannel(daForm, request, helper);
@@ -132,7 +132,7 @@ public class ChannelOverviewAction extends RhnAction {
         }
 
         if (cc.getId() != null) {
-            User u = ctx.getLoggedInUser();
+            User u = ctx.getCurrentUser();
             request.setAttribute(CHANNEL_SUMMARY, getSummary(u, cc));
         }
 
@@ -165,7 +165,7 @@ public class ChannelOverviewAction extends RhnAction {
     protected ConfigChannel findChannel(DynaActionForm form, HttpServletRequest request,
                                                       ConfigChannelCreationHelper helper) {
         RequestContext ctx = new RequestContext(request);
-        User u = ctx.getLoggedInUser();
+        User u = ctx.getCurrentUser();
 
         ConfigChannel cc = ConfigActionHelper.getChannel(request);
 

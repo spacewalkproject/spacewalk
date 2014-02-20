@@ -56,7 +56,7 @@ public class FailedSystemsAction extends RhnSetAction {
         RequestContext requestContext = new RequestContext(request);
 
         Long aid = requestContext.getParamAsLong("aid");
-        Action action = ActionManager.lookupAction(requestContext.getLoggedInUser(),
+        Action action = ActionManager.lookupAction(requestContext.getCurrentUser(),
                                                    aid);
         updateSet(request);
         ActionManager.rescheduleAction(action, true);

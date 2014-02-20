@@ -44,7 +44,7 @@ public class GroupDetailAction extends RhnAction {
             HttpServletRequest request, HttpServletResponse response) {
         RequestContext rctx = new RequestContext(request);
 
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
         ManagedServerGroup sg = rctx.lookupAndBindServerGroup();
         HashMap errataCounts =
                 (HashMap) ServerGroupManager.getInstance().errataCounts(user, sg);

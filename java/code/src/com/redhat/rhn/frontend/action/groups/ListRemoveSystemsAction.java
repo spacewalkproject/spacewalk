@@ -52,7 +52,7 @@ public class ListRemoveSystemsAction extends BaseListAction {
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
         ManagedServerGroup sg = context.lookupAndBindServerGroup();
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         Set <String> set = helper.getSet();
         List<Server> servers = new LinkedList<Server>();
         for (String id : set) {

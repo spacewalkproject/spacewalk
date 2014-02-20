@@ -32,7 +32,7 @@ public class EnhancementErrataListRelevantAction extends
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
 
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         return ErrataManager.relevantErrataByType(user, null,
                        ErrataFactory.ERRATA_TYPE_ENHANCEMENT);
     }

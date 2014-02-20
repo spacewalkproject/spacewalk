@@ -89,7 +89,7 @@ public class TargetSystemsSubmitAction extends RhnSetAction {
                                  HttpServletResponse response) {
         updateSet(request);
         RequestContext requestContext = new RequestContext(request);
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
         //get the earliest date for package actions.
         DynaActionForm form = (DynaActionForm) formIn;

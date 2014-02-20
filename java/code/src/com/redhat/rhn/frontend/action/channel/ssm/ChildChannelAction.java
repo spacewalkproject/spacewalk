@@ -62,7 +62,7 @@ public class ChildChannelAction extends RhnAction {
             HttpServletResponse response) throws Exception {
 
         RequestContext rctx = new RequestContext(request);
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
         DynaActionForm daForm = (DynaActionForm)form;
 
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());

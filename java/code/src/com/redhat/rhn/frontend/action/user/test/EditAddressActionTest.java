@@ -76,7 +76,7 @@ public class EditAddressActionTest extends RhnBaseTestCase {
 
         // The logged in user needs to be the OrgAdmin of his Org in order
         // for him to be able to edit somebody else's address information.
-        User loggedInUser = requestContext.getLoggedInUser();
+        User loggedInUser = requestContext.getCurrentUser();
         loggedInUser.addRole(RoleFactory.ORG_ADMIN);
         UserManager.storeUser(loggedInUser);
 

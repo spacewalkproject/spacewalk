@@ -44,7 +44,7 @@ public abstract class BaseDeleteErrataAction extends RhnAction {
                                  HttpServletResponse response) {
 
         RequestContext rctx = new RequestContext(request);
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
 
         deleteErrata(user);
         RhnSet set = RhnSetDecl.ERRATA_TO_DELETE.get(user);

@@ -55,7 +55,7 @@ public class RepositoriesAction extends RhnAction implements Listable {
             HttpServletResponse response) {
 
         RequestContext context = new RequestContext(request);
-        User user =  context.getLoggedInUser();
+        User user =  context.getCurrentUser();
 
         long cid = context.getRequiredParam("cid");
         Channel chan = ChannelFactory.lookupByIdAndUser(cid, user);
@@ -111,7 +111,7 @@ public class RepositoriesAction extends RhnAction implements Listable {
          * {@inheritDoc}
          */
         public List<ContentSource> getResult(RequestContext context) {
-            User user =  context.getLoggedInUser();
+            User user =  context.getCurrentUser();
             return ChannelFactory.lookupContentSources(user.getOrg());
         }
 }

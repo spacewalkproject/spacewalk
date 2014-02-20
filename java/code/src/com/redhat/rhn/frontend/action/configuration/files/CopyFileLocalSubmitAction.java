@@ -43,7 +43,7 @@ public class CopyFileLocalSubmitAction extends BaseCopyFileSubmitAction {
                                        ActionForm formIn,
                                        HttpServletRequest requestIn) {
         RequestContext ctx = new RequestContext(requestIn);
-        User user = ctx.getLoggedInUser();
+        User user = ctx.getCurrentUser();
         ConfigFile file = ConfigActionHelper.getFile(ctx.getRequest());
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return cm.listSystemsForFileCopy(user, file.getConfigFileName().getId(),

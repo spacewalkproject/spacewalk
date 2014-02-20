@@ -144,7 +144,7 @@ public class RepoDetailsAction extends RhnAction {
         setupPopup(context);
         if (!createMode) {
             setupRepo(request, form, ChannelFactory.lookupContentSource(
-                    context.getParamAsLong("id"), context.getLoggedInUser().getOrg()));
+                    context.getParamAsLong("id"), context.getCurrentUser().getOrg()));
         }
     }
 
@@ -189,13 +189,13 @@ public class RepoDetailsAction extends RhnAction {
         RequestContext context = new RequestContext(request);
         String url = form.getString(URL);
         String label = form.getString(LABEL);
-        Org org = context.getLoggedInUser().getOrg();
+        Org org = context.getCurrentUser().getOrg();
         BaseRepoCommand repoCmd = null;
         if (isCreateMode(request)) {
            repoCmd = new CreateRepoCommand(org);
         }
         else {
-            repoCmd = new EditRepoCommand(context.getLoggedInUser(),
+            repoCmd = new EditRepoCommand(context.getCurrentUser(),
                     context.getParamAsLong(SOURCEID));
         }
 

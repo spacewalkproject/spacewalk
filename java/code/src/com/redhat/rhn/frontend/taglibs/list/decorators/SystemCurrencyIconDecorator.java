@@ -49,7 +49,7 @@ public class SystemCurrencyIconDecorator extends BaseListDecorator {
                 (HttpServletRequest)getCurrentList().getContext().getRequest());
 
         for (SystemCurrency next : systems) {
-            SystemListHelper.setSystemStatusDisplay(context.getLoggedInUser(), next, true);
+            SystemListHelper.setSystemStatusDisplay(context.getCurrentUser(), next, true);
         }
     }
 }

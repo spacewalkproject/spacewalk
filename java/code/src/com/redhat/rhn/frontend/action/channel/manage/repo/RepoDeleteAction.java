@@ -41,7 +41,7 @@ public class RepoDeleteAction extends RhnAction {
                                   HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
         ContentSource src = ChannelFactory.lookupContentSource(
-                context.getParamAsLong("id"), context.getLoggedInUser().getOrg());
+                context.getParamAsLong("id"), context.getCurrentUser().getOrg());
 
         request.setAttribute(RepoDetailsAction.LABEL, src.getLabel());
         request.setAttribute(RepoDetailsAction.URL, src.getSourceUrl());

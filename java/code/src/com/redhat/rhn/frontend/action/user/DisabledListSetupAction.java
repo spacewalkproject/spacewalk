@@ -57,7 +57,7 @@ public class DisabledListSetupAction extends RhnAction {
                                  HttpServletResponse response) {
 
         RequestContext context = new RequestContext(request);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         PageControl pc = setupPageControl(context);
 
         RhnSet set = getDecl().get(user);
@@ -114,7 +114,7 @@ public class DisabledListSetupAction extends RhnAction {
     private ActionForward  handleDispatchAction(ActionMapping mapping,
                                                 RequestContext context) {
 
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         HttpServletRequest request = context.getRequest();
         RhnSet set =  getDecl().get(user);
         Map params = new HashMap();
@@ -136,7 +136,7 @@ public class DisabledListSetupAction extends RhnAction {
     }
 
     protected PageControl setupPageControl(RequestContext context) {
-        User viewer = context.getLoggedInUser();
+        User viewer = context.getCurrentUser();
         PageControl pc = new PageControl();
         pc.setIndexData(true);
         pc.setFilterColumn("loginUc");

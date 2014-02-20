@@ -52,7 +52,7 @@ public class VirtualGuestsConfirmSetupAction extends BaseSystemListSetupAction {
             HttpServletResponse response) {
 
         RequestContext ctx = new RequestContext(request);
-        User user = ctx.getLoggedInUser();
+        User user = ctx.getCurrentUser();
         PageControl pc = new PageControl();
         pc.setIndexData(true);
         pc.setFilterColumn("name");

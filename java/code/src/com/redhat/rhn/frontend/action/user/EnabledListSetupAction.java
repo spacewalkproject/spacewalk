@@ -62,7 +62,7 @@ public class EnabledListSetupAction extends RhnAction implements Listable {
      * ${@inheritDoc}
      */
     public List getResult(RequestContext context) {
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         return UserManager.activeInOrg2(user);
     }
 }

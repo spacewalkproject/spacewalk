@@ -46,7 +46,7 @@ public class UserListSetupAction extends RhnAction {
 
         RequestContext requestContext = new RequestContext(request);
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
         Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);
         Org org = OrgFactory.lookupById(oid);

@@ -33,7 +33,7 @@ public abstract class ScapSetupAction extends RhnAction {
 
     protected void setupScapEnablementInfo(RequestContext context) {
         Server server = context.lookupAndBindServer();
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         boolean enabled = ScapManager.isScapEnabled(server, user);
         context.getRequest().setAttribute(SCAP_ENABLED, enabled);
         context.getRequest().setAttribute(REQUIRED_PKG, SPACEWALK_OSCAP);

@@ -97,7 +97,7 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
         log.debug("unspecified()");
 
         RequestContext rctx = new RequestContext(request);
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
         ActionForward af = mapping.findForward(RhnHelper.DEFAULT_FORWARD);
@@ -136,7 +136,7 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
 
         log.debug("confirmUpdateBaseChannels()");
         RequestContext rctx = new RequestContext(request);
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
 
         List<ChildChannelPreservationDto> unmatched =
             new LinkedList<ChildChannelPreservationDto>();
@@ -305,7 +305,7 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
 
 
         RequestContext rctx = new RequestContext(request);
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
         String barSeparatedChannelIds = request.getParameter(BASE_CHANNEL_IDS);

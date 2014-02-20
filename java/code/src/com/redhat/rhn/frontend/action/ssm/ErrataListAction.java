@@ -93,6 +93,6 @@ public class ErrataListAction extends RhnAction implements Listable {
 
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
-        return ErrataManager.relevantErrataToSystemSet(context.getLoggedInUser());
+        return ErrataManager.relevantErrataToSystemSet(context.getCurrentUser());
     }
 }

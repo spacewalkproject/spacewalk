@@ -59,7 +59,7 @@ public class VisibleSystemsListAction extends RhnSetAction {
                                    HttpServletRequest request,
                                    HttpServletResponse response) {
 
-        User user = new RequestContext(request).getLoggedInUser();
+        User user = new RequestContext(request).getCurrentUser();
 
         //Get a DataResult containing all of the user's systems
         DataResult dr = getDataResult(user, formIn, request);

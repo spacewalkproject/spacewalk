@@ -67,7 +67,7 @@ public class RemovePackagesAction extends RhnSetAction {
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
         //Get the Logged in user and the errata in question
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Errata errata = requestContext.lookupErratum();
 
         //Retrieve the set containing the ids of the packages we want to remove

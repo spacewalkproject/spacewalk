@@ -66,7 +66,7 @@ public class BadParameterExceptionHandler extends ExceptionHandler {
     protected void storeException(HttpServletRequest request, String property,
             ActionMessage msg, ActionForward forward, String scope) {
         TraceBackEvent evt = new TraceBackEvent();
-        User usr = new RequestContext(request).getLoggedInUser();
+        User usr = new RequestContext(request).getCurrentUser();
         evt.setUser(usr);
         evt.setRequest(request);
         evt.setException(exception);

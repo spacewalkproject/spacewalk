@@ -41,7 +41,7 @@ public class DistChannelMapDeleteAction extends RhnAction {
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
         RequestContext ctx = new RequestContext(request);
-        User user = ctx.getLoggedInUser();
+        User user = ctx.getCurrentUser();
 
         Long dcmId = ctx.getRequiredParam("dcm");
 

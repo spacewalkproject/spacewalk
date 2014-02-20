@@ -53,7 +53,7 @@ public class TargetSystemsListSubmit extends BaseSetOperateOnSelectedItemsAction
         RequestContext ctx = new RequestContext(requestIn);
         ConfigChannel cc = ConfigActionHelper.getChannel(requestIn);
         DataResult dr = ConfigurationManager.getInstance().
-            listSystemsNotInChannel(ctx.getLoggedInUser(), cc, null);
+            listSystemsNotInChannel(ctx.getCurrentUser(), cc, null);
         return dr;
     }
 
@@ -97,7 +97,7 @@ public class TargetSystemsListSubmit extends BaseSetOperateOnSelectedItemsAction
         operateOnSelectedSet(mapping, form, request, response, "subscribeSystems");
         //now some of the sets may be invalid, so delete them.
         RequestContext requestContext = new RequestContext(request);
-        ConfigActionHelper.clearRhnSets(requestContext.getLoggedInUser());
+        ConfigActionHelper.clearRhnSets(requestContext.getCurrentUser());
 
         return getStrutsDelegate().forwardParams(mapping.findForward("success"), params);
     }

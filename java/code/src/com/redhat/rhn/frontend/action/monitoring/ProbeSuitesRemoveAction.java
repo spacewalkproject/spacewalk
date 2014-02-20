@@ -63,7 +63,7 @@ public class ProbeSuitesRemoveAction extends RhnSetAction {
 
         RhnSet set = updateSet(request);
         Map params = makeParamMap(formIn, request);
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
         //if they chose no probe suites, return to the same page with a message
         if (set.isEmpty()) {

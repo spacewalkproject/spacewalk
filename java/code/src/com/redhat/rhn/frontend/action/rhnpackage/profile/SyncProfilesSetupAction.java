@@ -62,7 +62,7 @@ public class SyncProfilesSetupAction extends RhnAction implements Listable {
         Long prid = requestContext.getRequiredParam(RequestContext.PRID);
         Long sid = requestContext.getRequiredParam(RequestContext.SID);
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         Profile profile = ProfileManager.lookupByIdAndOrg(prid, user.getOrg());
 
@@ -100,7 +100,7 @@ public class SyncProfilesSetupAction extends RhnAction implements Listable {
     public List getResult(RequestContext context) {
         Long sid = context.getRequiredParam("sid");
         Long prid = context.getRequiredParam("prid");
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
 
         Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(context.getRequest(),
                 getDecl(sid));

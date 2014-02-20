@@ -82,7 +82,7 @@ public class DWRItemSelector {
         }
         RhnSetDecl decl = RhnSetDecl.find(setLabel);
         if (decl != null) {
-            RhnSet set = decl.get(new RequestContext(req).getLoggedInUser());
+            RhnSet set = decl.get(new RequestContext(req).getCurrentUser());
             if (isOn) {
                 set.addElements(which);
             }

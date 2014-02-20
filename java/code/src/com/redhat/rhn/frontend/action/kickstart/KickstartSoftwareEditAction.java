@@ -238,7 +238,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
         KickstartableTree tree = null;
         Long channelId = (Long) form.get(CHANNEL);
         String url = form.getString(URL);
-        Org org = ctx.getLoggedInUser().getOrg();
+        Org org = ctx.getCurrentUser().getOrg();
 
         if (form.get(USE_NEWEST_KSTREE_PARAM) != null) {
             updateType = KickstartTreeUpdateType.ALL;
@@ -260,7 +260,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
 
         Distro distro = CobblerProfileCommand.getCobblerDistroForVirtType(tree,
                 ksdata.getKickstartDefaults().getVirtualizationType(),
-                ctx.getLoggedInUser());
+                ctx.getCurrentUser());
         if (distro == null) {
             return new ValidatorError("kickstart.cobbler.profile.invalidtreeforvirt");
         }
@@ -277,7 +277,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
         ksdata.setRealUpdateType(updateType);
 
         CobblerProfileEditCommand cpec = new CobblerProfileEditCommand(ksdata,
-                ctx.getLoggedInUser());
+                ctx.getCurrentUser());
         cpec.store();
 
         // Process the selected child channels

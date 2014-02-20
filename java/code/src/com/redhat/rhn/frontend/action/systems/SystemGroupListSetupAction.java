@@ -58,7 +58,7 @@ public class SystemGroupListSetupAction extends RhnAction {
             HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        User user =  requestContext.getLoggedInUser();
+        User user =  requestContext.getCurrentUser();
 
 
         DataResult result = SystemManager.groupList(user, null);
@@ -117,7 +117,7 @@ public class SystemGroupListSetupAction extends RhnAction {
             HttpServletRequest request,
             HttpServletResponse response, RhnSet groupSet) {
 
-        User user = new RequestContext(request).getLoggedInUser();
+        User user = new RequestContext(request).getCurrentUser();
         RhnSet systemSet = RhnSetDecl.SYSTEMS.create(user);
 
         if (groupSet.isEmpty()) {
@@ -206,7 +206,7 @@ public class SystemGroupListSetupAction extends RhnAction {
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response, RhnSet groupSet) {
-        User user = new RequestContext(request).getLoggedInUser();
+        User user = new RequestContext(request).getCurrentUser();
         RhnSet systemSet = RhnSetDecl.SYSTEMS.create(user);
 
         if (groupSet.isEmpty()) {

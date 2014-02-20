@@ -189,7 +189,7 @@ public class CreateUserAction extends RhnAction {
             User user = createIntoOrg(requestContext, command,
                     (String) form.get(UserActionHelper.DESIRED_PASS),
                     msgs);
-            User orgAdmin = requestContext.getLoggedInUser();
+            User orgAdmin = requestContext.getCurrentUser();
             saveMessages(request, msgs);
             command.publishNewUserEvent(orgAdmin, orgAdmin.getOrg().getActiveOrgAdmins(),
                     request.getServerName(),
@@ -224,7 +224,7 @@ public class CreateUserAction extends RhnAction {
                                String password,
                                ActionMessages msgs) {
 
-        User creator = requestContext.getLoggedInUser();
+        User creator = requestContext.getCurrentUser();
         Org org = creator.getOrg();
 
         command.setOrg(org);

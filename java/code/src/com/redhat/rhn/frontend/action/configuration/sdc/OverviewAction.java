@@ -103,7 +103,7 @@ public class OverviewAction extends RhnAction {
                                     HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
 
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         Server server = context.lookupAndBindServer();
 
         ConfigurationManager cm = ConfigurationManager.getInstance();
@@ -170,7 +170,7 @@ public class OverviewAction extends RhnAction {
         Server server = context.lookupAndBindServer();
         HttpServletRequest request = context.getRequest();
         LocalizationService service = LocalizationService.getInstance();
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         /**
          * Do the diff action.
          */
@@ -212,7 +212,7 @@ public class OverviewAction extends RhnAction {
 
         Server server = context.lookupAndBindServer();
         HttpServletRequest request = context.getRequest();
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
 
         ConfigAction ca = (ConfigAction)ActionManager.lookupLastCompletedAction(user,
                                                ActionFactory.TYPE_CONFIGFILES_DEPLOY,
@@ -373,7 +373,7 @@ public class OverviewAction extends RhnAction {
 
     private void setupConfigEnablementInfo(RequestContext context) {
         Server server = context.lookupAndBindServer();
-        User user  = context.getLoggedInUser();
+        User user  = context.getCurrentUser();
         ConfigurationManager cm = ConfigurationManager.getInstance();
         context.getRequest().setAttribute(CONFIG_ENABLED,
                                 cm.isConfigEnabled(server, user));

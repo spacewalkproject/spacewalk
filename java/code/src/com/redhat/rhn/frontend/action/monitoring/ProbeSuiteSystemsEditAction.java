@@ -64,7 +64,7 @@ public class ProbeSuiteSystemsEditAction extends RhnSetAction {
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Set selectedSystems = updateSet(request).getElements();
         ProbeSuite suite = requestContext.lookupProbeSuite();
         Iterator i = selectedSystems.iterator();

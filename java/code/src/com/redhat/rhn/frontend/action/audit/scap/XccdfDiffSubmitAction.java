@@ -69,7 +69,7 @@ public class XccdfDiffSubmitAction extends RhnAction implements Listable {
 
         Long first = (Long) form.get(FIRST);
         Long second = (Long) form.get(SECOND);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         String view = getView(request);
 
         if (!ScapManager.isAvailableToUser(user, first)) {

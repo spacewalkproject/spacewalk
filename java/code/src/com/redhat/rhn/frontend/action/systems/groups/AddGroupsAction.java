@@ -57,7 +57,7 @@ public class AddGroupsAction extends DispatchedAction {
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
         GroupSet groups = new GroupSet(request);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         Server server = context.lookupAndBindServer();
         ServerGroupManager manager = ServerGroupManager.getInstance();
 
@@ -87,7 +87,7 @@ public class AddGroupsAction extends DispatchedAction {
         throws Exception {
         RequestContext context = new RequestContext(request);
         Server server = context.lookupAndBindServer();
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         new GroupSet(request);
         SdcHelper.ssmCheck(request, server.getId(), user);
         request.setAttribute(ListTagHelper.PARENT_URL,
@@ -108,7 +108,7 @@ public class AddGroupsAction extends DispatchedAction {
         @Override
         protected List getResult() {
             RequestContext context = getContext();
-            User user = context.getLoggedInUser();
+            User user = context.getCurrentUser();
             Server server = context.lookupAndBindServer();
             ServerGroupManager manager = ServerGroupManager.getInstance();
             Set<ManagedServerGroup> groups = new HashSet<ManagedServerGroup>

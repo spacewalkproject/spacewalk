@@ -54,7 +54,7 @@ public class ProfileDetailsAction extends RhnAction {
         Profile profile = null;
         if (prid != null) {
             profile = ProfileManager.lookupByIdAndOrg(prid,
-                    context.getLoggedInUser().getOrg());
+                    context.getCurrentUser().getOrg());
 
             request.setAttribute("profile", profile);
         }

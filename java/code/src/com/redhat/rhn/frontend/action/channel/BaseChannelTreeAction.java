@@ -45,7 +45,7 @@ public abstract class BaseChannelTreeAction extends RhnUnpagedListAction {
 
             RequestContext requestContext = new RequestContext(request);
 
-            User user = requestContext.getLoggedInUser();
+            User user = requestContext.getCurrentUser();
             ListControl lc = new ListControl();
 
             filterList(lc, request, user);

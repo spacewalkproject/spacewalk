@@ -76,7 +76,7 @@ public class LocalizedEnvironmentFilter implements Filter {
     private void initializeContext(HttpServletRequest request) {
         Context current = Context.getCurrentContext();
         User user = new RequestContext(request)
-                .getLoggedInUser();
+                .getCurrentUser();
         setTimeZone(current, user, request);
         resolveLocale(current, user, request);
     }

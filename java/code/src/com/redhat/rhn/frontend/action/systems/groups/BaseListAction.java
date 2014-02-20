@@ -55,7 +55,7 @@ public abstract class BaseListAction extends RhnAction {
     public static void setup(HttpServletRequest request) {
         RequestContext context = new RequestContext(request);
         Server server = context.lookupAndBindServer();
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         SdcHelper.ssmCheck(request, server.getId(), user);
 
     }

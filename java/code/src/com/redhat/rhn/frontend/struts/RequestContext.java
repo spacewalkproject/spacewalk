@@ -152,7 +152,7 @@ public class RequestContext {
      *
      * @return Currently LOGged in User.
      */
-    public User getLoggedInUser() {
+    private User getLoggedInUser() {
         /*
          * XMLRPC calls handle authentication on their own. We return null
          * because findUserSession is never going to correctly find an XMLRPC
@@ -280,7 +280,7 @@ public class RequestContext {
             Long id = getRequiredParam(TOKEN_ID);
             ActivationKey key = ActivationKeyFactory.lookupByToken(
                     TokenFactory.lookup(id,
-                            getLoggedInUser().getOrg()));
+                            getCurrentUser().getOrg()));
             request.setAttribute(ACTIVATION_KEY, key);
         }
         return (ActivationKey) request.getAttribute(ACTIVATION_KEY);
@@ -303,7 +303,7 @@ public class RequestContext {
         if (request.getAttribute(ORG) == null) {
             Long id = getRequiredParam(ORG_ID);
             Org org =  null;
-            if (getLoggedInUser().hasRole(RoleFactory.SAT_ADMIN)) {
+            if (getCurrentUser().hasRole(RoleFactory.SAT_ADMIN)) {
                 org = OrgFactory.lookupById(id);
             }
             assertObjectFound(org, id, ORG_ID, "Org");
@@ -328,7 +328,7 @@ public class RequestContext {
         if (request.getAttribute(KICKSTART) == null) {
             Long id = getRequiredParam(KICKSTART_ID);
             KickstartData data = KickstartFactory.
-            lookupKickstartDataByIdAndOrg(getLoggedInUser().getOrg(),
+            lookupKickstartDataByIdAndOrg(getCurrentUser().getOrg(),
                     id);
             assertObjectFound(data, id, KICKSTART_ID, "Kickstart Data");
             request.setAttribute(KICKSTART, data);
@@ -347,7 +347,7 @@ public class RequestContext {
         if (request.getAttribute(SERVER_GROUP) == null) {
             Long id = getRequiredParam(SERVER_GROUP_ID);
             ServerGroupManager manager = ServerGroupManager.getInstance();
-            User user = getLoggedInUser();
+            User user = getCurrentUser();
             ManagedServerGroup sg = manager.lookup(id, user);
             if (sg == null) {
                 String msg = "No server group with id = [%s] found.";

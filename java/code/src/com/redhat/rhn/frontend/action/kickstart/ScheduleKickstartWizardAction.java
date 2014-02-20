@@ -193,7 +193,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
      */
     public static void setupProxyInfo(RequestContext ctx) {
         List<OrgProxyServer> proxies = SystemManager.
-                listProxies(ctx.getLoggedInUser().getOrg());
+                listProxies(ctx.getCurrentUser().getOrg());
         if (proxies != null && proxies.size() > 0) {
             List<LabelValueBean> formatted = new LinkedList<LabelValueBean>();
 
@@ -497,7 +497,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             ctx.getRequest().setAttribute("profile", cmd.getKsdata());
             ctx.getRequest().setAttribute("distro", cmd.getKsdata().getTree());
             CobblerConnection con = CobblerXMLRPCHelper.
-                    getConnection(ctx.getLoggedInUser());
+                    getConnection(ctx.getCurrentUser());
 
             Distro distro = Distro.lookupById(con,
                     cmd.getKsdata().getTree().getCobblerId());
@@ -724,7 +724,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
     protected KickstartScheduleCommand getScheduleCommand(DynaActionForm form,
             RequestContext ctx, Date scheduleTime, String host) {
         String cobblerId = form.getString(RequestContext.COBBLER_ID);
-        User user = ctx.getLoggedInUser();
+        User user = ctx.getCurrentUser();
         KickstartScheduleCommand cmd;
         KickstartData data = KickstartFactory
                 .lookupKickstartDataByCobblerIdAndOrg(user.getOrg(), cobblerId);

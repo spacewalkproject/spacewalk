@@ -76,7 +76,7 @@ public class ActionHelper extends Assert {
 
         RequestContext requestContext = new RequestContext(request);
 
-        user = UserManager.lookupUser(requestContext.getLoggedInUser(),
+        user = UserManager.lookupUser(requestContext.getCurrentUser(),
                 requestContext.getParamAsLong("uid"));
         request.setAttribute(RhnHelper.TARGET_USER, user);
         // we have to get the actual user here so we can call setupAddParamter

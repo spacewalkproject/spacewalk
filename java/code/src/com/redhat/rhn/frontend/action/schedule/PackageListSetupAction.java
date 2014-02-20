@@ -49,7 +49,7 @@ public class PackageListSetupAction extends RhnAction implements Listable {
 
         RequestContext requestContext = new RequestContext(request);
         Long actionId = requestContext.getRequiredParam("aid");
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Action action = ActionManager.lookupAction(user, actionId);
 
 

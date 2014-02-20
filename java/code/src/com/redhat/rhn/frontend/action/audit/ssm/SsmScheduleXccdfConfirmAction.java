@@ -74,7 +74,7 @@ public class SsmScheduleXccdfConfirmAction extends BaseSsmScheduleXccdfAction {
         ScapAction scapAction = null;
         try {
             scapAction = ScapManager.scheduleXccdfEvalInSsm(
-                    context.getLoggedInUser(),
+                    context.getCurrentUser(),
                     (String) form.get(PATH),
                     (String) form.get(PARAMS),
                     getStrutsDelegate().readDatePicker(form, DATE,

@@ -65,7 +65,7 @@ public abstract class BaseKickstartEditAction extends RhnAction {
         RequestContext requestContext = new RequestContext(request);
         BaseKickstartCommand cmd = getCommand(requestContext);
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
         //Display message if this kickstart profile's channel is inadequate.

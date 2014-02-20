@@ -33,7 +33,7 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 public class CopyFileCentralAction  extends BaseCopyConfigFileAction {
 
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pcIn) {
-        User user = rctxIn.getLoggedInUser();
+        User user = rctxIn.getCurrentUser();
         ConfigFile file = ConfigActionHelper.getFile(rctxIn.getRequest());
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return cm.listChannelsForFileCopy(user, file, getLabel(), pcIn);
@@ -52,7 +52,7 @@ public class CopyFileCentralAction  extends BaseCopyConfigFileAction {
      * {@inheritDoc}
      */
     protected String checkPreConditions(RequestContext rctxIn) {
-        User user = rctxIn.getLoggedInUser();
+        User user = rctxIn.getCurrentUser();
         if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
             throw new PermissionException("Must be a config admin.");
         }

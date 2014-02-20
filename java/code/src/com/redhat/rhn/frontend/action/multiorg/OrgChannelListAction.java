@@ -63,7 +63,7 @@ public class OrgChannelListAction extends RhnAction implements Listable {
         // with protected access
         RequestContext context = new RequestContext(request);
         Long cid = context.getParamAsLong("cid");
-        Channel channel = ChannelManager.lookupByIdAndUser(cid, context.getLoggedInUser());
+        Channel channel = ChannelManager.lookupByIdAndUser(cid, context.getCurrentUser());
 
         if (!channel.isProtected()) {
             throw new PermissionException("Channel does not have protected access");
@@ -82,7 +82,7 @@ public class OrgChannelListAction extends RhnAction implements Listable {
         if (helper.isDispatched()) {
             Set<String> selectedItems = helper.getSet();
 
-            handleDispatch(context.getLoggedInUser(), channel, selectedItems);
+            handleDispatch(context.getCurrentUser(), channel, selectedItems);
 
             helper.destroy();
 
@@ -106,7 +106,7 @@ public class OrgChannelListAction extends RhnAction implements Listable {
 
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         Org org = user.getOrg();
         Long cid = context.getParamAsLong(RequestContext.CID);
         return OrgManager.orgChannelTrusts(cid, org);

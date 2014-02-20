@@ -73,7 +73,7 @@ public class SubscribeConfirm extends RhnAction {
 
         //typical stuff
         RequestContext context = new RequestContext(request);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
 
         //Decide whether we are visiting the same page or
         //performing the subscribe.

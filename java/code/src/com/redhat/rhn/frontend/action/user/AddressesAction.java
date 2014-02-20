@@ -51,10 +51,10 @@ public class AddressesAction extends RhnAction {
             throw new BadParameterException("uid is null for /rhn/users/");
         }
 
-        User user = UserManager.lookupUser(requestContext.getLoggedInUser(), uid);
+        User user = UserManager.lookupUser(requestContext.getCurrentUser(), uid);
         request.setAttribute(RhnHelper.TARGET_USER, user);
         if (user == null) {
-            user = requestContext.getLoggedInUser();
+            user = requestContext.getCurrentUser();
         }
 
         // Set the User on the Request

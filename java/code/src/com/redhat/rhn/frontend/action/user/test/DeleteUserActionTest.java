@@ -73,7 +73,7 @@ public class DeleteUserActionTest extends RhnBaseTestCase {
         //Null parameter
         request.getParameter("uid");
         request.setupAddParameter("uid", (String)null);
-        requestContext.getLoggedInUser().addRole(RoleFactory.lookupByLabel("org_admin"));
+        requestContext.getCurrentUser().addRole(RoleFactory.lookupByLabel("org_admin"));
         try {
             forward = action.execute(mapping, form, request, response);
             fail();
@@ -102,7 +102,7 @@ public class DeleteUserActionTest extends RhnBaseTestCase {
         //try to delete org admin
         failure.setPath("path");
         User usr = UserTestUtils.createUser("testUser",
-                requestContext.getLoggedInUser().getOrg().getId());
+                requestContext.getCurrentUser().getOrg().getId());
         usr.addRole(RoleFactory.lookupByLabel("org_admin"));
         request.setupAddParameter("uid", usr.getId().toString());
         forward = action.execute(mapping, form, request, response);
@@ -112,7 +112,7 @@ public class DeleteUserActionTest extends RhnBaseTestCase {
 
         //successful delete
         User usr2 = UserTestUtils.createUser("testUser",
-                requestContext.getLoggedInUser().getOrg().getId());
+                requestContext.getCurrentUser().getOrg().getId());
         request.setupAddParameter("uid", usr2.getId().toString());
         forward = action.execute(mapping, form, request, response);
         assertEquals(success, forward);

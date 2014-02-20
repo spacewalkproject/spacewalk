@@ -53,7 +53,7 @@ public class ListRemoveGroupsAction extends BaseListAction {
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
         ActivationKey key = context.lookupAndBindActivationKey();
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         ServerGroupManager sgm = ServerGroupManager.getInstance();
         Set <String> set = helper.getSet();
         for (String id : set) {

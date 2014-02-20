@@ -56,7 +56,7 @@ public class ViewLogDetailsAction extends RhnListAction implements Listable {
         // Load the operation details for display
         long oid = Long.parseLong(request.getParameter(PARAM_OPERATION_ID));
         RequestContext context = new RequestContext(request);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
 
         OperationDetailsDto operationData = SsmOperationManager.
                                                 findOperationById(user, oid);

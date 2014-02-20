@@ -100,7 +100,7 @@ public class SubscribeSubmit extends BaseSetOperateOnSelectedItemsAction {
            process on the next page, so need to add in those omitted channels explicitly
            so they take place in the ranking.
          */
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         ConfigurationManager manager = ConfigurationManager.getInstance();
         DataResult channels = manager.ssmChannelListForSubscribeAlreadySubbed(user);
 

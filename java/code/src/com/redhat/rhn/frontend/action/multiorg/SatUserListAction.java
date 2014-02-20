@@ -46,7 +46,7 @@ public class SatUserListAction extends RhnAction {
             HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         RequestContext requestContext = new RequestContext(request);
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Long oid = user.getOrg().getId();
         Org org = OrgFactory.lookupById(oid);
         String name = org.getName();

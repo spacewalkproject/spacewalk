@@ -59,7 +59,7 @@ public class ListRemoveChannelsAction extends BaseListAction {
         for (String id : set) {
             Long ccid = Long.valueOf(id);
             ConfigChannel cc = ConfigurationFactory.lookupConfigChannelById(ccid);
-            proc.remove(key.getConfigChannelsFor(context.getLoggedInUser()), cc);
+            proc.remove(key.getConfigChannelsFor(context.getCurrentUser()), cc);
         }
         getStrutsDelegate().saveMessage(
                     "config_channels_to_unsubscribe.unsubscribe.success",
@@ -79,6 +79,6 @@ public class ListRemoveChannelsAction extends BaseListAction {
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return cm.listGlobalChannelsForActivationKey(
                     context.lookupAndBindActivationKey(),
-                    context.getLoggedInUser());
+                    context.getCurrentUser());
     }
 }

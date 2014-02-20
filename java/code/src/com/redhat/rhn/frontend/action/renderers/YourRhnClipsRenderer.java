@@ -42,7 +42,7 @@ public class YourRhnClipsRenderer extends RhnAction {
             HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         RequestContext context = new RequestContext(request);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         PageControl pc = new PageControl();
         pc.setStart(1);
         pc.setPageSize(5);

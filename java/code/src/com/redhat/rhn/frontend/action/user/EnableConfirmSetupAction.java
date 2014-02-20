@@ -61,7 +61,7 @@ public class EnableConfirmSetupAction extends RhnListAction {
                                  HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
             //Throw an exception with a nice error message so the user
             //knows what went wrong.
@@ -109,7 +109,7 @@ public class EnableConfirmSetupAction extends RhnListAction {
     private ActionForward handleDispatchAction(ActionMapping mapping,
                                                RequestContext context) {
 
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         HttpServletRequest request = context.getRequest();
         // don't need the result, but we do need this to run.
         getDecl().get(user);

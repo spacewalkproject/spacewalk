@@ -44,7 +44,7 @@ public class FileListSetupAction extends BaseSetListAction {
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pc) {
-        User user = rctxIn.getLoggedInUser();
+        User user = rctxIn.getCurrentUser();
         Server server = rctxIn.lookupAndBindServer();
         return ConfigurationManager.getInstance().listFileNamesForSystem(user, server, pc);
     }
@@ -57,12 +57,12 @@ public class FileListSetupAction extends BaseSetListAction {
     protected void processRequestAttributes(RequestContext rctxIn) {
         super.processRequestAttributes(rctxIn);
         rctxIn.lookupAndBindServer();
-        User user = rctxIn.getLoggedInUser();
+        User user = rctxIn.getCurrentUser();
         Server server = rctxIn.lookupAndBindServer();
         SdcHelper.ssmCheck(rctxIn.getRequest(), server.getId(), user);
 
         if (!rctxIn.isSubmitted()) {
-            RhnSet set = getSetDecl().get(rctxIn.getLoggedInUser());
+            RhnSet set = getSetDecl().get(rctxIn.getCurrentUser());
             set.clear();
             RhnSetManager.store(set);
         }

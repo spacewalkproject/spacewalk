@@ -71,7 +71,7 @@ public class MonitoringConfigAction extends BaseConfigAction {
         RequestContext requestContext = new RequestContext(req);
 
         DynaActionForm form = (DynaActionForm) formIn;
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
         List configList = getManager().
             getEditableConfigMacros(user);

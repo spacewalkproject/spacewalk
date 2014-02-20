@@ -32,7 +32,7 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 public class GlobalRevisionDeploySetup extends BaseSetListAction {
 
     protected DataResult getDataResult(RequestContext ctx, PageControl pc) {
-        User usr = ctx.getLoggedInUser();
+        User usr = ctx.getCurrentUser();
         ConfigFile cf = ConfigActionHelper.getFile(ctx.getRequest());
         ConfigChannel cc = cf.getConfigChannel();
         DataResult dr = ConfigurationManager.getInstance().

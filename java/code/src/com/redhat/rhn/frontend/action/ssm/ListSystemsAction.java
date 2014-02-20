@@ -56,7 +56,7 @@ public class ListSystemsAction extends RhnAction implements Listable {
      * ${@inheritDoc}
      */
     public List getResult(RequestContext context) {
-        return SystemManager.inSet(context.getLoggedInUser(),
+        return SystemManager.inSet(context.getCurrentUser(),
                 RhnSetDecl.SYSTEMS.getLabel());
     }
 }

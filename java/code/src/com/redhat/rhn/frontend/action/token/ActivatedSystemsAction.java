@@ -77,7 +77,7 @@ public class ActivatedSystemsAction extends BaseListAction {
         Map<Long, Long> accessMap = new HashMap<Long, Long>();
         Map<Long, String> dateMap = new HashMap<Long, String>();
         LocalizationService ls = LocalizationService.getInstance();
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         for (Server server : servers) {
             if (SystemManager.isAvailableToUser(user, server.getId())) {
                 accessMap.put(server.getId(), server.getId());

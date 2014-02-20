@@ -107,7 +107,7 @@ public class EditChannelAction extends RhnAction implements Listable {
             if (hasSharingChanged(form, ctx) && ("private".equals(sharing) ||
                     "protected".equals(sharing))) {
                 // forward to confirm page
-                request.setAttribute("org", ctx.getLoggedInUser().getOrg());
+                request.setAttribute("org", ctx.getCurrentUser().getOrg());
                 formToAttributes(request, form);
                 Map urlParams = new HashMap();
                 urlParams.put(RequestContext.CID,
@@ -184,7 +184,7 @@ public class EditChannelAction extends RhnAction implements Listable {
      */
     private boolean hasSharingChanged(DynaActionForm form, RequestContext ctx) {
         Long cid = ctx.getParamAsLong("cid");
-        Channel c = ChannelFactory.lookupByIdAndUser(cid, ctx.getLoggedInUser());
+        Channel c = ChannelFactory.lookupByIdAndUser(cid, ctx.getCurrentUser());
         return !c.getAccess().equals(form.get("org_sharing"));
     }
 
@@ -234,7 +234,7 @@ public class EditChannelAction extends RhnAction implements Listable {
             RequestContext ctx) {
 
         Channel c = edit(form, errors, ctx);
-        User user = ctx.getLoggedInUser();
+        User user = ctx.getCurrentUser();
 
         unsubscribeOrgsFromChannel(user, c, Channel.PROTECTED);
 
@@ -297,7 +297,7 @@ public class EditChannelAction extends RhnAction implements Listable {
         // if there was no exception during the above edit
         // add all of the orgs to the "rhnchanneltrust"
         if (c != null) {
-            Org org = ctx.getLoggedInUser().getOrg();
+            Org org = ctx.getCurrentUser().getOrg();
             Set<Org> trustedorgs = org.getTrustedOrgs();
             c.setTrustedOrgs(trustedorgs);
             ChannelFactory.save(c);
@@ -308,7 +308,7 @@ public class EditChannelAction extends RhnAction implements Listable {
                                 ActionErrors errors,
                                 RequestContext ctx) {
 
-        User user = ctx.getLoggedInUser();
+        User user = ctx.getCurrentUser();
         Long cid = ctx.getParamAsLong("cid");
         Channel channel = ChannelFactory.lookupById(cid);
         unsubscribeOrgsFromChannel(user, channel, Channel.PRIVATE);
@@ -319,7 +319,7 @@ public class EditChannelAction extends RhnAction implements Listable {
                          ActionErrors errors,
                          RequestContext ctx) {
 
-        User loggedInUser = ctx.getLoggedInUser();
+        User loggedInUser = ctx.getCurrentUser();
         Channel updated = null;
 
         // handle submission
@@ -389,7 +389,7 @@ public class EditChannelAction extends RhnAction implements Listable {
                         ActionErrors errors,
                         RequestContext ctx) {
 
-        User loggedInUser = ctx.getLoggedInUser();
+        User loggedInUser = ctx.getCurrentUser();
         Long cid = null;
 
         // handle submission
@@ -544,8 +544,8 @@ public class EditChannelAction extends RhnAction implements Listable {
 
         if (cid != null) {
             Channel c = ChannelManager.lookupByIdAndUser(cid,
-                                                         ctx.getLoggedInUser());
-            if (!UserManager.verifyChannelAdmin(ctx.getLoggedInUser(), c)) {
+                                                         ctx.getCurrentUser());
+            if (!UserManager.verifyChannelAdmin(ctx.getCurrentUser(), c)) {
                 throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
             }
 
@@ -566,7 +566,7 @@ public class EditChannelAction extends RhnAction implements Listable {
             else {
                 form.set("checksum", c.getChecksumTypeLabel());
             }
-            if (c.isGloballySubscribable(ctx.getLoggedInUser().getOrg())) {
+            if (c.isGloballySubscribable(ctx.getCurrentUser().getOrg())) {
                 form.set("per_user_subscriptions", "all");
             }
             else {
@@ -599,7 +599,7 @@ public class EditChannelAction extends RhnAction implements Listable {
                 if (!ChannelManager.getLatestSyncLogFiles(c).isEmpty()) {
                     request.setAttribute("log_url",
                             DownloadManager.getChannelSyncLogDownloadPath(c,
-                                    ctx.getLoggedInUser()));
+                                    ctx.getCurrentUser()));
                 }
 
             }
@@ -622,7 +622,7 @@ public class EditChannelAction extends RhnAction implements Listable {
     }
 
     private void prepDropdowns(RequestContext ctx) {
-        User loggedInUser = ctx.getLoggedInUser();
+        User loggedInUser = ctx.getCurrentUser();
         // populate parent base channels
         List baseChannels = new ArrayList();
         List<Channel> bases = ChannelManager.findAllBaseChannelsForOrg(
@@ -696,7 +696,7 @@ public class EditChannelAction extends RhnAction implements Listable {
 
     /** {@inheritDoc} */
     public List getResult(RequestContext ctx) {
-        Org org = ctx.getLoggedInUser().getOrg();
+        Org org = ctx.getCurrentUser().getOrg();
         Set<Org> trustedorgs = org.getTrustedOrgs();
         List<OrgTrust> trusts = new ArrayList<OrgTrust>();
         for (Org o : trustedorgs) {

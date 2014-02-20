@@ -94,7 +94,7 @@ public class ChannelSystemsListSubmit extends BaseSetOperateOnSelectedItemsActio
         Map params = makeParamMap(formIn, request);
         operateOnSelectedSet(mapping, formIn, request, response, "unsubscribeSystems");
         RequestContext requestContext = new RequestContext(request);
-        ConfigActionHelper.clearRhnSets(requestContext.getLoggedInUser());
+        ConfigActionHelper.clearRhnSets(requestContext.getCurrentUser());
         return getStrutsDelegate().forwardParams(mapping.findForward("success"), params);
     }
 

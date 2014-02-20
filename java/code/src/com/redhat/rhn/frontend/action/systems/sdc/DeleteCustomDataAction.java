@@ -59,7 +59,7 @@ public class DeleteCustomDataAction extends RhnAction {
             HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        User user =  requestContext.getLoggedInUser();
+        User user =  requestContext.getCurrentUser();
         Long cikid = requestContext.getParamAsLong(CIKID_PARAM);
 
         Long sid = requestContext.getRequiredParam(RequestContext.SID);

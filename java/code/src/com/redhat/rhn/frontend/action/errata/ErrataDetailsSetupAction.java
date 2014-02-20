@@ -50,7 +50,7 @@ public class ErrataDetailsSetupAction extends RhnAction {
 
         Long eid = requestContext.getRequiredParam("eid");
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Errata errata = ErrataManager.lookupErrata(eid, user);
         String ovalFile = findOvalFile(errata.getId());
         DataResult channels = ErrataManager.affectedChannels(user, eid);

@@ -50,7 +50,7 @@ public class DiffAction extends RhnAction {
 
         RequestContext requestContext = new RequestContext(request);
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Long ocrid = requestContext.getRequiredParam("ocrid");
         String view = request.getParameter("view");
         if (view == null) {

@@ -52,7 +52,7 @@ public class CobblerAction extends RhnAction {
         if (ctx.isSubmitted()) {
             ValidatorError ve;
             try {
-                ve = new CobblerSyncCommand(ctx.getLoggedInUser()).store();
+                ve = new CobblerSyncCommand(ctx.getCurrentUser()).store();
             }
             catch (Exception ex) {
                 this.getStrutsDelegate().addError(errors,

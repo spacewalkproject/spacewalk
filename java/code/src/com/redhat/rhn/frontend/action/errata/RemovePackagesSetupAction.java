@@ -44,7 +44,7 @@ public class RemovePackagesSetupAction extends BaseErrataSetupAction {
         RequestContext requestContext = new RequestContext(request);
 
         //Get the logged in user
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
         //Setup the page control for this user
         PageControl pc = new PageControl();

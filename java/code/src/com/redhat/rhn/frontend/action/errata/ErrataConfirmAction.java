@@ -86,7 +86,7 @@ public class ErrataConfirmAction extends RhnListDispatchAction {
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         DynaActionForm form = (DynaActionForm) formIn;
 
         Errata currentErrata = requestContext.lookupErratum();

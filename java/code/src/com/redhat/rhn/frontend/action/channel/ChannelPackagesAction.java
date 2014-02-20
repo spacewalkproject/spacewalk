@@ -46,7 +46,7 @@ public class ChannelPackagesAction extends RhnAction {
             HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        User user =  requestContext.getLoggedInUser();
+        User user =  requestContext.getCurrentUser();
 
 
         long cid = requestContext.getRequiredParam("cid");

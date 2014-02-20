@@ -46,7 +46,7 @@ public class ErrataConfirmSetupAction extends RhnListAction {
 
         RequestContext requestContext = new RequestContext(request);
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         PageControl pc = new PageControl();
 
         clampListBounds(pc, request, user);

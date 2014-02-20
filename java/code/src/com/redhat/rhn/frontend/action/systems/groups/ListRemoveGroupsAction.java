@@ -73,7 +73,7 @@ public class ListRemoveGroupsAction extends BaseListAction implements Listable {
             ActionForm formIn, HttpServletRequest request,
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         Server server = context.lookupAndBindServer();
         ServerGroupManager manager = ServerGroupManager.getInstance();
         List <Server> servers = new LinkedList<Server>();

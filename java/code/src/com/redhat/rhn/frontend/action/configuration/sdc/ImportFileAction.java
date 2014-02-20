@@ -35,18 +35,18 @@ public class ImportFileAction extends BaseSetListAction {
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctx, PageControl pc) {
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
         Server server = rctx.lookupServer();
         return ConfigurationManager.getInstance().listFileNamesForSystem(user, server, pc);
     }
 
     protected void processRequestAttributes(RequestContext rctx) {
         if (!rctx.isSubmitted()) {
-            getSetDecl().clear(rctx.getLoggedInUser());
+            getSetDecl().clear(rctx.getCurrentUser());
         }
         super.processRequestAttributes(rctx);
         Server server = rctx.lookupAndBindServer();
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
         SdcHelper.ssmCheck(rctx.getRequest(), server.getId(), user);
     }
 

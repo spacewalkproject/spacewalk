@@ -46,7 +46,7 @@ public class CompareDeployedAction extends BaseSetListAction {
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pcIn) {
-        User user = rctxIn.getLoggedInUser();
+        User user = rctxIn.getCurrentUser();
         ConfigFile file = ConfigActionHelper.getFile(rctxIn.getRequest());
         Long cfnid =  file.getConfigFileName().getId();
 

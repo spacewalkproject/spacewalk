@@ -61,7 +61,7 @@ public class RhnUnpagedListActionTest extends RhnBaseTestCase {
             RequestContext requestContext = new RequestContext(request);
             StrutsDelegate strutsDelegate = StrutsDelegate.getInstance();
 
-            User user = requestContext.getLoggedInUser();
+            User user = requestContext.getCurrentUser();
             lc = new ListControl();
             lc.setFilterColumn("Some column");
             try {

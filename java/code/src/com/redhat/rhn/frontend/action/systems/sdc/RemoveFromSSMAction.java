@@ -54,7 +54,7 @@ public class RemoveFromSSMAction extends RhnAction {
             HttpServletRequest request, HttpServletResponse response) {
         RequestContext rctx = new RequestContext(request);
         Long sid = rctx.getRequiredParam("sid");
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
         Server s  = SystemManager.lookupByIdAndUser(sid, user);
 
         if (s.hasEntitlement(EntitlementManager.MANAGEMENT)) {

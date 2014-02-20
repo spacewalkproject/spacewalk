@@ -82,7 +82,7 @@ public abstract class KickstartVariableAction extends RhnAction {
      */
     protected void checkPermissions(HttpServletRequest request) {
         RequestContext context = new RequestContext(request);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
                 //Throw an exception with a nice error message so the user
                 //knows what went wrong.
@@ -101,7 +101,7 @@ public abstract class KickstartVariableAction extends RhnAction {
      */
     protected void setupFormValues(RequestContext ctx,
             DynaActionForm form, String cId) {
-        CobblerObject cobj = getCobblerObject(cId, ctx.getLoggedInUser());
+        CobblerObject cobj = getCobblerObject(cId, ctx.getCurrentUser());
         form.set(VARIABLES, StringUtil.convertMapToString(cobj.getKsMeta(), "\n"));
     }
 
@@ -118,7 +118,7 @@ public abstract class KickstartVariableAction extends RhnAction {
 
         try {
 
-            CobblerObject cobj = getCobblerObject(cId, ctx.getLoggedInUser());
+            CobblerObject cobj = getCobblerObject(cId, ctx.getCurrentUser());
             cobj.setKsMeta(StringUtil.convertOptionsToMap((String)form.get(VARIABLES),
                     "kickstart.jsp.error.invalidvariable", "\n"));
             cobj.save();

@@ -130,7 +130,7 @@ public class ImportFileSubmitAction extends RhnSetAction {
      * @return whether there were errors.
      */
     private boolean readTextBox(ActionForm formIn, HttpServletRequest request) {
-        User user = new RequestContext(request).getLoggedInUser();
+        User user = new RequestContext(request).getCurrentUser();
 
         DynaActionForm form = (DynaActionForm) formIn;
         String[] names = form.getString("contents").split("\n");
@@ -173,7 +173,7 @@ public class ImportFileSubmitAction extends RhnSetAction {
     }
 
     private int importSelected(HttpServletRequest request) {
-        User user = new RequestContext(request).getLoggedInUser();
+        User user = new RequestContext(request).getCurrentUser();
         //note that the set could already be populated by the text box
         RhnSet importSet = RhnSetDecl.CONFIG_IMPORT_FILE_NAMES.get(user);
         RhnSet selectedSet = updateSet(request);

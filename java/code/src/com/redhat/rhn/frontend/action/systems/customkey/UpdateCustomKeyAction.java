@@ -57,7 +57,7 @@ public class UpdateCustomKeyAction extends RhnAction implements Listable {
 
         RequestContext context = new RequestContext(request);
         DynaActionForm form = (DynaActionForm)formIn;
-        User loggedInUser  = context.getLoggedInUser();
+        User loggedInUser  = context.getCurrentUser();
 
         Long cikid = context.getParamAsLong(CIKID_PARAM);
         CustomDataKey key = OrgFactory.lookupKeyById(cikid);
@@ -112,7 +112,7 @@ public class UpdateCustomKeyAction extends RhnAction implements Listable {
 
     /** {@inheritDoc} **/
     public  List getResult(RequestContext context) {
-        User user  = context.getLoggedInUser();
+        User user  = context.getCurrentUser();
         Long cikid = context.getParamAsLong(CIKID_PARAM);
         List servers = ServerFactory.lookupServersWithCustomKey(user.getId(), cikid);
 

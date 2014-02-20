@@ -44,7 +44,7 @@ public abstract class BaseCopyConfigFileAction extends BaseSetListAction {
         rctxIn.getRequest().setAttribute(TYPE_ATTR, getType());
         super.processRequestAttributes(rctxIn);
         if (!rctxIn.isSubmitted()) {
-            getSetDecl().clear(rctxIn.getLoggedInUser());
+            getSetDecl().clear(rctxIn.getCurrentUser());
         }
     }
 

@@ -50,7 +50,7 @@ public class ViewTreesAction extends RhnAction implements Listable {
      * {@inheritDoc}
      */
     public List getResult(RequestContext contextIn) {
-        return KickstartFactory.listTreesByOrg(contextIn.getLoggedInUser().getOrg());
+        return KickstartFactory.listTreesByOrg(contextIn.getCurrentUser().getOrg());
     }
 
 }

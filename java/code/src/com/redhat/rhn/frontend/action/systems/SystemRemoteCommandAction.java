@@ -275,7 +275,7 @@ public class SystemRemoteCommandAction extends RhnAction {
         // Prepare
         DynaActionForm form = (DynaActionForm) actionForm;
         RequestContext context = new RequestContext(request);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         Server server = SystemManager.lookupByIdAndUser(
                 context.getRequiredParam(RequestContext.SID), user);
         ActionErrors errorMessages = new ActionErrors();

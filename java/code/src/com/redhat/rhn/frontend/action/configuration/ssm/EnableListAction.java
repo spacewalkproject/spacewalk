@@ -51,7 +51,7 @@ public class EnableListAction extends RhnListAction {
 
         RequestContext requestContext = new RequestContext(request);
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         PageControl pc = new PageControl();
         pc.setFilter(true);
         pc.setFilterColumn("name");

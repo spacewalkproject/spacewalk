@@ -56,7 +56,7 @@ public class SubscribeChannelsAction extends BaseListAction {
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
         ActivationKey key = context.lookupAndBindActivationKey();
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         Set <String> set = helper.getSet();
         if (set.size() == 1 && key.getConfigChannelsFor(user).isEmpty()) {
             ActionForward af =  handleSingleAdd(mapping, context, set.iterator().next());
@@ -75,7 +75,7 @@ public class SubscribeChannelsAction extends BaseListAction {
     private ActionForward handleSingleAdd(ActionMapping mapping,
                                             RequestContext context, String id) {
         ActivationKey key = context.lookupAndBindActivationKey();
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         ConfigChannel ch = ConfigurationFactory.lookupConfigChannelById(Long.valueOf(id));
 
         ConfigChannelListProcessor proc = new ConfigChannelListProcessor();
@@ -94,7 +94,7 @@ public class SubscribeChannelsAction extends BaseListAction {
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return cm.listGlobalChannelsForActivationKeySubscriptions(
                         context.lookupAndBindActivationKey(),
-                        context.getLoggedInUser());
+                        context.getCurrentUser());
     }
 
     @Override

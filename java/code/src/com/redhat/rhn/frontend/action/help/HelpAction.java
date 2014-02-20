@@ -42,7 +42,7 @@ public class HelpAction extends RhnAction {
                                   HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
         String doc = Config.get().getString(ConfigDefaults.DOC_REFERENCE_GUIDE);
         if (doc != null && doc.trim().length() > 0) {

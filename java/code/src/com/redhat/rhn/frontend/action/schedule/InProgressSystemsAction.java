@@ -59,7 +59,7 @@ public class InProgressSystemsAction extends RhnSetAction {
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Long aid = requestContext.getParamAsLong("aid");
         Action action = ActionManager.lookupAction(user, aid);
         /*

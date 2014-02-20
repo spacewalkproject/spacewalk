@@ -45,7 +45,7 @@ public class DeleteGroupAction extends RhnAction {
         if (context.isSubmitted()) {
             String [] params = {serverGroup.getName()};
             ServerGroupManager manager = ServerGroupManager.getInstance();
-            manager.remove(context.getLoggedInUser(), serverGroup);
+            manager.remove(context.getCurrentUser(), serverGroup);
             getStrutsDelegate().saveMessage(DELETED_MESSAGE_KEY, params, request);
             return mapping.findForward("success");
         }

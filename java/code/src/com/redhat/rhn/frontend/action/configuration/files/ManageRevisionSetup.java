@@ -58,7 +58,7 @@ public class ManageRevisionSetup extends BaseSetListAction {
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pcIn) {
-        User user = rctxIn.getLoggedInUser();
+        User user = rctxIn.getCurrentUser();
         ConfigFile file = ConfigActionHelper.getFile(rctxIn.getRequest());
         ConfigActionHelper.processRequestAttributes(rctxIn);
         return ConfigurationManager.getInstance().listRevisionsForFile(user, file, pcIn);

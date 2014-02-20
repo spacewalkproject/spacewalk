@@ -65,7 +65,7 @@ public class PatchConfirmInstallAction extends LookupDispatchAction {
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Long sid = requestContext.getRequiredParam("sid");
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         RhnSet set = RhnSetDecl.PATCH_INSTALL.get(user);

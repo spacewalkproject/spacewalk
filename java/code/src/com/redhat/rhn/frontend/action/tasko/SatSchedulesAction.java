@@ -52,7 +52,7 @@ public class SatSchedulesAction extends RhnAction implements Listable {
 
     /** {@inheritDoc} */
     public List getResult(RequestContext contextIn) {
-        User user =  contextIn.getLoggedInUser();
+        User user =  contextIn.getCurrentUser();
         try {
             return new TaskomaticApi().findActiveSchedules(user);
         }

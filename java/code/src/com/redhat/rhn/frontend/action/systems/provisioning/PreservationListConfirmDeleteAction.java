@@ -43,7 +43,7 @@ public class PreservationListConfirmDeleteAction extends BaseSetListAction {
     protected DataResult getDataResult(RequestContext rctx, PageControl pc) {
 
         RhnSet set = getSetDecl().get(rctx.getCurrentUser());
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
         List selectedFileList = new LinkedList();
         Iterator i = set.getElements().iterator();
         while (i.hasNext()) {

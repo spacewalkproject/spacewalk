@@ -66,7 +66,7 @@ public class UpdateCustomDataAction extends RhnAction {
         RequestContext context = new RequestContext(request);
         DynaActionForm form = (DynaActionForm)formIn;
 
-        User loggedInUser = context.getLoggedInUser();
+        User loggedInUser = context.getCurrentUser();
         Long sid = context.getRequiredParam(RequestContext.SID);
         Server server = SystemManager.lookupByIdAndUser(sid, loggedInUser);
         Map params = new HashMap();
@@ -74,7 +74,7 @@ public class UpdateCustomDataAction extends RhnAction {
 
         params.put(RequestContext.SID, request.getParameter(RequestContext.SID));
 
-        User user =  context.getLoggedInUser();
+        User user =  context.getCurrentUser();
         Long cikid = context.getParamAsLong(CIKID_PARAM);
         CustomDataKey key = OrgFactory.lookupKeyById(cikid);
 

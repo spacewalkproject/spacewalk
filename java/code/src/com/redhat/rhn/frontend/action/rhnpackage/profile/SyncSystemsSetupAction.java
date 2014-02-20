@@ -60,7 +60,7 @@ public class SyncSystemsSetupAction extends RhnAction implements Listable {
 
         Long sid = requestContext.getRequiredParam(RequestContext.SID);
         Long sid1 = requestContext.getRequiredParam(RequestContext.SID1);
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         Server server1 = SystemManager.lookupByIdAndUser(sid1, user);
 
@@ -98,7 +98,7 @@ public class SyncSystemsSetupAction extends RhnAction implements Listable {
     public List getResult(RequestContext context) {
         Long sid = context.getRequiredParam(RequestContext.SID);
         Long sid1 = context.getRequiredParam(RequestContext.SID1);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
 
         Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(context.getRequest(),
                 getDecl(sid));

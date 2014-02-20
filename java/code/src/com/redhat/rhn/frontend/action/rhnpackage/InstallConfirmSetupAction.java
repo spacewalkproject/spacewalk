@@ -78,7 +78,7 @@ public class InstallConfirmSetupAction extends BaseSystemPackagesConfirmAction {
                                                            RequestContext context,
                                                            List<Map<String, Long>> pkgs,
                                                            Date earliest) {
-        return ActionManager.schedulePackageInstall(context.getLoggedInUser(),
+        return ActionManager.schedulePackageInstall(context.getCurrentUser(),
                                                     context.lookupAndBindServer(),
                                                     pkgs, earliest);
     }

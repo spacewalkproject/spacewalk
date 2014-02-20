@@ -63,7 +63,7 @@ public class EditAddressAction extends RhnAction {
 
         RequestContext requestContext = new RequestContext(request);
 
-        User targetUser = UserManager.lookupUser(requestContext.getLoggedInUser(),
+        User targetUser = UserManager.lookupUser(requestContext.getCurrentUser(),
                 requestContext.getParamAsLong("uid"));
         request.setAttribute(RhnHelper.TARGET_USER, targetUser);
 

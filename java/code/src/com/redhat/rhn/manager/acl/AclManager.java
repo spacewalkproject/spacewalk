@@ -46,7 +46,7 @@ public class AclManager {
         if (acl == null || "".equals(acl)) {
             return true;
         }
-        return hasAcl(acl, new RequestContext(request).getLoggedInUser(), mixins,
+        return hasAcl(acl, new RequestContext(request).getCurrentUser(), mixins,
                 new HashMap(request.getParameterMap()));
     }
 

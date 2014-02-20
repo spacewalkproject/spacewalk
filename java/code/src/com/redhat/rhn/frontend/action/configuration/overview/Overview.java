@@ -46,7 +46,7 @@ public class Overview extends RhnAction {
 
         RequestContext requestContext = new RequestContext(request);
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
         ConfigurationManager manager = ConfigurationManager.getInstance();
 

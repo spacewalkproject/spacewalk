@@ -47,7 +47,7 @@ public class ChangeEmailSetupAction extends RhnAction {
         RequestContext requestContext = new RequestContext(request);
 
         //set logged in user and target user
-        User loggedInUser = requestContext.getLoggedInUser();
+        User loggedInUser = requestContext.getCurrentUser();
         User targetUser;
         Long uid = requestContext.getParamAsLong("uid");
         if (uid == null) {

@@ -63,7 +63,7 @@ public class ShowProfileAction extends RhnAction {
         ActionForward forward = null;
         DynaActionForm f = (DynaActionForm)form;
         Long sid = requestContext.getRequiredParam("sid");
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         request.setAttribute("system", server);
         SdcHelper.ssmCheck(request, server.getId(), user);
@@ -95,7 +95,7 @@ public class ShowProfileAction extends RhnAction {
             DynaActionForm f, HttpServletRequest request,
             HttpServletResponse response) {
 
-        User user = new RequestContext(request).getLoggedInUser();
+        User user = new RequestContext(request).getCurrentUser();
         RhnSetDecl.PACKAGES_FOR_SYSTEM_SYNC.clear(user);
         Map params = new HashMap();
         params.put("sid", request.getParameter("sid"));
@@ -107,7 +107,7 @@ public class ShowProfileAction extends RhnAction {
     private ActionForward compareProfiles(ActionMapping mapping,
             DynaActionForm f, HttpServletRequest request,
             HttpServletResponse response) {
-        User user = new RequestContext(request).getLoggedInUser();
+        User user = new RequestContext(request).getCurrentUser();
         RhnSetDecl.PACKAGES_FOR_SYSTEM_SYNC.clear(user);
         Map params = new HashMap();
         params.put("sid", request.getParameter("sid"));
@@ -131,7 +131,7 @@ public class ShowProfileAction extends RhnAction {
         }
         // get lits of Profiles
         // create a new list of label, value pairs
-        User user = new RequestContext(request).getLoggedInUser();
+        User user = new RequestContext(request).getCurrentUser();
         Server server = (Server) request.getAttribute("system");
         List dbprofiles = ProfileManager.compatibleWithServer(server, user.getOrg());
         List profiles = new ArrayList(dbprofiles.size());

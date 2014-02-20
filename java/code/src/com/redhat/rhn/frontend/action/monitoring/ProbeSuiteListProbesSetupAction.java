@@ -53,7 +53,7 @@ public class ProbeSuiteListProbesSetupAction extends RhnAction implements Listab
             HttpServletResponse response) {
 
         RequestContext ctx = new RequestContext(request);
-        User user = ctx.getLoggedInUser();
+        User user = ctx.getCurrentUser();
 
         ProbeSuite suite = ctx.lookupProbeSuite();
 
@@ -102,7 +102,7 @@ public class ProbeSuiteListProbesSetupAction extends RhnAction implements Listab
     public List getResult(RequestContext context) {
         Long id = context.getRequiredParam(RequestContext.SUITE_ID);
         return MonitoringManager.getInstance().listProbesInSuite(id,
-                context.getLoggedInUser(), null);
+                context.getCurrentUser(), null);
     }
 
 }

@@ -127,7 +127,7 @@ public class ManageRevisionSubmit extends RhnSetAction {
         ActionForward forward = deleteRevisions(request, form, mapping, set);
 
         //now some of the sets may be invalid, so delete them.
-        ConfigActionHelper.clearRhnSets(requestContext.getLoggedInUser());
+        ConfigActionHelper.clearRhnSets(requestContext.getCurrentUser());
 
         return forward;
     }
@@ -148,7 +148,7 @@ public class ManageRevisionSubmit extends RhnSetAction {
         checkAcl(requestContext);
 
         Long cfid = requestContext.getRequiredParam(ConfigActionHelper.FILE_ID);
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
         //get a connection to the file stream
         ConfigFileForm cff = (ConfigFileForm)form;
@@ -197,7 +197,7 @@ public class ManageRevisionSubmit extends RhnSetAction {
         //if it gets deleted, we can still go to the right config channel
         //and refer to the correct file path.
         ConfigFile file = ConfigActionHelper.getFile(request);
-        User user = new RequestContext(request).getLoggedInUser();
+        User user = new RequestContext(request).getCurrentUser();
 
         Map params = makeParamMap(form, request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
@@ -293,7 +293,7 @@ public class ManageRevisionSubmit extends RhnSetAction {
 
     private void checkAcl(RequestContext requestContext) {
         //Throws an exception if the user does not have permission to edit the channel.
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         ConfigFile configFile = ConfigActionHelper.getFile(requestContext.getRequest());
         boolean acl = AclManager.hasAcl("config_channel_editable(" +
                 configFile.getConfigChannel().getId() + ")", user,

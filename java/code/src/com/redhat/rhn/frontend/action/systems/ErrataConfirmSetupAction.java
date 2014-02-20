@@ -59,7 +59,7 @@ public class ErrataConfirmSetupAction extends RhnAction implements Listable {
                                  HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
 
         Long sid = requestContext.getRequiredParam("sid");
@@ -106,7 +106,7 @@ public class ErrataConfirmSetupAction extends RhnAction implements Listable {
         StrutsDelegate strutsDelegate = getStrutsDelegate();
         DynaActionForm form = (DynaActionForm) formIn;
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Long sid = requestContext.getRequiredParam("sid");
 
         Map hparams = new HashMap();
@@ -176,7 +176,7 @@ public class ErrataConfirmSetupAction extends RhnAction implements Listable {
      */
     public List getResult(RequestContext context) {
         Long sid = context.getParamAsLong("sid");
-        return SystemManager.errataInSet(context.getLoggedInUser(),
+        return SystemManager.errataInSet(context.getCurrentUser(),
                     ErrataSetupAction.getSetDecl(sid).getLabel(), null);
     }
 

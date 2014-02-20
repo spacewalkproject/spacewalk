@@ -52,7 +52,7 @@ public class SyncErrataAction extends RhnAction implements Listable  {
             HttpServletResponse response) {
 
         RequestContext rc = new RequestContext(request);
-        User user = rc.getLoggedInUser();
+        User user = rc.getCurrentUser();
 
         Channel chan = ChannelManager.lookupByIdAndUser(
                 rc.getRequiredParam(RequestContext.CID), user);
@@ -87,7 +87,7 @@ public class SyncErrataAction extends RhnAction implements Listable  {
      * {@inheritDoc}
      */
     public List getResult(RequestContext context) {
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         Channel chan = ChannelManager.lookupByIdAndUser(
                 context.getRequiredParam(RequestContext.CID), user);
 

@@ -59,7 +59,7 @@ public class SystemEntitlementOrgsAction extends RhnAction {
 
         String entitlementLabel = request.getParameter("label");
         Entitlement e = EntitlementManager.getByName(entitlementLabel);
-        User user = ctx.getLoggedInUser();
+        User user = ctx.getCurrentUser();
         request.setAttribute("entname", e.getHumanReadableLabel());
         //Get and store values submitted
         if (isSubmitted(dynaForm)) {

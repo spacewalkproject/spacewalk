@@ -54,7 +54,7 @@ public class PackagePushSetupAction extends RhnListAction {
             HttpServletResponse response) {
 
         RequestContext rctx = new RequestContext(request);
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
 
         PageControl pc = new PageControl();
         pc.setFilterColumn("earliest");

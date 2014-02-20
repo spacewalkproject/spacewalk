@@ -62,7 +62,7 @@ public abstract class BaseCopyToAction extends RhnAction {
             HttpServletResponse resp) throws Exception {
 
         RequestContext ctx = new RequestContext(req);
-        User user = ctx.getLoggedInUser();
+        User user = ctx.getCurrentUser();
         //if its not submitted
         // ==> this is the first visit to this page
         // clear the 'dirty set'

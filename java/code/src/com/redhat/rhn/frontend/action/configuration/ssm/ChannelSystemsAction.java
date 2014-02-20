@@ -34,7 +34,7 @@ public class ChannelSystemsAction extends BaseListAction {
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pc) {
-        User user = rctxIn.getLoggedInUser();
+        User user = rctxIn.getCurrentUser();
         Long ccid = rctxIn.getRequiredParam("ccid");
         ConfigurationManager cm = ConfigurationManager.getInstance();
 
@@ -48,7 +48,7 @@ public class ChannelSystemsAction extends BaseListAction {
      */
     protected void processRequestAttributes(RequestContext rctxIn) {
         HttpServletRequest request = rctxIn.getRequest();
-        User user = rctxIn.getLoggedInUser();
+        User user = rctxIn.getCurrentUser();
         Long ccid = rctxIn.getRequiredParam("ccid");
 
         ConfigChannel channel =

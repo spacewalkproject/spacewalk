@@ -50,7 +50,7 @@ public abstract class WebRhnSet extends SelectableWebList {
         HttpServletRequest request = getContext().getRequest();
         helper = new RhnListSetHelper(request);
         RhnSetDecl decl = RhnSetDecl.find(getDecl());
-        User user =  getContext().getLoggedInUser();
+        User user =  getContext().getCurrentUser();
         set = decl.get(user);
         super.setup();
     }

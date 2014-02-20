@@ -32,7 +32,7 @@ public class SystemChannelsAction extends BaseListAction {
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pc) {
-        User user = rctxIn.getLoggedInUser();
+        User user = rctxIn.getCurrentUser();
         ConfigurationManager cm = ConfigurationManager.getInstance();
 
         Server server = rctxIn.lookupServer();

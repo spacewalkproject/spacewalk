@@ -67,7 +67,7 @@ public class ChannelActionTest extends RhnBaseTestCase {
 
         RequestContext requestContext = new RequestContext(request);
 
-        User usr = requestContext.getLoggedInUser();
+        User usr = requestContext.getCurrentUser();
 
         //create the errata
         Errata errata = ErrataFactoryTest.createTestUnpublishedErrata(usr.getOrg().getId());
@@ -114,7 +114,7 @@ public class ChannelActionTest extends RhnBaseTestCase {
 
         RequestContext requestContext = new RequestContext(request);
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         user.addRole(RoleFactory.CHANNEL_ADMIN);
 
         //create the errata

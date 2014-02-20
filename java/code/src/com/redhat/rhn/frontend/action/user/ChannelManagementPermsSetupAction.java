@@ -62,7 +62,7 @@ public class ChannelManagementPermsSetupAction extends RhnListAction {
         PageControl pc = new PageControl();
         pc.setFilterColumn("name");
 
-        clampListBounds(pc, request, rctx.getLoggedInUser());
+        clampListBounds(pc, request, rctx.getCurrentUser());
 
         DataResult dr = UserManager.channelManagement(user, pc);
         ArrayList selectedChannels = new ArrayList(dr.size());

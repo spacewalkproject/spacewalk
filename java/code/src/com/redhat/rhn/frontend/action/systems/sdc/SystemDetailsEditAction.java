@@ -89,7 +89,7 @@ public class SystemDetailsEditAction extends RhnAction {
 
         RequestContext rctx = new RequestContext(request);
         DynaActionForm daForm = (DynaActionForm) form;
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
         Server s  = SystemManager.lookupByIdAndUser(
                 rctx.getRequiredParam(RequestContext.SID), user);
         String forwardName = RhnHelper.DEFAULT_FORWARD;

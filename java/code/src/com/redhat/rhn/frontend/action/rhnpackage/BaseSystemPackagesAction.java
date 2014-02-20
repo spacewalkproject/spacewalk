@@ -58,7 +58,7 @@ public abstract class BaseSystemPackagesAction extends RhnAction {
         Long sid = requestContext.getRequiredParam("sid");
 
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Server server = SystemManager.lookupByIdAndUser(sid, user);
 
         Set sessionSet = SessionSetHelper.lookupAndBind(request, getDecl(sid));

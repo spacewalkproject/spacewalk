@@ -61,7 +61,7 @@ public class DisableUserAction extends RhnAction {
             throw pex;
         }
         Long uid = requestContext.getRequiredParam("uid");
-        User loggedInUser = requestContext.getLoggedInUser();
+        User loggedInUser = requestContext.getCurrentUser();
         User user = UserManager.lookupUser(loggedInUser, uid);
 
         try {

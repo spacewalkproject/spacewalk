@@ -53,7 +53,7 @@ public class BunchDetailAction extends RhnAction implements Listable {
             HttpServletRequest request,
             HttpServletResponse response) {
         RequestContext ctx = new RequestContext(request);
-        User loggedInUser = ctx.getLoggedInUser();
+        User loggedInUser = ctx.getCurrentUser();
         String bunchLabel = request.getParameter("label");
         request.setAttribute("label", bunchLabel);
         request.setAttribute("bunchdescription", LocalizationService.getInstance().
@@ -83,7 +83,7 @@ public class BunchDetailAction extends RhnAction implements Listable {
 
     /** {@inheritDoc} */
     public List getResult(RequestContext contextIn) {
-        User user =  contextIn.getLoggedInUser();
+        User user =  contextIn.getCurrentUser();
         String bunchName = contextIn.getParam("label", true);
         try {
             List<Map> runs = new TaskomaticApi().findRunsByBunch(user, bunchName);

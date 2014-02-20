@@ -50,7 +50,7 @@ public class ErrataPackagesSetupAction extends RhnAction {
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Errata errata = requestContext.lookupErratum();
 
         List<ChannelOverview> chans = new ArrayList<ChannelOverview>();

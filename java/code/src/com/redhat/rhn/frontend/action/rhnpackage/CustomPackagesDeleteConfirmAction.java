@@ -56,7 +56,7 @@ public class CustomPackagesDeleteConfirmAction extends RhnAction {
             HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        User user =  requestContext.getLoggedInUser();
+        User user =  requestContext.getCurrentUser();
 
 
         if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {

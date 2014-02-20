@@ -50,7 +50,7 @@ public class ListPackagesSetupAction extends BaseErrataSetupAction {
         //Get the errata from the eid in the request
         Errata errata = requestContext.lookupErratum();
         //Get the logged in user
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
 
 

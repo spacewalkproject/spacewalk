@@ -59,7 +59,7 @@ public class DeleteRevisionAction extends RhnAction {
         try {
             if (cr != null) {
                 if (isSubmitted(cff)) {
-                    User u = ctx.getLoggedInUser();
+                    User u = ctx.getCurrentUser();
                     boolean deletedFile =
                         ConfigurationManager.getInstance().deleteConfigRevision(u, cr);
                     //now that the config revision is gone, some of the sets may no

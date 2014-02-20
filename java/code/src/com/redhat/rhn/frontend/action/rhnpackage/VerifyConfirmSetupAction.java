@@ -50,7 +50,7 @@ public class VerifyConfirmSetupAction extends BaseSystemPackagesConfirmAction {
     @Override
     protected PackageAction schedulePackageAction(ActionForm formIn,
             RequestContext context, List<Map<String, Long>> pkgs, Date earliest) {
-        return ActionManager.schedulePackageVerify(context.getLoggedInUser(),
+        return ActionManager.schedulePackageVerify(context.getCurrentUser(),
                 context.lookupAndBindServer(), pkgs, earliest);
     }
 

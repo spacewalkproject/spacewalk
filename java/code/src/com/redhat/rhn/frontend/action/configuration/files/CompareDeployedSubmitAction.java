@@ -101,7 +101,7 @@ public class CompareDeployedSubmitAction extends RhnSetAction {
         RequestContext requestContext = new RequestContext(request);
 
         updateSet(request);
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
         //get the set from the database and then clear it.
         RhnSet set = RhnSetDecl.CONFIG_SYSTEMS.get(user);

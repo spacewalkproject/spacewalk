@@ -52,7 +52,7 @@ public class CobblerSnippetListSetupAction extends RhnAction {
 
         request.setAttribute(mapping.getParameter(), Boolean.TRUE);
         RequestContext context = new RequestContext(request);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         List<CobblerSnippet> result;
         if (ALL.equals(mapping.getParameter())) {
             result = CobblerSnippetLister.getInstance().list(user);

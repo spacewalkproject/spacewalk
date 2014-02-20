@@ -42,14 +42,14 @@ public class ChannelSystemDeploySetup extends BaseSetListAction {
     }
 
     protected DataResult getDataResult(RequestContext rctx, PageControl pc) {
-        User usr = rctx.getLoggedInUser();
+        User usr = rctx.getCurrentUser();
         ConfigChannel cc = ConfigActionHelper.getChannel(rctx.getRequest());
         return ConfigurationManager.getInstance().listSystemInfoForChannel(usr, cc, pc);
     }
 
     protected void processRequestAttributes(RequestContext rctx) {
         if (!rctx.isSubmitted()) {
-            getSetDecl().clear(rctx.getLoggedInUser());
+            getSetDecl().clear(rctx.getCurrentUser());
         }
         super.processRequestAttributes(rctx);
         ConfigChannel cc = ConfigActionHelper.getChannel(rctx.getRequest());

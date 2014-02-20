@@ -46,7 +46,7 @@ public class VariablesAction extends KickstartVariableAction {
                                  HttpServletResponse response) {
         RequestContext ctx = new RequestContext(request);
         Server server = ctx.lookupAndBindServer();
-        User user = ctx.getLoggedInUser();
+        User user = ctx.getCurrentUser();
         SdcHelper.ssmCheck(ctx.getRequest(), server.getId(), user);
         DynaActionForm form = (DynaActionForm)formIn;
         SystemRecord rec = (SystemRecord)

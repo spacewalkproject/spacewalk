@@ -39,7 +39,7 @@ public class ScapDownloadAction extends DownloadAction {
             HttpServletRequest request, HttpServletResponse response) throws Exception {
         Logger log = Logger.getLogger(ScapDownloadAction.class);
         RequestContext context = new RequestContext(request);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         Long sid = context.getRequiredParam("sid");
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         Long xid = context.getRequiredParam("xid");

@@ -62,11 +62,11 @@ public class DuplicateSystemsDeleteSetupAction extends RhnAction implements List
     private ActionForward handleConfirm(RequestContext context,
             ActionMapping mapping) {
 
-        RhnSet set = RhnSetDecl.DUPLICATE_SYSTEMS.get(context.getLoggedInUser());
+        RhnSet set = RhnSetDecl.DUPLICATE_SYSTEMS.get(context.getCurrentUser());
 
         // Fire the request off asynchronously
         SsmDeleteServersEvent event =
-            new SsmDeleteServersEvent(context.getLoggedInUser(),
+            new SsmDeleteServersEvent(context.getCurrentUser(),
                             new ArrayList<Long>(set.getElementValues()));
         MessageQueue.publish(event);
         set.clear();
@@ -81,7 +81,7 @@ public class DuplicateSystemsDeleteSetupAction extends RhnAction implements List
      * {@inheritDoc}
      */
     public List getResult(RequestContext contextIn) {
-        return SystemManager.inSet(contextIn.getLoggedInUser(),
+        return SystemManager.inSet(contextIn.getCurrentUser(),
                 RhnSetDecl.DUPLICATE_SYSTEMS.getLabel(), true);
     }
 }

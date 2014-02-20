@@ -30,7 +30,7 @@ public class SecurityErrataListAllAction extends ErrataListAllAction {
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
 
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         return ErrataManager.allSecurityErrata(user);
     }
 

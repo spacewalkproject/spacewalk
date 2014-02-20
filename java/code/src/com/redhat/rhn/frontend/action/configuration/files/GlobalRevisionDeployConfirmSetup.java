@@ -39,7 +39,7 @@ public class GlobalRevisionDeployConfirmSetup extends BaseListAction {
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext ctx, PageControl pc) {
-        User usr = ctx.getLoggedInUser();
+        User usr = ctx.getCurrentUser();
         ConfigFile cf = ConfigActionHelper.getFile(ctx.getRequest());
         ConfigChannel cc = cf.getConfigChannel();
         DataResult dr = ConfigurationManager.getInstance().

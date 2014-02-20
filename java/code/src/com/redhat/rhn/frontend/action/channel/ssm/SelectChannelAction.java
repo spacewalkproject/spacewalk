@@ -54,7 +54,7 @@ public class SelectChannelAction extends RhnListAction implements Listable {
 
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         return  ChannelManager.getChannelsForSsm(user, null);
     }
 }

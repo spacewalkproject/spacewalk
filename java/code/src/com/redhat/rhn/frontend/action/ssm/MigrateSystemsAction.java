@@ -58,10 +58,10 @@ public class MigrateSystemsAction extends RhnAction implements Listable {
         RequestContext context = new RequestContext(request);
 
         RequestContext rctx = new RequestContext(request);
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
 
         if (context.wasDispatched("ssm.migrate.systems.confirmbutton")) {
-            RhnSet set = RhnSetDecl.SYSTEMS.get(context.getLoggedInUser());
+            RhnSet set = RhnSetDecl.SYSTEMS.get(context.getCurrentUser());
             List<Server> serverList = new ArrayList<Server>();
 
             Iterator it = set.iterator();
@@ -104,7 +104,7 @@ public class MigrateSystemsAction extends RhnAction implements Listable {
      * {@inheritDoc}
      */
     public List getResult(RequestContext contextIn) {
-        return SystemManager.inSet(contextIn.getLoggedInUser(),
+        return SystemManager.inSet(contextIn.getCurrentUser(),
                                         RhnSetDecl.SYSTEMS.getLabel());
     }
 

@@ -57,7 +57,7 @@ public class UserEditActionTest extends RhnBaseTestCase {
 
         mapping.addForwardConfig(success);
         mapping.addForwardConfig(failure);
-        User user = UserManager.lookupUser(requestContext.getLoggedInUser(),
+        User user = UserManager.lookupUser(requestContext.getCurrentUser(),
                 requestContext.getParamAsLong("uid"));
         request.setAttribute(RhnHelper.TARGET_USER, user);
 
@@ -111,7 +111,7 @@ public class UserEditActionTest extends RhnBaseTestCase {
         mapping.addForwardConfig(success);
         mapping.addForwardConfig(failure);
         mapping.addForwardConfig(noaccess);
-        User user = UserManager.lookupUser(requestContext.getLoggedInUser(),
+        User user = UserManager.lookupUser(requestContext.getCurrentUser(),
                 requestContext.getParamAsLong("uid"));
 
         //Give the user org admin role

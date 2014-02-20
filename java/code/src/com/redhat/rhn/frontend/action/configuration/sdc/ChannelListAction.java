@@ -34,7 +34,7 @@ public class ChannelListAction extends BaseSetListAction {
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pc) {
-        User user = rctxIn.getLoggedInUser();
+        User user = rctxIn.getCurrentUser();
         Server server = rctxIn.lookupAndBindServer();
         SdcHelper.ssmCheck(rctxIn.getRequest(), server.getId(), user);
         return ConfigurationManager.getInstance().listChannelsForSystem(user, server, pc);

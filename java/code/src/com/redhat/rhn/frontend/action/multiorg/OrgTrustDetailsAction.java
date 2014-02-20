@@ -45,7 +45,7 @@ public class OrgTrustDetailsAction extends RhnAction {
             HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Org org = user.getOrg();
 
         Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);

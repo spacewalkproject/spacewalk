@@ -52,7 +52,7 @@ public class PopularChannelTreeAction extends BaseChannelTreeAction {
 
         RequestContext requestContext = new RequestContext(request);
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         String countStr = request.getParameter(SERVER_COUNT);
         Long count;
         if (countStr == null) {

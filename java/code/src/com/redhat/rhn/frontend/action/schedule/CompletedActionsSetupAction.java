@@ -47,7 +47,7 @@ public class CompletedActionsSetupAction extends BaseScheduledListAction {
      * {@inheritDoc}
      */
     public List getResult(RequestContext context) {
-        return ActionManager.completedActions(context.getLoggedInUser(), null);
+        return ActionManager.completedActions(context.getCurrentUser(), null);
     }
 
     /**

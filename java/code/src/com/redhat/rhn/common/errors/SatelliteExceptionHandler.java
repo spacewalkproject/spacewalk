@@ -48,7 +48,7 @@ public class SatelliteExceptionHandler extends ExceptionHandler {
                                   ActionMessage msg, ActionForward forward, String scope) {
         TraceBackEvent evt = new TraceBackEvent();
         RequestContext requestContext = new RequestContext(request);
-        User usr = requestContext.getLoggedInUser();
+        User usr = requestContext.getCurrentUser();
         evt.setUser(usr);
         evt.setRequest(request);
         evt.setException(exception);

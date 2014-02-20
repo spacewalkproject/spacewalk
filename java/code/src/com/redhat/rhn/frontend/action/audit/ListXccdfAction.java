@@ -57,7 +57,7 @@ public class ListXccdfAction extends RhnAction implements Listable {
      */
     public List getResult(RequestContext context) {
         HttpServletRequest request = context.getRequest();
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         DataResult results = ScapManager.latestTestResultByUser(user);
         TagHelper.bindElaboratorTo("groupSet", results.getElaborator(), request);
         return results;

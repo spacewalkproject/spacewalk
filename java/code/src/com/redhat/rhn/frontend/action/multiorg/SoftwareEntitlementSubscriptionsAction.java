@@ -74,7 +74,7 @@ public class SoftwareEntitlementSubscriptionsAction extends RhnAction implements
 
         DynaActionForm dynaForm = (DynaActionForm) formIn;
         RequestContext ctx = new RequestContext(request);
-        User user = ctx.getLoggedInUser();
+        User user = ctx.getCurrentUser();
 
         Long cfid = ctx.getParamAsLong("cfid");
         ChannelFamily channelFamily = ChannelFamilyFactory.lookupById(cfid);
@@ -323,7 +323,7 @@ public class SoftwareEntitlementSubscriptionsAction extends RhnAction implements
                         lookupById(contextIn.getParamAsLong("cfid"));
         List<OrgSoftwareEntitlementDto> entitlementUsage =
                         ChannelManager.listEntitlementsForAllOrgsWithEmptyOrgs(cf,
-                                                            contextIn.getLoggedInUser());
+                                                            contextIn.getCurrentUser());
         Org satelliteOrg = OrgFactory.getSatelliteOrg();
 
         for (Iterator <OrgSoftwareEntitlementDto> itr =

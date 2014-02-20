@@ -48,7 +48,7 @@ public class WorkWithGroupAction extends RhnAction {
 
         RequestContext requestContext = new RequestContext(request);
         ManagedServerGroup serverGroup = requestContext.lookupAndBindServerGroup();
-        User user =  requestContext.getLoggedInUser();
+        User user =  requestContext.getCurrentUser();
 
         RhnSet systemSet = RhnSetDecl.SYSTEMS.create(user);
 

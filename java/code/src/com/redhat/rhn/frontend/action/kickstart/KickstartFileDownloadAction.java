@@ -76,7 +76,7 @@ public class KickstartFileDownloadAction extends BaseKickstartEditAction {
          * not needed.
          */
         if (helper.verifyKickstartChannel(
-                    cmdIn.getKickstartData(), ctx.getLoggedInUser(), false)) {
+                    cmdIn.getKickstartData(), ctx.getCurrentUser(), false)) {
             try {
                 request.setAttribute(FILEDATA, StringEscapeUtils.escapeHtml(
                         KickstartManager.getInstance().renderKickstart(data)));

@@ -128,7 +128,7 @@ public class TrustAction extends FormDispatcher {
 
         RequestContext context = new RequestContext(request);
         RhnListSetHelper helper = new RhnListSetHelper(request);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         RhnSet set = RHNSET.get(user);
         Long oid = context.getParamAsLong(RequestContext.ORG_ID);
         Org theOrg = OrgFactory.lookupById(oid);
@@ -205,7 +205,7 @@ public class TrustAction extends FormDispatcher {
 
         RequestContext context = new RequestContext(request);
         RhnListSetHelper helper = new RhnListSetHelper(request);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         RhnSet set = RHNSET.get(user);
         Long oid = context.getParamAsLong(RequestContext.ORG_ID);
         Org theOrg = OrgFactory.lookupById(oid);
@@ -244,7 +244,7 @@ public class TrustAction extends FormDispatcher {
 
         RequestContext context = new RequestContext(request);
         RhnListSetHelper helper = new RhnListSetHelper(request);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         RhnSet set = RHNSET.get(user);
         Long oid = context.getParamAsLong(RequestContext.ORG_ID);
         Org theOrg = OrgFactory.lookupById(oid);

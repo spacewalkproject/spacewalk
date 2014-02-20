@@ -31,7 +31,7 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 public class CopyFileSandboxAction extends BaseCopyConfigFileAction {
 
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pcIn) {
-        User user = rctxIn.getLoggedInUser();
+        User user = rctxIn.getCurrentUser();
         ConfigFile file = ConfigActionHelper.getFile(rctxIn.getRequest());
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return cm.listSystemsForFileCopy(user, file.getConfigFileName().getId(),

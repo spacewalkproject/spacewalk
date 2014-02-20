@@ -345,7 +345,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         if (context.getRequest().getAttribute(PROFILE) == null) {
             String cobblerId = (String) context.getRequest().getAttribute(
                     RequestContext.COBBLER_ID);
-            User user = context.getLoggedInUser();
+            User user = context.getCurrentUser();
             Profile cobblerProfile = Profile.lookupById(
                     CobblerXMLRPCHelper.getConnection(user), cobblerId);
             context.getRequest().setAttribute(PROFILE, cobblerProfile);
@@ -357,7 +357,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
     protected ProvisionVirtualInstanceCommand getScheduleCommand(DynaActionForm form,
             RequestContext ctx, Date scheduleTime, String host) {
         Profile cobblerProfile = getCobblerProfile(ctx);
-        User user = ctx.getLoggedInUser();
+        User user = ctx.getCurrentUser();
         ProvisionVirtualInstanceCommand cmd;
         KickstartData data = KickstartFactory.
                 lookupKickstartDataByCobblerIdAndOrg(user.getOrg(), cobblerProfile.getId());

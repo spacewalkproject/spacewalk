@@ -120,7 +120,7 @@ public class AuthFilter implements Filter {
                     return;
                 }
             }
-            User user = new RequestContext((HttpServletRequest)request).getLoggedInUser();
+            User user = new RequestContext((HttpServletRequest)request).getCurrentUser();
             if (user != null) {
                 LoggingFactory.setLogAuth(user.getId());
             }

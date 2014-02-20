@@ -77,7 +77,7 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
 
             if (requestContext.wasDispatched("installconfirm.jsp.confirm")) {
                 // Load data from the web components
-                User user = requestContext.getLoggedInUser();
+                User user = requestContext.getCurrentUser();
                 Date earliest = getStrutsDelegate()
                         .readDatePicker((DynaActionForm) actionForm, "date",
                                 DatePicker.YEAR_RANGE_POSITIVE);
@@ -131,7 +131,7 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
         Long cid = context.getRequiredParam(RequestContext.CID);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
 
         DataResult dataResult = SystemManager.systemsSubscribedToChannelInSet(cid, user,
                 SetLabels.SYSTEM_LIST);

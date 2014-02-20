@@ -31,7 +31,7 @@ public class EnhancementErrataListAllAction extends ErrataListAllAction {
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
 
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         return ErrataManager.allErrataByType(user, ErrataFactory.ERRATA_TYPE_ENHANCEMENT);
     }
 }

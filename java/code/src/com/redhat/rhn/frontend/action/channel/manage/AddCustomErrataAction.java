@@ -77,7 +77,7 @@ public class AddCustomErrataAction extends RhnListAction {
             HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        User user =  requestContext.getLoggedInUser();
+        User user =  requestContext.getCurrentUser();
         Long cid = Long.parseLong(request.getParameter(CID));
         Channel currentChan = ChannelFactory.lookupByIdAndUser(cid, user);
         Channel selectedChannel = null;

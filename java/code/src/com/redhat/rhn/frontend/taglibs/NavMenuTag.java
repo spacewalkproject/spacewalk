@@ -95,7 +95,7 @@ public class NavMenuTag extends TagSupport {
             RequestContext requestContext = new RequestContext(req);
 
             Map aclContext = new HashMap();
-            User user = requestContext.getLoggedInUser();
+            User user = requestContext.getCurrentUser();
             aclContext.put("user", user);
             // Add the formvar(s) to the context as well.
             if (nt.getFormvar() != null) {

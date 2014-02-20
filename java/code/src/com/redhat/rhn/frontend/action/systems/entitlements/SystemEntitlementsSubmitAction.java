@@ -327,7 +327,7 @@ public class SystemEntitlementsSubmitAction extends
 
         Map params = makeParamMap(formIn, request);
         RequestContext rctx = new RequestContext(request);
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
 
         int successCount = 0;
         int failureDueToSlotsCount = 0;

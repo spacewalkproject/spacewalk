@@ -56,7 +56,7 @@ public class UpgradeConfirmSetupAction extends BaseSystemPackagesConfirmAction {
     @Override
     protected PackageAction schedulePackageAction(ActionForm formIn,
             RequestContext context, List<Map<String, Long>> pkgs, Date earliest) {
-        return ActionManager.schedulePackageUpgrade(context.getLoggedInUser(),
+        return ActionManager.schedulePackageUpgrade(context.getCurrentUser(),
                                                 context.lookupAndBindServer(),
                                                 pkgs, earliest);
 

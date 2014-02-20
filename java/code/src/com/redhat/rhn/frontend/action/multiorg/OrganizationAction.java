@@ -44,7 +44,7 @@ public class OrganizationAction extends RhnAction {
                                   HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         DataList result = OrgManager.activeOrgs(user);
 
         request.setAttribute(ListTagHelper.PAGE_LIST, result);

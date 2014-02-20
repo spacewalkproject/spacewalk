@@ -73,6 +73,6 @@ public class ProbeSuiteListSetupAction extends RhnAction implements Listable {
      */
     public List getResult(RequestContext context) {
         return MonitoringManager.getInstance().listProbeSuites(
-                context.getLoggedInUser(), null);
+                context.getCurrentUser(), null);
     }
 }

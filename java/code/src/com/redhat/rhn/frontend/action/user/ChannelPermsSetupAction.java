@@ -53,7 +53,7 @@ public class ChannelPermsSetupAction extends RhnListAction {
 
         Long uid = requestContext.getParamAsLong("uid");
         DynaActionForm form = (DynaActionForm)formIn;
-        User user = UserManager.lookupUser(requestContext.getLoggedInUser(), uid);
+        User user = UserManager.lookupUser(requestContext.getCurrentUser(), uid);
         if (user == null) {
             throw new BadParameterException("Invalid uid");
         }
@@ -66,7 +66,7 @@ public class ChannelPermsSetupAction extends RhnListAction {
         pc.setFilterColumn("name");
         pc.setFilter(true);
 
-        clampListBounds(pc, request, requestContext.getLoggedInUser());
+        clampListBounds(pc, request, requestContext.getCurrentUser());
 
         DataResult dr = UserManager.channelSubscriptions(user, pc);
 

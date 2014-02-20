@@ -79,7 +79,7 @@ public class FileDetailsAction extends RhnAction {
             ConfigFileBuilder builder = ConfigFileBuilder.getInstance();
             try {
                 cr = builder.update(cff.toRevisedData(cr),
-                        context.getLoggedInUser(), cr.getConfigFile());
+                        context.getCurrentUser(), cr.getConfigFile());
                 params.put("crid", cr.getId().toString());
             }
             catch (ValidatorException ve) {
@@ -109,7 +109,7 @@ public class FileDetailsAction extends RhnAction {
 
         if (!cr.isDirectory()) {
             totalBytes = ConfigurationManager.getInstance().
-            getFileStorage(ctx.getLoggedInUser(), cr.getConfigFile());
+            getFileStorage(ctx.getCurrentUser(), cr.getConfigFile());
         }
 
         request.setAttribute(CSRF_TOKEN,

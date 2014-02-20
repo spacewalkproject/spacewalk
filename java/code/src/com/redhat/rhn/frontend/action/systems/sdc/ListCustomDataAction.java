@@ -55,7 +55,7 @@ public class ListCustomDataAction extends RhnAction {
 
         DynaActionForm form = (DynaActionForm)formIn;
         RequestContext ctx = new RequestContext(request);
-        User user =  ctx.getLoggedInUser();
+        User user =  ctx.getCurrentUser();
         Map params = makeParamMap(request);
         String fwd = RhnHelper.DEFAULT_FORWARD;
 

@@ -106,15 +106,15 @@ public class DuplicateSystemsAction extends RhnAction implements Listable {
         Long count = (Long) contextIn.getRequest().getAttribute(INACTIVE_COUNT);
         if (contextIn.getRequest().getAttribute(HOSTNAME) != null) {
             return SystemManager.listDuplicatesByHostname
-                                (contextIn.getLoggedInUser(), count);
+                                (contextIn.getCurrentUser(), count);
         }
         else if (contextIn.getRequest().getAttribute(MAC_ADDRESS) != null) {
-            return SystemManager.listDuplicatesByMac(contextIn.getLoggedInUser(), count);
+            return SystemManager.listDuplicatesByMac(contextIn.getCurrentUser(), count);
         }
         else if (contextIn.getRequest().getAttribute(IPV6) != null) {
-            return SystemManager.listDuplicatesByIPv6(contextIn.getLoggedInUser(), count);
+            return SystemManager.listDuplicatesByIPv6(contextIn.getCurrentUser(), count);
         }
-        return SystemManager.listDuplicatesByIP(contextIn.getLoggedInUser(), count);
+        return SystemManager.listDuplicatesByIP(contextIn.getCurrentUser(), count);
     }
 
     private RhnSetDecl getSetDecl() {

@@ -174,7 +174,7 @@ public class AuditSearchAction extends RhnAction {
         String[] autypes;
 
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-        request.setAttribute("user", requestContext.getLoggedInUser());
+        request.setAttribute("user", requestContext.getCurrentUser());
 
         // what audit types are we looking at?
         autypes = dform.getStrings("autypes");

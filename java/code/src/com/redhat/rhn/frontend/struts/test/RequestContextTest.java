@@ -54,7 +54,7 @@ public class RequestContextTest extends MockObjectTestCase {
         LoginActionTest ltest = new LoginActionTest();
         HttpServletRequest request = ltest.loginUserIntoSessionTest();
         RequestContext requestContext = new RequestContext(request);
-        assertNotNull(requestContext.getLoggedInUser());
+        assertNotNull(requestContext.getCurrentUser());
     }
 
     /**

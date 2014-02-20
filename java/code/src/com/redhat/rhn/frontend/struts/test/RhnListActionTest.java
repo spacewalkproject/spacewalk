@@ -61,7 +61,7 @@ public class RhnListActionTest extends RhnBaseTestCase {
 
             RequestContext requestContext = new RequestContext(request);
 
-            User user = requestContext.getLoggedInUser();
+            User user = requestContext.getCurrentUser();
             pc = new PageControl();
             pc.setFilterColumn("Some column");
             try {

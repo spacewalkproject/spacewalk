@@ -181,7 +181,7 @@ public class CreateProfileWizardAction extends RhnWizardAction {
         try {
 
             String kickstartLabel = form.getString(KICKSTART_LABEL_PARAM);
-            KickstartBuilder builder = new KickstartBuilder(ctx.getLoggedInUser());
+            KickstartBuilder builder = new KickstartBuilder(ctx.getCurrentUser());
 
             try {
                 builder.validateNewLabel(kickstartLabel);
@@ -203,7 +203,7 @@ public class CreateProfileWizardAction extends RhnWizardAction {
             }
             else {
                 tree = KickstartFactory.getNewestTree(updateType, channelId,
-                        ctx.getLoggedInUser().getOrg());
+                        ctx.getCurrentUser().getOrg());
                 form.set(KSTREE_ID_PARAM, tree.getId());
             }
 

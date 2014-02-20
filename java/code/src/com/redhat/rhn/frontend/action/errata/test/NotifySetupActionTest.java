@@ -49,7 +49,7 @@ public class NotifySetupActionTest extends RhnBaseTestCase {
 
         RequestContext requestContext = new RequestContext(request);
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Errata published = ErrataFactoryTest
                 .createTestPublishedErrata(user.getOrg().getId());
         Errata unpublished = ErrataFactoryTest

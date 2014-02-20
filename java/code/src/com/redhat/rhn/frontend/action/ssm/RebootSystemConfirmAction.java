@@ -89,7 +89,7 @@ public class RebootSystemConfirmAction extends RhnAction
                 "date", DatePicker.YEAR_RANGE_POSITIVE);
 
         MessageQueue.publish(new SsmSystemRebootEvent(
-                context.getLoggedInUser().getId(),
+                context.getCurrentUser().getId(),
                 earliest, systemsToReboot));
 
         int n = set.size();

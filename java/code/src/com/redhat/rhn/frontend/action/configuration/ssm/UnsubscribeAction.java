@@ -39,7 +39,7 @@ public class UnsubscribeAction extends BaseSetListAction {
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pcIn) {
-        User user = rctxIn.getLoggedInUser();
+        User user = rctxIn.getCurrentUser();
         return ConfigurationManager.getInstance().ssmChannelList(user, pcIn);
     }
 

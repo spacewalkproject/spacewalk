@@ -117,7 +117,7 @@ public class EditGroupAction extends RhnAction {
 
         if (errors.isEmpty()) {
             ServerGroupManager manager = ServerGroupManager.getInstance();
-            ManagedServerGroup sg = manager.create(ctx.getLoggedInUser(),
+            ManagedServerGroup sg = manager.create(ctx.getCurrentUser(),
                     form.getString("name"), form.getString("description"));
 
             return sg.getId();
@@ -154,7 +154,7 @@ public class EditGroupAction extends RhnAction {
 
         // Check if sg already exists
         ManagedServerGroup newGroup = ServerGroupFactory.lookupByNameAndOrg(name,
-                ctx.getLoggedInUser().getOrg());
+                ctx.getCurrentUser().getOrg());
 
         // Ugly condition for two error cases:
         //     creating page + group name exists

@@ -50,7 +50,7 @@ public class RuleDetailsAction extends RhnAction implements Listable {
             HttpServletRequest request,
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         Long sid = context.getRequiredParam("sid");
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         Long ruleResultId = context.getRequiredParam("rrid");

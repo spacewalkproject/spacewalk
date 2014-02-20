@@ -69,7 +69,7 @@ public class KickstartCloneAction extends RhnAction {
             }
             else {
                 String label = form.getString("label");
-                KickstartBuilder builder = new KickstartBuilder(ctx.getLoggedInUser());
+                KickstartBuilder builder = new KickstartBuilder(ctx.getCurrentUser());
                 // Validate the label
                 try {
                     builder.validateNewLabel(label);

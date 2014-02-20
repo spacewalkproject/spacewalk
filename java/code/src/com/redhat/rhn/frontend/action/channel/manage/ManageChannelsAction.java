@@ -52,7 +52,7 @@ public class ManageChannelsAction extends RhnAction implements Listable {
 
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         DataResult result = ChannelManager.ownedChannelsTree(user);
         return result;
     }

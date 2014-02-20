@@ -48,7 +48,7 @@ public class PatchConfirmSetupAction extends RhnListAction {
 
         RequestContext requestContext = new RequestContext(request);
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Long sid = requestContext.getRequiredParam("sid");
         Server server = SystemManager.lookupByIdAndUser(sid, user);
 

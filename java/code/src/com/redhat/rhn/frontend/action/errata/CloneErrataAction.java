@@ -77,7 +77,7 @@ public class CloneErrataAction extends RhnAction implements Listable {
 
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         Long orgId = user.getOrg().getId();
 
         // Determine if a specific channel is being selected

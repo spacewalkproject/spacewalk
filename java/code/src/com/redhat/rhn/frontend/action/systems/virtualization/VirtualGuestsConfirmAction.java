@@ -86,7 +86,7 @@ public class VirtualGuestsConfirmAction extends BaseSystemListAction {
         }
 
         RequestContext ctx = new RequestContext(request);
-        User user = ctx.getLoggedInUser();
+        User user = ctx.getCurrentUser();
         Long sid = ctx.getRequiredParam(RequestContext.SID);
 
         Server system = SystemManager.lookupByIdAndUser(sid, user);

@@ -104,7 +104,7 @@ public class ViewModifyPathsAction extends RhnAction implements Listable {
 
 
         SdcHelper.ssmCheck(request, context.lookupAndBindServer().getId(),
-                                                    context.getLoggedInUser());
+                                                    context.getCurrentUser());
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
@@ -123,7 +123,7 @@ public class ViewModifyPathsAction extends RhnAction implements Listable {
                                                     ActionMapping mapping,
                                                 RequestContext context) {
 
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         Server server = context.lookupAndBindServer();
         String action = COPY_TO_GLOBAL;
         Map params = new HashMap();
@@ -292,7 +292,7 @@ public class ViewModifyPathsAction extends RhnAction implements Listable {
      */
     public List getResult(RequestContext context) {
         Server server  = context.lookupAndBindServer();
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         ConfigChannelType type = (ConfigChannelType)
                                     context.getRequest().getAttribute(TYPE);
         ConfigurationManager cm = ConfigurationManager.getInstance();

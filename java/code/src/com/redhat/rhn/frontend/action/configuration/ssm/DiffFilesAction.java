@@ -37,7 +37,7 @@ public class DiffFilesAction extends BaseListAction {
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pc) {
-        User user = rctxIn.getLoggedInUser();
+        User user = rctxIn.getCurrentUser();
         Server server = rctxIn.lookupServer();
 
         DataResult dr = ConfigurationManager.getInstance()
@@ -51,7 +51,7 @@ public class DiffFilesAction extends BaseListAction {
      */
     protected void processRequestAttributes(RequestContext rctxIn) {
         HttpServletRequest request = rctxIn.getRequest();
-        User user = rctxIn.getLoggedInUser();
+        User user = rctxIn.getCurrentUser();
         Server server = rctxIn.lookupAndBindServer();
 
         RhnSet set = RhnSetDecl.CONFIG_FILE_NAMES.get(user);

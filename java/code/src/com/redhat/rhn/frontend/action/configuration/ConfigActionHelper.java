@@ -146,7 +146,7 @@ public abstract class ConfigActionHelper {
             return null;
         }
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         return ConfigurationManager.getInstance().lookupConfigChannel(user, ccid);
     }
 
@@ -167,7 +167,7 @@ public abstract class ConfigActionHelper {
      */
     public static ConfigFile getFile(HttpServletRequest request) {
         RequestContext requestContext = new RequestContext(request);
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Long cfid = requestContext.getParamAsLong(FILE_ID);
         if (cfid != null) {
             return ConfigurationManager.getInstance().lookupConfigFile(user, cfid);
@@ -191,7 +191,7 @@ public abstract class ConfigActionHelper {
     public static ConfigRevision getRevision(HttpServletRequest request, ConfigFile file) {
         RequestContext requestContext = new RequestContext(request);
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Long crid = requestContext.getParamAsLong(REVISION_ID);
         if (crid != null) {
             return ConfigurationManager.getInstance().lookupConfigRevision(user, crid);
@@ -208,7 +208,7 @@ public abstract class ConfigActionHelper {
     public static ConfigRevision findRevision(HttpServletRequest req) {
         RequestContext requestContext = new RequestContext(req);
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Long crid = requestContext.getParamAsLong(REVISION_ID);
 
         ConfigRevision cr = null;

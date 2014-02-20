@@ -75,7 +75,7 @@ public class OverviewAction extends RhnListAction {
 
         RequestContext requestContext = new RequestContext(request);
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
         /*
          * TODO: This code is for the clear button on the right end of the header.

@@ -66,7 +66,7 @@ public class AdminUserEditAction extends UserEditActionHelper {
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
         //We could be editing ourself, we could be editing another user...
-        User targetUser = UserManager.lookupUser(requestContext.getLoggedInUser(),
+        User targetUser = UserManager.lookupUser(requestContext.getCurrentUser(),
                                            requestContext.getParamAsLong("uid"));
         request.setAttribute(RhnHelper.TARGET_USER, targetUser);
 
@@ -74,7 +74,7 @@ public class AdminUserEditAction extends UserEditActionHelper {
         if (targetUser == null) {
             throw new BadParameterException("Invalid uid, targetUser not found");
         }
-        User loggedInUser = requestContext.getLoggedInUser();
+        User loggedInUser = requestContext.getCurrentUser();
 
         //Update the users details with info entered on the form
         ActionErrors errors = updateDetails(loggedInUser, targetUser, form);

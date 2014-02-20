@@ -59,7 +59,7 @@ public class SystemDetailsEditAction extends RhnAction {
             HttpServletRequest request, HttpServletResponse response)
         throws Exception {
            RequestContext context = new RequestContext(request);
-           User user = context.getLoggedInUser();
+           User user = context.getCurrentUser();
 
         if (!user.hasRole(RoleFactory.ORG_ADMIN) &&
                     !user.hasRole(RoleFactory.CONFIG_ADMIN)) {
@@ -152,7 +152,7 @@ public class SystemDetailsEditAction extends RhnAction {
     private void transferEdits(DynaActionForm form, KickstartData ksdata,
             RequestContext ctx) {
         SystemDetailsCommand command = new SystemDetailsCommand(ksdata, ctx
-                .getLoggedInUser());
+                .getCurrentUser());
 
         transferRootPasswordEdits(form, command);
         if (!ksdata.isLegacyKickstart()) {
@@ -166,7 +166,7 @@ public class SystemDetailsEditAction extends RhnAction {
     private void prepareForm(DynaActionForm dynaForm, KickstartData ksdata,
             RequestContext ctx) {
         prepareSELinuxConfig(dynaForm, ksdata);
-        prepareRegistrationTypeConfig(dynaForm, ksdata, ctx.getLoggedInUser());
+        prepareRegistrationTypeConfig(dynaForm, ksdata, ctx.getCurrentUser());
         prepareFlags(dynaForm, ksdata);
         dynaForm.set("submitted", Boolean.TRUE);
     }

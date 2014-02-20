@@ -56,7 +56,7 @@ public class ScheduleDetailAction extends RhnAction {
         DynaActionForm form = (DynaActionForm)formIn;
         Map params = makeParamMap(request);
         RequestContext ctx = new RequestContext(request);
-        User loggedInUser = ctx.getLoggedInUser();
+        User loggedInUser = ctx.getCurrentUser();
         Long scheduleId = ctx.getParamAsLong(("schid"));
 
         if (ctx.hasParam("schid")) {
@@ -178,7 +178,7 @@ public class ScheduleDetailAction extends RhnAction {
 
     private void setupForm(HttpServletRequest request, DynaActionForm form) {
         RequestContext ctx = new RequestContext(request);
-        User loggedInUser = ctx.getLoggedInUser();
+        User loggedInUser = ctx.getCurrentUser();
         Long schid = ctx.getParamAsLong("schid");
 
         if (schid != null) {
@@ -206,7 +206,7 @@ public class ScheduleDetailAction extends RhnAction {
     }
 
     private void prepDropdowns(RequestContext ctx) {
-        User loggedInUser = ctx.getLoggedInUser();
+        User loggedInUser = ctx.getCurrentUser();
         // populate parent base channels
         List dropDown = new ArrayList();
         try {

@@ -59,12 +59,12 @@ public class SsmKickstartableSystemsAction extends RhnAction implements Listable
         helper.execute();
 
         List <KickstartIpRange> range = KickstartManager.getInstance().
-                                    listIpRanges(context.getLoggedInUser());
+                                    listIpRanges(context.getCurrentUser());
         if (range.isEmpty()) {
             request.setAttribute(DISABLE_RANGES, Boolean.TRUE);
         }
         List profiles = KickstartLister.getInstance().
-                        listProfilesForSsm(context.getLoggedInUser());
+                        listProfilesForSsm(context.getCurrentUser());
 
         if (profiles.isEmpty()) {
             request.setAttribute(DISABLE_PROFILES, Boolean.TRUE);
@@ -77,7 +77,7 @@ public class SsmKickstartableSystemsAction extends RhnAction implements Listable
      * ${@inheritDoc}
      */
     public List getResult(RequestContext context) {
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         List ret = KickstartManager.getInstance().kickstartableSystemsInSsm(user);
         if (ret.isEmpty()) {
             context.getRequest().setAttribute(DISABLE_SYSTEMS, Boolean.TRUE);

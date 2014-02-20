@@ -60,7 +60,7 @@ public class RankChannels extends BaseRankChannels {
             ActionForm form, HttpServletRequest request,
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
 
         RhnSet set = getRhnSet(user);
         setup(context, (DynaActionForm)form, set);
@@ -83,7 +83,7 @@ public class RankChannels extends BaseRankChannels {
             return handleNoScript(mapping, formIn, request, response);
         }
         String position = ((DynaActionForm)formIn).getString(PRIORITY);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
 
         DynaActionForm form = (DynaActionForm) formIn;
         RhnSet set = getRhnSet(user);

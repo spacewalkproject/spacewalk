@@ -66,7 +66,7 @@ public class EligibleFlexGuestAction extends RhnAction implements Listable {
         request.setAttribute(SELECTABLE, Boolean.TRUE);
 
         RequestContext requestContext = new RequestContext(request);
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         //user.hasRole(RoleFactory.ORG_ADMIN)
         ListSessionSetHelper helper = new ListSessionSetHelper(this, request);
         helper.execute();
@@ -122,7 +122,7 @@ public class EligibleFlexGuestAction extends RhnAction implements Listable {
         for (Long cfid : familyGroups.keySet()) {
             List<Long> sids = new ArrayList<Long>(familyGroups.get(cfid));
             success.addAll(VirtualizationEntitlementsManager.
-                    getInstance().convertToFlex(sids, cfid, context.getLoggedInUser()));
+                    getInstance().convertToFlex(sids, cfid, context.getCurrentUser()));
         }
 
         helper.destroy();
@@ -137,7 +137,7 @@ public class EligibleFlexGuestAction extends RhnAction implements Listable {
 
     protected List<ChannelFamilySystemGroup> query(RequestContext contextIn) {
         return VirtualizationEntitlementsManager.getInstance().
-        listEligibleFlexGuests(contextIn.getLoggedInUser());
+        listEligibleFlexGuests(contextIn.getCurrentUser());
     }
 
     /**

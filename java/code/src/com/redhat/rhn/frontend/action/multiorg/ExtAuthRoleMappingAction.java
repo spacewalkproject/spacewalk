@@ -53,7 +53,7 @@ public class ExtAuthRoleMappingAction extends RhnAction implements Listable {
      * ${@inheritDoc}
      */
     public List getResult(RequestContext contextIn) {
-        User user = contextIn.getLoggedInUser();
+        User user = contextIn.getCurrentUser();
         return UserGroupFactory.listExtAuthGroups(user);
     }
 

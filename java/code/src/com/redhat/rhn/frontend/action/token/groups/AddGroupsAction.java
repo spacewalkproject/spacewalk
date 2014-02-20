@@ -54,7 +54,7 @@ public class AddGroupsAction extends BaseListAction {
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
         ActivationKey key = context.lookupAndBindActivationKey();
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         ServerGroupManager sgm = ServerGroupManager.getInstance();
         for (String id : helper.getSet()) {
             Long sgid = Long.valueOf(id);
@@ -74,7 +74,7 @@ public class AddGroupsAction extends BaseListAction {
     /** {@inheritDoc} */
     public List<ManagedServerGroup> getResult(RequestContext context) {
         ActivationKey key = context.lookupAndBindActivationKey();
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         List <ManagedServerGroup> mainList = ServerGroupFactory.
                                             listManagedGroups(user.getOrg());
         List <ManagedServerGroup> groups = new LinkedList<ManagedServerGroup>();
@@ -98,7 +98,7 @@ public class AddGroupsAction extends BaseListAction {
         ServerGroupManager sgm = ServerGroupManager.getInstance();
         Map<Long, Long> accessMap = new HashMap<Long, Long>();
         for (ServerGroup sg : groups) {
-            if (sgm.canAccess(context.getLoggedInUser(), sg)) {
+            if (sgm.canAccess(context.getCurrentUser(), sg)) {
                 accessMap.put(sg.getId(), sg.getId());
             }
         }

@@ -47,7 +47,7 @@ public class GlobalRevisionDeploySubmit extends BaseSetOperateOnSelectedItemsAct
     protected DataResult getDataResult(User user, ActionForm formIn,
             HttpServletRequest request) {
         RequestContext ctx = new RequestContext(request);
-        User usr = ctx.getLoggedInUser();
+        User usr = ctx.getCurrentUser();
         ConfigFile cf = ConfigActionHelper.getFile(ctx.getRequest());
         ConfigChannel cc = cf.getConfigChannel();
         DataResult dr = ConfigurationManager.getInstance().

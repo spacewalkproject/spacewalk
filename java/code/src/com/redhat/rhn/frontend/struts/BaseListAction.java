@@ -81,7 +81,7 @@ public abstract class BaseListAction extends RhnListAction {
             return null;
         }
         PageControl pc =  new PageControl();
-        pc.setPageSize(rctx.getLoggedInUser().getPageSize());
+        pc.setPageSize(rctx.getCurrentUser().getPageSize());
         return pc;
     }
 

@@ -63,7 +63,7 @@ public class PackageIndexAction extends LookupDispatchAction {
 
         RequestContext requestContext = new RequestContext(request);
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Long sid = requestContext.getRequiredParam("sid");
         Server server = SystemManager.lookupByIdAndUser(sid, user);
 
@@ -99,7 +99,7 @@ public class PackageIndexAction extends LookupDispatchAction {
 
         RequestContext requestContext = new RequestContext(request);
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Long sid = requestContext.getRequiredParam("sid");
         SdcHelper.ssmCheck(request, sid, user);
         request.setAttribute("system", SystemManager.lookupByIdAndUser(sid, user));

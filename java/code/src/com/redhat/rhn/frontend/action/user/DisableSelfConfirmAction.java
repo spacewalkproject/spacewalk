@@ -49,7 +49,7 @@ public class DisableSelfConfirmAction extends RhnAction {
 
         ActionForward forward = null;
         DynaActionForm f = (DynaActionForm)form;
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
         if (!isSubmitted(f)) {
             forward =  getStrutsDelegate().forwardParams(

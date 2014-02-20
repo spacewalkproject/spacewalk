@@ -77,7 +77,7 @@ public class SDCCopy2ChannelsAction extends Copy2ChannelsAction {
      */
     public List getData(HttpServletRequest req) {
         RequestContext ctx = new RequestContext(req);
-        User user = ctx.getLoggedInUser();
+        User user = ctx.getCurrentUser();
         ConfigurationManager cm = ConfigurationManager.getInstance();
 
         DataResult rs =  cm.listGlobalChannels(user, null);

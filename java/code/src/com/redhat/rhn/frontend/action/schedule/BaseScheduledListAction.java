@@ -101,7 +101,7 @@ public abstract class BaseScheduledListAction extends RhnAction implements Lista
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         //Update the set first and get the size so we know
         //how many actions we have archived.
         RhnSet set = getSetDecl().get(user);

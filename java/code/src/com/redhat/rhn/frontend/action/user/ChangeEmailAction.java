@@ -50,11 +50,11 @@ public class ChangeEmailAction extends RhnAction {
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
-        User user = UserManager.lookupUser(requestContext.getLoggedInUser(),
+        User user = UserManager.lookupUser(requestContext.getCurrentUser(),
                 requestContext.getParamAsLong("uid"));
         request.setAttribute(RhnHelper.TARGET_USER, user);
         if (user == null) {
-            user = requestContext.getLoggedInUser();
+            user = requestContext.getCurrentUser();
         }
 
         String email = user.getEmail();

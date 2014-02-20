@@ -73,7 +73,7 @@ public class UnsubscribeConfirmSubmitAction extends RhnListDispatchAction {
      */
     public ActionForward confirm(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        User user = new RequestContext(request).getLoggedInUser();
+        User user = new RequestContext(request).getCurrentUser();
         RhnSet channelSet = RhnSetDecl.CONFIG_CHANNELS.get(user);
         ConfigurationManager cm = ConfigurationManager.getInstance();
         DataResult systemSet = cm.ssmSystemListForChannels(user, null);

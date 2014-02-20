@@ -74,7 +74,7 @@ public abstract class BaseSetOperateOnSelectedItemsAction extends RhnSetAction {
 
         Map params = makeParamMap(formIn, request);
         RequestContext rctx = new RequestContext(request);
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
 
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 

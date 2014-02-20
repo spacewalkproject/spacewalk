@@ -33,7 +33,7 @@ public class DiffSystemsAction extends BaseListAction {
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pc) {
-        User user = rctxIn.getLoggedInUser();
+        User user = rctxIn.getCurrentUser();
         Long cfnid = rctxIn.getRequiredParam("cfnid");
 
         return ConfigurationManager.getInstance().listSystemsForFileName(user, cfnid, pc);

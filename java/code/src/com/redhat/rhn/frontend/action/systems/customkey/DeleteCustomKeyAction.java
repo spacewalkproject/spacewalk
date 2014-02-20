@@ -45,7 +45,7 @@ public class DeleteCustomKeyAction extends RhnAction {
             HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        User user =  requestContext.getLoggedInUser();
+        User user =  requestContext.getCurrentUser();
         Long cikid = requestContext.getParamAsLong(CIKID_PARAM);
 
         CustomDataKey key = OrgFactory.lookupKeyById(cikid);

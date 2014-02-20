@@ -67,7 +67,7 @@ public class LocalRevisionDeployAction extends RhnAction {
         ConfigActionHelper.processParamMap(request, params);
 
         DynaActionForm dForm = (DynaActionForm) form;
-        User usr = requestContext.getLoggedInUser();
+        User usr = requestContext.getCurrentUser();
 
         ConfigRevision cr = ConfigActionHelper.findRevision(request);
 
@@ -101,7 +101,7 @@ public class LocalRevisionDeployAction extends RhnAction {
         RequestContext requestContext = new RequestContext(request);
 
         Server srv = null;
-        User usr = requestContext.getLoggedInUser();
+        User usr = requestContext.getCurrentUser();
         ConfigFile cf = cr.getConfigFile();
         ConfigChannel cc = cf.getConfigChannel();
         if (cc.isLocalChannel() || cc.isSandboxChannel()) {
@@ -118,7 +118,7 @@ public class LocalRevisionDeployAction extends RhnAction {
             Server srv) {
         RequestContext requestContext = new RequestContext(request);
 
-        User usr = requestContext.getLoggedInUser();
+        User usr = requestContext.getCurrentUser();
         ConfigFile cf = cr.getConfigFile();
         ConfigChannel cc = cf.getConfigChannel();
 

@@ -39,7 +39,7 @@ public class Copy2ChannelsAction extends BaseCopyToAction {
      */
     public List getData(HttpServletRequest req) {
         RequestContext ctx = new RequestContext(req);
-        User user = ctx.getLoggedInUser();
+        User user = ctx.getCurrentUser();
         ConfigChannel cc = ConfigActionHelper.getChannel(req);
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return  cm.listChannelsForCopy(user, cc, cc.getConfigChannelType().getLabel());

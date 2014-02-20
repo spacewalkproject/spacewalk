@@ -116,7 +116,7 @@ public class ChannelOverviewTasks extends RhnAction {
             boolean chooseFiles,
             boolean chooseSystems) {
         RequestContext ctx = new RequestContext(req);
-        User usr = ctx.getLoggedInUser();
+        User usr = ctx.getCurrentUser();
         ConfigChannel cc = ConfigActionHelper.getChannel(req);
         ConfigurationManager mgr = ConfigurationManager.getInstance();
 
@@ -154,7 +154,7 @@ public class ChannelOverviewTasks extends RhnAction {
 
         ConfigurationManager mgr = ConfigurationManager.getInstance();
         ConfigChannel cc = ConfigActionHelper.getChannel(req);
-        User usr = new RequestContext(req).getLoggedInUser();
+        User usr = new RequestContext(req).getCurrentUser();
 
         DataResult systems = mgr.listChannelSystems(usr, cc, null);
         DataResult revs = mgr.listCurrentFiles(usr, cc, null);

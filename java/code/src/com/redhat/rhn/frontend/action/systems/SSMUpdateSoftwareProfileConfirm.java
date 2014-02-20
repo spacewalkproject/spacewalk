@@ -60,7 +60,7 @@ public class SSMUpdateSoftwareProfileConfirm extends RhnAction implements Listab
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
 
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         RhnSet set = RhnSetDecl.SYSTEMS.get(user);
         request.setAttribute("system_count", set.size());
         DynaActionForm daForm = (DynaActionForm)formIn;
@@ -99,7 +99,7 @@ public class SSMUpdateSoftwareProfileConfirm extends RhnAction implements Listab
      * {@inheritDoc}
      */
     public List getResult(RequestContext contextIn) {
-        return SystemManager.inSet(contextIn.getLoggedInUser(),
+        return SystemManager.inSet(contextIn.getCurrentUser(),
                                         RhnSetDecl.SYSTEMS.getLabel());
     }
 

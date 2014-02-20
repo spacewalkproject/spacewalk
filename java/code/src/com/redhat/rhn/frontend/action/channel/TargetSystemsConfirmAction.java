@@ -57,7 +57,7 @@ public class TargetSystemsConfirmAction extends RhnAction implements Listable {
             HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        User user =  requestContext.getLoggedInUser();
+        User user =  requestContext.getCurrentUser();
 
         Long cid = requestContext.getRequiredParam(RequestContext.CID);
         Channel chan = ChannelManager.lookupByIdAndUser(cid, user);
@@ -105,7 +105,7 @@ public class TargetSystemsConfirmAction extends RhnAction implements Listable {
      * {@inheritDoc}
      */
     public List getResult(RequestContext context) {
-        User user =  context.getLoggedInUser();
+        User user =  context.getCurrentUser();
         Long cid = context.getRequiredParam(RequestContext.CID);
         Channel chan = ChannelManager.lookupByIdAndUser(cid, user);
         return SystemManager.inSet(user, TargetSystemsAction.getSetDecl(chan).getLabel());

@@ -47,7 +47,7 @@ public class ChannelFileDeploySubmit extends BaseSetOperateOnSelectedItemsAction
     protected DataResult getDataResult(
             User user, ActionForm formIn, HttpServletRequest req) {
         RequestContext rctx = new RequestContext(req);
-        User usr = rctx.getLoggedInUser();
+        User usr = rctx.getCurrentUser();
         ConfigChannel cc = ConfigActionHelper.getChannel(rctx.getRequest());
         return ConfigurationManager.getInstance().listCurrentFiles(usr, cc, null);
     }

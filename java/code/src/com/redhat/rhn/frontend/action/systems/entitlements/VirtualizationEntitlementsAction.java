@@ -59,7 +59,7 @@ public class VirtualizationEntitlementsAction extends MappingDispatchAction {
 
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         RequestContext rctx = new RequestContext(request);
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
         request.setAttribute(PAGELIST,
                 VirtualizationEntitlementsManager.getInstance().
                                     findGuestLimitedHostsByOrg(user.getOrg()));
@@ -81,7 +81,7 @@ public class VirtualizationEntitlementsAction extends MappingDispatchAction {
 
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         RequestContext context = new RequestContext(request);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         request.setAttribute(PAGELIST,
                 VirtualizationEntitlementsManager.getInstance().
                                     findGuestUnlimitedHostsByOrg(user.getOrg()));
@@ -104,7 +104,7 @@ public class VirtualizationEntitlementsAction extends MappingDispatchAction {
 
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         RequestContext rctx = new RequestContext(request);
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
         request.setAttribute(PAGELIST,
                 VirtualizationEntitlementsManager.getInstance().
                                     findGuestsWithoutHostsByOrg(user.getOrg()));

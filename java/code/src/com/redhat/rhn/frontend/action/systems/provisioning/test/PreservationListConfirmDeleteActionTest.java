@@ -76,7 +76,7 @@ public class PreservationListConfirmDeleteActionTest extends RhnBaseTestCase {
 
         RequestContext requestContext = new RequestContext(request);
 
-        user = requestContext.getLoggedInUser();
+        user = requestContext.getCurrentUser();
         set = (RhnSet) request.getAttribute("set");
 
         DataResult dr = (DataResult) request.getAttribute(RequestContext.PAGE_LIST);

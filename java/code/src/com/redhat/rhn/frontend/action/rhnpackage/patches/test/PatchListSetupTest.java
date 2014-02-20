@@ -60,7 +60,7 @@ public class PatchListSetupTest extends RhnBaseTestCase {
 
         RequestContext requestContext = new RequestContext(request);
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         RhnSet set = (RhnSet) request.getAttribute("set");
 
         DataResult dr = (DataResult) request.getAttribute(RequestContext.PAGE_LIST);

@@ -48,7 +48,7 @@ public class DeleteFileAction extends RhnAction {
                                  HttpServletRequest req,
                                  HttpServletResponse resp) throws Exception {
         RequestContext ctx = new RequestContext(req);
-        User usr = ctx.getLoggedInUser();
+        User usr = ctx.getCurrentUser();
         Map params =  makeParamMap(req);
         ConfigFileForm cff = (ConfigFileForm)form;
 

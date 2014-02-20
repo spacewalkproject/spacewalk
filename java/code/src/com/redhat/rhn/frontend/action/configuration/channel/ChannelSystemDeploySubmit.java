@@ -45,7 +45,7 @@ public class ChannelSystemDeploySubmit extends BaseSetOperateOnSelectedItemsActi
 
     protected DataResult getDataResult(User user, ActionForm formIn,
             HttpServletRequest request) {
-        User usr = new RequestContext(request).getLoggedInUser();
+        User usr = new RequestContext(request).getCurrentUser();
         ConfigChannel cc = ConfigActionHelper.getChannel(request);
         return ConfigurationManager.getInstance().listSystemInfoForChannel(usr, cc, null);
     }

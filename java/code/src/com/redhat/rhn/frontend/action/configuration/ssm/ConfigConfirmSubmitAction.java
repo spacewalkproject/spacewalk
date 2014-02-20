@@ -115,7 +115,7 @@ public class ConfigConfirmSubmitAction extends RhnListDispatchAction {
         RequestContext requestContext = new RequestContext(request);
 
         //schedule diff actions
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         ConfigurationManager cm = ConfigurationManager.getInstance();
 
         DataResult<ConfigSystemDto> systems = cm.listSystemsForConfigAction(user, null,

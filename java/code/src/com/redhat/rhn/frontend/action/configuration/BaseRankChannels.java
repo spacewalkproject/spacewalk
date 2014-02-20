@@ -62,7 +62,7 @@ public abstract class BaseRankChannels extends RhnLookupDispatchAction {
     protected void setupWidget(RequestContext context,
                                      DynaActionForm form,
                                      RhnSet set) {
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         LinkedHashSet labelValues = new LinkedHashSet();
         populateWidgetLabels(labelValues, context);
         for (Iterator itr = set.getElements().iterator(); itr.hasNext();) {
@@ -151,7 +151,7 @@ public abstract class BaseRankChannels extends RhnLookupDispatchAction {
 
         Map map = new HashMap();
         processParams(context, map);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         RhnSet set = getRhnSet(user);
         setup(context, (DynaActionForm)formIn, set);
         return getStrutsDelegate().forwardParams

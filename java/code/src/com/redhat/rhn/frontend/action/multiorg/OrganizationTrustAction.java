@@ -45,7 +45,7 @@ public class OrganizationTrustAction extends RhnAction {
                                   HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         String name = user.getOrg().getName();
         String orgid = user.getOrg().getId().toString();
         DataList<TrustedOrgDto> result = OrgManager.trustedOrgs(user);

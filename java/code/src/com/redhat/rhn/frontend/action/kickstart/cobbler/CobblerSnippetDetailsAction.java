@@ -119,7 +119,7 @@ public class CobblerSnippetDetailsAction extends RhnAction {
         RequestContext context = new RequestContext(request);
         if (isCreateMode(request)) {
             request.setAttribute(PREFIX, CobblerSnippet.getPrefixFor(
-                            context.getLoggedInUser().getOrg()));
+                            context.getCurrentUser().getOrg()));
         }
         else {
             String param = NAME;
@@ -147,7 +147,7 @@ public class CobblerSnippetDetailsAction extends RhnAction {
         try {
             String name = context.getParam(lookupParam, true);
             return  CobblerSnippet.loadEditable(name,
-                        context.getLoggedInUser().getOrg());
+                        context.getCurrentUser().getOrg());
         }
         catch (ValidatorException ve) {
             LOG.error(ve);
@@ -198,7 +198,7 @@ public class CobblerSnippetDetailsAction extends RhnAction {
                 isCreateMode(request),
                 name,
                 form.getString(CONTENTS),
-                context.getLoggedInUser().getOrg());
+                context.getCurrentUser().getOrg());
         if (!isCreateMode(request) &&
                 !form.getString(NAME).equals(form.getString(OLD_NAME))) {
             snip.rename(form.getString(NAME));

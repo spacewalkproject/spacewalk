@@ -56,7 +56,7 @@ public class ChannelPermsAction extends RhnListAction {
             throw new BadParameterException("uid is null or role is empty string");
         }
 
-        User user = UserManager.lookupUser(requestContext.getLoggedInUser(), uid);
+        User user = UserManager.lookupUser(requestContext.getCurrentUser(), uid);
         request.setAttribute(RhnHelper.TARGET_USER, user);
 
         String[] channels = (String[]) form.get("cid");

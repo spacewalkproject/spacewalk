@@ -46,7 +46,7 @@ public class DeleteScheduleAction extends RhnAction {
                                  HttpServletResponse response) {
 
         RequestContext ctx = new RequestContext(request);
-        User loggedInUser = ctx.getLoggedInUser();
+        User loggedInUser = ctx.getCurrentUser();
 
         if (ctx.hasParam("schid")) {
             Long scheduleId = ctx.getParamAsLong(("schid"));

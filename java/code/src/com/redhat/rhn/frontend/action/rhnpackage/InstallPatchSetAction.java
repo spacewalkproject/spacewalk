@@ -69,7 +69,7 @@ public class InstallPatchSetAction extends LookupDispatchAction {
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Long sid = requestContext.getRequiredParam("sid");
         Long pid = requestContext.getRequiredParam("pid");
 

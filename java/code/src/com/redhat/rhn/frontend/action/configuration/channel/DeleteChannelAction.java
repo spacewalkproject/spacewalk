@@ -46,7 +46,7 @@ public class DeleteChannelAction extends RhnAction {
                                  HttpServletResponse response) {
 
         RequestContext rctx = new RequestContext(request);
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
         DynaActionForm daForm = (DynaActionForm)formIn;
         Map params = makeParamMap(request);
 
@@ -72,7 +72,7 @@ public class DeleteChannelAction extends RhnAction {
     private void deleteChannel(HttpServletRequest request, ConfigChannel cc) {
         RequestContext requestContext = new RequestContext(request);
 
-        User u = requestContext.getLoggedInUser();
+        User u = requestContext.getCurrentUser();
         ConfigurationManager.getInstance().deleteConfigChannel(u, cc);
     }
 }

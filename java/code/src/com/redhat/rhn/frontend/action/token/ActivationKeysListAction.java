@@ -64,7 +64,7 @@ public class ActivationKeysListAction extends RhnAction {
             HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         RequestContext context = new RequestContext(request);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
 
         RhnSet set =  getDecl().get(user);
         List <ActivationKeyDto> dataSet = KickstartLister.getInstance().
@@ -115,7 +115,7 @@ public class ActivationKeysListAction extends RhnAction {
     private ActionForward handleDispatchAction(ActionMapping mapping,
             RequestContext context, RhnSet set,
             List <ActivationKeyDto> currentKeys) {
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         int numEnabled = 0;
         int numDisabled = 0;
         for (ActivationKeyDto dto : currentKeys) {

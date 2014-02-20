@@ -60,7 +60,7 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
             HttpServletResponse response) {
 
         RequestContext context = new RequestContext(request);
-        User user =  context.getLoggedInUser();
+        User user =  context.getCurrentUser();
 
         long cid = context.getRequiredParam("cid");
         Channel chan = ChannelFactory.lookupByIdAndUser(cid, user);
@@ -166,7 +166,7 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
          * {@inheritDoc}
          */
         public List<ContentSource> getResult(RequestContext context) {
-            User user =  context.getLoggedInUser();
+            User user =  context.getCurrentUser();
             long cid = context.getRequiredParam("cid");
             Channel chan = ChannelFactory.lookupByIdAndUser(cid, user);
             return ChannelFactory.lookupContentSources(user.getOrg(), chan);

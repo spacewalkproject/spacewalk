@@ -91,7 +91,7 @@ public class ActivationKeyDetailsAction extends RhnAction {
         }
 
         request.setAttribute(PREFIX,
-                ActivationKey.makePrefix(context.getLoggedInUser().getOrg()));
+                ActivationKey.makePrefix(context.getCurrentUser().getOrg()));
         request.setAttribute(BLANK_DESCRIPTION,
                                 ActivationKeyFactory.DEFAULT_DESCRIPTION);
 
@@ -172,7 +172,7 @@ public class ActivationKeyDetailsAction extends RhnAction {
     }
 
     private ActivationKey update(DynaActionForm form, RequestContext context) {
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         ActivationKeyManager manager = ActivationKeyManager.getInstance();
         ActivationKey key = context.lookupAndBindActivationKey();
 
@@ -275,7 +275,7 @@ public class ActivationKeyDetailsAction extends RhnAction {
     }
 
     private void setupPossibleChannels(RequestContext context) {
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         List<LabelValueBean> channelWidgets = new LinkedList<LabelValueBean>();
         channelWidgets.add(lvl10n("activation-key.jsp.rh-default",
                             String.valueOf(DEFAULT_CHANNEL_ID)));
@@ -289,7 +289,7 @@ public class ActivationKeyDetailsAction extends RhnAction {
     }
 
     private void setupEntitlements(RequestContext context) {
-        Org org = context.getLoggedInUser().getOrg();
+        Org org = context.getCurrentUser().getOrg();
         Set<LabelValueEnabledBean> entWidgets = new
                                             TreeSet<LabelValueEnabledBean>();
         context.getRequest().setAttribute(POSSIBLE_ENTS, entWidgets);
@@ -300,7 +300,7 @@ public class ActivationKeyDetailsAction extends RhnAction {
 
 
     private ActivationKey create(DynaActionForm daForm, RequestContext context) {
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         ActivationKeyManager manager = ActivationKeyManager.getInstance();
         /**
          * createNewActivationKey(User user,

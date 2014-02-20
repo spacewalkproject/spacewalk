@@ -85,7 +85,7 @@ public class AddPackagesConfirmAction extends RhnAction implements Listable {
 
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
 
         HttpServletRequest request = context.getRequest();
         Map<String, Object> params = new HashMap<String, Object>();
@@ -119,7 +119,7 @@ public class AddPackagesConfirmAction extends RhnAction implements Listable {
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
         // Get the Logged in user and the errata in question
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Errata errata = requestContext.lookupErratum();
 
         // Retrieve the set containing the ids of the packages we want to add

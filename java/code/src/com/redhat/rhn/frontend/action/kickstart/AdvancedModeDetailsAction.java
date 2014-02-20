@@ -114,7 +114,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
             DynaActionForm form, ActionMapping mapping) {
         try {
             KickstartData data = getKsData(context);
-            User user  = context.getLoggedInUser();
+            User user  = context.getCurrentUser();
             KickstartBuilder builder = new KickstartBuilder(user);
             KickstartWizardHelper cmd = new KickstartWizardHelper(user);
             KickstartableTree tree = cmd.getKickstartableTree(
@@ -143,7 +143,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
             DynaActionForm form, ActionMapping mapping) {
         try {
             validateInput(form, context);
-            User user  = context.getLoggedInUser();
+            User user  = context.getCurrentUser();
             KickstartTreeUpdateType updateType = null;
             KickstartWizardHelper cmd = new KickstartWizardHelper(user);
             KickstartableTree tree = cmd.getKickstartableTree(
@@ -153,13 +153,13 @@ public class AdvancedModeDetailsAction extends RhnAction {
                 updateType = KickstartTreeUpdateType.ALL;
                 tree = KickstartFactory.getNewestTree(updateType,
                         tree.getChannel().getId(),
-                        context.getLoggedInUser().getOrg());
+                        context.getCurrentUser().getOrg());
             }
             else if (form.get(UPDATE_RED_HAT_PARAM) != null) {
                 updateType = KickstartTreeUpdateType.RED_HAT;
                 tree = KickstartFactory.getNewestTree(updateType,
                         tree.getChannel().getId(),
-                        context.getLoggedInUser().getOrg());
+                        context.getCurrentUser().getOrg());
             }
             else {
                 updateType = KickstartTreeUpdateType.NONE;
@@ -186,7 +186,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
             ks.setRealUpdateType(updateType);
 
             KickstartDetailsEditAction.processCobblerFormValues(ks, form,
-                    context.getLoggedInUser());
+                    context.getCurrentUser());
 
             return getStrutsDelegate().forwardParam(mapping.findForward("success"),
                     RequestContext.KICKSTART_ID,
@@ -208,7 +208,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
     }
 
     private void setup(RequestContext context, DynaActionForm form) {
-        User user  = context.getLoggedInUser();
+        User user  = context.getCurrentUser();
         KickstartWizardHelper cmd = new KickstartWizardHelper(user);
         loadTrees(cmd, form, context);
         loadVirtualizationTypes(cmd, form, context);
@@ -295,7 +295,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
     private void validateInput(DynaActionForm form,
             RequestContext context) {
         String label = form.getString(KICKSTART_LABEL_PARAM);
-        KickstartBuilder builder = new KickstartBuilder(context.getLoggedInUser());
+        KickstartBuilder builder = new KickstartBuilder(context.getCurrentUser());
         if (isCreateMode(context.getRequest())) {
             builder.validateNewLabel(label);
         }
@@ -315,13 +315,13 @@ public class AdvancedModeDetailsAction extends RhnAction {
 
         KickstartableTree tree =  KickstartFactory.lookupKickstartTreeByIdAndOrg(
                 (Long) form.get(KSTREE_ID_PARAM),
-                context.getLoggedInUser().getOrg());
+                context.getCurrentUser().getOrg());
         KickstartVirtualizationType vType =
                 KickstartFactory.lookupKickstartVirtualizationTypeByLabel(
                         form.getString(VIRTUALIZATION_TYPE_LABEL_PARAM));
 
         Distro distro = CobblerProfileCommand.getCobblerDistroForVirtType(tree, vType,
-                context.getLoggedInUser());
+                context.getCurrentUser());
         if (distro == null) {
             ValidatorException.raiseException("kickstart.cobbler.profile.invalidvirt");
         }

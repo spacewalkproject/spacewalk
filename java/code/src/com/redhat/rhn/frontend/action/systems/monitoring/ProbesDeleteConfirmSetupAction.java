@@ -50,7 +50,7 @@ public class ProbesDeleteConfirmSetupAction extends RhnListAction implements Lis
 
         RequestContext requestContext = new RequestContext(request);
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Server server = requestContext.lookupAndBindServer();
 
         Map params = new HashMap();
@@ -76,7 +76,7 @@ public class ProbesDeleteConfirmSetupAction extends RhnListAction implements Lis
      * {@inheritDoc}
      */
     public List getResult(RequestContext context) {
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         return MonitoringManager.getInstance().probesInSet(user, "probe_delete_list");
     }
 }

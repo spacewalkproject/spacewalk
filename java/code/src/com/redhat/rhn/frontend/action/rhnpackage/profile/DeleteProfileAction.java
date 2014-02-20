@@ -59,7 +59,7 @@ public class DeleteProfileAction extends RhnAction {
         ActionForward forward = null;
         DynaActionForm f = (DynaActionForm)form;
         Long prid = requestContext.getRequiredParam(RequestContext.PRID);
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Profile profile = ProfileManager.lookupByIdAndOrg(prid, user.getOrg());
         request.setAttribute("profile", profile);
 

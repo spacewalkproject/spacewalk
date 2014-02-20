@@ -68,7 +68,7 @@ public class RankChannelsAction extends BaseRankChannels {
             ActionForm form, HttpServletRequest request,
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         RhnSet set = getRhnSet(user);
         SdcHelper.ssmCheck(request, context.lookupAndBindServer().getId(), user);
         setup(context, (DynaActionForm)form, set);
@@ -93,7 +93,7 @@ public class RankChannelsAction extends BaseRankChannels {
             return handleNoScript(mapping, formIn, request, response);
         }
 
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         DynaActionForm form = (DynaActionForm) formIn;
         Server server = context.lookupAndBindServer();
 

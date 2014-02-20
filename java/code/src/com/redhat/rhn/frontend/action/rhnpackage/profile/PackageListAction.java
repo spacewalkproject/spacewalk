@@ -54,7 +54,7 @@ public class PackageListAction extends RhnAction implements Listable {
         Long prid = context.getRequiredParam(RequestContext.PRID);
         if (prid != null) {
             profile = ProfileManager.lookupByIdAndOrg(prid,
-                    context.getLoggedInUser().getOrg());
+                    context.getCurrentUser().getOrg());
 
             request.setAttribute("profile", profile);
         }

@@ -67,7 +67,7 @@ public class EnableSubmitAction extends RhnListDispatchAction {
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        User user = new RequestContext(request).getLoggedInUser();
+        User user = new RequestContext(request).getCurrentUser();
         RhnSetDecl set = RhnSetDecl.SYSTEMS;
 
         //get the earliest schedule for package install actions.

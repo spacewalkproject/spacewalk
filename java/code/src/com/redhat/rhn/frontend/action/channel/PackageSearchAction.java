@@ -87,7 +87,7 @@ public class PackageSearchAction extends BaseSearchAction {
         List<Map<String, String>> channelArches = buildChannelArches();
 
         // Load list of available channels to select as filter
-        List allChannels = ChannelManager.allChannelsTree(ctx.getLoggedInUser());
+        List allChannels = ChannelManager.allChannelsTree(ctx.getCurrentUser());
 
         request.setAttribute(SEARCH_STR, searchString);
         request.setAttribute(VIEW_MODE, viewmode);
@@ -137,7 +137,7 @@ public class PackageSearchAction extends BaseSearchAction {
            throws XmlRpcFault, MalformedURLException {
         List<PackageOverview> results =
                 PackageSearchHelper.performSearch(ctx.getWebSession().getId(),
-                        searchString, viewmode, selectedArches, ctx.getLoggedInUser()
+                        searchString, viewmode, selectedArches, ctx.getCurrentUser()
                                 .getId(), fineGrained, filterChannelId, searchCriteria);
 
         // Perform any post-search logic that wasn't done by the search server

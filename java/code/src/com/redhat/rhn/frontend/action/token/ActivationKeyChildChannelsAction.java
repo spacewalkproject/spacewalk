@@ -80,7 +80,7 @@ public class ActivationKeyChildChannelsAction extends RhnAction {
     }
 
     private ActivationKey update(DynaActionForm form, RequestContext context) {
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         ActivationKeyManager manager = ActivationKeyManager.getInstance();
         ActivationKey key = context.lookupAndBindActivationKey();
 
@@ -106,7 +106,7 @@ public class ActivationKeyChildChannelsAction extends RhnAction {
                                                 RequestContext context) {
         context.getRequest().setAttribute(CHANNELS, key.getChannels());
 
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         DataResult<HashMap> channelList = getPossibleChannels(user, key.getId());
         ArrayList finalList = new ArrayList();
 

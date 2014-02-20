@@ -47,7 +47,7 @@ public class SolarisPatchSetListSetupAction extends RhnListAction {
 
         Long sid = requestContext.getRequiredParam("sid");
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         PageControl pc = new PageControl();
         pc.setIndexData(true);
         pc.setFilterColumn("name");

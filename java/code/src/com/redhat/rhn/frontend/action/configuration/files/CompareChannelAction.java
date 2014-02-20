@@ -36,7 +36,7 @@ public class CompareChannelAction extends BaseListAction {
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pcIn) {
-        User user = rctxIn.getLoggedInUser();
+        User user = rctxIn.getCurrentUser();
 
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return cm.listChannelsForFileCompare(user, pcIn);

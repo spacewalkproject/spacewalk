@@ -76,7 +76,7 @@ public class PackagePushAction extends RhnSetAction {
         RhnSet set = updateSet(request);
         DynaActionForm daForm = (DynaActionForm) formIn;
         RequestContext rctx = new RequestContext(request);
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
         Long eid = (Long) daForm.get("eid");
         Long cid = (Long) daForm.get("cid");
         Errata errata = ErrataManager.lookupErrata(eid, user);

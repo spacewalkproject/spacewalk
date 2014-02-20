@@ -79,7 +79,7 @@ public class KickstartAdvancedOptionsAction extends RhnAction {
         List displayList = new LinkedList();
 
         //Display message if this kickstart profile's channel is inadequate.
-        User user = new RequestContext(request).getLoggedInUser();
+        User user = new RequestContext(request).getCurrentUser();
         if (!helper.verifyKickstartChannel(cmd.getKickstartData(), user)) {
             getStrutsDelegate().saveMessages(request,
                    helper.createInvalidChannelMsg(cmd.getKickstartData()));

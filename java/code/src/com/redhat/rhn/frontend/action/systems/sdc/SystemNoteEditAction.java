@@ -63,7 +63,7 @@ public class SystemNoteEditAction extends RhnAction {
         }
 
         Note note = new Note();
-        User loggedInUser = rctx.getLoggedInUser();
+        User loggedInUser = rctx.getCurrentUser();
         Long sid = rctx.getRequiredParam(RequestContext.SID);
         Server server = SystemManager.lookupByIdAndUser(sid, loggedInUser);
 

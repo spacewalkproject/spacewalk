@@ -49,7 +49,7 @@ public class ChannelFamilyTreeAction extends BaseChannelTreeAction {
 
         Long cfid = requestContext.getRequiredParam("cfid");
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         ChannelOverview co = ChannelManager.getEntitlement(user.getOrg().getId(), cfid);
 
         ListControl lc = new ListControl();

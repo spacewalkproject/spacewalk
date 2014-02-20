@@ -28,7 +28,7 @@ import com.redhat.rhn.manager.configuration.ConfigurationManager;
 public class GlobalConfigFileList extends BaseListAction {
 
     protected DataResult getDataResult(RequestContext context, PageControl pc) {
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         DataResult dr = ConfigurationManager.getInstance().listGlobalConfigFiles(user, pc);
         return dr;
     }

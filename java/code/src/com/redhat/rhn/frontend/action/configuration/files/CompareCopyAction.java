@@ -43,7 +43,7 @@ public class CompareCopyAction extends BaseListAction {
      */
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pcIn) {
         HttpServletRequest request = rctxIn.getRequest();
-        User user = rctxIn.getLoggedInUser();
+        User user = rctxIn.getCurrentUser();
 
         ConfigFile file = ConfigActionHelper.getFile(request);
 

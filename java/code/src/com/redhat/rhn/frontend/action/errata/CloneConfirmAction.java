@@ -49,7 +49,7 @@ public class CloneConfirmAction extends RhnAction {
                                  HttpServletResponse response) {
 
         RequestContext rctx = new RequestContext(request);
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
 
         DataResult dr = ErrataManager.selectedForCloning(user, null);
 

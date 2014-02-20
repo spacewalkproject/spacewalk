@@ -76,7 +76,7 @@ public class ChannelAction extends RhnSetAction {
 
         RequestContext requestContext = new RequestContext(request);
         //Get the logged in user
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
         //Get the errata object
         Errata errata = requestContext.lookupErratum();
@@ -112,7 +112,7 @@ public class ChannelAction extends RhnSetAction {
                                         HttpServletResponse response) {
         log.debug("updateChannels called.");
         RequestContext requestContext = new RequestContext(request);
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
         //Get the errata object
         Errata errata = requestContext.lookupErratum();

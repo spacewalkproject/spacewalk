@@ -87,7 +87,7 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
                                   HttpServletResponse response) {
         DynaActionForm form = (DynaActionForm) formIn;
         RequestContext rctx = new RequestContext(request);
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
         Server s  = SystemManager.lookupByIdAndUser(
                 rctx.getRequiredParam(RequestContext.SID), user);
 
@@ -181,7 +181,7 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
             ActionForm formIn, HttpServletRequest request, HttpServletResponse response) {
         log.debug("SystemChannelsAction.confirmUpdateBaseChannel");
         RequestContext rctx = new RequestContext(request);
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
         Server s  = SystemManager.lookupByIdAndUser(
                 rctx.getRequiredParam(RequestContext.SID), user);
         request.setAttribute(RequestContext.SYSTEM, s);
@@ -264,7 +264,7 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
         log.debug("SystemChannelsAction.updateBaseChannel");
 
         RequestContext rctx = new RequestContext(request);
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
         Server s  = SystemManager.lookupByIdAndUser(
                 rctx.getRequiredParam(RequestContext.SID), user);
 
@@ -303,7 +303,7 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
             HttpServletRequest request,
             HttpServletResponse response) {
         RequestContext rctx = new RequestContext(request);
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
         Server s  = SystemManager.lookupByIdAndUser(
                 rctx.getRequiredParam(RequestContext.SID), user);
 

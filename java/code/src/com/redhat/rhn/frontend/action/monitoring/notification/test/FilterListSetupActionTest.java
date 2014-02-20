@@ -83,7 +83,7 @@ public class FilterListSetupActionTest extends RhnBaseTestCase {
 
         RequestContext requestContext = new RequestContext(request);
 
-        user = requestContext.getLoggedInUser();
+        user = requestContext.getCurrentUser();
         RhnSet set = (RhnSet) request.getAttribute("set");
 
         DataResult dr = (DataResult) request.getAttribute(RequestContext.PAGE_LIST);

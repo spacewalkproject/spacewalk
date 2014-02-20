@@ -129,7 +129,7 @@ public class BaseSetHelper {
             String[] selected = ListTagHelper.getSelected(listName, request);
 
             RequestContext context = new RequestContext(request);
-            User user = context.getLoggedInUser();
+            User user = context.getCurrentUser();
 
             // If the user requested, first clear the SSM server set
             // Note: if the checkbox is selected, this executes regardless of whether or not

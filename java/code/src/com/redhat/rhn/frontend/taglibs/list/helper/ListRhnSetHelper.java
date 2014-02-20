@@ -203,7 +203,7 @@ public class ListRhnSetHelper extends ListSetHelper {
             decl = declIn.createCustom(params.entrySet().toArray());
         }
 
-        set = decl.get(context.getLoggedInUser());
+        set = decl.get(context.getCurrentUser());
         helper = new RhnListSetHelper(context.getRequest());
     }
 

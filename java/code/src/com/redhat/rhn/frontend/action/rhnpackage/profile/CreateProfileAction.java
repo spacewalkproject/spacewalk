@@ -62,7 +62,7 @@ public class CreateProfileAction extends RhnAction {
 
         ActionForward forward = null;
         DynaActionForm f = (DynaActionForm)form;
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
         Server server = requestContext.lookupAndBindServer();
         request.setAttribute("system", server);

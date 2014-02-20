@@ -59,7 +59,7 @@ public class ChannelDeployConfirmAction extends RhnAction {
             HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         RequestContext ctx = new RequestContext(request);
-        User user = ctx.getLoggedInUser();
+        User user = ctx.getCurrentUser();
 
         ConfigChannel cc = setupLists(request, user);
         request.setAttribute(ListTagHelper.PARENT_URL,
@@ -132,7 +132,7 @@ public class ChannelDeployConfirmAction extends RhnAction {
     }
 
     private boolean doScheduleDeploy(HttpServletRequest req, DynaActionForm form) {
-        User usr = new RequestContext(req).getLoggedInUser();
+        User usr = new RequestContext(req).getCurrentUser();
 
         RhnSet files = RhnSetDecl.CONFIG_CHANNEL_DEPLOY_REVISIONS.get(usr);
         if (files.size() == 0) {

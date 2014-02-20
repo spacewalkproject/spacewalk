@@ -121,7 +121,7 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
      */
     public DataResult<Map> getResult(RequestContext context, boolean shorten) {
         HttpServletRequest request = context.getRequest();
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
 
         // Stuff packages into an RhnSet to be used in the query
         String packagesDecl = (String) request.getAttribute("packagesDecl");
@@ -164,7 +164,7 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
 
         RequestContext context = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         // Load the date selected by the user
         Date earliest = getStrutsDelegate().readDatePicker((DynaActionForm) formIn,
             "date", DatePicker.YEAR_RANGE_POSITIVE);

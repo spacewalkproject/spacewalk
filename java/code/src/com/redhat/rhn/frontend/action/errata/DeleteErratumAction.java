@@ -83,7 +83,7 @@ public class DeleteErratumAction extends LookupDispatchAction {
         RequestContext requestContext = new RequestContext(request);
 
         Errata errata = requestContext.lookupErratum();
-        ErrataManager.deleteErratum(requestContext.getLoggedInUser(), errata);
+        ErrataManager.deleteErratum(requestContext.getCurrentUser(), errata);
         ActionMessages msgs = new ActionMessages();
         msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage("erratum.delete",
                 errata.getAdvisoryName()));

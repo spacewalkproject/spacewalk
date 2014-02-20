@@ -44,7 +44,7 @@ public class DistChannelMapSetupAction extends RhnAction implements Listable {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
         RequestContext context = new RequestContext(request);
-        User user =  context.getLoggedInUser();
+        User user =  context.getCurrentUser();
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
 
@@ -57,6 +57,6 @@ public class DistChannelMapSetupAction extends RhnAction implements Listable {
     public DataResult getResult(RequestContext context) {
         return new DataResult(
                 ChannelFactory.listAllDistChannelMapsByOrg(
-                    context.getLoggedInUser().getOrg()));
+                    context.getCurrentUser().getOrg()));
     }
 }

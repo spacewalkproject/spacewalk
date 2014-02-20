@@ -45,7 +45,7 @@ public class CompareFileAction extends BaseListAction {
      */
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pcIn) {
         HttpServletRequest request = rctxIn.getRequest();
-        User user = rctxIn.getLoggedInUser();
+        User user = rctxIn.getCurrentUser();
 
         ConfigChannel channel = ConfigActionHelper.getChannel(request);
         ConfigurationManager cm = ConfigurationManager.getInstance();

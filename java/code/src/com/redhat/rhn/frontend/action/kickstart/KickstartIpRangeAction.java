@@ -97,7 +97,7 @@ public class KickstartIpRangeAction extends RhnAction {
 
         //Display message if this kickstart profile's channel is inadequate.
         KickstartHelper helper = new KickstartHelper(request);
-        User user = new RequestContext(request).getLoggedInUser();
+        User user = new RequestContext(request).getCurrentUser();
         if (!helper.verifyKickstartChannel(ksData, user)) {
             strutsDelegate.saveMessages(request,
                     helper.createInvalidChannelMsg(cmd.getKickstartData()));

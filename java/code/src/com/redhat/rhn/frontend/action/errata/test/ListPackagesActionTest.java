@@ -59,7 +59,7 @@ public class ListPackagesActionTest extends RhnBaseTestCase {
         Package pkg = PackageTest.createTestPackage(user.getOrg());
         String[] selected = {pkg.getId().toString()};
 
-        RhnSet pre = RhnSetDecl.PACKAGES_TO_REMOVE.get(requestContext.getLoggedInUser());
+        RhnSet pre = RhnSetDecl.PACKAGES_TO_REMOVE.get(requestContext.getCurrentUser());
         //make sure the set is empty
         assertTrue(pre.isEmpty());
 
@@ -70,7 +70,7 @@ public class ListPackagesActionTest extends RhnBaseTestCase {
 
         ActionForward result = action.confirm(mapping, form, request, response);
 
-        RhnSet post = RhnSetDecl.PACKAGES_TO_REMOVE.get(requestContext.getLoggedInUser());
+        RhnSet post = RhnSetDecl.PACKAGES_TO_REMOVE.get(requestContext.getCurrentUser());
         //make sure something is in the set
         assertFalse(post.isEmpty());
         //make sure we're going to the confirm forward

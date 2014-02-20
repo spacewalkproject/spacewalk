@@ -101,7 +101,7 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
 
         ActionForward forward = super.execute(mapping, formIn, request, response);
         RequestContext rctx = new RequestContext(request);
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
 
         log.debug("show: " + (request.getAttribute(SHOW_NO_SYSTEMS) == null));
         if (request.getAttribute(SHOW_NO_SYSTEMS) == null) {

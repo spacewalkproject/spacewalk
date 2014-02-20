@@ -53,7 +53,7 @@ public class SystemNoteDeleteAction extends RhnAction {
 
         Long nid = Long.parseLong(request.getParameter("nid"));
 
-        User loggedInUser = rctx.getLoggedInUser();
+        User loggedInUser = rctx.getCurrentUser();
         Long sid = Long.parseLong(request.getParameter("sid"));
         Server server = SystemManager.lookupByIdAndUser(sid, loggedInUser);
         Note note = SystemManager.lookupNoteByIdAndSystem(loggedInUser, nid, sid);

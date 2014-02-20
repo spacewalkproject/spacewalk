@@ -48,7 +48,7 @@ public class InstallPatchSetSetupAction extends RhnAction {
         Long sid = requestContext.getRequiredParam("sid");
         Long pid = requestContext.getRequiredParam("pid");
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         request.setAttribute("system", server);

@@ -69,7 +69,7 @@ public class ProbeSuiteSystemsSetupActionTest extends RhnBaseTestCase {
         RequestContext requestContext = new RequestContext(request);
 
         assertNotNull(request.getAttribute("probeSuite"));
-        user = requestContext.getLoggedInUser();
+        user = requestContext.getCurrentUser();
         RhnSet set = (RhnSet) request.getAttribute("set");
 
         List dr = (List) request.getAttribute(RequestContext.PAGE_LIST);

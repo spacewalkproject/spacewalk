@@ -56,7 +56,7 @@ public class RemoveConfirmSetupAction extends BaseSystemPackagesConfirmAction {
     @Override
     protected PackageAction schedulePackageAction(ActionForm formIn,
             RequestContext context, List<Map<String, Long>> pkgs, Date earliest) {
-        return ActionManager.schedulePackageRemoval(context.getLoggedInUser(),
+        return ActionManager.schedulePackageRemoval(context.getCurrentUser(),
                 context.lookupAndBindServer(), pkgs, earliest);
     }
 

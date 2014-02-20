@@ -72,7 +72,7 @@ public class ChannelFilesListSubmit extends BaseSetOperateOnSelectedItemsAction 
             HttpServletResponse response) {
         ActionForward retval = operateOnSelectedSet(mapping, formIn, request,
                 response, "setFilesToRemove");
-        ConfigActionHelper.clearRhnSets(new RequestContext(request).getLoggedInUser());
+        ConfigActionHelper.clearRhnSets(new RequestContext(request).getCurrentUser());
         return retval;
     }
     /**

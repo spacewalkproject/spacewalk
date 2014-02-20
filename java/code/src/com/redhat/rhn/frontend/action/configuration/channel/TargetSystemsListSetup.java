@@ -52,7 +52,7 @@ public class TargetSystemsListSetup extends BaseSetListAction {
 
         ConfigChannel cc = ConfigActionHelper.getChannel(ctx.getRequest());
         DataResult dr = ConfigurationManager.getInstance().
-            listSystemsNotInChannel(ctx.getLoggedInUser(), cc, pc);
+            listSystemsNotInChannel(ctx.getCurrentUser(), cc, pc);
         return dr;
     }
 }

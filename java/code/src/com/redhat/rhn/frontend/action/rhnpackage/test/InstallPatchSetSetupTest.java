@@ -46,7 +46,7 @@ public class InstallPatchSetSetupTest extends RhnBaseTestCase {
 
         RhnMockHttpServletRequest request = TestUtils.getRequestWithSessionAndUser();
         RequestContext requestContext = new RequestContext(request);
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
         user.addRole(RoleFactory.ORG_ADMIN);
         Server system = ServerFactoryTest.createTestServer(user);

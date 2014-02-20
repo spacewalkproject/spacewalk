@@ -76,7 +76,7 @@ public class ErrataSetupAction extends RhnAction implements Listable {
                                  HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         Long sid = requestContext.getRequiredParam("sid");
         RhnSet set = getSetDecl(sid).get(user);
 
@@ -192,7 +192,7 @@ public class ErrataSetupAction extends RhnAction implements Listable {
         //if they chose errata, send them to the confirmation page
         Long sid = requestContext.getParamAsLong("sid");
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         RhnSet set = getSetDecl(sid).get(user);
 
         //if they chose no errata, return to the same page with a message
@@ -244,7 +244,7 @@ public class ErrataSetupAction extends RhnAction implements Listable {
      * {@inheritDoc}
      */
     public List getResult(RequestContext context) {
-         User user = context.getLoggedInUser();
+         User user = context.getCurrentUser();
          Long sid = context.getRequiredParam("sid");
          String type = context.getParam(SELECTOR, false);
          String synopsis = "";

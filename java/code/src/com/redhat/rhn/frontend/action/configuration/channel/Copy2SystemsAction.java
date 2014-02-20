@@ -38,7 +38,7 @@ public class Copy2SystemsAction extends BaseCopyToAction {
      */
     public List getData(HttpServletRequest req) {
         RequestContext ctx = new RequestContext(req);
-        User user = ctx.getLoggedInUser();
+        User user = ctx.getCurrentUser();
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return cm.listSystemsForCopy(user, null);
     }

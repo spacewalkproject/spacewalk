@@ -42,7 +42,7 @@ public class SelfEditAction extends UserEditActionHelper {
                                  HttpServletResponse response) {
         DynaActionForm form = (DynaActionForm)formIn;
         RequestContext requestContext = new RequestContext(request);
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
         ActionErrors errors = updateDetails(user, user, form);
 

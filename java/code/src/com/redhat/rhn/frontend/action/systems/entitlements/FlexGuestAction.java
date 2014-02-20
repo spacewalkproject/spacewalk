@@ -48,7 +48,7 @@ public class FlexGuestAction  extends EligibleFlexGuestAction  {
             HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
 
         request.setAttribute("selected_family", getSelectedChannel(requestContext));
@@ -61,7 +61,7 @@ public class FlexGuestAction  extends EligibleFlexGuestAction  {
     @Override
     protected List<ChannelFamilySystemGroup> query(RequestContext contextIn) {
         return VirtualizationEntitlementsManager.getInstance().
-            listFlexGuests(contextIn.getLoggedInUser());
+            listFlexGuests(contextIn.getCurrentUser());
     }
 
 }

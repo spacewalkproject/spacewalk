@@ -53,7 +53,7 @@ public class AffectedSystemsSetupAction extends RhnListAction {
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
 
         Errata errata = requestContext.lookupErratum();

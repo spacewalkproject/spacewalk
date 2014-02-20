@@ -187,7 +187,7 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
         Long sid = requestContext.getRequiredParam("sid");
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         //updateList(newactions, user.getId());
 
         List<Map<String, Long>> data = PackageListItem.toKeyMaps(getDataResult(request));

@@ -118,7 +118,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
         setupCobblerFormValues(ctx, form, cmd.getKickstartData());
 
         KickstartWizardHelper wizardHelper = new
-                            KickstartWizardHelper(ctx.getLoggedInUser());
+                            KickstartWizardHelper(ctx.getCurrentUser());
         // Lookup the kickstart virtualization types and pre-select the current one:
         List types = wizardHelper.getVirtualizationTypes();
         form.set(VIRTUALIZATION_TYPES, types);
@@ -143,7 +143,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
     public static void setupCobblerFormValues(RequestContext ctx,
             DynaActionForm form, KickstartData data) {
         Profile prof = Profile.lookupById(CobblerXMLRPCHelper.getConnection(
-                    ctx.getLoggedInUser()), data.getCobblerId());
+                    ctx.getCurrentUser()), data.getCobblerId());
         if (prof != null) {
             form.set(KERNEL_OPTIONS, prof.getKernelOptionsString());
             form.set(POST_KERNEL_OPTIONS, prof.getKernelPostOptionsString());
@@ -197,7 +197,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
         ValidatorError error = null;
         KickstartEditCommand cmd = (KickstartEditCommand) cmdIn;
         RequestContext ctx = new RequestContext(request);
-        KickstartBuilder builder = new KickstartBuilder(ctx.getLoggedInUser());
+        KickstartBuilder builder = new KickstartBuilder(ctx.getCurrentUser());
         cmd.setComments(form.getString(COMMENTS));
         try {
 
@@ -207,7 +207,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
                     form.getString(VIRTUALIZATION_TYPE_LABEL));
 
             Distro distro = CobblerProfileCommand.getCobblerDistroForVirtType(
-                    cmdIn.getKickstartData().getTree(), vType, ctx.getLoggedInUser());
+                    cmdIn.getKickstartData().getTree(), vType, ctx.getCurrentUser());
             if (distro == null) {
                 ValidatorException.raiseException("kickstart.cobbler.profile.invalidvirt");
             }
@@ -230,7 +230,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
             cmd.getKickstartData().setKsCfg(
                     BooleanUtils.toBoolean((Boolean) form.get(KS_CFG)));
 
-            processCobblerFormValues(cmd.getKickstartData(), form, ctx.getLoggedInUser());
+            processCobblerFormValues(cmd.getKickstartData(), form, ctx.getCurrentUser());
 
             String virtTypeLabel = form.getString(VIRTUALIZATION_TYPE_LABEL);
             KickstartVirtualizationType ksVirtType = KickstartFactory.

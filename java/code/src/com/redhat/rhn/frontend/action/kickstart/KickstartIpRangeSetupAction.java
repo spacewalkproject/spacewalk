@@ -50,7 +50,7 @@ public class KickstartIpRangeSetupAction extends RhnAction {
             HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        User user =  requestContext.getLoggedInUser();
+        User user =  requestContext.getCurrentUser();
 
         String urlStr;
         try {

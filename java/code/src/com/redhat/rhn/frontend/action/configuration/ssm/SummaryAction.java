@@ -32,7 +32,7 @@ public class SummaryAction extends BaseListAction {
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pcIn) {
-        User user = rctxIn.getLoggedInUser();
+        User user = rctxIn.getCurrentUser();
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return cm.getEnableSummary(user, pcIn, RhnSetDecl.CONFIG_ENABLE_SYSTEMS.getLabel());
     }

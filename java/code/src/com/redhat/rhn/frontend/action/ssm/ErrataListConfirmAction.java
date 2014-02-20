@@ -78,7 +78,7 @@ public class ErrataListConfirmAction extends RhnAction implements
             DynaActionForm formIn,
             HttpServletRequest request) {
         RequestContext context = new RequestContext(request);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
 
         Date earliest = getStrutsDelegate().readDatePicker(formIn,
                 "date", DatePicker.YEAR_RANGE_POSITIVE);

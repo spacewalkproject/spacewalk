@@ -62,7 +62,7 @@ public class DistChannelMapEditAction extends RhnAction {
                                   HttpServletResponse response) {
         DynaActionForm form = (DynaActionForm) formIn;
         RequestContext ctx = new RequestContext(request);
-        User user = ctx.getLoggedInUser();
+        User user = ctx.getCurrentUser();
 
         // setup channel architectures
         List channelArches = new ArrayList();

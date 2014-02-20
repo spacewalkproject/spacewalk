@@ -53,7 +53,7 @@ public class ArchivedActionsSetupAction extends BaseScheduledListAction {
     * {@inheritDoc}
     */
    public List getResult(RequestContext context) {
-       return ActionManager.archivedActions(context.getLoggedInUser(), null);
+       return ActionManager.archivedActions(context.getCurrentUser(), null);
    }
 
    /**
@@ -66,7 +66,7 @@ public class ArchivedActionsSetupAction extends BaseScheduledListAction {
        RequestContext requestContext = new RequestContext(request);
        StrutsDelegate strutsDelegate = getStrutsDelegate();
 
-       User user = requestContext.getLoggedInUser();
+       User user = requestContext.getCurrentUser();
        RhnSet set = getSetDecl().get(user);
 
        ActionManager.deleteActions(user, getSetDecl().getLabel());

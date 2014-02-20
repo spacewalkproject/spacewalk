@@ -52,7 +52,7 @@ public class NoteListAction extends RhnListAction {
         RequestContext rctx = new RequestContext(request);
 
         Long sid = rctx.getRequiredParam("sid");
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
         Server s  = SystemManager.lookupByIdAndUser(sid, user);
 
         DataResult dr = SystemManager.systemNotes(s);

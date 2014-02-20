@@ -52,7 +52,7 @@ public class ListViewHelper {
         this.ctx = requestContext;
         this.filterByField = filterField;
         // Default to the User's page size.  Can be overriden by calling setPageSize()
-        this.pageSize = requestContext.getLoggedInUser().getPageSize();
+        this.pageSize = requestContext.getCurrentUser().getPageSize();
     }
 
     /**

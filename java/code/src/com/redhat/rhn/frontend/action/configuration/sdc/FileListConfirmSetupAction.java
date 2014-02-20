@@ -41,7 +41,7 @@ public class FileListConfirmSetupAction extends BaseListAction {
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pcIn) {
-        User user = rctxIn.getLoggedInUser();
+        User user = rctxIn.getCurrentUser();
         Server server = rctxIn.lookupAndBindServer();
         // if a var called selectall=true is bound, then do a select all
         String selectAll = rctxIn.getParam(SELECT_ALL, false);

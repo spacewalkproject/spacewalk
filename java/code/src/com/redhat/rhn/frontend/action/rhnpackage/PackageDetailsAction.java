@@ -57,7 +57,7 @@ public class PackageDetailsAction extends RhnAction {
             HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
         //If this is an easy one and we have the pid
         if (request.getParameter("pid") != null) {

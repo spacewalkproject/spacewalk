@@ -53,7 +53,7 @@ public class EditAddressSetupAction extends RhnAction {
                 "Invalid type parameter with null value");
         }
 
-        User user = UserManager.lookupUser(requestContext.getLoggedInUser(), uid);
+        User user = UserManager.lookupUser(requestContext.getCurrentUser(), uid);
         request.setAttribute(RhnHelper.TARGET_USER, user);
         form.set("uid", user.getId());
         if (!RhnValidationHelper.getFailedValidation(request)) {

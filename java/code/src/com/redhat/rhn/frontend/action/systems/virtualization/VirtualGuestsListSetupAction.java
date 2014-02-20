@@ -58,7 +58,7 @@ public class VirtualGuestsListSetupAction extends BaseSystemListSetupAction {
             HttpServletResponse response) {
 
         RequestContext rctx = new RequestContext(request);
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
         PageControl pc = new PageControl();
         pc.setIndexData(true);
         pc.setFilterColumn("name");
@@ -68,7 +68,7 @@ public class VirtualGuestsListSetupAction extends BaseSystemListSetupAction {
 
         RhnSet set = getSetDecl().get(user);
         if (!rctx.isSubmitted()) {
-            getSetDecl().clear(rctx.getLoggedInUser());
+            getSetDecl().clear(rctx.getCurrentUser());
         }
 
         DataResult dr = getDataResult(user, pc, request);

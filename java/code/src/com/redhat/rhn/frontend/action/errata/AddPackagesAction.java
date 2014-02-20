@@ -99,7 +99,7 @@ public class AddPackagesAction extends RhnAction implements Listable {
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
         HttpServletRequest request = context.getRequest();
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
 
         // Put the advisory into the request for the page header
         Errata errata = new RequestContext(request).lookupErratum();

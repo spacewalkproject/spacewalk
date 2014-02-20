@@ -68,7 +68,7 @@ public class ChildChannelConfirmAction extends RhnAction implements Listable {
         overallStart = System.currentTimeMillis();
 
         RequestContext requestContext = new RequestContext(request);
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         DynaActionForm daForm = (DynaActionForm)form;
 
         // First, find the channels the user chose to operate on, as stored

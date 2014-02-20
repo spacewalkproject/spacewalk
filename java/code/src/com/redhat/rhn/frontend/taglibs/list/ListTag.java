@@ -1075,7 +1075,7 @@ public class ListTag extends BodyTagSupport {
         int tmp = -1;
         RequestContext rctx = new RequestContext(
                 (HttpServletRequest) pageContext.getRequest());
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
         if (user != null) {
             tmp = user.getPageSize();
             if (tmp > 0) {

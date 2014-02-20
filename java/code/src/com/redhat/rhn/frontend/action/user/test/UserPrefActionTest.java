@@ -54,7 +54,7 @@ public class UserPrefActionTest extends RhnBaseTestCase {
 
         RequestContext requestContext = new RequestContext(request);
 
-        User user = UserManager.lookupUser(requestContext.getLoggedInUser(),
+        User user = UserManager.lookupUser(requestContext.getCurrentUser(),
                 requestContext.getParamAsLong("uid"));
         request.setAttribute(RhnHelper.TARGET_USER, user);
         // we have to get the actual user here so we can call setupAddParamter

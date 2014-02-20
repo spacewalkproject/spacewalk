@@ -42,7 +42,7 @@ public class SubscriptionsSetupAction extends BaseSetListAction {
      */
     protected void processRequestAttributes(RequestContext rctx) {
         if (!rctx.isSubmitted()) {
-            getSetDecl().clear(rctx.getLoggedInUser());
+            getSetDecl().clear(rctx.getCurrentUser());
         }
         super.processRequestAttributes(rctx);
         return;
@@ -52,7 +52,7 @@ public class SubscriptionsSetupAction extends BaseSetListAction {
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext context, PageControl pc) {
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         ConfigurationManager cm = ConfigurationManager.getInstance();
         Server server = context.lookupAndBindServer();
         SdcHelper.ssmCheck(context.getRequest(), server.getId(), user);

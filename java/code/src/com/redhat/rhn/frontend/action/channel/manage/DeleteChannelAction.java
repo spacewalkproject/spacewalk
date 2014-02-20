@@ -58,7 +58,7 @@ public class DeleteChannelAction extends RhnAction {
                     throws Exception {
 
         RequestContext context = new RequestContext(request);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
 
         String sChannelId = request.getParameter("cid");
         long channelId = Long.parseLong(sChannelId);

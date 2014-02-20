@@ -158,7 +158,7 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
 
         RequestContext requestContext = new RequestContext(request);
 
-        User u = requestContext.getLoggedInUser();
+        User u = requestContext.getCurrentUser();
 
         set(ConfigFileForm.REV_PATH, cr.getConfigFile().getConfigFileName().getPath());
         if (cr.isSymlink() && cr.getConfigInfo().getTargetFileName() != null) {

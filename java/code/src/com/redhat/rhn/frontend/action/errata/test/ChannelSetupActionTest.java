@@ -98,12 +98,12 @@ public class ChannelSetupActionTest extends RhnBaseTestCase {
         RequestContext requestContext = new RequestContext(sah.getRequest());
 
         //make sure set is empty
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         RhnSet set = RhnSetDecl.CHANNELS_FOR_ERRATA.get(user);
         assertTrue(set.isEmpty());
 
         //Set the setupdated variable to make sure we are keeping changes from the set
-        User usr = requestContext.getLoggedInUser();
+        User usr = requestContext.getCurrentUser();
         RhnSet newset = RhnSetDecl.CHANNELS_FOR_ERRATA.create(usr);
         newset.addElement(new Long(42));
         newset.addElement(new Long(43));
@@ -159,7 +159,7 @@ public class ChannelSetupActionTest extends RhnBaseTestCase {
         RequestContext requestContext = new RequestContext(sah.getRequest());
 
         //make sure set is not empty
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         RhnSet set = RhnSetDecl.CHANNELS_FOR_ERRATA.get(user);
         assertFalse(set.isEmpty());
     }

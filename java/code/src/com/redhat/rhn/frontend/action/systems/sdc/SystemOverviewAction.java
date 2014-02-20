@@ -65,7 +65,7 @@ public class SystemOverviewAction extends RhnAction {
             HttpServletRequest request, HttpServletResponse response) {
         RequestContext rctx = new RequestContext(request);
         Long sid = rctx.getRequiredParam("sid");
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
         Server s  = SystemManager.lookupByIdAndUser(sid, user);
 
         /* Here we htmlify the description stored in the database such that end line's

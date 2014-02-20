@@ -143,7 +143,7 @@ public class RhnRequestProcessor extends RequestProcessor {
     private void sendErrorEmail(HttpServletRequest request, Throwable e) {
         TraceBackEvent evt = new TraceBackEvent();
         RequestContext requestContext = new RequestContext(request);
-        User usr = requestContext.getLoggedInUser();
+        User usr = requestContext.getCurrentUser();
         evt.setUser(usr);
         evt.setRequest(request);
         evt.setException(e);

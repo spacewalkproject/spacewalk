@@ -99,7 +99,7 @@ public class RhnSetHelper {
      * @return the newly updated set
      */
     public RhnSet updateSet() {
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
         RhnSet set = this.setDecl.get(user);
         String[] selected = request.getParameterValues("items_selected");
@@ -129,7 +129,7 @@ public class RhnSetHelper {
      */
     public ActionForward selectall(DataResult dr, Map paramsIn) {
 
-        selectAllData(dr, requestContext.getLoggedInUser());
+        selectAllData(dr, requestContext.getCurrentUser());
 
         paramsIn.put("setupdated", "true");
         paramsIn.put(RhnAction.SUBMITTED, "true");
@@ -183,7 +183,7 @@ public class RhnSetHelper {
      */
     public ActionForward unselectall(Map paramsIn) {
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
         this.setDecl.clear(user);
         paramsIn.put("setupdated", "true");
@@ -195,7 +195,7 @@ public class RhnSetHelper {
      * @return current User
      */
     public User getUser() {
-        return requestContext.getLoggedInUser();
+        return requestContext.getCurrentUser();
     }
 
 

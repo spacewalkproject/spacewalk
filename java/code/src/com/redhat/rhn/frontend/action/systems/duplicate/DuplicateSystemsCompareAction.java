@@ -83,10 +83,10 @@ public class DuplicateSystemsCompareAction extends RhnAction implements Listable
                 if (request.getParameter("btn" + sid) != null) {
                     Long id = Long.valueOf(sid);
                     Server server = SystemManager.lookupByIdAndUser(id,
-                                                    context.getLoggedInUser());
+                                                    context.getCurrentUser());
                     String name = server.getName();
                     server = null;
-                    SystemManager.deleteServer(context.getLoggedInUser(), id);
+                    SystemManager.deleteServer(context.getCurrentUser(), id);
                     getStrutsDelegate().saveMessage("message.serverdeleted.param",
                                                     new String[] {name}, request);
                     itr.remove();
@@ -111,9 +111,9 @@ public class DuplicateSystemsCompareAction extends RhnAction implements Listable
                 sids.add(Long.valueOf(sid));
             }
             List<Server> systems = SystemManager.
-            hydrateServerFromIds(sids, context.getLoggedInUser());
+            hydrateServerFromIds(sids, context.getCurrentUser());
             request.setAttribute("systems",
-                    new SystemCompareDto(systems, context.getLoggedInUser()));
+                    new SystemCompareDto(systems, context.getCurrentUser()));
         }
 
 
@@ -128,14 +128,14 @@ public class DuplicateSystemsCompareAction extends RhnAction implements Listable
         String keyType = contextIn.getRequiredParamAsString(KEY_TYPE);
         if (DuplicateSystemsAction.HOSTNAME.equals(keyType)) {
             return SystemManager.listDuplicatesByHostname
-                                (contextIn.getLoggedInUser(), key);
+                                (contextIn.getCurrentUser(), key);
         }
         else if (DuplicateSystemsAction.MAC_ADDRESS.equals(keyType)) {
-            return SystemManager.listDuplicatesByMac(contextIn.getLoggedInUser(), key);
+            return SystemManager.listDuplicatesByMac(contextIn.getCurrentUser(), key);
         }
         else if (DuplicateSystemsAction.IPV6.equals(keyType)) {
-            return SystemManager.listDuplicatesByIPv6(contextIn.getLoggedInUser(), key);
+            return SystemManager.listDuplicatesByIPv6(contextIn.getCurrentUser(), key);
         }
-        return SystemManager.listDuplicatesByIP(contextIn.getLoggedInUser(), key);
+        return SystemManager.listDuplicatesByIP(contextIn.getCurrentUser(), key);
     }
 }

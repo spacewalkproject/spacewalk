@@ -44,7 +44,7 @@ public class CustomKeyListAction extends RhnAction {
             HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        User user =  requestContext.getLoggedInUser();
+        User user =  requestContext.getCurrentUser();
 
         DataResult result = SystemManager.listDataKeys(user);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());

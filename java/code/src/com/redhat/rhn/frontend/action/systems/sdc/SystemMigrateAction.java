@@ -56,7 +56,7 @@ public class SystemMigrateAction extends RhnAction {
             HttpServletRequest request, HttpServletResponse response) {
         RequestContext rctx = new RequestContext(request);
         DynaActionForm daForm = (DynaActionForm) form;
-        User user = rctx.getLoggedInUser();
+        User user = rctx.getCurrentUser();
         String forwardName = RhnHelper.DEFAULT_FORWARD;
         Integer trustedOrgCount = user.getOrg().getTrustedOrgs().size();
 

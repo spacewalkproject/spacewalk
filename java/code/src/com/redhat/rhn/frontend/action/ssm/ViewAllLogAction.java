@@ -32,7 +32,7 @@ public class ViewAllLogAction extends BaseViewLogAction {
 
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         DataResult result = SsmOperationManager.allOperations(user);
         return result;
     }

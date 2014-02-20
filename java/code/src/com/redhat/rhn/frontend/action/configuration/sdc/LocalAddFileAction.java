@@ -46,7 +46,7 @@ public class LocalAddFileAction extends BaseAddFilesAction {
     protected void processRequest(HttpServletRequest request) {
         RequestContext ctx = new RequestContext(request);
         Server server = ctx.lookupAndBindServer();
-        User user = ctx.getLoggedInUser();
+        User user = ctx.getCurrentUser();
         SdcHelper.ssmCheck(request, server.getId(), user);
     }
 

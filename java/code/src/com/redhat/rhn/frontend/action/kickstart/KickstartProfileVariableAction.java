@@ -40,7 +40,7 @@ public class KickstartProfileVariableAction extends KickstartVariableAction {
     protected String getCobblerId(RequestContext context) {
         Long ksid = context.getRequiredParam(RequestContext.KICKSTART_ID);
         KickstartData data = KickstartFactory.lookupKickstartDataByIdAndOrg(
-                context.getLoggedInUser().getOrg(), ksid);
+                context.getCurrentUser().getOrg(), ksid);
         if (data == null) {
             return null;
         }
@@ -61,7 +61,7 @@ public class KickstartProfileVariableAction extends KickstartVariableAction {
         super.setupFormValues(ctx, form, cId);
         Long ksid = ctx.getRequiredParam(RequestContext.KICKSTART_ID);
         KickstartData data = KickstartFactory.lookupKickstartDataByIdAndOrg(
-                ctx.getLoggedInUser().getOrg(), ksid);
+                ctx.getCurrentUser().getOrg(), ksid);
         ctx.getRequest().setAttribute("ksdata", data);
     }
 

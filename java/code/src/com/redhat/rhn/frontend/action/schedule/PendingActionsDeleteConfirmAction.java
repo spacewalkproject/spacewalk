@@ -87,7 +87,7 @@ public class PendingActionsDeleteConfirmAction extends RhnAction implements List
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         RhnSet set = getSetDecl().get(user);
 
 

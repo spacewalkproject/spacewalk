@@ -34,7 +34,7 @@ public class LocalConfigFileList extends BaseListAction {
     }
 
     protected DataResult getDataResult(RequestContext context, PageControl pc) {
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         DataResult dr = ConfigurationManager.getInstance().listLocalConfigFiles(user, pc);
         return dr;
     }

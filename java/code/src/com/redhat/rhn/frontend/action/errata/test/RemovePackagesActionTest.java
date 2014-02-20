@@ -59,7 +59,7 @@ public class RemovePackagesActionTest extends RhnBaseTestCase {
 
         RequestContext requestContext = new RequestContext(request);
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
         Errata errata = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
 

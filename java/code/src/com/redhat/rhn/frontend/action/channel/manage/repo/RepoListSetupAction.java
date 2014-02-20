@@ -49,7 +49,7 @@ public class RepoListSetupAction extends RhnAction {
 
         request.setAttribute(mapping.getParameter(), Boolean.TRUE);
         RequestContext context = new RequestContext(request);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         List<ContentSourceDto> result;
 
         result = RepoLister.getInstance().list(user);

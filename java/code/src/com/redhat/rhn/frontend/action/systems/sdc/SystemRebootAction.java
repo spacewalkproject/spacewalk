@@ -51,7 +51,7 @@ public class SystemRebootAction extends RhnAction {
 
         DynaActionForm form = (DynaActionForm) formIn;
         RequestContext context = new RequestContext(request);
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         Map<String, Object> params = makeParamMap(request);
         String forward = RhnHelper.DEFAULT_FORWARD;
 

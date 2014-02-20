@@ -47,7 +47,7 @@ public class CompletedSystemsSetupAction extends RhnListAction {
 
         Long aid = requestContext.getRequiredParam("aid");
 
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         PageControl pc = new PageControl();
 
         Action action = ActionManager.lookupAction(user, aid);

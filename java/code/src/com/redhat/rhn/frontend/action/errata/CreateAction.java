@@ -123,7 +123,7 @@ public class CreateAction extends RhnAction {
         e.setUpdateDate(date);
 
         //Set the org for the errata to the logged in user's org
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
         e.setOrg(user.getOrg());
 
         ErrataManager.storeErrata(e);

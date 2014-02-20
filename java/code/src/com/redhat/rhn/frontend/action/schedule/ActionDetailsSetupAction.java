@@ -44,7 +44,7 @@ public class ActionDetailsSetupAction extends RhnAction {
 
         Long aid = requestContext.getRequiredParam("aid");
 
-        Action action = ActionManager.lookupAction(requestContext.getLoggedInUser(),
+        Action action = ActionManager.lookupAction(requestContext.getCurrentUser(),
                 aid);
         ActionFormatter af = action.getFormatter();
         request.setAttribute("actionname", af.getName());

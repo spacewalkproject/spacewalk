@@ -66,7 +66,7 @@ public class SoftwareCrashesAction extends RhnAction implements Listable {
            return handleSubmit(mapping, context, server);
        }
 
-       SdcHelper.ssmCheck(request, server.getId(), context.getLoggedInUser());
+       SdcHelper.ssmCheck(request, server.getId(), context.getCurrentUser());
 
        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
    }

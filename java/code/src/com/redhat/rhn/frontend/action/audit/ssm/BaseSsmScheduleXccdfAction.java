@@ -47,7 +47,7 @@ public abstract class BaseSsmScheduleXccdfAction
      * {@inheritDoc}
      */
     public List getResult(RequestContext context) {
-        return ScapManager.systemsInSsmAndScapCapability(context.getLoggedInUser());
+        return ScapManager.systemsInSsmAndScapCapability(context.getCurrentUser());
     }
 
     protected void setupListHelper(HttpServletRequest request) {

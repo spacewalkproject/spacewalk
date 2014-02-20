@@ -46,7 +46,7 @@ public class SoftwareEntitlementsAction extends RhnAction implements Listable {
             HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         RequestContext requestContext = new RequestContext(request);
-        User u = requestContext.getLoggedInUser();
+        User u = requestContext.getCurrentUser();
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
         Long orgCount = OrgManager.getTotalOrgCount(u);

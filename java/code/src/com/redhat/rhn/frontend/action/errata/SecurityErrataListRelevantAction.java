@@ -29,7 +29,7 @@ public class SecurityErrataListRelevantAction extends ErrataListRelevantAction {
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
 
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
         return ErrataManager.relevantSecurityErrata(user, null);
     }
 

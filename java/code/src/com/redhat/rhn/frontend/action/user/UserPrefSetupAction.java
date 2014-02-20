@@ -63,10 +63,10 @@ public class UserPrefSetupAction extends RhnAction {
                     "Invalid [null] value for parameter uid");
         }
 
-        User user = UserManager.lookupUser(requestContext.getLoggedInUser(), uid);
+        User user = UserManager.lookupUser(requestContext.getCurrentUser(), uid);
         request.setAttribute(RhnHelper.TARGET_USER, user);
         if (user == null) {
-            user = requestContext.getLoggedInUser();
+            user = requestContext.getCurrentUser();
         }
 
         form.set("uid", user.getId());

@@ -94,7 +94,7 @@ public class ScheduleRemoteCommand extends RhnAction {
         if (MODE_INSTALL.equals(mode)) {
             cid = requestContext.getRequiredParam("cid");
         }
-        User user = requestContext.getLoggedInUser();
+        User user = requestContext.getCurrentUser();
 
         Map reqMap = new HashMap();
         reqMap.putAll(request.getParameterMap());
@@ -256,7 +256,7 @@ public class ScheduleRemoteCommand extends RhnAction {
     private List getUpgradeResult(RequestContext context, String setLabel) {
 
         HttpServletRequest request = context.getRequest();
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
 
         // Stuff packages into an RhnSet to be used in the query
         if (setLabel != null) {
@@ -324,7 +324,7 @@ public class ScheduleRemoteCommand extends RhnAction {
 
     private List getRemoveResult(RequestContext context, String setLabel) {
         HttpServletRequest request = context.getRequest();
-        User user = context.getLoggedInUser();
+        User user = context.getCurrentUser();
 
         // Stuff packages into an RhnSet to be used in the query
         String packagesDecl = (String) request.getAttribute("packagesDecl");
