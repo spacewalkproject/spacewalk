@@ -607,8 +607,8 @@ public class RequestContext {
                 '&');
                 // Convert the parameters into a map so we can
                 // easily replace the value and reformat the query string.
-                for (int i = 0; i < params.length; i++) {
-                    String[] nameval = StringUtils.split(params[i], '=');
+                for (String param : params) {
+                    String[] nameval = StringUtils.split(param, '=');
                     parammap.put(nameval[0], nameval[1]);
                 }
                 parammap.remove(name);
