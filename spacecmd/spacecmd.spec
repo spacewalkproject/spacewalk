@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.1.24
+Version:     2.1.25
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -64,6 +64,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Feb 21 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.1.25-1
+- 1060746 - make file_needs_b64_enc work for both str and unicode inputs
+
 * Tue Jan 14 2014 Matej Kollar <mkollar@redhat.com> 2.1.24-1
 - Automatic commit of package [spacecmd] release [2.1.23-1].
 
