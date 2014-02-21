@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.1.48
+Version:        2.1.49
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Feb 21 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.49-1
+- updated rhnServerOutdatePackages to include arch
+
 * Fri Feb 21 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.48-1
 - improved performance of system.listLatestUpgradeablePackages and
   UpgradableList.do
