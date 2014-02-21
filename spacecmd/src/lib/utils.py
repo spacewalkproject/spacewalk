@@ -736,9 +736,12 @@ def file_needs_b64_enc(self, contents):
         return False
 
     text_characters = "".join(map(chr, range(32, 127)) + list("\n\r\t\b"))
-    _null_trans = string.maketrans("", "")
-
     # More than 30% non-text characters -> considered a binary file
-    return float(len(contents.translate(_null_trans, text_characters))) / len(contents) > 0.3
+    if isinstance(contents, unicode):
+        translate_table = dict((ord(char), None) for char in text_characters)
+        return float(len(contents.translate(translate_table))) / len(contents) > 0.3
+    if isinstance(contents, str):
+        translate_table = string.maketrans("", "")
+        return float(len(contents.translate(translate_table, text_characters))) / len(contents) > 0.3
 
 # vim:ts=4:expandtab:
