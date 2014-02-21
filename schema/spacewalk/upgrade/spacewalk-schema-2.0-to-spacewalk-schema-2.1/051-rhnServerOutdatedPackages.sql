@@ -26,8 +26,9 @@ rhnServerOutdatedPackages
 )
 AS
 SELECT DISTINCT SNPC.server_id,
-       P.name_id, 
-       P.evr_id, 
+       P.name_id,
+       P.evr_id,
+       P.package_arch_id,
        PN.name || '-' || evr_t_as_vre_simple( PE.evr ),
        E.id,
        E.advisory
