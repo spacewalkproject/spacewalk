@@ -33,7 +33,7 @@ public class ToolbarTagBasicTest extends BaseTestToolbarTag {
                "<img src=\"/img/rhn-icon-preferences.gif\" alt=\"Home Icon\" />" +
                "<a href=\"/help/provisioning/" +
                "s1-sm-your-rhn.html#S2-SM-YOUR-RHN-PREFS\" target=\"_blank\">" +
-               "<i class=\"fa fa-question-circle\"></i></a></h1></div>";
+               "<i class=\"fa fa-question-circle spacewalk-help-link\"></i></a></h1></div>";
             out.setExpectedData(output);
 
             tt.setBase("h1");

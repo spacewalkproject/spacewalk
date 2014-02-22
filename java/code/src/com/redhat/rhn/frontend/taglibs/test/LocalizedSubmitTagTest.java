@@ -41,7 +41,7 @@ public class LocalizedSubmitTagTest extends RhnBaseTestCase {
             // setup mock objects
             MockJspWriter out = (MockJspWriter)tth.getPageContext().getOut();
             out.setExpectedData("<input type=\"submit\"" +
-                " tabindex=\"3\" value=\"(none)\">");
+                " tabindex=\"3\" value=\"(none)\" class=\"btn btn-default\">");
             // ok let's test the tag
             tth.assertDoStartTag(Tag.SKIP_BODY);
             tth.assertDoEndTag(Tag.EVAL_PAGE);

@@ -97,9 +97,9 @@ public class HtmlTagTest extends RhnBaseTestCase {
     public void testRemoveAttribute() {
         HtmlTag td = new HtmlTag("td");
         td.setAttribute("class", "sidebar");
-        assertEquals("<td class=\"sidebar\" />", td.render());
+        assertEquals("<td class=\"sidebar\"></td>", td.render());
         td.removeAttribute("class");
-        assertEquals("<td />", td.render());
+        assertEquals("<td></td>", td.render());
     }
 
 }
