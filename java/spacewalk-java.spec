@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.161
+Version: 2.1.162
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Sat Feb 22 2014 Grant Gainey 2.1.162-1
+- We rmvd DESIRED_PASS/CONFIRM params from UserEditSetupAction - rmv from
+  expected in test
+- Testing createFirstUser() now looks to be forbidden
+- verifyForward() and redirects-w/params do not like each other
+- Tweaking some tag Junits to work
+- Make checkstyle happy
+
 * Thu Feb 20 2014 Jan Dobes 2.1.161-1
 - fixing ISE in create repo form
 
