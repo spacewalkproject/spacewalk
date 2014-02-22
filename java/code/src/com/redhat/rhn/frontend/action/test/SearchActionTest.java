@@ -36,7 +36,7 @@ public class SearchActionTest extends RhnMockStrutsTestCase {
         addRequestParameter("search_string", "test search");
         addRequestParameter("search_type", "systems");
         actionPerform();
-        verifyForward("systems");
+        assertTrue(getActualForward().startsWith("/systems/Search.do"));
     }
 
     public void testErrataRedirect() throws Exception {
@@ -44,7 +44,7 @@ public class SearchActionTest extends RhnMockStrutsTestCase {
         addRequestParameter("search_string", "test search");
         addRequestParameter("search_type", "errata");
         actionPerform();
-        verifyForward("errata");
+        assertTrue(getActualForward().startsWith("/errata/Search.do"));
     }
 
     public void testPackageRedirect() throws Exception {
@@ -52,7 +52,7 @@ public class SearchActionTest extends RhnMockStrutsTestCase {
         addRequestParameter("search_string", "test search");
         addRequestParameter("search_type", "packages");
         actionPerform();
-        verifyForward("packages");
+        assertTrue(getActualForward().startsWith("/channels/software/Search.do"));
     }
 
     public void testDocRedirect() throws Exception {
@@ -60,7 +60,7 @@ public class SearchActionTest extends RhnMockStrutsTestCase {
         addRequestParameter("search_string", "test search");
         addRequestParameter("search_type", "docs");
         actionPerform();
-        verifyForward("docs");
+        assertTrue(getActualForward().startsWith("/help/Search.do"));
     }
 
     public void testFaultySubmit() throws Exception {
