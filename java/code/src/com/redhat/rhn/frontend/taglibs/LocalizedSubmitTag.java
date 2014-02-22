@@ -45,7 +45,9 @@ public class LocalizedSubmitTag extends SubmitTag {
         return this.valueKey;
     }
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public String getStyleClass() {
         if (super.getStyleClass() != null) {
             return (super.getStyleClass() + " btn btn-default");
