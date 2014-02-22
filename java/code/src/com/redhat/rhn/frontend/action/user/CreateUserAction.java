@@ -62,6 +62,9 @@ public class CreateUserAction extends RhnAction {
 
     public static final String ACCOUNT_TYPE = "account_type";
 
+    // Where we should end up if we're told "you're not allowed to do that"
+    public static final String PERMISSION_ERROR = "/errors/Permission.do";
+
     // It is ok to maintain an instance because PxtSessionDelegate does not maintain client
     // state.
     private PxtSessionDelegate pxtDelegate;
