@@ -117,8 +117,5 @@ public class UserEditSetupActionTest extends RhnBaseTestCase {
         form.addExpectedProperty("lastName", user.getLastName());
         form.addExpectedProperty("title", user.getTitle());
         form.addExpectedProperty("prefix", user.getPrefix());
-        form.addExpectedProperty(UserActionHelper.DESIRED_PASS, "******");
-        form.addExpectedProperty(UserActionHelper.DESIRED_PASS_CONFIRM, "******");
-
     }
 }
