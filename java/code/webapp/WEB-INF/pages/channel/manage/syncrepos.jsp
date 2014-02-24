@@ -40,8 +40,12 @@
 	</rl:list>
 	<div class="text-right">
 	  <hr />
-		<input class="btn btn-default" type="submit" name="dispatch"
-				value="<bean:message key="repos.jsp.button-sync"/>"    <c:if test="${inactive}">disabled="disabled"</c:if>/>
+		<button type="submit" name="dispatch" value="<bean:message key='repos.jsp.button-sync'/>"
+                        class="btn btn-success"
+                        <c:if test="${inactive}">disabled="disabled"</c:if>>
+                    <rhn:icon type="repo-sync"/>
+                    <bean:message key='repos.jsp.button-sync'/>
+                </button>
 	</div>
 		<rhn:submitted/>
 
@@ -52,8 +56,11 @@
       </jsp:include>
 
 	<div class="text-right">
-				<input class="btn btn-default" type="submit" name="dispatch" <c:if test="${inactive}">disabled="disabled"</c:if>
-						value="<bean:message key="schedule.button"/>" />
+				<button type="submit" value="<bean:message key='schedule.button'/>" class="btn btn-default"
+                                        name="dispatch" <c:if test="${inactive}">disabled="disabled"</c:if> >
+                                    <rhn:icon type="repo-schedule-sync"/>
+                                        <bean:message key="schedule.button"/>
+                                </button>
 	</div>
 
 </rl:listset>
