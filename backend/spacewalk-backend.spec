@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.53
+Version: 2.1.54
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -636,6 +636,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Mon Feb 24 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.54-1
+- 1067443 - workaround for rpm-python bug
+
 * Fri Feb 21 2014 Stephen Herr <sherr@redhat.com> 2.1.53-1
 - 1045083 - update openstack guest requirements
 
