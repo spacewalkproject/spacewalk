@@ -16,5 +16,7 @@
 
 <div class="text-right">
   <html:hidden property="login_cb" value="login" />
+   <html:hidden property="url_bounce" value="${url_bounce}" />
+   <html:hidden property="request_method" value="${request_method}" />
   <html:submit styleId="login" styleClass="btn btn-info" tabindex="3"><bean:message key="Sign In" /></html:submit>
 </div>

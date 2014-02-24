@@ -36,7 +36,6 @@ import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
@@ -45,7 +44,6 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 
 /**
@@ -226,21 +224,19 @@ public class LoginHelper {
 
         LoginHelper.publishUpdateErrataCacheEvent(user.getOrg());
         // redirect, if url_bounce set
-        HttpSession ws = request.getSession(false);
-        if (ws != null) {
-            String urlBounce = LoginAction.updateUrlBounce(
-                    (String) ws.getAttribute("url_bounce"),
-                    (String) ws.getAttribute("request_method"));
-            try {
-                if (urlBounce != null) {
-                    log.info("redirect: " + urlBounce);
-                    response.sendRedirect(urlBounce);
-                    return true;
-                }
+        String urlBounce = request.getParameter("url_bounce");
+        String reqMethod = request.getParameter("request_method");
+
+        urlBounce = LoginAction.updateUrlBounce(urlBounce, reqMethod);
+        try {
+            if (urlBounce != null) {
+                log.info("redirect: " + urlBounce);
+                response.sendRedirect(urlBounce);
+                return true;
             }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
         }
         return false;
     }

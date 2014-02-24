@@ -21,6 +21,7 @@ import com.redhat.rhn.frontend.servlets.PxtSessionDelegate;
 
 import org.apache.commons.collections.set.UnmodifiableSet;
 import org.apache.commons.lang.StringUtils;
+
 import java.io.IOException;
 import java.util.Set;
 import java.util.TreeSet;
@@ -28,7 +29,6 @@ import java.util.TreeSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * PxtAuthenticationService
@@ -214,19 +214,14 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
                 urlBounce = LoginAction.DEFAULT_URL_BOUNCE;
             }
 
-            HttpSession hs = request.getSession();
-            if (hs != null) {
-                hs.setAttribute("url_bounce", urlBounce);
-                hs.setAttribute("request_method", request.getMethod());
-            }
-
             // in case of logout, let's redirect to Login2.go
             // not to be immediately logged in via Kerberos ticket
             if (urlBounce.equals("/rhn/")) {
                 response.sendRedirect("/rhn/Login2.do");
                 return;
             }
-            response.sendRedirect("/rhn/Login.do");
+            response.sendRedirect("/rhn/Login.do?url_bounce=" + urlBounce +
+                    "&request_method=" + request.getMethod());
         }
         catch (IOException e) {
             throw new ServletException(e);

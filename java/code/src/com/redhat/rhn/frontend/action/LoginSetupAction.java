@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.acl.AclManager;
@@ -25,18 +26,16 @@ import com.redhat.rhn.manager.satellite.CertificateManager;
 import com.redhat.rhn.manager.satellite.SystemCommandExecutor;
 import com.redhat.rhn.manager.user.UserManager;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessages;
-
 import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * LoginSetupAction
@@ -118,13 +117,9 @@ public class LoginSetupAction extends RhnAction {
         }
 
         // store url_bounce set by pxt pages
-        String urlBounce = request.getParameter("url_bounce");
-        if (!StringUtils.isBlank(urlBounce)) {
-            HttpSession hs = request.getSession();
-            if (hs != null) {
-                hs.setAttribute("url_bounce", urlBounce);
-            }
-        }
+        RequestContext ctx = new RequestContext(request);
+        ctx.copyParamToAttributes("url_bounce");
+        ctx.copyParamToAttributes("request_method");
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
