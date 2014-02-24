@@ -4,66 +4,62 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 
-
 <html>
-<head>
-</head>
-<body>
+    <head>
+    </head>
+    <body>
+        <%@ include file="/WEB-INF/pages/common/fragments/channel/manage/manage_channel_header.jspf" %>
 
-<%@ include file="/WEB-INF/pages/common/fragments/channel/manage/manage_channel_header.jspf" %>
+        <h2><rhn:icon type="header-package" /> <bean:message key="repos.jsp.channel.repos"/></h2>
 
-<h2><rhn:icon type="header-package" /> <bean:message key="repos.jsp.channel.repos"/></h2>
+        <rl:listset name="packageSet">
+            <rhn:csrf />
 
-<rl:listset name="packageSet">
-<rhn:csrf />
+            <input type="hidden" name="cid" value="${cid}" />
 
-<input type="hidden" name="cid" value="${cid}" />
+            <rl:list
+                emptykey="repos.jsp.channel.norepos"
+                alphabarcolumn="label"
+                >
 
-	<rl:list
-			emptykey="repos.jsp.channel.norepos"
-			alphabarcolumn="label"
-	 >
-
-			<rl:decorator name="PageSizeDecorator"/>
+                <rl:decorator name="PageSizeDecorator"/>
 
 
-                 <rl:column sortable="true"
-                                   bound="false"
+                <rl:column sortable="true"
+                           bound="false"
                            headerkey="repos.jsp.channel.header"
                            sortattr="label"
-					defaultsort="asc"
+                           defaultsort="asc"
                            >
 
-                        <a href="/rhn/channels/manage/repos/RepoEdit.do?id=${current.id}">${current.label}</a>
+                    <a href="/rhn/channels/manage/repos/RepoEdit.do?id=${current.id}">${current.label}</a>
                 </rl:column>
 
-	</rl:list>
-	<div class="text-right">
-	  <hr />
-		<button type="submit" name="dispatch" value="<bean:message key='repos.jsp.button-sync'/>"
+            </rl:list>
+            <div class="text-right">
+                <hr />
+                <button type="submit" name="dispatch" value="<bean:message key='repos.jsp.button-sync'/>"
                         class="btn btn-success"
                         <c:if test="${inactive}">disabled="disabled"</c:if>>
                     <rhn:icon type="repo-sync"/>
                     <bean:message key='repos.jsp.button-sync'/>
                 </button>
-	</div>
-		<rhn:submitted/>
+            </div>
+            <rhn:submitted/>
 
+            <jsp:include page="/WEB-INF/pages/common/fragments/repeat-task-picker.jspf">
+                <jsp:param name="widget" value="date"/>
+            </jsp:include>
 
+            <div class="text-right">
+                <button type="submit" value="<bean:message key='schedule.button'/>" class="btn btn-default"
+                        name="dispatch" <c:if test="${inactive}">disabled="disabled"</c:if> >
+                    <rhn:icon type="repo-schedule-sync"/>
+                    <bean:message key="schedule.button"/>
+                </button>
+            </div>
 
-      <jsp:include page="/WEB-INF/pages/common/fragments/repeat-task-picker.jspf">
-        <jsp:param name="widget" value="date"/>
-      </jsp:include>
+        </rl:listset>
 
-	<div class="text-right">
-				<button type="submit" value="<bean:message key='schedule.button'/>" class="btn btn-default"
-                                        name="dispatch" <c:if test="${inactive}">disabled="disabled"</c:if> >
-                                    <rhn:icon type="repo-schedule-sync"/>
-                                        <bean:message key="schedule.button"/>
-                                </button>
-	</div>
-
-</rl:listset>
-
-</body>
+    </body>
 </html>
