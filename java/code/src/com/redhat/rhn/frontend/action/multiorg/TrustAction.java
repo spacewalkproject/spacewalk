@@ -167,7 +167,7 @@ public class TrustAction extends FormDispatcher {
     private List<OrgTrust> getOrgs(Org theOrg) {
         List<OrgTrust> list = new ArrayList<OrgTrust>();
         for (Org org : OrgFactory.lookupAllOrgs()) {
-            if (theOrg != org) {
+            if (!org.equals(theOrg)) {
                 list.add(new OrgTrust(org));
             }
         }
