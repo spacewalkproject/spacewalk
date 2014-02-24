@@ -100,6 +100,8 @@ public class DateTimePickerTag extends TagSupport {
         dateAddon.setAttribute("class", "input-group-addon text");
         dateAddon.setAttribute("id", data.getName() + "_" +
                 type + "picker_widget_input_addon");
+        dateAddon.setAttribute("data-picker-name", data.getName());
+        dateAddon.setAttribute("data-picker-type", type);
         IconTag dateAddonIcon = new IconTag(icon);
         dateAddon.addBody("&nbsp;");
         dateAddon.addBody(dateAddonIcon.render());
@@ -185,6 +187,7 @@ public class DateTimePickerTag extends TagSupport {
                 DateFormat.getTimeInstance(DateFormat.SHORT, data.getLocale());
 
         HtmlTag dateInput = new HtmlTag("input");
+        dateInput.setAttribute("id", data.getName() + "_datepicker_widget_input");
         dateInput.setAttribute("data-provide", "date-picker");
         dateInput.setAttribute("data-date-today-highlight", "true");
         dateInput.setAttribute("data-date-orientation", "top auto");
@@ -196,6 +199,11 @@ public class DateTimePickerTag extends TagSupport {
         dateInput.setAttribute("class", "form-control");
         dateInput.setAttribute("id", data.getName() + "_datepicker_widget_input");
         dateInput.setAttribute("size", "15");
+
+        dateInput.setAttribute("data-picker-name", data.getName());
+        dateInput.setAttribute("data-initial-year", String.valueOf(data.getYear()));
+        dateInput.setAttribute("data-initial-month", String.valueOf(data.getMonth()));
+        dateInput.setAttribute("data-initial-day", String.valueOf(data.getDay()));
 
         String firstDay = getJavascriptPickerDayIndex(
                 data.getCalendar().getFirstDayOfWeek());
@@ -209,18 +217,24 @@ public class DateTimePickerTag extends TagSupport {
 
             HtmlTag timeInput = new HtmlTag("input");
             timeInput.setAttribute("type", "text");
+            timeInput.setAttribute("data-provide", "time-picker");
             timeInput.setAttribute("class", "form-control");
             timeInput.setAttribute("data-time-format",
                                          toPhpTimeFormat(timeFmt.toPattern()));
             timeInput.setAttribute("id", data.getName() + "_timepicker_widget_input");
             timeInput.setAttribute("size", "10");
 
+            timeInput.setAttribute("data-picker-name", data.getName());
+            timeInput.setAttribute("data-initial-hour", String.valueOf(data.getHour()));
+            timeInput.setAttribute("data-initial-minute", String.valueOf(data.getMinute()));
+
             group.addBody(timeInput);
         }
 
         HtmlTag tzAddon = new HtmlTag("span");
         tzAddon.setAttribute("id", data.getName() + "_tz_input_addon");
-        tzAddon.setAttribute("class", "input-group-addon text");
+        tzAddon.setAttribute("data-picker-name", data.getName());
+        tzAddon.setAttribute("class", "input-group-addon text tz_input_addon");
         tzAddon.addBody(
                 data.getCalendar().getTimeZone().getDisplayName(
                         false, TimeZone.SHORT, data.getLocale()));
@@ -253,13 +267,6 @@ public class DateTimePickerTag extends TagSupport {
             writeJavascriptIncludes(out);
         }
         out.append("<script type='text/javascript'>\n");
-        out.append("  $(document).ready(function () {\n");
-        out.append("    setupDatePicker('" + data.getName() + "', ");
-        out.append(String.format("new Date(%d, %d, %d, %d, %d));\n",
-                data.getYear(), data.getMonth(), data.getDay(),
-                data.getHourOfDay(), data.getMinute()));
-        out.append("  });\n");
-
         if (pageContext.getRequest().getAttribute(JS_INCLUDE_GUARD_ATTR) == null) {
             writeI18NMap(out);
             pageContext.getRequest().setAttribute(JS_INCLUDE_GUARD_ATTR, true);

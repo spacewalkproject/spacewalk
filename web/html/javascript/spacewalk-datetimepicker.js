@@ -3,41 +3,79 @@
  * options:
  *   startDate: preselected date in the picker (Date object)
  */
-function setupDatePicker(name, value) {
-  $(document).ready(function () {
-    // date picker is setup using data attributes
-
-    $('#' + name + '_datepicker_widget_input').datepicker();
-    // make the addon clickable
-    $('#' + name + '_datepicker_widget_input_addon').click(function() {
-      $('#' + name + '_datepicker_widget_input').datepicker('show');
+function setupDatePicker() {
+  // date picker is setup using data attributes
+  $('input[data-provide="date-picker"]').each(function() {
+    var input = $(this);
+    input.datepicker();
+    var name = input.data('picker-name');
+    $('.input-group-addon[data-picker-name="' + name + '"][data-picker-type="date"]').click(function() {
+      input.datepicker('show');
     });
 
-    // initialize the time picker
-    var timeFmt = $('#' + name + '_timepicker_widget_input_addon').attr('data-time-format');
-    $('#' + name + '_timepicker_widget_input').timepicker({ 'timeFormat': timeFmt });
-
-    // make the addon clickable
-    $('#' + name + '_timepicker_widget_input_addon').click(function() {
-      $('#' + name + '_timepicker_widget_input').timepicker('show');
-    });
-
-    // compatibility with the forms expected by struts
-    $('#' + name + '_timepicker_widget_input').on('changeTime', function() {
-      var pickerTime = $('#' + name + '_timepicker_widget_input').timepicker('getTime');
-      $('input#' + name + '_hour').val(pickerTime.getHours() % 12);
-      $('input#' + name + '_minute').val(pickerTime.getMinutes());
-      $('input#' + name + '_am_pm').val(pickerTime.getHours() >= 12 ? 1 : 0);
-    });
-
-    $('#' + name + '_datepicker_widget_input').datepicker().on('changeDate', function(e) {
+    // backward compatibility
+    input.datepicker().on('changeDate', function(e) {
       $('input#' + name + '_day').val(e.date.getDate());
       $('input#' + name + '_month').val(e.date.getMonth());
       $('input#' + name + '_year').val(e.date.getFullYear());
     });
 
-    // set initial value and fire events for first time
-    $('#' + name + '_datepicker_widget_input').datepicker('setDate', value);
-    $('#' + name + '_timepicker_widget_input').timepicker('setTime', value);
+    // set initial date if specified
+    date = new Date();
+    var year = input.data('initial-year');
+    if (year != undefined) {
+      date.setFullYear(year);
+    }
+    var month = input.data('initial-month');
+    if (month != undefined) {
+      date.setMonth(month);
+    }
+    var day = input.data('initial-day');
+    if (day != undefined) {
+      date.setDate(day);
+    }
+    input.datepicker('setDate', date);
+  });
+
+  $('input[data-provide="time-picker"]').each(function() {
+    var input = $(this);
+    var name = input.data('picker-name');
+
+    // initialize the time picker
+    var timeOpts = {};
+
+    var timeFmt = input.data('time-format');
+    if (timeFmt != undefined) {
+      $.extend(timeOpts, {'timeFormat': timeFmt });
+    }
+    input.timepicker(timeOpts);
+
+    $('.input-group-addon[data-picker-name="' + name + '"][data-picker-type="time"]').click(function() {
+      input.timepicker('show');
+    });
+
+    // compatibility with the forms expected by struts
+    input.on('changeTime', function() {
+      var pickerTime = input.timepicker('getTime');
+      $('input#' + name + '_hour').val(pickerTime.getHours() % 12);
+      $('input#' + name + '_minute').val(pickerTime.getMinutes());
+      $('input#' + name + '_am_pm').val(pickerTime.getHours() >= 12 ? 1 : 0);
+    });
+
+    // set initial time
+    var date = new Date();
+    var hour = input.data('initial-hour');
+    if (hour != undefined) {
+      date.setHours(hour);
+    }
+    var minute = input.data('initial-minute');
+    if (minute != undefined) {
+      date.setMinutes(minute);
+    }
+    input.timepicker('setTime', date);
   });
 }
+
+$(document).ready(function () {
+  setupDatePicker();
+});
