@@ -134,11 +134,11 @@ public final class Asserts {
             String expectedLabel, String actualLabel)
         throws IllegalStateException {
         if (expected == null) {
-            assertTrue(expected == actual, "Values not equal, " + expectedLabel +
+            assertTrue(actual == null, "Values not equal, " + expectedLabel +
                     " '" + expected + "', " + actualLabel + " '" + actual +
                     "'");
         }
-        else if (!expected.equals(actual)) {
+        else {
             assertTrue(expected.equals(actual), "Values not equal, " +
                     expectedLabel + " '" + expected + "', " + actualLabel +
                     " '" + actual + "'");
