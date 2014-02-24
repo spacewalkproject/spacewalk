@@ -269,6 +269,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Feb 24 2014 Matej Kollar <mkollar@redhat.com> 2.2.0-1
+- Bumping package versions for 2.2.
 * Thu Feb 20 2014 Tomas Kasparek <tkasparek@redhat.com> 2.1.59-1
 - give generated buttons appropriate class
 - Styling unstyled submit buttons.
