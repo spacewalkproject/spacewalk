@@ -6830,7 +6830,7 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       </trans-unit>
       <trans-unit id="message.ext_auth_disable">
-        <source>Disable external authentication</source>
+        <source>No default organization</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgDetails</context>
         </context-group>
