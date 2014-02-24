@@ -62,6 +62,7 @@ abstract class FormDispatcher extends RhnAction {
     /**
      * ${@inheritDoc}
      */
+    @Override
     public ActionForward execute(
             ActionMapping mapping,
             ActionForm form,
@@ -120,6 +121,7 @@ public class TrustAction extends FormDispatcher {
     /**
      * ${@inheritDoc}
      */
+    @Override
     protected ActionForward setupAction(
         ActionMapping mapping,
         ActionForm form,
@@ -196,6 +198,7 @@ public class TrustAction extends FormDispatcher {
         return list;
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     protected ActionForward confirmAction(
             ActionMapping mapping,
@@ -235,6 +238,7 @@ public class TrustAction extends FormDispatcher {
         return mapping.findForward("confirm");
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     protected ActionForward commitAction(
             ActionMapping mapping,
@@ -297,6 +301,7 @@ public class TrustAction extends FormDispatcher {
         return strutsDelegate.forwardParams(success, params);
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     protected ActionForward affectedSystemsAction(
             ActionMapping mapping,
