@@ -1,7 +1,7 @@
 %define cgi_bin        %{_datadir}/nocpulse/cgi-bin
 %define cgi_mod_perl   %{_datadir}/nocpulse/cgi-mod-perl
 Name:         SNMPAlerts
-Version:      0.5.7
+Version:      2.2.0
 Release:      1%{?dist}
 Summary:      Download and clear SNMP alerts from the database
 URL:          https://fedorahosted.org/spacewalk

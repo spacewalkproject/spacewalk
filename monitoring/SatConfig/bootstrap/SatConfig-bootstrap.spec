@@ -1,5 +1,5 @@
 Name:         SatConfig-bootstrap
-Version:      1.11.5
+Version:      2.2.0
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - satellite id installer
 URL:          https://fedorahosted.org/spacewalk

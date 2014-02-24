@@ -1,5 +1,5 @@
 Name:         ProgAGoGo
-Version:      1.11.6
+Version:      2.2.0
 Release:      1%{?dist}
 Summary:      Program exec''er/respawner
 URL:          https://fedorahosted.org/spacewalk

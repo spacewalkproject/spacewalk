@@ -9,7 +9,7 @@
 %endif
 
 Name:		python-hwdata
-Version:	1.10.1
+Version:	2.2.0
 Release:	1%{?dist}
 Summary:	Python bindings to hwdata package
 BuildArch:  noarch
