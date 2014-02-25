@@ -19,6 +19,11 @@ CREATE TABLE rhnUserExtGroup
     id        NUMBER NOT NULL
                   CONSTRAINT rhn_userExtGroup_id_pk PRIMARY KEY
                   USING INDEX TABLESPACE [[64k_tbs]],
+    org_id    NUMBER
+                DEFAULT NULL
+                CONSTRAINT rhn_userExtGroup_oid_fk
+                    REFERENCES web_customer (id)
+                    ON DELETE CASCADE,
     label     VARCHAR2(512) NOT NULL,
     created   timestamp with local time zone
                   DEFAULT (current_timestamp) NOT NULL,
