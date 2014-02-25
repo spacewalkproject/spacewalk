@@ -7,7 +7,7 @@
 %define snmp_qdir      %queue_dir/snmp
 
 Name:         MessageQueue
-Version:      3.26.9
+Version:      3.26.10
 Release:      1%{?dist}
 Summary:      Message buffer/relay system
 URL:          https://fedorahosted.org/spacewalk
@@ -74,6 +74,10 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Feb 25 2014 Michael Mraka <michael.mraka@redhat.com> 3.26.10-1
+- 1069332 - ifconfig without agrs showed only UP intefaces
+- 1069332 - ifconfig don't show Infiniband addresses properly
+
 * Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 3.26.9-1
 - rebrading RHN Satellite to Red Hat Satellite
 
