@@ -96,8 +96,8 @@ sub macAddress
 {
 	my $self = shift();
 	my $dev = $self->get_dev;
-	my $mac = `/sbin/ifconfig $dev`;
-	if ($mac =~ /HWaddr (\S+)/) {
+	my $mac = `/sbin/ip -o link`;
+	if ($mac =~ /^\d+:\s*\Q$dev\E:.*?ether (\S*).*/m) {
 		return $1;
 	} else {
 		# NOTE: Kludge for ethernet issue - should be undef
