@@ -430,8 +430,8 @@ sub sendmail {
 sub get_mac {
 #############
 
-  my $ifconfig = `/sbin/ifconfig`;
-  if ($ifconfig =~ /.*?HWaddr (\S*).*/) {
+  my $ifconfig = `/sbin/ip -o link`;
+  if ($ifconfig =~ /.*?ether (\S*).*/) {
     return $1;
   } else {
     return undef;
