@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.2.0
+Version:        2.2.1
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Feb 25 2014 Tomas Lestach <tlestach@redhat.com> 2.2.1-1
+- introduce keep_roles option
+- extend rhnUserGroupMembers
+- Bumping package versions for 2.2.
+
 * Mon Feb 24 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.50-1
 - replacing view must have the same number of columns (in postgresql)
 
