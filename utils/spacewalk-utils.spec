@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.2.0
+Version:	2.2.1
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,11 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Feb 25 2014 Tomas Lestach <tlestach@redhat.com> 2.2.1-1
+- removing spacewalk18 and spacewalk19 channel repo configurations
+- remove fc18 channel repo configurations
+- Bumping package versions for 2.2.
+
 * Thu Jan 30 2014 Stephen Herr <sherr@redhat.com> 2.1.27-1
 - 1059910 - create api for channel errata syncing, have clone-by-date call it
 
