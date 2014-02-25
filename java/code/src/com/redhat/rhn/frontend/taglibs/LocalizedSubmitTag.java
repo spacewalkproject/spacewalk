@@ -52,9 +52,7 @@ public class LocalizedSubmitTag extends SubmitTag {
         if (super.getStyleClass() != null) {
             return (super.getStyleClass() + " btn btn-default");
         }
-        else {
-            return "btn btn-default";
-        }
+        return "btn btn-default";
     }
 
     /** {@inheritDoc}
