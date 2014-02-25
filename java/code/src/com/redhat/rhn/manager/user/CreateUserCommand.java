@@ -31,6 +31,7 @@ import com.redhat.rhn.frontend.events.NewUserEvent;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
@@ -50,7 +51,7 @@ public class CreateUserCommand {
     private Address addr;
     private boolean makeOrgAdmin;
     private boolean makeSatAdmin;
-    private Set<Role> temporaryRoles;
+    private Set<Role> temporaryRoles = new HashSet<Role>();
 
     private List<ValidatorError> errors;
     private List<ValidatorError> passwordErrors;
