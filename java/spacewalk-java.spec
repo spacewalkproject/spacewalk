@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.0
+Version: 2.2.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,19 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Feb 25 2014 Tomas Lestach <tlestach@redhat.com> 2.2.1-1
+- store the bounce_url back in the login page form
+- rename label
+- introduce Login401
+- introduce keep_roles option
+- list temporary roles on WebUI
+- rework checkOrgAdmin to checkPermanentOrgAdmin
+- rename addRole and removeRole to addPermanentRole and removePermanentRole
+- start using temporary roles
+- introduce UserGroupMembers class and mapping
+- do not update user details if empty
+- Bumping package versions for 2.2.
+
 * Sat Feb 22 2014 Grant Gainey 2.1.163-1
 - Remove unused import
 
