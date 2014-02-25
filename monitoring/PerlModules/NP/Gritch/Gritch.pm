@@ -431,7 +431,7 @@ sub get_mac {
 #############
 
   my $ifconfig = `/sbin/ip -o link`;
-  if ($ifconfig =~ /.*?ether (\S*).*/) {
+  if ($ifconfig =~ /\bUP\b.*ether (\S*)/) {
     return $1;
   } else {
     return undef;

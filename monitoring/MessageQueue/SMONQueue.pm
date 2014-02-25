@@ -61,7 +61,7 @@ sub calculate_mac
     my $self = shift;
 
     my $mac = `/sbin/ip -o link`;
-    $mac =~ s/.*?ether (\S*).*/$1/s;
+    $mac =~ s/.*\bUP\b.*ether (\S*).*/$1/s;
     my @nodes = split(/:/, $mac);
     $mac = sprintf("%02X:%02X:%02X:%02X:%02X:%02X",
 		   hex($nodes[0]), hex($nodes[1]), hex($nodes[2]),
