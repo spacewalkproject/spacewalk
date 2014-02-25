@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.1
+Version: 2.2.2
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Feb 25 2014 Tomas Lestach <tlestach@redhat.com> 2.2.2-1
+- initialize temporaryRoles within CreateUserCommand
+- remove unnecessarily nested else statement
+
 * Tue Feb 25 2014 Tomas Lestach <tlestach@redhat.com> 2.2.1-1
 - store the bounce_url back in the login page form
 - rename label
