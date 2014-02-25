@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.2.1
+Version:	2.2.2
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Feb 25 2014 Stephen Herr <sherr@redhat.com> 2.2.2-1
+- 1069879 - spacwalk-repo-sync prints the same message for every channel.
+
 * Tue Feb 25 2014 Tomas Lestach <tlestach@redhat.com> 2.2.1-1
 - removing spacewalk18 and spacewalk19 channel repo configurations
 - remove fc18 channel repo configurations
