@@ -1,6 +1,6 @@
 %define sysv_dir       %{_sysconfdir}/rc.d/np.d
 Name:         SatConfig-cluster
-Version:      2.2.1
+Version:      2.2.2
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - cluster information
 URL:          https://fedorahosted.org/spacewalk
@@ -56,6 +56,9 @@ install -m 644 SatCluster.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Feb 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.2-1
+- 1069332 - fixing ip syntax
+
 * Tue Feb 25 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.1-1
 - 1069332 - simplify regexp
 - 1069332 - Use /sbin/ip instead of /sbin/ifconfig.
