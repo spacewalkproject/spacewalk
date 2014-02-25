@@ -128,7 +128,11 @@ def main(options):
 
 
     print "Reading repository information."
-
+    if options.use_update_date:
+        options.use_update_date = 'update_date'
+    else:
+        options.use_update_date = 'issue_date'
+    print "Using %s." % options.use_update_date
 
     cloners = []
     needed_channels = []
@@ -561,13 +565,8 @@ class ChannelCloner:
         """ Returns tuple of all available for cloning, and what falls in the date range"""
         available_errata = self.db_api.applicable_errata(self.from_label, self.to_label)
         to_clone = []
-        if self.use_update_date:
-            date_to_use = 'update_date'
-        else:
-            date_to_use = 'issue_date'
-        print "Using ", date_to_use
         for err in available_errata:
-            if self.to_date and err[date_to_use].date() <= self.to_date.date():
+            if self.to_date and err[self.use_update_date].date() <= self.to_date.date():
                 if self.security_only:
                     if err['advisory_type'] == 'Security Advisory':
                         to_clone.append(err)
