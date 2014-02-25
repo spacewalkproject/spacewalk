@@ -96,7 +96,7 @@ sub macAddress
 {
 	my $self = shift();
 	my $dev = $self->get_dev;
-	my $mac = `/sbin/ip -o link $dev`;
+	my $mac = `/sbin/ip -o link show $dev`;
 	if ($mac =~ /ether (\S*)/m) {
 		return $1;
 	} else {
