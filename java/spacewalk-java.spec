@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.2
+Version: 2.2.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Feb 26 2014 Jan Dobes 2.2.3-1
+- 1068815 - update API documentation
+- 1068815 - deal with deleted users
+- Commit  04d9dccaedf8aa2998125e93969262ab73e58126 makes the form look broken.
+
 * Tue Feb 25 2014 Tomas Lestach <tlestach@redhat.com> 2.2.2-1
 - initialize temporaryRoles within CreateUserCommand
 - remove unnecessarily nested else statement
