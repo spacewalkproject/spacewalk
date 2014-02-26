@@ -62,7 +62,10 @@ public class NoteSerializer extends RhnXmlRpcCustomSerializer {
         helper.add("subject", note.getSubject());
         add(helper, "note", note.getNote());
         add(helper, "system_id", note.getServer().getId());
-        add(helper, "creator", note.getCreator().getLogin());
+        // Creator account may be deleted.
+        if (note.getCreator() != null) {
+            add(helper, "creator", note.getCreator().getLogin());
+        }
         add(helper, "updated", note.getModified());
         helper.writeTo(output);
     }
