@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.1.59
+Version: 2.1.60
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Feb 26 2014 Matej Kollar <mkollar@redhat.com> 2.1.60-1
+- Release of 2.1
+
 * Thu Feb 20 2014 Tomas Kasparek <tkasparek@redhat.com> 2.1.59-1
 - give generated buttons appropriate class
 - Styling unstyled submit buttons.
