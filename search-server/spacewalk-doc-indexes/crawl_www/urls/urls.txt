@@ -1,4 +1,4 @@
-https://fedorahosted.org/spacewalk/wiki/ReleaseNotes20
+https://fedorahosted.org/spacewalk/wiki/ReleaseNotes21
 https://access.redhat.com/site/documentation/en-US/Red_Hat_Satellite/5.6/html/Reference_Guide/index.html
 https://access.redhat.com/site/documentation/en-US/Red_Hat_Satellite/5.6/html/Installation_Guide/index.html
 https://access.redhat.com/site/documentation/en-US/Red_Hat_Satellite/5.6/html/Proxy_Installation_Guide/index.html
