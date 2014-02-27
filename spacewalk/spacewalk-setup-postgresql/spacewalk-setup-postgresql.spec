@@ -16,6 +16,7 @@ Requires:	postgresql84-pltcl
 Requires:	postgresql-contrib >= 8.4
 Requires:	postgresql-pltcl
 %endif
+Requires:	lsof
 Obsoletes:	spacewalk-setup-embedded-postgresql
 
 %description
