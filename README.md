@@ -1,10 +1,10 @@
 Spacewalk
 =========
 
-Spacewalk is an open source Linux system management solution.
+Spacewalk is an open source Linux systems management solution.
 It is the upstream community project from which the [Red Hat
-Satellite][RedHatSatellite] and [SUSE Manager][SUSEManager] product
-is derived.
+Satellite][RedHatSatellite] and [SUSE Manager][SUSEManager] products
+are derived.
 
 Resources
 ---------
