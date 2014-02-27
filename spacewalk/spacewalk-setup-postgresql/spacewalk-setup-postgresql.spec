@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-postgresql
-Version:        2.2.0
+Version:        2.2.1
 Release:        1%{?dist}
 Summary:        Tools to setup embedded PostgreSQL database for Spacewalk
 Group:          Applications/System
@@ -51,6 +51,10 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/*
 
 %changelog
+* Thu Feb 27 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.1-1
+- 1070544 - spacewalk-setup-postgresql requires lsof
+- Bumping package versions for 2.2.
+
 * Tue Sep 17 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.4-1
 - 982560 - Small regex fixes
 
