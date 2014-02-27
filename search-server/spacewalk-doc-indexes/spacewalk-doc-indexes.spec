@@ -1,5 +1,5 @@
 Name: spacewalk-doc-indexes
-Version: 2.2.0
+Version: 2.2.1
 Release: 1%{?dist}
 Summary: Lucene indexes of help documentation for spacewalk
 
@@ -44,6 +44,11 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Feb 27 2014 Matej Kollar <mkollar@redhat.com> 2.2.1-1
+- Updating search index
+- Update urls for search reindexing
+- Bumping package versions for 2.2.
+
 * Mon Nov 18 2013 Tomas Lestach <tlestach@redhat.com> 2.1.1-1
 - updated documentation indexes
 - index actual documentation
