@@ -1079,6 +1079,11 @@
       <form-property name="submitted" type="java.lang.Boolean"/>
     </form-bean>
 
+    <form-bean name="systemGroupConfigForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+        <form-property name="create_default" type="java.lang.Boolean"/>
+    </form-bean>
+
     <form-bean name="systemMigrateForm"
                type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
       <form-property name="sid" type="java.lang.Long"/>
@@ -1734,6 +1739,19 @@
                     value="user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/disabledlist.jsp" />
       <forward name="enable" path="/users/EnableConfirm.do" redirect="true" />
+    </action>
+
+    <action path="/users/SystemGroupConfig"
+        scope="request"
+        name="systemGroupConfigForm"
+        input="/WEB-INF/pages/admin/users/systemgroups.jsp"
+        type="com.redhat.rhn.frontend.action.user.SystemGroupConfigAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <set-property property="postRequiredIfSubmitted" value="true" />
+      <set-property property="acls" value="user_role(org_admin)"/>
+      <forward name="default" path="/WEB-INF/pages/admin/users/systemgroups.jsp" />
+      <forward name="success"
+               path="/users/SystemGroupConfig.do" redirect="true" />
     </action>
 
     <action path="/users/EnableConfirm"

@@ -593,6 +593,12 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="System Group Configuration">
+        <source>System Group Configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Master Setup">
         <source>Master Setup</source>
         <context-group name="ctx">

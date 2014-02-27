@@ -3330,6 +3330,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/Users.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="systemgroup.config.title">
+        <source>System Group Configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/Users.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="orgdetails.jsp.header">
         <source>Organization Details</source>
         <context-group name="ctx">
@@ -19915,6 +19921,18 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="extauth.user.create">
         <source>New user creation</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/ExternalAuthentication.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="extauth.sg.message">
+        <source>When creating new users, a default System Group may be created for every single user, that would have the same name as the user. This is usefull, when different users shall administer different groups of systems within one organization.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/SystemGroupConfig.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="extauth.sg.default_sg">
+        <source>Create a user default System Group</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/ExternalAuthentication.do</context>
         </context-group>

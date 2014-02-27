@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<rhn-navi-tree label="systemgroup_config" invisible="1" title-depth="1">
+  <rhn-tab name="Configuration" acl="user_role(org_admin)">
+    <rhn-tab-url>/rhn/users/SystemGroupConfig.do</rhn-tab-url>
+  </rhn-tab>
+</rhn-navi-tree>
