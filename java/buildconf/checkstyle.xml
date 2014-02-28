@@ -60,7 +60,7 @@
           <property name="ignorePattern" value="import"/>
           <property name="max" value="92"/>
         </module>
-        
+
         <!-- ************************************************************** -->
         <!-- Default Sun coding conventions checks                          -->
         <!-- ************************************************************** -->
@@ -125,7 +125,7 @@
         <module name="EmptyForIteratorPad"/>
         <module name="NoWhitespaceAfter">
           <property name="tokens" value="BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS, UNARY_PLUS, GENERIC_START"/>
-        </module> 
+        </module>
         <module name="NoWhitespaceBefore">
           <property name="tokens" value="SEMI, POST_DEC, POST_INC, GENERIC_START, GENERIC_END"/>
         </module>
@@ -158,7 +158,7 @@ MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION, RCURLY, S
         <module name="EmptyBlock">
           <property name="option" value="text"/>
         </module>
-        
+
         <module name="NeedBraces"/>
 
 
@@ -209,7 +209,8 @@ MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION, RCURLY, S
         <module name="usage.UnusedLocalVariable"/>
         <module name="usage.UnusedParameter"/>
         <module name="usage.UnusedPrivateField"/>
--->        
+-->
+        <module name="MissingDeprecated"/>
     </module>
 
     <!-- Checks for Headers                              -->

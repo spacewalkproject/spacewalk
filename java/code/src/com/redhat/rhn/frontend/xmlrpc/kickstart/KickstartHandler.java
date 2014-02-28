@@ -68,6 +68,7 @@ public class KickstartHandler extends BaseHandler {
      * search.")
      * @xmlrpc.returntype #array() $KickstartTreeSerializer #array_end()
      */
+    @Deprecated
     public List listKickstartableTrees(String sessionKey,
             String channelLabel) {
         return new KickstartTreeHandler().

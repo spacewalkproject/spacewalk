@@ -491,11 +491,12 @@ public class RhnSetDecl {
      * one exists, <code>cleanup</code> is ignored. Otherwise, a declaration
      * with the given <code>cleanup</code> and <code>label</code> is
      * created.
-     * @deprecated
+     * @deprecated Do not use this method.
      * @param label the label for the set
      * @param cleanup the cleanup to use
      * @return the set declaration
      */
+    @Deprecated
     public static RhnSetDecl findOrCreate(String label, SetCleanup cleanup) {
         RhnSetDecl result = DECLS.get(label);
         if (result == null) {
