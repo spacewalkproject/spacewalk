@@ -42,38 +42,39 @@
            <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_list_fragment.jspf" %>
 		</rl:column>
 	</rl:list>
+
 <c:if test="${empty disableSystems}">
-<h2><bean:message key="ssm.kickstartable-systems.jsp.systems"/></h2>
+    <h2>
+        <bean:message key="ssm.kickstartable-systems.jsp.systems"/>
+    </h2>
     <p><bean:message key="ssm.kickstartable-systems.jsp.systems.summary"/></p>
-
-<table class="details">
-    <tr>
-        <th>
+    <hr/>
+    <div class="form-group">
+        <div class="control-label">
             <bean:message key="ssm.kickstartable-systems.jsp.type"/>:
-        </th>
-        <td>
-
-		<input type="radio" name="scheduleManual" value="true"
-			<c:if test="${not empty disableProfiles}">disabled="true"</c:if>
-			<c:if test="${empty param.scheduleManual or param.scheduleManual =='true' }">checked="checked" </c:if> />
-			<strong><bean:message key="ssm.kickstartable-systems.jsp.manual-summary"/></strong>
-		<br/>
-		<input type="radio" name="scheduleManual" value="false" id="ipId"
-				<c:if test="${not empty disableProfiles or not empty disableRanges}">disabled="true"</c:if>
-			<c:if test="${param.scheduleManual =='false'}">checked="checked" </c:if> />
-			<strong><bean:message key="ssm.kickstartable-systems.jsp.ip-summary"/>*</strong>
-		<br/>
-
-			<rhn:tooltip>* <bean:message key="ssm.kickstartable-systems.jsp.ip-tooltip"/></rhn:tooltip>
-        </td>
-    </tr>
-</table>
-<div class="text-right">
-<hr />
-<input class="btn btn-default" type="submit" name="dispatch" value="${rhn:localize('ssm.config.subscribe.jsp.continue')}"
-		<c:if test="${not empty disableProfiles}">disabled="true"</c:if>
-	/>
-</div>
+        </div>
+            <div class="radio">
+            <label class="radio control-label" for="manualId">
+                <input type="radio" name="scheduleManual" value="true" id="manualId"
+                    <c:if test="${not empty disableProfiles}">disabled="true"</c:if>
+                    <c:if test="${empty param.scheduleManual or param.scheduleManual =='true' }">checked="checked" </c:if> />
+                <bean:message key="ssm.kickstartable-systems.jsp.manual-summary"/>
+            </label>
+            </div>
+            <div class="radio">
+            <label class="radio control-label" for=ipId"">
+                <input type="radio" name="scheduleManual" value="false" id="ipId"
+                    <c:if test="${not empty disableProfiles or not empty disableRanges}">disabled="true"</c:if>
+                    <c:if test="${param.scheduleManual =='false'}">checked="checked" </c:if> />
+                <bean:message key="ssm.kickstartable-systems.jsp.ip-summary"/>*
+            </label>
+            </div>
+        <p class="help-block">* <bean:message key="ssm.kickstartable-systems.jsp.ip-tooltip"/></p>
+    </div>
+    <div class="form-group text-right">
+        <input class="btn btn-primary" type="submit" name="dispatch" value="${rhn:localize('ssm.config.subscribe.jsp.continue')}"
+                    <c:if test="${not empty disableProfiles}">disabled="true"</c:if> />
+    </div>
 </c:if>
 <rhn:submitted/>
 </rl:listset>
