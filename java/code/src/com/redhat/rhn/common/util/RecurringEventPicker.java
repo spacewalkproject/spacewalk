@@ -20,6 +20,8 @@ import org.apache.commons.lang.StringUtils;
 
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -93,9 +95,13 @@ public class RecurringEventPicker {
 *  *  *  *  *  *  command to be executed
      */
 
-    private String name;
+    private final String name;
     private String status;
     private String cronEntry;
+
+    private final DatePicker dailyTimePicker;
+    private final DatePicker weeklyTimePicker;
+    private final DatePicker monthlyTimePicker;
 
     /**
      * Constructor
@@ -104,6 +110,18 @@ public class RecurringEventPicker {
     public RecurringEventPicker(String name0) {
         name = name0;
         status = STATUS_DISABLED;
+        dailyTimePicker = new DatePicker(name + "_" + STATUS_DAILY,
+                TimeZone.getDefault(), Locale.getDefault(),
+                DatePicker.YEAR_RANGE_POSITIVE);
+        dailyTimePicker.setDisableDate();
+        weeklyTimePicker = new DatePicker(name + "_" + STATUS_WEEKLY,
+                TimeZone.getDefault(), Locale.getDefault(),
+                DatePicker.YEAR_RANGE_POSITIVE);
+        weeklyTimePicker.setDisableDate();
+        monthlyTimePicker = new DatePicker(name + "_" + STATUS_MONTHLY,
+                TimeZone.getDefault(), Locale.getDefault(),
+                DatePicker.YEAR_RANGE_POSITIVE);
+        monthlyTimePicker.setDisableDate();
     }
 
     /**
@@ -152,20 +170,26 @@ public class RecurringEventPicker {
         if (tmpStatus  != null) {
             p.setStatus(tmpStatus);
             if (tmpStatus.equals(STATUS_DAILY)) {
-                String hour = request.getParameter(name + DAILY_HOUR);
-                String minute = request.getParameter(name + DAILY_MINUTE);
+                DatePicker timePicker = p.getDailyTimePicker();
+                timePicker.readMap(request.getParameterMap());
+                String hour = String.valueOf(timePicker.getHourOfDay());
+                String minute = String.valueOf(timePicker.getMinute());
                 p.setCronEntry(buildCron(minute, hour, null, null, STATUS_DAILY));
 
             }
             else if (tmpStatus.equals(STATUS_WEEKLY)) {
-                String hour = request.getParameter(name + WEEKLY_HOUR);
-                String minute = request.getParameter(name + WEEKLY_MINUTE);
+                DatePicker timePicker = p.getWeeklyTimePicker();
+                timePicker.readMap(request.getParameterMap());
+                String hour = String.valueOf(timePicker.getHourOfDay());
+                String minute = String.valueOf(timePicker.getMinute());
                 String day = request.getParameter(name + WEEKLY_DAY_OF_WEEK);
                 p.setCronEntry(buildCron(minute, hour, null, day, STATUS_WEEKLY));
             }
             else if (tmpStatus.equals(STATUS_MONTHLY)) {
-                String hour = request.getParameter(name + MONTHLY_HOUR);
-                String minute = request.getParameter(name + MONTHLY_MINUTE);
+                DatePicker timePicker = p.getMonthlyTimePicker();
+                timePicker.readMap(request.getParameterMap());
+                String hour = String.valueOf(timePicker.getHourOfDay());
+                String minute = String.valueOf(timePicker.getMinute());
                 String day = request.getParameter(name + MONTHLY_DAY_OF_MONTH);
                 p.setCronEntry(buildCron(minute, hour, day, null, STATUS_MONTHLY));
             }
@@ -182,21 +206,34 @@ public class RecurringEventPicker {
                 return null;
             }
 
+            // here do it the other way around, set the time pickers from
+            // the cron time
             if (matches(cronEntry, DAILY_REGEX)) {
                 p.setStatus(STATUS_DAILY);
+                p.setCronEntry(cronEntry);
+                DatePicker timePicker = p.getDailyTimePicker();
+                timePicker.setHour(p.getHourLong().intValue());
+                timePicker.setMinute(p.getMinuteLong().intValue());
             }
             else if (matches(cronEntry, WEEKLY_REGEX)) {
                 p.setStatus(STATUS_WEEKLY);
+                p.setCronEntry(cronEntry);
+                DatePicker timePicker = p.getWeeklyTimePicker();
+                timePicker.setHour(p.getHourLong().intValue());
+                timePicker.setMinute(p.getMinuteLong().intValue());
             }
             else if (matches(cronEntry, MONTHLY_REGEX)) {
                 p.setStatus(STATUS_MONTHLY);
+                p.setCronEntry(cronEntry);
+                DatePicker timePicker = p.getMonthlyTimePicker();
+                timePicker.setHour(p.getHourLong().intValue());
+                timePicker.setMinute(p.getMinuteLong().intValue());
             }
             else {
                 p.setStatus(STATUS_CRON);
+                p.setCronEntry(cronEntry);
             }
-            p.setCronEntry(cronEntry);
         }
-
 
         return p;
     }
@@ -362,4 +399,27 @@ public class RecurringEventPicker {
         return status.equals(STATUS_DISABLED);
     }
 
+    /**
+     * @return a date picker used to select the
+     * daily time
+     */
+    public DatePicker getDailyTimePicker() {
+        return dailyTimePicker;
+    }
+
+    /**
+     * @return a date picker used to select the
+     * weekly time
+     */
+    public DatePicker getWeeklyTimePicker() {
+        return weeklyTimePicker;
+    }
+
+    /**
+     * @return a date picker used to select the
+     * monthly time
+     */
+    public DatePicker getMonthlyTimePicker() {
+        return monthlyTimePicker;
+    }
 }
