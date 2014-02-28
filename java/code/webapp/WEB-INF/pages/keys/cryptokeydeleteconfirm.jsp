@@ -10,12 +10,15 @@
 	<bean:message key="keydelete.jsp.toolbar"/>
 </rhn:toolbar>
 
-<bean:message key="keydelete.jsp.summary"/>
+<div class="alert alert-warning">
+    <bean:message key="keydelete.jsp.summary"/>
+</div>
 
 <h2><bean:message key="keydelete.jsp.header2"/></h2>
 
 <div>
-    <html:form action="/keys/CryptoKeyDelete?csrf_token=${csrfToken}" enctype="multipart/form-data">
+    <html:form action="/keys/CryptoKeyDelete?csrf_token=${csrfToken}" enctype="multipart/form-data"
+               styleClass="form-horizontal">
     <rhn:csrf />
     <rhn:submitted />
     <%@ include file="key-form-disabled.jspf" %>
