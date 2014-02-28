@@ -13,11 +13,11 @@
             <rhn:csrf />
             <p><bean:message key="activation-key.childchannels.jsp.summary"/></p>
             <c:if test='${not empty baseChannel}'>
-                <bean:message key="activation-key.childchannels.jsp.blurb" arg0="${baseChannel}"/>
+                <p><bean:message key="activation-key.childchannels.jsp.blurb" arg0="${baseChannel}"/></p>
             </c:if>
             <div class="form-group">
-                <div class="col-lg-offset-3 col-lg-6">
-                <select multiple="multiple" name="childChannels" size="20" styleClass="form-control">
+                <div class="col-md-6">
+                <select multiple="multiple" name="childChannels" size="20" class="form-control">
                     <c:set var="first" scope="session" value="yes"/>
                     <c:forEach items="${channels}" var="channel" varStatus="loop">
                         <c:choose>
@@ -44,8 +44,8 @@
                 </select>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-lg-offset-3 col-lg-6">
+            <div class="form-group text-right">
+                <div class="col-md-6">
                     <rhn:submitted/>
                     <input type="submit" name ="dispatch" class="btn btn-success"
                            value='<bean:message key="keyedit.jsp.submit"/>'/>
