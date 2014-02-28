@@ -2078,12 +2078,13 @@ def import_kickstart_fromdetails(self, ksdetails):
         # satellite where the export was performed.
         if script.has_key('template'):
             ret = self.client.kickstart.profile.addScript(self.session,\
-            ksdetails['label'], script['contents'], script['interpreter'],\
-            script['script_type'], script['chroot'], script['template'])
+            ksdetails['label'], script['name'], script['contents'],\
+            script['interpreter'], script['script_type'], script['chroot'],\
+            script['template'])
         else:
             ret = self.client.kickstart.profile.addScript(self.session,\
-            ksdetails['label'], script['contents'], script['interpreter'],\
-            script['script_type'], script['chroot'])
+            ksdetails['label'], script['name'], script['contents'],\
+            script['interpreter'], script['script_type'], script['chroot'])
         if ret:
             logging.debug("Added %s script to profile" % script['script_type'])
         else:
