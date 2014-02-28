@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.2.0
+Version:     2.2.1
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -64,6 +64,11 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Feb 28 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.1-1
+- 1066109 - add script name argument when calling kickstart.profile.addScript()
+- fix string expansion
+- adjusted the output of package_listdependencies
+
 * Fri Feb 21 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.1.25-1
 - 1060746 - make file_needs_b64_enc work for both str and unicode inputs
 
