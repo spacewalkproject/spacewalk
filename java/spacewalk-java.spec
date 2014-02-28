@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.4
+Version: 2.2.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Feb 28 2014 Stephen Herr <sherr@redhat.com> 2.2.5-1
+- 1071482 - Add errata type selection to ssm page
+- Check for deprecation annotation vs. javadoc consistency
+- Removing trailing whitespace
+- Added @Deprecation annotations
+
 * Fri Feb 28 2014 Tomas Lestach <tlestach@redhat.com> 2.2.4-1
 - delete outdated repo-sync schedules
 - filter out channels that are not assigned to a server
