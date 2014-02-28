@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.2.2
+Version:	2.2.3
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Feb 28 2014 Tomas Lestach <tlestach@redhat.com> 2.2.3-1
+- 1028933 - allow spacewalk-api to force integer and string values
+- 1028933 - allow spacewalk-api to use boolean values
+
 * Tue Feb 25 2014 Stephen Herr <sherr@redhat.com> 2.2.2-1
 - 1069879 - spacwalk-repo-sync prints the same message for every channel.
 
