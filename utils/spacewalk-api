@@ -73,6 +73,8 @@ while (my $param = shift @ARGV) {
                 open F, $1 or die "Error: Could not open $1";
                 $param = join('', <F>);
                 close F;
+        } elsif ( $param =~ '%boolean:(.*)%') {
+                $param = $client->boolean($1);
         }
         push @params, $param;
 }
@@ -109,6 +111,9 @@ There is few special substitution available:
 
 %file:/some/file% 
         Is replaced by content of given file.
+
+%boolean:value%
+        Is interpreted as a boolean value.
 
 =head1 OPTIONS
 
