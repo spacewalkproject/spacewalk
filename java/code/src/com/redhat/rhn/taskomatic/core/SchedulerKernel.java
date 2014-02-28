@@ -19,11 +19,14 @@ import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.conf.ConfigException;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.messaging.MessageQueue;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.taskomatic.TaskoFactory;
 import com.redhat.rhn.taskomatic.TaskoQuartzHelper;
 import com.redhat.rhn.taskomatic.TaskoRun;
 import com.redhat.rhn.taskomatic.TaskoSchedule;
 import com.redhat.rhn.taskomatic.TaskoXmlRpcServer;
+import com.redhat.rhn.taskomatic.TaskomaticApi;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Transaction;
@@ -225,6 +228,15 @@ public class SchedulerKernel {
                         }
                         tx.commit();
                     }
+                }
+            }
+            // delete outdated reposync leftovers
+            TaskomaticApi tasko = new TaskomaticApi();
+            for (Org org : OrgFactory.lookupAllOrgs()) {
+                int removed = tasko.unscheduleInvalidRepoSyncSchedules(org);
+                if (removed > 0) {
+                    log.warn("" + removed + " outdated repo-sync schedules detected and " +
+                            "removed within org " + org.getId());
                 }
             }
             // close unfinished runs

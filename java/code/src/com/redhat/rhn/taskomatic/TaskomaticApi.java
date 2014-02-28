@@ -18,10 +18,13 @@ import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -324,5 +327,46 @@ public class TaskomaticApi {
      */
     public Map lookupBunchByName(User user, String bunchName) {
         return (Map) invoke("tasko.lookupBunchByName", bunchName);
+    }
+
+    /**
+     * List all reposync schedules within an organization
+     * @param org organization
+     * @return list of schedules
+     */
+    private List<TaskoSchedule> listActiveRepoSyncSchedules(Org org) {
+        try {
+            return TaskoFactory.listActiveSchedulesByOrgAndBunch(org.getId().intValue(),
+                    "repo-sync-bunch");
+        }
+        catch (NoSuchBunchTaskException e) {
+            // no such schedules available
+            return new ArrayList<TaskoSchedule>();
+        }
+    }
+
+
+    /**
+     * unschedule all outdated repo-sync schedules within an org
+     * @param orgIn organization
+     * @return number of removed schedules
+     */
+    public int unscheduleInvalidRepoSyncSchedules(Org orgIn) {
+        int count = 0;
+        for (TaskoSchedule schedule : listActiveRepoSyncSchedules(orgIn)) {
+            String channelIdStr = (String) schedule.getDataMap().get("channel_id");
+            Long channelId = null;
+            try {
+                channelId = Long.parseLong(channelIdStr);
+            }
+            catch (NumberFormatException nfe) {
+                // no valid channel id given
+            }
+            if (channelId == null || ChannelFactory.lookupById(channelId) == null) {
+                invoke("tasko.unscheduleBunch", orgIn.getId(), schedule.getJobLabel());
+                count++;
+            }
+        }
+        return count;
     }
 }
