@@ -25,6 +25,11 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
         </group>
         <sbr>
         <group>
+        <arg>-p<replaceable>CHANNEL_LABEL</replaceable></arg>
+        <arg>--parent-channel=<replaceable>CHANNEL_LABEL</replaceable></arg>
+        </group>
+        <sbr>
+        <group>
         <arg>-l</arg>
         <arg>--list</arg>
         </group>
@@ -109,9 +114,15 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
         </listitem>
     </varlistentry>
     <varlistentry>
+        <term>-p<replaceable>CHANNEL</replaceable>, --parent-channel=<replaceable>CHANNEL</replaceable></term>
+        <listitem>
+            <para>Synchronize the parent channel and all its child channels. All must have repositories already assigned via WebUI.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>-u<replaceable>URL</replaceable>, --url=<replaceable>URL</replaceable></term>
         <listitem>
-            <para>The repository URL.  Any protocol supported by yum is supported including http://, nfs://, file://. (Optional)</para>
+            <para>The repository URL.  Any protocol supported by yum is supported including http://, nfs://, file://. Can be used multiple times in order more than one repository to be assigned to a channel.(Optional)</para>
         </listitem>
     </varlistentry>
     <varlistentry>

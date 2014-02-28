@@ -146,7 +146,7 @@ class RepoSync(object):
                 self.error_msg("Channel has no URL associated")
                 sys.exit(1)
         else:
-            self.urls = [(None, url, None)]
+            self.urls = [(None, u, None) for u in url]
 
         self.repo_plugin = self.load_plugin(repo_type)
 
