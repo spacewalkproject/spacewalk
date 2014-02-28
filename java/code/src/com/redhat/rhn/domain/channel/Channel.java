@@ -415,9 +415,10 @@ public class Channel extends BaseDomainHelper implements Comparable {
     }
 
     /**
-     * @deprecated
+     * @deprecated Do not use this method
      * @return Returns the set of packages for this channel.
      */
+    @Deprecated
     public Set getPackages() {
         return packages;
     }
@@ -469,8 +470,9 @@ public class Channel extends BaseDomainHelper implements Comparable {
     /**
      * Adds a single package to the channel
      * @param packageIn The package to add
-     * @deprecated
+     * @deprecated Do not use this method.
      */
+    @Deprecated
     public void addPackage(Package packageIn) {
         if (!getChannelArch().isCompatible(packageIn.getPackageArch())) {
             throw new IncompatibleArchException(packageIn.getPackageArch(),
