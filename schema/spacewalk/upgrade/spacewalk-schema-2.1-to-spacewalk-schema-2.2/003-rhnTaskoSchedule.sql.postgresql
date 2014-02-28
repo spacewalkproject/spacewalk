@@ -1,0 +1,3 @@
+-- oracle equivalent source sha1 2e3287402fb160a842e05a7fea43d8900eee3633
+
+ALTER TABLE rhnTaskoSchedule ALTER cron_expr TYPE VARCHAR(50);
