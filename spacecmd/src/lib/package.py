@@ -332,8 +332,8 @@ def do_package_listdependencies(self, args):
 
         package_id = int(package_id)
         pkgdeps = self.client.packages.list_dependencies(self.session, package_id)
+        print 'Package Name: %s' % package
         for dep in pkgdeps:
-            print 'Package Name: %s' % package
             print 'Dependency: %s Type: %s Modifier: %s' % (dep['dependency'], dep['dependency_type'], dep['dependency_modifier'])
 
 # vim:ts=4:expandtab:
