@@ -75,6 +75,10 @@ while (my $param = shift @ARGV) {
                 close F;
         } elsif ( $param =~ '%boolean:(.*)%') {
                 $param = $client->boolean($1);
+        } elsif ( $param =~ '%integer:(.*)%') {
+                $param = $client->int($1);
+        } elsif ( $param =~ '%string:(.*)%') {
+                $param = $client->string($1);
         }
         push @params, $param;
 }
@@ -114,6 +118,12 @@ There is few special substitution available:
 
 %boolean:value%
         Is interpreted as a boolean value.
+
+%integer:value%
+        Is interpreted as an integer value.
+
+%string:value%
+        Is interpreted as a string value.
 
 =head1 OPTIONS
 
