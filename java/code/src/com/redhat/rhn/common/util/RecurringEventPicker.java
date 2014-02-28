@@ -242,17 +242,17 @@ public class RecurringEventPicker {
     private static String buildCron(String minute, String hour,
                                 String dayOfMonth, String dayOfWeek, String type) {
 
-        if (type == STATUS_DAILY) {
+        if (type.equals(STATUS_DAILY)) {
             //0 %d %d ? * *
             String[] items = {"0", minute, hour, "?", "*", "*"};
             return StringUtils.join(items, " ");
         }
-        else if (type == STATUS_WEEKLY) {
+        else if (type.equals(STATUS_WEEKLY)) {
             //0 %d %d ? * %d
             String[] items = {"0", minute, hour, "?", "*", dayOfWeek};
             return StringUtils.join(items, " ");
         }
-        else if (type == STATUS_MONTHLY) {
+        else if (type.equals(STATUS_MONTHLY)) {
             //0 %d %d %d * ?
             String[] items = {"0", minute, hour, dayOfMonth, "*", "?"};
             return StringUtils.join(items, " ");
