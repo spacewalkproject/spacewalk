@@ -2135,8 +2135,8 @@ def import_kickstart_fromdetails(self, ksdetails):
             self.client.kickstart.profile.system.addKeys(self.session,\
                 ksdetails['label'], [ key ])
         else:
-            logging.warning("GPG/SSL key %s does not exist on the " +\
-                "satellite, skipping" % key)
+            logging.warning("GPG/SSL key %s does not exist on the " % key +\
+                "satellite, skipping")
 
     # The pre/post logging settings
     self.client.kickstart.profile.setLogging(self.session, ksdetails['label'],\
