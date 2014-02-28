@@ -166,6 +166,7 @@ class RepoSync(object):
         """Trigger a reposync"""
         start_time = datetime.now()
         for (repo_id, url, repo_label) in self.urls:
+            print
             self.print_msg("Repo URL: %s" % url)
             plugin = None
 

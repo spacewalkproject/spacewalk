@@ -16,7 +16,9 @@
 #
 
 LOCK = None
-
+import re
+import StringIO
+import simplejson as json
 import shutil
 import sys
 import os
@@ -69,17 +71,18 @@ def main():
     parser.add_option('-l', '--list', action='store_true', dest='list',
                       help='List the custom channels with the assosiated repositories.')
     parser.add_option('-u', '--url', action='append', dest='url',
-                      default=[], help='The url to sync')
+                      default=[], help='The url of the repository. Can be used multiple times.')
     parser.add_option('-c', '--channel', action='store',
                       dest='channel_label',
-                      help='The label of the channel to sync packages to')
+                      help='The label of the channel to sync packages to. In order to specify more than one channel see option --config.')
     parser.add_option('-p', '--parent-channel', action='append',
                       dest='parent_label', default=[],
                       help='The label of the channel to sync packages to')
-
     parser.add_option('-d', '--dry-run', action='store_true',
                       dest='dry_run',
                       help='Test run. No sync takes place.')
+    parser.add_option('-g', '--config', action='store', dest='config',
+		       help='Configuration file')
     parser.add_option('-t', '--type', action='store', dest='repo_type',
                       help='The type of repo, currently only "yum" and "uln" are supported',
                       default='yum')
@@ -127,8 +130,30 @@ def main():
     # > afd8c60d7908b2b0e2d95ad0b333920aea9892eb', 'Invalid information uploaded to the server')
     clear_interrupted_downloads()
 
-    if not options.channel_label and not options.parent_label:
-        systemExit(1, "--channel or --parent-channel  must be specifed.")
+    if not options.channel_label and not options.parent_label and not options.config:
+        systemExit(1, "--channel, --parent-channel or --config must be specifed. must be specified")
+
+    if options.config:
+        try:
+            config_file = open(options.config).read()
+            # strip  all whitespace
+            config_file = re.sub(r'\s', '', config_file)
+            config = json.load(StringIO.StringIO(config_file))
+
+        except:
+            systemExit(1, "Configuration file is invalid, please check syntax.")
+
+        for key in l_params:
+		    if config.has_key(key) and not getattr(options, key):
+		        setattr(options, key, config[key])
+
+        # Channels
+        if config.has_key('channel'):
+            for ch,repo in config['channel'].iteritems():
+                 d_ch_repo_sync[ch]=repo
+
+        if config.has_key('parent_channel'):
+            options.parent_label+=config['parent_channel']
 
     if options.channel_label:
         d_ch_repo_sync[options.channel_label]=options.url
@@ -167,7 +192,11 @@ def main():
          return 0
 
     for ch,repo in d_ch_repo_sync.items():
-        print "#### Channel label: %s ####" % ch
+
+        print "======================================"
+        print "| Channel: %s" % ch
+        print "======================================"
+
         sync = reposync.RepoSync(channel_label=ch,
                       repo_type=options.repo_type,
                       url=repo,
