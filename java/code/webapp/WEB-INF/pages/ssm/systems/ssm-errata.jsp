@@ -26,6 +26,20 @@
         <rl:listset name="errataListSet" legend="errata">
             <rhn:csrf />
             <rhn:submitted />
+
+            <br/>
+            <select name="type">
+                <c:forEach items="${combo}" var="item">
+                        <option id="${item.id}"
+                                <c:if test="${item['default']}"> selected</c:if>
+                                >  <bean:message key="${item.name}"/>
+                        </option>
+                </c:forEach>
+            </select>
+            <html:submit styleClass="btn btn-default" property="show">
+                <bean:message key="system.errata.show"/>
+            </html:submit>
+            <br/>
 <%@ include file="/WEB-INF/pages/ssm/systems/errata-list-fragment.jspf" %>
 
             <div class="text-right">

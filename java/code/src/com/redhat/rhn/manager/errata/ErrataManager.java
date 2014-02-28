@@ -343,15 +343,6 @@ public class ErrataManager extends BaseManager {
         return ErrataFactory.search(eids, org);
     }
 
-    /**
-     * Returns the relevant errata.
-     * @param user Currently logged in user.
-     * @return relevant errata.
-     */
-    public static DataResult relevantErrata(User user) {
-        return ErrataManager.getRelevantErrata(user, false);
-    }
-
     /** Returns errata relevant to given server group.
      * @param serverGroup Server group.
      * @return Relevant errata for server group.
@@ -367,17 +358,29 @@ public class ErrataManager extends BaseManager {
      * Returns the relevant errata to the system set (used in SSM).
      *
      * @param user Currently logged in user.
+     * @param types List of errata types to include
      * @return relevant errata.
      */
-    public static DataResult relevantErrataToSystemSet(User user) {
-        return ErrataManager.getRelevantErrata(user, true);
+    public static DataResult relevantErrataToSystemSet(User user, List<String> types) {
+        SelectMode m = ModeFactory.getMode("Errata_queries",
+                                           "relevant_to_system_set");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        Map elabParams = new HashMap();
+        elabParams.put("user_id", user.getId());
+	DataResult dr = m.execute(params, types);
+	dr.setElaborationParams(elabParams);
+        return dr;
     }
 
-    private static DataResult getRelevantErrata(User user, boolean ssm) {
+    /**
+     * Returns the relevant errata.
+     * @param user Currently logged in user.
+     * @return relevant errata.
+     */
+    public static DataResult relevantErrata(User user) {
         SelectMode m = ModeFactory.getMode("Errata_queries",
-                                           ssm ?
-                                               "relevant_to_system_set" :
-                                               "relevant_errata");
+                                           "relevant_errata");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         Map elabParams = new HashMap();

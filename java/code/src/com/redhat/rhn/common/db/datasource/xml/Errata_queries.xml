@@ -1026,6 +1026,7 @@ SELECT E.id, E.advisory, E.advisory_name, E.advisory_type, E.update_date, E.syno
            AND errata_id IS NOT NULL
         GROUP BY SNEC.errata_id) X
  WHERE E.id = X.errata_id
+   AND E.advisory_type in (%s)
 ORDER BY  E.update_date DESC, E.id
   </query>
   <elaborator name="relevant_to_system_set_elab" />

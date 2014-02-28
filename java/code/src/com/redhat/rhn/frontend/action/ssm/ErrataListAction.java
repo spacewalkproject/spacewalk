@@ -16,8 +16,8 @@
 package com.redhat.rhn.frontend.action.ssm;
 
 import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.frontend.action.systems.ErrataSetupAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
@@ -38,8 +38,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author bo
  */
-public class ErrataListAction extends RhnAction implements Listable {
-    public static final String LIST_NAME = "errataList";
+public class ErrataListAction extends ErrataSetupAction implements Listable {
 
     /**
      * Entry-point caller.
@@ -50,19 +49,18 @@ public class ErrataListAction extends RhnAction implements Listable {
      * @param response   The HTTP Response we are processing.
      * <p/>
      * @return ActionForward returns an action forward
-     * @throws java.lang.Exception General exception.
      */
     @Override
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm actionForm,
                                  HttpServletRequest request,
-                                 HttpServletResponse response)
-            throws Exception {
+                                 HttpServletResponse response) {
         RequestContext requestContext = new RequestContext(request);
 
         ListSessionSetHelper helper = new ListSessionSetHelper(this, request);
         helper.setListName(LIST_NAME);
         helper.execute();
+	request.setAttribute("combo", getComboList(request));
 
         if (helper.isDispatched() && requestContext.wasDispatched("errata.jsp.apply")) {
             return handleConfirm(mapping, requestContext, helper);
@@ -93,6 +91,8 @@ public class ErrataListAction extends RhnAction implements Listable {
 
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
-        return ErrataManager.relevantErrataToSystemSet(context.getCurrentUser());
+        String type = context.getParam(SELECTOR, false);
+	List<String> typeList = getTypes(type);
+        return ErrataManager.relevantErrataToSystemSet(context.getCurrentUser(), typeList);
     }
 }
