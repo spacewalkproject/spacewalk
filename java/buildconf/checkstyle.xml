@@ -210,6 +210,7 @@ MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION, RCURLY, S
         <module name="usage.UnusedParameter"/>
         <module name="usage.UnusedPrivateField"/>
 -->
+        <module name="MissingDeprecated"/>
     </module>
 
     <!-- Checks for Headers                              -->
