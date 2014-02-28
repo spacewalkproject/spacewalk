@@ -12,15 +12,15 @@
         <html:form action="/activationkeys/packages/Packages" styleClass="form-horizontal">
             <rhn:csrf />
             <p><bean:message key="activation-key.packages.jsp.summary"/></p>
-            <h2><bean:message key="activation-key.packages.jsp.enter-names"/></h2>
+            <h3><bean:message key="activation-key.packages.jsp.enter-names"/></h3>
             <div class="form-group">
-                <div class="col-lg-offset-3 col-lg-6">
+                <div class="col-sm-6">
                     <html:textarea styleClass="form-control"
                                    property="packages" rows="8" cols="64" />
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-lg-offset-3 col-lg-6">
+                <div class="col-sm-6 text-right">
                     <rhn:submitted/>
                     <input class="btn btn-success" type="submit"
                            name ="dispatch" value='<bean:message key="keyedit.jsp.submit"/>'/>
