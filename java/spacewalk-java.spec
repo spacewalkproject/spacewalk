@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.3
+Version: 2.2.4
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Feb 28 2014 Tomas Lestach <tlestach@redhat.com> 2.2.4-1
+- delete outdated repo-sync schedules
+- filter out channels that are not assigned to a server
+
 * Wed Feb 26 2014 Jan Dobes 2.2.3-1
 - 1068815 - update API documentation
 - 1068815 - deal with deleted users
