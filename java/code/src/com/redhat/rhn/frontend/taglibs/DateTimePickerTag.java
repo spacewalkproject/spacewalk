@@ -178,42 +178,45 @@ public class DateTimePickerTag extends TagSupport {
         group.setAttribute("class", "input-group");
         group.setAttribute("id", data.getName() + "_datepicker_widget");
 
-        HtmlTag dateAddon = createInputAddonTag("date", "header-calendar");
-        group.addBody(dateAddon);
+        if (!data.getDisableDate()) {
+            HtmlTag dateAddon = createInputAddonTag("date", "header-calendar");
+            group.addBody(dateAddon);
 
-        SimpleDateFormat dateFmt = (SimpleDateFormat)
-                DateFormat.getDateInstance(DateFormat.SHORT, data.getLocale());
-        SimpleDateFormat timeFmt = (SimpleDateFormat)
-                DateFormat.getTimeInstance(DateFormat.SHORT, data.getLocale());
+            SimpleDateFormat dateFmt = (SimpleDateFormat)
+                    DateFormat.getDateInstance(DateFormat.SHORT, data.getLocale());
 
-        HtmlTag dateInput = new HtmlTag("input");
-        dateInput.setAttribute("id", data.getName() + "_datepicker_widget_input");
-        dateInput.setAttribute("data-provide", "date-picker");
-        dateInput.setAttribute("data-date-today-highlight", "true");
-        dateInput.setAttribute("data-date-orientation", "top auto");
-        dateInput.setAttribute("data-date-autoclose", "true");
-        dateInput.setAttribute("data-date-language", data.getLocale().toString());
-        dateInput.setAttribute("data-date-format",
-                toDatepickerFormat(dateFmt.toPattern()));
-        dateInput.setAttribute("type", "text");
-        dateInput.setAttribute("class", "form-control");
-        dateInput.setAttribute("id", data.getName() + "_datepicker_widget_input");
-        dateInput.setAttribute("size", "15");
+            HtmlTag dateInput = new HtmlTag("input");
+            dateInput.setAttribute("id", data.getName() + "_datepicker_widget_input");
+            dateInput.setAttribute("data-provide", "date-picker");
+            dateInput.setAttribute("data-date-today-highlight", "true");
+            dateInput.setAttribute("data-date-orientation", "top auto");
+            dateInput.setAttribute("data-date-autoclose", "true");
+            dateInput.setAttribute("data-date-language", data.getLocale().toString());
+            dateInput.setAttribute("data-date-format",
+                    toDatepickerFormat(dateFmt.toPattern()));
+            dateInput.setAttribute("type", "text");
+            dateInput.setAttribute("class", "form-control");
+            dateInput.setAttribute("id", data.getName() + "_datepicker_widget_input");
+            dateInput.setAttribute("size", "15");
 
-        dateInput.setAttribute("data-picker-name", data.getName());
-        dateInput.setAttribute("data-initial-year", String.valueOf(data.getYear()));
-        dateInput.setAttribute("data-initial-month", String.valueOf(data.getMonth()));
-        dateInput.setAttribute("data-initial-day", String.valueOf(data.getDay()));
+            dateInput.setAttribute("data-picker-name", data.getName());
+            dateInput.setAttribute("data-initial-year", String.valueOf(data.getYear()));
+            dateInput.setAttribute("data-initial-month", String.valueOf(data.getMonth()));
+            dateInput.setAttribute("data-initial-day", String.valueOf(data.getDay()));
 
-        String firstDay = getJavascriptPickerDayIndex(
-                data.getCalendar().getFirstDayOfWeek());
-        dateInput.setAttribute("data-date-week-start", firstDay);
+            String firstDay = getJavascriptPickerDayIndex(
+                    data.getCalendar().getFirstDayOfWeek());
+            dateInput.setAttribute("data-date-week-start", firstDay);
 
-        group.addBody(dateInput);
+            group.addBody(dateInput);
+        }
 
         if (!data.getDisableTime()) {
             HtmlTag timeAddon = createInputAddonTag("time", "header-clock");
             group.addBody(timeAddon);
+
+            SimpleDateFormat timeFmt = (SimpleDateFormat)
+                    DateFormat.getTimeInstance(DateFormat.SHORT, data.getLocale());
 
             HtmlTag timeInput = new HtmlTag("input");
             timeInput.setAttribute("type", "text");
@@ -244,34 +247,37 @@ public class DateTimePickerTag extends TagSupport {
 
         // compatibility with the old struts form
         // these values are updated when the picker changes using javascript
-        out.append(createHiddenInput("day").render());
-        out.append(createHiddenInput("month").render());
-        out.append(createHiddenInput("year").render());
-        if (!data.getDisableTime()) {
-            out.append(createHiddenInput("hour").render());
-            out.append(createHiddenInput("minute").render());
-            out.append(createHiddenInput("am_pm").render());
-        }
+        //
+        // if you are tempted to not write out these fields in case
+        // date or time are disabled for the picker, mind that
+        // DatePicker::readMap resets the date to now() if not all fields
+        // are present.
+        out.append(createHiddenInput("day", String.valueOf(data.getDay())).render());
+        out.append(createHiddenInput("month", String.valueOf(data.getMonth())).render());
+        out.append(createHiddenInput("year", String.valueOf(data.getYear())).render());
+
+        out.append(createHiddenInput("hour", String.valueOf(data.getHour())).render());
+        out.append(createHiddenInput("minute", String.valueOf(data.getMinute())).render());
+        out.append(createHiddenInput("am_pm", String.valueOf((data.getHour() > 12) ? 1 : 0)).render());
     }
 
-    private HtmlTag createHiddenInput(String type) {
+    private HtmlTag createHiddenInput(String type, String value) {
         HtmlTag input = new HtmlTag("input");
         input.setAttribute("id", data.getName() + "_" + type);
         input.setAttribute("name", data.getName() + "_" + type);
         input.setAttribute("type", "hidden");
+        input.setAttribute("value", value);
         return input;
     }
 
     private void writePickerJavascript(Writer out) throws IOException {
         if (pageContext.getRequest().getAttribute(JS_INCLUDE_GUARD_ATTR) == null) {
             writeJavascriptIncludes(out);
-        }
-        out.append("<script type='text/javascript'>\n");
-        if (pageContext.getRequest().getAttribute(JS_INCLUDE_GUARD_ATTR) == null) {
+            out.append("<script type='text/javascript'>\n");
             writeI18NMap(out);
             pageContext.getRequest().setAttribute(JS_INCLUDE_GUARD_ATTR, true);
+            out.append("</script>\n");
         }
-        out.append("</script>\n");
     }
 
     private void writeJavascriptIncludes(Writer out) throws IOException {
