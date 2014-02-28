@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.2.2
+Version:        2.2.3
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Feb 28 2014 Tomas Lestach <tlestach@redhat.com> 2.2.3-1
+- fix oracle equivalent source sha1
+
 * Fri Feb 28 2014 Tomas Lestach <tlestach@redhat.com> 2.2.2-1
 - 1070917 - extending cron_expr column within the rhnTaskoSchedule table
 
