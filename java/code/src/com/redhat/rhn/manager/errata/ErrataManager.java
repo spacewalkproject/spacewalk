@@ -368,8 +368,8 @@ public class ErrataManager extends BaseManager {
         params.put("user_id", user.getId());
         Map elabParams = new HashMap();
         elabParams.put("user_id", user.getId());
-	DataResult dr = m.execute(params, types);
-	dr.setElaborationParams(elabParams);
+        DataResult dr = m.execute(params, types);
+        dr.setElaborationParams(elabParams);
         return dr;
     }
 

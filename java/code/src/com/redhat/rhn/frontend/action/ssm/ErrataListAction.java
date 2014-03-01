@@ -60,7 +60,7 @@ public class ErrataListAction extends ErrataSetupAction implements Listable {
         ListSessionSetHelper helper = new ListSessionSetHelper(this, request);
         helper.setListName(LIST_NAME);
         helper.execute();
-	request.setAttribute("combo", getComboList(request));
+        request.setAttribute("combo", getComboList(request));
 
         if (helper.isDispatched() && requestContext.wasDispatched("errata.jsp.apply")) {
             return handleConfirm(mapping, requestContext, helper);
@@ -92,7 +92,7 @@ public class ErrataListAction extends ErrataSetupAction implements Listable {
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
         String type = context.getParam(SELECTOR, false);
-	List<String> typeList = getTypes(type);
+        List<String> typeList = getTypes(type);
         return ErrataManager.relevantErrataToSystemSet(context.getCurrentUser(), typeList);
     }
 }
