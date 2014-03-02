@@ -34,6 +34,7 @@ public class OrgConfig extends BaseDomainHelper {
     private boolean scapfileUploadEnabled;
     private Long scapFileSizelimit;
     private Long scapRetentionPeriodDays;
+    private boolean createDefaultSg;
 
     /**
      * Gets the current value of org_id
@@ -154,5 +155,21 @@ public class OrgConfig extends BaseDomainHelper {
      */
     public void setScapRetentionPeriodDays(Long scapRetentionPeriodDaysIn) {
         scapRetentionPeriodDays = scapRetentionPeriodDaysIn;
+    }
+
+
+    /**
+     * @return Returns the createDefaultSg.
+     */
+    public boolean isCreateDefaultSg() {
+        return createDefaultSg;
+    }
+
+
+    /**
+     * @param createDefaultSgIn The createDefaultSg to set.
+     */
+    public void setCreateDefaultSg(boolean createDefaultSgIn) {
+        createDefaultSg = createDefaultSgIn;
     }
 }

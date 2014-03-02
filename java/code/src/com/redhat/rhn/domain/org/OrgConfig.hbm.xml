@@ -17,6 +17,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="scapfileUploadEnabled" column="scapfile_upload_enabled" type="yes_no" not-null="true"/>
         <property name="scapFileSizelimit" column="scap_file_sizelimit" type="long" not-null="true"/>
         <property name="scapRetentionPeriodDays" column="scap_retention_period_days" type="long" not-null="false"/>
+        <property name="createDefaultSg" column="create_default_sg" type="yes_no" not-null="true"/>
     </class>
 </hibernate-mapping>
 
