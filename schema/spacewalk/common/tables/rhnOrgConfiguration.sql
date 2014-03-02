@@ -47,6 +47,10 @@ create table rhnOrgConfiguration
                                    default(90)
                                    constraint rhn_org_conf_scap_reten_chk
                                    check (scap_retention_period_days >= 0),
+    create_default_sg          char(1)
+                                    default('N') not null
+                                    constraint rhn_org_cong_deforg_chk
+                                    check (create_default_sg in ('Y', 'N')),
     created                    timestamp with local time zone
                                    default (current_timestamp) not null,
     modified                   timestamp with local time zone
