@@ -41,6 +41,7 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  *      #prop("string", "name")
  *      #prop("string", "label")
  *      #prop("string", "arch_name")
+ *      #prop("string", "arch_label")
  *      #prop("string", "summary")
  *      #prop("string", "description")
  *      #prop("string", "checksum_label")
@@ -90,6 +91,8 @@ public class ChannelSerializer extends RhnXmlRpcCustomSerializer {
         helper.add("name", c.getName());
         helper.add("arch_name",
                 StringUtils.defaultString(c.getChannelArch().getName()));
+        helper.add("arch_label",
+                StringUtils.defaultString(c.getChannelArch().getLabel()));
         helper.add("summary", StringUtils.defaultString(c.getSummary()));
         helper.add("description",
                 StringUtils.defaultString(c.getDescription()));
