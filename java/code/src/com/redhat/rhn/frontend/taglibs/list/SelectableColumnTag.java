@@ -344,7 +344,7 @@ public class SelectableColumnTag extends TagSupport {
 
 
     private String getParentId(Object current, Object parent) {
-        if (parent != null && parent !=  current) {
+        if (parent != null && !parent.equals(current)) {
             return makeCheckboxId(listName, ListTagHelper.getObjectId(parent));
         }
         return "";
@@ -372,7 +372,7 @@ public class SelectableColumnTag extends TagSupport {
     }
 
     private String getMemberIds(Object current, Object parent) {
-        if (parent != null && parent != current) {
+        if (parent != null && !parent.equals(current)) {
             return getChildIds(parent);
         }
         return "[]";
