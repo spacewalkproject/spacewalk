@@ -1891,7 +1891,7 @@ Install the satellite in disconnected mode.
 
 Clear any pre-existing database schema before installing.
 This will destroy any data in the Satellite database and re-create
-empty Satellite schema.
+empty Satellite schema. This option implies B<--skip-db-install>.
 
 =item B<--skip-system-version-test>
 
