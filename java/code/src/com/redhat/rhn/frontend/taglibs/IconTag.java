@@ -151,6 +151,8 @@ public class IconTag extends TagSupport {
         icons.put("system-virt-guest", "fa fa-1-5x spacewalk-icon-virtual-guest");
         icons.put("system-virt-host", "fa fa-1-5x spacewalk-icon-virtual-host");
         icons.put("system-warn", "fa fa-exclamation-triangle fa-1-5x text-warning");
+        icons.put("repo-sync", "fa fa-refresh");
+        icons.put("repo-schedule-sync", "fa fa-calendar");
     }
 
     /**

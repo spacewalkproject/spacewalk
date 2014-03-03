@@ -1,3 +1,4 @@
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -5,11 +6,25 @@
 
 <c:set value="${requestScope[param.widget]}" var="picker"/>
 
-<span class="help-block"><bean:message key="schedule.header"/></span>
+<script type="text/javascript">
+  $(function() {
+    function toggleStatus() {
+      var status = $('fieldset#recurring-picker-${picker.name} input[type="radio"]:checked').val();
+      $('fieldset#recurring-picker-${picker.name} .recurring-options[data-status!="' + status + '"][data-picker-name="${picker.name}"]').find('select, input').prop('disabled', true);
+      $('fieldset#recurring-picker-${picker.name} .recurring-options[data-status="' + status + '"][data-picker-name="${picker.name}"]').find('select, input').prop('disabled', false);
+    }
+    $('fieldset#recurring-picker-${picker.name} input[type="radio"]').click(function() {
+        toggleStatus();
+    });
+    toggleStatus();
+ });
+</script>
 
-<div class="form-group">
-    <div class="col-lg-offset-3 col-lg-6">
-        <div class="checkbox">
+<fieldset id="recurring-picker-${picker.name}" class="spacewalk-recurring-picker">
+    <legend><bean:message key="schedule.header"/></legend>
+
+    <div class="row">
+        <div class="checkbox col-md-12">
             <label>
                 <input type="radio" name="${picker.name}_status" value="disabled" id="disabled"
                        <c:if test="${picker.status == 'disabled'}">checked="true"</c:if> />
@@ -17,90 +32,85 @@
             </label>
         </div>
     </div>
-</div>
-<div class="form-group">
-    <div class="col-lg-offset-3 col-lg-6">
-        <div class="row">
-            <div class="checkbox">
-                <label>
-                    <input type="radio" name="${picker.name}_status" value="daily" id="daily"
-                           <c:if test="${picker.status == 'daily'}">checked="true"</c:if> />
-                    <strong><bean:message key="schedule.daily"/></strong>
-                </label>
-            </div>
-            <div class="col-lg-5">
-                <bean:message key="schedule.weekly.at"/>
-                <c:set var="timeName" value="daily" />
-                <%@ include file="/WEB-INF/pages/common/fragments/hour-minute-picker.jspf" %>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="form-group">
-    <div class="col-lg-offset-3 col-lg-6">
-        <div class="row">
-            <div class="checkbox">
-                <label>
-                    <input type="radio" name="${picker.name}_status" value="weekly" id="weekly"
-                           <c:if test="${picker.status == 'weekly'}">checked="true"</c:if> />
-                    <strong><bean:message key="schedule.weekly"/></strong>
-                </label>
-            </div>
-            <div class="col-lg-5">
-                <bean:message key="schedule.weekly.every"/>
-                <select name='${picker.name}_day_week' size="1" class="form-control">
-                    <c:forEach var="day" begin="0" end="6">
-                        <option <c:if test="${picker.dayNames[day] eq picker.dayOfWeekString}">selected="selected"</c:if> value='${day+1}'>${picker.dayNames[day]}</option>
-                    </c:forEach>
-                </select>
-            </div>
-            <div class="col-lg-5">
-                <bean:message key="schedule.weekly.at"/>
-                <c:set var="timeName" value="weekly" />
-                <%@ include file="/WEB-INF/pages/common/fragments/hour-minute-picker.jspf" %>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="form-group">
-    <div class="col-lg-offset-3 col-lg-6">
-        <div class="row">
-            <div class="checkbox">
-                <label>
-                    <input type="radio" name="${picker.name}_status" value="monthly" id="monthly"
-                           <c:if test="${picker.status == 'monthly'}">checked="true"</c:if> />
-                    <strong><bean:message key="schedule.monthly"/></strong>
-                </label>
-            </div>
-            <div class="col-lg-5">
-                <bean:message key="schedule.monthly.day"/>
-                <select name='${picker.name}_day_month' size="1" class="form-control">
-                    <c:forEach var="day" begin="1" end="28">
-                        <option <c:if test="${picker.dayOfMonthLong == day}">selected="selected"</c:if> value='${day}'>${day}</option>
-                    </c:forEach>
-                </select>
-            </div>
-            <div class="col-lg-5">
-                <bean:message key="schedule.weekly.at"/>
-                <c:set var="timeName" value="monthly" />
-                <%@ include file="/WEB-INF/pages/common/fragments/hour-minute-picker.jspf" %>
+    <div class="row">
+        <div class="checkbox col-md-12">
+            <label>
+                <input type="radio" name="${picker.name}_status" value="daily" id="daily"
+                       <c:if test="${picker.status == 'daily'}">checked="true"</c:if> />
+                <strong><bean:message key="schedule.daily"/></strong>
+            </label>
+            <div data-status="daily" data-picker-name="${picker.name}" class="recurring-options row">
+                <div class="col-md-3">
+                    <bean:message key="schedule.weekly.at"/>
+                    <rhn:datepicker data="${picker.dailyTimePicker}"/>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="form-group">
-    <div class="col-lg-offset-3 col-lg-6">
-        <div class="checkbox">
+    <div class="row">
+        <div class="checkbox col-md-12">
+            <label>
+                <input type="radio" name="${picker.name}_status" value="weekly" id="weekly"
+                       <c:if test="${picker.status == 'weekly'}">checked="true"</c:if> />
+                <strong><bean:message key="schedule.weekly"/></strong>
+            </label>
+            <div data-status="weekly" data-picker-name="${picker.name}" class="recurring-options row">
+                <div class="col-md-3">
+                    <bean:message key="schedule.weekly.every"/>
+                    <select name='${picker.name}_day_week' size="1" class="form-control">
+                        <c:forEach var="day" begin="0" end="6">
+                            <option <c:if test="${picker.dayNames[day] eq picker.dayOfWeekString}">selected="selected"</c:if> value='${day+1}'>${picker.dayNames[day]}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <bean:message key="schedule.weekly.at"/>
+                    <rhn:datepicker data="${picker.weeklyTimePicker}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="checkbox col-md-12">
+            <label>
+                <input type="radio" name="${picker.name}_status" value="monthly" id="monthly"
+                       <c:if test="${picker.status == 'monthly'}">checked="true"</c:if> />
+                <strong><bean:message key="schedule.monthly"/></strong>
+            </label>
+            <div data-status="monthly" data-picker-name="${picker.name}" class="recurring-options row">
+                <div class="col-md-3">
+                    <bean:message key="schedule.monthly.day"/>
+                    <select name='${picker.name}_day_month' size="1" class="form-control">
+                        <c:forEach var="day" begin="1" end="28">
+                            <option <c:if test="${picker.dayOfMonthLong == day}">selected="selected"</c:if> value='${day}'>${day}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <bean:message key="schedule.weekly.at"/>
+                    <rhn:datepicker data="${picker.monthlyTimePicker}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12 checkbox">
             <label>
                 <input type="radio" name="${picker.name}_status" value="cron" id="cron"
                        <c:if test="${picker.status == 'cron'}">checked="true"</c:if> />
                 <strong><bean:message key="schedule.cron"/></strong>
-            </lable>
-        </div>
-        <div class="col-lg-5">
-            <input type="text" size="20" name="${picker.name}_cron" value="${picker.cronEntry}" class="form-control" />
+            </label>
+            <div data-status="cron" data-picker-name="${picker.name}" class="recurring-options row">
+                <div class="col-md-6">
+                    <input type="text" size="20" name="${picker.name}_cron" value="${picker.cronEntry}" class="form-control" />
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</fieldset>
