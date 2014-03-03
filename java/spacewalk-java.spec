@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.7
+Version: 2.2.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Mar 03 2014 Stephen Herr <sherr@redhat.com> 2.2.8-1
+- 1072073 - ChannelSerializer should display arch label too
+- Compare objects using equals
+- Add overrides
+- Compare objects with equals
+- Add overrides
+- Make code more strightforward
+
 * Mon Mar 03 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.7-1
 - cryptokeydeleteconfirm.jsp port
 - kickstartablesystems.jsp, fix layout
