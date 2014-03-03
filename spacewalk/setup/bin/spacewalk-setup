@@ -50,7 +50,8 @@ my $product_name = $answers{'product_name'} || 'Spacewalk';
 
 $answers{hostname} ||= Sys::Hostname::hostname;
 
-if ( not defined $opts{"clear-db"} and $answers{"clear-db"} =~ /Y/i ){
+if (not defined $opts{"clear-db"} and defined $answers{"clear-db"} and
+    $answers{"clear-db"} =~ /Y/i){
     $opts{'clear-db'} = 1;
 }
 
