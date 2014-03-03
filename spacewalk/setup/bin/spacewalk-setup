@@ -54,6 +54,8 @@ if ( not defined $opts{"clear-db"} and $answers{"clear-db"} =~ /Y/i ){
     $opts{'clear-db'} = 1;
 }
 
+$opts{"skip-db-install"} = 1 if $opts{"clear-db"};
+
 # Skip the logfile init, normally just used when called from install.pl,
 # which already did this.
 if (not $opts{"skip-logfile-init"}) {
