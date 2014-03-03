@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.6
+Version: 2.2.7
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,31 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Mar 03 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.7-1
+- cryptokeydeleteconfirm.jsp port
+- kickstartablesystems.jsp, fix layout
+- unneeded offset and button alignment with columns
+- typo in class, unneeded offset, button was aligned with columns (use text-
+  right)
+- fixing checkstyle
+- Use String.equals instead of ==, this works only because we are lucky to get
+  the constants as input.
+- Revamp the recurring picker fragment to use the datepicker time component.
+  For this the RecurringDatePicker bean now is composed of DatePicker beans to
+  reuse functionality. With some Javascript, the repeat-task-picker disables
+  the cron frequencies that are not being used.
+- - if the datepicker date is disabled, disable the date part of the widget. -
+  always generate the hidden fields. StrutsDelegate::readDatePicker will
+  reset _all_ your date to now() if any field is missing.
+- allow to disable date selection in addition to time
+- syncrepos: format the page
+- use buttons instead of inputs
+- syncrepos: remove line break
+- make the setup of the date picker more declarative using data- attributes in
+  order to be able to share this setup with other parts of the code that will
+  need a slightly different picker like the recurrent selector. It also saves
+  us from outputing one <script> tag in the jsp tag implementation.
+
 * Sat Mar 01 2014 Tomas Lestach <tlestach@redhat.com> 2.2.6-1
 - replace tabs with spaces
 
