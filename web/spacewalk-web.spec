@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.1
+Version: 2.2.2
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,12 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Mar 03 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.2-1
+- make the setup of the date picker more declarative using data- attributes in
+  order to be able to share this setup with other parts of the code that will
+  need a slightly different picker like the recurrent selector. It also saves
+  us from outputing one <script> tag in the jsp tag implementation.
+
 * Mon Feb 24 2014 Matej Kollar <mkollar@redhat.com> 2.2.1-1
 - Bumping web version for 2.2.
 
