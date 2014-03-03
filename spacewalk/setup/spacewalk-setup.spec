@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.2.1
+Version:        2.2.2
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -107,6 +107,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Mar 03 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.2-1
+- 484950 - clear-db flag does not do what in --help
+
 * Mon Mar 03 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.1-1
 - 460556 - option clear-db missing in answer file
 
