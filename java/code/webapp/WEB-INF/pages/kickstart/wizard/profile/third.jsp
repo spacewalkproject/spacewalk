@@ -34,7 +34,7 @@ function movePrevious() {
 <body onload="setState();">
 <br />
 <div>
-  <html:form method="POST" action="/kickstart/CreateProfileWizard.do">
+  <html:form method="POST" action="/kickstart/CreateProfileWizard.do" styleClass="form-horizontal">
     <rhn:csrf />
     <rhn:submitted />
     <html:hidden property="wizardStep" styleId="wizard-curstep" />
@@ -48,36 +48,34 @@ function movePrevious() {
     <html:hidden property="kstreeUpdateType" />
     <rhn:toolbar base="h1" icon="header-kickstart"><bean:message key="kickstart.jsp.create.wizard.step.three"/></rhn:toolbar>
     <p><bean:message key="kickstart.jsp.create.wizard.third.heading1" /></p>
-    <div class="panel panel-default">
-      <ul class="list-group">
-        <div class="row">
-          <div class="col-sm-2">
+    <div class="panel panel-default">   
+    <div class="panel-body">
+      <div class="form-group">
+          <label class="col-sm-2 control-label">
             <rhn:required-field key="kickstart.root.password.jsp.label"/>:
+          </label>
+          <div class="col-sm-6">
+            <html:password property="rootPassword"  styleClass="form-control" />
           </div>
-          <div class="col-sm-10">
-            <html:password property="rootPassword" />
-          </div>
-        </div>
-      </ul>
-      <ul class="list-group">
-        <div class="row">
-          <div class="col-sm-2">
+      </div>
+      <div class="form-group">
+          <label class="col-sm-2 control-label">
           	<rhn:required-field key="kickstart.root.password.verify.jsp.label"/>:
+          </label>
+          <div class="col-sm-6">
+          	<html:password property="rootPasswordConfirm" styleClass="form-control" />
           </div>
-          <div class="col-sm-10">
-          	<html:password property="rootPasswordConfirm" />
-          </div>
-        </div>
-      </ul>
+      </div>
     </div>
-    <div align="right">
+    </div>
+
+    <div class="text-right">
       <input type="button" value="<bean:message key='wizard.jsp.previous.step'/>" onclick="movePrevious();" class="btn btn-default" />
       &nbsp;&nbsp;
-      <input type="submit" value="<bean:message key='wizard.jsp.finish.step'/>" onclick="moveNext();" class="btn btn-default" />
+      <input type="submit" value="<bean:message key='wizard.jsp.finish.step'/>" onclick="moveNext();" class="btn btn-primary" />
     </div>
   </html:form>
   </html>
 </div>
 </body>
 </html>
-
