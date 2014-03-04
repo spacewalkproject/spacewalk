@@ -146,11 +146,9 @@ then
     fi
 fi
 
-# Read 'wrapper.java.maxmemory' from rhn.conf as 'taskomatic.maxmemory'
-MAX_MEMORY=$( grep -E -m1 "^taskomatic.maxmemory[[:space:]]*=" /etc/rhn/rhn.conf | sed "s/^taskomatic.maxmemory[[:space:]]*=[[:space:]]*\(.*\)/\1/" || echo "" )
-if [ ! -z "${MAX_MEMORY}" ]; then
-  MAX_MEMORY="wrapper.java.maxmemory=${MAX_MEMORY}"
-fi
+# Read taskomatic.* options from rhn.conf and put them on commandline
+RHNCONF_OPTIONS=$(sed -n '/^taskomatic\./ {
+                s/#.*//; s/^taskomatic/wrapper/; s/ //g; p}' /etc/rhn/rhn.conf)
 
 getpid() {
     if [ -f $PIDFILE ]
@@ -192,9 +190,9 @@ console() {
     then
         if [ "X$IGNORE_SIGNALS" = "X" ]
         then
-            exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF $MAX_MEMORY wrapper.pidfile=$PIDFILE
+            exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF $RHNCONF_OPTIONS wrapper.pidfile=$PIDFILE
         else
-            exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF $MAX_MEMORY wrapper.pidfile=$PIDFILE wrapper.anchorfile=$ANCHORFILE
+            exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF $RHNCONF_OPTIONS wrapper.pidfile=$PIDFILE wrapper.anchorfile=$ANCHORFILE
         fi
     else
         echo "$APP_LONG_NAME is already running."
@@ -211,16 +209,16 @@ start() {
         then
             if [ "X$RUN_AS_USER" = "X" ]
             then
-                exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF $MAX_MEMORY wrapper.pidfile=$PIDFILE wrapper.daemonize=TRUE
+                exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF $RHNCONF_OPTIONS wrapper.pidfile=$PIDFILE wrapper.daemonize=TRUE
             else
-                /sbin/runuser -m $RUN_AS_USER -c "exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF $MAX_MEMORY wrapper.pidfile=$PIDFILE wrapper.daemonize=TRUE"
+                /sbin/runuser -m $RUN_AS_USER -c "exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF $RHNCONF_OPTIONS wrapper.pidfile=$PIDFILE wrapper.daemonize=TRUE"
             fi
         else
             if [ "X$RUN_AS_USER" = "X" ]
             then
-                exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF $MAX_MEMORY wrapper.pidfile=$PIDFILE wrapper.anchorfile=$ANCHORFILE wrapper.ignore_signals=TRUE wrapper.daemonize=TRUE
+                exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF $RHNCONF_OPTIONS wrapper.pidfile=$PIDFILE wrapper.anchorfile=$ANCHORFILE wrapper.ignore_signals=TRUE wrapper.daemonize=TRUE
             else
-                /sbin/runuser -m $RUN_AS_USER -c "exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF $MAX_MEMORY wrapper.pidfile=$PIDFILE wrapper.anchorfile=$ANCHORFILE wrapper.ignore_signals=TRUE wrapper.daemonize=TRUE"
+                /sbin/runuser -m $RUN_AS_USER -c "exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF $RHNCONF_OPTIONS wrapper.pidfile=$PIDFILE wrapper.anchorfile=$ANCHORFILE wrapper.ignore_signals=TRUE wrapper.daemonize=TRUE"
             fi
         fi
     else
