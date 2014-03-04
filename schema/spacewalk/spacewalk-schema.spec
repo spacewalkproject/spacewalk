@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.1.50
+Version:        2.1.51
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Mar 04 2014 Tomas Kasparek <tkasparek@redhat.com> 2.1.51-1
+- create new upgrade path for fix introdouced in
+  d276b6a34f0243e09a4c835465f9f2e250d3e3b1
+- insert new gpg key only if not exists
+
 * Mon Feb 24 2014 Michael Mraka <michael.mraka@redhat.com> 2.1.50-1
 - replacing view must have the same number of columns (in postgresql)
 
