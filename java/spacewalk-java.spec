@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.8
+Version: 2.2.9
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Mar 04 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.9-1
+- make taskomatic and rhn-search configuration overrideable via rhn.conf
+
 * Mon Mar 03 2014 Stephen Herr <sherr@redhat.com> 2.2.8-1
 - 1072073 - ChannelSerializer should display arch label too
 - Compare objects using equals
