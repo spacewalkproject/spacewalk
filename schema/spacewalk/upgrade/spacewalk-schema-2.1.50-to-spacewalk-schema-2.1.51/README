@@ -1,0 +1,4 @@
+-- Schema upgrade scripts.
+-- leave this directory empty, all upgrades from 2.1.50 to 2.1.51 are covered by 2.0 to 2.1 upgrade
+-- fixes psql:/var/log/spacewalk/schema-upgrade/20140304-125445-script.sql:4308: ERROR:  duplicate key value violates unique constraint "rhn_pkey_keyid_uq"
+-- caused by 3cdd688b3b46bc6ca0e1c833c5383aba60594476
