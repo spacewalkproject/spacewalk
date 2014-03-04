@@ -109,7 +109,7 @@
 		}
 	}
 }
-// main navigation bar hidden in medium and small screens but with a button to make them visible again
+// main navigation bar hidden in small screens but with a button to make them visible again
 .menu-toggle-hide {
 	.main-menu-hor {
 		float: none;
@@ -154,31 +154,38 @@
 		}
 	}
 }
-// show complete main menu bar
-@media (min-width: 1061px) {
+// show complete main menu bar on bigger than mobile screens
+@media (min-width: 481px) {
 	.collapse {
 		display: block;
 		height: auto !important;
 	}
+	.navbar-nav {
+		float: left;
+		margin: 0;
+	}
+	.navbar-nav > li {
+		float: left;
+	}
+	.navbar-nav > li > a {
+		padding-top: 16px;
+		padding-bottom: 16px;
+	}
 }
 //classes that will take effect on tablets and mobiles screens
-@media (max-width: 1060px) {
-	.button-main-menu-vissible;
-	.menu-toggle-hide;
-}
 @media (max-width: @screen-tablet) {
 	.sidenav-horizontal;
 	.aside-horizontal;
 	.header-responsive;
 	.columns-no-padding;
 	.legal-text-footer;
-	.menu-toggle-hide;
-	.button-main-menu-vissible;
 }
 //classes that will take effect only on mobiles screens
 @media (max-width: @screen-phone) {
 	.logoLetter;
 	.buttons-full-size;
+	.menu-toggle-hide;
+	.button-main-menu-vissible;
 }
 
 
