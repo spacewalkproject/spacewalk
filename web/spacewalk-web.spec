@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.2
+Version: 2.2.3
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Mar 05 2014 Jan Dobes 2.2.3-1
+- control menu type switching completely with css instead of javascript
+
 * Mon Mar 03 2014 Tomas Kasparek <tkasparek@redhat.com> 2.2.2-1
 - make the setup of the date picker more declarative using data- attributes in
   order to be able to share this setup with other parts of the code that will
