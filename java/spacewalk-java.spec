@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.9
+Version: 2.2.10
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -801,6 +801,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 05 2014 Jan Dobes 2.2.10-1
+- hide search form together with other UI changes
+- RecurringDatePicker sets HOUR_OF_DAY, however DatePicker design is kind of
+  broken and it internally uses HOUR or HOUR_OF_DAY depending of the isLatin()
+  flag. This does not make much sense as in Calendar itself HOUR, HOUR_OF_DAY
+  and AM_PM are all interconnected.
+
 * Tue Mar 04 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.9-1
 - make taskomatic and rhn-search configuration overrideable via rhn.conf
 
