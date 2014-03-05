@@ -51,8 +51,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-up2date-at-least' => \&up2date_at_least);
-
   $pxt->register_tag('rhn-server-prefs-conf-list' => \&server_prefs_conf_list);
   $pxt->register_tag('rhn-server-name' => \&server_name, 2);
 
@@ -81,38 +79,6 @@ sub register_callbacks {
   $pxt->register_callback('rhn:package-action-command-cb' => \&package_action_command_cb);
 }
 
-# like rhn-require, only shows block if a server's version of up2date is >= required version
-sub up2date_at_least {
-  my $pxt = shift;
-  my %params = @_;
-
-  #PXT::Debug->log(4, "checking up2date version...");
-
-  my $sid = $pxt->param('sid');
-  die "no sid" unless ($sid);
-
-  my $server = RHN::Server->lookup(-id => $sid);
-  die "no server" unless ($server);
-
-  my $up2date_is_supported;
-  eval {
-    $up2date_is_supported = $server->up2date_version_at_least(epoch => $params{epoch},
-							      version => $params{version},
-							      release => $params{release});
-  };
-
-  if ($@ =~ /no up2date/) {
-    #PXT::Debug->log(4, "no up2date on server $sid ...");
-    return '';
-  }
-
-  if ($up2date_is_supported) {
-    #PXT::Debug->log(4, "version is supported...");
-    return $params{__block__};
-  }
-
-  return '';
-}
 
 sub proxy_entitlement_form {
   my $pxt = shift;
