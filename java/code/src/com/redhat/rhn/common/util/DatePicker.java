@@ -273,6 +273,16 @@ public class DatePicker {
     }
 
     /**
+     * set the hour of the day
+     *
+     * This also sets the am/pm flag
+     * @param v the hour (0 to 23)
+     */
+    public void setHourOfDay(Integer v) {
+        cal.set(Calendar.HOUR_OF_DAY, v);
+    }
+
+    /**
      * Set the minute
      * @param v the minute, a number from 0 to 59
      */
