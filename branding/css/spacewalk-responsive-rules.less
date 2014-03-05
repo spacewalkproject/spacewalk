@@ -155,6 +155,11 @@
 		}
 	}
 }
+.search-form-hide {
+	.spacewalk-header-links > form {
+		display: none;
+	}
+}
 // show complete main menu bar on bigger than mobile screens
 @media (min-width: 481px) {
 	.collapse {
@@ -180,6 +185,7 @@
 	.header-responsive;
 	.columns-no-padding;
 	.legal-text-footer;
+	.search-form-hide;
 }
 //classes that will take effect only on mobiles screens
 @media (max-width: @screen-phone) {

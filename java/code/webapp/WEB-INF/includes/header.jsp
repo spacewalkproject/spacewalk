@@ -42,7 +42,7 @@
         </li>
       </ul>
 
-      <form name="form1" class="form-inline hidden-xs" role="form" action="/rhn/Search.do">
+      <form name="form1" class="form-inline" role="form" action="/rhn/Search.do">
         <rhn:csrf />
         <rhn:submitted />
         <div class="form-group">
