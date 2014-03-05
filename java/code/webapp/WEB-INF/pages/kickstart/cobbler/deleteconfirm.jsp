@@ -16,6 +16,7 @@
 	<form method="post" action="/rhn/kickstart/cobbler/CobblerSnippetDelete.do">
     <rhn:csrf />
 <h2><bean:message key="snippetcreate.jsp.contents.header"/></h2>
+<<<<<<< HEAD
     <table class="details">
     <tr>
         <th>
@@ -30,6 +31,12 @@
     <table align="right">
     <tr>
       <td></td>
+=======
+
+      <textarea style="resize:none" class="form-control col-sm-12" rows="24" disabled><c:out value="${contents}"/></textarea>
+
+      <hr />
+>>>>>>> 3190e36... Rewrite the code for bootstrap usage
       <rhn:submitted/>
       <input type="hidden" name="name" value="${requestScope.name}"/>
       <td align="right"><input type=submit name="dispatch"
