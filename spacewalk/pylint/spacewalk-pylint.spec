@@ -1,5 +1,5 @@
 Name:		spacewalk-pylint
-Version:	2.2.0
+Version:	2.2.1
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
@@ -63,6 +63,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Mar 05 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.1-1
+- disable pylint 1.1 checks we don't enforce
+
 * Mon Sep 30 2013 Michael Mraka <michael.mraka@redhat.com> 0.12-1
 - ignore old-style-* pylint warnings for pylint-1.0
 
