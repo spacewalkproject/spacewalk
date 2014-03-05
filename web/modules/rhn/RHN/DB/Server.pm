@@ -42,7 +42,6 @@ use RHN::Action ();
 use RHN::DataSource::Channel ();
 use RHN::DataSource::Simple ();
 use RHN::DataSource::System ();
-use RHN::DB::Package ();
 use RHN::Server ();
 use RHN::SystemSnapshot ();
 
@@ -161,55 +160,6 @@ EOQ
 
   $sth->execute_h(%params);
   $dbh->commit;
-}
-
-sub up2date_version_at_least {
-  my $self = shift;
-  my %ver_info = @_;
-
-  my $dbh = RHN::DB->connect();
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT  PE.epoch, PE.version, PE.release, PN.name
-  FROM  rhnPackageEVR PE, rhnPackageName PN, rhnServerPackage SP
- WHERE  SP.server_id = ?
-   AND  SP.name_id = PN.id
-   AND  ((PN.name = 'rhn-check')
-    OR   (PN.name = 'up2date'))
-   AND  SP.evr_id = PE.id
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  #PXT::Debug->log(4, "query:  $query");
-  #PXT::Debug->log(4, "id:  ". $self->id);
-
-  my @row = $sth->fetchrow;
-  $sth->finish;
-
-  die "no up2date" unless (@row);
-
-  #PXT::Debug->log(4, "epoch:  $row[0]\nversion:  $row[1]\nrelease:  $row[2]\n");
-
-  if ($row[3] eq 'rhn-check') {
-     return 1; 
-  }
-
-  my $cmp = RHN::DB::Package->vercmp($row[0] || 0, $row[1] || 0, $row[2] || 0,
-				     $ver_info{epoch} || 0, $ver_info{version} || 0, $ver_info{release} || 0);
-
-  #PXT::Debug->log(4, "up2date cmp value:  $cmp");
-
-  if ($cmp eq 0 or $cmp eq 1) {
-    return 1;
-  }
-  else {
-    #PXT::Debug->log(4, "returning undef...");
-    return 0;
-  }
 }
 
 sub is_proxy {
