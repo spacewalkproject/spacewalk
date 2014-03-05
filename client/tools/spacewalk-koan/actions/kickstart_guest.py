@@ -19,11 +19,7 @@ rhnpath="/usr/share/rhn"
 if rhnpath not in sys.path:
     sys.path.append(rhnpath)
 
-#from rhnkickstart import kickstart_guest
 from spacewalkkoan import spacewalkkoan
-
-#from rhnkickstart.virtualization_kickstart_exceptions \
-#    import VirtualizationKickstartException
 
 from virtualization.batching_log_notifier import BatchNotifyHandler
 from virtualization.constants             import PropertyType
