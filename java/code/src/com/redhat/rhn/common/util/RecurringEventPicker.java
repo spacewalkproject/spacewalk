@@ -212,21 +212,21 @@ public class RecurringEventPicker {
                 p.setStatus(STATUS_DAILY);
                 p.setCronEntry(cronEntry);
                 DatePicker timePicker = p.getDailyTimePicker();
-                timePicker.setHour(p.getHourLong().intValue());
+                timePicker.setHourOfDay(p.getHourLong().intValue());
                 timePicker.setMinute(p.getMinuteLong().intValue());
             }
             else if (matches(cronEntry, WEEKLY_REGEX)) {
                 p.setStatus(STATUS_WEEKLY);
                 p.setCronEntry(cronEntry);
                 DatePicker timePicker = p.getWeeklyTimePicker();
-                timePicker.setHour(p.getHourLong().intValue());
+                timePicker.setHourOfDay(p.getHourLong().intValue());
                 timePicker.setMinute(p.getMinuteLong().intValue());
             }
             else if (matches(cronEntry, MONTHLY_REGEX)) {
                 p.setStatus(STATUS_MONTHLY);
                 p.setCronEntry(cronEntry);
                 DatePicker timePicker = p.getMonthlyTimePicker();
-                timePicker.setHour(p.getHourLong().intValue());
+                timePicker.setHourOfDay(p.getHourLong().intValue());
                 timePicker.setMinute(p.getMinuteLong().intValue());
             }
             else {
