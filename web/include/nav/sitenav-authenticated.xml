@@ -87,10 +87,10 @@
     </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Errata" url="/rhn/errata/RelevantErrata.do" active-image="tab-errata-selected.gif" inactive-image="tab-errata.gif">
-    <rhn-tab name="Errata" url="/rhn/errata/RelevantErrata.do" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_list">
+    <rhn-tab name="Errata" url="/rhn/errata/RelevantErrata.do">
       <rhn-tab-directory>/rhn/errata</rhn-tab-directory>
-      <rhn-tab name="Relevant" url="/rhn/errata/RelevantErrata.do" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_list" />
-      <rhn-tab name="All" url="/rhn/errata/AllErrata.do" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_list" />
+      <rhn-tab name="Relevant" url="/rhn/errata/RelevantErrata.do"/>
+      <rhn-tab name="All" url="/rhn/errata/AllErrata.do"/>
     </rhn-tab>
     <rhn-tab name="Advanced Search" url="/rhn/errata/Search.do"/>
     <rhn-tab name="Manage Errata" url="/rhn/errata/manage/PublishedErrata.do" acl="user_role(channel_admin)">
@@ -120,11 +120,11 @@
     <rhn-tab name="Manage Software Channels" acl="user_can_manage_channels()">
       <rhn-tab-directory>/network/software/channels/manage</rhn-tab-directory>
       <rhn-tab-url>/rhn/channels/manage/Manage.do</rhn-tab-url>
-      <rhn-tab name="Manage Software Packages" acl="user_role(channel_admin)"  node-id="manage_packages">
+      <rhn-tab name="Manage Software Packages" acl="user_role(channel_admin)">
         <rhn-tab-directory>/rhn/software/manage/packages</rhn-tab-directory>
         <rhn-tab-url>/rhn/software/manage/packages/PackageList.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="Manage Repositories" acl="user_role(channel_admin)"  node-id="manage_repos">
+      <rhn-tab name="Manage Repositories" acl="user_role(channel_admin)">
         <rhn-tab-directory>/rhn/channels/manage/repos</rhn-tab-directory>
         <rhn-tab-url>/rhn/channels/manage/repos/RepoList.do</rhn-tab-url>
         <rhn-tab-url>/rhn/channels/manage/repos/RepoEdit.do</rhn-tab-url>

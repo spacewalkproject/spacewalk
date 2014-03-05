@@ -35,43 +35,43 @@
       <rhn-tab-url>/rhn/systems/details/ErrataList.do</rhn-tab-url>
     </rhn-tab>
 
-    <rhn-tab name="Patches" node-id="system_patch_list" acl="is_solaris()">
+    <rhn-tab name="Patches" acl="is_solaris()">
       <rhn-tab-url>/rhn/systems/details/packages/patches/PatchList.do</rhn-tab-url>
-      <rhn-tab name="List / Remove" on-click="Sniglets::Lists->navi_empty_set" node-id="system_patch_list">
+      <rhn-tab name="List / Remove">
         <rhn-tab-url>/rhn/systems/details/packages/patches/PatchList.do</rhn-tab-url>
         <rhn-tab-url>/rhn/systems/details/packages/patches/PatchListConfirm.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="Install" on-click="Sniglets::Lists->navi_empty_set" node-id="system_patch_available_list">
+      <rhn-tab name="Install">
         <rhn-tab-url>/rhn/systems/details/packages/patches/PatchInstall.do</rhn-tab-url>
         <rhn-tab-url>/rhn/systems/details/packages/patches/PatchInstallConfirm.do</rhn-tab-url>
       </rhn-tab>
     </rhn-tab>
-    <rhn-tab name="Patch Clusters" on-click="Sniglets::Lists->navi_empty_set" node-id="solaris_patchset_list" acl="is_solaris()">
+    <rhn-tab name="Patch Clusters" acl="is_solaris()">
       <rhn-tab-url>/rhn/systems/details/packages/patchsets/PatchSetList.do</rhn-tab-url>
       <rhn-tab-url>/rhn/systems/details/packages/patchsets/InstallPatchSet.do</rhn-tab-url>
     </rhn-tab>
 
-    <rhn-tab name="Packages" on-click="Sniglets::Lists->navi_empty_set" node-id="system_package_list">
+    <rhn-tab name="Packages">
       <rhn-tab-url>/rhn/systems/details/packages/Packages.do</rhn-tab-url>
-      <rhn-tab name="List / Remove" on-click="Sniglets::Lists->navi_empty_set" node-id="system_package_list" acl="system_feature(ftr_package_remove)">
+      <rhn-tab name="List / Remove" acl="system_feature(ftr_package_remove)">
         <rhn-tab-url>/rhn/systems/details/packages/PackageList.do</rhn-tab-url>
         <rhn-tab-url>/rhn/systems/details/packages/RemoveConfirm.do</rhn-tab-url>
       </rhn-tab>
       <rhn-tab name="List" acl="not system_feature(ftr_package_remove)">
         <rhn-tab-url>/rhn/systems/details/packages/PackageList.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="Upgrade" acl="system_feature(ftr_package_updates)" on-click="Sniglets::Lists->navi_empty_set" node-id="system_upgradable_package_list">
+      <rhn-tab name="Upgrade" acl="system_feature(ftr_package_updates)">
         <rhn-tab-url>/rhn/systems/details/packages/UpgradableList.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="Install" acl="system_feature(ftr_package_updates)" on-click="Sniglets::Lists->navi_empty_set" node-id="system_installable_package_list">
+      <rhn-tab name="Install" acl="system_feature(ftr_package_updates)">
         <rhn-tab-url>/rhn/systems/details/packages/InstallPackages.do</rhn-tab-url>
         <rhn-tab-url>/rhn/systems/details/packages/InstallConfirm.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="Verify" acl="system_feature(ftr_package_verify); client_capable(packges.verify) or client_capable(packages.verify)" on-click="Sniglets::Lists->navi_empty_set" node-id="system_verifiable_package_list">
+      <rhn-tab name="Verify" acl="system_feature(ftr_package_verify); client_capable(packges.verify) or client_capable(packages.verify)">
         <rhn-tab-url>/rhn/systems/details/packages/VerifyPackages.do</rhn-tab-url>
         <rhn-tab-url>/rhn/systems/details/packages/VerifyConfirm.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="Profiles" acl="system_feature(ftr_profile_compare)" on-click="Sniglets::Lists->navi_empty_set" node-id="packages_for_system_sync">
+      <rhn-tab name="Profiles" acl="system_feature(ftr_profile_compare)">
         <rhn-tab-url>/rhn/systems/details/packages/profiles/ShowProfiles.do</rhn-tab-url>
         <rhn-tab-url>/rhn/systems/details/packages/profiles/Create.do</rhn-tab-url>
         <rhn-tab-url>/rhn/systems/details/packages/profiles/CompareSystems.do</rhn-tab-url>
@@ -133,7 +133,7 @@
 
   <rhn-tab name="Provisioning" acl="not is_solaris();system_feature(ftr_kickstart) or system_feature(ftr_snapshotting)" url="/rhn/systems/details/kickstart/ScheduleWizard.do">
 
-    <rhn-tab name="Kickstart" url="/rhn/systems/details/kickstart/ScheduleWizard.do" acl="system_feature(ftr_kickstart); not is_solaris()" node-id="kickstart_details">
+    <rhn-tab name="Kickstart" url="/rhn/systems/details/kickstart/ScheduleWizard.do" acl="system_feature(ftr_kickstart); not is_solaris()">
       <rhn-tab-directory>/rhn/systems/details/kickstart</rhn-tab-directory>
       <rhn-tab name="Session Status" url="/rhn/systems/details/kickstart/SessionStatus.do" acl="system_kickstart_session_exists()">
         <rhn-tab-url>/rhn/systems/details/kickstart/SessionCancel.do</rhn-tab-url>

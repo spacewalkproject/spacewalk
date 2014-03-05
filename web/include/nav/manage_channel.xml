@@ -15,18 +15,18 @@
   </rhn-tab>
   <rhn-tab name="Errata" acl="channel_exists();user_can_admin_channel();channel_type_capable(errata); not channel_packaging_type(sysv-solaris)">
     <rhn-tab-url>/rhn/channels/manage/errata/Errata.do</rhn-tab-url>
-    <rhn-tab name="List / Remove" on-click="Sniglets::Lists->navi_empty_set" node-id="remove_channel_errata">
+    <rhn-tab name="List / Remove">
       <rhn-tab-url>/rhn/channels/manage/errata/ListRemove.do</rhn-tab-url>
       <rhn-tab-url>/rhn/channels/manage/errata/ConfirmRemove.do</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="Add" on-click="Sniglets::Lists->navi_empty_set" node-id="add_channel_errata">
+    <rhn-tab name="Add">
       <rhn-tab-url>/rhn/channels/manage/errata/Add.do</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="Clone" acl="channel_is_clone();user_role(channel_admin)" on-click="Sniglets::Lists->navi_empty_set" node-id="clone_channel_errata">
       <rhn-tab-url>/network/software/channels/manage/errata/clone.pxt</rhn-tab-url>
       <rhn-tab-url>/network/software/channels/manage/errata/clone_confirm.pxt</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="Sync" acl="channel_is_clone();user_role(channel_admin);" node-id="sync_errata">
+    <rhn-tab name="Sync" acl="channel_is_clone();user_role(channel_admin);">
       <rhn-tab-url>/rhn/channels/manage/errata/SyncErrata.do</rhn-tab-url>
       <rhn-tab-url>/rhn/channels/manage/errata/ConfirmSyncPackages.do</rhn-tab-url>
     </rhn-tab>
@@ -37,7 +37,7 @@
       <rhn-tab-url>/rhn/channels/manage/ChannelPackages.do</rhn-tab-url>
       <rhn-tab-url>/rhn/channels/manage/ChannelPackagesRemove.do</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="Add" on-click="Sniglets::Lists->navi_empty_set" node-id="add_channel_packages">
+    <rhn-tab name="Add">
       <rhn-tab-url>/rhn/channels/manage/ChannelPackagesAdd.do</rhn-tab-url>
       <rhn-tab-url>/rhn/channels/manage/ChannelPackagesAddConfirm.do</rhn-tab-url>
     </rhn-tab>
