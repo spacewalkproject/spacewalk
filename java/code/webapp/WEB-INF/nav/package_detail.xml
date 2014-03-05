@@ -16,8 +16,8 @@
   <rhn-tab name="package.jsp.menu.patchedsystems" url="/network/software/packages/system_list_for_patch.pxt" acl="package_type_capable(solaris_patch)"/>
   <rhn-tab name="package.jsp.menu.installedsystems" url="/network/software/packages/system_list.pxt" acl="not package_type_capable(solaris_patch); not package_type_capable(solaris-patch-cluster)"/>
   <rhn-tab name="package.jsp.menu.installedsystems" url="/network/software/packages/system_list_for_patchset.pxt" acl="package_type_capable(solaris_patchset)"/>
-  <rhn-tab name="package.jsp.menu.targetsystems" url="/network/software/packages/target_system_list_for_patch.pxt" acl="org_entitlement(sw_mgr_enterprise);package_type_capable(solaris_patch)"  node-id="target_systems_for_package"/>
-  <rhn-tab name="package.jsp.menu.targetsystems" url="/network/software/packages/target_system_list_for_patchset.pxt" acl="org_entitlement(sw_mgr_enterprise);package_type_capable(solaris_patchset)"  node-id="target_systems_for_package"/>
+  <rhn-tab name="package.jsp.menu.targetsystems" url="/network/software/packages/target_system_list_for_patch.pxt" acl="org_entitlement(sw_mgr_enterprise);package_type_capable(solaris_patch)"/>
+  <rhn-tab name="package.jsp.menu.targetsystems" url="/network/software/packages/target_system_list_for_patchset.pxt" acl="org_entitlement(sw_mgr_enterprise);package_type_capable(solaris_patchset)"/>
   <rhn-tab name="package.jsp.menu.targetsystems"
-  url="/network/software/packages/target_system_list.pxt" acl="org_entitlement(sw_mgr_enterprise);not package_type_capable(solaris_patch); not package_type_capable(solaris_patchset)"  node-id="target_systems_for_package"/>
+  url="/network/software/packages/target_system_list.pxt" acl="org_entitlement(sw_mgr_enterprise);not package_type_capable(solaris_patch); not package_type_capable(solaris_patchset)"/>
 </rhn-navi-tree>

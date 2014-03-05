@@ -23,7 +23,7 @@
                 /rhn/errata/manage/AddPackagePackagePush.do
             </rhn-tab-url>
         </rhn-tab>
-        <rhn-tab name="Add" node-id="add_errata_packages">
+        <rhn-tab name="Add">
             <rhn-tab-url>
                 /rhn/errata/manage/AddPackages.do
             </rhn-tab-url>

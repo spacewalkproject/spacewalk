@@ -122,16 +122,16 @@
       <rhn-tab-url>/rhn/systems/SoftwareCrashUuidDetails.do</rhn-tab-url>
     </rhn-tab>
   </rhn-tab>
-  <rhn-tab name="Errata" url="/rhn/errata/RelevantErrata.do" active-image="tab-errata-selected.gif" inactive-image="tab-errata.gif" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_list">
-    <rhn-tab name="Errata" url="/rhn/errata/RelevantErrata.do" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_list">
+  <rhn-tab name="Errata" url="/rhn/errata/RelevantErrata.do" active-image="tab-errata-selected.gif" inactive-image="tab-errata.gif">
+    <rhn-tab name="Errata" url="/rhn/errata/RelevantErrata.do">
       <rhn-tab-directory>/rhn/errata</rhn-tab-directory>
-      <rhn-tab name="Relevant" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_list">
+      <rhn-tab name="Relevant">
         <rhn-tab-url>/rhn/errata/RelevantErrata.do</rhn-tab-url>
         <rhn-tab-url>/rhn/errata/RelevantBugErrata.do</rhn-tab-url>
         <rhn-tab-url>/rhn/errata/RelevantEnhancementErrata.do</rhn-tab-url>
         <rhn-tab-url>/rhn/errata/RelevantSecurityErrata.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="All" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_list">
+      <rhn-tab name="All">
         <rhn-tab-url>/rhn/errata/AllErrata.do</rhn-tab-url>
         <rhn-tab-url>/rhn/errata/AllBugErrata.do</rhn-tab-url>
         <rhn-tab-url>/rhn/errata/AllEnhancementErrata.do</rhn-tab-url>
@@ -169,11 +169,11 @@
       <rhn-tab-url>/rhn/channels/manage/errata/AddRedHatErrata.do</rhn-tab-url>
       <rhn-tab-url>/rhn/channels/manage/errata/AddCustomErrata.do</rhn-tab-url>
       <rhn-tab-url>/rhn/channels/manage/errata/ConfirmErrataAdd.do</rhn-tab-url>
-      <rhn-tab name="Manage Software Packages" acl="user_role(channel_admin)"  node-id="manage_packages">
+      <rhn-tab name="Manage Software Packages" acl="user_role(channel_admin)">
         <rhn-tab-directory>/rhn/software/manage/packages</rhn-tab-directory>
         <rhn-tab-url>/rhn/software/manage/packages/PackageList.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="Manage Repositories" acl="user_role(channel_admin)"  node-id="manage_repos">
+      <rhn-tab name="Manage Repositories" acl="user_role(channel_admin)">
         <rhn-tab-directory>/rhn/channels/manage/repos</rhn-tab-directory>
         <rhn-tab-url>/rhn/channels/manage/repos/RepoList.do</rhn-tab-url>
         <rhn-tab-url>/rhn/channels/manage/repos/RepoEdit.do</rhn-tab-url>
