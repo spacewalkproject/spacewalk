@@ -9,7 +9,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.2.0
+Version:    2.2.1
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -89,6 +89,13 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Mar 05 2014 Jan Dobes 2.2.1-1
+- hide search form together with other UI changes
+- fix gap under menu
+- show roll menu button only on small screens
+- control menu type switching completely with css instead of javascript
+- Bumping package versions for 2.2.
+
 * Tue Feb 18 2014 Matej Kollar <mkollar@redhat.com> 2.1.33-1
 - The fix should have been the other way round...
 
