@@ -176,7 +176,6 @@ sub empty_set {
 }
 
 my %node_set = (system_package_list => 'removable_package_list',
-		system_upgradable_package_list => 'upgrade_package_list',
 		system_installable_package_list => 'install_package_list',
 		system_errata_list => 'errata_list',
 		target_systems_list => 'target_systems_list',

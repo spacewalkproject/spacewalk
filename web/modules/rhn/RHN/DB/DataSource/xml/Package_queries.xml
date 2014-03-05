@@ -1347,39 +1347,6 @@ ORDER BY UPPER(PN.name), UPPER(PE.version), UPPER(PE.release), UPPER(PE.epoch)
   </query>
 </mode>
 
-<mode name="system_upgradable_package_list">
-  <query params="sid">
-SELECT  pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) as ID,
-        full_list.server_id as SERVER_ID,
-        pn.id as NAME_ID,
-        lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) as EVR_ID,
-        pn.name ||'-'|| full_list.evr.version || '-' || full_list.evr.release ||
-                CASE WHEN full_list.evr.epoch IS NOT NULL THEN ':' || full_list.evr.epoch END as NVRE,
-        full_list.errata_id as ERRATA_ID,
-        full_list.errata_advisory as ERRATA_ADVISORY,
-        full_list.evr.epoch as EPOCH,
-        full_list.evr.version as VERSION,
-        full_list.evr.release as RELEASE,
-        E.advisory_type as ERRATA_ADVISORY_TYPE,
-        E.advisory_name as ERRATA_ADVISORY_NAME
-  FROM
-        (
-         SELECT  SOP.package_name_id name_id, MAX(pe.evr) evr,
-                 SOP.server_id server_id, SOP.errata_id errata_id, 
-                 SOP.errata_advisory errata_advisory
-           FROM  rhnPackageEVR PE, rhnServerOutdatedPackages SOP
-          WHERE  SOP.server_id = :sid
-            AND  SOP.package_evr_id = PE.id
-       GROUP BY  SOP.package_name_id, SOP.server_id, SOP.errata_id, SOP.errata_advisory
-        ) full_list,
-        rhnPackageName PN
-  LEFT JOIN rhnErrata E
-    ON full_list.errata_id = E.id
- WHERE  full_list.name_id = PN.id
-ORDER BY  UPPER(NVRE)
-  </query>
-</mode>
-
 <mode name="package_download_for_system_arch_select">
   <query params="set_label, user_id, sid">
 SELECT P.id, PN.name || '-' || PEVR.evr.as_vre_simple() as NVRE,
