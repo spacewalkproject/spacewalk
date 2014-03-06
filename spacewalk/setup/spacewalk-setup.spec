@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.2.3
+Version:        2.2.4
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -108,6 +108,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Mar 06 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.4-1
+- spacewalk-setup-httpd: utility to configure httpd for Spacewalk
+
 * Tue Mar 04 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.3-1
 - clear-db needs to be present in answers for it to be used
 - Clean up - embedded Oracle related code
