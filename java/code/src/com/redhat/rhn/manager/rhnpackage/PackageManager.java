@@ -917,6 +917,25 @@ public class PackageManager extends BaseManager {
     }
 
     /**
+     * Lookup package differences between thisCid and otherCid channels.
+     * @param thisCid channel id we want to update
+     * @param otherCid channel id which we compare to
+     * @return DataResult of PackageOverview objects
+     */
+    public static DataResult comparePackagesBetweenChannels(Long thisCid, Long otherCid) {
+        Map params = new HashMap();
+        params.put("this_cid", thisCid);
+        params.put("other_cid", otherCid);
+
+            SelectMode m = ModeFactory.getMode(
+                    "Package_queries", "compare_managed_channel_packages");
+
+            DataResult dr = m.execute(params);
+            dr.setElaborationParams(new HashMap());
+            return dr;
+    }
+
+    /**
      * Add packages to channel whos package_ids are in a set
      * @param user the user doing the pushing
      * @param cid the channel to push packages to

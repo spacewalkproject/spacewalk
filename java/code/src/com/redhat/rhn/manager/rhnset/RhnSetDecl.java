@@ -137,6 +137,10 @@ public class RhnSetDecl {
     public static final RhnSetDecl PACKAGES_VERIFY = make(
             "verify_package_list", SetCleanup.NOOP);
 
+    // set of packages by package_id (sync channels)
+    public static final RhnSetDecl PACKAGES_TO_SYNC_CHANNEL = make(
+            "packages_to_sync_channel", SetCleanup.NOOP);
+
     // set of patches by name_id/evr_id; can not be cleaned
     public static final RhnSetDecl PATCH_INSTALL = make(
             SetLabels.PATCH_INSTALL_SET, SetCleanup.NOOP);

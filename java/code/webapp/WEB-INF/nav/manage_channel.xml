@@ -44,7 +44,7 @@
       <rhn-tab-url>/rhn/channels/manage/ChannelPackagesAdd.do</rhn-tab-url>
       <rhn-tab-url>/rhn/channels/manage/ChannelPackagesAddConfirm.do</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="Compare" acl="channel_exists(); not channel_packaging_type(sysv-solaris)" url="/network/software/channels/manage/packages/compare/index.pxt">
+    <rhn-tab name="Compare" acl="channel_exists(); not channel_packaging_type(sysv-solaris)" url="/rhn/channels/manage/ChannelPackagesCompare.do">
       <rhn-tab-directory>/network/software/channels/manage/packages/compare</rhn-tab-directory>
     </rhn-tab>
   </rhn-tab>

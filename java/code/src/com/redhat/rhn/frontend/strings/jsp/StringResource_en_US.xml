@@ -2598,6 +2598,9 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/systems/details/packages/patches/PatchList</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="packagelist.jsp.thischannel">
+        <source>This Channel</source>
+      </trans-unit>
       <trans-unit id="installpkgs.jsp.header">
         <source>Installable Packages</source>
         <context-group name="ctx">
@@ -19522,6 +19525,42 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addtitle">
         <source>Add Packages</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.package.comparetitle">
+        <source>Compare Packages</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.package.comparemessage">
+        <source>You can compare the packages in this channel with another channel. Select the channel which you would like to compare from the list below, and click 'Compare'.</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.package.compareto">
+        <source>Compare to</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.package.mergebutton">
+        <source>Merge Differences</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.package.synclabel">
+        <source>Select merge type:</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.package.full_sync_descr">
+        <source>Make {0} channel identical to selected channel</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.package.add_only_descr">
+        <source>Add missing packages to {0}</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.package.remove_only_descr">
+        <source>Remove extra packages from {0}</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.package.thisonly">
+        <source>This channel only</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.package.thisnewer">
+        <source>This channel newer</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.package.othernewer">
+        <source>{0} newer</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.package.otheronly">
+        <source>{0} only</source>
       </trans-unit>
       <trans-unit id="channel.jsp.errata.listtitle">
         <source>This channel contains the following errata:</source>

@@ -2014,4 +2014,43 @@ select p.id, pn.name as package_name, p.summary
   </query>
 </mode>
 
+<mode name="compare_managed_channel_packages" >
+  <query params="this_cid, other_cid">
+select  pn.name as package_name,
+        pa.name as arch,
+        ch1.package_id as left_id,
+        evr_t_as_vre_simple(ch1.evr) as left_nvrea,
+        ch2.package_id as right_id,
+        evr_t_as_vre_simple(ch2.evr) as right_nvrea,
+        case when ch1.evr_id is null then -2
+             when ch2.evr_id is null then 2
+             else rpm.vercmp(ch1.epoch, ch1.version, ch1.release,
+                             ch2.epoch, ch2.version, ch2.release)
+        end as comparison
+  from (select np1.name_id, np1.package_arch_id, np1.evr_id, np1.package_id,
+                pe1.evr, pe1.epoch, pe1.version, pe1.release
+          from rhnChannelNewestPackage np1
+          join rhnPackageEvr pe1
+            on pe1.id = np1.evr_id
+        where channel_id = :this_cid
+        ) ch1
+  full outer join (select np2.name_id, np2.package_arch_id, np2.evr_id, np2.package_id,
+                        pe2.evr, pe2.epoch, pe2.version, pe2.release
+                     from rhnChannelNewestPackage np2
+                     join rhnPackageEvr pe2
+                       on pe2.id = np2.evr_id
+                    where channel_id = :other_cid
+        ) ch2
+    on ch1.name_id = ch2.name_id
+   and ch1.package_arch_id = ch2.package_arch_id
+  join rhnPackageName pn
+    on pn.id = coalesce(ch1.name_id, ch2.name_id)
+  join rhnPackageArch pa
+    on pa.id = coalesce(ch1.package_arch_id, ch2.package_arch_id)
+ where ch1.evr_id is null
+    or ch2.evr_id is null
+    or ch1.evr_id != ch2.evr_id
+  </query>
+</mode>
+
 </datasource_modes>
