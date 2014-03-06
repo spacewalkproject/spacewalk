@@ -22,7 +22,11 @@
 <bean:message key="channel.jsp.package.addmessage"/>
 <h2><rhn:icon type="header-package" /> <bean:message key="channel.jsp.package.addtitle"/></h2>
 
-<%@ include file="/WEB-INF/pages/common/fragments/channel/manage/channel_selector.jspf" %>
+<jsp:include page="/WEB-INF/pages/common/fragments/channel/manage/channel_selector.jspf">
+    <jsp:param name="title" value="channel.jsp.manage.package.channel"/>
+    <jsp:param name="option_all_packages" value="true"/>
+    <jsp:param name="option_orphan_packages" value="true"/>
+</jsp:include>
 
 		  <rl:list dataset="pageList" name="packageList"
 		  decorator="SelectableDecorator"

@@ -1,11 +1,18 @@
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <div class="row-0">
   <div class="col-md-1">
-    <bean:message key="channel.jsp.manage.package.channel"/>:
+    <bean:message key="${param.title}"/>:
   </div>
   <div class="col-md-4">
     <select name="selected_channel" class="form-control input-sm">
-        <option value="all_managed_packages" <c:if test="${all_selected eq true}">selected = "selected"</c:if>><bean:message key="channel.jsp.manage.package.allpackages"/></option>
-        <option value="orphan_packages" <c:if test="${orphan_selected eq true}">selected = "selected"</c:if>><bean:message key="channel.jsp.manage.package.packagesnochannels"/></option>
+        <c:if test="${param.option_all_packages}">
+            <option value="all_managed_packages" <c:if test="${all_selected eq true}">selected = "selected"</c:if>><bean:message key="channel.jsp.manage.package.allpackages"/></option>
+        </c:if>
+        <c:if test="${param.option_orphan_packages}">
+            <option value="orphan_packages" <c:if test="${orphan_selected eq true}">selected = "selected"</c:if>><bean:message key="channel.jsp.manage.package.packagesnochannels"/></option>
+        </c:if>
         <optgroup>
           <c:forEach var="option" items="${channel_list}">
             <c:choose>
