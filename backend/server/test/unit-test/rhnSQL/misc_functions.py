@@ -169,17 +169,6 @@ def create_new_user(org_id=None, username=None, password=None, roles=None, encry
         contact_fax
     )
 
-    # update old_password for web_contact, this is required to pass
-    # password validation checks when passwords are not encrypted.
-    if not encrypt_password:
-        h = rhnSQL.prepare("""
-            UPDATE web_contact
-            SET old_password = :old_password
-            WHERE id = :id
-        """)
-        h.execute(old_password = password, id = ret)
-        rhnSQL.commit()
-
     u = rhnUser.search(username)
 
     if u is None:

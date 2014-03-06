@@ -40,7 +40,6 @@ class User:
         self.contact = rhnSQL.Row("web_contact", "id")
         self.contact["login"] = username
         self.contact["password"] = password
-        self.contact["old_password"] = password
         # web_customer
         self.customer = rhnSQL.Row("web_customer", "id")
         self.customer["name"] = username
@@ -83,7 +82,6 @@ class User:
     def check_password(self, password):
         """ simple check for a password that might become more complex sometime """
         good_pwd = str(self.contact["password"])
-        old_pwd = str(self.contact["old_password"])
         if CFG.pam_auth_service:
             # a PAM service is defined
             # We have to check the user's rhnUserInfo.use_pam_authentication
@@ -111,7 +109,7 @@ class User:
                     password, CFG.pam_auth_service)
             # If the entry in rhnUserInfo is 'N', perform regular
             # authentication
-        return check_password(password, good_pwd, old_pwd)
+        return check_password(password, good_pwd)
 
     def set_org_id(self, org_id):
         if not org_id:
@@ -341,7 +339,7 @@ def __reserve_user_db(user, password):
     log_debug(3, user, CFG.disallow_user_creation, encrypted_password, CFG.pam_auth_service)
     user = str(user)
     h = rhnSQL.prepare("""
-    select w.id, w.password, w.old_password, w.org_id, ui.use_pam_authentication
+    select w.id, w.password, w.org_id, ui.use_pam_authentication
     from web_contact w, rhnUserInfo ui
     where w.login_uc = upper(:p1)
     and w.id = ui.user_id
@@ -357,7 +355,7 @@ def __reserve_user_db(user, password):
                 return 1
             return -1
 
-        if check_password(password, data['password'], data['old_password']) > 0:
+        if check_password(password, data['password']) > 0:
             return 1
         return -1
 
@@ -375,7 +373,7 @@ def __reserve_user_db(user, password):
     data = h.fetchone_dict()
     if data and data["login"]:
         # found already reserved
-        if check_password(password, data["password"], None) > 0:
+        if check_password(password, data["password"]) > 0:
             return 1
         return -2
 
@@ -408,7 +406,7 @@ def __new_user_db(username, password, email, org_id, org_password):
 
     # now search it in the database
     h = rhnSQL.prepare("""
-    select w.id, w.password, w.old_password, ui.use_pam_authentication
+    select w.id, w.password, ui.use_pam_authentication
     from web_contact w, rhnUserInfo ui
     where w.login_uc = upper(:username)
     and w.id = ui.user_id
@@ -421,7 +419,7 @@ def __new_user_db(username, password, email, org_id, org_password):
     if not data:
         # the username is not there, check the reserved user table
         h = rhnSQL.prepare("""
-        select login, password, password old_password from rhnUserReserved
+        select login, password, password from rhnUserReserved
         where login_uc = upper(:username)
         """)
         h.execute(username=username)
@@ -450,7 +448,7 @@ def __new_user_db(username, password, email, org_id, org_password):
         password = 'pam:%.8f' % time.time()
     else:
         # Regular authentication
-        if check_password(password, data["password"], data["old_password"]) == 0:
+        if check_password(password, data["password"]) == 0:
             # Bad password
             raise rhnFault(2)
 
@@ -506,16 +504,14 @@ def check_email(email):
     # XXX More to come (check the format is indeed foo@bar.baz
     return email
 
-def check_password(key, pwd1, pwd2=None):
+def check_password(key, pwd1):
     """ Validates the given key against the current or old password
-        If encrypted_password is false, it compares key with pwd1 and pwd2
+        If encrypted_password is false, it compares key with pwd1.
         If encrypted_password is true, it compares the encrypted key
-        with pwd1 and pwd2
+        with pwd1.
 
         Historical note: we used to compare the passwords case-insensitive, and that
         was working fine until we started to encrypt passwords. -- misa 20030530
-
-        Old password is no longer granting access -- misa 20040205
     """
     encrypted_password = CFG.encrypted_passwords
     log_debug(4, "Encrypted password:", encrypted_password)
