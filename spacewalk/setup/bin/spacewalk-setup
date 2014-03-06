@@ -144,7 +144,7 @@ Spacewalk::Setup::update_monitoring_scout(\%opts, \%answers);
 Spacewalk::Setup::update_monitoring_ack_enqueuer(\%opts, \%answers);
 
 print Spacewalk::Setup::loc("* Configuring apache SSL virtual host.\n");
-setup_ssl_vhost(\%opts, \%answers);
+setup_mod_ssl(\%opts, \%answers);
 
 print Spacewalk::Setup::loc("* Configuring editarea.\n");
 setup_editarea();
@@ -477,7 +477,7 @@ sub default_cert_expiration {
 }
 
 
-sub setup_ssl_vhost {
+sub setup_mod_ssl {
   my $opts = shift;
   my $answers = shift;
 
@@ -497,55 +497,8 @@ sub setup_ssl_vhost {
     return;
   }
 
-  my ($sslconf_content, $original_sslconf_content, $pre, $vhost, $post);
-  my $sslconf_dir = '/etc/httpd/conf.d';
-  my $sslconf     = 'ssl.conf';
-  my $sslconf_path = "$sslconf_dir/$sslconf";
-  local *FILE;
+  system('/usr/bin/spacewalk-setup-httpd');
 
-  die "$sslconf_path does not exist.\n" unless (-f $sslconf_path);
-
-  {
-    open FILE, $sslconf_path or die "Error opening [$sslconf_path]: $!\n";
-    local $/ = undef;
-    $sslconf_content = <FILE>;
-    $original_sslconf_content = $sslconf_content;
-    close FILE;
-  }
-
-  if ($sslconf_content =~ /(.*<VirtualHost _default_:443>)(.*)(<\/VirtualHost>.*)/s) {
-    $pre = $1; $vhost = $2; $post = $3;
-  } else {
-    print Spacewalk::Setup::loc("Setup was unable to locate VirtualHost section in existing ssl configuration.\n");
-    exit;
-  }
-
-  for my $file (glob Spacewalk::Setup::SHARED_DIR . '/ssl.conf.[0-9]') {
-    open FILE, $file or die "Error reading [$file]: $!\n";
-    my $regexp = <FILE>;
-    chomp $regexp;
-
-    my $content;
-    {
-	  local $/ = undef;
-	  $content = <FILE>;
-	}
-	close FILE;
-    $vhost =~ s!$regexp!$content!gm or $vhost .= $content;
-  }
-
-  $sslconf_content = $pre . $vhost . $post;
-
-  if ($sslconf_content ne $original_sslconf_content) {
-    Spacewalk::Setup::backup_file($sslconf_dir, $sslconf);
-
-    open FILE, ">$sslconf_path" or die "Error opening [$sslconf_path]: $!\n";
-    chmod 0644, $sslconf_path;
-    print FILE $pre . $vhost . $post;
-    close FILE;
-  }
-
-  return;
 }
 
 sub setup_editarea {

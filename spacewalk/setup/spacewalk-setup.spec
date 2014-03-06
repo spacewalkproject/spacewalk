@@ -63,7 +63,7 @@ chmod -R u+w %{buildroot}/*
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0755 share/embedded_diskspace_check.py %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/sudoers.* %{buildroot}/%{_datadir}/spacewalk/setup/
-install -m 0644 share/ssl.conf.* %{buildroot}/%{_datadir}/spacewalk/setup/
+install -m 0644 share/mod_ssl.conf.* %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/tomcat.* %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/editarea.conf.* %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/server.xml.xsl %{buildroot}/%{_datadir}/spacewalk/setup/
@@ -96,6 +96,7 @@ rm -rf %{buildroot}
 %doc Changes README answers.txt
 %{perl_vendorlib}/*
 %{_bindir}/spacewalk-setup
+%{_bindir}/spacewalk-setup-httpd
 %{_bindir}/spacewalk-make-mount-points
 %{_bindir}/spacewalk-setup-cobbler
 %{_bindir}/spacewalk-setup-tomcat
