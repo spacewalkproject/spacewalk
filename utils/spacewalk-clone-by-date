@@ -55,8 +55,8 @@ SAMPLE_CONFIG = """
               },
  "channels":[
              {
-                "rhel-x86_64-server-5":"my-rhel5-x86_64-clone",
-                "rhn-tools-rhel-x86_64-server-5": "my-tools-5-x86_64-clone"
+                "rhel-x86_64-server-5": "my-rhel5-x86_64-clone",
+                "rhn-tools-rhel-x86_64-server-5": ["my-tools-5-x86_64-clone", "My Clone's Name", "This is my channel's summary"]
              },
             {
                 "rhel-i386-server-5": "my-rhel5-i386-clone"
@@ -78,8 +78,6 @@ def merge_config(options):
 
     try:
         config_file = open(options.config).read()
-        # strip any and all whitespace
-        config_file = re.sub(r'\s', '', config_file)
         config = json.load(StringIO.StringIO(config_file))
     except:
         raise UserError("Configuration file is invalid, please check syntax.")
@@ -95,6 +93,11 @@ def merge_config(options):
 
     if type(options.channels) == dict:
         options.channels =  [options.channels]
+
+    for channel_dict in options.channels:
+        for key in channel_dict.keys():
+            if type(channel_dict[key]) != list:
+                channel_dict[key] = [channel_dict[key]]
 
     validate_list_dict("blacklist", options.blacklist)
     validate_list_dict("removelist", options.removelist)
@@ -114,18 +117,42 @@ def validate_list_dict(name, pkg_dict):
             raise UserError("Channel %s in %s packages not formatted correctly" % (key, name))
 
 # Using --channels as an argument only supports a single channel 'tree'
-#  So we need to convert a 2-tuple list of channel labels into an array with a hash
-#  ex:   [ ("rhel-i386-servr-5", "my-rhel-clone"), ('rhel-child', 'clone-child')]
+#  So we need to convert a list of lists of channel options into a list with a hash
+#  ex:
+# [
+#   ["rhel-i386-servr-5", "my-rhel-clone"],
+#   ['rhel-child', 'clone-child', 'clone name', 'clone summary']
+# ]
 #    should become
 # [{
-#  "rhel-i386-servr-5" : "my-rhel-clone",
-#  'rhel-child': 'clone-child'
+#  "rhel-i386-servr-5" : ["my-rhel-clone"],
+#  'rhel-child': ['clone-child', 'clone name', 'clone summary']
 #  }]
 def transform_arg_channels(chan_list):
     to_ret = {}
-    for src, dest in chan_list:
-        to_ret[src] = dest
+    for channel in chan_list:
+        to_ret[channel[0]] = channel[1:]
     return [to_ret]
+
+def vararg_callback(option, opt_str, value, parser):
+    assert value is None
+    value = []
+
+    for arg in parser.rargs:
+        # stop on --foo like options
+        if arg[:2] == "--" and len(arg) > 2:
+            break
+        # stop on -a
+        if arg[:1] == "-" and len(arg) > 1:
+            break
+        value.append(arg)
+
+    del parser.rargs[:len(value)]
+    curr_value = getattr(parser.values, option.dest, None)
+    if not curr_value:
+        setattr(parser.values, option.dest, [value])
+    else:
+        curr_value.append(value)
 
 def parse_args():
     parser = OptionParser()
@@ -133,7 +160,7 @@ def parse_args():
     parser.add_option("-u", "--username", dest="username", help="Username")
     parser.add_option("-p", "--password", dest="password", help="Password")
     parser.add_option("-s", "--server", dest="server", help="Server URL to use for api connections (defaults to https://localhost/rpc/api)", default="https://localhost/rpc/api")
-    parser.add_option("-l", "--channels", dest="channels", nargs=2, action="append", help="Original channel and clone channel labels space separated (e.g. --channels=rhel-i386-server-5 myclone).  Can be specified multiple times.")
+    parser.add_option("-l", "--channels", dest="channels", action="callback", callback=vararg_callback, help="Original channel and clone channel labels space separated, with optional channel name and summary following (e.g. --channels=rhel-i386-server-5 myCloneLabel [myName [mySummary]]).  Can be specified multiple times.")
     parser.add_option("-b", "--blacklist", dest="blacklist",  help="Comma separated list of package names (or regular expressions) to exclude from cloned errata (Only added packages will be considered).")
     parser.add_option("-r", "--removelist", dest="removelist",  help="Comma separated list of package names (or regular expressions) to remove from destination channel (All packages are available for removal).")
     parser.add_option("-d", "--to_date", dest="to_date", help="Clone errata to the specified date (YYYY-MM-DD). If omitted will assume no errata.")
@@ -173,9 +200,8 @@ def parse_args():
     # channels.
     if options.channels != None:
         for channel_group in options.channels:
-            if (len(channel_group) != 2 or channel_group[0].startswith('-')
-                    or channel_group[1].startswith('-')):
-                raise UserError("The -l / --channels option requires two arguments")
+            if (len(channel_group) < 2 or len(channel_group) > 4):
+                raise UserError("The -l / --channels option requires two to four arguments")
 
     if options.sample:
         print SAMPLE_CONFIG
@@ -203,11 +229,40 @@ def parse_args():
 
     if not options.validate:
         if options.to_date:
-            options.to_date = parse_time(options.to_date)
+            options.to_date = parse_time(options.to_date.strip())
 
     if not options.password:
         options.password = getpass.getpass()
 
+    # Remove whitespace for bug 885782. Since bug 830609 we can no longer
+    # just remove all whitespace from the config file, may have spaces in
+    # channel name or description.
+    options.username = options.username.strip()
+    options.password = options.password.strip()
+    options.server = options.server.strip()
+    for option in ['blacklist','removelist']:
+        option = getattr(options, option)
+        if option:
+            for key in option.keys()[:]:
+                if key != key.strip():
+                    option[key.strip()] = option[key]
+                    del option[key]
+                    key = key.strip()
+                my_list = []
+                for element in option[key]:
+                    my_list.append(element.strip())
+                option[key] = my_list
+    channel_list = []
+    for channel_tree in options.channels:
+        for channel in channel_tree.keys()[:]:
+            if channel != channel.strip():
+                channel_tree[channel.strip()] = channel_tree[channel]
+                del channel_tree[channel]
+                channel = channel.strip()
+            my_channel = []
+            for element in channel_tree[channel]:
+                my_channel.append(element.strip())
+            channel_tree[channel] = my_channel
 
     return options
 

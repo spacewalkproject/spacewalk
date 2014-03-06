@@ -232,7 +232,7 @@ class ChannelTreeCloner:
 
         self.validate_source_channels()
         for from_label in self.ordered_labels():
-            to_label = self.channel_map[from_label]
+            to_label = self.channel_map[from_label][0]
             cloner = ChannelCloner(from_label, to_label, self.to_date,
                                    self.remote_api, self.db_api, self.detached,
                                    self.security_only, self.use_update_date,
@@ -255,8 +255,8 @@ class ChannelTreeCloner:
                         + " parent channels too simply add another"
                         + " --channels option.")
         for src, dest in self.channel_map.items():
-            if dest not in existing:
-                to_create[src] = dest
+            if dest[0] not in existing:
+                to_create[src] = dest[0]
         return to_create
 
     def pending(self):
@@ -276,13 +276,13 @@ class ChannelTreeCloner:
         if len(to_create) == 0:
             return
         if self.parents_specified:
-            dest_parent = self.dest_parent
+            dest_parent = [self.dest_parent, self.dest_parent, self.dest_parent]
         else:
             dest_parent = self.channel_map[self.src_parent]
         nvreas  = []
 
         #clone the destination parent if it doesn't exist
-        if dest_parent in to_create.values():
+        if dest_parent[0] in to_create.values():
             self.remote_api.clone_channel(self.src_parent, dest_parent, None)
             del to_create[self.src_parent]
             cloner = self.find_cloner(self.src_parent)
@@ -291,8 +291,9 @@ class ChannelTreeCloner:
         #clone the children
         for cloner in self.cloners:
             if cloner.dest_label() in to_create.values():
+                dest = self.channel_map[cloner.src_label()]
                 self.remote_api.clone_channel(cloner.src_label(),
-                                              cloner.dest_label(), dest_parent)
+                                              dest, dest_parent[0])
                 nvreas += [ pkg['nvrea'] for pkg in
                            cloner.reset_new_pkgs().values()]
 
@@ -314,16 +315,20 @@ class ChannelTreeCloner:
             self.dest_parent = self.find_parent(self.channel_map.values())
         self.validate_children(self.dest_parent, self.channel_map.values())
 
-    def validate_children(self, parent, label_list):
+    def validate_children(self, parent, channel_list):
         """ Make sure all children are children of the parent"""
-        for label in label_list:
-            if label != parent:
-                if self.channel_details[label]['parent_channel_label'] != parent:
-                    raise UserError("Child channel '%s' is not a child of parent channel '%s'" % (label, parent))
+        for channel in channel_list:
+            if type(channel) == type([]):
+                channel = channel[0]
+            if channel != parent:
+                if self.channel_details[channel]['parent_channel_label'] != parent:
+                    raise UserError("Child channel '%s' is not a child of parent channel '%s'" % (channel, parent))
 
     def find_parent(self, label_list):
         found_list = []
         for label in label_list:
+            if type(label) == type([]):
+                label = label[0]
             if self.channel_details[label]['parent_channel_label'] == '':
                 found_list.append(label)
         if len(found_list) == 0:
@@ -392,7 +397,7 @@ class ChannelTreeCloner:
                 remove_repodata_link(link)
 
     def process_deps(self, deps):
-        needed_list = dict((label, []) for label in self.channel_map.values())
+        needed_list = dict((channel[0], []) for channel in self.channel_map.values())
         unsolved_deps = []
 
         print('Processing Dependencies:')
@@ -664,7 +669,7 @@ class RemoteApi:
             if keys:
                 to_ret[src] = self.get_details(src)
             if values:
-                to_ret[dst] = self.get_details(dst)
+                to_ret[dst[0]] = self.get_details(dst[0])
         return to_ret
 
     def list_packages(self, label):
@@ -708,13 +713,17 @@ class RemoteApi:
             del package_ids[:20]
             self.client.channel.software.removePackages(self.auth_token, label, pkg_set)
 
-    def clone_channel(self, original_label, new_label, parent):
+    def clone_channel(self, original_label, channel, parent):
         self.auth_check()
-        details = {'name': new_label, 'label':new_label, 'summary': new_label}
+        details = {'name': channel[0], 'label': channel[0], 'summary': channel[0]}
+        if len(channel) > 1:
+            details['name'] = channel[1]
+        if len(channel) > 2:
+            details['summary'] = channel[2]
         if parent and parent != '':
             details['parent_label'] = parent
 
-        msg = "Cloning %s to %s with original package set." % (original_label, new_label)
+        msg = "Cloning %s to %s with original package set." % (original_label, details['label'])
         log_clean(0, "")
         log_clean(0, msg)
         print(msg)
