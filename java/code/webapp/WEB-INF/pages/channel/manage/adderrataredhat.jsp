@@ -9,14 +9,7 @@
 <head>
     <!-- disables the enter key from submitting the form -->
     <script type="text/javascript" language="JavaScript">
-      $(document).ready(function() {
-        $(window).keydown(function(event){
-          if(event.keyCode == 13) {
-            event.preventDefault();
-            return false;
-          }
-        });
-      });
+      $(document).ready(disableEnterKey);
     </script>
 </head>
 <body>

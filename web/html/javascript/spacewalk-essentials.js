@@ -144,3 +144,13 @@ $(document).on("ready", function() {
     }
   });
 });
+
+// Disables the enter key from submitting the form
+function disableEnterKey() {
+  $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+  });
+}
