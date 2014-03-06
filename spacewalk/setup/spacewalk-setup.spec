@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.2.4
+Version:        2.2.5
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -109,6 +109,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Mar 06 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.5-1
+- manual page for spacewalk-setup-httpd
+
 * Thu Mar 06 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.4-1
 - spacewalk-setup-httpd: utility to configure httpd for Spacewalk
 
