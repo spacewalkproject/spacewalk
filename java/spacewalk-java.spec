@@ -670,21 +670,13 @@ fi
 %{jardir}/slf4j_api.jar
 %{jardir}/slf4j_log4j12.jar
 %endif
-%if 0%{?fedora} && 0%{?fedora} < 18
-%{_javadir}/hibernate3/hibernate-core-3.jar
-%{_javadir}/hibernate3/hibernate-c3p0-3.jar
-%{_javadir}/hibernate3/hibernate-ehcache-3.jar
-%endif
-%if 0%{?fedora} && 0%{?fedora} > 18
+%if 0%{?fedora}
 %if 0%{?fedora} < 20
 %{_javadir}/commons-validator.jar
 %endif
 %{_javadir}/mchange-commons.jar
 %{_javadir}/jboss-logging.jar
 %{jardir}/*jboss-logging.jar
-%endif
-%if 0%{?fedora} && 0%{?fedora} < 19
-%{jardir}/jboss-logging.jar
 %endif
 %{jardir}/jaf.jar
 %{jardir}/javamail.jar
@@ -694,7 +686,7 @@ fi
 %{jardir}/jta.jar
 %{jardir}/log4j.jar
 
-%if 0%{?fedora} >= 15
+%if 0%{?fedora}
 %{jardir}/mchange-commons.jar
 %endif
 
