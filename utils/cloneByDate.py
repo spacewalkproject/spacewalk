@@ -136,6 +136,7 @@ def main(options):
 
     cloners = []
     needed_channels = []
+    errata = set(options.errata)
     for channel_list in options.channels:
         # before we start make sure we can get repodata for all channels
         # involved.
@@ -144,18 +145,29 @@ def main(options):
             if not os.path.exists(repodata(label)):
                 raise UserRepoError(label)
 
+        # if cloning specific errata validate that they actually exist
+        # in the original channels
+        if options.errata:
+            for channel in channel_labels:
+                channel_errata = set(xmlrpc.list_errata(channel))
+                if len(errata - channel_errata) != 0:
+                    print "Error: all errata specified with --errata must exist in every original channel cloned in this operation."
+                    print "Channel %s does not contain these errata: %s" % (channel, errata - channel_errata)
+                    sys.exit(1)
+
         if options.parents:
             tree_cloner = ChannelTreeCloner(channel_list, xmlrpc, db,
                                             options.to_date, options.blacklist,
                                             options.removelist, options.background,
                                             options.security_only, options.use_update_date,
-                                            options.no_errata_sync, options.parents)
+                                            options.no_errata_sync, errata,
+                                            options.parents)
         else:
             tree_cloner = ChannelTreeCloner(channel_list, xmlrpc, db,
                                             options.to_date, options.blacklist,
                                             options.removelist, options.background,
                                             options.security_only,options.use_update_date,
-                                            options.no_errata_sync)
+                                            options.no_errata_sync, errata)
 
         cloners.append(tree_cloner)
         needed_channels += tree_cloner.needing_create().values()
@@ -200,7 +212,8 @@ def main(options):
 class ChannelTreeCloner:
     """Usage:
         a = ChannelTreeCloner(channel_hash, xmlrpc, db, to_date, blacklist,
-            removelist, detached, security_only)
+            removelist, detached, security_only, use_update_date,
+            no_errata_sync, errata, parents)
         a.create_channels()
         a.prepare()
         a.clone()
@@ -208,7 +221,7 @@ class ChannelTreeCloner:
     # pylint: disable=R0902
     def __init__(self, channels, remote_api, db_api, to_date, blacklist,
             removelist, detached, security_only, use_update_date,
-            no_errata_sync, parents = None):
+            no_errata_sync, errata, parents = None):
         self.remote_api = remote_api
         self.db_api = db_api
         self.channel_map = channels
@@ -236,7 +249,7 @@ class ChannelTreeCloner:
             cloner = ChannelCloner(from_label, to_label, self.to_date,
                                    self.remote_api, self.db_api, self.detached,
                                    self.security_only, self.use_update_date,
-                                   self.no_errata_sync)
+                                   self.no_errata_sync, errata)
             self.cloners.append(cloner)
 
 
@@ -439,7 +452,7 @@ class ChannelTreeCloner:
 class ChannelCloner:
     # pylint: disable=R0902
     def __init__(self, from_label, to_label, to_date, remote_api, db_api,
-            detached, security_only, use_update_date, no_errata_sync):
+            detached, security_only, use_update_date, no_errata_sync, errata):
         self.remote_api = remote_api
         self.db_api = db_api
         self.from_label = from_label
@@ -454,7 +467,7 @@ class ChannelCloner:
         self.security_only = security_only
         self.use_update_date = use_update_date
         self.no_errata_sync = no_errata_sync
-
+        self.errata = errata
 
     def dest_label(self):
         return self.to_label
@@ -567,16 +580,21 @@ class ChannelCloner:
             self.remote_api.sync_errata(self.to_label)
 
     def get_errata(self):
-        """ Returns tuple of all available for cloning, and what falls in the date range"""
+        """ Returns tuple of all available for cloning and what falls in
+        the date range or is in the errata list"""
         available_errata = self.db_api.applicable_errata(self.from_label, self.to_label)
         to_clone = []
         for err in available_errata:
-            if self.to_date and err[self.use_update_date].date() <= self.to_date.date():
-                if self.security_only:
-                    if err['advisory_type'] == 'Security Advisory':
-                        to_clone.append(err)
-                else:
+            if self.errata:
+                if err['advisory_name'] in self.errata:
                     to_clone.append(err)
+            else:
+                if self.to_date and err[self.use_update_date].date() <= self.to_date.date():
+                    if self.security_only:
+                        if err['advisory_type'] == 'Security Advisory':
+                            to_clone.append(err)
+                    else:
+                        to_clone.append(err)
 
         return (to_clone, available_errata)
 
@@ -729,6 +747,11 @@ class RemoteApi:
         print(msg)
         self.client.channel.software.clone(self.auth_token, original_label, details, True)
 
+    def list_errata(self, channel_label):
+        self.auth_check()
+        errata = self.client.channel.software.listErrata(self.auth_token,
+                channel_label)
+        return [erratum['advisory_name'] for erratum in errata]
 
 
 class DBApi:

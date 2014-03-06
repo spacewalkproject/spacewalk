@@ -44,6 +44,7 @@ SAMPLE_CONFIG = """
  "security_only":false,
  "use_update_date":false,
  "no_errata_sync":false,
+ "errata": ["RHSA-2014:0043", "RHBA-2014:0085"],
  "blacklist": {
                  "ALL":["sendmail"],
                  "my-rhel5-x86_64-clone":["emacs"],
@@ -86,7 +87,8 @@ def merge_config(options):
     #   add it to options
     overwrite = ["username", "password", "blacklist", "removelist", "channels",
                  "server", "assumeyes", "to_date", "skip_depsolve",
-                 "security_only", "use_update_date", "no_errata_sync"]
+                 "security_only", "use_update_date", "no_errata_sync",
+                 "errata"]
     for key in overwrite:
         if config.has_key(key) and not getattr(options, key):
             setattr(options, key, config[key])
@@ -170,6 +172,7 @@ def parse_args():
     parser.add_option("-v", "--validate", dest='validate', action='store_true', help="Run repoclosure on the set of specified repositories.")
     parser.add_option("-g", "--background", dest='background', action='store_true', help="Clone the errata in the background. Prompt will return quicker; before cloning is finished.")
     parser.add_option("-o", "--security_only", dest='security_only', action='store_true', help="Only clone security errata (and their dependencies).")
+    parser.add_option("-e", "--errata", dest='errata', action='store', help="Only clone errata in this comma separated list (and dependencies unless paired with --skip_depsolve) (e.g. --errata=RHSA-2014:0043,RHBA-2014:0085).")
     # Note: the parents option has no logical analog for the config
     # file. This option is provided primarily as a convenience option to
     # provide a more intuitive way to clone a child channels for an
@@ -219,6 +222,11 @@ def parse_args():
     if options.removelist:
         options.removelist = {"ALL":options.removelist.split(",")}
 
+    if options.errata:
+        if options.to_date:
+            raise UserError("Cannot specify both --to_date and --errata.")
+        options.errata = options.errata.split(',')
+
     options = merge_config(options)
 
     if options.channels == None or len(options.channels) == 0:
@@ -240,8 +248,13 @@ def parse_args():
     options.username = options.username.strip()
     options.password = options.password.strip()
     options.server = options.server.strip()
-    for option in ['blacklist','removelist']:
-        option = getattr(options, option)
+    if options.errata:
+        errata_list = []
+        for errata in options.errata:
+            errata_list.append(errata.strip())
+        options.errata = errata_list
+    for option in [getattr(options, 'blacklist', None),
+            getattr(options, 'removelist', None)] + options.channels:
         if option:
             for key in option.keys()[:]:
                 if key != key.strip():
@@ -252,17 +265,6 @@ def parse_args():
                 for element in option[key]:
                     my_list.append(element.strip())
                 option[key] = my_list
-    channel_list = []
-    for channel_tree in options.channels:
-        for channel in channel_tree.keys()[:]:
-            if channel != channel.strip():
-                channel_tree[channel.strip()] = channel_tree[channel]
-                del channel_tree[channel]
-                channel = channel.strip()
-            my_channel = []
-            for element in channel_tree[channel]:
-                my_channel.append(element.strip())
-            channel_tree[channel] = my_channel
 
     return options
 
