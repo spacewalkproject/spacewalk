@@ -56,9 +56,9 @@ begin
     select web_contact_id_seq.nextval into user_id from dual;
 
     insert into web_contact
-        (id, org_id, login, login_uc, password, old_password, oracle_contact_id)
+        (id, org_id, login, login_uc, password, oracle_contact_id)
     values
-        (user_id, org_id_in, login_in, upper(login_in), password_in, null, oracle_contact_id_in);
+        (user_id, org_id_in, login_in, upper(login_in), password_in, oracle_contact_id_in);
 
     insert into web_user_contact_permission
         (web_user_id, call, mail, email, fax)

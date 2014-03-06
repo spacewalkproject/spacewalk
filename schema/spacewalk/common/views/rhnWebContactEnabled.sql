@@ -22,7 +22,6 @@ select
    wcon.login,
    wcon.login_uc,
    wcon.password,
-   wcon.old_password,
    wcon.oracle_contact_id,
    wcon.created,
    wcon.modified,

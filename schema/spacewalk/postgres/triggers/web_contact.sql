@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 e6351a4c6c9ccd19f4333728231ccf71f6bde2f2
+-- oracle equivalent source sha1 7fc2630facac3d46edf346510b11f79681d1febb
 
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
@@ -44,9 +44,6 @@ $$
 begin
         new.modified := current_timestamp;
         new.login_uc := UPPER(new.login);
-        IF new.password IS DISTINCT FROM old.password THEN
-                new.old_password := old.password;
-        END IF;
 
         return new;
 end;

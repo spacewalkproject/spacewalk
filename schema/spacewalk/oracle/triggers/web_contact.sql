@@ -22,9 +22,6 @@ for each row
 begin
         :new.modified := current_timestamp;
         :new.login_uc := UPPER(:new.login);
-        IF :new.password <> :old.password THEN
-                :new.old_password := :old.password;
-        END IF;
         IF inserting THEN
         INSERT INTO web_contact_all (id, org_id, login)
             VALUES (:new.id, :new.org_id, :new.login);
