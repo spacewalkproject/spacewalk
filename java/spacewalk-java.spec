@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.10
+Version: 2.2.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -797,6 +797,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Mar 06 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.11-1
+- moved duplicated code to function
+- removed old / simplified fedora requirements
+- include both jboss-logging.jar and jboss-loggingjboss-logging.jar
+- java pages do not use on-click and node-id attributes
+
 * Wed Mar 05 2014 Jan Dobes 2.2.10-1
 - hide search form together with other UI changes
 - RecurringDatePicker sets HOUR_OF_DAY, however DatePicker design is kind of
