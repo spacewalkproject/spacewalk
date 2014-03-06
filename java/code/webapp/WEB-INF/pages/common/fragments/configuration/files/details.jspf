@@ -3,120 +3,148 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean"	prefix="bean"%>
 <%@ taglib uri="http://struts.apache.org/tags-html"	prefix="html"%>
 
-<h2><bean:message key="filedetails.details.jspf.header2" /></h2>
-<table class="details">
-<tr>
-  <th><bean:message key="filedetails.details.jspf.channel-name" /></th>
-  <td>
-    <c:choose>
-      <c:when test="${channel.configChannelType.label == 'normal'}">
-        <rhn:icon type="header-channel-configuration" title="config.common.globalAlt" />
-      </c:when>
-      <c:when test="${channel.configChannelType.label == 'local_override'}">
-        <rhn:icon type="header-system" title="config.common.localAlt" />
-      </c:when>
-      <c:otherwise>
-        <rhn:icon type="header-sandbox" title="config.common.sandboxAlt" />
-      </c:otherwise>
-    </c:choose>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><bean:message key="filedetails.details.jspf.header2" /></h3>
+    </div>
+    <div class="panel-body">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-md-3">
+                    <bean:message key="filedetails.details.jspf.channel-name" />
+                </label>
+                <div class="col-md-9">
+                    <p class="form-control-static">
+                        <c:choose>
+                            <c:when test="${channel.configChannelType.label == 'normal'}">
+                                <rhn:icon type="header-channel-configuration" title="config.common.globalAlt" />
+                            </c:when>
+                            <c:when test="${channel.configChannelType.label == 'local_override'}">
+                                <rhn:icon type="header-system" title="config.common.localAlt" />
+                            </c:when>
+                            <c:otherwise>
+                                <rhn:icon type="header-sandbox" title="config.common.sandboxAlt" />
+                            </c:otherwise>
+                        </c:choose>
 
-    <a href="/rhn/configuration/ChannelOverview.do?ccid=${channel.id}">
-      ${channel.displayName}
-    </a>
-  </td>
-</tr>
-<tr>
-  <th><bean:message key="filedetails.details.jspf.revision-name" /></th>
-  <td>
-    ${revision.revision}
-    (<a href="/rhn/configuration/file/ManageRevision.do?cfid=${file.id}"><bean:message key="details.jspf.other-revisions"/></a>)
-  </td>
-</tr>
-<tr>
-  <th><bean:message key="filedetails.details.jspf.creation-name" /></th>
-  <td>${created}</td>
-</tr>
-<tr>
-  <th><bean:message key="filedetails.details.jspf.modified-name" /></th>
-  <td>
-    <c:choose>
-    	<c:when test="${lastUser != null}">
-    	  <%--
-    	    The following c:set creates an argument to pass to the immediately
-    	    following bean:message. The contents of the argument are:
-    	    * image with translated alt
-    	    * a link only if the logged in user is an org_admin
-    	    * the login of the user
-    	   --%>
-    	  <c:set var="beanarg" scope="request">
-    	    <rhn:icon type="header-user" title="user.common.userAlt" />
-    	    <rhn:require acl="user_role(org_admin)">
-    	      <a href="/rhn/users/UserDetails.do?uid=${lastUserId}">
-    	    </rhn:require>
-    	    ${lastUser}
-    	    <rhn:require acl="user_role(org_admin)">
-              </a>
+                        <a href="/rhn/configuration/ChannelOverview.do?ccid=${channel.id}">
+                            ${channel.displayName}
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3">
+                    <bean:message key="filedetails.details.jspf.revision-name" />
+                </label>
+                <div class="col-md-9">
+                    <p class="form-control-static">
+                        ${revision.revision}
+                        (<a href="/rhn/configuration/file/ManageRevision.do?cfid=${file.id}">
+                            <bean:message key="details.jspf.other-revisions"/>
+                        </a>)
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3">
+                    <bean:message key="filedetails.details.jspf.creation-name" />
+                </label>
+                <div class="col-md-9">
+                    <p class="form-control-static">${created}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3">
+                    <bean:message key="filedetails.details.jspf.modified-name" />
+                </label>
+                <div class="col-md-9">
+                    <p class="form-control-static">
+                        <c:choose>
+                            <c:when test="${lastUser != null}">
+                                <%--
+                                  The following c:set creates an argument to pass to the immediately
+                                  following bean:message. The contents of the argument are:
+                                  * image with translated alt
+                                  * a link only if the logged in user is an org_admin
+                                  * the login of the user
+                                --%>
+                                <c:set var="beanarg" scope="request">
+                                    <rhn:icon type="header-user" title="user.common.userAlt" />
+                                    <rhn:require acl="user_role(org_admin)">
+                                        <a href="/rhn/users/UserDetails.do?uid=${lastUserId}">
+                                        </rhn:require>
+                                        ${lastUser}
+                                        <rhn:require acl="user_role(org_admin)">
+                                        </a>
+                                    </rhn:require>
+                                </c:set>
+                                <bean:message key="filedetails.details.jspf.modifiedBy"
+                                              arg0="${modified}"
+                                              arg1='${beanarg}' />
+                            </c:when>
+                            <c:otherwise>
+                                <bean:message key="filedetails.details.jspf.modifiedBy-unknown" arg0="${modified}"/>
+                            </c:otherwise>
+                        </c:choose>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3">
+                    <bean:message key="filedetails.details.jspf.filetype-name" />
+                </label>
+                <div class="col-md-3">
+                    <c:choose>
+                        <c:when test="${revision.directory}">
+                            <bean:message key="filedetails.details.jspf.directory" />
+                        </c:when>
+                        <c:when test="${revision.symlink}">
+                            <bean:message key="filedetails.details.jspf.symlink" />
+                        </c:when>
+                        <c:otherwise>
+                            <rhn:require acl="config_channel_editable(${channel.id})"
+                                         mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+                                <html:select styleClass="form-control" property="binary">
+                                    <html:option value="false">
+                                        <bean:message key="filedetails.details.jspf.textfile"/>
+                                    </html:option>
+                                    <html:option value="true">
+                                        <bean:message key="filedetails.details.jspf.binfile"/>
+                                    </html:option>
+                                </html:select>
+                            </rhn:require>
+                            <rhn:require acl="not config_channel_editable(${channel.id})"
+                                         mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+                                <c:if test="${form.map.binary}">
+                                    <bean:message key="filedetails.details.jspf.binfile"/>
+                                </c:if>
+                                <c:if test="${not form.map.binary}">
+                                    <bean:message key="filedetails.details.jspf.textfile"/>
+                                </c:if>
+                            </rhn:require>
+                            <br />
+                            <c:if test="${documentation == 'true'}">
+                                <span class="small-text">
+                                    <bean:message key="filedetails.jsp.binarytoggletip"
+                                                  arg0="/rhn/help/reference/en-US/s1-sm-configuration.jsp" />
+                                </span>
+                            </c:if>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
+            <rhn:require acl="config_channel_editable(${channel.id})"
+                         mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+            <div class="form-group">
+                <label class="control-label col-md-3">
+                    <bean:message key="filedetails.details.jspf.revnum"/>
+                </label>
+                <div class="col-md-3">
+                    <html:text styleClass="form-control" property="revnum" size="7"/>
+                </div>
+            </div>
             </rhn:require>
-    	  </c:set>
-		<bean:message key="filedetails.details.jspf.modifiedBy"
-			arg0="${modified}"
-        		arg1='${beanarg}' />
-    	</c:when>
-    	<c:otherwise>
-    		<bean:message key="filedetails.details.jspf.modifiedBy-unknown" arg0="${modified}"/>
-    	</c:otherwise>
-    </c:choose>
-  </td>
-</tr>
-<tr>
-  <th><bean:message key="filedetails.details.jspf.filetype-name" /></th>
-  <td>
-    <c:choose>
-	<c:when test="${revision.directory}">
-		<bean:message key="filedetails.details.jspf.directory" />
-	</c:when>
-	<c:when test="${revision.symlink}">
-		<bean:message key="filedetails.details.jspf.symlink" />
-	</c:when>
-	<c:otherwise>
-	  <rhn:require acl="config_channel_editable(${channel.id})"
-                       mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-    	    <html:select property="binary">
-    	      <html:option value="false">
-    	        <bean:message key="filedetails.details.jspf.textfile"/>
-    	      </html:option>
-    	      <html:option value="true">
-    	        <bean:message key="filedetails.details.jspf.binfile"/>
-    	      </html:option>
-            </html:select>
-          </rhn:require>
-          <rhn:require acl="not config_channel_editable(${channel.id})"
-                       mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-            <c:if test="${form.map.binary}">
-              <bean:message key="filedetails.details.jspf.binfile"/>
-            </c:if>
-            <c:if test="${not form.map.binary}">
-              <bean:message key="filedetails.details.jspf.textfile"/>
-            </c:if>
-          </rhn:require>
-            <br />
-            <c:if test="${documentation == 'true'}">
-              <span class="small-text">
-                <bean:message key="filedetails.jsp.binarytoggletip"
-                            arg0="/rhn/help/reference/en-US/s1-sm-configuration.jsp" />
-              </span>
-            </c:if>
-    	</c:otherwise>
-    </c:choose>
-  </td>
-</tr>
-<tr>
-<rhn:require acl="config_channel_editable(${channel.id})"
-                       mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-  <th> <bean:message key="filedetails.details.jspf.revnum"/> </th>
-  <td>
-	<html:text property="revnum" size="7"/>
-  </td>
-  </rhn:require>
-</tr>
-</table>
+        </div>
+    </div>
+</div>

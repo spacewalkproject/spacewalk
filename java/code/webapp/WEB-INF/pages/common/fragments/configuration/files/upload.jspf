@@ -1,23 +1,19 @@
-<div id="upload-bar">
-	<strong><bean:message key="contents.jspf.upload"/></strong>
-	<html:form method="post"
-		action="/configuration/file/ManageRevisionSubmit.do?cfid=${file.id}&csrf_token=${csrfToken}"
-        enctype="multipart/form-data">
-        <rhn:csrf />
-  		<table class="details">
-    		<tr>
-      			<th><bean:message key="manage.jsp.uploadtab"/></th>
-      			<td>
-      			  <html:file property="cffUpload" size="30"/><br />
-      			  <span class="small-text"><bean:message key="filedetails.jsp.tip.upload" arg0="${maxbytes}"/></span>
-      			</td>
-		</tr>
-  		</table>
-  		<div class="text-right">
-    		<hr />
-    		<html:submit styleClass="btn btn-default" property="dispatch">
-        		<bean:message key="manage.jsp.uploadbutton"/>
-    		</html:submit>
-  		</div>
-  	</html:form>
-</div>
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn"%>
+
+<h3><bean:message key="contents.jspf.upload"/></h3>
+<html:form styleClass="form-inline" method="post"
+        action="/configuration/file/ManageRevisionSubmit.do?cfid=${file.id}&csrf_token=${csrfToken}"
+enctype="multipart/form-data">
+    <rhn:csrf />
+
+    <label class="control-label">
+        <bean:message key="manage.jsp.uploadtab"/>
+    </label>
+    <html:file property="cffUpload" size="30"/>
+    <div class="text-right">
+        <button type="submit" name="dispatch" class="btn btn-default">
+            <rhn:icon type="item-upload"/>
+            <bean:message key="manage.jsp.uploadbutton"/>
+        </button>
+    </div>
+</html:form>

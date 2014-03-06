@@ -1,82 +1,102 @@
-<h2><bean:message key="filedetails.properties.jspf.header2" /></h2>
-<table class="details">
-<tr>
-  <th><bean:message key="filedetails.properties.jspf.path" /></th>
-  <td><bean:write name="configFileForm" property="cffPath"/></td>
-</tr>
-<c:choose>
-<c:when test="${revision.symlink}">
-<tr>
-	<th><bean:message key="filedetails.properties.jspf.targetpath" /></th>
-	<td><html:text name="configFileForm" property="targetPath" size="30"/></td>
-</tr>
-</c:when>
-<c:otherwise>
-<tr>
-  <th><bean:message key="filedetails.properties.jspf.ownership" /></th>
-  <td>
-    <table>
-      <tr>
-        <td><bean:message key="filedetails.properties.jspf.uid" /></td>
-        <td>
-          <rhn:require acl="config_channel_editable(${channel.id})"
-                       mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-            <html:text property="cffUid" size="6"/>
-          </rhn:require>
-          <rhn:require acl="not config_channel_editable(${channel.id})"
-                       mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-            ${form.map.cffUid}
-          </rhn:require>
-        </td>
-      </tr>
-      <tr>
-        <td><bean:message key="filedetails.properties.jspf.gid" /></td>
-        <td>
-          <rhn:require acl="config_channel_editable(${channel.id})"
-                       mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-            <html:text property="cffGid" size="6"/>
-          </rhn:require>
-          <rhn:require acl="not config_channel_editable(${channel.id})"
-                       mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-            ${form.map.cffGid}
-          </rhn:require>
-        </td>
-      </tr>
-      <tr><td colspan="2"><span class="small-text"><bean:message key="filedetails.jsp.tip.ownership" /></span></td></tr>
-    </table>
-  </td>
-</tr>
-<tr>
-  <th><bean:message key="filedetails.properties.jspf.permissions" /></th>
-  <td>
-    <rhn:require acl="config_channel_editable(${channel.id})"
-                 mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-        <html:text property="cffPermissions" maxlength="4" size="4"/>
-    </rhn:require>
-    <rhn:require acl="not config_channel_editable(${channel.id})"
-                 mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-        ${form.map.cffPermissions}
-    </rhn:require>
-  	<br />
-    <span class="small-text"><bean:message key="filedetails.jsp.tip.permissions" /></span>
-  </td>
-</tr>
-</c:otherwise>
-</c:choose>
 
-<tr>
-  <th>SELinux context</th>
-  <td>
-    <rhn:require acl="config_channel_editable(${channel.id})"
-                 mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-      <html:text property="cffSELinuxCtx" size="24" />
-    </rhn:require>
-    <rhn:require acl="not config_channel_editable(${channel.id})"
-                 mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-      ${form.map.cffSELinuxCtx}
-    </rhn:require>
-    <br />
-    <span class="small-text"><bean:message key="filedetails.jsp.tip.selinux" /></span>
-  </td>
-</tr>
-</table>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><bean:message key="filedetails.properties.jspf.header2" /></h3>
+    </div>
+    <div class="panel-body">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-md-3">
+                    <bean:message key="filedetails.properties.jspf.path" />
+                </label>
+                <div class="col-md-9">
+                    <p class="form-control-static"><bean:write name="configFileForm" property="cffPath"/></p>
+                </div>
+            </div>
+            <c:choose>
+            <c:when test="${revision.symlink}">
+            <div class="form-group">
+                <label class="control-label col-md-3">
+                    <bean:message key="filedetails.properties.jspf.targetpath" />
+                </label>
+                <div class="col-md-9">
+                    <html:text styleClass="form-control" name="configFileForm" property="targetPath" size="30"/>
+                </div>
+            </div>
+            </c:when>
+            <c:otherwise>
+            <div class="form-group">
+                <label class="control-label col-md-3">
+                    <bean:message key="filedetails.properties.jspf.ownership" />
+                </label>
+                <div class="col-md-9">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-3"><bean:message key="filedetails.properties.jspf.uid" /></label>
+                            <div class="col-md-9 col-lg-6">
+                                <rhn:require acl="config_channel_editable(${channel.id})"
+                                        mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+                                    <html:text styleClass="form-control" property="cffUid" size="6"/>
+                                </rhn:require>
+                                <rhn:require acl="not config_channel_editable(${channel.id})"
+                                        mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+                                    <p class="form-static-control">${form.map.cffUid}</p>
+                                </rhn:require>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3">
+                                <bean:message key="filedetails.properties.jspf.gid" />
+                            </label>
+                            <div class="col-md-9 col-lg-6">
+                                <rhn:require acl="config_channel_editable(${channel.id})"
+                                        mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+                                    <html:text styleClass="form-control" property="cffGid" size="6"/>
+                                </rhn:require>
+                                <rhn:require acl="not config_channel_editable(${channel.id})"
+                                        mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+                                    <p class="form-static-control">${form.map.cffGid}</p>
+                                </rhn:require>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="help-block"><bean:message key="filedetails.jsp.tip.ownership" /></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3">
+                    <bean:message key="filedetails.properties.jspf.permissions" />
+                </label>
+                <div class="col-md-3">
+                    <rhn:require acl="config_channel_editable(${channel.id})"
+                    mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+                    <html:text styleClass="form-control" property="cffPermissions" maxlength="4" size="4"/>
+                    </rhn:require>
+                    <rhn:require acl="not config_channel_editable(${channel.id})"
+                                 mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+                        ${form.map.cffPermissions}
+                    </rhn:require>
+                    <span class="help-block"><bean:message key="filedetails.jsp.tip.permissions" /></span>
+                </div>
+            </div>
+            </c:otherwise>
+            </c:choose>
+            <div class="form-group">
+                <label class="control-label col-md-3">
+                    SELinux context
+                </label>
+                <div class="col-md-9">
+                    <rhn:require acl="config_channel_editable(${channel.id})"
+                    mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+                    <html:text styleClass="form-control" property="cffSELinuxCtx" size="24" />
+                    </rhn:require>
+                    <rhn:require acl="not config_channel_editable(${channel.id})"
+                    mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+                    ${form.map.cffSELinuxCtx}
+                    </rhn:require>
+                    <span class="help-block"><bean:message key="filedetails.jsp.tip.selinux" /></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

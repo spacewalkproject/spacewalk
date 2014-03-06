@@ -1,53 +1,59 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ include file="/WEB-INF/pages/common/fragments/editarea.jspf" %>
-<h2><bean:message key="filedetails.contents.jspf.header2" /></h2>
 
-<c:choose>
-  <c:when test="${editable}">
-    <c:choose>
-      <c:when test="${revision.configContent.binary}">
-		<strong><bean:message key="filedetails.contents.jspf.binary-header"/></strong><br />
-		<bean:message key="filedetails.contents.jspf.binary-edit" />
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><bean:message key="filedetails.contents.jspf.header2" /></h3>
+    </div>
+    <div class="panel-body">
+        <c:choose>
+          <c:when test="${editable}">
+            <c:choose>
+              <c:when test="${revision.configContent.binary}">
+                        <strong><bean:message key="filedetails.contents.jspf.binary-header"/></strong><br />
+                        <bean:message key="filedetails.contents.jspf.binary-edit" />
 
-		<bean:message key="filedetails.contents.jspf.binary-canupload"/>
-      </c:when>
-      <c:when test="${toolarge}">
-		<strong><bean:message key="filedetails.contents.jspf.toolarge-header"/></strong><br />
-		<bean:message key="filedetails.contents.jspf.toolarge-edit" arg0="${requestScope.maxEditBytes}"/>
+                        <bean:message key="filedetails.contents.jspf.binary-canupload"/>
+              </c:when>
+              <c:when test="${toolarge}">
+                        <strong><bean:message key="filedetails.contents.jspf.toolarge-header"/></strong><br />
+                        <bean:message key="filedetails.contents.jspf.toolarge-edit" arg0="${requestScope.maxEditBytes}"/>
 
-		<strong><bean:message key="filedetails.contents.jspf.download-header"/></strong><br />
-		<bean:message key="filedetails.contents.jspf.download"
-			arg0="/rhn/configuration/file/FileDownload.do?crid=${revision.id}&amp;cfid=${revision.configFile.id}"
-			arg1="${fn:escapeXml(revision.configFile.configFileName.path)}"
-			arg2="${revision.revision}"
-			arg3="${revbytes}"/>
-      </c:when>
-      <c:otherwise >
-		<html:textarea property="contents" rows="20" cols="80" styleId="contents"/><br />
-		<span class="small-text"><bean:message key="filedetails.jsp.tip.edit"/></span>
-      </c:otherwise>
-    </c:choose>
-  </c:when>
-  <c:otherwise>
-    <c:choose>
-	  <c:when test="${revision.configContent.binary}">
-		<strong><bean:message key="filedetails.contents.jspf.binary-header"/></strong><br />
-		<bean:message key="filedetails.contents.jspf.binary-display" />
-	  </c:when>
-	  <c:when test="${toolarge}">
-		<strong><bean:message key="filedetails.contents.jspf.toolarge-header"/></strong><br />
-		<bean:message key="filedetails.contents.jspf.toolarge-display" arg0="${requestScope.maxbytes}"/>
+                        <strong><bean:message key="filedetails.contents.jspf.download-header"/></strong><br />
+                        <bean:message key="filedetails.contents.jspf.download"
+                                arg0="/rhn/configuration/file/FileDownload.do?crid=${revision.id}&amp;cfid=${revision.configFile.id}"
+                                arg1="${fn:escapeXml(revision.configFile.configFileName.path)}"
+                                arg2="${revision.revision}"
+                                arg3="${revbytes}"/>
+              </c:when>
+              <c:otherwise >
+                        <html:textarea styleClass="form-control" property="contents" rows="20" cols="80" styleId="contents"/><br />
+                        <span class="help-block"><bean:message key="filedetails.jsp.tip.edit"/></span>
+              </c:otherwise>
+            </c:choose>
+          </c:when>
+          <c:otherwise>
+            <c:choose>
+                  <c:when test="${revision.configContent.binary}">
+                        <strong><bean:message key="filedetails.contents.jspf.binary-header"/></strong><br />
+                        <bean:message key="filedetails.contents.jspf.binary-display" />
+                  </c:when>
+                  <c:when test="${toolarge}">
+                        <strong><bean:message key="filedetails.contents.jspf.toolarge-header"/></strong><br />
+                        <bean:message key="filedetails.contents.jspf.toolarge-display" arg0="${requestScope.maxbytes}"/>
 
-		<strong><bean:message key="filedetails.contents.jspf.download-header"/></strong><br />
-		<bean:message key="filedetails.contents.jspf.download"
-			arg0="/rhn/configuration/file/FileDownload.do?crid=${revision.id}&amp;cfid=${revision.configFile.id}"
-			arg1="${fn:escapeXml(revision.configFile.configFileName.path)}"
-			arg2="${revision.revision}"
-			arg3="${revbytes}"/>
-	  </c:when>
-	  <c:otherwise> <!--  Must just not be editable,for whatever reason, and also not too large -->
-		${fn:escapeXml(revision.configContent.contentsString)}
-	  </c:otherwise>
-    </c:choose>
-  </c:otherwise>
-</c:choose>
+                        <strong><bean:message key="filedetails.contents.jspf.download-header"/></strong><br />
+                        <bean:message key="filedetails.contents.jspf.download"
+                                arg0="/rhn/configuration/file/FileDownload.do?crid=${revision.id}&amp;cfid=${revision.configFile.id}"
+                                arg1="${fn:escapeXml(revision.configFile.configFileName.path)}"
+                                arg2="${revision.revision}"
+                                arg3="${revbytes}"/>
+                  </c:when>
+                  <c:otherwise> <!--  Must just not be editable,for whatever reason, and also not too large -->
+                        ${fn:escapeXml(revision.configContent.contentsString)}
+                  </c:otherwise>
+            </c:choose>
+          </c:otherwise>
+        </c:choose>
+    </div>
+</div>
