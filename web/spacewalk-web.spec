@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.3
+Version: 2.2.4
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,13 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Mar 06 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.4-1
+- moved duplicated code to function
+- system_upgradable_package_list is not referenced anymore
+- on-click and node-id attributes are relevant only to pxt pages
+- removed unused up2date_version_at_least()
+- removed unused rhn-up2date-at-least tag
+
 * Wed Mar 05 2014 Jan Dobes 2.2.3-1
 - control menu type switching completely with css instead of javascript
 
