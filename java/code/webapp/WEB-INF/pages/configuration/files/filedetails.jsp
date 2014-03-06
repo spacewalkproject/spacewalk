@@ -16,35 +16,37 @@
     <rhn:csrf />
 	<html:hidden property="submitted" value="true"/>
 
-	<div class="details-column-left">
-	  <%@ include file="/WEB-INF/pages/common/fragments/configuration/files/details.jspf"%>
-	</div>
+        <div class="row-0">
+            <div class="col-md-auto details-column-left">
+              <%@ include file="/WEB-INF/pages/common/fragments/configuration/files/details.jspf"%>
+            </div>
 
-	<div class="details-column-right">
-	  <%@ include file="/WEB-INF/pages/common/fragments/configuration/files/properties.jspf"%>
-	</div>
-
+            <div class="col-md-auto details-column-right">
+              <%@ include file="/WEB-INF/pages/common/fragments/configuration/files/properties.jspf"%>
+            </div>
+        </div>
 	<c:if test="${revision.file}">
-	  <div class="details-full">
-	    <%@ include file="/WEB-INF/pages/common/fragments/configuration/files/add_details.jspf"%>
+	  <div class="row-0">
+              <div class="col-md-12">
+                <%@ include file="/WEB-INF/pages/common/fragments/configuration/files/add_details.jspf"%>
+              </div>
 	  </div>
 
-	  <div class="details-full">
-	    <%@ include file="/WEB-INF/pages/common/fragments/configuration/files/contents.jspf"%>
+	  <div class="row-0">
+              <div class="col-md-12">
+                <%@ include file="/WEB-INF/pages/common/fragments/configuration/files/contents.jspf"%>
+              </div>
 	  </div>
 	</c:if>
 
 	<rhn:require acl="config_channel_editable()"
              mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-      <div class="submit-bar">
-	    <hr />
-		<div class="text-right">
-          <html:submit styleClass="btn btn-default"><bean:message key="filedetails.jsp.update" /></html:submit>
-		</div>
-      </div>
+        <div class="text-right">
+            <html:submit styleClass="btn btn-primary"><bean:message key="filedetails.jsp.update" /></html:submit>
+        </div>
 	</rhn:require>
 </html:form>
-
+<hr/>
 <rhn:require acl="is_file();config_channel_editable()"
              mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
 	<%@ include file="/WEB-INF/pages/common/fragments/configuration/files/upload.jspf" %>

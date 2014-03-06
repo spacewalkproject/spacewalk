@@ -1,41 +1,51 @@
 <c:if test="${not empty revision.configContent}">
-<h2><bean:message key="filedetails.add_details.jspf.header2" /></h2>
-<table class="details">
-<tr>
-  <th><bean:message key="filedetails.add_details.jspf.md5" /></th>
-  <td>${revision.configContent.checksum}</td>
-</tr>
 
-<c:if test="${!revision.configContent.binary && !revision.directory}">
-<tr>
-  <th><bean:message key="filedetails.add_details.jspf.macro" /></th>
-  <td nowrap>
-    <bean:message key="filedetails.add_details.jspf.macro.start" />
-    <rhn:require acl="config_channel_editable(${channel.id})"
-                 mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-        <html:text property="cffMacroStart" value="${revision.configContent.delimStart}" size="3"/>
-    </rhn:require>
-    <rhn:require acl="not config_channel_editable(${channel.id})"
-                 mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-        <c:out value="${revision.configContent.delimStart}" />
-    </rhn:require>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><bean:message key="filedetails.add_details.jspf.header2" /></h3>
+    </div>
 
-    <bean:message key="filedetails.add_details.jspf.macro.end" />
+    <div class="panel-body">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-md-3">
+                    <bean:message key="filedetails.add_details.jspf.md5" />
+                </label>
+                <div class="col-md-9">
+                    <p class="form-control-static">${revision.configContent.checksum}</p>
+                </div>
+            </div>
 
-    <rhn:require acl="config_channel_editable(${channel.id})"
-                 mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-        <html:text property="cffMacroEnd" value="${revision.configContent.delimEnd}" size="3"/>
-    </rhn:require>
-    <rhn:require acl="not config_channel_editable(${channel.id})"
-                 mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-        <c:out value="${revision.configContent.delimEnd}" />
-    </rhn:require>
-    <br />
-    <c:if test="${documentation == 'true'}">
-      <span class="small-text"><bean:message key="filedetails.jsp.tip.macros" arg0="/rhn/help/reference/en-US/s1-sm-configuration.jsp"/></span>
-    </c:if>
-</tr>
-</c:if>
-</table>
+            <c:if test="${!revision.configContent.binary && !revision.directory}">
+            <div class="form-group">
+                <label class="control-label col-md-3"><bean:message key="filedetails.add_details.jspf.macro" /></label>
+                <div class="col-md-3">
+                    <label class="control-label"><bean:message key="filedetails.add_details.jspf.macro.start" /></label>
+                    <rhn:require acl="config_channel_editable(${channel.id})"
+                                 mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+                        <html:text styleClass="form-control" property="cffMacroStart" value="${revision.configContent.delimStart}" size="3"/>
+                    </rhn:require>
+                    <rhn:require acl="not config_channel_editable(${channel.id})"
+                                 mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+                        <p class="form-control-static"><c:out value="${revision.configContent.delimStart}" /></p>
+                    </rhn:require>
+                    <label class="control-label"><bean:message key="filedetails.add_details.jspf.macro.end" /></label>
+                    <rhn:require acl="config_channel_editable(${channel.id})"
+                                 mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+                        <html:text styleClass="form-control" property="cffMacroEnd" value="${revision.configContent.delimEnd}" size="3"/>
+                    </rhn:require>
+                    <rhn:require acl="not config_channel_editable(${channel.id})"
+                                 mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+                        <p class="form-control-static"><c:out value="${revision.configContent.delimEnd}" /></p>
+                    </rhn:require>
+                    <c:if test="${documentation == 'true'}">
+                        <span class="help-block"><bean:message key="filedetails.jsp.tip.macros" arg0="/rhn/help/reference/en-US/s1-sm-configuration.jsp"/></span>
+                    </c:if>
+                </div>
+            </div>
+            </c:if>
+        </div>
+    </div>
+</div>
 </c:if>
 
