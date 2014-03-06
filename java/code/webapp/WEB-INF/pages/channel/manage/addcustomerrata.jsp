@@ -122,11 +122,7 @@
   </c:when>
 </c:choose>
   		<p align="right">
-		    <input class="btn btn-default" type="submit" name="dispatch"  value="<bean:message key='frontend.actions.channels.manager.add.submit'/>"
-                <c:choose>
-                    <c:when test="${empty pageList}">disabled</c:when>
-                </c:choose>
-            >
+		    <input class="btn btn-default" type="submit" name="dispatch"  value="<bean:message key='frontend.actions.channels.manager.add.submit'/>" ${empty pageList ? 'disabled' : ''} >
 		</p>
      <rhn:submitted/>
 </rl:listset>
