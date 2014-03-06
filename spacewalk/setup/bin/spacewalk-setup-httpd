@@ -150,3 +150,58 @@ if ($help) {
 }
 
 setup_mod_ssl($fips_mode_on);
+
+=head1 NAME
+
+spacewalk-setup-httpd - utility for configuring httpd service to work with
+Spacewalk / Red Hat Satellite
+
+=head1 SYNOPSIS
+
+B<spacewalk-setup-httpd>
+[B<--help>]
+[B<--fips-mode-on>]
+
+=head1 OPTIONS
+
+=over 5
+
+=item B<--fips-mode-on>
+
+Configure httpd to work correctly in FIPS mode. For mod_ssl, this means turning
+the SSLFIPS directive on in ssl.conf where applicable.
+
+=item B<--help>
+
+Print help message.
+
+=back
+
+=head1 DESCRIPTION
+
+B<spacewalk-setup-httpd> is a utility for configuring httpd service to work
+with Spacewalk / Red Hat Satellite. The script uses configuration templates
+to modify existing httpd configuration files.
+
+Ordinarily, spacewalk-setup-httpd is called by spacewalk-setup(1) during
+initial Spacewalk / Red Hat Satellite configuration or upgrade.
+
+=head1 FILES
+
+mod_ssl configuration
+
+F</etc/httpd/conf.d/ssl.conf>
+
+Configuration templates
+
+F</usr/share/spacewalk/setup/mod_ssl*>
+
+=head1 SEE ALSO
+
+B<spacewalk-setup>(1) - Spacewalk setup program
+
+=head1 AUTHORS
+
+Milan Zazrivec <mzazrivec@redhat.com>
+
+=cut
