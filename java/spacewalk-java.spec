@@ -303,6 +303,7 @@ Requires: ant-junit
 This package contains testing files of spacewalk-java.  
 
 %files tests
+%defattr(644,root,root,775)
 %{_datadir}/rhn/lib/rhn-test.jar
 %{_datadir}/rhn/unit-tests/*
 %{_datadir}/rhn/unittest.xml
@@ -763,6 +764,7 @@ fi
 %ghost %attr(644, tomcat, root) %{_var}/spacewalk/systemlogs/audit-review.log
 
 %files -n spacewalk-taskomatic
+%defattr(644,root,root,775)
 %if 0%{?fedora}
 %attr(755, root, root) %{_sbindir}/taskomatic
 %attr(755, root, root) %{_unitdir}/taskomatic.service
@@ -774,6 +776,7 @@ fi
 
 
 %files config
+%defattr(644,root,root,775)
 %{_prefix}/share/rhn/config-defaults/rhn_hibernate.conf
 %{_prefix}/share/rhn/config-defaults/rhn_taskomatic_daemon.conf
 %{_prefix}/share/rhn/config-defaults/rhn_org_quartz.conf
@@ -781,6 +784,7 @@ fi
 %config %{_sysconfdir}/logrotate.d/rhn_web_api
 
 %files lib
+%defattr(644,root,root,775)
 %{_datadir}/rhn/classes/log4j.properties
 %{_datadir}/rhn/lib/rhn.jar
 
@@ -6218,7 +6222,7 @@ Feature: Support channel-permissions on ISS
 - Adding missing interval keyword to Taskomatic 
 - Protocol config value is now used in Taskomatic 
 - Getting taskomatic working on PostgreSQL 
-- removing unneeded insmod on kickstart %pre script, since they are already
+- removing unneeded insmod on kickstart %%pre script, since they are already
   loaded 
 - fixing query to run correctly, c.id was not valid because the join did not
   come directly after rhnChannel c 
@@ -6242,7 +6246,7 @@ Feature: Support channel-permissions on ISS
 - Use the { call ... } syntax instead of the direct PL/SQL.
 
 * Mon Oct 25 2010 Jan Pazdziora 1.2.71-1
-- 639999 - adding %end tags to generated kickstart files if os is fedora or
+- 639999 - adding %%end tags to generated kickstart files if os is fedora or
   RHEL 6 (jsherril@redhat.com)
 
 * Thu Oct 21 2010 Jan Pazdziora 1.2.70-1
@@ -6611,7 +6615,7 @@ Feature: Support channel-permissions on ISS
 - checkstyle fix (jsherril@redhat.com)
 - 616570 - adding support for looking up debuginfo rpms if they are located on
   the satellite itself (jsherril@redhat.com)
-- fixing kickstart %post script logging to actually work and not break
+- fixing kickstart %%post script logging to actually work and not break
   kickstarts (jsherril@redhat.com)
 - fix ClearLogHistory (tlestach@redhat.com)
 
@@ -6819,7 +6823,7 @@ Feature: Support channel-permissions on ISS
 
 * Fri Jul 30 2010 Justin Sherrill <jsherril@redhat.com> 1.1.41-1
 - 619381 - fixing issue where reprovisioning a system would cause registration
-  to fail in the %post section resulting in the system not being registered at
+  to fail in the %%post section resulting in the system not being registered at
   all. (jsherril@redhat.com)
 
 * Fri Jul 30 2010 Shannon Hughes <shughes@redhat.com> 1.1.40-1
@@ -6921,7 +6925,7 @@ Feature: Support channel-permissions on ISS
 - use db_* options from rhn.conf to retrieve database connection info
 - Added unit tests for SystemHandlerTest.convertToFlex
 - unit test fix
-- fixing un-escaped dollar sign in %post script that deals with rewriting
+- fixing un-escaped dollar sign in %%post script that deals with rewriting
   /etc/sysconfig/rhn/up2date
 
 * Fri Jul 16 2010 Justin Sherrill <jsherril@redhat.com> 1.1.29-1
