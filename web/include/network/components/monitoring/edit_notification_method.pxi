@@ -9,14 +9,14 @@
 
 <pxt-formvar>
 
-<div class="toolbar"><rhn-deletion-link url="delete_confirm.pxt?cmid={formvar:cmid}" type="method" /></div>
+<div class="toolbar pull-right"><rhn-deletion-link url="delete_confirm.pxt?cmid={formvar:cmid}" type="method" /></div>
 <div class="page-summary">
   <p>Edit this notification method using the form provided.</p>
 </div>
 
 <pxt-include-late file="/network/components/message_queues/local.pxi" />
 
-    <pxt-form method="post">
+    <pxt-form method="post" class="form-horizontal">
 
 <rhn-contact-method-edit-form>
 
