@@ -83,6 +83,10 @@ insert into rhnServerPackageArchCompat
 
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('aarch64-redhat-linux'), LOOKUP_PACKAGE_ARCH('aarch64'), 0);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
 (LOOKUP_SERVER_ARCH('armv7l-redhat-linux'), LOOKUP_PACKAGE_ARCH('armv7hnl'), 0);
 
 insert into rhnServerPackageArchCompat

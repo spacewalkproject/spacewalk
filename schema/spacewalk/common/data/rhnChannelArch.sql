@@ -77,6 +77,9 @@ insert into rhnChannelArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_channel_arch_id_seq'), 'channel-armhfp', 'ARM hard. FP', lookup_arch_type('rpm'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-aarch64', 'AArch64', lookup_arch_type('rpm'));
+
+insert into rhnChannelArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_channel_arch_id_seq'), 'channel-arm-deb', 'arm Debian', lookup_arch_type('deb'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values

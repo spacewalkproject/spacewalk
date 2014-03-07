@@ -95,6 +95,9 @@ insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_i
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('armv7hnl'), current_timestamp, current_timestamp);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('armv7hnl'), LOOKUP_PACKAGE_ARCH('armv7hnl'), current_timestamp, current_timestamp);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('armv7hnl'), LOOKUP_PACKAGE_ARCH('noarch'), current_timestamp, current_timestamp);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('aarch64'), current_timestamp, current_timestamp);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('aarch64'), LOOKUP_PACKAGE_ARCH('aarch64'), current_timestamp, current_timestamp);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('aarch64'), LOOKUP_PACKAGE_ARCH('noarch'), current_timestamp, current_timestamp);
 
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris'), current_timestamp, current_timestamp);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc-solaris'), LOOKUP_PACKAGE_ARCH('sparc-solaris'), current_timestamp, current_timestamp);

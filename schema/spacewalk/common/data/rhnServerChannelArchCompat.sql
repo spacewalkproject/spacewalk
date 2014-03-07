@@ -76,6 +76,9 @@ insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 (LOOKUP_SERVER_ARCH('ppc64pseries-redhat-linux'), LOOKUP_CHANNEL_ARCH('channel-ppc'));
 
 insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
+(LOOKUP_SERVER_ARCH('aarch64-redhat-linux'), LOOKUP_CHANNEL_ARCH('channel-aarch64'));
+
+insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 (LOOKUP_SERVER_ARCH('armv7l-redhat-linux'), LOOKUP_CHANNEL_ARCH('channel-armhfp'));
 
 insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values

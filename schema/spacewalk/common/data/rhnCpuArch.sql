@@ -65,6 +65,8 @@ insert into rhnCpuArch (id, label, name) values
 insert into rhnCpuArch (id, label, name) values
 (sequence_nextval('rhn_cpu_arch_id_seq'), 'i86pc', 'i86pc');
 insert into rhnCpuArch (id, label, name) values
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'aarch64', 'AArch64');
+insert into rhnCpuArch (id, label, name) values
 (sequence_nextval('rhn_cpu_arch_id_seq'), 'armv7l', 'ARMv7l');
 insert into rhnCpuArch (id, label, name) values
 (sequence_nextval('rhn_cpu_arch_id_seq'), 'armv5tejl', 'ARMv5tejl');
