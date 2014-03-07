@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rhn-navi-tree xmlns:xi="http://www.w3.org/2001/XInclude" label="sitenav_unauth" title-depth="0">
-  <rhn-tab name="Install" url="/rhn/newlogin/CreateFirstUser.do" acl="need_first_user()">
+  <rhn-tab name="Create First User" url="/rhn/newlogin/CreateFirstUser.do" acl="need_first_user()">
   </rhn-tab>
   <rhn-tab name="Sign In" url="/" active-image="tab-sign_in-selected.gif" inactive-image="tab-sign_in.gif">
   </rhn-tab>
