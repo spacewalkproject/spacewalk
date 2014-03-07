@@ -82,7 +82,10 @@ def create_server_obj(server_url):
 
 
 def read_username():
-    print("Username: ")
+    tty = open("/dev/tty", "r+")
+    tty.write('Username: ')
+    tty.close()
+
     try:
         username = sys.stdin.readline().rstrip('\n')
     except KeyboardInterrupt:
