@@ -11,31 +11,20 @@
 </rhn:toolbar>
 <h2><bean:message key="cobbler.snippet.delete"/></h2>
 <p><bean:message key="snippetdelete.jsp.summary"/></p>
-<p><rhn:warning key= "snippetdelete.jsp.warning"/></p>
+<div class="alert alert-danger"><rhn:warning key= "snippetdelete.jsp.warning"/></div>
 <div>
 	<form method="post" action="/rhn/kickstart/cobbler/CobblerSnippetDelete.do">
     <rhn:csrf />
 <h2><bean:message key="snippetcreate.jsp.contents.header"/></h2>
-    <table class="details">
-    <tr>
-        <th>
-         <bean:message key="snippetcreate.jsp.contents"/>
-        </th>
-        <td>
-   			<pre  class="file-display"><c:out value="${contents}"/></pre>
-       </td>
-    </tr>
-    </table>
-    <hr />
-    <table align="right">
-    <tr>
-      <td></td>
+
+      <textarea style="resize:none" class="form-control col-sm-12" rows="24" disabled><c:out value="${contents}"/></textarea>
+
+      <hr />
       <rhn:submitted/>
       <input type="hidden" name="name" value="${requestScope.name}"/>
-      <td align="right"><input type=submit name="dispatch"
-       value="${rhn:localize('snippetdelete.jsp.deletesnippet')}"/></td>
-    </tr>
-        </table>
+      <div class="pull-right"><input type=submit class="btn btn-danger" name="dispatch"
+       value="${rhn:localize('snippetdelete.jsp.deletesnippet')}"/></div>
+
     </form>
 </div>
 
