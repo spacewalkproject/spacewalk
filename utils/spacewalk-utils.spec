@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.2.4
+Version:	2.2.5
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Mar 07 2014 Stephen Herr <sherr@redhat.com> 2.2.5-1
+- 1015963 - fixing long lines in clone-by-date
+
 * Thu Mar 06 2014 Stephen Herr <sherr@redhat.com> 2.2.4-1
 - 1073632 - add option to clone-by-date to only clone specified errata
 - 1073543 - Allow user to specify channel name through clone-by-date
