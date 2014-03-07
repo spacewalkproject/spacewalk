@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.2.4
+Version:        2.2.5
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Mar 07 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.5-1
+- 1055969 - support for ARM aarch64 architecture
+
 * Thu Mar 06 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.4-1
 - drop web_contact.old_password column from schema
 - insert new gpg key only if not exists
