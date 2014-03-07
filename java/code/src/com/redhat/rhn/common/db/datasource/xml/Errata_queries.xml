@@ -1323,6 +1323,9 @@ LEFT JOIN (
             AND cep.package_id = ccp.package_id
 WHERE ccp.channel_id = :cid
 ) C ON C.errata_id = O.clone_errata_id AND C.package_id = O.package_id
+JOIN rhnErrata e ON e.id = O.clone_errata_id
+-- following line ensures the errata clone is already published in the cloned channel
+JOIN rhnChannelErrata ce ON ce.errata_id = e.id AND ce.channel_id = :cid
 JOIN rhnPackage p ON p.id = O.package_id
 JOIN rhnPackageName pn ON pn.id = p.name_id
 JOIN rhnPackageEVR pevr ON pevr.id = p.evr_id
