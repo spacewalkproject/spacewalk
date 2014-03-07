@@ -341,8 +341,8 @@ class ChannelTreeCloner:
             if channel != parent:
                 if (self.channel_details[channel]['parent_channel_label']
                         != parent):
-                    raise UserError("Child channel '%s' is not a child of "
-                            + "parent channel '%s'" % (channel, parent))
+                    raise UserError(("Child channel '%s' is not a child of "
+                            + "parent channel '%s'") % (channel, parent))
 
     def find_parent(self, label_list):
         found_list = []
