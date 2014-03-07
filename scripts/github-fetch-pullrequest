@@ -1,0 +1,39 @@
+#!/usr/bin/env python
+
+import git
+import simplejson
+import sys
+import urllib
+
+USER = "spacewalkproject"
+REPO = "spacewalk"
+
+
+def getPullRequest(n):
+    url = "https://api.github.com/repos/%s/%s/pulls/%d" % (USER, REPO, n)
+    result = simplejson.load(urllib.urlopen(url))
+    return result
+
+if __name__ == "__main__":
+    pullRequest = getPullRequest(int(sys.argv[1]))
+    remote_url = pullRequest.get("head").get("repo").get("clone_url")
+    from_who = pullRequest.get("user").get("login")
+    remote_branch = pullRequest.get("head").get("ref")
+    local_branch = pullRequest.get("base").get("ref")
+
+    print (remote_url, remote_branch)
+
+    remote_name = "pull-request-%s-%s" % (from_who, remote_branch)
+    repo = git.Repo('.')
+
+    remote = repo.create_remote(remote_name, remote_url)
+    try:
+        remote.fetch()
+    except:  # :-(
+        pass
+    repo.git.checkout('%s/%s' % (remote_name, remote_branch), b=remote_name)
+    repo.delete_remote(remote)
+    try:
+        repo.git.rebase(local_branch)
+    except git.exc.GitCommandError:
+        print "Rebase failed. You can either resolve it and run `git rebase --continue` or ask author to do the rebase."
