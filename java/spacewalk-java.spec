@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.12
+Version: 2.2.13
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -797,6 +797,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Mar 07 2014 Stephen Herr <sherr@redhat.com> 2.2.13-1
+- 1073652 - channel.software.syncErrata clones too many packages
+
 * Fri Mar 07 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.12-1
 - 1021558 - if buildTime is null don't parse it
 - fix element nesting
