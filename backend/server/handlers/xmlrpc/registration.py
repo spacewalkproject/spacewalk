@@ -66,7 +66,7 @@ def parse_smbios(smbios):
     elif (manufacturer == 'Red Hat' and product == 'RHEV Hypervisor' and uuid is
         not None):
         return (rhnVirtualization.VirtualizationType.QEMU, uuid)
-    elif manufacturer.startswith('Red Hat') and product == 'OpenStack Nova' and uuid is not None:
+    elif manufacturer and manufacturer.startswith('Red Hat') and product == 'OpenStack Nova' and uuid is not None:
         return (rhnVirtualization.VirtualizationType.QEMU, uuid)
     elif (manufacturer == 'Red Hat' and product == 'OpenStack Compute' and uuid
             is not None):
