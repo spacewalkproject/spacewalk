@@ -47,7 +47,7 @@
               </tr>
               <tr>
                 <td><label for="desiredpass"><bean:message key="desiredpass" /><span name="password-asterisk"
-                      class="required-form-field">*</span>:</td></label>
+                      class="required-form-field">*</span>:</label></td>
                 <td>
                   <div id="desiredpassword-input-group" class="input-group">
                       <html:password property="desiredpassword" styleClass="form-control" size="15" maxlength="${passwordLength}"/>
