@@ -276,7 +276,8 @@ public class PackageDto extends BaseDto {
         SimpleDateFormat dateFormatGMT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
         dateFormatGMT.setTimeZone(TimeZone.getTimeZone("GMT"));
         try {
-            this.buildTime = dateFormatGMT.parse(buildTimeIn.toString());
+            this.buildTime = (buildTimeIn == null ?
+                        null : dateFormatGMT.parse(buildTimeIn.toString()));
         }
         catch (ParseException e) {
             throw new RhnRuntimeException(e);
