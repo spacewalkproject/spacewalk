@@ -13,9 +13,6 @@
  * in this software or its documentation.
  */
 
-/*
- * AUTOMATICALLY GENERATED FILE, DO NOT EDIT.
- */
 package com.redhat.rhn.common.util;
 
 import com.redhat.rhn.common.RhnRuntimeException;
@@ -28,12 +25,7 @@ import com.redhat.rhn.common.RhnRuntimeException;
  * @version definition($Rev: 76724 $)/template($Rev: 67725 $)
  */
 public class MD5CryptException extends RhnRuntimeException  {
-
-
-    /////////////////////////
-    // Constructors
-    /////////////////////////
-        /**
+    /**
      * Constructor
      * @param message exception message
      */
@@ -42,7 +34,7 @@ public class MD5CryptException extends RhnRuntimeException  {
         // begin member variable initialization
     }
 
-        /**
+    /**
      * Constructor
      * @param message exception message
      * @param cause the cause (which is saved for later retrieval
@@ -54,8 +46,4 @@ public class MD5CryptException extends RhnRuntimeException  {
         super(message, cause);
         // begin member variable initialization
     }
-
-    /////////////////////////
-    // Getters/Setters
-    /////////////////////////
 }
