@@ -26,7 +26,7 @@ CREATE TABLE web_contact
     login_uc           VARCHAR2(64) NOT NULL
                            CONSTRAINT web_contact_login_uc_unq UNIQUE
                            USING INDEX TABLESPACE [[web_index_tablespace_2]],
-    password           VARCHAR2(38) NOT NULL,
+    password           VARCHAR2(110) NOT NULL,
     created            timestamp with local time zone
                            DEFAULT (current_timestamp) NOT NULL,
     modified           timestamp with local time zone
