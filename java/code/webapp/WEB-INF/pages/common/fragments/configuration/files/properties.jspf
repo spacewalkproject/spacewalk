@@ -67,7 +67,7 @@
                 <label class="control-label col-md-3">
                     <bean:message key="filedetails.properties.jspf.permissions" />
                 </label>
-                <div class="col-md-9">
+                <div class="col-md-3">
                     <rhn:require acl="config_channel_editable(${channel.id})"
                     mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
                     <html:text styleClass="form-control" property="cffPermissions" maxlength="4" size="4"/>
@@ -76,6 +76,10 @@
                                  mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
                         ${form.map.cffPermissions}
                     </rhn:require>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-9">
                     <span class="help-block"><bean:message key="filedetails.jsp.tip.permissions" /></span>
                 </div>
             </div>
