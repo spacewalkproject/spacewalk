@@ -13,17 +13,20 @@
         <c:if test="${param.option_orphan_packages}">
             <option value="orphan_packages" ${orphan_selected ? ' selected="selected"' : ''}><bean:message key="channel.jsp.manage.package.packagesnochannels"/></option>
         </c:if>
-        <optgroup>
+          <c:set var="isOptgroup" value="false"/>
           <c:forEach var="option" items="${channel_list}">
-              <c:if test="${option.baseChannel}">
+              <c:if test="${option.baseChannel and isOptgroup}">
                 </optgroup>
               </c:if>
                 <option value="${option.id}" ${option.selected ? ' selected="selected"' : ''} >${option.name} </option>
               <c:if test="${option.baseChannel}">
                 <optgroup>
+                <c:set var="isOptgroup" value="true"/>
               </c:if>
           </c:forEach>
-        </optgroup>
+          <c:if test="${isOptgroup}">
+                </optgroup>
+          </c:if>
       </select>
   </div>
   <div class="col-md-7 text-left">
