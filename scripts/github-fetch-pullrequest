@@ -9,12 +9,23 @@ USER = "spacewalkproject"
 REPO = "spacewalk"
 
 
+def listRequests():
+    url = "https://api.github.com/repos/%s/%s/pulls" % (USER, REPO)
+    pull_requests = simplejson.load(urllib.urlopen(url))
+    for request in pull_requests:
+        print request.get('number'), request.get('title')
+
+
 def getPullRequest(n):
     url = "https://api.github.com/repos/%s/%s/pulls/%d" % (USER, REPO, n)
     result = simplejson.load(urllib.urlopen(url))
     return result
 
+
 if __name__ == "__main__":
+    if len(sys.argv) == 1:
+        listRequests()
+        sys.exit(0)
     pullRequest = getPullRequest(int(sys.argv[1]))
     remote_url = pullRequest.get("head").get("repo").get("clone_url")
     from_who = pullRequest.get("user").get("login")
