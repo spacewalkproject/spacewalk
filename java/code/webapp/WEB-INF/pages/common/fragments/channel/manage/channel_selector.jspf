@@ -7,6 +7,9 @@
   </div>
   <div class="col-md-4">
     <select name="selected_channel" class="form-control input-sm">
+        <c:if test="${param.option_no_packages}">
+            <option value="no_packages"><bean:message key="channel.jsp.manage.package.nopackages"/></option>
+        </c:if>
         <c:if test="${param.option_all_packages}">
             <option value="all_managed_packages" ${all_selected ? ' selected="selected"' : ''}><bean:message key="channel.jsp.manage.package.allpackages"/></option>
         </c:if>

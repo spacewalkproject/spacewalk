@@ -25,6 +25,7 @@
 
 <jsp:include page="/WEB-INF/pages/common/fragments/channel/manage/channel_selector.jspf">
     <jsp:param name="title" value="channel.jsp.manage.package.channel"/>
+    <jsp:param name="option_no_packages" value="false"/>
     <jsp:param name="option_all_packages" value="true"/>
     <jsp:param name="option_orphan_packages" value="true"/>
 </jsp:include>

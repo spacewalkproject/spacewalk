@@ -19675,6 +19675,9 @@ given channel.</source>
       <trans-unit id="channel.jsp.manage.package.channel">
         <source>Channel</source>
       </trans-unit>
+      <trans-unit id="channel.jsp.manage.package.nopackages">
+        <source>No channel selected</source>
+      </trans-unit>
       <trans-unit id="channel.jsp.manage.package.allpackages">
         <source>All managed packages.</source>
       </trans-unit>
