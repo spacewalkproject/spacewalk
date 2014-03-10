@@ -45,7 +45,6 @@ public class MD5Crypt {
 
     /**
      * getSalt - Cleans salt parameter
-     * @param prefix - prefix for salt ($1$)
      * @param salt - string in question
      * @return Returns the salt portion of passed-in salt
      */
