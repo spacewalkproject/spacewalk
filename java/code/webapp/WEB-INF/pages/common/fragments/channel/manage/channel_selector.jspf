@@ -15,16 +15,13 @@
         </c:if>
         <optgroup>
           <c:forEach var="option" items="${channel_list}">
-            <c:choose>
-              <c:when test="${option.baseChannel}">
+              <c:if test="${option.baseChannel}">
                 </optgroup>
+              </c:if>
                 <option value="${option.id}" ${option.selected ? ' selected="selected"' : ''} >${option.name} </option>
+              <c:if test="${option.baseChannel}">
                 <optgroup>
-              </c:when>
-              <c:otherwise>
-                <option value="${option.id}" ${option.selected ? ' selected="selected"'}>${option.name}</option>
-              </c:otherwise>
-            </c:choose>
+              </c:if>
           </c:forEach>
         </optgroup>
       </select>
