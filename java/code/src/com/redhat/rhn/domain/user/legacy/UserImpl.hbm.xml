@@ -15,7 +15,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="loginUc" column="login_uc" type="string" length="64" />
         <!-- Make sure we set access=field on password, since the setPassword method of
              UserImpl encodes the password every time -->
-        <property name="password" column="password" type="string" length="38" access="field" />
+        <property name="password" column="password" type="string" length="110" access="field" />
 
         <property name="created" column="created" type="timestamp"
                   insert="false" update="false"/>
