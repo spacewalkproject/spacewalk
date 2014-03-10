@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.13
+Version: 2.2.14
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -797,6 +797,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Mar 10 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.14-1
+- java: extend length of web_contact.password to 110
+
 * Fri Mar 07 2014 Stephen Herr <sherr@redhat.com> 2.2.13-1
 - 1073652 - channel.software.syncErrata clones too many packages
 
