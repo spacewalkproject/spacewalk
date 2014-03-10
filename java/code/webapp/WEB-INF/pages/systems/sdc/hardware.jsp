@@ -22,8 +22,6 @@
                 <bean:message key="sdc.details.hardware.schedule"/>
               </html:submit>
             </div>
-      </div>
-    </div>
 
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -592,5 +590,7 @@
     </div>
     </c:if>
 	</html:form>
+    </div>
+    </div>
   </body>
 </html:html>
