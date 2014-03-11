@@ -17,6 +17,7 @@
  */
 package com.redhat.rhn.domain.errata;
 
+import com.redhat.rhn.common.db.DatabaseException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
@@ -339,6 +340,10 @@ public class ErrataFactory extends HibernateFactory {
             if (publishedFiles.size() == 0) {
                 // Now create the appropriate ErrataFile object
                 String path = pack.getPath();
+                if (path == null) {
+                    throw new DatabaseException("Package " + pack.getId() +
+                        " has NULL path, please run spacewalk-data-fsck");
+                }
                 ErrataFile publishedFile = ErrataFactory
                         .createPublishedErrataFile(ErrataFactory
                                 .lookupErrataFileType("RPM"), pack
