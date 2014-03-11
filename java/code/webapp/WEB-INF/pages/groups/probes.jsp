@@ -52,8 +52,7 @@
   <rl:column sortable="true"
 	bound="false"
 	headerkey="probes.index.jsp.description"
-	sortattr="description"
-	defaultsort="asc">
+	sortattr="description">
 
     <a href="/rhn/systems/details/probes/ProbeDetails.do?probe_id=${current.id}&sid=${current.serverId}">${current.description}</a>
 
