@@ -338,11 +338,11 @@ public class ErrataFactory extends HibernateFactory {
             Map<String, ErrataFile> toAdd = new HashMap();
             if (publishedFiles.size() == 0) {
                 // Now create the appropriate ErrataFile object
+                String path = pack.getPath();
                 ErrataFile publishedFile = ErrataFactory
                         .createPublishedErrataFile(ErrataFactory
                                 .lookupErrataFileType("RPM"), pack
-                                .getChecksum().getChecksum(), pack
-                                .getNameEvra());
+                                .getChecksum().getChecksum(), path);
                 publishedFile.addPackage(pack);
                 publishedFile.setErrata(errata);
                 publishedFile.setModified(new Date());
