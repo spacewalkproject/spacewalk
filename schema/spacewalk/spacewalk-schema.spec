@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.2.7
+Version:        2.2.8
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Mar 11 2014 Tomas Lestach <tlestach@redhat.com> 2.2.8-1
+- 1070917 - extending cron_expr length to 120
+
 * Mon Mar 10 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.7-1
 - Extend length of web_contact.password to 110
 
