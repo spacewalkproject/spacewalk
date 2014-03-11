@@ -23,14 +23,16 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.ManagedServerGroup;
+import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.user.Address;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.events.NewUserEvent;
-
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -141,6 +143,13 @@ public class CreateUserCommand {
         }
         user.setUsePamAuthentication(usePam); //set it back
         UserManager.resetTemporaryRoles(user, temporaryRoles);
+        if (org.getOrgConfig().isCreateDefaultSg()) {
+            // create default system group for the user
+            ManagedServerGroup sg = ServerGroupFactory.create(user.getLogin(),
+                    user.getLogin() + " default system group", user.getOrg());
+            UserManager.grantServerGroupPermission(user, sg.getId());
+            user.setDefaultSystemGroupIds(new HashSet<Long>(Arrays.asList(sg.getId())));
+        }
         UserManager.storeUser(user); //save the user via hibernate
     }
 
