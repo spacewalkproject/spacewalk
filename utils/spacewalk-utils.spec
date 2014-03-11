@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	2.2.7
+Version:	2.2.8
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Mar 11 2014 Stephen Herr <sherr@redhat.com> 2.2.8-1
+- 1073632 - fixing possible nonetype error
+
 * Tue Mar 11 2014 Tomas Lestach <tlestach@redhat.com> 2.2.7-1
 - 1058154 - let spacewalk-api send username and password as strings
 
