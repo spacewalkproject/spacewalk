@@ -732,7 +732,8 @@ SELECT CP.channel_id AS ID
 EOQ
   my $channel_select_sth = $dbh->prepare($channel_select_query);
   while (my $row = $sth->fetchrow_hashref) {
-    $row->{PATH} ||= '/tmp/' . $row->{NVREA};
+    die "Package " . $row->{PACKAGE_ID} . " has NULL path, please run spacewalk-data-fsck" unless $row->{PATH};
+
     $row->{PATH} =~ s|^redhat/linux/||;
 
     $ef_insert_sth->execute_h(id => $row->{ID},
