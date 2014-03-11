@@ -734,7 +734,6 @@ EOQ
   while (my $row = $sth->fetchrow_hashref) {
     $row->{PATH} ||= '/tmp/' . $row->{NVREA};
     $row->{PATH} =~ s|^redhat/linux/||;
-    $row->{PATH} = substr($row->{PATH}, 0, 128);
 
     $ef_insert_sth->execute_h(id => $row->{ID},
 			      eid => $self->id,
