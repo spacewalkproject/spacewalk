@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.14
+Version: 2.2.15
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -797,6 +797,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Mar 11 2014 Tomas Lestach <tlestach@redhat.com> 2.2.15-1
+- 1064403 - fix filtering on the /rhn/channels/Managers.do page
+- tidy (re-format) the hardware.jsp
+- 1074540 - put the </div>s on the right place
+- fix javadoc: remove extraneous function parameter description
+- comment polish & removal
+
 * Mon Mar 10 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.14-1
 - java: extend length of web_contact.password to 110
 
