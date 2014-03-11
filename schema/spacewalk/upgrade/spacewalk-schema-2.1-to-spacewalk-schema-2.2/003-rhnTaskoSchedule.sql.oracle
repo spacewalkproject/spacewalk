@@ -1,1 +1,1 @@
-ALTER TABLE rhnTaskoSchedule MODIFY cron_expr VARCHAR2(50);
+ALTER TABLE rhnTaskoSchedule MODIFY cron_expr VARCHAR2(120);

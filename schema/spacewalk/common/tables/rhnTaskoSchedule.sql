@@ -25,7 +25,7 @@ CREATE TABLE rhnTaskoSchedule
     org_id          NUMBER,
     active_from     timestamp with local time zone,
     active_till     timestamp with local time zone,
-    cron_expr       VARCHAR2(50),
+    cron_expr       VARCHAR2(120),
     data            BLOB,
     created         timestamp with local time zone
                         DEFAULT (current_timestamp) NOT NULL,
