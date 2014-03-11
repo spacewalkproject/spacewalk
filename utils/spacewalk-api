@@ -58,7 +58,8 @@ my $client = new Frontier::Client(url => "http://$server/rpc/api");
 
 my $session;
 if ($login) {
-        $session = $client->call('auth.login', $user, $password);
+        $session = $client->call('auth.login', $client->string($user),
+                $client->string($password));
         if (not $session) {
                 print "Error: Log in failed.\n";
                 exit 2;
