@@ -119,6 +119,7 @@ public class IconTag extends TagSupport {
         icons.put("item-download-csv", "fa spacewalk-icon-download-csv");
         icons.put("item-edit", "fa fa-edit");
         icons.put("item-enabled", "fa fa-check text-success");
+        icons.put("item-import", "fa fa-level-down");
         icons.put("item-search", "fa fa-eye");
         icons.put("item-ssm-add", "fa fa-plus-circle");
         icons.put("item-ssm-del", "fa fa-minus-circle");
