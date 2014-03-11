@@ -136,7 +136,9 @@ def main(options):
 
     cloners = []
     needed_channels = []
-    errata = set(options.errata)
+    errata = None
+    if options.errata:
+        errata = set(options.errata)
     for channel_list in options.channels:
         # before we start make sure we can get repodata for all channels
         # involved.
