@@ -2246,7 +2246,8 @@ public class ChannelManager extends BaseManager {
         Map <ProductName, Channel> prodChannels =
             new HashMap<ProductName, Channel>();
         Set<ProductName> nonUniqueProducts = new HashSet<ProductName>();
-        for (Channel channel : newBaseChannel.getAccessibleChildrenFor(user)) {
+        List<Channel> newChildren = newBaseChannel.getAccessibleChildrenFor(user);
+        for (Channel channel : newChildren) {
             if (channel.getProductName() != null) {
                 if (prodChannels.get(channel.getProductName()) != null) {
                     nonUniqueProducts.add(channel.getProductName());
@@ -2255,14 +2256,62 @@ public class ChannelManager extends BaseManager {
             }
         }
 
+        Map<Channel, List<Channel>> originalToClones = getOrignalToClonesMap(newChildren);
+
         for (Channel childOne : oldBaseChannel.getAccessibleChildrenFor(user)) {
-            ProductName name = childOne.getProductName();
-            if (prodChannels.containsKey(name) && !nonUniqueProducts.contains(name)) {
-                compatibleChannels.put(childOne, prodChannels.get(name));
+            // if a new child was cloned from the same original as an old one,
+            // return them as compatible
+            List<Channel> candidates = originalToClones.get(getOriginalChannel(childOne));
+            if (candidates != null && candidates.size() == 1) {
+                compatibleChannels.put(childOne, candidates.get(0));
+            }
+            else {
+                // if a new child refers to the same product name as an old one,
+                // return them as compatible
+                ProductName name = childOne.getProductName();
+                if (prodChannels.containsKey(name) && !nonUniqueProducts.contains(name)) {
+                    compatibleChannels.put(childOne, prodChannels.get(name));
+                }
             }
         }
 
         return compatibleChannels;
+    }
+
+    /**
+     * Returns a map in which values are channels specified by the argument and
+     * keys are the corresponding original (ie. non-cloned) channels.
+     * @param channels the channels to map
+     * @return a map from originals to (possibly multiple) clones
+     */
+    private static Map<Channel, List<Channel>> getOrignalToClonesMap(
+        List<Channel> channels) {
+        Map<Channel, List<Channel>> result = new HashMap<Channel, List<Channel>>();
+        for (Channel channel : channels) {
+            Channel original = getOriginalChannel(channel);
+            if (result.containsKey(original)) {
+                result.get(original).add(channel);
+            }
+            else {
+                List<Channel> entry = new LinkedList<Channel>();
+                entry.add(channel);
+                result.put(original, entry);
+            }
+        }
+        return result;
+    }
+
+   /**
+    * For a given {@link Channel}, determine the original {@link Channel}.
+    *
+    * @param channel channel
+    * @return original channel
+    */
+   public static Channel getOriginalChannel(Channel channel) {
+       while (channel.isCloned()) {
+           channel = channel.getOriginal();
+       }
+       return channel;
     }
 
     /**
