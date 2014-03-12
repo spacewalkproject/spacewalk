@@ -765,7 +765,50 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         "5.0.0.9"));
     }
 
-    public void testFindCompatibleChildren() throws Exception {
+    public void testFindCompatibleChildrenByOriginalChannel() throws Exception {
+        // look for a cloned channel
+        Channel parent = ChannelFactoryTest.createBaseChannel(user);
+        Channel child = ChannelFactoryTest.createTestChannel(user);
+
+        child.setParentChannel(parent);
+
+        TestUtils.saveAndFlush(child);
+        TestUtils.saveAndFlush(parent);
+        TestUtils.flushAndEvict(child);
+
+        Channel parent1 = ChannelFactoryTest.createTestClonedChannel(parent, user);
+        Channel child1 = ChannelFactoryTest.createTestClonedChannel(child, user);
+
+        child1.setParentChannel(parent1);
+
+        TestUtils.saveAndFlush(child1);
+        TestUtils.saveAndFlush(parent1);
+        TestUtils.flushAndEvict(child1);
+
+        Map <Channel, Channel> children = ChannelManager.
+                                findCompatibleChildren(parent, parent1, user);
+
+        assertNotEmpty(children.keySet());
+        assertEquals(child, children.keySet().iterator().next());
+
+        // look for a a clone of a cloned channel
+        Channel parent2 = ChannelFactoryTest.createTestClonedChannel(parent1, user);
+        Channel child2 = ChannelFactoryTest.createTestClonedChannel(child1, user);
+        child2.setParentChannel(parent2);
+
+        TestUtils.saveAndFlush(child2);
+        TestUtils.saveAndFlush(parent2);
+        TestUtils.flushAndEvict(child2);
+
+        children = ChannelManager.
+                findCompatibleChildren(parent, parent2, user);
+
+        assertNotEmpty(children.keySet());
+        assertEquals(child, children.keySet().iterator().next());
+        assertEquals(child2, children.values().iterator().next());
+    }
+
+    public void testFindCompatibleChildrenByParentProduct() throws Exception {
         ProductName pn = ChannelFactoryTest.createProductName();
         Channel parent = ChannelFactoryTest.createBaseChannel(user);
         Channel child = ChannelFactoryTest.createTestChannel(user);
