@@ -2235,6 +2235,13 @@ public class ChannelManager extends BaseManager {
         if (oldBaseChannel == null) {
             return compatibleChannels;
         }
+        if (oldBaseChannel.equals(newBaseChannel)) {
+            Map<Channel, Channel> result = new HashMap<Channel, Channel>();
+            for (Channel channel : oldBaseChannel.getAccessibleChildrenFor(user)) {
+                result.put(channel, channel);
+            }
+            return result;
+        }
 
         Map <ProductName, Channel> prodChannels =
             new HashMap<ProductName, Channel>();
