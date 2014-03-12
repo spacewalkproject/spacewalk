@@ -2245,11 +2245,11 @@ public class ChannelManager extends BaseManager {
 
         Map <ProductName, Channel> prodChannels =
             new HashMap<ProductName, Channel>();
-        Map nonUnique = new HashMap<ProductName, Object>();
+        Set<ProductName> nonUniqueProducts = new HashSet<ProductName>();
         for (Channel channel : newBaseChannel.getAccessibleChildrenFor(user)) {
             if (channel.getProductName() != null) {
                 if (prodChannels.get(channel.getProductName()) != null) {
-                    nonUnique.put(channel.getProductName(), null);
+                    nonUniqueProducts.add(channel.getProductName());
                 }
                 prodChannels.put(channel.getProductName(), channel);
             }
@@ -2257,7 +2257,7 @@ public class ChannelManager extends BaseManager {
 
         for (Channel childOne : oldBaseChannel.getAccessibleChildrenFor(user)) {
             ProductName name = childOne.getProductName();
-            if (prodChannels.containsKey(name) && !nonUnique.containsKey(name)) {
+            if (prodChannels.containsKey(name) && !nonUniqueProducts.contains(name)) {
                 compatibleChannels.put(childOne, prodChannels.get(name));
             }
         }
