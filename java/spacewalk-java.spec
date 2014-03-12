@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.15
+Version: 2.2.16
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -797,6 +797,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 12 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.16-1
+- new utility class to create SHA-256 encrypted user passwords
+- one defaultsort per list must be enough for everybody
+
 * Tue Mar 11 2014 Tomas Lestach <tlestach@redhat.com> 2.2.15-1
 - 1064403 - fix filtering on the /rhn/channels/Managers.do page
 - tidy (re-format) the hardware.jsp
