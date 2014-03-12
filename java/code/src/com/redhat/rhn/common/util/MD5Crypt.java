@@ -12,6 +12,7 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
+
 package com.redhat.rhn.common.util;
 
 import org.apache.commons.codec.binary.Hex;
@@ -19,7 +20,6 @@ import org.apache.commons.codec.binary.Hex;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Random;
 
 /**
  * MD5Crypt
@@ -33,59 +33,13 @@ public class MD5Crypt {
      * prefix is the prefix to use for our encoded string.
      * b64t is a string containing acceptable salt chars.
      */
-    private static String prefix = "$1$";
-    private static String b64t =
-                "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    private static String prefix = "$1$";   // prefix to use for our encoded string
+    private static Integer saltLength = 8;  // MD5 encoded password salt length
 
     /**
-     * Private Constructor
+     * MD5Crypt
      */
     private MD5Crypt() {
-    }
-
-    /**
-     * getSalt - Cleans salt parameter
-     * @param salt - string in question
-     * @return Returns the salt portion of passed-in salt
-     */
-    private static String getSalt(String salt) {
-        /**
-         * - If salt starts with $1$ (prefix) then discard that portion of it.
-         * - If we recieve a string such as $1$salt$something else, we only want
-         *   to keep the salt portion of it.
-         * - Ensure salt length is <= 8.
-         */
-        if (salt.startsWith(prefix)) {
-            salt = salt.substring(prefix.length());
-        }
-
-        int end = salt.indexOf('$');
-        if (end != -1) {
-            salt = salt.substring(0, end);
-        }
-
-        if (salt.length() > 8) {
-            salt = salt.substring(0, 8);
-        }
-
-        return salt;
-    }
-
-    /**
-     * to64 - Utility function for generateEncodedKey
-     * @param value value
-     * @param length length
-     * @return String
-     */
-    private static String to64(int value, int length) {
-        StringBuffer out = new StringBuffer();
-
-        while (length > 0) {
-            out.append(b64t.substring((value & 0x3f), (value & 0x3f) + 1));
-            --length;
-            value >>= 6;
-        }
-        return out.toString();
     }
 
     /**
@@ -104,50 +58,41 @@ public class MD5Crypt {
         int val = ((digest[0] & 0xff) << 16) |
                   ((digest[6] & 0xff) << 8) |
                   (digest[12] & 0xff);
-        out.append(to64(val, 4));
+        out.append(CryptHelper.to64(val, 4));
 
         val = ((digest[1] & 0xff) << 16) |
               ((digest[7] & 0xff) << 8) |
               (digest[13] & 0xff);
-        out.append(to64(val, 4));
+        out.append(CryptHelper.to64(val, 4));
 
         val = ((digest[2] & 0xff) << 16) |
               ((digest[8] & 0xff) << 8) |
               (digest[14] & 0xff);
-        out.append(to64(val, 4));
+        out.append(CryptHelper.to64(val, 4));
 
         val = ((digest[3] & 0xff) << 16) |
               ((digest[9] & 0xff) << 8) |
               (digest[15] & 0xff);
-        out.append(to64(val, 4));
+        out.append(CryptHelper.to64(val, 4));
 
         val = ((digest[4] & 0xff) << 16) |
               ((digest[10] & 0xff) << 8) |
               (digest[5] & 0xff);
-        out.append(to64(val, 4));
+        out.append(CryptHelper.to64(val, 4));
 
         val = (digest[11] & 0xff);
-        out.append(to64(val, 2));
+        out.append(CryptHelper.to64(val, 2));
 
         return out.toString();
     }
 
     /**
-     * crypt
-     * Method to help in setting passwords.
+     * crypt - method to help in setting passwords.
      * @param key - The key to encode
-     * @return Returns a string in the form of "$1$RANDOMsalt$encodedkey"
+     * @return Returns a string in the form of "$1$RandomSalt$encodedkey"
      */
     public static String crypt(String key) {
-        StringBuffer salt = new StringBuffer();
-        //Generate random 8-char salt
-        Random r = new Random();
-        for (int i = 0; i < 8; i++) {
-            int rand = r.nextInt(b64t.length());
-            salt.append(b64t.charAt(rand));
-        }
-        //Return encoded string: $1$salt$encodedkey
-        return crypt(key, salt.toString());
+        return crypt(key, CryptHelper.generateRandomSalt(saltLength));
     }
 
     /**
@@ -168,7 +113,7 @@ public class MD5Crypt {
          * in the form of $1$salt$encodedkey. We'll need to extract
          * the salt from it.
          */
-        String salt = getSalt(s);
+        String salt = CryptHelper.getSalt(s, prefix, saltLength);
 
         MessageDigest md1;
         MessageDigest md2;
@@ -195,7 +140,6 @@ public class MD5Crypt {
         md2.update(keyBytes);
         md2.update(saltBytes);
         md2.update(keyBytes);
-
 
         byte[] md2Digest = md2.digest();
         int md2DigestLength = md2Digest.length;
