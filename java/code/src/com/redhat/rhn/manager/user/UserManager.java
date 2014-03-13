@@ -31,6 +31,7 @@ import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.user.Address;
 import com.redhat.rhn.domain.user.RhnTimeZone;
 import com.redhat.rhn.domain.user.User;
@@ -1033,5 +1034,22 @@ public class UserManager extends BaseManager {
             return "(normal user)";
         }
         return roleNames;
+    }
+
+    /**
+     * serialize role names
+     * @param serverGroupsIn roles to put into string
+     * @return roles string
+     */
+    public static String serverGroupsName(Set<ServerGroup> serverGroupsIn) {
+        String serverGroupsName = null;
+        for (ServerGroup sg : serverGroupsIn) {
+            serverGroupsName = (serverGroupsName == null) ? sg.getName() :
+                serverGroupsName + ", " + sg.getName();
+        }
+        if (serverGroupsName == null) {
+            return "(none)";
+        }
+        return serverGroupsName;
     }
 }

@@ -49,4 +49,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[FROM com.redhat.rhn.domain.org.usergroup.UserExtGroup WHERE label = :label]]>
     </query>
 
+    <query name="OrgUserExtGroup.listAll">
+        <![CDATA[FROM com.redhat.rhn.domain.org.usergroup.OrgUserExtGroup WHERE org.id = :org_id ORDER BY label]]>
+    </query>
+
 </hibernate-mapping>

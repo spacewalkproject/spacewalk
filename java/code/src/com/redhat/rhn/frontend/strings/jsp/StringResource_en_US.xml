@@ -3336,6 +3336,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/Users.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="org.sg.title">
+        <source>System Group Configuration - External Authentication</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/ExtAuthSgMapping.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="orgdetails.jsp.header">
         <source>Organization Details</source>
         <context-group name="ctx">
@@ -8436,6 +8442,12 @@ Please note that some manual configuration of these scripts may still be require
       </trans-unit>
       <trans-unit id="extgroup.jsp.delete.summary">
         <source>Following External Group will be deleted.</source>
+      </trans-unit>
+      <trans-unit id="extorggroup.jsp.header">
+        <source>External Group to System Groups Mapping</source>
+      </trans-unit>
+      <trans-unit id="extorggroup.jsp.summary">
+        <source>Externally authenticated users may have set external groups. Newly created users become administrators of selected System Groups according to the external group membership.</source>
       </trans-unit>
       <trans-unit id="distchannelmap.jsp.create">
         <source>Create New Distribution Channel Map</source>

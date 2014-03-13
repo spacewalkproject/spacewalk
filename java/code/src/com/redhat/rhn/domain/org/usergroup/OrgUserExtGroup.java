@@ -16,6 +16,7 @@ package com.redhat.rhn.domain.org.usergroup;
 
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.server.ServerGroup;
+import com.redhat.rhn.manager.user.UserManager;
 
 import java.util.Set;
 
@@ -78,6 +79,15 @@ public class OrgUserExtGroup extends UserExtGroup {
      */
     public Set<ServerGroup> getServerGroups() {
         return serverGroups;
+    }
+
+    /**
+     * Return serverGroupsName string
+     * similar to UserManager.roleNames
+     * @return userGroupsName string
+     */
+    public String getServerGroupsName() {
+        return UserManager.serverGroupsName(serverGroups);
     }
 
     /**

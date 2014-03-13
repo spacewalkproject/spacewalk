@@ -3,4 +3,7 @@
   <rhn-tab name="Configuration" acl="user_role(org_admin)">
     <rhn-tab-url>/rhn/users/SystemGroupConfig.do</rhn-tab-url>
   </rhn-tab>
+  <rhn-tab name="External Authentication" acl="user_role(org_admin)">
+    <rhn-tab-url>/rhn/users/ExtAuthSgMapping.do</rhn-tab-url>
+  </rhn-tab>
 </rhn-navi-tree>

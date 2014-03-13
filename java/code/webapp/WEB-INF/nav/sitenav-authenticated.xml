@@ -234,6 +234,11 @@
       <rhn-tab name="users.nav.all" acl="user_role(org_admin)" url="/rhn/users/UserList.do"/>
     </rhn-tab>
     <rhn-tab name="System Group Configuration" url="/rhn/users/SystemGroupConfig.do" acl="user_role(org_admin)">
+      <rhn-tab name="External Authentication" acl="user_role(org_admin)">
+        <rhn-tab-url>/rhn/users/ExtAuthSgMapping.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/users/ExtAuthSgDetails.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/users/ExtAuthSgDelete.do</rhn-tab-url>
+      </rhn-tab>
     </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Monitoring" url="/rhn/monitoring/ProbeList.do" active-image="tab-monitoring-selected.gif" inactive-image="tab-monitoring.gif" acl="show_monitoring()">
