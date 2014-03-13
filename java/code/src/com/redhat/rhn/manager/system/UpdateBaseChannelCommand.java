@@ -57,6 +57,13 @@ public class UpdateBaseChannelCommand extends BaseUpdateChannelCommand {
     public ValidatorError store() {
         Channel oldChannel = server.getBaseChannel();
         Channel newChannel = null;
+
+        // if new channel equals old, there's nothing to do
+        if ((oldChannel == null && baseChannelId.longValue() == -1) ||
+            (oldChannel != null && oldChannel.getId() == baseChannelId.longValue())) {
+            return null;
+        }
+
         // If the new ID is -1 we are unsubscribing to a no-base-channel
         // for the server.
         if (baseChannelId.longValue() != -1) {
