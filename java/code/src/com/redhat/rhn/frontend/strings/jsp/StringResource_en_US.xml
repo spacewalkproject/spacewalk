@@ -19889,6 +19889,24 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/manage/ConfirmPrivate.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="channel.manage.sync.noerrata.jsp">
+        <source>Do not sync erratas</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Sync.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.manage.sync.synckickstart.jsp">
+        <source>Create kickstartable tree</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Sync.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.manage.sync.fail.jsp">
+        <source>Terminate upon any error</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Sync.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="extauth.org.message">
         <source>Even externally authenticated users need to be created within @@PRODUCT_NAME@@. You may specify, in what organization new users shall be created. An option is to use the Org. Unit set on IPA server that has to match the organization name. Another option is to set a default organization, where all the newly created users will be created.</source>
         <context-group name="ctx">
