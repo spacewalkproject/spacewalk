@@ -18,6 +18,22 @@
             <div class="panel-body">
                 <form name="remoteCommandForm" action="/rhn/systems/details/SystemRemoteCommand.do" method="post" class="form-horizontal" role="form">
                     <rhn:csrf />
+                    <c:if test="${not empty cannotRunScript}">
+                        <div class="form-group">
+                            <div class="col-lg-offset-3 col-lg-6">
+                                <div class="alert alert-info">
+                                    <bean:message key="remotecommand.jsp.script.disabled"/>
+                                </div>
+                            </div>
+                        </div>
+                    </c:if>
+                    <c:if test="${not empty noProvisioningEntitlement}">
+                        <div class="form-group">
+                            <div class="alert alert-info">
+                                <bean:message key="remotecommand.jsp.provisioning.disabled"/>
+                            </div>
+                        </div>
+                    </c:if>
                     <div class="form-group">
                         <label class="col-lg-3 control-label" for="fUidInput">
                             <bean:message key="ssm.operations.provisioning.remotecommand.form.uid.label"/>
@@ -63,6 +79,7 @@
                         </label>
                         <div class="col-lg-6">
                             <textarea name="script_body" class="form-control" id="fSptInput"
+                                      <c:if test="${not empty cannotRunScript || not empty noProvisioningEntitlement}">disabled</c:if>
                                       rows="8" wrap="off" style="width: 100%;">${formData.scriptBody}</textarea>
                         </div>
                     </div>
@@ -73,9 +90,10 @@
                     <div class="form-group">
                         <div class="col-lg-offset-3 col-lg-6">
                             <button type="submit" name="schedule" class="btn btn-success"
+                                    <c:if test="${not empty cannotRunScript || not empty noProvisioningEntitlement}">disabled</c:if>
                                     value="<bean:message key='ssm.operations.provisioning.remotecommand.form.submit'/>">
                                 <bean:message key="ssm.operations.provisioning.remotecommand.form.submit" />
-                        </button>
+                            </button>
                         </div>
                     </div>
                     <input type="hidden" name="sid" value="${system.id}" />
