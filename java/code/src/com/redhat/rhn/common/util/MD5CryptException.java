@@ -19,10 +19,6 @@ import com.redhat.rhn.common.RhnRuntimeException;
 
 /**
  * A RuntimeException indicating a fatal failure trying to use the MD5Crypt utitlity
- * <p>
-
- *
- * @version definition($Rev: 76724 $)/template($Rev: 67725 $)
  */
 public class MD5CryptException extends RhnRuntimeException  {
     /**
@@ -31,7 +27,6 @@ public class MD5CryptException extends RhnRuntimeException  {
      */
     public MD5CryptException(String message) {
         super(message);
-        // begin member variable initialization
     }
 
     /**
@@ -44,6 +39,5 @@ public class MD5CryptException extends RhnRuntimeException  {
      */
     public MD5CryptException(String message ,   Throwable cause) {
         super(message, cause);
-        // begin member variable initialization
     }
 }

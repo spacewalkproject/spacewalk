@@ -25,11 +25,10 @@ import java.security.NoSuchAlgorithmException;
  */
 public class SHA256Crypt {
 
-    private static String prefix = "$5$";   // prefix to use for our encoded string
     private static Integer saltLength = 16; // SHA-256 encoded password salt length
 
     /**
-     *  SHA256Crypt
+     * SHA256Crypt
      */
     private SHA256Crypt() {
     }
@@ -58,7 +57,7 @@ public class SHA256Crypt {
      * @return Returns encoded string $1$salt$encodedkey
      */
     private static String generateEncodedKey(byte[] digest, String salt) {
-        StringBuffer out = new StringBuffer(prefix);
+        StringBuffer out = new StringBuffer(CryptHelper.getSHA256Prefix());
         out.append(salt);
         out.append("$");
 
@@ -141,7 +140,7 @@ public class SHA256Crypt {
         final byte[] keyBytes = key.getBytes();
         final int keyLen = keyBytes.length;
 
-        String salt = CryptHelper.getSalt(s, prefix, saltLength);
+        String salt = CryptHelper.getSalt(s, CryptHelper.getSHA256Prefix(), saltLength);
         final byte[] saltBytes = salt.getBytes();
         final int saltLen = saltBytes.length;
 

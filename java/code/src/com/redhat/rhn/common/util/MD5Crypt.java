@@ -29,11 +29,6 @@ import java.security.NoSuchAlgorithmException;
  */
 public class MD5Crypt {
 
-    /**
-     * prefix is the prefix to use for our encoded string.
-     * b64t is a string containing acceptable salt chars.
-     */
-    private static String prefix = "$1$";   // prefix to use for our encoded string
     private static Integer saltLength = 8;  // MD5 encoded password salt length
 
     /**
@@ -51,7 +46,7 @@ public class MD5Crypt {
      */
     private static String generateEncodedKey(byte[] digest, String salt) {
 
-        StringBuffer out = new StringBuffer(prefix);
+        StringBuffer out = new StringBuffer(CryptHelper.getMD5Prefix());
         out.append(salt);
         out.append("$");
 
@@ -113,7 +108,7 @@ public class MD5Crypt {
          * in the form of $1$salt$encodedkey. We'll need to extract
          * the salt from it.
          */
-        String salt = CryptHelper.getSalt(s, prefix, saltLength);
+        String salt = CryptHelper.getSalt(s, CryptHelper.getMD5Prefix(), saltLength);
 
         MessageDigest md1;
         MessageDigest md2;
@@ -128,7 +123,7 @@ public class MD5Crypt {
 
         byte[] keyBytes = key.getBytes();
         byte[] saltBytes = salt.getBytes();
-        byte[] prefixBytes = prefix.getBytes();
+        byte[] prefixBytes = CryptHelper.getMD5Prefix().getBytes();
         int keylength = key.length();
 
         //Update first MessageDigest - key/prefix/salt

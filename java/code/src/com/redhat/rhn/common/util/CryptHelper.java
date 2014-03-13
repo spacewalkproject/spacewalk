@@ -23,11 +23,29 @@ import java.util.Random;
 public class CryptHelper {
     private static String b64t = // a string containing acceptable salt chars
         "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    private static String md5prefix = "$1$";
+    private static String sha256prefix = "$5$";
 
     /**
      * CryptHelper
      */
     private CryptHelper() {
+    }
+
+    /**
+     * getMD5Prefix
+     * @return MD5 prefix string
+     */
+    public static String getMD5Prefix() {
+        return md5prefix;
+    }
+
+    /**
+     * getSHA256Prefix
+     * @return SHA-256 prefix string
+     */
+    public static String getSHA256Prefix() {
+        return sha256prefix;
     }
 
     /**
