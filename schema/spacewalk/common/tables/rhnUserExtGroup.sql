@@ -33,8 +33,8 @@ CREATE TABLE rhnUserExtGroup
 ENABLE ROW MOVEMENT
 ;
 
-CREATE UNIQUE INDEX rhn_userextgroup_label_uq
-    ON rhnUserExtGroup (label)
+CREATE UNIQUE INDEX rhn_userextgroup_label_oid_uq
+    ON rhnUserExtGroup (label, org_id)
     TABLESPACE [[64k_tbs]];
 
 CREATE SEQUENCE rhn_userextgroup_seq;
