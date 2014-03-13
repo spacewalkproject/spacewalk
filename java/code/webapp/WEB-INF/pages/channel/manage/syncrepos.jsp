@@ -36,6 +36,34 @@
                 </rl:column>
 
             </rl:list>
+
+            <div class="text-left">
+                <input type="checkbox"
+                      name="no-errata"
+                        id="no-errata"/>
+                <label class="col-lg-3 control-label">
+                    <bean:message key="channel.manage.sync.noerrata.jsp"/>
+                </label>
+            </div>
+
+            <div class="text-left">
+                <input type="checkbox"
+                 name="sync-kickstart"
+                   id="sync-kickstart"/>
+                <label class="col-lg-3 control-label">
+                    <bean:message key="channel.manage.sync.synckickstart.jsp"/>
+                </label>
+            </div>
+
+            <div class="text-left">
+               <input type="checkbox"
+                          name="fail"
+                           id="fail"/>
+               <label class="col-lg-3 control-label">
+                    <bean:message key="channel.manage.sync.fail.jsp"/>
+               </label>
+            </div>
+
             <div class="text-right">
                 <hr />
                 <button type="submit" name="dispatch" value="<bean:message key='repos.jsp.button-sync'/>"

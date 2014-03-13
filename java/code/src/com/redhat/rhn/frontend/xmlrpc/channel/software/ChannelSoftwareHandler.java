@@ -2768,6 +2768,33 @@ public class ChannelSoftwareHandler extends BaseHandler {
         new TaskomaticApi().scheduleSingleRepoSync(chan, loggedInUser);
         return 1;
     }
+
+    /**
+     * Trigger immediate repo synchronization
+     * @param sessionKey session key
+     * @param channelLabel channel label
+     * @param params parameters
+     * @return 1 on success
+     *
+     * @xmlrpc.doc Trigger immediate repo synchronization
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel label")
+     * @xmlrpc.param
+     *  #struct("params_map")
+     *    #prop_desc("Boolean", "sync-kickstars", "Create kickstartable tree - Optional")
+     *    #prop_desc("Boolean", "no-errata", "Do not sync errata - Optional")
+     *    #prop_desc("Boolean", "fail", "Terminate upon any error - Optional")
+     *  #struct_end()
+     * @xmlrpc.returntype  #return_int_success()
+     */
+    public int syncRepo(String sessionKey, String channelLabel,
+                                               Map <String, String> params) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Channel chan = lookupChannelByLabel(loggedInUser, channelLabel);
+        new TaskomaticApi().scheduleSingleRepoSync(chan, loggedInUser, params);
+        return 1;
+    }
+
     /**
      * Schedule periodic repo synchronization
      * @param sessionKey session key
@@ -2790,6 +2817,40 @@ public class ChannelSoftwareHandler extends BaseHandler {
         }
         else {
             new TaskomaticApi().scheduleRepoSync(chan, loggedInUser, cronExpr);
+        }
+        return 1;
+    }
+
+    /**
+     * Schedule periodic repo synchronization
+     * @param sessionKey session key
+     * @param channelLabel channel label
+     * @param cronExpr cron expression, if empty all periodic schedules will be disabled
+     * @param params parameters
+     * @return 1 on success
+     *
+     * @xmlrpc.doc Schedule periodic repo synchronization
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel label")
+     * @xmlrpc.param #param_desc("string", "cron expression",
+     *      "if empty all periodic schedules will be disabled")
+     * @xmlrpc.param
+     *  #struct("params_map")
+     *    #prop_desc("Boolean", "sync-kickstars", "Create kickstartable tree - Optional")
+     *    #prop_desc("Boolean", "no-errata", "Do not sync errata - Optional")
+     *    #prop_desc("Boolean", "fail", "Terminate upon any error - Optional")
+     *  #struct_end()
+     * @xmlrpc.returntype  #return_int_success()
+     */
+    public int syncRepo(String sessionKey,
+            String channelLabel, String cronExpr, Map <String, String> params) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Channel chan = lookupChannelByLabel(loggedInUser, channelLabel);
+        if (StringUtils.isEmpty(cronExpr)) {
+            new TaskomaticApi().unscheduleRepoSync(chan, loggedInUser);
+        }
+        else {
+            new TaskomaticApi().scheduleRepoSync(chan, loggedInUser, cronExpr, params);
         }
         return 1;
     }

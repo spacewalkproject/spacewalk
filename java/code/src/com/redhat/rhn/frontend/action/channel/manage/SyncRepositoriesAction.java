@@ -89,10 +89,6 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
 
         }
 
-
-
-
-
         RecurringEventPicker picker = RecurringEventPicker.prepopulatePicker(
                 request, "date", oldCronExpr);
 
@@ -114,9 +110,18 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
             }
 
             try {
+                Map<String, String> mparams = new HashMap<String, String>();
+                String [] lparams = {"no-errata", "sync-kickstart", "fail"};
+
+                for (String p : lparams) {
+                    if  (request.getParameter(p) != null) {
+                        mparams.put(p, "true");
+                    }
+                }
+
                 if (context.wasDispatched("repos.jsp.button-sync")) {
                     // schedule one time repo sync
-                    taskomatic.scheduleSingleRepoSync(chan, user);
+                    taskomatic.scheduleSingleRepoSync(chan, user, mparams);
                     createSuccessMessage(request, "message.syncscheduled",
                             chan.getName());
 
@@ -131,7 +136,7 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
                     }
                     else if (!StringUtils.isEmpty(picker.getCronEntry())) {
                         Date date = taskomatic.scheduleRepoSync(chan, user,
-                                picker.getCronEntry());
+                                picker.getCronEntry(), mparams);
                         createSuccessMessage(request, "message.syncscheduled",
                                 chan.getName());
                     }

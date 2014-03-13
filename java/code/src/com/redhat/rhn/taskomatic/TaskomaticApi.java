@@ -94,6 +94,24 @@ public class TaskomaticApi {
                 "repo-sync-bunch", scheduleParams);
     }
 
+    /**
+     * Schedule a single reposync
+     * @param chan the channel
+     * @param user the user
+     * @param params parameters
+     * @throws TaskomaticApiException if there was an error
+     */
+    public void scheduleSingleRepoSync(Channel chan, User user, Map <String, String>params)
+                                    throws TaskomaticApiException {
+
+        Map <String, String> scheduleParams = new HashMap<String, String>();
+        scheduleParams.put("channel_id", chan.getId().toString());
+        scheduleParams.putAll(params);
+
+        invoke("tasko.scheduleSingleBunchRun", user.getOrg().getId(),
+                "repo-sync-bunch", scheduleParams);
+    }
+
     private String createRepoSyncScheduleName(Channel chan, User user) {
         return "repo-sync-" + user.getOrg().getId() + "-" + chan.getId();
     }
@@ -116,6 +134,33 @@ public class TaskomaticApi {
         }
         Map scheduleParams = new HashMap();
         scheduleParams.put("channel_id", chan.getId().toString());
+        return (Date) invoke("tasko.scheduleBunch", user.getOrg().getId(),
+                "repo-sync-bunch", jobLabel , cron,
+                scheduleParams);
+    }
+
+    /**
+     * Schedule a recurring reposync
+     * @param chan the channel
+     * @param user the user
+     * @param cron the cron format
+     * @param params parameters
+     * @return the Date?
+     * @throws TaskomaticApiException if there was an error
+     */
+    public Date scheduleRepoSync(Channel chan, User user, String cron,
+                                                     Map <String, String>params)
+                                        throws TaskomaticApiException {
+        String jobLabel = createRepoSyncScheduleName(chan, user);
+
+        Map task = findScheduleByBunchAndLabel("repo-sync-bunch", jobLabel, user);
+        if (task != null) {
+            unscheduleRepoTask(jobLabel, user);
+        }
+        Map <String, String> scheduleParams = new HashMap<String, String>();
+        scheduleParams.put("channel_id", chan.getId().toString());
+        scheduleParams.putAll(params);
+
         return (Date) invoke("tasko.scheduleBunch", user.getOrg().getId(),
                 "repo-sync-bunch", jobLabel , cron,
                 scheduleParams);
