@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.2.8
+Version:        2.2.9
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Mar 13 2014 Tomas Lestach <tlestach@redhat.com> 2.2.9-1
+- introduce create_default_sg column within the rhnOrgConfiguration table
+- create rhnOrgExtGroupMapping table
+- add org_id column to rhnUserExtGroup table
+
 * Tue Mar 11 2014 Tomas Lestach <tlestach@redhat.com> 2.2.8-1
 - 1070917 - extending cron_expr length to 120
 
