@@ -15,6 +15,7 @@
 package com.redhat.rhn.domain.org.usergroup;
 
 import com.redhat.rhn.domain.BaseDomainHelper;
+import com.redhat.rhn.domain.org.Org;
 
 
 /**
@@ -25,6 +26,7 @@ public abstract class ExtGroup extends BaseDomainHelper implements Comparable {
 
     private Long id;
     private String label;
+    private Org org;
 
     /**
      * @return Returns the id.
@@ -52,6 +54,20 @@ public abstract class ExtGroup extends BaseDomainHelper implements Comparable {
      */
     public void setLabel(String labelIn) {
         label = labelIn;
+    }
+
+    /**
+     * @return Returns the org.
+     */
+    public Org getOrg() {
+        return org;
+    }
+
+    /**
+     * @param orgIn The org to set.
+     */
+    public void setOrg(Org orgIn) {
+        org = orgIn;
     }
 
     /**

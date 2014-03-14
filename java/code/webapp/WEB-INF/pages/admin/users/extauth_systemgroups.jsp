@@ -37,7 +37,7 @@
                headerkey="extgrouplist.jsp.name"
                attr="label"
                filterattr="label">
-        <c:out value="<a href=\"/rhn/users/ExtAuthSgDetails.do.do?gid=${current.id}\">${current.label}</a>" escapeXml="false" />
+        <c:out value="<a href=\"/rhn/users/ExtAuthSgDetails.do?gid=${current.id}\">${current.label}</a>" escapeXml="false" />
     </rl:column>
 
     <rl:column attr="serverGroupsName"

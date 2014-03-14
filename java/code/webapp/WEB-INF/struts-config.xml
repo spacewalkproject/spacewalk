@@ -317,6 +317,12 @@
             <form-property name="role_org_admin" type="java.lang.Boolean"/>
             <form-property name="selected_regular_roles" type="java.lang.String"/>
         </form-bean>
+        <form-bean name="extOrgGroupForm"
+                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+            <form-property name="extGroupLabel" type="java.lang.String"/>
+            <form-property name="sgs" type="org.apache.struts.util.LabelValueBean[]"/>
+            <form-property name="selected_sgs" type="java.lang.String[]"/>
+        </form-bean>
         <form-bean name="extGroupDeleteForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="submitted" type="java.lang.Boolean"/>
@@ -5745,6 +5751,19 @@
       <set-property property="postRequiredIfSubmitted" value="true" />
       <set-property property="acls" value="user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/extauth_systemgroups.jsp" />
+      <forward name="success"
+               path="/users/ExtAuthSgMapping.do" redirect="true" />
+    </action>
+
+    <action path="/users/ExtAuthSgDetails"
+        scope="request"
+        name="extOrgGroupForm"
+        input="/WEB-INF/pages/admin/users/extorggroup_detail.jsp"
+        type="com.redhat.rhn.frontend.action.user.ExtAuthSgDetailAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <set-property property="postRequiredIfSubmitted" value="true" />
+      <set-property property="acls" value="user_role(org_admin)"/>
+      <forward name="default" path="/WEB-INF/pages/admin/users/extorggroup_detail.jsp" />
       <forward name="success"
                path="/users/ExtAuthSgMapping.do" redirect="true" />
     </action>

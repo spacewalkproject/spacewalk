@@ -11,8 +11,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">rhn_userextgroup_seq</param>
             </generator>
         </id>
-        <discriminator column="org_id"/>
+        <discriminator column="org_id" insert="false"/>
         <property name="label" column="label" type="string" length="512" />
+        <many-to-one name="org" class="com.redhat.rhn.domain.org.Org"
+            column="org_id"/>
         <property name="created" column="created" type="timestamp"
             insert="false" update="false" />
         <property name="modified" column="modified" type="timestamp"
@@ -28,11 +30,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
         <subclass name="com.redhat.rhn.domain.org.usergroup.OrgUserExtGroup"
             discriminator-value="not null">
-            <many-to-one name="org" class="com.redhat.rhn.domain.org.Org"
-                column="org_id" insert="false" update="false"/>
-            <set name="serverGroups" lazy="true" table="rhnOrgExtGroupMapping" outer-join="false">
+            <set name="serverGroups" lazy="true" table="rhnOrgExtGroupMapping" cascade="save-update">
                 <key column="ext_group_id"/>
-                <many-to-many class="com.redhat.rhn.domain.server.ServerGroup" column="server_group_id" outer-join="false"/>
+                <many-to-many class="com.redhat.rhn.domain.server.ServerGroup" column="server_group_id"/>
             </set>
         </subclass>
     </class>
@@ -49,8 +49,17 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[FROM com.redhat.rhn.domain.org.usergroup.UserExtGroup WHERE label = :label]]>
     </query>
 
+
     <query name="OrgUserExtGroup.listAll">
         <![CDATA[FROM com.redhat.rhn.domain.org.usergroup.OrgUserExtGroup WHERE org.id = :org_id ORDER BY label]]>
+    </query>
+
+    <query name="OrgUserExtGroup.lookupByIdAndOrg">
+        <![CDATA[FROM com.redhat.rhn.domain.org.usergroup.OrgUserExtGroup WHERE id = :gid AND org_id = :org_id]]>
+    </query>
+
+    <query name="OrgUserExtGroup.lookupByLabelAndOrg">
+        <![CDATA[FROM com.redhat.rhn.domain.org.usergroup.OrgUserExtGroup WHERE label = :label AND org_id = :org_id]]>
     </query>
 
 </hibernate-mapping>

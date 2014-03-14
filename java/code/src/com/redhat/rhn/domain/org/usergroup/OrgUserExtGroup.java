@@ -25,53 +25,23 @@ import java.util.Set;
  * OrgUserExtGroup
  * @version $Rev$
  */
-public class OrgUserExtGroup extends UserExtGroup {
+public class OrgUserExtGroup extends ExtGroup {
 
-    private Long id;
-    private String label;
-    private Org org;
     private Set<ServerGroup> serverGroups;
 
     /**
-     * @return Returns the id.
+     * default constructor
      */
-    public Long getId() {
-        return id;
+    public OrgUserExtGroup() {
+
     }
 
     /**
-     * @param idIn The id to set.
+     * constructor
+     * @param orgIn organization
      */
-    public void setId(Long idIn) {
-        id = idIn;
-    }
-
-    /**
-     * @return Returns the label.
-     */
-    public String getLabel() {
-        return label;
-    }
-
-    /**
-     * @param labelIn The label to set.
-     */
-    public void setLabel(String labelIn) {
-        label = labelIn;
-    }
-
-    /**
-     * @return Returns the org.
-     */
-    public Org getOrg() {
-        return org;
-    }
-
-    /**
-     * @param orgIn The org to set.
-     */
-    public void setOrg(Org orgIn) {
-        org = orgIn;
+    public OrgUserExtGroup(Org orgIn) {
+        this.setOrg(orgIn);
     }
 
     /**

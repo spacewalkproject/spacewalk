@@ -122,10 +122,32 @@ public class UserGroupFactory extends HibernateFactory {
     }
 
     /**
+     * lookup function to search for external groups
+     * @param gidIn external group id
+     * @param orgIn organization
+     * @return external group object
+     */
+    public static OrgUserExtGroup lookupOrgExtGroupByIdAndOrg(Long gidIn, Org orgIn) {
+        Map<String, Long> params = new HashMap();
+        params.put("gid", gidIn);
+        params.put("org_id", orgIn.getId());
+        return (OrgUserExtGroup) singleton.lookupObjectByNamedQuery(
+                "OrgUserExtGroup.lookupByIdAndOrg", params);
+    }
+
+    /**
      * save UserExtGroup object
      * @param extGroup external group
      */
     public static void save(UserExtGroup extGroup) {
+        singleton.saveObject(extGroup);
+    }
+
+    /**
+     * save OrgUserGroup object
+     * @param extGroup org user group
+     */
+    public static void save(OrgUserExtGroup extGroup) {
         singleton.saveObject(extGroup);
     }
 
@@ -147,6 +169,21 @@ public class UserGroupFactory extends HibernateFactory {
         params.put("label", labelIn);
         return (UserExtGroup) singleton.lookupObjectByNamedQuery(
                 "UserExtGroup.lookupByLabel", params);
+    }
+
+    /**
+     * lookup function to search for organization external groups
+     * @param labelIn external group label
+     * @param orgIn organization
+     * @return external group object
+     */
+    public static OrgUserExtGroup lookupOrgExtGroupByLabelAndOrg(String labelIn,
+            Org orgIn) {
+        Map<String, Object> params = new HashMap();
+        params.put("label", labelIn);
+        params.put("org_id", orgIn.getId());
+        return (OrgUserExtGroup) singleton.lookupObjectByNamedQuery(
+                "OrgUserExtGroup.lookupByLabelAndOrg", params);
     }
 
     /**
