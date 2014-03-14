@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        2.2.10
+Version:        2.2.11
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Mar 14 2014 Tomas Lestach <tlestach@redhat.com> 2.2.11-1
+- add table dependency
+
 * Fri Mar 14 2014 Tomas Lestach <tlestach@redhat.com> 2.2.10-1
 - add table dependency
 
