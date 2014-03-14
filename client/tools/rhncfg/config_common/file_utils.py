@@ -90,6 +90,17 @@ class FileProcessor:
         else:
             fh.close()
 
+        # try to set mtime and ctime of the file to
+        # the last modified time on the server
+        if file_struct.has_key('modified'):
+            try:
+                modified = xmlrpc_time(file_struct['modified'].value)
+                epoch_time = time.mktime(modified)
+                os.utime(fullpath, (epoch_time, epoch_time))
+            except ValueError:
+                # we can't parse modified time
+                pass
+
         return fullpath, dirs_created
 
 
@@ -261,3 +272,14 @@ def ostr_to_sym(octstr, ftype):
 def f_date(dbiDate):
     return "%04d-%02d-%02d %02d:%02d:%02d" % (dbiDate.year, dbiDate.month,
         dbiDate.day, dbiDate.hour, dbiDate.minute, dbiDate.second)
+
+def xmlrpc_time(xtime):
+    if xtime[8] == 'T':
+        # oracle backend: 20130304T23:19:17
+        timefmt='%Y%m%dT%H:%M:%S'
+    else:
+        # postresql backend format: 2014-02-28 18:47:31.506953+01:00
+        timefmt='%Y-%m-%d %H:%M:%S'
+        xtime = xtime[:19]
+
+    return time.strptime(xtime, timefmt)
