@@ -19,7 +19,4 @@ ORACLE = "oracle"
 POSTGRESQL = "postgresql"
 
 # Backend constants:
-SUPPORTED_BACKENDS = {
-    ORACLE: "",
-    POSTGRESQL: "",
-}
+SUPPORTED_BACKENDS = set([ORACLE, POSTGRESQL])
