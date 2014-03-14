@@ -16,6 +16,8 @@
 #
 
 LOCK = None
+
+import shutil
 import sys
 import os
 import socket
@@ -29,7 +31,7 @@ def systemExit(code, msg=None):
 
 try:
     from rhn import rhnLockfile
-    from spacewalk.common.rhnConfig import CFG
+    from spacewalk.common.rhnConfig import CFG, initCFG
     from spacewalk.common.rhnTB import fetchTraceback
     from spacewalk.satellite_tools import reposync
 except KeyboardInterrupt:
@@ -43,6 +45,11 @@ def releaseLOCK():
     if LOCK:
         LOCK.release()
         LOCK = None
+
+def clear_interrupted_downloads():
+    initCFG('server.satellite')
+    pkgdir = os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, '1', 'stage')
+    shutil.rmtree(pkgdir)
 
 def main():
 
@@ -87,6 +94,14 @@ def main():
 
     if not options.channel_label:
         systemExit(1, "--channel must be specified")
+
+    # Automatically remove all the remains inside of /var/spacewalk/packages/1/stage
+    # Yum does not seem to handle download resumes properly. This can lead to
+    # errors like:
+    #
+    # > Repo Sync Errors: (50, u'checksums did not match 326a904c2fbd7a0e20033c87fc84ebba6b24d937 vs
+    # > afd8c60d7908b2b0e2d95ad0b333920aea9892eb', 'Invalid information uploaded to the server')
+    clear_interrupted_downloads()
 
     sync = reposync.RepoSync(channel_label=options.channel_label,
                       repo_type=options.repo_type,
