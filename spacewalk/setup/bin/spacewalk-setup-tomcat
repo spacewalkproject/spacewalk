@@ -58,7 +58,7 @@ sub ld_library_path {
   if (-r ORACLE_LDCONF) {
     open F, '<', ORACLE_LDCONF
                  or die "Error reading [" + ORACLE_LDCONF + "]: $!\n";
-    $ret = ' -Djava.library.path=\${system_property:java.library.path}:' . <F>;
+    $ret = ' -Djava.library.path=\${system_property:java.library.path}:/usr/lib:' . <F> ;
     chomp($ret);
     close(F);
   }
