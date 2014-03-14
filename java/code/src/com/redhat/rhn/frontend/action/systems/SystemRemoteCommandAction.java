@@ -52,7 +52,7 @@ import org.apache.log4j.Logger;
  * @author Bo Maryniuk <bo@suse.de>
  */
 public class SystemRemoteCommandAction extends RhnAction {
-    private static final Logger log = Logger.getLogger(SystemRemoteCommandAction.class);
+    private static final Logger LOG = Logger.getLogger(SystemRemoteCommandAction.class);
 
     /**
      * Class to retention form data.
@@ -293,7 +293,8 @@ public class SystemRemoteCommandAction extends RhnAction {
             request.setAttribute("cannotRunScript", "true");
         }
 
-        if (!SystemManager.hasEntitlement(server.getId(), EntitlementManager.PROVISIONING)) {
+        if (!SystemManager.hasEntitlement(server.getId(),
+                                          EntitlementManager.PROVISIONING)) {
             request.setAttribute("noProvisioningEntitlement", "true");
         }
 
@@ -312,7 +313,7 @@ public class SystemRemoteCommandAction extends RhnAction {
                                      .formatDate(action.getEarliestAction())));
                 }
                 catch (Exception ex) {
-                    SystemRemoteCommandAction.log.error(ex);
+                    SystemRemoteCommandAction.LOG.error(ex);
                     errorMessages.add(ActionMessages.GLOBAL_MESSAGE,
                                   new ActionMessage("ssm.operations.actionchaindetails." +
                                                     "scheduleerror.general.param",
