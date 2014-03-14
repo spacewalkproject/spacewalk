@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.17
+Version: 2.2.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -797,6 +797,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Mar 14 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.18-1
+- make the task list responsive and do not use the image bullet
+- FileDetails.do style and responsiveness.
+- fix menu highlight
+
 * Thu Mar 13 2014 Tomas Lestach <tlestach@redhat.com> 2.2.17-1
 - create user default system group for the user
 - introduce new /users/SystemGroupConfig.do page
