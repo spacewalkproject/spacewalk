@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.5
+Version: 2.2.6
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Mar 14 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.6-1
+- update navigation link: Install -> Create First User
+
 * Thu Mar 06 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.5-1
 - remove usage of web_contact.old_password from code
 
