@@ -11,7 +11,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.8
+Version: 2.2.9
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -636,6 +636,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/exporter/xmlWriter.py*
 
 %changelog
+* Mon Mar 17 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.9-1
+- satpasswd man page: mention -s / --stdin options
+- satpasswd supports SHA-256 encrypted user passwords
+
 * Mon Mar 17 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.8-1
 - RPC session hash: md5 -> sha256
 - Support SHA-256 encrypted user passwords
