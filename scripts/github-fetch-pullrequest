@@ -9,34 +9,30 @@ USER = "spacewalkproject"
 REPO = "spacewalk"
 
 
-def listRequests():
+def list_requests():
     url = "https://api.github.com/repos/%s/%s/pulls" % (USER, REPO)
     pull_requests = simplejson.load(urllib.urlopen(url))
     for request in pull_requests:
         print request.get('number'), request.get('title')
 
 
-def getPullRequest(n):
-    url = "https://api.github.com/repos/%s/%s/pulls/%d" % (USER, REPO, n)
+def get_pull_request(req_num):
+    url = "https://api.github.com/repos/%s/%s/pulls/%d" % (USER, REPO, req_num)
     result = simplejson.load(urllib.urlopen(url))
     return result
 
 
-if __name__ == "__main__":
-    if len(sys.argv) == 1:
-        listRequests()
-        sys.exit(0)
-
+def prepare_repo(req_num):
     repo = git.Repo('.')
     if repo.is_dirty() or repo.untracked_files:
         print "Repo is dirty (uncommited changes/untracked files)."
         sys.exit(1)
 
-    pullRequest = getPullRequest(int(sys.argv[1]))
-    remote_url = pullRequest.get("head").get("repo").get("clone_url")
-    from_who = pullRequest.get("user").get("login")
-    remote_branch = pullRequest.get("head").get("ref")
-    local_branch = pullRequest.get("base").get("ref")
+    pull_request = get_pull_request(req_num)
+    remote_url = pull_request.get("head").get("repo").get("clone_url")
+    from_who = pull_request.get("user").get("login")
+    remote_branch = pull_request.get("head").get("ref")
+    local_branch = pull_request.get("base").get("ref")
 
     print (remote_url, remote_branch)
 
@@ -52,4 +48,13 @@ if __name__ == "__main__":
     try:
         repo.git.rebase(local_branch)
     except git.exc.GitCommandError:
-        print "Rebase failed. You can either resolve it and run `git rebase --continue` or ask author to do the rebase."
+        print ("Rebase failed. You can either resolve it and run "
+               "`git rebase --continue` or ask author to do the rebase.")
+
+
+if __name__ == "__main__":
+    if len(sys.argv) == 1:
+        list_requests()
+        sys.exit(0)
+
+    prepare_repo(int(sys.argv[1]))
