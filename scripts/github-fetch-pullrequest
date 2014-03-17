@@ -26,6 +26,7 @@ class Progress(git.RemoteProgress):
 
     def update(self, op_code, cur_count, max_count=None, message=''):
         print "\r%s: %s/%s %s" % (self.desc, cur_count, max_count, message),
+        sys.stdout.flush()
 
 
 def list_requests():
