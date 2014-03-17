@@ -1,142 +1,71 @@
-#!/bin/bash
-# name:         satpasswd
-# description:  Change the password of a satellite user
-# author:	G.R.Keech <rkeech@redhat.com>
-#		Jan Pazdziora
-# date:		2006-01-31, 2011-01-11
+#!/usr/bin/python
+#
+# Copyright (c) 2014 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
 
-SATWHO=/usr/bin/satwho
-MD5=/usr/bin/openssl
-MD5ARGS="passwd -1 -stdin"
-PROG=satpasswd
-myuser=""
+import crypt
+import getpass
+import sys
 
-usage () {
-	cat <<EOF
-Usage: $PROG user [OPTION]
-Change the password of a satellite user.
+from spacewalk.common.rhnConfig import initCFG
+from spacewalk.server import rhnSQL, rhnUser
 
-  -h, --help              print this message and exit
-EOF
-}
-#==================================================================
+def print_help():
+    print "Usage: satpasswd [OPTIONS] user\n"
+    print "Options:"
+    print "\t-h, --help\tPrint this help message."
+    print "\t-s, --stdin\tRead the password from standard input."
 
-for P in $SATWHO $MD5
-do
-  if [ ! -x "$P" ]
-  then
-    echo Sorry, I cannot find \"$P\" to execute
-    exit 1
-  fi
-done
+if __name__ == '__main__':
+    if '-h' in sys.argv or '--help' in sys.argv:
+        print_help()
+        sys.exit(0)
 
-# Replaced by the configure script.
-prefix=/usr
-exec_prefix=/usr
-sbindir=/sbin
-STDIN=FALSE
+    stdin = False
+    for a in ('-s', '--stdin'):
+        if a in sys.argv:
+            stdin = True
+            sys.argv.remove(a)
 
-if [ $# -lt 1 ]
-then
-  usage
-  exit 1
-fi
+    if len(sys.argv) != 2:
+        print_help()
+        sys.exit(1)
 
-VARCOUNT=$#
-# Check the arguments.
-for option in "$@"; do
-    case "$option" in
-    -h | --help)
-	usage
-	exit 0
-	;;
+    userIn = sys.argv.pop()
+    if not userIn.isalnum():
+        print_help()
+        sys.exit(1)
 
-    --stdin)
-	STDIN=TRUE
-	VARCOUNT=$(( $VARCOUNT - 1 ))
-        ;;
+    initCFG('server.satellite')
+    rhnSQL.initDB()
+    rhnSQL.clear_log_id()
 
-    -*)
-	echo "$PROG: unrecognized option \`$option'"
-	echo "Usage: $PROG [OPTION]"
-	echo "Try \`$PROG --help' for more information."
-	exit 1
-	;;
-     *)
-	myuser=$option
-	if [ $VARCOUNT -gt 1 ]
-        then
-	   echo there can only be one user passed on the command line.
-	   exit 1
-        fi
-        ;;
+    user = rhnUser.search(userIn)
+    if not user:
+        print "User %s is not a valid Satellite user." % userIn
+        sys.exit(1)
 
-    esac
-done
+    passwordIn = None
 
-# OK, we have a username passed as an option, now check that it is actually a user on this satellite
-# by using the satwho utility
+    if stdin:
+        passwordIn = sys.stdin.readline().rstrip('\n')
+    else:
+        passwordIn = getpass.getpass()
 
-abort=no
-$SATWHO | grep  "^${myuser}$" &> /dev/null ||  abort=yes
+    if len(passwordIn) == 0:
+        print "Empty password is not permitted."
+        sys.exit(1)
 
-if [ "$abort" = "yes" ]
-then
-    echo user \"$myuser\" is not a valid satellite user
-    exit 1
-fi
-
-
-# Now lets get the password string.
-
-if [ "$STDIN" = "FALSE" ]
-then
-  # Suppress echo backs. I don't know if this is really portable. -okuji
-  stty -echo
-
-  # Prompt to enter a password.
-  echo -n "Password: "
-  read -r password
-  echo
-
-  # One more time.
-  echo -n "Retype password: "
-  read -r password2
-  echo
-
-  # Resume echo backs.
-  stty echo
-else
-  read password
-  password2="$password"
-fi
-
-if test "x$password" = x; then
-    echo "Empty password is not permitted."
-    exit 1
-fi
-
-if test "x$password" != "x$password2"; then
-    echo "Sorry, passwords do not match."
-    exit 1
-fi
-
-
-# Now lets create the md5 hash of the password string.
-
-md5password="$( echo "$password" | $MD5 $MD5ARGS )"
-
-
-# OK, if we've got this far then we have a valid user and a hashed password string, so lets proceed and change
-# the password for the user.
-
-backend=$(spacewalk-cfg-get db_backend)
-if [ $backend = "postgresql" ] ; then
-	clear_log_id="select logging.clear_log_id();"
-else
-	clear_log_id="begin logging.clear_log_id(); end;
-/"
-fi
-
-( echo "$clear_log_id" ; echo "update web_contact set password = '"$md5password"' where login = '"$myuser"';" ) | spacewalk-sql -
-exit $?
+    user.contact['password'] = rhnUser.encrypt_password(passwordIn)
+    user.contact.save()
+    rhnSQL.commit()
