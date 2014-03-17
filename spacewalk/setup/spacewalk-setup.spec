@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.2.5
+Version:        2.2.6
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -109,6 +109,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Mar 17 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.6-1
+- 1072784 - jpam.so is in /usr/lib even on x86_64
+
 * Thu Mar 06 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.5-1
 - manual page for spacewalk-setup-httpd
 
