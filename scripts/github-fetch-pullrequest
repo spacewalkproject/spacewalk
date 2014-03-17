@@ -1,4 +1,13 @@
 #!/usr/bin/env python
+"""Fetch pull requests from GitHub and prepare them for Spacewalk process
+
+Usage:
+
+  * PROG     -- With no arguments it just lists actual pull requests
+  * PROG <n> -- Fetches the pull request #n, creates separate branch
+        for it, rebases it on top of requested branch (ususally master)
+        and deletes remote.
+"""
 
 import git
 import simplejson
@@ -10,6 +19,7 @@ REPO = "spacewalk"
 
 
 class Progress(git.RemoteProgress):
+    """Shows state on command line"""
     def __init__(self, desc):
         super(Progress, self).__init__()
         self.desc = desc
@@ -19,6 +29,7 @@ class Progress(git.RemoteProgress):
 
 
 def list_requests():
+    """Prints open pull requests with some additional info"""
     url = "https://api.github.com/repos/%s/%s/pulls" % (USER, REPO)
     pull_requests = simplejson.load(urllib.urlopen(url))
     for request in pull_requests:
@@ -26,12 +37,14 @@ def list_requests():
 
 
 def get_pull_request(req_num):
+    """Get data about one request"""
     url = "https://api.github.com/repos/%s/%s/pulls/%d" % (USER, REPO, req_num)
     result = simplejson.load(urllib.urlopen(url))
     return result
 
 
 def prepare_repo(req_num):
+    """Main functionality"""
     repo = git.Repo('.')
     if repo.is_dirty() or repo.untracked_files:
         print "Repo is dirty (uncommited changes/untracked files)."
