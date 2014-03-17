@@ -26,6 +26,12 @@ if __name__ == "__main__":
     if len(sys.argv) == 1:
         listRequests()
         sys.exit(0)
+
+    repo = git.Repo('.')
+    if repo.is_dirty() or repo.untracked_files:
+        print "Repo is dirty (uncommited changes/untracked files)."
+        sys.exit(1)
+
     pullRequest = getPullRequest(int(sys.argv[1]))
     remote_url = pullRequest.get("head").get("repo").get("clone_url")
     from_who = pullRequest.get("user").get("login")
@@ -35,7 +41,6 @@ if __name__ == "__main__":
     print (remote_url, remote_branch)
 
     remote_name = "pull-request-%s-%s" % (from_who, remote_branch)
-    repo = git.Repo('.')
 
     remote = repo.create_remote(remote_name, remote_url)
     try:
