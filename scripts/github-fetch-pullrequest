@@ -41,7 +41,7 @@ def prepare_repo(req_num):
     remote = repo.create_remote(remote_name, remote_url)
     try:
         remote.fetch()
-    except:  # :-(
+    except AssertionError:  # :-(  Some git assertion fails here
         pass
     repo.git.checkout('%s/%s' % (remote_name, remote_branch), b=remote_name)
     repo.delete_remote(remote)
