@@ -107,9 +107,15 @@ class User:
                 import rhnAuthPAM
                 return rhnAuthPAM.check_password(self.contact["login"],
                     password, CFG.pam_auth_service)
-            # If the entry in rhnUserInfo is 'N', perform regular
-            # authentication
-        return check_password(password, good_pwd)
+        # If the entry in rhnUserInfo is 'N', perform regular authentication
+        ret = check_password(password, good_pwd)
+        if ret and CFG.encrypted_passwords and self.contact['password'].find('$1$') == 0:
+            # If successfully authenticated and the current password is
+            # MD5 encoded, convert the password to SHA-256 and save it in the DB.
+            self.contact['password'] = encrypt_password(password)
+            self.contact.save()
+            rhnSQL.commit()
+        return ret
 
     def set_org_id(self, org_id):
         if not org_id:
@@ -529,31 +535,39 @@ def check_password(key, pwd1):
         return 0 # Invalid
 
     # Crypted passwords in the database
-    if pwd1 == encrypt_password(key, pwd1):
-        # Good password
-        return 1
+    if pwd1.find("$5") == 0:    # SHA-256 encrypted password
+        if pwd1 == encrypt_password(key, pwd1, 'SHA-256'):
+            return 1
+    elif pwd1.find("$1$") == 0: # MD5 encrypted password
+        if pwd1 == encrypt_password(key, pwd1, 'MD5'):
+            return 1
 
     log_debug(4, "Encrypted password doesn't match")
     return 0 # invalid
 
 
-def encrypt_password(key, salt=None):
+def encrypt_password(key, salt=None, method='SHA-256'):
     """ Encrypt the key
         If no salt is supplied, generates one (md5-crypt salt)
     """
-    # Case insensitive key
+
+    pw_params = {
+        'MD5': [8, "$1$"],      # method: [salt length, prefix]
+        'SHA-256': [16, "$5$"],
+    }
+
     if not salt:
         # No salt supplied, generate it ourselves
         import base64
         import time
         import os
-        # Get the first 7 digits after the decimal point from time.time(), and
+        # Get the first 15 digits after the decimal point from time.time(), and
         # add the pid too
-        salt = (time.time() % 1) * 1e7 + os.getpid()
-        # base64 it and keep only the first 8 chars
-        salt = base64.encodestring(str(salt))[:8]
+        salt = (time.time() % 1) * 1e15 + os.getpid()
+        # base64 it and keep only the first n chars
+        salt = base64.encodestring(str(salt))[:pw_params[method][0]]
         # slap the magic in front of the salt
-        salt = "$1$%s$" % salt
+        salt = pw_params[method][1] + salt + '$'
     salt = str(salt)
     return crypt.crypt(key, salt)
 
