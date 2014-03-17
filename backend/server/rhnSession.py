@@ -65,7 +65,7 @@ class Session:
 
         secrets = self.get_secrets()
 
-        ctx = hashlib.new('md5')
+        ctx = hashlib.new('sha256')
         ctx.update(string.join(secrets[:2] + [str(self.session_id)] +
             secrets[2:], ':'))
 
@@ -85,7 +85,7 @@ class Session:
             raise InvalidSessionError("Invalid session string")
 
         digest = arr[1]
-        if len(digest) != 32:
+        if len(digest) != 64:
             raise InvalidSessionError("Invalid session string (wrong length)")
 
         try:
