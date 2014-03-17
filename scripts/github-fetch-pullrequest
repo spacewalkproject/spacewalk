@@ -9,6 +9,15 @@ USER = "spacewalkproject"
 REPO = "spacewalk"
 
 
+class Progress(git.RemoteProgress):
+    def __init__(self, desc):
+        super(Progress, self).__init__()
+        self.desc = desc
+
+    def update(self, op_code, cur_count, max_count=None, message=''):
+        print "\r%s: %s/%s %s" % (self.desc, cur_count, max_count, message),
+
+
 def list_requests():
     url = "https://api.github.com/repos/%s/%s/pulls" % (USER, REPO)
     pull_requests = simplejson.load(urllib.urlopen(url))
@@ -40,7 +49,7 @@ def prepare_repo(req_num):
 
     remote = repo.create_remote(remote_name, remote_url)
     try:
-        remote.fetch()
+        remote.fetch(progress=Progress("fetch"))
     except AssertionError:  # :-(  Some git assertion fails here
         pass
     repo.git.checkout('%s/%s' % (remote_name, remote_branch), b=remote_name)
