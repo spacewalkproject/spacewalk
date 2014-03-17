@@ -24,6 +24,9 @@ Change a user's password on the management server.
         <arg><replaceable>USER</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>-s</arg><arg>--stdin</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>-h</arg><arg>--help</arg>
     </cmdsynopsis>
 </Synopsis>
@@ -37,6 +40,12 @@ Change a user's password on the management server.
 
 <RefSect1><Title>Options</Title>
 <variablelist>
+    <varlistentry>
+        <term>-s, --stdin</term>
+        <listitem>
+            <para>Read the user password from standard input.</para>
+        </listitem>
+    </varlistentry>
     <varlistentry>
         <term>-h, --help</term>
         <listitem>
@@ -56,6 +65,7 @@ Change a user's password on the management server.
 <simplelist>
     <member>G.R. Keech<email>rkeech@redhat.com</email></member>
     <member>Brad Buckingham<email>bbuckingham@redhat.com</email></member>
+    <member>Milan Zázrivec<email>mzazrivec@redhat.com</email></member>
 </simplelist>
 </RefSect1>
 </RefEntry>
