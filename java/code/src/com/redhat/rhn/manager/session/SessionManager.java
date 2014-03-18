@@ -120,18 +120,18 @@ public class SessionManager extends BaseManager {
      * url based parameters around in a safe way.
      *
      * @param data String data to generate key on
-     * @return String MD5 hash (with "salt") of passed in data.
+     * @return String SHA-256 hash (with "salt") of passed in data.
      */
     public static String generateSessionKey(String data) {
         Config c = Config.get();
         MessageDigest msgDigest = null;
 
         try {
-            msgDigest = MessageDigest.getInstance("MD5");
+            msgDigest = MessageDigest.getInstance("SHA-256");
         }
         catch (NoSuchAlgorithmException nsae) {
             // this really shouldn't happen.  really.
-            throw new IllegalArgumentException("Unable to instantiate MD5 " +
+            throw new IllegalArgumentException("Unable to instantiate SHA-256 " +
                                                "MessageDigest object");
         }
 
