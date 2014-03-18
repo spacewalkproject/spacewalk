@@ -49,7 +49,8 @@ def releaseLOCK():
 def clear_interrupted_downloads():
     initCFG('server.satellite')
     pkgdir = os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, '1', 'stage')
-    shutil.rmtree(pkgdir)
+    if os.path.exists(pkgdir):
+        shutil.rmtree(pkgdir)
 
 def main():
 
