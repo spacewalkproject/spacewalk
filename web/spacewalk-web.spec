@@ -43,6 +43,7 @@ Provides: spacewalk(spacewalk-base) = %{version}-%{release}
 Requires: /usr/bin/sudo 
 Requires: webserver
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+Requires: perl-Digest-SHA
 Obsoletes: rhn-base < 5.3.0
 Provides: rhn-base = 5.3.0
 

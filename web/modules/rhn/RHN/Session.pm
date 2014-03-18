@@ -16,7 +16,7 @@
 package RHN::Session;
 
 use Carp;
-use Digest::MD5;
+use Digest::SHA;
 use Storable qw/freeze thaw/;
 use MIME::Base64;
 use RHN::SatInstall;
@@ -26,7 +26,7 @@ use RHN::DB ();
 
 use strict;
 
-# make a guaranteed unique md5 key.  very fast (16k keys/sec on a p3 500)
+# make a guaranteed unique sha256 key.
 
 # default alias to use for db connection; if left undefined
 # uses RHN::DB default
@@ -66,7 +66,7 @@ sub generate_session_key {
 		   PXT::Config->get('session_secret_4')
 		  );
 
-  my $ret = Digest::MD5::md5_hex($chaff);
+  my $ret = Digest::SHA::sha256_hex($chaff);
 
   return $ret;
 }
@@ -108,7 +108,7 @@ sub load {
   my $class = shift;
   my $key = shift;
 
-  my ($given_id, $md5) = split /x/, $key;
+  my ($given_id, $sha256) = split /x/, $key;
 
   my $dbh = RHN::DB->soft_connect();
 
@@ -119,10 +119,10 @@ sub load {
   }
 
   my $sth;
-  my ($id, $value, $web_user_id, $expires, $computed_md5);
+  my ($id, $value, $web_user_id, $expires, $computed_sha256);
 
-  if ($given_id and $md5) {
-    $computed_md5 = $class->generate_session_key($given_id);
+  if ($given_id and $sha256) {
+    $computed_sha256 = $class->generate_session_key($given_id);
     $sth = $dbh->prepare_cached("SELECT id, value, web_user_id, expires FROM PXTSessions WHERE id = ?");
     $sth->execute($given_id);
 
@@ -131,12 +131,12 @@ sub load {
   }
 
   # bad cookie?  expired?  combine code for both, since they are similar
-  if (not $id or $computed_md5 ne $md5) {
+  if (not $id or $computed_sha256 ne $sha256) {
     if (not $id) {
       # supplied cookie ($key) not found, must make a new one
     }
-    elsif ($computed_md5 ne $md5) {
-      # md5's didn't match, oddly enough.  make a new cookie
+    elsif ($computed_sha256 ne $sha256) {
+      # sha256's didn't match, oddly enough.  make a new cookie
     }
     else {
       $sth = $dbh->prepare("DELETE FROM PXTSessions WHERE id = ?");
@@ -239,12 +239,12 @@ $session = RHN::Session->new();
 
 =item $session->new
 
-Generates a new session object, including the md5 key. Session is not saved into 
+Generates a new session object, including the sha256 key. Session is not saved into
 database until $session->serialize is called
 
 =item $session->key
 
-Returns the calculate md5sum for this session. The md5sum is generated at object 
+Returns the calculated sha256sum for this session. The sha256sum is generated at object
 construction by the internal method generate_session_key
 
 =item $session->uid
@@ -260,10 +260,10 @@ Sets a value for this session, named by key stored in VALUE
 
 Gets the value of the named key from the session
 
-=item $session->load($md5key)
+=item $session->load($sha256key)
 
-This loads or creates a user session from the PXTSessions table. If the md5 key is
-found in the table, but the session has expired a new session is created. If the md5
+This loads or creates a user session from the PXTSessions table. If the sha256 key is
+found in the table, but the session has expired a new session is created. If the sha256
 key is no found in the table, a new session is created
 
 =item $session->serialize()
@@ -275,6 +275,6 @@ database.
 
 =head1 SEE ALSO
 
-Digest::MD5, Storable
+Digest::SHA, Storable
 
 =cut
