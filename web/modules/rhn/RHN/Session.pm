@@ -214,10 +214,6 @@ PXTSessions, with the following columns:
 
 =over 4
 
-=item MD5SUM - Not Null - Char(32)
-
-A 32 bit Md5sum (see Digest::MD5)
-
 =item WEB_USER_ID - Not Null - Number
 
 All users on RHN have an id and this is it (see $session->uid for details)
