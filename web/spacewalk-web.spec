@@ -4,7 +4,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 2.2.6
+Version: 2.2.7
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -270,6 +270,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Mar 18 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.7-1
+- spacewalk-web: use SHA-256 for session keys
+- RHN::Session - update documentation
+
 * Fri Mar 14 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.6-1
 - update navigation link: Install -> Create First User
 
