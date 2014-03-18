@@ -196,6 +196,7 @@ rhnTaskoSchedule               :: rhnTaskoBunch
 rhnTaskoTemplate               :: rhnTaskoBunch rhnTaskoTask
 rhnTransactionPackage          :: rhnTransactionOperation rhnPackageArch \
                                   rhnPackageEVR rhnPackageName
+rhnUserExtGroup                :: web_customer
 rhnUserExtGroupMapping         :: rhnUserExtGroup rhnUserGroupType
 rhnUserGroupMembers            :: web_contact rhnUserGroup
 rhnUserGroup                   :: web_customer rhnUserGroupType
