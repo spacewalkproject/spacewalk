@@ -23,11 +23,11 @@
       <table class="details">
         <tr>
           <th>Method Name:</th>
-          <td><input type="text" size="30" name="method_name" value="{method_name}" maxlength="20" /></td>
+          <td><input type="text" size="30" name="method_name" value="{method_name}" maxlength="20" class="form-control" /></td>
         </tr>
         <tr>
           <th>Email:</th>
-          <td><input type="text" size="30" name="method_email" value="{method_email}" maxlength="50" /></td>
+          <td><input type="text" size="30" name="method_email" value="{method_email}" maxlength="50" class="form-control" /></td>
         </tr>
         <tr>
           <th>Message Format:</th>
