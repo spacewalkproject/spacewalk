@@ -1,0 +1,7 @@
+-- oracle equivalent source sha1 eef2d784cdc4bc58c4a473d63ecfe4462ca24e66
+
+alter table web_contact_log drop column old_password;
+
+alter table web_contact_log alter password type varchar(110);
+
+select logging.recreate_trigger('web_contact');
